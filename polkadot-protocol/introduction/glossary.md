@@ -5,20 +5,7 @@ description: Glossary of terms used throughout the Polkadot ecosystem.
 
 This glossary defines and explains concepts and terminology that are specific to blockchain technology or the Substrate ecosystem.
 
-## Adaptive Quorum Biasing (AQB)
-
-Provides a mechanism for adjusting the passing threshold for a referendum based on voter turnout.
-Adaptive quorum biasing allows for more flexible governance by removing the requirement to have an arbitrary quorum for voting purposes, which create undesirable governance mechanics.
-Adaptive quorum biasing is implemented in the [Democracy pallet](/reference/frame-pallets#democracy).
-The Democracy pallet provides the interfaces for on-chain bodies such as a [collective](#council) or individual token holder—to call referenda with positive,
-negative, or neutral biases.
-
-With a **positive turnout bias**, the passing threshold _decreases_ as more votes are cast, so that a higher turnout increases the likelihood of a referendum passing.
-With a **negative turnout bias**, the passing threshold _increases_ as more votes are cast.
-Negative turnout bias is also sometimes called a "default carries" position because if there's an apathetic voting body, the referendum passes by default.
-A **neutral turnout bias** specifies a simple majority passing threshold.
-
-## Aggregation
+## Type Aggregation
 
 Used in the context of [FRAME](#frame), _aggregation_ or _[pallet](#pallet) aggregation_ is the process of combining analogous types from multiple runtime modules into a single type.
 Pallet aggregation allows each module's analogous types to be represented.
@@ -32,18 +19,7 @@ Currently, there are six data types that can be aggregated:
 - `Metadata` for information that allows inspection of the above.
 - `Origin` for the source of a function invocation (`Call`).
 
-## Approval Voting
-
-Voting system where voters can vote for as many candidates as desired.
-The candidate with the highest overall number of votes wins.
-With approval voting, it is worth noting the following:
-
-- Voting for all candidates is the same as voting for none.
-- It is possible to vote against a single candidate by voting for all other candidates.
-
-Approval voting is used by the [FRAME Elections Phragmen pallet](/reference/frame-pallets#elections-phragmen) as a governing [Council](#council) on a number of Substrate-based chains.
-
-## Author
+## Block Author
 
 Describes the [node](#node) that is responsible for the creation of a [block](#block).
 Block authors are also referred to as _block producers_.
@@ -65,11 +41,11 @@ With authority round (Aura) consensus, the majority of online authorities are as
 
 Learn more by reading [the official wiki article](https://openethereum.github.io/Aura) for the Aura consensus algorithm.
 
-The Aura protocol is often used in combination with GRANDPA as a [hybrid consensus](#hybrid-consensus) protocol where [Aura](#aura) is used for block production and short-term [probabilistic finality](#probabilistic-finality), with [deterministic finality](#deterministic-finality) provided by [GRANDPA](#grandpa).
+The Aura protocol is often used in combination with [GRANDPA](#grandpa) as a [hybrid consensus](#hybrid-consensus) protocol where [Aura](#aura) is used for block production and short-term [probabilistic finality](#probabilistic-finality), with [deterministic finality](#deterministic-finality) provided by [GRANDPA](#grandpa).
 
 ## Blind Assignment of Blockchain Extension (BABE)
 
-A [block authoring](#author) protocol similar to [Aura](#aura).
+A [block authoring](#block-author) protocol similar to [Aura](#aura).
 However, with the blind assignment of blockchain extension (BABE) protocol, [authorities](#authority) win [slots](#slot) based on a verifiable random function (VRF) as opposed to the round-robin selection method.
 The winning authority can select a chain and submit a new block for it.
 
@@ -121,14 +97,14 @@ In the context of pallets that contain functions to be dispatched to the runtime
 
 ## Collator
 
-An [author](#author) of a [parachain](#parachain) network.
+An [author](#block-author) of a [parachain](#parachain) network.
 They are not [authorities](#authority) in themselves, as they require a [relay chain](#relay-chain) to coordinate [consensus](#consensus).
 More details are found on the [Polkadot Wiki on collators](https://wiki.polkadot.network/docs/learn-collator).
 
 ## Consensus
 
 In the context of a [blockchain](#blockchain), consensus is the process nodes use to agree on the canonical [fork](#fork) of a chain.
-Consensus is comprised of [authorship](#author), [finality](#finality), and [fork-choice rule](/learn/consensus#fork-choice-rules).
+Consensus is comprised of [authorship](#block-author), [finality](#finality), and [fork-choice rule](/learn/consensus#fork-choice-rules).
 
 In the Substrate ecosystem, these three components are separated from one another, and the term consensus often refers specifically to authorship.
 In the context of a Substrate [node](#node), the term **consensus engine** describes the node subsystem that is responsible for consensus tasks.
@@ -196,11 +172,6 @@ The published functions take one additional parameter, known as [`origin`](#orig
 
 A type of erroneous or malicious behavior that involves backing multiple mutually-exclusive options within the [consensus](#consensus) mechanism.
 
-## Ethash
-
-A function used by some [proof-of-work](#proof-of-work) [consensus](#consensus) systems, such as the Ethereum blockchain.
-It was developed by [a team led by Tim Hughes](https://github.com/ethereum/ethash/graphs/contributors).
-
 ## Events
 
 A means of recording, for the benefit of the offchain world, that some particular [state](#state) transition happened.
@@ -225,7 +196,7 @@ Typical Substrate chains have extrinsics which contain a [`Call`](#call) value.
 In general, there are two types of extrinsics:
 
 - signed or unsigned [transactions](#transaction).
-- inherent data that is inserted by a [block author](#author).
+- inherent data that is inserted by a [block author](#block-author).
 
 ## Existential Deposit
 
@@ -257,11 +228,6 @@ Indicates that there are divergent paths a blockchain might take.
 If two or more [blocks](#block) have the same parent but different state, the blockchain cannot continue to progress until the differences are resolved.
 An unresolved fork would split the blockchain into two separate chains.
 By resolving divergent forks, you can ensure that only one canonical chain exists.
-
-## Flaming Fir
-
-A Substrate-based [blockchain](#blockchain) test network that exists for developing and testing the Substrate blockchain development framework.
-For more information about accessing Substrate networks and flaming fir, see the [Polkadot wiki](https://wiki.polkadot.network/docs/maintain-networks#flaming-fir).
 
 ## FRAME
 
@@ -307,7 +273,7 @@ synchronization of the chain.
 
 ## Hybrid Consensus
 
-A blockchain consensus protocol that consists of independent or loosely-coupled mechanisms for [block production](#author) and [finality](#finality).
+A blockchain consensus protocol that consists of independent or loosely-coupled mechanisms for [block production](#block-author) and [finality](#finality).
 Hybrid consensus allows the chain to grow as fast as probabilistic consensus protocols, such as [Aura](#aura-aka-authority-round), while maintaining the same level of security as [deterministic finality](#deterministic-finality) consensus protocols, such as [GRANDPA](#grandpa).
 In general, block production algorithms tend to be faster than finality mechanisms.
 Making block production separate from block finalization gives Substrate developers greater control of their chain's performance.
@@ -322,19 +288,19 @@ In general, validators assume the data inserted using an inherent transaction is
 ## JSON-RPC
 
 A stateless, lightweight remote procedure call protocol that is encoded in JSON. JSON-RPC provides a standard way to call functions on a remote system by using JavaScript Object Notation.
-For Substrate, this protocol is implemented thrinough the [Parity JSON-RPC](https://github.com/paritytech/jsonrpc) crate.
+For Substrate, this protocol is implemented through the [Parity JSON-RPC](https://github.com/paritytech/jsonrpc) crate.
 
 ## Keystore
 
-A subsystem in Substrate for managing keys for the purpose of producing new blocks.
+A subsystem for managing keys for the purpose of producing new blocks.
 
 ## Kusama
 
 [Kusama](https://kusama.network/) is a Substrate-based [blockchain](#blockchain) that implements a design similar to the [Polkadot network](#polkadot-network).
-Kusama is a [canary](https://en.wiktionary.org/wiki/canary_in_a_coal_mine) network and is referred to as [Polkadot's "wild cousin"](https://polkadot.network/kusama-polkadot-comparing-the-cousins/).
+Kusama is a [canary](https://en.wiktionary.org/wiki/canary_in_a_coal_mine) network and is referred to as [Polkadot's "wild cousin"](https://wiki.polkadot.network/docs/learn-comparisons-kusama).
 As a canary network, Kusama is expected to be more stable than a test network like [Westend](#westend), but not as stable as a production network like [Polkadot](#polkadot).
 
-As a canary network, Kusama is [controlled by its network participants](/reference/frame-pallets#democracy) and is intended to be stable enough to encourage meaningful experimentation.
+As a canary network, Kusama is controlled by its network participants and is intended to be stable enough to encourage meaningful experimentation.
 
 ## Libp2p
 
@@ -349,7 +315,7 @@ A light client is capable of verifying [cryptographic primitives](#cryptographic
 ## Macro
 
 A programming language feature that enables developers to write a sequence of instructions that can be named and executed together.
-The [FRAME](#frame) development environment provides several [macros](/reference/frame-macros) for [Rust](https://doc.rust-lang.org/1.7.0/book/macros.html) that you can use to compose a [runtime](#runtime).
+The [FRAME](#frame) development environment utilizes several [macros](/reference/frame-macros) for [Rust](https://doc.rust-lang.org/1.7.0/book/macros.html) that you can use to compose a [runtime](#runtime).
 
 ## Metadata
 
@@ -416,11 +382,6 @@ A mechanism for interacting with a computer program.
 Remote procedure calls enable developers to query the remote computer programs or invoke program logic with parameters they supply.
 Substrate nodes expose an RPC server on HTTP and WebSocket endpoints.
 
-## Rhododendron
-
-An [instant finality](#instant-finality), [byzantine fault tolerant (BFT)](#byzantine-fault-tolerance-bft) [consensus](#consensus) algorithm.
-One of a number of adaptions of [pBFT](#practical-byzantine-fault-tolerance-pbft) for blockchains.
-Refer to its [implementation on GitHub](https://github.com/paritytech/rhododendron).
 
 ## Rococo
 
@@ -436,7 +397,7 @@ In Substrate, the runtime is stored as a [WebAssembly](#webassembly-wasm) binary
 ## Slot
 
 A fixed, equal interval of time used by consensus engines such as [Aura](#aura-aka-authority-round) and [BABE](#blind-assignment-of-blockchain-extension-babe).
-In each slot, a subset of [authorities](#authority) is permitted—or obliged—to [author](#author) a [block](#block).
+In each slot, a subset of [authorities](#authority) is permitted—or obliged—to [author](#block-author) a [block](#block).
 
 ## Sovereign Account
 
@@ -469,10 +430,6 @@ Each Substrate SS58 address uses a `base-58` encoded value to identify a specifi
 These are represented by a `base-58` encoded value to identify a specific account on a specific Substrate chain.
 The [canonical `ss58-registry`](https://github.com/paritytech/ss58-registry) provide additional details about the address format used by different Substrate-based chains, including the network prefix and website used for different networks.
 
-## Stake-weighted voting
-
-A democratic voting system that uses a one-vote-per-token method for tallying votes rather than a one-vote-per-head method.
-
 ## State
 
 Cryptographically-secure data that persists between blocks and can be used to create new blocks as part of the state transition function.
@@ -487,7 +444,7 @@ In Substrate, the state transition function is effectively equivalent to the [ru
 ## Storage Item
 
 [FRAME](#frame) primitives that provide type-safe data persistence capabilities to the [runtime](#runtime).
-Learn more about storage items in this article about [runtime storage](/build/runtime-storage).
+Learn more about storage items in its [reference document in the Polkadot SDK.]()
 
 ## Substrate
 
@@ -504,7 +461,7 @@ A type of [extrinsic](#extrinsic) that includes a [signature](/learn/transaction
 A definable period—expressed as a range of [block](#block) numbers—during which a transaction can be included in a block.
 Transaction eras are used to protect against transaction replay attacks in the event that an account is reaped and its replay-protecting nonce is reset to zero.
 
-## Transaction pool
+## Transaction Pool
 
 A collection of transactions that are not yet included in [blocks](#block) but have been determined to be valid.
 

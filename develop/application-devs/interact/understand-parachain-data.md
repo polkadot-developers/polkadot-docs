@@ -21,7 +21,7 @@ An application developer typically needs to know about the contents of the runti
 Because the Polkadot SDK is modular and provides a composable framework for building a blockchain, there's no predefined schema of properties.
 Instead, every runtime is configured with its own set of properties and those properties—including functions and types—can change over time with runtime upgrades.
 
-To capture the information that's unique to a runtime, Substrate enables you to generate the runtime **metadata** schema.
+To capture the information that's unique to a runtime, the Polkadot SDK enables you to generate the runtime **metadata** schema.
 The metadata for a runtime describes the pallets in-use and types that are defined for a specific version of the runtime.
 
 For every pallet, the metadata includes information about its storage items, functions, events, errors, and constants.
@@ -43,7 +43,7 @@ At a high level, generating the metadata involves the following steps:
 
 - The [`frame-metadata`](https://github.com/paritytech/frame-metadata) crate describes the structure of the runtime based on the registry provided by the `scale-info` crate.
 
-- Substrate nodes provide the RPC method `state_getMetadata` to return a complete description of all the types in the current runtime as a hex-encoded vector of SCALE-encoded bytes.
+- Nodes provide the RPC method `state_getMetadata` to return a complete description of all the types in the current runtime as a hex-encoded vector of SCALE-encoded bytes.
 
 <!-- The following diagram provides a simplified overview of how the metadata is generated when the runtime logic is compiled and then accessed by connecting to the node with an RPC request.
 
@@ -54,13 +54,13 @@ At a high level, generating the metadata involves the following steps:
 There are several ways you can get the metadata for a runtime.
 For example, you can do any of the following:
 
-- Use [Polkadot/Substrate Portal](https://polkadot.js.org/apps/#/rpc) to connect to a blockchain or node and select the **state** endpoint and the **getMetadata** method to return the metadata in JSON format.
+- Use the [Polkadot Portal](https://polkadot.js.org/apps/#/rpc) to connect to a blockchain or node and select the **state** endpoint and the **getMetadata** method to return the metadata in JSON format.
 - Use the command-line `polkadot-js-api` to call the `state_getMetadata` RPC method to return the metadata as a hex-encoded vector of SCALE-encoded bytes.
 - Use the `subxt metadata` command to download the metadata in JSON, hex, or raw bytes.
 - Use the `sidecar` API and `/runtime/metadata` endpoint to connect to a node and retrieve the metadata in JSON format.
 
 The type information provided by the metadata enables applications to communicate with nodes with different versions of the runtime and across chains that expose different calls, events, types, and storage items.
-The metadata also allows libraries to generate a substantial portion of the code needed to communicate with a given Substrate node, enabling libraries like [`subxt`](https://github.com/paritytech/subxt) to generate front-end interfaces that are specific to a target chain.
+The metadata also allows libraries to generate a substantial portion of the code needed to communicate with a given node, enabling libraries like [`subxt`](https://github.com/paritytech/subxt) to generate front-end interfaces that are specific to a target chain.
 
 
 ### Using `subxt` for metadata retrieval
@@ -351,11 +351,11 @@ To find type information for `Order` and `Store`, you can use the path in the de
 
 A standard node comes with the following APIs to interact with a node:
 
-- [`AuthorApiServer`](https://paritytech.github.io/substrate/master/sc_rpc/author/trait.AuthorApiServer.html): An API to make calls into a full node, including authoring extrinsics and verifying session keys.
-- [`ChainApiServer`](https://paritytech.github.io/substrate/master/sc_rpc/chain/trait.ChainApiServer.html): An API to retrieve block header and finality information.
-- [`OffchainApiServer`](https://paritytech.github.io/substrate/master/sc_rpc/offchain/trait.OffchainApiServer.html): An API for making RPC calls for offchain workers.
-- [`StateApiServer`](https://paritytech.github.io/substrate/master/sc_rpc/state/trait.StateApiServer.html): An API to query information about on-chain state such as runtime version, storage items, and proofs.
-- [`SystemApiServer`](https://paritytech.github.io/substrate/master/sc_rpc/system/trait.SystemApiServer.html): An API to retrieve information about network state, such as connected peers and node roles.
+- [`AuthorApiServer`](https://paritytech.github.io/polkadot-sdk/master/sc_rpc/author/trait.AuthorApiServer.html): An API to make calls into a full node, including authoring extrinsics and verifying session keys.
+- [`ChainApiServer`](https://paritytech.github.io/polkadot-sdk/master/sc_rpc/chain/trait.ChainApiServer.html): An API to retrieve block header and finality information.
+- [`OffchainApiServer`](https://paritytech.github.io/polkadot-sdk/master/sc_rpc/offchain/trait.OffchainApiServer.html): An API for making RPC calls for offchain workers.
+- [`StateApiServer`](https://paritytech.github.io/polkadot-sdk/master/sc_rpc/state/trait.StateApiServer.html): An API to query information about on-chain state such as runtime version, storage items, and proofs.
+- [`SystemApiServer`](https://paritytech.github.io/polkadot-sdk/master/sc_rpc/system/trait.SystemApiServer.html): An API to retrieve information about network state, such as connected peers and node roles.
 
 
 <!-- todo: link offchain worker page -->
@@ -376,7 +376,7 @@ The following libraries use the [JSON-RPC API](https://github.com/paritytech/jso
 
 | Name                                            | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   | Language   |
 |--:----------------------------------------------|--:----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|--:---------|
-| [Polkadot API](https://papi.how)                | Provides a TypeScript toolkit for crafting interactions with Substrate-based chains. The toolkit includes FRAME utilities, a functional effect system, and a fluent API to facilitate multi-step, multi-chain interactions for end users without compromising performance or safety.                                                                                                                                                                                                                                          | Typescript |
+| [Polkadot API](https://papi.how)                | Provides a TypeScript toolkit for crafting interactions with Polkadot SDK-based chains. The toolkit includes FRAME utilities, a functional effect system, and a fluent API to facilitate multi-step, multi-chain interactions for end users without compromising performance or safety.                                                                                                                                                                                                                                          | Typescript |
 | [`subxt`](https://github.com/paritytech/subxt/) | Provides a Rust library that generates a statically-typed Rust interface to interact with a node's RPC APIs based on a target chain's metadata. The `subxt`—submit extrinsics—library enables you to build lower-level applications—such as non-browser graphical user interfaces, chain-specific CLIs, or user-facing applications that require type-safe communication between the node and the generated interface—that prevent users from constructing transactions with bad inputs or submitting calls that don't exist. | Rust       |
 
 For more information about the JSON-RPC API and the latest interface specification, see the [JSON-RPC specification](https://paritytech.github.io/json-rpc-interface-spec/).

@@ -3,7 +3,7 @@ title: Glossary
 description: Glossary of terms used within the Polkadot ecosystem.
 ---
 
-This glossary defines and explains concepts and terminology that are specific to blockchain technology or the Substrate ecosystem.
+This glossary defines and explains concepts and terminology specific to blockchain technology within the Polkadot ecosystem.
 
 ## Type Aggregation
 

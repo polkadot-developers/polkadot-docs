@@ -5,12 +5,6 @@ description: Glossary of terms used within the Polkadot ecosystem.
 
 This glossary defines and explains concepts and terminology specific to blockchain technology within the Polkadot ecosystem.
 
-## Block Author
-
-Describes the [node](#node) that is responsible for the creation of a [block](#block).
-Block authors are also referred to as _block producers_.
-In a proof-of-work blockchain, these nodes are called _miners_.
-
 ## Authority
 
 An authority is a generic term for the role in a blockchain that can participate in the consensus mechanism(s). In [GRANDPA](#grandpa), the authorities vote on chains they consider final. In [BABE](#blind-assignment-of-blockchain-extension-babe), the authorities are [block authors](#block-author). Authority sets can be chosen to be mechanisms such as Polkadot's [NPoS](#nominated-proof-of-stake-npos) algorithm.
@@ -31,6 +25,12 @@ However, with the blind assignment of blockchain extension (BABE) protocol, [aut
 The winning authority can select a chain and submit a new block for it.
 
 Learn more about BABE by referring to its [official Web3 Foundation research document](https://research.web3.foundation/Polkadot/protocols/block-production/Babe).
+
+## Block Author
+
+Describes the [node](#node) that is responsible for the creation of a [block](#block).
+Block authors are also referred to as _block producers_.
+In a proof-of-work blockchain, these nodes are called _miners_.
 
 ## Byzantine Fault Tolerance (BFT)
 
@@ -90,11 +90,6 @@ See also [hybrid consensus](#hybrid-consensus).
 Most often used to refer to an instance of the [Collective pallet](#collective) on Substrate-based networks such as [Kusama](#kusama) or [Polkadot](#polkadot) if the Collective pallet is part of the [FRAME](#frame)-based [runtime](#runtime) for the network.
 A council primarily serves to optimize and balance the more inclusive referendum system.
 
-## Database Backend
-
-The means by which the [state](#state) of a [blockchain](#blockchain) network is persisted between invocations of the [blockchain node](#node) application.
-For information about how the database backend is implemented and used by Substrate-based chains, see [Runtime storage](#storage-item).
-
 ## Dev Phrase
 
 A [mnemonic phrase](https://en.wikipedia.org/wiki/Mnemonic#For_numerical_sequences_and_mathematical_operations) that is intentionally made public.
@@ -150,30 +145,6 @@ The minimum balance an account is allowed to have in the [Balances pallet](https
 Accounts cannot be created with a balance less than the existential deposit amount.
 If an account balance drops below this amount, the Balances pallet uses [a FRAME System API](https://paritytech.github.io/substrate/master/frame_system/pallet/struct.Pallet.html#method.dec_ref) to drop its references to that account.
 If all of the references to an account are dropped, the account can be [reaped](https://paritytech.github.io/substrate/master/frame_system/pallet/struct.Pallet.html#method.allow_death).
-
-## Finality
-
-The part of [consensus](#consensus) that makes the ongoing progress of the blockchain irreversible.
-After a [block](#block) is finalized, all of the [state](#state) changes it encapsulates are irreversible without a hard fork.
-The consensus algorithm _must_ guarantee that finalized blocks never need reverting.
-However, different consensus algorithms can define different finalization methods.
-
-In a consensus protocol that uses **deterministic finality**, each block is guaranteed to be the canonical block for that chain when the block is included.
-Deterministic finality is desirable in situations where the full chain is not available, such as in the case of [light clients](#light-client).
-[GRANDPA](#grandpa) is the deterministic finality protocol that is used by the [Polkadot Network](#polkadot-network).
-
-In a consensus protocol that uses **probabilistic finality**, finality is expressed in terms of a probability, denoted by `p`, that a proposed block, denoted by `B`, will remain in the canonical chain.
-As more blocks are produced on top of `B`, `p` approaches 1.
-
-In a consensus protocol that uses **instant finality**, finality is guaranteed immediately upon block production.
-This type of non-probabilistic consensus tends to use [practical byzantine fault tolerance (pBFT)](#practical-byzantine-fault-tolerance-pbft) and have expensive communication requirements.
-
-## Fork
-
-Indicates that there are divergent paths a blockchain might take.
-If two or more [blocks](#block) have the same parent but different state, the blockchain cannot continue to progress until the differences are resolved.
-An unresolved fork would split the blockchain into two separate chains.
-By resolving divergent forks, you can ensure that only one canonical chain exists.
 
 ## Fork Choice Rule/Strategy
 
@@ -248,11 +219,6 @@ Substrate uses the [Rust implementation](https://github.com/libp2p/rust-libp2p) 
 
 A type of blockchain [node](#node) that does not store the [chain state](#state) or produce blocks.
 A light client is capable of verifying [cryptographic primitives](#cryptographic-primitives) and exposes a [remote procedure call (RPC)](https://en.wikipedia.org/wiki/Remote_procedure_call) server that allows blockchain users to interact with the blockchain network.
-
-## Macro
-
-A programming language feature that enables developers to write a sequence of instructions that can be named and executed together.
-The [FRAME](#frame) development environment utilizes several [macros](#frame) for [Rust](https://doc.rust-lang.org/1.7.0/book/macros.html) that you can use to compose a [runtime](#runtime).
 
 ## Metadata
 
@@ -338,17 +304,22 @@ In each slot, a subset of [authorities](#authority) is permitted—or obliged—
 
 ## Sovereign Account
 
-The unique account identifier for each chain in the relay chain ecosystem.
+The unique account identifier for each chain in the relay chain ecosystem. It is often used in the context of cross-consensus (XCM) interactions.
+
 The sovereign account for each chain is a root-level that can only be accessed using the Sudo pallet or through governance.
 The account identifier is calculated by concatenating the Blake2 hash of a specific text string and the registered parachain identifier.
+
+The sovereign account is most often used to sign XCM messages that are sent to either the relay chain or other chains in the ecosystem.
+
+<!-- TODO: move this to some other relevant page, too long to include here IMO -->
 
 For the relay chain, the parachain account identifier is calculated as the concatenation of (blake2(para+ParachainID) with the hash truncated to the correct length.
 For example, the account identifier for the parachain with the parachain identifier of 1012 on the relay chain is:
 String to hex para: 0x70617261
 Encoded parachain identifier 1012: f4030000
 
-0x70617261f4030000000000000000000000000000000000000000000000000000
-ccount address: 5Ec4AhPc9b6e965pNRSsn8tjTzuKaKambivxcL7Gz9Gne9YB
+`0x70617261f4030000000000000000000000000000000000000000000000000000`
+Account address: 5Ec4AhPc9b6e965pNRSsn8tjTzuKaKambivxcL7Gz9Gne9YB
 
 For other parachains, the parachain account identifier is calculated as the concatenation of (blake2(sibl+ParachainID) with the hash truncated to the correct length.
 For example, the account identifier for the parachain with the parachain identifier of 1012 on the relay chain is:
@@ -358,20 +329,12 @@ Encoded parachain identifier 1012: f4030000
 0x7369626cf4030000000000000000000000000000000000000000000000000000
 Account address: 5Eg2fntREKHYGgoxvRPxtnEYiUadHjdsfNaPsHdmrsJMVugs
 
-The sovereign account is most often used to sign XCM messages that are sent to either the relay chain or other chains in the ecosystem.
-
 ## SS58 Address Format
 
 The SS58 address format is a public key address based on the Bitcoin [`Base-58-check`](https://en.bitcoin.it/wiki/Base58Check_encoding) encoding.
 Each Substrate SS58 address uses a `base-58` encoded value to identify a specific account on a specific Substrate-based chain.
 These are represented by a `base-58` encoded value to identify a specific account on a specific Substrate chain.
 The [canonical `ss58-registry`](https://github.com/paritytech/ss58-registry) provide additional details about the address format used by different Substrate-based chains, including the network prefix and website used for different networks.
-
-## State
-
-Cryptographically-secure data that persists between blocks and can be used to create new blocks as part of the state transition function.
-In Substrate-based blockchains, state is stored in a [trie](#trie-patricia-merkle-tree) data structure that supports the efficient creation of incremental digests.
-This trie is exposed to the [runtime](#runtime) as [a simple key/value map](#storage-item) where both keys and values can be arbitrary byte arrays.
 
 ## State Transition Function (STF)
 
@@ -410,6 +373,8 @@ The tagged transaction pool implementation is designed to be extensible and gene
 A data structure that is used to represent sets of key-value pairs.
 
 The Patricia Merkle trie data structure enables the items in the data set to be stored and retrieved using a cryptographic hash. Because incremental changes to the data set result in a new hash, retrieving data is efficient even if the data set is very large. With this data structure, you can also prove whether the data set includes any particular key-value pair without the access to the entire data set.
+
+In Polkadot SDK-based blockchains, state is stored in a trie data structure that supports the efficient creation of incremental digests.  This trie is exposed to the [runtime](#runtime) as [a simple key/value map](#storage-item) where both keys and values can be arbitrary byte arrays.
 
 ## Validator
 

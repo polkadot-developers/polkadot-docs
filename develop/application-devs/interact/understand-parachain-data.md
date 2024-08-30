@@ -3,7 +3,7 @@ title: Understanding Metadata
 description: Learn how to interact and decipher parachain data (metadata).
 ---
 
-Each Polkadot SDK-based network exposes information about its runtime, allowing developers to know granular details regarding the types, pallets, and runtime APIs that a chain may offer.  Metadata files are SCALE-encoded, and allow the development of browser-based, mobile, or desktop applications that can keep up with potential forkless upgrades.  The concept of metadata also aids in ensuring that a single application can support many Polkadot SDK-based chains at once.
+Polkadot SDK-based blockchain networks are designed to expose their runtime information, allowing developers to learn granular details regarding pallets, RPC calls, and runtime APIs. The metadata also exposes their related documentation. The chain's metadata is SCALE-encoded, allowing for the development of browser-based, mobile, or desktop applications that can seamlessly support the chain's runtime upgrades. It is also possible to develop applications that are compatible with multiple Polkadot SDK-based chains at once.
 
 ## Exposing runtime information as metadata
 

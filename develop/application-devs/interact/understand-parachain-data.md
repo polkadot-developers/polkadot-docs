@@ -31,7 +31,7 @@ Because it provides a complete inventory of the runtime of a chain, the metadata
 
 ## Generating metadata
 
-To minimize the bandwidth required to transmit data over the network, the metadata schema is encoded using the [SCALE codec library](https://github.com/paritytech/parity-scale-codec?tab=readme-ov-file#parity-scale-codec).
+To efficiently use the blockchain's networking resources and minimize the transmission data over the network, the metadata schema is encoded using the [SCALE codec library](https://github.com/paritytech/parity-scale-codec?tab=readme-ov-file#parity-scale-codec).
 This encoding is done automatically for you when you compile a node by using the [`scale-info`](https://docs.rs/scale-info/latest/scale_info/) crate.
 
 At a high level, generating the metadata involves the following steps:

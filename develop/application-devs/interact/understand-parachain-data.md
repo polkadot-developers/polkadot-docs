@@ -7,7 +7,7 @@ Polkadot SDK-based blockchain networks are designed to expose their runtime info
 
 ## Exposing runtime information as metadata
 
-To interact with a node or the information stored in the blockchain, you need to know how to connect to the chain and how to access the features the runtime exposes to the outside world.
+To interact with a node or the state of the blockchain, you need to know how to connect to the chain and access the exposed runtime features.
 In general, this interaction involves a remote procedure call (RPC) to request information you're interested in retrieving or updating.
 An application developer typically needs to know about the contents of the runtime's logic, including the following details:
 

@@ -11,12 +11,12 @@ To interact with a node or the state of the blockchain, you need to know how to 
 This interaction involves a Remote Procedure Call (RPC) through a node endpoint address, typically through a secure web socket connection.
 An application developer typically needs to know about the contents of the runtime's logic, including the following details:
 
-- The version of the runtime that the application is connecting to.
-- The APIs that the runtime supports.
-- The pallets that are implemented for that specific runtime.
-- The functions and their type signatures that are defined for that specific runtime.
-- The custom types that are defined for that specific runtime.
-- The parameters that the runtime exposes for users to set.
+- The version of the runtime that the application is connecting to
+- The APIs that the runtime supports
+- The pallets that are implemented for that specific runtime
+- The functions and their type signatures that are defined for that specific runtime
+- The custom types that are defined for that specific runtime
+- The parameters that the runtime exposes for users to set
 
 As the Polkadot SDK is modular and provides a composable framework for building blockchains, there are limitless opportunities to customize the schema of properties.
 Each runtime can be configured with its properties, including function calls and types which can be changed over time with runtime upgrades.

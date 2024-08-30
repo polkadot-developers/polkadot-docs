@@ -18,7 +18,7 @@ An application developer typically needs to know about the contents of the runti
 - The custom types that are defined for that specific runtime.
 - The parameters that the runtime exposes for users to set.
 
-Because the Polkadot SDK is modular and provides a composable framework for building a blockchain, there's no predefined schema of properties.
+As the Polkadot SDK is modular and provides a composable framework for building blockchains, there are limitless opportunities to customize the schema of properties.
 Instead, every runtime is configured with its own set of properties and those properties—including functions and types—can change over time with runtime upgrades.
 
 To capture the information that's unique to a runtime, the Polkadot SDK enables you to generate the runtime **metadata** schema.

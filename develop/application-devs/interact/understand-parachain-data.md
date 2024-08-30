@@ -27,7 +27,7 @@ The metadata for a runtime describes the pallets in-use and types that are defin
 For every pallet, the metadata includes information about its storage items, functions, events, errors, and constants.
 The metadata also includes type definitions for any custom types included in the runtime.
 
-Because it provides a complete inventory of the runtime, the metadata is the key to enabling client applications to interact with the node, parse responses, and format message payloads correctly per chain.
+Because it provides a complete inventory of the runtime of a chain, the metadata is the key to enabling client applications to interact with the node, parse responses, and correctly format message payloads that are sent back to that chain.
 
 ## Generating metadata
 

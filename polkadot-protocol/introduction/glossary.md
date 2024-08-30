@@ -5,6 +5,11 @@ description: Glossary of terms used within the Polkadot ecosystem.
 
 This glossary defines and explains concepts and terminology specific to blockchain technology within the Polkadot ecosystem.
 
+Other useful glossaries throughout the ecossytem can be found below:
+
+- [Polkadot Wiki Glossary](https://wiki.polkadot.network/docs/glossary)
+- [Polkadot SDK Glossary](https://paritytech.github.io/polkadot-sdk/master/polkadot_sdk_docs/reference_docs/glossary/index.html)
+
 ## Authority
 
 An authority is a generic term for the role in a blockchain that can participate in the consensus mechanism(s). In [GRANDPA](#grandpa), the authorities vote on chains they consider final. In [BABE](#blind-assignment-of-blockchain-extension-babe), the authorities are [block authors](#block-author). Authority sets can be chosen to be mechanisms such as Polkadot's [NPoS](#nominated-proof-of-stake-npos) algorithm.
@@ -49,7 +54,7 @@ The communication overhead for such systems is `O(n²)`, where `n` is the number
 ## Call
 
 In a general context, a call describes the act of invoking a function to be executed.
-In the context of pallets that contain functions to be dispatched to the runtime, `Call` is an enumeration data type that describes the functions that can be dispatched with one variant per pallet. The object that a `Call` represents is a [dispatch](#dispatch) data structure or a dispatchable.
+In the context of pallets that contain functions to be dispatched to the runtime, `Call` is an enumeration data type that describes the functions that can be dispatched with one variant per pallet. The object that a `Call` represents is a [dispatch](#dispatchable) data structure or a dispatchable.
 
 ## Chain Specification 
 
@@ -107,11 +112,9 @@ An extensible field of the [block header](#header) that encodes information need
 - Consensus engines for block verification.
 - The runtime itself in the case of pre-runtime digests.
 
-## Dispatch
+## Dispatchable
 
-The execution of a function with a predefined set of arguments.
-In the context of [runtime](#runtime) development with [FRAME](#frame), a dispatch takes pure data—the [`Call`](#call) type—and uses that data to execute a published function in a runtime module ([pallet](#pallet)) with predefined arguments.
-The published functions take one additional parameter, known as [`origin`](#origin), that allows the function to securely determine the provenance of its execution.
+Dispatchables are function objects that act as the entry points in FRAME [pallets](#pallet). They can be called by internal or external entities to interact with the blockchain’s state. They are a core aspect of the runtime logic, handling [transactions](#transaction) and other state-changing operations.
 
 ## Events
 
@@ -132,12 +135,9 @@ There are two orchestration engines in Substrate, _WebAssembly_ and _native_.
 
 ## Extrinsic
 
-A SCALE encoded array consisting of a version
-number, signature, and varying data types indicating the resulting runtime function to be called,
-including the parameters required for that function to be executed. These state changes are invoked
-from the outside world, i.e. they are not part of the system itself. Extrinsics take two forms,
-"[inherents](#inherent-transactions)" and "[transactions](#transaction)". For more technical details see the
-[polkadot spec](https://spec.polkadot.network/#id-extrinsics)
+An extrinsic is a general term for a piece of data that is originated outside of the runtime, included into a block and leads to some action. This includes user-initiated transactions as well as inherents which are placed into the block by the block-builder.
+
+It is a SCALE encoded array typically consisting of a version number, signature, and varying data types indicating the resulting runtime function to be called. Extrinsics take two forms, "[inherents](#inherent-transactions)" and "[transactions](#transaction)". For more technical details see the [Polkadot spec](https://spec.polkadot.network/#id-extrinsics).
 
 ## Existential Deposit
 
@@ -158,7 +158,7 @@ An acronym for the _Framework for Runtime Aggregation of Modularized Entities_ t
 
 ## Full Node
 
-A [node](#node) that is able to synchronize a blockchain securely with all of its available features.  It is able to fully sync blocks, but to a certain point in the past.
+It is a node that prunes historical states, keeping only recent finalized block states to reduce storage needs. Full nodes provide current chain state access and allow direct submission and validation of [extrinsics](#extrinsic), maintaining network decentralization.
 
 ## Genesis Configuration
 
@@ -244,7 +244,7 @@ Oracles enable the blockchain to access and act upon information from existing d
 
 ## Origin
 
-A [FRAME](#frame) primitive that identifies the source of a [dispatched](#dispatch) function call into the [runtime](#runtime).
+A [FRAME](#frame) primitive that identifies the source of a [dispatched](#dispatchable) function call into the [runtime](#runtime).
 The FRAME `system` pallet defines three built-in [origins](#origin).
 As a [pallet](#pallet) developer, you can also define custom origins, such as those defined by the [Collective pallet](https://paritytech.github.io/substrate/master/pallet_collective/enum.RawOrigin.html).
 
@@ -264,27 +264,11 @@ You can learn more about parachains on the [Polkadot Wiki](https://wiki.polkadot
 The [Polkadot network](https://polkadot.network/) is a [blockchain](#blockchain) that serves as the central hub of a heterogeneous blockchain network.
 It serves the role of the [relay chain](#relay-chain) and supports other chains—the [parachains](#parachain)—by providing shared infrastructure and security.
 
-## Proof of Finality
-
-Data that can be used to prove that a particular block is finalized.
-
-## Proof of Work
-
-A [consensus](#consensus) mechanism that deters attacks by requiring work on the part of network participants.
-For example, some proof-of-work systems require participants to use the [Ethash](#ethash) function to calculate a hash as a proof of completed work.
-
 ## Relay Chain
 
 The central hub in a heterogenous network of multiple blockchains.
 Relay chains are [blockchains](#blockchain) that provide shared infrastructure and security to the other blockchains—the [parachains](#parachain)—in the network.
 In addition to providing [consensus](#consensus) capabilities, relay chains also allow parachains to communicate and exchange digital assets without needing to trust one another.
-
-## Remote Procedure Call (RPC)
-
-A mechanism for interacting with a computer program.
-Remote procedure calls enable developers to query the remote computer programs or invoke program logic with parameters they supply.
-Substrate nodes expose an RPC server on HTTP and WebSocket endpoints.
-
 
 ## Rococo
 
@@ -361,13 +345,6 @@ A type of [extrinsic](#extrinsic) that includes a signature that can be used to 
 A definable period—expressed as a range of [block](#block) numbers—during which a transaction can be included in a block.
 Transaction eras are used to protect against transaction replay attacks in the event that an account is reaped and its replay-protecting nonce is reset to zero.
 
-## Transaction Pool
-
-A collection of transactions that are not yet included in [blocks](#block) but have been determined to be valid.
-
-A _tagged transaction pool_ is a transaction pool implementation that allows the [runtime](#runtime) to specify whether a given transaction is valid, how it should be prioritized, and how it relates to other transactions in the pool in terms of dependency and mutual-exclusivity.
-The tagged transaction pool implementation is designed to be extensible and general enough to express both [unspent transaction output (UTXO)](https://github.com/danforbes/danforbes/blob/master/writings/utxo.md) and account-based transaction models.
-
 ## Trie (Patricia Merkle Tree)
 
 A data structure that is used to represent sets of key-value pairs.
@@ -378,9 +355,7 @@ In Polkadot SDK-based blockchains, state is stored in a trie data structure that
 
 ## Validator
 
-A semi-trusted—or untrusted but well-incentivized—actor that helps maintain a [blockchain](#blockchain) network.
-In Substrate, validators broadly correspond to the [authorities](#authority) running the [consensus](#consensus) system.
-In [Polkadot](#polkadot-network), validators also manage other duties such as guaranteeing data availability and validating [parachain](#parachain) candidate [blocks](#block).
+A validator is a node that participates in the consensus mechanism of the network. Its role includes block production, transaction validation, network integrity and security maintenance.
 
 ## WebAssembly (Wasm)
 

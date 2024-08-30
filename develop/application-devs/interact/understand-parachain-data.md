@@ -1,11 +1,11 @@
 ---
 title: Understanding Metadata
-description: Learn how to interact and decipher parachain data (metadata).
+description: Metadata helps in creating chain-tailored experiences for your applications.  Learn how to understand, interact with, and decipher metadata from Polkadot SDK-based chains.
 ---
 
 Polkadot SDK-based blockchain networks are designed to expose their runtime information, allowing developers to learn granular details regarding pallets, RPC calls, and runtime APIs. The metadata also exposes their related documentation. The chain's metadata is SCALE-encoded, allowing for the development of browser-based, mobile, or desktop applications that can seamlessly support the chain's runtime upgrades. It is also possible to develop applications that are compatible with multiple Polkadot SDK-based chains at once.
 
-## Exposing runtime information as metadata
+## Exposing Runtime Information as Metadata
 
 To interact with a node or the state of the blockchain, you need to know how to connect to the chain and access the exposed runtime features.
 This interaction involves a Remote Procedure Call (RPC) through a node endpoint address, typically through a secure web socket connection.
@@ -22,6 +22,7 @@ As the Polkadot SDK is modular and provides a composable framework for building 
 Each runtime can be configured with its properties, including function calls and types which can be changed over time with runtime upgrades.
 
 To capture the information that's unique to a runtime, the Polkadot SDK enables you to generate the runtime **metadata** schema.
+
 The metadata for a runtime describes the pallets in-use and types that are defined for a specific version of the runtime.
 
 For every pallet, the metadata includes information about its storage items, functions, events, errors, and constants.
@@ -29,7 +30,7 @@ The metadata also includes type definitions for any custom types included in the
 
 Because it provides a complete inventory of the runtime of a chain, the metadata is the key to enabling client applications to interact with the node, parse responses, and correctly format message payloads that are sent back to that chain.
 
-## Generating metadata
+## Generating Metadata
 
 To efficiently use the blockchain's networking resources and minimize the transmission data over the network, the metadata schema is encoded using the [SCALE codec library](https://github.com/paritytech/parity-scale-codec?tab=readme-ov-file#parity-scale-codec).
 This encoding is done automatically through the [`scale-info`](https://docs.rs/scale-info/latest/scale_info/) crate.
@@ -45,11 +46,7 @@ At a high level, generating the metadata involves the following steps:
 
 - Nodes provide the RPC method `state_getMetadata` to return a complete description of all the types in the current runtime as a hex-encoded vector of SCALE-encoded bytes.
 
-<!-- The following diagram provides a simplified overview of how the metadata is generated when the runtime logic is compiled and then accessed by connecting to the node with an RPC request.
-
-![Compiling the runtime generates the metadata](/media/images/docs/metadata.png) -->
-
-## Getting metadata for a runtime
+## Getting Metadata for a Runtime
 
 There are several ways you can get the metadata for a runtime.
 For example, you can do any of the following:
@@ -63,7 +60,7 @@ The type information provided by the metadata enables applications to communicat
 The metadata also allows libraries to generate a substantial portion of the code needed to communicate with a given node, enabling libraries like [`subxt`](https://github.com/paritytech/subxt) to generate front-end interfaces that are specific to a target chain.
 
 
-### Using `subxt` for metadata retrieval
+### Using `subxt` For Metadata Retrieval
 
 One of the quickest ways is to use `subxt`, which you may use to fetch the metadata of any data in a human-readable JSON format: 
 
@@ -73,13 +70,13 @@ subxt metadata  --url wss://rpc.polkadot.io --format json > spec.json
 
 Another option is to use the [`subxt` explorer web UI](https://paritytech.github.io/subxt-explorer/#/).
 
-## Client applications and metadata
+## Client Applications and Metadata
 
 Client applications use the metadata to interact with the node, parse responses, and format message payloads sent to the node.
 To use the metadata, client applications must use the [SCALE codec library](https://github.com/paritytech/parity-scale-codec?tab=readme-ov-file#parity-scale-codec) to encode and decode RPC payloads.
 Because the metadata exposes how every type is expected to be decoded, applications can send, retrieve, and process application information without manual encoding and decoding.
 
-## Metadata format
+## Metadata Format
 
 Although the SCALE-encoded bytes can be decoded using the `frame-metadata` and [`parity-scale-codec`](https://github.com/paritytech/parity-scale-codec) libraries, there are other tools—such as `subxt` and the Polkadot-JS API—that can convert the raw data to human-readable JSON format.
 

@@ -13,19 +13,19 @@ To update the metadata of the Polkadot.Js Browser Extension, follow these steps:
 
 1. Click on the **Settings** tab in the Polkadot.Js user interface:
 
-    ![Settings Tab](/images/tutorials/transfer/transfer-1.webp)
+    ![Settings Tab](/images/tutorials/transfers/metadata-update/metadata-update-1.webp)
 
 2. Click on the **Metadata** tab:
 
-    ![Metadata Tab](/images/tutorials/transfer/transfer-2.webp)
+    ![Metadata Tab](/images/tutorials/transfers/metadata-update/metadata-update-2.webp)
 
 3. If there are any updates available, click on the **Update metadata** button:
 
-    ![Update Metadata Button](/images/tutorials/transfer/transfer-3.webp)
+    ![Update Metadata Button](/images/tutorials/transfers/metadata-update/metadata-update-3.webp)
 
-4. After clicking the **Update metadata** button, a pop-up window will appear to confirm the update. Click on the **Update** button to allow the extension to update the metadata:
+4. A pop-up window will appear to confirm the update. Click on the **Yes, I do this metadata update** button to allow the extension to update the metadata:
 
-    ![Update Metadata Confirmation](/images/tutorials/transfer/transfer-4.webp)
+    ![Update Metadata Confirmation](/images/tutorials/transfers/metadata-update/metadata-update-4.webp)
 
 Now that the metadata is updated, you can proceed with the transfer and management of funds on the Polkadot network.
 

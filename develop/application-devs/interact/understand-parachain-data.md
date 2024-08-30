@@ -19,7 +19,7 @@ An application developer typically needs to know about the contents of the runti
 - The parameters that the runtime exposes for users to set.
 
 As the Polkadot SDK is modular and provides a composable framework for building blockchains, there are limitless opportunities to customize the schema of properties.
-Instead, every runtime is configured with its own set of properties and those properties—including functions and types—can change over time with runtime upgrades.
+Each runtime can be configured with its properties, including function calls and types which can be changed over time with runtime upgrades.
 
 To capture the information that's unique to a runtime, the Polkadot SDK enables you to generate the runtime **metadata** schema.
 The metadata for a runtime describes the pallets in-use and types that are defined for a specific version of the runtime.

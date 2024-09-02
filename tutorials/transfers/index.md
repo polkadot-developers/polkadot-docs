@@ -61,8 +61,6 @@ To send funds using the Polkadot.Js Browser Extension, follow these steps:
 
     ![Explorer Tab](/images/tutorials/transfers/sending-funds/sending-funds-4.webp)
 
-<!-- TODO: check what's missing from this original article: https://support.polkadot.network/support/solutions/articles/65000170304-polkadot-js-ui-how-to-send-transfer-funds-out-of-your-account -->
-
 ### Extrinsics Verification
 
 The Polkadot Browser Extension serves as your entry point to the Web 3.0 Polkadot ecosystem, allowing you to connect with various compatible apps and websites. Therefore, it is crucial to verify your extrinsics before signing them, especially when engaging with a new site or app

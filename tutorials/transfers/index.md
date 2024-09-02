@@ -65,6 +65,10 @@ To send funds using the Polkadot.Js Browser Extension, follow these steps:
 
 ### Extrinsics Verification
 
+The Polkadot Browser Extension serves as your entry point to the Web 3.0 Polkadot ecosystem, allowing you to connect with various compatible apps and websites. Therefore, it is crucial to verify your extrinsics before signing them, especially when engaging with a new site or app
+
+For further information on how to verify extrinsics, please refer to the [How Can I Verify What Extrinsic I'm Signing?](https://support.polkadot.network/support/solutions/articles/65000179161-how-can-i-verify-what-extrinsic-i-m-signing-){target=\_blank} guide.
+
 ### Keep Alive Checks
 
 ### Vested Transfers

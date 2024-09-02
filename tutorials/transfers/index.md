@@ -1,6 +1,6 @@
 ---
 title: Polkadot.Js Guides about Transfers
-description: Set of tutorials on how to transfer and manage funds on the Polkadot network, covering topics such as metadata updates, sending funds, teleporting tokens, calculating fees, and more.
+description: Tutorials on how to transfer and manage funds on the Polkadot network, covering metadata updates, sending funds, teleporting tokens, calculating fees, and more.
 ---
 
 # Polkadot.Js Guides about Transfers
@@ -11,7 +11,7 @@ Before you start using the [Polkadot.Js Browser Extension](https://polkadot.js.o
 
 To update the metadata of the Polkadot.Js Browser Extension, follow these steps:
 
-1. Access to the Polkadot.Js App interface and click on the **Settings** tab:
+1. Access the Polkadot.Js App interface and click on the **Settings** tab:
 
     ![Settings Tab](/images/tutorials/transfers/metadata-update/metadata-update-1.webp)
 
@@ -27,13 +27,13 @@ To update the metadata of the Polkadot.Js Browser Extension, follow these steps:
 
     ![Update Metadata Confirmation](/images/tutorials/transfers/metadata-update/metadata-update-4.webp)
 
-Now that the metadata is updated, you can proceed with the transfer and management of funds on the Polkadot network.
+Now that the metadata is updated, you can proceed with transferring and managing funds on the Polkadot network.
 
 ## Transfers
 
 ### Sending Funds
 
-Whether your account is in the Polkadot Browser Extension or created/added directly on the Polkadot-JS UI, you'll need to use the Polkadot-JS UI interface to send funds or issue any extrinsic. The Polkadot extension is an account manager, not a wallet, so it requires a UI to interact with.
+Whether your account is in the Polkadot Browser Extension or created/added directly on the Polkadot-JS UI, you must use the Polkadot-JS UI interface to send funds or issue any extrinsic. The Polkadot extension is an account manager, not a wallet, requiring a UI to interact with.
 
 To send funds using the Polkadot.Js Browser Extension, follow these steps:
 
@@ -41,8 +41,8 @@ To send funds using the Polkadot.Js Browser Extension, follow these steps:
 
     ![Accounts Tab](/images/tutorials/transfers/sending-funds/sending-funds-1.webp)
 
-2. Fill in the requiered fields:
-      1. **send from acccount** - select the account from which you want to send funds
+2. Fill in the required fields:
+      1. **send from account** - select the account from which you want to send funds
       2. **send to address** - enter the recipient's address
       3. **amount** - enter the amount of funds you want to send
       4. **transfer with account keep-alive checks** - enable this option if you want to keep the account alive
@@ -51,33 +51,32 @@ To send funds using the Polkadot.Js Browser Extension, follow these steps:
     ![Transfer Form](/images/tutorials/transfers/sending-funds/sending-funds-2.webp)
 
     !!!warning
-        The transaction fees will be deducted from the leftover funds in your account. If you don't leave enough funds in your account for the fees, your transaction will fail due to "insufficient balance". Make sure to leave enough funds in your account to cover the transaction fees. If you want to send all the funds in your account, please refer to the [How to Send All of Your Funds Out of Your Account](https://support.polkadot.network/support/solutions/articles/65000170293){target=\_blank} guide.
+        The transaction fees will be deducted from the leftover funds in your account. If you don't leave enough funds in your account for the fees, your transaction will fail due to "insufficient balance". Ensure to leave enough funds in your account to cover the transaction fees. If you want to send all the funds in your account, please refer to the [How to Send All of Your Funds Out of Your Account](https://support.polkadot.network/support/solutions/articles/65000170293){target=\_blank} guide.
 
 3. A pop-up window will appear to confirm the transfer. Click on the **Sign and Submit** button to authorize the transaction:
 
     ![Transfer Confirmation](/images/tutorials/transfers/sending-funds/sending-funds-3.webp)
 
-4. To confirm that the transaction was successful, you can check the **Explorer** tab and search that the event **Transfer** has been emited:
+4. To confirm that the transaction was successful, you can check the **Explorer** tab and search that the event **Transfer** has been emitted:
 
     ![Explorer Tab](/images/tutorials/transfers/sending-funds/sending-funds-4.webp)
 
 ### Extrinsics Verification
 
-The Polkadot Browser Extension serves as your entry point to the Web 3.0 Polkadot ecosystem, allowing you to connect with various compatible apps and websites. Therefore, it is crucial to verify your extrinsics before signing them, especially when engaging with a new site or app
+The Polkadot Browser Extension is the entry point to the Web 3.0 Polkadot ecosystem, allowing you to connect with various compatible apps and websites. Therefore, verifying your extrinsic before signing them is crucial, especially when engaging with a new site or app.
 
 For further information on how to verify extrinsics, please refer to the [How Can I Verify What Extrinsic I'm Signing?](https://support.polkadot.network/support/solutions/articles/65000179161-how-can-i-verify-what-extrinsic-i-m-signing-){target=\_blank} guide.
 
 ### Keep Alive Checks
 
-In Polkadot there are two main ways to transfer funds from one account to another:
+In Polkadot, there are two main ways to transfer funds from one account to another:
 
 - Transfer `keep-alive` - (the default option) will not allow you to send an amount that would allow the sending account to be removed because it falls below the existential deposit.
 - Transfer `allow-death` - will allow you to send tokens regardless of the consequences. If the balance drops below the existential deposit, your account will be reaped. You may not want to keep the account alive, for example, if you are moving all of your funds to a different address. To turn off the keep-alive check, please visit the [Error: 'balances.KeepAlive'](https://support.polkadot.network/support/solutions/articles/65000169248){target=\_blank} guide.
 
-
 ### Vested Transfers
 
-Vested transfers are those that can be released with a linear schedule (linear vesting) or after an specific time period (cliff vesting). 
+Vested transfers can be released on a linear schedule (linear vesting) or after a specific time period (cliff vesting). 
 
 To perform a vested transfer, you need to follow these steps:
 
@@ -94,7 +93,7 @@ To perform a vested transfer, you need to follow these steps:
    
     ![Vested Transfer Function](/images/tutorials/transfers/vested-transfers/vested-transfers-2.webp)
 
-3. Fill in the requiered fields:
+3. Fill in the required fields:
       1. **target** - the receiver's address
       2. **schedule** - the vesting schedule. The schedule can be `linear` or `cliff`. The `linear` schedule will release the funds linearly over a period of time, while the `cliff` schedule will release the funds after a specific time period. 
         - **locked** - the amount of funds that will be locked. It should be defined in [planks units](https://support.polkadot.network/support/solutions/articles/65000168663-how-many-planck-are-in-a-dot-){target=\_blank}
@@ -128,7 +127,7 @@ If you are using the Polkadot.Js UI, when there are DOT available to vest for an
 
 #### Calculating When Vesting Tokens Will Be Available
 
-You can typically check the status of your DOT vesting by reviewing your accounts, which will show when the vesting period ends. However, some DOT vesting involves "cliffs," where all the tokens are released at once in a single block, rather than gradually over time. In these cases, you'll need to directly query the chain state to determine when your tokens will be available, as the vesting period hasn’t technically begun yet—it will occur entirely in one future block.
+You can check the status of your DOT vesting by reviewing your accounts, which will show when the vesting period ends. However, some DOT vesting involves "cliffs," where all the tokens are released simultaneously in a single block rather than gradually over time. In these cases, you'll need to directly query the chain state to determine when your tokens will be available, as the vesting period hasn’t technically begun yet—it will occur entirely in one future block.
 
 1. Navigate to the Chain State page on Polkadot.Js  
    ![Chain State Page](/images/tutorials/transfers/vested-transfers/vested-transfers-6.webp)
@@ -140,17 +139,17 @@ You can typically check the status of your DOT vesting by reviewing your account
     
     ![Query Chain State](/images/tutorials/transfers/vested-transfers/vested-transfers-7.webp)
     
-3. Note the **startingBlock** indicates where the unlock starts, and how much DOT is unlocked per block (**perBlock**)
+3. Note that **startingBlock** indicates where the unlock starts and how much DOT is unlocked per block (**perBlock**)
 
     ![Query Chain State Result](/images/tutorials/transfers/vested-transfers/vested-transfers-8.webp)
  
-4. To calculate when the vesting will be available into “human time", remember that there are approximately 14’400 blocks per day, and you can see the latest block on the Explorer page:
+4. To calculate when the vesting will be available in “human time", remember that there are approximately 14’400 blocks per day, and you can see the latest block on the Explorer page:
 
-    For instance, this example shows that the vesting will start at block 22,400,500 and the current block is 22,359,749 (as shown on the Explorer page). The difference between these two blocks is 40,751 blocks. If you divide this number by 14,400, you will get the number of days until the vesting starts. Which in this case is 2.83 days.
+    For instance, this example shows that the vesting will start at block 22,400,500, and the current block is 22,359,749 (as shown on the Explorer page). The difference between these two blocks is 40,751 blocks. If you divide this number by 14,400, you will get the number of days until the vesting starts, which in this case is 2.83 days.
 
 ### Batch Transfers
 
-Batch transfers are balances transfers to multiple accounts executed by one account. In order to construct a batch transfer you need to:
+Batch transfers are balance transfers to multiple accounts executed by one account. To construct a batch transfer, you need to:
 
 1. Navigate to the Extrinsics section of the Polkadot.Js App interface:
        1. Click on the **Developer** tab
@@ -164,7 +163,7 @@ Batch transfers are balances transfers to multiple accounts executed by one acco
    
     ![Batch Transfer Function](/images/tutorials/transfers/batch-transfers/batch-transfers-2.webp)
 
-3. Create the batch transfer call, by adding the following fields:
+3. Create the batch transfer call by adding the following fields:
       1. **calls** - an array of calls to be executed in the batch. Each call should be an array with the following fields:
         - **call** - the call to be executed. In this case, it should be the **balances.transferKeepAlive** call
         - **dest** - the destination account of the transfer
@@ -174,13 +173,14 @@ Batch transfers are balances transfers to multiple accounts executed by one acco
     ![Batch Transfer Form](/images/tutorials/transfers/batch-transfers/batch-transfers-3.webp)
 
     !!! note
-        For example, this image shows a batch transfer with two calls. The first call transfers tokens to one account, and the second transfers tokens to another. You can add as many calls as you want to the batch transfer and customize the amount of tokens to be transferred to each account.
+        For example, this image shows a batch transfer with two calls. The first call transfers tokens to one account, and the second transfers tokens to another. You can add as many calls as you want to the batch transfer and customize the token amount to each account.
+
 
 For further details on how to perform a batch transfer, please refer to the [Learn about Batch Transfers on Polkadot](https://www.youtube.com/watch?v=uoUC2K8muvw){target=\_blank} educational video.
 
 ### Teleporting Tokens
 
-Asset teleportation is the simpler method of the two for sending assets from one chain to another. It has only two actors, the source and the destination.
+Asset teleportation is the more straightforward method for sending assets from one chain to another. It has only two actors: the source and the destination.
 
 For further information on how to teleport tokens, please refer to the [Polkadot-JS UI: How to Teleport DOT or KSM to Asset Hub](https://support.polkadot.network/support/solutions/articles/65000181119-how-to-teleport-dot-or-ksm-between-statemint-or-statemine){target=\_blank} guide or the [Teleporting | Technical Explainers](https://www.youtube.com/watch?v=3tE9ouub5Tg){target=\_blank} educational video.
 
@@ -195,12 +195,12 @@ To calculate fees for a transaction, you can follow these steps:
     ![Developer Tab](/images/tutorials/transfers/calculating-fees/calculating-fees-1.webp)
 
 2. Create the runtime call:
-      1. Chosse the **transactionPaymentApi** endpoint from the list of endpoints
+      1. Choose the **transactionPaymentApi** endpoint from the list of endpoints
       2. Select the **queryInfo** call from the list of calls
 
     ![Query Info](/images/tutorials/transfers/calculating-fees/calculating-fees-2.webp)
 
-3. Fill in the required fills:
+3. Fill in the required fields:
       1. **utx** - the extrinsic you want to calculate the fee for. This input should be provided in hex format
       2. **length** - the length of the extrinsic in bytes. This input should be provided in decimal format
       3. Click on the **Submit Runtime Call** button to proceed
@@ -214,7 +214,8 @@ To calculate fees for a transaction, you can follow these steps:
          0x49028400e4eb07054edd868d0a942b63a879c47d8aac0525e900024570ea79e7dde2790f018efdb69239f8a3ef8eda42f9321e728cd2f08e2b441bb51d0e57305b9b962429d0039d9f2f86b9c177f6eb607a7eb9f6d03d5ae4c75183dcffca3f201885218c55000c0000050300341019c16ab6492c109bdd3d54ffbc847effcbf1a043a6c63b343a3dab3c89150b005039278c04
         ```
 
-        Which is the extrinsic for a transfer transaction. The **length** of this extrinsic is `152` bytes.
+        This is the encoded extrinsic for a transfer transaction. It is 152 bytes long.
+
 
 4. Check the result of the runtime call to get the fee for the transaction:
 
@@ -224,7 +225,7 @@ Alternatively, you can query to **queryFeeDetails** call to get more information
 
 ![Query Fee Details](/images/tutorials/transfers/calculating-fees/calculating-fees-5.webp)
 
-The sum of **baseFee**, **lenFee** and **adjustedWeightFee** will yield the **partialFee**.
+The sum of **baseFee**, **lenFee**, and **adjustedWeightFee** will yield the **partialFee**.
 
 One useful utility for estimating transaction fees programmatically is the via the [@polkadot/api](https://www.npmjs.com/package/@polkadot/api){target=\_blank}. The following script demonstrates how to calculate the fee for a transfer transaction:
 
@@ -241,7 +242,7 @@ console.log(`
 ```
 ## Existing Reference Errors
 
-If you are trying to reap an account and you receive an error similar to `There is an existing reference count on the sender account. As such the account cannot be reaped from the state`, then you have existing references to this account that must be first removed before it can be reaped. References may still exist from:
+If you are trying to reap an account and receive an error like, `There is an existing reference count on the sender account. As such, the account cannot be reaped from the state`, so you have existing references to this account that must be removed before it can be reaped. References may still exist from:
 
 - Bonded tokens (most likely)
 - Unpurged session keys (if you were previously a validator)

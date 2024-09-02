@@ -180,6 +180,11 @@ For further details on how to perform a batch transfer, please refer to the [Lea
 
 ### Teleporting Tokens
 
+Asset teleportation is the simpler method of the two for sending assets from one chain to another. It has only two actors, the source and the destination.
+
+For further information on how to teleport tokens, please refer to the [Polkadot-JS UI: How to Teleport DOT or KSM to Asset Hub](https://support.polkadot.network/support/solutions/articles/65000181119-how-to-teleport-dot-or-ksm-between-statemint-or-statemine){target=\_blank} guide or the [Teleporting | Technical Explainers](https://www.youtube.com/watch?v=3tE9ouub5Tg){target=\_blank} educational video.
+
+
 ## Calculating Fees
 
 ## Existing Reference Errors

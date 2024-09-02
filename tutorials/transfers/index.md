@@ -150,6 +150,34 @@ You can typically check the status of your DOT vesting by reviewing your account
 
 ### Batch Transfers
 
+Batch transfers are balances transfers to multiple accounts executed by one account. In order to construct a batch transfer you need to:
+
+1. Navigate to the Extrinsics section of the Polkadot.Js App interface:
+       1. Click on the **Developer** tab
+       2. Select **Extrinsics** from the dropdown menu:
+
+    ![Developer Tab](/images/tutorials/transfers/batch-transfers/batch-transfers-1.webp)
+
+2. Access the **utility* pallet and select the *batch* function:
+      1. Choose the **utility** pallet from the list of pallets 
+      2. Select the **batch** function from the list of extrinsics
+   
+    ![Batch Transfer Function](/images/tutorials/transfers/batch-transfers/batch-transfers-2.webp)
+
+3. Create the batch transfer call, by adding the following fields:
+      1. **calls** - an array of calls to be executed in the batch. Each call should be an array with the following fields:
+        - **call** - the call to be executed. In this case, it should be the **balances.transferKeepAlive** call
+        - **dest** - the destination account of the transfer
+        - **value** - the amount of funds to be transferred
+      2. Click on the **Submit Transaction** button to proceed
+
+    ![Batch Transfer Form](/images/tutorials/transfers/batch-transfers/batch-transfers-3.webp)
+
+    !!! note
+        For example, this image shows a batch transfer with two calls. The first call transfers tokens to one account, and the second transfers tokens to another. You can add as many calls as you want to the batch transfer and customize the amount of tokens to be transferred to each account.
+
+For further details on how to perform a batch transfer, please refer to the [Learn about Batch Transfers on Polkadot](https://www.youtube.com/watch?v=uoUC2K8muvw){target=\_blank} educational video.
+
 ### Teleporting Tokens
 
 ## Calculating Fees

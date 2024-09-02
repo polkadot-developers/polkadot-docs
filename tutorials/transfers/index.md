@@ -33,6 +33,8 @@ Now that the metadata is updated, you can proceed with the transfer and manageme
 
 ### Sending Funds
 
+Whether your account is in the Polkadot Browser Extension or created/added directly on the Polkadot-JS UI, you'll need to use the Polkadot-JS UI interface to send funds or issue any extrinsic. The Polkadot extension is an account manager, not a wallet, so it requires a UI to interact with.
+
 To send funds using the Polkadot.Js Browser Extension, follow these steps:
 
 1. Using the Polkadot.Js App interface, click on the **Accounts** tab and select **Transfer** from the dropdown menu:
@@ -49,7 +51,7 @@ To send funds using the Polkadot.Js Browser Extension, follow these steps:
     ![Transfer Form](/images/tutorials/transfers/sending-funds/sending-funds-2.webp)
 
     !!!warning
-        The transaction fees will be deducted from the leftover funds in your account. If you don't leave enough funds in your account for the fees, your transaction will fail due to "insufficient balance". Make sure to leave enough funds in your account to cover the transaction fees.
+        The transaction fees will be deducted from the leftover funds in your account. If you don't leave enough funds in your account for the fees, your transaction will fail due to "insufficient balance". Make sure to leave enough funds in your account to cover the transaction fees. If you want to send all the funds in your account, please refer to the [How to Send All of Your Funds Out of Your Account](https://support.polkadot.network/support/solutions/articles/65000170293){target=\_blank} guide.
 
 3. A pop-up window will appear to confirm the transfer. Click on the **Sign and Submit** button to authorize the transaction:
 

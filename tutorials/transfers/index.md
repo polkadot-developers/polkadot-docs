@@ -77,6 +77,77 @@ In Polkadot there are two main ways to transfer funds from one account to anothe
 
 ### Vested Transfers
 
+Vested transfers are those that can be released with a linear schedule (linear vesting) or after an specific time period (cliff vesting). 
+
+To perform a vested transfer, you need to follow these steps:
+
+1.  Navigate to the Extrinsics section of the Polkadot.Js App interface:
+       1. Click on the **Developer** tab
+       2. Select **Extrinsics** from the dropdown menu:
+
+    ![Developer Tab](/images/tutorials/transfers/vested-transfers/vested-transfers-1.webp)
+
+2. Access the **vesting** pallet and select the **vestedTransfer** function:
+      1. Select the **account** from which you want to send the vested transfer
+      2. Choose the **vesting** pallet from the list of pallets 
+      3. Select the **vestedTransfer** function from the list of functions
+   
+    ![Vested Transfer Function](/images/tutorials/transfers/vested-transfers/vested-transfers-2.webp)
+
+3. Fill in the requiered fields:
+      1. **target** - the receiver's address
+      2. **schedule** - the vesting schedule. The schedule can be `linear` or `cliff`. The `linear` schedule will release the funds linearly over a period of time, while the `cliff` schedule will release the funds after a specific time period. 
+        - **locked** - the amount of funds that will be locked. It should be defined in [planks units](https://support.polkadot.network/support/solutions/articles/65000168663-how-many-planck-are-in-a-dot-){target=\_blank}
+         - **perBlock** - the amount of funds that will be released per block. In `cliff vesting`, the funds will be released all at once after the specified time period, so this value should be equal to the locked amount. In `linear vesting`, the funds will be released linearly over the specified time period, so this value should be calculated based on the total amount of funds and the duration of the vesting period.
+         - **startingBlock** - the block number when the funds will be released  
+       3. Click on the **Submit Transaction** button to proceed 
+
+    ![Vested Transfer Form](/images/tutorials/transfers/vested-transfers/vested-transfers-3.webp)
+
+    !!! note
+        The above image shows how to perform a cliff vesting transfer, since **locked** and **perBlock** are the same. If you want to perform a linear vesting transfer, you should calculate the **perBlock** value based on the total amount of funds and the duration of the vesting period. For example, if you want to release 100 DOT over a period of 10 blocks, the **perBlock** value should be 10 DOT.
+
+4. After submitting the transaction, a pop-up window will appear to confirm the transfer. Click on the **Sign and Submit** button to authorize the transaction:
+
+    ![Vested Transfer Confirmation](/images/tutorials/transfers/vested-transfers/vested-transfers-4.webp)
+
+5. To confirm that the transaction was successful, you can navigate to the **Accounts** tab and check the **locked** balances of the receiver's account (if the **startingBlock** has not been reached yet) or the **vested** balances (if the **startingBlock** has been reached):
+
+    ![Accounts Tab - Locked Balances](/images/tutorials/transfers/vested-transfers/vested-transfers-5.webp)
+
+#### Lazy Vesting
+
+Vesting is lazy, meaning that someone must explicitly call an extrinsic to update the lock placed on an account.
+
+- The `vest` extrinsic will update the lock that is placed on the caller.
+- The `vest_other` will update the lock on another "target" account's funds.
+
+These extrinsics are exposed from the Vesting pallet.
+
+If you are using the Polkadot.Js UI, when there are DOT available to vest for an account, then you will have the ability to unlock DOT that has already vested from the Accounts page.
+
+#### Calculating When Vesting Tokens Will Be Available
+
+You can typically check the status of your DOT vesting by reviewing your accounts, which will show when the vesting period ends. However, some DOT vesting involves "cliffs," where all the tokens are released at once in a single block, rather than gradually over time. In these cases, you'll need to directly query the chain state to determine when your tokens will be available, as the vesting period hasn’t technically begun yet—it will occur entirely in one future block.
+
+1. Navigate to the Chain State page on Polkadot.Js  
+   ![Chain State Page](/images/tutorials/transfers/vested-transfers/vested-transfers-6.webp)
+2. Query chain state:
+      1. Select the `vesting` query state
+      2. Select `vesting` from the list of modules
+      3. Select the address you want to query
+      4. Click on the **+** button to execute the query
+    
+    ![Query Chain State](/images/tutorials/transfers/vested-transfers/vested-transfers-7.webp)
+    
+3. Note the **startingBlock** indicates where the unlock starts, and how much DOT is unlocked per block (**perBlock**)
+
+    ![Query Chain State Result](/images/tutorials/transfers/vested-transfers/vested-transfers-8.webp)
+ 
+4. To calculate when the vesting will be available into “human time", remember that there are approximately 14’400 blocks per day, and you can see the latest block on the Explorer page:
+
+    For instance, this example shows that the vesting will start at block 22,400,500 and the current block is 22,359,749 (as shown on the Explorer page). The difference between these two blocks is 40,751 blocks. If you divide this number by 14,400, you will get the number of days until the vesting starts. Which in this case is 2.83 days.
+
 ### Batch Transfers
 
 ### Teleporting Tokens

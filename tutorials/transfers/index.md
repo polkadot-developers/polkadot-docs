@@ -239,20 +239,32 @@ console.log(`
   partialFee=${info.partialFee.toHuman()}
 `);
 ```
-
-
-
-
-
-
 ## Existing Reference Errors
+
+If you are trying to reap an account and you receive an error similar to `There is an existing reference count on the sender account. As such the account cannot be reaped from the state`, then you have existing references to this account that must be first removed before it can be reaped. References may still exist from:
+
+- Bonded tokens (most likely)
+- Unpurged session keys (if you were previously a validator)
+- Token locks
+- Existing recovery info
+- Existing assets
 
 ### Bonded Tokens
 
+If you have tokens that are bonded, you will need to unbond them before you can reap your account. Follow the instructions at [Unbonding and Rebonding](https://wiki.polkadot.network/docs/learn-guides-nominator#bond-your-tokens){target=\_blank} to check if you have bonded tokens, stop nominating (if necessary) and unbond your tokens.
+
 ### Checking for Locks
+
+For further information about locks on your account or remove them, you can check out the [Learn How You Can Free Funds - Deep Dive into Polkadot's Locks](https://www.youtube.com/watch?v=LHgY7ds_bZ0){target=_\blank} educational video and the [Why Can't I Transfer My DOT?](https://support.polkadot.network/support/solutions/articles/65000169437-why-can-t-i-transfer-tokens-){target=\_blank} guide.
 
 ### Purging Session Keys
 
+If you used this account to set up a validator and you did not purge your keys before unbonding your tokens, you need to purge your keys. You can do this by seeing the [How to Stop Validating](https://wiki.polkadot.network/docs/maintain-guides-how-to-stop-validating){target=\_blank} page. This can also be checked by checking session.nextKeys in the chain state for an existing key.
+
 ### Existing Recovery Information
 
+Currently, Polkadot does not use the [Recovery Pallet](https://github.com/paritytech/polkadot-sdk/tree/master/substrate/frame/recovery){target=_\blank}, so this is probably not the reason for your tokens having existing references.
+
 ### Existing Non-Native Assets
+
+Currently, Polkadot does not use the [Assets Pallet](https://github.com/paritytech/polkadot-sdk/tree/master/substrate/frame/assets){target=\_blank}, so this is probably not the reason for your tokens having existing references.

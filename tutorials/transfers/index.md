@@ -184,8 +184,66 @@ Asset teleportation is the simpler method of the two for sending assets from one
 
 For further information on how to teleport tokens, please refer to the [Polkadot-JS UI: How to Teleport DOT or KSM to Asset Hub](https://support.polkadot.network/support/solutions/articles/65000181119-how-to-teleport-dot-or-ksm-between-statemint-or-statemine){target=\_blank} guide or the [Teleporting | Technical Explainers](https://www.youtube.com/watch?v=3tE9ouub5Tg){target=\_blank} educational video.
 
-
 ## Calculating Fees
+
+To calculate fees for a transaction, you can follow these steps:
+
+1. Navigate to the Runtime Calls section of the Polkadot.Js App interface:
+       1. Click on the **Developer** tab
+       2. Select **Runtime Calls** from the dropdown menu:
+
+    ![Developer Tab](/images/tutorials/transfers/calculating-fees/calculating-fees-1.webp)
+
+2. Create the runtime call:
+      1. Chosse the **transactionPaymentApi** endpoint from the list of endpoints
+      2. Select the **queryInfo** call from the list of calls
+
+    ![Query Info](/images/tutorials/transfers/calculating-fees/calculating-fees-2.webp)
+
+3. Fill in the required fills:
+      1. **utx** - the extrinsic you want to calculate the fee for. This input should be provided in hex format
+      2. **length** - the length of the extrinsic in bytes. This input should be provided in decimal format
+      3. Click on the **Submit Runtime Call** button to proceed
+
+    ![Query Info Form](/images/tutorials/transfers/calculating-fees/calculating-fees-3.webp)
+
+    !!! note
+        For this tutorial, the **utx** used is:
+
+        ```bash
+         0x49028400e4eb07054edd868d0a942b63a879c47d8aac0525e900024570ea79e7dde2790f018efdb69239f8a3ef8eda42f9321e728cd2f08e2b441bb51d0e57305b9b962429d0039d9f2f86b9c177f6eb607a7eb9f6d03d5ae4c75183dcffca3f201885218c55000c0000050300341019c16ab6492c109bdd3d54ffbc847effcbf1a043a6c63b343a3dab3c89150b005039278c04
+        ```
+
+        Which is the extrinsic for a transfer transaction. The **length** of this extrinsic is `152` bytes.
+
+4. Check the result of the runtime call to get the fee for the transaction:
+
+    ![Query Info Result](/images/tutorials/transfers/calculating-fees/calculating-fees-4.webp)
+
+Alternatively, you can query to **queryFeeDetails** call to get more information about the fee calculation:
+
+![Query Fee Details](/images/tutorials/transfers/calculating-fees/calculating-fees-5.webp)
+
+The sum of **baseFee**, **lenFee** and **adjustedWeightFee** will yield the **partialFee**.
+
+One useful utility for estimating transaction fees programmatically is the via the [@polkadot/api](https://www.npmjs.com/package/@polkadot/api){target=\_blank}. The following script demonstrates how to calculate the fee for a transfer transaction:
+
+```javascript
+// Estimate the fees as RuntimeDispatchInfo using the signer
+const info = await api.tx.balances.transfer(recipient, 123).paymentInfo(sender);
+
+// Log relevant info, partialFee is Balance, estimated for current
+console.log(`
+  class=${info.class.toString()},
+  weight=${info.weight.toString()},
+  partialFee=${info.partialFee.toHuman()}
+`);
+```
+
+
+
+
+
 
 ## Existing Reference Errors
 

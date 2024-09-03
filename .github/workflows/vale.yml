@@ -1,0 +1,16 @@
+name: Vale Review
+
+on:
+  pull_request:
+    branches: main
+
+jobs:
+  vale-review-docs:
+    permissions:
+      pull-requests: write
+    uses: papermoonio/polkadot-mkdocs/.github/workflows/vale.yml@main
+    with:
+      repo: ${{ github.repository }}
+      pr_number: ${{ github.event.pull_request.number }}
+    secrets:
+      GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}

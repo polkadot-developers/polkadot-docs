@@ -133,7 +133,7 @@ If you are using the Polkadot.Js UI, when there are DOT available to vest for an
 
 #### Calculating When Vesting Tokens Will Be Available
 
-You can check the status of your DOT vesting by reviewing your accounts, which will show when the vesting period ends. However, some DOT vesting involves "cliffs," where all the tokens are released simultaneously in a single block rather than gradually over time. In these cases, you'll need to directly query the chain state to determine when your tokens will be available, as the vesting period hasn’t technically begun yet—it will occur entirely in one future block.
+You can check the status of your DOT vesting by reviewing your accounts, which will show when the vesting period ends. However, some DOT vesting involves "cliffs", where all the tokens are released simultaneously in a single block rather than gradually over time. In these cases, you'll need to directly query the chain state to determine when your tokens will be available, as the vesting period hasn’t technically begun yet—it will occur entirely in one future block.
 
 1. Navigate to the Chain State page on Polkadot.Js  
    ![Chain State Page](/images/tutorials/transfers/vested-transfers/vested-transfers-6.webp)

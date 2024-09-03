@@ -248,7 +248,7 @@ console.log(`
 ```
 ## Existing Reference Errors
 
-If you are trying to reap an account and receive an error like, `There is an existing reference count on the sender account. As such, the account cannot be reaped from the state`, so you have existing references to this account that must be removed before it can be reaped. References may still exist from:
+If you're trying to reap an account and see an error such as `There is an existing reference count on the sender account`, the account cannot be reaped from the state. It indicates that existing references to this account need to be removed before it can be reaped. These references might still exist from:
 
 - Bonded tokens (most likely)
 - Unpurged session keys (if you were previously a validator)

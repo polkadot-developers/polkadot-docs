@@ -19,7 +19,7 @@ Endpoints for all production and test networks are listed on the
 [here](https://github.com/polkadot-js/apps/tree/master/packages/apps-config/src/endpoints).
 Endpoints for Polkadot Relay Chain and Kusama Relay Chain, parachains, and Paseo test network are
 maintained by the community. System Chains as well as Westend and Rococo test network endpoints
-maintained by Parity Technologies are listed below:
+maintained by Parity Technologies are listed below (with the exception of [Paseo](https://github.com/paseo-network), which is maintained by the wider community):
 
 
 === "Polkadot"
@@ -44,6 +44,7 @@ maintained by Parity Technologies are listed below:
     | ------- | ----------------------------- |
     | Westend | wss://westend-rpc.polkadot.io |
     | Rococo  | wss://rococo-rpc.polkadot.io  |
+    | Paseo   | wss://paseo-rpc.dwellir.com   |
 
 
 ### Third Party Providers

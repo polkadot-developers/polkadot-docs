@@ -32,32 +32,25 @@ Because it provides a complete inventory of the runtime of a chain, the metadata
 
 ## Generating Metadata
 
-To efficiently use the blockchain's networking resources and minimize the transmission data over the network, the metadata schema is encoded using the [SCALE codec library](https://github.com/paritytech/parity-scale-codec?tab=readme-ov-file#parity-scale-codec){target=\_blank}.
+To efficiently use the blockchain's networking resources and minimize the transmission data over the network, the metadata schema is encoded using the [Parity SCALE Codec](https://github.com/paritytech/parity-scale-codec?tab=readme-ov-file#parity-scale-codec){target=\_blank}.
 This encoding is done automatically through the [`scale-info`](https://docs.rs/scale-info/latest/scale_info/){target=\_blank}crate.
 
 At a high level, generating the metadata involves the following steps:
 
 - The pallets in the runtime logic exposes callable functions, types, parameters, and documentation that need to be encoded in the metadata
-
 - The `scale-info` crate collects type information for the pallets in the runtime and builds a registry of the pallets that exist in a particular runtime and the relevant types for each pallet in the registry. The type information is detailed enough to enable encoding and decoding for every type
-
 - The [`frame-metadata`](https://github.com/paritytech/frame-metadata){target=\_blank} crate describes the structure of the runtime based on the registry provided by the `scale-info` crate
-
 - Nodes provide the RPC method `state_getMetadata` to return a complete description of all the types in the current runtime as a hex-encoded vector of SCALE-encoded bytes
 
 ## Getting Metadata for a Runtime
 
-There are several ways you can get the metadata for a runtime.
-For example, you can do any of the following:
-
-- Use the [Polkadot Portal](https://polkadot.js.org/apps/#/rpc){target=\_blank} to connect to a blockchain or node and select the **state** endpoint and the **getMetadata** method to return the metadata in JSON format.
-- Use the command-line `polkadot-js-api` to call the `state_getMetadata` RPC method to return the metadata as a hex-encoded vector of SCALE-encoded bytes.
-- Use the `subxt metadata` command to download the metadata in JSON, hex, or raw bytes.
-- Use the `sidecar` API and `/runtime/metadata` endpoint to connect to a node and retrieve the metadata in JSON format.
-
 The type information provided by the metadata enables applications to communicate with nodes with different versions of the runtime and across chains that expose different calls, events, types, and storage items.
 The metadata also allows libraries to generate a substantial portion of the code needed to communicate with a given node, enabling libraries like [`subxt`](https://github.com/paritytech/subxt){target=\_blank} to generate front-end interfaces that are specific to a target chain.
 
+
+### Using Polkadot JS
+
+Use the [Polkadot JS Portal](https://polkadot.js.org/apps/#/rpc){target=\_blank} to connect to a blockchain or node and select the **state** endpoint and the **getMetadata** method to return the metadata in JSON format.
 
 ### Using `curl` For Metadata Retrieval
 
@@ -166,6 +159,6 @@ A standard node comes with the following APIs to interact with a node:
 
 ## Where to go next
 
-- [View Subxt's Tool for looking at metadata](https://paritytech.github.io/subxt-explorer/#/){target=\_blank}
-- [Generate a metadata QR code](https://github.com/paritytech/metadata-portal){target=\_blank}
-- [Get backwards-compatible metadata (desub)](https://github.com/paritytech/desub){target=\_blank}
+- [Subxt Explorer](https://paritytech.github.io/subxt-explorer/#/){target=\_blank}
+- [Metadata Portal 🌗](https://github.com/paritytech/metadata-portal){target=\_blank}
+- [De[code] Sub[strate]](https://github.com/paritytech/desub){target=\_blank}

@@ -32,8 +32,8 @@ Because it provides a complete inventory of the runtime of a chain, the metadata
 
 ## Generating Metadata
 
-To efficiently use the blockchain's networking resources and minimize the transmission data over the network, the metadata schema is encoded using the [SCALE codec library](https://github.com/paritytech/parity-scale-codec?tab=readme-ov-file#parity-scale-codec).
-This encoding is done automatically through the [`scale-info`](https://docs.rs/scale-info/latest/scale_info/) crate.
+To efficiently use the blockchain's networking resources and minimize the transmission data over the network, the metadata schema is encoded using the [SCALE codec library](https://github.com/paritytech/parity-scale-codec?tab=readme-ov-file#parity-scale-codec){target=\_blank}.
+This encoding is done automatically through the [`scale-info`](https://docs.rs/scale-info/latest/scale_info/){target=\_blank}crate.
 
 At a high level, generating the metadata involves the following steps:
 
@@ -42,7 +42,7 @@ At a high level, generating the metadata involves the following steps:
 - The `scale-info` crate collects type information for the pallets in the runtime and builds a registry of the pallets that exist in a particular runtime and the relevant types for each pallet in the registry.
   The type information is detailed enough to enable encoding and decoding for every type.
 
-- The [`frame-metadata`](https://github.com/paritytech/frame-metadata) crate describes the structure of the runtime based on the registry provided by the `scale-info` crate.
+- The [`frame-metadata`](https://github.com/paritytech/frame-metadata){target=\_blank} crate describes the structure of the runtime based on the registry provided by the `scale-info` crate.
 
 - Nodes provide the RPC method `state_getMetadata` to return a complete description of all the types in the current runtime as a hex-encoded vector of SCALE-encoded bytes.
 
@@ -51,34 +51,44 @@ At a high level, generating the metadata involves the following steps:
 There are several ways you can get the metadata for a runtime.
 For example, you can do any of the following:
 
-- Use the [Polkadot Portal](https://polkadot.js.org/apps/#/rpc) to connect to a blockchain or node and select the **state** endpoint and the **getMetadata** method to return the metadata in JSON format.
+- Use the [Polkadot Portal](https://polkadot.js.org/apps/#/rpc){target=\_blank} to connect to a blockchain or node and select the **state** endpoint and the **getMetadata** method to return the metadata in JSON format.
 - Use the command-line `polkadot-js-api` to call the `state_getMetadata` RPC method to return the metadata as a hex-encoded vector of SCALE-encoded bytes.
 - Use the `subxt metadata` command to download the metadata in JSON, hex, or raw bytes.
 - Use the `sidecar` API and `/runtime/metadata` endpoint to connect to a node and retrieve the metadata in JSON format.
 
 The type information provided by the metadata enables applications to communicate with nodes with different versions of the runtime and across chains that expose different calls, events, types, and storage items.
-The metadata also allows libraries to generate a substantial portion of the code needed to communicate with a given node, enabling libraries like [`subxt`](https://github.com/paritytech/subxt) to generate front-end interfaces that are specific to a target chain.
+The metadata also allows libraries to generate a substantial portion of the code needed to communicate with a given node, enabling libraries like [`subxt`](https://github.com/paritytech/subxt){target=\_blank} to generate front-end interfaces that are specific to a target chain.
 
+
+### Using `curl` For Metadata Retrieval
+
+By calling the node's RPC endpoint, the metadata for the network can be fetched.  This request returns the metadata in bytes rather than human-readable JSON:
+
+```sh
+curl -H "Content-Type: application/json" \
+-d '{"id":1, "jsonrpc":"2.0", "method": "state_getMetadata"}' \
+https://rpc.polkadot.io
+```
 
 ### Using `subxt` For Metadata Retrieval
 
-One of the quickest ways is to use `subxt`, which you may use to fetch the metadata of any data in a human-readable JSON format: 
+[`subxt`](https://github.com/paritytech/subxt) may also be used to fetch the metadata of any data in a human-readable JSON format: 
 
 ```sh
 subxt metadata  --url wss://rpc.polkadot.io --format json > spec.json
 ```
 
-Another option is to use the [`subxt` explorer web UI](https://paritytech.github.io/subxt-explorer/#/).
+Another option is to use the [`subxt` explorer web UI](https://paritytech.github.io/subxt-explorer/#/){target=\_blank}.
 
 ## Client Applications and Metadata
 
 Client applications use the metadata to interact with the node, parse responses, and format message payloads sent to the node.
-To use the metadata, client applications must use the [SCALE codec library](https://github.com/paritytech/parity-scale-codec?tab=readme-ov-file#parity-scale-codec) to encode and decode RPC payloads.
+To use the metadata, client applications must use the [SCALE codec library](https://github.com/paritytech/parity-scale-codec?tab=readme-ov-file#parity-scale-codec){target=\_blank} to encode and decode RPC payloads.
 Because the metadata exposes how every type is expected to be decoded, applications can send, retrieve, and process application information without manual encoding and decoding.
 
 ## Metadata Format
 
-Although the SCALE-encoded bytes can be decoded using the `frame-metadata` and [`parity-scale-codec`](https://github.com/paritytech/parity-scale-codec) libraries, there are other tools—such as `subxt` and the Polkadot-JS API—that can convert the raw data to human-readable JSON format.
+Although the SCALE-encoded bytes can be decoded using the `frame-metadata` and [`parity-scale-codec`](https://github.com/paritytech/parity-scale-codec){target=\_blank} libraries, there are other tools—such as `subxt` and the Polkadot-JS API—that can convert the raw data to human-readable JSON format.
 
 The types and type definitions included in the metadata returned by the `state_getMetadata` RPC call depend on the metadata version of the runtime.
 In general, the metadata includes the following information:
@@ -90,37 +100,7 @@ In general, the metadata includes the following information:
 
 The following example illustrates a condensed and annotated section of metadata decoded and converted to JSON:
 
-```json
-[
-  1635018093,
-  {
-    "V14": {
-      "types": {
-        "types": [
-          {
-            // index of types
-          }
-        ]
-      },
-      "pallets": [
-        {
-          // index of pallets and within each pallet the metadata each pallet exposes
-        }
-      ],
-      "extrinsic": {
-        "ty": 126, // the type index identifier that defines the format of an extrinsic
-        "version": 4, // the transaction version used to encode and decode an extrinsic
-        "signed_extensions": [
-          {
-            // index of signed extensions
-          }
-        ]
-      },
-      "ty": 141 // the type ID for the system pallet
-    }
-  }
-]
-```
+--8<-- 'code/application-devs/interact/metadata-format.md'
 
 <!-- todo: signed transactions -> glossary -->
 
@@ -133,42 +113,9 @@ Different extrinsic versions can have different formats, especially when conside
 
 ### Pallets
 
-The following is a condensed and annotated example of a single element in the `pallets` array:
+The following is a condensed and annotated example of a single element in the `pallets` array (the [`sudo`](https://paritytech.github.io/polkadot-sdk/master/pallet_sudo/index.html) pallet):
 
-```json
-{
-  "name": "Sudo",        // name of the pallet
-  "storage": {           // storage information for the pallet
-      "prefix": "Sudo",  // database prefix for the pallet storage items
-      "entries": [
-        {
-          "name": "Key",
-          "modifier": "Optional",
-          "ty": {
-             "Plain": 0
-          },
-          "default": [
-             0
-          ],
-          "docs": [
-             "The `AccountId` of the sudo key."
-          ]
-        }
-      ]
-  },
-  "calls": {       // pallet call types
-      "ty": 117    // type identifier in the types section
-  },
-  "event": {       // pallet event types
-      "ty": 42     // type identifier in the types section
-  },
-  "constants": [], // pallet constants
-  "error": {       // pallet error types
-      "ty": 124    // type identifier in the types section
-          },
-  "index": 8       // index identifier for the pallet in the runtime
-},
-```
+--8<-- 'code/application-devs/interact/sudo-metadata.md'
 
 Every element contains the name of the pallet that it represents and information about its storage, calls, events, and errors.
 You can look up details about the definition of the calls, events, and errors by viewing the type index identifier.
@@ -179,94 +126,7 @@ If you view information for that type identifier in the `types` section of the m
 For example, the following is a condensed excerpt of the calls for the Sudo pallet:
 
 ```json
-    {
-      "id": 117,
-      "type": {
-          "path": [
-              "pallet_sudo",
-              "pallet",
-              "Call"
-          ],
-          "params": [
-            {
-              "name": "T",
-              "type": null
-            }
-          ],
-          "def": {
-              "variant": {
-                  "variants": [
-                    {
-                      "name": "sudo",
-                      "fields": [
-                        {
-                          "name": "call",
-                          "type": 114,
-                          "typeName": "Box<<T as Config>::RuntimeCall>"
-                        }
-                  ],
-                      "index": 0,
-                      "docs": [
-                        "Authenticates the sudo key and dispatches a function call with `Root` origin.",
-                      ]
-                    },
-                    {
-                      "name": "sudo_unchecked_weight",
-                      "fields": [
-                        {
-                          "name": "call",
-                          "type": 114,
-                          "typeName": "Box<<T as Config>::RuntimeCall>"
-                        },
-                        {
-                          "name": "weight",
-                          "type": 8,
-                          "typeName": "Weight"
-                        }
-                      ],
-                      "index": 1,
-                      "docs": [
-                        "Authenticates the sudo key and dispatches a function call with `Root` origin.",
-                      ]
-                    },
-                    {
-                      "name": "set_key",
-                      "fields": [
-                        {
-                          "name": "new",
-                          "type": 103,
-                          "typeName": "AccountIdLookupOf<T>"
-                        }
-                      ],
-                      "index": 2,
-                      "docs": [
-                        "Authenticates the current sudo key and sets the given AccountId (`new`) as the new sudo",
-                      ]
-                    },
-                    {
-                      "name": "sudo_as",
-                      "fields": [
-                        {
-                          "name": "who",
-                          "type": 103,
-                          "typeName": "AccountIdLookupOf<T>"
-                        },
-                        {
-                          "name": "call",
-                          "type": 114,
-                          "typeName": "Box<<T as Config>::RuntimeCall>"
-                        }
-                      ],
-                      "index": 3,
-                      "docs": [
-                        "Authenticates the sudo key and dispatches a function call with `Signed` origin from",
-                        "a given account.",
-                      ]
-                    }
-                  ]
-                }
-              },
-            },
+--8<-- 'code/application-devs/interact/sudo-metadata-calls.json'
 ```
 
 For each field, you can access type information and metadata for the following:
@@ -287,56 +147,7 @@ When decoded, the metadata contains the transaction version and the list of sign
 For example:
 
 ```json
-    "extrinsic": {
-        "ty": 126,
-        "version": 4,
-        "signed_extensions": [
-          {
-            "identifier": "CheckNonZeroSender",
-            "ty": 132,
-            "additional_signed": 41
-          },
-          {
-            "identifier": "CheckSpecVersion",
-            "ty": 133,
-            "additional_signed": 4
-          },
-          {
-            "identifier": "CheckTxVersion",
-            "ty": 134,
-            "additional_signed": 4
-          },
-          {
-            "identifier": "CheckGenesis",
-            "ty": 135,
-            "additional_signed": 11
-          },
-          {
-            "identifier": "CheckMortality",
-            "ty": 136,
-            "additional_signed": 11
-          },
-          {
-            "identifier": "CheckNonce",
-            "ty": 138,
-            "additional_signed": 41
-          },
-          {
-            "identifier": "CheckWeight",
-            "ty": 139,
-            "additional_signed": 41
-          },
-          {
-            "identifier": "ChargeTransactionPayment",
-            "ty": 140,
-            "additional_signed": 41
-          }
-        ]
-      },
-      "ty": 141
-    }
-  }
-]
+--8<-- 'code/application-devs/interact/extrinsic-metadata.json'
 ```
 
 The type system is [composite](https://paritytech.github.io/polkadot-sdk/master/polkadot_sdk_docs/reference_docs/frame_runtime_types/index.html).
@@ -354,32 +165,8 @@ A standard node comes with the following APIs to interact with a node:
 - [`StateApiServer`](https://paritytech.github.io/polkadot-sdk/master/sc_rpc/state/trait.StateApiServer.html): An API to query information about on-chain state such as runtime version, storage items, and proofs.
 - [`SystemApiServer`](https://paritytech.github.io/polkadot-sdk/master/sc_rpc/system/trait.SystemApiServer.html): An API to retrieve information about network state, such as connected peers and node roles.
 
-
-<!-- todo: link offchain worker page -->
-## Connecting to a node
-
-Applications typically connect to Substrate nodes by using JSON-RPC methods through an open HTTP or WebSocket port.
-Most applications use a WebSocket port because a single connection can be used for multiple messages to and from a node.
-With an HTTP connection, applications can only send and receive responses one message at a time.
-The most common reason you would use HTTP to connect to a node is if you want to fetch data using offchain workers.
-
-As an alternative to connecting using RPC, you can use the [Polkadot API (PAPI)](https://github.com/polkadot-api/polkadot-api).
-
-It runs in a browser and allows applications to create their own light client node (via [smoldot](https://github.com/smol-dot/smoldot?tab=readme-ov-file#introduction)) and connect directly to the exposed JSON-RPC endpoint.
-
-## Building front-end applications
-
-The following libraries use the [JSON-RPC API](https://github.com/paritytech/jsonrpsee) to enable applications to interact with nodes:
-
-| Name                                            | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   | Language   |
-|--:----------------------------------------------|--:----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|--:---------|
-| [Polkadot API](https://papi.how)                | Provides a TypeScript toolkit for crafting interactions with Polkadot SDK-based chains. The toolkit includes FRAME utilities, a functional effect system, and a fluent API to facilitate multi-step, multi-chain interactions for end users without compromising performance or safety.                                                                                                                                                                                                                                          | Typescript |
-| [`subxt`](https://github.com/paritytech/subxt/) | Provides a Rust library that generates a statically-typed Rust interface to interact with a node's RPC APIs based on a target chain's metadata. The `subxt`—submit extrinsics—library enables you to build lower-level applications—such as non-browser graphical user interfaces, chain-specific CLIs, or user-facing applications that require type-safe communication between the node and the generated interface—that prevent users from constructing transactions with bad inputs or submitting calls that don't exist. | Rust       |
-
-For more information about the JSON-RPC API and the latest interface specification, see the [JSON-RPC specification](https://paritytech.github.io/json-rpc-interface-spec/).
-
 ## Where to go next
 
-- [View Subxt's Tool for looking at metadata](https://paritytech.github.io/subxt-explorer/#/)
-- [Generate a metadata QR code](https://github.com/paritytech/metadata-portal)
-- [Get backwards-compatible metadata (desub)](https://github.com/paritytech/desub)
+- [View Subxt's Tool for looking at metadata](https://paritytech.github.io/subxt-explorer/#/){target=\_blank}
+- [Generate a metadata QR code](https://github.com/paritytech/metadata-portal){target=\_blank}
+- [Get backwards-compatible metadata (desub)](https://github.com/paritytech/desub){target=\_blank}

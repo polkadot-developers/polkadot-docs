@@ -95,7 +95,7 @@ To perform a vested transfer, you need to follow these steps:
 2. Access the **vesting** pallet and select the **vestedTransfer** function:
       1. Select the **account** from which you want to send the vested transfer
       2. Choose the **vesting** pallet from the list of pallets 
-      3. Select the **vestedTransfer** function from the list of functions
+      3. Select the **vestedTransfer** extrinsic from the list of available extrinsics
    
     ![Vested Transfer Function](/images/tutorials/transfers/vested-transfers/vested-transfers-2.webp)
 

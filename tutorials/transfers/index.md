@@ -88,7 +88,7 @@ To perform a vested transfer, you need to follow these steps:
 
 1.  Navigate to the Extrinsics section of the Polkadot.Js App interface:
        1. Click on the **Developer** tab
-       2. Select **Extrinsics** from the dropdown menu:
+       2. Select **Extrinsics** from the dropdown menu
 
     ![Developer Tab](/images/tutorials/transfers/vested-transfers/vested-transfers-1.webp)
 

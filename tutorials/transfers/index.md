@@ -122,7 +122,7 @@ To perform a vested transfer, you need to follow these steps:
 
 #### Lazy Vesting
 
-Vesting is lazy, meaning that someone must explicitly call an extrinsic to update the lock placed on an account.
+Vesting is lazy, meaning that someone must explicitly call an extrinsic to update the lock placed on an account. There is a set of extrinsics that allow you to perform this action:
 
 - The `vest` extrinsic will update the lock that is placed on the caller
 - The `vest_other` will update the lock on another "target" account's funds

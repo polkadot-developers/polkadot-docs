@@ -116,7 +116,7 @@ To perform a vested transfer, you need to follow these steps:
 
     ![Vested Transfer Confirmation](/images/tutorials/transfers/vested-transfers/vested-transfers-4.webp)
 
-5. To confirm that the transaction was successful, you can navigate to the **Accounts** tab and check the **locked** balances of the receiver's account (if the **startingBlock** has not been reached yet) or the **vested** balances (if the **startingBlock** has been reached):
+5. To confirm that the transaction was successful, navigate to the **Accounts** tab and check the receiver's account. Look for **locked** balances if the starting block hasn't been reached yet or **vested** balances if it has.
 
     ![Accounts Tab - Locked Balances](/images/tutorials/transfers/vested-transfers/vested-transfers-5.webp)
 

@@ -124,8 +124,8 @@ To perform a vested transfer, you need to follow these steps:
 
 Vesting is lazy, meaning that someone must explicitly call an extrinsic to update the lock placed on an account.
 
-- The `vest` extrinsic will update the lock that is placed on the caller.
-- The `vest_other` will update the lock on another "target" account's funds.
+- The `vest` extrinsic will update the lock that is placed on the caller
+- The `vest_other` will update the lock on another "target" account's funds
 
 These extrinsics are exposed from the `vesting` pallet.
 

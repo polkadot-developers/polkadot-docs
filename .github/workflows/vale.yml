@@ -2,7 +2,7 @@ name: Vale Review
 
 on:
   pull_request:
-    branches: main
+    branches: master
 
 jobs:
   vale-review-docs:

@@ -149,7 +149,7 @@ You can check the status of your DOT vesting by reviewing your accounts, which w
 
     ![Query Chain State Result](/images/tutorials/transfers/vested-transfers/vested-transfers-8.webp)
  
-4. To calculate when the vesting will be available in “human time", remember that there are approximately 14’400 blocks per day, and you can see the latest block on the Explorer page:
+4. To calculate when the vesting will be available in “human time", remember that there are approximately 14,400 blocks per day, and you can see the latest block on the Explorer page:
 
     For instance, this example shows that the vesting will start at block 22,400,500, and the current block is 22,359,749 (as shown on the Explorer page). The difference between these two blocks is 40,751 blocks. If you divide this number by 14,400, you will get the number of days until the vesting starts, which in this case is 2.83 days.
 

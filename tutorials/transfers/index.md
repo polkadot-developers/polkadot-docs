@@ -127,7 +127,7 @@ Vesting is lazy, meaning that someone must explicitly call an extrinsic to updat
 - The `vest` extrinsic will update the lock that is placed on the caller.
 - The `vest_other` will update the lock on another "target" account's funds.
 
-These extrinsics are exposed from the Vesting pallet.
+These extrinsics are exposed from the `vesting` pallet.
 
 If you are using the Polkadot.Js UI, when there are DOT available to vest for an account, then you will have the ability to unlock DOT that has already vested from the Accounts page.
 

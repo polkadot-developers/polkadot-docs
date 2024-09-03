@@ -29,6 +29,9 @@ To update the metadata of the Polkadot.Js Browser Extension, follow these steps:
 
 Now that the metadata is updated, you can proceed with transferring and managing funds on the Polkadot network.
 
+!!! note
+    Note that this process is necessary not only for the Polkadot.Js Browser Extension but also for any other wallet or interface that you use to interact with the Polkadot network. Ensure the metadata is updated to avoid issues when sending transactions or interacting with the network.
+
 ## Transfers
 
 ### Sending Funds

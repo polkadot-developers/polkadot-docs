@@ -36,7 +36,7 @@ Now that the metadata is updated, you can proceed with transferring and managing
 
 ### Sending Funds
 
-Whether your account is in the Polkadot Browser Extension or created/added directly on the Polkadot-JS UI, you can use the Polkadot-JS UI interface to send funds or issue any extrinsic. The Polkadot extension is an account manager, not a wallet, requiring a UI to interact with.
+Whether your account is in the Polkadot Browser Extension or created/added directly on the Polkadot.Js UI, you can use the Polkadot.Js UI interface to send funds or issue any extrinsic. The Polkadot extension is an account manager, not a wallet, requiring a UI to interact with.
 
 To send funds using the Polkadot.Js Browser Extension, follow these steps:
 
@@ -65,7 +65,7 @@ To send funds using the Polkadot.Js Browser Extension, follow these steps:
     ![Explorer Tab](/images/tutorials/transfers/sending-funds/sending-funds-4.webp)
 
 !!! note
-    Sending funds can be done in many ways, such as using the Polkadot-JS UI, the Polkadot-JS API, or even the built-in features of different wallets. The Polkadot-JS UI is one of the many ways to send funds to the Polkadot network.
+    Sending funds can be done in many ways, such as using the Polkadot.Js UI, the Polkadot.Js API, or even the built-in features of different wallets. The Polkadot.Js UI is one of the many ways to send funds to the Polkadot network.
 
 ### Extrinsics Verification
 

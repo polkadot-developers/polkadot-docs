@@ -48,7 +48,7 @@ To send funds using the Polkadot.Js Browser Extension, follow these steps:
       1. **send from account** - select the account from which you want to send funds
       2. **send to address** - enter the recipient's address
       3. **amount** - enter the amount of funds you want to send
-      4. **transfer with account keep-alive checks** - enable this option if you want to keep the account alive
+      4. **transfer with account keep-alive checks** - enable this option if you want to keep the account alive. For more information on keep-alive checks, refer to the [Keep Alive Checks](#keep-alive-checks) section
       5. Click on the button **Make Transfer** to proceed:
 
     ![Transfer Form](/images/tutorials/transfers/sending-funds/sending-funds-2.webp)

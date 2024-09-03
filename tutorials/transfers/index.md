@@ -262,7 +262,7 @@ If you have tokens that are bonded, you will need to unbond them before you can 
 
 ### Checking for Locks
 
-For further information about locks on your account or remove them, you can check out the [Learn How You Can Free Funds - Deep Dive into Polkadot's Locks](https://www.youtube.com/watch?v=LHgY7ds_bZ0){target=_\blank} educational video and the [Why Can't I Transfer My DOT?](https://support.polkadot.network/support/solutions/articles/65000169437-why-can-t-i-transfer-tokens-){target=\_blank} guide.
+For further information about locks on your account or how to remove them, you can check out the [Learn How You Can Free Funds - Deep Dive into Polkadot's Locks](https://www.youtube.com/watch?v=LHgY7ds_bZ0){target=_\blank} educational video and the [Why Can't I Transfer My DOT?](https://support.polkadot.network/support/solutions/articles/65000169437-why-can-t-i-transfer-tokens-){target=\_blank} guide.
 
 ### Purging Session Keys
 

@@ -77,8 +77,8 @@ For further information on how to verify extrinsics, please refer to the [How Ca
 
 In Polkadot, there are two main ways to transfer funds from one account to another:
 
-- Transfer `keep-alive` - (the default option) will not allow you to send an amount that would allow the sending account to be removed because it falls below the existential deposit.
-- Transfer `allow-death` - will allow you to send tokens regardless of the consequences. If the balance drops below the existential deposit, your account will be reaped. You may not want to keep the account alive, for example, if you are moving all of your funds to a different address. To turn off the keep-alive check, please visit the [Error: 'balances.KeepAlive'](https://support.polkadot.network/support/solutions/articles/65000169248){target=\_blank} guide.
+- Transfer `keep-alive` - (the default option) will not allow you to send an amount that would allow the sending account to be removed because it falls below the existential deposit
+- Transfer `allow-death` - will allow you to send tokens regardless of the consequences. If the balance drops below the existential deposit, your account will be reaped. You may not want to keep the account alive, for example, if you are moving all of your funds to a different address. To turn off the keep-alive check, please visit the [Error: 'balances.KeepAlive'](https://support.polkadot.network/support/solutions/articles/65000169248){target=\_blank} guide
 
 ### Vested Transfers
 

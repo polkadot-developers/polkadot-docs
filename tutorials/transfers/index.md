@@ -11,19 +11,19 @@ Before you start using the [Polkadot.Js Browser Extension](https://polkadot.js.o
 
 To update the metadata of the Polkadot.Js Browser Extension, follow these steps:
 
-1. Access the Polkadot.Js App interface and click on the **Settings** tab:
+1. Access the Polkadot.Js App interface and click on the **Settings** tab
 
     ![Settings Tab](/images/tutorials/transfers/metadata-update/metadata-update-1.webp)
 
-2. Click on the **Metadata** tab:
+2. Click on the **Metadata** tab
 
     ![Metadata Tab](/images/tutorials/transfers/metadata-update/metadata-update-2.webp)
 
-3. If there are any updates available, click on the **Update metadata** button:
+3. If there are any updates available, click on the **Update metadata** button
 
     ![Update Metadata Button](/images/tutorials/transfers/metadata-update/metadata-update-3.webp)
 
-4. A pop-up window will appear to confirm the update. Click on the **Yes, I do this metadata update** button to allow the extension to update the metadata:
+4. A pop-up window will appear to confirm the update. Click on the **Yes, I do this metadata update** button to allow the extension to update the metadata
 
     ![Update Metadata Confirmation](/images/tutorials/transfers/metadata-update/metadata-update-4.webp)
 
@@ -40,7 +40,7 @@ Whether your account is in the Polkadot Browser Extension or created/added direc
 
 To send funds using the Polkadot.Js Browser Extension, follow these steps:
 
-1. Using the Polkadot.Js App interface, click on the **Accounts** tab and select **Transfer** from the dropdown menu:
+1. Using the Polkadot.Js App interface, click on the **Accounts** tab and select **Transfer** from the dropdown menu
 
     ![Accounts Tab](/images/tutorials/transfers/sending-funds/sending-funds-1.webp)
 
@@ -49,18 +49,18 @@ To send funds using the Polkadot.Js Browser Extension, follow these steps:
       2. **send to address** - enter the recipient's address
       3. **amount** - enter the amount of funds you want to send
       4. **transfer with account keep-alive checks** - enable this option if you want to keep the account alive. For more information on keep-alive checks, refer to the [Keep Alive Checks](#keep-alive-checks) section
-      5. Click on the button **Make Transfer** to proceed:
+      5. Click on the button **Make Transfer** to proceed
 
     ![Transfer Form](/images/tutorials/transfers/sending-funds/sending-funds-2.webp)
 
     !!!warning
         The transaction fees will be deducted from the leftover funds in your account. If you don't leave enough funds in your account for the fees, your transaction will fail due to "insufficient balance". Ensure to leave enough funds in your account to cover the transaction fees. If you want to send all the funds in your account, please refer to the [How to Send All of Your Funds Out of Your Account](https://support.polkadot.network/support/solutions/articles/65000170293){target=\_blank} guide.
 
-3. A pop-up window will appear to confirm the transfer. Click on the **Sign and Submit** button to authorize the transaction:
+3. A pop-up window will appear to confirm the transfer. Click on the **Sign and Submit** button to authorize the transaction
 
     ![Transfer Confirmation](/images/tutorials/transfers/sending-funds/sending-funds-3.webp)
 
-4. To confirm that the transaction was successful, you can check the **Explorer** tab and search that the event **Transfer** has been emitted:
+4. To confirm that the transaction was successful, you can check the **Explorer** tab and search that the event **Transfer** has been emitted
 
     ![Explorer Tab](/images/tutorials/transfers/sending-funds/sending-funds-4.webp)
 
@@ -112,7 +112,7 @@ To perform a vested transfer, you need to follow these steps:
     !!! note
         The above image shows how to perform a cliff vesting transfer, since **locked** and **perBlock** are the same. If you want to perform a linear vesting transfer, you should calculate the **perBlock** value based on the total amount of funds and the duration of the vesting period. For example, if you want to release 100 DOT over a period of 10 blocks, the **perBlock** value should be 10 DOT.
 
-4. After submitting the transaction, a pop-up window will appear to confirm the transfer. Click on the **Sign and Submit** button to authorize the transaction:
+4. After submitting the transaction, a pop-up window will appear to confirm the transfer. Click on the **Sign and Submit** button to authorize the transaction
 
     ![Vested Transfer Confirmation](/images/tutorials/transfers/vested-transfers/vested-transfers-4.webp)
 
@@ -149,7 +149,7 @@ You can check the status of your DOT vesting by reviewing your accounts, which w
 
     ![Query Chain State Result](/images/tutorials/transfers/vested-transfers/vested-transfers-8.webp)
  
-4. To calculate when the vesting will be available in “human time", remember that there are approximately 14,400 blocks per day, and you can see the latest block on the Explorer page:
+4. To calculate when the vesting will be available in “human time", remember that there are approximately 14,400 blocks per day, and you can see the latest block on the Explorer page
 
     For instance, this example shows that the vesting will start at block 22,400,500, and the current block is 22,359,749 (as shown on the Explorer page). The difference between these two blocks is 40,751 blocks. If you divide this number by 14,400, you will get the number of days until the vesting starts, which in this case is 2.83 days.
 
@@ -159,7 +159,7 @@ Batch transfers are balance transfers to multiple accounts executed by one accou
 
 1. Navigate to the Extrinsics section of the Polkadot.Js App interface:
        1. Click on the **Developer** tab
-       2. Select **Extrinsics** from the dropdown menu:
+       2. Select **Extrinsics** from the dropdown menu
 
     ![Developer Tab](/images/tutorials/transfers/batch-transfers/batch-transfers-1.webp)
 
@@ -170,7 +170,7 @@ Batch transfers are balance transfers to multiple accounts executed by one accou
     ![Batch Transfer Function](/images/tutorials/transfers/batch-transfers/batch-transfers-2.webp)
 
 3. Create the batch transfer call by adding the following fields:
-      1. **calls** - an array of calls to be executed in the batch. Each call should be an array with the following fields:
+      1. **calls** - an array of calls to be executed in the batch. Each call should be an array with the following fields
         - **call** - the call to be executed. In this case, it should be the **balances.transferKeepAlive** call
         - **dest** - the destination account of the transfer
         - **value** - the amount of funds to be transferred
@@ -196,7 +196,7 @@ To calculate fees for a transaction, you can follow these steps:
 
 1. Navigate to the Runtime Calls section of the Polkadot.Js App interface:
        1. Click on the **Developer** tab
-       2. Select **Runtime Calls** from the dropdown menu:
+       2. Select **Runtime Calls** from the dropdown menu
 
     ![Developer Tab](/images/tutorials/transfers/calculating-fees/calculating-fees-1.webp)
 
@@ -223,7 +223,7 @@ To calculate fees for a transaction, you can follow these steps:
         This is the encoded extrinsic for a transfer transaction. It is 152 bytes long.
 
 
-4. Check the result of the runtime call to get the fee for the transaction:
+4. Check the result of the runtime call to get the fee for the transaction
 
     ![Query Info Result](/images/tutorials/transfers/calculating-fees/calculating-fees-4.webp)
 

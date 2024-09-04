@@ -98,3 +98,41 @@ Proxy calls are the mechanism used by proxy accounts to invoke actions on behalf
 In the case of pure proxies, any attempt to directly sign transactions with the proxy account will fail. Instead, the proxy must use the appropriate proxy call extrinsics to interact with the network on behalf of the proxied account.
 
 For more details on pure proxy accounts, see the dedicated [Pure Proxy Accounts](/polkadot-docs/tutorials/accounts/pure-proxy-accounts.md) section.
+
+### Nested Proxy Calls
+
+Nested proxy calls refer to the concept of proxy calls within proxy calls. This scenario arises when the proxied account is itself a proxy account.
+
+Consider the example illustrated in the diagram below:
+
+```mermaid
+%%{
+  init: {
+    'themeVariables': {
+      'lineColor': '#FF2670'
+    }
+  }
+}%%
+graph LR;
+  A[Bob] -->|proxy.proxy| B[Charly];
+  A ~~~|"Any Proxy"| A;
+  B -->|proxy.proxy| C[P-C];
+  B ~~~|"Any Proxy"| B
+  C -->|proxy.proxy| D[Alice];
+  C ~~~|"Staking Proxy"| C
+  D ~~~|"Any Proxy"| D
+
+classDef default fill:#FF2670,stroke-width:2px,color:#fff;
+classDef active fill:#FF2670,stroke-width:2px,color:#fff;
+
+linkStyle default stroke:#FF2670,stroke-width:1.5px,color:#FF2670,fill:none !important;
+```
+
+Alice has a stash account that has a staking proxy account, P-C. P-C is a pure proxy, originally spawned by Charly and now an any proxy acting on P-C's behalf.
+
+To bond more funds, Charly needs to submit a `proxy.proxy` extrinsic to P-C. P-C will then submit a `proxy.proxy` extrinsic to Alice's account, including a `staking.bondExtra` extrinsic that specifies the extra tokens to be bonded.
+
+If Charly wants to leave, a new account can take their place as the any proxy of P-C, without the need to change the staking proxy account P-C. Alice is the only one who can remove P-C as the staking proxy, and P-C can only perform staking-related tasks, not send funds out of Alice's account.
+
+In the example diagram, submitting the proxy call from P-C to Alice will automatically request Charly's signature, as Charly is the only any proxy of P-C, and P-C cannot sign anything on its own.
+However, if you want to use Bob's account instead of Charly's, you would need to submit all three proxy calls individually.

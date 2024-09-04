@@ -16,7 +16,7 @@ An authority is a generic term for the role in a blockchain that can participate
 
 ## Authority Round (Aura)
 
-Deterministic [consensus](#consensus) protocol where [block](#block) production is limited to a rotating list of [authorities](#authority) that take turns creating blocks.
+A deterministic [consensus](#consensus) protocol where block production is limited to a rotating list of [authorities](#authority) that take turns creating blocks.
 With authority round (Aura) consensus, the majority of online authorities are assumed to be honest.
 
 Learn more by reading [the official wiki article](https://openethereum.github.io/Aura) for the Aura consensus algorithm.

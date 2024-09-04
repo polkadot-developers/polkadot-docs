@@ -71,7 +71,7 @@ To submit a proposal on the Whitelisted Caller track, follow these steps:
 1. Construct the extrinsic you want to execute and submit the preimage:
     1. Select the **whitelist** pallet
     2. Choose the **dispatchWhitelistedCallWithPreimage** extrinsic
-    3. Build the `call` you want to execute and fill the parameters
+    3. Build the `call` you want to execute and fill the parameters - this example uses `configuration.setMaxValidators(1000)`
     4. Copy the preimage hash -
     the preimage hash for this example is `0xb2dc8750d1736510a329cf9f7e74cd58376d451d33109807a2909ae30e8a72cf`
     5. Click the **+ Submit preimage** button

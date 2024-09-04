@@ -23,4 +23,20 @@ For further information, refer to the [How to use a multisig account](https://su
 
 ### Using the Extrinsics Tab
 
+There are four types of actions you can take with a multisig account:
+
+- Executing a call `asMulti`. This is used to begin or end a multisig transaction
+- Approving a call `approveAsMulti`. This is used to approve an extrinsic and pass on to the next signatory
+- Immediately dispatch a multi-signature call using a single approval from the caller `asMultiThreshold1`
+- Cancelling a call `cancelAsMulti`
+
+To check out this method, navigate to the [Extrinsics tab](https://polkadot.js.org/apps/#/extrinsics){target=\_blank} on the Polkadot.js user interface and choose the *multisig* pallet. You can then select the desired action from the dropdown menu.
+
+![Multisig Extrinsics](/images/tutorials/accounts/multisig/multisig-accounts-1.webp)
+
+For further information, watch the [Polkadot Bounties, Multisigs, & Proxies](https://www.youtube.com/watch?v=Qv_nJVcvQr8&t=2109s){target=\_blank} video tutorial. Also, you can refer to the source code of the [multisig pallet](https://github.com/paritytech/substrate/blob/master/frame/multisig/src/lib.rs){target=\_blank} or the [pallet_multisig](https://docs.openzeppelin.com/substrate-runtimes/1.0.0/pallets/multisig){target=\_blank} documentation on the [OpenZeppelin website](https://docs.openzeppelin.com/){target=\_blank}.
+
+!!! note
+    To execute a single approval from the caller, you can use the `asMultiThreshold1` function. This method can also be executed and tested through the [txwrapper-core](https://github.com/paritytech/txwrapper-core){target=\_blank} library. For further details, refer to the [Multisig example](https://github.com/paritytech/txwrapper-core/tree/main/packages/txwrapper-examples/multisig){target=\_blank} on the txwrapper-core GitHub repository.
+
 ## Decoding a Multisig Call Data

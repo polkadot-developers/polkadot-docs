@@ -51,7 +51,7 @@ To submit a proposal, follow these steps:
 3. Fill in the parameters and submit it:
     1. Select the account from which the proposal will be registered. The balance lock will be applied to this account
     2. Choose your proposal's origin (and, by extension, the track). Each track has different durations, privileges, and acceptance criteria
-    3. Enter the preimage hash obtained in previous steps. The preimage length field will be automatically populated
+    3. Enter the preimage hash obtained in the previous steps. The preimage length field will be automatically populated
     4. Select the enactment delay. This can be specified either as a block number or as a specific number of blocks after the referendum is approved
     5. Click the **Submit proposal** button
     ![](/images/tutorials/governance/opengov/create-a-referenda/create-a-referenda-6.webp)

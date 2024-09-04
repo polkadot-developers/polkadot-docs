@@ -46,7 +46,7 @@ To submit a proposal, follow these steps:
 
 1. Navigate to the **Governance** dropdown and select **Referenda**
     ![](/images/tutorials/governance/opengov/create-a-referenda/create-a-referenda-4.webp)
-2. Click in the **+ Submit proposal** button
+2. Click on the **+ Submit proposal** button
     ![](/images/tutorials/governance/opengov/create-a-referenda/create-a-referenda-5.webp)
 3. Fill in the parameters and submit it:
     1. Select the account from which the proposal will be registered. The balance lock will be applied to this account

@@ -1,4 +1,5 @@
 name: Vale Review
+description: "This action runs Vale to review documentation for grammar and style issues on pull requests to the master branch."
 
 on:
   pull_request:

@@ -45,4 +45,8 @@ For further information about clearing and killing an identity, refer to the [Ho
 
 ## Setting a Sub-Identity
 
+Sub-identities are identities that are linked to a primary identity. This might be useful for organizations or individuals who need to manage different identities under a single account. Sub-identities can be created by submitting a sub-identity request to the registrar.
+
+To set a sub-identity, follow the steps outlined in the [Steps to set a sub-identity](https://support.polkadot.network/support/solutions/articles/65000181991-how-to-set-identities-for-sub-accounts#Steps-to-set-a-sub-identity){target=\_blank} guide on the Polkadot support page.
+
 ## Registrars

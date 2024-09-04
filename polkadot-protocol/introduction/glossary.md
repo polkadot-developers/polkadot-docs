@@ -1,45 +1,44 @@
 ---
 title: Glossary
-description: Glossary of terms used within the Polkadot ecosystem.
+description: Glossary of terms used within the Polkadot ecosystem, Polkadot SDK, its subsequent libraries, and other relevant web3 terminology.  
 ---
 
 This glossary defines and explains concepts and terminology specific to blockchain technology within the Polkadot ecosystem.
 
-Other useful glossaries throughout the ecossytem can be found below:
+Other useful glossaries throughout the ecosystem can be found below:
 
 - [Polkadot Wiki Glossary](https://wiki.polkadot.network/docs/glossary)
 - [Polkadot SDK Glossary](https://paritytech.github.io/polkadot-sdk/master/polkadot_sdk_docs/reference_docs/glossary/index.html)
 
 ## Authority
 
-An authority is a generic term for the role in a blockchain that can participate in the consensus mechanism(s). In [GRANDPA](#grandpa), the authorities vote on chains they consider final. In [BABE](#blind-assignment-of-blockchain-extension-babe), the authorities are [block authors](#block-author). Authority sets can be chosen to be mechanisms such as Polkadot's [NPoS](#nominated-proof-of-stake-npos) algorithm.
+An authority is a generic term for the role in a blockchain that can participate in the consensus mechanisms. In [GRANDPA](#grandpa), the authorities vote on chains they consider final. In [BABE](#blind-assignment-of-blockchain-extension-babe), the authorities are [block authors](#block-author). Authority sets can be chosen to be mechanisms such as Polkadot's [NPoS](#nominated-proof-of-stake-npos) algorithm.
 
 ## Authority Round (Aura)
 
-Deterministic [consensus](#consensus) protocol where [block](#block) production is limited to a rotating list of [authorities](#authority) that take turns creating blocks.
-With authority round (Aura) consensus, the majority of online authorities are assumed to be honest.
+Deterministic [consensus](#consensus) protocol where block production is limited to a rotating list of [authorities](#authority) that take turns creating blocks.  With authority round (Aura) consensus, the majority of online authorities are assumed to be honest.
 
 Learn more by reading [the official wiki article](https://openethereum.github.io/Aura) for the Aura consensus algorithm.
 
-The Aura protocol is often used in combination with [GRANDPA](#grandpa) as a [hybrid consensus](#hybrid-consensus) protocol where [Aura](#aura) is used for block production and short-term [probabilistic finality](#probabilistic-finality), with [deterministic finality](#deterministic-finality) provided by [GRANDPA](#grandpa).
+The Aura protocol is often used in combination with [GRANDPA](#grandpa) as a [hybrid consensus](#hybrid-consensus) protocol where [Aura](#aura) is used for block production and short-term probabilistic finality, with deterministic finality provided by [GRANDPA](#grandpa).
 
 ## Blind Assignment of Blockchain Extension (BABE)
 
 A [block authoring](#block-author) protocol similar to [Aura](#aura).
-However, with the blind assignment of blockchain extension (BABE) protocol, [authorities](#authority) win [slots](#slot) based on a verifiable random function (VRF) as opposed to the round-robin selection method.
+However, with BABE (Blind Assignment of Blockchain Extension), [authorities](#authority) win [slots](#slot) based on a VRF (verifiable random function) as opposed to the round-robin selection method.
 The winning authority can select a chain and submit a new block for it.
 
 Learn more about BABE by referring to its [official Web3 Foundation research document](https://research.web3.foundation/Polkadot/protocols/block-production/Babe).
 
 ## Block Author
 
-Describes the [node](#node) that is responsible for the creation of a [block](#block).
+Describes the node that is responsible for the creation of a block.
 Block authors are also referred to as _block producers_.
 In a proof-of-work blockchain, these nodes are called _miners_.
 
 ## Byzantine Fault Tolerance (BFT)
 
-Defines the ability of a distributed computer network to remain operational if a certain proportion of its [nodes](#node) or [authorities](#authority) are defective or behaving maliciously.
+Defines the ability of a distributed computer network to remain operational if a certain proportion of its nodes or [authorities](#authority) are defective or behaving maliciously.
 Typically, a distributed network is considered byzantine fault tolerant if it can remain functional with up to one-third of nodes assumed to defective, offline, actively malicious, and acting as part of a coordinated attack.
 
 ### Byzantine Failure
@@ -54,25 +53,24 @@ The communication overhead for such systems is `O(n²)`, where `n` is the number
 ## Call
 
 In a general context, a call describes the act of invoking a function to be executed.
-In the context of pallets that contain functions to be dispatched to the runtime, `Call` is an enumeration data type that describes the functions that can be dispatched with one variant per pallet. The object that a `Call` represents is a [dispatch](#dispatchable) data structure or a dispatchable.
+In the context of pallets that contain functions to be dispatched to the runtime, `Call` is an enumeration data type that describes the functions that can be dispatched with one variant per pallet. The object that a `Call` represents is a [dispatch](#dispatchable) data structure.
 
 ## Chain Specification 
 
-A chain specification is used to define a network built using the Polkadot SDK, and is used by nodes. A chain specification file defines the set of properties that are required to run the node as part of an active, or new, network. It often contains the initial genesis runtime code, network properties (i.e., the name of the network), the initial state for some pallets, and the bootnode list.
+A chain specification is used to define a network built using the Polkadot SDK, and is used by nodes. A chain specification file defines the set of properties that are required to run the node as part of an active, or new, network. It often contains the initial genesis runtime code, network properties (such as the name of the network), the initial state for some pallets, and the bootnode list.
 
 ## Collator
 
 An [author](#block-author) of a [parachain](#parachain) network.
-They are not [authorities](#authority) in themselves, as they require a [relay chain](#relay-chain) to coordinate [consensus](#consensus).
+They aren't [authorities](#authority) in themselves, as they require a [relay chain](#relay-chain) to coordinate [consensus](#consensus).
 More details are found on the [Polkadot Wiki on collators](https://wiki.polkadot.network/docs/learn-collator).
 
 ## Consensus
 
-In the context of a [blockchain](#blockchain), consensus is the process nodes use to agree on the canonical [fork](#fork) of a chain.
-Consensus is comprised of [authorship](#block-author), [finality](#finality), and [fork-choice rule](#fork-choice-rulestrategy).
+In the context of a blockchain, consensus is the process nodes use to agree on the canonical fork of a chain.  Consensus is composed of [authorship](#block-author), [finality](#finality), and [fork-choice rule](#fork-choice-rulestrategy).
 
-In the Substrate ecosystem, these three components are separated from one another, and the term consensus often refers specifically to authorship.
-In the context of a Substrate [node](#node), the term **consensus engine** describes the node subsystem that is responsible for consensus tasks.
+In the Polkadot ecosystem, these are usually three components are separated from one another, and the term consensus often refers specifically to authorship.
+In the context of a Substrate node, the term **consensus engine** describes the node subsystem that is responsible for consensus tasks.
 
 See also [hybrid consensus](#hybrid-consensus).
 
@@ -127,11 +125,11 @@ Events in FRAME are implemented as a set of transient storage items that are ins
 A means of executing a function call in a given [runtime](#runtime) with a set of dependencies.
 There are two orchestration engines in Substrate, _WebAssembly_ and _native_.
 
-- The _native executor_ uses a natively compiled runtime embedded in the [node](#node) to execute calls.
+- The _native executor_ uses a natively compiled runtime embedded in the node to execute calls.
   This is a performance optimization that up-to-date nodes can take advantage of.
 
 - The _WebAssembly executor_ uses a [Wasm](#webassembly-wasm) binary and a Wasm interpreter to execute calls.
-  The binary is guaranteed to be up-to-date regardless of the version of the blockchain [node](#node) because it is persisted in the [state](#state) of the Substrate-based chain.
+  The binary is guaranteed to be up-to-date regardless of the version of the blockchain node because it is persisted in the [state](#state) of the Substrate-based chain.
 
 ## Extrinsic
 
@@ -162,29 +160,23 @@ It is a node that prunes historical states, keeping only recent finalized block 
 
 ## Genesis Configuration
 
-A mechanism for specifying the initial [state](#state) of a [blockchain](#blockchain).
-By convention, this initial state or first block is commonly referred to as the **genesis state** or **genesis block**.
-The genesis configuration for Substrate-based chains is accomplished by way of a [chain specification](#chain-specification) file.
-The chain specification file makes it easy to use a single Substrate codebase as the foundation for multiple independently-configured chains.
+A mechanism for specifying the initial [state](#state) of a blockchain.  By convention, this initial state or first block is commonly referred to as the **genesis state** or **genesis block**.  The genesis configuration for Substrate-based chains is accomplished by way of a [chain specification](#chain-specification) file.  The chain specification file makes it easy to use a single Substrate codebase as the foundation for multiple independently-configured chains.
 
 ## GRANDPA
 
-A [deterministic finality](#deterministic-finality) mechanism for [blockchains](#blockchain) that is implemented in the [Rust](https://www.rust-lang.org/) programming language.
+A deterministic finality mechanism for [blockchains](#blockchain) that is implemented in the [Rust](https://www.rust-lang.org/) programming language.
 The [formal specification](https://github.com/w3f/consensus/blob/master/pdf/grandpa-old.pdf) is
 maintained by the [Web3 Foundation](https://web3.foundation/).
 
 ## Header
 
-The structure that aggregates the information used to summarize a [block](#block).
+The structure that aggregates the information used to summarize a block.
 A header consists primarily of [cryptographic](#cryptographic-primitives) information that is used by [light clients](#light-client) to get a minimally-secure but very efficient
 synchronization of the chain.
 
 ## Hybrid Consensus
 
-A blockchain consensus protocol that consists of independent or loosely-coupled mechanisms for [block production](#block-author) and [finality](#finality).
-Hybrid consensus allows the chain to grow as fast as probabilistic consensus protocols, such as [Aura](#aura-aka-authority-round), while maintaining the same level of security as [deterministic finality](#deterministic-finality) consensus protocols, such as [GRANDPA](#grandpa).
-In general, block production algorithms tend to be faster than finality mechanisms.
-Making block production separate from block finalization gives Substrate developers greater control of their chain's performance.
+A blockchain consensus protocol that consists of independent or loosely-coupled mechanisms for [block production](#block-author) and [finality](#finality).  Hybrid consensus allows the chain to grow as fast as probabilistic consensus protocols, such as [Aura](#aura-aka-authority-round), while maintaining the same level of security as deterministic finality consensus protocols, such as [GRANDPA](#grandpa).  In general, block production algorithms tend to be faster than finality mechanisms.  Making block production separate from block finalization gives Substrate developers greater control of their chain's performance.
 
 ## Inherent Transactions
 
@@ -204,7 +196,7 @@ A subsystem for managing keys for the purpose of producing new blocks.
 
 ## Kusama
 
-[Kusama](https://kusama.network/) is a Substrate-based [blockchain](#blockchain) that implements a design similar to the [Polkadot network](#polkadot-network).
+[Kusama](https://kusama.network/) is a Substrate-based blockchain that implements a design similar to the [Polkadot network](#polkadot-network).
 Kusama is a [canary](https://en.wiktionary.org/wiki/canary_in_a_coal_mine) network and is referred to as [Polkadot's "wild cousin"](https://wiki.polkadot.network/docs/learn-comparisons-kusama).
 As a canary network, Kusama is expected to be more stable than a test network like [Westend](#westend), but not as stable as a production network like [Polkadot](#polkadot).
 
@@ -217,21 +209,13 @@ Substrate uses the [Rust implementation](https://github.com/libp2p/rust-libp2p) 
 
 ## Light Client
 
-A type of blockchain [node](#node) that does not store the [chain state](#state) or produce blocks.
+A type of blockchain node that does not store the [chain state](#state) or produce blocks.
 A light client is capable of verifying [cryptographic primitives](#cryptographic-primitives) and exposes a [remote procedure call (RPC)](https://en.wikipedia.org/wiki/Remote_procedure_call) server that allows blockchain users to interact with the blockchain network.
 
 ## Metadata
 
 Data that provides information about one or more aspects of a system.
-The metadata that exposes information about a Substrate [blockchain](#blockchain) enables you to interact with that system.
-
-## Node
-
-A running instance of a blockchain client.
-Each node is part of the [peer-to-peer](https://en.wikipedia.org/wiki/Peer-to-peer) network that allows blockchain participants to interact with one another.
-Substrate nodes can fill a number of roles in a blockchain network.
-For example, the nodes that produce blocks fulfill the [validator](#validator) role for the blockchain.
-Nodes that run [light-clients](#light-client) facilitate scalable interactions in resource-constrained environments like [user interfaces](https://github.com/paritytech/substrate-connect) or embedded devices.
+The metadata that exposes information about a Substrate blockchain enables you to interact with that system.
 
 ## Nominated Proof of Stake (NPoS)
 
@@ -256,12 +240,12 @@ and [storage items](#storage-items).
 
 ## Parachain
 
-A parachain is a [blockchain](#blockchain) that derives shared infrastructure and security from a _[relay chain](#relay-chain)_.
+A parachain is a blockchain that derives shared infrastructure and security from a _[relay chain](#relay-chain)_.
 You can learn more about parachains on the [Polkadot Wiki](https://wiki.polkadot.network/docs/en/learn-parachains).
 
 ## Polkadot network
 
-The [Polkadot network](https://polkadot.network/) is a [blockchain](#blockchain) that serves as the central hub of a heterogeneous blockchain network.
+The [Polkadot network](https://polkadot.network/) is a blockchain that serves as the central hub of a heterogeneous blockchain network.
 It serves the role of the [relay chain](#relay-chain) and supports other chains—the [parachains](#parachain)—by providing shared infrastructure and security.
 
 ## Relay Chain
@@ -273,7 +257,7 @@ In addition to providing [consensus](#consensus) capabilities, relay chains also
 ## Rococo
 
 A [parachain](#parachain) test network for the Polkadot network.
-The Rococco network is a Substrate-based [blockchain](#blockchain) that is an evolving testbed for the capabilities of heterogeneous blockchain networks.
+The Rococco network is a Substrate-based blockchain that is an evolving testbed for the capabilities of heterogeneous blockchain networks.
 
 ## Runtime
 
@@ -284,7 +268,7 @@ In Substrate, the runtime is stored as a [WebAssembly](#webassembly-wasm) binary
 ## Slot
 
 A fixed, equal interval of time used by consensus engines such as [Aura](#aura-aka-authority-round) and [BABE](#blind-assignment-of-blockchain-extension-babe).
-In each slot, a subset of [authorities](#authority) is permitted—or obliged—to [author](#block-author) a [block](#block).
+In each slot, a subset of [authorities](#authority) is permitted—or obliged—to [author](#block-author) a block.
 
 ## Sovereign Account
 
@@ -322,7 +306,7 @@ The [canonical `ss58-registry`](https://github.com/paritytech/ss58-registry) pro
 
 ## State Transition Function (STF)
 
-The logic of a [blockchain](#blockchain) that determines how the state changes when a [block](#block) is processed.
+The logic of a blockchain that determines how the state changes when a block is processed.
 In Substrate, the state transition function is effectively equivalent to the [runtime](#runtime).
 
 ## Storage Item
@@ -342,7 +326,7 @@ A type of [extrinsic](#extrinsic) that includes a signature that can be used to 
 
 ## Transaction Era
 
-A definable period—expressed as a range of [block](#block) numbers—during which a transaction can be included in a block.
+A definable period—expressed as a range of block numbers—during which a transaction can be included in a block.
 Transaction eras are used to protect against transaction replay attacks in the event that an account is reaped and its replay-protecting nonce is reset to zero.
 
 ## Trie (Patricia Merkle Tree)
@@ -381,4 +365,4 @@ Because weights are defined in the runtime, you can tune them using runtime upda
 
 ## Westend
 
-Westend is a Parity-maintained, Substrate-based [blockchain](#blockchain) that serves as a test network for the [Polkadot network](#polkadot-network).
+Westend is a Parity-maintained, Substrate-based blockchain that serves as a test network for the [Polkadot network](#polkadot-network).

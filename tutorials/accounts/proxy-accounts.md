@@ -46,3 +46,30 @@ To create a proxy account, you need to call the `proxy.addProxy` extrinsic. For 
 To remove a proxy account, you can either remove individual proxy accounts by calling the `proxy.removeProxy` extrinsic or clear all proxies at once by calling `proxy.removeProxies`. For detailed instructions on removing a proxy account using Polkadot.js Apps, refer to the "Removing Proxies" section in the [How to Create a Proxy Account](https://support.polkadot.network/support/solutions/articles/65000182179-how-to-create-a-proxy-account#Removing-Proxies){target=\_blank} article.
 
 ## View your Proxies
+
+There are two ways to check your existing proxy accounts:
+
+###  Account Manager
+
+1. In Polkadot.js Apps, navigate to the **Accounts** dropdown and select the **Accounts** option
+    ![](/images/tutorials/accounts/proxy-accounts/proxy-accounts-1.webp)
+
+2. Hover over the blue icon next to the account you have proxied, then click **Managed proxies**
+    ![](/images/tutorials/accounts/proxy-accounts/proxy-accounts-2.webp)
+
+3. This will open a modal where you can view all the proxies associated with that account and manage them
+    ![](/images/tutorials/accounts/proxy-accounts/proxy-accounts-3.webp)
+
+### Chain State Query
+
+1. In Polkadot.js Apps, navigate to the **Developer** dropdown and select the **Chain state** option.
+    ![](/images/tutorials/accounts/proxy-accounts/proxy-accounts-4.webp)
+
+2. Query proxy accounts
+   
+    1. Select the **proxy** pallet
+    2. Choose the **proxies** call
+    3. Select the account you want to check
+    4. Click the **+** button to execute the query
+    5. The results will show the proxies associated with the selected account
+    ![](/images/tutorials/accounts/proxy-accounts/proxy-accounts-5.webp)

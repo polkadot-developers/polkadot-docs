@@ -36,6 +36,13 @@ For more detailed information about requesting judgement, refer to the [Requesti
 
 ## Clearing and Killing an Identity
 
+The identity pallet allows users to clear and kill their identity.
+
+- Clearing - users can clear their identity information and have their deposit returned. Clearing an identity also clears all sub accounts and returns their deposits. The `clearIdentity` call is used for this purpose.
+- Killing - it is is possible to kill an identity that you deems erroneous. This results in a slash of the deposit. To kill an identity, the `killIdentity` call is used.
+
+For further information about clearing and killing an identity, refer to the [How to Set and Clear an Identity](https://support.polkadot.network/support/solutions/articles/65000181981#Clearing-an-Identity){target=\_blank} guide on the Polkadot support page.
+
 ## Setting a Sub-Identity
 
 ## Registrars

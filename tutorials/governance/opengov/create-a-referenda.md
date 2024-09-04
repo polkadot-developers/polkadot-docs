@@ -48,7 +48,7 @@ To submit a proposal, follow these steps:
     ![](/images/tutorials/governance/opengov/create-a-referenda/create-a-referenda-4.webp)
 2. Click on the **+ Submit proposal** button
     ![](/images/tutorials/governance/opengov/create-a-referenda/create-a-referenda-5.webp)
-3. Fill in the parameters and submit it:
+3. Fill in the parameters and submit the proposal:
     1. Select the account from which the proposal will be registered. The balance lock will be applied to this account
     2. Choose your proposal's origin (and, by extension, the track). Each track has different durations, privileges, and acceptance criteria
     3. Enter the preimage hash obtained in the previous steps. The preimage length field will be automatically populated

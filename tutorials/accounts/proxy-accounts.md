@@ -73,3 +73,28 @@ There are two ways to check your existing proxy accounts:
     4. Click the **+** button to execute the query
     5. The results will show the proxies associated with the selected account
     ![](/images/tutorials/accounts/proxy-accounts/proxy-accounts-5.webp)
+
+## Set-up and Use of Time-delayed Proxies
+
+Proxies can be enhanced with an additional layer of security through the use of a time delay. This delay, measured in blocks, provides a window of time during which any malicious actions can be detected and reverted.
+
+The process works as follows:
+
+1. The proxy account uses the `proxy.announce` extrinsic to announce the intended action, including the hash of the function call
+2. The announced action is then delayed for a specified number of blocks
+3. During this time delay window, the announced action can be canceled by either the proxy account itself using `proxy.removeAnnouncement`, or by the proxied account using `proxy.rejectAnnouncement`
+4. After the time delay has elapsed, the proxy can then execute the announced call using the `proxy.proxyAnnounced` extrinsic
+   
+It's important to note that regular `proxy.proxy` calls do not work with time-delayed proxies. You must use the announce-and-execute process described above.
+
+For a detailed walkthrough on setting up and using time-delayed proxies, refer to the video tutorial linked below:
+
+- [Learn about Time-delayed Proxies on Polkadot](https://www.youtube.com/watch?v=3L7Vu2SX0PE){target=\_blank}
+
+## Proxy Calls
+
+Proxy calls are the mechanism used by proxy accounts to invoke actions on behalf of the accounts they represent. These proxy calls are essential, especially for "pure" proxies.
+
+In the case of pure proxies, any attempt to directly sign transactions with the proxy account will fail. Instead, the proxy must use the appropriate proxy call extrinsics to interact with the network on behalf of the proxied account.
+
+For more details on pure proxy accounts, see the dedicated [Pure Proxy Accounts](/polkadot-docs/tutorials/accounts/pure-proxy-accounts.md) section.

@@ -16,6 +16,24 @@ For further information about the setting and clearing of identity, refer to the
 
 ## Request Judgement
 
+In the Polkadot network, users can request judgement on their identity. This process involves submitting a judgement request to the registrar, who will then decide whether to accept or reject the request.
+
+To request judgement, follow these steps:
+
+1. In the Extrinsic section of the Polkadot.Js user interface, make the judgement request:
+      1. Select the **identity** pallet
+      2. Choose the **requestJudgement** extrinsic
+      3. Fill in the required fields
+         1. **registrarIndex**: The index of the registrar to whom the judgement request is being made
+         2. **maxFee**: The maximum fee the user is willing to pay for the judgement request
+      4. Click on the **Submit Transaction** button
+
+   ![Request Judgement](/images/tutorials/accounts/identity/identity-1.webp)
+
+After the judgement request is submitted, the registrar will decide whether to accept or reject the request. If the request is accepted, the user will be able to see the judgement on their identity.
+
+For more detailed information about requesting judgement, refer to the [Requesting a Judgement](https://support.polkadot.network/support/solutions/articles/65000181982-how-to-request-judgement){target=\_blank} guide on the Polkadot support page.
+
 ## Clearing and Killing an Identity
 
 ## Setting a Sub-Identity

@@ -39,4 +39,22 @@ For further information, watch the [Polkadot Bounties, Multisigs, & Proxies](htt
 !!! note
     To execute a single approval from the caller, you can use the `asMultiThreshold1` function. This method can also be executed and tested through the [txwrapper-core](https://github.com/paritytech/txwrapper-core){target=\_blank} library. For further details, refer to the [Multisig example](https://github.com/paritytech/txwrapper-core/tree/main/packages/txwrapper-examples/multisig){target=\_blank} on the txwrapper-core GitHub repository.
 
+#### Multisig Call Deposit
+
+When you create a new multi-sig call, you will need to place a DOT deposit. The deposit stays locked until the call is executed. This deposit is to establish an economic cost on the storage space that the multisig call takes up in the chain state and discourage users from creating multisig calls that never get executed. The deposit will be reserved in the call initiator's account.
+
+The deposit is dependent on the `threshold` parameter and is calculated as follows:
+
+```
+deposit = depositBase + threshold * depositFactor
+```
+
+Where `depositBase` and `depositFactor` are chain constants set in the runtime code. For example, in the Polkadot runtime, the `depositBase` is set to 20.088 DOT and the `depositFactor` is set to 0.032 DOT.
+
+The other signatory accounts should have enough funds to pay for the transaction fees associated with approving the multisig call. The deposit is for the call; that is, other signatories will not need to place additional deposits. Once the multisig call is executed or rejected, the deposit is released on the account that initiated the call.
+
+#### Example Using Multisig Call
+
+
+
 ## Decoding a Multisig Call Data

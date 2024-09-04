@@ -318,7 +318,7 @@ Account address: 5Eg2fntREKHYGgoxvRPxtnEYiUadHjdsfNaPsHdmrsJMVugs
 The SS58 address format is a public key address based on the Bitcoin [`Base-58-check`](https://en.bitcoin.it/wiki/Base58Check_encoding) encoding.
 Each Substrate SS58 address uses a `base-58` encoded value to identify a specific account on a specific Substrate-based chain.
 These are represented by a `base-58` encoded value to identify a specific account on a specific Substrate chain.
-The [canonical `ss58-registry`](https://github.com/paritytech/ss58-registry) provide additional details about the address format used by different Substrate-based chains, including the network prefix and website used for different networks.
+The [canonical `ss58-registry`](https://github.com/paritytech/ss58-registry) provides additional details about the address format used by different Substrate-based chains, including the network prefix and website used for different networks.
 
 ## State Transition Function (STF)
 

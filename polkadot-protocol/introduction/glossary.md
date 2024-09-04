@@ -12,7 +12,7 @@ Other useful glossaries throughout the ecossytem can be found below:
 
 ## Authority
 
-An authority is a generic term for the role in a blockchain that can participate in the consensus mechanism(s). In [GRANDPA](#grandpa), the authorities vote on chains they consider final. In [BABE](#blind-assignment-of-blockchain-extension-babe), the authorities are [block authors](#block-author). Authority sets can be chosen to be mechanisms such as Polkadot's [NPoS](#nominated-proof-of-stake-npos) algorithm.
+A generic term for the role in a blockchain that can participate in the consensus mechanism(s). In [GRANDPA](#grandpa), the authorities vote on chains they consider final. In [BABE](#blind-assignment-of-blockchain-extension-babe), the authorities are [block authors](#block-author). Authority sets can be chosen to be mechanisms such as Polkadot's [Nominated Proof of Stake (NPoS)](#nominated-proof-of-stake-npos) algorithm.
 
 ## Authority Round (Aura)
 
@@ -35,12 +35,12 @@ Learn more about BABE by referring to its [official Web3 Foundation research doc
 
 Describes the [node](#node) that is responsible for the creation of a [block](#block).
 Block authors are also referred to as _block producers_.
-In a proof-of-work blockchain, these nodes are called _miners_.
+In a Proof of Work (PoW) blockchain, these nodes are called _miners_.
 
 ## Byzantine Fault Tolerance (BFT)
 
 Defines the ability of a distributed computer network to remain operational if a certain proportion of its [nodes](#node) or [authorities](#authority) are defective or behaving maliciously.
-Typically, a distributed network is considered byzantine fault tolerant if it can remain functional with up to one-third of nodes assumed to defective, offline, actively malicious, and acting as part of a coordinated attack.
+Typically, a distributed network is considered Byzantine fault tolerant if it can remain functional, with up to one-third of nodes assumed to be defective, offline, actively malicious, and part of a coordinated attack.
 
 ### Byzantine Failure
 
@@ -48,7 +48,7 @@ The loss of a network service due to node failures that exceed the proportion of
 
 ### Practical Byzantine Fault Tolerance (pBFT)
 
-An early approach to byzantine fault tolerance. pBFT systems tolerate byzantine behavior from up to one-third of participants.
+An early approach to Byzantine fault tolerance (BFT), practical Byzantine fault tolerance (pBFT) systems tolerate Byzantine behavior from up to one-third of participants.
 The communication overhead for such systems is `O(n²)`, where `n` is the number of nodes (participants) in the system.
 
 ## Call
@@ -78,13 +78,13 @@ See also [hybrid consensus](#hybrid-consensus).
 
 ## Consensus Algorithm
 
-An algorithm that ensures that a set of [actors](#authority)—who don't necessarily trust each other—can reach agreement about state as the result of some computation.
-Most consensus algorithms assume that up to one-third of the actors or nodes can be [byzantine fault tolerant](#byzantine-fault-tolerance-bft).
+An algorithm that ensures that a set of [actors](#authority)—who don't necessarily trust each other—can reach an agreement about the state as the result of some computation.
+Most consensus algorithms assume that up to one-third of the actors or nodes can be [Byzantine fault tolerant](#byzantine-fault-tolerance-bft).
 
-Consensus algorithms are generately concerned with ensuring two properties:
+Consensus algorithms are generally concerned with ensuring two properties:
 
-- **safety** indicating that all honest nodes eventually agreed on the state of the chain.
-- **liveness** indicating the ability for the chain to keep making progress.
+- **safety** - indicating that all honest nodes eventually agreed on the state of the chain
+- **liveness** - indicating the ability of the chain to kee progressing
 
 For detailed information about the consensus strategies of the [Polkadot network](#polkadot-network), see the [Polkadot Consensus](https://polkadot.network/polkadot-consensus-part-1-introduction/) blog series.
 
@@ -137,7 +137,7 @@ There are two orchestration engines in Substrate, _WebAssembly_ and _native_.
 
 An extrinsic is a general term for a piece of data that is originated outside of the runtime, included into a block and leads to some action. This includes user-initiated transactions as well as inherents which are placed into the block by the block-builder.
 
-It is a SCALE encoded array typically consisting of a version number, signature, and varying data types indicating the resulting runtime function to be called. Extrinsics take two forms, "[inherents](#inherent-transactions)" and "[transactions](#transaction)". For more technical details see the [Polkadot spec](https://spec.polkadot.network/#id-extrinsics).
+It is a SCALE-encoded array typically consisting of a version number, signature, and varying data types indicating the resulting runtime function to be called. Extrinsics take two forms: [inherents](#inherent-transactions) and [transactions](#transaction). For more technical details, see the [Polkadot spec](https://spec.polkadot.network/#id-extrinsics).
 
 ## Existential Deposit
 
@@ -154,7 +154,7 @@ A fork choice rule (or strategy) helps determine which chain is valid when recon
 
 An acronym for the _Framework for Runtime Aggregation of Modularized Entities_ that enables developers to create blockchain [runtime](#runtime) environments from a modular set of components called [pallets](#pallet).  It utilizes a set of procedural macros to construct runtimes.
 
-[Visit the Polkadot SDK docs For more detail on FRAME.](https://paritytech.github.io/polkadot-sdk/master/polkadot_sdk_docs/polkadot_sdk/frame_runtime/index.html)
+[Visit the Polkadot SDK docs for more details on FRAME.](https://paritytech.github.io/polkadot-sdk/master/polkadot_sdk_docs/polkadot_sdk/frame_runtime/index.html)
 
 ## Full Node
 
@@ -162,8 +162,8 @@ It is a node that prunes historical states, keeping only recent finalized block 
 
 ## Genesis Configuration
 
-A mechanism for specifying the initial [state](#state) of a [blockchain](#blockchain).
-By convention, this initial state or first block is commonly referred to as the **genesis state** or **genesis block**.
+A mechanism for specifying the initial state of a blockchain.
+By convention, this initial state or first block is commonly referred to as the _genesis state_ or _genesis block_.
 The genesis configuration for Substrate-based chains is accomplished by way of a [chain specification](#chain-specification) file.
 The chain specification file makes it easy to use a single Substrate codebase as the foundation for multiple independently-configured chains.
 
@@ -182,7 +182,7 @@ synchronization of the chain.
 ## Hybrid Consensus
 
 A blockchain consensus protocol that consists of independent or loosely-coupled mechanisms for [block production](#block-author) and [finality](#finality).
-Hybrid consensus allows the chain to grow as fast as probabilistic consensus protocols, such as [Aura](#aura-aka-authority-round), while maintaining the same level of security as [deterministic finality](#deterministic-finality) consensus protocols, such as [GRANDPA](#grandpa).
+Hybrid consensus allows the chain to grow as fast as probabilistic consensus protocols, such as [Aura](#aura-aka-authority-round) while maintaining the same level of security as [deterministic finality](#deterministic-finality) consensus protocols, such as [GRANDPA](#grandpa).
 In general, block production algorithms tend to be faster than finality mechanisms.
 Making block production separate from block finalization gives Substrate developers greater control of their chain's performance.
 
@@ -190,12 +190,12 @@ Making block production separate from block finalization gives Substrate develop
 
 Inherent transactions—sometimes referred to as inherents—are a special type of unsigned transaction.
 This type of transaction enables a block authoring node to insert information that doesn't require validation directly to a block.
-Only the block authoring node that calls the inherent transaction function can insert data into its block.
+Only the block-authoring node that calls the inherent transaction function can insert data into its block.
 In general, validators assume the data inserted using an inherent transaction is valid and reasonable even if it can't be deterministically verified.
 
 ## JSON-RPC
 
-A stateless, lightweight remote procedure call protocol that is encoded in JSON. JSON-RPC provides a standard way to call functions on a remote system by using JavaScript Object Notation.
+A stateless, lightweight remote procedure call protocol encoded in JavaScript Object Notation (JSON). JSON-RPC provides a standard way to call functions on a remote system by using JSON.
 For Substrate, this protocol is implemented through the [Parity JSON-RPC](https://github.com/paritytech/jsonrpc) crate.
 
 ## Keystore
@@ -235,24 +235,23 @@ Nodes that run [light-clients](#light-client) facilitate scalable interactions i
 
 ## Nominated Proof of Stake (NPoS)
 
-A method for determining [validators](#validator) or _[authorities](#authority)_ based on a willingness to commit their stake to the proper functioning of one or more block producing nodes.
+A method for determining [validators](#validator) or _[authorities](#authority)_ based on a willingness to commit their stake to the proper functioning of one or more block-producing nodes.
 
 ## Oracle
 
-In a blockchain network, an oracle is a mechanism for connecting the blockchain to a non-blockchain data source.
+In a blockchain network, an oracle connects the blockchain to a non-blockchain data source.
 Oracles enable the blockchain to access and act upon information from existing data sources and incorporate data from non-blockchain systems and services.
 
 ## Origin
 
 A [FRAME](#frame) primitive that identifies the source of a [dispatched](#dispatchable) function call into the [runtime](#runtime).
-The FRAME `system` pallet defines three built-in [origins](#origin).
+The FRAME System pallet defines three built-in [origins](#origin).
 As a [pallet](#pallet) developer, you can also define custom origins, such as those defined by the [Collective pallet](https://paritytech.github.io/substrate/master/pallet_collective/enum.RawOrigin.html).
 
 ## Pallet
 
 A module that can be used to extend the capabilities of a [FRAME](#frame)-based [runtime](#runtime).
-Pallets bundle domain-specific logic with runtime primitives like [events](#event),
-and [storage items](#storage-items).
+Pallets bundle domain-specific logic with runtime primitives like [events](#event) and [storage items](#storage-item).
 
 ## Parachain
 
@@ -266,7 +265,7 @@ It serves the role of the [relay chain](#relay-chain) and supports other chains�
 
 ## Relay Chain
 
-The central hub in a heterogenous network of multiple blockchains.
+The central hub in a heterogeneous network of multiple blockchains.
 Relay chains are [blockchains](#blockchain) that provide shared infrastructure and security to the other blockchains—the [parachains](#parachain)—in the network.
 In addition to providing [consensus](#consensus) capabilities, relay chains also allow parachains to communicate and exchange digital assets without needing to trust one another.
 
@@ -290,7 +289,7 @@ In each slot, a subset of [authorities](#authority) is permitted—or obliged—
 
 The unique account identifier for each chain in the relay chain ecosystem. It is often used in the context of cross-consensus (XCM) interactions.
 
-The sovereign account for each chain is a root-level that can only be accessed using the Sudo pallet or through governance.
+The sovereign account for each chain is a root-level account that can only be accessed using the Sudo pallet or through governance.
 The account identifier is calculated by concatenating the Blake2 hash of a specific text string and the registered parachain identifier.
 
 The sovereign account is most often used to sign XCM messages that are sent to either the relay chain or other chains in the ecosystem.
@@ -349,13 +348,13 @@ Transaction eras are used to protect against transaction replay attacks in the e
 
 A data structure that is used to represent sets of key-value pairs.
 
-The Patricia Merkle trie data structure enables the items in the data set to be stored and retrieved using a cryptographic hash. Because incremental changes to the data set result in a new hash, retrieving data is efficient even if the data set is very large. With this data structure, you can also prove whether the data set includes any particular key-value pair without the access to the entire data set.
+The Patricia Merkle trie data structure enables the items in the data set to be stored and retrieved using a cryptographic hash. Because incremental changes to the data set result in a new hash, retrieving data is efficient even if the data set is very large. With this data structure, you can also prove whether the data set includes any particular key-value pair without access to the entire data set.
 
 In Polkadot SDK-based blockchains, state is stored in a trie data structure that supports the efficient creation of incremental digests.  This trie is exposed to the [runtime](#runtime) as [a simple key/value map](#storage-item) where both keys and values can be arbitrary byte arrays.
 
 ## Validator
 
-A validator is a node that participates in the consensus mechanism of the network. Its role includes block production, transaction validation, network integrity and security maintenance.
+A validator is a node that participates in the consensus mechanism of the network. Its roles include block production, transaction validation, network integrity, and security maintenance.
 
 ## WebAssembly (Wasm)
 
@@ -372,11 +371,11 @@ Substrate defines one unit of weight as one picosecond of execution time on refe
 
 The maximum block weight should be equivalent to one-third of the target block time with an allocation of:
 
-- One third for block construction
-- One third for network propagation
-- One third for import and verification
+- One-third for block construction
+- One-third for network propagation
+- One-third for import and verification
 
-By defining weights, you can make trade-off decisions between the number of transactions per second and the hardware required to maintain the target block time as appropriate for your use case.
+By defining weights, you can make trade-offs between the number of transactions per second and the hardware required to maintain the target block time appropriate for your use case.
 Because weights are defined in the runtime, you can tune them using runtime updates to keep up with hardware and software improvements.
 
 ## Westend

@@ -21,7 +21,7 @@ To submit a preimage, follow these steps:
    
     ![](/images/tutorials/governance/opengov/create-a-referenda/create-a-referenda-1.webp)
 
-2. Click in the **+ Add preimage** button
+2. Click on the **+ Add preimage** button
    
     ![](/images/tutorials/governance/opengov/create-a-referenda/create-a-referenda-2.webp)
 

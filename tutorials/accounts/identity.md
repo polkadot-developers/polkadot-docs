@@ -38,8 +38,8 @@ For more detailed information about requesting judgement, refer to the [Requesti
 
 The identity pallet allows users to clear and kill their identity.
 
-- Clearing - users can clear their identity information and have their deposit returned. Clearing an identity also clears all sub accounts and returns their deposits. The `clearIdentity` call is used for this purpose.
-- Killing - it is is possible to kill an identity that you deems erroneous. This results in a slash of the deposit. To kill an identity, the `killIdentity` call is used.
+- Clearing - users can clear their identity information and have their deposit returned. Clearing an identity also clears all sub-accounts and returns their deposits. The `clearIdentity` call is used for this purpose.
+- Killing - it is is possible to kill an identity that you deem erroneous. This results in a slash of the deposit. To kill an identity, the `killIdentity` call is used.
 
 For further information about clearing and killing an identity, refer to the [How to Set and Clear an Identity](https://support.polkadot.network/support/solutions/articles/65000181981#Clearing-an-Identity){target=\_blank} guide on the Polkadot support page.
 
@@ -50,3 +50,7 @@ Sub-identities are identities that are linked to a primary identity. This might 
 To set a sub-identity, follow the steps outlined in the [Steps to set a sub-identity](https://support.polkadot.network/support/solutions/articles/65000181991-how-to-set-identities-for-sub-accounts#Steps-to-set-a-sub-identity){target=\_blank} guide on the Polkadot support page.
 
 ## Registrars
+
+### Becoming a Registrar
+
+To become a registrar, you need to submit a pre-image and proposal on [OpenGov](https://wiki.polkadot.network/docs/learn-guides-polkadot-opengov){target=\_blank}. After that, you should wait for people to vote on it. For the best results, it’s recommended to write a post about your identity and intentions beforehand. Then, once the proposal is in the queue, you can ask people to endorse it so that it gets ahead in the referendum queue.

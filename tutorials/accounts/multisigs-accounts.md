@@ -70,3 +70,5 @@ Note that multisigs are deterministic, which means that multisig addresses are g
 When using the Extrinsic tab on the Polkadot-JS UI to perform multisig transactions, this has some implications. If the order of the other signatories is wrong, the transaction will fail. This does not happen if the multisig is executed directly from the Accounts tab (recommended).
 
 ## Decoding a Multisig Call Data
+
+Before signing a transaction, knowing the exact specifics of what is being signed is important. Check the [How to use a multisig account](https://support.polkadot.network/support/solutions/articles/65000181826-how-to-create-and-use-a-multisig-account#How-to-use-a-multisig-account:~:text=7.%20Before%20signing,about%20to%20approve%3A){target=\_blank} section in the support docs on how to decode the multisig call data.

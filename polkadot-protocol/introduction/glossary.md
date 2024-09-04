@@ -7,8 +7,8 @@ This glossary defines and explains concepts and terminology specific to blockcha
 
 Other useful glossaries throughout the ecossytem can be found below:
 
-- [Polkadot Wiki Glossary](https://wiki.polkadot.network/docs/glossary)
-- [Polkadot SDK Glossary](https://paritytech.github.io/polkadot-sdk/master/polkadot_sdk_docs/reference_docs/glossary/index.html)
+- [Polkadot Wiki Glossary](https://wiki.polkadot.network/docs/glossary){target=\_blank}
+- [Polkadot SDK Glossary](https://paritytech.github.io/polkadot-sdk/master/polkadot_sdk_docs/reference_docs/glossary/index.html){target=\_blank}
 
 ## Authority
 

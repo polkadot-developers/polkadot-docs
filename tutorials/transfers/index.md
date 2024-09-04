@@ -163,7 +163,7 @@ Batch transfers are balance transfers to multiple accounts executed by one accou
 
     ![Developer Tab](/images/tutorials/transfers/batch-transfers/batch-transfers-1.webp)
 
-2. Access the **utility* pallet and select the *batch* extrinsic:
+2. Access the **utility** pallet and select the **batch** extrinsic:
       1. Choose the **utility** pallet from the list of pallets 
       2. Select the **batch** extrinsic from the list of extrinsics
    

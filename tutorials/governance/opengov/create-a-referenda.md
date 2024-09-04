@@ -11,7 +11,7 @@ This guide outlines the process of proposing public referenda using the Referend
 
 ## Submit a Preimage
 
-The process of creating a proposal is separate from submitting its [preimage](https://wiki.polkadot.network/docs/glossary#preimage){target=\_blank}. This separation is crucial due to large preimages' potentially high storage costs. By allowing preimage submission as a separate transaction, it becomes possible for another account to submit the preimage on your behalf and cover the associated fees.
+The process of creating a proposal is separate from submitting its [preimage](https://wiki.polkadot.network/docs/glossary#preimage){target=\_blank}. This separation is crucial due to large preimages' potentially high storage costs. Allowing preimage submission as a separate transaction makes it possible for another account to submit the preimage on your behalf and cover the associated fees.
 
 The example below demonstrates the creation of a preimage to propose and approve the spending of treasury funds.
 

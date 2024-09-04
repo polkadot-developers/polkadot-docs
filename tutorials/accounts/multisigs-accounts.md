@@ -55,6 +55,18 @@ The other signatory accounts should have enough funds to pay for the transaction
 
 #### Example Using Multisig Call
 
+![Multisig Example](/images/tutorials/accounts/multisig/multisig-accounts-2.webp)
 
+Let's consider an example of a multisig on Polkadot with a threshold of 2 and 3 signers: Charlie, Dan, and Eleanor. First, Charlie will create the call on-chain by calling the `multisig.asMulti` extrinsic with the raw call, in this case, a balance transfer (`balances.transferKeepAlive` extrinsic) from multisig CDE to Frank's account. When doing this, Charlie will have to deposit `DepositBase + (2 * DepositFactor) = 20.152 DOT`. At the same time, he waits for either Dan or Eleanor to approve the balance transfer call using the `multisig.approveAsMulti` or the `multisig.asMulti` extrinsic.
+
+If Dan submits the `multisig.approveAsMulti` extrinsic, he approves Charlie's call but passes on the final approval to Eleanor. So, although the multisig has threshold 2, in this case, all 3/3 of the signatories need to participate in the transaction approval. Eleanor must submit a `multisig.asMulti` or `multisig.approveAsMulti` extrinsic to transfer funds from CDE to Frank.
+
+Alternatively, Dan or Eleanor can submit a `multisig.asMulti` extrinsic after Charlie transfers the funds. In this case, 2/3 of the signatories will participate in the transaction approval. The accounts approving Charlie's call will not need to place the deposit, and Charlie will receive his deposit back once the transfer is successful or canceled. Dan or Eleanor can use the multisig to cancel the transaction.cancelAsMulti extrinsic.
+
+For further details on how to perform a multisig transaction, watch the [Use your Multisig Accounts like a Pro with the Polkadot-JS UI (Advanced Tutorial)](https://www.youtube.com/watch?v=T0vIuJcTJeQ){target=\_blank} video tutorial.
+
+Note that multisigs are deterministic, which means that multisig addresses are generated from the addresses of signers and the threshold of the multisig wallet. No matter the order of the signatories' accounts, the multisig will always have the same address because accounts' addresses are sorted in ascending order.
+
+When using the Extrinsic tab on the Polkadot-JS UI to perform multisig transactions, this has some implications. If the order of the other signatories is wrong, the transaction will fail. This does not happen if the multisig is executed directly from the Accounts tab (recommended).
 
 ## Decoding a Multisig Call Data

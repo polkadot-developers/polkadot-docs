@@ -25,7 +25,7 @@ To request judgement, follow these steps:
       2. Choose the **requestJudgement** extrinsic
       3. Fill in the required fields
          1. **registrarIndex**: The index of the registrar to whom the judgement request is being made
-         2. **maxFee**: The maximum fee the user is willing to pay for the judgement request
+         2. **maxFee** - the maximum fee the user is willing to pay for the judgement request
       4. Click on the **Submit Transaction** button
 
    ![Request Judgement](/images/tutorials/accounts/identity/identity-1.webp)

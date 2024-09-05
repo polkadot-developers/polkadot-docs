@@ -16,8 +16,7 @@ A generic term for the role in a blockchain that can participate in the consensu
 
 ## Authority Round (Aura)
 
-A deterministic [consensus](#consensus) protocol where block production is limited to a rotating list of [authorities](#authority) that take turns creating blocks.
-With authority round (Aura) consensus, the majority of online authorities are assumed to be honest.
+A deterministic [consensus](#consensus) protocol where block production is limited to a rotating list of [authorities](#authority) that take turns creating blocks.  With authority round (Aura) consensus, the majority of online authorities are assumed to be honest.
 
 Learn more by reading [the official wiki article](https://openethereum.github.io/Aura){target=\_blank} for the Aura consensus algorithm.
 
@@ -25,9 +24,7 @@ The Aura protocol is often used in combination with [GRANDPA](#grandpa) as a [hy
 
 ## Blind Assignment of Blockchain Extension (BABE)
 
-A [block authoring](#block-author) protocol similar to [Aura](#aura).
-However, with BABE (Blind Assignment of Blockchain Extension), [authorities](#authority) win [slots](#slot) based on a VRF (verifiable random function) as opposed to the round-robin selection method.
-The winning authority can select a chain and submit a new block for it.
+A [block authoring](#block-author) protocol similar to [Aura](#aura). However, with BABE (Blind Assignment of Blockchain Extension), [authorities](#authority) win [slots](#slot) based on a VRF (verifiable random function) as opposed to the round-robin selection method. The winning authority can select a chain and submit a new block for it.
 
 Learn more about BABE by referring to its [official Web3 Foundation research document](https://research.web3.foundation/Polkadot/protocols/block-production/Babe){target=\_blank}.
 
@@ -40,6 +37,7 @@ In a Proof of Work (PoW) blockchain, these nodes are called _miners_.
 ## Byzantine Fault Tolerance (BFT)
 
 Defines the ability of a distributed computer network to remain operational if a certain proportion of its [nodes](#node) or [authorities](#authority) are defective or behaving maliciously.
+
 Typically, a distributed network is considered Byzantine fault tolerant if it can remain functional, with up to one-third of nodes assumed to be defective, offline, actively malicious, and part of a coordinated attack.
 
 ### Byzantine Failure
@@ -49,11 +47,13 @@ The loss of a network service due to node failures that exceed the proportion of
 ### Practical Byzantine Fault Tolerance (pBFT)
 
 An early approach to Byzantine fault tolerance (BFT), practical Byzantine fault tolerance (pBFT) systems tolerate Byzantine behavior from up to one-third of participants.
+
 The communication overhead for such systems is `O(n²)`, where `n` is the number of nodes (participants) in the system.
 
 ## Call
 
-In a general context, a call describes the act of invoking a function to be executed.
+In a general context, a call describes the act of invoking a function to be executed.  
+
 In the context of pallets that contain functions to be dispatched to the runtime, `Call` is an enumeration data type that describes the functions that can be dispatched with one variant per pallet. The object that a `Call` represents is a [dispatch](#dispatchable) data structure.
 
 ## Chain Specification 
@@ -64,14 +64,14 @@ A chain specification is used to define a network built using the Polkadot SDK, 
 
 An [author](#block-author) of a [parachain](#parachain) network.
 They aren't [authorities](#authority) in themselves, as they require a [relay chain](#relay-chain) to coordinate [consensus](#consensus).
+
 More details are found on the [Polkadot Wiki on collators](https://wiki.polkadot.network/docs/learn-collator){target=\_blank}.
 
 ## Consensus
 
 In the context of a blockchain, consensus is the process nodes use to agree on the canonical fork of a chain. Consensus is composed of [authorship](#block-author), finality, and [fork-choice rule](#fork-choice-rulestrategy).
 
-In the Polkadot ecosystem, these are usually three components are separated from one another, and the term consensus often refers specifically to authorship.
-In the context of a Substrate node, the term _consensus engine_ describes the node subsystem that is responsible for consensus tasks.
+In the Polkadot ecosystem, these are usually three components are separated from one another, and the term consensus often refers specifically to authorship. In the context of a Substrate node, the term _consensus engine_ describes the node subsystem that is responsible for consensus tasks.
 
 See also [hybrid consensus](#hybrid-consensus).
 
@@ -82,8 +82,8 @@ Most consensus algorithms assume that up to one-third of the actors or nodes can
 
 Consensus algorithms are generally concerned with ensuring two properties:
 
-- **safety** - indicating that all honest nodes eventually agreed on the state of the chain
-- **liveness** - indicating the ability of the chain to keep progressing
+- _Safety_ - indicating that all honest nodes eventually agreed on the state of the chain
+- _Liveness_ - indicating the ability of the chain to keep progressing
 
 For detailed information about the consensus strategies of the [Polkadot network](#polkadot-network), see the [Polkadot Consensus](https://polkadot.network/polkadot-consensus-part-1-introduction/){target=\_blank} blog series.
 
@@ -92,13 +92,14 @@ See also [hybrid consensus](#hybrid-consensus).
 ## Collective
 
 Most often used to refer to an instance of the [Collective pallet](#collective) on Substrate-based networks such as [Kusama](#kusama) or [Polkadot](#polkadot) if the Collective pallet is part of the [FRAME](#frame)-based [runtime](#runtime) for the network.
+
 A council primarily serves to optimize and balance the more inclusive referendum system.
 
 ## Development Phrase
 
 A [mnemonic phrase](https://en.wikipedia.org/wiki/Mnemonic#For_numerical_sequences_and_mathematical_operations){target=\_blank} that is intentionally made public.
-All of the well-known development accounts—Alice, Bob, Charlie, Dave, Eve, and Ferdie—are generated from the same secret phrase.
-The secret phrase is:
+
+Well-known development accounts, such as Alice, Bob, Charlie, Dave, Eve, and Ferdie, are generated from the same secret phrase:
 
 ```
 bottom drive obey lake curtain smoke basket hold race lonely fit walk
@@ -121,8 +122,8 @@ Dispatchables are function objects that act as the entry points in FRAME [pallet
 ## Events
 
 A means of recording, for the benefit of the offchain world, that some particular [state](#state) transition happened.
-In the context of [FRAME](#frame), events are a composable data types that each [pallet](#pallet) can individually define.
-Events in FRAME are implemented as a set of transient storage items that are inspected immediately after a block has executed and reset during block-initialization.
+
+In the context of [FRAME](#frame), events are a composable data types that each [pallet](#pallet) can individually define.Events in FRAME are implemented as a set of transient storage items that are inspected immediately after a block has executed and reset during block-initialization.
 
 ## Executor
 
@@ -139,14 +140,15 @@ The binary is guaranteed to be up-to-date regardless of the version of the block
 
 An extrinsic is a general term for a piece of data that is originated outside of the runtime, included into a block and leads to some action. This includes user-initiated transactions as well as inherent transactions which are placed into the block by the block-builder.
 
-It is a SCALE-encoded array typically consisting of a version number, signature, and varying data types indicating the resulting runtime function to be called. Extrinsics take two forms: [inherent](#inherent-transactions) and [transactions](#transaction). For more technical details, see the [Polkadot spec](https://spec.polkadot.network/#id-extrinsics){target=\_blank}.
+It is a SCALE-encoded array typically consisting of a version number, signature, and varying data types indicating the resulting runtime function to be called. Extrinsics can take two forms: [inherents](#inherent-transactions) and [transactions](#transaction). For more technical details, see the [Polkadot spec](https://spec.polkadot.network/#id-extrinsics){target=\_blank}.
 
 ## Existential Deposit
 
 The minimum balance an account is allowed to have in the [Balances pallet](https://paritytech.github.io/polkadot-sdk/master/pallet_balances/index.html){target=\_blank}.
-Accounts cannot be created with a balance less than the existential deposit amount.
-If an account balance drops below this amount, the Balances pallet uses [a FRAME System API](https://paritytech.github.io/substrate/master/frame_system/pallet/struct.Pallet.html#method.dec_ref){target=\_blank} to drop its references to that account.
-If all of the references to an account are dropped, the account can be [reaped](https://paritytech.github.io/substrate/master/frame_system/pallet/struct.Pallet.html#method.allow_death){target=\_blank}.
+
+Accounts cannot be created with a balance less than the existential deposit amount. If an account balance drops below this amount, the Balances pallet uses [a FRAME System API](https://paritytech.github.io/substrate/master/frame_system/pallet/struct.Pallet.html#method.dec_ref){target=\_blank} to drop its references to that account.
+
+If a reference to an account is dropped, the account can be [reaped](https://paritytech.github.io/substrate/master/frame_system/pallet/struct.Pallet.html#method.allow_death){target=\_blank}.
 
 ## Fork Choice Rule/Strategy
 
@@ -165,8 +167,10 @@ It is a node that prunes historical states, keeping only recent finalized block 
 ## Genesis Configuration
 
 A mechanism for specifying the initial state of a blockchain.
+
 By convention, this initial state or first block is commonly referred to as the _genesis state_ or _genesis block_.
 The genesis configuration for Substrate-based chains is accomplished by way of a [chain specification](#chain-specification) file.
+
 The chain specification file makes it easy to use a single Substrate codebase as the foundation for multiple independently configured chains.
 
 ## GRANDPA
@@ -182,20 +186,22 @@ The structure that aggregates the information used to summarize a block. A heade
 ## Hybrid Consensus
 
 A blockchain consensus protocol that consists of independent or loosely coupled mechanisms for [block production](#block-author) and finality.
+
 Hybrid consensus allows the chain to grow as fast as probabilistic consensus protocols, such as [Aura](#aura-aka-authority-round) while maintaining the same level of security as [deterministic finality](#deterministic-finality) consensus protocols, such as [GRANDPA](#grandpa).
-In general, block production algorithms tend to be faster than finality mechanisms.
-Making block production separate from block finalization gives Substrate developers greater control of their chain's performance.
+
+In general, block production algorithms tend to be faster than finality mechanisms. Making block production separate from block finalization gives Substrate developers greater control of their chain's performance.
 
 ## Inherent Transactions
 
-Inherent transactions, referred to as *inherents*, are a special type of unsigned transaction.  This type of transaction enables a block authoring node to insert information that doesn't require validation directly to a block.
+Inherent transactions, referred to as *inherents*, are a special type of unsigned transaction. This type of transaction enables a block authoring node to insert information that doesn't require validation directly to a block.
 
 Only the block-authoring node that calls the inherent transaction function can insert data into its block. In general, validators assume the data inserted using an inherent transaction is valid and reasonable even if it can't be deterministically verified.
 
 ## JSON-RPC
 
 A stateless, lightweight remote procedure call protocol encoded in JavaScript Object Notation (JSON). JSON-RPC provides a standard way to call functions on a remote system by using JSON.
-For Substrate, this protocol is implemented through the [Parity JSON-RPC](https://github.com/paritytech/jsonrpc){target=\_blank} crate.
+
+For Polkadot SDK, this protocol is implemented through the [Parity JSON-RPC](https://github.com/paritytech/jsonrpc){target=\_blank} crate.
 
 ## Keystore
 
@@ -204,7 +210,9 @@ A subsystem for managing keys for the purpose of producing new blocks.
 ## Kusama
 
 [Kusama](https://kusama.network/){target=\_blank} is a Substrate-based blockchain that implements a design similar to the [Polkadot network](#polkadot-network).
+
 Kusama is a [canary](https://en.wiktionary.org/wiki/canary_in_a_coal_mine){target=\_blank} network and is referred to as [Polkadot's "wild cousin"](https://wiki.polkadot.network/docs/learn-comparisons-kusama){target=\_blank}.
+
 As a canary network, Kusama is expected to be more stable than a test network like [Westend](#westend), but not as stable as a production network like [Polkadot](#polkadot).
 
 As a canary network, Kusama is controlled by its network participants and is intended to be stable enough to encourage meaningful experimentation.
@@ -217,6 +225,7 @@ Substrate uses the [Rust implementation](https://github.com/libp2p/rust-libp2p){
 ## Light Client
 
 A type of blockchain node that doesn't store the [chain state](#state) or produce blocks.
+
 A light client is capable of verifying cryptographic primitives and exposes a [remote procedure call (RPC)](https://en.wikipedia.org/wiki/Remote_procedure_call){target=\_blank} server that allows blockchain users to interact with the blockchain network.
 
 ## Metadata
@@ -231,11 +240,13 @@ A method for determining [validators](#validator) or _[authorities](#authority)_
 ## Oracle
 
 In a blockchain network, an oracle connects the blockchain to a non-blockchain data source.
+
 Oracles enable the blockchain to access and act upon information from existing data sources and incorporate data from non-blockchain systems and services.
 
 ## Origin
 
 A [FRAME](#frame) primitive that identifies the source of a [dispatched](#dispatchable) function call into the [runtime](#runtime).
+
 The FRAME System pallet defines three built-in [origins](#origin).
 As a [pallet](#pallet) developer, you can also define custom origins, such as those defined by the [Collective pallet](https://paritytech.github.io/substrate/master/pallet_collective/enum.RawOrigin.html){target=\_blank}.
 

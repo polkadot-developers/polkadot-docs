@@ -31,20 +31,20 @@ For an in-depth dive into the monorepo, the [Polkadot SDK Rust documentation](ht
 
 The process of using the Polkadot SDK to deploying a parachain on a [core](https://wiki.polkadot.network/docs/learn-agile-coretime#core){target=_blank} can be summarized as follows. It is also possible to build standalone blockchains with the Polkadot SDK:
 
-1. **Reserving** a `ParaId`, where you will upload your runtime and genesis state
-2. **Compiling** the runtime (written in Rust) to a WebAssembly blob, thereby defining how your state transitions from one state to the next. This runtime is created using the Polkadot SDK
-3. **Ensure** your chain spec is viable and ready to be deployed as a live, working parachain
-4. **Generating** your genesis state and wasm
+1. **Reserving** a `ParaId`, where the runtime and genesis state will be uploaded
+2. **Compiling** the runtime (written in Rust) to a WebAssembly blob, thereby defining how state transitions from one state to the next. This runtime is created using the Polkadot SDK
+3. **Generating** a chain spec that is viable and ready to be deployed as a live, working parachain
+4. **Generating** the genesis state and wasm
 5. **Obtaining** a core through a [Coretime marketplace](https://wiki.polkadot.network/docs/learn-guides-coretime-marketplaces){target=_blank}
-6. **Assigning** that core to your `ParaId`
-7. **Ensuring** you have at least one honest, synced collator for your task
+6. **Assigning** that core to a `ParaId`
+7. **Provisioning** at least one honest, synced collator is available for the task to begin producing blocks
 
 !!!info "What is a task?"
     A task refers to a process utilizing Polkadot's compute. This could be a parachain or any other computational process, provided that it adheres to the Polkadot protocol. The full definition can be found on the [Polkadot Wiki](https://wiki.polkadot.network/docs/learn-agile-coretime#task).
 
 ### Deploying on a Core
 
-Once you have your runtime and pallets developed, it will be able to deploy it on a core, which is how one utilizes the shared security of the Polkadot network. One does so by:
+Once the desired runtime and pallets have been developed, it will be able to deploy it on a core, which is how one utilizes the shared security of the Polkadot network. One does so by:
 
 ```mermaid
 flowchart TD

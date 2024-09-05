@@ -4,22 +4,22 @@ description: List of node endpoints and examples of use.  These endpoints can be
 ---
 
 Ideally, one may run their own node when interacting with the
-[Polkadot network](https://polkadot.network/) via [Polkadot-JS Apps](https://polkadot.js.org/apps/)
+[Polkadot network](https://polkadot.network/){target=_blank} via [Polkadot.Js Apps](https://polkadot.js.org/apps/){target=_blank}
 or other UIs and programmatic methods. Another option would be to connect to one of the several
 public endpoints provided by infrastructure and API service providers. For development convenience,
-[Parity Tech](https://www.parity.io/) maintains archive nodes for Polkadot, Kusama, and their test
+[Parity Tech](https://www.parity.io/){target=_blank} maintains archive nodes for Polkadot, Kusama, and their test
 networks with public endpoints. These endpoints can be used with
-[Polkadot-JS API](https://polkadot.js.org/docs/api) to interact with their respective chains. The
+[Polkadot.Js API](https://polkadot.js.org/docs/api){target=_blank} to interact with their respective chains. The
 tables below list these endpoints.
 
 ### Network Endpoints
 
 Endpoints for all production and test networks are listed on the
-[Polkadot-JS UI](https://polkadot.js.org/apps/#/accounts) which are accessed from
-[here](https://github.com/polkadot-js/apps/tree/master/packages/apps-config/src/endpoints).
+[Polkadot.Js UI](https://polkadot.js.org/apps/#/accounts){target=_blank} which are accessed from
+[here](https://github.com/polkadot-js/apps/tree/master/packages/apps-config/src/endpoints){target=_blank}.
 Endpoints for Polkadot Relay Chain and Kusama Relay Chain, parachains, and Paseo test network are
 maintained by the community. System Chains as well as Westend and Rococo test network endpoints
-maintained by Parity Technologies are listed below (with the exception of [Paseo](https://github.com/paseo-network), which is maintained by the wider community):
+maintained by Parity Technologies are listed below (with the exception of [Paseo](https://github.com/paseo-network){target=_blank}, which is maintained by the wider community):
 
 
 === "Polkadot"
@@ -56,14 +56,14 @@ service, and additional metrics.
 
 !!! note
     The list of third party RPC endpoints above for Polkadot and Kusama is directly fetched from
-    [Polkadot-JS UI](https://polkadot.js.org/apps/#/explorer)
+    [Polkadot.Js UI](https://polkadot.js.org/apps/#/explorer){target=_blank}
 
-- [OnFinality](https://onfinality.io)
-- [Dwellir](https://dwellir.com)
-- [Pinknode](https://pinknode.io)
-- [Radium Block](https://radiumblock.com/)
-- [1RPC](https://1rpc.io/)
-- [NOWNodes](https://nownodes.io/)
-- [All That Node](https://www.allthatnode.com/)
-- [SubQuery](https://www.rpc.subquery.network/)
-- [dRPC](https://drpc.org/)
+- [OnFinality](https://onfinality.io){target=_blank}
+- [Dwellir](https://dwellir.com){target=_blank}
+- [Pinknode](https://pinknode.io){target=_blank}
+- [Radium Block](https://radiumblock.com/){target=_blank}
+- [1RPC](https://1rpc.io/){target=_blank}
+- [NOWNodes](https://nownodes.io/){target=_blank}
+- [All That Node](https://www.allthatnode.com/){target=_blank}
+- [SubQuery](https://www.rpc.subquery.network/){target=_blank}
+- [dRPC](https://drpc.org/){target=_blank}

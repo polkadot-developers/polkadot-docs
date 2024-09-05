@@ -1,6 +1,6 @@
 ---
 title: Node Endpoints
-description: List of node endpoints and examples of use.  These endpoints can be used for development, RPC, or other purposes in which network access is required.
+description: List of node endpoints and examples of use. These endpoints can be used for development, RPC, or other purposes for which network access is required.
 ---
 
 Ideally, one may utilize their own node when interacting with the [Polkadot network](https://polkadot.network/){target=_blank} via [Polkadot Js UI Apps](https://polkadot.js.org/apps/){target=_blank} or other user interfaces and programmatic methods. Another option would be to connect to one of the several public endpoints provided by infrastructure and API service providers. For development convenience, [Parity Tech](https://www.parity.io/){target=_blank} maintains archive nodes for Polkadot, Kusama, and their test networks with public endpoints. These endpoints can be used with [Polkadot Js UI API](https://polkadot.js.org/docs/api){target=_blank} to interact with their respective chains.

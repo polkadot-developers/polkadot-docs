@@ -28,7 +28,7 @@ A light client allows for all basic features of the chain such as fetching data 
 transferring tokens, but it does not a full copy of the entire blockchain or
 having to trust remote peers. Light clients fetch the required data that they need from a node with an associated proof to validate the data.
 
-| Substrate: Full node                                                                                        | Substrate Connect                                                                                                         |
+| Full RPC Node                                                                                        | Light Client                                                                                                         |
 | ----------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------- |
 | Full verification of all blocks of the chain                                                                 | Only verifies the authenticity of blocks of the chain                                                         |
 | Holds all the previous block data and the chain's storage in database                                       | No database                                                                                                      |

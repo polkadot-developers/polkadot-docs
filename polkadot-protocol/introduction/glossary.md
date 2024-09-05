@@ -12,11 +12,11 @@ Other useful glossaries throughout the ecosystem can be found below:
 
 ## Authority
 
-A generic term for the role in a blockchain that can participate in the consensus mechanism(s). In [GRANDPA](#grandpa), the authorities vote on chains they consider final. In [BABE](#blind-assignment-of-blockchain-extension-babe), the authorities are [block authors](#block-author). Authority sets can be chosen to be mechanisms such as Polkadot's [Nominated Proof of Stake (NPoS)](#nominated-proof-of-stake-npos) algorithm.
+A generic term for the role in a blockchain that can participate in the consensus mechanisms. In [GRANDPA](#grandpa), the authorities vote on chains they consider final. In [BABE](#blind-assignment-of-blockchain-extension-babe), the authorities are [block authors](#block-author). Authority sets can be chosen to be mechanisms such as Polkadot's [Nominated Proof of Stake (NPoS)](#nominated-proof-of-stake-npos) algorithm.
 
 ## Authority Round (Aura)
 
-A deterministic [consensus](#consensus) protocol where block production is limited to a rotating list of [authorities](#authority) that take turns creating blocks.  With authority round (Aura) consensus, the majority of online authorities are assumed to be honest.
+A deterministic [consensus](#consensus) protocol where block production is limited to a rotating list of [authorities](#authority) that take turns creating blocks. With authority round (Aura) consensus, the majority of online authorities are assumed to be honest.
 
 Learn more by reading [the official wiki article](https://openethereum.github.io/Aura){target=\_blank} for the Aura consensus algorithm.
 
@@ -123,7 +123,7 @@ Dispatchables are function objects that act as the entry points in FRAME [pallet
 
 A means of recording, for the benefit of the offchain world, that some particular [state](#state) transition happened.
 
-In the context of [FRAME](#frame), events are a composable data types that each [pallet](#pallet) can individually define.Events in FRAME are implemented as a set of transient storage items that are inspected immediately after a block has executed and reset during block-initialization.
+In the context of [FRAME](#frame), events are a composable data types that each [pallet](#pallet) can individually define. Events in FRAME are implemented as a set of transient storage items that are inspected immediately after a block has executed and reset during block-initialization.
 
 ## Executor
 
@@ -292,7 +292,7 @@ In each slot, a subset of [authorities](#authority) is permitted—or obliged—
 
 The unique account identifier for each chain in the relay chain ecosystem. It is often used in the context of cross-consensus (XCM) interactions.
 
-The sovereign account for each chain is a root-level account that can only be accessed using the Sudo pallet or through governance.  The account identifier is calculated by concatenating the Blake2 hash of a specific text string and the registered parachain identifier.
+The sovereign account for each chain is a root-level account that can only be accessed using the Sudo pallet or through governance. The account identifier is calculated by concatenating the Blake2 hash of a specific text string and the registered parachain identifier.
 
 The sovereign account is most often used to sign XCM messages that are sent to either the relay chain or other chains in the ecosystem.
 

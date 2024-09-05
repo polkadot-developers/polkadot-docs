@@ -4,7 +4,7 @@ description: List of node endpoints and examples of use. These endpoints can be 
 ---
 
 Ideally, one may run their own node when interacting with the
-[Polkadot network](https://polkadot.network/) via [Polkadot-JS Apps](https://polkadot.js.org/apps/)
+[Polkadot network](https://polkadot.network/) via [Polkadot.Js Apps](https://polkadot.js.org/apps/)
 or other UIs and programmatic methods. Another option would be to connect to one of the several
 public endpoints provided by infrastructure and API service providers. For development convenience,
 [Parity Tech](https://www.parity.io/) maintains archive nodes for Polkadot, Kusama, and their test

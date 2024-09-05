@@ -1,32 +1,26 @@
 ---
 title: Using Light Clients
-description: Information about light client options.
+description: Information about light client options in the Polkadot ecosystem, and how they can be used in the development context.
 ---
 
-The communication between a standard user interface (UI) and a network node is through a JSON RPC
-protocol. Generally, the UI will showcase the information that is available on the node, and this is
-done through two main approaches:
+Conventionally, communication between a user interface (UI) and a node built with the Polkadot SDK is through a JSON RPC
+protocol. This is usually done through two main approaches:
 
 1. **User-Controlled Nodes**: The UI connects to a node client that the user has installed on their machine. These nodes are secure, but installation and maintenance of these nodes tend to be an inconvenience
 
 2. **Publicly-Accessible Nodes**: The UI connects to a third-party-owned publicly-accessible node client. While these nodes are more prevalent in their usage as they are convenient to use, they are centralized and insecure
 
-There is now a new paradigm: instead of specifying a centralized RPC node, developers just need to
-define the blockchain's [chain specification](https://docs.substrate.io/main-docs/build/chain-spec/)
-for their application to synchronize with the chain. This is possible with light clients such as `smoldot` and libraries which integrate it, like Polkadot API (PAPI).
+With the advent of light clients, applications no longer have to rely on RPC nodes.  Light clients don't sync full blocks; rather, they merely verify the finalized headers of the network.  This option provides a cryptographically robust and less resource intensive way to interact with and ensure the state of the network.  Light clients are also available locally, embedded as part of the application, enabling a trustless solution to running an RPC node.
 
-### Replacing RPC Node Reliance with Light Clients
+<!-- TODO: add def for chain specification when glossary is merged -->
 
-The [Polkadot API (PAPI)](https://papi.how/) integrates [`smoldot`](https://github.com/smol-dot/smoldot) as a choice of light client for both browser and server based implementions.
+As long as the chain specification for a Polkadot SDK-based network is available, a light client implementation (in or out of the browser) may be used to connect to that network. 
 
-[Substrate connect](https://substrate.io/substrate-connect/) is a JavaScript library and browser
-extension that builds on the [PolkadotJS API](https://polkadot.js.org/api/) to enable developers to
-build application-specific light clients for Substrate chains. There is no installation required or
-optional extension with minimal or no maintenance. The node is run by the JavaScript engine.
+### Light Client Options
 
+- The [Polkadot API (PAPI)](https://papi.how/){target=_blank} integrates [`smoldot`](https://github.com/smol-dot/smoldot) as a choice of light client for both browser and server based implementations
 
-Application developers no longer need to rely on single RPC nodes to allow end-users to interact
-with their applications.
+- [Substrate connect](https://substrate.io/substrate-connect/) is a browser extension and JavaScript library that enables developers to build application-specific light clients for Substrate chains. There is no installation required or optional extension with minimal or no maintenance.
 
 ### Light Client Benefits
 
@@ -38,39 +32,7 @@ having to trust remote peers. Light clients fetch the required data that they ne
 | ----------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------- |
 | Full verification of all blocks of the chain                                                                 | Only verifies the authenticity of blocks of the chain                                                         |
 | Holds all the previous block data and the chain's storage in database                                       | No database                                                                                                      |
-| Installation, maintenance, and execution tend to be exhaustive and require system administration expertise. | No installation; has an optional extension with minimal or no maintenance. Initializes in five to ten seconds |
-
-## Utilizing Light Clients
-
-### As a JavaScript library
-
-t provides a PolkadotJS API connected to a bundled node. Through the use of the
-library, a user can run an actual Substrate-compatible node.
-
-#### A node bundled with its user interface: ready-to-use light clients
-
-The UI connects to a node client that is directly integrated: **convenient**, **secure**, and
-**decentralized**. This is accomplished through Substrate connect using a
-[smoldot](https://github.com/smol-dot/smoldot) Wasm light client to securely connect to the
-blockchain network without relying on specific third parties.
-
-Application developers can now run a Substrate light client in any NodeJS environment
-([@substrate/connect](https://www.npmjs.com/package/@substrate/connect)). Currently, Substrate
-connect supports Polkadot, Kusama, Westend, and Rococo; because light clients are part of the
-overall Substrate framework, they are available for Substrate-based blockchains.
-
-### As a browser extension
-
-Establishing a sufficient number of peers is difficult due to browser limitations on WebSockets from
-HTTPS pages, as many nodes need to be available with TLS. The browser extension provided by
-Substrate connect helps to overcome this limitation and keeps the chains synced in the background,
-allowing applications to run faster.
-
-#### Bundling light-clients of multiple chains
-
-The [browser extension](https://www.npmjs.com/package/@substrate/connect-extension-protocol) allows
-end-users to interact with applications connected to multiple blockchains or connect their own
-blockchains to applications that support it.
+| Installation, maintenance, and execution tend to be exhaustive and require system administration expertise. | No installation; has an optional extension with minimal or no maintenance with a greatly reduced initialization time. |
 
 ## Resources
 

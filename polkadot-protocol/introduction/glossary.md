@@ -68,7 +68,7 @@ More details are found on the [Polkadot Wiki on collators](https://wiki.polkadot
 
 ## Consensus
 
-In the context of a blockchain, consensus is the process nodes use to agree on the canonical fork of a chain.  Consensus is composed of [authorship](#block-author), finality, and [fork-choice rule](#fork-choice-rulestrategy).
+In the context of a blockchain, consensus is the process nodes use to agree on the canonical fork of a chain. Consensus is composed of [authorship](#block-author), finality, and [fork-choice rule](#fork-choice-rulestrategy).
 
 In the Polkadot ecosystem, these are usually three components are separated from one another, and the term consensus often refers specifically to authorship.
 In the context of a Substrate node, the term _consensus engine_ describes the node subsystem that is responsible for consensus tasks.
@@ -129,7 +129,7 @@ Events in FRAME are implemented as a set of transient storage items that are ins
 A means of executing a function call in a given [runtime](#runtime) with a set of dependencies.
 There are two orchestration engines in Substrate, _WebAssembly_ and _native_.
 
-- The _native executor_ uses a natively compiled runtime embedded in the node to execute calls.  This is a performance optimization that up-to-date nodes can take advantage of
+- The _native executor_ uses a natively compiled runtime embedded in the node to execute calls. This is a performance optimization that up-to-date nodes can take advantage of
 
 - The _WebAssembly executor_ uses a [Wasm](#webassembly-wasm) binary and a Wasm interpreter to execute calls
   
@@ -137,9 +137,9 @@ The binary is guaranteed to be up-to-date regardless of the version of the block
 
 ## Extrinsic
 
-An extrinsic is a general term for a piece of data that is originated outside of the runtime, included into a block and leads to some action. This includes user-initiated transactions as well as inherents which are placed into the block by the block-builder.
+An extrinsic is a general term for a piece of data that is originated outside of the runtime, included into a block and leads to some action. This includes user-initiated transactions as well as inherent transactions which are placed into the block by the block-builder.
 
-It is a SCALE-encoded array typically consisting of a version number, signature, and varying data types indicating the resulting runtime function to be called. Extrinsics take two forms: [inherents](#inherent-transactions) and [transactions](#transaction). For more technical details, see the [Polkadot spec](https://spec.polkadot.network/#id-extrinsics){target=\_blank}.
+It is a SCALE-encoded array typically consisting of a version number, signature, and varying data types indicating the resulting runtime function to be called. Extrinsics take two forms: [inherent](#inherent-transactions) and [transactions](#transaction). For more technical details, see the [Polkadot spec](https://spec.polkadot.network/#id-extrinsics){target=\_blank}.
 
 ## Existential Deposit
 
@@ -150,9 +150,9 @@ If all of the references to an account are dropped, the account can be [reaped](
 
 ## Fork Choice Rule/Strategy
 
-A fork choice rule (or strategy) helps determine which chain is valid when reconciling amongst several forks within a network.  A common fork choice rule is the [longest chain](https://paritytech.github.io/polkadot-sdk/master/sc_consensus/struct.LongestChain.html){target=\_blank}, which the chain with the highest number of blocks gets selected.
+A fork choice rule (or strategy) helps determine which chain is valid when reconciling amongst several forks within a network. A common fork choice rule is the [longest chain](https://paritytech.github.io/polkadot-sdk/master/sc_consensus/struct.LongestChain.html){target=\_blank}, which the chain with the highest number of blocks gets selected.
 
-## FRAME
+## FRAME (Framework for Runtime Aggregation of Modularized Entities)
 
 An acronym for the _Framework for Runtime Aggregation of Modularized Entities_ that enables developers to create blockchain [runtime](#runtime) environments from a modular set of components called [pallets](#pallet).  It utilizes a set of procedural macros to construct runtimes.
 
@@ -177,7 +177,7 @@ The [formal specification](https://github.com/w3f/consensus/blob/master/pdf/gran
 
 ## Header
 
-The structure that aggregates the information used to summarize a block.  A header consists primarily of cryptographic information that is used by [light clients](#light-client) to get a minimally secure but very efficient synchronization of the chain.
+The structure that aggregates the information used to summarize a block. A header consists primarily of cryptographic information that is used by [light clients](#light-client) to get a minimally secure but very efficient synchronization of the chain.
 
 ## Hybrid Consensus
 
@@ -188,10 +188,9 @@ Making block production separate from block finalization gives Substrate develop
 
 ## Inherent Transactions
 
-Inherent transactions—sometimes referred to as inherents—are a special type of unsigned transaction.
-This type of transaction enables a block authoring node to insert information that doesn't require validation directly to a block.
-Only the block-authoring node that calls the inherent transaction function can insert data into its block.
-In general, validators assume the data inserted using an inherent transaction is valid and reasonable even if it can't be deterministically verified.
+Inherent transactions, referred to as *inherents*, are a special type of unsigned transaction.  This type of transaction enables a block authoring node to insert information that doesn't require validation directly to a block.
+
+Only the block-authoring node that calls the inherent transaction function can insert data into its block. In general, validators assume the data inserted using an inherent transaction is valid and reasonable even if it can't be deterministically verified.
 
 ## JSON-RPC
 
@@ -217,7 +216,7 @@ Substrate uses the [Rust implementation](https://github.com/libp2p/rust-libp2p){
 
 ## Light Client
 
-A type of blockchain node that does not store the [chain state](#state) or produce blocks.
+A type of blockchain node that doesn't store the [chain state](#state) or produce blocks.
 A light client is capable of verifying cryptographic primitives and exposes a [remote procedure call (RPC)](https://en.wikipedia.org/wiki/Remote_procedure_call){target=\_blank} server that allows blockchain users to interact with the blockchain network.
 
 ## Metadata
@@ -247,11 +246,7 @@ Pallets bundle domain-specific logic with runtime primitives like [events](#even
 
 ## Paseo
 
-Paseo testnet provisions testing on Polkadot's "production" runtime, which means less
-chance of feature/code mismatch when developing parachain apps. Specifically, after the
-[Polkadot Technical fellowship](https://wiki.polkadot.network/docs/learn-polkadot-technical-fellowship){target=\_blank} proposes a runtime upgrade for Polkadot, this
-testnet is updated, giving a period where the testnet will be ahead of Polkadot to allow for
-testing.
+Paseo TestNet provisions testing on Polkadot's "production" runtime, which means less chance of feature/code mismatch when developing parachain apps. Specifically, after the [Polkadot Technical fellowship](https://wiki.polkadot.network/docs/learn-polkadot-technical-fellowship){target=\_blank} proposes a runtime upgrade for Polkadot, this TestNet is updated, giving a period where the TestNet will be ahead of Polkadot to allow for testing.
 
 ## Parachain
 
@@ -265,12 +260,12 @@ It serves the role of the [relay chain](#relay-chain) and supports other chains�
 
 ## Relay Chain
 
-The central hub in a heterogeneous network of multiple blockchains.  Relay chains are [blockchains](#blockchain) that provide shared infrastructure and security to the other blockchains—the [parachains](#parachain)—in the network.  In addition to providing [consensus](#consensus) capabilities, relay chains also allow parachains to communicate and exchange digital assets without needing to trust one another.
+The central hub in a heterogeneous network of multiple blockchains. Relay chains are [blockchains](#blockchain) that provide shared infrastructure and security to the other blockchains—the [parachains](#parachain)—in the network. In addition to providing [consensus](#consensus) capabilities, relay chains also allow parachains to communicate and exchange digital assets without needing to trust one another.
 
 ## Rococo
 
 A [parachain](#parachain) test network for the Polkadot network.
-The Rococco network is a Substrate-based blockchain that is an evolving testbed for the capabilities of heterogeneous blockchain networks.
+The [Rococo](#rococo) network is a Substrate-based blockchain that is an evolving testbed for the capabilities of heterogeneous blockchain networks.
 
 ## Runtime
 
@@ -328,7 +323,7 @@ A data structure that is used to represent sets of key-value pairs.
 
 The Patricia Merkle trie data structure enables the items in the data set to be stored and retrieved using a cryptographic hash. Because incremental changes to the data set result in a new hash, retrieving data is efficient even if the data set is very large. With this data structure, you can also prove whether the data set includes any particular key-value pair without access to the entire data set.
 
-In Polkadot SDK-based blockchains, state is stored in a trie data structure that supports the efficient creation of incremental digests.  This trie is exposed to the [runtime](#runtime) as [a simple key/value map](#storage-item) where both keys and values can be arbitrary byte arrays.
+In Polkadot SDK-based blockchains, state is stored in a trie data structure that supports the efficient creation of incremental digests. This trie is exposed to the [runtime](#runtime) as [a simple key/value map](#storage-item) where both keys and values can be arbitrary byte arrays.
 
 ## Validator
 

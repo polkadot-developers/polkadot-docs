@@ -24,7 +24,7 @@ To request judgement, follow these steps:
       1. Select the **identity** pallet
       2. Choose the **requestJudgement** extrinsic
       3. Fill in the required fields
-         1. **registrarIndex**: The index of the registrar to whom the judgement request is being made
+         1. **registrarIndex** - the index of the registrar to whom the judgement request is being made
          2. **maxFee** - the maximum fee the user is willing to pay for the judgement request
       4. Click on the **Submit Transaction** button
 

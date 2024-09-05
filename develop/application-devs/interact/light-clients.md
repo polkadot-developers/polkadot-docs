@@ -18,9 +18,9 @@ As long as the chain specification for a Polkadot SDK-based network is available
 
 ### Light Client Options
 
-- The [Polkadot API (PAPI)](https://papi.how/){target=_blank} integrates [`smoldot`](https://github.com/smol-dot/smoldot) as a choice of light client for both browser and server based implementations
+- The [Polkadot API (PAPI)](https://papi.how/){target=_blank} integrates [`smoldot`](https://github.com/smol-dot/smoldot){target=_blank} as a choice of light client for both browser and server based implementations
 
-- [Substrate connect](https://substrate.io/substrate-connect/) is a browser extension and JavaScript library that enables developers to build application-specific light clients for Substrate chains. There is no installation required or optional extension with minimal or no maintenance.
+- [Substrate connect](https://substrate.io/substrate-connect/){target=_blank} is a browser extension and JavaScript library that enables developers to build application-specific light clients for Substrate chains. There is no installation required or optional extension with minimal or no maintenance.
 
 ### Light Client Benefits
 
@@ -34,4 +34,4 @@ A light client allows for all basic features of the chain such as fetching data 
 
 ## Resources
 
-- [What is a light client and why you should care?](https://www.parity.io/blog/what-is-a-light-client/)
+- [What is a light client and why you should care?](https://www.parity.io/blog/what-is-a-light-client/){target=_blank}

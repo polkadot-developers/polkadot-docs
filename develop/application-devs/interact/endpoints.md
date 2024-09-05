@@ -1,6 +1,6 @@
 ---
 title: Node Endpoints
-description: List of node endpoints and examples of use.  These endpoints can be used for development, RPC, or other purposes in which network access is required.
+description: List of node endpoints and examples of use. These endpoints can be used for development, RPC, or other purposes for which network access is required.
 ---
 
 Ideally, one may run their own node when interacting with the

@@ -21,6 +21,7 @@ The scope of this tutorial includes:
 Before diving into this tutorial, it's recommended that you have a basic understanding of how adding trusted nodes works in Polkadot. For further information about this process, refer to the [Add Trusted Nodes](TODO: add the absolute path to the Add Trusted Nodes tutorial) tutorial.
 
 To complete this tutorial, ensure that you have:
+
 - Configured your environment for Substrate development by installing [Rust and the Rust toolchain](https://docs.substrate.io/install/){target=\_blank}
 - Completed [Build a local blockchain](TODO: the add absolute path to the Build a local blockchain tutorial){target=\_blank} tutorial and know how to compile and run a Substrate node
 

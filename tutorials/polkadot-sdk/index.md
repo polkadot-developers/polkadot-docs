@@ -1,5 +1,5 @@
 ---
-title:  Tutorials
+title: Polkadot-SDK Tutorials
 description: TODO
 hide: 
 - feedback

@@ -167,8 +167,8 @@ To transfer funds from Alice's account to Charlie's account:
 
 When you're done exploring your local node, you can stop it to remove any state changes you've made. Since you started the node with the `--dev` option, stopping the node will purge all persistent block data, allowing you to start fresh the next time.
 
-To stop the local Substrate node:
+To stop the local node:
 
 1. Return to the terminal window where the node output is displayed
-2. Press `Control-C` to terminate the running process
+2. Press `Control-C` to stop the running process
 3. Verify that your terminal returns to the prompt in the `polkadot-sdk-solochain-template` directory

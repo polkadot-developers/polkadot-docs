@@ -177,3 +177,5 @@ If you don't see the relay chain producing blocks, try disabling your firewall o
 --bootnodes \
 /ip4/127.0.0.1/tcp/30333/p2p/12D3KooWG393uX82rR3QgDkZpb7U8StzuRx9BQUXCvWsP1ctgygp
 ```
+
+Once the relay chain nodes are running, you can proceed to the next tutorial to set up a test parachain node and connect it to the relay chain.

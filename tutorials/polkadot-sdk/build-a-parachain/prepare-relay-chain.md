@@ -49,12 +49,12 @@ cd polkadot-sdk
 
 3. Build the relay chain node by running the following command:
 
-```bash
-cargo build --release
-```
+   ```bash
+   cargo build --release
+   ```
 
-!!! note
-    Depending on your machine’s specifications, the build process may take some time.
+   !!! note
+       Depending on your machine’s specifications, the build process may take some time.
 
 4. Verify that the node is built correctly by running the following command:
 
@@ -150,9 +150,8 @@ To start the validator nodes using the [raw sample chain specification file](htt
          <span>...</span>
       </div>
 
-!!! note
-    You need to specify this identifier to enable other nodes to connect. In this case, the `Local node identity` is `12D3KooWG393uX82rR3QgDkZpb7U8StzuRx9BQUXCvWsP1ctgygp`.
-
+    !!! note
+        You need to specify this identifier to enable other nodes to connect. In this case, the `Local node identity` is `12D3KooWG393uX82rR3QgDkZpb7U8StzuRx9BQUXCvWsP1ctgygp`.
 
 4. Open a new terminal and start the second validator using the bob account.
 

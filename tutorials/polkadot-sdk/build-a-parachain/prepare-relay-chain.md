@@ -7,7 +7,7 @@ description: This tutorial will guide you through preparing a relay chain so tha
 
 ## Introduction
 
-This tutorial illustrates how to configure a local relay chain. The local relay chain is required to set up a local testing environment to which a test parachain node can connect. Setting up a local relay chain is a crucial step in parachain development. It allows developers to test their parachains in a controlled environment, simulating the interaction between a parachain and the relay chain without needing a live network. This local setup facilitates faster development cycles and easier debugging.
+This tutorial illustrates how to configure and spin up a local relay chain. The local relay chain is required to set up a local testing environment to which a test parachain node can connect. Setting up a local relay chain is a crucial step in parachain development. It allows developers to test their parachains in a controlled environment, simulating the interaction between a parachain and the relay chain without needing a live network. This local setup facilitates faster development cycles and easier debugging.
 
 The scope of this tutorial includes:
 

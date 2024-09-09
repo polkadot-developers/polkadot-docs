@@ -1,0 +1,4 @@
+title: Build a Blockchain
+nav:
+  - index.md
+  - 'Build a Local Blockchain': build-a-local-blockchain.md 

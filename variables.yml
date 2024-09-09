@@ -1,1 +1,5 @@
 # Variables that can be reused should be added to this file
+dependencies:
+  polkadot_sdk_solochain_template:
+    repository_url: https://github.com/paritytech/polkadot-sdk-solochain-template
+    version: v0.0.2

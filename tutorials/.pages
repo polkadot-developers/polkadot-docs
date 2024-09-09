@@ -1,3 +1,4 @@
 title: Tutorials
 nav:
   - index.md
+  - 'Polkadot SDK': polkadot-sdk

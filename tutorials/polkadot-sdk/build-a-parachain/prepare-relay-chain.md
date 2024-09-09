@@ -1,6 +1,6 @@
 ---
 title: Prepare a Relay Chain
-description: This tutorial will guide you through preparing a relay chain for a parachain, including setting up a local development environment, spinning up a new relay chain, and configuring the relay chain for parachain development.
+description: This tutorial will guide you through preparing a relay chain so that you can connect a test parachain node to it for local testing.
 ---
 
 # Prepare Relay Chain

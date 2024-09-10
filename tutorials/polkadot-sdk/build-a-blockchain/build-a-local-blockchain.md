@@ -1,3 +1,8 @@
+---
+title: Build a Local Blockchain
+description: Learn to compile and launch a local blockchain node using Polkadot-SDK. Build, run, and interact with a pre-configured node template.
+---
+
 # Build a Local Blockchain
 
 ## Introduction
@@ -26,9 +31,7 @@ To get started with the node template, you'll need to have a few things set up o
 
 The [Polkadot-SDK Solochain Template](https://github.com/paritytech/polkadot-sdk-solochain-template){target=\_blank} provides a ready-to-use development environment for building using the [Polkadot-SDK](https://github.com/paritytech/polkadot-sdk){target=\_blank}. Follow these steps to compile the node:
 
-1. Open a terminal on your computer
-
-2. Clone the node template repository:
+1. Clone the node template repository:
     ```bash
     git clone -b {{dependencies.polkadot_sdk_solochain_template.version}} {{dependencies.polkadot_sdk_solochain_template.repository_url}}
     ```
@@ -36,20 +39,20 @@ The [Polkadot-SDK Solochain Template](https://github.com/paritytech/polkadot-sdk
     !!!note
         This tutorial uses version `{{dependencies.polkadot_sdk_solochain_template.version}}` of the Polkadot SDK Solochain Template. Make sure you're using the correct version to match these instructions.
 
-3. Navigate to the root of the node template directory:
+2. Navigate to the root of the node template directory:
     ```bash
     cd polkadot-sdk-solochain-template
     ```
 
-4. Compile the node template:
+3. Compile the node template:
     ```bash
     cargo build --release
     ```
 
     !!!note
-        Always use the `--release` flag to build optimized artifacts. The initial compilation may take several minutes to complete.
+        Initial compilation may take several minutes, depending on your machine specifications. Always use the `--release` flag to build optimized, production-ready artifacts.
 
-5. Upon successful compilation, you should see output similar to:
+4. Upon successful compilation, you should see output similar to:
     <div id="termynal" data-termynal>
         <span data-ty="input"><span class="file-path"></span>cargo build --release</span>
 	<span data-ty>Compiling solochain-template-node</span>

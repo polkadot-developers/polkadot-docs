@@ -54,6 +54,35 @@ To build the parachain template, follow these steps:
     !!! note
         Compiling the node can take a few minutes, depending on your system's performance.
 
+## Reserve a Parachain Identifier
+
+Every parachain must reserve a unique identifier the - `ParaID` - that enables it to connect to its specific relay chain. Each relay chain manages its own set of unique identifiers for the parachains that connect to it. The identifier is referred to as a `ParaID` because the same identifier can be used to identify a slot occupied by a [Parachain](https://wiki.polkadot.network/docs/learn-parachains){target=\_blank} or to identify a slot occupied by a [Parathread](https://wiki.polkadot.network/docs/glossary#parathread){target=\_blank}.
+
+You should note that you must have an account with sufficient funds to reserve a slot on a relay chain. You can determine the number of tokens a specific relay chain requires by checking the `ParaDeposit` configuration in the `paras_registrar` pallet for that relay chain. For example, [Rococo](https://github.com/paritytech/polkadot/blob/master/runtime/rococo/src/lib.rs#L1155){target=\_blank} requires 40 ROC to reserve an identifier:
+
+```rust
+parameter_types! {
+	pub const ParaDeposit: Balance = 40 * UNITS;
+}
+
+impl paras_registrar::Config for Runtime {
+	type RuntimeOrigin = RuntimeOrigin;
+	type RuntimeEvent = RuntimeEvent;
+	type Currency = Balances;
+	type OnSwap = (Crowdloan, Slots);
+	type ParaDeposit = ParaDeposit;
+	type DataDepositPerByte = DataDepositPerByte;
+	type WeightInfo = weights::runtime_common_paras_registrar::WeightInfo<Runtime>;
+}
+```
+
+Each relay chain allots its own identifiers by incrementing the identifier starting at `2000` for all chains that are not [common good parachains](https://wiki.polkadot.network/docs/learn-system-chains){target=\_blank}. Common good chains use a different method to allocate slot identifiers.
+
+To reserve a parachain identifier, follow these steps:
+
+1. Ensure your local relay chain validators are running
+2. Connect to a local relay chain node using the [Polkadot JS Apps](https://polkadot.js.org/apps/){target=_blank} interface. If you have followed the [Prepare a Local Relay Chain](/tutorials/polkadot-sdk/build-a-parachain/prepare-relay-chain/) tutorial, you can access the Polkadot JS Apps interface at `ws://localhost:9944`
+Click Network and select Parachains.
 
 
 

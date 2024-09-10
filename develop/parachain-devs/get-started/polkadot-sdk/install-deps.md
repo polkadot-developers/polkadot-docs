@@ -102,7 +102,7 @@ To install `openssl` and the Rust toolchain on macOS:
    rustup target add wasm32-unknown-unknown
    ```
 
-8. Add the `nightly` release and the `nightly` WebAssembly (wasm) targets to your development
+8. Add the `nightly` release and the `nightly` WebAssembly (Wasm) targets to your development
    environment by running the following commands:
 
    ```bash
@@ -228,7 +228,7 @@ Mint, MX Linux, and Elementary OS.
    rustup update
    ```
 
-6. Add the `nightly` release and the `nightly` WebAssembly (wasm) targets to your development
+6. Add the `nightly` release and the `nightly` WebAssembly (Wasm) targets to your development
    environment by running the following commands:
 
    ```bash

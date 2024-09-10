@@ -1,3 +1,4 @@
 title: Parachain Maintenance
 nav:
   - index.md
+  - runtime-upgrades.md

@@ -1,0 +1,4 @@
+title: Build a Blockchain
+nav:
+  - index.md
+  - 'Simulate a Network': simulate-a-network.md

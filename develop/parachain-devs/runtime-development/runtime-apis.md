@@ -3,7 +3,7 @@ title: Runtime APIs
 description: Highlights the runtime interfaces that enable communication with outer node services.  These APIs allow for the outer node to communicate with the WebAssembly runtime of a Polkadot SDK-based node.
 ---
 
-Nodes consist of outer node services and a runtime.  This separation of responsibilities is an important concept for designing Polkadot SDK-based chains and building upgradeable logic.
+Nodes consist of outer node services and a runtime. This separation of responsibilities is an important concept for designing Polkadot SDK-based chains and building upgradeable logic.
 
 For more information on details of how the meta protocol works, [read the Polkadot SDK docs.](https://paritytech.github.io/polkadot-sdk/master/polkadot_sdk_docs/polkadot_sdk/index.html#summary){target=_blank}
 

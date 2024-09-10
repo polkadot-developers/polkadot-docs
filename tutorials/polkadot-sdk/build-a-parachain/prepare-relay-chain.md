@@ -29,38 +29,38 @@ To complete this tutorial, ensure that you have:
 
 To build a local relay chain, follow these steps:
 
-1. Clone the most recent release branch of the Polkadot SDK repository to prepare a stable working environment.
+1. Clone the most recent release branch of the Polkadot SDK repository to prepare a stable working environment
 
-```bash
-git clone --depth 1 --branch polkadot-stable2407-2 https://github.com/paritytech/polkadot-sdk.git
-```
+    ```bash
+    git clone --depth 1 --branch polkadot-stable2407-2 https://github.com/paritytech/polkadot-sdk.git
+    ```
 
-!!! note
-    The branch `polkadot-stable2407-2` is used in this tutorial since it is the branch that contains the latest stable release of the Polkadot SDK. You can find the latest release of the Polkadot SDK on the [Release](https://github.com/paritytech/polkadot/releases){target=\_blank} tab on the Polkadot GitHub repository.
+    !!! note
+        The branch `polkadot-stable2407-2` is used in this tutorial since it is the branch that contains the latest stable release of the Polkadot SDK. You can find the latest release of the Polkadot SDK on the [Release](https://github.com/paritytech/polkadot/releases){target=\_blank} tab on the Polkadot GitHub repository.
 
+    !!! note
+        Note that the `--depth 1` flag is used to clone only the latest commit of the branch, which speeds up the cloning process.
 
-!!! note
-    Note that the `--depth 1` flag is used to clone only the latest commit of the branch, which speeds up the cloning process.
-2. Change the directory to the Polkadot SDK repository.
+2. Change the directory to the Polkadot SDK repository
 
-```bash
-cd polkadot-sdk
-```
+    ```bash
+    cd polkadot-sdk
+    ```
 
 3. Build the relay chain node by running the following command:
 
-   ```bash
-   cargo build --release
-   ```
+    ```bash
+    cargo build --release
+    ```
 
-   !!! note
-       Depending on your machine’s specifications, the build process may take some time.
+    !!! note
+        Depending on your machine’s specifications, the build process may take some time.
 
 4. Verify that the node is built correctly by running the following command:
 
-```
-./target/release/polkadot --version
-```
+    ```
+    ./target/release/polkadot --version
+    ```
 
 If command-line help is displayed, the node is ready to configure.
 
@@ -155,27 +155,27 @@ To start the validator nodes using the [raw sample chain specification file](htt
 
 4. Open a new terminal and start the second validator using the bob account.
 
-The command is similar to the command used to start the first node, with a few crucial differences. 
+      The command is similar to the command used to start the first node, with a few crucial differences. 
 
-```bash
-./target/release/polkadot \
---bob \
---validator \
---base-path /tmp/relay/bob \
---chain /tmp/raw-local-chainspec.json \
---port 30334 \
---rpc-port 9945
-```
+      ```bash
+      ./target/release/polkadot \
+      --bob \
+      --validator \
+      --base-path /tmp/relay/bob \
+      --chain /tmp/raw-local-chainspec.json \
+      --port 30334 \
+      --rpc-port 9945
+      ```
 
-Notice that this command uses a different base path (/tmp/relay/bob), validator key (`--bob`), and ports (`30334` and `9945`).
+      Notice that this command uses a different base path (/tmp/relay/bob), validator key (`--bob`), and ports (`30334` and `9945`).
 
-Because both validators are running on a single local computer, it isn't necessary to specify the --bootnodes command-line option and the first node’s IP address and peer identifier. The bootnodes option is required to connect nodes outside the local network or not identified in the chain specification file.
+      Because both validators are running on a single local computer, it isn't necessary to specify the --bootnodes command-line option and the first node’s IP address and peer identifier. The bootnodes option is required to connect nodes outside the local network or not identified in the chain specification file.
 
-If you don't see the relay chain producing blocks, try disabling your firewall or adding the bootnodes command-line option with the address of the alice node to start the node. Adding the bootnodes option looks like this (with the node identity from preceding): 
+      If you don't see the relay chain producing blocks, try disabling your firewall or adding the bootnodes command-line option with the address of the alice node to start the node. Adding the bootnodes option looks like this (with the node identity from preceding): 
 
-```bash
---bootnodes \
-/ip4/127.0.0.1/tcp/30333/p2p/12D3KooWG393uX82rR3QgDkZpb7U8StzuRx9BQUXCvWsP1ctgygp
-```
+      ```bash
+      --bootnodes \
+      /ip4/127.0.0.1/tcp/30333/p2p/12D3KooWG393uX82rR3QgDkZpb7U8StzuRx9BQUXCvWsP1ctgygp
+      ```
 
 Once the relay chain nodes are running, you can proceed to the next tutorial to set up a test parachain node and connect it to the relay chain.

@@ -106,7 +106,7 @@ To start the validator nodes using the [raw sample chain specification file](htt
       ./target/release/polkadot \
       --alice \
       --validator \
-      --base-path /tmp/relay/alice \
+      --base-path /tmp/alice \
       --chain /tmp/raw-local-chainspec.json \
       --port 30333 \
       --rpc-port 9944 \
@@ -161,7 +161,7 @@ To start the validator nodes using the [raw sample chain specification file](htt
       ./target/release/polkadot \
       --bob \
       --validator \
-      --base-path /tmp/relay/bob \
+      --base-path /tmp/bob \
       --chain /tmp/raw-local-chainspec.json \
       --port 30334 \
       --rpc-port 9945
@@ -177,5 +177,26 @@ To start the validator nodes using the [raw sample chain specification file](htt
       --bootnodes \
       /ip4/127.0.0.1/tcp/30333/p2p/12D3KooWG393uX82rR3QgDkZpb7U8StzuRx9BQUXCvWsP1ctgygp
       ```
+
+5. Verify that the relay chain nodes are running by checking the logs for each node. The logs should show that the nodes are connected to each other and producing blocks. For example, bob's logs will be displayed as follows:
+
+    <div id="termynal" data-termynal>
+    <span data-ty="input"><span class="file-path"></span>./target/release/polkadot \
+        --bob \
+        --validator \
+        --base-path /tmp/relay/bob \
+        --chain /tmp/raw-local-chainspec.json \
+        --port 30334 \
+        --rpc-port 9945
+     </span>
+     <span>...</span>
+     <br>
+     <span>2024-09-10 13:29:38 🏆 Imported #55 (0xad6a…567c → 0xecae…ad12)<span>
+     <br>
+     <span>2024-09-10 13:29:38 💤 Idle (1 peers), best: #55 (0xecae…ad12), finalized #0 (0x1cac…618d), ⬇ 2.0kiB/s ⬆ 1.6kiB/s</span>
+     <br>
+     <span>...</span>
+    </div>
+
 
 Once the relay chain nodes are running, you can proceed to the next tutorial to set up a test parachain node and connect it to the relay chain.

@@ -2,16 +2,16 @@
 
 ## Introduction
 
-[Polkadot-SDK](https://github.com/paritytech/polkadot-sdk){target=\_blank} offers a versatile and extensible blockchain development framework, enabling you to create custom blockchain nodes tailored to your specific application or business requirements. This tutorial guides you through the process of compiling and launching a single local blockchain node using the [Polkadot-SDK Solochain Template](https://github.com/paritytech/polkadot-sdk-solochain-template){target=\_blank}.
+[Polkadot-SDK](https://github.com/paritytech/polkadot-sdk){target=\_blank} offers a versatile and extensible blockchain development framework, enabling you to create custom blockchain nodes tailored to your specific application or business requirements. This tutorial guides you through compiling and launching a single local blockchain node using the [Polkadot-SDK Solochain Template](https://github.com/paritytech/polkadot-sdk-solochain-template){target=\_blank}.
 
-The node template provides a pre-configured, functional single-node blockchain that you can run in your local development environment. It includes several key components, such as user accounts and account balances.
+The node template provides a pre-configured, functional single-node blockchain you can run in your local development environment. It includes several key components, such as user accounts and account balances.
 
 These pre-defined elements allow you to experiment with common blockchain operations without requiring any initial modifications to the template.
 In this tutorial, you will:
 
 - Build and start a local blockchain node using the node template
 - Explore how to use a front-end interface to:
-    - View information about blockchain activity.
+    - View information about blockchain activity
     - Submit a transaction
 
 By the end of this tutorial, you'll have a working local blockchain and understand how to interact with it, setting the foundation for further customization and development.
@@ -51,10 +51,10 @@ The [Polkadot-SDK Solochain Template](https://github.com/paritytech/polkadot-sdk
 
 5. Upon successful compilation, you should see output similar to:
     <div id="termynal" data-termynal>
-    <span data-ty="input"><span class="file-path"></span>cargo build --release</span>
+        <span data-ty="input"><span class="file-path"></span>cargo build --release</span>
 	<span data-ty>Compiling solochain-template-node</span>
 	<span data-ty>Finished `release` profile [optimized] target(s) in 27.12s</span>
-</div>
+    </div>
 
 ## Start the Local Node
 
@@ -95,6 +95,7 @@ After successfully compiling your node, you're ready to run it and begin produci
         <span data-ty>2024-09-09 08:32:48 🎁 Prepared block for proposing at 1 (1 ms) [hash: 0xc14630b76907550bef9037dcbfafa2b25c8dc763495f30d9e36ad4b93b673b36; parent_hash: 0x0eef…935d; extrinsics (1): [0xbcd8…5132]</span>
         <span data-ty>2024-09-09 08:32:48 🔖 Pre-sealed block for proposal at 1. Hash now 0xcb3d2f28bc73807dac5cf19fcfb2ac6d7e922756da9d41ca0c9dadbd0e45265b, previously 0xc14630b76907550bef9037dcbfafa2b25c8dc763495f30d9e36ad4b93b673b36.</span>
         <span data-ty>2024-09-09 08:32:48 🏆 Imported #1 (0x0eef…935d → 0xcb3d…265b)</span>
+        <span data-ty>...</span>
     </div>
 
 3. Confirm that your blockchain is producing new blocks by checking if the number after **finalized** is increasing
@@ -132,7 +133,7 @@ To interact with your node using the [Polkadot.js Apps](https://polkadot.js.org/
     4. Click the **Switch** button
     ![](/images/tutorials/polkadot-sdk/build-a-blockchain/build-a-local-blockchain/build-a-local-blockchain-2.webp)
 
-3. Verify Connection:
+3. Verify connection:
     - Once connected, you should see **solochain-template-runtime** in the top left corner
     - The interface will display information about your local blockchain
     ![](/images/tutorials/polkadot-sdk/build-a-blockchain/build-a-local-blockchain/build-a-local-blockchain-3.webp)

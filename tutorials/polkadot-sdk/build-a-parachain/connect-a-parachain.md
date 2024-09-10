@@ -76,7 +76,8 @@ impl paras_registrar::Config for Runtime {
 	type WeightInfo = weights::runtime_common_paras_registrar::WeightInfo<Runtime>;
 }
 ```
-Each relay chain allows its identifiers by incrementing the identifier starting at `2000` for all chains that are not [common good parachains](https://wiki.polkadot.network/docs/learn-system-chains){target=\_blank}. Common good chains use a different method to allocate slot identifiers.
+
+Each relay chain allows its identifiers by incrementing the identifier starting at `2000` for all chains that aren't [common good parachains](https://wiki.polkadot.network/docs/learn-system-chains){target=\_blank}. Common good chains use a different method to allocate slot identifiers.
 
 To reserve a parachain identifier, follow these steps:
 

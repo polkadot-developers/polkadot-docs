@@ -20,15 +20,15 @@ Parachain developers use local testnets powered by tools like [Zombienet](#zombi
 parachains on either [Rococo](#rococo) or [Paseo](#paseo) networks.
 
 Application developers and end users of Polkadot ecosystem can test many features without risking or spending their tokens on production 
-networks networks by using tools like [Chopsticks](#chopsticks).
+networks by using tools like [Chopsticks](#chopsticks).
 
 ## Kusama Network
 
 Kusama is the experimental development network for teams who want to innovate, move fast and test their applications on a
-production grade environment with economics and game theory involved. It comprises of a relaychain with its own governance, system chains 
+production grade environment with economics and game theory involved. It comprises of a relay chain with its own governance, system chains 
 and parachains.
 
-Native Token: KSM
+Native token: KSM
 
 ## Test Networks
 
@@ -39,27 +39,27 @@ The tokens for the test networks listed below are available through [faucet.polk
 A perma-testnet (that is not reset back to genesis block) intended for Polkadot core developers and maintained by Parity Technologies. 
 Primarily used to test features that are to be deployed onto Kusama and then to Polkadot. 
 
-Native Token: WND
+Native token: WND
 
 ### Paseo
 
 A community-run testnet which mirrors the Polkadot runtime that is intended for parachain developers. It is maintained by the members of 
 Polkadot community.
 
-Native Token: PAS
+Native token: PAS
 
 ### Rococo
 
 Soon to be deprecated testnet intended for parachain developers. It is maintained by Parity Technologies.
 
-Native Token: ROC
+Native token: ROC
 
 ## Local Test Networks
 
 ### Zombienet
 
-[Zombienet](https://github.com/paritytech/zombienet){target=\_blank} is a testing framework for Polkadot SDK based blockchains, providing 
-a simple cli tool that allows users to spawn and test ephemeral networks. 
+[Zombienet](https://github.com/paritytech/zombienet){target=\_blank} is a testing framework for Polkadot SDK based blockchains, allowing 
+users to spawn and test ephemeral networks. 
 
 ### Chopsticks
 

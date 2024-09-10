@@ -96,7 +96,7 @@ Before starting block production for a parachain, you need to start a relay chai
 
 To start the validator nodes using the [raw sample chain specification file](https://docs.substrate.io/assets/tutorials/relay-chain-specs/raw-local-chainspec.json/){target=\_blank}, follow these steps:
 
-1. Download the raw chain specification file to a working directory on the local computer.
+1. Download the raw chain specification file to a working directory on the local computer
 
     For example, save the file as `raw-local-chainspec.json` in the `/tmp` directory. When starting the nodes, you’ll need to specify the path to the file in the commands.
 
@@ -116,7 +116,7 @@ To start the validator nodes using the [raw sample chain specification file](htt
 
     This command uses `/tmp/raw-local-chainspec.json` as the location of the sample chain specification file. Be sure the `--chain` command line specifies the path to the raw chain specification you downloaded into a local working directory. This command also uses the default values for the port (`port`) and WebSocket port (`ws-port`). The values are explicitly included here as a reminder to always check these settings. After the node starts, no other nodes on the same local machine can use these ports.
 
-3. Review log messages as the node starts and take note of the `Local node identity` value. This value is the node’s peer ID, which you need to connect the parachain to the relay chain.
+3. Review log messages as the node starts and take note of the `Local node identity` value. This value is the node’s peer ID, which you need to connect the parachain to the relay chain
 
       <div id="termynal" data-termynal>
           <span data-ty="input"><span class="file-path"></span>./target/release/polkadot \
@@ -153,7 +153,7 @@ To start the validator nodes using the [raw sample chain specification file](htt
     !!! note
         You need to specify this identifier to enable other nodes to connect. In this case, the `Local node identity` is `12D3KooWG393uX82rR3QgDkZpb7U8StzuRx9BQUXCvWsP1ctgygp`.
 
-4. Open a new terminal and start the second validator using the bob account.
+4. Open a new terminal and start the second validator using the bob account
 
       The command is similar to the command used to start the first node, with a few crucial differences. 
 

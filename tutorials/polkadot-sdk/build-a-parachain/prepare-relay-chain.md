@@ -169,7 +169,7 @@ To start the validator nodes using the [raw sample chain specification file](htt
 
       Notice that this command uses a different base path (/tmp/relay/bob), validator key (`--bob`), and ports (`30334` and `9945`).
 
-      Because both validators are running on a single local computer, it isn't necessary to specify the --bootnodes command-line option and the first node’s IP address and peer identifier. The bootnodes option is required to connect nodes outside the local network or not identified in the chain specification file.
+      Because both validators are running on a single local computer, it isn't necessary to specify the `--bootnodes` command-line option and the first node’s IP address and peer identifier. The `--bootnodes` option is required to connect nodes outside the local network or not identified in the chain specification file.
 
       If you don't see the relay chain producing blocks, try disabling your firewall or adding the bootnodes command-line option with the address of the alice node to start the node. Adding the bootnodes option looks like this (with the node identity of the alice node):
 

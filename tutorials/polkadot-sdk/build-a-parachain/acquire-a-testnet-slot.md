@@ -1,9 +1,9 @@
 ---
-title: Acquire a Testnet Slot
+title: Acquire a TestNet Slot
 description: This guide walks you through the journey of securing a TestNet slot on Rococo for your parachain, detailing each step to a successful registration.
 ---
 
-# Acquire a Testnet Slot
+# Acquire a TestNet Slot
 
 ## Introduction
 
@@ -61,7 +61,7 @@ To reserve a parachain identifier, follow these steps:
     ![](/images/tutorials/polkadot-sdk/build-a-parachain/acquire-a-testnet-slot/acquire-a-testnet-slot-5.webp)
 
 2. Register a parathread
-    1. Select the **Prathreads** tab
+    1. Select the **Parathreads** tab
     2. Click on the **+ ParaId** button 
 
     ![](/images/tutorials/polkadot-sdk/build-a-parachain/acquire-a-testnet-slot/acquire-a-testnet-slot-6.webp)

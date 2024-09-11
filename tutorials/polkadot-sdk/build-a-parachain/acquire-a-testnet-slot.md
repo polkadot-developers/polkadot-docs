@@ -29,7 +29,7 @@ To prepare an account, follow these steps:
 
     ![](/images/tutorials/polkadot-sdk/build-a-parachain/acquire-a-testnet-slot/acquire-a-testnet-slot-1.webp)
 
-2. Navigate to the **Accounts** section:
+2. Navigate to the **Accounts** section
     1. Click on the **Accounts** tab in the top menu
     2. Select the **Accounts** option from the dropdown menu
    
@@ -82,7 +82,7 @@ The files required to register a parachain must specify the correct relay chain 
 
 To modify the chain specification:
 
-1. Generate the plain text chain specification for the parachain template node by running the following command:
+1. Generate the plain text chain specification for the parachain template node by running the following command
 
     ```bash
     ./target/release/parachain-template-node build-spec --disable-default-bootnode > plain-parachain-chainspec.json
@@ -90,7 +90,7 @@ To modify the chain specification:
 
 2. Open the plain text chain specification for the parachain template node in a text editor
 
-3. Set relay-chain to rococo and para_id to the identifier you've been assigned
+3. Set relay-chain to rococo and `para_id` to the identifier you've been assigned
 
       For example, if your reserved identifier is 4105, set the `para_id` field to `4105`:
 
@@ -105,7 +105,7 @@ To modify the chain specification:
       ...
       ```
 
-4. Set the `parachainId` to the parachain identifier that you previously reserved.
+4. Set the `parachainId` to the parachain identifier that you previously reserved
 
       ```json
       ...
@@ -136,7 +136,7 @@ To modify the chain specification:
 
 6. Save your changes and close the plain text chain specification file
 
-7. Generate a raw chain specification file from the modified chain specification file by running the following command:
+7. Generate a raw chain specification file from the modified chain specification file by running the following command
 
       ```bash
       ./target/release/parachain-template-node build-spec --chain plain-parachain-chainspec.json --disable-default-bootnode --raw > raw-parachain-chainspec.json
@@ -156,13 +156,13 @@ To modify the chain specification:
 
 To prepare the parachain collator to be registered on Rococo, follow these steps:
 
-1. Export the WebAssembly runtime for the parachain by running a command similar to the following:
+1. Export the WebAssembly runtime for the parachain by running a command similar to the following
  
       ```bash
       ./target/release/parachain-template-node export-genesis-wasm --chain raw-parachain-chainspec.json para-4105-wasm
       ```
 
-2. Export the genesis state for the parachain by running a command similar to the following:
+2. Export the genesis state for the parachain by running a command similar to the following
 
       ```bash
       ./target/release/parachain-template-node export-genesis-state --chain raw-parachain-chainspec.json para-4105-state
@@ -224,9 +224,9 @@ After registering as a parathread, you can lease a slot on the Rococo relay chai
 After the parachain is active as a parathread, the related project team should open a request for either a permanent or a temporary parachain slot on Rococo.
 
 - `Permanent slots` are typically assigned to teams who have completed a successful slot lease auction and have deployed a parachain with a slot on Polkadot.
-  Permanent slots enable those teams to continuously test their codebase for compatibility with the latest Polkadot continuously features in a live public environment. Only a limited number of permanent slots are available.
+  Permanent slots enable those teams to continuously test their codebase for compatibility with the latest Polkadot continuously features in a live public environment. Only a limited number of permanent slots are available
 
-- `Temporary slots` are parachain slots dynamically allocated in a continuous, round-robbin style rotation.
+- `Temporary slots` are parachain slots dynamically allocated in a continuous, round-robbin style rotation
 
   At the start of every lease period, a certain number of parathreads—up to a maximum defined in the relay chain configuration—are automatically upgraded to parachains for a certain duration. The parachains that were active during the ending lease period are automatically downgraded to parathreads to free the slots for others to use in the subsequent period. Temporary slots with dynamic allocation enable teams who don't have a parachain slot on Polkadot to test their runtimes more often in a realistic network environment.
 

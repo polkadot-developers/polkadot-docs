@@ -242,7 +242,11 @@ Eventually, slot assignment is intended to be community-driven through Rococo go
 
 ### Assigning a Slot using an Administrative Account
 
-TODO: Add instructions for assigning a slot using an administrative account.
+If you have an account with the `AssignSlotOrigin` origin, you can use that account to assign a temporary slot on the Rococo network.
+
+To assign a temporary slot, you can use the `assignTempParachainSlot` extrinsic from the `assignedSlots` pallet. The extrinsic will need the reserved parachain identifier and the lease period start (you can use the current block number as the lease period start, by choosing the `Current` option). If the current slot is full, you'll be assigned the next available slot.
+
+In your account doesn't have sufficient privileges, the transaction will fail with a `BadOrigin` error.
 
 ### Lease duration
 

@@ -36,7 +36,7 @@ To build a local relay chain, follow these steps:
     ```
 
     !!! note
-        The branch `polkadot-stable2407-2` is used in this tutorial since it is the branch that contains the latest stable release of the Polkadot SDK. You can find the latest release of the Polkadot SDK on the [Release](https://github.com/paritytech/polkadot/releases){target=\_blank} tab on the Polkadot GitHub repository.
+        The branch `polkadot-stable2407-2` is used in this tutorial since it is the branch that contains the latest stable release of the Polkadot SDK. You can find the latest release of the Polkadot SDK on the [Release](https://github.com/paritytech/polkadot-sdk/releases){target=\_blank} tab on the Polkadot GitHub repository.
 
     !!! note
         Note that the `--depth 1` flag is used to clone only the latest commit of the branch, which speeds up the cloning process.

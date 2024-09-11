@@ -207,7 +207,7 @@ To register as a parathread, follow these steps:
 
 3. Fill in the required fields:
     - **parachain owner** - the account that will own the parachain
-    - **code** - the wasm code of the parachain
+    - **code** - the Wasm code of the parachain
     - **initial state** - the genesis state of the parachain
     - Click on the **+ Submit** button
 

@@ -23,7 +23,7 @@ Before diving into this tutorial, it's recommended that you have a basic underst
 To complete this tutorial, ensure that you have:
 
 - Configured your environment for Substrate development by installing [Rust and the Rust toolchain](https://docs.substrate.io/install/){target=\_blank}
-- Completed [Build a Local Blockchain](/tutorials/polkadot-sdk/build-a-blockchain/build-a-local-blockchain){target=\_blank} tutorial and know how to compile and run a Substrate node
+- Completed [Build a Local Blockchain](/tutorials/polkadot-sdk/build-a-blockchain/build-a-local-blockchain){target=\_blank} tutorial and know how to compile and run a Polkadot-SDK based node
 
 ## Build a Local Relay Chain
 

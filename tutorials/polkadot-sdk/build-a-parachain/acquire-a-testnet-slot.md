@@ -7,7 +7,7 @@ description: This guide walks you through the journey of securing a TestNet slot
 
 ## Introduction
 
-This tutorial demonstrates how you can deploy a parachain on a public test network, such as the Rococo test network. Public TestNets have a higher bar to entry than a private network, but represent an important step in preparing a parachain project to move into a production network. 
+This tutorial demonstrates deploying a parachain on a public test network, such as the Rococo test network. Public TestNets have a higher bar to entry than a private network but represent an essential step in preparing a parachain project to move into a production network. 
 
 ## Prerequisites
 
@@ -19,7 +19,7 @@ Before you start, you need to have the following prerequisites:
 
 ## Get Started with an Account and Tokens
 
-To perform any action on Rococo, you need ROC tokens and to store the tokens, you must have access to a Substrate-compatible digital currency wallet. You can't use [development keys and accounts](https://docs.substrate.io/reference/command-line-tools/subkey/#predefined-accounts-and-keys){target=\_blank} for operations in any public setting. There are many options available for holding digital currency—including hardware wallets and browser-based applications—and some are more reputable than others. You should do your own research before selecting one.
+To perform any action on Rococo, you need ROC tokens, and to store the tokens, you must have access to a Substrate-compatible digital currency wallet. You can't use [development keys and accounts](https://docs.substrate.io/reference/command-line-tools/subkey/#predefined-accounts-and-keys){target=\_blank} for operations in any public setting. Many options are available for holding digital currency—including hardware wallets and browser-based applications—and some are more reputable than others. You should do your own research before selecting one.
 
 However, you can use the [Polkadot.Js Apps](https://polkadot.js.org/apps/){target=\_blank} interface to get you started for testing purposes.
 
@@ -39,14 +39,14 @@ To prepare an account, follow these steps:
 
     ![](/images/tutorials/polkadot-sdk/build-a-parachain/acquire-a-testnet-slot/acquire-a-testnet-slot-3.webp)
 
-4. Visit the [Polkadot Faucer](https://faucet.polkadot.io){target=\_blank} and paste the copied address in the input field. Ensure that the network is set to Rococo and click on the **Get some ROCs** button
+4. Visit the [Polkadot Faucet](https://faucet.polkadot.io){target=\_blank} and paste the copied address in the input field. Ensure that the network is set to Rococo and click on the **Get some ROCs** button
 
     ![](/images/tutorials/polkadot-sdk/build-a-parachain/acquire-a-testnet-slot/acquire-a-testnet-slot-4.webp)
 
     After a few seconds, you will receive 100 ROC tokens in your account.
 
     !!! note
-        Alternatively you can join the [Rococo Element Channel](https://matrix.to/#/#rococo-faucet:matrix.org){target=\_blank} and send a message with `!drip` and the public address for your Rococo to get 100 ROC in your wallet. For example, send a message similar to the following: `!drip 5HErbKmL5JmUKDVsH1aGyXTGZb4i9iaNsFhSgkNDr8qp2Dvj`
+        Alternatively, you can join the [Rococo Element Channel](https://matrix.to/#/#rococo-faucet:matrix.org){target=\_blank} and send a message with `!drip` and the public address for your Rococo to get 100 ROC in your wallet. For example, send a message similar to the following: `!drip 5HErbKmL5JmUKDVsH1aGyXTGZb4i9iaNsFhSgkNDr8qp2Dvj`
 
 ## Reserve a Parachain Identifier
 
@@ -170,7 +170,7 @@ To prepare the parachain collator to be registered on Rococo, follow these steps
 
 ## Start the Collator Node
 
-You must have the ports for the collator publicly accessible and discoverable to enable parachain nodes to peer with Rococo validator nodes to produce blocks. You can specify the ports to use with the --port command-line option. For example, you can start the collator with a command similar to the following:
+You must have the ports for the collator publicly accessible and discoverable to enable parachain nodes to peer with Rococo validator nodes to produce blocks. You can specify the ports with the --port command-line option. For example, you can start the collator with a command similar to the following:
 
 ```bash
 ./target/release/parachain-template-node --collator \
@@ -185,11 +185,11 @@ You must have the ports for the collator publicly accessible and discoverable to
   --rpc-port 9988
 ```
 
-In this example, the first `--port` setting specifies the port for the collator node and the second `--port` specifies the port for the embedded relay chain node. The first `--rpc-port` setting specifies the port you can use to connect to collator. The second `--rpc-port` specifies the port for connecting to the embedded relay chain.
+In this example, the first `--port` setting specifies the port for the collator node and the second `--port` specifies the embedded relay chain node port. The first `--rpc-port` setting specifies the port you can use to connect to collator. The second `--rpc-port` specifies the port for connecting to the embedded relay chain.
 
 ## Register as a Parathread
 
-Before you can lease a slot on a public relay chain to become a parachain, you must register as a parathread on Rococo.
+Before leasing a slot on a public relay chain to become a parachain, you must register as a parathread on Rococo.
 
 To register as a parathread, follow these steps:
 
@@ -224,21 +224,21 @@ After registering as a parathread, you can lease a slot on the Rococo relay chai
 After the parachain is active as a parathread, the related project team should open a request for either a permanent or a temporary parachain slot on Rococo.
 
 - `Permanent slots` are typically assigned to teams who have completed a successful slot lease auction and have deployed a parachain with a slot on Polkadot.
-  Permanent slots enable those teams to continuously test their codebase for compatibility with the latest Polkadot features in a live public environment. Only a limited number of permanent slots are available.
+  Permanent slots enable those teams to continuously test their codebase for compatibility with the latest Polkadot continuously features in a live public environment. Only a limited number of permanent slots are available.
 
-- `Temporary slots` are parachain slots that are dynamically allocated in a continuous, round-robbin style rotation.
+- `Temporary slots` are parachain slots dynamically allocated in a continuous, round-robbin style rotation.
 
-  At the start of every lease period, a certain number of parathreads—up to a maximum defined in the relay chain configuration—are automatically upgraded to parachains for a certain duration. The parachains that were active during the ending lease period are automatically downgraded to parathreads to free the slots for others to use in the subsequent period. Temporary slots with dynamic allocation enables teams who don't have a parachain slot on Polkadot to test their runtimes more often in a realistic network environment.
+  At the start of every lease period, a certain number of parathreads—up to a maximum defined in the relay chain configuration—are automatically upgraded to parachains for a certain duration. The parachains that were active during the ending lease period are automatically downgraded to parathreads to free the slots for others to use in the subsequent period. Temporary slots with dynamic allocation enable teams who don't have a parachain slot on Polkadot to test their runtimes more often in a realistic network environment.
 
 ### Submitting a Slot Request
 
-The Rococo runtime requires sudo access to assign slots. For example, the Rococo runtime specifies that the account used to assign slots must have root level permissions:
+The Rococo runtime requires sudo access to assign slots. For example, the Rococo runtime specifies that the account used to assign slots must have root-level permissions:
 
 ```rust
 AssignSlotOrigin = EnsureRoot<Self::AccountId>;
 ```
 
-Eventually, slot assignment is intended to be community-driven through Rococo governance. However, the Rococo sudo key is currently controlled by Parity Technologies. Therefore, you must submit a [Rococo Slot Request](https://github.com/paritytech/subport/issues/new?assignees=&labels=Rococo&template=rococo.yaml){target=\_blank} to receive a slot assignment. After the slot is assigned, you'll receive notification and be ready to connect.
+Eventually, slot assignment is intended to be community-driven through Rococo governance. However, the Rococo sudo key is currently controlled by Parity Technologies. Therefore, you must submit a [Rococo Slot Request](https://github.com/paritytech/subport/issues/new?assignees=&labels=Rococo&template=rococo.yaml){target=\_blank} to receive a slot assignment. After the slot is assigned, you'll receive a notification and be ready to connect.
 
 ### Assigning a Slot using an Administrative Account
 
@@ -257,12 +257,9 @@ The current lease duration and slot availability settings for assigned parachain
 - Maximum number of permanent slots: up to 25 permanent slots
 - Maximum number of temporary slots: up to 20 temporary slots
 - Maximum temporary slots allocated per leased period: up to 5 temporary slots per 3-day temporary lease periods
-- 
+
 These setting are subject to change based on the needs of the community.
-
-
 
 ## Test your parachain
 
 After a slot is assigned and activated for you, you can test your parachain on the Rococo test network. Note that when the temporary slot lease period ends, the parachain is automatically downgraded to a parathread. Registered and approved slots are cycled through automatically in a round-robin fashion, so you can expect to come back online as a parachain from time to time.
-

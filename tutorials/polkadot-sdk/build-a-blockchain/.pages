@@ -1,0 +1,4 @@
+title: Build a Blockchain
+nav:
+  - index.md
+  - 'Add Trusted Nodes': add-trusted-nodes.md

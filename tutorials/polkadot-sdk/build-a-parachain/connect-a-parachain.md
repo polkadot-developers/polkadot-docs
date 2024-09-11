@@ -30,7 +30,7 @@ This tutorial uses the [Polkadot SDK Parachain Template](https://github.com/pari
 
 To build the parachain template, follow these steps:
 
-1. Clone the branch of the `polkadot-sdk-parachain-template` repository:
+1. Clone the branch of the `polkadot-sdk-parachain-template` repository
 
     ```bash
     git clone https://github.com/paritytech/polkadot-sdk-parachain-template.git
@@ -39,13 +39,13 @@ To build the parachain template, follow these steps:
     !!! note
         Ensure that you clone the correct branch of the repository that matches the version of the relay chain you are connecting to.
 
-2. Change the directory to the cloned repository:
+2. Change the directory to the cloned repository
 
     ```bash
     cd polkadot-sdk-solochain-template
     ```
 
-3. Build the parachain template collator by running the following command:
+3. Build the parachain template collator by running the following command
 
     ```bash
     cargo build --release
@@ -81,8 +81,9 @@ Each relay chain allows its identifiers by incrementing the identifier starting 
 
 To reserve a parachain identifier, follow these steps:
 
-1. Ensure your local relay chain validators are running. For further information, refer to the [Prepare a Local Relay Chain](/tutorials/polkadot-sdk/build-a-parachain/prepare-relay-chain/) tutorial.
-2. Connect to a local relay chain node using the [Polkadot JS Apps](https://polkadot.js.org/apps/){target=_blank} interface. If you have followed the [Prepare a Local Relay Chain](/tutorials/polkadot-sdk/build-a-parachain/prepare-relay-chain/) tutorial, you can access the Polkadot JS Apps interface at `ws://localhost:9944`
+1. Ensure your local relay chain validators are running. For further information, refer to the [Prepare a Local Relay Chain](/tutorials/polkadot-sdk/build-a-parachain/prepare-relay-chain/) tutorial
+
+2. Connect to a local relay chain node using the [Polkadot.Js Apps](https://polkadot.js.org/apps/){target=_blank} interface. If you have followed the [Prepare a Local Relay Chain](/tutorials/polkadot-sdk/build-a-parachain/prepare-relay-chain/) tutorial, you can access the Polkadot.JS Apps interface at `ws://localhost:9944`
 
     ![](/images/tutorials/polkadot-sdk/build-a-parachain/connect-a-parachain/connect-a-parachain-1.webp)
 
@@ -98,7 +99,7 @@ To reserve a parachain identifier, follow these steps:
    
     ![](/images/tutorials/polkadot-sdk/build-a-parachain/connect-a-parachain/connect-a-parachain-3.webp)
 
-5. Fill in the required fields and click on the **+ Submit** button:
+5. Fill in the required fields and click on the **+ Submit** button
 
     ![](/images/tutorials/polkadot-sdk/build-a-parachain/connect-a-parachain/connect-a-parachain-4.webp)
 
@@ -117,7 +118,7 @@ To register your parachain with the local relay chain, you must modify the defau
 
 To modify the default chain specification, follow these steps:
 
-1. Generate the plain text chain specification for the parachain template node by running the following command:
+1. Generate the plain text chain specification for the parachain template node by running the following command
 
     ```bash
     ./target/release/parachain-template-node build-spec --disable-default-bootnode > plain-parachain-chainspec.json
@@ -125,7 +126,7 @@ To modify the default chain specification, follow these steps:
 
 2. Open the plain text chain specification for the parachain template node in a text editor
 
-3. Set the `para_id` to the parachain identifier that you previously reserved.
+3. Set the `para_id` to the parachain identifier that you previously reserved
 
       For example, if your reserved identifier is `2000`, set the `para_id` field to 2000:
 
@@ -140,7 +141,7 @@ To modify the default chain specification, follow these steps:
       ...
       ```
 
-4. Set the `parachainId` to the parachain identifier that you previously reserved.
+4. Set the `parachainId` to the parachain identifier that you previously reserved
 
       For example, if your reserved identifier is 2000, set the `parachainId` field to 2000:
 
@@ -153,7 +154,7 @@ To modify the default chain specification, follow these steps:
       ...
       ```
 
-5. If you complete this tutorial simultaneously as anyone on the same local network, an additional step is needed to prevent accidentally peering with their nodes. Find the following line and add characters to make your `protocolId` unique:
+5. If you complete this tutorial simultaneously as anyone on the same local network, an additional step is needed to prevent accidentally peering with their nodes. Find the following line and add characters to make your `protocolId` unique
 
       ```json
       "protocolId": "template-local"
@@ -161,7 +162,7 @@ To modify the default chain specification, follow these steps:
 
 6. Save your changes and close the plain text chain specification file
 
-7. Generate a raw chain specification file from the modified chain specification file by running the following command:
+7. Generate a raw chain specification file from the modified chain specification file by running the following command
 
       ```bash
       ./target/release/parachain-template-node build-spec --chain plain-parachain-chainspec.json --disable-default-bootnode --raw > raw-parachain-chainspec.json
@@ -210,7 +211,7 @@ To prepare the parachain collator to be registered:
     !!!note
         You should note that the runtime and state you export must be for the genesis block. You can't connect a parachain with any previous state to a relay chain. All parachains must start from block 0 on the relay chain. See [Convert a Solo Chain](https://docs.substrate.io/reference/how-to-guides/parachains/convert-a-solo-chain/){target=\_blank} for details on how the parachain template was created and how to convert the chain logic—not its history or state migrations—to a parachain.
 
-3. Start a collator node with a command similar to the following:
+3. Start a collator node with a command similar to the following
 
     ```bash
     ./target/release/parachain-template-node \
@@ -266,19 +267,19 @@ With the local relay chain and collator node running, you can register the parac
 To register the parachain, follow these steps:
 
 1. Validate that your local relay chain validators are running
-2. Navigate to the **Sudo** tab in the Polkadot JS Apps interface
+2. Navigate to the **Sudo** tab in the Polkadot.Js Apps interface
     1. Click on the **Developer** tab
     2. Select **Sudo** from the dropdown menu
 
     ![](/images/tutorials/polkadot-sdk/build-a-parachain/connect-a-parachain/connect-a-parachain-6.webp)
 
-3. Submit a Sudo change:
+3. Submit a Sudo change
     1. Select the **paraSudoWrapper** pallet
     2. Click on the **sudoScheduleParaInitialize** extrinsic from the list of available extrinsics
 
     ![](/images/tutorials/polkadot-sdk/build-a-parachain/connect-a-parachain/connect-a-parachain-7.webp)
 
-4. Fill in the required fields:
+4. Fill in the required fields
     1. **id** - type the parachain identifier you reserved
     2. **genesisHead** - click the **file upload** button and select the `para-2000-genesis-state` file you exported
     3. **validationCode** - click the **file upload** button and select the `para-2000-wasm` file you exported
@@ -291,7 +292,7 @@ To register the parachain, follow these steps:
 
     ![](/images/tutorials/polkadot-sdk/build-a-parachain/connect-a-parachain/connect-a-parachain-9.webp)
 
-    After the parachain is initialized, you can see it in **Parachains** section of the Polkadot JS Apps interface.
+    After the parachain is initialized, you can see it in **Parachains** section of the Polkadot.Js Apps interface
 
 6. Click Network and select Parachains and wait for a new epoch to start
 
@@ -313,7 +314,7 @@ To reset the blockchain state, follow these steps:
 
 1. In the terminal where the parachain template node is running, press `Control-c`
 
-2. Purge the parachain collator state by running the following command:
+2. Purge the parachain collator state by running the following command
 
     ```bash
      ./target/release/parachain-template-node purge-chain --chain raw-parachain-chainspec.json
@@ -321,7 +322,7 @@ To reset the blockchain state, follow these steps:
 
 3. In the terminal where either the alice validator node or the bob validator node is running, press `Control-c`
 
-4. Purge the local relay chain state by running the following command:
+4. Purge the local relay chain state by running the following command
 
     ```bash
      ./target/release/polkadot purge-chain --chain local-raw-spec.json

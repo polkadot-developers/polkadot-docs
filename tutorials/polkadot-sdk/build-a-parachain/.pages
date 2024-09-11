@@ -3,3 +3,4 @@ nav:
   - index.md
   - prepare-relay-chain.md
   - connect-a-parachain.md
+  - acquire-a-testnet-slot.md

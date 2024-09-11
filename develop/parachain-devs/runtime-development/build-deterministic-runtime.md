@@ -128,11 +128,3 @@ There are also images that specify both a compiler version and the version of th
 For example, an image named `paritytech/srtool:1.62.0-0.9.19` was compiled with version `1.62.0` of the `rustc` compiler but using the version `0.9.19` of the build script.
 
 Images that only specifies the compiler version always contains the latest version of the software.
-
-### Compiler version
-
-The version of the Rust compiler should be checked to ensure the image is compatible with the version of Rust installed locally:
-
-```bash
-rustc --version
-```

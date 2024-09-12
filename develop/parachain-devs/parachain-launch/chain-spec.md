@@ -3,7 +3,7 @@ title: Chain Specification
 description: Describes the role of the chain specification in a network, how to specify the chain specification to use when starting a node, and how to customize and distribute chain specifications.
 ---
 
-A _chain specification_ is the collection of information that describes a Polkadot SDK-based network.  When starting a node, a chain specification is usually a crucial parameter, providing the genesis configurations, bootnodes, and other parameters relating to the network. It identifies the network that a blockchain node connects to, the other nodes that it initially communicates with, and the initial state that nodes must agree on to produce blocks.
+A _chain specification_ is the collection of information that describes a Polkadot SDK-based network. When starting a node, a chain specification is usually a crucial parameter, providing the genesis configurations, bootnodes, and other parameters relating to the network. It identifies the network that a blockchain node connects to, the other nodes that it initially communicates with, and the initial state that nodes must agree on to produce blocks.
 
 The chain specification is defined using the [`ChainSpec` struct](https://paritytech.github.io/polkadot-sdk/master/sc_chain_spec/struct.GenericChainSpec.html){target=_blank}.
 
@@ -75,7 +75,7 @@ polkadot-parachain --chain myCustomSpec.json
 
 ### Using Chain Spec Builder
 
-The chain specification builder (`chain-spec-builder`) is a CLI tool that is used for generating chain specifications from the runtime of a node.  Patch files may be used for genesis values, or a "baseline" chain specification can be generated:
+The chain specification builder (`chain-spec-builder`) is a CLI tool that is used for generating chain specifications from the runtime of a node. Patch files may be used for genesis values, or a "baseline" chain specification can be generated:
 
 ```bash
 chain-spec-builder create -v -r <path-to-wasm-runtime-here>

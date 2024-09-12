@@ -16,16 +16,16 @@ your issue.
 
 Here's how to find out the detailed error description through Polkadot-JS Apps.
 
-A typical failed transactions looks something like this:
+A failed transaction typically looks similar like this:
 
-![Error while sending a transaction](/images/errors/01.webp)
+![Error while sending a transaction](/images/applications-devs/errors/01.webp)
 
 The image displays only the error name as defined in the code, not its error message.
 
 In the [explorer tab](https://polkadot.js.org/apps/#/explorer){target=\_blank}, find the block in which this failure
 occurred. Then, expand the `system.ExtrinsicFailed` frame:
 
-![Error described](/images/errors/02.webp)
+![Error described](/images/applications-devs/errors/02.webp)
 
 Notice how the `details` field contains a human-readable description of the error. Most errors will
 have this, if looked up this way.
@@ -33,6 +33,12 @@ have this, if looked up this way.
 [This block](https://polkadot.js.org/apps/#/explorer/query/0xa10104ed21dfe409c7871a975155766c5dd97e1e2ac7faf3c90f1f8dca89104b){target=\_blank} is a live example of this scenario.
 
 If the error can't be found, or there is no message in the `details` field, consult the table below.
+
+!!!info "Future Error"
+
+    This error will not cause the transaction to be discarded immediately. Instead, it will be sent to the future queue, where it
+    will wait to be executed at the correct place in the nonce sequence or it will get discarded due to
+    some other error (ex. the validity period expires).
 
 ## Subscan
 
@@ -58,13 +64,9 @@ The table below lists the most commonly encountered errors and ways to resolve t
 | Payment            | Unable to pay for transaction fee.                                                                                    | The account might not have enough free balance to cover the fee this transaction would incur.                                                                                                                                                                                                                                                                                                     |
 | Temporarily banned | The transaction is temporarily banned.                                                                       | The transaction is already in pool. Either try on a different node, or wait to see if the initial transaction goes through.                                                                                                                                                                                                                                                                        |
 
-!!!info Future Error
-
-    This error will not cause the transaction to be discarded immediately. Instead, it will be sent to the future queue, where it
-    will wait to be executed at the correct place in the nonce sequence or it will get discarded due to
-    some other error (ex. the validity period expires).
-
-
 ## Runtime Errors
 
-<!-- TODO: Add description of how to find error types via subscan and metadata, ideally link the metadata page or something  -->
+The runtime errors for a particular pallet can be found in one of several ways: 
+
+1. Referring to the [`polkadot_sdk_docs`](https://paritytech.github.io/polkadot-sdk/master/polkadot_sdk_docs/index.html){target=\_blank} for that pallet, where the errors can be found, for example, [`pallet_balances`](https://paritytech.github.io/polkadot-sdk/master/pallet_balances/pallet/enum.Error.html#variants){target=\_blank}
+2. Referring to [Subscan's runtime section](https://polkadot.subscan.io/runtime){target=\_blank}, where the pallet can be selected and viewed

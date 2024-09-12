@@ -9,9 +9,10 @@ The two primary supported smart contract environments are [ink!](#ink) and EVM. 
 
 ## Developing a Smart Contract Versus a Parachain
 
+!!!info "For a more technical/thorough breakdown, refer to the [`polkadot_sdk_docs`](https://paritytech.github.io/polkadot-sdk/master/polkadot_sdk_docs/reference_docs/runtime_vs_smart_contract/index.html){target=\_blank}"
+
 [When should one build a Substrate (Polkadot SDK) runtime versus a Substrate (Polkadot SDK) smart contract](https://stackoverflow.com/a/56041305){target=\_blank}?
-This post answers the question more technically of when a developer might choose to develop a
-runtime versus a smart contract.
+This post also answers the question more technically of when a developer might choose to develop a runtime versus a smart contract.
 
 ### Layer of Abstraction
 
@@ -28,13 +29,7 @@ When you build a smart contract, it will eventually be deployed to a target chai
 environment. Parachains allow the developer to declare the environment of their own chain, even
 allowing others to write smart contracts for it.
 
-### Gas Fees
-
-Smart contracts must find a way to limit their own execution, or else full nodes are vulnerable to DOS attacks. An infinite loop in a smart contract, for example, could consume the computational resources of an entire chain, preventing others from using it. The [halting problem](https://en.wikipedia.org/wiki/Halting_problem){target=\_blank} shows that even with a powerful enough language, it is impossible to know ahead of time whether or not a program will ever cease execution. Some platforms, such as Bitcoin, get around this constraint by providing a very restricted scripting language. Others, such as Ethereum, "charge" the smart contract "gas" for the rights to execute their code. If a smart contract does get into a state where execution will never halt, it eventually runs out of gas, ceases execution, and any state transition that the smart contract would have made is rolled back.
-
-Parachains can implement arbitrarily powerful programming languages and contain no gas notion for their own native logic. This means that some functionality is easier to implement for the developer, but some constructs, such as a loop without a terminating condition, should _never_ be implemented. Leaving certain logic, such as complex loops that could run indefinitely, to a non-smart contract layer, or even trying to eliminate it, will often be a wiser choice. Parachains try to be proactive, while smart contract platforms are event-driven.
-
-Polkadot and its parachains typically use the _weight-fee model_ and not a _gas-metering model_.
+The concept of *gas*, or *fees* in general, also are approached differently between the two.  Smart contracts are bound by the gas-metering model, whereas runtimes (and their subsequent modules) are much more flexible in terms of the fee models that can be employed.
 
 ## Building a Smart Contract
 
@@ -43,21 +38,20 @@ The relay chain doesn't natively support smart contracts. However, since the par
 The Polkadot SDK presently supports smart contracts out-of-the-box in several ways:
 
 - The EVM pallet offered by [Frontier](https://github.com/paritytech/frontier){target=\_blank}
-- The [Contracts pallet](https://github.com/paritytech/polkadot-sdk/blob/master/substrate/frame/contracts/){target=\_blank} in the FRAME library for Wasm-based contracts
+- The [contracts pallet](https://github.com/paritytech/polkadot-sdk/blob/master/substrate/frame/contracts/){target=\_blank} in the FRAME library for Wasm-based contracts
 
 ### Frontier EVM Contracts
 
 [Frontier](https://github.com/paritytech/frontier) is the suite of tools that enables a Substrate chain to run Ethereum contracts (EVM) natively with the same API/RPC interface, Ethereum exposes on Substrate. Ethereum Addresses can also be mapped directly to and from Substrate's SS58 scheme from existing accounts.
 
-<!-- TODO: add info about the different pallets -->
+- [Pallet EVM](https://docs.rs/pallet-evm/latest/pallet_evm/){target=\_blank} - enables functionality of running EVM (Solidity) contracts
+- [Pallet Ethereum](https://docs.rs/pallet-ethereum/latest/pallet_ethereum/){target=\_blank} - Ethereum RPC implementation, block emulation, and Ethereum transaction validation
 
 ### Contracts Pallet
 
-The experience of deploying to an EVM-based chain may be more familiar to developers that have
-written smart contracts before. However, the Contracts pallet makes some notable improvements to the
-design of the EVM:
+The contracts pallet (`pallet_contracts`) implements a WebAssembly-based approach to smart contracts.
 
-1. **Wasm**. The Contracts pallet uses WebAssembly as its compilation target. Any language that
+1. **Wasm**. The contracts pallet uses WebAssembly as its compilation target. Any language that
    compiles to Wasm can potentially be used to write smart contracts. Nevertheless, it is better to
    have a dedicated domain-specific language, and for that reason Parity offers the [ink!](#ink)
    language.
@@ -71,17 +65,9 @@ design of the EVM:
    on the chain down to the minimum. On top of this, when a contract is no longer being used and the
    _existential deposit_ is drained, the code will be erased from storage (known as reaping).
 
-#### Storage Rent: Deprecated
-
-`pallet_contracts` was initially designed to combat unbounded state growth by charging contracts for
-the state they consume but has since been deprecated.
-
-See the associated [pull request](https://github.com/paritytech/substrate/pull/9669){target=\_blank} for more
-details.
-
 ### Ink
 
-[ink!](https://github.com/use-ink/ink) is a domain specific language for writing smart contracts
+[ink!](https://github.com/use-ink/ink){target=\_blank} is a domain specific language for writing smart contracts
 in Rust and compiles to Wasm code.
 
 Here is the list of current resources available to developers who want to get started writing smart

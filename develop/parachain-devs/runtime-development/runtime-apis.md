@@ -5,13 +5,13 @@ description: Highlights the runtime interfaces that enable communication with ou
 
 Nodes consist of outer node services and a runtime. This separation of responsibilities is an important concept for designing Polkadot SDK-based chains and building upgradeable logic.
 
-For more information on details of how the meta protocol works, [read the Polkadot SDK docs.](https://paritytech.github.io/polkadot-sdk/master/polkadot_sdk_docs/polkadot_sdk/index.html#summary){target=_blank}
+For more information on details of how the meta protocol works, [refer to the Polkadot SDK docs.](https://paritytech.github.io/polkadot-sdk/master/polkadot_sdk_docs/polkadot_sdk/index.html#summary){target=_blank}
 
 However, the outer node services and the runtime must communicate with each other to complete many critical operations, including reading and writing data and performing state transitions.
 
 The outer node services communicate with the runtime by calling runtime application programming interfaces to perform specific tasks.
 
-By default, the runtime provides the following traits for outer node services to call:
+By default, the runtime provides the following traits for outer node services to call. Below is a non-exhaustive list of common runtime APIs:
 
 - [`AccountNonceApi`](https://paritytech.github.io/polkadot-sdk/master/frame_system_rpc_runtime_api/trait.AccountNonceApi.html){target=_blank}
 - [`AuraApi`](https://paritytech.github.io/polkadot-sdk/master/sp_consensus_aura/trait.AuraApi.html){target=_blank}

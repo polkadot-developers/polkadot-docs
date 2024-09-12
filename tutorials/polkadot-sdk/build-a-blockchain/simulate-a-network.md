@@ -9,7 +9,7 @@ description: Create a private blockchain network with authorized validators usin
 
 This tutorial introduces you to the process of initiating a private blockchain network with a set of authorized validators. The [Polkadot-SDK Solochain Template](https://github.com/paritytech/polkadot-sdk-solochain-template){target=\_blank} implements an authority consensus model to regulate block production.
 
-In this model, the creation of blocks is restricted to a predefined list of authorized accounts, known as "authorities," who operate in a round-robin fashion. 
+In this model, the creation of blocks is restricted to a predefined list of authorized accounts, known as "authorities", who operate in a round-robin fashion. 
 
 To demonstrate this concept, you'll simulate a network environment using two nodes running on a single computer, each configured with different accounts and keys. Throughout this tutorial, you'll gain practical insight into the functionality of the authority consensus model by observing how these two predefined accounts, serving as authorities, enable the nodes to produce blocks.
 
@@ -23,7 +23,7 @@ By completing this tutorial, you will accomplish the following objectives:
 
 ## Prerequisites
 
-- Installed and configured Rust on your system. For detailed instructions on installing Rust and setting up your development environment, refer to the [Installation]() guide.
+- Installed and configured Rust on your system. Refer to the [Installation]() guide for detailed instructions on installing Rust and setting up your development environment.
 - Completed the [Build a Local Blockchain](#build-a-local-blockchain) guide and have the [Polkadot-SDK Solochain Template](https://github.com/paritytech/polkadot-sdk-solochain-template){target=\_blank} installed on your local machine.
 
 ## Start the First Blockchain Node
@@ -221,7 +221,7 @@ Follow these steps to verify that blocks are being produced and finalized:
 
     Note that the peer count drops to zero and block production stops.
 
-4. Shut down the second node using `Control-C` in its terminal.
+4. Shut down the second node using `Control-C` in its terminal
 
 5. Clean up chain state. To remove the chain state from the simulated network, use the `purge-chain` subcommand:
 

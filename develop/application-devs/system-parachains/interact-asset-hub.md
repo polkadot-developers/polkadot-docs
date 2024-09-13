@@ -153,7 +153,7 @@ Due to the fact that DOT/KSM can exist across several blockchains, which means t
 
 Currently can be sent and received in the relay chain and in the Asset Hub either with a [Teleport](https://wiki.polkadot.network/docs/learn-teleport{target=\_blank}) from [system parachains](https://wiki.polkadot.network/docs/learn-system-chains){target=\_blank} or with a [Reserve Backed Transfer](https://wiki.polkadot.network/docs/learn-xcm-pallet#transfer-reserve-vs-teleport){target=\_blank} from any other parachain. In both cases, the event emitted when processing the transfer is the `balances.minted` event. Hence, providers should listen to these events, pointing to an address in their system. For this, the service provider must query every new block created, loop through the events array, filter for any `balances.minted` event, and apply the appropriate business logic.
 
-#### Tracking back XCM information
+#### Tracking Back XCM information
 
 What has been mentioned earlier should be sufficient to confirm that has arrived in a given account via XCM. However, in some cases, it may be interesting to identify the cross-chain message that emitted the relevant `balances.minted` event. This can be done as follows:
 
@@ -227,4 +227,4 @@ If an XCM transfer fails, events/errors will be emitted accordingly. Below are s
      `polkadotxcm (AssetsTrapped)` which indicates that some assets have been trapped (and hence can
      be claimed).
 
-Learn more about Error Management in XCM is the Polkadot blog post from Gavin Wood, [XCM Part III: Execution and Error Management](https://www.polkadot.network/blog/xcm-part-three-execution-and-error-management){target=\_blank}.
+Learn more about error management in XCM from this blog post by Gavin Wood, [XCM Part III: Execution and Error Management](https://www.polkadot.network/blog/xcm-part-three-execution-and-error-management){target=\_blank}.

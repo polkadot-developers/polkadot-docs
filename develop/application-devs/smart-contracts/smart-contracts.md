@@ -138,24 +138,22 @@ Try deploying an Acala EVM smart contract by following their [documentation](htt
 
 - ink!: **Unsupported**
 - EVM (Solidity): **Unsupported**
-- See: [**Phat Contracts**](https://docs.phala.network/developers/phat-contract){target=\_blank} powered by ink!
+- See: [**Phat Contracts** / **AI Agent Contracts**](https://phala.network/phat-contractt){target=\_blank}
 
 [Phala](https://phala.network){target=\_blank} is an off-chain trustless compute infrastructure that provides fully
-verifiable computation. Using [Phat contracts](https://docs.phala.network/developers/phat-contract){target=\_blank},
-developers can write smart contracts that can interact with web2 services.
-[Khala](https://phala.network/en/khala){target=\_blank} is Phala's canary network and is live as a parachain on
+verifiable computation. [Khala](https://phala.network/en/khala){target=\_blank} is Phala's canary network and is live as a parachain on
 Kusama.
 
 Try deploying a smart contract that interacts with Etherscan's web2 API by following their
-[documentation](https://docs.phala.network/developers/build-on-phat-contract/create-contract){target=\_blank}.
+[documentation](https://docs.phala.network/ai-agent-contract/build){target=\_blank}.
 
 #### Darwinia
 
 - ink!: **Unsupported**
 - EVM (Solidity) Support:
-  [**Supported**](https://docs.darwinia.network/libraries-4a4ce70014ba43b7977aeb16ce9634ab){target=\_blank}
+  [**Supported**](https://docs.darwinia.network/build/getting-started/networks/overview/){target=\_blank}
 
-[Darwinia](https://darwinia.network/) is a community-run technology and service powering the
+[Darwinia](https://darwinia.network/){target=\_blank} is a community-run technology and service powering the
 cross-chain capabilities of decentralized applications. By crafting secure and efficient cross-chain
 messaging protocols, Darwinia is at the forefront of facilitating seamless communication between
 disparate blockchain networks. The newest addition to the suite of protocols is `Darwinia Msgport`,
@@ -163,5 +161,4 @@ an innovative messaging abstraction that has been successfully implemented acros
 mainstream smart contract platforms, broadening the potential for interoperability and enabling
 developers to create more versatile and connected blockchain ecosystems.
 
-Try deploying a smart contract to Darwinia by following their
-[documentation](https://docs.darwinia.network/dapp-development-4b021f21c52d474aa08a8109eb55bbd1){target=\_blank}.
+Try deploying a smart contract to Darwinia by following their [documentation](https://docs.darwinia.network/build/ethereum-tools/interact-with-web3js/){target=\_blank}.

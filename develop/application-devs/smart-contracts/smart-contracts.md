@@ -128,6 +128,7 @@ Try deploying an Ethereum or ink! smart contract by following their
 
 [Acala](https://acala.network/){target=\_blank} is a decentralized finance consortium and DeFi infrastructure chain
 delivering a set of protocols to serve as the DeFi hub on Polkadot.
+
 [Karura](https://acala.network/karura){target=\_blank}, Acala's canary network is live as a parachain on Kusama.
 Interested teams are now able to deploy DApps and smart contracts on Karura's platform. Acala is
 also implementing the [Acala EVM](https://wiki.acala.network/learn/acala-evm/why-acala-evm){target=\_blank}.

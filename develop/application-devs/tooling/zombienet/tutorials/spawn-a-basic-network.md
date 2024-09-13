@@ -145,7 +145,7 @@ If successful, you will see the following output:
 </div>
 
 !!! note 
-    If the IPs and ports are not explicitly defined in the configuration file, they may change each time the network is started, causing the links provided in the output to differ from the example.
+    If the IPs and ports aren't explicitly defined in the configuration file, they may change each time the network is started, causing the links provided in the output to differ from the example.
 
 ## Interacting with the Spawned Network
 

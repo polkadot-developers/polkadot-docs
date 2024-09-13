@@ -246,7 +246,7 @@ id = 1000
 
 #### Features
 
-Currently, the local provider does not execute any additional layers or processes.
+Currently, the local provider doesn't execute any additional layers or processes.
 
 ## CLI Usage
 

@@ -52,15 +52,15 @@ the dust is lost.
 The assets pallet has an interface for dealing with assets. See the [Integration](#integration)
 section below for how to fetch information and construct transactions.
 
-The main functions you will probably interact with are [`transfer`](https://paritytech.github.io/polkadot-sdk/master/pallet_assets/pallet/dispatchables/fn.transfer.html){target=\_blank} and [`transfer_keep_alive`](https://paritytech.github.io/polkadot-sdk/master/pallet_assets/pallet/dispatchables/fn.transfer_keep_alive.html){target=\_blank}. These functions transfer some `amount` (balance) of an [`AssetId`](https://paritytech.github.io/polkadot-sdk/master/pallet_assets/pallet/trait.Config.html#associatedtype.AssetId){target=\_blank} (a `u32`, not a contract address) to another account.
+The main functions you will probably interact with are `transfer` and `transfer_keep_alive`. These functions transfer some `amount` (balance) of an `AssetId` (a `u32`, not a contract address) to another account.
 
-The assets pallet also provides an [`approve_transfer`](https://paritytech.github.io/polkadot-sdk/master/pallet_assets/pallet/dispatchables/fn.approve_transfer.html){target=\_blank}, [`cancel_approval`](https://paritytech.github.io/polkadot-sdk/master/pallet_assets/pallet/dispatchables/fn.cancel_approval.html){target=\_blank}, and [`transfer_approved`](https://paritytech.github.io/polkadot-sdk/master/pallet_assets/pallet/dispatchables/fn.transfer_approved.html){target=\_blank} interface for non-custodial operations.
+The assets pallet also provides an `approve_transfer`, `cancel_approval`, and `transfer_approved` interface for non-custodial operations.
 
-Asset transfers will result in an [`assets.transferred`](https://paritytech.github.io/polkadot-sdk/master/pallet_assets/pallet/enum.Event.html#variant.Transferred){target=\_blank} event. 
+Asset transfers will result in an `assets.transferred` event. 
 
 <!-- TODO: would be nice to link a page on how to properly track and index events eventually -->
 
-Note that you can use the same addresses (except [pure proxies](https://wiki.polkadot.network/docs/learn-proxies-pure)) on the Asset Hub that
+Note that you can use the same addresses (except [pure proxies](https://wiki.polkadot.network/docs/learn-proxies-pure){target=\_blank}) on the Asset Hub that
 you use on the relay chain. The SS58 encodings are the same; only the chain information (genesis hash, etc.) will change on transaction construction.
 
 #### Paying Transaction Fees in Another Asset
@@ -112,11 +112,11 @@ issue so a developer can help.
 
 ### Parachain Node
 
-Using the Asset Hub will require running a system parachain node to sync the chain. You can follow [these guidelines](https://github.com/paritytech/polkadot-sdk/tree/master/cumulus#asset-hub-) to set up an Asset Hub node.
+Using the Asset Hub will require running a system parachain node to sync the chain. You can follow [these guidelines](https://github.com/paritytech/polkadot-sdk/tree/master/cumulus#asset-hub-){target=\_blank} to set up an Asset Hub node.
 
 ### Asset Transfer API
 
-Asset transfer API is a library focused on simplifying the construction of asset transfers for Substrate-based chains that involve system parachains like Asset Hub (Polkadot and Kusama). It exposes a reduced set of methods that facilitate users to send transfers to other (para) chains or locally. You can refer to [this table](https://github.com/paritytech/asset-transfer-api/tree/main#current-cross-chain-support) for the current cross-chain support and [here](https://paritytech.github.io/asset-transfer-api/) for the complete documentation, including installation guide and usage examples.
+Asset transfer API is a library focused on simplifying the construction of asset transfers for Substrate-based chains that involve system parachains like Asset Hub (Polkadot and Kusama). It exposes a reduced set of methods that facilitate users to send transfers to other (para) chains or locally. You can refer to [this table](https://github.com/paritytech/asset-transfer-api/tree/main#current-cross-chain-support){target=\_blank} for the current cross-chain support and [here](https://paritytech.github.io/asset-transfer-api/){target=\_blank} for the complete documentation, including installation guide and usage examples.
 
 ### Sidecar
 

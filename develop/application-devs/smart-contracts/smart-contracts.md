@@ -29,7 +29,7 @@ When you build a smart contract, it will eventually be deployed to a target chai
 environment. Parachains allow the developer to declare the environment of their own chain, even
 allowing others to write smart contracts for it.
 
-The concept of *gas*, or *fees* in general, also are approached differently between the two.  Smart contracts are bound by the gas-metering model, whereas runtimes (and their subsequent modules) are much more flexible in terms of the fee models that can be employed.
+The concept of *gas*, or *fees* in general, also are approached differently between the two. Smart contracts are bound by the gas-metering model, whereas runtimes (and their subsequent modules) are much more flexible in terms of the fee models that can be employed.
 
 ## Building a Smart Contract
 
@@ -49,7 +49,7 @@ The Polkadot SDK presently supports smart contracts out-of-the-box in several wa
 
 ### Contracts Pallet
 
-The contracts pallet (`pallet_contracts`) implements a WebAssembly-based approach to smart contracts.
+The contracts pallet (`pallet_contracts`) implements a WebAssembly based approach to smart contracts.
 
 1. **Wasm**. The contracts pallet uses WebAssembly as its compilation target. Any language that
    compiles to Wasm can potentially be used to write smart contracts. Nevertheless, it is better to

@@ -331,7 +331,7 @@ You can use the following flags to customize the behavior of the CLI:
 
         - `<logType>` desired type of logging. Options: `table`, `text`, `silent`
 
-??? function "`-m`, `--monitor` - start as monitor, do not auto clean up network"
+??? function "`-m`, `--monitor` - start as monitor, don't auto clean up network"
 
     === "Argument"
 
@@ -466,7 +466,7 @@ You can use the `relaychain` keyword to define further parameters for the relay 
 
 There is one specific key capable of receiving more subkeys: the `nodes` key. This key is used to define further parameters for the nodes. The available keys:
 
-- `name` ++"string"++ - name of the node. Any whitespace will be replaced with a dash (e.g., `new alice` will be converted to `new-alice`)
+- `name` ++"string"++ - name of the node. Any whitespace will be replaced with a dash (for example, `new alice` will be converted to `new-alice`)
 - `image?` ++"string"++ - override default Docker image to use for this node
 - `command?` ++"string"++ - override default command to run
 - `command_with_args?` ++"string"++ - override default command and arguments
@@ -548,7 +548,7 @@ The following configuration file defines a minimal example for the relay chain, 
 
 The `node_groups` key is used to define further parameters for the node groups. The available keys are:
 
-- `name` ++"string"++ - name of the node. Any whitespace will be replaced with a dash (e.g., `new alice` will be converted to `new-alice`)
+- `name` ++"string"++ - name of the node. Any whitespace will be replaced with a dash (for example, `new alice` will be converted to `new-alice`)
 - `image?` ++"string"++ - override default Docker image to use for this node
 - `command?` ++"string"++ - override default command to run
 - `args?` ++"string[]"++ - arguments to be passed to the command
@@ -669,7 +669,7 @@ For example, the following configuration file defines a minimal example for the 
 
 One specific key capable of receiving more subkeys is the `collator` key. This key is used to define further parameters for the nodes. The available keys are:
 
-- `name` ++"string"++ - name of the collator. Any whitespace will be replaced with a dash (e.g., `new alice` will be converted to `new-alice`)
+- `name` ++"string"++ - name of the collator. Any whitespace will be replaced with a dash (for example, `new alice` will be converted to `new-alice`)
 - `image?` ++"string"++ - image to use for the collator
 - `command_with_args?` ++"string"++ - overrides both command and arguments for the collator
 - `validator` ++"boolean"++ - pass the `--validator` flag to the command. Defaults to `true`
@@ -752,7 +752,7 @@ The configuration file below defines a minimal example for the collator:
 
 The `collator_groups` key is used to define further parameters for the collator groups. The available keys are:
 
-- `name` ++"string"++ - name of the node. Any whitespace will be replaced with a dash (e.g., `new alice` will be converted to `new-alice`)
+- `name` ++"string"++ - name of the node. Any whitespace will be replaced with a dash (for example, `new alice` will be converted to `new-alice`)
 - `image?` ++"string"++ - override default Docker image to use for this node
 - `command?` ++"string"++ - override default command to run
 - `args?` ++"string[]"++ - arguments to be passed to the command

@@ -91,7 +91,7 @@ The Chopsticks source repository includes a collection of [YAML](https://yaml.or
 An example of a configuration file for Polkadot is as follows:
 
 ```yaml
---8<-- 'code/developer-tools/chopsticks/overview/example-config.yml'
+--8<-- 'code/tutorials/tooling/chopsticks/overview/example-config.yml'
 ```
 
 To run Chopsticks using a configuration file, utilize the `--config` flag. You can use a raw GitHub URL, a path to a local file, or simply the chain's name. For example, the following commands all use Polkadot's configuration in the same way:
@@ -166,14 +166,14 @@ To interact with Chopsticks via the hosted user interface, visit [Polkadot.js Ap
 
 1. Click the network icon in the top left corner
 
-    ![](/images/dev-tools/chopsticks/chopsticks-1.webp)
+    ![](/images/tutorials/tooling/chopsticks/chopsticks-1.webp)
 
 2. Scroll to the bottom and select **Development**
 3. Choose **Custom**
 4. Enter `ws://localhost:8000` in the input field
 5. Click the **Switch** button
 
-![](/images/dev-tools/chopsticks/chopsticks-2.webp)
+![](/images/tutorials/tooling/chopsticks/chopsticks-2.webp)
 
 You should now be connected to your local fork and can interact with it as you would with a real chain.
 
@@ -182,7 +182,7 @@ You should now be connected to your local fork and can interact with it as you w
 For programmatic interaction, you can use the Polkadot.js library. Here's a basic example:
 
 ```js
---8<-- 'code/developer-tools/chopsticks/overview/basic-example.js'
+--8<-- 'code/tutorials/tooling/chopsticks/overview/basic-example.js'
 ```
 
 ## Replaying Blocks
@@ -205,7 +205,7 @@ npx @acala-network/chopsticks run-block  \
 ??? code "Output file content"
 
     ```json
-    --8<-- 'code/developer-tools/chopsticks/overview/replay-block.json'
+    --8<-- 'code/tutorials/tooling/chopsticks/overview/replay-block.json'
     ```
 
 ## XCM Testing
@@ -226,7 +226,7 @@ npx @acala-network/chopsticks xcm \
 
 After running it, you should see output similar to the following:
 
---8<-- 'code/developer-tools/chopsticks/overview/terminal/fork-output.md'
+--8<-- 'code/tutorials/tooling/chopsticks/overview/terminal/fork-output.md'
 
 Now you can interact with your forked chains using the ports specified in the output.
 
@@ -252,7 +252,7 @@ These are the methods that can be invoked and their parameters:
     === "Example"
 
         ```js
-        --8<-- 'code/developer-tools/chopsticks/overview/dev-newblock-example.js'
+        --8<-- 'code/tutorials/tooling/chopsticks/overview/dev-newblock-example.js'
         ```
 
 ??? function "**dev_setBlockBuildMode** (buildBlockMode) — Sets block build mode"
@@ -271,7 +271,7 @@ These are the methods that can be invoked and their parameters:
     === "Example"
 
         ```js
-        --8<-- 'code/developer-tools/chopsticks/overview/dev-setBlockBuildMode-example.js'
+        --8<-- 'code/tutorials/tooling/chopsticks/overview/dev-setBlockBuildMode-example.js'
         ```
 
 ??? function "**dev_setHead** (hashOrNumber) — Sets the head of the blockchain to a specific hash or number"
@@ -283,7 +283,7 @@ These are the methods that can be invoked and their parameters:
     === "Example"
 
         ```js
-        --8<-- 'code/developer-tools/chopsticks/overview/dev-setHead-example.js'
+        --8<-- 'code/tutorials/tooling/chopsticks/overview/dev-setHead-example.js'
         ```
 
 ??? function "**dev_setRuntimeLogLevel** (runtimeLogLevel) — Sets the runtime log level"
@@ -295,7 +295,7 @@ These are the methods that can be invoked and their parameters:
     === "Example"
 
         ```js
-        --8<-- 'code/developer-tools/chopsticks/overview/dev-setRuntimeLogLevel-example.js'
+        --8<-- 'code/tutorials/tooling/chopsticks/overview/dev-setRuntimeLogLevel-example.js'
         ```
 
 ??? function "**dev_setStorage** (values, blockHash) — Creates or overwrites the value of any storage"
@@ -308,7 +308,7 @@ These are the methods that can be invoked and their parameters:
     === "Example"
 
         ```js
-        --8<-- 'code/developer-tools/chopsticks/overview/dev-setStorage-example.js'
+        --8<-- 'code/tutorials/tooling/chopsticks/overview/dev-setStorage-example.js'
         ```
 
 ??? function "**dev_timeTravel** (date) — Sets the timestamp of the block to a specific date"
@@ -320,5 +320,5 @@ These are the methods that can be invoked and their parameters:
     === "Example"
 
         ```js
-        --8<-- 'code/developer-tools/chopsticks/overview/dev-timeTravel-example.js'
+        --8<-- 'code/tutorials/tooling/chopsticks/overview/dev-timeTravel-example.js'
         ```

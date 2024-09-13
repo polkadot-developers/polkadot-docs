@@ -394,13 +394,13 @@ For example, the following configuration file defines a minimal example for the 
 === "TOML"
 
     ```toml title="base-example.toml"
-    --8<-- 'code/developer-tools/zombienet/overview/base-example.toml'
+    --8<-- 'code/tutorials/tooling/zombienet/overview/base-example.toml'
     ```
 
 === "JSON"
 
     ```json title="base-example.json"
-    --8<-- 'code/developer-tools/zombienet/overview/base-example.json'
+    --8<-- 'code/tutorials/tooling/zombienet/overview/base-example.json'
     ```
 
 ### Relay Chain Configuration
@@ -535,13 +535,13 @@ The following configuration file defines a minimal example for the relay chain, 
 === "TOML"
 
     ```toml title="relaychain-example-nodes.toml"
-    --8<-- 'code/developer-tools/zombienet/overview/relaychain-example-nodes.toml'
+    --8<-- 'code/tutorials/tooling/zombienet/overview/relaychain-example-nodes.toml'
     ```
 
 === "JSON"
 
     ```json title="relaychain-example-nodes.json"
-    --8<-- 'code/developer-tools/zombienet/overview/relaychain-example-nodes.json'
+    --8<-- 'code/tutorials/tooling/zombienet/overview/relaychain-example-nodes.json'
     ```
 
 #### Node Group Configuration
@@ -608,13 +608,13 @@ The following configuration file defines a minimal example for the relay chain, 
 === "TOML"
 
     ```toml title="relaychain-example-node-groups.toml"
-    --8<-- 'code/developer-tools/zombienet/overview/relaychain-example-node-groups.toml'
+    --8<-- 'code/tutorials/tooling/zombienet/overview/relaychain-example-node-groups.toml'
     ```
 
 === "JSON"
 
     ```json title="relaychain-example-node-groups.json"
-    --8<-- 'code/developer-tools/zombienet/overview/relaychain-example-node-groups.json'
+    --8<-- 'code/tutorials/tooling/zombienet/overview/relaychain-example-node-groups.json'
     ```
 
 ### Parachain Configuration
@@ -656,13 +656,13 @@ For example, the following configuration file defines a minimal example for the 
 === "TOML"
 
     ```toml title="parachain-example.toml"
-    --8<-- 'code/developer-tools/zombienet/overview/parachain-example.toml'
+    --8<-- 'code/tutorials/tooling/zombienet/overview/parachain-example.toml'
     ```
 
 === "JSON"
 
     ```json title="parachain-example.json"
-    --8<-- 'code/developer-tools/zombienet/overview/parachain-example.json'
+    --8<-- 'code/tutorials/tooling/zombienet/overview/parachain-example.json'
     ```
 
 #### Collator Configuration
@@ -739,13 +739,13 @@ The configuration file below defines a minimal example for the collator:
 === "TOML"
 
     ```toml title="collator-example.toml"
-    --8<-- 'code/developer-tools/zombienet/overview/collator-example.toml'
+    --8<-- 'code/tutorials/tooling/zombienet/overview/collator-example.toml'
     ```
 
 === "JSON"
 
     ```json title="collator-example.json"
-    --8<-- 'code/developer-tools/zombienet/overview/collator-example.json'
+    --8<-- 'code/tutorials/tooling/zombienet/overview/collator-example.json'
     ```
 
 #### Collator Groups
@@ -812,13 +812,13 @@ For instance, the configuration file below defines a minimal example for the col
 === "TOML"
 
     ```toml title="collator-groups-example.toml"
-    --8<-- 'code/developer-tools/zombienet/overview/collator-groups-example.toml'
+    --8<-- 'code/tutorials/tooling/zombienet/overview/collator-groups-example.toml'
     ```
 
 === "JSON"
 
     ```json title="collator-groups-example.json"
-    --8<-- 'code/developer-tools/zombienet/overview/collator-groups-example.json'
+    --8<-- 'code/tutorials/tooling/zombienet/overview/collator-groups-example.json'
     ```
 
 ### XCM Configuration

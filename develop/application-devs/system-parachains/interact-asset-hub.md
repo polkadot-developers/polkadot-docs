@@ -30,7 +30,7 @@ need to be used for staking and governance.
 
 ## Assets Basics
 
-See the [Assets pallet](https://github.com/paritytech/polkadot-sdk/tree/master/substrate/frame/assets){target=\_blank} for
+See the [assets pallet](https://github.com/paritytech/polkadot-sdk/tree/master/substrate/frame/assets){target=\_blank} for
 the most up-to-date info and reference documentation.
 
 Assets are stored as a map from an ID to information about the asset, including a management team,
@@ -49,24 +49,19 @@ the dust is lost.
 
 ### Asset Operations
 
-The Assets pallet has its interface for dealing with assets. See the [Integration](#integration)
+The assets pallet has an interface for dealing with assets. See the [Integration](#integration)
 section below for how to fetch information and construct transactions.
 
-The main functions you will probably interact with are `transfer` and `transfer_keep_alive`. These
-functions transfer some `amount` (balance) of an `AssetId` (a `u32`, not a contract address) to
-another account.
+The main functions you will probably interact with are [`transfer`](https://paritytech.github.io/polkadot-sdk/master/pallet_assets/pallet/dispatchables/fn.transfer.html){target=\_blank} and [`transfer_keep_alive`](https://paritytech.github.io/polkadot-sdk/master/pallet_assets/pallet/dispatchables/fn.transfer_keep_alive.html){target=\_blank}. These functions transfer some `amount` (balance) of an [`AssetId`](https://paritytech.github.io/polkadot-sdk/master/pallet_assets/pallet/trait.Config.html#associatedtype.AssetId){target=\_blank} (a `u32`, not a contract address) to another account.
 
-The Assets pallet also provides an `approve_transfer`, `cancel_approval`, and `transfer_approved`
-interface for non-custodial operations.
+The assets pallet also provides an [`approve_transfer`](https://paritytech.github.io/polkadot-sdk/master/pallet_assets/pallet/dispatchables/fn.approve_transfer.html){target=\_blank}, [`cancel_approval`](https://paritytech.github.io/polkadot-sdk/master/pallet_assets/pallet/dispatchables/fn.cancel_approval.html){target=\_blank}, and [`transfer_approved`](https://paritytech.github.io/polkadot-sdk/master/pallet_assets/pallet/dispatchables/fn.transfer_approved.html){target=\_blank} interface for non-custodial operations.
 
-Asset transfers will result in an `assets.transferred` event. The same instructions for
-[monitoring events and **not** transactions](build-protocol-info.md#events) applies to asset
-transfers.
+Asset transfers will result in an [`assets.transferred`](https://paritytech.github.io/polkadot-sdk/master/pallet_assets/pallet/enum.Event.html#variant.Transferred){target=\_blank} event. 
 
-Note that you can use the same addresses (except
-[pure proxies](../learn/learn-proxies-pure.md#anonymous-proxy-pure-proxy)!) on the Asset Hub that
-you use on the relay chain. The SS58 encodings are the same; only the chain information (genesis
-hash, etc.) will change on transaction construction.
+<!-- TODO: would be nice to link a page on how to properly track and index events eventually -->
+
+Note that you can use the same addresses (except [pure proxies](https://wiki.polkadot.network/docs/learn-proxies-pure)) on the Asset Hub that
+you use on the relay chain. The SS58 encodings are the same; only the chain information (genesis hash, etc.) will change on transaction construction.
 
 #### Paying Transaction Fees in Another Asset
 
@@ -74,26 +69,22 @@ Users in the Asset Hub can pay the fees of their transactions with assets other 
 requirement is that a liquidity pool of the relevant asset against DOT should already exist as a
 storage entry of [the Asset Conversion pallet](https://wiki.polkadot.network/docs/learn-asset-conversion-assethub){target=\_blank}.
 
-Technically speaking, this is enabled by
-[the `ChargeAssetTxPayment` signed-extension](https://github.com/polkadot-fellows/runtimes/blob/bb52c327360d1098d3b3d36f4eafb40a74636e80/system-parachains/asset-hubs/asset-hub-polkadot/src/lib.rs#L1016){target=\_blank} implemented in the Asset Hub runtime. This signed-extension extends transactions to include an optional `AssetId` that specifies the asset to be used for payment of both the execution fees and the optional tip. It defaults to the native token when it is set to `None`. In case it is given, this `AssetId` has to be an [XCM `Multilocation`](../learn/learn/xcm/fundamentals/multilocation-summary). Once the transaction is executed in the block, it will emit an `AssetTxFeePaid` event, informing of the account paying the fees, the amount in the asset paid as fee, the tip (if any), and the asset ID of the asset paying the fees.
+Technically speaking, this is enabled by [the `ChargeAssetTxPayment` signed-extension](https://github.com/polkadot-fellows/runtimes/blob/bb52c327360d1098d3b3d36f4eafb40a74636e80/system-parachains/asset-hubs/asset-hub-polkadot/src/lib.rs#L1016){target=\_blank} implemented in the Asset Hub runtime. This signed-extension extends transactions to include an optional `AssetId` that specifies the asset to be used for payment of both the execution fees and the optional tip. It defaults to the native token when it is set to `None`. In case it is given, this `AssetId` has to be an [XCM `Multilocation`](https://wiki.polkadot.network/docs/learn/xcm/fundamentals/multilocation-summary){target=\_blank}. Once the transaction is executed in the block, it will emit an `AssetTxFeePaid` event, informing of the account paying the fees, the amount in the asset paid as fee, the tip (if any), and the asset ID of the asset paying the fees.
 
 #### Handling Pools with Low Liquidity
 
 Wallets and user interfaces enabling this functionality should ensure that the user is prompted with the
 necessary warnings, such that they do not accidentally spend all of their funds to perform a swap on
-a pool with no or low liquidity.
+a pool with little to no liquidity.
 
 ##### How to Build Transactions Paying Fees with Other Assets
 
-- [This repository](https://github.com/bee344/asset-conversion-example/tree/main) contains the
+- [This repository](https://github.com/bee344/asset-conversion-example/tree/main){target=\_blank} contains the
   complete workflow on how to create a liquidity pool for a given asset, add liquidity to it and
-  then build a transaction to pays fees with this asset (including fees estimation). It is done with
-  several libraries: Polkadot.js API and Subxt
-- [Example using Asset Transfer API](https://github.com/paritytech/asset-transfer-api/blob/main/examples/polkadot/assetHub/paysWithFeeOriginTransfers/dotToHydrationPaysWithGLMR.ts)
-  to do a cross-chain transfer in Polkadot Asset Hub paying fees with GLMR.
-- [A simple script](https://github.com/bee344/asset-hub-examples/blob/main/polkadot-js-example/src/foreignAssetTransferWithFee.ts)
-  using Polkadot.js API to do a local transfer of bridged KSM in Polkadot Asset Hub paying fees with
-  USDT
+  then build a transaction to pays fees with this asset (including fees estimation)
+- [Example using Asset Transfer API](https://github.com/paritytech/asset-transfer-api/blob/main/examples/polkadot/assetHub/paysWithFeeOriginTransfers/dotToHydrationPaysWithGLMR.ts){target=\_blank} to do a cross-chain transfer in Polkadot Asset Hub paying fees with GLMR
+- [A simple script](https://github.com/bee344/asset-hub-examples/blob/main/polkadot-js-example/src/foreignAssetTransferWithFee.ts){target=\_blank}
+  using Polkadot.js API to do a local transfer of bridged KSM in Polkadot Asset Hub paying fees with USDT
 
 ### Foreign Assets
 
@@ -109,13 +100,13 @@ other pallets as the Assets pallet.
 
 The main difference to take into account for foreign assets is their identifier. Instead of using
 integers as identifiers like in the Assets pallet, assets stored in the `foreign-assets` pallet are
-identified by [its respective XCM multilocation](https://wiki.polkadot.network/docs/learn/xcm/fundamentals/multilocation-summary).
+identified by [its respective XCM multilocation](https://wiki.polkadot.network/docs/learn/xcm/fundamentals/multilocation-summary){target=\_blank}.
 
 ## Integration
 
-The Asset Hub will come with the same tooling suite that Parity Technologies provides for the relay chain, namely [API Sidecar](https://github.com/paritytech/substrate-api-sidecar) and
-[TxWrapper Polkadot](https://github.com/paritytech/txwrapper-core/tree/main/packages/txwrapper-polkadot),
-as well as the [Asset Transfer API](https://github.com/paritytech/asset-transfer-api). If you have a
+The Asset Hub will come with the same tooling suite that Parity Technologies provides for the relay chain, namely [API Sidecar](https://github.com/paritytech/substrate-api-sidecar){target=\_blank} and
+[TxWrapper Polkadot](https://github.com/paritytech/txwrapper-core/tree/main/packages/txwrapper-polkadot){target=\_blank},
+as well as the [Asset Transfer API](https://github.com/paritytech/asset-transfer-api){target=\_blank}. If you have a
 technical question or issue about how to use one of the integration tools, please file a GitHub
 issue so a developer can help.
 
@@ -145,20 +136,14 @@ Here are the available public instances:
 The purpose of these instances is to allow anyone to check and get a quick overview of the info that
 the asset-related endpoints provide.
 
-:::caution
+!!!warning
+    These instances should only be used for ad-hoc checks or tests and not for production, heavy testing
+    or any other critical purpose.
 
-These instances should only be used for ad-hoc checks or tests and not for production, heavy testing
-or any other critical purpose.
+### TxWrapper
 
-:::
-
-### TxWrapper Polkadot
-
-TxWrapper Polkadot is a library designed to facilitate transaction construction and signing in
-offline environments. It comes with asset-specific functions to use on the Asset Hub. When
-constructing parachain transactions, you can use `txwrapper-polkadot` exactly as on the relay chain,
-but construct transactions with the appropriate parachain metadata like genesis hash, spec version,
-and type registry.
+[TxWrapper](https://github.com/paritytech/txwrapper-core){target=\_blank} is a library designed to facilitate transaction construction and signing in
+offline environments. It comes with asset-specific functions to use on the Asset Hub. When constructing parachain transactions, you can use `txwrapper-polkadot` exactly as on the relay chain, but construct transactions with the appropriate parachain metadata like genesis hash, spec version, and type registry.
 
 ### XCM Transfer Monitoring
 
@@ -190,31 +175,31 @@ examples to showcase the slight differences:
    _([example](https://polkadot.subscan.io/xcm_message/polkadot-3effaf637dd2a3ac5a644ccc693cbf58a6957d84){target=\_blank})_:
 
    - The [event](https://hydradx.subscan.io/extrinsic/5136464-2?event=5136464-7){target=\_blank} to look for in the
-     Parachain side is called `parachainsystem (UpwardMessageSent)`, and the parameter
+     parachain side is called `parachainsystem (UpwardMessageSent)`, and the parameter
      `message_hash` in this event identifies the XCM transfer.
    - The [event](https://polkadot.subscan.io/block/20810935?tab=event&&event=20810935-4){target=\_blank} to track in
      the relay chain side is called `messagequeue (Processed)`, and the parameter `id` of the event
-     should be the same as the `message_hash` found in the Parachain event.
+     should be the same as the `message_hash` found in the parachain event.
 
-2. For an XCM transfer from a relay chain to a Parachain
+2. For an XCM transfer from a relay chain to a parachain
    _([example](https://polkadot.subscan.io/xcm_message/polkadot-b2f455ed6ca1b4fdea746dfe8d150c10ec74440e){target=\_blank})_:
 
    - The [event](https://polkadot.subscan.io/extrinsic/20810793-2?event=20810793-53){target=\_blank} to look for in
      the relay chain side is called `xcmPallet (sent)`, and the parameter `message_id` in this event
      identifies the XCM transfer.
    - The [event](https://moonbeam.subscan.io/extrinsic/6174523-0?event=6174523-5){target=\_blank} to look for in the
-     Parachain side is called `dmpqueue (ExecutedDownward)`, and the parameter that identifies the
+     parachain side is called `dmpqueue (ExecutedDownward)`, and the parameter that identifies the
      XCM message is either called `message_hash` or `message_id`.
 
-3. For an XCM transfer from a System Parachain to a Parachain
+3. For an XCM transfer from a system parachain to a parachain
    _([example](https://polkadot.subscan.io/xcm_message/polkadot-72ed4496d1cb793e10084170548d5caf622ea338){target=\_blank})_:
 
    - The [event](https://assethub-polkadot.subscan.io/extrinsic/6275027-4?event=6275027-22){target=\_blank} to look
-     for in the System Parachain side is called `xcmpqueue (XcmpMessageSent)`, and again the
+     for in the system parachain side is called `xcmpqueue (XcmpMessageSent)`, and again the
      `message_hash` is one of the parameters of the event.
    - The corresponding [event](https://hydradx.subscan.io/extrinsic/5135860-1?event=5135860-6){target=\_blank} in
-     the Parachain side is the `xcmpqueue (Success)` and the `message_hash` found in that event
-     should have the same value as the one in the System parachain.
+     the parachain side is the `xcmpqueue (Success)` and the `message_hash` found in that event
+     should have the same value as the one in the system parachain.
 
 #### Monitoring of Failed XCM Transfers
 
@@ -224,16 +209,16 @@ If an XCM transfer fails, events/errors will be emitted accordingly. Below are s
    _([example](https://polkadot.subscan.io/xcm_message/polkadot-c8d7186edb43a592d65b3b5a87c4ecaac38c5aa2){target=\_blank})_:
 
    - The [event](https://assethub-polkadot.subscan.io/extrinsic/4671081-0?event=4671081-1){target=\_blank}
-     `dmpqueue (ExecutedDownward)` in the System Parachain side with the following parameters:
+     `dmpqueue (ExecutedDownward)` in the system parachain side with the following parameters:
      - `outcome` with value `Incomplete` and with the type of error which in this example is
        [UntrustedReserveLocation](https://github.com/paritytech/polkadot-sdk/blob/c54ea64af43b522d23bfabb8d917a490c0f23217/polkadot/xcm/src/v2/traits.rs#L43){target=\_blank}
      - `message_id` which shows the hash of the XCM Transfer
 
-2. From a Parachain to another Parachain
+2. From a parachain to another parachain
    _([example](https://polkadot.subscan.io/xcm_message/polkadot-3e74e95204faa6ecf3c81f5129b85f498b89cff2){target=\_blank})_:
 
    - The [event](https://interlay.subscan.io/extrinsic/3627057-1?event=3627057-8){target=\_blank}
-     `xcmpqueue (Fail)` in the destination Parachain with the following parameters:
+     `xcmpqueue (Fail)` in the destination parachain with the following parameters:
      - `error` which in this example is
        [TooExpensive](https://github.com/paritytech/polkadot-sdk/blob/c54ea64af43b522d23bfabb8d917a490c0f23217/polkadot/xcm/src/v2/traits.rs#L98){target=\_blank}.
      - `message_hash` which identifies the XCM Transfer.

@@ -22,7 +22,7 @@ These abstractions are expressed by sentences defined in a natural language styl
 
 ### Name
 
-The test name in Zombienet is derived from the file name by removing any leading numeric characters before the first hyphen. For example, a file named `0001-zombienet-test.zndsl` will result in a test name of `zombienet-test`, which will be displayed in the test report output of the runner.
+The test name in Zombienet is derived from the filename by removing any leading numeric characters before the first hyphen. For example, a file named `0001-zombienet-test.zndsl` will result in a test name of `zombienet-test`, which will be displayed in the test report output of the runner.
 
 ### Structure
 
@@ -32,7 +32,7 @@ The header is defined by the following fields:
 
 - `description` ++"string"++ - long description of the test suite (optional)
 - `network` ++"string"++ - path to the network definition file, supported in both `.json` and `.toml` formats
-- `creds` ++"string"++ - credentials file name or path to use (available only with Kubernetes provider). Looks in the current directory or `$HOME/.kube/` if a file name is passed
+- `creds` ++"string"++ - credentials filename or path to use (available only with Kubernetes provider). Looks in the current directory or `$HOME/.kube/` if a filename is passed
 
 The body contains the tests to run. Each test is defined by a sentence in the DSL, which is mapped to a test to run. Each test line defines an assertion or a command to be executed against the spawned network.
 

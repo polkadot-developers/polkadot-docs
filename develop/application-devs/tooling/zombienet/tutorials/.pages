@@ -1,0 +1,4 @@
+title: Tutorials
+nav:
+  - 'index.md'
+  - 'Spawn a Basic Network' : 'spawn-a-basic-network.md'

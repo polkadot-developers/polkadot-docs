@@ -3,14 +3,14 @@ title: Chain Specification
 description: Describes the role of the chain specification in a network, how to specify the chain specification to use when starting a node, and how to customize and distribute chain specifications.
 ---
 
-A _chain specification_ is the collection of information that describes a Polkadot SDK-based network. When starting a node, a chain specification is usually a crucial parameter, providing the genesis configurations, bootnodes, and other parameters relating to the network. It identifies the network that a blockchain node connects to, the other nodes that it initially communicates with, and the initial state that nodes must agree on to produce blocks.
+A _chain specification_ is the collection of information that describes a Polkadot SDK-based network. When starting a node, a chain specification is a crucial parameter, providing the genesis configurations, bootnodes, and other parameters relating to that particular network. It identifies the network that a blockchain node connects to, the other nodes that it initially communicates with, and the initial state that nodes must agree on to produce blocks.
 
 The chain specification is defined using the [`ChainSpec` struct](https://paritytech.github.io/polkadot-sdk/master/sc_chain_spec/struct.GenericChainSpec.html){target=_blank}.
 
 !!!note "This page has a companion reference document"
     To learn more about the particularities about chain specifications (and more specifically, the `chain-spec-builder` tool), [refer to the reference document.](https://paritytech.github.io/polkadot-sdk/master/polkadot_sdk_docs/reference_docs/chain_spec_genesis/index.html){target=_blank}
 
-The `ChainSpec` struct separates the information required for a chain into two parts:
+The [`ChainSpec` struct](https://paritytech.github.io/polkadot-sdk/master/parachain_template_node/chain_spec/type.ChainSpec.html){target=_blank} separates the information required for a chain into two parts:
 
 - A client specification that contains information used by the _outer node_ to communicate with network participants and send data to telemetry endpoints. Many of these chain specification settings can be overridden by command-line options when starting a node or can be changed after the blockchain has started
 
@@ -41,12 +41,11 @@ Nodes also include the compiled WebAssembly for the runtime logic on the chain, 
 
 ## Declaring storage items for a runtime
 
-In most cases, a runtime requires some storage items to be configured at genesis.
-For example, if you are developing the runtime with FRAME, any storage item that is declared with the `Config` trait in the runtime requires configuration at genesis.
+In most cases, a runtime requires some storage items to be configured at genesis.  This includes the initial state for pallets, for example, how much balance `Alice` or `Bob` exists, or the account that has sudo permissions.
 
-These storage values are configured in the genesis portion of the chain specification.
+These storage values are configured in the genesis portion of the chain specification.  You can either create a patch file for [`chain-spec-builder`](https://paritytech.github.io/polkadot-sdk/master/polkadot_sdk_docs/reference_docs/chain_spec_genesis/index.html){target=_blank} to ingest, or if you're using `chain_spec.rs`, the pallet can be configured in the code.
 
-For information about how to set initial values for storage items in a pallet, see [Genesis configuration](/build/genesis-configuration/).
+<!-- TODO: Add a page for genesis configuration? -->
 
 ## Creating a Custom Chain Specification
 
@@ -60,6 +59,10 @@ To create a completely customized chain spec, you can export the default chain s
 For example, you can use the `build-spec` sub-command to export the chain specification to a JSON file:
 
 ### Using Node Binary
+
+
+!!!warning "Be aware of the Omninode"
+    As mentioned, there are two methods for generating a chain specification.  The preferred method is [`chain-spec-builder`](https://paritytech.github.io/polkadot-sdk/master/polkadot_sdk_docs/reference_docs/chain_spec_genesis/index.html){target=_blank}, however the `build-spec` method can be utilized as well.
 
 ```bash
 polkadot-parachain build-spec > myCustomSpec.json

@@ -49,7 +49,7 @@ The executor that the native runtime has the same consensus-driven logic as the 
 
 ## Accessing the runtime version
 
-The runtime version can be accessed through the `state.getRuntimeVersion` RPC endpoint. The endpoint accepts an optional block identifier. It can also be accessed through the runtime's metadata to understand the APIs the runtime exposes and how to interact with these APIs.
+The runtime version can be accessed through the `state.getRuntimeVersion` RPC endpoint. The endpoint accepts an optional block identifier. It can also be accessed through the runtime metadata to understand the APIs the runtime exposes and how to interact with these APIs.
 
 The runtime metadata should _only_ change when the chain's [runtime `spec_version`](https://paritytech.github.io/polkadot-sdk/master/sp_version/struct.RuntimeVersion.html#structfield.spec_version){target=_blank} changes.
 

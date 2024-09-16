@@ -1,9 +1,9 @@
 ---
-title: Build a Local Blockchain
+title: Build a Local Solochain
 description: Learn to compile and launch a local blockchain node using Polkadot-SDK. Build, run, and interact with a pre-configured node template.
 ---
 
-# Build a Local Blockchain
+# Build a Local Solochain
 
 ## Introduction
 
@@ -19,7 +19,7 @@ In this tutorial, you will:
     - View information about blockchain activity
     - Submit a transaction
 
-By the end of this tutorial, you'll have a working local blockchain and understand how to interact with it, setting the foundation for further customization and development.
+By the end of this tutorial, you'll have a working local solochain and understand how to interact with it, setting the foundation for further customization and development.
 
 ## Prerequisites
 

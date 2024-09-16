@@ -23,27 +23,25 @@ By completing this tutorial, you will accomplish the following objectives:
 
 ## Prerequisites
 
-- Installed and configured Rust on your system. Refer to the [Installation]() guide for detailed instructions on installing Rust and setting up your development environment.
-- Completed the [Build a Local Blockchain](#build-a-local-blockchain) guide and have the [Polkadot-SDK Solochain Template](https://github.com/paritytech/polkadot-sdk-solochain-template){target=\_blank} installed on your local machine.
+- Installed and configured Rust on your system. Refer to the [Installation]() guide for detailed instructions on installing Rust and setting up your development environment
+- Completed the [Build a Local Blockchain](#build-a-local-blockchain) guide and have the [Polkadot-SDK Solochain Template](https://github.com/paritytech/polkadot-sdk-solochain-template){target=\_blank} installed on your local machine
 
 ## Start the First Blockchain Node
 
-This tutorial demonstrates the fundamentals of a private network using a predefined chain specification called local and two preconfigured user accounts. You'll simulate a private network by running two nodes on a single local computer, using accounts named Alice and Bob.
+This tutorial demonstrates the fundamentals of a private network using a predefined chain specification called local and two preconfigured user accounts. You'll simulate a private network by running two nodes on a single local computer, using accounts named `Alice` and `Bob`.
 
 Follow these steps to start your first blockchain node:
-
-1. Open a terminal on your computer
    
-2. Navigate to the root directory where you compiled the Polkadot-SDK Solochain Template
+1. Navigate to the root directory where you compiled the Polkadot-SDK Solochain Template
    
-3. Clear any existing chain data by executing:
+2. Clear any existing chain data by executing:
     ```bash
     ./target/release/solochain-template-node purge-chain --base-path /tmp/alice --chain local
     ```
 
     When prompted to confirm, type `y` and press *Enter*. This step ensures a clean start for your new network.
 
-4. Launch the first blockchain node using the Alice account:
+3. Launch the first blockchain node using the `Alice` account:
     ```bash
     ./target/release/solochain-template-node \
     --base-path /tmp/alice \
@@ -57,11 +55,11 @@ Follow these steps to start your first blockchain node:
 
 ### Review the Command-Line Options
 
-Before proceeding, let's examine the key command-line options used to start the node:
+Before proceeding, examine the key command-line options used to start the node:
 
 - `--base-path` - specifies the directory for storing all chain-related data
 - `--chain` - defines the chain specification to use
-- `--alice` - adds the predefined keys for the `alice` account to the node's keystore. This account is used for block production and finalization
+- `--alice` - adds the predefined keys for the `Alice` account to the node's keystore. This account is used for block production and finalization
 - `--port` - sets the listening port for peer-to-peer (p2p) traffic. Different ports are necessary when running multiple nodes on the same machine
 - `--rpc-port` - specifies the port for incoming JSON-RPC traffic via WebSocket and HTTP
 - `--node-key` - defines the Ed25519 secret key for libp2p networking
@@ -78,6 +76,15 @@ For a comprehensive overview of all available command-line options for the node 
 Upon successful node startup, the terminal displays messages detailing network operations and information relevant to the running node. This output includes details about the chain specification, system data, network status, and other crucial parameters. You should see output similar to this:
 
 <div id='termynal' data-termynal>
+    <span data-ty="input"><span class="file-path"></span>./target/release/solochain-template-node \
+--base-path /tmp/alice \
+--chain local \
+--alice \
+--port 30333 \
+--rpc-port 9945 \
+--node-key 0000000000000000000000000000000000000000000000000000000000000001 \
+--validator
+    </span>
     <span data-ty>2024-09-10 08:35:43 Substrate Node</span>
     <span data-ty>2024-09-10 08:35:43 ✌️  version 0.1.0-8599efc46ae</span>
     <span data-ty>2024-09-10 08:35:43 ❤️  by Parity Technologies <admin@parity.io>, 2017-2024</span>
@@ -114,7 +121,7 @@ Pay particular attention to the following key messages:
     2024-09-10 08:35:43 🏷  Local node identity is: 12D3KooWEyoppNCUx8Yx66oV9fJnriXwCcXwDDUA2kj6vnc6iDEp
     ```
 
-    This string uniquely identifies the node. It's determined by the `--node-key` used to start the node with the alice account. Use this identifier when connecting additional nodes to the network.
+    This string uniquely identifies the node. It's determined by the `--node-key` used to start the node with the `Alice` account. Use this identifier when connecting additional nodes to the network.
 
 - Network Status:
 
@@ -130,7 +137,7 @@ Pay particular attention to the following key messages:
 
 ## Add a Second Node to the Network
 
-After successfully running the first node with the alice account keys, you can expand the network by adding a second node using the bob account. This process involves connecting to the existing network using the running node as a reference point. The commands are similar to those used for the first node, with some key differences to ensure proper network integration.
+After successfully running the first node with the `Alice` account keys, you can expand the network by adding a second node using the `Bob` account. This process involves connecting to the existing network using the running node as a reference point. The commands are similar to those used for the first node, with some key differences to ensure proper network integration.
 
 To add a node to the running blockchain:
 
@@ -147,7 +154,7 @@ To add a node to the running blockchain:
     !!!note
         The `-y` flag automatically confirms the operation without prompting.
 
-4. Start the second local blockchain node using the `bob` account:
+4. Start the second local blockchain node using the `Bob` account:
     ```bash
     ./target/release/solochain-template-node \
     --base-path /tmp/bob \
@@ -174,7 +181,7 @@ To add a node to the running blockchain:
             - `127.0.0.1` - IP address of the running node (localhost in this case)
             - `tcp` - specifies TCP for peer-to-peer communication
             - `30333` - port number for peer-to-peer TCP traffic
-            - `12D3KooWEyoppNCUx8Yx66oV9fJnriXwCcXwDDUA2kj6vnc6iDEp` - unique identifier of the `alice` node
+            - `12D3KooWEyoppNCUx8Yx66oV9fJnriXwCcXwDDUA2kj6vnc6iDEp` - unique identifier of the `Alice` node
 
 ## Verify Blocks are Produced and Finalized
 
@@ -182,9 +189,10 @@ After starting the second node, both nodes should connect as peers and commence 
 
 Follow these steps to verify that blocks are being produced and finalized:
 
-1. Observe the output in the terminal of the first node (Alice):
+1. Observe the output in the terminal of the first node (`Alice`):
 
     <div id='termynal' data-termynal>
+        <data-ty>...</span>
         <span data-ty>2024-09-10 09:04:57 discovered: 12D3KooWHdiAxVd8uMQR1hGWXccidmfCwLqcMpGwR6QcTP6QRMuD /ip4/192.168.1.4/tcp/30334</span>
         <span data-ty>2024-09-10 09:04:58 💤 Idle (0 peers), best: #0 (0x850f…951f), finalized #0 (0x850f…951f), ⬇ 0.3kiB/s ⬆ 0.3kiB/s</span>
         <span data-ty>2024-09-10 09:05:00 🙌 Starting consensus session on top of parent 0x850ffab4827cb0297316cbf01fc7c2afb954c5124f366f25ea88bfd19ede951f (#0)</span>
@@ -210,7 +218,7 @@ Follow these steps to verify that blocks are being produced and finalized:
     - Block production - `best: #4 (0xe176…0430)`
     - Block finalization - `finalized #1 (0x75bb…e82d)`
 
-2. Check the terminal of the second node (Bob) for similar output
+2. Check the terminal of the second node (`Bob`) for similar output
 
 3. Shut down one node using `Control-C` in its terminal. Observe the remaining node's output:
 
@@ -233,4 +241,3 @@ Follow these steps to verify that blocks are being produced and finalized:
         ```bash
         ./target/release/solochain-template-node purge-chain --base-path /tmp/bob --chain local -y
         ```
-    

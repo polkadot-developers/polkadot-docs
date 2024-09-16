@@ -1,0 +1,4 @@
+title: Build a Blockchain
+nav:
+  - index.md
+  - 'Upgrade a Running Network': upgrade-a-running-network.md

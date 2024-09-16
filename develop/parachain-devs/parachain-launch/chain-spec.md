@@ -41,9 +41,9 @@ Nodes also include the compiled WebAssembly for the runtime logic on the chain, 
 
 ## Declaring storage items for a runtime
 
-In most cases, a runtime requires some storage items to be configured at genesis.  This includes the initial state for pallets, for example, how much balance `Alice` or `Bob` exists, or the account that has sudo permissions.
+In most cases, a runtime requires some storage items to be configured at genesis. This includes the initial state for pallets, for example, how much balance `Alice` or `Bob` exists, or the account that has sudo permissions.
 
-These storage values are configured in the genesis portion of the chain specification.  You can either create a patch file for [`chain-spec-builder`](https://paritytech.github.io/polkadot-sdk/master/polkadot_sdk_docs/reference_docs/chain_spec_genesis/index.html){target=_blank} to ingest, or if you're using `chain_spec.rs`, the pallet can be configured in the code.
+These storage values are configured in the genesis portion of the chain specification. You can either create a patch file for [`chain-spec-builder`](https://paritytech.github.io/polkadot-sdk/master/polkadot_sdk_docs/reference_docs/chain_spec_genesis/index.html){target=_blank} to ingest, or if you're using `chain_spec.rs`, the pallet can be configured in the code.
 
 <!-- TODO: Add a page for genesis configuration? -->
 
@@ -51,7 +51,7 @@ These storage values are configured in the genesis portion of the chain specific
 
 There are two methods for creating a chain specification: 
 
-1. Utilizing the `polkadot-parachain` or compiled node binary
+1. Utilizing `polkadot-parachain` or compiled node binary
 2. Utilizing `chain-spec-builder`
 
 If you are creating a one-off network for development, testing, or demonstration purposes, you might want a fully customized chain specification.
@@ -62,7 +62,7 @@ For example, you can use the `build-spec` sub-command to export the chain specif
 
 
 !!!warning "Be aware of the Omninode"
-    As mentioned, there are two methods for generating a chain specification.  The preferred method is [`chain-spec-builder`](https://paritytech.github.io/polkadot-sdk/master/polkadot_sdk_docs/reference_docs/chain_spec_genesis/index.html){target=_blank}, however the `build-spec` method can be utilized as well.
+    As mentioned, there are two methods for generating a chain specification. The preferred method is [`chain-spec-builder`](https://paritytech.github.io/polkadot-sdk/master/polkadot_sdk_docs/reference_docs/chain_spec_genesis/index.html){target=_blank}, however the `build-spec` method can be utilized as well.
 
 ```bash
 polkadot-parachain build-spec > myCustomSpec.json

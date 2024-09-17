@@ -43,14 +43,14 @@ Native token: WND
 
 ### Paseo
 
-A community-run testnet which mirrors the Polkadot runtime that is intended for parachain developers. It is maintained by the members of 
+[Paseo](https://github.com/paseo-network){target=\_blank}  is a community-run testnet which mirrors the runtime of Polkadot and its system chains. It is intended for parachain and dapp developers and is maintained by the members of 
 Polkadot community.
 
 Native token: PAS
 
 ### Rococo
 
-Soon to be deprecated testnet intended for parachain developers. It is maintained by Parity Technologies.
+Testnet intended for parachain developers (to be deprecated on Oct 14th 2024). It is maintained by Parity Technologies.
 
 Native token: ROC
 

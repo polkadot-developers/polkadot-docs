@@ -1,6 +1,6 @@
 ---
 title: Upgrade a Running Network
-description: TODO
+description: Learn how to perform forkless runtime upgrades on a Polkadot-SDK based blockchain. Add features and modify parameters without network disruption.
 ---
 
 # Upgrade a Running Network

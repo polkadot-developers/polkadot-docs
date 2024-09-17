@@ -297,7 +297,9 @@ This is not recommended if you're a validator. Please see the [secure validator 
 ## Clone and Build
 
 The [paritytech/polkadot](https://github.com/paritytech/polkadot-sdk/tree/master/polkadot) repo's
-master branch contains the latest Polkadot code.
+master branch contains the latest Polkadot code.  To install it as a binary, `cargo` may be used to install directly from a specific release:
+
+<!-- TODO: better instructions for installing polka binary -->
 
 ```bash
 git clone https://github.com/paritytech/polkadot-sdk polkadot-sdk

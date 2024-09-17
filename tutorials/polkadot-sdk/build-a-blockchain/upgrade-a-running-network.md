@@ -28,3 +28,235 @@ Before starting this tutorial, ensure you meet the following requirements:
 - Installed and configured Rust on your system. Refer to the [Installation]() guide for detailed instructions on installing Rust and setting up your development environment
 - Completed the [Build a Local Blockchain]() tutorial and have the [Polkadot-SDK Solochain Template](https://github.com/paritytech/polkadot-sdk-solochain-template){target=\_blank}installed on your machine
 - Reviewed the [Add a Pallet to the Runtime]() guide
+
+## Start the Node
+
+To demonstrate how to update a running node, you first need to start the local node with the current runtime.
+
+1. Navigate to the root directory where you compiled the Polkadot-SDK Solochain Template
+   
+2. Start the local node in development mode by running the following command:
+    ```bash
+    ./target/release/solochain-template-node --dev
+    ```
+
+    !!!note
+       Keep the node running throughout this tutorial. You can modify and re-compile the runtime without stopping or restarting the node.
+
+3. Connect to your node using the same steps outlined in the [Interact with the Node]() section
+
+    Once connected, you’ll notice the node template is using the default version, `100`, displayed in the upper left.
+
+    ![](/images/tutorials/polkadot-sdk/build-a-blockchain/upgrade-a-running-network/upgrade-a-running-network-1.webp)
+
+## Modify the Runtime
+
+### Add the Utility Pallet to the Dependencies
+
+1. Open the `runtime/Cargo.toml` file and locate the `[dependencies]` section. Add the Utility pallet by inserting the following line:
+
+    ```toml
+    pallet-utility = { version = "37.0.0", default-features = false}
+    ```
+
+    Your `[dependencies]` section should now look something like this:
+
+    ```toml
+    [dependencies]
+    codec = { features = ["derive"], workspace = true }
+    scale-info = { features = ["derive", "serde"], workspace = true }
+    frame-support = { features = ["experimental"], workspace = true }
+    ...
+    pallet-utility = { version = "37.0.0", default-features = false }
+    ```
+
+2. In the `[features]` section, add the Utility pallet to the `std` feature list by including:
+    ```toml
+    [features]
+    default = ["std"]
+    std = [
+        "codec/std",
+        "scale-info/std",
+        "frame-executive/std",
+        ...
+        "pallet-utility/std",
+    ]
+    ```
+
+3. Save the changes and close the `Cargo.toml` file
+
+### Update the Runtime Configuration
+
+To implement the necessary changes in your runtime, you'll need to modify the `runtime/src/lib.rs` file.
+
+#### Configure the Utility Pallet
+   
+1. Implement the Config trait for the Utility pallet:
+
+    ```rust
+    ...
+    /// Configure the pallet-template in pallets/template.
+    impl pallet_template::Config for Runtime {
+        ...
+    }
+
+    // Add here after all the other pallets implementations
+    impl pallet_utility::Config for Runtime {
+        type RuntimeEvent = RuntimeEvent;
+        type RuntimeCall = RuntimeCall;
+        type PalletsOrigin = OriginCaller;
+        type WeightInfo = pallet_utility::weights::SubstrateWeight<Runtime>;
+    }
+    ...
+    ```
+
+2. Locate the `#[frame_support::runtime]` macro and add the Utility pallet:
+
+    ```rust
+    // Create the runtime by composing the FRAME pallets that were previously configured.
+    #[frame_support::runtime]
+    mod runtime {
+        ...
+        // Include the custom logic from the pallet-template in the runtime.
+        #[runtime::pallet_index(7)]
+        pub type TemplateModule = pallet_template;
+
+        #[runtime::pallet_index(8)]
+        pub type Utility = pallet_utility;
+        ...
+    }
+    ```
+
+#### Update Existencial Deposit Value
+
+To update the `EXISTENTIAL_DEPOSIT` in the Balances pallet, locate the constant and set the value to `1000`:
+
+```rust
+...
+/// Existential deposit.
+pub const EXISTENTIAL_DEPOSIT: u128 = 1000;
+...
+```
+
+!!!note
+    This change increases the minimum balance required for accounts to remain active. No accounts with balances between `500` and `1000` will be removed. For account removal, a storage migration is needed. See [Storage Migration]() for details.
+
+#### Update Runtime Version
+
+Locate the `runtime_version` macro and increment the `spec_version` field from `100` to `101`:
+
+```rust
+#[sp_version::runtime_version]
+pub const VERSION: RuntimeVersion = RuntimeVersion {
+	spec_name: create_runtime_str!("solochain-template-runtime"),
+	impl_name: create_runtime_str!("solochain-template-runtime"),
+	authoring_version: 1,
+	spec_version: 101,
+	impl_version: 1,
+	apis: RUNTIME_API_VERSIONS,
+	transaction_version: 1,
+	state_version: 1,
+};
+```
+
+### Recompile the Runtime
+
+Once you've made all the necessary changes, recompile the runtime by running:
+
+```bash
+cargo build --release
+```
+
+The build artifacts will be output to the `target/release` directory. The WASM build artifacts can be found in the `target/release/wbuild/solochain-template-runtime` directory. You should see the following files:
+
+- *solochain_template_runtime.compact.compressed.wasm*
+- *solochain_template_runtime.compact.wasm*
+- *solochain_template_runtime.wasm*
+
+## Execute the Runtime Upgrade
+
+Now that you've generated the WASM artifact for your modified runtime, it's time to upgrade the running network. This process involves submitting a transaction to load the new runtime logic.
+
+### Understand Runtime Upgrades
+
+#### Authorization with Sudo
+
+In production networks, runtime upgrades typically require community approval through governance. For this tutorial, the Sudo pallet will be used to simplify the process. The Sudo pallet allows a designated account (usually `Alice` in development environments) to perform privileged operations, including runtime upgrades.
+
+#### Resource Accounting
+
+Runtime upgrades use the `set_code` extrinsic, which is designed to consume an entire block's resources. This design prevents other transactions from executing on different runtime versions within the same block. The `set_code` extrinsic is classified as an Operational call, meaning it:
+
+- Can use a block's entire weight limit
+- Receives maximum priority
+- Is exempt from transaction fees
+
+To bypass resource accounting safeguards, we'll use the `sudo_unchecked_weight` extrininsic. This allows us to specify a weight of zero, ensuring the upgrade process has unlimited time to complete.
+
+### Perform the Upgrade
+
+Follow these steps to update your network with the new runtime:
+
+1. Open [Polkadot.js Apps](https://polkadot.js.org/apps/?rpc=ws%3A%2F%2Flocalhost%3A9944#/explorer){target=_blank} in your web browser and make sure you are connected to your local node
+
+2. Navigate to the **Developer** dropdown and select the **Extrinsics** option
+
+    ![](/images/tutorials/polkadot-sdk/build-a-blockchain/upgrade-a-running-network/upgrade-a-running-network-2.webp)
+
+3. Construct the `set_code` extrinsic call:
+
+    1. Select the **`sudo`** pallet
+    2. Choose the **`sudoUncheckedWeight`** extrinsic
+    3. Select the **`system`** pallet
+    4. Choose the **`setCode`** extrinsic
+    5. Fill in the parameters:
+        - **`code`** - the new runtime code
+
+            !!!note
+                You can click the **file upload toggle** to upload a file instead of copying the hex string value.
+
+        - **`weight`** - lave both parameters set to the default value of `0`
+
+    6. Click on **Submit Transaction**
+
+        ![](/images/tutorials/polkadot-sdk/build-a-blockchain/upgrade-a-running-network/upgrade-a-running-network-3.webp)
+
+4. Review the transaction details and click **Sign and Submit** to confirm the transaction
+
+    ![](/images/tutorials/polkadot-sdk/build-a-blockchain/upgrade-a-running-network/upgrade-a-running-network-4.webp)
+
+
+### Verify the Upgrade
+
+#### Runtime Version Change
+
+1. Navigate to the **Network** dropdown and select the **Explorer** option
+   
+    ![](/images/tutorials/polkadot-sdk/build-a-blockchain/upgrade-a-running-network/upgrade-a-running-network-5.webp)
+   
+2. After the transaction is included in a block, check:
+    1.  There has been a successful `sudo.Sudid` event
+    2.  The indicator shows that the runtime version is now `101`
+
+    ![](/images/tutorials/polkadot-sdk/build-a-blockchain/upgrade-a-running-network/upgrade-a-running-network-6.webp)
+
+#### Utility Pallet Addition
+
+In the **Extrinsics** section, you should see that the Utility pallet has been added as an option
+
+![](/images/tutorials/polkadot-sdk/build-a-blockchain/upgrade-a-running-network/upgrade-a-running-network-7.webp)
+
+#### Existential Deposit Update
+
+1. Navigate to the **Developer** dropdown and select the **Chain State** option
+
+    ![](/images/tutorials/polkadot-sdk/build-a-blockchain/upgrade-a-running-network/upgrade-a-running-network-8.webp)
+
+2.  Query the existential deposit value
+    1. Click on the **Constants** tab 
+    2. Select the **balances** pallet
+    3. Choose the **existentialDeposit** constant
+    4. Click the **+** button to execute the query
+    5. Check the existential deposit value
+
+    ![](/images/tutorials/polkadot-sdk/build-a-blockchain/upgrade-a-running-network/upgrade-a-running-network-9.webp)

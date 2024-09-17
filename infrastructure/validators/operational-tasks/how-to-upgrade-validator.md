@@ -1,5 +1,5 @@
 ---
-title: How to Upgrade Your Validator
+title: Upgrade Your Node
 description: Instructions on how to upgrade your validator node.
 ---
 

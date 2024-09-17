@@ -127,7 +127,7 @@ To implement the necessary changes in your runtime, you'll need to modify the `r
     }
     ```
 
-#### Update Existencial Deposit Value
+#### Update Existential Deposit Value
 
 To update the `EXISTENTIAL_DEPOSIT` in the Balances pallet, locate the constant and set the value to `1000`:
 
@@ -167,7 +167,7 @@ Once you've made all the necessary changes, recompile the runtime by running:
 cargo build --release
 ```
 
-The build artifacts will be output to the `target/release` directory. The WASM build artifacts can be found in the `target/release/wbuild/solochain-template-runtime` directory. You should see the following files:
+The build artifacts will be output to the `target/release` directory. The Wasm build artifacts can be found in the `target/release/wbuild/solochain-template-runtime` directory. You should see the following files:
 
 - *solochain_template_runtime.compact.compressed.wasm*
 - *solochain_template_runtime.compact.wasm*
@@ -175,7 +175,7 @@ The build artifacts will be output to the `target/release` directory. The WASM b
 
 ## Execute the Runtime Upgrade
 
-Now that you've generated the WASM artifact for your modified runtime, it's time to upgrade the running network. This process involves submitting a transaction to load the new runtime logic.
+Now that you've generated the Wasm artifact for your modified runtime, it's time to upgrade the running network. This process involves submitting a transaction to load the new runtime logic.
 
 ### Understand Runtime Upgrades
 
@@ -191,7 +191,7 @@ Runtime upgrades use the `set_code` extrinsic, which is designed to consume an e
 - Receives maximum priority
 - Is exempt from transaction fees
 
-To bypass resource accounting safeguards, we'll use the `sudo_unchecked_weight` extrininsic. This allows us to specify a weight of zero, ensuring the upgrade process has unlimited time to complete.
+To bypass resource accounting safeguards, the `sudo_unchecked_weight` extrinsic will be used. This allows you to specify a weight of zero, ensuring the upgrade process has unlimited time to complete.
 
 ### Perform the Upgrade
 

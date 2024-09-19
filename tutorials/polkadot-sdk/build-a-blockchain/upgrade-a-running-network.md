@@ -94,37 +94,13 @@ To implement the necessary changes in your runtime, you'll need to modify the `r
 1. Implement the Config trait for the Utility pallet:
 
     ```rust
-    ...
-    /// Configure the pallet-template in pallets/template.
-    impl pallet_template::Config for Runtime {
-        ...
-    }
-
-    // Add here after all the other pallets implementations
-    impl pallet_utility::Config for Runtime {
-        type RuntimeEvent = RuntimeEvent;
-        type RuntimeCall = RuntimeCall;
-        type PalletsOrigin = OriginCaller;
-        type WeightInfo = pallet_utility::weights::SubstrateWeight<Runtime>;
-    }
-    ...
+    --8<-- 'code/tutorials/polkadot-sdk/build-a-blockchain/upgrade-a-running-network/config-trait-impl.rs'
     ```
 
 2. Locate the `#[frame_support::runtime]` macro and add the Utility pallet:
 
     ```rust
-    // Create the runtime by composing the FRAME pallets that were previously configured.
-    #[frame_support::runtime]
-    mod runtime {
-        ...
-        // Include the custom logic from the pallet-template in the runtime.
-        #[runtime::pallet_index(7)]
-        pub type TemplateModule = pallet_template;
-
-        #[runtime::pallet_index(8)]
-        pub type Utility = pallet_utility;
-        ...
-    }
+     --8<-- 'code/tutorials/polkadot-sdk/build-a-blockchain/upgrade-a-running-network/fs-runtime-macro.rs'
     ```
 
 #### Update Existential Deposit Value
@@ -146,17 +122,7 @@ pub const EXISTENTIAL_DEPOSIT: u128 = 1000;
 Locate the `runtime_version` macro and increment the `spec_version` field from `100` to `101`:
 
 ```rust
-#[sp_version::runtime_version]
-pub const VERSION: RuntimeVersion = RuntimeVersion {
-	spec_name: create_runtime_str!("solochain-template-runtime"),
-	impl_name: create_runtime_str!("solochain-template-runtime"),
-	authoring_version: 1,
-	spec_version: 101,
-	impl_version: 1,
-	apis: RUNTIME_API_VERSIONS,
-	transaction_version: 1,
-	state_version: 1,
-};
+--8<-- 'code/tutorials/polkadot-sdk/build-a-blockchain/upgrade-a-running-network/runtime-version-macro.rs'
 ```
 
 ### Recompile the Runtime

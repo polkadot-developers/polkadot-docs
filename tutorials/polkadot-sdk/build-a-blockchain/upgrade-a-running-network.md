@@ -91,7 +91,7 @@ To implement the necessary changes in your runtime, you'll need to modify the `r
 
 #### Configure the Utility Pallet
    
-1. Implement the Config trait for the Utility pallet:
+1. Implement the [`Config`](https://paritytech.github.io/polkadot-sdk/master/pallet_utility/pallet/trait.Config.html){target=_blank} trait for the Utility pallet:
 
     ```rust
     --8<-- 'code/tutorials/polkadot-sdk/build-a-blockchain/upgrade-a-running-network/config-trait-impl.rs'
@@ -221,7 +221,7 @@ In the **Extrinsics** section, you should see that the Utility pallet has been a
 2.  Query the existential deposit value
     1. Click on the **Constants** tab 
     2. Select the **balances** pallet
-    3. Choose the **existentialDeposit** constant
+    3. Choose the **`existentialDeposit`** constant
     4. Click the **+** button to execute the query
     5. Check the existential deposit value
 

@@ -75,35 +75,7 @@ For a comprehensive overview of all available command-line options for the node 
 
 Upon successful node startup, the terminal displays messages detailing network operations and information relevant to the running node. This output includes details about the chain specification, system data, network status, and other crucial parameters. You should see output similar to this:
 
-<div id='termynal' data-termynal>
-    <span data-ty="input"><span class="file-path"></span>./target/release/solochain-template-node \
---base-path /tmp/alice \
---chain local \
---alice \
---port 30333 \
---rpc-port 9945 \
---node-key 0000000000000000000000000000000000000000000000000000000000000001 \
---validator
-    </span>
-    <span data-ty>2024-09-10 08:35:43 Substrate Node</span>
-    <span data-ty>2024-09-10 08:35:43 ✌️  version 0.1.0-8599efc46ae</span>
-    <span data-ty>2024-09-10 08:35:43 ❤️  by Parity Technologies <admin@parity.io>, 2017-2024</span>
-    <span data-ty>2024-09-10 08:35:43 📋 Chain specification: Local Testnet</span>
-    <span data-ty>2024-09-10 08:35:43 🏷  Node name: Alice</span>
-    <span data-ty>2024-09-10 08:35:43 👤 Role: AUTHORITY</span>
-    <span data-ty>2024-09-10 08:35:43 💾 Database: RocksDb at /tmp/alice/chains/local_testnet/db/full</span>
-    <span data-ty>2024-09-10 08:35:43 🔨 Initializing Genesis block/state (state: 0x074c…27bd, header-hash: 0x850f…951f)</span>
-    <span data-ty>2024-09-10 08:35:43 👴 Loading GRANDPA authority set from genesis on what appears to be first startup.</span>
-    <span data-ty>2024-09-10 08:35:43 Using default protocol ID "sup" because none is configured in the chain specs</span>
-    <span data-ty>2024-09-10 08:35:43 🏷  Local node identity is: 12D3KooWEyoppNCUx8Yx66oV9fJnriXwCcXwDDUA2kj6vnc6iDEp</span>
-    <span data-ty>2024-09-10 08:35:43 Running libp2p network backend</span>
-    <span data-ty>2024-09-10 08:35:43 💻 Operating system: macos</span>
-    <span data-ty>2024-09-10 08:35:43 💻 CPU architecture: aarch64</span>
-    <span data-ty>2024-09-10 08:35:43 📦 Highest known block at #0</span>
-    <span data-ty>2024-09-10 08:35:43 〽️ Prometheus exporter started at 127.0.0.1:9615</span>
-    <span data-ty>2024-09-10 08:35:43 Running JSON-RPC server: addr=127.0.0.1:9945, allowed origins=["http://localhost:*", "http://127.0.0.1:*", "https://localhost:*", "https://127.0.0.1:*", "https://polkadot.js.org"]</span>
-    <span data-ty>2024-09-10 08:35:48 💤 Idle (0 peers), best: #0 (0x850f…951f), finalized #0 (0x850f…951f), ⬇ 0 ⬆ 0</span>
-</div>
+--8<-- 'code/tutorials/polkadot-sdk/build-a-blockchain/simulate-a-network/node-output.html'
 
 Pay particular attention to the following key messages:
 
@@ -191,25 +163,7 @@ Follow these steps to verify that blocks are being produced and finalized:
 
 1. Observe the output in the terminal of the first node (`Alice`):
 
-    <div id='termynal' data-termynal>
-        <data-ty>...</span>
-        <span data-ty>2024-09-10 09:04:57 discovered: 12D3KooWHdiAxVd8uMQR1hGWXccidmfCwLqcMpGwR6QcTP6QRMuD /ip4/192.168.1.4/tcp/30334</span>
-        <span data-ty>2024-09-10 09:04:58 💤 Idle (0 peers), best: #0 (0x850f…951f), finalized #0 (0x850f…951f), ⬇ 0.3kiB/s ⬆ 0.3kiB/s</span>
-        <span data-ty>2024-09-10 09:05:00 🙌 Starting consensus session on top of parent 0x850ffab4827cb0297316cbf01fc7c2afb954c5124f366f25ea88bfd19ede951f (#0)</span>
-        <span data-ty>2024-09-10 09:05:00 🎁 Prepared block for proposing at 1 (2 ms) [hash: 0xe21a305e6647b0b0c6c73ba31a49ae422809611387fadb7785f68d0a1db0b52d; parent_hash: 0x850f…951f; extrinsics (1): [0x0c18…08d8]</span>
-        <span data-ty>2024-09-10 09:05:00 🔖 Pre-sealed block for proposal at 1. Hash now 0x75bbb026db82a4d6ff88b96f952a29e15dac2b7df24d4cb95510945e2bede82d, previously 0xe21a305e6647b0b0c6c73ba31a49ae422809611387fadb7785f68d0a1db0b52d.</span>
-        <span data-ty>2024-09-10 09:05:00 🏆 Imported #1 (0x850f…951f → 0x75bb…e82d)</span>
-        <span data-ty>2024-09-10 09:05:03 💤 Idle (1 peers), best: #1 (0x75bb…e82d), finalized #0 (0x850f…951f), ⬇ 0.7kiB/s ⬆ 0.8kiB/s</span>
-        <span data-ty>2024-09-10 09:05:06 🏆 Imported #2 (0x75bb…e82d → 0x774d…a176)</span>
-        <span data-ty>2024-09-10 09:05:08 💤 Idle (1 peers), best: #2 (0x774d…a176), finalized #0 (0x850f…951f), ⬇ 0.6kiB/s ⬆ 0.5kiB/s</span>
-        <span data-ty>2024-09-10 09:05:12 🙌 Starting consensus session on top of parent 0x774dec6bff7a27c38e21106a5a7428ae5d50b991f39cda7c0aa3c0c9322da176 (#2)</span>
-        <span data-ty>2024-09-10 09:05:12 🎁 Prepared block for proposing at 3 (0 ms) [hash: 0x10bb4589a7a13bac657219a9ff06dcef8d55e46a4275aa287a966b5648a6d486; parent_hash: 0x774d…a176; extrinsics (1): [0xdcd4…b5ec]</span>
-        <span data-ty>2024-09-10 09:05:12 🔖 Pre-sealed block for proposal at 3. Hash now 0x01e080f4b8421c95d0033aac7310b36972fdeef7c6025f8a153c436c1bb214ee, previously 0x10bb4589a7a13bac657219a9ff06dcef8d55e46a4275aa287a966b5648a6d486.</span>
-        <span data-ty>2024-09-10 09:05:12 🏆 Imported #3 (0x774d…a176 → 0x01e0…14ee)</span>
-        <span data-ty>2024-09-10 09:05:13 💤 Idle (1 peers), best: #3 (0x01e0…14ee), finalized #0 (0x850f…951f), ⬇ 0.6kiB/s ⬆ 0.6kiB/s</span>
-        <span data-ty>2024-09-10 09:05:18 🏆 Imported #4 (0x01e0…14ee → 0xe176…0430)</span>
-        <span data-ty>2024-09-10 09:05:18 💤 Idle (1 peers), best: #4 (0xe176…0430), finalized #1 (0x75bb…e82d), ⬇ 0.6kiB/s ⬆ 0.6kiB/s</span>
-    </div>
+    --8<-- 'code/tutorials/polkadot-sdk/build-a-blockchain/simulate-a-network/node-output-1.html'
 
     Key information in this output:
 

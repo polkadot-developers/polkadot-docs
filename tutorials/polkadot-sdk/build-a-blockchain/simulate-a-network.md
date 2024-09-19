@@ -34,7 +34,7 @@ Follow these steps to start your first blockchain node:
    
 1. Navigate to the root directory where you compiled the Polkadot-SDK Solochain Template
    
-2. Clear any existing chain data by executing:
+2. Clear any existing chain data by executing the following:
     ```bash
     ./target/release/solochain-template-node purge-chain --base-path /tmp/alice --chain local
     ```
@@ -227,7 +227,7 @@ Follow these steps to verify that blocks are being produced and finalized:
         <span data-ty>2024-09-10 09:10:08 💤 Idle (0 peers), best: #52 (0x2c40…a50e), finalized #49 (0xb70a…1fc0), ⬇ 0.3kiB/s ⬆ 0.3kiB/s</span>
     </div>
 
-    Note that the peer count drops to zero and block production stops.
+    Note that the peer count drops to zero, and block production stops.
 
 4. Shut down the second node using `Control-C` in its terminal
 

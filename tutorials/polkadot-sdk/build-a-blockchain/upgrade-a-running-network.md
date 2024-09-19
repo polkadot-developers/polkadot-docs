@@ -41,7 +41,7 @@ To demonstrate how to update a running node, you first need to start the local n
     ```
 
     !!!note
-       Keep the node running throughout this tutorial. You can modify and re-compile the runtime without stopping or restarting the node.
+        Keep the node running throughout this tutorial. You can modify and re-compile the runtime without stopping or restarting the node.
 
 3. Connect to your node using the same steps outlined in the [Interact with the Node]() section
 
@@ -91,7 +91,7 @@ To implement the necessary changes in your runtime, you'll need to modify the `r
 
 #### Configure the Utility Pallet
    
-1. Implement the [`Config`](https://paritytech.github.io/polkadot-sdk/master/pallet_utility/pallet/trait.Config.html){target=_blank} trait for the Utility pallet:
+1. Implement the [`Config`](https://paritytech.github.io/polkadot-sdk/master/pallet_utility/pallet/trait.Config.html){target=\_blank} trait for the Utility pallet:
 
     ```rust
     --8<-- 'code/tutorials/polkadot-sdk/build-a-blockchain/upgrade-a-running-network/config-trait-impl.rs'

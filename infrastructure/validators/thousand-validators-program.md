@@ -115,24 +115,24 @@ The inclusion weight accounts for 40 points. It is assessed by an evaluation of 
 inclusion in the active set over the past 84 eras. A candidate can be assured of full score if there
 were no stints of active validation in 84 eras.
 
-#### Span Inclusion \*
+#### Span Inclusion
 
 The span inclusion weight accounts for 40 points. It is assessed by an evaluation of the validator's
 inclusion in the active set over the past 28 eras. A candidate can be assured of full score if there
 were no stints of active validation in 28 eras.
 
-#### Discovered \*
+#### Discovered
 
 The discovered weight accounts for 5 points. It is determined by comparing the candidates tenure in
 the program relative to other candidates. A candidate that is in the program for a longer duration
 relative to the entire group of validators allows for a higher score.
 
-#### Nominated \*
+#### Nominated
 
 The nominated weight accounts for 10 points, and it is assessed based on when the candidate was last
 nominated relative to the other candidates in the program.
 
-#### Rank \*
+#### Rank
 
 The rank weight accounts for 5 points and is assessed relative to the ranks of other candidates
 within the program.
@@ -174,7 +174,7 @@ allocate > 75% of their bond to the respective council members.
 
 #### Democracy
 
-Candidates will receive 10 \* 1KV points for each referendum they have voted on (Aye/Nay) to a limit
+Candidates will receive 10 1KV points for each referendum they have voted on (Aye/Nay) to a limit
 of 100 points. Scores are based on votes for referendum 49 on Polkadot and referendum 163 on Kusama.
 
 \* Scores that are based on their relative position against others are assessed as follows:
@@ -182,7 +182,7 @@ of 100 points. Scores are based on votes for referendum 49 on Polkadot and refer
 - The respective weight is assigned high and low percentiles. Any scores lower than the score at the
   low percentile and higher than the score at the high percentile are removed.
 - The weighted score is then obtained by ((candidate_value - low_threshold) / (high_threshold -
-  low_threshold)) \* weight.
+  low_threshold)) weight.
 
 * The default low and high percentiles are 10 and 90%, respectively.
 * Inclusion and Span Inclusions are measured against low and high percentiles of 20 and 75%,

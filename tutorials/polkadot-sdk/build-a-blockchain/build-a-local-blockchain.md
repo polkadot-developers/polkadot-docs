@@ -73,33 +73,7 @@ After successfully compiling your node, you can run it and produce blocks. This 
     - Ensures a clean working state each time you restart the node
 
 2. Verify that your node is running by reviewing the terminal output. You should see something similar to:
-    <div id='termynal' data-termynal>
-        <span data-ty='input'><span class='file-path'></span>./target/release/solochain-template-node --dev</span>
-        <br>
-        <span data-ty>2024-09-09 08:32:42 Substrate Node</span>
-        <span data-ty>2024-09-09 08:32:42 ✌️  version 0.1.0-8599efc46ae</span>
-        <span data-ty>2024-09-09 08:32:42 ❤️  by Parity Technologies <admin@parity.io>, 2017-2024</span>
-        <span data-ty>2024-09-09 08:32:42 📋 Chain specification: Development</span>
-        <span data-ty>2024-09-09 08:32:42 🏷  Node name: light-boundary-7850</span>
-        <span data-ty>2024-09-09 08:32:42 👤 Role: AUTHORITY</span>
-        <span data-ty>2024-09-09 08:32:42 💾 Database: RocksDb at /var/folders/x0/xl_kjddj3ql3bx7752yr09hc0000gn/T/substrate0QH9va/chains/dev/db/full</span>
-        <span data-ty>2024-09-09 08:32:42 🔨 Initializing Genesis block/state (state: 0xc2a0…16ba, header-hash: 0x0eef…935d)</span>
-        <span data-ty>2024-09-09 08:32:42 👴 Loading GRANDPA authority set from genesis on what appears to be first startup.</span>
-        <span data-ty>2024-09-09 08:32:42 Using default protocol ID "sup" because none is configured in the chain specs</span>
-        <span data-ty>2024-09-09 08:32:42 🏷  Local node identity is: 12D3KooWPhdUzf66di1SuuRFgjkFs6X8jm3Uj2ss5ri31WuVAbgt</span>
-        <span data-ty>2024-09-09 08:32:42 Running libp2p network backend</span>
-        <span data-ty>2024-09-09 08:32:42 💻 Operating system: macos</span>
-        <span data-ty>2024-09-09 08:32:42 💻 CPU architecture: aarch64</span>
-        <span data-ty>2024-09-09 08:32:42 📦 Highest known block at #0</span>
-        <span data-ty>2024-09-09 08:32:42 〽️ Prometheus exporter started at 127.0.0.1:9615</span>
-        <span data-ty>2024-09-09 08:32:42 Running JSON-RPC server: addr=127.0.0.1:9944, allowed origins=["*"]</span>
-        <span data-ty>2024-09-09 08:32:47 💤 Idle (0 peers), best: #0 (0x0eef…935d), finalized #0 (0x0eef…935d), ⬇ 0 ⬆ 0</span>
-        <span data-ty>2024-09-09 08:32:48 🙌 Starting consensus session on top of parent 0x0eef4a08ef90cc04d01864514dc5cb2bd822314309b770b49b0177f920ed935d (#0)</span>
-        <span data-ty>2024-09-09 08:32:48 🎁 Prepared block for proposing at 1 (1 ms) [hash: 0xc14630b76907550bef9037dcbfafa2b25c8dc763495f30d9e36ad4b93b673b36; parent_hash: 0x0eef…935d; extrinsics (1): [0xbcd8…5132]</span>
-        <span data-ty>2024-09-09 08:32:48 🔖 Pre-sealed block for proposal at 1. Hash now 0xcb3d2f28bc73807dac5cf19fcfb2ac6d7e922756da9d41ca0c9dadbd0e45265b, previously 0xc14630b76907550bef9037dcbfafa2b25c8dc763495f30d9e36ad4b93b673b36.</span>
-        <span data-ty>2024-09-09 08:32:48 🏆 Imported #1 (0x0eef…935d → 0xcb3d…265b)</span>
-        <span data-ty>...</span>
-    </div>
+    --8<-- 'code/tutorials/polkadot-sdk/build-a-blockchain/build-a-local-blockchain/node-output.html'
 
 3. Confirm that your blockchain is producing new blocks by checking if the number after `finalized` is increasing
     <div id='termynal' data-termynal>

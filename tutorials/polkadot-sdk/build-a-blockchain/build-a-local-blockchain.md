@@ -11,7 +11,7 @@ description: Learn to compile and launch a local blockchain node using Polkadot-
 
 The node template provides a pre-configured, functional single-node blockchain you can run in your local development environment. It includes several key components, such as user accounts and account balances.
 
-These pre-defined elements allow you to experiment with common blockchain operations without requiring any initial modifications to the template.
+These predefined elements allow you to experiment with common blockchain operations without requiring initial template modifications.
 In this tutorial, you will:
 
 - Build and start a local blockchain node using the node template
@@ -61,7 +61,7 @@ The [Polkadot-SDK Solochain Template](https://github.com/paritytech/polkadot-sdk
 
 ## Start the Local Node
 
-After successfully compiling your node, you're ready to run it and begin producing blocks. This process will start your local blockchain and allow you to interact with it. Follow these steps to launch your node in development mode:
+After successfully compiling your node, you can run it and produce blocks. This process will start your local blockchain and allow you to interact. Follow these steps to launch your node in development mode:
 
 1. In the terminal where you compiled your node, start it in development mode:
     ```bash
@@ -101,7 +101,7 @@ After successfully compiling your node, you're ready to run it and begin produci
         <span data-ty>...</span>
     </div>
 
-3. Confirm that your blockchain is producing new blocks by checking if the number after **finalized** is increasing
+3. Confirm that your blockchain is producing new blocks by checking if the number after `finalized` is increasing
     <div id='termynal' data-termynal>
         <span data-ty>...</span>
         <span data-ty>2024-09-09 08:32:47 💤 Idle (0 peers), best: #0 (0x0eef…935d), finalized #0 (0x0eef…935d), ⬇ 0 ⬆ 0</span>
@@ -115,7 +115,7 @@ After successfully compiling your node, you're ready to run it and begin produci
     </div>
 
     !!!note
-        The details of the log output will be explored in a later tutorial. For now, it's sufficient to know that your node is running and producing blocks.
+        The details of the log output will be explored in a later tutorial. For now, knowing that your node is running and producing blocks is sufficient.
 
 ## Interact with the Node
 

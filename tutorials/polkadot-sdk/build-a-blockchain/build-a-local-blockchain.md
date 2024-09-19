@@ -7,7 +7,7 @@ description: Learn to compile and launch a local blockchain node using Polkadot-
 
 ## Introduction
 
-[Polkadot-SDK](https://github.com/paritytech/polkadot-sdk){target=\_blank} offers a versatile and extensible blockchain development framework, enabling you to create custom blockchain nodes tailored to your specific application or business requirements. This tutorial guides you through compiling and launching a single local blockchain node using the [Polkadot-SDK Solochain Template](https://github.com/paritytech/polkadot-sdk-solochain-template){target=\_blank}.
+[Polkadot-SDK](https://github.com/paritytech/polkadot-sdk){target=\_blank} offers a versatile and extensible blockchain development framework, enabling you to create custom blockchains tailored to your specific application or business requirements. This tutorial guides you through compiling and launching a single local blockchain node using the [Polkadot-SDK Solochain Template](https://github.com/paritytech/polkadot-sdk-solochain-template){target=\_blank}.
 
 The node template provides a pre-configured, functional single-node blockchain you can run in your local development environment. It includes several key components, such as user accounts and account balances.
 

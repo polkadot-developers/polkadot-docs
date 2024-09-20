@@ -9,8 +9,7 @@ your infrastructure is always better than a third-party-hosted one in this brave
 world.
 
 This guide will show you how to connect to [Polkadot](https://polkadot.network/), but the
-same process applies to any other [Substrate](https://substrate.io)-based chain. First, let's
-clarify the term _full node_.
+same process applies to any other [Substrate](https://substrate.io)-based chain.
 
 <!-- TODO - maybe we keep this as a "intro" page for the infrastructure section, and make this page more focused post-merge? -->
 
@@ -356,10 +355,10 @@ after the node syncs.
 ## Using Docker
 
 Finally, you can use Docker to run your node in a container. Doing this is more advanced, so it's
-best left up to those already familiar with docker or who have completed the other set-up
-instructions in this guide. Be aware that when you run polkadot in docker, the process only listens
+best left up to those already familiar with Docker or who have completed the other set-up
+instructions in this guide. Be aware that when you run Polkadot in Docker, the process only listens
 on localhost by default. If you would like to connect to your node's services (RPC, and Prometheus)
-you need to ensure that you run you node with the `--rpc-external`, and `--prometheus-external`
+you need to ensure that you run the node with the `--rpc-external`, and `--prometheus-external`
 commands.
 
 ```zsh

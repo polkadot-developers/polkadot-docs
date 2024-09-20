@@ -66,9 +66,7 @@ server {
 
 ## Testing Bootnode Connection
 
-If the preceding node is running with DNS name `dot-bootnode.stakeworld.io`, which contains a proxy with a valid
-certificate and node-id `12D3KooWAb5MyC1UJiEQJk4Hg4B2Vi3AJdqSUhTGYUqSnEqCFMFg` then the following
-commands should give you a: `syncing 1 peers`.
+If the preceding node is running with DNS name `dot-bootnode.stakeworld.io`, which contains a proxy with a valid certificate and node-id `12D3KooWAb5MyC1UJiEQJk4Hg4B2Vi3AJdqSUhTGYUqSnEqCFMFg` then the following commands should give you a: `syncing 1 peers`.
 
 !!!tip
     You can add `-lsub-libp2p=trace` on the end to get libp2p trace logging for debugging purposes.

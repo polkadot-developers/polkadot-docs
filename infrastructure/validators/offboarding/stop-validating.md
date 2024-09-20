@@ -3,8 +3,7 @@ title: Stop Validating
 description: Instructions on how to stop validating.
 ---
 
-If you wish to remain a validator or nominator (e.g. you're only stopping for planned downtime or
-server maintenance), submitting the `chill` extrinsic in the `staking` pallet should suffice. It is
+If you wish to remain a validator or nominator (for example, you're only stopping for planned downtime or server maintenance), submitting the `chill` extrinsic in the `staking` pallet should suffice. It is
 only if you wish to unbond funds or reap an account that you should continue with the following.
 
 To ensure a smooth stop to validation, make sure you should do the following actions:
@@ -13,9 +12,7 @@ To ensure a smooth stop to validation, make sure you should do the following act
 - Purge validator session keys
 - Unbond your tokens
 
-These can all be done with [PolkadotJS Apps](https://polkadot.js.org/apps){target=_blank} interface or with
-extrinsics.
-
+These can all be done with [PolkadotJS Apps](https://polkadot.js.org/apps){target=_blank} interface or with extrinsics.
 
 <!-- TODO: add links later -->
 
@@ -23,7 +20,7 @@ extrinsics.
 
 To chill your validator or nominator, call the `staking.chill()` extrinsic. See the How to Chill page for more information. You can also claim your rewards at this time.
 
-## Purge validator session keys
+## Purge Validator Session Keys
 
 Purging the validator's session keys removes the key reference. This can be done through the
 `session.purgeKeys()` extrinsic. The key reference exists on the account that originally called the
@@ -37,15 +34,15 @@ were set).
     that **cannot** be removed, and as a result that account cannot be reaped.
 
 !!!warning
-    **If you skip this step, you will not be able to reap your stash account**, and you will also need
+    **If you skip this step, you won't be able to reap your stash account**, and you will also need
     to rebond, purge the session keys, unbond, and wait the unbonding period again before being able to
     transfer your tokens.
 
     See Unbonding and Rebonding for more details.
 
 
-## Unbond your tokens
+## Unbond your Tokens
 
 Unbonding your tokens can be done through the `Network > Staking > Account actions` page in
-PolkadotJS Apps by clicking the corresponding stash account dropdown and selecting "Unbond funds".
+PolkadotJS Apps by clicking the corresponding stash account dropdown and selecting **Unbond Funds**.
 This can also be done through the `staking.unbond()` extrinsic with the staking proxy account.

@@ -45,7 +45,7 @@ A pruned node this way requires much less space than an archive node.
 
 A full node could eventually rebuild every block's state without additional information and become
 an archive node. This still needs to be implemented at the time of writing. If you need to query
-historical blocks' states past what you pruned, you must purge your database and resync your node,
+historical blocks' states past what you pruned, you must purge your database and resynchronize your node,
 starting in archive mode. Alternatively, you can use a backup or snapshot of a trusted source to
 avoid needing to sync from genesis with the network and only need the states of blocks past that
 snapshot.
@@ -54,7 +54,7 @@ Full nodes allow you to read the current state of the chain and to submit and va
 directly on the network without relying on a centralized infrastructure provider.
 
 Another type of node is a *light node*. A light node has only the runtime and the current state
-but does not store past blocks and so cannot read historical data without requesting it from a node
+but doesn't store past blocks and so cannot read historical data without requesting it from a node
 that has it. Light nodes are useful for resource-restricted devices. An interesting use-case of
 light nodes is a browser extension, which is a node in its own right, running the runtime in WebAssembly
 format, as well as a full or light node that is completely encapsulated in WebAssembly and can be
@@ -63,9 +63,9 @@ integrated into web apps: [Smoldot](https://github.com/smol-dot/smoldot.){target
 !!!note Substrate Connect
     [Substrate Connect](https://github.com/paritytech/substrate-connect){target=_blank} provides a way to interact with
     substrate-based blockchains in the browser without using an RPC server. It is a light node that runs
-    entirely in Javascript. Substrate Connect uses a
-    [smoldot Wasm light client](https://github.com/paritytech/smoldot){target=_blank} to securely connect to the
-    blockchain network without relying on specific 3rd parties. Substrate Connect is available on Chrome
+    entirely in JavaScript. Substrate Connect uses a
+    [Smoldot Wasm light client](https://github.com/paritytech/smoldot){target=_blank} to securely connect to the
+    blockchain network without relying on specific third parties. Substrate Connect is available on Chrome
     and Firefox as a [browser extension](https://substrate.io/developers/substrate-connect/){target=_blank}.
 
 
@@ -77,7 +77,7 @@ integrated into web apps: [Smoldot](https://github.com/smol-dot/smoldot.){target
 
 ## Setup Instructions
 
-This is not recommended if you're a validator. Please see the [secure validator setup](maintain-guides-secure-validator.md) if you are running validator.
+This isn't recommended if you're a validator. Please see the [secure validator setup](maintain-guides-secure-validator.md) if you are running validator.
 
 !!!note 
     The bash commands that are provided to run against **your node** use `Polkadot` as the
@@ -170,7 +170,7 @@ This is not recommended if you're a validator. Please see the [secure validator 
     - Determine the latest version of the
     [Polkadot binary](https://github.com/paritytech/polkadot-sdk/tree/master/polkadot/releases).
     - Download the correct Polkadot binary within Ubuntu by running the following command. Replace
-    `*VERSION*` with the tag of the latest version from the last step (e.g. `v0.8.22`):
+    `*VERSION*` with the tag of the latest version from the last step (for example, `v0.8.22`):
     ```bash
     curl -sL https://github.com/paritytech/polkadot-sdk/releases/download/*VERSION*/polkadot -o polkadot
     ```
@@ -296,8 +296,8 @@ This is not recommended if you're a validator. Please see the [secure validator 
 
 ## Clone and Build
 
-The [paritytech/polkadot](https://github.com/paritytech/polkadot-sdk/tree/master/polkadot) repo's
-master branch contains the latest Polkadot code.  To install it as a binary, `cargo` may be used to install directly from a specific release:
+The [`paritytech/polkadot`](https://github.com/paritytech/polkadot-sdk/tree/master/polkadot) repository
+master branch contains the latest Polkadot code. To install it as a binary, `cargo` may be used to install directly from a specific release:
 
 <!-- TODO: better instructions for installing polka binary -->
 
@@ -341,7 +341,7 @@ using any other Polkadot SDK-based chain.
 
 ## Running an Archive Node
 
-When running as a simple sync node (above), only the state of the past 256 blocks will be kept. It
+Only the state of the past 256 blocks will be kept when running as a simple sync node, as in the preceding section. It
 defaults to [archive mode](#types-of-nodes) when validating. To support the full state, use the
 `--pruning` flag:
 
@@ -358,7 +358,7 @@ after the node syncs.
 Finally, you can use Docker to run your node in a container. Doing this is more advanced, so it's
 best left up to those already familiar with docker or who have completed the other set-up
 instructions in this guide. Be aware that when you run polkadot in docker, the process only listens
-on localhost by default. If you would like to connect to your node's services (rpc, and prometheus)
+on localhost by default. If you would like to connect to your node's services (RPC, and Prometheus)
 you need to ensure that you run you node with the `--rpc-external`, and `--prometheus-external`
 commands.
 

@@ -7,7 +7,7 @@ description: Instructions on setting up a secure socket for remote connections.
 
 ## Secure a WS Port
 
-A non-secure ws port can be converted to a secure WSS port by placing it behind an SSL-enabled proxy. This can be used to secure a bootnode or secure a RPC server. The SSL-enabled apache2/nginx/other proxy server redirects requests to the internal WebSocket and converts it to a secure (WSS) connection. For this, you will need an SSL certificate for which you can use a service like LetsEncrypt or self-signing.
+A non-secure WebSocket port can be converted to a secure WSS port by placing it behind an SSL-enabled proxy. This can be used to secure a bootnode or secure a RPC server. The SSL-enabled apache2/nginx/other proxy server redirects requests to the internal WebSocket and converts it to a secure (WSS) connection. For this, you will need an SSL certificate for which you can use a service like LetsEncrypt or self-signing.
 
 ### Obtaining an SSL Certificate
 
@@ -16,7 +16,7 @@ One easy way to get a free SSL certificate can be achieved by following the Lets
 This will auto-generate an SSL certificate and include it in your configuration.
 
 Alternatively, you can generate a self-signed certificate and rely on the raw IP address of your
-node when connecting to it. This is not preferable since you will have to whitelist the certificate
+node when connecting to it. This isn't preferable since you will have to whitelist the certificate
 to access it from a browser.
 
 ```bash
@@ -69,9 +69,9 @@ location / {
 
 ### Apache2
 
-You can run it in different modes such as prefork, worker, or event. In this example, we use
-[event](https://httpd.apache.org/docs/2.4/mod/event.html){target=_blank} which works well on higher load
-environments but other modes are also useful given the requirements.
+You can run it in different modes such as pre-fork, worker, or event. In this example, the
+[event](https://httpd.apache.org/docs/2.4/mod/event.html){target=_blank} works well on higher load
+environments, but other modes are also useful depending on the requirements.
 
 ```bash
 apt install apache2
@@ -79,9 +79,7 @@ a2dismod mpm_prefork
 a2enmod mpm_event proxy proxy_html proxy_http proxy_wstunnel rewrite ssl
 ```
 
-The [mod_proxy_wstunnel](https://httpd.apache.org/docs/2.4/mod/mod_proxy_wstunnel.html){target=_blank} provides
-_support for the tunneling of web socket connections to a backend websockets server. The connection
-is automatically upgraded to a WebSocket connection_. In an SSL-enabled virtualhost add:
+The [`mod_proxy_wstunnel`](https://httpd.apache.org/docs/2.4/mod/mod_proxy_wstunnel.html){target=_blank} provides support for the tunneling of web socket connections to a backend WebSocket server. The connection is automatically upgraded to a WebSocket connection. In an SSL-enabled `virtualhost` add:
 
 ```apacheconf
 (...)
@@ -92,7 +90,7 @@ ProxyPass / ws://localhost:9944
 ProxyPassReverse / ws://localhost:9944
 ```
 
-Older versions of mod_proxy_wstunnel do not upgrade the connection automatically and will need the
+Older versions of `mod_proxy_wstunnel` don't upgrade the connection automatically and will need the
 following config added:
 
 ```apacheconf

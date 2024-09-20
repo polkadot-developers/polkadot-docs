@@ -7,7 +7,7 @@ description: Instructions on setting up a secure socket for remote connections.
 
 ## Secure a WS Port
 
-A non-secure WebSocket port can be converted to a secure WSS port by placing it behind an SSL-enabled proxy. This can be used to secure a bootnode or secure a RPC server. The SSL-enabled apache2/nginx/other proxy server redirects requests to the internal WebSocket and converts it to a secure (WSS) connection. For this, you will need an SSL certificate for which you can use a service like LetsEncrypt or self-signing.
+A non-secure WS port can be converted to a secure WSS port by placing it behind an SSL-enabled proxy. This can be used to secure a bootnode or secure a RPC server. The SSL-enabled apache2/nginx/other proxy server redirects requests to the internal WebSocket and converts it to a secure (WSS) connection. For this, you will need an SSL certificate for which you can use a service like LetsEncrypt or self-signing.
 
 ### Obtaining an SSL Certificate
 
@@ -26,7 +26,7 @@ sudo openssl dhparam -out /etc/ssl/certs/dhparam.pem 2048
 
 ## Installing a Proxy Server
 
-There are a lot of different implementations of a WebSocket proxy, some of the more widely used are
+There are a lot of different implementations of a WS proxy, some of the more widely used are
 [nginx](https://www.nginx.com/){target=_blank} and [apache2](https://httpd.apache.org/){target=_blank}, for which configuration
 examples provided below.
 
@@ -79,7 +79,7 @@ a2dismod mpm_prefork
 a2enmod mpm_event proxy proxy_html proxy_http proxy_wstunnel rewrite ssl
 ```
 
-The [`mod_proxy_wstunnel`](https://httpd.apache.org/docs/2.4/mod/mod_proxy_wstunnel.html){target=_blank} provides support for the tunneling of web socket connections to a backend WebSocket server. The connection is automatically upgraded to a WebSocket connection. In an SSL-enabled `virtualhost` add:
+The [`mod_proxy_wstunnel`](https://httpd.apache.org/docs/2.4/mod/mod_proxy_wstunnel.html){target=_blank} provides support for the tunneling of web socket connections to a backend WS server. The connection is automatically upgraded to a WS connection. In an SSL-enabled `virtualhost` add:
 
 ```apacheconf
 (...)

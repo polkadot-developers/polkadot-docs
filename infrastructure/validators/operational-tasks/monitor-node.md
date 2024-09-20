@@ -55,7 +55,7 @@ The following two directories (which contain the web interface, configuration fi
 license) are in the directory:
 
 - consoles
-- console_libraries
+- `console_libraries`
 
 Copy the executable files to the `/usr/local/bin/` directory.
 
@@ -131,7 +131,7 @@ scrape_configs:
       - targets: ["localhost:9615"]
 ```
 
-With the above configuration file, the first exporter is the one that Prometheus exports to monitor
+With the preceding configuration file, the first exporter is the one that Prometheus exports to monitor
 itself. As we want to have more precise information about the state of the Prometheus server we
 reduced the `scrape_interval` to 5 seconds for this job. The parameters `static_configs` and
 `targets` determine where the exporters are running. The second exporter is capturing the data from
@@ -299,9 +299,9 @@ traffic, running tasks, etc. on the Grafana dashboard.
 
 ![6-dashboard-metric](/images/infrastructure/validator/operational-tasks/6-dashboard-metric.webp)
 
-## Installing and Configuring Alertmanager (Optional)
+## Installing and Configuring `Alertmanager` (Optional)
 
-In this section, let's configure the Alertmanager that helps to predict the potential problem or
+In this section, let's configure the `Alertmanager` that helps to predict the potential problem or
 notify you of the current problem in your server. Alerts can be sent in Slack, Email, Matrix, or
 others. In this guide, we will show you how to configure the email notifications using Gmail if your
 node goes down.

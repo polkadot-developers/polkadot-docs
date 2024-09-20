@@ -3,12 +3,11 @@ title: Use Systemd
 description: Using a service manager for your validator node.
 ---
 
-You can run your validator as a [systemd](https://en.wikipedia.org/wiki/Systemd) process so that it
-will automatically restart on server reboots or crashes (and helps to avoid getting
-[slashed](../learn/learn-offenses.md)).
+You can run your validator as a [systemd](https://en.wikipedia.org/wiki/Systemd){target=\_blank} process so that it will automatically restart on server reboots or crashes (and helps to avoid getting
+[slashed]()).
 
 Before following this guide you should have already set up your validator by following the
-[How to validate](../learn/learn-validator.md) article.
+[How to Validate]() article.
 
 First create a new unit file called `polkadot-validator.service` in `/etc/systemd/system/`.
 
@@ -37,9 +36,9 @@ WantedBy=multi-user.target
     case, there is potential to equivocate when immediately restarting. What can happen is the node will
     not recognize votes that didn't make it to disk, and will then cast conflicting votes. Delaying the
     restart will allow the network to progress past potentially conflicting votes, at which point other
-    nodes will not accept them.
+    nodes won't accept them.
 
-To enable this to autostart on bootup run:
+To enable this to start on booting your machine, run:
 
 ```bash
 systemctl enable polkadot-validator.service

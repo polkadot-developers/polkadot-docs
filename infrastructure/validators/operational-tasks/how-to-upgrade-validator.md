@@ -39,14 +39,14 @@ Each validator server contains essential private keys in a folder called the _ke
 are used by a validator to sign transactions at the network level. If two or more validators sign
 certain transactions using the same keys, it can lead to an [equivocation slash.](https://wiki.polkadot.network/docs/learn-offenses){target=_blank}
 
-For this reason, it is advised that validators DO NOT CLONE or COPY the _keystore_ folder and
+For this reason, it is advised that validators don't clone or copy the `_keystore_` folder and
 instead generate session keys for each new validator instance.
 
 Default keystore path - `/home/polkadot/.local/share/polkadot/chains/<chain>/keystore`
 
 ## Steps
 
-The following steps require a second validator which will be referred to as `Validator B`; the
+The following steps require a second validator which will be referred to as `Validator B`. The
 original server that is in the active set will be referred to as `Validator A`.
 
 ### Session `N`
@@ -58,7 +58,7 @@ original server that is in the active set will be referred to as `Validator A`.
 4. Take note of the Session that this extrinsic was executed in
 5. Allow the current session to elapse and then wait for two full sessions
 
-**It is imperative that you keep Validator A running during this time.** `set_key` does not have an
+**It is imperative that you keep Validator A running during this time.** `set_key` doesn't have an
 immediate effect and requires two full sessions to elapse before it does. If you do switch off
 Validator A too early you may risk being chilled and face a fault within the Thousand Validator
 Programme.

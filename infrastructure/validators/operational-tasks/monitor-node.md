@@ -247,7 +247,7 @@ sudo systemctl start grafana-server
 ```
 
 You can now access it by going to the `http://SERVER_IP_ADDRESS:3000/login`. The default user and
-password is `admin`/`admin`.
+password is `admin`.
 
 :::note
 

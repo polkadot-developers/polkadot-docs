@@ -52,11 +52,11 @@ original server that is in the active set will be referred to as `Validator A`.
 ### Session `N`
 
 1. Start a second node. Once it is synced, use the `--validator` flag. This is now "Validator B."
-2. Generate Session keys for **Validator B**.
+2. Generate Session keys for **Validator B**
 3. Submit a `set_key` extrinsic from your staking proxy with the session key generated from
-   **Validator B**.
-4. Take note of the Session that this extrinsic was executed in.
-5. Allow the current session to elapse and then wait for two full sessions.
+   **Validator B**
+4. Take note of the Session that this extrinsic was executed in
+5. Allow the current session to elapse and then wait for two full sessions
 
 **It is imperative that you keep Validator A running during this time.** `set_key` does not have an
 immediate effect and requires two full sessions to elapse before it does. If you do switch off

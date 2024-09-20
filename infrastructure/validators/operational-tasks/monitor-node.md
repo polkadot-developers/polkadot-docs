@@ -48,8 +48,8 @@ cd prometheus-2.26.0.linux-amd64
 
 The following two binaries are in the directory:
 
-- prometheus - Prometheus main binary file
-- promtool
+- `prometheus` - Prometheus main binary file
+- `promtool`
 
 The following two directories (which contain the web interface, configuration files examples and the
 license) are in the directory:
@@ -104,8 +104,7 @@ The configuration file is divided into three parts which are `global`, `rule_fil
 - `scrape_interval` defines how often Prometheus scrapes targets, while `evaluation_interval`
   controls how often the software will evaluate rules.
 
-- `rule_files` block contains information of the location of any rules we want the Prometheus server
-  to load.
+- `rule_files` block contains information of the location of any rules that the Prometheus server loads.
 
 - `scrape_configs` contains the information which resources Prometheus monitors.
 
@@ -132,13 +131,16 @@ scrape_configs:
 ```
 
 With the preceding configuration file, the first exporter is the one that Prometheus exports to monitor
-itself. As we want to have more precise information about the state of the Prometheus server we
-reduced the `scrape_interval` to 5 seconds for this job. The parameters `static_configs` and
+itself. To have more precise information about the state of the Prometheus server, you may
+reduce the `scrape_interval` to 5 seconds for this job. The parameters `static_configs` and
 `targets` determine where the exporters are running. The second exporter is capturing the data from
 your node, and the port by default is `9615`.
 
-You can check the validity of this configuration file by running
-`promtool check config /etc/prometheus/prometheus.yml`.
+You can check the validity of this configuration file by running:
+
+```bash
+promtool check config /etc/prometheus/prometheus.yml
+```
 
 Save the configuration file and change the ownership of the file to `prometheus` user.
 
@@ -188,8 +190,7 @@ level=info ts=2021-04-16T19:02:20.234Z caller=main.go:767 msg="Server is ready t
 Go to `http://SERVER_IP_ADDRESS:9090/graph` to check whether you are able to access the Prometheus
 interface or not. If it is working, exit the process by pressing on `CTRL + C`.
 
-Next, we would like to automatically start the server during the boot process, so we have to create
-a new `systemd` configuration file with the following config.
+To automatically start the server during the boot process, create a new `systemd` configuration file with the following configuration.
 
 ```bash
 sudo nano /etc/systemd/system/prometheus.service
@@ -246,14 +247,14 @@ sudo systemctl start grafana-server
 ```
 
 You can now access it by going to the `http://SERVER_IP_ADDRESS:3000/login`. The default user and
-password is admin/admin.
+password is `admin`/`admin`.
 
 :::note
 
 If you want to change the port on which Grafana runs (3000 is a popular port), edit the file
 `/usr/share/grafana/conf/defaults.ini` with a command like
 `sudo vim /usr/share/grafana/conf/defaults.ini` and change the `http_port` value to something else.
-Then restart grafana with `sudo systemctl restart grafana-server`.
+Then restart Grafana with `sudo systemctl restart grafana-server`.
 
 :::
 
@@ -280,11 +281,7 @@ Next, import the dashboard that lets you visualize your node data. Go to the men
 and mouse hover "+" then select `Import`.
 
 `Import via grafana.com` - It allows you to use a dashboard that someone else has created and made
-public. You can check what other dashboards are available via
-[https://grafana.com/grafana/dashboards](https://grafana.com/grafana/dashboards){target=_blank}. In this guide, we
-use
-["Substrate Node Metrics"](https://grafana.com/grafana/dashboards/21715-substrate-node-metrics/), so
-input "21715" under the id field and click `Load`.
+public. You can check what other dashboards are available via [https://grafana.com/grafana/dashboards](https://grafana.com/grafana/dashboards){target=_blank}. For example, using the ["Substrate Node Metrics"](https://grafana.com/grafana/dashboards/21715-substrate-node-metrics/) dashboard, input "21715" under the id field and click `Load`.
 
 ![5-import-dashboard](/images/infrastructure/validator/operational-tasks/5-import-dashboard.webp)
 
@@ -301,12 +298,11 @@ traffic, running tasks, etc. on the Grafana dashboard.
 
 ## Installing and Configuring `Alertmanager` (Optional)
 
-In this section, let's configure the `Alertmanager` that helps to predict the potential problem or
-notify you of the current problem in your server. Alerts can be sent in Slack, Email, Matrix, or
-others. In this guide, we will show you how to configure the email notifications using Gmail if your
-node goes down.
+In this section, configure the `Alertmanager` that helps to predict the potential problem or
+notify you of the current problem in your server. Alerts can be sent in Slack, email, Matrix, or
+others. Email notifications can be configured to notify you if your node goes down.
 
-First, download the latest binary of AlertManager and unzip it by running the command below:
+First, download the latest binary of `AlertManager` and unzip it by running the command below:
 
 ```bash
 wget https://github.com/prometheus/alertmanager/releases/download/v0.26.0/alertmanager-0.26.0.linux-amd64.tar.gz
@@ -328,8 +324,8 @@ Copy and save it somewhere else first.
 ### AlertManager Configuration
 
 There is a configuration file named `alertmanager.yml` inside the directory that you just extracted
-in the previous command, but that is not of our use. We will create our `alertmanager.yml` file
-under `/etc/alertmanager` with the following config.
+in the previous command, but that isn't of use. Create a custom `alertmanager.yml` file
+under `/etc/alertmanager` with the following configuration.
 
 :::note
 
@@ -360,12 +356,11 @@ receivers:
     send_resolved: true
 ```
 
-With the above configuration, alerts will be sent using the email you set above. Remember to change
-`YOUR_EMAIL` to your email and paste the app password you just saved earlier to the
+With the preceding configuration, alerts will be sent using the email you set preceding. Remember to change `YOUR_EMAIL` to your email and paste the app password you just saved earlier to the
 `YOUR_APP_PASSWORD`.
 
 Next, create another `systemd` configuration file named `alertmanager.service` by running the
-command `sudo nano /etc/systemd/system/alertmanager.service` with the following config.
+command `sudo nano /etc/systemd/system/alertmanager.service` with the following configuration.
 
 :::info SERVER_IP
 
@@ -390,7 +385,7 @@ ExecStart=/usr/local/bin/alertmanager --config.file /etc/alertmanager/alertmanag
 WantedBy=multi-user.target
 ```
 
-To the start the Alertmanager, run the following commands:
+To the start the `Alertmanager`, run the following commands:
 
 ```
 sudo systemctl daemon-reload && sudo systemctl enable alertmanager && sudo systemctl start alertmanager && sudo systemctl status alertmanager
@@ -407,7 +402,7 @@ sudo systemctl daemon-reload && sudo systemctl enable alertmanager && sudo syste
 
 You should see the process status is "active (running)" if you have configured properly.
 
-There is a Alertmanager plugin in Grafana that can help you to monitor the alert information. To
+There is a `Alertmanager` plugin in Grafana that can help you to monitor the alert information. To
 install it, execute the command below:
 
 ```
@@ -420,7 +415,7 @@ And restart Grafana once the plugin is successfully installed.
 sudo systemctl restart grafana-server
 ```
 
-Now go to your Grafana dashboard `SERVER_IP:3000` and configure the Alertmanager datasource.
+Now go to your Grafana dashboard `SERVER_IP:3000` and configure the `Alertmanager` datasource.
 
 ![grafana-am-5](/images/infrastructure/validator/operational-tasks/5-alert-manager.webp)
 
@@ -429,15 +424,15 @@ top.
 
 ![grafana-am-2](/images/infrastructure/validator/operational-tasks/2-alert-manager.webp)
 
-Fill in the `URL` to your server location followed by the port number used in the Alertmanager.
+Fill in the `URL` to your server location followed by the port number used in the `Alertmanager`.
 
 Then click "Save & Test" at the bottom to test the connection.
 
 ![grafana-am-3](/images/infrastructure/validator/operational-tasks/3-alert-manager.webp)
 
-To monitor the alerts, let's import dashboard "[8010](https://grafana.com/dashboards/8010)" that is
-used for Alertmanager. And make sure to select the "Prometheus AlertManager" in the last column.
-Then click "Import".
+To monitor the alerts, import dashboard "[8010](https://grafana.com/dashboards/8010)" that is
+used for `Alertmanager`. And make sure to select the "Prometheus AlertManager" in the last column.
+Then click "Import."
 
 You will end up having the following:
 
@@ -445,8 +440,8 @@ You will end up having the following:
 
 ### AlertManager Integration
 
-To let the Prometheus server be able to talk to the AlertManager, we will need to add the following
-config in the `etc/prometheus/prometheus.yml`.
+To let the Prometheus server be able to talk to the AlertManager, add the following
+configuration in the `etc/prometheus/prometheus.yml`.
 
 ```
 rule_files:
@@ -486,8 +481,8 @@ scrape_configs:
       - targets: ['localhost:9615']
 ```
 
-We will need to create a new file called "rules.yml" under `/etc/prometheus/` that is defined all
-the rules we would like to detect. If any of the rules defined in this file is fulfilled, an alert
+Create a new file called `rules.yml` under `/etc/prometheus/` that defines all
+the rules for detection. If any of the rules defined in this file is fulfilled, an alert
 will be triggered. The rule below checks whether the instance is down. If it is down for more than 5
 minutes, an email notification will be sent. If you would like to learn more about the details of
 the rule defining, go

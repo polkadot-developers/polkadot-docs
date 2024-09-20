@@ -16,7 +16,7 @@ The consensus is that bootnodes have to be accessible in three ways:
 
 - **P2P**: the p2p port, which can be set by `--listen-addr /ip4/0.0.0.0/tcp/<port>`. This port is
   not automatically set on a non-validator node (for example, an archive RPC node)
-- **P2P/WS**: the WebSocket version, which can be set by `--listen-addr /ip4/0.0.0.0/tcp/<port>/ws`
+- **P2P/WS**: the websocket version, which can be set by `--listen-addr /ip4/0.0.0.0/tcp/<port>/ws`
 - **P2P/WSS**: the _secure_ websocket version. An SSL-secured connection to the p2p/ws port must be
   achieved by a proxy since the node cannot include certificates. It is needed for light clients.
 
@@ -26,21 +26,19 @@ Starting a node creates its node key in the `chains/<chain>/network/secret_ed255
 also create a node-key by `polkadot key generate-node-key` and use that node-key in the startup
 command line.
 
-It is essential you backup the node key, especially if it gets included in the polkadot binary
+It is essential you backup the node key, especially if it gets included in the `polkadot` binary
 because it gets hardcoded in the binary and needs to be recompiled to change.
 
 ## Running the Bootnode
 
-Say we are running a Polkadot node with:
+A boot node can be run as follows:
 
  ```
  polkadot --chain polkadot --name dot-bootnode --listen-addr /ip4/0.0.0.0/tcp/30310 --listen-addr /ip4/0.0.0.0/tcp/30311/ws
  ```
 
-You would have the p2p on port 30310 and p2p/ws on port 30311. For the p2p/wss port, we need to
-set up a proxy, a DNS name, and a corresponding certificate. These concepts and example setups are
-described here. The following example is for the popular nginx server and enables p2p/wss on port 30312 by proxying the p2p/ws
-port 30311:
+This would have the p2p on port 30310 and p2p/ws on port 30311. For the p2p/wss port, a proxy would need to
+set up, a DNS name, and a corresponding certificate. The following example is for the popular nginx server and enables p2p/wss on port 30312 by proxying the p2p/ws port 30311:
 
 _/etc/nginx/sites-enabled/dot-bootnode_
 
@@ -68,9 +66,9 @@ server {
 
 ## Testing Bootnode Connection
 
-If we have the above node running with DNS name `dot-bootnode.stakeworld.io`, proxied with a valid
+If the preceding node is running with DNS name `dot-bootnode.stakeworld.io`, proxied with a valid
 certificate and node-id `12D3KooWAb5MyC1UJiEQJk4Hg4B2Vi3AJdqSUhTGYUqSnEqCFMFg` then the following
-commands should give you a: "syncing 1 peers".
+commands should give you a: `syncing 1 peers`.
 
 !!!tip
     You can add `-lsub-libp2p=trace` on the end to get libp2p trace logging for debugging purposes.

@@ -5,9 +5,9 @@ description: Instructions on setting up a secure socket for remote connections.
 
 <!-- TODO: link relevant guides (bootnode, rpc) -->
 
-## Secure a WS Port
+## Secure a WebSocket Port
 
-A non-secure WS port can be converted to a secure WSS port by placing it behind an SSL-enabled proxy. This can be used to secure a bootnode or secure a RPC server. The SSL-enabled apache2/nginx/other proxy server redirects requests to the internal WebSocket and converts it to a secure (WSS) connection. For this, you will need an SSL certificate for which you can use a service like LetsEncrypt or self-signing.
+A non-secure WS port can be converted to a secure WSS port by placing it behind an SSL-enabled proxy. This can be used to secure a bootnode or secure a RPC server. The SSL-enabled apache2/nginx/other proxy server redirects requests to the internal websocket and converts it to a secure (WSS) connection. For this, you will need an SSL certificate for which you can use a service like LetsEncrypt or self-signing.
 
 ### Obtaining an SSL Certificate
 
@@ -70,7 +70,7 @@ location / {
 ### Apache2
 
 You can run it in different modes such as pre-fork, worker, or event. In this example, the
-[event](https://httpd.apache.org/docs/2.4/mod/event.html){target=_blank} works well on higher load
+[`event`](https://httpd.apache.org/docs/2.4/mod/event.html){target=_blank} works well on higher load
 environments, but other modes are also useful depending on the requirements.
 
 ```bash

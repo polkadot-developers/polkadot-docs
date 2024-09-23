@@ -122,7 +122,7 @@ To start the validator nodes, follow these steps:
       --force-authoring
       ```
 
-    This command uses `/tmp/raw-local-chainspec.json` as the location of the sample chain specification file. Be sure the `--chain` command line specifies the path to the raw chain specification you downloaded into a local working directory. This command also uses the default values for the port (`port`) and WebSocket port (`ws-port`). The values are explicitly included here as a reminder to always check these settings. After the node starts, no other nodes on the same local machine can use these ports.
+    This command uses `/tmp/raw-local-chainspec.json` as the location of the sample chain specification file. Be sure the `--chain` command line specifies the path to the raw chain specification you generated. This command also uses the default values for the port (`port`) and WebSocket port (`ws-port`). The values are explicitly included here as a reminder to always check these settings. After the node starts, no other nodes on the same local machine can use these ports.
 
 3. Review log messages as the node starts and take note of the `Local node identity` value. This value is the node’s peer ID, which you need to connect the parachain to the relay chain
 

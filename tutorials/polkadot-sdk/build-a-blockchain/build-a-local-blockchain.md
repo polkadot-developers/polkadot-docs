@@ -55,11 +55,7 @@ The [Polkadot SDK Solochain Template](https://github.com/paritytech/polkadot-sdk
         Initial compilation may take several minutes, depending on your machine specifications. Always use the `--release` flag to build optimized, production-ready artifacts.
 
 4. Upon successful compilation, you should see output similar to:
-    <div id="termynal" data-termynal>
-        <span data-ty="input"><span class="file-path"></span>cargo build --release</span>
-	<span data-ty>Compiling solochain-template-node</span>
-	<span data-ty>Finished `release` profile [optimized] target(s) in 27.12s</span>
-    </div>
+    --8<-- 'code/tutorials/polkadot-sdk/build-a-blockchain/build-a-local-blockchain/compilation-output.html'
 
 ## Start the Local Node
 
@@ -117,31 +113,9 @@ To interact with your node using the [Polkadot.js Apps](https://polkadot.js.org/
     - The interface will display information about your local blockchain
     ![](/images/tutorials/polkadot-sdk/build-a-blockchain/build-a-local-blockchain/build-a-local-blockchain-3.webp)
 
-You are now connected to your local node and can interact with it through the Polkadot.js Apps interface. This interface allows you to explore blocks, make transactions, and interact with your blockchain's features.
+You are now connected to your local node and can now interact with it through the Polkadot.js Apps interface. This tool enables you to explore blocks, execute transactions, and interact with your blockchain's features. For in-depth guidance on using the interface effectively, refer to the [Polkadot.js Guides](https://wiki.polkadot.network/docs/learn-polkadot-js-guides){target=\_blank} available on the Polkadot Wiki.
 
-## Transfer Funds
-
-Now that you have a local node running and the Polkadot.js Apps user interface available, you're ready to start interacting with the blockchain. In this tutorial, you'll perform a simple transfer operation to move funds from one account to another.
-
-To transfer funds from Alice's account to Charlie's account:
-
-1. In Polkadot.js Apps, navigate to the **Accounts** dropdown and select **Accounts**
-    ![](/images/tutorials/polkadot-sdk/build-a-blockchain/build-a-local-blockchain/build-a-local-blockchain-4.webp)
-
-2. You'll see a list of pre-funded development accounts. Click the **send** button next to Alice's account
-    ![](/images/tutorials/polkadot-sdk/build-a-blockchain/build-a-local-blockchain/build-a-local-blockchain-5.webp)
-
-3. Fill in the transfer parameters:
-    1. Select the recipient account (Charlie's account)
-    2. Enter the amount you want to transfer (20 UNIT)
-    3. Click the **Make Transfer** button
-    ![](/images/tutorials/polkadot-sdk/build-a-blockchain/build-a-local-blockchain/build-a-local-blockchain-6.webp)
-
-4. Review the transaction details and click **Sign and Submit** to confirm the transfer
-    ![](/images/tutorials/polkadot-sdk/build-a-blockchain/build-a-local-blockchain/build-a-local-blockchain-7.webp)
-
-5. After the transaction is processed, you can verify that Charlie's account now has the transferred funds (20 UNIT tokens)
-    ![](/images/tutorials/polkadot-sdk/build-a-blockchain/build-a-local-blockchain/build-a-local-blockchain-8.webp)
+<!-- TODO: Polkadot.js Apps guide -->
 
 ## Stop the Node
 

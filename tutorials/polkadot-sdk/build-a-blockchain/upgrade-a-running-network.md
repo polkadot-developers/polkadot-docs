@@ -1,6 +1,6 @@
 ---
 title: Upgrade a Running Network
-description: Learn how to perform forkless runtime upgrades on a Polkadot SDK based blockchain. Add features and modify parameters without network disruption.
+description: Learn how to perform forkless runtime upgrades on a Polkadot SDK-based blockchain. Add features and modify parameters without network disruption.
 ---
 
 # Upgrade a Running Network
@@ -26,7 +26,7 @@ By the end of this tutorial, you’ll have the skills to upgrade the runtime and
 Before starting this tutorial, ensure you meet the following requirements:
 
 - Installed and configured Rust on your system. Refer to the [Installation]() guide for detailed instructions on installing Rust and setting up your development environment
-- Completed the [Build a Local Blockchain]() tutorial and have the [Polkadot-SDK Solochain Template](https://github.com/paritytech/polkadot-sdk-solochain-template){target=\_blank} installed on your machine
+- Completed the [Build a Local Blockchain]() tutorial and have the [Polkadot SDK Solochain Template](https://github.com/paritytech/polkadot-sdk-solochain-template){target=\_blank} installed on your machine
 
 ## Start the Node
 
@@ -89,7 +89,9 @@ First, you'll update the `Cargo.toml` file to include the Utility pallet as a de
 You'll now modify the `runtime/src/lib.rs` file to integrate the Utility pallet and make other necessary changes. In this section, you'll configure the Utility pallet by implementing its `Config` trait, update the runtime macro to include the new pallet, adjust the `EXISTENTIAL_DEPOSIT` value, and increment the runtime version.
 
 #### Configure the Utility Pallet
-   
+
+To configure the Utility pallet, take the following steps:
+
 1. Implement the [`Config`](https://paritytech.github.io/polkadot-sdk/master/pallet_utility/pallet/trait.Config.html){target=\_blank} trait for the Utility pallet:
 
     ```rust
@@ -223,7 +225,7 @@ Check the updated existential deposit value on your blockchain. Follow these ste
 
 2.  Query the existential deposit value
     1. Click on the **Constants** tab 
-    2. Select the **balances** pallet
+    2. Select the **`balances`** pallet
     3. Choose the **`existentialDeposit`** constant
     4. Click the **+** button to execute the query
     5. Check the existential deposit value

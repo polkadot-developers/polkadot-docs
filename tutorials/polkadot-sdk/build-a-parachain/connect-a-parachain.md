@@ -22,8 +22,6 @@ Before you begin, ensure that you have the following prerequisites:
 - Configured a local relay chain with two validators as described in the [Prepare a Local Relay Chain](/tutorials/polkadot-sdk/build-a-parachain/prepare-relay-chain/) tutorial
 - You are aware that parachain versions and dependencies are tightly coupled with the version of the relay chain they connect to and know the software version you used to configure the relay chain
 
-Tutorials generally demonstrate features using the latest Polkadot branch. If a tutorial doesn't work as expected, check whether you have the latest Polkadot branch in your local environment and update your local software if needed.
-
 ## Build the Parachain Template
 
 This tutorial uses the [Polkadot SDK Parachain Template](https://github.com/paritytech/polkadot-sdk-parachain-template){target=\_blank} to illustrate how to launch a parachain that connects to a local relay chain. The parachain template is similar to the [Solochain Template](https://github.com/paritytech/polkadot-sdk-solochain-template){target=\_blank} used in development. You can also use the parachain template as the starting point for developing a custom parachain project.

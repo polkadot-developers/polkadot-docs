@@ -1,6 +1,6 @@
 ---
 title: Address Formats
-description: This page provides an overview of Substrate address formats, encoding strategies used and best practices. 
+description: This page provides an overview of Substrate address formats, encoding strategies use and best practices. 
 ---
 
 # Address Formats
@@ -123,9 +123,9 @@ For example, the 14-bit identifier `0b00HHHHHH_MMLLLLLL` is expressed in two byt
 0bHHHHHHMM
 ```
 !!! note 
-    Identifiers of `16384` and beyond are not currently supported.
+    Identifiers of `16384` and beyond aren't currently supported.
 
-## Validating Adresses
+## Validating Addresses
 
 You can verify that a value is a valid `SS58` address by using the subkey `inspect command` or though the `Polkadot-JS API`.
 
@@ -212,4 +212,4 @@ Support for encoding and decoding Substrate SS58 addresses has been implemented 
 - Crystal: `wyhaines/base58.cr`
 - Go: `itering/subscan`
 - Python: `polkascan/py-scale-codec`
-- Typescript: `subsquid/squid-sdk`
+- TypeScript: `subsquid/squid-sdk`

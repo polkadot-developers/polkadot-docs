@@ -9,7 +9,7 @@ description: Learn how to perform forkless runtime upgrades on a Polkadot-SDK ba
 
 One of the key advantages of the Polkadot-SDK development framework is its support for forkless upgrades to the blockchain runtime, which forms the core logic of the chain. Unlike many other blockchains, where introducing new features or improving existing ones often requires a hard fork, Polkadot-SDK enables seamless upgrades even when introducing breaking changes—without disrupting the network's operation.
 
-In traditional blockchain systems, a hard fork is necessary to implement changes, forcing participants to update their software to remain in sync. However, Polkadot-SDK's design incorporates the runtime directly into the blockchain's state, allowing participants to upgrade the runtime by calling the `set_code` function within a transaction. This mechanism ensures that updates are validated using the blockchain's consensus and cryptographic guarantees, allowing runtime logic to be updated or extended without forking the chain or requiring a new blockchain client.
+Polkadot SDK's design incorporates the runtime directly into the blockchain's state, allowing participants to upgrade the runtime by calling the `set_code` function within a transaction. This mechanism ensures that updates are validated using the blockchain's consensus and cryptographic guarantees, allowing runtime logic to be updated or extended without forking the chain or requiring a new blockchain client.
 
 In this tutorial, you'll learn how to upgrade the runtime of a Polkadot-SDK-based blockchain without stopping the network or creating a fork. 
 
@@ -26,7 +26,7 @@ By the end of this tutorial, you’ll have the skills to upgrade the runtime and
 Before starting this tutorial, ensure you meet the following requirements:
 
 - Installed and configured Rust on your system. Refer to the [Installation]() guide for detailed instructions on installing Rust and setting up your development environment
-- Completed the [Build a Local Blockchain]() tutorial and have the [Polkadot-SDK Solochain Template](https://github.com/paritytech/polkadot-sdk-solochain-template){target=\_blank}installed on your machine
+- Completed the [Build a Local Blockchain]() tutorial and have the [Polkadot-SDK Solochain Template](https://github.com/paritytech/polkadot-sdk-solochain-template){target=\_blank} installed on your machine
 - Reviewed the [Add a Pallet to the Runtime]() guide
 
 ## Start the Node
@@ -43,9 +43,7 @@ To demonstrate how to update a running node, you first need to start the local n
     !!!note
         Keep the node running throughout this tutorial. You can modify and re-compile the runtime without stopping or restarting the node.
 
-3. Connect to your node using the same steps outlined in the [Interact with the Node]() section
-
-    Once connected, you’ll notice the node template is using the default version, `100`, displayed in the upper left.
+3. Connect to your node using the same steps outlined in the [Interact with the Node]() section. Once connected, you’ll notice the node template is using the default version, `100`, displayed in the upper left
 
     ![](/images/tutorials/polkadot-sdk/build-a-blockchain/upgrade-a-running-network/upgrade-a-running-network-1.webp)
 
@@ -109,7 +107,7 @@ To update the `EXISTENTIAL_DEPOSIT` in the Balances pallet, locate the constant 
 
 ```rust
 ...
-/// Existential deposit.
+/// Existential deposit
 pub const EXISTENTIAL_DEPOSIT: u128 = 1000;
 ...
 ```
@@ -135,9 +133,9 @@ cargo build --release
 
 The build artifacts will be output to the `target/release` directory. The Wasm build artifacts can be found in the `target/release/wbuild/solochain-template-runtime` directory. You should see the following files:
 
-- *solochain_template_runtime.compact.compressed.wasm*
-- *solochain_template_runtime.compact.wasm*
-- *solochain_template_runtime.wasm*
+- `solochain_template_runtime.compact.compressed.wasm`
+- `solochain_template_runtime.compact.wasm`
+- `solochain_template_runtime.wasm`
 
 ## Execute the Runtime Upgrade
 
@@ -208,7 +206,7 @@ Follow these steps to update your network with the new runtime:
 
 #### Utility Pallet Addition
 
-In the **Extrinsics** section, you should see that the Utility pallet has been added as an option
+In the **Extrinsics** section, you should see that the Utility pallet has been added as an option.
 
 ![](/images/tutorials/polkadot-sdk/build-a-blockchain/upgrade-a-running-network/upgrade-a-running-network-7.webp)
 

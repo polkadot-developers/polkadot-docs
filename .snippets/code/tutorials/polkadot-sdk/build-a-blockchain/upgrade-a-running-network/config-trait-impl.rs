@@ -1,5 +1,5 @@
 ...
-/// Configure the pallet-template in pallets/template.
+/// Configure the pallet-template in pallets/template
 impl pallet_template::Config for Runtime {
     ...
 }

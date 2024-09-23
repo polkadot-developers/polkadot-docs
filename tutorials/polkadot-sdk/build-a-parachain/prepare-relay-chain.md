@@ -102,6 +102,9 @@ To start the validator nodes, follow these steps:
         ./target/release/polkadot build-spec --chain rococo-local-testnet > /tmp/plain-local-chainspec.json
         ```
 
+        !!! note
+            Note that the network values are set to the default when generating the chain specification file with the `build-spec`. You can customize the network values by editing the chain specification file for production networks.
+
     2. Convert the plain text chain specification file to the raw format by running the following command:
 
         ```bash

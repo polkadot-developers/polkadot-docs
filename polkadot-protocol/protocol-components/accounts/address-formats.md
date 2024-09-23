@@ -1,6 +1,6 @@
 ---
 title: Address Formats
-description: 
+description: This page provides an overview of address encoding strategies used in Substrate, various checksum formats, their implementations, and best practices. 
 ---
 
 # Address Formats

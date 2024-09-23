@@ -1,4 +1,4 @@
 title: Polkadot SDK
 nav:
   - index.md
-  - install-deps.md
+  - 'Install Polkadot SDK Dependencies': install-deps.md

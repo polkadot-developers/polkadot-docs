@@ -171,8 +171,6 @@ To modify the default chain specification, follow these steps:
       After running the command, you will see the following output:
 
        <div id="termynal" data-termynal>
-       <span data-ty="input"><span class="file-path"></span>./target/release/parachain-template-node build-spec --chain plain-parachain-chainspec.json --disable-default-bootnode --raw > raw-parachain-chainspec.json</span>
-       <br>
        <span data-ty="progress">2024-09-10 14:34:58 Building chain spec</span>
        <span data-ty="progress>2024-09-10 14:34:59 assembling new collators for new session 0 at #0</span>
        <span data-ty="progress>2024-09-10 14:34:59 assembling new collators for new session 1 at #0</span>
@@ -203,8 +201,6 @@ To prepare the parachain collator to be registered:
       After running the command, you will see the following output:
 
       <div id="termynal" data-termynal>
-         <span data-ty="input"><span class="file-path"></span>./target/release/parachain-template-node export-genesis-state --chain raw-parachain-chainspec.json para-2000-genesis-state</span>
-         <br>
          <span data-ty="progress">2024-09-10 14:41:13 🔨 Initializing Genesis block/state (state: 0xb089…1830, header-hash: 0x6b0b…bd69)</span>
       </div>
 
@@ -235,20 +231,6 @@ To prepare the parachain collator to be registered:
     After running the command, you will see the following output:
 
     <div id="termynal" data-termynal>
-    <span data-ty="input"><span class="file-path"></span>./target/release/parachain-template-node \
-      --charlie \
-      --collator \
-      --force-authoring \
-      --chain raw-parachain-chainspec.json \
-      --base-path /tmp/charlie-parachain/ \
-      --unsafe-force-node-key-generation \
-      --port 40333 \
-      --rpc-port 8844 \
-      -- \
-      --chain <INSERT_RELAY_CHAIN_PATH>/local-raw-spec.json \
-      --port 30333 \
-      --rpc-port 9946
-    </span>
     <span>...</span>
     <br>
     <span>2024-09-10 16:26:30 [Parachain] PoV size { header: 0.21875kb, extrinsics: 3.6103515625kb, storage_proof: 3.150390625kb }</span>

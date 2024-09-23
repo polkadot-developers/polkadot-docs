@@ -1,13 +1,15 @@
 ---
 title: Build a Local Solochain
-description: Learn to compile and launch a local blockchain node using Polkadot-SDK. Build, run, and interact with a pre-configured node template.
+description: Learn to compile and launch a local blockchain node using Polkadot SDK. Build, run, and interact with a pre-configured node template.
 ---
 
 # Build a Local Solochain
 
 ## Introduction
 
-[Polkadot-SDK](https://github.com/paritytech/polkadot-sdk){target=\_blank} offers a versatile and extensible blockchain development framework, enabling you to create custom blockchains tailored to your specific application or business requirements. This tutorial guides you through compiling and launching a single local blockchain node using the [Polkadot-SDK Solochain Template](https://github.com/paritytech/polkadot-sdk-solochain-template){target=\_blank}.
+[Polkadot SDK](https://github.com/paritytech/polkadot-sdk){target=\_blank} offers a versatile and extensible blockchain development framework, enabling you to create custom blockchains tailored to your specific application or business requirements. 
+
+This tutorial guides you through compiling and launching a standalone blockchain node using the [Polkadot SDK Solochain Template](https://github.com/paritytech/polkadot-sdk-solochain-template){target=\_blank}. You'll create a fully functional chain that operates independently, without connections to a relay chain or parachain.
 
 The node template provides a pre-configured, functional single-node blockchain you can run in your local development environment. It includes several key components, such as user accounts and account balances.
 
@@ -29,7 +31,7 @@ To get started with the node template, you'll need to have the following set up 
 
 ## Compile a Node 
 
-The [Polkadot-SDK Solochain Template](https://github.com/paritytech/polkadot-sdk-solochain-template){target=\_blank} provides a ready-to-use development environment for building using the [Polkadot-SDK](https://github.com/paritytech/polkadot-sdk){target=\_blank}. Follow these steps to compile the node:
+The [Polkadot SDK Solochain Template](https://github.com/paritytech/polkadot-sdk-solochain-template){target=\_blank} provides a ready-to-use development environment for building using the [Polkadot SDK](https://github.com/paritytech/polkadot-sdk){target=\_blank}. Follow these steps to compile the node:
 
 1. Clone the node template repository:
     ```bash

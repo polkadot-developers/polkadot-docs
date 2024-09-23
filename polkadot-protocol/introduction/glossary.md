@@ -12,7 +12,7 @@ Additional helpful glossaries from the ecosystem:
 
 ## Authority
 
-A generic term for the role in a blockchain that can participate in the consensus mechanisms. In [GRANDPA](#grandpa), the authorities vote on chains they consider final. In [BABE](#blind-assignment-of-blockchain-extension-babe), the authorities are [block authors](#block-author). Authority sets can be chosen to be mechanisms such as Polkadot's [Nominated Proof of Stake (NPoS)](#nominated-proof-of-stake-npos) algorithm.
+A generic term for the role in a blockchain that can participate in the consensus mechanisms. In [GRANDPA](#grandpa), the authorities vote on chains they consider final. In the Blind Assignment of Blockchain Extension ([BABE](#blind-assignment-of-blockchain-extension-babe), a block production mechanism), the authorities are [block authors](#block-author). Authority sets can be used as a basis for consensus mechanisms such as the [Nominated Proof of Stake (NPoS)](#nominated-proof-of-stake-npos) protocol.
 
 ## Authority Round (Aura)
 

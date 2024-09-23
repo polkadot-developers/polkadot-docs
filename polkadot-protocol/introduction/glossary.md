@@ -12,7 +12,7 @@ Additional helpful glossaries from the ecosystem:
 
 ## Authority
 
-A generic term for the role in a blockchain that can participate in the consensus mechanisms. In [GRANDPA](#grandpa), the authorities vote on chains they consider final. In the Blind Assignment of Blockchain Extension ([BABE](#blind-assignment-of-blockchain-extension-babe), a block production mechanism), the authorities are [block authors](#block-author). Authority sets can be used as a basis for consensus mechanisms such as the [Nominated Proof of Stake (NPoS)](#nominated-proof-of-stake-npos) protocol.
+A generic term for the role in a blockchain that can participate in the consensus mechanisms. In [GRANDPA](#grandpa), the authorities vote on chains they consider final. In the [Blind Assignment of Blockchain Extension](#blind-assignment-of-blockchain-extension-babe) (BABE), the authorities are [block authors](#block-author). Authority sets can be used as a basis for consensus mechanisms such as the [Nominated Proof of Stake (NPoS)](#nominated-proof-of-stake-npos) protocol.
 
 ## Authority Round (Aura)
 
@@ -24,7 +24,7 @@ The Aura protocol is often used in combination with [GRANDPA](#grandpa) as a [hy
 
 ## Blind Assignment of Blockchain Extension (BABE)
 
-A [block authoring](#block-author) protocol similar to [Aura](#aura). With BABE (Blind Assignment of Blockchain Extension), [authorities](#authority) win [slots](#slot) based on a VRF (verifiable random function) instead of the round-robin selection method. The winning authority can select a chain and submit a new block.
+A [block authoring](#block-author) protocol similar to [Aura](#aura). With BABE (Blind Assignment of Blockchain Extension), [authorities](#authority) win [slots](#slot) based on a Verifiable Random Function (VRF) instead of the round-robin selection method. The winning authority can select a chain and submit a new block.
 
 Learn more about BABE by referring to its [official Web3 Foundation research document](https://research.web3.foundation/Polkadot/protocols/block-production/Babe){target=\_blank}.
 
@@ -91,7 +91,7 @@ See also [hybrid consensus](#hybrid-consensus).
 
 ## Collective
 
-Most often used to refer to an instance of the [Collective pallet](#collective) on Substrate-based networks such as [Kusama](#kusama) or [Polkadot](#polkadot) if the Collective pallet is part of the [FRAME](#frame)-based [runtime](#runtime) for the network.
+Most often used to refer to an instance of the [Collective pallet](#collective) on Substrate-based networks such as [Kusama](#kusama) or [Polkadot](#polkadot) if the Collective pallet is part of the [Framework for Runtime Aggregation of Modularized Entities](#frame-framework-for-runtime-aggregation-of-modularized-entities) (FRAME)-based [runtime](#runtime) for the network.
 
 A council primarily serves to optimize and balance the more inclusive referendum system.
 
@@ -121,7 +121,7 @@ Dispatchables are function objects that act as the entry points in FRAME [pallet
 
 ## Events
 
-A means of recording, for the benefit of the offchain world, that some particular [state](#state) transition happened.
+A means of recording that some particular [state](#state) transition happened.
 
 In the context of [FRAME](#frame), events are a composable data types that each [pallet](#pallet) can individually define. Events in FRAME are implemented as a set of transient storage items that are inspected immediately after a block has executed and reset during block-initialization.
 
@@ -217,7 +217,7 @@ As a canary network, Kusama is expected to be more stable than a test network li
 
 As a canary network, Kusama is controlled by its network participants and is intended to be stable enough to encourage meaningful experimentation.
 
-## Libp2p
+## libp2p
 
 A peer-to-peer networking stack that allows use of many transport mechanisms, including WebSockets (usable in a web browser).
 Substrate uses the [Rust implementation](https://github.com/libp2p/rust-libp2p){target=\_blank} of the `libp2p` networking stack.
@@ -281,7 +281,7 @@ The [Rococo](#rococo) network is a Substrate-based blockchain that is an evolvin
 ## Runtime
 
 The runtime provides the [state transition function](#state-transition-function-stf) for a node.
-In Substrate, the runtime is stored as a [WebAssembly](#webassembly-wasm) binary in the [chain state](#state).
+In Substrate, the runtime is stored as a [Wasm](#webassembly-wasm) binary in the [chain state](#state).
 
 ## Slot
 
@@ -340,15 +340,15 @@ In Polkadot SDK-based blockchains, state is stored in a trie data structure that
 
 A validator is a node that participates in the consensus mechanism of the network. Its roles include block production, transaction validation, network integrity, and security maintenance.
 
-## WebAssembly (Wasm)
+## Wasm (Wasm)
 
 An execution architecture that allows for the efficient, platform-neutral expression of
 deterministic, machine-executable logic.
 
-[WebAssembly](https://webassembly.org/){target=\_blank} can be compiled from many languages, including
+[Wasm](https://webassembly.org/){target=\_blank} can be compiled from many languages, including
 the [Rust](http://rust-lang.org/){target=\_blank} programming language.
 
-Substrate-based chains use a WebAssembly binary to provide portable [runtimes](#runtime) that can be included as part of the chain's state.
+Substrate-based chains use a Wasm binary to provide portable [runtimes](#runtime) that can be included as part of the chain's state.
 
 ## Weight
 

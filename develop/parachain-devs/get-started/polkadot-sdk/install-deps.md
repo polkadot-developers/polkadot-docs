@@ -43,11 +43,7 @@ To install Homebrew:
 
     The command displays output similar to the following:
 
-    <div id="termynal" data-termynal>
-      <span data-ty="input"><span class="file-path"></span>brew --version</span>
-      <span data-ty>Homebrew 4.3.15</span>
-      <span data-ty="input"><span class="file-path"></span></span>
-    </div>
+    --8<-- 'code/develop/parachain-devs/get-started/polkadot-sdk/install-deps/termynal-1.html'
 
 #### Support for Apple Silicon
 
@@ -337,22 +333,4 @@ rustup +nightly show
 
 The command displays output similar to the following:
 
-<div id="termynal" data-termynal>
-  <span data-ty="input"><span class="file-path"></span>rustup show</span>
-  <span data-ty>...</span>
-  <br>
-  <span data-ty>active toolchain</span>
-  <span data-ty>----------------</span>
-  <br>
-  <span data-ty>stable-x86_64-apple-darwin (default)</span>
-  <span data-ty>rustc 1.81.0 (eeb90cda1 2024-09-04)</span>
-  <br>
-  <span data-ty>...</span>
-  <br>
-  <span data-ty>active toolchain</span>
-  <span data-ty>----------------</span>
-  <br>
-  <span data-ty>nightly-x86_64-apple-darwin (overridden by +toolchain on the command line)</span>
-  <span data-ty>rustc 1.83.0-nightly (6c6d21008 2024-09-22)</span>  
-  <span data-ty="input"><span class="file-path"></span></span>
-</div>
+--8<-- 'code/develop/parachain-devs/get-started/polkadot-sdk/install-deps/termynal-2.html'

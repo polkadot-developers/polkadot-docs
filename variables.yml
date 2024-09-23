@@ -13,3 +13,6 @@ dependencies:
   asset_transfer_api:
     repository_url: https://github.com/paritytech/asset-transfer-api
     version: 0.3.1
+  polkadot_sdk_solochain_template:
+    repository_url: https://github.com/paritytech/polkadot-sdk-solochain-template
+    version: v0.0.2

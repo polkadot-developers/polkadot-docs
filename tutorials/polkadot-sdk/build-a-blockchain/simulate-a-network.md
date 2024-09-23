@@ -39,7 +39,7 @@ Follow these steps to start your first blockchain node:
     ./target/release/solochain-template-node purge-chain --base-path /tmp/alice --chain local
     ```
 
-    When prompted to confirm, type `y` and press *Enter*. This step ensures a clean start for your new network.
+    When prompted to confirm, type `y` and press `Enter`. This step ensures a clean start for your new network
 
 3. Launch the first blockchain node using the Alice account:
     ```bash
@@ -182,7 +182,7 @@ Follow these steps to verify that blocks are being produced and finalized:
 
 4. Shut down the second node using `Control-C` in its terminal
 
-5. Clean up chain state. To remove the chain state from the simulated network, use the `purge-chain` subcommand:
+5. Clean up chain state from the simulated network by using the `purge-chain` subcommand:
 
     - For Alice's node:
         ```bash

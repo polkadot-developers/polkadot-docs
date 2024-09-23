@@ -242,7 +242,7 @@ To prepare the parachain collator to be registered:
 
 ## Register With the Local Relay Chain
 
-With the local relay chain and collator node running, you can register the parachain on the local relay chain. In a live public network, registration typically involves a [parachain auction](https://wiki.polkadot.network/docs/learn-auction){target=\_blank}. You can use a Sudo transaction and the Polkadot.Js App interface for this tutorial and local testing. A Sudo transaction lets you bypass the steps required to acquire a parachain or parathread slot.
+With the local relay chain and collator node running, you can register the parachain on the local relay chain. In a live public network, registration typically involves a [parachain auction](https://wiki.polkadot.network/docs/learn-auction){target=\_blank}. You can use a Sudo transaction and the Polkadot.Js App interface for this tutorial and local testing. A Sudo transaction lets you bypass the steps required to acquire a parachain or parathread slot; this transaction should be executed in the relay chain.
 
 To register the parachain, follow these steps:
 

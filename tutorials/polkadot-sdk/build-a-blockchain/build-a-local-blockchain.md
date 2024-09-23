@@ -23,7 +23,7 @@ By the end of this tutorial, you'll have a working local solochain and understan
 
 ## Prerequisites
 
-To get started with the node template, you'll need to have a few things set up on your development machine first:
+To get started with the node template, you'll need to have the following set up on your development machine first:
 
 - Rust Installation - the node template is written in [Rust](https://www.rust-lang.org/){target=\_blank}, so you'll need to have it installed and configured on your system. Refer to the [Installation]() section for step-by-step instructions on setting up your development environment
 
@@ -67,7 +67,7 @@ After successfully compiling your node, you can run it and produce blocks. This 
     ```bash
     ./target/release/solochain-template-node --dev
     ```
-    The `--dev` option:
+    The `--dev` option does the following:
     - Specifies that the node runs using the predefined development chain specification
     - Deletes all active data (keys, blockchain database, networking information) when stopped
     - Ensures a clean working state each time you restart the node

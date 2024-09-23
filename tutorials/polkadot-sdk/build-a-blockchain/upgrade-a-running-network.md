@@ -50,6 +50,8 @@ To demonstrate how to update a running node, you first need to start the local n
 
 ### Add the Utility Pallet to the Dependencies
 
+First, you'll update the `Cargo.toml` file to include the Utility pallet as a dependency for the runtime. Follow these steps:
+
 1. Open the `runtime/Cargo.toml` file and locate the `[dependencies]` section. Add the Utility pallet by inserting the following line:
 
     ```toml
@@ -84,7 +86,7 @@ To demonstrate how to update a running node, you first need to start the local n
 
 ### Update the Runtime Configuration
 
-To implement the necessary changes in your runtime, you'll need to modify the `runtime/src/lib.rs` file.
+You'll now modify the `runtime/src/lib.rs` file to integrate the Utility pallet and make other necessary changes. In this section, you'll configure the Utility pallet by implementing its `Config` trait, update the runtime macro to include the new pallet, adjust the `EXISTENTIAL_DEPOSIT` value, and increment the runtime version.
 
 #### Configure the Utility Pallet
    
@@ -193,6 +195,8 @@ Follow these steps to update your network with the new runtime:
 
 #### Runtime Version Change
 
+Verify that the runtime version of your blockchain has been updated successfully. Follow these steps to ensure the upgrade was applied:
+
 1. Navigate to the **Network** dropdown and select the **Explorer** option
    
     ![](/images/tutorials/polkadot-sdk/build-a-blockchain/upgrade-a-running-network/upgrade-a-running-network-5.webp)
@@ -210,6 +214,8 @@ In the **Extrinsics** section, you should see that the Utility pallet has been a
 ![](/images/tutorials/polkadot-sdk/build-a-blockchain/upgrade-a-running-network/upgrade-a-running-network-7.webp)
 
 #### Existential Deposit Update
+
+Check the updated existential deposit value on your blockchain. Follow these steps to query and verify the new value:
 
 1. Navigate to the **Developer** dropdown and select the **Chain State** option
 

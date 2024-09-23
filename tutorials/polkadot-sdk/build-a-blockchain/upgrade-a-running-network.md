@@ -1,17 +1,17 @@
 ---
 title: Upgrade a Running Network
-description: Learn how to perform forkless runtime upgrades on a Polkadot-SDK based blockchain. Add features and modify parameters without network disruption.
+description: Learn how to perform forkless runtime upgrades on a Polkadot SDK based blockchain. Add features and modify parameters without network disruption.
 ---
 
 # Upgrade a Running Network
 
 ## Introduction
 
-One of the key advantages of the Polkadot-SDK development framework is its support for forkless upgrades to the blockchain runtime, which forms the core logic of the chain. Unlike many other blockchains, where introducing new features or improving existing ones often requires a hard fork, Polkadot-SDK enables seamless upgrades even when introducing breaking changes—without disrupting the network's operation.
+One of the key advantages of the Polkadot SDK development framework is its support for forkless upgrades to the blockchain runtime, which forms the core logic of the chain. Unlike many other blockchains, where introducing new features or improving existing ones often requires a hard fork, Polkadot SDK enables seamless upgrades even when introducing breaking changes—without disrupting the network's operation.
 
 Polkadot SDK's design incorporates the runtime directly into the blockchain's state, allowing participants to upgrade the runtime by calling the `set_code` function within a transaction. This mechanism ensures that updates are validated using the blockchain's consensus and cryptographic guarantees, allowing runtime logic to be updated or extended without forking the chain or requiring a new blockchain client.
 
-In this tutorial, you'll learn how to upgrade the runtime of a Polkadot-SDK-based blockchain without stopping the network or creating a fork. 
+In this tutorial, you'll learn how to upgrade the runtime of a Polkadot SDK-based blockchain without stopping the network or creating a fork. 
 
 You'll make the following changes to a running network node's runtime:
 
@@ -27,13 +27,12 @@ Before starting this tutorial, ensure you meet the following requirements:
 
 - Installed and configured Rust on your system. Refer to the [Installation]() guide for detailed instructions on installing Rust and setting up your development environment
 - Completed the [Build a Local Blockchain]() tutorial and have the [Polkadot-SDK Solochain Template](https://github.com/paritytech/polkadot-sdk-solochain-template){target=\_blank} installed on your machine
-- Reviewed the [Add a Pallet to the Runtime]() guide
 
 ## Start the Node
 
 To demonstrate how to update a running node, you first need to start the local node with the current runtime.
 
-1. Navigate to the root directory where you compiled the Polkadot-SDK Solochain Template
+1. Navigate to the root directory where you compiled the Polkadot SDK Solochain Template
    
 2. Start the local node in development mode by running the following command:
     ```bash
@@ -145,11 +144,11 @@ Now that you've generated the Wasm artifact for your modified runtime, it's time
 
 #### Authorization with Sudo
 
-In production networks, runtime upgrades typically require community approval through governance. For this tutorial, the Sudo pallet will be used to simplify the process. The Sudo pallet allows a designated account (usually `Alice` in development environments) to perform privileged operations, including runtime upgrades.
+In production networks, runtime upgrades typically require community approval through governance. For this tutorial, the Sudo pallet will be used to simplify the process. The Sudo pallet allows a designated account (usually Alice in development environments) to perform privileged operations, including runtime upgrades.
 
 #### Resource Accounting
 
-Runtime upgrades use the `set_code` extrinsic, which is designed to consume an entire block's resources. This design prevents other transactions from executing on different runtime versions within the same block. The `set_code` extrinsic is classified as an Operational call, meaning it:
+Runtime upgrades use the `set_code` extrinsic, which is designed to consume an entire block's resources. This design prevents other transactions from executing on different runtime versions within the same block. The `set_code` extrinsic is classified as an Operational call, one of the variants of the [`DispatchClass`](https://paritytech.github.io/polkadot-sdk/master/frame_support/dispatch/enum.DispatchClass.html#){target=\_blank} enum. This classification means it:
 
 - Can use a block's entire weight limit
 - Receives maximum priority

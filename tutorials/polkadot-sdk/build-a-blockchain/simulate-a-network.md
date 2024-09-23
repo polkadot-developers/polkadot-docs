@@ -1,13 +1,13 @@
 ---
 title: Simulate a Network
-description: Create a private blockchain network with authorized validators using Polkadot-SDK. Start nodes, connect peers and verify block production.
+description: Create a private blockchain network with authorized validators using Polkadot SDK. Start nodes, connect peers and verify block production.
 ---
 
 # Simulate a Network
 
 ## Introduction
 
-This tutorial introduces you to the process of initiating a private blockchain network with a set of authorized validators. The [Polkadot-SDK Solochain Template](https://github.com/paritytech/polkadot-sdk-solochain-template){target=\_blank} implements an authority consensus model to regulate block production. In this model, the creation of blocks is restricted to a predefined list of authorized accounts, known as "authorities," who operate in a round-robin fashion. 
+This tutorial introduces you to the process of initiating a private blockchain network with a set of authorized validators. The [Polkadot SDK Solochain Template](https://github.com/paritytech/polkadot-sdk-solochain-template){target=\_blank} implements an authority consensus model to regulate block production. In this model, the creation of blocks is restricted to a predefined list of authorized accounts, known as "authorities," who operate in a round-robin fashion. 
 
 To demonstrate this concept, you'll simulate a network environment using two nodes running on a single computer, each configured with different accounts and keys. Throughout this tutorial, you'll gain practical insight into the functionality of the authority consensus model by observing how these two predefined accounts, serving as authorities, enable the nodes to produce blocks.
 
@@ -21,16 +21,18 @@ By completing this tutorial, you will accomplish the following objectives:
 
 ## Prerequisites
 
+Before proceeding, ensure you have the following prerequisites in place:
+
 - Installed and configured Rust on your system. Refer to the [Installation]() guide for detailed instructions on installing Rust and setting up your development environment
-- Completed the [Build a Local Blockchain](#build-a-local-blockchain) guide and have the [Polkadot-SDK Solochain Template](https://github.com/paritytech/polkadot-sdk-solochain-template){target=\_blank} installed on your local machine
+- Completed the [Build a Local Blockchain](#build-a-local-blockchain) guide and have the [Polkadot SDK Solochain Template](https://github.com/paritytech/polkadot-sdk-solochain-template){target=\_blank} installed on your local machine
 
 ## Start the First Blockchain Node
 
-This tutorial demonstrates the fundamentals of a private network using a predefined chain specification called local and two preconfigured user accounts. You'll simulate a private network by running two nodes on a single local computer, using accounts named `Alice` and `Bob`.
+This tutorial demonstrates the fundamentals of a private network using a predefined chain specification called local and two preconfigured user accounts. You'll simulate a private network by running two nodes on a single local computer, using accounts named Alice and Bob.
 
 Follow these steps to start your first blockchain node:
    
-1. Navigate to the root directory where you compiled the Polkadot-SDK Solochain Template
+1. Navigate to the root directory where you compiled the Polkadot SDK Solochain Template
    
 2. Clear any existing chain data by executing the following:
     ```bash
@@ -39,7 +41,7 @@ Follow these steps to start your first blockchain node:
 
     When prompted to confirm, type `y` and press *Enter*. This step ensures a clean start for your new network.
 
-3. Launch the first blockchain node using the `Alice` account:
+3. Launch the first blockchain node using the Alice account:
     ```bash
     ./target/release/solochain-template-node \
     --base-path /tmp/alice \
@@ -57,7 +59,7 @@ Before proceeding, examine the key command-line options used to start the node:
 
 - `--base-path` - specifies the directory for storing all chain-related data
 - `--chain` - defines the chain specification to use
-- `--alice` - adds the predefined keys for the `Alice` account to the node's keystore. This account is used for block production and finalization
+- `--alice` - adds the predefined keys for the Alice account to the node's keystore. This account is used for block production and finalization
 - `--port` - sets the listening port for peer-to-peer (p2p) traffic. Different ports are necessary when running multiple nodes on the same machine
 - `--rpc-port` - specifies the port for incoming JSON-RPC traffic via WebSocket and HTTP
 - `--node-key` - defines the Ed25519 secret key for libp2p networking
@@ -91,7 +93,7 @@ Pay particular attention to the following key messages:
     2024-09-10 08:35:43 🏷  Local node identity is: 12D3KooWEyoppNCUx8Yx66oV9fJnriXwCcXwDDUA2kj6vnc6iDEp
     ```
 
-    This string uniquely identifies the node. It's determined by the `--node-key` used to start the node with the `Alice` account. Use this identifier when connecting additional nodes to the network.
+    This string uniquely identifies the node. It's determined by the `--node-key` used to start the node with the Alice account. Use this identifier when connecting additional nodes to the network.
 
 - Network Status:
 
@@ -107,13 +109,13 @@ Pay particular attention to the following key messages:
 
 ## Add a Second Node to the Network
 
-After successfully running the first node with the `Alice` account keys, you can expand the network by adding a second node using the `Bob` account. This process involves connecting to the existing network using the running node as a reference point. The commands are similar to those used for the first node, with some key differences to ensure proper network integration.
+After successfully running the first node with the Alice account keys, you can expand the network by adding a second node using the Bob account. This process involves connecting to the existing network using the running node as a reference point. The commands are similar to those used for the first node, with some key differences to ensure proper network integration.
 
 To add a node to the running blockchain:
 
 1. Open a new terminal shell on your computer
 
-2. Navigate to the root directory where you compiled the Polkadot-SDK Solochain Template
+2. Navigate to the root directory where you compiled the Polkadot SDK Solochain Template
 
 3. Clear any existing chain data for the new node:
 
@@ -124,7 +126,7 @@ To add a node to the running blockchain:
     !!!note
         The `-y` flag automatically confirms the operation without prompting.
 
-4. Start the second local blockchain node using the `Bob` account:
+4. Start the second local blockchain node using the Bob account:
     ```bash
     ./target/release/solochain-template-node \
     --base-path /tmp/bob \
@@ -151,7 +153,7 @@ To add a node to the running blockchain:
             - `127.0.0.1` - IP address of the running node (localhost in this case)
             - `tcp` - specifies TCP for peer-to-peer communication
             - `30333` - port number for peer-to-peer TCP traffic
-            - `12D3KooWEyoppNCUx8Yx66oV9fJnriXwCcXwDDUA2kj6vnc6iDEp` - unique identifier of the `Alice` node
+            - `12D3KooWEyoppNCUx8Yx66oV9fJnriXwCcXwDDUA2kj6vnc6iDEp` - unique identifier of the Alice node
 
 ## Verify Blocks are Produced and Finalized
 
@@ -159,7 +161,7 @@ After starting the second node, both nodes should connect as peers and commence 
 
 Follow these steps to verify that blocks are being produced and finalized:
 
-1. Observe the output in the terminal of the first node (`Alice`):
+1. Observe the output in the terminal of the first node (Alice):
 
     --8<-- 'code/tutorials/polkadot-sdk/build-a-blockchain/simulate-a-network/node-output-1.html'
 
@@ -170,7 +172,7 @@ Follow these steps to verify that blocks are being produced and finalized:
     - Block production - `best: #4 (0xe176…0430)`
     - Block finalization - `finalized #1 (0x75bb…e82d)`
 
-2. Check the terminal of the second node (`Bob`) for similar output
+2. Check the terminal of the second node (Bob) for similar output
 
 3. Shut down one node using `Control-C` in its terminal. Observe the remaining node's output:
 

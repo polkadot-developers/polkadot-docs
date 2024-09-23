@@ -282,6 +282,32 @@ To register the parachain, follow these steps:
 
    The terminal where the parachain is running also displays details similar to the following:
 
+   <div id="termynal" data-termynal>
+    <span>...</span>
+    <br/>
+    <span>[Relaychain] 💤 Idle (2 peers), best: #90 (0x5f73…1ccf), finalized #87 (0xeb50…68ea), ⬇ 1.4kiB/s ⬆ 1.1kiB/s</span>
+    <br/>
+    <span>[Parachain] 💤 Idle (0 peers), best: #0 (0x3626…fef3), finalized #0 (0x3626…fef3), ⬇ 1.2kiB/s ⬆ 0.7kiB/s</span>
+    <br/>
+    <span>[Relaychain] 💤 Idle (2 peers), best: #90 (0x5f73…1ccf), finalized #88 (0xd43c…c3e6), ⬇ 0.7kiB/s ⬆ 0.5kiB/s</span>
+    <br/>
+    <span>[Parachain] 💤 Idle (0 peers), best: #0 (0x3626…fef3), finalized #0 (0x3626…fef3), ⬇ 1.0kiB/s ⬆ 0.6kiB/s</span>
+    <br/>
+    <span>[Relaychain] 👶 New epoch 9 launching at block 0x1c93…4aa9 (block slot 281848325 >= start slot 281848325)</span>
+    <br/>
+    <span>[Relaychain] 👶 Next epoch starts at slot 281848335</span>
+    <br/>
+    <span>[Relaychain] ✨ Imported #91 (0x1c93…4aa9)</span>
+    <br/>
+    <span>[Parachain] Starting collation. relay_parent=0x1c936289cfe15fabaa369f7ae5d73050581cb12b75209c11976afcf07f6a4aa9 at=0x36261113c31019d4b2a1e27d062e186f46da0e8f6786177dc7b35959688ffef3</span>
+    <br/>
+    <span>[Relaychain] 💤 Idle (2 peers), best: #91 (0x1c93…4aa9), finalized #88 (0xd43c…c3e6), ⬇ 1.2kiB/s ⬆ 0.7kiB/s</span>
+    <br/>
+    <span>[Parachain] 💤 Idle (0 peers), best: #0 (0x3626…fef3), finalized #0 (0x3626…fef3), ⬇ 0.2kiB/s ⬆ 37 B/s</span>
+    <br/>
+    <span>...</span>
+    </div>
+
 ## Resetting the Blockchain State
 
 The parachain collator you connected to the relay chain in this tutorial contains all of the blockchain data for the parachain. There's only one node in this parachain network, so any transactions you submit are only stored on this node. Relay chains don't store any parachain state. The relay chain only stores header information for the parachains that connect to it.

@@ -7,9 +7,7 @@ description: Create a private blockchain network with authorized validators usin
 
 ## Introduction
 
-This tutorial introduces you to the process of initiating a private blockchain network with a set of authorized validators. The [Polkadot-SDK Solochain Template](https://github.com/paritytech/polkadot-sdk-solochain-template){target=\_blank} implements an authority consensus model to regulate block production.
-
-In this model, the creation of blocks is restricted to a predefined list of authorized accounts, known as "authorities," who operate in a round-robin fashion. 
+This tutorial introduces you to the process of initiating a private blockchain network with a set of authorized validators. The [Polkadot-SDK Solochain Template](https://github.com/paritytech/polkadot-sdk-solochain-template){target=\_blank} implements an authority consensus model to regulate block production. In this model, the creation of blocks is restricted to a predefined list of authorized accounts, known as "authorities," who operate in a round-robin fashion. 
 
 To demonstrate this concept, you'll simulate a network environment using two nodes running on a single computer, each configured with different accounts and keys. Throughout this tutorial, you'll gain practical insight into the functionality of the authority consensus model by observing how these two predefined accounts, serving as authorities, enable the nodes to produce blocks.
 

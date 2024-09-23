@@ -181,7 +181,7 @@ The [formal specification](https://github.com/w3f/consensus/blob/master/pdf/gran
 
 ## Header
 
-The structure that aggregates the information used to summarize a block. A header consists primarily of cryptographic information that is used by [light clients](#light-client) to get a minimally secure but very efficient synchronization of the chain.
+A header is a structure that aggregates the information used to summarize a block. It primarily consists of cryptographic information used by [light clients](#light-client) to get a minimally secure but very efficient synchronization of the chain.
 
 ## Hybrid Consensus
 

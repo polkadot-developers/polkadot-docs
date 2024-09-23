@@ -5,7 +5,7 @@ description: Glossary of terms used within the Polkadot ecosystem, Polkadot SDK,
 
 This glossary defines and explains concepts and terminology specific to blockchain technology within the Polkadot ecosystem.
 
-Other useful glossaries throughout the ecosystem can be found below:
+Additional helpful glossaries from the ecosystem:
 
 - [Polkadot Wiki Glossary](https://wiki.polkadot.network/docs/glossary){target=\_blank}
 - [Polkadot SDK Glossary](https://paritytech.github.io/polkadot-sdk/master/polkadot_sdk_docs/reference_docs/glossary/index.html){target=\_blank}
@@ -16,22 +16,22 @@ A generic term for the role in a blockchain that can participate in the consensu
 
 ## Authority Round (Aura)
 
-A deterministic [consensus](#consensus) protocol where block production is limited to a rotating list of [authorities](#authority) that take turns creating blocks. With authority round (Aura) consensus, the majority of online authorities are assumed to be honest.
+A deterministic [consensus](#consensus) protocol where block production is limited to a rotating list of [authorities](#authority) that take turns creating blocks. Most online authorities are assumed to be honest in authority round (Aura) consensus.
 
-Learn more by reading [the official wiki article](https://openethereum.github.io/Aura){target=\_blank} for the Aura consensus algorithm.
+Learn more by reading the official [Aura consensus algorithm](https://openethereum.github.io/Aura){target=\_blank} wiki article. 
 
-The Aura protocol is often used in combination with [GRANDPA](#grandpa) as a [hybrid consensus](#hybrid-consensus) protocol where [Aura](#aura) is used for block production and short-term probabilistic finality, with deterministic finality provided by [GRANDPA](#grandpa).
+The Aura protocol is often used in combination with [GRANDPA](#grandpa) as a [hybrid consensus](#hybrid-consensus) protocol. In this combination, [Aura](#aura) is used for block production and short-term probabilistic finality, and [GRANDPA](#grandpa) provides deterministic finality.
 
 ## Blind Assignment of Blockchain Extension (BABE)
 
-A [block authoring](#block-author) protocol similar to [Aura](#aura). However, with BABE (Blind Assignment of Blockchain Extension), [authorities](#authority) win [slots](#slot) based on a VRF (verifiable random function) as opposed to the round-robin selection method. The winning authority can select a chain and submit a new block for it.
+A [block authoring](#block-author) protocol similar to [Aura](#aura). With BABE (Blind Assignment of Blockchain Extension), [authorities](#authority) win [slots](#slot) based on a VRF (verifiable random function) instead of the round-robin selection method. The winning authority can select a chain and submit a new block.
 
 Learn more about BABE by referring to its [official Web3 Foundation research document](https://research.web3.foundation/Polkadot/protocols/block-production/Babe){target=\_blank}.
 
 ## Block Author
 
-Describes the node that is responsible for the creation of a block.
-Block authors are also referred to as _block producers_.
+Describes the node responsible for the creation of a block.
+Block authors are also called _block producers_.
 In a Proof of Work (PoW) blockchain, these nodes are called _miners_.
 
 ## Byzantine Fault Tolerance (BFT)
@@ -52,26 +52,26 @@ The communication overhead for such systems is `O(n²)`, where `n` is the number
 
 ## Call
 
-In a general context, a call describes the act of invoking a function to be executed.  
+Generally, a call describes invoking a function to be executed.  
 
 In the context of pallets that contain functions to be dispatched to the runtime, `Call` is an enumeration data type that describes the functions that can be dispatched with one variant per pallet. The object that a `Call` represents is a [dispatch](#dispatchable) data structure.
 
 ## Chain Specification 
 
-A chain specification is used to define a network built using the Polkadot SDK, and is used by nodes. A chain specification file defines the set of properties that are required to run the node as part of an active, or new, network. It often contains the initial genesis runtime code, network properties (such as the name of the network), the initial state for some pallets, and the bootnode list.
+A chain specification file defines the set of properties required to run a node in an active or new Polkadot SDK-built network. It often contains the initial genesis runtime code, network properties (such as the network's name), the initial state for some pallets, and the boot node list.
 
 ## Collator
 
 An [author](#block-author) of a [parachain](#parachain) network.
 They aren't [authorities](#authority) in themselves, as they require a [relay chain](#relay-chain) to coordinate [consensus](#consensus).
 
-More details are found on the [Polkadot Wiki on collators](https://wiki.polkadot.network/docs/learn-collator){target=\_blank}.
+More details are found on the [Polkadot Collator Wiki](https://wiki.polkadot.network/docs/learn-collator){target=\_blank}.
 
 ## Consensus
 
-In the context of a blockchain, consensus is the process nodes use to agree on the canonical fork of a chain. Consensus is composed of [authorship](#block-author), finality, and [fork-choice rule](#fork-choice-rulestrategy).
+In a blockchain context, consensus is the process nodes use to agree on a chain's canonical fork. Consensus is composed of [authorship](#block-author), finality, and [fork-choice rule](#fork-choice-rulestrategy).
 
-In the Polkadot ecosystem, these are usually three components are separated from one another, and the term consensus often refers specifically to authorship. In the context of a Substrate node, the term _consensus engine_ describes the node subsystem that is responsible for consensus tasks.
+In the Polkadot ecosystem, these three components are usually separated from one another, and the term consensus often refers specifically to authorship. In the context of a Substrate node, the term _consensus engine_ describes the node subsystem responsible for consensus tasks.
 
 See also [hybrid consensus](#hybrid-consensus).
 
@@ -138,7 +138,7 @@ The binary is guaranteed to be up-to-date regardless of the version of the block
 
 ## Extrinsic
 
-An extrinsic is a general term for a piece of data that is originated outside of the runtime, included into a block and leads to some action. This includes user-initiated transactions as well as inherent transactions which are placed into the block by the block-builder.
+An extrinsic is a general term for data that originates outside of the runtime, is included in a block, and leads to some action. This includes user-initiated transactions as well as inherent transactions placed into the block by the block builder.
 
 It is a SCALE-encoded array typically consisting of a version number, signature, and varying data types indicating the resulting runtime function to be called. Extrinsics can take two forms: [inherents](#inherent-transactions) and [transactions](#transaction). For more technical details, see the [Polkadot spec](https://spec.polkadot.network/#id-extrinsics){target=\_blank}.
 
@@ -152,7 +152,7 @@ If a reference to an account is dropped, the account can be [reaped](https://par
 
 ## Fork Choice Rule/Strategy
 
-A fork choice rule (or strategy) helps determine which chain is valid when reconciling amongst several forks within a network. A common fork choice rule is the [longest chain](https://paritytech.github.io/polkadot-sdk/master/sc_consensus/struct.LongestChain.html){target=\_blank}, which the chain with the highest number of blocks gets selected.
+A fork choice rule (or strategy) helps determine which chain is valid when reconciling several network forks. A common fork choice rule is the [longest chain](https://paritytech.github.io/polkadot-sdk/master/sc_consensus/struct.LongestChain.html){target=\_blank}, in which the chain with the highest number of blocks is selected.
 
 ## FRAME (Framework for Runtime Aggregation of Modularized Entities)
 
@@ -189,7 +189,7 @@ A blockchain consensus protocol that consists of independent or loosely coupled 
 
 Hybrid consensus allows the chain to grow as fast as probabilistic consensus protocols, such as [Aura](#aura-aka-authority-round) while maintaining the same level of security as [deterministic finality](#deterministic-finality) consensus protocols, such as [GRANDPA](#grandpa).
 
-In general, block production algorithms tend to be faster than finality mechanisms. Making block production separate from block finalization gives Substrate developers greater control of their chain's performance.
+In general, block production algorithms tend to be faster than finality mechanisms. Separating block production from block finalization gives Substrate developers greater control over their chain's performance.
 
 ## Inherent Transactions
 
@@ -213,7 +213,7 @@ A subsystem for managing keys for the purpose of producing new blocks.
 
 Kusama is a [canary](https://en.wiktionary.org/wiki/canary_in_a_coal_mine){target=\_blank} network and is referred to as [Polkadot's "wild cousin"](https://wiki.polkadot.network/docs/learn-comparisons-kusama){target=\_blank}.
 
-As a canary network, Kusama is expected to be more stable than a test network like [Westend](#westend), but not as stable as a production network like [Polkadot](#polkadot).
+As a canary network, Kusama is expected to be more stable than a test network like [Westend](#westend) but less stable than a production network like [Polkadot](#polkadot).
 
 As a canary network, Kusama is controlled by its network participants and is intended to be stable enough to encourage meaningful experimentation.
 
@@ -226,7 +226,7 @@ Substrate uses the [Rust implementation](https://github.com/libp2p/rust-libp2p){
 
 A type of blockchain node that doesn't store the [chain state](#state) or produce blocks.
 
-A light client is capable of verifying cryptographic primitives and exposes a [remote procedure call (RPC)](https://en.wikipedia.org/wiki/Remote_procedure_call){target=\_blank} server that allows blockchain users to interact with the blockchain network.
+A light client can verify cryptographic primitives and exposes a [remote procedure call (RPC)](https://en.wikipedia.org/wiki/Remote_procedure_call){target=\_blank} server that allows blockchain users to interact with the blockchain network.
 
 ## Metadata
 
@@ -294,7 +294,7 @@ The unique account identifier for each chain in the relay chain ecosystem. It is
 
 The sovereign account for each chain is a root-level account that can only be accessed using the Sudo pallet or through governance. The account identifier is calculated by concatenating the Blake2 hash of a specific text string and the registered parachain identifier.
 
-The sovereign account is most often used to sign XCM messages that are sent to either the relay chain or other chains in the ecosystem.
+The sovereign account is most often used to sign XCM messages sent to the relay chain or other chains in the ecosystem.
 
 ## SS58 Address Format
 
@@ -321,7 +321,7 @@ maintained by [Parity Technologies](https://www.parity.io/){target=\_blank}.
 
 ## Transaction
 
-A type of [extrinsic](#extrinsic) that includes a signature that can be used to verify the account authorizing it inherently or via [signed extensions](https://paritytech.github.io/polkadot-sdk/master/polkadot_sdk_docs/reference_docs/signed_extensions/index.html){target=\_blank}.
+An [extrinsic](#extrinsic) that includes a signature that can be used to verify the account authorizing it inherently or via [signed extensions](https://paritytech.github.io/polkadot-sdk/master/polkadot_sdk_docs/reference_docs/signed_extensions/index.html){target=\_blank}.
 
 ## Transaction Era
 

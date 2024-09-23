@@ -5,7 +5,7 @@ description: Install everything you need to begin working with Substrated-based 
 
 # Install Dependencies for the Polkadot SDK
 
-This guide provides step-by-step instructions for installing the dependenices you need to work with the Polkadot SDK and Substrate-based chains and its required dependencies on macOS, Linux, and Windows. Follow the appropriate section for your operating system to ensure all necessary tools are installed and configured properly.
+This guide provides step-by-step instructions for installing the dependencies you need to work with the Polkadot SDK and Substrate-based chains and their required dependencies on macOS, Linux, and Windows. Follow the appropriate section for your operating system to ensure all necessary tools are installed and configured properly.
 
 ## macOS
 

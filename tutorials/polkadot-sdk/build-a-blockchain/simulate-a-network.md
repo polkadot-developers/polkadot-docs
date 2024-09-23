@@ -176,10 +176,7 @@ Follow these steps to verify that blocks are being produced and finalized:
 
 3. Shut down one node using `Control-C` in its terminal. Observe the remaining node's output:
 
-    <div id='termynal' data-termynal>
-        <span data-ty>2024-09-10 09:10:03 💤 Idle (1 peers), best: #51 (0x0dd6…e763), finalized #49 (0xb70a…1fc0), ⬇ 0.7kiB/s ⬆ 0.6kiB/s</span>
-        <span data-ty>2024-09-10 09:10:08 💤 Idle (0 peers), best: #52 (0x2c40…a50e), finalized #49 (0xb70a…1fc0), ⬇ 0.3kiB/s ⬆ 0.3kiB/s</span>
-    </div>
+    --8<-- 'code/tutorials/polkadot-sdk/build-a-blockchain/simulate-a-network/node-shutdown.html'
 
     Note that the peer count drops to zero, and block production stops.
 
@@ -189,9 +186,15 @@ Follow these steps to verify that blocks are being produced and finalized:
 
     - For Alice's node:
         ```bash
-        ./target/release/solochain-template-node purge-chain --base-path /tmp/alice --chain local -y
+        ./target/release/solochain-template-node purge-chain \
+        --base-path /tmp/alice \
+        --chain local \
+        -y
         ```
     - For Bob's node:
         ```bash
-        ./target/release/solochain-template-node purge-chain --base-path /tmp/bob --chain local -y
+        ./target/release/solochain-template-node purge-chain \
+        --base-path /tmp/bob \
+        --chain local \
+        -y
         ```

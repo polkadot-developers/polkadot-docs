@@ -127,16 +127,6 @@ To start the validator nodes, follow these steps:
 3. Review log messages as the node starts and take note of the `Local node identity` value. This value is the node’s peer ID, which you need to connect the parachain to the relay chain
 
       <div id="termynal" data-termynal>
-          <span data-ty="input"><span class="file-path"></span>./target/release/polkadot \
-      --alice \
-      --validator \
-      --base-path /tmp/relay/alice \
-      --chain /tmp/raw-local-chainspec.json \
-      --port 30333 \
-      --rpc-port 9944 \
-      --insecure-validator-i-know-what-i-do \
-      --force-authoring 
-          </span>
          <span>2024-09-09 13:49:58 Parity Polkadot</span>
           <br>
          <span>2024-09-09 13:49:58 ✌️  version 1.15.2-d6f482d5593</span>
@@ -189,14 +179,6 @@ To start the validator nodes, follow these steps:
 5. Verify that the relay chain nodes are running by checking the logs for each node. The logs should show that the nodes are connected to each other and producing blocks. For example, bob's logs will be displayed as follows:
 
     <div id="termynal" data-termynal>
-    <span data-ty="input"><span class="file-path"></span>./target/release/polkadot \
-        --bob \
-        --validator \
-        --base-path /tmp/relay/bob \
-        --chain /tmp/raw-local-chainspec.json \
-        --port 30334 \
-        --rpc-port 9945
-     </span>
      <span>...</span>
      <br>
      <span>2024-09-10 13:29:38 🏆 Imported #55 (0xad6a…567c → 0xecae…ad12)<span>

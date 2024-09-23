@@ -74,17 +74,7 @@ After successfully compiling your node, you can run it and produce blocks. This 
     --8<-- 'code/tutorials/polkadot-sdk/build-a-blockchain/build-a-local-blockchain/node-output.html'
 
 3. Confirm that your blockchain is producing new blocks by checking if the number after `finalized` is increasing
-    <div id='termynal' data-termynal>
-        <span data-ty>...</span>
-        <span data-ty>2024-09-09 08:32:47 💤 Idle (0 peers), best: #0 (0x0eef…935d), finalized #0 (0x0eef…935d), ⬇ 0 ⬆ 0</span>
-        <span data-ty>...</span>
-        <span data-ty>2024-09-09 08:32:52 💤 Idle (0 peers), best: #1 (0xcb3d…265b), finalized #0 (0x0eef…935d), ⬇ 0 ⬆ 0</span>
-        <span data-ty>...</span>
-        <span data-ty>2024-09-09 08:32:57 💤 Idle (0 peers), best: #2 (0x16d7…083f), finalized #0 (0x0eef…935d), ⬇ 0 ⬆ 0</span>
-        <span data-ty>...</span>
-        <span data-ty>2024-09-09 08:33:02 💤 Idle (0 peers), best: #3 (0xe6a4…2cc4), finalized #1 (0xcb3d…265b), ⬇ 0 ⬆ 0</span>
-        <span data-ty>...</span>
-    </div>
+    --8<-- 'code/tutorials/polkadot-sdk/build-a-blockchain/build-a-local-blockchain/node-block-production.html'
 
     !!!note
         The details of the log output will be explored in a later tutorial. For now, knowing that your node is running and producing blocks is sufficient.

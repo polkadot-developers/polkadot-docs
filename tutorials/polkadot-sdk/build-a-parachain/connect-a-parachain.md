@@ -253,7 +253,7 @@ To register the parachain, follow these steps:
 
     ![](/images/tutorials/polkadot-sdk/build-a-parachain/connect-a-parachain/connect-a-parachain-6.webp)
 
-3. Submit a Sudo change
+3. Submit a transaction with Sudo privileges
     1. Select the **paraSudoWrapper** pallet
     2. Click on the **sudoScheduleParaInitialize** extrinsic from the list of available extrinsics
 

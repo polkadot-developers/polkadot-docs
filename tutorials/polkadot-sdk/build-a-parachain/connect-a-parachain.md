@@ -274,7 +274,7 @@ To register the parachain, follow these steps:
 
     After the parachain is initialized, you can see it in **Parachains** section of the Polkadot.Js Apps interface
 
-6. Click Network and select Parachains and wait for a new epoch to start
+6. Click **Network** and select **Parachains** and wait for a new epoch to start
 
    The relay chain tracks the latest block—the head—of each parachain. When a relay chain block is finalized, the parachain blocks that have completed the validation process are also finalized. This is how Polkadot achieves pooled, shared security for its parachains.
 

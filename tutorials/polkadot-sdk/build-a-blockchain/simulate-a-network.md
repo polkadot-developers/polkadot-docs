@@ -79,7 +79,7 @@ Upon successful node startup, the terminal displays messages detailing network o
 
 Pay particular attention to the following key messages:
 
-- Genesis Block Initialization:
+- Genesis block initialization:
 
     ```plain
     2024-09-10 08:35:43 🔨 Initializing Genesis block/state (state: 0x074c…27bd, header-hash: 0x850f…951f)
@@ -87,7 +87,7 @@ Pay particular attention to the following key messages:
 
     This message identifies the initial state or genesis block used by the node. When starting subsequent nodes, ensure these values match.
 
-- Node Identity:
+- Node identity:
 
     ```plain
     2024-09-10 08:35:43 🏷  Local node identity is: 12D3KooWEyoppNCUx8Yx66oV9fJnriXwCcXwDDUA2kj6vnc6iDEp
@@ -95,7 +95,7 @@ Pay particular attention to the following key messages:
 
     This string uniquely identifies the node. It's determined by the `--node-key` used to start the node with the Alice account. Use this identifier when connecting additional nodes to the network.
 
-- Network Status:
+- Network status:
 
     ```plain
     2024-09-10 08:35:48 💤 Idle (0 peers), best: #0 (0x850f…951f), finalized #0 (0x850f…951f), ⬇ 0 ⬆ 0

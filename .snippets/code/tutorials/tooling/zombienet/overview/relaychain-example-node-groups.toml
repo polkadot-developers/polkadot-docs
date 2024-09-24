@@ -1,0 +1,14 @@
+[relaychain]
+default_command = "polkadot"
+default_image = "polkadot-debug:master"
+chain = "rococo-local"
+chain_spec_path = "/path/to/chain-spec.json"
+default_args = ["--chain", "rococo-local"]
+
+[[relaychain.node_groups]]
+name = "group-1"
+count = 2
+image = "polkadot-debug:master"
+command = "polkadot"
+args = ["--chain", "rococo-local"]
+...

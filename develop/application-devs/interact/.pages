@@ -1,4 +1,4 @@
 title: Interact with the Network
 nav:
   - index.md
-  - understand-parachain-data.md
+  - "Understanding Metadata": understand-parachain-data.md

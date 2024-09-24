@@ -23,7 +23,7 @@ Before diving into this tutorial, it's recommended that you have a basic underst
 To complete this tutorial, ensure that you have:
 
 - Configured your environment for Substrate development by installing [Rust and the Rust toolchain](https://docs.substrate.io/install/){target=\_blank}
-- Completed [Build a Local Blockchain](/tutorials/polkadot-sdk/build-a-blockchain/build-a-local-blockchain){target=\_blank} tutorial and know how to compile and run a Polkadot-SDK based node
+- Completed [Build a Local Blockchain](/tutorials/polkadot-sdk/build-a-blockchain/build-a-local-blockchain){target=\_blank} tutorial and know how to compile and run a Polkadot SDK-based node
 
 ## Build a Local Relay Chain
 
@@ -58,7 +58,7 @@ To build a local relay chain, follow these steps:
 
 4. Verify that the node is built correctly by running the following command:
 
-    ```
+    ```bash
     ./target/release/polkadot --version
     ```
 
@@ -78,7 +78,7 @@ If you wanted to connect two parachains with a single collator each, you would n
 
 The chain specification file is available in two formats: a JSON file in plain text and a JSON file in SCALE-encoded raw format.
 
-You can read and edit the plain text version of chain specification file. However, the chain specification file must be converted to the SCALE-encoded raw format before you can use it to start a node. For information about converting a chain specification to use the raw format, see [Customize a Chain Specification](https://docs.substrate.io/reference/how-to-guides/basics/customize-a-chain-specification/){target=\_blank}.
+You can read and edit the plain text version of chain specification file. However, the chain specification file must be converted to the SCALE-encoded raw format before you can use it to start a node. For information about converting a chain specification to use the raw format, see [Customize a Chain Specification](){target=\_blank}.
 
 The sample chain specification is only valid for a single parachain with two validator nodes. If you add other validators, add additional parachains to your relay chain, or want to use custom account keys instead of the predefined account, you'll need to create a custom chain specification file.
 
@@ -111,7 +111,7 @@ To start the validator nodes, follow these steps:
         ./target/release/polkadot build-spec --chain plain-local-chainspec.json --raw > /tmp/raw-local-chainspec.json
         ```
 
-2. Start the first validator using the alice account by running the following command:
+2. Start the first validator using the `alice` account by running the following command:
 
       ```bash
       ./target/release/polkadot \
@@ -154,7 +154,7 @@ To start the validator nodes, follow these steps:
     !!! note
         You need to specify this identifier to enable other nodes to connect. In this case, the `Local node identity` is `12D3KooWG393uX82rR3QgDkZpb7U8StzuRx9BQUXCvWsP1ctgygp`.
 
-4. Open a new terminal and start the second validator using the bob account
+4. Open a new terminal and start the second validator using the `bob` account
 
       The command is similar to the command used to start the first node, with a few crucial differences. 
 
@@ -172,14 +172,14 @@ To start the validator nodes, follow these steps:
 
       Because both validators are running on a single local computer, it isn't necessary to specify the `--bootnodes` command-line option and the first node’s IP address and peer identifier. The `--bootnodes` option is required to connect nodes outside the local network or not identified in the chain specification file.
 
-      If you don't see the relay chain producing blocks, try disabling your firewall or adding the bootnodes command-line option with the address of the alice node to start the node. Adding the bootnodes option looks like this (with the node identity of the alice node):
+      If you don't see the relay chain producing blocks, try disabling your firewall or adding the bootnodes command-line option with the address of Alice's node to start the node. Adding the bootnodes option looks like this (with the node identity of Alice's node):
 
       ```bash
       --bootnodes \
       /ip4/127.0.0.1/tcp/30333/p2p/12D3KooWG393uX82rR3QgDkZpb7U8StzuRx9BQUXCvWsP1ctgygp
       ```
 
-5. Verify that the relay chain nodes are running by checking the logs for each node. The logs should show that the nodes are connected to each other and producing blocks. For example, bob's logs will be displayed as follows:
+5. Verify that the relay chain nodes are running by checking the logs for each node. The logs should show that the nodes are connected to each other and producing blocks. For example, Bob's logs will be displayed as follows:
 
     <div id="termynal" data-termynal>
      <span>...</span>

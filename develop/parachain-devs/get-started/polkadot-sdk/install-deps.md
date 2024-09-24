@@ -16,7 +16,7 @@ You can install Rust and set up a Substrate development environment on Apple mac
 Before you install Rust and set up your development environment on macOS, verify that your computer meets the following basic requirements:
 
 - Operating system version is 10.7 Lion or later
-- Processor speed of at least 2 Ghz. Note that 3 Ghz is recommended
+- Processor speed of at least 2 GHz. Note that 3 GHz is recommended
 - Memory of at least 8 GB RAM. Note that 16 GB is recommended
 - Storage of at least 10 GB of available space
 - Broadband Internet connection

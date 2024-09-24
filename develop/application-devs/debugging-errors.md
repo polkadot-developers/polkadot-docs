@@ -28,11 +28,11 @@ After querying the block, you'll see a list of extrinsics. Scroll through the li
 ![Error described](/images/develop/applications-devs/debugging-errors/errors-2.webp){style="margin: auto; width: 75%; display: flex;"}
 
 !!! note
-    You can view [the block on Polkadot.js Apps](https://polkadot.js.org/apps/?rpc=wss://polkadot.api.onfinality.io/public-ws#/explorer/query/19983878){target=\_blank} containing the failed extrinsic in the above image. You'll need to scroll down to the **staking.nominate** extrinsic and expand the **system.ExtrinsicFailed** event to see the error details.
+    You can view [the block on Polkadot.js Apps](https://polkadot.js.org/apps/?rpc=wss://polkadot.api.onfinality.io/public-ws#/explorer/query/19983878){target=\_blank} containing the failed extrinsic in the preceding image. You'll need to scroll down to the **staking.nominate** extrinsic and expand the **system.ExtrinsicFailed** event to see the error details.
 
 Notice how the **details** field contains a human-readable description of the error. Most errors will have this if looked up this way.
 
-If the error is not listed or the **details** field is empty, refer to the table in the [Common Errors](#common-errors) section. You can also look up the **index** and **error**, as shown in the **dispatchError** section, in the codebase using the steps in the [Runtime Errors](#runtime-errors) section to diagnose the issue.
+If the error isn't listed or the **details** field is empty, refer to the table in the [Common Errors](#common-errors) section. You can also look up the **index** and **error**, as shown in the **dispatchError** section, in the codebase using the steps in the [Runtime Errors](#runtime-errors) section to diagnose the issue.
 
 ## Subscan
 
@@ -43,11 +43,11 @@ Whenever an extrinsic fails, an `ExtrinsicFailed` event will be emitted. If you'
 ![View the extrinsic failed event](/images/develop/applications-devs/debugging-errors/errors-3.webp)
 
 !!!note
-    To view the above example directly in Subscan, head to the [extrinsic page for 19983862-2](https://polkadot.subscan.io/extrinsic/19983878-2?event=19983878-53){target=\_blank}.
+    To view the preceding example directly in Subscan, head to the [extrinsic page for 19983862-2](https://polkadot.subscan.io/extrinsic/19983878-2?event=19983878-53){target=\_blank}.
 
 This event contains a human-readable description of the error in the **doc** row. Most errors will have this if looked up this way.
 
-If the error is not listed or the **doc** field is empty, refer to the table in the [Common Errors](#common-errors) section. You can also look up the **index** and **error** in the codebase using the steps in the [Runtime Errors](#runtime-errors) section to diagnose the issue.
+If the error isn't listed or the **doc** field is empty, refer to the table in the [Common Errors](#common-errors) section. You can also look up the **index** and **error** in the codebase using the steps in the [Runtime Errors](#runtime-errors) section to diagnose the issue.
 
 ## Common Errors
 
@@ -102,4 +102,4 @@ You can view a list of the runtime's pallets and associated indices in the Polka
 Now that you know the error occurred in the Staking pallet, you can look at the Staking pallet's code, located in the [`substrate/frame/staking/` directory](https://github.com/paritytech/polkadot-sdk/blob/master/substrate/frame/staking/){target=\_blank} of the Polkadot SDK repository. The errors are defined in the [`substrate/fram/staking/src/pallet/mod.rs` file](https://github.com/paritytech/polkadot-sdk/blob/master/substrate/frame/staking/src/pallet/mod.rs){target=\_blank} for the Staking pallet specifically. If you look for `pub enum Error` and look at the eighth error, which corresponds to the seventh index, you'll see `InsufficientBond`. So, now you know that the error you're seeing is an insufficient bond error being emitted from the Staking pallet.
 
 !!! note
-    The error enum is not defined in the same exact location for every pallet. In some pallets, you'll find that the error enum is defined in the `src/lib.rs` file.
+    The error enum isn't defined in the same exact location for every pallet. In some pallets, you'll find that the error enum is defined in the `src/lib.rs` file.

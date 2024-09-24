@@ -129,67 +129,38 @@ To start the validator nodes, follow these steps:
 
 3. Review log messages as the node starts and take note of the `Local node identity` value. This value is the node’s peer ID, which you need to connect the parachain to the relay chain
 
-      <div id="termynal" data-termynal>
-         <span>2024-09-09 13:49:58 Parity Polkadot</span>
-          <br>
-         <span>2024-09-09 13:49:58 ✌️  version 1.15.2-d6f482d5593</span>
-          <br>
-         <span>2024-09-09 13:49:58 ❤️  by Parity Technologies <admin@parity.io>, 2017-2024</span>
-         <br>
-         <span>2024-09-09 13:49:58 📋 Chain specification: Rococo Local Testnet</span>
-         <br>
-         <span>2024-09-09 13:49:58 🏷  Node name: Alice</span>
-         <br>
-         <span>2024-09-09 13:49:58 👤 Role: AUTHORITY</span>
-         <br>
-         <span>2024-09-09 13:49:58 💾 Database: RocksDb at /tmp/relay/alice/chains/rococo_local_testnet/db/full<span>
-         <br>
-         <span>2024-09-09 13:49:59 🏷  Local node identity is: 12D3KooWG393uX82rR3QgDkZpb7U8StzuRx9BQUXCvWsP1ctgygp</span>
-         <br>
-         <span>2024-09-09 13:49:59 Running libp2p network backend</span>
-         <br>
-         <span>...</span>
-      </div>
+    --8<-- "code/tutorials/polkadot-sdk/build-a-parachain/prepare-relay-chain/relay-chain-bootstraping-logs.md"
 
     !!! note
         You need to specify this identifier to enable other nodes to connect. In this case, the `Local node identity` is `12D3KooWG393uX82rR3QgDkZpb7U8StzuRx9BQUXCvWsP1ctgygp`.
 
 4. Open a new terminal and start the second validator using the `bob` account
 
-      The command is similar to the command used to start the first node, with a few crucial differences. 
+    The command is similar to the command used to start the first node, with a few crucial differences. 
 
-      ```bash
-      ./target/release/polkadot \
-      --bob \
-      --validator \
-      --base-path /tmp/bob \
-      --chain /tmp/raw-local-chainspec.json \
-      --port 30334 \
-      --rpc-port 9945
-      ```
+    ```bash
+    ./target/release/polkadot \
+    --bob \
+    --validator \
+    --base-path /tmp/bob \
+    --chain /tmp/raw-local-chainspec.json \
+    --port 30334 \
+    --rpc-port 9945
+    ```
 
-      Notice that this command uses a different base path (/tmp/relay/bob), validator key (`--bob`), and ports (`30334` and `9945`).
+    Notice that this command uses a different base path (/tmp/relay/bob), validator key (`--bob`), and ports (`30334` and `9945`).
 
-      Because both validators are running on a single local computer, it isn't necessary to specify the `--bootnodes` command-line option and the first node’s IP address and peer identifier. The `--bootnodes` option is required to connect nodes outside the local network or not identified in the chain specification file.
+    Because both validators are running on a single local computer, it isn't necessary to specify the `--bootnodes` command-line option and the first node’s IP address and peer identifier. The `--bootnodes` option is required to connect nodes outside the local network or not identified in the chain specification file.
 
-      If you don't see the relay chain producing blocks, try disabling your firewall or adding the bootnodes command-line option with the address of Alice's node to start the node. Adding the bootnodes option looks like this (with the node identity of Alice's node):
+    If you don't see the relay chain producing blocks, try disabling your firewall or adding the bootnodes command-line option with the address of Alice's node to start the node. Adding the bootnodes option looks like this (with the node identity of Alice's node):
 
-      ```bash
-      --bootnodes \
-      /ip4/127.0.0.1/tcp/30333/p2p/12D3KooWG393uX82rR3QgDkZpb7U8StzuRx9BQUXCvWsP1ctgygp
-      ```
+    ```bash
+    --bootnodes \
+    /ip4/127.0.0.1/tcp/30333/p2p/12D3KooWG393uX82rR3QgDkZpb7U8StzuRx9BQUXCvWsP1ctgygp
+    ```
 
 5. Verify that the relay chain nodes are running by checking the logs for each node. The logs should show that the nodes are connected to each other and producing blocks. For example, Bob's logs will be displayed as follows:
 
-    <div id="termynal" data-termynal>
-     <span>...</span>
-     <br>
-     <span>2024-09-10 13:29:38 🏆 Imported #55 (0xad6a…567c → 0xecae…ad12)<span>
-     <br>
-     <span>2024-09-10 13:29:38 💤 Idle (1 peers), best: #55 (0xecae…ad12), finalized #0 (0x1cac…618d), ⬇ 2.0kiB/s ⬆ 1.6kiB/s</span>
-     <br>
-     <span>...</span>
-    </div>
-
+    --8<-- "code/tutorials/polkadot-sdk/build-a-parachain/prepare-relay-chain/relay-chain-running-logs.md"
 
 Once the relay chain nodes are running, you can proceed to the next tutorial to set up a test parachain node and connect it to the relay chain.

@@ -1,34 +1,34 @@
 ---
 title: Understanding Metadata
-description: Metadata helps in creating chain-tailored experiences for your applications.  Learn how to understand, interact with, and decipher metadata from Polkadot SDK-based chains.
+description: Metadata creates chain-tailored experiences for applications. Learn how to understand, interact with, and decipher metadata from Polkadot SDK-based chains.
 ---
 
-Polkadot SDK-based blockchain networks are designed to expose their runtime information, allowing developers to learn granular details regarding pallets, RPC calls, and runtime APIs. The metadata also exposes their related documentation. The chain's metadata is SCALE-encoded, allowing for the development of browser-based, mobile, or desktop applications that can seamlessly support the chain's runtime upgrades. It is also possible to develop applications that are compatible with multiple Polkadot SDK-based chains at once.
+Polkadot SDK-based blockchain networks are designed to expose their runtime information, allowing developers to learn granular details regarding pallets, RPC calls, and runtime APIs. The metadata also exposes their related documentation. The chain's metadata is SCALE-encoded, allowing for the development of browser-based, mobile, or desktop applications that can seamlessly support the chain's runtime upgrades. It is also possible to develop applications compatible with multiple Polkadot SDK-based chains simultaneously.
 
 ## Exposing Runtime Information as Metadata
 
 To interact with a node or the state of the blockchain, you need to know how to connect to the chain and access the exposed runtime features.
 This interaction involves a Remote Procedure Call (RPC) through a node endpoint address, typically through a secure web socket connection.
-An application developer typically needs to know about the contents of the runtime's logic, including the following details:
+An application developer typically needs to know about the contents of the runtime logic, including the following details:
 
-- The version of the runtime that the application is connecting to
-- The APIs that the runtime supports
-- The pallets that are implemented for that specific runtime
-- The functions and their type signatures that are defined for that specific runtime
-- The custom types that are defined for that specific runtime
-- The parameters that the runtime exposes for users to set
+- The version of the runtime the application is connecting to
+- The APIs the runtime supports
+- The pallets implemented for that specific runtime
+- The functions and corresponding type signatures defined for the specific runtime
+- The custom types defined for the specific runtime
+- The parameters exposed by the runtime for users to set
 
 As the Polkadot SDK is modular and provides a composable framework for building blockchains, there are limitless opportunities to customize the schema of properties.
 Each runtime can be configured with its properties, including function calls and types which can be changed over time with runtime upgrades.
 
-To capture the information that's unique to a runtime, the Polkadot SDK enables you to generate the runtime **metadata** schema.
+The Polkadot SDK enables you to generate the runtime metadata schema to capture information unique to a runtime.
 
-The metadata for a runtime describes the pallets in-use and types that are defined for a specific version of the runtime.
+The metadata for a runtime describes the pallets in use and types defined for a specific version of the runtime.
 
-For every pallet, the metadata includes information about its storage items, functions, events, errors, and constants.
+The metadata includes information about each pallet's storage items, functions, events, errors, and constants.
 The metadata also includes type definitions for any custom types included in the runtime.
 
-Because it provides a complete inventory of the runtime of a chain, the metadata is the key to enabling client applications to interact with the node, parse responses, and correctly format message payloads that are sent back to that chain.
+Because it provides a complete inventory of a chain's runtime, metadata is key to enabling client applications to interact with the node, parse responses, and correctly format message payloads sent back to that chain.
 
 ## Generating Metadata
 
@@ -37,8 +37,8 @@ This encoding is done automatically through the [`scale-info`](https://docs.rs/s
 
 At a high level, generating the metadata involves the following steps:
 
-- The pallets in the runtime logic exposes callable functions, types, parameters, and documentation that need to be encoded in the metadata
-- The `scale-info` crate collects type information for the pallets in the runtime and builds a registry of the pallets that exist in a particular runtime and the relevant types for each pallet in the registry. The type information is detailed enough to enable encoding and decoding for every type
+- The pallets in the runtime logic expose callable functions, types, parameters, and documentation that need to be encoded in the metadata
+- The `scale-info` crate collects type information for the pallets in the runtime, builds a registry of the pallets that exist in a particular runtime, and the relevant types for each pallet in the registry. The type information is detailed enough to enable encoding and decoding for every type
 - The [`frame-metadata`](https://github.com/paritytech/frame-metadata){target=\_blank} crate describes the structure of the runtime based on the registry provided by the `scale-info` crate
 - Nodes provide the RPC method `state_getMetadata` to return a complete description of all the types in the current runtime as a hex-encoded vector of SCALE-encoded bytes
 
@@ -50,11 +50,11 @@ The metadata also allows libraries to generate a substantial portion of the code
 
 ### Using Polkadot JS
 
-Use the [Polkadot JS Portal](https://polkadot.js.org/apps/#/rpc){target=\_blank} to connect to a blockchain or node and select the **state** endpoint and the **getMetadata** method to return the metadata in JSON format.
+Use the [Polkadot JS Portal](https://polkadot.js.org/apps/#/rpc){target=\_blank} to connect to a blockchain or node and select the **state** endpoint and the **`getMetadata`** method to return the metadata in JSON format.
 
 ### Using `curl` For Metadata Retrieval
 
-By calling the node's RPC endpoint, the metadata for the network can be fetched.  This request returns the metadata in bytes rather than human-readable JSON:
+You can fetch the metadata for the network by calling the node's RPC endpoint. This request returns the metadata in bytes rather than human-readable JSON:
 
 ```sh
 curl -H "Content-Type: application/json" \
@@ -76,11 +76,11 @@ Another option is to use the [`subxt` explorer web UI](https://paritytech.github
 
 Client applications use the metadata to interact with the node, parse responses, and format message payloads sent to the node.
 To use the metadata, client applications must use the [SCALE codec library](https://github.com/paritytech/parity-scale-codec?tab=readme-ov-file#parity-scale-codec){target=\_blank} to encode and decode RPC payloads.
-Because the metadata exposes how every type is expected to be decoded, applications can send, retrieve, and process application information without manual encoding and decoding.
+The metadata exposes the expected way to decode each type, meaning applications can send, retrieve, and process application information without manual encoding and decoding.
 
 ## Metadata Format
 
-Although the SCALE-encoded bytes can be decoded using the `frame-metadata` and [`parity-scale-codec`](https://github.com/paritytech/parity-scale-codec){target=\_blank} libraries, there are other tools—such as `subxt` and the Polkadot-JS API—that can convert the raw data to human-readable JSON format.
+Although the SCALE-encoded bytes can be decoded using the `frame-metadata` and [`parity-scale-codec`](https://github.com/paritytech/parity-scale-codec){target=\_blank} libraries, there are other tools, such as `subxt` and the Polkadot-JS API, that can convert the raw data to human-readable JSON format.
 
 The types and type definitions included in the metadata returned by the `state_getMetadata` RPC call depend on the metadata version of the runtime.
 In general, the metadata includes the following information:
@@ -97,10 +97,10 @@ The following example illustrates a condensed and annotated section of metadata 
 <!-- todo: signed transactions -> glossary -->
 
 The constant `1635018093` is a magic number that identifies the file as a metadata file.
-The rest of the metadata has divided into the `types`, `pallets` and `extrinsic` sections.
-The `types` section contains an index of the types and for each type information about its type signature.
-The `pallets` section contains information about each of the pallets in the runtime.
-The `extrinsic` section describes the type identifier and transaction format version that the runtime is using.
+The rest of the metadata is divided into the `types`, `pallets`, and `extrinsic` sections.
+The `types` section contains an index of the types and information about each type's type signature.
+The `pallets` section contains information about each pallet in the runtime.
+The `extrinsic` section describes the type identifier and transaction format version that the runtime uses.
 Different extrinsic versions can have different formats, especially when considering signed transactions.
 
 ### Pallets

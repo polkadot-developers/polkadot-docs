@@ -21,11 +21,11 @@ Before you start, you need to have the following prerequisites:
 
 To perform any action on Rococo, you need ROC tokens, and to store the tokens, you must have access to a Substrate-compatible digital currency wallet. You can't use [development keys and accounts](https://docs.substrate.io/reference/command-line-tools/subkey/#predefined-accounts-and-keys){target=\_blank} for operations in any public setting. Many options are available for holding digital currency—including hardware wallets and browser-based applications—and some are more reputable than others. You should do your own research before selecting one.
 
-However, you can use the [Polkadot.Js Apps](https://polkadot.js.org/apps/){target=\_blank} interface to get you started for testing purposes.
+However, you can use the [Polkadot.js Apps](https://polkadot.js.org/apps/){target=\_blank} interface to get you started for testing purposes.
 
 To prepare an account, follow these steps:
 
-1. Open the [Polkadot.Js Apps](https://polkadot.js.org/apps/){target=\_blank} interface and connect to the Rococo network
+1. Open the [Polkadot.js Apps](https://polkadot.js.org/apps/){target=\_blank} interface and connect to the Rococo network
 
     ![](/images/tutorials/polkadot-sdk/build-a-parachain/acquire-a-testnet-slot/acquire-a-testnet-slot-1.webp)
 

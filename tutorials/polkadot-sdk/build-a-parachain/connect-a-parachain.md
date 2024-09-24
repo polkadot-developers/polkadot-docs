@@ -336,4 +336,7 @@ To reset the blockchain state, follow these steps:
      ./target/release/polkadot purge-chain --chain local-raw-spec.json
     ```
 
-After purging the chain state, you can start the local relay chain and parachain collator nodes again to start over with a clean environment.
+After purging the chain state, you can restart the local relay chain and parachain collator nodes to begin with a clean environment. 
+
+!!! note
+    Note that in order to reset the network state and allow all the nodes to sync after the reset, each of them needs to purge their databases. Otherwise, the nodes will not be able to sync with each other effectively.

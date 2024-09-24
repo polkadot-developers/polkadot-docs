@@ -1,5 +1,5 @@
 ---
-title: Step-by-Step Tutorials
+title:  Tutorials
 description: TODO
 hide: 
 - feedback

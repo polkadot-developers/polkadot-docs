@@ -84,7 +84,7 @@ The `providers` reference counter prevents Substrate pallets from storing data a
 
 ### Consumers Reference Counters
 
-The `consumers` reference counter ensures that Substrate pallets do not remove an account until all associated data across pallets is deleted (i.e., when `consumers` == 0). 
+The `consumers` reference counter ensures that Substrate pallets don't remove an account until all associated data across pallets is deleted (that is, when `consumers` == 0). 
 
 It holds users accountable for the data they store on-chain. If users wish to delete their accounts and reclaim their existential deposit, they must first remove all data stored across all on-chain pallets to decrement the `consumers` counter.
 
@@ -123,7 +123,7 @@ By default, the Substrate runtime configures `AccountInfo` as defined in the [`p
 
 ## Where to Go Next
 
-For addtional technical details, check the following resources:
+For additional technical details, check the following resources:
 
 - [`frame_system::AccountInfo`](https://paritytech.github.io/polkadot-sdk/master/frame_system/struct.AccountInfo.html) API
 - [`pallet_balances::AccountData`](https://paritytech.github.io/polkadot-sdk/master/pallet_balances/struct.AccountData.html) API.

@@ -1,1 +1,18 @@
 # Variables that can be reused should be added to this file
+dependencies:
+  open_zeppelin:
+    repository_url: https://github.com/OpenZeppelin/polkadot-runtime-templates
+    version: v1.0.0
+  chopsticks:
+    repository_url: https://github.com/AcalaNetwork/chopsticks
+    version: 0.13.1
+  zombienet:
+    repository_url: https://github.com/paritytech/zombienet
+    version: v1.3.106
+    architecture: macos-arm64
+  asset_transfer_api:
+    repository_url: https://github.com/paritytech/asset-transfer-api
+    version: v0.3.1
+  polkadot_sdk_solochain_template:
+    repository_url: https://github.com/paritytech/polkadot-sdk-solochain-template
+    version: v0.0.2

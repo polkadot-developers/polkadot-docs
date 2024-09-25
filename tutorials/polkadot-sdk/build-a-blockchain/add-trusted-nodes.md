@@ -32,14 +32,14 @@ This process of generating your own keys serves several important purposes:
 - It simulates a more realistic blockchain environment where participants don't share key information
 - It helps you understand the process of key generation, which is a fundamental skill in blockchain operations
 
-To understand more about the different signing algorithms used, check [Keypairs and Signing](https://wiki.polkadot.network/docs/learn-cryptography#keypairs-and-signing){target=\_blank}. To learn more about the different types of keys used, refer to the [Keys](https://wiki.polkadot.network/docs/learn-cryptography#keys){target=\_blank} section in the Polkadot Wiki.
+To understand more about the different signing algorithms used in this tutorial (sr25519 and ed25519), check [Keypairs and Signing](https://wiki.polkadot.network/docs/learn-cryptography#keypairs-and-signing){target=\_blank}. To learn more about the different types of keys used, refer to the [Keys](https://wiki.polkadot.network/docs/learn-cryptography#keys){target=\_blank} section in the Polkadot Wiki.
 
 ### Key Generation Options
 
 There are several ways you can generate keys. The available methods are:
 
-- solochain-template-node subcommand - the most straightforward method for developers working directly with the node is to use the integrated key generation feature. You can generate keys directly from your node's command line interface using the `key` subcommand. This method ensures compatibility with your chain and is convenient for quick setup and testing
-- [subkey](https://github.com/paritytech/polkadot-sdk/tree/master/substrate/bin/utils/subkey){target=\_blank} - it is a powerful standalone utility specifically designed for Polkadot SDK-based chains. It offers advanced options for key generation, including support for different key types such as `ed25519` and `sr25519`. Subkey is particularly valuable for developers who need fine-grained control over their key generation process
+- solochain-template-node [key](TODO:update-path) subcommand - the most straightforward method for developers working directly with the node is to use the integrated key generation feature. You can generate keys directly from your node's command line interface using the `key` subcommand. This method ensures compatibility with your chain and is convenient for quick setup and testing
+- [subkey](https://github.com/paritytech/polkadot-sdk/tree/master/substrate/bin/utils/subkey){target=\_blank} - it is a powerful standalone utility specifically designed for Polkadot SDK-based chains. It offers advanced options for key generation, including support for different key types such as `ed25519` and `sr25519`. This tool allows fine-grained control over the key generation process
 - Third-party key generation utilities - various tools developed by the community
 
 ### Generate Local Keys with the Node Template
@@ -248,8 +248,6 @@ Follow these steps for each node in your network:
     You should see output similar to:
 
     <div id='termynal' data-termynal>
-        <span data-ty='input'><span class='file-path'></span>ls /tmp/node01/chains/local_testnet/keystore</span>
-        <br>
         <span data-ty>61757261ea23fa399c6bd91af3d7ea2d0ad46c48aff818b285342d9aaf15b3172270e914</span>
         <span data-ty>6772616ec9c2cd111f98f2bf78bab6787449fc007dd7f2a5d02f099919f7fb50ade97dd6</span>
     </div>

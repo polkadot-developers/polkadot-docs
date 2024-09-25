@@ -1,84 +1,84 @@
 {
-  "id": 117,
-  "type": {
-    "path": ["pallet_sudo", "pallet", "Call"],
-    "params": [
-      {
-        "name": "T",
-        "type": null
-      }
-    ],
-    "def": {
-      "variant": {
-        "variants": [
-          {
-            "name": "sudo",
-            "fields": [
-              {
-                "name": "call",
-                "type": 114,
-                "typeName": "Box<<T as Config>::RuntimeCall>"
-              }
-            ],
-            "index": 0,
-            "docs": [
-              "Authenticates sudo key, dispatches a function call with `Root` origin"
-            ]
-          },
-          {
-            "name": "sudo_unchecked_weight",
-            "fields": [
-              {
-                "name": "call",
-                "type": 114,
-                "typeName": "Box<<T as Config>::RuntimeCall>"
-              },
-              {
-                "name": "weight",
-                "type": 8,
-                "typeName": "Weight"
-              }
-            ],
-            "index": 1,
-            "docs": [
-              "Authenticates sudo key, dispatches a function call with `Root` origin"
-            ]
-          },
-          {
-            "name": "set_key",
-            "fields": [
-              {
-                "name": "new",
-                "type": 103,
-                "typeName": "AccountIdLookupOf<T>"
-              }
-            ],
-            "index": 2,
-            "docs": [
-              "Authenticates current sudo key, sets the given AccountId (`new`) as the new sudo"
-            ]
-          },
-          {
-            "name": "sudo_as",
-            "fields": [
-              {
-                "name": "who",
-                "type": 103,
-                "typeName": "AccountIdLookupOf<T>"
-              },
-              {
-                "name": "call",
-                "type": 114,
-                "typeName": "Box<<T as Config>::RuntimeCall>"
-              }
-            ],
-            "index": 3,
-            "docs": [
-              "Authenticates sudo key, dispatches a function call with `Signed` origin from a given account"
-            ]
-          }
-        ]
-      }
+    "id": 117,
+    "type": {
+        "path": ["pallet_sudo", "pallet", "Call"],
+        "params": [
+            {
+                "name": "T",
+                "type": null
+            }
+        ],
+        "def": {
+            "variant": {
+                "variants": [
+                    {
+                        "name": "sudo",
+                        "fields": [
+                            {
+                                "name": "call",
+                                "type": 114,
+                                "typeName": "Box<<T as Config>::RuntimeCall>"
+                            }
+                        ],
+                        "index": 0,
+                        "docs": [
+                            "Authenticates sudo key, dispatches a function call with `Root` origin"
+                        ]
+                    },
+                    {
+                        "name": "sudo_unchecked_weight",
+                        "fields": [
+                            {
+                                "name": "call",
+                                "type": 114,
+                                "typeName": "Box<<T as Config>::RuntimeCall>"
+                            },
+                            {
+                                "name": "weight",
+                                "type": 8,
+                                "typeName": "Weight"
+                            }
+                        ],
+                        "index": 1,
+                        "docs": [
+                            "Authenticates sudo key, dispatches a function call with `Root` origin"
+                        ]
+                    },
+                    {
+                        "name": "set_key",
+                        "fields": [
+                            {
+                                "name": "new",
+                                "type": 103,
+                                "typeName": "AccountIdLookupOf<T>"
+                            }
+                        ],
+                        "index": 2,
+                        "docs": [
+                            "Authenticates current sudo key, sets the given AccountId (`new`) as the new sudo"
+                        ]
+                    },
+                    {
+                        "name": "sudo_as",
+                        "fields": [
+                            {
+                                "name": "who",
+                                "type": 103,
+                                "typeName": "AccountIdLookupOf<T>"
+                            },
+                            {
+                                "name": "call",
+                                "type": 114,
+                                "typeName": "Box<<T as Config>::RuntimeCall>"
+                            }
+                        ],
+                        "index": 3,
+                        "docs": [
+                            "Authenticates sudo key, dispatches a function call with `Signed` origin from a given account"
+                        ]
+                    }
+                ]
+            }
+        }
     }
-  }
 }

@@ -340,3 +340,8 @@ After purging the chain state, you can restart the local relay chain and paracha
 
 !!! note
     Note that in order to reset the network state and allow all the nodes to sync after the reset, each of them needs to purge their databases. Otherwise, the nodes will not be able to sync with each other effectively.
+
+Now that you have successfully connected a parachain to a relay chain, you can explore more advanced features and functionalities of parachains, such as:
+
+- [Openning HRMP Channels](TODO:update-path){target=\_blank}
+- [Transfer Assets Between Parachains](TODO:update-path){target=\_blank}

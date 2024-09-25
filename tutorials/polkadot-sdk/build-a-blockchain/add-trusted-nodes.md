@@ -1,6 +1,6 @@
 ---
 title: Add Trusted Nodes
-description: TODO
+description: Launch a blockchain with a private set of authorized validators. Generate keys, create a custom chain spec, and start a two-node network with Aura consensus.
 ---
 
 # Add Trusted Nodes
@@ -9,7 +9,7 @@ description: TODO
 
 This tutorial demonstrates how to start a small, standalone blockchain network with a private set of authorized validators. 
 
-In blockchain networks, nodes must agree on the data state at any given time - a concept known as consensus. The [Polkadot-SDK Solochain Template](https://github.com/paritytech/polkadot-sdk-solochain-template){target=\_blank} uses a proof of authority consensus model called Aura (Authority Round), which limits block production to a rotating list of authorized accounts. These trusted participants, or authorities, create blocks in a round-robin fashion.
+In blockchain networks, nodes must agree on the data state at any given time - a concept known as consensus. The [Polkadot SDK Solochain Template](https://github.com/paritytech/polkadot-sdk-solochain-template){target=\_blank} uses a proof of authority consensus model called Aura (Authority Round), which limits block production to a rotating list of authorized accounts. These trusted participants, or authorities, create blocks in a round-robin fashion.
 
 This approach provides a simple method for launching a solo blockchain with a limited number of participants. 
 
@@ -20,7 +20,7 @@ You'll learn how to generate keys for network authorities, create a custom chain
 Before starting this tutorial, ensure you have:
 
 - Installed and configured Rust on your system. For detailed instructions on installing Rust and setting up your development environment, refer to the [Installation]() guide
-- Completed the [Build a Local Blockchain]() tutorial and have the [Polkadot-SDK Solochain Template](https://github.com/paritytech/polkadot-sdk-solochain-template){target=\_blank} installed on your local machine
+- Completed the [Build a Local Blockchain]() tutorial and have the [Polkadot SDK Solochain Template](https://github.com/paritytech/polkadot-sdk-solochain-template){target=\_blank} installed on your local machine
 - Experience using predefined accounts to start nodes on a single computer, as described in the [Simulate a Network]() guide
 
 ## Generate an Account and Keys
@@ -32,7 +32,15 @@ This process of generating your own keys serves several important purposes:
 - It simulates a more realistic blockchain environment where participants don't share key information
 - It helps you understand the process of key generation, which is a fundamental skill in blockchain operations
 
+To understand more about the different signing algorithms used, check [Keypairs and Signing](https://wiki.polkadot.network/docs/learn-cryptography#keypairs-and-signing){target=\_blank}. To learn more about the different types of keys used, refer to the [Keys](https://wiki.polkadot.network/docs/learn-cryptography#keys){target=\_blank} section in the Polkadot Wiki.
+
 ### Key Generation Options
+
+There are several ways you can generate keys. The available methods are:
+
+- solochain-template-node subcommand - the most straightforward method for developers working directly with the node is to use the integrated key generation feature. You can generate keys directly from your node's command line interface using the `key` subcommand. This method ensures compatibility with your chain and is convenient for quick setup and testing
+- [subkey](https://github.com/paritytech/polkadot-sdk/tree/master/substrate/bin/utils/subkey){target=\_blank} - it is a powerful standalone utility specifically designed for Polkadot SDK-based chains. It offers advanced options for key generation, including support for different key types such as `ed25519` and `sr25519`. Subkey is particularly valuable for developers who need fine-grained control over their key generation process
+- Third-party key generation utilities - various tools developed by the community
 
 ### Generate Local Keys with the Node Template
 
@@ -41,7 +49,7 @@ Best practices for key generation:
 - Ideally, use an air-gapped computer (never connected to the internet) when generating keys for a production blockchain
 - At minimum, disconnect from the internet before generating keys for any public or private blockchain not under your control
 
-For this tutorial, however, we'll use the `solochain-template-node `command-line options to generate random keys locally while remaining connected to the internet. This method is suitable for learning and testing purposes.
+For this tutorial, however, you'll use the `solochain-template-node` command-line options to generate random keys locally while remaining connected to the internet. This method is suitable for learning and testing purposes.
 
 Follow these steps to generate your keys:
 
@@ -50,27 +58,24 @@ Follow these steps to generate your keys:
 2. Generate a random secret phrase and Sr25519 keys. Enter a password when prompted:
 
     ```bash
-    ./target/release/solochain-template-node key generate --scheme Sr25519 --password-interactive
+    ./target/release/solochain-template-node key generate \
+    --scheme Sr25519 \
+    --password-interactive
     ```
 
     The command will output information about the generated keys similar to the following:
 
-    ```plain
-    Secret phrase:       digital width rely long insect blind usual name oyster easy steak spend
-      Network ID:        substrate
-      Secret seed:       0xc52405d0b45dd856cbf1371f3b33fbde20cb76bf6ee440d12ea15f7ed17cca0a
-      Public key (hex):  0xea23fa399c6bd91af3d7ea2d0ad46c48aff818b285342d9aaf15b3172270e914
-      Account ID:        0xea23fa399c6bd91af3d7ea2d0ad46c48aff818b285342d9aaf15b3172270e914
-      Public key (SS58): 5HMhkSHpD4XcibjbU9ZiGemLpnsTUzLsG5JhQJQEcxp3KJaW
-      SS58 Address:      5HMhkSHpD4XcibjbU9ZiGemLpnsTUzLsG5JhQJQEcxp3KJaW
-    ```
+    --8<-- 'code/tutorials/polkadot-sdk/build-a-blockchain/add-trusted-nodes/key-sr25519-1.html'
 
-    Note the Sr25519 public key for the account. This key will be used for producing blocks with `aura`. In this example, the Sr25519 public key for the account is `5HMhkSHpD4XcibjbU9ZiGemLpnsTUzLsG5JhQJQEcxp3KJaW`.
+    Note the Sr25519 public key for the account (SS58 format). This key will be used for producing blocks with `aura`. In this example, the Sr25519 public key for the account is `5HMhkSHpD4XcibjbU9ZiGemLpnsTUzLsG5JhQJQEcxp3KJaW`.
 
 3. Use the generated secret phrase to derive keys using the Ed25519 signature scheme. Enter the same password you used in the previous step:
 
     ```bash
-    ./target/release/solochain-template-node key inspect --password-interactive --scheme Ed25519 "INSERT_SECRET_PHRASE"
+    ./target/release/solochain-template-node key inspect \
+    --scheme Ed25519 \
+    --password-interactive \
+    "INSERT_SECRET_PHRASE"
     ```
 
     !!! note
@@ -78,15 +83,7 @@ Follow these steps to generate your keys:
 
     The command will output information about the generated keys similar to the following:
 
-    ```plain
-    Secret phrase:       digital width rely long insect blind usual name oyster easy steak spend
-      Network ID:        substrate
-      Secret seed:       0xc52405d0b45dd856cbf1371f3b33fbde20cb76bf6ee440d12ea15f7ed17cca0a
-      Public key (hex):  0xc9c2cd111f98f2bf78bab6787449fc007dd7f2a5d02f099919f7fb50ade97dd6
-      Account ID:        0xc9c2cd111f98f2bf78bab6787449fc007dd7f2a5d02f099919f7fb50ade97dd6
-      Public key (SS58): 5GdFMFbXy24uz8mFZroFUgdBkY2pq6igBNGAq9tsBfEZRSzP
-      SS58 Address:      5GdFMFbXy24uz8mFZroFUgdBkY2pq6igBNGAq9tsBfEZRSzP
-    ```
+    --8<-- 'code/tutorials/polkadot-sdk/build-a-blockchain/add-trusted-nodes/key-ed25519-1.html'
 
     The Ed25519 key you've generated is crucial for block finalization using the `grandpa` consensus algorithm. The Ed25519 public key for the account is `5GdFMFbXy24uz8mFZroFUgdBkY2pq6igBNGAq9tsBfEZRSzP`.
 
@@ -135,112 +132,18 @@ When creating your custom chain specification, you'll need to add validators by 
 2. Export the local chain specification
 
     ```bash
-    ./target/release/solochain-template-node build-spec --disable-default-bootnode --chain local > customSpec.json
+    ./target/release/solochain-template-node build-spec \
+    --disable-default-bootnode \
+    --chain local > customSpec.json
     ```
 
 3. Preview the `customSpec.json` file:
 
     - Preview first fields
-    <div id='termynal' data-termynal>
-        <span data-ty='input'><span class='file-path'></span>head customSpec.json</span>
-
-        <br>
-        <span data-ty>{</span>
-        <span data-ty>  "name": "Local Testnet",</span>
-        <span data-ty>  "id": "local_testnet",</span>
-        <span data-ty>  "chainType": "Local",</span>
-        <span data-ty>  "bootNodes": [],</span>
-        <span data-ty>  "telemetryEndpoints": null,</span>
-        <span data-ty>  "protocolId": null,</span>
-        <span data-ty>  "properties": null,</span>
-        <span data-ty>  "codeSubstitutes": {},</span>
-        <span data-ty>  "genesis": {</span>
-    </div>
+    --8<-- 'code/tutorials/polkadot-sdk/build-a-blockchain/add-trusted-nodes/chainspec-head.html'
 
     - Preview last fields
-    <div id='termynal' data-termynal>
-        <span data-ty='input'><span class='file-path'>tail -n 78 customSpec.json</span></span>
-
-        <br>
-        <span data-ty>      "patch": {</span>
-        <span data-ty>        "aura": {</span>
-        <span data-ty>          "authorities": [</span>
-        <span data-ty>            "5GrwvaEF5zXb26Fz9rcQpDWS57CtERHpNehXCPcNoHGKutQY",</span>
-        <span data-ty>            "5FHneW46xGXgs5mUiveU4sbTyGBzmstUspZC92UhjJM694ty"</span>
-        <span data-ty>          ]</span>
-        <span data-ty>        },</span>
-        <span data-ty>        "balances": {</span>
-        <span data-ty>          "balances": [</span>
-        <span data-ty>            [</span>
-        <span data-ty>              "5GrwvaEF5zXb26Fz9rcQpDWS57CtERHpNehXCPcNoHGKutQY",</span>
-        <span data-ty>              1152921504606846976</span>
-        <span data-ty>            ],</span>
-        <span data-ty>            [</span>
-        <span data-ty>              "5FHneW46xGXgs5mUiveU4sbTyGBzmstUspZC92UhjJM694ty",</span>
-        <span data-ty>              1152921504606846976</span>
-        <span data-ty>            ],</span>
-        <span data-ty>            [</span>
-        <span data-ty>              "5FLSigC9HGRKVhB9FiEo4Y3koPsNmBmLJbpXg2mp1hXcS59Y",</span>
-        <span data-ty>              1152921504606846976</span>
-        <span data-ty>            ],</span>
-        <span data-ty>            [</span>
-        <span data-ty>              "5DAAnrj7VHTznn2AWBemMuyBwZWs6FNFjdyVXUeYum3PTXFy",</span>
-        <span data-ty>              1152921504606846976</span>
-        <span data-ty>            ],</span>
-        <span data-ty>            [</span>
-        <span data-ty>              "5HGjWAeFDfFCWPsjFQdVV2Msvz2XtMktvgocEZcCj68kUMaw",</span>
-        <span data-ty>              1152921504606846976</span>
-        <span data-ty>            ],</span>
-        <span data-ty>            [</span>
-        <span data-ty>              "5CiPPseXPECbkjWCa6MnjNokrgYjMqmKndv2rSnekmSK2DjL",</span>
-        <span data-ty>              1152921504606846976</span>
-        <span data-ty>            ],</span>
-        <span data-ty>            [</span>
-        <span data-ty>              "5GNJqTPyNqANBkUVMN1LPPrxXnFouWXoe2wNSmmEoLctxiZY",</span>
-        <span data-ty>              1152921504606846976</span>
-        <span data-ty>            ],</span>
-        <span data-ty>            [</span>
-        <span data-ty>              "5HpG9w8EBLe5XCrbczpwq5TSXvedjrBGCwqxK1iQ7qUsSWFc",</span>
-        <span data-ty>              1152921504606846976</span>
-        <span data-ty>            ],</span>
-        <span data-ty>            [</span>
-        <span data-ty>              "5Ck5SLSHYac6WFt5UZRSsdJjwmpSZq85fd5TRNAdZQVzEAPT",</span>
-        <span data-ty>              1152921504606846976</span>
-        <span data-ty>            ],</span>
-        <span data-ty>            [</span>
-        <span data-ty>              "5HKPmK9GYtE1PSLsS1qiYU9xQ9Si1NcEhdeCq9sw5bqu4ns8",</span>
-        <span data-ty>              1152921504606846976</span>
-        <span data-ty>            ],</span>
-        <span data-ty>            [</span>
-        <span data-ty>              "5FCfAonRZgTFrTd9HREEyeJjDpT397KMzizE6T3DvebLFE7n",</span>
-        <span data-ty>              1152921504606846976</span>
-        <span data-ty>            ],</span>
-        <span data-ty>            [</span>
-        <span data-ty>              "5CRmqmsiNFExV6VbdmPJViVxrWmkaXXvBrSX8oqBT8R9vmWk",</span>
-        <span data-ty>              1152921504606846976</span>
-        <span data-ty>            ]</span>
-        <span data-ty>          ]</span>
-        <span data-ty>        },</span>
-        <span data-ty>        "grandpa": {</span>
-        <span data-ty>          "authorities": [</span>
-        <span data-ty>            [</span>
-        <span data-ty>              "5FA9nQDVg267DEd8m1ZypXLBnvN7SFxYwV7ndqSYGiN9TTpu",</span>
-        <span data-ty>              1</span>
-        <span data-ty>            ],</span>
-        <span data-ty>            [</span>
-        <span data-ty>              "5GoNkf6WdbxCFnPdAnYYQyCjAKPJgLNxXwPjwTh6DGg6gN3E",</span>
-        <span data-ty>              1</span>
-        <span data-ty>            ]</span>
-        <span data-ty>          ]</span>
-        <span data-ty>        },</span>
-        <span data-ty>        "sudo": {</span>
-        <span data-ty>          "key": "5GrwvaEF5zXb26Fz9rcQpDWS57CtERHpNehXCPcNoHGKutQY"</span>
-        <span data-ty>        }</span>
-        <span data-ty>      }</span>
-        <span data-ty>    }</span>
-        <span data-ty>  }</span>
-        <span data-ty>}%</span>
-    </div>
+    --8<-- 'code/tutorials/polkadot-sdk/build-a-blockchain/add-trusted-nodes/chainspec-tail.html'
 
         This command will display fields that include configuration details for pallets such as sudo and balances, as well as the validator settings for the Aura and Grandpa keys.
 
@@ -287,10 +190,13 @@ To convert your chain specification to the raw format, follow these steps:
 
 1. Navigate to the root directory where you compiled the node template
    
-2. Run the following command to convert the `customSpec.json` chain specification to the raw format, saving it as `customSpecRaw.json`:
+2. Run the following command to convert the `customSpec.json` chain specification to the raw format and save it as `customSpecRaw.json`:
 
     ```bash
-    ./target/release/solochain-template-node build-spec --chain=customSpec.json --raw --disable-default-bootnode > customSpecRaw.json
+    ./target/release/solochain-template-node build-spec \
+    --chain=customSpec.json \
+    --raw \
+    --disable-default-bootnode > customSpecRaw.json
     ```
 
 ## Add Keys to the Keystore
@@ -355,7 +261,8 @@ Before starting the first node, it's crucial to generate a network key. This key
 To generate a network key, run the following command:
 
 ```bash
-./target/release/solochain-template-node key generate-node-key --base-path /tmp/node01
+./target/release/solochain-template-node key \
+generate-node-key --base-path /tmp/node01
 ```
 
 !!!note
@@ -376,31 +283,14 @@ After generating the network key, start the first node using your custom chain s
 
 Upon execution, you should see output similar to the following:
 
-<div id='termynal' data-termynal>
-    <span data-ty>2024-09-12 11:18:46 Substrate Node</span>
-    <span data-ty>2024-09-12 11:18:46 ✌️  version 0.1.0-8599efc46ae</span>
-    <span data-ty>2024-09-12 11:18:46 ❤️  by Parity Technologies <admin@parity.io>, 2017-2024</span>
-    <span data-ty>2024-09-12 11:18:46 📋 Chain specification: My Custom Testnet</span>
-    <span data-ty>2024-09-12 11:18:46 🏷  Node name: MyNode01</span>
-    <span data-ty>2024-09-12 11:18:46 👤 Role: AUTHORITY</span>
-    <span data-ty>2024-09-12 11:18:46 💾 Database: RocksDb at /tmp/node01/chains/local_testnet/db/full</span>
-    <span data-ty>2024-09-12 11:18:46 Using default protocol ID "sup" because none is configured in the chain specs</span>
-    <span data-ty>2024-09-12 11:18:46 🏷  Local node identity is: 12D3KooWSbaPxmb2tWLgkQVoJdxzpBPTd9dQPmKiJfsvtP753Rg1</span>
-    <span data-ty>2024-09-12 11:18:46 Running libp2p network backend</span>
-    <span data-ty>2024-09-12 11:18:46 💻 Operating system: macos</span>
-    <span data-ty>2024-09-12 11:18:46 💻 CPU architecture: aarch64</span>
-    <span data-ty>2024-09-12 11:18:46 📦 Highest known block at #0</span>
-    <span data-ty>2024-09-12 11:18:46 〽️ Prometheus exporter started at 127.0.0.1:9615</span>
-    <span data-ty>2024-09-12 11:18:46 Running JSON-RPC server: addr=127.0.0.1:9945, allowed origins=["http://localhost:*", "http://127.0.0.1:*", "https://localhost:*", "https://127.0.0.1:*", "https://polkadot.js.org"]</span>
-    <span data-ty>2024-09-12 11:18:51 💤 Idle (0 peers), best: #0 (0x850f…951f), finalized #0 (0x850f…951f), ⬇ 0 ⬆ 0</span>
-</div>
+--8<-- 'code/tutorials/polkadot-sdk/build-a-blockchain/add-trusted-nodes/node-output.html'
 
 After starting the first node, you'll notice:
 
 - The node is running with the custom chain specification ("My Custom Testnet")
 - The local node identity is displayed (12D3KooWSbaPxmb2tWLgkQVoJdxzpBPTd9dQPmKiJfsvtP753Rg1 in this example). This identity is crucial for other nodes to connect to this one
 - The node is currently idle with 0 peers, as it's the only node in the network at this point
-- No blocks are being produced.  Block production will commence once another node joins the network
+- No blocks are being produced. Block production will commence once another node joins the network
 
 ## Add More Nodes
 
@@ -439,20 +329,4 @@ After both nodes have added their keys to their respective keystores (under `/tm
   
 If every step was correctly performed, you should see logs similar to the following on both nodes:
 
-<div id='termynal' data-termynal>
-    <span data-ty>2024-09-12 15:37:05 💤 Idle (0 peers), best: #0 (0x8af7…53fd), finalized #0 (0x8af7…53fd), ⬇ 0 ⬆ 0</span>
-    <span data-ty>2024-09-12 15:37:08 discovered: 12D3KooWMaL5zqYiMnVikaYCGF65fKekSPqXGgyz92eRcqcnfpey /ip4/192.168.1.2/tcp/30334</span>
-    <span data-ty>2024-09-12 15:37:10 💤 Idle (1 peers), best: #0 (0x8af7…53fd), finalized #0 (0x8af7…53fd), ⬇ 0.6kiB/s ⬆ 0.6kiB/s</span>
-    <span data-ty>2024-09-12 15:37:12 🙌 Starting consensus session on top of parent 0x8af7c72457d437486fe697b4a11ef42b26c8b4448836bdb2220495aea39f53fd (#0)</span>
-    <span data-ty>2024-09-12 15:37:12 🎁 Prepared block for proposing at 1 (6 ms) [hash: 0xb97cb3a4a62f0cb320236469d8e1e13227a15138941f3c9819b6b78f91986262; parent_hash: 0x8af7…53fd; extrinsics (1): [0x1ef4…eecb]</span>
-    <span data-ty>2024-09-12 15:37:12 🔖 Pre-sealed block for proposal at 1. Hash now 0x05115677207265f22c6d428fb00b65a0e139c866c975913431ddefe291124f04, previously 0xb97cb3a4a62f0cb320236469d8e1e13227a15138941f3c9819b6b78f91986262.</span>
-    <span data-ty>2024-09-12 15:37:12 🏆 Imported #1 (0x8af7…53fd → 0x0511…4f04)</span>
-    <span data-ty>2024-09-12 15:37:15 💤 Idle (1 peers), best: #1 (0x0511…4f04), finalized #0 (0x8af7…53fd), ⬇ 0.5kiB/s ⬆ 0.6kiB/s</span>
-    <span data-ty>2024-09-12 15:37:18 🏆 Imported #2 (0x0511…4f04 → 0x17a7…a1fd)</span>
-    <span data-ty>2024-09-12 15:37:20 💤 Idle (1 peers), best: #2 (0x17a7…a1fd), finalized #0 (0x8af7…53fd), ⬇ 0.6kiB/s ⬆ 0.5kiB/s</span>
-    <span data-ty>2024-09-12 15:37:24 🙌 Starting consensus session on top of parent 0x17a77a8799bd58c7b82ca6a1e3322b38e7db574ee6c92fbcbc26bbe5214da1fd (#2)</span>
-    <span data-ty>2024-09-12 15:37:24 🎁 Prepared block for proposing at 3 (1 ms) [hash: 0x74d78266b1ac2514050ced3f34fbf98a28c6a2856f49dbe8b44686440a45f879; parent_hash: 0x17a7…a1fd; extrinsics (1): [0xe35f…8d48]</span>
-    <span data-ty>2024-09-12 15:37:24 🔖 Pre-sealed block for proposal at 3. Hash now 0x12cc1e9492988cfd3ffe4a6eb3186b1abb351a12a97809f7bae4a7319e177dee, previously 0x74d78266b1ac2514050ced3f34fbf98a28c6a2856f49dbe8b44686440a45f879.</span>
-    <span data-ty>2024-09-12 15:37:24 🏆 Imported #3 (0x17a7…a1fd → 0x12cc…7dee)</span>
-    <span data-ty>2024-09-12 15:37:25 💤 Idle (1 peers), best: #3 (0x12cc…7dee), finalized #1 (0x0511…4f04), ⬇ 0.5kiB/s ⬆ 0.6kiB/s</span>
-</div>
+--8<-- 'code/tutorials/polkadot-sdk/build-a-blockchain/add-trusted-nodes/node-output-1.html'

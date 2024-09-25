@@ -176,4 +176,6 @@ After you configure all of the XCM instructions to be executed, you're ready to 
 
 ## Submit and Check the Transaction
 
-After submitting the transaction, you can check the status of the transaction in the **Extrinsics** tab. The transaction should be successful if the assets are transferred from parachain B to parachain A.
+After submitting the transaction, you can check the status of the transaction in the **Explorer** tab on the parachain B interface. If the transaction is successful, you should see the `polkadotXcm.Sent` event in the **Events** tab.
+
+![](/images/tutorials/polkadot-sdk/build-a-parachain/transfer-assets-with-xcm/transfer-assets-with-xcm-8.webp)

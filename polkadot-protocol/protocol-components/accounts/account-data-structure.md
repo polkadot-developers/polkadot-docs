@@ -12,7 +12,7 @@ Accounts are a foundational element of any blockchain. This page explains how ac
 
 ## Account
 
-The `Account` data type is a generically defined storage map within the [`frame-system`](https://paritytech.github.io/polkadot-sdk/master/src/frame_system/lib.rs.html) pallet:
+The `Account` data type is a generically defined storage map within the [`frame-system`](https://paritytech.github.io/polkadot-sdk/master/src/frame_system/lib.rs.html#900) pallet:
 
 ```rs
 /// The full account information for a particular account ID.

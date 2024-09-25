@@ -226,7 +226,7 @@ npx @acala-network/chopsticks xcm \
 
 After running it, you should see output similar to the following:
 
---8<-- 'code/tutorials/tooling/chopsticks/overview/terminal/fork-output.md'
+--8<-- 'code/tutorials/tooling/chopsticks/overview/terminal/fork-output.html'
 
 Now you can interact with your forked chains using the ports specified in the output.
 

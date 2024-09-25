@@ -51,7 +51,7 @@ Visit the [Polkadot.js Portal](https://polkadot.js.org/apps/#/rpc){target=\_blan
 
 ![Get metadata with Polkadot.js](/images/develop/application-devs/interact/understand-parachain-data/metadata-01.webp)
 
-### Using curl For Metadata Retrieval
+### Using Curl For Metadata Retrieval
 
 You can fetch the metadata for the network by calling the node's RPC endpoint. This request returns the metadata in bytes rather than human-readable JSON:
 
@@ -65,7 +65,7 @@ https://rpc.polkadot.io
 
 ### Using Subxt For Metadata Retrieval
 
-[`subxt`](https://github.com/paritytech/subxt) may also be used to fetch the metadata of any data in a human-readable JSON format: 
+[`subxt`](https://github.com/paritytech/subxt){target=\_blank} may also be used to fetch the metadata of any data in a human-readable JSON format: 
 
 ```sh
 
@@ -110,7 +110,7 @@ Different extrinsic versions can have different formats, especially when conside
 
 ### Pallets
 
-The following is a condensed and annotated example of metadata for a single element in the `pallets` array (the [`sudo`](https://paritytech.github.io/polkadot-sdk/master/pallet_sudo/index.html) pallet):
+The following is a condensed and annotated example of metadata for a single element in the `pallets` array (the [`sudo`](https://paritytech.github.io/polkadot-sdk/master/pallet_sudo/index.html){target=\_blank}  pallet):
 
 ```json
 
@@ -147,7 +147,7 @@ For example:
 --8<-- 'code/application-devs/interact/extrinsic-metadata.json'
 ```
 
-The type system is [composite](https://paritytech.github.io/polkadot-sdk/master/polkadot_sdk_docs/reference_docs/frame_runtime_types/index.html), meaning each type identifier contains a reference to a specific type or to another type identifier that provides information about the associated primitive types.
+The type system is [composite](https://paritytech.github.io/polkadot-sdk/master/polkadot_sdk_docs/reference_docs/frame_runtime_types/index.html){target=\_blank}, meaning each type identifier contains a reference to a specific type or to another type identifier that provides information about the associated primitive types.
 
 For example, you can encode the `BitVec<Order, Store>` type, but to decode it properly you must know the types used for the `Order` and `Store` types. To find type information for `Order` and `Store`, you can use the path in the decoded JSON to locate their type identifiers.
 
@@ -155,11 +155,11 @@ For example, you can encode the `BitVec<Order, Store>` type, but to decode it pr
 
 A standard node comes with the following APIs to interact with a node:
 
-- [`AuthorApiServer`](https://paritytech.github.io/polkadot-sdk/master/sc_rpc/author/trait.AuthorApiServer.html): make calls into a full node, including authoring extrinsics and verifying session keys
-- [`ChainApiServer`](https://paritytech.github.io/polkadot-sdk/master/sc_rpc/chain/trait.ChainApiServer.html): retrieve block header and finality information
-- [`OffchainApiServer`](https://paritytech.github.io/polkadot-sdk/master/sc_rpc/offchain/trait.OffchainApiServer.html): make RPC calls for offchain workers
-- [`StateApiServer`](https://paritytech.github.io/polkadot-sdk/master/sc_rpc/state/trait.StateApiServer.html): query information about on-chain state such as runtime version, storage items, and proofs
-- [`SystemApiServer`](https://paritytech.github.io/polkadot-sdk/master/sc_rpc/system/trait.SystemApiServer.html): retrieve information about network state, such as connected peers and node roles
+- [`AuthorApiServer`](https://paritytech.github.io/polkadot-sdk/master/sc_rpc/author/trait.AuthorApiServer.html){target=\_blank} - make calls into a full node, including authoring extrinsics and verifying session keys
+- [`ChainApiServer`](https://paritytech.github.io/polkadot-sdk/master/sc_rpc/chain/trait.ChainApiServer.html){target=\_blank}  - retrieve block header and finality information
+- [`OffchainApiServer`](https://paritytech.github.io/polkadot-sdk/master/sc_rpc/offchain/trait.OffchainApiServer.html){target=\_blank}  - make RPC calls for offchain workers
+- [`StateApiServer`](https://paritytech.github.io/polkadot-sdk/master/sc_rpc/state/trait.StateApiServer.html){target=\_blank}  - query information about on-chain state such as runtime version, storage items, and proofs
+- [`SystemApiServer`](https://paritytech.github.io/polkadot-sdk/master/sc_rpc/system/trait.SystemApiServer.html){target=\_blank} - retrieve information about network state, such as connected peers and node roles
 
 ## Additional Resources
 

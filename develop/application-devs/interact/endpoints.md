@@ -3,37 +3,63 @@ title: Node Endpoints
 description: List of node endpoints and examples of use. These endpoints can be used for development, RPC, or other purposes for which network access is required.
 ---
 
-Ideally, one may utilize their own node when interacting with the [Polkadot network](https://polkadot.network/){target=\_blank} via [Polkadot.js UI Apps](https://polkadot.js.org/apps/){target=\_blank} or other user interfaces and programmatic methods. Another option would be to connect to one of the several public endpoints provided by infrastructure and API service providers. For development convenience, [Parity Tech](https://www.parity.io/){target=\_blank} maintains archive nodes for Polkadot, Kusama, and their test networks with public endpoints. These endpoints can be used with [Polkadot.js UI API](https://polkadot.js.org/docs/api){target=\_blank} to interact with their respective chains.
+# Node Endpoints
 
-### Network Endpoints
+## Introduction
 
-Endpoints for all production and test networks are listed on the [Polkadot.js UI](https://polkadot.js.org/apps/#/accounts){target=\_blank} which accesses them from the [endpoints directory](https://github.com/polkadot-js/apps/tree/master/packages/apps-config/src/endpoints){target=\_blank} of the Polkadot.js repository. Endpoints for Polkadot Relay Chain and Kusama Relay Chain, parachains, and Paseo test network are maintained by the community. System Chains as well as Westend and Rococo test network endpoints maintained by Parity Technologies are listed below (with the exception of [Paseo](https://github.com/paseo-network){target=\_blank}, which is maintained by the wider community):
+Ideally, one may utilize their own node when interacting with the [Polkadot network](https://polkadot.network/){target=\_blank} via [Polkadot.js UI Apps](https://polkadot.js.org/apps/){target=\_blank} or other user interfaces and programmatic methods. Another option would be to connect to one of the several public endpoints provided by infrastructure and API service providers. For development convenience, [Parity Tech](https://www.parity.io/){target=\_blank} maintains archive nodes for Polkadot, Kusama, and their TestNets with public endpoints. These endpoints can be used with [Polkadot.js UI API](https://polkadot.js.org/docs/api){target=\_blank} to interact with their respective chains.
+
+## Network Endpoints
+
+Endpoints for all production and TestNets are listed on the [Polkadot.js UI](https://polkadot.js.org/apps/#/accounts){target=\_blank} which accesses them from the [endpoints directory](https://github.com/polkadot-js/apps/tree/master/packages/apps-config/src/endpoints){target=\_blank} of the Polkadot.js repository. Endpoints for Polkadot Relay Chain and Kusama Relay Chain, parachains, and Paseo TestNet are maintained by the community. System Chains as well as Westend and Rococo TestNet endpoints maintained by Parity Technologies are listed below (with the exception of [Paseo](https://github.com/paseo-network){target=\_blank}, which is maintained by the wider community):
 
 
 === "Polkadot"
-    | Network      | WSS Endpoint                               |
-    | ------------ | ------------------------------------------ |
-    | Asset Hub    | wss://polkadot-asset-hub-rpc.polkadot.io   |
-    | Bridge Hub   | wss://polkadot-bridge-hub-rpc.polkadot.io  |
-    | Collectives  | wss://polkadot-collectives-rpc.polkadot.io |
-    | People Chain | wss://polkadot-people-rpc.polkadot.io      |
+
+    ``` text title="Asset Hub"
+        wss://polkadot-asset-hub-rpc.polkadot.io
+    ```
+
+    ``` text title="Bridge Hub"
+        wss://polkadot-bridge-hub-rpc.polkadot.io
+    ```
+
+    ``` text title="Collectives"
+        wss://polkadot-collectives-rpc.polkadot.io
+    ```
+    ``` text title="People Chain"
+        wss://polkadot-people-rpc.polkadot.io
+    ```
 
 === "Kusama"
-    | Network        | WSS Endpoint                             |
-    | -------------- | ---------------------------------------- |
-    | Asset Hub      | wss://kusama-asset-hub-rpc.polkadot.io   |
-    | Bridge Hub     | wss://kusama-bridge-hub-rpc.polkadot.io  |
-    | Collectives    | wss://kusama-collectives-rpc.polkadot.io |
-    | People Chain   | wss://kusama-people-rpc.polkadot.io      |
-    | Coretime Chain | wss://kusama-coretime-rpc.polkadot.io    |
+
+    ``` text title="Asset Hub"
+        wss://kusama-asset-hub-rpc.polkadot.io
+    ```
+    ``` text title="Bridge Hub"
+        wss://kusama-bridge-hub-rpc.polkadot.io
+    ```
+    ``` text title="Collectives"
+        wss://kusama-collectives-rpc.polkadot.io
+    ```
+    ``` text title="People Chain"
+        wss://kusama-people-rpc.polkadot.io
+    ```
+    ``` text title="Coretime Chain"
+        wss://kusama-coretime-rpc.polkadot.io
+    ```
 
 === "TestNet"
-    | Network | WSS Endpoint                  |
-    | ------- | ----------------------------- |
-    | Westend | wss://westend-rpc.polkadot.io |
-    | Rococo  | wss://rococo-rpc.polkadot.io  |
-    | Paseo   | wss://paseo-rpc.dwellir.com   |
 
+    ``` text title="Westend"
+        wss://westend-rpc.polkadot.io
+    ```
+    ``` text title="Rococo"
+        wss://rococo-rpc.polkadot.io
+    ```
+    ``` text title="Paseo"
+        wss://paseo-rpc.dwellir.com
+    ```
 
 ### Third Party Providers
 

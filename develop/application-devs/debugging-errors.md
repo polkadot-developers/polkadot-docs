@@ -5,7 +5,7 @@ description: This page provides an overview of frequently encountered errors and
 
 # Troubleshooting Common Errors
 
-Errors in Substrate-based chains are typically accompanied by descriptive messages. To interpret these messages, tools that parse blockchain data must request _chain metadata_ from a node, which provides the necessary information to decode them. One such tool is the [Polkadot.js Apps UI](https://polkadot.js.org/apps){target=\_blank}, which includes a built-in parser for chain metadata that allows error messages to be displayed in a human-readable format.
+Errors in Polkadot SDK-based chains are typically accompanied by descriptive messages. To interpret these messages, tools that parse blockchain data must request _chain metadata_ from a node, which provides the necessary information to decode them. One such tool is the [Polkadot.js Apps UI](https://polkadot.js.org/apps){target=\_blank}, which includes a built-in parser for chain metadata that allows error messages to be displayed in a human-readable format.
 
 This page provides an overview of essential tools, like Polkadot.js Apps, to help you identify and resolve common issues and offers practical solutions for frequently encountered errors.
 
@@ -36,7 +36,7 @@ If the error isn't listed or the **details** field is empty, refer to the table 
 
 ## Subscan
 
-In addition to Polkadot.js Apps, the [Subscan](https://polkadot.subscan.io/){target=\_blank} block explorer is another powerful tool for accessing and interpreting error messages on Substrate-based chains.
+In addition to Polkadot.js Apps, the [Subscan](https://polkadot.subscan.io/){target=\_blank} block explorer is another powerful tool for accessing and interpreting error messages on Polkadot SDK-based chains.
 
 Whenever an extrinsic fails, an `ExtrinsicFailed` event will be emitted. If you're unsure of the block or extrinsic hash of the failed extrinsic, you can query your account's address, and it'll be listed under the **Extrinsics** tab on your account page. On the extrinsic detail page, you can scroll down to the **Events** tab towards the bottom and expand the **system(ExtrinsicFailed)** event to view the error details.
 
@@ -69,7 +69,7 @@ The table below lists the most commonly encountered errors and ways to resolve t
 
 ## Runtime Errors
 
-Runtime errors in Substrate-based chains provide valuable insights into issues encountered during transaction execution. Understanding these errors is essential for diagnosing problems effectively. This section outlines how to view error details for specific pallets, as well as how to decipher dispatch errors to identify the source pallet and the error of the issue.
+Runtime errors in Polkadot SDK-based chains provide valuable insights into issues encountered during transaction execution. Understanding these errors is essential for diagnosing problems effectively. This section outlines how to view error details for specific pallets, as well as how to decipher dispatch errors to identify the source pallet and the error of the issue.
 
 ### View Error Details
 

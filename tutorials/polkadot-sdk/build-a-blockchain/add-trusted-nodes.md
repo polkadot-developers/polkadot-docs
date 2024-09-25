@@ -128,11 +128,11 @@ When creating your custom chain specification, you'll need to add validators by 
 !!!note
     Always use unique keys for each validator to prevent conflicts in block production.
 
-### Steps to Create a Custom Specification
+### Steps to Create a Custom Chain Specification
 
 1. Open a terminal and navigate to the root directory of your compiled node template
 
-2. Export the local chain specification:
+2. Export the local chain specification
 
     ```bash
     ./target/release/solochain-template-node build-spec --disable-default-bootnode --chain local > customSpec.json
@@ -251,7 +251,7 @@ When creating your custom chain specification, you'll need to add validators by 
     "name": "My Custom Testnet",
     ```
 
-    2. Modify the `aura` field to specify the nodes with the authority to create blocks by adding the Sr25519 SS58 address keys:
+    2. Modify the `aura` field to specify the nodes with the authority to create blocks by adding the Sr25519 address keys in SS58 format
     ```json
     "aura": {
       "authorities": [
@@ -261,7 +261,7 @@ When creating your custom chain specification, you'll need to add validators by 
     },
     ```
 
-    3. Update the `grandpa` field to specify the nodes with the authority to finalize blocks by adding the Ed25519 SS58 address keys:
+    3. Update the `grandpa` field to specify the nodes with the authority to finalize blocks by adding the Ed25519 address keys in SS58
     ```json
     "grandpa": {
       "authorities": [

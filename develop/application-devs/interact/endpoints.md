@@ -71,10 +71,9 @@ There are a number of third-party providers of RPC infrastructure to the Polkado
 
 - [OnFinality](https://onfinality.io){target=\_blank}
 - [Dwellir](https://dwellir.com){target=\_blank}
-- [Pinknode](https://pinknode.io){target=\_blank}
 - [Radium Block](https://radiumblock.com/){target=\_blank}
 - [1RPC](https://1rpc.io/){target=\_blank}
 - [NOWNodes](https://nownodes.io/){target=\_blank}
 - [All That Node](https://www.allthatnode.com/){target=\_blank}
-- [SubQuery](https://www.rpc.subquery.network/){target=\_blank}
+- [SubQuery](https://subquery.network/rpc/list/){target=\_blank}
 - [dRPC](https://drpc.org/){target=\_blank}

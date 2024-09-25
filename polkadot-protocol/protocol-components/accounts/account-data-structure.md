@@ -8,7 +8,7 @@ description: TODO
 !!! warning "Update Notice"
     Please read Substrate to [Polkadot SDK](https://docs.substrate.io/polkadot-sdk/) page first.
 
-Accounts are a foundational element of any blockchain, and in Substrate, they serve various functions. This article explains how accounts are stored in Substrate and how their data structures are utilized to manage the account lifecycle within the runtime logic.
+Accounts are a foundational element of any blockchain. This page explains how accounts are managed in the Polkadot SDK and how their data structures are utilized to manage the account lifecycle within the runtime.
 
 ## Account
 

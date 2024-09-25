@@ -11,7 +11,7 @@ Ideally, one may utilize their own node when interacting with the [Polkadot netw
 
 ## Network Endpoints
 
-Endpoints for all production and TestNets are listed on the [Polkadot.js UI](https://polkadot.js.org/apps/#/accounts){target=\_blank} which accesses them from the [endpoints directory](https://github.com/polkadot-js/apps/tree/master/packages/apps-config/src/endpoints){target=\_blank} of the Polkadot.js repository. Endpoints for Polkadot Relay Chain and Kusama Relay Chain, parachains, and Paseo TestNet are maintained by the community. System Chains as well as Westend and Rococo TestNet endpoints maintained by Parity Technologies are listed below (with the exception of [Paseo](https://github.com/paseo-network){target=\_blank}, which is maintained by the wider community):
+Endpoints for all production and TestNets are listed on the [Polkadot.js UI](https://polkadot.js.org/apps/#/accounts){target=\_blank} which accesses them from the [endpoints directory](https://github.com/polkadot-js/apps/tree/master/packages/apps-config/src/endpoints){target=\_blank} of the Polkadot.js repository. Endpoints for Polkadot Relay Chain and Kusama Relay Chain, parachains, and Paseo TestNet are maintained by the community. System Chains and Westend and Rococo TestNet endpoints maintained by Parity Technologies are listed below. Note the exclusion of [Paseo](https://github.com/paseo-network){target=\_blank}, which is maintained by the wider community.
 
 
 === "Polkadot"
@@ -61,7 +61,7 @@ Endpoints for all production and TestNets are listed on the [Polkadot.js UI](htt
         wss://paseo-rpc.dwellir.com
     ```
 
-### Third Party Providers
+## Third Party Providers
 
 There are a number of third-party providers of RPC infrastructure to the Polkadot and Kusama communities, commonly providing access to multiple networks and parachains in a single service. They provide additional services such as higher rate limits, potentially more reliable and scalable service, and additional metrics.
 

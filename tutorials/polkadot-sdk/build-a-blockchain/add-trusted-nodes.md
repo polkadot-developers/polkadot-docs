@@ -108,23 +108,6 @@ To enable others to participate in your blockchain, ensure that each participant
 
 In this tutorial, you'll modify the local chain specification to create a custom version for a two-node network. The same process can be used to add more nodes if you have the necessary keys.
 
-### Add Validators
-
-When creating your custom chain specification, you'll need to add validators by modifying two key sections:
-
-1. Aura Section - controls block production
-    - Add Sr25519 addresses for each validator
-    - Example: `"aura": { "authorities": ["5CfB...", "5CXG..."] }`
-  
-
-2. Grandpa Section - controls block finalization
-    - Add Ed25519 addresses for each validator
-    - Include a voting weight (typically 1 for equal voting power)
-    - Example: `"grandpa": { "authorities": [["5Cuq...", 1], ["5Dpd...", 1]] }`
-
-!!!note
-    Always use unique keys for each validator to prevent conflicts in block production.
-
 ### Steps to Create a Custom Chain Specification
 
 1. Open a terminal and navigate to the root directory of your compiled node template
@@ -154,31 +137,36 @@ When creating your custom chain specification, you'll need to add validators by 
     "name": "My Custom Testnet",
     ```
 
-    2. Modify the `aura` field to specify the nodes with the authority to create blocks by adding the Sr25519 address keys in SS58 format
-    ```json
-    "aura": {
-      "authorities": [
-        "5HMhkSHpD4XcibjbU9ZiGemLpnsTUzLsG5JhQJQEcxp3KJaW",
-        "5Df9bvnbqKNR8S1W2Uj5XSpJCKUomyymwCGf6WHKyoo3GDev"
-      ]
-    },
-    ```
+    2. Modify the `aura` field to specify the nodes with the authority to create blocks:
+        -  Add Sr25519 addresses for each validator in the authorities array
 
-    3. Update the `grandpa` field to specify the nodes with the authority to finalize blocks by adding the Ed25519 address keys in SS58
-    ```json
-    "grandpa": {
-      "authorities": [
-        [
-          "5GdFMFbXy24uz8mFZroFUgdBkY2pq6igBNGAq9tsBfEZRSzP",
-          1
-        ],
-        [
-          "5DJRQQWEaJart5yQnA6gnKLYKHLdpX6V4vHgzAYfNPT2NNuW",
-          1
-        ]
-      ]
-    },
-    ```
+        ```json
+        "aura": {
+          "authorities": [
+            "5HMhkSHpD4XcibjbU9ZiGemLpnsTUzLsG5JhQJQEcxp3KJaW",
+            "5Df9bvnbqKNR8S1W2Uj5XSpJCKUomyymwCGf6WHKyoo3GDev"
+          ]
+        },
+        ```
+
+    3. Update the `grandpa` field to specify the nodes with the authority to finalize blocks:
+        - Add Ed25519 addresses for each validator in the authorities array 
+        - Include a voting weight (typically 1) for each validator to define their voting power
+    
+        ```json
+        "grandpa": {
+          "authorities": [
+            [
+              "5GdFMFbXy24uz8mFZroFUgdBkY2pq6igBNGAq9tsBfEZRSzP",
+              1
+            ],
+            [
+              "5DJRQQWEaJart5yQnA6gnKLYKHLdpX6V4vHgzAYfNPT2NNuW",
+              1
+            ]
+          ]
+        },
+        ```
 
 5. Save and close `customSpec.json`
 

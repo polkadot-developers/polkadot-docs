@@ -2,4 +2,4 @@ title: Introduction to Polkadot
 nav:
   - index.md
   - parachains
-  - polkadot-networks.md
+  - 'Development Networks': 'polkadot-networks.md'

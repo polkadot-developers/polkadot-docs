@@ -3,8 +3,6 @@
         "timeout": 1000,
         "bootnode": false,
         "provider": "kubernetes",
-        "backchannel": false,
-        ...
-    },
-    ...
+        "backchannel": false
+    }
 }

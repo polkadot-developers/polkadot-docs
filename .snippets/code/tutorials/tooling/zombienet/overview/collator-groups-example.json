@@ -10,10 +10,8 @@
                 "name": "group-1",
                 "count": 2,
                 "image": "polkadot-parachain",
-                "command": "polkadot-parachain",
-          ...
-            },
-        ],
-    },
-    ...
+                "command": "polkadot-parachain"
+            }
+        ]
+    }
 }

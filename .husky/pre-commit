@@ -1,0 +1,8 @@
+#!/bin/sh
+. "$(dirname "$0")/_/husky.sh"
+
+echo "Running Prettier on .snippets/code/**/*.{js,json,html}"
+npx prettier --write .snippets/code/**/*.{js,json,html}
+
+echo "Adding formatted files back to the commit..."
+git add .snippets/code/**/*.{js,json,html}

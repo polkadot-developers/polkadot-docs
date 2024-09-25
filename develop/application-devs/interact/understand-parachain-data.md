@@ -100,15 +100,13 @@ The following example illustrates a condensed and annotated section of metadata 
 
 ```
 
-<!-- todo: signed transactions -> glossary -->
-
 The constant `1635018093` is a magic number that identifies the file as a metadata file. The rest of the metadata is divided into the `types`, `pallets`, and `extrinsic` sections:
 
 - The `types` section contains an index of the types and information about each type's type signature
 - The `pallets` section contains information about each pallet in the runtime
 - The `extrinsic` section describes the type identifier and transaction format version that the runtime uses
 
-Different extrinsic versions can have different formats, especially when considering signed transactions.
+Different extrinsic versions can have different formats, especially when considering [signed transactions](#).
 
 ### Pallets
 

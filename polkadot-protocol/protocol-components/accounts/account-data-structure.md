@@ -84,7 +84,7 @@ The `providers` reference counter prevents Substrate pallets from storing data a
 
 ### Consumers Reference Counters
 
-The `consumers` reference counter ensures that Substrate pallets don't remove an account until all associated data across pallets is deleted (that is, when `consumers` == 0). 
+The `consumers` reference counter ensures that other runtime pallets don't remove an account until all associated data across pallets is deleted (that is, when `consumers` == 0). 
 
 It holds users accountable for the data they store on-chain. If users wish to delete their accounts and reclaim their existential deposit, they must first remove all data stored across all on-chain pallets to decrement the `consumers` counter.
 

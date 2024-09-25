@@ -1,0 +1,13 @@
+[parachain]
+id = 100
+add_to_genesis = true
+cumulus_based = true
+genesis_wasm_path = "/path/to/wasm"
+genesis_state_path = "/path/to/state"
+
+[[parachain.collator_groups]]
+name = "group-1"
+count = 2
+image = "polkadot-parachain"
+command = "polkadot-parachain"
+...

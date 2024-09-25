@@ -1,4 +1,5 @@
-title: Polkadot SDK Tutorials
+title: Polkadot SDK
 nav:
   - index.md
-  - build-a-parachain
+  - 'Build a Blockchain': build-a-blockchain
+  - 'Build a Parachain': build-a-parachain

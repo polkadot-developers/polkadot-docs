@@ -7,7 +7,7 @@ description: This tutorial will guide you through the process of transferring as
 
 ## Introduction
 
-In the [Open Message Passing Channels](/tutorials/polkadot-sdk/build-a-parachain/open-message-passing-channels/){target=\_blank} tutorial, you saw how to open a two-way communication channel between chains by sending messages to the relay chain. You can use a similar strategy to send messages that allow a local chain to manage an account on a remote chain. In this tutorial, parachain B transfers assets into the sovereign account on the relay chain for parachain A.
+In the [Open Message Passing Channels](TODO:update-path){target=\_blank} tutorial, you saw how to open a two-way communication channel between chains by sending messages to the relay chain. You can use a similar strategy to send messages that allow a local chain to manage an account on a remote chain. In this tutorial, parachain B transfers assets into the sovereign account on the relay chain for parachain A.
 
 The outcome for this tutorial is similar to using the `transfer` function from the balances pallet, except in this case the transfer is initiated by a parachain and demonstrates how the holding register is used when executing the `WithdrawAsset` and `DepositAssetXCM` instructions.
 
@@ -54,22 +54,10 @@ Before you begin, verify the following:
 
     [settings]
     timeout = 1000
-
-    [[hrmp_channels]]
-      sender = 1000
-      recipient = 1001
-      max_capacity = 8
-      max_message_size = 512
-
-    [[hrmp_channels]]
-      sender = 1001
-      recipient = 1000
-      max_capacity = 8
-      max_message_size = 512
     ```
-    !!! note
-        The HRMP channels are configured to allow communication between parachain A and parachain B. The parachain A and parachain B collators are configured to trace XCM messages, with id 1000 and 1001, respectively.
 
+    !!! note
+        Due to a well-known issue with Zombienet and HRMP channels, the opening of the HRMP channels between parachains has been forced by the relay chain through the `sudo` pallet for this tutorial. For further information about this workaround, please refer to [https://github.com/paritytech/polkadot-sdk/pull/1616#issuecomment-1727194584](https://github.com/paritytech/polkadot-sdk/pull/1616#issuecomment-1727194584){target=\_blank}
 
 ## Configure XCM Instructions
 

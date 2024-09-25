@@ -1,3 +1,4 @@
 title: Interoperability
 nav:
   - index.md
+  - 'Transfer Assets with XCM': transfer-assets-with-xcm.md

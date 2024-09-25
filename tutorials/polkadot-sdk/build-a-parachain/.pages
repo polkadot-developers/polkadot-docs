@@ -4,4 +4,3 @@ nav:
   - prepare-relay-chain.md
   - connect-a-parachain.md
   - acquire-a-testnet-slot.md
-  - transfer-assets-with-xcm.md

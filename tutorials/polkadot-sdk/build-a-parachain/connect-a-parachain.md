@@ -114,7 +114,7 @@ To modify the default chain specification, follow these steps:
 
 2. Open the plain text chain specification for the parachain template node in a text editor
 
-3. Set the `para_id` to the parachain identifier that you previously reserved. For example, if your reserved identifier is `2000`, set the `para_id` field to 2000:
+3. Set the `para_id` to the parachain identifier that you previously reserved. For example, if your reserved identifier is `2000`, set the `para_id` field to `2000`:
 
     ```json
     --8<-- 'code/tutorials/polkadot-sdk/build-a-parachain/connect-a-parachain/connect-a-parachain-2.json:1:4'
@@ -122,7 +122,7 @@ To modify the default chain specification, follow these steps:
     --8<-- 'code/tutorials/polkadot-sdk/build-a-parachain/connect-a-parachain/connect-a-parachain-2.json:13:15'
     ```
 
-4. Set the `parachainId` to the parachain identifier that you previously reserved. For example, if your reserved identifier is 2000, set the `parachainId` field to 2000
+4. Set the `parachainId` to the parachain identifier that you previously reserved. For example, if your reserved identifier is `2000`, set the `parachainId` field to `2000`
 
     ```json
     --8<-- 'code/tutorials/polkadot-sdk/build-a-parachain/connect-a-parachain/connect-a-parachain-2.json:1:2'
@@ -196,13 +196,13 @@ To prepare the parachain collator to be registered:
       --port 40333 \
       --rpc-port 8844 \
       -- \
-      --chain <INSERT_RELAY_CHAIN_PATH>/local-raw-spec.json \
+      --chain INSERT_RELAY_CHAIN_PATH/local-raw-spec.json \
       --port 30333 \
       --rpc-port 9946
     ```
 
     !!! note
-        Ensure that you replace `<INSERT_RELAY_CHAIN_PATH>` with the path to the raw chain specification for the local relay chain.
+        Ensure that you replace `INSERT_RELAY_CHAIN_PATH` with the path to the raw chain specification for the local relay chain.
 
     After running the command, you will see the following output:
 
@@ -210,24 +210,27 @@ To prepare the parachain collator to be registered:
 
 ## Register With the Local Relay Chain
 
-With the local relay chain and collator node running, you can register the parachain on the local relay chain. In a live public network, registration typically involves a [parachain auction](https://wiki.polkadot.network/docs/learn-auction){target=\_blank}. You can use a Sudo transaction and the Polkadot.js Apps interface for this tutorial and local testing. A Sudo transaction lets you bypass the steps required to acquire a parachain or parathread slot; this transaction should be executed in the relay chain.  
+With the local relay chain and collator node running, you can register the parachain on the local relay chain. In a live public network, registration typically involves a [parachain auction](https://wiki.polkadot.network/docs/learn-auction){target=\_blank}. You can use a Sudo transaction and the Polkadot.js Apps interface for this tutorial and local testing. A Sudo transaction lets you bypass the steps required to acquire a parachain or parathread slot. This transaction should be executed in the relay chain.
 
 To register the parachain, follow these steps:
 
 1. Validate that your local relay chain validators are running
 2. Navigate to the **Sudo** tab in the Polkadot.js Apps interface
+
     1. Click on the **Developer** tab
     2. Select **Sudo** from the dropdown menu
 
     ![](/images/tutorials/polkadot-sdk/build-a-parachain/connect-a-parachain/connect-a-parachain-6.webp)
 
 3. Submit a transaction with Sudo privileges
-    1. Select the **paraSudoWrapper** pallet
-    2. Click on the **sudoScheduleParaInitialize** extrinsic from the list of available extrinsics
+
+    1. Select the **`paraSudoWrapper`** pallet
+    2. Click on the **`sudoScheduleParaInitialize`** extrinsic from the list of available extrinsics
 
     ![](/images/tutorials/polkadot-sdk/build-a-parachain/connect-a-parachain/connect-a-parachain-7.webp)
 
 4. Fill in the required fields
+
     1. **`id`** - type the parachain identifier you reserved
     2. **`genesisHead`** - click the **file upload** button and select the `para-2000-genesis-state` file you exported
     3. **`validationCode`** - click the **file upload** button and select the `para-2000-wasm` file you exported
@@ -273,7 +276,7 @@ To reset the blockchain state, follow these steps:
       --chain raw-parachain-chainspec.json
     ```
 
-3. In the terminal where either the Alice validator node or the Bob validator node is running, press `Control-C`
+3. In the terminal where either the `alice` validator node or the `bob` validator node is running, press `Control-C`
 
 4. Purge the local relay chain state by running the following command
 

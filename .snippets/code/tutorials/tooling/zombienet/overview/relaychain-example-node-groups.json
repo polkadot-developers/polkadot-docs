@@ -13,6 +13,8 @@
                 "command": "polkadot",
                 "args": ["--chain", "rococo-local"]
             }
-        ]
-    }
+        ],
+        "...": {}
+    },
+    "...": {}
 }

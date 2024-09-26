@@ -9,8 +9,10 @@
             {
                 "name": "alice",
                 "image": "polkadot-parachain",
-                "command": "polkadot-parachain"
+                "command": "polkadot-parachain",
+                "...": {}
             }
         ]
-    }
+    },
+    "...": {}
 }

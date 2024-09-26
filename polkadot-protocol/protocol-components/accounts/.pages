@@ -1,3 +1,4 @@
 title: Accounts
 nav:
   - index.md
+  - 'Account Balance Types': account-balance-types.md

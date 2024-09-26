@@ -61,7 +61,7 @@ This tutorial uses the following Zombienet configuration file as an example:
     !!! note
         Due to a well-known issue with Zombienet and HRMP channels, the opening of the HRMP channels between parachains has been forced by the relay chain through the `sudo` pallet for this tutorial. For further information about this workaround, please refer to [Zombienet test with preopen hrmp with zombienet investigation](https://github.com/paritytech/polkadot-sdk/pull/1616#issuecomment-1727194584){target=\_blank}
 
-## Configure XCM Instructions
+## Transfer Assets through XCM Instructions
 
 To illustrate the interaction between the two chains, in the following example, parachain B sends XCM instructions to deposit assets into an account on parachain A.
 

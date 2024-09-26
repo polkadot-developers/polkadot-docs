@@ -106,11 +106,11 @@ The constant `1635018093` is a magic number that identifies the file as a metada
 - The `pallets` section contains information about each pallet in the runtime
 - The `extrinsic` section describes the type identifier and transaction format version that the runtime uses
 
-Different extrinsic versions can have different formats, especially when considering [signed transactions](#).
+Different extrinsic versions can have different formats, especially when considering [signed transactions](). <!-- TODO: signed transactions -> glossary -->
 
 ### Pallets
 
-The following is a condensed and annotated example of metadata for a single element in the `pallets` array (the [`sudo`](https://paritytech.github.io/polkadot-sdk/master/pallet_sudo/index.html){target=\_blank}  pallet):
+The following is a condensed and annotated example of metadata for a single element in the `pallets` array (the [`sudo`](https://paritytech.github.io/polkadot-sdk/master/pallet_sudo/index.html){target=\_blank} pallet):
 
 ```json
 
@@ -156,9 +156,9 @@ For example, you can encode the `BitVec<Order, Store>` type, but to decode it pr
 A standard node comes with the following APIs to interact with a node:
 
 - [`AuthorApiServer`](https://paritytech.github.io/polkadot-sdk/master/sc_rpc/author/trait.AuthorApiServer.html){target=\_blank} - make calls into a full node, including authoring extrinsics and verifying session keys
-- [`ChainApiServer`](https://paritytech.github.io/polkadot-sdk/master/sc_rpc/chain/trait.ChainApiServer.html){target=\_blank}  - retrieve block header and finality information
+- [`ChainApiServer`](https://paritytech.github.io/polkadot-sdk/master/sc_rpc/chain/trait.ChainApiServer.html){target=\_blank} - retrieve block header and finality information
 - [`OffchainApiServer`](https://paritytech.github.io/polkadot-sdk/master/sc_rpc/offchain/trait.OffchainApiServer.html){target=\_blank}  - make RPC calls for offchain workers
-- [`StateApiServer`](https://paritytech.github.io/polkadot-sdk/master/sc_rpc/state/trait.StateApiServer.html){target=\_blank}  - query information about on-chain state such as runtime version, storage items, and proofs
+- [`StateApiServer`](https://paritytech.github.io/polkadot-sdk/master/sc_rpc/state/trait.StateApiServer.html){target=\_blank} - query information about on-chain state such as runtime version, storage items, and proofs
 - [`SystemApiServer`](https://paritytech.github.io/polkadot-sdk/master/sc_rpc/system/trait.SystemApiServer.html){target=\_blank} - retrieve information about network state, such as connected peers and node roles
 
 ## Additional Resources

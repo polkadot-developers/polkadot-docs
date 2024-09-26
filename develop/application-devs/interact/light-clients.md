@@ -19,6 +19,8 @@ You can use a light client implementation to connect to a Polkadot SDK-based net
 
 ## Light Client Options
 
+Popular options for Polkadot ecosystem light clients include:
+
 - The [Polkadot API (PAPI)](https://papi.how/){target=\_blank} integrates [`smoldot`](https://github.com/smol-dot/smoldot){target=\_blank} as a choice of light client for both browser and server-based implementations
 
 - [Substrate connect](https://substrate.io/substrate-connect/){target=\_blank} is a browser extension and JavaScript library that enables developers to build application-specific light clients for Substrate chains. There is no installation required or optional extension with minimal or no maintenance.
@@ -29,30 +31,20 @@ A light client allows for all essential features of the chain, such as fetching 
 
 === "Full RPC Node"
 
-    Complete verification of all blocks of the chain
-
-    ---
-
-    Holds all the previous block data and the chain's storage in database
-
-    ---
-
-    Installation, maintenance, and execution tend to be exhaustive and require system administration expertise
+    - Complete verification of all blocks of the chain
+    - Holds all the previous block data and the chain's storage in database
+    - Installation, maintenance, and execution tend to be exhaustive and require system administration expertise
 
 
 === "Light Client"
 
-    Only verifies the authenticity of blocks of the chain
-
-    ---
-
-    No database
-
-    ---
-
-    No need to provision servers or other DevOps-related maintenance, singificantly reducing initialization time from startup
+    - Only verifies the authenticity of blocks of the chain
+    - No database
+    - No need to provision servers or other DevOps-related maintenance, singificantly reducing initialization time from startup
 
 
 ## Resources
+
+Learn more about light clients and how they help you develop on Polkadot:
 
 - [What is a light client and why you should care?](https://medium.com/paritytech/what-is-a-light-client-and-why-you-should-care-75f813ae2670){target=\_blank}

@@ -75,7 +75,7 @@ The local relay chain uses a sample chain specification file with two validator 
 
 If you wanted to connect two parachains with a single collator each, you must run three or more relay chain validator nodes. You must modify the chain specification and hard-code additional validators to set up a local test network for two or more parachains.
 
-### Plain and Raw Chain Specificationz
+### Plain and Raw Chain Specification
 
 The chain specification file is available in two formats: a JSON file in plain text and a JSON file in SCALE-encoded raw format.
 

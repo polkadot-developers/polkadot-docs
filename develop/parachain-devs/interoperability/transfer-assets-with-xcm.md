@@ -19,7 +19,7 @@ Before you begin, verify the following:
 - You have the Sudo pallet available for both local parachains to use
 - You have opened the message passing channel to allow communication between parachain B and parachain A
  
-This tutorial uses the following Zombienet configuration file as an example:
+This tutorial uses the following Zombienet configuration file to illustrate the interaction between the two chains, where parachain B will send XCM instructions to deposit assets into an account on parachain A.
 
     ```toml
     [relaychain]
@@ -61,9 +61,9 @@ This tutorial uses the following Zombienet configuration file as an example:
     !!! note
         Due to a well-known issue with Zombienet and HRMP channels, the opening of the HRMP channels between parachains has been forced by the relay chain through the `sudo` pallet for this tutorial. For further information about this workaround, please refer to [Zombienet test with preopen hrmp with zombienet investigation](https://github.com/paritytech/polkadot-sdk/pull/1616#issuecomment-1727194584){target=\_blank}
 
-## Transfer Assets through XCM Instructions
+## Define the XCM destination for the message
 
-To illustrate the interaction between the two chains, in the following example, parachain B sends XCM instructions to deposit assets into an account on parachain A.
+To send a Cross-Chain Message (XCM) from parachain B to parachain A, you need to define the destination chain for the XCM instructions. In this case, the destination chain is the relay chain. To specify the relay chain as the destination, follow these steps:
 
 1. Navigate to the **Extrinsics** tab in the Polkadot.Js Apps interface
       1. Select the **Developer** tab

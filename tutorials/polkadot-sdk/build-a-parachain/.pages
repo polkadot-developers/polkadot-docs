@@ -1,6 +1,6 @@
 title: Build a Parachain Tutorials
 nav:
   - index.md
-  - prepare-relay-chain.md
-  - connect-a-parachain.md
-  - acquire-a-testnet-slot.md
+  - 'Prepare a Relay Chain': prepare-relay-chain.md
+  - 'Connect a Parachain': connect-a-parachain.md
+  - 'Acquire a TestNet Slot': acquire-a-testnet-slot.md

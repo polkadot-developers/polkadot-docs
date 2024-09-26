@@ -63,7 +63,7 @@ timeout = 1000
 
 ## Define the XCM destination for the message
 
-To send a Cross-Chain Message (XCM) from parachain B to parachain A, you need to define the destination chain for the XCM instructions. In this case, the destination chain is the relay chain. To specify the relay chain as the destination, follow these steps:
+To send a Cross-Chain Message (XCM) from parachain B to parachain A, you need to define the destination chain for the XCM instructions. In this case, the destination chain is the relay chain. To specify the relay chain as the destination, follow these steps in the parachain B interface:
 
 1. Navigate to the **Extrinsics** tab in the Polkadot.Js Apps interface
       1. Select the **Developer** tab

@@ -3,22 +3,22 @@ title: Runtime Upgrades
 description: Explains how runtime versioning and storage migration support forkless upgrades for Polkadot SDK-based networks, and what important factors to consider when upgrading your chain.
 ---
 
-Forkless runtime upgrades are a defining feature of the Polkadot SDK. The ability to update the runtime logic without forking the code base enables your blockchain to evolve and improve over time. This capability is made possible by including the definition of the runtime execution environment—the runtime WebAssembly blob—as an element in the blockchain's runtime state.
+The on-chain forkless runtime upgrades are one of the defining features of Polkadot SDK-based blockchains. The ability to update the runtime logic without forking the network enables your blockchain to evolve and improve seamlessly over time. This is made possible through the [WebAssembly (Wasm)](https://webassembly.org/){target=_blank} powered runtimes that are stored in the blockchain state. When upgrading the blockchain network, the Wasm code containing the new runtime logic is uploaded on-chain and is swapped with the old code when the upgrade is enacted.
 
 
 !!!info "Why 'Forkless'?"
-    Traditional blockchains require a [hard fork](https://en.wikipedia.org/wiki/Fork_(blockchain){target=_blank}) when upgrading the state transition function of their chain.
-    A hard fork requires all node operators to stop their nodes and manually upgrade to the latest executable.
-    For distributed production networks, coordination of hard fork upgrades can be a complex process.
+    Traditional blockchains require a [hard fork](https://en.wikipedia.org/wiki/Fork_(blockchain){target=\_blank} when upgrading the state transition function of their chain.
+    A hard fork requires all node operators to download the latest executable and typically restart their nodes.
+    For distributed and decentralized blockchain production networks, coordination of hard fork upgrades can be a complex process.
 
 Because the runtime is part of the blockchain state, network maintainers can leverage the blockchain's capabilities for trustless, decentralized consensus to securely make enhancements to the runtime.
 
-In the FRAME, the [`system`](https://paritytech.github.io/polkadot-sdk/master/frame_system/index.html){target=_blank} pallet defines [the `set_code` extrinsic](https://paritytech.github.io/polkadot-sdk/master/frame_system/pallet/enum.Call.html#variant.set_code){target=_blank} that is used to update the WebAssembly code for the runtime. 
+In FRAME, the [`system`](https://paritytech.github.io/polkadot-sdk/master/frame_system/index.html){target=\_blank} pallet defines the [`set_code`](https://paritytech.github.io/polkadot-sdk/master/frame_system/pallet/enum.Call.html#variant.set_code){target=\_blank} extrinsic that is used to update the WebAssembly code for the runtime. 
 
 !!!info "Parachain vs Solo Chain Upgrades"
-    While the `set_code` extrinsic is sufficient for updating the runtime in solo chain setups, parachains must undergo a different procedure of calling `authorize_upgrade`, followed by `apply_authorized_upgrade`. These extrinsics ensure that the relay chain is aware of the upgrade, and that it gets applied
+    While the `set_code` extrinsic is sufficient for updating the runtime in solo chain setups, parachains must undergo a different procedure of calling `authorize_upgrade`, followed by `apply_authorized_upgrade`. These extrinsics ensure that the relay chain is aware of the upgrade, and that it gets applied.
 
-When updating a runtime, there is a differentiation in _adding_ functionality to the runtime versus _updating_ existing functionality. In many cases, updating existing functionality, such as how a pallet stores state, would require a [storage migration](#storage-migration).
+When updating a runtime, there is a differentiation in _adding_ functionality to the runtime versus _updating_ existing functionality. In many cases, updating existing functionality, such as how a pallet stores state, would require a [storage migration](#storage-migrations).
 
 ## Runtime Versioning
 
@@ -31,8 +31,7 @@ The component that selects the runtime execution environment to communicate with
 To provide this information to the executor process, the runtime includes a [runtime version struct](https://paritytech.github.io/polkadot-sdk/master/sp_version/struct.RuntimeVersion.html){target=_blank} similar to the following:
 
 ```rust
-    --8<-- 'code/develop/parachain-devs/parachain-maintenance/runtime_version.rs'
-```
+--8<-- 'code/develop/parachain-devs/parachain-maintenance/runtime_version.rs'
 
 The parameters in the struct provide the following information:
 
@@ -45,7 +44,8 @@ The parameters in the struct provide the following information:
 | `impl_version`        | The version of the implementation of the specification. Nodes can ignore this. It is only used to indicate that the code is different. As long as the `authoring_version` and the `spec_version` are the same, the code itself might have changed, but the native and WebAssembly binaries do the same thing. In general, only non-logic-breaking optimizations would result in a change of the `impl_version`.                                                                                                                                                                                                    |
 | `transaction_version` | The version of the interface for handling transactions. This parameter can be useful to synchronize firmware updates for hardware wallets or other signing devices to verify that runtime transactions are valid. The parameter allows hardware wallets to know which transactions they can safely sign. This number must be bumped if there is a change in the index of the pallets in the `construct_runtime!` macro or if there are any changes to dispatchable functions, such as the number of parameters or parameter types. If this number is updated, then the `spec_version` must also be updated. |
 | `apis`                | A list of supported [runtime APIs](https://paritytech.github.io/polkadot-sdk/master/sp_api/macro.impl_runtime_apis.html){target=_blank} along with their versions.                                                                                                                                                                                                                                                                                                                                                                                                                                                            |
-The executor that the native runtime has the same consensus-driven logic as the WebAssembly before it chooses to execute it. However, because the runtime versioning is set manually, the executor can still make inappropriate decisions if the runtime version is misrepresented.
+
+The executor follows the same consensus-driven logic for both the native runtime and the WebAssembly runtime before deciding which to execute. However, since runtime versioning is manually set, there is a risk that the executor could make incorrect decisions if the runtime version is misrepresented or incorrectly defined.
 
 ## Accessing the runtime version
 

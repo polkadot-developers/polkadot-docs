@@ -1,6 +1,6 @@
 ---
 title: Account Balance Types
-description: TODO
+description: The Account Balances page provides a comprehensive overview of the various types of balances associated with accounts in the Polkadot ecosystem.
 ---
 
 # Account Balance Types

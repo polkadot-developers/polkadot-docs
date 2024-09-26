@@ -89,7 +89,7 @@ To send a Cross-Chain Message (XCM) from parachain B to parachain A, you need to
 
         ![](/images/tutorials/polkadot-sdk/build-a-parachain/transfer-assets-with-xcm/transfer-assets-with-xcm-3.webp)
 
-Now that you have configured the XCM instructions, you can proceed to execute the message between parachains.
+Now that you have configured the XCM instructions, you can proceed to define the instructions to be executed.
 
 ## WithdrawAsset Instruction
 

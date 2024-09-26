@@ -1,6 +1,6 @@
 ---
 title: Proxy Accounts
-description: TODO
+description: This guide covers proxy types, use cases, and security features like time delays and deposit requirements.
 ---
 
 # Proxy Accounts

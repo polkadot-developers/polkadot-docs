@@ -80,7 +80,7 @@ After obtaining the transaction, you must handle the signing and submission proc
 
 ??? interface "Response parameters"
 
-    ++"Promise<TxResult<T>"++
+    ++"Promise<TxResult<T>>"++
 
     --8<-- 'code/develop/application-devs/tooling/asset-transfer-api/reference/tx-result.md'
 

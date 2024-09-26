@@ -89,7 +89,7 @@ For a simpler setup process, you can leverage the `constructApiPromise` helper f
 
 ## Asset Transfer API Reference
 
-For detailed information on the Asset Transfer API, including available methods, data types, and functionalities, refer to the [Asset Transfer API Reference](/polkadot-ecosystem-docs-draft/build-on-polkadot/xcm/asset-transfer-api/reference) section. This resource provides in-depth explanations and technical specifications to help you integrate and utilize the API effectively.
+For detailed information on the Asset Transfer API, including available methods, data types, and functionalities, refer to the [Asset Transfer API Reference](/develop/application-devs/tooling/asset-transfer-api/reference) section. This resource provides in-depth explanations and technical specifications to help you integrate and utilize the API effectively.
 
 ## Examples
 

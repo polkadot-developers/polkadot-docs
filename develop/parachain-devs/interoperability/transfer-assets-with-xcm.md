@@ -57,7 +57,7 @@ Before you begin, verify the following:
     ```
 
     !!! note
-        Due to a well-known issue with Zombienet and HRMP channels, the opening of the HRMP channels between parachains has been forced by the relay chain through the `sudo` pallet for this tutorial. For further information about this workaround, please refer to [https://github.com/paritytech/polkadot-sdk/pull/1616#issuecomment-1727194584](https://github.com/paritytech/polkadot-sdk/pull/1616#issuecomment-1727194584){target=\_blank}
+        Due to a well-known issue with Zombienet and HRMP channels, the opening of the HRMP channels between parachains has been forced by the relay chain through the `sudo` pallet for this tutorial. For further information about this workaround, please refer to [Zombienet test with preopen hrmp with zombienet investigation](https://github.com/paritytech/polkadot-sdk/pull/1616#issuecomment-1727194584){target=\_blank}
 
 ## Configure XCM Instructions
 

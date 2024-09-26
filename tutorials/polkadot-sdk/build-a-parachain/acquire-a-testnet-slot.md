@@ -7,7 +7,7 @@ description: This guide walks you through the journey of securing a TestNet slot
 
 ## Introduction
 
-This tutorial demonstrates deploying a parachain on a public test network, such as the Paseo network. Public TestNets have a higher bar to entry than a private network but represent an essential step in preparing a parachain project to move into a production network. 
+This tutorial demonstrates deploying a parachain on a public test network like the Paseo network. Public TestNets have a higher bar to entry than a private network but represent an essential step in preparing a parachain project to move into a production network.
 
 ## Prerequisites
 
@@ -32,7 +32,7 @@ To prepare an account, follow these steps:
 2. Navigate to the **Accounts** section
     1. Click on the **Accounts** tab in the top menu
     2. Select the **Accounts** option from the dropdown menu
-   
+
     ![](/images/tutorials/polkadot-sdk/build-a-parachain/acquire-a-testnet-slot/acquire-a-testnet-slot-2.webp)
 
 3. Copy the address of the account you want to use for the parachain deployment
@@ -47,7 +47,7 @@ To prepare an account, follow these steps:
 
 ## Reserve a Parachain Identifier
 
-You must reserve a parachain identifier before you can register as a parathread on Paseo. The steps are similar to the ones you followed in [Connect a Local Parachain](/tutorials/polkadot-sdk/build-a-parachain/connect-a-parachain/){target=_\blank} to reserve an identifier on the local relay chain. However, for the public TestNet, you'll be assigned the next available identifier.
+You must reserve a parachain identifier before registering a parathread on Paseo. The steps are similar to the ones you followed in [Connect a Local Parachain](/tutorials/polkadot-sdk/build-a-parachain/connect-a-parachain/){target=_\blank} to reserve an identifier on the local relay chain. However, for the public TestNet, you'll be assigned the next available identifier.
 
 To reserve a parachain identifier, follow these steps:
 
@@ -59,7 +59,7 @@ To reserve a parachain identifier, follow these steps:
 
 2. Register a parathread
     1. Select the **Parathreads** tab
-    2. Click on the **+ ParaId** button 
+    2. Click on the **+ ParaId** button
 
     ![](/images/tutorials/polkadot-sdk/build-a-parachain/acquire-a-testnet-slot/acquire-a-testnet-slot-6.webp)
 
@@ -69,100 +69,79 @@ To reserve a parachain identifier, follow these steps:
 
     For this case, the next available parachain identifier is `4508`.
 
-4. After submitting the transaction, you can navigate to the Explorer tab and check the list of recent events for successful `registrar.Reserved`
+4. After submitting the transaction, you can navigate to the **Explorer** tab and check the list of recent events for successful `registrar.Reserved`
 
     ![](/images/tutorials/polkadot-sdk/build-a-parachain/acquire-a-testnet-slot/acquire-a-testnet-slot-8.webp)
 
 ## Modify the Chain Specification File
 
-The files required to register a parachain must specify the correct relay chain to connect to and parachain identifier that you have been assigned. To make these changes, you must build and modify the chain specification file for your parachain. In this tutorial, the relay chain is `paseo` and the para identifier is `4508`.
+The files required to register a parachain must specify the correct relay chain to connect to and the parachain identifier you have been assigned. To make these changes, you must build and modify the chain specification file for your parachain. In this tutorial, the relay chain is `paseo`, and the parachain identifier is `4508`.
 
 To modify the chain specification:
 
 1. Generate the plain text chain specification for the parachain template node by running the following command
 
     ```bash
-    ./target/release/parachain-template-node build-spec --disable-default-bootnode > plain-parachain-chainspec.json
+    ./target/release/parachain-template-node build-spec \
+      --disable-default-bootnode > plain-parachain-chainspec.json
     ```
 
 2. Open the plain text chain specification for the parachain template node in a text editor
 
-3. Set relay-chain to paseo and `para_id` to the identifier you've been assigned
-
-      For example, if your reserved identifier is 4508, set the `para_id` field to `4508`:
+3. Set `relay_chain` to `paseo` and `para_id` to the identifier you've been assigned. For example, if your reserved identifier is 4508, set the `para_id` field to `4508`:
 
       ```json
-      ...
-      "relay_chain": "paseo",
-      "para_id": 4508,
-      "codeSubstitutes": {},
-      "genesis": {
-        ...
-      }
-      ...
+      --8<-- 'code/tutorials/polkadot-sdk/build-a-parachain/acquire-a-testnet-slot/testnet-slot-1.json:1:4'
+      --8<-- 'code/tutorials/polkadot-sdk/build-a-parachain/acquire-a-testnet-slot/testnet-slot-1.json:23:25'
       ```
 
 4. Set the `parachainId` to the parachain identifier that you previously reserved
 
       ```json
-      ...
-        "parachainSystem": null,
-        "parachainInfo": {
-          "parachainId": 4508
-        },
-      ...
+      --8<-- 'code/tutorials/polkadot-sdk/build-a-parachain/acquire-a-testnet-slot/testnet-slot-1.json::2'
+      --8<-- 'code/tutorials/polkadot-sdk/build-a-parachain/acquire-a-testnet-slot/testnet-slot-1.json:5:10'
+      --8<-- 'code/tutorials/polkadot-sdk/build-a-parachain/acquire-a-testnet-slot/testnet-slot-1.json:22:25'
       ```
 
 5. Add the public key for your account to the session keys section. Each configured session key will require a running collator
 
       ```json
-      ...
-        "session": {
-          "keys": [
-           [
-             "5HErbKmL5JmUKDVsH1aGyXTGZb4i9iaNsFhSgkNDr8qp2Dvj",
-             "5HErbKmL5JmUKDVsH1aGyXTGZb4i9iaNsFhSgkNDr8qp2Dvj",
-             {
-              "aura": "5HErbKmL5JmUKDVsH1aGyXTGZb4i9iaNsFhSgkNDr8qp2Dvj"
-             }
-           ],
-          ]
-        }
-      ...
+      --8<-- 'code/tutorials/polkadot-sdk/build-a-parachain/acquire-a-testnet-slot/testnet-slot-1.json::2'
+      --8<-- 'code/tutorials/polkadot-sdk/build-a-parachain/acquire-a-testnet-slot/testnet-slot-1.json:5:7'
+      --8<-- 'code/tutorials/polkadot-sdk/build-a-parachain/acquire-a-testnet-slot/testnet-slot-1.json:11:25'
       ```
 
 6. Save your changes and close the plain text chain specification file
 
-7. Generate a raw chain specification file from the modified chain specification file by running the following command
+7. Generate a raw chain specification file from the modified chain specification file
 
       ```bash
-      ./target/release/parachain-template-node build-spec --chain plain-parachain-chainspec.json --disable-default-bootnode --raw > raw-parachain-chainspec.json
+      ./target/release/parachain-template-node build-spec \
+        --chain plain-parachain-chainspec.json \
+        --disable-default-bootnode \
+        --raw > raw-parachain-chainspec.json
       ```
 
       After running the command, you will see the following output:
 
-       <div id="termynal" data-termynal>
-       <span data-ty="input"><span class="file-path"></span>./target/release/parachain-template-node build-spec --chain plain-parachain-chainspec.json --disable-default-bootnode --raw > raw-parachain-chainspec.json</span>
-       <br>
-       <span data-ty="progress">2024-09-11 09:48:15 Building chain spec</span>
-       <span data-ty="progress">2024-09-11 09:48:15 assembling new collators for new session 0 at #0</span>
-       <span data-ty="progress">2024-09-11 09:48:15 assembling new collators for new session 1 at #0</span>
-       </div>
+      --8<-- 'code/tutorials/polkadot-sdk/build-a-parachain/acquire-a-testnet-slot/testnet-slot-2.html'
 
 ## Export Required Files
 
 To prepare the parachain collator to be registered on Paseo, follow these steps:
 
-1. Export the WebAssembly runtime for the parachain by running a command similar to the following
- 
+1. Export the Wasm runtime for the parachain by running a command similar to the following
+
       ```bash
-      ./target/release/parachain-template-node export-genesis-wasm --chain raw-parachain-chainspec.json para-4508-wasm
+      ./target/release/parachain-template-node export-genesis-wasm \
+        --chain raw-parachain-chainspec.json para-4508-wasm
       ```
 
 2. Export the genesis state for the parachain by running a command similar to the following
 
       ```bash
-      ./target/release/parachain-template-node export-genesis-state --chain raw-parachain-chainspec.json para-4508-state
+      ./target/release/parachain-template-node export-genesis-state \
+        --chain raw-parachain-chainspec.json para-4508-state
       ```
 
 ## Start the Collator Node
@@ -182,13 +161,13 @@ You must have the ports for the collator publicly accessible and discoverable to
   --rpc-port 9988
 ```
 
-In this example, the first `--port` setting specifies the port for the collator node and the second `--port` specifies the embedded relay chain node port. The first `--rpc-port` setting specifies the port you can use to connect to collator. The second `--rpc-port` specifies the port for connecting to the embedded relay chain.
+In this example, the first `--port` setting specifies the port for the collator node, and the second `--port` specifies the embedded relay chain node port. The first `--rpc-port` setting specifies the port you can connect to collator. The second `--rpc-port` specifies the port for connecting to the embedded relay chain.
 
-## Obtain CoreTime 
+## Obtain Coretime
 
-With your parachain collator operational, the next step is acquiring CoreTime. This is essential for ensuring your parachain's security through the relay chain. [Agile Coretime](https://wiki.polkadot.network/docs/learn-agile-coretime){target=\_blank} enhances Polkadot's resource management, offering developers greater economic adaptability. Once you have configured your parachain, you can to follow two paths:
+With your parachain collator operational, the next step is acquiring coretime. This is essential for ensuring your parachain's security through the relay chain. [Agile Coretime](https://wiki.polkadot.network/docs/learn-agile-coretime){target=\_blank} enhances Polkadot's resource management, offering developers greater economic adaptability. Once you have configured your parachain, you can follow two paths:
 
-- Bulk CoreTime is purchased via the `Broker` pallet, on the respective Coretime system parachain. You can purchase bulk coretime on [Coretime chain](TODO:update-path){target=\_blank} and assign the purchased core to the registered ParaID
-- On-demand CoreTime is ordered via the `OnDemandAssignment` pallet, which is located on the respective relay chain
+- Bulk coretime is purchased via the Broker pallet on the respective coretime system parachain. You can purchase bulk coretime on the [coretime chain](TODO:update-path){target=\_blank} and assign the purchased core to the registered `ParaID`
+- On-demand coretime is ordered via the `OnDemandAssignment` pallet, which is located on the respective relay chain
 
-For more information on Coretime, refer to the [Coretime documentation](TODO:update-path){target=\_blank}.
+For more information on coretime, refer to the [Coretime](TODO:update-path){target=\_blank} documentation.

@@ -21,45 +21,45 @@ Before you begin, verify the following:
  
 This tutorial uses the following Zombienet configuration file to illustrate the interaction between the two chains, where parachain B will send XCM instructions to deposit assets into an account on parachain A.
 
-    ```toml
-    [relaychain]
-    default_command = "polkadot"
-    chain = "rococo-local"
+```toml
+[relaychain]
+default_command = "polkadot"
+chain = "rococo-local"
 
-    [[relaychain.nodes]]
-    name = "alice"
-    validator = true
-    ws_port = 9944
+[[relaychain.nodes]]
+name = "alice"
+validator = true
+ws_port = 9944
 
-    [[relaychain.nodes]]
-    name = "bob"
-    validator = true
-    ws_port = 9955
+[[relaychain.nodes]]
+name = "bob"
+validator = true
+ws_port = 9955
 
-    [[parachains]]
-    id = 1000
+[[parachains]]
+id = 1000
 
-    [parachains.collator]
-    name = "parachainA"
-    ws_port = 9988
-    command = "parachain-template-node"
-    args = [ "-l=xcm=trace" ]
+[parachains.collator]
+name = "parachainA"
+ws_port = 9988
+command = "parachain-template-node"
+args = [ "-l=xcm=trace" ]
 
-    [[parachains]]
-    id = 1001
+[[parachains]]
+id = 1001
 
-    [parachains.collator]
-    name = "parachainB"
-    ws_port = 9989
-    command = "parachain-template-node"
-    args = [ "-l=xcm=trace" ]
+[parachains.collator]
+name = "parachainB"
+ws_port = 9989
+command = "parachain-template-node"
+args = [ "-l=xcm=trace" ]
 
-    [settings]
-    timeout = 1000
-    ```
+[settings]
+timeout = 1000
+```
 
-    !!! note
-        Due to a well-known issue with Zombienet and HRMP channels, the opening of the HRMP channels between parachains has been forced by the relay chain through the `sudo` pallet for this tutorial. For further information about this workaround, please refer to [Zombienet test with preopen hrmp with zombienet investigation](https://github.com/paritytech/polkadot-sdk/pull/1616#issuecomment-1727194584){target=\_blank}
+!!! note
+    Due to a well-known issue with Zombienet and HRMP channels, the opening of the HRMP channels between parachains has been forced by the relay chain through the `sudo` pallet for this tutorial. For further information about this workaround, please refer to [Zombienet test with preopen hrmp with zombienet investigation](https://github.com/paritytech/polkadot-sdk/pull/1616#issuecomment-1727194584){target=\_blank}
 
 ## Define the XCM destination for the message
 

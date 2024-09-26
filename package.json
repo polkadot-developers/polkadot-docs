@@ -11,6 +11,7 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "@taplo/cli": "^0.7.0",
     "husky": "^8.0.0"
   }
 }

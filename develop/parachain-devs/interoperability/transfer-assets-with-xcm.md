@@ -161,19 +161,6 @@ To deposit assets after fees from the holding register into a specific account:
 
         ![](/images/tutorials/polkadot-sdk/build-a-parachain/transfer-assets-with-xcm/transfer-assets-with-xcm-7.webp)
 
-        !!! note
-            If you want to deposit the assets into the sovereign account for parachain A, you could specify the beneficiary using the following settings:
-                  ```json
-                  {
-                    "parents": 0,
-                    "interior": {
-                      "X1": {
-                        "junction": "Parachain",
-                        "parachainIndex": 1000
-                      }
-                    }
-                  }
-                  ```
 After you configure all of the XCM instructions to be executed, you're ready to submit the transaction.
 
 ## Submit and Check the Transaction

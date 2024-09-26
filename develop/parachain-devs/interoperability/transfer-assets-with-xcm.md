@@ -138,7 +138,7 @@ To pay for execution from assets deposited in the holding register, follow these
 To deposit assets after fees from the holding register into a specific account:
 
 1. Prepare the [DepositAsset](https://github.com/polkadot-fellows/xcm-format#depositasset){target=\_blank} as the third instruction for this message
-      1. Click on **+ Add item** to add the instruction to the message
+      1. Click on **+ Add item** to add a new instruction to the message
       2. Select **DepositAsset** from the dropdown menu
       3. For the **asset** parameter, set `Wild` to allow an unspecified number of assets to be deposited. Then, set `All` for the *wild* parameter to allow all of the remaining assets after fees are paid to be deposited
       4. For the **maxAssets** parameter, set `1` as the maximum number of unique assets to remove from the holding register for the deposit. In this tutorial, there's only one asset instance available to be removed

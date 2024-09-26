@@ -71,7 +71,7 @@ To illustrate the interaction between the two chains, in the following example, 
 
 2. Use the **sudo** pallet to send the XCM instructions
       1. Select the **sudo** pallet from the dropdown menu
-      2. Choose the **sudo(call)** extrinsic to use the Sudo pallet to execute privileged transactions
+      2. Choose the **sudo** extrinsic to use the Sudo pallet to execute privileged transactions
 
         ![](/images/tutorials/polkadot-sdk/build-a-parachain/transfer-assets-with-xcm/transfer-assets-with-xcm-2.webp)
 

@@ -1,4 +1,4 @@
 title: Interact with the Network
 nav:
   - index.md
-  - light-clients.md
+  - 'Using Light Clients': 'light-clients.md'

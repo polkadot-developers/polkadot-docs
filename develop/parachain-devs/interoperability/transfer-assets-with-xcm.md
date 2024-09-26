@@ -15,9 +15,11 @@ The outcome for this tutorial is similar to using the `transfer` function from t
 
 Before you begin, verify the following:
 
+- You have a relay chain with two parachains, parachain A and parachain B
 - You have the Sudo pallet available for both local parachains to use
 - You have opened the message passing channel to allow communication between parachain B and parachain A
-- You have set up a parachain test network using Zombienet or a local relay chain using the `rococo-local` chain specification. This tutorial uses the following Zombienet configuration file:
+ 
+This tutorial uses the following Zombienet configuration file as an example:
 
     ```toml
     [relaychain]

@@ -1,5 +1,4 @@
 {
-    ...,
     "relaychain": {
         "default_command": "polkadot",
         "default_image": "polkadot-debug:master",
@@ -17,8 +16,6 @@
                 "validator": true,
                 "balance": 1000000000000
             }
-        ],
-        ...
-    },
-    ...
+        ]
+    }
 }

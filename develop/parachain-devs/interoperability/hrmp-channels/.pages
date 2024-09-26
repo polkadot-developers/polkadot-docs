@@ -1,0 +1,7 @@
+title: HRMP Channels
+hide: false
+nav:
+  - index.md
+  - 'Overview': 'overview.md'
+  - 'Opening HRMP Channels Between Parachains': 'para-to-para.md'
+  - 'Opening HRMP Channels with System Parachains': 'para-to-system.md'

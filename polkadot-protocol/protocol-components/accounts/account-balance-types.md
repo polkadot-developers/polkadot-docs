@@ -41,8 +41,8 @@ Locks are included in the account's `frozen` balance, which represents funds tha
 
 Locks can overlap in both amount and duration, following these general rules:
 
-1. If multiple locks involve different amounts of tokens, the largest lock determines the total amount of locked tokens.
-2. If multiple locks involve the same amount of tokens, the lock with the longest duration dictates when those tokens can be unlocked.
+1. If multiple locks involve different amounts of tokens, the largest lock determines the total amount of locked tokens
+2. If multiple locks involve the same amount of tokens, the lock with the longest duration dictates when those tokens can be unlocked
 
 ### Locks Example
 

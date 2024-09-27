@@ -92,21 +92,21 @@ The following example displays the different balance types on the Polkadot-JS UI
 
 ![](/images/polkadot-protocol/protocol-components/accounts/account-balance-types-1.webp)
 
-- The **total balance** represents the entire number of tokens in the account, but it doesn’t necessarily reflect the tokens you can transfer. In this example, the total balance is **0.6274 KSM**.
+- The **total balance** represents the entire number of tokens in the account, but it doesn’t necessarily reflect the tokens you can transfer. In this example, the total balance is **0.6274 KSM**
 
-- The **transferrable balance** shows the number of tokens available for transfer. It is calculated by subtracting the locked and reserved tokens from the total balance. In the example, the transferrable balance is 0.0106 KSM.
+- The **transferrable balance** shows the number of tokens available for transfer. It is calculated by subtracting the locked and reserved tokens from the total balance. In the example, the transferrable balance is 0.0106 KSM
 
-- **Locked funds** refer to tokens used for staking, governance, or vested transfers (details below).
+- **Locked funds** refer to tokens used for staking, governance, or vested transfers (details below)
 
-- The **vested balance** refers to tokens sent to the account that are released according to a specific time schedule. Although the account owns these tokens, they are locked and will only become transferable after a certain number of blocks. In this example, the vested balance is **0.25 KSM**.
+- The **vested balance** refers to tokens sent to the account that are released according to a specific time schedule. Although the account owns these tokens, they are locked and will only become transferable after a certain number of blocks. In this example, the vested balance is **0.25 KSM**
 
-- The **bonded balance** represents the number of tokens locked for on-chain activities such as staking. In this example, the bonded balance is **0.4 KSM**.
+- The **bonded balance** represents the number of tokens locked for on-chain activities such as staking. In this example, the bonded balance is **0.4 KSM**
 
-- The **democracy balance** represents the number of tokens locked for on-chain participation in governance activities, such as voting on referenda and council elections. In this example, the democracy balance is **0.4 KSM**.
+- The **democracy balance** represents the number of tokens locked for on-chain participation in governance activities, such as voting on referenda and council elections. In this example, the democracy balance is **0.4 KSM**
 
-- The **redeemable balance** shows the number of tokens that have completed the unbonding period and are ready to be unlocked, becoming transferable again. In this example, the redeemable balance is **0.1 KSM**.
+- The **redeemable balance** shows the number of tokens that have completed the unbonding period and are ready to be unlocked, becoming transferable again. In this example, the redeemable balance is **0.1 KSM**
 
-- The **locked balance** represents the number of frozen tokens due to participation in staking, democracy, or vested transfers. **Locks do not stack**, meaning the total locked balance is determined by the largest lock, not the sum of individual locks.
+- The **locked balance** represents the number of frozen tokens due to participation in staking, democracy, or vested transfers. **Locks do not stack**, meaning the total locked balance is determined by the largest lock, not the sum of individual locks
 
-- The **reserved balance** represents tokens frozen for on-chain activities other than staking, governance, or vested transfers. This can include actions like setting an identity or a proxy. Reserved funds are locked due to on-chain requirements but can typically be freed by taking specific on-chain actions. For instance, the "Identity" pallet reserves funds while an on-chain identity is registered, but by clearing the identity, those funds can be unreserved and made available again. The same applies to proxies, which reserve funds due to their memory usage on the network. In this example, a governance proxy was created, and the reserved balance is 0.0668 KSM.
+- The **reserved balance** represents tokens frozen for on-chain activities other than staking, governance, or vested transfers. This can include actions like setting an identity or a proxy. Reserved funds are locked due to on-chain requirements but can typically be freed by taking specific on-chain actions. For instance, the "Identity" pallet reserves funds while an on-chain identity is registered, but by clearing the identity, those funds can be unreserved and made available again. The same applies to proxies, which reserve funds due to their memory usage on the network. In this example, a governance proxy was created, and the reserved balance is 0.0668 KSM
 

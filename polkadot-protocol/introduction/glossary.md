@@ -61,7 +61,7 @@ In the context of pallets containing functions to be dispatched to the runtime, 
 
 ## Chain Specification 
 
-A chain specification file defines the properties required to run a node in an active or new Polkadot SDK-built network. It often contains the initial genesis runtime code, network properties (such as the network's name), the initial state for some pallets, and the boot node list.
+A chain specification file defines the properties required to run a node in an active or new Polkadot SDK-built network. It often contains the initial genesis runtime code, network properties (such as the network's name), the initial state for some pallets, and the boot node list. The chain specification file makes it easy to use a single Polkadot SDK codebase as the foundation for multiple independently configured chains.
 
 ## Collator
 
@@ -70,12 +70,15 @@ They aren't [authorities](#authority) in themselves, as they require a [relay ch
 
 More details are found on the [Polkadot Collator Wiki](https://wiki.polkadot.network/docs/learn-collator){target=\_blank}.
 
+## Collective
+
+Most often used to refer to an instance of the [Collective pallet](#collective) on Polkadot SDK-based networks such as [Kusama](#kusama) or [Polkadot](#polkadot) if the Collective pallet is part of the [Framework for Runtime Aggregation of Modularized Entities](#frame-framework-for-runtime-aggregation-of-modularized-entities) (FRAME)-based [runtime](#runtime) for the network.
+
+A council primarily serves to optimize and balance the more inclusive referendum system.
+
 ## Consensus
 
-Consensus is the process blockchain nodes use to agree on a chain's canonical fork. It is composed of [authorship](#block-author), finality, and [fork-choice rule](#fork-choice-rulestrategy).
-
-- Polkadot ecosystem - these three components are usually separate and the term consensus often refers specifically to authorship 
-- Substrate node - the term _consensus engine_ describes the node subsystem responsible for consensus tasks.
+Consensus is the process blockchain nodes use to agree on a chain's canonical fork. It is composed of [authorship](#block-author), finality, and [fork-choice rule](#fork-choice-rulestrategy). In the Polkadot ecosystem, these three components are usually separate and the term consensus often refers specifically to authorship.
 
 See also [hybrid consensus](#hybrid-consensus).
 
@@ -88,15 +91,13 @@ Consensus algorithms are generally concerned with ensuring two properties:
 - **Safety** - indicating that all honest nodes eventually agreed on the state of the chain
 - **Liveness** - indicating the ability of the chain to keep progressing
 
+## Consensus Engine
+
+The node subsystem responsible for consensus tasks.
+
 For detailed information about the consensus strategies of the [Polkadot network](#polkadot-network), see the [Polkadot Consensus](https://polkadot.network/polkadot-consensus-part-1-introduction/){target=\_blank} blog series.
 
 See also [hybrid consensus](#hybrid-consensus).
-
-## Collective
-
-Most often used to refer to an instance of the [Collective pallet](#collective) on Polkadot SDK-based networks such as [Kusama](#kusama) or [Polkadot](#polkadot) if the Collective pallet is part of the [Framework for Runtime Aggregation of Modularized Entities](#frame-framework-for-runtime-aggregation-of-modularized-entities) (FRAME)-based [runtime](#runtime) for the network.
-
-A council primarily serves to optimize and balance the more inclusive referendum system.
 
 ## Development Phrase
 
@@ -108,7 +109,7 @@ Well-known development accounts, such as Alice, Bob, Charlie, Dave, Eve, and Fer
 bottom drive obey lake curtain smoke basket hold race lonely fit walk
 ```
 
-Many tools in the Substrate ecosystem, such as [`subkey`](https://github.com/paritytech/polkadot-sdk/tree/HEAD/substrate/bin/utils/subkey){target=\_blank}, allow you to implicitly specify an account using a derivation path such as `//Alice`.
+Many tools in the Polkadot SDK ecosystem, such as [`subkey`](https://github.com/paritytech/polkadot-sdk/tree/HEAD/substrate/bin/utils/subkey){target=\_blank}, allow you to implicitly specify an account using a derivation path such as `//Alice`.
 
 ## Digest
 
@@ -131,19 +132,11 @@ In the context of [FRAME](#frame), events are composable data types that each [p
 ## Executor
 
 A means of executing a function call in a given [runtime](#runtime) with a set of dependencies.
-There are two orchestration engines in Substrate, _WebAssembly_ and _native_.
+There are two orchestration engines in Polkadot SDK, _WebAssembly_ and _native_.
 
 - The _native executor_ uses a natively compiled runtime embedded in the node to execute calls. This is a performance optimization available to up-to-date nodes
 
 - The _WebAssembly executor_ uses a [Wasm](#webassembly-wasm) binary and a Wasm interpreter to execute calls. The binary is guaranteed to be up-to-date regardless of the version of the blockchain node because it is persisted in the [state](#state) of the Polkadot SDK-based chain
-
-## Extrinsic
-
-A general term for data that originates outside the runtime, is included in a block, and leads to some action. This includes user-initiated transactions and inherent transactions placed into the block by the block builder.
-
-It is a SCALE-encoded array typically consisting of a version number, signature, and varying data types indicating the resulting runtime function to be called. Extrinsics can take two forms: [inherents](#inherent-transactions) and [transactions](#transaction). 
-
-For more technical details, see the [Polkadot spec](https://spec.polkadot.network/#id-extrinsics){target=\_blank}.
 
 ## Existential Deposit
 
@@ -152,6 +145,14 @@ The minimum balance an account is allowed to have in the [Balances pallet](https
 If an account balance drops below this amount, the Balances pallet uses [a FRAME System API](https://paritytech.github.io/substrate/master/frame_system/pallet/struct.Pallet.html#method.dec_ref){target=\_blank} to drop its references to that account.
 
 If the Balances pallet reference to an account is dropped, the account can be [reaped](https://paritytech.github.io/substrate/master/frame_system/pallet/struct.Pallet.html#method.allow_death){target=\_blank}.
+
+## Extrinsic
+
+A general term for data that originates outside the runtime, is included in a block, and leads to some action. This includes user-initiated transactions and inherent transactions placed into the block by the block builder.
+
+It is a SCALE-encoded array typically consisting of a version number, signature, and varying data types indicating the resulting runtime function to be called. Extrinsics can take two forms: [inherents](#inherent-transactions) and [transactions](#transaction). 
+
+For more technical details, see the [Polkadot spec](https://spec.polkadot.network/#id-extrinsics){target=\_blank}.
 
 ## Fork Choice Rule/Strategy
 
@@ -169,10 +170,7 @@ A node that prunes historical states, keeping only recently finalized block stat
 
 ## Genesis Configuration
 
-A mechanism for specifying the initial state of a blockchain. By convention, this initial state or first block is commonly referred to as the _genesis state_ or _genesis block_.
-
-- The genesis configuration for Substrate-based chains is accomplished by way of a [chain specification](#chain-specification) file.
-- The chain specification file makes it easy to use a single Substrate codebase as the foundation for multiple independently configured chains.
+A mechanism for specifying the initial state of a blockchain. By convention, this initial state or first block is commonly referred to as the genesis state or genesis block. The genesis configuration for Polkadot SDK-based chains is accomplished by way of a [chain specification](#chain-specification) file.
 
 ## GRANDPA
 
@@ -208,7 +206,7 @@ A subsystem for managing keys for the purpose of producing new blocks.
 
 ## Kusama
 
-[Kusama](https://kusama.network/){target=\_blank} is a Substrate-based blockchain that implements a design similar to the [Polkadot network](#polkadot-network).
+[Kusama](https://kusama.network/){target=\_blank} is a Polkadot SDK-based blockchain that implements a design similar to the [Polkadot network](#polkadot-network).
 
 Kusama is a [canary](https://en.wiktionary.org/wiki/canary_in_a_coal_mine){target=\_blank} network and is referred to as [Polkadot's "wild cousin."](https://wiki.polkadot.network/docs/learn-comparisons-kusama){target=\_blank}
 
@@ -218,7 +216,7 @@ As a canary network, Kusama is expected to be more stable than a test network li
 
 A peer-to-peer networking stack that allows the use of many transport mechanisms, including WebSockets (usable in a web browser).
 
-Substrate uses the [Rust implementation](https://github.com/libp2p/rust-libp2p){target=\_blank} of the `libp2p` networking stack.
+Polkadot SDK uses the [Rust implementation](https://github.com/libp2p/rust-libp2p){target=\_blank} of the `libp2p` networking stack.
 
 ## Light Client
 
@@ -229,7 +227,7 @@ A light client can verify cryptographic primitives and provides a [remote proced
 ## Metadata
 
 Data that provides information about one or more aspects of a system.
-The metadata that exposes information about a Substrate blockchain enables you to interact with that system.
+The metadata that exposes information about a Polkadot SDK blockchain enables you to interact with that system.
 
 ## Nominated Proof of Stake (NPoS)
 
@@ -248,14 +246,14 @@ A [FRAME](#frame) primitive that identifies the source of a [dispatched](#dispat
 A module that can be used to extend the capabilities of a [FRAME](#frame)-based [runtime](#runtime).
 Pallets bundle domain-specific logic with runtime primitives like [events](#event) and [storage items](#storage-item).
 
-## Paseo
-
-Paseo TestNet provisions testing on Polkadot's "production" runtime, which means less chance of feature or code mismatch when developing parachain apps. Specifically, after the [Polkadot Technical fellowship](https://wiki.polkadot.network/docs/learn-polkadot-technical-fellowship){target=\_blank} proposes a runtime upgrade for Polkadot, this TestNet is updated, giving a period where the TestNet will be ahead of Polkadot to allow for testing.
-
 ## Parachain
 
 A parachain is a blockchain that derives shared infrastructure and security from a _[relay chain](#relay-chain)_.
 You can learn more about parachains on the [Polkadot Wiki](https://wiki.polkadot.network/docs/en/learn-parachains){target=\_blank}.
+
+## Paseo
+
+Paseo TestNet provisions testing on Polkadot's "production" runtime, which means less chance of feature or code mismatch when developing parachain apps. Specifically, after the [Polkadot Technical fellowship](https://wiki.polkadot.network/docs/learn-polkadot-technical-fellowship){target=\_blank} proposes a runtime upgrade for Polkadot, this TestNet is updated, giving a period where the TestNet will be ahead of Polkadot to allow for testing.
 
 ## Polkadot Network
 
@@ -267,11 +265,11 @@ Relay chains are [blockchains](#blockchain) that provide shared infrastructure a
 
 ## Rococo
 
-A [parachain](#parachain) test network for the Polkadot network. The [Rococo](#rococo) network is a Substrate-based blockchain that is an evolving testbed for the capabilities of heterogeneous blockchain networks.
+A [parachain](#parachain) test network for the Polkadot network. The [Rococo](#rococo) network is a Substrate-based blockchain with an October 14, 2024 deprecation date. Development teams are encouraged to use the Paseo TestNet instead.
 
 ## Runtime
 
-The runtime provides the [state transition function](#state-transition-function-stf) for a node. In Substrate, the runtime is stored as a [Wasm](#webassembly-wasm) binary in the [chain state](#state).
+The runtime provides the [state transition function](#state-transition-function-stf) for a node. In Polkadot SDK, the runtime is stored as a [Wasm](#webassembly-wasm) binary in the [chain state](#state).
 
 ## Slot
 
@@ -285,15 +283,13 @@ The sovereign account for each chain is a root-level account that can only be ac
 
 ## SS58 Address Format
 
-A public key address based on the Bitcoin [`Base-58-check`](https://en.bitcoin.it/wiki/Base58Check_encoding){target=\_blank} encoding.
+A public key address based on the Bitcoin [`Base-58-check`](https://en.bitcoin.it/wiki/Base58Check_encoding){target=\_blank} encoding. Each Polkadot SDK SS58 address uses a `base-58` encoded value to identify a specific account on a specific Polkadot SDK-based chain
 
-- Each Substrate SS58 address uses a `base-58` encoded value to identify a specific account on a specific Substrate-based chain
-- These are represented by a `base-58` encoded value to identify a specific account on a specific Substrate chain
-- The [canonical `ss58-registry`](https://github.com/paritytech/ss58-registry){target=\_blank} provides additional details about the address format used by different Substrate-based chains, including the network prefix and website used for different networks
+The [canonical `ss58-registry`](https://github.com/paritytech/ss58-registry){target=\_blank} provides additional details about the address format used by different Polkadot SDK-based chains, including the network prefix and website used for different networks
 
 ## State Transition Function (STF)
 
-The logic of a blockchain that determines how the state changes when a block is processed. In Substrate, the state transition function is effectively equivalent to the [runtime](#runtime).
+The logic of a blockchain that determines how the state changes when a block is processed. In Polkadot SDK, the state transition function is effectively equivalent to the [runtime](#runtime).
 
 ## Storage Item
 
@@ -329,12 +325,12 @@ An execution architecture that allows for the efficient, platform-neutral expres
 deterministic, machine-executable logic.
 
 [Wasm](https://webassembly.org/){target=\_blank} can be compiled from many languages, including
-the [Rust](http://rust-lang.org/){target=\_blank} programming language. Substrate-based chains use a Wasm binary to provide portable [runtimes](#runtime) that can be included as part of the chain's state.
+the [Rust](http://rust-lang.org/){target=\_blank} programming language. Polkadot SDK-based chains use a Wasm binary to provide portable [runtimes](#runtime) that can be included as part of the chain's state.
 
 ## Weight
 
-A convention used in Substrate-based blockchains to measure and manage the time it takes to validate a block.
-Substrate defines one unit of weight as one picosecond of execution time on reference hardware.
+A convention used in Polkadot SDK-based blockchains to measure and manage the time it takes to validate a block.
+Polkadot SDK defines one unit of weight as one picosecond of execution time on reference hardware.
 
 The maximum block weight should be equivalent to one-third of the target block time with an allocation of one-third each for:
 
@@ -346,4 +342,4 @@ By defining weights, you can trade-off the number of transactions per second and
 
 ## Westend
 
-Westend is a Parity-maintained, Substrate-based blockchain that serves as a test network for the [Polkadot network](#polkadot-network).
+Westend is a Parity-maintained, Polkadot SDK-based blockchain that serves as a test network for the [Polkadot network](#polkadot-network).

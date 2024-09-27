@@ -10,7 +10,7 @@ In the Polkadot ecosystem, accounts have different types of balances based on th
 !!! note "A more efficient distribution of account balance types is in development"
     Soon, pallets in the Polkadot SDK will implement the [`fungible` trait](https://paritytech.github.io/polkadot-sdk/master/frame_support/traits/tokens/fungible/index.html){target=\_blank} (see the [tracking issue](https://github.com/paritytech/polkadot-sdk/issues/226){target=\_blank} for more details). 
     
-    This update will enable more efficient use of account balances, allowing the free balance to be utilized for on-chain activities such as setting proxies and managing identities.
+This update will enable more efficient use of account balances, allowing the free balance to be utilized for on-chain activities such as setting proxies and managing identities.
 
 There are 5 types of account balances:
 

@@ -14,11 +14,11 @@ This update will enable more efficient use of account balances, allowing the fre
 
 There are 5 types of account balances:
 
-- **Free**: The balance available for on-chain activities such as staking and participating in governance, but not necessarily spendable or transferable.
-- **Frozen**: The portion of the free balance that is locked for specific purposes like [staking](path to staking page), [governance](path to governance page), or [vesting](path to Vested Transfers subsection in Types of Txs) (also referred to as locked balance).
-- **On Hold**: The balance reserved for [identities](path to Account Identities section), [proxies](path to Proxy Accounts page), [OpenGov preimages and deposits](path to OpenGov deposits page). It is no longer free and is sometimes called reserved balance.
-- **Spendable**: The free balance that is fully available for spending or transferring.
-- **Untouchable**: The part of the free balance that cannot be transferred or spent, but can still be used for other on-chain activities.
+- **Free** - the balance available for on-chain activities such as staking and participating in governance, but not necessarily spendable or transferable
+- **Frozen** - the portion of the free balance that is locked for specific purposes like [staking](path to staking page), [governance](path to governance page), or [vesting](path to Vested Transfers subsection in Types of Txs) (also referred to as locked balance)
+- **On Hold** - the balance reserved for [identities](path to Account Identities section), [proxies](path to Proxy Accounts page), [OpenGov preimages and deposits](path to OpenGov deposits page). It is no longer free and is sometimes called reserved balance
+- **Spendable** - the free balance that is fully available for spending or transferring
+- **Untouchable** - the part of the free balance that cannot be transferred or spent, but can still be used for other on-chain activities
 
 The spendable balance is calculated as follows:
 

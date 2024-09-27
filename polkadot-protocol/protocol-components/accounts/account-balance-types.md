@@ -58,11 +58,11 @@ The 1 DOT ED represents the existential deposit. The total locked amount is 80 D
 
 However, these 80 DOT will become available for unlock at different times: 
 
-1. First, you must remove the governance lock on 24 DOT after 7 days. 
+1. First, you must remove the governance lock on 24 DOT after 7 days
 
-2. Next, you can unlock the 80 DOT from staking after 28 days. 
+2. Next, you can unlock the 80 DOT from staking after 28 days
 
-3. Finally, after 224 days, you will be able to remove the second governance lock.
+3. Finally, after 224 days, you will be able to remove the second governance lock
 
 ![](/images/polkadot-protocol/protocol-components/accounts/locks-example-2.webp)
 

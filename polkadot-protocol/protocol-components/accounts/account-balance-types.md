@@ -83,9 +83,9 @@ You will get a 6x conviction for 24 DOT!
 !!!info
     Click [here](https://substrate.stackexchange.com/questions/5067/delegating-and-undelegating-during-the-lock-period-extends-it-for-the-initial-am){target=\_blank} for more information about this edge case.
 
-## Balance Types on Polkadot-JS
+## Balance Types on Polkadot.js
 
-The following example displays the different balance types on the Polkadot-JS UI (wallet) for a Kusama account. 
+The following example displays the different balance types on the Polkadot.js UI (wallet) for a Kusama account. 
 
 !!!note
     Balance types are the same for a Polkadot account.

@@ -78,7 +78,7 @@ Following the previous example, if you:
 2. Delegate 4 DOT with a 6x conviction.
 3. Undelegate again before the 7-day lock from the 1x conviction is removed.
 
-You will get a 6x conviction for 24 DOT! 
+You will get a 6x conviction for 24 DOT
 
 !!!info
     Click [here](https://substrate.stackexchange.com/questions/5067/delegating-and-undelegating-during-the-lock-period-extends-it-for-the-initial-am){target=\_blank} for more information about this edge case.

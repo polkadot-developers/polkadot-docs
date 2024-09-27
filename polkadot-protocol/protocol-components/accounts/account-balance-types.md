@@ -37,7 +37,7 @@ Locks are abstractions over an account's free balance, preventing it from being 
 
 Locks are automatically applied when an account participates in on-chain activities such as staking or voting, but they are not customizable by users.
 
-Locks are included in the account's `frozen` balance, which represents funds that may be free but are non-transferable. This balance is tied up in activities such as [staking](path to staking page), [governance](path to governance page) and [vesting](path to Vested Transfers subsection in Types of Txs)
+Locks are included in the account's `frozen` balance, which represents funds that may be free but are non-transferable. This balance is tied up in activities such as [staking](path to staking page), [governance](path to governance page) and [vesting](path to Vested Transfers subsection in Types of Txs).
 
 Locks can overlap in both amount and duration, following these general rules:
 

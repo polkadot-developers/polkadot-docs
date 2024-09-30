@@ -38,13 +38,13 @@ To teleport assets between the two chains, follow these steps:
     1. Select the **Developer** tab from the sidebar
     2. Choose the **Extrinsics** option
 
-        ![](/images/tutorials/polkadot-sdk/build-a-parachain/transfer-assets-with-xcm/transfer-assets-with-xcm-1.webp)
+        ![](/images/develop/parachain-devs/interoperability/transfer-assets-with-xcm/transfer-assets-with-xcm-1.webp)
 
 2. Select the **xcmPallet** and the **limitedTeleportAssets** extrinsic
     1. Choose the **xcmPallet** from the list of pallets
     2. Select the **limitedTeleportAssets** extrinsic from the extrinsics available
 
-        ![](/images/tutorials/polkadot-sdk/build-a-parachain/transfer-assets-with-xcm/transfer-assets-with-xcm-2.webp)
+        ![](/images/develop/parachain-devs/interoperability/transfer-assets-with-xcm/transfer-assets-with-xcm-2.webp)
 
 3. Fill in the required parameters for the extrinsic
     1. Enter the **dest** multilocation of the destination chain. In this case, since the destination chain is Asset Hub (ID `1000`), its Multilocation from the Relay Chain perspective is:
@@ -74,15 +74,15 @@ To teleport assets between the two chains, follow these steps:
     5. Specify the **weightLimit** as the maximum weight to be used for the extrinsic execution
     6. Click on **Submit Transaction** to execute the extrinsic
 
-        ![](/images/tutorials/polkadot-sdk/build-a-parachain/transfer-assets-with-xcm/transfer-assets-with-xcm-3.webp)
+        ![](/images/develop/parachain-devs/interoperability/transfer-assets-with-xcm/transfer-assets-with-xcm-3.webp)
 
 4. After submitting the transaction, you can check the status of the teleportation by navigating to the **Events** tab of the relay chain in the Polkadot.js Apps interface. If the XCM message is successfully sent, you will see the event `xcmPallet.Sent` in the list of events
 
-    ![](/images/tutorials/polkadot-sdk/build-a-parachain/transfer-assets-with-xcm/transfer-assets-with-xcm-4.webp)
+    ![](/images/develop/parachain-devs/interoperability/transfer-assets-with-xcm/transfer-assets-with-xcm-4.webp)
 
 5. To verify the teleportation on the Asset Hub parachain, navigate to the **Events** section. You should see two events, **`messageQueu.Processed`** and **`balances.Transfer`**
 
-    ![](/images/tutorials/polkadot-sdk/build-a-parachain/transfer-assets-with-xcm/transfer-assets-with-xcm-5.webp)
+    ![](/images/develop/parachain-devs/interoperability/transfer-assets-with-xcm/transfer-assets-with-xcm-5.webp)
 
 These events indicate that the teleportation of assets was successful. You can now verify the balance of the beneficiary account on the Asset Hub parachain to confirm the transfer.
 
@@ -107,13 +107,13 @@ To do a reserve asset transfer between the two chains, follow these steps:
     1. Select the **Developer** tab from the sidebar
     2. Choose the **Extrinsics** option
 
-        ![](/images/tutorials/polkadot-sdk/build-a-parachain/transfer-assets-with-xcm/transfer-assets-with-xcm-1.webp)
+        ![](/images/develop/parachain-devs/interoperability/transfer-assets-with-xcm/transfer-assets-with-xcm-1.webp)
 
 2. Select the **xcmPallet** and the **limitedReservedTransferAssets** extrinsic
     1. Choose the **xcmPallet** from the list of pallets
     2. Select the **limitedReserveTransferAssets** extrinsic from the extrinsics available
 
-        ![](/images/tutorials/polkadot-sdk/build-a-parachain/transfer-assets-with-xcm/transfer-assets-with-xcm-6.webp)
+        ![](/images/develop/parachain-devs/interoperability/transfer-assets-with-xcm/transfer-assets-with-xcm-6.webp)
 
 3. Fill in the required parameters for the extrinsic
     1. Enter the **dest** multilocation of the destination chain. In this case, since the destination chain is the Astar parachain (ID `2006`), its Multilocation from the Relay Chain perspective is:
@@ -143,14 +143,14 @@ To do a reserve asset transfer between the two chains, follow these steps:
     5. Specify the **weightLimit** as the maximum weight to be used for the extrinsic execution
     6. Click on **Submit Transaction** to execute the extrinsic
 
-        ![](/images/tutorials/polkadot-sdk/build-a-parachain/transfer-assets-with-xcm/transfer-assets-with-xcm-7.webp)
+        ![](/images/develop/parachain-devs/interoperability/transfer-assets-with-xcm/transfer-assets-with-xcm-7.webp)
 
 4. After submitting the transaction, you can check the status of the teleportation by navigating to the **Events** tab of the relay chain in the Polkadot.js Apps interface. If the XCM message is successfully sent, you will see the event **`xcmPallet.Sent`** in the list of events
 
-    ![](/images/tutorials/polkadot-sdk/build-a-parachain/transfer-assets-with-xcm/transfer-assets-with-xcm-8.webp)
+    ![](/images/develop/parachain-devs/interoperability/transfer-assets-with-xcm/transfer-assets-with-xcm-8.webp)
 
 5. To verify the teleportation on the Asset Hub parachain, navigate to the **Events** section. You should see two events, **`messageQueu.Processed`**, **`balances.Issued`** and **`balances.Transfer`**
 
-    ![](/images/tutorials/polkadot-sdk/build-a-parachain/transfer-assets-with-xcm/transfer-assets-with-xcm-9.webp)
+    ![](/images/develop/parachain-devs/interoperability/transfer-assets-with-xcm/transfer-assets-with-xcm-9.webp)
 
 These events indicate that the reserve asset transfer was successful. You can now verify the balance of the beneficiary account on the Astar parachain to confirm the transfer.

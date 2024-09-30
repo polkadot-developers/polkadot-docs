@@ -5,27 +5,13 @@ description: TODO
 
 # Account Data Structure
 
-!!! warning "Update Notice"
-    Please read Substrate to [Polkadot SDK](https://docs.substrate.io/polkadot-sdk/) page first.
-
 Accounts are a foundational element of any blockchain. This page explains how accounts are managed in the Polkadot SDK and how their data structures are utilized to manage the account lifecycle within the runtime.
 
 ## Account
 
-The `Account` data type is a generically defined storage map within the [`frame-system`](https://paritytech.github.io/polkadot-sdk/master/src/frame_system/lib.rs.html#900) pallet:
+The `Account` data type is a generically defined storage map within the [`frame-system`](https://paritytech.github.io/polkadot-sdk/master/src/frame_system/lib.rs.html#900){target=\_blank} pallet:
 
-```rs
-/// The full account information for a particular account ID.
-#[pallet::storage]
-#[pallet::getter(fn account)]
-pub type Account<T: Config> = StorageMap<
-  _,
-  Blake2_128Concat,
-  T::AccountId,
-  AccountInfo<T::Nonce, T::AccountData>,
-  ValueQuery,
->;
-```
+ --8<-- 'code/polkadot-protocol/protocol-components/accounts/account-id-information.md'
 
 The StorageMap for an Account consists of the following parameters:
 
@@ -34,31 +20,13 @@ The StorageMap for an Account consists of the following parameters:
 - `T::AccountId` is used as the key for over the `AccountInfo<T::Nonce, T::AccountData>` struct.
 
 !!! note
-    See [StorageMap API](https://paritytech.github.io/polkadot-sdk/master/frame_support/storage/types/struct.StorageMap.html) for more details.
+    See [StorageMap API](https://paritytech.github.io/polkadot-sdk/master/frame_support/storage/types/struct.StorageMap.html){target=\_blank} for more details.
 
 ## Account Info
 
-The `AccountInfo` for an account is also defined within the [`frame-system`](https://paritytech.github.io/polkadot-sdk/master/src/frame_system/lib.rs.html) pallet:
+The `AccountInfo` for an account is also defined within the [`frame-system`](https://paritytech.github.io/polkadot-sdk/master/src/frame_system/lib.rs.html){target=\_blank} pallet:
 
-```rs
-#[derive(Clone, Eq, PartialEq, Default, RuntimeDebug, Encode, Decode)]
-pub struct AccountInfo<Nonce, AccountData> {
-  /// The number of transactions this account has sent.
-  pub nonce: Nonce,
-  /// The number of other modules that currently depend on this account's existence. The account
-  /// cannot be reaped until this is zero.
-  pub consumers: RefCount,
-  /// The number of other modules that allow this account to exist. The account may not be reaped
-  /// until this and `sufficients` are both zero.
-  pub providers: RefCount,
-  /// The number of modules that allow this account to exist for their own purposes only. The
-  /// account may not be reaped until this and `providers` are both zero.
-  pub sufficients: RefCount,
-  /// The additional data that belongs to this account. Used to store the balance(s) in a lot of
-  /// chains.
-  pub data: AccountData,
-}
-```
+--8<-- 'code/polkadot-protocol/protocol-components/accounts/account-info.md'
 
 Each account has an `AccountInfo` structure that includes the following components:
 
@@ -72,7 +40,7 @@ Each account has an `AccountInfo` structure that includes the following componen
 
 Account reference counters track dependencies in the runtime. For instance, if data is stored in a map associated with an account, you wouldn't want to delete the account until the data under its control has been removed.
 
-The `consumers` and `providers` reference counters are intended to work together. For example, in the [`session`](https://docs.rs/pallet-session/latest/pallet_session/) pallet, the consumers counter is incremented when an account sets its session keys before becoming a validator. 
+The `consumers` and `providers` reference counters are intended to work together. For example, in the [`session`](https://docs.rs/pallet-session/latest/pallet_session/){target=\_blank} pallet, the consumers counter is incremented when an account sets its session keys before becoming a validator. 
 
 The providers counter must be greater than zero for the consumers counter to be incremented.
 
@@ -92,7 +60,7 @@ It holds users accountable for the data they store on-chain. If users wish to de
 
 The `sufficients` reference counter indicates whether an account is self-sufficient and can exist independently. 
 
-For example, in the [`assets`](https://paritytech.github.io/polkadot-sdk/master/pallet_assets/index.html) pallet, an account may hold a sufficient quantity of specific assets without needing to maintain a native account balance.
+For example, in the [`assets`](https://paritytech.github.io/polkadot-sdk/master/pallet_assets/index.html){target=\_blank} pallet, an account may hold a sufficient quantity of specific assets without needing to maintain a native account balance.
 
 ### Account Deactivation 
 
@@ -102,31 +70,41 @@ Once both the `providers` and `consumers` reference counters reach zero, the acc
 
 ### Updating Counters
 
-Runtime developers can manage these counters using the `inc_consumers()`, `dec_consumers()`, `inc_providers()`, `dec_providers()`, `inc_sufficients()`, and `dec_sufficients()` methods provided by the `frame-system` pallet. 
+Runtime developers can manage these counters using the:
+
+-  `inc_consumers()` - Increment the reference counter on an account.
+- `dec_consumers()` - Decrement the reference counter on an account.
+- `inc_providers()` - Increment the provider reference counter on an account.
+- `dec_providers()` - Decrement the provider reference counter on an account.
+- `inc_sufficients()` - Increment the self-sufficient reference counter on an account.
+- `dec_sufficients()` - Decrement the sufficients reference counter on an account.
+
+!!!note
+    All these methods are provided by the [`frame-system`](https://paritytech.github.io/polkadot-sdk/master/frame_system/pallet/struct.Pallet.html#method){target=\_blank} pallet.
 
 For every increment of a counter during an account's lifecycle, a corresponding decrement should be called to ensure proper management of the account state.
 
 There are also three query functions to ease usage on these counters:
 
-- `can_inc_consumer()` to check if an account is ready to be used (`providers` > 0).
-- `can_dec_provider()` to check if an account is no longer referenced in runtime whatsoever (`consumers` == 0) before decrementing providers to 0.
-- `is_provider_required()` to check if an account has outstanding consumer references (`consumers` > 0).
+- [`can_inc_consumer()`](https://paritytech.github.io/polkadot-sdk/master/frame_system/pallet/struct.Pallet.html#method.can_inc_consumer){target=\_blank} to check if an account is ready to be used (`providers` > 0).
+- [`can_dec_provider()`](https://paritytech.github.io/polkadot-sdk/master/frame_system/pallet/struct.Pallet.html#method.can_dec_provider){target=\_blank} to check if an account is no longer referenced in runtime whatsoever (`consumers` == 0) before decrementing providers to 0.
+- [`is_provider_required()`](https://paritytech.github.io/polkadot-sdk/master/frame_system/pallet/struct.Pallet.html#method.is_provider_required){target=\_blank} to check if an account has outstanding consumer references (`consumers` > 0).
 
 !!! note
-    See [frame-system API](https://paritytech.github.io/polkadot-sdk/master/frame_system/pallet/struct.Pallet.html) for more details.
+    See [frame-system API](https://paritytech.github.io/polkadot-sdk/master/frame_system/pallet/struct.Pallet.html){target=\_blank} for more details.
 
 ## AccountData Trait and Implementation
 
-The `AccountInfo` can be any structure, provided it meets the requirements of the associated type `AccountData` trait bound defined in the [`frame-system::pallet::Config`](https://paritytech.github.io/polkadot-sdk/master/frame_system/pallet/trait.Config.html) trait. 
+The [`AccountInfo`](https://paritytech.github.io/polkadot-sdk/master/frame_system/struct.AccountInfo.html){target=\_blank} can be any structure, provided it meets the requirements of the associated type `AccountData` trait bound defined in the [`frame-system::pallet::Config`](https://paritytech.github.io/polkadot-sdk/master/frame_system/pallet/trait.Config.html){target=\_blank} trait. 
 
-By default, the Substrate runtime configures `AccountInfo` as defined in the [`pallet-balances`](https://paritytech.github.io/polkadot-sdk/master/pallet_balances/struct.AccountData.html).
+By default, the Substrate runtime configures `AccountInfo` as defined in the [`pallet-balances`](https://paritytech.github.io/polkadot-sdk/master/pallet_balances/struct.AccountData.html){target=\_blank}.
 
 ## Where to Go Next
 
 For additional technical details, check the following resources:
 
-- [`frame_system::AccountInfo`](https://paritytech.github.io/polkadot-sdk/master/frame_system/struct.AccountInfo.html) API
-- [`pallet_balances::AccountData`](https://paritytech.github.io/polkadot-sdk/master/pallet_balances/struct.AccountData.html) API.
-- [`pallet_session::Pallet::set_key`s](https://paritytech.github.io/polkadot-sdk/master/src/pallet_session/lib.rs.html) dispatchable call
-- [`frame_system::Provider`](https://paritytech.github.io/polkadot-sdk/master/src/frame_system/lib.rs.html) `HandleLifetime` implementation
-- `pallet_assets` [`new_account`](https://paritytech.github.io/polkadot-sdk/master/src/pallet_assets/functions.rs.html) function
+- [`frame_system::AccountInfo`](https://paritytech.github.io/polkadot-sdk/master/frame_system/struct.AccountInfo.html){target=\_blank} API
+- [`pallet_balances::AccountData`](https://paritytech.github.io/polkadot-sdk/master/pallet_balances/struct.AccountData.html){target=\_blank} API.
+- [`pallet_session::Pallet::set_key`s](https://paritytech.github.io/polkadot-sdk/master/src/pallet_session/lib.rs.html){target=\_blank} dispatchable call
+- [`frame_system::Provider`](https://paritytech.github.io/polkadot-sdk/master/src/frame_system/lib.rs.html){target=\_blank} `HandleLifetime` implementation
+- `pallet_assets` [`new_account`](https://paritytech.github.io/polkadot-sdk/master/src/pallet_assets/functions.rs.html){target=\_blank} function

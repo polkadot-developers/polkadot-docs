@@ -98,13 +98,3 @@ There are also three query functions to ease usage on these counters:
 The [`AccountInfo`](https://paritytech.github.io/polkadot-sdk/master/frame_system/struct.AccountInfo.html){target=\_blank} can be any structure, provided it meets the requirements of the associated type `AccountData` trait bound defined in the [`frame-system::pallet::Config`](https://paritytech.github.io/polkadot-sdk/master/frame_system/pallet/trait.Config.html){target=\_blank} trait. 
 
 By default, the Substrate runtime configures `AccountInfo` as defined in the [`pallet-balances`](https://paritytech.github.io/polkadot-sdk/master/pallet_balances/struct.AccountData.html){target=\_blank}.
-
-## Where to Go Next
-
-For additional technical details, check the following resources:
-
-- [`frame_system::AccountInfo`](https://paritytech.github.io/polkadot-sdk/master/frame_system/struct.AccountInfo.html){target=\_blank} API
-- [`pallet_balances::AccountData`](https://paritytech.github.io/polkadot-sdk/master/pallet_balances/struct.AccountData.html){target=\_blank} API.
-- [`pallet_session::Pallet::set_key`s](https://paritytech.github.io/polkadot-sdk/master/src/pallet_session/lib.rs.html){target=\_blank} dispatchable call
-- [`frame_system::Provider`](https://paritytech.github.io/polkadot-sdk/master/src/frame_system/lib.rs.html){target=\_blank} `HandleLifetime` implementation
-- `pallet_assets` [`new_account`](https://paritytech.github.io/polkadot-sdk/master/src/pallet_assets/functions.rs.html){target=\_blank} function

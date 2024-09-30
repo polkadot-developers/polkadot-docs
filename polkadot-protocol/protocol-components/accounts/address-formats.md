@@ -1,23 +1,19 @@
 ---
 title: Address Formats
-description: This page provides an overview of Substrate address formats, encoding strategies use and best practices. 
+description: Overview of Polkadot address formats, covering different encoding strategies and best practices for secure and efficient usage.
 ---
 
 # Address Formats
 
-!!! warning "Update Notice"
+The default Polkadot SDK address format is `SS58`, a modified version of Bitcoin's `Base58Check` format tailored for Polkadot SDK-based chains. 
 
-    Please read Substrate to [Polkadot SDK](https://docs.substrate.io/polkadot-sdk/) page first.
-
-The default Substrate address format is `SS58`, a modified version of Bitcoin's `Base58Check` format tailored for Substrate-based chains. 
-
-While other formats can be used, `SS58` provides a base-58 encoded value that uniquely identifies an account on any Substrate chain. 
+While other formats can be used, `SS58` provides a base-58 encoded value that uniquely identifies an account on any Polkadot SDK chain. 
 
 It's designed to be extensible, accommodating different ways of identifying accounts across various chains.
 
 ## Basic Format
 
-You can find the implementation for the `SS58` address format in [Ss58Codec](https://paritytech.github.io/polkadot-sdk/master/sp_core/crypto/trait.Ss58Codec.html).
+You can find the implementation for the `SS58` address format in [Ss58Codec](https://paritytech.github.io/polkadot-sdk/master/sp_core/crypto/trait.Ss58Codec.html){target=\_blank}.
 
 The basic format of the address can be described as:
 
@@ -53,11 +49,11 @@ Currently, the valid values are:
 
 - `10000000b..=11111111b` (128 to 255 inclusive)
 
-    This section is reserved for future address format extensions. The address type 42 is designed to be valid across all Substrate networks that support fixed-length addresses. 
+    This section is reserved for future address format extensions. The address type 42 is designed to be valid across all Polkadot SDK networks that support fixed-length addresses. 
 
     However, for production networks, using a network-specific version may be preferable to prevent key reuse between networks and mitigate associated issues. 
 
-    By default, Substrate nodes display keys in address type 42, but Substrate-based chains with different node implementations—such as those in the Polkadot ecosystem—might use a different default address type.
+    By default, Polkadot SDK nodes display keys in address type 42, but Polkadot SDK-based chains with different node implementations—such as those in the Polkadot ecosystem—might use a different default address type.
 
 ## Address Length in bytes
 
@@ -84,11 +80,11 @@ There are 16 different address formats, each identified by the total payload len
 
 ## Checksum Types
 
-Substrate offers several potential checksum strategies, each providing varying length and longevity guarantees. 
+Polkadot SDK offers several potential checksum strategies, each providing varying length and longevity guarantees. 
 
 There are two types of checksum preimages (`SS58` and `AccountID`) along with a range of checksum lengths from 1 to 8 bytes.
 
-In all cases for Substrate, the Blake2b-512 (Spec, Wiki) hash function is used (OID 1.3.6.1.4.1.1722.12.2.1.16). The variants simply select the preimage used as the input to the hash function and the number of bytes taken from its output.
+In all cases for Polkadot SDK, the Blake2b-512 hash function is used. The variants simply select the preimage used as the input to the hash function and the number of bytes taken from its output.
 
 The bytes used are always the left-most bytes. The input consists of the non-checksum portion of the SS58 byte series, which is used as input to the base-58 function. 
 
@@ -102,7 +98,7 @@ Therefore, it is left to higher levels of the stack (rather than the end user) t
 
 ## Address Types and Network Registry
 
-The [SS58 registry](https://github.com/paritytech/ss58-registry) is the canonical listing of all address type identifiers and how they map to Substrate-based networks.
+The [SS58 registry](https://github.com/paritytech/ss58-registry){target=\_blank} is the canonical listing of all address type identifiers and how they map to Polkadot SDK-based networks.
 
 ## Encoding Address and Network Identifiers
 
@@ -131,6 +127,13 @@ You can verify that a value is a valid `SS58` address by using the subkey `inspe
 
 ### Using subkey
 
+!!!note "What is Subkey?"
+    The subkey program is a key generation and management utility that is included in the Polkadot SDK repository. 
+    
+    You can use the subkey program to generate public and private keys, restore them with seed phrases, sign and verify signatures and derive hierarchical deterministic child key pairs.
+
+    For more information please check [this](https://paritytech.github.io/polkadot-sdk/master/subkey/index.html){target=\_blank} **Rust** crate
+
 The basic syntax for the `subkey inspect` command is:
 
 ```
@@ -146,18 +149,11 @@ subkey inspect "caution juice atom organ advance problem want pledge someone sen
 ```
 The command displays output similar to the following:
 
-```
-Secret phrase `caution juice atom organ advance problem want pledge someone senior holiday very` is account:
-  Secret seed:       0xc8fa03532fb22ee1f7f6908b9c02b4e72483f0dbd66e4cd456b8f34c6230b849
-  Public key (hex):  0xd6a3105d6768e956e9e5d41050ac29843f98561410d3a47f9dd5b3b227ab8746
-  Public key (SS58): 5Gv8YYFu8H1btvmrJy9FjjAWfb99wrhV3uhPFoNEr918utyR
-  Account ID:        0xd6a3105d6768e956e9e5d41050ac29843f98561410d3a47f9dd5b3b227ab8746
-  SS58 Address:      5Gv8YYFu8H1btvmrJy9FjjAWfb99wrhV3uhPFoNEr918utyR
-```
+--8<-- 'code/polkadot-protocol/protocol-components/accounts/subkey-seedphrase-output.md'
 
 The `subkey` program assumes that an address is based on a public/private key pair. If you inspect an address, the command returns the `32-byte` account identifier. 
 
-However, not all addresses in Substrate-based networks are based on keys.
+However, not all addresses in Polkadot SDK-based networks are based on keys.
 
 Depending on the command-line options you specify and the input you provided, the command output might also display the network for which the address has been encoded. For example:
 
@@ -167,49 +163,21 @@ subkey inspect "12bzRJfh7arnnfPPUZHeJUaE62QLEwhK48QnH9LXeK2m1iZU"
 
 The command displays output similar to the following:
 
-```
-Public Key URI `12bzRJfh7arnnfPPUZHeJUaE62QLEwhK48QnH9LXeK2m1iZU` is account:
-  Network ID/Version: polkadot
-  Public key (hex):   0x46ebddef8cd9bb167dc30878d7113b7e168e6f0646beffd77d69d39bad76b47a
-  Account ID:         0x46ebddef8cd9bb167dc30878d7113b7e168e6f0646beffd77d69d39bad76b47a
-  Public key (SS58):  12bzRJfh7arnnfPPUZHeJUaE62QLEwhK48QnH9LXeK2m1iZU
-  SS58 Address:       12bzRJfh7arnnfPPUZHeJUaE62QLEwhK48QnH9LXeK2m1iZU
-```
+--8<-- 'code/polkadot-protocol/protocol-components/accounts/subkey-key-uri.md'
 
 ### Using Polkadot-JS
 
 To verify an address in JavaScript or TypeScript projects, you can use the functions built into the Polkadot-JS API. For example:
 
-```js
-// Import Polkadot.js API dependencies.
-const { decodeAddress, encodeAddress } = require('@polkadot/keyring')
-const { hexToU8a, isHex } = require('@polkadot/util')
+--8<-- 'code/polkadot-protocol/protocol-components/accounts/polkadot-js-address-validation.md'
 
-// Specify an address to test.
-const address = '<addressToTest>'
-
-// Check address.
-const isValidSubstrateAddress = () => {
-  try {
-    encodeAddress(isHex(address) ? hexToU8a(address) : decodeAddress(address))
-
-    return true
-  } catch (error) {
-    return false
-  }
-}
-
-// Query result.
-const isValid = isValidSubstrateAddress()
-console.log(isValid)
-```
 If the function returns `true`, the address you specified is a valid address.
 
 ### Other SS58 Implementations
 
-Support for encoding and decoding Substrate SS58 addresses has been implemented in several other languages and libraries.
+Support for encoding and decoding Polkadot SDK SS58 addresses has been implemented in several other languages and libraries.
 
-- Crystal: `wyhaines/base58.cr`
-- Go: `itering/subscan`
-- Python: `polkascan/py-scale-codec`
-- TypeScript: `subsquid/squid-sdk`
+- Crystal: [`wyhaines/base58.cr`](https://github.com/wyhaines/base58.cr){target=\_blank}
+- Go: [`itering/subscan-plugin`](https://github.com/itering/subscan-plugin){target=\_blank}
+- Python: [`polkascan/py-scale-codec`](https://github.com/polkascan/py-scale-codec){target=\_blank}
+- TypeScript: [`subsquid/squid-sdk`](https://github.com/subsquid/squid-sdk){target=\_blank}

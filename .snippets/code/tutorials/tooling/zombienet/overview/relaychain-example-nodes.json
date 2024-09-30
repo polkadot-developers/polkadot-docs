@@ -1,0 +1,24 @@
+{
+    ...,
+    "relaychain": {
+        "default_command": "polkadot",
+        "default_image": "polkadot-debug:master",
+        "chain": "rococo-local",
+        "chain_spec_path": "/path/to/chain-spec.json",
+        "default_args": ["--chain", "rococo-local"],
+        "nodes": [
+            {
+                "name": "alice",
+                "validator": true,
+                "balance": 1000000000000
+            },
+            {
+                "name": "bob",
+                "validator": true,
+                "balance": 1000000000000
+            }
+        ],
+        ...
+    },
+    ...
+}

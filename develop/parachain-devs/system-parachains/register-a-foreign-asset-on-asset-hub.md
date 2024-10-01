@@ -22,7 +22,6 @@ The Asset Hub parachain is one of the system parachains on a relay chain, such a
 
 For testing purposes, you can also interact with the Asset Hub instance on the following test networks:
 
-- [Rococo Asset Hub](https://polkadot.js.org/apps/?rpc=wss%3A%2F%2Fasset-hub-rococo-rpc.dwellir.com#/explorer){target=\_blank}
 - [Paseo Asset Hub](https://polkadot.js.org/apps/?rpc=wss%3A%2F%2Fpas-rpc.stakeworld.io%2Fassethub#/explorer){target=\_blank}
 
 Before you start, ensure that you have: 

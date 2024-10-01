@@ -44,4 +44,4 @@ Asset Hub considers assets originating from a different blockchain to be foreign
 
 A significant difference lies in the method used for their identification. Unlike the Assets pallet, foreign assets use [XCM Multilocation](https://wiki.polkadot.network/docs/learn/xcm/fundamentals/multilocation-summary){target=\_blank} instead of integers to identify assets, making asset identification much more versatile.
 
-Foreign assets are implemented as an [instance of Assets pallet](https://github.com/paritytech/polkadot-sdk/blob/035211d707d0a74a2a768fd658160721f09d5b44/cumulus/parachains/runtimes/assets/asset-hub-rococo/src/lib.rs#L408){target=\_blank}, but with a specialized configuration that enables support for XCM operations.
+Foreign assets are implemented as an [instance of Assets pallet](https://github.com/paseo-network/runtimes/blob/main/system-parachains/asset-hub-paseo/src/lib.rs#L363){target=\_blank}, but with a specialized configuration that enables support for XCM operations.

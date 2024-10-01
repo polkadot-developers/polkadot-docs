@@ -30,7 +30,7 @@ In the Polkadot ecosystem, various features can be explored without risking or s
 
 A typical journey through the Polkadot development process might look like this:
 
-1. **Local Development Node** - for core Polkadot developers, the process begins in a local environment where you can work on upgrades and experiment with new features using a local development node. This environment allows for rapid iteration and testing in an isolated setup without the need for interacting with external networks
+1. **Local development node** - for core Polkadot developers, the process begins in a local environment where you can work on upgrades and experiment with new features using a local development node. This environment allows for rapid iteration and testing in an isolated setup without the need for interacting with external networks
 
 2. **Westend** - once the upgrades are ready, they are deployed to [Westend](#westend), Polkadot's primary TestNet. Westend is designed to mimic the conditions of a live network without the risk of using real tokens. You can extensively test features here to ensure that everything works as expected before rolling them out to Kusama or Polkadot
 
@@ -63,8 +63,7 @@ The native token for Westend is WND. You can find more information about WND on 
 
 ### Paseo
 
-[Paseo](https://github.com/paseo-network){target=\_blank} is a community-run TestNet which mirrors the runtime of Polkadot and its system chains. It is intended for parachain and dApp developers and maintained by the members of 
-Polkadot community.
+[Paseo](https://github.com/paseo-network){target=\_blank} is a community-run TestNet that mirrors the runtime of Polkadot and its system chains. It is intended for parachain and dApp developers and maintained by members of the Polkadot community.
 
 The native token for Paseo is PAS. You can find more information about PAS on the [Native Assets](https://wiki.polkadot.network/docs/learn-DOT#getting-tokens-on-the-paseo-testnet){target=\_blank} page.
 

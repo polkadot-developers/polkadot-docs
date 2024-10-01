@@ -3,8 +3,7 @@ title: Set up an RPC node
 description: Learn how to configure set up, secure, and maintain an RPC node in an archival or pruned state (and know the difference between the two).
 ---
 
-The RPC server (included in all Polkadot SDK node implementations) can be accessed over the WebSocket protocol, which can be used to
-access the underlying network and/or validator node. By default, you can access your node's RPC
+The RPC server (included in all Polkadot SDK node implementations) can be accessed over the WebSocket protocol, which can be used to access the underlying network and/or validator node. By default, you can access your node's RPC
 server from `localhost` (for example, to rotate keys or do other maintenance). To access it from
 another server or an applications UI (such as [Polkadot.js](https://polkadot.js.org/apps){target=_blank}) it is
 recommended to enable access to the RPC node over an SSL connection and encrypt the connection
@@ -13,12 +12,10 @@ browsers, such as Google Chrome, will block non-secure WS endpoints if they come
 origin.
 
 !!!warning
-    Enabling remote access to your validator node shouldn't be necessary and is not suggested, as it
+    Enabling remote access to your validator node shouldn't be necessary and isn't suggested, as it
     can often lead to security problems
 
 ## Set Up a Node
-
-<!-- TODO: ref full node tut too -->
 
 Setting up any Polkadot SDK-based node relies on a similar process. For example, by default, they will
 all share the same WebSocket connection at port 9944 on localhost. In this example, you'll set up a
@@ -64,8 +61,6 @@ and from where access should be granted through the RPC server.
 - _From where_ - by default, localhost and Polkadot.js can access the RPC server. You can change this by setting `--rpc-cors`, to allow access from everywhere you need `--rpc-cors all`
 - _What_ - You can limit the methods to use with `--rpc-methods`, an easy way to set this to a safe
 mode is `--rpc-methods Safe`
-
-<!-- TODO: ref setup WSS tutorial / page -->
 
 ### Secure the WebSocket Port
 

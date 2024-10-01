@@ -1,0 +1,17 @@
+{
+  "name": "polkadot-docs",
+  "version": "1.0.0",
+  "description": "This package contains tools to support the development and maintenance of the polkadot-docs repository.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "prepare": "husky install"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@taplo/cli": "^0.7.0",
+    "husky": "^8.0.0"
+  }
+}

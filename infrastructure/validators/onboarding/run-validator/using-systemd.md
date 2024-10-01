@@ -1,6 +1,6 @@
 ---
 title: Use Systemd
-description: Using a service manager for your validator node.
+description: Using a service manager, such as systemd to streamline the management of your Polkadot node as a process on your Linux host machine.
 ---
 
 You can run your validator as a [systemd](https://en.wikipedia.org/wiki/Systemd){target=\_blank} process so that it will automatically restart on server reboots or crashes (and helps to avoid getting [slashed](TODO:update-path){target=\_blank}).
@@ -49,8 +49,10 @@ You can check that it's working with:
 systemctl status polkadot-validator.service
 ```
 
-You can tail the logs with `journalctl` like so:
+You can tail the logs with [`journalctl`](https://www.freedesktop.org/software/systemd/man/latest/journalctl.html){target=\_blank} (a tool to print log entries from the `systemd` journal) like so:
 
 ```bash
 journalctl -f -u polkadot-validator
 ```
+
+Now, you can monitor and manage a Polkadot validator as you would any other service on your Linux host.

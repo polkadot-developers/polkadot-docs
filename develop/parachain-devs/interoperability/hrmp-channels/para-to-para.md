@@ -22,7 +22,7 @@ Once both unidirectional channels are established, the parachains can send messa
 
 Before proceeding, ensure you meet the following requirements:
 
-- Blockchain network with a relay chain and at least two connected parachains
+- Network with a relay chain and at least two connected parachains
 - Wallet with sufficient funds to execute transactions on the participant chains
 
 ## Procedure for Initiating HRMP Channel Setup

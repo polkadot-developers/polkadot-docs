@@ -17,19 +17,16 @@ This guide covers the tools and networks designed to support a wide variety of d
 
 Polkadot's development process is a well-structured path designed to ensure that upgrades and new features undergo thorough testing before reaching the live production networks. This diagram illustrates the typical progression of a Polkadot development cycle, starting from local environments and eventually reaching the Polkadot MainNet. 
 
-``` mermaid
----
-title: Polkadot Development Flow
----
-flowchart LR
-    id1[Local] --> id2[Westend] --> id4[Kusama] --> id5[Polkadot]  
-    id1[Local] --> id3[Paseo] --> id4[Kusama] 
-```
-
-
 ### Development Flow
 
-Application developers and end users of Polkadot ecosystem can test many features without risking or spending their tokens on production networks by using tools like [Chopsticks](#chopsticks) and TestNets. 
+``` mermaid
+
+flowchart LR
+    id1[Local] --> id2[Westend] --> id4[Kusama] --> id5[Polkadot]  
+    id1[Local] --> id3[Paseo] --> id5[Polkadot] 
+```
+
+In the Polkadot ecosystem, various features can be explored without risking or spending tokens on production networks by utilizing testing tools like [Chopsticks](#chopsticks) and engaging with TestNets. 
 
 A typical journey through the Polkadot development process might look like this:
 

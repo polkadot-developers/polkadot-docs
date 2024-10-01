@@ -7,7 +7,7 @@ description: Highlights the runtime interfaces that enable communication between
 
 ## Introduction
 
-Polkadot SDK-based nodes consist of a core client with outer node services and a runtime. The client handles network activity such as peer discovery, managing transaction requests, reaching consensus with peers, and responding to RPC calls. The runtime contains all of the application logic for executing the state transition function of the blockchain. This design enables upgrades without the need to fork the network as the runtime can be updated independently and on the fly with minimal effect on the node. Understanding this separation of responsibilities is an important concept for designing Polkadot SDK-based chains and building upgradeable logic. 
+Polkadot SDK-based nodes comprise a core client with outer node services and a runtime. The client handles network activity such as peer discovery, managing transaction requests, reaching consensus with peers, and responding to RPC calls. The runtime contains all of the application logic for executing the state transition function of the blockchain. This design enables upgrades without the need to fork the network, as the runtime can be updated independently and on the fly with minimal effect on the node. Understanding this separation of responsibilities is essential for designing Polkadot SDK-based chains and building upgradeable logic. 
 
 The following diagram illustrates this separation of responsibilities in simplified form to help you visualize the architecture: 
 
@@ -114,7 +114,7 @@ The following section covers common runtime APIs a Polkadot SDK-based outer node
 
         === "Returns"
 
-            `Result` ++"<ApplyExtrinsicResult>"++ - an inclusion outcome which specifies if this extrinsic is included in this block or not
+            `Result` ++"<ApplyExtrinsicResult>"++ - an inclusion outcome that specifies if this extrinsic is included in this block or not
 
     ??? function "`finalize_block()` - finish the current block"
 
@@ -144,7 +144,7 @@ The following section covers common runtime APIs a Polkadot SDK-based outer node
 
         === "Returns"
 
-            `Result` ++"CheckInherentsResult"++ - the result of checking inherents. Returns okay if no errors found, stores any occurred errors, and fails if encounters a fatal error
+            `Result` ++"CheckInherentsResult"++ - the result of checking inherents. Returns 'Ok' if no are errors found, stores any occurred errors, and fails if encounters a fatal error
 
 ??? function "**[`GrandpaApi`](https://paritytech.github.io/polkadot-sdk/master/sp_consensus_grandpa/trait.GrandpaApi.html){target=_blank}** - for integrating the GRANDPA finality gadget into runtimes"
 
@@ -268,7 +268,7 @@ The following section covers common runtime APIs a Polkadot SDK-based outer node
 
             `true` ++"bool"++ - returns true if the delegated funds of the pool member need migration
 
-    ??? function "`member_total_balance()` - returns the total contribution of a pool member including any balance that is unbonding"
+    ??? function "`member_total_balance()` - returns the total contribution of a pool member, including any balance that is unbonding"
 
         === "Parameters"
 
@@ -276,7 +276,7 @@ The following section covers common runtime APIs a Polkadot SDK-based outer node
 
         === "Returns"
 
-            `Balance` ++"u128"++ - the total contribution of a pool member including any balance that is unbonding
+            `Balance` ++"u128"++ - the total contribution of a pool member, including any balance that is unbonding
 
     ??? function "`pool_balance()` - total balance contributed to the pool"
 
@@ -302,7 +302,7 @@ The following section covers common runtime APIs a Polkadot SDK-based outer node
 
 ??? function "**[`SessionKeys`](https://paritytech.github.io/polkadot-sdk/master/polkadot_sdk_frame/runtime/apis/trait.SessionKeys.html){target=_blank}** - for generating and querying session keys"
 
-    ??? function "`generate_session_keys()` - generate a set of session keys with optionally using the given seed"
+    ??? function "`generate_session_keys()` - generate a set of session keys using optional given seed if passed"
 
         === "Parameters"
 

@@ -9,7 +9,7 @@ staking but don't want to unbond your funds, they can choose to "chill" your inv
 keep your funds bonded.
 
 An account can step back from participating in active staking by clicking "Stop" under the Network >
-Staking > Account actions page in [PolkadotJS Apps](https://polkadot.js.org/apps){target=\_blank} or by calling the [`chill`](https://paritytech.github.io/polkadot-sdk/master/pallet_staking/enum.Call.html#variant.chill){target=\_blank} extrinsic in the staking pallet. When an account chooses to chill, it becomes inactive in the next era. The call must be signed by
+Staking > Account actions page in [Polkadot.js Apps](https://polkadot.js.org/apps){target=\_blank} or by calling the [`chill`](https://paritytech.github.io/polkadot-sdk/master/pallet_staking/enum.Call.html#variant.chill){target=\_blank} extrinsic in the staking pallet. When an account chooses to chill, it becomes inactive in the next era. The call must be signed by
 the _staking proxy_ account, not the _stash_.
 
 !!!note Primer on stash and staking proxy accounts
@@ -51,13 +51,7 @@ different.
 
 ## Chill Other
 
-An unbounded and unlimited number of nominators and validators in Polkadot's NPoS isn't possible
-due to constraints in the runtime. As a result, multiple checks are incorporated to keep the size of
-staking system manageable, like mandating minimum active bond requirements for both nominators and
-validators. When these requirements are modified through on-chain governance, they can be enforced
-only on the accounts that newly call `nominate` or `validate` after the update. The changes to the
-bonding parameters would not automatically chill the active accounts on-chain which don't meet the
-requirements.
+An unbounded and unlimited number of nominators and validators in [Polkadot's NPoS](https://wiki.polkadot.network/docs/learn-phragmen){target=_blank} isn't possible due to constraints in the runtime. As a result, multiple checks are incorporated to keep the size of staking system manageable, like mandating minimum active bond requirements for both nominators and validators. When these requirements are modified through on-chain governance, they can be enforced only on the accounts that newly call `nominate` or `validate` after the update. The changes to the bonding parameters would not automatically chill the active accounts on-chain which don't meet the requirements.
 
 !!!note "Chill Threshold"
     `ChillThreshold` defines how close to the max nominators or validators that must be reached before users can start chilling one another.

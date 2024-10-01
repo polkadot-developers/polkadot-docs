@@ -1,6 +1,6 @@
 ---
 title: Secure Your Validator
-description: TODO
+description: Recommended practices to monitor, secure, and manage keys for your relay chain validator, along with some caveats on validators and hardware security
 ---
 
 Validators in a Proof of Stake network are responsible for keeping the network in consensus and verifying state transitions. As the number of validators is limited, validators in the set have the responsibility to be online and faithfully execute their tasks.
@@ -8,7 +8,7 @@ Validators in a Proof of Stake network are responsible for keeping the network i
 This primarily means that validators:
 
 - Must be high availability
-- Must have infrastructure that protects the validator's signing keys so that an attacker cannot take control and commit [slash-able behavior](TODO:update-path){target=\_blank}
+- Must have infrastructure that protects validators' signing keys so that an attacker cannot take control and commit [slash-able behavior](TODO:update-path){target=\_blank}
 
 ## High Availability
 
@@ -21,17 +21,17 @@ The proper handling of session keys is one of the biggest ways a validator can k
 ## Key Management
 
 See the [Polkadot Keys guide]() for more information on keys. The keys
-that are of primary concern for validator infrastructure are the Session keys. These keys sign messages related to consensus and parachains. Although Session keys are _not_ account keys and therefore cannot transfer funds, an attacker could use them to commit slash-able behavior.
+that are of primary concern for validator infrastructure are the session keys. These keys sign messages related to consensus and parachains. Although session keys _aren't_ account keys and therefore cannot transfer funds, an attacker could use them to commit slash-able behavior.
 
-Session keys are generated inside the node via RPC call. See the [How to Validate guide]() for instructions on setting Session keys. These should be generated and kept within your client. When you generate new Session keys, you must submit an extrinsic (a Session certificate) from your staking proxy key telling the chain your new Session keys.
+Session keys can be generated inside the node via [the `author.rotateKeys` RPC call](https://polkadot.js.org/apps/#/rpc){target=\_blank}. See the [How to Validate guide]() for instructions on setting  keys. These should be generated and kept within your client. When you generate new session keys, you must submit an extrinsic (a session certificate) from your staking proxy key telling the chain your new session keys.
 
 !!!info "Generating session keys"
-    Session keys can also be generated outside the client and inserted into the client's keystore via RPC. For most users, it is recommended to use the key generation functionality within the client.
+    Session keys can also be generated outside the client and inserted into the client's keystore via RPC (using `author.setKeys` RPC call [via PolkadotJS](https://polkadot.js.org/apps/#/rpc){target=\_blank}). For most users, it is recommended to use the [key generation functionality](todo:link_to_main_validator_guide_w/_key_gen) within the client.
 
 ### Signing Outside the Client
 
 In the future, Polkadot will support signing payloads outside the client so that keys can be stored on another device, for example, a Hardware Security Module (HSM) or secure enclave. For the time being,
-however, Session key signatures are performed within the client.
+however, session key signatures are performed within the client.
 
 !!!info "Hardware security modules aren't a panacea"
     They don't incorporate any logic and will just sign and return whatever payload they receive. Therefore, an attacker who gains access to your validator node could still commit slash-able behavior.
@@ -39,7 +39,7 @@ however, Session key signatures are performed within the client.
 ### Secure-Validator Mode
 
 Parity Polkadot has a Secure-Validator Mode, enabling several protections for keeping keys secure. The protections include highly strict filesystem, networking, and process sandboxing on top of the
-existing wasmtime sandbox.
+existing `wasmtime` sandbox.
 
 This mode is **activated by default** if the machine meets the following requirements. If not, there is an error message with instructions on disabling Secure-Validator Mode, though this isn't
 recommended due to the security risks involved.
@@ -56,7 +56,7 @@ recommended due to the security risks involved.
   CONFIG_SECCOMP=y
   ```
 
-3. OPTIONAL: **Linux 5.13**. Provides access to even more strict filesystem protections.
+!!!note "Optionally, **Linux 5.13** may also be used, as it provides access to even more strict filesystem protections."
 
 ## Monitoring Tools
 

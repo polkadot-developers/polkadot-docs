@@ -228,7 +228,7 @@ To swap assets for an exact amount of tokens, follow these steps:
             }
         }
         ```
-        - **1: StagingXcmV3MultiLocation** - the second asset's Multilocation within the pool. This refers to the DOT token, which the following Multilocation identifies: 
+        - **`1: StagingXcmV3MultiLocation`** - the second asset's Multilocation within the pool. This refers to the DOT token, which the following Multilocation identifies: 
          ```javascript
          {
             parents: 0,

@@ -1,4 +1,4 @@
 title: Running Validators
 nav:
   - index.md
-  - secure-node.md
+  - 'Secure your Node': secure-node.md

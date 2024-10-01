@@ -8,11 +8,11 @@ Validators in a Proof of Stake network are responsible for keeping the network i
 This primarily means that validators:
 
 - Must be high availability
-- Must have infrastructure that protects the validator's signing keys so that an attacker cannot take control and commit [slash-able behavior]()
+- Must have infrastructure that protects the validator's signing keys so that an attacker cannot take control and commit [slash-able behavior](TODO:update-path){target=\_blank}
 
 ## High Availability
 
-High availability set-ups that involve redundant validator nodes may seem attractive at first. However, they can be *very dangerous* if they aren't set up perfectly. The reason for this is that the session keys used by a validator should always be isolated to just a single node. Replicating session keys across multiple nodes could lead to equivocation [slashes]() or parachain validity slashes which can make you lose **100% of your staked funds**.
+High availability set-ups that involve redundant validator nodes may seem attractive at first. However, they can be *very dangerous* if they aren't set up perfectly. The reason for this is that the session keys used by a validator should always be isolated to just a single node. Replicating session keys across multiple nodes could lead to equivocation [slashes](TODO:update-path){target=\_blank} or parachain validity slashes which can make you lose **100% of your staked funds**.
 
 The good news is that 100% uptime of your validator isn't really needed, as it has some buffer within eras to go offline for a little while and upgrade. For this reason, it is advised that you only attempt a high availability set-up if *you're confident you know exactly what you're doing.*
 
@@ -60,7 +60,7 @@ recommended due to the security risks involved.
 
 ## Monitoring Tools
 
-- [Telemetry](https://github.com/paritytech/substrate-telemetry){target=\_blank} This tracks your node details
+- [`substrate-telemetry`](https://github.com/paritytech/substrate-telemetry){target=\_blank} - this tracks your node details
   including the version you are running, block height, CPU & memory usage, block propagation time, and other metrics
 - [Prometheus](https://prometheus.io/){target=\_blank}-based monitoring stack, including
   [Grafana](https://grafana.com){target=\_blank} for dashboards and log aggregation. It includes alerting, querying,

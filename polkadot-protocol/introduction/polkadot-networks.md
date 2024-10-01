@@ -34,13 +34,13 @@ A typical journey through the Polkadot development process might look like this:
 
 2. **Westend** - once the upgrades are ready, they are deployed to [Westend](#westend), Polkadot's primary TestNet. Westend is designed to mimic the conditions of a live network without the risk of using real tokens. You can extensively test features here to ensure that everything works as expected before rolling them out to Kusama or Polkadot
 
-3. **Kusama** - after rigorous testing on Westend, the next step is Kusama. Kusama serves as Polkadot's experimental version and operates as a “canary network,” where features are deployed in a real-world environment with actual economic incentives. It's a high-fidelity testing ground for any potential network upgrade
+3. **Paseo** - parachain developers often use Paseo, a community-run TestNet that mirrors Polkadot's runtime. Paseo provides parachain and dApp developers a space to test their applications with runtime environments that are closely aligned with Polkadot's without risking their projects on live networks
 
-4. **Polkadot** - if an upgrade passes testing on Westend and Kusama, it is finally deployed to Polkadot, the MainNet. This workflow ensures that only thoroughly vetted changes make it to production
+4. **Kusama** - after rigorous testing on Westend, the next step is Kusama. Kusama serves as Polkadot's experimental version and operates as a “canary network,” where features are deployed in a real-world environment with actual economic incentives. It's a high-fidelity testing ground for any potential network upgrade
+
+5. **Polkadot** - if an upgrade passes testing on Westend or Paseo and Kusama, it is ready to deploy to Polkadot. This workflow ensures that only thoroughly vetted changes make it to production
 
 Parachain developers use local TestNets powered by tools like [Zombienet](#zombienet) and then deploy the upgrades on their respective parachains to a TestNet.
-
-- **Paseo** - parachain developers often use Paseo, a community-run TestNet that mirrors Polkadot's runtime. Paseo provides parachain and dApp developers a space to test their applications with runtime environments that are closely aligned with Polkadot's without risking their projects on live networks
 
 !!!note
     The Rococo TestNet deprecation date is October 14, 2024. Teams should use Westend for Polkadot protocol and feature testing and Paseo for chain development-related testing.

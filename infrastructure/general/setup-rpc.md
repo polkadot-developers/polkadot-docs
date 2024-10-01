@@ -13,7 +13,7 @@ origin.
 
 !!!warning
     Enabling remote access to your validator node shouldn't be necessary and isn't suggested, as it
-    can often lead to security problems
+    can often lead to security problems. Learn more about node security in [Secure Your Validator](todo:link).
 
 ## Set Up a Node
 

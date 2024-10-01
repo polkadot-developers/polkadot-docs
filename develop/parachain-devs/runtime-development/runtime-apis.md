@@ -83,10 +83,6 @@ The following section covers common runtime APIs a Polkadot SDK-based outer node
 
         === "Parameters"
 
-            `__runtime_api_at_param__` ++"<Block as BlockT>::Hash"++ - hash of the current block
-
-            ---
-
             `extra` ++"bool"++ - if `true`, list benchmarks marked 'extra' which would otherwise not be needed for weight calculation
 
         === "Returns"
@@ -96,10 +92,6 @@ The following section covers common runtime APIs a Polkadot SDK-based outer node
     ??? function "`dispatch_benchmark()` - dispatch the given benchmark"
 
         === "Parameters"
-
-            `__runtime_api_at_param__` ++"<Block as BlockT>::Hash"++ - hash of the current block
-
-            ---
 
             ??? function "`config` ++"struct"++ - a `BenchmarkConfig` struct"
                 - `pallet` ++"Vec<u8>"++ - the encoded name of the pallet to benchmark
@@ -118,10 +110,6 @@ The following section covers common runtime APIs a Polkadot SDK-based outer node
 
         === "Parameters"
 
-            `__runtime_api_at_param__` ++"<Block as BlockT>::Hash"++ - hash of the current block
-
-            ---
-
             `extrinsic` ++"<Block as BlockT>::Extrinsic"++ - the extrinsic to apply
 
         === "Returns"
@@ -132,7 +120,7 @@ The following section covers common runtime APIs a Polkadot SDK-based outer node
 
         === "Parameters"
 
-            `__runtime_api_at_param__` ++"<Block as BlockT>::Hash"++ - hash of the current block
+            None
 
         === "Returns"
 
@@ -141,10 +129,6 @@ The following section covers common runtime APIs a Polkadot SDK-based outer node
     ??? function "`inherent_extrinsics()` - generate inherent extrinsics. The inherent data will vary from chain to chain"
 
         === "Parameters"
-
-            `__runtime_api_at_param__` ++"<Block as BlockT>::Hash"++ - hash of the current block
-
-            ---
 
             `inherent` ++"InherentData"++ - parachain inherent-data passed into the runtime by a block author
 
@@ -155,10 +139,6 @@ The following section covers common runtime APIs a Polkadot SDK-based outer node
     ??? function "`check_inherents()` - check that the inherents are valid. The inherent data will vary from chain to chain"
 
         === "Parameters"
-
-            `__runtime_api_at_param__` ++"<Block as BlockT>::Hash"++ - hash of the current block
-
-            ---
 
             `block` ++"struct"++ - abstraction over a block comprised of header and extrinsics
 
@@ -172,7 +152,7 @@ The following section covers common runtime APIs a Polkadot SDK-based outer node
 
         === "Parameters"
 
-            `__runtime_api_at_param__` ++"<Block as BlockT>::Hash"++ - hash of the current block
+            None
 
         === "Returns"
 
@@ -181,10 +161,6 @@ The following section covers common runtime APIs a Polkadot SDK-based outer node
     ??? function "`submit_report_equivocation_unsigned_extrinsic()` - submits an unsigned extrinsic to report an equivocation"
 
         === "Parameters"
-
-            `__runtime_api_at_param__` ++"<Block as BlockT>::Hash"++ - hash of the current block
-
-            ---
 
             `equivocation_proof` ++"struct"++ - proof of voter misbehavior on a given set id. Equivocation happens when a voter votes on the same round for different blocks. Proving is achieved by collecting the signed messages of conflicting votes
 
@@ -196,13 +172,9 @@ The following section covers common runtime APIs a Polkadot SDK-based outer node
 
             `Option` ++"enum"++ - returns `None` when creation of the extrinsic fails
 
-    ??? function "`generate_key_ownership_proof` - generates a proof of key ownership for the given authority in the given set"
+    ??? function "`generate_key_ownership_proof()` - generates a proof of key ownership for the given authority in the given set"
 
         === "Parameters"
-
-            `__runtime_api_at_param__` ++"<Block as BlockT>::Hash"++ - hash of the current block
-
-            ---
 
             `set_id` ++"u64"++ - the identifier of a GRANDPA set of authorities
 
@@ -214,11 +186,11 @@ The following section covers common runtime APIs a Polkadot SDK-based outer node
 
             `OpaqueKeyOwnershipProof` ++"OpaqueValue"++ - an opaque type used to represent the key ownership proof at the runtime API boundary
 
-    ??? function "`current_set_id` - get current GRANDPA authority set id"
+    ??? function "`current_set_id()` - get current GRANDPA authority set id"
 
         === "Parameters"
 
-            `__runtime_api_at_param__` ++"<Block as BlockT>::Hash"++ - hash of the current block
+            None
 
         === "Returns"
 
@@ -226,13 +198,9 @@ The following section covers common runtime APIs a Polkadot SDK-based outer node
 
 ??? function "**[`NominationPoolsApi`](https://paritytech.github.io/polkadot-sdk/master/pallet_nomination_pools_runtime_api/trait.NominationPoolsApi.html){target=_blank}** - provides methods to query various balances, pending rewards, and whether a nomination pool or member needs delegate migration"
 
-    ??? function "`pending_rewards` - returns the pending rewards for the passed `AccountId`"
+    ??? function "`pending_rewards()` - returns the pending rewards for the passed `AccountId`"
 
         === "Parameters"
-
-            `__runtime_api_at_param__` ++"<Block as BlockT>::Hash"++ - hash of the current block
-
-            ---
 
             `who` ++"u128"++ - the ID of the account to check for pending rewards
 
@@ -240,13 +208,9 @@ The following section covers common runtime APIs a Polkadot SDK-based outer node
 
             `Balance` ++"u128"++ - the balance of pending rewards for the account
 
-    ??? function "`points_to_balance` - returns the equivalent balance of `points` for a given pool"
+    ??? function "`points_to_balance()` - returns the equivalent balance of `points` for a given pool"
 
         === "Parameters"
-
-            `__runtime_api_at_param__` ++"<Block as BlockT>::Hash"++ - hash of the current block
-
-            ---
 
             `pool_id` ++"u32"++ - the ID of the pool to check for `points`
 
@@ -254,13 +218,9 @@ The following section covers common runtime APIs a Polkadot SDK-based outer node
 
             `Balance` ++"u128"++ - the balance of `points` for the pool
 
-    ??? function "`balance_to_points` - returns the equivalent `points` of `new_funds` for a given pool"
+    ??? function "`balance_to_points()` - returns the equivalent `points` of `new_funds` for a given pool"
 
         === "Parameters"
-
-            `__runtime_api_at_param__` ++"<Block as BlockT>::Hash"++ - hash of the current block
-
-            ---
 
             `pool_id` ++"u32"++ - the ID of the pool to check for `points`
 
@@ -268,13 +228,9 @@ The following section covers common runtime APIs a Polkadot SDK-based outer node
 
             `Balance` ++"u128"++ - the equivalent `points` of `new_funds` for the pool
 
-    ??? function "`pool_pending_slash` - returns the pending slash for a given pool"
+    ??? function "`pool_pending_slash()` - returns the pending slash for a given pool"
 
         === "Parameters"
-
-            `__runtime_api_at_param__` ++"<Block as BlockT>::Hash"++ - hash of the current block
-
-            ---
 
             `pool_id` ++"u32"++ - the ID of the pool to check for pending slashing
 
@@ -282,13 +238,9 @@ The following section covers common runtime APIs a Polkadot SDK-based outer node
 
             `Balance` ++"u128"++ - the pending slash amount for the pool
 
-    ??? function "`member_pending_slash` - returns the pending slash for a given pool member"
+    ??? function "`member_pending_slash()` - returns the pending slash for a given pool member"
 
         === "Parameters"
-
-            `__runtime_api_at_param__` ++"<Block as BlockT>::Hash"++ - hash of the current block
-
-            ---
 
             `member` ++"u128"++ - the ID of the member to check for pending slashing
 
@@ -296,13 +248,9 @@ The following section covers common runtime APIs a Polkadot SDK-based outer node
 
             `Balance` ++"u128"++ - the pending slash amount for the given member
 
-    ??? function "`pool_needs_delegate_migration` - returns `true` if the pool with the passed `pool_id` needs migration"
+    ??? function "`pool_needs_delegate_migration()` - returns `true` if the pool with the passed `pool_id` needs migration"
 
         === "Parameters"
-
-            `__runtime_api_at_param__` ++"<Block as BlockT>::Hash"++ - hash of the current block
-
-            ---
 
             `pool_id` ++"u32"++ - the ID of the pool to check for needed migration
 
@@ -310,13 +258,9 @@ The following section covers common runtime APIs a Polkadot SDK-based outer node
 
             `true` ++"bool"++ - returns true if the pool needs migration
 
-    ??? function "`member_needs_delegate_migration` - returns `true` if the delegated funds of the pool `member` need migration"
+    ??? function "`member_needs_delegate_migration()` - returns `true` if the delegated funds of the pool `member` need migration"
 
         === "Parameters"
-
-            `__runtime_api_at_param__` ++"<Block as BlockT>::Hash"++ - hash of the current block
-
-            ---
 
             `member` ++"u128"++ - the ID of the member to check for needed migration
 
@@ -324,13 +268,9 @@ The following section covers common runtime APIs a Polkadot SDK-based outer node
 
             `true` ++"bool"++ - returns true if the delegated funds of the pool member need migration
 
-    ??? function "`member_total_balance` - returns the total contribution of a pool member including any balance that is unbonding"
+    ??? function "`member_total_balance()` - returns the total contribution of a pool member including any balance that is unbonding"
 
         === "Parameters"
-
-            `__runtime_api_at_param__` ++"<Block as BlockT>::Hash"++ - hash of the current block
-
-            ---
 
             `who` ++"u128"++ - the ID of the member to check for total pool contributions
 
@@ -338,13 +278,9 @@ The following section covers common runtime APIs a Polkadot SDK-based outer node
 
             `Balance` ++"u128"++ - the total contribution of a pool member including any balance that is unbonding
 
-    ??? function "`pool_balance` - total balance contributed to the pool"
+    ??? function "`pool_balance()` - total balance contributed to the pool"
 
         === "Parameters"
-
-            `__runtime_api_at_param__` ++"<Block as BlockT>::Hash"++ - hash of the current block
-
-            ---
 
             `pool_id` ++"u32"++ - the ID of the pool to check total balance
 
@@ -354,13 +290,9 @@ The following section covers common runtime APIs a Polkadot SDK-based outer node
 
 ??? function "**[`OffchainWorkerApi`](https://paritytech.github.io/polkadot-sdk/master/sp_offchain/trait.OffchainWorkerApi.html){target=_blank}** - for tasks completed by off-chain worker"
 
-    ??? function "`offchain_worker` - starts the off-chain task for given block header"
+    ??? function "`offchain_worker()` - starts the off-chain task for given block header"
 
         === "Parameters"
-
-            `__runtime_api_at_param__` ++"<Block as BlockT>::Hash"++ - hash of the current block
-
-            ---
 
             `header` ++"struct"++ - abstraction over a block header for a Polkadot SDK-based chain
 
@@ -370,13 +302,9 @@ The following section covers common runtime APIs a Polkadot SDK-based outer node
 
 ??? function "**[`SessionKeys`](https://paritytech.github.io/polkadot-sdk/master/polkadot_sdk_frame/runtime/apis/trait.SessionKeys.html){target=_blank}** - for generating and querying session keys"
 
-    ??? function "`generate_session_keys` - generate a set of session keys with optionally using the given seed"
+    ??? function "`generate_session_keys()` - generate a set of session keys with optionally using the given seed"
 
         === "Parameters"
-
-            `__runtime_api_at_param__` ++"<Block as BlockT>::Hash"++ - hash of the current block
-
-            ---
 
             `seed` ++"Option<Vec<u8>>"++ - optional seed for generating keys. The seed needs to be a valid `utf8` string
 
@@ -384,13 +312,9 @@ The following section covers common runtime APIs a Polkadot SDK-based outer node
 
             `Result` ++"Vec<u8>"++ - returns the concatenated SCALE encoded public keys
 
-    ??? function "`decode_session_keys` - decode the given public session keys"
+    ??? function "`decode_session_keys()` - decode the given public session keys"
 
         === "Parameters"
-
-            `__runtime_api_at_param__` ++"<Block as BlockT>::Hash"++ - hash of the current block
-
-            ---
 
             `encoded` ++"Vec<u8>"++ - the public session keys you wish to decode
 
@@ -400,13 +324,9 @@ The following section covers common runtime APIs a Polkadot SDK-based outer node
 
 ??? function "**[`TaggedTransactionQueue`](https://paritytech.github.io/polkadot-sdk/master/sp_transaction_pool/runtime_api/trait.TaggedTransactionQueue.html){target=_blank}** - for interfering with the transaction queue"
 
-    ??? function "`validate_transaction` - validate the transaction"
+    ??? function "`validate_transaction()` - validate the transaction"
 
         === "Parameters"
-
-            `__runtime_api_at_param__` ++"<Block as BlockT>::Hash"++ - hash of the current block
-
-            ---
 
             `uxt` ++"enum"++ - the source of the transaction
 
@@ -419,10 +339,6 @@ The following section covers common runtime APIs a Polkadot SDK-based outer node
     ??? function "`query_info()` - information related to a dispatchable’s class, weight, and fee that can be queried from the runtime"
 
         === "Parameters"
-
-            `__runtime_api_at_param__` ++"<Block as BlockT>::Hash"++ - hash of the current block
-
-            ---
 
             `uxt` ++"enum"++ - the extrinsic
 
@@ -439,10 +355,6 @@ The following section covers common runtime APIs a Polkadot SDK-based outer node
 
         === "Parameters"
 
-            `__runtime_api_at_param__` ++"<Block as BlockT>::Hash"++ - hash of the current block
-
-            ---
-
             `uxt` ++"enum"++ - the extrinsic
 
             ---
@@ -457,10 +369,6 @@ The following section covers common runtime APIs a Polkadot SDK-based outer node
 
         === "Parameters"
 
-            `__runtime_api_at_param__` ++"<Block as BlockT>::Hash"++ - hash of the current block
-
-            ---
-
             `weight` ++"enum"++ - used to characterize the time it takes to execute the calls in the body of a block
 
         === "Returns"
@@ -470,10 +378,6 @@ The following section covers common runtime APIs a Polkadot SDK-based outer node
     ??? function "`query_length_to_fee()` - determine the fee for a given length extrinsic"
 
         === "Parameters"
-
-            `__runtime_api_at_param__` ++"<Block as BlockT>::Hash"++ - hash of the current block
-
-            ---
 
             `length` ++"u32"++ - the length of the extrinsic
 

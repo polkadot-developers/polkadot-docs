@@ -39,7 +39,7 @@ Though they have separate responsibilities, the outer node services and the runt
 
 ## Common Runtime APIs
 
-The following section covers common runtime APIs a Polkadot SDK-based outer node service might call.  Expand each API section for additional details, inlcuding a description of each API's functionality and the methods provided: 
+The following section covers common runtime APIs a Polkadot SDK-based outer node service might call. Expand each API section for additional details, including a description of each API's functionality and the methods provided. It is recommended to refer to the Rust documentation for each respective API, which you will also find linked below: 
 
 ??? function "**[`AccountNonceApi`](https://paritytech.github.io/polkadot-sdk/master/frame_system_rpc_runtime_api/trait.AccountNonceApi.html){target=_blank}** - queries account nonce"
 
@@ -127,8 +127,6 @@ The following section covers common runtime APIs a Polkadot SDK-based outer node
         === "Returns"
 
             `Result` ++"<ApplyExtrinsicResult>"++ - an inclusion outcome which specifies if this extrinsic is included in this block or not
-
-    ??? function "`apply_extrinsic_before_version_6()` - deprecated"
 
     ??? function "`finalize_block()` - finish the current block"
 
@@ -356,8 +354,6 @@ The following section covers common runtime APIs a Polkadot SDK-based outer node
 
 ??? function "**[`OffchainWorkerApi`](https://paritytech.github.io/polkadot-sdk/master/sp_offchain/trait.OffchainWorkerApi.html){target=_blank}** - for tasks completed by off-chain worker"
 
-    ??? function "`offchain_worker_before_version_2` - deprecated"
-
     ??? function "`offchain_worker` - starts the off-chain task for given block header"
 
         === "Parameters"
@@ -403,10 +399,6 @@ The following section covers common runtime APIs a Polkadot SDK-based outer node
             `Result` ++"<Vec<(Vec<u8>, KeyTypeId)>>"++ - returns the list of public raw public keys and key type
 
 ??? function "**[`TaggedTransactionQueue`](https://paritytech.github.io/polkadot-sdk/master/sp_transaction_pool/runtime_api/trait.TaggedTransactionQueue.html){target=_blank}** - for interfering with the transaction queue"
-
-    ??? function "`validate_transaction_before_version_2` - deprecated"
-
-    ??? function "`validate_transaction_before_version_3` - deprecated"
 
     ??? function "`validate_transaction` - validate the transaction"
 

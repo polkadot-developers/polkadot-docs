@@ -66,8 +66,7 @@ Endpoints for all production and TestNets are listed on the [Polkadot.js UI](htt
 There are a number of third-party providers of RPC infrastructure to the Polkadot and Kusama communities, commonly providing access to multiple networks and parachains in a single service. They provide additional services such as higher rate limits, potentially more reliable and scalable service, and additional metrics.
 
 !!! note
-    The list of third party RPC endpoints for Polkadot and Kusama is directly fetched from
-    [Polkadot.js UI](https://polkadot.js.org/apps/#/explorer){target=\_blank}
+    The list of third party RPC endpoints for Polkadot and Kusama is directly fetched from [Polkadot.js Apps](https://polkadot.js.org/apps/#/explorer){target=\_blank}.
 
 - [OnFinality](https://onfinality.io){target=\_blank}
 - [Dwellir](https://dwellir.com){target=\_blank}

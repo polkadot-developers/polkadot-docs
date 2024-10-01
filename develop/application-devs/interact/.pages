@@ -1,4 +1,4 @@
 title: Interact with the Network
 nav:
   - index.md
-  - endpoints.md
+  - 'Node Endpoints': 'endpoints.md'

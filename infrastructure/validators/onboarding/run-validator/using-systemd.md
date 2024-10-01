@@ -3,9 +3,9 @@ title: Use Systemd
 description: Using a service manager for your validator node.
 ---
 
-You can run your validator as a [systemd](https://en.wikipedia.org/wiki/Systemd){target=\_blank} process so that it will automatically restart on server reboots or crashes (and helps to avoid getting [slashed]()).
+You can run your validator as a [systemd](https://en.wikipedia.org/wiki/Systemd){target=\_blank} process so that it will automatically restart on server reboots or crashes (and helps to avoid getting [slashed](TODO:update-path){target=\_blank}).
 
-Before following this guide you should have already set up your validator by following the [How to Validate]() article.
+Before following this guide you should have already set up your validator by following the [How to Validate](TODO:update-path){target=\_blank} article.
 
 First create a new unit file called `polkadot-validator.service` in `/etc/systemd/system/`.
 

@@ -72,9 +72,7 @@ More details are found on the [Polkadot Collator Wiki](https://wiki.polkadot.net
 
 ## Collective
 
-Most often used to refer to an instance of the [Collective pallet](#collective) on Polkadot SDK-based networks such as [Kusama](#kusama) or [Polkadot](#polkadot) if the Collective pallet is part of the [Framework for Runtime Aggregation of Modularized Entities](#frame-framework-for-runtime-aggregation-of-modularized-entities) (FRAME)-based [runtime](#runtime) for the network.
-
-A council primarily serves to optimize and balance the more inclusive referendum system.
+Most often used to refer to an instance of the Collective pallet on Polkadot SDK-based networks such as [Kusama](#kusama) or [Polkadot](#polkadot) if the Collective pallet is part of the FRAME-based runtime for the network.
 
 ## Consensus
 
@@ -95,7 +93,7 @@ Consensus algorithms are generally concerned with ensuring two properties:
 
 The node subsystem responsible for consensus tasks.
 
-For detailed information about the consensus strategies of the [Polkadot network](#polkadot-network), see the [Polkadot Consensus](https://polkadot.network/polkadot-consensus-part-1-introduction/){target=\_blank} blog series.
+For detailed information about the consensus strategies of the [Polkadot network](#polkadot-network), see the [Polkadot Consensus](https://wiki.polkadot.network/docs/learn-consensus){target=\_blank} blog series.
 
 See also [hybrid consensus](#hybrid-consensus).
 
@@ -152,7 +150,7 @@ A general term for data that originates outside the runtime, is included in a bl
 
 It is a SCALE-encoded array typically consisting of a version number, signature, and varying data types indicating the resulting runtime function to be called. Extrinsics can take two forms: [inherents](#inherent-transactions) and [transactions](#transaction). 
 
-For more technical details, see the [Polkadot spec](https://spec.polkadot.network/#id-extrinsics){target=\_blank}.
+For more technical details, see the [Polkadot spec](https://spec.polkadot.network/id-extrinsics){target=\_blank}.
 
 ## Fork Choice Rule/Strategy
 
@@ -186,7 +184,7 @@ A structure that aggregates the information used to summarize a block. Primarily
 
 A blockchain consensus protocol that consists of independent or loosely coupled mechanisms for [block production](#block-author) and finality.
 
-Hybrid consensus allows the chain to grow as fast as probabilistic consensus protocols, such as [Aura](#aura-aka-authority-round), while maintaining the same level of security as [deterministic finality](#deterministic-finality) consensus protocols, such as [GRANDPA](#grandpa).
+Hybrid consensus allows the chain to grow as fast as probabilistic consensus protocols, such as [Aura](#authority-round-aura), while maintaining the same level of security as [deterministic finality](#deterministic-finality) consensus protocols, such as [GRANDPA](#grandpa).
 
 ## Inherent Transactions
 
@@ -265,7 +263,7 @@ Relay chains are [blockchains](#blockchain) that provide shared infrastructure a
 
 ## Rococo
 
-A [parachain](#parachain) test network for the Polkadot network. The [Rococo](#rococo) network is a Substrate-based blockchain with an October 14, 2024 deprecation date. Development teams are encouraged to use the Paseo TestNet instead.
+A [parachain](#parachain) test network for the Polkadot network. The [Rococo](#rococo) network is a Polkadot SDK-based blockchain with an October 14, 2024 deprecation date. Development teams are encouraged to use the Paseo TestNet instead.
 
 ## Runtime
 

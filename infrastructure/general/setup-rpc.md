@@ -1,29 +1,29 @@
 ---
 title: Set up an RPC node
-description: Instructions on setting up, securing, and maintaining an RPC node.
+description: Learn how to configure set up, secure, and maintain an RPC node in an archival or pruned state (and know the difference between the two).
 ---
 
 The RPC server (included in all Polkadot SDK node implementations) can be accessed over the WebSocket protocol, which can be used to
 access the underlying network and/or validator node. By default, you can access your node's RPC
 server from `localhost` (for example, to rotate keys or do other maintenance). To access it from
-another server or an applications UI (such as [Polkadot-JS UI](https://polkadot.js.org/apps){target=_blank}) it is
+another server or an applications UI (such as [Polkadot.js](https://polkadot.js.org/apps){target=_blank}) it is
 recommended to enable access to the RPC node over an SSL connection and encrypt the connection
 between the end user and the RPC server. This can be achieved by setting up a secure proxy. Many
 browsers, such as Google Chrome, will block non-secure WS endpoints if they come from a different
 origin.
 
-!!!info
-    Enabling remote access to your validator node should not be necessary and is not suggested, as it
+!!!warning
+    Enabling remote access to your validator node shouldn't be necessary and is not suggested, as it
     can often lead to security problems
 
 ## Set Up a Node
 
 <!-- TODO: ref full node tut too -->
 
-Setting up any Substrate-based node relies on a similar process. For example, by default, they will
-all share the same WebSocket connection at port 9944 on localhost. In this example, we'll set up a
-Polkadot sync node on a Debian-flavoured server (such as Ubuntu 22.04). Create a new server on your
-provider of choice or locally at home. See Set up a Full Node for additional
+Setting up any Polkadot SDK-based node relies on a similar process. For example, by default, they will
+all share the same WebSocket connection at port 9944 on localhost. In this example, you'll set up a
+Polkadot sync node on a Debian-flavored server (such as Ubuntu 22.04). Create a new server on your
+provider of choice or locally at home. See [Set up a Full Node](todo:link){target=_blank} for additional
 instructions. You can install from the default apt repository or build from scratch. The startup
 options in the setup process provide various settings that can be modified.
 
@@ -59,13 +59,10 @@ startup settings.
 The node startup settings allow you to choose _what_ to expose, _how many_ connections to expose
 and from where access should be granted through the RPC server.
 
-_How many_: You can set your maximum connections through `--rpc-max-connections`, for example
+- _How many_ - You can set your maximum connections through `--rpc-max-connections`, for example
 `--rpc-max-connections 100`
-
-_From where_: by default localhost and the Polkadot.js are allowed to access the RPC server; you can
-change this by setting `--rpc-cors`, to allow access from everywhere you need `--rpc-cors all`
-
-_What_: you can limit the methods to use with `--rpc-methods`, an easy way to set this to a safe
+- _From where_ - by default, localhost and Polkadot.js can access the RPC server. You can change this by setting `--rpc-cors`, to allow access from everywhere you need `--rpc-cors all`
+- _What_ - You can limit the methods to use with `--rpc-methods`, an easy way to set this to a safe
 mode is `--rpc-methods Safe`
 
 <!-- TODO: ref setup WSS tutorial / page -->
@@ -74,13 +71,13 @@ mode is `--rpc-methods Safe`
 
 To safely access your WebSocket (WS) connection over an SSL-enabled connection (needed for any SSL-enabled developer console), you
 have to convert the WS connection to a secure (WSS) connection by using a proxy and an SSL
-certificate, you can find instructions on securing the WS port here.
+certificate, you can find instructions on [Setup Secure WebSockets](todo:link){target=_blank}.
 
 ## Connecting to the Node
 
-Open [Polkadot-JS UI](https://polkadot.js.org/apps){target=_blank} and click the logo in the top left to switch the
+Open [Polkadot.js](https://polkadot.js.org/apps){target=_blank} and click the logo in the top left to switch the
 node. Activate the "Development" toggle and input your node's address - either the domain or the IP
 address. Remember to prefix with `wss://`, and if you're using the 443 port, append `:443` like so:
 `wss://example.com:443`.
 
-![A sync-in-progress chain connected to Polkadot-JS UI](/images/infrastructure/general/maintain-wss.webp)
+![A sync-in-progress chain connected to Polkadot.js UI](/images/infrastructure/general/maintain-wss.webp)

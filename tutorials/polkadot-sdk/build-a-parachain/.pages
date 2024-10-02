@@ -1,0 +1,5 @@
+title: Build a Parachain Tutorials
+nav:
+  - index.md
+  - 'Prepare Relay Chain': 'prepare-relay-chain.md'
+  - 'Connect a Parachain': 'connect-a-parachain.md'

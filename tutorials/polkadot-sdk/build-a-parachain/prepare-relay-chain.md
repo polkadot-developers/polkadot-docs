@@ -22,7 +22,7 @@ Before diving into this tutorial, it's recommended that you have a basic underst
 
 To complete this tutorial, ensure that you have:
 
-- Configured your environment for Substrate development by installing [Rust and the Rust toolchain](){target=\_blank}
+- Configured your environment for Substrate development by installing [Rust and the Rust toolchain](TODO: add path){target=\_blank}
 - Completed [Build a Local Blockchain](/tutorials/polkadot-sdk/build-a-blockchain/build-a-local-blockchain){target=\_blank} tutorial and know how to compile and run a Polkadot SDK-based node
 
 ## Build a Local Relay Chain
@@ -48,7 +48,7 @@ To build a local relay chain, follow these steps:
     cd polkadot-sdk
     ```
 
-3. Build the relay chain node
+3. Build the relay chain node:
 
     ```bash
     cargo build --release
@@ -57,7 +57,7 @@ To build a local relay chain, follow these steps:
     !!! note
         Depending on your machine's specifications, the build process may take some time.
 
-4. Verify that the node is built correctly
+4. Verify that the node is built correctly:
 
     ```bash
     ./target/release/polkadot --version
@@ -79,7 +79,7 @@ If you wanted to connect two parachains with a single collator each, you must ru
 
 The chain specification file is available in two formats: a JSON file in plain text and a JSON file in SCALE-encoded raw format.
 
-You can read and edit the plain text version of the chain specification file. However, the chain specification file must be converted to the SCALE-encoded raw format before you can use it to start a node. For information about converting a chain specification to the raw format, see [Customize a Chain Specification](){target=\_blank}.
+You can read and edit the plain text version of the chain specification file. However, the chain specification file must be converted to the SCALE-encoded raw format before you can use it to start a node. For information about converting a chain specification to the raw format, see [Customize a Chain Specification](TODO: add path){target=\_blank}.
 
 The sample chain specification is only valid for a single parachain with two validator nodes. If you add other validators, add additional parachains to your relay chain, or want to use custom account keys instead of the predefined account, you'll need to create a custom chain specification file.
 
@@ -97,7 +97,7 @@ To start the validator nodes, follow these steps:
 
 1. Generate the chain specification file in the plain text format and use it to create the raw chain specification file. Save the raw chain specification file in a local working directory.
 
-    1. Generate the plain text chain specification file
+    1. Generate the plain text chain specification file:
 
         ```bash
         ./target/release/polkadot build-spec \
@@ -107,7 +107,7 @@ To start the validator nodes, follow these steps:
         !!! note
             Note that the network values are set to the default when generating the chain specification file with the `build-spec`. You can customize the network values by editing the chain specification file for production networks.
 
-    2. Convert the plain text chain specification file to the raw format
+    2. Convert the plain text chain specification file to the raw format:
 
         ```bash
         ./target/release/polkadot build-spec \
@@ -138,7 +138,7 @@ To start the validator nodes, follow these steps:
     !!! note
         You need to specify this identifier to enable other nodes to connect. In this case, the `Local node identity` is `12D3KooWG393uX82rR3QgDkZpb7U8StzuRx9BQUXCvWsP1ctgygp`.
 
-4. Open a new terminal and start the second validator using the `bob` account. The command is similar to the command used to start the first node, with a few crucial differences
+4. Open a new terminal and start the second validator using the `bob` account. The command is similar to the command used to start the first node, with a few crucial differences:
 
     ```bash
     ./target/release/polkadot \

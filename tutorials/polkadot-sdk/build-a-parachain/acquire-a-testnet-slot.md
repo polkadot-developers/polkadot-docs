@@ -95,7 +95,7 @@ To modify the chain specification:
       --8<-- 'code/tutorials/polkadot-sdk/build-a-parachain/acquire-a-testnet-slot/testnet-slot-1.json:23:25'
       ```
 
-4. Set the `parachainId` to the parachain identifier that you previously reserved
+4. Set the `parachainId` to the parachain identifier that you previously reserved:
 
       ```json
       --8<-- 'code/tutorials/polkadot-sdk/build-a-parachain/acquire-a-testnet-slot/testnet-slot-1.json::2'
@@ -103,7 +103,7 @@ To modify the chain specification:
       --8<-- 'code/tutorials/polkadot-sdk/build-a-parachain/acquire-a-testnet-slot/testnet-slot-1.json:22:25'
       ```
 
-5. Add the public key for your account to the session keys section. Each configured session key will require a running collator
+5. Add the public key for your account to the session keys section. Each configured session key will require a running collator:
 
       ```json
       --8<-- 'code/tutorials/polkadot-sdk/build-a-parachain/acquire-a-testnet-slot/testnet-slot-1.json::2'
@@ -113,7 +113,7 @@ To modify the chain specification:
 
 6. Save your changes and close the plain text chain specification file
 
-7. Generate a raw chain specification file from the modified chain specification file
+7. Generate a raw chain specification file from the modified chain specification file:
 
       ```bash
       ./target/release/parachain-template-node build-spec \
@@ -130,14 +130,14 @@ To modify the chain specification:
 
 To prepare the parachain collator to be registered on Paseo, follow these steps:
 
-1. Export the Wasm runtime for the parachain by running a command similar to the following
+1. Export the Wasm runtime for the parachain by running a command similar to the following:
 
       ```bash
       ./target/release/parachain-template-node export-genesis-wasm \
         --chain raw-parachain-chainspec.json para-4508-wasm
       ```
 
-2. Export the genesis state for the parachain by running a command similar to the following
+2. Export the genesis state for the parachain by running a command similar to the following:
 
       ```bash
       ./target/release/parachain-template-node export-genesis-state \
@@ -146,7 +146,7 @@ To prepare the parachain collator to be registered on Paseo, follow these steps:
 
 ## Start the Collator Node
 
-You must have the ports for the collator publicly accessible and discoverable to enable parachain nodes to peer with Paseo validator nodes to produce blocks. You can specify the ports with the --port command-line option. For example, you can start the collator with a command similar to the following:
+You must have the ports for the collator publicly accessible and discoverable to enable parachain nodes to peer with Paseo validator nodes to produce blocks. You can specify the ports with the `--port` command-line option. For example, you can start the collator with a command similar to the following:
 
 ```bash
 ./target/release/parachain-template-node --collator \
@@ -161,7 +161,7 @@ You must have the ports for the collator publicly accessible and discoverable to
   --rpc-port 9988
 ```
 
-In this example, the first `--port` setting specifies the port for the collator node, and the second `--port` specifies the embedded relay chain node port. The first `--rpc-port` setting specifies the port you can connect to collator. The second `--rpc-port` specifies the port for connecting to the embedded relay chain.
+In this example, the first `--port` setting specifies the port for the collator node and the second `--port` specifies the embedded relay chain node port. The first `--rpc-port` setting specifies the port you can connect to the collator. The second `--rpc-port` specifies the port for connecting to the embedded relay chain.
 
 ## Obtain Coretime
 

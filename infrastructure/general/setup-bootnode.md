@@ -1,24 +1,27 @@
 ---
-title: Set up a Boot Node
-description: Instructions on setting up, testing, maintaining, and testing a boot node.
+title: Set Up a Bootnode
+description: Learn how to configure and run a bootnode for Polkadot, including P2P, WS, and secure WSS connections with network key management and proxies.
 ---
 
-!!!note
-    When you first start a node, it has to find a way to find other nodes in the network. For that
-    purpose, you need "bootnodes". After the first bootnode is found, it can use that node’s connections
-    to continue expanding and play its role in the network, like participating as a validator.
+# Set Up a Bootnode
 
-<!-- TODO: link wss guide wherever applicable. -->
+## Introduction
+
+Bootnodes are essential for helping blockchain nodes discover peers and join the network. When a node starts, it needs to find other nodes, and bootnodes provide an initial point of contact. Once connected, a node can expand its peer connections and play its role in the network, like participating as a validator. This guide will walk you through setting up a Polkadot bootnode, configuring P2P, WebSocket (WS), and secure WSS connections, and managing network keys. You’ll also learn how to test your bootnode to ensure it is running correctly and accessible to other nodes.
+
+## Prerequisites
+
+Before you start, you need to have the following prerequisites:
+
+<!-- TODO: What goes here? -->
 
 ## Accessing the Bootnode
 
-The consensus is that bootnodes have to be accessible in three ways:
+To connect with other nodes in the network, bootnodes must be accessible through three key channels:
 
-- **P2P**: the p2p port, which can be set by `--listen-addr /ip4/0.0.0.0/tcp/<port>`. This port is
-  not automatically set on a non-validator node (for example, an archive RPC node)
-- **P2P/WS**: the websocket version, which can be set by `--listen-addr /ip4/0.0.0.0/tcp/<port>/ws`
-- **P2P/WSS**: the _secure_ websocket version. An SSL-secured connection to the p2p/ws port must be
-  achieved by a proxy since the node cannot include certificates. It is needed for light clients.
+- **P2P** - a direct peer-to-peer connection, set by `--listen-addr /ip4/0.0.0.0/tcp/<port>`. This is not enabled by default on non-validator nodes like archive RPC nodes
+- **P2P/WS** - a WebSocket (WS) connection, also configured via `--listen-addr`
+- **P2P/WSS** - a secure WebSocket (WSS) connection using SSL, often required for light clients. An SSL proxy is needed, as the node itself cannot handle certificates
 
 ## Network Key
 
@@ -37,8 +40,7 @@ A boot node can be run as follows:
  polkadot --chain polkadot --name dot-bootnode --listen-addr /ip4/0.0.0.0/tcp/30310 --listen-addr /ip4/0.0.0.0/tcp/30311/ws
  ```
 
-This would have the p2p on port 30310 and p2p/ws on port 30311. For the p2p/wss port, a proxy would need to
-set up, a DNS name, and a corresponding certificate. The following example is for the popular nginx server and enables p2p/wss on port 30312 by adding a proxy to the p2p/ws port 30311:
+This would have the p2p on port 30310 and p2p/ws on port 30311. For the p2p/wss port, a proxy would need to set up, a DNS name, and a corresponding certificate. The following example is for the popular nginx server and enables p2p/wss on port 30312 by adding a proxy to the p2p/ws port 30311:
 
 _/etc/nginx/sites-enabled/dot-bootnode_
 

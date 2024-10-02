@@ -1,4 +1,4 @@
 title: General Infrastructure
 nav:
   - index.md
-  - setup-bootnode.md
+  - 'Set Up a Bootnode': 'setup-bootnode.md'

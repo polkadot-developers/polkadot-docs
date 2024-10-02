@@ -29,7 +29,7 @@ Learn more by reading the official [Aura consensus algorithm](https://openethere
 
 ## Blind Assignment of Blockchain Extension (BABE)
 
-A [block authoring](#block-author) protocol similar to [Aura](#aura), except [authorities](#authority) win [slots](#slot) based on a Verifiable Random Function (VRF) instead of the round-robin selection method. The winning authority can select a chain and submit a new block.
+A [block authoring](#block-author) protocol similar to [Aura](#authority-round-aura), except [authorities](#authority) win [slots](#slot) based on a Verifiable Random Function (VRF) instead of the round-robin selection method. The winning authority can select a chain and submit a new block.
 
 Learn more by reading the official Web3 Foundation [BABE research document](https://research.web3.foundation/Polkadot/protocols/block-production/Babe){target=\_blank}.
 
@@ -39,7 +39,7 @@ The node responsible for the creation of a block, also called _block producers_.
 
 ## Byzantine Fault Tolerance (BFT)
 
-The ability of a distributed computer network to remain operational if a certain proportion of its [nodes](#node) or [authorities](#authority) are defective or behaving maliciously.
+The ability of a distributed computer network to remain operational if a certain proportion of its nodes or [authorities](#authority) are defective or behaving maliciously.
 
 !!!note
 
@@ -93,7 +93,7 @@ Consensus algorithms are generally concerned with ensuring two properties:
 
 The node subsystem responsible for consensus tasks.
 
-For detailed information about the consensus strategies of the [Polkadot network](#polkadot-network), see the [Polkadot Consensus](https://wiki.polkadot.network/docs/learn-consensus){target=\_blank} blog series.
+For detailed information about the consensus strategies of the [Polkadot](#polkadot) network, see the [Polkadot Consensus](https://wiki.polkadot.network/docs/learn-consensus){target=\_blank} blog series.
 
 See also [hybrid consensus](#hybrid-consensus).
 
@@ -125,7 +125,7 @@ Function objects that act as the entry points in FRAME [pallets](#pallet). Inter
 
 A means of recording that some particular [state](#state) transition happened.
 
-In the context of [FRAME](#frame), events are composable data types that each [pallet](#pallet) can individually define. Events in FRAME are implemented as a set of transient storage items inspected immediately after a block has been executed and reset during block initialization.
+In the context of [FRAME](#frame-framework-for-runtime-aggregation-of-modularized-entities), events are composable data types that each [pallet](#pallet) can individually define. Events in FRAME are implemented as a set of transient storage items inspected immediately after a block has been executed and reset during block initialization.
 
 ## Executor
 
@@ -184,7 +184,7 @@ A structure that aggregates the information used to summarize a block. Primarily
 
 A blockchain consensus protocol that consists of independent or loosely coupled mechanisms for [block production](#block-author) and finality.
 
-Hybrid consensus allows the chain to grow as fast as probabilistic consensus protocols, such as [Aura](#authority-round-aura), while maintaining the same level of security as [deterministic finality](#deterministic-finality) consensus protocols, such as [GRANDPA](#grandpa).
+Hybrid consensus allows the chain to grow as fast as probabilistic consensus protocols, such as [Aura](#authority-round-aura), while maintaining the same level of security as deterministic finality consensus protocols, such as [GRANDPA](#grandpa).
 
 ## Inherent Transactions
 
@@ -204,7 +204,7 @@ A subsystem for managing keys for the purpose of producing new blocks.
 
 ## Kusama
 
-[Kusama](https://kusama.network/){target=\_blank} is a Polkadot SDK-based blockchain that implements a design similar to the [Polkadot network](#polkadot-network).
+[Kusama](https://kusama.network/){target=\_blank} is a Polkadot SDK-based blockchain that implements a design similar to the [Polkadot](#polkadot) network.
 
 Kusama is a [canary](https://en.wiktionary.org/wiki/canary_in_a_coal_mine){target=\_blank} network and is referred to as [Polkadot's "wild cousin."](https://wiki.polkadot.network/docs/learn-comparisons-kusama){target=\_blank}
 
@@ -237,12 +237,12 @@ An entity that connects a blockchain to a non-blockchain data source. Oracles en
 
 ## Origin
 
-A [FRAME](#frame) primitive that identifies the source of a [dispatched](#dispatchable) function call into the [runtime](#runtime). The FRAME System pallet defines three built-in [origins](#origin). As a [pallet](#pallet) developer, you can also define custom origins, such as those defined by the [Collective pallet](https://paritytech.github.io/substrate/master/pallet_collective/enum.RawOrigin.html){target=\_blank}.
+A [FRAME](#frame-framework-for-runtime-aggregation-of-modularized-entities) primitive that identifies the source of a [dispatched](#dispatchable) function call into the [runtime](#runtime). The FRAME System pallet defines three built-in [origins](#origin). As a [pallet](#pallet) developer, you can also define custom origins, such as those defined by the [Collective pallet](https://paritytech.github.io/substrate/master/pallet_collective/enum.RawOrigin.html){target=\_blank}.
 
 ## Pallet
 
-A module that can be used to extend the capabilities of a [FRAME](#frame)-based [runtime](#runtime).
-Pallets bundle domain-specific logic with runtime primitives like [events](#event) and [storage items](#storage-item).
+A module that can be used to extend the capabilities of a [FRAME](#frame-framework-for-runtime-aggregation-of-modularized-entities)-based [runtime](#runtime).
+Pallets bundle domain-specific logic with runtime primitives like [events](#events) and [storage items](#storage-item).
 
 ## Parachain
 
@@ -253,13 +253,13 @@ You can learn more about parachains on the [Polkadot Wiki](https://wiki.polkadot
 
 Paseo TestNet provisions testing on Polkadot's "production" runtime, which means less chance of feature or code mismatch when developing parachain apps. Specifically, after the [Polkadot Technical fellowship](https://wiki.polkadot.network/docs/learn-polkadot-technical-fellowship){target=\_blank} proposes a runtime upgrade for Polkadot, this TestNet is updated, giving a period where the TestNet will be ahead of Polkadot to allow for testing.
 
-## Polkadot Network
+## Polkadot
 
 The [Polkadot network](https://polkadot.network/){target=\_blank} is a blockchain that serves as the central hub of a heterogeneous blockchain network. It serves the role of the [relay chain](#relay-chain) and provides shared infrastructure and security to support [parachains](#parachain).
 
 ## Relay Chain
 
-Relay chains are [blockchains](#blockchain) that provide shared infrastructure and security to the [parachains](#parachain) in the network. In addition to providing [consensus](#consensus) capabilities, relay chains allow parachains to communicate and exchange digital assets without needing to trust one another.
+Relay chains are blockchains that provide shared infrastructure and security to the [parachains](#parachain) in the network. In addition to providing [consensus](#consensus) capabilities, relay chains allow parachains to communicate and exchange digital assets without needing to trust one another.
 
 ## Rococo
 
@@ -267,11 +267,11 @@ A [parachain](#parachain) test network for the Polkadot network. The [Rococo](#r
 
 ## Runtime
 
-The runtime provides the [state transition function](#state-transition-function-stf) for a node. In Polkadot SDK, the runtime is stored as a [Wasm](#webassembly-wasm) binary in the [chain state](#state).
+The runtime provides the [state transition function](#state-transition-function-stf) for a node. In Polkadot SDK, the runtime is stored as a [Wasm](#webassembly-wasm) binary in the chain state.
 
 ## Slot
 
-A fixed, equal interval of time used by consensus engines such as [Aura](#aura-aka-authority-round) and [BABE](#blind-assignment-of-blockchain-extension-babe). In each slot, a subset of [authorities](#authority) is permitted, or obliged, to [author](#block-author) a block.
+A fixed, equal interval of time used by consensus engines such as [Aura](#authority-round-aura) and [BABE](#blind-assignment-of-blockchain-extension-babe). In each slot, a subset of [authorities](#authority) is permitted, or obliged, to [author](#block-author) a block.
 
 ## Sovereign Account
 
@@ -291,12 +291,12 @@ The logic of a blockchain that determines how the state changes when a block is 
 
 ## Storage Item
 
-[FRAME](#frame) primitives that provide type-safe data persistence capabilities to the [runtime](#runtime).
+[FRAME](#frame-framework-for-runtime-aggregation-of-modularized-entities) primitives that provide type-safe data persistence capabilities to the [runtime](#runtime).
 Learn more in the [storage items](https://paritytech.github.io/polkadot-sdk/master/frame_support/storage/types/index.html){target=\_blank} reference document in the Polkadot SDK.
 
 ## Substrate
 
-A flexible framework for building modular, efficient, and upgradeable [blockchains](#blockchain). Substrate is written in the [Rust](https://www.rust-lang.org/){target=\_blank} programming language and is maintained by [Parity Technologies](https://www.parity.io/){target=\_blank}.
+A flexible framework for building modular, efficient, and upgradeable blockchains. Substrate is written in the [Rust](https://www.rust-lang.org/){target=\_blank} programming language and is maintained by [Parity Technologies](https://www.parity.io/){target=\_blank}.
 
 ## Transaction
 
@@ -340,4 +340,4 @@ By defining weights, you can trade-off the number of transactions per second and
 
 ## Westend
 
-Westend is a Parity-maintained, Polkadot SDK-based blockchain that serves as a test network for the [Polkadot network](#polkadot-network).
+Westend is a Parity-maintained, Polkadot SDK-based blockchain that serves as a test network for the [Polkadot](#polkadot) network.

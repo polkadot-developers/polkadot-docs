@@ -67,7 +67,7 @@ If command-line help is displayed, the node is ready to configure.
 
 ## Relay Chain Configuration
 
-Every Substrate-based chain requires a [chain specification](https://docs.substrate.io/build/chain-spec/){target=\_blank}. The relay chain's chain specification provides the same configuration settings as the chain specification for other networks. Many of the chain specification file settings are critical for network operations. For example, the chain specification identifies peers participating in the network, keys for validators, bootnode addresses, and other information.
+Every Substrate-based chain requires a [chain specification](TODO:update-path){target=\_blank}. The relay chain's chain specification provides the same configuration settings as the chain specification for other networks. Many of the chain specification file settings are critical for network operations. For example, the chain specification identifies peers participating in the network, keys for validators, bootnode addresses, and other information.
 
 ### Sample Chain Configuration
 

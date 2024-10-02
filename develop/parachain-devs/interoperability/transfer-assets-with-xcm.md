@@ -16,7 +16,7 @@ To transfer assets between two chains, you have the options of [Teleporting Asse
 Before you begin, verify the following:
 
 - You have a network running with a relay chain and some parachains connected to it
-- Parachains can transmit and receive XCM messages, meaning that the HRMP channels between the parachains are properly configured and open, and that the parachains’ runtime is set up to handle XCM messages.
+- Parachains can transmit and receive XCM messages, meaning that the HRMP channels between the parachains are properly configured and open, and that the parachains’ runtime is set up to handle XCM messages
 
 ## Teleporting Assets
 

@@ -7,7 +7,7 @@ description: Get started with the Polkadot SDK, a comprehensive repository provi
 
 ## Introduction
 
-The Polkadot SDK is a powerful toolset designed to facilitate building on the Polkadot network. It provides the necessary components for creating custom parachains, connecting them to Polkadot, and taking advantage of Polkadot's shared security. Whether you're building a standalone chain or deploying a parachain, this SDK equips developers with the libraries and tools needed to manage runtime logic, compile the codebase, and utilize the network's core features like staking, governance, and cross-chain communication.
+The Polkadot SDK is a powerful and versatile developer kit designed to facilitate building on the Polkadot network. It provides the necessary components for creating custom parachains, connecting them to Polkadot, and taking advantage of Polkadot's shared security. Whether you're building a standalone chain or deploying a parachain, this SDK equips developers with the libraries and tools needed to manage runtime logic, compile the codebase, and utilize the network's core features like staking, governance, and cross-chain communication.
 
 !!! danger "Not Production Ready"
     This section is under construction. Expect frequent changes.
@@ -59,28 +59,14 @@ The Polkadot SDK monorepo combines multiple repositories to provide all the comp
         - Read the [Cumulus Overview](https://github.com/paritytech/polkadot-sdk/blob/master/cumulus/docs/overview.md){target=\_blank}
         - [Cumulus installation and setup](https://github.com/paritytech/polkadot-sdk/tree/master/cumulus#installation-and-setup){target=\_blank} - instructions to prepare your developer environment and launch a local network
 
-For an in-depth dive into the monorepo, the [Polkadot SDK Rust documentation](https://paritytech.github.io/polkadot-sdk/master/polkadot_sdk_docs/polkadot_sdk/index.html){target=\_blank} is highly recommended
-
-<!-- TODO: Glossary link ParaId -->
-
-## Zero to Hero with The Polkadot SDK
-
-The Polkadot SDK is a versatile tool that can be used to build both standalone blockchains and parachains. For standalone blockchains, developers can leverage the SDK's components to create independent networks with custom functionality. The process for deploying a parachain on a Polkadot [core](https://wiki.polkadot.network/docs/learn-agile-coretime#core){target=\_blank} can be summarized as follows:
-
-1. **Reserve** a `ParaId`, where the runtime and genesis state will be uploaded
-2. **Compile** the runtime (written in Rust) to a WebAssembly blob, thereby defining how state transitions from one state to the next. This runtime is created using the Polkadot SDK
-3. **Generate** a chain spec that is viable and ready to be deployed as a live, working parachain
-4. **Generate** the genesis state and wasm
-5. **Obtain** a core through a [Coretime marketplace](https://wiki.polkadot.network/docs/learn-guides-coretime-marketplaces){target=\_blank}
-6. **Assign** that core to a `ParaId`
-7. **Provision** at least one honest, synced collator is available for the *task* to begin producing blocks
-
-!!!info "What is a task?"
-    A [task](https://wiki.polkadot.network/docs/learn-agile-coretime#task){target=\_blank} refers to a process utilizing Polkadot's compute. This could be a parachain or any other computational process, provided that it adheres to the Polkadot protocol.
+For an in-depth dive into the monorepo, the [Polkadot SDK Rust documentation](https://paritytech.github.io/polkadot-sdk/master/polkadot_sdk_docs/polkadot_sdk/index.html){target=\_blank} is highly recommended.
 
 ### Deploying on a Core
 
-After developing the desired runtime and implementing the necessary pallets, the next step is to deploy your parachain on a Polkadot core. This deployment process is crucial as it allows your parachain to leverage the shared security model of the Polkadot network. The deployment process involves several key steps:
+After developing the desired runtime and implementing the necessary pallets, the next step is to deploy your parachain as a task on a Polkadot [core](https://wiki.polkadot.network/docs/learn-agile-coretime#core){target=\_blank}. This deployment process is crucial as it allows your parachain to leverage the shared security model of the Polkadot network. The deployment process involves several key steps:
+
+!!!info "What is a task?"
+    A [task](https://wiki.polkadot.network/docs/learn-agile-coretime#task){target=\_blank} refers to a process utilizing Polkadot's compute. This could be a parachain or any other computational process, provided that it adheres to the Polkadot protocol.
 
 ```mermaid
 flowchart TD
@@ -108,30 +94,27 @@ PC-->DEP
 
 <!-- TODO: We should probably have a link to guides or something here, or build some track which has them go from template to core? -->
 
-<!-- TODO: Add a place / page to install the necessary dependencies -->
-
 ### Install Dependencies
 
-Ensure all necessary dependencies are installed.
-
-<!-- TODO: Add a place / page to install the necessary dependencies -->
+Ensure all necessary dependencies are installed. See [Install Polkadot SDK Dependencies](install-deps.md){target=\_blank}.
 
 ### Deployment Example - Adder Collator
 
-Try out the preceding example by deploying the adder collator, a very simple "counter" parachain implementation.
-
-## OpenZeppelin Templates & Guides
-
-OpenZeppelin offers a [generic parachain template](https://github.com/OpenZeppelin/polkadot-generic-runtime-template){target=\_blank}, which has support for:
-
-- Proxy Pallet
-- Multisig Pallet
-- Governance support - a treasury, referenda (OpenGov!), and assets configuration
-- Collation/Parachain Support
-- XCM (Cross Consensus Messaging) Configuration and Support
-
-For more information, check their [Substrate Parachain Runtimes](https://docs.openzeppelin.com/substrate-runtimes/1.0.0/){target=\_blank} guide.
+Try out the preceding example by deploying the adder collator, a very simple "counter" parachain implementation. See [Agile Coretime for Parachains](https://wiki.polkadot.network/docs/learn-guides-coretime-parachains){target=\_blank} on the Polkadot Wiki.
 
 ## Polkadot SDK Templates
 
-A full list of Polkadot SDK templates can be found within the [Rust documentation for the Polkadot SDK](https://paritytech.github.io/polkadot-sdk/master/polkadot_sdk_docs/polkadot_sdk/templates/index.html){target=\_blank}.
+A full list of Polkadot SDK templates (both within the SDK and from third parties) can be found within the [Rust documentation for the Polkadot SDK](https://paritytech.github.io/polkadot-sdk/master/polkadot_sdk_docs/polkadot_sdk/templates/index.html){target=\_blank}.
+
+### OpenZeppelin Template
+
+OpenZeppelin offers a [generic parachain template](https://github.com/OpenZeppelin/polkadot-runtime-templates?tab=readme-ov-file#generic-runtime-template){target=\_blank} and [an EVM template](https://github.com/OpenZeppelin/polkadot-runtime-templates?tab=readme-ov-file#evm-template){target=\_blank}, which has support for:
+
+- Proxy Pallet
+- Multisig Pallet
+- Governance support - a treasury, referenda, and assets configuration
+- Collation/Parachain Support
+- XCM (Cross Consensus Messaging) Configuration and Support
+- EVM compatibility ([Frontier](https://github.com/polkadot-evm/frontier){target=\_blank} pallets)
+
+For more information, check their [Substrate Parachain Runtimes](https://docs.openzeppelin.com/substrate-runtimes/1.0.0/){target=\_blank} guide.

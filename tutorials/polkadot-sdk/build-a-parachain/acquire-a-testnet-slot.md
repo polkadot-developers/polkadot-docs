@@ -79,7 +79,7 @@ The files required to register a parachain must specify the correct relay chain 
 
 To modify the chain specification:
 
-1. Generate the plain text chain specification for the parachain template node by running the following command
+1. Generate the plain text chain specification for the parachain template node by running the following command:
 
     ```bash
     ./target/release/parachain-template-node build-spec \

@@ -7,7 +7,7 @@ description: This tutorial will guide you through the process of transferring as
 
 ## Introduction
 
-In the tutorial on [Open Message Passing Channels](TODO:update-path){target=\_blank} you learned how to establish a two-way communication channel between chains by sending messages to the relay chain. You can apply a similar approach to send messages that enable a local chain to manage an account on a remote chain. This tutorial will teach you how to transfer assets between chains using Cross-Chain Message (XCM) instructions.
+XCM (Cross-Chain Message) is a messaging protocol that enables communication between parachains and the relay chain in the Polkadot network. XCM allows parachains to send messages to each other, enabling the transfer of assets, data, and other information across different chains. This article will explore how to transfer assets between parachains using XCM instructions.
 
 To transfer assets between two chains, you have the options of [Teleporting Assets](https://wiki.polkadot.network/docs/learn-teleport){target=\_blank} or performing a [Reserve Asset Transfer](https://wiki.polkadot.network/docs/learn/xcm/journey/transfers-reserve){target=\_blank}. This tutorial will cover both methods.
 
@@ -15,22 +15,14 @@ To transfer assets between two chains, you have the options of [Teleporting Asse
 
 Before you begin, verify the following:
 
-- You have a relay chain and a parachain running to test the XCM instructions
-- You have opened the message passing channel to allow communication between the two chains
+- You have a network running with a relay chain and some parachains connected to it
+- Parachains can transmit and receive XCM messages, meaning that the HRMP channels between the parachains are properly configured and open, and that the parachains’ runtime is set up to handle XCM messages.
 
 ## Teleporting Assets
 
 Asset teleportation enables the transfer of digital assets, including fungible and non-fungible tokens, across different parachains. This process allows the transferred assets to function as if they were native to the receiving chain. To simulate the teleportation of assets, this tutorial showcases the transfer of fungible tokens between the Polkadot relay chain and the Asset Hub system parachain.
 
-To replicate the scenario, this guide uses [Chopsticks](https://github.com/AcalaNetwork/chopsticks){target=\_blank} to interact with the relay chain and the Asset Hub parachain. To setup the same environment, run the following command:
-
-```bash
-chopsticks xcm \
---r polkadot \
---p polkadot-asset-hub
-```
-
-The command above initializes the Chopsticks tool to interact with the Polkadot relay chain and the Asset Hub parachain. You can replace the `polkadot` and `polkadot-asset-hub` parameters with the actual names of the chains you want to interact with. For further details on the Chopsticks tool, refer to the [Chopsticks documentation](TODO:update-path){target=\_blank}.
+To replicate the scenario, you can locally simulate the interaction between the two chains using Chopsticks, as shown in the [XCM Testing](/develop/application-devs/tooling/chopsticks/overview.md#xcm-testing){target=\_blank} section of the Chopsticks documentation. For this tutorial, the relay chain is Polkadot ([`polkadot`](https://github.com/AcalaNetwork/chopsticks/blob/master/configs/polkadot.yml){target=\_blank}), and the destination chain is the Asset Hub parachain ([`polkadot-asset-hub`](https://github.com/AcalaNetwork/chopsticks/blob/master/configs/polkadot-asset-hub.yml){target=\_blank}). 
 
 To teleport assets between the two chains, follow these steps:
 
@@ -90,16 +82,7 @@ These events indicate that the teleportation of assets was successful. You can n
 
 When consensus systems lack sufficient trust for direct asset teleportation, they can leverage a trusted third-party reserve (such as Asset Hub) to hold the actual assets. To track ownership of these reserve-held assets, both the source and destination chains typically create derivative tokens. Each chain maintains a dedicated account, known as a sovereign account, on the reserve to manage its asset holdings.
 
-To simulate a reserve asset transfer, this tutorial demonstrates that funcionality between the Polkadot relay chain and the Astar parachain. This tutorial uses Chopstick to simulate the interaction between the two chains. To set up the environment, run the following command:
-
-```bash
-chopsticks xcm \
---r polkadot \
---p polkadot-asset-hub \
---p astar
-```
-
-The command above initializes the Chopsticks tool to interact with the Polkadot relay chain, the Asset Hub parachain, and the Astar parachain. You can replace the `polkadot`, `polkadot-asset-hub`, and `astar` parameters with the actual names of the chains you want to interact with. For further details on the Chopsticks tool, refer to the [Chopsticks documentation](TODO:update-path){target=\_blank}.
+To simulate a reserve asset transfer, you can spin up the network locally using Chopsticks as described in the [XCM Testing](/develop/application-devs/tooling/chopsticks/overview.md#xcm-testing){target=\_blank} section of the Chopsticks documentation. For this tutorial, the relay chain is Polkadot ([`polkadot`](https://github.com/AcalaNetwork/chopsticks/blob/master/configs/polkadot.yml){target=\_blank}), and the destination chain is the Astar parachain ([`astar`](https://github.com/AcalaNetwork/chopsticks/blob/master/configs/astar.yml){target=\_blank}). 
 
 To do a reserve asset transfer between the two chains, follow these steps:
 
@@ -149,7 +132,7 @@ To do a reserve asset transfer between the two chains, follow these steps:
 
     ![](/images/develop/parachain-devs/interoperability/transfer-assets-with-xcm/transfer-assets-with-xcm-8.webp)
 
-5. To verify the teleportation on the Asset Hub parachain, navigate to the **Events** section. You should see two events, **`messageQueu.Processed`**, **`balances.Issued`** and **`balances.Transfer`**
+5. To verify the transfered assets on the Astar parachain, navigate to the **Events** section. You should see two events, **`messageQueu.Processed`**, **`balances.Issued`** and **`balances.Transfer`**
 
     ![](/images/develop/parachain-devs/interoperability/transfer-assets-with-xcm/transfer-assets-with-xcm-9.webp)
 

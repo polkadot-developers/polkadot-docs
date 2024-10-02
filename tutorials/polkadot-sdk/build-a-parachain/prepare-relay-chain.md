@@ -29,7 +29,7 @@ To complete this tutorial, ensure that you have:
 
 To build a local relay chain, follow these steps:
 
-1. Clone the most recent release branch of the Polkadot SDK repository to prepare a stable working environment
+1. Clone the most recent release branch of the Polkadot SDK repository to prepare a stable working environment:
 
     ```bash
     git clone --depth 1 --branch polkadot-stable2407-2 \
@@ -42,7 +42,7 @@ To build a local relay chain, follow these steps:
     !!! note
         Note that the `--depth 1` flag is used to clone only the latest commit of the branch, which speeds up the cloning process.
 
-2. Change the directory to the Polkadot SDK repository
+2. Change the directory to the Polkadot SDK repository:
 
     ```bash
     cd polkadot-sdk
@@ -131,7 +131,7 @@ To start the validator nodes, follow these steps:
 
     This command uses `/tmp/raw-local-chainspec.json` as the location of the sample chain specification file. Ensure the `--chain` command line specifies the path to your generated raw chain specification. This command also uses the default values for the port (`port`) and WebSocket port (`ws-port`). The values are explicitly included here as a reminder to always check these settings. After the node starts, no other nodes on the same local machine can use these ports.
 
-3. Review log messages as the node starts and take note of the `Local node identity` value. This value is the node's peer ID, which you need to connect the parachain to the relay chain
+3. Review log messages as the node starts and take note of the `Local node identity` value. This value is the node's peer ID, which you need to connect the parachain to the relay chain:
 
     --8<-- 'code/tutorials/polkadot-sdk/build-a-parachain/prepare-relay-chain/relay-chain-1.html'
 

@@ -7,7 +7,7 @@ description: List of node endpoints and examples of use. These endpoints can be 
 
 ## Introduction
 
-One may utilize their own node when interacting with the [Polkadot network](https://polkadot.network/){target=\_blank} via [Polkadot.js API](https://polkadot.js.org/apps/){target=\_blank} or other user interfaces and programmatic methods. Another option would be to connect to one of the several public endpoints provided by infrastructure and API service providers. For development convenience, [Parity Tech](https://www.parity.io/){target=\_blank} maintains archive nodes for Polkadot, Kusama, and their TestNets with public endpoints. These endpoints can be used with [Polkadot.js API](https://polkadot.js.org/docs/api){target=\_blank} to interact with their respective chains.
+One may utilize their own node when interacting with the [Polkadot network](https://polkadot.network/){target=\_blank} via [Polkadot.js Apps](https://polkadot.js.org/apps/){target=\_blank} or other user interfaces and programmatic methods. Another option would be to connect to one of the several public endpoints provided by infrastructure and API service providers. For development convenience, [Parity Tech](https://www.parity.io/){target=\_blank} maintains archive nodes for Polkadot, Kusama, and their TestNets with public endpoints. These endpoints can be used with [Polkadot.js API](https://polkadot.js.org/docs/api){target=\_blank} to interact with their respective chains.
 
 ## Network Endpoints
 

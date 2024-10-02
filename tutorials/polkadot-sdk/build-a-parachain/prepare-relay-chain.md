@@ -95,7 +95,7 @@ Before starting block production for a parachain, you need to start a relay chai
 
 To start the validator nodes, follow these steps:
 
-1. Generate the chain specification file in the plain text format and use it to create the raw chain specification file. Save the raw chain specification file in a local working directory.
+1. Generate the chain specification file in the plain text format and use it to create the raw chain specification file. Save the raw chain specification file in a local working directory
 
     1. Generate the plain text chain specification file:
 

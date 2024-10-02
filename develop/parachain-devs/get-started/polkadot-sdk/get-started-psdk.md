@@ -96,7 +96,7 @@ PC-->DEP
 
 ### Install Dependencies
 
-Ensure all necessary dependencies are installed. See [Install Polkadot SDK Dependencies](install-deps.md){target=\_blank}.
+Ensure all necessary dependencies are installed. See [Install Polkadot SDK Dependencies](./install-deps.md){target=\_blank}.
 
 ### Deployment Example - Adder Collator
 

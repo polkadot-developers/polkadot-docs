@@ -165,7 +165,7 @@ The command displays output similar to the following:
 
 --8<-- 'code/polkadot-protocol/protocol-components/accounts/subkey-key-uri.md'
 
-### Using Polkadot-JS
+### Using Polkadot.js API
 
 To verify an address in JavaScript or TypeScript projects, you can use the functions built into the Polkadot.js API. For example:
 

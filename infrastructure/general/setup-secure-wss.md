@@ -3,7 +3,6 @@ title: Setup Secure WebSocket
 description: Instructions on setting up a secure socket for remote connections.
 ---
 
-<!-- TODO: link relevant guides (bootnode, rpc) -->
 
 ## Secure a WebSocket Port
 
@@ -116,9 +115,9 @@ QS_SrvMaxConnPerIP                                 50
 
 ## Connecting to the Node
 
-Open [Polkadot-JS UI](https://polkadot.js.org/apps){target=_blank} and click the logo in the top left to switch the
+Open [Polkadot.js Apps interfacae](https://polkadot.js.org/apps){target=_blank} and click the logo in the top left to switch the
 node. Activate the "Development" toggle and input your node's address - either the domain or the IP
 address. Remember to prefix with `wss://` and if you're using the 443 port, append `:443`, like so:
 `wss://example.com:443`.
 
-![A sync-in-progress chain connected to Polkadot-JS UI](/images/infrastructure/general/maintain-wss-image.webp)
+![A sync-in-progress chain connected to Polkadot-JS UI](/images/infrastructure/general/maintain-wss.webp)

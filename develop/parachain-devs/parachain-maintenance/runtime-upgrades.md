@@ -7,7 +7,11 @@ description: Explains how runtime versioning and storage migration support forkl
 
 ## Introduction
 
-One of the defining features of Polkadot SDK-based blockchains is the ability to perform forkless runtime upgrades. Unlike traditional blockchains, which require hard forks and node coordination for upgrades, Polkadot networks enable seamless updates without network disruption. Forkless upgrades are achieved through the use of WebAssembly (Wasm) runtimes stored on-chain, which can be securely swapped in and upgraded as part of the blockchain's state. By leveraging decentralized consensus, runtime updates can be made trustlessly, ensuring continuous improvement and evolution without halting operations. This guide explores how runtime versioning, Wasm deployment, and storage migrations facilitate these upgrades.
+One of the defining features of Polkadot SDK-based blockchains is the ability to perform forkless runtime upgrades. Unlike traditional blockchains, which require hard forks and node coordination for upgrades, Polkadot networks enable seamless updates without network disruption.
+
+Forkless upgrades are achieved through the use of WebAssembly (Wasm) runtimes stored on-chain, which can be securely swapped in and upgraded as part of the blockchain's state. By leveraging decentralized consensus, runtime updates can be made trustlessly, ensuring continuous improvement and evolution without halting operations.
+
+This guide explores how runtime versioning, Wasm deployment, and storage migrations facilitate these upgrades.
 
 In FRAME, the [`system`](https://paritytech.github.io/polkadot-sdk/master/frame_system/index.html){target=\_blank} pallet defines the [`set_code`](https://paritytech.github.io/polkadot-sdk/master/frame_system/pallet/enum.Call.html#variant.set_code){target=\_blank} extrinsic that is used to update the Wasm code for the runtime. 
 

@@ -10,23 +10,15 @@ A non-secure websocket port can be converted to a secure WSS port by placing it 
 
 ### Obtaining an SSL Certificate
 
-One easy way to get a free SSL certificate can be achieved by following the LetsEncrypt instructions
-([nginx](https://certbot.eff.org/instructions?ws=nginx&os=ubuntufocal){target=_blank}/[apache](https://certbot.eff.org/instructions?ws=apache&os=ubuntufocal){target=_blank}).
-This will auto-generate an SSL certificate and include it in your configuration.
+One easy way to get a free SSL certificate can be achieved by following the LetsEncrypt instructions ([nginx](https://certbot.eff.org/instructions?ws=nginx&os=ubuntufocal){target=_blank}/[apache](https://certbot.eff.org/instructions?ws=apache&os=ubuntufocal){target=_blank}). This will auto-generate an SSL certificate and include it in your configuration.
 
-Alternatively, you can generate a self-signed certificate and rely on the raw IP address of your
-node when connecting to it. This isn't preferable since you will have to whitelist the certificate
-to access it from a browser.
+Alternatively, you can generate a self-signed certificate and rely on the raw IP address of your node when connecting to it. This isn't preferable since you will have to whitelist the certificate to access it from a browser.
 
-```bash
-sudo openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout /etc/ssl/private/selfsigned.key -out /etc/ssl/certs/selfsigned.crt
-sudo openssl dhparam -out /etc/ssl/certs/dhparam.pem 2048
-```
+--8<-- 'code/infrastructure/general/install-openssl.md'
 
 ## Installing a Proxy Server
 
-There are a lot of different implementations of a websocket proxy, some of the more widely used are [nginx](https://www.nginx.com/){target=_blank} and [apache2](https://httpd.apache.org/){target=_blank}, both of which are commonly used web server implementations. Configuration
-examples for both are provided below.
+There are a lot of different implementations of a websocket proxy, some of the more widely used are [nginx](https://www.nginx.com/){target=_blank} and [apache2](https://httpd.apache.org/){target=_blank}, both of which are commonly used web server implementations. Configuration examples for both are provided below.
 
 ### NGINX
 
@@ -36,56 +28,20 @@ examples for both are provided below.
     ```
 
 2. In an SSL-enabled virtual host add:
-    ```conf
-    server {
-      (...)
-      location / {
-        proxy_buffers 16 4k;
-        proxy_buffer_size 2k;
-        proxy_pass http://localhost:9944;
-        proxy_http_version 1.1;
-        proxy_set_header Upgrade $http_upgrade;
-        proxy_set_header Connection "Upgrade";
-        proxy_set_header Host $host;
-      }
-    }
-    ```
+    --8<-- 'code/infrastructure/general/nginx-config.md'
 
 3. Optionally some form of rate limiting can be introduced:
-    ```conf
-    http {
-      limit_req_zone  "$http_x_forwarded_for" zone=zone:10m rate=2r/s;
-      (...)
-    }
-
-    location / {
-      limit_req zone=zone burst=5;
-      (...)
-    }
-    ```
+    --8<-- 'code/infrastructure/general/nginx-rate-limit.md'
 
 ### Apache2
 
-You can run it in different modes such as `prefork`, `worker`, or `event`. In this example, the
-[`event`](https://httpd.apache.org/docs/2.4/mod/event.html){target=_blank} works well on higher load
-environments, but other modes are also useful depending on the requirements.
+You can run it in different modes such as `prefork`, `worker`, or `event`. In this example, the [`event`](https://httpd.apache.org/docs/2.4/mod/event.html){target=_blank} works well on higher load environments, but other modes are also useful depending on the requirements.
 
 1. Install the `apache2` web server:
-    ```bash
-    apt install apache2
-    a2dismod mpm_prefork
-    a2enmod mpm_event proxy proxy_html proxy_http proxy_wstunnel rewrite ssl
-    ```
+    --8<-- 'code/infrastructure/general/install-apache2.md'
 
 2. The [`mod_proxy_wstunnel`](https://httpd.apache.org/docs/2.4/mod/mod_proxy_wstunnel.html){target=_blank} provides support for the tunneling of web socket connections to a backend websocket server. The connection is automatically upgraded to a websocket connection. In an SSL-enabled `virtualhost` add:
-    ```apacheconf
-    (...)
-    SSLProxyEngine on
-    ProxyRequests off
-
-    ProxyPass / ws://localhost:9944
-    ProxyPassReverse / ws://localhost:9944
-    ```
+    --8<-- 'code/infrastructure/general/apache2-config.md'
 
     !!!warning "Older versions of `mod_proxy_wstunnel` don't upgrade the connection automatically and will need the following config added:"
         ```apacheconf

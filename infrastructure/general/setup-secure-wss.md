@@ -6,13 +6,20 @@ description: Instructions on enabling SSL for your node and setting up a secure 
 
 ## Secure a WebSocket Port
 
-A non-secure websocket port can be converted to a secure WSS port by placing it behind an SSL-enabled proxy. This can be used to secure a bootnode or secure a RPC server. The SSL-enabled apache2/nginx/other proxy server redirects requests to the internal websocket and converts it to a secure (WSS) connection. For this, you will need an SSL certificate for which you can use a service like LetsEncrypt or self-signing.
+A non-secure websocket port can be converted to a secure WSS port by placing it behind an SSL-enabled proxy. This can be used to secure a bootnode or secure a RPC server. The SSL-enabled apache2/nginx/other proxy server redirects requests to the internal websocket and converts it to a secure (WSS) connection. For this, you will need an SSL certificate for which you can use a service like  [LetsEncrypt](https://letsencrypt.org/){target=_blank}.
 
 ### Obtaining an SSL Certificate
 
-One easy way to get a free SSL certificate can be achieved by following the LetsEncrypt instructions ([nginx](https://certbot.eff.org/instructions?ws=nginx&os=ubuntufocal){target=_blank}/[apache](https://certbot.eff.org/instructions?ws=apache&os=ubuntufocal){target=_blank}). This will auto-generate an SSL certificate and include it in your configuration.
+One easy way to get a free SSL certificate can be achieved by following the LetsEncrypt instructions for your respective web server implementation:
+
+-  [nginx](https://certbot.eff.org/instructions?ws=nginx&os=ubuntufocal){target=_blank}
+-  [apache2](https://certbot.eff.org/instructions?ws=apache&os=ubuntufocal){target=_blank}. 
+ 
+This will auto-generate an SSL certificate and include it in your configuration.
 
 Alternatively, you can generate a self-signed certificate and rely on the raw IP address of your node when connecting to it. This isn't preferable since you will have to whitelist the certificate to access it from a browser.
+
+The below command utilizes OpenSSL to generate a self-signed certificate:
 
 --8<-- 'code/infrastructure/general/install-openssl.md'
 

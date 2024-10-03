@@ -27,7 +27,6 @@ Before continuining with this guide, ensure you have:
 
 <!--TODO: what should I have already read/done/installed before I go on? -->
 
-
 ## Key Components
 
 ### Session Keys
@@ -36,7 +35,7 @@ Session keys are stored in the client and used to sign validator operations. The
 validator node to your staking proxy. If you change them within a session you will have to wait for
 the current session to finish and a further two sessions to elapse before they are applied.
 
-[More info about keys in Polkadot.](https://wiki.polkadot.network/docs/learn-cryptography#keys){target=\_blank}
+Visit the [Keys section](https://wiki.polkadot.network/docs/learn-cryptography#keys){target=\_blank} of the Polkadot Wiki to learn more about the types of keys and their usage in the Polkadot network.
 
 ### Keystore
 
@@ -60,38 +59,33 @@ original server that is in the active set will be referred to as `Validator A`.
 
 ### Session `N`
 
-1. Start a second node. Once it is synced, use the `--validator` flag. This is now "Validator B"
-2. Generate session keys for **Validator B**
+1. Start a second node. Once it is synced, use the `--validator` flag. This is now `Validator B`
+2. Generate session keys for `Validator B`
 3. Submit a `set_key` extrinsic from your staking proxy with the session key generated from
-   **Validator B**
+   `Validator B`
 4. Take note of the session that this extrinsic was executed in
 5. Allow the current session to elapse and then wait for two full sessions
 
 !!! warning
 
-      It is imperative you keep Validator A running during this time. `set_key` doesn't have an immediate effect and requires two full sessions to elapse before it does. If you switch off Validator A too early you may risk being chilled and face a fault within the Thousand Validator Programme.
+      It is imperative you keep `Validator A` running during this time. `set_key` doesn't have an immediate effect and requires two full sessions to elapse before it does. If you switch off `Validator A` too early you may risk being chilled and face a fault within the Thousand Validator Programme.
 
 ### Session `N+3`
 
-**Validator B** is now acting as your validator - you can safely perform operations on **Validator
-A**.
+`Validator B` is now acting as your validator and you can safely perform operations on `Validator A`.
 
-When you are ready to restore **Validator A**:
+When you are ready to restore `Validator A`:
 
-1. Start **Validator A**, sync the database and ensure that it is operating with the `--validator`
+1. Start `Validator A`, sync the database and ensure that it is operating with the `--validator`
    flag
-2. Generate new session keys for **Validator A**
+2. Generate new session keys for `Validator A`
 3. Submit a `set_key` extrinsic from your staking proxy with the session key generated from
-   **Validator A**
+   `Validator A`
 4. Take note of the session that this extrinsic was executed in
 
-Again, it is imperative that Validator B is kept running until the current session finishes and
+Again, it is imperative that `Validator B` is kept running until the current session finishes and
 two further full sessions have elapsed.
 
-Once this time has elapsed, **Validator A** will take over. To verify that the session has changed, make sure that a block in the new session is finalized. You can then safely stop Validator B. You should see log messages like the ones below to confirm the change:
+Once this time has elapsed, `Validator A` will take over. To verify that the session has changed, make sure that a block in the new session is finalized. You can then safely stop `Validator B`. You should see log messages like the ones below to confirm the change:
 
-<!--TODO: move to termynal element snippet-->
-```
-2019-10-28 21:44:13 Applying authority set change scheduled at block #450092
-2019-10-28 21:44:13 Applying GRANDPA set change to new set with 20 authorities
-```
+--8<-- 'code/infrastructure/validators/operational-tasks/how-to-upgrade-validator/terminal/verify-session-change.md'

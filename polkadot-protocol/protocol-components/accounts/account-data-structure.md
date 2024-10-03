@@ -30,11 +30,11 @@ The `AccountInfo` for an account is also defined within the [`frame-system`](htt
 
 Each account has an `AccountInfo` structure that includes the following components:
 
-- `nonce`: Tracks the number of transactions the account has sent.
-- `consumers`: A reference counter indicating the number of other modules that depend on this account's existence.
-- `providers`: A reference counter indicating the number of modules that permit this account to exist.
-- `sufficients`: A reference counter indicating the number of modules that allow this account to exist for their own purposes only.
-- `AccountData`: A configurable structure that can store various types of data specific to the account.
+- `nonce` - tracks the number of transactions the account has sent
+- `consumers` - a reference counter indicating the number of other modules that depend on this account's existence
+- `providers` - a reference counter indicating the number of modules that permit this account to exist
+- `sufficients` - a reference counter indicating the number of modules that allow this account to exist for their own purposes only
+- `AccountData` - a configurable structure that can store various types of data specific to the account
 
 ## Account Reference Counters
 

@@ -7,7 +7,7 @@ description: This section contains the list of networks and resources available 
 
 ## Introduction
 
-Development and testing are vital to building robust dApps, parachains, and network upgrades in the Polkadot ecosystem. This section provides a comprehensive overview of the networks and tools for developers to experiment, test, and refine their innovations in a risk-free environment before deploying them to production networks. 
+Development and testing are vital to building robust dApps, parachains, and performing network upgrades in the Polkadot ecosystem. This section provides a comprehensive overview of the networks and tools for developers to experiment, test, and refine their innovations in a risk-free environment before deploying them to production networks. 
 
 Whether you're a Polkadot core developer, parachain engineer, or application developer, the resources outlined here will help you ensure your solutions are thoroughly tested and ready for real-world usage. By leveraging these networks, developers can avoid the costs and risks associated with live deployments while testing functionalities such as governance, cross-chain messaging, and runtime upgrades.
 

@@ -177,7 +177,7 @@ If the function returns `true`, the address you specified is a valid address.
 
 Support for encoding and decoding Polkadot SDK SS58 addresses has been implemented in several other languages and libraries.
 
-- Crystal: [`wyhaines/base58.cr`](https://github.com/wyhaines/base58.cr){target=\_blank}
-- Go: [`itering/subscan-plugin`](https://github.com/itering/subscan-plugin){target=\_blank}
-- Python: [`polkascan/py-scale-codec`](https://github.com/polkascan/py-scale-codec){target=\_blank}
-- TypeScript: [`subsquid/squid-sdk`](https://github.com/subsquid/squid-sdk){target=\_blank}
+- Crystal - [`wyhaines/base58.cr`](https://github.com/wyhaines/base58.cr){target=\_blank}
+- Go - [`itering/subscan-plugin`](https://github.com/itering/subscan-plugin){target=\_blank}
+- Python - [`polkascan/py-scale-codec`](https://github.com/polkascan/py-scale-codec){target=\_blank}
+- TypeScript - [`subsquid/squid-sdk`](https://github.com/subsquid/squid-sdk){target=\_blank}

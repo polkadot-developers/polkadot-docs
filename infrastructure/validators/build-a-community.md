@@ -7,206 +7,115 @@ description: Learn how to build a validator community, attract nominations, and 
 
 ## Introduction
 
-Building a strong validator community is essential for attracting nominations and fostering trust in the Polkadot ecosystem. Validators need to go beyond simply running nodes; they must engage with nominators, establish transparency, and create a reputation for reliability and security. This guide provides strategies for growing a validator community, including setting up an on-chain identity, maintaining transparency in operations, and actively participating in community governance and discussions. By following these steps, validators can build trust and attract long-term nominations for sustained success.
+Building a solid validator community is crucial for attracting nominations and gaining trust in the Polkadot ecosystem. Validators must go beyond simply running nodes—they should engage with nominators, establish transparency, and build a reputation for reliability and security. This guide offers strategies for setting up an on-chain identity, maintaining transparency, and participating actively in governance and the broader community. By following these steps, validators can gain long-term nominations and build trust.
 
 ## Attract Nominations
 
-After setting up a validator, nominations will only come in with extra work. The community of nominators will need to know about the validator to trust staking with them, and thus the validator must distinguish themselves to attract nominations. The following gives some general guidance on different approaches to building a community and attracting nominations.
+Setting up a validator is just the beginning. Attracting nominations requires effort and visibility within the community. Nominators need to trust a validator before staking with them, and validators must stand out by providing reliable services and building a recognizable brand.
 
-Being a high-quality validator entails effectively running nodes and building a brand, reputation,
-and community around validation services. The responsibilities of a quality validator additionally
-include marketing oneself and participating in the greater community. Becoming a known participant
-throughout the ecosystem is a great way to attract nominations and solidify longevity and
-sustainability as a validator.
+Successful validators focus on the following:
 
-One thing to remember is that there is a risk involved in staking for both validators and
-nominators, as both can lose up to 100% of their funds if a validator gets slashed. This means it is paramount for nominators only to nominate validators that they trust, as well as for validators to do their best to instill confidence in their ability to provide validation services. Validators should do their best to build a reputation through different means, as this is one of the most important factors in how nominators should pick whom they stake with.
+- **Operational Excellence** - running reliable nodes and avoiding slashing incidents
+- **Community Engagement** - participating in ecosystem discussions, governance, and validator forums
+- **Reputation** - creating a clear, trusted presence through transparency and consistent communication
+
+Both nominators and validators are at risk if slashing occurs, so building trust and showing commitment is vital. Validators should consistently communicate their reliability and transparency to ensure nominators feel secure when staking.
 
 ### Gain Visibility
 
-Nominators should be able to know whom they are staking with. If nominators stake with a bunch of
-pseudo-anonymous addresses because it seems profitable, they expose themselves to more risks than
-nominating validators that follow best practices to whom they know the addresses belong. Establishing a clear identity in multiple places can help gain visibility across the ecosystem. This
-includes setting an on-chain identity and making a known presence throughout various community
-channels.
+Validators must be easily recognizable to attract nominations. Validators with clear, visible identities are more likely to gain trust from nominators than those with anonymous addresses.
 
-### Set Identity
+Steps to increase visibility:
 
-All validators should set an on-chain identity and get a judgement on the identity so that nominators can find nodes when browsing through various dashboards and user interfaces. When someone interacts with the chain, it ensures that an address they may come across belongs to the validator, and actions of that identity throughout various parts of the ecosystem (staking, governance, block explorers, etc.) form a cohesive representation of their participation.
+- **Set an On-Chain Identity** - ensure your validator has an on-chain identity that nominator dashboards can display. Validators with visible identities are easier for nominators to trust
+- **Be Active in the Community** - engage across channels like Polkadot forums, governance discussions, and social media to build relationships and trust
 
-!!!note 
-    When running multiple validator nodes, the best way to scale an identity is to use multiple
-    sub-identities from a single verified identity
+### Set Your On-Chain Identity
 
-It's recommended to fill out as many fields in the identity as possible so nominators have ample
-means of reaching out. Nominators may wish to know more about the validator, the particular setup,
-future staking plans, tooling used, or several additional topics. Having a dedicated website
-additionally to provide this sort of information is ideal. Please note, the Ledger application on Nano S doesn't yet support the extrinsic for setting identity.
+Every validator should set an on-chain identity, including essential information like a website or contact details. This allows nominators to verify validator actions across the network, and a verified identity shows that your validator is trustworthy.
 
-### Establish a Website
+If running multiple nodes, use sub-identities linked to a primary verified identity. Providing as much information as possible about your validator, such as staking setup or tools, helps potential nominators feel confident.
 
-One strategy for helping gain additional visibility is to set up a dedicated site for your
-validator, which includes the networks that one is a validator for and validator details such as
-addresses, commission, and so forth. Including all suggestions from this page is potential content
-to include on the site. After setting up a website, a validator should add this website to the
-corresponding field in their identity so nominators can find it easily.
+### Build a Website
 
-### Maintain a Self-Stake
+A website dedicated to your validator is a great way to provide essential information, such as validated networks, addresses, and commission rates. Include everything covered in this guide to give nominators a complete picture of your operations. Be sure to link the site to your on-chain identity for easy access.
 
-Considering the risks involved for both validators and nominators, establishing trust is one of the
-most essential factors in running quality validator services. Validators should have skin in the game in their operations in the form of a stake that is self-bonded to their validator stash. [Slashing](TODO: add-path) applies to the total stake of a validator, therefore having a high self-stake shows confidence in the operations. This helps show commitment from the validator as they have skin in the game and can be penalized for harmful actions or poor maintenance. Contributing minimal self-stake can signal to nominators the validator may not be incentivized to properly run and maintain validation services.
+## Build Trust with Nominators
 
-Additionally, observing self-stake activity can help nominators to get a sense of how validators manage their stakes. Defining a self-allocation strategy is also helpful in seeing how efficiently a validator's stake can be utilized.
+Establishing trust is one of the most important aspects of running a successful validator. Validators should clearly communicate their operations and how they manage their stake.
 
-### Explain Commission Structure
+### Self-Stake Commitment
 
-What does your validator charge as commission, and how did you reach this number? It can be helpful
-to be transparent about the long-term plans around the business models of running a validator,
-including the costs for infrastructure and person-hours involved in maintaining operations. As many
-validators will charge low commissions that often don't cover costs, outlining what commission is
-charged and why can help justify higher commission rates.
+Validators should commit a personal, self-bonded stake to demonstrate confidence in their operations. A high self-stake signals to nominators that the validator is invested in the network's success and is accountable for any poor performance. Validators with a low self-stake may seem less committed, which can discourage nominators.
 
-Besides the current commission, it would be helpful to describe the range of commission charged,
-as nominators can know what to expect if the rate goes up or down. Nominators may want to nominate a
-validator with a very narrow commission percent range, as this signals stability in a validator's
-operations and business plans.
+### Commission Structure
 
-Many validators will charge 0% or near 0% commission to bootstrap themselves at first, with plans to
-raise that over time. It can be helpful to elaborate on these plans in the future. For example
-"_after x amount of months in the active set with 0% commission, it is planned to increase it to 1%_."
+Be transparent about your commission rates. Validators often initially charge low rates to attract nominations, but providing a long-term plan is helpful. Explain why your commission is set where it is, and outline any future adjustments so nominators can understand your business model. Nominators appreciate validators with consistent commission rates.
 
-### Claim Rewards
+### Claiming Rewards
 
-Another factor to consider is that claiming rewards for both the validator and the nominator isn't
-automatic. Rewards must be claimed manually or set up in an automated way. Validators are suggested
-to claim rewards on behalf of their nominators and be transparent about how often claiming will
-happen. A nominator may be more likely to stake with a validator that claims rewards daily instead
-of one that doesn't claim rewards at all.
-
-The following are some tools for automating reward claiming:
-
-- [`staking-payouts`](https://github.com/canontech/staking-payouts){target=\_blank}
-- [`substrate-payctl`](https://github.com/stakelink/substrate-payctl){target=\_blank}
+Ensure nominators know how your validator manages rewards. Rewards claims do not automatically happen, so validators should communicate how and when they plan to claim rewards. Many nominators prefer validators who claim rewards regularly. Consider automating reward claims using tools like [`staking-payouts`](https://github.com/canontech/staking-payouts){target=\_blank} or [`substrate-payctl`](https://github.com/stakelink/substrate-payctl){target=\_blank}.
 
 ## Share Infrastructure Details
 
-One aspect of building trust is being transparent about your validator infrastructure. If nominators
-know that you are running a tight ship that is focused on security, they are more likely to trust
-you compared to those that don't disclose their infrastructure.
-
-Some factors of architecture to highlight might include:
+Being open about your infrastructure can help build trust. Nominators will feel more confident if they know how your validator operates and what steps you take to ensure reliability and security.
 
 ### Servers
 
-Outlining how a validator runs its servers helps nominators understand how diversified a validator
-is. Does the Validator run in the cloud, on dedicated machines, in a co-located data center, or in a
-home residential setup? Do they run multiple nodes on the same machine? If every validator is hosted
-in AWS, there is a risk of potential outages that cause large amounts of nodes to go offline.
-Nominators may want to choose validators that have thoroughly diversified the providers they use or
-the facilities they operate in.
-
-Additionally, how does a Validator contribute to decentralization? It can be helpful to outline
-these efforts so that the values of a Nominator and Validator are aligned.
-
-It's also helpful to outline what kind of OS is used on these servers and what is the updating
-policy for the software on that OS. For example, are LTS versions used? Do they use NiXOS,
-distro-packaged libraries? Any server hardening practices, etc.
+Outline your server infrastructure. Whether you use cloud providers, dedicated machines, or a combination, explain how your setup ensures decentralization and reduces risks like outages. Sharing details about your operating system, security practices, and server diversification will give nominators more confidence in your operations.
 
 ### Hardware Specifications
 
-Are you running the recommended Standard Hardware for a validator? Can you ensure that machines have
-enough processing power, memory, file storage, and network connectivity? It's helpful for nominators
-to know the specs of the machines a validator uses to assess how they may perform in the network. If
-a validator is running underpowered machines, they may not want to nominate them, as these can
-result in fewer blocks produced and fewer overall rewards. In certain circumstances, more powerful
-machines can result in higher rewards for both the Validator and their Nominators.
+Make sure your hardware meets or exceeds the recommended specifications for validators. Validators running on underpowered machines may produce fewer blocks and earn fewer rewards. Nominators appreciate knowing that your hardware can handle the network's.
 
-### Automation Approaches
+### Automation and Orchestration
 
-What kind of approach is taken for spinning up and provisioning nodes? How might you automate
-spinning up large clusters of nodes and upgrading them? Elaborating on what type of automation (or
-lack thereof) can help get a sense of how robust a validator setup is. Many everyday actions or
-routine maintenance needs to be done, and automating this type of thing often helps mitigate human
-errors.
+Explain any automation tools you use (e.g., Terraform, Ansible) for provisioning and maintaining nodes. Automation can reduce human error and ensure your operations run smoothly. Validators who automate processes are seen as more robust and reliable.
 
-### Network Topology
+### Network Topology and Security
 
-Does the Validator node have protection against Denial of Service attacks, and if so, how is that
-done? Outlining a desired network topology for a validators infrastructure design will help
-Nominators understand how resilient their operations are to attacks. Some things to highlight are
-the usage of firewalls, VPNs, network segmentation, proxies, or other layers separation.
+Highlight your network topology and any security measures in place, such as firewalls or protection against denial-of-service (DoS) attacks. A well-protected network signals to nominators that your validator is resilient against attacks.
 
-### Upgrade Process
+### Software and Upgrade Process
 
-Both Polkadot and Kusama releases are published [here](https://github.com/paritytech/polkadot-sdk/releases){target=\_blank}. validators are expected to upgrade their nodes as soon as a new release comes. Although not every release is mandatory to upgrade, each new release usually has bug fixes, optimizations, new features, or other beneficial changes. It's in the best interest of the entire network that validators update their nodes in a timely fashion. This signals to nominators that a validator is timely care about their operations and is quick to adapt to necessary circumstances.
+Validators are expected to upgrade promptly with new releases. Ensure nominators know how you handle software updates and where you get your binaries. Validators who proactively upgrade nodes show dedication to maintaining a reliable network presence.
 
-It can also be helpful for nominators to know how the validator runs software and where they get new
-binaries. How do they get alerted for new releases? Do they receive updates from the matrix chat rooms? Do they have alerts for particular GitHub activities? Do they use the Debian/Red Hat Package Manager (RPM) packages? Do they use the Parity-provided GitHub binaries? Do they use Parity Docker images? Do they make their own Docker images? Do they build the binaries themselves? Validators often have their own build server for making binaries. If they take the extra steps to make these and don't rely on external parties, this can be seen as a plus from nominators, as it helps contribute to decentralization.
+## Stay Transparent with Monitoring and Metrics
 
-### Monitoring and Observability
+Effective monitoring ensures smooth operations. Share how you track the performance of your validator and how you address any issues.
 
-Good node operators keep tabs on how their systems are running. Observability is one of the most
-critical aspects of understanding the performance and behavior of a node. One should be able to
-outline the efforts taken in building out monitoring and observability practices. Are Prometheus and
-Grafana set up? What types of metrics are collected and looked at? How is this done across multiple
-nodes? A quality validator may make these metrics and graphs public so that Nominators can see how
-these nodes are running. Some items to consider sharing with nominators include:
+### Health Checks and Alerts
 
-- **Health Checks and Alerting Conditions** - it can be helpful for nominators to know what kind of health checks and alerting conditions are in place for validator nodes. What conditions aren't typical and may need to be looked at? If conditions aren't specific, how is the node operator alerted to this? Are there any public Telegram, SMS, or email alerts? Nominators will want to know that a Validator can respond to abnormal conditions promptly, as their tokens are on the line of potentially being lost.
+Explain the health checks and alerting systems you have in place. Being transparent about how you monitor node performance and how quickly you can respond to issues builds confidence with nominators
 
-- **Scenario Runbooks** - Many scenarios happen routinely, such as upgrading nodes, restoring backups, or moving servers. Creating runbooks and sharing the procedures and precautions taken around these can instill confidence in nominators that various scenarios are thought out and planned for.
+### Scenario Runbooks
 
-- **Node Regions** - A diverse network of nodes in varying different regions helps strengthen decentralized networks.Outlining what regions nodes are in gives clarity to this facet of networks. Nominators may want to promote validators that actively try to decentralize networks operating in regions in which others don't run nodes.
+Provide runbooks for common scenarios like upgrades, backup restorations, or node migrations. A well-made runbook demonstrates preparedness and reduces the risk of downtime during critical operations.
 
-- **Key Handling Policies** - It is paramount that session keys and stash/staking proxy keys are stored and handled with the utmost care. If compromised, both the validator and nominator can be slashed. Outlining how keys are handled, how they are stored, who has access to them, and the overall policies and procedures around them is a great point of reference for nominators to gauge how comfortable they are with the security a validator takes.
+### Node Locations and Decentralization
 
-## Make Community Connections
+List the geographic regions where your nodes operate. Nominators may prefer validators that contribute to decentralization by spreading nodes across diverse areas.
 
-The relationship between validators and nominators is one built on trust, and as such, having direct
-lines of communication with nominators is a great way to build and reinforce that trust. This could
-mean setting up dedicated Telegram / Matrix / Discord channels or hosting a reoccurring call where
-anyone can join. Creating inclusive environments with direct connections between parties is going
-the extra mile to ensure that nominators know they're in good hands. Many updates can be given, such
-as nodes being updated to a new version, rewards being paid out, servers being migrated, new features or tools being built, or just checking in to say hello. These kinds of gestures can be much appreciated and helps the nominator see a person behind the server.
+### Key Handling Policies
 
-### Participate in the Community
+Outline your procedures for securing session and staking keys. Nominators want to feel confident that a validator handles keys carefully, as compromised keys could lead to slashing.
 
-Participating in the community goes hand in hand with building a reputation. This isn't only for
-Nominators, but for other validators, builders, developers, governance participants, and general
-enthusiasts. Being helpful or contributing to discussions can go a long way in building a trusted
-brand and reputation.
+## Engage with the Community
 
-There are many communities to participate in, from validator, developer, and governance communities,
-to local communities dedicated to specific regions. For example, one can be pretty active in the
-South American communities and building camaraderie among those who speak the same language or can
-attend the same meetups in an area. One absolute best way to build trust is meeting people in
-person.
+Building direct relationships with nominators strengthens trust. Open communication channels like Telegram, Discord, or regular community calls help foster trust and loyalty.
 
-### Get Involved in Governance
+### Contribute to the Ecosystem
 
-Another way to show that one cares about the network is by actively participating in governance.
-Whether by voting on-chain, or by discussing off-chain, or proposing new things, active participation in the direction of the chain is an excellent signal that a validator is there for the
-network’s good. There are many ways to participate in different governance aspects, such as weighing
-in on treasury proposals, voting on public referenda, delegating voting power, and more. See [Polkadot OpenGov](https://polkadot.com/opengov){target=\_blank} for additional details.
+Actively participating in the broader community enhances your validator's reputation. Whether it's contributing to discussions, voting on governance proposals, or providing educational content, validators who engage are seen as committed to the network's success.
+
+### Participate in Governance
+
+Active involvement in governance shows commitment to the network's long-term success. Validators can engage by voting on-chain, contributing to off-chain discussions, or proposing new initiatives. This involvement signals dedication to the health and direction of the ecosystem. Validators can participate in various governance processes, including treasury proposals, referenda, and delegating voting power. For more information on how to get involved, visit [Polkadot OpenGov](https://polkadot.com/opengov){target=\_blank}.
 
 ### Produce Educational Content
 
-With a fast-moving ecosystem, there often are gaps in educational content where there are new
-features, changes, deprecations, or just a slow-moving process for putting out information about
-very complex concepts. Putting out educational content in the form of blog posts, videos, tutorials,
-development guides, and more (especially if it's geared toward nominators) provides tangible value
-to the ecosystem. It shows that one has a good grasp of how things work, and disseminating this
-knowledge to others can give some credence to one's brand and reputation as a competent entity in
-the space. Furthermore, one might get tips from the treasury if the community finds something
-beneficial.
+Validators who create educational resources (e.g., blog posts, tutorials, guides) add value to the ecosystem. Sharing knowledge demonstrates expertise and strengthens your reputation as a leader in the community.
 
-### Build Tooling
+### Build Tools for the Ecosystem
 
-Building public tooling is a great way to support the ecosystem. This provides tangible value to
-those that use this tooling and gives visibility to the validator for their contributions. A
-nominator might be more likely to nominate a validator for the utilities they provide the ecosystem
-since the validator then can build a reputation around the quality of their work outside their
-validation services. Some potential building categories are block explorers, deployment scripts,
-monitoring, observability services, staking dashboards, wallets, command-line utilities, or porting
-implementations to other languages. Additionally, this may also be eligible to be funded via a
-[Web3 Foundation Grant](https://grants.web3.foundation){target=\_blank}.
+Developing public tools (like block explorers or monitoring dashboards) provides tangible value to the network. Validators who build tools are often seen as more committed and may attract additional nominations. Additionally, these contributions may also be eligible for funding via a [Web3 Foundation Grant](https://grants.web3.foundation){target=\_blank}.

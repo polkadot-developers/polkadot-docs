@@ -1,6 +1,6 @@
 ---
 title: Setup Secure WebSocket
-description: Instructions on setting up a secure socket for remote connections.
+description: Instructions on enabling SSL for your node and setting up a secure web socket proxy server using nginx for remote connections.
 ---
 
 
@@ -25,46 +25,44 @@ sudo openssl dhparam -out /etc/ssl/certs/dhparam.pem 2048
 
 ## Installing a Proxy Server
 
-There are a lot of different implementations of a websocket proxy, some of the more widely used are
-[nginx](https://www.nginx.com/){target=_blank} and [apache2](https://httpd.apache.org/){target=_blank}, for which configuration
-examples provided below.
+There are a lot of different implementations of a websocket proxy, some of the more widely used are [nginx](https://www.nginx.com/){target=_blank} and [apache2](https://httpd.apache.org/){target=_blank}, both of which are commonly used web server implementations. Configuration
+examples for both are provided below.
 
 ### NGINX
 
-```bash
-apt install nginx
-```
+1. Install the `nginx` web server: 
+    ```bash
+    apt install nginx
+    ```
 
-In an SSL-enabled virtual host add:
+2. In an SSL-enabled virtual host add:
+    ```conf
+    server {
+      (...)
+      location / {
+        proxy_buffers 16 4k;
+        proxy_buffer_size 2k;
+        proxy_pass http://localhost:9944;
+        proxy_http_version 1.1;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection "Upgrade";
+        proxy_set_header Host $host;
+      }
+    }
+    ```
 
-```conf
-server {
-  (...)
-  location / {
-    proxy_buffers 16 4k;
-    proxy_buffer_size 2k;
-    proxy_pass http://localhost:9944;
-    proxy_http_version 1.1;
-    proxy_set_header Upgrade $http_upgrade;
-    proxy_set_header Connection "Upgrade";
-    proxy_set_header Host $host;
-   }
-}
-```
+3. Optionally some form of rate limiting can be introduced:
+    ```conf
+    http {
+      limit_req_zone  "$http_x_forwarded_for" zone=zone:10m rate=2r/s;
+      (...)
+    }
 
-Optionally some form of rate limiting can be introduced:
-
-```conf
-http {
-  limit_req_zone  "$http_x_forwarded_for" zone=zone:10m rate=2r/s;
-  (...)
-}
-
-location / {
-  limit_req zone=zone burst=5;
-  (...)
-}
-```
+    location / {
+      limit_req zone=zone burst=5;
+      (...)
+    }
+    ```
 
 ### Apache2
 
@@ -72,46 +70,44 @@ You can run it in different modes such as `prefork`, `worker`, or `event`. In th
 [`event`](https://httpd.apache.org/docs/2.4/mod/event.html){target=_blank} works well on higher load
 environments, but other modes are also useful depending on the requirements.
 
-```bash
-apt install apache2
-a2dismod mpm_prefork
-a2enmod mpm_event proxy proxy_html proxy_http proxy_wstunnel rewrite ssl
-```
+1. Install the `apache2` web server:
+    ```bash
+    apt install apache2
+    a2dismod mpm_prefork
+    a2enmod mpm_event proxy proxy_html proxy_http proxy_wstunnel rewrite ssl
+    ```
 
-The [`mod_proxy_wstunnel`](https://httpd.apache.org/docs/2.4/mod/mod_proxy_wstunnel.html){target=_blank} provides support for the tunneling of web socket connections to a backend websocket server. The connection is automatically upgraded to a websocket connection. In an SSL-enabled `virtualhost` add:
+2. The [`mod_proxy_wstunnel`](https://httpd.apache.org/docs/2.4/mod/mod_proxy_wstunnel.html){target=_blank} provides support for the tunneling of web socket connections to a backend websocket server. The connection is automatically upgraded to a websocket connection. In an SSL-enabled `virtualhost` add:
+    ```apacheconf
+    (...)
+    SSLProxyEngine on
+    ProxyRequests off
 
-```apacheconf
-(...)
-SSLProxyEngine on
-ProxyRequests off
+    ProxyPass / ws://localhost:9944
+    ProxyPassReverse / ws://localhost:9944
+    ```
 
-ProxyPass / ws://localhost:9944
-ProxyPassReverse / ws://localhost:9944
-```
+    !!!warning "Older versions of `mod_proxy_wstunnel` don't upgrade the connection automatically and will need the following config added:"
+        ```apacheconf
+        RewriteEngine on
+        RewriteCond %{HTTP:Upgrade} websocket [NC]
+        RewriteRule /(.*) ws://localhost:9944/$1 [P,L]
+        RewriteRule /(.*) http://localhost:9944/$1 [P,L]
+        ```
 
-Older versions of `mod_proxy_wstunnel` don't upgrade the connection automatically and will need the
-following config added:
+3. Optionally some form of rate limiting can be introduced:
 
-```apacheconf
-RewriteEngine on
-RewriteCond %{HTTP:Upgrade} websocket [NC]
-RewriteRule /(.*) ws://localhost:9944/$1 [P,L]
-RewriteRule /(.*) http://localhost:9944/$1 [P,L]
-```
+    ```bash
+    apt install libapache2-mod-qos
+    a2enmod qos
+    ```
 
-Optionally some form of rate limiting can be introduced:
+    And edit `/etc/apache2/mods-available/qos.conf`
 
-```bash
-apt install libapache2-mod-qos
-a2enmod qos
-```
-
-And edit `/etc/apache2/mods-available/qos.conf`
-
-```conf
-# allows max 50 connections from a single ip address:
-QS_SrvMaxConnPerIP                                 50
-```
+    ```conf
+    # allows max 50 connections from a single ip address:
+    QS_SrvMaxConnPerIP                                 50
+    ```
 
 ## Connecting to the Node
 

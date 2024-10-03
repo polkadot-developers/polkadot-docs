@@ -1,47 +1,37 @@
 ---
-title: Reward Payout
-description: How validator payout works on the network, what to expect per era, how multiple validators payout works, what you should expect as a validator.
+title: Rewards Payout
+description: Learn how validator rewards work on the network, including era points, payout distribution, running multiple validators, and nominator payments.
 ---
+# Rewards Payout
+
+## Introduction
+
+Understanding how rewards are distributed to validators and nominators is essential for network participants. In Polkadot and Kusama, validators earn rewards based on their era points, which are accrued through actions like block production and parachain validation. This guide explains the payout scheme, factors influencing rewards, and how multiple validators affect returns. Validators can also share rewards with nominators, who contribute by staking behind them. By following the payout mechanics, validators can optimize their earnings and better engage with their nominators.
 
 ## Era Points
 
-For every era (a period of time approximately 6 hours in length in Kusama, and 24 hours in
-Polkadot), validators are paid proportionally to the amount of _era points_ they have collected. Era
-points are reward points earned for payable actions like:
+For every era (a period of time approximately 6 hours in length in Kusama, and 24 hours in Polkadot), validators are paid proportionally to the amount of [era points](TODO: path) they have collected. Era points are reward points earned for payable actions like:
 
-- Issuing validity statements for [parachain]() blocks
+- Issuing validity statements for [parachain](TODO: path) blocks
 - Producing a non-uncle block in the relay chain
 - Producing a reference to a previously unreferenced uncle block
 - Producing a referenced uncle block
 
 !!!note
-    An uncle block is a Relay Chain block that is valid in every regard, but which failed to become
-    canonical. This can happen when two or more validators are block producers in a single slot, and the
-    block produced by one validator reaches the next block producer before the others. We call the
-    lagging blocks uncle blocks.
+    An uncle block is a Relay Chain block that is valid in every regard, but which failed to become canonical. This can happen when two or more validators are block producers in a single slot, and the block produced by one validator reaches the next block producer before the others. We call the lagging blocks uncle blocks.
 
 Payments occur at the end of every era.
 
 Era points create a probabilistic component for staking rewards.
 
-If the _mean_ of staking rewards is the average rewards per era, then the _variance_ is the
-variability from the average staking rewards. The exact DOT value of each era point is not known in
-advance since it depends on the total number of points earned by all validators in a given era. This
-is designed this way so that the total payout per era depends on Polkadot's
-[inflation model](), and not on the number of payable
-actions (for example, authoring a new block) executed. For more information, check
-[this StackExchange post](https://substrate.stackexchange.com/questions/5353/how-are-rewards-in-dot-calculated-from-the-era-points-earned-by-validators-in-po).
+If the mean of staking rewards is the average rewards per era, then the variance is the variability from the average staking rewards. The exact DOT value of each era point is not known in advance since it depends on the total number of points earned by all validators in a given era. This is designed this way so that the total payout per era depends on Polkadot's [inflation model](), and not on the number of payable actions (for example, authoring a new block) executed. For more information, read this StackExchange post about [reward calculations](https://substrate.stackexchange.com/questions/5353/how-are-rewards-in-dot-calculated-from-the-era-points-earned-by-validators-in-po).
 
-With parachains now on Polkadot, a large percentage of era points will come from parachain
-validation, as a subset of validators are selected to para-validate for all parachains each epoch,
-and those para-validators can generate more era points as a result. Para-validators are rewarded 20
-era points each for each parachain block that they validate.
+With parachains now on Polkadot, a large percentage of era points will come from parachain validation, as a subset of validators are selected to para-validate for all parachains each epoch, and those para-validators can generate more era points as a result. Para-validators are rewarded 20 era points each for each parachain block that they validate.
 
-In this case, analyzing the _expected value_ of staking rewards will paint a better picture as the
-weight of era points of validators and para-validators in the reward average are taken into
-consideration.
+In this case, analyzing the expected value of staking rewards will paint a better picture as the weight of era points of validators and para-validators in the reward average are taken into consideration.
 
 !!!note "High-level breakdown of reward variance"
+
     This should only serve as a high-level overview of the probabilistic nature for staking rewards.
 
     Let:
@@ -65,31 +55,20 @@ consideration.
 
     Then, `v` &#8593; if `w` &#8593;, as this reduces `p` : `w`, with respect to `e`.
 
-    Increased `v` is expected, and initially keeping `p` &#8595; using the same para-validator set for
-    all parachains ensures [availability]() and
-    [voting](../learn/learn-polkadot-opengov.md). In addition, despite `v` &#8593; on an `e` to `e`
-    basis, over time, the amount of rewards each validator receives will equal out based on the
-    continuous selection of para-validators.
+    Increased `v` is expected, and initially keeping `p` &#8595; using the same para-validator set
+    for all parachains ensures [availability]() and [voting](../learn/learn-polkadot-opengov.md). In addition, despite `v` &#8593; on an `e` to `e` basis, over time, the amount of rewards each validator receives will equal out based on the continuous selection of para-validators.
 
-    There are plans to scale the active para-validation set in the future
+    There are plans to scale the active para-validation set in the future.
 
 ## Payout Scheme
 
-No matter how much total stake is behind a validator, all validators split the block authoring
-payout essentially equally. The payout of a specific validator, however, may differ based on
-[era points](#era-points), as described above. Although there is a probabilistic component to
-receiving era points, and they may be impacted slightly depending on factors such as network
-connectivity, well-behaving validators should generally average out to having similar era point
-totals over a large number of eras.
+No matter how much total stake is behind a validator, all validators split the block authoring payout essentially equally. The payout of a specific validator, however, may differ based on [era points](#era-points), as described above. Although there is a probabilistic component to receiving era points, and they may be impacted slightly depending on factors such as network connectivity, well-behaving validators should generally average out to having similar era point totals over a large number of eras.
 
-Validators may also receive "tips" from senders as an incentive to include transactions in their
-produced blocks. Validators will receive 100% of these tips directly.
+Validators may also receive "tips" from senders as an incentive to include transactions in their produced blocks. Validators will receive 100% of these tips directly.
 
-Validators will receive staking rewards in the form of the native token of that chain (KSM for
-Kusama and DOT for Polkadot).
+Validators will receive staking rewards in the form of the native token of that chain (KSM for Kusama and DOT for Polkadot).
 
-For simplicity, the examples below will assume all validators have the same amount of era points,
-and received no tips.
+For simplicity, the examples below will assume all validators have the same amount of era points, and received no tips.
 
 ```
 Validator Set Size (v): 4

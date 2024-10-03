@@ -1,3 +1,4 @@
 title: Transactions
 nav:
   - index.md
+  - 'Transactions and Block Basis': transactions-and-block-basis.md

@@ -7,25 +7,23 @@ description: Launch a blockchain with a private set of authorized validators. Ge
 
 ## Introduction
 
-This tutorial demonstrates how to start a small, standalone blockchain network with a private set of authorized validators. 
+This tutorial guides you through launching a private blockchain network with a small, trusted set of validators. In decentralized networks, consensus ensures that nodes agree on the state of the data at any given time. The [Polkadot SDK Solochain Template](https://github.com/paritytech/polkadot-sdk-solochain-template){target=_blank} uses Aura (Authority Round), a proof of authority consensus mechanism where a fixed set of trusted validators produces blocks in a round-robin fashion. This approach offers an easy way to launch a standalone blockchain with a predefined list of validators.
 
-In blockchain networks, nodes must agree on the data state at any given time - a concept known as consensus. The [Polkadot SDK Solochain Template](https://github.com/paritytech/polkadot-sdk-solochain-template){target=\_blank} uses a proof of authority consensus model called Aura (Authority Round), which limits block production to a rotating list of authorized accounts. These trusted participants, or authorities, create blocks in a round-robin fashion.
 
-This approach provides a simple method for launching a solo blockchain with a limited number of participants. 
 
-You'll learn how to generate keys for network authorities, create a custom chain specification file, and launch a private two-node blockchain network.
+You'll learn how to generate keys, create a custom chain specification, and start a two-node blockchain network using the Aura consensus mechanism.
 
 ## Prerequisites
 
 Before starting this tutorial, ensure you have:
 
-- Installed and configured Rust on your system. For detailed instructions on installing Rust and setting up your development environment, refer to the [Installation]() guide
-- Completed the [Build a Local Blockchain]() tutorial and have the [Polkadot SDK Solochain Template](https://github.com/paritytech/polkadot-sdk-solochain-template){target=\_blank} installed on your local machine
-- Experience using predefined accounts to start nodes on a single computer, as described in the [Simulate a Network]() guide
+- Installed and configured Rust on your system. For detailed instructions on installing Rust and setting up your development environment, refer to the [Installation](TODO - add path) guide
+- Completed the [Build a Local Blockchain](TODO - add path) tutorial and have the [Polkadot SDK Solochain Template](https://github.com/paritytech/polkadot-sdk-solochain-template){target=\_blank} installed on your local machine
+- Experience using predefined accounts to start nodes on a single computer, as described in the [Simulate a Network](TODO - add path) guide
 
 ## Generate an Account and Keys
 
-Unlike in the [Simulate a Network]() tutorial where you used predefined accounts and keys to start peer nodes, this tutorial requires you to generate unique secret keys for your validator nodes. It's crucial to understand that in a real blockchain network, each participant is responsible for generating and managing their own unique set of keys.
+Unlike in the [Simulate a Network](TODO - add path) tutorial, where you used predefined accounts and keys to start peer nodes, this tutorial requires you to generate unique secret keys for your validator nodes. It's crucial to understand that each participant is responsible for generating and managing their own unique set of keys in a real blockchain network.
 This process of generating your own keys serves several important purposes:
 
 - It enhances the security of your network by ensuring that each node has its own unique cryptographic identity
@@ -38,7 +36,7 @@ To understand more about the different signing algorithms used in this tutorial 
 
 There are several ways you can generate keys. The available methods are:
 
-- solochain-template-node [key](TODO:update-path) subcommand - the most straightforward method for developers working directly with the node is to use the integrated key generation feature. You can generate keys directly from your node's command line interface using the `key` subcommand. This method ensures compatibility with your chain and is convenient for quick setup and testing
+- `solochain-template-node` [key](TODO:update-path) subcommand - the most straightforward method for developers working directly with the node is to use the integrated key generation feature. Using the `key` subcommand, you can generate keys directly from your node's command line interface. This method ensures compatibility with your chain and is convenient for quick setup and testing
 - [subkey](https://github.com/paritytech/polkadot-sdk/tree/master/substrate/bin/utils/subkey){target=\_blank} - it is a powerful standalone utility specifically designed for Polkadot SDK-based chains. It offers advanced options for key generation, including support for different key types such as `ed25519` and `sr25519`. This tool allows fine-grained control over the key generation process
 - Third-party key generation utilities - various tools developed by the community
 
@@ -46,8 +44,8 @@ There are several ways you can generate keys. The available methods are:
 
 Best practices for key generation:
 
-- Ideally, use an air-gapped computer (never connected to the internet) when generating keys for a production blockchain
-- At minimum, disconnect from the internet before generating keys for any public or private blockchain not under your control
+- Whenever possible, use an air-gapped computer, meaning never connected to the internet, when generating keys for a production blockchain
+- If an air-gapped computer is not an option, disconnect from the internet before generating keys for any public or private blockchain not under your control
 
 For this tutorial, however, you'll use the `solochain-template-node` command-line options to generate random keys locally while remaining connected to the internet. This method is suitable for learning and testing purposes.
 
@@ -89,20 +87,20 @@ Follow these steps to generate your keys:
 
 ### Generate a Second Set of Keys
 
-In this tutorial, the private network will consist of two nodes, meaning you'll need two distinct sets of keys. You have several options for generating these second set of keys:
+In this tutorial, the private network will consist of two nodes, meaning you'll need two distinct sets of keys. You have several options for generating this second set of keys:
 
 - Use the keys from one of the predefined accounts
 - Follow the steps from the previous section, but use a different identity on your local machine to create a new key pair
 - Derive a child key pair to simulate a second identity on your local machine
 
-For the purpose of this tutorial, the second set of keys will be:
+For this tutorial, the second set of keys will be:
 
 - Sr25519 (for Aura) - `5Df9bvnbqKNR8S1W2Uj5XSpJCKUomyymwCGf6WHKyoo3GDev`
 - Ed25519 (for Grandpa)  `5DJRQQWEaJart5yQnA6gnKLYKHLdpX6V4vHgzAYfNPT2NNuW`
 
 ## Create a Custom Chain Specification
 
-After generating key pairs for your blockchain, the next step is creating a custom chain specification. This specification will be shared with trusted validators participating in your network.
+After generating key pairs for your blockchain, the next step is creating a custom chain specification. You will share this specification with trusted validators participating in your network.
 
 To enable others to participate in your blockchain, ensure that each participant generates their own key pair. Once you collect the keys from all network participants, you can create a custom chain specification to replace the default local one.
 
@@ -112,7 +110,7 @@ In this tutorial, you'll modify the local chain specification to create a custom
 
 1. Open a terminal and navigate to the root directory of your compiled node template
 
-2. Export the local chain specification
+2. Export the local chain specification:
 
     ```bash
     ./target/release/solochain-template-node build-spec \
@@ -122,13 +120,13 @@ In this tutorial, you'll modify the local chain specification to create a custom
 
 3. Preview the `customSpec.json` file:
 
-    - Preview first fields
+    - Preview first fields:
     --8<-- 'code/tutorials/polkadot-sdk/build-a-blockchain/add-trusted-nodes/chainspec-head.html'
 
-    - Preview last fields
+    - Preview last fields:
     --8<-- 'code/tutorials/polkadot-sdk/build-a-blockchain/add-trusted-nodes/chainspec-tail.html'
 
-        This command will display fields that include configuration details for pallets such as sudo and balances, as well as the validator settings for the Aura and Grandpa keys.
+        This command will display fields that include configuration details for pallets, such as sudo and balances, as well as the validator settings for the Aura and Grandpa keys.
 
 4. Edit `customSpec.json`:
 
@@ -137,8 +135,7 @@ In this tutorial, you'll modify the local chain specification to create a custom
     "name": "My Custom Testnet",
     ```
 
-    2. Modify the `aura` field to specify the nodes with the authority to create blocks:
-        -  Add Sr25519 addresses for each validator in the authorities array
+    2. Add Sr25519 addresses for each validator in the authorities array to the `aura` field to specify the nodes with authority to create blocks:
 
         ```json
         "aura": {
@@ -149,9 +146,7 @@ In this tutorial, you'll modify the local chain specification to create a custom
         },
         ```
 
-    3. Update the `grandpa` field to specify the nodes with the authority to finalize blocks:
-        - Add Ed25519 addresses for each validator in the authorities array 
-        - Include a voting weight (typically 1) for each validator to define their voting power
+    3. Add Ed25519 addresses for each validator in the authorities array to the `grandpa` field to specify the nodes with the authority to finalize blocks. Include a voting weight (typically `1`) for each validator to define their voting power:
     
         ```json
         "grandpa": {
@@ -242,7 +237,7 @@ Follow these steps for each node in your network:
 
 ## Start the First Node
 
-Before starting the first node, it's crucial to generate a network key. This key ensures that the node's identity remains consistent, allowing other nodes to reliably connect to it as a bootnode for synchronization.
+Before starting the first node, it's crucial to generate a network key. This key ensures that the node's identity remains consistent, allowing other nodes to connect to it reliably as a bootnode for synchronization.
 
 To generate a network key, run the following command:
 
@@ -284,7 +279,7 @@ Block finalization requires at least two-thirds of the validators. In this examp
 
 Before starting additional nodes, ensure you've properly configured their keys as described in the [Add Keys to the Keystore](#add-keys-to-the-keystore) section. For this node, the keys should be stored under the `/tmp/node02` base path.
 
-To add a second validator to the private network run the following command:
+To add a second validator to the private network, run the following command:
 
 ```bash
 ./target/release/solochain-template-node \
@@ -313,6 +308,6 @@ After both nodes have added their keys to their respective keystores (under `/tm
 - Block proposals being produced 
 - After a few seconds, new blocks being finalized on both nodes
   
-If every step was correctly performed, you should see logs similar to the following on both nodes:
+If successful, you should see logs similar to the following on both nodes:
 
 --8<-- 'code/tutorials/polkadot-sdk/build-a-blockchain/add-trusted-nodes/node-output-1.html'

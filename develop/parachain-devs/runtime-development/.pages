@@ -3,3 +3,4 @@ nav:
   - index.md
   - FRAME
   - testing
+  - build-deterministic-runtime.md

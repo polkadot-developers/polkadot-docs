@@ -72,12 +72,12 @@ Once both the `providers` and `consumers` reference counters reach zero, the acc
 
 Runtime developers can manage these counters using the:
 
--  `inc_consumers()` - Increment the reference counter on an account.
-- `dec_consumers()` - Decrement the reference counter on an account.
-- `inc_providers()` - Increment the provider reference counter on an account.
-- `dec_providers()` - Decrement the provider reference counter on an account.
-- `inc_sufficients()` - Increment the self-sufficient reference counter on an account.
-- `dec_sufficients()` - Decrement the sufficients reference counter on an account.
+-  `inc_consumers()` - increment the reference counter on an account
+- `dec_consumers()` - decrement the reference counter on an account
+- `inc_providers()` - increment the provider reference counter on an account
+- `dec_providers()` - decrement the provider reference counter on an account
+- `inc_sufficients()` - increment the self-sufficient reference counter on an account
+- `dec_sufficients()` - decrement the sufficients reference counter on an account
 
 !!!note
     All these methods are provided by the [`frame-system`](https://paritytech.github.io/polkadot-sdk/master/frame_system/pallet/struct.Pallet.html#method){target=\_blank} pallet.

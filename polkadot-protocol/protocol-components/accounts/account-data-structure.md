@@ -86,9 +86,9 @@ For every increment of a counter during an account's lifecycle, a corresponding 
 
 There are also three query functions to ease usage on these counters:
 
-- [`can_inc_consumer()`](https://paritytech.github.io/polkadot-sdk/master/frame_system/pallet/struct.Pallet.html#method.can_inc_consumer){target=\_blank} to check if an account is ready to be used (`providers` > 0).
-- [`can_dec_provider()`](https://paritytech.github.io/polkadot-sdk/master/frame_system/pallet/struct.Pallet.html#method.can_dec_provider){target=\_blank} to check if an account is no longer referenced in runtime whatsoever (`consumers` == 0) before decrementing providers to 0.
-- [`is_provider_required()`](https://paritytech.github.io/polkadot-sdk/master/frame_system/pallet/struct.Pallet.html#method.is_provider_required){target=\_blank} to check if an account has outstanding consumer references (`consumers` > 0).
+- [`can_inc_consumer()`](https://paritytech.github.io/polkadot-sdk/master/frame_system/pallet/struct.Pallet.html#method.can_inc_consumer){target=\_blank} to check if an account is ready to be used (`providers` > 0)
+- [`can_dec_provider()`](https://paritytech.github.io/polkadot-sdk/master/frame_system/pallet/struct.Pallet.html#method.can_dec_provider){target=\_blank} to check if an account is no longer referenced in runtime whatsoever (`consumers` == 0) before decrementing providers to 0
+- [`is_provider_required()`](https://paritytech.github.io/polkadot-sdk/master/frame_system/pallet/struct.Pallet.html#method.is_provider_required){target=\_blank} to check if an account has outstanding consumer references (`consumers` > 0)
 
 !!! note
     See [frame-system API](https://paritytech.github.io/polkadot-sdk/master/frame_system/pallet/struct.Pallet.html){target=\_blank} for more details.

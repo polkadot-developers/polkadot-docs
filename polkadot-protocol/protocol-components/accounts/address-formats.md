@@ -128,11 +128,11 @@ You can verify that a value is a valid `SS58` address by using the subkey `inspe
 ### Using subkey
 
 !!!note "What is Subkey?"
-    The subkey program is a key generation and management utility that is included in the Polkadot SDK repository. 
+    The `subkey` is a key generation and management utility that is included in the Polkadot SDK repository. 
     
-    You can use the subkey program to generate public and private keys, restore them with seed phrases, sign and verify signatures and derive hierarchical deterministic child key pairs.
+    You can use the `subkey` program to generate public and private keys, restore them with seed phrases, sign and verify signatures and derive hierarchical deterministic child key pairs.
 
-    For more information please check [this](https://paritytech.github.io/polkadot-sdk/master/subkey/index.html){target=\_blank} **Rust** crate
+    For more information please check dedicated [this](https://paritytech.github.io/polkadot-sdk/master/subkey/index.html){target=\_blank} **Rust** crate
 
 The basic syntax for the `subkey inspect` command is:
 

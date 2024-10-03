@@ -125,14 +125,12 @@ For example, the 14-bit identifier `0b00HHHHHH_MMLLLLLL` is expressed in two byt
 
 You can verify that a value is a valid `SS58` address by using the subkey command-line interface or though the `Polkadot.js API`.
 
-### Using subkey
+### Using Subkey
 
-!!!note "What is Subkey?"
-    The `subkey` is a key generation and management utility that is included in the Polkadot SDK repository. 
-    
-    You can use the `subkey` program to generate public and private keys, restore them with seed phrases, sign and verify signatures and derive hierarchical deterministic child key pairs.
+The `subkey` is a key generation and management utility that is included in the Polkadot SDK repository. 
 
-    For more information please check dedicated [this](https://paritytech.github.io/polkadot-sdk/master/subkey/index.html){target=\_blank} **Rust** crate
+!!!note
+    For more information please refer to **Subkey** [documentation](https://paritytech.github.io/polkadot-sdk/master/subkey/index.html){target=\_blank}
 
 The basic syntax for the `subkey inspect` command is:
 

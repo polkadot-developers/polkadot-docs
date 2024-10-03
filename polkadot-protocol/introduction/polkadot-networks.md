@@ -17,8 +17,6 @@ This guide covers the tools and networks designed to support a wide variety of d
 
 Polkadot's development process is a well-structured path designed to ensure that upgrades and new features undergo thorough testing before reaching the live production networks. This diagram illustrates the typical progression of a Polkadot development cycle, starting from local environments and eventually reaching the Polkadot MainNet. 
 
-### Development Flow
-
 ``` mermaid
 
 flowchart LR
@@ -28,19 +26,19 @@ flowchart LR
 
 In the Polkadot ecosystem, various features can be explored without risking or spending tokens on production networks by utilizing testing tools like [Chopsticks](#chopsticks) and engaging with TestNets. 
 
-A typical journey through the Polkadot development process might look like this:
+A typical journey through the Polkadot core protocol development process might look like this:
 
 1. **Local development node** - for core Polkadot developers, the process begins in a local environment where you can work on upgrades and experiment with new features using a local development node. This environment allows for rapid iteration and testing in an isolated setup without the need for interacting with external networks
 
 2. **Westend** - once the upgrades are ready, they are deployed to [Westend](#westend), Polkadot's primary TestNet. Westend is designed to mimic the conditions of a live network without the risk of using real tokens. You can extensively test features here to ensure that everything works as expected before rolling them out to Kusama or Polkadot
 
-3. **Paseo** - parachain developers often use Paseo, a community-run TestNet that mirrors Polkadot's runtime. Paseo provides parachain and dApp developers a space to test their applications with runtime environments that are closely aligned with Polkadot's without risking their projects on live networks
+3. **Kusama** - after rigorous testing on Westend, the next step is Kusama. Kusama serves as Polkadot's experimental version and operates as a “canary network,” where features are deployed in a real-world environment with actual economic incentives. It's a high-fidelity testing ground for any potential network upgrade
 
-4. **Kusama** - after rigorous testing on Westend, the next step is Kusama. Kusama serves as Polkadot's experimental version and operates as a “canary network,” where features are deployed in a real-world environment with actual economic incentives. It's a high-fidelity testing ground for any potential network upgrade
-
-5. **Polkadot** - if an upgrade passes testing on Westend or Paseo and Kusama, it is ready to deploy to Polkadot. This workflow ensures that only thoroughly vetted changes make it to production
+4. **Polkadot** - if an upgrade passes testing on Westend and Kusama, it is ready to deploy to Polkadot. This workflow ensures that only thoroughly vetted changes make it to production
 
 Parachain developers use local TestNets powered by tools like [Zombienet](#zombienet) and then deploy the upgrades on their respective parachains to a TestNet.
+
+5. **Paseo** - parachain developers often use Paseo, a community-run TestNet that mirrors Polkadot's runtime. Paseo provides parachain and dApp developers a space to test their applications with runtime environments that are closely aligned with Polkadot's without the risks of live networks. This is similar to the role Westend plays for core protocol development.
 
 !!!note
     The Rococo TestNet deprecation date is October 14, 2024. Teams should use Westend for Polkadot protocol and feature testing and Paseo for chain development-related testing.

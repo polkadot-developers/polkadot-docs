@@ -167,7 +167,7 @@ The command displays output similar to the following:
 
 ### Using Polkadot-JS
 
-To verify an address in JavaScript or TypeScript projects, you can use the functions built into the Polkadot-JS API. For example:
+To verify an address in JavaScript or TypeScript projects, you can use the functions built into the Polkadot.js API. For example:
 
 --8<-- 'code/polkadot-protocol/protocol-components/accounts/polkadot-js-address-validation.md'
 

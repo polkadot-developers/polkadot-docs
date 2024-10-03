@@ -123,7 +123,7 @@ For example, the 14-bit identifier `0b00HHHHHH_MMLLLLLL` is expressed in two byt
 
 ## Validating Addresses
 
-You can verify that a value is a valid `SS58` address by using the subkey `inspect command` or though the `Polkadot-JS API`.
+You can verify that a value is a valid `SS58` address by using the subkey command-line interface or though the `Polkadot.js API`.
 
 ### Using subkey
 

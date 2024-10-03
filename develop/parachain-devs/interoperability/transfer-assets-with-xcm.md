@@ -22,7 +22,7 @@ Before you begin, verify the following:
 
 Asset teleportation enables the transfer of digital assets, including fungible and non-fungible tokens, across different parachains. This process allows the transferred assets to function as if they were native to the receiving chain. To simulate the teleportation of assets, this tutorial showcases the transfer of fungible tokens between the Polkadot relay chain and the Asset Hub system parachain.
 
-To replicate the scenario, you can locally simulate the interaction between the two chains using Chopsticks, as shown in the [XCM Testing](/develop/application-devs/tooling/chopsticks/overview.md#xcm-testing){target=\_blank} section of the Chopsticks documentation. For this tutorial, the relay chain is Polkadot ([`polkadot`](https://github.com/AcalaNetwork/chopsticks/blob/master/configs/polkadot.yml){target=\_blank}), and the destination chain is the Asset Hub parachain ([`polkadot-asset-hub`](https://github.com/AcalaNetwork/chopsticks/blob/master/configs/polkadot-asset-hub.yml){target=\_blank}). 
+To replicate the scenario, you can locally simulate the interaction between the two chains using Chopsticks, as shown in the [XCM Testing](/develop/application-devs/tooling/chopsticks/overview.md#xcm-testing){target=\_blank} section of the Chopsticks documentation. For this tutorial, the relay chain is Polkadot ([`polkadot`](https://github.com/AcalaNetwork/chopsticks/blob/master/configs/polkadot.yml){target=\_blank}), and the destination chain is the Asset Hub parachain ([`polkadot-asset-hub`](https://github.com/AcalaNetwork/chopsticks/blob/master/configs/polkadot-asset-hub.yml){target=\_blank}).
 
 To teleport assets between the two chains, follow these steps:
 
@@ -41,25 +41,25 @@ To teleport assets between the two chains, follow these steps:
 3. Fill in the required parameters for the extrinsic
     1. Enter the **dest** multilocation of the destination chain. In this case, since the destination chain is Asset Hub (ID `1000`), its Multilocation from the Relay Chain perspective is:
         ```json
-         {
-           "parent": 0,
-           "interior": {
-             "X1": {
-               "Parachain": 1000
-             }
-           }
-         }
+        {
+            "parent": 0,
+            "interior": {
+                "X1": {
+                    "Parachain": 1000
+                }
+            }
+        }
         ```
     2. Specify the **beneficiary** to receive the assets. The beneficiary should be specified from the perspective of the destination chain. This tutorial uses the account `14BPeNxwQUBCDkZhAZMBTCD4ZbJ3VN4AdvDaUwDk8GxQbPbD` on the Asset Hub parachain, so the beneficiary MultiLocation is:
         ```json
-         {
-           "parent": 0,
-           "interior": {
-             "X1": {
-               "AccountId32": "14BPeNxwQUBCDkZhAZMBTCD4ZbJ3VN4AdvDaUwDk8GxQbPbD"
-             }
-           }
-         }
+        {
+            "parent": 0,
+            "interior": {
+                "X1": {
+                    "AccountId32": "14BPeNxwQUBCDkZhAZMBTCD4ZbJ3VN4AdvDaUwDk8GxQbPbD"
+                }
+            }
+        }
         ```
     3. Define the **assets** to teleport. This fields specifies the Multilocation fo the asset and the fungibility of the asset
     4. Provide the **feeAssetItem** to define the asset to be used as the fee for the teleportation
@@ -68,11 +68,11 @@ To teleport assets between the two chains, follow these steps:
 
         ![](/images/develop/parachain-devs/interoperability/transfer-assets-with-xcm/transfer-assets-with-xcm-3.webp)
 
-4. After submitting the transaction, you can check the status of the teleportation by navigating to the **Events** tab of the relay chain in the Polkadot.js Apps interface. If the XCM message is successfully sent, you will see the event `xcmPallet.Sent` in the list of events
+4. After submitting the transaction, you can check the status of the teleportation by navigating to the **Events** tab on the **Explorer** page for the relay chain in the Polkadot.js Apps interface. If the XCM message is successfully sent, you will see the event `xcmPallet.Sent` in the list of events
 
     ![](/images/develop/parachain-devs/interoperability/transfer-assets-with-xcm/transfer-assets-with-xcm-4.webp)
 
-5. To verify the teleportation on the Asset Hub parachain, navigate to the **Events** section. You should see two events, **`messageQueu.Processed`** and **`balances.Transfer`**
+5. To verify the teleportation on the Asset Hub parachain, navigate to the **Events** section of the **Explorer** page. You should see two events, **`messageQueu.Processed`** and **`balances.Transfer`**
 
     ![](/images/develop/parachain-devs/interoperability/transfer-assets-with-xcm/transfer-assets-with-xcm-5.webp)
 
@@ -82,7 +82,7 @@ These events indicate that the teleportation of assets was successful. You can n
 
 When consensus systems lack sufficient trust for direct asset teleportation, they can leverage a trusted third-party reserve (such as Asset Hub) to hold the actual assets. To track ownership of these reserve-held assets, both the source and destination chains typically create derivative tokens. Each chain maintains a dedicated account, known as a sovereign account, on the reserve to manage its asset holdings.
 
-To simulate a reserve asset transfer, you can spin up the network locally using Chopsticks as described in the [XCM Testing](/develop/application-devs/tooling/chopsticks/overview.md#xcm-testing){target=\_blank} section of the Chopsticks documentation. For this tutorial, the relay chain is Polkadot ([`polkadot`](https://github.com/AcalaNetwork/chopsticks/blob/master/configs/polkadot.yml){target=\_blank}), and the destination chain is the Astar parachain ([`astar`](https://github.com/AcalaNetwork/chopsticks/blob/master/configs/astar.yml){target=\_blank}). 
+To simulate a reserve asset transfer, you can spin up the network locally using Chopsticks as described in the [XCM Testing](/develop/application-devs/tooling/chopsticks/overview.md#xcm-testing){target=\_blank} section of the Chopsticks documentation. For this tutorial, the relay chain is Polkadot ([`polkadot`](https://github.com/AcalaNetwork/chopsticks/blob/master/configs/polkadot.yml){target=\_blank}), and the destination chain is the Astar parachain ([`astar`](https://github.com/AcalaNetwork/chopsticks/blob/master/configs/astar.yml){target=\_blank}).
 
 To do a reserve asset transfer between the two chains, follow these steps:
 
@@ -101,25 +101,25 @@ To do a reserve asset transfer between the two chains, follow these steps:
 3. Fill in the required parameters for the extrinsic
     1. Enter the **dest** multilocation of the destination chain. In this case, since the destination chain is the Astar parachain (ID `2006`), its Multilocation from the Relay Chain perspective is:
         ```json
-         {
-           "parent": 0,
-           "interior": {
-             "X1": {
-               "Parachain": 2006
-             }
-           }
-         }
+        {
+            "parent": 0,
+            "interior": {
+                "X1": {
+                    "Parachain": 2006
+                }
+            }
+        }
         ```
     2. Specify the **beneficiary** to receive the assets. The beneficiary should be specified from the perspective of the destination chain. This tutorial uses the account `Z7gwLfxKvYq13b1hDkJLhYBo21WmHCmaczEZMSFSYvr16Ao` on the Astar parachain, so the beneficiary MultiLocation is:
         ```json
-         {
-           "parent": 0,
-           "interior": {
-             "X1": {
-               "AccountId32": "Z7gwLfxKvYq13b1hDkJLhYBo21WmHCmaczEZMSFSYvr16Ao"
-             }
-           }
-         }
+        {
+            "parent": 0,
+            "interior": {
+                "X1": {
+                    "AccountId32": "Z7gwLfxKvYq13b1hDkJLhYBo21WmHCmaczEZMSFSYvr16Ao"
+                }
+            }
+        }
         ```
     3. Define the **assets** to teleport. This fields specifies the Multilocation fo the asset and the fungibility of the asset
     4. Provide the **feeAssetItem** to define the asset to be used as the fee for the teleportation

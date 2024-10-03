@@ -19,7 +19,7 @@ Before starting this tutorial, ensure you have:
 
 - Installed and configured Rust on your system. For detailed instructions on installing Rust and setting up your development environment, refer to the [Installation](TODO - add path) guide
 - Completed the [Build a Local Blockchain](TODO - add path) tutorial and have the [Polkadot SDK Solochain Template](https://github.com/paritytech/polkadot-sdk-solochain-template){target=\_blank} installed on your local machine
-- Experience using predefined accounts to start nodes on a single computer, as described in the [Simulate a Network](TODO - add path) guide
+- Experience using predefined accounts to start nodes on a single computer, as described in the [Simulate a Network](/tutorials/polkadot-sdk/build-a-blockchain/simulate-a-network){target=\_blank} guide
 
 ## Generate an Account and Keys
 
@@ -36,7 +36,7 @@ To understand more about the different signing algorithms used in this tutorial 
 
 There are several ways you can generate keys. The available methods are:
 
-- `solochain-template-node` [key](TODO:update-path) subcommand - the most straightforward method for developers working directly with the node is to use the integrated key generation feature. Using the `key` subcommand, you can generate keys directly from your node's command line interface. This method ensures compatibility with your chain and is convenient for quick setup and testing
+- [`solochain-template-node key`](https://docs.rs/sc-cli/0.46.0/sc_cli/commands/enum.KeySubcommand.html){target=\_blank} subcommand - the most straightforward method for developers working directly with the node is to use the integrated key generation feature. Using the `key` subcommand, you can generate keys directly from your node's command line interface. This method ensures compatibility with your chain and is convenient for quick setup and testing
 - [subkey](https://github.com/paritytech/polkadot-sdk/tree/master/substrate/bin/utils/subkey){target=\_blank} - it is a powerful standalone utility specifically designed for Polkadot SDK-based chains. It offers advanced options for key generation, including support for different key types such as `ed25519` and `sr25519`. This tool allows fine-grained control over the key generation process
 - Third-party key generation utilities - various tools developed by the community
 
@@ -65,7 +65,7 @@ Follow these steps to generate your keys:
 
     --8<-- 'code/tutorials/polkadot-sdk/build-a-blockchain/add-trusted-nodes/key-sr25519-1.html'
 
-    Note the Sr25519 public key for the account (SS58 format). This key will be used for producing blocks with `aura`. In this example, the Sr25519 public key for the account is `5HMhkSHpD4XcibjbU9ZiGemLpnsTUzLsG5JhQJQEcxp3KJaW`.
+    Note the Sr25519 public key for the account (SS58 format). This key will be used for producing blocks with Aura. In this example, the Sr25519 public key for the account is `5HMhkSHpD4XcibjbU9ZiGemLpnsTUzLsG5JhQJQEcxp3KJaW`.
 
 3. Use the generated secret phrase to derive keys using the Ed25519 signature scheme. Enter the same password you used in the previous step:
 
@@ -121,9 +121,16 @@ In this tutorial, you'll modify the local chain specification to create a custom
 3. Preview the `customSpec.json` file:
 
     - Preview first fields:
+
+        ```bash
+        head customSpec.json
+        ```
     --8<-- 'code/tutorials/polkadot-sdk/build-a-blockchain/add-trusted-nodes/chainspec-head.html'
 
     - Preview last fields:
+        ```bash
+        tail -n 78 customSpec.json
+        ```
     --8<-- 'code/tutorials/polkadot-sdk/build-a-blockchain/add-trusted-nodes/chainspec-tail.html'
 
         This command will display fields that include configuration details for pallets, such as sudo and balances, as well as the validator settings for the Aura and Grandpa keys.
@@ -231,6 +238,8 @@ Follow these steps for each node in your network:
     You should see output similar to:
 
     <div id='termynal' data-termynal>
+        <span data-ty="input"><span class="file-path"></span>ls /tmp/node01/chains/local_testnet/keystore</span>
+        <br>
         <span data-ty>61757261ea23fa399c6bd91af3d7ea2d0ad46c48aff818b285342d9aaf15b3172270e914</span>
         <span data-ty>6772616ec9c2cd111f98f2bf78bab6787449fc007dd7f2a5d02f099919f7fb50ade97dd6</span>
     </div>
@@ -269,7 +278,7 @@ Upon execution, you should see output similar to the following:
 After starting the first node, you'll notice:
 
 - The node is running with the custom chain specification ("My Custom Testnet")
-- The local node identity is displayed (12D3KooWSbaPxmb2tWLgkQVoJdxzpBPTd9dQPmKiJfsvtP753Rg1 in this example). This identity is crucial for other nodes to connect to this one
+- The local node identity is displayed (`12D3KooWSbaPxmb2tWLgkQVoJdxzpBPTd9dQPmKiJfsvtP753Rg1` in this example). This identity is crucial for other nodes to connect to this one
 - The node is currently idle with 0 peers, as it's the only node in the network at this point
 - No blocks are being produced. Block production will commence once another node joins the network
 

@@ -82,6 +82,8 @@ The runtime errors for a particular pallet can be viewed in one of several ways:
 
 If you receive a dispatch error, it will include the index of the pallet from which the error originated and the specific index of the error within that pallet's error definitions. Both of these indices start counting from zero.
 
+#### Trace the Error to Its Originating Pallet
+
 Runtime errors can be located by examining the runtime's codebase. For Polkadot, this involves checking the [Polkadot Fellows Runtime repository](https://github.com/polkadot-fellows/runtimes/){target=\_blank} and the [Polkadot SDK](https://github.com/paritytech/polkadot-sdk){target=\_blank} repository.
 
 As an example, consider the following dispatch error:
@@ -99,7 +101,16 @@ You can see that the module index number is `7`, but the error is a hex string t
 
 You can view a list of the runtime's pallets and associated indices in the Polkadot Fellows Runtimes repository in the [`relay/polkadot/src/lib.rs` file](https://github.com/polkadot-fellows/runtimes/blob/main/relay/polkadot/src/lib.rs){target=\_blank}. You'll look in this file for `pub enum Runtime`, which is where you'll see each pallet and its associated index. You'll find that the Staking pallet is at index `7`.
 
-Now that you know the error occurred in the Staking pallet, you can look at the Staking pallet's code, located in the [`substrate/frame/staking/` directory](https://github.com/paritytech/polkadot-sdk/blob/master/substrate/frame/staking/){target=\_blank} of the Polkadot SDK repository. The errors are defined in the [`substrate/fram/staking/src/pallet/mod.rs` file](https://github.com/paritytech/polkadot-sdk/blob/master/substrate/frame/staking/src/pallet/mod.rs){target=\_blank} for the Staking pallet specifically. If you look for `pub enum Error` and look at the eighth error, which corresponds to the seventh index, you'll see `InsufficientBond`. So, now you know that the error you're seeing is an insufficient bond error being emitted from the Staking pallet.
+#### Identify the Specific Error from the Pallet
+
+Now that you've identified the error occurred in the Staking pallet, you'll need to review the list of possible errors. You can do this by either checking the [Staking pallet's documentation](https://docs.rs/pallet-staking/latest/pallet_staking/enum.Error.html#variants){target=\_blank} or by exploring the Staking pallet's source code.
+
+For example, if you check the eighth variant in the [Staking pallet's error list](https://docs.rs/pallet-staking/latest/pallet_staking/enum.Error.html#variants){target=\_blank} (seventh index), you'll find **`InsufficientBond`**, indicating that the error you encountered is due to an insufficient bond.
 
 !!! note
-    The error enum isn't defined in the same exact location for every pallet. In some pallets, you'll find that the error enum is defined in the `src/lib.rs` file.
+    To use the documentation method for another pallet, you'll need the pallet's name since the [Rust documentation](https://docs.rs/){target=\_blank} covers the entire Rust ecosystem, not just Polkadot. The convention for finding the pallet is `pallet_<PALLET_NAME>`. Once you've located the correct documentation, search for "error," which should lead you to the `Error` enum, typically formatted as `pallet_<PALLET_NAME>::Error`. You can then review the list of errors.
+
+To use the source code method, navigate to the [`substrate/frame/staking/` directory](https://github.com/paritytech/polkadot-sdk/blob/master/substrate/frame/staking/){target=\_blank} of the Polkadot SDK repository. For the Staking pallet, the errors are defined in the [`substrate/fram/staking/src/pallet/mod.rs` file](https://github.com/paritytech/polkadot-sdk/blob/master/substrate/frame/staking/src/pallet/mod.rs){target=\_blank}. Look for `pub enum Error`, and look at the eighth error (seventh index), you'll find `InsufficientBond`.
+
+!!! note
+    The `Error` enum location can vary between pallets. In some cases, it may be defined in the `src/lib.rs` file within the `substrate/frame/<PALLET_NAME>` directory.

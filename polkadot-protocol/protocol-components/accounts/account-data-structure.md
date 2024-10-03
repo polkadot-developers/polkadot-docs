@@ -15,9 +15,9 @@ The `Account` data type is a generically defined storage map within the [`frame-
 
 The StorageMap for an Account consists of the following parameters:
 
-- The first parameter `(_)` is used in macro expansion.
-- `Blake2_128Concat` specifies the hashing algorithm to use.
-- `T::AccountId` is used as the key for over the `AccountInfo<T::Nonce, T::AccountData>` struct.
+- The first parameter `(_)` is used in macro expansion
+- `Blake2_128Concat` specifies the hashing algorithm to use
+- `T::AccountId` is used as the key for over the `AccountInfo<T::Nonce, T::AccountData>` struct
 
 !!! note
     See [StorageMap API](https://paritytech.github.io/polkadot-sdk/master/frame_support/storage/types/struct.StorageMap.html){target=\_blank} for more details.

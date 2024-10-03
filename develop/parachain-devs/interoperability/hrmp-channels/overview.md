@@ -25,7 +25,7 @@ Opening an HRMP channel requires the parachains involved to make a deposit on th
 
 ### Relay Chain Parameters
 
-Each Polkadot relay chain has a set of configurable parameters that control the behavior of the message channels between parachains. These parameters include `hrmpSenderDeposit`, `hrmpRecipientDeposit`, `hrmpChannelMaxMessageSize`, `hrmpChannelMaxCapacity`, and more.
+The Polkadot relay chain utilizes a set of configurable parameters that govern all aspects of runtime configuration with respect to parachains. Key parameters include `hrmpSenderDeposit`, `hrmpRecipientDeposit`, `hrmpChannelMaxMessageSize` and `hrmpChannelMaxCapacity`. For a complete list of parameters, consult the [`HostConfiguration`](https://paritytech.github.io/polkadot-sdk/master/polkadot_runtime_parachains/configuration/struct.HostConfiguration.html#){target=\_blank} struct in the Polkadot SDK documentation.
 
 When a parachain wants to open a new channel, it must consider these parameter values to ensure the channel is configured correctly.
 
@@ -34,7 +34,6 @@ To view the current values of these parameters in the Polkadot network:
 1. Visit [Polkadot.js Apps](https://polkadot.js.org/apps/?rpc=wss%3A%2F%2Fpolkadot.api.onfinality.io%2Fpublic-ws#/explorer), navigate to the **Developer** dropdown and select the **Chain state** option
 
     ![](/images/develop/parachain-devs/interoperability/hrmp-channels/overview/hrmp-overview-1.webp)
-    polkadot-docs/images/develop/parachain-devs/interoperability/hrmp-channels/overview/hrmp-overview-1.webp
 
 2. Query the chain configuration parameters. The result will display the current settings for all the Polkadot network parameters, including the HRMP channel settings
     1. Select **configuration**

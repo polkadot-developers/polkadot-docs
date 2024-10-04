@@ -90,7 +90,7 @@ Latest version: {repo['latest_version']}
 
 Please review the change log and update the documentation accordingly."""
 
-    create_github_issue(owner, repo_name, title, body)
+        create_github_issue(owner, repo_name, title, body)
 
 
 if __name__ == "__main__":

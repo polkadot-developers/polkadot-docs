@@ -37,7 +37,7 @@ When submitting a signed transaction, the signature is constructed by signing:
 - The actual call is composed of the following:
     - The index of the pallet
     - The index of the function call in the pallet
-    - The parameters required by the function call are being targeted
+    - The parameters required by the function call being targeted
 
 - Some extra information, verified by the signed extensions of the transaction:
     - What's the era for this transaction, i.e., how long should this call last in the transaction pool before it gets discarded?
@@ -81,7 +81,7 @@ In FRAME, a signed extension can hold any of the following types by default:
 
 - [`AccountId`](https://github.com/paritytech/polkadot-sdk/blob/master/substrate/frame/src/lib.rs#L274){target=\_blank} - to encode the sender's identity
 - `Call` - to encode the pallet call to be dispatched. This data is used to calculate transaction fees
-- `AdditionalSigned` — to handle any additional data to go into the signed payload. This allows you to attach any custom logic prior to dispatching a transaction
+- `AdditionalSigned` - to handle any additional data to go into the signed payload. This allows you to attach any custom logic prior to dispatching a transaction
 - `Pre` - to encode the information that can be passed from before a call is dispatched to after it gets dispatched
 
 FRAME's system pallet provides a set of useful `SignedExtension` out of the box.

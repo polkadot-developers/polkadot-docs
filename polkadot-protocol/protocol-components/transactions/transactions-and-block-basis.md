@@ -37,7 +37,7 @@ The [`pallet_im_online::Call::heartbeat`](https://github.com/paritytech/polkadot
 
 ### Inherent Transactions
 
-Inherent transactions —sometimes referred to as inherent—are a particular type of unsigned transaction. With this type of transaction, block authoring nodes can add information directly to a block. Inherent transactions can only be inserted into a block by the block authoring node that calls them. Typically, this type of transaction is not gossiped to other nodes or stored in the transaction queue. The data inserted using an inherent transaction is assumed valid without requiring specific validation.
+Inherent transactions, sometimes referred to as inherent, are a particular type of unsigned transaction. With this type of transaction, block authoring nodes can add information directly to a block. Inherent transactions can only be inserted into a block by the block authoring node that calls them. Typically, this type of transaction is not gossiped to other nodes or stored in the transaction queue. The data inserted using an inherent transaction is assumed valid without requiring specific validation.
 
 For example, if a block authoring node inserts a timestamp into a block, there is no way to prove that a timestamp is accurate. Instead, validators might accept or reject the block based on whether the timestamp is within some acceptable range of their system clocks.
 

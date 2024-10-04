@@ -11,21 +11,21 @@ Cryptography forms the backbone of blockchain technology, providing the mathemat
 
 ## Hash Functions
 
-Hash functions are fundamental to blockchain technology, creating a unique digital fingerprint for any piece of data including simple text, images, or any other form of file. They map input data of any size to a fixed-size output (typically 32 bytes) using complex mathematical operations. Hashing is used for verifying data integrity, creating digital signatures, and providing a secure way to store passwords. This form of mapping is known as the 'pigeonhole principle', and it is primarily implemented to efficiently and verifiably identify data from large sets.
+Hash functions are fundamental to blockchain technology, creating a unique digital fingerprint for any piece of data including simple text, images, or any other form of file. They map input data of any size to a fixed-size output (typically 32 bytes) using complex mathematical operations. Hashing is used for verifying data integrity, creating digital signatures, and providing a secure way to store passwords. This form of mapping is known as the ['pigeonhole principle'](https://en.wikipedia.org/wiki/Pigeonhole_principle){target=\_blank}, and it is primarily implemented to efficiently and verifiably identify data from large sets.
 
 ### Key Properties of Hash Functions
 
-- **Deterministic** - the same input always produces the same output
-- **Quick computation** - it's easy to calculate the hash value for any given input
-- **Pre-image resistance** - it's infeasible to generate the input data from its hash
-- **Small changes in input yield large changes in output** - known as the avalanche effect
-- **Collision resistance** - it's extremely difficult to find two different inputs with the same hash
+- Deterministic - the same input always produces the same output
+- Quick computation - it's easy to calculate the hash value for any given input
+- Pre-image resistance - it's infeasible to generate the input data from its hash
+- Small changes in input yield large changes in output - known as the ['avalanche effect'](https://en.wikipedia.org/wiki/Avalanche_effect){target=\_blank}
+- Collision resistance - the probabilities are extremely low to find two different inputs with the same hash
 
 ### Blake2
 
 The Polkadot SDK utilizes Blake2, a state-of-the-art hashing method that offers:
 
-- Equal or greater security compared to SHA-2
+- Equal or greater security compared to [SHA-2](https://en.wikipedia.org/wiki/SHA-2){target=\_blank}
 - Significantly faster performance than other algorithms
 
 These properties make Blake2 ideal for blockchain systems, reducing sync times for new nodes and lowering the resources required for validation.
@@ -87,13 +87,15 @@ Polkadot SDK provides multiple different cryptographic schemes and is generic su
 
 ### Example of Creating a Digital Signature
 
+The process of creating and verifying a digital signature involves several steps:
+
 1. The sender creates a hash of the message
 2. The hash is encrypted using the sender's private key, creating the signature
 3. The message and signature are sent to the recipient
 4. The recipient decrypts the signature using the sender's public key
 5. The recipient hashes the received message and compares it to the decrypted hash
 
-If the hashes match, the signature is valid, confirming the message's integrity and the sender's identity
+If the hashes match, the signature is valid, confirming the message's integrity and the sender's identity.
 
 ## Elliptic Curve
 

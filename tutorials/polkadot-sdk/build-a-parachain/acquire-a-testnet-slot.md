@@ -13,8 +13,8 @@ This tutorial demonstrates deploying a parachain on a public test network like t
 
 Before you start, you need to have the following prerequisites:
 
-- You know how to generate and modify chain specification files as described in the [Add Trusted Nodes](TODO:update-path){target=\_blank} tutorial
-- You know how to generate and store keys as described in the [Add Trusted Nodes](TODO:update-path){target=\_blank} tutorial
+- You know how to generate and modify chain specification files as described in the [Add Trusted Nodes](/tutorials/polkadot-sdk/build-a-blockchain/add-trusted-nodes/){target=\_blank} tutorial
+- You know how to generate and store keys as described in the [Add Trusted Nodes](/tutorials/polkadot-sdk/build-a-blockchain/add-trusted-nodes/){target=\_blank} tutorial
 - You have completed the [Prepare a Local Relay Chain](/tutorials/polkadot-sdk/build-a-parachain/prepare-relay-chain/){target=\_blank} and the [Connect a Local Parachain](/tutorials/polkadot-sdk/build-a-parachain/connect-a-parachain.md){target=\_blank} tutorials on your local computer
 
 ## Get Started with an Account and Tokens
@@ -32,7 +32,7 @@ To prepare an account, follow these steps:
 2. Navigate to the **Accounts** section
     1. Click on the **Accounts** tab in the top menu
     2. Select the **Accounts** option from the dropdown menu
-
+  
     ![](/images/tutorials/polkadot-sdk/build-a-parachain/acquire-a-testnet-slot/acquire-a-testnet-slot-2.webp)
 
 3. Copy the address of the account you want to use for the parachain deployment

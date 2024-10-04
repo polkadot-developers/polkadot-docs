@@ -1,13 +1,13 @@
 ---
 title: Transfer Assets with XCM
-description: This tutorial will guide you through the process of transferring assets between parachains using Cross-Chain Message (XCM) instructions.
+description: This tutorial will guide you through the process of transferring assets between parachains using Cross Consensus Messaging (XCM) instructions.
 ---
 
 # Transfer Assets with XCM
 
 ## Introduction
 
-XCM (Cross-Chain Message) is a messaging protocol that enables communication between parachains and the relay chain in the Polkadot network. XCM allows parachains to send messages to each other, enabling the transfer of assets, data, and other information across different chains. This article will explore how to transfer assets between parachains using XCM instructions.
+XCM (Cross Consensus Messaging) is a language that enables communication between chains in the Polkadot ecosystem. XCM allows parachains to send messages to each other, enabling the transfer of assets, data, and other information across different chains. This article will explore how to transfer assets between parachains using XCM instructions.
 
 To transfer assets between two chains, you have the options of [Teleporting Assets](https://wiki.polkadot.network/docs/learn-teleport){target=\_blank} or performing a [Reserve Asset Transfer](https://wiki.polkadot.network/docs/learn/xcm/journey/transfers-reserve){target=\_blank}. This tutorial will cover both methods.
 
@@ -20,9 +20,9 @@ Before you begin, verify the following:
 
 ## Teleporting Assets
 
-Asset teleportation enables the transfer of digital assets, including fungible and non-fungible tokens, across different parachains. This process allows the transferred assets to function as if they were native to the receiving chain. To simulate the teleportation of assets, this tutorial showcases the transfer of fungible tokens between the Polkadot relay chain and the Asset Hub system parachain.
+Asset teleportation enables the transfer of digital assets, including fungible and non-fungible tokens, across different parachains. This process allows the transferred assets to function as if they were native to the receiving chain. To simulate the teleportation of assets, this tutorial showcases the transfer of fungible tokens between the Polkadot relay chain and the Asset Hub system chain.
 
-To replicate the scenario, you can locally simulate the interaction between the two chains using Chopsticks, as shown in the [XCM Testing](/develop/application-devs/tooling/chopsticks/overview.md#xcm-testing){target=\_blank} section of the Chopsticks documentation. For this tutorial, the relay chain is Polkadot ([`polkadot`](https://github.com/AcalaNetwork/chopsticks/blob/master/configs/polkadot.yml){target=\_blank}), and the destination chain is the Asset Hub parachain ([`polkadot-asset-hub`](https://github.com/AcalaNetwork/chopsticks/blob/master/configs/polkadot-asset-hub.yml){target=\_blank}).
+To replicate the scenario, you can locally simulate the interaction between the two chains using Chopsticks, as shown in the [XCM Testing](/develop/application-devs/tooling/chopsticks/overview.md#xcm-testing){target=\_blank} section of the Chopsticks documentation. For this tutorial, the relay chain is Polkadot ([`polkadot`](https://github.com/AcalaNetwork/chopsticks/blob/master/configs/polkadot.yml){target=\_blank}), and the destination chain is the Asset Hub system chain ([`polkadot-asset-hub`](https://github.com/AcalaNetwork/chopsticks/blob/master/configs/polkadot-asset-hub.yml){target=\_blank}).
 
 To teleport assets between the two chains, follow these steps:
 
@@ -72,7 +72,7 @@ To teleport assets between the two chains, follow these steps:
 
     ![](/images/develop/parachain-devs/interoperability/transfer-assets-with-xcm/transfer-assets-with-xcm-4.webp)
 
-5. To verify the teleportation on the Asset Hub parachain, navigate to the **Events** section of the **Explorer** page. You should see two events, **`messageQueu.Processed`** and **`balances.Transfer`**
+5. To verify the teleportation on the Asset Hub system chain, navigate to the **Events** section of the **Explorer** page. You should see two events, **`messageQueu.Processed`** and **`balances.Transfer`**
 
     ![](/images/develop/parachain-devs/interoperability/transfer-assets-with-xcm/transfer-assets-with-xcm-5.webp)
 
@@ -80,7 +80,9 @@ These events indicate that the teleportation of assets was successful. You can n
 
 ## Reserve Asset Transfer
 
-When consensus systems lack sufficient trust for direct asset teleportation, they can leverage a trusted third-party reserve (such as Asset Hub) to hold the actual assets. To track ownership of these reserve-held assets, both the source and destination chains typically create derivative tokens. Each chain maintains a dedicated account, known as a sovereign account, on the reserve to manage its asset holdings.
+It is a way of transferring assets between two parachains (or consensus systems) that don't trust each other by using a third system (like the Asset Hub system chain) they both trust, called the reserve. To track ownership of the reserve-held assets, both the source and destination chains typically create derivative tokens. Each chain maintains a dedicated account, known as a sovereign account, on the reserve to manage its asset holdings. 
+
+Typically, the sender chain burns a certain amount of derivative tokens, signals the reserve to move the real assets from its sovereign account to the destination chain's sovereign account, and then signals the recipient to mint the right amount of derivatives.
 
 To simulate a reserve asset transfer, you can spin up the network locally using Chopsticks as described in the [XCM Testing](/develop/application-devs/tooling/chopsticks/overview.md#xcm-testing){target=\_blank} section of the Chopsticks documentation. For this tutorial, the relay chain is Polkadot ([`polkadot`](https://github.com/AcalaNetwork/chopsticks/blob/master/configs/polkadot.yml){target=\_blank}), and the destination chain is the Astar parachain ([`astar`](https://github.com/AcalaNetwork/chopsticks/blob/master/configs/astar.yml){target=\_blank}).
 

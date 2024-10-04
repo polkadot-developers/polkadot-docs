@@ -73,7 +73,7 @@ The metadata interface provides the way applications know how to construct a tra
 
 ## Signed Extensions
 
-The Polkadot SDK provides the concept of [signed extensions](https://paritytech.github.io/polkadot-sdk/master/polkadot_sdk_docs/reference_docs/signed_extensions/index.html){target=\_blank}, which extend an extrinsic with additional data, through the SignedExtension trait.
+The Polkadot SDK provides the concept of [signed extensions](https://paritytech.github.io/polkadot-sdk/master/polkadot_sdk_docs/reference_docs/signed_extensions/index.html){target=\_blank}, which extend an extrinsic with additional data, through the [SignedExtension](https://paritytech.github.io/try-runtime-cli/sp_runtime/traits/trait.SignedExtension.html){target=\_blank} trait.
 
 The transaction queue regularly calls signed extensions to check that a transaction is valid before it gets put in the ready queue. This is a useful safeguard for verifying that transactions won't fail in a block. Signed extensions are commonly used to enforce validation logic to protect the transaction pool from spam and replay attacks.
 

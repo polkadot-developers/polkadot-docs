@@ -64,7 +64,7 @@ An extrinsic is encoded into the following sequence of bytes just before being h
 
 Where:
 
-- `[1]` contains the compact encoded length in bytes of all of the following data. Learn how compact encoding works using SCALE
+- `[1]` contains the compact encoded length in bytes of all of the following data. Learn how compact encoding works using [SCALE](https://github.com/paritytech/parity-scale-codec){target=\_blank}
 - `[2]` is a u8 containing 1 byte to indicate whether the transaction is signed or unsigned (1 bit) and the encoded transaction version ID (7 bits)
 - `[3]` if a signature is present, this field contains an account ID, an SR25519 signature, and some extra data. If unsigned, this field contains 0 bytes
 - `[4]` is the encoded call data. This comprises 1 byte denoting the pallet to call into, 1 byte denoting the call to make in that pallet, and as many bytes as needed to encode the arguments expected by that call

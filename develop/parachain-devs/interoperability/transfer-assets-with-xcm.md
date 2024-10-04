@@ -39,7 +39,7 @@ To teleport assets between the two chains, follow these steps:
         ![](/images/develop/parachain-devs/interoperability/transfer-assets-with-xcm/transfer-assets-with-xcm-2.webp)
 
 3. Fill in the required parameters for the extrinsic
-    1. Enter the **dest** multilocation of the destination chain. In this case, since the destination chain is Asset Hub (ID `1000`), its Multilocation from the Relay Chain perspective is:
+    1. Enter the **dest** multilocation of the destination chain. In this case, since the destination chain is Asset Hub (ID `1000`), its multilocation from the relay chain perspective is:
         ```json
         {
             "parent": 0,
@@ -50,7 +50,7 @@ To teleport assets between the two chains, follow these steps:
             }
         }
         ```
-    2. Specify the **beneficiary** to receive the assets. The beneficiary should be specified from the perspective of the destination chain. This tutorial uses the account `14BPeNxwQUBCDkZhAZMBTCD4ZbJ3VN4AdvDaUwDk8GxQbPbD` on the Asset Hub parachain, so the beneficiary MultiLocation is:
+    2. Specify the **beneficiary** to receive the assets. The beneficiary should be specified from the perspective of the destination chain. This tutorial uses the account `14BPeNxwQUBCDkZhAZMBTCD4ZbJ3VN4AdvDaUwDk8GxQbPbD` on the Asset Hub system chain, so the beneficiary multilocation is:
         ```json
         {
             "parent": 0,
@@ -61,7 +61,7 @@ To teleport assets between the two chains, follow these steps:
             }
         }
         ```
-    3. Define the **assets** to teleport. This fields specifies the Multilocation fo the asset and the fungibility of the asset
+    3. Define the **assets** to teleport. This fields specifies the multilocation of the asset and the fungibility of the asset
     4. Provide the **feeAssetItem** to define the asset to be used as the fee for the teleportation
     5. Specify the **weightLimit** as the maximum weight to be used for the extrinsic execution
     6. Click on **Submit Transaction** to execute the extrinsic
@@ -72,15 +72,15 @@ To teleport assets between the two chains, follow these steps:
 
     ![](/images/develop/parachain-devs/interoperability/transfer-assets-with-xcm/transfer-assets-with-xcm-4.webp)
 
-5. To verify the teleportation on the Asset Hub system chain, navigate to the **Events** section of the **Explorer** page. You should see two events, **`messageQueu.Processed`** and **`balances.Transfer`**
+5. To verify the teleportation on the Asset Hub system chain, navigate to the **Events** section of the **Explorer** page. You should see two events: **`messageQueue.Processed`** and **`balances.Transfer`**
 
     ![](/images/develop/parachain-devs/interoperability/transfer-assets-with-xcm/transfer-assets-with-xcm-5.webp)
 
-These events indicate that the teleportation of assets was successful. You can now verify the balance of the beneficiary account on the Asset Hub parachain to confirm the transfer.
+These events indicate that the teleportation of assets was successful. You can now verify the balance of the beneficiary account on the Asset Hub system chain to confirm the transfer.
 
 ## Reserve Asset Transfer
 
-It is a way of transferring assets between two parachains (or consensus systems) that don't trust each other by using a third system (like the Asset Hub system chain) they both trust, called the reserve. To track ownership of the reserve-held assets, both the source and destination chains typically create derivative tokens. Each chain maintains a dedicated account, known as a sovereign account, on the reserve to manage its asset holdings. 
+A reserve asset transfer transfers assets between two parachains (or consensus systems) that don't trust each other by using a third system (like the Asset Hub system chain) they both trust, called the reserve. Both the source and destination chains typically create derivative tokens to track ownership of the reserve-held assets. Each chain maintains a dedicated account, known as a sovereign account, on the reserve to manage its asset holdings. 
 
 Typically, the sender chain burns a certain amount of derivative tokens, signals the reserve to move the real assets from its sovereign account to the destination chain's sovereign account, and then signals the recipient to mint the right amount of derivatives.
 
@@ -101,7 +101,7 @@ To do a reserve asset transfer between the two chains, follow these steps:
         ![](/images/develop/parachain-devs/interoperability/transfer-assets-with-xcm/transfer-assets-with-xcm-6.webp)
 
 3. Fill in the required parameters for the extrinsic
-    1. Enter the **dest** multilocation of the destination chain. In this case, since the destination chain is the Astar parachain (ID `2006`), its Multilocation from the Relay Chain perspective is:
+    1. Enter the **dest** multilocation of the destination chain. In this case, since the destination chain is the Astar parachain (ID `2006`), its multilocation from the relay chain perspective is:
         ```json
         {
             "parent": 0,
@@ -112,7 +112,7 @@ To do a reserve asset transfer between the two chains, follow these steps:
             }
         }
         ```
-    2. Specify the **beneficiary** to receive the assets. The beneficiary should be specified from the perspective of the destination chain. This tutorial uses the account `Z7gwLfxKvYq13b1hDkJLhYBo21WmHCmaczEZMSFSYvr16Ao` on the Astar parachain, so the beneficiary MultiLocation is:
+    2. Specify the **beneficiary** to receive the assets. The beneficiary should be specified from the perspective of the destination chain. This tutorial uses the account `Z7gwLfxKvYq13b1hDkJLhYBo21WmHCmaczEZMSFSYvr16Ao` on the Astar parachain, so the beneficiary multilocation is:
         ```json
         {
             "parent": 0,
@@ -123,7 +123,7 @@ To do a reserve asset transfer between the two chains, follow these steps:
             }
         }
         ```
-    3. Define the **assets** to teleport. This fields specifies the Multilocation fo the asset and the fungibility of the asset
+    3. Define the **assets** to teleport. This fields specifies the multilocation of the asset and the fungibility of the asset
     4. Provide the **feeAssetItem** to define the asset to be used as the fee for the teleportation
     5. Specify the **weightLimit** as the maximum weight to be used for the extrinsic execution
     6. Click on **Submit Transaction** to execute the extrinsic
@@ -134,7 +134,7 @@ To do a reserve asset transfer between the two chains, follow these steps:
 
     ![](/images/develop/parachain-devs/interoperability/transfer-assets-with-xcm/transfer-assets-with-xcm-8.webp)
 
-5. To verify the transfered assets on the Astar parachain, navigate to the **Events** section. You should see two events, **`messageQueu.Processed`**, **`balances.Issued`** and **`balances.Transfer`**
+5. To verify the transferred assets on the Astar parachain, navigate to the **Events** section. You should see three events: **`messageQueue.Processed`**, **`balances.Issued`** and **`balances.Transfer`**
 
     ![](/images/develop/parachain-devs/interoperability/transfer-assets-with-xcm/transfer-assets-with-xcm-9.webp)
 

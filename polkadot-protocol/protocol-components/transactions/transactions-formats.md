@@ -1,6 +1,6 @@
 ---
 title: Transactions Formats
-description: TODO
+description: Overview of the data structure of signed and unsigned transactions in Polkadot SDK-based chains, and how they are constructed.
 ---
 
 # Transactions Formats

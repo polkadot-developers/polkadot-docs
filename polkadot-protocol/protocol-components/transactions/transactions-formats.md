@@ -46,7 +46,7 @@ When submitting a signed transaction, the signature is constructed by signing:
 
 Then, some additional data that's not part of what gets signed is required, which includes:
 
-- The spec version and the transaction version ensure that the transaction is submitted to a compatible runtime
+- The spec version and the transaction version ensure that the transaction is submitted to a [compatible runtime](TODO:update-path){target=\_blank}
 - The genesis hash, which ensures that the transaction is valid for the correct chain
 - The block hash, that corresponds to the hash of the checkpoint block, enables the signature to verify that the transaction doesn't execute on the wrong fork by checking against the block number provided by the era information
 

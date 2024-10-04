@@ -7,7 +7,7 @@ description: A concise guide to cryptography in blockchain, covering hash functi
 
 ## Introduction
 
-Cryptography forms the backbone of blockchain technology, providing the mathematical verifiability crucial for consensus systems, data integrity, and user security. While a deep understanding of the underlying mathematical processes isn't necessary for most blockchain developers, grasping the fundamental applications of cryptography is essential. This page offers a comprehensive overview of various cryptographic implementations used across Polkadot SDK and the broader blockchain ecosystem.
+Cryptography forms the backbone of blockchain technology, providing the mathematical verifiability crucial for consensus systems, data integrity, and user security. While a deep understanding of the underlying mathematical processes isn't necessary for most blockchain developers, grasping the fundamental applications of cryptography is essential. This page comprehensively overviews various cryptographic implementations used across Polkadot SDK-based chains and the broader blockchain ecosystem.
 
 ## Hash Functions
 
@@ -69,13 +69,13 @@ The public key is used to encrypt a fixed length message that can only be decryp
 - Slower than symmetric encryption
 - Requires more computational resources
 
-### Trade-offs and compromises
+### Trade-offs and Compromises
 
 Symmetric cryptography is faster and requires fewer bits in the key to achieve the same level of security that asymmetric cryptography provides. However, it requires a shared secret before communication can take place, which poses issues to it's integrity and a potential compromise point. Asymmetric cryptography, on the other hand, does not require the secret to be shared ahead of time, allowing for far better end-user security.
 
 Hybrid symmetric and asymmetric cryptography is often used to overcome the engineering issues of asymmetric cryptography, as it is slower and requires more bits in the key to achieve the same level of security. It is used to encrypt a key, and then use the comparatively lightweight symmetric cipher to do the 'heavy lifting' with the message.
 
-## Digital signatures
+## Digital Signatures
 
 Digital signatures are a way of verifying the authenticity of a document or message using asymmetric keypairs. They are used to ensure that a sender or signer's document or message has not been tampered with in transit, and for recipients to verify said data is accurate and from the expected sender.
 
@@ -107,7 +107,7 @@ Schnorr signatures bring some noticeable features over the ECDSA/EdDSA schemes:
 
 One sacrifice that is made when using Schnorr signatures over ECDSA is that both require 64 bytes, but only ECDSA signatures communicate their public key.
 
-### Various implementations
+### Various Implementations
 
 - [ECDSA](https://en.wikipedia.org/wiki/Elliptic_Curve_Digital_Signature_Algorithm){target=\_blank} - Polkadot SDK provides an ECDSA signature scheme using the [secp256k1](https://en.bitcoin.it/wiki/Secp256k1){target=\_blank} curve. This is the same cryptographic algorithm used to secure [Bitcoin](https://en.wikipedia.org/wiki/Bitcoin){target=\_blank} and [Ethereum](https://en.wikipedia.org/wiki/Ethereum){target=\_blank}
 

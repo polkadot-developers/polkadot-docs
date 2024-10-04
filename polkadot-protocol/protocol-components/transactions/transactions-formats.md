@@ -73,13 +73,13 @@ The metadata interface provides the way applications know how to construct a tra
 
 ## Signed Extensions
 
-The Polkadot SDK provides the concept of signed extensions, which extend an extrinsic with additional data, through the SignedExtension trait.
+The Polkadot SDK provides the concept of [signed extensions](https://paritytech.github.io/polkadot-sdk/master/polkadot_sdk_docs/reference_docs/signed_extensions/index.html){target=\_blank}, which extend an extrinsic with additional data, through the SignedExtension trait.
 
 The transaction queue regularly calls signed extensions to check that a transaction is valid before it gets put in the ready queue. This is a useful safeguard for verifying that transactions won't fail in a block. Signed extensions are commonly used to enforce validation logic to protect the transaction pool from spam and replay attacks.
 
 In FRAME, a signed extension can hold any of the following types by default:
 
-- `AccountId` - to encode the sender's identity
+- [`AccountId`](https://github.com/paritytech/polkadot-sdk/blob/master/substrate/frame/src/lib.rs#L274){target=\_blank} - to encode the sender's identity
 - `Call` - to encode the pallet call to be dispatched. This data is used to calculate transaction fees.
 - `AdditionalSigned`—to handle any additional data to go into the signed payload. This allows you to attach any custom logic prior to dispatching a transaction.
 - `Pre` - to encode the information that can be passed from before a call is dispatched to after it gets dispatched
@@ -92,8 +92,8 @@ An important signed extension for validating transactions is CheckSpecVersion.�
 
 Other examples include the signed extensions used to calculate transaction priority. These are:
 
-- `CheckWeight` - sets the value for priority to 0 for all dispatch classes
-- `ChargeTransactionPayment` - calculates the overall priority, modifying the priority value accordingly
+- [`CheckWeight`](https://paritytech.github.io/polkadot-sdk/master/frame_system/struct.CheckWeight.html){target=\_blank} - sets the value for priority to 0 for all dispatch classes
+- [`ChargeTransactionPayment`](https://paritytech.github.io/polkadot-sdk/master/pallet_transaction_payment/struct.ChargeTransactionPayment.html){target=\_blank} - calculates the overall priority, modifying the priority value accordingly
 
 The priority depends on the dispatch class and the amount of tip-per-weight or tip-per-length (whatever is more limiting) the sender is willing to pay. Transactions without a tip use a minimal tip value of `1` for priority calculations to ensure that not all transactions have a priority of `0`. The consequence of this is that smaller transactions are preferred over larger ones.
 

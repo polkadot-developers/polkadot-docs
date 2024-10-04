@@ -15,8 +15,8 @@ Setting up a validator is just the beginning. Attracting nominations requires ef
 
 Successful validators focus on the following:
 
-- **Operational Excellence** - running reliable nodes and avoiding slashing incidents
-- **Community Engagement** - participating in ecosystem discussions, governance, and validator forums
+- **Operational excellence** - running reliable nodes and avoiding slashing incidents
+- **Community engagement** - participating in ecosystem discussions, governance, and validator forums
 - **Reputation** - creating a clear, trusted presence through transparency and consistent communication
 
 Both nominators and validators are at risk if slashing occurs, so building trust and showing commitment is vital. Validators should consistently communicate their reliability and transparency to ensure nominators feel secure when staking.

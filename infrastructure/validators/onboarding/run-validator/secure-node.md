@@ -46,6 +46,8 @@ recommended due to the security risks involved.
 
 #### Requirements
 
+!!!info "`seccomp` is kernel feature that facilitates a more secure approach for process management on Linux"
+
 1. *Linux on x86-64 family* (usually Intel or AMD)
 2. *`seccomp` enabled*. You can check that this is the case by running the following command:
   ```

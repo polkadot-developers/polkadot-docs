@@ -79,12 +79,12 @@ The transaction queue regularly calls signed extensions to check that a transact
 
 In FRAME, a signed extension can hold any of the following types by default:
 
-- [`AccountId`](https://github.com/paritytech/polkadot-sdk/blob/master/substrate/frame/src/lib.rs#L274){target=\_blank} - to encode the sender's identity
-- `Call` - to encode the pallet call to be dispatched. This data is used to calculate transaction fees
-- `AdditionalSigned` - to handle any additional data to go into the signed payload. This allows you to attach any custom logic prior to dispatching a transaction
-- `Pre` - to encode the information that can be passed from before a call is dispatched to after it gets dispatched
+- [`AccountId`](https://github.com/paritytech/polkadot-sdk/blob/master/substrate/primitives/runtime/src/traits.rs#L1489){target=\_blank} - to encode the sender's identity
+- [`Call`](https://github.com/paritytech/polkadot-sdk/blob/master/substrate/primitives/runtime/src/traits.rs#L1492){target=\_blank} - to encode the pallet call to be dispatched. This data is used to calculate transaction fees
+- [`AdditionalSigned`](https://github.com/paritytech/polkadot-sdk/blob/master/substrate/primitives/runtime/src/traits.rs#L1496){target=\_blank} - to handle any additional data to go into the signed payload. This allows you to attach any custom logic prior to dispatching a transaction
+- [`Pre`](https://github.com/paritytech/polkadot-sdk/blob/master/substrate/primitives/runtime/src/traits.rs#L1499){target=\_blank} - to encode the information that can be passed from before a call is dispatched to after it gets dispatched
 
-FRAME's system pallet provides a set of useful `SignedExtension` out of the box.
+FRAME's system pallet provides a [set of useful `SignedExtension`](https://github.com/paritytech/polkadot-sdk/blob/master/substrate/frame/system/src/lib.rs#L79){target=\_blank} out of the box.
 
 ### Example
 

@@ -1,4 +1,5 @@
 title: Accounts
 nav:
   - index.md
+  - 'Address Formats': address-formats.md
   - 'Account Data Structure': account-data-structure.md

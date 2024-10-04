@@ -12,8 +12,11 @@ This article describes the data structure of signed and unsigned transactions in
 Extrinsics normally contain a signature, some data to describe whether the extrinsic has passed some validity checks and a reference to the pallet and call that it is intended for. This format provides a way for applications to ensure that the requirements for an extrinsic are met and correctly constructed.
 
 - [Unchecked](https://github.com/paritytech/polkadot-sdk/blob/master/substrate/primitives/runtime/src/generic/unchecked_extrinsic.rs#L70){target=\_blank} - signed transactions requiring some validation check before being accepted in the transaction pool. Any unchecked extrinsic contains the signature for the sent data and some extra data
-- [Checked](https://github.com/paritytech/polkadot-sdk/blob/master/substrate/primitives/runtime/src/generic/checked_extrinsic.rs#L35){target=\_blank} - inherent extrinsic, which, by definition, don't require signature verification. Instead, they carry information on where the extrinsic comes from and some extra data
+- [Checked](https://github.com/paritytech/polkadot-sdk/blob/master/substrate/primitives/runtime/src/generic/checked_extrinsic.rs#L35){target=\_blank} - inherent extrinsics, which, by definition, don't require signature verification. Instead, they carry information on where the extrinsic comes from and some extra data
 - [Opaque](https://github.com/paritytech/polkadot-sdk/blob/master/substrate/primitives/runtime/src/lib.rs#L915){target=\_blank} - used for cases when an extrinsic hasn't yet been committed to a format but can still be decoded
+
+!!! note
+    Inherents are unique unsigned transactions created by block producers. They contain essential data for block construction, such as time stamps, storage verification proofs, and information about uncle blocks.
 
 Extra data can be any additional information helpful to attach to a transaction or inherent. For example, the nonce of the transaction, the tip for the block author, or how long the extrinsic is valid for. This information is provided by a specialized extensions that help determine the validity and ordering of extrinsics before they get included in a block.
 

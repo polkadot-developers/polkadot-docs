@@ -13,7 +13,7 @@ You've already learned that signed transactions include the signature of the acc
 
 ## Where Transactions are Defined
 
-As discussed in [Runtime Development](TODO:update-path){target=\_blank}, the Substrate runtime contains the business logic that defines transaction properties, including:
+As discussed in [Runtime Development](TODO:update-path){target=\_blank}, the Polkadot SDK runtime contains the business logic that defines transaction properties, including:
 
 - What constitutes a valid transaction
 - Whether the transactions are sent as signed or unsigned

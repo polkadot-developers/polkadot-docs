@@ -72,7 +72,7 @@ Once both the `providers` and `consumers` reference counters reach zero, the acc
 
 Runtime developers can manage these counters using the:
 
--  `inc_consumers()` - Increment the reference counter on an account.
+- `inc_consumers()` - Increment the reference counter on an account.
 - `dec_consumers()` - Decrement the reference counter on an account.
 - `inc_providers()` - Increment the provider reference counter on an account.
 - `dec_providers()` - Decrement the provider reference counter on an account.

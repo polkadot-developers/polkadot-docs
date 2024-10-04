@@ -1,5 +1,4 @@
-```rs
-/// The full account information for a particular account ID.
+/// The full account information for a particular account ID
 #[pallet::storage]
 #[pallet::getter(fn account)]
 pub type Account<T: Config> = StorageMap<
@@ -9,4 +8,3 @@ pub type Account<T: Config> = StorageMap<
   AccountInfo<T::Nonce, T::AccountData>,
   ValueQuery,
 >;
-```

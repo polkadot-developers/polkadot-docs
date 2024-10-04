@@ -10,7 +10,7 @@ Understanding how rewards are distributed to validators and nominators is essent
 
 ## Era Points
 
-For every era (a period of time approximately 6 hours in length in Kusama, and 24 hours in Polkadot), validators are paid proportionally to the amount of [era points](TODO: path) they have collected. Era points are reward points earned for payable actions like:
+The Polkadot ecosystem measures their reward cycles in a unit called an era. Kusama eras are approximately 6 hours long, and Polkadot eras are 24 hours. At the end of each era, validators are paid proportionally to the amount of [era points](TODO: path) they have collected. Era points are reward points earned for payable actions like:
 
 - Issuing validity statements for [parachain](TODO: path) blocks
 - Producing a non-uncle block in the relay chain
@@ -18,19 +18,23 @@ For every era (a period of time approximately 6 hours in length in Kusama, and 2
 - Producing a referenced uncle block
 
 !!!note
-    An uncle block is a Relay Chain block that is valid in every regard, but which failed to become canonical. This can happen when two or more validators are block producers in a single slot, and the block produced by one validator reaches the next block producer before the others. We call the lagging blocks uncle blocks.
+    An uncle block is a relay chain block that is valid in every regard but has failed to become canonical. This can happen when two or more validators are block producers in a single slot, and the block produced by one validator reaches the next block producer before the others. The lagging blocks are called uncle blocks.
 
 Payments occur at the end of every era.
 
-Era points create a probabilistic component for staking rewards.
+## Reward Variance
 
-If the mean of staking rewards is the average rewards per era, then the variance is the variability from the average staking rewards. The exact DOT value of each era point is not known in advance since it depends on the total number of points earned by all validators in a given era. This is designed this way so that the total payout per era depends on Polkadot's [inflation model](), and not on the number of payable actions (for example, authoring a new block) executed. For more information, read this StackExchange post about [reward calculations](https://substrate.stackexchange.com/questions/5353/how-are-rewards-in-dot-calculated-from-the-era-points-earned-by-validators-in-po).
+Rewards in Polkadot and Kusama staking systems can fluctuate due to differences in era points earned by para-validators and non-para-validators. Para-validators generally contribute more to the overall reward distribution due to their role in validating parachain blocks, thus influencing the variance in staking rewards.
 
-With parachains now on Polkadot, a large percentage of era points will come from parachain validation, as a subset of validators are selected to para-validate for all parachains each epoch, and those para-validators can generate more era points as a result. Para-validators are rewarded 20 era points each for each parachain block that they validate.
+To illustrate this relationship:
 
-In this case, analyzing the expected value of staking rewards will paint a better picture as the weight of era points of validators and para-validators in the reward average are taken into consideration.
+- Para-validator era points tend to have a higher impact on the expected value of staking rewards compared to non-para-validator points
+- The variance in staking rewards increases as the total number of validators grows relative to the number of para-validators
+- In simpler terms, when more validators are added to the active set without increasing the para-validator pool, the disparity in rewards between validators becomes more pronounced
 
-!!!note "High-level breakdown of reward variance"
+However, despite this increased variance, rewards tend to even out over time due to the continuous rotation of para-validators across eras. The network's design ensures that over multiple eras, each validator has an equal opportunity to participate in para-validation, eventually leading to a balanced distribution of rewards.
+
+??? function "Probability in Staking Rewards"
 
     This should only serve as a high-level overview of the probabilistic nature for staking rewards.
 
@@ -42,9 +46,7 @@ In this case, analyzing the expected value of staking rewards will paint a bette
 
     Then, `EV(pe)` has more influence on the `EV` than `EV(ne)`.
 
-    Since `EV(pe)` has a more weighted probability on the `EV`, the increase in variance against the
-    `EV` becomes apparent between the different validator pools (aka. validators in the active set and
-    the ones chosen to para-validate).
+    Since `EV(pe)` has a more weighted probability on the `EV`, the increase in variance against the `EV` becomes apparent between the different validator pools (aka. validators in the active set and the ones chosen to para-validate).
 
     Also, let:
 
@@ -55,107 +57,94 @@ In this case, analyzing the expected value of staking rewards will paint a bette
 
     Then, `v` &#8593; if `w` &#8593;, as this reduces `p` : `w`, with respect to `e`.
 
-    Increased `v` is expected, and initially keeping `p` &#8595; using the same para-validator set
-    for all parachains ensures [availability]() and [voting](../learn/learn-polkadot-opengov.md). In addition, despite `v` &#8593; on an `e` to `e` basis, over time, the amount of rewards each validator receives will equal out based on the continuous selection of para-validators.
+    Increased `v` is expected, and initially keeping `p` &#8595; using the same para-validator set for all parachains ensures [availability](TODO: add path) and [voting](../learn/learn-polkadot-opengov.md). In addition, despite `v` &#8593; on an `e` to `e` basis, over time, the amount of rewards each validator receives will equal out based on the continuous selection of para-validators.
 
     There are plans to scale the active para-validation set in the future.
 
 ## Payout Scheme
 
-No matter how much total stake is behind a validator, all validators split the block authoring payout essentially equally. The payout of a specific validator, however, may differ based on [era points](#era-points), as described above. Although there is a probabilistic component to receiving era points, and they may be impacted slightly depending on factors such as network connectivity, well-behaving validators should generally average out to having similar era point totals over a large number of eras.
+Validator rewards are distributed equally among all validators in the active set, regardless of the total stake behind each validator. However, individual payouts may differ based on the number of era points a validator has earned. Although factors like network connectivity can affect era points, well-performing validators should accumulate similar totals over time.
 
-Validators may also receive "tips" from senders as an incentive to include transactions in their produced blocks. Validators will receive 100% of these tips directly.
+Validators can also receive tips from users, which incentivize them to include certain transactions in their blocks. Validators retain 100% of these tips.
 
-Validators will receive staking rewards in the form of the native token of that chain (KSM for Kusama and DOT for Polkadot).
+Rewards are paid out in the network's native token (KSM for Kusama and DOT for Polkadot). 
 
-For simplicity, the examples below will assume all validators have the same amount of era points, and received no tips.
+The following example illustrates a four member validator set with their names, amount they have staked, and how payout of rewards is divided. This scenario assumes all validators earned the same amount of era points and no one received tips: 
 
+``` mermaid
+%%Payout, 4 val set, A-D are validators/stakes, E is payout%%
+
+block-beta
+    columns 1
+  block
+    A["Alice (18 DOT)"]
+    B["Bob (9 DOT)"]
+    C["Carol (8 DOT)"]
+    D["Dave (7 DOT)"]
+  end
+    space
+    E["Payout (8 DOT total)"]:1
+    E --"2 DOT"--> A
+    E --"2 DOT"--> B
+    E --"2 DOT"--> C
+    E --"2 DOT"--> D 
 ```
-Validator Set Size (v): 4
-Validator 1 Stake (v1): 18 tokens
-Validator 2 Stake (v2):  9 tokens
-Validator 3 Stake (v3):  8 tokens
-Validator 4 Stake (v4):  7 tokens
-Payout (p): 8 DOT
 
-Payout for each validator (v1 - v4):
-p / v = 8 / 4 = 2 tokens
-```
-
-Note that this is different than most other Proof-of-Stake systems such as Cosmos. As long as a
-validator is in the validator set, it will receive the same block reward as every other validator.
-Validator `v1`, who had 18 tokens staked, received the same reward (2 tokens) in this era as `v4`
-who had only 7 tokens staked.
+Note that this is different than most other Proof-of-Stake systems. As long as a validator is in the validator set, it will receive the same block reward as every other validator. Validator Alice, who had 18 tokens staked, received the same 2 token reward in this era as Dave who had only 7 tokens staked.
 
 ## Running Multiple Validators
 
-It is possible for a single entity to run multiple validators. Running multiple validators may
-provide a better risk/reward ratio. Assuming you have enough DOT, or enough stake nominates your
-validator, to ensure that your validators remain in the validator set, running multiple validators
-will result in a higher return than running a single validator.
+Running multiple validators can offer a more favorable risk/reward ratio compared to running a single one. If you have sufficient DOT or nominators staking on your validators, maintaining multiple validators within the active set can yield higher rewards.
 
-For the following example, assume you have 18 DOT to stake. For simplicity's sake, we will ignore
-nominators. Running a single validator, as in the example above, would net you 2 DOT in this era.
+In the preceding section, with 18 DOT staked and no nominators, Alice earned 2 DOT in one era. This example uses DOT, but the same principles apply for KSM on the Kusama network. By managing stake across multiple validators, you can potentially increase overall returns. Recall the set of validators from the preceding section:
 
-Note that while DOT is used as an example, this same formula would apply to KSM when running a
-validator on Kusama.
+``` mermaid
+%%Payout, 4 val set, A-D are validators/stakes, E is payout%%
 
-```
-Validator Set Size (v): 4
-Validator 1 Stake (v1): 18 DOT <- Your validator
-Validator 2 Stake (v2):  9 DOT
-Validator 3 Stake (v3):  8 DOT
-Validator 4 Stake (v4):  7 DOT
-Payout (p): 8 DOT
-
-Your payout = (p / v) * 1 = (8 / 4) * 1 = 2
-```
-
-Running two validators, and splitting the stake equally, would result in the original validator `v4`
-to be kicked out of the validator set, as only the top `v` validators (as measured by stake) are
-selected to be in the validator set. More important, it would also double the reward that you get
-from each era.
-
-```
-Validator Set Size (v): 4
-Validator 1 Stake (v1): 9 DOT <- Your first validator
-Validator 2 Stake (v2): 9 DOT <- Your second validator
-Validator 3 Stake (v3): 9 DOT
-Validator 4 Stake (v4): 8 DOT
-Payout (p): 8 DOT
-
-Your payout = (p / v) * 2 = (8 / 4) * 2 = 4
+block-beta
+    columns 1
+  block
+    A["Alice (18 DOT)"]
+    B["Bob (9 DOT)"]
+    C["Carol (8 DOT)"]
+    D["Dave (7 DOT)"]
+  end
+    space
+    E["Payout (8 DOT total)"]:1
+    E --"2 DOT"--> A
+    E --"2 DOT"--> B
+    E --"2 DOT"--> C
+    E --"2 DOT"--> D 
 ```
 
-With enough stake, you could run more than two validators. However, each validator must have enough
-stake behind it to be in the validator set.
+Now, assume Alice decides to split her stake and run two validators, each with a nine DOT stake. This validator set only has four spots and priority is given to validators with a larger stake. In this example, Dave has the smallest stake and loses his spot in the validator set. Now, Alice will earn two shares of the total payout each era as illustrated below:
 
-The incentives of the system favor equally-staked validators. This works out to be a dynamic, rather
-than static, equilibrium. Potential validators will run different numbers of validators and apply
-different amounts of stake to them as time goes on, and in response to the actions of other
-validators on the network.
+``` mermaid
+%%Payout, 4 val set, A-D are validators/stakes, E is payout%%
+
+block-beta
+    columns 1
+  block
+    A["Alice (9 DOT)"]
+    F["Alice (9 DOT)"]
+    B["Bob (9 DOT)"]
+    C["Carol (8 DOT)"]
+  end
+    space
+    E["Payout (8 DOT total)"]:1
+    E --"2 DOT"--> A
+    E --"2 DOT"--> B
+    E --"2 DOT"--> C
+    E --"2 DOT"--> F 
+```
+
+With enough stake, you could run more than two validators. However, each validator must have enough stake behind it to maintain a spot in the validator set.
 
 ## Nominators and Validator Payments
 
-A nominated stake allows you to "vote" for validators and share the rewards (but also
-[slashing](../learn/learn-offenses.md)) without running a validator node yourself.
+A nominator's stake allows them to vote for validators and earn a share of the rewards without managing a validator node. Although staking rewards depend on validator activity during an era, validators themselves never control or own nominator rewards. To trigger payouts, anyone can call the `staking.payoutStakers` or `staking.payoutStakerByPage` methods, which mint and distribute rewards directly to the recipients. This trustless process ensures nominators receive their earned rewards.
 
-Although staking rewards are based on the activities of the validator node during a specific era,
-the validator never has access to or ownership of staking rewards. In fact, `staking.payoutStakers`
-or `staking.payoutStakerByPage` calls are necessary to payout staking rewards, can be called by
-anyone, and the staking rewards are "generated" because of it and automatically sent to nominators
-(i.e., rewards are produced or minted and sent to nominators, not sent from validators to
-nominators).
-
-This includes the stake of the validator itself plus any stake bonded by nominators.
-
-!!!info
-    Validators set their preference as a percentage of the block reward, _not_ an absolute number of
-    DOT. Polkadot's block reward is [based on the _total_ amount at stake](../learn/learn-inflation.md#ideal-staking-rate). The
-    commission is set as the amount taken by the validator; that is, 0% commission means that the
-    validator does not receive any proportion of the rewards besides that owed to it from self-stake,
-    and 100% commission means that the validator operator gets all rewards and gives none to its
-    nominators.
+Validators set a commission rate as a percentage of the block reward, affecting how rewards are shared with nominators. A 0% commission means the validator keeps only rewards from their self-stake, while a 100% commission means they retain all rewards, leaving none for nominators.
 
 In the following examples, we can see the results of several different validator payment schemes and
 split between nominator and validator stake. We will assume a single nominator for each validator.

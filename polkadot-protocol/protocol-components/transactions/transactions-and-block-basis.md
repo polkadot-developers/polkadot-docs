@@ -55,8 +55,8 @@ In Substrate, a block consists of a header and an array of transactions. The hea
 
 All of the transactions are bundled together as a series to be executed as defined in the runtime. You'll learn more about transaction ordering in the [Transaction Lifecycle](TODO:update-path){target=\_blank} documentation. The transaction root is a cryptographic digest of this series. This cryptographic digest serves two purposes:
 
-- It prevents any alterations to the series of transactions after the header has been built and distributed.
-- It enables light clients to succinctly verify that any given transaction exists in a block given only knowledge of the header.
+- It prevents any alterations to the series of transactions after the header has been built and distributed
+- It enables light clients to succinctly verify that any given transaction exists in a block given only knowledge of the header
 
 ## Where to Go Next
 

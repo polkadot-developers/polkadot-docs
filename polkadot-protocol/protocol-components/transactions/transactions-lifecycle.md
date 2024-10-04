@@ -47,11 +47,11 @@ The transaction pool only deals with the validity of the transaction and the ord
 
 ### Adding Valid Transactions to a Transaction Queue
 
-If a transaction is identified as valid, the transaction pool moves the transaction into a transaction queue. There are two transaction queues for valid transactions:
+If a transaction is identified as valid, the transaction pool moves the transaction into a transaction queue. There are two queues for valid transactions:
 
-- The ready queue contains transactions that can be included in a new pending block. If the runtime is built with FRAME, transactions must be placed in the exact order in which they are placed in the ready queue.
+- The ready queue contains transactions that can be included in a new pending block. If the runtime is built with FRAME, transactions must be placed in the exact order in which they are placed in the ready queue
 
-- The future queue contains transactions that might become valid in the future. For example, if a transaction has a nonce that is too high for its account, it can wait in the future queue until the appropriate number of transactions for the account have been included in the chain.
+- The future queue contains transactions that might become valid in the future. For example, if a transaction has a nonce that is too high for its account, it can wait in the future queue until the appropriate number of transactions for the account have been included in the chain
 
 ### Invalid Transaction Handling
 
@@ -75,7 +75,7 @@ For transactions with dependencies, the ordering considers the fees that the tra
 
 - If there is an unsigned transaction with `TransactionPriority::max_value()` and another signed transaction, the unsigned transaction is placed first in the queue
 - If there are two transactions from different senders, the `priority` determines which transaction is more important and should be included in the block first
-- If there are two transactions from the same sender with an identical `nonce`: only one transaction can be included in the block, so only the transaction with the higher fee is included in the queue
+- If there are two transactions from the same sender with an identical `nonce`, only one transaction can be included in the block, so only the transaction with the higher fee is included in the queue
 
 ## Executing transactions and producing blocks
 

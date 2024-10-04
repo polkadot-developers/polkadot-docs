@@ -17,7 +17,7 @@ In general, transactions provide a mechanism for making changes to a state that 
 - [Unsigned Transactions](./transactions-and-block-basis.md#unsigned-transactions)
 - [Inherent Transactions](./transactions-and-block-basis.md#inherent-transactions)
      
-In Substrate, all three transaction types are often more broadly referred to as extrinsic. The term extrinsic generally refers to any information that originates outside the runtime.
+In Substrate, all three transaction types are often more broadly referred to as extrinsic. The term extrinsic generally refers to any information that originates outside the runtime. While other blockchain platforms often label these as "transactions," Substrate deliberately opted for the broader term "extrinsics." This choice reflects the versatility of the concept, encompassing any type of data that could potentially be incorporated into a block.
 
 However, for practical purposes, it is more beneficial to consider each transaction type independently and identify scenarios where each type would be most applicable.
 

@@ -32,9 +32,9 @@ Steps to increase visibility:
 
 ### Set Your On-Chain Identity
 
-Every validator should set an on-chain identity, including essential information like a website or contact details. This allows nominators to verify validator actions across the network, and a verified identity shows that your validator is trustworthy.
+Every validator should set an on-chain identity, including essential information like a website or contact details. This allows nominators to verify validator actions across the network, and a verified identity shows that your validator is trustworthy. If running multiple nodes, use sub-identities linked to a primary verified identity. Providing as much information as possible about your validator, such as staking setup or tools, helps potential nominators feel confident. 
 
-If running multiple nodes, use sub-identities linked to a primary verified identity. Providing as much information as possible about your validator, such as staking setup or tools, helps potential nominators feel confident.
+For more information on how to set your on-chain identity, see the [Identity guide](https://wiki.polkadot.network/docs/learn-guides-identity){target=\_blank} section of the Polkadot Wiki.
 
 ### Build a Website
 

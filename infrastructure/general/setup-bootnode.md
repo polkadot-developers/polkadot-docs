@@ -7,13 +7,15 @@ description: Learn how to configure and run a bootnode for Polkadot, including P
 
 ## Introduction
 
-Bootnodes are essential for helping blockchain nodes discover peers and join the network. When a node starts, it needs to find other nodes, and bootnodes provide an initial point of contact. Once connected, a node can expand its peer connections and play its role in the network, like participating as a validator. This guide will walk you through setting up a Polkadot bootnode, configuring P2P, WebSocket (WS), and secure WSS connections, and managing network keys. You’ll also learn how to test your bootnode to ensure it is running correctly and accessible to other nodes.
+Bootnodes are essential for helping blockchain nodes discover peers and join the network. When a node starts, it needs to find other nodes, and bootnodes provide an initial point of contact. Once connected, a node can expand its peer connections and play its role in the network, like participating as a validator. This guide will walk you through setting up a Polkadot bootnode, configuring P2P, WebSocket (WS), secure WSS connections, and managing network keys. You’ll also learn how to test your bootnode to ensure it is running correctly and accessible to other nodes.
 
 ## Prerequisites
 
 Before you start, you need to have the following prerequisites:
 
-<!-- TODO: What goes here? -->
+- A working Polkadot (`polkadot`) installation
+- NGINX
+- A VPS, or other dedicated server setup
 
 ## Accessing the Bootnode
 
@@ -23,47 +25,39 @@ To connect with other nodes in the network, bootnodes must be accessible through
 - **P2P/WS** - a WebSocket (WS) connection, also configured via `--listen-addr`
 - **P2P/WSS** - a secure WebSocket (WSS) connection using SSL, often required for light clients. An SSL proxy is needed, as the node itself cannot handle certificates
 
-## Network Key
+## Node Key
 
-Starting a node creates its node key in the `chains/<chain>/network/secret_ed25519` file. You can
-also create a node-key by `polkadot key generate-node-key` and use that node-key in the startup
-command line.
+A node key is the ED25519 key that `libp2p` to assign an identity/peer ID to your node. Generating a known node key for a bootnode is crucial, as this way you have a consistent key that can be placed in chain specifications as a reliable bootnode.
 
-It is essential you backup the node key, especially if it gets included in the `polkadot` binary
-because it gets hardcoded in the binary and needs to be recompiled to change.
+Starting a node creates its node key in the `chains/<chain>/network/secret_ed25519` file.
+
+You can create a node key using:
+
+ ```
+ polkadot key generate-node-key
+ ``` 
+ 
+This key can be used in the startup command line.
+
+It is *essential* you backup the node key, especially if it gets included in the `polkadot` binary because it gets hardcoded in the binary and needs to be recompiled to change.
 
 ## Running the Bootnode
 
 A boot node can be run as follows:
 
- ```
- polkadot --chain polkadot --name dot-bootnode --listen-addr /ip4/0.0.0.0/tcp/30310 --listen-addr /ip4/0.0.0.0/tcp/30311/ws
+ ```sh
+ polkadot --chain polkadot \
+ --name dot-bootnode \
+ --listen-addr /ip4/0.0.0.0/tcp/30310 \
+ --listen-addr /ip4/0.0.0.0/tcp/30311/ws
  ```
 
 This would have the p2p on port 30310 and p2p/ws on port 30311. For the p2p/wss port, a proxy must set up a DNS name and a corresponding certificate. The following example is for the popular nginx server and enables p2p/wss on port 30312 by adding a proxy to the p2p/ws port 30311:
 
-_/etc/nginx/sites-enabled/dot-bootnode_
+_Located in /etc/nginx/sites-enabled/dot-bootnode_
 
-```
-server {
-       listen       30312 ssl http2 default_server;
-       server_name  dot-bootnode.stakeworld.io;
-       root         /var/www/html;
-
-       ssl_certificate "<your_cert";
-       ssl_certificate_key "<your_key>";
-
-       location / {
-         proxy_buffers 16 4k;
-         proxy_buffer_size 2k;
-         proxy_pass http://localhost:30311;
-         proxy_http_version 1.1;
-         proxy_set_header Upgrade $http_upgrade;
-         proxy_set_header Connection "Upgrade";
-         proxy_set_header Host $host;
-   }
-
-}
+```conf
+--8<-- 'code/infrastructure/general/bootnode.conf'
 ```
 
 ## Testing Bootnode Connection

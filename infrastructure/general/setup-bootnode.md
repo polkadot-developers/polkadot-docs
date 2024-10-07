@@ -40,7 +40,7 @@ A boot node can be run as follows:
  polkadot --chain polkadot --name dot-bootnode --listen-addr /ip4/0.0.0.0/tcp/30310 --listen-addr /ip4/0.0.0.0/tcp/30311/ws
  ```
 
-This would have the p2p on port 30310 and p2p/ws on port 30311. For the p2p/wss port, a proxy would need to set up, a DNS name, and a corresponding certificate. The following example is for the popular nginx server and enables p2p/wss on port 30312 by adding a proxy to the p2p/ws port 30311:
+This would have the p2p on port 30310 and p2p/ws on port 30311. For the p2p/wss port, a proxy must set up a DNS name and a corresponding certificate. The following example is for the popular nginx server and enables p2p/wss on port 30312 by adding a proxy to the p2p/ws port 30311:
 
 _/etc/nginx/sites-enabled/dot-bootnode_
 

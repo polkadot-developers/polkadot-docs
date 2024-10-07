@@ -69,16 +69,10 @@ Many smart contract platforms are building to become a parachain in the ecosyste
 - ink!: **Unsupported**
 - EVM (Solidity): [**Supported**](https://docs.moonbeam.network/builders/get-started/quick-start/){target=\_blank}
 
-[Moonbeam](https://moonbeam.network/){target=\_blank} is another project that is planning to deploy to Polkadot as a
-parachain and will support Ethereum compatible smart contracts. Since Moonbeam uses
-[Frontier](https://github.com/paritytech/frontier){target=\_blank}, an interoperability layer with existing Ethereum
-tooling, supports all applications that are written to target the EVM environment with little
-friction.
+[Moonbeam](https://moonbeam.network/){target=\_blank} is a Polkadot parachain that supports Ethereum compatible smart contracts. Since Moonbeam uses [Frontier](https://github.com/paritytech/frontier){target=\_blank}, an interoperability layer with existing Ethereum tooling, it supports all applications that are written to target the EVM environment with little friction.
 
 [Moonriver](https://docs.moonbeam.network/networks/moonriver/){target=\_blank}, a companion network to Moonbeam,
-launched as a parachain on Kusama. Parachain functionality is live, and features are being
-incrementally released. The final phase of the launch will include EVM functionality and balance
-transfers.
+launched as a parachain on Kusama.
 
 Try deploying a smart contract to Moonbeam by following their [documentation](https://docs.moonbeam.network/){target=\_blank}.
 
@@ -87,12 +81,9 @@ Try deploying a smart contract to Moonbeam by following their [documentation](ht
 - ink! - [**Supported**](https://docs.astar.network/docs/build/#wasm-smart-contracts){target=\_blank}
 - EVM (Solidity) - [ **Supported**](https://docs.astar.network/docs/build/#evm-smart-contracts){target=\_blank}
 
-[Astar Network](https://astar.network/){target=\_blank} supports the building of dApps with EVM and Wasm smart contracts and offers developers true interoperability. True interoperability with cross-consensus messaging [XCM](https://wiki.polkadot.network/docs/learn-xcm){target=\_blank} and cross-virtual machine [XVM](https://astar.network/developers){target=\_blank}. We are made by developers and for developers. Astar’s
-unique Build2Earn model empowers developers to get paid through a dApp staking mechanism for the code they write and dApps they build.
+[Astar Network](https://astar.network/){target=\_blank} supports the building of dApps with EVM and Wasm smart contracts and offers developers true interoperability. True interoperability with cross-consensus messaging [XCM](https://wiki.polkadot.network/docs/learn-xcm){target=\_blank} and cross-virtual machine [XVM](https://astar.network/developers){target=\_blank}.Astar’s unique [Build2Earn](https://docs.astar.network/docs/build/#build2earn){target=\_blank} model empowers developers to get paid through a dApp staking mechanism for the code they write and dApps they build.
 
-[Shiden Network](https://shiden.astar.network/){target=\_blank} is the canary network of Astar Network, live as a
-parachain on Kusama, and supports the EVM and Wasm environment for all developers who want to build
-out use-cases in a canary network with economic value. Shiden acts as a playground for developers.
+[Shiden Network](https://shiden.astar.network/){target=\_blank} is the canary network of Astar Network, live as a parachain on Kusama, and supports the EVM and Wasm environment for all developers who want to build out use-cases in a canary network with economic value. Shiden acts as a playground for developers.
 
 Try deploying an Ethereum or ink! smart contract by following their
 [documentation](https://docs.astar.network/){target=\_blank}.
@@ -105,9 +96,7 @@ Try deploying an Ethereum or ink! smart contract by following their
 [Acala](https://acala.network/){target=\_blank} is a decentralized finance consortium and DeFi infrastructure chain
 delivering a set of protocols to serve as the DeFi hub on Polkadot.
 
-[Karura](https://acala.network/karura){target=\_blank}, Acala's canary network is live as a parachain on Kusama.
-Interested teams are now able to deploy DApps and smart contracts on Karura's platform. Acala is
-also implementing the [Acala EVM](https://wiki.acala.network/learn/acala-evm/why-acala-evm){target=\_blank}.
+[Karura](https://acala.network/karura){target=\_blank}, Acala's canary network is live as a parachain on Kusama. Interested teams are now able to deploy DApps and smart contracts on Karura's platform. Acala is also implementing the [Acala EVM](https://wiki.acala.network/learn/acala-evm/why-acala-evm){target=\_blank}.
 
 Try deploying an Acala EVM smart contract by following their [documentation](https://wiki.acala.network/build/development-guide/smart-contracts){target=\_blank}.
 

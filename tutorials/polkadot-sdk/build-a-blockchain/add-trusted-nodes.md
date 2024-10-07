@@ -9,8 +9,6 @@ description: Launch a blockchain with a private set of authorized validators. Ge
 
 This tutorial guides you through launching a private blockchain network with a small, trusted set of validators. In decentralized networks, consensus ensures that nodes agree on the state of the data at any given time. The [Polkadot SDK Solochain Template](https://github.com/paritytech/polkadot-sdk-solochain-template){target=_blank} uses Aura (Authority Round), a proof of authority consensus mechanism where a fixed set of trusted validators produces blocks in a round-robin fashion. This approach offers an easy way to launch a standalone blockchain with a predefined list of validators.
 
-
-
 You'll learn how to generate keys, create a custom chain specification, and start a two-node blockchain network using the Aura consensus mechanism.
 
 ## Prerequisites
@@ -24,21 +22,22 @@ Before starting this tutorial, ensure you have:
 ## Generate an Account and Keys
 
 Unlike in the [Simulate a Network](TODO - add path) tutorial, where you used predefined accounts and keys to start peer nodes, this tutorial requires you to generate unique secret keys for your validator nodes. It's crucial to understand that each participant is responsible for generating and managing their own unique set of keys in a real blockchain network.
+
 This process of generating your own keys serves several important purposes:
 
 - It enhances the security of your network by ensuring that each node has its own unique cryptographic identity
 - It simulates a more realistic blockchain environment where participants don't share key information
 - It helps you understand the process of key generation, which is a fundamental skill in blockchain operations
 
-To understand more about the different signing algorithms used in this tutorial (sr25519 and ed25519), check [Keypairs and Signing](https://wiki.polkadot.network/docs/learn-cryptography#keypairs-and-signing){target=\_blank}. To learn more about the different types of keys used, refer to the [Keys](https://wiki.polkadot.network/docs/learn-cryptography#keys){target=\_blank} section in the Polkadot Wiki.
+There are a couple of Polkadot Wiki articles that may help you better understand the different signing algorithms used in this tutorial. See the [Keypairs and Signing](https://wiki.polkadot.network/docs/learn-cryptography#keypairs-and-signing){target=\_blank} section to learn about the sr25519 and ed25519 signing algorithms. Refer to the [Keys](https://wiki.polkadot.network/docs/learn-cryptography#keys){target=\_blank} section to learn more about the different types of keys used in the ecosystem.
 
 ### Key Generation Options
 
 There are several ways you can generate keys. The available methods are:
 
-- [`solochain-template-node key`](https://docs.rs/sc-cli/0.46.0/sc_cli/commands/enum.KeySubcommand.html){target=\_blank} subcommand - the most straightforward method for developers working directly with the node is to use the integrated key generation feature. Using the `key` subcommand, you can generate keys directly from your node's command line interface. This method ensures compatibility with your chain and is convenient for quick setup and testing
-- [subkey](https://github.com/paritytech/polkadot-sdk/tree/master/substrate/bin/utils/subkey){target=\_blank} - it is a powerful standalone utility specifically designed for Polkadot SDK-based chains. It offers advanced options for key generation, including support for different key types such as `ed25519` and `sr25519`. This tool allows fine-grained control over the key generation process
-- Third-party key generation utilities - various tools developed by the community
+- **[`solochain-template-node key` subcommand](https://docs.rs/sc-cli/0.46.0/sc_cli/commands/enum.KeySubcommand.html){target=\_blank}** - the most straightforward method for developers working directly with the node is to use the integrated key generation feature. Using the `key` subcommand, you can generate keys directly from your node's command line interface. This method ensures compatibility with your chain and is convenient for quick setup and testing
+- **[subkey](https://github.com/paritytech/polkadot-sdk/tree/master/substrate/bin/utils/subkey){target=\_blank}** - it is a powerful standalone utility specifically designed for Polkadot SDK-based chains. It offers advanced options for key generation, including support for different key types such as `ed25519` and `sr25519`. This tool allows fine-grained control over the key generation process
+- **Third-party key generation utilities** - various tools developed by the community
 
 ### Generate Local Keys with the Node Template
 

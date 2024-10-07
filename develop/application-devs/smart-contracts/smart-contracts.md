@@ -10,17 +10,13 @@ The two primary supported smart contract environments are [ink!](#ink) and EVM. 
 ## Developing a Smart Contract Versus a Parachain
 
 !!!info "For a more technical/thorough breakdown, refer to the [`polkadot_sdk_docs`](https://paritytech.github.io/polkadot-sdk/master/polkadot_sdk_docs/reference_docs/runtime_vs_smart_contract/index.html){target=\_blank}"
+      [When should one build a Substrate (Polkadot SDK) runtime versus a Substrate (Polkadot SDK) smart contract](https://stackoverflow.com/a/56041305){target=\_blank}? This post also answers the question more technically of when a developer might choose to develop a runtime versus a smart contract.
 
-[When should one build a Substrate (Polkadot SDK) runtime versus a Substrate (Polkadot SDK) smart contract](https://stackoverflow.com/a/56041305){target=\_blank}? This post also answers the question more technically of when a developer might choose to develop a runtime versus a smart contract.
+### Pallets vs. Smart Contracts
 
-### Layer of Abstraction
+When you write a smart contract, you are creating a sandboxed program that contains instructions that associate with and deploy on a specific chain address.  Pallets, which are modules that make up the core business logic of a Wasm runtime, run directly as part of the blockchain. Pallets can either be domain specific or they can be something critical, like block production.
 
-When you write a smart contract, you are creating the instructions that associate with and deploy on
-a specific chain address.
-
-In comparison, a runtime module on a parachain is the entire logic of a chain's state transitions (what's called a state transition function).
-
-Smart contracts must consciously implement a path to upgrading in the future, while parachains have the ability to swap out their code through a forkless upgrade.
+Smart contracts must consciously implement a path to upgrading in the future, while parachains have the ability to swap out their code through a forkless upgrade.  Pallets can be added, removed, or modified in a forkless upgrade.
 
 When you build a smart contract, it will eventually be deployed to a target chain with its own environment. Parachains allow the developer to declare the environment of their own chain, even allowing others to write smart contracts for it.
 
@@ -46,10 +42,7 @@ The Polkadot SDK presently supports smart contracts out-of-the-box in several wa
 
 The contracts pallet (`pallet_contracts`) implements a Wasm based approach to smart contracts.
 
-1. **Wasm**. The contracts pallet uses Wasm as its compilation target. Any language that
-   compiles to Wasm can potentially be used to write smart contracts. Nevertheless, it is better to
-   have a dedicated domain-specific language, and for that reason Parity offers the [ink!](#ink)
-   language.
+1. **Wasm**. The contracts pallet uses Wasm as its compilation target. Any language that compiles to Wasm can potentially be used to write smart contracts. Nevertheless, it is better to have a dedicated domain-specific language, and for that reason Parity offers the [ink!](#ink) language.
 
 2. **Deposit** - contracts must hold a deposit (named `_ContractDeposit_` ) suitably large enough to justify their existence on-chain. The developer must deposit this into the new contract on top of the `_ExistentialDeposit_`
 

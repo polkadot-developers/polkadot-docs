@@ -5,29 +5,24 @@ description: Learn how to navigate the smart contract aspect of the Polkadot eco
 
 Polkadot doesn't support smart contracts natively. Rather, parachains secured by Polkadot are equipped with the functionality to support smart contracts.
 
-The two primary supported smart contract environments are [ink!](#ink) and EVM. There are multiple [parachains that support both environments](#parachains).
+The two primary supported smart contract environments are [ink!](#ink) and EVM. There are multiple [parachains that support both environments](#smart-contract-environments).
 
 ## Developing a Smart Contract Versus a Parachain
 
 !!!info "For a more technical/thorough breakdown, refer to the [`polkadot_sdk_docs`](https://paritytech.github.io/polkadot-sdk/master/polkadot_sdk_docs/reference_docs/runtime_vs_smart_contract/index.html){target=\_blank}"
 
-[When should one build a Substrate (Polkadot SDK) runtime versus a Substrate (Polkadot SDK) smart contract](https://stackoverflow.com/a/56041305){target=\_blank}?
-This post also answers the question more technically of when a developer might choose to develop a runtime versus a smart contract.
+[When should one build a Substrate (Polkadot SDK) runtime versus a Substrate (Polkadot SDK) smart contract](https://stackoverflow.com/a/56041305){target=\_blank}? This post also answers the question more technically of when a developer might choose to develop a runtime versus a smart contract.
 
 ### Layer of Abstraction
 
 When you write a smart contract, you are creating the instructions that associate with and deploy on
 a specific chain address.
 
-In comparison, a runtime module on a parachain is the entire logic of a chain's state transitions
-(what's called a state transition function).
+In comparison, a runtime module on a parachain is the entire logic of a chain's state transitions (what's called a state transition function).
 
-Smart contracts must consciously implement a path to upgrading in the future, while parachains have the ability to swap
-out their code through a forkless upgrade.
+Smart contracts must consciously implement a path to upgrading in the future, while parachains have the ability to swap out their code through a forkless upgrade.
 
-When you build a smart contract, it will eventually be deployed to a target chain with its own
-environment. Parachains allow the developer to declare the environment of their own chain, even
-allowing others to write smart contracts for it.
+When you build a smart contract, it will eventually be deployed to a target chain with its own environment. Parachains allow the developer to declare the environment of their own chain, even allowing others to write smart contracts for it.
 
 The concept of *gas*, or *fees* in general, also are approached differently between the two. Smart contracts are bound by the gas-metering model, whereas runtimes (and their subsequent modules) are much more flexible in terms of the fee models that can be employed.
 
@@ -42,16 +37,16 @@ The Polkadot SDK presently supports smart contracts out-of-the-box in several wa
 
 ### Frontier EVM Contracts
 
-[Frontier](https://github.com/paritytech/frontier) is the suite of tools that enables a Substrate chain to run Ethereum contracts (EVM) natively with the same API/RPC interface, Ethereum exposes on Substrate. Ethereum Addresses can also be mapped directly to and from Substrate's SS58 scheme from existing accounts.
+[Frontier](https://github.com/paritytech/frontier) is the suite of tools that enables a Polkadot SDK-based chain to run Ethereum contracts (EVM) natively with the same API/RPC interface. Ethereum addresses can also be mapped directly to and from the Polkadot SDK's SS58 scheme from existing accounts.
 
 - [Pallet EVM](https://docs.rs/pallet-evm/latest/pallet_evm/){target=\_blank} - enables functionality of running EVM (Solidity) contracts
 - [Pallet Ethereum](https://docs.rs/pallet-ethereum/latest/pallet_ethereum/){target=\_blank} - Ethereum RPC implementation, block emulation, and Ethereum transaction validation
 
 ### Contracts Pallet
 
-The contracts pallet (`pallet_contracts`) implements a WebAssembly based approach to smart contracts.
+The contracts pallet (`pallet_contracts`) implements a Wasm based approach to smart contracts.
 
-1. **Wasm**. The contracts pallet uses WebAssembly as its compilation target. Any language that
+1. **Wasm**. The contracts pallet uses Wasm as its compilation target. Any language that
    compiles to Wasm can potentially be used to write smart contracts. Nevertheless, it is better to
    have a dedicated domain-specific language, and for that reason Parity offers the [ink!](#ink)
    language.
@@ -67,18 +62,15 @@ The contracts pallet (`pallet_contracts`) implements a WebAssembly based approac
 
 ### Ink
 
-[ink!](https://github.com/use-ink/ink){target=\_blank} is a domain specific language for writing smart contracts
-in Rust and compiles to Wasm code.
+[ink!](https://github.com/use-ink/ink){target=\_blank} is a domain specific language for writing smart contracts in Rust and compiles to Wasm code.
 
-Here is the list of current resources available to developers who want to get started writing smart
-contracts to deploy on parachains based on Substrate.
+Here is the list of current resources available to developers who want to get started writing smart contracts to deploy on parachains based on Substrate.
 
-- [ink!](https://use.ink/){target=\_blank} - Polkadot's "native" smart contract stack, based on WebAssembly
+- [ink!](https://use.ink/){target=\_blank} - Polkadot's "native" smart contract stack, based on Wasm
 - [OpenBrush](https://docs.openbrush.io/){target=\_blank}: an `ink!` library providing standard contracts based on [PSP](https://github.com/w3f/PSPs){target=\_blank} with useful contracts and macros for building
 - [ink!athon](https://inkathon.xyz/){target=\_blank}: Starter kit for full-stack dApps with ink! smart contracts and frontend
 
-ink! has laid much of the groundwork for a new smart contract stack that is based on a Wasm virtual
-machine and compatible with Substrate chains.
+ink! has laid much of the groundwork for a new smart contract stack that is based on a Wasm virtual machine and compatible with Polkadot SDK-based chains.
 
 ## Smart Contract Environments
 
@@ -87,12 +79,12 @@ Many smart contract platforms are building to become a parachain in the ecosyste
 #### Moonbeam
 
 - ink!: **Unsupported**
-- EVM (Solidity): [**Supported**](https://moonbeam.network/networks/moonbeam/){target=\_blank}
+- EVM (Solidity): [**Supported**](https://docs.moonbeam.network/builders/get-started/quick-start/){target=\_blank}
 
 [Moonbeam](https://moonbeam.network/){target=\_blank} is another project that is planning to deploy to Polkadot as a
 parachain and will support Ethereum compatible smart contracts. Since Moonbeam uses
 [Frontier](https://github.com/paritytech/frontier){target=\_blank}, an interoperability layer with existing Ethereum
-tooling, it will support all applications that are written to target the EVM environment with little
+tooling, supports all applications that are written to target the EVM environment with little
 friction.
 
 [Moonriver](https://docs.moonbeam.network/networks/moonriver/){target=\_blank}, a companion network to Moonbeam,
@@ -107,12 +99,8 @@ Try deploying a smart contract to Moonbeam by following their [documentation](ht
 - ink!/Wasm: [**Supported**](https://docs.astar.network/docs/build/#wasm-smart-contracts){target=\_blank}
 - EVM (Solidity): [ **Supported**](https://docs.astar.network/docs/build/#evm-smart-contracts){target=\_blank}
 
-[Astar Network](https://astar.network/){target=\_blank} supports the building of dApps with EVM and Wasm smart
-contracts and offers developers true interoperability. True interoperability with cross-consensus
-messaging [XCM](https://wiki.polkadot.network/docs/learn-xcm){target=\_blank} and cross-virtual machine
-[XVM](https://github.com/AstarNetwork/){target=\_blank}. We are made by developers and for developers. Astar’s
-unique Build2Earn model empowers developers to get paid through a dApp staking mechanism for the
-code they write and dApps they build.
+[Astar Network](https://astar.network/){target=\_blank} supports the building of dApps with EVM and Wasm smart contracts and offers developers true interoperability. True interoperability with cross-consensus messaging [XCM](https://wiki.polkadot.network/docs/learn-xcm){target=\_blank} and cross-virtual machine [XVM](https://astar.network/developers){target=\_blank}. We are made by developers and for developers. Astar’s
+unique Build2Earn model empowers developers to get paid through a dApp staking mechanism for the code they write and dApps they build.
 
 [Shiden Network](https://shiden.astar.network/){target=\_blank} is the canary network of Astar Network, live as a
 parachain on Kusama, and supports the EVM and Wasm environment for all developers who want to build
@@ -139,11 +127,9 @@ Try deploying an Acala EVM smart contract by following their [documentation](htt
 
 - ink!: **Unsupported**
 - EVM (Solidity): **Unsupported**
-- See: [**Phat Contracts** / **AI Agent Contracts**](https://phala.network/phat-contractt){target=\_blank}
+- See: [**Phat Contracts** / **AI Agent Contracts**](https://phala.network/phat-contract){target=\_blank}
 
-[Phala](https://phala.network){target=\_blank} is an off-chain trustless compute infrastructure that provides fully
-verifiable computation. [Khala](https://phala.network/en/khala){target=\_blank} is Phala's canary network and is live as a parachain on
-Kusama.
+[Phala](https://phala.network){target=\_blank} is an off-chain trustless compute infrastructure that provides fully verifiable computation. [Khala](https://phala.network/en/khala){target=\_blank} is Phala's canary network and is live as a parachain on Kusama.
 
 Try deploying a smart contract that interacts with Etherscan's web2 API by following their
 [documentation](https://docs.phala.network/ai-agent-contract/build){target=\_blank}.

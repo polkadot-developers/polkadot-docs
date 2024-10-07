@@ -14,9 +14,9 @@ The two primary supported smart contract environments are [ink!](#ink) and EVM. 
 
 ### Pallets vs. Smart Contracts
 
-When you write a smart contract, you are creating a sandboxed program that contains instructions that associate with and deploy on a specific chain address.  Pallets, which are modules that make up the core business logic of a Wasm runtime, run directly as part of the blockchain. Pallets can either be domain specific or they can be something critical, like block production.
+When you write a smart contract, you are creating a sandboxed program that contains instructions that associate with and deploy on a specific chain address. Pallets, which are modules that make up the core business logic of a Wasm runtime, run directly as part of the blockchain. Pallets can either be domain specific or they can be something critical, like block production.
 
-Smart contracts must consciously implement a path to upgrading in the future, while parachains have the ability to swap out their code through a forkless upgrade.  Pallets can be added, removed, or modified in a forkless upgrade.
+Smart contracts must consciously implement a path to upgrading in the future, while parachains have the ability to swap out their code through a forkless upgrade. Pallets can be added, removed, or modified in a forkless upgrade.
 
 When you build a smart contract, it will eventually be deployed to a target chain with its own environment. Parachains allow the developer to declare the environment of their own chain, even allowing others to write smart contracts for it.
 

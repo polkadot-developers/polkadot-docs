@@ -28,7 +28,7 @@ The concept of *gas*, or *fees* in general, also are approached differently betw
 
 ## Building a Smart Contract
 
-The relay chain doesn't natively support smart contracts. However, since the parachains that connect to can support arbitrary state transitions, they support smart contracts.
+The relay chain doesn't support smart contracts natively. However, since the parachains that connect to it can support arbitrary state transitions, they can also support smart contracts.
 
 The Polkadot SDK presently supports smart contracts out-of-the-box in several ways:
 
@@ -51,14 +51,9 @@ The contracts pallet (`pallet_contracts`) implements a Wasm based approach to sm
    have a dedicated domain-specific language, and for that reason Parity offers the [ink!](#ink)
    language.
 
-2. **Deposit**. Contracts must hold a deposit (named _ContractDeposit_ ) suitably large enough in
-   order to justify their existence on-chain. The developer needs to deposit this into the new contract
-   on top of the _ExistentialDeposit_.
+2. **Deposit** - contracts must hold a deposit (named `_ContractDeposit_` ) suitably large enough to justify their existence on-chain. The developer must deposit this into the new contract on top of the `_ExistentialDeposit_`
 
-3. **Caching**. Contracts are cached by default and therefore means they only need to be deployed
-   once and afterward be instantiated as many times as you want. This helps to keep the storage load
-   on the chain down to the minimum. On top of this, when a contract is no longer being used and the
-   _existential deposit_ is drained, the code will be erased from storage (known as reaping).
+3. **Caching** - contracts are cached by default, and therefore means they only need to be deployed once and afterward be instantiated as many times as you want. This helps keep the chain's storage load down to the minimum. On top of this, when a contract is no longer being used and the `_existential deposit_` is drained, the code will be erased from storage (known as reaping)
 
 ### Ink
 
@@ -67,8 +62,8 @@ The contracts pallet (`pallet_contracts`) implements a Wasm based approach to sm
 Here is the list of current resources available to developers who want to get started writing smart contracts to deploy on parachains based on Substrate.
 
 - [ink!](https://use.ink/){target=\_blank} - Polkadot's "native" smart contract stack, based on Wasm
-- [OpenBrush](https://docs.openbrush.io/){target=\_blank}: an `ink!` library providing standard contracts based on [PSP](https://github.com/w3f/PSPs){target=\_blank} with useful contracts and macros for building
-- [ink!athon](https://inkathon.xyz/){target=\_blank}: Starter kit for full-stack dApps with ink! smart contracts and frontend
+- [OpenBrush](https://docs.openbrush.io/){target=\_blank} - an `ink!` library providing standard contracts based on [PSP](https://github.com/w3f/PSPs){target=\_blank} with useful contracts and macros for building
+- [ink!athon](https://inkathon.xyz/){target=\_blank} - starter kit for full-stack dApps with ink! smart contracts and frontend
 
 ink! has laid much of the groundwork for a new smart contract stack that is based on a Wasm virtual machine and compatible with Polkadot SDK-based chains.
 
@@ -96,8 +91,8 @@ Try deploying a smart contract to Moonbeam by following their [documentation](ht
 
 #### Astar
 
-- ink!/Wasm: [**Supported**](https://docs.astar.network/docs/build/#wasm-smart-contracts){target=\_blank}
-- EVM (Solidity): [ **Supported**](https://docs.astar.network/docs/build/#evm-smart-contracts){target=\_blank}
+- ink! - [**Supported**](https://docs.astar.network/docs/build/#wasm-smart-contracts){target=\_blank}
+- EVM (Solidity) - [ **Supported**](https://docs.astar.network/docs/build/#evm-smart-contracts){target=\_blank}
 
 [Astar Network](https://astar.network/){target=\_blank} supports the building of dApps with EVM and Wasm smart contracts and offers developers true interoperability. True interoperability with cross-consensus messaging [XCM](https://wiki.polkadot.network/docs/learn-xcm){target=\_blank} and cross-virtual machine [XVM](https://astar.network/developers){target=\_blank}. We are made by developers and for developers. Astar’s
 unique Build2Earn model empowers developers to get paid through a dApp staking mechanism for the code they write and dApps they build.
@@ -111,8 +106,8 @@ Try deploying an Ethereum or ink! smart contract by following their
 
 #### Acala
 
-- ink!: **Unsupported**
-- EVM (Solidity): [**Supported**](https://wiki.acala.network/build/development-guide){target=\_blank}
+- ink! - **Unsupported**
+- EVM (Solidity) - [**Supported**](https://wiki.acala.network/build/development-guide){target=\_blank}
 
 [Acala](https://acala.network/){target=\_blank} is a decentralized finance consortium and DeFi infrastructure chain
 delivering a set of protocols to serve as the DeFi hub on Polkadot.
@@ -136,9 +131,8 @@ Try deploying a smart contract that interacts with Etherscan's web2 API by follo
 
 #### Darwinia
 
-- ink!: **Unsupported**
-- EVM (Solidity) Support:
-  [**Supported**](https://docs.darwinia.network/build/getting-started/networks/overview/){target=\_blank}
+- ink! - **Unsupported**
+- EVM (Solidity) - [**Supported**](https://docs.darwinia.network/build/getting-started/networks/overview/){target=\_blank}
 
 [Darwinia](https://darwinia.network/){target=\_blank} is a community-run technology and service powering the
 cross-chain capabilities of decentralized applications. By crafting secure and efficient cross-chain

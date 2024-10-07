@@ -1,3 +1,4 @@
 title: General Infrastructure
 nav:
   - index.md
+  - 'Setup Secure WebSocket': setup-secure-wss.md

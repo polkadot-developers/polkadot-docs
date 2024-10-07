@@ -4,4 +4,4 @@ nav:
   - interact
   - tooling
   - system-parachains
-  - 'Troubleshooting Errors': debugging-errors.md
+  - 'Troubleshooting Errors': 'debugging-errors.md'

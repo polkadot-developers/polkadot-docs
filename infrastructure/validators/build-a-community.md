@@ -27,8 +27,8 @@ Validators must be easily recognizable to attract nominations. Validators with c
 
 Steps to increase visibility:
 
-- **Set an On-Chain Identity** - ensure your validator has an on-chain identity that nominator dashboards can display. Validators with visible identities are easier for nominators to trust
-- **Be Active in the Community** - engage across channels like Polkadot forums, governance discussions, and social media to build relationships and trust
+- **Set an on-chain identity** - ensure your validator has an on-chain identity that nominator dashboards can display. Validators with visible identities are easier for nominators to trust
+- **Be active in the community** - engage across channels like Polkadot forums, governance discussions, and social media to build relationships and trust
 
 ### Set Your On-Chain Identity
 

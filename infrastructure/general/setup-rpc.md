@@ -1,6 +1,6 @@
 ---
 title: Set Up an RPC Node
-description: Learn how to securely configure, connect to, and maintain a Polkadot SDK-based RPC node in an archival or pruned state.
+description: Learn how to securely configure, connect to, and maintain an RPC node for a Polkadot SDK-based blockchain in an archival or pruned state.
 ---
 
 # Set Up an RPC Node
@@ -24,13 +24,23 @@ To make the node externally accessible as an archive or pruned RPC node, use the
 For an externally accessible Polkadot archive RPC node:
 
 ```config
-polkadot --chain polkadot --name myrpc --state-pruning archive --blocks-pruning archive --rpc-max-connections 100 --rpc-cors all --rpc-methods Safe --rpc-port 9944
+polkadot --chain polkadot \
+--name INSERT_YOUR_NODE_NAME \
+--state-pruning archive \
+--blocks-pruning archive \
+--rpc-cors all \
+--rpc-methods safe 
 ```
 
 For a Polkadot pruned RPC node:
 
 ```config
-polkadot --chain polkadot --name myrpc --state-pruning 1000 --blocks-pruning archive --rpc-max-connections 100 --rpc-cors all --rpc-methods Safe --rpc-port 9944
+polkadot --chain polkadot \
+--name INSERT_YOUR_NODE_NAME \
+--state-pruning 1000 \
+--blocks-pruning archive \
+--rpc-cors all \
+--rpc-methods safe
 ```
 
 The options and flags will be explained in the following sections.
@@ -45,11 +55,9 @@ An archive node has the entire history, or database, of the network. You can que
 
 The node startup settings allow you to choose what to expose, how many connections to expose and which systems should be granted access through the RPC server.
 
-- You can limit the methods to use with `--rpc-methods`, an easy way to set this to a safe
-mode is `--rpc-methods Safe`
-- You can set your maximum connections through `--rpc-max-connections`, for example
-`--rpc-max-connections 100`
-- By default, localhost and Polkadot.js can access the RPC server. You can change this by setting `--rpc-cors`. To allow access from everywhere you can use `--rpc-cors all`
+- You can limit the methods to use with `--rpc-methods`; an easy way to set this to a safe mode is `--rpc-methods safe`
+- You can set your maximum connections through `--rpc-max-connections`, for example, `--rpc-max-connections 200`
+- By default, localhost and Polkadot.js can access the RPC server. You can change this by setting `--rpc-cors`. To allow access from everywhere, you can use `--rpc-cors all`
 
 ## Secure the WebSocket Port
 

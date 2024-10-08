@@ -1,3 +1,4 @@
 title: Transactions
 nav:
   - index.md
+  - 'Transactions Weights and Fees': transactions-weights-and-fees.md

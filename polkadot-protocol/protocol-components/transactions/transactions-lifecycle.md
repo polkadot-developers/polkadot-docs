@@ -23,7 +23,7 @@ Typically, you use pallets to compose the runtime functions and implement the tr
 
 ## How Transactions are Processed on a Block Authoring Node
 
-Depending on the configuration of your network, you might have a combination of nodes that are authorized to author blocks and nodes that are not authorized for block authoring. If a Substrate node is authorized to produce blocks, it can process the signed and unsigned transactions it receives. The following diagram illustrates the lifecycle of a transaction that's submitted to a network and processed by an authoring node.
+Depending on your network's configuration, you might have a combination of nodes authorized to author blocks and nodes not authorized for block authoring. If a Substrate node is authorized to produce blocks, it can process the signed and unsigned transactions it receives. The following diagram illustrates the lifecycle of a transaction that's submitted to a network and processed by an authoring node.
 
 ![](/images/polkadot-protocol/polkadot-components/transactions/transactions-lifecycles/transaction-lifecycle-1.webp)
 
@@ -65,7 +65,7 @@ If a transaction is invalid—for example, because it is too large or doesn't co
 
 If a node is the next block author, the node uses a priority system to order the transactions for the next block. The transactions are ordered from high to low priority until the block reaches the maximum weight or length.
 
-Transaction priority is calculated in the runtime and provided to the outer node as a tag on the transaction. In a FRAME runtime, a special pallet is used to calculate priority based on the weights and fees associated with the transaction. This priority calculation applies to all types of transactions with the exception of inherent. Inherents are always placed first using the [`EnsureInherentsAreFirst`](https://paritytech.github.io/polkadot-sdk/master/frame_support/traits/trait.EnsureInherentsAreFirst.html){target=\_blank} trait.
+Transaction priority is calculated in the runtime and provided to the outer node as a tag on the transaction. In a FRAME runtime, a special pallet is used to calculate priority based on the weights and fees associated with the transaction. This priority calculation applies to all types of transactions except inherent. Inherents are always placed first using the [`EnsureInherentsAreFirst`](https://paritytech.github.io/polkadot-sdk/master/frame_support/traits/trait.EnsureInherentsAreFirst.html){target=\_blank} trait.
 
 ### Account-based Transaction Ordering
 
@@ -89,9 +89,9 @@ As a runtime developer, it's important to understand how the executive module in
 
 ### Initialize a Block
 
-To initialize a block, the executive module first calls the `on_initialize` hook in the system pallet and all other runtime pallets. The `on_initialize` function enables you to define business logic that should be completed before transactions are executed. The system pallet `on_initialize` function is always executed first. The remaining pallets are called in the order they are defined in the [frame_support::runtime](https://paritytech.github.io/polkadot-sdk/master/frame_support/attr.runtime.html){target=\_blank} macro.
+The executive module calls the `on_initialize` hook in the system pallet and all other runtime pallets to initialize a block. The `on_initialize` function lets you define business logic that should be completed before transactions are executed. The system pallet `on_initialize` function is always executed first. The remaining pallets are called in the order defined in the [frame_support::runtime](https://paritytech.github.io/polkadot-sdk/master/frame_support/attr.runtime.html){target=\_blank} macro.
 
-After all of the `on_initialize` functions have been executed, the executive module checks the parent hash in the block header and the trie root to verify that the information is correct.
+After all the `on_initialize` functions have been executed, the executive module checks the parent hash in the block header and the trie root to verify the correct information.
 
 ### Executing Transactions
 
@@ -101,7 +101,7 @@ Note that [events](TODO:update-path){target=\_blank} are also written to stora
 
 ### Finalizing Block
 
-After all queued transactions have been executed, the executive module calls into each pallet's `on_idle` and `on_finalize` functions to perform any final business logic that should take place at the end of the block. The modules are again executed in the order that they are defined in the `frame_support::runtime` macro, but in this case, the `on_finalize` function in the system pallet is executed last.
+After all queued transactions have been executed, the executive module calls into each pallet's `on_idle` and `on_finalize` functions to perform any final business logic that should occur at the block's end. The modules are again executed in the order defined in the `frame_support::runtime` macro, but in this case, the `on_finalize` function in the system pallet is executed last.
 
 After all of the `on_finalize` functions have been executed, the executive module checks that the digest and storage root in the block header match what was calculated when the block was initialized.
 The `on_idle` function also passes through the remaining weight of the block to allow for execution based on the blockchain’s usage.

@@ -19,7 +19,7 @@ As discussed in [Runtime Development](TODO:update-path){target=\_blank}, the Sub
 - Whether the transactions are sent as signed or unsigned
 - How transactions change the state of the chain
 
-Typically, you use pallets to compose the runtime functions and implement the transactions you want your chain to support. After you compile the runtime, users interact with the blockchain to submit requests that are processed as transactions. For example, a user might submit a request to transfer funds from one account to another. The request becomes a signed transaction that contains the signature for that user account and if there are sufficient funds in the user's account to pay for the transaction, the transaction executes successfully, and the transfer is made.
+Typically, you use pallets to compose the runtime functions and implement the transactions you want your chain to support. After you compile the runtime, users interact with the blockchain to submit requests processed as transactions. For example, a user might submit a request to transfer funds from one account to another. The request becomes a signed transaction containing the signature for that user account. If sufficient funds are in the user's account to pay for the transaction, the transaction executes successfully, and the transfer is made.
 
 ## How Transactions are Processed on a Block Authoring Node
 

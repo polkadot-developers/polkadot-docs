@@ -191,7 +191,11 @@ To check the nodes’ logs, you can use the provided command listed by the outpu
 tail -f /var/folders/f4/7rdt2m9d7j361dm453cpggbm0000gn/T/zombie-75a01b93c92d571f6198a67bcb380fcd_21724-SEzfCidQ1za4/alice.log
 ```
 
-After running this command, you will see the logs of the `alice` node in real-time, which can be useful for debugging purposes. The logs of the `bob` and `collator01` nodes can be checked similarly.
+After running this command, you will see the logs of the `alice` node in real-time, which can be useful for debugging purposes. The logs will be displayed in the terminal in the following format:
+
+--8<-- 'code/tutorials/tooling/zombienet/tutorials/spawn-a-basic-network/alice-logs.html'
+
+The logs of the `bob` and `collator01` nodes can be checked similarly.
 
 ## Running a Test
 
@@ -234,4 +238,6 @@ To run the test, execute the following command:
 zombienet -p native test spawn-a-basic-network-test.zndsl
 ```
 
-This command will execute the test scenario defined in the `spawn-a-basic-network-test.zndsl` file on the network. If successful, the terminal will display the test output, indicating whether the test passed or failed.
+This command will execute the test scenario defined in the `spawn-a-basic-network-test.zndsl` file on the network. If successful, the terminal will display the test output, indicating whether the test passed or failed. For example, the following output shows the test results for the basic network:
+
+--8<-- 'code/tutorials/tooling/zombienet/tutorials/spawn-a-basic-network/spawn-a-basic-network-test-output.html'

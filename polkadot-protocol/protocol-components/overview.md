@@ -1,6 +1,6 @@
 ---
 title: Overview
-description: 
+description: Explore the fundamental concepts of the Polkadot protocol, including account addresses, extrinsics, events and runtime upgrades.
 ---
 
 # Overview
@@ -250,4 +250,4 @@ No, Polkadot uses the existential deposit to prevent dust accounts and other eco
 **What is an external source to see the current chain height?**
 
 [Polkadot-JS explorer](https://polkadot.js.org/apps/#/explorer){target=\_blank}
-[Subscan](https://www.subscan.io/){target=\_blank}
+[Subscan](https://www.subscan.io/git){target=\_blank}

@@ -7,18 +7,18 @@ description: Overview of the data structure of signed and unsigned transactions 
 
 ## Introduction
 
-This article describes the data structure of signed and unsigned transactions in Polkadot SDK-based chains. This is particularly useful for understanding how the transaction pool checks incoming transactions. Parachain builders will find this helpful in customizing how their transactions are formatted and writing client applications that must adhere to a chosen format.
+This article describes the data structure of signed and unsigned transactions in Polkadot SDK-based chains. Data structure information is particularly useful for understanding how the transaction pool checks incoming transactions. Parachain builders will find this helpful in customizing how their transactions are formatted and writing client applications that must adhere to a chosen format.
 
-Extrinsics normally contain a signature, some data to describe whether the extrinsic has passed some validity checks and a reference to the pallet and call that it is intended for. This format provides a way for applications to ensure that the requirements for an extrinsic are met and correctly constructed.
+Extrinsics normally contain a signature, some data to describe whether the extrinsic has passed some validity checks, and a reference to the pallet and call that it is intended for. This format provides a way for applications to ensure that the requirements for an extrinsic are met and correctly constructed.
 
 - [Unchecked](https://github.com/paritytech/polkadot-sdk/blob/master/substrate/primitives/runtime/src/generic/unchecked_extrinsic.rs#L70){target=\_blank} - signed transactions requiring some validation check before being accepted in the transaction pool. Any unchecked extrinsic contains the signature for the sent data and some extra data
 - [Checked](https://github.com/paritytech/polkadot-sdk/blob/master/substrate/primitives/runtime/src/generic/checked_extrinsic.rs#L35){target=\_blank} - inherent extrinsics, which, by definition, don't require signature verification. Instead, they carry information on where the extrinsic comes from and some extra data
 - [Opaque](https://github.com/paritytech/polkadot-sdk/blob/master/substrate/primitives/runtime/src/lib.rs#L915){target=\_blank} - used for cases when an extrinsic hasn't yet been committed to a format but can still be decoded
 
 !!! note
-    Inherents are unique unsigned transactions created by block producers. They contain essential data for block construction, such as time stamps, storage verification proofs, and information about uncle blocks.
+    Inherents are unique, unsigned transactions created by block producers. They contain essential data for block construction, such as time stamps, storage verification proofs, and information about uncle blocks.
 
-Extra data can be any additional information helpful to attach to a transaction or inherent. For example, the nonce of the transaction, the tip for the block author, or how long the extrinsic is valid for. This information is provided by a specialized extensions that help determine the validity and ordering of extrinsics before they get included in a block.
+Extra data can be any additional information helpful to attach to a transaction or inherent. For example, the nonce of the transaction, the tip for the block author, or how long the extrinsic is valid. This information is provided by a specialized extensions that help determine the validity and ordering of extrinsics before they get included in a block.
 
 A signed transaction might be constructed like so:
 
@@ -28,7 +28,7 @@ A signed transaction might be constructed like so:
 
 ## How Transactions are Constructed
 
-Polkadot SDK defines its transaction formats generically to allow developers to implement custom ways to define valid transactions. In a runtime built with FRAME, however (assuming transaction version 4), a transaction must be constructed by submitting the following encoded data:
+Polkadot SDK defines its transaction formats generically, allowing developers to implement custom ways to define valid transactions. In a runtime built with FRAME, however (assuming transaction version 4), a transaction must be constructed by submitting the following encoded data:
 
 `<signing account ID> + <signature> + <additional data>`
 
@@ -41,7 +41,7 @@ When submitting a signed transaction, the signature is constructed by signing:
 
 - Some extra information, verified by the signed extensions of the transaction:
     - What's the era for this transaction? How long should this call last in the transaction pool before it gets discarded?
-    - The nonce. How many prior transactions have occurred from this account? This helps protect against replay attacks or accidental double-submissions
+    - The nonce. How many prior transactions have occurred from this account? This check helps protect against replay attacks or accidental double-submissions
     - The tip amount paid to the block producer to help incentivize it to include this transaction in the block
 
 Then, some additional data that's not part of what gets signed is required, which includes:
@@ -88,7 +88,7 @@ FRAME's system pallet provides a [useful `SignedExtension` set](https://github.c
 
 ### Example
 
-An important signed extension for validating transactions is `CheckSpecVersion`. It allows the sender to provide the spec version as a signed payload attached to the transaction. Since the spec version is already known in the runtime, the signed extension can perform a simple check to verify that the spec versions match. If they don't, the transaction fails before being put in the pool.
+An important signed extension for validating transactions is `CheckSpecVersion`. The sender can provide the spec version as a signed payload attached to the transaction. Since the spec version is already known in the runtime, the signed extension can perform a simple check to verify that the spec versions match. The transaction fails before being put in the pool if they don't.
 
 Other examples include the signed extensions used to calculate transaction priority. These are:
 

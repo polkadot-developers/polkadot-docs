@@ -1,3 +1,4 @@
-#[pallet::dispatch((DispatchClass::Operational))]fn my_dispatchable() {
+#[pallet::dispatch((DispatchClass::Operational))]
+fn my_dispatchable() {
     // ...
 }

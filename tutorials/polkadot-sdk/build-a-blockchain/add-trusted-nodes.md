@@ -66,14 +66,15 @@ Follow these steps to generate your keys:
 
     Note the Sr25519 public key for the account (SS58 format). This key will be used for producing blocks with Aura. In this example, the Sr25519 public key for the account is `5HMhkSHpD4XcibjbU9ZiGemLpnsTUzLsG5JhQJQEcxp3KJaW`.
 
-3. Use the generated secret phrase to derive keys using the Ed25519 signature scheme. Enter the same password you used in the previous step:
+3. Use the generated secret phrase to derive keys using the Ed25519 signature scheme. 
 
     ```bash
     ./target/release/solochain-template-node key inspect \
     --scheme Ed25519 \
     --password-interactive \
-    "INSERT_SECRET_PHRASE"
     ```
+
+    When prompted for a **Key password**, enter the same password you used in the previous step
 
     !!! note
         Replace `INSERT_SECRET_PHRASE` with the secret phrase generated in step 2.

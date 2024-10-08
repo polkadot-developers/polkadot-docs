@@ -9,7 +9,7 @@ description: Learn about the lifecycle of transactions in Polkadot SDK-based chi
 
 In Substrate, transactions contain data to be included in a block. Because the data in transactions originates outside of the runtime, transactions are sometimes more broadly referred to as extrinsic data. However, the most common extrinsic are signed transactions. Therefore, this discussion of the transaction lifecycle focuses on how signed transactions are validated and executed.
 
-You've already learned that signed transactions include the signature of the account sending the request to execute some runtime call. Typically, the request is signed using the private key for the account that is submitting the request. In most cases, the account submitting the request also pays a transaction fee. However, transaction fees and other elements of transaction processing depend on how the runtime logic is defined.
+You've already learned that signed transactions include the signature of the account sending the request to execute some runtime call. Typically, the request is signed using the private key for the account that is submitting the request. In most cases, the account submitting the request also pays a transaction fee. However, transaction fees and other transaction processing elements depend on how the runtime logic is defined.
 
 ## Where Transactions are Defined
 

@@ -170,6 +170,7 @@ block-beta
 The preceding diagram shows each validator receiving a 2 DOT payout, but doesn't account for sharing rewards with nominators. The following diagram shows what nominator payout might look like for validator Alice. Alice has a 20% commission rate and holds 50% of the stake for their validator:
 
 ``` mermaid
+
 flowchart TD
     A["Gross Rewards = 2 DOT"]
     E["Commission = 20%"]
@@ -196,46 +197,29 @@ Notice the validator commission rate is applied against the gross amount of rewa
 
 Now, consider a different scenario for validator Bob where the commission rate is 40% and Bob holds 33% of the stake for their validator:
 
+``` mermaid
+
+flowchart TD
+    A["Gross Rewards = 2 DOT"]
+    E["Commission = 40%"]
+    F["Bob Validator Payment = 0.8 DOT"]
+    G["Total Stake Rewards = 1.2 DOT"]
+    B["Bob Validator Stake = 9 DOT"]
+    C["3 DOT Bob (33%)"]
+    H["Bob Stake Reward = 0.4 DOT"]
+    I["Total Bob Validator Reward = 1.2 DOT"]
+    D["6 DOT Nominator (67%)"]
+    J["Total Nominator Reward = 0.8 DOT"]
+    
+    A --> E
+    E --(2 x 0.4)--> F
+    F --(2 - 0.8)--> G
+    B --> C
+    B --> D
+    C --(1.2 x 0.33)--> H
+    H --(0.8 + 0.4)--> I
+    D --(1.2 x 0.67)--> J
+
 ```
-Validator Set Size (v): 4
-Validator 1 Stake (v1) [20% commission]: 18 DOT (9 validator, 9 nominator)
-Validator 2 Stake (v2) [40% commission]:  9 DOT (3 validator, 6 nominator)
-Validator 3 Stake (v3) [10% commission]:  8 DOT (4 validator, 4 nominator)
-Validator 4 Stake (v4) [ 0% commission]:  6 DOT (1 validator, 5 nominator)
-Payout (p): 8 DOT
 
-Payout for each validator (v1 - v4):
-p / v = 8 / 4 = 2 DOT
-
-v1:
-(0.2 * 2) = 0.4 DOT -> validator payment
-(2 - 0.4) = 1.6 -> shared between all stake
-(9 / 18) * 1.6 = 0.8 -> validator stake share
-(9 / 18) * 1.6 = 0.8 -> nominator stake share
-v1 validator total reward: 0.4 + 0.8 = 1.2 DOT
-v1 nominator reward: 0.8 DOT
-
-v2:
-(0.4 * 2) = 0.8 DOT -> validator payment
-(2 - 0.8) = 1.2 -> shared between all stake
-(3 / 9) * 1.2 = 0.4 -> validator stake share
-(6 / 9) * 1.2 = 0.8 -> nominator stake share
-v2 validator total reward: 0.8 + 0.4 = 1.2 DOT
-v2 nominator reward: 0.8 DOT
-
-v3:
-(0.1 * 2) = 0.2 DOT -> validator payment
-(2 - 0.2) = 1.8 -> shared between all stake
-(4 / 8) * 1.8 = 0.9 -> validator stake share
-(4 / 8) * 1.8 = 0.9 -> nominator stake share
-v3 validator total reward: 0.2 + 0.9 DOT = 1.1 DOT
-v3 nominator reward: 0.9 DOT
-
-v4:
-(0 * 2) = 0 DOT -> validator payment
-(2 - 0) = 2.0 -> shared between all stake
-(1 / 6) * 2 = 0.33 -> validator stake share
-(5 / 6) * 2 = 1.67 -> nominator stake share
-v4 validator total reward: 0 + 0.33 DOT = 0.33 DOT
-v4 nominator reward: 1.67 DOT
-```
+Bob holds a smaller percentage of their node's total stake, making their stake reward smaller than Alice's. In this scenario, Bob makes up the difference by charging a 40% commission rate and ultimately ends up with the same total payment as Alice. Each validator will need to find their ideal balance between amount of stake and commission rate needed to attract nominators while still making running a validator worthwhile. 

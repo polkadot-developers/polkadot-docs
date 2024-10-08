@@ -38,6 +38,9 @@ The base fee and proportional weight and length fees constitute the inclusion f
 inclusion fee = base fee + weight fee + length fee
 ```
 
+Transaction fees are withdrawn before the transaction is executed. After the transaction is executed, the weight can be adjusted to reflect the actual resources used. If a transaction uses fewer resources than expected, the transaction fee is corrected, and the adjusted transaction fee is deposited.
+
+
 ## Using the Transaction Payment Pallet
 
 The [Transaction Payment pallet](https://github.com/paritytech/polkadot-sdk/tree/master/substrate/frame/transaction-payment){target=\_blank} provides the basic logic for calculating the inclusion fee. You can also use the Transaction Payment pallet to:
@@ -47,8 +50,6 @@ The [Transaction Payment pallet](https://github.com/paritytech/polkadot-sdk/tre
 - Manage the withdrawal, refund, and deposit of transaction fees using [`Config::OnChargeTransaction`](https://github.com/paritytech/polkadot-sdk/blob/master/substrate/frame/transaction-payment/src/lib.rs#L353){target=\_blank}
 
 You can learn more about these configuration traits in the [Transaction Payment documentation](https://paritytech.github.io/polkadot-sdk/master/pallet_transaction_payment/index.html){target=\_blank}.
-
-You should note that transaction fees are withdrawn before the transaction is executed. After the transaction is executed, the weight can be adjusted to reflect the actual resources used. If a transaction uses fewer resources than expected, the transaction fee is corrected, and the adjusted transaction fee is deposited.
 
 ### Understanding the Inclusion Fee
 

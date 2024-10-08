@@ -40,8 +40,8 @@ When submitting a signed transaction, the signature is constructed by signing:
     - The parameters required by the function call being targeted
 
 - Some extra information, verified by the signed extensions of the transaction:
-    - What's the era for this transaction, i.e., how long should this call last in the transaction pool before it gets discarded?
-    - The nonce, i.e., how many prior transactions have occurred from this account? This helps protect against replay attacks or accidental double-submissions
+    - What's the era for this transaction? How long should this call last in the transaction pool before it gets discarded?
+    - The nonce. How many prior transactions have occurred from this account? This helps protect against replay attacks or accidental double-submissions
     - The tip amount paid to the block producer to help incentivize it to include this transaction in the block
 
 Then, some additional data that's not part of what gets signed is required, which includes:
@@ -84,11 +84,11 @@ In FRAME, a signed extension can hold any of the following types by default:
 - [`AdditionalSigned`](https://github.com/paritytech/polkadot-sdk/blob/master/substrate/primitives/runtime/src/traits.rs#L1496){target=\_blank} - to handle any additional data to go into the signed payload. This allows you to attach any custom logic prior to dispatching a transaction
 - [`Pre`](https://github.com/paritytech/polkadot-sdk/blob/master/substrate/primitives/runtime/src/traits.rs#L1499){target=\_blank} - to encode the information that can be passed from before a call is dispatched to after it gets dispatched
 
-FRAME's system pallet provides a [set of useful `SignedExtension`](https://github.com/paritytech/polkadot-sdk/blob/master/substrate/frame/system/src/lib.rs#L79){target=\_blank} out of the box.
+FRAME's system pallet provides a [useful `SignedExtension` set](https://github.com/paritytech/polkadot-sdk/blob/master/substrate/frame/system/src/lib.rs#L79){target=\_blank} out of the box.
 
 ### Example
 
-An important signed extension for validating transactions is CheckSpecVersion. It allows the sender to provide the spec version as a signed payload attached to the transaction. Since the spec version is already known in the runtime, the signed extension can perform a simple check to verify that the spec versions match. If they don't, the transaction fails before being put in the pool.
+An important signed extension for validating transactions is `CheckSpecVersion`. It allows the sender to provide the spec version as a signed payload attached to the transaction. Since the spec version is already known in the runtime, the signed extension can perform a simple check to verify that the spec versions match. If they don't, the transaction fails before being put in the pool.
 
 Other examples include the signed extensions used to calculate transaction priority. These are:
 

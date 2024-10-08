@@ -7,7 +7,7 @@ description: Learn about the lifecycle of transactions in Polkadot SDK-based chi
 
 ## Introduction
 
-In Substrate, transactions contain data to be included in a block. Because the data in transactions originates outside of the runtime, transactions are sometimes more broadly referred to as extrinsic data. However, the most common extrinsic are signed transactions. Therefore, this discussion of the transaction lifecycle focuses on how signed transactions are validated and executed.
+In the Polkadot SDK, transactions contain data to be included in a block. Because the data in transactions originates outside of the runtime, transactions are sometimes more broadly referred to as extrinsic data. However, the most common extrinsic are signed transactions. Therefore, this discussion of the transaction lifecycle focuses on how signed transactions are validated and executed.
 
 You've already learned that signed transactions include the signature of the account sending the request to execute some runtime call. Typically, the request is signed using the private key for the account that is submitting the request. In most cases, the account submitting the request also pays a transaction fee. However, transaction fees and other transaction processing elements depend on how the runtime logic is defined.
 
@@ -23,7 +23,7 @@ Typically, you use pallets to compose the runtime functions and implement the tr
 
 ## How Transactions are Processed on a Block Authoring Node
 
-Depending on your network's configuration, you might have a combination of nodes authorized to author blocks and nodes not authorized for block authoring. If a Substrate node is authorized to produce blocks, it can process the signed and unsigned transactions it receives. The following diagram illustrates the lifecycle of a transaction that's submitted to a network and processed by an authoring node.
+Depending on your network's configuration, you might have a combination of nodes authorized to author blocks and nodes not authorized for block authoring. If a Polkadot SDK node is authorized to produce blocks, it can process the signed and unsigned transactions it receives. The following diagram illustrates the lifecycle of a transaction that's submitted to a network and processed by an authoring node.
 
 ![](/images/polkadot-protocol/polkadot-components/transactions/transactions-lifecycles/transaction-lifecycle-1.webp)
 
@@ -89,9 +89,9 @@ As a runtime developer, it's important to understand how the executive module in
 
 ### Initialize a Block
 
-The executive module calls the `on_initialize` hook in the system pallet and all other runtime pallets to initialize a block. The `on_initialize` function lets you define business logic that should be completed before transactions are executed. The system pallet `on_initialize` function is always executed first. The remaining pallets are called in the order defined in the [frame_support::runtime](https://paritytech.github.io/polkadot-sdk/master/frame_support/attr.runtime.html){target=\_blank} macro.
+The executive module calls the [`on_initialize`](https://github.com/paritytech/polkadot-sdk/blob/master/substrate/frame/support/src/traits/hooks.rs){target=\_blank} hook in the system pallet and all other runtime pallets to initialize a block. The [`on_initialize`](https://github.com/paritytech/polkadot-sdk/blob/master/substrate/frame/support/src/traits/hooks.rs){target=\_blank} function lets you define business logic that should be completed before transactions are executed. The system pallet [`on_initialize`](https://github.com/paritytech/polkadot-sdk/blob/master/substrate/frame/support/src/traits/hooks.rs){target=\_blank} function is always executed first. The remaining pallets are called in the order defined in the [frame_support::runtime](https://paritytech.github.io/polkadot-sdk/master/frame_support/attr.runtime.html){target=\_blank} macro.
 
-After all the `on_initialize` functions have been executed, the executive module checks the parent hash in the block header and the trie root to verify the correct information.
+After all the [`on_initialize`](https://github.com/paritytech/polkadot-sdk/blob/master/substrate/frame/support/src/traits/hooks.rs){target=\_blank} functions have been executed, the executive module checks the parent hash in the block header and the trie root to verify the correct information.
 
 ### Executing Transactions
 
@@ -101,10 +101,10 @@ Note that [events](TODO:update-path){target=\_blank} are also written to stora
 
 ### Finalizing Block
 
-After all queued transactions have been executed, the executive module calls into each pallet's `on_idle` and `on_finalize` functions to perform any final business logic that should occur at the block's end. The modules are again executed in the order defined in the `frame_support::runtime` macro, but in this case, the `on_finalize` function in the system pallet is executed last.
+After all queued transactions have been executed, the executive module calls into each pallet's [`on_idle`](https://github.com/paritytech/polkadot-sdk/blob/master/substrate/frame/support/src/traits/hooks.rs){target=\_blank} and [`on_finalize`](https://github.com/paritytech/polkadot-sdk/blob/master/substrate/frame/support/src/traits/hooks.rs){target=\_blank} functions to perform any final business logic that should occur at the block's end. The modules are again executed in the order defined in the `frame_support::runtime` macro, but in this case, the [`on_finalize`](https://github.com/paritytech/polkadot-sdk/blob/master/substrate/frame/support/src/traits/hooks.rs){target=\_blank} function in the system pallet is executed last.
 
-After all of the `on_finalize` functions have been executed, the executive module checks that the digest and storage root in the block header match what was calculated when the block was initialized.
-The `on_idle` function also passes through the remaining weight of the block to allow for execution based on the blockchain’s usage.
+After all of the [`on_finalize`](https://github.com/paritytech/polkadot-sdk/blob/master/substrate/frame/support/src/traits/hooks.rs){target=\_blank} functions have been executed, the executive module checks that the digest and storage root in the block header match what was calculated when the block was initialized.
+The [`on_idle`](https://github.com/paritytech/polkadot-sdk/blob/master/substrate/frame/support/src/traits/hooks.rs){target=\_blank} function also passes through the remaining weight of the block to allow for execution based on the blockchain’s usage.
 
 ## Block Authoring and Block Imports
 
@@ -117,7 +117,7 @@ So far, you have seen how transactions are included in a block produced by the l
 5. Transactions are executed, and state changes are stored in local memory
 6. The constructed block is published to the network
 
-After the block is published to the network, it is available for other nodes to import. The block import queue is part of the outer node in every Substrate node. The block import queue listens for incoming blocks and consensus-related messages and adds them to a pool. In the pool, incoming information is checked for validity and discarded if it isn't valid. After verifying that a block or message is valid, the block import queue imports the incoming information into the local node's state and adds it to the database of blocks that the node knows about.
+After the block is published to the network, it is available for other nodes to import. The block import queue is part of the outer node in every Polkadot SDK node. The block import queue listens for incoming blocks and consensus-related messages and adds them to a pool. In the pool, incoming information is checked for validity and discarded if it isn't valid. After verifying that a block or message is valid, the block import queue imports the incoming information into the local node's state and adds it to the database of blocks that the node knows about.
 
 In most cases, you don't need to know details about how transactions are gossiped or how other nodes on the network import blocks. However, if you plan to write any custom consensus logic or want to know more about implementing the block import queue, then the following traits are relevant:
 

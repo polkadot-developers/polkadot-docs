@@ -40,9 +40,9 @@ The Polkadot SDK presently supports smart contracts out-of-the-box in several wa
 
 ### Contracts Pallet
 
-The contracts pallet (`pallet_contracts`) implements a Wasm based approach to smart contracts.
+The contracts pallet ([`pallet_contracts`](https://docs.rs/pallet-contracts/latest/pallet_contracts/index.html#contracts-pallet){target=\_blank}) implements a Wasm based approach to smart contracts.
 
-1. **Wasm**. The contracts pallet uses Wasm as its compilation target. Any language that compiles to Wasm can potentially be used to write smart contracts. Nevertheless, it is better to have a dedicated domain-specific language, and for that reason Parity offers the [ink!](#ink) language.
+1. **Wasm** - the contracts pallet uses Wasm as its compilation target. Any language that compiles to Wasm can potentially be used to write smart contracts. Nevertheless, it is better to have a dedicated domain-specific language, and for that reason Parity offers the [ink!](#ink) language
 
 2. **Deposit** - contracts must hold a deposit (named `_ContractDeposit_` ) suitably large enough to justify their existence on-chain. The developer must deposit this into the new contract on top of the `_ExistentialDeposit_`
 
@@ -66,8 +66,8 @@ Many smart contract platforms are building to become a parachain in the ecosyste
 
 #### Moonbeam
 
-- ink!: **Unsupported**
-- EVM (Solidity): [**Supported**](https://docs.moonbeam.network/builders/get-started/quick-start/){target=\_blank}
+- ink! - **Unsupported**
+- EVM (Solidity) - [**Supported**](https://docs.moonbeam.network/builders/get-started/quick-start/){target=\_blank}
 
 [Moonbeam](https://moonbeam.network/){target=\_blank} is a Polkadot parachain that supports Ethereum compatible smart contracts. Since Moonbeam uses [Frontier](https://github.com/paritytech/frontier){target=\_blank}, an interoperability layer with existing Ethereum tooling, it supports all applications that are written to target the EVM environment with little friction.
 
@@ -102,9 +102,9 @@ Try deploying an Acala EVM smart contract by following their [documentation](htt
 
 #### Phala
 
-- ink!: **Unsupported**
-- EVM (Solidity): **Unsupported**
-- See: [**Phat Contracts** / **AI Agent Contracts**](https://phala.network/phat-contract){target=\_blank}
+- ink! - **Unsupported**
+- EVM (Solidity) - **Unsupported**
+- See - [**Phat Contracts** / **AI Agent Contracts**](https://phala.network/phat-contract){target=\_blank}
 
 [Phala](https://phala.network){target=\_blank} is an off-chain trustless compute infrastructure that provides fully verifiable computation. [Khala](https://phala.network/en/khala){target=\_blank} is Phala's canary network and is live as a parachain on Kusama.
 

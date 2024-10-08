@@ -117,7 +117,7 @@ block-beta
     E --"2 DOT"--> D 
 ```
 
-Now, assume Alice decides to split her stake and run two validators, each with a nine DOT stake. This validator set only has four spots and priority is given to validators with a larger stake. In this example, Dave has the smallest stake and loses his spot in the validator set. Now, Alice will earn two shares of the total payout each era as illustrated below:
+Now, assume Alice decides to split their stake and run two validators, each with a nine DOT stake. This validator set only has four spots and priority is given to validators with a larger stake. In this example, Dave has the smallest stake and loses his spot in the validator set. Now, Alice will earn two shares of the total payout each era as illustrated below:
 
 ``` mermaid
 %%Payout, 4 val set, A-D are validators/stakes, E is payout%%
@@ -146,19 +146,55 @@ A nominator's stake allows them to vote for validators and earn a share of the r
 
 Validators set a commission rate as a percentage of the block reward, affecting how rewards are shared with nominators. A 0% commission means the validator keeps only rewards from their self-stake, while a 100% commission means they retain all rewards, leaving none for nominators.
 
-In the following examples, we can see the results of several different validator payment schemes and
-split between nominator and validator stake. We will assume a single nominator for each validator.
-However, there can be numerous nominators for each validator. Rewards are still distributed
-proportionally - for example, if the total rewards to be given to nominators is 2 DOT, and there are
-four nominators with equal stake bonded, each will receive 0.5 DOT. Note also that a single
-nominator may stake different validators.
+The following examples model splitting validator payments between nominator and validator using various commission percentages. For simplicity, these examples assume a Polkadot-SDK based relay chain that uses DOT as a native token and a single nominator per validator. Calculations of KSM reward payouts for Kusama follow the same formula. 
 
-Each validator in the example has selected a different validator payment (that is, a percentage of
-the reward set aside directly for the validator before sharing with all bonded stake). The
-validator's payment percentage (in DOT, although the same calculations work for KSM) is listed in
-brackets (`[]`) next to each validator. Note that since the validator payment is public knowledge,
-having a low or non-existent validator payment may attract more stake from nominators, since they
-know they will receive a larger reward.
+Start with the original validator set from the previous section: 
+
+``` mermaid
+block-beta
+    columns 1
+  block:e
+    A["Alice (18 DOT)"]
+    B["Bob (9 DOT)"]
+    C["Carol (8 DOT)"]
+    D["Dave (7 DOT)"]
+  end
+    space
+    E["Payout (8 DOT total)"]:1
+    E --"2 DOT"--> A
+    E --"2 DOT"--> B
+    E --"2 DOT"--> C
+    E --"2 DOT"--> D 
+```
+
+The preceding diagram shows each validator receiving a 2 DOT payout, but doesn't account for sharing rewards with nominators. The following diagram shows what nominator payout might look like for validator Alice. Alice has a 20% commission rate and holds 50% of the stake for their validator:
+
+``` mermaid
+flowchart TD
+    A["Gross Rewards = 2 DOT"]
+    E["Commission = 20%"]
+    F["Alice Validator Payment = 0.4 DOT"]
+    G["Total Stake Rewards = 1.6 DOT"]
+    B["Alice Validator Stake = 18 DOT"]
+    C["9 DOT Alice (50%)"]
+    H["Alice Stake Reward = 0.8 DOT"]
+    I["Total Alice Validator Reward = 1.2 DOT"]
+    D["9 DOT Nominator (50%)"]
+    J["Total Nominator Reward = 0.8 DOT"]
+    
+    A --> E
+    E --(2 x 0.20)--> F
+    F --(2 - 0.4)--> G
+    B --> C
+    B --> D
+    C --(1.6 x 0.50)--> H
+    H --(0.4 + 0.8)--> I
+    D --(1.60 x 0.50)--> J
+```
+
+Notice the validator commission rate is applied against the gross amount of rewards for the era. The validator commission is subtracted from the total rewards. After commission is paid to the validator, the remaining amount is split among stake owners according to their percentage of the total stake. This means a validator's total rewards for an era include their commission plus their piece of the stake rewards. 
+
+Now, consider a different scenario for validator Bob where the commission rate is 40% and Bob holds 33% of the stake for their validator:
 
 ```
 Validator Set Size (v): 4

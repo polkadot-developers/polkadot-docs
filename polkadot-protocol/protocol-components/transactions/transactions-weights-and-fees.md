@@ -123,7 +123,7 @@ Dispatches are broken into three classes:
 
 - Normal
 - Operational
--  Mandatory
+- Mandatory
 
 If a dispatch is not defined as Operational or Mandatory in the weight annotation, the dispatch is identified as Normal by default. You can specify that the dispatchable uses another class like this:
 

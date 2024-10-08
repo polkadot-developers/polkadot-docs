@@ -11,7 +11,7 @@ There are many use cases where you might want to query data from an Off-Chain so
 
 To make the Off-Chain data integration more secure and efficient, the Polkadot SDK supports Off-Chain operations through the following features:
 
-- `Long-running and possibly non-deterministic tasks` - Off-Chain workers are a subsystem of components that enable the execution of long-running and possibly non-deterministic tasks, such as:
+- [`Structure`](#off-chain-workers-structure) - Off-Chain workers are a subsystem of components that enable the execution of long-running and possibly non-deterministic tasks, such as:
     - Website service requests
     - Encryption, decryption, and signing of data
     - Random number generation
@@ -26,7 +26,7 @@ To make the Off-Chain data integration more secure and efficient, the Polkadot S
 
 - [`Indexing`](#off-chain-indexing) - Off-Chain indexing is an optional service that allows the runtime to write directly to Off-Chain storage independently from Off-Chain workers. The Off-Chain index provides temporary storage for On-Chain logic and complements the On-Chain state
 
-## Off-Chain Workers
+## Off-Chain Workers Structure
 
 Off-Chain workers run in their own Wasm execution environment outside of the Polkadot SDK runtime. This separation of concerns ensures that long-running Off-Chain tasks do not impact block production. However, because chain workers are declared in the same code as the runtime, they can easily access On-Chain state for their computations.
 
@@ -63,7 +63,7 @@ In a blockchain context, storage is most often concerned with the On-Chain state
 
 To address the need to access historical or user-generated data, the Polkadot SDK provides access to the Off-Chain storage using Off-Chain indexing. Off-Chain indexing allows the runtime to write directly to the Off-Chain storage without using Off-Chain worker threads. You can enable this functionality to persist data by starting a the Polkadot SDK node with the `--enable-offchain-indexing` command-line option.
 
-Unlike Off-Chain workers, off-chain indexing populates the Off-Chain storage every time a block is processed. By populating the data at every block, Off-Chain indexing ensures that the data is always consistent and exactly the same for every node running with indexing enabled.
+Unlike Off-Chain workers, Off-Chain indexing populates the Off-Chain storage every time a block is processed. By populating the data at every block, Off-Chain indexing ensures that the data is always consistent and exactly the same for every node running with indexing enabled.
 
 ## Further Resources
 

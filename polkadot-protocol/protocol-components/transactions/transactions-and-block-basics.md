@@ -53,7 +53,7 @@ In the Polkadot SDK, a block consists of a header and an array of transactions. 
 - **State root** - a cryptographic digest of the state after executing the transactions
 - **Digest** - a list of additional information that can be included in the block
 
-All transactions are bundled together as a series to be executed as defined in the runtime. You'll learn more about transaction ordering in the [Transactions Lifecycle](/polkadot-protocol/protocol-components/transactions/transactions-lifecycle/){target=\_blank} documentation. The transaction root is a cryptographic digest of this series. This cryptographic digest serves two purposes:
+All transactions are bundled together as a series to be executed as defined in the runtime. You'll learn more about transaction ordering in the [Transactions Lifecycle](/polkadot-protocol/protocol-components/transactions/transactions-lifecycle.md){target=\_blank} documentation. The transaction root is a cryptographic digest of this series. This cryptographic digest serves two purposes:
 
 - It prevents any alterations to the series of transactions after the header has been built and distributed
 - It enables light clients to succinctly verify that any given transaction exists in a block given only knowledge of the header

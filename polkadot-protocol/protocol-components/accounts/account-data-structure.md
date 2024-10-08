@@ -15,7 +15,7 @@ The [`Account` data type](https://paritytech.github.io/polkadot-sdk/master/frame
  --8<-- 'code/polkadot-protocol/protocol-components/accounts/account-data-structure/account-data-structure-1.rs'
 ```
 
-This defines a storage map named `Account`. The `StorageMap` is a type of on-chain storage in Substrate that maps keys to values. Here, `T` represents the generic parameter for the runtime configuration, which is defined by the pallet's configuration trait (`Config`).
+The preceding code block defines a storage map named `Account`. The `StorageMap` is a type of on-chain storage in Substrate that maps keys to values. Here, `T` represents the generic parameter for the runtime configuration, which is defined by the pallet's configuration trait (`Config`).
 
 The `StorageMap` consists of the following parameters:
 
@@ -28,7 +28,7 @@ The `StorageMap` consists of the following parameters:
 - **`ValueQuery`** - a trait that defines how queries to the storage map behave when no value is found, returning the default value if a query for a key returns no result (instead of `None`)
 
 !!! note
-    See the [`StorageMap` API](https://paritytech.github.io/polkadot-sdk/master/frame_support/storage/types/struct.StorageMap.html){target=\_blank} for more details.
+    See the [`StorageMap` rustdocs](https://paritytech.github.io/polkadot-sdk/master/frame_support/storage/types/struct.StorageMap.html){target=\_blank} for more details.
 
 ## Account Info
 
@@ -41,9 +41,9 @@ The `AccountInfo` for an account is also defined within the [System pallet](http
 Each account has an `AccountInfo` structure that includes the following components:
 
 - **`nonce`** - the number of transactions the account has sent
-- **`consumers`** - the number of other modules that depend on this account's existence
-- **`providers`** - the number of modules that permit this account to exist
-- **`sufficients`** - the number of modules that allow this account to exist for their own purposes only
+- **`consumers`** - the number of other modules that depend on this account's existence. Account can't be reaped until `consumers` is equal to zero
+- **`providers`** - the number of modules that permit this account to exist. Account can't be reaped until `providers` and `sufficients` both equal zero
+- **`sufficients`** - the number of modules that allow this account to exist for their own purposes only. Account can't be reaped until `sufficients` and `providers` both equal zero
 - **`AccountData`** - a configurable structure that can store various types of data specific to the account
 
 ## Account Reference Counters
@@ -101,7 +101,7 @@ There are also three query functions to ease usage on these counters:
 - [**`is_provider_required()`**](https://paritytech.github.io/polkadot-sdk/master/frame_system/pallet/struct.Pallet.html#method.is_provider_required){target=\_blank} to check if an account has outstanding consumer references (`consumers` greater than 0)
 
 !!! note
-    See the [System pallet API](https://paritytech.github.io/polkadot-sdk/master/frame_system/pallet/struct.Pallet.html){target=\_blank} for more details.
+    See the [System pallet rustdocs](https://paritytech.github.io/polkadot-sdk/master/frame_system/pallet/struct.Pallet.html){target=\_blank} for more details.
 
 ## Account Data Trait and Implementation
 

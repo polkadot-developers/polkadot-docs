@@ -193,9 +193,9 @@ flowchart TD
     D --(1.60 x 0.50)--> J
 ```
 
-Notice the validator commission rate is applied against the gross amount of rewards for the era. The validator commission is subtracted from the total rewards. After commission is paid to the validator, the remaining amount is split among stake owners according to their percentage of the total stake. This means a validator's total rewards for an era include their commission plus their piece of the stake rewards. 
+Notice the validator commission rate is applied against the gross amount of rewards for the era. The validator commission is subtracted from the total rewards. After the commission is paid to the validator, the remaining amount is split among stake owners according to their percentage of the total stake. A validator's total rewards for an era include their commission plus their piece of the stake rewards. 
 
-Now, consider a different scenario for validator Bob where the commission rate is 40% and Bob holds 33% of the stake for their validator:
+Now, consider a different scenario for validator Bob where the commission rate is 40%, and Bob holds 33% of the stake for their validator:
 
 ``` mermaid
 
@@ -222,4 +222,4 @@ flowchart TD
 
 ```
 
-Bob holds a smaller percentage of their node's total stake, making their stake reward smaller than Alice's. In this scenario, Bob makes up the difference by charging a 40% commission rate and ultimately ends up with the same total payment as Alice. Each validator will need to find their ideal balance between amount of stake and commission rate needed to attract nominators while still making running a validator worthwhile. 
+Bob holds a smaller percentage of their node's total stake, making their stake reward smaller than Alice's. In this scenario, Bob makes up the difference by charging a 40% commission rate and ultimately ends up with the same total payment as Alice. Each validator will need to find their ideal balance between the amount of stake and commission rate to attract nominators while still making running a validator worthwhile.

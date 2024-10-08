@@ -119,7 +119,7 @@ So far, you have seen how transactions are included in a block produced by the l
 
 After the block is published to the network, it is available for other nodes to import. The block import queue is part of the outer node in every Substrate node. The block import queue listens for incoming blocks and consensus-related messages and adds them to a pool. In the pool, incoming information is checked for validity and discarded if it isn't valid. After verifying that a block or message is valid, the block import queue imports the incoming information into the local node's state and adds it to the database of blocks that the node knows about.
 
-In most cases, you don't need to know details about how transactions are gossiped or how other nodes on the network import blocks. However, if you plan to write any custom consensus logic or want to know more about implementing the block import queue.
+In most cases, you don't need to know details about how transactions are gossiped or how other nodes on the network import blocks. However, if you plan to write any custom consensus logic or want to know more about implementing the block import queue, then the following traits are relevant:
 
 - [ImportQueue](https://paritytech.github.io/polkadot-sdk/master/sc_consensus/import_queue/trait.ImportQueue.html){target=\_blank} - the trait that defines the block import queue
 - [Link](https://paritytech.github.io/polkadot-sdk/master/sc_consensus/import_queue/trait.Link.html){target=\_blank} - the trait that defines the link between the block import queue and the network

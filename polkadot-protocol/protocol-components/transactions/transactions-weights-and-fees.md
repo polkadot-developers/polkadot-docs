@@ -34,6 +34,10 @@ The final fee for a transaction is calculated using the following parameters:
 
 The base fee and proportional weight and length fees constitute the inclusion fee. The inclusion fee is the minimum fee that must be available for a transaction to be included in a block.
 
+```
+inclusion fee = base fee + weight fee + length fee
+```
+
 ## Using the Transaction Payment Pallet
 
 The [Transaction Payment pallet](https://github.com/paritytech/polkadot-sdk/tree/master/substrate/frame/transaction-payment){target=\_blank} provides the basic logic for calculating the inclusion fee. You can also use the Transaction Payment pallet to:

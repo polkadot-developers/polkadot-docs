@@ -1,6 +1,6 @@
 title: Protocol Components
 nav:
-  - overview.md
+  - 'Overview': overview.md
   - index.md
   - accounts
   - transactions

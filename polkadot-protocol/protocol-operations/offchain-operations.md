@@ -11,22 +11,22 @@ There are many use cases where you might want to query data from an Off-Chain so
 
 To make the Off-Chain data integration more secure and efficient, the Polkadot SDK supports Off-Chain operations through the following features:
 
-- Off-Chain workers are a subsystem of components that enable the execution of long-running and possibly non-deterministic tasks, such as:
+- `Long-running and possibly non-deterministic tasks` - Off-Chain workers are a subsystem of components that enable the execution of long-running and possibly non-deterministic tasks, such as:
     - Website service requests
     - Encryption, decryption, and signing of data
     - Random number generation
     - CPU-intensive computations
     - Enumeration or aggregation of On-Chain data
 
-- Off-Chain workers enable you to move tasks that might require more execution time than allowed out of the block processing pipeline. Any task that might take longer than the maximum block execution permitted time is a reasonable candidate for Off-Chain processing
+    Off-Chain workers enable you to move tasks that might require more execution time than allowed out of the block processing pipeline. Any task that might take longer than the maximum block execution permitted time is a reasonable candidate for Off-Chain processing
 
-- Off-Chain storage is storage that is local to a the Polkadot SDK node and can be accessed by both Off-Chain workers and On-Chain logic:
+- [`Storage`](#off-chain-storage) - Off-Chain storage is local to a the Polkadot SDK node and can be accessed by both Off-Chain workers and On-Chain logic:
     - Off-Chain workers have both read and write access to Off-Chain storage
     - On-Chain logic has write access through Off-Chain indexing but doesn't have read access. The Off-Chain storage allows different worker threads to communicate with each other and to store user-specific or node-specific data that does not require consensus over the whole network
 
-- Off-Chain indexing is an optional service that allows the runtime to write directly to Off-Chain storage independently from Off-Chain workers. The Off-Chain index provides temporary storage for On-Chain logic and complements the On-Chain state
+- [`Indexing`](#off-chain-indexing) - Off-Chain indexing is an optional service that allows the runtime to write directly to Off-Chain storage independently from Off-Chain workers. The Off-Chain index provides temporary storage for On-Chain logic and complements the On-Chain state
 
-## Off-Chain workers
+## Off-Chain Workers
 
 Off-Chain workers run in their own Wasm execution environment outside of the Polkadot SDK runtime. This separation of concerns ensures that long-running Off-Chain tasks do not impact block production. However, because chain workers are declared in the same code as the runtime, they can easily access On-Chain state for their computations.
 

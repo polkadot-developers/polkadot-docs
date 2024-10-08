@@ -121,11 +121,11 @@ After the block is published to the network, it is available for other nodes to 
 
 In most cases, you don't need to know details about how transactions are gossiped or how other nodes on the network import blocks. However, if you plan to write any custom consensus logic or want to know more about implementing the block import queue, then the following traits are relevant:
 
-- [ImportQueue](https://paritytech.github.io/polkadot-sdk/master/sc_consensus/import_queue/trait.ImportQueue.html){target=\_blank} - the trait that defines the block import queue
-- [Link](https://paritytech.github.io/polkadot-sdk/master/sc_consensus/import_queue/trait.Link.html){target=\_blank} - the trait that defines the link between the block import queue and the network
-- [BasicQueue](https://paritytech.github.io/polkadot-sdk/master/sc_consensus/import_queue/struct.BasicQueue.html){target=\_blank} - a basic implementation of the block import queue
-- [Verifier](https://paritytech.github.io/polkadot-sdk/master/sc_consensus/import_queue/trait.Verifier.html){target=\_blank} - the trait that defines the block verifier
-- [BlockImport](https://paritytech.github.io/polkadot-sdk/master/sc_consensus/block_import/trait.BlockImport.html){target=\_blank} - the trait that defines the block import process
+- [**`ImportQueue`**](https://paritytech.github.io/polkadot-sdk/master/sc_consensus/import_queue/trait.ImportQueue.html){target=\_blank} - the trait that defines the block import queue
+- [**`Link`**](https://paritytech.github.io/polkadot-sdk/master/sc_consensus/import_queue/trait.Link.html){target=\_blank} - the trait that defines the link between the block import queue and the network
+- [**`BasicQueue`**](https://paritytech.github.io/polkadot-sdk/master/sc_consensus/import_queue/struct.BasicQueue.html){target=\_blank} - a basic implementation of the block import queue
+- [**`Verifier`**](https://paritytech.github.io/polkadot-sdk/master/sc_consensus/import_queue/trait.Verifier.html){target=\_blank} - the trait that defines the block verifier
+- [**`BlockImport`**](https://paritytech.github.io/polkadot-sdk/master/sc_consensus/block_import/trait.BlockImport.html){target=\_blank} - the trait that defines the block import process
 
 ## Where to Go Next
 

@@ -1,6 +1,6 @@
 ---
 title: Use Systemd
-description: Using a service manager, such as systemd to streamline the management of your Polkadot node as a process on your Linux host machine.
+description: Learn how to use systemd to manage your Polkadot validator to enable automatic server restarts, prevent node downtime, and reduce the risk of slashing.
 ---
 
 # Run a Validator Using Systemd

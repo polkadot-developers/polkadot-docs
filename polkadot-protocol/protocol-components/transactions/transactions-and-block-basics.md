@@ -62,7 +62,7 @@ All transactions are bundled together as a series to be executed as defined in t
 
 Now that you are familiar with transaction types and the information that constitutes a block, you can explore the following topics to learn more:
 
-- [**Transactions lifecycle**](/polkadot-protocol/protocol-components/transactions/transactions-lifecycle.md){target=\_blank} - learn how transactions are processed and included in blocks
+- [**Transactions lifecycle**](/polkadot-protocol/protocol-components/transactions/transactions-lifecycle/){target=\_blank} - learn how transactions are processed and included in blocks
 - [**State transitions and storage**](TODO:update-path){target=\_blank} - understand how transactions change the state of the blockchain
 - [**Transactions, weights, and fees**](TODO:update-path){target=\_blank} - learn how to calculate the cost of a transaction and how to set transaction fees
 - [**Transaction format**](TODO:update-path){target=\_blank} - explore the structure of a transaction and how to decode it

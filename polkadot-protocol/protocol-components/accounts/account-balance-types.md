@@ -16,7 +16,7 @@ There are five types of account balances:
 
 - **Free** - the balance available for on-chain activities such as staking and participating in governance, but not necessarily spendable or transferable
 - **Locked** - the portion of the free balance that is locked for specific purposes like [staking](https://wiki.polkadot.network/docs/learn-staking#nominating-validators){target=\_blank}, [governance](https://wiki.polkadot.network/docs/learn-polkadot-opengov#voting-on-a-referendum){target=\_blank}, or [vesting](TODO: path to Vested Transfers subsection in Types of Txs) (also referred to as locked balance)
-- **Reserved** - the balance reserved for [identities](https://wiki.polkadot.network/docs/learn-identity){target=\_blank}, [proxies](https://wiki.polkadot.network/docs/learn-proxies){target=\_blank}, [OpenGov preimages and deposits](https://wiki.polkadot.network/docs/learn-guides-polkadot-opengov#claiming-opengov-deposits){target=\_blank}.
+- **Reserved** - the balance reserved for [identities](https://wiki.polkadot.network/docs/learn-identity){target=\_blank}, [proxies](https://wiki.polkadot.network/docs/learn-proxies){target=\_blank}, [OpenGov preimages and deposits](https://wiki.polkadot.network/docs/learn-guides-polkadot-opengov#claiming-opengov-deposits){target=\_blank}
 - **Spendable** - the free balance that is fully available for spending or transferring
 - **Untouchable** - the part of the free balance that cannot be transferred or spent but can still be used for other on-chain activities
 
@@ -41,8 +41,8 @@ Locks are included in the account's `locked` balance, representing funds that ma
 
 Locks can overlap in both amount and duration, following these general rules:
 
-1. If multiple locks involve different amounts of tokens, the largest lock determines the total amount of locked tokens
-2. If multiple locks involve the same amount of tokens, the lock with the longest duration dictates when those tokens can be unlocked
+- If multiple locks involve different amounts of tokens, the largest lock determines the total amount of locked tokens
+- If multiple locks involve the same amount of tokens, the lock with the longest duration dictates when those tokens can be unlocked
 
 ### Locks Example
 

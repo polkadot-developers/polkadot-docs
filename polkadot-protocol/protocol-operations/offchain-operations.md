@@ -12,11 +12,11 @@ There are many use cases where you might want to query data from an Off-Chain so
 To make the Off-Chain data integration more secure and efficient, the Polkadot SDK supports Off-Chain operations through the following features:
 
 - Off-Chain workers are a subsystem of components that enable the execution of long-running and possibly non-deterministic tasks, such as:
-    - website service requests
-    - encryption, decryption, and signing of data
-    - random number generation
+    - Website service requests
+    - Encryption, decryption, and signing of data
+    - Random number generation
     - CPU-intensive computations
-    - enumeration or aggregation of On-Chain data
+    - Enumeration or aggregation of On-Chain data
 
 - Off-Chain workers enable you to move tasks that might require more execution time than allowed out of the block processing pipeline. Any task that might take longer than the maximum block execution permitted time is a reasonable candidate for Off-Chain processing
 

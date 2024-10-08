@@ -7,7 +7,7 @@ description: Overview of Off-Chain workers in the Polkadot SDK, including their 
 
 ## Introduction
 
-There are many use cases where you might want to query data from an Off-Chain source or process data without using On-Chain resources before updating the on-chain state. The conventional way of incorporating Off-Chain data involves connecting to oracles to supply the data from some traditional source. Although using oracles is one approach to working with Off-Chain data sources, there are limitations to the security, scalability, and infrastructure efficiency that oracles can provide.
+There are many use cases where you might want to query data from an Off-Chain source or process data without using On-Chain resources before updating the On-Chain state. The conventional way of incorporating Off-Chain data involves connecting to oracles to supply the data from some traditional source. Although using oracles is one approach to working with Off-Chain data sources, there are limitations to the security, scalability, and infrastructure efficiency that oracles can provide.
 
 To make the Off-Chain data integration more secure and efficient, the Polkadot SDK supports Off-Chain operations through the following features:
 

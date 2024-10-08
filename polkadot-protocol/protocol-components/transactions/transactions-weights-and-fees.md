@@ -7,7 +7,7 @@ description: Overview of transaction weights and fees in Polkadot SDK chains, de
 
 ## Introductions
 
-When transactions are executed, or data is stored on-chain, the activity changes the state of the chain and consumes blockchain resources. Because the resources available to a blockchain are limited, it’s important to manage how operations on-chain consume them. In addition to being limited in practical terms—such as storage capacity—blockchain resources represent a potential attack vector for malicious users. For example, a malicious user might attempt to overload the network with messages to stop the network from producing new blocks. To protect blockchain resources from being drained or overloaded, you need to manage how they are made available and how they are consumed. The resources to be aware of include:
+When transactions are executed, or data is stored on-chain, the activity changes the state of the chain and consumes blockchain resources. Because the resources available to a blockchain are limited, it’s important to manage how operations on-chain consume them. In addition to being limited in practical terms, such as storage capacity, blockchain resources represent a potential attack vector for malicious users. For example, a malicious user might attempt to overload the network with messages to stop the network from producing new blocks. To protect blockchain resources from being drained or overloaded, you need to manage how they are made available and how they are consumed. The resources to be aware of include:
 
 - Memory usage
 - Storage input and output

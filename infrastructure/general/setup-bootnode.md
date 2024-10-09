@@ -25,7 +25,7 @@ Bootnodes must be accessible through three key channels to connect with other no
 
     ```bash
 
-    --listen-addr /ip4/0.0.0.0/tcp/<port>
+    --listen-addr /ip4/0.0.0.0/tcp/INSERT_PORT
 
     ```
     Note: This is not enabled by default on non-validator nodes like archive RPC nodes
@@ -37,7 +37,7 @@ Bootnodes must be accessible through three key channels to connect with other no
 
 A node key is the ED25519 key used by `libp2p` to assign your node an identity or peer ID. Generating a known node key for a bootnode is crucial, as it gives you a consistent key that can be placed in chain specifications as a known, reliable bootnode.
 
-Starting a node creates its node key in the `chains/<chain>/network/secret_ed25519` file.
+Starting a node creates its node key in the `chains/INSERT_CHAIN/network/secret_ed25519` file.
 
 You can create a node key using:
 
@@ -76,17 +76,32 @@ If the preceding node is running with DNS name `dot-bootnode.stakeworld.io`, whi
 ### P2P
 
 ```bash
-polkadot --chain polkadot --base-path /tmp/node --name "Bootnode testnode" --reserved-only --reserved-nodes "/dns/dot-bootnode.stakeworld.io/tcp/30310/p2p/12D3KooWAb5MyC1UJiEQJk4Hg4B2Vi3AJdqSUhTGYUqSnEqCFMFg" --no-hardware-benchmarks
+polkadot --chain polkadot \
+--base-path /tmp/node \
+--name "Bootnode testnode" \
+--reserved-only \
+--reserved-nodes "/dns/dot-bootnode.stakeworld.io/tcp/30310/p2p/12D3KooWAb5MyC1UJiEQJk4Hg4B2Vi3AJdqSUhTGYUqSnEqCFMFg" \
+--no-hardware-benchmarks
 ```
 
 ### P2P/WS
 
 ```bash
-polkadot --chain polkadot --base-path /tmp/node --name "Bootnode testnode" --reserved-only --reserved-nodes "/dns/dot-bootnode.stakeworld.io/tcp/30311/ws/p2p/12D3KooWAb5MyC1UJiEQJk4Hg4B2Vi3AJdqSUhTGYUqSnEqCFMFg" --no-hardware-benchmarks
+polkadot --chain polkadot \
+--base-path /tmp/node \
+--name "Bootnode testnode" \
+--reserved-only \
+--reserved-nodes "/dns/dot-bootnode.stakeworld.io/tcp/30311/ws/p2p/12D3KooWAb5MyC1UJiEQJk4Hg4B2Vi3AJdqSUhTGYUqSnEqCFMFg" \
+--no-hardware-benchmarks
 ```
 
 ### P2P/WSS
 
 ```bash
-polkadot --chain polkadot --base-path /tmp/node --name "Bootnode testnode" --reserved-only --reserved-nodes "/dns/dot-bootnode.stakeworld.io/tcp/30312/wss/p2p/12D3KooWAb5MyC1UJiEQJk4Hg4B2Vi3AJdqSUhTGYUqSnEqCFMFg" --no-hardware-benchmarks
+polkadot --chain polkadot \
+--base-path /tmp/node \
+--name "Bootnode testnode" \
+--reserved-only \
+--reserved-nodes "/dns/dot-bootnode.stakeworld.io/tcp/30312/wss/p2p/12D3KooWAb5MyC1UJiEQJk4Hg4B2Vi3AJdqSUhTGYUqSnEqCFMFg" \
+--no-hardware-benchmarks
 ```

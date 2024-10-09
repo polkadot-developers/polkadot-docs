@@ -4,3 +4,4 @@ nav:
   - 'Build a Local Solochain': build-a-local-blockchain.md 
   - 'Simulate a Network': simulate-a-network.md
   - 'Upgrade a Running Network': upgrade-a-running-network.md
+  - 'Add Trusted Nodes': 'add-trusted-nodes.md'

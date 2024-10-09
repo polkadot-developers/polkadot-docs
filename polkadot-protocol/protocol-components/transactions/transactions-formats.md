@@ -11,9 +11,9 @@ This article describes the data structure of signed and unsigned transactions in
 
 Extrinsics normally contain a signature, some data to describe whether the extrinsic has passed some validity checks, and a reference to the pallet and call that it is intended for. This format provides a way for applications to ensure that the requirements for an extrinsic are met and correctly constructed.
 
-- [Unchecked](https://github.com/paritytech/polkadot-sdk/blob/master/substrate/primitives/runtime/src/generic/unchecked_extrinsic.rs#L70){target=\_blank} - signed transactions requiring some validation check before being accepted in the transaction pool. Any unchecked extrinsic contains the signature for the sent data and some extra data
-- [Checked](https://github.com/paritytech/polkadot-sdk/blob/master/substrate/primitives/runtime/src/generic/checked_extrinsic.rs#L35){target=\_blank} - inherent extrinsics, which, by definition, don't require signature verification. Instead, they carry information on where the extrinsic comes from and some extra data
-- [Opaque](https://github.com/paritytech/polkadot-sdk/blob/master/substrate/primitives/runtime/src/lib.rs#L915){target=\_blank} - used for cases when an extrinsic hasn't yet been committed to a format but can still be decoded
+- [**Unchecked**](https://github.com/paritytech/polkadot-sdk/blob/master/substrate/primitives/runtime/src/generic/unchecked_extrinsic.rs#L70){target=\_blank} - signed transactions requiring some validation check before being accepted in the transaction pool. Any unchecked extrinsic contains the signature for the sent data and some extra data
+- [**Checked**](https://github.com/paritytech/polkadot-sdk/blob/master/substrate/primitives/runtime/src/generic/checked_extrinsic.rs#L35){target=\_blank} - inherent extrinsics, which, by definition, don't require signature verification. Instead, they carry information on where the extrinsic comes from and some extra data
+- [**Opaque**](https://github.com/paritytech/polkadot-sdk/blob/master/substrate/primitives/runtime/src/lib.rs#L915){target=\_blank} - used for cases when an extrinsic hasn't yet been committed to a format but can still be decoded
 
 !!! note
     Inherents are unique, unsigned transactions created by block producers. They contain essential data for block construction, such as time stamps, storage verification proofs, and information about uncle blocks.
@@ -73,16 +73,16 @@ The metadata interface provides the way applications know how to construct a tra
 
 ## Signed Extensions
 
-The Polkadot SDK provides the concept of [signed extensions](https://paritytech.github.io/polkadot-sdk/master/polkadot_sdk_docs/reference_docs/signed_extensions/index.html){target=\_blank}, which extend an extrinsic with additional data, through the [SignedExtension](https://paritytech.github.io/try-runtime-cli/sp_runtime/traits/trait.SignedExtension.html){target=\_blank} trait.
+The Polkadot SDK provides the concept of [signed extensions](https://paritytech.github.io/polkadot-sdk/master/polkadot_sdk_docs/reference_docs/signed_extensions/index.html){target=\_blank}, which extend an extrinsic with additional data, through the [`SignedExtension`](https://paritytech.github.io/try-runtime-cli/sp_runtime/traits/trait.SignedExtension.html){target=\_blank} trait.
 
 The transaction queue regularly calls signed extensions to check that a transaction is valid before it gets put in the ready queue. This is a useful safeguard for verifying that transactions won't fail in a block. Signed extensions are commonly used to enforce validation logic to protect the transaction pool from spam and replay attacks.
 
 In FRAME, a signed extension can hold any of the following types by default:
 
-- [`AccountId`](https://github.com/paritytech/polkadot-sdk/blob/master/substrate/primitives/runtime/src/traits.rs#L1489){target=\_blank} - to encode the sender's identity
-- [`Call`](https://github.com/paritytech/polkadot-sdk/blob/master/substrate/primitives/runtime/src/traits.rs#L1492){target=\_blank} - to encode the pallet call to be dispatched. This data is used to calculate transaction fees
-- [`AdditionalSigned`](https://github.com/paritytech/polkadot-sdk/blob/master/substrate/primitives/runtime/src/traits.rs#L1496){target=\_blank} - to handle any additional data to go into the signed payload. This allows you to attach any custom logic prior to dispatching a transaction
-- [`Pre`](https://github.com/paritytech/polkadot-sdk/blob/master/substrate/primitives/runtime/src/traits.rs#L1499){target=\_blank} - to encode the information that can be passed from before a call is dispatched to after it gets dispatched
+- [**`AccountId`**](https://github.com/paritytech/polkadot-sdk/blob/master/substrate/primitives/runtime/src/traits.rs#L1489){target=\_blank} - to encode the sender's identity
+- [**`Call`**](https://github.com/paritytech/polkadot-sdk/blob/master/substrate/primitives/runtime/src/traits.rs#L1492){target=\_blank} - to encode the pallet call to be dispatched. This data is used to calculate transaction fees
+- [**`AdditionalSigned`**](https://github.com/paritytech/polkadot-sdk/blob/master/substrate/primitives/runtime/src/traits.rs#L1496){target=\_blank} - to handle any additional data to go into the signed payload. This allows you to attach any custom logic prior to dispatching a transaction
+- [**`Pre`**](https://github.com/paritytech/polkadot-sdk/blob/master/substrate/primitives/runtime/src/traits.rs#L1499){target=\_blank} - to encode the information that can be passed from before a call is dispatched to after it gets dispatched
 
 FRAME's system pallet provides a [useful `SignedExtension` set](https://github.com/paritytech/polkadot-sdk/blob/master/substrate/frame/system/src/lib.rs#L79){target=\_blank} out of the box.
 
@@ -103,5 +103,5 @@ Now that you have seen how transactions are constructed, you should review how t
 
 - [Transaction lifecycle](TODO:update-path){target=\_blank}
 - [Transactions, weights, and fees](TODO:update-path){target=\_blank}
-- [`tx-wrapper`](https://github.com/paritytech/txwrapper-core){target=\_blank} - for offline transactions
-- [`sidecar`](https://github.com/paritytech/substrate-api-sidecar){target=\_blank} - for REST-based transactions
+- [`txwrapper-core`](https://github.com/paritytech/txwrapper-core){target=\_blank} - for offline transactions
+- [`@substrate/api-sidecar`](https://github.com/paritytech/substrate-api-sidecar){target=\_blank} - for REST-based transactions

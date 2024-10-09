@@ -3,3 +3,4 @@ nav:
   - index.md
   - 'Glossary': 'glossary.md'
   - parachains
+  - 'Development Networks': 'polkadot-networks.md'

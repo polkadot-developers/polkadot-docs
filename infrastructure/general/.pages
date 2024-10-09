@@ -1,4 +1,5 @@
 title: General Infrastructure
 nav:
   - index.md
-  - 'Set Up an RPC Node': setup-rpc.md
+  - 'Set Up an RPC Node': 'setup-rpc.md'
+  - 'Set Up a Bootnode': 'setup-bootnode.md'

@@ -1,0 +1,15 @@
+{
+    "...": "...",
+    "relay_chain": "rococo-local",
+    "para_id": 2000,
+    "protocolId": "template-local",
+    "genesis": {
+        "runtime": {
+            "...": {},
+            "parachainInfo": {
+                "parachainId": 2000
+            }
+        },
+        "...": {}
+    }
+}

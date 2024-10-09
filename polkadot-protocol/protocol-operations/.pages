@@ -1,3 +1,4 @@
 title: Protocol Operations
 nav:
   - index.md
+  - 'Off-Chain Operations': offchain-operations.md

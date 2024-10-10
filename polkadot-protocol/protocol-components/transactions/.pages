@@ -2,4 +2,5 @@ title: Transactions
 nav:
   - index.md
   - 'Transactions Weights and Fees': transactions-weights-and-fees.md
+  - 'Transactions LifeCycle': transactions-lifecycle.md
   - 'Transactions and Block Basics': transactions-and-block-basics.md

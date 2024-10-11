@@ -235,6 +235,7 @@ To register the parachain, follow these steps:
     2. **`genesisHead`** - click the **file upload** button and select the `para-2000-genesis-state` file you exported
     3. **`validationCode`** - click the **file upload** button and select the `para-2000-wasm` file you exported
     4. **`paraKind`** - select **Yes** if you are registering a parachain or **No** if you are registering a parathread
+
     5. Click on the **Submit Transaction** button
 
     ![](/images/tutorials/polkadot-sdk/build-a-parachain/connect-a-parachain/connect-a-parachain-8.webp)

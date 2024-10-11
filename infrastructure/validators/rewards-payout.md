@@ -40,9 +40,9 @@ However, despite this increased variance, rewards tend to even out over time due
 
     Let:
 
-    - `pe` = para-validator era points,
-    - `ne` = non-para-validator era points,
-    - `EV` = expected value of staking rewards,
+    - `pe` = para-validator era points
+    - `ne` = non-para-validator era points
+    - `EV` = expected value of staking rewards
 
     Then, `EV(pe)` has more influence on the `EV` than `EV(ne)`.
 
@@ -50,14 +50,14 @@ However, despite this increased variance, rewards tend to even out over time due
 
     Also, let:
 
-    - `v` = the variance of staking rewards,
-    - `p` = number of para-validators,
-    - `w` = number validators in the active set,
-    - `e` = era,
+    - `v` = the variance of staking rewards
+    - `p` = number of para-validators
+    - `w` = number validators in the active set
+    - `e` = era
 
     Then, `v` &#8593; if `w` &#8593;, as this reduces `p` : `w`, with respect to `e`.
 
-    Increased `v` is expected, and initially keeping `p` &#8595; using the same para-validator set for all parachains ensures [availability](TODO: add path) and [voting](../learn/learn-polkadot-opengov.md). In addition, despite `v` &#8593; on an `e` to `e` basis, over time, the amount of rewards each validator receives will equal out based on the continuous selection of para-validators.
+    Increased `v` is expected, and initially keeping `p` &#8595; using the same para-validator set for all parachains ensures [availability](TODO: add path) and [voting](https://wiki.polkadot.network/docs/learn-polkadot-opengov/){target=\_blank}. In addition, despite `v` &#8593; on an `e` to `e` basis, over time, the amount of rewards each validator receives will equal out based on the continuous selection of para-validators.
 
     There are plans to scale the active para-validation set in the future.
 
@@ -90,7 +90,7 @@ block-beta
     E --"2 DOT"--> D 
 ```
 
-Note that this is different than most other Proof-of-Stake systems. As long as a validator is in the validator set, it will receive the same block reward as every other validator. Validator Alice, who had 18 tokens staked, received the same 2 token reward in this era as Dave who had only 7 tokens staked.
+Note that this is different than most other Proof-of-Stake systems. As long as a validator is in the validator set, it will receive the same block reward as every other validator. Validator Alice, who had 18 DOT staked, received the same 2 DOT reward in this era as Dave, who had only 7 DOT staked.
 
 ## Running Multiple Validators
 

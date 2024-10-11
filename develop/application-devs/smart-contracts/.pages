@@ -1,4 +1,4 @@
 title: Smart Contract Development
 nav:
   - index.md
-  - smart-contracts.md
+  - 'Smart Contracts': smart-contracts.md

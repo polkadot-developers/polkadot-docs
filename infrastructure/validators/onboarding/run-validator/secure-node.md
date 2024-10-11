@@ -10,13 +10,8 @@ This primarily means that validators:
 - Must be high availability
 - Must have infrastructure that protects validators' signing keys so that an attacker cannot take control and commit [slash-able behavior](TODO:update-path){target=\_blank}
 
-## High Availability
-
-High availability set-ups that involve redundant validator nodes may seem attractive at first. However, they can be *very dangerous* if they aren't set up perfectly. The reason for this is that the session keys used by a validator should always be isolated to just a single node. Replicating session keys across multiple nodes could lead to equivocation [slashes](TODO:update-path){target=\_blank} or parachain validity slashes which can make you lose **100% of your staked funds**.
-
-The good news is that 100% uptime of your validator isn't really needed, as it has some buffer within eras to go offline for a little while and upgrade. For this reason, it is advised that you only attempt a high availability set-up if *you're confident you know exactly what you're doing.*
-
-The proper handling of session keys is one of the biggest ways a validator can keep their node safe.
+!!!warning Do not run more than one validator with the same session keys!
+    High availability set-ups that involve redundant validator nodes may seem attractive at first. However, they can be *very dangerous* if they aren't set up perfectly. The reason for this is that **the session keys used by a validator should always be isolated to just a single node.** Replicating session keys across multiple nodes could lead to equivocation [slashes](TODO:update-path){target=\_blank} or parachain validity slashes which can make you lose **100% of your staked funds**.
 
 ## Key Management
 

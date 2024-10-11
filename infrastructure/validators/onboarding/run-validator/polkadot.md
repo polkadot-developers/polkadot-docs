@@ -232,11 +232,11 @@ Hub (replace X.Y.Z by the appropriate version):
 docker.io/parity/polkadot:vX.Y.Z
 ```
 
-### Optional: Building the Polkadot binaries from sources
+### Optional: Building the Polkadot Binaries from Sources
 
 Optionally, you may build the binaries from source by following the [instructions on the Polkadot SDK repository.](https://github.com/paritytech/polkadot-sdk/tree/master/polkadot#building)
 
-### Verify the installation
+### Verify Installation
 
 After installing Polkadot, you can verify the installation by running
 

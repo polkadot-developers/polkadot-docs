@@ -34,7 +34,7 @@ To illustrate this relationship:
 
 However, despite this increased variance, rewards tend to even out over time due to the continuous rotation of para-validators across eras. The network's design ensures that over multiple eras, each validator has an equal opportunity to participate in para-validation, eventually leading to a balanced distribution of rewards.
 
-??? function "Probability in Staking Rewards"
+??? interface "Probability in Staking Rewards"
 
     This should only serve as a high-level overview of the probabilistic nature for staking rewards.
 
@@ -71,6 +71,7 @@ Rewards are paid out in the network's native token (KSM for Kusama and DOT for P
 
 The following example illustrates a four member validator set with their names, amount they have staked, and how payout of rewards is divided. This scenario assumes all validators earned the same amount of era points and no one received tips: 
 
+<div class="mermaid">
 ``` mermaid
 %%Payout, 4 val set, A-D are validators/stakes, E is payout%%
 
@@ -89,6 +90,7 @@ block-beta
     E --"2 DOT"--> C
     E --"2 DOT"--> D 
 ```
+</div>
 
 Note that this is different than most other Proof-of-Stake systems. As long as a validator is in the validator set, it will receive the same block reward as every other validator. Validator Alice, who had 18 DOT staked, received the same 2 DOT reward in this era as Dave, who had only 7 DOT staked.
 
@@ -98,6 +100,7 @@ Running multiple validators can offer a more favorable risk/reward ratio compare
 
 In the preceding section, with 18 DOT staked and no nominators, Alice earned 2 DOT in one era. This example uses DOT, but the same principles apply for KSM on the Kusama network. By managing stake across multiple validators, you can potentially increase overall returns. Recall the set of validators from the preceding section:
 
+<div class="mermaid">
 ``` mermaid
 %%Payout, 4 val set, A-D are validators/stakes, E is payout%%
 
@@ -116,9 +119,11 @@ block-beta
     E --"2 DOT"--> C
     E --"2 DOT"--> D 
 ```
+</div>
 
 Now, assume Alice decides to split their stake and run two validators, each with a nine DOT stake. This validator set only has four spots and priority is given to validators with a larger stake. In this example, Dave has the smallest stake and loses his spot in the validator set. Now, Alice will earn two shares of the total payout each era as illustrated below:
 
+<div class="mermaid">
 ``` mermaid
 %%Payout, 4 val set, A-D are validators/stakes, E is payout%%
 
@@ -137,6 +142,7 @@ block-beta
     E --"2 DOT"--> C
     E --"2 DOT"--> F 
 ```
+</div>
 
 With enough stake, you could run more than two validators. However, each validator must have enough stake behind it to maintain a spot in the validator set.
 
@@ -150,6 +156,7 @@ The following examples model splitting validator payments between nominator and 
 
 Start with the original validator set from the previous section: 
 
+<div class="mermaid">
 ``` mermaid
 block-beta
     columns 1
@@ -166,9 +173,11 @@ block-beta
     E --"2 DOT"--> C
     E --"2 DOT"--> D 
 ```
+</div>
 
 The preceding diagram shows each validator receiving a 2 DOT payout, but doesn't account for sharing rewards with nominators. The following diagram shows what nominator payout might look like for validator Alice. Alice has a 20% commission rate and holds 50% of the stake for their validator:
 
+<div class="mermaid">
 ``` mermaid
 
 flowchart TD
@@ -192,11 +201,13 @@ flowchart TD
     H --(0.4 + 0.8)--> I
     D --(1.60 x 0.50)--> J
 ```
+</div>
 
 Notice the validator commission rate is applied against the gross amount of rewards for the era. The validator commission is subtracted from the total rewards. After the commission is paid to the validator, the remaining amount is split among stake owners according to their percentage of the total stake. A validator's total rewards for an era include their commission plus their piece of the stake rewards. 
 
 Now, consider a different scenario for validator Bob where the commission rate is 40%, and Bob holds 33% of the stake for their validator:
 
+<div class="mermaid">
 ``` mermaid
 
 flowchart TD
@@ -219,7 +230,7 @@ flowchart TD
     C --(1.2 x 0.33)--> H
     H --(0.8 + 0.4)--> I
     D --(1.2 x 0.67)--> J
-
 ```
+</div>
 
 Bob holds a smaller percentage of their node's total stake, making their stake reward smaller than Alice's. In this scenario, Bob makes up the difference by charging a 40% commission rate and ultimately ends up with the same total payment as Alice. Each validator will need to find their ideal balance between the amount of stake and commission rate to attract nominators while still making running a validator worthwhile.

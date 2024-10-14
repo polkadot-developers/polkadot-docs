@@ -1,4 +1,4 @@
 title: FRAME
 nav:
   - index.md
-  - 'Integrating Existing Pallets': 'integrating-existing-pallets.md'
+  - 'Add Pallet to the Runtime': 'add-pallet-to-the-runtime.md'

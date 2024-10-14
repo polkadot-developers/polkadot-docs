@@ -2,3 +2,5 @@ title: General Infrastructure
 nav:
   - index.md
   - 'Setup Secure WebSocket': setup-secure-wss.md
+  - 'Set Up an RPC Node': 'setup-rpc.md'
+  - 'Set Up a Bootnode': 'setup-bootnode.md'

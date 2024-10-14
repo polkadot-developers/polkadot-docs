@@ -1,165 +1,131 @@
 ---
 title: Monitor Your Node
-description: Tips on how to monitor your node.
+description: Set up Prometheus and Grafana to monitor your Polkadot SDK-based node, visualize metrics, and configure alerts for optimal performance and uptime.
 ---
 
-This guide will walk you through how to set up [Prometheus](https://prometheus.io/){target=_blank} with
-[Grafana](https://grafana.com/){target=_blank} to monitor your node using Ubuntu 18.04 or 20.04.
+# Monitor Your Node
 
-A Substrate-based chain exposes data such as the height of the chain, the number of connected peers
-to your node, CPU, memory usage of your machine, and more. To monitor this data, Prometheus is used
-to collect metrics and Grafana allows for displaying them on the dashboard.
+## Introduction
 
-## Preparation
+Monitoring your node's performance is crucial for ensuring reliability and uptime in Polkadot SDK-based networks. This guide explains how to set up [Prometheus](https://prometheus.io/){target=\_blank} for collecting node metrics and [Grafana](https://grafana.com/){target=\_blank} for visualizing them in real-time. By following these steps, you can gain insights into your node's activity, including block height, peer connections, CPU and memory usage, and more. Additionally, the guide covers alert configurations to notify you about potential issues, allowing you to maintain optimal node performance.
 
-First, create a user for Prometheus by adding the `--no-create-home` flag to disallow `prometheus`
-from logging in.
+## Prerequisites
 
-```bash
-sudo useradd --no-create-home --shell /usr/sbin/nologin prometheus
-```
+Before continuing on with this guide, ensure you have the following:
 
-Create the directories required to store the configuration and executable files.
+<!--TODO: What goes here? What should I read, install, or be familiar with before I can do the rest of this?-->
 
-```bash
-sudo mkdir /etc/prometheus
-sudo mkdir /var/lib/prometheus
-```
+## Prepare Environment
 
-Change the ownership of these directories to `prometheus` so that only prometheus can access them.
+Before installing Prometheus, it's important to set up the environment securely. This involves creating a dedicated user account and setting permissions to ensure Prometheus can run without unnecessary access privileges. The following steps outline how to configure Prometheus with restricted user access and the necessary directory setup:
 
-```bash
-sudo chown -R prometheus:prometheus /etc/prometheus
-sudo chown -R prometheus:prometheus /var/lib/prometheus
-```
+1. Create a user for Prometheus by adding the `--no-create-home` flag to disallow `prometheus` from logging in as follows:
+  ``` bash
+  sudo useradd --no-create-home --shell /usr/sbin/nologin prometheus
+  ```
+2. Use the following commands to create directories to store the configuration and executable files:
+  ``` bash
+  sudo mkdir /etc/prometheus
+  sudo mkdir /var/lib/prometheus
+  ```
+3. Change the ownership of these directories to `prometheus` so that only Prometheus can access them:
+  ``` bash
+  sudo chown -R prometheus:prometheus /etc/prometheus
+  sudo chown -R prometheus:prometheus /var/lib/prometheus
+  ```
 
-## Installing and Configuring Prometheus
+## Install Prometheus
 
-After setting up the environment, update your OS, and install the latest Prometheus. You can check
-the latest release by going to their GitHub repository under the
-[releases](https://github.com/prometheus/prometheus/releases/) page.
+After preparing the environment, you will need to update your operating system and install the latest version of Prometheus. It's recommended to check the [Prometheus releases page](https://github.com/prometheus/prometheus/releases/){target=\_blank} for the latest version.
 
-```bash
-sudo apt-get update && apt-get upgrade
-wget https://github.com/prometheus/prometheus/releases/download/v2.26.0/prometheus-2.26.0.linux-amd64.tar.gz
-tar xfz prometheus-*.tar.gz
-cd prometheus-2.26.0.linux-amd64
-```
-
-The following two binaries are in the directory:
-
-- `prometheus` - Prometheus main binary file
-- `promtool`
-
-The following two directories (which contain the web interface, configuration files examples and the
-license) are in the directory:
-
-- consoles
-- `console_libraries`
-
-Copy the executable files to the `/usr/local/bin/` directory.
+Use the following commands to install the latest version of Prometheus:
 
 ```bash
-sudo cp ./prometheus /usr/local/bin/
-sudo cp ./promtool /usr/local/bin/
+--8<-- 'code/infrastructure/validators/operational-tasks/monitor-node/install-prometheus.md'
 ```
 
-Change the ownership of these files to the `prometheus` user.
+Within this directory, you will find the following binaries:
 
-```bash
-sudo chown prometheus:prometheus /usr/local/bin/prometheus
-sudo chown prometheus:prometheus /usr/local/bin/promtool
-```
+- **`prometheus`** - the main binary that runs Prometheus
+- **`promtool`** - used for validating and testing configurations
 
-Copy the `consoles` and `console_libraries` directories to `/etc/prometheus`
+You will also see these directories:
 
-```bash
-sudo cp -r ./consoles /etc/prometheus
-sudo cp -r ./console_libraries /etc/prometheus
-```
+- **`consoles`** - holds web interface templates for displaying data
+- **`console_libraries`** - supporting libraries for the consoles
 
-Change the ownership of these directories to the `prometheus` user.
+To set up Prometheus:
 
-```bash
-sudo chown -R prometheus:prometheus /etc/prometheus/consoles
-sudo chown -R prometheus:prometheus /etc/prometheus/console_libraries
-```
+1. Copy the binaries to the `/usr/local/bin/` directory:
+  ``` bash
+  sudo cp ./prometheus /usr/local/bin/
+  sudo cp ./promtool /usr/local/bin/
+  ```
+2. Assign ownership of these files to the `prometheus` user:
+  ``` bash
+  sudo chown prometheus:prometheus /usr/local/bin/prometheus
+  sudo chown prometheus:prometheus /usr/local/bin/promtool
+  ```
+3. Copy the `consoles` and `console_libraries` directories to `/etc/prometheus`:
+  ``` bash
+  sudo cp -r ./consoles /etc/prometheus
+  sudo cp -r ./console_libraries /etc/prometheus
+  ```
+4. Assign ownership of these directories to the `prometheus` user:
+  ``` bash
+  sudo chown -R prometheus:prometheus /etc/prometheus/consoles
+  sudo chown -R prometheus:prometheus /etc/prometheus/console_libraries
+  ```
+5. After all the necessary files are copied, you can clean up the downloaded Prometheus directory:
+  ```bash
+  cd .. && rm -rf prometheus*
+  ```
 
-Once everything is done, run this command to remove `prometheus` directory.
+## Configure Prometheus
 
-```bash
-cd .. && rm -rf prometheus*
-```
+To use Prometheus, you need to configure it by creating a YAML configuration file. This file will define how Prometheus scrapes targets and evaluates rules.
 
-Before using Prometheus, it needs some configuration. Create a YAML configuration file named
-`prometheus.yml` by running the command below.
-
+Create a file called `prometheus.yml` in `/etc/prometheus/` as follows:
 ```bash
 sudo nano /etc/prometheus/prometheus.yml
 ```
 
-The configuration file is divided into three parts which are `global`, `rule_files`, and
-`scrape_configs`.
+This file should include the following key sections:
 
-- `scrape_interval` defines how often Prometheus scrapes targets, while `evaluation_interval`
-  controls how often the software will evaluate rules.
+- **`global`** - defines general parameters, such as scrape intervals
+- **`rule_files`** - points to rule files Prometheus uses to trigger alerts
+- **`scrape_configs`** - lists resources Prometheus will monitor, such as your node
 
-- `rule_files` block contains information of the location of any rules that the Prometheus server loads.
+The configuration file should resemble the following:
 
-- `scrape_configs` contains the information which resources Prometheus monitors.
-
-The configuration file should look like this below:
-
-```yaml
-global:
-  scrape_interval: 15s
-  evaluation_interval: 15s
-
-rule_files:
-  # - "first.rules"
-  # - "second.rules"
-
-scrape_configs:
-  - job_name: "prometheus"
-    scrape_interval: 5s
-    static_configs:
-      - targets: ["localhost:9090"]
-  - job_name: "substrate_node"
-    scrape_interval: 5s
-    static_configs:
-      - targets: ["localhost:9615"]
+``` yaml
+--8<-- 'code/infrastructure/validators/operational-tasks/monitor-node/prometheus.yml'
 ```
 
-With the preceding configuration file, the first exporter is the one that Prometheus exports to monitor
-itself. To have more precise information about the state of the Prometheus server, you may
-reduce the `scrape_interval` to 5 seconds for this job. The parameters `static_configs` and
-`targets` determine where the exporters are running. The second exporter is capturing the data from
-your node, and the port by default is `9615`.
+In this example, Prometheus itself is scraped every 5 seconds to ensure detailed internal metrics. Node metrics are scraped from port `9615` by default, with customizable intervals.
 
-You can check the validity of this configuration file by running:
+You can validate the correctness of your configuration using the `promtool` open-source monitoring system:
 
 ```bash
 promtool check config /etc/prometheus/prometheus.yml
 ```
 
-Save the configuration file and change the ownership of the file to `prometheus` user.
+Save the configuration file and change the ownership of the file to `prometheus` user:
 
 ```bash
 sudo chown prometheus:prometheus /etc/prometheus/prometheus.yml
 ```
 
-## Starting Prometheus
+## Start Prometheus
 
-To test that Prometheus is set up properly, execute the following command to start it as the
-`prometheus` user.
+Use the following command to launch Prometheus with a given configuration, set the storage location for metric data, and enable web console templates and libraries: 
 
 ```bash
 sudo -u prometheus /usr/local/bin/prometheus --config.file /etc/prometheus/prometheus.yml --storage.tsdb.path /var/lib/prometheus/ --web.console.templates=/etc/prometheus/consoles --web.console.libraries=/etc/prometheus/console_libraries
 ```
 
-The following messages indicate the status of the server. If you see the following messages, your
-server is set up properly.
-
+You should see messages similar to the following if your server is set up properly:
+<!--TODO: this should be run live to get fresh terminal output to add to a styled termynal snippet. These are all dated 2021 -->
 ```bash
 level=info ts=2021-04-16T19:02:20.167Z caller=main.go:380 msg="No time or size retention was set so using the default time retention" duration=15d
 level=info ts=2021-04-16T19:02:20.167Z caller=main.go:418 msg="Starting Prometheus" version="(version=2.26.0, branch=HEAD, revision=3cafc58827d1ebd1a67749f88be4218f0bab3d8d)"
@@ -187,50 +153,39 @@ level=info ts=2021-04-16T19:02:20.234Z caller=main.go:767 msg="Server is ready t
 
 ```
 
-Go to `http://SERVER_IP_ADDRESS:9090/graph` to check whether you are able to access the Prometheus
-interface or not. If it is working, exit the process by pressing on `CTRL + C`.
+Verify you can access the Prometheus interface by visiting the following address:
+``` bash
+http://SERVER_IP_ADDRESS:9090/graph
+```
 
-To automatically start the server during the boot process, create a new `systemd` configuration file with the following configuration.
+If the interface appears to work as expected, exit the process using `Control + C`.
+
+Next, create a new `systemd` configuration file to automatically start the server during the boot process:
 
 ```bash
 sudo nano /etc/systemd/system/prometheus.service
 ```
 
+Add the following code to the configuration file:
+
 ```bash
-[Unit]
-  Description=Prometheus Monitoring
-  Wants=network-online.target
-  After=network-online.target
-
-[Service]
-  User=prometheus
-  Group=prometheus
-  Type=simple
-  ExecStart=/usr/local/bin/prometheus \
-  --config.file /etc/prometheus/prometheus.yml \
-  --storage.tsdb.path /var/lib/prometheus/ \
-  --web.console.templates=/etc/prometheus/consoles \
-  --web.console.libraries=/etc/prometheus/console_libraries
-  ExecReload=/bin/kill -HUP $MAINPID
-
-[Install]
-  WantedBy=multi-user.target
+--8<-- 'code/infrastructure/validators/operational-tasks/monitor-node/systemd-config.md'
 ```
 
-Once the file is saved, execute the command below to reload `systemd` and enable the service so that
-it will be loaded automatically during the operating system's startup.
+Once the file is saved, execute the command below to reload `systemd` and enable the service so that it will be loaded automatically during the operating system's startup:
 
 ```bash
 sudo systemctl daemon-reload && systemctl enable prometheus && systemctl start prometheus
 ```
 
-Prometheus should be running now, and you should be able to access its front again end by
-re-visiting `IP_ADDRESS:9090/`.
+Prometheus should be running now, and you should be able to access its frontend again by re-visiting:
+``` bash
+http://SERVER_IP_ADDRESS:9090/
+```
 
-## Installing Grafana
+## Install Grafana
 
-In order to visualize your node metrics, you can use Grafana to query the Prometheus server. Run the
-following commands to install it first.
+You can use Grafana to query the Prometheus server and visualize your node metrics. First, run the following commands to install Grafana:
 
 ```bash
 sudo apt-get install -y adduser libfontconfig1
@@ -246,143 +201,85 @@ sudo systemctl enable grafana-server
 sudo systemctl start grafana-server
 ```
 
-You can now access it by going to the `http://SERVER_IP_ADDRESS:3000/login`. The default user and
-password is `admin`.
+You can now access it by going to the `http://SERVER_IP_ADDRESS:3000/login`. The default user and password are `admin`.
 
-:::note
+??? tip "Change default port"
+    If you want run Garana on another port, edit the file `/usr/share/grafana/conf/defaults.ini` with a command like:
+    ``` bash
+    sudo vim /usr/share/grafana/conf/defaults.ini 
+    ```
+    and change the `http_port` value as desired. Then restart Grafana with:
+    ``` bash
+    sudo systemctl restart grafana-server
+    ```
 
-If you want to change the port on which Grafana runs (3000 is a popular port), edit the file
-`/usr/share/grafana/conf/defaults.ini` with a command like
-`sudo vim /usr/share/grafana/conf/defaults.ini` and change the `http_port` value to something else.
-Then restart Grafana with `sudo systemctl restart grafana-server`.
-
-:::
 
 ![1-grafana-login](/images/infrastructure/validator/operational-tasks/1-grafana-login.webp)
 
-In order to visualize the node metrics, click _settings_ to configure the `Data Sources` first.
-
+1. In order to visualize the node metrics, select the gear icon for settings to configure the **Data Sources** first
 ![2-add-data-source](/images/infrastructure/validator/operational-tasks/2-add-data-source.webp)
-
-Click `Add data source` to choose where the data is coming from.
-
+2. Select **Add data source** to choose where the source for the data.
 ![2-add-data-source-2](/images/infrastructure/validator/operational-tasks/2-add-data-source-2.webp)
-
-Select `Prometheus`.
-
+3. Select **Prometheus**
 ![3-select-prometheus](/images/infrastructure/validator/operational-tasks/3-select-prometheus.webp)
-
-The only thing you need to input is the `URL` that is `https://localhost:9090` and then click
-`Save & Test`. If you see `Data source is working`, your connection is configured correctly.
-
+4. The only thing you need to input is the `URL` that is `https://localhost:9090` and then select
+`Save & Test`. If you see `Data source is working`, your connection is configured correctly
 ![4-configure-data-source](/images/infrastructure/validator/operational-tasks/4-configure-data-source.webp)
-
-Next, import the dashboard that lets you visualize your node data. Go to the menu bar on the left
-and mouse hover "+" then select `Import`.
-
-`Import via grafana.com` - It allows you to use a dashboard that someone else has created and made
-public. You can check what other dashboards are available via [https://grafana.com/grafana/dashboards](https://grafana.com/grafana/dashboards){target=_blank}. For example, using the ["Substrate Node Metrics"](https://grafana.com/grafana/dashboards/21715-substrate-node-metrics/) dashboard, input "21715" under the id field and click `Load`.
-
+5. Next, select **Import** from the menu bar on the left to import the dashboard used to visualize your node data 
+??? tip "Import via grafana.com" 
+    Allows you to use a dashboard another user created and made public. You can visit the [Grafana dashboards](https://grafana.com/grafana/dashboards){target=\_blank} page to see other available dashboards. For example, select the ["Substrate Node Metrics"](https://grafana.com/grafana/dashboards/21715-substrate-node-metrics/) dashboard and input "21715" under the `id` field and select **Load**
 ![5-import-dashboard](/images/infrastructure/validator/operational-tasks/5-import-dashboard.webp)
-
-Once it has been loaded, make sure to select "Prometheus" in the Prometheus dropdown list. Then
-click `Import`.
-
+6. Once the dashboard is loaded, select **Prometheus** in the Prometheus dropdown list and select **Import**
 ![5-import-dashboard-2](/images/infrastructure/validator/operational-tasks/5-import-dashboard-2.webp)
-
-In the meantime, start your Polkadot node by running `./polkadot`. If everything is done correctly,
-you should be able to monitor your node's performance such as the current block height, network
-traffic, running tasks, etc. on the Grafana dashboard.
-
+7. In the meantime, start your Polkadot node by running `./polkadot`. You should now be able to monitor your node's performance such as the current block height, network traffic, and running tasks on the Grafana dashboard
 ![6-dashboard-metric](/images/infrastructure/validator/operational-tasks/6-dashboard-metric.webp)
 
-## Installing and Configuring `Alertmanager` (Optional)
+## Install and Configure Optional `Alertmanager`
 
-In this section, configure the `Alertmanager` that helps to predict the potential problem or
-notify you of the current problem in your server. Alerts can be sent in Slack, email, Matrix, or
-others. Email notifications can be configured to notify you if your node goes down.
+You can also configure the optional `Alertmanager` to help predict potential problems or notify you of an active problem with your server. You can receive alerts via Slack, email, Matrix, among other messaging services. You can configure email notifications to alert you if your node goes down. The following sections cover how to install and configure the `AlertManager`.
 
 First, download the latest binary of `AlertManager` and unzip it by running the command below:
-
 ```bash
-wget https://github.com/prometheus/alertmanager/releases/download/v0.26.0/alertmanager-0.26.0.linux-amd64.tar.gz
-tar -xvzf alertmanager-0.26.0.linux-amd64.tar.gz
-mv alertmanager-0.26.0.linux-amd64/alertmanager /usr/local/bin
+--8<-- 'code/infrastructure/validators/operational-tasks/monitor-node/unzip-alert-manager.md'
 ```
 
-### Gmail Setup
+### Setup Gmail
 
-To allow AlertManager to send an email to you, you will need to generate something called an
-`app password` in your Gmail account. For details, click [here](https://support.google.com/accounts/answer/185833?hl=en){target=_blank} to follow the whole setup.
+You will need to generate an `app password` in your Gmail account to allow AlertManager to send you alert notification emails. Visit Google support for more details on setting up your [`app password`](https://support.google.com/accounts/answer/185833?hl=en){target=\_blank}. 
 
-You should see something like below:
+Once you complete the setup, you should see something like below:
 
 ![grafana-am-1](/images/infrastructure/validator/operational-tasks/1-alert-manager.webp)
 
-Copy and save it somewhere else first.
+Be sure to backup this password in a secure location.
 
-### AlertManager Configuration
+### Configure AlertManager
 
-There is a configuration file named `alertmanager.yml` inside the directory that you just extracted
-in the previous command, but that isn't of use. Create a custom `alertmanager.yml` file
-under `/etc/alertmanager` with the following configuration.
+There is a configuration file named `alertmanager.yml` inside the directory that you unzipped in the first step, but that isn't of use. Create a custom `alertmanager.yml` file under `/etc/alertmanager` with the following configuration:
 
-:::note
-
-Ensure to change the ownership of "/etc/alertmanager" to `prometheus` by executing
-
-```bash
-sudo chown -R prometheus:prometheus /etc/alertmanager
-```
-
-:::
+??? tip "Change `alertmanager` ownership"
+    Ensure to change the ownership of `/etc/alertmanager` to `prometheus` by executing the following command:
+    ```bash
+    sudo chown -R prometheus:prometheus /etc/alertmanager
+    ```
 
 ```
-global:
- resolve_timeout: 1m
-
-route:
- receiver: 'gmail-notifications'
-
-receivers:
-- name: 'gmail-notifications'
-  email_configs:
-  - to: YOUR_EMAIL
-    from: YOUR_EMAIL
-    smarthost: smtp.gmail.com:587
-    auth_username: YOUR_EMAIL
-    auth_identity: YOUR_EMAIL
-    auth_password: YOUR_APP_PASSWORD
-    send_resolved: true
+--8<-- 'code/infrastructure/validators/operational-tasks/monitor-node/alert-manager.yml'
 ```
 
-With the preceding configuration, alerts will be sent using the email you set preceding. Remember to change `YOUR_EMAIL` to your email and paste the app password you just saved earlier to the
-`YOUR_APP_PASSWORD`.
+With the preceding configuration, alerts will be sent using the email you set preceding. Remember to replace `YOUR_EMAIL` with the email where you want to receive alerts and paste the app password you saved earlier to the `YOUR_APP_PASSWORD`.
 
-Next, create another `systemd` configuration file named `alertmanager.service` by running the
-command `sudo nano /etc/systemd/system/alertmanager.service` with the following configuration.
-
-:::info SERVER_IP
-
-Change to your host IP address and make sure port 9093 is opened.
-
-:::
-
+Next, create another `systemd` configuration file named `alertmanager.service` by running the following command:
+``` bash
+sudo nano /etc/systemd/system/alertmanager.service 
 ```
-[Unit]
-Description=AlertManager Server Service
-Wants=network-online.target
-After=network-online.target
+Add the following code to the configuration file you just created:
 
-[Service]
-User=root
-Group=root
-Type=simple
-ExecStart=/usr/local/bin/alertmanager --config.file /etc/alertmanager/alertmanager.yml --web.external-url=http://SERVER_IP:9093 --cluster.advertise-address='0.0.0.0:9093'
+???tip  "SERVER_IP"
+    Change to your host IP address and make sure port 9093 is opened
 
-
-[Install]
-WantedBy=multi-user.target
+``` bash
+--8<-- 'code/infrastructure/validators/operational-tasks/monitor-node/systemd-alert-config.md'
 ```
 
 To the start the `Alertmanager`, run the following commands:
@@ -400,18 +297,18 @@ sudo systemctl daemon-reload && sudo systemctl enable alertmanager && sudo syste
    CGroup: /system.slice/alertmanager.service
 ```
 
-You should see the process status is "active (running)" if you have configured properly.
+The `Active` field should display "active (running)" if you have configured the `AlertManager` properly.
 
 There is a `Alertmanager` plugin in Grafana that can help you to monitor the alert information. To
 install it, execute the command below:
 
-```
+``` bash
 sudo grafana-cli plugins install camptocamp-prometheus-alertmanager-datasource
 ```
 
-And restart Grafana once the plugin is successfully installed.
+And restart Grafana once the plugin is successfully installed:
 
-```
+``` bash
 sudo systemctl restart grafana-server
 ```
 
@@ -419,99 +316,49 @@ Now go to your Grafana dashboard `SERVER_IP:3000` and configure the `Alertmanage
 
 ![grafana-am-5](/images/infrastructure/validator/operational-tasks/5-alert-manager.webp)
 
-Go to Configuration -> Data Sources, search "Prometheus AlertManger" if you cannot find it at the
-top.
+Go to **Configuration** -> **Data Sources**, and search for "Prometheus AlertManger" if you cannot find it at the top.
 
 ![grafana-am-2](/images/infrastructure/validator/operational-tasks/2-alert-manager.webp)
 
-Fill in the `URL` to your server location followed by the port number used in the `Alertmanager`.
-
-Then click "Save & Test" at the bottom to test the connection.
+Fill in the `URL` to your server location followed by the port number used in the `Alertmanager`. Select **Save & Test** at the bottom to test the connection.
 
 ![grafana-am-3](/images/infrastructure/validator/operational-tasks/3-alert-manager.webp)
 
-To monitor the alerts, import dashboard "[8010](https://grafana.com/dashboards/8010)" that is
-used for `Alertmanager`. And make sure to select the "Prometheus AlertManager" in the last column.
-Then click "Import."
+To monitor the alerts, import the [8010](https://grafana.com/dashboards/8010){target=\_blank} dashboard which is
+used for `Alertmanager`. Make sure to select the **Prometheus AlertManage** in the last column then select **Import**.
 
 You will end up having the following:
 
 ![grafana-am-4](/images/infrastructure/validator/operational-tasks/4-alert-manager.webp)
 
-### AlertManager Integration
+### Integrate AlertManager
 
-To let the Prometheus server be able to talk to the AlertManager, add the following
-configuration in the `etc/prometheus/prometheus.yml`.
+To let the Prometheus server be able to talk to the AlertManager, add the following configuration in the `etc/prometheus/prometheus.yml`:
 
-```
-rule_files:
-  - 'rules.yml'
-
-alerting:
-  alertmanagers:
-  - static_configs:
-    - targets:
-      - localhost:9093
+``` yml
+--8<-- 'code/infrastructure/validators/operational-tasks/monitor-node/update-prometheus.yml:5:12'
 ```
 
-That is the updated `etc/prometheus/prometheus.yml`.
+??? interface "Updated `prometheus.yml` file"
+    ``` yml
+    --8<-- 'code/infrastructure/validators/operational-tasks/monitor-node/update-prometheus.yml'
+    ```
 
-```
-global:
-  scrape_interval:     15s
-  evaluation_interval: 15s
-
-rule_files:
-  - 'rules.yml'
-
-alerting:
-  alertmanagers:
-  - static_configs:
-    - targets:
-      - localhost:9093
-
-scrape_configs:
-  - job_name: 'prometheus'
-    scrape_interval: 5s
-    static_configs:
-      - targets: ['localhost:9090']
-  - job_name: 'substrate_node'
-    scrape_interval: 5s
-    static_configs:
-      - targets: ['localhost:9615']
-```
-
-Create a new file called `rules.yml` under `/etc/prometheus/` that defines all
-the rules for detection. If any of the rules defined in this file is fulfilled, an alert
-will be triggered. The rule below checks whether the instance is down. If it is down for more than 5
-minutes, an email notification will be sent. If you would like to learn more about the details of
-the rule defining, go
-[here](https://prometheus.io/docs/prometheus/latest/configuration/alerting_rules/){target=_blank}. There are other
-interesting alerts you may find useful [here](https://awesome-prometheus-alerts.grep.to/rules.html){target=_blank}.
+Create a new file called `rules.yml` under `/etc/prometheus/` where you will define all the rules for detection and alerts. If any of the rules defined in this file is met, an alert will be triggered. The following rule checks whether the node instance is down. If it is down for more than 5 minutes, an email notification will be sent. If you would like to learn more about the details of the rule defining, see [Alerting Rules](https://prometheus.io/docs/prometheus/latest/configuration/alerting_rules/){target=\_blank} in the Prometheus documentation. You can also find more information on [additional alerts](https://awesome-prometheus-alerts.grep.to/rules.html){target=\_blank} you may find useful.
 
 <!-- TODO: fix weird formatting issue -->
 
-```
-groups:
-  - name: alert_rules
-    rules:
-      - alert: InstanceDown
-        expr: up == 0
-        for: 5m
-        labels:
-          severity: critical
-        annotations:
-          summary: "Instance [{\{ $labels.instance }\}] down"
-          description: "[{\{ $labels.instance \}\}] of job [\{\{ $labels.job \}\}] has been down for more than 1 minute."
+``` yml
+--8<-- 'code/infrastructure/validators/operational-tasks/monitor-node/instance-down.yml'
 ```
 
-Change the ownership of this file to `prometheus` instead of `root` by running:
+Change the ownership of this file from `root` to `prometheus` by running:
 
 ```bash
 sudo chown prometheus:prometheus rules.yml
 ```
 
-To check the rules defined in the "rules.yml" is syntactically correct, run the following command:
+To check the rules defined in `rules.yml` is syntactically correct, run the following command:
 
 ```bash
 sudo -u prometheus promtool check rules rules.yml
@@ -523,7 +370,6 @@ Finally, restart everything by running:
 sudo systemctl restart prometheus && sudo systemctl restart alertmanager
 ```
 
-Now if one of your target instances down, you will receive an alert on the AlertManager and Gmail
-like below.
+Now you will receive an alert on the AlertManager and Gmail similar to the one below if one of your target instances is down:
 
 ![grafana-am-6](/images/infrastructure/validator/operational-tasks/6-alert-manager.webp)

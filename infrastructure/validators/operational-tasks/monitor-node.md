@@ -7,17 +7,17 @@ description: Set up Prometheus and Grafana to monitor your Polkadot SDK-based no
 
 ## Introduction
 
-Monitoring your node's performance is crucial for ensuring reliability and uptime in Polkadot SDK-based networks. This guide explains how to set up [Prometheus](https://prometheus.io/){target=\_blank} for collecting node metrics and [Grafana](https://grafana.com/){target=\_blank} for visualizing them in real-time. By following these steps, you can gain insights into your node's activity, including block height, peer connections, CPU and memory usage, and more. Additionally, the guide covers alert configurations to notify you about potential issues, allowing you to maintain optimal node performance.
+Monitoring your node's performance ensures reliability and uptime in Polkadot SDK-based networks. This guide explains how to set up [Prometheus](https://prometheus.io/){target=\_blank} for collecting node metrics and [Grafana](https://grafana.com/){target=\_blank} for visualizing them in real-time. Following these steps, you can gain insights into your node's activity, including block height, peer connections, CPU and memory usage, and more. Additionally, the guide covers alert configurations to notify you about potential issues, allowing you to maintain optimal node performance.
 
 ## Prerequisites
 
-Before continuing on with this guide, ensure you have the following:
+Before continuing with this guide, ensure you have the following:
 
 <!--TODO: What goes here? What should I read, install, or be familiar with before I can do the rest of this?-->
 
 ## Prepare Environment
 
-Before installing Prometheus, it's important to set up the environment securely. This involves creating a dedicated user account and setting permissions to ensure Prometheus can run without unnecessary access privileges. The following steps outline how to configure Prometheus with restricted user access and the necessary directory setup:
+Before installing Prometheus, it's important to set up the environment securely by creating a dedicated user account and setting permissions to ensure Prometheus can run without unnecessary access privileges. The following steps outline how to configure Prometheus with restricted user access and the necessary directory setup:
 
 1. Create a user for Prometheus by adding the `--no-create-home` flag to disallow `prometheus` from logging in as follows:
   ``` bash
@@ -36,7 +36,7 @@ Before installing Prometheus, it's important to set up the environment securely.
 
 ## Install Prometheus
 
-After preparing the environment, you will need to update your operating system and install the latest version of Prometheus. It's recommended to check the [Prometheus releases page](https://github.com/prometheus/prometheus/releases/){target=\_blank} for the latest version.
+After preparing the environment, you must update your operating system and install the latest version of Prometheus. You can check the [Prometheus releases page](https://github.com/prometheus/prometheus/releases/){target=\_blank} for the latest version.
 
 Use the following commands to install the latest version of Prometheus:
 
@@ -76,7 +76,7 @@ To set up Prometheus:
   sudo chown -R prometheus:prometheus /etc/prometheus/consoles
   sudo chown -R prometheus:prometheus /etc/prometheus/console_libraries
   ```
-5. After all the necessary files are copied, you can clean up the downloaded Prometheus directory:
+5. After copying all the necessary files, you can clean up the downloaded Prometheus directory:
   ```bash
   cd .. && rm -rf prometheus*
   ```
@@ -102,7 +102,7 @@ The configuration file should resemble the following:
 --8<-- 'code/infrastructure/validators/operational-tasks/monitor-node/prometheus.yml'
 ```
 
-In this example, Prometheus itself is scraped every 5 seconds to ensure detailed internal metrics. Node metrics are scraped from port `9615` by default, with customizable intervals.
+In this example, Prometheus is scraped every 5 seconds to ensure detailed internal metrics. Node metrics with customizable intervals are scraped from port `9615` by default.
 
 You can validate the correctness of your configuration using the `promtool` open-source monitoring system:
 
@@ -124,7 +124,7 @@ Use the following command to launch Prometheus with a given configuration, set t
 sudo -u prometheus /usr/local/bin/prometheus --config.file /etc/prometheus/prometheus.yml --storage.tsdb.path /var/lib/prometheus/ --web.console.templates=/etc/prometheus/consoles --web.console.libraries=/etc/prometheus/console_libraries
 ```
 
-You should see messages similar to the following if your server is set up properly:
+If you set the server up properly, you should see messages similar to the following:
 <!--TODO: this should be run live to get fresh terminal output to add to a styled termynal snippet. These are all dated 2021 -->
 ```bash
 level=info ts=2021-04-16T19:02:20.167Z caller=main.go:380 msg="No time or size retention was set so using the default time retention" duration=15d
@@ -160,7 +160,7 @@ http://SERVER_IP_ADDRESS:9090/graph
 
 If the interface appears to work as expected, exit the process using `Control + C`.
 
-Next, create a new `systemd` configuration file to automatically start the server during the boot process:
+Next, create a new `systemd` configuration file to start the server during the boot process automatically:
 
 ```bash
 sudo nano /etc/systemd/system/prometheus.service
@@ -172,13 +172,13 @@ Add the following code to the configuration file:
 --8<-- 'code/infrastructure/validators/operational-tasks/monitor-node/systemd-config.md'
 ```
 
-Once the file is saved, execute the command below to reload `systemd` and enable the service so that it will be loaded automatically during the operating system's startup:
+Once you save the file, execute the following command to reload `systemd` and enable the service so that it will be loaded automatically during the operating system's startup:
 
 ```bash
 sudo systemctl daemon-reload && systemctl enable prometheus && systemctl start prometheus
 ```
 
-Prometheus should be running now, and you should be able to access its frontend again by re-visiting:
+Prometheus should be running now, and you should be able to reaccess its frontend by re-visiting:
 ``` bash
 http://SERVER_IP_ADDRESS:9090/
 ```
@@ -216,7 +216,7 @@ You can now access it by going to the `http://SERVER_IP_ADDRESS:3000/login`. The
 
 ![1-grafana-login](/images/infrastructure/validator/operational-tasks/1-grafana-login.webp)
 
-1. In order to visualize the node metrics, select the gear icon for settings to configure the **Data Sources** first
+1. To visualize the node metrics, select the gear icon for settings to configure the **Data Sources** first
 ![2-add-data-source](/images/infrastructure/validator/operational-tasks/2-add-data-source.webp)
 2. Select **Add data source** to choose where the source for the data.
 ![2-add-data-source-2](/images/infrastructure/validator/operational-tasks/2-add-data-source-2.webp)
@@ -227,7 +227,7 @@ You can now access it by going to the `http://SERVER_IP_ADDRESS:3000/login`. The
 ![4-configure-data-source](/images/infrastructure/validator/operational-tasks/4-configure-data-source.webp)
 5. Next, select **Import** from the menu bar on the left to import the dashboard used to visualize your node data 
 ??? tip "Import via grafana.com" 
-    Allows you to use a dashboard another user created and made public. You can visit the [Grafana dashboards](https://grafana.com/grafana/dashboards){target=\_blank} page to see other available dashboards. For example, select the ["Substrate Node Metrics"](https://grafana.com/grafana/dashboards/21715-substrate-node-metrics/) dashboard and input "21715" under the `id` field and select **Load**
+    This tool allows you to use a dashboard that another user created and made public. You can visit the [Grafana dashboards](https://grafana.com/grafana/dashboards){target=\_blank} page to see other available dashboards. For example, select the ["Substrate Node Metrics"](https://grafana.com/grafana/dashboards/21715-substrate-node-metrics/) dashboard and input "21715" under the `id` field and select **Load**
 ![5-import-dashboard](/images/infrastructure/validator/operational-tasks/5-import-dashboard.webp)
 6. Once the dashboard is loaded, select **Prometheus** in the Prometheus dropdown list and select **Import**
 ![5-import-dashboard-2](/images/infrastructure/validator/operational-tasks/5-import-dashboard-2.webp)
@@ -236,18 +236,18 @@ You can now access it by going to the `http://SERVER_IP_ADDRESS:3000/login`. The
 
 ## Install and Configure Optional `Alertmanager`
 
-You can also configure the optional `Alertmanager` to help predict potential problems or notify you of an active problem with your server. You can receive alerts via Slack, email, Matrix, among other messaging services. You can configure email notifications to alert you if your node goes down. The following sections cover how to install and configure the `AlertManager`.
+You can also configure the optional `Alertmanager` to help predict potential problems or notify you of an active problem with your server. You can receive alerts via Slack, email, and Matrix among other messaging services. You can configure email notifications to alert you if your node goes down. The following sections cover how to install and configure the `AlertManager`.
 
-First, download the latest binary of `AlertManager` and unzip it by running the command below:
+First, download the latest binary of `AlertManager` and unzip it by running the following command:
 ```bash
 --8<-- 'code/infrastructure/validators/operational-tasks/monitor-node/unzip-alert-manager.md'
 ```
 
 ### Setup Gmail
 
-You will need to generate an `app password` in your Gmail account to allow AlertManager to send you alert notification emails. Visit Google support for more details on setting up your [`app password`](https://support.google.com/accounts/answer/185833?hl=en){target=\_blank}. 
+To use Gmail, you must generate an `app password` in your Gmail account to allow `AlertManager` to send you alert notification emails. Visit Google support for more details on setting up your [`app password`](https://support.google.com/accounts/answer/185833?hl=en){target=\_blank}. 
 
-Once you complete the setup, you should see something like below:
+Once you complete the setup, you should see something like the following:
 
 ![grafana-am-1](/images/infrastructure/validator/operational-tasks/1-alert-manager.webp)
 
@@ -282,7 +282,7 @@ Add the following code to the configuration file you just created:
 --8<-- 'code/infrastructure/validators/operational-tasks/monitor-node/systemd-alert-config.md'
 ```
 
-To the start the `Alertmanager`, run the following commands:
+To start the `Alertmanager`, run the following commands:
 
 ```
 sudo systemctl daemon-reload && sudo systemctl enable alertmanager && sudo systemctl start alertmanager && sudo systemctl status alertmanager
@@ -297,16 +297,15 @@ sudo systemctl daemon-reload && sudo systemctl enable alertmanager && sudo syste
    CGroup: /system.slice/alertmanager.service
 ```
 
-The `Active` field should display "active (running)" if you have configured the `AlertManager` properly.
+If you have configured the `AlertManager` properly, the `Active` field should display "active (running)."
 
-There is a `Alertmanager` plugin in Grafana that can help you to monitor the alert information. To
-install it, execute the command below:
+There is an `Alertmanager` plugin in Grafana that can help you monitor the alert information. To install the plugin, execute the followiing command:
 
 ``` bash
 sudo grafana-cli plugins install camptocamp-prometheus-alertmanager-datasource
 ```
 
-And restart Grafana once the plugin is successfully installed:
+Once you successfully install the plugin, restart Grafana:
 
 ``` bash
 sudo systemctl restart grafana-server
@@ -320,12 +319,11 @@ Go to **Configuration** -> **Data Sources**, and search for "Prometheus AlertMan
 
 ![grafana-am-2](/images/infrastructure/validator/operational-tasks/2-alert-manager.webp)
 
-Fill in the `URL` to your server location followed by the port number used in the `Alertmanager`. Select **Save & Test** at the bottom to test the connection.
+Fill in the URL to your server location followed by the port number used in the `Alertmanager`. Select **Save & Test** at the bottom to test the connection.
 
 ![grafana-am-3](/images/infrastructure/validator/operational-tasks/3-alert-manager.webp)
 
-To monitor the alerts, import the [8010](https://grafana.com/dashboards/8010){target=\_blank} dashboard which is
-used for `Alertmanager`. Make sure to select the **Prometheus AlertManage** in the last column then select **Import**.
+To monitor the alerts, import the [8010](https://grafana.com/dashboards/8010){target=\_blank} dashboard, which is used for `Alertmanager`. Make sure to select the **Prometheus AlertManage** in the last column then select **Import**.
 
 You will end up having the following:
 
@@ -345,8 +343,6 @@ To let the Prometheus server be able to talk to the AlertManager, add the follow
     ```
 
 Create a new file called `rules.yml` under `/etc/prometheus/` where you will define all the rules for detection and alerts. If any of the rules defined in this file is met, an alert will be triggered. The following rule checks whether the node instance is down. If it is down for more than 5 minutes, an email notification will be sent. If you would like to learn more about the details of the rule defining, see [Alerting Rules](https://prometheus.io/docs/prometheus/latest/configuration/alerting_rules/){target=\_blank} in the Prometheus documentation. You can also find more information on [additional alerts](https://awesome-prometheus-alerts.grep.to/rules.html){target=\_blank} you may find useful.
-
-<!-- TODO: fix weird formatting issue -->
 
 ``` yml
 --8<-- 'code/infrastructure/validators/operational-tasks/monitor-node/instance-down.yml'
@@ -370,6 +366,6 @@ Finally, restart everything by running:
 sudo systemctl restart prometheus && sudo systemctl restart alertmanager
 ```
 
-Now you will receive an alert on the AlertManager and Gmail similar to the one below if one of your target instances is down:
+Now you will receive an alert on the AlertManager and Gmail similar to the following example if one of your target instances is down:
 
 ![grafana-am-6](/images/infrastructure/validator/operational-tasks/6-alert-manager.webp)

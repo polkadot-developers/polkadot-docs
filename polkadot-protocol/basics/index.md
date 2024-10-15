@@ -1,7 +1,7 @@
 ---
-title: Learn about Parachains
+title: Basics
 description: TODO
 hide: 
-- feedback
+    - feedback
 template: subsection-index-page.html
 ---

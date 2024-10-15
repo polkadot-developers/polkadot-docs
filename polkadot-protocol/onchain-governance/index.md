@@ -1,7 +1,7 @@
 ---
-title: Learn about Polkadot's Interoperability
+title: On-Chain Governance
 description: TODO
 hide: 
-- feedback
+    - feedback
 template: subsection-index-page.html
 ---

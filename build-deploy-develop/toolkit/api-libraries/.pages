@@ -1,0 +1,7 @@
+title: API Libraries
+nav:
+  - index.md
+  - 'Polkadot.js SDK (JavaScript/TypeScript)': polkadot-js-sdk.md
+  - 'PAPI (JavaScript/TypeScript)': papi.md
+  - 'Sidecar (Rest API)': sidecar.md
+  - 'PY-Substrate-Interface (Python)': py-substrate-interface.md

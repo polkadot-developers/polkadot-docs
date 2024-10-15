@@ -18,9 +18,12 @@ This guide will provide an option for validators to seamlessly substitute an act
 
 ## Prerequisites
 
-Before continuining with this guide, ensure you have:
+Before continuing with this guide, ensure you have:
 
 <!--TODO: what should I have already read/done/installed before I go on? -->
+
+- A fully working validator setup, including all necessary binaries in accordance to [How to Validate](todo:add-link)
+- The capacity on your VPS to start a secondary validator for the upgrade process
 
 ## Key Components
 

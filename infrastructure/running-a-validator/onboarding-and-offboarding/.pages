@@ -1,0 +1,6 @@
+title: Onboarding and Offboarding
+nav:
+  - index.md
+  - 'Community Validator Program': community-validator-program.md
+  - 'Set Up a Validator': set-up-validator.md
+  - 'Stop Validating': stop-validating.md

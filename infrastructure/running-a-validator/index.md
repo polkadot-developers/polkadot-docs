@@ -1,7 +1,7 @@
 ---
-title: Run a Node
+title: Running a Validator
 description: TODO
 hide: 
-- feedback
+    - feedback
 template: subsection-index-page.html
 ---

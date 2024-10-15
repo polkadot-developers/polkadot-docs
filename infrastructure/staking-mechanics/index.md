@@ -1,7 +1,7 @@
 ---
-title: Run a Validator
+title: Staking Mechanics
 description: TODO
 hide: 
-- feedback
+    - feedback
 template: subsection-index-page.html
 ---

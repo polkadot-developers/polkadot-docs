@@ -1,7 +1,7 @@
 ---
-title: Validator Offboarding
+title: Running a Node
 description: TODO
 hide: 
-- feedback
+    - feedback
 template: subsection-index-page.html
 ---

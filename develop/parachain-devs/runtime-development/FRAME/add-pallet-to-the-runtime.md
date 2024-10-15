@@ -7,7 +7,7 @@ description: Learn how to include and configure pallets in a Polkadot SDK-based 
 
 ## Introduction
 
-As demonstrated in the [Build a Local Solochain](/tutorials/polkadot-sdk/build-a-blockchain/build-a-local-blockchain/){target=\_blank} guide, the [Polkadot SDK Solochain Template](https://github.com/paritytech/polkadot-sdk-solochain-template){target=\_blank} provides a functional runtime that includes default FRAME development modules—pallets—to help you get started with building a custom blockchain.
+As demonstrated in the [Build a Local Solochain](/tutorials/polkadot-sdk/build-a-blockchain/build-a-local-blockchain/){target=\_blank} guide, the [Polkadot SDK Solochain Template](https://github.com/paritytech/polkadot-sdk-solochain-template){target=\_blank} provides a functional runtime that includes default FRAME development modules (pallets) to help you get started with building a custom blockchain.
 
 This article outlines the basic steps for adding a new pallet to the runtime of the node template. These steps apply when integrating a FRAME pallet into your runtime. However, each pallet has specific configuration requirements, such as the parameters and types needed to enable the pallet's functionality. In this guide, you'll learn how to add a pallet to the runtime and configure the settings specific to that pallet. For instance, some pallets may allow users to interact with the blockchain by setting or modifying data, while others may manage transactions or permissions.
 
@@ -21,7 +21,7 @@ The purpose of this article is to help you:
 
 For Rust programs, this configuration is defined in the `Cargo.toml` file, which specifies the settings and dependencies that control what gets compiled into the final binary. Since the Polkadot SDK runtime compiles to both a native binary (which includes standard Rust library functions) and a Wasm binary (which does not include the standard Rust library), the `runtime/Cargo.toml` file manages two key aspects:
 
-- The pallets are imported as dependencies for the runtime, including their locations and versions
+- The locations and versions of the pallets that are to be imported as dependencies for the runtime
 - The features in each pallet that should be enabled when compiling the native Rust binary. By enabling the standard (`std`) feature set from each pallet, you ensure that the runtime includes the functions, types, and primitives necessary for the native build, which are otherwise excluded when compiling the Wasm binary
 
 !!! note
@@ -63,7 +63,7 @@ This section specifies the default feature set for the runtime, which includes t
 !!! note
     If you forget to update the features section in the `Cargo.toml` file, you might encounter `cannot find function` errors when compiling the runtime.
 
-To ensure that the new dependencies resolve correctly, you can run the following command:
+To ensure that the new dependencies resolve correctly for the runtime, you can run the following command:
 
 ```bash
 cargo check -p solochain-template-runtime --release
@@ -71,13 +71,13 @@ cargo check -p solochain-template-runtime --release
 
 ## Config Trait for Pallets
 
-Every Polkadot SDK pallet defines a [Rust trait](https://doc.rust-lang.org/book/ch10-02-traits.html){target=\_blank} called `Config`. This trait specifies the types and parameters that the pallet needs to integrate with the runtime and perform its functions. The primary purpose of this trait is to act as an interface between this pallet and the runtime in which it is embedded in. A type, function, or constant in this trait is essentially left to be configured by the runtime that includes this pallet.
+Every Polkadot SDK pallet defines a [Rust trait](https://doc.rust-lang.org/book/ch10-02-traits.html){target=\_blank} called `Config`. This trait specifies the types and parameters that the pallet needs to integrate with the runtime and perform its functions. The primary purpose of this trait is to act as an interface between this pallet and the runtime in which it is embedded. A type, function, or constant in this trait is essentially left to be configured by the runtime that includes this pallet.
 
 Consequently, a runtime that wants to include this pallet must implement this trait.
 
 You can inspect any pallet’s `Config` trait by reviewing its Rust documentation or source code. The `Config` trait ensures the pallet has access to the necessary types (like events, calls, or origins) and integrates smoothly with the rest of the runtime.
 
-At its core, the `Config` trait typically looks something like this:
+At its core, the `Config` trait typically looks like this:
 
 ```rust
 --8<-- 'code/develop/parachain-devs/runtime-development/FRAME/add-pallet-to-the-runtime/pallet-basic-config-trait.rs'

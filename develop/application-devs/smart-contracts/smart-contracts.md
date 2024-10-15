@@ -21,7 +21,7 @@ These two options also differ in how they handle fees. Smart contracts follow a 
 
 !!!info "Additional information" 
       - Refer to the [Runtime vs. Smart Contracts](https://paritytech.github.io/polkadot-sdk/master/polkadot_sdk_docs/reference_docs/runtime_vs_smart_contract/index.html){target=\_blank} section of the Polkadot SDK Rust docs
-      - A Stack Overflow post answers the question of when a developer might choose to develop a runtime versus a smart contract with more technical depth: [When should one build a Substrate (Polkadot SDK) runtime versus a Substrate (Polkadot SDK) smart contract?](https://stackoverflow.com/a/56041305){target=\_blank}
+      - Refer to this Stack Overflow post for a technically deeper discussion of when a developer might choose to develop a runtime versus a smart contract: [When should one build a Substrate (Polkadot SDK) runtime versus a Substrate (Polkadot SDK) smart contract?](https://stackoverflow.com/a/56041305){target=\_blank}
 
 ## Building a Smart Contract
 
@@ -45,9 +45,9 @@ The Contracts pallet ([`pallet_contracts`](https://docs.rs/pallet-contracts/late
 
 1. **Wasm** - the contracts pallet uses Wasm as its compilation target. Any language that compiles to Wasm could be used to write smart contracts. Nevertheless, it is better to have a dedicated domain-specific language, so Parity offers the [ink!](#ink) language
 
-2. **Deposit** - contracts must hold a deposit (named `_ContractDeposit_` ) suitably large enough to justify their existence on-chain. The developer must deposit this into the new contract on top of the `_ExistentialDeposit_`
+2. **Deposit** - contracts must hold a deposit (named `ContractDeposit` ) suitably large enough to justify their existence on-chain. The developer must deposit this into the new contract on top of the `ExistentialDeposit`
 
-3. **Caching** - contracts are cached by default, which means they only need to be deployed once and can be instantiated as many times as you want afterward. Caching helps minimize on-chain storage requirements. Additionally, contracts that are no longer in use and have an `_ExistentialDeposit_` balance of zero are erased from storage in a process called reaping
+3. **Caching** - contracts are cached by default, which means they only need to be deployed once and can be instantiated as many times as you want afterward. Caching helps minimize on-chain storage requirements. Additionally, contracts that are no longer in use and have an `ExistentialDeposit` balance of zero are erased from storage in a process called reaping
 
 ### ink!
 

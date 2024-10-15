@@ -13,9 +13,9 @@ The runtime in a Polkadot SDK-based blockchain acts as the core component, encap
 - Managing state transitions
 - Facilitating node interactions
 
-Polkadot SDK provides a comprehensive toolkit for constructing essential blockchain components, allowing developers to concentrate on crafting the specific runtime logic that defines their blockchain's unique behavior and capabilities.
+Polkadot SDK provides a comprehensive toolkit for constructing essential blockchain components, allowing developers to concentrate on crafting the specific runtime logic that defines their blockchain's unique set of usecases and capabilities.
 
-FRAME (Framework for Runtime Aggregation of Modularized Entities) is one of the most powerful tools available to you as a runtime developer. It consists of:
+FRAME (Framework for Runtime Aggregation of Modularized Entities) provides a robust collection of tools to facilitate Polkadot SDK-based blockchain development. It offers reusable modules and useful abstractions that streamline developers' development process. It consists of:
 
 - [Pallets](#pallets) - modular components containing specific blockchain logic
 - [Support libraries](#support-libraries) - tools and utilities to facilitate runtime development
@@ -38,7 +38,7 @@ Developers have the flexibility to implement any desired behavior in the core lo
 
 Each pallet communicates with the core client through a specific API, allowing the runtime to expose transactions, access storage, and encode/decode on-chain information.
 
-Pallets also include necessary wiring code to ensure proper integration and functionality within the node. FRAME provides a range of [pre-built pallets](https://github.com/paritytech/polkadot-sdk/tree/master/substrate/frame){target=\_blank} for common blockchain activities, including staking mechanisms, consensus algorithms, governance systems, and other standard operations. These pre-existing pallets serve as building blocks or templates, which developers can use as-is, modify, or reference when creating custom functionalities. 
+Pallets also include necessary wiring code to ensure proper integration and functionality within the node. FRAME provides a range of [pre-built pallets](https://github.com/paritytech/polkadot-sdk/tree/master/substrate/frame){target=\_blank} for standard and common blockchain functionalities, including consensus algorithms, staking mechanisms, governance systems, etc. These pre-existing pallets serve as building blocks or templates, which developers can use as-is, modify, or reference when creating custom functionalities. 
 
 #### Pallet Structure
 
@@ -86,7 +86,7 @@ These macros are applied as attributes to Rust modules, functions, structures, e
 In addition to pallets, FRAME provides services to interact with the runtime through the following libraries and modules:
 
 - [`frame_system` crate]() - provides low-level types, storage, and functions for the runtime
-- [frame_support crate]() - is a collection of Rust macros, types, traits, and modules that simplify the development of Substrate pallets
+- [`frame_support` crate]() - is a collection of Rust macros, types, traits, and modules that simplify the development of Substrate pallets
 - [`frame_executive` pallet]() - orchestrates the execution of incoming function calls to the respective pallets in the runtime
 
 ## Compose a Runtime with Pallets
@@ -106,5 +106,5 @@ This modular design allows developers to:
 
 For more detailed information on implementing this process, refer to the following sections:
 
-- [Add a Pallet to Your Runtime]()
-- [Create a Custom Pallet]()
+- [Add a Pallet to Your Runtime](TODO:update-path){target=\_blank}
+- [Create a Custom Pallet](TODO:update-path){target=\_blank}

@@ -29,7 +29,7 @@ For Rust programs, this configuration is defined in the `Cargo.toml` file, which
 
 ## Dependencies for a New Pallet
 
-To add the dependencies for a new pallet to the runtime, you need to modify the `Cargo.toml` file by adding a new line into the `[workspace.dependencies]` section with the pallet you want to add. Ensure that you stick to the following format:
+To add the dependencies for a new pallet to the runtime, you need to modify the `Cargo.toml` file by adding a new line into the `[workspace.dependencies]` section with the pallet you want to add. This pallet definition might look like:
 
 ```toml
 pallet-example = { version = "4.0.0-dev", default-features = false }
@@ -39,6 +39,27 @@ This line imports the pallet-example crate as a dependency and specifies the fol
 
 - `version` - the specific version of the crate to import
 - `default-features` - determines the behavior for including pallet features when compiling the runtime with standard Rust libraries
+
+!!! note
+    If you’re importing a pallet that isn’t available on [`crate.io`](https://crates.io/){target=\_blank}, you can specify the location of the pallet (either locally or from a remote repository) by using the `git` or `path` key. For example:
+
+    ```toml
+    pallet-example = { 
+        version = "4.0.0-dev",
+        default-features = false,
+        git = "INSERT_PALLET_REMOTE_URL",
+    }
+    ```
+
+    In this case, replace `INSERT_PALLET_REMOTE_URL` with the correct repository URL. For local paths, use the path key like so:
+
+    ```toml
+    pallet-example = { 
+        version = "4.0.0-dev",
+        default-features = false,
+        path = "relative/path/to/pallet",
+    }
+    ```
 
 Next, add this dependency to the `[dependencies]` section of the `runtime/Cargo.toml` file, so it inherits from the main `Cargo.toml` file:
 

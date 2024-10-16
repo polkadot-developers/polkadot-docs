@@ -1,5 +1,5 @@
 ---
-title: Add Pallet to the Runtime
+title: Add a Pallet to the Runtime
 description: Learn how to include and configure pallets in a Polkadot SDK-based runtime, from adding dependencies to implementing necessary traits.
 ---
 

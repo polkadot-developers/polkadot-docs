@@ -1,4 +1,4 @@
 ---
-title: Wallets
+title: Benchmarking
 description: TODO
 ---

@@ -1,4 +1,4 @@
 ---
-title: Wallets
+title: Runtime Upgrades
 description: TODO
 ---

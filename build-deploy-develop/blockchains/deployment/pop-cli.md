@@ -1,4 +1,4 @@
 ---
-title: Wallets
+title: POP CLI
 description: TODO
 ---

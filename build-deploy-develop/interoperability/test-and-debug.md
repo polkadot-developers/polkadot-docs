@@ -1,4 +1,4 @@
 ---
-title: Wallets
+title: Test and Debug
 description: TODO
 ---

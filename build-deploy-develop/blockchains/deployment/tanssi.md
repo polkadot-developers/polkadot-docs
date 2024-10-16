@@ -1,4 +1,4 @@
 ---
-title: Wallets
+title: Tanssi
 description: TODO
 ---

@@ -1,4 +1,4 @@
 ---
-title: Wallets
+title: Pallet Testing
 description: TODO
 ---

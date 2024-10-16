@@ -1,8 +1,8 @@
 title: Blockchains
 nav:
   - index.md
-  - 'Get Started': get-started.md
-  - 'Custom Blockchains': custom-blockchains.md
-  - 'Testing': testing.md
-  - 'Deployment': deployment.md
-  - 'Maintenance': maintenance.md
+  - get-started
+  - custom-blockchains
+  - testing
+  - deployment
+  - maintenance

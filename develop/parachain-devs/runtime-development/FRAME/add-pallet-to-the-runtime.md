@@ -9,7 +9,7 @@ description: Learn how to include and configure pallets in a Polkadot SDK-based 
 
 As demonstrated in the [Build a Local Solochain](/tutorials/polkadot-sdk/build-a-blockchain/build-a-local-blockchain/){target=\_blank} guide, the [Polkadot SDK Solochain Template](https://github.com/paritytech/polkadot-sdk-solochain-template){target=\_blank} provides a functional runtime that includes default FRAME development modules (pallets) to help you get started with building a custom blockchain.
 
-This article outlines the basic steps for adding a new pallet to the runtime of the node template. These steps apply when integrating a FRAME pallet into your runtime. However, each pallet has specific configuration requirements, such as the parameters and types needed to enable the pallet's functionality. In this guide, you'll learn how to add a pallet to the runtime and configure the settings specific to that pallet.
+Each pallet has specific configuration requirements, such as the parameters and types needed to enable the pallet's functionality. In this guide, you'll learn how to add a pallet to a runtime and configure the settings specific to that pallet.
 
 The purpose of this article is to help you:
 

@@ -1,3 +1,5 @@
+<!--TODO: delete this page => info now @ 
+/polkadot-protocol/architecture/polkadot-chain/pos-consensus.md-->
 ---
 title: Consensus Protocols
 description: Explore Polkadot’s consensus protocols for secure, scalable, and decentralized network operation, including NPoS, BABE, GRANDPA, and BEEFY.

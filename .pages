@@ -1,6 +1,6 @@
 nav:
   - index.md
-  - build-deploy-develop
+  - develop
   - infrastructure
   - polkadot-protocol
   - tutorials

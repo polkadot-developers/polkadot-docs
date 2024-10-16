@@ -71,7 +71,7 @@ cargo check -p solochain-template-runtime --release
 
 ## Config Trait for Pallets
 
-Every Polkadot SDK pallet defines a [Rust trait](https://doc.rust-lang.org/book/ch10-02-traits.html){target=\_blank} called `Config`. This trait specifies the types and parameters that the pallet needs to integrate with the runtime and perform its functions. The primary purpose of this trait is to act as an interface between this pallet and the runtime in which it is embedded. A type, function, or constant in this trait is essentially left to be configured by the runtime that includes this pallet.
+Every Polkadot SDK pallet defines a Rust trait called `Config`. This trait specifies the types and parameters that the pallet needs to integrate with the runtime and perform its functions. The primary purpose of this trait is to act as an interface between this pallet and the runtime in which it is embedded. A type, function, or constant in this trait is essentially left to be configured by the runtime that includes this pallet.
 
 Consequently, a runtime that wants to include this pallet must implement this trait.
 
@@ -112,7 +112,7 @@ To integrate a new pallet into the runtime, you need to implement its `Config` t
 --8<-- 'code/develop/parachain-devs/runtime-development/FRAME/add-pallet-to-the-runtime/impl-pallet-example-in-runtime.rs'
 ```
 
-Finally, to compose the runtime, update the list of pallets in the same file by modifying the [`#[frame_support::runtime]`](https://paritytech.github.io/polkadot-sdk/master/frame_support/attr.runtime.html){target=_blank} section. This [Rust macro](https://doc.rust-lang.org/book/ch19-06-macros.html){target=_blank} constructs the runtime with a specified name and the pallets you want to include. Use the following format when adding your pallet:
+Finally, to compose the runtime, update the list of pallets in the same file by modifying the [`#[frame_support::runtime]`](https://paritytech.github.io/polkadot-sdk/master/frame_support/attr.runtime.html){target=_blank} section. This Rust macro constructs the runtime with a specified name and the pallets you want to include. Use the following format when adding your pallet:
 
 ```rust
 --8<-- 'code/develop/parachain-devs/runtime-development/FRAME/add-pallet-to-the-runtime/frame-support-runtime-macro.rs'

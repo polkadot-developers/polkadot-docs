@@ -1,7 +1,7 @@
 ---
-title: Validator Onboarding
+title: Onboarding and Offboarding
 description: TODO
 hide: 
-- feedback
+    - feedback
 template: subsection-index-page.html
 ---

@@ -1,7 +1,7 @@
 ---
-title: Validator Operational Tasks
+title: Operational Tasks
 description: TODO
 hide: 
-- feedback
+    - feedback
 template: subsection-index-page.html
 ---

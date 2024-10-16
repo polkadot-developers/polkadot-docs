@@ -1,3 +1,5 @@
+<!--TODO: delete this page => info moved to 
+polkadot-protocol/polkadot-sdk.md-->
 ---
 title: Off-Chain Operations
 description: Overview of off-chain workers in the Polkadot SDK, including their structure and the basic operations you can perform using them.

@@ -1,7 +1,7 @@
 ---
-title: System Parachains on Polkadot
+title: Polkadot Chain
 description: TODO
 hide: 
-- feedback
+    - feedback
 template: subsection-index-page.html
 ---

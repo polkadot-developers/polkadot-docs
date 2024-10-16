@@ -1,7 +1,7 @@
 ---
-title: Learn about Polkadot Transactions
+title: Architecture
 description: TODO
 hide: 
-- feedback
+    - feedback
 template: subsection-index-page.html
 ---

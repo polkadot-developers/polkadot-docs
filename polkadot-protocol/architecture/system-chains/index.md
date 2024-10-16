@@ -1,7 +1,7 @@
 ---
-title: Learn about Polkadot Accounts
+title: System Chains
 description: TODO
 hide: 
-- feedback
+    - feedback
 template: subsection-index-page.html
 ---

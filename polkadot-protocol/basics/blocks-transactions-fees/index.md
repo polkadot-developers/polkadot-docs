@@ -1,7 +1,7 @@
 ---
-title: Protocol Operations
+title: Blocks, Transactions, and Fees
 description: TODO
 hide: 
-- feedback
+    - feedback
 template: subsection-index-page.html
 ---

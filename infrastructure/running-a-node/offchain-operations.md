@@ -1,13 +1,13 @@
+<!--TODO: delete this page => info moved to 
+polkadot-protocol/polkadot-sdk.md-->
 ---
-title: Polkadot SDK
-description: TODO
+title: Off-Chain Operations
+description: Overview of off-chain workers in the Polkadot SDK, including their structure and the basic operations you can perform using them.
 ---
 
-# Polkadot SDK
+# Off-Chain Operations
 
 ## Introduction
-
-## Off-Chain Operations
 
 Many use cases exist for querying data from an off-chain source or processing data using off-chain resources before updating the on-chain state. The conventional way of incorporating off-chain data involves connecting to oracles to supply the data from some traditional source. Although using oracles is one approach to working with off-chain data sources, there are limitations to the security, scalability, and infrastructure efficiency that oracles can provide.
 
@@ -28,7 +28,7 @@ To make off-chain data integration more secure and efficient, the Polkadot SDK s
 
 - [`Indexing`](#off-chain-indexing) - off-chain indexing is an optional service that allows the runtime to write directly to off-chain storage independently from off-chain workers. The off-chain index provides temporary storage for on-chain logic and complements the on-chain state
 
-### Off-Chain Workers Structure
+## Off-Chain Workers Structure
 
 Off-chain workers run in their own Wasm execution environment outside of the Polkadot SDK runtime. This separation of concerns ensures that long-running off-chain tasks do not impact block production. However, because chain workers are declared in the same code as the runtime, they can easily access the on-chain state for their computations.
 
@@ -94,14 +94,14 @@ Additionally, off-chain workers don't have special permissions by default, which
 
 Finally, off-chain workers are triggered during block imports but aren't run during initial chain synchronization.
 
-### Off-Chain Storage
+## Off-Chain Storage
 
 Off-chain storage in the Polkadot SDK is local to individual nodes, not shared across the network or subject to consensus. It can be accessed by off-chain workers or through on-chain logic using off-chain indexing. Since multiple off-chain worker threads may run concurrently, a [mutex lock](https://en.wikipedia.org/wiki/Lock_(computer_science)){target=\_blank} ensures data consistency when threads access storage. Off-chain storage acts as a bridge between off-chain workers and on-chain logic, and it can be read using RPC, making it ideal for storing large, growing datasets without burdening on-chain storage.
 
-### Off-Chain Indexing
+## Off-Chain Indexing
 
 While on-chain storage is expensive and limited, off-chain indexing allows efficient access to historical or user-generated data without using off-chain worker threads. By using the `--enable-offchain-indexing` option when starting the Polkadot SDK node, data is consistently written to off-chain storage each time a block is processed. This approach ensures that off-chain data is synchronized across all nodes with indexing enabled.
 
-### Further Resources
+## Further Resources
 
 Refer to the [Polkadot SDK documentation](https://paritytech.github.io/polkadot-sdk/master/polkadot_sdk_docs/reference_docs/frame_offchain_workers/index.html){target=\_blank} for more in-depth details on the implementation of off-chain workers.

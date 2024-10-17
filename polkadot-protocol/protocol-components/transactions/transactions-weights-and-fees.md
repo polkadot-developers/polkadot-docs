@@ -7,7 +7,7 @@ description: Overview of transaction weights and fees in Polkadot SDK chains, de
 
 ## Introductions
 
-When transactions are executed, or data is stored on-chain, the activity changes the state of the chain and consumes blockchain resources. Because the resources available to a blockchain are limited, it’s important to manage how operations on-chain consume them. In addition to being limited in practical terms, such as storage capacity, blockchain resources represent a potential attack vector for malicious users. For example, a malicious user might attempt to overload the network with messages to stop the network from producing new blocks. To protect blockchain resources from being drained or overloaded, you need to manage how they are made available and how they are consumed. The resources to be aware of include:
+When transactions are executed, or data is stored on-chain, the activity changes the chain's state and consumes blockchain resources. Because the resources available to a blockchain are limited, managing how operations on-chain consume them is important. In addition to being limited in practical terms, such as storage capacity, blockchain resources represent a potential attack vector for malicious users. For example, a malicious user might attempt to overload the network with messages to stop the network from producing new blocks. To protect blockchain resources from being drained or overloaded, you need to manage how they are made available and how they are consumed. The resources to be aware of include:
 
 - Memory usage
 - Storage input and output
@@ -17,7 +17,7 @@ When transactions are executed, or data is stored on-chain, the activity changes
 
 The Polkadot SDK provides block authors with several ways to manage access to resources and to prevent individual components of the chain from consuming too much of any single resource. Two of the most important mechanisms available to block authors are weights and transaction fees.
 
-[Weights](TODO:update-path){target=\_blank} manage the time it takes to validate a block and characterize the time it takes to execute the calls in the block’s body. By controlling the execution time that a block can consume, weights set limits on storage input, output, and computation.
+[Weights](TODO:update-path){target=\_blank} manage the time it takes to validate a block and characterize the time it takes to execute the calls in the block's body. By controlling the execution time a block can consume, weights set limits on storage input, output, and computation.
 
 Some of the weight allowed for a block is consumed as part of the block's initialization and finalization. The weight might also be used to execute mandatory inherent extrinsic calls. To help ensure blocks don’t consume too much execution time and prevent malicious users from overloading the system with unnecessary calls, weights are combined with transaction fees.
 
@@ -27,14 +27,14 @@ Some of the weight allowed for a block is consumed as part of the block's initia
 
 The final fee for a transaction is calculated using the following parameters:
 
-- `base fee` - this is the minimum amount a user pays for a transaction. It is declared a base weight in the runtime and converted to a fee using the [`WeightToFee`](https://github.com/paritytech/polkadot-sdk/blob/master/substrate/primitives/weights/src/lib.rs#L172){target=\_blank} conversion
-- `weight fee` - a fee proportional to the execution time (input and output and computation) that a transaction consumes
-- `length fee` - a fee proportional to the encoded length of the transaction
-- `tip` - an optional tip to increase the transaction’s priority, giving it a higher chance to be included in the transaction queue
+- **`base fee`** - this is the minimum amount a user pays for a transaction. It is declared a base weight in the runtime and converted to a fee using the [`WeightToFee`](https://github.com/paritytech/polkadot-sdk/blob/master/substrate/primitives/weights/src/lib.rs#L172){target=\_blank} conversion
+- **`weight fee`** - a fee proportional to the execution time (input and output and computation) that a transaction consumes
+- **`length fee`** - a fee proportional to the encoded length of the transaction
+- **`tip`** - an optional tip to increase the transaction’s priority, giving it a higher chance to be included in the transaction queue
 
 The base fee and proportional weight and length fees constitute the inclusion fee. The inclusion fee is the minimum fee that must be available for a transaction to be included in a block.
 
-```
+```text
 inclusion fee = base fee + weight fee + length fee
 ```
 
@@ -81,8 +81,8 @@ The Polkadot SDK doesn't enforce this rollback behavior. However, this scenario 
 
 ### Fee Multipliers
 
-The inclusion fee formula always results in the same fee for the same input. However, weight can be dynamic and—based on how [WeightToFee](https://github.com/paritytech/polkadot-sdk/blob/master/substrate/frame/transaction-payment/src/lib.rs#L357){target=\_blank} is defined—the final fee can include some degree of variability.
-The Transaction Payment pallet provides the [FeeMultiplierUpdate](https://github.com/paritytech/polkadot-sdk/blob/master/substrate/frame/transaction-payment/src/lib.rs#L364){target=\_blank} configurable parameter to account for this variability.
+The inclusion fee formula always results in the same fee for the same input. However, weight can be dynamic and—based on how [`WeightToFee`](https://github.com/paritytech/polkadot-sdk/blob/master/substrate/frame/transaction-payment/src/lib.rs#L357){target=\_blank} is defined—the final fee can include some degree of variability.
+The Transaction Payment pallet provides the [`FeeMultiplierUpdate`](https://github.com/paritytech/polkadot-sdk/blob/master/substrate/frame/transaction-payment/src/lib.rs#L364){target=\_blank} configurable parameter to account for this variability.
 
 The Polkadot network inspires the default update function and implements a targeted adjustment in which a target saturation level of block weight is defined. If the previous block is more saturated, the fees increase slightly. Similarly, if the last block has fewer transactions than the target, fees are decreased by a small amount. For more information about fee multiplier adjustments, see the [Web3 Research Page](https://research.web3.foundation/Polkadot/overview/token-economics#relay-chain-transaction-fees-and-per-block-transaction-limits){target=\_blank}.
 
@@ -92,7 +92,7 @@ Inclusion fees must be computable before execution and can only represent fixed 
 
 - Bonds are a type of fee that might be returned or slashed after some on-chain event. For example, you might want to require users to place a bond to participate in a vote. The bond might then be returned at the end of the referendum or slashed if the voter attempted malicious behavior
 - Deposits are fees that might be returned later. For example, you might require users to pay a deposit to execute an operation that uses storage. The user’s deposit could be returned if a subsequent operation frees up storage
-- Burn operations are used to pay for a transaction based on its internal logic. For example, a transaction might burn funds from the sender if the transaction creates new storage items to pay for the increased the state size
+- Burn operations are used to pay for a transaction based on its internal logic. For example, a transaction might burn funds from the sender if the transaction creates new storage items to pay for the increased state size
 - Limits enable you to enforce constant or configurable limits on specific operations. For example, the default [Staking pallet](https://github.com/paritytech/polkadot-sdk/tree/master/substrate/frame/staking){target=\_blank} only allows nominators to nominate 16 validators to limit the complexity of the validator election process
 
 It is important to note that if you query the chain for a transaction fee, it only returns the inclusion fee.
@@ -130,7 +130,7 @@ Dispatches are broken into three classes:
 - Operational
 - Mandatory
 
-If a dispatch is not defined as Operational or Mandatory in the weight annotation, the dispatch is identified as Normal by default. You can specify that the dispatchable uses another class like this:
+If a dispatch is not defined as `Operational` or `Mandatory` in the weight annotation, the dispatch is identified as `Normal` by default. You can specify that the dispatchable uses another class like this:
 
 ```rust
 --8<-- 'code/polkadot-protocol/trasactions/transactions-weights-and-fees/operational-dispatch.rs'
@@ -186,7 +186,7 @@ Instead of using the default weight annotations, you can create a custom weight 
 - [`ClassifyDispatch<T>`](https://crates.parity.io/frame_support/weights/trait.ClassifyDispatch.html){target=\_blank} to determine the class of the dispatch
 - [`PaysFee<T>`](https://crates.parity.io/frame_support/weights/trait.PaysFee.html){target=\_blank} to determine whether the sender of the dispatch pays fees
  
-The Polkadot SDK then bundles the output information of the three traits into the [`DispatchInfo`](https://paritytech.github.io/polkadot-sdk/master/frame_support/dispatch/struct.DispatchInfo.html){target=\_blank} struct and provides it by implementing the [`GetDispatchInfo`](https://docs.rs/frame-support/latest/frame_support/dispatch/trait.GetDispatchInfo.html){target=\_blank} for all Call variants and opaque extrinsic types. This is used internally by the System and Executive modules.
+The Polkadot SDK then bundles the output information of the three traits into the [`DispatchInfo`](https://paritytech.github.io/polkadot-sdk/master/frame_support/dispatch/struct.DispatchInfo.html){target=\_blank} struct and provides it by implementing the [`GetDispatchInfo`](https://docs.rs/frame-support/latest/frame_support/dispatch/trait.GetDispatchInfo.html){target=\_blank} for all `Call` variants and opaque extrinsic types. This is used internally by the System and Executive modules.
 
 `ClassifyDispatch`, `WeighData`, and `PaysFee` are generic over T, which gets resolved into the tuple of all dispatch arguments except for the origin. The following example illustrates a struct that calculates the weight as `m * len(args)`, where `m` is a given multiplier and args is the concatenated tuple of all dispatch arguments. In this example, the dispatch class is `Operational` if the transaction has more than 100 bytes of length in arguments and will pay fees if the encoded length exceeds 10 bytes.
 
@@ -215,6 +215,6 @@ The following example illustrates how to customize your inclusion fee. You must 
 You now know the weight system, how it affects transaction fee computation, and how to specify weights for your dispatchable calls. The next step is determining the correct weight for your dispatchable operations. You can use Substrate benchmarking functions and frame-benchmarking calls to test your functions with different parameters and empirically determine the proper weight in their worst-case scenarios. 
 
 - [Benchmark](TODO:update-path){target=\_blank}
-- [SignedExtension](https://paritytech.github.io/polkadot-sdk/master/sp_runtime/traits/trait.SignedExtension.html){target=\_blank}
+- [`SignedExtension`](https://paritytech.github.io/polkadot-sdk/master/sp_runtime/traits/trait.SignedExtension.html){target=\_blank}
 - [Custom weights for the Example pallet](https://github.com/paritytech/polkadot-sdk/blob/master/substrate/frame/examples/basic/src/weights.rs){target=\_blank}
 - [Web3 Foundation Research](https://research.web3.foundation/Polkadot/overview/token-economics#relay-chain-transaction-fees-and-per-block-transaction-limits){target=\_blank}

@@ -54,11 +54,15 @@ You can learn more about these configuration traits in the [Transaction Payment
 
 The formula for calculating the inclusion fee is as follows:
 
-`inclusion_fee = base_fee + length_fee + [targeted_fee_adjustment * weight_fee]`
+```text
+inclusion_fee = base_fee + length_fee + [targeted_fee_adjustment * weight_fee]
+```
 
 And then, for calculating the final fee:
 
-`final_fee = inclusion_fee + tip`
+```text
+final_fee = inclusion_fee + tip
+```
 
 In the first formula, the `targeted_fee_adjustment` is a multiplier that can tune the final fee based on the network’s congestion.
 

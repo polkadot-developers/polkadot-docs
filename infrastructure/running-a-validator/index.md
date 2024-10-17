@@ -1,5 +1,5 @@
 ---
-title: Learn about Polkadot Protocol
+title: Running a Validator
 description: TODO
 hide: 
     - feedback

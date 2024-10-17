@@ -1,5 +1,5 @@
 ---
-title: Learn about Polkadot Protocol
+title: Architecture
 description: TODO
 hide: 
     - feedback

@@ -1,5 +1,5 @@
 ---
-title: Learn about Polkadot Protocol
+title: Staking Mechanics
 description: TODO
 hide: 
     - feedback

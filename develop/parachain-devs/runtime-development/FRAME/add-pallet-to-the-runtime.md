@@ -66,7 +66,7 @@ This line imports the pallet-example crate as a dependency and specifies the fol
 Next, add this dependency to the `[dependencies]` section of the `runtime/Cargo.toml` file, so it inherits from the main `Cargo.toml` file:
 
 ```toml
-pallet-indices.workspace = true
+pallet-examples.workspace = true
 ```
 
 To enable the `std` feature of the pallet, add the pallet to the following section:

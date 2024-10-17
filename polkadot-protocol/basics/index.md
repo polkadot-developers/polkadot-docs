@@ -1,5 +1,5 @@
 ---
-title: Learn about Polkadot Protocol
+title: Basics
 description: TODO
 hide: 
     - feedback

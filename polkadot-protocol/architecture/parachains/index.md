@@ -1,5 +1,5 @@
 ---
-title: Learn about Polkadot Protocol
+title: Parachains
 description: TODO
 hide: 
     - feedback

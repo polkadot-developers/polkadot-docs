@@ -5,3 +5,4 @@ nav:
   - tooling
   - system-parachains
   - 'Troubleshooting Errors': 'debugging-errors.md'
+  - smart-contracts

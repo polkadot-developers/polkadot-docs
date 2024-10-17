@@ -1,5 +1,5 @@
 ---
-title: Learn about Polkadot Protocol
+title: Polkadot Chain
 description: TODO
 hide: 
     - feedback

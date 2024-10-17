@@ -1,5 +1,5 @@
 ---
-title: Learn about Polkadot Protocol
+title: On-Chain Governance
 description: TODO
 hide: 
     - feedback

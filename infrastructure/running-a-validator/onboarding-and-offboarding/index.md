@@ -1,5 +1,5 @@
 ---
-title: Learn about Polkadot Protocol
+title: Onboarding and Offboarding
 description: TODO
 hide: 
     - feedback

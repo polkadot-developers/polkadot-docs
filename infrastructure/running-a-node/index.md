@@ -1,5 +1,5 @@
 ---
-title: Learn about Polkadot Protocol
+title: Running a Node
 description: TODO
 hide: 
     - feedback

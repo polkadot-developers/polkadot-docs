@@ -27,7 +27,7 @@ Some of the weight allowed for a block is consumed as part of the block's initia
 
 The final fee for a transaction is calculated using the following parameters:
 
-- **`base fee`** - this is the minimum amount a user pays for a transaction. It is declared a base weight in the runtime and converted to a fee using the [`WeightToFee`](https://github.com/paritytech/polkadot-sdk/blob/master/substrate/primitives/weights/src/lib.rs#L172){target=\_blank} conversion
+- **`base fee`** - this is the minimum amount a user pays for a transaction. It is declared a base weight in the runtime and converted to a fee using the [`WeightToFee`](https://docs.rs/pallet-transaction-payment/latest/pallet_transaction_payment/pallet/trait.Config.html#associatedtype.WeightToFee){target=\_blank} conversion
 - **`weight fee`** - a fee proportional to the execution time (input and output and computation) that a transaction consumes
 - **`length fee`** - a fee proportional to the encoded length of the transaction
 - **`tip`** - an optional tip to increase the transaction’s priority, giving it a higher chance to be included in the transaction queue
@@ -44,9 +44,9 @@ Transaction fees are withdrawn before the transaction is executed. After the tra
 
 The [Transaction Payment pallet](https://github.com/paritytech/polkadot-sdk/tree/master/substrate/frame/transaction-payment){target=\_blank} provides the basic logic for calculating the inclusion fee. You can also use the Transaction Payment pallet to:
 
-- Convert a weight value into a deductible fee based on a currency type using [`Config::WeightToFee`](https://github.com/paritytech/polkadot-sdk/blob/master/substrate/frame/transaction-payment/src/lib.rs#L357){target=\_blank}
-- Update the fee for the next block by defining a multiplier based on the chain’s final state at the end of the previous block using [`Config::FeeMultiplierUpdate`](https://github.com/paritytech/polkadot-sdk/blob/master/substrate/frame/transaction-payment/src/lib.rs#L364){target=\_blank}
-- Manage the withdrawal, refund, and deposit of transaction fees using [`Config::OnChargeTransaction`](https://github.com/paritytech/polkadot-sdk/blob/master/substrate/frame/transaction-payment/src/lib.rs#L353){target=\_blank}
+- Convert a weight value into a deductible fee based on a currency type using [`Config::WeightToFee`](https://docs.rs/pallet-transaction-payment/latest/pallet_transaction_payment/pallet/trait.Config.html#associatedtype.WeightToFee){target=\_blank}
+- Update the fee for the next block by defining a multiplier based on the chain’s final state at the end of the previous block using [`Config::FeeMultiplierUpdate`](https://docs.rs/pallet-transaction-payment/latest/pallet_transaction_payment/pallet/trait.Config.html#associatedtype.FeeMultiplierUpdate){target=\_blank}
+- Manage the withdrawal, refund, and deposit of transaction fees using [`Config::OnChargeTransaction`](https://docs.rs/pallet-transaction-payment/latest/pallet_transaction_payment/pallet/trait.Config.html#associatedtype.OnChargeTransaction){target=\_blank}
 
 You can learn more about these configuration traits in the [Transaction Payment documentation](https://paritytech.github.io/polkadot-sdk/master/pallet_transaction_payment/index.html){target=\_blank}.
 
@@ -72,7 +72,7 @@ In the first formula, the `targeted_fee_adjustment` is a multiplier that can t
   - The `ExtrinsicBaseWeight` that is declared in the runtime and applies to all extrinsics
   - The `#[pallet::weight]` annotation that accounts for an extrinsic's complexity
 
-To convert the weight to `Currency`, the runtime must define a `WeightToFee` struct that implements a conversion function, [`Convert<Weight,Balance>`](https://github.com/paritytech/polkadot-sdk/blob/master/substrate/frame/transaction-payment/src/lib.rs#L664){target=\_blank}.
+To convert the weight to `Currency`, the runtime must define a `WeightToFee` struct that implements a conversion function, [`Convert<Weight,Balance>`](https://docs.rs/pallet-transaction-payment/latest/pallet_transaction_payment/pallet/struct.Pallet.html#method.weight_to_fee){target=\_blank}.
 
 Note that the extrinsic sender is charged the inclusion fee before the extrinsic is invoked. The fee is deducted from the sender's balance even if the transaction fails upon execution.
 
@@ -84,8 +84,8 @@ The Polkadot SDK doesn't enforce this rollback behavior. However, this scenario 
 
 ### Fee Multipliers
 
-The inclusion fee formula always results in the same fee for the same input. However, weight can be dynamic and—based on how [`WeightToFee`](https://github.com/paritytech/polkadot-sdk/blob/master/substrate/frame/transaction-payment/src/lib.rs#L357){target=\_blank} is defined—the final fee can include some degree of variability.
-The Transaction Payment pallet provides the [`FeeMultiplierUpdate`](https://github.com/paritytech/polkadot-sdk/blob/master/substrate/frame/transaction-payment/src/lib.rs#L364){target=\_blank} configurable parameter to account for this variability.
+The inclusion fee formula always results in the same fee for the same input. However, weight can be dynamic and—based on how [`WeightToFee`](https://docs.rs/pallet-transaction-payment/latest/pallet_transaction_payment/pallet/trait.Config.html#associatedtype.WeightToFee){target=\_blank} is defined—the final fee can include some degree of variability.
+The Transaction Payment pallet provides the [`FeeMultiplierUpdate`](https://docs.rs/pallet-transaction-payment/latest/pallet_transaction_payment/pallet/trait.Config.html#associatedtype.FeeMultiplierUpdate){target=\_blank} configurable parameter to account for this variability.
 
 The Polkadot network inspires the default update function and implements a targeted adjustment in which a target saturation level of block weight is defined. If the previous block is more saturated, the fees increase slightly. Similarly, if the last block has fewer transactions than the target, fees are decreased by a small amount. For more information about fee multiplier adjustments, see the [Web3 Research Page](https://research.web3.foundation/Polkadot/overview/token-economics#relay-chain-transaction-fees-and-per-block-transaction-limits){target=\_blank}.
 
@@ -168,6 +168,7 @@ In addition to purely fixed weights and constants, the weight calculation can co
 
 ```rust
 --8<-- 'code/polkadot-protocol/trasactions/transactions-weights-and-fees/dynamic-weight.rs'
+```
 
 ## Post Dispatch Weight Correction
 

@@ -1,7 +1,7 @@
 ---
-title: Develop
+title: Integrations
 description: TODO
 hide: 
-- feedback
+    - feedback
 template: subsection-index-page.html
 ---

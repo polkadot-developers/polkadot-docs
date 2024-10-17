@@ -1,0 +1,8 @@
+title: Custom Blockchains
+nav:
+  - index.md
+  - 'Overview': overview.md
+  - 'Add Existing Pallets': add-existing-pallets.md
+  - 'Make a Custom Pallet': make-custom-pallet.md
+  - 'Pallet Testing': pallet-testing.md
+  - 'Benchmarking': benchmarking.md

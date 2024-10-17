@@ -38,8 +38,7 @@ The base fee and proportional weight and length fees constitute the inclusion f
 inclusion fee = base fee + weight fee + length fee
 ```
 
-Transaction fees are withdrawn before the transaction is executed. After the transaction is executed, the weight can be adjusted to reflect the actual resources used. If a transaction uses fewer resources than expected, the transaction fee is corrected, and the adjusted transaction fee is deposited.
-
+Transaction fees are withdrawn before the transaction is executed. After the transaction is executed, the weight can be adjusted to reflect the resources used. If a transaction uses fewer resources than expected, the transaction fee is corrected, and the adjusted transaction fee is deposited.
 
 ## Using the Transaction Payment Pallet
 

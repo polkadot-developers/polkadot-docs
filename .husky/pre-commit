@@ -1,6 +1,22 @@
 #!/bin/sh
 . "$(dirname "$0")/_/husky.sh"
 
+# Run the Node.js script that processes HTML files in the snippets directory
+echo "Running HTML whitespace check..."
+
+# Check for Node.js and abort commit if not available
+if ! command -v node >/dev/null 2>&1; then
+  echo "Node.js is required but not installed. Aborting commit."
+  exit 1
+fi
+
+# Call the Node.js script
+node ./.husky/html-whitespace.js
+
+# Automatically add any modified files back to the commit
+git add -u
+
+# Run code formatters
 echo "Running Prettier on .snippets/code/**/*.{js,json,html}"
 npx prettier --write .snippets/code/**/*.{js,json,html}
 

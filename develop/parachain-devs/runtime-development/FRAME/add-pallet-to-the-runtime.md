@@ -89,7 +89,7 @@ This section specifies the default feature set for the runtime, which includes t
 To ensure that the new dependencies resolve correctly for the runtime, you can run the following command:
 
 ```bash
-cargo check -p solochain-template-runtime --release
+cargo check --release
 ```
 
 ## Config Trait for Pallets

@@ -46,27 +46,7 @@ This section will guide you through the initial steps of creating the foundation
     Add the core dependencies required for FRAME pallet development. Open the `Cargo.toml` file and update it as follows:
 
     ```toml
-    [package]
-    name = "custom-pallet"
-    version = "0.1.0"
-    edition = "2021"
-    
-    [dependencies]
-    frame-support = { version = "37.0.0", default-features = false }
-    frame-system = { version = "37.0.0", default-features = false }
-    codec = { version = "3.6.12", default-features = false, package = "parity-scale-codec", features = ["derive"] }
-    scale-info = { version = "2.11.1", default-features = false, features = ["derive"] }
-    sp-runtime = { version = "39.0.0", default-features = false }
-
-    [features]
-    default = ["std"]
-    std = [
-        "frame-support/std",
-        "frame-system/std",
-        "codec/std",
-        "scale-info/std",
-        "sp-runtime/std",
-    ]
+    --8<-- 'code/develop/parachain-devs/runtime-development/FRAME/create-custom-pallet/Cargo.toml'
     ```
 
     !!!note
@@ -86,22 +66,7 @@ This section will guide you through the initial steps of creating the foundation
     After setting up the project and configuring dependencies, the next step is to prepare the basic structure of your pallet in the `lib.rs` file. Open the `src/lib.rs` file in your project, remove all existing content and copy and paste the following scaffold code:
 
     ```rust
-    pub use pallet::*;
-
-    #[frame_support::pallet]
-    pub mod pallet {
-        use frame_support::pallet_prelude::*;
-        use frame_system::pallet_prelude::*;
-
-        #[pallet::pallet]
-        pub struct Pallet<T>(_);
-
-        #[pallet::config]  // snip
-        #[pallet::event]   // snip
-        #[pallet::error]   // snip
-        #[pallet::storage] // snip
-        #[pallet::call]    // snip
-    }
+    --8<-- 'code/develop/parachain-devs/runtime-development/FRAME/create-custom-pallet/barebone-pallet-template.rs'
     ```
 
     With this scaffold in place, you're ready to start implementing the specific logic and features of your custom pallet. The subsequent sections of this guide will walk you through populating each of these components with the necessary code for your pallet's functionality.
@@ -115,13 +80,7 @@ In this step, you'll configure the pallet to emit events.
 Replace the line containing the [`#[pallet::config]`](https://paritytech.github.io/polkadot-sdk/master/frame_support/pallet_macros/attr.config.html){target=\_blank} macro with the following code block:
 
 ```rust
-#[pallet::config]
-pub trait Config: frame_system::Config {
-    /// The overarching runtime event type.
-    type RuntimeEvent: From<Event<Self>> + IsType<<Self as frame_system::Config>::RuntimeEvent>;
-    /// A type representing the weights required by the dispatchables of this pallet.
-    type WeightInfo: WeightInfo;
-}
+--8<-- 'code/develop/parachain-devs/runtime-development/FRAME/create-custom-pallet/pallet-config.rs'
 ```
 
 ## Pallet Events
@@ -135,17 +94,7 @@ This step adds an event called `SomethingStored`, which is triggered when a user
 To define events, replace the [`#[pallet::event]`](https://paritytech.github.io/polkadot-sdk/master/frame_support/pallet_macros/attr.event.html){target=\_blank} line with the following code block:
 
 ```rust
-#[pallet::event]
-#[pallet::generate_deposit(pub(super) fn deposit_event)]
-pub enum Event<T: Config> {
-    /// A user has successfully set a new value.
-    SomethingStored {
-        /// The new value set.
-        something: u32,
-        /// The account who set the new value.
-        who: T::AccountId,
-    },
-}
+--8<-- 'code/develop/parachain-devs/runtime-development/FRAME/create-custom-pallet/pallet-event.rs'
 ```
 
 ## Pallet Errors
@@ -159,13 +108,7 @@ This step defines two basic errors: one for handling cases where no value has be
 To define errors, replace the [`#[pallet::error]`](https://paritytech.github.io/polkadot-sdk/master/frame_support/pallet_macros/attr.error.html){target=\_blank} line with the following code block:
 
 ```rust
-#[pallet::error]
-pub enum Error<T> {
-    /// The value retrieved was `None` as no value was previously set.
-    NoneValue,
-    /// There was an attempt to increment the value in storage over `u32::MAX`.
-    StorageOverflow,
-}
+--8<-- 'code/develop/parachain-devs/runtime-development/FRAME/create-custom-pallet/pallet-error.rs'
 ```
 
 ## Pallet Storage
@@ -177,8 +120,7 @@ This step adds a simple storage item, `Something`, which stores a single `u32` v
 To define storage, replace the [`#[pallet::storage]`](https://paritytech.github.io/polkadot-sdk/master/frame_support/pallet_macros/attr.storage.html){target=\_blank} line with the following code block:
 
 ```rust
-#[pallet::storage]
-pub type Something<T> = StorageValue<_, u32>;
+--8<-- 'code/develop/parachain-devs/runtime-development/FRAME/create-custom-pallet/pallet-storage.rs'
 ```
 
 ## Pallet Dispatchable Extrinsics
@@ -197,44 +139,7 @@ This section adds two dispatchable functions:
 To implement these calls, replace the [`#[pallet::call]`](https://paritytech.github.io/polkadot-sdk/master/frame_support/pallet_macros/attr.call.html){target=\_blank} line with the following code block:
 
 ```rust
-#[pallet::call]
-impl<T: Config> Pallet<T> {
-    #[pallet::call_index(0)]
-    #[pallet::weight(Weight::default())]
-    pub fn do_something(origin: OriginFor<T>, something: u32) -> DispatchResult {
-        // Check that the extrinsic was signed and get the signer.
-        let who = ensure_signed(origin)?;
-
-        // Update storage.
-        Something::<T>::put(something);
-
-        // Emit an event.
-        Self::deposit_event(Event::SomethingStored { something, who });
-
-        // Return a successful `DispatchResult`
-        Ok(())
-    }
-
-    #[pallet::call_index(1)]
-    #[pallet::weight(Weight::default())]
-    pub fn cause_error(origin: OriginFor<T>) -> DispatchResult {
-        let _who = ensure_signed(origin)?;
-
-        // Read a value from storage.
-        match Something::<T>::get() {
-            // Return an error if the value has not been set.
-            None => Err(Error::<T>::NoneValue.into()),
-            Some(old) => {
-                // Increment the value read from storage. This will cause an error in the event
-                // of overflow.
-                let new = old.checked_add(1).ok_or(Error::<T>::StorageOverflow)?;
-                // Update the value in storage with the incremented result.
-                Something::<T>::put(new);
-                Ok(())
-            },
-        }
-    }
-}
+--8<-- 'code/develop/parachain-devs/runtime-development/FRAME/create-custom-pallet/pallet-call.rs'
 ```
 
 ## Pallet Implementation Overview
@@ -243,86 +148,7 @@ After following all the previous steps, the pallet is now fully implemented. Bel
 
 ???code
     ```rust
-    pub use pallet::*;
-
-    #[frame_support::pallet]
-    pub mod pallet {
-        use frame_support::pallet_prelude::*;
-        use frame_system::pallet_prelude::*;
-
-        #[pallet::pallet]
-        pub struct Pallet<T>(_);
-
-        #[pallet::config]
-        pub trait Config: frame_system::Config {
-            /// The overarching runtime event type.
-            type RuntimeEvent: From<Event<Self>> + IsType<<Self as frame_system::Config>::RuntimeEvent>;
-            // /// A type representing the weights required by the dispatchables of this pallet.
-            // type WeightInfo: WeightInfo;
-        }
-
-        #[pallet::event]
-        #[pallet::generate_deposit(pub(super) fn deposit_event)]
-        pub enum Event<T: Config> {
-            /// A user has successfully set a new value.
-            SomethingStored {
-                /// The new value set.
-                something: u32,
-                /// The account who set the new value.
-                who: T::AccountId,
-            },
-        }
-        
-        #[pallet::error]
-        pub enum Error<T> {
-            /// The value retrieved was `None` as no value was previously set.
-            NoneValue,
-            /// There was an attempt to increment the value in storage over `u32::MAX`.
-            StorageOverflow,
-        }
-
-        #[pallet::storage]
-        pub type Something<T> = StorageValue<_, u32>;
-
-        #[pallet::call]
-        impl<T: Config> Pallet<T> {
-            #[pallet::call_index(0)]
-            #[pallet::weight(Weight::default())]
-            pub fn do_something(origin: OriginFor<T>, something: u32) -> DispatchResult {
-                // Check that the extrinsic was signed and get the signer.
-                let who = ensure_signed(origin)?;
-        
-                // Update storage.
-                Something::<T>::put(something);
-        
-                // Emit an event.
-                Self::deposit_event(Event::SomethingStored { something, who });
-        
-                // Return a successful `DispatchResult`
-                Ok(())
-            }
-        
-            #[pallet::call_index(1)]
-            #[pallet::weight(Weight::default())]
-            pub fn cause_error(origin: OriginFor<T>) -> DispatchResult {
-                let _who = ensure_signed(origin)?;
-        
-                // Read a value from storage.
-                match Something::<T>::get() {
-                    // Return an error if the value has not been set.
-                    None => Err(Error::<T>::NoneValue.into()),
-                    Some(old) => {
-                        // Increment the value read from storage. This will cause an error in the event
-                        // of overflow.
-                        let new = old.checked_add(1).ok_or(Error::<T>::StorageOverflow)?;
-                        // Update the value in storage with the incremented result.
-                        Something::<T>::put(new);
-                        Ok(())
-                    },
-                }
-            }
-        }
-    }
+    --8<-- 'code/develop/parachain-devs/runtime-development/FRAME/create-custom-pallet/full-pallet.rs'
     ```
 
 ## Next Steps

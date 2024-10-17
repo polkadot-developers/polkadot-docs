@@ -125,13 +125,15 @@ In this tutorial, you'll modify the local chain specification to create a custom
         ```bash
         head customSpec.json
         ```
-    --8<-- 'code/tutorials/polkadot-sdk/build-a-blockchain/add-trusted-nodes/chainspec-head.html'
+
+        --8<-- 'code/tutorials/polkadot-sdk/build-a-blockchain/add-trusted-nodes/chainspec-head.html'
 
     - Preview last fields:
         ```bash
         tail -n 78 customSpec.json
         ```
-    --8<-- 'code/tutorials/polkadot-sdk/build-a-blockchain/add-trusted-nodes/chainspec-tail.html'
+
+        --8<-- 'code/tutorials/polkadot-sdk/build-a-blockchain/add-trusted-nodes/chainspec-tail.html'
 
         This command will display fields that include configuration details for pallets, such as sudo and balances, as well as the validator settings for the Aura and Grandpa keys.
 

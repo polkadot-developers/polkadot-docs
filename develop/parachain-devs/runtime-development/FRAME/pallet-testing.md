@@ -11,7 +11,7 @@ Unit testing in the Polkadot SDK helps ensure that the functions provided by a p
 
 This guide will explore how to mock a runtime and test a pallet. For that, the Polkadot SDK pallets use the `mock.rs` and `test.rs` files as a basis for testing pallet processes. The `mock.rs` file allows the mock runtime to be tested, and the `test.rs` file allows writing unit test functions to check the functionality of isolated pieces of code within the pallet.
 
-## Mocking Up the Runtime
+## Mocking the Runtime
 
 To test a pallet, a mock runtime is created to simulate the behavior of the blockchain environment where the pallet will be included. This involves defining a minimal runtime configuration that only provides for the required dependencies for the tested pallet. 
 

@@ -41,7 +41,7 @@ This line imports the pallet-example crate as a dependency and specifies the fol
 - `default-features` - determines the behavior for including pallet features when compiling the runtime with standard Rust libraries
 
 !!! note
-    If you’re importing a pallet that isn’t available on [`crate.io`](https://crates.io/){target=\_blank}, you can specify the location of the pallet (either locally or from a remote repository) by using the `git` or `path` key. For example:
+    If you’re importing a pallet that isn’t available on [`crates.io`](https://crates.io/){target=\_blank}, you can specify the location of the pallet (either locally or from a remote repository) by using the `git` or `path` key. For example:
 
     ```toml
     pallet-example = { 

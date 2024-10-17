@@ -1,13 +1,13 @@
 ---
 title: Create a Custom Pallet
-description: TODO
+description: Learn how to create custom pallets using FRAME, allowing for flexible, modular, and scalable blockchain development. Follow the step-by-step guide.
 ---
 
 # Create a Custom Pallet
 
 ## Introduction
 
-FRAME provides a powerful set of tools for blockchain development, including a library of pre-built pallets. However, its true strength lies in the ability to create custom pallets tailored to your specific needs. This section will guide you through the process of creating your own custom pallet, empowering you to extend your blockchain's functionality in unique ways.
+To get the most out of this guide, ensure you're familiar with [FRAME concepts](TODO:update-path){target=\_blank}. FRAME provides a powerful set of tools for blockchain development, including a library of pre-built pallets. However, its true strength lies in the ability to create custom pallets tailored to your specific needs. This section will guide you through the process of creating your own custom pallet, empowering you to extend your blockchain's functionality in unique ways.
 
 Creating custom pallets offer several advantages over relying on pre-built pallets:
 
@@ -23,6 +23,8 @@ As you follow this guide to create your custom pallet, you'll work with the foll
 4. Runtime errors - define the error types that can be returned from the function calls dispatched to the runtime
 5. Runtime storage - declare on-chain storage items for your pallet's state
 6. Extrinsics (function calls) - create callable functions that allow users to interact with your pallet and execute transactions
+
+For other available macros you can include in a pallet that aren't mentioned in this guide, refer to the [pallet_macros](https://paritytech.github.io/polkadot-sdk/master/frame_support/pallet_macros/index.html){target=\_blank} section of the Polkadot SDK Docs.
 
 ## Initial Setup
 
@@ -68,7 +70,7 @@ This section will guide you through the initial steps of creating the foundation
     ```
 
     !!!note
-        Carefully select the versions of the packages according to your project's specific requirements:
+        Proper version management is crucial for ensuring compatibility and reducing potential conflicts in your project. Carefully select the versions of the packages according to your project's specific requirements:
 
         - When developing for a specific Polkadot SDK runtime, ensure that your pallet's dependency versions match those of the target runtime
         - If you're creating this pallet within a Polkadot SDK workspace:
@@ -77,7 +79,7 @@ This section will guide you through the initial steps of creating the foundation
             - Use workspace inheritance in your pallet's `Cargo.toml` to maintain consistency across your project
         - Regularly check for updates to FRAME and Polkadot SDK dependencies to benefit from the latest features, performance improvements, and security patches
 
-        Proper version management is crucial for ensuring compatibility and reducing potential conflicts in your project.
+        For more detailed information on workspace inheritance and how to properly integrate your pallet with the runtime, refer to the [Add Existing Pallet to the Runtime](TODO:update-path){target=\_blank} page.
 
 3.  Set up the basic pallet structure
 
@@ -110,7 +112,7 @@ Every pallet includes a Rust trait called [`Config`](https://paritytech.github.i
 
 In this step, you'll configure the pallet to emit events. 
 
-Replace the line containing the `#[pallet::config]` macro with the following code block:
+Replace the line containing the [`#[pallet::config]`](https://paritytech.github.io/polkadot-sdk/master/frame_support/pallet_macros/attr.config.html){target=\_blank} macro with the following code block:
 
 ```rust
 #[pallet::config]
@@ -126,11 +128,11 @@ pub trait Config: frame_system::Config {
 
 After configuring the pallet to emit events, the next step is to define the events that can be triggered by functions within the pallet. Events provide a straightforward way to inform external entities such as dApps, chain explorers, or users, that a significant change has occurred in the runtime. In a FRAME pallet, the details of each event and its parameters are included in the node’s metadata, making them accessible to external tools and interfaces.
 
-The `generate_deposit` macro generates a `deposit_event` function on the Pallet, which converts the pallet’s event type into the `RuntimeEvent` (as specified in the `Config` trait) and deposits it using `frame_system::Pallet::deposit_event`.
+The [`generate_deposit`](https://paritytech.github.io/polkadot-sdk/master/frame_support/pallet_macros/attr.generate_deposit.html){target=\_blank} macro generates a `deposit_event` function on the Pallet, which converts the pallet’s event type into the [`RuntimeEvent`](https://paritytech.github.io/polkadot-sdk/master/frame_system/pallet/trait.Config.html#associatedtype.RuntimeEvent){target=\_blank} (as specified in the `Config` trait) and deposits it using [`frame_system::Pallet::deposit_event`](https://paritytech.github.io/polkadot-sdk/master/frame_system/pallet/struct.Pallet.html#method.deposit_event){target=\_blank}.
 
 This step adds an event called `SomethingStored`, which is triggered when a user successfully stores a value in the pallet. The event records both the value and the account that performed the action.
 
-To define events, replace the `#[pallet::event]` line with the following code block:
+To define events, replace the [`#[pallet::event]`](https://paritytech.github.io/polkadot-sdk/master/frame_support/pallet_macros/attr.event.html){target=\_blank} line with the following code block:
 
 ```rust
 #[pallet::event]
@@ -150,11 +152,11 @@ pub enum Event<T: Config> {
 
 While events signal the successful completion of calls, errors indicate when and why a call has failed. It's essential to use informative names for errors to clearly communicate the cause of failure. Like events, error documentation is included in the node's metadata, so providing helpful descriptions is crucial.
 
-Errors are defined as an enum named `Error` with a generic type. Variants can have fields or be fieldless. Any field type specified in the error must implement the `scale_info::TypeInfo` trait, and the encoded size of each field should be as small as possible. Runtime errors can be up to 4 bytes in size, allowing the return of additional information when needed.
+Errors are defined as an enum named `Error` with a generic type. Variants can have fields or be fieldless. Any field type specified in the error must implement the [`TypeInfo`](https://paritytech.github.io/polkadot-sdk/master/frame_support/pallet_prelude/trait.TypeInfo.html){target=\_blank} trait, and the encoded size of each field should be as small as possible. Runtime errors can be up to 4 bytes in size, allowing the return of additional information when needed.
 
 This step defines two basic errors: one for handling cases where no value has been set, and another for managing arithmetic overflow.
 
-To define errors, replace the `#[pallet::error]` line with the following code block:
+To define errors, replace the [`#[pallet::error]`](https://paritytech.github.io/polkadot-sdk/master/frame_support/pallet_macros/attr.error.html){target=\_blank} line with the following code block:
 
 ```rust
 #[pallet::error]
@@ -172,16 +174,16 @@ To persist and store state/data within the pallet (and subsequently, the blockch
 
 This step adds a simple storage item, `Something`, which stores a single `u32` value in the pallet's runtime storage
 
-To define storage, replace the `#[pallet::storage]` line with the following code block:
+To define storage, replace the [`#[pallet::storage]`](https://paritytech.github.io/polkadot-sdk/master/frame_support/pallet_macros/attr.storage.html){target=\_blank} line with the following code block:
 
 ```rust
 #[pallet::storage]
 pub type Something<T> = StorageValue<_, u32>;
 ```
 
-## Pallet Calls
+## Pallet Dispatchable Extrinsics
 
-Dispatchable functions enable users to interact with the pallet and trigger state changes. These functions are represented as "extrinsics," which are similar to transactions. They must return a `DispatchResult` and be annotated with both a weight and a call index.
+Dispatchable functions enable users to interact with the pallet and trigger state changes. These functions are represented as "extrinsics," which are similar to transactions. They must return a [`DispatchResult`](https://paritytech.github.io/polkadot-sdk/master/frame_support/dispatch/type.DispatchResult.html){target=\_blank} and be annotated with both a weight and a call index.
 
 The `#[pallet::call_index]` macro is used to explicitly define an index for calls in the `Call` enum. This is useful for maintaining backward compatibility in the event of new dispatchables being introduced, as changing the order of dispatchables would otherwise alter their index.
 
@@ -192,7 +194,7 @@ This section adds two dispatchable functions:
 - `do_something` - takes a single u32 value, stores it in the pallet's storage, and emits an event
 - `cause_error` - checks if a value exists in storage. If found, increments the value and stores it back. If no value is present, or an overflow occurs, a custom error is returned
 
-To implement these calls, replace the #[pallet::call] line with the following code block:
+To implement these calls, replace the [`#[pallet::call]`](https://paritytech.github.io/polkadot-sdk/master/frame_support/pallet_macros/attr.call.html){target=\_blank} line with the following code block:
 
 ```rust
 #[pallet::call]

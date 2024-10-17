@@ -153,10 +153,10 @@ After following all the previous steps, the pallet is now fully implemented. Bel
 
 ## Next Steps
 
-With the pallet implemented, the next steps involve ensuring its reliability and performance before integrating it into a runtime.
+With the pallet implemented, the next steps involve ensuring its reliability and performance before integrating it into a runtime. Check the following sections:
 
-- Testing - learn how to effectively test the functionality and reliability of your pallet to ensure it behaves as expected. Check the [Testing](TODO:update-path){target=\_blank} section for detailed instructions
+- [Testing](TODO:update-path){target=\_blank} - learn how to effectively test the functionality and reliability of your pallet to ensure it behaves as expected
 
-- Benchmarking - explore methods to measure the performance and execution cost of your pallet. Refer to the [Benchmarking](TODO:update-path){target=\_blank} section for guidance
+- [Benchmarking](TODO:update-path){target=\_blank} - explore methods to measure the performance and execution cost of your pallet
 
-- Adding the pallet to a runtime - follow the steps to successfully include your pallet in a Polkadot SDK-based runtime, making it ready for use in your blockchain. Visit the [Add a Pallet to the Runtime](TODO:update-path){target=\_blank} section for the necessary steps
+- [Add a Pallet to the Runtime](TODO:update-path){target=\_blank} - follow this guide to successfully include your pallet in a Polkadot SDK-based runtime, making it ready for use in your blockchain

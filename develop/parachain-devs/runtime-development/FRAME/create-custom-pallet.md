@@ -9,7 +9,7 @@ description: TODO
 
 FRAME provides a powerful set of tools for blockchain development, including a library of pre-built pallets. However, its true strength lies in the ability to create custom pallets tailored to your specific needs. This section will guide you through the process of creating your own custom pallet, empowering you to extend your blockchain's functionality in unique ways.
 
-Custom pallets offer several advantages:
+Creating custom pallets offer several advantages over relying on pre-built pallets:
 
 - Flexibility - define runtime behavior that precisely matches your project requirements
 - Modularity - combine pre-built and custom pallets to achieve the desired blockchain functionality
@@ -110,7 +110,7 @@ Every pallet includes a Rust trait called [`Config`](https://paritytech.github.i
 
 In this step, you'll configure the pallet to emit events. 
 
-Replace the existing #[pallet::config] line with the following code block:
+Replace the line containing the `#[pallet::config]` macro with the following code block:
 
 ```rust
 #[pallet::config]
@@ -168,11 +168,11 @@ pub enum Error<T> {
 
 ## Pallet Storage
 
-To store data in the pallet, the `#[pallet::storage]` macro is used. This macro allows the definition of abstract storage within the runtime and sets metadata for that storage. It can be applied multiple times to define different storage items. There are several types available for defining storage, which can be explored in the [Polkadot SDK documentation](https://paritytech.github.io/polkadot-sdk/master/frame_support/storage/types/index.html){target=\_blank}.
+To persist and store state/data within the pallet (and subsequently, the blockchain you are building) the `#[pallet::storage]` macro is used. This macro allows the definition of abstract storage within the runtime and sets metadata for that storage. It can be applied multiple times to define different storage items. There are several types available for defining storage, which can be explored in the [Polkadot SDK documentation](https://paritytech.github.io/polkadot-sdk/master/frame_support/storage/types/index.html){target=\_blank}.
 
 This step adds a simple storage item, `Something`, which stores a single `u32` value in the pallet's runtime storage
 
-To define storage, replace the #[pallet::storage] line with the following code block:
+To define storage, replace the `#[pallet::storage]` line with the following code block:
 
 ```rust
 #[pallet::storage]
@@ -327,8 +327,8 @@ After following all the previous steps, the pallet is now fully implemented. Bel
 
 With the pallet implemented, the next steps involve ensuring its reliability and performance before integrating it into a runtime.
 
-- Testing - learn how to effectively test the functionality and reliability of your pallet to ensure it behaves as expected. Check the [Testing](){target=\_blank} section for detailed instructions
+- Testing - learn how to effectively test the functionality and reliability of your pallet to ensure it behaves as expected. Check the [Testing](TODO:update-path){target=\_blank} section for detailed instructions
 
-- Benchmarking - explore methods to measure the performance and execution cost of your pallet. Refer to the [Benchmarking](){target=\_blank} section for guidance
+- Benchmarking - explore methods to measure the performance and execution cost of your pallet. Refer to the [Benchmarking](TODO:update-path){target=\_blank} section for guidance
 
-- Adding the pallet to a runtime - follow the steps to successfully include your pallet in a Polkadot SDK-based runtime, making it ready for use in your blockchain. Visit the [Add a Pallet to the Runtime](){target=\_blank} section for the necessary steps
+- Adding the pallet to a runtime - follow the steps to successfully include your pallet in a Polkadot SDK-based runtime, making it ready for use in your blockchain. Visit the [Add a Pallet to the Runtime](TODO:update-path){target=\_blank} section for the necessary steps

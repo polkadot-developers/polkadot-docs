@@ -72,7 +72,7 @@ In the first formula, the `targeted_fee_adjustment` is a multiplier that can t
   - The `ExtrinsicBaseWeight` that is declared in the runtime and applies to all extrinsics
   - The `#[pallet::weight]` annotation that accounts for an extrinsic's complexity
 
-To convert the weight to Currency, the runtime must define a `WeightToFee` struct that implements a conversion function, [`Convert<Weight,Balance>`](https://github.com/paritytech/polkadot-sdk/blob/master/substrate/frame/transaction-payment/src/lib.rs#L664){target=\_blank}.
+To convert the weight to `Currency`, the runtime must define a `WeightToFee` struct that implements a conversion function, [`Convert<Weight,Balance>`](https://github.com/paritytech/polkadot-sdk/blob/master/substrate/frame/transaction-payment/src/lib.rs#L664){target=\_blank}.
 
 Note that the extrinsic sender is charged the inclusion fee before the extrinsic is invoked. The fee is deducted from the sender's balance even if the transaction fails upon execution.
 

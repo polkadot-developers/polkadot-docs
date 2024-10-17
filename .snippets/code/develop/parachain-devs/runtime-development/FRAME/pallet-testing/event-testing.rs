@@ -1,18 +1,12 @@
 #[test]
-fn it_works_for_valid_input() {
+fn it_emits_events_on_success() {
     new_test_ext().execute_with(|| {
         // Call an extrinsic or function
         assert_ok!(TemplateModule::some_function(Origin::signed(1), valid_param));
-    });
-}
 
-#[test]
-fn it_fails_for_invalid_input() {
-    new_test_ext().execute_with(|| {
-        // Call an extrinsic with invalid input and expect an error
-        assert_err!(
-            TemplateModule::some_function(Origin::signed(1), invalid_param),
-            Error::<Test>::InvalidInput
-        );
+        // Verify that the expected event was emitted
+        assert!(System::events().iter().any(|record| {
+            record.event == Event::TemplateModule(TemplateEvent::SomeEvent)
+        }));
     });
 }

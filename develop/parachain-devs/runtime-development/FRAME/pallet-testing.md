@@ -101,3 +101,8 @@ Some key considerations are:
 
 - Block number - events are not emitted on the genesis block, so you need to set the block number using [`System::set_block_number()`](https://paritytech.github.io/polkadot-sdk/master/frame_system/pallet/struct.Pallet.html#method.set_block_number){target=\_blank} to ensure events are triggered
 - Converting events - use `.into()` when instantiating your pallet’s event to convert it into a generic event type, as required by the system’s event storage
+
+## Where to Go Next
+
+- Dive into the full implementation of the [`mock.rs`](https://github.com/paritytech/polkadot-sdk/blob/master/templates/solochain/pallets/template/src/mock.rs){target=\_blank} and [`test.rs`](https://github.com/paritytech/polkadot-sdk/blob/master/templates/solochain/pallets/template/src/tests.rs){target=\_blank} files in the [Solochain Template](https://github.com/paritytech/polkadot-sdk/tree/master/templates/solochain){target=_blank}
+- To further optimize performance, check out the [Benchmarking documentation](TODO:update-path){target=\_blank} to learn how to evaluate and improve the efficiency of your pallet operations

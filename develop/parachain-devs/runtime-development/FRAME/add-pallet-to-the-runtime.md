@@ -57,9 +57,11 @@ This line imports the pallet-example crate as a dependency and specifies the fol
     pallet-example = { 
         version = "4.0.0-dev",
         default-features = false,
-        path = "relative/path/to/pallet",
+        path = "INSERT_PALLET_RELATIVE_PATH",
     }
     ```
+
+    Ensure to substitute `INSERT_PALLET_RELATIVE_PATH` with the appropriate local path to the pallet.
 
 Next, add this dependency to the `[dependencies]` section of the `runtime/Cargo.toml` file, so it inherits from the main `Cargo.toml` file:
 

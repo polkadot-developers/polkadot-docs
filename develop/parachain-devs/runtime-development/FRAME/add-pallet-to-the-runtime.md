@@ -143,3 +143,11 @@ Finally, to compose the runtime, update the list of pallets in the same file by 
 
 !!! note
     The `#[frame_support::runtime]` macro wraps the runtime's configuration, automatically generating boilerplate code for pallet inclusion.
+
+## Next Steps
+
+With the pallet successfully added and configured, the runtime is ready to be compiled and used. Following this guide’s steps, you’ve integrated a new pallet into the runtime, set up its dependencies, and ensured proper configuration. You can now proceed to any of the following points:
+
+- [Create your custom pallet](TODO:update-path)
+- [Pallet Testing](TODO:update-path)]
+- [Pallet Benchmarking](TODO:update-path)]

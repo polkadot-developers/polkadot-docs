@@ -1,7 +1,7 @@
 ---
-title: Learn about Polkadot
+title: Learn about Polkadot Protocol
 description: TODO
 hide: 
-- feedback
+    - feedback
 template: subsection-index-page.html
 ---

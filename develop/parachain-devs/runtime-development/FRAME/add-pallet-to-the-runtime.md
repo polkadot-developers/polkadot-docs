@@ -144,10 +144,10 @@ Finally, to compose the runtime, update the list of pallets in the same file by 
 !!! note
     The `#[frame_support::runtime]` macro wraps the runtime's configuration, automatically generating boilerplate code for pallet inclusion.
 
-## Next Steps
+## Where to Go Next
 
 With the pallet successfully added and configured, the runtime is ready to be compiled and used. Following this guide’s steps, you’ve integrated a new pallet into the runtime, set up its dependencies, and ensured proper configuration. You can now proceed to any of the following points:
 
-- [Create your custom pallet](TODO:update-path)
-- [Pallet Testing](TODO:update-path)]
-- [Pallet Benchmarking](TODO:update-path)]
+- Dive deeper by [creating your custom pallet](TODO:update-path){target=\_blank} to expand the functionality of your blockchain
+- Ensure robustness with [Pallet Testing](TODO:update-path){target=\_blank} to verify the accuracy and behavior of your code
+- Optimize performance by visiting [Pallet Benchmarking](TODO:update-path){target=\_blank} and evaluating the efficiency of your pallet operations

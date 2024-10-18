@@ -1,9 +1,0 @@
-title: Parachain Developers
-nav:
-  - index.md
-  - get-started
-  - runtime-development
-  - parachain-launch
-  - parachain-maintenance
-  - interoperability
-  - system-parachains

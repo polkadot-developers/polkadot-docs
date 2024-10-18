@@ -13,12 +13,12 @@ The runtime is the core component of a Polkadot SDK-based blockchain, encapsulat
 - Specifying transactions that allow users to modify the state
 - Managing state changes in response to transactions
 
-Polkadot SDK provides a comprehensive toolkit for constructing essential blockchain components, allowing developers to concentrate on crafting the specific runtime logic that defines their blockchain's unique set of usecases and capabilities.
+Polkadot SDK provides a comprehensive toolkit for constructing essential blockchain components, allowing developers to concentrate on crafting the specific runtime logic that defines their blockchain's unique set of use cases and capabilities.
 
 FRAME (Framework for Runtime Aggregation of Modularized Entities) provides a robust collection of tools to facilitate Polkadot SDK-based blockchain development. It offers reusable modules and useful abstractions that streamline developers' development process. It consists of:
 
-- [Pallets](#pallets) - modular components containing specific blockchain logic
-- [Support libraries](#support-libraries) - tools and utilities to facilitate runtime development
+- [**Pallets**](#pallets) - modular components containing specific blockchain logic
+- [**Support libraries**](#support-libraries) - tools and utilities to facilitate runtime development
 
 ## FRAME Runtime Architecture
 
@@ -38,7 +38,7 @@ Developers have the flexibility to implement any desired behavior in the core lo
 - Storing information
 - Enforcing business rules
 
-Pallets also include necessary wiring code to ensure proper integration and functionality within the runtime. FRAME provides a range of [pre-built pallets](https://github.com/paritytech/polkadot-sdk/tree/master/substrate/frame){target=\_blank} for standard and common blockchain functionalities, including consensus algorithms, staking mechanisms, governance systems, etc. These pre-existing pallets serve as building blocks or templates, which developers can use as-is, modify, or reference when creating custom functionalities. 
+Pallets also include necessary wiring code to ensure proper integration and functionality within the runtime. FRAME provides a range of [pre-built pallets](https://github.com/paritytech/polkadot-sdk/tree/master/substrate/frame){target=\_blank} for standard and common blockchain functionalities, including consensus algorithms, staking mechanisms, governance systems, and more. These pre-existing pallets serve as building blocks or templates, which developers can use as-is, modify, or reference when creating custom functionalities. 
 
 #### Pallet Structure
 
@@ -68,27 +68,27 @@ pub mod pallet {
 
 All pallets, including custom ones, can implement these attribute macros:
 
-- `#[frame_support::pallet]` - marks the module as usable in the runtime
-- `#[pallet::pallet]` - applied to a structure used to retrieve module information easily
-- `#[pallet::config]` - defines the configuration for the pallets's data types
-- `#[pallet::event]` - defines events to provide additional information to users
-- `#[pallet::error]` - lists possible errors in an enum to be returned upon unsuccessful execution
-- `#[pallet::storage]` - defines elements to be persisted in storage
-- `#[pallet::call]` - defines functions exposed as transactions, allowing dispatch to the runtime
+- **`#[frame_support::pallet]`** - marks the module as usable in the runtime
+- **`#[pallet::pallet]`** - applied to a structure used to retrieve module information easily
+- **`#[pallet::config]`** - defines the configuration for the pallets's data types
+- **`#[pallet::event]`** - defines events to provide additional information to users
+- **`#[pallet::error]`** - lists possible errors in an enum to be returned upon unsuccessful execution
+- **`#[pallet::storage]`** - defines elements to be persisted in storage
+- **`#[pallet::call]`** - defines functions exposed as transactions, allowing dispatch to the runtime
 
 These macros are applied as attributes to Rust modules, functions, structures, enums, and types. They enable the pallet to be built and added to the runtime, exposing the custom logic to the outer world.
 
 !!! note
-    The macros above are the core components of a pallet. For a comprehensive guide on these and additional macros, refer to the [pallet_macros](https://paritytech.github.io/polkadot-sdk/master/frame_support/pallet_macros/index.html){target=\_blank} section in the Polkadot SDK documentation.
+    The macros above are the core components of a pallet. For a comprehensive guide on these and additional macros, refer to the [`pallet_macros`](https://paritytech.github.io/polkadot-sdk/master/frame_support/pallet_macros/index.html){target=\_blank} section in the Polkadot SDK documentation.
 
 ### Support Libraries
 
 In addition to purpose-specific pallets, FRAME offers services and core libraries that facilitate composing and interacting with the runtime:
 
-- [`frame_system` pallet](https://paritytech.github.io/polkadot-sdk/master/frame_system/index.html){target=\_blank} - provides low-level types, storage, and functions for the runtime
-- [`frame_executive` pallet](https://paritytech.github.io/polkadot-sdk/master/frame_executive/index.html){target=\_blank} - orchestrates the execution of incoming function calls to the respective pallets in the runtime
-- [`frame_support` crate](https://paritytech.github.io/polkadot-sdk/master/frame_support/index.html){target=\_blank} - is a collection of Rust macros, types, traits, and modules that simplify the development of Substrate pallets
-- [`frame_benchmarking` crate](https://paritytech.github.io/polkadot-sdk/master/frame_benchmarking/trait.Benchmark.html){target=\_blank} - contains common runtime patterns for benchmarking and testing purposes
+- [**`frame_system` pallet**](https://paritytech.github.io/polkadot-sdk/master/frame_system/index.html){target=\_blank} - provides low-level types, storage, and functions for the runtime
+- [**`frame_executive` pallet**](https://paritytech.github.io/polkadot-sdk/master/frame_executive/index.html){target=\_blank} - orchestrates the execution of incoming function calls to the respective pallets in the runtime
+- [**`frame_support` crate**](https://paritytech.github.io/polkadot-sdk/master/frame_support/index.html){target=\_blank} - is a collection of Rust macros, types, traits, and modules that simplify the development of Substrate pallets
+- [**`frame_benchmarking` crate**](https://paritytech.github.io/polkadot-sdk/master/frame_benchmarking/trait.Benchmark.html){target=\_blank} - contains common runtime patterns for benchmarking and testing purposes
 
 ## Compose a Runtime with Pallets
 

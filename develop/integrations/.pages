@@ -1,0 +1,6 @@
+title: Integrations
+nav:
+  - index.md
+  - 'Wallets': wallets.md
+  - 'Indexers': indexers.md
+  - 'Others': others.md

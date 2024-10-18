@@ -1,13 +1,13 @@
 ---
 title: Networks
-description: Explore Polkadot’s testing and production networks, including Westend, Kusama, and Paseo, for efficient development, deployment, and testing.
+description: Explore Polkadot's testing and production networks, including Westend, Kusama, and Paseo, for efficient development, deployment, and testing.
 ---
 
 # Networks
 
 ## Introduction
 
-The Polkadot ecosystem is built on a robust set of networks designed to enable secure and scalable development. Whether you are testing new features or deploying to live production, Polkadot offers several layers of networks tailored for each stage of the development process. From local environments to experimental networks like Kusama, and community-run TestNets such as Paseo, developers can thoroughly test, iterate, and validate their applications. This guide will introduce you to Polkadot's various networks and explain how they fit into the overall development workflow.
+The Polkadot ecosystem is built on a robust set of networks designed to enable secure and scalable development. Whether you are testing new features or deploying to live production, Polkadot offers several layers of networks tailored for each stage of the development process. From local environments to experimental networks like Kusama and community-run TestNets such as Paseo, developers can thoroughly test, iterate, and validate their applications. This guide will introduce you to Polkadot's various networks and explain how they fit into the development workflow.
 
 ## Network Overview 
 
@@ -19,7 +19,7 @@ flowchart LR
     id1[Local] --> id2[Westend] --> id4[Kusama] --> id5[Polkadot]  
     id1[Local] --> id3[Paseo] --> id5[Polkadot] 
 ```
-This flow ensures that developers can thoroughly test and iterate without risking real tokens or affecting production networks. Testing tools like [Chopsticks](#chopsticks) and various TestNets make it easier to experiment safely before releasing to production.
+This flow ensures developers can thoroughly test and iterate without risking real tokens or affecting production networks. Testing tools like [Chopsticks](#chopsticks) and various TestNets make it easier to experiment safely before releasing to production.
 
 A typical journey through the Polkadot core protocol development process might look like this:
 
@@ -33,18 +33,18 @@ A typical journey through the Polkadot core protocol development process might l
 
 In addition, parachain developers can leverage local TestNets like [Zombienet](#zombienet) and deploy upgrades on parachain TestNets.
 
-5. **Paseo** - For parachain and dApp developers, Paseo serves as a community-run TestNet that mirrors Polkadot’s runtime. Like Westend for core protocol development, Paseo provides a testing ground for parachain development without affecting live networks
+5. **Paseo** - For parachain and dApp developers, Paseo serves as a community-run TestNet that mirrors Polkadot's runtime. Like Westend for core protocol development, Paseo provides a testing ground for parachain development without affecting live networks
 
 !!!note
     The Rococo TestNet deprecation date was October 14, 2024. Teams should use Westend for Polkadot protocol and feature testing and Paseo for chain development-related testing.
 
 ## Polkadot Development Networks
 
-Development and testing are crucial to building robust dApps, parachains, and performing network upgrades within the Polkadot ecosystem. To achieve this, developers can leverage various networks and tools that provide a risk-free environment for experimentation and validation before deploying features to live networks. These networks help avoid the costs and risks associated with real tokens, enabling testing for functionalities like governance, cross-chain messaging, and runtime upgrades.
+Development and testing are crucial to building robust dApps and parachains and performing network upgrades within the Polkadot ecosystem. To achieve this, developers can leverage various networks and tools that provide a risk-free environment for experimentation and validation before deploying features to live networks. These networks help avoid the costs and risks associated with real tokens, enabling testing for functionalities like governance, cross-chain messaging, and runtime upgrades.
 
 ## Kusama Network
 
-Kusama is the experimental version of Polkadot, designed for developers who want to move quickly and test their applications in a real-world environment with economic incentives. Kusama serves as a production-grade testing ground, where developers can deploy features and upgrades with the pressure of game theory and economics in mind. It mirrors Polkadot but operates as a more flexible space for innovation.
+Kusama is the experimental version of Polkadot, designed for developers who want to move quickly and test their applications in a real-world environment with economic incentives. Kusama serves as a production-grade testing ground where developers can deploy features and upgrades with the pressure of game theory and economics in mind. It mirrors Polkadot but operates as a more flexible space for innovation.
 
 The native token for Kusama is KSM. For more information about KSM, visit the [Native Assets](https://wiki.polkadot.network/docs/learn-DOT#kusama){target=\_blank} page.
 
@@ -60,13 +60,13 @@ The native token for Westend is WND. More details about WND can be found on the 
 
 ### Paseo
 
-[Paseo](https://github.com/paseo-network){target=\_blank} is a community-managed TestNet designed for parachain and dApp developers. It mirrors Polkadot's runtime and is maintained by Polkadot community members. Paseo provides a dedicated space for parachain developers to test their applications in a Polkadot-like environment, without the risks associated with live networks.
+[Paseo](https://github.com/paseo-network){target=\_blank} is a community-managed TestNet designed for parachain and dApp developers. It mirrors Polkadot's runtime and is maintained by Polkadot community members. Paseo provides a dedicated space for parachain developers to test their applications in a Polkadot-like environment without the risks associated with live networks.
 
 The native token for Paseo is PAS. Additional information on PAS is available on the [Native Assets](https://wiki.polkadot.network/docs/learn-DOT#getting-tokens-on-the-paseo-testnet){target=\_blank} page.
 
 ## Local Test Networks
 
-Local test networks are an essential part of the development cycle for blockchain developers using the Polkadot SDK. They allow for fast, iterative testing in controlled, private environments without needing to connect to public TestNets. Developers can easily spin up local instances to experiment, debug, and validate their code before deploying to larger TestNets like Westend or Paseo. Two key tools for local network testing are Zombienet and Chopsticks.
+Local test networks are an essential part of the development cycle for blockchain developers using the Polkadot SDK. They allow for fast, iterative testing in controlled, private environments without connecting to public TestNets. Developers can quickly spin up local instances to experiment, debug, and validate their code before deploying to larger TestNets like Westend or Paseo. Two key tools for local network testing are Zombienet and Chopsticks.
 
 ### Zombienet
 
@@ -90,4 +90,4 @@ Key features of Chopsticks include:
 - Simulating cross-chain messages in a private, controlled setup
 - Debugging network behavior by interacting with the fork in real-time
 
-Chopsticks provides a controlled environment for developers to safely explore the effects of runtime changes, ensuring that network behavior is tested and verified before deploying upgrades to live networks.
+Chopsticks provides a controlled environment for developers to safely explore the effects of runtime changes. It ensures that network behavior is tested and verified before upgrades are deployed to live networks.

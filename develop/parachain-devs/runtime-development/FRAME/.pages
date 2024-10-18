@@ -1,3 +1,5 @@
 title: FRAME
 nav:
   - index.md
+  - 'Add Pallet to the Runtime': 'add-pallet-to-the-runtime.md'
+  - 'FRAME Overview': frame-overview.md

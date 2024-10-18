@@ -15,7 +15,7 @@ This guide will explore how to mock a runtime and test a pallet. For that, the P
 
 To test a pallet, a mock runtime is created to simulate the behavior of the blockchain environment where the pallet will be included. This involves defining a minimal runtime configuration that only provides for the required dependencies for the tested pallet. 
 
-For a complete example of the mocked runtime, check out the `mock.rs` file in the [Solochain Template](https://github.com/paritytech/polkadot-sdk/blob/master/templates/solochain/pallets/template/src/mock.rs){target=\_blank}.
+For a complete example of a mocked runtime, check out the `mock.rs` file in the [Solochain Template](https://github.com/paritytech/polkadot-sdk/blob/master/templates/solochain/pallets/template/src/mock.rs){target=\_blank}.
 
 A `mock.rs` file defines the mock runtime in a typical Polkadot SDK project. It includes the elements described below.
 
@@ -59,7 +59,7 @@ Once the mock runtime is in place, the next step is to write unit tests that eva
 
 ### Writing Unit Tests
 
-Unit tests in the Polkadot SDK uses the Rust testing framework, and the mock runtime you’ve defined earlier will serve as the test environment. Below are the typical steps involved in writing unit tests for a pallet.
+Unit tests in the Polkadot SDK use the Rust testing framework, and the mock runtime you’ve defined earlier will serve as the test environment. Below are the typical steps involved in writing unit tests for a pallet.
 
 #### Test Initialization
 
@@ -99,8 +99,8 @@ Here’s an example of testing events in a mock runtime:
 
 Some key considerations are:
 
-- Block number - events are not emitted on the genesis block, so you need to set the block number using [`System::set_block_number()`](https://paritytech.github.io/polkadot-sdk/master/frame_system/pallet/struct.Pallet.html#method.set_block_number){target=\_blank} to ensure events are triggered
-- Converting events - use `.into()` when instantiating your pallet’s event to convert it into a generic event type, as required by the system’s event storage
+- **Block number** - events are not emitted on the genesis block, so you need to set the block number using [`System::set_block_number()`](https://paritytech.github.io/polkadot-sdk/master/frame_system/pallet/struct.Pallet.html#method.set_block_number){target=\_blank} to ensure events are triggered
+- **Converting events** - use `.into()` when instantiating your pallet’s event to convert it into a generic event type, as required by the system’s event storage
 
 ## Where to Go Next
 

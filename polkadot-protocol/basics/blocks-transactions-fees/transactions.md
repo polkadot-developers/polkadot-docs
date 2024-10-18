@@ -53,7 +53,7 @@ Inherent transactions serve a critical role in block authoring by allowing impor
 
 Understanding the structure of signed and unsigned transactions is crucial for developers building on Polkadot SDK-based chains. Whether you're optimizing transaction processing, customizing formats, or interacting with the transaction pool, knowing the format of extrinsics, Polkadot's term for transactions, is essential.
 
-### Types of Extrinsics
+### Types of Transaction Formats
 
 In Polkadot SDK-based chains, extrinsics can fall into three main categories:
 
@@ -73,7 +73,9 @@ A signed transaction typically includes the following components:
 
 Here's a simplified breakdown of how signed transactions are typically constructed in a Polkadot SDK runtime:
 
-`<signing account ID> + <signature> + <additional data>`
+``` code
+<signing account ID> + <signature> + <additional data>
+```
 
 Each part of the signed transaction has a purpose, ensuring the transaction's authenticity and context within the blockchain.
 
@@ -123,11 +125,11 @@ The following is an example of how a signed transaction might look:
 --8<-- 'code/polkadot-protocol/basics/blocks-transactions-fees/transactions/signed-tx-example.rs'
 ```
 
-### Extrinsic Encoding
+### Transaction Encoding
 
 Before a transaction is sent to the network, it is serialized and encoded using a structured encoding process that ensures consistency and prevents tampering:
 
-- `[1]` - compact encoded length in bytes of the entire extrinsic
+- `[1]` - compact encoded length in bytes of the entire transaction
 - `[2]` - a u8 containing 1 byte to indicate whether the transaction is signed or unsigned (1 bit) and the encoded transaction version ID (7 bits)
 - `[3]` - if signed, this field contains an account ID, an SR25519 signature, and some extra data
 - `[4]` - encoded call data, including pallet and function indices and any required arguments

@@ -25,7 +25,7 @@ For Rust programs, this configuration is defined in the `Cargo.toml` file, which
 - The features in each pallet that should be enabled when compiling the native Rust binary. By enabling the standard (`std`) feature set from each pallet, you ensure that the runtime includes the functions, types, and primitives necessary for the native build, which are otherwise excluded when compiling the Wasm binary
 
 !!! note
-    For information about adding dependencies in `Cargo.toml` files, see [Dependencies](https://doc.rust-lang.org/cargo/guide/dependencies.html){target=\_blank} page in the Cargo documentation. For information about enabling and managing features from dependent packages, see [Features](https://doc.rust-lang.org/cargo/reference/features.html){target=\_blank} section in the Cargo documentation.
+    For information about adding dependencies in `Cargo.toml` files, see the [Dependencies](https://doc.rust-lang.org/cargo/guide/dependencies.html){target=\_blank} page in the Cargo documentation. For information about enabling and managing features from dependent packages, see the [Features](https://doc.rust-lang.org/cargo/reference/features.html){target=\_blank} section in the Cargo documentation.
 
 ## Dependencies for a New Pallet
 
@@ -37,8 +37,8 @@ pallet-example = { version = "4.0.0-dev", default-features = false }
 
 This line imports the pallet-example crate as a dependency and specifies the following:
 
-- `version` - the specific version of the crate to import
-- `default-features` - determines the behavior for including pallet features when compiling the runtime with standard Rust libraries
+- **`version`** - the specific version of the crate to import
+- **`default-features`** - determines the behavior for including pallet features when compiling the runtime with standard Rust libraries
 
 !!! note
     If you’re importing a pallet that isn’t available on [`crates.io`](https://crates.io/){target=\_blank}, you can specify the location of the pallet (either locally or from a remote repository) by using the `git` or `path` key. For example:
@@ -121,7 +121,7 @@ This basic structure shows that every pallet must define certain types, such as 
 
 Traits in Rust define shared behavior, and within the Polkadot SDK, they allow runtimes to integrate and utilize a pallet's functionality by implementing its associated configuration trait and parameters. Some of these parameters may require constant values, which can be defined using the [`parameter_types!`](https://paritytech.github.io/polkadot-sdk/master/frame_support/macro.parameter_types.html){target=\_blank} macro. This macro simplifies development by expanding the constants into the appropriate struct types with functions that the runtime can use to access their types and values in a consistent manner.
 
-For example, the following code snippet shows how the Solochain template configures certain parameters through the [`parameter_types!`]({{ dependencies.polkadot_sdk_solochain_template.repository_url }}/blob/v0.0.2/runtime/src/lib.rs#L138){target=\_blank} macro in the `runtime/lib.rs` file:
+For example, the following code snippet shows how the solochain template configures certain parameters through the [`parameter_types!`]({{ dependencies.polkadot_sdk_solochain_template.repository_url }}/blob/v0.0.2/runtime/src/lib.rs#L138){target=\_blank} macro in the `runtime/lib.rs` file:
 
 ```rust
 --8<-- 'code/develop/parachain-devs/runtime-development/FRAME/add-pallet-to-the-runtime/parameter-types-example.rs'
@@ -135,7 +135,7 @@ To integrate a new pallet into the runtime, you need to implement its `Config` t
 --8<-- 'code/develop/parachain-devs/runtime-development/FRAME/add-pallet-to-the-runtime/impl-pallet-example-in-runtime.rs'
 ```
 
-Finally, to compose the runtime, update the list of pallets in the same file by modifying the [`#[frame_support::runtime]`](https://paritytech.github.io/polkadot-sdk/master/frame_support/attr.runtime.html){target=_blank} section. This Rust macro constructs the runtime with a specified name and the pallets you want to include. Use the following format when adding your pallet:
+Finally, to compose the runtime, update the list of pallets in the same file by modifying the [`#[frame_support::runtime]`](https://paritytech.github.io/polkadot-sdk/master/frame_support/attr.runtime.html){target=\_blank} section. This Rust macro constructs the runtime with a specified name and the pallets you want to include. Use the following format when adding your pallet:
 
 ```rust
 --8<-- 'code/develop/parachain-devs/runtime-development/FRAME/add-pallet-to-the-runtime/frame-support-runtime-macro.rs'

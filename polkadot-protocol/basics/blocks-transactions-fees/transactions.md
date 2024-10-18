@@ -7,7 +7,9 @@ description: Learn how to construct, submit, and validate transactions in the Po
 
 ## Introduction
 
-Transactions are essential components of blockchain networks, enabling state changes and the execution of key operations. In the Polkadot SDK, transactions, often called extrinsics, come in multiple forms, including signed, unsigned, and inherent transactions. This guide walks you through the different transaction types and how they're formatted, validated, and processed within the Polkadot ecosystem. You'll also learn how to customize transaction formats and construct transactions for FRAME-based runtimes, ensuring a complete understanding of how transactions are built and executed in Polkadot SDK-based chains.
+Transactions are essential components of blockchain networks, enabling state changes and the execution of key operations. In the Polkadot SDK, transactions, often called extrinsics, come in multiple forms, including signed, unsigned, and inherent transactions.
+
+This guide walks you through the different transaction types and how they're formatted, validated, and processed within the Polkadot ecosystem. You'll also learn how to customize transaction formats and construct transactions for FRAME-based runtimes, ensuring a complete understanding of how transactions are built and executed in Polkadot SDK-based chains.
 
 ## What Is a Transaction?
 
@@ -121,7 +123,7 @@ The following is an example of how a signed transaction might look:
 --8<-- 'code/polkadot-protocol/basics/blocks-transactions-fees/transactions/signed-tx-example.rs'
 ```
 
-### Extrensic Encoding
+### Extrinsic Encoding
 
 Before a transaction is sent to the network, it is serialized and encoded using a structured encoding process that ensures consistency and prevents tampering:
 
@@ -133,7 +135,7 @@ Before a transaction is sent to the network, it is serialized and encoded using 
 This encoded format ensures consistency and efficiency in processing transactions across the network. By adhering to this format, applications can construct valid transactions and pass them to the network for execution.
 
 ??? interface "Additional Information"
-    Learn how compact encoding works using [SCALE](https://github.com/paritytech/parity-scale-codec){target=\_blank}
+    Learn how compact encoding works using [SCALE](https://github.com/paritytech/parity-scale-codec){target=\_blank}.
 
 ### Customize Transaction Construction
 
@@ -189,9 +191,9 @@ Details on how the transaction pool validates transactions, including fee and si
 
 If a transaction is invalid, for example, due to an invalid signature or insufficient funds, it is rejected and won't be added to the block. Invalid transactions might be rejected for reasons such as:
 
-- the transaction has already been included in a block
-- the transaction's signature does not match the sender
-- the transaction is too large to fit in the current block
+- The transaction has already been included in a block
+- The transaction's signature does not match the sender
+- The transaction is too large to fit in the current block
 
 ### Transaction Ordering and Priority
 
@@ -234,7 +236,7 @@ Authoring nodes follow this process:
 
 After a block is published, other nodes on the network can import it into their chain state. The block import queue is part of the outer node in every Polkadot SDK-based node and ensures incoming blocks are valid before adding them to the node's state.
 
-In most cases, you don't need to know details about how transactions are gossiped or how other nodes on the network import blocks. The following traits are relevant, however if you plan to write any custom consensus logic or want a deeper dive into the block import queue:
+In most cases, you don't need to know details about how transactions are gossiped or how other nodes on the network import blocks. The following traits are relevant, however, if you plan to write any custom consensus logic or want a deeper dive into the block import queue:
 
 - [**`ImportQueue`**](https://paritytech.github.io/polkadot-sdk/master/sc_consensus/import_queue/trait.ImportQueue.html){target=\_blank} - the trait that defines the block import queue
 - [**`Link`**](https://paritytech.github.io/polkadot-sdk/master/sc_consensus/import_queue/trait.Link.html){target=\_blank} - the trait that defines the link between the block import queue and the network

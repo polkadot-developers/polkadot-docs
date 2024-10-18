@@ -1,5 +1,5 @@
 ---
-title: Develop
+title: Smart Contracts
 description: TODO
 hide: 
 - feedback

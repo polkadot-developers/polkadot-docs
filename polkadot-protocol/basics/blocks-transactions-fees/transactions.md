@@ -205,48 +205,11 @@ When a node is selected as the next block author, it prioritizes transactions ba
 - **Nonce-based ordering** - transactions from the same account are ordered by their nonce
 - **Fee-based ordering** - among transactions with the same nonce or priority level, those with higher fees are prioritized
 
-### Transaction Execution and Block Production
+### Transaction Execution
 
 Once a block author selects transactions from the pool, the transactions are executed in priority order. As each transaction is processed, the state changes are written directly to the chain's storage. It's important to note that these changes are not cached, meaning a failed transaction won't revert earlier state changes, which could leave the block in an inconsistent state.
 
-The process follows these steps: 
-
-1. The executive module calls the [`on_initialize`](https://paritytech.github.io/polkadot-sdk/master/frame_support/traits/trait.Hooks.html#method.on_initialize){target=\_blank} hook in the system pallet and all other runtime pallets to initialize a block
-2. The executive module orchestrates the calls to each runtime function in the order defined by the transaction queue
-3. After all the [`on_initialize`](https://paritytech.github.io/polkadot-sdk/master/frame_support/traits/trait.Hooks.html#method.on_initialize){target=\_blank} functions have been executed, the executive module checks the parent hash in the block header and the trie root to verify the correct information
-
-??? interface "Additional Information"
-    Events are also written to storage. Runtime logic should not emit an event before performing the associated actions. If the associated transaction fails after the event was emitted, the event will not revert.
-
-### Finalize Block
-
-After executing all the transactions in the block, the executive module finalizes the block by calling the [`on_finalize`](https://paritytech.github.io/polkadot-sdk/master/frame_support/traits/trait.Hooks.html#method.on_finalize){target=\_blank} hooks in each pallet. This step ensures that any remaining state updates or checks are completed before the block is sealed and published. Once all of the `on_finalize` functions are executed, the executive module verifies the digest and storage root in the block header match what was calculated when the block was initialized. The [`on_idle`](https://paritytech.github.io/polkadot-sdk/master/frame_support/traits/trait.Hooks.html#method.on_idle){target=\_blank} function also passes through the remaining weight of the block to allow for execution based on the blockchain's usage.
-
-### Block Authoring and Import
-
-Once the block is finalized, the block author publishes it to the network. The block is gossiped to other nodes, which verify its validity and add it to their local chain state.
-
-Authoring nodes follow this process:
-
-1. **Receive transactions** - transactions are collected from the network
-2. **Validate** - transactions are checked for validity
-3. **Queue** - valid transactions are placed in the transaction pool
-4. **Execute** - transactions are executed, and state changes are stored
-5. **Publish** - the finalized block is broadcast to the network
-
-#### Block Import Queue
-
-After a block is published, other nodes on the network can import it into their chain state. The block import queue is part of the outer node in every Polkadot SDK-based node and ensures incoming blocks are valid before adding them to the node's state.
-
-In most cases, you don't need to know details about how transactions are gossiped or how other nodes on the network import blocks. The following traits are relevant, however, if you plan to write any custom consensus logic or want a deeper dive into the block import queue:
-
-- [**`ImportQueue`**](https://paritytech.github.io/polkadot-sdk/master/sc_consensus/import_queue/trait.ImportQueue.html){target=\_blank} - the trait that defines the block import queue
-- [**`Link`**](https://paritytech.github.io/polkadot-sdk/master/sc_consensus/import_queue/trait.Link.html){target=\_blank} - the trait that defines the link between the block import queue and the network
-- [**`BasicQueue`**](https://paritytech.github.io/polkadot-sdk/master/sc_consensus/import_queue/struct.BasicQueue.html){target=\_blank} - a basic implementation of the block import queue
-- [**`Verifier`**](https://paritytech.github.io/polkadot-sdk/master/sc_consensus/import_queue/trait.Verifier.html){target=\_blank} - the trait that defines the block verifier
-- [**`BlockImport`**](https://paritytech.github.io/polkadot-sdk/master/sc_consensus/block_import/trait.BlockImport.html){target=\_blank} - the trait that defines the block import process
-
-These traits govern how blocks are validated and imported across the network, ensuring consistency and security.
+Events are also written to storage. Runtime logic should not emit an event before performing the associated actions. If the associated transaction fails after the event was emitted, the event will not revert.
 
 ??? interface "Additional Information"
     Watch [Seminar: Lifecycle of a transaction](https://www.youtube.com/watch?v=3pfM0GOp02c){target=\_blank} for a video overview of the lifecycle of transactions and the types of transactions that exist

@@ -74,10 +74,7 @@
                 "0x2b06af9719ac64d755623cda8ddd9b94b1c371ded9e9c565e89ba783c4d5f5f9b4def25cfda6ef3a000000006f3d6b177c8acbd8dc9974cdb3cebfac4d31333c30865ff66c35c1bf898df5c5dd2924d3280e7201",
                 "0x9b000000"
             ],
-            [
-                "0x3a65787472696e7369635f696e646578",
-                null
-            ],
+            ["0x3a65787472696e7369635f696e646578", null],
             [
                 "0x3f1467a096bcd71a5b6a0c8155e208103f2edf3bdf381debe331ab7446addfdc",
                 "0x550057381efedcffffffffffffffffff"

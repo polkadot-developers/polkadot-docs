@@ -1,5 +1,4 @@
 title: FRAME
 nav:
   - index.md
-  - 'Pallet Testing': pallet-testing.md
   - 'FRAME Overview': frame-overview.md

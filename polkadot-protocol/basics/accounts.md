@@ -166,7 +166,7 @@ Consider an example where an account has 80 DOT locked for both staking and gove
 
 In this case, the total locked amount is 80 DOT because only the largest lock (80 DOT from staking) governs the locked balance. These 80 DOT will be released at different times based on the lock durations. In this example, the 24 DOT locked for governance will be released first since the shortest lock period is seven days. The 80 DOT stake with a 28-day lock period is released next. Now, all that remains locked is the 4 DOT for governance. After 224 days, all 80 DOT (minus the existential deposit) will be free and transferrable.
 
-![](/images/polkadot-protocol/protocol-components/accounts/locks-example-2.webp)
+![Illustration of Lock Example](/images/polkadot-protocol/basics/accounts/locks-example-2.webp)
 
 #### Edge Cases for Locks
 
@@ -179,7 +179,7 @@ In scenarios where multiple convictions and lock periods are active, the lock du
 
 Polkadot.js provides a user-friendly interface for managing and visualizing various account balances on Polkadot and Kusama networks. When interacting with Polkadot.js, you will encounter multiple balance types that are critical for understanding how your funds are distributed and restricted. This section explains how different balances are displayed in the Polkadot.js UI and what each type represents.
 
-![](/images/polkadot-protocol/protocol-components/accounts/account-balance-types-1.webp)
+![](/images/polkadot-protocol/basics/accounts/account-balance-types-1.webp)
 
 The most common balance types displayed on Polkadot.js are:
 
@@ -290,7 +290,7 @@ subkey inspect "caution juice atom organ advance problem want pledge someone sen
 
 The command displays output similar to the following:
 
---8<-- 'code/polkadot-protocol/protocol-components/accounts/address-formats/address-formats-1.html'
+--8<-- 'code/polkadot-protocol/basics/accounts/address-formats-1.html'
 
 The `subkey` program assumes an address is based on a public/private key pair. If you inspect an address, the command returns the 32-byte account identifier.
 
@@ -304,14 +304,14 @@ subkey inspect "12bzRJfh7arnnfPPUZHeJUaE62QLEwhK48QnH9LXeK2m1iZU"
 
 The command displays output similar to the following:
 
---8<-- 'code/polkadot-protocol/protocol-components/accounts/address-formats/address-formats-2.html'
+--8<-- 'code/polkadot-protocol/basics/accounts/address-formats-2.html'
 
 #### Using Polkadot.js API
 
 To verify an address in JavaScript or TypeScript projects, you can use the functions built into the [Polkadot.js API](https://polkadot.js.org/docs/){target=\_blank}. For example:
 
 ```js
---8<-- 'code/polkadot-protocol/protocol-components/accounts/address-formats/address-formats-3.js'
+--8<-- 'code/polkadot-protocol/basics/accounts/address-formats-3.js'
 ```
 
 If the function returns `true`, the specified address is a valid address.

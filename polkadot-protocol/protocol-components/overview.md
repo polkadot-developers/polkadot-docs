@@ -251,3 +251,5 @@ No, Polkadot uses the existential deposit to prevent dust accounts and other eco
 
 [Polkadot-JS explorer](https://polkadot.js.org/apps/#/explorer){target=\_blank}
 [Subscan](https://www.subscan.io/git){target=\_blank}
+
+--8<-- 'code/tutorials/tooling/chopsticks/overview/dev-newblock-example.js'

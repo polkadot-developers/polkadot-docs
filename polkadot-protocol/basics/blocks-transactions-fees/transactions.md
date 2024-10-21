@@ -212,7 +212,7 @@ Once a block author selects transactions from the pool, the transactions are exe
 Events are also written to storage. Runtime logic should not emit an event before performing the associated actions. If the associated transaction fails after the event was emitted, the event will not revert.
 
 ??? interface "Additional Information"
-    Watch [Seminar: Lifecycle of a transaction](https://www.youtube.com/watch?v=3pfM0GOp02c){target=\_blank} for a video overview of the lifecycle of transactions and the types of transactions that exist
+    Watch [Seminar: Lifecycle of a transaction](https://www.youtube.com/watch?v=3pfM0GOp02c){target=\_blank} for a video overview of the lifecycle of transactions and the types of transactions that exist.
 
 
 

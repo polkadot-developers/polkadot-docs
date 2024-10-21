@@ -29,9 +29,9 @@ When an authoring node is authorized to create a new block, it selects transacti
 
 The block initialization process begins with a series of function calls that prepare the block for transaction execution:
 
-1. -**Call `on_initialize`** - the executive module calls the [`on_initialize`](https://paritytech.github.io/polkadot-sdk/master/frame_support/traits/trait.Hooks.html#method.on_initialize){target=\_blank} hook from the system pallet and other runtime pallets to prepare for the block's transactions
-2. -**Coordinate runtime calls** - coordinates function calls in the order defined by the transaction queue
-3. -**Verify information** - once [`on_initialize`](https://paritytech.github.io/polkadot-sdk/master/frame_support/traits/trait.Hooks.html#method.on_initialize){target=\_blank} functions are executed, the executive module checks the parent hash in the block header and the trie root to verify information is consistent
+1. **Call `on_initialize`** - the executive module calls the [`on_initialize`](https://paritytech.github.io/polkadot-sdk/master/frame_support/traits/trait.Hooks.html#method.on_initialize){target=\_blank} hook from the system pallet and other runtime pallets to prepare for the block's transactions
+2. **Coordinate runtime calls** - coordinates function calls in the order defined by the transaction queue
+3. **Verify information** - once [`on_initialize`](https://paritytech.github.io/polkadot-sdk/master/frame_support/traits/trait.Hooks.html#method.on_initialize){target=\_blank} functions are executed, the executive module checks the parent hash in the block header and the trie root to verify information is consistent
 
 ### Finalize Block
 

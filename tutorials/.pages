@@ -2,7 +2,4 @@ title: Tutorials
 nav:
   - index.md
   - blockchains
-  - smart-contracts
-  - interoperability
-  - applications
   - polkadot-sdk

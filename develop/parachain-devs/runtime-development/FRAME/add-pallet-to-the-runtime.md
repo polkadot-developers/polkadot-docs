@@ -150,4 +150,3 @@ With the pallet successfully added and configured, the runtime is ready to be co
 
 - Dive deeper by [creating your custom pallet](TODO:update-path){target=\_blank} to expand the functionality of your blockchain
 - Ensure robustness with [Pallet Testing](TODO:update-path){target=\_blank} to verify the accuracy and behavior of your code
-- Optimize performance by visiting [Pallet Benchmarking](TODO:update-path){target=\_blank} and evaluating the efficiency of your pallet operations

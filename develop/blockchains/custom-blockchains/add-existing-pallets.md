@@ -29,19 +29,19 @@ For Rust programs, this configuration is defined in the `Cargo.toml` file, which
 
 ## Dependencies for a New Pallet
 
-To add the dependencies for a new pallet to the runtime, you need to modify the `Cargo.toml` file by adding a new line into the `[workspace.dependencies]` section with the pallet you want to add. This pallet definition might look like:
+To add the dependencies for a new pallet to the runtime, you must modify the `Cargo.toml` file by adding a new line into the `[workspace.dependencies]` section with the pallet you want to add. This pallet definition might look like:
 
 ```toml
 pallet-example = { version = "4.0.0-dev", default-features = false }
 ```
 
-This line imports the pallet-example crate as a dependency and specifies the following:
+This line imports the `pallet-example` crate as a dependency and specifies the following:
 
 - **`version`** - the specific version of the crate to import
 - **`default-features`** - determines the behavior for including pallet features when compiling the runtime with standard Rust libraries
 
 !!! note
-    If you’re importing a pallet that isn’t available on [`crates.io`](https://crates.io/){target=\_blank}, you can specify the location of the pallet (either locally or from a remote repository) by using the `git` or `path` key. For example:
+    If you’re importing a pallet that isn’t available on [`crates.io`](https://crates.io/){target=\_blank}, you can specify the pallet's location (either locally or from a remote repository) by using the `git` or `path` key. For example:
 
     ```toml
     pallet-example = { 
@@ -61,7 +61,7 @@ This line imports the pallet-example crate as a dependency and specifies the fol
     }
     ```
 
-    Ensure to substitute `INSERT_PALLET_RELATIVE_PATH` with the appropriate local path to the pallet.
+    Ensure that you substitute `INSERT_PALLET_RELATIVE_PATH` with the appropriate local path to the pallet.
 
 Next, add this dependency to the `[dependencies]` section of the `runtime/Cargo.toml` file, so it inherits from the main `Cargo.toml` file:
 
@@ -106,10 +106,10 @@ At its core, the `Config` trait typically looks like this:
 --8<-- 'code/develop/blockchains/custom-blockchains/add-existing-pallets/pallet-basic-config-trait.rs'
 ```
 
-This basic structure shows that every pallet must define certain types, such as `RuntimeEvent` and `WeightInfo`, to be functional within the runtime. The actual implementation can vary depending on the pallet’s specific needs.
+This basic structure shows that every pallet must define certain types, such as `RuntimeEvent` and `WeightInfo`, to function within the runtime. The actual implementation can vary depending on the pallet’s specific needs.
 
 ??? "Example - Utility Pallet"
-      For instance, in the [`utility pallet`](https://github.com/paritytech/polkadot-sdk/tree/master/substrate/frame/utility){target=\_blank}, the Config trait is implemented with the following types:
+      For instance, in the [`utility pallet`](https://github.com/paritytech/polkadot-sdk/tree/master/substrate/frame/utility){target=\_blank}, the `Config` trait is implemented with the following types:
 
       ```rust
       --8<-- 'code/develop/blockchains/custom-blockchains/add-existing-pallets/utility-pallet-config-trait.rs'
@@ -117,7 +117,7 @@ This basic structure shows that every pallet must define certain types, such as 
 
      This example shows how the `Config` trait defines types like `RuntimeEvent`, `RuntimeCall`, `PalletsOrigin`, and `WeightInfo`, which the pallet will use when interacting with the runtime.
 
-## Parameters Configuration for Pallets
+## Parameter Configuration for Pallets
 
 Traits in Rust define shared behavior, and within the Polkadot SDK, they allow runtimes to integrate and utilize a pallet's functionality by implementing its associated configuration trait and parameters. Some of these parameters may require constant values, which can be defined using the [`parameter_types!`](https://paritytech.github.io/polkadot-sdk/master/frame_support/macro.parameter_types.html){target=\_blank} macro. This macro simplifies development by expanding the constants into the appropriate struct types with functions that the runtime can use to access their types and values in a consistent manner.
 
@@ -129,7 +129,7 @@ For example, the following code snippet shows how the solochain template configu
 
 ## Pallet Config in the Runtime
 
-To integrate a new pallet into the runtime, you need to implement its `Config` trait in the `runtime/lib.rs` file. This is done by specifying the necessary types and parameters in Rust, as shown below:
+To integrate a new pallet into the runtime, you must implement its `Config` trait in the `runtime/lib.rs` file. This is done by specifying the necessary types and parameters in Rust, as shown below:
 
 ```rust
 --8<-- 'code/develop/blockchains/custom-blockchains/add-existing-pallets/impl-pallet-example-in-runtime.rs'

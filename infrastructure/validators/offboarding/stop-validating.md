@@ -12,7 +12,7 @@ To ensure a smooth stop to validation, make sure you should do the following act
 - Purge validator session keys
 - Unbond your tokens
 
-These can all be done with [Polkadot.js Apps](https://polkadot.js.org/apps){target=\_blank} UI or by using various [libraries](https://wiki.polkadot.network/docs/build-tools-index#libraries){target=\_blank} such as [Polkadot.js API](https://polkadot.js.org/docs/){target=\_blank}.
+These can all be done with [Polkadot.js Apps](https://polkadot.js.org/apps){target=\_blank} UI or by using various [libraries](https://wiki.polkadot.network/docs/build-tools-index#libraries){target=\_blank} such as [the Polkadot-API (PAPI)](https://papi.how/){target=\_blank}.
 
 <!-- TODO: add links later -->
 

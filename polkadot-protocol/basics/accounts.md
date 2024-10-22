@@ -25,7 +25,7 @@ The code snippet below shows how accounts are defined:
  --8<-- 'code/polkadot-protocol/basics/accounts/account-data-structure-1.rs'
 ```
 
-The preceding code block defines a storage map named `Account`. The `StorageMap` is a type of on-chain storage in Substrate that maps keys to values. In the `Account` map, the key is an account ID, and the value is the account's information. Here, `T` represents the generic parameter for the runtime configuration, which is defined by the pallet's configuration trait (`Config`).
+The preceding code block defines a storage map named `Account`. The `StorageMap` is a type of on-chain storage that maps keys to values. In the `Account` map, the key is an account ID, and the value is the account's information. Here, `T` represents the generic parameter for the runtime configuration, which is defined by the pallet's configuration trait (`Config`).
 
 The `StorageMap` consists of the following parameters:
 
@@ -90,7 +90,7 @@ For instance, the [Assets pallet](https://paritytech.github.io/polkadot-sdk/mast
 
 In Polkadot SDK-based chains, an account is deactivated when its reference counters (such as `providers`, `consumers`, and `sufficient`) reach zero. These counters ensure the account remains active as long as other runtime modules or pallets reference it.
 
-When all dependencies are cleared and the counters drop to zero, the account becomes deactivated and may be removed from the chain (reaped). This is particularly important in Substrate-based blockchains, where accounts with balances below the existential deposit threshold are pruned from storage to conserve state resources.
+When all dependencies are cleared and the counters drop to zero, the account becomes deactivated and may be removed from the chain (reaped). This is particularly important in Polkadot SDK-based blockchains, where accounts with balances below the existential deposit threshold are pruned from storage to conserve state resources.
 
 Each pallet that references an account has cleanup functions that decrement these counters when the pallet no longer depends on the account. Once these counters reach zero, the account is marked for deactivation.
 
@@ -120,7 +120,7 @@ This modular and flexible system of reference counters tightly controls the life
 ??? interface "Additional information"
     - Refer to the [System pallet Rust docs](https://paritytech.github.io/polkadot-sdk/master/frame_system/pallet/struct.Pallet.html){target=\_blank} for more details
     - The [`AccountInfo`](https://paritytech.github.io/polkadot-sdk/master/frame_system/struct.AccountInfo.html){target=\_blank} structure can vary as long as it satisfies the trait bounds defined by the `AccountData` associated type in the [`frame-system::pallet::Config`](https://paritytech.github.io/polkadot-sdk/master/frame_system/pallet/trait.Config.html){target=\_blank} trait
-    - By default, the Substrate runtime configures the `AccountInfo` structure, as defined in the [Balances pallet](https://paritytech.github.io/polkadot-sdk/master/pallet_balances/struct.AccountData.html){target=\_blank}
+    - By default, the Polkadot-SDK runtime configures the `AccountInfo` structure, as defined in the [Balances pallet](https://paritytech.github.io/polkadot-sdk/master/pallet_balances/struct.AccountData.html){target=\_blank}
 
 ## Account Balance Types
 

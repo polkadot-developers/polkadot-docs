@@ -29,10 +29,7 @@ The mock runtime includes all the necessary pallets and configurations needed fo
 Here’s a simple example of how to create a testing module that simulates these interactions:
 
 ```rust
-pub mod integration_testing {
-    use crate::*;
-    // ...
-}
+--8<-- 'code/develop/blockchains/testing/setup/integration-testing-module.rs'
 ```
 
 !!! note
@@ -47,17 +44,7 @@ The function `new_test_ext()` demonstrates setting up this environment. It uses 
 Here’s the code that sets up the mock runtime:
 
 ```rust
-pub mod integration_testing {
-    use crate::*;
-    use sp_runtime::BuildStorage;
-
-    pub fn new_test_ext() -> sp_io::TestExternalities {
-        frame_system::GenesisConfig::<Runtime>::default()
-            .build_storage()
-            .unwrap()
-            .into()
-    }
-}
+--8<-- 'code/develop/blockchains/testing/setup/genesis-config.rs'
 ```
 
 ## Where to Go Next

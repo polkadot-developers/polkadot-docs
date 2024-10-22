@@ -1,6 +1,6 @@
 ---
 title: Chill Your Node
-description: Instructions on chilling as a network participant.
+description: Learn how to chill your node as a network participant, which temporarily pauses your engagement in staking without unbonding your funds.
 ---
 
 Staking bonds can be in any of the three states: validating, nominating, or chilled (neither
@@ -14,7 +14,7 @@ the _staking proxy_ account, not the _stash_.
 
 !!!note Primer on stash and staking proxy accounts
     If you need a refresher on the different responsibilities of the stash and staking proxy account
-    when staking, take a look at the accounts section in the general staking guide.
+    when staking, take a look at the [Accounts](todo:addlink) section.
 
 ![staking](/images/infrastructure/operational-tasks/staking-keys-stash-proxy.webp)
 

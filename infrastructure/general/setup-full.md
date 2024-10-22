@@ -1,6 +1,6 @@
 ---
 title: Set up a Full Node
-description: Instructions on how to set up a full node in accordance to your platform and the differences between different node types.
+description: Instructions on how to set up a node in accordance to your platform and the differences between different node types.
 ---
 
 ## Introduction
@@ -16,14 +16,11 @@ same process applies to any other [Polkadot SDK](https://paritytech.github.io/po
 
 ### Types of Nodes
 
-A blockchain's growth comes from a _genesis block_, _extrinsics_, and _events_.
+Like many other protocols, A Polkadot SDK-based blockchain starts with the  _genesis block_, and grows with subsequent blocks that contain _extrinsics_ and _events_.
 
-<!-- TODO: we should explain this concept of "sealing" -->
+When a validator [seals](todo:add_link) block 1, it takes the blockchain's state at block zero. It then applies all pending changes on top of it and emits the events resulting from these changes. Later, the chain’s state at block one is used the same way to build the chain’s state at block two, and so on. Once two-thirds of the validators agree on a specific block being valid, it is finalized.
 
-When a validator seals block 1, it takes the blockchain's state at block 0. It then applies all
-pending changes on top of it and emits the events resulting from these changes. Later, the chain’s
-state at block one is used the same way to build the chain’s state at block 2, and so on. Once
-two-thirds of the validators agree on a specific block being valid, it is finalized.
+#### Archive Node
 
 An _archive node_ keeps all the past blocks and their states. An archive node makes it convenient
 to query the past state of the chain at any point in time. Finding out what an account's balance at
@@ -36,8 +33,9 @@ when using an archive node. However, an archive node takes up a lot of disk spac
     On [Stakeworld](https://stakeworld.io/docs/dbsize){target=_blank} you can find a list of the database sizes of Polkadot and Kusama nodes.
 
 Archive nodes are used by utilities that need past information - like block explorers, council
-scanners, discussion platforms like [Polkassembly](https://polkassembly.io){target=_blank}, and others. They need
-to be able to look at past on-chain data.
+scanners, discussion platforms like [Polkassembly](https://polkassembly.io){target=_blank}, and others. They need to be able to look at past on-chain data.
+
+#### Full Node
 
 A *full node* prunes historical states: all finalized blocks' states older than a configurable
 number except the genesis block's state. This is 256 blocks from the last finalized one by default.
@@ -45,20 +43,21 @@ A pruned node this way requires much less space than an archive node.
 
 A full node could eventually rebuild every block's state without additional information and become
 an archive node. This still needs to be implemented at the time of writing. If you need to query
-historical blocks' states past what you pruned, you must purge your database and resynchronize your node,
-starting in archive mode. Alternatively, you can use a backup or snapshot of a trusted source to
+historical blocks' states past what you pruned, you must purge your database and resynchronize your node, starting in archive mode. Alternatively, you can use a backup or snapshot of a trusted source to
 avoid needing to sync from genesis with the network and only need the states of blocks past that
 snapshot.
 
 Full nodes allow you to read the current state of the chain and to submit and validate extrinsics
 directly on the network without relying on a centralized infrastructure provider.
 
-Another type of node is a *light node*. A light node has only the runtime and the current state
+#### Light Node
+
+A *light node* has only the runtime and the current state
 but doesn't store past blocks and so cannot read historical data without requesting it from a node
 that has it. Light nodes are useful for resource-restricted devices. An interesting use-case of
 light nodes is a browser extension, which is a node in its own right, running the runtime in WebAssembly
 format, as well as a full or light node that is completely encapsulated in WebAssembly and can be
-integrated into web apps: [Smoldot](https://github.com/smol-dot/smoldot.){target=_blank}
+integrated into web apps: [Smoldot](https://github.com/smol-dot/smoldot){target=_blank}
 
 !!!note Substrate Connect
     [Substrate Connect](https://github.com/paritytech/substrate-connect){target=_blank} provides a way to interact with
@@ -67,13 +66,6 @@ integrated into web apps: [Smoldot](https://github.com/smol-dot/smoldot.){target
     [Smoldot Wasm light client](https://github.com/paritytech/smoldot){target=_blank} to securely connect to the
     blockchain network without relying on specific third parties. Substrate Connect is available on Chrome
     and Firefox as a [browser extension](https://substrate.io/developers/substrate-connect/){target=_blank}.
-
-
-<!--separates content from instructions-->
-
----
-
-<!--setup instructions differ per os, presented in tabs-->
 
 ## Setup Instructions
 
@@ -184,7 +176,7 @@ This isn't recommended if you're a validator. Please see the [secure validator s
     ./polkadot --name "Your Node's Name"
     ```
 
-    - Find your node on [Telemetry](https://telemetry.polkadot.io/#list/Polkadot){target=_blank}
+    - Once your node is synced, you may find it on [Telemetry](https://telemetry.polkadot.io/#list/Polkadot){target=_blank}
 
 === "Linux (Standalone)"
 
@@ -294,32 +286,7 @@ This isn't recommended if you're a validator. Please see the [secure validator s
         systemctl daemon-reload
         ```
 
-## Clone and Build
-
-The [`paritytech/polkadot`](https://github.com/paritytech/polkadot-sdk/tree/master/polkadot) repository
-master branch contains the latest Polkadot code. To install it as a binary, `cargo` may be used to install directly from a specific release:
-
-<!-- TODO: better instructions for installing polka binary -->
-
-```bash
-git clone https://github.com/paritytech/polkadot-sdk polkadot-sdk
-cd polkadot-sdk
-./scripts/init.sh
-cargo build --release
-```
-
-Alternatively, if you wish to use a specific release, you can check out a specific tag (`v0.8.3` in
-the example below):
-
-```bash
-git clone https://github.com/paritytech/polkadot-sdk polkadot-sdk
-cd polkadot-sdk
-git checkout tags/polkadot-v1.9.0
-./scripts/init.sh
-cargo build --release
-```
-
-## Run
+## Running a Full Node
 
 The built binary will be in the `target/release` folder, called `polkadot`.
 
@@ -339,7 +306,7 @@ RAM. On a $10 DigitalOcean droplet, the process can complete in some ~36 hours.
 Congratulations, you're now syncing with Polkadot. Keep in mind that the process is identical when
 using any other Polkadot SDK-based chain.
 
-## Running an Archive Node
+### Running an Archive Node
 
 Only the state of the past 256 blocks will be kept when running as a simple sync node, as in the preceding section. It
 defaults to [archive mode](#types-of-nodes) when validating. To support the full state, use the
@@ -369,3 +336,4 @@ docker run \
 --name "calling_home_from_a_docker_container" \
 --rpc-external \
 --prometheus-external
+```

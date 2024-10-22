@@ -33,18 +33,16 @@ find a summary of punishments for specific offenses:
   [parachain protocol](https://wiki.polkadot.network/docs/learn-parachains-protocol#parachain-protocol){target=\_blank}.
 
 On Polkadot, there are six main validator
-offenses as shown below.
+offenses as shown below:
 
-- **Backing Invalid:** A para-validator is backing an invalid block.
-- **ForInvalid Vote:** A validator (secondary checker) votes in favor of an invalid block.
-- **AgainstValid Vote:** A validator (secondary checker) is voting against a valid block (and
-  wasting network resources).
-- **Equivocation:** A validator produces two or more of the same block or vote.
-  - GRANDPA and BEEFY Equivocation: A validator signs two or more votes in the same round on
-    different chains.
-  - BABE Equivocation: A validator produces two or more blocks on the Relay Chain in the same time
-    slot.
-- **Double Seconded Equivocation:** Within a backing group of 5 para-validators, at most 5 backed
+- Backing Invalid - a para-validator is backing an invalid block
+- ForInvalid Vote - a validator (secondary checker) votes in favor of an invalid block
+- AgainstValid Vote - a validator (secondary checker) is voting against a valid block (and
+  wasting network resources)
+- Equivocation - a validator produces two or more of the same block or vote
+- GRANDPA and BEEFY Equivocation - a validator signs two or more votes in the same round on different chains
+- BABE Equivocation - a validator produces two or more blocks on the Relay Chain in the same time slot
+- Double Seconded Equivocation - within a backing group of 5 para-validators, at most 5 backed
   parablocks are possible. Each parablock requires exactly one seconded and at least two more valid
   votes from the five potential backers. This makes an upper bound on the number of parablocks the
   system has to deal with while still allowing some choice for relay chain block authors. Backers
@@ -54,12 +52,12 @@ offenses as shown below.
   [asynchronous backing](https://wiki.polkadot.network/docs/learn-async-backing){target=\_blank} as it is no longer one candidate per relay chain
   block as backers can back blocks "into the future" optimistically. See
   [this page](https://paritytech.github.io/polkadot-sdk/book/node/backing/statement-distribution.html#seconding-limit){target=\_blank}
-  for more information.
-- **Seconded + Valid Equivocation:** This happens when a malicious node first seconds something
+  for more information
+- Seconded + Valid Equivocation - this happens when a malicious node first seconds something
   (takes absolute responsibility for it), and then only pretends to be someone who just said it is
   correct after someone else takes responsibility. That is a straight-up lie (equivocation). A node
   could use that tactic to escape responsibility, but once the system notices the two conflicting
-  votes, the offense is reported.
+  votes, the offense is reported
 
 ### Equivocation (Conflicting Statements)
 
@@ -104,15 +102,15 @@ running separate nodes; each node is considered its own entity for slashing purp
 
 Once a validator gets slashed, it goes into the state as an "unapplied slash". You can check this
 via
-[Polkadot-JS UI](https://polkadot.js.org/apps/?rpc=wss%3A%2F%2Frpc.polkadot.io#/staking/slashes){target=\_blank}.
+[Polkadot.js Apps UI](https://polkadot.js.org/apps/?rpc=wss%3A%2F%2Frpc.polkadot.io#/staking/slashes){target=\_blank}.
 The UI shows it per validator, followed by all the affected nominators and the amounts. While
 unapplied, a governance proposal can be made to reverse it during a 27-day grace period, after which
 the slashes are applied.
 
 A slash may occur under the circumstances below:
 
-1.  Equivocations – A slash of 0.01% is applied with as little as a single evocation. The slashed amount increases to 100% incrementally as more validators also equivocate
-2.  Disputes – This may result from a validator trying to represent the contents of a block falsely. Slashing penalties of 100% may apply
+1.  Equivocations – a slash of 0.01% is applied with as little as a single evocation. The slashed amount increases to 100% incrementally as more validators also equivocate
+2.  Disputes – this may result from a validator trying to represent the contents of a block falsely. Slashing penalties of 100% may apply
    
 #### Slash for Equivocation
 
@@ -121,24 +119,24 @@ The following levels of offense are
 particular levels are not implemented or referred to in the code or the system; they are meant as
 guidelines for different levels of severity for offenses.
 
-- Level 1: Isolated equivocation slashes a minimal amount of the stake.
-- Level 2: Misconducts unlikely to be accidental but do not harm the network's security to any large
+- Level 1 - isolated equivocation slashes a minimal amount of the stake
+- Level 2 - misconducts unlikely to be accidental but do not harm the network's security to any large
   extent. Examples include concurrent equivocation or isolated cases of unjustified voting in
-  [GRANDPA](https://wiki.polkadot.network/docs/learn-consensus#finality-gadget-grandpa){target=\_blank}. Slashes a moderately small amount of the stake.
-- Level 3: misconduct that poses severe security or monetary risk to the system or mass collusion.
-  Slashes all or most of the stake behind the validator.
+  [GRANDPA](https://wiki.polkadot.network/docs/learn-consensus#finality-gadget-grandpa){target=\_blank}. Slashes a moderately small amount of the stake
+- Level 3 - misconduct that poses severe security or monetary risk to the system or mass collusion.
+  Slashes all or most of the stake behind the validator
 
 The following are scenarios that build towards slashes under equivocation:
 
 1.  Cloning a server, i.e., copying all contents when migrating to new hardware. This action should
-    be avoided. If an image is desired, it should be taken before keys are generated.
-2.  High Availability (HA) Systems – Equivocation can occur if there are any concurrent operations,
+    be avoided. If an image is desired, it should be taken before keys are generated
+2.  High Availability (HA) Systems – equivocation can occur if there are any concurrent operations,
     either when a failed server restarts or if a false positive event results in both servers being
-    online simultaneously. HA systems are to be treated with extreme caution and are not advised.
+    online simultaneously. HA systems are to be treated with extreme caution and are not advised
 3.  The keystore folder is copied when attempting to copy a database from one instance to another.  
     It is important to note that equivocation slashes occur with a single incident. This can happen
     if duplicated keystores are used for only a few seconds. A slash can result in losing nominators
-    and funds, removal from the Thousand Validator Programme, and reputational damage.
+    and funds, removal from the Thousand Validator Programme, and reputational damage
 
 See the next section to understand how slash amounts for equivocations are calculated. If you want
 to know more details about slashing, please look at our
@@ -199,10 +197,10 @@ Below are some examples of small equivocations that happened in the past.
 
 There are three main difficulties to account for with slashing in NPoS:
 
-- A nominator can nominate multiple validators and be slashed via any of them.
+- A nominator can nominate multiple validators and be slashed via any of them
 - Until slashed, the stake is reused from era to era. Nominating with N coins for E eras in a row
-  does not mean you have N\*E coins to be slashed - you've only ever had N.
-- Slashable offenses can be found after the fact and out of order.
+  does not mean you have N\*E coins to be slashed - you've only ever had N
+- Slashable offenses can be found after the fact and out of order
 
 To balance this, the system applies only the maximum slash a participant can receive in a given time
 period rather than the sum. This ensures protection from overslashing.
@@ -213,9 +211,9 @@ period rather than the sum. This ensures protection from overslashing.
 offense. Disabling is further divided into:
 
 - On-chain disabling lasts for a whole era and stops validators from block authoring, backing, and
-  initiating a dispute.
+  initiating a dispute
 - Off-chain disabling lasts for a session, is caused by losing a dispute, and stops validators from
-  initiating a dispute.
+  initiating a dispute
 
 Off-chain disabling is always a lower priority than on-chain disabling. Off-chain disabling
 prioritizes disabling first backers and then approval checkers.

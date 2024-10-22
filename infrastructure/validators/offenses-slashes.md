@@ -93,11 +93,11 @@ having other inactive or waiting nominations. They are also not mitigated by the
 running separate nodes; each node is considered its own entity for slashing purposes.
 
 !!!info "Multiple Active Nominations"
-  In rare instances, with very large bonds, a nominator may actively nominate several validators in a
-  single era. In this case, the slash is proportionate to the amount staked to that specific
-  validator. Note that you cannot control the percentage of stake allocated to each validator or
-  choose who your active validator will be (except in the trivial case of nominating a single
-  validator). Staking allocations are controlled by the [Phragmén algorithm](https://wiki.polkadot.network/docs/learn-phragmen#understanding-phragm%C3%A9n){target=\_blank}.
+    In rare instances, with very large bonds, a nominator may actively nominate several validators in a
+    single era. In this case, the slash is proportionate to the amount staked to that specific
+    validator. Note that you cannot control the percentage of stake allocated to each validator or
+    choose who your active validator will be (except in the trivial case of nominating a single
+    validator). Staking allocations are controlled by the [Phragmén algorithm](https://wiki.polkadot.network/docs/learn-phragmen#understanding-phragm%C3%A9n){target=\_blank}.
 
 
 Once a validator gets slashed, it goes into the state as an "unapplied slash". You can check this
@@ -114,10 +114,9 @@ A slash may occur under the circumstances below:
    
 #### Slash for Equivocation
 
-The following levels of offense are
-[defined](https://research.web3.foundation/Polkadot/security/slashing/amounts){target=\_blank}. However, these
-particular levels are not implemented or referred to in the code or the system; they are meant as
-guidelines for different levels of severity for offenses.
+The following levels of offense are defined in the [Slashing Mechanisms](https://research.web3.foundation/Polkadot/security/slashing/amounts){target=\_blank} page of the Web3 Foundation research repository. 
+
+These particular levels are not implemented or referred to in the code or the system; they are meant as guidelines for different levels of severity for offenses.
 
 - Level 1 - isolated equivocation slashes a minimal amount of the stake
 - Level 2 - misconducts unlikely to be accidental but do not harm the network's security to any large

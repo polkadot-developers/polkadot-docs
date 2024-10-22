@@ -3,13 +3,14 @@ title: Set up a Full Node
 description: Instructions on how to set up a full node in accordance to your platform and the differences between different node types.
 ---
 
-If you're building dApps or products on a Substrate-based chain like Polkadot, Kusama, or a custom
-Substrate implementation, you want the ability to run a node-as-a-back-end. After all, relying on
+## Introduction
+
+If you're building dApps or products on a Polkadot SDK-based chain like Polkadot, Kusama, or a custom implementation, you want the ability to run a node-as-a-back-end. After all, relying on
 your infrastructure is always better than a third-party-hosted one in this brave new decentralized
 world.
 
-This guide will show you how to connect to [Polkadot](https://polkadot.network/), but the
-same process applies to any other [Substrate](https://substrate.io)-based chain.
+This guide will show you how to connect to [Polkadot](https://polkadot.network/){target=\_blank}, but the
+same process applies to any other [Polkadot SDK](https://paritytech.github.io/polkadot-sdk/master/polkadot_sdk_docs/polkadot_sdk/index.html){target=\_blank}-based chain.
 
 <!-- TODO - maybe we keep this as a "intro" page for the infrastructure section, and make this page more focused post-merge? -->
 
@@ -361,6 +362,10 @@ on localhost by default. If you would like to connect to your node's services (R
 you need to ensure that you run the node with the `--rpc-external`, and `--prometheus-external`
 commands.
 
-```zsh
-docker run -p 9944:9944 -p 9615:9615 parity/polkadot:v0.9.13 --name "calling_home_from_a_docker_container" --rpc-external --prometheus-external
-```
+```bash
+docker run \
+-p 9944:9944 \
+-p 9615:9615 parity/polkadot:v0.9.13 \
+--name "calling_home_from_a_docker_container" \
+--rpc-external \
+--prometheus-external

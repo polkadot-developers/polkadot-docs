@@ -9,7 +9,7 @@ staking but don't want to unbond your funds, they can choose to "chill" your inv
 keep your funds bonded.
 
 An account can step back from participating in active staking by clicking "Stop" under the Network >
-Staking > Account actions page in [Polkadot.js Apps](https://polkadot.js.org/apps){target=\_blank} or by calling the [`chill`](https://paritytech.github.io/polkadot-sdk/master/pallet_staking/enum.Call.html#variant.chill){target=\_blank} extrinsic in the staking pallet. When an account chooses to chill, it becomes inactive in the next era. The call must be signed by
+Staking > Account actions page in [Polkadot.js Apps](https://polkadot.js.org/apps){target=\_blank} or by calling the [`chill`](https://paritytech.github.io/polkadot-sdk/master/pallet_staking/enum.Call.html#variant.chill){target=\_blank} extrinsic in the `staking` pallet. When an account chooses to chill, it becomes inactive in the next era. The call must be signed by
 the _staking proxy_ account, not the _stash_.
 
 !!!note Primer on stash and staking proxy accounts

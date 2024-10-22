@@ -85,12 +85,9 @@ On Polkadot, offenses to the network can be punished depending on their severity
 get slashed by losing a percentage of their staked DOT/KSM, from as little as 0.01% up to 100%.
 
 Any slashed DOT/KSM will be added to the [Treasury](https://wiki.polkadot.network/docs/learn-polkadot-opengov-treasury){target=\_blank}. The rationale for this (rather than burning or distributing them as rewards) is that slashes may be reverted by simply paying out from the Treasury. This would
-be useful in situations such as faulty slashes. In the case of legitimate slashing, tokens are moved
-away from malicious validators to those building the ecosystem through the normal Treasury process.
+be useful in situations such as faulty slashes. In the case of legitimate slashing, tokens are moved away from malicious validators to those building the ecosystem through the normal Treasury process.
 
-Slashing only occurs for active validations for a given nominator, and slashes are not mitigated by
-having other inactive or waiting nominations. They are also not mitigated by the validator operator
-running separate nodes; each node is considered its own entity for slashing purposes.
+Slashing only occurs for active validations for a given nominator, and slashes aren't mitigated by having other inactive or waiting nominations. They are also not mitigated by the validator operator running separate nodes. Each node is considered its own entity for slashing purposes.
 
 !!!info "Multiple Active Nominations"
     In rare instances, with very large bonds, a nominator may actively nominate several validators in a
@@ -116,10 +113,10 @@ A slash may occur under the circumstances below:
 
 The following levels of offense are defined in the [Slashing Mechanisms](https://research.web3.foundation/Polkadot/security/slashing/amounts){target=\_blank} page of the Web3 Foundation research repository. 
 
-These particular levels are not implemented or referred to in the code or the system; they are meant as guidelines for different levels of severity for offenses.
+These particular levels aren't implemented or referred to in the code or the system. They are meant as guidelines for different levels of severity for offenses.
 
 - Level 1 - isolated equivocation slashes a minimal amount of the stake
-- Level 2 - misconducts unlikely to be accidental but do not harm the network's security to any large
+- Level 2 - misconducts unlikely to be accidental but don't harm the network's security to any large
   extent. Examples include concurrent equivocation or isolated cases of unjustified voting in
   [GRANDPA](https://wiki.polkadot.network/docs/learn-consensus#finality-gadget-grandpa){target=\_blank}. Slashes a moderately small amount of the stake
 - Level 3 - misconduct that poses severe security or monetary risk to the system or mass collusion.
@@ -127,19 +124,17 @@ These particular levels are not implemented or referred to in the code or the sy
 
 The following are scenarios that build towards slashes under equivocation:
 
-1.  Cloning a server, i.e., copying all contents when migrating to new hardware. This action should
-    be avoided. If an image is desired, it should be taken before keys are generated
+1.  Cloning a server (copying all contents when migrating to new hardware). This action should be avoided. If an image is desired, it should be taken before keys are generated
 2.  High Availability (HA) Systems – equivocation can occur if there are any concurrent operations,
     either when a failed server restarts or if a false positive event results in both servers being
-    online simultaneously. HA systems are to be treated with extreme caution and are not advised
+    online simultaneously. HA systems are to be treated with extreme caution and aren't advised
 3.  The keystore folder is copied when attempting to copy a database from one instance to another.  
     It is important to note that equivocation slashes occur with a single incident. This can happen
     if duplicated keystores are used for only a few seconds. A slash can result in losing nominators
     and funds, removal from the Thousand Validator Programme, and reputational damage
 
 See the next section to understand how slash amounts for equivocations are calculated. If you want
-to know more details about slashing, please look at our
-[research page](https://research.web3.foundation/Polkadot/security/slashing/amounts){target=\_blank}.
+to know more details about slashing, please look at the [research page](https://research.web3.foundation/Polkadot/security/slashing/amounts){target=\_blank}.
 
 #### Slash Calculation for Equivocation
 
@@ -149,11 +144,7 @@ GRANDPA, BABE, and BEEFY equivocation use the same formula for calculating the s
 
     min((3 * x / n )^2, 1)
 
-For example, assume that there are 100 validators in the active set, and one equivocates in a slot
-(for our purposes, it does not matter whether it was a BABE or GRANDPA equivocation). This is
-unlikely to be an attack on the network but much more likely to be a misconfiguration of a
-validator. The penalty would be min(3 \* 1 / 100)^2, 1) = 0.0009, or a 0.09% slash for that
-validator (i.e., the stake held by the validator and its nominators).
+For example, assume that there are 100 validators in the active set, and one equivocates in a slot (it doesn't matter whether it was a BABE or GRANDPA equivocation). This is unlikely to be an attack on the network but much more likely to be a misconfiguration of a validator. The penalty would be min(3 \* 1 / 100)^2, 1) = 0.0009, or a 0.09% slash for that validator (the stake held by the validator and its nominators).
 
 Now, assume that a group is running several validators, and they all have an issue in the same slot.
 The penalty would be min((3 \* 5 / 100)^2, 1) = 0.0225, or a 2.25% slash. If 20 validators
@@ -164,12 +155,12 @@ all these validators and their nominators. All slashed validators will also be c
 The example above shows the risk of nominating or running many validators in the active set. While
 rewards grow linearly (two validators will get you approximately twice as many staking rewards as
 one) slashing grows exponentially. A single validator equivocating causes a 0.09% slash, and two
-validators equivocating does not cause a 0.09 \* 2 = 0.18% slash, but rather a 0.36% slash - 4x as
+validators equivocating doesn't cause a 0.09 \* 2 = 0.18% slash, but rather a 0.36% slash - 4x as
 much as the single validator.
 
 Validators may run their nodes on multiple machines to ensure they can still perform validation work
 if one of their nodes goes down. Still, validator operators should be cautious when setting these
-up. Equivocation is possible if they do not have good coordination in managing signing machines.
+up. Equivocation is possible if they don't have good coordination in managing signing machines.
 
 #### Good Practices to Avoid Slashing
 
@@ -188,9 +179,9 @@ Below are some examples of small equivocations that happened in the past.
 
 | Network  | Era  | Event Type         | Details                                                                                                                                                                                                                                                                                                                       | Action Taken                                                                                                                       |
 | -------- | ---- | ------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------- |
-| Polkadot | 774  | Small Equivocation | [The validator](https://matrix.to/#/!NZrbtteFeqYKCUGQtr:matrix.parity.io/$165562246360408hKCfC:matrix.org?via=matrix.parity.io&via=corepaper.org&via=matrix.org){target=\_blank} migrated servers and cloned the keystore folder. The on-chain event can be viewed [here](https://polkadot.subscan.io/extrinsic/11190109-0?event=11190109-5){target=\_blank}. | The validator did not submit a request for the slash to be canceled.                                                               |
-| Kusama   | 3329 | Small Equivocation | The validator operated a test machine with cloned keys; the test machine was online at the same time as the primary, which resulted in a slash. Details can be found [here](https://kusama.polkassembly.io/post/1343){target=\_blank}.                                                                                                        | The validator requested a slash cancellation, but the council declined.                                                            |
-| Kusama   | 3995 | Small Equivocation | The validator noticed several errors, after which the client crashed, and a slash was applied. The validator recorded all events and opened GitHub issues to allow for technical opinions to be shared. Details can be found [here](https://kusama.polkassembly.io/post/1733){target=\_blank}.                                                | The validator requested to cancel the slash. The council approved the request as they believed the error was not operator-related. |
+| Polkadot | 774  | Small Equivocation | [The validator](https://matrix.to/#/!NZrbtteFeqYKCUGQtr:matrix.parity.io/$165562246360408hKCfC:matrix.org?via=matrix.parity.io&via=corepaper.org&via=matrix.org){target=\_blank} migrated servers and cloned the keystore folder. The on-chain event can be viewed [here](https://polkadot.subscan.io/extrinsic/11190109-0?event=11190109-5){target=\_blank}. | The validator didn't submit a request for the slash to be canceled.                                                               |
+| Kusama   | 3329 | Small Equivocation | The validator operated a test machine with cloned keys. The test machine was online at the same time as the primary, which resulted in a slash. Details can be found [here](https://kusama.polkassembly.io/post/1343){target=\_blank}.                                                                                                        | The validator requested a slash cancellation, but the council declined.                                                            |
+| Kusama   | 3995 | Small Equivocation | The validator noticed several errors, after which the client crashed, and a slash was applied. The validator recorded all events and opened GitHub issues to allow for technical opinions to be shared. Details can be found [here](https://kusama.polkassembly.io/post/1733){target=\_blank}.                                                | The validator requested to cancel the slash. The council approved the request as they believed the error wasn't operator-related. |
 
 #### Slashing Across Eras
 
@@ -198,7 +189,7 @@ There are three main difficulties to account for with slashing in NPoS:
 
 - A nominator can nominate multiple validators and be slashed via any of them
 - Until slashed, the stake is reused from era to era. Nominating with N coins for E eras in a row
-  does not mean you have N\*E coins to be slashed - you've only ever had N
+  doesn't mean you have N\*E coins to be slashed - you've only ever had N
 - Slashable offenses can be found after the fact and out of order
 
 To balance this, the system applies only the maximum slash a participant can receive in a given time
@@ -220,10 +211,7 @@ prioritizes disabling first backers and then approval checkers.
 ### Reputation Changes
 
 Some minor offenses often connected to spamming are only punished by Networking Reputation Changes.
-When validators connect to each other, they use a reputation metric for each of their peers. If our
-peers provide valuable data and behave appropriately, the system adds reputation; if they provide us
-with faulty or spam data, the system reduces their reputation. A validator can lose enough
-reputation so that the peers will temporarily close their channels. This helps in fighting against
+When validators connect to each other, they use a reputation metric for each of their peers. If peers provide valuable data and behave appropriately, the system adds reputation. If they provide faulty or spam data, the system reduces their reputation. A validator can lose enough reputation so that the peers will temporarily close their channels. This helps in fighting against
 DoS (Denial of Service) attacks. The consequences of closing channels may vary. In general,
 performing validator tasks under reduced reputation will be harder, resulting in lower validator
 rewards.

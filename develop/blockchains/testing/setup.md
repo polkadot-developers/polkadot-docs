@@ -1,6 +1,6 @@
 ---
-title: Setup
-description: TODO
+title: Testing Setup
+description: Learn how to create a mock environment for testing complete runtime functionality in the Polkadot SDK, ensuring integration between pallets and system components.
 ---
 
 # Introduction

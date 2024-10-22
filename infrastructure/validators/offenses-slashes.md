@@ -1,6 +1,6 @@
 ---
 title: Offenses and Slashes
-description: Offenses and Slashes in the Polkadot Ecosystem.
+description: Learn about the types of offenses, slashes, and "punishments" that apply when running a validator and how to avoid them.
 ---
 
 !!!info 
@@ -28,9 +28,9 @@ find a summary of punishments for specific offenses:
 
 ## Offenses
 
-!!!info Learn more about the parachain protocol
-  To better understand the terminology used for offenses, it is recommended to get familiar with the
-  [parachain protocol](https://wiki.polkadot.network/docs/learn-parachains-protocol#parachain-protocol){target=\_blank}.
+!!!info "Learn more about the parachain protocol"
+    To better understand the terminology used for offenses, it is recommended to get familiar with the
+    [parachain protocol](https://wiki.polkadot.network/docs/learn-parachains-protocol#parachain-protocol){target=\_blank}.
 
 On Polkadot, there are six main validator
 offenses as shown below.

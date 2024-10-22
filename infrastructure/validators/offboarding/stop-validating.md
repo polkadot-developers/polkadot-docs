@@ -12,7 +12,7 @@ To ensure a smooth stop to validation, make sure you should do the following act
 - Purge validator session keys
 - Unbond your tokens
 
-These can all be done with [Polkadot.js](https://polkadot.js.org/apps){target=_blank} interface or with extrinsics.
+These can all be done with [Polkadot.js Apps](https://polkadot.js.org/apps){target=\_blank} UI or by using various [libraries](https://wiki.polkadot.network/docs/build-tools-index#libraries){target=\_blank} such as [Polkadot.js API](https://polkadot.js.org/docs/){target=\_blank}.
 
 <!-- TODO: add links later -->
 
@@ -44,5 +44,5 @@ were set).
 ## Unbond your Tokens
 
 Unbonding your tokens can be done through the `Network > Staking > Account actions` page in
-PolkadotJS Apps by clicking the corresponding stash account dropdown and selecting **Unbond Funds**.
+Polkadot.js Apps by clicking the corresponding stash account dropdown and selecting **Unbond Funds**.
 This can also be done through the `staking.unbond()` extrinsic with the staking proxy account.

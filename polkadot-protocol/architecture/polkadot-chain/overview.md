@@ -11,7 +11,6 @@ Different projects have different value propositions, suggesting that the future
 
 ## Polkadot 1.0
 
-
 Polkadot 1.0 represents the state of Polkadot as of 2023, coinciding with the release of [Polkadot runtime v1.0.0](https://github.com/paritytech/polkadot/releases/tag/v1.0.0){target=\_blank}. This section will focus on Polkadot 1.0, along with philosophical insights into network resilience and blockspace.
 
 As a Layer-0 blockchain, Polkadot contributes to the multi-chain vision through several key innovations and initiatives, including:

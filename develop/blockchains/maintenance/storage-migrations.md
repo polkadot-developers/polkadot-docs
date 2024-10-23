@@ -1,6 +1,6 @@
 ---
 title: Storage Migrations
-description: TODO
+description: Ensure smooth runtime upgrades with storage migrations, updating data formats and preventing errors. Learn when and how to implement migrations efficiently.
 ---
 
 # Storage Migrations

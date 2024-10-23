@@ -7,7 +7,9 @@ description: Learn how to configure and run a bootnode for Polkadot, including P
 
 ## Introduction
 
-Bootnodes are essential for helping blockchain nodes discover peers and join the network. When a node starts, it needs to find other nodes, and bootnodes provide an initial point of contact. Once connected, a node can expand its peer connections and play its role in the network, like participating as a validator. This guide will walk you through setting up a Polkadot bootnode, configuring P2P, WebSocket (WS), secure WSS connections, and managing network keys. You'll also learn how to test your bootnode to ensure it is running correctly and accessible to other nodes.
+Bootnodes are essential for helping blockchain nodes discover peers and join the network. When a node starts, it needs to find other nodes, and bootnodes provide an initial point of contact. Once connected, a node can expand its peer connections and play its role in the network, like participating as a validator.
+
+This guide will walk you through setting up a Polkadot bootnode, configuring P2P, WebSocket (WS), secure WSS connections, and managing network keys. You'll also learn how to test your bootnode to ensure it is running correctly and accessible to other nodes.
 
 ## Prerequisites
 
@@ -28,7 +30,8 @@ Bootnodes must be accessible through three key channels to connect with other no
     --listen-addr /ip4/0.0.0.0/tcp/INSERT_PORT
 
     ```
-    Note: This is not enabled by default on non-validator nodes like archive RPC nodes
+    !!! note
+        This is not enabled by default on non-validator nodes like archive RPC nodes.
 
 - **P2P/WS** - a WebSocket (WS) connection, also configured via `--listen-addr`
 - **P2P/WSS** - a secure WebSocket (WSS) connection using SSL, often required for light clients. An SSL proxy is needed, as the node itself cannot handle certificates
@@ -47,7 +50,7 @@ You can create a node key using:
  
 This key can be used in the startup command line.
 
-It is imperative that you backup the node key. If it is included in the `polkadot` binary it is hardcoded into the binary which must be recompiled to change the key.
+It is imperative that you backup the node key. If it is included in the `polkadot` binary, it is hardcoded into the binary, which must be recompiled to change the key.
 
 ## Running the Bootnode
 

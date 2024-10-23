@@ -9,11 +9,28 @@ description: TODO
 
 Storage migrations are a crucial part of the runtime upgrade process. They allow you to update the storage layout of your blockchain, adapting to changes in the runtime. Whenever you change the encoding or data types used to represent data in storage, you'll need to provide a storage migration to ensure the runtime can properly interpret the existing stored values in the new runtime state.
 
-Without performing storage migrations, runtime upgrades that change the storage layout could lead to undefined behavior, as the runtime would be unable to correctly read the existing storage values.
+Storage migrations must be executed at a precise moment during the runtime upgrade process to ensure data consistency and prevent runtime panics. The migration code needs to run:
+
+- After the new runtime is deployed
+- Before any other code from the new runtime executes
+- Before any `on_initialize` hooks run
+- Before any transactions are processed
+
+This timing is critical because the new runtime expects data to be in the updated format. Without proper migration, any attempt to decode the old data format could result in runtime panics or undefined behavior.
 
 ## When is a Storage Migration Required?
 
-A storage migration is necessary whenever a runtime upgrade changes the storage layout or the encoding of data stored in the runtime. Even if the underlying data type appears to still "fit" the new storage representation, a migration may be required if the interpretation of the stored values has changed.
+A storage migration is necessary whenever a runtime upgrade changes the storage layout or the encoding/interpretation of existing data. Even if the underlying data type appears to still "fit" the new storage representation, a migration may be required if the interpretation of the stored values has changed.
+
+- Adding or removing an extrinsic introduces no new interpretation of preexisting data, so not migration required
+
+- Reordering or mutating fields of an existing data type do change the encoded/decoded data representation, hence a storage migration is needed
+
+- Removal of a pallet or storage item warrants cleaning up storage via a migration to avoid state bloat
+
+- Adding a new storage item would not require any migration
+
+### Common Cases
 
 Here are some common scenarios where a storage migration is needed:
 
@@ -75,9 +92,89 @@ Here are some common scenarios where a storage migration is needed:
 
 ## Implementing Storage Migrations
 
-Once you upgrade a runtime, the code is expecting the data to be in a new format.
-Any on_initialize or transaction might fail decoding data, and potentially panic!
+The [`OnRuntimeUpgrade`](https://paritytech.github.io/polkadot-sdk/master/frame_support/traits/trait.OnRuntimeUpgrade.html){target=\_blank} trait provides the foundation for implementing storage migrations in your runtime:
 
-We need a hook that is executed ONCE as a part of the new runtime. But before ANY other code (on_initialize, any transaction) with the new runtime is migrated. This is OnRuntimeUpgrade. This trait provides a single function, on_runtime_upgrade, which allows you to specify the logic to run immediately after a runtime upgrade, but before any on_initialize functions or transactions are executed.
+```rust
+pub trait OnRuntimeUpgrade {
+    fn on_runtime_upgrade() -> Weight { 
+        // Migration logic goes here
+    }
+    ...
+}
+```
 
-Inside the on_runtime_upgrade function, you can read the existing storage values, perform any necessary transformations, and write the updated values back to storage. 
+This function allows you to:
+
+- Read existing storage values using the old format
+- Transform the data into the new format
+- Write the updated values back to storage
+- Return the weight consumed by the migration
+
+### Migration Organization
+
+Best practices recommend organizing migrations in a separate module within your pallet. Here's the recommended file structure:
+
+```plain
+my-pallet/
+├── src/
+│   ├── lib.rs       # Main pallet implementation
+│   └── migrations/  # All migration-related code
+│       ├── mod.rs   # Migrations module definition
+│       ├── v1.rs    # V0 -> V1 migration
+│       └── v2.rs    # V1 -> V2 migration
+└── Cargo.toml
+```
+
+This structure provides several benefits:
+
+- Separates migration logic from core pallet functionality
+- Makes migrations easier to test and maintain
+- Provides clear versioning of storage changes
+- Simplifies the addition of future migrations
+
+### Scheduling Migrations
+
+To execute migrations during a runtime upgrade, you need to configure them in your runtime's `Executive` pallet. Add your migrations in `runtime/src/lib.rs`:
+
+```rust
+/// Tuple of migrations (structs that implement `OnRuntimeUpgrade`)
+type Migrations = (
+    pallet_my_pallet::migrations::v1::Migration,
+	// More migrations can be added here
+);
+pub type Executive = frame_executive::Executive<
+	Runtime,
+	Block,
+	frame_system::ChainContext<Runtime>,
+	Runtime,
+	AllPalletsWithSystem,
+	Migrations, // Include migrations here
+>;
+```
+
+### Single Block Migrations
+
+Single block migrations execute their entire logic within one block immediately following a runtime upgrade. They run as part of the runtime upgrade process through the `OnRuntimeUpgrade` trait implementation and must complete before any other runtime logic executes.
+While single block migrations are straightforward to implement and provide immediate data transformation, they carry significant risks. The most critical consideration is that they *must* complete within one block's weight limits. This is especially crucial for parachains, where exceeding block weight limits will brick the chain.
+Use single block migrations only when you can guarantee:
+
+- The migration has bounded execution time
+- Weight calculations are thoroughly tested
+- Total weight will never exceed block limits
+
+For a complete implementation example of a single-block migration, refer to the [single block migration example]( https://paritytech.github.io/polkadot-sdk/master/pallet_example_single_block_migrations/index.html){target=\_blank} in the Polkadot SDK documentation.
+
+### Multi Block Migrations
+
+Multi-block migrations distribute the migration workload across multiple blocks, providing a safer approach for production environments. The migration state is tracked in storage, allowing the process to pause and resume across blocks.
+This approach is particularly valuable for production networks and parachains. The risk of exceeding block weight limits is eliminated. Multi-block migrations can safely handle large storage collections, unbounded data structures, and complex nested data types where weight consumption might be unpredictable.
+
+You should use multi-block migrations when dealing with:
+
+- Large-scale storage migrations
+- Unbounded storage items or collections
+- Complex data structures with uncertain weight costs
+
+The primary trade-off is increased implementation complexity, as you need to manage migration state and handle partial completion scenarios. However, this complexity is usually warranted given the significant safety benefits and operational reliability that multi-block migrations provide.
+
+For a complete implementation example of multi-block migrations, refer to the [official example](https://github.com/paritytech/polkadot-sdk/tree/0d7d2177807ec6b3094f4491a45b0bc0d74d3c8b/substrate/frame/examples/multi-block-migrations){target=\_blank} in the Polkadot SDK.

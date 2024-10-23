@@ -56,7 +56,7 @@ The `AccountInfo` structure includes the following components:
 - **`sufficients`** - represents the number of modules that allow the account to exist for internal purposes, independent of any other modules
 - **`AccountData`** - a flexible data structure that can be customized in the runtime configuration, usually containing balances or other user-specific data
 
-This structure helps manage an account's state and prevents its premature removal while it is still referenced by other on-chain data or modules.
+This structure helps manage an account's state and prevents its premature removal while it is still referenced by other on-chain data or modules. The [`AccountInfo`](https://paritytech.github.io/polkadot-sdk/master/frame_system/struct.AccountInfo.html){target=\_blank} structure can vary as long as it satisfies the trait bounds defined by the `AccountData` associated type in the [`frame-system::pallet::Config`](https://paritytech.github.io/polkadot-sdk/master/frame_system/pallet/trait.Config.html){target=\_blank} trait.
 
 ### Account Reference Counters
 
@@ -115,12 +115,8 @@ The `System` pallet offers three query functions to assist developers in trackin
 - [**`can_dec_provider()`**](https://paritytech.github.io/polkadot-sdk/master/frame_system/pallet/struct.Pallet.html#method.can_dec_provider){target=\_blank} - ensures that no consumers exist before allowing the decrement of the provider counter
 - [**`is_provider_required()`**](https://paritytech.github.io/polkadot-sdk/master/frame_system/pallet/struct.Pallet.html#method.is_provider_required){target=\_blank} - verifies whether the account still has any active consumer references
 
-This modular and flexible system of reference counters tightly controls the lifecycle of accounts in Polkadot SDK-based blockchains, preventing the accidental removal or retention of unneeded accounts.
-
-??? interface "Additional information"
-    - Refer to the [System pallet Rust docs](https://paritytech.github.io/polkadot-sdk/master/frame_system/pallet/struct.Pallet.html){target=\_blank} for more details
-    - The [`AccountInfo`](https://paritytech.github.io/polkadot-sdk/master/frame_system/struct.AccountInfo.html){target=\_blank} structure can vary as long as it satisfies the trait bounds defined by the `AccountData` associated type in the [`frame-system::pallet::Config`](https://paritytech.github.io/polkadot-sdk/master/frame_system/pallet/trait.Config.html){target=\_blank} trait
-    - By default, the Polkadot-SDK runtime configures the `AccountInfo` structure, as defined in the [Balances pallet](https://paritytech.github.io/polkadot-sdk/master/pallet_balances/struct.AccountData.html){target=\_blank}
+This modular and flexible system of reference counters tightly controls the lifecycle of accounts in Polkadot SDK-based blockchains, preventing the accidental removal or retention of unneeded accounts. You can refer to the [System pallet Rust docs](https://paritytech.github.io/polkadot-sdk/master/frame_system/pallet/struct.Pallet.html){target=\_blank} for more details.
+    
 
 ## Account Balance Types
 
@@ -203,7 +199,7 @@ By understanding these balance types and their implications, developers and user
 
 ## Address Formats
 
-The SS58 address format is a core component of the Polkadot SDK that enables accounts to be uniquely identified across Polkadot-based networks. This format is a modified version of Bitcoin's Base58Check encoding, specifically designed to accommodate the multi-chain nature of the Polkadot ecosystem. SS58 encoding allows each chain to define its own set of addresses while maintaining compatibility and checksum validation for security.
+The SS58 address format is a core component of the Polkadot SDK that enables accounts to be uniquely identified across Polkadot-based networks. This format is a modified version of Bitcoin's Base58Check encoding, specifically designed to accommodate the multi-chain nature of the Polkadot ecosystem. SS58 encoding allows each chain to define its own set of addresses while maintaining compatibility and checksum validation for security. 
 
 ### Basic Format
 
@@ -217,11 +213,10 @@ base58encode(concat(<address-type>, <address>, <checksum>))
 - **Address** - the public key of the account encoded as bytes
 - **Checksum** - a hash-based checksum which ensures that addresses are valid and unaltered. The checksum is derived from the concatenated address type and address components, ensuring integrity
 
-The encoding process transforms the concatenated components into a Base58 string, providing a compact and human-readable format that avoids easily confused characters (e.g., zero '0', capital 'O', lowercase 'l').
+The encoding process transforms the concatenated components into a Base58 string, providing a compact and human-readable format that avoids easily confused characters (e.g., zero '0', capital 'O', lowercase 'l').     The Base58 [encode](https://docs.rs/bs58/latest/bs58/fn.encode.html){target=\_blank} function is implemented exactly as defined in Bitcoin and IPFS specifications, using the same alphabet as both implementations.
 
 ??? interface "Additional information"
     - Refer to [Ss58Codec](https://paritytech.github.io/polkadot-sdk/master/sp_core/crypto/trait.Ss58Codec.html){target=\_blank} for more details on the SS58 address format implementation 
-    - The Base58 [encode](https://docs.rs/bs58/latest/bs58/fn.encode.html){target=\_blank} function is implemented exactly as defined in Bitcoin and IPFS specifications, using the same alphabet as both implementations.
 
 ### Address Type
 

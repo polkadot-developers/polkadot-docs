@@ -1,4 +1,6 @@
 title: FRAME
 nav:
   - index.md
+  - 'FRAME Overview': frame-overview.md
   - 'Create a Custom Pallet': create-custom-pallet.md
+  

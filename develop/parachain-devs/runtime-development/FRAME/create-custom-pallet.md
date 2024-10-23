@@ -30,9 +30,7 @@ For additional macros you can include in a pallet, beyond those covered in this 
 
 This section will guide you through the initial steps of creating the foundation for your custom FRAME pallet. You'll create a new Rust library project and set up the necessary dependencies.
 
-1. Create a new Rust library project
-
-    Execute the following command using `cargo`:
+1. Create a new Rust library project using the following `cargo` command:
 
     ```bash
     cargo new --lib custom-pallet \
@@ -41,9 +39,7 @@ This section will guide you through the initial steps of creating the foundation
 
     This command creates a new library project named `custom-pallet` and navigates into its directory.
 
-2.  Configure dependencies in `Cargo.toml` file
-
-    Add the core dependencies required for FRAME pallet development. Open the `Cargo.toml` file and update it as follows:
+2.  Configure the dependencies required for FRAME pallet development in the `Cargo.toml` file as follows:
 
     ```toml
     --8<-- 'code/develop/parachain-devs/runtime-development/FRAME/create-custom-pallet/Cargo.toml'
@@ -61,9 +57,7 @@ This section will guide you through the initial steps of creating the foundation
 
         For detailed information on workspace inheritance and how to properly integrate your pallet with the runtime, refer to the [Add an Existing Pallet to the Runtime](TODO:update-path){target=\_blank} page.
 
-3.  Set up the basic pallet structure
-
-    After setting up the project and configuring dependencies, the next step is to prepare the basic structure of your pallet in the `lib.rs` file. Open the `src/lib.rs` file in your project, remove all existing content, and copy and paste the following scaffold code:
+3.  Initialize the pallet structure by replacing the contents of `src/lib.rs` with the following scaffold code:
 
     ```rust
     --8<-- 'code/develop/parachain-devs/runtime-development/FRAME/create-custom-pallet/barebone-pallet-template.rs'
@@ -73,7 +67,7 @@ This section will guide you through the initial steps of creating the foundation
 
 ## Pallet Configuration
 
-Every pallet includes a Rust trait called [`Config`](https://paritytech.github.io/polkadot-sdk/master/frame_system/pallet/trait.Config.html), which exposes configurable options and links your pallet to other parts of the runtime. All types and constants the pallet depends on must be declared within this trait. These types are defined generically and made concrete when the pallet is instantiated in the `runtime/src/lib.rs` file of your blockchain.
+Every pallet includes a Rust trait called [`Config`](https://paritytech.github.io/polkadot-sdk/master/frame_system/pallet/trait.Config.html){target=\_blank}, which exposes configurable options and links your pallet to other parts of the runtime. All types and constants the pallet depends on must be declared within this trait. These types are defined generically and made concrete when the pallet is instantiated in the `runtime/src/lib.rs` file of your blockchain.
 
 In this step, you'll only configure the common types used by all pallets:
 

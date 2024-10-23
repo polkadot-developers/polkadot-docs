@@ -1,6 +1,6 @@
 ---
 title: Data Encoding
-description: TODO
+description: SCALE codec enables fast, efficient data encoding in Substrate, ideal for resource-constrained environments like Wasm, supporting custom types and compact encoding.
 ---
 
 # Data Encoding

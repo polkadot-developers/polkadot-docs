@@ -7,7 +7,9 @@ description: Learn how to create custom pallets using FRAME, allowing for flexib
 
 ## Introduction
 
-To get the most out of this guide, ensure you're familiar with [FRAME concepts](TODO:update-path){target=\_blank}. FRAME provides a powerful set of tools for blockchain development, including a library of pre-built pallets. However, its true strength lies in the ability to create custom pallets tailored to your specific needs. This section will guide you through creating your own custom pallet, allowing you to extend your blockchain's functionality in unique ways.
+FRAME provides a powerful set of tools for blockchain development, including a library of pre-built pallets. However, its true strength lies in the ability to create custom pallets tailored to your specific needs. This section will guide you through creating your own custom pallet, allowing you to extend your blockchain's functionality in unique ways.
+
+To get the most out of this guide, ensure you're familiar with [FRAME concepts](TODO:update-path){target=\_blank}.
 
 Creating custom pallets offers several advantages over relying on pre-built pallets:
 

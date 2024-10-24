@@ -40,7 +40,7 @@ To build the parachain template, follow these steps:
 2. Change the directory to the cloned repository
 
     ```bash
-    cd polkadot-sdk-solochain-template
+    cd polkadot-sdk-parachain-template
     ```
 
 3. Build the parachain template collator

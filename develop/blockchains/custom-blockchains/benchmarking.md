@@ -5,35 +5,35 @@ description: Learn how to use FRAME's benchmarking framework to benchmark your c
 
 ## Introduction
 
-Along with the development and testing capabilities that the Polkadot SDK provides, a crucial part of pallet development is **benchmarking**.  Benchmarking your pallet ensures that an accurate [weight](../../../polkadot-protocol/glossary.md#weight) is assigned to your pallet's extrinsics. On a Polkadot SDK-based blockchain, each block has an allotted amount of time in which the execution of extrinsics takes place. The weight of an extrinsic is determined by the time it takes to execute and the storage reads/writes that it performs. Without the ability to know the computational resources that an extrinsic may take, it may run indefinitely, or present an opportunity for a Denial of Service (DoS) attack that may halt block production.
+Along with the development and testing capabilities that the Polkadot SDK provides, a crucial part of pallet development is **benchmarking**. Benchmarking your pallet ensures that an accurate [weight](../../../polkadot-protocol/glossary.md#weight) is assigned to your pallet's extrinsics. Each block has an allotted amount of time for executing extrinsics. The weight of an extrinsic is determined by the time it takes to execute and the storage reads/writes that it performs. Without the ability to know the computational resources that an extrinsic may take, it may run indefinitely or present an opportunity for a Denial of Service (DoS) attack that may halt block production.
 
 FRAME provides a benchmarking framework ([`frame_benchmarking`](https://paritytech.github.io/polkadot-sdk/master/frame_benchmarking/v2/index.html){target=_blank}), which is a suite of tools that contain a set of macros (similar to conventional unit tests), a CLI for executing benchmarks, and linear regression analysis for processing benchmark data. These tools allow each extrinsic to be benchmarked and assigned an accurate weight within the runtime.
 
 ## Why Benchmark Pallets
 
-The ability to include or exclude transactions based on available resources ensures that the runtime can continue to produce and import blocks without service interruptions. For example, if you have a function call that requires particularly intensive computation, executing the call might exceed the maximum time allowed for producing or importing a block, disrupting the block handling process or stopping blockchain progress altogether. Benchmarking helps you validate that the execution time required for different functions is within reasonable boundaries.
+Including or excluding transactions based on available resources ensures that the runtime can continue to produce and import blocks without service interruptions. For example, suppose you have a function call that requires particularly intensive computation. In that case, executing the call might exceed the maximum time allowed for producing or importing a block, disrupting the block handling process or stopping blockchain progress altogether. Benchmarking helps you validate that the execution time required for different functions is within reasonable boundaries.
 
-Similarly, a malicious user might attempt to disrupt network service by repeatedly executing a function call that requires intensive computation or that doesn't accurately reflect the computation it requires. If the cost for executing a function call doesn't accurately reflect the computation involved, there's no incentive to deter a malicious user from attacking the network. 
+Similarly, a malicious user might attempt to disrupt network service by repeatedly executing a function call that requires intensive computation or doesn't accurately reflect the necessary computation. If the cost of executing a function call doesn't accurately reflect the computation involved, there's no incentive to deter a malicious user from attacking the network. 
 
-!!!info "Benchmarking helps with predictable fees and computational outcomes"
-    Because benchmarking helps you evaluate the weight associated with executing transactions, it also helps you to determine appropriate transaction fees. Based on your benchmarks, you can set fees that represent the resources consumed by executing specific calls on the blockchain.
+!!!info "Benchmarking helps with predictable fees and computational outcomes."
+ Because benchmarking helps you evaluate the weight associated with executing transactions, it also helps you to determine appropriate transaction fees. Based on your benchmarks, you can set fees representing the resources consumed by executing specific calls on the blockchain.
 
 ### Benchmarking and Weight 
 
-Substrate-based chains use the concept of weight to represent the time it takes to execute the transactions in a block. The time required to execute any particular call in a transaction depends on a several factors, including the following:
+Polkadot SDK-based chains use weight to represent the time it takes to execute the transactions in a block. The time required to execute any particular call in a transaction depends on several factors, including the following:
 
 - Computational complexity
 - Storage complexity
 - Database read and write operations required
 - Hardware used
   
-To calculate an appropriate weight for a transaction, you can use benchmark parameters to measure the time it takes to execute the function calls on different hardware, using different variable values, and repeated multiple times. You can then use the results of the benchmarking tests to establish an approximate worst case weight to represent the resources required to execute each function call and each code path. Fees are then based on the worst case weight. If the actual call performs better than the worst case, the weight is adjusted and any excess fees can be returned.
+To calculate an appropriate weight for a transaction, you can use benchmark parameters to measure the time it takes to execute the function calls on different hardware, using different values and repeating them multiple times. You can then use the results of the benchmarking tests to establish an approximate worst-case weight to represent the resources required to execute each function call and each code path. Fees are then based on the worst-case weight. If the actual call performs better than the worst case, the weight is adjusted, and any excess fees can be returned.
 
 Because weight is a generic unit of measurement based on computation time for a specific physical machine, the weight of any function can change based on the specific hardware used for benchmarking.
 
-By modeling the expected weight of each runtime function, the blockchain is able to calculate how many transactions or system level calls it can execute within a certain period of time.
+By modeling the expected weight of each runtime function, the blockchain can calculate the number of transactions or system-level calls it can execute within a certain period of time.
 
-Within FRAME, each function call that can be dispatched must have a `#[weight]` annotation that can return the expected weight for the worst case scenario execution of that function given its inputs. The benchmarking framework automatically generates a file with those formulas for you, which you can use in that annotation within your pallet.
+Within FRAME, each function call that is dispatched must have a `#[weight]` annotation that can return the expected weight for the worst-case scenario execution of that function given its inputs. The benchmarking framework automatically generates a file with those formulas for you, which you can use in that annotation within your pallet.
 
 ## Benchmarking Steps
 
@@ -41,9 +41,9 @@ Benchmarking a pallet involves the following steps:
 
 1. Creating a `benchmarking.rs` file within your pallet's structure
 2. Writing a benchmarking test for each extrinisic
-3. Executing the benchmarking tool, producing a linear model which measures the weight (time and space for an extrinsic)
+3. Executing the benchmarking tool, producing a linear model that measures the weight (time and space for an extrinsic)
 
-The benchmarking tool then runs multiple iterations with different possible parameters for each of these functions, wherein the approximate **worst** case scenario is run and applied as the weight. In usage, if the weight is better than this benchmark, fees are adjusted and refunded accordingly. By default, the benchmarking pipeline is disabled by default, and can be enabled by passing in the `runtime-benchmarks` feature flag when compiling your runtime.
+The benchmarking tool then runs multiple iterations with different possible parameters for each of these functions, wherein the approximate **worst** case scenario is run and applied as the weight. In usage, if the weight is better than this benchmark, fees are adjusted and refunded accordingly. By default, the benchmarking pipeline is deactivated, and it can be enabled by passing in the `runtime-benchmarks` feature flag when compiling your runtime.
 
 ## Preparing Your Environment
 
@@ -57,10 +57,10 @@ You must also ensure that you add the `runtime-benchmarks` feature flag as follo
 
 ```toml
 runtime-benchmarks = [
-	"frame-benchmarking/runtime-benchmarks",
-	"frame-support/runtime-benchmarks",
-	"frame-system/runtime-benchmarks",
-	"sp-runtime/runtime-benchmarks",
+    "frame-benchmarking/runtime-benchmarks",
+    "frame-support/runtime-benchmarks",
+    "frame-system/runtime-benchmarks",
+    "sp-runtime/runtime-benchmarks",
 ]
 ```
 
@@ -78,10 +78,10 @@ Once this is complete, you have the required dependencies for writing benchmarks
 
 ## Writing Benchmarks
 
-Create a `benchmarking.rs` file in your pallet's `src/`.  You may copy the barebones template below to get started: 
+Create a `benchmarking.rs` file in your pallet's `src/`. You may copy the barebones template below to get started: 
 
 !!!note "This example is from the pallet template"
-    Take a look at the repository in the [`polkadot-sdk-parachain-template`](https://github.com/paritytech/polkadot-sdk-parachain-template/tree/master/pallets){target=_blank}
+ Take a look at the repository in the [`polkadot-sdk-parachain-template`](https://github.com/paritytech/polkadot-sdk-parachain-template/tree/master/pallets){target=_blank}
 
 ```rust
 //! Benchmarking setup for pallet-template
@@ -92,24 +92,24 @@ use frame_benchmarking::v2::*;
 
 #[benchmarks]
 mod benchmarks {
-	use super::*;
-	#[cfg(test)]
-	use crate::pallet::Pallet as Template;
-	use frame_system::RawOrigin;
+    use super::*;
+ #[cfg(test)]
+    use crate::pallet::Pallet as Template;
+    use frame_system::RawOrigin;
 
-	#[benchmark]
-	fn do_something() {
-		let caller: T::AccountId = whitelisted_caller();
-		#[extrinsic_call]
-		do_something(RawOrigin::Signed(caller), 100);
-		assert_eq!(Something::<T>::get().map(|v| v.block_number), Some(100u32.into()));
-	}
+ #[benchmark]
+    fn do_something() {
+        let caller: T::AccountId = whitelisted_caller();
+ #[extrinsic_call]
+ do_something(RawOrigin::Signed(caller), 100);
+ assert_eq!(Something::<T>::get().map(|v| v.block_number), Some(100u32.into()));
+ }
 
-	impl_benchmark_test_suite!(Template, crate::mock::new_test_ext(), crate::mock::Test);
+ impl_benchmark_test_suite!(Template, crate::mock::new_test_ext(), crate::mock::Test);
 }
 ```
 
-The function `do_something` is a placeholder; you would need to write your own function that tested your extrinsic. Similar to writing unit tests, you have access to the mock runtime, and can use functions such as `whitelisted_caller()` (an account whitelisted for DB reads/writes) to sign transactions in the benchmarking context.
+The function `do_something` is a placeholder; you must write your own function that tested your extrinsic. Similar to writing unit tests, you have access to the mock runtime, and can use functions such as `whitelisted_caller()` (an account whitelisted for DB reads/writes) to sign transactions in the benchmarking context.
 
 There are a couple practices to notice: 
 
@@ -118,21 +118,21 @@ There are a couple practices to notice:
 
 ## Adding Benchmarks to Runtime
 
-Before running the benchmarking tool, the last step is to ensure that the benchmarks are configured as part of your runtime.
+The last step before running the benchmarking tool is to ensure that the benchmarks are configured as part of your runtime.
 
-Create another file as part of the runtime's directory called `benchmarks.rs`. This is where the pallets you wish to benchmark will be registered. This file should contain the following macro, which registers all pallets for benchmarking, as well as their respective configurations: 
+Create another file in the node's directory called `benchmarks.rs`. This is where the pallets you wish to benchmark will be registered. This file should contain the following macro, which registers all pallets for benchmarking, as well as their respective configurations: 
 
 ```rust
 frame_benchmarking::define_benchmarks!(
-	[frame_system, SystemBench::<Runtime>]
-	[pallet_balances, Balances]
-	[pallet_session, SessionBench::<Runtime>]
-	[pallet_timestamp, Timestamp]
-	[pallet_message_queue, MessageQueue]
-	[pallet_sudo, Sudo]
-	[pallet_collator_selection, CollatorSelection]
-	[cumulus_pallet_parachain_system, ParachainSystem]
-	[cumulus_pallet_xcmp_queue, XcmpQueue]
+ [frame_system, SystemBench::<Runtime>]
+ [pallet_balances, Balances]
+ [pallet_session, SessionBench::<Runtime>]
+ [pallet_timestamp, Timestamp]
+ [pallet_message_queue, MessageQueue]
+ [pallet_sudo, Sudo]
+ [pallet_collator_selection, CollatorSelection]
+ [cumulus_pallet_parachain_system, ParachainSystem]
+ [cumulus_pallet_xcmp_queue, XcmpQueue]
 );
 ```
 
@@ -141,12 +141,15 @@ For example, if the pallet named `pallet_template` is ready to be benchmarked, i
 ```rust
 frame_benchmarking::define_benchmarks!(
     // ...
-    [pallet_template, Template]
+ [pallet_template, Template]
     // ...
 );
 ```
 
-Navigate to your runtime's `lib.rs` file, and add the import for `benchmarks.rs` as follows: 
+!!!warning 
+ If the pallet isn't included in the `define_benchmarks!` macro, the CLI will not be able to access it and benchmark it later.
+
+Navigate to the runtime's `lib.rs` file, and add the import for `benchmarks.rs` as follows: 
 
 ```rust
 #[cfg(feature = "runtime-benchmarks")]
@@ -154,17 +157,17 @@ mod benchmarks;
 ```
 
 !!!info 
-    The `runtime-benchmarks` feature gate ensures that the benchmarking operations are not a part of the production runtime. 
+ The `runtime-benchmarks` feature gate ensures that the benchmarking operations aren't a part of the production runtime. 
 
 ## Running Benchmarks
 
-Once the above is complete, you can compile your node with the following command with the `runtime-benchmarks` feature flag:
+You can now compile your node with the following command with the `runtime-benchmarks` feature flag:
 
 ```bash
 cargo build --features runtime-benchmarks --release
 ```
 
-Once it is compiled with the correct feature set, the benchmark can be run:
+Once it is compiled with the correct feature set, you can run the benchmarking tool:
 
 ```sh
 ./target/release/<node-binary-name> benchmark pallet \
@@ -176,13 +179,13 @@ Once it is compiled with the correct feature set, the benchmark can be run:
 --output weights.rs
 ```
 
-- `--runtime` - The path to your runtime's WebAssembly
+- `--runtime` - The path to your runtime's Wasm
 - `--pallet` - The name of the pallet you wish to benchmark. This pallet must be configured in your runtime and defined in `define_benchmarks`
 - `--extrinsic` - Which extrinsic to test. Using `*` implies all extrinics will be benchmarked
 - `--output` - Where the output of the auto-generated weights will reside
 
-The result should be a `weights.rs` file, which contains the types you can use to annotate your extrinsic with the correctly balanced weights in your runtime.
+The result should be a `weights.rs` file containing the types you can use to annotate your extrinsic with the correctly balanced weights in your runtime.
 
-## Additional Resources
+## What's Next
 
-- View the Rust Docs for a more comprehensive, low level view of the [FRAME V2 Benchmarking Suite](https://paritytech.github.io/polkadot-sdk/master/frame_benchmarking/v2/index.html)
+- View the Rust Docs for a more comprehensive, low-level view of the [FRAME V2 Benchmarking Suite](https://paritytech.github.io/polkadot-sdk/master/frame_benchmarking/v2/index.html)

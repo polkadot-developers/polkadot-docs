@@ -1,0 +1,5 @@
+title: Asset Hub Tutorials
+nav:
+  - index.md
+  - "Register a Local Asset": register-local-asset.md
+  - "Register a Foreign Asset": register-foreign-asset.md

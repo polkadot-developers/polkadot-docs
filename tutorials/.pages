@@ -1,4 +1,5 @@
 title: Tutorials
 nav:
   - index.md
+  - blockchains
   - polkadot-sdk

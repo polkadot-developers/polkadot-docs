@@ -37,12 +37,7 @@ Here are some common scenarios where a storage migration is needed:
 - Changing data types:
 
     ```rust
-    #[pallet::storage]
-    pub type FooValue = StorageValue<_, Foo>;
-    // old
-    pub struct Foo(u32)
-    // new
-    pub struct Foo(u64)
+    --8<-- 'code/develop/blockchains/maintenance/storage-migrations/example-1.rs'
     ```
 
     Changing the underlying data type requires a migration to convert the existing values.
@@ -50,14 +45,7 @@ Here are some common scenarios where a storage migration is needed:
 - Changing data representation
 
     ```rust
-    #[pallet::storage]
-    pub type FooValue = StorageValue<_, Foo>;
-    // old
-    pub struct Foo(u32)
-    // new
-    pub struct Foo(i32)
-    // or
-    pub struct Foo(u16, u16)
+    --8<-- 'code/develop/blockchains/maintenance/storage-migrations/example-2.rs'
     ```
 
     Modifying the representation of the stored data, even if the size appears unchanged, requires a migration to ensure the runtime can properly interpret the existing values.
@@ -65,12 +53,7 @@ Here are some common scenarios where a storage migration is needed:
 - Extending an enum
 
     ```rust
-    #[pallet::storage]
-    pub type FooValue = StorageValue<_, Foo>;
-    // old
-    pub enum Foo { A(u32), B(u32) }
-    // new
-    pub enum Foo { A(u32), B(u32), C(u128) }
+    --8<-- 'code/develop/blockchains/maintenance/storage-migrations/example-3.rs'
     ```
 
     Adding new variants to an enum requires a migration to handle the new variant, unless the new variant is added at the end and no existing values are initialized with it.
@@ -78,11 +61,7 @@ Here are some common scenarios where a storage migration is needed:
 - Changing the storage key
 
     ```rust
-    #[pallet::storage]
-    pub type FooValue = StorageValue<_, u32>;
-    // new
-    #[pallet::storage]
-    pub type BarValue = StorageValue<_, u32>;
+    --8<-- 'code/develop/blockchains/maintenance/storage-migrations/example-4.rs'
     ```
 
     Modifying the storage key, even if the underlying data type remains the same, requires a migration to ensure the runtime can locate the correct stored values.
@@ -95,12 +74,7 @@ Here are some common scenarios where a storage migration is needed:
 The [`OnRuntimeUpgrade`](https://paritytech.github.io/polkadot-sdk/master/frame_support/traits/trait.OnRuntimeUpgrade.html){target=\_blank} trait provides the foundation for implementing storage migrations in your runtime. Here's a detailed look at its key functions:
 
 ```rust
-pub trait OnRuntimeUpgrade {
-    fn on_runtime_upgrade() -> Weight { ... }
-    fn try_on_runtime_upgrade(checks: bool) -> Result<Weight, TryRuntimeError> { ... }
-    fn pre_upgrade() -> Result<Vec<u8>, TryRuntimeError> { ... }
-    fn post_upgrade(_state: Vec<u8>) -> Result<(), TryRuntimeError> { ... }
-}
+--8<-- 'code/develop/blockchains/maintenance/storage-migrations/on-runtime-upgrade-trait.rs'
 ```
 
 ### Core Migration Function
@@ -131,7 +105,6 @@ When implementing the actual migration logic, your code needs to handle several 
 - Write updated values back to storage
 - Calculate and return consumed weight
 
-<!-- TODO: Add example -->
 ### Migration Structure
 
 Storage migrations can be implemented using two approaches. The first method involves directly implementing `OnRuntimeUpgrade` on structs. This approach requires manually checking the on-chain storage version against the new [`StorageVersion`](https://paritytech.github.io/polkadot-sdk/master/frame_support/traits/struct.StorageVersion.html){target=\_blank} and executing the transformation logic only when the check passes. This version verification prevents multiple executions of the migration during subsequent runtime upgrades.
@@ -147,63 +120,7 @@ The recommended approach is to implement [`UncheckedOnRuntimeUpgrade`](https://p
 - `Weight` - the runtime's [`RuntimeDbWeight`](https://paritytech.github.io/polkadot-sdk/master/frame_support/weights/struct.RuntimeDbWeight.html){target=\_blank} implementation
 
 ```rust
-use frame_support::{
-    storage_alias,
-    traits::{Get, UncheckedOnRuntimeUpgrade},
-};
-
-/// Collection of storage item formats from the previous storage version.
-///
-/// Required so we can read values in the v0 storage format during the migration.
-mod v0 {
-    use super::*;
-
-    /// V0 type for [`crate::Value`].
-    #[storage_alias]
-    pub type Value<T: crate::Config> = StorageValue<crate::Pallet<T>, u32>;
-}
-
-/// Implements [`UncheckedOnRuntimeUpgrade`], migrating the state of this pallet from V0 to V1.
-///
-/// In V0 of the template [`crate::Value`] is just a `u32`. In V1, it has been upgraded to
-/// contain the struct [`crate::CurrentAndPreviousValue`].
-///
-/// In this migration, update the on-chain storage for the pallet to reflect the new storage
-/// layout.
-pub struct InnerMigrateV0ToV1<T: crate::Config>(core::marker::PhantomData<T>);
-impl<T: crate::Config> UncheckedOnRuntimeUpgrade for InnerMigrateV0ToV1<T> {
-    /// Migrate the storage from V0 to V1.
-    ///
-    /// - If the value doesn't exist, there is nothing to do.
-    /// - If the value exists, it is read and then written back to storage inside a
-    ///   [`crate::CurrentAndPreviousValue`].
-    fn on_runtime_upgrade() -> frame_support::weights::Weight {
-        // Read the old value from storage
-        if let Some(old_value) = v0::Value::<T>::take() {
-            // Write the new value to storage
-            let new = crate::CurrentAndPreviousValue { current: old_value, previous: None };
-            crate::Value::<T>::put(new);
-            // One read + write for taking the old value, and one write for setting the new value
-            T::DbWeight::get().reads_writes(1, 2)
-        } else {
-            // No writes since there was no old value, just one read for checking
-            T::DbWeight::get().reads(1)
-        }
-    }
-}
-
-/// [`UncheckedOnRuntimeUpgrade`] implementation [`InnerMigrateV0ToV1`] wrapped in a
-/// [`VersionedMigration`](frame_support::migrations::VersionedMigration), which ensures that:
-/// - The migration only runs once when the on-chain storage version is 0
-/// - The on-chain storage version is updated to `1` after the migration executes
-/// - Reads/Writes from checking/settings the on-chain storage version are accounted for
-pub type MigrateV0ToV1<T> = frame_support::migrations::VersionedMigration
-    0, // The migration will only execute when the on-chain storage version is 0
-    1, // The on-chain storage version will be set to 1 after the migration is complete
-    InnerMigrateV0ToV1<T>,
-    crate::pallet::Pallet<T>,
-    <T as frame_system::Config>::DbWeight,
->;
+--8<-- 'https://raw.githubusercontent.com/paritytech/polkadot-sdk/refs/tags/polkadot-stable2409-1/substrate/frame/examples/single-block-migrations/src/migrations/v1.rs:0:122'
 ```
 
 ### Migration Organization
@@ -233,19 +150,7 @@ This structure provides several benefits:
 To execute migrations during a runtime upgrade, you need to configure them in your runtime's `Executive` pallet. Add your migrations in `runtime/src/lib.rs`:
 
 ```rust
-/// Tuple of migrations (structs that implement `OnRuntimeUpgrade`)
-type Migrations = (
-    pallet_my_pallet::migrations::v1::Migration,
-	// More migrations can be added here
-);
-pub type Executive = frame_executive::Executive<
-	Runtime,
-	Block,
-	frame_system::ChainContext<Runtime>,
-	Runtime,
-	AllPalletsWithSystem,
-	Migrations, // Include migrations here
->;
+--8<-- 'code/develop/blockchains/maintenance/storage-migrations/executive.rs'
 ```
 
 ### Single Block Migrations

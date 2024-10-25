@@ -81,7 +81,7 @@ Once this is complete, you have the required dependencies for writing benchmarks
 Create a `benchmarking.rs` file in your pallet's `src/`. You may copy the barebones template below to get started: 
 
 !!!note "This example is from the pallet template"
- Take a look at the repository in the [`polkadot-sdk-parachain-template`](https://github.com/paritytech/polkadot-sdk-parachain-template/tree/master/pallets){target=_blank}
+ Take a look at the repository in the [`polkadot-sdk-parachain-template`](https://github.com/paritytech/polkadot-sdk-parachain-template/tree/master/pallets){target=\_blank}
 
 ```rust
 //! Benchmarking setup for pallet-template
@@ -147,7 +147,7 @@ frame_benchmarking::define_benchmarks!(
 ```
 
 !!!warning 
- If the pallet isn't included in the `define_benchmarks!` macro, the CLI will not be able to access it and benchmark it later.
+    If the pallet isn't included in the `define_benchmarks!` macro, the CLI will not be able to access it and benchmark it later.
 
 Navigate to the runtime's `lib.rs` file, and add the import for `benchmarks.rs` as follows: 
 
@@ -179,10 +179,10 @@ Once it is compiled with the correct feature set, you can run the benchmarking t
 --output weights.rs
 ```
 
-- `--runtime` - The path to your runtime's Wasm
-- `--pallet` - The name of the pallet you wish to benchmark. This pallet must be configured in your runtime and defined in `define_benchmarks`
-- `--extrinsic` - Which extrinsic to test. Using `*` implies all extrinics will be benchmarked
-- `--output` - Where the output of the auto-generated weights will reside
+- `--runtime` - the path to your runtime's Wasm
+- `--pallet` - the name of the pallet you wish to benchmark. This pallet must be configured in your runtime and defined in `define_benchmarks`
+- `--extrinsic` - which extrinsic to test. Using `*` implies all extrinics will be benchmarked
+- `--output` - where the output of the auto-generated weights will reside
 
 The result should be a `weights.rs` file containing the types you can use to annotate your extrinsic with the correctly balanced weights in your runtime.
 

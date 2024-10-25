@@ -231,7 +231,7 @@ If you'd like to speed up the process further, you can use a database snapshot. 
 ??? tip "FAQ"
     Why am I unable to synchronize the chain with 0 peers?
 
-    ![zero-peer](/images/infrastructure/validators/onboarding/run-validator/polkadot-zero-peer.webp)
+    ![zero-peer](/images/infrastructure/running-a-validator/onboarding-and-offboarding/set-up-validator/polkadot-zero-peer.webp)
 
     Make sure you have libp2p port `30333` enabled. It will take some time to discover other peers over the network.
 
@@ -321,7 +321,7 @@ Now that you have generated your session keys, you need to submit them to the ch
 3. Paste the hex-encoded session key string you generated (from either the UI or CLI) into the input field and submit the transaction
 
 Once the transaction is signed and submitted, your session keys will be registered on-chain. 
-![staking-session-result](/images/infrastructure/validators/onboarding/run-validator/set-session-key-2.webp)
+![staking-session-result](/images/infrastructure/running-a-validator/onboarding-and-offboarding/set-up-validator/set-session-key-2.webp)
 
 ### Verify Session Key Setup
 
@@ -332,7 +332,7 @@ To verify that your session keys are properly set, you can use one of two RPC ca
 
 For example, you can check session keys on the Polkadot.js Apps interface or by running an RPC query against your node. Once this is done, your validator node is ready for its role.
 
-![Explorer RPC call](/images/infrastructure/validators/onboarding/run-validator/polkadot-explorer-rotatekeys-rpc.webp)
+![Explorer RPC call](/images/infrastructure/running-a-validator/onboarding-and-offboarding/set-up-validator/polkadot-explorer-rotatekeys-rpc.webp)
 
 ## Set the Node Key
 

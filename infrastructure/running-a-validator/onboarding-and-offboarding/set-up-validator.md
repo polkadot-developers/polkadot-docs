@@ -7,13 +7,13 @@ description: Learn how to set up a Polkadot validator node, covering installatio
 
 ## Introduction
 
-Setting up a Polkadot validator node allows you to play an essential role in securing the network and earning staking rewards. This guide walks you through the technical steps required to set up a validator, from installing the necessary software to managing keys and synchronizing your node with the chain.
+Setting up a Polkadot validator node is essential for securing the network and earning staking rewards. This guide walks you through the technical steps to set up a validator, from installing the necessary software to managing keys and synchronizing your node with the chain.
 
-Running a validator requires a commitment to maintaining a stable, secure infrastructure. Validators are responsible not only for their own stakes but also for those of nominators who trust them with their tokens. This means that proper setup and ongoing management are critical to ensuring smooth operation and avoiding potential penalties such as slashing.
+Running a validator requires a commitment to maintaining a stable, secure infrastructure. Validators are responsible for their own stakes and those of nominators who trust them with their tokens. Proper setup and ongoing management are critical to ensuring smooth operation and avoiding potential penalties such as slashing.
 
 ## Prerequisites
 
-To get the most from this guide ensure you've done the following before going forward:
+To get the most from this guide, ensure you've done the following before going forward:
 
 - Read [Validator Requirements](infrastructure/running-a-validator/requirements.md) and understand the recommended minimum skill level and hardware needs
 - Read [General Management](infrastructure/running-a-validator/operational-tasks/general-management.md), [Upgrade Your Node](infrastructure/running-a-validator/operational-tasks/upgrade-your-node.md), and [Pause Validating](infrastructure/running-a-validator/onboarding-and-offboarding/stop-validating.md) and understand the tasks required to keep your validator operational
@@ -22,13 +22,13 @@ To get the most from this guide ensure you've done the following before going fo
 
 ## Initial Setup
 
-Before you can begin running your validator, you'll need to configure your server environment to meet the operational and security standards required for validating. This includes setting up time synchronization, ensuring critical security features are active, and installing the necessary binaries. Proper setup at this stage is essential to prevent issues like block production errors or being penalized for downtime. Below are the essential steps to get your system ready.
+Before you can begin running your validator, you'll need to configure your server environment to meet the operational and security standards required for validating. Configuration includes setting up time synchronization, ensuring critical security features are active, and installing the necessary binaries. Proper setup at this stage is essential to prevent issues like block production errors or being penalized for downtime. Below are the essential steps to get your system ready.
 
 ### Install Network Time Protocol Client
 
-To ensure your validator is synchronized with the network, accurate timekeeping is critical. Validators need their local clocks in sync with the blockchain to avoid missing block authorship opportunities. Using [Network Time Protocol (NTP)](https://en.wikipedia.org/wiki/Network_Time_Protocol){target=\_blank} is the standard solution to keep your system's clock accurate.
+Accurate timekeeping is critical to ensure your validator is synchronized with the network. Validators need local clocks in sync with the blockchain to avoid missing block authorship opportunities. Using [Network Time Protocol (NTP)](https://en.wikipedia.org/wiki/Network_Time_Protocol){target=\_blank} is the standard solution to keep your system's clock accurate.
 
-If you are using Ubuntu version 18.04 or newer, NTP Client should be installed by default. You can check whether you have the NTP client by running:
+If you are using Ubuntu version 18.04 or newer, the NTP Client should be installed by default. You can check whether you have the NTP client by running:
 
 ```sh
 timedatectl
@@ -52,31 +52,31 @@ After installation, NTP will automatically start. To check its status:
 sudo ntpq -p
 ```
 
-This will show the status of the NTP synchronization. Skipping this step could result in your validator node missing blocks due to minor clock drift, potentially affecting its performance on the network.
+This command will return a message with the status of the NTP synchronization. Skipping this step could result in your validator node missing blocks due to minor clock drift, potentially affecting its network performance.
 
-### Verify Landlock is Enabled
+### Verify Landlock is Activate
 
-[Landlock](https://docs.kernel.org/userspace-api/landlock.html){target=\_blank} is an important security feature integrated into Linux kernels starting with version 5.13. It allows processes, even those without special privileges, to limit their access to the system in order to reduce the attack surface of the machine. This feature is crucial for validators, as it helps ensure the security and stability of the node by preventing unauthorized access or malicious behavior.
+[Landlock](https://docs.kernel.org/userspace-api/landlock.html){target=\_blank} is an important security feature integrated into Linux kernels starting with version 5.13. It allows processes, even those without special privileges, to limit their access to the system to reduce the machine's attack surface. This feature is crucial for validators, as it helps ensure the security and stability of the node by preventing unauthorized access or malicious behavior.
 
-To use Landlock, make sure you are on the reference kernel version or newer. Most Linux distributions should already have Landlock enabled. You can check if Landlock is enabled on your machine by running the following command as root:
+To use Landlock, ensure you use the reference kernel or newer versions. Most Linux distributions should already have Landlock activated. You can check if Landlock is activated on your machine by running the following command as root:
 
 ```sh
 dmesg | grep landlock || journalctl -kg landlock
 ```
 
-If Landlock is not enabled, your system logs won’t show any related output. In this case, you will need to enable it manually or ensure that your Linux distribution supports it. Most modern distributions with the required kernel version should have Landlock enabled by default. However, if your system lacks support, you may need to build the kernel with Landlock enabled. For more information on doing so, refer to the [official kernel documentation](https://docs.kernel.org/userspace-api/landlock.html#kernel-support){target=\_blank}.
+If Landlock is not activated, your system logs won't show any related output. In this case, you will need to activate it manually or ensure that your Linux distribution supports it. Most modern distributions with the required kernel version should have Landlock activated by default. However, if your system lacks support, you may need to build the kernel with Landlock activated. For more information on doing so, refer to the [official kernel documentation](https://docs.kernel.org/userspace-api/landlock.html#kernel-support){target=\_blank}.
 
-Implementing Landlock ensures that your node operates in a restricted, self-imposed sandbox, limiting potential damage from security breaches or bugs. While not a mandatory requirement, enabling this feature greatly improves the security of your validator setup.
+Implementing Landlock ensures your node operates in a restricted, self-imposed sandbox, limiting potential damage from security breaches or bugs. While not a mandatory requirement, enabling this feature greatly improves the security of your validator setup.
 
 ### Install the Polkadot Binaries
 
 The next step is to install the Polkadot binaries required to run your validator node. These binaries include the main `polkadot`, `polkadot-prepare-worker` and `polkadot-execute-worker` binaries. All three are needed to run a fully functioning validator node. 
 
-There are multiple methods to install these binaries, depending on your preference and operating system setup. Below are the main options:
+Depending on your preference and operating system setup, there are multiple methods to install these binaries. Below are the main options:
 
 #### Install from Official Releases
 
-The most straightforward method to install the required binaries is by downloading the latest versions from the official releases. You can visit the [Github Releases](https://github.com/paritytech/polkadot-sdk/releases){target=\_blank} page for the most current versions of the `polkadot`, `polkadot-prepare-worker`, and `polkadot-execute-worker` binaries.
+The most straightforward method to install the required binaries is downloading the latest versions from the official releases. You can visit the [Github Releases](https://github.com/paritytech/polkadot-sdk/releases){target=\_blank} page for the most current versions of the `polkadot`, `polkadot-prepare-worker`, and `polkadot-execute-worker` binaries.
 
 You can also download the binaries by using the following direct links and replacing `X.Y.Z` with the version number:
 
@@ -100,7 +100,7 @@ You can also download the binaries by using the following direct links and repla
 
 #### Optional - Install with Package Managers
 
-For users running Debian-based distributions like Ubuntu, or RPM-based distributions such as Fedora or CentOS, you can install the binaries via package managers.
+Users running Debian-based distributions like Ubuntu, or RPM-based distributions such as Fedora or CentOS can install the binaries via package managers.
 
 ##### Debian-based (Debian, Ubuntu)
 
@@ -127,7 +127,7 @@ Run the following commands as the root user to install the binaries on an RPM-ba
 ```bash
 # Install dnf-plugins-core (This might already be installed)
 dnf install dnf-plugins-core
-# Add the repository and enable it
+# Add the repository and activate it
 dnf config-manager --add-repo https://releases.parity.io/rpm/polkadot.repo
 dnf config-manager --set-enabled polkadot
 # Install polkadot (You may have to confirm the import of the GPG key, which
@@ -135,11 +135,11 @@ dnf config-manager --set-enabled polkadot
 dnf install polkadot
 ```
 
-After installation, ensure that the binaries are properly installed by [verifying the installation](#verify-installation).
+After installation, ensure the binaries are properly installed by [verifying the installation](#verify-installation).
 
 #### Optional - Install with Ansible
 
-You can also manage Polkadot installations using Ansible. This approach can be especially useful for users managing multiple validator nodes or requiring automated deployment. The [Parity chain operations Ansible collection](https://github.com/paritytech/ansible-galaxy/){target=\_blank} provides a Substrate node role for this purpose.
+You can also manage Polkadot installations using Ansible. This approach can be beneficial for users managing multiple validator nodes or requiring automated deployment. The [Parity chain operations Ansible collection](https://github.com/paritytech/ansible-galaxy/){target=\_blank} provides a Substrate node role for this purpose.
 
 #### Optional - Install with Docker
 
@@ -185,7 +185,7 @@ Once the Polkadot binaries are installed, it's essential to verify that everythi
 
 ### Synchronize Chain Data
 
-After successfully installing and verifying the Polkadot binaries, the next step is to sync your node with the blockchain network. This is necessary to download and validate the blockchain data, ensuring your node is ready to participate as a validator. Follow these steps to sync your node:
+After successfully installing and verifying the Polkadot binaries, the next step is to sync your node with the blockchain network. Synchronization is necessary to download and validate the blockchain data, ensuring your node is ready to participate as a validator. Follow these steps to sync your node:
 
 1. **Start syncing** - start the syncing process by running the following command:
 
@@ -193,19 +193,19 @@ After successfully installing and verifying the Polkadot binaries, the next step
     polkadot
     ```
 
-    This command starts your Polkadot node in non-validator mode, allowing you to synchronize the chain data. If you're planning to run a validator on the Kusama network, you can specify the chain using the `--chain` flag, like so:
+    This command starts your Polkadot node in non-validator mode, allowing you to synchronize the chain data. If you're planning to run a validator on the Kusama network, you can specify the chain using the `--chain` flag:
 
     ```sh
     polkadot --chain=kusama
     ```
 
-    Once the sync starts, you will see a stream of logs that provides information about the node's status and progress. Here's an example of what the output might look like:
+    Once the sync starts, you will see a stream of logs providing information about the node's status and progress. Here's an example of what the output might look like:
 
     --8<-- 'code/infrastructure/running-a-validator/onboarding-and-offboarding/setup-a-validator/terminal-output-02.html'
     
-    The output logs provide information such as the current block number, node name, and network connections. Keep an eye on the sync progress and any errors that might occur during the process.
+    The output logs provide information such as the current block number, node name, and network connections. Monitor the sync progress and any errors that might occur during the process.
 
-2. **Use warp sync for faster syncing** - Polkadot defaults to using a full sync, which downloads and validates the entire blockchain history from the genesis block. This can be a time-consuming process, depending on the size of the chain and your hardware. To speed up syncing, you can use warp sync, which initially downloads finality proofs from GRANDPA and the latest finalized block's state.
+2. **Use warp sync for faster syncing** - Polkadot defaults to using a full sync, which downloads and validates the entire blockchain history from the genesis block. This can be time-consuming, depending on the size of the chain and your hardware. You can use warp sync to speed up syncing, which initially downloads finality proofs from GRANDPA and the latest finalized block's state.
 
     To start warp sync, use the following command:
 
@@ -213,9 +213,9 @@ After successfully installing and verifying the Polkadot binaries, the next step
     polkadot --sync warp
     ```
 
-    Warp sync ensures that your node quickly gets up-to-date with the latest finalized state. The historical blocks will be downloaded in the background as the node continues to operate.
+    Warp sync ensures that your node quickly updates to the latest finalized state. The historical blocks are downloaded in the background as the node continues to operate.
 
-3. **Monitor sync progress** - to track how much progress your node has made, check the logs printed by the `polkadot` process. Look for information about the latest block that has been processed and compare it with the current highest block using tools like [Telemetry](https://telemetry.polkadot.io/#list/Polkadot%20CC1){target=\_blank} or [PolkadotJS Block Explorer](https://polkadot.js.org/apps/#/explorer){target=\_blank}.
+3. **Monitor sync progress** - to track how your node's progress, check the logs printed by the `polkadot` process. Look for information about the latest processed block and compare it with the current highest block using tools like [Telemetry](https://telemetry.polkadot.io/#list/Polkadot%20CC1){target=\_blank} or [PolkadotJS Block Explorer](https://polkadot.js.org/apps/#/explorer){target=\_blank}.
 
 #### Database Snapshot Services
 
@@ -233,17 +233,17 @@ If you'd like to speed up the process further, you can use a database snapshot. 
 
     ![zero-peer](/images/infrastructure/running-a-validator/onboarding-and-offboarding/set-up-validator/polkadot-zero-peer.webp)
 
-    Make sure you have libp2p port `30333` enabled. It will take some time to discover other peers over the network.
+    Make sure you have libp2p port `30333` activated. It will take some time to discover other peers over the network.
 
 ## Bond DOT
 
-Once your validator node is synced, the next step is bonding DOT. A bonded account, also called a stash, holds your staked tokens (DOT) that back your validator node. Bonding your DOT means locking it for a period, where it cannot be transferred or spent, but is used to secure your validator’s role in the network. The following sections will guide you through bonding DOT for your validator.
+Once your validator node is synced, the next step is bonding DOT. A bonded account, or stash, holds your staked tokens (DOT) that back your validator node. Bonding your DOT means locking it for a period, during which it cannot be transferred or spent but is used to secure your validator's role in the network. The following sections will guide you through bonding DOT for your validator.
 
 ### Minimum Bond Requirement
 
-Before bonding DOT, ensure you meet the minimum bond requirement to start a validator instance. The minimum bond is the least amount of DOT you need to stake to enter the validator set. To become eligible for rewards, your validator node needs to be nominated by enough staked tokens.
+Before bonding DOT, ensure you meet the minimum bond requirement to start a validator instance. The minimum bond is the least DOT you need to stake to enter the validator set. To become eligible for rewards, your validator node needs to be nominated by enough staked tokens.
 
-For an example, on May 21st, 2024, the minimum stake backing a validator in Polkadot's era 1449 was 2,377,756.492 DOT. You can check the current minimum stake required using these tools:
+For example, on May 21st, 2024, the minimum stake backing a validator in Polkadot's era 1449 was 2,377,756.492 DOT. You can check the current minimum stake required using these tools:
 
 - [**Subscan**](https://polkadot.subscan.io/validator_list?status=validator){target=\_blank}
 - [**Staking Dashboard**](https://staking.polkadot.cloud/#/overview){target=\_blank}
@@ -285,9 +285,9 @@ the funds bonded by the Stash account.
 
 ## Set Session Keys
 
-Setting up your validator's session keys is an essential step to associate your node with your stash account on the Polkadot network. Session keys are used by validators to participate in the consensus process, and without properly setting them, your validator won’t be able to perform its role in the network. Session keys consist of several key pairs for different parts of the protocol (e.g., GRANDPA, BABE). These keys must be registered on-chain and associated with your validator node to ensure it can participate in validating blocks. 
+Setting up your validator's session keys is essential to associate your node with your stash account on the Polkadot network. Validators use session keys to participate in the consensus process. Your validator can only perform its role in the network by properly setting session keys which consist of several key pairs for different parts of the protocol (e.g., GRANDPA, BABE). These keys must be registered on-chain and associated with your validator node to ensure it can participate in validating blocks. 
 
-The following sections will cover generating session keys, submitting key data on-chain, and verifying session keys are correctly set. 
+The following sections will cover generating session keys, submitting key data on-chain, and verifying that session keys are correctly set. 
 
 ### Generate Session Keys
 
@@ -297,7 +297,7 @@ The Polkadot.js Apps UI and the CLI are the two primary methods used to generate
 
     1. Ensure that you are connected to your validator node through the PolkadotJS-Apps interface
     2. In the **Toolbox** tab, navigate to **RPC calls**
-    3. Select **`author_rotateKeys`** from the drop-down menu and run the command. This will generate new session keys in your node’s keystore and return the result as a hex-encoded string
+    3. Select **`author_rotateKeys`** from the drop-down menu and run the command. This will generate new session keys in your node's keystore and return the result as a hex-encoded string
     4. Copy and save this hex-encoded output for the next step
 
 === "Use the CLI"
@@ -314,7 +314,7 @@ The Polkadot.js Apps UI and the CLI are the two primary methods used to generate
 
 ### Submit `setKeys` Transaction
 
-Now that you have generated your session keys, you need to submit them to the chain. Follow these steps:
+Now that you have generated your session keys, you must submit them to the chain. Follow these steps:
 
 1. Go to the **Staking > Account Actions** section on Polkadot.js Apps
 2. Select **Set Session Key** on the bonding account you generated earlier
@@ -358,27 +358,27 @@ Use one of the following methods to generate your node key:
     polkadot key generate-node-key --default-base-path
     ```
 
-    Save the file path for reference, as you will need it in the next step to configure your node with a static identity.
+    Save the file path for reference. You will need it in the next step to configure your node with a static identity.
 
 ### Set the Node Key
 
-After generating the node key, configure your node to use it by specifying the path to the key file when launching your node. Add the following flag to your validator node’s startup command:
+After generating the node key, configure your node to use it by specifying the path to the key file when launching your node. Add the following flag to your validator node's startup command:
 
 ``` bash
 polkadot --node-key-file INSERT_PATH_TO_NODE_KEY
 ```
 
-Following these steps ensures that your node retains its identity, making it discoverable by peers without risk of conflicting identities across sessions. For further technical background, see Polkadot SDK [Pull Request #3852](https://github.com/paritytech/polkadot-sdk/pull/3852){target=\_blank} for the rationale behind requiring static keys.
+Following these steps ensures that your node retains its identity, making it discoverable by peers without the risk of conflicting identities across sessions. For further technical background, see Polkadot SDK [Pull Request #3852](https://github.com/paritytech/polkadot-sdk/pull/3852){target=\_blank} for the rationale behind requiring static keys.
 
 ## Validate
 
-Once your validator node is fully synced and ready, the next step is to ensure it’s visible on the network and performing as expected. Below are steps for monitoring and managing your node on the Polkadot network.
+Once your validator node is fully synced and ready, the next step is to ensure it's visible on the network and performing as expected. Below are steps for monitoring and managing your node on the Polkadot network.
 
 ### Verify Sync via Telemetry
 
-To confirm that your validator is live and synchronized with the Polkadot network, visit the [Telemetry](https://telemetry.polkadot.io/#list/Polkadot%20CC1){target=\_blank} page. Telemetry provides real-time information on node performance and can help you check if your validator is properly connected. Search for your node by name. You can search all nodes currently active on the network, which is why you should use a unique name for easy recognition. Now, confirm your node is fully synced by comparing the block height of your node with the network’s latest block.
+To confirm that your validator is live and synchronized with the Polkadot network, visit the [Telemetry](https://telemetry.polkadot.io/#list/Polkadot%20CC1){target=\_blank} page. Telemetry provides real-time information on node performance and can help you check if your validator is connected properly. Search for your node by name. You can search all nodes currently active on the network, which is why you should use a unique name for easy recognition. Now, confirm that your node is fully synced by comparing the block height of your node with the network's latest block.
 
-In the following example, a node named `techedtest` is successfully located and synchronized, ensuring it’s prepared to participate in the network:
+In the following example, a node named `techedtest` is successfully located and synchronized, ensuring it's prepared to participate in the network:
 
 ![polkadot-dashboard-telemetry](/images/infrastructure/running-a-validator/onboarding-and-offboarding/set-up-validator/polkadot-dashboard-telemetry.webp)
 
@@ -390,7 +390,7 @@ Follow these steps to use the Polkadot.js Apps UI to activate your validator:
 
     ![polkadot-dashboard-validate-1](/images/infrastructure/running-a-validator/onboarding-and-offboarding/set-up-validator/polkadot-dashboard-validate-1.webp)
 
-2. Set a reward commission percentage if desired. You can set a percentage of the rewards to go to your validator and the rest to your nominators. A 100% commission rate indicates the validator intends to keep all rewards and is seen as a signal the validator is not seeking nominators
+2. Set a reward commission percentage if desired. You can set a percentage of the rewards to pay to your validator and the remainder pays to your nominators. A 100% commission rate indicates the validator intends to keep all rewards and is seen as a signal the validator is not seeking nominators
 3. Toggle the **Allows New Nominations** option if your validator is open to more nominations from DOT holders
 4. Once everything is configured, select **Bond & Validate** to activate your validator status
 
@@ -398,22 +398,22 @@ Follow these steps to use the Polkadot.js Apps UI to activate your validator:
 
 ### Monitor Validation Status and Slots
 
-On the **Staking** tab in Polkadot.js Apps, you can see your validator’s status, the number of available validator slots, and the nodes that have signaled their intent to validate. Your node may initially appear in the waiting queue, especially if the validator slots are full. The following is an example view of the **Staking** tab:
+On the **Staking** tab in Polkadot.js Apps, you can see your validator's status, the number of available validator slots, and the nodes that have signaled their intent to validate. Your node may initially appear in the waiting queue, especially if the validator slots are full. The following is an example view of the **Staking** tab:
 
 ![staking queue](/images/infrastructure/running-a-validator/onboarding-and-offboarding/set-up-validator/polkadot-dashboard-staking.webp)
 
-The validator set refreshes each era. If there’s an available slot in the next era, your node may be selected to move from the waiting queue to the active validator set, allowing it to start validating blocks. If your validator doesn’t get selected, it remains in the waiting queue. Increasing your stake or gaining more nominators may improve your chance of being selected in future eras.
+The validator set refreshes each era. If there's an available slot in the next era, your node may be selected to move from the waiting queue to the active validator set, allowing it to start validating blocks. If your validator is not selected, it remains in the waiting queue. Increasing your stake or gaining more nominators may improve your chance of being selected in future eras.
 
-Once your validator is active, it’s officially part of Polkadot’s security infrastructure. For questions or further support, you can reach out to the [Polkadot Validator chat](https://matrix.to/#/!NZrbtteFeqYKCUGQtr:matrix.parity.io?via=matrix.parity.io&via=matrix.org&via=web3.foundation) for tips and troubleshooting.
+Once your validator is active, it's officially part of Polkadot's security infrastructure. For questions or further support, you can reach out to the [Polkadot Validator chat](https://matrix.to/#/!NZrbtteFeqYKCUGQtr:matrix.parity.io?via=matrix.parity.io&via=matrix.org&via=web3.foundation) for tips and troubleshooting.
 
 ## Run a Validator on a TestNet 
 
-Running your validator on a test network like Westend or Kusama is a smart way to familiarize yourself with the process and identify any setup issues in a lower-stakes environment before joining the Polkadot mainnet.
+Running your validator on a test network like Westend or Kusama is a smart way to familiarize yourself with the process and identify any setup issues in a lower-stakes environment before joining the Polkadot MainNet.
 
 ### Choose a Network
 
-- **Westend** - Polkadot’s primary testnet is open to anyone for testing purposes. Validator slots are intentionally limited to keep the network stable for the Polkadot release process, so it may not support as many validators at any given time
-- **Kusama** - often called Polkadot’s “canary network,” Kusama has real economic value but operates with a faster and more experimental approach. Running a validator here provides experience closer to MainNet with the benefit of more frequent validation opportunities with an era time of six hours vs 24 hours for Polkadot
+- **Westend** - Polkadot's primary TestNet is open to anyone for testing purposes. Validator slots are intentionally limited to keep the network stable for the Polkadot release process, so it may not support as many validators at any given time
+- **Kusama** - often called Polkadot's “canary network,” Kusama has real economic value but operates with a faster and more experimental approach. Running a validator here provides an experience closer to MainNet with the benefit of more frequent validation opportunities with an era time of six hours vs 24 hours for Polkadot
 
 ### Run a Kusama Validator
 
@@ -423,12 +423,12 @@ Running a validator on the Kusama network is identical to running a Polkadot val
 polkadot --chain=kusama
 ```
 
-This will configure your node to connect to the Kusama network instead of Polkadot. Adjust configurations as needed for your test environment, keeping in mind that the technical requirements for Kusama are generally lighter than those on the Polkadot mainnet. If you need help, please reach out on the [Kusama Validator Lounge](https://matrix.to/#/#KusamaValidatorLounge:polkadot.builders) on Element. The team and other experienced validators are there to help answer questions and provide tips.
+Using this flag will configure your node to connect to the Kusama network instead of Polkadot. Adjust configurations as needed for your test environment, keeping in mind that the technical requirements for Kusama are generally lighter than those on the Polkadot mainnet. If you need help, please reach out on the [Kusama Validator Lounge](https://matrix.to/#/#KusamaValidatorLounge:polkadot.builders) on Element. The team and other experienced validators are there to help answer questions and provide tips.
 
 <!--TODO: everything from here down feels like it should move to 'polkadot-docs/infrastructure/running-a-validator/operational-tasks/general-management.md' Need to confirm with content/tech team-->
 ## Configuration Optimization
 
-For those seeking to optimize their validator’s performance, the following configurations can improve responsiveness, reduce latency, and ensure consistent performance during high-demand periods.
+For those seeking to optimize their validator's performance, the following configurations can improve responsiveness, reduce latency, and ensure consistent performance during high-demand periods.
 
 ### Deactivate Simultaneous Multithreading
 
@@ -441,7 +441,7 @@ do
 done
 ```
 
-To save the changes permanently add `nosmt=force` as kernel parameter. Edit `/etc/default/grub` and add `nosmt=force` to `GRUB_CMDLINE_LINUX_DEFAULT` variable as follows:
+To save the changes permanently, add `nosmt=force` as kernel parameter. Edit `/etc/default/grub` and add `nosmt=force` to `GRUB_CMDLINE_LINUX_DEFAULT` variable as follows:
 
 ``` bash
 sudo nano /etc/default/grub
@@ -458,7 +458,7 @@ After updating the variable, be sure to update GRUB to apply changes:
 sudo update-grub
 ```
 
-After the reboot you should see half of the cores are offline. To confirm, run:
+After the reboot, you should see that half of the cores are offline. To confirm, run:
 
 ``` bash
 lscpu --extended
@@ -466,7 +466,7 @@ lscpu --extended
 
 ### Deactivate Automatic NUMA Balancing
 
-For multi-CPU setups, Deactivating NUMA (Non-Uniform Memory Access) balancing helps keep processes on the same CPU node, minimizing latency. Run the following command to deactivate NUMA balancing in runtime:
+Deactivating NUMA (Non-Uniform Memory Access) balancing for multi-CPU setups helps keep processes on the same CPU node, minimizing latency. Run the following command to deactivate NUMA balancing in runtime:
 
 ``` bash
 sysctl kernel.numa_balancing=0
@@ -495,13 +495,13 @@ Confirm the deactivation by running the following command:
 sysctl -a | grep 'kernel.numa_balancing'
 ```
 
-If you successfully deactivated NUMA balancing, the predecing command should return `0`.
+If you successfully deactivated NUMA balancing, the preceding command should return `0`.
 
 ### Spectre and Meltdown Mitigations
 
 Spectre and Meltdown are well-known vulnerabilities in modern CPUs that exploit speculative execution to access sensitive data. These vulnerabilities have been patched in recent Linux kernels, but the mitigations can slightly impact performance, especially in high-throughput or containerized environments.
 
-If your security needs allow it, you may selectively deactivate specific mitigations for performance gains. The Spectre V2 and Speculative Store Bypass Disable (SSBD) for Spectre V4 apply to speculative execution and are particularly impactful in containerized environments. Deactivating them can help regain performance if your environment doesn’t require these security layers.
+If your security needs allow it, you may selectively deactivate specific mitigations for performance gains. The Spectre V2 and Speculative Store Bypass Disable (SSBD) for Spectre V4 apply to speculative execution and are particularly impactful in containerized environments. Deactivating them can help regain performance if your environment doesn't require these security layers.
 
 To selectively deactivate the Spectre mitigations, update the `GRUB_CMDLINE_LINUX_DEFAULT` variable in your /etc/default/grub configuration:
 
@@ -521,23 +521,23 @@ sudo update-grub
 sudo reboot
 ```
 
-This approach selectively disables the Spectre V2 and Spectre V4 mitigations, leaving other protections intact. For full security, keep mitigations enabled unless there’s a significant performance need, as disabling them could expose the system to potential attacks on affected CPUs.
+This approach selectively deactivates the Spectre V2 and Spectre V4 mitigations, leaving other protections intact. For full security, keep mitigations activated unless there's a significant performance need, as disabling them could expose the system to potential attacks on affected CPUs.
 
 ## VPS Provider List
 
-When selecting a VPS provider for your validator node, prioritize reliability, consistent performance, and adherence to the specific hardware requirements set for Polkadot validators. The following server types have been tested and showed acceptable performance in benchmark tests. However, this is not an endorsement, and actual performance may vary depending on your workload and VPS provider.
+When selecting a VPS provider for your validator node, prioritize reliability, consistent performance, and adherence to the specific hardware requirements set for Polkadot validators. The following server types have been tested and showed acceptable performance in benchmark tests. However, this is not an endorsement and actual performance may vary depending on your workload and VPS provider.
 
 - [**Google Cloud Platform (GCP)**](https://cloud.google.com/){target=\_blank} - `c2` and `c2d` machine families offer high-performance configurations suitable for validators
 - [**Amazon Web Services (AWS)**](https://aws.amazon.com/){target=\_blank} - `c6id` machine family provides strong performance, particularly for I/O-intensive workloads
 - [**OVH**](https://www.ovh.com.au/){target=\_blank} - can be a budget-friendly solution if it meets your minimum hardware specifications
-- [**Digital Ocean**](https://www.digitalocean.com/){target=\_blank} - popular among developers, Digital Ocean’s premium droplets offer configurations suitable for medium to high-intensity workloads
+- [**Digital Ocean**](https://www.digitalocean.com/){target=\_blank} - popular among developers, Digital Ocean's premium droplets offer configurations suitable for medium to high-intensity workloads
 - [**Vultr**](https://www.vultr.com/){target=\_blank} - offers flexibility with plans that may meet validator requirements, especially for high-bandwidth needs
 - [**Linode**](https://www.linode.com/){target=\_blank} - provides detailed documentation, which can be helpful for setup
 - [**Scaleway**](https://www.scaleway.com/){target=\_blank} - offers high-performance cloud instances that can be suitable for validator nodes
 - [**OnFinality**](https://onfinality.io/){target=\_blank} - specialized in blockchain infrastructure, OnFinality provides validator-specific support and configurations
 
 !!! warning "Acceptable use policies"
-    Different VPS providers have varying acceptable use policies, and not all explicitly allow cryptocurrency-related activities. Digital Ocean, for instance, requires explicit permission to use servers for cryptocurrency mining and or else it is categorized as Network Abuse in their Acceptable Use Policy. Review the terms for your VPS provider to avoid account suspension or server shutdown due to policy violations.
+    Different VPS providers have varying acceptable use policies, and not all explicitly allow cryptocurrency-related activities. Digital Ocean, for instance, requires explicit permission to use servers for cryptocurrency mining; otherwise it is categorized as Network Abuse in its Acceptable Use Policy. Review the terms for your VPS provider to avoid account suspension or server shutdown due to policy violations.
 
 ## Run a Validator Using Systemd
 
@@ -568,11 +568,11 @@ In this unit file, you will write the commands that you want to run on server bo
 ```
 
 !!! warning "Restart Delay Recommendation"
-    It is recommended to delay the restart of a node with `RestartSec` in the case of node crashes. It's possible that when a node crashes, consensus votes in GRANDPA aren't persisted to disk. In this case, there is potential to equivocate when immediately restarting. Delaying the restart will allow the network to progress past potentially conflicting votes.
+    It is recommended that a node's restart be delayed with `RestartSec` in the case of a crash. It's possible that when a node crashes, consensus votes in GRANDPA aren't persisted to disk. In this case, there is potential to equivocate when immediately restarting. Delaying the restart will allow the network to progress past potentially conflicting votes.
 
 ### Run the Service
 
-Enable the systemd service to start on system boot by running:
+Activate the systemd service to start on system boot by running:
 
 ```bash
 systemctl enable polkadot-validator.service
@@ -584,7 +584,7 @@ To start the service manually, use:
 systemctl start polkadot-validator.service
 ```
 
-Check the service’s status to confirm it is running:
+Check the service's status to confirm it is running:
 
 ```bash
 systemctl status polkadot-validator.service

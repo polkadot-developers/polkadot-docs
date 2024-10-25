@@ -1,0 +1,21 @@
+[package]
+name = "custom-pallet"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+frame-support = { version = "37.0.0", default-features = false }
+frame-system = { version = "37.0.0", default-features = false }
+codec = { version = "3.6.12", default-features = false, package = "parity-scale-codec", features = ["derive"] }
+scale-info = { version = "2.11.1", default-features = false, features = ["derive"] }
+sp-runtime = { version = "39.0.0", default-features = false }
+
+[features]
+default = ["std"]
+std = [
+    "frame-support/std",
+    "frame-system/std",
+    "codec/std",
+    "scale-info/std",
+    "sp-runtime/std",
+]

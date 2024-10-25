@@ -1,6 +1,6 @@
 ---
 title: Randomness
-description: TODO
+description: Explore the importance of randomness in PoS blockchains, focusing on Polkadot’s VRF-based approach to ensure fairness and security in validator selection.
 ---
 
 # Randomness

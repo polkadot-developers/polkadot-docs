@@ -281,6 +281,8 @@ Your bonded account will be available under `Stashes`. You should now see a new 
 accounts (note: you may need to refresh the screen). The bonded amount on the right corresponds to
 the funds bonded by the Stash account.
 
+<!--end of needed refactor by content/tech team-->
+
 ## Set Session Keys
 
 Setting up your validator's session keys is an essential step to associate your node with your stash account on the Polkadot network. Session keys are used by validators to participate in the consensus process, and without properly setting them, your validator won’t be able to perform its role in the network. Session keys consist of several key pairs for different parts of the protocol (e.g., GRANDPA, BABE). These keys must be registered on-chain and associated with your validator node to ensure it can participate in validating blocks. 
@@ -423,6 +425,7 @@ polkadot --chain=kusama
 
 This will configure your node to connect to the Kusama network instead of Polkadot. Adjust configurations as needed for your test environment, keeping in mind that the technical requirements for Kusama are generally lighter than those on the Polkadot mainnet. If you need help, please reach out on the [Kusama Validator Lounge](https://matrix.to/#/#KusamaValidatorLounge:polkadot.builders) on Element. The team and other experienced validators are there to help answer questions and provide tips.
 
+<!--TODO: everything from here down feels like it should move to 'polkadot-docs/infrastructure/running-a-validator/operational-tasks/general-management.md' Need to confirm with content/tech team-->
 ## Configuration Optimization
 
 For those seeking to optimize their validator’s performance, the following configurations can improve responsiveness, reduce latency, and ensure consistent performance during high-demand periods.

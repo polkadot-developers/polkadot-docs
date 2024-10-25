@@ -51,7 +51,7 @@ After executing the VRF, the RESULT is compared to a protocol-defined THRESHOLD.
 
 As a result, there may be multiple validators eligible to propose a block for a slot. In this case, the block accepted by other nodes will prevail, provided it is on the chain with the latest finalized block as determined by the GRANDPA finality gadget. It's also possible for no block producers to be available for a slot, in which case the AURA consensus takes over. AURA is a fallback mechanism that randomly selects a validator to produce a block, running in parallel with BABE and only stepping in when no block producers exist for a slot. Otherwise, it remains inactive.
 
-Because validators roll independently, it's possible that no block candidates appear in some slots if all roll numbers above the threshold. 
+Because validators roll independently, no block candidates may appear in some slots if all roll numbers are above the threshold.
 
 !!!note
     The resolution of this issue and the assurance that Polkadot block times remain near constant-time can be checked on the [PoS Consensus](TODO:update-path){target=_blank} page.

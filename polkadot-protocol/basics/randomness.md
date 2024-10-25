@@ -74,7 +74,7 @@ They produce a unique result that can be quickly verified publicly. When combine
 However, VDF likely requires specialized ASIC devices to run separately from standard nodes.
 
 !!!warning 
-    While only one is needed to secure the system and they will be open-source and inexpensive, running them involves significant costs without any direct incentives, adding friction for blockchain users.
+    While only one is needed to secure the system, and they will be open-source and inexpensive, running them involves significant costs without direct incentives, adding friction for blockchain users.
 
 ## Additional Resources
 

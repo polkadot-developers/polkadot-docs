@@ -41,7 +41,7 @@ Here is a graphical representation:
 
 The `VRF` produces two outputs: a `RESULT` (the random number) and a `PROOF` (verifying that the number was generated correctly).
 
-The `RESULT` is checked by validator against a threshold set by the protocol. If it's below the threshold, the validator becomes a candidate for block production in that slot. 
+The result is checked by the validator against a protocol threshold. If it's below the threshold, the validator becomes a candidate for block production in that slot. 
 
 The validator then attempts to create a block, submitting it along with the `PROOF` and `RESULT`.
 So, VRF can be expressed like:

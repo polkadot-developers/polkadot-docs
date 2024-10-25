@@ -35,7 +35,7 @@ Here is a graphical representation:
 
 ![](/images/polkadot-protocol/basics/blocks-transactions-fees/randomness/slots-epochs.webp)
 
-The `VRF` produces two outputs: a `RESULT` (the random number) and a `PROOF` (verifying that the number was generated correctly).
+The VRF produces two outputs: a result (the random number) and a proof (verifying that the number was generated correctly).
 
 The result is checked by the validator against a protocol threshold. If it's below the threshold, the validator becomes a candidate for block production in that slot. 
 

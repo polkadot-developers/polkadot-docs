@@ -63,7 +63,7 @@ An alternative on-chain randomness method is Ethereum's RANDAO, where validator
 To enhance security, RANDAO can optionally be combined with a Verifiable Delay Function (VDF), ensuring that randomness can't be predicted or manipulated during computation.
 
 !!!note
-    More information about `RANDAO` can be found in the [ETH documentation](https://eth2book.info/capella/part2/building_blocks/randomness/){target=\_blank}
+    More information about RANDAO can be found in the [ETH documentation](https://eth2book.info/capella/part2/building_blocks/randomness/){target=\_blank}.
 
 ## VDFs
 

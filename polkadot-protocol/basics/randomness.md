@@ -19,7 +19,7 @@ Polkadot's VRF is similar to the one used in [**Ouroboros Praos**](https://eprin
 
 The key difference is that Polkadot's VRF doesn’t rely on a central clock—avoiding the issue of whose clock to trust. Instead, it uses its own past results and slot numbers to simulate time and determine future outcomes.
 
-**Here's how VRF works:**
+### How VRF Works
 
 Slots on Polkadot are discrete units of time, each lasting six seconds, and can potentially hold a block. Multiple slots form an epoch, with 2400 slots making up one four-hour epoch.
 

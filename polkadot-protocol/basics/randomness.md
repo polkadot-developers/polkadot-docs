@@ -13,7 +13,7 @@ Currently, two primary methods for generating randomness in blockchains are used
 
 ## VRF
 
-A **Verifiable Random Function (VRF)** is a cryptographic function that generates a random number along with a proof that ensures the number was produced by the submitter. This proof allows anyone to verify the validity of the random number.
+A Verifiable Random Function (VRF) is a cryptographic function that generates a random number and proof that ensures the submitter produced the number. This proof allows anyone to verify the validity of the random number.
 
 Polkadot's VRF is similar to the one used in [**Ouroboros Praos**](https://eprint.iacr.org/2017/573.pdf){target=\_blank}, which secures randomness for block production in systems like [BABE](TODO:update-path){target=\_blank} (Polkadot’s block production mechanism). 
 

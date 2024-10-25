@@ -71,7 +71,7 @@ To enhance security, `RANDAO` can be optionally combined with a **Verifiable Del
 
 They produce a unique result that can be quickly verified publicly. When combined with `RANDAO`, feeding `RANDAO`'s output into a `VDF` introduces a delay that nullifies an attacker's chance to influence the randomness.
 
-However, `VDF` likely require specialized ASIC devices to run, separate from standard nodes. 
+However, VDF likely requires specialized ASIC devices to run separately from standard nodes.
 
 !!!warning 
     While only one is needed to secure the system and they will be open-source and inexpensive, running them involves significant costs without any direct incentives, adding friction for blockchain users.

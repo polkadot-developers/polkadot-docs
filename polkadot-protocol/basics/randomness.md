@@ -9,7 +9,7 @@ Randomness is crucial in Proof of Stake (PoS) blockchains to ensure a fair and u
 
 In a global blockchain network, relying on real-world entropy for randomness isn’t feasible because these inputs vary by time and location. If nodes use different inputs, blockchains can fork. Hence, real-world randomness isn't suitable for use as a seed in blockchain systems.
 
-Currently, two primary methods for generating randomness in blockchains are used: `RANDAO` and `VRF` (Verifiable Random Function). Polkadot adopts the `VRF` approach for its randomness.
+Currently, two primary methods for generating randomness in blockchains are used: [`RANDAO`](#randao) and [`VRF`](#vrf) (Verifiable Random Function). Polkadot adopts the `VRF` approach for its randomness.
 
 ## VRF
 

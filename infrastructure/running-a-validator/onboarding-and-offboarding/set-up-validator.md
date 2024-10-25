@@ -228,6 +228,13 @@ If you'd like to speed up the process further, you can use a database snapshot. 
 !!!warning
     Although snapshots are convenient, syncing from scratch is recommended for security purposes. If snapshots become corrupted and most nodes rely on them, the network could inadvertently run on a non-canonical chain.
 
+??? tip "FAQ"
+    Why am I unable to synchronize the chain with 0 peers?
+
+    ![zero-peer](/images/infrastructure/validators/onboarding/run-validator/polkadot-zero-peer.webp)
+
+    Make sure you have libp2p port `30333` enabled. It will take some time to discover other peers over the network.
+
 ## Bond DOT
 
 Once your validator node is synced, the next step is bonding DOT. A bonded account, also called a stash, holds your staked tokens (DOT) that back your validator node. Bonding your DOT means locking it for a period, where it cannot be transferred or spent, but is used to secure your validator’s role in the network. The following sections will guide you through bonding DOT for your validator.
@@ -276,240 +283,153 @@ the funds bonded by the Stash account.
 
 ## Set Session Keys
 
-!!!caution Session keys are consensus critical
-    If you are not sure if your node has the current session keys that you made the `setKeys`
-    transaction then you can use one of the two available RPC methods to query your node:
-    [hasKey](https://polkadot.js.org/docs/substrate/rpc/#haskeypublickey-bytes-keytype-text-bool) to
-    check for a specific key or
-    [hasSessionKeys](https://polkadot.js.org/docs/substrate/rpc/#hassessionkeyssessionkeys-bytes-bool)
-    to check the full session key public key string.
+Setting up your validator's session keys is an essential step to associate your node with your stash account on the Polkadot network. Session keys are used by validators to participate in the consensus process, and without properly setting them, your validator won’t be able to perform its role in the network. Session keys consist of several key pairs for different parts of the protocol (e.g., GRANDPA, BABE). These keys must be registered on-chain and associated with your validator node to ensure it can participate in validating blocks. 
 
-Once your node is fully synced, stop the process by pressing Ctrl-C. At your terminal prompt, you
-will now start running the node.
+The following sections will cover generating session keys, submitting key data on-chain, and verifying session keys are correctly set. 
 
-```sh
-polkadot --validator --name "name on telemetry"
-```
+### Generate Session Keys
 
-Similarly:
+The Polkadot.js Apps UI and the CLI are the two primary methods used to generate session keys.
 
-```
-2021-06-17 03:12:08 Parity Polkadot
-2021-06-17 03:12:08 ✌️  version 0.9.5-95f6aa201-x86_64-linux-gnu
-2021-06-17 03:12:08 ❤️  by Parity Technologies <admin@parity.io>, 2017-2021
-2021-06-17 03:12:08 📋 Chain specification: Polkadot
-2021-06-17 03:12:08 🏷 Node name: nateched-test
-2021-06-17 03:12:08 👤 Role: AUTHORITY
-2021-06-17 03:12:08 💾 Database: RocksDb at /root/.local/share/polkadot/chains/polkadot/db
-2021-06-17 03:12:08 ⛓  Native runtime: polkadot-9050 (parity-polkadot-0.tx7.au0)
-2021-06-17 03:12:12 🏷 Local node identity is: 12D3KooWLtXFWf1oGrnxMGmPKPW54xWCHAXHbFh4Eap6KXmxoi9u
-2021-06-17 03:12:12 📦 Highest known block at #64673
-2021-06-17 03:12:12 〽️ Prometheus server started at 127.0.0.1:9615
-2021-06-17 03:12:12 Listening for new connections on 127.0.0.1:9944.
-2021-06-17 03:12:12 👶 Starting BABE Authorship worker
-```
+=== "Use Polkadot.js Apps UI"
 
-```
-2021-06-17 03:12:16 🔍 Discovered new external address for our node: /ip4/10.26.11.1/tcp/30333/p2p/12D3KooWLtXFWf1oGrnxMGmPKPW54xWCHAXHbFh4Eap6KXmxoi9u
-2021-06-17 03:12:17 ⚙️  Syncing, target=#5553810 (14 peers), best: #65068 (0x6da5…0662), finalized #65024 (0x4e84…d170), ⬇ 352.2kiB/s ⬆ 75.6kiB/s
-```
+    1. Ensure that you are connected to your validator node through the PolkadotJS-Apps interface
+    2. In the **Toolbox** tab, navigate to **RPC calls**
+    3. Select **`author_rotateKeys`** from the drop-down menu and run the command. This will generate new session keys in your node’s keystore and return the result as a hex-encoded string
+    4. Copy and save this hex-encoded output for the next step
 
-You can give your validator any name that you like, but note that others will be able to see it, and
-it will be included in the list of all servers using the same telemetry server. Since numerous
-people are using telemetry, it is recommended that you choose something likely to be unique.
+=== "Use the CLI"
 
-### Generating the Session Keys
+    Alternatively, if you are on a remote server or prefer using the command line, you can generate session keys by running the following command on your validator node:
 
-You need to tell the chain your Session keys by signing and submitting an extrinsic. This is what
-associates your validator node with your stash account on Polkadot.
+    ``` bash
+    curl -H "Content-Type: application/json" \
+    -d '{"id":1, "jsonrpc":"2.0", "method": "author_rotateKeys", "params":[]}' \
+    http://localhost:9944
+    ```
 
-#### Option 1: PolkadotJS-APPS
+    This command will return a hex-encoded string that is the concatenation of your session keys. Save this string for later use.
 
-You can generate your [Session keys](../learn/learn-cryptography.md) in the client via the apps RPC.
-If you are doing this, make sure that you have the PolkadotJS-Apps explorer attached to your
-validator node. You can configure the apps dashboard to connect to the endpoint of your validator in
-the Settings tab. If you are connected to a default endpoint hosted by Parity of Web3 Foundation,
-you will not be able to use this method since making RPC requests to this node would effect the
-local keystore hosted on a _public node_ and you want to make sure you are interacting with the
-keystore for _your node_.
+### Submit `setKeys` Transaction
 
-Once ensuring that you have connected to your node, the easiest way to set session keys for your
-node is by calling the `author_rotateKeys` RPC request to create new keys in your validator's
-keystore. Navigate to Toolbox tab and select RPC Calls then select the author > rotateKeys() option
-and remember to save the output that you get back for a later step.
+Now that you have generated your session keys, you need to submit them to the chain. Follow these steps:
+
+1. Go to the **Staking > Account Actions** section on Polkadot.js Apps
+2. Select **Set Session Key** on the bonding account you generated earlier
+3. Paste the hex-encoded session key string you generated (from either the UI or CLI) into the input field and submit the transaction
+
+Once the transaction is signed and submitted, your session keys will be registered on-chain. 
+![staking-session-result](/images/infrastructure/validators/onboarding/run-validator/set-session-key-2.webp)
+
+### Verify Session Key Setup
+
+To verify that your session keys are properly set, you can use one of two RPC calls:
+
+- **`hasKey`** - checks if the node has a specific key by public key and key type
+- **`hasSessionKeys`** - verifies if your node has the full session key string associated with the validator
+
+For example, you can check session keys on the Polkadot.js Apps interface or by running an RPC query against your node. Once this is done, your validator node is ready for its role.
 
 ![Explorer RPC call](/images/infrastructure/validators/onboarding/run-validator/polkadot-explorer-rotatekeys-rpc.webp)
 
-#### Option 2: CLI
+## Set the Node Key
 
-If you are on a remote server, it is easier to run this command on the same machine (while the node
-is running with the default WS RPC port configured):
+Validators on Polkadot need a static network key (also known as the node key) to maintain a stable node identity. This key ensures that your validator can maintain a consistent peer ID, even across restarts, which is crucial for maintaining reliable network connections.
 
-```sh
-curl -H "Content-Type: application/json" -d '{"id":1, "jsonrpc":"2.0", "method": "author_rotateKeys", "params":[]}' http://localhost:9944
+Starting with Polkadot version 1.11, validators without a stable network key may encounter the following error on startup:
+
+--8<-- 'code/infrastructure/running-a-validator/onboarding-and-offboarding/setup-a-validator/node-key-error-01.html'
+
+### Generate the Node Key
+
+Use one of the following methods to generate your node key:
+
+- **Generate and Save to File** - the recommended solution is to generate a node key and save it to a file using the following command:
+
+    ``` bash
+    polkadot key generate-node-key --file INSERT_PATH_TO_NODE_KEY
+    ```
+
+- **Use Default Path** - you can also generate the node key with the following command, which will automatically save the key to the base path of your node:
+
+    ``` bash
+    polkadot key generate-node-key --default-base-path
+    ```
+
+    Save the file path for reference, as you will need it in the next step to configure your node with a static identity.
+
+### Set the Node Key
+
+After generating the node key, configure your node to use it by specifying the path to the key file when launching your node. Add the following flag to your validator node’s startup command:
+
+``` bash
+polkadot --node-key-file INSERT_PATH_TO_NODE_KEY
 ```
 
-The output will have a hex-encoded "result" field. The result is the concatenation of the four
-public keys. Save this result for a later step.
-
-You can restart your node at this point.
-
-### Submitting the `setKeys` Transaction
-
-You need to tell the chain your Session keys by signing and submitting an extrinsic. This is what
-associates your validator with your staking proxy.
-
-Go to [Staking > Account Actions](https://polkadot.js.org/apps/#/staking/actions), and click "Set
-Session Key" on the bonding account you generated earlier. Enter the output from `author_rotateKeys`
-in the field and click "Set Session Key".
-
-![staking-change-session](/images/infrastructure/validators/onboarding/run-validator/set-session-key-1.webp)
-![staking-session-result](/images/infrastructure/validators/onboarding/run-validator/set-session-key-2.webp)
-
-Submit this extrinsic and you are now ready to start validating.
-
-### Setting the Node (aka Network) Key
-
-Validators must use a static network key to maintain a stable node identity across restarts.
-Starting with Polkadot version 1.11, a check is performed on startup, and the following error will
-be printed if a static node key is not set:
-
-```
-Error:
-0: Starting an authority without network key
-This is not a safe operation because other authorities in the network may depend on your node having a stable identity.
-Otherwise these other authorities may not being able to reach you.
-
-If it is the first time running your node you could use one of the following methods:
-1. [Preferred] Separately generate the key with: <NODE_BINARY> key generate-node-key --base-path <YOUR_BASE_PATH>
-2. [Preferred] Separately generate the key with: <NODE_BINARY> key generate-node-key --file <YOUR_PATH_TO_NODE_KEY>
-3. [Preferred] Separately generate the key with: <NODE_BINARY> key generate-node-key --default-base-path
-4. [Unsafe] Pass --unsafe-force-node-key-generation and make sure you remove it for subsequent node restarts"
-```
-
-The recommended solution is to generate a node key and save it to a file using
-`polkadot key generate-node-key --file <PATH_TO_NODE_KEY>`, then attach it to your node with
-`--node-key-file <PATH_TO_NODE_KEY>`.
-
-Please see [polkadot-sdk#3852](https://github.com/paritytech/polkadot-sdk/pull/3852) for the
-rationale behind this change.
+Following these steps ensures that your node retains its identity, making it discoverable by peers without risk of conflicting identities across sessions. For further technical background, see Polkadot SDK [Pull Request #3852](https://github.com/paritytech/polkadot-sdk/pull/3852){target=\_blank} for the rationale behind requiring static keys.
 
 ## Validate
 
-To verify that your node is live and synchronized, head to
-[Telemetry](https://telemetry.polkadot.io/#list/Polkadot%20CC1) and find your node. Note that this
-will show all nodes on the Polkadot network, which is why it is important to select a unique name!
+Once your validator node is fully synced and ready, the next step is to ensure it’s visible on the network and performing as expected. Below are steps for monitoring and managing your node on the Polkadot network.
 
-In this example, we used the name `techedtest` and have successfully located it upon searching:
+### Verify Sync via Telemetry
 
-![polkadot-dashboard-telemetry](/images/infrastructure/validators/onboarding/run-validator/polkadot-dashboard-telemetry.webp)
+To confirm that your validator is live and synchronized with the Polkadot network, visit the [Telemetry](https://telemetry.polkadot.io/#list/Polkadot%20CC1){target=\_blank} page. Telemetry provides real-time information on node performance and can help you check if your validator is properly connected. Search for your node by name. You can search all nodes currently active on the network, which is why you should use a unique name for easy recognition. Now, confirm your node is fully synced by comparing the block height of your node with the network’s latest block.
 
-### Setup via Validator Tab
+In the following example, a node named `techedtest` is successfully located and synchronized, ensuring it’s prepared to participate in the network:
 
-![polkadot-dashboard-validate-1](/images/infrastructure/validators/onboarding/run-validator/polkadot-dashboard-validate-1.webp)
+![polkadot-dashboard-telemetry](/images/infrastructure/running-a-validator/onboarding-and-offboarding/set-up-validator/polkadot-dashboard-telemetry.webp)
 
-Here you will need to input the Keys from `rotateKeys`, which is the Hex output from
-`author_rotateKeys`. The keys will show as pending until applied at the start of a new session.
+### Activate via Validator Tab
 
-The "reward commission percentage" is the commission percentage that you can declare against your
-validator's rewards. This is the rate that your validator will be commissioned with.
+Follow these steps to use the Polkadot.js Apps UI to activate your validator:
 
-- **Payment preferences** - You can specify the percentage of the rewards that will get paid to you.
-  The remaining will be split among your nominators.
+1. Go to the **Validator** tab in the Polkadot.js Apps UI and locate the section where you input the keys generated from `rotateKeys`. Paste the output from `author_rotateKeys`, which is a hex-encoded key that links your validator with its session keys:
 
-!!!note "Setting a commission rate of 100% suggests that you do not want your validator to receive nominations"
+    ![polkadot-dashboard-validate-1](/images/infrastructure/running-a-validator/onboarding-and-offboarding/set-up-validator/polkadot-dashboard-validate-1.webp)
 
-You can also determine if you would like to receive nominations with the "allows new nominations"
-option.
+2. Set a reward commission percentage if desired. You can set a percentage of the rewards to go to your validator and the rest to your nominators. A 100% commission rate indicates the validator intends to keep all rewards and is seen as a signal the validator is not seeking nominators
+3. Toggle the **Allows New Nominations** option if your validator is open to more nominations from DOT holders
+4. Once everything is configured, select **Bond & Validate** to activate your validator status
 
-![dashboard validate](/images/infrastructure/validators/onboarding/run-validator/polkadot-dashboard-validate-2.webp)
+    ![dashboard validate](/images/infrastructure/running-a-validator/onboarding-and-offboarding/set-up-validator/polkadot-dashboard-validate-2.webp)
 
-Click "Bond & Validate".
+### Monitor Validation Status and Slots
 
-If you go to the "Staking" tab, you will see a list of active validators currently running on the
-network. At the top of the page, it shows the number of validator slots that are available as well
-as the number of nodes that have signaled their intention to be a validator. You can go to the
-"Waiting" tab to double check to see whether your node is listed there.
+On the **Staking** tab in Polkadot.js Apps, you can see your validator’s status, the number of available validator slots, and the nodes that have signaled their intent to validate. Your node may initially appear in the waiting queue, especially if the validator slots are full. The following is an example view of the **Staking** tab:
 
-![staking queue](/images/infrastructure/validators/onboarding/run-validator/polkadot-dashboard-staking.webp)
+![staking queue](/images/infrastructure/running-a-validator/onboarding-and-offboarding/set-up-validator/polkadot-dashboard-staking.webp)
 
-The validator set is refreshed every era. In the next era, if there is a slot available and your
-node is selected to join the validator set, your node will become an active validator. Until then,
-it will remain in the _waiting_ queue. If your validator is not selected to become part of the
-validator set, it will remain in the _waiting_ queue until it is. There is no need to re-start if
-you are not selected for the validator set in a particular era. However, it may be necessary to
-increase the number of DOT staked or seek out nominators for your validator in order to join the
-validator set.
+The validator set refreshes each era. If there’s an available slot in the next era, your node may be selected to move from the waiting queue to the active validator set, allowing it to start validating blocks. If your validator doesn’t get selected, it remains in the waiting queue. Increasing your stake or gaining more nominators may improve your chance of being selected in future eras.
 
-**Congratulations!** If you have followed all of these steps, and been selected to be a part of the
-validator set, you are now running a Polkadot validator! If you need help, reach out on the
-[Polkadot Validator chat](https://matrix.to/#/!NZrbtteFeqYKCUGQtr:matrix.parity.io?via=matrix.parity.io&via=matrix.org&via=web3.foundation).
+Once your validator is active, it’s officially part of Polkadot’s security infrastructure. For questions or further support, you can reach out to the [Polkadot Validator chat](https://matrix.to/#/!NZrbtteFeqYKCUGQtr:matrix.parity.io?via=matrix.parity.io&via=matrix.org&via=web3.foundation) for tips and troubleshooting.
 
-## Thousand Validators Programme
+## Run a Validator on a TestNet 
 
-The Thousand Validators Programme is a joint initiative by Web3 Foundation and Parity Technologies
-to provide support for community validators. If you are interested in applying for the program, you
-can find more information [on the wiki page](../general/thousand-validators.md).
+Running your validator on a test network like Westend or Kusama is a smart way to familiarize yourself with the process and identify any setup issues in a lower-stakes environment before joining the Polkadot mainnet.
 
-## Running a validator on a testnet
+### Choose a Network
 
-To verify your validator setup, it is possible to run it against a PoS test network such as Westend.
-However, validator slots are intentionally limited on Westend to ensure stability and availability
-of the testnet for the Polkadot release process.
+- **Westend** - Polkadot’s primary testnet is open to anyone for testing purposes. Validator slots are intentionally limited to keep the network stable for the Polkadot release process, so it may not support as many validators at any given time
+- **Kusama** - often called Polkadot’s “canary network,” Kusama has real economic value but operates with a faster and more experimental approach. Running a validator here provides experience closer to MainNet with the benefit of more frequent validation opportunities with an era time of six hours vs 24 hours for Polkadot
 
-Here is a small comparison of each network characteristics as relevant to validators:
+### Run a Kusama Validator
 
-| Network           | Polkadot | Westend    |
-| ----------------- | -------- | ---------- |
-| epoch             | 4h       | 1h         |
-| era               | 1d       | 6h         |
-| token             | DOT      | WND (test) |
-| active validators | ~300     | ~20        |
+Running a validator on the Kusama network is identical to running a Polkadot validator. To start a validator node on Kusama, specify the chain when running the node as follows:
 
-## FAQ
-
-### Why am I unable to synchronize the chain with 0 peers?
-
-![zero-peer](/images/infrastructure/validators/onboarding/run-validator/polkadot-zero-peer.webp)
-
-Make sure to enable `30333` libp2p port. Eventually, it will take a little bit of time to discover
-other peers over the network.
-
-### How do I clear all my chain data?
-
-```sh
-polkadot purge-chain
+``` bash
+polkadot --chain=kusama
 ```
 
-!!!info
-    Check out the [Substrate StackExchange](https://substrate.stackexchange.com/) to quickly get the
-    answers you need.
+This will configure your node to connect to the Kusama network instead of Polkadot. Adjust configurations as needed for your test environment, keeping in mind that the technical requirements for Kusama are generally lighter than those on the Polkadot mainnet. If you need help, please reach out on the [Kusama Validator Lounge](https://matrix.to/#/#KusamaValidatorLounge:polkadot.builders) on Element. The team and other experienced validators are there to help answer questions and provide tips.
 
-## Note about VPS
+## Configuration Optimization
 
-VPS providers are very popular for running servers of any kind. Extensive benchmarking was conducted
-to ensure that VPS servers are able to keep up with the work load in general.
+For those seeking to optimize their validator’s performance, the following configurations can improve responsiveness, reduce latency, and ensure consistent performance during high-demand periods.
 
-!!!note
-    Before you run a live Validator, please verify if the advertised performance is actually delivered
-    consistently by the VPS provider.
+### Deactivate Simultaneous Multithreading
 
-The following server types showed acceptable performance during the benchmark tests. Please note
-that this is not an endorsement in any way:
-
-- GCP's _c2_ and _c2d_ machine families
-- AWS's _c6id_ machine family
-
-The following additional configurations were applied to the instances to tune their performance:
-
-### Disable [SMT](https://en.wikipedia.org/wiki/Simultaneous_multithreading)
-
-As critical path of Substrate is single-threaded we need to optimize for single-core CPU
-performance. The node still profits from multiple cores when doing networking and other non-runtime
-operations. It is therefore still necessary to run it on at least the minimum required number of
-cores. Disabling SMT improves the performance as each vCPU becomes mapped to a physical CPU core
-rather than being presented to the OS as two logical cores. SMT implementation is called
-_Hyper-Threading_ on Intel and _2-way SMT_ on AMD Zen. To disable SMT in runtime:
+Polkadot validators operate primarily in single-threaded mode for critical paths, meaning optimizing for single-core CPU performance can reduce latency and improve stability. Deactivating simultaneous multithreading (SMT) can prevent virtual cores from affecting performance. SMT implementation is called Hyper-Threading on Intel and 2-way SMT on AMD Zen. The following will deactivate every other (vCPU) core:
 
 ```bash
 for cpunum in $(cat /sys/devices/system/cpu/cpu*/topology/thread_siblings_list | cut -s -d, -f2- | tr ',' '\n' | sort -un)
@@ -518,192 +438,119 @@ do
 done
 ```
 
-It will disable every other (vCPU) core.
+To save the changes permanently add `nosmt=force` as kernel parameter. Edit `/etc/default/grub` and add `nosmt=force` to `GRUB_CMDLINE_LINUX_DEFAULT` variable as follows:
 
-To save changes permanently add `nosmt=force` as kernel parameter. Edit `/etc/default/grub` and add
-`nosmt=force` to `GRUB_CMDLINE_LINUX_DEFAULT` variable and run `sudo update-grub`. After the reboot
-you should see half of the cores are offline. Run `lscpu --extended` to confirm.
+``` bash
+sudo nano /etc/default/grub
+# Add to GRUB_CMDLINE_LINUX_DEFAULT
+```
 
-### Disable automatic NUMA balancing
+``` config title="/etc/default/grub"
+-8<-- 'code/infrastructure/running-a-validator/onboarding-and-offboarding/setup-a-validator/grub-config-01.js:1:7'
+```
 
-If you have multiple physical CPUs (CPU0 and CPU1) in the system each with its own memory bank (MB0
-and MB1), then it is usually slower for a CPU0 to access MB1 due to the slower interconnection. To
-prevent the OS from automatically moving the running Substrate process from one CPU to another and
-thus causing an increased latency, it is recommended to disable automatic NUMA balancing.
+After updating the variable, be sure to update GRUB to apply changes:
 
-With automatic NUMA balancing disabled, an OS will always run a process on the same NUMA node where
-it was initially scheduled.
+``` bash
+sudo update-grub
+```
 
-To disable NUMA balancing in runtime:
+After the reboot you should see half of the cores are offline. To confirm, run:
 
-```bash
+``` bash
+lscpu --extended
+```
+
+### Deactivate Automatic NUMA Balancing
+
+For multi-CPU setups, Deactivating NUMA (Non-Uniform Memory Access) balancing helps keep processes on the same CPU node, minimizing latency. Run the following command to deactivate NUMA balancing in runtime:
+
+``` bash
 sysctl kernel.numa_balancing=0
 ```
 
-To save changes permanently, update startup options and reconfigure GRUB. Edit `/etc/default/grub`
-and add `numa_balancing=disable` to `GRUB_CMDLINE_LINUX_DEFAULT` variable and run
-`sudo update-grub`. After reboot you can confirm the change by running
-`sysctl -a | grep 'kernel.numa_balancing'` and checking if the parameter is set to 0
+To deactivate NUMA balancing permanently, add `numa_balancing=disable` to GRUB settings:
 
-### Configure Spectre/Meltdown Mitigations
+``` bash
+sudo nano /etc/default/grub
+# Add to GRUB_CMDLINE_LINUX_DEFAULT
+```
 
-Spectre and Meltdown are vulnerabilities discovered in modern CPUs a few years ago. Mitigations were
-made to the Linux kernel to cope with the multiple variations of these attacks. Check out
-https://meltdownattack.com/ for more info.
+``` config title="/etc/default/grub"
+-8<-- 'code/infrastructure/running-a-validator/onboarding-and-offboarding/setup-a-validator/grub-config-01.js:9:15'
+```
 
-Initially those mitigations added ~20% penalty to the performance of the workloads. As CPU
-manufacturers started to roll-out mitigations implemented in hardware, the performance gap
-[narrowed down](https://www.phoronix.com/scan.php?page=article&item=3-years-specmelt&num=1). As the
-benchmark demonstrates, the performance penalty got reduced to ~7% on Intel 10th Gen CPUs. This is
-true for the workloads running on both bare-metal and VMs. But the penalty remains high for the
-containerized workloads in some cases.
+After updating the variable, be sure to update GRUB to apply changes:
 
-As demonstrated in
-[Yusuke Endoh's article](http://mamememo.blogspot.com/2020/05/cpu-intensive-rubypython-code-runs.html),
-a performance penalty for containerized workloads can be as high as 100%. This is due to SECCOMP
-profile being overprotective about applying Spectre/Meltdown mitigations without providing real
-security. A longer explanation is available in the
-[kernel patch discussion](https://lkml.org/lkml/2020/11/4/1135).
+``` bash
+sudo update-grub
+```
 
-Linux 5.16
-[loosened the protections](https://www.phoronix.com/scan.php?page=news_item&px=Linux-Spectre-SECCOMP-Default)
-applied to SECCOMP threads by default. Containers running on kernel 5.16 and later now don't suffer
-from the performance penalty implied by using a SECCOMP profile in container runtimes.
+Confirm the deactivation by running the following command:
 
-#### For Linux >= 5.16
+``` bash
+sysctl -a | grep 'kernel.numa_balancing'
+```
 
-You are all set. The performance of containerized workloads is on par with non-containerized ones.
-You don't have to do anything.
+If you successfully deactivated NUMA balancing, the predecing command should return `0`.
 
-#### For Linux < 5.16
+### Spectre and Meltdown Mitigations
 
-You'll need to disable mitigations for Spectre V2 for user-space tasks as well as Speculative Store
-Bypass Disable (SSBD) for Spectre V4.
-[This patch message](https://git.kernel.org/pub/scm/linux/kernel/git/kees/linux.git/commit/?h=for-next/seccomp&id=2f46993d83ff4abb310ef7b4beced56ba96f0d9d)
-describes the reasoning for this default change in more detail:
+Spectre and Meltdown are well-known vulnerabilities in modern CPUs that exploit speculative execution to access sensitive data. These vulnerabilities have been patched in recent Linux kernels, but the mitigations can slightly impact performance, especially in high-throughput or containerized environments.
 
-> Ultimately setting SSBD and STIBP by default for all seccomp jails is a bad sweet spot and bad
-> default with more cons than pros that end up reducing security in the public cloud (by giving an
-> huge incentive to not expose SPEC_CTRL which would be needed to get full security with IBPB after
-> setting nosmt in the guest) and by excessively hurting performance to more secure apps using
-> seccomp that end up having to opt out with SECCOMP_FILTER_FLAG_SPEC_ALLOW.
+If your security needs allow it, you may selectively deactivate specific mitigations for performance gains. The Spectre V2 and Speculative Store Bypass Disable (SSBD) for Spectre V4 apply to speculative execution and are particularly impactful in containerized environments. Deactivating them can help regain performance if your environment doesn’t require these security layers.
 
-To disable the mitigations edit `/etc/default/grub` and add
-`spec_store_bypass_disable=prctl spectre_v2_user=prctl` to `GRUB_CMDLINE_LINUX_DEFAULT` variable,
-run `sudo update-grub`, then reboot.
+To selectively deactivate the Spectre mitigations, update the `GRUB_CMDLINE_LINUX_DEFAULT` variable in your /etc/default/grub configuration:
 
-Note that mitigations are not disabled completely. You can fully disable all the available kernel
-mitigations by setting `mitigations=off`. But we don't recommend doing this unless you run a fully
-trusted code on the host.
+``` bash
+sudo nano /etc/default/grub
+# Add to GRUB_CMDLINE_LINUX_DEFAULT
+```
 
-### VPS List
+``` config title="/etc/default/grub"
+-8<-- 'code/infrastructure/running-a-validator/onboarding-and-offboarding/setup-a-validator/grub-config-01.js:17:23'
+```
 
-- [Google Cloud](https://cloud.google.com/)
-- [Amazon AWS](https://aws.amazon.com/)
-- [OVH](https://www.ovh.com.au/)
-- [Digital Ocean](https://www.digitalocean.com/)
-- [Vultr](https://www.vultr.com/)
-- [Linode](https://www.linode.com/)
-- [Scaleway](https://www.scaleway.com/)
-- [OnFinality](https://onfinality.io/)
+After updating the variable, be sure to update GRUB to apply changes and then reboot:
 
-!!!caution "Beware of the Terms and Conditions and Acceptable Use Policies for each VPS provider"
-    You may be locked out of your account and your server shut down if you come in violation. For
-    instance, Digital Ocean lists "Mining of Cryptocurrencies" under the Network Abuse section of their
-    [Acceptable Use Policy](https://www.digitalocean.com/legal/acceptable-use-policy/) and requires
-    explicit permission to do so. This may extend to other cryptocurrency activity.
+``` bash
+sudo update-grub
+sudo reboot
+```
 
----
-title: Kusama
-description: The fundamentals for running a Kusama validator.
----
+This approach selectively disables the Spectre V2 and Spectre V4 mitigations, leaving other protections intact. For full security, keep mitigations enabled unless there’s a significant performance need, as disabling them could expose the system to potential attacks on affected CPUs.
 
-## Preliminaries
+## VPS Provider List
 
-Running a validator on a live network is a lot of responsibility! You will be accountable for not
-only your own stake, but also the stake of your current nominators. If you make a mistake and get
-[slashed](../../learn/learn-offenses.md), your tokens and your reputation will be at risk. However,
-running a validator can also be very rewarding, knowing that you contribute to the security of a
-decentralized network while growing your stash.
+When selecting a VPS provider for your validator node, prioritize reliability, consistent performance, and adherence to the specific hardware requirements set for Polkadot validators. The following server types have been tested and showed acceptable performance in benchmark tests. However, this is not an endorsement, and actual performance may vary depending on your workload and VPS provider.
 
-!!!warning
-    It is highly recommended that you have significant system administration experience before
-    attempting to run your own validator.
+- [**Google Cloud Platform (GCP)**](https://cloud.google.com/){target=\_blank} - `c2` and `c2d` machine families offer high-performance configurations suitable for validators
+- [**Amazon Web Services (AWS)**](https://aws.amazon.com/){target=\_blank} - `c6id` machine family provides strong performance, particularly for I/O-intensive workloads
+- [**OVH**](https://www.ovh.com.au/){target=\_blank} - can be a budget-friendly solution if it meets your minimum hardware specifications
+- [**Digital Ocean**](https://www.digitalocean.com/){target=\_blank} - popular among developers, Digital Ocean’s premium droplets offer configurations suitable for medium to high-intensity workloads
+- [**Vultr**](https://www.vultr.com/){target=\_blank} - offers flexibility with plans that may meet validator requirements, especially for high-bandwidth needs
+- [**Linode**](https://www.linode.com/){target=\_blank} - provides detailed documentation, which can be helpful for setup
+- [**Scaleway**](https://www.scaleway.com/){target=\_blank} - offers high-performance cloud instances that can be suitable for validator nodes
+- [**OnFinality**](https://onfinality.io/){target=\_blank} - specialized in blockchain infrastructure, OnFinality provides validator-specific support and configurations
 
-    You must be able to handle technical issues and anomalies with your node which you must be able to
-    tackle yourself. Being a validator involves more than just executing the binary file.
+!!! warning "Acceptable use policies"
+    Different VPS providers have varying acceptable use policies, and not all explicitly allow cryptocurrency-related activities. Digital Ocean, for instance, requires explicit permission to use servers for cryptocurrency mining and or else it is categorized as Network Abuse in their Acceptable Use Policy. Review the terms for your VPS provider to avoid account suspension or server shutdown due to policy violations.
 
-Since security is so important to running a successful validator, you should take a look at the
-[secure validator](../maintain-guides-secure-validator.md) information to make sure you understand
-the factors to consider when constructing your infrastructure. As you progress in your journey as a
-validator, you will likely want to use this repository as a _starting point_ for your own
-modifications and customizations.
+## Run a Validator Using Systemd
 
-If you need help, please reach out on the
-[Kusama Validator Lounge](https://matrix.to/#/#KusamaValidatorLounge:polkadot.builders) on Element.
-The team and other validators are there to help answer questions and provide tips from experience.
-
-### How many KSM do I need to become an active Validator?
-
-!!!info Controller accounts are deprecated
-    Controller accounts are deprecated. For more information, see
-    [this discussion](https://forum.polkadot.network/t/staking-controller-deprecation-plan-staking-ui-leads-comms/2748).
-
-
-You can have a rough estimate on that by using the methods listed
-[here](../../general/faq.md/#what-is-the-minimum-stake-necessary-to-be-elected-as-an-active-validator).
-To be elected into the set, you need a minimum stake behind your validator. This stake can come from
-yourself or from [nominators](../../learn/learn-nominator.md). This means that as a minimum, you
-will need enough KSM to set up Stash and staking proxy [accounts](../../learn/learn-cryptography.md)
-with the existential deposit, plus a little extra for transaction fees. The rest can come from
-nominators. To understand how validators are elected, check the
-[NPoS Election algorithms](../../learn/learn-phragmen.md) page.
-
-!!!tip Join the Thousand Validator Programme
-    [The Thousand Validator Programme](../../general/thousand-validators.md) is an initiative by Web3
-    Foundation and Parity Technologies to use the funds held by both organizations to nominate
-    validators in the community.
-
-**Warning:** Any KSM that you stake for your validator is liable to be slashed, meaning that an
-insecure or improper setup may result in loss of KSM tokens! If you are not confident in your
-ability to run a validator node, it is recommended to nominate your KSM to a trusted validator node
-instead.
-
-### Validator Rewards
-
-On Kusama, one day is approximately four eras whereas on Polkadot, one era is approximately a day.
-In each era, the validators elected to the active set earn era points which correspond to the actual
-rewards earned that are distributed proportionally to the nominators after deducting the validator
-commission. The
-[minimum validator commission](../../general/chain-state-values.md#minimum-validator-commission) can
-be set through on-chain governance. For more information rewards and payouts, check the
-[validator payout](../maintain-guides-validator-payout.md) document.
-
-## Run a Kusama Validator
-
-Running a validator on the Kusama network is identical to running a Polkadot validator. Check out
-the [Polkadot guide](../maintain-guides-how-to-validate-polkadot.md) on how to setup a validator.
-
-Make sure to adjust the Polkadot guide to run a Kusama network validator (the instructions will also
-be available in the Polkadot Validator guide):
-
-- When starting the node pass `--chain=kusama` CLI flag
-
-# Run a Validator Using Systemd
-
-Running your Polkadot validator as a [systemd](https://en.wikipedia.org/wiki/Systemd){target=\_blank} service is an effective way to ensure its reliability and uptime. This method enables your validator to automatically restart after server reboots or unexpected crashes, significantly reducing the risk of [slashing](TODO:update-path){target=\_blank} due to downtime.
+Running your Polkadot validator as a [systemd](https://en.wikipedia.org/wiki/Systemd){target=\_blank} service is an effective way to ensure its high uptime and reliability. Using systemd allows your validator to automatically restart after server reboots or unexpected crashes, significantly reducing the risk of slashing due to downtime.
 
 This guide will walk you through creating and managing a systemd service for your validator, allowing you to seamlessly monitor and control it as part of your Linux system.
 
-## Prerequisites
+### Prerequisites
 
-The following sections go through the process of using the binary and running a Polkadot validator node as a systemd service. To get started, you'll need to:
+Ensure the following requirements are met before proceeding with the systemd setup:
 
-- Make sure that your system meets the [requirements](TODO:update-path)
-- Make sure that you meet the [minimum bond requirements](https://wiki.polkadot.network/docs/chain-state-values#minimum-validator-bond){target=\_blank} for validating
-- Have [installed](TODO:update-path--install-polkadot-binary) or [built from sources](TODO:update-path--compile-the-binary) the Polkadot binary
+- Confirm your system meets the [requirements](infrastructure/running-a-validator/requirements.md) for running a validator
+- Ensure you meet the [minimum bond requirements](https://wiki.polkadot.network/docs/chain-state-values#minimum-validator-bond){target=\_blank} for validating
+- Verify the Polkadot binary is [installed](#install-the-polkadot-binaries)
 
-## Create the Systemd Service File
+### Create the Systemd Service File
 
 First create a new unit file called `polkadot-validator.service` in `/etc/systemd/system/`:
 
@@ -713,45 +560,43 @@ touch /etc/systemd/system/polkadot-validator.service
 
 In this unit file, you will write the commands that you want to run on server boot/restart:
 
-```systemd
+```systemd title="/etc/systemd/system/polkadot-validator.service"
 --8<-- 'https://raw.githubusercontent.com/paritytech/polkadot-sdk/refs/heads/master/polkadot/scripts/packaging/polkadot.service'
 ```
 
-!!!warning
-    It is recommended to delay the restart of a node with `RestartSec` in the case of node crashes. It's possible that when a node crashes, consensus votes in GRANDPA aren't persisted to disk. In this case, there is potential to equivocate when immediately restarting. What can happen is that the node won't recognize votes that didn't make it to disk and will then cast conflicting votes. Delaying the restart will allow the network to progress past potentially conflicting votes, at which point other nodes won't accept them.
+!!! warning "Restart Delay Recommendation"
+    It is recommended to delay the restart of a node with `RestartSec` in the case of node crashes. It's possible that when a node crashes, consensus votes in GRANDPA aren't persisted to disk. In this case, there is potential to equivocate when immediately restarting. Delaying the restart will allow the network to progress past potentially conflicting votes.
 
-## Run the Service
+### Run the Service
 
-To enable this to start on booting your machine, run:
+Enable the systemd service to start on system boot by running:
 
 ```bash
 systemctl enable polkadot-validator.service
 ```
 
-Start it manually with:
+To start the service manually, use:
 
 ```bash
 systemctl start polkadot-validator.service
 ```
 
-You can check that it's working with:
+Check the service’s status to confirm it is running:
 
 ```bash
 systemctl status polkadot-validator.service
 ```
 
-You can tail the logs with [`journalctl`](https://www.freedesktop.org/software/systemd/man/latest/journalctl.html){target=\_blank} (a tool to print log entries from the systemd journal) like so:
+To view the logs in real-time, use [journalctl](https://www.freedesktop.org/software/systemd/man/latest/journalctl.html){target=\_blank} like so:
 
 ```bash
 journalctl -f -u polkadot-validator
 ```
 
-Now, you can monitor and manage a Polkadot validator as you would any other service on your Linux host.
-
-## Secure Validator
+With these steps, you can effectively manage and monitor your validator as a systemd service.
 
 ## Additional Resources
 
-- Visit the [Polkadot Validator Lounge](https://matrix.to/#/#polkadotvalidatorlounge:web3.foundation) on Element to connect with the engineering team and experienced validators
+For additional guidance, connect with other validators and the Polkadot engineering team in the [Polkadot Validator Lounge](https://matrix.to/#/#polkadotvalidatorlounge:web3.foundation) on Element. 
 
 

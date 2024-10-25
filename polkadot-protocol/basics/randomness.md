@@ -35,7 +35,7 @@ In each slot, validators execute a **"die roll"** using a **Verifiable Random Fu
 
 This process helps maintain fair randomness across the network.
 
-Here is a graphical representation
+Here is a graphical representation:
 
 ![](/images/polkadot-protocol/basics/blocks-transactions-fees/randomness/slots-epochs.webp)
 

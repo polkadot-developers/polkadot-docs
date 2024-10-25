@@ -48,7 +48,7 @@ The validator then attempts to create a block, submitting it along with the `PRO
 Because validators roll independently, it's possible that no block candidates appear in some slots if all roll numbers above the threshold. 
 
 !!!note
-    How we resolve this issue and make sure that Polkadot block times remain near constant-time can be checked on [PoS Consensus]() page.
+    The resolution of this issue and the assurance that Polkadot block times remain near constant-time can be checked on the [PoS Consensus](TODO:update-path){target=_blank} page.
 
 ## RANDAO
 

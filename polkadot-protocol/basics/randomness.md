@@ -67,9 +67,9 @@ To enhance security, `RANDAO` can be optionally combined with a **Verifiable Del
 
 ## VDFs
 
-**Verifiable Delay Functions (VDFs)** are time-bound computations that, even on parallel computers, take a set amount of time to complete. 
+Verifiable Delay Functions (VDFs) are time-bound computations that, even on parallel computers, take a set amount of time to complete. 
 
-They produce a unique result that can be quickly verified publicly. When combined with `RANDAO`, feeding `RANDAO`'s output into a `VDF` introduces a delay that nullifies an attacker's chance to influence the randomness.
+They produce a unique result that can be quickly verified publicly. When combined with RANDAO, feeding RANDAO's output into a VDF introduces a delay that nullifies an attacker's chance to influence the randomness.
 
 However, VDF likely requires specialized ASIC devices to run separately from standard nodes.
 

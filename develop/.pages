@@ -1,5 +1,10 @@
 title: Develop
 nav:
   - index.md
-  - application-devs
-  - parachain-devs
+  - development-pathways
+  - networks
+  - blockchains
+  - integrations
+  - smart-contracts
+  - interoperability
+  - toolkit

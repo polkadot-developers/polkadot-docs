@@ -11,7 +11,6 @@ In Polkadot SDK development, testing is crucial to ensure your blockchain works 
 
 This guide will help you set up an environment to test an entire runtime. This will enable you to assess how different pallets and system components interact, ensuring your blockchain behaves correctly under real-world conditions.
 
-
 ## Runtime Testing
 
 In the context of Polkadot SDK, runtime testing involves creating a simulated environment that mimics real blockchain conditions. This type of testing goes beyond individual pallet validation, focusing on how multiple components integrate and collaborate across the system.

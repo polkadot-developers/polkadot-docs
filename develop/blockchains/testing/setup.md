@@ -43,6 +43,12 @@ Here’s the code that sets up the mock runtime:
 --8<-- 'code/develop/blockchains/testing/setup/genesis-config.rs'
 ```
 
+You can also customize the genesis storage to set initial values for your runtime pallets. For example, you can set the initial balance for accounts like this:
+
+```rust
+--8<-- 'code/develop/blockchains/testing/setup/genesis-config-custom.rs'
+```
+
 ## Where to Go Next
 
 With the mock environment in place, you can now write tests to validate how your pallets interact within the runtime. This approach ensures that your blockchain behaves as expected when the entire runtime is assembled.

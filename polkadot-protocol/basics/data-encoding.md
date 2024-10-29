@@ -1,6 +1,6 @@
 ---
 title: Data Encoding
-description: SCALE codec enables fast, efficient data encoding in Substrate, ideal for resource-constrained environments like Wasm, supporting custom types and compact encoding.
+description: SCALE codec enables fast, efficient data encoding, ideal for resource-constrained environments like Wasm, supporting custom types and compact encoding.
 ---
 
 # Data Encoding
@@ -11,7 +11,7 @@ The **SCALE** codec enables communication between the runtime and the outer node
 
 It is not self-describing, meaning the decoding context must have full knowledge of the encoded data types. 
 
-Parity's front-end libraries utilize the [`parity-scale-codec`](https://github.com/paritytech/parity-scale-codec){target=\_blank} crate (a Rust implementation of the SCALE codec) to handle encoding and decoding for interactions between RPCs and the runtime.
+Parity's libraries utilize the [`parity-scale-codec`](https://github.com/paritytech/parity-scale-codec){target=\_blank} crate (a Rust implementation of the SCALE codec) to handle encoding and decoding for interactions between RPCs and the runtime.
 
 The `codec` mechanism is ideal for Polkadot SDK-based chains because:
 
@@ -21,9 +21,7 @@ The `codec` mechanism is ideal for Polkadot SDK-based chains because:
 
 Defining a custom encoding scheme in the Polkadot SDK-based chains, rather than using an existing Rust codec library, is crucial for enabling cross-platform and multi-language support. 
 
-By creating the SCALE codec, Substrate ensures that the encoding can be re-implemented in other languages and platforms to support interoperability between Substrate-based blockchains.
-
-## Parity SCALE Codec
+## SCALE Codec
 
 Rust implementation of the SCALE data format for types used in the Polkadot SDK framework.
 
@@ -43,30 +41,31 @@ The [`Encode`](https://docs.rs/parity-scale-codec/latest/parity_scale_codec/trai
 - `encode_to<T: Output>(&self, dest: &mut T)`: Encodes the data, appending it to a destination buffer.
 - `encode(&self) -> Vec<u8>`: Encodes the data and returns it as a byte vector.
 - `using_encoded<R, F: FnOnce(&[u8]) -> R>(&self, f: F) -> R`: Encodes the data and passes it to a closure, returning the result.
+- `encoded_size(&self) -> usize`: Calculates the encoded size. Should be used when the encoded data isn’t required.
 
 !!!note
     For best performance, value types should override `using_encoded`, and allocating types should override `encode_to`. It's recommended to implement `size_hint` for all types where possible.
 
 ### Decode
 
-The `Decode` trait handles decoding SCALE-encoded data back into the appropriate types:
+The [`Decode`](https://docs.rs/parity-scale-codec/latest/parity_scale_codec/trait.Decode.html){target=\_blank} trait handles decoding SCALE-encoded data back into the appropriate types:
 
 - `fn decode<I: Input>(value: &mut I) -> Result<Self, Error>`: Decodes data from the SCALE format, returning an error if decoding fails.
 
 ### CompactAs
 
-The `CompactAs` trait wraps custom types for compact encoding:
+The [`CompactAs`](https://docs.rs/parity-scale-codec/latest/parity_scale_codec/trait.CompactAs.html){target=\_blank} trait wraps custom types for compact encoding:
 
 - `encode_as(&self) -> &Self::As`: Encodes the type as a compact type.
 - `decode_from(_: Self::As) -> Result<Self, Error>`: Decodes from a compact encoded type.
 
 ### HasCompact
 
-The `HasCompact` trait indicates a type supports compact encoding.
+The [`HasCompact`](https://docs.rs/parity-scale-codec/latest/parity_scale_codec/trait.HasCompact.html){target=\_blank} trait indicates a type supports compact encoding.
 
 ### EncodeLike
 
-The `EncodeLike` trait is used to ensure multiple types that encode similarly are accepted by the same function. When using `derive`, it is automatically implemented.
+The [`EncodeLike`](https://docs.rs/parity-scale-codec/latest/parity_scale_codec/trait.EncodeLike.html){target=\_blank} trait is used to ensure multiple types that encode similarly are accepted by the same function. When using `derive`, it is automatically implemented.
 
 ### Data Types
 
@@ -84,6 +83,13 @@ The table below outlines how the Rust implementation of the Parity SCALE codec e
 | Structs                       | For structures, the values are named, but that is irrelevant for the encoding (names are ignored - only order matters).                                                     | `SortedVecAsc::from([3, 5, 2, 8])`                                                                                                       | `[3, 2, 5, 8]   `                                             |
 | Tuples                        | A fixed-size series of values, each with a possibly different but predetermined and fixed type. This is simply the concatenation of each encoded value.                     | Tuple of compact unsigned integer and boolean: `(3, false)                        `                                                      | `0x0c00`                                                      |
 | Vectors (lists, series, sets) | A collection of same-typed values is encoded, prefixed with a compact encoding of the number of items, followed by each item's encoding concatenated in turn.               | Vector of unsigned `16`-bit integers: `[4, 8, 15, 16, 23, 42]               `                                                              | `0x18040008000f00100017002a00`                                |
+
+## Encode & Decode Rust Trait Implementations
+
+Here's how the `Encode` and `Decode` traits are implemented:
+
+
+        --8<-- 'code/polkadot-protocol/basics/blocks-transactions-fees/data-encode-decode.rs'
 
 ## SCALE codec libraries
 

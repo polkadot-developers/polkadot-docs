@@ -12,8 +12,7 @@ Setting up an RPC node is crucial for accessing and interacting with the Polkado
 All Polkadot SDK node implementations include the RPC server, which are accessed over the WebSocket protocol and used to connect to the underlying network or validator node. By default, you can access your node's RPC server from `localhost` (for example, to rotate keys or do other maintenance). You should set up a secure proxy when accessing your RPC server from another server or [Polkadot.js](https://polkadot.js.org/apps){target=\_blank} and only enable access to the RPC node over an encrypted, SSL connection between the end user and the RPC server. Many browsers, such as Google Chrome, will block non-secure WS endpoints if they come from a different origin.
 
 !!!warning
-    Enabling remote access to your validator node shouldn't be necessary and isn't suggested, as it
-    can often lead to security problems. Learn more about node security in [Secure Your Validator](todo:link).
+    Enabling remote access to your validator node shouldn't be necessary and isn't suggested, as it can often lead to security problems. Learn more about node security in [Secure Your Validator](todo:link).
 
 ## Set Up a Node
 

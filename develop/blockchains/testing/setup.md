@@ -7,7 +7,7 @@ description: Learn how to create a mock environment to test complete runtime fun
 
 ## Introduction
 
-Testing an entire runtime in the Polkadot SDK requires creating an environment miming the real blockchain system. While unit testing for individual pallets focuses on isolated functionality as described in [Pallet Testing](/develop/blockchains/custom-blockchains/pallet-testing/){target=\_blank}, runtime testing ensures that the pallets interact as expected when combined, providing a complete system simulation.
+Testing an entire runtime in the Polkadot SDK requires creating an environment emulating a real blockchain system. While unit testing for individual pallets focuses on isolated functionality as described in [Pallet Testing](/develop/blockchains/custom-blockchains/pallet-testing/){target=\_blank}, runtime testing ensures that the pallets interact as expected when combined, providing a complete system simulation.
 
 In Polkadot SDK development, testing is crucial to ensure your blockchain works as expected. While unit testing for individual pallets validates isolated functionality (as discussed in [Pallet Testing](/develop/blockchains/custom-blockchains/pallet-testing/){target=\_blank}), it’s equally important to test how these pallets function together within the runtime. This is where runtime testing comes into play, providing a complete simulation of the blockchain system.
 

@@ -219,13 +219,13 @@ The syncing process will take a while, depending on your capacity, processing po
 
 Congratulations, you're now syncing with Polkadot. Keep in mind that the process is identical when using any other Polkadot SDK-based chain.
 
-### Running an RPC Node
+## Running an RPC Node
 
 There are two methods to run an RPC node: an *archive* node which holds all state and history, and a *pruned* node which retains only recent data.
 
 For a list of important flags when running RPC nodes, refer to the Parity DevOps documentation: [Important Flags for Running an RPC Node](https://paritytech.github.io/devops-guide/guides/rpc_index.html?#important-flags-for-running-an-rpc-node){target=\_blank}
 
-#### Running an Archive Node
+### Running an Archive Node
 
 To support the full state, use the appropriate pruning-related flags to enable archive mode:
 
@@ -238,7 +238,7 @@ polkadot --chain polkadot \
 --rpc-methods safe 
 ```
 
-#### Running a Pruned Node
+### Running a Pruned Node
 
 For a pruned node, which offers limited historical access (the last 1000 finalized blocks):
 
@@ -250,6 +250,28 @@ polkadot --chain polkadot \
 --rpc-cors all \
 --rpc-methods safe
 ```
+
+### Securing your RPC
+
+The node startup settings allow you to choose what to expose, how many connections to expose and which systems should be granted access through the RPC server.
+
+- You can limit the methods to use with `--rpc-methods`; an easy way to set this to a safe mode is `--rpc-methods safe`
+- You can set your maximum connections through `--rpc-max-connections`, for example, `--rpc-max-connections 200`
+- By default, localhost and Polkadot.js can access the RPC server. You can change this by setting `--rpc-cors`. To allow access from everywhere, you can use `--rpc-cors all`
+
+#### Secure the WebSocket Port
+
+To securely access your WebSocket (WS) connection over an SSL-enabled connection (necessary for SSL-enabled developer consoles), you'll need to convert the WS connection to a secure WSS connection. You can complete this conversion using a proxy and an SSL certificate. For detailed steps on setting this up, refer to the [Setup Secure WebSockets](TODO: add path){target=_blank} guide.
+
+#### Connect to the Node
+
+Open [Polkadot.js](https://polkadot.js.org/apps){target=\_blank} and click the logo in the top left to switch the node. Activate the **Development** toggle and input your node's domain or IP address. Remember to prefix with `wss://`, and if you're using the 443 port, append `:443` as follows:
+
+```bash
+`wss://example.com:443`
+```
+
+![A sync-in-progress chain connected to Polkadot.js](/images/infrastructure/general/maintain-wss.webp)
 
 ## Using Docker
 

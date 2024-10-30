@@ -15,7 +15,6 @@ If you need to temporarily step back from staking without unbonding your funds, 
 
 To chill your account, go to the **Network > Staking > Account Actions** page on [Polkadot.js Apps](https://polkadot.js.org/apps){target=\_blank}, and select **Stop**. Alternatively, you can call the [`chill`](https://paritytech.github.io/polkadot-sdk/master/pallet_staking/enum.Call.html#variant.chill){target=\_blank} extrinsic in the `staking` pallet. 
 
-<!--TODO: I don't think we have this image. I can't find it if we do. If we need or want it, we need a new screenshot-->
 ![staking](/images/infrastructure/operational-tasks/staking-keys-stash-proxy.webp)
 
 ## Staking Election Timing Considerations

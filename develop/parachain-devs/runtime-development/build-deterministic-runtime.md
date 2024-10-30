@@ -1,6 +1,6 @@
 ---
 title: Build a deterministic runtime
-description: Explains how to use the Substrate runtime toolbox and Docker to build deterministic Wasm binaries for Polkadot SDK-based chains.
+description: Explains how to use the Polkadot SDK runtime toolbox and Docker to build deterministic Wasm binaries for Polkadot SDK-based chains.
 ---
 
 # Build a Deterministic Runtime
@@ -13,16 +13,13 @@ Working with builds that aren't guaranteed to be deterministically reproducible 
 
 ## Prerequisites
 
-Before you begin, ensure you have the following:
-
-- [Docker](https://www.docker.com/get-started/){target=\_blank} installed
-- A [Docker account](https://app.docker.com/signup/){target=\_blank} along with either the [Docker CLI](https://www.docker.com/products/cli/){target=\_blank} or [Docker Desktop](https://www.docker.com/products/docker-desktop/){target=\_blank}
+Before you begin, ensure you have [Docker](https://www.docker.com/get-started/){target=\_blank} installed.
 
 ## Tooling for Wasm Runtime
 
 To compile the Wasm runtime deterministically, the same tooling that produces the runtime for Polkadot, Kusama, and other Polkadot SDK-based chains can be used. This tooling, referred to collectively as the Substrate Runtime Toolbox or `srtool`, ensures that the same source code consistently compiles to an identical Wasm blob.
 
-The core component of `srtool` is a Docker container executed as part of a Docker image. The name of the `srtool` Docker image specifies the version of the Rust compiler used to compile the code included in the image. For example, the image `paritytech/srtool:1.62.0` indicates that the code in the image was compiled with version `1.62.0` of the `rustc` compiler.
+The core component of `srtool` is a Docker container executed as part of a Docker image. The name of the `srtool` Docker image specifies the version of the Rust compiler used to compile the code included in the image. For example, the image `{{dependencies.srtool.docker_image_version}}` indicates that the code in the image was compiled with version `1.62.0` of the `rustc` compiler.
 
 ## Working with the Docker Container
 

@@ -30,6 +30,22 @@ A storage migration is necessary whenever a runtime upgrade changes the storage 
 
 - Adding a new storage item would not require any migration
 
+---
+
+A storage migration is necessary whenever a runtime upgrade changes the storage layout or the encoding/interpretation of existing data. Even if the underlying data type appears to still "fit" the new storage representation, a migration may be required if the interpretation of the stored values has changed.
+
+Storage migrations ensure data consistency and prevent corruption during runtime upgrades. Below are common scenarios categorized by their impact on storage and migration requirements:
+
+- Changes Requiring Migration:
+
+    - Reordering or mutating fields of an existing data type do change the encoded/decoded data representation
+    - Removal of a pallet or storage item warrants cleaning up storage via a migration to avoid state bloat
+
+- Changes Not Requiring Migration:
+
+    - Adding a new storage item would not require any migration since no existing data needs transformation
+    - Adding or removing an extrinsic introduces no new interpretation of preexisting data, so no migration is required
+
 ### Common Cases
 
 Here are some common scenarios where a storage migration is needed:
@@ -42,7 +58,7 @@ Here are some common scenarios where a storage migration is needed:
 
     Changing the underlying data type requires a migration to convert the existing values.
 
-- Changing data representation
+- Changing data representation:
 
     ```rust
     --8<-- 'code/develop/blockchains/maintenance/storage-migrations/example-2.rs'
@@ -50,15 +66,21 @@ Here are some common scenarios where a storage migration is needed:
 
     Modifying the representation of the stored data, even if the size appears unchanged, requires a migration to ensure the runtime can properly interpret the existing values.
 
-- Extending an enum
+- Extending an enum:
 
     ```rust
     --8<-- 'code/develop/blockchains/maintenance/storage-migrations/example-3.rs'
     ```
 
-    Adding new variants to an enum requires a migration to handle the new variant, unless the new variant is added at the end and no existing values are initialized with it.
+    Adding new variants to an enum requires a migration if you:
 
-- Changing the storage key
+    - Reorder existing variants
+    - Insert new variants between existing ones
+    - Change the data type of existing variants
+
+    No migration is required when adding new variants at the end of the enum.
+
+- Changing the storage key:
 
     ```rust
     --8<-- 'code/develop/blockchains/maintenance/storage-migrations/example-4.rs'
@@ -82,9 +104,16 @@ The [`OnRuntimeUpgrade`](https://paritytech.github.io/polkadot-sdk/master/frame_
 The **[`on_runtime_upgrade`](https://paritytech.github.io/polkadot-sdk/master/frame_support/traits/trait.Hooks.html#method.on_runtime_upgrade){target=\_blank}** function executes when the FRAME Executive pallet detects a runtime upgrade. Important considerations:
 
 - Runs before any pallet's `on_initialize` hooks
-- Critical storage items (like block_number) may not be set
+- Critical storage items (like [block_number](https://paritytech.github.io/polkadot-sdk/master/frame_system/pallet/struct.Pallet.html#method.block_number){target=\_blank}) may not be set
 - Execution is mandatory and must complete
 - Requires careful weight calculation to prevent bricking the chain
+
+When implementing the actual migration logic, your code needs to handle several key responsibilities. Your migration implementation should:
+
+- Read existing storage values in their original format
+- Transform data to match the new format
+- Write updated values back to storage
+- Calculate and return consumed weight
 
 ### Migration Testing Hooks
 
@@ -95,15 +124,6 @@ The trait provides three testing-focused functions designed specifically for tes
 - **[`pre_upgrade`](https://paritytech.github.io/polkadot-sdk/master/frame_support/traits/trait.Hooks.html#method.pre_upgrade){target=\_blank}** - before a runtime upgrade begins, the `pre_upgrade` function performs preliminary checks and captures the current state. It returns encoded state data that can be used for `post-upgrade` verification. This function must never modify storage - it should only read and verify the existing state. The data it returns typically includes critical state values that should remain consistent or transform predictably during migration
 
 - **[`post_upgrade`](https://paritytech.github.io/polkadot-sdk/master/frame_support/traits/trait.Hooks.html#method.post_upgrade){target=\_blank}** - after the migration completes, `post_upgrade` validates its success. It receives the state data captured by `pre_upgrade` and uses this to verify that the migration executed correctly. This function checks for storage consistency and ensures all data transformations occurred as expected. Like `pre_upgrade`, it operates exclusively in testing environments and should not modify storage
-
-### Migration Logic
-
-When implementing the actual migration logic, your code needs to handle several key responsibilities. Your migration implementation should:
-
-- Read existing storage values in their original format
-- Transform data to match the new format
-- Write updated values back to storage
-- Calculate and return consumed weight
 
 ### Migration Structure
 
@@ -119,8 +139,24 @@ The recommended approach is to implement [`UncheckedOnRuntimeUpgrade`](https://p
 - `Pallet` - the pallet being upgraded
 - `Weight` - the runtime's [`RuntimeDbWeight`](https://paritytech.github.io/polkadot-sdk/master/frame_support/weights/struct.RuntimeDbWeight.html){target=\_blank} implementation
 
+Let's examine a migration example that transforms a simple `StorageValue` storing a `u32` into a more complex structure that tracks both current and previous values using the `CurrentAndPreviousValue` struct:
+
+- Old `StorageValue` format:
 ```rust
---8<-- 'https://raw.githubusercontent.com/paritytech/polkadot-sdk/refs/tags/polkadot-stable2409-1/substrate/frame/examples/single-block-migrations/src/migrations/v1.rs:0:122'
+#[pallet::storage]
+pub type Value<T: Config> = StorageValue<_, u32>;
+```
+
+- New `StorageValue` format:
+```rust
+--8<-- 'https://raw.githubusercontent.com/paritytech/polkadot-sdk/refs/tags/polkadot-stable2409-1/substrate/frame/examples/single-block-migrations/src/lib.rs:166:177'
+
+--8<-- 'https://raw.githubusercontent.com/paritytech/polkadot-sdk/refs/tags/polkadot-stable2409-1/substrate/frame/examples/single-block-migrations/src/lib.rs:200:201'
+```
+
+- Migration
+```rust
+--8<-- 'https://raw.githubusercontent.com/paritytech/polkadot-sdk/refs/tags/polkadot-stable2409-1/substrate/frame/examples/single-block-migrations/src/migrations/v1.rs:18:122'
 ```
 
 ### Migration Organization
@@ -153,7 +189,7 @@ To execute migrations during a runtime upgrade, you need to configure them in yo
 --8<-- 'code/develop/blockchains/maintenance/storage-migrations/executive.rs'
 ```
 
-### Single Block Migrations
+## Single Block Migrations
 
 Single block migrations execute their entire logic within one block immediately following a runtime upgrade. They run as part of the runtime upgrade process through the `OnRuntimeUpgrade` trait implementation and must complete before any other runtime logic executes.
 While single block migrations are straightforward to implement and provide immediate data transformation, they carry significant risks. The most critical consideration is that they *must* complete within one block's weight limits. This is especially crucial for parachains, where exceeding block weight limits will brick the chain.
@@ -165,7 +201,7 @@ Use single block migrations only when you can guarantee:
 
 For a complete implementation example of a single-block migration, refer to the [single block migration example]( https://paritytech.github.io/polkadot-sdk/master/pallet_example_single_block_migrations/index.html){target=\_blank} in the Polkadot SDK documentation.
 
-### Multi Block Migrations
+## Multi Block Migrations
 
 Multi-block migrations distribute the migration workload across multiple blocks, providing a safer approach for production environments. The migration state is tracked in storage, allowing the process to pause and resume across blocks.
 This approach is particularly valuable for production networks and parachains. The risk of exceeding block weight limits is eliminated. Multi-block migrations can safely handle large storage collections, unbounded data structures, and complex nested data types where weight consumption might be unpredictable.

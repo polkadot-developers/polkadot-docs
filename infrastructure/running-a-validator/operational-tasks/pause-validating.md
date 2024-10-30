@@ -18,51 +18,28 @@ To chill your account, go to the **Network > Staking > Account Actions** page on
 <!--TODO: I don't think we have this image. I can't find it if we do. If we need or want it, we need a new screenshot-->
 ![staking](/images/infrastructure/operational-tasks/staking-keys-stash-proxy.webp)
 
-## Consideration for Staking Election
+## Staking Election Timing Considerations
 
-A bond that is actively participating in staking but chilled would continue to participate in
-staking for the rest of the current era. If the bond was chilled in sessions 1 through 4 and
-continues to be chilled for the rest of the era, it would *not* be selected for election in the next
-era. If a bond was chilled for the entire session 5, it would not be considered in the next
-election. If the bond was chilled in session 6, its participation in the next era's election would
-depend on its state in session 5.
+When a bond actively participates in staking but then chills, it will continue contributing for the remainder of the current era. However, its eligibility for the next election depends on the chill status at the start of the new era:
+
+- **Chilled during previous era** - will not participate in the current era election and will remain inactive until reactivated
+-**Chilled during current era** - will not be selected for the next era's election
+-**Chilled after current era** - may be selected if it was active during the previous era and is now chilled
 
 ## Chilling as a Nominator
 
-When you chill after being a nominator, your nominations will be reset. This means that when you
-decide to start nominating again you will need to select validators to nominate once again. These
-can be the same validators if you prefer, or, a completely new set. Just be aware - your nominations
-won't persist across chills.
+When you choose to chill as a nominator, your active nominations are reset. Upon re-entering the nominating process, you must reselect validators to support manually. Depending on preferences, these can be the same validators as before or a new set. Remember that your previous nominations won’t be saved or automatically reactivated after chilling.
 
-Your nominator will remain bonded when it is chilled. When you are ready to nominate again, you will
-not need to go through the whole process of bonding again, rather, you will issue a new nominate
-call that specifies the new validators to nominate.
+While chilled, your nominator account remains bonded, preserving your staked funds without requiring a full unbonding process. When you’re ready to start nominating again, you can issue a new nomination call to activate your bond with a fresh set of validators. This process bypasses the need for re-bonding, allowing you to maintain your stake while adjusting your involvement in active staking.
 
 ## Chilling as a Validator
 
-When you voluntarily chill after being a validator, your nominators will remain. As long as your
-nominators make no action, you will still have the nominations when you choose to become an active
-validator once again. You bond however would not be listed as a nominable validator thus any
-nominators issuing new or revisions to existing nominations would not be able to select your bond.
+When you chill as a validator, your active validator status is paused. Although your nominators remain bonded to you, the validator bond will no longer appear as an active choice for new or revised nominations until reactivated. Any existing nominators who take no action will still have their stake linked to the validator, meaning they don’t need to reselect the validator upon reactivation. However, if nominators adjust their stakes while the validator is chilled, they will not be able to nominate the chilled validator until it resumes activity.
 
-When you become an active validator, you will also need to reset your validator preferences
-(commission, etc.). These can be configured as the same values set previously or something
-different.
+Upon reactivating as a validator, you must also reconfigure your validator preferences, such as commission rate and other parameters. These can be set to match your previous configuration or updated as desired. This step is essential for rejoining the active validator set and regaining eligibility for nominations.
 
 ## Chill Other
 
-An unbounded and unlimited number of nominators and validators in [Polkadot's NPoS](https://wiki.polkadot.network/docs/learn-phragmen){target=_blank} isn't possible due to constraints in the runtime. As a result, multiple checks are incorporated to keep the size of staking system manageable, like mandating minimum active bond requirements for both nominators and validators. When these requirements are modified through on-chain governance, they can be enforced only on the accounts that newly call `nominate` or `validate` after the update. The changes to the bonding parameters would not automatically chill the active accounts on-chain which don't meet the requirements.
+Historical constraints in the runtime prevented supporting unlimited nominators and validators. These constraints created a need for checks to keep the size of the staking system manageble. One of these checks is the `chillOther` extrinsic which allowed users to chill accounts that no longer met standards such as minimum staking requirements set through on-chain governance. 
 
-!!!note "Chill Threshold"
-    `ChillThreshold` defines how close to the max nominators or validators that must be reached before users can start chilling one another.
-
-For instance, consider a scenario where the minimum staking requirement for nominators is
-changed from 80 DOTs to 120 DOTs. An account that was actively nominating with 80 DOTs before this
-update would still keep receiving staking rewards. To handle this corner case, the `chillOther`
-extrinsic was incorporated which also helps to keep things backwards compatible and safe. The
-`chillOther` extrinsic is permissionless and any third party user can target it on an account where
-the minimum active bond isn't satisfied, and chill that account. The list of addresses of all the
-active validators and their nominators can be viewed by running [validator stats](https://github.com/w3f/validator-stats){target=_blank} script.
-
-!!!info "Chill Other on Polkadot Network"
-    Through [Referendum 90](https://polkadot.polkassembly.io/referendum/90){target=_blank}, `maxNominatorCount` on Polkadot is set to `None` eliminating the upper bound on the number of nominators on the network. Due to this, the `chillOther` extrinsic on Polkadot network has no effect as the chill threshold will never be met.
+This control mechanism included a `ChillThreshold` which was structured to define how close to the maximum number of nominators or validators the staking system would be allowed to get before users could start chilling one another. With the passage of [Referendum #90](https://polkadot.polkassembly.io/referendum/90) {target=\_blank}, the value for `maxNominatorCount` on Polkadot was set to `None`, efffectively removing the limit on how many nominators and validators can participate. This means the `ChillThreshold` will never be met, thus `chillOther` no longer has any effect.

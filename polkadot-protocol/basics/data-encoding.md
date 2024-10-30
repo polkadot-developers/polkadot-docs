@@ -89,7 +89,8 @@ The table below outlines how the Rust implementation of the Parity SCALE codec e
 Here's how the `Encode` and `Decode` traits are implemented:
 
 
-        --8<-- 'code/polkadot-protocol/basics/blocks-transactions-fees/data-encode-decode.rs'
+```rust
+--8<-- 'code/polkadot-protocol/basics/blocks-transactions-fees/data-encode-decode.rs'
 
 ## SCALE codec libraries
 

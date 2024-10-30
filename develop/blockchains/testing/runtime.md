@@ -39,7 +39,7 @@ Next, a test can be written to verify the interaction between `pallet_a` and `pa
 
 This test demonstrates how `pallet_b` can trigger a change in `pallet_a`'s state, verifying that the pallets interact properly within the runtime.
 
-For more information about testing more specific elements like storage, errors, and events, see the [Testing Pallets](/develop/blockchains/testing/setup/){target=\_blank} article.
+For more information about testing more specific elements like storage, errors, and events, see the [Pallet Testing](/develop/blockchains/custom-blockchains/pallet-testing/){target=\_blank} article.
 
 ??? "Integration Test - Complete Code"
     The complete code for the integration test is shown below: 

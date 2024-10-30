@@ -9,8 +9,7 @@ If you're building dApps or products on a Polkadot SDK-based chain like Polkadot
 your infrastructure is always better than a third-party-hosted one in this brave new decentralized
 world.
 
-This guide will show you how to connect to [Polkadot](https://polkadot.network/){target=\_blank}, but the
-same process applies to any other [Polkadot SDK](https://paritytech.github.io/polkadot-sdk/master/polkadot_sdk_docs/polkadot_sdk/index.html){target=\_blank}-based chain.
+This guide will show you how to connect to [Polkadot](https://polkadot.network/){target=\_blank}, but the same process applies to any other [Polkadot SDK](https://paritytech.github.io/polkadot-sdk/master/polkadot_sdk_docs/polkadot_sdk/index.html){target=\_blank}-based chain.
 
 ### Types of Nodes
 
@@ -44,7 +43,6 @@ An _archive node_ (an RPC node which explicitly has flags for keeping an archive
 However, an archive node takes up a lot of disk space. For example, around Kusama's 12 millionth block, would be around 660 GB.
 
 !!!tip
-
     On [Stakeworld](https://stakeworld.io/docs/dbsize){target=_blank} you can find a list of the database sizes of Polkadot and Kusama nodes.
 
 Archive nodes are used by utilities that need past information - like block explorers, council

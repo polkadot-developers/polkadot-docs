@@ -9,16 +9,16 @@ description: Learn how to create a mock environment to test complete runtime fun
 
 In Polkadot SDK development, testing is crucial to ensure your blockchain works as expected. While unit testing for individual pallets validates isolated functionality (as discussed in [Pallet Testing](/develop/blockchains/custom-blockchains/pallet-testing/){target=\_blank}), it’s equally important to test how these pallets function together within the runtime. This is where runtime testing comes into play, providing a complete simulation of the blockchain system.
 
-This guide will help you set up an environment to test an entire runtime. This will enable you to assess how different pallets and system components interact, ensuring your blockchain behaves correctly under real-world conditions.
+This guide will help you set up an environment to test an entire runtime. This will enable you to assess how different pallets, their configurations, and system components interact, ensuring your blockchain behaves correctly under real-world conditions.
 
 
 ## Runtime Testing
 
-In the context of Polkadot SDK, runtime testing involves creating a simulated environment that mimics real blockchain conditions. This type of testing goes beyond individual pallet validation, focusing on how multiple components integrate and collaborate across the system.
+In the context of Polkadot SDK, runtime testing involves creating a simulated environment that mimics real blockchain conditions. This type of testing goes beyond individual pallet validation, focusing on how multiple components integrate and collaborate across the system. This way, multiple runtimes can be tested if needed.
 
 While unit tests provide confidence that individual pallets function correctly in isolation, runtime tests offer a holistic view. These tests validate pallets’ communication and interaction, ensuring a seamless and functional blockchain system. By running integration tests at the runtime level, you can catch issues that only arise when multiple pallets are combined, which is critical for building a stable and reliable blockchain.
 
-### Mocking the Runtime
+### Configuring a Mock Runtime for Integration Tests
 
 The mock runtime includes all the necessary pallets and configurations needed for testing. To simplify the process, you can create a module that integrates all components, making it easier to assess how pallets and system elements interact.
 

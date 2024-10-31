@@ -19,4 +19,5 @@ dependencies:
   srtool:
     repository_url: https://github.com/paritytech/srtool
     version: v0.16.0
-    docker_image_version: paritytech/srtool:1.62.0
+    docker_image_name: paritytech/srtool
+    docker_image_version: 1.62.0

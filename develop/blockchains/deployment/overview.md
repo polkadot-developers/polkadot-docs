@@ -13,7 +13,7 @@ Deploying a blockchain is more than just launching a runtime; it involves prepar
 
 ## Deployment Process
 
-Taking your Polkadot SDK-based blockchain from a local environment to production involves several critical steps, ensuring your network is stable, secure, and ready for real-world use. The following diagram outlines the process at a high level:
+Taking your Polkadot SDK-based blockchain from a local environment to production involves several steps, ensuring your network is stable, secure, and ready for real-world use. The following diagram outlines the process at a high level:
 
 
 ```mermaid

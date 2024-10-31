@@ -15,17 +15,17 @@ Polkadot 1.0 represents the state of Polkadot as of 2023, coinciding with the re
 
 As a Layer-0 blockchain, Polkadot contributes to the multi-chain vision through several key innovations and initiatives, including:
 
-1. **Application-specific Layer-1 blockchains (Polkadot chains)**: Polkadot's sharded network allows for parallel transaction processing, with shards that can have unique state transition functions, enabling custom-built L1 chains optimized for specific applications.
+1. **Application-specific Layer-1 blockchains (Polkadot chains)** - Polkadot's sharded network allows for parallel transaction processing, with shards that can have unique state transition functions, enabling custom-built L1 chains optimized for specific applications
 
-2. **Shared security and scalability**: L1 chains connected to Polkadot benefit from its [Nominated-Proof-of-Stake (NPoS)](link to the PoS page) system, providing security out-of-the-box without the need to bootstrap their own.
+2. **Shared security and scalability** - L1 chains connected to Polkadot benefit from its [Nominated-Proof-of-Stake (NPoS)](link to the PoS page) system, providing security out-of-the-box without the need to bootstrap their own
 
-3. **Secure interoperability**: Polkadot's native interoperability enables L1 and L2 chains to seamlessly exchange data and value across Polkadot chains.
+3. **Secure interoperability** - Polkadot's native interoperability enables L1 and L2 chains to seamlessly exchange data and value across Polkadot chains
 
-4. **Resilient infrastructure**: Decentralized and scalable, Polkadot ensures ongoing support for development and community initiatives via its on-chain [treasury](https://wiki.polkadot.network/docs/learn-polkadot-opengov-treasury){target=\_blank} and governance.
+4. **Resilient infrastructure** - decentralized and scalable, Polkadot ensures ongoing support for development and community initiatives via its on-chain [treasury](https://wiki.polkadot.network/docs/learn-polkadot-opengov-treasury){target=\_blank} and governance
 
-5. **Rapid L1 development**: The [Polkadot SDK](link to Polkadot SDK page in polkadot protocol section) allows fast, flexible creation and deployment of Layer-1 chains.
+5. **Rapid L1 development** - the [Polkadot SDK](link to Polkadot SDK page in polkadot protocol section) allows fast, flexible creation and deployment of Layer-1 chains
 
-6. **Cultivating the next generation of Web3 developers**: Polkadot supports the growth of Web3 core developers through initiatives such as:
+6. **Cultivating the next generation of Web3 developers** - Polkadot supports the growth of Web3 core developers through initiatives such as:
 
     - [Polkadot Blockchain Academy](https://polkadot.com/blockchain-academy){target=\_blank}
     - [Polkadot Alpha Program](https://polkadot.com/alpha-program){target=\_blank}
@@ -64,18 +64,18 @@ Additionally, the  chain handles [staking](add link to PoS page){target=\_blank}
 
 Decentralization is a vital component of blockchain networks, but it comes with trade-offs:
 
-- An overly decentralized network may face challenges in reaching consensus and require significant energy to operate.
-- Also a network that achieves consensus quickly risks centralization, making it easier to manipulate or attack.
+- An overly decentralized network may face challenges in reaching consensus and require significant energy to operate
+- Also a network that achieves consensus quickly risks centralization, making it easier to manipulate or attack
 
 Ideally, a network should be decentralized enough to prevent any manipulative or malicious influence. In this sense, decentralization serves as a tool to achieve resilience. 
 
 **Polkadot 1.0** currently achieves resilience through several strategies:
 
-1. **Nominated Proof of Staking (NPoS)**: This ensures that the stake per validator is maximized and evenly distributed among validators.
+1. **Nominated Proof of Staking (NPoS)** - this ensures that the stake per validator is maximized and evenly distributed among validators
 
-2. **1KV Program**: Designed to encourage new operators to join the network, this program enhances both physical decentralization (the number of validator nodes per service provider) and social decentralization (the number of validator nodes per operator). Feel free to explore these metrics using the [Polkawatch App](https://polkadot.polkawatch.app/){target=\_blank}.
+2. **1KV Program** - designed to encourage new operators to join the network, this program enhances both physical decentralization (the number of validator nodes per service provider) and social decentralization (the number of validator nodes per operator). Feel free to explore these metrics using the [Polkawatch App](https://polkadot.polkawatch.app/){target=\_blank}
 
-3. **On-Chain Treasury and Governance**: Known as [OpenGov](link to opengov overview page){target=\_blank}, this system allows every decision to be made through public referenda, enabling any token holder to cast a vote.
+3. **On-Chain Treasury and Governance** - known as [OpenGov](link to opengov overview page){target=\_blank}, this system allows every decision to be made through public referenda, enabling any token holder to cast a vote
 
 ### Polkadot's Blockspace
 
@@ -83,11 +83,11 @@ Polkadot 1.0’s design allows for the commoditization of blockspace.
 
 Blockspace is the capacity of a blockchain to finalize and commit operations, encompassing its security, computing, and storage capabilities. Its characteristics can vary across different blockchains, affecting **security**, **flexibility**, and **availability**.
 
-- **Security** measures the robustness of blockspace in Proof-of-Stake (PoS) networks, linked to the stake locked on validator nodes, the variance in stake among validators, and the total number of validators. It also considers social centralization (how many validators are owned by single operators) and physical centralization (how many validators run on the same service provider).
+- **Security** - measures the robustness of blockspace in Proof-of-Stake (PoS) networks, linked to the stake locked on validator nodes, the variance in stake among validators, and the total number of validators. It also considers social centralization (how many validators are owned by single operators) and physical centralization (how many validators run on the same service provider)
 
-- **Flexibility** reflects the functionalities and types of data that can be stored, with high-quality data essential to avoid bottlenecks in critical processes.
+- **Flexibility** - reflects the functionalities and types of data that can be stored, with high-quality data essential to avoid bottlenecks in critical processes
 
-- **Availability** indicates how easily users can access blockspace. It should be easily accessible, allowing diverse business models to thrive, ideally regulated by a marketplace based on demand and supplemented by options for "second-hand" blockspace.
+- **Availability** - indicates how easily users can access blockspace. It should be easily accessible, allowing diverse business models to thrive, ideally regulated by a marketplace based on demand and supplemented by options for "second-hand" blockspace
 
 Polkadot is built on core blockspace principles, but there’s room for improvement. Currently, tasks like balance transfers, staking, and governance are managed on the relay chain. 
 
@@ -338,10 +338,10 @@ Similar to how BTC's smallest unit is the **Satoshi** and ETH's is the **Wei**, 
 
 DOT serves four primary functions within the Polkadot network:
 
-1. **Governance**: It is used to participate in the governance of the network.
-2. **Staking**: DOT is staked to support the network’s operation and security.
-3. **Bonding**: It is bonded to connect new chains to Polkadot as parachains.
-4. **Buying Coretime**: used to purchase coretime in-bulk or on-demand and access the  chain to benefit from Polkadot's security and interoperability
+1. **Governance** - it is used to participate in the governance of the network
+2. **Staking** - DOT is staked to support the network’s operation and security
+3. **Bonding** - it is bonded to connect new chains to Polkadot as parachains
+4. **Buying Coretime** - used to purchase coretime in-bulk or on-demand and access the  chain to benefit from Polkadot's security and interoperability
 
 Additionally, DOT can serve as a transferable token. For example, DOT held in the Treasury can be allocated to teams developing projects that benefit the Polkadot ecosystem.
 

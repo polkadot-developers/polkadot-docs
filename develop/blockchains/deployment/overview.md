@@ -11,16 +11,6 @@ Deploying a blockchain built with the Polkadot SDK is a crucial phase in the dev
 
 Deploying a blockchain is more than just launching a runtime; it involves preparing the network configuration, ensuring compatibility with the Polkadot ecosystem, and implementing long-term maintenance and update strategies. Whether deploying a test network for development purposes or launching a mainnet for production, this article covers the essential points required to get your blockchain up and running.
 
-## Key Considerations for Deployment
-
-Before delving into the technical details, it's essential to understand the foundational principles that guide your blockchain deployment. Proper planning and configuration are critical for long-term stability and success. Key considerations include:
-
-- Infrastructure Operations - employ an infrastructure-as-code approach, where all components are defined in code and managed through version control. This practice ensures your infrastructure remains in a known state, enables trackable changes, allows easy rollbacks, and automates redeployment
-
-- Security First - prioritize security in your infrastructure decisions. Start with strict access controls and blocking unnecessary communications, then enhance security through log monitoring, bastion hosts, and two-factor authentication for SSH access
-
-- On-Chain Security - protect your assets and network integrity by securing on-chain operations. Use various key types (cold, warm, hot) to mitigate session key risks. Strategies include utilizing multi-signature accounts for audit trails and implementing proxy accounts to limit permissions on target accounts
-
 ## Deployment Process
 
 Taking your Polkadot SDK-based blockchain from a local environment to production involves several critical steps, ensuring your network is stable, secure, and ready for real-world use. The following diagram outlines the process at a high level:
@@ -29,8 +19,8 @@ Taking your Polkadot SDK-based blockchain from a local environment to production
 ```mermaid
 graph LR
     subgraph Pre-Deployment
-    A("Local Development\nand\nTesting") --> B("Generate\n Chain \n Specifications")
-    B --> C("Runtime \n Compilation")
+    A("Local Development\nand\nTesting") --> B("Runtime \n Compilation")
+    B --> C("Generate \n Chain \n Specifications")
     C --> D("Prepare \n Deployment \n Environment")
     end
     subgraph Deployment
@@ -41,11 +31,11 @@ graph LR
     end
 ```
 
-- Local Development and Testing - the process begins with local development and testing. Developers focus on building the runtime by selecting and configuring the necessary pallets while refining network features. In this phase, it's essential to run a local testnet to simulate multi-node interactions, verify transactions, and ensure the blockchain behaves as expected. Thorough testing is conducted, not only for individual components but also for interactions between pallets
-
-- Generate Chain Specifications - the chain spec file defines the structure and configuration of your blockchain. It includes initial node identities, session keys, and other parameters. Defining a precise chain specification ensures that your network will operate smoothly and according to your intended design
+- Local Development and Testing - the process begins with local development and testing. Developers focus on building the runtime by selecting and configuring the necessary pallets while refining network features. In this phase, it's essential to run a local testnet to verify transactions and ensure the blockchain behaves as expected. Thorough testing is conducted, not only for individual components but also for interactions between pallets
 
 - Runtime Compilation - Polkadot SDK-based blockchains are built with Wasm, a highly portable and efficient format. Compiling your blockchain's runtime into Wasm ensures it can be executed reliably across various environments, guaranteeing network-wide compatibility and security. The [srtool](https://github.com/paritytech/srtool){target=\_blank} is helpful for this purpose since it allows you to compile Deterministic Runtimes (for more on this, see the [Building Deterministic Runtimes](TODO:update-path){target=\_blank} guide)
+
+- Generate Chain Specifications - the chain spec file defines the structure and configuration of your blockchain. It includes initial node identities, session keys, and other parameters. Defining a precise chain specification ensures that your network will operate smoothly and according to your intended design
 
 - Deployment Environment - whether launching a local test network or a production-grade blockchain, selecting the proper infrastructure is vital. For further information about these topics, see the [Infrastructure](/infrastructure/){target=\_blank} section
 

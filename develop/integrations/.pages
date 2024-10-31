@@ -3,4 +3,5 @@ nav:
   - index.md
   - 'Wallets': wallets.md
   - 'Indexers': indexers.md
+  - 'Oracles': oracles.md
   - 'Others': others.md

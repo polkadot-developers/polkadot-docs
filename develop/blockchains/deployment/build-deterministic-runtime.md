@@ -70,7 +70,7 @@ To prepare the environment:
 
 After preparing the environment, the Wasm runtime can be compiled using the `srtool` Docker image.
 
-To build the runtime, use the following command:
+To build the runtime, you need to open your Polkadot SDK-based project in a terminal shell and run the following command:
 
 ```bash
 srtool build --app --package INSERT_RUNTIME_PACKAGE_NAME --runtime-dir INSERT_RUNTIME_PATH 

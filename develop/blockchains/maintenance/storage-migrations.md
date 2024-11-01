@@ -22,18 +22,6 @@ This timing is critical because the new runtime expects data to be in the update
 
 A storage migration is necessary whenever a runtime upgrade changes the storage layout or the encoding/interpretation of existing data. Even if the underlying data type appears to still "fit" the new storage representation, a migration may be required if the interpretation of the stored values has changed.
 
-- Adding or removing an extrinsic introduces no new interpretation of preexisting data, so not migration required
-
-- Reordering or mutating fields of an existing data type do change the encoded/decoded data representation, hence a storage migration is needed
-
-- Removal of a pallet or storage item warrants cleaning up storage via a migration to avoid state bloat
-
-- Adding a new storage item would not require any migration
-
----
-
-A storage migration is necessary whenever a runtime upgrade changes the storage layout or the encoding/interpretation of existing data. Even if the underlying data type appears to still "fit" the new storage representation, a migration may be required if the interpretation of the stored values has changed.
-
 Storage migrations ensure data consistency and prevent corruption during runtime upgrades. Below are common scenarios categorized by their impact on storage and migration requirements:
 
 - Changes Requiring Migration:

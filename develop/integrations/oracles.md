@@ -7,9 +7,9 @@ description: Learn about blockchain oracles, the essential bridges connecting bl
 
 ## What is a Blockchain Oracle?
 
-An oracle is a bridge that brings real-world data onto the blockchain for use by decentralized applications. Since blockchains are isolated systems, oracles enable them to interact with external data sources such as price feeds, HTTP requests, and other off-chain information.
+An oracle is a bridge that brings real-world data onto the blockchain for use by decentralized applications. Since blockchains are isolated systems, oracles can interact with external data sources such as price feeds, HTTP requests, and other off-chain information.
 
-Think of oracles as trusted messengers between the decentralized blockchain world and traditional data sources. They can range from simple, centralized solutions where a single trusted entity provides data, to complex decentralized networks where multiple providers stake assets and face penalties for incorrect data submission.
+Think of oracles as trusted messengers between the decentralized blockchain world and traditional data sources. They can range from simple, centralized solutions where a single trusted entity provides data to complex decentralized networks where multiple providers stake assets and face penalties for incorrect data submission.
 
 ## Oracle Implementations
 
@@ -20,7 +20,7 @@ Think of oracles as trusted messengers between the decentralized blockchain worl
     ---
 
     Acurast is a decentralized serverless cloud platform that reimagines oracle services by leveraging a network of mobile devices. Unlike traditional cloud-based solutions, Acurast addresses the challenges of centralized trust and data ownership by creating a distributed network of computing resources.
-    In the Polkadot ecosystem, Acurast enables developers to define their off-chain data and computation requirements. These requests are processed by a network of mobile devices that serve as decentralized oracle nodes, providing data and computation results to both Substrate (WASM) and EVM environments.
+    In the Polkadot ecosystem, Acurast enables developers to define their off-chain data and computation requirements. These requests are processed by a mobile device network that serves as decentralized oracle nodes, providing data and computation results to Substrate (WASM) and EVM environments.
 
     [:octicons-arrow-right-24: Reference](https://acurast.com/){target=\_blank}
 

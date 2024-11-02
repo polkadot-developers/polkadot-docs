@@ -7,7 +7,7 @@ description: Explore blockchain wallets: securely manage digital assets with hot
 
 ## What is a Blockchain Wallet?
 
-A wallet serves as your gateway to interacting with blockchain networks. Rather than storing actual funds, wallets secure your private keys that control access to your blockchain assets. Your private key provides complete control over all permitted transactions on your blockchain account, making it essential to keep it secure.
+A wallet serves as your gateway to interacting with blockchain networks. Rather than storing funds, wallets secure your private keys, controlling access to your blockchain assets. Your private key provides complete control over all permitted transactions on your blockchain account, making it essential to keep it secure.
 
 Wallet types fall into two categories based on their connection to the internet:
 
@@ -22,7 +22,7 @@ Wallet types fall into two categories based on their connection to the internet:
 
     ---
 
-    A better way to explore Web3. Keep your assets safe, manage your portfolio and explore Polkadot and Ethereum apps with Talisman. Interact with Web3 apps, store your favourite crypto assets and manage your accounts on over 150+ Substrate and EVM networks. NFT Management, ledger Support, fiat On-ramp, portfolio tracking.
+    A better way to explore Web3. Keep your assets safe, manage your portfolio, and explore Polkadot and Ethereum apps with Talisman. Interact with Web3 apps, store your favorite crypto assets, and manage your accounts on over 150+ Substrate and EVM networks. NFT Management, ledger Support, fiat On-ramp, portfolio tracking.
 
     [:octicons-arrow-right-24: Reference](https://talisman.xyz/){target=\_blank}
 
@@ -45,7 +45,7 @@ Wallet types fall into two categories based on their connection to the internet:
 
     ---
 
-    A hardware wallet that securely stores cryptocurrency private keys offline, protecting them from online threats. Using a secure chip and the Ledger Live app, it allows safe transactions and asset management while keeping keys secure.
+    A hardware wallet that securely stores cryptocurrency private keys offline, protecting them from online threats. Using a secure chip and the Ledger Live app allows safe transactions and asset management while keeping keys secure.
 
     [:octicons-arrow-right-24: Reference](https://www.ledger.com/){target=\_blank}
 
@@ -53,7 +53,7 @@ Wallet types fall into two categories based on their connection to the internet:
 
     ---
 
-    A cold storage solution that allows you to use a phone in airplane mode as an air-gapped wallet. Turn your extra phone, tablet, or any other iOS or Android device into a hardware wallet.
+    A cold storage solution that allows you to use a phone in airplane mode as an air-gapped wallet. Turn your extra phone, tablet, or other iOS or Android device into a hardware wallet.
 
     [:octicons-arrow-right-24: Reference](https://vault.novasama.io/){target=\_blank}
 

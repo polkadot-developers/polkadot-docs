@@ -41,7 +41,7 @@ Nodes also require the compiled WebAssembly for executing the runtime logic on t
 
 ## Declaring storage items for a runtime
 
-In most cases, a runtime requires some storage items to be configured at genesis. This includes the initial state for pallets, for example, how much balance `Alice` or `Bob` exists, or the account that has sudo permissions.
+In most cases, a runtime requires some storage items to be configured at genesis. This includes the initial state for pallets, for example, how much balance `Alice` or `Bob` has, or the account that has sudo permissions.
 
 These storage values are configured in the genesis portion of the chain specification. You can either create a [patch](https://paritytech.github.io/polkadot-sdk/master/sc_chain_spec/index.html#chain-spec-formats){target=_blank}  file for [`chain-spec-builder`](https://paritytech.github.io/polkadot-sdk/master/polkadot_sdk_docs/reference_docs/chain_spec_genesis/index.html){target=_blank} to ingest, or if you're using `chain_spec.rs`, the pallet can be configured in the code.
 

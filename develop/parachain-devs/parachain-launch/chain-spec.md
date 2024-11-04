@@ -37,7 +37,7 @@ All nodes in the network must agree on the genesis state before they can agree o
 - The account that controls the `sudo` key
 - Any other genesis state for a pallet
 
-Nodes also include the compiled WebAssembly for the runtime logic on the chain, so the initial runtime must also be supplied in the chain specification.
+Nodes also require the compiled WebAssembly for executing the runtime logic on the chain, so the initial runtime must also be supplied in the chain specification.
 
 ## Declaring storage items for a runtime
 

@@ -9,7 +9,7 @@ description: A guide to deploying Polkadot SDK-based blockchains, outlining the 
 
 Deploying a blockchain built with the Polkadot SDK is a crucial phase in the development lifecycle, transforming a locally developed network into a fully functioning and secure system ready for public or private use. This section provides a high-level overview of the deployment process, introducing developers to key concepts, tools, and best practices to ensure a smooth transition from development to production.
 
-Deploying a blockchain is more than just launching a runtime; it involves preparing the chain specification, ensuring compatibility with the Polkadot ecosystem, and implementing long-term maintenance and updated strategies. Whether deploying a test network for development purposes or launching a mainnet for production, this guide covers the essential points required to get your blockchain up and running.
+Deploying a blockchain is more than just launching a runtime; it involves preparing the chain specification, ensuring compatibility with the Polkadot ecosystem, and implementing long-term maintenance and update strategies. Whether deploying a test network for development purposes or launching a mainnet for production, this guide covers the essential points required to get your blockchain up and running.
 
 ## Deployment Process
 
@@ -22,12 +22,13 @@ graph LR
     A("Local Development\nand\nTesting") --> B("Runtime \n Compilation")
     B --> C("Generate \n Chain \n Specifications")
     C --> D("Prepare \n Deployment \n Environment")
+    D --> E("Acquire \n CoreTime")
     end
     subgraph Deployment
-    D --> E("Launch \n and \n Monitor")
+    E --> F("Launch \n and \n Monitor")
     end
     subgraph Post-Deployment
-    E --> F("Maintenance \n and \n Upgrades")
+    F --> G("Maintenance \n and \n Upgrades")
     end
 ```
 
@@ -39,9 +40,11 @@ graph LR
 
 - Deployment Environment - whether launching a local test network or a production-grade blockchain, selecting the proper infrastructure is vital. For further information about these topics, see the [Infrastructure](/infrastructure/){target=\_blank} section
 
+- Acquire CoreTime - to build on top of the Polkadot network, users need to acquire CoreTime (either on-demand or in bulk) to access the computational resources of the relay chain. This allows for the secure validation of parachain blocks through a randomized selection of relay chain validators
+
 - Launch and Monitor - once everything is configured, you can launch the blockchain, initiating the network with your chain spec and Wasm runtime. Validators or collators will begin producing blocks, and the network will go live. Post-launch, monitoring is vital to ensuring network health—tracking block production, node performance, and overall security
 
-- Maintenance and Upgrade - a blockchain doesn't stop evolving after deployment. As the network grows and changes, upgrades to the runtime, governance, and even the underlying code may be necessary. For an in-depth guide on this topic, see the [Maintenance](/develop/blockchains/maintenance/){target=\_blank} section
+- Maintenance and Upgrade - a blockchain continues to evolve post-deployment. As the network expands and adapts, it may require runtime upgrades, governance updates, CoreTime renewals, and even modifications to the underlying code. For an in-depth guide on this topic, see the [Maintenance](/develop/blockchains/maintenance/){target=\_blank} section
 
 ## Where to Go Next
 
@@ -50,4 +53,4 @@ Deploying a Polkadot SDK-based blockchain is a multi-step process that requires 
 - [Generate Chain Specifications](/develop/blockchains/deployment/generate-chain-spec/){target=\_blank} - learn how to generate a chain specification for your blockchain
 - [Building Deterministic Runtimes](/develop/blockchains/deployment/building-deterministic-runtimes/){target=\_blank} - learn how to build deterministic runtimes for your blockchain
 - [Infrastructure](/infrastructure/){target=\_blank} - learn about the different infrastructure options available for your blockchain
-- [Maintenance](/develop/blockchains/maintenance/){target=\_blank} - discover how to manage upgrades and updates to your blockchain
+- [Maintenance](/develop/blockchains/maintenance/){target=\_blank} - discover how to manage updates on your blockchain to ensure smooth operation

@@ -1,6 +1,6 @@
 ---
 title: Polkadot.js SDK
-description: TODO
+description: Interact with Polkadot SDK-based chains easily using the Polkadot.js SDK. Query chain data, submit transactions, and more via JavaScript.
 ---
 
 # Polkadot.js SDK

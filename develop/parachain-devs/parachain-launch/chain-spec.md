@@ -16,7 +16,7 @@ The [`ChainSpec` struct](https://paritytech.github.io/polkadot-sdk/master/parach
 
 - The initial **genesis state** that all nodes in the network agree on. The genesis state must be established when the blockchain is first started and it cannot be changed thereafter without starting an entirely new blockchain
 
-## Customizing Outer Node Settings
+## Customizing Node Settings
 
 For the outer node, the chain specification controls information such as:
 

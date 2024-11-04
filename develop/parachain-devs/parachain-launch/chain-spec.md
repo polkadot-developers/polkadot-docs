@@ -18,7 +18,7 @@ The [`ChainSpec` struct](https://paritytech.github.io/polkadot-sdk/master/parach
 
 ## Customizing Node Settings
 
-For the outer node, the chain specification controls information such as:
+For the node, the chain specification controls information such as:
 
 - The boot nodes the node communicates with
 - The server endpoints for the node to send telemetry data to

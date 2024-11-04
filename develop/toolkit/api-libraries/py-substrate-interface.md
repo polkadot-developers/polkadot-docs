@@ -7,7 +7,7 @@ description: Learn how to connect to Polkadot SDK-based nodes, query data, submi
 
 ## Introduction
 
-This Python library specializes in interfacing with a Polkadot SDK-based node; querying storage, composing extrinsics, SCALE encoding/decoding and providing additional convenience methods to deal with the features and metadata of the Substrate runtime.
+This Python library specializes in interfacing with a Polkadot SDK-based node, querying storage, composing extrinsics, SCALE encoding/decoding, and providing additional convenience methods to deal with the features and metadata of the Substrate runtime.
 
 The Python Substrate Interface is a powerful library that enables interaction with Polkadot SDK-based chains. It provides essential functionality for:
 
@@ -27,7 +27,7 @@ pip install substrate-interface
 
 ## Get Started
 
-This guide will walk you through the basic operations you can perform with the Python Substrate Interface: connecting to a node, reading chain state, and submitting transactions.
+This guide will walk you through the basic operations with the Python Substrate Interface: connecting to a node, reading chain state, and submitting transactions.
 
 ### Establishing Connection
 
@@ -47,7 +47,7 @@ You can query various on-chain storage items. Here's how to check an account's b
 
 ### Submitting Transactions
 
-To modify chain state, you need to submit transactions (extrinsics). Before proceeding, ensure you have:
+To modify the chain state, you need to submit transactions (extrinsics). Before proceeding, ensure you have:
 
 - A funded account with sufficient balance to pay transaction fees
 - Access to the account's keypair

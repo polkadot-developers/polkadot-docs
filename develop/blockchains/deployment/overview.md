@@ -22,7 +22,7 @@ graph LR
     A("Local Development\nand\nTesting") --> B("Runtime \n Compilation")
     B --> C("Generate \n Chain \n Specifications")
     C --> D("Prepare \n Deployment \n Environment")
-    D --> E("Acquire \n CoreTime")
+    D --> E("Acquire \n Coretime")
     end
     subgraph Deployment
     E --> F("Launch \n and \n Monitor")
@@ -40,11 +40,11 @@ graph LR
 
 - Deployment Environment - whether launching a local test network or a production-grade blockchain, selecting the proper infrastructure is vital. For further information about these topics, see the [Infrastructure](/infrastructure/){target=\_blank} section
 
-- Acquire CoreTime - to build on top of the Polkadot network, users need to acquire CoreTime (either on-demand or in bulk) to access the computational resources of the relay chain. This allows for the secure validation of parachain blocks through a randomized selection of relay chain validators
+- Acquire Coretime - to build on top of the Polkadot network, users need to acquire Coretime (either on-demand or in bulk) to access the computational resources of the relay chain. This allows for the secure validation of parachain blocks through a randomized selection of relay chain validators
 
 - Launch and Monitor - once everything is configured, you can launch the blockchain, initiating the network with your chain spec and Wasm runtime. Validators or collators will begin producing blocks, and the network will go live. Post-launch, monitoring is vital to ensuring network health—tracking block production, node performance, and overall security
 
-- Maintenance and Upgrade - a blockchain continues to evolve post-deployment. As the network expands and adapts, it may require runtime upgrades, governance updates, CoreTime renewals, and even modifications to the underlying code. For an in-depth guide on this topic, see the [Maintenance](/develop/blockchains/maintenance/){target=\_blank} section
+- Maintenance and Upgrade - a blockchain continues to evolve post-deployment. As the network expands and adapts, it may require runtime upgrades, governance updates, Coretime renewals, and even modifications to the underlying code. For an in-depth guide on this topic, see the [Maintenance](/develop/blockchains/maintenance/){target=\_blank} section
 
 ## Where to Go Next
 

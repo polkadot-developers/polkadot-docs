@@ -62,20 +62,7 @@ Users generally work with the JSON format of the chain specification. Internally
 For example, the following JSON shows a basic chain specification file:
 
 ```json
-{
-  "name": "chainName",
-  "id": "chainId",
-  "chainType": "Local",
-  "bootNodes": [],
-  "telemetryEndpoints": null,
-  "protocolId": null,
-  "properties": null,
-  "codeSubstitutes": {},
-  "genesis": {
-      "code": "0x..."
-
-  }
-}
+--8<-- "code/develop/blockchains/deployment/generate-chain-specs/basic-chain-specs.json"
 ``` 
 
 

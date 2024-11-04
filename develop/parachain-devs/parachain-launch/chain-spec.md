@@ -56,7 +56,6 @@ There are two methods for creating a chain specification:
 
 If you are creating a one-off network for development, testing, or demonstration purposes, you might want a fully customized chain specification.
 To create a completely customized chain spec, you can export the default chain spec to JSON format, then edit the fields in the JSON file.
-For example, you can use the `build-spec` sub-command to export the chain specification to a JSON file:
 
 ### Using Node Binary
 

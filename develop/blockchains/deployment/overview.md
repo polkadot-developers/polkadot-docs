@@ -9,7 +9,7 @@ description: A guide to deploying Polkadot SDK-based blockchains, outlining the 
 
 Deploying a blockchain built with the Polkadot SDK is a crucial phase in the development lifecycle, transforming a locally developed network into a fully functioning and secure system ready for public or private use. This section provides a high-level overview of the deployment process, introducing developers to key concepts, tools, and best practices to ensure a smooth transition from development to production.
 
-Deploying a blockchain is more than just launching a runtime; it involves preparing the chain specification, ensuring compatibility with the Polkadot ecosystem, and implementing long-term maintenance and updated strategies. Whether deploying a test network for development purposes or launching a mainnet for production, this article covers the essential points required to get your blockchain up and running.
+Deploying a blockchain is more than just launching a runtime; it involves preparing the chain specification, ensuring compatibility with the Polkadot ecosystem, and implementing long-term maintenance and updated strategies. Whether deploying a test network for development purposes or launching a mainnet for production, this guide covers the essential points required to get your blockchain up and running.
 
 ## Deployment Process
 

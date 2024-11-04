@@ -55,16 +55,7 @@ To interact with a Polkadot SDK-based chain, you must establish a connection thr
 To create an API connection:
 
 ```js
-import { ApiPromise, WsProvider } from '@polkadot/api';
-
-// Create a WebSocket provider
-const wsProvider = new WsProvider('wss://rpc.polkadot.io');
-
-// Initialize the API
-const api = await ApiPromise.create({ provider: wsProvider });
-
-// Verify the connection by getting the chain's genesis hash
-console.log('Genesis Hash:', api.genesisHash.toHex());
+--8<-- 'code/develop/toolkit/api-libraries/polkadot-js-sdk/api-instance.js'
 ```
 
 !!!note
@@ -77,28 +68,13 @@ The API provides several ways to read data from the chain. You can access:
 - Constants - values that are fixed in the runtime and don't change without a runtime upgrade
 
     ```js
-    // Get the minimum balance required for a new account
-    const minBalance = api.consts.balances.existentialDeposit.toNumber();
-    console.log('Minimum Balance:', minBalance);
+    --8<-- 'code/develop/toolkit/api-libraries/polkadot-js-sdk/read-constants.js'
     ```
 
 - State - current chain state that updates with each block
 
     ```js
-    // Example address
-    const ADDRESS = '5DTestUPts3kjeXSTMyerHihn1uwMfLj8vU8sqF7qYrFabHE';
-
-    // Get current timestamp
-    const timestamp = await api.query.timestamp.now();
-
-    // Get account information
-    const { nonce, data: balance } = await api.query.system.account(ADDRESS);
-
-    console.log(`
-    Timestamp: ${timestamp}
-    Free Balance: ${balance.free}
-    Nonce: ${nonce}
-    `);
+    --8<-- 'code/develop/toolkit/api-libraries/polkadot-js-sdk/read-state.js'
     ```
 
 ### Sending Transactions
@@ -111,16 +87,7 @@ Transactions (also called extrinsics) modify the chain state. Before sending a t
 To make a transfer:
 
 ```js
-// Assuming you have an `alice` keypair from the Keyring
-const RECIPIENT = 'RECIPIENT_ADDRESS';
-const AMOUNT = 12345; // Amount in the smallest unit (e.g., Planck for DOT)
-
-// Sign and send a transfer
-const txHash = await api.tx.balances
-  .transfer(RECIPIENT, AMOUNT)
-  .signAndSend(alice);
-
-console.log('Transaction Hash:', txHash);
+--8<-- 'code/develop/toolkit/api-libraries/polkadot-js-sdk/send-txs.js'
 ```
 
 !!!note

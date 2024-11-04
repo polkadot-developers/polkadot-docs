@@ -7,7 +7,7 @@ description: Interact with Polkadot SDK-based chains easily using the Polkadot.j
 
 ## Introduction
 
-The Polkadot.js SDK uses JavaScript to interact with Polkadot and Polkadot SDK-based chains. It allows you to query nodes, read chain state, and submit transactions through a dynamic, auto-generated API interface.
+The Polkadot.js SDK uses JavaScript / Typescript to interact with Polkadot and Polkadot SDK-based chains. It allows you to query nodes, read chain state, and submit transactions through a dynamic, auto-generated API interface.
 
 ### Dynamic API Generation
 
@@ -38,11 +38,22 @@ The available methods and interfaces will automatically reflect what's possible 
 
 ## Installation
 
-To add the Polkadot.js SDK to your JavaScript project:
+To add the Polkadot.js SDK to your project:
 
-```bash
-yarn add @polkadot/api
-```
+=== "npm"
+    ```bash
+    npm i @polkadot/api
+    ```
+
+=== "pnpm"
+    ```bash
+    pnpm add @polkadot/api
+    ```
+
+=== "yarn"
+    ```bash
+    yarn add @polkadot/api
+    ```
 
 This command installs the latest stable release, which supports any Polkadot SDK-based chain
 

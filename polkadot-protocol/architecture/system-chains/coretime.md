@@ -5,9 +5,9 @@ description: Learn about the role of the Coretime system parachain, which facili
 
 ## Introduction
 
-The Coretime system chain facilitates the allocation, procurement, sale, and scheduling of bulk [coretime](../../glossary.md#coretime), enabling tasks (such as [parachains](../../glossary.md#parachain)) to utilize the computation and security that Polkadot provides. 
+The Coretime system chain facilitates the allocation, procurement, sale, and scheduling of bulk [coretime](../../glossary.md#coretime), enabling tasks (such as [parachains](../../glossary.md#parachain)) to utilize the computation and security provided by Polkadot. 
 
-The [Broker pallet](https://paritytech.github.io/polkadot-sdk/master/pallet_broker/index.html){target=_blank}, along with [Cross Consensus Messaging (XCM)](todo:addlink), enables this functionality to be delegated to the system chain, rather than on the relay chain. Using XCM's upwards message passing (UMP) to the relay chain allows for core assignments to take place for a task registered on the relay chain, utilizing the security that the relay chain provides.
+The [Broker pallet](https://paritytech.github.io/polkadot-sdk/master/pallet_broker/index.html){target=_blank}, along with [Cross Consensus Messaging (XCM)](todo:addlink), enables this functionality to be delegated to the system chain, rather than on the relay chain. Using XCMP's Upward Message Passing (UMP) to the relay chain allows for core assignments to take place for a task registered on the relay chain.
 
 The specification for the Coretime system chain, along with Coretime as a concept, can be found in the Fellowship RFC: [RFC-1: Agile Coretime](https://github.com/polkadot-fellows/RFCs/blob/main/text/0001-agile-coretime.md){target=_blank}. 
 
@@ -17,7 +17,7 @@ Besides core management, its responsibilities include:
 - Which tasks should be running on which cores and in what ratios
 - Accounting information for the on-demand pool
 
-From the relay chain, it expects the following via downwards message passing (DMP):
+From the relay chain, it expects the following via Downward Message Passing (DMP):
 
 - The number of cores available to be scheduled
 - Account information on on-demand scheduling

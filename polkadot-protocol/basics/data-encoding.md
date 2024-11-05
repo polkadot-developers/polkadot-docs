@@ -25,8 +25,6 @@ Defining a custom encoding scheme in the Polkadot SDK-based chains, rather than 
 
 ## SCALE Codec
 
-Rust implementation of the SCALE data format for types used in the Polkadot SDK framework.
-
 The codec is implemented using the following traits:
 
 - [`Encode`](#encode)
@@ -93,6 +91,7 @@ Here's how the `Encode` and `Decode` traits are implemented:
 
 ```rust
 --8<-- 'code/polkadot-protocol/basics/blocks-transactions-fees/data-encode-decode.rs'
+```
 
 ## SCALE Codec Libraries
 

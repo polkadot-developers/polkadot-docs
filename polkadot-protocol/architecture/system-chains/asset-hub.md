@@ -7,7 +7,7 @@ description: Learn about Asset Hub in Polkadot, managing on-chain assets, foreig
 
 ## Introduction
 
-The Asset Hub is a critical component in the Polkadot ecosystem, enabling the management of fungible and non-fungible assets across the network. Since the relay chain focuses on maintaining security and consensus without direct asset management, Asset Hub provides a streamlined platform for creating, managing, and using on-chain assets in a fee-efficient manner. This guide outlines the core features of Asset Hub, including how it handles asset operations, cross-chain transfers, and asset integration using XCM, as well as essential tools like API Sidecar and TxWrapper for developers working with on-chain assets.
+The Asset Hub is a critical component in the Polkadot ecosystem, enabling the management of fungible and non-fungible assets across the network. Since the relay chain focuses on maintaining security and consensus without direct asset management, Asset Hub provides a streamlined platform for creating, managing, and using on-chain assets in a fee-efficient manner. This guide outlines the core features of Asset Hub, including how it handles asset operations, cross-chain transfers, and asset integration using XCM, as well as essential tools like [API Sidecar](#api-sidecar) and [TxWrapper](#txwrapper) for developers working with on-chain assets.
 
 ## Assets Basics
 
@@ -34,9 +34,9 @@ Some assets can be regarded as sufficient to maintain an account's existence, me
 
 ## Assets Pallet
 
-The Polkadot SDK's Assets pallet is a powerful tool for creating and managing fungible asset classes with a fixed supply. It offers a secure and flexible way to issue, transfer, freeze, and destroy assets. The pallet supports various operations and includes permissioned and non-permissioned functions to cater to simple and advanced use cases.
+The Polkadot SDK's Assets pallet is a powerful module designated for creating and managing fungible asset classes with a fixed supply. It offers a secure and flexible way to issue, transfer, freeze, and destroy assets. The pallet supports various operations and includes permissioned and non-permissioned functions to cater to simple and advanced use cases.
 
-For full details, see the [assets pallet repository](https://github.com/paritytech/polkadot-sdk/tree/master/substrate/frame/assets){target=\_blank}, which contains reference documentation and examples of how to interact with the pallet.
+Visit the [Assets Pallet Rust docs](https://paritytech.github.io/polkadot-sdk/master/pallet_assets/index.html){target=\_blank} for more in-depth information.
 
 ### Key Features
 
@@ -59,17 +59,17 @@ The Assets pallet provides a broad interface for managing fungible assets. Some 
 - **`destroy()`** - destroy an entire asset class, removing it permanently from the chain
 - **`freeze()`** and **`thaw()`** - administrators or privileged users can lock or unlock assets from being transferred
 
-For a full list of dispatchable and privileged functions, see the [Call Enum Rust docs](https://docs.rs/pallet-assets/latest/pallet_assets/pallet/enum.Call.html){target=\_blank}.
+For a full list of dispatchable and privileged functions, see the [Dispatchables Rust docs](https://docs.rs/pallet-assets/latest/pallet_assets/pallet/enum.Call.html){target=\_blank}.
 
-### Public Functions
+### Querying Functions
 
-The Assets pallet exposes several key public functions that developers can interact with programmatically. These functions allow you to query asset information and perform operations essential for managing assets across accounts. The two main public functions are:
+The Assets pallet exposes several key querying functions that developers can interact with programmatically. These functions allow you to query asset information and perform operations essential for managing assets across accounts. The two main querying functions are:
 
 - **`balance(asset_id, account)`** - retrieves the balance of a given asset for a specified account. Useful for checking the holdings of an asset class across different accounts
 
 - **`total_supply(asset_id)`** - returns the total supply of the asset identified by `asset_id`. Allows users to verify how much of the asset exists on-chain
 
-In addition to these basic functions, other utility functions are available for querying asset metadata and performing asset transfers. You can view the complete list of public functions in the [Pallet Struct Rust docs](https://docs.rs/pallet-assets/latest/pallet_assets/pallet/struct.Pallet.html){target=\_blank}.
+In addition to these basic functions, other utility functions are available for querying asset metadata and performing asset transfers. You can view the complete list of querying functions in the [Pallet Struct Rust docs](https://docs.rs/pallet-assets/latest/pallet_assets/pallet/struct.Pallet.html){target=\_blank}.
 
 ### Permission Models and Roles
 
@@ -127,7 +127,7 @@ Developers can integrate Asset Hub into their projects using these core tools:
 
 ### API Sidecar
 
-[API Sidecar](https://github.com/paritytech/substrate-api-sidecar){target=\_blank} is a RESTful service that can be deployed alongside Polkadot and Kusama nodes. It provides endpoints to retrieve real-time blockchain data, including asset information. For Asset Hub, Sidecar allows querying:
+[API Sidecar](https://github.com/paritytech/substrate-api-sidecar){target=\_blank} is a RESTful service that can be deployed alongside Polkadot and Kusama nodes. It provides endpoints to retrieve real-time blockchain data, including asset information. When used with Asset Hub, Sidecar allows querying:
 
 - **Asset look-ups** - retrieve specific assets using `AssetId`
 - **Asset balances** - view the balance of a particular asset on Asset Hub
@@ -187,8 +187,7 @@ While the `balances.minted` event confirms the arrival of assets, there may be i
 
 ### Practical Monitoring Examples
 
-The preceding sections outline the process of monitoring XCM deposits to specific accounts and
-then tracing back the origin of these deposits. The process of tracking an XCM transfer and the specific events to monitor may vary based on the direction of the XCM message. Here are some examples to showcase the slight differences:
+The preceding sections outline the process of monitoring XCM deposits to specific accounts and then tracing back the origin of these deposits. The process of tracking an XCM transfer and the specific events to monitor may vary based on the direction of the XCM message. Here are some examples to showcase the slight differences:
 
 - **Transfer from parachain to relay chain** - track `parachainsystem(UpwardMessageSent)` on the parachain and `messagequeue(Processed)` on the relay chain
 - **Transfer from relay chain to parachain** - track `xcmPallet(sent)` on the relay chain and `dmpqueue(ExecutedDownward)` on the parachain

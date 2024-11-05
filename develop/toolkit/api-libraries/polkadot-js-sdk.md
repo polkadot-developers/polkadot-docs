@@ -23,8 +23,8 @@ You can access three main categories of chain interactions:
 
 1. **Constants** (`api.consts`)
     - Access runtime constants directly
-    - Example - `api.consts.balances.existentialDeposit`
     - Returns values immediately without function calls
+    - Example - `api.consts.balances.existentialDeposit`
 
 2.  **Queries** (`api.query`)
     - Read chain state

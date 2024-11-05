@@ -83,38 +83,16 @@ For example, on May 21st, 2024, the minimum stake backing a validator in Polkado
 
 ### Bonding DOT on Polkadot.js Apps
 
-<!--TODO: this section needs refactored. I visited the site and could not follow these instructions at all. The referenced images do not exist in our repo, etc.-->
-
 Once you're ready to bond your DOT, follow these steps using the Polkadot.js Apps UI:
 
-1. Go to the Network drop down at the top of the page, select the arrow to expand, and then select [Staking](https://polkadot.js.org/apps/#/staking/actions) section. Click on "Account Actions", and then the "+ Stash" button.
+1. **Network drop down** at the top of the page, select the arrow to expand, and then select [**Staking**](https://polkadot.js.org/apps/#/staking/actions){target=\_blank} section. Select **Account Actions**, and then the **+ Stash** button
+2. **Stash account** - select your stash account (which is the account with the DOT/KSM balance)
+3. **Value bonded** - enter how much DOT from the stash account you want to bond/stake. You are not required to bond all of the DOT in that account and you may bond more DOT at a later time. Be aware, withdrawing any bonded amount requires waiting for the unbonding period. The unbonding period is seven days for Kusama and 28 days for Polkadot
+4. **Payment destination** - the recipient account for validator rewards. If you'd like to redirect payments to an account that is not the stash account, you can do it by entering the address here. Note that it is extremely unsafe to set an exchange address as the recipient of the staking rewards
 
-![bonding-JS-UI](../assets/JS-UI-bond.webp)
+Once everything is filled in properly, select **Bond** and sign the transaction with your stash account. If successful, you should see an `ExtrinsicSuccess` message.
 
-- **Stash account** - Select your Stash account (which is the account with the DOT/KSM balance)
-- **Value bonded** - How much DOT from the Stash account you want to bond/stake. Note that you do
-  not need to bond all of the DOT in that account. Also note that you can always bond _more_ DOT
-  later. However, _withdrawing_ any bonded amount requires the duration of the unbonding period. On
-  Kusama, the unbonding period is 7 days. On Polkadot, the planned unbonding period is 28 days.
-- **Payment destination** - The account where the rewards from validating are sent. More info
-  [here](../learn/learn-staking.md/#reward-distribution). Starting with runtime version v23 natively
-  included in client version [0.9.3](https://github.com/paritytech/polkadot/releases/tag/v0.9.3),
-  payouts can go to any custom address. If you'd like to redirect payments to an account that is not
-  the stash account, you can do it by entering the address here. Note that it is extremely unsafe to
-  set an exchange address as the recipient of the staking rewards.
-
-Once everything is filled in properly, click `Bond` and sign the transaction with your Stash
-account.
-
-![sign transaction](../assets/JS-UI-sign-transaction.webp)
-
-After a few seconds, you should see an `ExtrinsicSuccess` message.
-
-Your bonded account will be available under `Stashes`. You should now see a new card with all your
-accounts (note: you may need to refresh the screen). The bonded amount on the right corresponds to
-the funds bonded by the Stash account.
-
-<!--end of needed refactor by content/tech team-->
+Your bonded account will be available under **Stashes**. After refreshing the screen, you should now see a card with all your accounts. The bonded amount on the right corresponds to the funds bonded by the stash account.
 
 ## Set Session Keys
 

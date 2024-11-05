@@ -146,7 +146,7 @@ These public instances are primarily for ad-hoc testing and quick checks.
 - Construct offline transactions
 - Leverage asset-specific functions such as minting, burning, and transferring assets
 
-TxWrapper provides the flexibility needed to integrate asset operations into custom applications while maintaining the security and efficiency of Polkadot's transaction model.
+`TxWrapper` provides the flexibility needed to integrate asset operations into custom applications while maintaining the security and efficiency of Polkadot's transaction model.
 
 ### Asset Transfer API
 

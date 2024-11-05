@@ -11,9 +11,9 @@ A _chain specification_ collects information that describes a Polkadot SDK-based
 
 The chain specification is defined using the [`ChainSpec`](https://paritytech.github.io/polkadot-sdk/master/sc_chain_spec/struct.GenericChainSpec.html){target=\_blank} struct. This struct separates the information required for a chain into two parts:
 
-- A _client specification_ contains information the _node_ uses to communicate with network participants and send data to telemetry endpoints. Many of these chain specification settings can be overridden by command-line options when starting a node or can be changed after the blockchain has started
+- **Client Specification** - contains information the _node_ uses to communicate with network participants and send data to telemetry endpoints. Many of these chain specification settings can be overridden by command-line options when starting a node or can be changed after the blockchain has started
 
-- The initial _genesis state_ that all nodes in the network agree on. The genesis state must be established when the blockchain is first started, and it cannot be changed thereafter without starting an entirely new blockchain
+- **Initial Genesis State** -  agreed upon by all nodes in the network. It must be set when the blockchain is first started and cannot be changed after that without starting a whole new blockchain
 
 ## Node Settings Customization
 
@@ -29,7 +29,7 @@ Note that you can customize node settings after genesis. However, nodes only add
 
 ## Genesis Configuration Customization
 
-All nodes in the network must agree on the genesis state before they can agree on any subsequent blocks. The information configured in the genesis portion of a chain specification is used to create a genesis block. When you start the first node, it takes effect and cannot be overridden with command-line options. However, you can configure some information in the genesis portion of a chain specification. For example, you can customize the genesis portion of the chain specification to include information such as:
+All nodes in the network must agree on the genesis state before they can agree on any subsequent blocks. The information configured in the genesis portion of a chain specification is used to create a genesis block. When you start the first node, it takes effect and cannot be overridden with command-line options. However, you can configure some information in the genesis section of a chain specification. For example, you can customize it to include information such as:
 
 - Initial account balances
 - Accounts that are initially part of a governance council
@@ -40,13 +40,13 @@ Nodes also require the compiled Wasm to execute the runtime logic on the chain, 
 
 ## Declaring storage items for a runtime
 
-A runtime usually requires some storage items to be configured at genesis. This includes the initial state for pallets, for example, how much balance `Alice` or `Bob` has, or the account with sudo permissions.
+A runtime usually requires some storage items to be configured at genesis. This includes the initial state for pallets, for example, how much balance specific accounts have, or which account will have sudo permissions.
 
-These storage values are configured in the genesis portion of the chain specification. You can either create a [patch](https://paritytech.github.io/polkadot-sdk/master/sc_chain_spec/index.html#chain-spec-formats){target=_blank}  file for [`chain-spec-builder`](https://paritytech.github.io/polkadot-sdk/master/polkadot_sdk_docs/reference_docs/chain_spec_genesis/index.html){target=_blank} to ingest, or if you're using `chain_spec.rs`, the pallet can be configured in the code.
+These storage values are configured in the genesis portion of the chain specification. You can create a [patch](https://paritytech.github.io/polkadot-sdk/master/sc_chain_spec/index.html#chain-spec-formats){target=_blank} file for [`chain-spec-builder`](https://paritytech.github.io/polkadot-sdk/master/polkadot_sdk_docs/reference_docs/chain_spec_genesis/index.html){target=_blank} to ingest or use `chain_spec.rs`, and the pallet genesis state can be configured in the source code.
 
 ## Chain specification JSON format
 
-Users generally work with the JSON format of the chain specification. Internally, the chain specification is embodied by the [`GenericChainSpec`](https://paritytech.github.io/polkadot-sdk/master/sc_chain_spec/struct.GenericChainSpec.html){target=\_blank} struct, with specific properties accessible through the [`ChainSpec`](https://paritytech.github.io/polkadot-sdk/master/sc_chain_spec/trait.ChainSpec.html){target=\_blank} struct. The chain specification includes the following keys:
+Users generally work with the JSON format of the chain specification. Internally, the chain specification is embedded in the [`GenericChainSpec`](https://paritytech.github.io/polkadot-sdk/master/sc_chain_spec/struct.GenericChainSpec.html){target=\_blank} struct, with specific properties accessible through the [`ChainSpec`](https://paritytech.github.io/polkadot-sdk/master/sc_chain_spec/trait.ChainSpec.html){target=\_blank} struct. The chain specification includes the following keys:
 
 - `name` - the human-readable name for the network
 - `id` - the machine-readable identifier for the network

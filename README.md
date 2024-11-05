@@ -10,7 +10,7 @@ The content in this repository is displayed on the Polkadot documentation site g
 
 ## Contributing
 
-If you're interested in contributing to this repository, please feel free to clone the repo, make changes, and open a PR ✨. Please review the guidelines in the .CONTRIBUTING.md file before making any changes.
+If you're interested in contributing to this repository, please feel free to clone the repo, make changes, and open a PR ✨. Please review the guidelines in the [.CONTRIBUTING.md file](https://github.com/polkadot-developers/polkadot-docs/blob/812704e02be50bf2feaa2ecccc4beebfc5fc17d8/.CONTRIBUTING.md) before making any changes.
 
 Thank you for taking your time to contribute to this repository 💜.
 

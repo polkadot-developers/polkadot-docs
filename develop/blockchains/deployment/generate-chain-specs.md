@@ -74,7 +74,7 @@ To create a custom chain specification, you can use the [`chain-spec-builder`](h
 cargo install staging-chain-spec-builder
 ```
 
-To verify the installation, run the following command:
+To verify the installation, run the following:
 
 ```bash
 chain-spec-builder --help
@@ -82,7 +82,7 @@ chain-spec-builder --help
 
 ### Plain Chain Specifications
 
-To create a plain chain specification, you can use the following command within your project:
+To create a plain chain specification, you can use the following utility within your project:
 
 ```bash
 chain-spec-builder create -r <RUNTIME_WASM_PATH> <INSERT_COMMAND> 
@@ -110,7 +110,7 @@ This key and its associated value are human-readable text in the JSON file. Howe
 To enable a node with an upgraded runtime to synchronize with a chain from genesis, the plain chain specification is encoded in a **raw** format.
 The raw format allows the distribution of chain specifications that all nodes can use to synchronize the chain even after runtime upgrades.
 
-To convert a plain chain specification to a raw chain specification, you can use the following command:
+To convert a plain chain specification to a raw chain specification, you can use the following utility:
 
 ```bash
 chain-spec-builder convert-to-raw chain_spec.json

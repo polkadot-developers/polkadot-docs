@@ -23,7 +23,7 @@ The key difference is that Polkadot's VRF doesn’t rely on a central clock—av
 
 Slots on Polkadot are discrete units of time, each lasting six seconds, and can potentially hold a block. Multiple slots form an epoch, with 2400 slots making up one four-hour epoch.
 
-In each slot, validators execute a **"die roll"** using a **Verifiable Random Function (VRF)**. The VRF uses three inputs:
+In each slot, validators execute a "die roll" using a VRF. The VRF uses three inputs:
 
 1. A "secret key", unique to each validator, is used for the die roll
 2. An epoch randomness value, derived from the hash of VRF outputs from blocks two epochs ago (N-2), so past randomness influences the current epoch (N)
@@ -45,7 +45,6 @@ So, VRF can be expressed like:
 `(RESULT, PROOF) = VRF(SECRET, EPOCH_RANDOMNESS_VALUE, CURRENT_SLOT_NUMBER)`
 
 Put simply, performing a "VRF roll" generates a random number along with proof that the number was genuinely produced and not arbitrarily chosen.
-
 
 After executing the VRF, the RESULT is compared to a protocol-defined THRESHOLD. If the RESULT is below the THRESHOLD, the validator becomes a valid candidate to propose a block for that slot. Otherwise, the validator skips the slot.
 

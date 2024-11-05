@@ -88,6 +88,9 @@ To create a plain chain specification, you can use the following utility within 
 chain-spec-builder create -r <RUNTIME_WASM_PATH> <INSERT_COMMAND> 
 ```
 
+!note
+    Before running the command, ensure that the runtime has been compiled and is available at the specified path.
+
 Ensure to replace `<RUNTIME_WASM_PATH>` with the path to the runtime Wasm file and `<INSERT_COMMAND>` with the command to insert the runtime into the chain specification. The available commands are:
 
 - `patch` - patches the runtime's default genesis config with the provided patch

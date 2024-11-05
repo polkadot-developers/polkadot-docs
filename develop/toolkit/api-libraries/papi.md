@@ -135,8 +135,6 @@ In PAPI, the `TypedApi` provides the `tx` and `txFromCallData` methods to send t
     const tx: Transaction = typedApi.txFromCallData(callData)
     ```
 
-    Ensure you replace `INSERT_CALL_DATA` with the actual call data, a hex string.
-
 For more information about sending transactions, refer to the [Transactions](https://papi.how/typed/tx#transactions){target=\_blank} page.
 
 ## Next Steps

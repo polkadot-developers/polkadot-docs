@@ -19,17 +19,17 @@ To instantiate the API, you can install the package by using the following comma
 
 === "npm"
     ```bash
-    npm i @polkadot/api
+    npm i polkadot-api
     ```
 
 === "pnpm"
     ```bash
-    pnpm add @polkadot/api
+    pnpm add polkadot-api
     ```
 
 === "yarn"
     ```bash
-    yarn add @polkadot/api
+    yarn add polkadot-api
     ```
 
 Then, obtain the latest metadata from the target chain and generate the necessary types:
@@ -69,7 +69,7 @@ You can now set up a [`PolkadotClient`](https://github.com/polkadot-api/polkadot
     );
 
     // To interact with the chain, obtain the `TypedApi`, which provides
-    // the necessary types for every API call on this chain:
+    // the necessary types for every API call on this chain
     const dotApi = client.getTypedApi(dot);
     ```
 
@@ -100,7 +100,7 @@ You can now set up a [`PolkadotClient`](https://github.com/polkadot-api/polkadot
     );
 
     // To interact with the chain's API, use `TypedApi` for access to
-    // all the necessary types and calls associated with this chain:
+    // all the necessary types and calls associated with this chain
     const dotApi = client.getTypedApi(dot);
     ```
 
@@ -147,7 +147,7 @@ You can now set up a [`PolkadotClient`](https://github.com/polkadot-api/polkadot
     );
 
     // To interact with the chain, obtain the `TypedApi`, which provides
-    // the types for all available calls in that chain:
+    // the types for all available calls in that chain
     const dotApi = client.getTypedApi(dot);
     ```
 
@@ -155,9 +155,74 @@ Now that you have set up the client, you can interact with the chain by reading 
 
 ### Reading Chain Data
 
+With the `TypedApi`, you can read data from the blockchain using the following patterns:
 
+- To read a **constant** of the blockchain, you can use the `constants` property and access the constant you need:
+
+    ```typescript
+    const version = await typedApi.constants.System.Version()
+    ```
+
+- To read a value from the **storage**, you can use the following pattern:
+
+    ```typescript
+    const result = await typedApi.query.Pallet.Query.getValue(
+        arg1,
+        arg2,
+        arg3,
+        { at: "best" }
+    )
+    ```
+
+- To directly query a **Runtime API**, you can use the `query` property and access the API you need, for example:
+
+    ```typescript
+    const metadata = await typedApi.apis.Metadata.metadata()
+    ```
+
+To learn more about the different actions you can perform with the `TypedApi`, refer to the [Typed API Reference](https://papi.how/typed){target=\_blank}.
 
 ### Sending Transactions
 
+In PAPI, the `TypedApi` provides the `tx` and `txFromCallData` methods to send transactions. 
+
+- The `tx` method allows you to directly send a transaction with the specified parameters by using the `typedApi.tx.Pallet.Call` pattern:
+
+    ```typescript
+    const tx: Transaction = typedApi.tx.Pallet.Call({arg1, arg2, arg3})
+    ``` 
+
+    For instance, to execute the `balances.transferKeepAlive` call, you can use the following snippet:
+
+    ```typescript
+    import { MultiAddress } from "@polkadot-api/descriptors"
+    
+    const tx: Transaction = typedApi.tx.Balances.transfer_keep_alive({
+        dest: MultiAddress.Id("INSERT_DESTINATION_ADDRESS"),
+        value: BigInt(INSERT_VALUE)
+    })
+    ```
+
+    Ensure that you replace `INSERT_DESTINATION_ADDRESS` and `INSERT_VALUE` with the actual destination address and value, respectively.
+
+- The `txFromCallData` method allows you to send a transaction by using the call data. This option accepts binary call data and constructs the transaction from it. It validates the input upon creation and will throw an error if invalid data is provided. The pattern is as follows:
+
+    ```typescript
+    const callData = Binary.fromHex("0x...")
+    const tx: Transaction = typedApi.txFromCallData(callData)
+    ``` 
+
+    For instance, to execute a transaction using the call data, you can use the following snippet:
+
+    ```typescript
+    const callData = Binary.fromHex("0x00002470617065726d6f6f6e")
+    const tx: Transaction = typedApi.txFromCallData(callData)
+    ```
+
+    Ensure that you replace `INSERT_CALL_DATA` with the actual call data, which is a hex string.
+
+For more information about sending transactions, refer to the [Transactions](https://papi.how/typed/tx#transactions){target=\_blank} page.
+
 ## Next Steps
 
+For an in-depth guide on how to use PAPI, refer to the official [PAPI](https://papi.how/typed){target=\_blank} documentation.

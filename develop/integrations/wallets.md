@@ -22,7 +22,7 @@ Wallet types fall into two categories based on their connection to the internet:
 
     ---
 
-    A better way to explore Web3. Keep your assets safe, manage your portfolio, and explore Polkadot and Ethereum apps with Talisman. Interact with Web3 apps, store your favorite crypto assets, and manage your accounts on over 150+ Substrate and EVM networks. NFT Management, ledger Support, fiat On-ramp, portfolio tracking.
+    With Talisman, you can securely store assets, manage your portfolio, and interact with Polkadot and Ethereum applications. It supports Web3 apps, asset storage, and account management across over 150 Polkadot SDK-based and EVM networks. Additional features include NFT management, Ledger support, fiat on-ramp, and portfolio tracking
 
     [:octicons-arrow-right-24: Reference](https://talisman.xyz/){target=\_blank}
 
@@ -30,7 +30,7 @@ Wallet types fall into two categories based on their connection to the internet:
 
     ---
 
-    A non-custodial Polkadot, Substrate & Ethereum wallet. Track, send, receive, and monitor multi-chain assets on 150+ networks. Import account with seed phrase, private key, QR code, and JSON file. Import token & NFT, attach read-only account. XCM Transfer, NFT Management, Parity Signer & Ledger support, light clients support, EVM DApp support, MetaMask compatibility, custom endpoints, fiat on-ramp, phishing detection, transaction history.
+    A non-custodial Polkadot & Ethereum wallet. Track, send, receive, and monitor multi-chain assets on 150+ networks. Import account with seed phrase, private key, QR code, and JSON file. Import token & NFT, attach read-only account. XCM Transfer, NFT Management, Parity Signer & Ledger support, light clients support, EVM DApp support, MetaMask compatibility, custom endpoints, fiat on-ramp, phishing detection, transaction history.
 
     [:octicons-arrow-right-24: Reference](https://www.subwallet.app/){target=\_blank}
 
@@ -53,7 +53,7 @@ Wallet types fall into two categories based on their connection to the internet:
 
     ---
 
-    A cold storage solution that allows you to use a phone in airplane mode as an air-gapped wallet. Turn your extra phone, tablet, or other iOS or Android device into a hardware wallet.
+    This cold storage solution lets you use a phone in airplane mode as an air-gapped wallet, turning any spare phone, tablet, or iOS/Android device into a hardware wallet.
 
     [:octicons-arrow-right-24: Reference](https://vault.novasama.io/){target=\_blank}
 

@@ -1,15 +1,15 @@
 ---
 title: Polkadot-API
-description: TODO
+description: Polkadot-API (PAPI) is a set of libraries built to be modular, composable, and grounded in a “light-client first” approach.
 ---
 
 # Polkadot-API
 
 ## Introduction
 
-[Polkadot-API](https://papi.how/){target=\_blank}(PAPI) is a set of libraries, built to be modular, composable, and grounded in a “light-client first” approach. Its primary aim is to equip dApp developers with an extensive toolkit essential for building fully decentralized applications.
+[Polkadot-API](https://papi.how/){target=\_blank}(PAPI) is a set of libraries built to be modular, composable, and grounded in a “light-client first” approach. Its primary aim is to equip dApp developers with an extensive toolkit for building fully decentralized applications.
 
-PAPI is optimized for light-client functionality, using the new JSON-RPC spec to fully support decentralized interactions. It provides strong TypeScript support with types and documentation generated directly from on-chain metadata, and it offers seamless access to storage reads, constants, transactions, events, and runtime calls. Developers can connect to multiple chains simultaneously and prepare for runtime updates through multi-descriptor generation and compatibility checks. Polkadot-API is lightweight and performant, leveraging native BigInt, dynamic imports, and modular subpaths to avoid bundling unnecessary assets. It supports both promise-based and observable-based APIs, integrates easily with Polkadot-JS extensions, and offers signing options through browser extensions or private keys.
+PAPI is optimized for light-client functionality, using the new JSON-RPC spec to support decentralized interactions fully. It provides strong TypeScript support with types and documentation generated directly from on-chain metadata, and it offers seamless access to storage reads, constants, transactions, events, and runtime calls. Developers can connect to multiple chains simultaneously and prepare for runtime updates through multi-descriptor generation and compatibility checks. Polkadot-API is lightweight and performant, leveraging native BigInt, dynamic imports, and modular subpaths to avoid bundling unnecessary assets. It supports promise-based and observable-based APIs, integrates easily with Polkadot-JS extensions, and offers signing options through browser extensions or private keys.
 
 ## Get Started
 
@@ -39,7 +39,7 @@ Then, obtain the latest metadata from the target chain and generate the necessar
 npx papi add dot -n polkadot
 ```
 
-The `papi add` command initializes papi add, assigns the chain a custom name, and specifies downloading metadata from the Polkadot chain. If you want to add a different chain, you can replace `dot` with the chain name. Once the latest metadata is downloaded, generate the required types:
+The `papi add` command initializes papi add, assigns the chain a custom name and specifies downloading metadata from the Polkadot chain. You can replace `dot` with the chain name if you want to add a different chain. Once the latest metadata is downloaded, generate the required types:
 
 ```bash
 # Generate the necessary types
@@ -203,9 +203,9 @@ In PAPI, the `TypedApi` provides the `tx` and `txFromCallData` methods to send t
     })
     ```
 
-    Ensure that you replace `INSERT_DESTINATION_ADDRESS` and `INSERT_VALUE` with the actual destination address and value, respectively.
+    Ensure you replace `INSERT_DESTINATION_ADDRESS` and `INSERT_VALUE` with the actual destination address and value, respectively.
 
-- The `txFromCallData` method allows you to send a transaction by using the call data. This option accepts binary call data and constructs the transaction from it. It validates the input upon creation and will throw an error if invalid data is provided. The pattern is as follows:
+- The `txFromCallData` method allows you to send a transaction using the call data. This option accepts binary call data and constructs the transaction from it. It validates the input upon creation and will throw an error if invalid data is provided. The pattern is as follows:
 
     ```typescript
     const callData = Binary.fromHex("0x...")
@@ -219,7 +219,7 @@ In PAPI, the `TypedApi` provides the `tx` and `txFromCallData` methods to send t
     const tx: Transaction = typedApi.txFromCallData(callData)
     ```
 
-    Ensure that you replace `INSERT_CALL_DATA` with the actual call data, which is a hex string.
+    Ensure you replace `INSERT_CALL_DATA` with the actual call data, a hex string.
 
 For more information about sending transactions, refer to the [Transactions](https://papi.how/typed/tx#transactions){target=\_blank} page.
 

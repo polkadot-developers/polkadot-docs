@@ -6,10 +6,10 @@ description: Learn about system parachains, and how they help distribute resourc
 ## Introduction
 
 The primary functionality of the relay chain is to secure the parachains and facilitate secure
-communication between them. All other functionalities like asset transfers, governance, identities
-and bridging (a potentially resource intensive task) can benefit from operating separately on system
+communication between them. All other functionalities like asset transfers, governance, identities,
+and bridging (a potentially resource-intensive task) can benefit from operating separately on system
 chains. System chains are responsible for delegating functionality away from the relay chain for
-peformance reasons, taking advantage of the inherent parallelization the architecture of Polkadot
+performance reasons, taking advantage of the inherent parallelization the architecture of Polkadot
 provides.
 
 System parachains are those that contain core Polkadot protocol features, but in parachains rather
@@ -27,15 +27,12 @@ actions. That is, they do not have their own native tokens or governance systems
 KSM. In fact, there will likely be a system parachain specifically for network governance.
 
 !!!note
-    In the past, these were often called "Common Good Parachains", so you may come across articles and
+    In the past, these were often called "Common Good Parachains," so you may come across articles and
     discussions using that term. As the network has evolved, that term has been confusing in many cases,
     so "System Parachains" is preferred now. A discussion on this evolution can be found in
     [this forum thread](https://forum.polkadot.network/t/polkadot-protocol-and-common-good-parachains/866){target=_blank}.
 
 ## Existing System Chains
-
-<!-- prettier-ignore -->
-<Tabs groupId="clients" values={[ {label: 'Polkadot', value: 'polkadot'}, { label: 'Kusama', value: 'kusama'} ]}>
 
 === "Polkadot"
 

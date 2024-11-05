@@ -213,10 +213,10 @@ base58encode(concat(<address-type>, <address>, <checksum>))
 - **Address** - the public key of the account encoded as bytes
 - **Checksum** - a hash-based checksum which ensures that addresses are valid and unaltered. The checksum is derived from the concatenated address type and address components, ensuring integrity
 
-The encoding process transforms the concatenated components into a Base58 string, providing a compact and human-readable format that avoids easily confused characters (e.g., zero '0', capital 'O', lowercase 'l').     The Base58 [encode](https://docs.rs/bs58/latest/bs58/fn.encode.html){target=\_blank} function is implemented exactly as defined in Bitcoin and IPFS specifications, using the same alphabet as both implementations.
+The encoding process transforms the concatenated components into a Base58 string, providing a compact and human-readable format that avoids easily confused characters (e.g., zero '0', capital 'O', lowercase 'l'). This encoding function ([`encode`](https://docs.rs/bs58/latest/bs58/fn.encode.html){target=\_blank}) is implemented exactly as defined in Bitcoin and IPFS specifications, using the same alphabet as both implementations.
 
 ??? interface "Additional information"
-    - Refer to [Ss58Codec](https://paritytech.github.io/polkadot-sdk/master/sp_core/crypto/trait.Ss58Codec.html){target=\_blank} for more details on the SS58 address format implementation 
+    Refer to [Ss58Codec](https://paritytech.github.io/polkadot-sdk/master/sp_core/crypto/trait.Ss58Codec.html){target=\_blank} for more details on the SS58 address format implementation.
 
 ### Address Type
 

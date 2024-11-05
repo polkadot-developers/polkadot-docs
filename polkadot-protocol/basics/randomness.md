@@ -5,6 +5,8 @@ description: Explore the importance of randomness in PoS blockchains, focusing o
 
 # Randomness
 
+## Introduction
+
 Randomness is crucial in Proof of Stake (PoS) blockchains to ensure a fair and unpredictable distribution of validator duties. However, computers are inherently deterministic, meaning the same input always produces the same output. What we typically refer to as "random" numbers on a computer are actually pseudo-random. These numbers rely on an initial "seed," which can come from external sources like [atmospheric noise](https://www.random.org/randomness/){target=\_blank}, [heart rates](https://mdpi.altmetric.com/details/47574324){target=\_blank}, or even [lava lamps](https://en.wikipedia.org/wiki/Lavarand){target=\_blank}. While this may seem random, given the same "seed," the same sequence of numbers will always be generated.
 
 In a global blockchain network, relying on real-world entropy for randomness isn’t feasible because these inputs vary by time and location. If nodes use different inputs, blockchains can fork. Hence, real-world randomness isn't suitable for use as a seed in blockchain systems.
@@ -50,10 +52,10 @@ After executing the VRF, the RESULT is compared to a protocol-defined THRESHOLD.
 
 As a result, there may be multiple validators eligible to propose a block for a slot. In this case, the block accepted by other nodes will prevail, provided it is on the chain with the latest finalized block as determined by the GRANDPA finality gadget. It's also possible for no block producers to be available for a slot, in which case the AURA consensus takes over. AURA is a fallback mechanism that randomly selects a validator to produce a block, running in parallel with BABE and only stepping in when no block producers exist for a slot. Otherwise, it remains inactive.
 
-Because validators roll independently, no block candidates may appear in some slots if all roll numbers are above the threshold.
+Because validators roll independently, no block candidates may appear in some slots if all roll numbers are above the threshold. 
 
 !!!note
-    The resolution of this issue and the assurance that Polkadot block times remain near constant-time can be checked on the [PoS Consensus](TODO:update-path){target=_blank} page.
+    The resolution of this issue and the assurance that Polkadot block times remain near constant-time can be checked on the [PoS Consensus](TODO:update-path){target=\_blank} page.
 
 ## RANDAO
 

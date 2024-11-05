@@ -7,7 +7,7 @@ description: Interact with Polkadot SDK-based chains easily using the Polkadot.j
 
 ## Introduction
 
-The Polkadot.js SDK uses JavaScript / Typescript to interact with Polkadot and Polkadot SDK-based chains. It allows you to query nodes, read chain state, and submit transactions through a dynamic, auto-generated API interface.
+The Polkadot.js SDK uses JavaScript/Typescript to interact with Polkadot SDK-based chains. It allows you to query nodes, read chain state, and submit transactions through a dynamic, auto-generated API interface.
 
 ### Dynamic API Generation
 
@@ -15,7 +15,7 @@ Unlike traditional static APIs, the Polkadot.js API generates its interfaces aut
 
 1. The API connects to your node
 2. It retrieves the chain's metadata
-3. Based on this metadata, it creates specific endpoints in the format: `api.<type>.<module>.<section>`
+3. Based on this metadata, it creates specific endpoints in the format - `api.<type>.<module>.<section>`
 
 ### Available API Categories
 
@@ -23,16 +23,16 @@ You can access three main categories of chain interactions:
 
 1. **Constants** (`api.consts`)
     - Access runtime constants directly
-    - Example: `api.consts.balances.existentialDeposit`
+    - Example - `api.consts.balances.existentialDeposit`
     - Returns values immediately without function calls
 
 2.  **Queries** (`api.query`)
     - Read chain state
-    - Example: `api.query.system.account(accountId)`
+    - Example - `api.query.system.account(accountId)`
 
 3. **Transactions** (`api.tx`)
     - Submit extrinsics (transactions)
-    - Example: `api.tx.balances.transfer(accountId, value)`
+    - Example - `api.tx.balances.transfer(accountId, value)`
 
 The available methods and interfaces will automatically reflect what's possible on your connected chain.
 

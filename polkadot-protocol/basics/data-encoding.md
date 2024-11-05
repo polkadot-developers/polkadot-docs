@@ -5,11 +5,13 @@ description: SCALE codec enables fast, efficient data encoding, ideal for resour
 
 # Data Encoding
 
-The Polkadot SDK uses a lightweight and efficient encoding/decoding mechanism to optimize data transmission across the network. This mechanism, known as the **SCALE** codec, is used for serializing and deserializing data.
+## Introduction
 
-The **SCALE** codec enables communication between the runtime and the outer node. This mechanism is designed for high-performance, copy-free data encoding and decoding in resource-constrained environments like the Polkadot SDK [Wasm runtime](TODO:update-path){target=\_blank}.
+The Polkadot SDK uses a lightweight and efficient encoding/decoding mechanism to optimize data transmission across the network. This mechanism, known as the _SCALE_ codec, is used for serializing and deserializing data.
 
-It is not self-describing, meaning the decoding context must have full knowledge of the encoded data types. 
+The SCALE codec enables communication between the runtime and the outer node. This mechanism is designed for high-performance, copy-free data encoding and decoding in resource-constrained environments like the Polkadot SDK [Wasm runtime](TODO:update-path){target=\_blank}.
+
+It is not self-describing, meaning the decoding context must fully know the encoded data types. 
 
 Parity's libraries utilize the [`parity-scale-codec`](https://github.com/paritytech/parity-scale-codec){target=\_blank} crate (a Rust implementation of the SCALE codec) to handle encoding and decoding for interactions between RPCs and the runtime.
 
@@ -27,21 +29,21 @@ Rust implementation of the SCALE data format for types used in the Polkadot SDK 
 
 The codec is implemented using the following traits:
 
-- [Encode](#encode)
-- [Decode](#decode)
-- [CompactAs](#compactas)
-- [HasCompact](#hascompact)
-- [EncodeLike](#encodelike)
+- [`Encode`](#encode)
+- [`Decode`](#decode)
+- [`CompactAs`](#compactas)
+- [`HasCompact`](#hascompact)
+- [`EncodeLike`](#encodelike)
 
 ### Encode
 
 The [`Encode`](https://docs.rs/parity-scale-codec/latest/parity_scale_codec/trait.Encode.html){target=\_blank} trait handles data encoding into SCALE format and includes the following key functions:
 
-- `size_hint(&self) -> usize`: Estimates the number of bytes required for encoding to prevent multiple memory allocations. This should be inexpensive and avoid complex operations. Optional if the size isn’t known.
-- `encode_to<T: Output>(&self, dest: &mut T)`: Encodes the data, appending it to a destination buffer.
-- `encode(&self) -> Vec<u8>`: Encodes the data and returns it as a byte vector.
-- `using_encoded<R, F: FnOnce(&[u8]) -> R>(&self, f: F) -> R`: Encodes the data and passes it to a closure, returning the result.
-- `encoded_size(&self) -> usize`: Calculates the encoded size. Should be used when the encoded data isn’t required.
+- **`size_hint(&self) -> usize`** - estimates the number of bytes required for encoding to prevent multiple memory allocations. This should be inexpensive and avoid complex operations. Optional if the size isn’t known
+- **`encode_to<T: Output>(&self, dest: &mut T)`** - encodes the data, appending it to a destination buffer
+- **`encode(&self) -> Vec<u8>`** - encodes the data and returns it as a byte vector
+- **`using_encoded<R, F: FnOnce(&[u8]) -> R>(&self, f: F) -> R`** - encodes the data and passes it to a closure, returning the result
+- **`encoded_size(&self) -> usize`** - calculates the encoded size. Should be used when the encoded data isn’t required
 
 !!!note
     For best performance, value types should override `using_encoded`, and allocating types should override `encode_to`. It's recommended to implement `size_hint` for all types where possible.
@@ -50,14 +52,14 @@ The [`Encode`](https://docs.rs/parity-scale-codec/latest/parity_scale_codec/trai
 
 The [`Decode`](https://docs.rs/parity-scale-codec/latest/parity_scale_codec/trait.Decode.html){target=\_blank} trait handles decoding SCALE-encoded data back into the appropriate types:
 
-- `fn decode<I: Input>(value: &mut I) -> Result<Self, Error>`: Decodes data from the SCALE format, returning an error if decoding fails.
+- **`fn decode<I: Input>(value: &mut I) -> Result<Self, Error>`** - decodes data from the SCALE format, returning an error if decoding fails
 
 ### CompactAs
 
 The [`CompactAs`](https://docs.rs/parity-scale-codec/latest/parity_scale_codec/trait.CompactAs.html){target=\_blank} trait wraps custom types for compact encoding:
 
-- `encode_as(&self) -> &Self::As`: Encodes the type as a compact type.
-- `decode_from(_: Self::As) -> Result<Self, Error>`: Decodes from a compact encoded type.
+- **`encode_as(&self) -> &Self::As`** - encodes the type as a compact type
+- **`decode_from(_: Self::As) -> Result<Self, Error>`** - decodes from a compact encoded type
 
 ### HasCompact
 
@@ -84,7 +86,7 @@ The table below outlines how the Rust implementation of the Parity SCALE codec e
 | Tuples                        | A fixed-size series of values, each with a possibly different but predetermined and fixed type. This is simply the concatenation of each encoded value.                     | Tuple of compact unsigned integer and boolean: `(3, false)                        `                                                      | `0x0c00`                                                      |
 | Vectors (lists, series, sets) | A collection of same-typed values is encoded, prefixed with a compact encoding of the number of items, followed by each item's encoding concatenated in turn.               | Vector of unsigned `16`-bit integers: `[4, 8, 15, 16, 23, 42]               `                                                              | `0x18040008000f00100017002a00`                                |
 
-## Encode & Decode Rust Trait Implementations
+## Encode and Decode Rust Trait Implementations
 
 Here's how the `Encode` and `Decode` traits are implemented:
 
@@ -92,19 +94,19 @@ Here's how the `Encode` and `Decode` traits are implemented:
 ```rust
 --8<-- 'code/polkadot-protocol/basics/blocks-transactions-fees/data-encode-decode.rs'
 
-## SCALE codec libraries
+## SCALE Codec Libraries
 
 Several SCALE codec implementations are available in various languages. Here's a list of them:
 
-- AssemblyScript - [`LimeChain/as-scale-codec`](https://github.com/LimeChain/as-scale-codec){target=\_blank}
-- C - [`MatthewDarnell/cScale`](https://github.com/MatthewDarnell/cScale){target=\_blank}
-- C++ - [`soramitsu/scale-codec-cpp`](https://github.com/qdrvm/scale-codec-cpp){target=\_blank}
-- JavaScript - [`polkadot-js/api`](https://github.com/polkadot-js/api){target=\_blank}
-- Dart - [`leonardocustodio/polkadart`](https://github.com/leonardocustodio/polkadart){target=\_blank}
-- Haskell - [`airalab/hs-web3`](https://github.com/airalab/hs-web3/tree/master/packages/scale){target=\_blank}
-- Golang - [`itering/scale.go`](https://github.com/itering/scale.go){target=\_blank}
-- Java - [`emeraldpay/polkaj`](https://github.com/splix/polkaj){target=\_blank}
-- Python - [`polkascan/py-scale-codec`](https://github.com/polkascan/py-scale-codec){target=\_blank}
-- Ruby - [` wuminzhe/scale_rb`](https://github.com/wuminzhe/scale_rb){target=\_blank}
-- TypeScript - [`parity-scale-codec-ts`](https://github.com/tjjfvi/subshape){target=\_blank}, [`scale-ts`](https://github.com/unstoppablejs/unstoppablejs/tree/main/packages/scale-ts#scale-ts){target=\_blank}, [`soramitsu/scale-codec-js-library`](https://github.com/soramitsu/scale-codec-js-library){target=\_blank}, [`subsquid/scale-codec`](https://github.com/subsquid/squid-sdk/tree/master/substrate/scale-codec){target=\_blank}
+- **AssemblyScript** - [`LimeChain/as-scale-codec`](https://github.com/LimeChain/as-scale-codec){target=\_blank}
+- **C** - [`MatthewDarnell/cScale`](https://github.com/MatthewDarnell/cScale){target=\_blank}
+- **C++** - [`soramitsu/scale-codec-cpp`](https://github.com/qdrvm/scale-codec-cpp){target=\_blank}
+- **JavaScript** - [`polkadot-js/api`](https://github.com/polkadot-js/api){target=\_blank}
+- **Dart** - [`leonardocustodio/polkadart`](https://github.com/leonardocustodio/polkadart){target=\_blank}
+- **Haskell** - [`airalab/hs-web3`](https://github.com/airalab/hs-web3/tree/master/packages/scale){target=\_blank}
+- **Golang** - [`itering/scale.go`](https://github.com/itering/scale.go){target=\_blank}
+- **Java** - [`emeraldpay/polkaj`](https://github.com/splix/polkaj){target=\_blank}
+- **Python** - [`polkascan/py-scale-codec`](https://github.com/polkascan/py-scale-codec){target=\_blank}
+- **Ruby** - [` wuminzhe/scale_rb`](https://github.com/wuminzhe/scale_rb){target=\_blank}
+- **TypeScript** - [`parity-scale-codec-ts`](https://github.com/tjjfvi/subshape){target=\_blank}, [`scale-ts`](https://github.com/unstoppablejs/unstoppablejs/tree/main/packages/scale-ts#scale-ts){target=\_blank}, [`soramitsu/scale-codec-js-library`](https://github.com/soramitsu/scale-codec-js-library){target=\_blank}, [`subsquid/scale-codec`](https://github.com/subsquid/squid-sdk/tree/master/substrate/scale-codec){target=\_blank}
 

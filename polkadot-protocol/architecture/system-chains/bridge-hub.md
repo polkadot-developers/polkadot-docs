@@ -6,18 +6,18 @@ description: Learn about the Bridge Hub system parachain, a parachain that facil
 ## Introduction
 
 The Bridge Hub system chain is responsible for providing the necessary functionality for the relay chain (and parachains) 
-to enable trustless bridging with chains like Polkadot, Kusama, and Ethereum. It includes a set of [pallets](../../glossary.md#pallet) which facilitate the sending and receiving of messages, verification of consensus and finality on Polkadot for external chains, and implementations of BEEFY, GRANDPA, and Ethereum light clients to follow and verify the state of both the relay and target chain. BridgeHub also provides XCM support for target and source chains, provided XCM is implemented on the target chain.
+to enable trustless bridging between chains like Polkadot, Kusama, and Ethereum. It includes a set of [pallets](../../glossary.md#pallet) which facilitate the sending and receiving of messages, implementations of BEEFY, GRANDPA, and Ethereum light clients to follow and verify the state of both the source and target chain. BridgeHub also provides XCM support for target and source chains, provided XCM is implemented on the target chain.
 
 ## Trustless Bridging
 
-Bridge Hub provides a mode of trustless bridging through its implementation of on-chain light clients and trustless relayers. The target chain and source chain both provide ways of verifying the state of one another, of which actions (such as a transfer) are based upon the consensus and finality of both chains rather than a third-party service or organization.
+BridgeHub provides a mode of trustless bridging through its implementation of on-chain light clients and trustless relayers. The target chain and source chain both provide ways of verifying the state of one another, of which actions (such as a transfer) are based upon the consensus and finality of both chains rather than an external mechanism controlled by a third party.
 
 BEEFY (Bridge Efficiency Enabling Finality Yielder) is instrumental in this solution. It provides a more efficient way to verify the consensus on the relay chain. It allows the participants in a network to verify finality proofs, meaning a remote chain like Ethereum can verify the state of Polkadot at a given block height.
 
 !!!info
- In this context, "trustless" refers to the lack of human trust needed when interacting with various components of a system, opting instead to trust mathematics, cryptography, and code.
+    In this context, "trustless" refers to the lack of human trust needed when interacting with various components of a system, opting instead to trust mathematics, cryptography, and code.
 
-Trustless bridges are generally two one-way bridges, where each chain has a method of verifying the state of the other in a trustless manner.
+Trustless bridges are essentially two one-way bridges, where each chain has a method of verifying the state of the other in a trustless manner through consensus proofs.
 
 For example, the Ethereum and Polkadot bridging solution that [Snowbridge](https://docs.snowbridge.network/){target=_blank} implements involves two light clients: one which verifies the state of Polkadot and the other which verifies the state of Ethereum. The light client for Polkadot is implemented in the runtime as a pallet, whereas the light client for Ethereum is implemented as a smart contract on the beacon chain.
 

@@ -7,7 +7,7 @@ description: Polkadot-API (PAPI) is a set of libraries built to be modular, comp
 
 ## Introduction
 
-[Polkadot-API](https://papi.how/){target=\_blank}(PAPI) is a set of libraries built to be modular, composable, and grounded in a “light-client first” approach. Its primary aim is to equip dApp developers with an extensive toolkit for building fully decentralized applications.
+[Polkadot-API](https://github.com/polkadot-api/polkadot-api){target=\_blank}(PAPI) is a set of libraries built to be modular, composable, and grounded in a “light-client first” approach. Its primary aim is to equip dApp developers with an extensive toolkit for building fully decentralized applications.
 
 PAPI is optimized for light-client functionality, using the new JSON-RPC spec to support decentralized interactions fully. It provides strong TypeScript support with types and documentation generated directly from on-chain metadata, and it offers seamless access to storage reads, constants, transactions, events, and runtime calls. Developers can connect to multiple chains simultaneously and prepare for runtime updates through multi-descriptor generation and compatibility checks. Polkadot-API is lightweight and performant, leveraging native BigInt, dynamic imports, and modular subpaths to avoid bundling unnecessary assets. It supports promise-based and observable-based APIs, integrates easily with Polkadot-JS extensions, and offers signing options through browser extensions or private keys.
 
@@ -87,12 +87,10 @@ With the `TypedApi`, you can read data from the blockchain using the following p
 - To read a value from the **storage**, you can use the `query` interface with the following pattern:
 
     ```typescript
-    const result = await typedApi.query.Pallet.Query.getValue(
-        arg1,
-        arg2,
-        arg3,
-        { at: "best" }
-    )
+    const asset = await api.query.ForeignAssets.Asset.getValue(
+        token.location,
+        { at: "best" },
+    );
     ```
 
 - To directly query a **Runtime API**, you can use the `apis` interface and access the API you need, for example:

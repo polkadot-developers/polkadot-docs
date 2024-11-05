@@ -21,7 +21,7 @@ A blockchain indexer is a specialized infrastructure tool that processes, organi
 - Continuously monitors the blockchain for new blocks and transactions
 - Processes and categorizes this data according to predefined schemas
 - Stores the processed data in an easily queryable database
-- Provides efficient APIs (typically GraphQL) for data retrieval
+- Provides efficient APIs (typically [GraphQL](https://graphql.org/){target=\_blank}) for data retrieval
 
 ## Indexer Implementations
 
@@ -40,7 +40,7 @@ A blockchain indexer is a specialized infrastructure tool that processes, organi
     ---
 
     SubQuery is a fast, flexible, and reliable open-source data decentralised infrastructure network that provides both RPC and indexed data to consumers worldwide.
-    The SubQuery Data Indexer is an open-source data indexer that provides you with custom APIs for your web3 project across multiple supported chains.
+    It provides custom APIs for your web3 project across multiple supported chains.
 
     [:octicons-arrow-right-24: Reference](https://subquery.network/){target=\_blank}
 

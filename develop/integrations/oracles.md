@@ -7,9 +7,9 @@ description: Learn about blockchain oracles, the essential bridges connecting bl
 
 ## What is a Blockchain Oracle?
 
-An oracle is a bridge that brings real-world data onto the blockchain for use by decentralized applications. Since blockchains are isolated systems, oracles can interact with external data sources such as price feeds, HTTP requests, and other off-chain information.
+Oracles enable blockchains to access external data sources. Since blockchains operate as isolated networks, they cannot natively interact with external systems - this limitation is known as the "blockchain oracle problem." Oracles solves this by extracting data from external sources (like APIs, IoT devices, or other blockchains), validating it, and submitting it on-chain. 
 
-Think of oracles as trusted messengers between the decentralized blockchain world and traditional data sources. They can range from simple, centralized solutions where a single trusted entity provides data to complex decentralized networks where multiple providers stake assets and face penalties for incorrect data submission.
+While simple oracle implementations may rely on a single trusted provider, more sophisticated solutions use decentralized networks where multiple providers stake assets and reach consensus on data validity. Typical applications include DeFi price feeds, weather data for insurance contracts, and cross-chain asset verification.
 
 ## Oracle Implementations
 
@@ -19,7 +19,7 @@ Think of oracles as trusted messengers between the decentralized blockchain worl
 
     ---
 
-    Acurast is a decentralized serverless cloud platform that reimagines oracle services by leveraging a network of mobile devices. Unlike traditional cloud-based solutions, Acurast addresses the challenges of centralized trust and data ownership by creating a distributed network of computing resources.
+    Acurast is a decentralized serverless cloud platform that leverages a network of mobile devices to implement oracle services. Unlike traditional cloud-based solutions, Acurast addresses the challenges of centralized trust and data ownership by creating a distributed network of computing resources.
     In the Polkadot ecosystem, Acurast enables developers to define their off-chain data and computation requirements. These requests are processed by a mobile device network that serves as decentralized oracle nodes, providing data and computation results to Substrate (WASM) and EVM environments.
 
     [:octicons-arrow-right-24: Reference](https://acurast.com/){target=\_blank}
@@ -28,7 +28,7 @@ Think of oracles as trusted messengers between the decentralized blockchain worl
 
     ---
 
-    Chainlink is an industry-leading decentralized oracle network that brings external data onto blockchains. It acts as a secure bridge between traditional data sources and blockchain networks, enabling access to real-world information reliably. In the Polkadot ecosystem, Chainlink provides the [Chainlink Feed Pallet](https://github.com/smartcontractkit/chainlink-polkadot/tree/master/pallet-chainlink-feed){target=\_blank}, a Polkadot-SDK oracle module that enables access to price reference data across your runtime logic.
+    Chainlink is a decentralized oracle network that brings external data onto blockchains. It acts as a secure bridge between traditional data sources and blockchain networks, enabling access to real-world information reliably. In the Polkadot ecosystem, Chainlink provides the [Chainlink Feed Pallet](https://github.com/smartcontractkit/chainlink-polkadot/tree/master/pallet-chainlink-feed){target=\_blank}, a Polkadot SDK-based oracle module that enables access to price reference data across your runtime logic.
 
     [:octicons-arrow-right-24: Reference](https://chain.link/){target=\_blank}
 

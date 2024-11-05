@@ -51,104 +51,25 @@ You can now set up a [`PolkadotClient`](https://github.com/polkadot-api/polkadot
 === "Smoldot(WebWorker)"
 
     ```typescript
-    // `dot` is the identifier assigned during `npx papi add`
-    import { dot } from "@polkadot-api/descriptors";
-    import { createClient } from "polkadot-api";
-    import { getSmProvider } from "polkadot-api/sm-provider";
-    import { chainSpec } from "polkadot-api/chains/polkadot";
-    import { startFromWorker } from "polkadot-api/smoldot/from-worker";
-    import SmWorker from "polkadot-api/smoldot/worker?worker";
-
-    const worker = new SmWorker();
-    const smoldot = startFromWorker(worker);
-    const chain = await smoldot.addChain({ chainSpec });
-
-    // Establish connection to the Polkadot relay chain.
-    const client = createClient(
-        getSmProvider(chain)
-    );
-
-    // To interact with the chain, obtain the `TypedApi`, which provides
-    // the necessary types for every API call on this chain
-    const dotApi = client.getTypedApi(dot);
+    --8<-- "code/develop/toolkit/api-libraries/papi/api-instantiation-smoldot-webworker.ts"
     ```
 
 === "Smoldot(Node.js)"
 
     ```typescript
-    // `dot` is the alias assigned during `npx papi add`
-    import { dot } from "@polkadot-api/descriptors";
-    import { createClient } from "polkadot-api";
-    import { getSmProvider } from "polkadot-api/sm-provider";
-    import { chainSpec } from "polkadot-api/chains/polkadot";
-    import { startFromWorker } from "polkadot-api/smoldot/from-node-worker";
-    import { fileURLToPath } from "url";
-    import { Worker } from "worker_threads";
-
-    // Get the path for the worker file in ESM
-    const workerPath = fileURLToPath(
-    import.meta.resolve("polkadot-api/smoldot/node-worker")
-    );
-
-    const worker = new Worker(workerPath);
-    const smoldot = startFromWorker(worker);
-    const chain = await smoldot.addChain({ chainSpec });
-
-    // Set up a client to connect to the Polkadot relay chain.
-    const client = createClient(
-        getSmProvider(chain)
-    );
-
-    // To interact with the chain's API, use `TypedApi` for access to
-    // all the necessary types and calls associated with this chain
-    const dotApi = client.getTypedApi(dot);
+    --8<-- "code/develop/toolkit/api-libraries/papi/api-instantiation-smoldot-nodejs.ts"
     ```
 
 === "Smoldot"
 
     ```typescript
-    // `dot` is the alias assigned when running `npx papi add`
-    import { dot } from "@polkadot-api/descriptors";
-    import { createClient } from "polkadot-api";
-    import { getSmProvider } from "polkadot-api/sm-provider";
-    import { chainSpec } from "polkadot-api/chains/polkadot";
-    import { start } from "polkadot-api/smoldot";
-
-    // Initialize Smoldot client
-    const smoldot = start();
-    const chain = await smoldot.addChain({ chainSpec });
-
-    // Set up a client to connect to the Polkadot relay chain
-    const client = createClient(
-        getSmProvider(chain)
-    );
-
-    // Access the `TypedApi` to interact with all available chain calls and types
-    const dotApi = client.getTypedApi(dot);
+    --8<-- "code/develop/toolkit/api-libraries/papi/api-instantiation-smoldot.ts"
     ```
 
 === "WSS"
 
     ```typescript
-    // `dot` is the identifier assigned when executing `npx papi add`
-    import { dot } from "@polkadot-api/descriptors";
-    import { createClient } from "polkadot-api";
-    // Use this import for Node.js environments
-    import { getWsProvider } from "polkadot-api/ws-provider/web";
-    import { withPolkadotSdkCompat } from "polkadot-api/polkadot-sdk-compat";
-
-    // Establish a connection to the Polkadot relay chain.
-    const client = createClient(
-        // The Polkadot SDK nodes may have compatibility issues; using this enhancer is recommended.
-        // Refer to the Requirements page for additional details.
-        withPolkadotSdkCompat(
-            getWsProvider("wss://dot-rpc.stakeworld.io")
-        )
-    );
-
-    // To interact with the chain, obtain the `TypedApi`, which provides
-    // the types for all available calls in that chain
-    const dotApi = client.getTypedApi(dot);
+    --8<-- "code/develop/toolkit/api-libraries/papi/api-instantiation-wss.ts"
     ```
 
 Now that you have set up the client, you can interact with the chain by reading and sending transactions.
@@ -195,12 +116,7 @@ In PAPI, the `TypedApi` provides the `tx` and `txFromCallData` methods to send t
     For instance, to execute the `balances.transferKeepAlive` call, you can use the following snippet:
 
     ```typescript
-    import { MultiAddress } from "@polkadot-api/descriptors"
-    
-    const tx: Transaction = typedApi.tx.Balances.transfer_keep_alive({
-        dest: MultiAddress.Id("INSERT_DESTINATION_ADDRESS"),
-        value: BigInt(INSERT_VALUE)
-    })
+    --8<-- "code/develop/toolkit/api-libraries/papi/send-tx-transfer-keep-alive.ts"
     ```
 
     Ensure you replace `INSERT_DESTINATION_ADDRESS` and `INSERT_VALUE` with the actual destination address and value, respectively.

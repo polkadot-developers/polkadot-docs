@@ -9,7 +9,7 @@ description: Ensure smooth runtime upgrades with storage migrations, update data
 
 Storage migrations are a crucial part of the runtime upgrade process. They allow you to update the storage layout of your blockchain, adapting to changes in the runtime. Whenever you change the encoding or data types used to represent data in storage, you'll need to provide a storage migration to ensure the runtime can correctly interpret the existing stored values in the new runtime state.
 
-Storage migrations must be executed precisely during the runtime upgrade process to ensure data consistency and prevent runtime panics. The migration code needs to run as follows:
+Storage migrations must be executed precisely during the runtime upgrade process to ensure data consistency and prevent [runtime panics](https://doc.rust-lang.org/std/macro.panic.html){target=\_blank}. The migration code needs to run as follows:
 
 - After the new runtime is deployed
 - Before any other code from the new runtime executes

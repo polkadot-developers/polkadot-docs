@@ -1,22 +1,22 @@
 ---
 title: Storage Migrations
-description: Ensure smooth runtime upgrades with storage migrations, updating data formats and preventing errors. Learn when and how to implement migrations efficiently.
+description: Ensure smooth runtime upgrades with storage migrations, update data formats, and prevent errors. Learn when and how to implement migrations efficiently.
 ---
 
 # Storage Migrations
 
 ## Introduction
 
-Storage migrations are a crucial part of the runtime upgrade process. They allow you to update the storage layout of your blockchain, adapting to changes in the runtime. Whenever you change the encoding or data types used to represent data in storage, you'll need to provide a storage migration to ensure the runtime can properly interpret the existing stored values in the new runtime state.
+Storage migrations are a crucial part of the runtime upgrade process. They allow you to update the storage layout of your blockchain, adapting to changes in the runtime. Whenever you change the encoding or data types used to represent data in storage, you'll need to provide a storage migration to ensure the runtime can correctly interpret the existing stored values in the new runtime state.
 
-Storage migrations must be executed at a precise moment during the runtime upgrade process to ensure data consistency and prevent runtime panics. The migration code needs to run:
+Storage migrations must be executed precisely during the runtime upgrade process to ensure data consistency and prevent runtime panics. The migration code needs to run as follows:
 
 - After the new runtime is deployed
 - Before any other code from the new runtime executes
 - Before any [`on_initialize`](https://paritytech.github.io/polkadot-sdk/master/frame_support/traits/trait.Hooks.html#method.on_initialize){target=\_blank} hooks run
 - Before any transactions are processed
 
-This timing is critical because the new runtime expects data to be in the updated format. Without proper migration, any attempt to decode the old data format could result in runtime panics or undefined behavior.
+This timing is critical because the new runtime expects data to be in the updated format. Any attempt to decode the old data format without proper migration could result in runtime panics or undefined behavior.
 
 ## Storage Migration Scenarios
 
@@ -42,7 +42,7 @@ The following are some common scenarios where a storage migration is needed:
     --8<-- 'code/develop/blockchains/maintenance/storage-migrations/example-1.rs'
     ```
 
-- **Changing data representation** - modifying the representation of the stored data, even if the size appears unchanged, requires a migration to ensure the runtime can properly interpret the existing values
+- **Changing data representation** - modifying the representation of the stored data, even if the size appears unchanged, requires a migration to ensure the runtime can correctly interpret the existing values
 
     ```rust
     --8<-- 'code/develop/blockchains/maintenance/storage-migrations/example-2.rs'
@@ -61,11 +61,11 @@ The following are some common scenarios where a storage migration is needed:
     ```
 
 !!!warning
-    In general, any change to the storage layout or data encoding used in your runtime requires a careful consideration of the need for a storage migration. Overlooking a necessary migration can lead to undefined behavior or data loss during a runtime upgrade.
+    In general, any change to the storage layout or data encoding used in your runtime requires carefulky considering the need for a storage migration. Overlooking a necessary migration can lead to undefined behavior or data loss during a runtime upgrade.
 
 ## Implement Storage Migrations
 
-The [`OnRuntimeUpgrade`](https://paritytech.github.io/polkadot-sdk/master/frame_support/traits/trait.OnRuntimeUpgrade.html){target=\_blank} trait provides the foundation for implementing storage migrations in your runtime. Here's a detailed look at its key functions:
+The [`OnRuntimeUpgrade`](https://paritytech.github.io/polkadot-sdk/master/frame_support/traits/trait.OnRuntimeUpgrade.html){target=\_blank} trait provides the foundation for implementing storage migrations in your runtime. Here's a detailed look at its essential functions:
 
 ```rust
 --8<-- 'code/develop/blockchains/maintenance/storage-migrations/on-runtime-upgrade-trait.rs'
@@ -77,10 +77,10 @@ The **[`on_runtime_upgrade`](https://paritytech.github.io/polkadot-sdk/master/fr
 
 - It runs before any pallet's `on_initialize` hooks
 - Critical storage items (like [`block_number`](https://paritytech.github.io/polkadot-sdk/master/frame_system/pallet/struct.Pallet.html#method.block_number){target=\_blank}) may not be set
-- Execution is mandatory and must complete
+- Execution is mandatory and must be completed
 - Careful weight calculation is required to prevent bricking the chain
 
-When implementing the actual migration logic, your code needs to handle several key responsibilities. A migration implementation must do the following to operate correctly:
+When implementing the migration logic, your code must handle several vital responsibilities. A migration implementation must do the following to operate correctly:
 
 - Read existing storage values in their original format
 - Transform data to match the new format
@@ -91,15 +91,15 @@ When implementing the actual migration logic, your code needs to handle several 
 
 The `OnRuntimeUpgrade` trait provides some functions designed specifically for testing migrations. These functions never execute on-chain but are essential for validating migration behavior in test environments. The migration test hooks are as follows:
 
-- **[`try_on_runtime_upgrade`](https://paritytech.github.io/polkadot-sdk/master/frame_support/traits/trait.OnRuntimeUpgrade.html#method.try_on_runtime_upgrade){target=\_blank}** - this function serves as the primary orchestrator for testing the complete migration process. It coordinates the execution flow from `pre-upgrade` checks through the actual migration to `post-upgrade` verification. By handling the entire migration sequence, it ensures that storage modifications occur correctly and in the proper order. This is particularly valuable when testing multiple dependent migrations, where the execution order matters
+- **[`try_on_runtime_upgrade`](https://paritytech.github.io/polkadot-sdk/master/frame_support/traits/trait.OnRuntimeUpgrade.html#method.try_on_runtime_upgrade){target=\_blank}** - this function serves as the primary orchestrator for testing the complete migration process. It coordinates the execution flow from `pre-upgrade` checks through the actual migration to `post-upgrade` verification. Handling the entire migration sequence ensures that storage modifications occur correctly and in the proper order. Preserving this sequence is particularly valuable when testing multiple dependent migrations, where the execution order matters
 
-- **[`pre_upgrade`](https://paritytech.github.io/polkadot-sdk/master/frame_support/traits/trait.Hooks.html#method.pre_upgrade){target=\_blank}** - before a runtime upgrade begins, the `pre_upgrade` function performs preliminary checks and captures the current state. It returns encoded state data that can be used for `post-upgrade` verification. This function must never modify storage - it should only read and verify the existing state. The data it returns typically includes critical state values that should remain consistent or transform predictably during migration
+- **[`pre_upgrade`](https://paritytech.github.io/polkadot-sdk/master/frame_support/traits/trait.Hooks.html#method.pre_upgrade){target=\_blank}** - before a runtime upgrade begins, the `pre_upgrade` function performs preliminary checks and captures the current state. It returns encoded state data that can be used for `post-upgrade` verification. This function must never modify storage - it should only read and verify the existing state. The data it returns includes critical state values that should remain consistent or transform predictably during migration
 
-- **[`post_upgrade`](https://paritytech.github.io/polkadot-sdk/master/frame_support/traits/trait.Hooks.html#method.post_upgrade){target=\_blank}** - after the migration completes, `post_upgrade` validates its success. It receives the state data captured by `pre_upgrade` and uses this to verify that the migration executed correctly. This function checks for storage consistency and ensures all data transformations occurred as expected. Like `pre_upgrade`, it operates exclusively in testing environments and should not modify storage
+- **[`post_upgrade`](https://paritytech.github.io/polkadot-sdk/master/frame_support/traits/trait.Hooks.html#method.post_upgrade){target=\_blank}** - after the migration completes, `post_upgrade` validates its success. It receives the state data captured by `pre_upgrade` to verify that the migration was executed correctly. This function checks for storage consistency and ensures all data transformations are completed as expected. Like `pre_upgrade`, it operates exclusively in testing environments and should not modify storage
 
 ### Migration Structure
 
-Storage migrations can be implemented using two approaches. The first method involves directly implementing `OnRuntimeUpgrade` on structs. This approach requires manually checking the on-chain storage version against the new [`StorageVersion`](https://paritytech.github.io/polkadot-sdk/master/frame_support/traits/struct.StorageVersion.html){target=\_blank} and executing the transformation logic only when the check passes. This version verification prevents multiple executions of the migration during subsequent runtime upgrades.
+There are two approaches to implementing storage migrations. The first method involves directly implementing `OnRuntimeUpgrade` on structs. This approach requires manually checking the on-chain storage version against the new [`StorageVersion`](https://paritytech.github.io/polkadot-sdk/master/frame_support/traits/struct.StorageVersion.html){target=\_blank} and executing the transformation logic only when the check passes. This version verification prevents multiple executions of the migration during subsequent runtime upgrades.
 
 The recommended approach is to implement [`UncheckedOnRuntimeUpgrade`](https://paritytech.github.io/polkadot-sdk/master/frame_support/traits/trait.UncheckedOnRuntimeUpgrade.html){target=\_blank} and wrap it with [`VersionedMigration`](https://paritytech.github.io/polkadot-sdk/master/frame_support/migrations/struct.VersionedMigration.html){target=\_blank}. `VersionedMigration` implements `OnRuntimeUpgrade` and handles storage version management automatically, following best practices and reducing potential errors.
 
@@ -150,42 +150,43 @@ This structure provides several benefits:
 
 - Separates migration logic from core pallet functionality
 - Makes migrations easier to test and maintain
-- Provides clear versioning of storage changes
+- Provides explicit versioning of storage changes
 - Simplifies the addition of future migrations
 
 ### Scheduling Migrations
 
-To execute migrations during a runtime upgrade, you need to configure them in your runtime's `Executive` pallet. Add your migrations in `runtime/src/lib.rs`:
+To execute migrations during a runtime upgrade, you must configure them in your runtime's `Executive` pallet. Add your migrations in `runtime/src/lib.rs`:
 
 ```rust
 --8<-- 'code/develop/blockchains/maintenance/storage-migrations/executive.rs'
 ```
 
-## Single Block Migrations
+## Single-Block Migrations
 
-Single block migrations execute their entire logic within one block immediately following a runtime upgrade. They run as part of the runtime upgrade process through the `OnRuntimeUpgrade` trait implementation and must complete before any other runtime logic executes.
-While single block migrations are straightforward to implement and provide immediate data transformation, they carry significant risks. The most critical consideration is that they *must* complete within one block's weight limits. This is especially crucial for parachains, where exceeding block weight limits will brick the chain.
-Use single block migrations only when you can guarantee:
+Single-block migrations execute their logic within one block immediately following a runtime upgrade. They run as part of the runtime upgrade process through the `OnRuntimeUpgrade` trait implementation and must be completed before any other runtime logic executes.
 
-- The migration has bounded execution time
+While single-block migrations are straightforward to implement and provide immediate data transformation, they carry significant risks. The most critical consideration is that they must complete within one block's weight limits. This is especially crucial for parachains, where exceeding block weight limits will brick the chain.
+
+Use single-block migrations only when you can guarantee:
+
+- The migration has a bounded execution time
 - Weight calculations are thoroughly tested
 - Total weight will never exceed block limits
 
-For a complete implementation example of a single-block migration, refer to the [single block migration example]( https://paritytech.github.io/polkadot-sdk/master/pallet_example_single_block_migrations/index.html){target=\_blank} in the Polkadot SDK documentation.
+For a complete implementation example of a single-block migration, refer to the [single-block migration example]( https://paritytech.github.io/polkadot-sdk/master/pallet_example_single_block_migrations/index.html){target=\_blank} in the Polkadot SDK documentation.
 
 ## Multi Block Migrations
 
 Multi-block migrations distribute the migration workload across multiple blocks, providing a safer approach for production environments. The migration state is tracked in storage, allowing the process to pause and resume across blocks.
-This approach is particularly valuable for production networks and parachains. The risk of exceeding block weight limits is eliminated. Multi-block migrations can safely handle large storage collections, unbounded data structures, and complex nested data types where weight consumption might be unpredictable.
 
-You should use multi-block migrations when dealing with:
+This approach is essential for production networks and parachains as the risk of exceeding block weight limits is eliminated. Multi-block migrations can safely handle large storage collections, unbounded data structures, and complex nested data types where weight consumption might be unpredictable.
+
+Multi-block migrations are ideal when dealing with:
 
 - Large-scale storage migrations
 - Unbounded storage items or collections
 - Complex data structures with uncertain weight costs
 
-The primary trade-off is increased implementation complexity, as you need to manage migration state and handle partial completion scenarios. However, this complexity is usually warranted given the significant safety benefits and operational reliability that multi-block migrations provide.
+The primary trade-off is increased implementation complexity, as you must manage the migration state and handle partial completion scenarios. However, multi-block migrations' significant safety benefits and operational reliability are typically worth the increased complexity.
 
 For a complete implementation example of multi-block migrations, refer to the [official example](https://github.com/paritytech/polkadot-sdk/tree/0d7d2177807ec6b3094f4491a45b0bc0d74d3c8b/substrate/frame/examples/multi-block-migrations){target=\_blank} in the Polkadot SDK.
-
-<!-- TODO: ADD Testing info. Try-runtime, chopsticks, etc -->

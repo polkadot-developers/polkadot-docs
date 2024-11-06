@@ -97,6 +97,10 @@ For detailed information about the consensus strategies of the [Polkadot](#polka
 
 See also [hybrid consensus](#hybrid-consensus).
 
+## Cumulus
+
+A set of libraries and tools pertaining specifically to connecting blockchains to Polkadot, known as parachains. See a lower-level definition in the Polkadot SDK Rust Docs: [Cumulus.](https://paritytech.github.io/polkadot-sdk/master/polkadot_sdk_docs/polkadot_sdk/cumulus/index.html){target=\_blank}
+
 ## Development Phrase
 
 A [mnemonic phrase](https://en.wikipedia.org/wiki/Mnemonic#For_numerical_sequences_and_mathematical_operations){target=\_blank} that is intentionally made public.

@@ -1,13 +1,13 @@
 ---
-title: Polkadot.js SDK
-description: Interact with Polkadot SDK-based chains easily using the Polkadot.js SDK. Query chain data, submit transactions, and more via JavaScript.
+title: Polkadot.js API
+description: Interact with Polkadot SDK-based chains easily using the Polkadot.js API. Query chain data, submit transactions, and more via JavaScript.
 ---
 
-# Polkadot.js SDK
+# Polkadot.js API
 
 ## Introduction
 
-The Polkadot.js SDK uses JavaScript/Typescript to interact with Polkadot SDK-based chains. It allows you to query nodes, read chain state, and submit transactions through a dynamic, auto-generated API interface.
+The [Polkadot.js API](https://github.com/polkadot-js/api){target=\_blank} uses JavaScript/Typescript to interact with Polkadot SDK-based chains. It allows you to query nodes, read chain state, and submit transactions through a dynamic, auto-generated API interface.
 
 ### Dynamic API Generation
 
@@ -21,16 +21,16 @@ Unlike traditional static APIs, the Polkadot.js API generates its interfaces aut
 
 You can access three main categories of chain interactions:
 
-1. **Constants** (`api.consts`)
+1. **[Runtime Constants](https://polkadot.js.org/docs/api/start/api.consts){target=\_blank}** (`api.consts`)
     - Access runtime constants directly
     - Returns values immediately without function calls
     - Example - `api.consts.balances.existentialDeposit`
 
-2.  **Queries** (`api.query`)
+2.  **[State Queries](https://polkadot.js.org/docs/api/start/api.query/){target=\_blank}** (`api.query`)
     - Read chain state
     - Example - `api.query.system.account(accountId)`
 
-3. **Transactions** (`api.tx`)
+3. **[Transactions](https://polkadot.js.org/docs/api/start/api.tx/){target=\_blank}** (`api.tx`)
     - Submit extrinsics (transactions)
     - Example - `api.tx.balances.transfer(accountId, value)`
 
@@ -56,6 +56,9 @@ To add the Polkadot.js SDK to your project:
     ```
 
 This command installs the latest stable release, which supports any Polkadot SDK-based chain
+
+!!!note
+    For more installation details, refer to the [Installation](https://polkadot.js.org/docs/api/start/install/){target=\_blank} section in the official Polkadot.js API documentation.
 
 ## Get Started
 

@@ -1,5 +1,5 @@
 ---
-title:  System Chain Tutorials
+title:  System Chain
 description: TODO
 hide: 
     - feedback

@@ -7,9 +7,9 @@ description: Learn about Substrate API Sidecar, a REST service that provides end
 
 ## Introduction
 
-The [Sidecar Rest API](https://github.com/paritytech/substrate-api-sidecar){target=\_blank} service offers a REST API for interacting with Polkadot SDK-based chains. This REST service provides a wide range of endpoints, allowing you to interact with nodes, accounts, transactions, parachains, and various other components of the chain.
+The [Sidecar Rest API](https://github.com/paritytech/substrate-api-sidecar){target=\_blank} is a service that provides a REST interface for interacting with Polkadot SDK-based blockchains. With this API, developers can easily access a broad range of endpoints for nodes, accounts, transactions, parachains, and more.
 
-It acts as a caching layer between your application and a Substrate node, providing standardized REST endpoints that abstract away the complexity of direct RPC calls. This makes it particularly useful for developers who prefer working with REST APIs or are building applications in languages that don't have robust WebSocket support.
+Sidecar functions as a caching layer between your application and a Polkadot SDK-based node, offering standardized REST endpoints that simplify interactions without needing complex, direct RPC calls. This approach is especially valuable for developers who prefer REST APIs or are building applications in languages with limited WebSocket support.
 
 Some of the key features of the Sidecar API include:
 
@@ -20,7 +20,7 @@ Some of the key features of the Sidecar API include:
 
 ## Installation
 
-To install Substrate API Sidecar, you can use the following command:
+To install Substrate API Sidecar, use one of the following commands:
 
 === "npm"
 
@@ -41,7 +41,7 @@ To install Substrate API Sidecar, you can use the following command:
     ```
 
 !!! note
-    Substrate API Sidecar requires Node.js version 18.14 LTS or higher. Ensure you have Node.js installed on your system.
+    Sidecar API requires Node.js version 18.14 LTS or higher. Verify your Node.js version:
 
     ```bash
     node --version
@@ -49,7 +49,7 @@ To install Substrate API Sidecar, you can use the following command:
 
     If you need to install or update Node.js, visit the [official Node.js website](https://nodejs.org/){target=\_blank} to download and install the latest LTS version.
 
-You can check the installation was successful by running:
+You can confirm the installation by running:
 
 ```bash
 substrate-api-sidecar --version
@@ -57,92 +57,44 @@ substrate-api-sidecar --version
 
 ## Usage
 
-To use Sidecar API you have two alternatives:
+To use the Sidecar API, you have two options:
 
-- Run a node locally on your machine, by default Sidecar API assumes that this is happening so it doesn't need any additional config parameter. In this case, you need to execute the following command:
+- Local node - run a Substrate node locally, which Sidecar will connect to by default, requiring no additional configuration. To start, run:
     ```
     substrate-api-sidecar
     ```
-- Get access to the provided REST services by the API, to obtain information about a production node. In this case, you need to specify the rpc endpoint of that chain. For example, to access to Polkadot Asset Hub, you can run:
-
+- Remote Node - connect Sidecar to a remote node by specifying the RPC endpoint for that chain. For example, to gain access to the Polkadot Asset Hub associated endpoints:
     ```
     SAS_SUBSTRATE_URL=wss://polkadot-asset-hub-rpc.polkadot.io substrate-api-sidecar
     ```
 
     !!! note
-        You can read more about the Sidecar API settings on the [Configuration](https://github.com/paritytech/substrate-api-sidecar?tab=readme-ov-file#configuration){target=\_blank} section of the official documentation.
+        More configuration details are available in the [Configuration](https://github.com/paritytech/substrate-api-sidecar?tab=readme-ov-file#configuration){target=\_blank} section of the Sidecar API documentation.
 
-Once you have Sidecar API running on your terminal, you will see the following output:
+Once the Sidecar API is running, you’ll see output similar to this:
 
-<div id="termynal" data-termynal>
-    <span data-ty='input'><span class='file-path'></span>SAS_SUBSTRATE_URL=wss://polkadot-asset-hub-rpc.polkadot.io substrate-api-sidecar</span>
-    <br>
-    <span data-ty>SAS:</span>
-    <span data-ty>📦 LOG:</span>
-    <span data-ty>   ✅ LEVEL: "info"</span>
-    <span data-ty>   ✅ JSON: false</span>
-    <span data-ty>   ✅ FILTER_RPC: false</span>
-    <span data-ty>   ✅ STRIP_ANSI: false</span>
-    <span data-ty>   ✅ WRITE: false</span>
-    <span data-ty>   ✅ WRITE_PATH: "/opt/homebrew/lib/node_modules/@substrate/api-sidecar/build/src/logs"</span>
-    <span data-ty>   ✅ WRITE_MAX_FILE_SIZE: 5242880</span>
-    <span data-ty>   ✅ WRITE_MAX_FILES: 5</span>
-    <span data-ty>📦 SUBSTRATE:</span>
-    <span data-ty>   ✅ URL: "wss://polkadot-asset-hub-rpc.polkadot.io"</span>
-    <span data-ty>   ✅ TYPES_BUNDLE: undefined</span>
-    <span data-ty>   ✅ TYPES_CHAIN: undefined</span>
-    <span data-ty>   ✅ TYPES_SPEC: undefined</span>
-    <span data-ty>   ✅ TYPES: undefined</span>
-    <span data-ty>   ✅ CACHE_CAPACITY: undefined</span>
-    <span data-ty>📦 EXPRESS:</span>
-    <span data-ty>   ✅ BIND_HOST: "127.0.0.1"</span>
-    <span data-ty>   ✅ PORT: 8080</span>
-    <span data-ty>   ✅ KEEP_ALIVE_TIMEOUT: 5000</span>
-    <span data-ty>📦 METRICS:</span>
-    <span data-ty>   ✅ ENABLED: false</span>
-    <span data-ty>   ✅ PROM_HOST: "127.0.0.1"</span>
-    <span data-ty>   ✅ PROM_PORT: 9100</span>
-    <span data-ty>   ✅ LOKI_HOST: "127.0.0.1"</span>
-    <span data-ty>   ✅ LOKI_PORT: 3100</span>
-    <span data-ty>   ✅ INCLUDE_QUERYPARAMS: false</span>
-    <br>
-    <span data-ty>2024-11-06 08:06:01 info: Version: 19.3.0</span>
-    <span data-ty>2024-11-06 08:06:02 warn: API/INIT: RPC methods not decorated: chainHead_v1_body, chainHead_v1_call, chainHead_v1_continue, chainHead_v1_follow, chainHead_v1_header, chainHead_v1_stopOperation, chainHead_v1_storage, chainHead_v1_unfollow, chainHead_v1_unpin, chainSpec_v1_chainName, chainSpec_v1_genesisHash, chainSpec_v1_properties, transactionWatch_v1_submitAndWatch, transactionWatch_v1_unwatch, transaction_v1_broadcast, transaction_v1_stop</span>
-    <span data-ty>2024-11-06 08:06:02 info: Connected to chain Polkadot Asset Hub on the statemint client at wss://polkadot-asset-hub-rpc.polkadot.io</span>
-    <span data-ty>2024-11-06 08:06:02 info: Listening on http://127.0.0.1:8080/</span>
-    <span data-ty>2024-11-06 08:06:02 info: Check the root endpoint (http://127.0.0.1:8080/) to see the available endpoints for the current node</span>
-</div>
+--8<-- 'code/develop/toolkit/api-libraries/sidecar/terminal-output.md'
 
-As you can see in the output above, the Sidecar API is running and listing to incoming REST request on `http://127.0.0.1:8080/`, now you can get access to the exposed endpoints via a browser, Postman, curl, or the tool of your choice. 
+With Sidecar running, you can access the exposed endpoints via a browser, [`Postman`](https://www.postman.com/){target=\_blank}, [`curl`](https://curl.se/){target=\_blank}, or your preferred tool.
 
 ### Endpoints
 
-The Sidecar API exposes a set of REST endpoints that allow you to query different aspects of the chain, such as blocks, accounts, transactions, and more. Each endpoint is designed to provide specific information about the chain's state and operations.
+Sidecar API provides a set of REST endpoints that allow you to query different aspects of the chain, including blocks, accounts, and transactions. Each endpoint offers specific insights into the chain’s state and activities.
 
-For example, you can get the node version of the running chain by using the `/node/version/` endpoint:
+For example, to retrieve the version of the node, use the `/node/version` endpoint:
 
 ```bash
-curl -X 'GET' \
-  'http://127.0.0.1:8080/node/version' \
-  -H 'accept: application/json'
+--8<-- 'code/develop/toolkit/api-libraries/sidecar/get-node-version.md'
 ```
 !!! note
-    You can also open the `http://127.0.0.1:8080/node/version` url on your browser to get the same results since this is a `GET` request.
+    Alternatively, you can access `http://127.0.0.1:8080/node/version` directly in a browser since it’s a `GET` request.
 
-And you will see the following output (in case you are running your sidecar api to against the Polkadot Asset Hub RPC endpoint):
+In response, you’ll see output similar to this (assuming you’re connected to Polkadot Asset Hub):
 
-<div id="termynal" data-termynal>
-    <span data-ty="input"><span class="file-path"></span>curl -X 'GET' 'http://127.0.0.1:8080/node/version' -H 'accept: application/json'</span>
-    <br>
-    <span data-ty>{</span>
-    <span data-ty>    "clientVersion": "1.16.1-835e0767fe8",</span>
-    <span data-ty>    "clientImplName": "statemint",</span>
-    <span data-ty>    "chain": "Polkadot Asset Hub"</span>
-    <span data-ty>}</span>
-</div>
+--8<-- 'code/develop/toolkit/api-libraries/sidecar/asset-hub-node-version-response.md'
 
-For a complete list of the available endpoints and their detailed documentation, you can visit the official [Sidecar API documentation](https://paritytech.github.io/substrate-api-sidecar/dist/){target=\_blank}. That page, will help you to know which are the endpoints that are exposed by Sidecar API and also to build simple queries against them.
+For a complete list of available endpoints and their documentation, visit the [Sidecar API list endpoints](https://paritytech.github.io/substrate-api-sidecar/dist/){target=\_blank}. You can learn about the endpoints and how to use them in your applications.
 
 ## Next Steps
 
-To learn further about Sidecar API, you can refer to the [official documentation](https://github.com/paritytech/substrate-api-sidecar?tab=readme-ov-file#substrateapi-sidecar){target=\_blank}.
+To dive deeper, refer to the [official Sidecar documentation](https://github.com/paritytech/substrate-api-sidecar?tab=readme-ov-file#substrateapi-sidecar){target=\_blank}. This will provide a comprehensive guide to the available configurations and advanced usage.

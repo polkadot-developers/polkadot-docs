@@ -109,7 +109,7 @@ The following example illustrates a condensed and annotated section of metadata 
 
 ```json
 
---8<-- 'code/develop/blockchains/get-started/intro-blockchain-dev/metadata-format.json'
+--8<-- 'code/polkadot-protocol/basics/chain-data/metadata-format.json'
 
 ```
 
@@ -127,7 +127,7 @@ The following is a condensed and annotated example of metadata for a single elem
 
 ```json
 
---8<-- 'code/develop/blockchains/get-started/intro-blockchain-dev/sudo-metadata.json'
+--8<-- 'code/polkadot-protocol/basics/chain-data/sudo-metadata.json'
 
 ```
 
@@ -136,7 +136,7 @@ Every element metadata contains the name of the pallet it represents and informa
 For example, the following is a condensed excerpt of the calls for the Sudo pallet:
 
 ```json
---8<-- 'code/develop/blockchains/get-started/intro-blockchain-dev/sudo-metadata-calls.json'
+--8<-- 'code/polkadot-protocol/basics/chain-data/sudo-metadata-calls.json'
 ```
 
 For each field, you can access type information and metadata for the following:
@@ -157,7 +157,7 @@ The runtime generates extrinsic metadata and provides useful information about t
 For example:
 
 ```json
---8<-- 'code/develop/blockchains/get-started/intro-blockchain-dev/extrinsic-metadata.json'
+--8<-- 'code/polkadot-protocol/basics/chain-data/extrinsic-metadata.json'
 ```
 
 The type system is [composite](https://paritytech.github.io/polkadot-sdk/master/polkadot_sdk_docs/reference_docs/frame_runtime_types/index.html){target=\_blank}, meaning each type identifier contains a reference to a specific type or to another type identifier that provides information about the associated primitive types.

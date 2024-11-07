@@ -247,11 +247,18 @@ Similar to how BTC's smallest unit is the **Satoshi** and ETH's is the **Wei**, 
 
 ## What are the uses of DOT?
 
-DOT serves four primary functions within the Polkadot network:
+DOT serves three primary functions within the Polkadot network:
 
 1. **Governance** - it is used to participate in the governance of the network
 2. **Staking** - DOT is staked to support the network’s operation and security
-3. **Bonding** - it is bonded to connect new chains to Polkadot as parachains
-4. **Buying Coretime** - used to purchase coretime in-bulk or on-demand and access the  chain to benefit from Polkadot's security and interoperability
+3. **Buying Coretime** - used to purchase coretime in-bulk or on-demand and access the  chain to benefit from Polkadot's security and interoperability
 
 Additionally, DOT can serve as a transferable token. For example, DOT held in the Treasury can be allocated to teams developing projects that benefit the Polkadot ecosystem.
+
+## JAM and the Road Ahead
+
+The Join-Accumulate Machine (JAM) represents a transformative redesign of Polkadot's core architecture, envisioned as the successor to the current relay chain. Unlike traditional blockchain architectures, JAM introduces a unique computational model that processes work through two primary functions: Join (which handles the integration of data) and Accumulate (which folds computations into the chain's state). 
+
+Operating as a domain-specific rollup chain, JAM removes many of the opinions and constraints of the current relay chain while maintaining its core security properties. It's designed to be more generic and flexible, allowing for permissionless code execution through "services" that can be deployed without governance approval. What makes JAM particularly innovative is its transactionless nature and its efficient pipeline processing model, which places the prior state root in block headers instead of the posterior state root, enabling more effective utilization of block time for computations. This architectural evolution promises to enhance Polkadot's scalability and flexibility while maintaining its robust security guarantees.
+
+Also of note, JAM is planned to be rolled out to Polkadot as a single, complete upgrade, rather than a steady stream of smaller updates, which can have a tendency to increase developer overhead in addressing breaking changes. 

@@ -37,7 +37,7 @@ As a Layer-0 blockchain, Polkadot contributes to the multi-chain vision through 
 
 Polkadot features a chain that serves as the central component of the system. This chain is depicted as a ring, encircled by several parachains that are connected to it. 
 
-According to Polkadot's design, any chain that can compile to WebAssembly (Wasm) and complies with the  chain's API can integrate into the Polkadot network as a parachain.
+According to Polkadot's design, any blockchain that can compile to WebAssembly (Wasm) and adheres to the Parachains Protocol become a parachain on the Polkadot network.
 
 Here’s a high-level overview of the Polkadot protocol architecture
 

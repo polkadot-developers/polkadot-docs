@@ -117,26 +117,14 @@ The last step before running the benchmarking tool is to ensure that the benchma
 Create another file in the node's directory called `benchmarks.rs`. This is where the pallets you wish to benchmark will be registered. This file should contain the following macro, which registers all pallets for benchmarking, as well as their respective configurations: 
 
 ```rust
-frame_benchmarking::define_benchmarks!(
- [frame_system, SystemBench::<Runtime>]
- [pallet_balances, Balances]
- [pallet_session, SessionBench::<Runtime>]
- [pallet_timestamp, Timestamp]
- [pallet_message_queue, MessageQueue]
- [pallet_sudo, Sudo]
- [pallet_collator_selection, CollatorSelection]
- [cumulus_pallet_parachain_system, ParachainSystem]
- [cumulus_pallet_xcmp_queue, XcmpQueue]
-);
+--8<-- 'code/develop/blockchains/custom-blockchains/benchmarking/frame-benchmark-macro.rs'
 ```
 
 For example, if the pallet named `pallet_parachain_template` is ready to be benchmarked, it may be added as follows: 
 
-```rust hl_lines="3"
+```rust hl_lines="2"
 frame_benchmarking::define_benchmarks!(
-    // ...
  [pallet_parachain_template, TemplatePallet]
-    // ...
 );
 ```
 
@@ -181,40 +169,21 @@ Once it is compiled with the correct feature set, you can run the benchmarking t
 The result should be a `weights.rs` file containing the types you can use to annotate your extrinsic with the correctly balanced weights in your runtime. The output should be similar to the following. Some output has been omitted for brevity: 
 
 ```sh
-2024-10-28 11:07:25 Loading WASM from ./target/release/wbuild/educhain-runtime/educhain_runtime.wasm
-2024-10-28 11:07:26 Could not find genesis preset 'development'. Falling back to default.
-2024-10-28 11:07:26 assembling new collators for new session 0 at #0
-2024-10-28 11:07:26 assembling new collators for new session 1 at #0
-2024-10-28 11:07:26 Loading WASM from ./target/release/wbuild/educhain-runtime/educhain_runtime.wasm
-Pallet: "pallet_parachain_template", Extrinsic: "do_something", Lowest values: [], Highest values: [], Steps: 20, Repeat: 10
-
-# ... Storage Info, Median Slopes, and Min Squares Analysis ...
-
-Created file: "weights.rs"
-2024-10-28 11:07:27 [  0 % ] Starting benchmark: pallet_parachain_template::do_something
-2024-10-28 11:07:27 [ 50 % ] Starting benchmark: pallet_parachain_template::cause_error
+--8<-- 'code/develop/blockchains/custom-blockchains/benchmarking/benchmark-output.txt'
 ```
 
 ### Adding Benchmarked Weights to Pallet
 
 Once the `weights.rs` is generated, you may add the generated weights to your pallet. It is common that `weights.rs` become part of your pallet's root in `src/`:
-```rust
-use crate::weights::WeightInfo;
 
-/// Configure the pallet by specifying the parameters and types on which it depends.
-#[pallet::config]
-pub trait Config: frame_system::Config {
-    /// A type representing the weights required by the dispatchables of this pallet.
-    type WeightInfo: WeightInfo;
-}
+```rust
+--8<-- 'code/develop/blockchains/custom-blockchains/benchmarking/weight-config.rs'
 ```
 
 After which, you may add this to the `#[pallet::weight]` annotation in the extrinsic via the `Config`: 
 
 ```rust hl_lines="2"
-#[pallet::call_index(0)]
-#[pallet::weight(T::WeightInfo::do_something())]
-pub fn do_something(origin: OriginFor<T>, bn: u32) -> DispatchResultWithPostInfo { ... }
+--8<-- 'code/develop/blockchains/custom-blockchains/benchmarking/dispatchable-pallet-weight.rs'
 ```
 
 ## What's Next

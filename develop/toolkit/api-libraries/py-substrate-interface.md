@@ -9,7 +9,7 @@ description: Learn how to connect to Polkadot SDK-based nodes, query data, submi
 
 This Python library specializes in interfacing with a Polkadot SDK-based node, querying storage, composing extrinsics, SCALE encoding/decoding, and providing additional convenience methods to deal with the features and metadata of the Substrate runtime.
 
-The Python Substrate Interface is a powerful library that enables interaction with Polkadot SDK-based chains. It provides essential functionality for:
+The [Python Substrate Interface](https://github.com/polkascan/py-substrate-interface){target=\_blank} is a powerful library that enables interaction with Polkadot SDK-based chains. It provides essential functionality for:
 
 - Querying on-chain storage
 - Composing and submitting extrinsics
@@ -25,6 +25,9 @@ Install the library using pip:
 pip install substrate-interface
 ```
 
+!!!note
+    For more installation details, refer to the [Installation](https://polkascan.github.io/py-substrate-interface/getting-started/installation/){target=\_blank} section in the official Python Substrate Interface documentation.
+
 ## Get Started
 
 This guide will walk you through the basic operations with the Python Substrate Interface: connecting to a node, reading chain state, and submitting transactions.
@@ -39,7 +42,13 @@ The first step is to establish a connection to a Polkadot SDK-based node. You ca
 
 ### Reading Chain State
 
-You can query various on-chain storage items. Here's how to check an account's balance and other details:
+You can query various on-chain storage items. To retrieve data, you need to specify three key pieces of information:
+
+- **Pallet name** - module or pallet that contains the storage item you want to access
+- **Storage item** - specific storage entry you want to query within the pallet
+- **Required parameters** - any parameters needed to retrieve the desired data
+
+Here's an example of how to check an account's balance and other details:
 
 ```py
 --8<-- 'code/develop/toolkit/api-libraries/py-substrate-interface/read_state.py'

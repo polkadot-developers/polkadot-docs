@@ -25,7 +25,7 @@ And also, `pallet_b` exposes a call that interacts with `pallet_a`:
 --8<-- "code/develop/blockchains/testing/runtime/pallet-b-call.rs"
 ```
 
-In this first test, a call to `pallet_a` is simulated, and the internal state is checked to ensure it updates correctly. The block number is also checked to ensure it advances as expected.
+In this first test, a call to `pallet_a` is simulated, and the internal state is checked to ensure it updates correctly. The block number is also checked to ensure it advances as expected:
 
 ```rust
 --8<-- "code/develop/blockchains/testing/runtime/pallet-a-integration-test.rs"

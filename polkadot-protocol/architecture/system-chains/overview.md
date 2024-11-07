@@ -34,6 +34,30 @@ KSM. In fact, there will likely be a system parachain specifically for network g
 
 ## Existing System Chains
 
+```mermaid
+---
+title: System Parachains at a Glance
+---
+flowchart TB
+    subgraph POLKADOT["Polkadot"]
+        direction LR
+            PAH["Polkadot Asset Hub"]
+            PCOL["Polkadot Collectives"]
+            PBH["Polkadot Bridge Hub"]
+            PPC["Polkadot People Chain"]
+            PCC["Polkadot Coretime Chain"]
+    end
+
+    subgraph KUSAMA["Kusama"]
+        direction LR
+            KAH["Kusama Asset Hub"]
+            KBH["Kusama Bridge Hub"]
+            KPC["Kusama People Chain"]
+            KCC["Kusama Coretime Chain"]
+            E["Encointer"]
+        end
+```
+
 !!!tip
     All system parachains are on both Polkadot and Kusama, except the [Collectives](#collectives) and [Encointer](#encointer) system parachains. The Collectives parachain is only on Polkadot, and the Encointer system parachain is only on Kusama.
 

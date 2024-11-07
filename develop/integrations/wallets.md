@@ -11,8 +11,8 @@ A wallet serves as your gateway to interacting with blockchain networks. Rather 
 
 Wallet types fall into two categories based on their connection to the internet:
 
-- [**Hot Wallets**](#hot-wallets) - online storage through websites, browser extensions or smartphone apps
-- [**Cold Wallets**](#cold-wallets) - offline storage using hardware devices or air-gapped systems
+- [**Hot wallets**](#hot-wallets) - online storage through websites, browser extensions or smartphone apps
+- [**Cold wallets**](#cold-wallets) - offline storage using hardware devices or air-gapped systems
 
 ## Hot Wallets
 

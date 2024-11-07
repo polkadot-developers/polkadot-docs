@@ -59,7 +59,7 @@ Here's how to create and submit a balance transfer:
 ```
 
 !!!note
-    The keypair object is essential for signing transactions. See the [Keypair documentation](https://polkascan.github.io/py-substrate-interface/usage/keypair-creation-and-signing/){target=\_blank} for more details.
+    The `keypair` object is essential for signing transactions. See the [Keypair](https://polkascan.github.io/py-substrate-interface/usage/keypair-creation-and-signing/){target=\_blank} documentation for more details.
 
 ## Next Steps
 
@@ -69,4 +69,4 @@ Now that you understand the basics, you can:
 - Learn about batch transactions and utility functions
 - Discover how to work with custom pallets and types
 
-For comprehensive documentation and advanced features, visit the [py-substrate-interface documentation](https://polkascan.github.io/py-substrate-interface/){target=\_blank}.
+For comprehensive reference materials and advanced features, visit the [py-substrate-interface](https://polkascan.github.io/py-substrate-interface/){target=\_blank} documentation.

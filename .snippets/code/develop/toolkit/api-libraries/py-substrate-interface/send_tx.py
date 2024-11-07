@@ -1,6 +1,6 @@
 #...
 
-# 1. Compose the transfer call
+# Compose the transfer call
 call = substrate.compose_call(
     call_module="Balances",  # The pallet name
     call_function="transfer_keep_alive",  # The extrinsic function
@@ -10,12 +10,12 @@ call = substrate.compose_call(
     }
 )
 
-# 2. Create a signed extrinsic
+# Create a signed extrinsic
 extrinsic = substrate.create_signed_extrinsic(
     call=call, keypair=keypair  # Your keypair for signing
 )
 
-# 3. Submit and wait for inclusion
+# Submit and wait for inclusion
 receipt = substrate.submit_extrinsic(
     extrinsic, wait_for_inclusion=True  # Wait until the transaction is in a block
 )

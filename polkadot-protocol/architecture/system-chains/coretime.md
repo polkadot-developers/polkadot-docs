@@ -7,9 +7,9 @@ description: Learn about the role of the Coretime system parachain, which facili
 
 The Coretime system chain facilitates the allocation, procurement, sale, and scheduling of bulk [coretime](../../glossary.md#coretime), enabling tasks (such as [parachains](../../glossary.md#parachain)) to utilize the computation and security provided by Polkadot. 
 
-The [Broker pallet](https://paritytech.github.io/polkadot-sdk/master/pallet_broker/index.html){target=_blank}, along with [Cross Consensus Messaging (XCM)](todo:addlink), enables this functionality to be delegated to the system chain, rather than on the relay chain. Using XCMP's Upward Message Passing (UMP) to the relay chain allows for core assignments to take place for a task registered on the relay chain.
+The [Broker pallet](https://paritytech.github.io/polkadot-sdk/master/pallet_broker/index.html){target=_blank}, along with [Cross Consensus Messaging (XCM)](todo:addlink), enables this functionality to be delegated to the system chain rather than the relay chain. Using XCMP's Upward Message Passing (UMP) to the relay chain allows for core assignments to take place for a task registered on the relay chain.
 
-The specification for the Coretime system chain, along with Coretime as a concept, can be found in the Fellowship RFC: [RFC-1: Agile Coretime](https://github.com/polkadot-fellows/RFCs/blob/main/text/0001-agile-coretime.md){target=_blank}. 
+The Fellowship RFC: [RFC-1: Agile Coretime](https://github.com/polkadot-fellows/RFCs/blob/main/text/0001-agile-coretime.md){target=_blank} contains the specification for the Coretime system chain and Coretime as a concept.
 
 Besides core management, its responsibilities include: 
 
@@ -29,7 +29,7 @@ The details for this interface can be found in [RFC-5: Coretime Interface](https
 The Coretime chain allocates coretime before its usage. It also manages the ownership of a core. As cores are made up of regions (by default, one core is a single region), a region is recognized as a non-fungible asset. The Coretime chain exposes Regions over XCM as an NFT. Users can transfer individual regions, partition, interlace, or allocate them to a task. Regions describe how a task may use a core.
 
 !!!info "One core can contain more than one region."
- A core can be considered a logical representation of an active validator set on the relay chain, where these validators commit to verifying the state changes for a particular task running on that region. With partitioning, having more than one region per core is possible, allowing for different computational schemes. Therefore, running more than one task on a single core is possible.
+    A core can be considered a logical representation of an active validator set on the relay chain, where these validators commit to verifying the state changes for a particular task running on that region. With partitioning, having more than one region per core is possible, allowing for different computational schemes. Therefore, running more than one task on a single core is possible.
 
 <!-- TODO: Some sort of diagram of this would be pretty helpful, maybe -->
 

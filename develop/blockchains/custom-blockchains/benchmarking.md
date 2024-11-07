@@ -39,7 +39,7 @@ Within FRAME, each function call that is dispatched must have a `#[pallet::weigh
 pub fn do_something(origin: OriginFor<T>, bn: u32) -> DispatchResultWithPostInfo { ... }
 ```
 
-The benchmarking framework automatically generates a file with those formulas for you, as is the case with `T::WeightInfo::do)_something()`, which contains the weight measurements for that specific extrinsic post benchmarking.
+The benchmarking framework automatically generates a file with those formulas for you, as is the case with `T::WeightInfo::do_something()`, which contains the weight measurements for that specific extrinsic post benchmarking.
 
 ## Benchmarking Steps
 
@@ -175,7 +175,7 @@ Once it is compiled with the correct feature set, you can run the benchmarking t
 
 - `--runtime` - the path to your runtime's Wasm
 - `--pallet` - the name of the pallet you wish to benchmark. This pallet must be configured in your runtime and defined in `define_benchmarks`
-- `--extrinsic` - which extrinsic to test. Using `*` implies all extrinsics will be benchmarked
+- `--extrinsic` - which extrinsic to test. Using `'*'` implies all extrinsics will be benchmarked
 - `--output` - where the output of the auto-generated weights will reside
 
 The result should be a `weights.rs` file containing the types you can use to annotate your extrinsic with the correctly balanced weights in your runtime. The output should be similar to the following. Some output has been omitted for brevity: 

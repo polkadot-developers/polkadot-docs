@@ -66,7 +66,7 @@ The new and more efficient way of obtaining core on Polkadot is to go through pr
 
 [**Agile Coretime**](add link to Agile Coretime page) improves the efficient use of Polkadot's network resources and offers economic flexibility for developers, extending Polkadot's capabilities far beyond the original vision outlined in its [whitepaper](https://polkadot.com/papers/Polkadot-whitepaper.pdf){target=\_blank}.
 
-It enables parachains to purchase monthly "bulk" allocations of **coretime**(The time allocated for utilizing a core, measured in Polkadot relay chain blocks), ensuring heavy-duty parachains that need to author a block every 12 seconds (or every 6 seconds with [Asynchronous Backing](add link to async backing page)) can reliably renew their coretime each month. 
+It enables parachains to purchase monthly "bulk" allocations of **coretime**(The time allocated for utilizing a core, measured in Polkadot relay chain blocks), ensuring heavy-duty parachains that can author a block every 6 seconds with [Asynchronous Backing](add link to async backing page) can reliably renew their coretime each month. Although six second block times is now the default, parachains have the option of producing blocks less frequently. 
 
 Renewal orders are prioritized over new orders, offering stability against price fluctuations and helping parachains budget more effectively for their project costs.
 

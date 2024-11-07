@@ -9,7 +9,7 @@ description: Explains how to use the Polkadot SDK runtime toolbox and Docker to 
 
 By default, the Rust compiler produces optimized Wasm binaries. These binaries are suitable for working in an isolated environment, such as local development. However, the Wasm binaries the compiler builds by default aren't guaranteed to be deterministically reproducible. Each time the compiler generates the Wasm runtime, it might produce a slightly different Wasm byte code. This is problematic in a blockchain network where all nodes must use exactly the same raw chain specification file.
 
-Working with builds that aren't guaranteed to be deterministically reproducible can cause other problems, too. For example, for automating the build processes for a blockchain, it is ideal that the same code always produces the same result (in terms of bytecode). Without a deterministic build, compiling the Wasm runtime with every push would produce inconsistent and unpredictable results without a deterministic build, making it difficult to integrate with any automation and likely to continuously break a CI/CD pipeline. Deterministic builds—code that always compiles to exactly the same bytecode—ensure that the Wasm runtime can be inspected, audited, and independently verified.
+Working with builds that aren't guaranteed to be deterministically reproducible can cause other problems, too. For example, for automating the build processes for a blockchain, it is ideal that the same code always produces the same result (in terms of bytecode). Compiling the Wasm runtime with every push would produce inconsistent and unpredictable results without a deterministic build, making it difficult to integrate with any automation and likely to break a CI/CD pipeline continuously. Deterministic builds—code that always compiles to exactly the same bytecode—ensure that the Wasm runtime can be inspected, audited, and independently verified.
 
 ## Prerequisites
 
@@ -83,12 +83,12 @@ srtool build --app --package INSERT_RUNTIME_PACKAGE_NAME --runtime-dir INSERT_RU
     node/
     pallets/
     runtime/
-        lib.rs
-        Cargo.toml # INSERT_RUNTIME_PATH should be the path to this file
+    ├──lib.rs
+    └──Cargo.toml # INSERT_RUNTIME_PATH should be the path to this file
     ...
     ```
 
-- If the `Cargo.toml` file for the runtime is located in a `runtime` subdirectory, for example, `runtime/kusama`,  the `--runtime-dir` parameter can be omitted
+- If the `Cargo.toml` file for the runtime is located in a `runtime` subdirectory, for example, `runtime/kusama`, the `--runtime-dir` parameter can be omitted
 
 ## Use srtool in GitHub Actions
 
@@ -96,7 +96,7 @@ To add a GitHub workflow for building the runtime:
 
 1. Create a `.github/workflows` directory in the chain's directory
 2. In the `.github/workflows` directory, click **Add file**, then select **Create new file**
-3. Copy the sample GitHub action from `basic.yml` example in the [srtools-actions](https://github.com/chevdor/srtool-actions){target=\_blank} repository and paste it into the file you created in the previous step
+3. Copy the sample GitHub action from `basic.yml` example in the [`srtools-actions`](https://github.com/chevdor/srtool-actions){target=\_blank} repository and paste it into the file you created in the previous step
 
     ??? interface "`basic.yml`"
 

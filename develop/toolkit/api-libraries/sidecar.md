@@ -55,6 +55,8 @@ You can confirm the installation by running:
 substrate-api-sidecar --version
 ```
 
+For more information about the Sidecar API installation, please refer to the [official documentation](https://github.com/paritytech/substrate-api-sidecar?tab=readme-ov-file#npm-package-installation-and-usage){target=\_blank}.
+
 ## Usage
 
 To use the Sidecar API, you have two options:

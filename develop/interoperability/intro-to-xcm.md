@@ -1,7 +1,8 @@
 ---
 title: Introduction to XCM
-description: A basic introduction to the world of XCM. Covering a range of topics that will help you get started with learning XCM and its usecases.
+description: A basic introduction to the world of XCM, covering a range of topics that will help you get started with learning XCM and its use cases.
 ---
+
 # Introduction to XCM
 
 ## What is 'XCM' - Cross-Consensus Messaging?

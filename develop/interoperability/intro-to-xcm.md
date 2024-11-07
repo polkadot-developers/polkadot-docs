@@ -40,19 +40,12 @@ These four crucial design decisions allow for XCM messages to be a reliable yet 
 </figure>
 
 ## Core Functionalities of XCM
-Some of the key features and additions to cross-consensus messaging include
 
-* **Programmability**
+Some of the key features and additions to cross-consensus messaging include:
 
-    The ability to have expectations for messages, which allow for more comprehensive use cases, safe dispatches for version checking, branching, and NFT/Asset support.
-
-* **Functional Multichain Decomposition**
-
-    The ability to define mechanisms to cross-reference and perform actions on other chains on behalf of the origin chain (remote locking), context/id for these messages, and asset namespacing.
-
-* **Bridging**
-
-    Introduces the concept of a universal location, which allows for a base reference for global consensus systems for multi-hop setups. This location is above the parent relay chain or other consensus systems like Ethereum or Bitcoin.
+- **Programmability** - the ability to set expectations for messages, allowing for more comprehensive use cases, safe dispatches for version checking, branching, and NFT/Asset support
+- **Functional Multichain Decomposition** - the ability to define mechanisms for cross-referencing and performing actions on other chains on behalf of the originating chain (remote locking), context/id for these messages, and asset namespacing
+- **Bridging** - introduces the concept of a universal location, which allows for a base reference for global consensus systems in multi-hop setups. This location is above the parent relay chain and other consensus systems like Ethereum or Bitcoin.
 
 A core part of the vision that XCM provides is improving communication between the chains to make system parachains a reality. For example, the Polkadot relay chain handles more than just parachain management and shared security - it handles user balances/assets, governance, and staking. Ideally, the relay chain should be for what it's intended to be - a place for shared security. System parachains can alleviate these core responsibilities from the relay chain but only by using a standard format like XCM.
 

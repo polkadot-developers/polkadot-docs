@@ -122,9 +122,8 @@ Create another file in the node's directory called `benchmarks.rs`. This is wher
 
 For example, if the pallet named `pallet_parachain_template` is ready to be benchmarked, it may be added as follows: 
 
-```rust hl_lines="2"
-frame_benchmarking::define_benchmarks!(
- [pallet_parachain_template, TemplatePallet]
+```rust hl_lines="3"
+--8<-- 'code/develop/blockchains/custom-blockchains/benchmarking/frame-benchmark-macro.rs::3'
 );
 ```
 

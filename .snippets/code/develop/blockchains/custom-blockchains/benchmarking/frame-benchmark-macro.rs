@@ -1,5 +1,6 @@
 frame_benchmarking::define_benchmarks!(
     [frame_system, SystemBench::<Runtime>]
+    [pallet_parachain_template, TemplatePallet]
     [pallet_balances, Balances]
     [pallet_session, SessionBench::<Runtime>]
     [pallet_timestamp, Timestamp]

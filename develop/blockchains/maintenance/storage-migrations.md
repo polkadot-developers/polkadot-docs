@@ -7,7 +7,7 @@ description: Ensure smooth runtime upgrades with storage migrations, update data
 
 ## Introduction
 
-Storage migrations are a crucial part of the runtime upgrade process. They allow you to update the storage layout of your blockchain, adapting to changes in the runtime. Whenever you change the encoding or data types used to represent data in storage, you'll need to provide a storage migration to ensure the runtime can correctly interpret the existing stored values in the new runtime state.
+Storage migrations are a crucial part of the runtime upgrade process. They allow you to update the [storage items](https://paritytech.github.io/polkadot-sdk/master/frame_support/pallet_macros/attr.storage.html){target=\_blank} of your blockchain, adapting to changes in the runtime. Whenever you change the encoding or data types used to represent data in storage, you'll need to provide a storage migration to ensure the runtime can correctly interpret the existing stored values in the new runtime state.
 
 Storage migrations must be executed precisely during the runtime upgrade process to ensure data consistency and prevent [runtime panics](https://doc.rust-lang.org/std/macro.panic.html){target=\_blank}. The migration code needs to run as follows:
 
@@ -24,13 +24,11 @@ A storage migration is necessary whenever a runtime upgrade changes the storage 
 
 Storage migrations ensure data consistency and prevent corruption during runtime upgrades. Below are common scenarios categorized by their impact on storage and migration requirements:
 
-=== "Migration Required"
-
+- Migration Required
     - Reordering or mutating fields of an existing data type to change the encoded/decoded data representation
     - Removal of a pallet or storage item warrants cleaning up storage via a migration to avoid state bloat
 
-=== "Migration Not Required"
-
+- Migration Not Required
     - Adding a new storage item would not require any migration since no existing data needs transformation
     - Adding or removing an extrinsic introduces no new interpretation of preexisting data, so no migration is required
 

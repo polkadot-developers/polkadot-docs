@@ -7,7 +7,7 @@ description: Learn about Asset Hub in Polkadot, managing on-chain assets, foreig
 
 ## Introduction
 
-The Asset Hub is a critical component in the Polkadot ecosystem, enabling the management of fungible and non-fungible assets across the network. Since the relay chain focuses on maintaining security and consensus without direct asset management, Asset Hub provides a streamlined platform for creating, managing, and using on-chain assets in a fee-efficient manner. This guide outlines the core features of Asset Hub, including how it handles asset operations, cross-chain transfers, and asset integration using XCM, as well as essential tools like [API Sidecar](#api-sidecar) and [TxWrapper](#txwrapper) for developers working with on-chain assets.
+The Asset Hub is a critical component in the Polkadot ecosystem, enabling the management of fungible and non-fungible assets across the network. Since the relay chain focuses on maintaining security and consensus without direct asset management, Asset Hub provides a streamlined platform for creating, managing, and using on-chain assets in a fee-efficient manner. This guide outlines the core features of Asset Hub, including how it handles asset operations, cross-chain transfers, and asset integration using XCM, as well as essential tools like [API Sidecar](#api-sidecar) and [`TxWrapper`](#txwrapper) for developers working with on-chain assets.
 
 ## Assets Basics
 
@@ -57,9 +57,9 @@ The Assets pallet provides a broad interface for managing fungible assets. Some 
 - **`transfer()`** - transfer a specified amount of an asset between two accounts
 - **`approve_transfer()`** - approve a non-custodial transfer, allowing a third party to move assets between accounts
 - **`destroy()`** - destroy an entire asset class, removing it permanently from the chain
-- **`freeze()`** and **`thaw()`** - administrators or privileged users can lock or unlock assets from being transferred
+- **`freeze()` and `thaw()`** - administrators or privileged users can lock or unlock assets from being transferred
 
-For a full list of dispatchable and privileged functions, see the [Dispatchables Rust docs](https://docs.rs/pallet-assets/latest/pallet_assets/pallet/enum.Call.html){target=\_blank}.
+For a full list of dispatchable and privileged functions, see the [dispatchables Rust docs](https://docs.rs/pallet-assets/latest/pallet_assets/pallet/enum.Call.html){target=\_blank}.
 
 ### Querying Functions
 
@@ -69,7 +69,7 @@ The Assets pallet exposes several key querying functions that developers can int
 
 - **`total_supply(asset_id)`** - returns the total supply of the asset identified by `asset_id`. Allows users to verify how much of the asset exists on-chain
 
-In addition to these basic functions, other utility functions are available for querying asset metadata and performing asset transfers. You can view the complete list of querying functions in the [Pallet Struct Rust docs](https://docs.rs/pallet-assets/latest/pallet_assets/pallet/struct.Pallet.html){target=\_blank}.
+In addition to these basic functions, other utility functions are available for querying asset metadata and performing asset transfers. You can view the complete list of querying functions in the [Struct Pallet Rust docs](https://docs.rs/pallet-assets/latest/pallet_assets/pallet/struct.Pallet.html){target=\_blank}.
 
 ### Permission Models and Roles
 
@@ -113,7 +113,7 @@ Once a foreign asset is registered in the Asset Hub by its originating blockchai
 
 ### Handling Foreign Assets
 
-The foreign-assets pallet, an instance of the Assets pallet, manages these assets. Since foreign assets are integrated into the same interface as native assets, developers can use the same functionalities, such as transferring and querying balances. However, there are important distinctions when dealing with foreign assets.
+The Foreign Assets pallet, an instance of the Assets pallet, manages these assets. Since foreign assets are integrated into the same interface as native assets, developers can use the same functionalities, such as transferring and querying balances. However, there are important distinctions when dealing with foreign assets.
 
 - **Asset identifier** - unlike native assets, foreign assets are identified using an XCM Multilocation rather than a simple numeric `AssetId`. This multilocation identifier represents the cross-chain location of the asset and provides a standardized way to reference it across different parachains and relay chains
 
@@ -167,11 +167,11 @@ Using these integration tools, developers can manage assets seamlessly and integ
 
 ## XCM Transfer Monitoring
 
-Since Asset Hub facilitates cross-chain asset transfers across the Polkadot ecosystem, XCM Transfer Monitoring becomes an essential practice for developers and infrastructure providers. This section outlines how to monitor the cross-chain movement of assets between parachains, the relay chain, and other systems.
+Since Asset Hub facilitates cross-chain asset transfers across the Polkadot ecosystem, XCM transfer monitoring becomes an essential practice for developers and infrastructure providers. This section outlines how to monitor the cross-chain movement of assets between parachains, the relay chain, and other systems.
 
 ### Monitor XCM Deposits
 
-As assets move between chains, tracking the cross-chain transfers in real-time is crucial. Whether assets are transferred via a Teleport from system parachains or through a Reserve Backed Transfer from any other parachain, each transfer emits a relevant event (such as the `balances.minted` event).
+As assets move between chains, tracking the cross-chain transfers in real time is crucial. Whether assets are transferred via a teleport from system parachains or through a reserve-backed transfer from any other parachain, each transfer emits a relevant event (such as the `balances.minted` event).
 
 To ensure accurate monitoring of these events:
 
@@ -183,7 +183,7 @@ To ensure accurate monitoring of these events:
 While the `balances.minted` event confirms the arrival of assets, there may be instances where you need to trace the origin of the cross-chain message that triggered the event. In such cases, you can:
 
 1. Query the relevant chain at the block where the `balances.minted` event was emitted
-2. Look for a `messageQueue(Processed)` event within that block's initialization. This event contains a parameter (`Id`) that identifies the cross-chain message received by the relay chain or Asset Hub. You can use this `Id` to trace the message back to its origin chain, offering full visibility of the asset transfer's journey.
+2. Look for a `messageQueue(Processed)` event within that block's initialization. This event contains a parameter (`Id`) that identifies the cross-chain message received by the relay chain or Asset Hub. You can use this `Id` to trace the message back to its origin chain, offering full visibility of the asset transfer's journey
 
 ### Practical Monitoring Examples
 

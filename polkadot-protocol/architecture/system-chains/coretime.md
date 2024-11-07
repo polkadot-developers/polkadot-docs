@@ -33,27 +33,19 @@ The Coretime chain allocates coretime before its usage. It also manages the owne
 
 <!-- TODO: Some sort of diagram of this would be pretty helpful, maybe -->
 
-### Assigning Region
+Regions can be managed in the following manner on the Coretime chain:
 
-Regions can be assigned to a task on the relay chain, such as a parachain/rollup. 
+- **Assigning Region**: Regions can be assigned to a task on the relay chain, such as a parachain/rollup using the [`assign`](https://paritytech.github.io/polkadot-sdk/master/pallet_broker/pallet/dispatchables/fn.assign.html){target=_blank} dispatchable.
 
-### Transferring Regions
+- **Transferring Regions**: Regions may be transferred on the Coretime chain, upon which the [`transfer`](https://paritytech.github.io/polkadot-sdk/master/pallet_broker/pallet/dispatchables/fn.transfer.html){target=_blank} [dispatchable](../../glossary.md#dispatchable) in the Broker pallet would assign a new owner to that specific region.
 
-Regions may be transferred on the Coretime chain, upon which the [`transfer`](https://paritytech.github.io/polkadot-sdk/master/pallet_broker/pallet/dispatchables/fn.transfer.html){target=_blank} [dispatchable](../../glossary.md#dispatchable) in the Broker pallet would assign a new owner to that specific region.
+- **Partitioning Regions**: Using the [`partition`](https://paritytech.github.io/polkadot-sdk/master/pallet_broker/pallet/dispatchables/fn.partition.html){target=_blank} dispatchable, regions may be partitioned into two non-overlapping subregions within the same core. A partition involves specifying a *pivot*, wherein the new region will be defined and available for use.
 
-### Partitioning Regions
-
-Regions may be partitioned into two non-overlapping subregions within the same core. A partition involves specifying a *pivot*, wherein the new region will be defined and available for use.
-
-### Interlacing Regions
-
-Interlacing a region adds the ability to have alternative-compute strategies for a core. Whereas partitioned regions are non-overlappable, interlaced regions overlap because multiple tasks may utilize a single core alternatingly.
+- **Interlacing Regions**: Using the [`interlace`](https://paritytech.github.io/polkadot-sdk/master/pallet_broker/pallet/dispatchables/fn.interlace.html){target=_blank} dispatchable, interlacing regions adds the ability to have alternative-compute strategies for a core. Whereas partitioned regions are non-overlappable, interlaced regions overlap because multiple tasks may utilize a single core in an alternating manner.
 
 ## On Demand Coretime
 
 At this writing, on-demand coretime is currently deployed on the relay chain and will eventually be deployed to the coretime chain. On-demand coretime allows parachains (previously known as parathreads) to utilize available cores per block.
-
-## Coretime Sales
 
 The coretime chain also handles Coretime sales, details of which can be found on the Polkadot Wiki: [Agile Coretime: Coretime Sales](https://wiki.polkadot.network/docs/learn-agile-coretime#coretime-sales).
 

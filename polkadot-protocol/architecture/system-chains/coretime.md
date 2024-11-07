@@ -41,7 +41,9 @@ Regions can be managed in the following manner on the Coretime chain:
 
 - **Partitioning Regions**: Using the [`partition`](https://paritytech.github.io/polkadot-sdk/master/pallet_broker/pallet/dispatchables/fn.partition.html){target=_blank} dispatchable, regions may be partitioned into two non-overlapping subregions within the same core. A partition involves specifying a *pivot*, wherein the new region will be defined and available for use.
 
-- **Interlacing Regions**: Using the [`interlace`](https://paritytech.github.io/polkadot-sdk/master/pallet_broker/pallet/dispatchables/fn.interlace.html){target=_blank} dispatchable, interlacing regions adds the ability to have alternative-compute strategies for a core. Whereas partitioned regions are non-overlappable, interlaced regions overlap because multiple tasks may utilize a single core in an alternating manner.
+- **Interlacing Regions**: Using the [`interlace`](https://paritytech.github.io/polkadot-sdk/master/pallet_broker/pallet/dispatchables/fn.interlace.html){target=_blank} dispatchable, interlacing regions allows a core to have alternative-compute strategies. Whereas partitioned regions are non-overlappable, interlaced regions overlap because multiple tasks may utilize a single core in an alternating manner.
+
+For more information regarding these mechanisms, visit the Coretime page on the Polkadot Wiki: [Introduction to Agile Coretime](https://wiki.polkadot.network/docs/learn-agile-coretime){target=_blank}. 
 
 ## On Demand Coretime
 

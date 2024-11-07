@@ -32,7 +32,7 @@ Here's a simple example of how to create a testing module that simulates these i
 
 Once the testing module is set, the next step is configuring the genesis storage—the initial state of your blockchain. Genesis storage sets the starting conditions for the runtime, defining how pallets are configured before any blocks are produced.
 
-In Polkadot SDK, we can create this storage using the [`BuildStorage`](https://paritytech.github.io/polkadot-sdk/master/sp_runtime/trait.BuildStorage.html){target=\_blank} trait from the [`sp_runtime`](https://paritytech.github.io/polkadot-sdk/master/sp_runtime){target=\_blank} crate. This trait is essential for building the configuration that initializes the blockchain's state.
+In Polkadot SDK, you can create this storage using the [`BuildStorage`](https://paritytech.github.io/polkadot-sdk/master/sp_runtime/trait.BuildStorage.html){target=\_blank} trait from the [`sp_runtime`](https://paritytech.github.io/polkadot-sdk/master/sp_runtime){target=\_blank} crate. This trait is essential for building the configuration that initializes the blockchain's state.
 
 The function `new_test_ext()` demonstrates setting up this environment. It uses `frame_system::GenesisConfig::<Runtime>::default()` to generate a default genesis configuration for the runtime, followed by `.build_storage()` to create the initial storage state. This storage is then converted into a format usable by the testing framework, [`sp_io::TestExternalities`](https://paritytech.github.io/polkadot-sdk/master/sp_io/type.TestExternalities.html){target=\_blank}, allowing tests to be executed in a simulated blockchain environment.
 
@@ -54,4 +54,4 @@ With the mock environment in place, you can now write tests to validate how your
 
 You can view a complete example of an integration test in the [Astar parachain](https://github.com/AstarNetwork/Astar/tree/master/tests/integration){target=\_blank} codebase.
 
-For more advanced information on runtime testing, please refer to the [`Runtime Testing`](develop/blockchains/testing/runtime){target=\_blank} article.
+For more advanced information on runtime testing, please refer to the [Runtime Testing](/develop/blockchains/testing/runtime/){target=\_blank} article.

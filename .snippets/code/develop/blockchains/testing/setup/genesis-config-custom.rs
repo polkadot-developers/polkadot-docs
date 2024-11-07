@@ -1,4 +1,4 @@
-// Build genesis storage according to the runtime's configuration.
+// Build genesis storage according to the runtime's configuration
 pub fn new_test_ext() -> sp_io::TestExternalities {
     // Define the initial balances for accounts
     let initial_balances: Vec<(AccountId32, u128)> = vec![

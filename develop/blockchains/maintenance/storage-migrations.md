@@ -59,7 +59,7 @@ The following are some common scenarios where a storage migration is needed:
     ```
 
 !!!warning
-    In general, any change to the storage layout or data encoding used in your runtime requires carefulky considering the need for a storage migration. Overlooking a necessary migration can lead to undefined behavior or data loss during a runtime upgrade.
+    In general, any change to the storage layout or data encoding used in your runtime requires careful consideration of the need for a storage migration. Overlooking a necessary migration can lead to undefined behavior or data loss during a runtime upgrade.
 
 ## Implement Storage Migrations
 
@@ -71,7 +71,7 @@ The [`OnRuntimeUpgrade`](https://paritytech.github.io/polkadot-sdk/master/frame_
 
 ### Core Migration Function
 
-The **[`on_runtime_upgrade`](https://paritytech.github.io/polkadot-sdk/master/frame_support/traits/trait.Hooks.html#method.on_runtime_upgrade){target=\_blank}** function executes when the FRAME Executive pallet detects a runtime upgrade. Important considerations when using this function include:
+The [`on_runtime_upgrade`](https://paritytech.github.io/polkadot-sdk/master/frame_support/traits/trait.Hooks.html#method.on_runtime_upgrade){target=\_blank} function executes when the FRAME Executive pallet detects a runtime upgrade. Important considerations when using this function include:
 
 - It runs before any pallet's `on_initialize` hooks
 - Critical storage items (like [`block_number`](https://paritytech.github.io/polkadot-sdk/master/frame_system/pallet/struct.Pallet.html#method.block_number){target=\_blank}) may not be set
@@ -109,7 +109,7 @@ The recommended approach is to implement [`UncheckedOnRuntimeUpgrade`](https://p
 - `Pallet` - the pallet being upgraded
 - `Weight` - the runtime's [`RuntimeDbWeight`](https://paritytech.github.io/polkadot-sdk/master/frame_support/weights/struct.RuntimeDbWeight.html){target=\_blank} implementation
 
-Let's examine a migration example that transforms a simple `StorageValue` storing a `u32` into a more complex structure that tracks both current and previous values using the `CurrentAndPreviousValue` struct:
+Examine the following migration example that transforms a simple `StorageValue` storing a `u32` into a more complex structure that tracks both current and previous values using the `CurrentAndPreviousValue` struct:
 
 - Old `StorageValue` format:
 ```rust
@@ -124,7 +124,7 @@ pub type Value<T: Config> = StorageValue<_, u32>;
 --8<-- 'https://raw.githubusercontent.com/paritytech/polkadot-sdk/refs/tags/polkadot-stable2409-1/substrate/frame/examples/single-block-migrations/src/lib.rs:200:201'
 ```
 
-- Migration
+- Migration:
 ```rust
 --8<-- 'https://raw.githubusercontent.com/paritytech/polkadot-sdk/refs/tags/polkadot-stable2409-1/substrate/frame/examples/single-block-migrations/src/migrations/v1.rs:18:122'
 ```
@@ -153,7 +153,7 @@ This structure provides several benefits:
 
 ### Scheduling Migrations
 
-To execute migrations during a runtime upgrade, you must configure them in your runtime's `Executive` pallet. Add your migrations in `runtime/src/lib.rs`:
+To execute migrations during a runtime upgrade, you must configure them in your runtime's Executive pallet. Add your migrations in `runtime/src/lib.rs`:
 
 ```rust
 --8<-- 'code/develop/blockchains/maintenance/storage-migrations/executive.rs'

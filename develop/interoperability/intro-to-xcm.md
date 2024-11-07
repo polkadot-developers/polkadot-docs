@@ -57,6 +57,7 @@ Below shows a simple example of an XCM message. In the example, the native token
 ```rust
 --8<-- 'code/develop/parachain-devs/interoperability/XCM/XCM-first-look.rs'
 ```
+
 The message consists of three instructions
 
 * **WithdrawAsset**

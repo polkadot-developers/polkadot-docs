@@ -56,8 +56,6 @@ The tests confirm that:
 - **Pallets modify each other's state** - the second test shows how one pallet can trigger changes in another pallet's internal state, confirming proper cross-pallet interactions
 - **State transitions between blocks are seamless** - by simulating block transitions, the tests validate that the runtime responds correctly to changes in the block number
 
-## Conclusion
-
 Testing pallet interactions within the runtime is critical for ensuring the blockchain behaves as expected under real-world conditions. Writing integration tests allows validation of how pallets function together, preventing issues that might arise when the system is fully assembled.
 
 This approach provides a comprehensive view of the runtime's functionality, ensuring the blockchain is stable and reliable.

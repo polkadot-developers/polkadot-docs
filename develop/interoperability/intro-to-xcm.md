@@ -12,7 +12,8 @@ XCM (Cross Consensus Messaging) is a language that enables communication between
 One of Polkadot's main functionalities is interoperability amongst parachains and any other participating consensus-driven systems. XCM is the language through which complex, cross-consensus interactions can occur. Two blockchains can "speak" XCM to seamlessly interact with each other using a standard messaging format.
 
 ## A format, not a protocol
-It's important to remember that XCM is a messaging format, and not a protocol. It cannot be used to 'send messages' but instead express what should be done by the receiver. XCM does not define how messages are delivered but rather define how they should look, act, and contain relative instructions to the on-chain actions the message intends to perform.
+
+It's important to remember that XCM is a [messaging format](https://github.com/polkadot-fellows/xcm-format){target=\_blank}, not a protocol. It cannot be used to 'send messages' but instead express what should be done by the receiver. XCM does not define how messages are delivered but rather how they should look, act, and contain relative instructions to the on-chain actions the message intends to perform.
 
 XCM messagges, by themselves, are not considered transactions. XCM just describes how to change the state of the target network, but the message by itself doesn't perform the state change. 
 

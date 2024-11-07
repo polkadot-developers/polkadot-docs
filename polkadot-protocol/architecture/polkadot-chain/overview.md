@@ -19,7 +19,7 @@ As a Layer-0 blockchain, Polkadot contributes to the multi-chain vision through 
 
 2. **Shared security and scalability** - L1 chains connected to Polkadot benefit from its [Nominated-Proof-of-Stake (NPoS)](link to the PoS page) system, providing security out-of-the-box without the need to bootstrap their own
 
-3. **Secure interoperability** - Polkadot's native interoperability enables L1 and L2 chains to seamlessly exchange data and value across parachains
+3. **Secure interoperability** - Polkadot's native interoperability enables seamless data and value exchange between parachains. This interoperability can also be used outside of the ecosystem for bridging with external networks
 
 4. **Resilient infrastructure** - decentralized and scalable, Polkadot ensures ongoing support for development and community initiatives via its on-chain [treasury](https://wiki.polkadot.network/docs/learn-polkadot-opengov-treasury){target=\_blank} and governance
 

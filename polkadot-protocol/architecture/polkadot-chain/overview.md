@@ -103,8 +103,6 @@ Polkadot is built on core blockspace principles, but there’s room for improvem
 
 Delegating these responsibilities to [system chains](add link to System Chains section) could enhance flexibility and allow the relay chain to concentrate on providing shared security and interoperability.
 
-Currently, blockspace is accessible only through auctions, and the auction winner gains access to a "freighter of blocks," whether needed or not. This setup creates high entry barriers and can lead to wasted energy and resources.
-
 !!!note
     For more information about blockspace see this [interview](https://www.youtube.com/watch?v=e1vISppPwe4){target=\_blank} with **Robert Habermeier** as well as this [article](https://www.rob.tech/blog/polkadot-blockspace-over-blockchains/){target=\_blank} by him.
 

@@ -108,7 +108,7 @@ With runtime upgrades, the blockchain's runtime can be upgraded with newer busin
 }
 ```
 
-This key and its associated value are human-readable text in the JSON file. However, this information can't be stored in this format in Substrate’s underlying storage structures. Before you can use the chain specification to initialize the genesis storage for a node, the human-readable keys must be transformed into actual storage keys that allow the values to be stored in the storage trie. This transformation is straightforward but requires the chain specification to be encoded in a format that node runtime can read.
+In the JSON file, the keys and associated values are in a human-readable format, which can be used to initialize the genesis storage. When the chain specification is loaded, the runtime converts these readable values into storage items within the trie. However, for long-lived networks like testnets or production chains, using the raw format for storage initialization is preferred. This avoids the need for conversion by the runtime and ensures that storage items remain consistent, even when runtime upgrades occur.
 
 To enable a node with an upgraded runtime to synchronize with a chain from genesis, the plain chain specification is encoded in a **raw** format.
 The raw format allows the distribution of chain specifications that all nodes can use to synchronize the chain even after runtime upgrades.

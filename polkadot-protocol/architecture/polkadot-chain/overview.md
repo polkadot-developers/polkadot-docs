@@ -5,7 +5,7 @@ description: Explore the fundamental concepts of the Polkadot protocol, includin
 
 # Overview
 
-Since the release of Bitcoin in 2009, blockchain projects increased exponentially to the order of tens of thousands. 
+Since the release of Bitcoin in 2009, the amount of blockchain projects increased to the order of tens of thousands. 
 
 Different projects have different value propositions, suggesting that the future will be multi-chain and that inter-chain communication will be crucial to establish collaborations and leveraging each other strengths.
 

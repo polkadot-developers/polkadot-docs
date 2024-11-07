@@ -29,7 +29,6 @@ As a Layer-0 blockchain, Polkadot contributes to the multi-chain vision through 
 
     - [Polkadot Blockchain Academy](https://polkadot.com/blockchain-academy){target=\_blank}
     - [Polkadot Alpha Program](https://polkadot.com/alpha-program){target=\_blank}
-    - [Polkadot Developer Heroes Program](https://wiki.polkadot.network/docs/dev-heroes){target=\_blank}
     - [EdX Courses](https://www.edx.org/school/web3x){target=\_blank}
     - Rust and Substrate Courses (coming soon)
 

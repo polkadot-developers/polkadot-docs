@@ -1,6 +1,6 @@
 ---
 title: Polkadot.js API
-description: Interact with Polkadot SDK-based chains easily using the Polkadot.js API. Query chain data, submit transactions, and more via JavaScript.
+description: Interact with Polkadot SDK-based chains easily using the Polkadot.js API. Query chain data, submit transactions, and more via JavaScript or Typescript.
 ---
 
 # Polkadot.js API
@@ -55,7 +55,7 @@ To add the Polkadot.js SDK to your project:
     yarn add @polkadot/api
     ```
 
-This command installs the latest stable release, which supports any Polkadot SDK-based chain
+This command installs the latest stable release, which supports any Polkadot SDK-based chain.
 
 !!!note
     For more installation details, refer to the [Installation](https://polkadot.js.org/docs/api/start/install/){target=\_blank} section in the official Polkadot.js API documentation.

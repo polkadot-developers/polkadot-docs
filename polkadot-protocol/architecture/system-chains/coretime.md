@@ -28,7 +28,7 @@ The details for this interface can be found in [RFC-5: Coretime Interface](https
 
 The Coretime chain allocates coretime before its usage. It also manages the ownership of a core. As cores are made up of regions (by default, one core is a single region), a region is recognized as a non-fungible asset. The Coretime chain exposes Regions over XCM as an NFT. Users can transfer individual regions, partition, interlace, or allocate them to a task. Regions describe how a task may use a core.
 
-!!!info "One core can contain more than one region."
+!!!tip "One core can contain more than one region."
     A core can be considered a logical representation of an active validator set on the relay chain, where these validators commit to verifying the state changes for a particular task running on that region. With partitioning, having more than one region per core is possible, allowing for different computational schemes. Therefore, running more than one task on a single core is possible.
 
 <!-- TODO: Some sort of diagram of this would be pretty helpful, maybe -->
@@ -36,6 +36,9 @@ The Coretime chain allocates coretime before its usage. It also manages the owne
 Regions can be managed in the following manner on the Coretime chain:
 
 - **Assigning Region**: Regions can be assigned to a task on the relay chain, such as a parachain/rollup using the [`assign`](https://paritytech.github.io/polkadot-sdk/master/pallet_broker/pallet/dispatchables/fn.assign.html){target=_blank} dispatchable.
+
+!!!tip "Coretime Availability"
+    When Bulk Coretime is obtained, it is not immediately available for block production. It becomes available for producing blocks for a task in the next Coretime cycle. To view the status of the current or next Coretime cycle, go to the [Subscan Coretime Dashboard](https://coretime-polkadot.subscan.io/coretime_dashboard){target=_blank}.
 
 - **Transferring Regions**: Regions may be transferred on the Coretime chain, upon which the [`transfer`](https://paritytech.github.io/polkadot-sdk/master/pallet_broker/pallet/dispatchables/fn.transfer.html){target=_blank} [dispatchable](../../glossary.md#dispatchable) in the Broker pallet would assign a new owner to that specific region.
 

@@ -94,8 +94,8 @@ chain-spec-builder create -r <RUNTIME_WASM_PATH> <INSERT_COMMAND>
 
 Ensure to replace `<RUNTIME_WASM_PATH>` with the path to the runtime Wasm file and `<INSERT_COMMAND>` with the command to insert the runtime into the chain specification. The available commands are:
 
-- `patch` - overwrites the runtime's default genesis config with the provided patch. You can check the following [patch file](https://github.com/paritytech/polkadot-sdk/blob/master/substrate/bin/utils/chain-spec-builder/tests/input/patch.json){target=\_blank} as a reference
-- `full` - build the genesis config for runtime using the JSON file. No defaults will be used. As a reference, you can check the following [full file](https://github.com/paritytech/polkadot-sdk/blob/master/substrate/bin/utils/chain-spec-builder/tests/input/full.json){target=\_blank}
+- `patch` - overwrites the runtime's default genesis config with the provided patch. You can check the following [patch file](https://github.com/paritytech/polkadot-sdk/blob/polkadot-stable1985-rc1/substrate/bin/utils/chain-spec-builder/tests/input/patch.json){target=\_blank} as a reference
+- `full` - build the genesis config for runtime using the JSON file. No defaults will be used. As a reference, you can check the following [full file](https://github.com/paritytech/polkadot-sdk/blob/polkadot-stable1985-rc1/substrate/bin/utils/chain-spec-builder/tests/input/full.json){target=\_blank}
 - `default` - gets the default genesis config for the runtime and uses it in `ChainSpec`. Please note that the default genesis config may not be valid. For some runtimes, initial values should be added there (e.g., session keys, babe epoch)
 - `named-preset` - uses named preset provided by the runtime to build the chain spec
 

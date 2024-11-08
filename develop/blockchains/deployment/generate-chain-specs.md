@@ -7,7 +7,7 @@ description: Describes the role of the chain specification in a network, how to 
 
 ## Introduction
 
-A _chain specification_ collects information that describes a Polkadot SDK-based network. A chain specification is a crucial parameter when starting a node, providing the genesis configurations, bootnodes, and other parameters relating to that particular network. It identifies the network a blockchain node connects to, the other nodes it initially communicates with, and the initial state that nodes must agree on to produce blocks.
+A chain specification collects information that describes a Polkadot SDK-based network. A chain specification is a crucial parameter when starting a node, providing the genesis configurations, bootnodes, and other parameters relating to that particular network. It identifies the network a blockchain node connects to, the other nodes it initially communicates with, and the initial state that nodes must agree on to produce blocks.
 
 The chain specification is defined using the [`ChainSpec`](https://paritytech.github.io/polkadot-sdk/master/sc_chain_spec/struct.GenericChainSpec.html){target=\_blank} struct. This struct separates the information required for a chain into two parts:
 

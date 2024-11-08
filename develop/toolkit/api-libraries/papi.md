@@ -135,6 +135,6 @@ In PAPI, the `TypedApi` provides the `tx` and `txFromCallData` methods to send t
 
 For more information about sending transactions, refer to the [Transactions](https://papi.how/typed/tx#transactions){target=\_blank} page.
 
-## Next Steps
+## Where to Go Next
 
 For an in-depth guide on how to use PAPI, refer to the official [PAPI](https://papi.how/typed){target=\_blank} documentation.

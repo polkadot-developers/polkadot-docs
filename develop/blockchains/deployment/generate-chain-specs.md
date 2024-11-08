@@ -88,7 +88,8 @@ To create a plain chain specification, you can use the following utility within 
 chain-spec-builder create -r <RUNTIME_WASM_PATH> <INSERT_COMMAND> 
 ```
 
-!note
+!!! note
+
     Before running the command, ensure that the runtime has been compiled and is available at the specified path.
 
 Ensure to replace `<RUNTIME_WASM_PATH>` with the path to the runtime Wasm file and `<INSERT_COMMAND>` with the command to insert the runtime into the chain specification. The available commands are:
@@ -96,7 +97,7 @@ Ensure to replace `<RUNTIME_WASM_PATH>` with the path to the runtime Wasm file a
 - `patch` - overwrites the runtime's default genesis config with the provided patch. You can check the following [patch file](https://github.com/paritytech/polkadot-sdk/blob/master/substrate/bin/utils/chain-spec-builder/tests/input/patch.json){target=\_blank} as a reference
 - `full` - build the genesis config for runtime using the JSON file. No defaults will be used. As a reference, you can check the following [full file](https://github.com/paritytech/polkadot-sdk/blob/master/substrate/bin/utils/chain-spec-builder/tests/input/full.json){target=\_blank}
 - `default` - gets the default genesis config for the runtime and uses it in `ChainSpec`. Please note that the default genesis config may not be valid. For some runtimes, initial values should be added there (e.g., session keys, babe epoch)
-- `named-preset` - uses named preset provided by the runtime to build the chains spec
+- `named-preset` - uses named preset provided by the runtime to build the chain spec
 
 ### Raw Chain Specifications
 
@@ -110,8 +111,7 @@ With runtime upgrades, the blockchain's runtime can be upgraded with newer busin
 
 In the plain chain-spec JSON file, the keys and associated values are in a human-readable format, which can be used to initialize the genesis storage. When the chain specification is loaded, the runtime converts these readable values into storage items within the trie. However, for long-lived networks like testnets or production chains, using the raw format for storage initialization is preferred. This avoids the need for conversion by the runtime and ensures that storage items remain consistent, even when runtime upgrades occur.
 
-To enable a node with an upgraded runtime to synchronize with a chain from genesis, the plain chain specification is encoded in a **raw** format.
-The raw format allows the distribution of chain specifications that all nodes can use to synchronize the chain even after runtime upgrades.
+To enable a node with an upgraded runtime to synchronize with a chain from genesis, the plain chain specification is encoded in a raw format. The raw format allows the distribution of chain specifications that all nodes can use to synchronize the chain even after runtime upgrades.
 
 To convert a plain chain specification to a raw chain specification, you can use the following utility:
 

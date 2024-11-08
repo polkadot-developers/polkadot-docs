@@ -2,7 +2,7 @@ title: Get Started
 nav:
   - index.md
   - 'Introduction to Blockchain Development': intro-blockchain-dev.md
-  - 'Install Polkadot SDK': install-polkadot-sdk.md
+  - 'Install Polkadot SDK Dependencies': install-polkadot-sdk.md
   - 'Deploy a Blockchain to Polkadot': deploy-blockchain-to-polkadot.md
   - 'Build App-Specific Blockchains': build-app-chains.md
   - 'Build from Templates': build-from-templates.md

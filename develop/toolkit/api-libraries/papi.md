@@ -39,7 +39,7 @@ Then, obtain the latest metadata from the target chain and generate the necessar
 npx papi add dot -n polkadot
 ```
 
-The `papi add` command initializes papi add, assigns the chain a custom name and specifies downloading metadata from the Polkadot chain. You can replace `dot` with the chain name if you want to add a different chain. Once the latest metadata is downloaded, generate the required types:
+The `papi add` command initializes the library by generating the corresponding types needed for the chain used. It assigns the chain a custom name and specifies downloading metadata from the Polkadot chain. You can replace `dot` with the name you prefer or with another chain if you want to add a different one. Once the latest metadata is downloaded, generate the required types:
 
 ```bash
 # Generate the necessary types

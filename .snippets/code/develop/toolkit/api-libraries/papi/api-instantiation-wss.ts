@@ -5,10 +5,10 @@ import { createClient } from 'polkadot-api';
 import { getWsProvider } from 'polkadot-api/ws-provider/web';
 import { withPolkadotSdkCompat } from 'polkadot-api/polkadot-sdk-compat';
 
-// Establish a connection to the Polkadot relay chain.
+// Establish a connection to the Polkadot relay chain
 const client = createClient(
   // The Polkadot SDK nodes may have compatibility issues; using this enhancer is recommended.
-  // Refer to the Requirements page for additional details.
+  // Refer to the Requirements page for additional details
   withPolkadotSdkCompat(getWsProvider('wss://dot-rpc.stakeworld.io')),
 );
 

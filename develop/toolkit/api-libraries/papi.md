@@ -1,15 +1,15 @@
 ---
 title: Polkadot-API
-description: Polkadot-API (PAPI) is a set of libraries built to be modular, composable, and grounded in a “light-client first” approach.
+description: Polkadot-API (PAPI) is a modular, composable library set designed for efficient interaction with Polkadot chains, prioritizing a "light-client first" approach.
 ---
 
 # Polkadot-API
 
 ## Introduction
 
-[Polkadot-API](https://github.com/polkadot-api/polkadot-api){target=\_blank}(PAPI) is a set of libraries built to be modular, composable, and grounded in a “light-client first” approach. Its primary aim is to equip dApp developers with an extensive toolkit for building fully decentralized applications.
+[Polkadot-API](https://github.com/polkadot-api/polkadot-api){target=\_blank} (PAPI) is a set of libraries built to be modular, composable, and grounded in a “light-client first” approach. Its primary aim is to equip dApp developers with an extensive toolkit for building fully decentralized applications.
 
-PAPI is optimized for light-client functionality, using the new JSON-RPC spec to support decentralized interactions fully. It provides strong TypeScript support with types and documentation generated directly from on-chain metadata, and it offers seamless access to storage reads, constants, transactions, events, and runtime calls. Developers can connect to multiple chains simultaneously and prepare for runtime updates through multi-descriptor generation and compatibility checks. Polkadot-API is lightweight and performant, leveraging native BigInt, dynamic imports, and modular subpaths to avoid bundling unnecessary assets. It supports promise-based and observable-based APIs, integrates easily with Polkadot-JS extensions, and offers signing options through browser extensions or private keys.
+PAPI is optimized for light-client functionality, using the new JSON-RPC spec to support decentralized interactions fully. It provides strong TypeScript support with types and documentation generated directly from on-chain metadata, and it offers seamless access to storage reads, constants, transactions, events, and runtime calls. Developers can connect to multiple chains simultaneously and prepare for runtime updates through multi-descriptor generation and compatibility checks. PAPI is lightweight and performant, leveraging native BigInt, dynamic imports, and modular subpaths to avoid bundling unnecessary assets. It supports promise-based and observable-based APIs, integrates easily with Polkadot.js extensions, and offers signing options through browser extensions or private keys.
 
 ## Get Started
 
@@ -48,13 +48,13 @@ npx papi
 
 You can now set up a [`PolkadotClient`](https://github.com/polkadot-api/polkadot-api/blob/main/packages/client/src/types.ts#L153){target=\_blank} with your chosen provider to begin interacting with the API. Choose from Smoldot via WebWorker, Node.js, or direct usage, or connect through the WSS provider. The examples below show how to configure each option for your setup.
 
-=== "Smoldot(WebWorker)"
+=== "Smoldot (WebWorker)"
 
     ```typescript
     --8<-- "code/develop/toolkit/api-libraries/papi/api-instantiation-smoldot-webworker.ts"
     ```
 
-=== "Smoldot(Node.js)"
+=== "Smoldot (Node.js)"
 
     ```typescript
     --8<-- "code/develop/toolkit/api-libraries/papi/api-instantiation-smoldot-nodejs.ts"
@@ -81,22 +81,22 @@ With the `TypedApi`, you can read data from the blockchain using the following p
 - To read a **constant** of the blockchain, you can use the `constants` interface and access the constant you need:
 
     ```typescript
-    const version = await typedApi.constants.System.Version()
+    const version = await typedApi.constants.System.Version();
     ```
 
 - To read a value from the **storage**, you can use the `query` interface with the following pattern:
 
     ```typescript
     const asset = await api.query.ForeignAssets.Asset.getValue(
-        token.location,
-        { at: "best" },
+      token.location,
+      { at: 'best' },
     );
     ```
 
 - To directly query a **Runtime API**, you can use the `apis` interface and access the API you need, for example:
 
     ```typescript
-    const metadata = await typedApi.apis.Metadata.metadata()
+    const metadata = await typedApi.apis.Metadata.metadata();
     ```
 
 To learn more about the different actions you can perform with the `TypedApi`, refer to the [Typed API Reference](https://papi.how/typed){target=\_blank}.
@@ -108,7 +108,7 @@ In PAPI, the `TypedApi` provides the `tx` and `txFromCallData` methods to send t
 - The `tx` method allows you to directly send a transaction with the specified parameters by using the `typedApi.tx.Pallet.Call` pattern:
 
     ```typescript
-    const tx: Transaction = typedApi.tx.Pallet.Call({arg1, arg2, arg3})
+    const tx: Transaction = typedApi.tx.Pallet.Call({arg1, arg2, arg3});
     ``` 
 
     For instance, to execute the `balances.transferKeepAlive` call, you can use the following snippet:
@@ -122,15 +122,15 @@ In PAPI, the `TypedApi` provides the `tx` and `txFromCallData` methods to send t
 - The `txFromCallData` method allows you to send a transaction using the call data. This option accepts binary call data and constructs the transaction from it. It validates the input upon creation and will throw an error if invalid data is provided. The pattern is as follows:
 
     ```typescript
-    const callData = Binary.fromHex("0x...")
-    const tx: Transaction = typedApi.txFromCallData(callData)
+    const callData = Binary.fromHex('0x...');
+    const tx: Transaction = typedApi.txFromCallData(callData);
     ``` 
 
     For instance, to execute a transaction using the call data, you can use the following snippet:
 
     ```typescript
-    const callData = Binary.fromHex("0x00002470617065726d6f6f6e")
-    const tx: Transaction = typedApi.txFromCallData(callData)
+    const callData = Binary.fromHex('0x00002470617065726d6f6f6e');
+    const tx: Transaction = typedApi.txFromCallData(callData);
     ```
 
 For more information about sending transactions, refer to the [Transactions](https://papi.how/typed/tx#transactions){target=\_blank} page.

@@ -10,7 +10,7 @@ const worker = new SmWorker();
 const smoldot = startFromWorker(worker);
 const chain = await smoldot.addChain({ chainSpec });
 
-// Establish connection to the Polkadot relay chain.
+// Establish connection to the Polkadot relay chain
 const client = createClient(getSmProvider(chain));
 
 // To interact with the chain, obtain the `TypedApi`, which provides

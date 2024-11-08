@@ -15,7 +15,6 @@ Whether deploying a test network for development or a mainnet for production, th
 
 Taking your Polkadot SDK-based blockchain from a local environment to production involves several steps, ensuring your network is stable, secure, and ready for real-world use. The following diagram outlines the process at a high level:
 
-
 ```mermaid
 graph LR
     subgraph Pre-Deployment

@@ -99,7 +99,7 @@ Several SCALE codec implementations are available in various languages. Here's a
 
 - **AssemblyScript** - [`LimeChain/as-scale-codec`](https://github.com/LimeChain/as-scale-codec){target=\_blank}
 - **C** - [`MatthewDarnell/cScale`](https://github.com/MatthewDarnell/cScale){target=\_blank}
-- **C++** - [`soramitsu/scale-codec-cpp`](https://github.com/qdrvm/scale-codec-cpp){target=\_blank}
+- **C++** - [`qdrvm/scale-codec-cpp`](https://github.com/qdrvm/scale-codec-cpp){target=\_blank}
 - **JavaScript** - [`polkadot-js/api`](https://github.com/polkadot-js/api){target=\_blank}
 - **Dart** - [`leonardocustodio/polkadart`](https://github.com/leonardocustodio/polkadart){target=\_blank}
 - **Haskell** - [`airalab/hs-web3`](https://github.com/airalab/hs-web3/tree/master/packages/scale){target=\_blank}

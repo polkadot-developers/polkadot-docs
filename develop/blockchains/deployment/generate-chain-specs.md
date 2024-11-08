@@ -36,7 +36,7 @@ All nodes in the network must agree on the genesis state before they can agree o
 - The account that controls the `sudo` key
 - Any other genesis state for a pallet
 
-Nodes also require the compiled Wasm to execute the runtime logic on the chain, so the initial runtime must also be supplied in the chain specification.
+Nodes also require the compiled Wasm to execute the runtime logic on the chain, so the initial runtime must also be supplied in the chain specification. For a more detailed look at customizing the genesis chain specification, be sure to check out the [Polkadot SDK Docs](https://paritytech.github.io/polkadot-sdk/master/polkadot_sdk_docs/reference_docs/chain_spec_genesis/index.html){target=_blank}.
 
 ## Declaring storage items for a runtime
 

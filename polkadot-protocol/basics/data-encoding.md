@@ -104,7 +104,7 @@ Several SCALE codec implementations are available in various languages. Here's a
 - **Dart** - [`leonardocustodio/polkadart`](https://github.com/leonardocustodio/polkadart){target=\_blank}
 - **Haskell** - [`airalab/hs-web3`](https://github.com/airalab/hs-web3/tree/master/packages/scale){target=\_blank}
 - **Golang** - [`itering/scale.go`](https://github.com/itering/scale.go){target=\_blank}
-- **Java** - [`emeraldpay/polkaj`](https://github.com/splix/polkaj){target=\_blank}
+- **Java** - [`splix/polkaj`](https://github.com/splix/polkaj){target=\_blank}
 - **Python** - [`polkascan/py-scale-codec`](https://github.com/polkascan/py-scale-codec){target=\_blank}
 - **Ruby** - [` wuminzhe/scale_rb`](https://github.com/wuminzhe/scale_rb){target=\_blank}
 - **TypeScript** - [`parity-scale-codec-ts`](https://github.com/tjjfvi/subshape){target=\_blank}, [`scale-ts`](https://github.com/unstoppablejs/unstoppablejs/tree/main/packages/scale-ts#scale-ts){target=\_blank}, [`soramitsu/scale-codec-js-library`](https://github.com/soramitsu/scale-codec-js-library){target=\_blank}, [`subsquid/scale-codec`](https://github.com/subsquid/squid-sdk/tree/master/substrate/scale-codec){target=\_blank}

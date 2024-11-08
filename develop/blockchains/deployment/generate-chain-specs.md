@@ -25,7 +25,7 @@ For the node, the chain specification controls information such as:
 
 The chain specification can be customized to include additional information. For example, you can configure the node to connect to specific blocks at specific heights to prevent long-range attacks when syncing a new node from genesis.
 
-Note that you can customize node settings after genesis. However, nodes only add peers that use the same [`protocolId`](https://paritytech.github.io/polkadot-sdk/master/polkadot_parachain_lib/chain_spec/trait.ChainSpec.html#tymethod.protocol_id){target=_blank}.
+Note that you can customize node settings after genesis. However, nodes only add peers that use the same [`protocolId`](https://paritytech.github.io/polkadot-sdk/master/sc_service/struct.GenericChainSpec.html#method.protocol_id){target=_blank}.
 
 ## Genesis Configuration Customization
 

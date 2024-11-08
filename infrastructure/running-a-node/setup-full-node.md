@@ -11,49 +11,50 @@ world.
 
 This guide will show you how to connect to [Polkadot](https://polkadot.network/){target=\_blank}, but the same process applies to any other [Polkadot SDK](https://paritytech.github.io/polkadot-sdk/master/polkadot_sdk_docs/polkadot_sdk/index.html){target=\_blank}-based chain.
 
-### Types of Nodes
+## Types of Nodes
 
 Like many other protocols, A Polkadot SDK-based blockchain starts with the  _genesis block_, and grows with subsequent blocks that contain _extrinsics_ and _events_.
 
 When a validator [seals](todo:add_link) block 1, it takes the blockchain's state at block zero. It then applies all pending changes on top of it and emits the events resulting from these changes. Later, the chain’s state at block one is used the same way to build the chain’s state at block two, and so on. Once two-thirds of the validators agree on a specific block being valid, it is finalized.
 
-=== "Full Node"
+### Full Node
 
-    A *full node* prunes historical states: all finalized blocks' states older than a configurable
-    number except the genesis block's state. This is 256 blocks from the last finalized one by default.
-    A pruned node this way requires much less space than an archive node.
+A *full node* prunes historical states: all finalized blocks' states older than a configurable
+number except the genesis block's state. This is 256 blocks from the last finalized one by default.
+A pruned node this way requires much less space than an archive node.
 
-    A full node could eventually rebuild every block's state without additional information and become
-    an archive node. This still needs to be implemented at the time of writing. If you need to query
-    historical blocks' states past what you pruned, you must purge your database and resynchronize your node, starting in archive mode. Alternatively, you can use a backup or snapshot of a trusted source to
-    avoid needing to sync from genesis with the network and only need the states of blocks past that
-    snapshot.
+A full node could eventually rebuild every block's state without additional information and become
+an archive node. This still needs to be implemented at the time of writing. If you need to query
+historical blocks' states past what you pruned, you must purge your database and resynchronize your node, starting in archive mode. Alternatively, you can use a backup or snapshot of a trusted source to
+avoid needing to sync from genesis with the network and only need the states of blocks past that
+snapshot.
 
-=== "Archive Nodes"
+### Archive Nodes
 
-    An _archive node_ (an RPC node which explicitly has flags for keeping an archive for on-chain state) keeps all the past blocks and their states. An archive node makes it convenient to query the past state of the chain at any point in time. Finding out what an account's balance at a particular block was or which extrinsics resulted in a specific state change are fast operations when using an archive node. 
+An _archive node_ (an RPC node which explicitly has flags for keeping an archive for on-chain state) keeps all the past blocks and their states. An archive node makes it convenient to query the past state of the chain at any point in time. Finding out what an account's balance at a particular block was or which extrinsics resulted in a specific state change are fast operations when using an archive node. 
 
-    However, an archive node takes up a lot of disk space. For example, around Kusama's 12 millionth block, would be around 660 GB.
+However, an archive node takes up a lot of disk space. For example, around Kusama's 12 millionth block, would be around 660 GB.
 
-    !!!tip
-        On [Stakeworld](https://stakeworld.io/docs/dbsize){target=_blank} you can find a list of the database sizes of Polkadot and Kusama nodes.
+!!!tip
+    On [Stakeworld](https://stakeworld.io/docs/dbsize){target=_blank} you can find a list of the database sizes of Polkadot and Kusama nodes.
 
-    Archive nodes are used by utilities that need past information - like block explorers, council
-    scanners, discussion platforms like [Polkassembly](https://polkassembly.io){target=_blank}, and others. They need to be able to look at past on-chain data.
+Archive nodes are used by utilities that need past information - like block explorers, council
+scanners, discussion platforms like [Polkassembly](https://polkassembly.io){target=_blank}, and others. They need to be able to look at past on-chain data.
 
-    Setting up an RPC node is crucial for accessing and interacting with the Polkadot network. An RPC node allows you to query blockchain data, interact with dApps, or manage network tasks remotely.
+Setting up an RPC node is crucial for accessing and interacting with the Polkadot network. An RPC node allows you to query blockchain data, interact with dApps, or manage network tasks remotely.
 
-    All Polkadot SDK node implementations include the RPC server, which are accessed over the WebSocket protocol and used to connect to the underlying network or validator node. By default, you can access your node's RPC server from `localhost` (for example, to rotate keys or do other maintenance). You should set up a secure proxy when accessing your RPC server from another server or [Polkadot.js](https://polkadot.js.org/apps){target=\_blank} and only enable access to the RPC node over an encrypted, SSL connection between the end user and the RPC server. Many browsers, such as Google Chrome, will block non-secure WS endpoints if they come from a different origin.
+All Polkadot SDK node implementations include the RPC server, which are accessed over the WebSocket protocol and used to connect to the underlying network or validator node. By default, you can access your node's RPC server from `localhost` (for example, to rotate keys or do other maintenance). You should set up a secure proxy when accessing your RPC server from another server or [Polkadot.js](https://polkadot.js.org/apps){target=\_blank} and only enable access to the RPC node over an encrypted, SSL connection between the end user and the RPC server. Many browsers, such as Google Chrome, will block non-secure WS endpoints if they come from a different origin.
 
-    !!!warning
-        Enabling remote access to your validator node shouldn't be necessary and isn't suggested, as it can often lead to security problems. Learn more about node security in [Secure Your Validator](todo:link).
+!!!warning
+    Enabling remote access to your validator node shouldn't be necessary and isn't suggested, as it can often lead to security problems. Learn more about node security in [Secure Your Validator](todo:link).
 
-=== "Light Node"
-    A *light node* has only the runtime and the current state but doesn't store past blocks and so cannot read historical data without requesting it from a node that has it. Light nodes are useful for resource-restricted devices. An interesting use-case of light nodes is a browser extension, which is a node in its own right, running the runtime in WebAssembly format, as well as a full or light node that is completely encapsulated in WebAssembly and can be integrated into web apps.
+### Light Node
 
-    [Substrate Connect](https://github.com/paritytech/substrate-connect){target=_blank} provides a way to interact with Polkadot SDK-based blockchains in the browser without using an RPC server. It is a light node that runs entirely in JavaScript. Substrate Connect uses a [Smoldot Wasm light client](https://github.com/paritytech/smoldot){target=_blank} to securely connect to the blockchain network without relying on specific third parties. Substrate Connect is available on Chrome and Firefox as a [browser extension](https://substrate.io/developers/substrate-connect/){target=_blank}. 
+A *light node* has only the runtime and the current state but doesn't store past blocks and so cannot read historical data without requesting it from a node that has it. Light nodes are useful for resource-restricted devices. An interesting use-case of light nodes is a browser extension, which is a node in its own right, running the runtime in WebAssembly format, as well as a full or light node that is completely encapsulated in WebAssembly and can be integrated into web apps.
 
-    The Polkadot API (PAPI) also can utilize a Smoldot light client instance.
+[Substrate Connect](https://github.com/paritytech/substrate-connect){target=_blank} provides a way to interact with Polkadot SDK-based blockchains in the browser without using an RPC server. It is a light node that runs entirely in JavaScript. Substrate Connect uses a [Smoldot Wasm light client](https://github.com/paritytech/smoldot){target=_blank} to securely connect to the blockchain network without relying on specific third parties. Substrate Connect is available on Chrome and Firefox as a [browser extension](https://substrate.io/developers/substrate-connect/){target=_blank}. 
+
+The Polkadot API (PAPI) also can utilize a Smoldot light client instance.
 
 ## Setup Instructions
 
@@ -193,60 +194,59 @@ This isn't recommended if you're a validator. Please see the [secure validator s
         systemctl daemon-reload
         ```
 
-## Running a Full Node
 
-!!!note 
-    The bash commands that are provided to run against **your node** use `Polkadot` as the default chain
-
-    Use the `--chain` flag if you follow the setup instructions to setup a `Kusama` node. For example:
-
-    ```bash
-    polkadot --name "Your Node's Name" --chain kusama
-    ```
-
-Depending on where your binary is located (in some cases, it may be located within the `target/release` folder), you would use the same binary for Polkadot as you would for Kusama, or any other relay chain:
-
-```bash
-polkadot --name "Your Node's Name"
-```
-
-Use the `--help` flag to determine which flags you can use when running the node. For example, if connecting to your node remotely, you'll probably want to use `--rpc-external` and `--rpc-cors all`.
-
-The syncing process will take a while, depending on your capacity, processing power, disk speed and RAM. On a $10 DigitalOcean droplet, the process can complete in some ~36 hours. Once it is synced, you may find it in [Telemetry](https://telemetry.polkadot.io/#list/Polkadot){target=_blank}.
-
-Congratulations, you're now syncing with Polkadot. Keep in mind that the process is identical when using any other Polkadot SDK-based chain.
-
-## Running an RPC Node
+## Running Nodes
 
 There are two methods to run an RPC node: an *archive* node which holds all state and history, and a *pruned* node which retains only recent data.
 
 For a list of important flags when running RPC nodes, refer to the Parity DevOps documentation: [Important Flags for Running an RPC Node](https://paritytech.github.io/devops-guide/guides/rpc_index.html?#important-flags-for-running-an-rpc-node){target=\_blank}
 
-### Running an Archive Node
 
-To support the full state, use the appropriate pruning-related flags to enable archive mode:
+=== "Running a Full Node"
+    !!!note 
+        The bash commands that are provided to run against **your node** use `Polkadot` as the default chain
 
-```bash
-polkadot --chain polkadot \
---name INSERT_YOUR_NODE_NAME \
---state-pruning archive \
---blocks-pruning archive \
---rpc-cors all \
---rpc-methods safe 
-```
+        Use the `--chain` flag if you follow the setup instructions to setup a `Kusama` node. For example:
 
-### Running a Pruned Node
+        ```bash
+        polkadot --name "Your Node's Name" --chain kusama
+        ```
 
-For a pruned node, which offers limited historical access (the last 1000 finalized blocks):
+    Depending on where your binary is located (in some cases, it may be located within the `target/release` folder), you would use the same binary for Polkadot as you would for Kusama, or any other relay chain:
 
-```bash
-polkadot --chain polkadot \
---name INSERT_YOUR_NODE_NAME \
---state-pruning 1000 \
---blocks-pruning archive \
---rpc-cors all \
---rpc-methods safe
-```
+    ```bash
+    polkadot --name "Your Node's Name"
+    ```
+
+    Use the `--help` flag to determine which flags you can use when running the node. For example, if connecting to your node remotely, you'll probably want to use `--rpc-external` and `--rpc-cors all`.
+
+    The syncing process will take a while, depending on your capacity, processing power, disk speed and RAM. On a $10 DigitalOcean droplet, the process can complete in some ~36 hours. Once it is synced, you may find it in [Telemetry](https://telemetry.polkadot.io/#list/Polkadot){target=_blank}.
+
+    Congratulations, you're now syncing with Polkadot. Keep in mind that the process is identical when using any other Polkadot SDK-based chain.
+
+=== "Running an Archive Node"
+    To support the full state, use the appropriate pruning-related flags to enable archive mode:
+
+    ```bash
+    polkadot --chain polkadot \
+    --name INSERT_YOUR_NODE_NAME \
+    --state-pruning archive \
+    --blocks-pruning archive \
+    --rpc-cors all \
+    --rpc-methods safe 
+    ```
+
+=== "Running a Pruned Node"
+    For a pruned node, which offers limited historical access (the last 1000 finalized blocks):
+
+    ```bash
+    polkadot --chain polkadot \
+    --name INSERT_YOUR_NODE_NAME \
+    --state-pruning 1000 \
+    --blocks-pruning archive \
+    --rpc-cors all \
+    --rpc-methods safe
+    ```
 
 ### Securing your RPC
 

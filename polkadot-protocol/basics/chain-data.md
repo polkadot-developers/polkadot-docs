@@ -168,11 +168,11 @@ For example, you can encode the `BitVec<Order, Store>` type, but to decode it pr
 
 A standard node comes with the following APIs to interact with a node:
 
-- [`AuthorApiServer`](https://paritytech.github.io/polkadot-sdk/master/sc_rpc/author/trait.AuthorApiServer.html){target=\_blank} - make calls into a full node, including authoring extrinsics and verifying session keys
-- [`ChainApiServer`](https://paritytech.github.io/polkadot-sdk/master/sc_rpc/chain/trait.ChainApiServer.html){target=\_blank} - retrieve block header and finality information
-- [`OffchainApiServer`](https://paritytech.github.io/polkadot-sdk/master/sc_rpc/offchain/trait.OffchainApiServer.html){target=\_blank}  - make RPC calls for off-chain workers
-- [`StateApiServer`](https://paritytech.github.io/polkadot-sdk/master/sc_rpc/state/trait.StateApiServer.html){target=\_blank} - query information about on-chain state such as runtime version, storage items, and proofs
-- [`SystemApiServer`](https://paritytech.github.io/polkadot-sdk/master/sc_rpc/system/trait.SystemApiServer.html){target=\_blank} - retrieve information about network state, such as connected peers and node roles
+- [**`AuthorApiServer`**](https://paritytech.github.io/polkadot-sdk/master/sc_rpc/author/trait.AuthorApiServer.html){target=\_blank} - make calls into a full node, including authoring extrinsics and verifying session keys
+- [**`ChainApiServer`**](https://paritytech.github.io/polkadot-sdk/master/sc_rpc/chain/trait.ChainApiServer.html){target=\_blank} - retrieve block header and finality information
+- [**`OffchainApiServer`**](https://paritytech.github.io/polkadot-sdk/master/sc_rpc/offchain/trait.OffchainApiServer.html){target=\_blank}  - make RPC calls for off-chain workers
+- [**`StateApiServer`**](https://paritytech.github.io/polkadot-sdk/master/sc_rpc/state/trait.StateApiServer.html){target=\_blank} - query information about on-chain state such as runtime version, storage items, and proofs
+- [**`SystemApiServer`**](https://paritytech.github.io/polkadot-sdk/master/sc_rpc/system/trait.SystemApiServer.html){target=\_blank} - retrieve information about network state, such as connected peers and node roles
 
 ## Additional Resources
 

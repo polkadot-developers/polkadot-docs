@@ -46,7 +46,7 @@ Key features of the Assets pallet include:
 - **Asset transfer** - enables transferring assets between accounts while maintaining a balance in both accounts
 - **Asset freezing** - prevents transfers of a specific asset from one account, locking it from further transactions
 - **Asset destruction** - allows accounts to burn or destroy their holdings, removing those assets from circulation
-- **Approval-based transfers** - a non-custodial mechanism to enable one account to approve a transfer of assets on behalf of another
+- **Non-custodial transfers** - a non-custodial mechanism to enable one account to approve a transfer of assets on behalf of another
 
 ### Main Functions
 

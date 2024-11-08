@@ -176,7 +176,7 @@ A standard node comes with the following APIs to interact with a node:
 
 ## Additional Resources
 
-Tools and information to help you locate and decode metadata:
+The following tools can help you locate and decode metadata:
 
 - [Subxt Explorer](https://paritytech.github.io/subxt-explorer/#/){target=\_blank}
 - [Metadata Portal 🌗](https://github.com/paritytech/metadata-portal){target=\_blank}

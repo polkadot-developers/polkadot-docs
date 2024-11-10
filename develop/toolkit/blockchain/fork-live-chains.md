@@ -29,7 +29,7 @@ Before you begin, ensure you have the following installed:
 
 ## Install Chopsticks
 
-You can install Chopsticks either globally or locally in your project. Choose the option that best fits your development workflow.
+You can install Chopsticks globally or locally in your project. Choose the option that best fits your development workflow.
 
 !!! note
     This documentation explains the features of Chopsticks version `{{ dependencies.chopsticks.version }}`. Make sure you're using the correct version to match these instructions.

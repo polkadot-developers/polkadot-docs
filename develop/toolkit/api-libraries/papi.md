@@ -99,7 +99,7 @@ With the `TypedApi`, you can read data from the blockchain using the following p
     const metadata = await typedApi.apis.Metadata.metadata();
     ```
 
-To learn more about the different actions you can perform with the `TypedApi`, refer to the [Typed API Reference](https://papi.how/typed){target=\_blank}.
+To learn more about the different actions you can perform with the `TypedApi`, refer to the [TypedApi reference](https://papi.how/typed){target=\_blank}.
 
 ### Sending Transactions
 
@@ -137,4 +137,4 @@ For more information about sending transactions, refer to the [Transactions](htt
 
 ## Where to Go Next
 
-For an in-depth guide on how to use PAPI, refer to the official [PAPI](https://papi.how/typed){target=\_blank} documentation.
+For an in-depth guide on how to use PAPI, refer to the official [PAPI](https://papi.how/){target=\_blank} documentation.

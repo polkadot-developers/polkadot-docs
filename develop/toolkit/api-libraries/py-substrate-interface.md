@@ -7,8 +7,6 @@ description: Learn how to connect to Polkadot SDK-based nodes, query data, submi
 
 ## Introduction
 
-This Python library specializes in interfacing with a Polkadot SDK-based node, querying storage, composing extrinsics, SCALE encoding/decoding, and providing additional convenience methods to deal with the features and metadata of the Substrate runtime.
-
 The [Python Substrate Interface](https://github.com/polkascan/py-substrate-interface){target=\_blank} is a powerful library that enables interaction with Polkadot SDK-based chains. It provides essential functionality for:
 
 - Querying on-chain storage
@@ -70,7 +68,7 @@ Here's how to create and submit a balance transfer:
 !!!note
     The `keypair` object is essential for signing transactions. See the [Keypair](https://polkascan.github.io/py-substrate-interface/usage/keypair-creation-and-signing/){target=\_blank} documentation for more details.
 
-## Next Steps
+## Where to go next?
 
 Now that you understand the basics, you can:
 

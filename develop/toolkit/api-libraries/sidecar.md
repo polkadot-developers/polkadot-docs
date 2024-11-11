@@ -13,10 +13,10 @@ Sidecar functions as a caching layer between your application and a Polkadot SDK
 
 Some of the key features of the Sidecar API include:
 
-- **REST API Interface** - provides a familiar REST API interface for interacting with Polkadot SDK-based chains
-- **Standardized Endpoints** - offers consistent endpoint formats across different chain implementations
-- **Caching Layer** - acts as a caching layer to improve performance and reduce direct node requests
-- **Multiple Chain Support** - works with any Polkadot SDK-based chain, including Polkadot, Kusama, and custom chains
+- **REST API interface** - provides a familiar REST API interface for interacting with Polkadot SDK-based chains
+- **Standardized endpoints** - offers consistent endpoint formats across different chain implementations
+- **Caching layer** - acts as a caching layer to improve performance and reduce direct node requests
+- **Multiple chain support** - works with any Polkadot SDK-based chain, including Polkadot, Kusama, and custom chains
 
 ## Installation
 

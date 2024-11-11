@@ -11,10 +11,10 @@ The [Polkadot SDK](https://github.com/paritytech/polkadot-sdk){target=\_blank} i
 
 Whether you're building a standalone chain or deploying a parachain on Polkadot, this SDK equips developers with the libraries and tools needed to manage runtime logic, compile the codebase, and utilize core features like staking, governance, and Cross-Consensus Messaging (XCM). It also provides a means for building generalized peer-to-peer systems, whether a blockchain or an alternative technology. The Polkadot SDK houses the following overall functionality:
 
-- Networking and peer-to-peer communication (powered by [Libp2p](./glossary.md#libp2p))
-- Consensus protocols, such as [BABE](./glossary.md#blind-assignment-of-blockchain-extension-babe), [GRANDPA](./glossary.md#grandpa), or [Aura](./glossary.md#authority-round-aura)
+- Networking and peer-to-peer communication (powered by [Libp2p](/polkadot-protocol/glossary#libp2p))
+- Consensus protocols, such as [BABE](/polkadot-protocol/glossary#blind-assignment-of-blockchain-extension-babe), [GRANDPA](/polkadot-protocol/glossary#grandpa), or [Aura](/polkadot-protocol/glossary#authority-round-aura)
 - Cryptography
-- A selection of pre-built modules, called [pallets](./glossary.md#pallet)
+- A selection of pre-built modules, called [pallets](/polkadot-protocol/glossary#pallet)
 - Benchmarking and testing suites
 - The ability to create portable Wasm runtimes
 
@@ -56,11 +56,11 @@ As software, Substrate-based nodes consist of two main parts with separate respo
 
 FRAME provides the core modular and extensible components that make the Substrate SDK flexible and adaptable to different use cases.
 FRAME includes Rust-based libraries that simplify the development of application-specific logic.
-Most of the functionality that FRAME provides takes the form of plug-in modules called [pallets](./glossary.md#pallet) that you can add and configure to suit your requirements
+Most of the functionality that FRAME provides takes the form of plug-in modules called [pallets](/polkadot-protocol/glossary#pallet) that you can add and configure to suit your requirements.
 
 ### Cumulus
 
-[Cumulus](){target=\_blank} provides utilities and libraries to turn FRAME-based runtimes into runtimes that can be a parachain on Polkadot. Cumulus runtimes are still FRAME runtimes but contain the necessary functionality that allows for that runtime to become a parachain on a relay chain
+Cumulus provides utilities and libraries to turn FRAME-based runtimes into runtimes that can be a parachain on Polkadot. Cumulus runtimes are still FRAME runtimes but contain the necessary functionality that allows for that runtime to become a parachain on a relay chain.
 
 ## Why Use Polkadot SDK?
 

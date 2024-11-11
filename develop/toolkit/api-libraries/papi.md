@@ -76,15 +76,15 @@ Now that you have set up the client, you can interact with the chain by reading 
 
 ### Reading Chain Data
 
-With the `TypedApi`, you can read data from the blockchain using the following patterns:
+The `TypedApi` provides a streamlined way to read blockchain data through three main interfaces, each designed for specific data access patterns:
 
-- To read a **constant** of the blockchain, you can use the `constants` interface and access the constant you need:
+- **Constants** - access fixed values or configurations on the blockchain using the `constants` interface:
 
     ```typescript
     const version = await typedApi.constants.System.Version();
     ```
 
-- To read a value from the **storage**, you can use the `query` interface with the following pattern:
+- **Storage queries** - retrieve stored values by querying the blockchain’s storage via the `query` interface:
 
     ```typescript
     const asset = await api.query.ForeignAssets.Asset.getValue(
@@ -93,7 +93,7 @@ With the `TypedApi`, you can read data from the blockchain using the following p
     );
     ```
 
-- To directly query a **Runtime API**, you can use the `apis` interface and access the API you need, for example:
+- **Runtime APIs** - interact directly with runtime APIs using the `apis` interface:
 
     ```typescript
     const metadata = await typedApi.apis.Metadata.metadata();

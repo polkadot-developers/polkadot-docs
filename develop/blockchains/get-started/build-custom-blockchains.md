@@ -1,44 +1,58 @@
 ---
 title: Build Custom Blockchains
-description: TODO
+description: Learn how to build custom blockchains using the Polkadot SDK, focusing on pre-built chain templates for faster development.
 ---
 
 # Build Custom Blockchains
 
-The Polkadot SDK provides a set of tools and libraries for building custom blockchains using Substrate, a Rust-based blockchain development framework. This guide will provide a step-by-step guide for building a custom blockchain upon pre-built chain templates.
-
 ## Overview
 
-Custom blockchains on Polkadot are typically created using Substrate, Polkadot's blockchain development framework. Substrate provides a modular structure where different components, known as pallets, are combined to form a custom runtime. By using pre-built chain templates, developers can avoid starting from scratch and focus on configuring essential features.
+Building custom blockchains with the [Polkadot SDK](https://github.com/paritytech/polkadot-sdk/tree/master){target=\_blank} allows developers to create specialized blockchain solutions tailored to unique requirements. By leveraging [Substrate](https://github.com/paritytech/polkadot-sdk/tree/master/substrate){target=\_blank}—a Rust-based, modular blockchain development framework—the Polkadot SDK provides powerful tools to construct chains that can either stand-alone or connect to Polkadot’s shared security network as parachains. This flexibility empowers projects across various sectors to launch blockchains that meet specific functional, security, and scalability needs.
 
-## Starting from Pre-Built Chains
+This guide covers the core steps for building a custom blockchain using the Polkadot SDK, starting from pre-built chain templates. These templates simplify development, providing an efficient starting point that can be further customized, allowing you to focus on implementing the features and modules that set your blockchain apart.
 
-For developers looking to deploy a chain quickly, the following templates offer solid starting points:
+## Starting from Templates
 
-- OpenZeppelin Substrate - this chain template includes basic, widely used modules from OpenZeppelin, a familiar name for developers with an Ethereum background
-- Tanssi - offers a streamlined setup and includes pre-configured runtime modules, allowing for quick customization
-- Pop Network - a user-friendly option tailored for new developers, simplifying initial setup with the flexibility to expand with more custom runtime logic
+Using pre-built templates is an efficient way to begin building a custom blockchain. Templates provide a foundational setup with pre-configured modules, letting developers avoid starting from scratch and instead focus on customization. Depending on your project’s goals—whether you want a simple test chain, a standalone chain, or a parachain that integrates with Polkadot’s relay chains—there are templates designed to suit different levels of complexity and scalability.
 
-These templates offer pre-configured environments and can be easily tailored to meet custom requirements.
+Within the Polkadot SDK, the following templates are available to get you started:
+
+- [minimal-template](https://github.com/paritytech/polkadot-sdk/tree/master/templates/minimal){target=\_blank} - includes only the essential components necessary for a functioning blockchain. It’s ideal for developers who want to gain familiarity with blockchain basics and test simple customizations before scaling up
+
+- [solochain-template](https://github.com/paritytech/polkadot-sdk/tree/master/templates/solochain){target=\_blank} - provides a foundation for creating standalone blockchains with moderate features, including a simple consensus mechanism and several core FRAME pallets. It’s a solid starting point for developers who want a fully functional chain that doesn’t depend on a relay chain but may scale later
+
+- [parachain-template](https://github.com/paritytech/polkadot-sdk/tree/master/templates/parachain){target=\_blank} - designed for connecting to Polkadot relay chains like Paseo, Kusama, or Polkadot, this template enables a chain to operate as a parachain. For projects aiming to integrate with Polkadot’s ecosystem, this template offers a great starting point
+
+In addition, several external templates offer unique features and can align with specific use cases or developer familiarity:
+
+- [OpenZeppelin](https://github.com/OpenZeppelin/polkadot-runtime-templates/tree/main){target=\_blank} - this option offers a flexible starting point with two template variations: the [generic-runtime-template](https://github.com/OpenZeppelin/polkadot-runtime-templates/tree/main/generic-template){target=\_blank}, a minimal setup featuring essential pallets and secure defaults ideal for building a reliable, customizable foundation, and the [evm-runtime-template](https://github.com/OpenZeppelin/polkadot-runtime-templates/tree/main/evm-template){target=\_blank}, which provides EVM compatibility for seamless migration of Solidity contracts or EVM-based dApps, it’s well-suited for developers familiar with Ethereum looking to leverage Substrate.
+
+- [Tanssi](https://github.com/moondance-labs/tanssi/tree/master/container-chains/runtime-templates){target=\_blank} - provides developers with pre-built templates that can help accelerate the process of creating appchain
+
+- [Pop Network](https://learn.onpop.io/appchains/pop-cli/new#templates){target=\_blank} - designed with user-friendliness in mind, Pop Network offers an approachable starting point for new developers, with a simple CLI interface for creating appchains 
+
+Choosing the suitable template depends on your project’s unique requirements, level of customization, and integration needs. Starting from a template speeds up development and enables you to focus on implementing your chain’s unique features rather than the foundational blockchain setup.
 
 ## High-Level Steps to Build a Custom Chain
 
-- Set Up the Development Environment - install Rust, the language used for Substrate, and set up necessary dependencies. This ensures compatibility with Substrate and enables smooth development
+To build a custom blockchain using the Polkadot SDK, there exist some general steps to follow:
 
-- Clone the Chain Template - begin by downloading the code for one of the pre-built chain templates. Each template offers a slightly different configuration and setup, allowing developers to choose a foundation that aligns with their project goals
+Building a custom blockchain with the Polkadot SDK involves several core steps, from environment setup to deployment. Here’s a breakdown of each stage:
 
-- Define Custom Modules - with the template cloned, explore the runtime configuration to customize the chain’s core logic. Polkadot uses modular components called pallets, which define blockchain features like account balances, transaction processing, and governance. Common pallets like Balances and Sudo can be configured or customized based on project needs
+- **Set up the development environment** - install Rust and configure all necessary dependencies to work with the Polkadot SDK (for more information, check the [Install Polkadot SDK dependencies](TODO:update-path){target=\_blank} page). Ensuring your environment is correctly set up from the start is crucial for avoiding compatibility issues later
 
-- Set Initial Storage Values chain initialization settings, including initial balances, validator lists, and other state configurations, are typically defined in a JSON file. For simple or early-stage chains, a human-readable format suffices. For long-lived or production chains, it’s advisable to use a "raw" format to ensure consistency across runtime upgrades
+- **Clone the chain template** - start by downloading the code for one of the pre-built templates that best aligns with your project needs. Each template offers a different configuration, so select one based on your chain’s intended functionality and scalability requirements
 
-- Compile and Launch - after finalizing the runtime setup and initial configuration, compile the blockchain to prepare it for deployment. This will generate the necessary executable to run a node. Running a node locally allows developers to test the chain’s behavior and verify that modules work as expected
+- **Define your chain's custom logic** - with your chosen template, check the runtime configuration to customize the chain’s functionality. Polkadot’s modular “pallet” system lets you to easily add or modify features like account balances, transaction handling, and staking. Creating custom pallets to implement unique features and combining them with existing ones enables you to define the unique aspects of your chain
 
-- Deploy to a Testnet or Mainnet - once testing is complete, the chain is ready for deployment. Developers can launch their chain on a local network, testnet, or Polkadot parachain slot depending on project requirements. Deploying on a testnet is recommended initially to monitor performance, confirm stability, and gather feedback.
+- **Test and debug** - testing is essential to ensure your custom chain works as intended. Conduct unit tests for individual pallets and integration tests for interactions between pallets
 
-## Testing and Iteration
+- **Compile** - after finalizing and testing your custom configurations, compile the blockchain to generate the necessary executable files for running a node. Run the node locally to validate that your customizations work as expected and that your chain is stable and responsive
 
-Before final deployment, thorough testing is crucial. Validate that modules and configurations work together correctly and confirm that initial state values and storage items are accurate. Testing in a controlled environment will help identify potential issues and ensure that the blockchain operates smoothly post-deployment.
+- **Deploy to a testnet or mainnet** - once testing is complete, deploy your chain to a live environment. Depending on your project’s goals, you can start with a testnet to monitor performance and gather feedback or launch directly on a mainnet
+
+Each of these steps is designed to build on the last, helping ensure that your custom blockchain is functional, optimized, and ready for deployment within the Polkadot ecosystem or beyond.
 
 ## Monitoring and Maintenance
 
-After deployment, regular monitoring and maintenance are essential to ensure that the chain is functioning as expected. Polkadot provides various tools and resources to help developers monitor the chain's performance, identify issues, and troubleshoot problems.
+After deployment, regular monitoring and maintenance are essential to ensure that the chain is functioning as expected. Developers need to be able to monitor the chain's performance, identify issues, and troubleshoot problems. Key activities include tracking network health, node performance, and transaction throughput. It's also essential to test the blockchain’s scalability under high load and perform security audits regularly to prevent vulnerabilities. By staying proactive with monitoring, developers can ensure optimal performance, resolve issues swiftly, and continue improving the chain over time.

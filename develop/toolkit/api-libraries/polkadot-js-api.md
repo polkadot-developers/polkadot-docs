@@ -26,11 +26,11 @@ You can access three main categories of chain interactions:
     - Returns values immediately without function calls
     - Example - `api.consts.balances.existentialDeposit`
 
--  **[State queries](https://polkadot.js.org/docs/api/start/api.query/){target=\_blank}** (`api.query`)
+- **[State queries](https://polkadot.js.org/docs/api/start/api.query/){target=\_blank}** (`api.query`)
     - Read chain state
     - Example - `api.query.system.account(accountId)`
 
-3. **[Transactions](https://polkadot.js.org/docs/api/start/api.tx/){target=\_blank}** (`api.tx`)
+- **[Transactions](https://polkadot.js.org/docs/api/start/api.tx/){target=\_blank}** (`api.tx`)
     - Submit extrinsics (transactions)
     - Example - `api.tx.balances.transfer(accountId, value)`
 
@@ -107,6 +107,6 @@ To make a transfer:
 !!!note
     The `alice` keypair in the example comes from a Keyring object. See the [Keyring documentation](https://polkadot.js.org/docs/keyring){target=\_blank} for details on managing keypairs.
 
-## Next Steps
+## Where to go next?
 
-For more detailed information about the Polkadot.js SDK, check the [official documentation](https://polkadot.js.org/docs/){target=\_blank}.
+For more detailed information about the Polkadot.js API, check the [official documentation](https://polkadot.js.org/docs/){target=\_blank}.

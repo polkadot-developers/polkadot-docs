@@ -7,7 +7,7 @@ description: Interact with Polkadot SDK-based chains easily using the Polkadot.j
 
 ## Introduction
 
-The [Polkadot.js API](https://github.com/polkadot-js/api){target=\_blank} uses JavaScript/Typescript to interact with Polkadot SDK-based chains. It allows you to query nodes, read chain state, and submit transactions through a dynamic, auto-generated API interface.
+The [Polkadot.js API](https://github.com/polkadot-js/api){target=\_blank} uses JavaScript/TypeScript to interact with Polkadot SDK-based chains. It allows you to query nodes, read chain state, and submit transactions through a dynamic, auto-generated API interface.
 
 ### Dynamic API Generation
 
@@ -15,18 +15,18 @@ Unlike traditional static APIs, the Polkadot.js API generates its interfaces aut
 
 1. The API connects to your node
 2. It retrieves the chain's metadata
-3. Based on this metadata, it creates specific endpoints in the format - `api.<type>.<module>.<section>`
+3. Based on this metadata, it creates specific endpoints in this format: `api.<type>.<module>.<section>`
 
 ### Available API Categories
 
 You can access three main categories of chain interactions:
 
-1. **[Runtime Constants](https://polkadot.js.org/docs/api/start/api.consts){target=\_blank}** (`api.consts`)
+- **[Runtime constants](https://polkadot.js.org/docs/api/start/api.consts){target=\_blank}** (`api.consts`)
     - Access runtime constants directly
     - Returns values immediately without function calls
     - Example - `api.consts.balances.existentialDeposit`
 
-2.  **[State Queries](https://polkadot.js.org/docs/api/start/api.query/){target=\_blank}** (`api.query`)
+-  **[State queries](https://polkadot.js.org/docs/api/start/api.query/){target=\_blank}** (`api.query`)
     - Read chain state
     - Example - `api.query.system.account(accountId)`
 
@@ -38,7 +38,7 @@ The available methods and interfaces will automatically reflect what's possible 
 
 ## Installation
 
-To add the Polkadot.js SDK to your project:
+To add the Polkadot.js API to your project:
 
 === "npm"
     ```bash
@@ -79,13 +79,13 @@ To create an API connection:
 
 The API provides several ways to read data from the chain. You can access:
 
-- Constants - values that are fixed in the runtime and don't change without a runtime upgrade
+- **Constants** - values that are fixed in the runtime and don't change without a runtime upgrade
 
     ```js
     --8<-- 'code/develop/toolkit/api-libraries/polkadot-js-sdk/read-constants.js'
     ```
 
-- State - current chain state that updates with each block
+- **State** - current chain state that updates with each block
 
     ```js
     --8<-- 'code/develop/toolkit/api-libraries/polkadot-js-sdk/read-state.js'

@@ -59,11 +59,11 @@ substrate-api-sidecar --version
 
 To use the Sidecar API, you have two options:
 
-- Local node - run a node locally, which Sidecar will connect to by default, requiring no additional configuration. To start, run:
+- **Local node** - run a node locally, which Sidecar will connect to by default, requiring no additional configuration. To start, run:
     ```
     substrate-api-sidecar
     ```
-- Remote Node - connect Sidecar to a remote node by specifying the RPC endpoint for that chain. For example, to gain access to the Polkadot Asset Hub associated endpoints:
+- **Remote node** - connect Sidecar to a remote node by specifying the RPC endpoint for that chain. For example, to gain access to the Polkadot Asset Hub associated endpoints:
     ```
     SAS_SUBSTRATE_URL=wss://polkadot-asset-hub-rpc.polkadot.io substrate-api-sidecar
     ```
@@ -97,4 +97,4 @@ For a complete list of available endpoints and their documentation, visit the [S
 
 ## Next Steps
 
-To dive deeper, refer to the [official Sidecar documentation](https://github.com/paritytech/substrate-api-sidecar?tab=readme-ov-file#substrateapi-sidecar){target=\_blank}. This will provide a comprehensive guide to the available configurations and advanced usage.
+To dive deeper, refer to the [official Sidecar documentation](https://github.com/paritytech/substrate-api-sidecar?tab=readme-ov-file#substrateapi-sidecar){target=\_blank}. This provides a comprehensive guide to the available configurations and advanced usage.

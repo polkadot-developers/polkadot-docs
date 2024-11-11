@@ -1,0 +1,86 @@
+---
+title: Introduction to Polkadot SDK
+description: Learn about the Polkadot SDK, what it is comprised of, and how it powers and forms the foundation of the Polkadot protocol
+---
+
+# Introduction to Polkadot SDK
+
+## Introduction
+
+The [Polkadot SDK](https://github.com/paritytech/polkadot-sdk){target=\_blank} is a powerful and versatile developer kit designed to facilitate building on the Polkadot network. It provides the necessary components for creating custom blockchains, parachains, generalized rollups, and more. Written in the Rust Programming Language, it puts security and robustness at the forefront of its design.
+
+Whether you're building a standalone chain or deploying a parachain on Polkadot, this SDK equips developers with the libraries and tools needed to manage runtime logic, compile the codebase, and utilize core features like staking, governance, and Cross-Consensus Messaging (XCM). It also provides a means for building generalized peer-to-peer systems, whether a blockchain or an alternative technology. The Polkadot SDK houses the following overall functionality:
+
+- Networking and peer-to-peer communication (powered by [Libp2p](./glossary.md#libp2p))
+- Consensus protocols, such as [BABE](./glossary.md#blind-assignment-of-blockchain-extension-babe), [GRANDPA](./glossary.md#grandpa), or [Aura](./glossary.md#authority-round-aura)
+- Cryptography
+- A selection of pre-built modules, called [pallets](./glossary.md#pallet)
+- Benchmarking and testing suites
+- The ability to create portable Wasm runtimes
+
+!!!note
+    For an in-depth dive into the monorepo, the [Polkadot SDK Rust documentation](https://paritytech.github.io/polkadot-sdk/master/polkadot_sdk_docs/polkadot_sdk/index.html){target=\_blank} is highly recommended.
+
+## Polkadot SDK Overview
+
+The Polkadot SDK is composed of five major components:
+
+![](/images/develop/blockchains/get-started/intro-polkadot-sdk/polkadot-sdk-structure.webp)
+
+- [Substrate](https://paritytech.github.io/polkadot-sdk/master/polkadot_sdk_docs/polkadot_sdk/substrate/index.html){target=\_blank} - a set of libraries for building blockchains
+- [FRAME](https://paritytech.github.io/polkadot-sdk/master/polkadot_sdk_docs/polkadot_sdk/frame_runtime/index.html){target=\_blank} - a blockchain development framework built on top of Substrate
+- [Cumulus](https://paritytech.github.io/polkadot-sdk/master/polkadot_sdk_docs/polkadot_sdk/cumulus/index.html){target=\_blank} - a set of libraries and pallets to add parachain capabilities to a Substrate/FRAME runtime
+- [XCM (Cross Consensus Messaging)](https://paritytech.github.io/polkadot-sdk/master/polkadot_sdk_docs/polkadot_sdk/xcm/index.html){target=\_blank} - the primary format for conveying messages between parachains 
+- [Polkadot](https://paritytech.github.io/polkadot-sdk/master/polkadot_sdk_docs/polkadot_sdk/polkadot/index.html){target=\_blank} - the node implementation for the Polkadot protocol
+
+### Substrate
+
+Substrate is a Software Development Kit (SDK) that uses Rust-based libraries and tools to enable you to build application-specific blockchains from modular and extensible components. Application-specific blockchains built with Substrate can run as standalone services or in parallel with other chains to take advantage of the shared security provided by the Polkadot ecosystem. Substrate includes default implementations of the core components of the blockchain infrastructure to allow you to focus on the application logic.
+
+Every blockchain platform relies on a decentralized network of computers—called nodes—that communicate with each other about transactions and blocks.
+In general, a node in this context is the software running on the connected devices rather than the physical or virtual machine in the network.
+As software, Substrate-based nodes consist of two main parts with separate responsibilities:
+
+- **Client** - services to handle network and blockchain infrastructure activity
+    - Native Binary
+    - Executes the Wasm runtime
+    - Everything else: Database, Networking, Mempool, Consensus, and more
+    - Also known as Host
+- **Runtime** - business logic for state transitions
+    - Application logic
+    - Wasm
+    - Stored as a part of the chain state
+    - Also known as STF (State Transition Function)
+
+### FRAME
+
+FRAME provides the core modular and extensible components that make the Substrate SDK flexible and adaptable to different use cases.
+FRAME includes Rust-based libraries that simplify the development of application-specific logic.
+Most of the functionality that FRAME provides takes the form of plug-in modules called [pallets](./glossary.md#pallet) that you can add and configure to suit your requirements
+
+### Cumulus
+
+[Cumulus](){target=\_blank} provides utilities and libraries to turn FRAME-based runtimes into runtimes that can be a parachain on Polkadot. Cumulus runtimes are still FRAME runtimes but contain the necessary functionality that allows for that runtime to become a parachain on a relay chain
+
+## Why Use Polkadot SDK?
+
+Using the Polkadot SDK, you can build application-specific blockchains without the complexity of building a blockchain from scratch or the limitations of building on a general-purpose blockchain.
+You can focus on crafting the business logic that makes your chain unique and innovative with the additional benefits of flexibility, upgradeability, open-source licensing, and cross-consensus interoperability.
+
+## How to Create a Custom Blockchain using the SDK?
+
+Before starting your blockchain development journey, you'll need to decide whether you want to build a standalone chain or a parachain that connects to the Polkadot network. Each path has its considerations and requirements. Once you've made this decision, follow these development stages:
+
+```mermaid
+graph LR
+    A[Install] --> B[Build]
+    B --> C[Deploy]
+```
+
+1. [Install the Polkadot SDK](./install-polkadot-sdk.md) - set up your development environment with all necessary dependencies and tools
+
+2. [Build the Chain](TODO: update-path) - learn how to create and customize your blockchain's runtime, configure pallets, and implement your chain's unique features
+
+3. [Deploy the Chain](./deploy-blockchain-to-polkadot.md) - follow the steps to launch your blockchain, whether as a standalone network or as a parachain on Polkadot
+
+Each stage is covered in detail in its respective guide, walking you through the process from initial setup to final deployment.

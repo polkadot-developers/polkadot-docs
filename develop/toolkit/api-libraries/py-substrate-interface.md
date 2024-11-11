@@ -19,7 +19,7 @@ The [Python Substrate Interface](https://github.com/polkascan/py-substrate-inter
 
 ## Installation
 
-Install the library using pip:
+Install the library using `pip`:
 
 ```py
 pip install substrate-interface

@@ -42,7 +42,7 @@ Building a custom blockchain with the Polkadot SDK involves several core steps, 
 
 - **Set up the development environment** - install Rust and configure all necessary dependencies to work with the Polkadot SDK (for more information, check the [Install Polkadot SDK dependencies](TODO:update-path){target=\_blank} page). Ensuring your environment is correctly set up from the start is crucial for avoiding compatibility issues later
 
-- **Clone the chain template** - start by downloading the code for one of the pre-built templates that best aligns with your project needs. Each template offers a different configuration, so select one based on your chain’s intended functionality and scalability requirements
+- **Clone the chain template** - start by downloading the code for one of the pre-built templates that best aligns with your project needs. Each template offers a different configuration, so select one based on your chain’s intended functionality
 
 - **Define your chain's custom logic** - with your chosen template, check the runtime configuration to customize the chain’s functionality. Polkadot’s modular “pallet” system lets you easily add or modify features like account balances, transaction handling, and staking. Creating custom pallets to implement unique features and combining them with existing ones enables you to define the unique aspects of your chain
 

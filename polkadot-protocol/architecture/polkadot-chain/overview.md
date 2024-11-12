@@ -136,8 +136,14 @@ Additionally, DOT can serve as a transferable token. For example, DOT, held in t
 
 ## JAM and the Road Ahead
 
-The Join-Accumulate Machine (JAM) represents a transformative redesign of Polkadot's core architecture, envisioned as the successor to the current relay chain. Unlike traditional blockchain architectures, JAM introduces a unique computational model that processes work through two primary functions: join (which handles data integration) and accumulate (which folds computations into the chain's state). 
+The Join-Accumulate Machine (JAM) represents a transformative redesign of Polkadot's core architecture, envisioned as the successor to the current relay chain. Unlike traditional blockchain architectures, JAM introduces a unique computational model that processes work through two primary functions: 
 
-JAM removes many of the opinions and constraints of the current relay chain while maintaining its core security properties. It's designed to be more generic and flexible, allowing for permissionless code execution through "services" that can be deployed without governance approval. What makes JAM particularly innovative is its transactionless nature and efficient pipeline processing model, which places the prior state root in block headers instead of the posterior state root, enabling more effective utilization of block time for computations. This architectural evolution promises to enhance Polkadot's scalability and flexibility while maintaining robust security guarantees.
+- **Join** - handles data integration
+- **Accumulate** - folds computations into the chain's state
 
-Also of note, JAM is planned to be rolled out to Polkadot as a single, complete upgrade rather than a steady stream of smaller updates, which can tend to increase developer overhead in addressing breaking changes.
+JAM removes many of the opinions and constraints of the current relay chain while maintaining its core security properties. Expected improvements include:
+
+- **Permissionless code execution** - JAM is designed to be more generic and flexible, allowing for permissionless code execution through services that can be deployed without governance approval 
+- **More effective block time utilization** - JAM's efficient pipeline processing model places the prior state root in block headers instead of the posterior state root, enabling more effective utilization of block time for computations
+
+This architectural evolution promises to enhance Polkadot's scalability and flexibility while maintaining robust security guarantees. JAM is planned to be rolled out to Polkadot as a single, complete upgrade rather than a stream of smaller updates. This approach seeks to minimize the developer overhead required to address any breaking changes.

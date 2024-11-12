@@ -233,19 +233,19 @@ DOT is the native token of the Polkadot network, much like BTC for Bitcoin and E
 
 ### Redenomination
 
-Polkadot conducted a community poll, which ended on **27 July 2020** at block **888,888** to decide whether to redenominate the DOT token. 
+Polkadot conducted a community poll, which ended on 27 July 2020 at block 888,888, to decide whether to redenominate the DOT token. 
 
 The stakeholders chose to redenominate the token, changing the value of 1 DOT from 1e12 plancks to 1e10 plancks. 
 
-Importantly, this did not affect the total number of base units (plancks) in the network, only how a single DOT is represented.
+Importantly, this did not affect the network's total number of base units (plancks); it only affects how a single DOT is represented.
 
-The redenomination became effective 72 hours after transfers were enabled, occurring at block **1,248,328** on 21 August 2020 around 16:50 UTC.
+The redenomination became effective 72 hours after transfers were enabled, occurring at block 1,248,328 on 21 August 2020 around 16:50 UTC.
 
 ## The Planck Unit
 
-The smallest unit of account balance on Substrate-based blockchains (such as Polkadot and Kusama) is called **Planck**, named after the **Planck Length**, the smallest measurable distance in the physical universe. 
+The smallest unit of account balance on Substrate-based blockchains (such as Polkadot and Kusama) is called _Planck_, named after the Planck length, the smallest measurable distance in the physical universe. 
 
-Similar to how BTC's smallest unit is the **Satoshi** and ETH's is the **Wei**, Polkadot’s native token DOT is equal to 1e10 Planck, while Kusama’s native token KSM equals 1e12 Planck.
+Similar to how BTC's smallest unit is the Satoshi and ETH's is the Wei, Polkadot's native token DOT equals 1e10 Planck, while Kusama's native token KSM equals 1e12 Planck.
 
 ## What are the uses of DOT?
 

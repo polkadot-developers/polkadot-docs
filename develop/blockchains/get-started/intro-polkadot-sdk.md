@@ -73,8 +73,8 @@ Before starting your blockchain development journey, you'll need to decide wheth
 
 ```mermaid
 graph LR
-    A[Install] --> B[Build]
-    B --> C[Deploy]
+    A[Install the Polkadot SDK] --> B[Build the Chain]
+    B --> C[Deploy the Chain]
 ```
 
 1. [Install the Polkadot SDK](./install-polkadot-sdk.md) - set up your development environment with all necessary dependencies and tools

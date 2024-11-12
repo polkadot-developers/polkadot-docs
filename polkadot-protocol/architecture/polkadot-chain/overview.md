@@ -42,7 +42,7 @@ According to Polkadot's design, any blockchain that can compile to WebAssembly (
 
 Here’s a high-level overview of the Polkadot protocol architecture:
 
-![](/images/polkadot-protocol/architecture/polkadot-chain/overview/relay-chain-architecture.webp)
+![](/images/polkadot-protocol/architecture/polkadot-chain/overview/overview-1.webp)
 
 Parachains propose blocks to Polkadot validators, who check for availability and validity before finalizing them. With the chain providing security, collators—full nodes of parachains—can focus on their tasks without needing strong incentives.
 
@@ -107,147 +107,24 @@ Delegating these responsibilities to [system chains](add link to System Chains s
 !!!note
     For more information about blockspace, watch [Robert Habermeier’s interview](https://www.youtube.com/watch?v=e1vISppPwe4){target=\_blank} or read his [technical blog post](https://www.rob.tech/blog/polkadot-blockspace-over-blockchains/){target=\_blank}.
 
-## Protocol Componets
-
-This section provides a introduction to the Polkadot protocol, including essential terminology specific to Polkadot, the core components of the protocol, and additional relevant information.
-
-!!!note 
-    If the information provided below doesn't fully address your questions about the Polkadot protocol, be sure to visit the [Polkadot Specification](https://spec.polkadot.network/id-polkadot-protocol){target=\_blank}.
-
-### Addresses
-
-In Polkadot and most Substrate-based chains, user accounts are represented by a **32-byte (256-bit)** `AccountId`, which is typically — but not always — the public key of a cryptographic key pair.
-
-Polkadot uses the `SS58` address format, a versatile meta-format designed to support various cryptographic schemes and blockchain networks. 
-
-It shares characteristics with Bitcoin's `Base58Check` encoding, such as a version prefix, hash-based checksum, and base-58 encoding, ensuring addresses are network-specific and resistant to errors.
-
-!!!note
-    More about the addresses can be found on the [Accounts](add link to Accounts page) page
-
-#### Cryptography
-
-Polkadot supports several [cryptographic](link to cryptography page on our site) key pairs and signing algorithms to enhance security and versatility in transactions. 
-
-The primary types include:
-
-- **Ed25519**: This is a popular signature scheme known for its speed and security, widely used in various blockchain applications.
-
-- **Sr25519**: This utilizes Schnorr signatures on the Ristretto group, providing extra security features, including resistance to certain types of attacks that can affect other signature schemes.
-
-- **ECDSA**: Specifically, Polkadot employs ECDSA signatures on the `secp256k1` curve, a standard in many cryptocurrencies like Bitcoin.
-
-!!!note
-    Additional information about cryptography can be found on the [Cryptography](add link to Cryptography page) page
-
-### Extrinsics and Events
-
-#### Block Format
-
-In Polkadot, a block is composed of two main components: the **block header** and the **block body**.
-
-##### Block Body
-
-The block body consists of extrinsics, which are a generalized form of transactions.
-
-These extrinsics can include any external data that the blockchain needs to validate and track. 
-
-##### Block Header
-
-The block header contains a 5-tuple with the following elements:
-
-1. `parent_hash`: A 32-byte `Blake2b` hash of the SCALE-encoded parent block header.
-
-2. `number`: An integer that indicates the index of the current block in the chain. This starts at 0 for the genesis block and increments with each new block.
-
-3. `state_root`: The root of the Merkle tree, which acts as the storage root for the system. This data structure allows efficient verification of the state.
-
-4. `extrinsics_root`: This field is reserved for the runtime to validate the integrity of the extrinsics that make up the block body.
-
-5. `digest`: A field used to store auxiliary data relevant to the chain, such as block signatures and information that can assist light clients in interacting with the block without needing full storage access.
-
-When a node creates or receives a new block, it must "gossip" (broadcast) this block to other nodes in the network. 
-
-Other nodes will track these announcements and can request more information about the blocks. 
-
-This mechanism is crucial for maintaining consensus and ensuring all nodes have the most current state of the blockchain.
-
-!!!note
-    For more detailed information on how blocks are announced please refer to [Polkadot Spec](https://spec.polkadot.network/chap-networking#sect-msg-block-announce){target=\_blank} documentation 
-
-#### Extrinsics
-
-An extrinsic is a [SCALE](https://github.com/paritytech/parity-scale-codec#parity-scale-codec){target=\_blank} encoded array consisting of a `version number`, `signature`, and varying `data` types indicating the resulting runtime function to be called, including the parameters required for that function to be executed.
-
-#### Events
-
-Extrinsics represent data coming from external sources, while events represent outcomes or actions initiated by the blockchain itself. Extrinsics often trigger events. 
-
-For instance, in the Staking pallet, claiming rewards triggers a **Reward** event, informing users of the amount credited.
-
-#### Fees
-
-Polkadot uses a weight-based fee model, unlike Ethereum's gas system. Transaction fees are calculated and charged before dispatch. The fee is based on the "weight" of a transaction, which measures the computational resources required to process it.
-
-Users also have the option to include a "tip" with their transaction. This tip increases the priority of their transaction during times of network congestion, ensuring faster inclusion in a block.
-
-!!!note
-    For more details on fees, please refer to the [Polkadot documentation page](transaction fee page){target=\_blank}.
-
-#### Encoding
-
-Parity's integration tools offer a convenient way to handle decoded blockchain data, enabling efficient interaction with the Polkadot network. 
-
-However, if you prefer to bypass these tools and deal directly with the raw chain data, Polkadot uses the [SCALE codec](https://github.com/paritytech/parity-scale-codec#parity-scale-codec){target=\_blank} to encode block and transaction data. 
-
-This allows you to implement your own codecs for custom interactions with the chain if needed.
-
-### Runtime Upgrades
-
-Runtime upgrades allow Polkadot to change the logic of the chain without the need for a hard fork. 
-
-!!!note
-    You can find a guide for how to properly perform a runtime upgrade [here](runtime upgrades page).
-
-#### Runtime Versioning
-
-There are a number of fields that are a part of the overall `RuntimeVersion`.
-
-Apart the `runtime_version` there is also the `transaction_version` which denotes how to correctly encode/decode calls for a given runtime (useful for hardware wallets). 
-
-The reason `transaction_version` is separate from `runtime_version` is that it explicitly notes that the call interface is broken/not compatible.
-
 ## DOT Token
 
-### Tokens
+DOT is the native token of the Polkadot network, much like BTC for Bitcoin and Ether for the Ethereum blockchain. DOT has 10 decimals, uses the Planck base unit, and has a balance type of `u128`. The same is true for Kusama's KSM token with the exception of having 12 decimals.
 
-- Token decimals:
-    - Polkadot (DOT): 10
-    - Kusama (KSM): 12
-- Base unit: "Planck"
-- Balance type: `u128`
+??? info "Redomination of DOT"
+    Polkadot conducted a community poll, which ended on 27 July 2020 at block 888,888, to decide whether to redenominate the DOT token. The stakeholders chose to redenominate the token, changing the value of 1 DOT from 1e12 plancks to 1e10 plancks. 
 
-### What is DOT?
+    Importantly, this did not affect the network's total number of base units (plancks); it only affects how a single DOT is represented.
 
-DOT is the native token of the Polkadot network, much like BTC for Bitcoin and Ether for the Ethereum blockchain.
+    The redenomination became effective 72 hours after transfers were enabled, occurring at block 1,248,328 on 21 August 2020 around 16:50 UTC.
 
-### Redenomination
-
-Polkadot conducted a community poll, which ended on 27 July 2020 at block 888,888, to decide whether to redenominate the DOT token. 
-
-The stakeholders chose to redenominate the token, changing the value of 1 DOT from 1e12 plancks to 1e10 plancks. 
-
-Importantly, this did not affect the network's total number of base units (plancks); it only affects how a single DOT is represented.
-
-The redenomination became effective 72 hours after transfers were enabled, occurring at block 1,248,328 on 21 August 2020 around 16:50 UTC.
-
-## The Planck Unit
+### The Planck Unit
 
 The smallest unit of account balance on Substrate-based blockchains (such as Polkadot and Kusama) is called _Planck_, named after the Planck length, the smallest measurable distance in the physical universe. 
 
 Similar to how BTC's smallest unit is the Satoshi and ETH's is the Wei, Polkadot's native token DOT equals 1e10 Planck, while Kusama's native token KSM equals 1e12 Planck.
 
-## What Are the Uses of DOT?
+### Uses for DOT
 
 DOT serves three primary functions within the Polkadot network:
 
@@ -261,6 +138,6 @@ Additionally, DOT can serve as a transferable token. For example, DOT, held in t
 
 The Join-Accumulate Machine (JAM) represents a transformative redesign of Polkadot's core architecture, envisioned as the successor to the current relay chain. Unlike traditional blockchain architectures, JAM introduces a unique computational model that processes work through two primary functions: join (which handles data integration) and accumulate (which folds computations into the chain's state). 
 
-Operating as a domain-specific rollup chain, JAM removes many of the opinions and constraints of the current relay chain while maintaining its core security properties. It's designed to be more generic and flexible, allowing for permissionless code execution through "services" that can be deployed without governance approval. What makes JAM particularly innovative is its transactionless nature and efficient pipeline processing model, which places the prior state root in block headers instead of the posterior state root, enabling more effective utilization of block time for computations. This architectural evolution promises to enhance Polkadot's scalability and flexibility while maintaining robust security guarantees.
+JAM removes many of the opinions and constraints of the current relay chain while maintaining its core security properties. It's designed to be more generic and flexible, allowing for permissionless code execution through "services" that can be deployed without governance approval. What makes JAM particularly innovative is its transactionless nature and efficient pipeline processing model, which places the prior state root in block headers instead of the posterior state root, enabling more effective utilization of block time for computations. This architectural evolution promises to enhance Polkadot's scalability and flexibility while maintaining robust security guarantees.
 
 Also of note, JAM is planned to be rolled out to Polkadot as a single, complete upgrade rather than a steady stream of smaller updates, which can tend to increase developer overhead in addressing breaking changes.

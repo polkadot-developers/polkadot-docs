@@ -1,13 +1,15 @@
 ---
 title: Overview
-description: Explore the fundamental concepts of the Polkadot protocol, including account addresses, extrinsics, events and runtime upgrades.
+description: Explore Polkadot's core architecture, including its multi-chain vision, shared security, runtime upgrades, and the DOT token's governance and staking roles.
 ---
 
 # Overview
 
-Since the release of Bitcoin in 2009, the amount of blockchain projects increased to the order of tens of thousands. 
+## Introduction
 
-Different projects have different value propositions, suggesting that the future will be multi-chain and that inter-chain communication will be crucial to establish collaborations and leveraging each other strengths.
+Polkadot is a next-generation blockchain protocol designed to support a multi-chain future by enabling secure communication and interoperability between different blockchains. Built as a Layer-0 protocol, Polkadot introduces innovations like application-specific Layer-1 chains (parachains), shared security through Nominated Proof-of-Stake (NPoS), and seamless cross-chain interactions via its native Cross-Consensus Messaging Format (XCM). 
+
+This guide covers key aspects of Polkadot’s architecture, including its high-level protocol structure, runtime upgrades, blockspace commoditization, and the role of its native token, DOT, in governance, staking, and resource allocation.
 
 ## Polkadot 1.0
 
@@ -15,28 +17,28 @@ Polkadot 1.0 represents the state of Polkadot as of 2023, coinciding with the re
 
 As a Layer-0 blockchain, Polkadot contributes to the multi-chain vision through several key innovations and initiatives, including:
 
-1. **Application-specific Layer-1 blockchains (parachains)** - Polkadot's sharded network allows for parallel transaction processing, with shards that can have unique state transition functions, enabling custom-built L1 chains optimized for specific applications
+- **Application-specific Layer-1 blockchains (parachains)** - Polkadot's sharded network allows for parallel transaction processing, with shards that can have unique state transition functions, enabling custom-built L1 chains optimized for specific applications
 
-2. **Shared security and scalability** - L1 chains connected to Polkadot benefit from its [Nominated-Proof-of-Stake (NPoS)]( https://wiki.polkadot.network/docs/learn-consensus#nominated-proof-of-stake){target=\_blank} system, providing security out-of-the-box without the need to bootstrap their own
+- **Shared security and scalability** - L1 chains connected to Polkadot benefit from its [Nominated-Proof-of-Stake (NPoS)]( https://wiki.polkadot.network/docs/learn-consensus#nominated-proof-of-stake){target=\_blank} system, providing security out-of-the-box without the need to bootstrap their own
 
-3. **Secure interoperability** - Polkadot's native interoperability enables seamless data and value exchange between parachains. This interoperability can also be used outside of the ecosystem for bridging with external networks
+- **Secure interoperability** - Polkadot's native interoperability enables seamless data and value exchange between parachains. This interoperability can also be used outside of the ecosystem for bridging with external networks
 
-4. **Resilient infrastructure** - decentralized and scalable, Polkadot ensures ongoing support for development and community initiatives via its on-chain [treasury](https://wiki.polkadot.network/docs/learn-polkadot-opengov-treasury){target=\_blank} and governance
+- **Resilient infrastructure** - decentralized and scalable, Polkadot ensures ongoing support for development and community initiatives via its on-chain [treasury](https://wiki.polkadot.network/docs/learn-polkadot-opengov-treasury){target=\_blank} and governance
 
-5. **Rapid L1 development** - the [Polkadot SDK](link to Polkadot SDK page in polkadot protocol section) allows fast, flexible creation and deployment of Layer-1 chains
+- **Rapid L1 development** - the [Polkadot SDK](link to Polkadot SDK page in polkadot protocol section) allows fast, flexible creation and deployment of Layer-1 chains
 
-6. **Cultivating the next generation of Web3 developers** - Polkadot supports the growth of Web3 core developers through initiatives such as:
+- **Cultivating the next generation of Web3 developers** - Polkadot supports the growth of Web3 core developers through initiatives such as:
 
     - [Polkadot Blockchain Academy](https://polkadot.com/blockchain-academy){target=\_blank}
     - [Polkadot Alpha Program](https://polkadot.com/alpha-program){target=\_blank}
-    - [EdX Courses](https://www.edx.org/school/web3x){target=\_blank}
-    - Rust and Substrate Courses (coming soon)
+    - [EdX courses](https://www.edx.org/school/web3x){target=\_blank}
+    - Rust and Substrate courses (coming soon)
 
-### High Level Architecture
+### High-Level Architecture
 
-Polkadot features a chain that serves as the central component of the system. This chain is depicted as a ring, encircled by several parachains that are connected to it. 
+Polkadot features a chain that serves as the central component of the system. This chain is depicted as a ring encircled by several parachains that are connected to it. 
 
-According to Polkadot's design, any blockchain that can compile to WebAssembly (Wasm) and adheres to the Parachains Protocol become a parachain on the Polkadot network.
+According to Polkadot's design, any blockchain that can compile to WebAssembly (Wasm) and adheres to the Parachains Protocol becomes a parachain on the Polkadot network.
 
 Here’s a high-level overview of the Polkadot protocol architecture
 

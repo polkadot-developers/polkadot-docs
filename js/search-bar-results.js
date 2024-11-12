@@ -1,3 +1,7 @@
+// The purpose of this script is to modify the default search functionality
+// so that the "Type to start searching" text does not render in the search
+// results dropdown and so that the dropdown only appears once a user has started
+// to type in the input field
 document.addEventListener('DOMContentLoaded', function () {
   // Only show the search results if the user has started to type
   // Select the search input and output elements

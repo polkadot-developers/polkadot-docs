@@ -1,3 +1,5 @@
+// The purpose of this script is to move the header up out of view while
+// the user is scrolling down a page
 let lastScrollY = window.scrollY;
 
 window.addEventListener('scroll', () => {

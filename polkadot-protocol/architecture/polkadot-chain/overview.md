@@ -247,7 +247,7 @@ The smallest unit of account balance on Substrate-based blockchains (such as Pol
 
 Similar to how BTC's smallest unit is the **Satoshi** and ETH's is the **Wei**, Polkadot’s native token DOT is equal to 1e10 Planck, while Kusama’s native token KSM equals 1e12 Planck.
 
-## What are the uses of DOT?
+## What Are the Uses of DOT?
 
 DOT serves three primary functions within the Polkadot network:
 

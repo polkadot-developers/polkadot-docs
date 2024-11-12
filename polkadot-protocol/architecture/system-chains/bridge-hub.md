@@ -19,7 +19,7 @@ Bridge Hub provides a mode of trustless bridging through its implementation of o
 
 Trustless bridges are essentially two one-way bridges, where each chain has a method of verifying the state of the other in a trustless manner through consensus proofs.
 
-For example, the Ethereum and Polkadot bridging solution that [Snowbridge](https://docs.snowbridge.network/){target=_blank} implements involves two light clients: one which verifies the state of Polkadot and the other which verifies the state of Ethereum. The light client for Polkadot is implemented in the runtime as a pallet, whereas the light client for Ethereum is implemented as a smart contract on the beacon chain.
+For example, the Ethereum and Polkadot bridging solution that [Snowbridge](https://docs.snowbridge.network/){target=\_blank} implements involves two light clients: one which verifies the state of Polkadot and the other which verifies the state of Ethereum. The light client for Polkadot is implemented in the runtime as a pallet, whereas the light client for Ethereum is implemented as a smart contract on the beacon chain.
 
 ## Bridging Components
 
@@ -32,7 +32,9 @@ In any given Bridge Hub implementation (Kusama, Polkadot, or other relay chains)
 
 ### Ethereum-Specific Support
 
-Bridge Hub also has a set of components and pallets that support a Polkadot <-> Ethereum bridge through [Snowbridge](https://github.com/Snowfork/snowbridge){target=_blank}
+Bridge Hub also has a set of components and pallets that support a Polkadot <-> Ethereum bridge through [Snowbridge](https://github.com/Snowfork/snowbridge){target=\_blank}
+
+To view the full list of which pallets are included in Bridge Hub, visit the Subscan runtime page: [Runtime Modules](https://bridgehub-polkadot.subscan.io/runtime){target=\_blank}. Alternatively, the source code for those pallets can be found in the Polkadot SDK: [Snowbridge Pallets](https://github.com/paritytech/polkadot-sdk/tree/aff3a0796176ff3c0ee1b89c2f1d811a858f17a8/bridges/snowbridge/pallets){target=\_blank}.
 
 ## Deployed Bridges
 
@@ -42,6 +44,6 @@ Bridge Hub also has a set of components and pallets that support a Polkadot <-> 
 
 ## What's Next
 
-- Go over the Bridge Hub README in the Polkadot SDK repository: [Bridge-hub Parachains](https://github.com/paritytech/polkadot-sdk/blob/master/cumulus/parachains/runtimes/bridge-hubs/README.md){target=_blank}
-- Take a deeper dive into bridging architecture in the Polkadot SDK: [High-Level Bridge Documentation](https://github.com/paritytech/polkadot-sdk/blob/master/bridges/docs/high-level-overview.md){target=_blank}
-- Read more about BEEFY and Bridging in the Polkadot Wiki: [Bridging: BEEFY](https://wiki.polkadot.network/docs/learn-consensus#bridging-beefy){target=_blank}
+- Go over the Bridge Hub README in the Polkadot SDK repository: [Bridge-hub Parachains](https://github.com/paritytech/polkadot-sdk/blob/master/cumulus/parachains/runtimes/bridge-hubs/README.md){target=\_blank}
+- Take a deeper dive into bridging architecture in the Polkadot SDK: [High-Level Bridge Documentation](https://github.com/paritytech/polkadot-sdk/blob/master/bridges/docs/high-level-overview.md){target=\_blank}
+- Read more about BEEFY and Bridging in the Polkadot Wiki: [Bridging: BEEFY](https://wiki.polkadot.network/docs/learn-consensus#bridging-beefy){target=\_blank}

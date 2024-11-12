@@ -73,7 +73,7 @@ After completing these steps, the asset will be successfully registered. You can
 ![Asset listed on Polkadot.js Apps](/images/tutorials/blockchains/system-chains/asset-hub/register-local-assets/register-a-local-asset-7.webp)
 
 !!! note
-    Take into consideration that the **Assets** section’s link may differ depending on the network you are using. For the local environment, the link will be `ws://127.0.0.1:8000/#/assets`.
+    Take into consideration that the **Assets** section’s link may differ depending on the network you are using. For the local environment, enter `ws://127.0.0.1:8000` into the **Custom Endpoint** field.
 
 In this way, you have successfully registered a local asset on the Asset Hub parachain.
 

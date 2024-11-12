@@ -92,20 +92,20 @@ Polkadot 1.0 currently achieves resilience through several strategies:
 
 Polkadot 1.0’s design allows for the commoditization of blockspace.
 
-Blockspace is the capacity of a blockchain to finalize and commit operations, encompassing its security, computing, and storage capabilities. Its characteristics can vary across different blockchains, affecting **security**, **flexibility**, and **availability**.
+Blockspace is a blockchain's capacity to finalize and commit operations, encompassing its security, computing, and storage capabilities. Its characteristics can vary across different blockchains, affecting security, flexibility, and availability.
 
-- **Security** - measures the robustness of blockspace in Proof-of-Stake (PoS) networks, linked to the stake locked on validator nodes, the variance in stake among validators, and the total number of validators. It also considers social centralization (how many validators are owned by single operators) and physical centralization (how many validators run on the same service provider)
+- **Security** - measures the robustness of blockspace in Proof of Stake (PoS) networks linked to the stake locked on validator nodes, the variance in stake among validators, and the total number of validators. It also considers social centralization (how many validators are owned by single operators) and physical centralization (how many validators run on the same service provider)
 
 - **Flexibility** - reflects the functionalities and types of data that can be stored, with high-quality data essential to avoid bottlenecks in critical processes
 
 - **Availability** - indicates how easily users can access blockspace. It should be easily accessible, allowing diverse business models to thrive, ideally regulated by a marketplace based on demand and supplemented by options for "second-hand" blockspace
 
-Polkadot is built on core blockspace principles, but there’s room for improvement. Currently, tasks like balance transfers, staking, and governance are managed on the relay chain. 
+Polkadot is built on core blockspace principles, but there's room for improvement. Tasks like balance transfers, staking, and governance are managed on the relay chain. 
 
 Delegating these responsibilities to [system chains](add link to System Chains section) could enhance flexibility and allow the relay chain to concentrate on providing shared security and interoperability.
 
 !!!note
-    For more information about blockspace see this [interview](https://www.youtube.com/watch?v=e1vISppPwe4){target=\_blank} with **Robert Habermeier** as well as this [article](https://www.rob.tech/blog/polkadot-blockspace-over-blockchains/){target=\_blank} by him.
+    For more information about blockspace, watch [Robert Habermeier’s interview](https://www.youtube.com/watch?v=e1vISppPwe4){target=\_blank} or read his [technical blog post](https://www.rob.tech/blog/polkadot-blockspace-over-blockchains/){target=\_blank}.
 
 ## Protocol Componets
 
@@ -229,9 +229,9 @@ The reason `transaction_version` is separate from `runtime_version` is that it e
 
 ### What is DOT?
 
-DOT is the native token of the Polkadot network, much like BTC is for Bitcoin and Ether is for the Ethereum blockchain.
+DOT is the native token of the Polkadot network, much like BTC for Bitcoin and Ether for the Ethereum blockchain.
 
-### Redomination
+### Redenomination
 
 Polkadot conducted a community poll, which ended on **27 July 2020** at block **888,888** to decide whether to redenominate the DOT token. 
 

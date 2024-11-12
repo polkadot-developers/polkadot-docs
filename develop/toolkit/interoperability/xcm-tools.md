@@ -67,3 +67,7 @@ After compiling, verify the setup with the following command:
 ./target/release/xcm-tools --help
 ```
 For more details on using Astar xcm-tools, consult the [official documentation](https://docs.astar.network/docs/learn/interoperability/xcm/integration/tools/){target=\_blank}.
+
+### Chopsticks
+
+The Chopsticks library provides XCM functionality for testing XCM messages across networks, enabling you to fork multiple parachains along with a relay chain.  For further details, see the [Chopsticks documentation](/develop/application-devs/tooling/chopsticks/overview/#xcm-testing){target=\_blank} about XCM.

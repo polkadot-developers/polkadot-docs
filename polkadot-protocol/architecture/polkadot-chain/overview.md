@@ -67,26 +67,26 @@ The new and more efficient way of obtaining core on Polkadot is to go through th
 
 [Agile coretime](add link to Agile Coretime page) improves the efficient use of Polkadot's network resources and offers economic flexibility for developers, extending Polkadot's capabilities far beyond the original vision outlined in the [whitepaper](https://polkadot.com/papers/Polkadot-whitepaper.pdf){target=\_blank}.
 
-It enables parachains to purchase monthly "bulk" allocations of **coretime**(The time allocated for utilizing a core, measured in Polkadot relay chain blocks), ensuring heavy-duty parachains that can author a block every 6 seconds with [Asynchronous Backing](add link to async backing page) can reliably renew their coretime each month. Although six second block times is now the default, parachains have the option of producing blocks less frequently. 
+It enables parachains to purchase monthly "bulk" allocations of coretime (the time allocated for utilizing a core, measured in Polkadot relay chain blocks), ensuring heavy-duty parachains that can author a block every six seconds with [Asynchronous Backing](add link to async backing page) can reliably renew their coretime each month. Although six-second block times are now the default, parachains have the option of producing blocks less frequently. 
 
-Renewal orders are prioritized over new orders, offering stability against price fluctuations and helping parachains budget more effectively for their project costs.
+Renewal orders are prioritized over new orders, offering stability against price fluctuations and helping parachains budget more effectively for project costs.
 
 ### Polkadot's Resilience
 
 Decentralization is a vital component of blockchain networks, but it comes with trade-offs:
 
 - An overly decentralized network may face challenges in reaching consensus and require significant energy to operate
-- Also a network that achieves consensus quickly risks centralization, making it easier to manipulate or attack
+- Also, a network that achieves consensus quickly risks centralization, making it easier to manipulate or attack
 
-Ideally, a network should be decentralized enough to prevent any manipulative or malicious influence. In this sense, decentralization serves as a tool to achieve resilience. 
+A network should be decentralized enough to prevent manipulative or malicious influence. In this sense, decentralization is a tool for achieving resilience. 
 
-**Polkadot 1.0** currently achieves resilience through several strategies:
+Polkadot 1.0 currently achieves resilience through several strategies:
 
-1. **Nominated Proof of Staking (NPoS)** - this ensures that the stake per validator is maximized and evenly distributed among validators
+- **Nominated Proof of Stake (NPoS)** - this ensures that the stake per validator is maximized and evenly distributed among validators
 
-2. **Decentralized Nodes** - designed to encourage operators to join the network, this program aims to expand and diversify the validators in the ecosystem that aim to become independent of the program during their term. Feel free to explore more about the program on the official [Decentralized Nodes](https://nodes.web3.foundation/){target=\_blank} page.
+- **Decentralized nodes** - designed to encourage operators to join the network. This program aims to expand and diversify the validators in the ecosystem who aim to become independent of the program during their term. Feel free to explore more about the program on the official [Decentralized Nodes](https://nodes.web3.foundation/){target=\_blank} page
 
-3. **On-Chain Treasury and Governance** - known as [OpenGov](link to opengov overview page){target=\_blank}, this system allows every decision to be made through public referenda, enabling any token holder to cast a vote
+- **On-chain treasury and governance** - known as [OpenGov](link to opengov overview page){target=\_blank}, this system allows every decision to be made through public referenda, enabling any token holder to cast a vote
 
 ### Polkadot's Blockspace
 
@@ -259,8 +259,8 @@ Additionally, DOT can serve as a transferable token. For example, DOT held in th
 
 ## JAM and the Road Ahead
 
-The Join-Accumulate Machine (JAM) represents a transformative redesign of Polkadot's core architecture, envisioned as the successor to the current relay chain. Unlike traditional blockchain architectures, JAM introduces a unique computational model that processes work through two primary functions: Join (which handles the integration of data) and Accumulate (which folds computations into the chain's state). 
+The Join-Accumulate Machine (JAM) represents a transformative redesign of Polkadot's core architecture, envisioned as the successor to the current relay chain. Unlike traditional blockchain architectures, JAM introduces a unique computational model that processes work through two primary functions: join (which handles data integration) and accumulate (which folds computations into the chain's state). 
 
-Operating as a domain-specific rollup chain, JAM removes many of the opinions and constraints of the current relay chain while maintaining its core security properties. It's designed to be more generic and flexible, allowing for permissionless code execution through "services" that can be deployed without governance approval. What makes JAM particularly innovative is its transactionless nature and its efficient pipeline processing model, which places the prior state root in block headers instead of the posterior state root, enabling more effective utilization of block time for computations. This architectural evolution promises to enhance Polkadot's scalability and flexibility while maintaining its robust security guarantees.
+Operating as a domain-specific rollup chain, JAM removes many of the opinions and constraints of the current relay chain while maintaining its core security properties. It's designed to be more generic and flexible, allowing for permissionless code execution through "services" that can be deployed without governance approval. What makes JAM particularly innovative is its transactionless nature and efficient pipeline processing model, which places the prior state root in block headers instead of the posterior state root, enabling more effective utilization of block time for computations. This architectural evolution promises to enhance Polkadot's scalability and flexibility while maintaining robust security guarantees.
 
-Also of note, JAM is planned to be rolled out to Polkadot as a single, complete upgrade, rather than a steady stream of smaller updates, which can have a tendency to increase developer overhead in addressing breaking changes. 
+Also of note, JAM is planned to be rolled out to Polkadot as a single, complete upgrade rather than a steady stream of smaller updates, which can tend to increase developer overhead in addressing breaking changes.

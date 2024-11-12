@@ -40,32 +40,32 @@ Polkadot features a chain that serves as the central component of the system. Th
 
 According to Polkadot's design, any blockchain that can compile to WebAssembly (Wasm) and adheres to the Parachains Protocol becomes a parachain on the Polkadot network.
 
-Here’s a high-level overview of the Polkadot protocol architecture
+Here’s a high-level overview of the Polkadot protocol architecture:
 
 ![](/images/polkadot-protocol/architecture/polkadot-chain/overview/relay-chain-architecture.webp)
 
-Parachains propose blocks to the Polkadot validators, who perform checks for availability and validity before finalizing them. With the  chain providing security, collators — full nodes of Parachains — can focus on their tasks without needing strong incentives.
+Parachains propose blocks to Polkadot validators, who check for availability and validity before finalizing them. With the chain providing security, collators—full nodes of parachains—can focus on their tasks without needing strong incentives.
 
-The [Cross-Consensus Messaging Format (XCM)](add link to XCM page){target=\_blank} allows Parachains to exchange messages freely, leveraging the  chain's security for trust-free communication.
+The [Cross-Consensus Messaging Format (XCM)](add link to XCM page){target=\_blank} allows parachains to exchange messages freely, leveraging the chain's security for trust-free communication.
 
-In order to interact with chains that want to use their own finalization process (e.g. Bitcoin), Polkadot has [bridges](add link to bridges pages, Snowbridge, etc){target=\_blank}  that offer two-way compatibility, meaning that transactions can be made between different parachains.
+In order to interact with chains that want to use their own finalization process (e.g., Bitcoin), Polkadot has [bridges](add link to bridges pages, Snowbridge, etc){target=\_blank} that offer two-way compatibility, meaning that transactions can be made between different parachains.
 
 ### Polkadot's Additional Functionalities
 
-The Polkadot  chain oversees crowdloans and auctions. Chain cores were leased through auctions for three-month periods, up to a maximum of two years. 
+The Polkadot chain oversees crowdloans and auctions. Chain cores were leased through auctions for three-month periods, up to a maximum of two years. 
 
 Crowdloans enabled users to securely lend funds to teams for lease deposits in exchange for pre-sale tokens, which is the only way to access slots on Polkadot 1.0.
 
 !!!note
-    Auction are deprecated in favor of Coretime
+    Auctions are deprecated in favor of [coretime](todo: update link).
 
-Additionally, the  chain handles [staking](add link to PoS page){target=\_blank}, [accounts](add a link to accounts pages){target=\_blank}, balances, and [governance](add a link to govenance page){target=\_blank}.
+Additionally, the chain handles [staking](add link to PoS page){target=\_blank}, [accounts](add a link to accounts pages){target=\_blank}, balances, and [governance](add a link to govenance page){target=\_blank}.
 
 #### Agile Coretime
 
-The new and more efficient way of obtaining core on Polkadot is to go through process of purchasing a **coretime**.
+The new and more efficient way of obtaining core on Polkadot is to go through the process of purchasing coretime.
 
-[**Agile Coretime**](add link to Agile Coretime page) improves the efficient use of Polkadot's network resources and offers economic flexibility for developers, extending Polkadot's capabilities far beyond the original vision outlined in its [whitepaper](https://polkadot.com/papers/Polkadot-whitepaper.pdf){target=\_blank}.
+[Agile coretime](add link to Agile Coretime page) improves the efficient use of Polkadot's network resources and offers economic flexibility for developers, extending Polkadot's capabilities far beyond the original vision outlined in the [whitepaper](https://polkadot.com/papers/Polkadot-whitepaper.pdf){target=\_blank}.
 
 It enables parachains to purchase monthly "bulk" allocations of **coretime**(The time allocated for utilizing a core, measured in Polkadot relay chain blocks), ensuring heavy-duty parachains that can author a block every 6 seconds with [Asynchronous Backing](add link to async backing page) can reliably renew their coretime each month. Although six second block times is now the default, parachains have the option of producing blocks less frequently. 
 

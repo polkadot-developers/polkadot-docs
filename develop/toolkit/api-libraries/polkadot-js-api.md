@@ -107,6 +107,6 @@ To make a transfer:
 !!!note
     The `alice` keypair in the example comes from a Keyring object. See the [Keyring documentation](https://polkadot.js.org/docs/keyring){target=\_blank} for details on managing keypairs.
 
-## Where to go next?
+## Where to Go Next
 
 For more detailed information about the Polkadot.js API, check the [official documentation](https://polkadot.js.org/docs/){target=\_blank}.

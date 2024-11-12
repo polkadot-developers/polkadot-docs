@@ -251,11 +251,11 @@ Similar to how BTC's smallest unit is the **Satoshi** and ETH's is the **Wei**, 
 
 DOT serves three primary functions within the Polkadot network:
 
-1. **Governance** - it is used to participate in the governance of the network
-2. **Staking** - DOT is staked to support the network’s operation and security
-3. **Buying Coretime** - used to purchase coretime in-bulk or on-demand and access the  chain to benefit from Polkadot's security and interoperability
+- **Governance** - it is used to participate in the governance of the network
+- **Staking** - DOT is staked to support the network's operation and security
+- **Buying coretime** - used to purchase coretime in-bulk or on-demand and access the  chain to benefit from Polkadot's security and interoperability
 
-Additionally, DOT can serve as a transferable token. For example, DOT held in the Treasury can be allocated to teams developing projects that benefit the Polkadot ecosystem.
+Additionally, DOT can serve as a transferable token. For example, DOT, held in the treasury, can be allocated to teams developing projects that benefit the Polkadot ecosystem.
 
 ## JAM and the Road Ahead
 

@@ -7,13 +7,15 @@ description: Learn how to temporarily pause staking activity in Polkadot using t
 
 ## Introduction
 
-If you need to temporarily stop participating in Polkadot staking activities without fully unbonding your funds, chilling your account allows you to do so efficiently. Chilling removes your node from active validation or nomination in the next era while keeping your funds bonded, making it ideal for planned downtimes or temporary pauses. This guide covers the steps for chilling as a validator or nominator, using the `chill` and `chillOther` extrinsics, and how these affect your staking status and nominations.
+If you need to temporarily stop participating in Polkadot staking activities without fully unbonding your funds, chilling your account allows you to do so efficiently. Chilling removes your node from active validation or nomination in the next era while keeping your funds bonded, making it ideal for planned downtimes or temporary pauses.
+
+This guide covers the steps for chilling as a validator or nominator, using the `chill` and `chillOther` extrinsics, and how these affect your staking status and nominations.
 
 ## Chilling Your Node
 
 If you need to temporarily step back from staking without unbonding your funds, you can "chill" your account. Chilling pauses your active staking participation, setting your account to inactive in the next era while keeping your funds bonded.
 
-To chill your account, go to the **Network > Staking > Account Actions** page on [Polkadot.js Apps](https://polkadot.js.org/apps){target=\_blank}, and select **Stop**. Alternatively, you can call the [`chill`](https://paritytech.github.io/polkadot-sdk/master/pallet_staking/enum.Call.html#variant.chill){target=\_blank} extrinsic in the `staking` pallet. 
+To chill your account, go to the **Network > Staking > Account Actions** page on [Polkadot.js Apps](https://polkadot.js.org/apps){target=\_blank}, and select **Stop**. Alternatively, you can call the [`chill`](https://paritytech.github.io/polkadot-sdk/master/pallet_staking/enum.Call.html#variant.chill){target=\_blank} extrinsic in the Staking pallet. 
 
 ![staking](/images/infrastructure/operational-tasks/staking-keys-stash-proxy.webp)
 
@@ -39,6 +41,6 @@ Upon reactivating as a validator, you must also reconfigure your validator prefe
 
 ## Chill Other
 
-Historical constraints in the runtime prevented supporting unlimited nominators and validators. These constraints created a need for checks to keep the size of the staking system manageble. One of these checks is the `chillOther` extrinsic which allowed users to chill accounts that no longer met standards such as minimum staking requirements set through on-chain governance. 
+Historical constraints in the runtime prevented unlimited nominators and validators from being supported. These constraints created a need for checks to keep the size of the staking system manageable. One of these checks is the `chillOther` extrinsic, allowing users to chill accounts that no longer met standards such as minimum staking requirements set through on-chain governance.
 
-This control mechanism included a `ChillThreshold` which was structured to define how close to the maximum number of nominators or validators the staking system would be allowed to get before users could start chilling one another. With the passage of [Referendum #90](https://polkadot.polkassembly.io/referendum/90) {target=\_blank}, the value for `maxNominatorCount` on Polkadot was set to `None`, efffectively removing the limit on how many nominators and validators can participate. This means the `ChillThreshold` will never be met, thus `chillOther` no longer has any effect.
+This control mechanism included a `ChillThreshold`, which was structured to define how close to the maximum number of nominators or validators the staking system would be allowed to get before users could start chilling one another. With the passage of [Referendum #90](https://polkadot.polkassembly.io/referendum/90){target=\_blank}, the value for `maxNominatorCount` on Polkadot was set to `None`, effectively removing the limit on how many nominators and validators can participate. This means the `ChillThreshold` will never be met; thus, `chillOther` no longer has any effect.

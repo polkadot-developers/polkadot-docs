@@ -17,7 +17,7 @@ To get the most from this guide, ensure you've done the following before going f
 
 - Read [Validator Requirements](infrastructure/running-a-validator/requirements.md) and understand the recommended minimum skill level and hardware needs
 - Read [General Management](infrastructure/running-a-validator/operational-tasks/general-management.md), [Upgrade Your Node](infrastructure/running-a-validator/operational-tasks/upgrade-your-node.md), and [Pause Validating](infrastructure/running-a-validator/onboarding-and-offboarding/stop-validating.md) and understand the tasks required to keep your validator operational
-- Read [Rewards Payout](infrastructure/staking-mechanics/rewards-payout.md) and understand how validator rewards and determined and paid out
+- Read [Rewards Payout](infrastructure/staking-mechanics/rewards-payout.md) and understand how validator rewards are determined and paid out
 - Read [Offenses and Slashes](infrastructure/staking-mechanics/offenses-and-slashes.md) and understand how validator performance and security can affect tokens staked by you or your nominators
 
 ## Initial Setup
@@ -85,10 +85,10 @@ For example, on May 21st, 2024, the minimum stake backing a validator in Polkado
 
 Once you're ready to bond your DOT, follow these steps using the Polkadot.js Apps UI:
 
-1. **Network drop down** at the top of the page, select the arrow to expand, and then select [**Staking**](https://polkadot.js.org/apps/#/staking/actions){target=\_blank} section. Select **Account Actions**, and then the **+ Stash** button
+1. **Network** dropdown at the top of the page, select the arrow to expand, and then select [**Staking**](https://polkadot.js.org/apps/#/staking/actions){target=\_blank} section. Select **Account Actions**, and then the **+ Stash** button
 2. **Stash account** - select your stash account (which is the account with the DOT/KSM balance)
 3. **Value bonded** - enter how much DOT from the stash account you want to bond/stake. You are not required to bond all of the DOT in that account and you may bond more DOT at a later time. Be aware, withdrawing any bonded amount requires waiting for the unbonding period. The unbonding period is seven days for Kusama and 28 days for Polkadot
-4. **Payment destination** - the recipient account for validator rewards. If you'd like to redirect payments to an account that is not the stash account, you can do it by entering the address here. Note that it is extremely unsafe to set an exchange address as the recipient of the staking rewards
+4. **Payment destination** - add the recipient account for validator rewards. If you'd like to redirect payments to an account that is not the stash account, you can do it by entering the address here. Note that it is extremely unsafe to set an exchange address as the recipient of the staking rewards
 
 Once everything is filled in properly, select **Bond** and sign the transaction with your stash account. If successful, you should see an `ExtrinsicSuccess` message.
 
@@ -106,14 +106,14 @@ The Polkadot.js Apps UI and the CLI are the two primary methods used to generate
 
 === "Use Polkadot.js Apps UI"
 
-    1. Ensure that you are connected to your validator node through the PolkadotJS-Apps interface
+    1. Ensure that you are connected to your validator node through the Polkadot.js Apps interface
     2. In the **Toolbox** tab, navigate to **RPC calls**
     3. Select **`author_rotateKeys`** from the drop-down menu and run the command. This will generate new session keys in your node's keystore and return the result as a hex-encoded string
     4. Copy and save this hex-encoded output for the next step
 
 === "Use the CLI"
 
-    Alternatively, if you are on a remote server or prefer using the command line, you can generate session keys by running the following command on your validator node:
+    Generate session keys by running the following command on your validator node:
 
     ``` bash
     curl -H "Content-Type: application/json" \
@@ -123,7 +123,7 @@ The Polkadot.js Apps UI and the CLI are the two primary methods used to generate
 
     This command will return a hex-encoded string that is the concatenation of your session keys. Save this string for later use.
 
-### Submit `setKeys` Transaction
+### Submit Transaction to Set Keys
 
 Now that you have generated your session keys, you must submit them to the chain. Follow these steps:
 
@@ -131,8 +131,9 @@ Now that you have generated your session keys, you must submit them to the chain
 2. Select **Set Session Key** on the bonding account you generated earlier
 3. Paste the hex-encoded session key string you generated (from either the UI or CLI) into the input field and submit the transaction
 
+![](/images/infrastructure/running-a-validator/onboarding-and-offboarding/set-up-validator/set-up-validator-1.webp)
+
 Once the transaction is signed and submitted, your session keys will be registered on-chain. 
-![staking-session-result](/images/infrastructure/running-a-validator/onboarding-and-offboarding/set-up-validator/set-session-key-2.webp)
 
 ### Verify Session Key Setup
 
@@ -141,7 +142,7 @@ To verify that your session keys are properly set, you can use one of two RPC ca
 - **`hasKey`** - checks if the node has a specific key by public key and key type
 - **`hasSessionKeys`** - verifies if your node has the full session key string associated with the validator
 
-For example, you can check session keys on the Polkadot.js Apps interface or by running an RPC query against your node. Once this is done, your validator node is ready for its role.
+For example, you can [check session keys on the Polkadot.js Apps](https://polkadot.js.org/apps/#/rpc){target=\_blank} interface or by running an RPC query against your node. Once this is done, your validator node is ready for its role.
 
 ![Explorer RPC call](/images/infrastructure/running-a-validator/onboarding-and-offboarding/set-up-validator/polkadot-explorer-rotatekeys-rpc.webp)
 

@@ -30,7 +30,7 @@ sudo nano /etc/default/grub
 ```
 
 ``` config title="/etc/default/grub"
--8<-- 'code/infrastructure/running-a-validator/onboarding-and-offboarding/setup-a-validator/grub-config-01.js:1:7'
+-8<-- 'code/infrastructure/running-a-validator/operational-tasks/general-management/grub-config-01.js:1:7'
 ```
 
 After updating the variable, be sure to update GRUB to apply changes:
@@ -61,7 +61,7 @@ sudo nano /etc/default/grub
 ```
 
 ``` config title="/etc/default/grub"
--8<-- 'code/infrastructure/running-a-validator/onboarding-and-offboarding/setup-a-validator/grub-config-01.js:9:15'
+-8<-- 'code/infrastructure/running-a-validator/operational-tasks/general-management/grub-config-01.js:9:15'
 ```
 
 After updating the variable, be sure to update GRUB to apply changes:
@@ -92,7 +92,7 @@ sudo nano /etc/default/grub
 ```
 
 ``` config title="/etc/default/grub"
--8<-- 'code/infrastructure/running-a-validator/onboarding-and-offboarding/setup-a-validator/grub-config-01.js:17:23'
+-8<-- 'code/infrastructure/running-a-validator/operational-tasks/general-management/grub-config-01.js:17:23'
 ```
 
 After updating the variable, be sure to update GRUB to apply changes and then reboot:
@@ -104,24 +104,8 @@ sudo reboot
 
 This approach selectively deactivates the Spectre V2 and Spectre V4 mitigations, leaving other protections intact. For full security, keep mitigations activated unless there's a significant performance need, as disabling them could expose the system to potential attacks on affected CPUs.
 
-## VPS Provider List
-
-When selecting a VPS provider for your validator node, prioritize reliability, consistent performance, and adherence to the specific hardware requirements set for Polkadot validators. The following server types have been tested and showed acceptable performance in benchmark tests. However, this is not an endorsement and actual performance may vary depending on your workload and VPS provider.
-
-- [**Google Cloud Platform (GCP)**](https://cloud.google.com/){target=\_blank} - `c2` and `c2d` machine families offer high-performance configurations suitable for validators
-- [**Amazon Web Services (AWS)**](https://aws.amazon.com/){target=\_blank} - `c6id` machine family provides strong performance, particularly for I/O-intensive workloads
-- [**OVH**](https://www.ovh.com.au/){target=\_blank} - can be a budget-friendly solution if it meets your minimum hardware specifications
-- [**Digital Ocean**](https://www.digitalocean.com/){target=\_blank} - popular among developers, Digital Ocean's premium droplets offer configurations suitable for medium to high-intensity workloads
-- [**Vultr**](https://www.vultr.com/){target=\_blank} - offers flexibility with plans that may meet validator requirements, especially for high-bandwidth needs
-- [**Linode**](https://www.linode.com/){target=\_blank} - provides detailed documentation, which can be helpful for setup
-- [**Scaleway**](https://www.scaleway.com/){target=\_blank} - offers high-performance cloud instances that can be suitable for validator nodes
-- [**OnFinality**](https://onfinality.io/){target=\_blank} - specialized in blockchain infrastructure, OnFinality provides validator-specific support and configurations
-
-!!! warning "Acceptable use policies"
-    Different VPS providers have varying acceptable use policies, and not all explicitly allow cryptocurrency-related activities. Digital Ocean, for instance, requires explicit permission to use servers for cryptocurrency mining; otherwise it is categorized as Network Abuse in its Acceptable Use Policy. Review the terms for your VPS provider to avoid account suspension or server shutdown due to policy violations.
-
 ## Additional Resources
 
-For additional guidance, connect with other validators and the Polkadot engineering team in the [Polkadot Validator Lounge](https://matrix.to/#/#polkadotvalidatorlounge:web3.foundation) on Element. 
+For additional guidance, connect with other validators and the Polkadot engineering team in the [Polkadot Validator Lounge](https://matrix.to/#/#polkadotvalidatorlounge:web3.foundation){target=\_blank} on Element.
 
 

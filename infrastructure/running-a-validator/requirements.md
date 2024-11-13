@@ -1,22 +1,24 @@
 ---
 title: Validator Requirements
-description: TODO
+description: Explore the technical and system requirements for running a Polkadot validator, including setup, hardware, staking prerequisites, and security best practices.
 ---
 # Validator Requirements
 
 ## Introduction
 
-Running a validator in the Polkadot ecosystem is a key role that helps maintain network security and decentralization. As a validator, you’ll be responsible for validating transactions and adding new blocks to the chain, ensuring that the system runs smoothly. Validators earn rewards for their service, but the role also comes with risks. Missteps could potenitally lead to slashing and a loss of staked funds. If you’re new to validation, starting on Kusama can offer valuable experience in a lower-stakes environment before moving to Polkadot’s live network.
+Running a validator in the Polkadot ecosystem is essential for maintaining network security and decentralization. Validators are responsible for validating transactions and adding new blocks to the chain, ensuring the system operates smoothly. In return for their services, validators earn rewards. However, the role comes with inherent risks, such as slashing penalties for misbehavior or technical failures. If you’re new to validation, starting on Kusama provides a lower-stakes environment to gain valuable experience before progressing to Polkadot’s live network.
+
+This guide covers everything you need to know about becoming a validator, including system requirements, staking prerequisites, and infrastructure setup. Whether you’re deploying on a VPS or running your node on custom hardware, you’ll learn how to optimize your validator for performance and security, ensuring compliance with network standards while minimizing risks.
 
 ## Prerequisites
 
 Running a validator requires solid system administration skills and a secure, well-maintained infrastructure. Below are the primary requirements you need to be aware of before getting started:
 
-- **System Administration expertise** - handling technical anomalies and maintaining node infrastructure is critical. Validators must be able to troubleshoot and optimize their setup
-- **Security** - ensure your setup follows best practices for securing your node. Refer to the [Secure Validator](#secure-validator) section to learn about important security measures
-- **Network Choice** - start with Kusama to gain experience. The [Kusama section](#run-a-kusama-validator) outlines how to get started
-- **Staking Requirements** - a minimum amount of native token (KSM or DOT) is required to be elected into the validator set. The required stake can come from your own holdings or from nominators
-- **Risk of Slashing** - any DOT you stake is at risk if your setup fails or your validator misbehaves. If you’re unsure of your ability to maintain a reliable validator, consider nominating your DOT to a trusted validator
+- **System administration expertise** - handling technical anomalies and maintaining node infrastructure is critical. Validators must be able to troubleshoot and optimize their setup
+- **Security** - ensure your setup follows best practices for securing your node. Refer to the [Secure Validator](TODO: update path) section to learn about important security measures
+- **Network choice** - start with Kusama to gain experience. The [Kusama section](/infrastructure/running-a-validator/onboarding-and-offboarding/set-up-validator.md) outlines how to get started
+- **Staking requirements** - a minimum amount of native token (KSM or DOT) is required to be elected into the validator set. The required stake can come from your own holdings or from nominators
+- **Risk of slashing** - any DOT you stake is at risk if your setup fails or your validator misbehaves. If you’re unsure of your ability to maintain a reliable validator, consider nominating your DOT to a trusted validator
 
 ## Technical Requirements
 
@@ -31,7 +33,7 @@ Polkadot validators rely on high-performance hardware to process blocks efficien
 
 The recommended minimum hardware requirements to ensure a fully functional and performant validator are as follows:
 
-=== "**CPU**"
+=== "CPU"
 
     - x86-64 compatible
     - Eight physical cores @ 3.4 GHz 
@@ -44,29 +46,49 @@ The recommended minimum hardware requirements to ensure a fully functional and p
         - AMD - SMT
     - [Single-threaded performance]((https://www.cpubenchmark.net/singleThread.html)){traget=\_blank} is prioritized over higher cores count
 
-=== "**Storage**"
+=== "Storage"
 
     - NVMe SSD - at least 1 TB for blockchain data (prioritize latency rather than throughput)
     - Storage requirements will increase as the chain grows. For current estimates, see the [current chain snapshot](https://stakeworld.io/docs/dbsize){target=\_blank}
 
-=== "**Memory**"
+=== "Memory"
 
     - 32 GB DDR4 ECC
 
-=== "**System**"
+=== "System"
 
     - Linux Kernel 5.16 or newer
 
-=== "**Network**"
+=== "Network"
 
     - Symmetric networking speed of 500 Mbit/s is required to handle large numbers of parachains and ensure congestion control during peak times
 
 
 While the hardware specs above are best practice and not strict requirements, subpar hardware may lead to performance issues and increase the risk of slashing.
 
+## VPS Provider List
+
+When selecting a VPS provider for your validator node, prioritize reliability, consistent performance, and adherence to the specific hardware requirements set for Polkadot validators. The following server types have been tested and showed acceptable performance in benchmark tests. However, this is not an endorsement and actual performance may vary depending on your workload and VPS provider.
+
+- [**Google Cloud Platform (GCP)**](https://cloud.google.com/){target=\_blank} - `c2` and `c2d` machine families offer high-performance configurations suitable for validators
+- [**Amazon Web Services (AWS)**](https://aws.amazon.com/){target=\_blank} - `c6id` machine family provides strong performance, particularly for I/O-intensive workloads
+- [**OVH**](https://www.ovh.com.au/){target=\_blank} - can be a budget-friendly solution if it meets your minimum hardware specifications
+- [**Digital Ocean**](https://www.digitalocean.com/){target=\_blank} - popular among developers, Digital Ocean's premium droplets offer configurations suitable for medium to high-intensity workloads
+- [**Vultr**](https://www.vultr.com/){target=\_blank} - offers flexibility with plans that may meet validator requirements, especially for high-bandwidth needs
+- [**Linode**](https://www.linode.com/){target=\_blank} - provides detailed documentation, which can be helpful for setup
+- [**Scaleway**](https://www.scaleway.com/){target=\_blank} - offers high-performance cloud instances that can be suitable for validator nodes
+- [**OnFinality**](https://onfinality.io/){target=\_blank} - specialized in blockchain infrastructure, OnFinality provides validator-specific support and configurations
+
+!!! warning "Acceptable use policies"
+    Different VPS providers have varying acceptable use policies, and not all allow cryptocurrency-related activities. 
+    
+    For example, Digital Ocean, requires explicit permission to use servers for cryptocurrency mining and defines unauthorized mining as [network abuse](https://www.digitalocean.com/legal/acceptable-use-policy#network-abuse){target=\_blank} in their acceptable use policy. 
+    
+    Review the terms for your VPS provider to avoid account suspension or server shutdown due to policy violations.
+
 ## Install the Polkadot Binaries
 
-You must install the Polkadot binaries required to run your validator node. These binaries include the main `polkadot`, `polkadot-prepare-worker` and `polkadot-execute-worker` binaries. All three are needed to run a fully functioning validator node. 
+You must install the Polkadot binaries required to run your validator node. These binaries include the main `polkadot`, `polkadot-prepare-worker`, and `polkadot-execute-worker` binaries. All three are needed to run a fully functioning validator node. 
 
 Depending on your preference and operating system setup, there are multiple methods to install these binaries. Below are the main options:
 
@@ -211,7 +233,7 @@ After successfully installing and verifying the Polkadot binaries, the next step
 
     Warp sync ensures that your node quickly updates to the latest finalized state. The historical blocks are downloaded in the background as the node continues to operate.
 
-3. **Monitor sync progress** - to track how your node's progress, check the logs printed by the `polkadot` process. Look for information about the latest processed block and compare it with the current highest block using tools like [Telemetry](https://telemetry.polkadot.io/#list/Polkadot%20CC1){target=\_blank} or [PolkadotJS Block Explorer](https://polkadot.js.org/apps/#/explorer){target=\_blank}.
+3. **Monitor sync progress** - to track how your node's progress, check the logs printed by the `polkadot` process. Look for information about the latest processed block and compare it with the current highest block using tools like [Telemetry](https://telemetry.polkadot.io/#list/Polkadot%20CC1){target=\_blank} or [Polkadot.js Apps Explorer](https://polkadot.js.org/apps/#/explorer){target=\_blank}.
 
 ### Database Snapshot Services
 
@@ -227,6 +249,6 @@ If you'd like to speed up the process further, you can use a database snapshot. 
 ??? tip "FAQ"
     Why am I unable to synchronize the chain with 0 peers?
 
-    ![zero-peer](/images/infrastructure/running-a-validator/onboarding-and-offboarding/set-up-validator/polkadot-zero-peer.webp)
+    ![Terminal logs showing 0 peers](/images/infrastructure/requirements/requirements-1.webp)
 
     Make sure you have libp2p port `30333` activated. It will take some time to discover other peers over the network.

@@ -17,7 +17,7 @@ As XCM is central to enabling communication between blockchains, developers need
 
 [Moonsong Labs XCM Tools](https://github.com/Moonsong-Labs/xcm-tools){target=\_blank} provides a collection of scripts for managing and testing XCM operations between Polkadot SDK-based runtimes. These tools allow performing tasks like asset registration, channel setup, and XCM initialization. Key features include:
 
-- **Register assets** - sets units per second charges, and configures revert codes
+- **Asset registration** - registers assets, setting units per second (up-front fees) and configuring error (revert) codes
 - **XCM initializer** -  initializes XCM, sets default XCM versions, and configures revert codes for XCM-related precompiles
 - **HRMP manipulator** - manages HRMP channel actions, including opening, accepting, or closing channels
 - **XCM-Transactor-Info-Setter** - configures transactor information, including extra weight and fee settings

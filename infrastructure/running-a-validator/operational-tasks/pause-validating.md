@@ -17,11 +17,9 @@ If you need to temporarily step back from staking without unbonding your funds, 
 
 To chill your account, go to the **Network > Staking > Account Actions** page on [Polkadot.js Apps](https://polkadot.js.org/apps){target=\_blank}, and select **Stop**. Alternatively, you can call the [`chill`](https://paritytech.github.io/polkadot-sdk/master/pallet_staking/enum.Call.html#variant.chill){target=\_blank} extrinsic in the Staking pallet. 
 
-![staking](/images/infrastructure/operational-tasks/staking-keys-stash-proxy.webp)
-
 ## Staking Election Timing Considerations
 
-When a bond actively participates in staking but then chills, it will continue contributing for the remainder of the current era. However, its eligibility for the next election depends on the chill status at the start of the new era:
+When a node actively participates in staking but then chills, it will continue contributing for the remainder of the current era. However, its eligibility for the next election depends on the chill status at the start of the new era:
 
 - **Chilled during previous era** - will not participate in the current era election and will remain inactive until reactivated
 -**Chilled during current era** - will not be selected for the next era's election

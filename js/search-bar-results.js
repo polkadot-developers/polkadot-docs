@@ -2,42 +2,22 @@
 // so that the "Type to start searching" text does not render in the search
 // results dropdown and so that the dropdown only appears once a user has started
 // to type in the input field
-document.addEventListener('DOMContentLoaded', function () {
-  // Only show the search results if the user has started to type
-  // Select the search input and output elements
+document.addEventListener('DOMContentLoaded', () => {
   const searchInput = document.querySelector('.md-search__input');
   const searchOutput = document.querySelector('.md-search__output');
-
-  // Listen for input events on the search field
-  searchInput.addEventListener('input', function () {
-    // Add the "visible" class if there is text in the input field
-    if (searchInput.value.trim() !== '') {
-      searchOutput.classList.add('visible');
-    } else {
-      // Remove the "visible" class if input is empty
-      searchOutput.classList.remove('visible');
-    }
-  });
-
-  // Do not show the search results if it contains the text: "Type to start searching"
   const searchResultMeta = document.querySelector('.md-search-result__meta');
 
-  if (searchResultMeta) {
-    // Define a function to check and update the text
-    const checkAndUpdateText = () => {
-      if (searchResultMeta.textContent.trim() === "Type to start searching") {
-        searchResultMeta.textContent = "";
-      }
-    };
+  // Only show the search results if the user has started to type
+  // Toggle "visible" class based on input content
+  searchInput.addEventListener('input', () => {
+    searchOutput.classList.toggle('visible', searchInput.value.trim() !== '');
 
-    // Create a MutationObserver to observe changes in the element
-    const observer = new MutationObserver(checkAndUpdateText);
-
-    // Start observing the element for changes in child elements or text
-    observer.observe(searchResultMeta, { childList: true, subtree: true, characterData: true });
-
-    // Run the initial check in case the text was already present
-    checkAndUpdateText();
-  }
+    // Do not show the search result meta text unless a user has started typing
+    // a value in the input field
+    if (searchInput.value.trim() === '' && searchResultMeta) {
+      searchResultMeta.style.display = 'none';
+    } else if (searchInput.value.trim().length > 0) {
+      searchResultMeta.style.display = 'block';
+    }
+  });
 });
-

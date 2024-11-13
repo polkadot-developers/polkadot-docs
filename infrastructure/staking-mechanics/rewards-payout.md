@@ -2,11 +2,14 @@
 title: Rewards Payout
 description: Learn how validator rewards work on the network, including era points, payout distribution, running multiple validators, and nominator payments.
 ---
+
 # Rewards Payout
 
 ## Introduction
 
-Understanding how rewards are distributed to validators and nominators is essential for network participants. In Polkadot and Kusama, validators earn rewards based on their era points, which are accrued through actions like block production and parachain validation. This guide explains the payout scheme, factors influencing rewards, and how multiple validators affect returns. Validators can also share rewards with nominators, who contribute by staking behind them. By following the payout mechanics, validators can optimize their earnings and better engage with their nominators.
+Understanding how rewards are distributed to validators and nominators is essential for network participants. In Polkadot and Kusama, validators earn rewards based on their era points, which are accrued through actions like block production and parachain validation.
+
+This guide explains the payout scheme, factors influencing rewards, and how multiple validators affect returns. Validators can also share rewards with nominators, who contribute by staking behind them. By following the payout mechanics, validators can optimize their earnings and better engage with their nominators.
 
 ## Era Points
 
@@ -67,7 +70,7 @@ Validator rewards are distributed equally among all validators in the active set
 
 Validators can also receive tips from users, which incentivize them to include certain transactions in their blocks. Validators retain 100% of these tips.
 
-Rewards are paid out in the network's native token (KSM for Kusama and DOT for Polkadot). 
+Rewards are paid out in the network's native token (DOT for Polkadot and KSM for Kusama). 
 
 The following example illustrates a four member validator set with their names, amount they have staked, and how payout of rewards is divided. This scenario assumes all validators earned the same amount of era points and no one received tips: 
 

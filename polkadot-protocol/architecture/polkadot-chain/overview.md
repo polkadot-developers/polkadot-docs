@@ -7,7 +7,7 @@ description: Explore Polkadot's core architecture, including its multi-chain vis
 
 ## Introduction
 
-Polkadot is a next-generation blockchain protocol designed to support a multi-chain future by enabling secure communication and interoperability between different blockchains. Built as a Layer-0 protocol, Polkadot introduces innovations like application-specific Layer-1 chains (parachains), shared security through Nominated Proof-of-Stake (NPoS), and seamless cross-chain interactions via its native Cross-Consensus Messaging Format (XCM). 
+Polkadot is a next-generation blockchain protocol designed to support a multi-chain future by enabling secure communication and interoperability between different blockchains. Built as a Layer-0 protocol, Polkadot introduces innovations like application-specific Layer-1 chains (parachains), shared security through Nominated Proof of Stake (NPoS), and seamless cross-chain interactions via its native Cross-Consensus Messaging Format (XCM). 
 
 This guide covers key aspects of Polkadot’s architecture, including its high-level protocol structure, runtime upgrades, blockspace commoditization, and the role of its native token, DOT, in governance, staking, and resource allocation.
 
@@ -46,9 +46,9 @@ Here’s a high-level overview of the Polkadot protocol architecture:
 
 Parachains propose blocks to Polkadot validators, who check for availability and validity before finalizing them. With the chain providing security, collators—full nodes of parachains—can focus on their tasks without needing strong incentives.
 
-The [Cross-Consensus Messaging Format (XCM)](add link to XCM page){target=\_blank} allows parachains to exchange messages freely, leveraging the chain's security for trust-free communication.
+The [Cross-Consensus Messaging Format (XCM)](todo: add link to XCM page){target=\_blank} allows parachains to exchange messages freely, leveraging the chain's security for trust-free communication.
 
-In order to interact with chains that want to use their own finalization process (e.g., Bitcoin), Polkadot has [bridges](add link to bridges pages, Snowbridge, etc){target=\_blank} that offer two-way compatibility, meaning that transactions can be made between different parachains.
+In order to interact with chains that want to use their own finalization process (e.g., Bitcoin), Polkadot has [bridges](todo: add link to bridges pages, Snowbridge, etc){target=\_blank} that offer two-way compatibility, meaning that transactions can be made between different parachains.
 
 ### Polkadot's Additional Functionalities
 
@@ -65,7 +65,7 @@ Additionally, the chain handles [staking](add link to PoS page){target=\_blank},
 
 The new and more efficient way of obtaining core on Polkadot is to go through the process of purchasing coretime.
 
-[Agile coretime](add link to Agile Coretime page) improves the efficient use of Polkadot's network resources and offers economic flexibility for developers, extending Polkadot's capabilities far beyond the original vision outlined in the [whitepaper](https://polkadot.com/papers/Polkadot-whitepaper.pdf){target=\_blank}.
+[Agile coretime](todo: add link to Agile Coretime page) improves the efficient use of Polkadot's network resources and offers economic flexibility for developers, extending Polkadot's capabilities far beyond the original vision outlined in the [whitepaper](https://polkadot.com/papers/Polkadot-whitepaper.pdf){target=\_blank}.
 
 It enables parachains to purchase monthly "bulk" allocations of coretime (the time allocated for utilizing a core, measured in Polkadot relay chain blocks), ensuring heavy-duty parachains that can author a block every six seconds with [Asynchronous Backing](add link to async backing page) can reliably renew their coretime each month. Although six-second block times are now the default, parachains have the option of producing blocks less frequently. 
 
@@ -86,7 +86,7 @@ Polkadot 1.0 currently achieves resilience through several strategies:
 
 - **Decentralized nodes** - designed to encourage operators to join the network. This program aims to expand and diversify the validators in the ecosystem who aim to become independent of the program during their term. Feel free to explore more about the program on the official [Decentralized Nodes](https://nodes.web3.foundation/){target=\_blank} page
 
-- **On-chain treasury and governance** - known as [OpenGov](link to opengov overview page){target=\_blank}, this system allows every decision to be made through public referenda, enabling any token holder to cast a vote
+- **On-chain treasury and governance** - known as [OpenGov](todo: link to opengov overview page){target=\_blank}, this system allows every decision to be made through public referenda, enabling any token holder to cast a vote
 
 ### Polkadot's Blockspace
 
@@ -111,7 +111,7 @@ Delegating these responsibilities to [system chains](add link to System Chains s
 
 DOT is the native token of the Polkadot network, much like BTC for Bitcoin and Ether for the Ethereum blockchain. DOT has 10 decimals, uses the Planck base unit, and has a balance type of `u128`. The same is true for Kusama's KSM token with the exception of having 12 decimals.
 
-??? info "Redomination of DOT"
+??? info "Redenomination of DOT"
     Polkadot conducted a community poll, which ended on 27 July 2020 at block 888,888, to decide whether to redenominate the DOT token. The stakeholders chose to redenominate the token, changing the value of 1 DOT from 1e12 plancks to 1e10 plancks. 
 
     Importantly, this did not affect the network's total number of base units (plancks); it only affects how a single DOT is represented.

@@ -37,12 +37,12 @@ graph LR
 
 - **Generate chain specifications** - the chain spec file defines the structure and configuration of your blockchain. It includes initial node identities, session keys, and other parameters. Defining a well thought-out chain specification ensures that your network will operate smoothly and according to your intended design
 
-- **Deployment environment** - whether launching a local test network or a production-grade blockchain, selecting the proper infrastructure is vital. For further information about these topics, see the [Infrastructure](/infrastructure/){target=\_blank} section.
+- **Deployment environment** - whether launching a local test network or a production-grade blockchain, selecting the proper infrastructure is vital. For further information about these topics, see the [Infrastructure](/infrastructure/){target=\_blank} section
 
 - **Acquire coretime** - to build on top of the Polkadot network, users need to acquire coretime (either on-demand or in bulk) to access the computational resources of the relay chain. This allows for the secure validation of parachain blocks through a randomized selection of relay chain validators
 
     !!! note
-        It’s important to mention that, in the case of launching a blockchain that is not intended to work under the [Cumulus protocol](https://wiki.polkadot.network/docs/build-pdk#cumulus){target=\_blank} (as it could be the case for a solochain, for example), this step is not required and can be skipped.
+        If you’re building a standalone blockchain (solochain) that won’t connect to Polkadot as a parachain, you can skip this step, as there’s no need to acquire coretime or implement [Cumulus](https://wiki.polkadot.network/docs/build-pdk#cumulus){target=\_blank} .
 
 - **Launch and monitor** - once everything is configured, you can launch the blockchain, initiating the network with your chain spec and Wasm runtime. Validators or collators will begin producing blocks, and the network will go live. Post-launch, monitoring is vital to ensuring network health—tracking block production, node performance, and overall security
 

@@ -144,7 +144,7 @@ To verify that your session keys are properly set, you can use one of two RPC ca
 
 For example, you can [check session keys on the Polkadot.js Apps](https://polkadot.js.org/apps/#/rpc){target=\_blank} interface or by running an RPC query against your node. Once this is done, your validator node is ready for its role.
 
-![Explorer RPC call](/images/infrastructure/running-a-validator/onboarding-and-offboarding/set-up-validator/polkadot-explorer-rotatekeys-rpc.webp)
+![Explorer RPC call](/images/infrastructure/running-a-validator/onboarding-and-offboarding/set-up-validator/set-up-validator-2.webp)
 
 ## Set the Node Key
 
@@ -158,19 +158,23 @@ Starting with Polkadot version 1.11, validators without a stable network key may
 
 Use one of the following methods to generate your node key:
 
-- **Generate and Save to File** - the recommended solution is to generate a node key and save it to a file using the following command:
+=== "Save to file"
+
+    The recommended solution is to generate a node key and save it to a file using the following command:
 
     ``` bash
     polkadot key generate-node-key --file INSERT_PATH_TO_NODE_KEY
     ```
-
-- **Use Default Path** - you can also generate the node key with the following command, which will automatically save the key to the base path of your node:
+    
+=== "Use default path" 
+    
+    You can also generate the node key with the following command, which will automatically save the key to the base path of your node:
 
     ``` bash
     polkadot key generate-node-key --default-base-path
     ```
 
-    Save the file path for reference. You will need it in the next step to configure your node with a static identity.
+Save the file path for reference. You will need it in the next step to configure your node with a static identity.
 
 ### Set the Node Key
 
@@ -181,42 +185,6 @@ polkadot --node-key-file INSERT_PATH_TO_NODE_KEY
 ```
 
 Following these steps ensures that your node retains its identity, making it discoverable by peers without the risk of conflicting identities across sessions. For further technical background, see Polkadot SDK [Pull Request #3852](https://github.com/paritytech/polkadot-sdk/pull/3852){target=\_blank} for the rationale behind requiring static keys.
-
-## Validate
-
-Once your validator node is fully synced and ready, the next step is to ensure it's visible on the network and performing as expected. Below are steps for monitoring and managing your node on the Polkadot network.
-
-### Verify Sync via Telemetry
-
-To confirm that your validator is live and synchronized with the Polkadot network, visit the [Telemetry](https://telemetry.polkadot.io/#list/Polkadot%20CC1){target=\_blank} page. Telemetry provides real-time information on node performance and can help you check if your validator is connected properly. Search for your node by name. You can search all nodes currently active on the network, which is why you should use a unique name for easy recognition. Now, confirm that your node is fully synced by comparing the block height of your node with the network's latest block.
-
-In the following example, a node named `techedtest` is successfully located and synchronized, ensuring it's prepared to participate in the network:
-
-![polkadot-dashboard-telemetry](/images/infrastructure/running-a-validator/onboarding-and-offboarding/set-up-validator/polkadot-dashboard-telemetry.webp)
-
-### Activate via Validator Tab
-
-Follow these steps to use the Polkadot.js Apps UI to activate your validator:
-
-1. Go to the **Validator** tab in the Polkadot.js Apps UI and locate the section where you input the keys generated from `rotateKeys`. Paste the output from `author_rotateKeys`, which is a hex-encoded key that links your validator with its session keys:
-
-    ![polkadot-dashboard-validate-1](/images/infrastructure/running-a-validator/onboarding-and-offboarding/set-up-validator/polkadot-dashboard-validate-1.webp)
-
-2. Set a reward commission percentage if desired. You can set a percentage of the rewards to pay to your validator and the remainder pays to your nominators. A 100% commission rate indicates the validator intends to keep all rewards and is seen as a signal the validator is not seeking nominators
-3. Toggle the **Allows New Nominations** option if your validator is open to more nominations from DOT holders
-4. Once everything is configured, select **Bond & Validate** to activate your validator status
-
-    ![dashboard validate](/images/infrastructure/running-a-validator/onboarding-and-offboarding/set-up-validator/polkadot-dashboard-validate-2.webp)
-
-### Monitor Validation Status and Slots
-
-On the **Staking** tab in Polkadot.js Apps, you can see your validator's status, the number of available validator slots, and the nodes that have signaled their intent to validate. Your node may initially appear in the waiting queue, especially if the validator slots are full. The following is an example view of the **Staking** tab:
-
-![staking queue](/images/infrastructure/running-a-validator/onboarding-and-offboarding/set-up-validator/polkadot-dashboard-staking.webp)
-
-The validator set refreshes each era. If there's an available slot in the next era, your node may be selected to move from the waiting queue to the active validator set, allowing it to start validating blocks. If your validator is not selected, it remains in the waiting queue. Increasing your stake or gaining more nominators may improve your chance of being selected in future eras.
-
-Once your validator is active, it's officially part of Polkadot's security infrastructure. For questions or further support, you can reach out to the [Polkadot Validator chat](https://matrix.to/#/!NZrbtteFeqYKCUGQtr:matrix.parity.io?via=matrix.parity.io&via=matrix.org&via=web3.foundation) for tips and troubleshooting.
 
 ## Run a Validator on a TestNet 
 
@@ -295,3 +263,39 @@ journalctl -f -u polkadot-validator
 ```
 
 With these steps, you can effectively manage and monitor your validator as a systemd service.
+
+## Validate
+
+Once your validator node is fully synced and ready, the next step is to ensure it's visible on the network and performing as expected. Below are steps for monitoring and managing your node on the Polkadot network.
+
+### Verify Sync via Telemetry
+
+To confirm that your validator is live and synchronized with the Polkadot network, visit the [Telemetry](https://telemetry.polkadot.io/#list/Polkadot%20CC1){target=\_blank} page. Telemetry provides real-time information on node performance and can help you check if your validator is connected properly. Search for your node by name. You can search all nodes currently active on the network, which is why you should use a unique name for easy recognition. Now, confirm that your node is fully synced by comparing the block height of your node with the network's latest block.
+
+In the following example, a node named `techedtest` is successfully located and synchronized, ensuring it's prepared to participate in the network:
+
+![polkadot-dashboard-telemetry](/images/infrastructure/running-a-validator/onboarding-and-offboarding/set-up-validator/polkadot-dashboard-telemetry.webp)
+
+### Activate via Validator Tab
+
+Follow these steps to use the Polkadot.js Apps UI to activate your validator:
+
+1. Go to the **Validator** tab in the Polkadot.js Apps UI and locate the section where you input the keys generated from `rotateKeys`. Paste the output from `author_rotateKeys`, which is a hex-encoded key that links your validator with its session keys:
+
+    ![polkadot-dashboard-validate-1](/images/infrastructure/running-a-validator/onboarding-and-offboarding/set-up-validator/polkadot-dashboard-validate-1.webp)
+
+2. Set a reward commission percentage if desired. You can set a percentage of the rewards to pay to your validator and the remainder pays to your nominators. A 100% commission rate indicates the validator intends to keep all rewards and is seen as a signal the validator is not seeking nominators
+3. Toggle the **Allows New Nominations** option if your validator is open to more nominations from DOT holders
+4. Once everything is configured, select **Bond & Validate** to activate your validator status
+
+    ![dashboard validate](/images/infrastructure/running-a-validator/onboarding-and-offboarding/set-up-validator/polkadot-dashboard-validate-2.webp)
+
+### Monitor Validation Status and Slots
+
+On the **Staking** tab in Polkadot.js Apps, you can see your validator's status, the number of available validator slots, and the nodes that have signaled their intent to validate. Your node may initially appear in the waiting queue, especially if the validator slots are full. The following is an example view of the **Staking** tab:
+
+![staking queue](/images/infrastructure/running-a-validator/onboarding-and-offboarding/set-up-validator/polkadot-dashboard-staking.webp)
+
+The validator set refreshes each era. If there's an available slot in the next era, your node may be selected to move from the waiting queue to the active validator set, allowing it to start validating blocks. If your validator is not selected, it remains in the waiting queue. Increasing your stake or gaining more nominators may improve your chance of being selected in future eras.
+
+Once your validator is active, it's officially part of Polkadot's security infrastructure. For questions or further support, you can reach out to the [Polkadot Validator chat](https://matrix.to/#/!NZrbtteFeqYKCUGQtr:matrix.parity.io?via=matrix.parity.io&via=matrix.org&via=web3.foundation) for tips and troubleshooting.

@@ -7,9 +7,9 @@ description: Explore essential XCM tools across Polkadot, crafted to enhance cro
 
 ## Overview
 
-As described in the [Interoperability](/develop/interoperability){target=\_blank} section, XCM (Cross-Consensus Messaging) is a protocol used in the Polkadot and Kusama ecosystems to enable communication and interaction between different chains. It facilitates cross-chain communication, allowing assets, data, and messages to flow seamlessly across the Polkadot ecosystem. XCM plays a key role in fostering interoperability between blockchains within the network.
+As described in the [Interoperability](/develop/interoperability){target=\_blank} section, XCM (Cross-Consensus Messaging) is a protocol used in the Polkadot and Kusama ecosystems to enable communication and interaction between chains. It facilitates cross-chain communication, allowing assets, data, and messages to flow seamlessly across the ecosystem.
 
-As XCM is central to enabling communication between blockchains, developers need robust tools to help interact with, build, and test XCM messages. There are several XCM tools that simplify working with the protocol by providing libraries, frameworks, and utilities that enhance the development process, ensuring that applications built within the Polkadot ecosystem can efficiently use cross-chain functionalities.
+As XCM is central to enabling communication between blockchains, developers need robust tools to help interact with, build, and test XCM messages. Several XCM tools simplify working with the protocol by providing libraries, frameworks, and utilities that enhance the development process, ensuring that applications built within the Polkadot ecosystem can efficiently use cross-chain functionalities.
 
 ## Popular XCM Tools
 

@@ -219,7 +219,7 @@ After successfully installing and verifying the Polkadot binaries, the next step
 
 2. **Monitor sync progress** - once the sync starts, you will see a stream of logs providing information about the node's status and progress. Here's an example of what the output might look like:
 
-    --8<-- 'code/infrastructure/running-a-validator/requirements/terminal-output-02.html'
+    --8<-- 'code/infrastructure/running-a-validator/onboarding-and-offboarding/set-up-a-validator/terminal-output-02.html'
     
     The output logs provide information such as the current block number, node name, and network connections. Monitor the sync progress and any errors that might occur during the process. Look for information about the latest processed block and compare it with the current highest block using tools like [Telemetry](https://telemetry.polkadot.io/#list/Polkadot%20CC1){target=\_blank} or [Polkadot.js Apps Explorer](https://polkadot.js.org/apps/#/explorer){target=\_blank}.
 
@@ -237,7 +237,7 @@ If you'd like to speed up the process further, you can use a database snapshot. 
 ??? info "Why am I unable to synchronize the chain with 0 peers?"
     Make sure you have libp2p port `30333` activated. It will take some time to discover other peers over the network.
 
-    ![Terminal logs showing 0 peers](/images/infrastructure/requirements/requirements-1.webp)
+    ![Terminal logs showing 0 peers](/images/infrastructure/running-a-validator/onboarding-and-offboarding/set-up-validator/set-up-a-validator-01.webp)
 
 ## Bond DOT
 
@@ -295,7 +295,7 @@ Now that you have generated your session keys, you must submit them to the chain
 2. Select **Set Session Key** on the bonding account you generated earlier
 3. Paste the hex-encoded session key string you generated (from either the UI or CLI) into the input field and submit the transaction
 
-![](/images/infrastructure/running-a-validator/onboarding-and-offboarding/set-up-validator/set-up-validator-1.webp)
+![](/images/infrastructure/running-a-validator/onboarding-and-offboarding/set-up-validator/set-up-a-validator-02.webp)
 
 Once the transaction is signed and submitted, your session keys will be registered on-chain. 
 
@@ -308,15 +308,13 @@ To verify that your session keys are properly set, you can use one of two RPC ca
 
 For example, you can [check session keys on the Polkadot.js Apps](https://polkadot.js.org/apps/#/rpc){target=\_blank} interface or by running an RPC query against your node. Once this is done, your validator node is ready for its role.
 
-![Explorer RPC call](/images/infrastructure/running-a-validator/onboarding-and-offboarding/set-up-validator/set-up-validator-2.webp)
-
 ## Set the Node Key
 
 Validators on Polkadot need a static network key (also known as the node key) to maintain a stable node identity. This key ensures that your validator can maintain a consistent peer ID, even across restarts, which is crucial for maintaining reliable network connections.
 
 Starting with Polkadot version 1.11, validators without a stable network key may encounter the following error on startup:
 
---8<-- 'code/infrastructure/running-a-validator/onboarding-and-offboarding/setup-a-validator/node-key-error-01.html'
+--8<-- 'code/infrastructure/running-a-validator/onboarding-and-offboarding/set-up-a-validator/node-key-error-01.html'
 
 ### Generate the Node Key
 
@@ -367,7 +365,10 @@ Running a validator on the Kusama network is identical to running a Polkadot val
 polkadot --chain=kusama
 ```
 
-Using this flag will configure your node to connect to the Kusama network instead of Polkadot. Adjust configurations as needed for your test environment, keeping in mind that the technical requirements for Kusama are generally lighter than those on the Polkadot mainnet. If you need help, please reach out on the [Kusama Validator Lounge](https://matrix.to/#/#KusamaValidatorLounge:polkadot.builders){target=\_blank} on Element. The team and other experienced validators are there to help answer questions and provide tips.
+??? info "Adjustments for Kusama"
+    Using this flag will configure your node to connect to the Kusama network instead of Polkadot. Adjust configurations as needed for your test environment, keeping in mind that the technical requirements for Kusama are generally lighter than those on the Polkadot mainnet. 
+    
+    If you need help, please reach out on the [Kusama Validator Lounge](https://matrix.to/#/#KusamaValidatorLounge:polkadot.builders){target=\_blank} on Element. The team and other experienced validators are there to help answer questions and provide tips.
 
 ## Validate
 
@@ -379,7 +380,7 @@ To confirm that your validator is live and synchronized with the Polkadot networ
 
 In the following example, a node named `techedtest` is successfully located and synchronized, ensuring it's prepared to participate in the network:
 
-![polkadot-dashboard-telemetry](/images/infrastructure/running-a-validator/onboarding-and-offboarding/set-up-validator/polkadot-dashboard-telemetry.webp)
+![polkadot-dashboard-telemetry](/images/infrastructure/running-a-validator/onboarding-and-offboarding/set-up-validator/set-up-a-validator-03.webp)
 
 ### Activate via Validator Tab
 
@@ -387,19 +388,19 @@ Follow these steps to use the Polkadot.js Apps UI to activate your validator:
 
 1. Go to the **Validator** tab in the Polkadot.js Apps UI and locate the section where you input the keys generated from `rotateKeys`. Paste the output from `author_rotateKeys`, which is a hex-encoded key that links your validator with its session keys:
 
-    ![polkadot-dashboard-validate-1](/images/infrastructure/running-a-validator/onboarding-and-offboarding/set-up-validator/polkadot-dashboard-validate-1.webp)
+    ![](/images/infrastructure/running-a-validator/onboarding-and-offboarding/set-up-validator/set-up-a-validator-04.webp)
 
 2. Set a reward commission percentage if desired. You can set a percentage of the rewards to pay to your validator and the remainder pays to your nominators. A 100% commission rate indicates the validator intends to keep all rewards and is seen as a signal the validator is not seeking nominators
 3. Toggle the **Allows New Nominations** option if your validator is open to more nominations from DOT holders
 4. Once everything is configured, select **Bond & Validate** to activate your validator status
 
-    ![dashboard validate](/images/infrastructure/running-a-validator/onboarding-and-offboarding/set-up-validator/polkadot-dashboard-validate-2.webp)
+    ![](/images/infrastructure/running-a-validator/onboarding-and-offboarding/set-up-validator/set-up-a-validator-05.webp)
 
 ### Monitor Validation Status and Slots
 
 On the **Staking** tab in Polkadot.js Apps, you can see your validator's status, the number of available validator slots, and the nodes that have signaled their intent to validate. Your node may initially appear in the waiting queue, especially if the validator slots are full. The following is an example view of the **Staking** tab:
 
-![staking queue](/images/infrastructure/running-a-validator/onboarding-and-offboarding/set-up-validator/polkadot-dashboard-staking.webp)
+![staking queue](/images/infrastructure/running-a-validator/onboarding-and-offboarding/set-up-validator/set-up-a-validator-06.webp)
 
 The validator set refreshes each era. If there's an available slot in the next era, your node may be selected to move from the waiting queue to the active validator set, allowing it to start validating blocks. If your validator is not selected, it remains in the waiting queue. Increasing your stake or gaining more nominators may improve your chance of being selected in future eras.
 

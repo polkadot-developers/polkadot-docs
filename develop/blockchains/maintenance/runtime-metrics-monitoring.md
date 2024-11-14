@@ -85,7 +85,7 @@ You can monitor specific on-chain events like transactions from certain addresse
 
 Each node can be monitored for basic metrics, such as block height, peer connections, CPU usage, and memory. Substrate nodes expose these metrics at the `host:9615/metrics` endpoint, accessible locally by default. To expose metrics on all interfaces, start a node with the `--prometheus-external` flag.
 
-## Setting Up Monitoring Tools
+## Monitoring Tools
 
 To implement customized monitoring and alerting, consider using the following stack:
 

@@ -38,7 +38,7 @@ After preparing the environment; install and configure the latest version of Pro
 
 1. **Download Prometheus** - obtain the latest binaries from the [Prometheus releases page](https://github.com/prometheus/prometheus/releases/){target=\_blank} using these commands:
     ```bash
-    sudo apt-get update && apt-get upgrade
+    sudo apt-get update && sudo apt-get upgrade
     wget https://github.com/prometheus/prometheus/releases/download/v2.26.0/prometheus-2.26.0.linux-amd64.tar.gz
     tar xfz prometheus-*.tar.gz
     cd prometheus-2.26.0.linux-amd64
@@ -61,7 +61,7 @@ After preparing the environment; install and configure the latest version of Pro
         ```
     === "Clean up"
         ```bash
-        cd .. && rm -rf prometheus*
+        cd .. && rm -r prometheus*
         ```
 
 3. **Create `prometheus.yml` for configuration** - run this command to define global settings, rule files, and scrape targets:
@@ -113,7 +113,7 @@ After preparing the environment; install and configure the latest version of Pro
     Once you save the file, execute the following command to reload `systemd` and enable the service so that it will load automatically during the operating system's startup:
 
     ```bash
-    sudo systemctl daemon-reload && systemctl enable prometheus && systemctl start prometheus
+    sudo systemctl daemon-reload && sudo systemctl enable prometheus && sudo systemctl start prometheus
     ```
 4. **Verify service** - return to the Prometheus interface at the following address to verify the service is running:
     ``` bash
@@ -146,7 +146,7 @@ Grafana provides a powerful, customizable interface to visualize metrics collect
     ``` bash
     sudo vim /usr/share/grafana/conf/defaults.ini 
     ```
-    and change the `http_port` value as desired. Then restart Grafana with:
+    You can change the `http_port` value as desired. Then restart Grafana with:
     ``` bash
     sudo systemctl restart grafana-server
     ```
@@ -174,7 +174,7 @@ Follow these steps to visualize node metrics:
 ![Sample dashboard with metrics](/images/infrastructure/running-a-validator/operational-tasks/general-management/grafana-metrics-06.webp)
 
 ??? tip "Import via grafana.com" 
-    The [Grafana dashboards](https://grafana.com/grafana/dashboards){target=\_blank} page features user created dashboards made available for public use. Visit ["Substrate Node Metrics"](https://grafana.com/grafana/dashboards/21715-substrate-node-metrics/) for an example of available dashboards.
+    The [Grafana dashboards](https://grafana.com/grafana/dashboards){target=\_blank} page features user created dashboards made available for public use. Visit ["Substrate Node Metrics"](https://grafana.com/grafana/dashboards/21715-substrate-node-metrics/){target=\_blank} for an example of available dashboards.
 
 ### Install and Configure Alertmanager
 
@@ -184,10 +184,10 @@ The optional `Alertmanager` complements Prometheus by handling alerts and notify
     ```bash
     wget https://github.com/prometheus/alertmanager/releases/download/v0.26.0/alertmanager-0.26.0.linux-amd64.tar.gz
     tar -xvzf alertmanager-0.26.0.linux-amd64.tar.gz
-    mv alertmanager-0.26.0.linux-amd64/alertmanager /usr/local/bin
     ```
 2. **Move binaries and set permissions** - copy the binaries to a system directory and set appropriate permissions
     ```bash
+    cd alertmanager-0.26.0.linux-amd64
     sudo cp ./alertmanager /usr/local/bin/
     sudo cp ./amtool /usr/local/bin/
     sudo chown prometheus:prometheus /usr/local/bin/alertmanager
@@ -195,6 +195,7 @@ The optional `Alertmanager` complements Prometheus by handling alerts and notify
     ```
 3. **Create configuration file** - create a new `alertmanager.yml` file under `/etc/alertmanager`
     ```bash
+    sudo mkdir /etc/alertmanager
     sudo nano /etc/alertmanager/alertmanager.yml
     ```
     Add the following code to the configuration file to define email notifications:
@@ -204,9 +205,9 @@ The optional `Alertmanager` complements Prometheus by handling alerts and notify
 
     !!! note "App password"
 
-        you must generate an `app password` in your Gmail account to allow `Alertmanager` to send you alert notification emails. Visit Google support for more details on setting up your [`app password`](https://support.google.com/accounts/answer/185833?hl=en){target=\_blank}.
+        You must generate an [`app password` in your Gmail account](https://support.google.com/accounts/answer/185833?hl=en){target=\_blank} to allow `Alertmanager` to send you alert notification emails.
 
-    Ensure the configuration file has the correct permissions
+    Ensure the configuration file has the correct permissions:
     ```bash
     sudo chown -R prometheus:prometheus /etc/alertmanager
     ```
@@ -234,7 +235,7 @@ The optional `Alertmanager` complements Prometheus by handling alerts and notify
 
 #### Grafana Plugin
 
-There is an `Alertmanager` plugin in Grafana that can help you monitor alert information. Follow these steps to use the plugin: 
+There is an [`Alertmanager` plugin in Grafana](https://grafana.com/grafana/plugins/alertmanager/){target=\_blank} that can help you monitor alert information. Follow these steps to use the plugin: 
 
 1. **Install the plugin** - use the following command:
     ``` bash
@@ -295,7 +296,7 @@ Validators in Polkadot's Proof of Stake network play a critical role in maintain
 
 Though they don't transfer funds, session keys are essential for validators as they sign messages related to consensus and parachains. Securing session keys is crucial as allowing them to be exploited or used across multiple nodes can lead to a loss of staked funds via [slashing](infrastructure/staking-mechanics/offenses-and-slashes.md).
 
-Given the current limitations in high-availability setups and the risks associated with double-signing, it’s recommended to run a single validator instance. Keys should be securely managed, and processes automated to minimize human error.
+Given the current limitations in high-availability setups and the risks associated with double-signing, it’s recommended to run only a single validator instance. Keys should be securely managed, and processes automated to minimize human error.
 
 There are two approaches for generating session keys:
 
@@ -349,6 +350,6 @@ Additional best practices can add an additional layer of security and operationa
 
 ### Additional References
 
-- [Certus One's Knowledge Base](https://kb.certus.one/){target=\_blank}
+- [Certus One's Knowledge Base](https://knowledgebase.certus.com/FAQ/){target=\_blank}
 - [EOS Block Producer Security List](https://github.com/slowmist/eos-bp-nodes-security-checklist){target=\_blank}
-- [HSM Policies and the Important of Validator Security](https://medium.com/loom-network/hsm-policies-and-the-importance-of-validator-security-ec8a4cc1b6f){target=\_blank}
+- [HSM Policies and the Importance of Validator Security](https://medium.com/loom-network/hsm-policies-and-the-importance-of-validator-security-ec8a4cc1b6f){target=\_blank}

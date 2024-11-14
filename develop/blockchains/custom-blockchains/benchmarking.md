@@ -13,7 +13,7 @@ The Polkadot SDK leverages the [FRAME](/polkadot-protocol/glossary/#frame-framew
 
 ## The Case for Benchmark Testing
 
-Benchmark testing helps validate that the required execution time for different functions is within reasonable boundaries to ensure your blockchain runtime can handle transactions efficiently and securely. By accurately measuring the weight of each extrinsic, you can prevent service interruptions caused by computationally intensive calls that exceed block time limits. Without benchmark testing, runtime performance could be vulnerable to Denial of Service (DoS) attacks, where malicious users exploit functions with unoptimized weights.
+Benchmark testing helps validate that the required execution time for different functions is within reasonable boundaries to ensure your blockchain runtime can handle transactions efficiently and securely. By accurately measuring the weight of each extrinsic, you can prevent service interruptions caused by computationally intensive calls that exceed block time limits. Without benchmark testing, runtime performance could be vulnerable to DoS attacks, where malicious users exploit functions with unoptimized weights.
 
 Benchmark testing also ensures predictable transaction fees. Weights derived from benchmark tests accurately reflect the resource usage of function calls, allowing fair fee calculation. This approach discourages abuse while maintaining network reliability.
 
@@ -33,9 +33,7 @@ Because weight is a generic unit of measurement based on computation time for a 
 Within FRAME, each function call that is dispatched must have a `#[pallet::weight]` annotation that can return the expected weight for the worst-case scenario execution of that function given its inputs:
 
 ```rust hl_lines="2"
-#[pallet::call_index(0)]
-#[pallet::weight(T::WeightInfo::do_something())]
-pub fn do_something(origin: OriginFor<T>, bn: u32) -> DispatchResultWithPostInfo { ... }
+--8<-- 'code/develop/blockchains/custom-blockchains/benchmarking/dispatchable-pallet-weight.rs'
 ```
 
 The `WeightInfo` file is automatically generated during benchmark testing. Based on these tests, this file provides accurate weights for each extrinsic.
@@ -144,9 +142,9 @@ You can now compile your runtime with the `runtime-benchmarks` feature flag. Thi
 2. Once compiled, run the benchmarking tool to measure extrinsic weights
 
     ```sh
-    ./target/release/<node-binary-name> benchmark pallet \
-    --runtime <path-to-wasm-runtime> \
-    --pallet <name-of-the-pallet> \
+    ./target/release/INSERT_NODE_BINARY_NAME benchmark pallet \
+    --runtime INSERT_PATH_TO_WASM_RUNTIME \
+    --pallet INSERT_NAME_OF_PALLET \
     --extrinsic '*' \
     --steps 20 \
     --repeat 10 \
@@ -177,7 +175,7 @@ After which, you may add this to the `#[pallet::weight]` annotation in the extri
 --8<-- 'code/develop/blockchains/custom-blockchains/benchmarking/dispatchable-pallet-weight.rs'
 ```
 
-## What's Next
+## Where to Go Next
 
 - View the Rust Docs for a more comprehensive, low-level view of the [FRAME V2 Benchmarking Suite](https://paritytech.github.io/polkadot-sdk/master/frame_benchmarking/v2/index.html){target=_blank}
 - Read the [FRAME Benchmarking and Weights](https://paritytech.github.io/polkadot-sdk/master/polkadot_sdk_docs/reference_docs/frame_benchmarking_weight/index.html){target=_blank} reference document, a concise guide which details how weights and benchmarking work

@@ -37,7 +37,7 @@ Smart contracts are sandboxed programs that run within a virtual machine on the 
 
 Some key benefits of developing smart contracts include ease of development, faster time to market, and permissionless deployment. Smart contracts allow developers to quickly build and deploy decentralized applications without complex infrastructure or intermediaries. This accelerates the development lifecycle and enables rapid innovation within the Polkadot ecosystem.
 
-For more information on developing smart contracts in the Polkadot ecosystem, check the [Smart Contracts](TODO: update-path){target=\_blank} section.
+For more information on developing smart contracts in the Polkadot ecosystem, check the [Smart Contracts](/develop/smart-contracts/overview){target=\_blank} section.
 
 ### Runtimes
 
@@ -75,4 +75,4 @@ Client-side developers can build:
 
 These applications can leverage the Polkadot blockchain's underlying protocol features to create solutions that allow users to interact with the ecosystem. The Client-side development pathway is ideal for developers interested in enhancing user experiences and building applications that bring the power of decentralized networks to a broader audience.
 
-Check the [API Libraries](TODO: update-path){target=\_blank} section for essential tools to interact with Polkadot SDK-based blockchain data and protocol features.
+Check the [API Libraries](/develop/toolkit/api-libraries/){target=\_blank} section for essential tools to interact with Polkadot SDK-based blockchain data and protocol features.

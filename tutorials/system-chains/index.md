@@ -1,5 +1,5 @@
 ---
-title: Smart Contracts
+title: System Chains
 description: TODO
 hide: 
     - feedback

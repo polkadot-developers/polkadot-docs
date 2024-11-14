@@ -1,5 +1,5 @@
 ---
-title: Smart Contracts
+title: EVM 
 description: TODO
 hide: 
     - feedback

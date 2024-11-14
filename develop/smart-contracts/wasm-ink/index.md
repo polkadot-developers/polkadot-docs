@@ -1,5 +1,5 @@
 ---
-title: Smart Contracts
+title: Wasm (!Ink)
 description: TODO
 hide: 
     - feedback

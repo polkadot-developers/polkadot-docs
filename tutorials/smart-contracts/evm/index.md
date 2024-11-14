@@ -1,7 +1,7 @@
 ---
-title: Smart Contracts
+title:  EVM
 description: TODO
 hide: 
-    - feedback
+- feedback
 template: subsection-index-page.html
 ---

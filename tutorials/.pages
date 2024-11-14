@@ -1,4 +1,7 @@
 title: Tutorials
 nav:
   - index.md
-  - polkadot-sdk
+  - system-chains
+  - smart-contracts
+  - interoperability
+  - applications

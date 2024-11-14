@@ -1,5 +1,5 @@
 ---
-title: Smart Contracts
+title: Asset Hub
 description: TODO
 hide: 
     - feedback

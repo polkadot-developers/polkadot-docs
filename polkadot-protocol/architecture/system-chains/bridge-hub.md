@@ -26,10 +26,10 @@ For example, the Ethereum and Polkadot bridging solution that [Snowbridge](https
 
 In any given Bridge Hub implementation (Kusama, Polkadot, or other relay chains), there are a few primary pallets that are utilized:
 
-- [Pallet Bridge GRANDPA](https://paritytech.github.io/polkadot-sdk/master/pallet_bridge_grandpa/index.html){target=\_blank} - an on-chain GRANDPA light client for Substrate based chains
-- [Pallet Bridge Parachains](https://paritytech.github.io/polkadot-sdk/master/pallet_bridge_parachains/index.html){target=\_blank} - a finality module for parachains
-- [Pallet Bridge Messages](https://paritytech.github.io/polkadot-sdk/master/pallet_bridge_messages/index.html){target=\_blank} - a pallet which allows sending, receiving, and tracking of inbound and outbound messages 
-- [Pallet XCM Bridge](https://paritytech.github.io/polkadot-sdk/master/pallet_xcm_bridge_hub/index.html){target=\_blank} - a pallet which, with the Bridge Messages pallet, adds XCM support to bridge pallets
+- [**Pallet Bridge GRANDPA**](https://paritytech.github.io/polkadot-sdk/master/pallet_bridge_grandpa/index.html){target=\_blank} - an on-chain GRANDPA light client for Substrate based chains
+- [**Pallet Bridge Parachains**](https://paritytech.github.io/polkadot-sdk/master/pallet_bridge_parachains/index.html){target=\_blank} - a finality module for parachains
+- [**Pallet Bridge Messages**](https://paritytech.github.io/polkadot-sdk/master/pallet_bridge_messages/index.html){target=\_blank} - a pallet which allows sending, receiving, and tracking of inbound and outbound messages 
+- [**Pallet XCM Bridge**](https://paritytech.github.io/polkadot-sdk/master/pallet_xcm_bridge_hub/index.html){target=\_blank} - a pallet which, with the Bridge Messages pallet, adds XCM support to bridge pallets
 
 ### Ethereum-Specific Support
 
@@ -39,9 +39,9 @@ To view the complete list of which pallets are included in Bridge Hub, visit the
 
 ## Deployed Bridges
 
-- [Snowbridge](https://wiki.polkadot.network/docs/learn-snowbridge){target=\_blank} - a general-purpose, trustless bridge between Polkadot and Ethereum
-- [Hyperbridge](https://wiki.polkadot.network/docs/learn-hyperbridge){target=\_blank} - a cross-chain solution built as an interoperability coprocessor, providing state-proof-based interoperability across all blockchains
-- [Polkadot <> Kusama Bridge](https://wiki.polkadot.network/docs/learn-dot-ksm-bridge){target=\_blank} - a bridge that utilizes relayers to bridge the Polkadot and Kusama relay chains trustlessly
+- [**Snowbridge**](https://wiki.polkadot.network/docs/learn-snowbridge){target=\_blank} - a general-purpose, trustless bridge between Polkadot and Ethereum
+- [**Hyperbridge**](https://wiki.polkadot.network/docs/learn-hyperbridge){target=\_blank} - a cross-chain solution built as an interoperability coprocessor, providing state-proof-based interoperability across all blockchains
+- [**Polkadot <> Kusama Bridge**](https://wiki.polkadot.network/docs/learn-dot-ksm-bridge){target=\_blank} - a bridge that utilizes relayers to bridge the Polkadot and Kusama relay chains trustlessly
 
 ## Where to Go Next
 

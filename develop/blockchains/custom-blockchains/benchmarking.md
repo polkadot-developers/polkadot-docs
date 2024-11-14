@@ -55,28 +55,19 @@ The benchmarking tool runs multiple iterations to model worst-case execution tim
 Before writing benchmark tests, you need to ensure the `frame-benchmarking` crate is included in your pallet's `Cargo.toml` similar to the following:
 
 ```toml title="Cargo.toml"
-frame-benchmarking = { version = "37.0.0", default-features = false }
+--8<-- 'code/develop/blockchains/custom-blockchains/benchmarking/cargo.toml:1:1'
 ```
 
 You must also ensure that you add the `runtime-benchmarks` feature flag as follows under the `[features]` section of your pallet's `Cargo.toml`:
 
 ```toml title="Cargo.toml"
-runtime-benchmarks = [
-    "frame-benchmarking/runtime-benchmarks",
-    "frame-support/runtime-benchmarks",
-    "frame-system/runtime-benchmarks",
-    "sp-runtime/runtime-benchmarks",
-]
+--8<-- 'code/develop/blockchains/custom-blockchains/benchmarking/cargo.toml:2:7'
 ```
 
 Lastly, ensure that `frame-benchmarking` is included in `std = []`: 
 
 ```toml title="Cargo.toml"
-std = [
-    # ...
-    "frame-benchmarking?/std",
-    # ...
-]
+--8<-- 'code/develop/blockchains/custom-blockchains/benchmarking/cargo.toml:8:12'
 ```
 
 Once complete, you have the required dependencies for writing benchmark tests for your pallet.
@@ -119,7 +110,7 @@ Before running the benchmarking tool, you must integrate benchmarks with your ru
     );
     ```
 
-    ???warning "Updating `define_benchmarks!` macro is required"
+    !!!warning "Updating `define_benchmarks!` macro is required"
         If the pallet isn't included in the `define_benchmarks!` macro, the CLI cannot access and benchmark it later.
 
 2. Navigate to the runtime's `lib.rs` file and add the import for `benchmarks.rs` as follows: 
@@ -153,7 +144,7 @@ You can now compile your runtime with the `runtime-benchmarks` feature flag. Thi
     --output weights.rs
     ```
 
-    ??? info "Flag definitions"
+    !!! info "Flag definitions"
         - `--runtime` - the path to your runtime's Wasm
         - `--pallet` - the name of the pallet you wish to benchmark. This pallet must be configured in your runtime and defined in `define_benchmarks`
         - `--extrinsic` - which extrinsic to test. Using `'*'` implies all extrinsics will be benchmarked

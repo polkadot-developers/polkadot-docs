@@ -11,9 +11,9 @@ Developers can choose from different development pathways to build applications 
 
 The Polkadot ecosystem provides two main development pathways:
 
-- **Protocol Development** - focuses on creating core components that define blockchain functionality, including developing runtime modules or implementing smart contracts to handle on-chain logic. This pathway is ideal for developers interested in contributing to the foundational layers of the Polkadot network or creating custom blockchain logic
+- **Protocol development** - focuses on creating core components that define blockchain functionality, including developing runtime modules or implementing smart contracts to handle on-chain logic. This pathway is ideal for developers interested in contributing to the foundational layers of the Polkadot network or creating custom blockchain logic
 
-- **Client-side Development** -  centers on building decentralized applications (dApps) that interact with the blockchain. Developers in this pathway create user-facing applications that leverage blockchain data and capabilities, enabling various use cases for end-users
+- **Client-side development** -  centers on building decentralized applications (dApps) that interact with the blockchain. Developers in this pathway create user-facing applications that leverage blockchain data and capabilities, enabling various use cases for end-users
 
 ```mermaid
 graph TD
@@ -63,15 +63,15 @@ The client-side development path is dedicated to building applications that inte
 
 Client-side developers can build:
 
-- **Decentralized Applications (dApps)** - these applications leverage the blockchain's smart contracts or runtimes to offer a wide range of features, from financial services to gaming and social applications, all accessible directly by end-users
+- **Decentralized applications (dApps)** - these applications leverage the blockchain's smart contracts or runtimes to offer a wide range of features, from financial services to gaming and social applications, all accessible directly by end-users
 
-- **Command-Line Interfaces (CLIs)** - CLI tools empower developers and technical users to interact with the blockchain programmatically. These tools enable tasks like querying the blockchain, deploying smart contracts, managing wallets, and monitoring network status
+- **Command-line interfaces (CLIs)** - CLI tools empower developers and technical users to interact with the blockchain programmatically. These tools enable tasks like querying the blockchain, deploying smart contracts, managing wallets, and monitoring network status
 
-- **Data Analytics and Visualization Tools** - developers can create tools that aggregate, analyze, and visualize on-chain data to help users and businesses understand trends, track transactions, and gain insights into the network's health and usage
+- **Data analytics and visualization tools** - developers can create tools that aggregate, analyze, and visualize on-chain data to help users and businesses understand trends, track transactions, and gain insights into the network's health and usage
 
 - **Wallets** - securely managing accounts and private keys is crucial for blockchain users. Client-side development includes building user-friendly wallets, account management tools, and extensions that integrate seamlessly with the ecosystem
 
-- **Explorers and Dashboards** -  blockchain explorers allow users to view and search on-chain data, including blocks, transactions, and accounts. Dashboards provide a more interactive interface for users to monitor critical metrics, such as staking rewards, governance proposals, and network performance
+- **Explorers and dashboards** -  blockchain explorers allow users to view and search on-chain data, including blocks, transactions, and accounts. Dashboards provide a more interactive interface for users to monitor critical metrics, such as staking rewards, governance proposals, and network performance
 
 These applications can leverage the Polkadot blockchain's underlying protocol features to create solutions that allow users to interact with the ecosystem. The Client-side development pathway is ideal for developers interested in enhancing user experiences and building applications that bring the power of decentralized networks to a broader audience.
 

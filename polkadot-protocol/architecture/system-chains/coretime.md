@@ -35,16 +35,16 @@ The Coretime chain allocates coretime before its usage. It also manages the owne
 
 Regions can be managed in the following manner on the Coretime chain:
 
-- **Assigning Region** - regions can be assigned to a task on the relay chain, such as a parachain/rollup using the [`assign`](https://paritytech.github.io/polkadot-sdk/master/pallet_broker/pallet/dispatchables/fn.assign.html){target=\_blank} dispatchable
+- **Assigning region** - regions can be assigned to a task on the relay chain, such as a parachain/rollup using the [`assign`](https://paritytech.github.io/polkadot-sdk/master/pallet_broker/pallet/dispatchables/fn.assign.html){target=\_blank} dispatchable
 
 !!!tip "Coretime Availability"
-    When Bulk Coretime is obtained, block production is not immediately available. It becomes available to produce blocks for a task in the next Coretime cycle. To view the status of the current or next Coretime cycle, go to the [Subscan Coretime Dashboard](https://coretime-polkadot.subscan.io/coretime_dashboard){target=\_blank}.
+    When bulk coretime is obtained, block production is not immediately available. It becomes available to produce blocks for a task in the next Coretime cycle. To view the status of the current or next Coretime cycle, go to the [Subscan Coretime Dashboard](https://coretime-polkadot.subscan.io/coretime_dashboard){target=\_blank}.
 
-- **Transferring Regions** - regions may be transferred on the Coretime chain, upon which the [`transfer`](https://paritytech.github.io/polkadot-sdk/master/pallet_broker/pallet/dispatchables/fn.transfer.html){target=\_blank} [dispatchable](/polkadot-protocol/glossary/#dispatchable){target=\_blank} in the Broker pallet would assign a new owner to that specific region
+- **Transferring regions** - regions may be transferred on the Coretime chain, upon which the [`transfer`](https://paritytech.github.io/polkadot-sdk/master/pallet_broker/pallet/dispatchables/fn.transfer.html){target=\_blank} [dispatchable](/polkadot-protocol/glossary/#dispatchable){target=\_blank} in the Broker pallet would assign a new owner to that specific region
 
-- **Partitioning Regions** - using the [`partition`](https://paritytech.github.io/polkadot-sdk/master/pallet_broker/pallet/dispatchables/fn.partition.html){target=\_blank} dispatchable, regions may be partitioned into two non-overlapping subregions within the same core. A partition involves specifying a *pivot*, wherein the new region will be defined and available for use
+- **Partitioning regions** - using the [`partition`](https://paritytech.github.io/polkadot-sdk/master/pallet_broker/pallet/dispatchables/fn.partition.html){target=\_blank} dispatchable, regions may be partitioned into two non-overlapping subregions within the same core. A partition involves specifying a *pivot*, wherein the new region will be defined and available for use
 
-- **Interlacing Regions** - using the [`interlace`](https://paritytech.github.io/polkadot-sdk/master/pallet_broker/pallet/dispatchables/fn.interlace.html){target=\_blank} dispatchable, interlacing regions allows a core to have alternative-compute strategies. Whereas partitioned regions are non-overlappable, interlaced regions overlap because multiple tasks may utilize a single core in an alternating manner
+- **Interlacing regions** - using the [`interlace`](https://paritytech.github.io/polkadot-sdk/master/pallet_broker/pallet/dispatchables/fn.interlace.html){target=\_blank} dispatchable, interlacing regions allows a core to have alternative-compute strategies. Whereas partitioned regions are non-overlap-able, interlaced regions overlap because multiple tasks may utilize a single core in an alternating manner
 
 For more information regarding these mechanisms, visit the coretime page on the Polkadot Wiki: [Introduction to Agile Coretime](https://wiki.polkadot.network/docs/learn-agile-coretime){target=\_blank}. 
 

@@ -7,12 +7,9 @@ description: Learn about how Polkadot discourages validator misconduct via an of
 
 ## Introduction
 
-In Polkadot's Nominated Proof of Stake (NPoS) system, validator misconduct is deterred through a combination of slashing, deactivation, and reputation penalties. Validators and nominators who stake tokens face consequences for validator misbehavior, which range from token slashes to restrictions on network participation.
+In Polkadot's Nominated Proof of Stake (NPoS) system, validator misconduct is deterred through a combination of slashing, disabling, and reputation penalties. Validators and nominators who stake tokens face consequences for validator misbehavior, which range from token slashes to restrictions on network participation.
 
 This page outlines the types of offenses recognized by Polkadot, including block equivocations and invalid votes, as well as the corresponding penalties. While some parachains may implement additional custom slashing mechanisms, this guide focuses on the offenses tied to staking within the Polkadot ecosystem.
-
-??? info "Deactivation"
-    The deactivation mechanism is triggered when validators commit serious infractions, such as backing invalid blocks or engaging in equivocations. The material in this guide reflects the changes introduced in Stage 2. For more details, refer to the [State of Disabling issue](https://github.com/paritytech/polkadot-sdk/issues/4359){target=\_blank} on GitHub.
 
 ## Offenses
 
@@ -38,7 +35,7 @@ Equivocation occurs when a validator produces statements that conflict with each
 
 ## Penalties
 
-On Polkadot, offenses to the network incur different penalties depending on severity. There are three main penalties: slashing, deactivation, and reputation changes.
+On Polkadot, offenses to the network incur different penalties depending on severity. There are three main penalties: slashing, disabling, and reputation changes.
 
 ### Slashing
 
@@ -46,7 +43,7 @@ Validators engaging in bad actor behavior in the network may be subject to slash
 
 Any slashed DOT or KSM will be added to the [Treasury](https://wiki.polkadot.network/docs/learn-polkadot-opengov-treasury){target=\_blank} rather than burned or distributed as rewards. Moving slashed funds to the Treasury allows tokens to be quickly moved away from malicious validators while maintaining the ability to revert faulty slashes when needed.
 
-??? info "Multiple active nominations"
+!!! info "Multiple active nominations"
     A nominator with a very large bond may nominate several validators in a single era. In this case, a slash is proportionate to the amount staked to the offending validator. Stake allocation and validator activation is controlled by the [Phragmén algorithm](https://wiki.polkadot.network/docs/learn-phragmen#understanding-phragm%C3%A9n){target=\_blank}.
 
 A validator slash creates an `unapplied` state transition. You can view pending slashes on [Polkadot.js Apps](https://polkadot.js.org/apps/?rpc=wss%3A%2F%2Frpc.polkadot.io#/staking/slashes){target=\_blank}. The UI will display the slash per validator, the affected nominators, and the slash amounts. The unapplied state includes a 27-day grace period during which a governance proposal can be made to reverse the slash. Once this grace period expires, the slash is applied.
@@ -152,14 +149,19 @@ There are three main difficulties to account for with slashing in NPoS:
 
 To balance this, the system applies only the maximum slash a participant can receive in a given time period rather than the sum. This ensures protection from excessive slashing.
 
-### Deactivation
+### Disabling
 
-Deactivation stops validators from performing specific actions after they have committed an offense. Deactivation is further divided into:
+The disabling mechanism is triggered when validators commit serious infractions, such as backing invalid blocks or engaging in equivocations. Disabling stops validators from performing specific actions after they have committed an offense. Disabling is further divided into:
 
-- **On-chain deactivation** - lasts for a whole era and stops validators from authoring blocks, backing, and initiating a dispute
-- **Off-chain deactivation** - lasts for a session, is caused by losing a dispute, and stops validators from initiating a dispute
+- **On-chain disabling** - lasts for a whole era and stops validators from authoring blocks, backing, and initiating a dispute
+- **Off-chain disabling** - lasts for a session, is caused by losing a dispute, and stops validators from initiating a dispute
 
-Off-chain deactivation is always a lower priority than on-chain deactivation. Off-chain deactivation prioritizes deactivating first backers and then approval checkers.
+Off-chain disabling is always a lower priority than on-chain disabling. Off-chain disabling prioritizes disabling first backers and then approval checkers.
+
+!!! note
+
+    The material in this guide reflects the changes introduced in Stage 2. For more details, refer to the [State of Disabling issue](https://github.com/paritytech/polkadot-sdk/issues/4359){target=\_blank} on GitHub.
+
 
 ### Reputation Changes
 
@@ -169,7 +171,7 @@ Some minor offenses, such as spamming, are only punished by networking reputatio
 
 Below, you can find a summary of penalties for specific offenses:
 
-|               Offense                | [Slash (%)](#slashing) | [On-Chain Deactivation](#deactivation) | [Off-Chain Deactivation](#deactivation) | [Reputational Changes](#reputation-changes) |
+|               Offense                | [Slash (%)](#slashing) | [On-Chain Disabling](#disabling) | [Off-Chain Disabling](#disabling) | [Reputational Changes](#reputation-changes) |
 |:------------------------------------:|:----------------------:|:--------------------------------------:|:------------------------------------:|:-------------------------------------------:|
 |           Backing Invalid            |          100%          |                  Yes                   |         Yes (High Priority)          |                     No                      |
 |           ForInvalid Vote            |           -            |                   No                   |          Yes (Mid Priority)          |                     No                      |

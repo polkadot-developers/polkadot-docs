@@ -45,21 +45,20 @@ After preparing the environment; install and configure the latest version of Pro
     ```
 2. **Set up Prometheus** - copy binaries and directories, assign ownership of these files to the `prometheus` user, and clean up download directory as follows:
 
-    === "Binaries"
+    === "1. Binaries"
         ``` bash 
         sudo cp ./prometheus /usr/local/bin/
         sudo cp ./promtool /usr/local/bin/
         sudo cp ./prometheus /usr/local/bin/
-        sudo cp ./promtool /usr/local/bin/
         ```
-    === "Directories"
+    === "2. Directories"
         ``` bash 
         sudo cp -r ./consoles /etc/prometheus
         sudo cp -r ./console_libraries /etc/prometheus
         sudo chown -R prometheus:prometheus /etc/prometheus/consoles
         sudo chown -R prometheus:prometheus /etc/prometheus/console_libraries
         ```
-    === "Clean up"
+    === "3. Clean up"
         ```bash
         cd .. && rm -r prometheus*
         ```
@@ -141,7 +140,7 @@ Grafana provides a powerful, customizable interface to visualize metrics collect
     http://SERVER_IP_ADDRESS:3000/login
     ```
 
-??? tip "Change default port"
+!!! tip "Change default port"
     If you want run Grafana on another port, edit the file `/usr/share/grafana/conf/defaults.ini` with a command like:
     ``` bash
     sudo vim /usr/share/grafana/conf/defaults.ini 
@@ -151,36 +150,34 @@ Grafana provides a powerful, customizable interface to visualize metrics collect
     sudo systemctl restart grafana-server
     ```
 
-![Grafana login screen](/images/infrastructure/running-a-validator/operational-tasks/general-management/grafana-login-01.webp)
+![Grafana login screen](#)
 
 Follow these steps to visualize node metrics:
 
 1. Select the gear icon for settings to configure the **Data Sources**
-![Select gear icon](/images/infrastructure/running-a-validator/operational-tasks/general-management/grafana-metrics-01.webp)
-
 2. Select **Add data source** to define the data source
-![Select Add data source](/images/infrastructure/running-a-validator/operational-tasks/general-management/grafana-metrics-02.webp)
+![Select Add data source](#)
 
 3. Select **Prometheus**
-![Select Prometheus](/images/infrastructure/running-a-validator/operational-tasks/general-management/grafana-metrics-03.webp)
+![Select Prometheus](#)
 
 4. Enter `https://localhost:9090` in the **URL** field, then select **Save & Test**. If you see the message **"Data source is working"** your connection is configured correctly
-![Save and test](/images/infrastructure/running-a-validator/operational-tasks/general-management/grafana-metrics-04.webp)
+![Save and test](#)
 
 5. Next, select **Import** from the menu bar on the left, select **Prometheus** in the dropdown list and select **Import**
-![Import dashboard](/images/infrastructure/running-a-validator/operational-tasks/general-management/grafana-metrics-05.webp)
+![Import dashboard](#)
 
 6. Finally, start your Polkadot node by running `./polkadot`. You should now be able to monitor your node's performance such as the current block height, network traffic, and running tasks on the Grafana dashboard
-![Sample dashboard with metrics](/images/infrastructure/running-a-validator/operational-tasks/general-management/grafana-metrics-06.webp)
+![Sample dashboard with metrics](#)
 
-??? tip "Import via grafana.com" 
+!!! tip "Import via grafana.com" 
     The [Grafana dashboards](https://grafana.com/grafana/dashboards){target=\_blank} page features user created dashboards made available for public use. Visit ["Substrate Node Metrics"](https://grafana.com/grafana/dashboards/21715-substrate-node-metrics/){target=\_blank} for an example of available dashboards.
 
 ### Install and Configure Alertmanager
 
 The optional `Alertmanager` complements Prometheus by handling alerts and notifying users of potential issues. Follow these steps to install and configure `Alertmanager`:
 
-1. **Download and extract `Alertmanager`** - download the latest version from the [Prometheus Alertmanager releases page](https://github.com/prometheus/alertmanager/releases){target=_blank}
+1. **Download and extract `Alertmanager`** - download the latest version from the [Prometheus Alertmanager releases page](https://github.com/prometheus/alertmanager/releases){target=\_blank}
     ```bash
     wget https://github.com/prometheus/alertmanager/releases/download/v0.26.0/alertmanager-0.26.0.linux-amd64.tar.gz
     tar -xvzf alertmanager-0.26.0.linux-amd64.tar.gz

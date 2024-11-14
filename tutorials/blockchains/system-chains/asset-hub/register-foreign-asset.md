@@ -39,7 +39,7 @@ This guide will use Polkadot, its local Asset Hub instance, and the [Astar](http
 1. Open the [Polkadot.js Apps](https://polkadot.js.org/apps/){target=\_blank} interface and connect to the Asset Hub parachain using the network selector in the top left corner 
 
       - Testing foreign asset registration is recommended on TestNet before proceeding to MainNet. If you haven't set up a local testing environment yet, consult the [Environment setup](#test-environment-setup) guide. After setting up, connect to the Local Node (Chopsticks) at `ws://127.0.0.1:8000`
-      - For live network operations, connect to the Asset Hub parachain. You can choose either Polkadot or Kusama Asset Hub from the dropdown menu, selecting your preferred RPC provider.
+      - For live network operations, connect to the Asset Hub parachain. You can choose either Polkadot or Kusama Asset Hub from the dropdown menu, selecting your preferred RPC provider
 
 2. Navigate to the **Extrinsics** page
       1. Click on the **Developer** tab from the top navigation bar
@@ -58,7 +58,7 @@ This guide will use Polkadot, its local Asset Hub instance, and the [Astar](http
     - **id** - as this is a foreign asset, the ID will be represented by a Multilocation that reflects its origin. For this case, the Multilocation of the asset will be from the source parachain perspective:
   
         ```javascript
-        MultiLocation {parents: 1, interior: X1(Parachain(2006))};
+        { parents: 1, interior: { X1: [{ Parachain: 2006 }] } }
         ```
 
     - **admin** - refers to the account that will be the admin of this asset. This account will be able to manage the asset, including updating its metadata. As the registered asset corresponds to a native asset of the source parachain, the admin account should be the sovereign account of the source parachain

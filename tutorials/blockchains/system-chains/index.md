@@ -1,5 +1,5 @@
 ---
-title:  System Chain
+title: System Chains
 description: TODO
 hide: 
     - feedback

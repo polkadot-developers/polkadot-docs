@@ -9,7 +9,7 @@ The Coretime system chain facilitates the allocation, procurement, sale, and sch
 
 The [Broker pallet](https://paritytech.github.io/polkadot-sdk/master/pallet_broker/index.html){target=\_blank}, along with [Cross Consensus Messaging (XCM)](TODO:update-path){target=\_blank}, enables this functionality to be delegated to the system chain rather than the relay chain. Using [XCMP's Upward Message Passing (UMP)](https://wiki.polkadot.network/docs/learn-xcm-transport#ump-upward-message-passing){target=\_blank} to the relay chain allows for core assignments to take place for a task registered on the relay chain.
 
-The Fellowship RFC [RFC-1: Agile Coretime](https://github.com/polkadot-fellows/RFCs/blob/main/text/0001-agile-coretime.md){target=\_blank} contains the specification for the Coretime system chain and Coretime as a concept.
+The Fellowship RFC [RFC-1: Agile Coretime](https://github.com/polkadot-fellows/RFCs/blob/main/text/0001-agile-coretime.md){target=\_blank} contains the specification for the Coretime system chain and coretime as a concept.
 
 Besides core management, its responsibilities include: 
 
@@ -46,14 +46,14 @@ Regions can be managed in the following manner on the Coretime chain:
 
 - **Interlacing Regions** - using the [`interlace`](https://paritytech.github.io/polkadot-sdk/master/pallet_broker/pallet/dispatchables/fn.interlace.html){target=\_blank} dispatchable, interlacing regions allows a core to have alternative-compute strategies. Whereas partitioned regions are non-overlappable, interlaced regions overlap because multiple tasks may utilize a single core in an alternating manner
 
-For more information regarding these mechanisms, visit the Coretime page on the Polkadot Wiki: [Introduction to Agile Coretime](https://wiki.polkadot.network/docs/learn-agile-coretime){target=\_blank}. 
+For more information regarding these mechanisms, visit the coretime page on the Polkadot Wiki: [Introduction to Agile Coretime](https://wiki.polkadot.network/docs/learn-agile-coretime){target=\_blank}. 
 
 ## On Demand Coretime
 
-At this writing, on-demand coretime is currently deployed on the relay chain and will eventually be deployed to the coretime chain. On-demand coretime allows parachains (previously known as parathreads) to utilize available cores per block.
+At this writing, on-demand coretime is currently deployed on the relay chain and will eventually be deployed to the Coretime chain. On-demand coretime allows parachains (previously known as parathreads) to utilize available cores per block.
 
-The coretime chain also handles Coretime sales, details of which can be found on the Polkadot Wiki: [Agile Coretime: Coretime Sales](https://wiki.polkadot.network/docs/learn-agile-coretime#coretime-sales){target=\_blank}.
+The Coretime chain also handles coretime sales, details of which can be found on the Polkadot Wiki: [Agile Coretime: Coretime Sales](https://wiki.polkadot.network/docs/learn-agile-coretime#coretime-sales){target=\_blank}.
 
-## What's Next?
+## Where to Go Next
 
 - Learn about [Agile Coretime](https://wiki.polkadot.network/docs/learn-agile-coretime#introduction-to-agile-coretime){target=\_blank} on the Polkadot Wiki

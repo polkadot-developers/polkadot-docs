@@ -44,7 +44,7 @@ Here’s a high-level overview of the Polkadot protocol architecture:
 
 ![](/images/polkadot-protocol/architecture/polkadot-chain/overview/overview-1.webp)
 
-Parachains propose blocks to Polkadot validators, who check for availability and validity before finalizing them. With the chain providing security, collators—full nodes of parachains—can focus on their tasks without needing strong incentives.
+Parachains propose blocks to Polkadot validators, who check for availability and validity before finalizing them. With the relay chain providing security, collators—full nodes of parachains—can focus on their tasks without needing strong incentives.
 
 The [Cross-Consensus Messaging Format (XCM)](todo: add link to XCM page){target=\_blank} allows parachains to exchange messages freely, leveraging the chain's security for trust-free communication.
 

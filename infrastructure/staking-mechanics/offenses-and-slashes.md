@@ -7,7 +7,7 @@ description: Learn about how Polkadot discourages validator misconduct via an of
 
 ## Introduction
 
-In Polkadot's Nominated Proof-of-Stake (NPoS) system, validator misconduct is deterred through a combination of slashing, deactivation, and reputation penalties. Validators and nominators who stake tokens face consequences for validator misbehavior, which range from token slashes to restrictions on network participation.
+In Polkadot's Nominated Proof of Stake (NPoS) system, validator misconduct is deterred through a combination of slashing, deactivation, and reputation penalties. Validators and nominators who stake tokens face consequences for validator misbehavior, which range from token slashes to restrictions on network participation.
 
 This page outlines the types of offenses recognized by Polkadot, including block equivocations and invalid votes, as well as the corresponding penalties. While some parachains may implement additional custom slashing mechanisms, this guide focuses on the offenses tied to staking within the Polkadot ecosystem.
 
@@ -16,7 +16,7 @@ This page outlines the types of offenses recognized by Polkadot, including block
 
 ## Offenses
 
-Polkadot is a public permissionless network. As such, it has a mechanism to disincentivize offenses and incentivize good behavior. You can review the [parachain protocol](https://wiki.polkadot.network/docs/learn-parachains-protocol#parachain-protocol){target=\_blank} to better understand the terminology used to describe offenses. Polkadot validator offenses fall into two categories, invalid votes and equivocations. 
+Polkadot is a public permissionless network. As such, it has a mechanism to disincentivize offenses and incentivize good behavior. You can review the [parachain protocol](https://wiki.polkadot.network/docs/learn-parachains-protocol#parachain-protocol){target=\_blank} to understand better the terminology used to describe offenses. Polkadot validator offenses fall into two categories: invalid votes and equivocations. 
 
 ### Invalid Votes
 
@@ -44,22 +44,22 @@ On Polkadot, offenses to the network incur different penalties depending on seve
 
 Validators engaging in bad actor behavior in the network may be subject to slashing if they commit a qualifying offense. When a validator is slashed, they and their nominators lose a percentage of their staked DOT or KSM, from as little as 0.01% up to 100% based on the severity of the offense. Nominators are evaluated for slashing against their active validations at any given time. Validator nodes are evaluated as discrete entities, meaning an operator can't attempt to mitigate the offense on another node they operate in order to avoid a slash. 
 
-Any slashed DOT or KSM will be added to the [Treasury](https://wiki.polkadot.network/docs/learn-polkadot-opengov-treasury){target=\_blank} rather than burned or distributed as rewards. Moving slashed funds to the Treasury allows an opportunity to quickly move tokens away from malicious validators while maintaining the ability to revert faulty slashes when needed.
+Any slashed DOT or KSM will be added to the [Treasury](https://wiki.polkadot.network/docs/learn-polkadot-opengov-treasury){target=\_blank} rather than burned or distributed as rewards. Moving slashed funds to the Treasury allows tokens to be quickly moved away from malicious validators while maintaining the ability to revert faulty slashes when needed.
 
 ??? info "Multiple active nominations"
     A nominator with a very large bond may nominate several validators in a single era. In this case, a slash is proportionate to the amount staked to the offending validator. Stake allocation and validator activation is controlled by the [Phragmén algorithm](https://wiki.polkadot.network/docs/learn-phragmen#understanding-phragm%C3%A9n){target=\_blank}.
 
-A validator slash creates an `unapplied` state transition. You can view pending slashes on [Polkadot.js Apps](https://polkadot.js.org/apps/?rpc=wss%3A%2F%2Frpc.polkadot.io#/staking/slashes){target=\_blank}. The UI will display the slash per validator, followed by the affected nominators and the slash amounts. The unapplied state includes a 27-day grace period during which a governance proposal can be made to reverse the slash. Once this grace period expires, the slash is applied.
+A validator slash creates an `unapplied` state transition. You can view pending slashes on [Polkadot.js Apps](https://polkadot.js.org/apps/?rpc=wss%3A%2F%2Frpc.polkadot.io#/staking/slashes){target=\_blank}. The UI will display the slash per validator, the affected nominators, and the slash amounts. The unapplied state includes a 27-day grace period during which a governance proposal can be made to reverse the slash. Once this grace period expires, the slash is applied.
 
 #### Equivocation Slash
 
-The Web3 Foundation's [Slashing mechanisms](https://research.web3.foundation/Polkadot/security/slashing/amounts){target=\_blank} page provides guidelines for evaluating the security threat level of different offenses and determining penalties proportionate to the threat level of the offense. Offenses requiring coordination between validators or extensive computational costs to the system will typically call for harsher penalties than those more likely to be unintentional than malicious. A description of potential offenses for each threat level, and the corresponding penalties, is as follows:
+The Web3 Foundation's [Slashing mechanisms](https://research.web3.foundation/Polkadot/security/slashing/amounts){target=\_blank} page provides guidelines for evaluating the security threat level of different offenses and determining penalties proportionate to the threat level of the offense. Offenses requiring coordination between validators or extensive computational costs to the system will typically call for harsher penalties than those more likely to be unintentional than malicious. A description of potential offenses for each threat level and the corresponding penalties is as follows:
 
-- **Level 1** - honest misconduct such as isolated cases of unresponsivness
+- **Level 1** - honest misconduct such as isolated cases of unresponsiveness
     - **Penalty** - validator can be kicked out or slashed up to 0.1% of stake in the validator slot
 - **Level 2** - misconduct that can occur honestly but is a sign of bad practices. Examples include repeated cases of unresponsiveness and isolated cases of equivocation
     - **Penalty** - slash of up to 1% of stake in the validator slot
-- **Level 3** - misconduct that is likely intentional but of limited affect on the performance or security of the network. This level will typically include signs of coordination between validators. Examples include repeated cases of equivocation or isolated cases of unjustified voting on GRANDPA
+- **Level 3** - misconduct that is likely intentional but of limited effect on the performance or security of the network. This level will typically include signs of coordination between validators. Examples include repeated cases of equivocation or isolated cases of unjustified voting on GRANDPA
     - **Penalty** - reduction in networking reputation metrics, slash of up to 10% of stake in the validator slot
 - **Level 4** - misconduct that poses severe security or monetary risk to the system or mass collusion. Examples include signs of extensive coordination, creating a serious security risk to the system, or forcing the system to use extensive resources to counter the misconduct
     - **Penalty** - slash of up to 100% of stake in the validator slot
@@ -76,7 +76,7 @@ min((3 * x / n )^2, 1)
 
 The following scenarios demonstrate how this formula means slash percentages can increase exponentially based on the number of offenders involved compared to the size of the validator pool:
 
-- **Minor offense** - assume one validator out of a 100 validator active set equivocates in a slot. A single validator committing an isolated offense is most likely a mistake rather than malicious attack on the network. This offense results in a 0.09% slash to the stake in the validator slot
+- **Minor offense** - assume 1 validator out of a 100 validator active set equivocates in a slot. A single validator committing an isolated offense is most likely a mistake rather than malicious attack on the network. This offense results in a 0.09% slash to the stake in the validator slot
 
     ``` mermaid
     flowchart LR
@@ -90,7 +90,7 @@ The following scenarios demonstrate how this formula means slash percentages can
     F --> G
     ```
 
-- **Moderate offense** - assume five validators out a 100 validator active set equivocate in a slot. This is a slightly more serious event as there may be some element of coordination involved. This offense results in a 2.25% slash to the stake in the validator slot
+- **Moderate offense** - assume 5 validators out a 100 validator active set equivocate in a slot. This is a slightly more serious event as there may be some element of coordination involved. This offense results in a 2.25% slash to the stake in the validator slot
 
     ``` mermaid
     flowchart LR
@@ -163,7 +163,7 @@ Off-chain deactivation is always a lower priority than on-chain deactivation. Of
 
 ### Reputation Changes
 
-Some minor offenses, such as spamming, are only punished by networking reputation changes. Validators use a reputation metric when chosing with which peers to connect. If a peer provides valuable data and behaves appropriately, the system adds reputation. If they provide faulty or spam data, the system reduces their reputation. If a validator loses enough reputation their peers will temporarily close their channels to them. This helps in fighting against DoS (Denial of Service) attacks. In general, performing validator tasks under reduced reputation will be harder, resulting in lower validator rewards.
+Some minor offenses, such as spamming, are only punished by networking reputation changes. Validators use a reputation metric when choosing which peers to connect with. The system adds reputation if a peer provides valuable data and behaves appropriately. If they provide faulty or spam data, the system reduces their reputation. If a validator loses enough reputation, their peers will temporarily close their channels to them. This helps in fighting against Denial of Service (DoS) attacks. Performing validator tasks under reduced reputation will be harder, resulting in lower validator rewards.
 
 ### Penalties by Offense
 

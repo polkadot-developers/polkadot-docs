@@ -15,7 +15,7 @@ This guide will allow validators to seamlessly substitute an active validator se
 
 Before beginning the upgrade process for your validator node, ensure the following:
 
-- You have a fully functional validator setup with all required binaries installed. See [Set Up a Validator](infrastructure/running-a-validator/onboarding-and-offboarding/set-up-validator.md) and [Validator Requirements](polkadot-docs/infrastructure/running-a-validator/requirements.md) for additional guidance
+- You have a fully functional validator setup with all required binaries installed. See [Set Up a Validator](/infrastructure/running-a-validator/onboarding-and-offboarding/set-up-validator/){target=\_blank} and [Validator Requirements](/polkadot-docs/infrastructure/running-a-validator/requirements/){target=\_blank} for additional guidance
 - Your VPS infrastructure has enough capacity to run a secondary validator instance temporarily for the upgrade process
 
 ## Session Keys
@@ -26,7 +26,7 @@ Remembering this delayed effect when planning upgrades is crucial to ensure that
 
 ## Keystore
 
-Your validator server's `keystore` folder holds the private keys needed for signing network-level transactions. It is important not to duplicate or transfer this folder between validator instances. Doing so could result in multiple validators signing with the duplicate keys, leading to severe consequences such as [equivocation slashing](https://wiki.polkadot.network/docs/learn-offenses){target=\_blank}. Instead, always generate new session keys for each validator instance.
+Your validator server's `keystore` folder holds the private keys needed for signing network-level transactions. It is important not to duplicate or transfer this folder between validator instances. Doing so could result in multiple validators signing with the duplicate keys, leading to severe consequences such as [equivocation slashing](/infrastructure/staking-mechanics/offenses-and-slashes/#equivocation-slash){target=\_blank}. Instead, always generate new session keys for each validator instance.
 
 The default path to the `keystore` is as follows:
 

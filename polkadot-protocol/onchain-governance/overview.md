@@ -320,3 +320,7 @@ Delegations also help voters who may lack the technical expertise to evaluate ce
 
 ## Resources
 - [Democracy pallet](https://github.com/paritytech/polkadot-sdk/tree/master/substrate/frame/democracy/src){about=|_blank}
+- [Governance v2](https://medium.com/polkadot-network/gov2-polkadots-next-generation-of-decentralised-governance-4d9ef657d11b){about=|_blank}
+- [Polkadot Direction](https://matrix.to/#/#Polkadot-Direction:parity.io){about=|_blank}
+- [PolkAssembly](https://polkadot.polkassembly.io/){about=|_blank}
+- [PolkadotJS Governance](https://polkadot.js.org/apps/#/referenda){about=|_blank}

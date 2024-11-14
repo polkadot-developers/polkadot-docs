@@ -5,7 +5,7 @@ description: Explore essential XCM tools across Polkadot, crafted to enhance cro
 
 # XCM Tools
 
-## Overview
+## Introduction
 
 As described in the [Interoperability](/develop/interoperability){target=\_blank} section, XCM (Cross-Consensus Messaging) is a protocol used in the Polkadot and Kusama ecosystems to enable communication and interaction between chains. It facilitates cross-chain communication, allowing assets, data, and messages to flow seamlessly across the ecosystem.
 
@@ -17,8 +17,8 @@ As XCM is central to enabling communication between blockchains, developers need
 
 [Moonsong Labs XCM Tools](https://github.com/Moonsong-Labs/xcm-tools){target=\_blank} provides a collection of scripts for managing and testing XCM operations between Polkadot SDK-based runtimes. These tools allow performing tasks like asset registration, channel setup, and XCM initialization. Key features include:
 
-- **Asset registration** - registers assets, setting units per second (up-front fees) and configuring error (revert) codes
-- **XCM initializer** -  initializes XCM, sets default XCM versions, and configures revert codes for XCM-related precompiles
+- **Asset registration** - registers assets, setting units per second (up-front fees), and configuring error (revert) codes
+- **XCM initializer** - initializes XCM, sets default XCM versions, and configures revert codes for XCM-related precompiles
 - **HRMP manipulator** - manages HRMP channel actions, including opening, accepting, or closing channels
 - **XCM-Transactor-Info-Setter** - configures transactor information, including extra weight and fee settings
 - **Decode XCM** - decodes XCM messages on the relay chain or parachains to help interpret cross-chain communication
@@ -70,4 +70,4 @@ For more details on using Astar xcm-tools, consult the [official documentation](
 
 ### Chopsticks
 
-The Chopsticks library provides XCM functionality for testing XCM messages across networks, enabling you to fork multiple parachains along with a relay chain.  For further details, see the [Chopsticks documentation](/develop/application-devs/tooling/chopsticks/overview/#xcm-testing){target=\_blank} about XCM.
+The Chopsticks library provides XCM functionality for testing XCM messages across networks, enabling you to fork multiple parachains along with a relay chain. For further details, see the [Chopsticks documentation](/develop/toolkit/blockchain/fork-live-chains/#xcm-testing){target=\_blank} about XCM.

@@ -1,5 +1,5 @@
 ---
-title:  Tutorials
+title:  Asset Hub
 description: TODO
 hide: 
     - feedback

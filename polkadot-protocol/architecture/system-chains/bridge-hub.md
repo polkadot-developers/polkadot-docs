@@ -5,17 +5,18 @@ description: Learn about the Bridge Hub system parachain, a parachain that facil
 
 ## Introduction
 
-The Bridge Hub system chain is responsible for providing the necessary functionality for the relay chain (and parachains) 
-to enable trustless bridging between chains like Polkadot, Kusama, and Ethereum. It includes a set of [pallets](../../glossary.md#pallet) which facilitate the sending and receiving of messages, implementations of BEEFY, GRANDPA, and Ethereum light clients to follow and verify the state of both the source and target chain. Bridge Hub also provides XCM support for target and source chains, provided XCM is implemented on the target chain.
+The Bridge Hub system parachain plays a crucial role in facilitating trustless interactions between Polkadot, Kusama, Ethereum, and other blockchain ecosystems. By implementing on-chain light clients and supporting protocols like BEEFY and GRANDPA, Bridge Hub ensures seamless message transmission and state verification across chains. It also provides essential [pallets](/polkadot-protocol/glossary/#pallet){target=\_blank} for sending and receiving messages, making it a cornerstone of Polkadot’s interoperability framework. With built-in support for XCM (Cross-Consensus Messaging), Bridge Hub enables secure, efficient communication between diverse blockchain networks.
+
+This guide covers the architecture, components, and deployment of the Bridge Hub system. You'll explore its trustless bridging mechanisms, key pallets for various blockchains, and specific implementations like Snowbridge and the Polkadot <> Kusama bridge. By the end, you'll understand how Bridge Hub enhances connectivity within the Polkadot ecosystem and beyond.
 
 ## Trustless Bridging
 
-Bridge Hub provides a mode of trustless bridging through its implementation of on-chain light clients and trustless relayers. The target chain and source chain both provide ways of verifying the state of one another, of which actions (such as a transfer) are based upon the consensus and finality of both chains rather than an external mechanism controlled by a third party.
+Bridge Hub provides a mode of trustless bridging through its implementation of on-chain light clients and trustless relayers. The target chain and source chain both provide ways of verifying one another's state and actions (such as a transfer) based on the consensus and finality of both chains rather than an external mechanism controlled by a third party.
 
 [BEEFY (Bridge Efficiency Enabling Finality Yielder)](https://wiki.polkadot.network/docs/learn-consensus#bridging-beefy){target=\_blank} is instrumental in this solution. It provides a more efficient way to verify the consensus on the relay chain. It allows the participants in a network to verify finality proofs, meaning a remote chain like Ethereum can verify the state of Polkadot at a given block height.
 
 !!!info
-    In this context, "trustless" refers to the lack of human trust needed when interacting with various components of a system, opting instead to trust mathematics, cryptography, and code.
+    In this context, "trustless" refers to the lack of need to trust a human when interacting with various system components. Trustless systems are based instead on trusting mathematics, cryptography, and code.
 
 Trustless bridges are essentially two one-way bridges, where each chain has a method of verifying the state of the other in a trustless manner through consensus proofs.
 
@@ -27,14 +28,14 @@ In any given Bridge Hub implementation (Kusama, Polkadot, or other relay chains)
 
 - [Pallet Bridge GRANDPA](https://paritytech.github.io/polkadot-sdk/master/pallet_bridge_grandpa/index.html){target=\_blank} - an on-chain GRANDPA light client for Substrate based chains
 - [Pallet Bridge Parachains](https://paritytech.github.io/polkadot-sdk/master/pallet_bridge_parachains/index.html){target=\_blank} - a finality module for parachains
-- [Pallet Bridge Messages](https://paritytech.github.io/polkadot-sdk/master/pallet_bridge_grandpa/index.html){target=\_blank} - a pallet which allows sending, receiving, and tracking of inbound and outbound messages 
+- [Pallet Bridge Messages](https://paritytech.github.io/polkadot-sdk/master/pallet_bridge_messages/index.html){target=\_blank} - a pallet which allows sending, receiving, and tracking of inbound and outbound messages 
 - [Pallet XCM Bridge](https://paritytech.github.io/polkadot-sdk/master/pallet_xcm_bridge_hub/index.html){target=\_blank} - a pallet which, with the Bridge Messages pallet, adds XCM support to bridge pallets
 
 ### Ethereum-Specific Support
 
-Bridge Hub also has a set of components and pallets that support a Polkadot <-> Ethereum bridge through [Snowbridge](https://github.com/Snowfork/snowbridge){target=\_blank}
+Bridge Hub also has a set of components and pallets that support a bridge between Polkadot and Ethereum through [Snowbridge](https://github.com/Snowfork/snowbridge){target=\_blank}.
 
-To view the full list of which pallets are included in Bridge Hub, visit the Subscan runtime page: [Runtime Modules](https://bridgehub-polkadot.subscan.io/runtime){target=\_blank}. Alternatively, the source code for those pallets can be found in the Polkadot SDK: [Snowbridge Pallets](https://github.com/paritytech/polkadot-sdk/tree/aff3a0796176ff3c0ee1b89c2f1d811a858f17a8/bridges/snowbridge/pallets){target=\_blank}.
+To view the complete list of which pallets are included in Bridge Hub, visit the Subscan [Runtime Modules](https://bridgehub-polkadot.subscan.io/runtime){target=\_blank} page. Alternatively, the source code for those pallets can be found in the Polkadot SDK [Snowbridge Pallets](https://github.com/paritytech/polkadot-sdk/tree/aff3a0796176ff3c0ee1b89c2f1d811a858f17a8/bridges/snowbridge/pallets){target=\_blank} repository.
 
 ## Deployed Bridges
 
@@ -42,8 +43,8 @@ To view the full list of which pallets are included in Bridge Hub, visit the Sub
 - [Hyperbridge](https://wiki.polkadot.network/docs/learn-hyperbridge){target=\_blank} - a cross-chain solution built as an interoperability coprocessor, providing state-proof-based interoperability across all blockchains
 - [Polkadot <> Kusama Bridge](https://wiki.polkadot.network/docs/learn-dot-ksm-bridge){target=\_blank} - a bridge that utilizes relayers to bridge the Polkadot and Kusama relay chains trustlessly
 
-## What's Next
+## Where to Go Next
 
-- Go over the Bridge Hub README in the Polkadot SDK repository: [Bridge-hub Parachains](https://github.com/paritytech/polkadot-sdk/blob/master/cumulus/parachains/runtimes/bridge-hubs/README.md){target=\_blank}
-- Take a deeper dive into bridging architecture in the Polkadot SDK: [High-Level Bridge Documentation](https://github.com/paritytech/polkadot-sdk/blob/master/bridges/docs/high-level-overview.md){target=\_blank}
+- Go over the Bridge Hub README in the Polkadot SDK [Bridge-hub Parachains](https://github.com/paritytech/polkadot-sdk/blob/master/cumulus/parachains/runtimes/bridge-hubs/README.md){target=\_blank} repository
+- Take a deeper dive into bridging architecture in the Polkadot SDK [High-Level Bridge](https://github.com/paritytech/polkadot-sdk/blob/master/bridges/docs/high-level-overview.md){target=\_blank} documentation
 - Read more about BEEFY and Bridging in the Polkadot Wiki: [Bridging: BEEFY](https://wiki.polkadot.network/docs/learn-consensus#bridging-beefy){target=\_blank}

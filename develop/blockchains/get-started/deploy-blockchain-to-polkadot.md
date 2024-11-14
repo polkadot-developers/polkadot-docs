@@ -41,6 +41,9 @@ graph LR
 
 - **Acquire coretime** - to build on top of the Polkadot network, users need to acquire coretime (either on-demand or in bulk) to access the computational resources of the relay chain. This allows for the secure validation of parachain blocks through a randomized selection of relay chain validators
 
+    !!! note
+        If you’re building a standalone blockchain (solochain) that won’t connect to Polkadot as a parachain, you can skip this step, as there’s no need to acquire coretime or implement [Cumulus](https://wiki.polkadot.network/docs/build-pdk#cumulus){target=\_blank} .
+
 - **Launch and monitor** - once everything is configured, you can launch the blockchain, initiating the network with your chain spec and Wasm runtime. Validators or collators will begin producing blocks, and the network will go live. Post-launch, monitoring is vital to ensuring network health—tracking block production, node performance, and overall security
 
 - **Maintenance and upgrade** - a blockchain continues to evolve post-deployment. As the network expands and adapts, it may require runtime upgrades, governance updates, coretime renewals, and even modifications to the underlying code. For an in-depth guide on this topic, see the [Maintenance](/develop/blockchains/maintenance/){target=\_blank} section

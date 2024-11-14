@@ -116,7 +116,7 @@ In the image above, the **success** field indicates whether the asset registrati
 
 ## Test Environment Setup
 
-To test the foreign asset registration process before deploying it on a live network, you can set up a local parachain environment. This guide uses Chopsticks to simulate that process. For more information on using Chopsticks, please refer to the [Chopsticks documentation](../../../dev-tools/chopsticks/overview.md){target=\_blank}.
+To test the foreign asset registration process before deploying it on a live network, you can set up a local parachain environment. This guide uses Chopsticks to simulate that process. For more information on using Chopsticks, please refer to the [Chopsticks documentation](TODO: update path){target=\_blank}.
 
 To set up a test environment, run the following command:
 

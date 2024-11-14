@@ -7,7 +7,7 @@ description: Learn about the role of the Coretime system parachain, which facili
 
 The Coretime system chain facilitates the allocation, procurement, sale, and scheduling of bulk [coretime](../../glossary.md#coretime), enabling tasks (such as [parachains](../../glossary.md#parachain)) to utilize the computation and security provided by Polkadot. 
 
-The [Broker pallet](https://paritytech.github.io/polkadot-sdk/master/pallet_broker/index.html){target=_blank}, along with [Cross Consensus Messaging (XCM)](todo:addlink), enables this functionality to be delegated to the system chain rather than the relay chain. Using XCMP's Upward Message Passing (UMP) to the relay chain allows for core assignments to take place for a task registered on the relay chain.
+The [Broker pallet](https://paritytech.github.io/polkadot-sdk/master/pallet_broker/index.html){target=_blank}, along with [Cross Consensus Messaging (XCM)](TODO:update-path){target=\_blank}, enables this functionality to be delegated to the system chain rather than the relay chain. Using [XCMP's Upward Message Passing (UMP)](TODO:update-path){target=\_blank} to the relay chain allows for core assignments to take place for a task registered on the relay chain.
 
 The Fellowship RFC: [RFC-1: Agile Coretime](https://github.com/polkadot-fellows/RFCs/blob/main/text/0001-agile-coretime.md){target=\_blank} contains the specification for the Coretime system chain and Coretime as a concept.
 

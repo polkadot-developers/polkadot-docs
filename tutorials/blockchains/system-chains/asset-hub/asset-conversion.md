@@ -22,7 +22,7 @@ Before converting assets on Asset Hub, you must ensure you have:
 
 - Access to the [Polkadot.js Apps](https://polkadot.js.org/apps){target=\_blank} interface and a connection with the intended blockchain
 - A funded wallet containing the assets you wish to convert and enough available funds to cover the transaction fees
-- An asset registered on Asset Hub that you want to convert. If you haven't created an asset on Asset Hub yet, refer to the [Register a Local Asset](/tutorials/blockchains/system-chains/asset-hub/register-foreign-asset/){target=\_blank} or [Register a Foreign Asset](tutorials/blockchains/system-chains/asset-hub/register-local-asset/){target=\_blank} documentation to create an asset.
+- An asset registered on Asset Hub that you want to convert. If you haven't created an asset on Asset Hub yet, refer to the [Register a Local Asset](/tutorials/blockchains/system-chains/asset-hub/register-foreign-asset/){target=\_blank} or [Register a Foreign Asset](/tutorials/blockchains/system-chains/asset-hub/register-local-asset/){target=\_blank} documentation to create an asset.
 
 ## Creating a Liquidity Pool
 

@@ -1,5 +1,5 @@
 ---
-title: System Chains Tutorials
+title:  Blockchain Tutorials
 description: TODO
 hide: 
     - feedback

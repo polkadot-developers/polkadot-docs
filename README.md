@@ -6,11 +6,11 @@ This repository contains documentation for Polkadot, a decentralized protocol en
 
 ## About This Site
 
-The content in this repository is displayed on the Polkadot documentation site generated using [mkdocs](https://www.mkdocs.org/){target=\_blank}. The theme used is [Material for MkDocs](https://squidfunk.github.io/mkdocs-material/){target=\_blank}.
+The content in this repository is displayed on the Polkadot documentation site generated using <a href="https://www.mkdocs.org/" target="_blank">mkdocs</a>. The theme used is <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank">Material for MkDocs</a>.
 
 ## Contributing
 
-If you're interested in contributing to this repository, please feel free to clone the repo, make changes, and open a PR ✨. Please review the guidelines in the [.CONTRIBUTING.md file](https://github.com/polkadot-developers/polkadot-docs/blob/812704e02be50bf2feaa2ecccc4beebfc5fc17d8/.CONTRIBUTING.md) before making any changes.
+If you're interested in contributing to this repository, please clone the repo, make changes, and open a PR ✨. Please review the guidelines in the [.CONTRIBUTING.md file](https://github.com/polkadot-developers/polkadot-docs/blob/812704e02be50bf2feaa2ecccc4beebfc5fc17d8/.CONTRIBUTING.md) before making any changes.
 
 Thank you for taking your time to contribute to this repository 💜.
 

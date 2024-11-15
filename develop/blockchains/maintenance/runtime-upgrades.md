@@ -59,6 +59,8 @@ If you don't make changes to how data is stored when needed, the runtime can't p
 
 FRAME storage migrations are implemented using the [`OnRuntimeUpgrade`](https://paritytech.github.io/polkadot-sdk/master/frame_support/traits/trait.OnRuntimeUpgrade.html){target=\_blank} trait. The `OnRuntimeUpgrade` trait specifies a single function, `on_runtime_upgrade`, that allows you to specify logic to run immediately after a runtime upgrade but before any `on_initialize` functions or transactions are executed.
 
+For further details about this process, see the [Storage Migrations](/develop/blockchains/maintenance/storage-migrations/){target=\_blank} page.
+
 ### Ordering Migrations
 
 By default, FRAME orders the execution of `on_runtime_upgrade` functions based on the order in which the pallets appear in the `construct_runtime!` macro. The functions run in reverse order for upgrades, starting with the last pallet executed first. You can impose a custom order if needed.

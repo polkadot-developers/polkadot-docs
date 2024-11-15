@@ -3,6 +3,5 @@ nav:
   - index.md
   - 'Introduction to Polkadot SDK': intro-polkadot-sdk.md
   - 'Install Polkadot SDK Dependencies': install-polkadot-sdk.md
-  - 'Build Custom Blockchains': build-custom-chains.md
+  - 'Build Custom Blockchains': build-custom-blockchains.md
   - 'Deploy a Blockchain to Polkadot': deploy-blockchain-to-polkadot.md
-  

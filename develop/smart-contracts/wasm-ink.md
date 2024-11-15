@@ -155,6 +155,44 @@ For an in-depth explanation of storage and data structures in ink!, refer to the
 
 ### Constructors
 
+Constructors are functions that execute once when deploying the contract, used to initialize the contract’s state. Each contract must have at least one constructor, though multiple constructors are allowed to provide different initialization options.
+
+Example:
+
+```rust
+#[ink::contract]
+mod mycontract {
+
+    #[ink(storage)]
+    pub struct MyContract {
+        number: u32,
+    }
+
+    impl MyContract {
+        /// Constructor that initializes the `u32` value to the given `init_value`.
+        #[ink(constructor)]
+        pub fn new(init_value: u32) -> Self {
+            Self {
+                number: init_value,
+            }
+        }
+
+        /// Constructor that initializes the `u32` value to the `u32` default.
+        #[ink(constructor)]
+        pub fn default() -> Self {
+            Self {
+                number: Default::default(),
+            }
+        }
+    }
+
+    /* ... */
+}
+```
+
+!!!note
+    In this example, `new(init_value: u32)` initializes `number` with a specified value, while `default()` initializes it with the type’s default value (0 for `u32`). These constructors provide flexibility in contract deployment by supporting custom and default initialization options.
+
 ### Messages
 
 ### Errors

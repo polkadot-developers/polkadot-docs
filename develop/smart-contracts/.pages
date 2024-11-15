@@ -3,4 +3,4 @@ nav:
   - index.md
   - 'Overview': overview.md
   - 'Native/Wasm (!ink)': native-wasm-ink.md
-  - 'EVM': evm.md
+  - 'Native EVM Contracts': native-evm-contracts.md

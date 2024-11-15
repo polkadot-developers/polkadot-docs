@@ -155,7 +155,7 @@ For an in-depth explanation of storage and data structures in ink!, refer to the
 
 ### Constructors
 
-Constructors are functions that execute once when deploying the contract, used to initialize the contract’s state. Each contract must have at least one constructor, though multiple constructors are allowed to provide different initialization options.
+Constructors are functions that execute once when deploying the contract and are used to initialize the contract’s state. Each contract must have at least one constructor, though multiple constructors can provide different initialization options.
 
 Example:
 
@@ -202,7 +202,7 @@ Messages are functions used to interact with the contract, allowing users or oth
 There are two types of messages:
 
 - Immutable messages (`&self`) - these messages can only read the contract's state and cannot modify it
-- Mutable messages (`&mut self`) - these messages can read and modify the contract’s state
+- Mutable messages (`&mut self`) - these messages can read and modify the contract's state
 
 !!!note
     `&self` is a reference to the contract's storage.
@@ -228,10 +228,10 @@ For more information, refer to the official documentation on the [#[ink(message)
 
 ### Errors
 
-For defining errors, ink! Uses idiomatic Rust error handling witg the `Result<T,E>` type. These errors are user defined by creatig an `Error` enum and all the necessary types.
-If an error is returned, contract reverts
+For defining errors, ink! uses idiomatic Rust error handling with the `Result<T,E>` type. These errors are user-defined by creating an `Error` enum and all the necessary types.
+If an error is returned, the contract reverts
 
-In ink!, errors are handled using idiomatic Rust practices with the `Result<T, E>` type. Custom error types are defined by creating an `Error` enum and specifying any necessary variants. If an error is returned from a message, the contract execution reverts, ensuring that no changes are applied to the contract’s state.
+In ink!, errors are handled using idiomatic Rust practices with the `Result<T, E>` type. Custom error types are defined by creating an `Error` enum and specifying any necessary variants. If a message returns an error, the contract execution reverts, ensuring no changes are applied to the contract's state.
 
 Example:
 
@@ -270,7 +270,7 @@ impl Erc20 {
 
 ### Events
 
-Events are a way of letting the outside world know about what's happening inside the contract. These are user defined in a struct and decorated with the `#[ink(event)]` macro.
+Events are a way of letting the outside world know about what's happening inside the contract. They are user-defined in a struct and decorated with the `#[ink(event)]` macro.
 
 Events allow the contract to communicate important occurrences to the outside world. They are user-defined by creating a struct and annotating it with the `#[ink(event)]` macro. Each field you want to index for efficient querying should be marked with `#[ink(topic)]`.
 

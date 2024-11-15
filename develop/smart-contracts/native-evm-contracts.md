@@ -52,3 +52,8 @@ Install the MetaMask browser extension, and manually add a custom network using 
 
 To deploy a contract to the westend asset Hub, you need to get WND tokens, to do so, you can use the [Westend Faucet](https://faucet.polkadot.io/westend?parachain=1000){target=\_blank}.
 
+TODO: add step by step about how to deploy a contract on asset hub - https://contracts.polkadot.io/deploy-your-first-contract
+
+## Where to Go Next
+
+TODO: add further resources

@@ -1,12 +1,15 @@
 ---
 title: General Management
-description: TODO
+description: Learn how to optimize your Polkadot validator setup, covering essential configurations for boosting performance, reducing latency, and ensuring reliability.
 ---
 # General Management
 
 ## Introduction
 
-<!--TODO: add Intro and Description once we know all the things that will end up on this page-->
+Validator performance is crucial for maintaining a responsive and stable Polkadot network. Proper configuration helps validators handle the high demands of transaction processing, reduce latency, and ensure optimal performance, especially during periods of peak activity. From adjusting CPU threading settings to optimizing memory access, small configuration changes can make a significant difference in node responsiveness and stability.
+
+This guide covers essential optimization techniques for Polkadot validators, including disabling simultaneous multithreading, tuning NUMA balancing, and managing Spectre and Meltdown mitigations. These recommendations aim to help validators create a reliable setup that maximizes throughput and minimizes latency, ensuring efficient participation in network security and governance.
+
 ## Configuration Optimization
 
 For those seeking to optimize their validator's performance, the following configurations can improve responsiveness, reduce latency, and ensure consistent performance during high-demand periods.
@@ -80,7 +83,7 @@ If you successfully deactivated NUMA balancing, the preceding command should ret
 
 ### Spectre and Meltdown Mitigations
 
-[Spectre](https://en.wikipedia.org/wiki/Spectre_(security_vulnerability){target=\_blank} and [Meltdown](https://en.wikipedia.org/wiki/Meltdown_(security_vulnerability)){target=\_blank} are well-known vulnerabilities in modern CPUs that exploit speculative execution to access sensitive data. These vulnerabilities have been patched in recent Linux kernels, but the mitigations can slightly impact performance, especially in high-throughput or containerized environments.
+[Spectre](https://en.wikipedia.org/wiki/Spectre_(security_vulnerability)){target=\_blank} and [Meltdown](https://en.wikipedia.org/wiki/Meltdown_(security_vulnerability)){target=\_blank} are well-known vulnerabilities in modern CPUs that exploit speculative execution to access sensitive data. These vulnerabilities have been patched in recent Linux kernels, but the mitigations can slightly impact performance, especially in high-throughput or containerized environments.
 
 If your security needs allow it, you may selectively deactivate specific mitigations for performance gains. The Spectre V2 and Speculative Store Bypass Disable (SSBD) for Spectre V4 apply to speculative execution and are particularly impactful in containerized environments. Deactivating them can help regain performance if your environment doesn't require these security layers.
 

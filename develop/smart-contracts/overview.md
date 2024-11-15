@@ -7,69 +7,139 @@ description: Learn how developers can build smart contracts on Polkadot by lever
 
 ## Introduction
 
-Polkadot is a chain specifically designed to service other chains. Consequently, developers cannot deploy smart contract-based applications to Polkadot.
+Polkadot is a chain specifically designed to service other chains. As a result, developers cannot deploy smart contract applications directly to Polkadot.
 
-Therefore, developers looking to build smart contract applications in Polkadot need to leverage the smart contract functionality that chains in the Ecosystem offer. Broadly speaking, in such an ecosystem making, they can find two main paths in their development journey. 
+Therefore, developers looking to build smart contract applications in Polkadot need to leverage the smart contract functionality that chains in the Ecosystem offer. Developers can generally choose between two main development paths within the ecosystem. 
 
-On one end, developers can leverage WASM-based smart contracts chains that support [ink!](TODO:update-path){target=\_blank}, a Rust-based smart contract language that leverages as an embedded domain-specific language (eSDL) for Rust. Consequently, developers can benefit from Rust syntax, type and memory-safe features, and tooling, among other neat features.
+On one end, developers can leverage WASM-based smart contracts chains that support [ink!](TODO:update-path){target=\_blank}, a Rust-based smart contract language that acts as an embedded domain-specific language (eSDL) for Rust. This allows developers to benefit from Rust’s syntax, type safety, memory safety, and extensive tooling.
 
-Conversely, developers can deploy EVM smart contracts on Ethereum-compatible chains that Polkadot secures. Broadly speaking, their EVM compatibility means that any smart contract language that compiles to EVM bytecode can be used, like [Solidity](https://soliditylang.org/){target=\_blank} and [Vyper](https://vyperlang.org/){target=\_blank}. Furthermore, developers can connect popular wallets like [MetaMask](https://metamask.io/){target=\_blank} and leverage tools they are familiar with, like [Remix](https://remix.ethereum.org/){target=\_blank}, [Hardhat](https://hardhat.org/){target=\_blank}, [Foundry](https://getfoundry.sh/){target=\_blank}, among others.
+Conversely, developers can deploy EVM smart contracts on Ethereum-compatible chains that Polkadot secures. Due to EVM compatibility, developers can use any smart contract language that compiles to EVM bytecode, like [Solidity](https://soliditylang.org/){target=\_blank} and [Vyper](https://vyperlang.org/){target=\_blank}. Additionally, popular wallets like [MetaMask](https://metamask.io/){target=\_blank} can be connected and developers can leverage tools they are familiar with, like [Remix](https://remix.ethereum.org/){target=\_blank}, [Hardhat](https://hardhat.org/){target=\_blank}, [Foundry](https://getfoundry.sh/){target=\_blank}, among others.
 
 This guide highlights some differences between building smart contract applications or parachains within Polkadot's scalable and interoperable framework. It also explores the different development paths for smart contract developers on Polkadot.
 
 !!!info "Parachain Developer?" 
     If you are a Parachain developer looking to add smart contract functionality to your chain, please check the following sections for [WASM-based](TODO:update-path){target=\_blank} or [EVM-based contracts](TODO:update-path){target=\_blank}.
 
-## Smart Contracts Versus Pallets
+## Smart Contracts Versus Parachains
 
-When developing a smart contract, you create a sandboxed program that executes specific logic associated with a chain address. Unlike pallets, which integrate directly into a blockchain's runtime and define its core logic, smart contracts operate independently in a more isolated environment. Pallets can manage critical tasks like block production or governance and can be added, modified, or removed through forkless runtime upgrades.
+In a smart contract, you create a program that executes specific logic isolated to the chain on which it is being executed. All the logic executed is bound to the same state transition rules given by the underlying virtual machine (VM). Consequently, smart contracts are more streamlined to develop, and programs can easily interact with each other through similar interfaces.
 
-Smart contracts, on the other hand, require careful upgrade planning, as their functionality can't be updated without explicitly coding mechanisms for future changes. Parachains offer flexibility, allowing developers to define the environment where these contracts run and enabling others to build on it.
+``` mermaid
+flowchart LR
+    A[(Chain State)] --> B[[Virtual Machine]]
+    C[Transaction] --> B
+    D["Program Logic and Storage<br/>(Smart Contract)"] --> B
+    B --> E[(New State)]
+    B --> F[Execution Logs]
+```
 
-These two options also differ in how they handle fees. Smart contracts follow a gas metering model for execution costs, while pallets and runtimes offer more flexible options for fee models.
+In addition, because smart contracts are programs that execute on top of existing chains, teams don't have to think about the underlying consensus they are built on. 
+
+However, these strengths come with certain limitations. Contracts are immutable by default. Hence, developers have developed different [proxy strategies](https://blog.openzeppelin.com/proxy-patterns){target=\_blank} to be able to upgrade them over time. Generally speaking, such patterns rely on a proxy contract, where the program storage lives, forwarding a call to an implementation contract, and where the execution logic resides. Therefore, smart contract upgrades require changing the implementation contract while retaining the same storage structure, necessitating careful planning. 
+
+Another downside is that smart contracts often follow a gas metering model, where program execution is associated with a given unit and a marketplace is set up to pay for such an execution unit. This fee system is often very rigid, and some complex flows (like account abstraction, among others) have been developed to circumvent this problem.
+
+In contrast, parachains can create their own custom logic and state transition function (STF or runtime) thanks to the modularity provided by the [Polkadot-SDK](TODO:update-path){target=\_blank}. Consequently, logic executed within the parachain runtime can give developers a lot of flexibility when building applications on top of it.
+
+``` mermaid
+flowchart LR
+    A[(Chain State)] --> B[["STF<br/>[Logic 1]<br/>[Logic 2]<br/>...<br/>[Logic N]"]]
+    C[Transaction<br/>for Logic 2] --> B
+    B --> E[(New State)]
+    B --> F[Execution Logs]
+```
+
+Parachains inherently offer features such as logic upgradeability, flexible transaction fee mechanisms, and chain abstraction logic. Moreso, by using Polkadot, parachains can benefit from robust consensus guarantees with little engineering overhead.
 
 !!!info "Additional information" 
-      - Refer to the [Runtime vs. Smart Contracts](https://paritytech.github.io/polkadot-sdk/master/polkadot_sdk_docs/reference_docs/runtime_vs_smart_contract/index.html){target=\_blank} section of the Polkadot SDK Rust docs
-      - Refer to this Stack Overflow post for a technically deeper discussion of when a developer might choose to develop a runtime versus a smart contract: [When should one build a Substrate (Polkadot SDK) runtime versus a Substrate (Polkadot SDK) smart contract?](https://stackoverflow.com/a/56041305){target=\_blank}
+    To read more about the differences between smart contracts and parachain runtimes, please Refer to the [Runtime vs. Smart Contracts](https://paritytech.github.io/polkadot-sdk/master/polkadot_sdk_docs/reference_docs/runtime_vs_smart_contract/index.html){target=\_blank} section of the Polkadot SDK Rust docs. For a more in-depth discussion on choosing between runtime development and smart contract development, you can check the post ["When should one build a Polkadot SDK runtime versus a Substrate (Polkadot SDK) smart contract?"](https://stackoverflow.com/a/56041305){target=\_blank} from Stack Overflow.
 
 ## Building a Smart Contract
 
-Remember, the relay chain doesn't support smart contracts natively. However, since the parachains that connect to it support arbitrary state transitions, they also support smart contracts.
+As stated earlier, Polkadot's primary purpose is to provide security for parachains that connect to it. Therefore, it is not meant to support smart contract execution. Consquently, developers looking to build smart contracts projects in Polkadot need to look into its ecosystem for parachains that support it.
 
-The Polkadot SDK presently supports smart contracts out-of-the-box in multiple ways:
+At the time of writing, the Polkadot SDK supports two different smart contracts logic execution:
 
-- The EVM pallet offered by [Frontier](https://github.com/paritytech/frontier){target=\_blank}
-- The [Contracts pallet](https://github.com/paritytech/polkadot-sdk/blob/master/substrate/frame/contracts/){target=\_blank} in the FRAME library for Wasm-based contracts
+- **EVM** - through [Frontier](https://github.com/polkadot-evm/frontier){target=\_blank}. It consists of a full Ethereum JSON RPC compatible client, an Ethereum emulation layer, and a [Rust-based EVM](https://github.com/rust-ethereum/evm){target=\_blank}. This is used by chains like [Acala](https://acala.network/){target=\_blank}, [Astar](https://astar.network/){target=\_blank}, [Moonbeam](https://moonbeam.network){target=\_blank} and more
+- **Wasm/ink!** - through the [Contracts pallet](https://github.com/paritytech/polkadot-sdk/blob/master/substrate/frame/contracts/){target=\_blank} in the FRAME library. [ink!](https://use.ink/){target=\_blank} is a smart contract language that provides a compiler to Wasm. Wasm contracts can be used by chains like [Astar](https://astar.network/){target=\_blank}
+<!---
+TODO: We need to consider Pallet Revive and PolkaVM shortly
+-->
 
-### Frontier EVM Contracts
+### EVM Contracts through Frontier
 
-[Frontier](https://github.com/paritytech/frontier) is the suite of tools that enables a Polkadot SDK-based chain to run Ethereum contracts (EVM) natively with the same API/RPC interface. Ethereum addresses can also be mapped directly to and from the Polkadot SDK's SS58 scheme from existing accounts.
+The [Frontier](https://github.com/polkadot-evm/frontier){target=\_blank} project provides a set of modules that enables a Polkadot SDK-based chain to run an Ethereum emulation layer that allows the execution of EVM smart contracts natively with the same API/RPC interface. 
 
-- [**Pallet EVM**](https://docs.rs/pallet-evm/latest/pallet_evm/){target=\_blank} - enables functionality of running EVM (Solidity) contracts
-- [**Pallet Ethereum**](https://docs.rs/pallet-ethereum/latest/pallet_ethereum/){target=\_blank} - Ethereum RPC implementation, block emulation, and Ethereum transaction validation
+Ethereum addresses (ECDSA) can also be mapped directly to and from the Polkadot SDK's SS58 scheme from existing accounts. Moreover, you can modify Polkadot SDK to use the ECDSA signature scheme directly to avoid any mapping.
+
+At a high level, [Frontier](https://github.com/polkadot-evm/frontier){target=\_blank} is composed of three main components:
+
+- [**Ethereum Client**](https://github.com/polkadot-evm/frontier/tree/master/client){target=\_blank} - an Ethereum JSON RPC compliant client that allows any request coming from an Ethereum tool, such as [Remix](https://remix.ethereum.org/){target=\_blank}, [Hardhat](https://hardhat.org/){target=\_blank} or [Foundry](https://getfoundry.sh/), to be admitted by the network
+- [**Pallet Ethereum**](https://docs.rs/pallet-ethereum/latest/pallet_ethereum/){target=\_blank} - a block emulation and Ethereum transaction validation layer that works jointly with the Ethereum client to ensure compatibility with Ethereum tools
+- [**Pallet EVM**](https://docs.rs/pallet-evm/latest/pallet_evm/){target=\_blank} - access layer to the [Rust-based EVM](https://github.com/rust-ethereum/evm){target=\_blank}, enabling the execution of EVM smart contract logic natively
+
+Broadly speaking, in this configuration, an EVM transaction follows the path presented in the diagram below:
+
+``` mermaid
+flowchart TD
+    A[Users and Devs] -->|Send Tx| B[Frontier RPC Ext]
+    subgraph C[Pallet Ethereum]
+        D[Validate Tx]
+        E[Send<br/>Valid Tx]    
+    end
+    B -->|Interacts with| C
+    D --> E
+    subgraph F[Pallet EVM]
+        G[Rust EVM]
+    end
+    I[(Current EVM<br/>Emulated State)]
+
+    H[Smart Contract<br/>Solidity, Vyper...] <-->|Compiled to EVM<br/>Bytecode| F
+
+    C --> F
+    I --> F
+    F --> J[(New Ethereum<br/>Emulated State)]
+    F --> K[Execution Logs]
+
+    style C fill:#ffffff,stroke:#000000,stroke-width:1px
+    style F fill:#ffffff,stroke:#000000,stroke-width:1px
+```
+
+Although it seems complex, users and developers are abstracted of that complexity, and tools can easily interact with the parachain as they would with any other EVM-compatible environment.
+
+The Rust EVM is capable of executing regular [EVM bytecode](https://www.ethervm.io/){target=\_blank}. Consequently, any language that compiles to EVM bytecode can be used to create programs that the parachain can execute.
+
+ou can find more information on deploying EVM smart contracts to [Polkadot's native smart contract platform](TODO:update-path){target=\_blank}, or any of [the ecosystem parachains](TODO:update-path){target=\_blank}.
 
 ### Contracts Pallet
 
-The Contracts pallet ([`pallet_contracts`](https://docs.rs/pallet-contracts/latest/pallet_contracts/index.html#contracts-pallet){target=\_blank}) implements a Wasm-based approach to smart contracts.
+The [`pallet_contracts`](https://docs.rs/pallet-contracts/latest/pallet_contracts/index.html#contracts-pallet){target=\_blank} provides the execution environment for Wasm-based smart contracts. Consequently, any smart contract language that compiles to Wasm can be executed in a parachain that enables this module.
 
-1. **Wasm** - the contracts pallet uses Wasm as its compilation target. Any language that compiles to Wasm could be used to write smart contracts. Nevertheless, it is better to have a dedicated domain-specific language, so Parity offers the [ink!](#ink) language
+At the time of writing there are two main languages that can be used for Wasm programs:
 
-2. **Deposit** - contracts must hold a deposit (named `ContractDeposit` ) suitably large enough to justify their existence on-chain. The developer must deposit this into the new contract on top of the `ExistentialDeposit`
+- [**ink!**](https://use.ink/){target=\_blank} - it is a Rust-based language that compiles to WASM. It allows developers to inherent all its safety guarantees, and use normal Rust tooling, being the dedicated domain-specific language
+- [**Solang**](https://github.com/hyperledger-solang/solang/){target=\_blank} - it is a Solidity-to-Wasm compiler that allows developers to write Solidity-based programs (compatible with Solidity 0.8) that can be executed as Wasm programs in parachains
 
-3. **Caching** - contracts are cached by default, which means they only need to be deployed once and can be instantiated as many times as you want afterward. Caching helps minimize on-chain storage requirements. Additionally, contracts that are no longer in use and have an `ExistentialDeposit` balance of zero are erased from storage in a process called reaping
+Broadly speaking, with [`pallet_contracts`](https://docs.rs/pallet-contracts/latest/pallet_contracts/index.html#contracts-pallet){target=\_blank}, a transaction follows the path presented in the diagram below:
 
-### ink!
+``` mermaid
+flowchart TD
+    
+    subgraph A[Wasm Bytecode API]
+        C[Pallet Contracts]
+    end
 
-[ink!](https://github.com/use-ink/ink){target=\_blank} is a domain-specific language for writing smart contracts in Rust and compiles to Wasm code.
+    B[Users and Devs] -- Interacts with --> A
+    
+    D[(Current State)]
 
-Additional resources available to developers who want to start writing smart contracts to deploy on Polkadot SDK-based parachains:
+    E[Smart Contract<br/>ink!, Solidity...] <-->|Compiled to Wasm<br/>Bytecode| A
 
-- [**ink!**](https://use.ink/){target=\_blank} - Polkadot's "native" smart contract stack, based on Wasm
-- [**OpenBrush**](https://docs.openbrush.io/){target=\_blank} - an `ink!` library providing standard contracts based on [PSP](https://github.com/w3f/PSPs){target=\_blank} with useful contracts and macros for building
-- [**ink!athon**](https://inkathon.xyz/){target=\_blank} - starter kit for full-stack dApps with ink! smart contracts and frontend
+    D --> A
+    A --> F[(New State)]
+    A --> G[Execution Logs]
 
-ink! has laid much of the groundwork for a new smart contract stack that is based on a Wasm virtual machine and compatible with Polkadot SDK-based chains.
+    style A fill:#ffffff,stroke:#000000,stroke-width:1px
+```
 
-## Smart Contract Environments
-
-Many smart contract platforms are building to become a parachain in the ecosystem. A community-created and maintained list of different smart contract platforms can be found at [PolkaProjects](https://www.polkaproject.com/#/projects?cateID=1&tagID=6){target=\_blank}. Additionally, information about ink! smart contracts can be accessed at [use.ink](https://use.ink/#where-can-i-deploy-ink-contracts){target=\_blank}.
+Learn more on how to deploy Wasm smart contracts on [ecosystem parachains](TODO:update-path){target=\_blank}.

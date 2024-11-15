@@ -1,8 +1,6 @@
 title: Develop
 nav:
   - index.md
-  - 'Development Pathways': development-pathways.md
-  - 'Networks': networks.md
   - blockchains
   - integrations
   - smart-contracts

@@ -1,5 +1,5 @@
 ---
-title: Wasm (!Ink)
+title: Wasm (!ink)
 description: TODO
 hide: 
     - feedback

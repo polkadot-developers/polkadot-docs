@@ -382,7 +382,7 @@ In the following example, a node named `techedtest` is successfully located and 
 
 ![polkadot-dashboard-telemetry](/images/infrastructure/running-a-validator/onboarding-and-offboarding/set-up-validator/set-up-a-validator-03.webp)
 
-### Activate via Validator Tab
+### Activate using Polkadot.js Apps
 
 Follow these steps to use the Polkadot.js Apps UI to activate your validator:
 
@@ -391,14 +391,14 @@ Follow these steps to use the Polkadot.js Apps UI to activate your validator:
     ![](/images/infrastructure/running-a-validator/onboarding-and-offboarding/set-up-validator/set-up-a-validator-04.webp)
 
 2. Set a reward commission percentage if desired. You can set a percentage of the rewards to pay to your validator and the remainder pays to your nominators. A 100% commission rate indicates the validator intends to keep all rewards and is seen as a signal the validator is not seeking nominators
-3. Toggle the **Allows New Nominations** option if your validator is open to more nominations from DOT holders
+3. Toggle the **allows new nominations** option if your validator is open to more nominations from DOT holders
 4. Once everything is configured, select **Bond & Validate** to activate your validator status
 
     ![](/images/infrastructure/running-a-validator/onboarding-and-offboarding/set-up-validator/set-up-a-validator-05.webp)
 
 ### Monitor Validation Status and Slots
 
-On the **Staking** tab in Polkadot.js Apps, you can see your validator's status, the number of available validator slots, and the nodes that have signaled their intent to validate. Your node may initially appear in the waiting queue, especially if the validator slots are full. The following is an example view of the **Staking** tab:
+On the [**Staking**](https://polkadot.js.org/apps/#/staking){target=\_blank} tab in Polkadot.js Apps, you can see your validator's status, the number of available validator slots, and the nodes that have signaled their intent to validate. Your node may initially appear in the waiting queue, especially if the validator slots are full. The following is an example view of the **Staking** tab:
 
 ![staking queue](/images/infrastructure/running-a-validator/onboarding-and-offboarding/set-up-validator/set-up-a-validator-06.webp)
 

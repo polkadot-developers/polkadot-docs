@@ -1,14 +1,14 @@
 ---
 title: General Management
-description: Learn how to optimize your Polkadot validator setup, covering essential configurations for boosting performance, reducing latency, and ensuring reliability.
+description: Optimize your Polkadot validator setup with advanced configuration techniques. Learn how to boost performance, enhance security, and ensure seamless operations.
 ---
 # General Management
 
 ## Introduction
 
-Validator performance is crucial for maintaining a responsive and stable Polkadot network. Proper configuration helps validators handle the high demands of transaction processing, reduce latency, and ensure optimal performance, especially during periods of peak activity. From adjusting CPU threading settings to optimizing memory access, small configuration changes can make a significant difference in node responsiveness and stability.
+Validator performance is pivotal in maintaining the security and stability of the Polkadot network. As a validator, optimizing your setup ensures efficient transaction processing, minimizes latency, and maintains system reliability during high-demand periods. Proper configuration and proactive monitoring also help mitigate risks like slashing and service interruptions.
 
-This guide covers essential optimization techniques for Polkadot validators, including disabling simultaneous multithreading, tuning NUMA balancing, and managing Spectre and Meltdown mitigations. These recommendations aim to help validators create a reliable setup that maximizes throughput and minimizes latency, ensuring efficient participation in network security and governance.
+This guide covers essential practices for managing a validator, including performance tuning techniques, security hardening, and tools for real-time monitoring. Whether you're fine-tuning CPU settings, configuring NUMA balancing, or setting up a robust alert system, these steps will help you build a resilient and efficient validator operation.
 
 ## Configuration Optimization
 

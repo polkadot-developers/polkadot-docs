@@ -80,7 +80,7 @@ If you successfully deactivated NUMA balancing, the preceding command should ret
 
 ### Spectre and Meltdown Mitigations
 
-Spectre and Meltdown are well-known vulnerabilities in modern CPUs that exploit speculative execution to access sensitive data. These vulnerabilities have been patched in recent Linux kernels, but the mitigations can slightly impact performance, especially in high-throughput or containerized environments.
+[Spectre](https://en.wikipedia.org/wiki/Spectre_(security_vulnerability){target=\_blank} and [Meltdown](https://en.wikipedia.org/wiki/Meltdown_(security_vulnerability)){target=\_blank} are well-known vulnerabilities in modern CPUs that exploit speculative execution to access sensitive data. These vulnerabilities have been patched in recent Linux kernels, but the mitigations can slightly impact performance, especially in high-throughput or containerized environments.
 
 If your security needs allow it, you may selectively deactivate specific mitigations for performance gains. The Spectre V2 and Speculative Store Bypass Disable (SSBD) for Spectre V4 apply to speculative execution and are particularly impactful in containerized environments. Deactivating them can help regain performance if your environment doesn't require these security layers.
 
@@ -107,5 +107,4 @@ This approach selectively deactivates the Spectre V2 and Spectre V4 mitigations,
 ## Additional Resources
 
 For additional guidance, connect with other validators and the Polkadot engineering team in the [Polkadot Validator Lounge](https://matrix.to/#/#polkadotvalidatorlounge:web3.foundation){target=\_blank} on Element.
-
 

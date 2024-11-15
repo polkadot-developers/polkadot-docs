@@ -1,36 +1,24 @@
 ---
 title: Overview
-description: Learn about system parachains, and how they help distribute resources over the Polkadot network, and which system chains are currently deployed
+description: Discover how system parachains enhance Polkadot's scalability and performance by offloading tasks like governance, asset management, and bridging from the relay chain.
 ---
 
 ## Introduction
 
-The primary functionality of the relay chain is to secure the parachains and facilitate secure
-communication between them. All other functionalities like asset transfers, governance, identities,
-and bridging (a potentially resource-intensive task) can benefit from operating separately on system
-chains. System chains are responsible for delegating functionality away from the relay chain for
-performance reasons, taking advantage of the inherent parallelization the architecture of Polkadot
-provides.
+Polkadot's relay chain is designed to secure parachains and facilitate seamless inter-chain communication. However, resource-intensive—tasks like governance, asset management, and bridging are more efficiently handled by system parachains. These specialized chains offload functionality from the relay chain, leveraging Polkadot's parallel execution model to improve performance and scalability. By distributing key functionalities across system parachains, Polkadot can maximize its relay chain's blockspace for its core purpose of securing and validating parachains.
 
-System parachains are those that contain core Polkadot protocol features, but in parachains rather
-than the relay chain. Rather than purchasing coretime on a marketplace, execution cores for system
-chains are allocated through the network [governance](https://wiki.polkadot.network/docs/learn-polkadot-opengov){target=_blank}.
+This guide will explore how system parachains operate within Polkadot and Kusama, detailing their critical roles in network governance, asset management, and bridging. You'll learn about the currently deployed system parachains, their unique functions, and how they enhance Polkadot's decentralized ecosystem.
 
-By hosting core protocol logic in parachains instead of the relay chain, Polkadot uses its own
-scaling technology -- namely, parallel execution -- to host _itself_. System parachains remove
-transactions from the relay chain, allowing more relay chain
-[blockspace](https://www.rob.tech/polkadot-blockspace-over-blockchains/){target=_blank} to be used for Polkadot's
-primary purpose: validating parachains.
+## System Chains
 
-System parachains always defer to on-chain governance to manage their upgrades and other sensitive
-actions. That is, they do not have their own native tokens or governance systems separate from DOT
-KSM. In fact, there will likely be a system parachain specifically for network governance.
+System parachains contain core Polkadot protocol features, but in parachains rather than the relay chain. Execution cores for system chains are allocated via network [governance](https://wiki.polkadot.network/docs/learn-polkadot-opengov){target=\_blank} rather than purchasing coretime on a marketplace.
+
+System parachains defer to on-chain governance to manage their upgrades and other sensitive actions as they do not have native tokens or governance systems separate from DOT or KSM. It is not uncommon to see a system parachain implemented specifically to manage network governance.
 
 !!!note
-    In the past, these were often called "Common Good Parachains," so you may come across articles and
-    discussions using that term. As the network has evolved, that term has been confusing in many cases,
-    so "System Parachains" is preferred now. A discussion on this evolution can be found in
-    [this forum thread](https://forum.polkadot.network/t/polkadot-protocol-and-common-good-parachains/866){target=_blank}.
+    You may see system parachains called common good parachains in articles and discussions. This nomenclature caused confusion as the network evolved, so system parachains is preferred. 
+    
+    For more details on this evolution, review this [parachains forum discussion](https://forum.polkadot.network/t/polkadot-protocol-and-common-good-parachains/866){target=\_blank}.
 
 ## Existing System Chains
 
@@ -58,103 +46,57 @@ flowchart TB
         end
 ```
 
-!!!tip
-    All system parachains are on both Polkadot and Kusama, except the [Collectives](#collectives) and [Encointer](#encointer) system parachains. The Collectives parachain is only on Polkadot, and the Encointer system parachain is only on Kusama.
+All system parachains are on both Polkadot and Kusama with the following exceptions:
+
+- [**Collectives**](#collectives) - only on Polkadot
+- [**Encointer**](#encointer) - only on Kusama
 
 ### Asset Hub
 
-The [Asset Hub](https://github.com/paritytech/polkadot-sdk/tree/master/cumulus#asset-hub-){target=_blank} on both
-Polkadot and Kusama are the first system parachains.
+The [Asset Hub](https://github.com/paritytech/polkadot-sdk/tree/master/cumulus#asset-hub-){target=\_blank} is an asset portal for the entire network. It helps asset creators, such as reserve-backed stablecoin issuers, track the total issuance of an asset in the network, including amounts transferred to other parachains. It is also the point where they can use transactions like mint and burn to manage the on-chain asset.
 
-The Asset Hub is an asset portal for the entire network. It helps asset creators (e.g. reserve
-backed stablecoin issuers) to track the total issuance of their asset in the network, including
-amounts that have been transferred to other parachains. It is also the point where they can
-transact, to mint and burn, to manage the on-chain asset.
+This asset management logic is encoded directly in the runtime of the chain rather than in smart contracts. The efficiency of executing logic in a parachain allows for fees and deposits that are about 1/10th of what is required on the relay chain. These low fees mean that the Asset Hub is well suited for handling the frequent transactions required when managing balances, transfers, and on-chain assets.
 
-The Asset Hub also supports non-fungible assets (NFTs) via the
-[Uniques pallet](https://polkadot.js.org/docs/substrate/extrinsics#uniques){target=_blank} and the new
-[nfts pallet](https://polkadot.js.org/docs/substrate/extrinsics#nfts){target=_blank}. For more information about
-NFTs see the Polkadot Wiki: [NFT Pallets](https://wiki.polkadot.network/docs/learn-nft-pallets){target=_blank}.
-
-This logic for asset management is not encoded in smart contracts, but rather directly in the
-runtime of the chain. Because of the efficiency of executing logic in a parachain, fees and deposits
-are about 1/10th of their respective value on the relay chain.
-
-These low fee levels mean that the Asset Hub is well suited for handling balances and transfers as
-well as managing on-chain assets.
+The Asset Hub also supports non-fungible assets (NFTs) via the [Uniques pallet](https://polkadot.js.org/docs/substrate/extrinsics#uniques){target=\_blank} and [nfts pallet](https://polkadot.js.org/docs/substrate/extrinsics#nfts){target=\_blank}. For more information about NFTs, see the Polkadot Wiki section on [NFT Pallets](https://wiki.polkadot.network/docs/learn-nft-pallets){target=\_blank}.
 
 ### Collectives
 
-The Polkadot Collectives parachain was added in
-[Referendum 81](https://polkadot.polkassembly.io/referendum/81){target=_blank} and exists only on Polkadot (i.e.,
-there is no Kusama equivalent). The Collectives chain hosts on-chain collectives that serve the
-Polkadot network.
+The Polkadot Collectives parachain was added in [Referendum 81](https://polkadot.polkassembly.io/referendum/81){target=\_blank} and exists on Polkadot but not on Kusama. The Collectives chain hosts on-chain collectives that serve the Polkadot network, including the following:
 
-Some of these collectives are the
-[Polkadot Alliance](https://polkadot.polkassembly.io/referendum/94){target=_blank} and the Polkadot Technical
-[Fellowship](https://wiki.polkadot.network/docs/learn-polkadot-technical-fellowship){target=_blank}. These on-chain collectives will play
-important roles in the future of network stewardship and decentralized governance.
+- [**Polkadot Alliance**](https://polkadot.polkassembly.io/referendum/94){target=\_blank} - provides a set of ethics and standards for the community to follow. Includes an on-chain means to call out bad actors
+- [**Polkadot Technical Fellowship**](https://wiki.polkadot.network/docs/learn-polkadot-technical-fellowship){target=\_blank} - a rules-based social organization to support and incentivize highly-skilled developers to contribute to the technical stability, security, and progress of the network
 
-Networks themselves can act as collectives and express their legislative voices as single opinions
-within other networks. This is achieved with the assistance from a [bridge hub](#bridge-hub).
+These on-chain collectives will play essential roles in the future of network stewardship and decentralized governance. Networks can use a bridge hub to help them act as collectives and express their legislative voices as single opinions within other networks.
 
 ### Bridge Hub
 
-Before Polkadot and Kusama supported their first parachains, the only way to design a bridge was to
-put the logic onto the relay chain itself. Since both networks now support parachains, it makes
-sense to have a parachain on each network dedicated to bridges. This is because of the execution
-isolation provided by parachains.
+Before parachains, the only way to design a bridge was to put the logic onto the relay chain. Since both networks now support parachains and the isolation they provide, each network can have a parachain dedicated to bridges. 
 
-The Bridge Hub system parachain operates on the relay chain, and is responsible for faciliating
-bridges to the wider Web3 space. It contains the required bridge
-[pallets](../../glossary.md#pallet) in its runtime, which enable trustless bridging with other
-blockchain networks like Polkadot, Kusama and Ethereum. The Bridge Hub uses the native token of the
-relay chain.
+The Bridge Hub system parachain operates on the relay chain, and is responsible for faciliating bridges to the wider Web3 space. It contains the required bridge [pallets](/polkadot-protocol/glossary/#pallet){target=\_blank} in its runtime, which enable trustless bridging with other blockchain networks like Polkadot, Kusama, and Ethereum. The Bridge Hub uses the native token of the relay chain.
 
-See the [Bridges page](learn-bridges.md) for information on the latest bridge projects.
+See the [Bridge Hub](/polkadot-protocol/architecture/system-chains/bridge-hub){target=\_blank} documentation for additional information.
 
 ### People Chain
 
-The People Chain allows users to mange their account [identity](https://wiki.polkadot.network/docs/learn-identity){target=_blank}.
+The People Chain provides a naming system that allows users to manage and verify their account [identity](https://wiki.polkadot.network/docs/learn-identity){target=\_blank}.
 
 ### Coretime Chain
 
-The Coretime system chain allows users to buy coretime to access Polkadot's computation.
-[Coretime marketplaces](https://wiki.polkadot.network/docs/learn-guides-coretime-marketplaces){target=_blank} run on top of the Coretime chain. For more information about agile coretime, see [here](https://wiki.polkadot.network/docs/learn-agile-coretime){target=_blank}.
+The Coretime system chain lets users buy coretime to access Polkadot's computation. [Coretime marketplaces](https://wiki.polkadot.network/docs/learn-guides-coretime-marketplaces){target=\_blank} run on top of the Coretime chain. Kusama does not use the Collectives system chain. Instead, Kusama relies on the Encointer system chain, which provides Sybil resistance as a service to the entire Kusama ecosystem.
 
-Compared to Polkadot, Kusama does not have the Collectives system chain, and it has the
-[Encointer](https://encointer.org/encointer-for-web3/){target=_blank} system chain.
+Visit [Introduction to Agile Coretime](https://wiki.polkadot.network/docs/learn-agile-coretime#introduction-to-agile-coretime){target=\_blank} in the Polkadot Wiki for more information.
 
 ### Encointer
 
-Encointer is a blockchain platform for self-sovereign ID and a global universal basic income. With
-[referendum 158](https://kusama.polkassembly.io/referendum/158){target=_blank} Encointer was registered as the
-second system parachain on Kusama's network. The functionality of Encointer adds logic to the Relay
-Chain that aims to bring financial inclusivity to Web3 and mitigate Sybil attacks with a novel Proof
-of Personhood (PoP) system for unique identity.
+[Encointer](https://encointer.org/encointer-for-web3/){target=\_blank} is a blockchain platform for self-sovereign ID and a global [universal basic income (UBI)](https://book.encointer.org/economics-ubi.html){target=\_blank}. The Encointer protocol uses a novel Proof of Personhood (PoP) system to create unique identities and resist Sybil attacks. PoP is based on the notion that a person can only be in one place at any given time. Encointer offers a framework that allows for any group of real people to create, distribute, and use their own digital community tokens.
 
-Encointer offers a framework that, in principle, allows for any group of real people to create,
-distribute, and use their own digital community tokens.
-[Referendum 187](https://kusama.polkassembly.io/referendum/187){target=_blank} introduced a runtime upgrade
-bringing governance and full functionality for communities to be able to use the protocol.
+Participants are requested to attend physical key-signing ceremonies with small groups of random people at randomized locations. These local meetings are part of one global signing ceremony occurring at the same time. Participants use the Encointer wallet app to participate in these ceremonies and manage local community currencies. 
 
-Encointer aims to invert the [Cantillon Effect](https://www.newworldencyclopedia.org/entry/Richard_Cantillon){target=_blank}, where money is issued at the bottom, and not as credit to businesses or creditworthy individuals. This way, every individual gets a [universal basic income (UBI)](https://book.encointer.org/economics-ubi.html){target=_blank}.
+Referendums marking key Encointer adoption milestones include: 
 
-To resist Sybil attacks, the Encointer protocol uses a PoP mechanism to foster a unique identity
-system. The notion is that a person can only be present at one place at a given time. Participants
-are requested to attend physical key-signing ceremonies with small groups of random people at
-randomized locations, where these local meetings are part of one global ceremony that co-occur.
-Participants use the Encointer wallet app to participate in these ceremonies, and the wallet enables
-the management of local community currencies. Watch an Encointer ceremony in action in
-[this video](https://www.youtube.com/watch?v=tcgpCCYBqko){target=_blank}.
-
-The protocol involves [other mechanisms](https://book.encointer.org/ssi.html#privacy-considerations){target=_blank} to protect the privacy of users in addition to the physical key-signing ceremonies.
-
-Encointer was accepted as a system chain based on its offer of a Sybil defense mechanism as a basis
-for digital democracy. This can also be adapted by other chains, which can use the unique identity
-system to prevent Sybil attacks and use PoP for token airdrops or faucets.
+- [Referendum 158 - Register Encointer As a Common Good Chain](https://kusama.polkassembly.io/referendum/158){target=\_blank} registered Encointer as the second system parachain on Kusama's network
+- [Referendum 187 - Encointer Runtime Upgrade to Full Functionality](https://kusama.polkassembly.io/referendum/187){target=\_blank} - introduced a runtime upgrade bringing governance and full functionality for communities to use the protocol
 
 !!!tip
-    To learn more about Encointer, check out the official
-    [Encointer book](https://book.encointer.org/introduction.html).
+    To learn more about Encointer, check out the official [Encointer book](https://book.encointer.org/introduction.html) or watch an [Encointer ceremony](https://www.youtube.com/watch?v=tcgpCCYBqko){target=\_blank} in action.
 

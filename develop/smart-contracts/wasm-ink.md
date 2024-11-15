@@ -1,6 +1,6 @@
 ---
 title: Wasm (ink!)
-description: TODO
+description: Learn to build Wasm smart contracts with ink!, a Rust-based eDSL. Explore installation, contract structure and key features.
 ---
 
 # Wasm (ink!)

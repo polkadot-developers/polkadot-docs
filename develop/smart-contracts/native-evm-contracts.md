@@ -28,6 +28,16 @@ This smart contracts solution is composed by some of the folllowing components:
 - [`Revive`](){target=\_blank} - compiles Solidity for PolkaVM by translating YUL, the intermediate output from the solc compiler, to RISC-V. This approach simplifies development and ensures full compatibility with all Solidity versions and features
 - [`Revive Remix`](){target=\_blank} - a modified fork of Remix adapted to use a backend compiler instead of an in-browser one, accommodating the LLVM-based Revive compiler's complexity
 
+```mermaid
+graph TD
+    A[pallet_revive] -->|Executes contracts| B[PolkaVM]
+    A -->|Compiles Solidity| C[Revive]
+    C -->|Compiles through| D[Revive Remix]
+    B -->|Handles transactions| E[Ethereum-style Transactions Handling]
+    E --> F[Transaction Conversion & Dispatch]
+    B -->|Executes Solidity code| G[Solidity Execution]
+```
+
 
 ## PolkaVM: Key Performance and Compatibility Differences
 

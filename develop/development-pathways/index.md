@@ -13,7 +13,7 @@ The Polkadot ecosystem provides two main development pathways:
 
 - **Protocol development** - focuses on creating core components that define blockchain functionality, including developing runtime modules or implementing smart contracts to handle on-chain logic. This pathway is ideal for developers interested in contributing to the foundational layers of the Polkadot network or creating custom blockchain logic
 
-- **Client-side development** -  centers on building decentralized applications (dApps) that interact with the blockchain. Developers in this pathway create user-facing applications that leverage blockchain data and capabilities, enabling various use cases for end-users
+- **Client-side development** - centers on building decentralized applications (dApps) that interact with the blockchain. Developers in this pathway create user-facing applications that leverage blockchain data and capabilities, enabling various use cases for end-users
 
 ```mermaid
 graph TD
@@ -57,7 +57,7 @@ When developing a smart contract, you create a sandboxed program that executes s
     - Refer to the [Runtime vs. Smart Contracts](https://paritytech.github.io/polkadot-sdk/master/polkadot_sdk_docs/reference_docs/runtime_vs_smart_contract/index.html){target=\_blank} section of the Polkadot SDK Rust docs
     - Refer to the [When should one build a Substrate (Polkadot SDK) runtime versus a Substrate (Polkadot SDK) smart contract?](https://stackoverflow.com/a/56041305){target=\_blank} post on Stack Overflow for a technically deeper discussion of when a developer might choose to develop a runtime versus a smart contract
 
-## Client-side Development
+## Client-Side Development
 
 The client-side development path is dedicated to building applications that interact with Polkadot SDK-based blockchains and enhance user engagement with the network. While decentralized applications (dApps) are a significant focus, this pathway also includes developing other tools and interfaces that expand users' interactions with blockchain data and services.
 

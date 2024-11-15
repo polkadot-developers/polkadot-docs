@@ -110,6 +110,49 @@ mod flipper {
 
 ### Storage
 
+In an ink! contract, persistent storage is defined by a single struct annotated with the `#[ink(storage)]` attribute. This struct represents the contract's state and can use various data types for storing information, such as:
+
+- Common Data Types
+
+    - Boolean values (`bool`)
+    - Unsigned integers (`u8`, `u16`, `u32`, `u64`, `u128`)
+    - Signed integers (`i8`, `i16`, `i32`, `i64`, `i128`)
+    - Tuples and arrays
+
+- Substrate-Specific Types
+
+    - `AccountId` - contract and user addresses
+    - `Balance` - token amounts
+    - `Hash` - cryptographic hashes
+
+- Data Structures
+
+    - Struct - custom data structures
+    - Vec - dynamic arrays
+    - Mapping - key-value storage
+    - BTreeMap- ordered maps
+    - HashMap - unordered maps
+
+Example of a storage struct using various supported types:
+
+```rust
+#[ink(storage)]
+pub struct Data {
+    /// A boolean flag to indicate a certain condition
+    flag: bool,
+    /// A vector to store multiple entries of unsigned 32-bit integers
+    entries: Vec<u32>,
+    /// An optional value that can store a specific integer or none
+    optional_value: Option<i32>,
+    /// A map to associate keys (as AccountId) with values (as unsigned 64-bit integers)
+    key_value_store: Mapping<AccountId, u64>,
+    /// A counter to keep track of some numerical value
+    counter: u64,
+}
+```
+
+For an in-depth explanation of storage and data structures in ink!, refer to the  [Storage & Data Structures](https://use.ink/datastructures/overview){target=\_blank} section in the official documentation.
+
 ### Constructors
 
 ### Messages

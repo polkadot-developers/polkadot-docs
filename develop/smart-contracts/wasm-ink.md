@@ -7,7 +7,7 @@ description: TODO
 
 ## Introduction
 
-ink! is an embedded domain-specific language (eDSL) designed to develop Wasm smart contracts using the Rust programming language. 
+ink! is an embedded domain-specific language (eDSL) designed to develop [Wasm](https://webassembly.org/){target=\_blank} smart contracts using the Rust programming language. 
 
 Rather than creating a new language, ink! is just standard Rust in a well-defined "contract format" with specialized `#[ink(…)]` attribute macros. These attribute macros tell ink! what the different parts of your Rust smart contract represent and ultimately allow ink! to do all the magic needed to create Polkadot SDK-compatible Wasm bytecode. Because of this, it inherits critical advantages such as:
 
@@ -151,7 +151,7 @@ pub struct Data {
 }
 ```
 
-For an in-depth explanation of storage and data structures in ink!, refer to the  [Storage & Data Structures](https://use.ink/datastructures/overview){target=\_blank} section in the official documentation.
+For an in-depth explanation of storage and data structures in ink!, refer to the  [Storage & Data Structures](https://use.ink/datastructures/overview){target=\_blank} section and the [#[ink(storage)]](https://use.ink/macros-attributes/storage){target=\_blank} macro definition in the official documentation.
 
 ### Constructors
 
@@ -193,11 +193,125 @@ mod mycontract {
 !!!note
     In this example, `new(init_value: u32)` initializes `number` with a specified value, while `default()` initializes it with the type’s default value (0 for `u32`). These constructors provide flexibility in contract deployment by supporting custom and default initialization options.
 
+For more information, refer to the official documentation for the [#[ink(constructor)]](https://use.ink/macros-attributes/constructor){target=\_blank} macro definition.
+
 ### Messages
+
+Messages are functions used to interact with the contract, allowing users or other contracts to call specific methods. Each contract must define at least one message.
+
+There are two types of messages:
+
+- Immutable messages (`&self`) - these messages can only read the contract's state and cannot modify it
+- Mutable messages (`&mut self`) - these messages can read and modify the contract’s state
+
+!!!note
+    `&self` is a reference to the contract's storage.
+
+Example:
+
+```rust
+#[ink(message)]
+pub fn my_getter(&self) -> u32 {
+    self.my_number
+}
+
+#[ink(message)]
+pub fn my_setter(&mut self, new_value: u32) -> u32 {
+    self.my_number = new_value;
+}
+```
+
+!!!note
+    In the example above, `my_getter` is an immutable message that reads state, while `my_setter` is a mutable message that updates state.
+
+For more information, refer to the official documentation on the [#[ink(message)]](https://use.ink/macros-attributes/message){target=\_blank} macro.
 
 ### Errors
 
+For defining errors, ink! Uses idiomatic Rust error handling witg the `Result<T,E>` type. These errors are user defined by creatig an `Error` enum and all the necessary types.
+If an error is returned, contract reverts
+
+In ink!, errors are handled using idiomatic Rust practices with the `Result<T, E>` type. Custom error types are defined by creating an `Error` enum and specifying any necessary variants. If an error is returned from a message, the contract execution reverts, ensuring that no changes are applied to the contract’s state.
+
+Example:
+
+```rust
+[derive(Debug, PartialEq, Eq)]
+#[ink::scale_derive(Encode, Decode, TypeInfo)]
+pub enum Error {
+    /// Returned if not enough balance to fulfill a request is available.
+    InsufficientBalance,
+    /// Returned if not enough allowance to fulfill a request is available.
+    InsufficientAllowance,
+}
+
+impl Erc20 {
+    //...
+    #[ink(message)]
+    pub fn transfer_from(
+        &mut self,
+        from: AccountId,
+        to: AccountId,
+        value: Balance,
+    ) -> Result<(),Error> {
+        let caller = self.env().caller();
+        let allowance = self.allowance_impl(&from, &caller);
+        if allowance < value {
+            return Err(Error::InsufficientAllowance)
+        }
+        //...
+    }
+    //...
+}
+```
+
+!!!note
+    In this example, the `Error` enum defines custom error types `InsufficientBalance` and `InsufficientAllowance`. When `transfer_from` is called, it checks if the allowance is sufficient. If not, it returns an `InsufficientAllowance` error, causing the contract to revert. This approach ensures robust error handling for smart contracts.
+
 ### Events
+
+Events are a way of letting the outside world know about what's happening inside the contract. These are user defined in a struct and decorated with the `#[ink(event)]` macro.
+
+Events allow the contract to communicate important occurrences to the outside world. They are user-defined by creating a struct and annotating it with the `#[ink(event)]` macro. Each field you want to index for efficient querying should be marked with `#[ink(topic)]`.
+
+Example:
+
+```rust
+/// Event emitted when a token transfer occurs.
+#[ink(event)]
+pub struct Transfer {
+    #[ink(topic)]
+    from: Option<AccountId>,
+    #[ink(topic)]
+    to: Option<AccountId>,
+    value: Balance,
+}
+
+impl Erc20 {
+    //...
+    #[ink(message)]
+    pub fn transfer_from(
+        &mut self,
+        from: AccountId,
+        to: AccountId,
+        value: Balance,
+    ) -> Result<(),Error> {
+        //...
+        self.env().emit_event(Transfer {
+            from: Some(from),
+            to: Some(to),
+            value,
+        });
+        
+        Ok(())
+    }
+}
+```
+
+!!!note
+    In this example, the `Transfer` event records the sender (`from`), the receiver (`to`), and the amount transferred (`value`). The event is emitted in the `transfer_from` function to notify external listeners whenever a transfer occurs.
+
+For more details, check the [Events](https://use.ink/basics/events){target=\_blank} section and the [#[ink(event)]](https://use.ink/macros-attributes/event){target=\_blank} macro documentation.
 
 ## Where to Go Next?
 

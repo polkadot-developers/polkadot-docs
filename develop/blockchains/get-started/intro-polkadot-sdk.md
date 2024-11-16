@@ -37,9 +37,7 @@ The Polkadot SDK is composed of five major components:
 
 Substrate is a Software Development Kit (SDK) that uses Rust-based libraries and tools to enable you to build application-specific blockchains from modular and extensible components. Application-specific blockchains built with Substrate can run as standalone services or in parallel with other chains to take advantage of the shared security provided by the Polkadot ecosystem. Substrate includes default implementations of the core components of the blockchain infrastructure to allow you to focus on the application logic.
 
-Every blockchain platform relies on a decentralized network of computers—called nodes—that communicate with each other about transactions and blocks.
-In general, a node in this context is the software running on the connected devices rather than the physical or virtual machine in the network.
-As software, Substrate-based nodes consist of two main parts with separate responsibilities:
+Every blockchain platform relies on a decentralized network of computers—called nodes—that communicate with each other about transactions and blocks. In general, a node in this context is the software running on the connected devices rather than the physical or virtual machine in the network. As software, Substrate-based nodes consist of two main parts with separate responsibilities:
 
 - **Client** - services to handle network and blockchain infrastructure activity
     - Native Binary
@@ -54,18 +52,15 @@ As software, Substrate-based nodes consist of two main parts with separate respo
 
 ### FRAME
 
-FRAME provides the core modular and extensible components that make the Substrate SDK flexible and adaptable to different use cases.
-FRAME includes Rust-based libraries that simplify the development of application-specific logic.
-Most of the functionality that FRAME provides takes the form of plug-in modules called [pallets](/polkadot-protocol/glossary#pallet){target=\_blank} that you can add and configure to suit your requirements.
+FRAME provides the core modular and extensible components that make the Substrate SDK flexible and adaptable to different use cases. FRAME includes Rust-based libraries that simplify the development of application-specific logic. Most of the functionality that FRAME provides takes the form of plug-in modules called [pallets](/polkadot-protocol/glossary#pallet){target=\_blank} that you can add and configure to suit your requirements.
 
 ### Cumulus
 
-Cumulus provides utilities and libraries to turn FRAME-based runtimes into runtimes that can be a parachain on Polkadot. Cumulus runtimes are still FRAME runtimes but contain the necessary functionality that allows for that runtime to become a parachain on a relay chain.
+Cumulus provides utilities and libraries to turn FRAME-based runtimes into runtimes that can be a parachain on Polkadot. Cumulus runtimes are still FRAME runtimes but contain the necessary functionality that allows that runtime to become a parachain on a relay chain.
 
 ## Why Use Polkadot SDK?
 
-Using the Polkadot SDK, you can build application-specific blockchains without the complexity of building a blockchain from scratch or the limitations of building on a general-purpose blockchain.
-You can focus on crafting the business logic that makes your chain unique and innovative with the additional benefits of flexibility, upgradeability, open-source licensing, and cross-consensus interoperability.
+Using the Polkadot SDK, you can build application-specific blockchains without the complexity of building a blockchain from scratch or the limitations of building on a general-purpose blockchain. You can focus on crafting the business logic that makes your chain unique and innovative with the additional benefits of flexibility, upgradeability, open-source licensing, and cross-consensus interoperability.
 
 ## How to Create a Custom Blockchain using the SDK?
 

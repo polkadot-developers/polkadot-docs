@@ -74,12 +74,6 @@ To install Zombienet, there are multiple options available, depending on the use
     zombienet version
     ```
 
-    So then, you can refer to the `zombienet` executable directly:
-
-    ```bash
-    zombienet version
-    ```
-
 === "Using Nix"
 
     For Nix users, the Zombienet repository provides a [`flake.nix`](https://github.com/paritytech/zombienet/blob/main/flake.nix){target=\_blank} file that can be used to install Zombienet. This means that users can easily incorporate Zombienet into their Nix-based projects. 
@@ -214,6 +208,7 @@ It's important to note that each provider has specific requirements and associat
     ```bash
     git clone https://github.com/OpenZeppelin/polkadot-runtime-templates \
     && cd polkadot-runtime-templates/generic-template
+    ```
 
     Then, build the custom binary:
 
@@ -267,7 +262,7 @@ The following sections will guide you through the primary usage of the Zombienet
         - `<networkConfig>` - a file that declares the desired network to be spawned in `.toml` or `.json` format. For further information, check out the [Configuration Files](#configuration-files) section
 
     !!! warning
-        For the `spawn` command to work on macOS, users need to be aware that the Polkadot binary is currently not compatible with macOS. As a result, macOS users will need to clone the [Polkadot repository](https://github.com/paritytech/polkadot-sdk){target=_blank}, build Polkadot binary, and manually add it to their PATH.
+        For the `spawn` command to work on macOS, users need to be aware that the Polkadot binary is currently not compatible with macOS. As a result, macOS users will need to clone the [Polkadot repository](https://github.com/paritytech/polkadot-sdk){target=_blank}, build the Polkadot binary, and manually add it to their PATH.
 
 ??? interface "`test` - run test on the network spawned"
 

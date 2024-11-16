@@ -82,5 +82,5 @@ This modular design allows developers to:
 
 For more detailed information on implementing this process, refer to the following sections:
 
-- [Add a Pallet to Your Runtime](/develop/blockchains/custom-blockchains/add-existing-pallets.md){target=\_blank}
-- [Create a Custom Pallet](/develop/blockchains/custom-blockchains/make-custom-pallet.md){target=\_blank}
+- [Add a Pallet to Your Runtime](/develop/blockchains/custom-blockchains/add-existing-pallets/){target=\_blank}
+- [Create a Custom Pallet](/develop/blockchains/custom-blockchains/make-custom-pallet/){target=\_blank}

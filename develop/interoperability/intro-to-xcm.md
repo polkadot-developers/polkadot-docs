@@ -70,7 +70,8 @@ The message consists of three instructions
 ```rust
 --8<-- 'code/develop/parachain-devs/interoperability/XCM/XCM-buyexecution.rs'
 ```
-    To execute XCM instructions, weight (some amount of resources) has to be bought. The amount of weight needed to execute an XCM depends on the number and type of instructions in the XCM. The `BuyExecution` instruction pays for the weight using the `fees`. The `fees` parameter describes the asset in the holding register that should be used for paying for the weight. The `weight_limit` parameter defines the maximum amount of fees that can be used for buying weight. There are special occasions where it is not necessary to buy weight. 
+  
+      To execute XCM instructions, weight (some resources) must be bought. The weight needed to execute an XCM depends on the number and type of instructions in the XCM. The `BuyExecution` instruction pays the weight using the `fees`. The `fees` parameter describes the asset in the holding register that should be used to pay for the weight. The `weight_limit` parameter defines the maximum fees that can be used to buy weight. There are special occasions where it is not necessary to buy weight. 
 
 * **DepositAsset**
 ```rust

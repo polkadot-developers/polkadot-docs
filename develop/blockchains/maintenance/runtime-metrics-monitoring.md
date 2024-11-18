@@ -17,7 +17,7 @@ As a developer or node operator, the telemetry system handles most of the techni
 
 ## Runtime Metrics
 
-Substrate exposes a variety of metrics about the operation of your network, such as the number of peer connections, memory usage, and block production. To capture and visualize these metrics, you can configure and use tools like Prometheus and Grafana. At a high level, Substrate exposes telemetry data that can be consumed by the Prometheus endpoint and then presented as visual information in a Grafana dashboard or graph. The provided diagram offers a simplified overview of how the interaction between Substrate, Prometheus, and Grafana can be configured to display information about node operations.
+Substrate exposes a variety of metrics about the operation of your network, such as the number of peer connections, memory usage, and block production. To capture and visualize these metrics, you can configure and use tools like [Prometheus](https://prometheus.io/){target=\_blank} and [Grafana](https://grafana.com/){target=\_blank}. At a high level, Substrate exposes telemetry data that can be consumed by the Prometheus endpoint and then presented as visual information in a Grafana dashboard or graph. The provided diagram offers a simplified overview of how the interaction between Substrate, Prometheus, and Grafana can be configured to display information about node operations.
 
 ```mermaid
 graph TD
@@ -37,23 +37,23 @@ The diagram shows the flow of data from the Substrate node to the monitoring and
 
 The [Polkadot telemetry](https://telemetry.polkadot.io/){target=\_blank} dashboard provides a real-time view of how currently online nodes are performing. This dashboard, allows users to select the network you need to check on, and also the information you want to display by turning visible columns on and off from the list of columns available. The monitoring dashboard provides the following indicators and metrics:
 
-- Validator - identifies whether the node is a validator node or not
-- Location - displays the geographical location of the node
-- Implementation - shows the version of the software running on the node
-- Network ID - displays the public network identifier for the node
-- Peer count - indicates the number of peers connected to the node
-- Transactions in queue - shows the number of transactions waiting in the [Ready queue](https://paritytech.github.io/polkadot-sdk/master/sc_transaction_pool_api/enum.TransactionStatus.html#variant.Ready){target=\_blank} for a block author
-- Upload bandwidth - graphs the node's recent upload activity in MB/s
-- Download bandwidth - graphs the node's recent download activity in MB/s
-- State cache size - graphs the size of the node's state cache in MB
-- Block - displays the current best block number to ensure synchronization with peers
-- Block hash - shows the block hash for the current best block number
-- Finalized block - displays the most recently finalized block number to ensure synchronization with peers
-- Finalized block hash - shows the block hash for the most recently finalized block
-- Block time - indicates the time between block executions
-- Block propagation time - displays the time it took to import the most recent block
-- Last block time - shows the time it took to author the most recent block
-- Node uptime - indicates the number of days the node has been online without restarting
+- **Validator** - identifi  es whether the node is a validator node or not
+- **Location** - displays the geographical location of the node
+- **Implementation** - shows the version of the software running on the node
+- **Network ID** - displays the public network identifier for the node
+- **Peer count** - indicates the number of peers connected to the node
+- **Transactions in queue** - shows the number of transactions waiting in the [Ready queue](https://paritytech.github.io/polkadot-sdk/master/sc_transaction_pool_api/enum.TransactionStatus.html#variant.Ready){target=\_blank} for a block author
+- **Upload bandwidth** - graphs the node's recent upload activity in MB/s
+- **Download bandwidth** - graphs the node's recent download activity in MB/s
+- **State cache size** - graphs the size of the node's state cache in MB
+- **Block** - displays the current best block number to ensure synchronization with peers
+- **Block hash** - shows the block hash for the current best block number
+- **Finalized block** - displays the most recently finalized block number to ensure synchronization with peers
+- **Finalized block hash** - shows the block hash for the most recently finalized block
+- **Block time** - indicates the time between block executions
+- **Block propagation time** - displays the time it took to import the most recent block
+- **Last block time** - shows the time it took to author the most recent block
+- **Node uptime** - indicates the number of days the node has been online without restarting
 
 ## Displaying Network-wide Statistics
 

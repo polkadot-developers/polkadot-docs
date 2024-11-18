@@ -33,7 +33,7 @@ Follow these steps for initial set up:
 Both guides offer specific guidance for macOS, Windows, and Linux systems.
 
 !!! warning "Not intended for validators"
-    This process isn't recommended if you're a validator. If you are running a validator, please see the [secure validator setup](TODO: update path).
+    This process isn't recommended if you're a validator. If you are running a validator, please see the [Set Up a Validator](/infrastructure/running-a-validator/onboarding-and-offboarding/set-up-validator.md){target=\_blank} guide.
 
 ## Connect to the Node
 

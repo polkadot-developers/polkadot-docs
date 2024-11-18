@@ -50,11 +50,11 @@ PolkaVM introduces a multi-dimensional gas model to address these differences, i
 
 Install the MetaMask browser extension and add a custom network using the settings provided below:
 
-- **Network name** - Asset-Hub Westend Testnet
-- **RPC URL URL** - https://westend-asset-hub-eth-rpc.polkadot.io
-- **Chain ID** - 420420421
-- **Currency Symbol** - WND
-- **Block Explorer URL** - https://assethub-westend.subscan.io
+- **Network name** - `Asset-Hub Westend Testnet`
+- **RPC URL URL** - `https://westend-asset-hub-eth-rpc.polkadot.io`
+- **Chain ID** - `420420421`
+- **Currency Symbol** - `WND`
+- **Block Explorer URL** - [`https://assethub-westend.subscan.io`](https://assethub-westend.subscan.io){target=\_blank}
 
 ### Deployment
 

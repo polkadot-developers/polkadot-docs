@@ -97,7 +97,7 @@ To implement customized monitoring and alerting, consider using the following st
 
 ### Change the telemetry server
 
-Once backend monitoring is configured, use the --telemetry-url flag when starting a node to specify telemetry endpoints and verbosity levels. Multiple telemetry URLs can be provided, and verbosity ranges from 0 (least verbose) to 9 (most verbose).
+Once backend monitoring is configured, use the `--telemetry-url` flag when starting a node to specify telemetry endpoints and verbosity levels. Multiple telemetry URLs can be provided, and verbosity ranges from 0 (least verbose) to 9 (most verbose).
 
 For instance, setting a custom telemetry server with verbosity level 5 would look like:
 

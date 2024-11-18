@@ -27,12 +27,11 @@ graph TD
   prom --> endpoint[Endpoint: Every 1 minute]
   endpoint --> grafana[Grafana]
   grafana --> useropen[User opens a graph]
-  useropen --> getmetric[GET substrate_peers_count from timestamp X to timestamp Y]
   prom --> localdata[Local Prometheus data]
   localdata --> getmetric
 ```
 
-The diagram shows the flow of data from the Substrate node to the monitoring and visualization components. The Substrate node exposes a telemetry stream, which is consumed by Prometheus. Prometheus is configured to collect data every minute and store it. Grafana is then used to visualize the data, allowing the user to open graphs and retrieve the `substrate_peers_count` metric from a specific time range.
+The diagram shows the flow of data from the Substrate node to the monitoring and visualization components. The Substrate node exposes a telemetry stream, which is consumed by Prometheus. Prometheus is configured to collect data every minute and store it. Grafana is then used to visualize the data, allowing the user to open graphs and retrieve specifc metrics from the telemetry stream.
 
 ## Visual Monitoring
 

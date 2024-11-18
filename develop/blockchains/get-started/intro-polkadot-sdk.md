@@ -40,15 +40,15 @@ Substrate is a Software Development Kit (SDK) that uses Rust-based libraries and
 Every blockchain platform relies on a decentralized network of computers—called nodes—that communicate with each other about transactions and blocks. In general, a node in this context is the software running on the connected devices rather than the physical or virtual machine in the network. As software, Substrate-based nodes consist of two main parts with separate responsibilities:
 
 - **Client** - services to handle network and blockchain infrastructure activity
-    - Native Binary
+    - Native binary
     - Executes the Wasm runtime
-    - Manages components like Database, Networking, Mempool, Consensus, and others
-    - Also known as Host
+    - Manages components like database, networking, mempool, consensus, and others
+    - Also known as "Host"
 - **Runtime** - business logic for state transitions
     - Application logic
     - Compiled to [Wasm](https://webassembly.org/){target=\_blank}
     - Stored as a part of the chain state
-    - Also known as STF (State Transition Function)
+    - Also known as "STF" (State Transition Function)
 
 ### FRAME
 

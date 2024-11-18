@@ -1,25 +1,27 @@
 ---
-title: Overview
-description: TODO
+title: On-Chain Governance Overview
+description: Explore Polkadot’s advanced governance model, OpenGov, where direct democracy, flexible voting options, and stakeholder participation drive network evolution.
 ---
 
-# Governance Overview
+# On-Chain Governance 
+
+## Introduction
 
 Polkadot employs an advanced governance system designed to facilitate continuous, adaptable evolution directed by its community of stakeholders. 
 
 This approach ensures that those holding the majority of stake retain control over the network’s direction.
 
-At the core of Polkadot’s innovation are several novel mechanisms, including a flexible, on-chain state-transition function written in **WebAssembly** (a platform-agnostic language) and multiple on-chain voting methods, such as referenda and batch approval voting. 
+The Polkadot blockchain incorporates a powerful on-chain governance mechanism, empowering the community to actively participate in decision-making and shape the network's future through decentralized, on-chain processes.
 
 Any protocol changes must gain approval through stake-weighted referenda, aligning network updates with the will of the community.
 
 ## Premise
 
-Polkadot's initial governance system, **Governance V1**, consisted of three core components:
+Polkadot's initial governance system, [**Governance V1**](https://wiki.polkadot.network/docs/learn/learn-governance){target=\_blank}, consisted of three core components:
 
-- **Technical Committee**: A technocratic body responsible for overseeing and managing the timelines for protocol upgrades.
-- **Council**: An elected executive "government", chosen through approval voting, responsible for managing key parameters, administrative functions, and spending proposals.
-- **Public**: Composed of all token holders, who participated directly in voting and referenda.
+- **Technical committee** - a technocratic body responsible for overseeing and managing the timelines for protocol upgrades
+- **Council** - an elected executive "government" chosen through approval voting, responsible for managing key parameters, administrative functions, and spending proposals
+- **Public** - composed of all token holders who participated directly in voting and referenda
 
 Over its initial years, **Governance V1** ensured responsible use of treasury funds and enabled timely protocol upgrades and fixes. Like many early-stage technologies, protocols must evolve as they mature to address limitations and align with modern advancements. 
 
@@ -44,10 +46,10 @@ The Council acted as a representative body for the public, overseeing the treasu
 
 However, it was sometimes perceived as a centralized authority. To enhance decentralization, **OpenGov** introduces these primary changes:
 
-- **Transferring all Council responsibilities to the public** through a direct democracy voting system.
+- **Transferring all Council responsibilities to the public** through a direct democracy voting system
 - **Dissolving the Council** to eliminate the centralized decision-making body.
-- **Expanding delegation options** so users can transfer voting power to trusted community members in various ways.
-- **Replacing the Technical Committee** with the Polkadot Technical Fellowship, a broader, community-oriented group.
+- **Expanding delegation options** so users can transfer voting power to trusted community members in various ways
+- **Replacing the Technical Committee** with the Polkadot Technical Fellowship, a broader, community-oriented group
 
 The diagram below provides an overview of the structure and changes introduced with Polkadot OpenGov.
 
@@ -57,9 +59,8 @@ The diagram below provides an overview of the structure and changes introduced w
 
 In Polkadot OpenGov, **Origins** and **Tracks** are key components in the governance process:
 
-An **Origin** defines the level of privilege or authorization a proposal has. It determines who can submit a proposal and what kind of proposal it is. For example, a proposal could come from a Treasury Origin for treasury-related requests, or from a Council Origin, which requires Council approval before voting.
-
-A **Track** is the process or pipeline a proposal follows after submission. It outlines how the proposal is handled, including how long the voting period lasts and other procedural details. Each Origin is linked to a specific Track.
+- **Origin** defines the privilege level or authorization of a proposal. It determines who can submit a proposal and what kind of proposal it is. For example, a proposal could come from a `Treasury Origin` for treasury-related requests or from a `Council Origin`, which requires `Council` approval before voting
+- **Track** - process that a proposal follows after submission. It outlines how the proposal is handled, including how long the voting period lasts and other procedural details. Each `Origin` is linked to a specific `Track`
 
 !!!note
     More on Tracks and Origins is explained on [this](link to Tracks and Origins page) page.
@@ -100,11 +101,11 @@ The figure above provides a summary view of the referenda timeline for Polkadot 
 
 In **Lead-In Period**, a referendum opens for community voting as soon as it's created, but it cannot be finalized (with votes counted, approved, and enacted) until it passes a **Lead-in Period** and meets three criteria:
 
-1. **Lead-in Period Duration:** Proposals must remain in the Lead-in Period for a minimum time to prevent "decision sniping," where a proposal could be rushed through by a party with significant voting power, limiting community participation.
+1. **Lead-in Period Duration** - proposals must remain in the Lead-in Period for a minimum time to prevent "decision sniping," where a proposal could be rushed through by a party with significant voting power, limiting community participation.
 
-2. **Origin Capacity:** Each origin has a limit on simultaneous proposals, with more powerful tracks allowing fewer. For instance, the Root level Origin only allows one proposal at a time.
+2. **Origin Capacity** - each origin has a limit on simultaneous proposals, with more powerful tracks allowing fewer. For instance, the Root level Origin only allows one proposal at a time
 
-3. **Decision Deposit:** While creating a referendum is low-cost, reviewing it requires a higher, refundable deposit to prevent spam and preserve limited queue space. Without this deposit, the referendum will timeout.
+3. **Decision Deposit** - while creating a referendum is low-cost, reviewing it requires a higher, refundable deposit to prevent spam and preserve limited queue space. Without this deposit, the referendum will timeout
 
 During the Lead-in Period, proposals remain undecided. Once all criteria are met, the referendum moves to the deciding state, and votes are counted toward the outcome.
 
@@ -193,15 +194,15 @@ With only 35 DOT participating, the values are calculated as follows:
 
 The figure illustrates the following points:
 
-1. A proposal enters the confirmation period only when both approval and support thresholds are met. Even if approval is above the approval curve, the proposal will wait until support also surpasses the support curve.
+1. A proposal enters the confirmation period only when both approval and support thresholds are met. Even if approval is above the approval curve, the proposal will wait until support also surpasses the support curve
 
-2. If a referendum holds the approval and support thresholds for the entire confirmation period, it’s approved and scheduled for enactment. Tracks like Root enforce longer Enactment Periods to allow time for network adjustments, although proposers can opt for a longer enactment period.
+2. If a referendum holds the approval and support thresholds for the entire confirmation period, it’s approved and scheduled for enactment. Tracks like Root enforce longer Enactment Periods to allow time for network adjustments, although proposers can opt for a longer enactment period
 
-3. If the referendum exits the confirmation period (e.g., due to new "nay" votes), the confirmation clock resets. For instance, if it exits after 5 minutes in a 20-minute confirmation period, it must complete a fresh 20-minute confirmation upon re-entry.
+3. The confirmation clock resets if the referendum exits the confirmation period (e.g., due to new "nay" votes). For instance, if it exits after 5 minutes in a 20-minute confirmation period, it must complete a fresh 20-minute confirmation upon re-entry
 
-4. Should a referendum meet thresholds at the very end of the decision period, it can still pass if it confirms through the entire track-specific confirmation period. Otherwise, it’s rejected if it exits confirmation after the decision period ends.
+4. Should a referendum meet thresholds at the end of the decision period, it can still pass if confirmed through the entire track-specific confirmation period. Otherwise, it’s rejected if it exits confirmation after the decision period ends
 
-5. The approval curve starts at 100%, decreasing to a minimum of 50%. For a proposal to pass, weighted support must stay above 50%, assuming all tokens are actively voted.
+5. The approval curve starts at 100%, decreasing to a minimum of 50%. For a proposal to pass, weighted support must stay above 50%, assuming all tokens are actively voted
 
 Tracks for different **Origins** have unique **Confirmation Periods** and distinct approval and support requirements.
 
@@ -214,7 +215,6 @@ In Polkadot OpenGov, the proposer suggests the enactment period, but there is al
 For example, `Root` origin approvals require an extended period because of the importance of the changes they bring to the network.
 
 ## Cancelling, Killing & Blacklisting
-
 
 Polkadot OpenGov has two origins for rejecting ongoing referenda: 
 
@@ -262,9 +262,9 @@ The governance app or interface you used to participate in Polkadot OpenGov will
 
 If you vote with conviction, the following applies:
 
-- **Referendum is ongoing:** **You can remove your vote and unlock your tokens immediately.
-- **Referendum ended (losing side):** You can remove your vote and unlock your tokens immediately.
-- **Referendum ended (winning side):** A conviction lock will be applied.
+- **Referendum is ongoing** - you can remove your vote and unlock your tokens immediately
+- **Referendum ended (losing side)** - you can remove your vote and unlock your tokens immediately
+- **Referendum ended (winning side)** - a conviction lock will be applied
 
 Conviction locks are calculated from when the referendum ends but applied when you remove your vote. 
 
@@ -319,6 +319,7 @@ The purpose of delegations is to ensure that proposals meet the required support
 Delegations also help voters who may lack the technical expertise to evaluate certain referenda or simply don’t have the time to engage with all the proposals. By delegating their voting power to trusted entities, voters can participate in OpenGov in a more hands-off manner.
 
 ## Resources
+
 - [Democracy pallet](https://github.com/paritytech/polkadot-sdk/tree/master/substrate/frame/democracy/src){about=|_blank}
 - [Governance v2](https://medium.com/polkadot-network/gov2-polkadots-next-generation-of-decentralised-governance-4d9ef657d11b){about=|_blank}
 - [Polkadot Direction](https://matrix.to/#/#Polkadot-Direction:parity.io){about=|_blank}

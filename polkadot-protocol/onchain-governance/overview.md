@@ -32,9 +32,6 @@ It updates the decision-making process to improve how referenda outcomes are man
 
 The following sections cover the key features of **OpenGov** and highlight its main distinctions from previous governance versions. 
 
-!!!note
-    Familiarity with [**Governance V1**](https://wiki.polkadot.network/docs/learn/learn-governance){target=\_blank} will provide valuable context for understanding the need for and direction of OpenGov. 
-
 ### OpenGov Summary
 
 **OpenGov** improves on its predecesor by introducing these changes:

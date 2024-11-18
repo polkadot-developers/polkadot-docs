@@ -83,11 +83,12 @@ The message consists of three instructions
     When the three instructions are combined, you withdraw `amount` native tokens from the account of Alice, pay for the execution of these instructions, and deposit the remaining tokens in the account of Bob.
 
 ## Overview
+
 XCM enables different consensus systems to communicate with each other. Common cross-consensus use-cases include:
 
-* Sending tokens between blockchains
-* Locking assets on one blockchain in order to gain some benefit on a smart contract on another blockchain
-* Calling specific functions on another blockchain
+- Sending tokens between blockchains
+- Locking assets on one blockchain to gain some benefit on a smart contract on another blockchain
+- Calling specific functions on another blockchain
 
 These are just a few basic examples; once you can communicate with other consensus systems, you can create applications that can leverage multiple blockchains' capabilities. The potential it provides is especially evident in an ecosystem of highly specialized blockchains like Polkadot.
 

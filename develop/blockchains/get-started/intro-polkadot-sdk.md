@@ -9,7 +9,7 @@ description: Learn about the Polkadot SDK, a robust developer toolkit for buildi
 
 The [Polkadot SDK](https://github.com/paritytech/polkadot-sdk){target=\_blank} is a powerful and versatile developer kit designed to facilitate building on the Polkadot network. It provides the necessary components for creating custom blockchains, parachains, generalized rollups, and more. Written in the Rust programming language, it puts security and robustness at the forefront of its design.
 
-Whether you're building a standalone chain or deploying a parachain on Polkadot, this SDK equips developers with the libraries and tools needed to manage runtime logic, compile the codebase, and utilize core features like staking, governance, and Cross-Consensus Messaging (XCM). It also provides a means for building generalized peer-to-peer systems, whether a blockchain or an alternative technology. The Polkadot SDK houses the following overall functionality:
+Whether you're building a standalone chain or deploying a parachain on Polkadot, this SDK equips developers with the libraries and tools needed to manage runtime logic, compile the codebase, and utilize core features like staking, governance, and Cross-Consensus Messaging (XCM). It also provides a means for building generalized peer-to-peer systems beyond blockchains. The Polkadot SDK houses the following overall functionality:
 
 - Networking and peer-to-peer communication (powered by [Libp2p](/polkadot-protocol/glossary#libp2p){target=\_blank})
 - Consensus protocols, such as [BABE](/polkadot-protocol/glossary#blind-assignment-of-blockchain-extension-babe){target=\_blank}, [GRANDPA](/polkadot-protocol/glossary#grandpa){target=\_blank}, or [Aura](/polkadot-protocol/glossary#authority-round-aura){target=\_blank}
@@ -48,7 +48,7 @@ Every blockchain platform relies on a decentralized network of computers—calle
     - Application logic
     - Compiled to [Wasm](https://webassembly.org/){target=\_blank}
     - Stored as a part of the chain state
-    - Also known as "STF" (State Transition Function)
+    - Also known as State Transition Function (STF)
 
 ### FRAME
 
@@ -62,7 +62,7 @@ Cumulus provides utilities and libraries to turn FRAME-based runtimes into runti
 
 Using the Polkadot SDK, you can build application-specific blockchains without the complexity of building a blockchain from scratch or the limitations of building on a general-purpose blockchain. You can focus on crafting the business logic that makes your chain unique and innovative with the additional benefits of flexibility, upgradeability, open-source licensing, and cross-consensus interoperability.
 
-## How to Create a Custom Blockchain using the SDK?
+## Create a Custom Blockchain Using the SDK
 
 Before starting your blockchain development journey, you'll need to decide whether you want to build a standalone chain or a parachain that connects to the Polkadot network. Each path has its considerations and requirements. Once you've made this decision, follow these development stages:
 

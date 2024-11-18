@@ -17,34 +17,27 @@ Any protocol changes must gain approval through stake-weighted referenda, aligni
 
 ## Premise
 
-Polkadot's initial governance system, [**Governance V1**](https://wiki.polkadot.network/docs/learn/learn-governance){target=\_blank}, consisted of three core components:
+Polkadot's initial governance system, **Governance V1**, successfully managed treasury funds and protocol upgrades through its **Technical Committee**, **Council**, and **Public**, but it faced structural limitations. 
 
-- **Technical committee** - a technocratic body responsible for overseeing and managing the timelines for protocol upgrades
-- **Council** - an elected executive "government" chosen through approval voting, responsible for managing key parameters, administrative functions, and spending proposals
-- **Public** - composed of all token holders who participated directly in voting and referenda
+These included slow voting cycles and the inability to handle multiple referenda simultaneously, restricting the system's flexibility and scalability.
 
-Over its initial years, **Governance V1** ensured responsible use of treasury funds and enabled timely protocol upgrades and fixes. Like many early-stage technologies, protocols must evolve as they mature to address limitations and align with modern advancements. 
+!!!note
+    You can find detailed information about Polkadot's first governance system on the [Governance V1 Wiki](https://wiki.polkadot.network/docs/learn/learn-governance){target=\_blank} page. 
 
-**Governance V1**, however, had certain structural limitations: all referenda held equal weight, allowing only one to be voted on at a time (except in emergencies), and each voting period could extend over several weeks. 
+## OpenGov
 
-Additionally, an alternating timetable permitted voting on either a public referendum or a council motion every 28 days (or 7 days on Kusama), which led to careful deliberation but limited the number of proposals considered.
+**OpenGov** is an improved governance model that prioritizes openness and active participation from stakeholders, making decision-making more democratic and effective.
 
-**OpenGov** revises the mechanisms for day-to-day decision-making, enhancing the scope and agility of referenda outcomes. This change enables the system to handle a higher volume of collective decisions at any given time.
+It updates the decision-making process to improve how referenda outcomes are managed, making them more flexible and efficient. This allows the system to handle more decisions collectively and simultaneously.
 
 The following sections cover the key features of **OpenGov** and highlight its main distinctions from previous governance versions. 
 
 !!!note
     Familiarity with [**Governance V1**](https://wiki.polkadot.network/docs/learn/learn-governance){target=\_blank} will provide valuable context for understanding the need for and direction of OpenGov. 
 
-## OpenGov Summary
+### OpenGov Summary
 
-In **Governance V1**, network upgrade decisions were managed collaboratively by active token holders and the Council. 
-
-Proposals, regardless of whether they originated from the public or the Council, ultimately required a referendum, allowing all token holders to participate in the decision-making process.
-
-The Council acted as a representative body for the public, overseeing the treasury and initiating legislation. 
-
-However, it was sometimes perceived as a centralized authority. To enhance decentralization, **OpenGov** introduces these primary changes:
+**OpenGov** improves on its predecesor by introducing these changes:
 
 - **Transferring all Council responsibilities to the public** through a direct democracy voting system
 - **Dissolving the Council** to eliminate the centralized decision-making body.
@@ -63,9 +56,9 @@ In Polkadot OpenGov, **Origins** and **Tracks** are key components in the govern
 - **Track** - process that a proposal follows after submission. It outlines how the proposal is handled, including how long the voting period lasts and other procedural details. Each `Origin` is linked to a specific `Track`
 
 !!!note
-    More on Tracks and Origins is explained on [this](link to Tracks and Origins page) page.
+    More on Tracks and Origins is explained on [this](TODO:update-path) page.
 
-In Polkadot OpenGov, proposals are initiated by the public and enter a Lead-in period before following a specific **Track** with a dedicated **Origin**. There are [**15 Origins**](link to Origin & Tracks section), each with preset parameters that define the referendum’s duration and the number of simultaneous votes. 
+In Polkadot OpenGov, proposals are initiated by the public and enter a Lead-in period before following a specific **Track** with a dedicated **Origin**. There are [**15 Origins**](TODO:update-path), each with preset parameters that define the referendum’s duration and the number of simultaneous votes. 
 
 For example, treasury proposals are submitted to different tracks based on the amount requested. A proposal for a small tip will need to be submitted to the Small Tipper track, while a proposal requiring substantial funds will need to be submitted to the Medium or Big Spender track.
 

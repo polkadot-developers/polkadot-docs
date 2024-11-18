@@ -26,7 +26,7 @@ A pruned node only keeps a limited number of finalized blocks of the network, no
 
 Ensure Rust is installed on your operating system before continuing. If you need guidance, see [Install Dependencies for the Polkadot SDK](TODO: update path).
 
-??? warning "Not intended for validators"
+!!! warning "Not intended for validators"
     This process isn't recommended if you're a validator. If you are running a validator, please see the [secure validator setup](TODO: update path).
 
 === "macOS"
@@ -209,7 +209,7 @@ polkadot --chain polkadot \
 
 The node startup settings allow you to choose what to expose, how many connections to expose, and which systems should be granted access through the RPC server. Some settings you can configure to increase node security include:
 
-- **Limit usable methods** - with  the `--rpc-methods` flag. An easy way to set this to a safe mode is: 
+- **Limit usable methods** - with the `--rpc-methods` flag. An easy way to set this to a safe mode is: 
 ```bash
 --rpc-methods safe
 ```
@@ -222,7 +222,7 @@ The node startup settings allow you to choose what to expose, how many connectio
 --rpc-cors all
 ```
 
-For a list of important flags when running RPC nodes, refer to the Parity DevOps documentation: [Important Flags for Running an RPC Node](https://paritytech.github.io/devops-guide/guides/rpc_index.html?#important-flags-for-running-an-rpc-node){target=\_blank}
+For a list of important flags when running RPC nodes, refer to the Parity DevOps documentation: [Important Flags for Running an RPC Node](https://paritytech.github.io/devops-guide/guides/rpc_index.html?#important-flags-for-running-an-rpc-node){target=\_blank}.
 
 ## Secure the WebSocket Port
 
@@ -230,7 +230,7 @@ To securely access your WebSocket (WS) connection over an SSL-enabled connection
 
 ## Connect to the Node
 
-Open [Polkadot.js](https://polkadot.js.org/apps){target=\_blank} and click the logo in the top left to switch the node. Activate the **Development** toggle and input your node's domain or IP address. Remember to prefix with `wss://`, and if you're using the 443 port, append `:443` as follows:
+Open [Polkadot.js Apps](https://polkadot.js.org/apps){target=\_blank} and click the logo in the top left to switch the node. Activate the **Development** toggle and input your node's domain or IP address. Remember to prefix with `wss://`, and if you're using the 443 port, append `:443` as follows:
 
 ```bash
 wss://example.com:443

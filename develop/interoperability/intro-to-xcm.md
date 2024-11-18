@@ -30,7 +30,7 @@ These principles guarantee that XCM provides a reliable framework for cross-chai
 
 ## The XCM Tech Stack
 
-![Diagram of the XCM tech stack](/images/develop/parachain-devs/interoperability/intro-to-xcm/intro-to-xcm-01.webp)
+![Diagram of the XCM tech stack](/images/develop/interoperability/intro-to-xcm/intro-to-xcm-01.webp)
 
 ## Core Functionalities of XCM
 
@@ -47,21 +47,21 @@ The standardized format for messages allows parachains to handle tasks like user
 The following is a simplified XCM message demonstrating a token transfer from Alice to Bob on the same chain (ParaA).
 
 ```rust
---8<-- 'code/develop/parachain-devs/interoperability/XCM/XCM-first-look.rs'
+--8<-- 'code/develop/interoperability/intro-to-xcm/XCM-first-look.rs'
 ```
 
 The message consists of three instructions described as follows:
 
 - **WithdrawAsset** - transfers a specified number of tokens from Alice’s account to a holding register
 ```rust
---8<-- 'code/develop/parachain-devs/interoperability/XCM/XCM-withdrawasset.rs'
+--8<-- 'code/develop/interoperability/intro-to-xcm/XCM-first-look.rs:2:2'
 ```
     - `Here` - the native parachain token
     - `amount` - the number of tokens that are transferred
 
 - **BuyExecution** - allocates fees to cover the execution [weight](/polkadot-protocol/glossary/#weight){target=\_blank} of the XCM instructions
 ```rust
---8<-- 'code/develop/parachain-devs/interoperability/XCM/XCM-buyexecution.rs'
+--8<-- 'code/develop/interoperability/intro-to-xcm/XCM-first-look.rs:3:6'
 ```
 
     - `fees` - describes the asset in the holding register that should be used to pay for the weight 
@@ -69,7 +69,7 @@ The message consists of three instructions described as follows:
 
 - [**DepositAsset**](https://github.com/polkadot-fellows/xcm-format?tab=readme-ov-file#depositasset){target=\_blank} - moves the remaining tokens from the holding register to Bob’s account
 ```rust
---8<-- 'code/develop/parachain-devs/interoperability/XCM/XCM-depositasset.rs'
+--8<-- 'code/develop/interoperability/intro-to-xcm/XCM-first-look.rs:7:16'
 ```
 
     - `All` - the wildcard for the asset(s) to be deposited. In this case, all assets in the holding register should be deposited

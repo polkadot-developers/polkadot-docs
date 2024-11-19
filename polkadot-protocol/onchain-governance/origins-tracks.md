@@ -76,7 +76,7 @@ Dynamic `Approval` and `Support` thresholds adapt based on the nature of the pro
 
 ### Examples of Origins in OpenGov
 
-In OpenGov, **Origins** represent the privilege levels assigned to different proposal types, each with distinct parameters to reflect its governance importance.
+In OpenGov, `Origins` represent the privilege levels assigned to different proposal types, each with distinct parameters to reflect its governance importance.
 
 Below are some key examples:
 
@@ -95,10 +95,10 @@ Below are some key examples:
 4. **Fellowship and General Admin Origins**:
     - Used for administrative decisions within specific domains, ensuring delegated authority can act promptly
 
-5. **Referendum Canceller and Killer Origins**
+5. **Referendum Canceller and Killer Origins**:
     - These specialized Origins handle the cancellation or permanent termination of proposals, requiring unique criteria due to their sensitive nature
 
-Each Origin has its own set of rules, like deposits, decision period, and confirmation period, designed to fit its purpose while ensuring fairness, efficiency, and network security.
+Each `Origin` has its own set of rules, like deposits, decision period, and confirmation period, designed to fit its purpose while ensuring fairness, efficiency, and network security.
 
 ## Tracks
 
@@ -106,14 +106,14 @@ Track is a system that organizes and manages proposals (referenda) in the OpenGo
 
 ### Key Features of OpenGov Tracks
 
-1. **Independent Tracks for each Origin** - every Origin (such as different groups or roles) has its own Track, meaning proposals from different Origins follow separate paths and are handled independently
+1. **Independent Tracks for each Origin** - every `Origin` (such as different groups or roles) has its own `Track`, meaning proposals from different `Origins` follow separate paths and are handled independently
 
-2. **Track stages** - each Track consists of several stages:
+2. **Track stages** - each `Track` consists of several stages:
     - **Preparation Period** - time for discussion before voting
     - **Voting Period** - active voting time
     - **Decision Period** - final decision-making on the proposal
     - **Confirmation Period** - verifying support before enactment
     - **Enactment Period** - final waiting period before the proposal takes effect
-    - **Configurable Parameters** - each Track has specific settings, like voting durations, deposit requirements, and approval thresholds, customized for the type of proposal
+    - **Configurable Parameters** - each `Track` has specific settings, like voting durations, deposit requirements, and approval thresholds, customized for the type of proposal
 
-3. **Separate from other Tracks** - Tracks operate independently, meaning proposals from different Origins are processed without interference, ensuring focused governance for each proposal
+3. **Separate from other Tracks** - `Tracks` operate independently, meaning proposals from different Origins are processed without interference, ensuring focused governance for each proposal

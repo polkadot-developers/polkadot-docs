@@ -1,6 +1,6 @@
 ---
 title: XCM Config
-description: TODO
+description: Learn how the XCM Executor configuration works for your custom Polkadot SDK-based runtime with detailed guidance and references.
 ---
 
 # XCM Config
@@ -11,6 +11,8 @@ The [`XCM executor`](https://github.com/paritytech/polkadot-sdk/tree/master/polk
 
 The executor is highly configurable, with the [`XCM builder`](https://github.com/paritytech/polkadot-sdk/tree/master/polkadot/xcm/xcm-builder/src){target=\_blank} offering building blocks to tailor the configuration to specific needs. While they serve as a foundation, users can easily create custom blocks to suit unique configurations. Users can also create their own building blocks to address unique needs.  This article examines the XCM configuration process, explain each configurable item, and provide examples of the tools and types available to help customize these settings.
 
+The `XcmExecutor` is not a pallet but a struct parameterized by a `Config` trait. The `Config` trait serves as the inner configuration, which in turn parameterizes the outer `XcmExecutor<Config>` struct. Both configurations are set up within the runtime.
+
 ## XCM Executor Configuration
 
 The XCM executor's configuration is defined by the Config trait, which requires several associated types. Each of these types has specific trait bounds that the concrete implementation must fulfill. Some types, such as `RuntimeCall`, come with a default implementation in most cases, while others use the unit type `()` as the default. For many of these types, it's important to carefully select the appropriate implementation. Pre-defined solutions and building blocks are available, which can be adapted to your specific needs. These solutions can be found in the xcm-builder folder.
@@ -18,37 +20,7 @@ The XCM executor's configuration is defined by the Config trait, which requires 
 Each type is explained below, along with an overview of some of its implementations:
 
 ```rust
-pub trait Config {
-    type RuntimeCall: Parameter + Dispatchable<PostInfo = PostDispatchInfo> + GetDispatchInfo;
-    type XcmSender: SendXcm;
-    type AssetTransactor: TransactAsset;
-    type OriginConverter: ConvertOrigin<<Self::RuntimeCall as Dispatchable>::RuntimeOrigin>;
-    type IsReserve: ContainsPair<MultiAsset, MultiLocation>;
-    type IsTeleporter: ContainsPair<MultiAsset, MultiLocation>;
-    type Aliasers: ContainsPair<Location, Location>;
-    type UniversalLocation: Get<InteriorMultiLocation>;
-    type Barrier: ShouldExecute;
-    type Weigher: WeightBounds<Self::RuntimeCall>;
-    type Trader: WeightTrader;
-    type ResponseHandler: OnResponse;
-    type AssetTrap: DropAssets;
-    type AssetClaims: ClaimAssets;
-    type AssetLocker: AssetLock;
-    type AssetExchanger: AssetExchange;
-    type SubscriptionService: VersionChangeNotifier;
-    type PalletInstancesInfo: PalletsInfoAccess;
-    type MaxAssetsIntoHolding: Get<u32>;
-    type FeeManager: FeeManager;
-    type MessageExporter: ExportXcm;
-    type UniversalAliases: Contains<(MultiLocation, Junction)>;
-    type CallDispatcher: CallDispatcher<Self::RuntimeCall>;
-    type SafeCallFilter: Contains<Self::RuntimeCall>;
-    type TransactionalProcessor: ProcessTransaction;
-    type HrmpNewChannelOpenRequestHandler: HandleHrmpNewChannelOpenRequest;
-    type HrmpChannelAcceptedHandler: HandleHrmpChannelAccepted;
-    type HrmpChannelClosingHandler: HandleHrmpChannelClosing;
-    type XcmRecorder: RecordXcm;
-}
+--8<-- 'code/develop/interoperability/xcm-config/xcm-config-trait.rs'
 ```
 
 ## Config Items
@@ -201,6 +173,65 @@ Each configuration item is explained below, detailing the purpose of the associa
     ```rust
     type XcmRecorder: RecordXcm;
     ```
+### Inner Config
+
+The `Config` trait underpins the `XcmExecutor`, defining its core behavior through associated types for asset handling, XCM processing, and permission management. These types are categorized as follows:
+
+- **Handlers** - manage message sending, asset transactions, and special notifications
+- **Filters** - define trusted combinations, origin substitutions, and execution barriers
+- **Converters** - handle origin conversion for call execution
+- **Accessors** - provide weight determination and pallet information
+- **Constants** - specify universal locations and asset limits
+- **Common Configs** - include shared settings like `RuntimeCall`
+
+The following diagram outlines this categorization:
+
+```mermaid
+flowchart LR
+    A[Inner Config] --> B[Handlers]
+    A --> C[Filters]
+    A --> D[Converters]
+    A --> E[Accessors]
+    A --> F[Constants]
+    A --> G[Common Configs]
+
+    B --> H[XcmSender]
+    B --> I[AssetTransactor]
+    B --> J[Trader]
+    B --> K[ResponseHandler]
+    B --> L[AssetTrap]
+    B --> M[AssetLocker]
+    B --> N[AssetExchanger]
+    B --> O[AssetClaims]
+    B --> P[SubscriptionService]
+    B --> Q[FeeManager]
+    B --> R[MessageExporter]
+    B --> S[CallDispatcher]
+    B --> T[HrmpNewChannelOpenRequestHandler]
+    B --> U[HrmpChannelAcceptedHandler]
+    B --> V[HrmpChannelClosingHandler]
+
+    C --> W[IsReserve]
+    C --> X[IsTeleporter]
+    C --> Y[Aliasers]
+    C --> Z[Barrier]
+    C --> AA[UniversalAliases]
+    C --> AB[SafeCallFilter]
+
+    D --> AC[OriginConverter]
+
+    E --> AD[Weigher]
+    E --> AE[PalletInstancesInfo]
+
+    F --> AF[UniversalLocation]
+    F --> AG[MaxAssetsIntoHolding]
+
+    G --> AH[RuntimeCall]
+```
+### Outer Config
+
+The `XcmExecutor<Config>` struct extends the functionality of the inner config by introducing fields for execution context, asset handling, error tracking, and operational management. For further details, see the documentation for [`XcmExecutor<Config>`](https://paritytech.github.io/polkadot-sdk/master/staging_xcm_executor/struct.XcmExecutor.html#impl-XcmExecutor%3CConfig%3E){target=\_blank}.
+
 
 ## Multiple Implementations
 
@@ -209,17 +240,5 @@ Some associated types in the `Config` trait are highly configurable and may have
 In the following example, when evaluating the barrier, the system will first check the `TakeWeightCredit` type. If it fails, it will proceed to check `AllowTopLevelPaidExecutionFrom`, and so on, until one of them returns a positive result. If all checks fail, a Barrier error will be triggered.
 
 ```rust
-pub type Barrier = (
-    TakeWeightCredit,
-    AllowTopLevelPaidExecutionFrom<Everything>,
-    AllowKnownQueryResponses<XcmPallet>,
-    AllowSubscriptionsFrom<Everything>,
-);
-
-pub struct XcmConfig;
-impl xcm_executor::Config for XcmConfig {
-    ...
-    type Barrier = Barrier;
-    ...
-}
+--8<-- 'code/develop/interoperability/xcm-config/barrier-example.rs'
 ```

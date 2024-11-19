@@ -1,5 +1,5 @@
 ---
-title: Overview
+title: Overview of the Polkadot Relay Chain
 description: Explore Polkadot's core architecture, including its multi-chain vision, shared security, runtime upgrades, and the DOT token's governance and staking roles.
 ---
 
@@ -7,7 +7,7 @@ description: Explore Polkadot's core architecture, including its multi-chain vis
 
 ## Introduction
 
-Polkadot is a next-generation blockchain protocol designed to support a multi-chain future by enabling secure communication and interoperability between different blockchains. Built as a Layer-0 protocol, Polkadot introduces innovations like application-specific Layer-1 chains (parachains), shared security through Nominated Proof of Stake (NPoS), and seamless cross-chain interactions via its native Cross-Consensus Messaging Format (XCM). 
+Polkadot is a next-generation blockchain protocol designed to support a multi-chain future by enabling secure communication and interoperability between different blockchains. Built as a Layer-0 protocol, Polkadot introduces innovations like application-specific Layer-1 chains (parachains), shared security through Nominated Proof of Stake (NPoS), and seamless cross-chain interactions via its native Cross-Consensus Messaging Format (XCM).
 
 This guide covers key aspects of Polkadot’s architecture, including its high-level protocol structure, runtime upgrades, blockspace commoditization, and the role of its native token, DOT, in governance, staking, and resource allocation.
 

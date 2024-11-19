@@ -22,13 +22,13 @@ While the Track structure is consistent across all `Origins`, the parameters for
 5. **Confirmation period** - denotes the minimum duration during which approval and support thresholds must be sustained for a proposal to proceed to the enactment period. The confirmation period should begin before the decision period ends
 6. **Voting period** - encompasses the entire duration during which voting is permitted on a referendum, including the preparation, decision, and confirmation periods
 7. **Minimum enactment period** - establishes the minimum wait time before the approved changes are implemented
-8. **Approval curve** - illustrates the minimum percentage of aye votes required over time within the decision period. The approval percentage is calculated as the proportion of aye votes (adjusted for conviction) relative to the total votes (aye, nay, and abstained)
+8. **Approval curve** - illustrates the minimum percentage of aye votes required over time within the decision period. The approval percentage is calculated as the proportion of aye votes (adjusted for conviction) relative to the total votes (`aye`, `nay`, and `abstained`)
 9. **Support curve** - depicts the minimum percentage of total votes in favor of a proposal over time during the decision period. Support percentage is defined as the proportion of aye and abstained votes (without conviction) relative to the system's total possible votes (i.e., the active issuance)
 
-For instance, a runtime upgrade (requiring a `set_code` call) has far-reaching implications for the ecosystem compared to the approval of a treasury tip (via a `reportAwesome` call). As a result, distinct origins are assigned for these actions, each with predefined parameters such as deposits, support, approval thresholds, and minimum enactment periods tailored to their specific requirements.
+For instance, a runtime upgrade (requiring a [`set_code`](https://paritytech.github.io/polkadot-sdk/master/frame_system/pallet/dispatchables/fn.set_code.html){target=\_blank} call) has far-reaching implications for the ecosystem compared to the approval of a treasury tip (via a [`report_awesome`](https://paritytech.github.io/polkadot-sdk/master/pallet_tips/pallet/dispatchables/fn.report_awesome.html){target=\_blank} call). As a result, distinct `Origins` are assigned for these actions, each with predefined parameters such as deposits, support, approval thresholds, and minimum enactment periods tailored to their specific requirements.
 
 !!!note
-    More information about terminology, parimiters can be fount on the [OpenGov Origins Wiki](https://wiki.polkadot.network/docs/learn-polkadot-opengov-origins){target=\_blanck} page.
+    More information about terminology and parameters can be found on the [OpenGov Origins Wiki](https://wiki.polkadot.network/docs/learn-polkadot-opengov-origins){target=\_blanck} page.
 
 In the table below you can find all **Origins** and its **Tracks** on Polkadot chain:
 

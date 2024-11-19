@@ -30,7 +30,7 @@ For instance, a runtime upgrade (requiring a [`set_code`](https://paritytech.git
 !!!note
     More information about terminology and parameters can be found on the [OpenGov Origins Wiki](https://wiki.polkadot.network/docs/learn-polkadot-opengov-origins){target=\_blanck} page.
 
-In the table below you can find all **Origins** and its **Tracks** on Polkadot chain:
+In the table below you can find all `Origins` and its `Tracks` on the Polkadot chain:
 
 | **ID** | **Origin**               | Max Deciding | Decision Deposit | Prepare Period | Decision Period | Confirm Period | Min Enactment Period | Min Approval      | Min Support       |
 |--------|--------------------------|--------------|------------------|----------------|-----------------|----------------|----------------------|-------------------|-------------------|
@@ -53,18 +53,16 @@ In the table below you can find all **Origins** and its **Tracks** on Polkadot c
 
 ## Origins
 
-_Origin_ is a key feature in Polkadot's OpenGov system, designed to organize and manage how decisions are made on the network.
+`Origin` is a key feature in Polkadot's OpenGov system, designed to organize and manage how decisions are made on the network. It ensures that every type of proposal, big or small, follows the right process, balancing the need for security with inclusivity and efficiency.
 
-It ensures that every type of proposal, big or small, follows the right process, balancing the need for security with inclusivity and efficiency.
-
-An Origin is a classification system that determines the rules for handling different types of proposals. Think of an Origin as a “decision category” where each has its own set of rules, privileges, and workflows. These rules govern how a proposal moves through the decision-making process, from submission to implementation.
+An `Origin` is a classification system that determines the rules for handling different types of proposals. Think of an `Origin` as a “decision category” where each has its own set of rules, privileges, and workflows. These rules govern how a proposal moves through the decision-making process, from submission to implementation.
 
 For example:
 
-- **High-privilege Origins** - like the Root Origin, are used for critical proposals that could significantly affect the entire network, such as upgrading the blockchain's core software
-- **Lower-privilege Origins** - like Treasury Origins, deal with smaller decisions like funding a community project or tipping a contributor
+- **High-privilege Origins** - like the `Root Origin`, are used for critical proposals that could significantly affect the entire network, such as upgrading the blockchain's core software
+- **Lower-privilege Origins** - like `Treasury Origins`, deal with smaller decisions like funding a community project or tipping a contributor
 
-Each Origin has a corresponding Track, which acts as a pathway for proposals to progress through the governance process. Tracks are independent, allowing decisions in one track to move forward without interfering with others.
+Each `Origin` has a corresponding `Track`, which acts as a pathway for proposals to progress through the governance process. `Tracks` are independent, allowing decisions in one track to move forward without interfering with others.
 
 ### How Origin Works
 

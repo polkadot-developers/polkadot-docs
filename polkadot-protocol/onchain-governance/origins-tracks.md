@@ -7,13 +7,13 @@ description: Learn about the Origins and Tracks in Polkadot's OpenGov, explainin
 
 ## Introduction
 
-As briefly described in the [OpenGov Overview](/polkadot-protocol/onchain-governance/overview/){target=\_blank} page, an Origin defines a specific level of privilege that determines the Track for all referenda executed under it.
+In Polkadot's OpenGov system, as outlined in the [OpenGov Overview](/polkadot-protocol/onchain-governance/overview/){target=\_blank}, an `Origin` represents a specific level of privilege, guiding the decision-making process for all referenda associated with it. Each `Origin` dictates the `Track` through which proposals are processed—tracks that operate independently of one another, ensuring that decisions are handled according to the unique needs of each proposal. 
 
-A Track functions as an independent pipeline where proposals are processed, separate from the Tracks of other Origins. The proposer of a referendum now selects an appropriate Origin based on the requirements of their proposal.
+Proposers choose the appropriate `Origin` based on the nature and requirements of their proposal, ensuring that the governance process remains efficient and structured.
 
 ## Track Parameters
 
-While the Track structure is consistent across all Origins, the parameters for each Track can vary. These parameters include:
+While the Track structure is consistent across all `Origins`, the parameters for each `Track` can vary. These parameters include:
 
 1. **Maximum deciding capacity** - defines the limit on the number of referenda that can be decided simultaneously, corresponding to the number of tracks within each origin
 2. **Decision deposit** - specifies the funds required to be deposited for a proposal to enter the decision period (additional requirements must also be met to proceed)

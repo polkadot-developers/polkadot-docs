@@ -1,6 +1,6 @@
 ---
 title: Origins and Tracks
-description: TODO
+description: Learn about the Origins and Tracks in Polkadot's OpenGov, explaining the privilege levels and decision-making processes.
 ---
 
 # Origins and Tracks

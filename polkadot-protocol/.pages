@@ -3,6 +3,5 @@ nav:
   - index.md
   - architecture
   - basics
-  - onchain-governance
-  - 'Polkadot SDK': polkadot-sdk.md
-  - 'Glossary': glossary.md
+  # - onchain-governance
+  - glossary

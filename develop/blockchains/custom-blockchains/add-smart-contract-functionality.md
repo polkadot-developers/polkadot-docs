@@ -18,7 +18,7 @@ To enable Ethereum-compatible smart contracts in your blockchain, you'll need to
 - [pallet-evm](https://github.com/polkadot-evm/frontier/tree/master/frame/evm){target=\_blank} - provides the EVM execution environment
 - [pallet-ethereum](https://github.com/polkadot-evm/frontier/tree/master/frame/ethereum){target=\_blank} - handles Ethereum-formatted transactions and RPC capabilities
 
-For step-by-step guidance on adding these pallets to your runtime, refer to [Add a Pallet to the Runtime](){target=\_blank}.
+For step-by-step guidance on adding these pallets to your runtime, refer to [Add a Pallet to the Runtime](/develop/blockchains/custom-blockchains/add-existing-pallets/){target=\_blank}.
 
 ## Wasm Smart Contracts
 

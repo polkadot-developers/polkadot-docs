@@ -44,7 +44,7 @@ The recommended minimum hardware requirements to ensure a fully functional and p
     - Simultaneous multithreading disabled:
         - Intel - Hyper-Threading
         - AMD - SMT
-    - [Single-threaded performance]((https://www.cpubenchmark.net/singleThread.html)){traget=\_blank} is prioritized over higher cores count
+    - [Single-threaded performance](https://www.cpubenchmark.net/singleThread.html){target=\_blank} is prioritized over higher cores count
 
 === "Storage"
 
@@ -64,7 +64,7 @@ The recommended minimum hardware requirements to ensure a fully functional and p
     - Symmetric networking speed of 500 Mbit/s is required to handle large numbers of parachains and ensure congestion control during peak times
 
 
-While the hardware specs above are best practice and not strict requirements, subpar hardware may lead to performance issues and increase the risk of slashing.
+While the hardware specs above are best practices and not strict requirements, subpar hardware may lead to performance issues and increase the risk of slashing.
 
 ## VPS Provider List
 
@@ -88,7 +88,7 @@ When selecting a VPS provider for your validator node, prioritize reliability, c
 
 ## Minimum Bond Requirement
 
-Before bonding DOT, ensure you meet the minimum bond requirement to start a validator instance. The minimum bond is the least DOT you need to stake to enter the validator set. To become eligible for rewards, your validator node needs to be nominated by enough staked tokens.
+Before bonding DOT, ensure you meet the minimum bond requirement to start a validator instance. The minimum bond is the least DOT you need to stake to enter the validator set. To become eligible for rewards, your validator node must be nominated by enough staked tokens.
 
 For example, on May 21st, 2024, the minimum stake backing a validator in Polkadot's era 1449 was 2,377,756.492 DOT. You can check the current minimum stake required using these tools:
 

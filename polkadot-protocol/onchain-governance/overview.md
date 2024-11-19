@@ -15,7 +15,7 @@ With OpenGov, Polkadot achieves a flexible, scalable, and democratic governance 
 
 ## Governance Evolution
 
-Polkadot’s governance journey began with Governance V1, a system that proved effective in managing treasury funds and protocol upgrades. However, it faced limitations, such as:
+Polkadot’s governance journey began with [Governance V1](https://wiki.polkadot.network/docs/learn/learn-governance#governance-summary){target=\_blank}, a system that proved effective in managing treasury funds and protocol upgrades. However, it faced limitations, such as:
 
 - Slow voting cycles, causing delays in decision-making
 - Inflexibility in handling multiple referendums, restricting scalability
@@ -43,7 +43,6 @@ In OpenGov, origins and tracks are central to managing proposals and votes.
 - **Track** - define the procedural flow of a proposal, such as voting duration, approval thresholds, and enactment timelines
 
 Developers must be aware that referendums from different origins and tracks will take varying amounts of time to reach approval and enactment. The [Polkadot Technical Fellowship](https://wiki.polkadot.network/docs/learn-polkadot-technical-fellowship){target=\_blank} has the option to shorten this timeline by whitelisting a proposal and allowing it to be enacted through the [Whitelist Caller](https://wiki.polkadot.network/docs/learn-polkadot-opengov-origins#whitelisted-caller){target=\_blank} origin.
-
 
 Visit [Origins and Tracks Info](https://wiki.polkadot.network/docs/learn-polkadot-opengov-origins#origins-and-tracks-info){target=\_blank} for details on current origins and tracks, associated terminology, and parameters.
 
@@ -83,8 +82,8 @@ See [Cancelling, Killing, and Blacklisting](https://wiki.polkadot.network/docs/l
 
 ## Additional Resources
 
-- [Democracy pallet](https://github.com/paritytech/polkadot-sdk/tree/master/substrate/frame/democracy/src){target=\_blank} - handles administration of general stakeholder voting
-- [Gov2: Polkadot’s Next Generation of Decentralised Governance](https://medium.com/polkadot-network/gov2-polkadots-next-generation-of-decentralised-governance-4d9ef657d11b){target=\_blank} - Medium article by Gavin Wood
-- [Polkadot Direction](https://matrix.to/#/#Polkadot-Direction:parity.io){target=\_blank} -  Matrix Element client
-- [PolkAssembly](https://polkadot.polkassembly.io/){target=\_blank} - OpenGov dashboard and UI
-- [PolkadotJS Governance](https://polkadot.js.org/apps/#/referenda){target=\_blank} - overview of active referendums
+- [**Democracy pallet**](https://github.com/paritytech/polkadot-sdk/tree/master/substrate/frame/democracy/src){target=\_blank} - handles administration of general stakeholder voting
+- [**Gov2: Polkadot’s Next Generation of Decentralised Governance**](https://medium.com/polkadot-network/gov2-polkadots-next-generation-of-decentralised-governance-4d9ef657d11b){target=\_blank} - Medium article by Gavin Wood
+- [**Polkadot Direction**](https://matrix.to/#/#Polkadot-Direction:parity.io){target=\_blank} -  Matrix Element client
+- [**Polkassembly**](https://polkadot.polkassembly.io/){target=\_blank} - OpenGov dashboard and UI
+- [**Polkadot.js Apps Governance**](https://polkadot.js.org/apps/#/referenda){target=\_blank} - overview of active referendums

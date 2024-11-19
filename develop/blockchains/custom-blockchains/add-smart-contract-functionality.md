@@ -7,7 +7,7 @@ description: Add smart contract capabilities to your Polkadot SDK-based blockcha
 
 ## Introduction
 
-When building your custom blockchain with the Polkadot SDK, you have the flexibility to add smart contract capabilities through specialized pallets. These pallets allow your blockchain users to deploy and execute smart contracts, enhancing your chain's functionality and programmability.
+When building your custom blockchain with the Polkadot SDK, you have the flexibility to add smart contract capabilities through specialized pallets. These pallets allow blockchain users to deploy and execute smart contracts, enhancing your chain's functionality and programmability.
 
 Polkadot SDK-based blockchains support two distinct smart contract execution environments: EVM (Ethereum Virtual Machine) and Wasm (WebAssembly). Each environment allows developers to deploy and execute different types of smart contracts, providing flexibility in choosing the most suitable solution for their needs.
 

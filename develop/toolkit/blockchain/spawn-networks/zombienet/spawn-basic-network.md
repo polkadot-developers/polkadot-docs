@@ -26,7 +26,7 @@ touch spawn-a-basic-network.toml
 ```
 2. Add the following code to the file you just created:
 ```toml title="spawn-a-basic-network.toml"
---8<-- 'code/develop/toolkit/blockchain/spawn-testing-chain/spawn-a-basic-network.toml'
+--8<-- 'code/develop/toolkit/blockchain/spawn-networks/zombienet/spawn-basic-network/spawn-a-basic-network.toml'
 ```
 
 This configuration file defines a network with the following chains:
@@ -48,7 +48,7 @@ This command will spawn the network defined in the `spawn-a-basic-network.toml` 
 
 If successful, you will see the following output:
 
---8<-- 'code/develop/toolkit/blockchain/spawn-testing-chain/spawn-network-terminal-01.html'
+--8<-- 'code/develop/toolkit/blockchain/spawn-networks/zombienet/spawn-basic-network/spawn-network-terminal-01.html'
 
 !!! note 
     If the IPs and ports aren't explicitly defined in the configuration file, they may change each time the network is started, causing the links provided in the output to differ from the example.
@@ -59,12 +59,12 @@ After the network is launched, you can interact with it using [Polkadot.js Apps]
 
 ### Connect to the Nodes
 
-Use this [port address](https://polkadot.js.org/apps/?rpc=ws://127.0.0.1:55308#explorer) to interact with the same `alice` node used for this tutorial. Ports can change from spawn to spawn so be sure to locate the link in the output when spawning your own node to ensure you are accessing the correct port.
+Use this [port address](https://polkadot.js.org/apps/?rpc=ws://127.0.0.1:55308#explorer){target=\_blank} to interact with the same `alice` node used for this tutorial. Ports can change from spawn to spawn so be sure to locate the link in the output when spawning your own node to ensure you are accessing the correct port.
 
 If you want to interact with the nodes more programmatically, you can also use the [Polkadot.js API](https://polkadot.js.org/api/){target=\_blank}. For example, the following code snippet shows how to connect to the `alice` node using the Polkadot.js API and log some information about the chain and node:
 
 ```typescript
---8<-- 'code/develop/toolkit/blockchain/spawn-testing-chain/connect-to-alice-01.js'
+--8<-- 'code/develop/toolkit/blockchain/spawn-networks/zombienet/spawn-basic-network/connect-to-alice-01.js'
 ```
 
 Both methods allow you to interact easily with the network and its nodes.
@@ -73,7 +73,7 @@ Both methods allow you to interact easily with the network and its nodes.
 
 You can also check the metrics of the nodes by accessing the links provided in the output as `Prometheus Link`. [Prometheus](https://prometheus.io/){target=\_blank} is a monitoring and alerting toolkit that collects metrics from the nodes. By accessing the provided links, you can see the metrics of the nodes in a web interface. So, for example, the following image shows the Prometheus metrics for Bob’s node from the Zombienet test:
 
-![Prometheus metrics for Bob’s node from the Zombienet test](/images/develop/toolkit/blockchain/spawn-testing-chain/zombienet-tutorials-1.webp)
+![](/images/develop/toolkit/blockchain/spawn-networks/zombienet/spawn-basic-network/spawn-basic-network-01.webp)
 
 ### Check Logs
 
@@ -274,7 +274,7 @@ touch spawn-a-basic-network-test.zndsl
 
 2. Add the following code to the file you just created.
 ```toml title="spawn-a-basic-network-test.zndsl"
---8<-- 'code/develop/toolkit/blockchain/spawn-testing-chain/spawn-a-basic-network-test-zndsl.toml'
+--8<-- 'code/develop/toolkit/blockchain/spawn-networks/zombienet/spawn-basic-network/spawn-a-basic-network-test-zndsl.toml'
 ```
 
 This test scenario checks to verify the following:
@@ -301,12 +301,12 @@ The following example test files define two tests, a small network test and a bi
 The tests define assertions to evaluate the network’s metrics and logs. The assertions are defined by sentences in the DSL, which are mapped to tests to run.
 
 ```toml title="small-network-test.zndsl"
---8<-- 'code/develop/toolkit/blockchain/spawn-testing-chain/example-test-01.toml'
+--8<-- 'code/develop/toolkit/blockchain/spawn-networks/zombienet/spawn-basic-network/example-test-01.toml'
 ```
 
 And the second test file:
 
 ```toml title="big-network-test.zndsl"
---8<-- 'code/develop/toolkit/blockchain/spawn-testing-chain/example-test-02.toml'
+--8<-- 'code/develop/toolkit/blockchain/spawn-networks/zombienet/spawn-basic-network/example-test-02.toml'
 ```
 

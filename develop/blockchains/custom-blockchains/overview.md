@@ -1,5 +1,5 @@
 ---
-title: Overview
+title: Overview of FRAME
 description: Learn how Polkadot SDK’s FRAME framework simplifies blockchain development with modular pallets and support libraries for efficient runtime design.
 ---
 

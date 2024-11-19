@@ -1,5 +1,5 @@
 ---
-title: Testing Setup
+title: Testing Setup for a Polkadot SDK-Based Chain
 description: Learn how to create a mock environment to test complete runtime functionalities in the Polkadot SDK, ensuring integration between pallets and system components.
 ---
 

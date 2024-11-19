@@ -43,6 +43,11 @@ pub trait Config {
     type UniversalAliases: Contains<(MultiLocation, Junction)>;
     type CallDispatcher: CallDispatcher<Self::RuntimeCall>;
     type SafeCallFilter: Contains<Self::RuntimeCall>;
+    type TransactionalProcessor: ProcessTransaction;
+    type HrmpNewChannelOpenRequestHandler: HandleHrmpNewChannelOpenRequest;
+    type HrmpChannelAcceptedHandler: HandleHrmpChannelAccepted;
+    type HrmpChannelClosingHandler: HandleHrmpChannelClosing;
+    type XcmRecorder: RecordXcm;
 }
 ```
 
@@ -84,13 +89,15 @@ Each configuration item is explained below, detailing the purpose of the associa
     type Aliasers: ContainsPair<Location, Location>;
     ```
 
-- [`UniversalLocation`](https://paritytech.github.io/polkadot-sdk/master/staging_xcm_executor/trait.Config.html#associatedtype.UniversalLocation){target=\_blank} - specifies the runtime's location in the consensus universe, such as:
-    - X1(GlobalConsensus(NetworkId::Polkadot)) for Polkadot
-    - X1(GlobalConsensus(NetworkId::Kusama)) for Kusama
-    - X2(GlobalConsensus(NetworkId::Polkadot), Parachain(1000)) for Statemint
+- [`UniversalLocation`](https://paritytech.github.io/polkadot-sdk/master/staging_xcm_executor/trait.Config.html#associatedtype.UniversalLocation){target=\_blank} - specifies the runtime's location in the consensus universe
     ```rust
     type UniversalLocation: Get<InteriorMultiLocation>;
     ```
+
+    - Some examples are:
+        - `X1(GlobalConsensus(NetworkId::Polkadot))` for Polkadot
+        - `X1(GlobalConsensus(NetworkId::Kusama))` for Kusama
+        - `X2(GlobalConsensus(NetworkId::Polkadot), Parachain(1000))` for Statemint
 
 - [`Barrier`](https://paritytech.github.io/polkadot-sdk/master/staging_xcm_executor/trait.Config.html#associatedtype.Barrier){target=\_blank} - implements the [`ShouldExecute`](https://paritytech.github.io/polkadot-sdk/master/staging_xcm_executor/traits/trait.ShouldExecute.html){target=\_blank} trait, functioning as a firewall for XCM execution. Multiple barriers can be combined in a tuple, where execution halts if one succeeds
     ```rust
@@ -167,9 +174,32 @@ Each configuration item is explained below, detailing the purpose of the associa
     type CallDispatcher: CallDispatcher<Self::RuntimeCall>;
     ```
 
-- [`SafeCallFilter`](){target=\_blank} - Whitelists calls permitted in the `Transact` instruction. Using `Everything` allows all calls, though this is temporary until proof size weights are accounted for
+- [`SafeCallFilter`](https://paritytech.github.io/polkadot-sdk/master/staging_xcm_executor/trait.Config.html#associatedtype.SafeCallFilter){target=\_blank} - whitelists calls permitted in the `Transact` instruction. Using `Everything` allows all calls, though this is temporary until proof size weights are accounted for
     ```rust
     type SafeCallFilter: Contains<Self::RuntimeCall>;
+    ```
+
+- [`TransactionalProcessor`](https://paritytech.github.io/polkadot-sdk/master/staging_xcm_executor/trait.Config.html#associatedtype.TransactionalProcessor){target=\_blank} - implements the [`ProccessTransaction`](https://paritytech.github.io/polkadot-sdk/master/staging_xcm_executor/traits/trait.ProcessTransaction.html){target=\_blank} trait. It ensures that XCM instructions are executed atomically, meaning they either fully succeed or fully fail without any partial effects. This type allows for non-transactional XCM instruction processing by setting the `()` type
+    ```rust
+    type TransactionalProcessor: ProcessTransaction;
+    ```
+
+- [`HrmpNewChannelOpenRequestHandler`](https://paritytech.github.io/polkadot-sdk/master/staging_xcm_executor/trait.Config.html#associatedtype.HrmpNewChannelOpenRequestHandler){target=\_blank} - enables optional logic execution in response to the `HrmpNewChannelOpenRequest` XCM notification
+    ```rust
+    type HrmpNewChannelOpenRequestHandler: HandleHrmpNewChannelOpenRequest;
+    ```
+
+- [`HrmpChannelAcceptedHandler`](https://paritytech.github.io/polkadot-sdk/master/staging_xcm_executor/trait.Config.html#associatedtype.HrmpChannelAcceptedHandler){target=\_blank} - enables optional logic execution in response to the `HrmpChannelAccepted` XCM notification
+    ```rust
+    type HrmpChannelAcceptedHandler: HandleHrmpChannelAccepted;
+    ```
+- [`HrmpChannelClosingHandler`](){target=\_blank} - enables optional logic execution in response to the `HrmpChannelClosing` XCM notification
+    ```rust
+    type HrmpChannelClosingHandler: HandleHrmpChannelClosing;
+    ```
+- [`XcmRecorder`](https://paritytech.github.io/polkadot-sdk/master/staging_xcm_executor/trait.Config.html#associatedtype.XcmRecorder){target=\_blank} - allows tracking of the most recently executed XCM, primarily for use with dry-run runtime APIs
+    ```rust
+    type XcmRecorder: RecordXcm;
     ```
 
 ## Multiple Implementations

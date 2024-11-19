@@ -30,7 +30,7 @@ The Polkadot SDK is composed of five major components:
 - [**Substrate**](https://paritytech.github.io/polkadot-sdk/master/polkadot_sdk_docs/polkadot_sdk/substrate/index.html){target=\_blank} - a set of libraries and primitives for building blockchains
 - [**FRAME**](https://paritytech.github.io/polkadot-sdk/master/polkadot_sdk_docs/polkadot_sdk/frame_runtime/index.html){target=\_blank} - a blockchain development framework built on top of Substrate
 - [**Cumulus**](https://paritytech.github.io/polkadot-sdk/master/polkadot_sdk_docs/polkadot_sdk/cumulus/index.html){target=\_blank} - a set of libraries and pallets to add parachain capabilities to a Substrate/FRAME runtime
-- [**XCM (Cross Consensus Messaging)**](https://paritytech.github.io/polkadot-sdk/master/polkadot_sdk_docs/polkadot_sdk/xcm/index.html){target=\_blank} - the primary format for conveying messages between parachains 
+- [**XCM (Cross Consensus Messaging)**](https://paritytech.github.io/polkadot-sdk/master/polkadot_sdk_docs/polkadot_sdk/xcm/index.html){target=\_blank} - the primary format for conveying messages between parachains
 - [**Polkadot**](https://paritytech.github.io/polkadot-sdk/master/polkadot_sdk_docs/polkadot_sdk/polkadot/index.html){target=\_blank} - the node implementation for the Polkadot protocol
 
 ### Substrate
@@ -73,9 +73,7 @@ graph LR
 ```
 
 1. [**Install the Polkadot SDK**](/develop/blockchains/get-started/install-polkadot-sdk/){target=\_blank} - set up your development environment with all necessary dependencies and tools
-
 2. [**Build the chain**](/develop/blockchains/get-started/build-custom-blockchains/){target=\_blank} - learn how to create and customize your blockchain's runtime, configure pallets, and implement your chain's unique features
-
-3. [Deploy the chain](/develop/blockchains/get-started/deploy-blockchain-to-polkadot/){target=\_blank} - follow the steps to launch your blockchain, whether as a standalone network or as a parachain on Polkadot
+3. [**Deploy the chain**](/develop/blockchains/get-started/deploy-blockchain-to-polkadot/){target=\_blank} - follow the steps to launch your blockchain, whether as a standalone network or as a parachain on Polkadot
 
 Each stage is covered in detail in its respective guide, walking you through the process from initial setup to final deployment.

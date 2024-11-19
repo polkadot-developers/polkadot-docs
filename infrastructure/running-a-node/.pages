@@ -3,4 +3,4 @@ nav:
   - index.md
   - 'Set Up a Full Node': setup-full-node.md
   - 'Set Up a Bootnode': setup-bootnode.md
-  - 'Common Node Flags': common-node-flags.md
+  # - 'Common Node Flags': common-node-flags.md

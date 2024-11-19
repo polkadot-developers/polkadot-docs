@@ -66,17 +66,13 @@ Each `Origin` has a corresponding `Track`, which acts as a pathway for proposals
 
 ### How Origin Works
 
-Origin streamlines governance by categorizing proposals based on their significance, assigning each to an Origin that defines its privilege level and procedural rules.
+The `Origin` system streamlines governance by categorizing proposals based on their significance, assigning each proposal to an appropriate `Origin` that sets the privilege level and procedural rules.
 
-These Origins map to Tracks, which guide proposals through stages like submission, voting, and enactment while operating independently of one another.
+Each `Origin` corresponds to a distinct `Track`, guiding proposals through various stages—such as submission, voting, and enactment—while ensuring these processes remain independent of each other.
 
-Each Origin has customized parameters, including limits on concurrent proposals (capacity), required deposits, timeframes for preparation, voting, and confirmation.
+With customized parameters, each `Origin` defines key aspects of the proposal process, such as the maximum number of concurrent proposals (capacity), required deposits, and specific timeframes for preparation, voting, and confirmation.
 
-Approval and Support thresholds adjust dynamically, ensuring fairness and security.
-
-Critical proposals under high-privilege Origins, like Root, face stricter thresholds and longer timelines.
-
-Meanwhile, lower-privilege Origins, such as Treasury, enable quicker decisions with reduced requirements. This system balances efficiency, inclusivity, and network safety for diverse governance needs.
+Dynamic `Approval` and `Support` thresholds adapt based on the nature of the proposal, maintaining a fair and secure process. High-privilege `Origins`, like `Root`, impose stricter approval conditions and longer timelines due to their greater impact. On the other hand, lower-privilege `Origins`, such as `Treasury`, are designed for quicker decisions with fewer requirements, striking a balance between efficiency, inclusivity, and security for the entire network.
 
 ### Examples of Origins in OpenGov
 

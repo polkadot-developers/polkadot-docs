@@ -7,15 +7,15 @@ description: Learn how the XCM Executor configuration works for your custom Polk
 
 ## Introduction
 
-The [`XCM executor`](https://github.com/paritytech/polkadot-sdk/tree/master/polkadot/xcm/xcm-executor/src){target=\_blank} is key component responsible for interpreting and executing XCM messages with Polkadot SDK-based chains. It processes and manages XCM instructions, ensuring they are executed correctly and in the proper sequence. Adhering to the Cross-Consensus Virtual Machine (XCVM) specification, the XCM executor can be customized or replaced with an alternative that also complies with the [`XCVM standards`](https://github.com/polkadot-fellows/xcm-format?tab=readme-ov-file#12-the-xcvm){target=\_blank}.
+The [`XCM executor`](https://github.com/paritytech/polkadot-sdk/tree/master/polkadot/xcm/xcm-executor/src){target=\_blank} is a crucial component responsible for interpreting and executing XCM messages with Polkadot SDK-based chains. It processes and manages XCM instructions, ensuring they are executed correctly and in sequentially. Adhering to the Cross-Consensus Virtual Machine (XCVM) specification, the XCM executor can be customized or replaced with an alternative that also complies with the [`XCVM standards`](https://github.com/polkadot-fellows/xcm-format?tab=readme-ov-file#12-the-xcvm){target=\_blank}.
 
-The executor is highly configurable, with the [`XCM builder`](https://github.com/paritytech/polkadot-sdk/tree/master/polkadot/xcm/xcm-builder/src){target=\_blank} offering building blocks to tailor the configuration to specific needs. While they serve as a foundation, users can easily create custom blocks to suit unique configurations. Users can also create their own building blocks to address unique needs.  This article examines the XCM configuration process, explain each configurable item, and provide examples of the tools and types available to help customize these settings.
+The `XcmExecutor` is not a pallet but a struct parameterized by a `Config` trait. The `Config` trait is the inner configuration, parameterizing the outer `XcmExecutor<Config>` struct. Both configurations are set up within the runtime.
 
-The `XcmExecutor` is not a pallet but a struct parameterized by a `Config` trait. The `Config` trait serves as the inner configuration, which in turn parameterizes the outer `XcmExecutor<Config>` struct. Both configurations are set up within the runtime.
+The executor is highly configurable, with the [`XCM builder`](https://github.com/paritytech/polkadot-sdk/tree/master/polkadot/xcm/xcm-builder/src){target=\_blank} offering building blocks to tailor the configuration to specific needs. While they serve as a foundation, users can easily create custom blocks to suit unique configurations. Users can also create their building blocks to address unique needs. This article examines the XCM configuration process, explains each configurable item, and provides examples of the tools and types available to help customize these settings.
 
 ## XCM Executor Configuration
 
-The XCM executor's configuration is defined by the Config trait, which requires several associated types. Each of these types has specific trait bounds that the concrete implementation must fulfill. Some types, such as `RuntimeCall`, come with a default implementation in most cases, while others use the unit type `()` as the default. For many of these types, it's important to carefully select the appropriate implementation. Pre-defined solutions and building blocks are available, which can be adapted to your specific needs. These solutions can be found in the xcm-builder folder.
+The Config trait defines the XCM executor’s configuration, which requires several associated types. Each type has specific trait bounds that the concrete implementation must fulfill. Some types, such as `RuntimeCall`, come with a default implementation in most cases, while others use the unit type `()` as the default. For many of these types, selecting the appropriate implementation carefully is crucial. Pre-defined solutions and building blocks can be adapted to your specific needs. These solutions can be found in the [`xcm-builder`](https://github.com/paritytech/polkadot-sdk/tree/master/polkadot/xcm/xcm-builder){target=\_blank} folder.
 
 Each type is explained below, along with an overview of some of its implementations:
 
@@ -25,7 +25,7 @@ Each type is explained below, along with an overview of some of its implementati
 
 ## Config Items
 
-Each configuration item is explained below, detailing the purpose of the associated type and its role in the XCM executor. Many of these types have predefined solutions available in the `xcm-builder`. Therefore, the available configuration items are:
+Each configuration item is explained below, detailing the associated type’s purpose and role in the `XCM executor`. Many of these types have predefined solutions available in the `xcm-builder`. Therefore, the available configuration items are:
 
 - [`RuntimeCall`](https://paritytech.github.io/polkadot-sdk/master/staging_xcm_executor/trait.Config.html#associatedtype.RuntimeCall){target=\_blank} - defines the runtime's callable functions, created via the [frame::runtime](https://paritytech.github.io/polkadot-sdk/master/frame_support/attr.runtime.html){target=\_blank} macro. It represents an enum listing the callable functions of all implemented pallets
     ```rust
@@ -235,9 +235,9 @@ The `XcmExecutor<Config>` struct extends the functionality of the inner config b
 
 ## Multiple Implementations
 
-Some associated types in the `Config` trait are highly configurable and may have multiple implementations (e.g., Barrier). These implementations are organized into a tuple `(impl_1, impl_2, ..., impl_n)`, and the execution follows a sequential order. Each item in the tuple is evaluated one by one, with each being checked to see if it fails. If an item passes (e.g., returns `Ok` or `true`), the execution stops, and the remaining items are not evaluated. The next example of the `Barrier` type demonstrates how this grouping operates (understanding each item in the tuple is not necessary for this explanation).
+Some associated types in the `Config` trait are highly configurable and may have multiple implementations (e.g., Barrier). These implementations are organized into a tuple `(impl_1, impl_2, ..., impl_n)`, and the execution follows a sequential order. Each item in the tuple is evaluated individually, each being checked to see if it fails. If an item passes (e.g., returns `Ok` or `true`), the execution stops, and the remaining items are not evaluated. The following example of the `Barrier` type demonstrates how this grouping operates (understanding each item in the tuple is unnecessary for this explanation).
 
-In the following example, when evaluating the barrier, the system will first check the `TakeWeightCredit` type. If it fails, it will proceed to check `AllowTopLevelPaidExecutionFrom`, and so on, until one of them returns a positive result. If all checks fail, a Barrier error will be triggered.
+In the following example, the system will first check the `TakeWeightCredit` type when evaluating the barrier. If it fails, it will check `AllowTopLevelPaidExecutionFrom`, and so on, until one of them returns a positive result. If all checks fail, a Barrier error will be triggered.
 
 ```rust
 --8<-- 'code/develop/interoperability/xcm-config/barrier-example.rs'

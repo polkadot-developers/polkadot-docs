@@ -3,4 +3,6 @@ nav:
   - index.md
   - 'Overview': overview.md
   - 'Wasm (ink!)': wasm-ink.md
-  - 'EVM': evm.md
+  - evm
+
+

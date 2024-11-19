@@ -90,7 +90,7 @@ When selecting a VPS provider for your validator node, prioritize reliability, c
 
 Before bonding DOT, ensure you meet the minimum bond requirement to start a validator instance. The minimum bond is the least DOT you need to stake to enter the validator set. To become eligible for rewards, your validator node must be nominated by enough staked tokens.
 
-For example, on May 21st, 2024, the minimum stake backing a validator in Polkadot's era 1449 was 2,377,756.492 DOT. You can check the current minimum stake required using these tools:
+For example, on November 19, 2024, the minimum stake backing a validator in Polkadot's era 1632 was 1,159,434.248 DOT. You can check the current minimum stake required using these tools:
 
 - [**Chain State Values**](https://wiki.polkadot.network/docs/chain-state-values){target=\_blank}
 - [**Subscan**](https://polkadot.subscan.io/validator_list?status=validator){target=\_blank}

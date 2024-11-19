@@ -25,6 +25,7 @@ pub trait Config {
     type OriginConverter: ConvertOrigin<<Self::RuntimeCall as Dispatchable>::RuntimeOrigin>;
     type IsReserve: ContainsPair<MultiAsset, MultiLocation>;
     type IsTeleporter: ContainsPair<MultiAsset, MultiLocation>;
+    type Aliasers: ContainsPair<Location, Location>;
     type UniversalLocation: Get<InteriorMultiLocation>;
     type Barrier: ShouldExecute;
     type Weigher: WeightBounds<Self::RuntimeCall>;
@@ -85,7 +86,7 @@ Each configuration item is explained below, detailing the purpose of the associa
     type AssetTransactor: TransactAsset;
     ```
 
-- [`OriginConverter`](){target=\_blank} - implements the [`ConvertOrigin`](https://paritytech.github.io/polkadot-sdk/master/staging_xcm_executor/traits/trait.ConvertOrigin.html){target=\_blank} trait to map `MultiLocation` origins to `RuntimeOrigin`. Multiple implementations can be combined, and [`OriginKind`](https://paritytech.github.io/polkadot-sdk/master/staging_xcm_builder/test_utils/enum.OriginKind.html){target=\_blank} is used to resolve conflicts. Pre-defined converters like [`SovereignSignedViaLocation`](https://paritytech.github.io/polkadot-sdk/master/staging_xcm_builder/struct.SovereignSignedViaLocation.html){target=\_blank} and [`SignedAccountId32AsNative`](https://paritytech.github.io/polkadot-sdk/master/staging_xcm_builder/struct.SignedAccountId32AsNative.html){target=\_blank} handle sovereign and local accounts respectively
+- [`OriginConverter`](https://paritytech.github.io/polkadot-sdk/master/staging_xcm_executor/trait.Config.html#associatedtype.OriginConverter){target=\_blank} - implements the [`ConvertOrigin`](https://paritytech.github.io/polkadot-sdk/master/staging_xcm_executor/traits/trait.ConvertOrigin.html){target=\_blank} trait to map `MultiLocation` origins to `RuntimeOrigin`. Multiple implementations can be combined, and [`OriginKind`](https://paritytech.github.io/polkadot-sdk/master/staging_xcm_builder/test_utils/enum.OriginKind.html){target=\_blank} is used to resolve conflicts. Pre-defined converters like [`SovereignSignedViaLocation`](https://paritytech.github.io/polkadot-sdk/master/staging_xcm_builder/struct.SovereignSignedViaLocation.html){target=\_blank} and [`SignedAccountId32AsNative`](https://paritytech.github.io/polkadot-sdk/master/staging_xcm_builder/struct.SignedAccountId32AsNative.html){target=\_blank} handle sovereign and local accounts respectively
     ```rust
     type OriginConverter: ConvertOrigin<<Self::RuntimeCall as Dispatchable>::RuntimeOrigin>;
     ```
@@ -95,58 +96,96 @@ Each configuration item is explained below, detailing the purpose of the associa
     type IsReserve: ContainsPair<MultiAsset, MultiLocation>;
     ```
 
-- [`IsTeleporter`](){target=\_blank} - defines trusted `<MultiAsset, MultiLocation>` pairs for teleporting assets to the chain. Using `()` blocks the [`ReceiveTeleportedAssets`](https://paritytech.github.io/polkadot-sdk/master/staging_xcm_builder/test_utils/enum.Instruction.html#variant.ReceiveTeleportedAsset){target=\_blank} instruction. The [`NativeAsset`](https://paritytech.github.io/polkadot-sdk/master/staging_xcm_builder/struct.NativeAsset.html){target=\_blank} struct can act as an implementation
+- [`IsTeleporter`](https://paritytech.github.io/polkadot-sdk/master/staging_xcm_executor/trait.Config.html#associatedtype.IsTeleporter){target=\_blank} - defines trusted `<MultiAsset, MultiLocation>` pairs for teleporting assets to the chain. Using `()` blocks the [`ReceiveTeleportedAssets`](https://paritytech.github.io/polkadot-sdk/master/staging_xcm_builder/test_utils/enum.Instruction.html#variant.ReceiveTeleportedAsset){target=\_blank} instruction. The [`NativeAsset`](https://paritytech.github.io/polkadot-sdk/master/staging_xcm_builder/struct.NativeAsset.html){target=\_blank} struct can act as an implementation
+    ```rust
+    type IsTeleporter: ContainsPair<MultiAsset, MultiLocation>;
+    ```
+- [`Aliasers`](https://paritytech.github.io/polkadot-sdk/master/staging_xcm_executor/trait.Config.html#associatedtype.Aliasers){target=\_blank} - a list of (Origin, Target) pairs enabling each Origin to be replaced with its corresponding Target
+    ```rust
+    type Aliasers: ContainsPair<Location, Location>;
+    ```
 
-UniversalLocation
-Specifies the runtime's location in the consensus universe, such as:
+- [`UniversalLocation`](https://paritytech.github.io/polkadot-sdk/master/staging_xcm_executor/trait.Config.html#associatedtype.UniversalLocation){target=\_blank} - specifies the runtime's location in the consensus universe, such as:
+    - X1(GlobalConsensus(NetworkId::Polkadot)) for Polkadot
+    - X1(GlobalConsensus(NetworkId::Kusama)) for Kusama
+    - X2(GlobalConsensus(NetworkId::Polkadot), Parachain(1000)) for Statemint
+    ```rust
+    type UniversalLocation: Get<InteriorMultiLocation>;
+    ```
+- [`Barrier`](https://paritytech.github.io/polkadot-sdk/master/staging_xcm_executor/trait.Config.html#associatedtype.Barrier){target=\_blank} - implements the [`ShouldExecute`](https://paritytech.github.io/polkadot-sdk/master/staging_xcm_executor/traits/trait.ShouldExecute.html){target=\_blank} trait, functioning as a firewall for XCM execution. Multiple barriers can be combined in a tuple, where execution halts if one succeeds
+    ```rust
+    type Barrier: ShouldExecute;
+    ```
 
-X1(GlobalConsensus(NetworkId::Polkadot)) for Polkadot.
-X1(GlobalConsensus(NetworkId::Kusama)) for Kusama.
-X2(GlobalConsensus(NetworkId::Polkadot), Parachain(1000)) for Statemint.
-Barrier
-Implements the ShouldExecute trait, functioning as a firewall for XCM execution. Multiple barriers can be combined in a tuple, where execution halts if one succeeds. Pre-defined barriers, such as AllowTopLevelPaidExecutionFrom, are available.
+- [`Weigher`](https://paritytech.github.io/polkadot-sdk/master/staging_xcm_executor/trait.Config.html#associatedtype.Weigher){target=\_blank} - calculates the weight of XCMs and instructions, enforcing limits and refunding unused weight. Common solutions include [`FixedWeightBounds`](https://paritytech.github.io/polkadot-sdk/master/staging_xcm_builder/struct.FixedWeightBounds.html){target=\_blank}, which uses a base weight and limits on instructions
+    ```rust
+    type Weigher: WeightBounds<Self::RuntimeCall>;
+    ```
 
-Weigher
-Calculates the weight of XCMs and instructions, enforcing limits and refunding unused weight. Common solutions include FixedWeightBounds, which uses a base weight and limits on instructions.
+- [`Trader`](https://paritytech.github.io/polkadot-sdk/master/staging_xcm_executor/trait.Config.html#associatedtype.Trader){target=\_blank} - manages asset-based weight purchases and refunds for `BuyExecution` instructions. The [`UsingComponents`](https://paritytech.github.io/polkadot-sdk/master/staging_xcm_builder/struct.UsingComponents.html){target=\_blank} trader is a common implementation
+    ```rust
+    type Trader: WeightTrader;
+    ```
 
-Trader
-Manages asset-based weight purchases and refunds for BuyExecution instructions. The UsingComponents trader is a common implementation.
+- [`ResponseHandler`](https://paritytech.github.io/polkadot-sdk/master/staging_xcm_executor/trait.Config.html#associatedtype.ResponseHandler){target=\_blank} - handles `QueryResponse` instructions, implementing the [`OnResponse`](https://paritytech.github.io/polkadot-sdk/master/staging_xcm_executor/traits/trait.OnResponse.html){target=\_blank} trait. FRAME systems typically use the pallet-xcm implementation
+    ```rust
+    type ResponseHandler: OnResponse;
+    ```
 
-ResponseHandler
-Handles QueryResponse instructions, implementing the OnResponse trait. FRAME systems typically use the pallet-xcm implementation.
+- [`AssetTrap`](https://paritytech.github.io/polkadot-sdk/master/staging_xcm_executor/trait.Config.html#associatedtype.AssetTrap){target=\_blank} - handles leftover assets in the holding register after XCM execution, allowing them to be claimed via `ClaimAsset`. If unsupported, assets are burned
+    ```rust
+    type AssetTrap: DropAssets;
+    ```
 
-AssetTrap
-Handles leftover assets in the holding register after XCM execution, allowing them to be claimed via ClaimAsset. If unsupported, assets are burned.
+- [`AssetClaims`](https://paritytech.github.io/polkadot-sdk/master/staging_xcm_executor/trait.Config.html#associatedtype.AssetClaims){target=\_blank} - facilitates the claiming of trapped assets during the execution of the `ClaimAsset` instruction. Commonly implemented via pallet-xcm
+    ```rust
+    type AssetClaims: ClaimAssets;
+    ```
 
-AssetClaims
-Facilitates the claiming of trapped assets during the execution of the ClaimAsset instruction. Commonly implemented via pallet-xcm.
+- [`AssetLocker`](https://paritytech.github.io/polkadot-sdk/master/staging_xcm_executor/trait.Config.html#associatedtype.AssetLocker){target=\_blank} - handles the locking and unlocking of assets. Can be omitted using `()` if asset locking is unnecessary
+    ```rust
+    type AssetLocker: AssetLock;
+    ```
 
-AssetLocker
-Handles the locking and unlocking of assets. Can be omitted using () if asset locking is unnecessary.
+- [`AssetExchanger`](https://paritytech.github.io/polkadot-sdk/master/staging_xcm_executor/trait.Config.html#associatedtype.AssetExchanger){target=\_blank} - implements the [`AssetExchange`](https://paritytech.github.io/polkadot-sdk/master/staging_xcm_executor/traits/trait.AssetExchange.html){target=\_blank} trait to manage asset exchanges during the `ExchangeAsset` instruction. The unit type `()` disables this functionality
+    ```rust
+    type AssetExchanger: AssetExchange;
+    ```
+- [`SubscriptionService`](){target=\_blank} - manages `(Un)SubscribeVersion` instructions and returns the XCM version via `QueryResponse`. Typically implemented by pallet-xcm
+    ```rust
+    type SubscriptionService: VersionChangeNotifier;
+    ```
 
-AssetExchanger
-Implements the AssetExchange trait to manage asset exchanges during the ExchangeAsset instruction. The unit type () disables this functionality.
+- [`PalletInstancesInfo`](https://paritytech.github.io/polkadot-sdk/master/staging_xcm_executor/trait.Config.html#associatedtype.PalletInstancesInfo){target=\_blank} - provides runtime pallet information for `QueryPallet` and `ExpectPallet` instructions. FRAME-specific systems often use this, or it can be disabled with `()`
+    ```rust
+    type PalletInstancesInfo: PalletsInfoAccess;
+    ```
+ <!-- I think `Holding Register` should be linked to https://wiki.polkadot.network/docs/learn/xcm/reference-glossary#holding-register, but since we will have our own glossary, I’m putting this as a TODO -->
+- [`MaxAssetsIntoHolding`](https://paritytech.github.io/polkadot-sdk/master/staging_xcm_executor/trait.Config.html#associatedtype.MaxAssetsIntoHolding){target=\_blank} - limits the number of assets in the [`Holding Register`](TODO:update-path){target=\_blank}. At most, twice this limit can be held under worst-case conditions
+    ```rust
+    type MaxAssetsIntoHolding: Get<u32>;
+    ```
 
-SubscriptionService
-Manages (Un)SubscribeVersion instructions and returns the XCM version via QueryResponse. Typically implemented by pallet-xcm.
+- [`FeeManager`](https://paritytech.github.io/polkadot-sdk/master/staging_xcm_executor/trait.Config.html#associatedtype.FeeManager){target=\_blank} - manages fees for XCM instructions, determining whether fees should be paid, waived, or handled in specific ways. Fees can be waived entirely using `()`
+    ```rust
+    type FeeManager: FeeManager;
+    ```
 
-PalletInstancesInfo
-Provides runtime pallet information for QueryPallet and ExpectPallet instructions. FRAME-specific systems often use this, or it can be disabled with ().
+- [`MessageExporter`](https://paritytech.github.io/polkadot-sdk/master/staging_xcm_executor/trait.Config.html#associatedtype.MessageExporter){target=\_blank} - implements the [`ExportXcm`](https://paritytech.github.io/polkadot-sdk/master/staging_xcm_executor/traits/trait.ExportXcm.html){target=\_blank} trait, enabling message export to other consensus systems. It can spoof origins for use in bridges. Use `()` to disable exporting
+    ```rust
+    type MessageExporter: ExportXcm;
+    ```
 
-MaxAssetsIntoHolding
-Limits the number of assets in the Holding Register. At most, twice this limit can be held under worst-case conditions.
+- [`UniversalAliases`](https://paritytech.github.io/polkadot-sdk/master/staging_xcm_executor/trait.Config.html#associatedtype.UniversalAliases){target=\_blank} - lists origin locations and universal junctions allowed to elevate themselves in the `UniversalOrigin` instruction. Using `Nothing` prevents origin aliasing
+    ```rust
+    type UniversalAliases: Contains<(MultiLocation, Junction)>;
+    ```
+- [`CallDispatcher`](https://paritytech.github.io/polkadot-sdk/master/staging_xcm_executor/trait.Config.html#associatedtype.CallDispatcher){target=\_blank} - dispatches calls from the `Transact` instruction, adapting the origin or modifying the call as needed. Can default to `RuntimeCall`
+    ```rust
+    type CallDispatcher: CallDispatcher<Self::RuntimeCall>;
+    ```
 
-FeeManager
-Manages fees for XCM instructions, determining whether fees should be paid, waived, or handled in specific ways. Fees can be waived entirely using ().
-
-MessageExporter
-Implements the ExportXcm trait, enabling message export to other consensus systems. It can spoof origins for use in bridges. Use () to disable exporting.
-
-UniversalAliases
-Lists origin locations and universal junctions allowed to elevate themselves in the UniversalOrigin instruction. Using Nothing prevents origin aliasing.
-
-CallDispatcher
-Dispatches calls from the Transact instruction, adapting the origin or modifying the call as needed. Can default to RuntimeCall.
-
-SafeCallFilter
-Whitelists calls permitted in the Transact instruction. Using Everything allows all calls, though this is temporary until proof size weights are accounted for.
+- [`SafeCallFilter`](){target=\_blank} - Whitelists calls permitted in the `Transact` instruction. Using `Everything` allows all calls, though this is temporary until proof size weights are accounted for
+    ```rust
+    type SafeCallFilter: Contains<Self::RuntimeCall>;
+    ```

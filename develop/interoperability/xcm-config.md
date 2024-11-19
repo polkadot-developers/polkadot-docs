@@ -46,31 +46,9 @@ pub trait Config {
 }
 ```
 
-## Multiple Implementations
-
-Some associated types in the `Config` trait are highly configurable and may have multiple implementations (e.g., Barrier). These implementations are organized into a tuple `(impl_1, impl_2, ..., impl_n)`, and the execution follows a sequential order. Each item in the tuple is evaluated one by one, with each being checked to see if it fails. If an item passes (e.g., returns `Ok` or `true`), the execution stops, and the remaining items are not evaluated. The next example of the `Barrier` type demonstrates how this grouping operates (understanding each item in the tuple is not necessary for this explanation).
-
-In the following example, when evaluating the barrier, the system will first check the `TakeWeightCredit` type. If it fails, it will proceed to check `AllowTopLevelPaidExecutionFrom`, and so on, until one of them returns a positive result. If all checks fail, a Barrier error will be triggered.
-
-```rust
-pub type Barrier = (
-    TakeWeightCredit,
-    AllowTopLevelPaidExecutionFrom<Everything>,
-    AllowKnownQueryResponses<XcmPallet>,
-    AllowSubscriptionsFrom<Everything>,
-);
-
-pub struct XcmConfig;
-impl xcm_executor::Config for XcmConfig {
-    ...
-    type Barrier = Barrier;
-    ...
-}
-```
-
 ## Config Items
 
-Each configuration item is explained below, detailing the purpose of the associated type and its role in the XCM executor. Many of these types have pre-defined solutions available in the xcm-builder, and reviewing example configurations can provide valuable insight into their use. Examples are provided at the end of this page for reference.
+Each configuration item is explained below, detailing the purpose of the associated type and its role in the XCM executor. Many of these types have predefined solutions available in the `xcm-builder`. Therefore, the available configuration items are:
 
 - [`RuntimeCall`](https://paritytech.github.io/polkadot-sdk/master/staging_xcm_executor/trait.Config.html#associatedtype.RuntimeCall){target=\_blank} - defines the runtime's callable functions, created via the [frame::runtime](https://paritytech.github.io/polkadot-sdk/master/frame_support/attr.runtime.html){target=\_blank} macro. It represents an enum listing the callable functions of all implemented pallets
     ```rust
@@ -100,7 +78,8 @@ Each configuration item is explained below, detailing the purpose of the associa
     ```rust
     type IsTeleporter: ContainsPair<MultiAsset, MultiLocation>;
     ```
-- [`Aliasers`](https://paritytech.github.io/polkadot-sdk/master/staging_xcm_executor/trait.Config.html#associatedtype.Aliasers){target=\_blank} - a list of (Origin, Target) pairs enabling each Origin to be replaced with its corresponding Target
+
+- [`Aliasers`](https://paritytech.github.io/polkadot-sdk/master/staging_xcm_executor/trait.Config.html#associatedtype.Aliasers){target=\_blank} - a list of `(Origin, Target)` pairs enabling each `Origin` to be replaced with its corresponding `Target`
     ```rust
     type Aliasers: ContainsPair<Location, Location>;
     ```
@@ -112,6 +91,7 @@ Each configuration item is explained below, detailing the purpose of the associa
     ```rust
     type UniversalLocation: Get<InteriorMultiLocation>;
     ```
+
 - [`Barrier`](https://paritytech.github.io/polkadot-sdk/master/staging_xcm_executor/trait.Config.html#associatedtype.Barrier){target=\_blank} - implements the [`ShouldExecute`](https://paritytech.github.io/polkadot-sdk/master/staging_xcm_executor/traits/trait.ShouldExecute.html){target=\_blank} trait, functioning as a firewall for XCM execution. Multiple barriers can be combined in a tuple, where execution halts if one succeeds
     ```rust
     type Barrier: ShouldExecute;
@@ -151,6 +131,7 @@ Each configuration item is explained below, detailing the purpose of the associa
     ```rust
     type AssetExchanger: AssetExchange;
     ```
+
 - [`SubscriptionService`](){target=\_blank} - manages `(Un)SubscribeVersion` instructions and returns the XCM version via `QueryResponse`. Typically implemented by pallet-xcm
     ```rust
     type SubscriptionService: VersionChangeNotifier;
@@ -180,6 +161,7 @@ Each configuration item is explained below, detailing the purpose of the associa
     ```rust
     type UniversalAliases: Contains<(MultiLocation, Junction)>;
     ```
+
 - [`CallDispatcher`](https://paritytech.github.io/polkadot-sdk/master/staging_xcm_executor/trait.Config.html#associatedtype.CallDispatcher){target=\_blank} - dispatches calls from the `Transact` instruction, adapting the origin or modifying the call as needed. Can default to `RuntimeCall`
     ```rust
     type CallDispatcher: CallDispatcher<Self::RuntimeCall>;
@@ -189,3 +171,25 @@ Each configuration item is explained below, detailing the purpose of the associa
     ```rust
     type SafeCallFilter: Contains<Self::RuntimeCall>;
     ```
+
+## Multiple Implementations
+
+Some associated types in the `Config` trait are highly configurable and may have multiple implementations (e.g., Barrier). These implementations are organized into a tuple `(impl_1, impl_2, ..., impl_n)`, and the execution follows a sequential order. Each item in the tuple is evaluated one by one, with each being checked to see if it fails. If an item passes (e.g., returns `Ok` or `true`), the execution stops, and the remaining items are not evaluated. The next example of the `Barrier` type demonstrates how this grouping operates (understanding each item in the tuple is not necessary for this explanation).
+
+In the following example, when evaluating the barrier, the system will first check the `TakeWeightCredit` type. If it fails, it will proceed to check `AllowTopLevelPaidExecutionFrom`, and so on, until one of them returns a positive result. If all checks fail, a Barrier error will be triggered.
+
+```rust
+pub type Barrier = (
+    TakeWeightCredit,
+    AllowTopLevelPaidExecutionFrom<Everything>,
+    AllowKnownQueryResponses<XcmPallet>,
+    AllowSubscriptionsFrom<Everything>,
+);
+
+pub struct XcmConfig;
+impl xcm_executor::Config for XcmConfig {
+    ...
+    type Barrier = Barrier;
+    ...
+}
+```

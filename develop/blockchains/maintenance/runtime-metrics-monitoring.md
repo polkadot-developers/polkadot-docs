@@ -37,7 +37,7 @@ The diagram shows the flow of data from the Substrate node to the monitoring and
 
 The [Polkadot telemetry](https://telemetry.polkadot.io/){target=\_blank} dashboard provides a real-time view of how currently online nodes are performing. This dashboard, allows users to select the network you need to check on, and also the information you want to display by turning visible columns on and off from the list of columns available. The monitoring dashboard provides the following indicators and metrics:
 
-- **Validator** - identifi  es whether the node is a validator node or not
+- **Validator** - identifies whether the node is a validator node or not
 - **Location** - displays the geographical location of the node
 - **Implementation** - shows the version of the software running on the node
 - **Network ID** - displays the public network identifier for the node

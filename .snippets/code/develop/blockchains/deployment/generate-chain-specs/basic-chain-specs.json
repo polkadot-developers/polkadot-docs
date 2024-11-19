@@ -1,0 +1,13 @@
+{
+    "name": "chainName",
+    "id": "chainId",
+    "chainType": "Local",
+    "bootNodes": [],
+    "telemetryEndpoints": null,
+    "protocolId": null,
+    "properties": null,
+    "codeSubstitutes": {},
+    "genesis": {
+        "code": "0x..."
+    }
+}

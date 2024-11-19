@@ -1,22 +1,28 @@
 ---
 title: Configuration
-description: TODO
+description: Learn how to configure networks using Zombienet, with detailed guidance on settings, CLI commands, and configuration files in JSON or TOML formats.
 ---
 
 # Configuration
 
 ## Introduction
 
+Effective network configuration is crucial for deploying and managing blockchain systems. Zombienet simplifies this process by offering versatile configuration options in both JSON and TOML formats. Whether setting up a simple test network or a complex multi-node system, Zombienet's tools provide the flexibility to customize every aspect of your network's setup.
+
+This guide will explore the structure and usage of Zombienet configuration files, explain key settings for network customization, and walk through CLI commands and flags to optimize your development workflow.
+
+With Zombienet, you can efficiently design, test, and manage blockchain networks tailored to your requirements.
+
 ## Configuration Files
 
-The network configuration can be given in either JSON or TOML format. The Zombienet repository also provides a collection of [example configuration files](https://github.com/paritytech/zombienet/tree/main/examples){target=\_blank} that can be used as a reference.
+The network configuration file can be either JSON or TOML format. The Zombienet repository also provides a collection of [example configuration files](https://github.com/paritytech/zombienet/tree/main/examples){target=\_blank} that can be used as a reference.
 
 !!! note
     Each section may include provider-specific keys that aren't recognized by other providers. For example, if you use the local provider, any references to images for nodes will be disregarded.
 
 ## CLI Usage
 
-Zombienet provides a CLI that allows interaction with the tool. The CLI can receive commands and flags to perform different kinds of operations. These operations can be initiated using the following syntax:
+Zombienet provides a CLI that allows interaction with the tool. The CLI can receive commands and flags to perform different kinds of operations. These operations use the following syntax:
 
 ```bash
 zombienet <arguments> <commands>
@@ -48,13 +54,13 @@ You can use the following flags to customize the behavior of the CLI:
 
 - **`-p`, `--provider`** - override the [provider](/develop/toolkit/blockchain/spawn-networks/zombienet/installation/#providers){target=\_blank} to use
 
-- **`-d`, `--dir`** - specify directory path for placing the network files instead of using the default temporary path
+- **`-d`, `--dir`** - specify a directory path for placing the network files instead of using the default temporary path
 
 - **`-f`, `--force`** - force override all prompt commands
 
 - **`-l`, `--logType`** - type of logging on the console. Defaults to `table`
 
-- **`-m`, `--monitor**`** - start as monitor and don't auto clean up network
+- **`-m`, `--monitor`** - start as monitor and don't auto clean up network
 
 - **`-c`, `--spawn-concurrency`** - number of concurrent spawning processes to launch. Defaults to `1`
 
@@ -69,13 +75,13 @@ Through the keyword `settings`, it's possible to define the general settings for
     ??? child "`GlobalVolume` interface definition"
         ```js
         export interface GlobalVolume {
-        name: string;
-        fs_type: string;
-        mount_path: string;
+          name: string;
+          fs_type: string;
+          mount_path: string;
         }
         ```
 
-- **`bootnode`** ++"boolean"++ - add bootnode to network. Default is `true`
+- **`bootnode`** ++"boolean"++ - add bootnode to network. Defaults to `true`
 - **`bootnode_domain?`** ++"string"++ - domain to use for bootnode
 - **`timeout`** ++"number"++ - global timeout to use for spawning the whole network
 - **`node_spawn_timeout?`** ++"number"++ - timeout to spawn pod/process
@@ -116,7 +122,7 @@ You can use the `relaychain` keyword to define further parameters for the relay 
 
 - **`default_command?`** ++"string"++ - the default command to run. Defaults to `polkadot`
 - **`default_image?`** ++"string"++ - the default Docker image to use
-- **`default_resources?`** ++"Resources"++ - represents the resources limits/reservations needed by the nodes by default. Only available on Kubernetes 
+- **`default_resources?`** ++"Resources"++ - represents the resource limits/reservations the nodes need by default. Only available on Kubernetes
 
     ??? child "`Resources` interface definition"
         ```js
@@ -141,10 +147,10 @@ You can use the `relaychain` keyword to define further parameters for the relay 
     ??? child "`SubstrateCliArgsVersion` enum definition"
         ```js
         export enum SubstrateCliArgsVersion {
-            V0 = 0,
-            V1 = 1,
-            V2 = 2,
-            V3 = 3,
+          V0 = 0,
+          V1 = 1,
+          V2 = 2,
+          V3 = 3,
         }
         ```
 
@@ -158,15 +164,15 @@ You can use the `relaychain` keyword to define further parameters for the relay 
     ??? child "`Override` interface definition"
         ```js
         export interface Override {
-            local_path: string;
-            remote_name: string;
+          local_path: string;
+          remote_name: string;
         } 
         ```
 
 - **`random_nominators_count?`** ++"number"++ - if set and the stacking pallet is enabled, Zombienet will generate the input quantity of nominators and inject them into the genesis
 - **`max_nominations`** ++"number"++ - the max number of nominations allowed by a nominator. Should match the value set in the runtime. Defaults to `24`
-- **`nodes?`** ++"Node[]"++ - an array of nodes to spawn. It is further defined on the [Node Configuration](#node-configuration) section
-- **`node_groups?`** ++"NodeGroup[]"++ - an array of node groups to spawn. It is further defined on the [Node Group Configuration](#node-group-configuration) section
+- **`nodes?`** ++"Node[]"++ - an array of nodes to spawn. It is further defined in the [Node Configuration](#node-configuration) section
+- **`node_groups?`** ++"NodeGroup[]"++ - an array of node groups to spawn. It is further defined in the [Node Group Configuration](#node-group-configuration) section
 - **`total_node_in_group?`** ++"number"++ - the total number of nodes in the group. Defaults to `1`
 - **`genesis`** ++"JSON"++ - the genesis configuration
 - **`default_delay_network_settings?`** ++"DelayNetworkSettings"++ - sets the expected configuration to delay the network
@@ -174,15 +180,15 @@ You can use the `relaychain` keyword to define further parameters for the relay 
     ??? child "`DelayNetworkSettings` interface definition"
         ```js
         export interface DelayNetworkSettings {
-            latency: string;
-            correlation?: string; // should be parsable as float by k8s
-            jitter?: string;
+          latency: string;
+          correlation?: string; // should be parsable as float by k8s
+          jitter?: string;
         }
         ```
 
 ### Node Configuration
 
-There is one specific key capable of receiving more subkeys: the `nodes` key. This key is used to define further parameters for the nodes. The available keys:
+One specific key capable of receiving more subkeys is the `nodes` key. This key is used to define further parameters for the nodes. The available keys:
 
 - **`name`** ++"string"++ - name of the node. Any whitespace will be replaced with a dash (for example, `new alice` will be converted to `new-alice`)
 - **`image?`** ++"string"++ - override default Docker image to use for this node
@@ -194,8 +200,8 @@ There is one specific key capable of receiving more subkeys: the `nodes` key. Th
     ??? child "`envVars` interface definition"
         ```js
         export interface EnvVars {
-            name: string;
-            value: string;
+          name: string;
+          value: string;
         }
         ```
 
@@ -206,10 +212,10 @@ There is one specific key capable of receiving more subkeys: the `nodes` key. Th
     ??? child "`SubstrateCliArgsVersion` enum definition"
         ```js
         export enum SubstrateCliArgsVersion {
-            V0 = 0,
-            V1 = 1,
-            V2 = 2,
-            V3 = 3,
+          V0 = 0,
+          V1 = 1,
+          V2 = 2,
+          V3 = 3,
         }
         ```
 
@@ -218,16 +224,16 @@ There is one specific key capable of receiving more subkeys: the `nodes` key. Th
     ??? child "`Resources` interface definition"
         ```js
         export interface Resources {
-            resources: {
+          resources: {
             requests?: {
-                memory?: string;
-                cpu?: string;
+              memory?: string;
+              cpu?: string;
             };
             limits?: {
-                memory?: string;
-                cpu?: string;
+              memory?: string;
+              cpu?: string;
             };
-        };
+          };
         }
         ```
 
@@ -246,9 +252,9 @@ There is one specific key capable of receiving more subkeys: the `nodes` key. Th
     ??? child "`DelayNetworkSettings` interface definition"
         ```js
         export interface DelayNetworkSettings {
-            latency: string;
-            correlation?: string; // should be parsable as float by k8s
-            jitter?: string;
+          latency: string;
+          correlation?: string; // should be parsable as float by k8s
+          jitter?: string;
         }
         ```
 
@@ -268,7 +274,7 @@ The following configuration file defines a minimal example for the relay chain, 
 
 ### Node Group Configuration
 
-The `node_groups` key is used to define further parameters for the node groups. The available keys are:
+The `node_groups` key defines further parameters for the node groups. The available keys are:
 
 - **`name`** ++"string"++ - name of the node. Any whitespace will be replaced with a dash (for example, `new alice` will be converted to `new-alice`)
 - **`image?`** ++"string"++ - override default Docker image to use for this node
@@ -279,8 +285,8 @@ The `node_groups` key is used to define further parameters for the node groups. 
     ??? child "`envVars` interface definition"
         ```js
         export interface EnvVars {
-            name: string;
-            value: string;
+          name: string;
+          value: string;
         }
         ```
 
@@ -289,8 +295,8 @@ The `node_groups` key is used to define further parameters for the node groups. 
     ??? child "`Override` interface definition"
         ```js
         export interface Override {
-            local_path: string;
-            remote_name: string;
+          local_path: string;
+          remote_name: string;
         }
         ```
 
@@ -301,10 +307,10 @@ The `node_groups` key is used to define further parameters for the node groups. 
     ??? child "`SubstrateCliArgsVersion` enum definition"
         ```js
         export enum SubstrateCliArgsVersion {
-            V0 = 0,
-            V1 = 1,
-            V2 = 2,
-            V3 = 3,
+          V0 = 0,
+          V1 = 1,
+          V2 = 2,
+          V3 = 3,
         }
         ```
 
@@ -313,16 +319,16 @@ The `node_groups` key is used to define further parameters for the node groups. 
     ??? child "`Resources` interface definition"
         ```js
         export interface Resources {
-            resources: {
+          resources: {
             requests?: {
-                memory?: string;
-                cpu?: string;
+              memory?: string;
+              cpu?: string;
             };
             limits?: {
-                memory?: string;
-                cpu?: string;
+              memory?: string;
+              cpu?: string;
             };
-            };
+          };
         }
         ```
 
@@ -333,9 +339,9 @@ The `node_groups` key is used to define further parameters for the node groups. 
     ??? child "`DelayNetworkSettings` interface definition"
         ```js
         export interface DelayNetworkSettings {
-            latency: string;
-            correlation?: string; // should be parsable as float by k8s
-            jitter?: string;
+          latency: string;
+          correlation?: string; // should be parsable as float by k8s
+          jitter?: string;
         }
         ```
 
@@ -355,7 +361,7 @@ The following configuration file defines a minimal example for the relay chain, 
 
 ## Parachain Configuration
 
-The `parachain` keyword is used to define further parameters for the parachain. The available keys are:
+The `parachain` keyword defines further parameters for the parachain. The available keys are:
 
 - **`id`** ++"number"++ - the id to assign to this parachain. Must be unique
 - **`chain?`** ++"string"++ - the chain name
@@ -367,9 +373,9 @@ The `parachain` keyword is used to define further parameters for the parachain. 
     ??? child "`DelayNetworkSettings` interface definition"
         ```js
         export interface DelayNetworkSettings {
-            latency: string;
-            correlation?: string; // should be parsable as float by k8s
-            jitter?: string;
+          latency: string;
+          correlation?: string; // should be parsable as float by k8s
+          jitter?: string;
         }
         ```
 
@@ -385,9 +391,8 @@ The `parachain` keyword is used to define further parameters for the parachain. 
 - **`cumulus_based?`** ++"boolean"++ - flag to use cumulus command generation. Defaults to `true`
 - **`bootnodes?`** ++"string[]"++ - array of bootnodes to use
 - **`prometheus_prefix?`** ++"string"++ - parameter for customizing the metric's prefix for all parachain nodes/collators. Defaults to `substrate`
-- **`collator?`** ++"Collator"++ - further defined on the [Collator Configuration](#collator-configuration) section
-- **`collators?`** ++"Collator[]"++ - an array of collators to spawn. It is further defined on the [Collator Configuration](#collator-configuration) section
-- **`collator_groups?`** ++"CollatorGroup[]"++ - an array of collator groups to spawn. It is further defined on the [Collator Groups](#collator-groups) section
+- **`collator?`** ++"Collator"++ - further defined in the [Collator Configuration](#collator-configuration) section
+- **`collator_groups?`** ++"CollatorGroup[]"++ - an array of collator groups to spawn. It is further defined in the [Collator Groups Configuration](#collator-groups-configuration) section
  
 For example, the following configuration file defines a minimal example for the parachain:
 
@@ -405,7 +410,7 @@ For example, the following configuration file defines a minimal example for the 
 
 ### Collator Configuration
 
-One specific key capable of receiving more subkeys is the `collator` key. This key is used to define further parameters for the nodes. The available keys are:
+One specific key capable of receiving more subkeys is the `collator` key. This key defines further parameters for the nodes. The available keys are:
 
 - **`name`** ++"string"++ - name of the collator. Any whitespace will be replaced with a dash (for example, `new alice` will be converted to `new-alice`)
 - **`image?`** ++"string"++ - image to use for the collator
@@ -425,9 +430,9 @@ One specific key capable of receiving more subkeys is the `collator` key. This k
     ??? child "`DelayNetworkSettings` interface definition"
         ```js
         export interface DelayNetworkSettings {
-            latency: string;
-            correlation?: string; // should be parsable as float by k8s
-            jitter?: string;
+          latency: string;
+          correlation?: string; // should be parsable as float by k8s
+          jitter?: string;
         }
         ```
 
@@ -438,8 +443,8 @@ One specific key capable of receiving more subkeys is the `collator` key. This k
     ??? child "`envVars` interface definition"
         ```js
         export interface EnvVars {
-            name: string;
-            value: string;
+          name: string;
+          value: string;
         }
         ```
 
@@ -448,8 +453,8 @@ One specific key capable of receiving more subkeys is the `collator` key. This k
     ??? child "`Override` interface definition"
         ```js
         export interface Override {
-            local_path: string;
-            remote_name: string;
+          local_path: string;
+          remote_name: string;
         }
         ```
 
@@ -460,10 +465,10 @@ One specific key capable of receiving more subkeys is the `collator` key. This k
     ??? child "`SubstrateCliArgsVersion` enum definition"
         ```js
         export enum SubstrateCliArgsVersion {
-            V0 = 0,
-            V1 = 1,
-            V2 = 2,
-            V3 = 3,
+          V0 = 0,
+          V1 = 1,
+          V2 = 2,
+          V3 = 3,
         }
         ```
 
@@ -472,16 +477,16 @@ One specific key capable of receiving more subkeys is the `collator` key. This k
     ??? child "`Resources` interface definition"
         ```js
         export interface Resources {
-            resources: {
+          resources: {
             requests?: {
-                memory?: string;
-                cpu?: string;
+              memory?: string;
+              cpu?: string;
             };
             limits?: {
-                memory?: string;
-                cpu?: string;
+              memory?: string;
+              cpu?: string;
             };
-            };
+          };
         }
         ```
 
@@ -501,9 +506,9 @@ The configuration file below defines a minimal example for the collator:
     --8<-- 'code/develop/toolkit/blockchain/spawn-testing-chain/collator-example.json'
     ```
 
-### Collator Groups
+### Collator Groups Configuration
 
-The `collator_groups` key is used to define further parameters for the collator groups. The available keys are:
+The `collator_groups` key defines further parameters for the collator groups. The available keys are:
 
 - **`name`** ++"string"++ - name of the node. Any whitespace will be replaced with a dash (for example, `new alice` will be converted to `new-alice`)
 - **`image?`** ++"string"++ - override default Docker image to use for this node
@@ -514,8 +519,8 @@ The `collator_groups` key is used to define further parameters for the collator 
     ??? child "`envVars` interface definition"
         ```js
         export interface EnvVars {
-            name: string;
-            value: string;
+          name: string;
+          value: string;
         }
         ```
 
@@ -524,8 +529,8 @@ The `collator_groups` key is used to define further parameters for the collator 
     ??? child "`Override` interface definition"
         ```js
         export interface Override {
-            local_path: string;
-            remote_name: string;
+          local_path: string;
+          remote_name: string;
         }
         ```
 
@@ -536,10 +541,10 @@ The `collator_groups` key is used to define further parameters for the collator 
     ??? child "`SubstrateCliArgsVersion` enum definition"
         ```js
         export enum SubstrateCliArgsVersion {
-            V0 = 0,
-            V1 = 1,
-            V2 = 2,
-            V3 = 3,
+          V0 = 0,
+          V1 = 1,
+          V2 = 2,
+          V3 = 3,
         }
         ```
 
@@ -548,16 +553,16 @@ The `collator_groups` key is used to define further parameters for the collator 
     ??? child "`Resources` interface definition"
         ```js
         export interface Resources {
-            resources: {
+          resources: {
             requests?: {
-                memory?: string;
-                cpu?: string;
+              memory?: string;
+              cpu?: string;
             };
             limits?: {
-                memory?: string;
-                cpu?: string;
+              memory?: string;
+              cpu?: string;
             };
-            };
+          };
         }
         ```
 
@@ -568,9 +573,9 @@ The `collator_groups` key is used to define further parameters for the collator 
     ??? child "`DelayNetworkSettings` interface definition"
         ```js
         export interface DelayNetworkSettings {
-            latency: string;
-            correlation?: string; // should be parsable as float by k8s
-            jitter?: string;
+          latency: string;
+          correlation?: string; // should be parsable as float by k8s
+          jitter?: string;
         }
         ```
 
@@ -597,10 +602,10 @@ You can use the `hrmp_channels` keyword to define further parameters for the XCM
     ??? child "`HrmpChannelsConfig` interface definition"
         ```js
         export interface HrmpChannelsConfig {
-            sender: number;
-            recipient: number;
-            max_capacity: number;
-            max_message_size: number;
+          sender: number;
+          recipient: number;
+          max_capacity: number;
+          max_message_size: number;
         }
         ```
         Each of the `HrmpChannelsConfig` keys are defined as follows:

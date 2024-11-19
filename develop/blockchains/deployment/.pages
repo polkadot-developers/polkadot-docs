@@ -1,8 +1,8 @@
 title: Deployment
 nav:
   - index.md
-  - 'Overview': overview.md
-  - 'Generate Chain Specs and Wasm': generate-chain-specs.md
-  - 'Obtain Coretime': obtain-coretime.md
-  - 'POP CLI': pop-cli.md
-  - 'Tanssi': tanssi.md
+  - 'Build a Deterministic Runtime': build-deterministic-runtime.md
+  - 'Generate Chain Specs': generate-chain-specs.md
+  # - 'Obtain Coretime': obtain-coretime.md
+  # - 'POP CLI': pop-cli.md
+  # - 'Tanssi': tanssi.md

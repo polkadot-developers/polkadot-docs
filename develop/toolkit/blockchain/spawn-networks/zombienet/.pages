@@ -1,0 +1,7 @@
+title: Zombienet
+nav:
+- index.md
+- 'Installation': installation.md
+- 'Configuration': configuration.md
+- 'Spawn a Basic Network': spawn-basic-network.md
+

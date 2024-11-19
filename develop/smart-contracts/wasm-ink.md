@@ -1,6 +1,6 @@
 ---
 title: Wasm (ink!)
-description: Learn to build Wasm smart contracts with ink!, a Rust-based eDSL. Explore installation, contract structure and key features.
+description: Learn to build Wasm smart contracts with ink!, a Rust-based eDSL. Explore installation, contract structure, and key features.
 ---
 
 # Wasm (ink!)
@@ -16,11 +16,7 @@ Rather than creating a new language, ink! is just standard Rust in a well-define
 - Comprehensive development tooling
 - Support from Rust's extensive developer community
 
-And because ink! smart contracts are compiled to Wasm, they deliver:
-
-- High execution speed
-- Platform independence
-- Enhanced security through sandboxed execution
+Since ink! smart contracts are compiled to Wasm, they offer high execution speed, platform independence, and enhanced security through sandboxed execution.
 
 These contracts can be deployed on any blockchain built with the Polkadot SDK that implements the [Contracts Pallet](https://docs.rs/pallet-contracts/latest/pallet_contracts/){target=\_blank}.
 
@@ -30,7 +26,7 @@ ink! smart contract development requires the installation of [cargo-contract](ht
 
 For step-by-step installation instructions, including platform-specific requirements and troubleshooting tips, refer to the official cargo-contract [Installation](https://github.com/use-ink/cargo-contract?tab=readme-ov-file#installation){target=\_blank} guide.
 
-## Quick Start
+## Get Started
 
 To create a new ink! smart contract project, use the `cargo contract` command:
 
@@ -47,7 +43,7 @@ your-project-name/
 └── .gitignore      # Git ignore rules
 ```
 
-The `lib.rs` file includes a basic contract template with storage and message handling functionality. Customize this file to implement your contract’s logic. The `Cargo.toml` file defines project dependencies, including the necessary ink! libraries and configuration settings.
+The `lib.rs` file includes a basic contract template with storage and message-handling functionality. Customize this file to implement your contract’s logic. The `Cargo.toml` file defines project dependencies, including the necessary ink! libraries and configuration settings.
 
 ## Contract Structure
 
@@ -115,7 +111,7 @@ For more information, refer to the official documentation for the [#[ink(constru
 
 ### Messages
 
-Messages are functions used to interact with the contract, allowing users or other contracts to call specific methods. Each contract must define at least one message.
+Messages are functions that interact with the contract, allowing users or other contracts to call specific methods. Each contract must define at least one message.
 
 There are two types of messages:
 

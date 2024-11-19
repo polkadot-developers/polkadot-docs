@@ -25,7 +25,7 @@ Whether you're building a standalone chain or deploying a parachain on Polkadot,
 
 The Polkadot SDK is composed of five major components:
 
-![](/images/develop/blockchains/get-started/intro-polkadot-sdk/polkadot-sdk-structure.webp)
+![](/images/develop/blockchains/get-started/intro-polkadot-sdk/intro-polkadot-sdk-1.webp)
 
 - [**Substrate**](https://paritytech.github.io/polkadot-sdk/master/polkadot_sdk_docs/polkadot_sdk/substrate/index.html){target=\_blank} - a set of libraries and primitives for building blockchains
 - [**FRAME**](https://paritytech.github.io/polkadot-sdk/master/polkadot_sdk_docs/polkadot_sdk/frame_runtime/index.html){target=\_blank} - a blockchain development framework built on top of Substrate

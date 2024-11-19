@@ -9,7 +9,7 @@ As  briefly described in [OpenGov Overview](TODO- add link to subsection path in
 
 A `Track` functions as an independent pipeline where proposals are processed, separate from the `Tracks` of other `Origins`. The proposer of a referendum now selects an appropriate `Origin` based on the requirements of their proposal.
 
-While the **Track** structure is consistent across all **Origins**, the parameters for each track can vary. These parameters include:
+While the **Track** structure is consistent across all **Origins**, the parameters for each **Track** can vary. These parameters include:
 
 1. **Maximum Deciding Capacity:** Defines the limit on the number of referenda that can be decided simultaneously, corresponding to the number of tracks within each origin.
 2. **Decision Deposit:** Specifies the funds required to be deposited for a proposal to enter the Decision Period. (Additional requirements must also be met to proceed.)
@@ -22,6 +22,9 @@ While the **Track** structure is consistent across all **Origins**, the paramete
 9. **Support Curve:** Depicts the minimum percentage of total votes in favor of a proposal over time during the Decision Period. Support percentage is defined as the proportion of aye and abstained votes (without conviction) relative to the system's total possible votes (i.e., the active issuance).
 
 For instance, a runtime upgrade (requiring a set_code call) has far-reaching implications for the ecosystem compared to the approval of a treasury tip (via a reportAwesome call). As a result, distinct origins are assigned for these actions, each with predefined parameters such as deposits, support, approval thresholds, and minimum enactment periods tailored to their specific requirements.
+
+!!!note
+    More information about terminology, parimiters can be fount on the [OpenGov Origins Wiki](https://wiki.polkadot.network/docs/learn-polkadot-opengov-origins){target=\_blanck} page.
 
 In the table below you can find all **Origins** and its **Tracks** on Polkadot chain:
 

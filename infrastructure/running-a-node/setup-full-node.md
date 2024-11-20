@@ -16,7 +16,9 @@ Polkadot has a variety of different node types that you can run including full, 
 
 ## Setup Instructions {: #setup-instructions}
 
-Ensure Rust is installed for your operating system before continuing: [Install Dependencies for the Polkadot SDK](../../develop/parachain-devs/get-started/polkadot-sdk/install-deps.md). This isn't recommended if you're a validator. Please see the [secure validator setup](maintain-guides-secure-validator.md) if you are running a validator.
+This tutorial will walk you through launching a Polkadot node in five different ways: via macOS, Windows, Linux (Pre-Built Binary), Linux (Compile Binary), and Linux (Snap package).
+
+Ensure [Rust](https://www.rust-lang.org/tools/install){target=\_blank} is installed for your operating system before continuing.  [Install Dependencies for the Polkadot SDK](/develop/blockchains/get-started/install-polkadot-sdk/). This isn't recommended if you're a validator. Please see the [secure validator setup](/infrastructure/running-a-validator/) if you are running a validator.
 
 === "macOS"
 

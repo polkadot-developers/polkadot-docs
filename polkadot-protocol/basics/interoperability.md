@@ -25,6 +25,8 @@ In the Polkadot ecosystem, interoperability transforms a collection of isolated 
 
 ## Key Mechanisms for Interoperability
 
+At the core of Polkadot's cross-chain collaboration are foundational technologies designed to break down barriers between networks. These mechanisms empower blockchains to communicate, share resources, and operate as a cohesive ecosystem.
+
 ### Cross-Consensus Messaging (XCM): The Backbone of Communication
 
 Polkadot's Cross-Consensus Messaging (XCM) is the standard framework for interaction between parachains, relay chains, and, eventually, external blockchains. XCM provides a trustless, secure messaging format for exchanging assets, sharing data, and executing cross-chain operations.

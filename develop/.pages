@@ -2,9 +2,9 @@ title: Develop
 nav:
   - index.md
   - development-pathways
-  # - networks
+  - networks
   - blockchains
   - integrations
   - smart-contracts
-  # - interoperability
+  - interoperability
   - toolkit

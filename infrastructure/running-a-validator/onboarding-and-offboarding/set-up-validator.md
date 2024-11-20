@@ -376,7 +376,7 @@ Once your validator node is fully synced and ready, the next step is to ensure i
 
 ### Verify Sync via Telemetry
 
-To confirm that your validator is live and synchronized with the Polkadot network, visit the [Telemetry](https://telemetry.polkadot.io/#list/Polkadot%20CC1){target=\_blank} page. Telemetry provides real-time information on node performance and can help you check if your validator is connected properly. Search for your node by name. You can search all nodes currently active on the network, which is why you should use a unique name for easy recognition. Now, confirm that your node is fully synced by comparing the block height of your node with the network's latest block.
+To confirm that your validator is live and synchronized with the Polkadot network, visit the [Telemetry](https://telemetry.polkadot.io/#list/Polkadot%20CC1){target=\_blank} page. Telemetry provides real-time information on node performance and can help you check if your validator is connected properly. Search for your node by name. You can search all nodes currently active on the network, which is why you should use a unique name for easy recognition. Now, confirm that your node is fully synced by comparing the block height of your node with the network's latest block. Nodes that are fully synced will appear white in the list, while nodes that are not yet fully synced will appear gray.
 
 In the following example, a node named `techedtest` is successfully located and synchronized, ensuring it's prepared to participate in the network:
 
@@ -412,9 +412,9 @@ This following sections will walk you through creating and managing a systemd se
 
 Ensure the following requirements are met before proceeding with the systemd setup:
 
-- Confirm your system meets the [requirements](infrastructure/running-a-validator/requirements.md) for running a validator
+- Confirm your system meets the [requirements](/infrastructure/running-a-validator/requirements/){target=\_blank} for running a validator
 - Ensure you meet the [minimum bond requirements](https://wiki.polkadot.network/docs/chain-state-values#minimum-validator-bond){target=\_blank} for validating
-- Verify the Polkadot binary is [installed](TODO: update path)
+- Verify the Polkadot binary is [installed](#install-the-polkadot-binaries)
 
 ### Create the Systemd Service File
 

@@ -15,10 +15,10 @@ Running a validator requires a commitment to maintaining a stable, secure infras
 
 To get the most from this guide, ensure you've done the following before going forward:
 
-- Read [Validator Requirements](infrastructure/running-a-validator/requirements.md) and understand the recommended minimum skill level and hardware needs
-- Read [General Management](infrastructure/running-a-validator/operational-tasks/general-management.md), [Upgrade Your Node](infrastructure/running-a-validator/operational-tasks/upgrade-your-node.md), and [Pause Validating](infrastructure/running-a-validator/onboarding-and-offboarding/stop-validating.md) and understand the tasks required to keep your validator operational
-- Read [Rewards Payout](infrastructure/staking-mechanics/rewards-payout.md) and understand how validator rewards are determined and paid out
-- Read [Offenses and Slashes](infrastructure/staking-mechanics/offenses-and-slashes.md) and understand how validator performance and security can affect tokens staked by you or your nominators
+- Read [Validator Requirements](/infrastructure/running-a-validator/requirements/) and understand the recommended minimum skill level and hardware needs
+- Read [General Management](/infrastructure/running-a-validator/operational-tasks/general-management), [Upgrade Your Node](/infrastructure/running-a-validator/operational-tasks/upgrade-your-node/), and [Pause Validating](/infrastructure/running-a-validator/onboarding-and-offboarding/stop-validating/) and understand the tasks required to keep your validator operational
+- Read [Rewards Payout](/infrastructure/staking-mechanics/rewards-payout/) and understand how validator rewards are determined and paid out
+- Read [Offenses and Slashes](/infrastructure/staking-mechanics/offenses-and-slashes/) and understand how validator performance and security can affect tokens staked by you or your nominators
 
 ## Initial Setup
 
@@ -78,24 +78,24 @@ Depending on your preference and operating system setup, there are multiple meth
 
 The preferred, most straightforward method to install the required binaries is downloading the latest versions from the official releases. You can visit the [Github Releases](https://github.com/paritytech/polkadot-sdk/releases){target=\_blank} page for the most current versions of the `polkadot`, `polkadot-prepare-worker`, and `polkadot-execute-worker` binaries.
 
-You can also download the binaries by using the following direct links and replacing `X.Y.Z` with the version number:
+You can also download the binaries by using the following direct links and replacing `INSERT_VERSION_NUMBER` with the version number, e.g. `v1.16.1`
 
 === "`polkadot`"
 
     ``` text
-    https://github.com/paritytech/polkadot-sdk/releases/download/polkadot-vX.Y.Z/polkadot
+    https://github.com/paritytech/polkadot-sdk/releases/download/polkadot-INSERT_VERSION_NUMBER/polkadot
     ```
 
 === "`polkadot-prepare-worker`"
 
     ``` text
-    https://github.com/paritytech/polkadot-sdk/releases/download/polkadot-vX.Y.Z/polkadot-prepare-worker
+    https://github.com/paritytech/polkadot-sdk/releases/download/polkadot-INSERT_VERSION_NUMBER/polkadot-prepare-worker
     ```
 
 === "`polkadot-execute-worker`"
 
     ``` text
-    https://github.com/paritytech/polkadot-sdk/releases/download/polkadot-vX.Y.Z/polkadot-execute-worker
+    https://github.com/paritytech/polkadot-sdk/releases/download/polkadot-INSERT_VERSION_NUMBER/polkadot-execute-worker
     ```
 
 ### Install with Package Managers
@@ -145,10 +145,10 @@ You can also manage Polkadot installations using Ansible. This approach can be b
 
 If you prefer using Docker or an OCI-compatible container runtime, the official Polkadot Docker image can be pulled directly from Docker Hub.
 
-To pull the latest image, run the following command. Make sure to replace `X.Y.Z` with the appropriate version number.
+To pull the latest image, run the following command. Make sure to replace `INSERT_VERSION_NUMBER` with the appropriate version number, e.g. `v1.16.1`
 
 ```sh
-docker.io/parity/polkadot:vX.Y.Z
+docker.io/parity/polkadot:INSERT_VERSION_NUMBER
 ```
 
 ### Build from Sources
@@ -227,9 +227,9 @@ After successfully installing and verifying the Polkadot binaries, the next step
 
 If you'd like to speed up the process further, you can use a database snapshot. Snapshots are compressed backups of the blockchain's database directory and can significantly reduce the time required to sync a new node. Here are a few public snapshot providers:
 
-- [Stakeworld](https://stakeworld.io/snapshot)
-- [Polkachu](https://polkachu.com/snapshots)
-- [Polkashots](https://polkashots.io/)
+- [Stakeworld](https://stakeworld.io/snapshot){target=\_blank}
+- [Polkachu](https://polkachu.com/substrate_snapshots){target=\_blank}
+- [Polkashots](https://polkashots.io/){target=\_blank}
 
 !!!warning
     Although snapshots are convenient, syncing from scratch is recommended for security purposes. If snapshots become corrupted and most nodes rely on them, the network could inadvertently run on a non-canonical chain.

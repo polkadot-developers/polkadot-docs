@@ -1,0 +1,7 @@
+title: Testing
+nav:
+  - index.md
+  - 'Spawn a Basic Chain with Zombienet': spawn-basic-chain.md
+  - 'Fork a Chain with Chopsticks': fork-live-chains.md
+  
+  

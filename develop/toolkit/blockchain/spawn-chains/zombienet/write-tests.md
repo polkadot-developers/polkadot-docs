@@ -1,89 +1,14 @@
 ---
-title: Spawn Testing Networks with Zombienet
-description: Learn how to use Zombienet to spawn Polkadot SDK-based blockchain networks for testing.
+title: Write Tests
+description: Write and execute tests for blockchain networks with Zombienet's DSL. Learn to evaluate metrics, logs, events, and more for robust validation.
 ---
-
-# Spawn Testing Networks with Zombienet
+# Write Tests
 
 ## Introduction
 
-In following sections, you'll learn how to set up a basic network using Zombienet and run a simple test to validate its functionality. The example provided walks you through defining a minimal network configuration, spawning the network, and interacting with the nodes. By the end, you'll clearly understand how to use Zombienet to deploy and test ephemeral blockchain networks, setting the stage for more complex scenarios.
+Testing is a critical step in blockchain development, ensuring reliability, performance, and security. Zombienet simplifies this process with its intuitive Domain Specific Language (DSL), enabling developers to write natural-language test scripts tailored to their network needs.
 
-## Prerequisites
-
-To successfully complete this tutorial, you must ensure you've first:
-
-- [Installed Zombienet](/develop/toolkit/blockchain/spawn-networks/zombienet/installation.md){target=\_blank}
-- Reviewed the information in [Configuration](/develop/toolkit/blockchain/spawn-networks/zombienet/configuration.md){target=\_blank} and understand how to customize a Zombienet spawned network
-
-## Define the Network
-
-As mentioned in the [Configuration Files](/develop/toolkit/blockchain/spawn-networks/zombienet/configuration/#configuration-files){target=\_blank} section, Zombienet uses a configuration file to define the ephemeral network that will be spawned. Follow these steps to create and define the configuration file:
-
-1. Create a file named `spawn-a-basic-network.toml`
-```bash
-touch spawn-a-basic-network.toml
-```
-2. Add the following code to the file you just created:
-```toml title="spawn-a-basic-network.toml"
---8<-- 'code/develop/toolkit/blockchain/spawn-networks/zombienet/spawn-basic-network/spawn-a-basic-network.toml'
-```
-
-This configuration file defines a network with the following chains:
-
-- **relaychain** - with two nodes named `alice` and `bob` 
-- **parachain** - with a collator named `collator01` 
-
-Settings also defines a timeout of 120 seconds for the network to be ready.
-
-## Spawn the Network
-
-To spawn the network, run the following command:
-
-```bash
-zombienet -p native spawn spawn-a-basic-network.toml
-```
-
-This command will spawn the network defined in the `spawn-a-basic-network.toml` configuration file. The `-p native` flag specifies that the network will be spawned using the native provider.
-
-If successful, you will see the following output:
-
---8<-- 'code/develop/toolkit/blockchain/spawn-networks/zombienet/spawn-basic-network/spawn-network-terminal-01.html'
-
-!!! note 
-    If the IPs and ports aren't explicitly defined in the configuration file, they may change each time the network is started, causing the links provided in the output to differ from the example.
-
-## Interact with the Spawned Network
-
-After the network is launched, you can interact with it using [Polkadot.js Apps](https://polkadot.js.org/apps/){target=\_blank}. To do so, open your browser and use the provided links listed by the output as `Direct Link`.
-
-### Connect to the Nodes
-
-Use this [port address](https://polkadot.js.org/apps/?rpc=ws://127.0.0.1:55308#explorer){target=\_blank} to interact with the same `alice` node used for this tutorial. Ports can change from spawn to spawn so be sure to locate the link in the output when spawning your own node to ensure you are accessing the correct port.
-
-If you want to interact with the nodes more programmatically, you can also use the [Polkadot.js API](https://polkadot.js.org/api/){target=\_blank}. For example, the following code snippet shows how to connect to the `alice` node using the Polkadot.js API and log some information about the chain and node:
-
-```typescript
---8<-- 'code/develop/toolkit/blockchain/spawn-networks/zombienet/spawn-basic-network/connect-to-alice-01.js'
-```
-
-Both methods allow you to interact easily with the network and its nodes.
-
-### Check Metrics
-
-You can also check the metrics of the nodes by accessing the links provided in the output as `Prometheus Link`. [Prometheus](https://prometheus.io/){target=\_blank} is a monitoring and alerting toolkit that collects metrics from the nodes. By accessing the provided links, you can see the metrics of the nodes in a web interface. So, for example, the following image shows the Prometheus metrics for Bob’s node from the Zombienet test:
-
-![](/images/develop/toolkit/blockchain/spawn-networks/zombienet/spawn-basic-network/spawn-basic-network-01.webp)
-
-### Check Logs
-
-To check node logs, you can use the command listed in the output as `Log Cmd`. For instance, to check the logs of the `alice` node, you can open a new terminal and run the following command:
-
-```bash
-tail -f /var/folders/f4/7rdt2m9d7j361dm453cpggbm0000gn/T/zombie-75a01b93c92d571f6198a67bcb380fcd_21724-SEzfCidQ1za4/alice.log
-```
-
-After running this command, you will see the logs of the `alice` node in real-time, which can be useful for debugging purposes. The logs of the `bob` and `collator01` nodes can be checked similarly.
+This guide provides an in-depth look at how to create and execute test scenarios using Zombienet's flexible testing framework. You’ll learn how to define tests for metrics, logs, events, and more, allowing for comprehensive evaluation of your blockchain network’s behavior and performance.
 
 ## Testing DSL
 
@@ -99,6 +24,9 @@ Zombienet provides a Domain Specific Language (DSL) for writing tests. The DSL i
 - **Commands** - instructions or directives executed by the network
 
 These abstractions are expressed by sentences defined in a natural language style. Therefore, each test line will be mapped to a test to run. Also, the test file (`*.zndsl`) includes pre-defined header fields used to define information about the suite, such as network configuration and credentials location.
+
+!!! note
+    View the [Testing DSL](https://paritytech.github.io/zombienet/cli/test-dsl-definition-spec.html){target=\_blank} specification for more details on the Zombienet DSL.
 
 ## The Test File
 
@@ -274,7 +202,7 @@ touch spawn-a-basic-network-test.zndsl
 
 2. Add the following code to the file you just created.
 ```toml title="spawn-a-basic-network-test.zndsl"
---8<-- 'code/develop/toolkit/blockchain/spawn-networks/zombienet/spawn-basic-network/spawn-a-basic-network-test-zndsl.toml'
+--8<-- 'code/develop/toolkit/blockchain/spawn-chains/zombienet/write-tests/spawn-a-basic-chain-test.toml'
 ```
 
 This test scenario checks to verify the following:
@@ -301,12 +229,12 @@ The following example test files define two tests, a small network test and a bi
 The tests define assertions to evaluate the network’s metrics and logs. The assertions are defined by sentences in the DSL, which are mapped to tests to run.
 
 ```toml title="small-network-test.zndsl"
---8<-- 'code/develop/toolkit/blockchain/spawn-networks/zombienet/spawn-basic-network/example-test-01.toml'
+--8<-- 'code/develop/toolkit/blockchain/spawn-chains/zombienet/write-tests/small-network-test.toml'
 ```
 
 And the second test file:
 
 ```toml title="big-network-test.zndsl"
---8<-- 'code/develop/toolkit/blockchain/spawn-networks/zombienet/spawn-basic-network/example-test-02.toml'
+--8<-- 'code/develop/toolkit/blockchain/spawn-chains/zombienet/write-tests/big-network-test.toml'
 ```
 

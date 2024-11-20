@@ -73,17 +73,39 @@ The `xcm-simulator` provides the following macros for building a mocked simulati
     }
     ```
 
-For a comprehensive example of how to use the `xcm-simulator`, refer to the [`sample`](https://github.com/paritytech/polkadot-sdk/tree/master/polkadot/xcm/xcm-simulator/example){target=\_blank} provided in the xcm-simulator codebase.
+By leveraging these macros, developers can customize their testing networks by defining relay chains and parachains tailored to their needs.
+
+For guidance on implementing a mock runtime for a Polkadot SDK-based chain, refer to the [`Pallet Testing`](/develop/blockchains/custom-blockchains/pallet-testing.md){target=\_blank} article. This framework enables thorough testing of runtime and cross-chain interactions.
+
+For a complete example of how to use the `xcm-simulator`, explore the [`sample`](https://github.com/paritytech/polkadot-sdk/tree/master/polkadot/xcm/xcm-simulator/example){target=\_blank} provided in the `xcm-simulator` codebase.
+
 
 ## XCM Emulator
 
-The [`xcm-emulator`](https://github.com/paritytech/polkadot-sdk/tree/master/cumulus/xcm/xcm-emulator){target=\_blank} provides an emulated environment for testing cross-chain message passing. It uses pre-configured runtimes, mirroring live networks such as Kusama, Polkadot, and Statemine. Key features include:
+The [`xcm-emulator`](https://github.com/paritytech/polkadot-sdk/tree/master/cumulus/xcm/xcm-emulator){target=\_blank} is a tool designed to simulate the execution of XCM programs using predefined runtime configurations. These configurations include those utilized by live networks like Kusama, Polkadot, and the Asset Hub.
 
-- Cross-Chain testing - validate message flow, execution, weights, and side effects between chains
-- Live network fidelity - test runtime configurations resembling production environments
+This tool enables testing of cross-chain message passing, providing a way to verify outcomes, weights, and side effects efficiently.
 
-- Limitations:
-    - Mocked transport layer - the emulator uses transport pallets but does not replicate live messaging infrastructure
-    - Excluded consensus events - disputes and staking events are outside the emulator’s scope and require E2E testing with a production-like environment
+The `xcm-emulator` relies on transport layer pallets. However, the messages do not leverage the same messaging infrastructure as live networks since the transport mechanism is mocked. Additionally, consensus-related events are not covered, such as disputes, staking, and ImOnline events. Parachains should use end-to-end (E2E) tests to validate these events.
 
-For example use cases, refer to the emulator's documentation on testing common good parachains.
+The XCM Emulator provides both advantages and limitations when testing cross-chain communication in simulated environments.
+
+- Pros:
+    - Interactive debugging - offers tracing capabilities similar to EVM, enabling detailed analysis of issues
+    - Runtime composability - facilitates testing and integration of multiple runtime components
+    - Immediate feedback - supports Test-Driven Development (TDD) by providing rapid test results
+    - Seamless integration testing - simplifies the process of testing new runtime versions in an isolated environment
+
+- Cons:
+    - Simplified emulation - always assumes message delivery, which may not mimic real-world network behavior
+    - Dependency challenges - requires careful management of dependency versions and patching. Refer to the [Cargo dependency documentation](https://doc.rust-lang.org/cargo/reference/overriding-dependencies.html){target=\_blank}
+    - Compilation overhead - testing environments can be resource-intensive, requiring frequent compilation updates
+
+
+
+
+
+
+
+
+

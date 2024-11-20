@@ -32,6 +32,8 @@ These principles guarantee that XCM provides a reliable framework for cross-chai
 
 ![Diagram of the XCM tech stack](/images/develop/interoperability/intro-to-xcm/intro-to-xcm-01.webp)
 
+The XCM tech stack is designed to faciliate seamless interoperable communication between chains that reside within the Polkadot ecosystem. XCM can be used to ecpress the meaning of the messages over each of the communicatio channels.
+
 ## Core Functionalities of XCM
 
 XCM enhances cross-consensus communication by introducing several powerful features:
@@ -52,14 +54,16 @@ The following is a simplified XCM message demonstrating a token transfer from Al
 
 The message consists of three instructions described as follows:
 
-- **WithdrawAsset** - transfers a specified number of tokens from Alice’s account to a holding register
+- **[WithdrawAsset](https://github.com/polkadot-fellows/xcm-format?tab=readme-ov-file#withdrawasset)** - transfers a specified number of tokens from Alice's account to a holding register
 ```rust
 --8<-- 'code/develop/interoperability/intro-to-xcm/XCM-first-look.rs:2:2'
 ```
     - `Here` - the native parachain token
     - `amount` - the number of tokens that are transferred
 
-- **BuyExecution** - allocates fees to cover the execution [weight](/polkadot-protocol/glossary/#weight){target=\_blank} of the XCM instructions
+    The first instruction takes as an input the MultiAsset that should be withdrawn. The MultiAsset describes the native parachain token with the `Here` keyword. The `amount` parameter is the number of tokens that are transferred. The withdrawal account depends on the origin of the message. In this example the origin of the message is Alice. The `WithdrawAsset` instruction moves `amount` number of native tokens from Alice's account into the holding register.
+
+- **[BuyExecution](https://github.com/polkadot-fellows/xcm-format?tab=readme-ov-file#buyexecution)** - allocates fees to cover the execution [weight](/polkadot-protocol/glossary/#weight){target=\_blank} of the XCM instructions
 ```rust
 --8<-- 'code/develop/interoperability/intro-to-xcm/XCM-first-look.rs:3:6'
 ```

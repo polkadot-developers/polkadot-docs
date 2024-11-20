@@ -78,8 +78,6 @@ Typically, setting up a custom telemetry solution involves establishing monitori
 
 You can monitor specific on-chain events like transactions from certain addresses or changes in the validator set. Connecting to RPC nodes allows tracking for delays or specific event timings. Running your own RPC servers is recommended for reliable queries, as public RPC nodes may occasionally be unreliable.
 
-### Monitoring Node Operations
-
 ## Monitoring Tools
 
 To implement customized monitoring and alerting, consider using the following stack:

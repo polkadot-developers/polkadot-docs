@@ -44,7 +44,7 @@ In OpenGov, origins and tracks are central to managing proposals and votes.
 
 Developers must be aware that referendums from different origins and tracks will take varying amounts of time to reach approval and enactment. The [Polkadot Technical Fellowship](https://wiki.polkadot.network/docs/learn-polkadot-technical-fellowship){target=\_blank} has the option to shorten this timeline by whitelisting a proposal and allowing it to be enacted through the [Whitelist Caller](https://wiki.polkadot.network/docs/learn-polkadot-opengov-origins#whitelisted-caller){target=\_blank} origin.
 
-Visit [Origins and Tracks Info](/){target=\_blank} for details on current origins and tracks, associated terminology, and parameters.
+Visit [Origins and Tracks Info](https://wiki.polkadot.network/docs/learn-polkadot-opengov#origins-and-tracks){target=\_blank} for details on current origins and tracks, associated terminology, and parameters.
 
 ## Referendums
 

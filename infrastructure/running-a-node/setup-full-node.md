@@ -100,9 +100,9 @@ Ensure Rust is installed for your operating system before continuing: [Install D
     - Install [Ubuntu](https://docs.microsoft.com/en-us/windows/wsl/install-win10){target=\_blank} (same webpage)
     - Determine the latest version of the
     [Polkadot binary](https://github.com/paritytech/polkadot-sdk/releases){target=\_blank}. The latest release version should have a full set of assets to download, such as in [v1.14.1](https://github.com/paritytech/polkadot-sdk/releases/tag/polkadot-v1.14.1){target=\_blank}
-	- Download the correct Polkadot binary within Ubuntu by running the following command. Replace `*VERSION*` with the tag of the latest version from the last step (e.g. `v1.14.1`):
+	- Download the correct Polkadot binary running the following command. Replace `*VERSION*` with the tag of the latest version from the last step (e.g. `v1.14.1`):
     ```bash
-    wget https://github.com/paritytech/polkadot-sdk/releases/download/polkadot-v1.14.1/polkadot
+    wget https://github.com/paritytech/polkadot-sdk/releases/download/polkadot-INSERT-VERSION/polkadot
     ```
 
     - Run the following command to make the Polkadot release binary executable: 
@@ -306,17 +306,18 @@ Open [Polkadot.js](https://polkadot.js.org/apps/?rpc=ws%3A%2F%2F127.0.0.1%3A9944
 ws://127.0.0.1:9944
 ```
 
-## Using Docker
+## Using Docker {: #using-docker}
 
 Finally, you can use Docker to run your node in a container. Doing this is more advanced, so it's best left up to those already familiar with Docker or who have completed the other set-up instructions in this guide. Be aware that when you run Polkadot in Docker, the process only listens on `localhost` by default. If you would like to connect to your node's services (RPC, and Prometheus) you need to ensure that you run the node with the `--rpc-external`, and `--prometheus-external` commands.
 
 ```bash
-docker run \
--p 9944:9944 \
--p 9615:9615 parity/polkadot:v0.9.13 \
---name "calling_home_from_a_docker_container" \
---rpc-external \
---prometheus-external
+docker run -p 9944:9944 -p 9615:9615 parity/polkadot:v1.16.2 --name "my-polkadot-node-calling-home" --rpc-external --prometheus-external
+```
+
+If you're running Docker on an Apple Silicon machine (e.g. M4), you'll need to adapt the command slightly:
+
+```bash
+docker run --platform linux/amd64 -p 9944:9944 -p 9615:9615 parity/polkadot:v1.16.2 --name "kearsarge-calling-home" --rpc-external --prometheus-external
 ```
 
 ## Types of Nodes {: #types-of-nodes}

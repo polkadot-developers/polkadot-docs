@@ -42,7 +42,7 @@ PolkaVM is a cutting-edge virtual machine tailored to optimize smart contract ex
 ### Compared to Traditional EVMs
 
 - **Architecture** - PolkaVM's register-based design offers significant performance improvements over Ethereum's stack-based EVM. It allows for faster compilation times and aligns better with modern hardware, reducing bottlenecks in contract execution
-- **Gas Modeling** - PolkaVM employs a multi-dimensional gas model, metering resources like computation time, storage, and proof sizes. This ensures more accurate cost assessments for contract execution, reducing overcharging for memory allocation and enabling efficient cross-contract calls
+- **Gas modeling** - PolkaVM employs a multi-dimensional gas model, metering resources like computation time, storage, and proof sizes. This ensures more accurate cost assessments for contract execution, reducing overcharging for memory allocation and enabling efficient cross-contract calls
 - **Compatibility** - while optimized for performance, PolkaVM remains compatible with Ethereum tools through a closely mirrored RPC interface, with minor adjustments for certain operations. It also hides the existential deposit requirement, simplifying user interactions by abstracting balance limitations
 
 ### Performance Benefits

@@ -74,9 +74,31 @@ With customized parameters, each `Origin` defines key aspects of the proposal pr
 
 Dynamic `Approval` and `Support` thresholds adapt based on the nature of the proposal, maintaining a fair and secure process. High-privilege `Origins`, like `Root`, impose stricter approval conditions and longer timelines due to their greater impact. On the other hand, lower-privilege `Origins`, such as `Treasury`, are designed for quicker decisions with fewer requirements, striking a balance between efficiency, inclusivity, and security for the entire network.
 
-!!!note 'Examples of Origins in OpenGov'
-    The [Polkadot OpenGov Origins Wiki](https://wiki.polkadot.network/docs/learn-polkadot-opengov-origins){target=\_blanck} page provides a comprehensive explanation of each **Origin**.
+### Examples of Origins in OpenGov
 
+In OpenGov, `Origins` represent the privilege levels assigned to different proposal types, each with distinct parameters to reflect its governance importance.
+
+Below are some key examples:
+
+1. **Root Origin**:
+    - Represents the highest privilege level, reserved for proposals with the most significant impact, such as runtime upgrades or critical network changes
+    - Requires stringent approval thresholds, large deposits, and longer enactment periods
+
+2. **Treasury Origin**:
+    - Handles financial proposals, such as spending from the treasury or tipping contributors
+    - Lower thresholds and shorter timeframes allow quicker decisions, reflecting their less critical nature
+
+3. **Staking Admin Origin**:
+    - Focused on proposals related to staking operations, such as validator management
+    - Designed to respond efficiently while maintaining governance integrity
+
+4. **Fellowship and General Admin Origins**:
+    - Used for administrative decisions within specific domains, ensuring delegated authority can act promptly
+
+5. **Referendum Canceller and Killer Origins**:
+    - These specialized Origins handle the cancellation or permanent termination of proposals, requiring unique criteria due to their sensitive nature
+
+Each `Origin` has its own set of rules, like deposits, decision period, and confirmation period, designed to fit its purpose while ensuring fairness, efficiency, and network security.
 
 ## Tracks
 

@@ -1,6 +1,6 @@
 ---
 title: Introduction to XCM
-description: Unlock seamless blockchain interoperability with XCM—Polkadot's cross-consensus messaging format for asset transfers and cross-chain interactions.
+description: Unlock blockchain interoperability with XCM — Polkadot's Cross-Consensus Messaging format for cross-chain interactions.
 ---
 
 # Introduction to XCM

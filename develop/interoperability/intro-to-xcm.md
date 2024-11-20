@@ -13,7 +13,7 @@ With XCM, one chain can send intents to another one, fostering a more interconne
 
 ## Messaging Format
 
-XCM is not a protocol but a standardized [messaging format](https://github.com/polkadot-fellows/xcm-format){target=\_blank}. It defines the structure and behavior of messages but does not handle their delivery. This separation allows developers to focus on crafting precise instructions for target systems without worrying about transmission mechanics.
+XCM is not a protocol but a standardized [messaging format](https://github.com/polkadot-fellows/xcm-format){target=\_blank}. It defines the structure and behavior of messages but does not handle their delivery. This separation allows developers to focus on crafting instructions for target systems without worrying about transmission mechanics.
 
 XCM messages are action-oriented, specifying how the receiving blockchain should alter its state. Unlike transactions, they do not directly perform these changes. By leveraging asynchronous composability, XCM enables efficient, out-of-sequence execution, akin to how RESTful services structure HTTP requests.
 

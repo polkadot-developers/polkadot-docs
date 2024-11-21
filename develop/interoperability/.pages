@@ -2,7 +2,7 @@ title: Interoperability
 nav:
   - index.md
   # - 'Introduction to XCM': intro-to-xcm.md
-  # - 'XCM Channels': xcm-channels.md
+  - 'XCM Channels': xcm-channels.md
   # - 'XCM Configuration': xcm-configuration.md
   # - 'Send Messages': send-messages.md
   # - 'Test and Debug': test-and-debug.md

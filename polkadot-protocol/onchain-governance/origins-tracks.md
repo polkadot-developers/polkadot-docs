@@ -17,8 +17,8 @@ Origins and tracks are vital in streamlining the governance workflow and maintai
 
 Origins are the foundation of Polkadot's OpenGov governance system. They categorize proposals by privilege and define their decision-making rules. Each origin corresponds to a specific level of importance and risk, guiding how referendums progress through the governance process.
 
-- High-privilege origins like `Root Origin` govern critical network changes, such as core software upgrades
-- Lower-privilege origins like `Small Spender` handle minor requests, such as community project funding under 10,000 DOT
+- High-privilege origins like Root Origin govern critical network changes, such as core software upgrades
+- Lower-privilege origins like Small Spender handle minor requests, such as community project funding under 10,000 DOT
 
 Proposers select an origin based on the nature of their referendum. Origins determine parameters like approval thresholds, required deposits, and timeframes for voting and confirmation. Each origin is paired with a track, which acts as a roadmap for the proposal's lifecycle, including preparation, voting, and enactment.
 
@@ -35,10 +35,10 @@ Tracks define a referendum's journey from submission to enactment, tailoring gov
 - **Confirmation** - period to verify sustained community support before enactment
 - **Enactment** - final waiting period before the proposal takes effect
 
-Tracks customize these stages with parameters like decision deposit requirements, voting durations, and approval thresholds, ensuring proposals from each origin receive the required scrutiny and process. For example, a runtime upgrade in the `Root Origin` track will have longer timeframes and stricter thresholds than a treasury request in the `Small Spender` track.
+Tracks customize these stages with parameters like decision deposit requirements, voting durations, and approval thresholds, ensuring proposals from each origin receive the required scrutiny and process. For example, a runtime upgrade in the Root Origin track will have longer timeframes and stricter thresholds than a treasury request in the Small Spender track.
 
 ## Additional Resources
 
-- Visit [Origins and Tracks Info](https://wiki.polkadot.network/docs/learn-polkadot-opengov-origins#origins-and-tracks-info){target=\_blank} for a list of origins and tracks for Polkadot and Kusama including associated parameters.
+- Visit [Origins and Tracks Info](https://wiki.polkadot.network/docs/learn-polkadot-opengov-origins#origins-and-tracks-info){target=\_blank} for a list of origins and tracks for Polkadot and Kusama including associated parameters
 
-- See [Approval and Support](https://wiki.polkadot.network/docs/learn-polkadot-opengov#approval-and-support){target=\_blank} for a deeper dive into the approval and support system.
+- See [Approval and Support](https://wiki.polkadot.network/docs/learn-polkadot-opengov#approval-and-support){target=\_blank} for a deeper dive into the approval and support system

@@ -68,7 +68,7 @@ Assertions are defined by sentences in the DSL that evaluate different metrics, 
 
     === "Syntax"
 
-        `node-name reports histogram memtric_name has comparator target_value samples in buckets ["bucket","bucket",...] [within x seconds]`
+        `node-name reports histogram metric_name has comparator target_value samples in buckets ["bucket","bucket",...] [within x seconds]`
 
     === "Example"
 
@@ -111,7 +111,7 @@ Assertions are defined by sentences in the DSL that evaluate different metrics, 
 
     === "Syntax"
 
-        `node-name count of log lines (containing|matcheing) (regex|glob) "pattern" [within x seconds]`
+        `node-name count of log lines (containing|matching) (regex|glob) "pattern" [within x seconds]`
 
     === "Example"
 

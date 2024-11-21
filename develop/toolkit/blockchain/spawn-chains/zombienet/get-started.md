@@ -28,30 +28,10 @@ Zombienet releases are available on the [Zombienet repository](https://github.co
 Multiple options are available for installing Zombienet, depending on the user's preferences and the environment where it will be used. The following section will guide you through the installation process for each option.
 
 === "Use the executable"
-    Zombienet executables can be downloaded using the [latest release](https://github.com/paritytech/zombienet/releases){target=\_blank} uploaded on the Zombienet repository. You can download the executable for your operating system and architecture and then move it to a directory in your PATH. 
+    Install Zombienet using executables by visiting the [latest release](https://github.com/paritytech/zombienet/releases){target=\_blank} page and selecting the appropriate asset for your operating system. You can download the executable and move it to a directory in your PATH. 
 
-    Each release includes executables for Linux and macOS. Executables are generated using [pkg](https://github.com/vercel/pkg){target=\_blank}, which allows the Zombienet CLI to operate without requiring Node.js to be installed. 
-
-    Alternatively, you can also download the executable using either `curl` or `wget`:
-
-    === "curl"
-
-        ```bash
-        curl -LO \
-        https://github.com/paritytech/zombienet/releases/download/INSERT_ZOMBIENET_VERSION/INSERT_ZOMBIENET_EXECUTABLE
-        ```
-
-    === "wget"
-
-        ```bash
-        wget \
-        https://github.com/paritytech/zombienet/releases/download/INSERT_ZOMBIENET_VERSION/INSERT_ZOMBIENET_EXECUTABLE
-        ```
-
-    !!! note
-        - Replace `INSERT_ZOMBIENET_VERSION` with the URL that you want to download
-        - Replace `INSERT_ZOMBIENET_EXECUTABLE` with the name of the executable file that matches your operating system and architecture 
-        - This guide uses `v{{ dependencies.zombienet.version }}` and `zombienet-{{ dependencies.zombienet.architecture }}`
+    !!!note
+        Each release includes executables for Linux and macOS. Executables are generated using [pkg](https://github.com/vercel/pkg){target=\_blank}, which allows the Zombienet CLI to operate without requiring Node.js to be installed. 
 
     Then, ensure the downloaded file is executable:
 
@@ -250,7 +230,7 @@ id = 1000
 The local provider does not offer any additional features.
 
 !!! note
-    The local provider exclusively utilizes the command configuration for nodescollators, which supports both relative and absolute paths. You can employ the`default_command` configuration to specify the binary for spawning all nodes inthe relay chain.
+    The local provider exclusively utilizes the command configuration for nodes, which supports both relative and absolute paths. You can employ the `default_command` configuration to specify the binary for spawning all nodes in the relay chain.
 
 ## Configure Zombienet
 

@@ -63,9 +63,9 @@ After the network is launched, you can interact with it using [Polkadot.js Apps]
 
 ### Connect to the Nodes
 
-Use this [port address](https://polkadot.js.org/apps/?rpc=ws://127.0.0.1:55308#explorer){target=\_blank} to interact with the same `alice` node used for this tutorial. Ports can change from spawn to spawn so be sure to locate the link in the output when spawning your own node to ensure you are accessing the correct port.
+Use the [55308 port address](https://polkadot.js.org/apps/?rpc=ws://127.0.0.1:55308#explorer){target=\_blank} to interact with the same `alice` node used for this tutorial. Ports can change from spawn to spawn so be sure to locate the link in the output when spawning your own node to ensure you are accessing the correct port.
 
-If you want to interact with the nodes more programmatically, you can also use the [Polkadot.js API](https://polkadot.js.org/api/){target=\_blank}. For example, the following code snippet shows how to connect to the `alice` node using the Polkadot.js API and log some information about the chain and node:
+If you want to interact with the nodes more programmatically, you can also use the [Polkadot.js API](https://polkadot.js.org/docs/api/){target=\_blank}. For example, the following code snippet shows how to connect to the `alice` node using the Polkadot.js API and log some information about the chain and node:
 
 ```typescript
 --8<-- 'code/tutorials/blockchains/testing/spawn-basic-chain/connect-to-alice-01.js'

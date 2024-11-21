@@ -2,7 +2,7 @@ title: Develop
 nav:
   - index.md
   - development-pathways
-  # - networks
+  - 'Networks': networks.md
   - blockchains
   - integrations
   - smart-contracts

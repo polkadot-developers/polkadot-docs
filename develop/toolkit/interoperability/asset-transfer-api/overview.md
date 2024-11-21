@@ -59,37 +59,20 @@ To initialize the Asset Transfer API, you need three key components:
 - The `specName` of the chain
 - The XCM version to use
 
-<!-- You can set up the API in two ways. Choose the option that best fits your project's structure and requirements. Both methods will result in a fully initialized AssetTransferApi instance ready for use:
-
-### Using an Existing Polkadot.js API
-
-If you already have an initialized Polkadot.js API instance, you can use it to set up the Asset Transfer API:
-
-```ts
-// Assuming 'api' is your initialized Polkadot.js API instance
-const { specName } = await api.rpc.state.getRuntimeVersion();
-const safeXcmVersion = await fetchSafeXcmVersion(api);
-
-const assetsApi = new AssetTransferApi(api, specName, safeXcmVersion);
-```
--->
-
 ### Using Helper Function from Library
 
-For a simpler setup process, you can leverage the `constructApiPromise` helper function provided by the library. It not only constructs a Polkadot.js `ApiPromise` but also automatically retrieves the chain's `specName` and fetches a safe XCM version. By using this function, developers can significantly reduce boilerplate code and potential configuration errors, making the initial setup both quicker and more robust.
-
-<!-- This method automatically initializes the Polkadot.js API, retrieves the specName, and determines the safe XCM version. -->
+Leverage the `constructApiPromise` helper function provided by the library for the simplest setup process. It not only constructs a Polkadot.js `ApiPromise` but also automatically retrieves the chain's `specName` and fetches a safe XCM version. By using this function, developers can significantly reduce boilerplate code and potential configuration errors, making the initial setup both quicker and more robust.
 
 ```ts
 --8<-- 'code/develop/toolkit/interoperability/asset-transfer-api/overview/setup.ts'
 ```
 
 !!!note
-    The code examples are enclosed in an async main function to provide the necessary asynchronous context. However, you can use the code directly if you're already working within an async environment. The key is to ensure you're in an async context when working with these asynchronous operations, regardless of your specific setup.
+    The code example id enclosed in an async main function to provide the necessary asynchronous context. However, you can use the code directly if you're already working within an async environment. The key is to ensure you're in an async context when working with these asynchronous operations, regardless of your specific setup.
 
 ## Asset Transfer API Reference
 
-For detailed information on the Asset Transfer API, including available methods, data types, and functionalities, refer to the [Asset Transfer API Reference](/polkadot-ecosystem-docs-draft/build-on-polkadot/xcm/asset-transfer-api/reference) section. This resource provides in-depth explanations and technical specifications to help you integrate and utilize the API effectively.
+For detailed information on the Asset Transfer API, including available methods, data types, and functionalities, refer to the [Asset Transfer API Reference](/develop/toolkit/interoperability/asset-transfer-api/reference){target=\_blank} section. This resource provides in-depth explanations and technical specifications to help you integrate and utilize the API effectively.
 
 ## Examples
 

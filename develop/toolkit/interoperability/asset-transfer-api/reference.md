@@ -14,7 +14,7 @@ description: Explore the Asset Transfer API Reference for comprehensive details 
     Learn how to install [`asset-transfer-api`](https://github.com/paritytech/asset-transfer-api){target=\_blank} into a new or existing project.
 
     <br>
-    [:octicons-arrow-right-24: Get started](../asset-transfer-api/overview.md)
+    [:octicons-arrow-right-24: Get started](/develop/toolkit/interoperability/asset-transfer-api/overview/#install-asset-transfer-api){target=\_blank}
 
 -   :octicons-code-16:{ .lg .middle } __Dive in with a tutorial__
 

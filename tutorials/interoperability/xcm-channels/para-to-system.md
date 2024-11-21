@@ -94,8 +94,10 @@ After successfully submitting the XCM message to the relay chain, two HRMP chann
     
 3. Examine the query results. You should see output similar to the following:
     ```json
-    --8<-- '/code/tutorials/interoperability/xcm-channels/para-to-system/hrmp-query-output.json'
+    --8<-- 'code/tutorials/interoperability/xcm-channels/para-to-system/hrmp-query-output.json'
     ```
+
+
 
 The output confirms the successful establishment of two HRMP channels:
 

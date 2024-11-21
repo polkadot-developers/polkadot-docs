@@ -1,7 +1,7 @@
 ---
-title: Interoperability Tutorials
+title: XCM Channels
 description: TODO
 hide: 
-    - feedback
+- feedback
 template: subsection-index-page.html
 ---

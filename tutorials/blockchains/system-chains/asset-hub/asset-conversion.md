@@ -3,7 +3,7 @@ title: Convert Assets on Asset Hub
 description: A guide detailing the step-by-step process of converting assets on Asset Hub, helping users efficiently navigate asset management on the platform.
 ---
 
-# Asset Conversion on Asset Hub
+# Convert Assets on Asset Hub
 
 ## Introduction
 
@@ -22,7 +22,7 @@ Before converting assets on Asset Hub, you must ensure you have:
 
 - Access to the [Polkadot.js Apps](https://polkadot.js.org/apps){target=\_blank} interface and a connection with the intended blockchain
 - A funded wallet containing the assets you wish to convert and enough available funds to cover the transaction fees
-- An asset registered on Asset Hub that you want to convert. If you haven't created an asset on Asset Hub yet, refer to the [Register a Local Asset](/tutorials/blockchains/system-chains/asset-hub/register-foreign-asset/){target=\_blank} or [Register a Foreign Asset](/tutorials/blockchains/system-chains/asset-hub/register-local-asset/){target=\_blank} documentation to create an asset.
+- An asset registered on Asset Hub that you want to convert. If you haven't created an asset on Asset Hub yet, refer to the [Register a Local Asset](/tutorials/blockchains/system-chains/asset-hub/register-local-asset/){target=\_blank} or [Register a Foreign Asset](/tutorials/blockchains/system-chains/asset-hub/register-foreign-asset/){target=\_blank} documentation to create an asset.
 
 ## Creating a Liquidity Pool
 
@@ -326,7 +326,7 @@ Signing and submitting the transaction will initiate the withdrawal of liquidity
 
 ## Test Environment Setup
 
-To test the Asset Conversion pallet, you can set up a local test environment to simulate different scenarios. This guide uses Chopsticks to spin up an instance of Polkadot Asset Hub. For further details on using Chopsticks, please refer to the [Chopsticks documentation](./docs/dev-tools/chopsticks/overview.md){target=\_blank}.
+To test the Asset Conversion pallet, you can set up a local test environment to simulate different scenarios. This guide uses Chopsticks to spin up an instance of Polkadot Asset Hub. For further details on using Chopsticks, please refer to the [Chopsticks documentation](/develop/toolkit/blockchain/fork-chains/chopsticks/get-started){target=\_blank}.
 
 To set up a local test environment, execute the following command:
 

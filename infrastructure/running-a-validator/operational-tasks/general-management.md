@@ -219,14 +219,14 @@ After preparing the environment; install and configure the latest version of Pro
 
 ### Install and Configure Grafana
 
-Grafana provides a powerful, customizable interface to visualize metrics collected by Prometheus. This guide follows [Grafana's canonical installation instructions](https://grafana.com/docs/grafana/latest/setup-grafana/installation/debian/#install-from-apt-repository){target=\_blank} To install and configure Grafana, follow these steps:
+Grafana provides a powerful, customizable interface to visualize metrics collected by Prometheus. This guide follows [Grafana's canonical installation instructions](https://grafana.com/docs/grafana/latest/setup-grafana/installation/debian/#install-from-apt-repository){target=\_blank}. To install and configure Grafana, follow these steps:
 
 1. Install Grafana prerequisites - run the following commands to install the required packages:
     ```bash
     sudo apt-get install -y apt-transport-https software-properties-common wget    
     ```
 
-2. Import the GPG key:
+2. Import the [GPG key](https://gnupg.org/){target=\_blank}:
     ```bash
     sudo mkdir -p /etc/apt/keyrings/
     wget -q -O - https://apt.grafana.com/gpg.key | gpg --dearmor | sudo tee /etc/apt/keyrings/grafana.gpg > /dev/null
@@ -244,7 +244,7 @@ Grafana provides a powerful, customizable interface to visualize metrics collect
     sudo apt-get install grafana
     ```
 
-After installing Grafana, you can move on to the configuration steps.
+After installing Grafana, you can move on to the configuration steps:
 
 1. Set Grafana to auto-start - configure Grafana to start automatically on system boot and start the service
     ```bash

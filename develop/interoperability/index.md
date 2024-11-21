@@ -2,6 +2,6 @@
 title: Interoperability
 description: TODO
 hide: 
-    - feedback
+- feedback
 template: subsection-index-page.html
 ---

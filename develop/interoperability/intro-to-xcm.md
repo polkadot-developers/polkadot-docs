@@ -54,7 +54,7 @@ The following is a simplified XCM message demonstrating a token transfer from Al
 
 The message consists of three instructions described as follows:
 
-- **[WithdrawAsset](https://github.com/polkadot-fellows/xcm-format?tab=readme-ov-file#withdrawasset)** - transfers a specified number of tokens from Alice's account to a holding register
+- [**WithdrawAsset**](https://github.com/polkadot-fellows/xcm-format?tab=readme-ov-file#withdrawasset){target=\_blank} - transfers a specified number of tokens from Alice's account to a holding register
 ```rust
 --8<-- 'code/develop/interoperability/intro-to-xcm/XCM-first-look.rs:2:2'
 ```
@@ -63,7 +63,7 @@ The message consists of three instructions described as follows:
 
     The first instruction takes as an input the MultiAsset that should be withdrawn. The MultiAsset describes the native parachain token with the `Here` keyword. The `amount` parameter is the number of tokens that are transferred. The withdrawal account depends on the origin of the message. In this example the origin of the message is Alice. The `WithdrawAsset` instruction moves `amount` number of native tokens from Alice's account into the holding register.
 
-- **[BuyExecution](https://github.com/polkadot-fellows/xcm-format?tab=readme-ov-file#buyexecution)** - allocates fees to cover the execution [weight](/polkadot-protocol/glossary/#weight){target=\_blank} of the XCM instructions
+- [**BuyExecution**](https://github.com/polkadot-fellows/xcm-format?tab=readme-ov-file#buyexecution){target=\_blank} - allocates fees to cover the execution [weight](/polkadot-protocol/glossary/#weight){target=\_blank} of the XCM instructions
 ```rust
 --8<-- 'code/develop/interoperability/intro-to-xcm/XCM-first-look.rs:3:6'
 ```

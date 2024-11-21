@@ -57,13 +57,13 @@ Follow these steps to start your first blockchain node:
 
 Before proceeding, examine the key command-line options used to start the node:
 
-- `--base-path` - specifies the directory for storing all chain-related data
-- `--chain` - defines the chain specification to use
-- `--alice` - adds the predefined keys for the Alice account to the node's keystore. This account is used for block production and finalization
-- `--port` - sets the listening port for peer-to-peer (p2p) traffic. Different ports are necessary when running multiple nodes on the same machine
-- `--rpc-port` - specifies the port for incoming JSON-RPC traffic via WebSocket and HTTP
-- `--node-key` - defines the Ed25519 secret key for libp2p networking
-- `--validator` - enables this node to participate in block production and finalization for the network
+- **`--base-path`** - specifies the directory for storing all chain-related data
+- **`--chain`** - defines the chain specification to use
+- **`--alice`** - adds the predefined keys for the Alice account to the node's keystore. This account is used for block production and finalization
+- **`--port`** - sets the listening port for peer-to-peer (p2p) traffic. Different ports are necessary when running multiple nodes on the same machine
+- **`--rpc-port`** - specifies the port for incoming JSON-RPC traffic via WebSocket and HTTP
+- **`--node-key`** - defines the Ed25519 secret key for libp2p networking
+- **`--validator`** - enables this node to participate in block production and finalization for the network
 
 For a comprehensive overview of all available command-line options for the node template, you can access the built-in help documentation. Execute the following command in your terminal:
 
@@ -79,7 +79,7 @@ Upon successful node startup, the terminal displays messages detailing network o
 
 Pay particular attention to the following key messages:
 
-- Genesis block initialization:
+- **Genesis block initialization**:
 
     ```plain
     2024-09-10 08:35:43 🔨 Initializing Genesis block/state (state: 0x074c…27bd, header-hash: 0x850f…951f)
@@ -87,7 +87,7 @@ Pay particular attention to the following key messages:
 
     This message identifies the initial state or genesis block used by the node. When starting subsequent nodes, ensure these values match.
 
-- Node identity:
+- **Node identity**:
 
     ```plain
     2024-09-10 08:35:43 🏷  Local node identity is: 12D3KooWEyoppNCUx8Yx66oV9fJnriXwCcXwDDUA2kj6vnc6iDEp
@@ -95,7 +95,7 @@ Pay particular attention to the following key messages:
 
     This string uniquely identifies the node. It's determined by the `--node-key` used to start the node with the Alice account. Use this identifier when connecting additional nodes to the network.
 
-- Network status:
+- **Network status**:
 
     ```plain
     2024-09-10 08:35:48 💤 Idle (0 peers), best: #0 (0x850f…951f), finalized #0 (0x850f…951f), ⬇ 0 ⬆ 0
@@ -141,19 +141,19 @@ To add a node to the running blockchain:
 
     Key differences in this command:
     
-    1. Unique paths and ports - to avoid conflicts on the same machine, different values are used for:
-        - `--base-path` - set to `/tmp/bob`
-        - `--port` - set to `30334`
-        - `--rpc-port` - set to `9946`
+    - **Unique paths and ports** - to avoid conflicts on the same machine, different values are used for:
+        - **`--base-path`** - set to `/tmp/bob`
+        - **`--port`** - set to `30334`
+        - **`--rpc-port`** - set to `9946`
 
-    2. Bootnode specification - the `--bootnodes` option is crucial for network discovery:
-        - Format - `/ip4/127.0.0.1/tcp/30333/p2p/12D3KooWEyoppNCUx8Yx66oV9fJnriXwCcXwDDUA2kj6vnc6iDEp`
-        - Components:
-            - `ip4` - indicates IPv4 format
-            - `127.0.0.1` - IP address of the running node (localhost in this case)
-            - `tcp` - specifies TCP for peer-to-peer communication
-            - `30333` - port number for peer-to-peer TCP traffic
-            - `12D3KooWEyoppNCUx8Yx66oV9fJnriXwCcXwDDUA2kj6vnc6iDEp` - unique identifier of the Alice node
+    - **Bootnode specification** - the `--bootnodes` option is crucial for network discovery:
+        - **Format** - `/ip4/127.0.0.1/tcp/30333/p2p/12D3KooWEyoppNCUx8Yx66oV9fJnriXwCcXwDDUA2kj6vnc6iDEp`
+        - **Components**:
+            - **`ip4`** - indicates IPv4 format
+            - **`127.0.0.1`** - IP address of the running node (localhost in this case)
+            - **`tcp`** - specifies TCP for peer-to-peer communication
+            - **`30333`** - port number for peer-to-peer TCP traffic
+            - **`12D3KooWEyoppNCUx8Yx66oV9fJnriXwCcXwDDUA2kj6vnc6iDEp`** - unique identifier of the Alice node
 
 ## Verify Blocks are Produced and Finalized
 
@@ -167,10 +167,10 @@ Follow these steps to verify that blocks are being produced and finalized:
 
     Key information in this output:
 
-    - Second node discovery - `discovered: 12D3KooWHdiAxVd8uMQR1hGWXccidmfCwLqcMpGwR6QcTP6QRMuD`
-    - Peer count - `1 peers`
-    - Block production - `best: #4 (0xe176…0430)`
-    - Block finalization - `finalized #1 (0x75bb…e82d)`
+    - **Second node discovery** - `discovered: 12D3KooWHdiAxVd8uMQR1hGWXccidmfCwLqcMpGwR6QcTP6QRMuD`
+    - **Peer count** - `1 peers`
+    - **Block production** - `best: #4 (0xe176…0430)`
+    - **Block finalization** - `finalized #1 (0x75bb…e82d)`
 
 2. Check the terminal of the second node (Bob) for similar output
 
@@ -184,14 +184,14 @@ Follow these steps to verify that blocks are being produced and finalized:
 
 5. Clean up chain state from the simulated network by using the `purge-chain` subcommand:
 
-    - For Alice's node:
+    - **For Alice's node**:
         ```bash
         ./target/release/solochain-template-node purge-chain \
         --base-path /tmp/alice \
         --chain local \
         -y
         ```
-    - For Bob's node:
+    - **For Bob's node**:
         ```bash
         ./target/release/solochain-template-node purge-chain \
         --base-path /tmp/bob \

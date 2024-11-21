@@ -95,8 +95,8 @@ In this tutorial, the private network will consist of two nodes, meaning you'll 
 
 For this tutorial, the second set of keys will be:
 
-- Sr25519 (for Aura) - `5Df9bvnbqKNR8S1W2Uj5XSpJCKUomyymwCGf6WHKyoo3GDev`
-- Ed25519 (for Grandpa)  `5DJRQQWEaJart5yQnA6gnKLYKHLdpX6V4vHgzAYfNPT2NNuW`
+- **Sr25519 (for Aura)** - `5Df9bvnbqKNR8S1W2Uj5XSpJCKUomyymwCGf6WHKyoo3GDev`
+- **Ed25519 (for Grandpa)** - `5DJRQQWEaJart5yQnA6gnKLYKHLdpX6V4vHgzAYfNPT2NNuW`
 
 ## Create a Custom Chain Specification
 

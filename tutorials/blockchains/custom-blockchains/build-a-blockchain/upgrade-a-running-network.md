@@ -182,7 +182,7 @@ Follow these steps to update your network with the new runtime:
             !!!note
                 You can click the **file upload toggle** to upload a file instead of copying the hex string value.
 
-        - **`weight`** - lave both parameters set to the default value of `0`
+        - **`weight`** - leave both parameters set to the default value of `0`
 
     6. Click on **Submit Transaction**
 
@@ -191,7 +191,6 @@ Follow these steps to update your network with the new runtime:
 4. Review the transaction details and click **Sign and Submit** to confirm the transaction
 
     ![](/images/tutorials/blockchains/custom-blockchains/build-a-blockchain/upgrade-a-running-network/upgrade-a-running-network-4.webp)
-
 
 ### Verify the Upgrade
 

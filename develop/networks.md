@@ -1,6 +1,6 @@
 ---
 title: Networks
-description: TODO
+description: Explore the Polkadot ecosystem networks and learn the unique purposes of each, tailored for blockchain innovation, testing, and enterprise-grade solutions.
 ---
 
 # Networks
@@ -19,32 +19,42 @@ The Polkadot ecosystem consists of multiple networks designed to support differe
 - **Block explorer URL** - `https://polkadot.subscan.io/`
 - **Network Characteristics:**
     - Highest security and stability
-    - Full economic value
-    - Supports production-ready parachains
-    - Governed by the community through sophisticated governance mechanisms
+    - Real economic incentives
+    - Production-ready environment
+    - Advanced governance mechanisms
 
 ### Kusama
 
-- **Description** - pre-production environment for cutting-edge blockchain innovations
+- **Description** - experimental network that receives features before Polkadot
 - **RPC URL** - `wss://kusama-rpc.dwellir.com`
 - **Currency symbol** - `KSM`
-- **Block explorer URL** - `https://kusama.subscan.io/.`
+- **Block explorer URL** - `https://kusama.subscan.io/`
 - **Network Characteristics:**
-    - High-risk, experimental network
-    - Faster governance and upgrade cycles
-    - Lower economic barriers
-    - Ideal for testing radical new features before Polkadot deployment
-    - Motto: "Expect Chaos"
+    - Fast-moving "canary" environment
+    - Real economic incentives
+    - Rapid governance cycles
+    - Testing ground for Polkadot features
+    - Higher risk tolerance
 
 ## Test Networks
 
 ### Westend
 
+- **Description** - test network that mirrors Polkadot's functionality for protocol development
+- **RPC URL** - `wss://westend-rpc.dwellir.com`
+- **Currency symbol** - `WND`
+- **Block explorer URL** - `https://westend.subscan.io/`
+- **Network Characteristics:**
+    - Core protocol testing
+    - Managed by Parity Technologies
 
 ### Paseo
 
-
-
-Westend - functionality equal to the current Polkadot mainnet, with possible next-generation testing of features from time to time that will eventually migrate onto Polkadot. Perma-testnet (is not reset back to genesis block).
-
-Paseo - a community-run testnet which mirrors the Polkadot runtime. It is maintained by the community.
+- **Description** - community-maintained test network for parachain and dapp development
+- **RPC URL** - `wss://paseo.rpc.amforc.com`
+- **Currency symbol** - `PAS`
+- **Block explorer URL** - `https://paseo.subscan.io/`
+- **Network Characteristics:**
+    - Ideal for parachain and dApp testing
+    - Mirrors Polkadot's runtime
+    - Community-managed environment

@@ -7,6 +7,8 @@ description: Learn to build Wasm smart contracts with ink!, a Rust-based eDSL. E
 
 ## Introduction
 
+The [pallet_contracts](https://docs.rs/pallet-contracts/latest/pallet_contracts/index.html#contracts-pallet){target=\_blank} is a specialized pallet within the Polkadot SDK that enables smart contract functionality through a WebAssembly (Wasm) execution environment. For developing smart contracts for this pallet, [ink!](https://use.ink/){target=\_blank} emerges as the primary and recommended language. 
+
 ink! is an embedded domain-specific language (eDSL) designed to develop [Wasm](https://webassembly.org/){target=\_blank} smart contracts using the Rust programming language.
 
 Rather than creating a new language, ink! is just standard Rust in a well-defined "contract format" with specialized `#[ink(…)]` attribute macros. These attribute macros tell ink! what the different parts of your Rust smart contract represent and ultimately allow ink! to do all the magic needed to create Polkadot SDK-compatible Wasm bytecode. Because of this, it inherits critical advantages such as:
@@ -17,8 +19,6 @@ Rather than creating a new language, ink! is just standard Rust in a well-define
 - Support from Rust's extensive developer community
 
 Since ink! smart contracts are compiled to Wasm, they offer high execution speed, platform independence, and enhanced security through sandboxed execution.
-
-These contracts can be deployed on any blockchain built with the Polkadot SDK that implements the [Contracts pallet](https://docs.rs/pallet-contracts/latest/pallet_contracts/){target=\_blank}.
 
 ## Installation
 

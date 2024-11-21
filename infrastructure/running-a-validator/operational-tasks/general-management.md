@@ -134,12 +134,12 @@ Before installing Prometheus, it's important to set up the environment securely 
 
 After preparing the environment; install and configure the latest version of Prometheus as follows:
 
-1. **Download Prometheus** - obtain the latest binaries from the [Prometheus releases page](https://github.com/prometheus/prometheus/releases/){target=\_blank} using these commands:
+1. **Download Prometheus** - obtain the respective release binary for your system architecture from the [Prometheus releases page](https://github.com/prometheus/prometheus/releases/){target=\_blank}. Replace the placeholder text with the respective release binary, e.g. `https://github.com/prometheus/prometheus/releases/download/v3.0.0/prometheus-3.0.0.linux-amd64.tar.gz`
     ```bash
     sudo apt-get update && sudo apt-get upgrade
-    wget https://github.com/prometheus/prometheus/releases/download/v2.26.0/prometheus-2.26.0.linux-amd64.tar.gz
+    wget INSERT_RELEASE_DOWNLOAD_LINK
     tar xfz prometheus-*.tar.gz
-    cd prometheus-2.26.0.linux-amd64
+    cd prometheus-3.0.0.linux-amd64
     ```
 2. **Set up Prometheus** - copy binaries and directories, assign ownership of these files to the `prometheus` user, and clean up download directory as follows:
 
@@ -219,21 +219,52 @@ After preparing the environment; install and configure the latest version of Pro
 
 ### Install and Configure Grafana
 
-Grafana provides a powerful, customizable interface to visualize metrics collected by Prometheus. To install and configure Grafana, follow these steps:
+Grafana provides a powerful, customizable interface to visualize metrics collected by Prometheus. This guide follows [Grafana's canonical installation instructions](https://grafana.com/docs/grafana/latest/setup-grafana/installation/debian/#install-from-apt-repository){target=\_blank} To install and configure Grafana, follow these steps:
 
-1. **Install Grafana** - run the following commands to install Grafana:
+1. Install Grafana prerequisites - run the following commands to install the required packages:
     ```bash
-    sudo apt-get install -y adduser libfontconfig1
-    wget https://dl.grafana.com/oss/release/grafana_7.5.4_amd64.deb
-    sudo dpkg -i grafana_7.5.4_amd64.deb
+    sudo apt-get install -y apt-transport-https software-properties-common wget    
     ```
-2. **Set Grafana to auto-start** - configure Grafana to start automatically on system boot and start the service
+
+2. Import the GPG key:
+    ```bash
+    sudo mkdir -p /etc/apt/keyrings/
+    wget -q -O - https://apt.grafana.com/gpg.key | gpg --dearmor | sudo tee /etc/apt/keyrings/grafana.gpg > /dev/null
+    ```
+
+3. Configure the stable release repo and update packages:
+    ```bash
+    echo "deb [signed-by=/etc/apt/keyrings/grafana.gpg] https://apt.grafana.com stable main" | sudo tee -a /etc/apt/sources.list.d/grafana.list
+    sudo apt-get update
+
+    ```
+
+4. Install the latest stable version of Grafana:
+    ```bash
+    sudo apt-get install grafana
+    ```
+
+After installing Grafana, you can move on to the configuration steps.
+
+1. Set Grafana to auto-start - configure Grafana to start automatically on system boot and start the service
     ```bash
     sudo systemctl daemon-reload
-    sudo systemctl enable grafana-server
+    sudo systemctl enable grafana-server.service
     sudo systemctl start grafana-server
     ```
-3. **Access Grafana** - open your browser, navigate to the following address, and use the default user and password `admin` to login:
+
+2.  Verify the Grafana service is running** with the following command:
+    ```bash
+    sudo systemctl status grafana-server
+    ```
+If necessary, you can stop or restart the service with the following commands:
+
+    ```bash
+    sudo systemctl stop grafana-server
+    sudo systemctl restart grafana-server
+    ```
+ 
+3. Access Grafana - open your browser, navigate to the following address, and use the default user and password `admin` to login:
     ```bash
     http://SERVER_IP_ADDRESS:3000/login
     ```
@@ -248,25 +279,20 @@ Grafana provides a powerful, customizable interface to visualize metrics collect
     sudo systemctl restart grafana-server
     ```
 
-![Grafana login screen](#)
+![Grafana login screen](/images/infrastructure/running-a-validator/operational-tasks/general-management/general-management-1.webp)
 
 Follow these steps to visualize node metrics:
 
 1. Select the gear icon for settings to configure the **Data Sources**
 2. Select **Add data source** to define the data source
-![Select Add data source](#)
-
+![Select Prometheus](/images/infrastructure/running-a-validator/operational-tasks/general-management/general-management-2.webp)
 3. Select **Prometheus**
-![Select Prometheus](#)
-
-4. Enter `https://localhost:9090` in the **URL** field, then select **Save & Test**. If you see the message **"Data source is working"** your connection is configured correctly
-![Save and test](#)
-
+![Save and test](/images/infrastructure/running-a-validator/operational-tasks/general-management/general-management-3.webp)
+4. Enter `http://localhost:9090` in the **URL** field, then select **Save & Test**. If you see the message **"Data source is working"** your connection is configured correctly
+![Import dashboard](/images/infrastructure/running-a-validator/operational-tasks/general-management/general-management-4.webp)
 5. Next, select **Import** from the menu bar on the left, select **Prometheus** in the dropdown list and select **Import**
-![Import dashboard](#)
-
 6. Finally, start your Polkadot node by running `./polkadot`. You should now be able to monitor your node's performance such as the current block height, network traffic, and running tasks on the Grafana dashboard
-![Sample dashboard with metrics](#)
+![Live dashboard](/images/infrastructure/running-a-validator/operational-tasks/general-management/general-management-5.webp)
 
 !!! tip "Import via grafana.com" 
     The [Grafana dashboards](https://grafana.com/grafana/dashboards){target=\_blank} page features user created dashboards made available for public use. Visit ["Substrate Node Metrics"](https://grafana.com/grafana/dashboards/21715-substrate-node-metrics/){target=\_blank} for an example of available dashboards.
@@ -275,14 +301,14 @@ Follow these steps to visualize node metrics:
 
 The optional `Alertmanager` complements Prometheus by handling alerts and notifying users of potential issues. Follow these steps to install and configure `Alertmanager`:
 
-1. **Download and extract `Alertmanager`** - download the latest version from the [Prometheus Alertmanager releases page](https://github.com/prometheus/alertmanager/releases){target=\_blank}
+1. Download extract `Alertmanager` - download the latest version from the [Prometheus Alertmanager releases page](https://github.com/prometheus/alertmanager/releases){target=\_blank}. Replace the placeholder text with the respective release binary, e.g. `https://github.com/prometheus/alertmanager/releases/download/v0.28.0-rc.0/alertmanager-0.28.0-rc.0.linux-amd64.tar.gz`
     ```bash
-    wget https://github.com/prometheus/alertmanager/releases/download/v0.26.0/alertmanager-0.26.0.linux-amd64.tar.gz
-    tar -xvzf alertmanager-0.26.0.linux-amd64.tar.gz
+    wget INSERT_RELEASE_DOWNLOAD_LINK
+    tar -xvzf alertmanager*
     ```
 2. **Move binaries and set permissions** - copy the binaries to a system directory and set appropriate permissions
     ```bash
-    cd alertmanager-0.26.0.linux-amd64
+    cd alertmanager-0.28.0-rc.0.linux-amd64
     sudo cp ./alertmanager /usr/local/bin/
     sudo cp ./amtool /usr/local/bin/
     sudo chown prometheus:prometheus /usr/local/bin/alertmanager

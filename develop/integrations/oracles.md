@@ -7,7 +7,7 @@ description: Learn about blockchain oracles, the essential bridges connecting bl
 
 ## What is a Blockchain Oracle?
 
-Oracles enable blockchains to access external data sources. Since blockchains operate as isolated networks, they cannot natively interact with external systems - this limitation is known as the "blockchain oracle problem." Oracles solves this by extracting data from external sources (like APIs, IoT devices, or other blockchains), validating it, and submitting it on-chain. 
+Oracles enable blockchains to access external data sources. Since blockchains operate as isolated networks, they cannot natively interact with external systems - this limitation is known as the "blockchain oracle problem." Oracles solves this by extracting data from external sources (like APIs, IoT devices, or other blockchains), validating it, and submitting it on-chain.
 
 While simple oracle implementations may rely on a single trusted provider, more sophisticated solutions use decentralized networks where multiple providers stake assets and reach consensus on data validity. Typical applications include DeFi price feeds, weather data for insurance contracts, and cross-chain asset verification.
 
@@ -15,7 +15,7 @@ While simple oracle implementations may rely on a single trusted provider, more 
 
 <div class="grid cards" markdown>
 
--   :material-clock-fast:{ .lg .middle } __Acurast__
+-   __Acurast__
 
     ---
 
@@ -23,7 +23,7 @@ While simple oracle implementations may rely on a single trusted provider, more 
 
     [:octicons-arrow-right-24: Reference](https://acurast.com/){target=\_blank}
 
--   :fontawesome-brands-markdown:{ .lg .middle } __Chainlink__
+-   __Chainlink__
 
     ---
 

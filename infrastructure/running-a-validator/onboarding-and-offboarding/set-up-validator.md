@@ -438,13 +438,13 @@ In this unit file, you will write the commands that you want to run on server bo
 Activate the systemd service to start on system boot by running:
 
 ```bash
-systemctl enable polkadot-validator.service
+sudo systemctl enable polkadot-validator.service
 ```
 
 To start the service manually, use:
 
 ```bash
-systemctl start polkadot-validator.service
+sudo systemctl start polkadot-validator.service
 ```
 
 Check the service's status to confirm it is running:

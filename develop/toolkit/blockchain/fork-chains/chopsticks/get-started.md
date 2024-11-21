@@ -87,7 +87,7 @@ The Chopsticks source repository includes a collection of [YAML](https://yaml.or
 An example of a configuration file for Polkadot is as follows:
 
 ```yaml
---8<-- 'code/develop/toolkit/blockchain/fork-live-chains/example-config.yml'
+--8<-- 'code/develop/toolkit/blockchain/fork-chains/chopsticks/get-started/example-config.yml'
 ```
 
 ### CLI Flags
@@ -96,4 +96,4 @@ Alternatively, all settings (except for genesis and timestamp) can be configured
 
 ## Where to Go Next
 
-- Visit the [Fork a Chain with Chopsticks](/tutorials/blockchains/testing/fork-live-chains.md) guide for step-by-step instructions for configuring and interacting with your forked chain.
+- Visit the [Fork a Chain with Chopsticks](/tutorials/blockchains/testing/fork-live-chains){target=\_blank} guide for step-by-step instructions for configuring and interacting with your forked chain.

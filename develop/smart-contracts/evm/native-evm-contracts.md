@@ -48,6 +48,7 @@ PolkaVM is a cutting-edge virtual machine tailored to optimize smart contract ex
 ### Performance Benefits
 
 PolkaVM's innovations translate into significant performance gains, such as:
+
 - **Enhanced developer experience** - faster execution and better tooling support
 - **Optimized resource use** - reduced transaction costs with precise metering
 - **Broader language support** - potential integration of languages like Rust and C for specialized use cases
@@ -107,4 +108,4 @@ Once your application is connected, you can retrieve network data, access contra
 
 ## Where to Go Next
 
-For further information about the Asset Hub smart contracts, please refer to the [official documentation](https://contracts.polkadot.io/){targe=\_blank}.
+For further information about the Asset Hub smart contracts, please refer to the [official documentation](https://contracts.polkadot.io/){target=\_blank}.

@@ -4,4 +4,4 @@ nav:
   - architecture
   - basics
   # - onchain-governance
-  - glossary
+  - 'Glossary': glossary.md

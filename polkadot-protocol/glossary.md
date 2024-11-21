@@ -5,7 +5,7 @@ description: Glossary of terms used within the Polkadot ecosystem, Polkadot SDK,
 
 # Glossary
 
-Key definitions, concepts, and terminology specific to the Polkadot ecosystem are included here. 
+Key definitions, concepts, and terminology specific to the Polkadot ecosystem are included here.
 
 Additional glossaries from around the ecosystem you might find helpful:
 

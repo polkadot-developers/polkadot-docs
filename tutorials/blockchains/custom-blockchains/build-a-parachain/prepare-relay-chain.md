@@ -3,7 +3,7 @@ title: Prepare a Relay Chain
 description: This tutorial will guide you through preparing a relay chain so that you can connect a test parachain node to it for local testing.
 ---
 
-# Prepare Relay Chain
+# Prepare a Relay Chain
 
 ## Introduction
 
@@ -18,12 +18,12 @@ The scope of this tutorial includes:
 
 ## Prerequisites
 
-Before diving into this tutorial, it's recommended that you have a basic understanding of how adding trusted nodes works in Polkadot. For further information about this process, refer to the [Add Trusted Nodes](TODO: add the absolute path to the Add Trusted Nodes tutorial) tutorial.
+Before diving into this tutorial, it's recommended that you have a basic understanding of how adding trusted nodes works in Polkadot. For further information about this process, refer to the [Add Trusted Nodes](/tutorials/blockchains/custom-blockchains/build-a-blockchain/add-trusted-nodes){target=\_blank} tutorial.
 
 To complete this tutorial, ensure that you have:
 
-- Configured your environment for Substrate development by installing [Rust and the Rust toolchain](TODO: add path){target=\_blank}
-- Completed [Build a Local Blockchain](/tutorials/polkadot-sdk/build-a-blockchain/build-a-local-blockchain){target=\_blank} tutorial and know how to compile and run a Polkadot SDK-based node
+- Installed Rust and the Rust toolchain. Refer to the [Installation](/develop/blockchains/get-started/install-polkadot-sdk){target=\_blank} guide for step-by-step instructions on setting up your development environment
+- Completed [Build a Local Blockchain](/tutorials/blockchains/custom-blockchains/build-a-blockchain/build-a-local-blockchain){target=\_blank} tutorial and know how to compile and run a Polkadot SDK-based node
 
 ## Build a Local Relay Chain
 
@@ -67,7 +67,7 @@ If command-line help is displayed, the node is ready to configure.
 
 ## Relay Chain Configuration
 
-Every Substrate-based chain requires a [chain specification](TODO:update-path){target=\_blank}. The relay chain's chain specification provides the same configuration settings as the chain specification for other networks. Many of the chain specification file settings are critical for network operations. For example, the chain specification identifies peers participating in the network, keys for validators, bootnode addresses, and other information.
+Every Substrate-based chain requires a [chain specification](/develop/blockchains/deployment/generate-chain-specs){target=\_blank}. The relay chain's chain specification provides the same configuration settings as the chain specification for other networks. Many of the chain specification file settings are critical for network operations. For example, the chain specification identifies peers participating in the network, keys for validators, bootnode addresses, and other information.
 
 ### Sample Chain Configuration
 
@@ -79,7 +79,7 @@ If you wanted to connect two parachains with a single collator each, you must ru
 
 The chain specification file is available in two formats: a JSON file in plain text and a JSON file in SCALE-encoded raw format.
 
-You can read and edit the plain text version of the chain specification file. However, the chain specification file must be converted to the SCALE-encoded raw format before you can use it to start a node. For information about converting a chain specification to the raw format, see [Customize a Chain Specification](TODO: add path){target=\_blank}.
+You can read and edit the plain text version of the chain specification file. However, the chain specification file must be converted to the SCALE-encoded raw format before you can use it to start a node. For information about converting a chain specification to the raw format, see [Customize a Chain Specification](/develop/blockchains/deployment/generate-chain-specs/#creating-a-custom-chain-specification){target=\_blank}.
 
 The sample chain specification is only valid for a single parachain with two validator nodes. If you add other validators, add additional parachains to your relay chain, or want to use custom account keys instead of the predefined account, you'll need to create a custom chain specification file.
 
@@ -165,4 +165,4 @@ To start the validator nodes, follow these steps:
 
     --8<-- 'code/tutorials/blockchains/custom-blockchains/build-a-parachain/prepare-relay-chain/relay-chain-2.html'
 
-Once the relay chain nodes are running, you can proceed to the next tutorial to [set up a test parachain node and connect it](/tutorials/polkadot-sdk/build-a-parachain/connect-a-parachain/) to the relay chain.
+Once the relay chain nodes are running, you can proceed to the next tutorial to [set up a test parachain node and connect it](/tutorials/blockchains/custom-blockchains/build-a-parachain/connect-a-parachain) to the relay chain.

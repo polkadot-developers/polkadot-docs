@@ -19,7 +19,7 @@ This tutorial illustrates reserving a parachain identifier with a local relay ch
 
 Before you begin, ensure that you have the following prerequisites:
 
-- Configured a local relay chain with two validators as described in the [Prepare a Local Relay Chain](/tutorials/polkadot-sdk/build-a-parachain/prepare-relay-chain/) tutorial
+- Configured a local relay chain with two validators as described in the [Prepare a Relay Chain](/tutorials/blockchains/custom-blockchains/build-a-parachain/prepare-relay-chain){target=\_blank} tutorial
 - You are aware that parachain versions and dependencies are tightly coupled with the version of the relay chain they connect to and know the software version you used to configure the relay chain
 
 ## Build the Parachain Template
@@ -56,19 +56,19 @@ To build the parachain template, follow these steps:
 
 Every parachain must reserve a unique `ParaID` identifier to connect to its specific relay chain. Each relay chain manages its own set of unique identifiers for the parachains that connect to it. The identifier is called a `ParaID` because the same identifier can be used to identify a slot occupied by a [parachain](https://wiki.polkadot.network/docs/learn-parachains){target=\_blank} or a [parathread](https://wiki.polkadot.network/docs/glossary#parathread){target=\_blank}.
 
-Note that you must have an account with sufficient funds to reserve a slot on a relay chain. You can determine the number of tokens a specific relay chain requires by checking the `ParaDeposit` configuration in the `paras_registrar` pallet for that relay chain. For example, [Rococo](https://github.com/paritytech/polkadot/blob/master/runtime/rococo/src/lib.rs#L1155){target=\_blank} requires 40 ROC to reserve an identifier:
+Note that you must have an account with sufficient funds to reserve a slot on a relay chain. You can determine the number of tokens a specific relay chain requires by checking the `ParaDeposit` configuration in the `paras_registrar` pallet for that relay chain. The following example shows a `ParaDeposit` requirement of 40 native tokens:
 
 ```rust
 --8<-- 'code/tutorials/blockchains/custom-blockchains/build-a-parachain/connect-a-parachain/connect-a-parachain-1.rs'
 ```
 
-Each relay chain allows its identifiers by incrementing the identifier starting at `2000` for all chains that aren't [common good parachains](https://wiki.polkadot.network/docs/learn-system-chains){target=\_blank}. Common good chains use a different method to allocate slot identifiers.
+Each relay chain allows its identifiers by incrementing the identifier starting at `2000` for all chains that aren't [system parachains](https://wiki.polkadot.network/docs/learn-system-chains){target=\_blank}. System parachains use a different method to allocate slot identifiers.
 
 To reserve a parachain identifier, follow these steps:
 
-1. Ensure your local relay chain validators are running. For further information, refer to the [Prepare a Local Relay Chain](/tutorials/polkadot-sdk/build-a-parachain/prepare-relay-chain/) tutorial
+1. Ensure your local relay chain validators are running. For further information, refer to the [Prepare a Relay Chain](/tutorials/blockchains/custom-blockchains/build-a-parachain/prepare-relay-chain){target=\_blank} tutorial
 
-2. Connect to a local relay chain node using the [Polkadot.js Apps](https://polkadot.js.org/apps/){target=_blank} interface. If you have followed the [Prepare a Local Relay Chain](/tutorials/polkadot-sdk/build-a-parachain/prepare-relay-chain/) tutorial, you can access the Polkadot.js Apps interface at `ws://localhost:9944`
+2. Connect to a local relay chain node using the [Polkadot.js Apps](https://polkadot.js.org/apps/){target=_blank} interface. If you have followed the [Prepare a Relay Chain](/tutorials/blockchains/custom-blockchains/build-a-parachain/prepare-relay-chain){target=\_blank} tutorial, you can access the Polkadot.js Apps interface at `ws://localhost:9944`
 
     ![](/images/tutorials/blockchains/custom-blockchains/build-a-parachain/connect-a-parachain/connect-a-parachain-1.webp)
 
@@ -210,7 +210,7 @@ To prepare the parachain collator to be registered:
 
 ## Register With the Local Relay Chain
 
-With the local relay chain and collator node running, you can register the parachain on the local relay chain. In a live public network, registration typically involves a [parachain auction](https://wiki.polkadot.network/docs/learn-auction){target=\_blank}. You can use a Sudo transaction and the Polkadot.js Apps interface for this tutorial and local testing. A Sudo transaction lets you bypass the steps required to acquire a parachain or parathread slot. This transaction should be executed in the relay chain.
+With the local relay chain and collator node running, you can register the parachain on the local relay chain. In a live public network, registration typically involves a [parachain auction](https://wiki.polkadot.network/docs/learn/learn-auction){target=\_blank}. You can use a Sudo transaction and the Polkadot.js Apps interface for this tutorial and local testing. A Sudo transaction lets you bypass the steps required to acquire a parachain or parathread slot. This transaction should be executed in the relay chain.
 
 To register the parachain, follow these steps:
 
@@ -256,7 +256,7 @@ To register the parachain, follow these steps:
 
    The terminal where the parachain is running also displays details similar to the following:
 
-    --8<-- 'code/tutorials/blockchains/custom-blockchains/build-a-parachain/connect-a-parachain/connect-a-parachain-6.html'
+   --8<-- 'code/tutorials/blockchains/custom-blockchains/build-a-parachain/connect-a-parachain/connect-a-parachain-6.html'
 
 ## Resetting the Blockchain State
 
@@ -293,5 +293,5 @@ After purging the chain state, you can restart the local relay chain and paracha
 
 Now that you have successfully connected a parachain to a relay chain, you can explore more advanced features and functionalities of parachains, such as:
 
-- [Opening HRMP Channels](TODO:update-path){target=\_blank}
-- [Transfer Assets Between Parachains](TODO:update-path){target=\_blank}
+- [Opening HRMP Channels](tutorials/interoperability/xcm-channels/para-to-para){target=\_blank}
+- [Transfer Assets Between Parachains](/develop/toolkit/interoperability/asset-transfer-api/overview){target=\_blank}

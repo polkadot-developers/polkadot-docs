@@ -105,8 +105,6 @@ To interact with your node using the [Polkadot.js Apps](https://polkadot.js.org/
 
 You are now connected to your local node and can now interact with it through the Polkadot.js Apps interface. This tool enables you to explore blocks, execute transactions, and interact with your blockchain's features. For in-depth guidance on using the interface effectively, refer to the [Polkadot.js Guides](https://wiki.polkadot.network/docs/learn-polkadot-js-guides){target=\_blank} available on the Polkadot Wiki.
 
-<!-- TODO: Polkadot.js Apps guide -->
-
 ## Stop the Node
 
 When you're done exploring your local node, you can stop it to remove any state changes you've made. Since you started the node with the `--dev` option, stopping the node will purge all persistent block data, allowing you to start fresh the next time.

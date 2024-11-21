@@ -13,13 +13,13 @@ This tutorial demonstrates deploying a parachain on a public test network like t
 
 Before you start, you need to have the following prerequisites:
 
-- You know how to generate and modify chain specification files as described in the [Add Trusted Nodes](/tutorials/polkadot-sdk/build-a-blockchain/add-trusted-nodes/){target=\_blank} tutorial
-- You know how to generate and store keys as described in the [Add Trusted Nodes](/tutorials/polkadot-sdk/build-a-blockchain/add-trusted-nodes/){target=\_blank} tutorial
-- You have completed the [Prepare a Local Relay Chain](/tutorials/polkadot-sdk/build-a-parachain/prepare-relay-chain/){target=\_blank} and the [Connect a Local Parachain](/tutorials/polkadot-sdk/build-a-parachain/connect-a-parachain.md){target=\_blank} tutorials on your local computer
+- You know how to generate and modify chain specification files as described in the [Generate Chain Specs](polkadot-docs/develop/blockchains/deployment/generate-chain-specs){target=\_blank} section
+- You know how to generate and store keys as described in the [Add Trusted Nodes](/tutorials/blockchains/custom-blockchains/build-a-blockchain/add-trusted-nodes){target=\_blank} tutorial
+- You have completed the [Prepare a Local Relay Chain](/tutorials/blockchains/custom-blockchains/build-a-parachain/prepare-relay-chain){target=\_blank} and the [Connect a Local Parachain](/tutorials/blockchains/custom-blockchains/build-a-parachain/connect-a-parachain){target=\_blank} tutorials on your local computer
 
 ## Get Started with an Account and Tokens
 
-To perform any action on Paseo, you need PAS tokens, which can be requested from the [Polkadot Faucet](https://faucet.polkadot.io/){target=\_blank}. Also, to store the tokens, you must have access to a Substrate-compatible digital currency wallet. You can't use [development keys and accounts](TODO:update-path){target=\_blank} for operations in any public setting. Many options are available for holding digital currency—including hardware wallets and browser-based applications—and some are more reputable than others. You should do your own research before selecting one.
+To perform any action on Paseo, you need PAS tokens, which can be requested from the [Polkadot Faucet](https://faucet.polkadot.io/){target=\_blank}. Also, to store the tokens, you must have access to a Substrate-compatible digital currency wallet. Development keys and accounts should never hold assets of actual value and should not be used for production. Many options are available for holding digital currency—including hardware wallets and browser-based applications—and some are more reputable than others. You should do your own research before selecting one.
 
 However, you can use the [Polkadot.js Apps](https://polkadot.js.org/apps/){target=\_blank} interface to get you started for testing purposes.
 
@@ -47,7 +47,7 @@ To prepare an account, follow these steps:
 
 ## Reserve a Parachain Identifier
 
-You must reserve a parachain identifier before registering a parathread on Paseo. The steps are similar to the ones you followed in [Connect a Local Parachain](/tutorials/polkadot-sdk/build-a-parachain/connect-a-parachain/){target=_\blank} to reserve an identifier on the local relay chain. However, for the public TestNet, you'll be assigned the next available identifier.
+You must reserve a parachain identifier before registering a parathread on Paseo. The steps are similar to the ones you followed in [Connect a Local Parachain](/tutorials/blockchains/custom-blockchains/build-a-parachain/connect-a-parachain){target=_\blank} to reserve an identifier on the local relay chain. However, for the public TestNet, you'll be assigned the next available identifier.
 
 To reserve a parachain identifier, follow these steps:
 
@@ -167,7 +167,7 @@ In this example, the first `--port` setting specifies the port for the collator 
 
 With your parachain collator operational, the next step is acquiring coretime. This is essential for ensuring your parachain's security through the relay chain. [Agile Coretime](https://wiki.polkadot.network/docs/learn-agile-coretime){target=\_blank} enhances Polkadot's resource management, offering developers greater economic adaptability. Once you have configured your parachain, you can follow two paths:
 
-- Bulk coretime is purchased via the Broker pallet on the respective coretime system parachain. You can purchase bulk coretime on the [coretime chain](TODO:update-path){target=\_blank} and assign the purchased core to the registered `ParaID`
+- Bulk coretime is purchased via the Broker pallet on the respective coretime system parachain. You can purchase bulk coretime on the coretime chain and assign the purchased core to the registered `ParaID`
 - On-demand coretime is ordered via the `OnDemandAssignment` pallet, which is located on the respective relay chain
 
-For more information on coretime, refer to the [Coretime](TODO:update-path){target=\_blank} documentation.
+For more information on coretime, refer to the [Coretime](/polkadot-protocol/architecture/system-chains/coretime/){target=\_blank} documentation.

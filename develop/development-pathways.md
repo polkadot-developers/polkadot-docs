@@ -1,6 +1,7 @@
 ---
 title: Development Pathways
 description: Explore the development pathways in the Polkadot ecosystem, from building dApps to creating core blockchain functionality and customizable runtimes.
+template: root-subdirectory-page.html
 ---
 
 # Development Pathways

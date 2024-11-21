@@ -37,7 +37,7 @@ Each configuration item is explained below, detailing the associated type’s pu
     - `Dispatchable` - indicates it can be executed in the runtime
     - `GetDispatchInfo` - provides weight details, determining how long execution takes
 
-- [**`XcmSender`**](https://paritytech.github.io/polkadot-sdk/master/staging_xcm_executor/trait.Config.html#associatedtype.XcmSender){target=\_blank} - implements the [`SendXcm`](https://paritytech.github.io/polkadot-sdk/master/staging_xcm/v4/trait.SendXcm.html){target=\_blank} trait, specifying how the executor sends XCMs using transport layers (e.g., UMP for relay chains or XCMP for sibling chains). If a runtime lacks certain transport layers, such as [`XcmpQueue`](https://paritytech.github.io/polkadot-sdk/master/cumulus_pallet_xcmp_queue/pallet/trait.Config.html#associatedtype.XcmpQueue){target=\_blank}, it restricts XCMs destinations
+- [**`XcmSender`**](https://paritytech.github.io/polkadot-sdk/master/staging_xcm_executor/trait.Config.html#associatedtype.XcmSender){target=\_blank} - implements the [`SendXcm`](https://paritytech.github.io/polkadot-sdk/master/staging_xcm/v4/trait.SendXcm.html){target=\_blank} trait, specifying how the executor sends XCMs using transport layers (e.g., UMP for relay chains or XCMP for sibling chains). If a runtime lacks certain transport layers, such as [HRMP](https://wiki.polkadot.network/docs/learn-xcm-transport#hrmp-xcmp-lite){target=\_blank} (or [XCMP](https://wiki.polkadot.network/docs/learn-xcm-transport#xcmp-cross-consensus-message-passing-design-summary){target=\_blank})
     ```rust
     type XcmSender: SendXcm;
     ```

@@ -23,7 +23,7 @@ description: Explore the Asset Transfer API Reference for comprehensive details 
     Ready to start coding? Follow along with a step-by-step tutorial.
 
     <br>
-    [:octicons-arrow-right-24: How to use the Asset Transfer API](../asset-transfer-api/overview.md/#examples)
+    [:octicons-arrow-right-24: How to use the Asset Transfer API](/develop/toolkit/interoperability/asset-transfer-api/overview/#examples)
 </div>
 <br>
 

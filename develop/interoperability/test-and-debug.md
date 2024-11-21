@@ -103,11 +103,27 @@ The XCM Emulator provides both advantages and limitations when testing cross-cha
     - Dependency challenges - requires careful management of dependency versions and patching. Refer to the [Cargo dependency documentation](https://doc.rust-lang.org/cargo/reference/overriding-dependencies.html){target=\_blank}
     - Compilation overhead - testing environments can be resource-intensive, requiring frequent compilation updates
 
+### How does it work?
 
+The `xcm-emulator` package builds upon the functionality provided by the `xcm-simulator` package, offering the same set of macros while extending their capabilities. In addition to the standard features, `xcm-emulator` introduces new tools that make testing cross-chain communication more comprehensive.
 
+One of the key additions is the [`decl_test_bridges`](https://github.com/paritytech/polkadot-sdk/blob/master/cumulus/xcm/xcm-emulator/src/lib.rs#L1178){target=\_blank} macro. This macro allows developers to define and implement mock bridges for testing interoperability in the Polkadot ecosystem.
 
+- [`decl_test_bridges`](https://github.com/paritytech/polkadot-sdk/blob/master/cumulus/xcm/xcm-emulator/src/lib.rs#L1178){target=\_blank} - enables the creation of multiple bridges between chains, specifying their source chain, target chain, and the handler responsible for processing messages.
 
+    ```rust
+    decl_test_bridges! {
+        pub struct BridgeA {
+            source = ChainA,
+            target = ChainB,
+            handler = HandlerA
+        },
+        pub struct BridgeB {
+            source = ChainB,
+            target = ChainC,
+            handler = HandlerB
+        },
+    }
+    ```
 
-
-
-
+Utilizing the capabilities of the xcm-emulator, developers can effectively design, test, and optimize cross-chain functionality, fostering interoperability within the Polkadot ecosystem.

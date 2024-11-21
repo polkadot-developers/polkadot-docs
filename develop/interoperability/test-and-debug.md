@@ -88,6 +88,8 @@ This tool enables testing of cross-chain message passing, providing a way to ver
 
 The `xcm-emulator` relies on transport layer pallets. However, the messages do not leverage the same messaging infrastructure as live networks since the transport mechanism is mocked. Additionally, consensus-related events are not covered, such as disputes, staking, and ImOnline events. Parachains should use end-to-end (E2E) tests to validate these events.
 
+### Pros and Cons
+
 The XCM Emulator provides both advantages and limitations when testing cross-chain communication in simulated environments.
 
 - Pros:

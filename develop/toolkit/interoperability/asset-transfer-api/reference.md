@@ -32,7 +32,7 @@ description: Explore the Asset Transfer API Reference for comprehensive details 
 
 Holds open an API connection to a specified chain within the `ApiPromise` to help construct transactions for assets and estimate fees.
 
-For a more in-depth explanation of the Asset Transfer API class structure, check the [source code](https://github.com/paritytech/asset-transfer-api/blob/f2aa50db83882f23492f975221dd5501c35a26d5/src/AssetTransferApi.ts#L106){target=_blank}.
+For a more in-depth explanation of the Asset Transfer API class structure, check the [source code](https://github.com/paritytech/asset-transfer-api/blob/f2aa50db83882f23492f975221dd5501c35a26d5/src/AssetTransferApi.ts#L106){target=\_blank}.
 
 ### Methods
 
@@ -238,7 +238,7 @@ Fetch estimated fee information for an extrinsic.
         }
         ```
 
-        For more information on the underlying types and fields of `RuntimeDispatchInfo`, check the [RuntimeDispatchInfo](https://github.com/polkadot-js/api/blob/2329af239eaf194696daeaa58ebf89f0080a5e0d/packages/types/src/interfaces/payment/types.ts#L21){target=_blank} source code.
+        For more information on the underlying types and fields of `RuntimeDispatchInfo`, check the [RuntimeDispatchInfo](https://github.com/polkadot-js/api/blob/2329af239eaf194696daeaa58ebf89f0080a5e0d/packages/types/src/interfaces/payment/types.ts#L21){target=\_blank} source code.
 
 
     ??? child "Type `RuntimeDispatchInfoV1`"
@@ -251,7 +251,7 @@ Fetch estimated fee information for an extrinsic.
         }
         ```
 
-        For more information on the underlying types and fields of `RuntimeDispatchInfoV1`, check the [RuntimeDispatchInfoV1](https://github.com/polkadot-js/api/blob/2329af239eaf194696daeaa58ebf89f0080a5e0d/packages/types/src/interfaces/payment/types.ts#L28){target=_blank} source code.
+        For more information on the underlying types and fields of `RuntimeDispatchInfoV1`, check the [RuntimeDispatchInfoV1](https://github.com/polkadot-js/api/blob/2329af239eaf194696daeaa58ebf89f0080a5e0d/packages/types/src/interfaces/payment/types.ts#L28){target=\_blank} source code.
 
 ??? interface "Example"
 

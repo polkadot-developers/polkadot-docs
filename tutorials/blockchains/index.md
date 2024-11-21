@@ -1,5 +1,5 @@
 ---
-title:  Blockchain Tutorials
+title: Blockchain Tutorials
 description: TODO
 hide: 
     - feedback

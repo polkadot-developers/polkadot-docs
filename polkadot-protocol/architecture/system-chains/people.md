@@ -1,4 +1,0 @@
----
-title: People
-description: TODO
----

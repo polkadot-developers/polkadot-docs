@@ -36,8 +36,8 @@ To view the current values of these parameters in the Polkadot network:
     ![](/images/develop/interoperability/xcm-channels/xcm-channels-1.webp)
 
 2. Query the chain configuration parameters. The result will display the current settings for all the Polkadot network parameters, including the HRMP channel settings
-    1. Select **configuration**
-    2. Choose the **activeConfig()** call
+    1. Select **`configuration`**
+    2. Choose the **`activeConfig()`** call
     3. Click the **+** button to execute the query
     4. Check the chain configuration
 
@@ -53,11 +53,11 @@ Parachain developers have a few options for triggering the required extrinsic ca
 
 - **Sudo** - if the parachain has a `sudo` pallet configured, the sudo key holder can use the sudo extrinsic to dispatch the necessary channel opening calls
 - **Governance** - the parachain's governance system, such as a council or OpenGov, can be used to authorize the channel opening calls
-- **Privileged Accounts** - the parachain may have other designated privileged accounts that are allowed to dispatch the HRMP channel opening extrinsics
+- **Privileged accounts** - the parachain may have other designated privileged accounts that are allowed to dispatch the HRMP channel opening extrinsics
 
 ## Where to Go Next
 
 Explore the following tutorials for detailed, step-by-step guidance on setting up cross-chain communication channels in Polkadot:
 
-- [Opening HRMP Channels Between Parachains](/tutorials/interoperability/xcm-channels/para-to-para.md){target=\_blank}
-- [Opening HRMP Channels with System Parachains](/tutorials/interoperability/xcm-channels/para-to-system.md){target=\_blank}
+- [Opening HRMP Channels Between Parachains](/tutorials/interoperability/xcm-channels/para-to-para/){target=\_blank}
+- [Opening HRMP Channels with System Parachains](/tutorials/interoperability/xcm-channels/para-to-system/){target=\_blank}

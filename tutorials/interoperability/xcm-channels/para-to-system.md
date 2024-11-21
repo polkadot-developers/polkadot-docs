@@ -27,11 +27,12 @@ To successfully complete this process, you'll need to have the following in plac
 
 This guide demonstrates opening an HRMP channel between parachain 2500 and system chain Asset Hub (parachain 1000) on the Rococo Local relay chain.
 
-### Step 1 - Fund Parachain Sovereign Account
+### Fund Parachain Sovereign Account
 <!-- This content will be moved to a new page because it is used in multiple places -->
 The [sovereign account](https://github.com/polkadot-fellows/xcm-format/blob/10726875bd3016c5e528c85ed6e82415e4b847d7/README.md?plain=1#L50){target=_blank} for parachain 2500 on the relay chain must be funded so it can take care of any XCM transact fees.
 
 Use [Polkadot.js Apps](https://polkadot.js.org/apps/#/explorer){target=\_blank} UI to connect to the relay chain and transfer funds from your account to the parachain 2500 sovereign account.
+
 ![](/images/tutorials/interoperability/xcm-channels/hrmp-channels-2.webp)
 
 ??? note "Calculating Parachain Sovereign Account"
@@ -53,7 +54,7 @@ Use [Polkadot.js Apps](https://polkadot.js.org/apps/#/explorer){target=\_blank} 
     
     To perform this conversion, you can also use the **"Para ID" to Address** section in [Substrate Utilities](https://www.shawntabrizi.com/substrate-js-utilities/).
 
-### Step 2 - Create Establish Channel with System Extrinsic
+### Create Establish Channel with System Extrinsic
 
 1. In Polkadot.js Apps, connect to the relay chain, navigate to the **Developer** dropdown and select the **Extrinsics** option
 
@@ -69,7 +70,7 @@ Use [Polkadot.js Apps](https://polkadot.js.org/apps/#/explorer){target=\_blank} 
     ![](/images/tutorials/interoperability/xcm-channels/para-to-system/hrmp-para-to-system-1.webp)
     The encoded call data for establishing a channel with system parachain 1000 should be `0x3c0ae8030000`
 
-### Step 3 - Crafting and Submitting the XCM Message
+### Crafting and Submitting the XCM Message
 
 Connect to parachain 2500 using Polkadot.js Apps to send the XCM message to the relay chain. Input the necessary parameters as illustrated in the image below. Make sure to:
 
@@ -96,8 +97,6 @@ After successfully submitting the XCM message to the relay chain, two HRMP chann
     ```json
     --8<-- 'code/tutorials/interoperability/xcm-channels/para-to-system/hrmp-query-output.json'
     ```
-
-
 
 The output confirms the successful establishment of two HRMP channels:
 

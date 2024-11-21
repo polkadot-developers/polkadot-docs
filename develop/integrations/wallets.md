@@ -18,7 +18,7 @@ Wallet types fall into two categories based on their connection to the internet:
 
 <div class="grid cards" markdown>
 
--   :material-clock-fast:{ .lg .middle } __Talisman__
+-   __Talisman__
 
     ---
 
@@ -26,7 +26,7 @@ Wallet types fall into two categories based on their connection to the internet:
 
     [:octicons-arrow-right-24: Reference](https://talisman.xyz/){target=\_blank}
 
--   :fontawesome-brands-markdown:{ .lg .middle } __Subwallet__
+-  __Subwallet__
 
     ---
 
@@ -36,12 +36,11 @@ Wallet types fall into two categories based on their connection to the internet:
 
 </div>
 
-
 ## Cold Wallets
 
 <div class="grid cards" markdown>
 
--   :material-clock-fast:{ .lg .middle } __Ledger__
+-   __Ledger__
 
     ---
 
@@ -49,7 +48,7 @@ Wallet types fall into two categories based on their connection to the internet:
 
     [:octicons-arrow-right-24: Reference](https://www.ledger.com/){target=\_blank}
 
--   :fontawesome-brands-markdown:{ .lg .middle } __Polkadot Vault__
+-   __Polkadot Vault__
 
     ---
 

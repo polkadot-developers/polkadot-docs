@@ -31,6 +31,11 @@ Each configuration item is explained below, detailing the associated type’s pu
     ```rust
     type RuntimeCall: Parameter + Dispatchable<PostInfo = PostDispatchInfo> + GetDispatchInfo
     ```
+   The associated traits signify:
+
+    - `Parameter` - ensures the type is encodable, decodable, and usable as a parameter
+    - `Dispatchable` - indicates it can be executed in the runtime
+    - `GetDispatchInfo` - provides weight details, determining how long execution takes
 
 - [**`XcmSender`**](https://paritytech.github.io/polkadot-sdk/master/staging_xcm_executor/trait.Config.html#associatedtype.XcmSender){target=\_blank} - implements the [`SendXcm`](https://paritytech.github.io/polkadot-sdk/master/staging_xcm/v4/trait.SendXcm.html){target=\_blank} trait, specifying how the executor sends XCMs using transport layers (e.g., UMP for relay chains or XCMP for sibling chains). If a runtime lacks certain transport layers, such as [`XcmpQueue`](https://paritytech.github.io/polkadot-sdk/master/cumulus_pallet_xcmp_queue/pallet/trait.Config.html#associatedtype.XcmpQueue){target=\_blank}, it restricts XCMs destinations
     ```rust

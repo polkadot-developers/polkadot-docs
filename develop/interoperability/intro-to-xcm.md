@@ -15,7 +15,7 @@ With XCM, one chain can send intents to another one, fostering a more interconne
 
 XCM is not a protocol but a standardized [messaging format](https://github.com/polkadot-fellows/xcm-format){target=\_blank}. It defines the structure and behavior of messages but does not handle their delivery. This separation allows developers to focus on crafting instructions for target systems without worrying about transmission mechanics.
 
-XCM messages are action-oriented, specifying how the receiving blockchain should alter its state. Unlike transactions, they do not directly perform these changes. By leveraging asynchronous composability, XCM enables efficient, out-of-sequence execution, akin to how RESTful services structure HTTP requests.
+XCM messages are intent-driven, outlining desired actions for the receiving blockchain to consider and potentially alter its state. These messages do not directly execute changes; instead, they rely on the host chain's environment to interpret and implement them. By utilizing asynchronous composability, XCM facilitates efficient execution where messages can be processed independently of their original order, similar to how RESTful services handle HTTP requests without requiring sequential processing.
 
 ## The Four Principles of XCM
 

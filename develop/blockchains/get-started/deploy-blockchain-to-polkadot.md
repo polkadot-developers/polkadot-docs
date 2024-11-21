@@ -17,16 +17,24 @@ Taking your Polkadot SDK-based blockchain from a local environment to production
 
 ```mermaid
 graph LR
-    subgraph Pre-Deployment
+    %% Pre-Deployment Label
+    subgraph pre[Pre-Deployment]
+    style pre fill:none,stroke:gray
     A("Local Development\nand\nTesting") --> B("Runtime \n Compilation")
     B --> C("Generate \n Chain \n Specifications")
     C --> D("Prepare \n Deployment \n Environment")
     D --> E("Acquire \n Coretime")
     end
-    subgraph Deployment
+
+    %% Deployment Label
+    subgraph dep[Deployment]
+    style dep fill:none,stroke:gray
     E --> F("Launch \n and \n Monitor")
     end
-    subgraph Post-Deployment
+
+    %% Post-Deployment Label
+    subgraph post[Post-Deployment]
+    style post fill:none,stroke:gray
     F --> G("Maintenance \n and \n Upgrades")
     end
 ```

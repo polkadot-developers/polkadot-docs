@@ -1,6 +1,6 @@
 ---
 title: Testing and Debugging
-description: TOOD
+description: Learn how to test and debug cross-chain communication via the XCM Simulator and Emulator to ensure interoperability and reliable execution.
 ---
 
 # Testing and Debugging

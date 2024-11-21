@@ -1,11 +1,12 @@
 ---
 title: Glossary
 description: Glossary of terms used within the Polkadot ecosystem, Polkadot SDK, its subsequent libraries, and other relevant Web3 terminology.
+template: root-subdirectory-page.html
 ---
 
 # Glossary
 
-Key definitions, concepts, and terminology specific to the Polkadot ecosystem are included here. 
+Key definitions, concepts, and terminology specific to the Polkadot ecosystem are included here.
 
 Additional glossaries from around the ecosystem you might find helpful:
 

@@ -26,25 +26,30 @@ In a smart contract, you create a program that executes specific logic isolated 
 
 ``` mermaid
 flowchart LR
-    A[(Chain State)] --> B[[Virtual Machine]]
-    C[Transaction] --> B
-    D["Program Logic and Storage<br/>(Smart Contract)"] --> B
-    B --> E[(New State)]
-    B --> F[Execution Logs]
+  subgraph A[Chain State]
+    direction LR
+    B["Program Logic and Storage<br/>(Smart Contract)"]
+    C["Tx Relevant Storage"]
+  end
+  A --> D[[Virtual Machine]]
+  E[Transaction] --> D
+  D --> F[(New State)]
+  D --> G[Execution Logs]
+  style A fill:#ffffff,stroke:#000000,stroke-width:1px
 ```
 
 In addition, because smart contracts are programs that execute on top of existing chains, teams don't have to think about the underlying consensus they are built on. 
 
-However, these strengths come with certain limitations. Contracts are immutable by default. Hence, developers have developed different [proxy strategies](https://blog.openzeppelin.com/proxy-patterns){target=\_blank} to be able to upgrade them over time. Generally speaking, such patterns rely on a proxy contract, where the program storage lives, forwarding a call to an implementation contract, and where the execution logic resides. Therefore, smart contract upgrades require changing the implementation contract while retaining the same storage structure, necessitating careful planning. 
+However, these strengths come with certain limitations. Certain smart contracts environments like EVM tend to be immutable by default. Hence, developers have developed different [proxy strategies](https://blog.openzeppelin.com/proxy-patterns){target=\_blank} to be able to upgrade them over time. Generally speaking, such patterns rely on a proxy contract, where the program storage lives, forwarding a call to an implementation contract, and where the execution logic resides. Therefore, smart contract upgrades require changing the implementation contract while retaining the same storage structure, necessitating careful planning. 
 
 Another downside is that smart contracts often follow a gas metering model, where program execution is associated with a given unit and a marketplace is set up to pay for such an execution unit. This fee system is often very rigid, and some complex flows (like account abstraction, among others) have been developed to circumvent this problem.
 
-In contrast, parachains can create their own custom logic and state transition function (STF or runtime) thanks to the modularity provided by the [Polkadot-SDK](TODO:update-path){target=\_blank}. Consequently, logic executed within the parachain runtime can give developers a lot of flexibility when building applications on top of it.
+In contrast, parachains can create their own custom logics (known as pallets or modules), and combine them as the state transition function (STF or runtime) thanks to the modularity provided by the [Polkadot-SDK](https://github.com/paritytech/polkadot-sdk/){target=\_blank}. Consequently, the different pallets within the parachain runtime can give developers a lot of flexibility when building applications on top of it.
 
 ``` mermaid
 flowchart LR
-    A[(Chain State)] --> B[["STF<br/>[Logic 1]<br/>[Logic 2]<br/>...<br/>[Logic N]"]]
-    C[Transaction<br/>for Logic 2] --> B
+    A[(Chain State)] --> B[["STF<br/>[Pallet 1]<br/>[Pallet 2]<br/>...<br/>[Pallet N]"]]
+    C[Transaction<br/>Targeting Pallet 2] --> B
     B --> E[(New State)]
     B --> F[Execution Logs]
 ```
@@ -87,14 +92,14 @@ flowchart TD
         D[Validate Tx]
         E[Send<br/>Valid Tx]    
     end
-    B -->|Interacts with| C
+    B -->|Interact with| C
     D --> E
     subgraph F[Pallet EVM]
         G[Rust EVM]
     end
     I[(Current EVM<br/>Emulated State)]
 
-    H[Smart Contract<br/>Solidity, Vyper...] <-->|Compiled to EVM<br/>Bytecode| F
+    H[Smart Contract<br/>Solidity, Vyper...] <-->|Compiled to EVM<br/>Bytecode| I
 
     C --> F
     I --> F
@@ -109,7 +114,7 @@ Although it seems complex, users and developers are abstracted of that complexit
 
 The Rust EVM is capable of executing regular [EVM bytecode](https://www.ethervm.io/){target=\_blank}. Consequently, any language that compiles to EVM bytecode can be used to create programs that the parachain can execute.
 
-ou can find more information on deploying EVM smart contracts to [Polkadot's native smart contract platform](TODO:update-path){target=\_blank}, or any of [the ecosystem parachains](TODO:update-path){target=\_blank}.
+You can find more information on deploying EVM smart contracts to [Polkadot's native smart contract platform](TODO:update-path){target=\_blank}, or any of [the ecosystem parachains](TODO:update-path){target=\_blank}.
 
 ### Wasm Contracts
 
@@ -118,7 +123,7 @@ The [`pallet_contracts`](https://docs.rs/pallet-contracts/latest/pallet_contract
 At the time of writing there are two main languages that can be used for Wasm programs:
 
 - [**ink!**](https://use.ink/){target=\_blank} - it is a Rust-based language that compiles to Wasm. It allows developers to inherit all its safety guarantees and use normal Rust tooling, being the dedicated domain-specific language
-- [**Solang**](https://github.com/hyperledger-solang/solang/){target=\_blank} - it is a Solidity-to-Wasm compiler that allows developers to write Solidity-based programs (compatible with Solidity 0.8) that can be executed as Wasm programs in parachains
+- **Solidity** - it can be compiled to Wasm via the [Solang](https://github.com/hyperledger-solang/solang/){target=\_blank} compiler. Consequently, developers can write Solidity 0.8 smart contracts that can be executed as Wasm programs in parachains
 
 Broadly speaking, with [`pallet_contracts`](https://docs.rs/pallet-contracts/latest/pallet_contracts/index.html#contracts-pallet){target=\_blank}, a transaction follows the path presented in the diagram below:
 
@@ -129,11 +134,11 @@ flowchart TD
         C[Pallet Contracts]
     end
 
-    B[Users and Devs] -- Interacts with --> A
+    B[Users and Devs] -- Interact with ---> A
     
     D[(Current State)]
 
-    E[Smart Contract<br/>ink!, Solidity...] <-->|Compiled to Wasm<br/>Bytecode| A
+    E[Smart Contract<br/>ink!, Solidity...] <-->|Compiled to Wasm<br/>Bytecode| D
 
     D --> A
     A --> F[(New State)]

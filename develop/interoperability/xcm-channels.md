@@ -56,3 +56,8 @@ Parachain developers have a few options for triggering the required extrinsic ca
 - **Privileged Accounts** - the parachain may have other designated privileged accounts that are allowed to dispatch the HRMP channel opening extrinsics
 
 ## Where to Go Next
+
+Explore the following tutorials for detailed, step-by-step guidance on setting up cross-chain communication channels in Polkadot:
+
+- [Opening HRMP Channels Between Parachains](/tutorials/interoperability/xcm-channels/para-to-para.md){target=\_blank}
+- [Opening HRMP Channels with System Parachains](/tutorials/interoperability/xcm-channels/para-to-system.md){target=\_blank}

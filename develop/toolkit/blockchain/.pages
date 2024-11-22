@@ -1,5 +1,5 @@
 title: Blockchain
 nav:
   - index.md
-  # - spawn-chains
-  # - fork-chains
+  - spawn-chains
+  - fork-chains

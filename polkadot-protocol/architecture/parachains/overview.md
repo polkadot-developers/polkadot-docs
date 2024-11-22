@@ -38,8 +38,6 @@ flowchart TB
 
 Parachains enable parallelization of different services within the same network. However, unlike most layer two rollups, parachains do not suffer the same interoperability pitfalls that most rollups suffer from. [Cross consensus messaging (XCM)](/develop/interoperability/intro-to-xcm/){target=\_blank} provides a common communication format for each parachain and can be configured to allow a parachain to communicate with just the relay chain or certain parachains. 
 
-<!-- TODO: mermaid diagram showing many parachains of different types doing different things, all under the polkadot umbrella -->
-
 ```mermaid
 flowchart TB
     subgraph "Polkadot Relay Chain"
@@ -75,7 +73,15 @@ At their core, parachains, like most blockchains, are deterministic, finite stat
 !!!info "Deterministic State Machines"
     Determinism refers to the concept that particular input will always produce the same output. State machines are algorithmic machines which state changes based on its inputs to produce a new, updated state.
 
-<!-- TODO: diagram of this happening? -->
+```mermaid
+stateDiagram-v2
+    direction LR
+    [*] --> StateA : Initial State
+    
+    StateA --> STF : Extrinsics/Transactions
+    STF --> StateB : Deterministic Transformation
+    StateB --> [*] : New State
+```
 
 The primary driver of this progression is the **state transition function** (STF), commonly referred to as a **runtime**. Each time a block is submitted, it represents the next proposed state for a parachain. By applying the state transition function to the previous state, and including a new block which contains the proposed changes in the form of a list of extrinsics/transactions, the runtime defines just exactly *how* the parachain is to advance from state A to state B.
 
@@ -95,8 +101,18 @@ Parachains need at least one honest collator to submit PoV data to the relay cha
 
 ### Cryptoeconomic Security: ELVES Protocol
 
+The ELVES (Economic Last Validation Enforcement System) protocol forms the foundation of Polkadot's cryptoeconomic security model. ELVES assumes a worst-case scenario by enforcing strict validation rules before any state transitions are finalized. Unlike optimistic approaches that rely on post-facto dispute resolution, ELVES ensures that validators collectively confirm the validity of a block before it becomes part of the parachain's state.
+
+Validators are incentivized through staking and penalized for malicious or erroneous actions, ensuring adherence to the protocol. This approach minimizes the probability of invalid states being propagated across the network, providing robust security for parachains. To learn more about the ELVES protocol, see the Polkadot Wiki on [Cryptoeconomic Security](https://wiki.polkadot.network/docs/learn-parachains-protocol#cryptoeconomic-security){target=_blank}.
+
 ## Interoperability
 
-## What's Next
+Polkadot's interoperability framework allows parachains to communicate to each other, fostering a diverse ecosystem of interconnected blockchains. Through [Cross-Consensus Messaging (XCM)](/develop/interoperability/intro-to-xcm/){target=_blank}, parachains can transfer assets, share data, and invoke functionalities on other chains securely. This standardized messaging protocol ensures that parachains can interact with the relay chain and each other, supporting efficient cross-chain operations.
+
+The XCM protocol mitigates common interoperability challenges seen in isolated blockchain networks, such as fragmented ecosystems and limited collaboration. By enabling decentralized applications to leverage resources and functionality across parachains, Polkadot promotes a scalable, cooperative blockchain environment that benefits all participants.
+
+## Where to Go Next
+
+- For further information about the consensus protocol used by parachains, see the [Consensus](/polkadot-protocol/architecture/parachains/consensus/) page
 
 

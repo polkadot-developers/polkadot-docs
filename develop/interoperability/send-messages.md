@@ -13,11 +13,11 @@ This pallet provides some default implementations for traits required by XcmConf
 
 Where the XCM format defines a set of instructions used to construct XCVM programs, pallet-xcm defines a set of extrinsics that can be utilized to build XCVM programs, either to target the local or external chains. pallet-xcm's functionality is separated into three categories:
 
-**Primitive** - Dispatchable functions to locally execute an XCM
+**Primitive** - dispatchable functions to locally execute an XCM
 
-**High-level** - Dispatchable functions for asset transfers
+- **High-level** - dispatchable functions for asset transfers
 
-**Version negotiation-specific** - Dispatchable functions
+- **Version negotiation-specific** - dispatchable functions
 
 This page will highlight the two Primary Primitive Extrinsics which are responsible for sending and executing XCVM programmes as dispatchable functions within the pallet.
 

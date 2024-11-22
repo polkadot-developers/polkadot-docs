@@ -81,10 +81,10 @@ You can also check the metrics of the nodes by accessing the links provided in t
 
 ### Check Logs
 
-To check node logs, you can use the command listed in the output as `Log Cmd`. For instance, to check the logs of the `alice` node, you can open a new terminal and run the following command:
+To view individual node logs, locate the `Log Cmd` command in Zombienet's startup output. For example, to see what the alice node is doing, find the log command that references `alice.log` in its file path. Note that Zombienet will show you the correct path for your instance when it starts up, so use that path rather than copying from the below example:
 
 ```bash
-tail -f /var/folders/f4/7rdt2m9d7j361dm453cpggbm0000gn/T/zombie-75a01b93c92d571f6198a67bcb380fcd_21724-SEzfCidQ1za4/alice.log
+tail -f  /tmp/zombie-794af21178672e1ff32c612c3c7408dc_-2397036-6717MXDxcS55/alice.log
 ```
 
 After running this command, you will see the logs of the `alice` node in real-time, which can be useful for debugging purposes. The logs of the `bob` and `collator01` nodes can be checked similarly.

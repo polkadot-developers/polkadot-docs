@@ -5,7 +5,7 @@ description: Learn about the role, functionality, and implementation of parachai
 
 ## Introduction 
 
-A [*parachain*](../../glossary.md#parachain) is a coherent, application-specific blockchain that derives security from its respective relay chain. Parachains on Polkadot are each their own separate, fully functioning blockchain. The primary difference between a parachain and a regular, "solo" blockchain is that the relay chain verifies the state of all parachains that are connected to it.  In many ways, parachains can be thought of as a ["cynical" rollup](#cryptoeconomic-security-elves-protocol), as the crypto-economic protocol used (ELVES) assumes the worst-case scenario, rather than the typical optimistic approach that many roll-up mechanisms take. Once enough validators attest that a block is valid, then the probability of that block being valid is high.
+A [*parachain*](/polkadot-protocol/glossary#parachain){target=\_blank} is a coherent, application-specific blockchain that derives security from its respective relay chain. Parachains on Polkadot are each their own separate, fully functioning blockchain. The primary difference between a parachain and a regular, "solo" blockchain is that the relay chain verifies the state of all parachains that are connected to it.  In many ways, parachains can be thought of as a ["cynical" rollup](#cryptoeconomic-security-elves-protocol), as the crypto-economic protocol used (ELVES) assumes the worst-case scenario, rather than the typical optimistic approach that many roll-up mechanisms take. Once enough validators attest that a block is valid, then the probability of that block being valid is high.
 
 As each parachain’s state is validated by the relay chain, the relay chain represents the collective state of all parachains.
 
@@ -32,7 +32,7 @@ flowchart TB
 !!!tip "Coherent Systems"
     Coherency refers to the degree of synchronization, consistency, and interoperability between different components or chains within a system. It encompasses the internal coherence of individual chains and the external coherence between chains regarding how they interact.
     
-    A single-state machine like Ethereum is very coherent, as all of its components (smart contracts, dApps/applications staking, consensus) operate within a single environment with the downside of less scalability. Multi-protocol state machines, such as Polkadot, offer less coherency due to their sharded nature but more scalability due to the parallelization of their architecture.
+    A single-state machine like Ethereum is very coherent, as all of its components (smart contracts, dApps/applications, staking, consensus) operate within a single environment with the downside of less scalability. Multi-protocol state machines, such as Polkadot, offer less coherency due to their sharded nature but more scalability due to the parallelization of their architecture.
 
     Parachains are coherent, as they are self-contained environments with domain-specific functionality.
 
@@ -71,7 +71,7 @@ Most parachains are built using the Polkadot SDK, which provides all the tools t
 
 ## State Transition Functions (Runtimes)
 
-At their core, parachains, like most blockchains, are deterministic, finite-state machines that are often backed by game theory and economics. The previous state of the parachain, combined with external input in the form of [extrinsics](../../glossary.md#extrinsic), allows the state machine to progress forward, one block at a time.
+At their core, parachains, like most blockchains, are deterministic, finite-state machines that are often backed by game theory and economics. The previous state of the parachain, combined with external input in the form of [extrinsics](/polkadot-protocol/glossary#extrinsic){target=\_blank}, allows the state machine to progress forward, one block at a time.
 
 !!!info "Deterministic State Machines"
     Determinism refers to the concept that a particular input will always produce the same output. State machines are algorithmic machines that state changes based on their inputs to produce a new, updated state.

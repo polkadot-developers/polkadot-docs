@@ -16,7 +16,8 @@ The Polkadot ecosystem consists of multiple networks designed to support differe
 - **Description** - primary production blockchain network for high-stakes, enterprise-grade applications
 - **RPC URL** - `wss://polkadot-rpc.dwellir.com`
 - **Currency symbol** - `DOT`
-- **Block explorer URL** - `https://polkadot.subscan.io/`
+- **Currency decimals** - 10
+- **Block explorer URL** - [`https://polkadot.subscan.io/`](https://polkadot.subscan.io/){target=\_blank}
 - **Network Characteristics:**
     - Highest security and stability
     - Real economic incentives
@@ -28,7 +29,8 @@ The Polkadot ecosystem consists of multiple networks designed to support differe
 - **Description** - experimental network that receives features before Polkadot
 - **RPC URL** - `wss://kusama-rpc.dwellir.com`
 - **Currency symbol** - `KSM`
-- **Block explorer URL** - `https://kusama.subscan.io/`
+- **Currency decimals** - 12
+- **Block explorer URL** - [`https://kusama.subscan.io/`](`https://kusama.subscan.io/){target=\_blank}
 - **Network Characteristics:**
     - Fast-moving "canary" environment
     - Real economic incentives
@@ -43,7 +45,9 @@ The Polkadot ecosystem consists of multiple networks designed to support differe
 - **Description** - test network that mirrors Polkadot's functionality for protocol development
 - **RPC URL** - `wss://westend-rpc.dwellir.com`
 - **Currency symbol** - `WND`
-- **Block explorer URL** - `https://westend.subscan.io/`
+- **Currency decimals** - 12
+- **Block explorer URL** - [`https://westend.subscan.io/`](https://westend.subscan.io/){target=\_blank}
+- **Faucet** - [`https://faucet.polkadot.io/westend`](https://faucet.polkadot.io/westend){target=\_blank}
 - **Network Characteristics:**
     - Core protocol testing
     - Managed by Parity Technologies
@@ -53,7 +57,9 @@ The Polkadot ecosystem consists of multiple networks designed to support differe
 - **Description** - community-maintained test network for parachain and dapp development
 - **RPC URL** - `wss://paseo.rpc.amforc.com`
 - **Currency symbol** - `PAS`
-- **Block explorer URL** - `https://paseo.subscan.io/`
+- **Currency decimals** - 10
+- **Block explorer URL** - [`https://paseo.subscan.io/`](https://paseo.subscan.io/){target=\_blank}
+- **Faucet** - [`https://faucet.polkadot.io/`](https://faucet.polkadot.io/){target=\_blank}
 - **Network Characteristics:**
     - Ideal for parachain and dApp testing
     - Mirrors Polkadot's runtime

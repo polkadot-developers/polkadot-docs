@@ -9,7 +9,7 @@ description: Learn how to create custom pallets using FRAME, allowing for flexib
 
 FRAME provides a powerful set of tools for blockchain development, including a library of pre-built pallets. However, its true strength lies in the ability to create custom pallets tailored to your specific needs. This section will guide you through creating your own custom pallet, allowing you to extend your blockchain's functionality in unique ways.
 
-To get the most out of this guide, ensure you're familiar with [FRAME concepts](TODO:update-path){target=\_blank}.
+To get the most out of this guide, ensure you're familiar with [FRAME concepts](/develop/blockchains/custom-blockchains/overview/){target=\_blank}.
 
 Creating custom pallets offers several advantages over relying on pre-built pallets:
 
@@ -57,7 +57,7 @@ This section will guide you through the initial steps of creating the foundation
             - Use workspace inheritance in your pallet's `Cargo.toml` to maintain consistency across your project
         - Regularly check for updates to FRAME and Polkadot SDK dependencies to benefit from the latest features, performance improvements, and security patches
 
-        For detailed information on workspace inheritance and how to properly integrate your pallet with the runtime, refer to the [Add an Existing Pallet to the Runtime](TODO:update-path){target=\_blank} page.
+        For detailed information on workspace inheritance and how to properly integrate your pallet with the runtime, refer to the [Add an Existing Pallet to the Runtime](/develop/blockchains/custom-blockchains/add-existing-pallets/){target=\_blank} page.
 
 3.  Initialize the pallet structure by replacing the contents of `src/lib.rs` with the following scaffold code:
 
@@ -154,8 +154,8 @@ After following all the previous steps, the pallet is now fully implemented. Bel
 
 With the pallet implemented, the next steps involve ensuring its reliability and performance before integrating it into a runtime. Check the following sections:
 
-- [**Testing**](TODO:update-path){target=\_blank} - learn how to effectively test the functionality and reliability of your pallet to ensure it behaves as expected
+- [**Testing**](/develop/blockchains/testing/index/){target=\_blank} - learn how to effectively test the functionality and reliability of your pallet to ensure it behaves as expected
 
-- [**Benchmarking**](TODO:update-path){target=\_blank} - explore methods to measure the performance and execution cost of your pallet
+- [**Benchmarking**](/develop/blockchains/custom-blockchains/benchmarking/){target=\_blank} - explore methods to measure the performance and execution cost of your pallet
 
-- [**Add a Pallet to the Runtime**](TODO:update-path){target=\_blank} - follow this guide to include your pallet in a Polkadot SDK-based runtime, making it ready for use in your blockchain
+- [**Add a Pallet to the Runtime**](/develop/blockchains/custom-blockchains/add-existing-pallets/){target=\_blank} - follow this guide to include your pallet in a Polkadot SDK-based runtime, making it ready for use in your blockchain

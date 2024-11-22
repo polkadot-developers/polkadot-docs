@@ -46,7 +46,7 @@ To prepare the environment:
 
     If Docker is installed, the command will display version information:
 
-    --8<-- 'code/develop/parachain-devs/runtime-development/build-deterministic-runtime/deterministic-runtime-1.html'
+    --8<-- 'code/develop/blockchains/deployment/build-deterministic-runtime/deterministic-runtime-1.html'
 
 2. Install the `srtool` command-line interface by running the following command:
 

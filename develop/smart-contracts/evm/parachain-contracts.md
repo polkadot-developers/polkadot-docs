@@ -27,20 +27,44 @@ Polkadot enables parachains to supercharge the capabilities of their parachain b
 
 Astar has established itself as an innovation hub through initiatives like the zk-rollup development framework and integration with multiple Layer 2 scaling solutions. Astar leverages [XCM](/develop/interoperability/intro-to-xcm/){target=_blank} for native Polkadot ecosystem interoperability while maintaining connections to external networks through various bridge protocols. Through its support for both EVM and Wasm, along with advanced cross-chain capabilities, Astar serves as a crucial gateway for projects looking to leverage the unique advantages of both Ethereum and Polkadot ecosystems while maintaining seamless interoperability between them.
 
+#### Get Started Building
+
+- [Astar Docs](https://docs.astar.network/){target=_blank}
+- [Astar Network Endpoints](https://docs.astar.network/docs/build/environment/endpoints/){target=_blank}
+- [Build EVM Smart Contracts on Astar](https://docs.astar.network/docs/build/EVM/){target=_blank}
+
 ### Moonbeam
 
 [Moonbeam](https://docs.moonbeam.network/){target=\_blank} was the first parachain to bring full Ethereum-compatibility to Polkadot, enabling Ethereum developers to bring their dApps to Polkadot and gain access to the rapidly growing Polkadot user base. [Moonbeam's runtime](https://github.com/moonbeam-foundation/moonbeam){target=\_blank} is built using [FRAME](/develop/blockchains/custom-blockchains/overview/#frame-runtime-architecture){target=\_blank}, and combines essential components from the Polkadot-SDK, Frontier, and custom pallets. The architecture integrates key Substrate offerings like balance management and transaction processing, while [Frontier's](https://github.com/polkadot-evm/frontier){target=\_blank} pallets enable EVM execution and Ethereum compatibility. Custom pallets handle Moonbeam-specific features such as parachain staking and block author verification. Moonbeam offers a variety of precompiles for dApp developers to access powerful Polkadot features via a Solidity interface, such as governance, randomness, transaction batching, and more. 
 
 Additionally, Moonbeam is a hub for interoperability and cross-chain connected contracts. Moonbeam has a variety of integrations with GMP (general message passing) providers, including [Wormhole](https://wormhole.com/){target=\_blank}, [LayerZero](https://layerzero.network/){target=\_blank}, [Axelar](https://www.axelar.network/){target=\_blank}, and more. These integrations make it easy for developers to build cross-chain contracts on Moonbeam, and they also play an integral role in connecting the entire Polkadot ecosystem with other blockchains. Innovations like [Moonbeam Routed Liquidity](https://docs.moonbeam.network/builders/interoperability/mrl/){target=\_blank}, or MRL, enable users to bridge funds between chains like Ethereum and parachains like HydraDX. Through [XCM](/develop/interoperability/intro-to-xcm/){target=_blank}, other parachains can connect to Moonbeam and access its established bridge connections to Ethereum and other networks, eliminating the need for each parachain to build and maintain their own bridges.
 
+#### Get Started Building
+
+- [Moonbeam Docs](https://docs.moonbeam.network/){target=_blank}
+- [Moonbeam Network Endpoints](https://docs.moonbeam.network/builders/get-started/endpoints/){target=_blank}
+- [Get Started Building on Moonbeam](https://docs.moonbeam.network/builders/get-started/){target=_blank}
+
 ### Acala
 
-[Acala](https://acala.network/){target=\_blank} positioned itself as Polkadot's DeFi hub by introducing the [Acala EVM+](https://evmdocs.acala.network/){target=\_blank} - an enhanced version of the Ethereum Virtual Machine specifically optimized for DeFi operations. This customized EVM implementation enables seamless deployment of Ethereum-based DeFi protocols while offering advanced features like on-chain scheduling, pre-built DeFi primitives, and native multi-token support that aren't available in traditional EVMs.
+[Acala](https://acala.network/){target=\_blank} positioned itself as Polkadot's DeFi hub by introducing the [Acala EVM+](https://evmdocs.acala.network/){target=\_blank} - an enhanced version of the EVM specifically optimized for DeFi operations. This customized EVM implementation enables seamless deployment of Ethereum-based DeFi protocols while offering advanced features like on-chain scheduling, pre-built DeFi primitives, and native multi-token support that aren't available in traditional EVMs.
 
-Through its native token ACA, Acala supports a comprehensive DeFi ecosystem including a decentralized stablecoin (aUSD) and a liquid staking derivative for DOT. The platform's EVM+ innovations extend beyond standard Ethereum compatibility by enabling direct interaction between EVM smart contracts and Substrate pallets, facilitating advanced cross-chain DeFi operations through [XCM](/develop/interoperability/intro-to-xcm/){target=_blank}, and providing built-in oracle integrations. These enhancements make it possible for DeFi protocols to achieve functionality that would be prohibitively expensive or technically infeasible on traditional EVM chains.
+Acala supports a comprehensive DeFi ecosystem including a decentralized stablecoin (aUSD) and a liquid staking derivative for DOT. The platform's EVM+ innovations extend beyond standard Ethereum compatibility by enabling direct interaction between EVM smart contracts and Substrate pallets, facilitating advanced cross-chain DeFi operations through [XCM](/develop/interoperability/intro-to-xcm/){target=_blank}, and providing built-in oracle integrations. These enhancements make it possible for DeFi protocols to achieve functionality that would be prohibitively expensive or technically infeasible on traditional EVM chains.
+
+#### Get Started Building
+
+- [Acala Docs](https://evmdocs.acala.network/){target=_blank}
+- [Acala Network Endpoints](https://wiki.acala.network/integrate/acala/endpoints){target=_blank}
+- [About the Acala Network](https://wiki.acala.network/learn/acala-introduction){target=_blank}
 
 ### Manta 
 
 [Manta Network](https://manta.network/){target=_blank} stands out in the Polkadot ecosystem as a pioneering multi-modular platform focused on zero-knowledge (ZK) applications, with two distinct networks that are fully interoperable. Manta Atlantic is Manta's Polkadot parachain, while Manta Pacific is its EVM-compatible Layer 2 solution. Through its unique dual-network architecture, Manta brings advanced ZK capabilities to Polkadot while maintaining full EVM compatibility, enabling developers to deploy privacy-preserving smart contracts using familiar Solidity tooling. The platform's runtime architecture integrates specialized ZK circuits with traditional EVM functionality. 
 
 Manta's implementation of [zkSBTs (Zero-Knowledge SoulBound Tokens)](https://docs.manta.network/docs/zkSBT/auto/About){target=_blank} introduces a groundbreaking approach to on-chain identity and credentials, allowing for private yet verifiable identity solutions. This comprehensive approach to privacy-preserving computation, combined with EVM compatibility and cross-chain functionality, positions Manta as a crucial infrastructure provider for the next generation of privacy-focused decentralized applications in the Polkadot ecosystem.
+
+#### Get Started Building
+
+- [Manta Docs](https://docs.manta.network/docs/Introduction){target=_blank}
+- [Manta Network Endpoints](https://docs.manta.network/docs/manta-atlantic/Network%20Information){target=_blank}
+- [Differences between Ethereum and Manta](https://docs.manta.network/docs/manta-pacific/Build%20on%20Manta/Differences%20between%20Ethereum%20and%20MantaNetwork){target=_blank}

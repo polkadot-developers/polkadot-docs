@@ -1,11 +1,11 @@
 import {
   AssetTransferApi,
   constructApiPromise,
-} from "@substrate/asset-transfer-api";
+} from '@substrate/asset-transfer-api';
 
 async function main() {
   const { api, specName, safeXcmVersion } = await constructApiPromise(
-    "wss://westend-rpc.polkadot.io"
+    'wss://westend-rpc.polkadot.io',
   );
   const assetsApi = new AssetTransferApi(api, specName, safeXcmVersion);
 
@@ -15,12 +15,12 @@ async function main() {
       [
         `{"parents":"0","interior":{"X2":[{"PalletInstance":"50"},{"GeneralIndex":"1984"}]}}`,
       ],
-      ["1000000000000"],
-      "0xf5d5714c084c112843aca74f8c498da06cc5a2d63153b825189baa51043b1f0b",
+      ['1000000000000'],
+      '0xf5d5714c084c112843aca74f8c498da06cc5a2d63153b825189baa51043b1f0b',
       {
-        format: "call",
+        format: 'call',
         xcmVersion: 2,
-      }
+      },
     );
 
     console.log(`Call data:\n${JSON.stringify(callInfo, null, 4)}`);

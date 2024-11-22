@@ -1,15 +1,33 @@
 ---
 title: Overview
-description: Learn about the role, functionality, and implementation of parachains as a developer in the wider Polkadot architecture
+description: Learn about the role, functionality, and implementation of parachains as a developer in the wider Polkadot architecture.
 ---
 
 ## Introduction 
 
-A [*parachain*](../../glossary.md#parachain) is a coherent, application-specific blockchain which derives security from its respective relay chain. Parachains on Polkadot are each their own, separate, fully functioning blockchain. The primary difference between a parachain and a regular, "solo" blockchain is the relay chain verifies the state of all parachains that are connected to it.  In many ways, parachains can be thought of as a ['cynical' rollup](#cryptoeconomic-security-elves-protocol), as the crypto-economic protocol used (ELVES) assumes the worst case scenario, rather than the typical optimistic approach that many rollup mechanisms take. Once enough validators attest that a block is valid, then the probability for that block being valid is high.
+A [*parachain*](../../glossary.md#parachain) is a coherent, application-specific blockchain which derives security from its respective relay chain. Parachains on Polkadot are each their own, separate, fully functioning blockchain. The primary difference between a parachain and a regular, "solo" blockchain is the relay chain verifies the state of all parachains that are connected to it.  In many ways, parachains can be thought of as a ["cynical" rollup](#cryptoeconomic-security-elves-protocol), as the crypto-economic protocol used (ELVES) assumes the worst case scenario, rather than the typical optimistic approach that many rollup mechanisms take. Once enough validators attest that a block is valid, then the probability for that block being valid is high.
 
 As each parachains' state is validated by the relay chain, the relay chain is a representation of the collective state of all parachains.
 
-<!-- TODO: mermaid diagram showing some basic arch -->
+```mermaid
+flowchart TB
+    subgraph "Relay Chain"
+        RC[Relay Chain Validators]
+        State[Collective State Validation]
+    end
+
+    PA[Parachain A]
+    PB[Parachain B]
+    PC[Parachain C]
+
+    RC -->|Validate State| PA
+    RC -->|Validate State| PB
+    RC -->|Validate State| PC
+
+    State -->|Represents Collective\nParachain State| RC
+
+    note["ELVES Protocol:\n- Crypto-economic security\n- Assumes worst-case scenario\n- High probability validation"]
+```
 
 !!!tip "Coherent Systems"
     Coherency refers to the degree of synchronization, consistency, and interoperability between different components or chains within a system. It encompasses both the internal coherence of individual chains and the external coherence between chains in terms of how they can interact with one another.

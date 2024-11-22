@@ -56,7 +56,7 @@ As a result, there may be multiple validators eligible to propose a block for a 
 Because validators roll independently, no block candidates may appear in some slots if all roll numbers are above the threshold. 
 
 !!!note
-    The resolution of this issue and the assurance that Polkadot block times remain near constant-time can be checked on the [PoS Consensus](TODO:update-path){target=\_blank} page.
+    The resolution of this issue and the assurance that Polkadot block times remain near constant-time can be checked on the [PoS Consensus](/polkadot-protocol/architecture/polkadot-chain/pos-consensus/){target=\_blank} page.
 
 ## RANDAO
 

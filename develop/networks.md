@@ -10,16 +10,99 @@ template: root-subdirectory-page.html
 
 The Polkadot ecosystem consists of multiple networks designed to support different stages of blockchain development, from main networks to test networks. Each network serves a unique purpose, providing developers with flexible environments for building, testing, and deploying blockchain applications.
 
-## Main Networks
+This section includes essential network information such as RPC endpoints, currency symbols and decimals, and how to acquire TestNet tokens for the Polkadot ecosystem of networks.
+
+## Production Networks
 
 ### Polkadot
 
-- **Description** - primary production blockchain network for high-stakes, enterprise-grade applications
-- **RPC URL** - `wss://polkadot-rpc.dwellir.com`
-- **Currency symbol** - `DOT`
-- **Currency decimals** - 10
-- **Block explorer URL** - [`https://polkadot.subscan.io/`](https://polkadot.subscan.io/){target=\_blank}
-- **Network Characteristics:**
+Polkadot is the primary production blockchain network for high-stakes, enterprise-grade applications. Polkadot MainNet has been running since May 2020 and has implementations in various programming languages ranging from Rust to JavaScript.
+
+=== "Network Information"
+    
+    **RPC URL** 
+    ```
+    wss://polkadot-rpc.dwellir.com
+    ```
+    ---
+
+    **Currency symbol** - `DOT`
+
+    ---
+    
+    **Currency decimals** - 10
+
+    ---
+
+    **Block explorer URL**
+    ```
+    https://polkadot.subscan.io/
+    ```
+
+=== "RPC Endpoints"
+    Blockops
+    ```
+    wss://polkadot-public-rpc.blockops.network/ws
+    ```
+    ---
+    Dwellir
+    ```
+    wss://polkadot-rpc.dwellir.com
+    ```
+    ---
+    Dwellir Tunisia
+    ```
+    wss://polkadot-rpc-tn.dwellir.com
+    ```
+    ---
+    IBP1
+    ```
+    wss://rpc.ibp.network/polkadot
+    ```
+    ---
+    IBP2
+    ```
+    wss://polkadot.dotters.network
+    ```
+    ---
+    LuckyFriday
+    ```
+    wss://rpc-polkadot.luckyfriday.io
+    ```
+    ---
+    OnFinality
+    ```
+    wss://polkadot.api.onfinality.io/public-ws
+    ```
+    ---
+    RadiumBlock 
+    ```
+    wss://polkadot.public.curie.radiumblock.co/ws
+    ```
+    ---
+    RockX 
+    ```
+    wss://rockx-dot.w3node.com/polka-public-dot/ws
+    ```
+    ---
+    Stakeworld 
+    ```
+    wss://dot-rpc.stakeworld.io
+    ```
+    ---
+    SubQuery
+    ```
+    wss://polkadot.rpc.subquery.network/public/ws
+    ```
+    ---
+    light client
+    ```
+    light://substrate-connect/polkadot
+    ```
+
+=== "Considerations"
+    **Network Characteristics**
+    
     - Highest security and stability
     - Real economic incentives
     - Production-ready environment
@@ -27,12 +110,83 @@ The Polkadot ecosystem consists of multiple networks designed to support differe
 
 ### Kusama
 
-- **Description** - experimental network that receives features before Polkadot
-- **RPC URL** - `wss://kusama-rpc.dwellir.com`
-- **Currency symbol** - `KSM`
-- **Currency decimals** - 12
-- **Block explorer URL** - [`https://kusama.subscan.io/`](`https://kusama.subscan.io/){target=\_blank}
-- **Network Characteristics:**
+Kusama is a network built as a risk-taking, fast-moving "canary in the coal mine" for its cousin Polkadot. As it is built on top of the same infrastructure, Kusama often acts as a final testing ground for new features before they are launched on Polkadot. Unlike true TestNets, however, the Kusama KSM native token does have economic value. This incentive encourages paricipants to maintain this robust and performant structure for the benefit of the community.
+
+=== "Network Information"
+    **RPC URL** 
+    ```
+    wss://kusama-rpc.dwellir.com
+    ```
+
+    ---
+
+    **Currency symbol** - `KSM`
+
+    ---
+
+    **Currency decimals** - 12
+
+    ---
+    
+    **Block explorer URL** 
+    ```
+    https://kusama.subscan.io/
+    ```
+
+=== "RPC Endpoints"
+    Dwellir
+    ```
+    wss://kusama-rpc.dwellir.com
+    ```
+    ---
+    Dwellir Tunisia
+    ```
+    wss://kusama-rpc-tn.dwellir.com
+    ```
+    ---
+    IBP1
+    ```
+    wss://rpc.ibp.network/kusama
+    ```
+    ---
+    IBP2
+    ```
+    wss://kusama.dotters.network
+    ```
+    ---
+    LuckyFriday
+    ```
+    wss://rpc-kusama.luckyfriday.io
+    ```
+    ---
+    OnFinality
+    ```
+    wss://kusama.api.onfinality.io/public-ws
+    ```
+    ---
+    RadiumBlock
+    ```
+    wss://kusama.public.curie.radiumblock.co/ws
+    ```
+    ---
+    RockX
+    ```
+    wss://rockx-ksm.w3node.com/polka-public-ksm/ws
+    ```
+    ---
+    Stakeworld
+    ```
+    wss://rockx-ksm.w3node.com/polka-public-ksm/ws
+    ```
+    ---
+    light client
+    ```
+    light://substrate-connect/kusama
+    ```
+
+=== "Considerations"
+    **Network Characteristics**
+
     - Fast-moving "canary" environment
     - Real economic incentives
     - Rapid governance cycles
@@ -43,25 +197,138 @@ The Polkadot ecosystem consists of multiple networks designed to support differe
 
 ### Westend
 
-- **Description** - test network that mirrors Polkadot's functionality for protocol development
-- **RPC URL** - `wss://westend-rpc.dwellir.com`
-- **Currency symbol** - `WND`
-- **Currency decimals** - 12
-- **Block explorer URL** - [`https://westend.subscan.io/`](https://westend.subscan.io/){target=\_blank}
-- **Faucet** - [`https://faucet.polkadot.io/westend`](https://faucet.polkadot.io/westend){target=\_blank}
-- **Network Characteristics:**
+Westend is the primary test network that mirrors Polkadot's functionality for protocol-level feature development. As a true TestNet, the WND native token intentionally does not have any economic value. Use the faucet information in the following section to obtain WND tokens.
+
+=== "Network Information"
+    **RPC URL**
+    ```
+    wss://westend-rpc.dwellir.com
+    ```
+    ---
+    
+    **Currency symbol** - `WND`
+
+    ---
+
+    **Currency decimals** - 12
+
+    ---
+    
+    **Block explorer URL**
+    ```
+    https://westend.subscan.io/
+    ```
+
+    ---
+
+    **Faucet URL**
+    ```
+    https://faucet.polkadot.io/westend
+    ```
+
+=== "RPC Endpoints"
+    Dwellir
+    ```
+    wss://westend-rpc.dwellir.com
+    ```
+    ---
+    Dwellir Tunisia
+    ```
+    wss://westend-rpc-tn.dwellir.com
+    ```
+    ---
+    IBP1
+    ```
+    wss://rpc.ibp.network/westend
+    ```
+    ---
+    IBP2
+    ```
+    wss://westend.dotters.network
+    ```
+    ---
+    OnFinality
+    ```
+    wss://westend.api.onfinality.io/public-ws
+    ```
+    ---
+    Parity
+    ```
+    wss://westend-rpc.polkadot.io
+    ```
+    ---
+    light client
+    ```
+    light://substrate-connect/westend
+    ```
+
+=== "Considerations"
+    **Network Characteristics**
+    
     - Core protocol testing
     - Managed by Parity Technologies
 
 ### Paseo
 
-- **Description** - community-maintained test network for parachain and dapp development
-- **RPC URL** - `wss://paseo.rpc.amforc.com`
-- **Currency symbol** - `PAS`
-- **Currency decimals** - 10
-- **Block explorer URL** - [`https://paseo.subscan.io/`](https://paseo.subscan.io/){target=\_blank}
-- **Faucet** - [`https://faucet.polkadot.io/`](https://faucet.polkadot.io/){target=\_blank}
-- **Network Characteristics:**
+Paseo is a decentralised, community run, stable testnet for parachain and dapp developers to build and test their applications. Unlike Westend, Paseo is not intended for protocol-level testing. As a true TestNet, the PAS native token intentionally does not have any economic value. Use the faucet information in the following section to obtain PAS tokens.
+
+=== "Network Information"
+    **RPC URL**
+    ```
+    wss://paseo.rpc.amforc.com
+    ```
+
+    ---
+
+    **Currency symbol** - `PAS`
+
+    ---
+
+    **Currency decimals** - 10
+
+    ---
+
+    **Block explorer URL**
+    ```
+    https://paseo.subscan.io/
+    ```
+
+    ---
+
+    **Faucet URL**
+    ```
+    https://faucet.polkadot.io/
+    ```
+
+=== "RPC Endpoints"
+    Amforc
+    ```
+    wss://paseo.rpc.amforc.com
+    ```
+    ---
+    Dwellir
+    ```
+    wss://paseo-rpc.dwellir.com
+    ```
+    ---
+    IBP1
+    ```
+    wss://rpc.ibp.network/paseo
+    ```
+    ---
+    IBP2
+    ```
+    wss://paseo.dotters.network
+    ```
+    ---
+    StakeWorld
+    ```
+    wss://pas-rpc.stakeworld.io
+    ```
+
+=== "Considerations"
+    **Network Characteristics**
+
     - Ideal for parachain and dApp testing
     - Mirrors Polkadot's runtime
     - Community-managed environment

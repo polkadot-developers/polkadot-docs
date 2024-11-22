@@ -1,5 +1,5 @@
 ---
-title: XCM - Send Messages
+title: Send XCM Messages
 description: Unlock blockchain interoperability with XCM — Polkadot's Cross-Consensus Messaging format for cross-chain interactions.
 ---
 

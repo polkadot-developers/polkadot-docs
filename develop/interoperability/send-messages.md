@@ -11,7 +11,7 @@ The XCM pallet ([`pallet-xcm`](https://paritytech.github.io/polkadot-sdk/master/
 
 This pallet provides some default implementations for traits required by XcmConfig. The XCM executor is also included as an associated type within the pallet's configuration. For further details on XCM Configurations, see the previous page here.
 
-Where the XCM format defines a set of instructions used to construct XCVM programs, pallet-xcm defines a set of extrinsics that can be utilized to build XCVM programs, either to target the local or external chains. pallet-xcm's functionality is separated into three categories:
+Where the [`XCM format`](https://github.com/polkadot-fellows/xcm-format){target=\_blank} defines a set of instructions used to construct XCVM programs, `pallet-xcm` defines a set of extrinsics that can be utilized to build XCVM programs, either to target the local or external chains. The `pallet-xcm` functionality is divided into three categories:
 
 **Primitive** - dispatchable functions to locally execute an XCM
 

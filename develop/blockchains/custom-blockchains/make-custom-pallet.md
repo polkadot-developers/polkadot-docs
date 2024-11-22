@@ -154,7 +154,7 @@ After following all the previous steps, the pallet is now fully implemented. Bel
 
 With the pallet implemented, the next steps involve ensuring its reliability and performance before integrating it into a runtime. Check the following sections:
 
-- [**Testing**](/develop/blockchains/testing/index/){target=\_blank} - learn how to effectively test the functionality and reliability of your pallet to ensure it behaves as expected
+- [**Testing**](/develop/blockchains/testing/){target=\_blank} - learn how to effectively test the functionality and reliability of your pallet to ensure it behaves as expected
 
 - [**Benchmarking**](/develop/blockchains/custom-blockchains/benchmarking/){target=\_blank} - explore methods to measure the performance and execution cost of your pallet
 

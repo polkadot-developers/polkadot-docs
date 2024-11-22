@@ -29,7 +29,8 @@ This call contains direct access to the XCM executor. It is the job of the execu
 
 Once it is deemed valid, the message will then be locally executed, therein returning the outcome as an event. This operation is executed on behalf of whichever account has signed the extrinsic.
 
-**Note:** It is possible for partial executions to occur.
+!!!warning
+    It is possible for partial executions to occur.
 
 ### Send
 

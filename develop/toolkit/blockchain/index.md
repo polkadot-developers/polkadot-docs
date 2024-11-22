@@ -1,6 +1,6 @@
 ---
 title: Blockchain
-description: Explore Polkadot's development tools for testing and validation, including Chopsticks for forking live chains and Zombienet for testing, spawning, and validation.
+description: Discover essential blockchain development resources for building in the Polkadot ecosystem, highlighting tools to streamline your development process.
 hide: 
     - feedback
 template: subsection-index-page.html

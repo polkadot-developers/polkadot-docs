@@ -1,5 +1,5 @@
 title: Blockchain
 nav:
   - index.md
-  # - 'Spawn Chains for Testing with Zombienet': spawn-testing-chain.md
-  - 'Fork Live Chains with Chopsticks': fork-live-chains.md
+  # - spawn-chains
+  # - fork-chains

@@ -1,11 +1,12 @@
 ---
 title: Glossary
 description: Glossary of terms used within the Polkadot ecosystem, Polkadot SDK, its subsequent libraries, and other relevant Web3 terminology.
+template: root-subdirectory-page.html
 ---
 
 # Glossary
 
-Key definitions, concepts, and terminology specific to the Polkadot ecosystem are included here. 
+Key definitions, concepts, and terminology specific to the Polkadot ecosystem are included here.
 
 Additional glossaries from around the ecosystem you might find helpful:
 
@@ -96,6 +97,14 @@ The node subsystem responsible for consensus tasks.
 For detailed information about the consensus strategies of the [Polkadot](#polkadot) network, see the [Polkadot Consensus](https://wiki.polkadot.network/docs/learn-consensus){target=\_blank} blog series.
 
 See also [hybrid consensus](#hybrid-consensus).
+
+## Coretime
+
+The time allocated for utilizing a core, measured in relay chain blocks. There are two types of coretime: *on-demand* and *bulk*.
+
+On-demand coretime refers to coretime acquired through bidding in near real-time for the validation of a single parachain block on one of the cores reserved specifically for on-demand orders. They are available as an on-demand coretime pool. Set of cores that are available on-demand. Cores reserved through bulk coretime could also be made available in the on-demand coretime pool, in parts or in entirety.
+
+Bulk coretime is a fixed duration of continuous coretime represented by an NFT that can be split, shared, or resold. It is managed by the [Broker pallet](https://paritytech.github.io/polkadot-sdk/master/pallet_broker/index.html){target=\_blank}.
 
 ## Development Phrase
 

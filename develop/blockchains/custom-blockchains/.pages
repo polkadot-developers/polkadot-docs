@@ -1,8 +1,9 @@
 title: Custom Blockchains
 nav:
   - index.md
-  - 'Overview': overview.md
+  - 'Overview (FRAME)': overview.md
   - 'Add Existing Pallets': add-existing-pallets.md
+  - 'Add Smart Contract Functionality': add-smart-contract-functionality.md
   - 'Make a Custom Pallet': make-custom-pallet.md
   - 'Pallet Testing': pallet-testing.md
-  - 'Benchmarking': benchmarking.md
+  - 'Benchmark Testing': benchmarking.md

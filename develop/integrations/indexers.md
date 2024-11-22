@@ -27,7 +27,7 @@ A blockchain indexer is a specialized infrastructure tool that processes, organi
 
 <div class="grid cards" markdown>
 
--   :material-clock-fast:{ .lg .middle } __Subsquid__
+-   __Subsquid__
 
     ---
 
@@ -35,7 +35,7 @@ A blockchain indexer is a specialized infrastructure tool that processes, organi
 
     [:octicons-arrow-right-24: Reference](https://www.sqd.dev/){target=\_blank}
 
--   :fontawesome-brands-markdown:{ .lg .middle } __Subquery__
+-   __Subquery__
 
     ---
 

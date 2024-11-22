@@ -119,7 +119,7 @@ The constant `1635018093` is a magic number that identifies the file as a metada
 - The `pallets` section contains information about each pallet in the runtime
 - The `extrinsic` section describes the type identifier and transaction format version that the runtime uses
 
-Different extrinsic versions can have varying formats, especially when considering [signed transactions](TODO: update path). 
+Different extrinsic versions can have varying formats, especially when considering [signed transactions](/polkadot-protocol/basics/blocks-transactions-fees/transactions/#signed-transactions){target=\_blank}. 
 
 ### Pallets
 

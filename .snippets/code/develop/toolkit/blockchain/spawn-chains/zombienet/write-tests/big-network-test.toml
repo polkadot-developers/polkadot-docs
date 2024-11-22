@@ -1,0 +1,34 @@
+Description: Big Network test
+Network: ./0001-test-config-big-network.toml
+Creds: config
+
+# metrics
+alice: reports node_roles is 4
+alice: reports sub_libp2p_is_major_syncing is 0
+
+# logs
+bob: log line matches glob "*rted #1*" within 10 seconds
+bob: log line matches "Imported #[0-9]+" within 10 seconds
+
+# custom js script
+alice: js-script ./0008-custom.js return is greater than 1 within 200 seconds
+
+# custom ts script
+alice: ts-script ./0008-custom-ts.ts return is greater than 1 within 200 seconds
+
+# backchannel
+alice: wait for name and use as X within 30 seconds
+
+# well know functions
+alice: is up
+alice: parachain 100 is registered within 225 seconds
+alice: parachain 100 block height is at least 10 within 250 seconds
+
+# histogram
+alice: reports histogram polkadot_pvf_execution_time has at least 2 samples in buckets ["0.1", "0.25", "0.5", "+Inf"] within 100 seconds
+
+# system events
+alice: system event matches ""paraId":[0-9]+" within 10 seconds
+
+# tracing
+alice: trace with traceID 94c1501a78a0d83c498cc92deec264d9 contains ["answer-chunk-request", "answer-chunk-request"]

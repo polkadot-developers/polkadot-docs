@@ -7,7 +7,7 @@ description: Unlock blockchain interoperability with XCM — Polkadot's Cross-Co
 
 ## XCM Frame Pallet Overview
 
-The XCM pallet [(pallet-xcm)](https://github.com/paritytech/polkadot-sdk/blob/master/polkadot/xcm/pallet-xcm/src/lib.rs) provides a set of pre-defined, commonly used XCVM programs in the form of a set of extrinsics using [FRAME](https://docs.substrate.io/reference/frame-pallets/).
+The XCM pallet ([`pallet-xcm`](https://paritytech.github.io/polkadot-sdk/master/pallet_xcm/index.html){target=\_blank}) provides a set of pre-defined, commonly used [`XCVM programs`](https://github.com/polkadot-fellows/xcm-format?tab=readme-ov-file#12-the-xcvm){target=\_blank} in the form of a set of extrinsics using [FRAME](https://docs.substrate.io/reference/frame-pallets/).
 
 This pallet provides some default implementations for traits required by XcmConfig. The XCM executor is also included as an associated type within the pallet's configuration. For further details on XCM Configurations, see the previous page here.
 

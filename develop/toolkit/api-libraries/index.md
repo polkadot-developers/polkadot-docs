@@ -1,6 +1,6 @@
 ---
 title: API Libraries
-description: Dive into APIs for interacting with the Polkadot network, including Polkadot-API, Polkadot.js, Python Substrate Interface, and Sidecar REST services.
+description: Explore APIs for engaging with the Polkadot network, focusing on the tools and frameworks that enable blockchain interactions and data retrieval.
 hide: 
     - feedback
 template: subsection-index-page.html

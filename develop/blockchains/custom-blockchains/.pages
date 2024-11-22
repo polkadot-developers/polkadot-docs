@@ -3,6 +3,7 @@ nav:
   - index.md
   - 'Overview (FRAME)': frame-overview.md
   - 'Add Existing Pallets': add-existing-pallets.md
+  - 'Add Smart Contract Functionality': add-smart-contract-functionality.md
   - 'Make a Custom Pallet': make-custom-pallet.md
   - 'Pallet Testing': pallet-testing.md
   - 'Benchmark Testing': benchmarking.md

@@ -39,6 +39,7 @@ Polkadot is the primary production blockchain network for high-stakes, enterpris
     https://polkadot.subscan.io/
     ```
 
+
 === "RPC Endpoints"
     Blockops
     ```
@@ -332,3 +333,7 @@ Paseo is a decentralised, community run, stable testnet for parachain and dapp d
     - Ideal for parachain and dApp testing
     - Mirrors Polkadot's runtime
     - Community-managed environment
+
+## Additional Resources
+
+- [**Polkadot Fellowship runtimes repository**](https://github.com/polkadot-fellows/runtimes){target=\_blank} - find a collection of runtimes for Polkadot, Kusama, and their system-parachains as maintained by the community via the [Polkadot Technical Fellowship](https://wiki.polkadot.network/docs/learn-polkadot-technical-fellowship){target=\_blank}.

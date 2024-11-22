@@ -1,6 +1,6 @@
 2024-11-19 23:49:57 Parity Polkadot
 2024-11-19 23:49:57 ✌️  version 1.14.1-7c4cd60da6d
-2024-11-19 23:49:57 ❤️  by Parity Technologies <admin@parity.io>, 2017-2024
+2024-11-19 23:49:57 ❤️  by Parity Technologies  &lt;admin@parity.io&gt;, 2017-2024
 2024-11-19 23:49:57 📋 Chain specification: Polkadot
 2024-11-19 23:49:57 🏷  Node name: myPolkadotNode
 2024-11-19 23:49:57 👤 Role: FULL

@@ -33,10 +33,10 @@ Polkadot validators rely on high-performance hardware to process blocks efficien
 
 The recommended minimum hardware requirements to ensure a fully functional and performant validator are as follows:
 
-=== "CPU"
+- **CPU**:
 
     - x86-64 compatible
-    - Eight physical cores @ 3.4 GHz 
+    - Eight physical cores @ 3.4 GHz
         - Per [Referenda #1051](https://polkadot.subsquare.io/referenda/1051){target=\_blank}, this will be a hard requirement as of January 2025
     - Processor:
         - Intel - Ice Lake or newer (Xeon or Core series)
@@ -46,23 +46,22 @@ The recommended minimum hardware requirements to ensure a fully functional and p
         - AMD - SMT
     - [Single-threaded performance](https://www.cpubenchmark.net/singleThread.html){target=\_blank} is prioritized over higher cores count
 
-=== "Storage"
+- **Storage**:
 
     - NVMe SSD - at least 1 TB for blockchain data (prioritize latency rather than throughput)
     - Storage requirements will increase as the chain grows. For current estimates, see the [current chain snapshot](https://stakeworld.io/docs/dbsize){target=\_blank}
 
-=== "Memory"
+- **Memory**:
 
     - 32 GB DDR4 ECC
 
-=== "System"
+- **System**:
 
     - Linux Kernel 5.16 or newer
 
-=== "Network"
+- **Network**:
 
     - Symmetric networking speed of 500 Mbit/s is required to handle large numbers of parachains and ensure congestion control during peak times
-
 
 While the hardware specs above are best practices and not strict requirements, subpar hardware may lead to performance issues and increase the risk of slashing.
 
@@ -81,7 +80,7 @@ When selecting a VPS provider for your validator node, prioritize reliability, c
 
 ??? warning "Acceptable use policies"
     Different VPS providers have varying acceptable use policies, and not all allow cryptocurrency-related activities. 
-    
+
     For example, Digital Ocean, requires explicit permission to use servers for cryptocurrency mining and defines unauthorized mining as [network abuse](https://www.digitalocean.com/legal/acceptable-use-policy#network-abuse){target=\_blank} in their acceptable use policy. 
     
     Review the terms for your VPS provider to avoid account suspension or server shutdown due to policy violations.

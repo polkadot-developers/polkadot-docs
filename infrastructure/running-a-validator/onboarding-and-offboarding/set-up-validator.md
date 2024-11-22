@@ -15,10 +15,10 @@ Running a validator requires a commitment to maintaining a stable, secure infras
 
 To get the most from this guide, ensure you've done the following before going forward:
 
-- Read [Validator Requirements](/infrastructure/running-a-validator/requirements/) and understand the recommended minimum skill level and hardware needs
-- Read [General Management](/infrastructure/running-a-validator/operational-tasks/general-management), [Upgrade Your Node](/infrastructure/running-a-validator/operational-tasks/upgrade-your-node/), and [Pause Validating](/infrastructure/running-a-validator/onboarding-and-offboarding/stop-validating/) and understand the tasks required to keep your validator operational
-- Read [Rewards Payout](/infrastructure/staking-mechanics/rewards-payout/) and understand how validator rewards are determined and paid out
-- Read [Offenses and Slashes](/infrastructure/staking-mechanics/offenses-and-slashes/) and understand how validator performance and security can affect tokens staked by you or your nominators
+- Read [Validator Requirements](/infrastructure/running-a-validator/requirements/){target=\_blank} and understand the recommended minimum skill level and hardware needs
+- Read [General Management](/infrastructure/running-a-validator/operational-tasks/general-management){target=\_blank}, [Upgrade Your Node](/infrastructure/running-a-validator/operational-tasks/upgrade-your-node/){target=\_blank}, and [Pause Validating](/infrastructure/running-a-validator/onboarding-and-offboarding/stop-validating/){target=\_blank} and understand the tasks required to keep your validator operational
+- Read [Rewards Payout](/infrastructure/staking-mechanics/rewards-payout/){target=\_blank} and understand how validator rewards are determined and paid out
+- Read [Offenses and Slashes](/infrastructure/staking-mechanics/offenses-and-slashes/){target=\_blank} and understand how validator performance and security can affect tokens staked by you or your nominators
 
 ## Initial Setup
 
@@ -70,7 +70,7 @@ Implementing Landlock ensures your node operates in a restricted, self-imposed s
 
 ## Install the Polkadot Binaries
 
-You must install the Polkadot binaries required to run your validator node. These binaries include the main `polkadot`, `polkadot-prepare-worker`, and `polkadot-execute-worker` binaries. All three are needed to run a fully functioning validator node. 
+You must install the Polkadot binaries required to run your validator node. These binaries include the main `polkadot`, `polkadot-prepare-worker`, and `polkadot-execute-worker` binaries. All three are needed to run a fully functioning validator node.
 
 Depending on your preference and operating system setup, there are multiple methods to install these binaries. Below are the main options:
 
@@ -102,40 +102,42 @@ You can also download the binaries by using the following direct links and repla
 
 Users running Debian-based distributions like Ubuntu, or RPM-based distributions such as Fedora or CentOS can install the binaries via package managers.
 
-#### Debian-based (Debian, Ubuntu)
+??? interface "Debian-based (Debian, Ubuntu)"
 
-Run the following commands as the root user to add the necessary repository and install the binaries:
+    Run the following commands as the root user to add the necessary repository and install the binaries:
 
-```ssh
-# Import the security@parity.io GPG key
-gpg --recv-keys --keyserver hkps://keys.mailvelope.com 9D4B2B6EB8F97156D19669A9FF0812D491B96798
-gpg --export 9D4B2B6EB8F97156D19669A9FF0812D491B96798 > /usr/share/keyrings/parity.gpg
-# Add the Parity repository and update the package index
-echo 'deb [signed-by=/usr/share/keyrings/parity.gpg] https://releases.parity.io/deb release main' > /etc/apt/sources.list.d/parity.list
-apt update
-# Install the `parity-keyring` package - This will ensure the GPG key
-# used by APT remains up-to-date
-apt install parity-keyring
-# Install polkadot
-apt install polkadot
-```
+    ```ssh
+    # Import the security@parity.io GPG key
+    gpg --recv-keys --keyserver hkps://keys.mailvelope.com 9D4B2B6EB8F97156D19669A9FF0812D491B96798
+    gpg --export 9D4B2B6EB8F97156D19669A9FF0812D491B96798 > /usr/share/keyrings/parity.gpg
+    # Add the Parity repository and update the package index
+    echo 'deb [signed-by=/usr/share/keyrings/parity.gpg] https://releases.parity.io/deb release main' > /etc/apt/sources.list.d/parity.list
+    apt update
+    # Install the `parity-keyring` package - This will ensure the GPG key
+    # used by APT remains up-to-date
+    apt install parity-keyring
+    # Install polkadot
+    apt install polkadot
+    ```
+    
+    After installation, ensure the binaries are properly installed by [verifying the installation](#verify-installation).
 
-#### RPM-based (Fedora, CentOS)
+??? interface "RPM-based (Fedora, CentOS)""
 
-Run the following commands as the root user to install the binaries on an RPM-based system:
+    Run the following commands as the root user to install the binaries on an RPM-based system:
 
-```bash
-# Install dnf-plugins-core (This might already be installed)
-dnf install dnf-plugins-core
-# Add the repository and activate it
-dnf config-manager --add-repo https://releases.parity.io/rpm/polkadot.repo
-dnf config-manager --set-enabled polkadot
-# Install polkadot (You may have to confirm the import of the GPG key, which
-# should have the following fingerprint: 9D4B2B6EB8F97156D19669A9FF0812D491B96798)
-dnf install polkadot
-```
+    ```bash
+    # Install dnf-plugins-core (This might already be installed)
+    dnf install dnf-plugins-core
+    # Add the repository and activate it
+    dnf config-manager --add-repo https://releases.parity.io/rpm/polkadot.repo
+    dnf config-manager --set-enabled polkadot
+    # Install polkadot (You may have to confirm the import of the GPG key, which
+    # should have the following fingerprint: 9D4B2B6EB8F97156D19669A9FF0812D491B96798)
+    dnf install polkadot
+    ```
 
-After installation, ensure the binaries are properly installed by [verifying the installation](#verify-installation).
+    After installation, ensure the binaries are properly installed by [verifying the installation](#verify-installation).
 
 ### Install with Ansible
 
@@ -183,11 +185,20 @@ Once the Polkadot binaries are installed, it's essential to verify that everythi
 
     If necessary, you can move the binaries to a shared location, such as `/usr/local/bin/`, and add it to your `$PATH`.
 
+## Run a Validator on a TestNet
+
+Running your validator on a test network like Westend or Kusama is a smart way to familiarize yourself with the process and identify any setup issues in a lower-stakes environment before joining the Polkadot MainNet.
+
+### Choose a Network
+
+- **Westend** - Polkadot's primary TestNet is open to anyone for testing purposes. Validator slots are intentionally limited to keep the network stable for the Polkadot release process, so it may not support as many validators at any given time
+- **Kusama** - often called Polkadot's “canary network,” Kusama has real economic value but operates with a faster and more experimental approach. Running a validator here provides an experience closer to MainNet with the benefit of more frequent validation opportunities with an era time of 6 hours vs 24 hours for Polkadot
+
 ## Synchronize Chain Data
 
 After successfully installing and verifying the Polkadot binaries, the next step is to sync your node with the blockchain network. Synchronization is necessary to download and validate the blockchain data, ensuring your node is ready to participate as a validator. Follow these steps to sync your node:
 
-1. **Start syncing** - you can run a full or warp sync 
+1. **Start syncing** - you can run a full or warp sync
 
     === "Full sync"
 
@@ -209,9 +220,9 @@ After successfully installing and verifying the Polkadot binaries, the next step
 
         Warp sync ensures that your node quickly updates to the latest finalized state. The historical blocks are downloaded in the background as the node continues to operate.
 
-    ??? info "Adjustments for Kusama"
+    ??? info "Adjustments for TestNets"
 
-        If you're planning to run a validator on the Kusama network, you can specify the chain using the `--chain` flag:
+        If you're planning to run a validator on a TetNet, you can specify the chain using the `--chain` flag. For example, the following will run a validator on Kusama:
 
         ```sh
         polkadot --chain=kusama
@@ -220,7 +231,7 @@ After successfully installing and verifying the Polkadot binaries, the next step
 2. **Monitor sync progress** - once the sync starts, you will see a stream of logs providing information about the node's status and progress. Here's an example of what the output might look like:
 
     --8<-- 'code/infrastructure/running-a-validator/onboarding-and-offboarding/set-up-a-validator/terminal-output-02.html'
-    
+
     The output logs provide information such as the current block number, node name, and network connections. Monitor the sync progress and any errors that might occur during the process. Look for information about the latest processed block and compare it with the current highest block using tools like [Telemetry](https://telemetry.polkadot.io/#list/Polkadot%20CC1){target=\_blank} or [Polkadot.js Apps Explorer](https://polkadot.js.org/apps/#/explorer){target=\_blank}.
 
 ### Database Snapshot Services
@@ -247,12 +258,13 @@ The following sections will guide you through bonding DOT for your validator.
 
 ### Bonding DOT on Polkadot.js Apps
 
-Once you're ready to bond your DOT, follow these steps using the Polkadot.js Apps UI:
+Once you're ready to bond your DOT, head over to the [Polkadot.js Apps](https://polkadot.js.org/apps/){target=\_blank} staking page by clicking the **Network** dropdown at the top of the page and selecting [**Staking**](https://polkadot.js.org/apps/#/staking/actions){target=\_blank}.
 
-1. **Network** dropdown at the top of the page, select the arrow to expand, and then select [**Staking**](https://polkadot.js.org/apps/#/staking/actions){target=\_blank} section. Select **Account Actions**, and then the **+ Stash** button
-2. **Stash account** - select your stash account (which is the account with the DOT/KSM balance)
-3. **Value bonded** - enter how much DOT from the stash account you want to bond/stake. You are not required to bond all of the DOT in that account and you may bond more DOT at a later time. Be aware, withdrawing any bonded amount requires waiting for the unbonding period. The unbonding period is seven days for Kusama and 28 days for Polkadot
-4. **Payment destination** - add the recipient account for validator rewards. If you'd like to redirect payments to an account that is not the stash account, you can do it by entering the address here. Note that it is extremely unsafe to set an exchange address as the recipient of the staking rewards
+To get started with the bond submission, click on the **Accounts** tab, then the **+ Stash** button, and then enter the following information:
+
+1. **Stash account** - select your stash account (which is the account with the DOT/KSM balance)
+2. **Value bonded** - enter how much DOT from the stash account you want to bond/stake. You are not required to bond all of the DOT in that account and you may bond more DOT at a later time. Be aware, withdrawing any bonded amount requires waiting for the unbonding period. The unbonding period is seven days for Kusama and 28 days for Polkadot
+3. **Payment destination** - add the recipient account for validator rewards. If you'd like to redirect payments to an account that is not the stash account, you can do it by entering the address here. Note that it is extremely unsafe to set an exchange address as the recipient of the staking rewards
 
 Once everything is filled in properly, select **Bond** and sign the transaction with your stash account. If successful, you should see an `ExtrinsicSuccess` message.
 
@@ -260,9 +272,9 @@ Your bonded account will be available under **Stashes**. After refreshing the sc
 
 ## Set Session Keys
 
-Setting up your validator's session keys is essential to associate your node with your stash account on the Polkadot network. Validators use session keys to participate in the consensus process. Your validator can only perform its role in the network by properly setting session keys which consist of several key pairs for different parts of the protocol (e.g., GRANDPA, BABE). These keys must be registered on-chain and associated with your validator node to ensure it can participate in validating blocks. 
+Setting up your validator's session keys is essential to associate your node with your stash account on the Polkadot network. Validators use session keys to participate in the consensus process. Your validator can only perform its role in the network by properly setting session keys which consist of several key pairs for different parts of the protocol (e.g., GRANDPA, BABE). These keys must be registered on-chain and associated with your validator node to ensure it can participate in validating blocks.
 
-The following sections will cover generating session keys, submitting key data on-chain, and verifying that session keys are correctly set. 
+The following sections will cover generating session keys, submitting key data on-chain, and verifying that session keys are correctly set.
 
 ### Generate Session Keys
 
@@ -291,13 +303,13 @@ The Polkadot.js Apps UI and the CLI are the two primary methods used to generate
 
 Now that you have generated your session keys, you must submit them to the chain. Follow these steps:
 
-1. Go to the **Staking > Account Actions** section on Polkadot.js Apps
+1. Go to the **Network > Staking > Accounts** section on Polkadot.js Apps
 2. Select **Set Session Key** on the bonding account you generated earlier
 3. Paste the hex-encoded session key string you generated (from either the UI or CLI) into the input field and submit the transaction
 
 ![](/images/infrastructure/running-a-validator/onboarding-and-offboarding/set-up-validator/set-up-a-validator-02.webp)
 
-Once the transaction is signed and submitted, your session keys will be registered on-chain. 
+Once the transaction is signed and submitted, your session keys will be registered on-chain.
 
 ### Verify Session Key Setup
 
@@ -328,8 +340,8 @@ Use one of the following methods to generate your node key:
     polkadot key generate-node-key --file INSERT_PATH_TO_NODE_KEY
     ```
     
-=== "Use default path" 
-    
+=== "Use default path"
+
     You can also generate the node key with the following command, which will automatically save the key to the base path of your node:
 
     ``` bash
@@ -348,28 +360,6 @@ polkadot --node-key-file INSERT_PATH_TO_NODE_KEY
 
 Following these steps ensures that your node retains its identity, making it discoverable by peers without the risk of conflicting identities across sessions. For further technical background, see Polkadot SDK [Pull Request #3852](https://github.com/paritytech/polkadot-sdk/pull/3852){target=\_blank} for the rationale behind requiring static keys.
 
-## Run a Validator on a TestNet 
-
-Running your validator on a test network like Westend or Kusama is a smart way to familiarize yourself with the process and identify any setup issues in a lower-stakes environment before joining the Polkadot MainNet.
-
-### Choose a Network
-
-- **Westend** - Polkadot's primary TestNet is open to anyone for testing purposes. Validator slots are intentionally limited to keep the network stable for the Polkadot release process, so it may not support as many validators at any given time
-- **Kusama** - often called Polkadot's “canary network,” Kusama has real economic value but operates with a faster and more experimental approach. Running a validator here provides an experience closer to MainNet with the benefit of more frequent validation opportunities with an era time of 6 hours vs 24 hours for Polkadot
-
-### Run a Kusama Validator
-
-Running a validator on the Kusama network is identical to running a Polkadot validator. To start a validator node on Kusama, specify the chain when running the node as follows:
-
-``` bash
-polkadot --chain=kusama
-```
-
-??? info "Adjustments for Kusama"
-    Using this flag will configure your node to connect to the Kusama network instead of Polkadot. Adjust configurations as needed for your test environment, keeping in mind that the technical requirements for Kusama are generally lighter than those on the Polkadot mainnet. 
-    
-    If you need help, please reach out on the [Kusama Validator Lounge](https://matrix.to/#/#KusamaValidatorLounge:polkadot.builders){target=\_blank} on Element. The team and other experienced validators are there to help answer questions and provide tips.
-
 ## Validate
 
 Once your validator node is fully synced and ready, the next step is to ensure it's visible on the network and performing as expected. Below are steps for monitoring and managing your node on the Polkadot network.
@@ -384,7 +374,7 @@ In the following example, a node named `techedtest` is successfully located and 
 
 ### Activate using Polkadot.js Apps
 
-Follow these steps to use the Polkadot.js Apps UI to activate your validator:
+Follow these steps to use Polkadot.js Apps to activate your validator:
 
 1. Go to the **Validator** tab in the Polkadot.js Apps UI and locate the section where you input the keys generated from `rotateKeys`. Paste the output from `author_rotateKeys`, which is a hex-encoded key that links your validator with its session keys:
 

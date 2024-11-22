@@ -1,0 +1,38 @@
+[
+  [
+    [
+      {
+        "sender": 1000,
+        "recipient": 2500
+      }
+    ],
+    {
+      "maxCapacity": 8,
+      "maxTotalSize": 8192,
+      "maxMessageSize": 1048576,
+      "msgCount": 0,
+      "totalSize": 0,
+      "mqcHead": null,
+      "senderDeposit": 0,
+      "recipientDeposit": 0
+    }
+  ],
+  [
+    [
+      {
+        "sender": 2500,
+        "recipient": 1000
+      }
+    ],
+    {
+      "maxCapacity": 8,
+      "maxTotalSize": 8192,
+      "maxMessageSize": 1048576,
+      "msgCount": 0,
+      "totalSize": 0,
+      "mqcHead": null,
+      "senderDeposit": 0,
+      "recipientDeposit": 0
+    }
+  ]
+]

@@ -1,1 +1,1 @@
-export type Format = "payload" | "call" | "submittable";
+export type Format = 'payload' | 'call' | 'submittable';

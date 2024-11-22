@@ -23,7 +23,7 @@ The following are steps to ensure a smooth stop to validation:
 
 When stepping back from validating, the first step is to chill your validator status. This action stops your validator from being considered for the next era without fully unbonding your tokens, which can be useful for temporary pauses like maintenance or planned downtime. 
 
-Use the `staking.chill` extrinsic to initiate this. For more guidance on chilling your node, refer to the [Pause Validating](infrastructure/running-a-validator/operational-tasks/pause-validating.md)guide. You may also claim any pending staking rewards at this point.
+Use the `staking.chill` extrinsic to initiate this. For more guidance on chilling your node, refer to the [Pause Validating](/infrastructure/running-a-validator/operational-tasks/pause-validating/){target=\_blank} guide. You may also claim any pending staking rewards at this point.
 
 ## Purge Validator Session Keys
 

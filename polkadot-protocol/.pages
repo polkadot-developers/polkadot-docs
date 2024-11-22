@@ -3,5 +3,5 @@ nav:
   - index.md
   - architecture
   - basics
-  # - onchain-governance
-  - glossary
+  - onchain-governance
+  - 'Glossary': glossary.md

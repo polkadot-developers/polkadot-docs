@@ -4,4 +4,4 @@ nav:
   - 'Runtime Upgrades': runtime-upgrades.md
   - 'Storage Migrations': storage-migrations.md
   # - 'Debug Production Issues': debug-prod-issues.md
-  # - 'Runtime Metrics and Monitoring': runtime-metrics-monitoring.md
+  - 'Runtime Metrics and Monitoring': runtime-metrics-monitoring.md

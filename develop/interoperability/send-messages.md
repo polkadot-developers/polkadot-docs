@@ -40,5 +40,5 @@ This call specifies where a message should be sent (via a transport method) exte
 It’s important to note that the XCM pallet needs the XcmRouter to send XCMs. It is used to dictate where XCms are allowed to be sent, and which XCM transport protocol to use. 
 E.G. Kusama uses the ChildParachainRouter which only allows for Downward Message Passing from the relay to parachains to occur.
 
-For more information about XCM transport protocols, check out the XCM Channels page here.
+For more information about XCM transport protocols, check out the [XCM Channels](TODO:update-path){target=\_blank} page here.
 

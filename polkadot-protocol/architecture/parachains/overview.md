@@ -36,11 +36,35 @@ flowchart TB
 
     Parachains themselves are coherent, as they are self-contained environments with their own domain-specific functionality.
 
-Parachains enable *para*llelization of different services within the same network. However, unlike most layer two rollups, parachains do not suffer the same interoperability pitfalls that most rollups suffer from. Cross consensus messaging (XCM) provides a common communication format for each parachain and can be configured to allow a parachain to communicate with just the relay chain or certain parachains. 
-
-<!-- TODO: link xcm config stuff here? -->
+Parachains enable parallelization of different services within the same network. However, unlike most layer two rollups, parachains do not suffer the same interoperability pitfalls that most rollups suffer from. [Cross consensus messaging (XCM)](/develop/interoperability/intro-to-xcm/){target=\_blank} provides a common communication format for each parachain and can be configured to allow a parachain to communicate with just the relay chain or certain parachains. 
 
 <!-- TODO: mermaid diagram showing many parachains of different types doing different things, all under the polkadot umbrella -->
+
+```mermaid
+flowchart TB
+    subgraph "Polkadot Relay Chain"
+        RC[Relay Chain\nCross-Consensus\nRouting]
+    end
+
+    subgraph "Parachain Ecosystem"
+        direction TB
+        DeFi[DeFi Parachain\nFinancial Services]
+        GameFi[GameFi Parachain\nGaming Ecosystem]
+        NFT[NFT Parachain\nDigital Collectibles]
+        Identity[Identity Parachain\nUser Verification]
+    end
+
+    DeFi <-->|XCM: Asset Transfer| GameFi
+    GameFi <-->|XCM: Token Exchange| NFT
+    Identity <-->|XCM: Credential Verification| DeFi
+
+    RC -->|Validate & Route XCM| DeFi
+    RC -->|Validate & Route XCM| GameFi
+    RC -->|Validate & Route XCM| NFT
+    RC -->|Validate & Route XCM| Identity
+
+    note["XCM Features:\n- Standardized Messaging\n- Cross-Chain Interactions\n- Secure Asset/Data Transfer"]
+```
 
 Most parachains are built using the Polkadot SDK, which provides all the tools needed to build a fully functioning parachain. However it is possible to build a parachain which can inherit the security of the relay chain as long as it implements the correct mechanisms expected by the relay chain.
 

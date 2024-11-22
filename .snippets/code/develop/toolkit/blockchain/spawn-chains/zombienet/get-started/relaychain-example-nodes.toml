@@ -2,7 +2,7 @@
 default_command = "polkadot"
 default_image = "polkadot-debug:master"
 chain = "rococo-local"
-chain_spec_path = INSERT_PATH_TO_CHAIN-SPEC.JSON
+chain_spec_path = "INSERT_PATH_TO_CHAIN_SPEC"
 default_args = ["--chain", "rococo-local"]
 
 [[relaychain.nodes]]

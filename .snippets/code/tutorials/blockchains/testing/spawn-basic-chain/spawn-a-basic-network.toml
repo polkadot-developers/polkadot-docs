@@ -14,5 +14,5 @@ validator = true
 [[parachains]]
 id = 100
 
-  [parachains.collator]
-  name = "collator01"
+[parachains.collator]
+name = "collator01"

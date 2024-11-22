@@ -5,3 +5,11 @@ hide:
     - feedback
 template: subsection-index-page.html
 ---
+
+# Testing Your Polkadot SDK-Based Blockchain
+
+Explore comprehensive testing strategies for Polkadot SDK-based blockchains, from setting up test environments to verifying runtime and pallet interactions.
+
+## In This Section
+
+:::INSERT_IN_THIS_SECTION:::

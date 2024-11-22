@@ -52,7 +52,7 @@ To run Chopsticks using a configuration file, utilize the `--config` flag. You c
 
 Regardless of which method you choose from the preceding examples, you'll see an output similar to the following:
 
---8<-- 'code/tutorials/blockchains/testing/fork-live-chains/run-chopsticks-01.html.html'
+--8<-- 'code/tutorials/blockchains/testing/fork-live-chains/run-chopsticks-01.html'
 
 !!! note
     If using a file path, make sure you've downloaded the [Polkadot configuration file](https://github.com/AcalaNetwork/chopsticks/blob/master/configs/polkadot.yml){target=\_blank}, or have created your own.

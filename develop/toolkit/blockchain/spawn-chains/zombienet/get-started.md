@@ -262,7 +262,7 @@ The following sections will guide you through the primary usage of the Zombienet
     !!! warning
         The Polkadot binary is currently not compatible with macOS. For the `spawn` command to work on macOS, users will need to clone the [Polkadot repository](https://github.com/paritytech/polkadot-sdk){target=\_blank}, build the Polkadot binary, and manually add it to their PATH.
 
-- **`test <testFile>`** - run tests on the spawned network using the assertions and tests defined in the [test file](/develop/toolkit/blockchain/spawn-networks/zombienet/spawn-basic-network/#the-test-file){target=\_blank}
+- **`test <testFile>`** - run tests on the spawned network using the assertions and tests defined in the [test file](/develop/toolkit/blockchain/spawn-chains/zombienet/write-tests/#the-test-file){target=\_blank}
 
 
 - **`setup <binaries>`** - set up the Zombienet development environment to download and use the `polkadot` or `polkadot-parachain` executable
@@ -277,7 +277,7 @@ The following sections will guide you through the primary usage of the Zombienet
 
 You can use the following flags to customize the behavior of the CLI:
 
-- **`-p`, `--provider`** - override the [provider](/develop/toolkit/blockchain/spawn-networks/zombienet/installation/#providers){target=\_blank} to use
+- **`-p`, `--provider`** - override the [provider](#providers) to use
 
 - **`-d`, `--dir`** - specify a directory path for placing the network files instead of using the default temporary path
 

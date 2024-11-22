@@ -1,6 +1,6 @@
 ---
 title: Set Up a Node
-description: Instructions on how to set up a node in accordance to your platform and the differences between different node types.
+description: Learn how to install, configure, and run Polkadot nodes, including setting up different node types and connecting to the network.
 ---
 
 # Set Up a Node

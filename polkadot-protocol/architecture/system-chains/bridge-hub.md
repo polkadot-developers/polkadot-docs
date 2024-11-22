@@ -3,6 +3,8 @@ title: Bridge Hub
 description: Learn about the Bridge Hub system parachain, a parachain that facilitates the interactions from Polkadot to the rest of Web3.
 ---
 
+# Bridge Hub
+
 ## Introduction
 
 The Bridge Hub system parachain plays a crucial role in facilitating trustless interactions between Polkadot, Kusama, Ethereum, and other blockchain ecosystems. By implementing on-chain light clients and supporting protocols like BEEFY and GRANDPA, Bridge Hub ensures seamless message transmission and state verification across chains. It also provides essential [pallets](/polkadot-protocol/glossary/#pallet){target=\_blank} for sending and receiving messages, making it a cornerstone of Polkadot’s interoperability framework. With built-in support for XCM (Cross-Consensus Messaging), Bridge Hub enables secure, efficient communication between diverse blockchain networks.

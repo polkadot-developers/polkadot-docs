@@ -7,7 +7,7 @@ description: An in-depth guide to registering a foreign asset on the Asset Hub p
 
 ## Introduction
 
-As outlined in the [Asset Hub Overview](TODO:update-path){target=\_blank}, Asset Hub supports two categories of assets: local and foreign. Local assets are created on the Asset Hub system parachain and are identified by integer IDs. On the other hand, foreign assets, which originate outside of Asset Hub, are recognized by [Multilocations](https://wiki.polkadot.network/docs/learn/xcm/fundamentals/multilocation-summary){target=\_blank}.
+As outlined in the [Asset Hub Overview](/polkadot-protocol/architecture/system-chains/asset-hub){target=\_blank}, Asset Hub supports two categories of assets: local and foreign. Local assets are created on the Asset Hub system parachain and are identified by integer IDs. On the other hand, foreign assets, which originate outside of Asset Hub, are recognized by [Multilocations](https://wiki.polkadot.network/docs/learn/xcm/fundamentals/multilocation-summary){target=\_blank}.
 
 When registering a foreign asset on Asset Hub, it's essential to notice that the process involves communication between two parachains. The Asset Hub parachain will be the destination of the foreign asset, while the source parachain will be the origin of the asset. The communication between the two parachains is facilitated by the [Cross-Chain Message Passing (XCMP)](https://wiki.polkadot.network/docs/learn-xcm){target=\_blank} protocol.
 
@@ -116,7 +116,7 @@ In the image above, the **success** field indicates whether the asset registrati
 
 ## Test Environment Setup
 
-To test the foreign asset registration process before deploying it on a live network, you can set up a local parachain environment. This guide uses Chopsticks to simulate that process. For more information on using Chopsticks, please refer to the [Chopsticks documentation](TODO: update path){target=\_blank}.
+To test the foreign asset registration process before deploying it on a live network, you can set up a local parachain environment. This guide uses Chopsticks to simulate that process. For more information on using Chopsticks, please refer to the [Chopsticks documentation](/develop/toolkit/blockchain/fork-chains/chopsticks/get-started){target=\_blank}.
 
 To set up a test environment, run the following command:
 
@@ -127,7 +127,7 @@ npx @acala-network/chopsticks xcm \
 --p astar
 ```
 !!! note
-    The above command will create a lazy fork of Polkadot as the relay chain, its Asset Hub instance, and the Astar parachain. The `xcm` parameter enables communication through the XCMP protocol between the relay chain and the parachains, allowing the registration of foreign assets on Asset Hub. For further information on the chopsticks usage of the XCMP protocol, refer to the [XCM Testing](TODO: update path){target=\_blank} section of the Chopsticks documentation.
+    The above command will create a lazy fork of Polkadot as the relay chain, its Asset Hub instance, and the Astar parachain. The `xcm` parameter enables communication through the XCMP protocol between the relay chain and the parachains, allowing the registration of foreign assets on Asset Hub. For further information on the chopsticks usage of the XCMP protocol, refer to the [XCM Testing](tutorials/blockchains/testing/fork-live-chains/#xcm-testing){target=\_blank} section of the Chopsticks documentation.
 
 After executing the command, the terminal will display output indicating the Polkadot relay chain, the Polkadot Asset Hub, and the Astar parachain are running locally and connected through XCM. You can access them individually via the Polkadot.js Apps interface.
 

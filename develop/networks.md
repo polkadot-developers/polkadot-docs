@@ -18,13 +18,7 @@ This section includes essential network information such as RPC endpoints, curre
 
 Polkadot is the primary production blockchain network for high-stakes, enterprise-grade applications. Polkadot MainNet has been running since May 2020 and has implementations in various programming languages ranging from Rust to JavaScript.
 
-=== "Network Information"
-    
-    **RPC URL** 
-    ```
-    wss://polkadot-rpc.dwellir.com
-    ```
-    ---
+=== "Network Details"
 
     **Currency symbol** - `DOT`
 
@@ -34,11 +28,7 @@ Polkadot is the primary production blockchain network for high-stakes, enterpris
 
     ---
 
-    **Block explorer URL**
-    ```
-    https://polkadot.subscan.io/
-    ```
-
+    **Block explorer** - [Polkadot Subscan](https://polkadot.subscan.io/){target=\_blank}
 
 === "RPC Endpoints"
     Blockops
@@ -76,17 +66,17 @@ Polkadot is the primary production blockchain network for high-stakes, enterpris
     wss://polkadot.api.onfinality.io/public-ws
     ```
     ---
-    RadiumBlock 
+    RadiumBlock
     ```
     wss://polkadot.public.curie.radiumblock.co/ws
     ```
     ---
-    RockX 
+    RockX
     ```
     wss://rockx-dot.w3node.com/polka-public-dot/ws
     ```
     ---
-    Stakeworld 
+    Stakeworld
     ```
     wss://dot-rpc.stakeworld.io
     ```
@@ -96,30 +86,16 @@ Polkadot is the primary production blockchain network for high-stakes, enterpris
     wss://polkadot.rpc.subquery.network/public/ws
     ```
     ---
-    light client
+    Light client
     ```
     light://substrate-connect/polkadot
     ```
-
-=== "Considerations"
-    **Network Characteristics**
-    
-    - Highest security and stability
-    - Real economic incentives
-    - Production-ready environment
-    - Advanced governance mechanisms
 
 ### Kusama
 
 Kusama is a network built as a risk-taking, fast-moving "canary in the coal mine" for its cousin Polkadot. As it is built on top of the same infrastructure, Kusama often acts as a final testing ground for new features before they are launched on Polkadot. Unlike true TestNets, however, the Kusama KSM native token does have economic value. This incentive encourages paricipants to maintain this robust and performant structure for the benefit of the community.
 
-=== "Network Information"
-    **RPC URL** 
-    ```
-    wss://kusama-rpc.dwellir.com
-    ```
-
-    ---
+=== "Network Details"
 
     **Currency symbol** - `KSM`
 
@@ -129,10 +105,7 @@ Kusama is a network built as a risk-taking, fast-moving "canary in the coal mine
 
     ---
     
-    **Block explorer URL** 
-    ```
-    https://kusama.subscan.io/
-    ```
+    **Block explorer** - [Kusama Subscan](https://kusama.subscan.io/){target=\_blank}
 
 === "RPC Endpoints"
     Dwellir
@@ -180,19 +153,10 @@ Kusama is a network built as a risk-taking, fast-moving "canary in the coal mine
     wss://rockx-ksm.w3node.com/polka-public-ksm/ws
     ```
     ---
-    light client
+    Light client
     ```
     light://substrate-connect/kusama
     ```
-
-=== "Considerations"
-    **Network Characteristics**
-
-    - Fast-moving "canary" environment
-    - Real economic incentives
-    - Rapid governance cycles
-    - Testing ground for Polkadot features
-    - Higher risk tolerance
 
 ## Test Networks
 
@@ -201,12 +165,7 @@ Kusama is a network built as a risk-taking, fast-moving "canary in the coal mine
 Westend is the primary test network that mirrors Polkadot's functionality for protocol-level feature development. As a true TestNet, the WND native token intentionally does not have any economic value. Use the faucet information in the following section to obtain WND tokens.
 
 === "Network Information"
-    **RPC URL**
-    ```
-    wss://westend-rpc.dwellir.com
-    ```
-    ---
-    
+
     **Currency symbol** - `WND`
 
     ---
@@ -215,17 +174,12 @@ Westend is the primary test network that mirrors Polkadot's functionality for pr
 
     ---
     
-    **Block explorer URL**
-    ```
-    https://westend.subscan.io/
-    ```
+    **Block explorer** - [Westend Subscan](https://westend.subscan.io/){target=\_blank}
 
     ---
 
-    **Faucet URL**
-    ```
-    https://faucet.polkadot.io/westend
-    ```
+    **Faucet** - [Official Westend faucet](https://faucet.polkadot.io/westend){target=\_blank}
+
 
 === "RPC Endpoints"
     Dwellir
@@ -258,16 +212,10 @@ Westend is the primary test network that mirrors Polkadot's functionality for pr
     wss://westend-rpc.polkadot.io
     ```
     ---
-    light client
+    Light client
     ```
     light://substrate-connect/westend
     ```
-
-=== "Considerations"
-    **Network Characteristics**
-    
-    - Core protocol testing
-    - Managed by Parity Technologies
 
 ### Paseo
 
@@ -288,18 +236,12 @@ Paseo is a decentralised, community run, stable testnet for parachain and dapp d
     **Currency decimals** - 10
 
     ---
-
-    **Block explorer URL**
-    ```
-    https://paseo.subscan.io/
-    ```
+    
+    **Block explorer** - [Paseo Subscan](https://paseo.subscan.io/){target=\_blank}
 
     ---
 
-    **Faucet URL**
-    ```
-    https://faucet.polkadot.io/
-    ```
+    **Faucet** - [Official Paseo faucet](https://faucet.polkadot.io/){target=\_blank}
 
 === "RPC Endpoints"
     Amforc
@@ -327,13 +269,6 @@ Paseo is a decentralised, community run, stable testnet for parachain and dapp d
     wss://pas-rpc.stakeworld.io
     ```
 
-=== "Considerations"
-    **Network Characteristics**
-
-    - Ideal for parachain and dApp testing
-    - Mirrors Polkadot's runtime
-    - Community-managed environment
-
 ## Additional Resources
 
-- [**Polkadot Fellowship runtimes repository**](https://github.com/polkadot-fellows/runtimes){target=\_blank} - find a collection of runtimes for Polkadot, Kusama, and their system-parachains as maintained by the community via the [Polkadot Technical Fellowship](https://wiki.polkadot.network/docs/learn-polkadot-technical-fellowship){target=\_blank}.
+- [**Polkadot Fellowship runtimes repository**](https://github.com/polkadot-fellows/runtimes){target=\_blank} - find a collection of runtimes for Polkadot, Kusama, and their system-parachains as maintained by the community via the [Polkadot Technical Fellowship](https://wiki.polkadot.network/docs/learn-polkadot-technical-fellowship){target=\_blank}

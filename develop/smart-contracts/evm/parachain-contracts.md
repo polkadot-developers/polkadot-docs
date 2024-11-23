@@ -21,9 +21,9 @@ Polkadot enables parachains to supercharge the capabilities of their parachain b
 
 ### Astar
 
-[Astar](https://astar.network/){target=_blank} emerged as a key smart contract platform on Polkadot, distinguished by its unique multiple virtual machine approach that supports both EVM and WebAssembly (Wasm) smart contracts. This dual VM support allows developers to choose their preferred programming environment while maintaining full Ethereum compatibility. The platform's [runtime](https://github.com/AstarNetwork/Astar){target=_blank} is built on Substrate using FRAME, incorporating crucial components from Polkadot-SDK alongside custom-built modules for handling its unique features.
+[Astar](https://astar.network/){target=\_blank} emerged as a key smart contract platform on Polkadot, distinguished by its unique multiple virtual machine approach that supports both EVM and WebAssembly (Wasm) smart contracts. This dual VM support allows developers to choose their preferred programming environment while maintaining full Ethereum compatibility. The platform's [runtime](https://github.com/AstarNetwork/Astar){target=\_blank} is built on Substrate using FRAME, incorporating crucial components from Polkadot-SDK alongside custom-built modules for handling its unique features.
 
-Astar has established itself as an innovation hub through initiatives like the zk-rollup development framework and integration with multiple Layer 2 scaling solutions. Astar leverages [XCM](/develop/interoperability/intro-to-xcm/){target=_blank} for native Polkadot ecosystem interoperability while maintaining connections to external networks through various bridge protocols. Through its support for both EVM and Wasm, along with advanced cross-chain capabilities, Astar serves as a crucial gateway for projects looking to leverage the unique advantages of both Ethereum and Polkadot ecosystems while maintaining seamless interoperability between them.
+Astar has established itself as an innovation hub through initiatives like the zk-rollup development framework and integration with multiple Layer 2 scaling solutions. Astar leverages [XCM](/develop/interoperability/intro-to-xcm/){target=\_blank} for native Polkadot ecosystem interoperability while maintaining connections to external networks through various bridge protocols. Through its support for both EVM and Wasm, along with advanced cross-chain capabilities, Astar serves as a crucial gateway for projects looking to leverage the unique advantages of both Ethereum and Polkadot ecosystems while maintaining seamless interoperability between them.
 
 #### Technical Architecture
 
@@ -72,11 +72,41 @@ The diagram illustrates the layered architecture of Astar Network: at the top, d
 
 [Moonbeam](https://docs.moonbeam.network/){target=\_blank} was the first parachain to bring full Ethereum-compatibility to Polkadot, enabling Ethereum developers to bring their dApps to Polkadot and gain access to the rapidly growing Polkadot user base. [Moonbeam's runtime](https://github.com/moonbeam-foundation/moonbeam){target=\_blank} is built using [FRAME](/develop/blockchains/custom-blockchains/overview/#frame-runtime-architecture){target=\_blank}, and combines essential components from the Polkadot-SDK, Frontier, and custom pallets. The architecture integrates key Substrate offerings like balance management and transaction processing, while [Frontier's](https://github.com/polkadot-evm/frontier){target=\_blank} pallets enable EVM execution and Ethereum compatibility. Custom pallets handle Moonbeam-specific features such as parachain staking and block author verification. Moonbeam offers a variety of precompiles for dApp developers to access powerful Polkadot features via a Solidity interface, such as governance, randomness, transaction batching, and more. 
 
-Additionally, Moonbeam is a hub for interoperability and cross-chain connected contracts. Moonbeam has a variety of integrations with GMP (general message passing) providers, including [Wormhole](https://wormhole.com/){target=\_blank}, [LayerZero](https://layerzero.network/){target=\_blank}, [Axelar](https://www.axelar.network/){target=\_blank}, and more. These integrations make it easy for developers to build cross-chain contracts on Moonbeam, and they also play an integral role in connecting the entire Polkadot ecosystem with other blockchains. Innovations like [Moonbeam Routed Liquidity](https://docs.moonbeam.network/builders/interoperability/mrl/){target=\_blank}, or MRL, enable users to bridge funds between chains like Ethereum and parachains like HydraDX. Through [XCM](/develop/interoperability/intro-to-xcm/){target=_blank}, other parachains can connect to Moonbeam and access its established bridge connections to Ethereum and other networks, eliminating the need for each parachain to build and maintain their own bridges.
+Additionally, Moonbeam is a hub for interoperability and cross-chain connected contracts. Moonbeam has a variety of integrations with GMP (general message passing) providers, including [Wormhole](https://wormhole.com/){target=\_blank}, [LayerZero](https://layerzero.network/){target=\_blank}, [Axelar](https://www.axelar.network/){target=\_blank}, and more. These integrations make it easy for developers to build cross-chain contracts on Moonbeam, and they also play an integral role in connecting the entire Polkadot ecosystem with other blockchains. Innovations like [Moonbeam Routed Liquidity](https://docs.moonbeam.network/builders/interoperability/mrl/){target=\_blank}, or MRL, enable users to bridge funds between chains like Ethereum and parachains like HydraDX. Through [XCM](/develop/interoperability/intro-to-xcm/){target=\_blank}, other parachains can connect to Moonbeam and access its established bridge connections to Ethereum and other networks, eliminating the need for each parachain to build and maintain their own bridges.
 
 #### Technical Architecture 
 
-![Moonbeam Technical Architecture](/images/develop/smart-contracts/parachain-contracts/mb-tech-diagram.webp)
+``` mermaid
+  graph LR
+      A[Existing<br/>EVM DApp</br>Frontend]
+      B[Ethereum<br/>Development<br/>Tool]
+  
+      subgraph C[Moonbeam Node]
+        direction LR
+        D[Web3 RPC]
+        subgraph E[Ethereum Pallet]
+          direction LR
+          F[Substrate<br/>Runtime<br/>Functions]
+          G[Block Processor]
+        end
+        subgraph H[EVM Pallet]
+          direction LR
+          I[EVM Execution]
+        end
+  
+      end
+  
+      A --> C
+      B --> C
+      D --> E
+      F --> G 
+      E --> H
+  
+    classDef darkBackground fill:#2b2042,stroke:#000,color:#fff;
+    classDef lightBox fill:#b8a8d9,stroke:#000,color:#000;
+
+    class A,B darkBackground
+    class D,E,H lightBox
 
 The diagram above illustrates how transactions are processed on Moonbeam. When a DApp or Ethereum development tool (like Hardhat) sends a Web3 RPC request, it's first received by a Moonbeam node. Moonbeam nodes are versatile - they support both Web3 and Substrate RPCs, giving developers the flexibility to use either Ethereum or Substrate tools. When these RPC calls come in, they're processed by corresponding functions in the Substrate runtime. The runtime verifies signatures and processes any Substrate extrinsics. Finally, if the transaction involves smart contracts, these are forwarded to Moonbeam's EVM for execution and state changes.
 
@@ -84,7 +114,7 @@ The diagram above illustrates how transactions are processed on Moonbeam. When a
 
 [Acala](https://acala.network/){target=\_blank} positioned itself as Polkadot's DeFi hub by introducing the [Acala EVM+](https://evmdocs.acala.network/){target=\_blank} - an enhanced version of the EVM specifically optimized for DeFi operations. This customized EVM implementation enables seamless deployment of Ethereum-based DeFi protocols while offering advanced features like on-chain scheduling, pre-built DeFi primitives, and native multi-token support that aren't available in traditional EVMs.
 
-Acala supports a comprehensive DeFi ecosystem including a decentralized stablecoin (aUSD) and a liquid staking derivative for DOT. The platform's EVM+ innovations extend beyond standard Ethereum compatibility by enabling direct interaction between EVM smart contracts and Substrate pallets, facilitating advanced cross-chain DeFi operations through [XCM](/develop/interoperability/intro-to-xcm/){target=_blank}, and providing built-in oracle integrations. These enhancements make it possible for DeFi protocols to achieve functionality that would be prohibitively expensive or technically infeasible on traditional EVM chains.
+Acala supports a comprehensive DeFi ecosystem including a decentralized stablecoin (aUSD) and a liquid staking derivative for DOT. The platform's EVM+ innovations extend beyond standard Ethereum compatibility by enabling direct interaction between EVM smart contracts and Substrate pallets, facilitating advanced cross-chain DeFi operations through [XCM](/develop/interoperability/intro-to-xcm/){target=\_blank}, and providing built-in oracle integrations. These enhancements make it possible for DeFi protocols to achieve functionality that would be prohibitively expensive or technically infeasible on traditional EVM chains.
 
 #### Technical Architecture
 
@@ -127,7 +157,7 @@ The diagram illustrates Acala's unique EVM+ architecture, which extends beyond s
 
 ## Getting Started with Hardhat
 
-[Hardhat](https://hardhat.org){target=_blank} is an Ethereum development environment that makes it easy to deploy smart contracts on EVM-compatible blockchain networks. This guide will show you how to compile, deploy, and interact with a simple smart contract on Astar, Moonbeam, and Acala. Feel free to pick your network of choice and follow along!
+[Hardhat](https://hardhat.org){target=\_blank} is an Ethereum development environment that makes it easy to deploy smart contracts on EVM-compatible blockchain networks. This guide will show you how to compile, deploy, and interact with a simple smart contract on Astar, Moonbeam, and Acala. Feel free to pick your network of choice and follow along!
 
 === "Astar"
 
@@ -251,7 +281,7 @@ The diagram illustrates Acala's unique EVM+ architecture, which extends beyond s
 
 === "Moonbeam"
 
-	You'll need to have [MetaMask installed](https://metamask.io/){target=_blank} and connected to [Moonbase Alpha](https://chainlist.org/chain/1287){target=_blank} and an account with Moonbase Alpha tokens. You can get them from [the Moonbase Alpha faucet](https://faucet.moonbeam.network){target=_blank}.
+	You'll need to have [MetaMask installed](https://metamask.io/){target=\_blank} and connected to [Moonbase Alpha](https://chainlist.org/chain/1287){target=\_blank} and an account with Moonbase Alpha tokens. You can get them from [the Moonbase Alpha faucet](https://faucet.moonbeam.network){target=_blank}.
 
 	To get started, first create a Hardhat Project:
 
@@ -373,7 +403,7 @@ The diagram illustrates Acala's unique EVM+ architecture, which extends beyond s
 
 === "Acala"
 
-	You'll need to have [MetaMask installed](https://metamask.io/){target=_blank} and connected to [Acala Testnet](https://chainlist.org/chain/595){target=_blank} and an account with Acala testnet tokens. You can get them from [the Acala testnet faucet](https://discord.gg/5JJgXKSznc){target=_blank}.
+	You'll need to have [MetaMask installed](https://metamask.io/){target=\_blank} and connected to [Acala Testnet](https://chainlist.org/chain/595){target=\_blank} and an account with Acala testnet tokens. You can get them from [the Acala testnet faucet](https://discord.gg/5JJgXKSznc){target=\_blank}.
 
 	To get started, first create a Hardhat Project:
 
@@ -522,8 +552,8 @@ This script demonstrates one of the fundamental ways to interact with blockchain
     | EVM Chain ID | 81 |
     | Public RPC URLs | <pre>https://evm.shibuya.astar.network</pre> |
     | Public WSS URLs | <pre>wss://evm.shibuya.astar.network</pre> |
-    | Block Explorer | [Shibuya Blockscout](https://blockscout.com/shibuya){target=_blank} |
-    | Faucet Link | [Faucet - Astar Docs](https://docs.astar.network/docs/build/environment/faucet/){target=_blank} |
+    | Block Explorer | [Shibuya Blockscout](https://blockscout.com/shibuya){target=\_blank} |
+    | Faucet Link | [Faucet - Astar Docs](https://docs.astar.network/docs/build/environment/faucet/){target=\_blank} |
 
 === "Moonbeam"
     | Variable | Value |
@@ -532,8 +562,8 @@ This script demonstrates one of the fundamental ways to interact with blockchain
     | EVM Chain ID | [1287](https://chainlist.org/chain/1287){target=_blank} |
     | Public RPC URLs | <pre>https://rpc.api.moonbase.moonbeam.network</pre> |
     | Public WSS URLs | <pre>wss://wss.api.moonbase.moonbeam.network</pre> |
-    | Block Explorer | [Moonbase Alpha Moonscan](https://moonbase.moonscan.io/){target=_blank} |
-    | Faucet Link | [Moonbase Faucet](https://faucet.moonbeam.network){target=_blank} |
+    | Block Explorer | [Moonbase Alpha Moonscan](https://moonbase.moonscan.io/){target=\_blank} |
+    | Faucet Link | [Moonbase Faucet](https://faucet.moonbeam.network){target=\_blank} |
 
 === "Acala"
     | Variable | Value |
@@ -542,25 +572,25 @@ This script demonstrates one of the fundamental ways to interact with blockchain
     | EVM Chain ID | [595](https://chainlist.org/chain/595){target=_blank} |
     | Public RPC URLs | <pre>https://eth-rpc-tc9.aca-staging.network</pre> |
     | Public WSS URLs | <pre>wss://tc7-eth.aca-dev.network</pre> |
-    | Block Explorer | [Mandala Blockscout](https://blockscout.mandala.aca-staging.network){target=_blank} |
-    | Faucet Link | [Mandala Faucet](https://discord.gg/5JJgXKSznc){target=_blank} |
+    | Block Explorer | [Mandala Blockscout](https://blockscout.mandala.aca-staging.network){target=\_blank} |
+    | Faucet Link | [Mandala Faucet](https://discord.gg/5JJgXKSznc){target=\_blank} |
 
 ## Ready to Start Building?
 
 Check out the links below for each respective parachain for network endpoints, getting started guides, and more. 
 
 === "Astar"
-    - [Astar Docs](https://docs.astar.network/){target=_blank}
-    - [Astar Network Endpoints](https://docs.astar.network/docs/build/environment/endpoints/){target=_blank}
-    - [Build EVM Smart Contracts on Astar](https://docs.astar.network/docs/build/EVM/){target=_blank}
+    - [Astar Docs](https://docs.astar.network/){target=\_blank}
+    - [Astar Network Endpoints](https://docs.astar.network/docs/build/environment/endpoints/){target=\_blank}
+    - [Build EVM Smart Contracts on Astar](https://docs.astar.network/docs/build/EVM/){target=\_blank}
 
 === "Moonbeam"
-    - [Moonbeam Docs](https://docs.moonbeam.network/){target=_blank}
-    - [Moonbeam Network Endpoints](https://docs.moonbeam.network/builders/get-started/endpoints/){target=_blank}
-    - [Get Started Building on Moonbeam](https://docs.moonbeam.network/builders/get-started/){target=_blank}
+    - [Moonbeam Docs](https://docs.moonbeam.network/){target=\_blank}
+    - [Moonbeam Network Endpoints](https://docs.moonbeam.network/builders/get-started/endpoints/){target=\_blank}
+    - [Get Started Building on Moonbeam](https://docs.moonbeam.network/builders/get-started/){target=\_blank}
 
 === "Acala"
-    - [Acala Docs](https://evmdocs.acala.network/){target=_blank}
-    - [Acala Network Endpoints](https://wiki.acala.network/integrate/acala/endpoints){target=_blank}
-    - [About the Acala Network](https://wiki.acala.network/learn/acala-introduction){target=_blank}
+    - [Acala Docs](https://evmdocs.acala.network/){target=\_blank}
+    - [Acala Network Endpoints](https://wiki.acala.network/integrate/acala/endpoints){target=\_blank}
+    - [About the Acala Network](https://wiki.acala.network/learn/acala-introduction){target=\_blank}
 

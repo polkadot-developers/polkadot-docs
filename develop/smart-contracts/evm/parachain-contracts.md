@@ -493,8 +493,8 @@ This script demonstrates one of the fundamental ways to interact with blockchain
     | EVM Chain ID | [1287](https://chainlist.org/chain/1287){target=_blank} |
     | Public RPC URLs | <pre>https://rpc.api.moonbase.moonbeam.network</pre> |
     | Public WSS URLs | <pre>wss://wss.api.moonbase.moonbeam.network</pre> |
-    | Block Explorer | [Moonbase Alpha Moonscan](https://moonbase.moonscan.io/){target=_blank} |
-    | Faucet Link | [Moonbase Faucet](https://faucet.moonbeam.network){target=_blank} |
+    | Block Explorer | [Moonbase Alpha Moonscan](https://moonbase.moonscan.io/){target=\_blank} |
+    | Faucet Link | [Moonbase Faucet](https://faucet.moonbeam.network){target=\_blank} |
 
 === "Acala"
     | Variable | Value |

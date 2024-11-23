@@ -16,40 +16,31 @@ Whether deploying a test network for development or a mainnet for production, th
 Taking your Polkadot SDK-based blockchain from a local environment to production involves several steps, ensuring your network is stable, secure, and ready for real-world use. The following diagram outlines the process at a high level:
 
 ```mermaid
-block-beta
-    columns 5
-    block:group1:2
-        columns 5
-        space:2 id1(["Pre-Deployment"]):1 space:2
-        A("Local \nDevelopment \nand Testing")
-        space
-        B("Runtime \nCompilation")
-        space
-        C("Generate \nChain \nSpecifications")
-        space:7
-        E("Acquire \nCoretime")
-        space
-        D("Prepare \nDeployment \nEnvironment")
+flowchart TD
+    %% Group 1: Pre-Deployment
+    subgraph group1 [Pre-Deployment]
+        direction LR
+        A("Local \nDevelopment \nand Testing") --> B("Runtime \nCompilation")
+        B --> C("Generate \nChain \nSpecifications")
+        C --> D("Prepare \nDeployment \nEnvironment")
+        D --> E("Acquire \nCoretime")
     end
-        A-->B 
-        B-->C
-        C-->D 
-        D-->E
-    block:group2:1
-        columns 1
-        id2(["Deployment"]) 
-        space
+    
+    %% Group 2: Deployment
+    subgraph group2 [Deployment]
         F("Launch \nand \nMonitor")
     end
-    block:group3:1
-        columns 1
-        id3(["Post-Deployment"])
-        space
+
+    %% Group 3: Post-Deployment
+    subgraph group3 [Post-Deployment]
         G("Maintenance \nand \nUpgrades")
     end
-        id1-->id2
-        id2-->id3
-    %% Style adjustments
+
+    %% Connections Between Groups
+    group1 --> group2
+    group2 --> group3
+
+    %% Styling
     style group1 fill:#ffffff,stroke:#6e7391,stroke-width:1px
     style group2 fill:#ffffff,stroke:#6e7391,stroke-width:1px
     style group3 fill:#ffffff,stroke:#6e7391,stroke-width:1px

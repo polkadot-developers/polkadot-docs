@@ -511,17 +511,17 @@ This script demonstrates one of the fundamental ways to interact with blockchain
 Check out the links below for each respective parachain for network endpoints, getting started guides, and more. 
 
 === "Astar"
-    - [Astar Docs](https://docs.astar.network/){target=_blank}
-    - [Astar Network Endpoints](https://docs.astar.network/docs/build/environment/endpoints/){target=_blank}
-    - [Build EVM Smart Contracts on Astar](https://docs.astar.network/docs/build/EVM/){target=_blank}
+    - [Astar Docs](https://docs.astar.network/){target=\_blank}
+    - [Astar Network Endpoints](https://docs.astar.network/docs/build/environment/endpoints/){target=\_blank}
+    - [Build EVM Smart Contracts on Astar](https://docs.astar.network/docs/build/EVM/){target=\_blank}
 
 === "Moonbeam"
-    - [Moonbeam Docs](https://docs.moonbeam.network/){target=_blank}
-    - [Moonbeam Network Endpoints](https://docs.moonbeam.network/builders/get-started/endpoints/){target=_blank}
-    - [Get Started Building on Moonbeam](https://docs.moonbeam.network/builders/get-started/){target=_blank}
+    - [Moonbeam Docs](https://docs.moonbeam.network/){target=\_blank}
+    - [Moonbeam Network Endpoints](https://docs.moonbeam.network/builders/get-started/endpoints/){target=\_blank}
+    - [Get Started Building on Moonbeam](https://docs.moonbeam.network/builders/get-started/){target=\_blank}
 
 === "Acala"
-    - [Acala Docs](https://evmdocs.acala.network/){target=_blank}
-    - [Acala Network Endpoints](https://wiki.acala.network/integrate/acala/endpoints){target=_blank}
-    - [About the Acala Network](https://wiki.acala.network/learn/acala-introduction){target=_blank}
+    - [Acala Docs](https://evmdocs.acala.network/){target=\_blank}
+    - [Acala Network Endpoints](https://wiki.acala.network/integrate/acala/endpoints){target=\_blank}
+    - [About the Acala Network](https://wiki.acala.network/learn/acala-introduction){target=\_blank}
 

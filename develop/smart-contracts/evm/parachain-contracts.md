@@ -29,13 +29,15 @@ Astar has established itself as an innovation hub through initiatives like the z
 
 ```mermaid
 graph TB
-    subgraph "DApp Layer"
+    subgraph A["DApp Layer"]
+        direction TB
         eth["Ethereum DApps\n(Web3)"]
         wasm["Wasm DApps\n(ink!, Ask!)"]
         substrate["Substrate DApps\n(Polkadot.js)"]
     end
 
-    subgraph "Astar Network"
+    subgraph B["Astar Network"]
+        direction TB
         rpc["RPC Layer\n(Web3 + Substrate)"]
         
         subgraph "Runtime"
@@ -43,27 +45,25 @@ graph TB
             evm["EVM"]
             wasm_vm["Wasm VM"]
             
-            subgraph "Core Features"
+            subgraph D["Core Features"]
                 staking["dApp Staking"]
             end
         end
     end
 
-    subgraph "Base Layer"
+    subgraph C["Base Layer"]
         dot["Polkadot Relay Chain\n(Shared Security)"]
     end
 
     %% Connections
-    eth --> rpc
-    wasm --> rpc
-    substrate --> rpc
+    A --> B
     rpc --> xvm
-    xvm --> evm
+    xvm --> C
+    xvm --> D
     xvm --> wasm_vm
-    evm <--> wasm_vm
-    xvm --> staking
-    xvm --> dot
+    xvm --> evm
 
+    evm <--> wasm_vm
 ```
 
 The diagram illustrates the layered architecture of Astar Network: at the top, dApps can interact with the Astar network through either Web3, Substrate, or Wasm. These requests flow through Astar's RPC layer into the main runtime, where the magic happens in the virtual machine layer. Here, Astar's unique Cross-Virtual Machine (XVM) coordinates between EVM and Wasm environments, allowing smart contracts from both ecosystems to interact. The Runtime also includes core blockchain functions through various pallets (like system operations and dApps staking), and everything is ultimately secured by connecting to the Polkadot Relay Chain at the bottom layer.
@@ -107,6 +107,8 @@ Additionally, Moonbeam is a hub for interoperability and cross-chain connected c
 
     class A,B darkBackground
     class D,E,H lightBox
+```
+
 
 The diagram above illustrates how transactions are processed on Moonbeam. When a DApp or Ethereum development tool (like Hardhat) sends a Web3 RPC request, it's first received by a Moonbeam node. Moonbeam nodes are versatile - they support both Web3 and Substrate RPCs, giving developers the flexibility to use either Ethereum or Substrate tools. When these RPC calls come in, they're processed by corresponding functions in the Substrate runtime. The runtime verifies signatures and processes any Substrate extrinsics. Finally, if the transaction involves smart contracts, these are forwarded to Moonbeam's EVM for execution and state changes.
 

@@ -503,8 +503,8 @@ This script demonstrates one of the fundamental ways to interact with blockchain
     | EVM Chain ID | [595](https://chainlist.org/chain/595){target=_blank} |
     | Public RPC URLs | <pre>https://eth-rpc-tc9.aca-staging.network</pre> |
     | Public WSS URLs | <pre>wss://tc7-eth.aca-dev.network</pre> |
-    | Block Explorer | [Mandala Blockscout](https://blockscout.mandala.aca-staging.network){target=_blank} |
-    | Faucet Link | [Mandala Faucet](https://discord.gg/5JJgXKSznc){target=_blank} |
+    | Block Explorer | [Mandala Blockscout](https://blockscout.mandala.aca-staging.network){target=\_blank} |
+    | Faucet Link | [Mandala Faucet](https://discord.gg/5JJgXKSznc){target=\_blank} |
 
 ## Ready to Start Building?
 

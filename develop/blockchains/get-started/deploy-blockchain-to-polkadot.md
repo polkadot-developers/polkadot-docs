@@ -49,6 +49,10 @@ block-beta
     end
         id1-->id2
         id2-->id3
+    %% Style adjustments
+    style group1 fill:#ffffff,stroke:#6e7391,stroke-width:1px
+    style group2 fill:#ffffff,stroke:#6e7391,stroke-width:1px
+    style group3 fill:#ffffff,stroke:#6e7391,stroke-width:1px
 ```
 
 - **Local development and testing** - the process begins with local development and testing. Developers focus on building the runtime by selecting and configuring the necessary pallets while refining network features. In this phase, it's essential to run a local TestNet to verify transactions and ensure the blockchain behaves as expected. Unit and integration tests are also crucial for ensuring the network works as expected before launch. Thorough testing is conducted, not only for individual components but also for interactions between pallets

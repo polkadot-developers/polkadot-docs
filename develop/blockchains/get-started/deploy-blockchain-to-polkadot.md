@@ -33,7 +33,7 @@ graph LR
 
 - **Local development and testing** - the process begins with local development and testing. Developers focus on building the runtime by selecting and configuring the necessary pallets while refining network features. In this phase, it's essential to run a local TestNet to verify transactions and ensure the blockchain behaves as expected. Unit and integration tests are also crucial for ensuring the network works as expected before launch. Thorough testing is conducted, not only for individual components but also for interactions between pallets
 
-- **Runtime compilation** - Polkadot SDK-based blockchains are built with Wasm, a highly portable and efficient format. Compiling your blockchain's runtime into Wasm ensures it can be executed reliably across various environments, guaranteeing network-wide compatibility and security. The [srtool](https://github.com/paritytech/srtool){target=\_blank} is helpful for this purpose since it allows you to compile [deterministic runtimes](TODO:update-path){target=\_blank}
+- **Runtime compilation** - Polkadot SDK-based blockchains are built with Wasm, a highly portable and efficient format. Compiling your blockchain's runtime into Wasm ensures it can be executed reliably across various environments, guaranteeing network-wide compatibility and security. The [srtool](https://github.com/paritytech/srtool){target=\_blank} is helpful for this purpose since it allows you to compile [deterministic runtimes](/develop/blockchains/deployment/build-deterministic-runtime/){target=\_blank}
 
 - **Generate chain specifications** - the chain spec file defines the structure and configuration of your blockchain. It includes initial node identities, session keys, and other parameters. Defining a well thought-out chain specification ensures that your network will operate smoothly and according to your intended design
 
@@ -52,7 +52,7 @@ graph LR
 
 Deploying a Polkadot SDK-based blockchain is a multi-step process that requires careful planning, from generating chain specs and compiling the runtime to managing post-launch updates. By understanding the deployment process and utilizing the right tools, developers can confidently take their blockchain from development to production. For more on this topic, check out the following resources:
 
-- [**Generate Chain Specifications**](/develop/blockchains/deployment/generate-chain-spec/){target=\_blank} - learn how to generate a chain specification for your blockchain
-- [**Building Deterministic Runtimes**](/develop/blockchains/deployment/building-deterministic-runtimes/){target=\_blank} - learn how to build deterministic runtimes for your blockchain
+- [**Generate Chain Specifications**](/develop/blockchains/deployment/generate-chain-specs/){target=\_blank} - learn how to generate a chain specification for your blockchain
+- [**Building Deterministic Runtimes**](/develop/blockchains/deployment/build-deterministic-runtime/){target=\_blank} - learn how to build deterministic runtimes for your blockchain
 - [**Infrastructure**](/infrastructure/){target=\_blank} - learn about the different infrastructure options available for your blockchain
 - [**Maintenance**](/develop/blockchains/maintenance/){target=\_blank} - discover how to manage updates on your blockchain to ensure smooth operation

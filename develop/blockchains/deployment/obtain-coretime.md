@@ -7,7 +7,7 @@ description: TODO
 
 ## Introduction
 
-Securing coretime is essential for operating a parachain on Polkadot. This guide explains the different methods of obtaining coretime and walks through the necessary steps to get your parachain running. 
+Securing coretime is essential for operating a parachain on Polkadot. It provides your parachain with guaranteed computational resources and access to Polkadot's shared security model, ensuring your blockchain can process transactions, maintain its state, and interact securely with other parachains in the network. Without coretime, a parachain cannot participate in the ecosystem or leverage the relay chain's validator set for security.
 
 Coretime represents the computational resources allocated to your parachain on the Polkadot network. It determines when and how often your parachain can produce blocks and have them validated by the relay chain.
 
@@ -15,6 +15,8 @@ There are two primary methods to obtain coretime:
 
 - **Bulk coretime** - purchase computational resources in advance for a full month
 - **On-demand coretime** - buy computational resources as needed for individual block production
+
+This guide explains the different methods of obtaining coretime and walks through the necessary steps to get your parachain running. 
 
 ## Prerequisites
 

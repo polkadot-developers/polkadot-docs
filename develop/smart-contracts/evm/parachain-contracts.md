@@ -212,7 +212,7 @@ Acala supports a comprehensive DeFi ecosystem including a decentralized stableco
 
 === "Moonbeam"
 
-	You'll need to have [MetaMask installed](https://metamask.io/){target=_blank} and connected to [Moonbase Alpha](https://chainlist.org/chain/1287){target=_blank} and an account with Moonbase Alpha tokens. You can get them from [the Moonbase Alpha faucet](https://faucet.moonbeam.network){target=_blank}.
+	You'll need to have [MetaMask installed](https://metamask.io/){target=\_blank} and connected to [Moonbase Alpha](https://chainlist.org/chain/1287){target=\_blank} and an account with Moonbase Alpha tokens. You can get them from [the Moonbase Alpha faucet](https://faucet.moonbeam.network){target=_blank}.
 
 	To get started, first create a Hardhat Project:
 

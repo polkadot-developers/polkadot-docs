@@ -28,28 +28,20 @@ Before obtaining coretime, ensure you have:
 
 ## Initial Setup Steps
 
-1. Reserve a `ParaID`
-
-    First, you need to reserve a unique identifier for your parachain:
+1. Reserve a unique identifier, `ParaID`, for your parachain:
 
     1. Connect to the relay chain
     2. Submit the `registrar.reserve` extrinsic
 
     Upon success, you'll receive a registered `ParaID`
 
-2. Register Parachain Configuration
+2. Register your parachain's essential information by submitting the `registrar.register` extrinsic with the following parameters:
 
-    Register your parachain's essential information:
+    - **`id`** - your reserved `ParaID`
+    - **`genesisHead`** - your exported genesis state
+    - **`validationCode`** - your exported Wasm validation code
 
-    Submit the `registrar.register` extrinsic with the following parameters:
-
-    - `id` - your reserved `ParaID`
-    - `genesisHead` - your exported genesis state
-    - `validationCode` - your exported Wasm validation code
-
-3. Initialize Parachain Collator
-
-    Start your parachain collator and begin synchronization with the relay chain during the onboarding process.
+3. Start your parachain collator and begin synchronization with the relay chain
 
 ## Obtaining Coretime
 
@@ -58,7 +50,7 @@ Before obtaining coretime, ensure you have:
 Bulk coretime provides several advantages:
 
 - Monthly allocation of resources
-- Guaranteed block production slots (every 12 seconds, or 6 seconds with Asynchronous Backing)
+- Guaranteed block production slots (every 12 seconds, or 6 seconds with [Asynchronous Backing](https://wiki.polkadot.network/docs/learn-async-backing#asynchronous-backing){target=\_blank})
 - Priority renewal rights
 - Protection against price fluctuations
 - Ability to split and resell unused coretime
@@ -66,7 +58,7 @@ Bulk coretime provides several advantages:
 To purchase bulk coretime:
 
 1. Access the Coretime system parachain
-2. Interact with the broker pallet
+2. Interact with the Broker pallet
 3. Purchase your desired amount of coretime
 4. Assign the purchased core to your registered `ParaID`
 
@@ -81,7 +73,7 @@ On-demand coretime allows for flexible, as-needed block production. To purchase:
 1. Ensure your collator node is fully synchronized with the relay chain
 2. From the account that registered the `ParaID`, submit the `onDemand.placeOrderAllowDeath` extrinsic with:
 
-    - `maxAmountFor` - sufficient funds for the transaction
-    - `paraId` - your registered `ParaID`
+    - **`maxAmountFor`** - sufficient funds for the transaction
+    - **`paraId`** - your registered `ParaID`
 
 After succesfully executing the extrinsic, your parachain will produce a block.

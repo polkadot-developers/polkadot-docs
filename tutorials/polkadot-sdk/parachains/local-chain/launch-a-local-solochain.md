@@ -55,7 +55,7 @@ The [Polkadot SDK Solochain Template](https://github.com/paritytech/polkadot-sdk
         Initial compilation may take several minutes, depending on your machine specifications. Always use the `--release` flag to build optimized, production-ready artifacts.
 
 4. Upon successful compilation, you should see output similar to:
-    --8<-- 'code/tutorials/blockchains/custom-blockchains/build-a-blockchain/build-a-local-blockchain/compilation-output.html'
+    --8<-- 'code/tutorials/polkadot-sdk/parachains/local-chain/launch-a-local-solochain/compilation-output.html'
 
 ## Start the Local Node
 
@@ -71,10 +71,10 @@ After successfully compiling your node, you can run it and produce blocks. This 
     - Ensures a clean working state each time you restart the node
 
 2. Verify that your node is running by reviewing the terminal output. You should see something similar to:
-    --8<-- 'code/tutorials/blockchains/custom-blockchains/build-a-blockchain/build-a-local-blockchain/node-output.html'
+    --8<-- 'code/tutorials/polkadot-sdk/parachains/local-chain/launch-a-local-solochain/node-output.html'
 
 3. Confirm that your blockchain is producing new blocks by checking if the number after `finalized` is increasing
-    --8<-- 'code/tutorials/blockchains/custom-blockchains/build-a-blockchain/build-a-local-blockchain/node-block-production.html'
+    --8<-- 'code/tutorials/polkadot-sdk/parachains/local-chain/launch-a-local-solochain/node-block-production.html'
 
     !!!note
         The details of the log output will be explored in a later tutorial. For now, knowing that your node is running and producing blocks is sufficient.
@@ -89,19 +89,22 @@ ws://localhost:9944
 To interact with your node using the [Polkadot.js Apps](https://polkadot.js.org/apps/#/explorer){target=\_blank} interface, follow these steps:
 
 1. Open [Polkadot.js Apps](https://polkadot.js.org/apps/#/explorer){target=\_blank} in your web browser and click the network icon in the top left corner
-    ![](/images/tutorials/blockchains/custom-blockchains/build-a-blockchain/build-a-local-blockchain/build-a-local-blockchain-1.webp)
+    
+    ![](/images/tutorials/polkadot-sdk/parachains/local-chain/launch-a-local-solochain/launch-a-local-solochain-1.webp)
 
 2. Connect to your local node:
     1. Scroll to the bottom and select **Development**
     2. Choose **Custom**
     3. Enter `ws://localhost:9944` in the input field
     4. Click the **Switch** button
-    ![](/images/tutorials/blockchains/custom-blockchains/build-a-blockchain/build-a-local-blockchain/build-a-local-blockchain-2.webp)
+    
+    ![](/images/tutorials/polkadot-sdk/parachains/local-chain/launch-a-local-solochain/launch-a-local-solochain-2.webp)
 
 3. Verify connection:
     - Once connected, you should see **solochain-template-runtime** in the top left corner
     - The interface will display information about your local blockchain
-    ![](/images/tutorials/blockchains/custom-blockchains/build-a-blockchain/build-a-local-blockchain/build-a-local-blockchain-3.webp)
+    
+    ![](/images/tutorials/polkadot-sdk/parachains/local-chain/launch-a-local-solochain/launch-a-local-solochain-3.webp)
 
 You are now connected to your local node and can now interact with it through the Polkadot.js Apps interface. This tool enables you to explore blocks, execute transactions, and interact with your blockchain's features. For in-depth guidance on using the interface effectively, refer to the [Polkadot.js Guides](https://wiki.polkadot.network/docs/learn-polkadot-js-guides){target=\_blank} available on the Polkadot Wiki.
 

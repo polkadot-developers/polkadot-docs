@@ -1,6 +1,6 @@
 title: Upgrade to Parachain
 nav:
   - index.md
-  - 'Prepare a Relay Chain': prepare-relay-chain.md
-  - 'Prepare a Parachain': prepare-a-parachain.md
+  - 'Prepare Relay Chain': prepare-relay-chain.md
+  - 'Prepare Parachain': prepare-parachain.md
   - 'Acquire a TestNet Slot': acquire-a-testnet-slot.md

@@ -26,7 +26,7 @@ By the end of this tutorial, you’ll have the skills to upgrade the runtime and
 Before starting this tutorial, ensure you meet the following requirements:
 
 - Installed and configured Rust on your system. Refer to the [Installation](/develop/blockchains/get-started/install-polkadot-sdk){target=\_blank} guide for detailed instructions on installing Rust and setting up your development environment
-- Completed the [Build a Local Blockchain](/tutorials/blockchains/custom-blockchains/build-a-blockchain/build-a-local-blockchain){target=\_blank} tutorial and have the [Polkadot SDK Solochain Template](https://github.com/paritytech/polkadot-sdk-solochain-template){target=\_blank} installed on your machine
+- Completed the [Launch a Local Solochain](/tutorials/polkadot-sdk/parachains/local-chain/launch-a-local-solochain/){target=\_blank} tutorial and have the [Polkadot SDK Solochain Template](https://github.com/paritytech/polkadot-sdk-solochain-template){target=\_blank} installed on your machine
 
 ## Start the Node
 
@@ -42,9 +42,9 @@ To demonstrate how to update a running node, you first need to start the local n
     !!!note
         Keep the node running throughout this tutorial. You can modify and re-compile the runtime without stopping or restarting the node.
 
-3. Connect to your node using the same steps outlined in the [Interact with the Node](/tutorials/blockchains/custom-blockchains/build-a-blockchain/build-a-local-blockchain/#interact-with-the-node){target=\_blank} section. Once connected, you’ll notice the node template is using the default version, `100`, displayed in the upper left
+3. Connect to your node using the same steps outlined in the [Interact with the Node](/tutorials/polkadot-sdk/parachains/local-chain/launch-a-local-solochain//#interact-with-the-node){target=\_blank} section. Once connected, you’ll notice the node template is using the default version, `100`, displayed in the upper left
 
-    ![](/images/tutorials/blockchains/custom-blockchains/build-a-blockchain/upgrade-a-running-network/upgrade-a-running-network-1.webp)
+    ![](/images/tutorials/polkadot-sdk/parachains/local-chain/upgrade-a-running-network/upgrade-a-running-network-1.webp)
 
 ## Modify the Runtime
 
@@ -95,13 +95,13 @@ To configure the Utility pallet, take the following steps:
 1. Implement the [`Config`](https://paritytech.github.io/polkadot-sdk/master/pallet_utility/pallet/trait.Config.html){target=\_blank} trait for the Utility pallet:
 
     ```rust
-    --8<-- 'code/tutorials/blockchains/custom-blockchains/build-a-blockchain/upgrade-a-running-network/config-trait-impl.rs'
+    --8<-- 'code/tutorials/polkadot-sdk/parachains/local-chain/upgrade-a-running-network/config-trait-impl.rs'
     ```
 
 2. Locate the `#[frame_support::runtime]` macro and add the Utility pallet:
 
     ```rust
-     --8<-- 'code/tutorials/blockchains/custom-blockchains/build-a-blockchain/upgrade-a-running-network/fs-runtime-macro.rs'
+     --8<-- 'code/tutorials/polkadot-sdk/parachains/local-chain/upgrade-a-running-network/fs-runtime-macro.rs'
     ```
 
 #### Update Existential Deposit Value
@@ -123,7 +123,7 @@ pub const EXISTENTIAL_DEPOSIT: u128 = 1000;
 Locate the `runtime_version` macro and increment the `spec_version` field from `100` to `101`:
 
 ```rust
---8<-- 'code/tutorials/blockchains/custom-blockchains/build-a-blockchain/upgrade-a-running-network/runtime-version-macro.rs'
+--8<-- 'code/tutorials/polkadot-sdk/parachains/local-chain/upgrade-a-running-network/runtime-version-macro.rs'
 ```
 
 ### Recompile the Runtime
@@ -168,7 +168,7 @@ Follow these steps to update your network with the new runtime:
 
 2. Navigate to the **Developer** dropdown and select the **Extrinsics** option
 
-    ![](/images/tutorials/blockchains/custom-blockchains/build-a-blockchain/upgrade-a-running-network/upgrade-a-running-network-2.webp)
+    ![](/images/tutorials/polkadot-sdk/parachains/local-chain/upgrade-a-running-network/upgrade-a-running-network-2.webp)
 
 3. Construct the `set_code` extrinsic call:
 
@@ -186,11 +186,11 @@ Follow these steps to update your network with the new runtime:
 
     6. Click on **Submit Transaction**
 
-        ![](/images/tutorials/blockchains/custom-blockchains/build-a-blockchain/upgrade-a-running-network/upgrade-a-running-network-3.webp)
+    ![](/images/tutorials/polkadot-sdk/parachains/local-chain/upgrade-a-running-network/upgrade-a-running-network-3.webp)
 
 4. Review the transaction details and click **Sign and Submit** to confirm the transaction
 
-    ![](/images/tutorials/blockchains/custom-blockchains/build-a-blockchain/upgrade-a-running-network/upgrade-a-running-network-4.webp)
+    ![](/images/tutorials/polkadot-sdk/parachains/local-chain/upgrade-a-running-network/upgrade-a-running-network-4.webp)
 
 ### Verify the Upgrade
 
@@ -200,19 +200,19 @@ Verify that the runtime version of your blockchain has been updated successfully
 
 1. Navigate to the **Network** dropdown and select the **Explorer** option
    
-    ![](/images/tutorials/blockchains/custom-blockchains/build-a-blockchain/upgrade-a-running-network/upgrade-a-running-network-5.webp)
+    ![](/images/tutorials/polkadot-sdk/parachains/local-chain/upgrade-a-running-network/upgrade-a-running-network-5.webp)
    
 2. After the transaction is included in a block, check:
     1.  There has been a successful `sudo.Sudid` event
     2.  The indicator shows that the runtime version is now `101`
 
-    ![](/images/tutorials/blockchains/custom-blockchains/build-a-blockchain/upgrade-a-running-network/upgrade-a-running-network-6.webp)
+    ![](/images/tutorials/polkadot-sdk/parachains/local-chain/upgrade-a-running-network/upgrade-a-running-network-6.webp)
 
 #### Utility Pallet Addition
 
 In the **Extrinsics** section, you should see that the Utility pallet has been added as an option.
 
-![](/images/tutorials/blockchains/custom-blockchains/build-a-blockchain/upgrade-a-running-network/upgrade-a-running-network-7.webp)
+![](/images/tutorials/polkadot-sdk/parachains/local-chain/upgrade-a-running-network/upgrade-a-running-network-7.webp)
 
 #### Existential Deposit Update
 
@@ -220,7 +220,7 @@ Check the updated existential deposit value on your blockchain. Follow these ste
 
 1. Navigate to the **Developer** dropdown and select the **Chain State** option
 
-    ![](/images/tutorials/blockchains/custom-blockchains/build-a-blockchain/upgrade-a-running-network/upgrade-a-running-network-8.webp)
+    ![](/images/tutorials/polkadot-sdk/parachains/local-chain/upgrade-a-running-network/upgrade-a-running-network-8.webp)
 
 2.  Query the existential deposit value
     1. Click on the **Constants** tab 
@@ -229,4 +229,4 @@ Check the updated existential deposit value on your blockchain. Follow these ste
     4. Click the **+** button to execute the query
     5. Check the existential deposit value
 
-    ![](/images/tutorials/blockchains/custom-blockchains/build-a-blockchain/upgrade-a-running-network/upgrade-a-running-network-9.webp)
+    ![](/images/tutorials/polkadot-sdk/parachains/local-chain/upgrade-a-running-network/upgrade-a-running-network-9.webp)

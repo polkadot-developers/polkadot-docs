@@ -18,12 +18,12 @@ The scope of this tutorial includes:
 
 ## Prerequisites
 
-Before diving into this tutorial, it's recommended that you have a basic understanding of how adding trusted nodes works in Polkadot. For further information about this process, refer to the [Add Trusted Nodes](/tutorials/blockchains/custom-blockchains/build-a-blockchain/add-trusted-nodes){target=\_blank} tutorial.
+Before diving into this tutorial, it's recommended that you have a basic understanding of how adding trusted nodes works in Polkadot. For further information about this process, refer to the [Spin Your Nodes](/tutorials/polkadot-sdk/parachains/local-chain/spin-your-nodes){target=\_blank} tutorial.
 
 To complete this tutorial, ensure that you have:
 
 - Installed Rust and the Rust toolchain. Refer to the [Installation](/develop/blockchains/get-started/install-polkadot-sdk){target=\_blank} guide for step-by-step instructions on setting up your development environment
-- Completed [Build a Local Blockchain](/tutorials/blockchains/custom-blockchains/build-a-blockchain/build-a-local-blockchain){target=\_blank} tutorial and know how to compile and run a Polkadot SDK-based node
+- Completed [Launch a Local Solochain](/tutorials/polkadot-sdk/parachains/local-chain/launch-a-local-solochain/){target=\_blank} tutorial and know how to compile and run a Polkadot SDK-based node
 
 ## Build a Local Relay Chain
 
@@ -133,7 +133,7 @@ To start the validator nodes, follow these steps:
 
 3. Review log messages as the node starts and take note of the `Local node identity` value. This value is the node's peer ID, which you need to connect the parachain to the relay chain:
 
-    --8<-- 'code/tutorials/blockchains/custom-blockchains/build-a-parachain/prepare-relay-chain/relay-chain-1.html'
+    --8<-- 'code/tutorials/polkadot-sdk/parachains/upgrade-to-parachain/prepare-relay-chain/prepare-relay-chain-1.html'
 
     !!! note
         You need to specify this identifier to enable other nodes to connect. In this case, the `Local node identity` is `12D3KooWG393uX82rR3QgDkZpb7U8StzuRx9BQUXCvWsP1ctgygp`.
@@ -163,6 +163,6 @@ To start the validator nodes, follow these steps:
 
 5. Verify that the relay chain nodes are running by checking the logs for each node. The logs should show that the nodes are connected and producing blocks. For example, Bob's logs will be displayed as follows:
 
-    --8<-- 'code/tutorials/blockchains/custom-blockchains/build-a-parachain/prepare-relay-chain/relay-chain-2.html'
+    --8<-- 'code/tutorials/polkadot-sdk/parachains/upgrade-to-parachain/prepare-relay-chain/prepare-relay-chain-2.html'
 
-Once the relay chain nodes are running, you can proceed to the next tutorial to [set up a test parachain node and connect it](/tutorials/blockchains/custom-blockchains/build-a-parachain/connect-a-parachain) to the relay chain.
+Once the relay chain nodes are running, you can proceed to the next tutorial to [set up a test parachain node and connect it](/tutorials/polkadot-sdk/parachains/upgrade-to-parachain/prepare-parachain) to the relay chain.

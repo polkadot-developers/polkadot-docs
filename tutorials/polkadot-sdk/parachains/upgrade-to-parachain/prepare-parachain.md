@@ -59,7 +59,7 @@ Every parachain must reserve a unique `ParaID` identifier to connect to its spec
 Note that you must have an account with sufficient funds to reserve a slot on a relay chain. You can determine the number of tokens a specific relay chain requires by checking the `ParaDeposit` configuration in the `paras_registrar` pallet for that relay chain. The following example shows a `ParaDeposit` requirement of 40 native tokens:
 
 ```rust
---8<-- 'code/tutorials/blockchains/custom-blockchains/build-a-parachain/connect-a-parachain/connect-a-parachain-1.rs'
+--8<-- 'code/tutorials/polkadot-sdk/parachains/upgrade-to-parachain/prepare-parachain/prepare-parachain-1.rs'
 ```
 
 Each relay chain allows its identifiers by incrementing the identifier starting at `2000` for all chains that aren't [system parachains](https://wiki.polkadot.network/docs/learn-system-chains){target=\_blank}. System parachains use a different method to allocate slot identifiers.
@@ -70,32 +70,32 @@ To reserve a parachain identifier, follow these steps:
 
 2. Connect to a local relay chain node using the [Polkadot.js Apps](https://polkadot.js.org/apps/){target=_blank} interface. If you have followed the [Prepare a Relay Chain](/tutorials/blockchains/custom-blockchains/build-a-parachain/prepare-relay-chain){target=\_blank} tutorial, you can access the Polkadot.js Apps interface at `ws://localhost:9944`
 
-    ![](/images/tutorials/blockchains/custom-blockchains/build-a-parachain/connect-a-parachain/connect-a-parachain-1.webp)
+    ![](/images/tutorials/polkadot-sdk/parachains/upgrade-to-parachain/prepare-parachain/prepare-parachain-1.webp)
 
 3. Navigate to the **Parachains** section
 
     1. Click on the **Network** tab
     2. Select **Parachains** from the dropdown menu
 
-    ![](/images/tutorials/blockchains/custom-blockchains/build-a-parachain/connect-a-parachain/connect-a-parachain-2.webp)
+    ![](/images/tutorials/polkadot-sdk/parachains/upgrade-to-parachain/prepare-parachain/prepare-parachain-2.webp)
 
 4. Register a parathread
 
     1. Select the **Parathreads** tab
     2. Click on the **+ ParaId** button
 
-    ![](/images/tutorials/blockchains/custom-blockchains/build-a-parachain/connect-a-parachain/connect-a-parachain-3.webp)
+    ![](/images/tutorials/polkadot-sdk/parachains/upgrade-to-parachain/prepare-parachain/prepare-parachain-3.webp)
 
 5. Fill in the required fields and click on the **+ Submit** button
 
-    ![](/images/tutorials/blockchains/custom-blockchains/build-a-parachain/connect-a-parachain/connect-a-parachain-4.webp)
+    ![](/images/tutorials/polkadot-sdk/parachains/upgrade-to-parachain/prepare-parachain/prepare-parachain-4.webp)
 
     !!! note
         The account used to reserve the identifier will be the account charged for the transaction and the origin account for the parathread associated with the identifier.
 
 6. After submitting the transaction, you can navigate to the Explorer tab and check the list of recent events for successful `registrar.Reserved`
 
-    ![](/images/tutorials/blockchains/custom-blockchains/build-a-parachain/connect-a-parachain/connect-a-parachain-5.webp)
+    ![](/images/tutorials/polkadot-sdk/parachains/upgrade-to-parachain/prepare-parachain/prepare-parachain-5.webp)
 
 You are now ready to prepare the chain specification and generate the files required for your parachain to connect to the relay chain using the reserved identifier (`paraId 2000`).
 
@@ -117,24 +117,24 @@ To modify the default chain specification, follow these steps:
 3. Set the `para_id` to the parachain identifier that you previously reserved. For example, if your reserved identifier is `2000`, set the `para_id` field to `2000`:
 
     ```json
-    --8<-- 'code/tutorials/blockchains/custom-blockchains/build-a-parachain/connect-a-parachain/connect-a-parachain-2.json:1:4'
-    --8<-- 'code/tutorials/blockchains/custom-blockchains/build-a-parachain/connect-a-parachain/connect-a-parachain-2.json:6:6'
-    --8<-- 'code/tutorials/blockchains/custom-blockchains/build-a-parachain/connect-a-parachain/connect-a-parachain-2.json:13:15'
+    --8<-- 'code/tutorials/polkadot-sdk/parachains/upgrade-to-parachain/prepare-parachain/prepare-parachain-2.json:1:4'
+    --8<-- 'code/tutorials/polkadot-sdk/parachains/upgrade-to-parachain/prepare-parachain/prepare-parachain-2.json:6:6'
+    --8<-- 'code/tutorials/polkadot-sdk/parachains/upgrade-to-parachain/prepare-parachain/prepare-parachain-2.json:13:15'
     ```
 
 4. Set the `parachainId` to the parachain identifier that you previously reserved. For example, if your reserved identifier is `2000`, set the `parachainId` field to `2000`
 
     ```json
-    --8<-- 'code/tutorials/blockchains/custom-blockchains/build-a-parachain/connect-a-parachain/connect-a-parachain-2.json:1:2'
-    --8<-- 'code/tutorials/blockchains/custom-blockchains/build-a-parachain/connect-a-parachain/connect-a-parachain-2.json:6:15'
+    --8<-- 'code/tutorials/polkadot-sdk/parachains/upgrade-to-parachain/prepare-parachain/prepare-parachain-2.json:1:2'
+    --8<-- 'code/tutorials/polkadot-sdk/parachains/upgrade-to-parachain/prepare-parachain/prepare-parachain-2.json:6:15'
     ```
 
 5. If you complete this tutorial simultaneously as anyone on the same local network, an additional step is needed to prevent accidentally peering with their nodes. Find the following line and add characters to make your `protocolId` unique
 
     ```json
-    --8<-- 'code/tutorials/blockchains/custom-blockchains/build-a-parachain/connect-a-parachain/connect-a-parachain-2.json:1:2'
-    --8<-- 'code/tutorials/blockchains/custom-blockchains/build-a-parachain/connect-a-parachain/connect-a-parachain-2.json:5:6'
-    --8<-- 'code/tutorials/blockchains/custom-blockchains/build-a-parachain/connect-a-parachain/connect-a-parachain-2.json:13:15'
+    --8<-- 'code/tutorials/polkadot-sdk/parachains/upgrade-to-parachain/prepare-parachain/prepare-parachain-2.json:1:2'
+    --8<-- 'code/tutorials/polkadot-sdk/parachains/upgrade-to-parachain/prepare-parachain/prepare-parachain-2.json:5:6'
+    --8<-- 'code/tutorials/polkadot-sdk/parachains/upgrade-to-parachain/prepare-parachain/prepare-parachain-2.json:13:15'
     ```
 
 6. Save your changes and close the plain text chain specification file
@@ -150,7 +150,7 @@ To modify the default chain specification, follow these steps:
 
     After running the command, you will see the following output:
 
-    --8<-- 'code/tutorials/blockchains/custom-blockchains/build-a-parachain/connect-a-parachain/connect-a-parachain-3.html'
+    --8<-- 'code/tutorials/polkadot-sdk/parachains/upgrade-to-parachain/prepare-parachain/prepare-parachain-3.html'
 
 ## Prepare the Parachain Collator
 
@@ -178,7 +178,7 @@ To prepare the parachain collator to be registered:
 
     After running the command, you will see the following output:
 
-    --8<-- 'code/tutorials/blockchains/custom-blockchains/build-a-parachain/connect-a-parachain/connect-a-parachain-4.html'
+    --8<-- 'code/tutorials/polkadot-sdk/parachains/upgrade-to-parachain/prepare-parachain/prepare-parachain-4.html'
 
     !!!note
         You should note that the runtime and state you export must be for the genesis block. You can't connect a parachain with any previous state to a relay chain. All parachains must start from block 0 on the relay chain. See [Convert a Solo Chain](https://docs.substrate.io/reference/how-to-guides/parachains/convert-a-solo-chain/){target=\_blank} for details on how the parachain template was created and how to convert the chain logic—not its history or state migrations—to a parachain.
@@ -206,7 +206,7 @@ To prepare the parachain collator to be registered:
 
     After running the command, you will see the following output:
 
-    --8<-- 'code/tutorials/blockchains/custom-blockchains/build-a-parachain/connect-a-parachain/connect-a-parachain-5.html'
+    --8<-- 'code/tutorials/polkadot-sdk/parachains/upgrade-to-parachain/prepare-parachain/prepare-parachain-5.html'
 
 ## Register With the Local Relay Chain
 
@@ -220,14 +220,14 @@ To register the parachain, follow these steps:
     1. Click on the **Developer** tab
     2. Select **Sudo** from the dropdown menu
 
-    ![](/images/tutorials/blockchains/custom-blockchains/build-a-parachain/connect-a-parachain/connect-a-parachain-6.webp)
+    ![](/images/tutorials/polkadot-sdk/parachains/upgrade-to-parachain/prepare-parachain/prepare-parachain-6.webp)
 
 3. Submit a transaction with Sudo privileges
 
     1. Select the **`paraSudoWrapper`** pallet
     2. Click on the **`sudoScheduleParaInitialize`** extrinsic from the list of available extrinsics
 
-    ![](/images/tutorials/blockchains/custom-blockchains/build-a-parachain/connect-a-parachain/connect-a-parachain-7.webp)
+    ![](/images/tutorials/polkadot-sdk/parachains/upgrade-to-parachain/prepare-parachain/prepare-parachain-7.webp)
 
 4. Fill in the required fields
 
@@ -238,17 +238,17 @@ To register the parachain, follow these steps:
 
     5. Click on the **Submit Transaction** button
 
-    ![](/images/tutorials/blockchains/custom-blockchains/build-a-parachain/connect-a-parachain/connect-a-parachain-8.webp)
+    ![](/images/tutorials/polkadot-sdk/parachains/upgrade-to-parachain/prepare-parachain/prepare-parachain-8.webp)
 
 5. After submitting the transaction, you can navigate to the **Explorer** tab and check the list of recent events for successful `paras.PvfCheckAccepted`
 
-    ![](/images/tutorials/blockchains/custom-blockchains/build-a-parachain/connect-a-parachain/connect-a-parachain-9.webp)
+    ![](/images/tutorials/polkadot-sdk/parachains/upgrade-to-parachain/prepare-parachain/prepare-parachain-9.webp)
 
     After the parachain is initialized, you can see it in **Parachains** section of the Polkadot.js Apps interface
 
 6. Click **Network** and select **Parachains** and wait for a new epoch to start
 
-    ![](/images/tutorials/blockchains/custom-blockchains/build-a-parachain/connect-a-parachain/connect-a-parachain-10.webp)
+    ![](/images/tutorials/polkadot-sdk/parachains/upgrade-to-parachain/prepare-parachain/prepare-parachain-10.webp)
 
    The relay chain tracks the latest block—the head—of each parachain. When a relay chain block is finalized, the parachain blocks that have completed the validation process are also finalized. This is how Polkadot achieves pooled, shared security for its parachains.
 
@@ -256,7 +256,7 @@ To register the parachain, follow these steps:
 
    The terminal where the parachain is running also displays details similar to the following:
 
-   --8<-- 'code/tutorials/blockchains/custom-blockchains/build-a-parachain/connect-a-parachain/connect-a-parachain-6.html'
+   --8<-- 'code/tutorials/polkadot-sdk/parachains/upgrade-to-parachain/prepare-parachain/prepare-parachain-6.html'
 
 ## Resetting the Blockchain State
 

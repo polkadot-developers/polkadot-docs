@@ -24,7 +24,7 @@ By completing this tutorial, you will accomplish the following objectives:
 Before proceeding, ensure you have the following prerequisites in place:
 
 - Installed and configured Rust on your system. Refer to the [Installation](/develop/blockchains/get-started/install-polkadot-sdk){target=\_blank} guide for detailed instructions on installing Rust and setting up your development environment
-- Completed the [Build a Local Blockchain](/tutorials/blockchains/custom-blockchains/build-a-blockchain/build-a-local-blockchain){target=\_blank} guide and have the [Polkadot SDK Solochain Template](https://github.com/paritytech/polkadot-sdk-solochain-template){target=\_blank} installed on your local machine
+- Completed the [Launch a Local Solochain](/tutorials/polkadot-sdk/parachains/local-chain/launch-a-local-solochain/){target=\_blank} guide and have the [Polkadot SDK Solochain Template](https://github.com/paritytech/polkadot-sdk-solochain-template){target=\_blank} installed on your local machine
 
 ## Start the First Blockchain Node
 
@@ -75,7 +75,7 @@ For a comprehensive overview of all available command-line options for the node 
 
 Upon successful node startup, the terminal displays messages detailing network operations and information relevant to the running node. This output includes details about the chain specification, system data, network status, and other crucial parameters. You should see output similar to this:
 
---8<-- 'code/tutorials/blockchains/custom-blockchains/build-a-blockchain/simulate-a-network/node-output.html'
+--8<-- 'code/tutorials/polkadot-sdk/parachains/local-chain/connect-multiple-nodes/node-output.html'
 
 Pay particular attention to the following key messages:
 
@@ -163,7 +163,7 @@ Follow these steps to verify that blocks are being produced and finalized:
 
 1. Observe the output in the terminal of the first node (Alice):
 
-    --8<-- 'code/tutorials/blockchains/custom-blockchains/build-a-blockchain/simulate-a-network/node-output-1.html'
+    --8<-- 'code/tutorials/polkadot-sdk/parachains/local-chain/connect-multiple-nodes/node-output-1.html'
 
     Key information in this output:
 
@@ -176,7 +176,7 @@ Follow these steps to verify that blocks are being produced and finalized:
 
 3. Shut down one node using `Control-C` in its terminal. Observe the remaining node's output:
 
-    --8<-- 'code/tutorials/blockchains/custom-blockchains/build-a-blockchain/simulate-a-network/node-shutdown.html'
+    --8<-- 'code/tutorials/polkadot-sdk/parachains/local-chain/connect-multiple-nodes/node-shutdown.html'
 
     Note that the peer count drops to zero, and block production stops.
 

@@ -16,12 +16,12 @@ You'll learn how to generate keys, create a custom chain specification, and star
 Before starting this tutorial, ensure you have:
 
 - Installed and configured Rust on your system. For detailed instructions on installing Rust and setting up your development environment, refer to the [Installation](/develop/blockchains/get-started/install-polkadot-sdk){target=\_blank} guide
-- Completed the [Build a Local Blockchain](/tutorials/blockchains/custom-blockchains/build-a-blockchain/build-a-local-blockchain){target=\_blank} tutorial and have the [Polkadot SDK Solochain Template](https://github.com/paritytech/polkadot-sdk-solochain-template){target=\_blank} installed on your local machine
-- Experience using predefined accounts to start nodes on a single computer, as described in the [Simulate a Network](/tutorials/blockchains/custom-blockchains/build-a-blockchain/simulate-a-network){target=\_blank} guide
+- Completed the [Launch a Local Solochain](/tutorials/polkadot-sdk/parachains/local-chain/launch-a-local-solochain/){target=\_blank} tutorial and have the [Polkadot SDK Solochain Template](https://github.com/paritytech/polkadot-sdk-solochain-template){target=\_blank} installed on your local machine
+- Experience using predefined accounts to start nodes on a single computer, as described in the [Connect Multiple Nodes](/tutorials/polkadot-sdk/parachains/local-chain/connect-multiple-nodes/){target=\_blank} guide
 
 ## Generate an Account and Keys
 
-Unlike in the [Simulate a Network](/tutorials/blockchains/custom-blockchains/build-a-blockchain/simulate-a-network){target=\_blank} tutorial, where you used predefined accounts and keys to start peer nodes, this tutorial requires you to generate unique secret keys for your validator nodes. It's crucial to understand that each participant is responsible for generating and managing their own unique set of keys in a real blockchain network.
+Unlike in the [Connect Multiple Nodes](/tutorials/polkadot-sdk/parachains/local-chain/connect-multiple-nodes/){target=\_blank} tutorial, where you used predefined accounts and keys to start peer nodes, this tutorial requires you to generate unique secret keys for your validator nodes. It's crucial to understand that each participant is responsible for generating and managing their own unique set of keys in a real blockchain network.
 
 This process of generating your own keys serves several important purposes:
 
@@ -62,7 +62,7 @@ Follow these steps to generate your keys:
 
     The command will output information about the generated keys similar to the following:
 
-    --8<-- 'code/tutorials/blockchains/custom-blockchains/build-a-blockchain/add-trusted-nodes/key-sr25519-1.html'
+    --8<-- 'code/tutorials/polkadot-sdk/parachains/local-chain/spin-your-nodes/key-sr25519-1.html'
 
     Note the Sr25519 public key for the account (SS58 format). This key will be used for producing blocks with Aura. In this example, the Sr25519 public key for the account is `5HMhkSHpD4XcibjbU9ZiGemLpnsTUzLsG5JhQJQEcxp3KJaW`.
 
@@ -81,7 +81,7 @@ Follow these steps to generate your keys:
 
     The command will output information about the generated keys similar to the following:
 
-    --8<-- 'code/tutorials/blockchains/custom-blockchains/build-a-blockchain/add-trusted-nodes/key-ed25519-1.html'
+    --8<-- 'code/tutorials/polkadot-sdk/parachains/local-chain/spin-your-nodes/key-ed25519-1.html'
 
     The Ed25519 key you've generated is crucial for block finalization using the `grandpa` consensus algorithm. The Ed25519 public key for the account is `5GdFMFbXy24uz8mFZroFUgdBkY2pq6igBNGAq9tsBfEZRSzP`.
 
@@ -125,13 +125,13 @@ In this tutorial, you'll modify the local chain specification to create a custom
         ```bash
         head customSpec.json
         ```
-    --8<-- 'code/tutorials/blockchains/custom-blockchains/build-a-blockchain/add-trusted-nodes/chainspec-head.html'
+    --8<-- 'code/tutorials/polkadot-sdk/parachains/local-chain/spin-your-nodes/chainspec-head.html'
 
     - Preview last fields:
         ```bash
         tail -n 78 customSpec.json
         ```
-    --8<-- 'code/tutorials/blockchains/custom-blockchains/build-a-blockchain/add-trusted-nodes/chainspec-tail.html'
+    --8<-- 'code/tutorials/polkadot-sdk/parachains/local-chain/spin-your-nodes/chainspec-tail.html'
 
         This command will display fields that include configuration details for pallets, such as sudo and balances, as well as the validator settings for the Aura and Grandpa keys.
 
@@ -273,7 +273,7 @@ After generating the network key, start the first node using your custom chain s
 
 Upon execution, you should see output similar to the following:
 
---8<-- 'code/tutorials/blockchains/custom-blockchains/build-a-blockchain/add-trusted-nodes/node-output.html'
+--8<-- 'code/tutorials/polkadot-sdk/parachains/local-chain/spin-your-nodes/node-output.html'
 
 After starting the first node, you'll notice:
 
@@ -319,4 +319,4 @@ After both nodes have added their keys to their respective keystores (under `/tm
   
 If successful, you should see logs similar to the following on both nodes:
 
---8<-- 'code/tutorials/blockchains/custom-blockchains/build-a-blockchain/add-trusted-nodes/node-output-1.html'
+--8<-- 'code/tutorials/polkadot-sdk/parachains/local-chain/spin-your-nodes/node-output-1.html'

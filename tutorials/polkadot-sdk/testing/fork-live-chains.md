@@ -52,7 +52,7 @@ To run Chopsticks using a configuration file, utilize the `--config` flag. You c
 
 Regardless of which method you choose from the preceding examples, you'll see an output similar to the following:
 
---8<-- 'code/tutorials/blockchains/testing/fork-live-chains/run-chopsticks-01.html'
+--8<-- 'code/tutorials/polkadot-sdk/testing/fork-live-chains//run-chopsticks-01.html'
 
 !!! note
     If using a file path, make sure you've downloaded the [Polkadot configuration file](https://github.com/AcalaNetwork/chopsticks/blob/master/configs/polkadot.yml){target=\_blank}, or have created your own.
@@ -70,7 +70,7 @@ npx @acala-network/chopsticks \
 
 If the fork is successful, you will see output similar to the following:
 
--8<-- 'code/tutorials/blockchains/testing/fork-live-chains/polkadot-fork-01.html'
+-8<-- 'code/tutorials/polkadot-sdk/testing/fork-live-chains//polkadot-fork-01.html'
 
 Access the running Chopsticks fork using the default address.
 
@@ -88,14 +88,14 @@ To interact with Chopsticks via the hosted user interface, visit [Polkadot.js Ap
 
 1. Select the network icon in the top left corner
 
-    ![](/images/tutorials/blockchains/testing/fork-live-chains/chopsticks-1.webp)
+    ![](/images/tutorials/polkadot-sdk/testing/fork-live-chains//chopsticks-1.webp)
 
 2. Scroll to the bottom and select **Development**
 3. Choose **Custom**
 4. Enter `ws://localhost:8000` in the input field
 5. Select the **Switch** button
 
-    ![](/images/tutorials/blockchains/testing/fork-live-chains/chopsticks-2.webp)
+    ![](/images/tutorials/polkadot-sdk/testing/fork-live-chains//chopsticks-2.webp)
 
 You should now be connected to your local fork and can interact with it as you would with a real chain.
 
@@ -104,7 +104,7 @@ You should now be connected to your local fork and can interact with it as you w
 For programmatic interaction, you can use the Polkadot.js library. The following is a basic example:
 
 ```js
---8<-- 'code/tutorials/blockchains/testing/fork-live-chains/basic-example.js'
+--8<-- 'code/tutorials/polkadot-sdk/testing/fork-live-chains//basic-example.js'
 ```
 
 ## Replay Blocks
@@ -127,7 +127,7 @@ npx @acala-network/chopsticks run-block  \
 ??? code "Output file content"
 
     ```json
-    --8<-- 'code/tutorials/blockchains/testing/fork-live-chains/replay-block.json'
+    --8<-- 'code/tutorials/polkadot-sdk/testing/fork-live-chains//replay-block.json'
     ```
 
 ## XCM Testing
@@ -148,7 +148,7 @@ npx @acala-network/chopsticks xcm \
 
 After running it, you should see output similar to the following:
 
---8<-- 'code/tutorials/blockchains/testing/fork-live-chains/fork-output.html'
+--8<-- 'code/tutorials/polkadot-sdk/testing/fork-live-chains//fork-output.html'
 
 Now you can interact with your forked chains using the ports specified in the output.
 
@@ -174,7 +174,7 @@ These are the methods that can be invoked and their parameters:
     === "Example"
 
         ```js
-        --8<-- 'code/tutorials/blockchains/testing/fork-live-chains/dev-newblock-example.js'
+        --8<-- 'code/tutorials/polkadot-sdk/testing/fork-live-chains//dev-newblock-example.js'
         ```
 
 - **dev_setBlockBuildMode** (buildBlockMode) — sets block build mode
@@ -193,7 +193,7 @@ These are the methods that can be invoked and their parameters:
     === "Example"
 
         ```js
-        --8<-- 'code/tutorials/blockchains/testing/fork-live-chains/dev-setBlockBuildMode-example.js'
+        --8<-- 'code/tutorials/polkadot-sdk/testing/fork-live-chains//dev-setBlockBuildMode-example.js'
         ```
 
 - **dev_setHead** (hashOrNumber) — sets the head of the blockchain to a specific hash or number
@@ -205,7 +205,7 @@ These are the methods that can be invoked and their parameters:
     === "Example"
 
         ```js
-        --8<-- 'code/tutorials/blockchains/testing/fork-live-chains/dev-setHead-example.js'
+        --8<-- 'code/tutorials/polkadot-sdk/testing/fork-live-chains//dev-setHead-example.js'
         ```
 
 - **dev_setRuntimeLogLevel** (runtimeLogLevel) — sets the runtime log level
@@ -217,7 +217,7 @@ These are the methods that can be invoked and their parameters:
     === "Example"
 
         ```js
-        --8<-- 'code/tutorials/blockchains/testing/fork-live-chains/dev-setRuntimeLogLevel-example.js'
+        --8<-- 'code/tutorials/polkadot-sdk/testing/fork-live-chains//dev-setRuntimeLogLevel-example.js'
         ```
 
 - **dev_setStorage** (values, blockHash) — creates or overwrites the value of any storage
@@ -230,7 +230,7 @@ These are the methods that can be invoked and their parameters:
     === "Example"
 
         ```js
-        --8<-- 'code/tutorials/blockchains/testing/fork-live-chains/dev-setStorage-example.js'
+        --8<-- 'code/tutorials/polkadot-sdk/testing/fork-live-chains//dev-setStorage-example.js'
         ```
 
 - **dev_timeTravel** (date) — sets the timestamp of the block to a specific date"
@@ -242,5 +242,5 @@ These are the methods that can be invoked and their parameters:
     === "Example"
 
         ```js
-        --8<-- 'code/tutorials/blockchains/testing/fork-live-chains/dev-timeTravel-example.js'
+        --8<-- 'code/tutorials/polkadot-sdk/testing/fork-live-chains//dev-timeTravel-example.js'
         ```

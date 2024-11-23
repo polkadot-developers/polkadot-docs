@@ -112,7 +112,7 @@ Although it seems complex, users and developers are abstracted of that complexit
 
 The Rust EVM is capable of executing regular [EVM bytecode](https://www.ethervm.io/){target=\_blank}. Consequently, any language that compiles to EVM bytecode can be used to create programs that the parachain can execute.
 
-You can find more information on deploying EVM smart contracts to [Polkadot's native smart contract platform](TODO:update-path){target=\_blank}, or any of [the ecosystem parachains](TODO:update-path){target=\_blank}.
+You can find more information on deploying EVM smart contracts to [Polkadot's native smart contract platform](/develop/smart-contracts/evm/native-evm-contracts/){target=\_blank}, or any of [the ecosystem parachains](/develop/smart-contracts/evm/parachain-contracts/){target=\_blank}.
 
 ### Wasm Contracts
 

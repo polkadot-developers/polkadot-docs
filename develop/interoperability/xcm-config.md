@@ -116,7 +116,7 @@ Each configuration item is explained below, detailing the associated type’s pu
     type AssetExchanger: AssetExchange;
     ```
 
-- [**`SubscriptionService`**](TODO){target=\_blank} - manages `(Un)SubscribeVersion` instructions and returns the XCM version via `QueryResponse`. Typically implemented by pallet-xcm
+- [**`SubscriptionService`**](https://paritytech.github.io/polkadot-sdk/master/staging_xcm_executor/trait.Config.html#associatedtype.SubscriptionService){target=\_blank} - manages `(Un)SubscribeVersion` instructions and returns the XCM version via `QueryResponse`. Typically implemented by pallet-xcm
     ```rust
     type SubscriptionService: VersionChangeNotifier;
     ```
@@ -126,7 +126,7 @@ Each configuration item is explained below, detailing the associated type’s pu
     type PalletInstancesInfo: PalletsInfoAccess;
     ```
  <!-- I think `Holding Register` should be linked to https://wiki.polkadot.network/docs/learn/xcm/reference-glossary#holding-register, but since we will have our own glossary, I’m putting this as a TODO -->
-- [**`MaxAssetsIntoHolding`**](https://paritytech.github.io/polkadot-sdk/master/staging_xcm_executor/trait.Config.html#associatedtype.MaxAssetsIntoHolding){target=\_blank} - limits the number of assets in the [Holding Register](TODO:update-path){target=\_blank}. At most, twice this limit can be held under worst-case conditions
+- [**`MaxAssetsIntoHolding`**](https://paritytech.github.io/polkadot-sdk/master/staging_xcm_executor/trait.Config.html#associatedtype.MaxAssetsIntoHolding){target=\_blank} - limits the number of assets in the [Holding register](https://wiki.polkadot.network/docs/learn/xcm/reference-glossary#holding-register){target=\_blank}. At most, twice this limit can be held under worst-case conditions
     ```rust
     type MaxAssetsIntoHolding: Get<u32>;
     ```
@@ -170,7 +170,7 @@ Each configuration item is explained below, detailing the associated type’s pu
     ```rust
     type HrmpChannelAcceptedHandler: HandleHrmpChannelAccepted;
     ```
-- [**`HrmpChannelClosingHandler`**](TODO){target=\_blank} - enables optional logic execution in response to the `HrmpChannelClosing` XCM notification
+- [**`HrmpChannelClosingHandler`**](https://paritytech.github.io/polkadot-sdk/master/staging_xcm_executor/trait.Config.html#associatedtype.HrmpChannelClosingHandler){target=\_blank} - enables optional logic execution in response to the `HrmpChannelClosing` XCM notification
     ```rust
     type HrmpChannelClosingHandler: HandleHrmpChannelClosing;
     ```

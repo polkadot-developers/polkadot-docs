@@ -334,7 +334,7 @@ Acala supports a comprehensive DeFi ecosystem including a decentralized stableco
 
 === "Acala"
 
-	You'll need to have [MetaMask installed](https://metamask.io/){target=_blank} and connected to [Acala Testnet](https://chainlist.org/chain/595){target=_blank} and an account with Acala testnet tokens. You can get them from [the Acala testnet faucet](https://discord.gg/5JJgXKSznc){target=_blank}.
+	You'll need to have [MetaMask installed](https://metamask.io/){target=\_blank} and connected to [Acala Testnet](https://chainlist.org/chain/595){target=\_blank} and an account with Acala testnet tokens. You can get them from [the Acala testnet faucet](https://discord.gg/5JJgXKSznc){target=\_blank}.
 
 	To get started, first create a Hardhat Project:
 

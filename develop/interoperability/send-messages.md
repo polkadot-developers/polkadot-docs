@@ -42,7 +42,7 @@ The XCM pallet plays a central role in managing cross-chain messages, with its p
 
 - **Support for XCVM operations** - oversees state and configuration requirements necessary for executing cross-consensus programs within the XCVM framework
 
-## Primary Calls of XCM Pallet
+## Primary Extrinsics of XCM Pallet
 
 This page will highlight the two **Primary Primitive Calls** which are responsible for sending and executing XCVM programmes as dispatchable functions within the pallet.
 
@@ -60,7 +60,7 @@ pub fn execute<T: Config>(
 ```
 
 !!!note
-    For further details on the Execute extrinsic, see the pallet-xcm documentation{target=_blank}.
+    For further details on the Execute extrinsic, see the [`pallet-xcm` documentation](https://paritytech.github.io/polkadot-sdk/master/pallet_xcm/pallet/struct.Pallet.html){target=_blank}.
 
 !!!warning
     Partial execution of messages may occur depending on the constraints or barriers applied.
@@ -79,7 +79,8 @@ pub fn send<T: Config>(
     message: Box<VersionedXcm<<T as Config>::RuntimeCall>>,
 )
 ```
-!!!note For further details on the Send extrinsic, refer to the pallet-xcm documentation{target=_blank}.
+!!!note 
+    For further information about the Send extrinsic, check the [`pallet-xcm` documentation](https://paritytech.github.io/polkadot-sdk/master/pallet_xcm/pallet/struct.Pallet.html){target=_blank}.
 
 <!-- TODO: we should complement this page with some real examples of where the .send() call is used, or maybe how to use it through papi or something like that -->
 

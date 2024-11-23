@@ -68,6 +68,17 @@ graph TB
 
 The diagram illustrates the layered architecture of Astar Network: at the top, dApps can interact with the Astar network through either Web3, Substrate, or Wasm. These requests flow through Astar's RPC layer into the main runtime, where the magic happens in the virtual machine layer. Here, Astar's unique Cross-Virtual Machine (XVM) coordinates between EVM and Wasm environments, allowing smart contracts from both ecosystems to interact. The Runtime also includes core blockchain functions through various pallets (like system operations and dApps staking), and everything is ultimately secured by connecting to the Polkadot Relay Chain at the bottom layer.
 
+#### Endpoints and Faucet
+
+| Variable | Value |
+|:--------:|:------|
+| Network Name | Shibuya Testnet |
+| EVM Chain ID | 81 |
+| Public RPC URLs | <pre>https://evm.shibuya.astar.network</pre> |
+| Public WSS URLs | <pre>wss://evm.shibuya.astar.network</pre> |
+| Block Explorer | [Shibuya Blockscout](https://blockscout.com/shibuya){target=\_blank} |
+| Faucet Link | [Faucet - Astar Docs](https://docs.astar.network/docs/build/environment/faucet/){target=\_blank} |
+
 ### Moonbeam
 
 [Moonbeam](https://docs.moonbeam.network/){target=\_blank} was the first parachain to bring full Ethereum-compatibility to Polkadot, enabling Ethereum developers to bring their dApps to Polkadot and gain access to the rapidly growing Polkadot user base. [Moonbeam's runtime](https://github.com/moonbeam-foundation/moonbeam){target=\_blank} is built using [FRAME](/develop/blockchains/custom-blockchains/overview/#frame-runtime-architecture){target=\_blank}, and combines essential components from the Polkadot-SDK, Frontier, and custom pallets. The architecture integrates key Substrate offerings like balance management and transaction processing, while [Frontier's](https://github.com/polkadot-evm/frontier){target=\_blank} pallets enable EVM execution and Ethereum compatibility. Custom pallets handle Moonbeam-specific features such as parachain staking and block author verification. Moonbeam offers a variety of precompiles for dApp developers to access powerful Polkadot features via a Solidity interface, such as governance, randomness, transaction batching, and more. 
@@ -112,6 +123,17 @@ Additionally, Moonbeam is a hub for interoperability and cross-chain connected c
 
 The diagram above illustrates how transactions are processed on Moonbeam. When a DApp or Ethereum development tool (like Hardhat) sends a Web3 RPC request, it's first received by a Moonbeam node. Moonbeam nodes are versatile - they support both Web3 and Substrate RPCs, giving developers the flexibility to use either Ethereum or Substrate tools. When these RPC calls come in, they're processed by corresponding functions in the Substrate runtime. The runtime verifies signatures and processes any Substrate extrinsics. Finally, if the transaction involves smart contracts, these are forwarded to Moonbeam's EVM for execution and state changes.
 
+#### Endpoints and Faucet
+
+| Variable | Value |
+|:--------:|:------|
+| Network Name | Moonbase Alpha Testnet |
+| EVM Chain ID | [1287](https://chainlist.org/chain/1287){target=_blank} |
+| Public RPC URLs | <pre>https://rpc.api.moonbase.moonbeam.network</pre> |
+| Public WSS URLs | <pre>wss://wss.api.moonbase.moonbeam.network</pre> |
+| Block Explorer | [Moonbase Alpha Moonscan](https://moonbase.moonscan.io/){target=\_blank} |
+| Faucet Link | [Moonbase Faucet](https://faucet.moonbeam.network){target=\_blank} |
+
 ### Acala
 
 [Acala](https://acala.network/){target=\_blank} positioned itself as Polkadot's DeFi hub by introducing the [Acala EVM+](https://evmdocs.acala.network/){target=\_blank} - an enhanced version of the EVM specifically optimized for DeFi operations. This customized EVM implementation enables seamless deployment of Ethereum-based DeFi protocols while offering advanced features like on-chain scheduling, pre-built DeFi primitives, and native multi-token support that aren't available in traditional EVMs.
@@ -122,462 +144,93 @@ Acala supports a comprehensive DeFi ecosystem including a decentralized stableco
 
 ```mermaid
 graph TB
-    subgraph "DApp Layer"
+    subgraph A["DApp Layer"]
+        direction TB
         eth["Ethereum DApps\n(Web3 + bodhi.js)"]
         substrate["Substrate DApps\n(Polkadot.js)"]
     end
 
-    subgraph "Acala Network"
+    subgraph B["Acala Network"]
+        direction TB
         rpc["RPC Layer\n(Web3 + Substrate)"]
         
-        subgraph "Runtime Layer"
-            runtime["Substrate Runtime"]
+        subgraph "Runtime"
+            direction TB
+            evmplus["EVM+"]
             
-            subgraph "EVM+"
+            subgraph C["Core Components"]
+                direction LR
                 storage["Storage Meter"]
-                precompiles["Precompiled Contracts\n(DEX, Oracle, Schedule)"]
-                evm["EVM Engine"]
+                precompiles["Precompiled DeFi Contracts\n(DEX, Oracle, Scheduler)"]
             end
         end
     end
 
-    subgraph "Base Layer"
+    subgraph D["Base Layer"]
         dot["Polkadot Relay Chain\n(Shared Security)"]
     end
 
-    %% Connections
-    eth --> rpc
-    substrate --> rpc
-    rpc --> runtime
-    runtime --> evm
-    runtime --> storage
-    runtime --> precompiles
-    runtime --> dot
+    %% Simplified connections
+    A --> B
+    rpc --> evmplus
+    evmplus --> C
+    evmplus --> D
 ```
 
 The diagram illustrates Acala's unique EVM+ architecture, which extends beyond standard EVM compatibility. At the top, DApps can interact with the network using either Ethereum tools (via Web3 and bodhi.js) or Substrate tools. These requests flow through Acala's dual RPC layer into the main Runtime. The key differentiator is the EVM+ environment, which includes special features like the Storage Meter for rent management, and numerous precompiled contracts (like DEX, Oracle, Schedule) that provide native Substrate functionality to EVM contracts. All of this runs on top of Polkadot's shared security as a parachain.
 
-## Getting Started with Hardhat
+#### Endpoints and Faucet 
 
-[Hardhat](https://hardhat.org){target=\_blank} is an Ethereum development environment that makes it easy to deploy smart contracts on EVM-compatible blockchain networks. This guide will show you how to compile, deploy, and interact with a simple smart contract on Astar, Moonbeam, and Acala. Feel free to pick your network of choice and follow along!
+| Variable | Value |
+|:--------:|:------|
+| Network Name | Mandala TC7 Testnet |
+| EVM Chain ID | [595](https://chainlist.org/chain/595){target=_blank} |
+| Public RPC URLs | <pre>https://eth-rpc-tc9.aca-staging.network</pre> |
+| Public WSS URLs | <pre>wss://tc7-eth.aca-dev.network</pre> |
+| Block Explorer | [Mandala Blockscout](https://blockscout.mandala.aca-staging.network){target=\_blank} |
+| Faucet Link | [Mandala Faucet](https://discord.gg/5JJgXKSznc){target=\_blank} |
+
+## EVM Developer Tools
+
+One of the key benefits of being an EVM-compatible parachain the ability for developers to use familiar developer tools, like [Hardhat](https://hardhat.org/){target=\_blank}, [Remix](https://remix.ethereum.org/){target=\_blank}, and [Foundry](https://github.com/foundry-rs/foundry){target=\_blank}. Being compatible with the most widely adopted smart contract programming language, Solidity, means that developers can leverage existing smart contract templates and standards, such as the ones built by [OpenZeppelin](https://www.openzeppelin.com/solidity-contracts){target=\_blank}. To learn more, check out the following guides for each parachain: 
 
 === "Astar"
-
-	You'll need to have [MetaMask installed](https://metamask.io/){target=_blank} and connected to the Shibuya Testnet and an account with Shibuya tokens. You can get them from [the Shibuya faucet](https://docs.astar.network/docs/build/environment/faucet/){target=_blank}.
-
-	To get started, first create a Hardhat Project:
-
-	1. Create and initialize your project:
-	```bash
-	mkdir hardhat && cd hardhat
-	npm init -y
-	npm install hardhat
-	npx hardhat init
-	```
-
-	2. When prompted, choose **Create an empty hardhat.config.js**
-
-	Configure Hardhat as follows:
-
-	1. Install required plugins:
-	```bash
-	npm install @nomicfoundation/hardhat-ethers ethers
-	npm install --save-dev @nomicfoundation/hardhat-ignition-ethers
-	```
-
-	2. Update your `hardhat.config.js`:
-	```javascript
-	require('@nomicfoundation/hardhat-ethers');
-	require('@nomicfoundation/hardhat-ignition-ethers');
-
-	const privateKey = 'INSERT_PRIVATE_KEY';
-
-	module.exports = {
-	  solidity: '0.8.20',
-	  networks: {
-	    shibuya: {
-	      url: 'https://evm.shibuya.astar.network',
-	      chainId: 81,
-	      accounts: [privateKey]
-	    }
-	  }
-	};
-	```
-
-	You can create the smart contract as follows:
-
-	1. Create a contract directory and file:
-	```bash
-	mkdir contracts
-	touch contracts/Box.sol
-	```
-
-	2. Add this simple storage contract:
-	```solidity
-	// contracts/Box.sol
-	// SPDX-License-Identifier: MIT
-	pragma solidity ^0.8.1;
-
-	contract Box {
-	    uint256 private value;
-	    event ValueChanged(uint256 newValue);
-
-	    function store(uint256 newValue) public {
-	        value = newValue;
-	        emit ValueChanged(newValue);
-	    }
-
-	    function retrieve() public view returns (uint256) {
-	        return value;
-	    }
-	}
-	```
-
-	Now it's time to compile and deploy the contract. To do so, take the following steps:
-
-	1. Compile the contract:
-	```bash
-	npx hardhat compile
-	```
-
-	2. Create the deployment module:
-	```bash
-	mkdir ignition ignition/modules && touch ignition/modules/Box.js
-	```
-
-	3. Add deployment code to `ignition/modules/Box.js`:
-	```javascript
-	const { buildModule } = require("@nomicfoundation/hardhat-ignition/modules");
-
-	module.exports = buildModule("BoxModule", (m) => {
-	  const deployer = m.getAccount(0);
-	  const box = m.contract("Box", [], {
-	    from: deployer,
-	  });
-	  return { box };
-	});
-	```
-
-	4. Deploy to Shibuya:
-	```bash
-	npx hardhat ignition deploy ./ignition/modules/Box.js --network shibuya
-	```
-
-	You can interact with your contract using the Hardhat console:
-
-	1. Start the console:
-	```bash
-	npx hardhat console --network shibuya
-	```
-
-	2. Interact with your contract:
-	```javascript
-	const Box = await ethers.getContractFactory('Box');
-	const box = await Box.attach('YOUR_CONTRACT_ADDRESS');
-	await box.store(5);
-	const value = await box.retrieve();
-	console.log(value);
-	```
-
-	That's it! You've deployed and interacted with a smart contract on Astar's Shibuya testnet using Hardhat.
+    - [Hardhat](https://docs.astar.network/docs/build/EVM/developer-tooling/hardhat/){target=\_blank}
+    - [Thirdweb](https://docs.astar.network/docs/build/EVM/developer-tooling/thirdweb){target=\_blank}
+    - [Remix](https://docs.astar.network/docs/build/builder-guides/astar_features/use_remix/){target=\_blank}
+    - [Privy embedded wallets](https://docs.astar.network/docs/build/EVM/developer-tooling/privy){target=\_blank}
 
 === "Moonbeam"
-
-	You'll need to have [MetaMask installed](https://metamask.io/){target=\_blank} and connected to [Moonbase Alpha](https://chainlist.org/chain/1287){target=\_blank} and an account with Moonbase Alpha tokens. You can get them from [the Moonbase Alpha faucet](https://faucet.moonbeam.network){target=_blank}.
-
-	To get started, first create a Hardhat Project:
-
-	1. Create and initialize your project:
-	```bash
-	mkdir hardhat && cd hardhat
-	npm init -y
-	npm install hardhat
-	npx hardhat init
-	```
-
-	2. When prompted, choose **Create an empty hardhat.config.js**
-
-	Configure Hardhat as follows:
-
-	1. Install required plugins:
-	```bash
-	npm install @nomicfoundation/hardhat-ethers ethers
-	npm install --save-dev @nomicfoundation/hardhat-ignition-ethers
-	```
-
-	2. Update your `hardhat.config.js`:
-	```javascript
-	require('@nomicfoundation/hardhat-ethers');
-	require('@nomicfoundation/hardhat-ignition-ethers');
-
-	const privateKey = 'INSERT_PRIVATE_KEY';
-
-	module.exports = {
-	  solidity: '0.8.20',
-	  networks: {
-	    moonbase: {
-	      url: 'https://rpc.api.moonbase.moonbeam.network',
-	      chainId: 1287,
-	      accounts: [privateKey]
-	    }
-	  }
-	};
-	```
-
-	You can create the smart contract as follows:
-
-	1. Create a contract directory and file:
-	```bash
-	mkdir contracts
-	touch contracts/Box.sol
-	```
-
-	2. Add this simple storage contract:
-	```solidity
-	// contracts/Box.sol
-	// SPDX-License-Identifier: MIT
-	pragma solidity ^0.8.1;
-
-	contract Box {
-	    uint256 private value;
-	    event ValueChanged(uint256 newValue);
-
-	    function store(uint256 newValue) public {
-	        value = newValue;
-	        emit ValueChanged(newValue);
-	    }
-
-	    function retrieve() public view returns (uint256) {
-	        return value;
-	    }
-	}
-	```
-
-	Now it's time to compile and deploy the contract. To do so, take the following steps:
-
-	1. Compile the contract:
-	```bash
-	npx hardhat compile
-	```
-
-	2. Create the deployment module:
-	```bash
-	mkdir ignition ignition/modules && touch ignition/modules/Box.js
-	```
-
-	3. Add deployment code to `ignition/modules/Box.js`:
-	```javascript
-	const { buildModule } = require("@nomicfoundation/hardhat-ignition/modules");
-
-	module.exports = buildModule("BoxModule", (m) => {
-	  const deployer = m.getAccount(0);
-	  const box = m.contract("Box", [], {
-	    from: deployer,
-	  });
-	  return { box };
-	});
-	```
-
-	4. Deploy to Moonbase Alpha:
-	```bash
-	npx hardhat ignition deploy ./ignition/modules/Box.js --network moonbase
-	```
-
-	You can interact with your contract using the Hardhat console:
-
-	1. Start the console:
-	```bash
-	npx hardhat console --network moonbase
-	```
-
-	2. Interact with your contract:
-	```javascript
-	const Box = await ethers.getContractFactory('Box');
-	const box = await Box.attach('YOUR_CONTRACT_ADDRESS');
-	await box.store(5);
-	const value = await box.retrieve();
-	console.log(value);
-	```
-
-	That's it! You've deployed and interacted with a smart contract on Moonbase Alpha using Hardhat.
-
-
+    - [Hardhat](https://docs.moonbeam.network/builders/ethereum/dev-env/hardhat/){target=\_blank}
+    - [Thirdweb](https://docs.moonbeam.network/builders/ethereum/dev-env/thirdweb/){target=\_blank}
+    - [Remix](https://docs.moonbeam.network/builders/ethereum/dev-env/remix/){target=\_blank}
+    - [Tenderly](https://docs.moonbeam.network/builders/ethereum/dev-env/tenderly/){target=\_blank}
+    - [Foundry](https://docs.moonbeam.network/builders/ethereum/dev-env/foundry/){target=\_blank}
+    - [OpenZeppelin](https://docs.moonbeam.network/builders/ethereum/dev-env/openzeppelin/){target=\_blank}
 
 === "Acala"
+    - [Hardhat](https://wiki.acala.network/build/development-guide/smart-contracts/get-started-evm/use-hardhat){target=\_blank}
+    - [Remix](https://wiki.acala.network/build/development-guide/smart-contracts/get-started-evm/use-remix){target=\_blank}
+    - [Waffle](https://wiki.acala.network/build/development-guide/smart-contracts/get-started-evm/use-waffle){target=\_blank}
 
-	You'll need to have [MetaMask installed](https://metamask.io/){target=\_blank} and connected to [Acala Testnet](https://chainlist.org/chain/595){target=\_blank} and an account with Acala testnet tokens. You can get them from [the Acala testnet faucet](https://discord.gg/5JJgXKSznc){target=\_blank}.
+## Reading Contract State on EVM-Compatible Parachains
 
-	To get started, first create a Hardhat Project:
-
-	1. Create and initialize your project:
-	```bash
-	mkdir hardhat && cd hardhat
-	npm init -y
-	npm install hardhat
-	npx hardhat init
-	```
-
-	2. When prompted, choose **Create an empty hardhat.config.js**
-
-	Configure Hardhat as follows:
-
-	1. Install required plugins:
-	```bash
-	npm install @nomicfoundation/hardhat-ethers ethers
-	npm install --save-dev @nomicfoundation/hardhat-ignition-ethers
-	```
-
-	2. Update your `hardhat.config.js`:
-	```javascript
-	require('@nomicfoundation/hardhat-ethers');
-	require('@nomicfoundation/hardhat-ignition-ethers');
-
-	const privateKey = 'INSERT_PRIVATE_KEY';
-
-	module.exports = {
-	  solidity: '0.8.20',
-	  networks: {
-	    acala: {
-	      url: 'https://eth-rpc-tc9.aca-staging.network',
-	      chainId: 595,
-	      accounts: [privateKey]
-	    }
-	  }
-	};
-	```
-
-	You can create the smart contract as follows:
-
-	1. Create a contract directory and file:
-	```bash
-	mkdir contracts
-	touch contracts/Box.sol
-	```
-
-	2. Add this simple storage contract:
-	```solidity
-	// contracts/Box.sol
-	// SPDX-License-Identifier: MIT
-	pragma solidity ^0.8.1;
-
-	contract Box {
-	    uint256 private value;
-	    event ValueChanged(uint256 newValue);
-
-	    function store(uint256 newValue) public {
-	        value = newValue;
-	        emit ValueChanged(newValue);
-	    }
-
-	    function retrieve() public view returns (uint256) {
-	        return value;
-	    }
-	}
-	```
-
-	Now it's time to compile and deploy the contract. To do so, take the following steps:
-
-	1. Compile the contract:
-	```bash
-	npx hardhat compile
-	```
-
-	2. Create the deployment module:
-	```bash
-	mkdir ignition ignition/modules && touch ignition/modules/Box.js
-	```
-
-	3. Add deployment code to `ignition/modules/Box.js`:
-	```javascript
-	const { buildModule } = require("@nomicfoundation/hardhat-ignition/modules");
-
-	module.exports = buildModule("BoxModule", (m) => {
-	  const deployer = m.getAccount(0);
-	  const box = m.contract("Box", [], {
-	    from: deployer,
-	  });
-	  return { box };
-	});
-	```
-
-	4. Deploy to Acala testnet:
-	```bash
-	npx hardhat ignition deploy ./ignition/modules/Box.js --network acala
-	```
-
-	You can interact with your contract using the Hardhat console:
-
-	1. Start the console:
-	```bash
-	npx hardhat console --network acala
-	```
-
-	2. Interact with your contract:
-	```javascript
-	const Box = await ethers.getContractFactory('Box');
-	const box = await Box.attach('YOUR_CONTRACT_ADDRESS');
-	await box.store(5);
-	const value = await box.retrieve();
-	console.log(value);
-	```
-
-	That's it! You've deployed and interacted with a smart contract on Acala testnet using Hardhat.
-
-The beauty of EVM-compatible parachains is that they work seamlessly with existing Ethereum development tools like Hardhat. Since these parachains are EVM-compatible, the deployment process remains identical across chains - you simply need to update the RPC endpoint in your configuration and ensure your wallet has the appropriate testnet tokens. This demonstrates one of the key strengths of EVM-compatible Polkadot parachains: the ability to deploy EVM smart contracts across multiple chains with minimal changes.
-
-!!! warning
-	In the above Hardhat tutorials, the private keys are stored directly in the javascript file. This is for simplication/demonstration purposes and should never be done in production.
-
-## Reading Contract State on EVM-Based Blockchains
-
-Let's dive into another practical demonstration. The following script showcases how to interact with multiple Polkadot parachains using their EVM compatibility. We'll query:
+The following section will dive into a practical demonstration. The following script showcases how to interact with multiple Polkadot parachains using their EVM compatibility. This script will query:
 
 - Moonbeam for its Wormhole USDC total supply
 - Acala for its native ACA token supply using a precompile
 - Astar for its USDC total supply
 
-What makes this demo particularly powerful is that all three chains—Astar, Moonbeam, and Acala—share EVM compatibility. This means we can use a single, unified script to query token balances across all chains, simply by adjusting the RPC endpoints and token contract addresses. Thanks to EVM-compatibility, there's no need for chain-specific scripts or custom development work.
+What makes this demo particularly powerful is that all three chains—Astar, Moonbeam, and Acala—share EVM compatibility. This means you can use a single, unified script to query token balances across all chains, simply by adjusting the RPC endpoints and token contract addresses. Thanks to EVM-compatibility, there's no need for chain-specific scripts or custom development work.
 
 ??? code "Expand to view the complete script"
     ```js
     --8<-- 'code/develop/smart-contracts/parachain-contracts/check-token-supply.js'
     ```
 
-This script demonstrates one of the fundamental ways to interact with blockchain networks - querying on-chain state through smart contract calls. We're using the standardized ERC20 interface (which most tokens implement) to read the total supply of tokens across different EVM networks. This type of interaction is "read-only" or a "view" call, meaning we're just fetching data from the blockchain without making any transactions or state changes. Therefore, we aren't using any gas. Transactions that attempt to make a state change to the blockchain require gas.  The ability to query state like this is essential for DApps, analytics tools, and monitoring systems that need real-time blockchain data.
+This script demonstrates one of the fundamental ways to interact with blockchain networks - querying on-chain state through smart contract calls.  The standardized ERC20 interface (which most tokens implement) is used to read the total supply of tokens across different EVM networks. This type of interaction is "read-only" or a "view" call, meaning it is simply fetching data from the blockchain without making any transactions or state changes. Therefore, it isn't using any gas. Transactions that attempt to make a state change to the blockchain require gas.  The ability to query state like this is essential for DApps, analytics tools, and monitoring systems that need real-time blockchain data.
 
-## Network Endpoints and Faucets
-
-=== "Astar"
-    | Variable | Value |
-    |:--------:|:------|
-    | Network Name | Shibuya Testnet |
-    | EVM Chain ID | 81 |
-    | Public RPC URLs | <pre>https://evm.shibuya.astar.network</pre> |
-    | Public WSS URLs | <pre>wss://evm.shibuya.astar.network</pre> |
-    | Block Explorer | [Shibuya Blockscout](https://blockscout.com/shibuya){target=\_blank} |
-    | Faucet Link | [Faucet - Astar Docs](https://docs.astar.network/docs/build/environment/faucet/){target=\_blank} |
-
-=== "Moonbeam"
-    | Variable | Value |
-    |:--------:|:------|
-    | Network Name | Moonbase Alpha Testnet |
-    | EVM Chain ID | [1287](https://chainlist.org/chain/1287){target=_blank} |
-    | Public RPC URLs | <pre>https://rpc.api.moonbase.moonbeam.network</pre> |
-    | Public WSS URLs | <pre>wss://wss.api.moonbase.moonbeam.network</pre> |
-    | Block Explorer | [Moonbase Alpha Moonscan](https://moonbase.moonscan.io/){target=\_blank} |
-    | Faucet Link | [Moonbase Faucet](https://faucet.moonbeam.network){target=\_blank} |
-
-=== "Acala"
-    | Variable | Value |
-    |:--------:|:------|
-    | Network Name | Mandala TC7 Testnet |
-    | EVM Chain ID | [595](https://chainlist.org/chain/595){target=_blank} |
-    | Public RPC URLs | <pre>https://eth-rpc-tc9.aca-staging.network</pre> |
-    | Public WSS URLs | <pre>wss://tc7-eth.aca-dev.network</pre> |
-    | Block Explorer | [Mandala Blockscout](https://blockscout.mandala.aca-staging.network){target=\_blank} |
-    | Faucet Link | [Mandala Faucet](https://discord.gg/5JJgXKSznc){target=\_blank} |
-
-## Ready to Start Building?
+## Where to Go Next?
 
 Check out the links below for each respective parachain for network endpoints, getting started guides, and more. 
 

@@ -46,9 +46,9 @@ Here’s a high-level overview of the Polkadot protocol architecture:
 
 Parachains propose blocks to Polkadot validators, who check for availability and validity before finalizing them. With the relay chain providing security, collators—full nodes of parachains—can focus on their tasks without needing strong incentives.
 
-The [Cross-Consensus Messaging Format (XCM)](todo: add link to XCM page){target=\_blank} allows parachains to exchange messages freely, leveraging the chain's security for trust-free communication.
+The [Cross-Consensus Messaging Format (XCM)](/develop/interoperability/intro-to-xcm/){target=\_blank} allows parachains to exchange messages freely, leveraging the chain's security for trust-free communication.
 
-In order to interact with chains that want to use their own finalization process (e.g., Bitcoin), Polkadot has [bridges](todo: add link to bridges pages, Snowbridge, etc){target=\_blank} that offer two-way compatibility, meaning that transactions can be made between different parachains.
+In order to interact with chains that want to use their own finalization process (e.g., Bitcoin), Polkadot has [bridges](/polkadot-protocol/basics/interoperability/){target=\_blank} that offer two-way compatibility, meaning that transactions can be made between different parachains.
 
 ### Polkadot's Additional Functionalities
 
@@ -57,7 +57,7 @@ The Polkadot chain oversees crowdloans and auctions. Chain cores were leased thr
 Crowdloans enabled users to securely lend funds to teams for lease deposits in exchange for pre-sale tokens, which is the only way to access slots on Polkadot 1.0.
 
 !!!note
-    Auctions are deprecated in favor of [coretime](todo: update link).
+    Auctions are deprecated in favor of [coretime](/polkadot-protocol/architecture/system-chains/coretime/){target=\_blank}.
 
 Additionally, the chain handles [staking](add link to PoS page){target=\_blank}, [accounts](add a link to accounts pages){target=\_blank}, balances, and [governance](add a link to govenance page){target=\_blank}.
 
@@ -65,7 +65,7 @@ Additionally, the chain handles [staking](add link to PoS page){target=\_blank},
 
 The new and more efficient way of obtaining core on Polkadot is to go through the process of purchasing coretime.
 
-[Agile coretime](todo: add link to Agile Coretime page) improves the efficient use of Polkadot's network resources and offers economic flexibility for developers, extending Polkadot's capabilities far beyond the original vision outlined in the [whitepaper](https://polkadot.com/papers/Polkadot-whitepaper.pdf){target=\_blank}.
+[Agile coretime](/polkadot-protocol/architecture/polkadot-chain/agile-coretime/){target=\_blank} improves the efficient use of Polkadot's network resources and offers economic flexibility for developers, extending Polkadot's capabilities far beyond the original vision outlined in the [whitepaper](https://polkadot.com/papers/Polkadot-whitepaper.pdf){target=\_blank}.
 
 It enables parachains to purchase monthly "bulk" allocations of coretime (the time allocated for utilizing a core, measured in Polkadot relay chain blocks), ensuring heavy-duty parachains that can author a block every six seconds with [Asynchronous Backing](add link to async backing page) can reliably renew their coretime each month. Although six-second block times are now the default, parachains have the option of producing blocks less frequently. 
 
@@ -86,7 +86,7 @@ Polkadot 1.0 currently achieves resilience through several strategies:
 
 - **Decentralized nodes** - designed to encourage operators to join the network. This program aims to expand and diversify the validators in the ecosystem who aim to become independent of the program during their term. Feel free to explore more about the program on the official [Decentralized Nodes](https://nodes.web3.foundation/){target=\_blank} page
 
-- **On-chain treasury and governance** - known as [OpenGov](todo: link to opengov overview page){target=\_blank}, this system allows every decision to be made through public referenda, enabling any token holder to cast a vote
+- **On-chain treasury and governance** - known as [OpenGov](/polkadot-protocol/onchain-governance/overview/){target=\_blank}, this system allows every decision to be made through public referenda, enabling any token holder to cast a vote
 
 ### Polkadot's Blockspace
 

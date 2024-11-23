@@ -1,0 +1,7 @@
+title: Zombienet
+nav:
+- index.md
+- 'Get Started': get-started.md
+- 'Write Tests': write-tests.md
+
+

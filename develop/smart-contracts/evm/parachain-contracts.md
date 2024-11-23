@@ -86,6 +86,45 @@ The diagram above illustrates how transactions are processed on Moonbeam. When a
 
 Acala supports a comprehensive DeFi ecosystem including a decentralized stablecoin (aUSD) and a liquid staking derivative for DOT. The platform's EVM+ innovations extend beyond standard Ethereum compatibility by enabling direct interaction between EVM smart contracts and Substrate pallets, facilitating advanced cross-chain DeFi operations through [XCM](/develop/interoperability/intro-to-xcm/){target=_blank}, and providing built-in oracle integrations. These enhancements make it possible for DeFi protocols to achieve functionality that would be prohibitively expensive or technically infeasible on traditional EVM chains.
 
+#### Technical Architecture
+
+```mermaid
+graph TB
+    subgraph "DApp Layer"
+        eth["Ethereum DApps\n(Web3 + bodhi.js)"]
+        substrate["Substrate DApps\n(Polkadot.js)"]
+    end
+
+    subgraph "Acala Network"
+        rpc["RPC Layer\n(Web3 + Substrate)"]
+        
+        subgraph "Runtime Layer"
+            runtime["Substrate Runtime"]
+            
+            subgraph "EVM+"
+                storage["Storage Meter"]
+                precompiles["Precompiled Contracts\n(DEX, Oracle, Schedule)"]
+                evm["EVM Engine"]
+            end
+        end
+    end
+
+    subgraph "Base Layer"
+        dot["Polkadot Relay Chain\n(Shared Security)"]
+    end
+
+    %% Connections
+    eth --> rpc
+    substrate --> rpc
+    rpc --> runtime
+    runtime --> evm
+    runtime --> storage
+    runtime --> precompiles
+    runtime --> dot
+```
+
+The diagram illustrates Acala's unique EVM+ architecture, which extends beyond standard EVM compatibility. At the top, DApps can interact with the network using either Ethereum tools (via Web3 and bodhi.js) or Substrate tools. These requests flow through Acala's dual RPC layer into the main Runtime. The key differentiator is the EVM+ environment, which includes special features like the Storage Meter for rent management, and numerous precompiled contracts (like DEX, Oracle, Schedule) that provide native Substrate functionality to EVM contracts. All of this runs on top of Polkadot's shared security as a parachain.
+
 ## Getting Started with Hardhat
 
 [Hardhat](https://hardhat.org){target=_blank} is an Ethereum development environment that makes it easy to deploy smart contracts on EVM-compatible blockchain networks. This guide will show you how to compile, deploy, and interact with a simple smart contract on Astar, Moonbeam, and Acala. Feel free to pick your network of choice and follow along!

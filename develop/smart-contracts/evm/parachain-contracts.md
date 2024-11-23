@@ -483,8 +483,8 @@ This script demonstrates one of the fundamental ways to interact with blockchain
     | EVM Chain ID | 81 |
     | Public RPC URLs | <pre>https://evm.shibuya.astar.network</pre> |
     | Public WSS URLs | <pre>wss://evm.shibuya.astar.network</pre> |
-    | Block Explorer | [Shibuya Blockscout](https://blockscout.com/shibuya){target=_blank} |
-    | Faucet Link | [Faucet - Astar Docs](https://docs.astar.network/docs/build/environment/faucet/){target=_blank} |
+    | Block Explorer | [Shibuya Blockscout](https://blockscout.com/shibuya){target=\_blank} |
+    | Faucet Link | [Faucet - Astar Docs](https://docs.astar.network/docs/build/environment/faucet/){target=\_blank} |
 
 === "Moonbeam"
     | Variable | Value |

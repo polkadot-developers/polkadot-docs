@@ -88,7 +88,7 @@ Acala supports a comprehensive DeFi ecosystem including a decentralized stableco
 
 ## Getting Started with Hardhat
 
-[Hardhat](https://hardhat.org){target=_blank} is an Ethereum development environment that makes it easy to deploy smart contracts on EVM-compatible blockchain networks. This guide will show you how to compile, deploy, and interact with a simple smart contract on Astar, Moonbeam, and Acala. Feel free to pick your network of choice and follow along!
+[Hardhat](https://hardhat.org){target=\_blank} is an Ethereum development environment that makes it easy to deploy smart contracts on EVM-compatible blockchain networks. This guide will show you how to compile, deploy, and interact with a simple smart contract on Astar, Moonbeam, and Acala. Feel free to pick your network of choice and follow along!
 
 === "Astar"
 

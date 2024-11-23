@@ -1,6 +1,6 @@
 ---
 title: Polkadot-SDK Tutorials
-description: Gain hands-on experience with step-by-step tutorials to build parachains and integrate with system chains in the Polkadot ecosystem.
+description: Explore detailed, step-by-step tutorials designed to help you gain hands-on experience building custom solutions with the Polkadot SDK.
 hide: 
     - feedback
 template: index-page.html

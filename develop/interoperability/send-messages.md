@@ -7,9 +7,7 @@ description: Unlock blockchain interoperability with XCM — Polkadot's Cross-Co
 
 ## Introduction
 
-This page provides an overview of the `pallet-xcm`, an essential FRAME pallet enabling parachains to send and execute XCM messages, interact with the XCM executor, and facilitate asset transfers between chains.
-
-This page will help you understand the key roles and primary extrinsics of the `pallet-xcm`
+This page provides an overview of the `pallet-xcm`, an essential FRAME pallet enabling parachains to send and execute XCM messages, interact with the XCM executor, and facilitate asset transfers between chains. It will help you understand the key roles and primary extrinsics of the `pallet-xcm`
 
 ## XCM Frame Pallet Overview
 

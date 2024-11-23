@@ -8,7 +8,7 @@ template: index-page.html
 
 # Polakdot-SDK Tutorials
 
-Gain hands-on experience with step-by-step tutorials to build parachains and integrate with system chains in the Polkadot ecosystem.
+Explore detailed, step-by-step tutorials designed to help you gain hands-on experience building custom solutions with the Polkadot SDK.
 
 ## In This Section
 

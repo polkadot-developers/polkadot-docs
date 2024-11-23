@@ -2,6 +2,6 @@ title: Local Solochain
 nav:
   - index.md
   - 'Launch a Local Solochain': launch-a-local-solochain.md
-  - 'Connect Default Nodes': connect-default-nodes.md
-  - 'Add Custom Nodes': 'add-custom-nodes.md'
+  - 'Connect Multiple Nodes': connect-multiple-nodes.md
+  - 'Spin Your Nodes': spin-your-nodes.md
   - 'Upgrade a Running Network': upgrade-a-running-network.md

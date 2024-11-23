@@ -282,9 +282,7 @@ The syncing process will take a while, depending on your capacity, processing po
 
 A healthy node syncing blocks will output logs like the following:
 
-```bash
---8<-- 'code/infrastructure/running-a-node/setup-full-node/run-node.md'
-```
+--8<-- 'code/infrastructure/running-a-node/setup-full-node/run-node.html'
 
 Congratulations, you're now syncing a Polkadot full node! Remember that the process is identical when using any other Polkadot SDK-based chain, although individual chains may have chain-specific flag requirements.
 

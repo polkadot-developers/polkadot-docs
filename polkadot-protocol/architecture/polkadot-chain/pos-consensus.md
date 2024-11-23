@@ -80,7 +80,7 @@ Key features of GRANDPA include:
 
 ### Probabilistic vs. Provable Finality
 
-In traditional Proof-of-Work (PoW) blockchains, finality is probabilistic. As blocks are added to the chain, the probability that a block is final increases, but it can never be guaranteed. Eventual consensus means that over time, all nodes will agree on a single version of the blockchain, but this process can be unpredictable and slow.
+In traditional Proof of Work (PoW) blockchains, finality is probabilistic. As blocks are added to the chain, the probability that a block is final increases, but it can never be guaranteed. Eventual consensus means that over time, all nodes will agree on a single version of the blockchain, but this process can be unpredictable and slow.
 
 Conversely, GRANDPA provides provable finality, which means that once a block is finalized, it is irreversible. By using Byzantine fault-tolerant agreements, GRANDPA finalizes blocks more efficiently and securely than probabilistic mechanisms like Nakamoto consensus. Like Ethereum's Casper the Friendly Finality Gadget(FFG), GRANDPA ensures that finalized blocks cannot be reverted, offering stronger guarantees of consensus.
 

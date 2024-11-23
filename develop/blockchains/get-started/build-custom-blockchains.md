@@ -40,7 +40,7 @@ Choosing a suitable template depends on your project’s unique requirements, le
 
 Building a custom blockchain with the Polkadot SDK involves several core steps, from environment setup to deployment. Here’s a breakdown of each stage:
 
-1. **Set up the development environment** - install Rust and configure all necessary dependencies to work with the Polkadot SDK (for more information, check the [Install Polkadot SDK dependencies](TODO:update-path){target=\_blank} page). Ensuring your environment is correctly set up from the start is crucial for avoiding compatibility issues later
+1. **Set up the development environment** - install Rust and configure all necessary dependencies to work with the Polkadot SDK (for more information, check the [Install Polkadot SDK dependencies](/develop/blockchains/get-started/install-polkadot-sdk/){target=\_blank} page). Ensuring your environment is correctly set up from the start is crucial for avoiding compatibility issues later
 
 2. **Clone the chain template** - start by downloading the code for one of the pre-built templates that best aligns with your project needs. Each template offers a different configuration, so select one based on your chain’s intended functionality
 

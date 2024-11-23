@@ -6,7 +6,7 @@ hide:
 template: index-page.html
 ---
 
-# Blockchain
+# Blockchain Tools
 
 Discover essential blockchain development resources for building in the Polkadot ecosystem, highlighting tools to streamline your development process.
 

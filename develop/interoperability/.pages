@@ -5,4 +5,4 @@ nav:
   - 'XCM Channels': xcm-channels.md
   - 'XCM Configuration': xcm-configuration.md
   - 'Send Messages': send-messages.md
-  # - 'Test and Debug': test-and-debug.md
+  - 'Test and Debug': test-and-debug.md

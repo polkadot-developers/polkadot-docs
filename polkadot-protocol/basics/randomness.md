@@ -17,7 +17,7 @@ Currently, two primary methods for generating randomness in blockchains are used
 
 A Verifiable Random Function (VRF) is a cryptographic function that generates a random number and proof that ensures the submitter produced the number. This proof allows anyone to verify the validity of the random number.
 
-Polkadot's VRF is similar to the one used in [**Ouroboros Praos**](https://eprint.iacr.org/2017/573.pdf){target=\_blank}, which secures randomness for block production in systems like [BABE](TODO:update-path){target=\_blank} (Polkadot’s block production mechanism). 
+Polkadot's VRF is similar to the one used in [**Ouroboros Praos**](https://eprint.iacr.org/2017/573.pdf){target=\_blank}, which secures randomness for block production in systems like [BABE](/polkadot-protocol/architecture/polkadot-chain/pos-consensus/#block-production-babe){target=\_blank} (Polkadot’s block production mechanism). 
 
 The key difference is that Polkadot's VRF doesn’t rely on a central clock—avoiding the issue of whose clock to trust. Instead, it uses its own past results and slot numbers to simulate time and determine future outcomes.
 
@@ -56,7 +56,7 @@ As a result, there may be multiple validators eligible to propose a block for a 
 Because validators roll independently, no block candidates may appear in some slots if all roll numbers are above the threshold. 
 
 !!!note
-    The resolution of this issue and the assurance that Polkadot block times remain near constant-time can be checked on the [PoS Consensus](TODO:update-path){target=\_blank} page.
+    The resolution of this issue and the assurance that Polkadot block times remain near constant-time can be checked on the [PoS Consensus](/polkadot-protocol/architecture/polkadot-chain/pos-consensus/){target=\_blank} page.
 
 ## RANDAO
 

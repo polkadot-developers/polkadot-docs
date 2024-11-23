@@ -1,0 +1,18 @@
+[settings]
+timeout = 120
+
+[relaychain]
+
+[[relaychain.nodes]]
+name = "alice"
+validator = true
+
+[[relaychain.nodes]]
+name = "bob"
+validator = true
+
+[[parachains]]
+id = 100
+
+[parachains.collator]
+name = "collator01"

@@ -126,8 +126,8 @@ npx @acala-network/chopsticks xcm \
 --p polkadot-asset-hub \
 --p astar
 ```
-!!! note
-    The above command will create a lazy fork of Polkadot as the relay chain, its Asset Hub instance, and the Astar parachain. The `xcm` parameter enables communication through the XCMP protocol between the relay chain and the parachains, allowing the registration of foreign assets on Asset Hub. For further information on the chopsticks usage of the XCMP protocol, refer to the [XCM Testing](tutorials/polkadot-sdk/testing/fork-live-chains//#xcm-testing){target=\_blank} section of the Chopsticks documentation.
+
+    The above command will create a lazy fork of Polkadot as the relay chain, its Asset Hub instance, and the Astar parachain. The `xcm` parameter enables communication through the XCMP protocol between the relay chain and the parachains, allowing the registration of foreign assets on Asset Hub. For further information on the chopsticks usage of the XCMP protocol, refer to the [XCM Testing](/tutorials/blockchains/testing/fork-live-chains/#xcm-testing){target=\_blank} section of the Chopsticks documentation.
 
 After executing the command, the terminal will display output indicating the Polkadot relay chain, the Polkadot Asset Hub, and the Astar parachain are running locally and connected through XCM. You can access them individually via the Polkadot.js Apps interface.
 

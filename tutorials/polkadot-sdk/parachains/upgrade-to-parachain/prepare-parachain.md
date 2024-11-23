@@ -293,5 +293,5 @@ After purging the chain state, you can restart the local relay chain and paracha
 
 Now that you have successfully connected a parachain to a relay chain, you can explore more advanced features and functionalities of parachains, such as:
 
-- [Opening HRMP Channels](tutorials/interoperability/xcm-channels/para-to-para){target=\_blank}
+- [Opening HRMP Channels](/tutorials/interoperability/xcm-channels/para-to-para){target=\_blank}
 - [Transfer Assets Between Parachains](/develop/toolkit/interoperability/asset-transfer-api/overview){target=\_blank}

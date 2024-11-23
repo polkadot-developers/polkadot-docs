@@ -13,9 +13,9 @@ This tutorial demonstrates deploying a parachain on a public test network like t
 
 Before you start, you need to have the following prerequisites:
 
-- You know how to generate and modify chain specification files as described in the [Generate Chain Specs](polkadot-docs/develop/blockchains/deployment/generate-chain-specs){target=\_blank} section
+- You know how to generate and modify chain specification files as described in the [Generate Chain Specs](/develop/blockchains/deployment/generate-chain-specs){target=\_blank} section
 - You know how to generate and store keys as described in the [Spin Your Nodes](/tutorials/polkadot-sdk/parachains/local-chain/spin-your-nodes){target=\_blank} tutorial
-- You have completed the [Prepare a Local Relay Chain](/tutorials/blockchains/custom-blockchains/build-a-parachain/prepare-relay-chain){target=\_blank} and the [Prepare a Local Parachain](/tutorials/polkadot-sdk/parachains/upgrade-to-parachain/prepare-parachain){target=\_blank} tutorials on your local computer
+- You have completed the [Prepare a Local Relay Chain](/tutorials/polkadot-sdk/parachains/upgrade-to-parachain/prepare-relay-chain/){target=\_blank} and the [Prepare a Local Parachain](/tutorials/polkadot-sdk/parachains/upgrade-to-parachain/prepare-parachain/){target=\_blank} tutorials on your local computer
 
 ## Get Started with an Account and Tokens
 

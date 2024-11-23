@@ -19,13 +19,13 @@ As a Layer-0 blockchain, Polkadot contributes to the multi-chain vision through 
 
 - **Application-specific Layer-1 blockchains (parachains)** - Polkadot's sharded network allows for parallel transaction processing, with shards that can have unique state transition functions, enabling custom-built L1 chains optimized for specific applications
 
-- **Shared security and scalability** - L1 chains connected to Polkadot benefit from its [Nominated-Proof-of-Stake (NPoS)]( https://wiki.polkadot.network/docs/learn-consensus#nominated-proof-of-stake){target=\_blank} system, providing security out-of-the-box without the need to bootstrap their own
+- **Shared security and scalability** - L1 chains connected to Polkadot benefit from its [Nominated Proof of Stake (NPoS)](https://wiki.polkadot.network/docs/learn-consensus#nominated-proof-of-stake){target=\_blank} system, providing security out-of-the-box without the need to bootstrap their own
 
 - **Secure interoperability** - Polkadot's native interoperability enables seamless data and value exchange between parachains. This interoperability can also be used outside of the ecosystem for bridging with external networks
 
 - **Resilient infrastructure** - decentralized and scalable, Polkadot ensures ongoing support for development and community initiatives via its on-chain [treasury](https://wiki.polkadot.network/docs/learn-polkadot-opengov-treasury){target=\_blank} and governance
 
-- **Rapid L1 development** - the [Polkadot SDK](link to Polkadot SDK page in polkadot protocol section) allows fast, flexible creation and deployment of Layer-1 chains
+- **Rapid L1 development** - the [Polkadot SDK](/develop/blockchains/get-started/intro-polkadot-sdk/){target=\_blank} allows fast, flexible creation and deployment of Layer-1 chains
 
 - **Cultivating the next generation of Web3 developers** - Polkadot supports the growth of Web3 core developers through initiatives such as:
 
@@ -36,7 +36,7 @@ As a Layer-0 blockchain, Polkadot contributes to the multi-chain vision through 
 
 ### High-Level Architecture
 
-Polkadot features a chain that serves as the central component of the system. This chain is depicted as a ring encircled by several parachains that are connected to it. 
+Polkadot features a chain that serves as the central component of the system. This chain is depicted as a ring encircled by several parachains that are connected to it.
 
 According to Polkadot's design, any blockchain that can compile to WebAssembly (Wasm) and adheres to the Parachains Protocol becomes a parachain on the Polkadot network.
 
@@ -52,14 +52,14 @@ In order to interact with chains that want to use their own finalization process
 
 ### Polkadot's Additional Functionalities
 
-The Polkadot chain oversees crowdloans and auctions. Chain cores were leased through auctions for three-month periods, up to a maximum of two years. 
+The Polkadot chain oversees crowdloans and auctions. Chain cores were leased through auctions for three-month periods, up to a maximum of two years.
 
 Crowdloans enabled users to securely lend funds to teams for lease deposits in exchange for pre-sale tokens, which is the only way to access slots on Polkadot 1.0.
 
 !!!note
     Auctions are deprecated in favor of [coretime](/polkadot-protocol/architecture/system-chains/coretime/){target=\_blank}.
 
-Additionally, the chain handles [staking](add link to PoS page){target=\_blank}, [accounts](add a link to accounts pages){target=\_blank}, balances, and [governance](add a link to govenance page){target=\_blank}.
+Additionally, the chain handles [staking](https://wiki.polkadot.network/docs/learn-staking){target=\_blank}, [accounts](/polkadot-protocol/basics/accounts/){target=\_blank}, balances, and [governance](/polkadot-protocol/onchain-governance/){target=\_blank}.
 
 #### Agile Coretime
 
@@ -67,7 +67,7 @@ The new and more efficient way of obtaining core on Polkadot is to go through th
 
 [Agile coretime](/polkadot-protocol/architecture/polkadot-chain/agile-coretime/){target=\_blank} improves the efficient use of Polkadot's network resources and offers economic flexibility for developers, extending Polkadot's capabilities far beyond the original vision outlined in the [whitepaper](https://polkadot.com/papers/Polkadot-whitepaper.pdf){target=\_blank}.
 
-It enables parachains to purchase monthly "bulk" allocations of coretime (the time allocated for utilizing a core, measured in Polkadot relay chain blocks), ensuring heavy-duty parachains that can author a block every six seconds with [Asynchronous Backing](add link to async backing page) can reliably renew their coretime each month. Although six-second block times are now the default, parachains have the option of producing blocks less frequently. 
+It enables parachains to purchase monthly "bulk" allocations of coretime (the time allocated for utilizing a core, measured in Polkadot relay chain blocks), ensuring heavy-duty parachains that can author a block every six seconds with [Asynchronous Backing](https://wiki.polkadot.network/docs/learn-async-backing#asynchronous-backing){target=\_blank} can reliably renew their coretime each month. Although six-second block times are now the default, parachains have the option of producing blocks less frequently.
 
 Renewal orders are prioritized over new orders, offering stability against price fluctuations and helping parachains budget more effectively for project costs.
 
@@ -78,7 +78,7 @@ Decentralization is a vital component of blockchain networks, but it comes with 
 - An overly decentralized network may face challenges in reaching consensus and require significant energy to operate
 - Also, a network that achieves consensus quickly risks centralization, making it easier to manipulate or attack
 
-A network should be decentralized enough to prevent manipulative or malicious influence. In this sense, decentralization is a tool for achieving resilience. 
+A network should be decentralized enough to prevent manipulative or malicious influence. In this sense, decentralization is a tool for achieving resilience.
 
 Polkadot 1.0 currently achieves resilience through several strategies:
 
@@ -100,9 +100,9 @@ Blockspace is a blockchain's capacity to finalize and commit operations, encompa
 
 - **Availability** - indicates how easily users can access blockspace. It should be easily accessible, allowing diverse business models to thrive, ideally regulated by a marketplace based on demand and supplemented by options for "second-hand" blockspace
 
-Polkadot is built on core blockspace principles, but there's room for improvement. Tasks like balance transfers, staking, and governance are managed on the relay chain. 
+Polkadot is built on core blockspace principles, but there's room for improvement. Tasks like balance transfers, staking, and governance are managed on the relay chain.
 
-Delegating these responsibilities to [system chains](add link to System Chains section) could enhance flexibility and allow the relay chain to concentrate on providing shared security and interoperability.
+Delegating these responsibilities to [system chains](/polkadot-protocol/architecture/system-chains/){target=\_blank} could enhance flexibility and allow the relay chain to concentrate on providing shared security and interoperability.
 
 !!!note
     For more information about blockspace, watch [Robert Habermeier’s interview](https://www.youtube.com/watch?v=e1vISppPwe4){target=\_blank} or read his [technical blog post](https://www.rob.tech/blog/polkadot-blockspace-over-blockchains/){target=\_blank}.
@@ -112,7 +112,7 @@ Delegating these responsibilities to [system chains](add link to System Chains s
 DOT is the native token of the Polkadot network, much like BTC for Bitcoin and Ether for the Ethereum blockchain. DOT has 10 decimals, uses the Planck base unit, and has a balance type of `u128`. The same is true for Kusama's KSM token with the exception of having 12 decimals.
 
 ??? info "Redenomination of DOT"
-    Polkadot conducted a community poll, which ended on 27 July 2020 at block 888,888, to decide whether to redenominate the DOT token. The stakeholders chose to redenominate the token, changing the value of 1 DOT from 1e12 plancks to 1e10 plancks. 
+    Polkadot conducted a community poll, which ended on 27 July 2020 at block 888,888, to decide whether to redenominate the DOT token. The stakeholders chose to redenominate the token, changing the value of 1 DOT from 1e12 plancks to 1e10 plancks.
 
     Importantly, this did not affect the network's total number of base units (plancks); it only affects how a single DOT is represented.
 
@@ -120,7 +120,7 @@ DOT is the native token of the Polkadot network, much like BTC for Bitcoin and E
 
 ### The Planck Unit
 
-The smallest unit of account balance on Substrate-based blockchains (such as Polkadot and Kusama) is called _Planck_, named after the Planck length, the smallest measurable distance in the physical universe. 
+The smallest unit of account balance on Substrate-based blockchains (such as Polkadot and Kusama) is called _Planck_, named after the Planck length, the smallest measurable distance in the physical universe.
 
 Similar to how BTC's smallest unit is the Satoshi and ETH's is the Wei, Polkadot's native token DOT equals 1e10 Planck, while Kusama's native token KSM equals 1e12 Planck.
 
@@ -136,14 +136,14 @@ Additionally, DOT can serve as a transferable token. For example, DOT, held in t
 
 ## JAM and the Road Ahead
 
-The Join-Accumulate Machine (JAM) represents a transformative redesign of Polkadot's core architecture, envisioned as the successor to the current relay chain. Unlike traditional blockchain architectures, JAM introduces a unique computational model that processes work through two primary functions: 
+The Join-Accumulate Machine (JAM) represents a transformative redesign of Polkadot's core architecture, envisioned as the successor to the current relay chain. Unlike traditional blockchain architectures, JAM introduces a unique computational model that processes work through two primary functions:
 
 - **Join** - handles data integration
 - **Accumulate** - folds computations into the chain's state
 
 JAM removes many of the opinions and constraints of the current relay chain while maintaining its core security properties. Expected improvements include:
 
-- **Permissionless code execution** - JAM is designed to be more generic and flexible, allowing for permissionless code execution through services that can be deployed without governance approval 
+- **Permissionless code execution** - JAM is designed to be more generic and flexible, allowing for permissionless code execution through services that can be deployed without governance approval
 - **More effective block time utilization** - JAM's efficient pipeline processing model places the prior state root in block headers instead of the posterior state root, enabling more effective utilization of block time for computations
 
 This architectural evolution promises to enhance Polkadot's scalability and flexibility while maintaining robust security guarantees. JAM is planned to be rolled out to Polkadot as a single, complete upgrade rather than a stream of smaller updates. This approach seeks to minimize the developer overhead required to address any breaking changes.

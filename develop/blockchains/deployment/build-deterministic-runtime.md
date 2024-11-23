@@ -116,7 +116,7 @@ To add a GitHub workflow for building the runtime:
 
 ## Use the srtool Image via Docker Hub
 
-If utilizing [`srtool-cli`](/reference/command-line-tools/srtool/#srtool-cli){target=\_blank} or [`srtool-app`](https://gitlab.com/chevdor/srtool-app){target=\_blank} isn't an option, the `paritytech/srtool` container image can be used directly via Docker Hub.
+If utilizing [`srtool-cli`](https://github.com/chevdor/srtool-cli){target=\_blank} or [`srtool-app`](https://gitlab.com/chevdor/srtool-app){target=\_blank} isn't an option, the `paritytech/srtool` container image can be used directly via Docker Hub.
 
 To pull the image from Docker Hub:
 

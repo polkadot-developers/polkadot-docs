@@ -131,7 +131,6 @@ The raw chain specification can be used to initialize the genesis storage for a 
 
 After generating a chain specification, you can use it to initialize the genesis storage for a node. Refer to the following guides to learn how to proceed with the deployment of your blockchain:
 
-<!-- TODO: update link once we have this page on our docs -->
-- [**Obtain Coretime**](/tutorials/blockchains/custom-blockchains/build-a-parachain/acquire-a-testnet-slot/#obtain-coretime){target=\_blank} - learn how to obtain the necessary coretime configuration to synchronize your blockchain’s timestamping and enhance its performance
+- [**Obtain Coretime**](/develop/blockchains/deployment/obtain-coretime/){target=\_blank} - learn how to obtain the necessary coretime configuration to synchronize your blockchain’s timestamping and enhance its performance
 - [**Deployment**](/develop/blockchains/deployment/){target=\_blank} - explore the steps required to deploy your chain specification, ensuring a smooth launch of your network and proper node operation
 - [**Maintenance**](/develop/blockchains/maintenance/){target=\_blank} - discover best practices for maintaining your blockchain post-deployment, including how to manage upgrades and monitor network health

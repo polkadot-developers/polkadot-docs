@@ -1,6 +1,6 @@
-title: Build a Parachain
+title: Upgrade to Parachain
 nav:
   - index.md
   - 'Prepare a Relay Chain': prepare-relay-chain.md
-  - 'Connect a Parachain': connect-a-parachain.md
+  - 'Prepare a Parachain': prepare-a-parachain.md
   - 'Acquire a TestNet Slot': acquire-a-testnet-slot.md

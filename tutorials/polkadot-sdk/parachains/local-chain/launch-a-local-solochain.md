@@ -1,9 +1,9 @@
 ---
-title: Build a Local Solochain
-description: Learn to compile and launch a local blockchain node using Polkadot SDK. Build, run, and interact with a pre-configured node template.
+title: Lauch a Local Solochain
+description: Learn to compile and launch a local blockchain node using Polkadot SDK. Lauch, run, and interact with a pre-configured node template.
 ---
 
-# Build a Local Solochain
+# Lauch a Local Solochain
 
 ## Introduction
 

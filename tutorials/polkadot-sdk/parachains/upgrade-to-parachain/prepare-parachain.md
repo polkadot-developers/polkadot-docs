@@ -1,9 +1,9 @@
 ---
-title: Connect a Parachain
+title: Prepare a Parachain
 description: This tutorial will guide you through the comprehensive process of connecting a parachain to a relay chain, covering steps from setup to successful integration.
 ---
 
-# Connect a Parachain
+# Prepare a Parachain
 
 ## Introduction
 

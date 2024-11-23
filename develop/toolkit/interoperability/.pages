@@ -2,3 +2,4 @@ title: Interoperability
 nav:
   - index.md
   - 'XCM Tools': xcm-tools.md
+  - asset-transfer-api

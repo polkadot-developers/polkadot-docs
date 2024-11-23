@@ -30,17 +30,17 @@ Where the [`XCM format`](https://github.com/polkadot-fellows/xcm-format){target=
 
 The XCM pallet plays a central role in managing cross-chain messages, with its primary responsibilities including:
 
-- **Execute XCM Messages** - interacts with the XCM executor to validate and execute messages, adhering to predefined security and filter criteria
+- **Execute XCM messages** - interacts with the XCM executor to validate and execute messages, adhering to predefined security and filter criteria
 
-- **Send Messages Across Chains** - allows authorized origins to send XCM messages, enabling controlled cross-chain communication
+- **Send messages across chains** - allows authorized origins to send XCM messages, enabling controlled cross-chain communication
 
-- **Reserve-Based Transfers and Teleports** - supports asset movement between chains, governed by filters that restrict operations to authorized origins
+- **Reserve-based transfers and teleports** - supports asset movement between chains, governed by filters that restrict operations to authorized origins
 
-- **XCM Version Negotiation** - ensures compatibility by selecting the appropriate XCM version for inter-chain communication
+- **XCM version negotiation** - ensures compatibility by selecting the appropriate XCM version for inter-chain communication
 
-- **Asset Trapping and Recovery** - manages trapped assets, enabling safe reallocation or recovery when issues occur during cross-chain transfers
+- **Asset trapping and recovery** - manages trapped assets, enabling safe reallocation or recovery when issues occur during cross-chain transfers
 
-- **Support for XCVM Operations** - oversees state and configuration requirements necessary for executing cross-consensus programs within the XCVM framework
+- **Support for XCVM operations** - oversees state and configuration requirements necessary for executing cross-consensus programs within the XCVM framework
 
 ## Primary Calls of XCM Pallet
 

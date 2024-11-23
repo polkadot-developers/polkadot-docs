@@ -16,27 +16,39 @@ Whether deploying a test network for development or a mainnet for production, th
 Taking your Polkadot SDK-based blockchain from a local environment to production involves several steps, ensuring your network is stable, secure, and ready for real-world use. The following diagram outlines the process at a high level:
 
 ```mermaid
-graph LR
-    %% Pre-Deployment Label
-    subgraph pre[Pre-Deployment]
-    style pre fill:none,stroke:gray
-    A("Local Development\nand\nTesting") --> B("Runtime \n Compilation")
-    B --> C("Generate \n Chain \n Specifications")
-    C --> D("Prepare \n Deployment \n Environment")
-    D --> E("Acquire \n Coretime")
+block-beta
+    columns 5
+    block:group1:2
+        columns 5
+        space:2 id1(["Pre-Deployment"]):1 space:2
+        A("Local \nDevelopment \nand Testing")
+        space
+        B("Runtime \nCompilation")
+        space
+        C("Generate \nChain \nSpecifications")
+        space:7
+        E("Acquire \nCoretime")
+        space
+        D("Prepare \nDeployment \nEnvironment")
     end
-
-    %% Deployment Label
-    subgraph dep[Deployment]
-    style dep fill:none,stroke:gray
-    E --> F("Launch \n and \n Monitor")
+        A-->B 
+        B-->C
+        C-->D 
+        D-->E
+    block:group2:1
+        columns 1
+        id2(["Deployment"]) 
+        space
+        F("Launch \nand \nMonitor")
     end
-
-    %% Post-Deployment Label
-    subgraph post[Post-Deployment]
-    style post fill:none,stroke:gray
-    F --> G("Maintenance \n and \n Upgrades")
+    block:group3:1
+        columns 1
+        id3(["Post-Deployment"])
+        space
+        G("Maintenance \nand \nUpgrades")
     end
+        id1-->id2
+        id2-->id3
 ```
 
 - **Local development and testing** - the process begins with local development and testing. Developers focus on building the runtime by selecting and configuring the necessary pallets while refining network features. In this phase, it's essential to run a local TestNet to verify transactions and ensure the blockchain behaves as expected. Unit and integration tests are also crucial for ensuring the network works as expected before launch. Thorough testing is conducted, not only for individual components but also for interactions between pallets

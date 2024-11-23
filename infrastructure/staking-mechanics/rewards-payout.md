@@ -13,9 +13,9 @@ This guide explains the payout scheme, factors influencing rewards, and how mult
 
 ## Era Points
 
-The Polkadot ecosystem measures their reward cycles in a unit called an era. Kusama eras are approximately 6 hours long, and Polkadot eras are 24 hours. At the end of each era, validators are paid proportionally to the amount of [era points](TODO: path) they have collected. Era points are reward points earned for payable actions like:
+The Polkadot ecosystem measures their reward cycles in a unit called an era. Kusama eras are approximately 6 hours long, and Polkadot eras are 24 hours. At the end of each era, validators are paid proportionally to the amount of [era points](https://wiki.polkadot.network/docs/maintain-guides-validator-payout#era-points){target=\_blank} they have collected. Era points are reward points earned for payable actions like:
 
-- Issuing validity statements for [parachain](TODO: path) blocks
+- Issuing validity statements for [parachain blocks](/polkadot-protocol/basics/blocks-transactions-fees/blocks/){target=\_blank}
 - Producing a non-uncle block in the relay chain
 - Producing a reference to a previously unreferenced uncle block
 - Producing a referenced uncle block
@@ -60,7 +60,7 @@ However, despite this increased variance, rewards tend to even out over time due
 
     Then, `v` &#8593; if `w` &#8593;, as this reduces `p` : `w`, with respect to `e`.
 
-    Increased `v` is expected, and initially keeping `p` &#8595; using the same para-validator set for all parachains ensures [availability](TODO: add path) and [voting](https://wiki.polkadot.network/docs/learn-polkadot-opengov/){target=\_blank}. In addition, despite `v` &#8593; on an `e` to `e` basis, over time, the amount of rewards each validator receives will equal out based on the continuous selection of para-validators.
+    Increased `v` is expected, and initially keeping `p` &#8595; using the same para-validator set for all parachains ensures [availability](https://spec.polkadot.network/chapter-anv){target=\_blank} and [voting](https://wiki.polkadot.network/docs/learn-polkadot-opengov/){target=\_blank}. In addition, despite `v` &#8593; on an `e` to `e` basis, over time, the amount of rewards each validator receives will equal out based on the continuous selection of para-validators.
 
     There are plans to scale the active para-validation set in the future.
 

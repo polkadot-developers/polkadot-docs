@@ -7,9 +7,11 @@ description: Understand how the blocks authored by parachain collators are secur
 
 ## Introduction
 
-Parachains are sovereign blockchains built using the Polkadot SDK. They operate independently yet rely on the relay chain for shared security and finality. At the heart of their functionality are collators, specialized nodes that gather, sequence, and maintain parachain transactions.
+Parachains are independent blockchains built with the Polkadot SDK, designed to leverage Polkadot’s relay chain for shared security and transaction finality. These specialized chains operate as part of Polkadot’s execution sharding model, where each parachain manages its own state and transactions while relying on the relay chain for validation and consensus.
 
-Collators play a pivotal role in Polkadot’s data sharding strategy, which delegates state management to parachains. This approach minimizes the load on relay chain validators, who focus on verifying the validity of parachain blocks rather than storing or tracking their states.
+At the core of parachain functionality are collators, specialized nodes that sequence transactions into blocks and maintain the parachain’s state. Collators optimize Polkadot’s architecture by offloading state management from the relay chain, allowing relay chain validators to focus solely on validating parachain blocks.
+
+This guide explores how parachain consensus works, including the roles of collators and validators, and the steps involved in securing parachain blocks within Polkadot’s scalable and decentralized framework.
 
 ## The Role of Collators
 
@@ -17,32 +19,46 @@ Collators are responsible for sequencing end-user transactions into blocks and m
 
 Key responsibilities include:
 
-- Transaction sequencing - organizing transactions into [Proof of Validity (PoV)](https://wiki.polkadot.network/docs/glossary#proof-of-validity){target=\_blank} blocks
-- State management - maintaining parachain states without burdening the relay chain validators
-- Consensus participation - sending PoV blocks to relay chain validators for approval
- 
-This delegation of tasks enables Polkadot's execution sharding model, where each parachain acts as a shard with its own state, enhancing scalability.
-
-## Path of a Parachain Block
-
-Polkadot achieves scalability through execution sharding, where each parachain is a shard with its own blockchain and state. Polkadot offers shared security to all of its parachains powered by [Nominated Proof of Staking (NPoS)](/polkadot-protocol/glossary/#nominated-proof-of-stake-npos){target=\_blank} on the relay chain. The parachain consensus is tightly coupled with the relay chain consensus, as parachains package their network transactions into Proof of Validity (PoV) blocks which are also referred to as parablocks and send them to a subset of relay chain validators. The parachain collators need not send their state transition function Wasm blob to the relay chain validators, as it is already available on the relay chain's state. The subset of validators who are assigned to check the validity of a specific parachain's PoV block download the respective parachain's Wasm and validate its PoV block to verify if all the transactions follow the rules stated in the state transition function.
-
-The relay chain validators who are assigned for validating parachain blocks are referred to as paravalidators. Typically, it is a group of 5 validators who are randomly assigned to a parachain and are shuffled every minute. The paravalidators verify if the parablocks follow the state transition rules of the parachain and sign statements that can have a positive or negative outcome. With enough positive statements, the block is backed and included in the relay chain, but will have to go through an additional approval process. During the approval process if there are any disputes, additional validators are tasked with verifying the parablock and if the parablock includes invalid teansactions, the backers for that parablock are slashed.
-
-It is important to understand that a relay chain block does not contain parablocks, but para-headers. Parachain blocks are within the parachain network. 
+- **Transaction sequencing** - organizing transactions into [Proof of Validity (PoV)](https://wiki.polkadot.network/docs/glossary#proof-of-validity){target=\_blank} blocks
+- **State management** - maintaining parachain states without burdening the relay chain validators
+- **Consensus participation** - sending PoV blocks to relay chain validators for approval
 
 ## Consensus and Validation
 
 Parachain consensus operates in tandem with the relay chain, leveraging Nominated Proof of Stake (NPoS) for shared security. The process ensures parachain transactions achieve finality through the following steps:
 
-- Packaging transactions - collators bundle transactions into PoV blocks (parablocks)
-- Submission to validator - parablocks are submitted to a randomly selected subset of relay chain validators, known as paravalidators
-- Validation of PoV Blocks - paravalidators use the parachain’s state transition function (already available on the relay chain) to verify transaction validity
-- Backing and inclusion - if a sufficient number of positive validations are received, the parablock is backed and included via a para-header on the relay chain
+- **Packaging transactions** - collators bundle transactions into PoV blocks (parablocks)
+- **Submission to validator** - parablocks are submitted to a randomly selected subset of relay chain validators, known as paravalidators
+- **Validation of PoV Blocks** - paravalidators use the parachain’s state transition function (already available on the relay chain) to verify transaction validity
+- **Backing and inclusion** - if a sufficient number of positive validations are received, the parablock is backed and included via a para-header on the relay chain
 
-During this process, disputes are handled through an additional approval mechanism. If a parablock contains invalid transactions, validators who backed it face slashing penalties, ensuring strong economic incentives for honest behavior.
+The following sections describe the actions taking place during each stage of the process. 
 
-Relay chain blocks include para-headers, not the full parablocks. The full parachain block remains within the parachain network. Validators are shuffled frequently, ensuring fairness and decentralization in the validation process.
+### Path of a Parachain Block
+
+Polkadot achieves scalability through execution sharding, where each parachain operates as an independent shard with its own blockchain and state. Shared security for all parachains is provided by the relay chain, powered by [Nominated Proof of Staking (NPoS)](/polkadot-protocol/glossary/#nominated-proof-of-stake-npos){target=\_blank}. This framework allows parachains to focus on transaction processing and state management, while the relay chain ensures validation and finality.
+
+The journey parachain transactions follow to reach consensus and finality can be described as follows:
+
+#### Collators and Parablocks
+
+- Collators, specialized nodes on parachains, package network transactions into Proof of Validity (PoV) blocks, also called parablocks
+- These parablocks are sent to a subset of relay chain validators, known as paravalidators, for validation
+- The parachain's state transition function (Wasm blob) is not re-sent, as it is already stored on the relay chain
+
+#### Validation by Paravalidators
+
+- Paravalidators are groups of approximately five relay chain validators, randomly assigned to parachains and shuffled every minute
+- Each paravalidator downloads the parachain's Wasm blob and validates the parablock by ensuring all transactions comply with the parachain’s state transition rules
+- Paravalidators sign positive or negative validation statements based on the block’s validity
+
+#### Backing and Approval
+
+- If a parablock receives sufficient positive validation statements, it is backed and included on the relay chain as a para-header
+- An additional approval process resolves disputes. If a parablock contains invalid transactions, additional validators are tasked with verification
+- Validators who back invalid parablocks are penalized through slashing, creating strong incentives for honest behavior
+
+It is important to understand that relay chain blocks do not store full parachain blocks (parablocks). Instead, they include para-headers, which serve as summaries of the backed parablocks. The complete parablock remains within the parachain network, maintaining its autonomy while relying on the relay chain for validation and finality.
 
 ## Where to Go Next
 

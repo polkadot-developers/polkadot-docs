@@ -76,7 +76,37 @@ Additionally, Moonbeam is a hub for interoperability and cross-chain connected c
 
 #### Technical Architecture 
 
-![Moonbeam Technical Architecture](/images/develop/smart-contracts/parachain-contracts/mb-tech-diagram.webp)
+``` mermaid
+  graph LR
+      A[Existing<br/>EVM DApp</br>Frontend]
+      B[Ethereum<br/>Development<br/>Tool]
+  
+      subgraph C[Moonbeam Node]
+        direction LR
+        D[Web3 RPC]
+        subgraph E[Ethereum Pallet]
+          direction LR
+          F[Substrate<br/>Runtime<br/>Functions]
+          G[Block Processor]
+        end
+        subgraph H[EVM Pallet]
+          direction LR
+          I[EVM Execution]
+        end
+  
+      end
+  
+      A --> C
+      B --> C
+      D --> E
+      F --> G 
+      E --> H
+  
+    classDef darkBackground fill:#2b2042,stroke:#000,color:#fff;
+    classDef lightBox fill:#b8a8d9,stroke:#000,color:#000;
+
+    class A,B darkBackground
+    class D,E,H lightBox
 
 The diagram above illustrates how transactions are processed on Moonbeam. When a DApp or Ethereum development tool (like Hardhat) sends a Web3 RPC request, it's first received by a Moonbeam node. Moonbeam nodes are versatile - they support both Web3 and Substrate RPCs, giving developers the flexibility to use either Ethereum or Substrate tools. When these RPC calls come in, they're processed by corresponding functions in the Substrate runtime. The runtime verifies signatures and processes any Substrate extrinsics. Finally, if the transaction involves smart contracts, these are forwarded to Moonbeam's EVM for execution and state changes.
 

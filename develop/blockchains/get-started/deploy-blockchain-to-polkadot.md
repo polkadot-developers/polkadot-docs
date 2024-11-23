@@ -16,19 +16,34 @@ Whether deploying a test network for development or a mainnet for production, th
 Taking your Polkadot SDK-based blockchain from a local environment to production involves several steps, ensuring your network is stable, secure, and ready for real-world use. The following diagram outlines the process at a high level:
 
 ```mermaid
-graph LR
-    subgraph Pre-Deployment
-    A("Local Development\nand\nTesting") --> B("Runtime \n Compilation")
-    B --> C("Generate \n Chain \n Specifications")
-    C --> D("Prepare \n Deployment \n Environment")
-    D --> E("Acquire \n Coretime")
+flowchart TD
+    %% Group 1: Pre-Deployment
+    subgraph group1 [Pre-Deployment]
+        direction LR
+        A("Local \nDevelopment \nand Testing") --> B("Runtime \nCompilation")
+        B --> C("Generate \nChain \nSpecifications")
+        C --> D("Prepare \nDeployment \nEnvironment")
+        D --> E("Acquire \nCoretime")
     end
-    subgraph Deployment
-    E --> F("Launch \n and \n Monitor")
+    
+    %% Group 2: Deployment
+    subgraph group2 [Deployment]
+        F("Launch \nand \nMonitor")
     end
-    subgraph Post-Deployment
-    F --> G("Maintenance \n and \n Upgrades")
+
+    %% Group 3: Post-Deployment
+    subgraph group3 [Post-Deployment]
+        G("Maintenance \nand \nUpgrades")
     end
+
+    %% Connections Between Groups
+    group1 --> group2
+    group2 --> group3
+
+    %% Styling
+    style group1 fill:#ffffff,stroke:#6e7391,stroke-width:1px
+    style group2 fill:#ffffff,stroke:#6e7391,stroke-width:1px
+    style group3 fill:#ffffff,stroke:#6e7391,stroke-width:1px
 ```
 
 - **Local development and testing** - the process begins with local development and testing. Developers focus on building the runtime by selecting and configuring the necessary pallets while refining network features. In this phase, it's essential to run a local TestNet to verify transactions and ensure the blockchain behaves as expected. Unit and integration tests are also crucial for ensuring the network works as expected before launch. Thorough testing is conducted, not only for individual components but also for interactions between pallets

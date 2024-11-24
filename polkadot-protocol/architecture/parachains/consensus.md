@@ -77,25 +77,31 @@ flowchart TB
 ```mermaid
 flowchart
     subgraph RelayChain["Relay Chain"]
-        direction LR
-        PValidators[Paravalidators]
-        Backing[Backing\nProcess]
-        Header[Para-header\non Relay Chain]
-        Approval[Approval\nProcess]
-        Dispute[Dispute\nResolution]
-        Slashing[Slashing\nMechanism]
+        direction TB
+        subgraph InitialValidation["Initial Validation"]
+            direction LR
+            PValidators[Paravalidators]
+            Backing[Backing\nProcess]
+            Header[Submit Para-header\non Relay Chain]
+        end
+        subgraph Secondary["Secondary Validation"]
+            Approval[Approval\nProcess]
+            Dispute[Dispute\nResolution]
+            Slashing[Slashing\nMechanism]
+        end
+        
     end
+
+
     %% Validation Process
-    PValidators -->|Download\nWasm\nValidate block| Backing
-    Backing -->|If valid\nsignatures| Header
-    Header -->|Additional\nverification| Approval
+    PValidators -->|Download\nWasm\nValidate Block| Backing
+    Backing -->|If Valid\nSignatures| Header
+    InitialValidation -->|Additional\nVerification| Secondary
     
     %% Dispute Flow
-    Approval -->|If invalid\ndetected| Dispute
-    Dispute -->|Penalize\ndishonest\nvalidators| Slashing
-
+    Approval -->|If Invalid\nDetected| Dispute
+    Dispute -->|Penalize\nDishonest\nValidators| Slashing
 ```
-
 
 It is important to understand that relay chain blocks do not store full parachain blocks (parablocks). Instead, they include para-headers, which serve as summaries of the backed parablocks. The complete parablock remains within the parachain network, maintaining its autonomy while relying on the relay chain for validation and finality.
 

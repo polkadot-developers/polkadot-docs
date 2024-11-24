@@ -58,8 +58,12 @@ flowchart TB
         Collator -->|Create| ParaBlock
     end
 
+    subgraph Relay["Relay Chain"]
+        ParaValidator
+    end
+
     %% Main Flow
-    Parachain -->|Submit To| ParaValidators
+    Parachain -->|Submit To| Relay
 ```
 
 - **Validation by paravalidators:**

@@ -8,9 +8,9 @@ template: index-page.html
 
 # Asset Hub Tutorials
 
-Asset Hub serves as Polkadot's specialized common-good chain for asset management. In this section, you'll learn how to register, track, and convert assets properly. 
+Asset Hub serves as Polkadot's specialized common-good chain for asset management. In this section, you'll learn how to properly register, track, and convert assets. 
 
-These tutorials walk you through managing tokens on Asset Hub, from creating new assets with custom parameters to representing tokens from other parachains. You'll learn how to leverage Asset Hub's AMM features for token swaps, manage liquidity pools, and optimize cross-chain transactions. Whether you're setting up a new asset, connecting existing ones across chains, or managing liquidity pools, these guides cover the essential techniques for effective cross-chain asset management in the Polkadot. 
+These tutorials walk you through managing tokens on Asset Hub, from creating new assets with custom parameters to representing tokens from other parachains. You'll learn how to leverage Asset Hub's AMM features for token swaps, manage liquidity pools, and optimize cross-chain transactions. Whether setting up a new asset, connecting existing ones across chains, or managing liquidity pools, these guides cover the essential techniques for effective cross-chain asset management in the Polkadot. 
 
 ## In This Section
 

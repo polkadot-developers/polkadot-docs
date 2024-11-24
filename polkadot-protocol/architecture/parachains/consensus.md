@@ -80,7 +80,7 @@ flowchart
         direction TB
         subgraph InitialValidation["Initial Validation"]
             direction LR
-            PValidators[Paravalidators]
+            PValidators[ParaValidators]
             Backing[Backing\nProcess]
             Header[Submit Para-header\non Relay Chain]
         end

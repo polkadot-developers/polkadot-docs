@@ -46,6 +46,26 @@ The journey parachain transactions follow to reach consensus and finality can be
     - These parablocks are sent to a subset of relay chain validators, known as paravalidators, for validation
     - The parachain's state transition function (Wasm blob) is not re-sent, as it is already stored on the relay chain
 
+```mermaid
+flowchart TB
+    %% Subgraph: Parachain
+    subgraph Parachain
+        direction LR
+        Txs[Network Transactions]
+        Collator[Collator Node]
+        ParaBlock[ParaBlock + PoV]
+        Txs -->|Package Transactions| Collator
+        Collator -->|Create| ParaBlock
+    end
+
+    subgraph Relay["Relay Chain"]
+        ParaValidator
+    end
+
+    %% Main Flow
+    Parachain -->|Submit To| Relay
+```
+
 - **Validation by paravalidators:**
 
     - Paravalidators are groups of approximately five relay chain validators, randomly assigned to parachains and shuffled every minute
@@ -59,36 +79,32 @@ The journey parachain transactions follow to reach consensus and finality can be
     - Validators who back invalid parablocks are penalized through slashing, creating strong incentives for honest behavior
 
 ```mermaid
-flowchart TB
-    subgraph Parachain
-        Txs[Network Transactions]
-        Collator[Collator Node]
-        ParaBlock[Parablock + PoV]
-    end
-
+flowchart
     subgraph RelayChain["Relay Chain"]
-        direction LR
-        PValidators[Paravalidators\n~5 validators per parachain]
-        Backing[Backing Process]
-        Header[Para-header on Relay Chain]
-        Approval[Approval Process]
-        Dispute[Dispute Resolution]
-        Slashing[Slashing Mechanism]
+        direction TB
+        subgraph InitialValidation["Initial Validation"]
+            direction LR
+            PValidators[ParaValidators]
+            Backing[Backing\nProcess]
+            Header[Submit Para-header\non Relay Chain]
+        end
+        subgraph Secondary["Secondary Validation"]
+            Approval[Approval\nProcess]
+            Dispute[Dispute\nResolution]
+            Slashing[Slashing\nMechanism]
+        end
+        
     end
 
-    %% Main Flow
-    Txs -->|Package transactions| Collator
-    Collator -->|Create| ParaBlock
-    ParaBlock -->|Submit to| PValidators
-    
+
     %% Validation Process
-    PValidators -->|Download Wasm\nValidate block| Backing
-    Backing -->|If valid signatures| Header
-    Header -->|Additional verification| Approval
+    PValidators -->|Download\nWasm\nValidate Block| Backing
+    Backing -->|If Valid\nSignatures| Header
+    InitialValidation -->|Additional\nVerification| Secondary
     
     %% Dispute Flow
-    Approval -->|If invalid detected| Dispute
-    Dispute -->|Penalize dishonest validators| Slashing
+    Approval -->|If Invalid\nDetected| Dispute
+    Dispute -->|Penalize\nDishonest\nValidators| Slashing
 ```
 
 It is important to understand that relay chain blocks do not store full parachain blocks (parablocks). Instead, they include para-headers, which serve as summaries of the backed parablocks. The complete parablock remains within the parachain network, maintaining its autonomy while relying on the relay chain for validation and finality.

@@ -70,4 +70,4 @@ For more details on using Astar xcm-tools, consult the [official documentation](
 
 ### Chopsticks
 
-The Chopsticks library provides XCM functionality for testing XCM messages across networks, enabling you to fork multiple parachains along with a relay chain. For further details, see the [Chopsticks documentation](/tutorials/blockchains/testing/fork-live-chains/#xcm-testing){target=\_blank} about XCM.
+The Chopsticks library provides XCM functionality for testing XCM messages across networks, enabling you to fork multiple parachains along with a relay chain. For further details, see the [Chopsticks documentation](/tutorials/polkadot-sdk/testing/fork-live-chains/){target=\_blank} about XCM.

@@ -8,8 +8,19 @@ template: index-page.html
 
 # System Chains Tutorials
 
-Asset Hub enables the creation, management, and conversion of assets within the Polkadot ecosystem. These tutorials guide you through registering local and foreign assets on Asset Hub, then show you how to use its automated market maker (AMM) functionality to convert between different asset types. Learn how to configure assets, manage liquidity pools, and optimize transactions for efficient cross-chain operations.
+In this section, you'll gain hands-on experience building solutions that integrate with system chains on Polkadot using the Polkadot SDK. System chains like the Asset Hub provide essential infrastructure for enabling cross-chain interoperability and asset management across the Polkadot ecosystem. Through these tutorials, you'll learn how to leverage these system chains to enhance the functionality and security of your blockchain applications.
 
 ## In This Section
 
 :::INSERT_IN_THIS_SECTION:::
+
+## Additional Resources
+
+<div class="subsection-wrapper">
+  <div class="card">
+    <a href="/polkadot-protocol/architecture/system-chains/asset-hub/">
+      <h2 class="title">Explore Polkadot's System Chains</h2>
+      <p class="description">Discover the unique role and functionality each of Polkadot’s system chains, including the Asset Hub, Bridge Hub, and Coretime chain, provides to the ecosystem.</p>
+    </a>
+  </div>
+</div>

@@ -1,6 +1,6 @@
 ---
 title: Interoperability
-description: Explores the importance of interoperability in the Polkadot ecosystem, covering XCM, bridges, and cross-chain communication.
+description: Explore the importance of interoperability in the Polkadot ecosystem, covering XCM, bridges, and cross-chain communication.
 ---
 
 # Interoperability

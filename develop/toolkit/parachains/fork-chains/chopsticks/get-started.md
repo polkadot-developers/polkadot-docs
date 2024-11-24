@@ -98,4 +98,4 @@ Alternatively, all settings (except for genesis and timestamp) can be configured
 
 ## Where to Go Next
 
-- Visit the [Fork a Chain with Chopsticks](/tutorials/blockchains/testing/fork-live-chains){target=\_blank} guide for step-by-step instructions for configuring and interacting with your forked chain.
+- Visit the [Fork a Chain with Chopsticks](/tutorials/polkadot-sdk/testing/fork-live-chains/){target=\_blank} guide for step-by-step instructions for configuring and interacting with your forked chain.

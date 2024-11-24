@@ -53,7 +53,7 @@ flowchart TB
         direction LR
         Txs[Network Transactions]
         Collator[Collator Node]
-        ParaBlock[Parablock + PoV]
+        ParaBlock[ParaBlock + PoV]
         Txs -->|Package Transactions| Collator
         Collator -->|Create| ParaBlock
     end

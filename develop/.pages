@@ -3,8 +3,7 @@ nav:
   - index.md
   - 'Development Pathways': development-pathways.md
   - 'Networks': networks.md
-  - blockchains
-  - integrations
+  - parachains
   - smart-contracts
   - interoperability
   - toolkit

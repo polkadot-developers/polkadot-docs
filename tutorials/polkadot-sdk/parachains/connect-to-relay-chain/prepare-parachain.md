@@ -19,7 +19,7 @@ This tutorial illustrates reserving a parachain identifier with a local relay ch
 
 Before you begin, ensure that you have the following prerequisites:
 
-- Configured a local relay chain with two validators as described in the [Prepare a Relay Chain](/tutorials/polkadot-sdk/parachains/connect-to-relay-chain/prepare-relay-chain/){target=\_blank} tutorial
+- Configured a local relay chain with two validators as described in the [Prepare a Relay Chain](/tutorials/polkadot-sdk/parachains/connect-to-relay-chain/prepare-relay-chain){target=\_blank} tutorial
 - You are aware that parachain versions and dependencies are tightly coupled with the version of the relay chain they connect to and know the software version you used to configure the relay chain
 
 ## Build the Parachain Template
@@ -66,9 +66,9 @@ Each relay chain allows its identifiers by incrementing the identifier starting 
 
 To reserve a parachain identifier, follow these steps:
 
-1. Ensure your local relay chain validators are running. For further information, refer to the [Prepare a Relay Chain](/tutorials/polkadot-sdk/parachains/connect-to-relay-chain/prepare-relay-chain/){target=\_blank} tutorial
+1. Ensure your local relay chain validators are running. For further information, refer to the [Prepare a Relay Chain](/tutorials/polkadot-sdk/parachains/connect-to-relay-chain/prepare-relay-chain){target=\_blank} tutorial
 
-2. Connect to a local relay chain node using the [Polkadot.js Apps](https://polkadot.js.org/apps/){target=_blank} interface. If you have followed the [Prepare a Relay Chain](/tutorials/polkadot-sdk/parachains/connect-to-relay-chain/prepare-relay-chain/){target=\_blank} tutorial, you can access the Polkadot.js Apps interface at `ws://localhost:9944`
+2. Connect to a local relay chain node using the [Polkadot.js Apps](https://polkadot.js.org/apps/){target=_blank} interface. If you have followed the [Prepare a Relay Chain](/tutorials/polkadot-sdk/parachains/connect-to-relay-chain/prepare-relay-chain){target=\_blank} tutorial, you can access the Polkadot.js Apps interface at `ws://localhost:9944`
 
     ![](/images/tutorials/polkadot-sdk/parachains/connect-to-relay-chain/prepare-parachain/prepare-parachain-1.webp)
 

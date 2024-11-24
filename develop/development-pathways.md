@@ -17,7 +17,7 @@ graph TD
     A[Development Pathways]
     A --> B[Smart Contract Development]
     A --> C[Parachain Development]
-    A --> D[Client-side Development]
+    A --> D[Client-Side Development]
 ```
 
 ## Smart Contract Development
@@ -36,7 +36,7 @@ Runtimes can be upgraded through forkless runtime updates, enabling seamless evo
 
 Developers can define the parameters, rules, and behaviors that shape their blockchain network. This includes token economics, transaction fees, permissions, and more. Using the Polkadot SDK, teams can iterate on their blockchain designs, experiment with new features, and deploy highly specialized networks tailored to their specific use cases.
 
-For those interested in delving deeper into runtime development, explore the dedicated [Customize a Parachain](/develop/parachains/customize-parachain){target=\_blank} section.
+For those interested in delving deeper into runtime development, explore the dedicated [Customize Your Parachain](/develop/parachains/customize-parachain){target=\_blank} section.
 
 ## Client-Side Development
 

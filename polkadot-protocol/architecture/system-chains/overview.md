@@ -98,5 +98,5 @@ Referendums marking key Encointer adoption milestones include:
 - [**Referendum 187 - Encointer Runtime Upgrade to Full Functionality**](https://kusama.polkassembly.io/referendum/187){target=\_blank} - introduced a runtime upgrade bringing governance and full functionality for communities to use the protocol
 
 !!!tip
-    To learn more about Encointer, check out the official [Encointer book](https://book.encointer.org/introduction.html) or watch an [Encointer ceremony](https://www.youtube.com/watch?v=tcgpCCYBqko){target=\_blank} in action.
+    To learn more about Encointer, check out the official [Encointer book](https://book.encointer.org/introduction.html){target=\_blank} or watch an [Encointer ceremony](https://www.youtube.com/watch?v=tcgpCCYBqko){target=\_blank} in action.
 

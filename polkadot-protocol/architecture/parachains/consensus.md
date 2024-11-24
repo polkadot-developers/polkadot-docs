@@ -40,23 +40,56 @@ Polkadot achieves scalability through execution sharding, where each parachain o
 
 The journey parachain transactions follow to reach consensus and finality can be described as follows:
 
-#### Collators and Parablocks
+- **Collators and parablocks:**
 
-- Collators, specialized nodes on parachains, package network transactions into Proof of Validity (PoV) blocks, also called parablocks
-- These parablocks are sent to a subset of relay chain validators, known as paravalidators, for validation
-- The parachain's state transition function (Wasm blob) is not re-sent, as it is already stored on the relay chain
+    - Collators, specialized nodes on parachains, package network transactions into Proof of Validity (PoV) blocks, also called parablocks
+    - These parablocks are sent to a subset of relay chain validators, known as paravalidators, for validation
+    - The parachain's state transition function (Wasm blob) is not re-sent, as it is already stored on the relay chain
 
-#### Validation by Paravalidators
+- **Validation by paravalidators:**
 
-- Paravalidators are groups of approximately five relay chain validators, randomly assigned to parachains and shuffled every minute
-- Each paravalidator downloads the parachain's Wasm blob and validates the parablock by ensuring all transactions comply with the parachain’s state transition rules
-- Paravalidators sign positive or negative validation statements based on the block’s validity
+    - Paravalidators are groups of approximately five relay chain validators, randomly assigned to parachains and shuffled every minute
+    - Each paravalidator downloads the parachain's Wasm blob and validates the parablock by ensuring all transactions comply with the parachain’s state transition rules
+    - Paravalidators sign positive or negative validation statements based on the block’s validity
 
-#### Backing and Approval
+- **Backing and approval:**
 
-- If a parablock receives sufficient positive validation statements, it is backed and included on the relay chain as a para-header
-- An additional approval process resolves disputes. If a parablock contains invalid transactions, additional validators are tasked with verification
-- Validators who back invalid parablocks are penalized through slashing, creating strong incentives for honest behavior
+    - If a parablock receives sufficient positive validation statements, it is backed and included on the relay chain as a para-header
+    - An additional approval process resolves disputes. If a parablock contains invalid transactions, additional validators are tasked with verification
+    - Validators who back invalid parablocks are penalized through slashing, creating strong incentives for honest behavior
+
+```mermaid
+flowchart TB
+    subgraph Parachain
+        Txs[Network Transactions]
+        Collator[Collator Node]
+        ParaBlock[Parablock + PoV]
+    end
+
+    subgraph RelayChain["Relay Chain"]
+        direction LR
+        PValidators[Paravalidators\n~5 validators per parachain]
+        Backing[Backing Process]
+        Header[Para-header on Relay Chain]
+        Approval[Approval Process]
+        Dispute[Dispute Resolution]
+        Slashing[Slashing Mechanism]
+    end
+
+    %% Main Flow
+    Txs -->|Package transactions| Collator
+    Collator -->|Create| ParaBlock
+    ParaBlock -->|Submit to| PValidators
+    
+    %% Validation Process
+    PValidators -->|Download Wasm\nValidate block| Backing
+    Backing -->|If valid signatures| Header
+    Header -->|Additional verification| Approval
+    
+    %% Dispute Flow
+    Approval -->|If invalid detected| Dispute
+    Dispute -->|Penalize dishonest validators| Slashing
+```
 
 It is important to understand that relay chain blocks do not store full parachain blocks (parablocks). Instead, they include para-headers, which serve as summaries of the backed parablocks. The complete parablock remains within the parachain network, maintaining its autonomy while relying on the relay chain for validation and finality.
 

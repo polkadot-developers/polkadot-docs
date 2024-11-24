@@ -47,17 +47,19 @@ The journey parachain transactions follow to reach consensus and finality can be
     - The parachain's state transition function (Wasm blob) is not re-sent, as it is already stored on the relay chain
 
 ```mermaid
-flowchart LR
+flowchart TB
+    %% Subgraph: Parachain
     subgraph Parachain
+        direction LR
         Txs[Network Transactions]
         Collator[Collator Node]
         ParaBlock[Parablock + PoV]
+        Txs -->|Package Transactions| Collator
+        Collator -->|Create| ParaBlock
     end
+
     %% Main Flow
-    Txs -->|Package transactions| Collator
-    Collator -->|Create| ParaBlock
-    ParaBlock -->|Submit to| Paravalidators
-```
+    Parachain -->|Submit To| Paravalidators
 
 - **Validation by paravalidators:**
 

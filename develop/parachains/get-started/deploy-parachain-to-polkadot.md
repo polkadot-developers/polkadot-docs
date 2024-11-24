@@ -1,9 +1,9 @@
 ---
-title: Deploy a Blockchain to Polkadot
-description: A guide to deploying Polkadot SDK-based blockchains, outlining the critical steps to configure, prepare, and launch a custom network.
+title: Deploy a Parachain to Polkadot
+description: A guide to deploying Polkadot SDK-based parachains, outlining the critical steps to configure, prepare, and launch a custom network.
 ---
 
-# Deployment Overview
+# Deploy a Parachain
 
 ## Introduction
 

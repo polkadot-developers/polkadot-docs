@@ -1,13 +1,13 @@
 ---
-title: Build Custom Blockchains
-description: Learn how to build custom blockchains using the Polkadot SDK, focusing on pre-built chain templates for faster development.
+title: Build Custom Parachains
+description: Learn how to build custom parachains using the Polkadot SDK, focusing on pre-built chain templates for faster development.
 ---
 
-# Build Custom Blockchains
+# Build Custom Parachains
 
 ## Introduction
 
-Building custom blockchains with the [Polkadot SDK](https://github.com/paritytech/polkadot-sdk/tree/master){target=\_blank} allows developers to create specialized blockchain solutions tailored to unique requirements. By leveraging [Substrate](https://github.com/paritytech/polkadot-sdk/tree/master/substrate){target=\_blank}—a Rust-based, modular blockchain development framework—the Polkadot SDK provides powerful tools to construct chains that can either stand-alone or connect to Polkadot’s shared security network as parachains. This flexibility empowers projects across various sectors to launch blockchains that meet specific functional, security, and scalability needs.
+Building custom parachains with the [Polkadot SDK](https://github.com/paritytech/polkadot-sdk/tree/master){target=\_blank} allows developers to create specialized blockchain solutions tailored to unique requirements. By leveraging [Substrate](https://github.com/paritytech/polkadot-sdk/tree/master/substrate){target=\_blank}—a Rust-based, modular blockchain development framework—the Polkadot SDK provides powerful tools to construct chains that can either stand-alone or connect to Polkadot’s shared security network as parachains. This flexibility empowers projects across various sectors to launch blockchains that meet specific functional, security, and scalability needs.
 
 This guide covers the core steps for building a custom blockchain using the Polkadot SDK, starting from pre-built chain templates. These templates simplify development, providing an efficient starting point that can be further customized, allowing you to focus on implementing the features and modules that set your blockchain apart.
 
@@ -54,6 +54,6 @@ Each of these steps is designed to build on the last, helping ensure that your c
 
 ## Where to Go Next
 
-Once your chain is functional locally, depending on your project’s goals, you can deploy to a TestNet to monitor performance and gather feedback or launch directly on a MainNet. To learn more about this process, check the [Deployment](/develop/parachains/deployment/){target=\_blank} section of the documentation.
+Once your chain is functional locally, depending on your project’s goals, you can deploy to a TestNet to monitor performance and gather feedback or launch directly on a MainNet. To learn more about this process, check the [Deploy a Parachain](/develop/parachains/deployment/){target=\_blank} section of the documentation.
 
 After deployment, regular monitoring and maintenance are essential to ensure that the chain is functioning as expected. Developers need to be able to monitor the chain's performance, identify issues, and troubleshoot problems. Key activities include tracking network health, node performance, and transaction throughput. It's also essential to test the blockchain’s scalability under high load and perform security audits regularly to prevent vulnerabilities. For more information on monitoring and maintenance, refer to the [Maintenance](/develop/parachains/maintenance/){target=\_blank} section.

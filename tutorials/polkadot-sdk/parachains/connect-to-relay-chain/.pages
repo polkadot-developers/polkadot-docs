@@ -1,0 +1,6 @@
+title: Connect to a Relay Chain
+nav:
+  - index.md
+  - 'Prepare Relay Chain': prepare-relay-chain.md
+  - 'Prepare Parachain': prepare-parachain.md
+  - 'Acquire a TestNet Slot': acquire-a-testnet-slot.md

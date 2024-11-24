@@ -59,7 +59,7 @@ flowchart TB
     end
 
     %% Main Flow
-    Parachain -->|Submit To| Paravalidators
+    Parachain -->|Submit To| ParaValidators
 ```
 
 - **Validation by paravalidators:**

@@ -27,10 +27,10 @@ Key responsibilities include:
 
 Parachain consensus operates in tandem with the relay chain, leveraging Nominated Proof of Stake (NPoS) for shared security. The process ensures parachain transactions achieve finality through the following steps:
 
-- **Packaging transactions** - collators bundle transactions into PoV blocks (parablocks)
-- **Submission to validator** - parablocks are submitted to a randomly selected subset of relay chain validators, known as paravalidators
-- **Validation of PoV Blocks** - paravalidators use the parachain’s state transition function (already available on the relay chain) to verify transaction validity
-- **Backing and inclusion** - if a sufficient number of positive validations are received, the parablock is backed and included via a para-header on the relay chain
+1. **Packaging transactions** - collators bundle transactions into PoV blocks (parablocks)
+2. **Submission to validator** - parablocks are submitted to a randomly selected subset of relay chain validators, known as paravalidators
+3. **Validation of PoV Blocks** - paravalidators use the parachain’s state transition function (already available on the relay chain) to verify transaction validity
+4. **Backing and inclusion** - if a sufficient number of positive validations are received, the parablock is backed and included via a para-header on the relay chain
 
 The following sections describe the actions taking place during each stage of the process. 
 

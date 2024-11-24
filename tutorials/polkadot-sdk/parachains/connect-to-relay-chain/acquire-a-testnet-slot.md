@@ -15,7 +15,7 @@ Before you start, you need to have the following prerequisites:
 
 - You know how to generate and modify chain specification files as described in the [Generate Chain Specs](/develop/blockchains/deployment/generate-chain-specs){target=\_blank} section
 - You know how to generate and store keys as described in the [Spin Your Nodes](/tutorials/polkadot-sdk/parachains/local-chain/spin-your-nodes){target=\_blank} tutorial
-- You have completed the [Prepare a Local Relay Chain](/tutorials/polkadot-sdk/parachains/upgrade-to-parachain/prepare-relay-chain/){target=\_blank} and the [Prepare a Local Parachain](/tutorials/polkadot-sdk/parachains/upgrade-to-parachain/prepare-parachain/){target=\_blank} tutorials on your local computer
+- You have completed the [Prepare a Local Relay Chain](/tutorials/polkadot-sdk/parachains/connect-to-relay-chain/prepare-relay-chain/){target=\_blank} and the [Prepare a Local Parachain](/tutorials/polkadot-sdk/parachains/connect-to-relay-chain/prepare-parachain/){target=\_blank} tutorials on your local computer
 
 ## Get Started with an Account and Tokens
 
@@ -27,27 +27,27 @@ To prepare an account, follow these steps:
 
 1. Open the [Polkadot.js Apps](https://polkadot.js.org/apps/){target=\_blank} interface and connect to the Paseo network
 
-    ![](/images/tutorials/polkadot-sdk/parachains/upgrade-to-parachain/acquire-a-testnet-slot/acquire-a-testnet-slot-1.webp)
+    ![](/images/tutorials/polkadot-sdk/parachains/connect-to-relay-chain/acquire-a-testnet-slot/acquire-a-testnet-slot-1.webp)
 
 2. Navigate to the **Accounts** section
     1. Click on the **Accounts** tab in the top menu
     2. Select the **Accounts** option from the dropdown menu
   
-    ![](/images/tutorials/polkadot-sdk/parachains/upgrade-to-parachain/acquire-a-testnet-slot/acquire-a-testnet-slot-2.webp)
+    ![](/images/tutorials/polkadot-sdk/parachains/connect-to-relay-chain/acquire-a-testnet-slot/acquire-a-testnet-slot-2.webp)
 
 3. Copy the address of the account you want to use for the parachain deployment
 
-    ![](/images/tutorials/polkadot-sdk/parachains/upgrade-to-parachain/acquire-a-testnet-slot/acquire-a-testnet-slot-3.webp)
+    ![](/images/tutorials/polkadot-sdk/parachains/connect-to-relay-chain/acquire-a-testnet-slot/acquire-a-testnet-slot-3.webp)
 
 4. Visit the [Polkadot Faucet](https://faucet.polkadot.io){target=\_blank} and paste the copied address in the input field. Ensure that the network is set to Paseo and click on the **Get some PASs** button
 
-    ![](/images/tutorials/polkadot-sdk/parachains/upgrade-to-parachain/acquire-a-testnet-slot/acquire-a-testnet-slot-4.webp)
+    ![](/images/tutorials/polkadot-sdk/parachains/connect-to-relay-chain/acquire-a-testnet-slot/acquire-a-testnet-slot-4.webp)
 
     After a few seconds, you will receive 100 PAS tokens in your account.
 
 ## Reserve a Parachain Identifier
 
-You must reserve a parachain identifier before registering a parathread on Paseo. The steps are similar to the ones you followed in [Prepare a Local Parachain](/tutorials/polkadot-sdk/parachains/upgrade-to-parachain/prepare-parachain){target=_\blank} to reserve an identifier on the local relay chain. However, for the public TestNet, you'll be assigned the next available identifier.
+You must reserve a parachain identifier before registering a parathread on Paseo. The steps are similar to the ones you followed in [Prepare a Local Parachain](/tutorials/polkadot-sdk/parachains/connect-to-relay-chain/prepare-parachain){target=_\blank} to reserve an identifier on the local relay chain. However, for the public TestNet, you'll be assigned the next available identifier.
 
 To reserve a parachain identifier, follow these steps:
 
@@ -55,23 +55,23 @@ To reserve a parachain identifier, follow these steps:
     1. Click on the **Network** tab in the top menu
     2. Select the **Parachains** option from the dropdown menu
 
-    ![](/images/tutorials/polkadot-sdk/parachains/upgrade-to-parachain/acquire-a-testnet-slot/acquire-a-testnet-slot-5.webp)
+    ![](/images/tutorials/polkadot-sdk/parachains/connect-to-relay-chain/acquire-a-testnet-slot/acquire-a-testnet-slot-5.webp)
 
 2. Register a parathread
     1. Select the **Parathreads** tab
     2. Click on the **+ ParaId** button
 
-    ![](/images/tutorials/polkadot-sdk/parachains/upgrade-to-parachain/acquire-a-testnet-slot/acquire-a-testnet-slot-6.webp)
+    ![](/images/tutorials/polkadot-sdk/parachains/connect-to-relay-chain/acquire-a-testnet-slot/acquire-a-testnet-slot-6.webp)
 
 3. Review the transaction and click on the **+ Submit** button
 
-    ![](/images/tutorials/polkadot-sdk/parachains/upgrade-to-parachain/acquire-a-testnet-slot/acquire-a-testnet-slot-7.webp)
+    ![](/images/tutorials/polkadot-sdk/parachains/connect-to-relay-chain/acquire-a-testnet-slot/acquire-a-testnet-slot-7.webp)
 
     For this case, the next available parachain identifier is `4508`.
 
 4. After submitting the transaction, you can navigate to the **Explorer** tab and check the list of recent events for successful `registrar.Reserved`
 
-    ![](/images/tutorials/polkadot-sdk/parachains/upgrade-to-parachain/acquire-a-testnet-slot/acquire-a-testnet-slot-8.webp)
+    ![](/images/tutorials/polkadot-sdk/parachains/connect-to-relay-chain/acquire-a-testnet-slot/acquire-a-testnet-slot-8.webp)
 
 ## Modify the Chain Specification File
 
@@ -91,24 +91,24 @@ To modify the chain specification:
 3. Set `relay_chain` to `paseo` and `para_id` to the identifier you've been assigned. For example, if your reserved identifier is 4508, set the `para_id` field to `4508`:
 
       ```json
-      --8<-- 'code/tutorials/polkadot-sdk/parachains/upgrade-to-parachain/acquire-a-testnet-slot/acquire-a-testnet-slot-1.json:1:4'
-      --8<-- 'code/tutorials/polkadot-sdk/parachains/upgrade-to-parachain/acquire-a-testnet-slot/acquire-a-testnet-slot-1.json:23:25'
+      --8<-- 'code/tutorials/polkadot-sdk/parachains/connect-to-relay-chain/acquire-a-testnet-slot/acquire-a-testnet-slot-1.json:1:4'
+      --8<-- 'code/tutorials/polkadot-sdk/parachains/connect-to-relay-chain/acquire-a-testnet-slot/acquire-a-testnet-slot-1.json:23:25'
       ```
 
 4. Set the `parachainId` to the parachain identifier that you previously reserved:
 
       ```json
-      --8<-- 'code/tutorials/polkadot-sdk/parachains/upgrade-to-parachain/acquire-a-testnet-slot/acquire-a-testnet-slot-1.json::2'
-      --8<-- 'code/tutorials/polkadot-sdk/parachains/upgrade-to-parachain/acquire-a-testnet-slot/acquire-a-testnet-slot-1.json:5:10'
-      --8<-- 'code/tutorials/polkadot-sdk/parachains/upgrade-to-parachain/acquire-a-testnet-slot/acquire-a-testnet-slot-1.json:22:25'
+      --8<-- 'code/tutorials/polkadot-sdk/parachains/connect-to-relay-chain/acquire-a-testnet-slot/acquire-a-testnet-slot-1.json::2'
+      --8<-- 'code/tutorials/polkadot-sdk/parachains/connect-to-relay-chain/acquire-a-testnet-slot/acquire-a-testnet-slot-1.json:5:10'
+      --8<-- 'code/tutorials/polkadot-sdk/parachains/connect-to-relay-chain/acquire-a-testnet-slot/acquire-a-testnet-slot-1.json:22:25'
       ```
 
 5. Add the public key for your account to the session keys section. Each configured session key will require a running collator:
 
       ```json
-      --8<-- 'code/tutorials/polkadot-sdk/parachains/upgrade-to-parachain/acquire-a-testnet-slot/acquire-a-testnet-slot-1.json::2'
-      --8<-- 'code/tutorials/polkadot-sdk/parachains/upgrade-to-parachain/acquire-a-testnet-slot/acquire-a-testnet-slot-1.json:5:7'
-      --8<-- 'code/tutorials/polkadot-sdk/parachains/upgrade-to-parachain/acquire-a-testnet-slot/acquire-a-testnet-slot-1.json:11:25'
+      --8<-- 'code/tutorials/polkadot-sdk/parachains/connect-to-relay-chain/acquire-a-testnet-slot/acquire-a-testnet-slot-1.json::2'
+      --8<-- 'code/tutorials/polkadot-sdk/parachains/connect-to-relay-chain/acquire-a-testnet-slot/acquire-a-testnet-slot-1.json:5:7'
+      --8<-- 'code/tutorials/polkadot-sdk/parachains/connect-to-relay-chain/acquire-a-testnet-slot/acquire-a-testnet-slot-1.json:11:25'
       ```
 
 6. Save your changes and close the plain text chain specification file
@@ -124,7 +124,7 @@ To modify the chain specification:
 
       After running the command, you will see the following output:
 
-      --8<-- 'code/tutorials/polkadot-sdk/parachains/upgrade-to-parachain/acquire-a-testnet-slot/acquire-a-testnet-slot-2.html'
+      --8<-- 'code/tutorials/polkadot-sdk/parachains/connect-to-relay-chain/acquire-a-testnet-slot/acquire-a-testnet-slot-2.html'
 
 ## Export Required Files
 

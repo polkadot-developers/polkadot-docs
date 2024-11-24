@@ -2,4 +2,4 @@ title: Parachains
 nav:
   - index.md
   - local-chain
-  - upgrade-to-parachain
+  - connect-to-relay-chain

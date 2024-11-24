@@ -1,5 +1,5 @@
 ---
-title: Spin Your Nodes
+title: Spin Up Your Nodes
 description: Launch a blockchain with a private set of authorized validators. Generate keys, create a custom chain spec, and start a two-node network with Aura consensus.
 ---
 

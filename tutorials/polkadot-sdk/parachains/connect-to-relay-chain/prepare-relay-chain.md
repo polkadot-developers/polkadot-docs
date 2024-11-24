@@ -23,7 +23,7 @@ Before diving into this tutorial, it's recommended that you have a basic underst
 To complete this tutorial, ensure that you have:
 
 - Installed Rust and the Rust toolchain. Refer to the [Installation](/develop/parachains/get-started/install-polkadot-sdk){target=\_blank} guide for step-by-step instructions on setting up your development environment
-- Completed [Build a Local Blockchain](/tutorials/blockchains/custom-blockchains/build-a-blockchain/build-a-local-blockchain){target=\_blank} tutorial and know how to compile and run a Polkadot SDK-based node
+- Completed [Launch a Local Solochain](/tutorials/polkadot-sdk/parachains/local-chain/launch-a-local-solochain/){target=\_blank} tutorial and know how to compile and run a Polkadot SDK-based node
 
 ## Build a Local Relay Chain
 

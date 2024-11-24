@@ -38,7 +38,7 @@ Wallet types fall into two categories based on their connection to the internet:
 
     ---
 
-    A non-custodial web browser extension and mobile wallet for Polkadot & Ethereum. Track, send, receive, and monitor multi-chain assets on 150+ networks. Import account with seed phrase, private key, QR code, and JSON file. Import token & NFT, attach read-only account. XCM Transfer, NFT Management, Parity Signer & Ledger support, light clients support, EVM DApp support, MetaMask compatibility, custom endpoints, fiat on-ramp, phishing detection, transaction history.
+    A non-custodial web browser extension and mobile wallet for Polkadot and Ethereum. Track, send, receive, and monitor multi-chain assets on 150+ networks. Import account with seed phrase, private key, QR code, and JSON file. Import token & NFT, attach read-only account. XCM Transfer, NFT Management, Parity Signer & Ledger support, light clients support, EVM dApp support, MetaMask compatibility, custom endpoints, fiat on-ramp, phishing detection, transaction history.
 
     [:octicons-arrow-right-24: Reference](https://www.subwallet.app/){target=\_blank}
 

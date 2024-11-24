@@ -16,11 +16,4 @@ Within the Polkadot ecosystem, you'll find a robust set of development tools tha
 
 ## Additional Resources
 
-<div class="subsection-wrapper">
-  <div class="card">
-    <a href="/tutorials/blockchains/testing/">
-      <h2 class="title">Get Hands-On with Blockchain Tutorials</h2>
-      <p class="description">Explore step-by-step tutorials to help you put these tools to work, guiding you through practical use cases and ensuring you can effectively integrate them into your blockchain projects.</p>
-    </a>
-  </div>
-</div>
+- [Get Hands-On with Blockchain Tutorials](/tutorials/blockchains/testing){target=\_blank} - Explore step-by-step tutorials to help you put these tools to work, guiding you through practical use cases and ensuring you can effectively integrate them into your blockchain projects

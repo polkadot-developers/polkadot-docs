@@ -13,3 +13,7 @@ Learn how to install, configure, and use Chopsticks for debugging and forking Po
 ## In This Section
 
 :::INSERT_IN_THIS_SECTION:::
+
+## Additional Resources 
+
+- [Chopsticks repository](https://github.com/AcalaNetwork/chopsticks/){target=\_blank}

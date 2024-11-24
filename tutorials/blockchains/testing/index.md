@@ -20,7 +20,7 @@ Through these tutorials, you'll learn essential testing techniques including:
 - Creating local testing environments
 - Simulating network conditions
 - Testing cross-chain messaging
-- Monitoring and debugging blockchain behavior
+- Monitoring and debugging transaction behavior
 - Validating functionality in controlled settings
 
 Each tutorial provides step-by-step guidance for using these tools effectively in your development workflow.

@@ -74,8 +74,8 @@ The diagram illustrates the layered architecture of Astar Network: at the top, d
 |:--------:|:------|
 | Network Name | Shibuya Testnet |
 | EVM Chain ID | 81 |
-| Public RPC URLs | <pre>https://evm.shibuya.astar.network</pre> |
-| Public WSS URLs | <pre>wss://evm.shibuya.astar.network</pre> |
+| Public RPC URLs | <pre>```https://evm.shibuya.astar.network```</pre> |
+| Public WSS URLs | <pre>```wss://evm.shibuya.astar.network```</pre> |
 | Block Explorer | [Shibuya Blockscout](https://blockscout.com/shibuya){target=\_blank} |
 | Faucet Link | [Faucet - Astar Docs](https://docs.astar.network/docs/build/environment/faucet/){target=\_blank} |
 
@@ -129,8 +129,8 @@ The diagram above illustrates how transactions are processed on Moonbeam. When a
 |:--------:|:------|
 | Network Name | Moonbase Alpha Testnet |
 | EVM Chain ID | [1287](https://chainlist.org/chain/1287){target=_blank} |
-| Public RPC URLs | <pre>https://rpc.api.moonbase.moonbeam.network</pre> |
-| Public WSS URLs | <pre>wss://wss.api.moonbase.moonbeam.network</pre> |
+| Public RPC URLs | <pre>```https://rpc.api.moonbase.moonbeam.network```</pre> |
+| Public WSS URLs | <pre>```wss://wss.api.moonbase.moonbeam.network```</pre> |
 | Block Explorer | [Moonbase Alpha Moonscan](https://moonbase.moonscan.io/){target=\_blank} |
 | Faucet Link | [Moonbase Faucet](https://faucet.moonbeam.network){target=\_blank} |
 
@@ -185,8 +185,8 @@ The diagram illustrates Acala's unique EVM+ architecture, which extends beyond s
 |:--------:|:------|
 | Network Name | Mandala TC7 Testnet |
 | EVM Chain ID | [595](https://chainlist.org/chain/595){target=_blank} |
-| Public RPC URLs | <pre>https://eth-rpc-tc9.aca-staging.network</pre> |
-| Public WSS URLs | <pre>wss://tc7-eth.aca-dev.network</pre> |
+| Public RPC URLs | <pre>```https://eth-rpc-tc9.aca-staging.network```</pre> |
+| Public WSS URLs | <pre>```wss://tc7-eth.aca-dev.network```</pre> |
 | Block Explorer | [Mandala Blockscout](https://blockscout.mandala.aca-staging.network){target=\_blank} |
 | Faucet Link | [Mandala Faucet](https://discord.gg/5JJgXKSznc){target=\_blank} |
 

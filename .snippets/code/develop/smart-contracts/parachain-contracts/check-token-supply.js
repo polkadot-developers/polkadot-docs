@@ -2,7 +2,7 @@
 const { ethers } = require('ethers');
 
 // Network RPC endpoints
-const NETWORK_CONFIGS = {
+const networkConfigs = {
   moonbeam: {
     rpc: 'https://rpc.api.moonbeam.network',
     name: 'Moonbeam (Wormhole USDC)'
@@ -18,7 +18,7 @@ const NETWORK_CONFIGS = {
 };
 
 // Minimal ERC20 ABI - we only need totalSupply
-const ERC20_ABI = [
+const erc20ABI = [
   {
     "constant": true,
     "inputs": [],
@@ -38,14 +38,14 @@ const ERC20_ABI = [
 async function getTokenSupply(networkKey, tokenAddress) {
   try {
     // Get network configuration
-    const networkConfig = NETWORK_CONFIGS[networkKey];
+    const networkConfig = networkConfigs[networkKey];
     if (!networkConfig) {
       throw new Error(`Unsupported network: ${networkKey}`);
     }
 
     // Create provider and contract instance - Updated for ethers v6
     const provider = new ethers.JsonRpcProvider(networkConfig.rpc);
-    const contract = new ethers.Contract(tokenAddress, ERC20_ABI, provider);
+    const contract = new ethers.Contract(tokenAddress, erc20ABI, provider);
 
     // Get total supply and decimals
     const [totalSupply, decimals] = await Promise.all([

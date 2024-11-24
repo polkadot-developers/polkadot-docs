@@ -20,4 +20,3 @@ In these sections, you'll start with an overview of the Polkadot SDK and its com
 
 - [Polkadot SDK Rust documentation](https://paritytech.github.io/polkadot-sdk/master/polkadot_sdk_docs/polkadot_sdk/index.html){target=\_blank}
 - [Polkadot SDK repository](https://github.com/paritytech/polkadot-sdk){target=\_blank}
-- [FRAME repository](https://github.com/paritytech/polkadot-sdk/tree/master/substrate/frame){target=\_blank}

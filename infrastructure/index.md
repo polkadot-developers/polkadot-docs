@@ -10,7 +10,7 @@ template: index-page.html
 
 Running infrastructure on Polkadot is essential to supporting the network’s performance and security. Operators must focus on reliability, ensure proper configuration, and meet the necessary hardware requirements to contribute effectively to the decentralized ecosystem.
 
-- Not sure where to start? Visit the [Choosing the Right Role](#choosing-the-right-role) section for guidance.
+- Not sure where to start? Visit the [Choosing the Right Role](#choosing-the-right-role) section for guidance
 - Ready to get started? Jump to [In This Section](#in-this-section) to get started
 
 ## Choosing the Right Role

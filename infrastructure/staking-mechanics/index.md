@@ -8,7 +8,7 @@ template: index-page.html
 
 # Staking Mechanics
 
-Explore the staking mechanics in Polkadot, focusing on how they relate to validators, including offenses and slashes, as well as reward payouts.
+Gain a deep understanding of the staking mechanics in Polkadot, with a focus on how they impact validators. In this section, you'll explore key concepts such as offenses, slashing, and reward payouts, and learn how these mechanisms influence the behavior and performance of validators within the network. Understanding these elements is crucial for optimizing your validator's participation and ensuring alignment with Polkadot's governance and security protocols.
 
 ## In This Section
 

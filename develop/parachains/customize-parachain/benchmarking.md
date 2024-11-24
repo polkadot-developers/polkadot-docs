@@ -53,7 +53,7 @@ The benchmarking tool runs multiple iterations to model worst-case execution tim
 Before writing benchmark tests, you need to ensure the `frame-benchmarking` crate is included in your pallet's `Cargo.toml` similar to the following:
 
 ```toml title="Cargo.toml"
---8<-- 'code/develop/parachains/customize-parachain/benchmarking/cargo.toml:1:1'
+--8<-- 'code/develop/parachains/customize-parachain/benchmarking/cargo.toml::1'
 ```
 
 You must also ensure that you add the `runtime-benchmarks` feature flag as follows under the `[features]` section of your pallet's `Cargo.toml`:

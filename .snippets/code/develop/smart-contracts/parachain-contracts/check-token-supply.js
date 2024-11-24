@@ -5,34 +5,34 @@ const { ethers } = require('ethers');
 const networkConfigs = {
   moonbeam: {
     rpc: 'https://rpc.api.moonbeam.network',
-    name: 'Moonbeam (Wormhole USDC)'
+    name: 'Moonbeam (Wormhole USDC)',
   },
   acala: {
     rpc: 'https://eth-rpc-acala.aca-api.network',
-    name: 'Acala ACA'
+    name: 'Acala ACA',
   },
   astar: {
     rpc: 'https://evm.astar.network',
-    name: 'Astar (USDC)'
-  }
+    name: 'Astar (USDC)',
+  },
 };
 
 // Minimal ERC20 ABI - we only need totalSupply
 const erc20ABI = [
   {
-    "constant": true,
-    "inputs": [],
-    "name": "totalSupply",
-    "outputs": [{"name": "", "type": "uint256"}],
-    "type": "function"
+    constant: true,
+    inputs: [],
+    name: 'totalSupply',
+    outputs: [{ name: '', type: 'uint256' }],
+    type: 'function',
   },
   {
-    "constant": true,
-    "inputs": [],
-    "name": "decimals",
-    "outputs": [{"name": "", "type": "uint8"}],
-    "type": "function"
-  }
+    constant: true,
+    inputs: [],
+    name: 'decimals',
+    outputs: [{ name: '', type: 'uint8' }],
+    type: 'function',
+  },
 ];
 
 async function getTokenSupply(networkKey, tokenAddress) {
@@ -50,7 +50,7 @@ async function getTokenSupply(networkKey, tokenAddress) {
     // Get total supply and decimals
     const [totalSupply, decimals] = await Promise.all([
       contract.totalSupply(),
-      contract.decimals()
+      contract.decimals(),
     ]);
 
     // Convert to human readable format
@@ -61,7 +61,7 @@ async function getTokenSupply(networkKey, tokenAddress) {
       tokenAddress,
       totalSupply: formattedSupply,
       rawTotalSupply: totalSupply.toString(),
-      decimals: decimals
+      decimals: decimals,
     };
   } catch (error) {
     throw new Error(`Error fetching token supply: ${error.message}`);
@@ -70,9 +70,9 @@ async function getTokenSupply(networkKey, tokenAddress) {
 
 async function main() {
   const tokens = {
-    moonbeam: "0x931715FEE2d06333043d11F658C8CE934aC61D0c", // Wormhole USDC
-    acala: "0x0000000000000000000100000000000000000000", // ACA
-    astar: "0x6a2d262D56735DbA19Dd70682B39F6bE9a931D98" // USDC on Astar
+    moonbeam: '0x931715FEE2d06333043d11F658C8CE934aC61D0c', // Wormhole USDC
+    acala: '0x0000000000000000000100000000000000000000', // ACA
+    astar: '0x6a2d262D56735DbA19Dd70682B39F6bE9a931D98', // USDC on Astar
   };
 
   for (const [network, tokenAddress] of Object.entries(tokens)) {
@@ -90,6 +90,6 @@ async function main() {
 
 // Execute the main function and handle any errors
 main().catch((error) => {
-  console.error("Error in main:", error);
+  console.error('Error in main:', error);
   process.exit(1);
 });

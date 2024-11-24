@@ -1,10 +1,11 @@
 // The purpose of this script is to move the header up out of view while
 // the user is scrolling down a page
-let lastScrollY = window.scrollY;
+let lastScrollY = Math.max(0, window.scrollY);
 const header = document.querySelector('.md-header__inner');
 
 window.addEventListener('scroll', () => {
-  // Toggle header visibility based on scroll direction
-  header.classList.toggle('hidden', window.scrollY > lastScrollY);
-  lastScrollY = window.scrollY;
+  const currentScrollY = Math.max(0, window.scrollY);
+  const isScrollingDown = currentScrollY > lastScrollY;
+  header.classList.toggle('hidden', isScrollingDown);
+  lastScrollY = currentScrollY;
 });

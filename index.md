@@ -8,11 +8,3 @@ hide:
 - navigation
 template: home.html
 ---
-
-# Polkadot Developer Docs
-
-Explore everything you need to start building on top of Polkadot, a protocol that provides parachains with shared security and interoperability using XCM.
-
-## In This Section
-
-:::INSERT_IN_THIS_SECTION:::

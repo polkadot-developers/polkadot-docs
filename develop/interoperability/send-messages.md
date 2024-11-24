@@ -18,7 +18,7 @@ The [`pallet-xcm`](https://paritytech.github.io/polkadot-sdk/master/pallet_xcm/p
 This pallet provides some [default implementations](https://paritytech.github.io/polkadot-sdk/master/pallet_xcm/pallet/struct.Pallet.html#implementations){target=\_blank} for traits required by [`XcmConfig`](https://paritytech.github.io/polkadot-sdk/master/pallet_xcm_benchmarks/trait.Config.html#associatedtype.XcmConfig){target=\_blank}. The [XCM executor](https://paritytech.github.io/polkadot-sdk/master/staging_xcm_executor/struct.XcmExecutor.html){target=\_blank} is also included as an associated type within the pallet's configuration.
 
 !!!note
-    For further details on the XCM configuration, refer to the [XCM Configuration](/develop/interoperability/xcm-config/) page.
+    For further details on the XCM configuration, refer to the [XCM Configuration](/develop/interoperability/xcm-config/){target=\_blank} page.
 
 Where the [XCM format](https://github.com/polkadot-fellows/xcm-format){target=\_blank} defines a set of instructions used to construct XCVM programs, `pallet-xcm` defines a set of extrinsics that can be utilized to build XCVM programs, either to target the local or external chains. The `pallet-xcm` functionality is divided into three categories:
 

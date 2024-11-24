@@ -8,7 +8,7 @@ template: index-page.html
 
 # Operational Tasks
 
-Running a Polkadot validator node involves several key operational tasks to ensure secure and efficient participation in the network. In this section, you'll learn how to manage and maintain your validator node by monitoring its performance, conducting regular maintenance, and ensuring high availability through strategies like running a backup validator. You'll also find instructions on rotating your session keys to enhance security and minimize vulnerabilities. Mastering these tasks is essential for maintaining a reliable and trusted presence within the Polkadot ecosystem.
+Running a Polkadot validator node involves several key operational tasks to ensure secure and efficient participation in the network. In this section, you'll learn how to manage and maintain your validator node by monitoring its performance, conducting regular maintenance, and ensuring high availability through strategies like running a backup validator. You'll also find instructions on rotating your session keys to enhance security and minimize vulnerabilities. Mastering these tasks is essential for maintaining a reliable and trusted presence within your network.
 
 ## In This Section
 

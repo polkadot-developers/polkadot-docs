@@ -20,11 +20,11 @@ Selecting your role within the Polkadot ecosystem depends on your goals, resourc
 - **Running a node**:
     - **Purpose** - a node provides access to network data and supports API queries. It is commonly used for:
         - **Development and testing** - offers a local instance to simulate network conditions and test applications
-        - **Production Use** - acts as a data source for dApps, clients, and other applications needing reliable access to the blockchain
+        - **Production use** - acts as a data source for dApps, clients, and other applications needing reliable access to the blockchain
     - **Requirements** - moderate hardware resources to handle blockchain data efficiently
     - **Responsibilities** - a node’s responsibilities vary based on its purpose:
-        - **For Development and testing** - enables developers to test features, debug code, and simulate network interactions in a controlled environment
-        - **For Production Use** - provides consistent and reliable data access for dApps and other applications, ensuring minimal downtime
+        - **Development and testing** - enables developers to test features, debug code, and simulate network interactions in a controlled environment
+        - **Production use** - provides consistent and reliable data access for dApps and other applications, ensuring minimal downtime
 
 - **Running a validator**:
     - **Purpose** - validators play a critical role in securing the Polkadot relay chain. They validate parachain block submissions, participate in consensus, and help maintain the network's overall integrity

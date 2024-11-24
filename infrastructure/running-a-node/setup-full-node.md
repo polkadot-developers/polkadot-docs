@@ -39,7 +39,7 @@ Now that you're familiar with the different types of nodes, this section will wa
 Before getting started, ensure the following prerequisites are met:
 
 - Ensure [Rust](https://www.rust-lang.org/tools/install){target=\_blank} is installed on your operating system
-- [Install the necessary dependencies for the Polkadot SDK](/develop/blockchains/get-started/install-polkadot-sdk/){target=\_blank}
+- [Install the necessary dependencies for the Polkadot SDK](/develop/parachains/get-started/install-polkadot-sdk/){target=\_blank}
 
 !!! warning
     This setup is not recommended for validators. If you plan to run a validator, refer to the [Running a Validator](/infrastructure/running-a-validator/){target=\_blank} guide for proper instructions.

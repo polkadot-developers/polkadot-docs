@@ -5,9 +5,9 @@ echo "Running Prettier on .snippets/code/**/*.{js,json,html}"
 npx prettier --write .snippets/code/**/*.{js,json,html}
 
 IGNORED_FILES=(
-  ".snippets/code/develop/toolkit/blockchain/spawn-chains/zombienet/write-tests/big-network-test.toml"
-  ".snippets/code/develop/toolkit/blockchain/spawn-chains/zombienet/write-tests/small-network-test.toml"
-  ".snippets/code/develop/toolkit/blockchain/spawn-chains/zombienet/write-tests/spawn-a-basic-chain-test.toml"
+  ".snippets/code/develop/toolkit/parachains/spawn-chains/zombienet/write-tests/big-network-test.toml"
+  ".snippets/code/develop/toolkit/parachains/spawn-chains/zombienet/write-tests/small-network-test.toml"
+  ".snippets/code/develop/toolkit/parachains/spawn-chains/zombienet/write-tests/spawn-a-basic-chain-test.toml"
 )
 
 # Normalize ignored files pattern

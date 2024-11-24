@@ -15,7 +15,7 @@ You'll learn how to generate keys, create a custom chain specification, and star
 
 Before starting this tutorial, ensure you have:
 
-- Installed and configured Rust on your system. For detailed instructions on installing Rust and setting up your development environment, refer to the [Installation](/develop/blockchains/get-started/install-polkadot-sdk){target=\_blank} guide
+- Installed and configured Rust on your system. For detailed instructions on installing Rust and setting up your development environment, refer to the [Installation](/develop/parachains/get-started/install-polkadot-sdk){target=\_blank} guide
 - Completed the [Build a Local Blockchain](/tutorials/blockchains/custom-blockchains/build-a-blockchain/build-a-local-blockchain){target=\_blank} tutorial and have the [Polkadot SDK Solochain Template](https://github.com/paritytech/polkadot-sdk-solochain-template){target=\_blank} installed on your local machine
 - Experience using predefined accounts to start nodes on a single computer, as described in the [Simulate a Network](/tutorials/blockchains/custom-blockchains/build-a-blockchain/simulate-a-network){target=\_blank} guide
 

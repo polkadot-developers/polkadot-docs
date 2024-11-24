@@ -25,7 +25,7 @@ By the end of this tutorial, you’ll have the skills to upgrade the runtime and
 
 Before starting this tutorial, ensure you meet the following requirements:
 
-- Installed and configured Rust on your system. Refer to the [Installation](/develop/blockchains/get-started/install-polkadot-sdk){target=\_blank} guide for detailed instructions on installing Rust and setting up your development environment
+- Installed and configured Rust on your system. Refer to the [Installation](/develop/parachains/get-started/install-polkadot-sdk){target=\_blank} guide for detailed instructions on installing Rust and setting up your development environment
 - Completed the [Build a Local Blockchain](/tutorials/blockchains/custom-blockchains/build-a-blockchain/build-a-local-blockchain){target=\_blank} tutorial and have the [Polkadot SDK Solochain Template](https://github.com/paritytech/polkadot-sdk-solochain-template){target=\_blank} installed on your machine
 
 ## Start the Node
@@ -116,7 +116,7 @@ pub const EXISTENTIAL_DEPOSIT: u128 = 1000;
 ```
 
 !!!note
-    This change increases the minimum balance required for accounts to remain active. No accounts with balances between `500` and `1000` will be removed. For account removal, a storage migration is needed. See [Storage Migration](/develop/blockchains/maintenance/storage-migrations){target=\_blank} for details.
+    This change increases the minimum balance required for accounts to remain active. No accounts with balances between `500` and `1000` will be removed. For account removal, a storage migration is needed. See [Storage Migration](/develop/parachains/maintenance/storage-migrations){target=\_blank} for details.
 
 #### Update Runtime Version
 

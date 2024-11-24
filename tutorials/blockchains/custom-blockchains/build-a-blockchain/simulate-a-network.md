@@ -23,7 +23,7 @@ By completing this tutorial, you will accomplish the following objectives:
 
 Before proceeding, ensure you have the following prerequisites in place:
 
-- Installed and configured Rust on your system. Refer to the [Installation](/develop/blockchains/get-started/install-polkadot-sdk){target=\_blank} guide for detailed instructions on installing Rust and setting up your development environment
+- Installed and configured Rust on your system. Refer to the [Installation](/develop/parachains/get-started/install-polkadot-sdk){target=\_blank} guide for detailed instructions on installing Rust and setting up your development environment
 - Completed the [Build a Local Blockchain](/tutorials/blockchains/custom-blockchains/build-a-blockchain/build-a-local-blockchain){target=\_blank} guide and have the [Polkadot SDK Solochain Template](https://github.com/paritytech/polkadot-sdk-solochain-template){target=\_blank} installed on your local machine
 
 ## Start the First Blockchain Node

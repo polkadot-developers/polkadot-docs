@@ -16,7 +16,7 @@ The Polkadot ecosystem provides multiple development pathways:
 graph TD
     A[Development Pathways]
     A --> B[Smart Contract Development]
-    A --> C[Blockchain Development]
+    A --> C[Parachain Development]
     A --> D[Client-side Development]
 ```
 
@@ -28,15 +28,15 @@ Some key benefits of developing smart contracts include ease of development, fas
 
 For more information on developing smart contracts in the Polkadot ecosystem, check the [Smart Contracts](/develop/smart-contracts/overview){target=\_blank} section.
 
-## Blockchain Development
+## Parachain Development
 
-[Runtimes](/polkadot-protocol/glossary#runtime){target=\_blank} are the core building blocks that define the logic and functionality of Polkadot SDK-based blockchains. Developers can customize and extend the features of their blockchain, allowing for tighter integration with critical network tasks such as block production, consensus mechanisms, and governance processes.
+[Runtimes](/polkadot-protocol/glossary#runtime){target=\_blank} are the core building blocks that define the logic and functionality of Polkadot SDK-based parachains. Developers can customize and extend the features of their blockchain, allowing for tighter integration with critical network tasks such as block production, consensus mechanisms, and governance processes.
 
-Runtimes can be upgraded through forkless runtime updates, enabling seamless evolution of the blockchain without disrupting existing functionality.
+Runtimes can be upgraded through forkless runtime updates, enabling seamless evolution of the parachain without disrupting existing functionality.
 
 Developers can define the parameters, rules, and behaviors that shape their blockchain network. This includes token economics, transaction fees, permissions, and more. Using the Polkadot SDK, teams can iterate on their blockchain designs, experiment with new features, and deploy highly specialized networks tailored to their specific use cases.
 
-For those interested in delving deeper into runtime development, explore the dedicated [Custom Blockchains](/develop/blockchains/custom-blockchains){target=\_blank} section.
+For those interested in delving deeper into runtime development, explore the dedicated [Customize a Parachain](/develop/parachains/customize-parachain){target=\_blank} section.
 
 ## Client-Side Development
 

@@ -27,7 +27,7 @@ By the end of this tutorial, you'll have a working local solochain and understan
 
 To get started with the node template, you'll need to have the following set up on your development machine first:
 
-- Rust installation - the node template is written in [Rust](https://www.rust-lang.org/){target=\_blank}, so you'll need to have it installed and configured on your system. Refer to the [Installation](/develop/blockchains/get-started/install-polkadot-sdk){target=\_blank} guide for step-by-step instructions on setting up your development environment
+- Rust installation - the node template is written in [Rust](https://www.rust-lang.org/){target=\_blank}, so you'll need to have it installed and configured on your system. Refer to the [Installation](/develop/parachains/get-started/install-polkadot-sdk){target=\_blank} guide for step-by-step instructions on setting up your development environment
 
 ## Compile a Node 
 

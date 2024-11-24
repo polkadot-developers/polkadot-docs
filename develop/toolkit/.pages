@@ -1,6 +1,7 @@
 title: Toolkit
 nav:
   - index.md
-  - blockchain
+  - parachains
   - api-libraries
+  - integrations
   - interoperability

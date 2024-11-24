@@ -13,7 +13,7 @@ This tutorial demonstrates deploying a parachain on a public test network like t
 
 Before you start, you need to have the following prerequisites:
 
-- You know how to generate and modify chain specification files as described in the [Generate Chain Specs](/develop/blockchains/deployment/generate-chain-specs){target=\_blank} section
+- You know how to generate and modify chain specification files as described in the [Generate Chain Specs](/develop/parachains/deployment/generate-chain-specs){target=\_blank} section
 - You know how to generate and store keys as described in the [Add Trusted Nodes](/tutorials/blockchains/custom-blockchains/build-a-blockchain/add-trusted-nodes){target=\_blank} tutorial
 - You have completed the [Prepare a Local Relay Chain](/tutorials/blockchains/custom-blockchains/build-a-parachain/prepare-relay-chain){target=\_blank} and the [Connect a Local Parachain](/tutorials/blockchains/custom-blockchains/build-a-parachain/connect-a-parachain){target=\_blank} tutorials on your local computer
 

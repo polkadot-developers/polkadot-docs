@@ -18,7 +18,7 @@ The [`pallet-xcm`](https://paritytech.github.io/polkadot-sdk/master/pallet_xcm/p
 This pallet provides some [default implementations](https://paritytech.github.io/polkadot-sdk/master/pallet_xcm/pallet/struct.Pallet.html#implementations){target=\_blank} for traits required by [`XcmConfig`](https://paritytech.github.io/polkadot-sdk/master/pallet_xcm_benchmarks/trait.Config.html#associatedtype.XcmConfig){target=\_blank}. The [XCM executor](https://paritytech.github.io/polkadot-sdk/master/staging_xcm_executor/struct.XcmExecutor.html){target=\_blank} is also included as an associated type within the pallet's configuration.
 
 !!!note
-    For further details on the XCM configuration, refer to the [XCM Configuration](/develop/interoperability/xcm-config/) page.
+    For further details on the XCM configuration, refer to the [XCM Configuration](/develop/interoperability/xcm-config/){target=\_blank} page.
 
 Where the [XCM format](https://github.com/polkadot-fellows/xcm-format){target=\_blank} defines a set of instructions used to construct XCVM programs, `pallet-xcm` defines a set of extrinsics that can be utilized to build XCVM programs, either to target the local or external chains. The `pallet-xcm` functionality is divided into three categories:
 
@@ -81,7 +81,8 @@ pub fn send<T: Config>(
     message: Box<VersionedXcm<<T as Config>::RuntimeCall>>,
 )
 ```
-!!!note 
+
+!!!note
     For further information about the `send` extrinsic, check the [`pallet-xcm` documentation](https://paritytech.github.io/polkadot-sdk/master/pallet_xcm/pallet/struct.Pallet.html){target=\_blank}.
 
 <!-- TODO: we should complement this page with some real examples of where the .send() call is used, or maybe how to use it through papi or something like that -->
@@ -96,5 +97,5 @@ For instance, the Kusama network employs the [`ChildParachainRouter`](https://pa
 --8<-- 'https://raw.githubusercontent.com/polkadot-fellows/runtimes/refs/heads/main/relay/kusama/src/xcm_config.rs:122:125'
 ```
 
-!!!note 
+!!!note
     For more details on XCM transport protocols, see the [XCM Channels](/develop/interoperability/xcm-channels/){target=\_blank} page.

@@ -18,7 +18,7 @@ This guide outlines the primary approaches to developing smart contracts in the 
 You'll explore the key differences between these development paths, along with considerations for parachain developers integrating smart contract functionality.
 
 !!!info "Parachain Developer?"
-    If you are a parachain developer looking to add smart contract functionality to your chain, please refer to the [Add Smart Contract Functionality](/develop/blockchains/custom-blockchains/add-smart-contract-functionality/){target=\_blank} page, which covers both Wasm and EVM-based contract implementations.
+    If you are a parachain developer looking to add smart contract functionality to your chain, please refer to the [Add Smart Contract Functionality](/develop/parachains/customize-parachain/add-smart-contract-functionality/){target=\_blank} page, which covers both Wasm and EVM-based contract implementations.
 
 ## Smart Contracts Versus Parachains
 
@@ -112,7 +112,7 @@ Although it seems complex, users and developers are abstracted of that complexit
 
 The Rust EVM is capable of executing regular [EVM bytecode](https://www.ethervm.io/){target=\_blank}. Consequently, any language that compiles to EVM bytecode can be used to create programs that the parachain can execute.
 
-You can find more information on deploying EVM smart contracts to [Polkadot's native smart contract platform](TODO:update-path){target=\_blank}, or any of [the ecosystem parachains](TODO:update-path){target=\_blank}.
+You can find more information on deploying EVM smart contracts to [Polkadot's native smart contract platform](/develop/smart-contracts/evm/native-evm-contracts/){target=\_blank}, or any of [the ecosystem parachains](/develop/smart-contracts/evm/parachain-contracts/){target=\_blank}.
 
 ### Wasm Contracts
 

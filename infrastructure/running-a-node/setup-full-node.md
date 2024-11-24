@@ -11,24 +11,7 @@ Running a node on Polkadot provides direct interaction with the network, enhance
 
 Polkadot supports multiple node types, including pruned, archive, and light nodes, each suited to specific use cases. During setup, you can use configuration flags to choose the node type you wish to run.
 
-This guide walks you through configuring, securing, and maintaining a node on Polkadot or any Polkadot SDK-based chain. It covers the differences between node types, securing WebSocket connections, and safely exposing your node's RPC server for external access. Whether you're building a local development environment, powering dApps, or supporting network decentralization, this guide provides all the essentials.
-
-## Types of Nodes
-
-The three main types of nodes are as follows:
-
-- **Pruned node** - prunes historical states of all finalized block states older than a specified number except for the genesis block's state
-- **Archive node** - preserves all the past blocks and their states, making it convenient to query the past state of the chain at any given time. Archive nodes use a lot of disk space, which means they should be limited to use cases that require easy access to past on-chain data, such as block explorers
-- **Light node** - has only the runtime and the current state but doesn't store past blocks, making them useful for resource-restricted devices
-
-Any of these node types can be configured to provide remote access to the blockchain's data and functionality. Through RPC, these nodes expose endpoints that allow external clients, such as dApps or developers, to submit transactions, query data, and interact with the blockchain remotely.
-
-!!!tip
-    On [Stakeworld](https://stakeworld.io/docs/dbsize){target=\_blank}, you can find a list of the database sizes of Polkadot and Kusama nodes.
-
-### State vs. Block Pruning
-
-A pruned node only keeps a limited number of finalized blocks of the network, not its complete history. State and block pruning are two ways of removing old blocks from a system. State pruning removes the states of old blocks while preserving block headers. Block pruning removes the block bodies of old blocks while retaining block headers. You can complete many frequently required actions with a pruned node, such as displaying account balances, making transfers, setting up session keys, and staking.
+This guide walks you through configuring, securing, and maintaining a node on Polkadot or any Polkadot SDK-based chain. It covers instructions for the different node types and how to safely expose your node's RPC server for external access. Whether you're building a local development environment, powering dApps, or supporting network decentralization, this guide provides all the essentials.
 
 ## Set Up a Node
 
@@ -39,7 +22,7 @@ Now that you're familiar with the different types of nodes, this section will wa
 Before getting started, ensure the following prerequisites are met:
 
 - Ensure [Rust](https://www.rust-lang.org/tools/install){target=\_blank} is installed on your operating system
-- [Install the necessary dependencies for the Polkadot SDK](/develop/blockchains/get-started/install-polkadot-sdk/){target=\_blank}
+- [Install the necessary dependencies for the Polkadot SDK](/develop/parachains/get-started/install-polkadot-sdk/){target=\_blank}
 
 !!! warning
     This setup is not recommended for validators. If you plan to run a validator, refer to the [Running a Validator](/infrastructure/running-a-validator/){target=\_blank} guide for proper instructions.
@@ -220,6 +203,9 @@ docker run --platform linux/amd64 -p 9944:9944 -p 9615:9615 parity/polkadot:v1.1
 Now that you've installed and built the Polkadot binary, the next step is to configure the start-up command depending on the type of node that you want to run. You'll need to modify the start-up command accordingly based on the location of the binary. In some cases, it may be located within the `./target/release/` folder, so you'll need to replace polkadot with `./target/release/polkadot` in the following commands.
 
 Also, note that you can use the same binary for Polkadot as you would for Kusama or any other relay chain. You'll need to use the `--chain` flag to differentiate between chains.
+
+!!!note
+    Not sure which type of node to run? Explore an [overview of the different node types](/infrastructure/running-a-node/#types-of-nodes){target=\_blank}.
 
 The base commands for running a Polkadot node are as follows:
 

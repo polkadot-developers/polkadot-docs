@@ -4,8 +4,34 @@
 echo "Running Prettier on .snippets/code/**/*.{js,json,html}"
 npx prettier --write .snippets/code/**/*.{js,json,html}
 
-echo "Running Taplo to format TOML files"
-npx taplo fmt .snippets/code/**/*.toml
+IGNORED_FILES=(
+  ".snippets/code/develop/toolkit/parachains/spawn-chains/zombienet/write-tests/big-network-test.toml"
+  ".snippets/code/develop/toolkit/parachains/spawn-chains/zombienet/write-tests/small-network-test.toml"
+  ".snippets/code/develop/toolkit/parachains/spawn-chains/zombienet/write-tests/spawn-a-basic-chain-test.toml"
+)
+
+# Normalize ignored files pattern
+EXCLUDE_PATTERN=$(printf "%s\n" "${IGNORED_FILES[@]}" | sed 's/\//\\\//g' | paste -sd "|" -)
+
+# Find all TOML files and normalize paths
+ALL_FILES=$(find .snippets/code/ -type f -name "*.toml" | sed 's|//|/|g')
+
+# Exclude ignored files
+FILES_TO_FORMAT=$(echo "$ALL_FILES" | grep -Ev "$EXCLUDE_PATTERN")
+
+# Run Taplo if there are files to format
+if [ -n "$FILES_TO_FORMAT" ]; then
+  echo "Formatting files with Taplo..."
+  echo "$FILES_TO_FORMAT" | while read -r file; do
+    npx taplo fmt "$file"
+    if [ $? -ne 0 ]; then
+      echo "Error: Taplo formatting failed."
+      exit 1
+    fi
+  done
+else
+  echo "No files to format."
+fi
 
 echo "Adding formatted files back to the commit..."
 git add .snippets/code/**/*.{js,json,html,toml}

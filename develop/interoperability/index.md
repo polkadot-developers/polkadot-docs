@@ -10,7 +10,7 @@ template: index-page.html
 
 This section covers everything you need to know about building and implementing Cross-Consensus Messaging (XCM) solutions in the Polkadot ecosystem. Whether you're working on establishing cross-chain channels, sending and receiving XCM messages, or testing and debugging your cross-chain configurations, you'll find the essential resources and tools here to support your interoperability needs, regardless of your development focus.
 
-- Not sure where to start? Visit the [Interoperability](/polkadot-protocol/basics/interoperability/){target=\_blank} overview page to explore different options and find the right fit for your project.
+- Not sure where to start? Visit the [Interoperability](/polkadot-protocol/basics/interoperability/){target=\_blank} overview page to explore different options and find the right fit for your project
 - Ready to dive in? Head over to [Send XCM Messages](/develop/interoperability/send-messages/) to learn how to send a message cross-chain via XCM
 
 ## In This Section
@@ -35,7 +35,7 @@ This section covers everything you need to know about building and implementing 
   <div class="card"> 
     <a href="https://github.com/polkadot-fellows/xcm-format" target="_blank"> 
       <h2 class="title">Familiarize Yourself with the XCM Format</h2>
-      <p class="description">Gain a deeper understanding of the XCM format and how it’s structured, including any extra data it may need and what each part of a message means.</p>
+      <p class="description">Gain a deeper understanding of the XCM format and structure, including any extra data it may need and what each part of a message means.</p>
     </a>
   </div>
   <div class="card"> 

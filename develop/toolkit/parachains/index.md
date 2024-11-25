@@ -6,7 +6,7 @@ hide:
 template: index-page.html
 ---
 
-# Blockchain Tools
+# Parachain Tools
 
 Within the Polkadot ecosystem, you'll find a robust set of development tools that empower developers to build, test, and deploy blockchain applications efficiently. Whether you're designing a custom parachain, testing new features, or validating network configurations, these tools streamline the development process and ensure your blockchain setup is secure and optimized.
 

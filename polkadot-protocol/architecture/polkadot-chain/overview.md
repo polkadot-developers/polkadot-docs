@@ -1,15 +1,15 @@
 ---
 title: Overview of the Polkadot Relay Chain
-description: Explore Polkadot's core architecture, including its multi-chain vision, shared security, runtime upgrades, and the DOT token's governance and staking roles.
+description: Explore Polkadot's core architecture, including its multi-chain vision, shared security, and the DOT token's governance and staking roles.
 ---
 
 # Overview
 
 ## Introduction
 
-Polkadot is a next-generation blockchain protocol designed to support a multi-chain future by enabling secure communication and interoperability between different blockchains. Built as a Layer-0 protocol, Polkadot introduces innovations like application-specific Layer-1 chains (parachains), shared security through Nominated Proof of Stake (NPoS), and seamless cross-chain interactions via its native Cross-Consensus Messaging Format (XCM).
+Polkadot is a next-generation blockchain protocol designed to support a multi-chain future by enabling secure communication and interoperability between different blockchains. Built as a Layer-0 protocol, Polkadot introduces innovations like application-specific Layer-1 chains ([parachains](/polkadot-protocol/architecture/parachains/){targe=\_blank}), shared security through [Nominated Proof of Stake (NPoS)](/polkadot-protocol/glossary/#nominated-proof-of-stake-npos){target=\_blank}, and cross-chain interactions via its native [Cross-Consensus Messaging Format (XCM)](/develop/interoperability/intro-to-xcm/){target=\_blank}.
 
-This guide covers key aspects of Polkadot’s architecture, including its high-level protocol structure, runtime upgrades, blockspace commoditization, and the role of its native token, DOT, in governance, staking, and resource allocation.
+This guide covers key aspects of Polkadot’s architecture, including its high-level protocol structure, blockspace commoditization, and the role of its native token, DOT, in governance, staking, and resource allocation.
 
 ## Polkadot 1.0
 
@@ -82,7 +82,7 @@ A network should be decentralized enough to prevent manipulative or malicious in
 
 Polkadot 1.0 currently achieves resilience through several strategies:
 
-- **Nominated Proof of Stake (NPoS)** - this ensures that the stake per validator is maximized and evenly distributed among validators
+- **Nominated Proof of Stake (NPoS)** - ensures that the stake per validator is maximized and evenly distributed among validators
 
 - **Decentralized nodes** - designed to encourage operators to join the network. This program aims to expand and diversify the validators in the ecosystem who aim to become independent of the program during their term. Feel free to explore more about the program on the official [Decentralized Nodes](https://nodes.web3.foundation/){target=\_blank} page
 
@@ -120,7 +120,7 @@ DOT is the native token of the Polkadot network, much like BTC for Bitcoin and E
 
 ### The Planck Unit
 
-The smallest unit of account balance on Substrate-based blockchains (such as Polkadot and Kusama) is called _Planck_, named after the Planck length, the smallest measurable distance in the physical universe.
+The smallest unit of account balance on Polkadot SDK-based blockchains (such as Polkadot and Kusama) is called _Planck_, named after the Planck length, the smallest measurable distance in the physical universe.
 
 Similar to how BTC's smallest unit is the Satoshi and ETH's is the Wei, Polkadot's native token DOT equals 1e10 Planck, while Kusama's native token KSM equals 1e12 Planck.
 

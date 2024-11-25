@@ -13,13 +13,13 @@ In this section, you will explore the core interoperability solutions of the Pol
 ## XCM (Cross-Consensus Messaging)
 Learn to establish and use cross-chain communication channels:
 
-- **[Opening HRMP Channels Between Parachains](/tutorials/interoperability/xcm-channels/para-to-para/){target=\_blank}** - Set up uni- and bidirectional messaging channels between parachains
-- **[Opening HRMP Channels with System Parachains](/tutorials/interoperability/xcm-channels/para-to-system/){target=\_blank}** - Establish communication channels with system parachains using optimized XCM messages
+- **[Opening HRMP Channels Between Parachains](/tutorials/interoperability/xcm-channels/para-to-para/){target=\_blank}** - set up uni- and bidirectional messaging channels between parachains
+- **[Opening HRMP Channels with System Parachains](/tutorials/interoperability/xcm-channels/para-to-system/){target=\_blank}** - establish communication channels with system parachains using optimized XCM messages
 
 XCM provides a secure and trustless framework that facilitates communication between parachains, relay chains, and external blockchains, enabling asset transfers, data sharing, and complex cross-chain workflows.
 
 ## Bridges
-Bridges extend interoperability beyond the Polkadot network by connecting to external blockchains. This enables the integration of external assets, unlocking liquidity and enhancing the functionality of Polkadot-based applications.
+Bridges extend interoperability beyond the Polkadot network by connecting to external blockchains. This enables the integration of external assets, unlocking liquidity and enhancing the functionality of Polkadot SDK-based applications.
 
 These tutorials will provide a step-by-step approach to mastering cross-chain interoperability, covering everything from setting up XCM channels to transferring assets and executing remote calls across different chains.
 

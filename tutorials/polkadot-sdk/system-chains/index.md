@@ -12,9 +12,9 @@ In this section, you'll gain hands-on experience building solutions that integra
 
 The Asset Hub system chain (formerly known as Statemint) provides robust asset management capabilities across the Polkadot ecosystem. Learn how to:
 
-- **[Register a Local Asset](/tutorials/polkadot-sdk/system-chains/asset-hub/register-local-asset/){target=\_blank}** - Create and configure new assets directly on Asset Hub with custom parameters like metadata and minimum balances
-- **[Register a Foreign Asset](/tutorials/polkadot-sdk/system-chains/asset-hub/register-foreign-asset/){target=\_blank}** - Connect assets from other parachains to Asset Hub using XCM for cross-chain functionality 
-- **[Convert Assets](/tutorials/polkadot-sdk/system-chains/asset-hub/asset-conversion/){target=\_blank}** - Use Asset Hub's AMM functionality to swap between different assets, provide liquidity to pools, and manage LP tokens
+- **[Register a Local Asset](/tutorials/polkadot-sdk/system-chains/asset-hub/register-local-asset/){target=\_blank}** - create and configure new assets directly on Asset Hub with custom parameters like metadata and minimum balances
+- **[Register a Foreign Asset](/tutorials/polkadot-sdk/system-chains/asset-hub/register-foreign-asset/){target=\_blank}** - connect assets from other parachains to Asset Hub using XCM for cross-chain functionality 
+- **[Convert Assets](/tutorials/polkadot-sdk/system-chains/asset-hub/asset-conversion/){target=\_blank}** - use Asset Hub's AMM functionality to swap between different assets, provide liquidity to pools, and manage LP tokens
 
 
 ## In This Section

@@ -20,7 +20,7 @@ Not sure where to start? Check out the highlighted tutorials below!
   <div class="card">
     <a href="/tutorials/polkadot-sdk/parachains/local-chain/launch-a-local-solochain/" target="_blank">
       <h2 class="title">Spin Up a Solochain</h2>
-      <p class="description">Learn to compile and launch a local blockchain node using Polkadot SDK. Launch, run, and interact with a pre-configured node template.</p>
+      <p class="description">Learn how to compile and launch a local blockchain node using Polkadot SDK. Launch, run, and interact with a pre-configured node template.</p>
     </a>
   </div>
     <div class="card">

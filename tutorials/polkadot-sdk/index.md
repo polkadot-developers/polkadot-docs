@@ -8,7 +8,7 @@ template: index-page.html
 
 # Polkadot SDK Tutorials
 
-The Polkadot SDK provides a powerful framework for building custom blockchains that can operate either independently or as part of the larger Polkadot ecosystem. The Polkadot SDK encompasses a modular and extensible set of tools, libraries, and runtime components to streamline the creation of parachains, system chains, and standalone Substrate-based blockchains. These tutorials guide you through your blockchain development journey, from creating your first local chain to deploying production-ready parachains.
+The Polkadot SDK provides a powerful framework for building custom blockchains that can operate either independently or as part of the larger Polkadot ecosystem. The Polkadot SDK encompasses a modular and extensible set of tools, libraries, and runtime components to streamline the creation of parachains, system chains, and standalone Polkadot SDK-based blockchains. These tutorials guide you through your blockchain development journey, from creating your first local chain to deploying production-ready parachains.
 
 ## A Journey Through the Polkadot SDK
 
@@ -34,7 +34,7 @@ Enhance your parachain's capabilities by integrating with Polkadot's specialized
 ### Master Testing Tools
 Ensure the integrity and reliability of your blockchain with Polkadot's specialized testing tools:
 
-- [Create temporary test networks with Zombienet](/tutorials/polkadot-sdk/testing/spawn-basic-chain/){target=\_blank}
+- [Create ephemeral test networks with Zombienet](/tutorials/polkadot-sdk/testing/spawn-basic-chain/){target=\_blank}
 - [Fork live chains for local testing with Chopsticks](/tutorials/polkadot-sdk/testing/fork-live-chains/){target=\_blank}
 
 ## Prerequisites
@@ -49,7 +49,7 @@ Ensure the integrity and reliability of your blockchain with Polkadot's speciali
     <div class="card">
     <a href="/develop/blockchains/get-started/install-polkadot-sdk/" target="_blank">
       <h2 class="title">Install the Polkadot SDK</h2>
-      <p class="description">Install everything you need to begin working with Substrated-based blockchains and the Polkadot SDK.</p>
+      <p class="description">Install everything you need to begin working with Polkadot SDK-based blockchains.</p>
     </a>
   </div>
 </div>

@@ -23,14 +23,6 @@ Follow these key milestones to guide you through parachain development. Each ste
 
 - **[Prepare Your Parachain for Deployment](/tutorials/polkadot-sdk/parachains/connect-to-relay-chain/prepare-relay-chain/)** - follow these steps to set up a local relay chain environment and connect your parachain, getting it ready for deployment on the Polkadot network
 
-## Extend Your Parachain's Functionality
-
-Once your parachain is up and running, the next step you can tackle is extending its capabilities by integrating it with Polkadot's specialized system chains and ensuring your features are stable before deployment. This section includes tutorials that show you how to:
-
-- **[Register Your Parachain's Asset on Asset Hub](https://tutorials.polkadot-sdk/system-chains/asset-hub/register-foreign-asset/)** - follow this step-by-step guide to register your parachain’s asset with Polkadot’s Asset Hub, enabling seamless asset management and cross-chain integration
-
-- **[Test New Features in a Controlled Environment](https://tutorials.polkadot-sdk/testing/fork-live-chains/)** - in this tutorial, use Chopsticks to fork your parachain and create a safe, isolated environment for testing new features before deploying them to a live network
-
 ## In This Section
 
 :::INSERT_IN_THIS_SECTION:::

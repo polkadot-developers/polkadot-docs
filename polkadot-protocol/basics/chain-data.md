@@ -66,7 +66,6 @@ Visit the [Polkadot.js Portal](https://polkadot.js.org/apps/#/rpc){target=\_blan
 You can fetch the metadata for the network by calling the node's RPC endpoint. This request returns the metadata in bytes rather than human-readable JSON:
 
 ```sh
-
 curl -H "Content-Type: application/json" \
 -d '{"id":1, "jsonrpc":"2.0", "method": "state_getMetadata"}' \
 https://rpc.polkadot.io
@@ -78,9 +77,7 @@ https://rpc.polkadot.io
 [`subxt`](https://github.com/paritytech/subxt){target=\_blank} may also be used to fetch the metadata of any data in a human-readable JSON format: 
 
 ```sh
-
 subxt metadata  --url wss://rpc.polkadot.io --format json > spec.json
-
 ```
 
 Another option is to use the [`subxt` explorer web UI](https://paritytech.github.io/subxt-explorer/#/){target=\_blank}.
@@ -108,9 +105,7 @@ In general, the metadata includes the following information:
 The following example illustrates a condensed and annotated section of metadata decoded and converted to JSON:
 
 ```json
-
 --8<-- 'code/polkadot-protocol/basics/chain-data/metadata-format.json'
-
 ```
 
 The constant `1635018093` is a magic number that identifies the file as a metadata file. The rest of the metadata is divided into the `types`, `pallets`, and `extrinsic` sections:

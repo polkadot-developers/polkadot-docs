@@ -7,7 +7,7 @@ description: Explore Polkadot's consensus protocols for secure, scalable, and de
 
 ## Introduction
 
-Polkadot's Proof of Stake consensus model leverages a unique hybrid approach by design to promote decentralized and secure network operations. In traditional Proof of Stake (PoS) systems, a node's ability to validate transactions is tied to its token holdings, which can lead to centralization risks and limited validator participation. Polkadot addresses these concerns through its Nominated Proof of Stake (NPoS) model and a combination of advanced consensus mechanisms to ensure efficient block production and strong finality guarantees. This combination enables the Polkadot network to scale while maintaining security and decentralization.
+Polkadot's Proof of Stake consensus model leverages a unique hybrid approach by design to promote decentralized and secure network operations. In traditional Proof of Stake (PoS) systems, a node's ability to validate transactions is tied to its token holdings, which can lead to centralization risks and limited validator participation. Polkadot addresses these concerns through its [Nominated Proof of Stake (NPoS)](/polkadot-protocol/glossary/#nominated-proof-of-stake-npos){target=\_blank} model and a combination of advanced consensus mechanisms to ensure efficient block production and strong finality guarantees. This combination enables the Polkadot network to scale while maintaining security and decentralization.
 
 ## Nominated Proof of Stake
 
@@ -82,7 +82,7 @@ Key features of GRANDPA include:
 
 In traditional Proof of Work (PoW) blockchains, finality is probabilistic. As blocks are added to the chain, the probability that a block is final increases, but it can never be guaranteed. Eventual consensus means that over time, all nodes will agree on a single version of the blockchain, but this process can be unpredictable and slow.
 
-Conversely, GRANDPA provides provable finality, which means that once a block is finalized, it is irreversible. By using Byzantine fault-tolerant agreements, GRANDPA finalizes blocks more efficiently and securely than probabilistic mechanisms like Nakamoto consensus. Like Ethereum's Casper the Friendly Finality Gadget(FFG), GRANDPA ensures that finalized blocks cannot be reverted, offering stronger guarantees of consensus.
+Conversely, GRANDPA provides provable finality, which means that once a block is finalized, it is irreversible. By using Byzantine fault-tolerant agreements, GRANDPA finalizes blocks more efficiently and securely than probabilistic mechanisms like Nakamoto consensus. Like Ethereum's Casper the Friendly Finality Gadget (FFG), GRANDPA ensures that finalized blocks cannot be reverted, offering stronger guarantees of consensus.
 
 
 ??? interface "Additional Information"

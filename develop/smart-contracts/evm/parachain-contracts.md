@@ -230,7 +230,7 @@ What makes this demo particularly powerful is that all three chains—Astar, Moo
 
 This script demonstrates one of the fundamental ways to interact with blockchain networks - querying on-chain state through smart contract calls.  The standardized ERC20 interface (which most tokens implement) is used to read the total supply of tokens across different EVM networks. This type of interaction is "read-only" or a "view" call, meaning it is simply fetching data from the blockchain without making any transactions or state changes. Therefore, it isn't using any gas. Transactions that attempt to make a state change to the blockchain require gas.  The ability to query state like this is essential for DApps, analytics tools, and monitoring systems that need real-time blockchain data.
 
-## Where to Go Next?
+## Where to Go Next
 
 Check out the links below for each respective parachain for network endpoints, getting started guides, and more.
 
@@ -248,4 +248,3 @@ Check out the links below for each respective parachain for network endpoints, g
     - [Acala Docs](https://evmdocs.acala.network/){target=\_blank}
     - [Acala Network Endpoints](https://wiki.acala.network/integrate/acala/endpoints){target=\_blank}
     - [About the Acala Network](https://wiki.acala.network/learn/acala-introduction){target=\_blank}
-

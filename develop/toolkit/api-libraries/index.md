@@ -13,3 +13,20 @@ Explore the powerful API libraries available for interacting with the Polkadot n
 ## In This Section
 
 :::INSERT_IN_THIS_SECTION:::
+
+## Additional Resources
+
+<div class="subsection-wrapper">
+  <div class="card">
+    <a href="/polkadot-protocol/basics/chain-data/">
+      <h2 class="title">Understand Chain Data</h2>
+      <p class="description">Familiarize yourself with the data provided by the APIs, including available calls, events, types, and storage items.</p>
+    </a>
+  </div>
+    <div class="card">
+    <a href="/develop/networks/">
+      <h2 class="title">Network Configurations</h2>
+      <p class="description">Obtain the necessary configurations and WSS endpoints to interact with the APIs on Polkadot networks.</p>
+    </a>
+  </div>
+</div>

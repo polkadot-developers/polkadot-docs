@@ -16,15 +16,15 @@ Through these tutorials, you'll learn how to leverage these system chains to enh
 
 Enhance cross-chain interoperability and expand your parachain’s functionality:
 
-- **[Register your parachain's asset on Asset Hub](/tutorials/polkadot-sdk/system-chains/asset-hub/register-foreign-asset/){target=\_blank}** - connect your parachain’s assets to Asset Hub as a foreign asset using XCM, enabling seamless cross-chain transfers and integration
+- **[Register your parachain's asset on Asset Hub](/tutorials/polkadot-sdk/system-chains/asset-hub/register-foreign-asset/)** - connect your parachain’s assets to Asset Hub as a foreign asset using XCM, enabling seamless cross-chain transfers and integration
 
 ## For Developers Leveraging System Chains
 
 Unlock new possibilities by tapping into Polkadot’s system chains:
 
-- **[Register a new asset on Asset Hub](/tutorials/polkadot-sdk/system-chains/asset-hub/register-local-asset/){target=\_blank}** - create and customize assets directly on Asset Hub (local assets) with parameters like metadata, minimum balances, and more
+- **[Register a new asset on Asset Hub](/tutorials/polkadot-sdk/system-chains/asset-hub/register-local-asset/)** - create and customize assets directly on Asset Hub (local assets) with parameters like metadata, minimum balances, and more
 
-- **[Convert Assets](/tutorials/polkadot-sdk/system-chains/asset-hub/asset-conversion/){target=\_blank}** - use Asset Hub's AMM functionality to swap between different assets, provide liquidity to pools, and manage LP tokens
+- **[Convert Assets](/tutorials/polkadot-sdk/system-chains/asset-hub/asset-conversion/)** - use Asset Hub's AMM functionality to swap between different assets, provide liquidity to pools, and manage LP tokens
 
 ## In This Section
 

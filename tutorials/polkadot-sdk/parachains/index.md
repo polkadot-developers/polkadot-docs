@@ -14,18 +14,18 @@ The Polkadot SDK enables you to build custom blockchains that can operate either
 
 Start by learning the fundamentals through these local development tutorials:
 
-- **[Launch a Local Solochain](/tutorials/polkadot-sdk/parachains/local-chain/launch-a-local-solochain/){target=\_blank}** - Compile and run your first blockchain node
-- **[Connect Multiple Nodes](/tutorials/polkadot-sdk/parachains/local-chain/connect-multiple-nodes/){target=\_blank}** - Use predefined accounts to create a basic network
-- **[Spin Up Your Nodes](/tutorials/polkadot-sdk/parachains/local-chain/connect-multiple-nodes/){target=\_blank}** - Set up a network with custom validators and Aura consensus
-- **[Upgrade a Running Network](/tutorials/polkadot-sdk/parachains/local-chain/connect-multiple-nodes/){target=\_blank}** - Perform forkless runtime upgrades to add features
+- **[Launch a Local Solochain](/tutorials/polkadot-sdk/parachains/local-chain/launch-a-local-solochain/)** - compile and run your first blockchain node
+- **[Connect Multiple Nodes](/tutorials/polkadot-sdk/parachains/local-chain/connect-multiple-nodes/)** - use predefined accounts to create a basic network
+- **[Spin Up Your Nodes](/tutorials/polkadot-sdk/parachains/local-chain/connect-multiple-nodes/)** - set up a network with custom validators and Aura consensus
+- **[Upgrade a Running Network](/tutorials/polkadot-sdk/parachains/local-chain/connect-multiple-nodes/)** - perform forkless runtime upgrades to add features
 
-## Parachain Development 
+## Parachain Development
 
 Ready to connect your parachain to Polkadot? Follow these tutorials to build and deploy a parachain:
 
-- **[Prepare a Relay Chain](/tutorials/polkadot-sdk/parachains/connect-to-relay-chain/prepare-relay-chain/){target=\_blank}** - set up a local relay chain for testing
-- **[Prepare a Parachain](/tutorials/polkadot-sdk/parachains/connect-to-relay-chain/prepare-parachain/){target=\_blank}** - configure and connect your parachain to the relay chain
-- **[Acquire a TestNet Slot](/tutorials/polkadot-sdk/parachains/connect-to-relay-chain/acquire-a-testnet-slot/){target=\_blank}** - deploy your parachain to the Paseo TestNet
+- **[Prepare a Relay Chain](/tutorials/polkadot-sdk/parachains/connect-to-relay-chain/prepare-relay-chain/)** - set up a local relay chain for testing
+- **[Prepare a Parachain](/tutorials/polkadot-sdk/parachains/connect-to-relay-chain/prepare-parachain/)** - configure and connect your parachain to the relay chain
+- **[Acquire a TestNet Slot](/tutorials/polkadot-sdk/parachains/connect-to-relay-chain/acquire-a-testnet-slot/)** - deploy your parachain to the Paseo TestNet
 
 ## Key Takeaways
 

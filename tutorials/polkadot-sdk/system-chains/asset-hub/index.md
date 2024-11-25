@@ -35,7 +35,7 @@ Through these tutorials, you'll learn how to manage cross-chain assets, includin
 
 <div class="subsection-wrapper">
   <div class="card">
-    <a href="/polkadot-protocol/architecture/system-chains/asset-hub/" target="_blank">
+    <a href="/polkadot-protocol/architecture/system-chains/asset-hub/">
       <h2 class="title">Learn More About Asset Hub</h2>
       <p class="description">Explore the fundamentals of Asset Hub, including managing on-chain assets, foreign asset integration, and using XCM for cross-chain asset transfers.</p>
     </a>

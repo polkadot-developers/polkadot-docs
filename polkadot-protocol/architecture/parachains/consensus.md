@@ -113,5 +113,5 @@ It is important to understand that relay chain blocks do not store full parachai
 
 For more technical details, refer to the:
 
-- [Parachain Wiki](https://wiki.polkadot.network/docs/learn-parachains){target=_blank} page
-- [Polkadot SDK Implementation Guide](/develop/parachains/get-started){target=\_blank} section
+- [Parachain Wiki](https://wiki.polkadot.network/docs/learn-parachains) page
+- [Polkadot SDK Implementation Guide](/develop/parachains/get-started) section

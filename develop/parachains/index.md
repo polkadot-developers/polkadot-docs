@@ -10,7 +10,7 @@ template: index-page.html
 
 ## Benefits of Parachains
 
-With the Polkadot relay chain handling security and consensus, parachain developers are free to focus on features such as asset management, governance, and cross-chain communication. The Polkadot SDK equips developers with the tools to build, deploy, and maintain efficient, scalable parachains. 
+With the [Polkadot relay chain](/polkadot-protocol/architecture/polkadot-chain/){target=\_blank} handling security and consensus, parachain developers are free to focus on features such as asset management, governance, and cross-chain communication. The Polkadot SDK equips developers with the tools to build, deploy, and maintain efficient, scalable parachains. 
 
 Polkadot SDK’s FRAME framework provides developers with the tools to do the following:
 

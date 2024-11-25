@@ -54,24 +54,6 @@ Ensure the integrity and reliability of your blockchain with Polkadot's speciali
   </div>
 </div>
 
-## Highlighted Tutorials
-
-<div class="subsection-wrapper">
-  <div class="card">
-    <a href="/develop/blockchains/get-started/intro-polkadot-sdk/">
-      <h2 class="title">Get Familiar with the Polkadot SDK</h2>
-      <p class="description">Take a step back and learn about the core components of the Polkadot SDK and how it powers the Polkadot protocol.</p>
-    </a>
-  </div>
-    <div class="card">
-    <a href="/develop/blockchains/get-started/install-polkadot-sdk/">
-      <h2 class="title">Install the Polkadot SDK</h2>
-      <p class="description">Install everything you need to begin working with Substrated-based blockchains and the Polkadot SDK.</p>
-    </a>
-  </div>
-</div>
-
-
 ## In This Section
 
 :::INSERT_IN_THIS_SECTION:::

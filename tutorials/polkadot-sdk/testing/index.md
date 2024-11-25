@@ -8,14 +8,15 @@ template: index-page.html
 
 # Blockchain Testing Tutorials
 
-Polkadot offers specialized tools that make it simple to create realistic testing environments, particularly for cross-chain interactions. These purpose-built tools enable developers to quickly spin up test networks that accurately simulate real-world scenarios. Learn to create controlled testing environments using powerful tools designed for Polkadot SDK development:
+Polkadot offers specialized tools that make it simple to create realistic testing environments, particularly for cross-chain interactions. These purpose-built tools enable developers to quickly spin up test networks that accurately simulate real-world scenarios. Learn to create controlled testing environments using powerful tools designed for Polkadot SDK development.
 
-- **[Spawn a Basic Chain with Zombienet](/tutorials/polkadot-sdk/testing/spawn-basic-chain/){target=\_blank}** - deploy temporary networks for testing, with customizable configurations and monitoring capabilities
-- **[Fork a Chain with Chopsticks](/tutorials/polkadot-sdk/testing/fork-live-chains/){target=\_blank}** - create local forks of live chains to test functionality, replay blocks, and simulate cross-chain messaging
+## Get Started
 
 Through these tutorials, you'll learn important testing techniques including:
 
 - Setting up local test environments
+- Spawning ephemeral testing networks
+- Forking live chains for testing
 - Simulating cross-chain interactions
 - Debugging blockchain behavior
 

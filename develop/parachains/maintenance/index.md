@@ -10,26 +10,17 @@ template: index-page.html
 
 Learn how to maintain Polkadot SDK-based networks, covering runtime monitoring, upgrades, and storage migrations for optimal blockchain performance. These sections cover how to monitor your deployed blockchain so you can feel confident your applications and users receive the secure, performant results they need. You will learn how runtime versioning and storage migration work together to allow forkless upgrades. These features ensures you can offer the most current functionality from the Polkadot ecosystem without compromising network uptime or security.   
 
-### Runtime Upgrades 
-[Discover how to update your blockchain without disruption](/develop/parachains/maintenance/runtime-upgrades/){target=\_blank} using Polkadot's forkless upgrade system:
+## Key Maintenance Tasks
 
-- Perform forkless runtime upgrades
-- Manage runtime versions
-- Execute seamless chain updates
+The primary maintenance tasks for parachain maintainers include:
 
-### Storage Migrations
-[Master the process of ensuring data consistency](/develop/parachains/maintenance/storage-migrations/){target=\_blank} during runtime upgrades:
+- **[Runtime Monitoring](/develop/parachains/maintenance/runtime-metrics-monitoring/){target=\_blank}** - track your network's health through comprehensive metrics, visualize data through Prometheus and Grafana, and set up alerts for critical events
 
-- Transform storage data formats
-- Implement safe migration strategies
-- Validate data transformations
+- **[Runtime Upgrades](/develop/parachains/maintenance/runtime-upgrades/){target=\_blank}** - perform forkless runtime upgrades, manage runtime versions, and execute seamless chain updates without network disruption
 
-### Runtime Monitoring
-[Learn how to track your network's health and performance](/develop/parachains/maintenance/runtime-metrics-monitoring/){target=\_blank} through comprehensive metrics and visualization tools:
+- **[Storage Migrations](/develop/parachains/maintenance/storage-migrations/){target=\_blank}** - ensure data consistency during upgrades by transforming storage data formats, implementing safe migration strategies, and validating data transformations
 
-- Monitor node performance and network metrics
-- Visualize data through Prometheus and Grafana
-- Set up alerts for critical events
+These maintenance practices help keep your blockchain secure, efficient, and adaptable to changing requirements. Whether you're operating a solo chain or a parachain, proper maintenance is crucial for long-term success.
 
 ## In This Section
 

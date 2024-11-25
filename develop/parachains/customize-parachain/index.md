@@ -1,6 +1,6 @@
 ---
 title: Customize Your Parachain
-description: Learn how to build a custom parachain with Polkadot SDK's FRAME framework, covering pallet development, testing, smart contracts, and runtime customization.
+description: Learn to build a custom parachain with Polkadot SDK's FRAME framework, which includes pallet development, testing, smart contracts, and runtime customization.
 hide: 
     - feedback
 template: index-page.html
@@ -8,9 +8,9 @@ template: index-page.html
 
 # Customize Your Parachain
 
-Learn how to build a custom parachain with Polkadot SDK's FRAME framework, covering pallet development, testing, smart contracts, and runtime customization.
+Learn how to build a custom parachain with Polkadot SDK's FRAME framework, which includes pallet development, testing, smart contracts, and runtime customization.
 
-These sections take what you learned and built in [Get Started](/develop/parachains/get-started/){target=\_blank} and guide you through using the Polkadot SDK's tools to create a blockchain customized to the needs of your users and applications. Whether it's a custom configuration of existing modular pallets, a pallet of your own creation, or through adding smart contract functionality, everything you need for efficient runtime design and development is here. 
+These sections take what you learned and built from [Get Started](/develop/parachains/get-started/){target=\_blank} and guide you through using the Polkadot SDK's tools to create a blockchain customized to the needs of your users and applications. Whether it's a custom configuration of existing modular pallets, a pallet of your creation, or through adding smart contract functionality, everything you need for efficient runtime design and development is here. 
 
 ## Build Your Runtime
 
@@ -18,7 +18,7 @@ These sections take what you learned and built in [Get Started](/develop/paracha
 
 - **[Add Existing Pallets](/develop/parachains/customize-parachain/add-existing-pallets/){target=\_blank}** - learn to incorporate pre-built pallets into your runtime to add common blockchain functionality
 
-- **[Make Custom Pallets](/develop/parachains/customize-parachain/make-custom-pallet){target=\_blank}** - create your own pallets to implement unique features and business logic for your chain
+- **[Make Custom Pallets](/develop/parachains/customize-parachain/make-custom-pallet){target=\_blank}** - create your pallets to implement unique features and business logic for your chain
 
 - **[Pallet Testing](/develop/parachains/customize-parachain/pallet-testing/){target=\_blank}** - ensure reliability by writing comprehensive tests for your pallet implementations
 
@@ -42,7 +42,7 @@ These sections take what you learned and built in [Get Started](/develop/paracha
     <div class="card">
     <a href="https://paritytech.github.io/polkadot-sdk/master/frame_support/index.html" target="_blank">
       <h2 class="title">FRAME Rust docs</h2>
-      <p class="description">Check out the Substrate docs regarding support code for the runtime.</p>
+      <p class="description">Check out the Rust docs for the `frame_support` crate to view the support code for the runtime.</p>
     </a>
   </div>
 </div>

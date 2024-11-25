@@ -1,6 +1,6 @@
 ---
 title: Get Started
-description: Learn how to start building with the Polkadot SDK, from installation and basic concepts to creating and deploying your own custom blockchain.
+description: Learn how to start building with the Polkadot SDK, from installation and basic concepts to creating and deploying your custom blockchain.
 hide: 
     - feedback
 template: index-page.html
@@ -8,7 +8,7 @@ template: index-page.html
 
 # Get Started
 
-Learn how to start building with the Polkadot SDK, from installation and basic concepts to creating and deploying your own custom blockchain. In these sections, you'll start with an overview of the Polkadot SDK and its components. Next, get your developer environment ready with guidance on installing the Polkadot SDK and related dependencies. Once you're ready to build, learn how to use pre-built chain templates to streamline the development process. Finally, find the information you need to configure and deploy a custom chain to Polkadot. 
+Learn how to start building with the Polkadot SDK, from installation and basic concepts to creating and deploying your custom blockchain. In these sections, you'll begin with an overview of the Polkadot SDK and its components. Next, get your developer environment ready with guidance on installing the Polkadot SDK and related dependencies. Once you're ready to build, learn how to use pre-built chain templates to streamline development. Finally, find the information you need to configure and deploy a custom chain to Polkadot. 
 
 ## Start Here
 

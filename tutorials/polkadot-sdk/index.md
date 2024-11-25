@@ -10,7 +10,7 @@ template: index-page.html
 
 The Polkadot SDK is a versatile framework for building custom blockchains, whether as standalone networks or as part of the Polkadot ecosystem. With its modular design and extensible tools, libraries, and runtime components, the SDK simplifies the process of creating parachains, system chains, and solochains.
 
-Ready to create a parachain from the ground up? Start with the tutorials highlighted in the [Build and Deploy a Parachain](#build-and-deploy-a-parachain) section
+Ready to create a parachain from the ground up? Start with the tutorials highlighted in the [Build and Deploy a Parachain](#build-and-deploy-a-parachain) section.
 
 ## Build and Deploy a Parachain
 

@@ -16,7 +16,7 @@ Ready to create a parachain from the ground up? Start with the tutorials highlig
 
 Follow these key milestones to guide you through parachain development. Each step links to detailed tutorials for a deeper dive into each stage:
 
-- **[Install the Polkadot SDK](/develop/blockchains/get-started/install-polkadot-sdk/)** - set up the necessary tools to begin building on Polkadot. This step will get your environment ready for parachain development
+- **[Install the Polkadot SDK](/develop/parachains/get-started/install-polkadot-sdk/)** - set up the necessary tools to begin building on Polkadot. This step will get your environment ready for parachain development
 
 - **[Start Developing Your Own Parachain](/tutorials/polkadot-sdk/parachains/local-chain/launch-a-local-solochain/)** - kickstart your development by setting up a local solochain. This tutorial will lay the foundation for building and customizing your own parachain within the Polkadot ecosystem
 

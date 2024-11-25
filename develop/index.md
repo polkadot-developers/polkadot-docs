@@ -16,7 +16,7 @@ This section builds on concepts from the [Polkadot Protocol](/polkadot-protocol)
 
 - **Parachain developers** - build, deploy, and maintain custom parachains with the Polkadot SDK. From runtime customization to network operations, learn how to create a scalable and efficient parachain
 
-    - **Where to start** - [Introduction to the Polkadot SDK](/develop/blockchains/get-started/intro-polkadot-sdk/){target=\_blank}
+    - **Where to start** - [Introduction to the Polkadot SDK](/develop/parachains/get-started/intro-polkadot-sdk/){target=\_blank}
 
 - **Smart contract developers** - utilize Polkadot's support for Wasm-based contracts with ink! or deploy Solidity contracts on EVM-compatible parachains. Leverage familiar tools to write, test, and manage decentralized logic
 

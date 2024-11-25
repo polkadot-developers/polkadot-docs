@@ -8,11 +8,24 @@ template: index-page.html
 
 # Parachains
 
-Discover how to bring your blockchain vision to life with the Polkadot SDK. From initial setup to advanced runtime customization, the Polkadot SDK equips developers with the tools to build, deploy, and maintain efficient, scalable parachains. Whether you’re a beginner exploring blockchain development or an experienced builder refining your architecture, this guide offers step-by-step instructions to support every stage of your parachain journey.
+## Benefits of Parachains
 
-Building a parachain involves more than just code—it’s about creating a network that integrates seamlessly into Polkadot’s ecosystem. With the Polkadot SDK’s FRAME framework, you can customize your runtime, develop new pallets, and add functionalities such as smart contracts. Testing tools and strategies ensure your parachain performs as expected, enabling you to validate interactions between runtime components and guarantee stability before deployment.
+With the Polkadot relay chain handling security and consensus, parachain developers are free to focus on features such as asset management, governance, and cross-chain communication. The Polkadot SDK equips developers with the tools to build, deploy, and maintain efficient, scalable parachains. 
 
-Once live, maintaining a parachain requires attention to runtime upgrades, monitoring performance, and managing storage migrations. Polkadot’s SDK simplifies these tasks, allowing you to focus on innovation while ensuring your network remains secure and efficient. From setup to ongoing operations, the Polkadot SDK provides the foundation for building the next generation of interoperable blockchains.
+Polkadot SDK’s FRAME framework provides developers with the tools to do the following:
+
+- Customize parachain runtimes
+- Develop new pallets
+- Add smart contract functionality
+- Test your build for a confident deployment
+- Deploy your blockchain for use
+- Maintain your network inlcuding monitoring and upgrades
+
+## Get Started
+
+Whether you’re a beginner exploring blockchain development or an experienced builder refining your architecture, this guide offers step-by-step instructions to support every stage of your parachain journey. 
+
+If you are new to the ecosystem, the [Get Started](polkadot-docs/develop/parachains/get-started) section will walk you through installing the Polkadot SDK and setting up your development environment. The remaining sections guide you through the blockchain development process from building your custom parachain to testing and deployment. Finish things off with the [Maintenance](/develop/parachains/maintenance/) guide for a step-by-step look at how to keep your network online and performant. 
 
 ## In This Section
 

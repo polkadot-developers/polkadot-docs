@@ -55,7 +55,7 @@ PolkaVM's innovations translate into significant performance gains, such as:
 
 By combining advanced performance optimizations with Ethereum compatibility, PolkaVM bridges the gap between cutting-edge blockchain development and the familiar tools developers rely on.
 
-## Get Started
+## Deploy a Smart Contract to Asset Hub
 
 The following sections guide you through the steps to connect to Asset Hub, deploy a smart contract, and interact with the contract using Ethers.js.
 

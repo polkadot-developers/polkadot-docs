@@ -8,11 +8,16 @@ template: index-page.html
 
 # Asset Hub Tutorials
 
-Asset Hub serves as Polkadot's specialized common-good chain for asset management. Learn how to register, track, and convert assets through these tutorials:
+## Benefits of Asset Hub
 
-- **[Register a Local Asset](/tutorials/polkadot-sdk/system-chains/asset-hub/register-local-asset/){target=\_blank}** - create and configure new assets directly on Asset Hub with custom parameters like metadata and minimum balances
-- **[Register a Foreign Asset](/tutorials/polkadot-sdk/system-chains/asset-hub/register-foreign-asset/){target=\_blank}** - connect assets from other parachains to Asset Hub using XCM for cross-chain functionality 
-- **[Convert Assets](/tutorials/polkadot-sdk/system-chains/asset-hub/asset-conversion/){target=\_blank}** - use Asset Hub's AMM functionality to swap between different assets, provide liquidity to pools, and manage LP tokens
+Polkadot SDK-based relay chains focus on security and consensus, leaving asset management to an external component, such as a system chain. The Asset Hub is one example of a system chain and is vital to managing tokens which aren't native to the Polkadot ecosystem. Developers opting to integrate with Asset Hub can expect the following benefits:
+
+- **Support for non-native on-chain assets** - create and manage your own tokens or NFTs with Polkadot ecosystem compatibility available out of the box
+- **Lower transaction fees** - approximately 1/10th of the cost of using the relay chain
+- **Reduced deposit requirements** - approximately 1/100th of the deposit required for the relay chain
+- **Payment of fees with non-native assets** - no need to buy native tokens for gas, increasing flexibility for developers and users
+
+## Get Started
 
 Through these tutorials, you'll learn how to manage cross-chain assets, including:
 

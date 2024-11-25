@@ -1,13 +1,13 @@
 ---
 title: Asset Transfer API
-description: Asset Transfer API is a library that simplifies the transfer of assets for Substrate-based chains. It provides methods for cross-chain and local transfers.
+description: Asset Transfer API is a library that simplifies the transfer of assets for Polkadot SDK-based chains. It provides methods for cross-chain and local transfers.
 ---
 
 # Asset Transfer API
 
 ## Introduction
 
-[Asset Transfer API](https://github.com/paritytech/asset-transfer-api){target=\_blank}, a tool developed and maintained by [Parity](https://www.parity.io/){target=\_blank}, is a specialized library designed to streamline asset transfers for Substrate-based blockchains. This API provides a simplified set of methods for users to:
+[Asset Transfer API](https://github.com/paritytech/asset-transfer-api){target=\_blank}, a tool developed and maintained by [Parity](https://www.parity.io/){target=\_blank}, is a specialized library designed to streamline asset transfers for Polkadot SDK-based blockchains. This API provides a simplified set of methods for users to:
 
 - Execute asset transfers to other parachains or locally within the same chain
 - Facilitate transactions involving system parachains like Asset Hub (Polkadot and Kusama)

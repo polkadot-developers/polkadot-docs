@@ -1,6 +1,6 @@
 ---
 title: Customize Your Parachain
-description: Learn how to build a custom parachain with Polkadot SDK's FRAME framework, covering pallet development, testing, smart contracts, and runtime customization.
+description: Learn to build a custom parachain with Polkadot SDK's FRAME framework, which includes pallet development, testing, smart contracts, and runtime customization.
 hide: 
     - feedback
 template: index-page.html
@@ -8,8 +8,27 @@ template: index-page.html
 
 # Customize Your Parachain
 
-Learn how to build a custom parachain with Polkadot SDK's FRAME framework, covering pallet development, testing, smart contracts, and runtime customization.
+Learn how to build a custom parachain with Polkadot SDK's FRAME framework, which includes pallet development, testing, smart contracts, and runtime customization. Pallets are modular components within the FRAME ecosystem that contain specific blockchain functionalities. This modularity grants developers increased flexibility and control around which behaviors to include in the core logic of their parachain.
+
+The [FRAME directory](https://github.com/paritytech/polkadot-sdk/tree/master/substrate/frame){target=\_blank} includes a robust library of pre-built pallets you can use as examples or templates to ease development.
 
 ## In This Section
 
 :::INSERT_IN_THIS_SECTION:::
+
+## Additional Resources
+
+<div class="subsection-wrapper">
+  <div class="card">
+    <a href="https://github.com/paritytech/polkadot-sdk/tree/master/substrate/frame" target="_blank">
+      <h2 class="title">FRAME Repository</h2>
+      <p class="description">View the source code of the FRAME development environment that provides pallets you can use, modify, and extend to build the runtime logic to suit the needs of your blockchain.</p>
+    </a>
+  </div>
+    <div class="card">
+    <a href="https://paritytech.github.io/polkadot-sdk/master/frame_support/index.html" target="_blank">
+      <h2 class="title">FRAME Rust docs</h2>
+      <p class="description">Check out the Rust docs for the <code>frame_support</code> crate to view the support code for the runtime.</p>
+    </a>
+  </div>
+</div>

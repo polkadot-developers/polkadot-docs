@@ -8,7 +8,7 @@ template: index-page.html
 
 # API Libraries
 
-Explore the powerful API libraries available for interacting with the Polkadot network, offering developers a range of tools to build, query, and manage blockchain interactions. Whether you're working in JavaScript, TypeScript, Python, or integrating with RESTful services, these libraries provide the flexibility to interact with Polkadot-based chains efficiently.
+Explore the powerful API libraries designed for interacting with the Polkadot network. These libraries offer developers versatile tools to build, query, and manage blockchain interactions. Whether you’re working with JavaScript, TypeScript, Python, or RESTful services, they provide the flexibility to efficiently interact with and retrieve data from Polkadot-based chains.
 
 ## In This Section
 

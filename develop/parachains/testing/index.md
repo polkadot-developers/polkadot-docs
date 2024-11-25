@@ -8,17 +8,11 @@ template: index-page.html
 
 # Testing Your Polkadot SDK-Based Blockchain
 
-Explore comprehensive testing strategies for Polkadot SDK-based blockchains, from setting up test environments to verifying runtime and pallet interactions. 
+Explore comprehensive testing strategies for Polkadot SDK-based blockchains, from setting up test environments to verifying runtime and pallet interactions. Testing is essential to feeling confident your network will behave the way you intend upon deployment. 
+
+## Get Started
 
 These sections build upon the benchmarking and pallet testing you learned in [Customize your Parachain](/develop/parachains/customize-parachain/){target=\_blank} and teach you how to test complete runtimes to ensure pallets interact correctly and integrate well with Polkadot system components. Learn how to set up a mock environment and perform comprehensive runtime testing so you can feel confident your blockchain is secure, performant, and ready for deployment. 
-
-## Testing Fundamentals
-
-The following sections focus on two primary testing mechanisms:
-
-- **[Set up a testing environment](/develop/parachains/testing/setup/){target=\_blank}** - create mock environments to simulate blockchain conditions and prepare for comprehensive testing of your runtime components
-
-- **[Runtime Testing](/develop/parachains/testing/runtime/){target=\_blank}** - validate how multiple pallets work together in your runtime, ensuring smooth integration and proper functionality across your blockchain system
 
 Through these guides, you'll learn to:
 

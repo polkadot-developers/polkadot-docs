@@ -8,17 +8,21 @@ template: index-page.html
 
 # Get Started
 
-Learn how to start building with the Polkadot SDK, from installation and basic concepts to creating and deploying your custom blockchain. In these sections, you'll begin with an overview of the Polkadot SDK and its components. Next, get your developer environment ready with guidance on installing the Polkadot SDK and related dependencies. Once you're ready to build, learn how to use pre-built chain templates to streamline development. Finally, find the information you need to configure and deploy a custom chain to Polkadot. 
+## Polkadot SDK Benefits
 
-## Start Here
+Learn how to start building with the Polkadot SDK, from installation and basic concepts to creating and deploying your custom blockchain. This powerful and versatile developer kit is designed to facilitate building on the Polkadot network. 
 
-- **[Introduction to Polkadot SDK](/develop/parachains/get-started/intro-polkadot-sdk/){target=\_blank}** - explore the core components and capabilities of the SDK, including Substrate, FRAME, Cumulus, and XCM
+Features developers can expect from the Polkadot SDK include:
 
-- **[Install Dependencies](/develop/parachains/get-started/install-polkadot-sdk/){target=\_blank}** - set up your development environment with all necessary tools and dependencies across different operating systems
+- Networking and peer-to-peer communication (powered by [Libp2p](/polkadot-protocol/glossary/#libp2p){target=\_blank})
+- Consensus protocols
+- Cryptography
+- A robust library of pre-built pallets (modules)
+- Benchmarking and testing suites
 
-- **[Build Custom Parachains](/develop/parachains/get-started/build-custom-parachains/){target=\_blank}** - learn to create specialized blockchain solutions using pre-built templates and customizable components
+## Get Started
 
-- **[Deploy Your Chain](/develop/parachains/get-started/deploy-parachain-to-polkadot/){target=\_blank}** - understand the process of taking your blockchain from development to production on the Polkadot network
+In these sections, you'll begin with an overview of the Polkadot SDK and its components. Next, get your developer environment ready with guidance on installing the Polkadot SDK and related dependencies. Once you're ready to build, learn how to use pre-built chain templates to streamline development. Finally, find the information you need to configure and deploy a custom chain to Polkadot. 
 
 ## In This Section
 

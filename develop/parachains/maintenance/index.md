@@ -8,19 +8,13 @@ template: index-page.html
 
 # Maintenance
 
-Learn how to maintain Polkadot SDK-based networks, covering runtime monitoring, upgrades, and storage migrations for optimal blockchain performance. These sections cover how to monitor your deployed blockchain so you can feel confident that your applications and users receive the secure, performant results they need. You will learn how runtime versioning and storage migration work together to allow forkless upgrades. These features ensure you can offer the most current functionality from the Polkadot ecosystem without compromising network uptime or security.   
+## Benefits of Maintenance
 
-## Key Maintenance Tasks
+Learn how to maintain Polkadot SDK-based networks, covering runtime monitoring, upgrades, and storage migrations for optimal blockchain performance. Proper network monitoring and maintenance are essential to operating a reliable, performant change that adds value for its users. Following maintenance best practices helps keep your blockchain secure, efficient, and adaptable to changing requirements. Proper maintenance is crucial for long-term success, whether operating a solo chain or a parachain.
 
-The primary maintenance tasks for parachain maintainers include:
+## Get Started
 
-- **[Runtime Monitoring](/develop/parachains/maintenance/runtime-metrics-monitoring/){target=\_blank}** - track your network's health through comprehensive metrics, visualize data through Prometheus and Grafana, and set up alerts for critical events
-
-- **[Runtime Upgrades](/develop/parachains/maintenance/runtime-upgrades/){target=\_blank}** - perform forkless runtime upgrades, manage runtime versions, and execute seamless chain updates without network disruption
-
-- **[Storage Migrations](/develop/parachains/maintenance/storage-migrations/){target=\_blank}** - ensure data consistency during upgrades by transforming storage data formats, implementing safe migration strategies, and validating data transformations
-
-These maintenance practices help keep your blockchain secure, efficient, and adaptable to changing requirements. Proper maintenance is crucial for long-term success, whether operating a solo chain or a parachain.
+These sections cover how to monitor your deployed blockchain so you can feel confident that your applications and users receive the secure, performant results they need. You will learn how runtime versioning and storage migration work together to allow forkless upgrades. These features ensure you can offer the most current functionality from the Polkadot ecosystem without compromising network uptime or security. 
 
 ## In This Section
 

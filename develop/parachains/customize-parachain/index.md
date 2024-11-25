@@ -8,23 +8,15 @@ template: index-page.html
 
 # Customize Your Parachain
 
-Learn how to build a custom parachain with Polkadot SDK's FRAME framework, which includes pallet development, testing, smart contracts, and runtime customization.
+## Benefits of FRAME 
+
+Learn how to build a custom parachain with Polkadot SDK's FRAME framework, which includes pallet development, testing, smart contracts, and runtime customization. Pallets are modular components within the FRAME ecosystem that contain specific blockchain functionalities. This modularity grants developers increased flexibility and control around which behaviors to include in the core logic of their parachain.
+
+The [FRAME directory](https://github.com/paritytech/polkadot-sdk/tree/master/substrate/frame){target=\_blank} includes a robust library of pre-built pallets you can use as examples or templates to ease development. 
+
+## Get Started 
 
 These sections take what you learned and built from [Get Started](/develop/parachains/get-started/){target=\_blank} and guide you through using the Polkadot SDK's tools to create a blockchain customized to the needs of your users and applications. Whether it's a custom configuration of existing modular pallets, a pallet of your creation, or through adding smart contract functionality, everything you need for efficient runtime design and development is here. 
-
-## Build Your Runtime
-
-- **[Overview of FRAME](/develop/parachains/customize-parachain/overview/){target=\_blank}** - understand the fundamentals of Polkadot SDK's modular development framework and how it enables customizable blockchain design
-
-- **[Add Existing Pallets](/develop/parachains/customize-parachain/add-existing-pallets/){target=\_blank}** - learn to incorporate pre-built pallets into your runtime to add common blockchain functionality
-
-- **[Make Custom Pallets](/develop/parachains/customize-parachain/make-custom-pallet){target=\_blank}** - create your pallets to implement unique features and business logic for your chain
-
-- **[Pallet Testing](/develop/parachains/customize-parachain/pallet-testing/){target=\_blank}** - ensure reliability by writing comprehensive tests for your pallet implementations
-
-- **[Benchmarking](/develop/parachains/customize-parachain/benchmarking/){target=\_blank}** - measure and optimize the performance of your runtime components
-
-- **[Add Smart Contracts](/develop/parachains/customize-parachain/add-smart-contract-functionality/){target=\_blank}** - enable EVM or Wasm smart contract functionality in your blockchain
 
 ## In This Section
 

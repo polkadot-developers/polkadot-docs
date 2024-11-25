@@ -25,7 +25,7 @@ The Asset Hub system chain (formerly known as Statemint) provides robust asset m
 
 <div class="subsection-wrapper">
   <div class="card">
-    <a href="/polkadot-protocol/architecture/system-chains/asset-hub/">
+    <a href="/polkadot-protocol/architecture/system-chains/asset-hub/" target="_blank">
       <h2 class="title">Explore Polkadot's System Chains</h2>
       <p class="description">Discover the unique role and functionality each of Polkadot’s system chains, including the Asset Hub, Bridge Hub, and Coretime chain, provides to the ecosystem.</p>
     </a>

@@ -31,13 +31,13 @@ These tutorials will provide a step-by-step approach to mastering cross-chain in
 
 <div class="subsection-wrapper">
   <div class="card">
-    <a href="/polkadot-protocol/basics/interoperability/">
+    <a href="/polkadot-protocol/basics/interoperability/" target="_blank">
       <h2 class="title">Learn about Polkadot's Interoperability</h2>
       <p class="description">Explore the importance of interoperability in the Polkadot ecosystem, covering XCM, bridges, and cross-chain communication.</p>
     </a>
   </div>
     <div class="card">
-    <a href="/develop/interoperability/">
+    <a href="/develop/interoperability/" target="_blank">
       <h2 class="title">Explore Comprehensive XCM Guides</h2>
       <p class="description">Looking for comprehensive guides and technical resources on XCM? Explore foundational concepts, advanced configuration, and best practices for building cross-chain solutions using XCM.</p>
     </a>

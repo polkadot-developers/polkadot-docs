@@ -18,25 +18,25 @@ Not sure where to start? Check out the highlighted tutorials below!
 
 <div class="subsection-wrapper">
   <div class="card">
-    <a href="/tutorials/polkadot-sdk/parachains/local-chain/launch-a-local-solochain/">
+    <a href="/tutorials/polkadot-sdk/parachains/local-chain/launch-a-local-solochain/" target="_blank">
       <h2 class="title">Spin Up a Solochain</h2>
       <p class="description">Learn to compile and launch a local blockchain node using Polkadot SDK. Launch, run, and interact with a pre-configured node template.</p>
     </a>
   </div>
     <div class="card">
-    <a href="/tutorials/polkadot-sdk/parachains/connect-to-relay-chain/">
+    <a href="/tutorials/polkadot-sdk/parachains/connect-to-relay-chain/" target="_blank">
       <h2 class="title">Run a Local Relay Chain</h2>
       <p class="description">This tutorial will guide you through preparing a relay chain so that you can connect a test parachain node to it for local testing.</p>
     </a>
   </div>
     <div class="card">
-    <a href="/tutorials/polkadot-sdk/testing/fork-live-chains/">
+    <a href="/tutorials/polkadot-sdk/testing/fork-live-chains/" target="_blank" target="_blank">
       <h2 class="title">Fork a Live Chain with Chopsticks</h2>
       <p class="description">Learn how to fork live Polkadot SDK chains with Chopsticks. Configure forks, replay blocks, test XCM, and interact programmatically or via UI.</p>
     </a>
   </div>
     <div class="card">
-    <a href="/tutorials/interoperability/xcm-channels/para-to-para/">
+    <a href="/tutorials/interoperability/xcm-channels/para-to-para/" target="_blank">
       <h2 class="title">Open an XCM Channel</h2>
       <p class="description">Learn how to open HRMP channels between parachains on Polkadot. Discover the step-by-step process for establishing uni- and bidirectional communication.</p>
     </a>

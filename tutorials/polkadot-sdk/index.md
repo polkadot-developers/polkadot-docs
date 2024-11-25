@@ -41,13 +41,13 @@ Ensure the integrity and reliability of your blockchain with Polkadot's speciali
 
 <div class="subsection-wrapper">
   <div class="card">
-    <a href="/develop/blockchains/get-started/intro-polkadot-sdk/">
+    <a href="/develop/blockchains/get-started/intro-polkadot-sdk/" target="_blank">
       <h2 class="title">Get Familiar with the Polkadot SDK</h2>
       <p class="description">Take a step back and learn about the core components of the Polkadot SDK and how it powers the Polkadot protocol.</p>
     </a>
   </div>
     <div class="card">
-    <a href="/develop/blockchains/get-started/install-polkadot-sdk/">
+    <a href="/develop/blockchains/get-started/install-polkadot-sdk/" target="_blank">
       <h2 class="title">Install the Polkadot SDK</h2>
       <p class="description">Install everything you need to begin working with Substrated-based blockchains and the Polkadot SDK.</p>
     </a>
@@ -62,7 +62,7 @@ Ensure the integrity and reliability of your blockchain with Polkadot's speciali
 
 <div class="subsection-wrapper">
   <div class="card">
-    <a href="https://github.com/paritytech/polkadot-sdk">
+    <a href="https://github.com/paritytech/polkadot-sdk" target="_blank">
       <h2 class="title">View the Polkadot SDK Source Code</h2>
       <p class="description">Check out the Polkadot SDK repository on GitHub to explore the source code and stay updated on the latest releases.</p>
     </a>

@@ -82,5 +82,5 @@ This modular design allows developers to:
 
 For more detailed information on implementing this process, refer to the following sections:
 
-- [Add a Pallet to Your Runtime](/develop/parachains/customize-parachain/add-existing-pallets/){target=\_blank}
-- [Create a Custom Pallet](/develop/parachains/customize-parachain/make-custom-pallet/){target=\_blank}
+- [Add a Pallet to Your Runtime](/develop/parachains/customize-parachain/add-existing-pallets/)
+- [Create a Custom Pallet](/develop/parachains/customize-parachain/make-custom-pallet/)

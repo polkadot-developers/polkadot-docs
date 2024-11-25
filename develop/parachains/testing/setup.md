@@ -54,4 +54,4 @@ With the mock environment in place, you can now write tests to validate how your
 
 You can view a complete example of an integration test in the [Astar parachain](https://github.com/AstarNetwork/Astar/tree/master/tests/integration){target=\_blank} codebase.
 
-For more advanced information on runtime testing, please refer to the [Runtime Testing](/develop/parachains/testing/runtime/){target=\_blank} article.
+For more advanced information on runtime testing, please refer to the [Runtime Testing](/develop/parachains/testing/runtime/) article.

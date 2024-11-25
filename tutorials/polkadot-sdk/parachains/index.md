@@ -1,6 +1,6 @@
 ---
 title: Parachain Tutorials
-description: Explore tutorials on building parachains with the Polkadot SDK, covering key steps in developing and deploying tailored blockchain solutions.
+description: This collection of tutorials will guide you step by step, from setting up your first local chain to deploying and customizing a fully operational parachain.
 hide: 
     - feedback
 template: index-page.html

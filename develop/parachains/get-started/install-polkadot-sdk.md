@@ -223,8 +223,8 @@ However, suppose your local computer uses Microsoft Windows instead of a UNIX-ba
 Before installing on Microsoft Windows, verify the following basic requirements:
 
 - You have a computer running a supported Microsoft Windows operating system:
-  - **For Windows desktop** - you must be running Microsoft Windows 10, version 2004 or later, or Microsoft Windows 11 to install WSL
-  - **For Windows server** - you must be running Microsoft Windows Server 2019, or later, to install WSL on a server operating system
+    - **For Windows desktop** - you must be running Microsoft Windows 10, version 2004 or later, or Microsoft Windows 11 to install WSL
+    - **For Windows server** - you must be running Microsoft Windows Server 2019, or later, to install WSL on a server operating system
 - You have good internet connection and access to a shell terminal on your local computer
 
 ### Set Up Windows Subsystem for Linux

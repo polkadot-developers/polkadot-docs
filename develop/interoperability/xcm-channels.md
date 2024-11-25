@@ -59,5 +59,5 @@ Parachain developers have a few options for triggering the required extrinsic ca
 
 Explore the following tutorials for detailed, step-by-step guidance on setting up cross-chain communication channels in Polkadot:
 
-- [Opening HRMP Channels Between Parachains](/tutorials/interoperability/xcm-channels/para-to-para/){target=\_blank}
-- [Opening HRMP Channels with System Parachains](/tutorials/interoperability/xcm-channels/para-to-system/){target=\_blank}
+- [Opening HRMP Channels Between Parachains](/tutorials/interoperability/xcm-channels/para-to-para/)
+- [Opening HRMP Channels with System Parachains](/tutorials/interoperability/xcm-channels/para-to-system/)

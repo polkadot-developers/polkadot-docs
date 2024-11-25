@@ -72,8 +72,8 @@ graph LR
     B --> C[Deploy the Chain]
 ```
 
-1. [**Install the Polkadot SDK**](/develop/parachains/get-started/install-polkadot-sdk/){target=\_blank} - set up your development environment with all necessary dependencies and tools
-2. [**Build the chain**](/develop/parachains/get-started/build-custom-parachains/){target=\_blank} - learn how to create and customize your blockchain's runtime, configure pallets, and implement your chain's unique features
-3. [**Deploy the chain**](/develop/parachains/get-started/deploy-parachain-to-polkadot/){target=\_blank} - follow the steps to launch your blockchain, whether as a standalone network or as a parachain on Polkadot
+1. [**Install the Polkadot SDK**](/develop/parachains/get-started/install-polkadot-sdk/) - set up your development environment with all necessary dependencies and tools
+2. [**Build the chain**](/develop/parachains/get-started/build-custom-parachains/) - learn how to create and customize your blockchain's runtime, configure pallets, and implement your chain's unique features
+3. [**Deploy the chain**](/develop/parachains/get-started/deploy-parachain-to-polkadot/) - follow the steps to launch your blockchain, whether as a standalone network or as a parachain on Polkadot
 
 Each stage is covered in detail in its respective guide, walking you through the process from initial setup to final deployment.

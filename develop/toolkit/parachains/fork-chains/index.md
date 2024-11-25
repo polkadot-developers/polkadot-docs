@@ -6,9 +6,24 @@ hide:
 template: index-page.html
 ---
 
-# Fork Chains for Testing
+# Fork Live Chains for Testing
 
-Explore tools for forking live blockchain networks, enabling you to replicate real-world conditions in a local environment for accurate testing and debugging.
+Explore tools for forking live blockchain networks, enabling you to replicate real-world conditions in a local environment for accurate testing and debugging. These tools allow you to analyze network behavior, test new features, and simulate complex scenarios in a controlled environment without affecting production systems.
+
+## Chopsticks
+
+With [Chopsticks](/develop/toolkit/parachains/fork-chains/chopsticks/get-started/){target=\_blank}, you can create and manipulate local forks of Polkadot networks:
+
+- Fork live chains for local testing
+- Analyze network behavior
+- Simulate cross-chain interactions
+
+Through forking tools, you can:
+
+- Test features safely before deployment
+- Debug complex interactions
+- Validate runtime changes
+- Experiment with network modifications
 
 ## In This Section
 

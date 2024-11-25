@@ -16,7 +16,7 @@ These sections continue to build on your progress by guiding you through the ste
 
 - **[Build a deterministic runtime](/develop/parachains/deployment/build-deterministic-runtime/){target=\_blank}** - use the Substrate Runtime Toolbox (srtool) to ensure consistent deployment across all nodes and enable reliable verification
 
-- **[Generate Chain Spec](/develop/parachains/deployment/obtain-coretime/){target=\_blank}** - define your network's initial state, boot nodes, and essential parameters needed for a successful network launch
+- **[Generate Chain Spec](/develop/parachains/deployment/generate-chain-specs/){target=\_blank}** - define your network's initial state, boot nodes, and essential parameters needed for a successful network launch
 
 - **[Obtain Coretime](/develop/parachains/deployment/obtain-coretime/){target=\_blank}** - obtain and manage the coretime needed for your parachain to operate on the Polkadot network through bulk or on-demand allocation
 

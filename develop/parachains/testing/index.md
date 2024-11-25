@@ -16,9 +16,9 @@ These sections build upon the benchmarking and pallet testing you learned in [Cu
 
 The following sections focus on two primary testing mechanisms:
 
-- [Set up a testing environment](/develop/parachains/testing/setup/) - create mock environments to simulate blockchain conditions and prepare for comprehensive testing of your runtime components
+- **[Set up a testing environment](/develop/parachains/testing/setup/){target=\_blank}** - create mock environments to simulate blockchain conditions and prepare for comprehensive testing of your runtime components
 
-- [Runtime Testing](/develop/parachains/testing/runtime/) - validate how multiple pallets work together in your runtime, ensuring smooth integration and proper functionality across your blockchain system
+- **[Runtime Testing](/develop/parachains/testing/runtime/){target=\_blank}** - validate how multiple pallets work together in your runtime, ensuring smooth integration and proper functionality across your blockchain system
 
 Through these guides, you'll learn to:
 

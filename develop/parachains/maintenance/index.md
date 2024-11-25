@@ -8,7 +8,7 @@ template: index-page.html
 
 # Maintenance
 
-Learn how to maintain Polkadot SDK-based networks, covering runtime monitoring, upgrades, and storage migrations for optimal blockchain performance. These sections cover how to monitor your deployed blockchain so you can feel confident your applications and users receive the secure, performant results they need. You will learn how runtime versioning and storage migration work together to allow forkless upgrades. These features ensures you can offer the most current functionality from the Polkadot ecosystem without compromising network uptime or security.   
+Learn how to maintain Polkadot SDK-based networks, covering runtime monitoring, upgrades, and storage migrations for optimal blockchain performance. These sections cover how to monitor your deployed blockchain so you can feel confident your applications and users receive the secure, performant results they need. You will learn how runtime versioning and storage migration work together to allow forkless upgrades. These features ensure you can offer the most current functionality from the Polkadot ecosystem without compromising network uptime or security.   
 
 ## Key Maintenance Tasks
 

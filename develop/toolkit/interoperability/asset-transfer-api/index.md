@@ -10,6 +10,14 @@ hide:
 
 The Asset Transfer API is a library designed to streamline asset transfers for Polkadot SDK-based chains, offering methods for both cross-chain and local transactions.
 
+## What Can I Do with the Asset Transfer API?
+
+- Facilitate cross-chain transfers to and from the relay chain, system chains, and parachains
+- Facilitate local asset transfers
+- Initiate liquid pool asset transfers in Asset Hub
+- Claim trapped assets
+- Retrieve fee information
+
 ## In This Section
 
 :::INSERT_IN_THIS_SECTION:::

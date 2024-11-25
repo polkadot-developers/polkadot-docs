@@ -27,6 +27,8 @@ Ready to connect your parachain to Polkadot? Follow these tutorials to build and
 - **[Prepare a Parachain](/tutorials/polkadot-sdk/parachains/connect-to-relay-chain/prepare-parachain/){target=\_blank}** - configure and connect your parachain to the relay chain
 - **[Acquire a TestNet Slot](/tutorials/polkadot-sdk/parachains/connect-to-relay-chain/acquire-a-testnet-slot/){target=\_blank}** - deploy your parachain to the Paseo TestNet
 
+## Key Takeaways
+
 Through these tutorials, you'll gain practical experience with:
 
 - Node operation and network setup

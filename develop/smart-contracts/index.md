@@ -8,9 +8,9 @@ template: index-page.html
 
 # Smart Contracts
 
-Learn about smart contract development in Polkadot using ink! for Wasm contracts and EVM support for Solidity contracts on Asset Hub and parachains.
+Polkadot offers developers flexibility in building smart contracts, supporting both Wasm-based contracts using ink! (written in Rust) and Solidity contracts executed by the EVM (Ethereum Virtual Machine).
 
-Whether you're a die-hard [Rustacean](https://rustacean-principles.netlify.app/){target=\_blank}, a [Solidity](https://soliditylang.org/){target=\_blank} maxi, or a Pythonista building with [Vyper](https://docs.vyperlang.org/en/stable){target=\_blank} you'll find tools here to bring your smart contract functionality to the Polkadot ecosystem.
+This section guides you through the tools, resources, and guides to help you build and deploy smart contracts using either Wasm/ink! or EVM-based parachains, depending on your language and environment preference.
 
 ## Choosing the Right Smart Contract Language and Execution Environment
 

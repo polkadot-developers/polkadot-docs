@@ -8,13 +8,11 @@ template: index-page.html
 
 # Tutorials
 
-Explore step-by-step tutorials for building in Polkadot, from parachain deployment and testing to cross-chain asset creation and XCM channel management.
+Welcome to the Polkadot Tutorials hub! Whether you’re building parachains, integrating system chains, or developing decentralized applications, these step-by-step guides are designed to help you achieve your goals efficiently and effectively. Each guide links to relevant sections of the Polkadot documentation for developers who want to explore specific topics in greater depth.
 
-These guides are designed to be comprehensive, walking you through each task from start to finish—whether you're [launching a local solochain node](/tutorials/polkadot-sdk/parachains/local-chain/launch-a-local-solochain/){target=\_blank}, [acquiring a TestNet slot](/tutorials/polkadot-sdk/parachains/connect-to-relay-chain/acquire-a-testnet-slot/){target=\_blank}, or [upgrading your runtime](/tutorials/polkadot-sdk/parachains/local-chain/upgrade-a-running-network/){target=\_blank}. While self-contained, each guide links to relevant sections of the Polkadot documentation for developers who want to explore specific topics in greater depth.
+Not sure where to start? Check out the highlighted tutorials below!
 
-Not sure where to start? Check out the highlighted tutorials below! 
-
-## Highlighted Tutorials
+## Get Started
 
 <div class="subsection-wrapper">
   <div class="card">
@@ -46,4 +44,3 @@ Not sure where to start? Check out the highlighted tutorials below!
 ## In This Section
 
 :::INSERT_IN_THIS_SECTION:::
-

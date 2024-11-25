@@ -10,9 +10,9 @@ template: index-page.html
 
 Asset Hub serves as Polkadot's specialized common-good chain for asset management. Learn how to register, track, and convert assets through these tutorials:
 
-- **Register a Local Asset** - Create and configure new assets directly on Asset Hub with custom parameters like metadata and minimum balances
-- **Register a Foreign Asset** - Connect assets from other parachains to Asset Hub using XCM for cross-chain functionality 
-- **Convert Assets** - Use Asset Hub's AMM functionality to swap between different assets, provide liquidity to pools, and manage LP tokens
+- **[Register a Local Asset](/tutorials/polkadot-sdk/system-chains/asset-hub/register-local-asset/){target=\_blank}** - Create and configure new assets directly on Asset Hub with custom parameters like metadata and minimum balances
+- **[Register a Foreign Asset](/tutorials/polkadot-sdk/system-chains/asset-hub/register-foreign-asset/){target=\_blank}** - Connect assets from other parachains to Asset Hub using XCM for cross-chain functionality 
+- **[Convert Assets](/tutorials/polkadot-sdk/system-chains/asset-hub/asset-conversion/){target=\_blank}** - Use Asset Hub's AMM functionality to swap between different assets, provide liquidity to pools, and manage LP tokens
 
 Through these tutorials, you'll learn how to manage cross-chain assets, including:
 

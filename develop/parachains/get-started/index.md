@@ -8,21 +8,17 @@ template: index-page.html
 
 # Get Started
 
-## Polkadot SDK Benefits
+Learn how to start building with the Polkadot SDK, from installation and basic concepts to creating and deploying your custom blockchain. This powerful and versatile developer kit is designed to facilitate building on the Polkadot network.
 
-Learn how to start building with the Polkadot SDK, from installation and basic concepts to creating and deploying your custom blockchain. This powerful and versatile developer kit is designed to facilitate building on the Polkadot network. 
+## Key Features of the Polkadot SDK
 
 Features developers can expect from the Polkadot SDK include:
 
-- Networking and peer-to-peer communication (powered by [Libp2p](/polkadot-protocol/glossary/#libp2p){target=\_blank})
+- Networking and peer-to-peer communication (powered by [libp2p](/polkadot-protocol/glossary/#libp2p){target=\_blank})
 - Consensus protocols
 - Cryptography
 - A robust library of pre-built pallets (modules)
 - Benchmarking and testing suites
-
-## Get Started
-
-In these sections, you'll begin with an overview of the Polkadot SDK and its components. Next, get your developer environment ready with guidance on installing the Polkadot SDK and related dependencies. Once you're ready to build, learn how to use pre-built chain templates to streamline development. Finally, find the information you need to configure and deploy a custom chain to Polkadot. 
 
 ## In This Section
 

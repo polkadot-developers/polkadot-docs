@@ -8,13 +8,7 @@ template: index-page.html
 
 # Maintenance
 
-## Benefits of Maintenance
-
-Learn how to maintain Polkadot SDK-based networks, covering runtime monitoring, upgrades, and storage migrations for optimal blockchain performance. Proper network monitoring and maintenance are essential to operating a reliable, performant change that adds value for its users. Following maintenance best practices helps keep your blockchain secure, efficient, and adaptable to changing requirements. Proper maintenance is crucial for long-term success, whether operating a solo chain or a parachain.
-
-## Get Started
-
-These sections cover how to monitor your deployed blockchain so you can feel confident that your applications and users receive the secure, performant results they need. You will learn how runtime versioning and storage migration work together to allow forkless upgrades. These features ensure you can offer the most current functionality from the Polkadot ecosystem without compromising network uptime or security. 
+Learn how to maintain Polkadot SDK-based networks, focusing on runtime monitoring, upgrades, and storage migrations for optimal performance. Proper maintenance ensures your blockchain remains secure, efficient, and adaptable to changing needs. These sections will guide you through monitoring your network, using runtime versioning, and performing forkless upgrades to keep your blockchain secure and up-to-date without downtime.
 
 ## In This Section
 
@@ -24,18 +18,12 @@ These sections cover how to monitor your deployed blockchain so you can feel con
 
 <div class="subsection-wrapper">
   <div class="card">
-    <a href="https://paritytech.github.io/polkadot-sdk/master/sp_version/struct.RuntimeVersion.html" target="_blank">
-      <h2 class="title">`RuntimeVersion` Struct Docs</h2>
-      <p class="description">View the Polkadot SDK Docs explainer of the RuntimeVersion struct.</p>
-    </a>
-  </div>
-    <div class="card">
     <a href="https://paritytech.github.io/polkadot-sdk/master/pallet_example_single_block_migrations/index.html" target="_blank">
       <h2 class="title">Single Block Migration Example</h2>
       <p class="description">Check out an example pallet demonstrating best practices for writing single-block migrations while upgrading pallet storage.</p>
     </a>
   </div>
-      <div class="card">
+  <div class="card">
     <a href="https://paritytech.github.io/polkadot-sdk/master/pallet_example_single_block_migrations/index.html" target="_blank">
       <h2 class="title">Client Telemetry Crate</h2>
       <p class="description">Check out the docs on Substrate's client telemetry, a part of Substrate that allows ingesting telemetry data with, for example, Polkadot telemetry.</p>

@@ -8,15 +8,9 @@ template: index-page.html
 
 # Customize Your Parachain
 
-## Benefits of FRAME 
-
 Learn how to build a custom parachain with Polkadot SDK's FRAME framework, which includes pallet development, testing, smart contracts, and runtime customization. Pallets are modular components within the FRAME ecosystem that contain specific blockchain functionalities. This modularity grants developers increased flexibility and control around which behaviors to include in the core logic of their parachain.
 
-The [FRAME directory](https://github.com/paritytech/polkadot-sdk/tree/master/substrate/frame){target=\_blank} includes a robust library of pre-built pallets you can use as examples or templates to ease development. 
-
-## Get Started 
-
-These sections take what you learned and built from [Get Started](/develop/parachains/get-started/){target=\_blank} and guide you through using the Polkadot SDK's tools to create a blockchain customized to the needs of your users and applications. Whether it's a custom configuration of existing modular pallets, a pallet of your creation, or through adding smart contract functionality, everything you need for efficient runtime design and development is here. 
+The [FRAME directory](https://github.com/paritytech/polkadot-sdk/tree/master/substrate/frame){target=\_blank} includes a robust library of pre-built pallets you can use as examples or templates to ease development.
 
 ## In This Section
 

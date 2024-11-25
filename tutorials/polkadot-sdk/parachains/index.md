@@ -8,21 +8,33 @@ template: index-page.html
 
 # Tutorials for Building Parachains with the Polkadot SDK
 
-The Polkadot SDK offers a comprehensive set of tools and libraries to support parachain development, enabling developers to build custom blockchains that integrate with the Polkadot network. These tutorials guide you through the process of building and deploying a parachain, from setting up a local test environment to connecting with a public TestNet:
+The Polkadot SDK enables you to build custom blockchains that can operate either independently or as part of the Polkadot network. These tutorials guide you through two main development paths: building a standalone chain (solochain) or creating a parachain that connects to Polkadot.
 
-- **Prepare a Relay Chain** - Set up a local relay chain with multiple validator nodes for parachain testing and development
-- **Connect a Parachain** - Create and configure a parachain to connect with your local relay chain, including reserving ParaIDs and managing genesis state
-- **Acquire a TestNet Slot** - Deploy your parachain to a public TestNet like Paseo, including obtaining tokens, reserving slots, and managing collator nodes
+## Local Development
 
-Through these tutorials, you'll learn essential parachain development skills including:
+Start by learning the fundamentals through these local development tutorials:
 
-- Relay chain configuration and management
-- Parachain registration and slot acquisition
-- Genesis state and runtime preparation
-- Network configuration and validation
-- TestNet deployment procedures
+- **[Launch a Local Solochain](/tutorials/polkadot-sdk/parachains/local-chain/launch-a-local-solochain/){target=\_blank}** - Compile and run your first blockchain node
+- **[Connect Multiple Nodes](/tutorials/polkadot-sdk/parachains/local-chain/connect-multiple-nodes/){target=\_blank}** - Use predefined accounts to create a basic network
+- **[Spin Up Your Nodes](/tutorials/polkadot-sdk/parachains/local-chain/connect-multiple-nodes/){target=\_blank}** - Set up a network with custom validators and Aura consensus
+- **[Upgrade a Running Network](/tutorials/polkadot-sdk/parachains/local-chain/connect-multiple-nodes/){target=\_blank}** - Perform forkless runtime upgrades to add features
 
-Each tutorial builds upon previous concepts, providing a comprehensive path from local development to public network deployment.
+## Parachain Development 
+
+Ready to connect your parachain to Polkadot? Follow these tutorials to build and deploy a parachain:
+
+- **[Prepare a Relay Chain](/tutorials/polkadot-sdk/parachains/connect-to-relay-chain/prepare-relay-chain/){target=\_blank}** - Set up a local relay chain for testing
+- **[Prepare a Parachain](/tutorials/polkadot-sdk/parachains/connect-to-relay-chain/prepare-parachain/){target=\_blank}** - Configure and connect your parachain to the relay chain
+- **[Acquire a TestNet Slot](/tutorials/polkadot-sdk/parachains/connect-to-relay-chain/acquire-a-testnet-slot/){target=\_blank}** - Deploy your parachain to the Paseo TestNet
+
+Through these tutorials, you'll gain practical experience with:
+
+- Node operation and network setup
+- Chain configuration and consensus
+- Runtime development and upgrades
+- Parachain deployment and management
+
+Each tutorial builds upon previous concepts while providing flexibility to focus on your specific development goals, whether that's building a standalone chain or a fully integrated parachain.
 
 ## In This Section
 

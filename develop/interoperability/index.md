@@ -27,7 +27,7 @@ This section covers everything you need to know about building and implementing 
     </a>
   </div>
   <div class="card">
-    <a href="/tutorials/interoperability/" target="_blank"> 
+    <a href="/tutorials/interoperability/"> 
       <h2 class="title">Follow Step-by-Step Tutorials</h2>
       <p class="description">Enhance your XCM skills with step-by-step tutorials on building interoperability solutions on Polkadot SDK-based blockchains.</p>
     </a>
@@ -39,7 +39,7 @@ This section covers everything you need to know about building and implementing 
     </a>
   </div>
   <div class="card"> 
-    <a href="/develop/toolkit/interoperability/" target="_blank"> 
+    <a href="/develop/toolkit/interoperability/"> 
       <h2 class="title">Essential XCM Tools</h2>
       <p class="description">Explore essential tools for creating and integrating cross-chain solutions within the Polkadot ecosystem.</p>
     </a>

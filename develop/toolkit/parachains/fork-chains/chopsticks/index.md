@@ -28,7 +28,7 @@ Whether you're debugging an issue, testing new features, or exploring cross-chai
 
 <div class="subsection-wrapper">
   <div class="card">
-    <a href="https://github.com/AcalaNetwork/chopsticks/">
+    <a href="https://github.com/AcalaNetwork/chopsticks/"  target="_blank">
       <h2 class="title">Chopsticks Repository</h2>
       <p class="description">View the official Chopsticks Github Repository. Check out the code, check out sample commands, track issues and new releases.</p>
     </a>

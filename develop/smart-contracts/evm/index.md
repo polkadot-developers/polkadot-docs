@@ -31,19 +31,19 @@ Whether deploying existing Ethereum contracts on Polkadot or creating new applic
     </a>
   </div>
   <div class="card">
-    <a href="https://docs.astar.network/docs/build/EVM/first-contract/">
+    <a href="https://docs.astar.network/docs/build/EVM/first-contract/" target="_blank">
       <h2 class="title">Deploy a Smart Contract on Astar</h2>
       <p class="description">Follow instructions to deploy your first contract on the Astar parachain using Remix.</p>
     </a>
   </div>
   <div class="card">
-    <a href="https://docs.moonbeam.network/builders/ethereum/dev-env/remix/">
+    <a href="https://docs.moonbeam.network/builders/ethereum/dev-env/remix/" target="_blank">
       <h2 class="title">Deploy a Smart Contract on Moonbeam</h2>
       <p class="description">Follow instructions to deploy your first contract on the Moonbeam parachain using Remix.</p>
     </a>
   </div>
   <div class="card">
-    <a href="https://evmdocs.acala.network/tooling/remix-ide/deploying-a-smart-contract">
+    <a href="https://evmdocs.acala.network/tooling/remix-ide/deploying-a-smart-contract" target="_blank">
       <h2 class="title">Deploy a Smart Contract on Acala</h2>
       <p class="description">Follow instructions to deploy your first contract on the Acala parachain using Remix.</p>
     </a>

@@ -29,7 +29,7 @@ Forking a live chain creates a controlled environment that mirrors live network 
 
 <div class="subsection-wrapper">
   <div class="card">
-    <a href="/tutorials/polkadot-sdk/testing/fork-live-chains/" target="_blank">
+    <a href="/tutorials/polkadot-sdk/testing/fork-live-chains/">
       <h2 class="title">Step-by-Step Tutorial on Forking Live Chains with Chopsticks</h2>
       <p class="description">This tutorial walks you through how to fork live Polkadot SDK chains with Chopsticks. Configure forks, replay blocks, test XCM execution.</p>
     </a>

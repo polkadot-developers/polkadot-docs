@@ -8,7 +8,7 @@ template: index-page.html
 
 # Fork Live Chains with Chopsticks
 
-Chopsticks is a powerful tool that lets you create local copies of running Polkadot networks. By forking live chains locally, you can safely test features, analyze network behavior, and simulate complex scenarios without affecting production networks.
+Chopsticks is a powerful tool that lets you create local copies of running Polkadot SDK-based networks. By forking live chains locally, you can safely test features, analyze network behavior, and simulate complex scenarios without affecting production networks.
 
 ## What Can I Do with Chopsticks?
 

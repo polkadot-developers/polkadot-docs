@@ -1,12 +1,11 @@
 ---
-title: Build a Parachain
-description: Tutorials for building a parachain on Polkadot. These tutorials are designed to help you get started with building a parachain on Polkadot.
-hide: 
-- feedback
+title: Connect to a Relay Chain
+description: Learn how to set up a local relay chain for parachain testing including managing gensis state, TestNet deployment, and managing collator nodes.
+    - feedback
 template: index-page.html
 ---
 
-# Build a Parachain
+# Connect to a Relay Chain
 
 Ready to connect your parachain to Polkadot? Follow these tutorials to build and deploy a parachain:
 

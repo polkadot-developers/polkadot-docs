@@ -10,15 +10,11 @@ template: index-page.html
 
 Testing blockchain networks in a controlled environment is essential for development and validation. The Polkadot ecosystem provides specialized tools that enable you to spawn test networks, helping you verify functionality and catch issues before deploying to production.
 
-## Zombienet
+Ready to get started? Jump straight to the [Zombienet getting started](/develop/toolkit/parachains/spawn-chains/zombienet/get-started/) guide.
 
-Create ephemeral test networks with multiple deployment options:
+## Why Spawn a Network?
 
-- Deploy configurable test environments
-- Write natural language test scripts
-- Monitor network behavior and metrics
-
-Through these testing tools, you can:
+Spawning a network provides a controlled environment to test and validate various aspects of your blockchain. Use these tools to:
 
 - Validate network configurations
 - Test cross-chain messaging

@@ -8,7 +8,7 @@ template: index-page.html
 
 # Test Networks with Zombienet
 
-Zombienet is a testing framework that lets you quickly spin up ephemeral blockchain networks for development and testing. With support for multiple deployment targets like Kubernetes, Podman and native environments, Zombienet makes it easy to validate your blockchain implementation in a controlled environment.
+Zombienet is a testing framework that lets you quickly spin up ephemeral blockchain networks for development and testing. With support for multiple deployment targets, such as Kubernetes, Podman, and native environments, Zombienet makes it easy to validate your blockchain implementation in a controlled environment.
 
 ## What Can I Do with Zombienet?
 

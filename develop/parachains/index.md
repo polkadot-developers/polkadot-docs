@@ -21,9 +21,9 @@ Polkadot SDK’s FRAME framework provides developers with the tools to do the fo
 - Add smart contract functionality
 - Test your build for a confident deployment
 - Deploy your blockchain for use
-- Maintain your network inlcuding monitoring and upgrades
+- Maintain your network including monitoring and upgrades
 
-New to parachain development? Start with the [Introduction to the Polkadot SDK](/develop/parachains/get-started/intro-polkadot-sdk/) to discover how this framework simplifies the process of building custom parachains.
+New to parachain development? Start with the [Introduction to the Polkadot SDK](/develop/parachains/get-started/intro-polkadot-sdk/) to discover how this framework simplifies building custom parachains.
 
 ## In This Section
 

@@ -8,7 +8,7 @@ template: index-page.html
 
 # Fork Live Chains for Testing
 
-Explore tools for forking live blockchain networks, enabling you to replicate real-world conditions in a local environment for accurate testing and debugging. These tools allow you to analyze network behavior, test new features, and simulate complex scenarios in a controlled environment without affecting production systems.
+Explore tools for forking live blockchain networks. These tools enable you to replicate real-world conditions in a local environment for accurate testing and debugging. They also allow you to analyze network behavior, test new features, and simulate complex scenarios in a controlled environment without affecting production systems.
 
 Ready to get started? Jump straight to the [Chopsticks getting started](/develop/toolkit/parachains/fork-chains/chopsticks/get-started/) guide.
 

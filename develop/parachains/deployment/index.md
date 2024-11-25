@@ -10,9 +10,7 @@ template: index-page.html
 
 Learn how to prepare your blockchain for deployment using the Polkadot SDK, including building deterministic Wasm runtimes and generating chain specifications.
 
-For a clearer understanding of the deployment process, explore the section below. If you're ready to dive in, head to In This Section to begin working through the deployment guides.
-
-To get a better picture of the deployment process, check out the following section. If you're ready to get started, jump to [In This Section](#in-this-section) to begin working through the deployment guides.
+To better understand the deployment process, check out the following section. If you're ready to start jump to [In This Section](#in-this-section) to begin working through the deployment guides.
 
 ## Deployment Process
 

@@ -148,5 +148,5 @@ Finally, to compose the runtime, update the list of pallets in the same file by 
 
 With the pallet successfully added and configured, the runtime is ready to be compiled and used. Following this guide’s steps, you’ve integrated a new pallet into the runtime, set up its dependencies, and ensured proper configuration. You can now proceed to any of the following points:
 
-- Dive deeper by [creating your custom pallet](/develop/parachains/customize-parachain/make-custom-pallet/){target=\_blank} to expand the functionality of your blockchain
-- Ensure robustness with [Pallet Testing](/develop/parachains/customize-parachain/pallet-testing/){target=\_blank} to verify the accuracy and behavior of your code
+- Dive deeper by [creating your custom pallet](/develop/parachains/customize-parachain/make-custom-pallet/) to expand the functionality of your blockchain
+- Ensure robustness with [Pallet Testing](/develop/parachains/customize-parachain/pallet-testing/) to verify the accuracy and behavior of your code

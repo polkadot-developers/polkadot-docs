@@ -36,6 +36,6 @@ For a real-world example of how this pallet is implemented in production, you ca
 
 Now that you understand how to enable smart contract functionality in your blockchain, you might want to:
 
-- Take a step back and learn more about EVM and Wasm contracts by visiting the [Smart Contracts](/develop/smart-contracts/overview){target=\_blank} guide
-- Start building with [Wasm (ink!) contracts](/develop/smart-contracts/wasm-ink/){target=\_blank}
-- Start building with [EVM contracts](/develop/smart-contracts/evm/){target=\_blank}
+- Take a step back and learn more about EVM and Wasm contracts by visiting the [Smart Contracts](/develop/smart-contracts/overview) guide
+- Start building with [Wasm (ink!) contracts](/develop/smart-contracts/wasm-ink/)
+- Start building with [EVM contracts](/develop/smart-contracts/evm/)

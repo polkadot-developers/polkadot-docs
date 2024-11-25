@@ -94,7 +94,100 @@ The configuration file allows you to modify the storage of the forked network by
 
 ### CLI Flags
 
-Alternatively, all settings (except for genesis and timestamp) can be configured via command-line flags, providing a comprehensive method to set up the environment. 
+Alternatively, all settings (except for genesis and timestamp) can be configured via command-line flags, providing a comprehensive method to set up the environment.
+
+## WebSocket Commands
+
+Chopstick's internal WebSocket server has special endpoints that allow the manipulation of the local Polkadot SDK chain.
+
+These are the methods that can be invoked and their parameters:
+
+- **dev_newBlock** (newBlockParams) — generates one or more new blocks
+
+    === "Parameters"
+
+        - `newBlockParams` ++"NewBlockParams"++  - the parameters to build the new block with. Where the `NewBlockParams` interface includes the following properties:
+            - `count` ++"number"++ - the number of blocks to build
+            - `dmp` ++"{ msg: string, sentAt: number }[]"++ - the downward messages to include in the block
+            - `hrmp` ++"Record<string | number, { data: string, sentAt: number }[]>"++ - the horizontal messages to include in the block
+            - `to` ++"number"++ - the block number to build to
+            - `transactions` ++"string[]"++ - the transactions to include in the block
+            - `ump` ++"Record<number, string[]>"++ - the upward messages to include in the block
+            - `unsafeBlockHeight` ++"number"++ - build block using a specific block height (unsafe)
+
+    === "Example"
+
+        ```js
+        --8<-- 'code/develop/toolkit/parachains/fork-chains/chopsticks/get-started/dev-newblock-example.js'
+        ```
+
+- **dev_setBlockBuildMode** (buildBlockMode) — sets block build mode
+
+    === "Parameter"
+    
+        - `buildBlockMode` ++"BuildBlockMode"++ - the build mode. Can be any of the following modes:
+            ```ts
+            export enum BuildBlockMode {
+              Batch = 'Batch', /** One block per batch (default) */
+              Instant = 'Instant', /** One block per transaction */
+              Manual = 'Manual', /** Only build when triggered */
+            }
+            ```
+            
+    === "Example"
+
+        ```js
+        --8<-- 'code/develop/toolkit/parachains/fork-chains/chopsticks/get-started/dev-setBlockBuildMode-example.js'
+        ```
+
+- **dev_setHead** (hashOrNumber) — sets the head of the blockchain to a specific hash or number
+
+    === "Parameter"
+
+        - `hashOrNumber` ++"string | number"++ - the block hash or number to set as head
+
+    === "Example"
+
+        ```js
+        --8<-- 'code/develop/toolkit/parachains/fork-chains/chopsticks/get-started/dev-setHead-example.js'
+        ```
+
+- **dev_setRuntimeLogLevel** (runtimeLogLevel) — sets the runtime log level
+
+    === "Parameter"
+
+        - `runtimeLogLevel` ++"number"++ - the runtime log level to set
+
+    === "Example"
+
+        ```js
+        --8<-- 'code/develop/toolkit/parachains/fork-chains/chopsticks/get-started/dev-setRuntimeLogLevel-example.js'
+        ```
+
+- **dev_setStorage** (values, blockHash) — creates or overwrites the value of any storage
+
+    === "Parameters"
+
+        - `values` ++"object"++ - JSON object resembling the path to a storage value
+        - `blockHash` ++"string"++ - the block hash to set the storage value
+
+    === "Example"
+
+        ```js
+        --8<-- 'code/develop/toolkit/parachains/fork-chains/chopsticks/get-started/dev-setStorage-example.js'
+        ```
+
+- **dev_timeTravel** (date) — sets the timestamp of the block to a specific date"
+
+    === "Parameter"
+
+        - `date` ++"string"++ - timestamp or date string to set. All future blocks will be sequentially created after this point in time
+
+    === "Example"
+
+        ```js
+        --8<-- 'code/develop/toolkit/parachains/fork-chains/chopsticks/get-started/dev-timeTravel-example.js'
+        ```
 
 ## Where to Go Next
 

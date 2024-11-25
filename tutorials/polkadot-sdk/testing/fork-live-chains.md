@@ -52,11 +52,10 @@ To run Chopsticks using a configuration file, utilize the `--config` flag. You c
 
 Regardless of which method you choose from the preceding examples, you'll see an output similar to the following:
 
---8<-- 'code/tutorials/polkadot-sdk/testing/fork-live-chains//run-chopsticks-01.html'
+--8<-- 'code/tutorials/polkadot-sdk/testing/fork-live-chains/run-chopsticks-01.html'
 
 !!! note
     If using a file path, make sure you've downloaded the [Polkadot configuration file](https://github.com/AcalaNetwork/chopsticks/blob/master/configs/polkadot.yml){target=\_blank}, or have created your own.
-
 
 ## Create a Fork
 
@@ -70,7 +69,7 @@ npx @acala-network/chopsticks \
 
 If the fork is successful, you will see output similar to the following:
 
--8<-- 'code/tutorials/polkadot-sdk/testing/fork-live-chains//polkadot-fork-01.html'
+-8<-- 'code/tutorials/polkadot-sdk/testing/fork-live-chains/polkadot-fork-01.html'
 
 Access the running Chopsticks fork using the default address.
 
@@ -88,14 +87,14 @@ To interact with Chopsticks via the hosted user interface, visit [Polkadot.js Ap
 
 1. Select the network icon in the top left corner
 
-    ![](/images/tutorials/polkadot-sdk/testing/fork-live-chains//chopsticks-1.webp)
+    ![](/images/tutorials/polkadot-sdk/testing/fork-live-chains/chopsticks-1.webp)
 
 2. Scroll to the bottom and select **Development**
 3. Choose **Custom**
 4. Enter `ws://localhost:8000` in the input field
 5. Select the **Switch** button
 
-    ![](/images/tutorials/polkadot-sdk/testing/fork-live-chains//chopsticks-2.webp)
+    ![](/images/tutorials/polkadot-sdk/testing/fork-live-chains/chopsticks-2.webp)
 
 You should now be connected to your local fork and can interact with it as you would with a real chain.
 
@@ -104,7 +103,7 @@ You should now be connected to your local fork and can interact with it as you w
 For programmatic interaction, you can use the Polkadot.js library. The following is a basic example:
 
 ```js
---8<-- 'code/tutorials/polkadot-sdk/testing/fork-live-chains//basic-example.js'
+--8<-- 'code/tutorials/polkadot-sdk/testing/fork-live-chains/basic-example.js'
 ```
 
 ## Replay Blocks
@@ -127,7 +126,7 @@ npx @acala-network/chopsticks run-block  \
 ??? code "Output file content"
 
     ```json
-    --8<-- 'code/tutorials/polkadot-sdk/testing/fork-live-chains//replay-block.json'
+    --8<-- 'code/tutorials/polkadot-sdk/testing/fork-live-chains/replay-block.json'
     ```
 
 ## XCM Testing
@@ -148,99 +147,6 @@ npx @acala-network/chopsticks xcm \
 
 After running it, you should see output similar to the following:
 
---8<-- 'code/tutorials/polkadot-sdk/testing/fork-live-chains//fork-output.html'
+--8<-- 'code/tutorials/polkadot-sdk/testing/fork-live-chains/fork-output.html'
 
 Now you can interact with your forked chains using the ports specified in the output.
-
-## WebSocket Commands
-
-Chopstick's internal WebSocket server has special endpoints that allow the manipulation of the local Polkadot SDK chain.
-
-These are the methods that can be invoked and their parameters:
-
-- **dev_newBlock** (newBlockParams) — generates one or more new blocks
-
-    === "Parameters"
-
-        - `newBlockParams` ++"NewBlockParams"++  - the parameters to build the new block with. Where the `NewBlockParams` interface includes the following properties:
-            - `count` ++"number"++ - the number of blocks to build
-            - `dmp` ++"{ msg: string, sentAt: number }[]"++ - the downward messages to include in the block
-            - `hrmp` ++"Record<string | number, { data: string, sentAt: number }[]>"++ - the horizontal messages to include in the block
-            - `to` ++"number"++ - the block number to build to
-            - `transactions` ++"string[]"++ - the transactions to include in the block
-            - `ump` ++"Record<number, string[]>"++ - the upward messages to include in the block
-            - `unsafeBlockHeight` ++"number"++ - build block using a specific block height (unsafe)
-
-    === "Example"
-
-        ```js
-        --8<-- 'code/tutorials/polkadot-sdk/testing/fork-live-chains//dev-newblock-example.js'
-        ```
-
-- **dev_setBlockBuildMode** (buildBlockMode) — sets block build mode
-
-    === "Parameter"
-    
-        - `buildBlockMode` ++"BuildBlockMode"++ - the build mode. Can be any of the following modes:
-            ```ts
-            export enum BuildBlockMode {
-              Batch = 'Batch', /** One block per batch (default) */
-              Instant = 'Instant', /** One block per transaction */
-              Manual = 'Manual', /** Only build when triggered */
-            }
-            ```
-            
-    === "Example"
-
-        ```js
-        --8<-- 'code/tutorials/polkadot-sdk/testing/fork-live-chains//dev-setBlockBuildMode-example.js'
-        ```
-
-- **dev_setHead** (hashOrNumber) — sets the head of the blockchain to a specific hash or number
-
-    === "Parameter"
-
-        - `hashOrNumber` ++"string | number"++ - the block hash or number to set as head
-
-    === "Example"
-
-        ```js
-        --8<-- 'code/tutorials/polkadot-sdk/testing/fork-live-chains//dev-setHead-example.js'
-        ```
-
-- **dev_setRuntimeLogLevel** (runtimeLogLevel) — sets the runtime log level
-
-    === "Parameter"
-
-        - `runtimeLogLevel` ++"number"++ - the runtime log level to set
-
-    === "Example"
-
-        ```js
-        --8<-- 'code/tutorials/polkadot-sdk/testing/fork-live-chains//dev-setRuntimeLogLevel-example.js'
-        ```
-
-- **dev_setStorage** (values, blockHash) — creates or overwrites the value of any storage
-
-    === "Parameters"
-
-        - `values` ++"object"++ - JSON object resembling the path to a storage value
-        - `blockHash` ++"string"++ - the block hash to set the storage value
-
-    === "Example"
-
-        ```js
-        --8<-- 'code/tutorials/polkadot-sdk/testing/fork-live-chains//dev-setStorage-example.js'
-        ```
-
-- **dev_timeTravel** (date) — sets the timestamp of the block to a specific date"
-
-    === "Parameter"
-
-        - `date` ++"string"++ - timestamp or date string to set. All future blocks will be sequentially created after this point in time
-
-    === "Example"
-
-        ```js
-        --8<-- 'code/tutorials/polkadot-sdk/testing/fork-live-chains//dev-timeTravel-example.js'
-        ```

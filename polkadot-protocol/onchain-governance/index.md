@@ -26,19 +26,19 @@ These pallets work together to enable decentralized decision-making within the P
 
 <div class="subsection-wrapper">
   <div class="card">
-    <a href="https://paritytech.github.io/polkadot-sdk/master/pallet_preimage/index.html">
+    <a href="https://paritytech.github.io/polkadot-sdk/master/pallet_preimage/index.html" target="_blank">
       <h2 class="title">Explore the Preimage Pallet</h2>
       <p class="description">Review Polkadot SDK's documentation on the Preimage pallet to learn more.</p>
     </a>
   </div>
   <div class="card">
-    <a href="https://paritytech.github.io/polkadot-sdk/master/pallet_referenda/index.html">
+    <a href="https://paritytech.github.io/polkadot-sdk/master/pallet_referenda/index.html" target="_blank">
       <h2 class="title">Explore the Referenda Pallet</h2>
       <p class="description">Review Polkadot SDK's documentation on the Referenda pallet to learn more.</p>
     </a>
   </div>
   <div class="card">
-    <a href="https://paritytech.github.io/polkadot-sdk/master/pallet_conviction_voting/index.html">
+    <a href="https://paritytech.github.io/polkadot-sdk/master/pallet_conviction_voting/index.html" target="_blank">
       <h2 class="title">Explore the Conviction Voting Pallet</h2>
       <p class="description">Review Polkadot SDK's documentation on the Conviction Voting pallet to learn more.</p>
     </a>

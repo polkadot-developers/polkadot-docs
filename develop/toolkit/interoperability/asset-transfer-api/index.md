@@ -18,13 +18,13 @@ The Asset Transfer API is a library designed to streamline asset transfers for S
 
 <div class="subsection-wrapper">
   <div class="card">
-    <a href="https://github.com/paritytech/asset-transfer-api">
+    <a href="https://github.com/paritytech/asset-transfer-api" target="_blank">
       <h2 class="title">View the Source Code</h2>
       <p class="description">Explore the Asset Transfer API repository on GitHub to familiarize yourself with the source code.</p>
     </a>
   </div>
     <div class="card">
-    <a href="https://github.com/paritytech/asset-transfer-api">
+    <a href="https://github.com/paritytech/asset-transfer-api" target="_blank">
       <h2 class="title">Learn Through Examples</h2>
       <p class="description">Check out the provided examples on GitHub to get a better understanding of how to implement the Asset Transfer API.</p>
     </a>

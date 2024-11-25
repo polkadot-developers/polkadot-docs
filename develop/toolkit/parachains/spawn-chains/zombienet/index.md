@@ -33,7 +33,7 @@ Whether you're building a new parachain or testing runtime upgrades, Zombienet p
 
 <div class="subsection-wrapper">
   <div class="card">
-    <a href="/tutorials/polkadot-sdk/testing/spawn-basic-chain/">
+    <a href="/tutorials/polkadot-sdk/testing/spawn-basic-chain/" target="_blank">
       <h2 class="title">Spawn a Chain with Zombienet</h2>
       <p class="description">Learn to spawn, connect to and monitor a basic blockchain network with Zombienet, using customizable configurations for streamlined development and debugging.</p>
     </a>

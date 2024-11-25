@@ -14,7 +14,7 @@ This section guides you through the tools, resources, and guides to help you bui
 
 ## Choosing the Right Smart Contract Language and Execution Environment
 
-For developers building smart contracts in the Polkadot ecosystem, the choice between parachains supporting ink! (for Wasm contracts) and EVM-compatible parachains (for Solidity contracts) depends on the preferred development environment and language. By selecting the right parachain, developers can leverage Polkadot's scalability and interoperability while utilizing the conthttps://github.com/polkadot-developers/polkadot-docs/pull/215/files#diff-f6028e9e5bfbe6840fafc55c13a8b6f55f1d2d4a12543d8d4ee7915bec339d1bR13-R14ract framework that best suits their needs.
+For developers building smart contracts in the Polkadot ecosystem, the choice between parachains supporting ink! (for Wasm contracts) and EVM-compatible parachains (for Solidity contracts) depends on the preferred development environment and language. By selecting the right parachain, developers can leverage Polkadot's scalability and interoperability while utilizing the framework that best suits their needs.
 
 Here are some key considerations:
 
@@ -32,13 +32,13 @@ Throughout the pages in this section, you'll find resources and guides to help y
 
 <div class="subsection-wrapper">
   <div class="card">
-    <a href="https://use.ink/">
+    <a href="https://use.ink/" target="_blank"> 
       <h2 class="title">View the Official !ink Documentation</h2>
       <p class="description">Learn everything you need to know about developing smart contracts with !ink.</p>
     </a>
   </div>
   <div class="card">
-    <a href="https://github.com/paritytech/asset-transfer-api">
+    <a href="https://github.com/paritytech/asset-transfer-api" target="_blank"> 
       <h2 class="title">View the Official Asset Hub Contracts Documentation</h2>
       <p class="description">Learn everything you need to know about developing smart contracts on Asset Hub using the PolkaVM.</p>
     </a>

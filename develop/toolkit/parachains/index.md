@@ -34,13 +34,13 @@ Through these tools, you can validate network configurations, test runtime upgra
 
 <div class="subsection-wrapper">
   <div class="card">
-    <a href="/tutorials/polkadot-sdk/testing/spawn-basic-chain/">
+    <a href="/tutorials/polkadot-sdk/testing/spawn-basic-chain/" target="_blank">
       <h2 class="title">Spawn a Chain with Zombienet</h2>
       <p class="description">Learn to spawn, connect to and monitor a basic blockchain network with Zombienet, using customizable configurations for streamlined development and debugging.</p>
     </a>
   </div>
     <div class="card">
-    <a href="/tutorials/polkadot-sdk/testing/fork-live-chains/">
+    <a href="/tutorials/polkadot-sdk/testing/fork-live-chains/" target="_blank">
       <h2 class="title">Fork Live Chains with Chopsticks</h2>
       <p class="description">Learn how to fork live Polkadot SDK chains with Chopsticks. Configure forks, replay blocks, test XCM, and interact programmatically or via UI.</p>
     </a>

@@ -10,6 +10,20 @@ template: index-page.html
 
 In this section, you'll gain hands-on experience building solutions that integrate with system chains on Polkadot using the Polkadot SDK. System chains like the Asset Hub provide essential infrastructure for enabling cross-chain interoperability and asset management across the Polkadot ecosystem. Through these tutorials, you'll learn how to leverage these system chains to enhance the functionality and security of your blockchain applications.
 
+The Asset Hub system chain (formerly known as Statemint) provides robust asset management capabilities across the Polkadot ecosystem. Learn how to:
+
+- Register and manage different types of assets
+- Create and manage liquidity pools
+- Perform asset conversions and trades
+- Handle both local and foreign assets
+
+The tutorials provide step-by-step guidance for both testing environments and production deployments, helping you build secure and efficient asset management solutions. By following these tutorials, you'll develop practical experience with:
+
+- Asset registration and management workflows
+- Cross-chain asset transfers and conversions
+- Integration with system chain functionality
+- Testing and deploying system chain interactions
+
 ## In This Section
 
 :::INSERT_IN_THIS_SECTION:::

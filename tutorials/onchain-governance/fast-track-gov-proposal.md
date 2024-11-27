@@ -7,16 +7,16 @@ description: Learn how to fast track governance proposals in Polkadot's OpenGov 
 
 ## Introduction
 
-Polkadot's [OpenGov](/polkadot-protocol/onchain-governance/overview){target=\_blank} is a sophisticated governance mechanism designed to allow the network to evolve gracefully over time, guided by its stakeholders. This system features multiple [tracks](https://wiki.polkadot.network/docs/learn-polkadot-opengov-origins#origins-and-tracks-info){target=\_blank} for different types of proposals, each with its own parameters for approval, support, and timing. While this flexibility is powerful, it also introduces complexity that can lead to failed proposals or unexpected outcomes.
+Polkadot's [OpenGov](/polkadot-protocol/onchain-governance/overview){target=\_blank} is a sophisticated governance mechanism designed to allow the network to evolve gracefully over time, guided by its stakeholders. This system features multiple [tracks](https://wiki.polkadot.network/docs/learn-polkadot-opengov-origins#origins-and-tracks-info){target=\_blank} for different types of proposals, each with its own parameters for approval, support, and confirmation period. While this flexibility is powerful, it also introduces complexity that can lead to failed proposals or unexpected outcomes.
 
 Testing governance proposals before submission is crucial for the ecosystem. This process enhances efficiency by reducing the need for repeated submissions, improves security by identifying potential risks, and allows for proposal optimization based on simulated outcomes. It also serves as an educational tool, providing stakeholders with a safe environment to understand the impacts of different voting scenarios. 
 
 By leveraging simulation tools like [Chopsticks](/develop/toolkit/parachains/fork-chains/chopsticks){target=\_blank}, developers and governance participants can:
 
 - Simulate the entire lifecycle of a proposal
-- Test various voting outcomes and participation levels
-- Analyze the effects of successful proposals on the network state
-- Identify potential issues or unexpected consequences before real-world implementation
+- Test the voting outcomes by varying the support and approval levels
+- Analyze the effects of successfully executed proposal on the network's state
+- Identify and troubleshoot potential issues or unexpected consequences before submitting the proposals
 
 This tutorial will guide you through the process of using Chopsticks to thoroughly test OpenGov proposals, ensuring that when you submit a proposal to the live network, you can do so with confidence in its effects and viability.
 
@@ -121,7 +121,7 @@ In this step, you will perform the following actions:
 
 1. Define the call you want to execute and its origin
 2. Create a preimage using the selected call
-3. Submit the proposal. It uses the preimage hash (obtained from the call) as part of the proposal submission. The proposal is submitted with the selected origin
+3. Submit the proposal. It uses the preimage hash (obtained from the call) as part of the proposal submission process. The proposal is submitted with the selected origin
 4. Place decision deposit. This deposit is required to move the referendum from the preparing phase to the deciding phase
 
 ```typescript hl_lines="5-14"

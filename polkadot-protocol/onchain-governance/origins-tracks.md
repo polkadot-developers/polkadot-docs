@@ -22,7 +22,7 @@ Origins are the foundation of Polkadot's OpenGov governance system. They categor
 
 Proposers select an origin based on the nature of their referendum. Origins determine parameters like approval thresholds, required deposits, and timeframes for voting and confirmation. Each origin is paired with a track, which acts as a roadmap for the proposal's lifecycle, including preparation, voting, and enactment.
 
-!!!note 'OpenGov Origins' 
+!!!note "OpenGov Origins"
     Explore the [Polkadot OpenGov Origins](https://wiki.polkadot.network/docs/learn-polkadot-opengov-origins){target=\_blank} page for a detailed list of origins and their associated parameters.
 
 ## Tracks

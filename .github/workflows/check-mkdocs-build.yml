@@ -19,7 +19,7 @@ jobs:
           # move also dotfile with *
           shopt -s dotglob
 
-      - name: Clone Moonbeam MKDocs
+      - name: Clone Polkadot MKDocs
         run: |
           # clone mkdocs repo locally
           git clone https://${{ secrets.REPO_SCOPED_TOKEN }}@github.com/papermoonio/polkadot-mkdocs

@@ -1,6 +1,6 @@
 ---
 title: How to Fast Track a Governance Proposal
-description: TODO
+description: Learn how to fast track governance proposals in Polkadot's OpenGov using Chopsticks. Simulate, test, and execute proposals confidently.
 ---
 
 # How to Fast Track a Governance Proposal
@@ -9,9 +9,9 @@ description: TODO
 
 Polkadot's [OpenGov](/polkadot-protocol/onchain-governance/overview){target=\_blank} is a sophisticated governance mechanism designed to allow the network to evolve gracefully over time, guided by its stakeholders. This system features multiple [tracks](https://wiki.polkadot.network/docs/learn-polkadot-opengov-origins#origins-and-tracks-info){target=\_blank} for different types of proposals, each with its own parameters for approval, support, and timing. While this flexibility is powerful, it also introduces complexity that can lead to failed proposals or unexpected outcomes.
 
-Testing governance proposals before submission is crucial for the ecosystem. This process enhances efficiency by reducing the need for repeated submissions, improves security by identifying potential risks, and allows for proposal optimization based on simulated outcomes. It also serves as an educational tool, providing stakeholders with a safe environment to understand the impacts of different voting scenarios. By leveraging simulation tools like [Chopsticks](/develop/toolkit/parachains/fork-chains/chopsticks){target=\_blank}, proposers can refine their ideas, anticipate potential issues, and increase the likelihood of successful implementation, ultimately leading to more effective and informed governance decisions.
+Testing governance proposals before submission is crucial for the ecosystem. This process enhances efficiency by reducing the need for repeated submissions, improves security by identifying potential risks, and allows for proposal optimization based on simulated outcomes. It also serves as an educational tool, providing stakeholders with a safe environment to understand the impacts of different voting scenarios. 
 
-By using Chopsticks, developers and governance participants can:
+By leveraging simulation tools like [Chopsticks](/develop/toolkit/parachains/fork-chains/chopsticks){target=\_blank}, developers and governance participants can:
 
 - Simulate the entire lifecycle of a proposal
 - Test various voting outcomes and participation levels
@@ -22,64 +22,55 @@ This tutorial will guide you through the process of using Chopsticks to thorough
 
 ## Prerequisites
 
-- Chopsticks installed. If you still need to do so, see the [Install Chopsticks](/develop/toolkit/parachains/fork-chains/chopsticks/get-started/#install-chopsticks){target=\_blank} guide for assistance
+Before proceeding, ensure the following prerequisites are met:
 
-- Basic understanding of [Polkadot.js](/develop/toolkit/api-libraries/polkadot-js-api){target=\_blank} and [OpenGov](/polkadot-protocol/onchain-governance/overview){target=\_blank}
+- **Chopsticks installation** - if you have not installed Chopsticks yet, refer to the [Install Chopsticks](/develop/toolkit/parachains/fork-chains/chopsticks/get-started/#install-chopsticks){target=\_blank} for detailed instructions
+- **Familiarity with key concepts** - you should have a basic understanding of the following:
+    - [Polkadot.js](/develop/toolkit/api-libraries/polkadot-js-api){target=\_blank} 
+    - [OpenGov](/polkadot-protocol/onchain-governance/overview){target=\_blank}
 
 ## Setting Up the Project
 
-Before diving into testing OpenGov proposals, you need to set up your development environment. You'll create a TypeScript project and install the necessary dependencies. You'll use Chopsticks to fork the Polkadot network and simulate the proposal lifecycle, while PolkadotJS will be your interface for interacting with the forked network and submitting proposals.
+Before diving into testing OpenGov proposals, you need to set up your development environment. You'll create a TypeScript project and install the necessary dependencies. You'll use Chopsticks to fork the Polkadot network and simulate the proposal lifecycle, while Polkadot.js will be your interface for interacting with the forked network and submitting proposals.
 
 Follow these steps to set up your project:
 
 1. Create a new project directory and navigate into it:
-  ```bash
-  mkdir opengov-chopsticks && cd opengov-chopsticks
-  ```
+    ```bash
+    mkdir opengov-chopsticks && cd opengov-chopsticks
+    ```
 
 2. Initialize a new TypeScript project:
-  ```bash
-  npm init -y \
-  && npm install typescript ts-node @types/node --save-dev \
-  && npx tsc --init
-  ```
+    ```bash
+    npm init -y \
+    && npm install typescript ts-node @types/node --save-dev \
+    && npx tsc --init
+    ```
 
 3. Install the required dependencies:
-  ```bash
-  npm install @polkadot/api @acala-network/chopsticks
-  ```
+    ```bash
+    npm install @polkadot/api @acala-network/chopsticks
+    ```
 
 4. Create a new TypeScript file for your script:
-  ```bash
-  touch test-proposal.ts
-  ```
+    ```bash
+    touch test-proposal.ts
+    ```
 
 	!!!note
 		The `test-proposal.ts` file is where you'll write your code to simulate and test OpenGov proposals.
 
 5. Open the `tsconfig.json` file and ensure it includes these compiler options:
-   ```json
-   {
-      "compilerOptions": {
-        "module": "CommonJS",
-        "esModuleInterop": true,
-        "target": "esnext",
-        "moduleResolution": "node",
-        "declaration": true,
-        "sourceMap": true,
-        "skipLibCheck": true,
-        "outDir": "dist",
-        "composite": true
-      }
-    }
-   ```
+    ```json
+    --8<-- 'code/tutorials/onchain-governance/fast-track-gov-proposal/tsconfig.json'
+    ```
 
 ## Submitting and Executing a Proposal Using Chopsticks
 
 It's important to note that you should identify the right track and origin for your proposal. For example, if you're requesting funds from the treasury, select the appropriate treasury track based on the spend limits. For more detailed information, refer to [Polkadot OpenGov Origins](https://wiki.polkadot.network/docs/learn-polkadot-opengov-origins){target=_blank}.
 
 !!!note
-	In this tutorial, the focus will be on the main steps and core logic within the main function. For clarity and conciseness, the implementation details of individual functions will be available in expandable tabs below each section. At the end of the tutorial, you'll find the complete code for reference.
+    In this tutorial, the focus will be on the main steps and core logic within the main function. For clarity and conciseness, the implementation details of individual functions will be available in expandable tabs below each section. At the end of the tutorial, you'll find the complete code for reference.
 
 ### Spin Up the Polkadot Fork
 
@@ -97,25 +88,15 @@ Once your forked network is up and running, you can proceed with the following s
 Begin by adding the necessary imports and a basic structure:
 
 ```typescript
-import "@polkadot/api-augment/polkadot"
-import { FrameSupportPreimagesBounded } from "@polkadot/types/lookup"
-import { blake2AsHex } from "@polkadot/util-crypto"
-import { ApiPromise, Keyring, WsProvider } from "@polkadot/api"
-import { type SubmittableExtrinsic } from "@polkadot/api/types"
-import { ISubmittableResult } from "@polkadot/types/types"
+--8<-- 'code/tutorials/onchain-governance/fast-track-gov-proposal/test-proposal.ts:imports'
 
 const main = async () => {
-	// We'll add our code here
+	// The code will be added here
 
 	process.exit(0)
 }
 
-try {
-    main()
-} catch (e) {
-    console.log(e)
-    process.exit(1)
-}
+--8<-- 'code/tutorials/onchain-governance/fast-track-gov-proposal/test-proposal.ts:try-catch-block'
 ```
 
 This structure provides the foundation for your script. It imports all the necessary dependencies and sets up a main function that will contain the core logic of your proposal submission process.
@@ -124,25 +105,14 @@ This structure provides the foundation for your script. It imports all the neces
 
 Inside your `main` function, add the code to connect to your local Polkadot fork:
 
-```typescript
-const main = async () => {
-	// Connect to the forked chain
-	const api = await connectToFork();
-
-	process.exit(0)
-}
+```typescript hl_lines="2-3"
+--8<-- 'code/tutorials/onchain-governance/fast-track-gov-proposal/test-proposal.ts:main'
 ```
 
 ???+ function "**connectToFork** ()"
 
 	```typescript
-	async function connectToFork(): Promise<ApiPromise> {
-		const wsProvider = new WsProvider("ws://127.0.0.1:8000");
-		const api = await ApiPromise.create({ provider: wsProvider });
-		await api.isReady;
-		console.log(`Connected to chain: ${await api.rpc.system.chain()}`);
-		return api;
-	}
+	--8<-- 'code/tutorials/onchain-governance/fast-track-gov-proposal/test-proposal.ts:connectToFork'
 	```
 
 ### Create and Submit the Proposal
@@ -154,24 +124,12 @@ In this step, you will perform the following actions:
 3. Submit the proposal. It uses the preimage hash (obtained from the call) as part of the proposal submission. The proposal is submitted with the selected origin
 4. Place decision deposit. This deposit is required to move the referendum from the preparing phase to the deciding phase
 
-```typescript
-const main = async () => {
-	// ... [previous code for connecting to fork]
-
-	// Select the call to execute
-    const call = api.tx.parachainStaking.setCode("0x1234")
-
-    // Select the origin
-    const origin = {
-        System: "Root",
-    }
-
-    // Submit preimage, submit proposal, and place decision deposit
-    const proposalIndex = await generateProposal(api, call, origin)
-
-	// ... [rest of the code]
-}
+```typescript hl_lines="5-14"
+--8<-- 'code/tutorials/onchain-governance/fast-track-gov-proposal/test-proposal.ts:main'
 ```
+
+!!!note
+    The `setCodeWithoutChecks` extrinsic used in this example is for demonstration purposes only. Replace it with the specific extrinsic that matches your governance proposal's intended functionality. Ensure the call matches the runtime requirements and governance process of your target Polkadot SDK-based network.
 
 ???+ function "**generateProposal** (api, call, origin)"
 
@@ -182,157 +140,58 @@ const main = async () => {
     3. `referenda.placeDecisionDeposit` - places the required decision deposit for the referendum
    
 	```typescript
-	async function generateProposal(
-		api: ApiPromise,
-		call: SubmittableExtrinsic<"promise", ISubmittableResult>,
-		origin: any
-	): Promise<number> {
-		const keyring = new Keyring({ type: "sr25519" })
-		const alice = keyring.addFromUri("//Alice")
-
-		const proposalIndex = (
-			await api.query.referenda.referendumCount()
-		).toNumber()
-
-		await new Promise<void>(async (resolve) => {
-			const unsub = await api.tx.utility
-				.batch([
-					api.tx.preimage.notePreimage(call.method.toHex()),
-					api.tx.referenda.submit(
-						origin as any,
-						{
-							Lookup: {
-								Hash: call.method.hash.toHex(),
-								len: call.method.encodedLength,
-							},
-						},
-						{ At: 0 }
-					),
-					api.tx.referenda.placeDecisionDeposit(proposalIndex),
-				])
-				.signAndSend(alice, (status: any) => {
-					if (status.blockNumber) {
-						unsub()
-						resolve()
-					}
-				})
-		})
-		return proposalIndex
-	}
+	--8<-- 'code/tutorials/onchain-governance/fast-track-gov-proposal/test-proposal.ts:generateProposal'
 	```
 
 ### Force Proposal Execution
 
 After submitting your proposal, you may want to test its execution without waiting for the standard voting and enactment periods. Chopsticks allows you to force the execution of a proposal by manipulating the chain state and the scheduler.
 
-```typescript
-const main = async () => {
-    // ... [previous code for connecting and submitting proposal]
-
-    // Force the proposal to be executed
-    await forceProposalExecution(api, proposalIndex)
-
-    process.exit(0)
-}
+```typescript hl_lines="16-17"
+--8<-- 'code/tutorials/onchain-governance/fast-track-gov-proposal/test-proposal.ts:main'
 ```
 
 ???+ function "**forceProposalExecution** (api, call, origin)"
 
-	The `forceProposalExecution` function does the following:
+    The `forceProposalExecution` function does the following:
 
-	1. It overwrites the chain storage, modifying the parameters of the proposal to set the approvals and support to the required values for the proposal to pass
-	2. It then forces the scheduler to execute the actual call in the next block, instead of waiting for the original scheduled execution time.
+    1. It overwrites the chain storage, modifying the parameters of the proposal to set the approvals and support to the required values for the proposal to pass
+    2. It then forces the scheduler to execute the actual call in the next block, instead of waiting for the original scheduled execution time
 
-	```typescript
-	async function forceProposalExecution(api: ApiPromise, proposalIndex: number) {
-		const referendumData = await api.query.referenda.referendumInfoFor(
-			proposalIndex
-		)
-		const referendumKey =
-			api.query.referenda.referendumInfoFor.key(proposalIndex)
-		if (!referendumData.isSome) {
-			throw new Error(`Referendum ${proposalIndex} not found`)
-		}
-		const referendumInfo = referendumData.unwrap()
-		if (!referendumInfo.isOngoing) {
-			throw new Error(`Referendum ${proposalIndex} is not ongoing`)
-		}
+    ```typescript
+    --8<-- 'code/tutorials/onchain-governance/fast-track-gov-proposal/test-proposal.ts:forceProposalExecution'
+    ```
 
-		const ongoingData = referendumInfo.asOngoing
-		const ongoingJson = ongoingData.toJSON()
-		// Support Lookup, Inline or Legacy
-		const callHash = ongoingData.proposal.isLookup
-			? ongoingData.proposal.asLookup.toHex()
-			: ongoingData.proposal.isInline
-			? blake2AsHex(ongoingData.proposal.asInline.toHex())
-			: ongoingData.proposal.asLegacy.toHex()
+    !!! note
+        This function depends on the `moveScheduledCallTo` utility function, which is crucial for manipulating the scheduler in a forked chain by moving a specific scheduled call to a desired block.
 
-		const totalIssuance = (await api.query.balances.totalIssuance()).toBigInt()
+    ??? function "moveScheduledCallTo (api, blockCounts, verifier)"
 
-		const proposalBlockTarget = (
-			await api.rpc.chain.getHeader()
-		).number.toNumber()
-		const fastProposalData = {
-			ongoing: {
-				...ongoingJson,
-				enactment: { after: 0 },
-				deciding: {
-					since: proposalBlockTarget - 1,
-					confirming: proposalBlockTarget - 1,
-				},
-				tally: {
-					ayes: totalIssuance - 1n,
-					nays: 0,
-					support: totalIssuance - 1n,
-				},
-				alarm: [proposalBlockTarget + 1, [proposalBlockTarget + 1, 0]],
-			},
-		}
+        ```typescript
+        --8<-- 'code/tutorials/onchain-governance/fast-track-gov-proposal/test-proposal.ts:moveScheduledCallTo'
+        ```
 
-		let fastProposal
-		try {
-			fastProposal = api.registry.createType(
-				`Option<PalletReferendaReferendumInfo>`,
-				fastProposalData
-			)
-		} catch {
-			fastProposal = api.registry.createType(
-				`Option<PalletReferendaReferendumInfoConvictionVotingTally>`,
-				fastProposalData
-			)
-		}
+## Executing the Proposal Script
 
-		const result = await api.rpc("dev_setStorage", [
-			[referendumKey, fastProposal.toHex()],
-		])
+To run the proposal execution script, use the following command in your terminal:
 
-		// Fast forward the nudge referendum to the next block to get the refendum to be scheduled
-		await moveScheduledCallTo(api, 1, (call) => {
-			if (!call.isInline) {
-				return false
-			}
-			const callData = api.createType("Call", call.asInline.toHex())
-			return (
-				callData.method == "nudgeReferendum" &&
-				(callData.args[0] as any).toNumber() == proposalIndex
-			)
-		})
+```bash
+npx ts-node test-proposal.ts
+```
 
-		await api.rpc("dev_newBlock", { count: 1 })
+When executing the script, you should expect the following key actions and outputs:
 
-		await moveScheduledCallTo(api, 1, (call) =>
-			call.isLookup
-				? call.asLookup.toHex() == callHash
-				: call.isInline
-				? blake2AsHex(call.asInline.toHex()) == callHash
-				: call.asLegacy.toHex() == callHash
-		)
-	}
-	```
+- **Chain forking** - the script connects to a forked version of the Polkadot network, allowing safe manipulation of chain state without affecting the live network.
+
+- **Proposal generation** - a new governance proposal is created using the specified extrinsic (in this example, `setCodeWithoutChecks`)
+
+- **State manipulation** - the referendum's storage is modified to simulate immediate approval by adjusting tally and support values to force proposal passing. Scheduled calls are then redirected to ensure immediate execution
+
+- **Execution** - the script advances the chain to trigger the scheduled call execution. The specified call (e.g., `setCodeWithoutChecks`) is processed
 
 ## Summary
 
-In this tutorial, you've learned how to use Chopsticks to test OpenGov proposals on a local fork of the Polkadot network. You've set up a TypeScript project, connected to a local fork, submitted a proposal, and even forced its execution for testing purposes. This process allows you to:
+In this tutorial, you've learned how to use Chopsticks to test OpenGov proposals on a local fork of the Polkadot network. You've set up a TypeScript project, connected to a local fork, submitted a proposal, and forced its execution for testing purposes. This process allows you to:
 
 1. Safely experiment with different types of proposals
 2. Test the effects of proposals without affecting the live network
@@ -345,4 +204,17 @@ By using these techniques, you can develop and refine your proposals before subm
 Here's the complete code for the `test-proposal.ts` file, incorporating all the steps we've covered:
 
 ```typescript
+--8<-- 'code/tutorials/onchain-governance/fast-track-gov-proposal/test-proposal.ts:imports'
+
+--8<-- 'code/tutorials/onchain-governance/fast-track-gov-proposal/test-proposal.ts:connectToFork'
+
+--8<-- 'code/tutorials/onchain-governance/fast-track-gov-proposal/test-proposal.ts:generateProposal'
+
+--8<-- 'code/tutorials/onchain-governance/fast-track-gov-proposal/test-proposal.ts:moveScheduledCallTo'
+
+--8<-- 'code/tutorials/onchain-governance/fast-track-gov-proposal/test-proposal.ts:forceProposalExecution'
+
+--8<-- 'code/tutorials/onchain-governance/fast-track-gov-proposal/test-proposal.ts:main'
+
+--8<-- 'code/tutorials/onchain-governance/fast-track-gov-proposal/test-proposal.ts:try-catch-block'
 ```

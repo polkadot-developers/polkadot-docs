@@ -54,7 +54,7 @@ Using their reserve system, this method facilitates asset transfers from a local
 !!! warning
     The [`reserve_transfer_assets`](https://paritytech.github.io/polkadot-sdk/master/pallet_xcm/pallet/dispatchables/fn.reserve_transfer_assets.html){target=\_blank} extrinsic is deprecated in favor of the [`limited_reserve_transfer_assets`](https://paritytech.github.io/polkadot-sdk/master/pallet_xcm/pallet/dispatchables/fn.limited_reserve_transfer_assets.html){target=\_blank} extrinsic. 
 
-The following steps outline how to execute a reserve-backed transfer from the relay chain Polkadot to the parachain Astar.
+The following steps outline how to execute a reserve-backed transfer from the Polkadot relay chain to the Astar parachain.
 
 ### From the Relay Chain Perspective
 

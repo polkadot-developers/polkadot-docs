@@ -2,4 +2,4 @@ title: Interoperability
 nav:
   - index.md
   - xcm-channels
-  - 'XCM Transfers' : xcm-transfers.md
+  - xcm-transfers

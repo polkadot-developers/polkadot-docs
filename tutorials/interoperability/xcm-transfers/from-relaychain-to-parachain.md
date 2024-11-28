@@ -12,7 +12,7 @@ description: Learn how to perform a reserve-backed asset transfer between a rela
 - **Asset teleportation** - a simple and efficient method involving only the source and destination chains, ideal for systems with a high level of trust
 - **Reserve-Backed transfers** - involves a trusted reserve holding real assets and mints derivative tokens to track ownership. This method is suited for systems with lower trust levels
 
-In this tutorial, you will learn how to perform a reserve-backed transfer between a relay chain (Polkadot) and a parachain (Astar).
+In this tutorial, you will learn how to perform a reserve-backed transfer of DOT between a relay chain (Polkadot) and a parachain (Astar).
 
 ## Prerequisites
 
@@ -41,7 +41,7 @@ After executing this command, the relay chain and parachain will expose the foll
     ws://localhost:8000
     ```
 
-You can connect these endpoints using the [Polkadot.Js Apps](https://polkadot.js.org/apps/){target=\_blank} interface. Open two browser tabs and add the custom endpoint for each chain as shown below:
+You can connect these endpoints using the [Polkadot.js Apps](https://polkadot.js.org/apps/){target=\_blank} interface. Open two browser tabs and add the custom endpoint for each chain as shown below:
 
 ![](/images/tutorials/interoperability/xcm-transfers/xcm-transfers-01.webp)
 
@@ -64,7 +64,7 @@ The following steps outline how to execute a reserve-backed transfer from the Po
 
     ![](/images/tutorials/interoperability/xcm-transfers/xcm-transfers-02.webp)
 
-2. Select the **xcmPallet** pallet
+2. Select **xcmPallet**
 
     ![](/images/tutorials/interoperability/xcm-transfers/xcm-transfers-03.webp)
 

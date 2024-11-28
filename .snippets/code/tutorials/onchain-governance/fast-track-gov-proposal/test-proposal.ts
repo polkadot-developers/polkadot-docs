@@ -8,6 +8,11 @@ import { ISubmittableResult } from '@polkadot/types/types';
 // --8<-- [end:imports]
 
 // --8<-- [start:connectToFork]
+/**
+ * Establishes a connection to the local forked chain.
+ *
+ * @returns A promise that resolves to an `ApiPromise` instance connected to the local chain.
+ */
 async function connectToFork(): Promise<ApiPromise> {
   const wsProvider = new WsProvider('ws://localhost:8000');
   const api = await ApiPromise.create({ provider: wsProvider });
@@ -18,6 +23,15 @@ async function connectToFork(): Promise<ApiPromise> {
 // --8<-- [end:connectToFork]
 
 // --8<-- [start:generateProposal]
+/**
+ * Generates a proposal by submitting a preimage, creating the proposal, and placing a deposit.
+ *
+ * @param api - An instance of the Polkadot.js API promise used to interact with the blockchain.
+ * @param call - The extrinsic to be executed, encapsulating the specific action to be proposed.
+ * @param origin - The origin of the proposal, specifying the source authority (e.g., `{ System: 'Root' }`).
+ * @returns A promise that resolves to the proposal ID of the generated proposal.
+ *
+ */
 async function generateProposal(
   api: ApiPromise,
   call: SubmittableExtrinsic<'promise', ISubmittableResult>,
@@ -58,6 +72,14 @@ async function generateProposal(
 // --8<-- [end:generateProposal]
 
 // --8<-- [start:moveScheduledCallTo]
+/**
+ * Moves a scheduled call to a specified future block if it matches the given verifier criteria.
+ *
+ * @param api - An instance of the Polkadot.js API promise used to interact with the blockchain.
+ * @param blockCounts - The number of blocks to move the scheduled call forward.
+ * @param verifier - A function to verify if a scheduled call matches the desired criteria.
+ * @throws An error if no matching scheduled call is found.
+ */
 async function moveScheduledCallTo(
   api: ApiPromise,
   blockCounts: number,
@@ -104,6 +126,13 @@ async function moveScheduledCallTo(
 // --8<-- [end:moveScheduledCallTo]
 
 // --8<-- [start:forceProposalExecution]
+/**
+ * Forces the execution of a specific proposal by updating its referendum state and ensuring the execution process is triggered.
+ *
+ * @param api - An instance of the Polkadot.js API promise used to interact with the blockchain.
+ * @param proposalIndex - The index of the proposal to be executed.
+ * @throws An error if the referendum is not found or not in an ongoing state.
+ */
 async function forceProposalExecution(api: ApiPromise, proposalIndex: number) {
   const referendumData = await api.query.referenda.referendumInfoFor(
     proposalIndex

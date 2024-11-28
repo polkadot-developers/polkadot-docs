@@ -56,6 +56,10 @@ An early approach to Byzantine fault tolerance (BFT), practical Byzantine fault 
 
 The communication overhead for such systems is `O(n²)`, where `n` is the number of nodes (participants) in the system.
 
+### Preimage
+
+The on-chain proposals do not require the entire image of extrinsics and data (for instance the Wasm code, in case of upgrades) to be submitted, but would rather just need that image's hash. That preimage can be submitted and stored on-chain against the hash later, upon the proposal's dispatch.
+
 ## Call
 
 In the context of pallets containing functions to be dispatched to the runtime, `Call` is an enumeration data type that describes the functions that can be dispatched with one variant per pallet. A `Call` represents a [dispatch](#dispatchable) data structure object.

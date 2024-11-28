@@ -11,7 +11,7 @@ Polkadot's [OpenGov](/polkadot-protocol/onchain-governance/overview){target=\_bl
 
 Testing governance proposals before submission is crucial for the ecosystem. This process enhances efficiency by reducing the need for repeated submissions, improves security by identifying potential risks, and allows for proposal optimization based on simulated outcomes. It also serves as an educational tool, providing stakeholders with a safe environment to understand the impacts of different voting scenarios. 
 
-By leveraging simulation tools like [Chopsticks](/develop/toolkit/parachains/fork-chains/chopsticks){target=\_blank}, developers and governance participants can:
+By leveraging simulation tools like [Chopsticks](/develop/toolkit/parachains/fork-chains/chopsticks){target=\_blank}, developers can:
 
 - Simulate the entire lifecycle of a proposal
 - Test the voting outcomes by varying the support and approval levels
@@ -75,7 +75,7 @@ It's important to note that you should identify the right track and origin for y
 
 ### Spin Up the Polkadot Fork
 
-Before you can interact with the forked network, you need to start it using Chopsticks. Open a new terminal window and run the following command:
+To set up your Polkadot fork using Chopsticks, open a new terminal window and run the following command:
 
 ```
 npx @acala-network/chopsticks --config=polkadot
@@ -122,7 +122,7 @@ Inside your `main` function, add the code to connect to your local Polkadot fork
 In this step, you will perform the following actions:
 
 1. Define the call you want to execute and its origin
-2. Create a preimage using the selected call
+2. Create a [preimage](/polkadot-protocol/glossary#preimage){target=\_blank} using the selected call
 3. Submit the proposal. It uses the preimage hash (obtained from the call) as part of the proposal submission process. The proposal is submitted with the selected origin
 4. Place decision deposit. This deposit is required to move the referendum from the preparing phase to the deciding phase
 
@@ -131,7 +131,7 @@ In this step, you will perform the following actions:
 ```
 
 !!!note
-    The `setCodeWithoutChecks` extrinsic used in this example is for demonstration purposes only. Replace it with the specific extrinsic that matches your governance proposal's intended functionality. Ensure the call matches the runtime requirements and governance process of your target Polkadot SDK-based network.
+    The [`setCodeWithoutChecks`](https://paritytech.github.io/polkadot-sdk/master/frame_system/pallet/struct.Pallet.html#method.set_code_without_checks){target=\_blank} extrinsic used in this example is for demonstration purposes only. Replace it with the specific extrinsic that matches your governance proposal's intended functionality. Ensure the call matches the runtime requirements and governance process of your target Polkadot SDK-based network.
 
 ???+ function "**generateProposal** (api, call, origin)"
 

@@ -3,7 +3,7 @@ title: How to Fast Track a Governance Proposal
 description: Learn how to fast track governance proposals in Polkadot's OpenGov using Chopsticks. Simulate, test, and execute proposals confidently.
 ---
 
-# How to Fast Track a Governance Proposal
+# Fast Track a Governance Proposal
 
 ## Introduction
 
@@ -31,7 +31,8 @@ Before proceeding, ensure the following prerequisites are met:
 
 ## Setting Up the Project
 
-Before diving into testing OpenGov proposals, you need to set up your development environment. You'll create a TypeScript project and install the necessary dependencies. You'll use Chopsticks to fork the Polkadot network and simulate the proposal lifecycle, while Polkadot.js will be your interface for interacting with the forked network and submitting proposals.
+Before testing OpenGov proposals, you need to set up your development environment. 
+You'll set up a TypeScript project and install the required dependencies to simulate and evaluate proposals. You'll use Chopsticks to fork the Polkadot network and simulate the proposal lifecycle, while Polkadot.js will be your interface for interacting with the forked network and submitting proposals.
 
 Follow these steps to set up your project:
 
@@ -81,6 +82,7 @@ npx @acala-network/chopsticks --config=polkadot
 ```
 
 This command will start a local fork of the Polkadot network accesible at `ws://localhost:8000`. Keep this terminal window open and running throughout your testing process.
+
 Once your forked network is up and running, you can proceed with the following steps.
 
 ### Set Up Dependencies and Structure

@@ -52,7 +52,7 @@ b. Click **Switch** to connect to the respective network
 
 ## Procedure to Execute a Reserve-Backed Transfer
 
-Using their reserve system, this method facilitates asset transfers from a local chain to a destination chain. Fees on the destination chain are deducted from the asset specified in the assets vector at the `fee_asset_item` index, covering up to the specified `weight_limit.` The operation fails if the required weight exceeds this limit, potentially putting the transferred assets at risk.
+This method facilitates asset transfers from a local chain to a destination chain by trusting a third party called a reserve to store the real assets. Fees on the destination chain are deducted from the asset specified in the assets vector at the `fee_asset_item` index, covering up to the specified `weight_limit.` The operation fails if the required weight exceeds this limit, potentially putting the transferred assets at risk.
 
 !!! warning
     The [`reserve_transfer_assets`](https://paritytech.github.io/polkadot-sdk/master/pallet_xcm/pallet/dispatchables/fn.reserve_transfer_assets.html){target=\_blank} extrinsic is deprecated in favor of the [`limited_reserve_transfer_assets`](https://paritytech.github.io/polkadot-sdk/master/pallet_xcm/pallet/dispatchables/fn.limited_reserve_transfer_assets.html){target=\_blank} extrinsic. 
@@ -102,7 +102,6 @@ After submitting the transaction, verify that the `xcmPallet.FeesPaid` and `xcmP
 ### From the Parachain Perspective
 
 After submitting the transaction from the relay chain, confirm its success by checking the parachain's events. Look for the `assets.Issued` event, which verifies that the assets have been issued to the destination as expected:
-
 
 ![](/images/tutorials/interoperability/xcm-transfers/from-relaychain-to-parachain/from-relaychain-to-parachain-07.webp)
 

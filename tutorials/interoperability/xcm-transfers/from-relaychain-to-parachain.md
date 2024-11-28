@@ -41,11 +41,14 @@ After executing this command, the relay chain and parachain will expose the foll
     ws://localhost:8000
     ```
 
-You can connect these endpoints using the [Polkadot.js Apps](https://polkadot.js.org/apps/){target=\_blank} interface. Open two browser tabs and add the custom endpoint for each chain as shown below:
+Open two browser tabs and can connect these endpoints using the [Polkadot.js Apps](https://polkadot.js.org/apps/){target=\_blank} interface:
+
+a. Add the custom endpoint for each chain
+
+b. Click **Switch** to connect to the respective network
 
 ![](/images/tutorials/interoperability/xcm-transfers/from-relaychain-to-parachain/from-relaychain-to-parachain-01.webp)
 
-Click **Switch** to connect to the respective network.
 
 ## Procedure to Execute a Reserve-Backed Transfer
 

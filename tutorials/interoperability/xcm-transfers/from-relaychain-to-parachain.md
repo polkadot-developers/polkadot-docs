@@ -43,7 +43,7 @@ After executing this command, the relay chain and parachain will expose the foll
 
 You can connect these endpoints using the [Polkadot.js Apps](https://polkadot.js.org/apps/){target=\_blank} interface. Open two browser tabs and add the custom endpoint for each chain as shown below:
 
-![](/images/tutorials/interoperability/xcm-transfers/xcm-transfers-01.webp)
+![](/images/tutorials/interoperability/xcm-transfers/from-relaychain-to-parachain/from-relaychain-to-parachain-01.webp)
 
 Click **Switch** to connect to the respective network.
 
@@ -62,15 +62,15 @@ The following steps outline how to execute a reserve-backed transfer from the Po
     1. Click on the **Developer** tab from the top navigation bar
     2. Select **Extrinsics** from the dropdown
 
-    ![](/images/tutorials/interoperability/xcm-transfers/xcm-transfers-02.webp)
+    ![](/images/tutorials/interoperability/xcm-transfers/from-relaychain-to-parachain/from-relaychain-to-parachain-02.webp)
 
 2. Select **xcmPallet**
 
-    ![](/images/tutorials/interoperability/xcm-transfers/xcm-transfers-03.webp)
+    ![](/images/tutorials/interoperability/xcm-transfers/from-relaychain-to-parachain/from-relaychain-to-parachain-03.webp)
 
 3. Select the **limitedReservedAssetTransfer** extrinsic from the dropdown list
 
-    ![](/images/tutorials/interoperability/xcm-transfers/xcm-transfers-04.webp)
+    ![](/images/tutorials/interoperability/xcm-transfers/from-relaychain-to-parachain/from-relaychain-to-parachain-04.webp)
 
 4. Fill out the required fields
     1. **dest** - specifies the destination context for the assets. Commonly set to `[Parent, Parachain(..)]` for parachain-to-parachain transfers or `[Parachain(..)]` for relay chain-to-parachain transfers. In this case, since the transfer is from a relay chain to a parachain, the destination context is the following:
@@ -90,18 +90,18 @@ The following steps outline how to execute a reserve-backed transfer from the Po
     5. **weightLimit** - specifies the weight limit, if applicable, for the fee payment on the remote chain
     6. Click on the **Submit Transaction** button to send the transaction
 
-        ![](/images/tutorials/interoperability/xcm-transfers/xcm-transfers-05.webp)
+        ![](/images/tutorials/interoperability/xcm-transfers/from-relaychain-to-parachain/from-relaychain-to-parachain-05.webp)
 
 After submitting the transaction, verify that the `xcmPallet.FeesPaid` and `xcmPallet.Sent` events have been emitted:
 
-![](/images/tutorials/interoperability/xcm-transfers/xcm-transfers-06.webp)
+![](/images/tutorials/interoperability/xcm-transfers/from-relaychain-to-parachain/from-relaychain-to-parachain-06.webp)
 
 ### From the Parachain Perspective
 
 After submitting the transaction from the relay chain, confirm its success by checking the parachain's events. Look for the `assets.Issued` event, which verifies that the assets have been issued to the destination as expected:
 
 
-![](/images/tutorials/interoperability/xcm-transfers/xcm-transfers-07.webp)
+![](/images/tutorials/interoperability/xcm-transfers/from-relaychain-to-parachain/from-relaychain-to-parachain-07.webp)
 
 ## Additional Resources
 

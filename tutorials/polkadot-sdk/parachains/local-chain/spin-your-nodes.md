@@ -64,6 +64,14 @@ Follow these steps to generate your keys:
 
     --8<-- 'code/tutorials/polkadot-sdk/parachains/local-chain/spin-your-nodes/key-sr25519-1.html'
 
+    !!!warning "Protect Your Keys"
+        Never share your secret phrase or private keys. If exposed, someone could:
+
+        - Impersonate you on the network
+        - Steal all funds associated with the account
+        - Perform transactions on your behalf
+        - Potentially compromise your entire blockchain identity
+
     Note the Sr25519 public key for the account (SS58 format). This key will be used for producing blocks with Aura. In this example, the Sr25519 public key for the account is `5HMhkSHpD4XcibjbU9ZiGemLpnsTUzLsG5JhQJQEcxp3KJaW`.
 
 3. Use the generated secret phrase to derive keys using the Ed25519 signature scheme. 

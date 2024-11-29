@@ -72,6 +72,7 @@ Follow these steps to generate your keys:
     ./target/release/solochain-template-node key inspect \
     --scheme Ed25519 \
     --password-interactive \
+    "INSERT_SECRET_PHRASE"
     ```
 
     When prompted for a **Key password**, enter the same password you used in the previous step

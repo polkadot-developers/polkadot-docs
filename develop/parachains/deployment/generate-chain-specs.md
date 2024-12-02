@@ -134,3 +134,19 @@ After generating a chain specification, you can use it to initialize the genesis
 - [**Obtain Coretime**](/develop/parachains/deployment/obtain-coretime/) - learn how to obtain the necessary coretime configuration to synchronize your blockchain’s timestamping and enhance its performance
 - [**Deployment**](/develop/parachains/deployment/) - explore the steps required to deploy your chain specification, ensuring a smooth launch of your network and proper node operation
 - [**Maintenance**](/develop/parachains/maintenance/) - discover best practices for maintaining your blockchain post-deployment, including how to manage upgrades and monitor network health
+
+## Tutorials
+
+
+
+<div class="grid cards" markdown>
+
+-   __Spin Your Own Nodes__
+
+    ---
+
+    Launch a blockchain with a private set of authorized validators. Generate keys, create a custom chain spec, and start a two-node network with Aura consensus.
+
+    [:octicons-arrow-right-24: Reference](tutorials/polkadot-sdk/parachains/local-chain/spin-your-nodes/)
+
+</div>

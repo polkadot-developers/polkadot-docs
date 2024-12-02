@@ -74,7 +74,7 @@ After deployment, regular monitoring and maintenance are essential to ensure tha
 
     ---
 
-    Learn how to set up a local relay chain for parachain testing including managing gensis state, TestNet deployment, and managing collator nodes.
+    Learn how to set up a local relay chain for parachain testing, including managing the genesis state, TestNet deployment, and managing the collator nodes.
 
     [:octicons-arrow-right-24: Reference](tutorials/polkadot-sdk/parachains/connect-to-relay-chain/)
 

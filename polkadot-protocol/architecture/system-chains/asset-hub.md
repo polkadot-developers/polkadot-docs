@@ -201,3 +201,33 @@ Sometimes, XCM transfers may fail due to liquidity or other errors. Failed trans
 - **Parachain to parachain** - monitor for `xcmpqueue(Fail)` on the destination parachain with error types like `TooExpensive`
 
 For detailed error management in XCM, see Gavin Wood's blog post on [XCM Execution and Error Management](https://www.polkadot.network/blog/xcm-part-three-execution-and-error-management){target=\_blank}.
+
+## Tutorials
+
+<div class="grid cards" markdown>
+
+-   __Register a Local Asset__
+
+    ---
+
+    Comprehensive guide to registering a local asset on the Asset Hub system parachain, including step-by-step instructions.
+
+    [:octicons-arrow-right-24: Reference](/tutorials/polkadot-sdk/system-chains/asset-hub/register-local-asset/)
+
+-   __Register a Foreign Asset__
+
+    ---
+
+    An in-depth guide to registering a foreign asset on the Asset Hub parachain, providing clear, step-by-step instructions.
+
+    [:octicons-arrow-right-24: Reference](/tutorials/polkadot-sdk/system-chains/asset-hub/register-foreign-asset/)
+
+-   __Convert Assets__
+
+    ---
+
+    A guide detailing the step-by-step process of converting assets on Asset Hub, helping users efficiently navigate asset management on the platform.
+
+    [:octicons-arrow-right-24: Reference](/tutorials/polkadot-sdk/system-chains/asset-hub/asset-conversion/)
+
+</div>

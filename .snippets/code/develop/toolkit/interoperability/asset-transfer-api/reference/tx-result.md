@@ -21,7 +21,7 @@ A promise containing the result of constructing the transaction.
     ??? child "Type `Format`"
 
         ```ts
-        --8<-- 'code/build-on-polkadot/xcm/asset-transfer-api/reference/format.ts'
+        --8<-- './code/develop/toolkit/interoperability/asset-transfer-api/reference/format.ts'
         ```
 
     ---
@@ -145,4 +145,4 @@ A promise containing the result of constructing the transaction.
 
     ??? child "Type `ConstructedFormat<T>`"
 
-        --8<-- 'code/build-on-polkadot/xcm/asset-transfer-api/reference/constructed-format.md'
+        --8<-- './code/develop/toolkit/interoperability/asset-transfer-api/reference/constructed-format.md'

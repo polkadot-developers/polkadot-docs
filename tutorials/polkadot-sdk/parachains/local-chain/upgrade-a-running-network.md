@@ -95,7 +95,15 @@ To configure the Utility pallet, take the following steps:
 1. Implement the [`Config`](https://paritytech.github.io/polkadot-sdk/master/pallet_utility/pallet/trait.Config.html){target=\_blank} trait for the Utility pallet:
 
     ```rust
-    --8<-- 'code/tutorials/polkadot-sdk/parachains/local-chain/upgrade-a-running-network/config-trait-impl.rs'
+    ...
+    /// Configure the pallet-template in pallets/template
+    --8<-- 'https://raw.githubusercontent.com/paritytech/polkadot-sdk-solochain-template/refs/tags/v0.0.2/runtime/src/lib.rs:251:251'
+        ...
+    --8<-- 'https://raw.githubusercontent.com/paritytech/polkadot-sdk-solochain-template/refs/tags/v0.0.2/runtime/src/lib.rs:254:254'
+
+    // Add here after all the other pallets implementations
+    --8<-- 'https://raw.githubusercontent.com/paritytech/polkadot-sdk/refs/tags/v1.16.2-rc1/substrate/bin/node/runtime/src/lib.rs:334:339'
+    ...
     ```
 
 2. Locate the `#[frame_support::runtime]` macro and add the Utility pallet:

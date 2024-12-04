@@ -171,7 +171,8 @@ Decodes the hex of an extrinsic into a string readable format.
     ??? child "Type `Format`"
 
         ```ts
-        --8<-- 'code/develop/toolkit/interoperability/asset-transfer-api/reference/format.ts'
+        --8<-- 'https://raw.githubusercontent.com/paritytech/asset-transfer-api/refs/tags/v0.3.1/src/types.ts:122:122'
+
         ```
 
 ??? interface "Response parameters"
@@ -209,7 +210,6 @@ Fetch estimated fee information for an extrinsic.
     ??? child "Type `ConstructedFormat<T>`"
 
         --8<-- 'code/develop/toolkit/interoperability/asset-transfer-api/reference/constructed-format.md'
-
     ---
 
     `format` ++"T extends Format"++ <span class="required" markdown>++"required"++</span>
@@ -219,7 +219,7 @@ Fetch estimated fee information for an extrinsic.
     ??? child "Type `Format`"
 
         ```ts
-        --8<-- 'code/develop/toolkit/interoperability/asset-transfer-api/reference/format.ts'
+        --8<-- 'https://raw.githubusercontent.com/paritytech/asset-transfer-api/refs/tags/v0.3.1/src/types.ts:122:122'
         ```
 
 ??? interface "Response parameters"

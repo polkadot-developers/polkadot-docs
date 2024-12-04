@@ -58,8 +58,8 @@ Follow these steps to set up your project:
     touch test-proposal.ts
     ```
 
-	!!!note
-		The `test-proposal.ts` file is where you'll write your code to simulate and test OpenGov proposals.
+    !!!note
+        The `test-proposal.ts` file is where you'll write your code to simulate and test OpenGov proposals.
 
 5. Open the `tsconfig.json` file and ensure it includes these compiler options:
     ```json
@@ -87,15 +87,15 @@ Once your forked network is up and running, you can proceed with the following s
 
 ### Set Up Dependencies and Structure
 
-Begin by adding the necessary imports and a basic structure:
+Begin by adding the necessary imports and a basic structure to the `test-proposal.ts` file:
 
 ```typescript
 --8<-- 'code/tutorials/onchain-governance/fast-track-gov-proposal/test-proposal.ts:imports'
 
 const main = async () => {
-	// The code will be added here
+    // The code will be added here
 
-	process.exit(0)
+    process.exit(0);
 }
 
 --8<-- 'code/tutorials/onchain-governance/fast-track-gov-proposal/test-proposal.ts:try-catch-block'
@@ -113,9 +113,9 @@ Inside your `main` function, add the code to connect to your local Polkadot fork
 
 ???+ function "**connectToFork** ()"
 
-	```typescript
-	--8<-- 'code/tutorials/onchain-governance/fast-track-gov-proposal/test-proposal.ts:connectToFork'
-	```
+    ```typescript
+    --8<-- 'code/tutorials/onchain-governance/fast-track-gov-proposal/test-proposal.ts:connectToFork'
+    ```
 
 ### Create and Submit the Proposal
 
@@ -135,15 +135,15 @@ In this step, you will perform the following actions:
 
 ???+ function "**generateProposal** (api, call, origin)"
 
-	The `generateProposal` function accomplishes these tasks using a batched transaction, which combines multiple operations into a single transaction:
+    The `generateProposal` function accomplishes these tasks using a batched transaction, which combines multiple operations into a single transaction:
 
     1. `preimage.notePreimage` - this submits the preimage of the proposal
     2. `referenda.submit` - submits the actual proposal to the referenda system
     3. `referenda.placeDecisionDeposit` - places the required decision deposit for the referendum
    
-	```typescript
-	--8<-- 'code/tutorials/onchain-governance/fast-track-gov-proposal/test-proposal.ts:generateProposal'
-	```
+    ```typescript
+    --8<-- 'code/tutorials/onchain-governance/fast-track-gov-proposal/test-proposal.ts:generateProposal'
+    ```
 
 ### Force Proposal Execution
 
@@ -195,9 +195,9 @@ When executing the script, you should expect the following key actions and outpu
 
 In this tutorial, you've learned how to use Chopsticks to test OpenGov proposals on a local fork of the Polkadot network. You've set up a TypeScript project, connected to a local fork, submitted a proposal, and forced its execution for testing purposes. This process allows you to:
 
-1. Safely experiment with different types of proposals
-2. Test the effects of proposals without affecting the live network
-3. Rapidly iterate and debug your governance ideas
+- Safely experiment with different types of proposals
+- Test the effects of proposals without affecting the live network
+- Rapidly iterate and debug your governance ideas
 
 By using these techniques, you can develop and refine your proposals before submitting them to the actual Polkadot network, ensuring they're well-tested and likely to achieve their intended effects.
 

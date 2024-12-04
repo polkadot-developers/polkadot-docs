@@ -43,7 +43,7 @@ Generates an XCM transaction for transferring assets between chains. It simplifi
 After obtaining the transaction, you must handle the signing and submission process separately.
 
 ```ts
---8<-- 'code/develop/toolkit/interoperability/asset-transfer-api/reference/ctt-fn-signature.ts'
+--8<-- 'https://raw.githubusercontent.com/paritytech/asset-transfer-api/refs/tags/v0.3.1/src/AssetTransferApi.ts:169:175'
 ```
 
 ??? interface "Request parameters"
@@ -102,7 +102,7 @@ Creates a local XCM transaction to retrieve trapped assets. This function can be
 
 
 ```ts
---8<-- 'code/develop/toolkit/interoperability/asset-transfer-api/reference/ca-fn-signature.ts'
+--8<-- 'https://raw.githubusercontent.com/paritytech/asset-transfer-api/refs/tags/v0.3.1/src/AssetTransferApi.ts:344:349'
 ```
 
 ??? interface "Request parameters"
@@ -153,7 +153,7 @@ Creates a local XCM transaction to retrieve trapped assets. This function can be
 Decodes the hex of an extrinsic into a string readable format.
 
 ```ts
---8<-- 'code/develop/toolkit/interoperability/asset-transfer-api/reference/de-fn-signature.ts'
+--8<-- 'https://raw.githubusercontent.com/paritytech/asset-transfer-api/refs/tags/v0.3.1/src/types.ts:466:466'
 ```
 
 ??? interface "Request parameters"
@@ -172,7 +172,6 @@ Decodes the hex of an extrinsic into a string readable format.
 
         ```ts
         --8<-- 'https://raw.githubusercontent.com/paritytech/asset-transfer-api/refs/tags/v0.3.1/src/types.ts:122:122'
-
         ```
 
 ??? interface "Response parameters"
@@ -198,7 +197,7 @@ Decodes the hex of an extrinsic into a string readable format.
 Fetch estimated fee information for an extrinsic.
 
 ```ts
---8<-- 'code/develop/toolkit/interoperability/asset-transfer-api/reference/ffi-fn-signature.ts'
+--8<-- 'https://raw.githubusercontent.com/paritytech/asset-transfer-api/refs/tags/v0.3.1/src/types.ts:420:423'
 ```
 
 ??? interface "Request parameters"
@@ -209,7 +208,16 @@ Fetch estimated fee information for an extrinsic.
 
     ??? child "Type `ConstructedFormat<T>`"
 
-        --8<-- 'code/develop/toolkit/interoperability/asset-transfer-api/reference/constructed-format.md'
+        ```ts
+        --8<-- 'https://raw.githubusercontent.com/paritytech/asset-transfer-api/refs/tags/v0.3.1/src/types.ts:127:133'
+        ```
+
+        The `ConstructedFormat` type is a conditional type that returns a specific type based on the value of the TxResult `format` field.
+
+        - Payload format - if the format field is set to `'payload'`, the `ConstructedFormat` type will return a [`GenericExtrinsicPayload`](https://github.com/polkadot-js/api/blob/3b7b44f048ff515579dd233ea6964acec39c0589/packages/types/src/extrinsic/ExtrinsicPayload.ts#L48){target=\_blank}
+        - Call format - if the format field is set to `'call'`, the `ConstructedFormat` type will return a hexadecimal string (`0x${string}`). This is the encoded representation of the extrinsic call
+        - Submittable format - if the format field is set to `'submittable'`, the `ConstructedFormat` type will return a [`SubmittableExtrinsic`](https://github.com/polkadot-js/api/blob/3b7b44f048ff515579dd233ea6964acec39c0589/packages/api-base/src/types/submittable.ts#L56){target=\_blank}. This is a Polkadot.js type that represents a transaction that can be submitted to the blockchain
+
     ---
 
     `format` ++"T extends Format"++ <span class="required" markdown>++"required"++</span>

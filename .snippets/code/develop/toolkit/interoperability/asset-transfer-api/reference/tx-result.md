@@ -109,32 +109,14 @@ A promise containing the result of constructing the transaction.
     ??? child "Type `Methods`"
 
         ```ts
-        type Methods =
-          | LocalTransferTypes
-          | 'transferAssets'
-          | 'transferAssetsUsingTypeAndThen'
-          | 'limitedReserveTransferAssets'
-          | 'limitedTeleportAssets'
-          | 'transferMultiasset'
-          | 'transferMultiassets'
-          | 'transferMultiassetWithFee'
-          | 'claimAssets';
+        --8<-- 'https://raw.githubusercontent.com/paritytech/asset-transfer-api/refs/tags/v0.3.1/src/types.ts:153:162'
         ```
 
         ??? child "Type `LocalTransferTypes`"
 
+
             ```ts
-            type LocalTransferTypes =
-              | 'assets::transfer'
-              | 'assets::transferKeepAlive'
-              | 'foreignAssets::transfer'
-              | 'foreignAssets::transferKeepAlive'
-              | 'balances::transfer'
-              | 'balances::transferKeepAlive'
-              | 'poolAssets::transfer'
-              | 'poolAssets::transferKeepAlive'
-              | 'tokens::transfer'
-              | 'tokens::transferKeepAlive';
+            --8<-- 'https://raw.githubusercontent.com/paritytech/asset-transfer-api/refs/tags/v0.3.1/src/types.ts:138:148'
             ```
 
     ---
@@ -145,4 +127,12 @@ A promise containing the result of constructing the transaction.
 
     ??? child "Type `ConstructedFormat<T>`"
 
-        --8<-- './code/develop/toolkit/interoperability/asset-transfer-api/reference/constructed-format.md'
+        ```ts
+        --8<-- 'https://raw.githubusercontent.com/paritytech/asset-transfer-api/refs/tags/v0.3.1/src/types.ts:127:133'
+        ```
+
+        The `ConstructedFormat` type is a conditional type that returns a specific type based on the value of the TxResult `format` field.
+
+        - Payload format - if the format field is set to `'payload'`, the `ConstructedFormat` type will return a [`GenericExtrinsicPayload`](https://github.com/polkadot-js/api/blob/3b7b44f048ff515579dd233ea6964acec39c0589/packages/types/src/extrinsic/ExtrinsicPayload.ts#L48){target=\_blank}
+        - Call format - if the format field is set to `'call'`, the `ConstructedFormat` type will return a hexadecimal string (`0x${string}`). This is the encoded representation of the extrinsic call
+        - Submittable format - if the format field is set to `'submittable'`, the `ConstructedFormat` type will return a [`SubmittableExtrinsic`](https://github.com/polkadot-js/api/blob/3b7b44f048ff515579dd233ea6964acec39c0589/packages/api-base/src/types/submittable.ts#L56){target=\_blank}. This is a Polkadot.js type that represents a transaction that can be submitted to the blockchain

@@ -29,17 +29,10 @@ chopsticks xcm -r polkadot -p astar
 ```
 After executing this command, the relay chain and parachain will expose the following WebSocket endpoints:
 
-=== "Polkadot (relay chain)"
-
-    ```bash
-    ws://localhost:8001
-    ```
-
-=== "Astar (parachain)"
-
-    ```bash
-    ws://localhost:8000
-    ```
+| Chain                  | WebSocket Endpoint                   |
+|------------------------|--------------------------------------|
+| Polkadot (relay chain) | <pre>```ws://localhost:8001```</pre> |
+| Astar (parachain)      | <pre>```ws://localhost:8000```</pre> |
 
 Open two browser tabs and can connect these endpoints using the [Polkadot.js Apps](https://polkadot.js.org/apps/){target=\_blank} interface:
 

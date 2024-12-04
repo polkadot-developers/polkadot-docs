@@ -122,8 +122,14 @@ Inside your `main` function, add the code to connect to your local Polkadot fork
 In this step, you will perform the following actions:
 
 1. Define the call you want to execute and its origin
-2. Create a [preimage](/polkadot-protocol/glossary#preimage){target=\_blank} using the selected call
+
+2. Register a [preimage](/polkadot-protocol/glossary#preimage){target=\_blank} using the selected call
+
+    !!!note
+        The preimage hash is simply the hash of the proposal to be enacted. The on-chain proposals do not require the entire image of extrinsics and data (for instance the Wasm code, in case of upgrades) to be submitted, but would rather just need that image's hash. That preimage can be submitted and stored on-chain against the hash later, upon the proposal's dispatch.
+
 3. Submit the proposal. It uses the preimage hash (obtained from the call) as part of the proposal submission process. The proposal is submitted with the selected origin
+
 4. Place decision deposit. This deposit is required to move the referendum from the preparing phase to the deciding phase
 
 ```typescript hl_lines="5-14"

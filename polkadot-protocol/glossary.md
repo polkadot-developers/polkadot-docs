@@ -58,7 +58,7 @@ The communication overhead for such systems is `O(n²)`, where `n` is the number
 
 ### Preimage
 
-The on-chain proposals do not require the entire image of extrinsics and data (for instance the Wasm code, in case of upgrades) to be submitted, but would rather just need that image's hash. That preimage can be submitted and stored on-chain against the hash later, upon the proposal's dispatch.
+A preimage is the data that is input into a hash function to calculate a hash. Since a hash function is a one-way function, the output, the hash, cannot be used to reveal the input, the preimage.
 
 ## Call
 

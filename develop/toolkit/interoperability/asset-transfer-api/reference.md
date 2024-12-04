@@ -153,7 +153,7 @@ Creates a local XCM transaction to retrieve trapped assets. This function can be
 Decodes the hex of an extrinsic into a string readable format.
 
 ```ts
---8<-- 'https://raw.githubusercontent.com/paritytech/asset-transfer-api/refs/tags/v0.3.1/src/types.ts:466:466'
+--8<-- 'https://raw.githubusercontent.com/paritytech/asset-transfer-api/refs/tags/v0.3.1/src/AssetTransferApi.ts:466:466'
 ```
 
 ??? interface "Request parameters"
@@ -197,7 +197,7 @@ Decodes the hex of an extrinsic into a string readable format.
 Fetch estimated fee information for an extrinsic.
 
 ```ts
---8<-- 'https://raw.githubusercontent.com/paritytech/asset-transfer-api/refs/tags/v0.3.1/src/types.ts:420:423'
+--8<-- 'https://raw.githubusercontent.com/paritytech/asset-transfer-api/refs/tags/v0.3.1/src/AssetTransferApi.ts:420:423'
 ```
 
 ??? interface "Request parameters"

@@ -93,9 +93,9 @@ Begin by adding the necessary imports and a basic structure to the `test-proposa
 --8<-- 'code/tutorials/onchain-governance/fast-track-gov-proposal/test-proposal.ts:imports'
 
 const main = async () => {
-    // The code will be added here
+  // The code will be added here
 
-    process.exit(0);
+  process.exit(0);
 }
 
 --8<-- 'code/tutorials/onchain-governance/fast-track-gov-proposal/test-proposal.ts:try-catch-block'
@@ -108,7 +108,9 @@ This structure provides the foundation for your script. It imports all the neces
 Inside your `main` function, add the code to connect to your local Polkadot fork:
 
 ```typescript hl_lines="2-3"
---8<-- 'code/tutorials/onchain-governance/fast-track-gov-proposal/test-proposal.ts:main'
+--8<-- 'code/tutorials/onchain-governance/fast-track-gov-proposal/test-proposal.ts:226:229'
+  ...
+}
 ```
 
 ???+ function "connectToFork ()"
@@ -133,7 +135,9 @@ In this step, you will perform the following actions:
 4. Place decision deposit. This deposit is required to move the referendum from the preparing phase to the deciding phase
 
 ```typescript hl_lines="5-14"
---8<-- 'code/tutorials/onchain-governance/fast-track-gov-proposal/test-proposal.ts:main'
+--8<-- 'code/tutorials/onchain-governance/fast-track-gov-proposal/test-proposal.ts:226:240'
+  ...
+}
 ```
 
 !!!note

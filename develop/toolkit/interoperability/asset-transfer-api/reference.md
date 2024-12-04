@@ -43,7 +43,7 @@ Generates an XCM transaction for transferring assets between chains. It simplifi
 After obtaining the transaction, you must handle the signing and submission process separately.
 
 ```ts
---8<-- 'https://raw.githubusercontent.com/paritytech/asset-transfer-api/refs/tags/v0.3.1/src/AssetTransferApi.ts:169:175'
+--8<-- 'https://raw.githubusercontent.com/paritytech/asset-transfer-api/refs/tags/{{dependencies.asset_transfer_api.version}}/src/AssetTransferApi.ts:169:175'
 ```
 
 ??? interface "Request parameters"

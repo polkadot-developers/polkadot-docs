@@ -111,7 +111,7 @@ Inside your `main` function, add the code to connect to your local Polkadot fork
 --8<-- 'code/tutorials/onchain-governance/fast-track-gov-proposal/test-proposal.ts:main'
 ```
 
-???+ function "**connectToFork** ()"
+???+ function "connectToFork ()"
 
     ```typescript
     --8<-- 'code/tutorials/onchain-governance/fast-track-gov-proposal/test-proposal.ts:connectToFork'
@@ -139,7 +139,7 @@ In this step, you will perform the following actions:
 !!!note
     The [`setCodeWithoutChecks`](https://paritytech.github.io/polkadot-sdk/master/frame_system/pallet/struct.Pallet.html#method.set_code_without_checks){target=\_blank} extrinsic used in this example is for demonstration purposes only. Replace it with the specific extrinsic that matches your governance proposal's intended functionality. Ensure the call matches the runtime requirements and governance process of your target Polkadot SDK-based network.
 
-???+ function "**generateProposal** (api, call, origin)"
+???+ function "generateProposal (api, call, origin)"
 
     The `generateProposal` function accomplishes these tasks using a batched transaction, which combines multiple operations into a single transaction:
 
@@ -159,7 +159,7 @@ After submitting your proposal, you may want to test its execution without waiti
 --8<-- 'code/tutorials/onchain-governance/fast-track-gov-proposal/test-proposal.ts:main'
 ```
 
-???+ function "**forceProposalExecution** (api, call, origin)"
+???+ function "forceProposalExecution (api, call, origin)"
 
     The `forceProposalExecution` function does the following:
 

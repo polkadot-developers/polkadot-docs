@@ -10,7 +10,7 @@ description: Learn how to perform a reserve-backed asset transfer between a rela
 [Cross-Consensus Messaging (XCM)](/develop/interoperability/intro-to-xcm/){target=\_blank} facilitates asset transfers both within the same consensus system and between different ones, such as between a relay chain and its parachains. For cross-system transfers, two main methods are available:
 
 - [**Asset teleportation**](https://paritytech.github.io/xcm-docs/journey/transfers/teleports.html){target=\_blank} - a simple and efficient method involving only the source and destination chains, ideal for systems with a high level of trust
-- [**Reserve-Backed transfers**](https://paritytech.github.io/xcm-docs/journey/transfers/reserve.html){target=\_blank} - involves a trusted reserve holding real assets and mints derivative tokens to track ownership. This method is suited for systems with lower trust levels
+- [**Reserve-backed transfers**](https://paritytech.github.io/xcm-docs/journey/transfers/reserve.html){target=\_blank} - involves a trusted reserve holding real assets and mints derivative tokens to track ownership. This method is suited for systems with lower trust levels
 
 In this tutorial, you will learn how to perform a reserve-backed transfer of DOT between a relay chain (Polkadot) and a parachain (Astar).
 

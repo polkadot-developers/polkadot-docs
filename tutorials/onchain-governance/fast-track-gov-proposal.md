@@ -24,7 +24,7 @@ This tutorial will guide you through the process of using Chopsticks to thorough
 
 Before proceeding, ensure the following prerequisites are met:
 
-- **Chopsticks installation** - if you have not installed Chopsticks yet, refer to the [Install Chopsticks](/develop/toolkit/parachains/fork-chains/chopsticks/get-started/#install-chopsticks){target=\_blank} for detailed instructions
+- **Chopsticks installation** - if you have not installed Chopsticks yet, refer to the [Install Chopsticks](/develop/toolkit/parachains/fork-chains/chopsticks/get-started/#install-chopsticks){target=\_blank} guide for detailed instructions
 - **Familiarity with key concepts** - you should have a basic understanding of the following:
     - [Polkadot.js](/develop/toolkit/api-libraries/polkadot-js-api){target=\_blank} 
     - [OpenGov](/polkadot-protocol/onchain-governance/overview){target=\_blank}
@@ -68,7 +68,7 @@ Follow these steps to set up your project:
 
 ## Submitting and Executing a Proposal Using Chopsticks
 
-It's important to note that you should identify the right track and origin for your proposal. For example, if you're requesting funds from the treasury, select the appropriate treasury track based on the spend limits. For more detailed information, refer to [Polkadot OpenGov Origins](https://wiki.polkadot.network/docs/learn-polkadot-opengov-origins){target=_blank}.
+It's important to note that you should identify the right track and origin for your proposal. For example, if you're requesting funds from the treasury, select the appropriate treasury track based on the spend limits. For more detailed information, refer to [Polkadot OpenGov Origins](https://wiki.polkadot.network/docs/learn-polkadot-opengov-origins){target=\_blank}.
 
 !!!note
     In this tutorial, the focus will be on the main steps and core logic within the main function. For clarity and conciseness, the implementation details of individual functions will be available in expandable tabs below each section. At the end of the tutorial, you'll find the complete code for reference.
@@ -77,7 +77,7 @@ It's important to note that you should identify the right track and origin for y
 
 To set up your Polkadot fork using Chopsticks, open a new terminal window and run the following command:
 
-```
+```bash
 npx @acala-network/chopsticks --config=polkadot
 ```
 

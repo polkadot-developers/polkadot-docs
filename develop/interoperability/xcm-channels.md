@@ -55,9 +55,26 @@ Parachain developers have a few options for triggering the required extrinsic ca
 - **Governance** - the parachain's governance system, such as a council or OpenGov, can be used to authorize the channel opening calls
 - **Privileged accounts** - the parachain may have other designated privileged accounts that are allowed to dispatch the HRMP channel opening extrinsics
 
-## Where to Go Next
+## Tutorials
 
 Explore the following tutorials for detailed, step-by-step guidance on setting up cross-chain communication channels in Polkadot:
 
-- [Opening HRMP Channels Between Parachains](/tutorials/interoperability/xcm-channels/para-to-para/)
-- [Opening HRMP Channels with System Parachains](/tutorials/interoperability/xcm-channels/para-to-system/)
+<div class="grid cards" markdown>
+
+-   __Opening HRMP Channels Between Parachains__
+
+    ---
+
+    Learn how to open HRMP channels between parachains on Polkadot. Discover the step-by-step process for establishing uni- and bidirectional communication.
+
+    [:octicons-arrow-right-24: Reference](/tutorials/interoperability/xcm-channels/para-to-para/)
+
+-   __Opening HRMP Channels with System Parachains__
+
+    ---
+
+    Learn how to open HRMP channels with Polkadot system parachains. Discover the process for establishing bi-directional communication using a single XCM message.
+
+    [:octicons-arrow-right-24: Reference](/tutorials/interoperability/xcm-channels/para-to-system/)
+
+</div>

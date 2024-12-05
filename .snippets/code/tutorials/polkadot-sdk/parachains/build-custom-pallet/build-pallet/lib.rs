@@ -25,6 +25,7 @@ pub mod pallet {
     #[pallet::event]
     #[pallet::generate_deposit(pub(super) fn deposit_event)]
     pub enum Event<T: Config> {
+        /// The counter value has been set to a new value by Root.
         CounterValueSet {
             /// The new value set.
             counter_value: u32,

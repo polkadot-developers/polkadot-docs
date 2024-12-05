@@ -147,15 +147,7 @@ In this step, you will configure two essential components that are critical for 
 Add the following `Config` trait definition to your pallet:
 
 ```rust
-#[pallet::config]
-pub trait Config: frame_system::Config {
-    /// Event definition
-    type RuntimeEvent: From<Event<Self>> + IsType<<Self as frame_system::Config>::RuntimeEvent>;
-
-    // Defines the maximum value the counter can hold
-    #[pallet::constant]
-    type CounterMaxValue: Get<u32>;
-}
+--8<-- 'code/tutorials/polkadot-sdk/parachains/build-custom-pallet/build-pallet/lib.rs:14:23'
 ```
 
 ### Add Events
@@ -181,33 +173,7 @@ Below are the events defined for this pallet:
 Define the events in the pallet as follows:
 
 ```rust
-#[pallet::event]
-#[pallet::generate_deposit(pub(super) fn deposit_event)]
-pub enum Event<T: Config> {
-    /// The counter value has been set to a new value by Root.
-    CounterValueSet {
-        /// The new value set.
-        counter_value: u32,
-    },
-    /// A user has successfully incremented the counter.
-    CounterIncremented {
-        /// The new value set.
-        counter_value: u32,
-        /// The account who incremented the counter.
-        who: T::AccountId,
-        /// The amount by which the counter was incremented.
-        incremented_amount: u32,
-    },
-    /// A user has successfully decremented the counter.
-    CounterDecremented {
-        /// The new value set.
-        counter_value: u32,
-        /// The account who decremented the counter.
-        who: T::AccountId,
-        /// The amount by which the counter was decremented.
-        decremented_amount: u32,
-    },
-}
+--8<-- 'code/tutorials/polkadot-sdk/parachains/build-custom-pallet/build-pallet/lib.rs:25:51'
 ```
 
 ### Add Storage Items
@@ -221,13 +187,7 @@ Storage items are used to maintain the state of the pallet. For this pallet, two
 Define the storage items as follows:
 
 ```rust
-/// Storage for the current value of the counter.
-#[pallet::storage]
-pub type CounterValue<T> = StorageValue<_, u32>;
-
-/// Storage map to track the number of interactions performed by each account.
-#[pallet::storage]
-pub type UserInteractions<T: Config> = StorageMap<_, Twox64Concat, T::AccountId, u32>;
+--8<-- 'code/tutorials/polkadot-sdk/parachains/build-custom-pallet/build-pallet/lib.rs:53:59'
 ```
 
 ### Implement Custom Errors
@@ -239,17 +199,7 @@ To add custom errors, use the `#[pallet::error]` macro to define the `Error` enu
 Add the following errors to the pallet:
 
 ```rust
-#[pallet::error]
-pub enum Error<T> {
-    /// The counter value exceeds the maximum allowed value.
-    CounterValueExceedsMax,
-    /// The counter value cannot be decremented below zero.
-    CounterValueBelowZero,
-    /// Overflow occurred in the counter.
-    CounterOverflow,
-    /// Overflow occurred in user interactions.
-    UserInteractionOverflow,
-}
+--8<-- 'code/tutorials/polkadot-sdk/parachains/build-custom-pallet/build-pallet/lib.rs:61:71'
 ```
 
 ### Implement Calls
@@ -259,21 +209,7 @@ The `#[pallet::call]` macro defines the dispatchable functions (or calls) that t
 The structure of the dispatchable calls in this pallet is as follows:
 
 ```rust
-#[pallet::call]
-impl<T: Config> Pallet<T> {
-
-    #[pallet::call_index(0)]
-    #[pallet::weight(0)]
-    pub fn set_counter_value(origin: OriginFor<T>, new_value: u32) -> DispatchResult {}
-
-    #[pallet::call_index(1)]
-    #[pallet::weight(0)]
-    pub fn increment(origin: OriginFor<T>, amount_to_increment: u32) -> DispatchResult {}
-
-    #[pallet::call_index(2)]
-    #[pallet::weight(0)]
-    pub fn decrement(origin: OriginFor<T>, amount_to_decrement: u32) -> DispatchResult {}
-}
+--8<-- 'code/tutorials/polkadot-sdk/parachains/build-custom-pallet/build-pallet/call_structure.rs'
 ```
 
 Below you can find the implementations of each dispatchable call in this pallet:
@@ -290,31 +226,7 @@ Below you can find the implementations of each dispatchable call in this pallet:
         - Emits a `CounterValueSet` event on success
 
     ```rust
-    /// Set the value of the counter.
-    ///
-    /// The dispatch origin of this call must be _Root_.
-    ///
-    /// - `new_value`: The new value to set for the counter.
-    ///
-    /// Emits `CounterValueSet` event when successful.
-    #[pallet::call_index(0)]
-    #[pallet::weight(0)]
-    pub fn set_counter_value(origin: OriginFor<T>, new_value: u32) -> DispatchResult {
-        ensure_root(origin)?;
-
-        ensure!(
-            new_value <= T::CounterMaxValue::get(),
-            Error::<T>::CounterValueExceedsMax
-        );
-
-        CounterValue::<T>::put(new_value);
-
-        Self::deposit_event(Event::<T>::CounterValueSet {
-            counter_value: new_value,
-        });
-
-        Ok(())
-    }
+    --8<-- 'code/tutorials/polkadot-sdk/parachains/build-custom-pallet/build-pallet/lib.rs:75:99'
     ```
 
 ???+ function "increment(origin: OriginFor<T>, amount_to_increment: u32) -> DispatchResult"
@@ -331,47 +243,7 @@ Below you can find the implementations of each dispatchable call in this pallet:
         - Emits a `CounterIncremented` event on success
 
     ```rust
-    /// Increment the counter by a specified amount.
-    ///
-    /// This function can be called by any signed account.
-    ///
-    /// - `amount_to_increment`: The amount by which to increment the counter.
-    ///
-    /// Emits `CounterIncremented` event when successful.
-    #[pallet::call_index(1)]
-    #[pallet::weight(0)]
-    pub fn increment(origin: OriginFor<T>, amount_to_increment: u32) -> DispatchResult {
-        let who = ensure_signed(origin)?;
-
-        let current_value = CounterValue::<T>::get().unwrap_or(0);
-
-        let new_value = current_value
-            .checked_add(amount_to_increment)
-            .ok_or(Error::<T>::CounterOverflow)?;
-
-        ensure!(
-            new_value <= T::CounterMaxValue::get(),
-            Error::<T>::CounterValueExceedsMax
-        );
-
-        CounterValue::<T>::put(new_value);
-
-        UserInteractions::<T>::try_mutate(&who, |interactions| -> Result<_, Error<T>> {
-            let new_interactions = interactions
-                .unwrap_or(0)
-                .checked_add(1)
-                .ok_or(Error::<T>::UserInteractionOverflow)?;
-            Ok(new_interactions)
-        })?;
-
-        Self::deposit_event(Event::<T>::CounterIncremented {
-            counter_value: new_value,
-            who,
-            incremented_amount: amount_to_increment,
-        });
-
-        Ok(())
-    }
+    --8<-- 'code/tutorials/polkadot-sdk/parachains/build-custom-pallet/build-pallet/lib.rs:101:141'
     ```
 
 
@@ -389,42 +261,7 @@ Below you can find the implementations of each dispatchable call in this pallet:
         - Emits a `CounterDecremented` event on success
 
     ```rust
-    /// Decrement the counter by a specified amount.
-    ///
-    /// This function can be called by any signed account.
-    ///
-    /// - `amount_to_decrement`: The amount by which to decrement the counter.
-    ///
-    /// Emits `CounterDecremented` event when successful.
-    #[pallet::call_index(2)]
-    #[pallet::weight(0)]
-    pub fn decrement(origin: OriginFor<T>, amount_to_decrement: u32) -> DispatchResult {
-        let who = ensure_signed(origin)?;
-
-        let current_value = CounterValue::<T>::get().unwrap_or(0);
-
-        let new_value = current_value
-            .checked_sub(amount_to_decrement)
-            .ok_or(Error::<T>::CounterValueBelowZero)?;
-
-        CounterValue::<T>::put(new_value);
-
-        UserInteractions::<T>::try_mutate(&who, |interactions| -> Result<_, Error<T>> {
-            let new_interactions = interactions
-                .unwrap_or(0)
-                .checked_add(1)
-                .ok_or(Error::<T>::UserInteractionOverflow)?;
-            Ok(new_interactions)
-        })?;
-
-        Self::deposit_event(Event::<T>::CounterDecremented {
-            counter_value: new_value,
-            who,
-            decremented_amount: amount_to_decrement,
-        });
-
-        Ok(())
-    }
+    --8<-- 'code/tutorials/polkadot-sdk/parachains/build-custom-pallet/build-pallet/lib.rs:143:178'
     ```
 
 ## Verify Compilation

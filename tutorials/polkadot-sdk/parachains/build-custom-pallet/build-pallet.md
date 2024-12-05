@@ -7,12 +7,12 @@ description: TODO
 
 ## Introduction
 
-In Polkadot SDK-based blockchains, runtime functionality is built through modular components called pallets. These pallets are Rust-based runtime modules created using FRAME (Framework for Runtime Aggregation of Modular Entities), a powerful library that simplifies blockchain development by providing specialized macros and standardized patterns for building blockchain logic.
+In Polkadot SDK-based blockchains, runtime functionality is built through modular components called [pallets](/polkadot-protocol/glossary#pallet){target=\_blank}. These pallets are Rust-based runtime modules created using [FRAME (Framework for Runtime Aggregation of Modular Entities)](http://localhost:8000/develop/parachains/customize-parachain/overview/){target=\_blank}, a powerful library that simplifies blockchain development by providing specialized macros and standardized patterns for building blockchain logic.
 A pallet encapsulates a specific set of blockchain functionalities, such as managing token balances, implementing governance mechanisms, or creating custom state transitions.
 
 In this tutorial, you'll create a simple counter pallet with the following features:
 
-- Users can increment and decrement the counter
+- Users can increment and decrement a counter
 - Only a root origin can set an arbitrary counter value
 
 You'll use the [Polkadot SDK Solochain Template](https://github.com/paritytech/polkadot-sdk-solochain-template){target=\_blank}, a pre-configured blockchain template that provides a functional development environment.
@@ -55,63 +55,66 @@ The [Polkadot SDK Solochain Template](https://github.com/paritytech/polkadot-sdk
 
 ## Create a New Project
 
-Because this workshop is all about demonstrating the full workflow for creating a new custom pallet you won't start with the pallet-template. Instead, the first step is to create a new Rust package for the pallet you'll be building.
+In this tutorial, you'll build a custom pallet from scratch to demonstrate the complete workflow, rather than starting with the pre-built pallet-template. The first step is to create a new Rust package for your pallet:
 
-To create a project:
-
-1. Change to the `pallets` directory in your workspace:
+1. Navigate to the `pallets` directory in your workspace:
 
     ```bash
     cd pallets
     ```
 
-2. Create a new Rust lib project for the pallet by running the following command:
+2. Create a new Rust library project for your custom pallet by running the following command:
 
     ```bash
     cargo new --lib custom-pallet
     ```
 
-3. Change to the `custom-pallet` directory by running the following command:
+3. Enter the new project directory:
 
     ```bash
     cd custom-pallet
     ```
 
-4. Check that the project was created succesfully
-
-    The file structure should look like this:
+4. Ensure the project was created successfully by checking its structure. The file layout should resemble the following:
 
     ```
+    custom-pallet 
     ├── Cargo.toml
     └── src
         └── lib.rs
     ```
 
+    If the files are in place, your project setup is complete, and you're ready to start building your custom pallet.
+
 ## Add Dependencies
 
-The pallet that you'll build is going to be part of a Polkadot SDK-based runtime. Because of this, you need to include some modules it depends on in the `Cargo.toml` file. Your pallet is part of the runtimes workspace, so:
+To build your custom pallet and integrate it into a Polkadot SDK-based runtime, you must add specific dependencies to the `Cargo.toml` file. These dependencies provide essential modules and features required for pallet development. Since your custom pallet is part of a workspace that includes other components, such as the runtime, the configuration must align with the workspace structure. Follow the steps below to set up your `Cargo.toml` file properly:
 
 1. Open your `Cargo.toml` file
 
-2. Add the following dependencies:
+2. Add the required dependencies in the `[dependencies]` section:
 
     ```toml
     --8<-- 'code/tutorials/polkadot-sdk/parachains/build-custom-pallet/build-pallet/Cargo.toml:10:18'
     ```
 
-3. Add the `std` features to these packages
+3. Enable `std` features:
 
     ```toml
     --8<-- 'code/tutorials/polkadot-sdk/parachains/build-custom-pallet/build-pallet/Cargo.toml:20:27'
     ```
 
-4. Check that your `Cargo.toml` file looks like this:
+The final `Cargo.toml` should resemble the following:
+
+??? note "Complete `Cargo.toml` File"
 
     ```toml
     --8<-- 'code/tutorials/polkadot-sdk/parachains/build-custom-pallet/build-pallet/Cargo.toml'
     ```
 
-## Build the Pallet
+## Implement the Pallet Logic
+
+In this section, you will construct the core structure of your custom pallet, starting with setting up its basic scaffold. This scaffold acts as the foundation, enabling you to later add functionality such as storage items, events, errors, and dispatchable calls.
 
 ### Add Scaffold Pallet Structure
 
@@ -169,7 +172,7 @@ Below are the events defined for this pallet:
     - The account responsible for the increment
     - The amount by which the counter was incremented
 
-**CounterDecremented** - emitted after a successful decrement operation. It includes:
+- **CounterDecremented** - emitted after a successful decrement operation. It includes:
 
     - The new counter value
     - The account responsible for the decrement
@@ -181,6 +184,7 @@ Define the events in the pallet as follows:
 #[pallet::event]
 #[pallet::generate_deposit(pub(super) fn deposit_event)]
 pub enum Event<T: Config> {
+    /// The counter value has been set to a new value by Root.
     CounterValueSet {
         /// The new value set.
         counter_value: u32,
@@ -208,11 +212,11 @@ pub enum Event<T: Config> {
 
 ### Add Storage Items
 
-Storage items are used to maintain the state of the pallet. For this pallet, three primary storage items are defined to manage the counter's state and user interactions:
+Storage items are used to maintain the state of the pallet. For this pallet, two primary storage items are defined to manage the counter's state and user interactions:
 
 - **CounterValue** - a single storage value that keeps track of the current value of the counter. This value is the core state variable manipulated by the pallet's functions
 
-- **UserInteractions** - A storage map that tracks the number of times each account interacts with the counter
+- **UserInteractions** - a storage map that tracks the number of times each account interacts with the counter
   
 Define the storage items as follows:
 
@@ -228,7 +232,7 @@ pub type UserInteractions<T: Config> = StorageMap<_, Twox64Concat, T::AccountId,
 
 ### Implement Custom Errors
 
-The `#[pallet::error]` macro defines a custom Error enum to handle specific failure conditions within the pallet. Errors help provide meaningful feedback to users and external systems when a extrinsic cannot complete successfully. They are returned as part of the `DispatchResult` and are critical for maintaining the clarity and robustness of the pallet.
+The `#[pallet::error]` macro defines a custom `Error` enum to handle specific failure conditions within the pallet. Errors help provide meaningful feedback to users and external systems when a extrinsic cannot complete successfully. They are critical for maintaining the clarity and robustness of the pallet.
 
 To add custom errors, use the `#[pallet::error]` macro to define the `Error` enum. Each variant represents a unique error that the pallet can emit, and these errors should align with the logic and constraints of the pallet. 
 
@@ -278,12 +282,12 @@ Below you can find the implementations of each dispatchable call in this pallet:
     This call sets the counter to a specific value. It is restricted to the Root origin, meaning it can only be invoked by privileged users or entities.
 
     - Parameters:
-        - new_value - the value to set the counter to
+        - `new_value` - the value to set the counter to
     - Validations:
-        - The new value must not exceed the maximum allowed counter value (CounterMaxValue)
+        - The new value must not exceed the maximum allowed counter value (`CounterMaxValue`)
     - Behavior:
-        - Updates the CounterValue storage item
-        - Emits a CounterValueSet event on success
+        - Updates the `CounterValue` storage item
+        - Emits a `CounterValueSet` event on success
 
     ```rust
     /// Set the value of the counter.
@@ -317,7 +321,7 @@ Below you can find the implementations of each dispatchable call in this pallet:
     This call increments the counter by a specified amount. It is accessible to any signed account.
 
     - Parameters:
-        - `a`mount_to_increment` - the amount to add to the counter
+        - `amount_to_increment` - the amount to add to the counter
     - Validations:
         - Prevents overflow during the addition
         - Ensures the resulting counter value does not exceed `CounterMaxValue`

@@ -131,7 +131,7 @@ To programmatically execute the reserve-backed asset transfer between the relay 
 4. Create a `index.js` file and insert the following code to configure the clients and handle the asset transfer
 
     ```js
-    --8<-- './code/tutorials/interoperability/xcm-transfers/from-relaychain-to-parachain/reserve-backed-transfer.js'
+    --8<-- 'code/tutorials/interoperability/xcm-transfers/from-relaychain-to-parachain/reserve-backed-transfer.js'
     ```
 
 4. Execute the script 

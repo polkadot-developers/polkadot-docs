@@ -13,7 +13,7 @@ A pallet encapsulates a specific set of blockchain functionalities, such as mana
 In this tutorial, you'll learn how to create a custom pallet from scratch. You will develop a simple counter pallet with the following features:
 
 - Users can increment and decrement a counter
-- Only a root origin can set an arbitrary counter value
+- Only a [root origin](https://paritytech.github.io/polkadot-sdk/master/frame_system/pallet/type.Origin.html#variant.Root){target=\_blank} can set an arbitrary counter value
 
 You'll use the [Polkadot SDK Solochain Template](https://github.com/paritytech/polkadot-sdk-solochain-template){target=\_blank}, a pre-configured blockchain template that provides a functional development environment.
 

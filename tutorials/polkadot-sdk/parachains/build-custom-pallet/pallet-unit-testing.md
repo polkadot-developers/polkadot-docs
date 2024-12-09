@@ -116,7 +116,7 @@ You can check the complete `tests.rs` implementation for the `custom pallet` her
     ```
 
 
-## Running Tets
+## Running Tests
 
 Execute the test suite for your custom pallet using Cargo's test command. This will run all defined test cases and provide detailed output about the test results.
 

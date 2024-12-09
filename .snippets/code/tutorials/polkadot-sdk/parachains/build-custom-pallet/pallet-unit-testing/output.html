@@ -1,4 +1,25 @@
 <div id="termynal" data-termynal>
   <span data-ty="input"><span class="file-path"></span>cargo test -p custom-pallet</span>
-  <span data-ty> running 12 tests test mock::__construct_runtime_integrity_test::runtime_integrity_tests ... ok test mock::test_genesis_config_builds ... ok test test::set_counter_value_fails_for_max_value_exceeded ... ok test test::set_counter_value_fails_for_non_root ... ok test test::user_interactions_increment ... ok test test::it_works_for_increment ... ok test test::it_works_for_set_counter_value ... ok test test::it_works_for_decrement ... ok test test::increment_handles_overflow ... ok test test::decrement_fails_for_below_zero ... ok test test::increment_fails_for_max_value_exceeded ... ok test test::user_interactions_overflow ... ok test result: ok. 12 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.01s Doc-tests custom_pallet running 0 tests test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s </span>
+  <pre>
+cargo test --package custom-pallet
+running 12 tests
+test mock::__construct_runtime_integrity_test::runtime_integrity_tests ... ok
+test mock::test_genesis_config_builds ... ok
+test test::set_counter_value_fails_for_max_value_exceeded ... ok
+test test::set_counter_value_fails_for_non_root ... ok
+test test::user_interactions_increment ... ok
+test test::it_works_for_increment ... ok
+test test::it_works_for_set_counter_value ... ok
+test test::it_works_for_decrement ... ok
+test test::increment_handles_overflow ... ok
+test test::decrement_fails_for_below_zero ... ok
+test test::increment_fails_for_max_value_exceeded ... ok
+test test::user_interactions_overflow ... ok
+test result: ok. 12 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.01s
+
+Doc-tests custom_pallet
+running 0 tests
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+    </pre
+  >
 </div>

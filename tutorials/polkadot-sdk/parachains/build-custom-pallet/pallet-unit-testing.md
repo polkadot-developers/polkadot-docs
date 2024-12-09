@@ -1,15 +1,15 @@
 ---
 title: Pallet Unit Testing
-description: Learn how to implement comprehensive unit tests for Substrate pallets using the Polkadot SDK testing framework
+description: Discover how to create thorough unit tests for pallets built with the Polkadot SDK, using a custom pallet as a practical example.
 ---
 
 # Pallet Unit Testing
 
 ## Introduction
 
-In Polkadot SDK-based blockchains, unit testing is crucial for ensuring the reliability and correctness of runtime modules (pallets). Comprehensive testing helps validate pallet functionality, prevent potential bugs, and maintain the integrity of your blockchain logic.
+You have learned how to create a custom pallet in the [Build the Pallet](/tutorials/polkadot-sdk/parachains/build-custom-pallet/){target=\_blank} tutorial; now you will see how to test the pallet to ensure that it works as expected. As stated in the [Pallet Testing](/develop/parachains/customize-parachain/pallet-testing/){target=\_blank} article, unit testing is crucial for ensuring the reliability and correctness of pallets in Polkadot SDK-based blockchains. Comprehensive testing helps validate pallet functionality, prevent potential bugs, and maintain the integrity of your blockchain logic.
 
-This tutorial will guide you through creating robust unit tests for a custom pallet, covering essential testing strategies and best practices specific to the Polkadot SDK ecosystem.
+This tutorial will guide you through creating a unit testing suite for a custom pallet built in the previous tutorial, covering essential testing aspects and steps.
 
 ## Prerequisites
 
@@ -17,190 +17,117 @@ To set up your testing environment for Polkadot SDK pallets, you'll need:
 
 - Rust installation
 - Basic understanding of Substrate/Polkadot SDK concepts
-- A custom pallet implementation
-- Familiarity with Rust testing frameworks
+- A custom pallet implementation, check the [Build the Pallet](/tutorials/polkadot-sdk/parachains/build-custom-pallet/){target=\_blank} tutorial
+- Familiarity with [Rust testing frameworks](https://doc.rust-lang.org/book/ch11-01-writing-tests.html){target=\_blank}
 
 ## Set Up the Testing Environment
 
 ### Create Test Configuration Files
 
-To effectively test your pallet, you'll need to create two key files:
+To effectively create the test environment for your pallet, you'll need to follow these steps:
 
-1. **`mock.rs`: Mock Runtime Configuration**
-Create a file that simulates a runtime environment for testing:
+1. Add the required dependencies to your test configuration in the `Cargo.toml` file of the pallet:
 
-```rust
-use crate as pallet_custom;
-use frame_support::{derive_impl, parameter_types};
-use sp_runtime::BuildStorage;
+    ```toml
+    --8<-- 'code/tutorials/polkadot-sdk/parachains/build-custom-pallet/pallet-unit-testing/Cargo-dev-dependencies.toml'
+    ```
 
-type Block = frame_system::mocking::MockBlock<Test>;
+2. Create a `mock.rs` and a `tests.rs` files (leave these files empty for now, they will be filled in later):
 
-#[frame_support::runtime]
-mod runtime {
-    #[runtime::runtime]
-    #[runtime::derive(
-        RuntimeCall,
-        RuntimeEvent,
-        RuntimeError,
-        RuntimeOrigin,
-        RuntimeFreezeReason,
-        RuntimeHoldReason,
-        RuntimeSlashReason,
-        RuntimeLockId,
-        RuntimeTask
-    )]
-    pub struct Test;
+    ```bash
+    touch mock.rs
+    touch tests.rs
+    ```
 
-    #[runtime::pallet_index(0)]
-    pub type System = frame_system::Pallet<Test>;
-    
-    #[runtime::pallet_index(1)]
-    pub type CustomPallet = pallet_custom::Pallet<Test>;
-}
+3. Include them in your `lib.rs` module:
 
-#[derive_impl(frame_system::config_preludes::TestDefaultConfig)]
-impl frame_system::Config for Test {
-    type Block = Block;
-}
+    ```rust
+    #[cfg(test)]
+    mod mock;
 
-parameter_types! {
-    pub const CounterMaxValue: u32 = 10;
-}
+    #[cfg(test)]
+    mod tests;
+    ```
 
-impl pallet_custom::Config for Test {
-    type RuntimeEvent = RuntimeEvent;
-    type CounterMaxValue = CounterMaxValue;
-}
+## Implement Mocked Runtime
 
-// Build test externalities for isolated test execution
-pub fn new_test_ext() -> sp_io::TestExternalities {
-    frame_system::GenesisConfig::<Test>::default()
-        .build_storage()
-        .unwrap()
-        .into()
-}
-```
-
-2. **Update `lib.rs` to Include Test Modules**
+Mocking the runtime creates an isolated testing environment for your Polkadot SDK pallet. This lightweight runtime simulation allows you to test pallet functionality in a controlled setting with custom parameters and configuration. To do so, you can add the following to your `mock.rs` file:
 
 ```rust
-#[cfg(test)]
-mod mock;
-
-#[cfg(test)]
-mod tests;
+--8<-- 'code/tutorials/polkadot-sdk/parachains/build-custom-pallet/pallet-unit-testing/mock.rs'
 ```
+
+!!! note
+    The code snippet above defines a mock runtime (`Test`) with essential configurations and includes and configures the `CustomPallet` for isolated test execution. It sets the `CounterMaxValue` constant to 10, defining the maximum allowed value for the counter in tests. The `new_test_ext()` function initializes a mock runtime environment with a default genesis configuration, enabling isolated and reproducible testing for the pallet.
+
 
 ## Implement Test Cases
 
-### Test Configuration
+Unit testing a pallet involves creating a comprehensive test suite that validates various scenarios. You ensure your pallet’s reliability, security, and expected behavior under different conditions by systematically testing successful operations, error handling, event emissions, state modifications, and access control.
 
-Create a comprehensive test suite that covers various scenarios:
+The following sub-sections will show scenarios where the `custom-pallet` can be tested. Feel free to add these snippets to your `tests.rs` while you read the examples.
 
-1. **Successful Operations**
+### Successful Operations
+
+Verify that the counter can be successfully incremented under normal conditions, ensuring the increment works and the correct event is emitted.
 
 ```rust
-#[test]
-fn it_works_for_increment() {
-    new_test_ext().execute_with(|| {
-        // Ensure initial value is set
-        assert_ok!(CustomPallet::set_counter_value(RuntimeOrigin::root(), 0));
-        
-        assert_ok!(CustomPallet::increment(RuntimeOrigin::signed(1), 5));
-        System::assert_last_event(Event::CounterIncremented { 
-            counter_value: 5, 
-            who: 1, 
-            incremented_amount: 5 
-        }.into());
-    });
-}
+--8<-- 'code/tutorials/polkadot-sdk/parachains/build-custom-pallet/pallet-unit-testing/tests.rs:38:54'
 ```
 
-2. **Error Handling**
+### Preventing Value Overflow
+
+Test that the pallet prevents incrementing beyond the maximum allowed value, protecting against unintended state changes.
 
 ```rust
-#[test]
-fn increment_fails_for_max_value_exceeded() {
-    new_test_ext().execute_with(|| {
-        // Set to a value close to max (10)
-        assert_ok!(CustomPallet::set_counter_value(RuntimeOrigin::root(), 7));
-        assert_noop!(
-            CustomPallet::increment(RuntimeOrigin::signed(1), 4),
-            Error::<Test>::CounterValueExceedsMax
-        );
-    });
-}
+--8<-- 'code/tutorials/polkadot-sdk/parachains/build-custom-pallet/pallet-unit-testing/tests.rs:56:68'
 ```
 
-### Origin and Access Control Tests
+### Origin and Access Control
+
+Confirm that sensitive operations like setting counter value are restricted to authorized origins, preventing unauthorized modifications.
 
 ```rust
-#[test]
-fn set_counter_value_fails_for_non_root() {
-    new_test_ext().execute_with(|| {
-        assert_noop!(
-            CustomPallet::set_counter_value(RuntimeOrigin::signed(1), 5),
-            sp_runtime::traits::BadOrigin
-        );
-    });
-}
+--8<-- 'code/tutorials/polkadot-sdk/parachains/build-custom-pallet/pallet-unit-testing/tests.rs:15:26'
 ```
 
 ### Edge Case Handling
 
-```rust
-#[test]
-fn increment_handles_overflow() {
-    new_test_ext().execute_with(|| {
-        // Set to max value
-        assert_ok!(CustomPallet::set_counter_value(RuntimeOrigin::root(), 10));
-        assert_noop!(
-            CustomPallet::increment(RuntimeOrigin::signed(1), 1),
-            Error::<Test>::CounterValueExceedsMax
-        );
-    });
-}
-```
-
-### User Interaction Tracking
+Ensure the pallet gracefully handles edge cases, such as preventing increment operations that would cause overflow.
 
 ```rust
-#[test]
-fn user_interactions_increment() {
-    new_test_ext().execute_with(|| {
-        // Ensure initial counter value is set
-        assert_ok!(CustomPallet::set_counter_value(RuntimeOrigin::root(), 0));
-
-        assert_ok!(CustomPallet::increment(RuntimeOrigin::signed(1), 5));
-        assert_ok!(CustomPallet::decrement(RuntimeOrigin::signed(1), 2));
-
-        // Check user interactions
-        assert_eq!(UserInteractions::<Test>::get(1).unwrap_or(0), 2);
-    });
-}
+--8<-- 'code/tutorials/polkadot-sdk/parachains/build-custom-pallet/pallet-unit-testing/tests.rs:70:83'
 ```
 
-## Key Takeaways
+### Verifying State Changes
 
-In this tutorial, you learned how to:
-- Create a mock runtime for testing
-- Implement comprehensive test cases
-- Verify pallet functionality
-- Handle various scenarios and edge cases
+Test that pallet operations modify the internal state correctly and maintain expected storage values across different interactions.
 
-## Common Testing Techniques
+```rust
+--8<-- 'code/tutorials/polkadot-sdk/parachains/build-custom-pallet/pallet-unit-testing/tests.rs:114:129'
+```
 
-- Use `assert_ok!()` for successful operations
-- Use `assert_noop!()` for expected failures
-- Verify state changes
-- Check event emissions
-- Test access control mechanisms
+You can check the complete `tests.rs` implementation for the `custom pallet` here:
+
+???+ "Complete `tests.rs` Code"
+
+    ```rust
+    --8<-- 'code/tutorials/polkadot-sdk/parachains/build-custom-pallet/pallet-unit-testing/tests.rs'
+    ```
+
+
+## Running Tets
+
+Execute the test suite for your custom pallet using Cargo's test command. This will run all defined test cases and provide detailed output about the test results.
+
+```bash
+cargo test -p custom-pallet
+```
+
+After running the test suite, you should see the following output in your terminal:
+
+--8<-- 'code/tutorials/polkadot-sdk/parachains/build-custom-pallet/pallet-unit-testing/output.html'
 
 ## Where to Go Next
 
-TODO: 
-
-## Conclusion
-
-Comprehensive unit testing is crucial for developing reliable and secure pallets. By systematically testing various scenarios, you can ensure your pallet behaves correctly under different conditions.
+Expand your Polkadot SDK development skills by exploring the [`Pallet Benchmarking`](/tutorials/polkadot-sdk/parachains/build-custom-pallet/pallet-benchmarking){target=\_blank} tutorial.

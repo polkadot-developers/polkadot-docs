@@ -176,7 +176,7 @@ Define the events in the pallet as follows:
 
 ### Add Storage Items
 
-Storage items are used to maintain the state of the pallet. For this pallet, two primary storage items are defined to manage the counter's state and user interactions:
+Storage items are used to manage the pallet's state. This pallet defines two items to handle the counter's state and user interactions:
 
 - **CounterValue** - a single storage value that keeps track of the current value of the counter. This value is the core state variable manipulated by the pallet's functions
 

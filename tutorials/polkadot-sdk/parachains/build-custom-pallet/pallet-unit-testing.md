@@ -77,7 +77,7 @@ Explanation of the additions:
 
 You can view the full `mock.rs` implementation for the mock runtime here:
 
-???+ "Complete `mock.rs`"
+???- "Complete `mock.rs`"
 
     ```rust
     --8<-- 'code/tutorials/polkadot-sdk/parachains/build-custom-pallet/pallet-unit-testing/mock.rs'
@@ -141,7 +141,7 @@ Test that pallet operations modify the internal state correctly and maintain exp
 
 You can check the complete `tests.rs` implementation for the `custom pallet` here:
 
-???+ "Complete `tests.rs`"
+???- "Complete `tests.rs`"
 
     ```rust
     --8<-- 'code/tutorials/polkadot-sdk/parachains/build-custom-pallet/pallet-unit-testing/tests.rs'

@@ -68,22 +68,22 @@ The following steps outline how to execute a reserve-backed transfer from the Po
     ![](/images/tutorials/interoperability/xcm-transfers/from-relaychain-to-parachain/from-relaychain-to-parachain-04.webp)
 
 4. Fill out the required fields:
-    1. **dest** - specifies the destination context for the assets. Commonly set to `[Parent, Parachain(..)]` for parachain-to-parachain transfers or `[Parachain(..)]` for relay chain-to-parachain transfers. In this case, since the transfer is from a relay chain to a parachain, the destination ([`Location`](https://paritytech.github.io/xcm-docs/reference/glossary.html#multilocation){target=\_blank}) is the following:
+    1. **dest** - specifies the destination context for the assets. Commonly set to `[Parent, Parachain(..)]` for parachain-to-parachain transfers or `[Parachain(..)]` for relay chain-to-parachain transfers. In this case, since the transfer is from a relay chain to a parachain, the destination ([`Location`](https://paritytech.github.io/xcm-docs/fundamentals/multilocation/index.html){target=\_blank}) is the following:
 
         ```bash
         { parents: 0, interior: { X1: [{ Parachain: 2006 }] } }
         ```
 
-    2. **beneficiary** - defines the recipient of the assets within the destination context, typically represented as an `AccountId32` value. This example uses the following account present in the destination chain:
+    3. **beneficiary** - defines the recipient of the assets within the destination context, typically represented as an `AccountId32` value. This example uses the following account present in the destination chain:
 
         ```bash
         X2mE9hCGX771c3zzV6tPa8U2cDz4U4zkqUdmBrQn83M3cm7
         ```
 
-    3. **assets** - lists the assets to be withdrawn, including those designated for fee payment on the destination chain
-    4. **feeAssetItem** - indicates the index of the asset within the assets list to be used for paying fees
-    5. **weightLimit** - specifies the weight limit, if applicable, for the fee payment on the remote chain
-    6. Click on the **Submit Transaction** button to send the transaction
+    4. **assets** - lists the assets to be withdrawn, including those designated for fee payment on the destination chain
+    5. **feeAssetItem** - indicates the index of the asset within the assets list to be used for paying fees
+    6. **weightLimit** - specifies the weight limit, if applicable, for the fee payment on the remote chain
+    7. Click on the **Submit Transaction** button to send the transaction
 
         ![](/images/tutorials/interoperability/xcm-transfers/from-relaychain-to-parachain/from-relaychain-to-parachain-05.webp)
 

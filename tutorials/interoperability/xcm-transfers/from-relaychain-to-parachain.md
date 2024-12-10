@@ -70,7 +70,7 @@ The following steps outline how to execute a reserve-backed transfer from the Po
 
     ![](/images/tutorials/interoperability/xcm-transfers/from-relaychain-to-parachain/from-relaychain-to-parachain-04.webp)
 
-4. Fill out the required fields
+4. Fill out the required fields:
     1. **dest** - specifies the destination context for the assets. Commonly set to `[Parent, Parachain(..)]` for parachain-to-parachain transfers or `[Parachain(..)]` for relay chain-to-parachain transfers. In this case, since the transfer is from a relay chain to a parachain, the destination context is the following:
 
         ```bash

@@ -22,24 +22,28 @@ To set up your testing environment for Polkadot SDK pallets, you'll need:
 
 ## Set Up the Testing Environment
 
-### Create Test Configuration Files
-
 To effectively create the test environment for your pallet, you'll need to follow these steps:
 
-1. Add the required dependencies to your test configuration in the `Cargo.toml` file of the pallet:
-
-    ```toml
-    --8<-- 'code/tutorials/polkadot-sdk/parachains/build-custom-pallet/pallet-unit-testing/Cargo-dev-dependencies.toml'
-    ```
-
-2. Create a `mock.rs` and a `tests.rs` files (leave these files empty for now, they will be filled in later):
+1. Move to the project directory
 
     ```bash
-    touch mock.rs
-    touch tests.rs
+    cd custom-pallet
     ```
 
-3. Include them in your `lib.rs` module:
+2. Add the required dependencies to your test configuration in the `Cargo.toml` file of the pallet:
+
+    ```toml
+    --8<-- 'code/tutorials/polkadot-sdk/parachains/build-custom-pallet/pallet-unit-testing/cargo-dev-dependencies.toml'
+    ```
+
+3. Create a `mock.rs` and a `tests.rs` files (leave these files empty for now, they will be filled in later):
+
+    ```bash
+    touch src/mock.rs
+    touch src/tests.rs
+    ```
+
+4. Include them in your `lib.rs` module:
 
     ```rust
     #[cfg(test)]
@@ -51,15 +55,34 @@ To effectively create the test environment for your pallet, you'll need to follo
 
 ## Implement Mocked Runtime
 
-Mocking the runtime creates an isolated testing environment for your Polkadot SDK pallet. This lightweight runtime simulation allows you to test pallet functionality in a controlled setting with custom parameters and configuration. To do so, you can add the following to your `mock.rs` file:
+The following portion of code sets up a mock runtime (`Test`) to test the `custom-pallet` in an isolated environment. Using [`frame_support`](https://paritytech.github.io/polkadot-sdk/master/frame_support/index.html){target=\_blank} macros, it defines a minimal runtime configuration with traits such as `RuntimeCall` and `RuntimeEvent` to simulate runtime behavior. The mock runtime integrates the [`System pallet`](https://paritytech.github.io/polkadot-sdk/master/frame_system/index.html){target=\_blank}, which provides core functionality, and the custom pallet (`pallet_custom`) under specific indices. Copy and paste the following snippet of code into your `mock.rs` file:
 
 ```rust
---8<-- 'code/tutorials/polkadot-sdk/parachains/build-custom-pallet/pallet-unit-testing/mock.rs'
+--8<-- 'code/tutorials/polkadot-sdk/parachains/build-custom-pallet/pallet-unit-testing/mock.rs:1:29'
 ```
 
-!!! note
-    The code snippet above defines a mock runtime (`Test`) with essential configurations and includes and configures the `CustomPallet` for isolated test execution. It sets the `CounterMaxValue` constant to 10, defining the maximum allowed value for the counter in tests. The `new_test_ext()` function initializes a mock runtime environment with a default genesis configuration, enabling isolated and reproducible testing for the pallet.
+Once you have your mock runtime set up, you can customize it by implementing the configuration traits for the `System pallet` and your `custom-pallet`, along with additional constants and initial states for testing. Here's an example of how to extend the runtime configuration. Copy and paste the following snippet of code below the previous one you added to `mock.rs`:
 
+```rust
+--8<-- 'code/tutorials/polkadot-sdk/parachains/build-custom-pallet/pallet-unit-testing/mock.rs:30:52'
+```
+
+Explanation of the additions:
+
+- **System pallet configuration** - implements the `frame_system::Config` trait for the mock runtime, setting up the basic system functionality and specifying the block type
+- **Custom pallet configuration** - defines the `Config` trait for the `custom-pallet`, including a constant (`CounterMaxValue`) to set the maximum allowed counter value. In this case, that value is set to 10 for testing purposes
+- **Test externalities initialization** - the `new_test_ext()` function initializes the mock runtime with default configurations, creating a controlled environment for testing
+
+
+### Full Mocked Runtime
+
+You can view the full `mock.rs` implementation for the mock runtime here:
+
+???+ "Complete `mock.rs`"
+
+    ```rust
+    --8<-- 'code/tutorials/polkadot-sdk/parachains/build-custom-pallet/pallet-unit-testing/mock.rs'
+    ```
 
 ## Implement Test Cases
 
@@ -107,6 +130,8 @@ Test that pallet operations modify the internal state correctly and maintain exp
 --8<-- 'code/tutorials/polkadot-sdk/parachains/build-custom-pallet/pallet-unit-testing/tests.rs:114:129'
 ```
 
+### Full Test Suite
+
 You can check the complete `tests.rs` implementation for the `custom pallet` here:
 
 ???+ "Complete `tests.rs` Code"
@@ -121,7 +146,7 @@ You can check the complete `tests.rs` implementation for the `custom pallet` her
 Execute the test suite for your custom pallet using Cargo's test command. This will run all defined test cases and provide detailed output about the test results.
 
 ```bash
-cargo test -p custom-pallet
+cargo test --package custom-pallet
 ```
 
 After running the test suite, you should see the following output in your terminal:

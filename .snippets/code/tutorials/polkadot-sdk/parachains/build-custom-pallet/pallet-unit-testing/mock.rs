@@ -27,11 +27,13 @@ mod runtime {
     pub type CustomPallet = pallet_custom::Pallet<Test>;
 }
 
+// System pallet configuration
 #[derive_impl(frame_system::config_preludes::TestDefaultConfig)]
 impl frame_system::Config for Test {
     type Block = Block;
 }
 
+// Custom pallet configuration
 parameter_types! {
     pub const CounterMaxValue: u32 = 10;
 }
@@ -41,7 +43,7 @@ impl pallet_custom::Config for Test {
     type CounterMaxValue = CounterMaxValue;
 }
 
-// Build test externalities for isolated test execution
+// Test externalities initialization
 pub fn new_test_ext() -> sp_io::TestExternalities {
     frame_system::GenesisConfig::<Test>::default()
         .build_storage()

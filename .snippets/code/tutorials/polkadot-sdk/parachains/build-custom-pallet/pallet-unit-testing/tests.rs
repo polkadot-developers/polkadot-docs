@@ -78,12 +78,11 @@ fn increment_fails_for_max_value_exceeded() {
 fn increment_handles_overflow() {
     new_test_ext().execute_with(|| {
         System::set_block_number(1);
-        // Set counter value to the max allowed (10)
-        assert_ok!(CustomPallet::set_counter_value(RuntimeOrigin::root(), 10));
-        // Ensure incrementing by 1 fails due to overflow beyond u32 max
+        // Set to max value
+        assert_ok!(CustomPallet::set_counter_value(RuntimeOrigin::root(), 1));
         assert_noop!(
-            CustomPallet::increment(RuntimeOrigin::signed(1), 1),
-            Error::<Test>::CounterOverflow // Expecting CounterValueExceedsMax error
+            CustomPallet::increment(RuntimeOrigin::signed(1), u32::MAX),
+            Error::<Test>::CounterOverflow
         );
     });
 }

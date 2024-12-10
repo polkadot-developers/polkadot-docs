@@ -189,6 +189,16 @@ These are the methods that can be invoked and their parameters:
         --8<-- 'code/develop/toolkit/parachains/fork-chains/chopsticks/get-started/dev-timeTravel-example.js'
         ```
 
-## Where to Go Next
+## Tutorials
 
-- Visit the [Fork a Chain with Chopsticks](/tutorials/polkadot-sdk/testing/fork-live-chains/){target=\_blank} guide for step-by-step instructions for configuring and interacting with your forked chain.
+<div class="grid cards" markdown>
+
+-   __Fork a Chain with Chopsticks__
+
+    ---
+
+    Visit this guide for step-by-step instructions for configuring and interacting with your forked chain.
+
+    [:octicons-arrow-right-24: Reference](/tutorials/polkadot-sdk/testing/fork-live-chains/)
+
+</div>

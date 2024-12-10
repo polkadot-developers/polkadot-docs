@@ -26,7 +26,7 @@ This section builds on concepts from the [Polkadot Protocol](/polkadot-protocol)
 
     - **Where to start** - [Polkadot Ecosystem Toolkit](/develop/toolkit/){target=\_blank}
 
-- **Cross-chain developers** - harness Polkadot's interoperability features to enable secure communication and asset transfers across blockchains. Leverage Cross-Consensus Messaging (XCM) to create innovative cross-chain workflows and applications
+- **Cross-Consensus Messaging (XCM)** - developers across all three pathways can leverage Cross-Consensus Messaging (XCM) to create innovative cross-chain workflows and applications
 
     - **Where to start** - [Introduction to XCM](/develop/interoperability/intro-to-xcm/){target=\_blank}
 

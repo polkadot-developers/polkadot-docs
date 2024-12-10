@@ -15,8 +15,8 @@ The Polkadot ecosystem provides multiple development pathways:
 ```mermaid
 graph TD
     A[Development Pathways]
-    A --> B[Smart Contract Development]
-    A --> C[Parachain Development]
+    A --> B[Parachain Development]
+    A --> C[Smart Contract Development]
     A --> D[Client-Side Development]
 ```
 

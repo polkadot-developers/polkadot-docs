@@ -142,12 +142,7 @@ To programmatically execute the reserve-backed asset transfer between the relay 
 
 5. Check the terminal output. If the operation is successful, you should see the following message:
 
-    <div id="termynal" data-termynal>
-    <span data-ty="input"><span class="file-path"></span>node index.js</span>
-    <span data-ty> Asset balance before tx: 0</span>
-    <span data-ty> Transaction completed successfully</span>
-    <span data-ty> Asset balance after tx: 119999114907n</span>
-    </div>
+    --8<-- 'code/tutorials/interoperability/xcm-transfers/from-relaychain-to-parachain/output.html'
 
 ## Additional Resources
 

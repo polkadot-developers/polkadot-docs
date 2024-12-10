@@ -102,7 +102,7 @@ The following sub-sections outline various scenarios in which the `custom-pallet
 Verify that the counter can be successfully incremented under normal conditions, ensuring the increment works and the correct event is emitted.
 
 ```rust
---8<-- 'code/tutorials/polkadot-sdk/parachains/build-custom-pallet/pallet-unit-testing/tests.rs:42:60:'
+--8<-- 'code/tutorials/polkadot-sdk/parachains/build-custom-pallet/pallet-unit-testing/tests.rs:42:60'
 ```
 
 ### Preventing Value Overflow

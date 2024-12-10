@@ -73,7 +73,6 @@ Explanation of the additions:
 - **Custom pallet configuration** - defines the `Config` trait for the `custom-pallet`, including a constant (`CounterMaxValue`) to set the maximum allowed counter value. In this case, that value is set to 10 for testing purposes
 - **Test externalities initialization** - the `new_test_ext()` function initializes the mock runtime with default configurations, creating a controlled environment for testing
 
-
 ### Full Mocked Runtime
 
 You can view the full `mock.rs` implementation for the mock runtime here:
@@ -88,14 +87,22 @@ You can view the full `mock.rs` implementation for the mock runtime here:
 
 Unit testing a pallet involves creating a comprehensive test suite that validates various scenarios. You ensure your pallet’s reliability, security, and expected behavior under different conditions by systematically testing successful operations, error handling, event emissions, state modifications, and access control.
 
-The following sub-sections will show scenarios where the `custom-pallet` can be tested. Feel free to add these snippets to your `tests.rs` while you read the examples.
+As demonstrated in the previous tutorial, the pallet calls to be tested are as follows:
+
+???- "Custom pallet calls"
+
+    ```rust
+    --8<-- 'code/tutorials/polkadot-sdk/parachains/build-custom-pallet/pallet-unit-testing/pallet-calls.rs'
+    ```
+
+The following sub-sections outline various scenarios in which the `custom-pallet` can be tested. Feel free to add these snippets to your `tests.rs` while you read the examples.
 
 ### Successful Operations
 
 Verify that the counter can be successfully incremented under normal conditions, ensuring the increment works and the correct event is emitted.
 
 ```rust
---8<-- 'code/tutorials/polkadot-sdk/parachains/build-custom-pallet/pallet-unit-testing/tests.rs:38:54'
+--8<-- 'code/tutorials/polkadot-sdk/parachains/build-custom-pallet/pallet-unit-testing/tests.rs:42:60:'
 ```
 
 ### Preventing Value Overflow
@@ -103,7 +110,7 @@ Verify that the counter can be successfully incremented under normal conditions,
 Test that the pallet prevents incrementing beyond the maximum allowed value, protecting against unintended state changes.
 
 ```rust
---8<-- 'code/tutorials/polkadot-sdk/parachains/build-custom-pallet/pallet-unit-testing/tests.rs:56:68'
+--8<-- 'code/tutorials/polkadot-sdk/parachains/build-custom-pallet/pallet-unit-testing/tests.rs:61:75'
 ```
 
 ### Origin and Access Control
@@ -111,7 +118,7 @@ Test that the pallet prevents incrementing beyond the maximum allowed value, pro
 Confirm that sensitive operations like setting counter value are restricted to authorized origins, preventing unauthorized modifications.
 
 ```rust
---8<-- 'code/tutorials/polkadot-sdk/parachains/build-custom-pallet/pallet-unit-testing/tests.rs:15:26'
+--8<-- 'code/tutorials/polkadot-sdk/parachains/build-custom-pallet/pallet-unit-testing/tests.rs:16:28'
 ```
 
 ### Edge Case Handling
@@ -119,7 +126,7 @@ Confirm that sensitive operations like setting counter value are restricted to a
 Ensure the pallet gracefully handles edge cases, such as preventing increment operations that would cause overflow.
 
 ```rust
---8<-- 'code/tutorials/polkadot-sdk/parachains/build-custom-pallet/pallet-unit-testing/tests.rs:70:83'
+--8<-- 'code/tutorials/polkadot-sdk/parachains/build-custom-pallet/pallet-unit-testing/tests.rs:76:90'
 ```
 
 ### Verifying State Changes
@@ -127,14 +134,14 @@ Ensure the pallet gracefully handles edge cases, such as preventing increment op
 Test that pallet operations modify the internal state correctly and maintain expected storage values across different interactions.
 
 ```rust
---8<-- 'code/tutorials/polkadot-sdk/parachains/build-custom-pallet/pallet-unit-testing/tests.rs:114:129'
+--8<-- 'code/tutorials/polkadot-sdk/parachains/build-custom-pallet/pallet-unit-testing/tests.rs:125:141'
 ```
 
 ### Full Test Suite
 
 You can check the complete `tests.rs` implementation for the `custom pallet` here:
 
-???+ "Complete `tests.rs` Code"
+???+ "Complete `tests.rs`"
 
     ```rust
     --8<-- 'code/tutorials/polkadot-sdk/parachains/build-custom-pallet/pallet-unit-testing/tests.rs'

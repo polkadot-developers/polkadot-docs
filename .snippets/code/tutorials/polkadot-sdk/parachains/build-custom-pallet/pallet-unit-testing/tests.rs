@@ -83,7 +83,7 @@ fn increment_handles_overflow() {
         // Ensure incrementing by 1 fails due to overflow beyond u32 max
         assert_noop!(
             CustomPallet::increment(RuntimeOrigin::signed(1), 1),
-            Error::<Test>::CounterValueExceedsMax // Expecting CounterValueExceedsMax error
+            Error::<Test>::CounterOverflow // Expecting CounterValueExceedsMax error
         );
     });
 }

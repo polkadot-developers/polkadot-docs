@@ -117,7 +117,7 @@ To programmatically execute the reserve-backed asset transfer between the relay 
     npm install polkadot-api @polkadot-labs/hdkd @polkadot-labs/hdkd-helpers
     ```
 
-3. To enable static, type-safe APIs for interacting with the Polkadot and Astar chains, add their metadata to your project using PAPI
+3. To enable static, type-safe APIs for interacting with the Polkadot and Astar chains, add their metadata to your project using PAPI:
 
     ```bash
     npx papi add dot -n polkadot

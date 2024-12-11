@@ -1,4 +1,4 @@
-pub mod integration_testing {
+pub mod tests {
     use crate::*;
     // ...
 }

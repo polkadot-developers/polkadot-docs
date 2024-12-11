@@ -6,29 +6,52 @@ hide:
 template: index-page.html
 ---
 
-# Develop and Deploy with Polkadot
+# Develop with Polkadot
 
-Polkadot offers a unique platform for developers to build the next generation of blockchain solutions. Whether developing a custom parachain, deploying smart contracts, or crafting user-facing applications, the Polkadot ecosystem provides the tools, frameworks, and infrastructure to bring your vision to life.
+## Introduction
 
-This section builds on concepts from the [Polkadot Protocol](/polkadot-protocol){target=\_blank} section, providing the practical knowledge and resources needed to design, deploy, and operate scalable solutions in the Polkadot ecosystem. By leveraging Polkadot's unique features, such as interoperability and decentralized security, developers can build applications and infrastructure tailored to their needs.
 
-## Choose Your Development Path
 
-- **Parachain developers** - build, deploy, and maintain custom parachains with the Polkadot SDK. From runtime customization to network operations, learn how to create a scalable and efficient parachain
+## Development Pathways
 
-    - **Where to start** - [Introduction to the Polkadot SDK](/develop/parachains/get-started/intro-polkadot-sdk/){target=\_blank}
+Developers can choose from different development pathways to build applications and core blockchain functionality. Each pathway caters to different types of projects and developer skill sets, while complementing one another within the broader network.
 
-- **Smart contract developers** - utilize Polkadot's support for Wasm-based contracts with ink! or deploy Solidity contracts on EVM-compatible parachains. Leverage familiar tools to write, test, and manage decentralized logic
+The Polkadot ecosystem provides multiple development pathways:
 
-    - **Where to start** - [Overview of the Smart Contract Landscape on Polkadot](/develop/smart-contracts/overview/){target=\_blank}
+```mermaid
+graph TD
+    A[Development Pathways]
+    A --> B[Parachain Development]
+    A --> C[Smart Contract Development]
+    A --> D[Client-Side Development]
+```
 
-- **Application developers** - integrate your applications with the Polkadot ecosystem using wallets, oracles, indexers, and more. Explore guides on how to leverage Polkadot's decentralized infrastructure to deliver high-performing, user-facing solutions
+!!! tip 
+    All three pathways can leverage Cross-Consensus Messaging (XCM) to create innovative cross-chain workflows and applications. Get started with these resources:
 
-    - **Where to start** - [Polkadot Ecosystem Toolkit](/develop/toolkit/){target=\_blank}
+    - [**Introduction to XCM**](/develop/interoperability/intro-to-xcm/){target=\_blank} - introduces key concepts, core function definitions, and code examples
+    - [**XCM Tools**](/develop/toolkit/interoperability/xcm-tools/){target=\_blank} - provides an overview of popular XCM tools
+    - [**Tutorials for Managing XCM Channels**](/tutorials/interoperability/xcm-channels/){target=\_blank} - guides for using [Polkadot.js Apps](https://polkadot.js.org/apps/#/explorer){target=\_blank} UI to establish cross-chain messaging channels 
 
-- **Cross-Consensus Messaging (XCM)** - developers across all three pathways can leverage Cross-Consensus Messaging (XCM) to create innovative cross-chain workflows and applications
 
-    - **Where to start** - [Introduction to XCM](/develop/interoperability/intro-to-xcm/){target=\_blank}
+### Parachain Developers 
+
+Build, deploy, and maintain custom parachains with the Polkadot SDK
+
+- **Where to start** - [Introduction to the Polkadot SDK](/develop/parachains/get-started/intro-polkadot-sdk/){target=\_blank}
+
+### Smart Contract Developers 
+
+Leverage smart contracts and execute custom logic over existing chains to streamline your development process
+
+- **Where to start** - [Overview of the Smart Contract Landscape on Polkadot](/develop/smart-contracts/overview/){target=\_blank}
+
+### Application Developers
+
+Integrate your applications with the Polkadot ecosystem using wallets, oracles, indexers, and more
+
+**Where to start** - [Polkadot Ecosystem Toolkit](/develop/toolkit/){target=\_blank}
+
 
 ## In This Section
 

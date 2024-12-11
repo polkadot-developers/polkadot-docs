@@ -1,5 +1,6 @@
 title: Parachains
 nav:
   - index.md
+  - zero-to-hero
   - local-chain
   - connect-to-relay-chain

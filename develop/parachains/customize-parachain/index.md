@@ -26,9 +26,9 @@ The [FRAME directory](https://github.com/paritytech/polkadot-sdk/tree/master/sub
     </a>
   </div>
     <div class="card">
-    <a href="https://paritytech.github.io/polkadot-sdk/master/frame_support/index.html" target="_blank">
+    <a href="https://paritytech.github.io/polkadot-sdk/master/polkadot_sdk_docs/polkadot_sdk/frame_runtime/index.html" target="_blank">
       <h2 class="title">FRAME Rust docs</h2>
-      <p class="description">Check out the Rust docs for the <code>frame_support</code> crate to view the support code for the runtime.</p>
+      <p class="description">Check out the Rust docs for the Substrate’s framework of choice to build a runtime, <code>FRAME</code>.</p>
     </a>
   </div>
 </div>

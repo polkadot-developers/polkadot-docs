@@ -9,7 +9,7 @@ Options for customizing the claim assets transaction. These options allow you to
     ??? child "Type `Format`"
 
         ```ts
-        --8<-- 'code/build-on-polkadot/xcm/asset-transfer-api/reference/format.ts'
+        --8<-- 'https://raw.githubusercontent.com/paritytech/asset-transfer-api/refs/tags/v0.3.1/src/types.ts:122:122'
         ```
 
     ---
@@ -59,7 +59,13 @@ Options for customizing the claim assets transaction. These options allow you to
 
     ??? child "Type `AssetTransferType`"
 
-        --8<-- 'code/build-on-polkadot/xcm/asset-transfer-api/reference/asset-transfer-type.md'
+        ```ts
+        --8<-- 'https://raw.githubusercontent.com/paritytech/asset-transfer-api/refs/tags/v0.3.1/src/types.ts:480:480'
+        ```
+        
+        !!! note
+            To use the `assetTransferType` parameter, which is a string, you should use the `AssetTransferType` type as if each of its variants are strings. For example: `assetTransferType = 'LocalReserve'`.
+
 
     ---
 
@@ -75,7 +81,12 @@ Options for customizing the claim assets transaction. These options allow you to
 
     ??? child "Type `AssetTransferType`"
 
-        --8<-- 'code/build-on-polkadot/xcm/asset-transfer-api/reference/asset-transfer-type.md'
+        ```ts
+        --8<-- 'https://raw.githubusercontent.com/paritytech/asset-transfer-api/refs/tags/v0.3.1/src/types.ts:480:480'
+        ```
+        
+        !!! note
+            To use the `feesTransferType` parameter, which is a string, you should use the `AssetTransferType` type as if each of its variants are strings. For example: `feesTransferType = 'LocalReserve'`.
 
     ---
 

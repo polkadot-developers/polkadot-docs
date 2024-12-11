@@ -50,34 +50,34 @@ First, ensure your wallet is connected to the RegionX interface. To do so, go to
 
 After connecting your wallet, you must obtain funds on the Coretime Chain. You can use the [RegionX Transfer](https://app.regionx.tech/transfer){target=\blank} page to perform a cross-chain transfer from the relay to the system chain:
 
-![](/images/tutorials/polkadot-sdk/parachains/obtain-coretime/obtain-coretime-1.png)
+![](/images/tutorials/polkadot-sdk/parachains/obtain-coretime/obtain-coretime-1.webp)
 
 !!!info 
  If you are purchasing a core on a TestNet, be sure to visit the [Polkadot Faucet](https://faucet.polkadot.io/westend){target=\blank}.
 
 If successful, you should see the balance in the upper right of the **Transfer** page update with balances on the relay and Coretime chain, respectively: 
 
-![](/images/tutorials/polkadot-sdk/parachains/obtain-coretime/obtain-coretime-2.png)
+![](/images/tutorials/polkadot-sdk/parachains/obtain-coretime/obtain-coretime-2.webp)
 
 ### Purchasing a Core
 
 For this tutorial, we will use [RegionX](https://app.regionx.tech){target=\blank}. Once you open the app, you should be presented with the following screen:
 
-![](/images/tutorials/polkadot-sdk/parachains/obtain-coretime/obtain-coretime-3.png)
+![](/images/tutorials/polkadot-sdk/parachains/obtain-coretime/obtain-coretime-3.webp)
 
 On the top left is a network switch. Ensure you have selected your parachain and that it is registered before purchasing a core.
 
 To purchase a core, go to the menu on the left and select the **Purchase A Core** item under **Primary Market**. Here, you should see the cores available for purchase, details regarding the sale period, and its current phase. Alternatively, you may use this link to visit it: [**Primary Market > Purchase A Core**](https://app.regionx.tech/purchase){target=\blank}:
 
-![](/images/tutorials/polkadot-sdk/parachains/obtain-coretime/obtain-coretime-4.png)
+![](/images/tutorials/polkadot-sdk/parachains/obtain-coretime/obtain-coretime-4.webp)
 
 At the bottom of the page, select the **Purchase a Core** button on the bottom right, where a modal detailing the fees will appear. Click **Ok** and sign the transaction using the wallet of your choice:
 
-![](/images/tutorials/polkadot-sdk/parachains/obtain-coretime/obtain-coretime-5.png)
+![](/images/tutorials/polkadot-sdk/parachains/obtain-coretime/obtain-coretime-5.webp)
 
 Once the transaction is confirmed, click [**My Regions**](https://app.regionx.tech/regions){target=\blank} on the left-hand menu, and you will see your purchased core:
 
-![](/images/tutorials/polkadot-sdk/parachains/obtain-coretime/obtain-coretime-6.png)
+![](/images/tutorials/polkadot-sdk/parachains/obtain-coretime/obtain-coretime-6.webp)
 
 Congratulations, you just purchased a core using RegionX! You can assign the core to your parachain, partition, interlace, and more using RegionX.
 
@@ -85,11 +85,11 @@ Congratulations, you just purchased a core using RegionX! You can assign the cor
 
 Once you have the core as shown in the dashboard, select it by clicking on it, then click the **Assign** option on the left-hand side. You will be presented with a modal in which you can add a new task:
 
-![](/images/tutorials/polkadot-sdk/parachains/obtain-coretime/obtain-coretime-7.png)
+![](/images/tutorials/polkadot-sdk/parachains/obtain-coretime/obtain-coretime-7.webp)
 
 Click the **Add Task** button and input the parachain identifier, along with the name of your project, and finalize it by clicking **Add Task**:
 
-![](/images/tutorials/polkadot-sdk/parachains/obtain-coretime/obtain-coretime-8.png)
+![](/images/tutorials/polkadot-sdk/parachains/obtain-coretime/obtain-coretime-8.webp)
 
 You may now select a task from the list. You must also set the core's finality, which determines whether you can renew this specific core. Provisional finality allows for interlacing and partitioning, whereas Final finality does not allow the region to be modified. A core must not be interlaced or partitioned to be renewable, so Finality should be selected if you want to renew this specific core.
 
@@ -100,7 +100,7 @@ Once you sign and send this transaction, that task/parachain will be assigned to
 Navigate to [Developer > Extrinsics](https://polkadot.js.org/apps/#/extrinsics){target=\blank} on the relay chain and issue`onDemandAssignmentProvider.placeOrderAllowDeath` extrinsic from the account that registered the
 `ParaID` by specifying sufficient `maxAmount`for the transaction to go through successfully.
 
-![](/images/tutorials/polkadot-sdk/parachains/obtain-coretime/obtain-coretime-9.png)
+![](/images/tutorials/polkadot-sdk/parachains/obtain-coretime/obtain-coretime-9.webp)
 
 !!!info
  There are two extrinsics which allow you to place orders for on-demand coretime:
@@ -115,7 +115,7 @@ Navigate to [Developer > Extrinsics](https://polkadot.js.org/apps/#/extrinsics){
 With each successful on-demand extrinsic, the parachain head changes (you may have to zoom out on
 the browser for parachain head details to show up on Polkadot-JS UI).
 
-![](/images/tutorials/polkadot-sdk/parachains/obtain-coretime/obtain-coretime-10.png)
+![](/images/tutorials/polkadot-sdk/parachains/obtain-coretime/obtain-coretime-10.webp)
 
 The same should also be reflected in the collator's logs, where you should see output similar to the following:
 

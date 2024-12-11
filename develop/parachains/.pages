@@ -1,7 +1,8 @@
 title: Parachains
 nav:
   - index.md
-  - get-started
+  - 'Introduction to Polkadot SDK': intro-polkadot-sdk.md
+  - 'Install Polkadot SDK Dependencies': install-polkadot-sdk.md
   - customize-parachain
   - testing
   - deployment

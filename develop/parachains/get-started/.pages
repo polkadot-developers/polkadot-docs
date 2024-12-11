@@ -1,7 +1,0 @@
-title: Get Started
-nav:
-  - index.md
-  - 'Introduction to Polkadot SDK': intro-polkadot-sdk.md
-  - 'Install Polkadot SDK Dependencies': install-polkadot-sdk.md
-  - 'Build Custom Parachains': build-custom-parachains.md
-  - 'Deploy a Parachain to Polkadot': deploy-parachain-to-polkadot.md

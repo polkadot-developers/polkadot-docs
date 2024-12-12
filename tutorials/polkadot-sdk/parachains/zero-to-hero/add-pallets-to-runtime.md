@@ -38,13 +38,19 @@ In this section, you'll configure the pallets by implementing their `Config` tra
 
 To perform this, take the following steps:
 
-1. Implement the [`Config`](https://paritytech.github.io/polkadot-sdk/master/pallet_utility/pallet/trait.Config.html){target=\_blank} for both pallets at the end of the `runtime/src/config/mod.rs` file:
 
+1. Add the `OriginCaller` import:
     ```rust
-    --8<-- 'code/tutorials/polkadot-sdk/parachains/zero-to-hero/add-pallets-to-runtime/config-mod.rs:312'
+    --8<-- 'code/tutorials/polkadot-sdk/parachains/zero-to-hero/add-pallets-to-runtime/config-mod.rs:64:64'
     ```
 
-2. Locate the `#[frame_support::runtime]` macro in the `runtime/src/lib.rs` file and add the pallets:
+2. Implement the [`Config`](https://paritytech.github.io/polkadot-sdk/master/pallet_utility/pallet/trait.Config.html){target=\_blank} trait for both pallets at the end of the `runtime/src/config/mod.rs` file:
+
+    ```rust
+    --8<-- 'code/tutorials/polkadot-sdk/parachains/zero-to-hero/add-pallets-to-runtime/config-mod.rs:313'
+    ```
+
+3. Locate the `#[frame_support::runtime]` macro in the `runtime/src/lib.rs` file and add the pallets:
 
     ```rust hl_lines="5-9"
     --8<-- 'code/tutorials/polkadot-sdk/parachains/zero-to-hero/add-pallets-to-runtime/lib.rs:250:252'
@@ -62,11 +68,11 @@ cargo build --release
 
 This process verifies that your changes integrate seamlessly and that the runtime compiles without errors, preparing it for testing or deployment.
 
-## Run your Chain
+## Run your Chain Locally
 
-To run your chain, run the following commands:
+To spin up your parachain locally and start producing blocks:
 
-1. Override the generated chain spec file:
+1. Create a new chain specification file with the new runtime:
 
     ```bash
     chain-spec-builder create --relay-chain paseo \
@@ -75,15 +81,21 @@ To run your chain, run the following commands:
     named-preset development
     ```
 
-2. Start the omni node with the generated chain spec
+2. Start the omni node with the generated chain spec:
 
     ```bash
     polkadot-omni-node --chain ./chain_spec.json --dev
     ```
 
-3. Check that the pallets are available trhough the Polkadot.Js Apps interface  
+3. Check that you can interact with the new pallets using the [Polkadot.js Apps](https://polkadot.js.org/apps/?rpc=ws%3A%2F%2F127.0.0.1%3A9944#/extrinsics){target=\_blank} interface. Navigate to the **Extrinsics** tab and check you can see both pallets:
+    - Utility pallet
 
-    TODO: add image
+        ![](/images/tutorials/polkadot-sdk/parachains/zero-to-hero/add-pallets-to-runtime/add-pallets-to-runtime-1.webp)
+    
+
+    - Custom pallet
+
+        ![](/images/tutorials/polkadot-sdk/parachains/zero-to-hero/add-pallets-to-runtime/add-pallets-to-runtime-2.webp)
 
 ## Where to Go Next
 

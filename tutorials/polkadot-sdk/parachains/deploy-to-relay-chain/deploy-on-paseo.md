@@ -88,7 +88,8 @@ To modify the chain specification:
     ```bash
     chain-spec-builder create --relay-chain paseo \
     --para-id 4508 \
-    -r <runtime.compact.compressed.wasm>
+    -r <runtime.compact.compressed.wasm> \
+    default
     ```
 !!!info
     Be sure to use the `*.compact.compressed.wasm` version of your file when generating your chain specification.

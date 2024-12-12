@@ -110,27 +110,20 @@ To modify the default chain specification, follow these steps:
     ```bash
     chain-spec-builder create --relay-chain paseo \
         --para-id 4508 \
-        -r <runtime.compact.compressed.wasm>
+        -r <runtime.compact.compressed.wasm> \
+        default
     ```
 
 2. Open the plain text chain specification for the parachain template node in a text editor
 
-3. Set the `para_id` to the parachain identifier that you previously reserved. For example, if your reserved identifier is `2000`, set the `para_id` field to `2000`:
-
-    ```json
-    --8<-- 'code/tutorials/polkadot-sdk/parachains/connect-to-relay-chain/prepare-parachain/prepare-parachain-2.json:1:4'
-    --8<-- 'code/tutorials/polkadot-sdk/parachains/connect-to-relay-chain/prepare-parachain/prepare-parachain-2.json:6:6'
-    --8<-- 'code/tutorials/polkadot-sdk/parachains/connect-to-relay-chain/prepare-parachain/prepare-parachain-2.json:13:15'
-    ```
-
-4. Set the `parachainId` to the parachain identifier that you previously reserved. For example, if your reserved identifier is `2000`, set the `parachainId` field to `2000`
+3. Set the `parachainId` to the parachain identifier that you previously reserved. For example, if your reserved identifier is `2000`, set the `parachainId` field to `2000`
 
     ```json
     --8<-- 'code/tutorials/polkadot-sdk/parachains/connect-to-relay-chain/prepare-parachain/prepare-parachain-2.json:1:2'
     --8<-- 'code/tutorials/polkadot-sdk/parachains/connect-to-relay-chain/prepare-parachain/prepare-parachain-2.json:6:15'
     ```
 
-5. If you complete this tutorial simultaneously as anyone on the same local network, an additional step is needed to prevent accidentally peering with their nodes. Find the following line and add characters to make your `protocolId` unique
+4. If you complete this tutorial simultaneously as anyone on the same local network, an additional step is needed to prevent accidentally peering with their nodes. Find the following line and add characters to make your `protocolId` unique
 
     ```json
     --8<-- 'code/tutorials/polkadot-sdk/parachains/connect-to-relay-chain/prepare-parachain/prepare-parachain-2.json:1:2'
@@ -138,17 +131,13 @@ To modify the default chain specification, follow these steps:
     --8<-- 'code/tutorials/polkadot-sdk/parachains/connect-to-relay-chain/prepare-parachain/prepare-parachain-2.json:13:15'
     ```
 
-6. Save your changes and close the plain text chain specification file
+5. Save your changes and close the plain text chain specification file
 
-7. Generate a raw chain specification file from the modified chain specification file by running the following command
+6. Generate a raw chain specification file from the modified chain specification file by running the following command
 
     ```bash
     chain-spec-builder convert-to-raw plain-parachain-chainspec.json
     ```
-
-    After running the command, you will see the following output:
-
-    --8<-- 'code/tutorials/polkadot-sdk/parachains/connect-to-relay-chain/prepare-parachain/prepare-parachain-3.html'
 
 ## Prepare the Parachain Collator
 
@@ -176,7 +165,7 @@ To prepare the parachain collator to be registered:
 
     After running the command, you will see the following output:
 
-    --8<-- 'code/tutorials/polkadot-sdk/parachains/connect-to-relay-chain/prepare-parachain/prepare-parachain-4.html'
+    --8<-- 'code/tutorials/polkadot-sdk/parachains/connect-to-relay-chain/prepare-parachain/prepare-parachain-3.html'
 
     !!!note
         You should note that the runtime and state you export must be for the genesis block. You can't connect a parachain with any previous state to a relay chain. All parachains must start from block 0 on the relay chain. See [Convert a Solo Chain](https://docs.substrate.io/reference/how-to-guides/parachains/convert-a-solo-chain/){target=\_blank} for details on how the parachain template was created and how to convert the chain logic—not its history or state migrations—to a parachain.
@@ -204,7 +193,7 @@ To prepare the parachain collator to be registered:
 
     After running the command, you will see the following output:
 
-    --8<-- 'code/tutorials/polkadot-sdk/parachains/connect-to-relay-chain/prepare-parachain/prepare-parachain-5.html'
+    --8<-- 'code/tutorials/polkadot-sdk/parachains/connect-to-relay-chain/prepare-parachain/prepare-parachain-4.html'
 
 ## Register With the Local Relay Chain
 

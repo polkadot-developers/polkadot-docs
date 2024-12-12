@@ -100,7 +100,7 @@ To start the validator nodes, follow these steps:
     1. Generate the plain text chain specification file:
 
         ```bash
-        chain-spec-builder create -r <path-to-runtime.compact.compressed.wasm>
+        chain-spec-builder create -r <path-to-runtime.compact.compressed.wasm> default
         ```
 
         !!! note

@@ -53,7 +53,7 @@ The [Polkadot SDK Solochain Template](https://github.com/paritytech/polkadot-sdk
 
 ## Create a New Project
 
-In this tutorial, you'll build a custom pallet from scratch to demonstrate the complete workflow, rather than starting with the pre-built pallet-template. The first step is to create a new Rust package for your pallet:
+In this tutorial, you'll build a custom pallet from scratch to demonstrate the complete workflow, rather than starting with the pre-built `pallet-template`. The first step is to create a new Rust package for your pallet:
 
 1. Navigate to the `pallets` directory in your workspace:
 

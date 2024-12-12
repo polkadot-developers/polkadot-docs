@@ -46,11 +46,7 @@ b. Click **Switch** to connect to the respective network
 
 ![](/images/tutorials/interoperability/xcm-transfers/from-relaychain-to-parachain/from-relaychain-to-parachain-01.webp)
 
-
 This reserve-backed transfer method facilitates asset transfers from a local chain to a destination chain by trusting a third party called a reserve to store the real assets. Fees on the destination chain are deducted from the asset specified in the assets vector at the `fee_asset_item` index, covering up to the specified `weight_limit.` The operation fails if the required weight exceeds this limit, potentially putting the transferred assets at risk.
-
-!!! warning
-    The [`reserve_transfer_assets`](https://paritytech.github.io/polkadot-sdk/master/pallet_xcm/pallet/dispatchables/fn.reserve_transfer_assets.html){target=\_blank} extrinsic is deprecated in favor of the [`limited_reserve_transfer_assets`](https://paritytech.github.io/polkadot-sdk/master/pallet_xcm/pallet/dispatchables/fn.limited_reserve_transfer_assets.html){target=\_blank} extrinsic. 
 
 The following steps outline how to execute a reserve-backed transfer from the Polkadot relay chain to the Astar parachain.
 
@@ -70,23 +66,24 @@ The following steps outline how to execute a reserve-backed transfer from the Po
 
     ![](/images/tutorials/interoperability/xcm-transfers/from-relaychain-to-parachain/from-relaychain-to-parachain-04.webp)
 
-4. Fill out the required fields
-    1. **dest** - specifies the destination context for the assets. Commonly set to `[Parent, Parachain(..)]` for parachain-to-parachain transfers or `[Parachain(..)]` for relay chain-to-parachain transfers. In this case, since the transfer is from a relay chain to a parachain, the destination context is the following:
+4. Fill out the required fields:
+    1. **dest** - specifies the destination context for the assets. Commonly set to `[Parent, Parachain(..)]` for parachain-to-parachain transfers or `[Parachain(..)]` for relay chain-to-parachain transfers. In this case, since the transfer is from a relay chain to a parachain, the destination ([`Location`](https://paritytech.github.io/xcm-docs/fundamentals/multilocation/index.html){target=\_blank}) is the following:
 
         ```bash
         { parents: 0, interior: { X1: [{ Parachain: 2006 }] } }
         ```
 
-    2. **beneficiary** - defines the recipient of the assets within the destination context, typically represented as an `AccountId32` value. This example uses the following account present in the destination chain:
+    3. **beneficiary** - defines the recipient of the assets within the destination context, typically represented as an `AccountId32` value. This example uses the following account present in the destination chain:
+
 
         ```bash
         X2mE9hCGX771c3zzV6tPa8U2cDz4U4zkqUdmBrQn83M3cm7
         ```
 
-    3. **assets** - lists the assets to be withdrawn, including those designated for fee payment on the destination chain
-    4. **feeAssetItem** - indicates the index of the asset within the assets list to be used for paying fees
-    5. **weightLimit** - specifies the weight limit, if applicable, for the fee payment on the remote chain
-    6. Click on the **Submit Transaction** button to send the transaction
+    4. **assets** - lists the assets to be withdrawn, including those designated for fee payment on the destination chain
+    5. **feeAssetItem** - indicates the index of the asset within the assets list to be used for paying fees
+    6. **weightLimit** - specifies the weight limit, if applicable, for the fee payment on the remote chain
+    7. Click on the **Submit Transaction** button to send the transaction
 
         ![](/images/tutorials/interoperability/xcm-transfers/from-relaychain-to-parachain/from-relaychain-to-parachain-05.webp)
 
@@ -102,9 +99,10 @@ After submitting the transaction from the relay chain, confirm its success by ch
 
 ## Using PAPI
 
-To programmatically execute the reserve-backed asset transfer between the relay chain and the parachain, you can use [Polkadot API (PAPI)](/develop/toolkit/api-libraries/papi.md){target=\_blank}. PAPI is a robust toolkit that simplifies interactions with Polkadot SDK-based chains. For this project, you'll first need to set up your environment, install necessary dependencies, and create a script to handle the transfer process.
+To programmatically execute the reserve-backed asset transfer between the relay chain and the parachain, you can use [Polkadot API (PAPI)](/develop/toolkit/api-libraries/papi.md){target=\_blank}. PAPI is a robust toolkit that simplifies interactions with Polkadot-based chains. For this project, you'll first need to set up your environment, install necessary dependencies, and create a script to handle the transfer process.
 
-1. Start by creating a folder for your project
+1. Start by creating a folder for your project:
+
    ```bash
    mkdir reserve-backed-asset-transfer
    cd reserve-backed-asset
@@ -117,7 +115,7 @@ To programmatically execute the reserve-backed asset transfer between the relay 
     npm install polkadot-api @polkadot-labs/hdkd @polkadot-labs/hdkd-helpers
     ```
 
-3. To enable static, type-safe APIs for interacting with the Polkadot and Astar chains, add their metadata to your project using PAPI
+3. To enable static, type-safe APIs for interacting with the Polkadot and Astar chains, add their metadata to your project using PAPI:
 
     ```bash
     npx papi add dot -n polkadot
@@ -134,6 +132,9 @@ To programmatically execute the reserve-backed asset transfer between the relay 
     --8<-- 'code/tutorials/interoperability/xcm-transfers/from-relaychain-to-parachain/reserve-backed-transfer.js'
     ```
 
+    !!! note
+        To use this script with real-world blockchains, you'll need to update the WebSocket endpoint to the appropriate one, replace the Alice account with a valid account, and ensure the account has sufficient funds to cover transaction fees.
+
 4. Execute the script 
 
     ```bash 
@@ -142,12 +143,7 @@ To programmatically execute the reserve-backed asset transfer between the relay 
 
 5. Check the terminal output. If the operation is successful, you should see the following message:
 
-    <div id="termynal" data-termynal>
-    <span data-ty="input"><span class="file-path"></span>node index.js</span>
-    <span data-ty> Asset balance before tx: 0</span>
-    <span data-ty> Transaction completed successfully</span>
-    <span data-ty> Asset balance after tx: 119999114907n</span>
-    </div>
+    --8<-- 'code/tutorials/interoperability/xcm-transfers/from-relaychain-to-parachain/output.html'
 
 ## Additional Resources
 

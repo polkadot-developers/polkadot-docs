@@ -1,6 +1,8 @@
 ---
 title: EVM 
-description: Explore EVM support in Polkadot, covering native Asset Hub contracts and parachain implementations like Astar and Moonbeam for smart contract development.
+# This content is temporarily hidden and has been commented out to ensure it is preserved.
+# description: Explore EVM support in Polkadot, covering native Asset Hub contracts and parachain implementations like Astar and Moonbeam for smart contract development.
+description: Explore EVM support in Polkadot and learn how EVM-compatible smart contracts integrate seamlessly within the Polkadot ecosystem. 
 hide: 
     - feedback
 template: index-page.html
@@ -24,12 +26,13 @@ Whether deploying existing Ethereum contracts on Polkadot or creating new applic
 ## Deploy a Smart Contract
 
 <div class="subsection-wrapper">
-  <div class="card">
+  <!-- This content is temporarily hidden and has been commented out to ensure it is preserved. -->
+  <!-- <div class="card">
     <a href="/develop/smart-contracts/evm/native-evm-contracts/#deploy-a-smart-contract-to-asset-hub">
       <h2 class="title">Deploy a Smart Contract on Asset Hub</h2>
       <p class="description">Follow instructions to deploy your first contract using Remix on the Asset Hub system chain.</p>
     </a>
-  </div>
+  </div> -->
   <div class="card">
     <a href="https://docs.astar.network/docs/build/EVM/first-contract/" target="_blank">
       <h2 class="title">Deploy a Smart Contract on Astar</h2>

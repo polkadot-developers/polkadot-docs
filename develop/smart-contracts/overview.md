@@ -13,7 +13,8 @@ This guide outlines the primary approaches to developing smart contracts in the 
 
 - **Wasm-based smart contracts** - using [ink!](https://use.ink/){target=\_blank}, a Rust-based embedded domain-specific language (eDSL), enabling developers to leverage Rust’s safety and tooling
 - **EVM-compatible contracts** - which support languages like [Solidity](https://soliditylang.org/){target=\_blank} and [Vyper](https://vyperlang.org/){target=\_blank}, offering compatibility with popular Ethereum tools and wallets
-- **PolkaVM-compatible contracts** - which support Solidity and Rust while maintaining compatibility with Ethereum based tools
+<!-- This content is temporarily hidden and has been commented out to ensure it is preserved. -->
+<!-- - **PolkaVM-compatible contracts** - which support Solidity and Rust while maintaining compatibility with Ethereum based tools -->
 
 You'll explore the key differences between these development paths, along with considerations for parachain developers integrating smart contract functionality.
 
@@ -67,7 +68,8 @@ The Polkadot SDK supports multiple smart contract execution environments:
 
 - **EVM** - through [Frontier](https://github.com/polkadot-evm/frontier){target=\_blank}. It consists of a full Ethereum JSON RPC compatible client, an Ethereum emulation layer, and a [Rust-based EVM](https://github.com/rust-ethereum/evm){target=\_blank}. This is used by chains like [Acala](https://acala.network/){target=\_blank}, [Astar](https://astar.network/){target=\_blank}, [Moonbeam](https://moonbeam.network){target=\_blank} and more
 - **Wasm** - through the [Contracts pallet](https://github.com/paritytech/polkadot-sdk/blob/master/substrate/frame/contracts/){target=\_blank}. [ink!](https://use.ink/){target=\_blank} is a smart contract language that provides a compiler to Wasm. Wasm contracts can be used by chains like [Astar](https://astar.network/){target=\_blank}
-- **PolkaVM** - a cutting-edge virtual machine tailored to optimize smart contract execution on Polkadot. Unlike traditional EVMs, PolkaVM is built with a [RISC-V-based register architecture](https://en.wikipedia.org/wiki/RISC-V){target=\_blank} for increased performance and scalability
+<!-- This content is temporarily hidden and has been commented out to ensure it is preserved. -->
+<!-- - **PolkaVM** - a cutting-edge virtual machine tailored to optimize smart contract execution on Polkadot. Unlike traditional EVMs, PolkaVM is built with a [RISC-V-based register architecture](https://en.wikipedia.org/wiki/RISC-V){target=\_blank} for increased performance and scalability -->
 
 ### EVM Contracts
 
@@ -112,7 +114,8 @@ Although it seems complex, users and developers are abstracted of that complexit
 
 The Rust EVM is capable of executing regular [EVM bytecode](https://www.ethervm.io/){target=\_blank}. Consequently, any language that compiles to EVM bytecode can be used to create programs that the parachain can execute.
 
-You can find more information on deploying EVM smart contracts to [Polkadot's native smart contract platform](/develop/smart-contracts/evm/native-evm-contracts/){target=\_blank}, or any of [the ecosystem parachains](/develop/smart-contracts/evm/parachain-contracts/){target=\_blank}.
+<!-- This content is temporarily hidden and has been commented out to ensure it is preserved. -->
+<!-- You can find more information on deploying EVM smart contracts to [Polkadot's native smart contract platform](/develop/smart-contracts/evm/native-evm-contracts/){target=\_blank}, or any of [the ecosystem parachains](/develop/smart-contracts/evm/parachain-contracts/){target=\_blank}. -->
 
 ### Wasm Contracts
 
@@ -147,6 +150,7 @@ flowchart TD
 
 Learn more on how to build and deploy Wasm smart contracts on the [Wasm Smart Contracts](/develop/smart-contracts/wasm-ink/){target=\_blank} page.
 
-### PolkaVM Contracts
+<!-- This content is temporarily hidden and has been commented out to ensure it is preserved. -->
+<!-- ### PolkaVM Contracts
 
-A component of the Asset Hub parachain, PolkaVM helps enable the deployment of Solidity-based smart contracts directly on Asset Hub. Learn more about how this cutting edge virtual machine facilitates using familiar EVM contracts and tools with Asset Hub by visiting the [Native EVM Contracts](/develop/smart-contracts/evm/native-evm-contracts/){target=\_blank} guide.
+A component of the Asset Hub parachain, PolkaVM helps enable the deployment of Solidity-based smart contracts directly on Asset Hub. Learn more about how this cutting edge virtual machine facilitates using familiar EVM contracts and tools with Asset Hub by visiting the [Native EVM Contracts](/develop/smart-contracts/evm/native-evm-contracts/){target=\_blank} guide. -->

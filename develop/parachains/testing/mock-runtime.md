@@ -26,7 +26,7 @@ Here's a simple example of how to create a testing module that simulates these i
 !!! note
     The `crate::*;` snippet imports all the components from your crate (including runtime configurations, pallet modules, and utility functions) into the `tests` module. This allows you to write tests without manually importing each piece, making the code more concise and readable.
 
-Alternatively, you can create a separate `mock.rs` file to define the configuration for your mock runtime, and a companion `tests.rs` file to house the specific logic for each individual test.
+Alternatively, you can create a separate `mock.rs` file to define the configuration for your mock runtime and a companion `tests.rs` file to house the specific logic for each test.
 
 Once the testing module is configured, you can craft your mock runtime using the [`frame_support::runtime`](https://paritytech.github.io/polkadot-sdk/master/frame_support/attr.runtime.html){target=\_blank} macro. This macro allows you to define a runtime environment that will be created for testing purposes:
 

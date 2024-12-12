@@ -1,6 +1,7 @@
 ---
 title: Deploy on a Relay Chain
 description: Learn how to deploy on a live relay chain including, how to acquire Coretime, manage / setup collators, and what artifacts are needed to deploy your parachain.
+hide:
     - feedback
 template: index-page.html
 ---

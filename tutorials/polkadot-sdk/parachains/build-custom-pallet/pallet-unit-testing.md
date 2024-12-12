@@ -15,7 +15,7 @@ This tutorial will guide you through creating a unit testing suite for a custom 
 
 To set up your testing environment for Polkadot SDK pallets, you'll need:
 
-- Rust installation
+- [Polkadot SDK dependencies](/develop/parachains/get-started/install-polkadot-sdk/){target=\_blank} installed
 - Basic understanding of Substrate/Polkadot SDK concepts
 - A custom pallet implementation, check the [Build the Pallet](/tutorials/polkadot-sdk/parachains/build-custom-pallet/){target=\_blank} tutorial
 - Familiarity with [Rust testing frameworks](https://doc.rust-lang.org/book/ch11-01-writing-tests.html){target=\_blank}
@@ -139,7 +139,7 @@ Test that pallet operations modify the internal state correctly and maintain exp
 
 ### Full Test Suite
 
-You can check the complete `tests.rs` implementation for the `custom pallet` here:
+You can check the complete `tests.rs` implementation for the Custom Pallet here:
 
 ???- "Complete `tests.rs`"
 

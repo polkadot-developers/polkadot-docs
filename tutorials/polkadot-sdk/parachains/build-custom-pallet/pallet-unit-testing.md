@@ -139,7 +139,7 @@ Test that pallet operations modify the internal state correctly and maintain exp
 
 ### Full Test Suite
 
-You can check the complete `tests.rs` implementation for the Custom Pallet here:
+You can check the complete `tests.rs` implementation for the Custom pallet here:
 
 ???- "Complete `tests.rs`"
 

@@ -840,11 +840,11 @@ You can use the `hrmp_channels` keyword to define further parameters for the XCM
         - `max_capacity` ++"number"++ - maximum capacity of the HRMP channel
         - `max_message_size` ++"number"++ - maximum message size allowed in the HRMP channel
 
-## Tutorials
+## Where to Go Next
 
 <div class="grid cards" markdown>
 
--   __Spawn a Basic Chain with Zombienet__
+-   <span class="badge tutorial">Tutorial</span> __Spawn a Basic Chain with Zombienet__
 
     ---
 

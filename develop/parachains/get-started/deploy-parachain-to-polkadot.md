@@ -67,7 +67,39 @@ flowchart TD
 
 Deploying a Polkadot SDK-based blockchain is a multi-step process that requires careful planning, from generating chain specs and compiling the runtime to managing post-launch updates. By understanding the deployment process and utilizing the right tools, developers can confidently take their blockchain from development to production. For more on this topic, check out the following resources:
 
-- [**Generate Chain Specifications**](/develop/parachains/deployment/generate-chain-specs/) - learn how to generate a chain specification for your blockchain
-- [**Building Deterministic Runtimes**](/develop/parachains/deployment/build-deterministic-runtime/) - learn how to build deterministic runtimes for your blockchain
-- [**Infrastructure**](/infrastructure/) - learn about the different infrastructure options available for your blockchain
-- [**Maintenance**](/develop/parachains/maintenance/) - discover how to manage updates on your blockchain to ensure smooth operation
+<div class="grid cards" markdown>
+
+-   <span class="badge guide">Guide</span> __Generate Chain Specifications__
+
+    ---
+
+    Learn how to generate a chain specification for your blockchain.
+
+    [:octicons-arrow-right-24: Reference](/develop/parachains/deployment/generate-chain-specs/)
+
+-   <span class="badge guide">Guide</span> __Building Deterministic Runtimes__
+
+    ---
+
+    Learn how to build deterministic runtimes for your blockchain.
+
+    [:octicons-arrow-right-24: Reference](/develop/parachains/deployment/build-deterministic-runtime/)
+
+-   <span class="badge guide">Guide</span> __Infrastructure__
+
+    ---
+
+    Learn about the different infrastructure options available for your blockchain.
+
+    [:octicons-arrow-right-24: Reference](/infrastructure/)
+
+
+-   <span class="badge guide">Guide</span> __Maintenance__
+
+    ---
+
+    Discover how to manage updates on your blockchain to ensure smooth operation.
+
+    [:octicons-arrow-right-24: Reference](/develop/parachains/maintenance/)
+
+</div>

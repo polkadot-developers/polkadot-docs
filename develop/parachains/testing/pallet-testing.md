@@ -78,8 +78,8 @@ Some key considerations are:
 
     ---
 
-    Learn how to use FRAME's benchmarking framework to benchmark your custom pallets and provide correct weights for on-chain computation and execution of extrinsics.
+    Explore methods to measure the performance and execution cost of your pallet.
 
-    [:octicons-arrow-right-24: Reference](/develop/parachains/testing/benchmarking/)
+    [:octicons-arrow-right-24: Reference](/develop/parachains/testing/benchmarking)
 
 </div>

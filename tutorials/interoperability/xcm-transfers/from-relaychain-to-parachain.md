@@ -46,7 +46,6 @@ b. Click **Switch** to connect to the respective network
 
 ![](/images/tutorials/interoperability/xcm-transfers/from-relaychain-to-parachain/from-relaychain-to-parachain-01.webp)
 
-
 This reserve-backed transfer method facilitates asset transfers from a local chain to a destination chain by trusting a third party called a reserve to store the real assets. Fees on the destination chain are deducted from the asset specified in the assets vector at the `fee_asset_item` index, covering up to the specified `weight_limit.` The operation fails if the required weight exceeds this limit, potentially putting the transferred assets at risk.
 
 The following steps outline how to execute a reserve-backed transfer from the Polkadot relay chain to the Astar parachain.
@@ -76,6 +75,7 @@ The following steps outline how to execute a reserve-backed transfer from the Po
 
     3. **beneficiary** - defines the recipient of the assets within the destination context, typically represented as an `AccountId32` value. This example uses the following account present in the destination chain:
 
+
         ```bash
         X2mE9hCGX771c3zzV6tPa8U2cDz4U4zkqUdmBrQn83M3cm7
         ```
@@ -102,6 +102,7 @@ After submitting the transaction from the relay chain, confirm its success by ch
 To programmatically execute the reserve-backed asset transfer between the relay chain and the parachain, you can use [Polkadot API (PAPI)](/develop/toolkit/api-libraries/papi.md){target=\_blank}. PAPI is a robust toolkit that simplifies interactions with Polkadot-based chains. For this project, you'll first need to set up your environment, install necessary dependencies, and create a script to handle the transfer process.
 
 1. Start by creating a folder for your project:
+
    ```bash
    mkdir reserve-backed-asset-transfer
    cd reserve-backed-asset

@@ -8,6 +8,7 @@ IGNORED_FILES=(
   ".snippets/code/develop/toolkit/parachains/spawn-chains/zombienet/write-tests/big-network-test.toml"
   ".snippets/code/develop/toolkit/parachains/spawn-chains/zombienet/write-tests/small-network-test.toml"
   ".snippets/code/develop/toolkit/parachains/spawn-chains/zombienet/write-tests/spawn-a-basic-chain-test.toml"
+  ".snippets/code/tutorials/polkadot-sdk/parachains/build-custom-pallet/pallet-unit-testing/cargo-dev-dependencies.toml"
 )
 
 # Normalize ignored files pattern

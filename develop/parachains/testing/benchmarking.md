@@ -33,7 +33,7 @@ Because weight is a generic unit of measurement based on computation time for a 
 Within FRAME, each function call that is dispatched must have a `#[pallet::weight]` annotation that can return the expected weight for the worst-case scenario execution of that function given its inputs:
 
 ```rust hl_lines="2"
---8<-- 'code/develop/parachains/customize-parachain/benchmarking/dispatchable-pallet-weight.rs'
+--8<-- 'code/develop/parachains/testing/benchmarking/dispatchable-pallet-weight.rs'
 ```
 
 The `WeightInfo` file is automatically generated during benchmark testing. Based on these tests, this file provides accurate weights for each extrinsic.
@@ -53,19 +53,19 @@ The benchmarking tool runs multiple iterations to model worst-case execution tim
 Before writing benchmark tests, you need to ensure the `frame-benchmarking` crate is included in your pallet's `Cargo.toml` similar to the following:
 
 ```toml title="Cargo.toml"
---8<-- 'code/develop/parachains/customize-parachain/benchmarking/cargo.toml::1'
+--8<-- 'code/develop/parachains/testing/benchmarking/cargo.toml::1'
 ```
 
 You must also ensure that you add the `runtime-benchmarks` feature flag as follows under the `[features]` section of your pallet's `Cargo.toml`:
 
 ```toml title="Cargo.toml"
---8<-- 'code/develop/parachains/customize-parachain/benchmarking/cargo.toml:2:7'
+--8<-- 'code/develop/parachains/testing/benchmarking/cargo.toml:2:7'
 ```
 
 Lastly, ensure that `frame-benchmarking` is included in `std = []`: 
 
 ```toml title="Cargo.toml"
---8<-- 'code/develop/parachains/customize-parachain/benchmarking/cargo.toml:8:12'
+--8<-- 'code/develop/parachains/testing/benchmarking/cargo.toml:8:12'
 ```
 
 Once complete, you have the required dependencies for writing benchmark tests for your pallet.
@@ -100,11 +100,11 @@ Before running the benchmarking tool, you must integrate benchmarks with your ru
 
 1. Create a `benchmarks.rs` file. This file should contain the following macro, which registers all pallets for benchmarking, as well as their respective configurations: 
     ```rust title="benchmarks.rs"
-    --8<-- 'code/develop/parachains/customize-parachain/benchmarking/frame-benchmark-macro.rs'
+    --8<-- 'code/develop/parachains/testing/benchmarking/frame-benchmark-macro.rs'
     ```
     For example, to register a pallet named `pallet_parachain_template` for benchmark testing, add it as follows: 
     ```rust title="benchmarks.rs" hl_lines="3"
-    --8<-- 'code/develop/parachains/customize-parachain/benchmarking/frame-benchmark-macro.rs::3'
+    --8<-- 'code/develop/parachains/testing/benchmarking/frame-benchmark-macro.rs::3'
     );
     ```
 
@@ -150,20 +150,20 @@ You can now compile your runtime with the `runtime-benchmarks` feature flag. Thi
 
 The generated `weights.rs` file contains weight annotations for your extrinsics, ready to be added to your pallet. The output should be similar to the following. Some output is omitted for brevity: 
 
---8<-- 'code/develop/parachains/customize-parachain/benchmarking/benchmark-output.html'
+--8<-- 'code/develop/parachains/testing/benchmarking/benchmark-output.html'
 
 #### Add Benchmark Weights to Pallet
 
 Once the `weights.rs` is generated, you may add the generated weights to your pallet. It is common that `weights.rs` become part of your pallet's root in `src/`:
 
 ```rust
---8<-- 'code/develop/parachains/customize-parachain/benchmarking/weight-config.rs'
+--8<-- 'code/develop/parachains/testing/benchmarking/weight-config.rs'
 ```
 
 After which, you may add this to the `#[pallet::weight]` annotation in the extrinsic via the `Config`: 
 
 ```rust hl_lines="2"
---8<-- 'code/develop/parachains/customize-parachain/benchmarking/dispatchable-pallet-weight.rs'
+--8<-- 'code/develop/parachains/testing/benchmarking/dispatchable-pallet-weight.rs'
 ```
 
 ## Where to Go Next

@@ -113,18 +113,13 @@ To modify the chain specification:
 
 5. Save your changes and close the plain text chain specification file
 
-6. Generate a raw chain specification file from the modified chain specification file:
+6. Convert the modified plain chain specification file to a raw chain specification file:
 
       ```bash
-      polkadot-omni-node build-spec \
-        --chain plain-parachain-chainspec.json \
-        --disable-default-bootnode \
-        --raw > raw-parachain-chainspec.json
-      ```
+      chain-spec-builder convert-to-raw chain_spec.json
+      ````
 
-      After running the command, you will see the following output:
-
-      --8<-- 'code/tutorials/polkadot-sdk/parachains/connect-to-relay-chain/acquire-a-testnet-slot/acquire-a-testnet-slot-2.html'
+    You should now see your chain specification containing SCALE-encoded hex values versus plain text.
 
 ## Export Required Files
 

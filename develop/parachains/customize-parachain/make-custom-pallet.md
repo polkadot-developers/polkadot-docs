@@ -154,8 +154,30 @@ After following all the previous steps, the pallet is now fully implemented. Bel
 
 With the pallet implemented, the next steps involve ensuring its reliability and performance before integrating it into a runtime. Check the following sections:
 
-- [**Testing**](/develop/parachains/testing/) - learn how to effectively test the functionality and reliability of your pallet to ensure it behaves as expected
+<div class="grid cards" markdown>
 
-- [**Benchmarking**](/develop/parachains/customize-parachain/benchmarking/) - explore methods to measure the performance and execution cost of your pallet
+-   <span class="badge guide">Guide</span> __Testing__
 
-- [**Add a Pallet to the Runtime**](/develop/parachains/customize-parachain/add-existing-pallets/) - follow this guide to include your pallet in a Polkadot SDK-based runtime, making it ready for use in your blockchain
+    ---
+
+    Learn how to effectively test the functionality and reliability of your pallet to ensure it behaves as expected.
+
+    [:octicons-arrow-right-24: Reference](/develop/parachains/testing/)
+
+-   <span class="badge guide">Guide</span> __Benchmarking__
+
+    ---
+
+    Explore methods to measure the performance and execution cost of your pallet.
+
+    [:octicons-arrow-right-24: Reference](/develop/parachains/testing/benchmarking)
+
+-   <span class="badge guide">Guide</span> __Add a Pallet to the Runtime__
+
+    ---
+
+    Follow this guide to include your pallet in a Polkadot SDK-based runtime, making it ready for use in your blockchain.
+
+    [:octicons-arrow-right-24: Reference](/develop/parachains/customize-parachain/add-existing-pallets/)
+
+</div>

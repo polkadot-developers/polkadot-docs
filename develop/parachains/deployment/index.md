@@ -47,11 +47,11 @@ flowchart TD
     style group3 fill:#ffffff,stroke:#6e7391,stroke-width:1px
 ```
 
-- **Local development and testing** - the process begins with local development and testing. Developers focus on building the runtime by selecting and configuring the necessary pallets while refining network features. In this phase, it's essential to run a local TestNet to verify transactions and ensure the blockchain behaves as expected. Unit and integration tests are also crucial for ensuring the network works as expected before launch. Thorough testing is conducted, not only for individual components but also for interactions between pallets
+- **Local development and testing** - the process begins with local development and testing. Developers focus on building the runtime by selecting and configuring the necessary pallets while refining network features. In this phase, running a local TestNet is essential to verify transactions and ensure the blockchain behaves as expected. Unit and integration tests ensure the network works as expected before launch. Thorough testing is conducted, not only for individual components but also for interactions between pallets
 
 - **Runtime compilation** - Polkadot SDK-based blockchains are built with Wasm, a highly portable and efficient format. Compiling your blockchain's runtime into Wasm ensures it can be executed reliably across various environments, guaranteeing network-wide compatibility and security. The [srtool](https://github.com/paritytech/srtool){target=\_blank} is helpful for this purpose since it allows you to compile [deterministic runtimes](/develop/parachains/deployment/build-deterministic-runtime/){target=\_blank}
 
-- **Generate chain specifications** - the chain spec file defines the structure and configuration of your blockchain. It includes initial node identities, session keys, and other parameters. Defining a well thought-out chain specification ensures that your network will operate smoothly and according to your intended design
+- **Generate chain specifications** - the chain spec file defines the structure and configuration of your blockchain. It includes initial node identities, session keys, and other parameters. Defining a well-thought-out chain specification ensures that your network will operate smoothly and according to your intended design
 
 - **Deployment environment** - whether launching a local test network or a production-grade blockchain, selecting the proper infrastructure is vital. For further information about these topics, see the [Infrastructure](/infrastructure/){target=\_blank} section
 

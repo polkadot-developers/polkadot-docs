@@ -9,7 +9,7 @@ description: Learn how to efficiently test pallets in the Polkadot SDK, ensuring
 
 Unit testing in the Polkadot SDK helps ensure that the functions provided by a pallet behave as expected. It also confirms that data and events associated with a pallet are processed correctly during interactions. The Polkadot SDK offers a set of APIs to create a test environment that can simulate runtime and mock transaction execution for both extrinsic and queries.
 
-To begin unit testing, you must first set up a mock runtime that simulates blockchain behavior, incorporating the necessary pallets. For a deeper understanding, consult the [`Mock Runtime`](/develop/parachains/testing/mock-runtime/){target=\_blank} guide.
+To begin unit testing, you must first set up a mock runtime that simulates blockchain behavior, incorporating the necessary pallets. For a deeper understanding, consult the [Mock Runtime](/develop/parachains/testing/mock-runtime/){target=\_blank} guide.
 
 ## Writing Unit Tests
 

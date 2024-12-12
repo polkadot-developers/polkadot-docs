@@ -1,5 +1,5 @@
 ---
-title: Mock Runtime
+title: Mock Runtime for Pallet Testing
 description: Learn how to create a mock environment to test complete pallets functionalities in the Polkadot SDK, ensuring integration between pallets and system components.
 ---
 
@@ -28,7 +28,7 @@ Here's a simple example of how to create a testing module that simulates these i
 
 Alternatively, you can create a separate `mock.rs` file to define the configuration for your mock runtime, and a companion `tests.rs` file to house the specific logic for each individual test.
 
-Once the testing module is configured, you can craft your mock runtime using the [frame_support::runtime](https://paritytech.github.io/polkadot-sdk/master/frame_support/attr.runtime.html){target=\_blank} macro. This macro allows you to define a runtime environment that will be created for testing purposes:
+Once the testing module is configured, you can craft your mock runtime using the [`frame_support::runtime`](https://paritytech.github.io/polkadot-sdk/master/frame_support/attr.runtime.html){target=\_blank} macro. This macro allows you to define a runtime environment that will be created for testing purposes:
 
 ```rust
 --8<-- 'code/develop/parachains/testing/mock-runtime/mock-runtime.rs'
@@ -53,7 +53,7 @@ You can also customize the genesis storage to set initial values for your runtim
 --8<-- 'code/develop/parachains/testing/mock-runtime/genesis-config-custom.rs'
 ```
 
-###  Pallet Configuration
+### Pallet Configuration
 
 Each pallet in the mocked runtime requires an associated configuration. To simplify testing, many of these types are basic or primitive, replacing more complex, abstract types.
 

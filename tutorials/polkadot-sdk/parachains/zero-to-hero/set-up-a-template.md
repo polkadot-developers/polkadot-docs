@@ -1,6 +1,6 @@
 ---
 title: Set Up a Template
-description: Learn to compile and run a local parachain node using Polkadot SDK. Launch, run, and interact with a pre-configured node template.
+description: Learn to compile and run a local parachain node using Polkadot SDK. Launch, run, and interact with a pre-configured runtime template.
 ---
 
 # Set Up a Template
@@ -148,3 +148,17 @@ To stop the local node:
 1. Return to the terminal window where the node output is displayed
 2. Press `Control-C` to stop the running process
 3. Verify that your terminal returns to the prompt in the `parachain-template` directory
+
+## Where to Go Next
+
+<div class="grid cards" markdown>
+
+-   <span class="badge tutorial">Tutorial</span> __Build a Custom Pallet__
+
+    ---
+
+    Learn how to build a custom pallet for Polkadot SDK-based blockchains with this step-by-step guide. Create and configure a simple counter pallet from scratch.
+
+    [:octicons-arrow-right-24: Reference](/tutorials/polkadot-sdk/parachains/zero-to-hero/build-custom-pallet/)
+
+</div>

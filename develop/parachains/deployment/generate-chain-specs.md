@@ -141,7 +141,7 @@ After generating a chain specification, you can use it to initialize the genesis
 
 <div class="grid cards" markdown>
 
--   __Spin Your Own Nodes__
+-   <span class="badge tutorial">Tutorial</span> __Spin Your Own Nodes__
 
     ---
 

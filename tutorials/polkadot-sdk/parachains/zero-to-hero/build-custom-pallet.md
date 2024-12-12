@@ -16,41 +16,7 @@ In this tutorial, you'll learn how to create a custom pallet from scratch. You w
 - Users can increment and decrement a counter
 - Only a [root origin](https://paritytech.github.io/polkadot-sdk/master/frame_system/pallet/type.Origin.html#variant.Root){target=\_blank} can set an arbitrary counter value
 
-You'll use the [Polkadot SDK Solochain Template](https://github.com/paritytech/polkadot-sdk-solochain-template){target=\_blank}, a pre-configured blockchain template that provides a functional development environment.
-
-## Prerequisites
-
-To set up your development environment for the Polkadot SDK, you'll need:
-
-- **Rust installed** - the node template is written in [Rust](https://www.rust-lang.org/){target=\_blank}. Install it by following the [Installation](/develop/parachains/get-started/install-polkadot-sdk){target=\_blank} guide for step-by-step instructions on setting up your development environment
-
-## Set Up a Chain Template
-
-The [Polkadot SDK Solochain Template](https://github.com/paritytech/polkadot-sdk-solochain-template){target=\_blank} provides a ready-to-use development environment for building using the [Polkadot SDK](https://github.com/paritytech/polkadot-sdk){target=\_blank}. Follow these steps to compile the node:
-
-1. Clone the repository:
-    ```bash
-    git clone -b {{dependencies.polkadot_sdk_solochain_template.version}} {{dependencies.polkadot_sdk_solochain_template.repository_url}}
-    ```
-
-    !!!note
-        Ensure you're using the version `{{dependencies.polkadot_sdk_solochain_template.version}}` of the Polkadot SDK Solochain Template to be able to follow this tutorial step by step.
-
-2. Navigate to the project directory:
-    ```bash
-    cd polkadot-sdk-solochain-template
-    ```
-
-3. Compile the node template:
-    ```bash
-    cargo build --release
-    ```
-
-    !!!note
-        Depending on your machine's specifications, initial compilation may take several minutes. For optimized artifacts, use the `--release` flag.
-
-4. Verify successful compilation by checking that the output is similar to:
-    --8<-- 'code/tutorials/polkadot-sdk/parachains/zero-to-hero/build-custom-pallet/compilation-output.html'
+You'll use the [Polkadot SDK Parachain Template](https://github.com/paritytech/polkadot-sdk/tree/master/templates/parachain){target=\_blank} set up in the previous tutorial.
 
 ## Create a New Project
 
@@ -283,13 +249,6 @@ To review this implementation, you can find the complete pallet code below:
     ```rust
     --8<-- 'code/tutorials/polkadot-sdk/parachains/zero-to-hero/build-custom-pallet/lib.rs'
     ```
-
-## Where to Go Next
-
-To ensure the reliability of your pallet, it’s crucial to test its functionality thoroughly. 
-
-Proceed to the following tutorial: [Pallet Testing](TODO: add-path), where you’ll learn how to write comprehensive tests for your pallet to validate its behavior and prevent bugs.
-
 
 ## Where to Go Next
 

@@ -202,11 +202,11 @@ Sometimes, XCM transfers may fail due to liquidity or other errors. Failed trans
 
 For detailed error management in XCM, see Gavin Wood's blog post on [XCM Execution and Error Management](https://www.polkadot.network/blog/xcm-part-three-execution-and-error-management){target=\_blank}.
 
-## Tutorials
+## Where to Go Next
 
 <div class="grid cards" markdown>
 
--   __Register a Local Asset__
+-   <span class="badge tutorial">Tutorial</span> __Register a Local Asset__
 
     ---
 
@@ -214,7 +214,7 @@ For detailed error management in XCM, see Gavin Wood's blog post on [XCM Executi
 
     [:octicons-arrow-right-24: Reference](/tutorials/polkadot-sdk/system-chains/asset-hub/register-local-asset/)
 
--   __Register a Foreign Asset__
+-   <span class="badge tutorial">Tutorial</span> __Register a Foreign Asset__
 
     ---
 
@@ -222,7 +222,7 @@ For detailed error management in XCM, see Gavin Wood's blog post on [XCM Executi
 
     [:octicons-arrow-right-24: Reference](/tutorials/polkadot-sdk/system-chains/asset-hub/register-foreign-asset/)
 
--   __Convert Assets__
+-   <span class="badge tutorial">Tutorial</span> __Convert Assets__
 
     ---
 

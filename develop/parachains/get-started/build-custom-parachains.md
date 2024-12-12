@@ -58,11 +58,11 @@ Once your chain is functional locally, depending on your project’s goals, you 
 
 After deployment, regular monitoring and maintenance are essential to ensure that the chain is functioning as expected. Developers need to be able to monitor the chain's performance, identify issues, and troubleshoot problems. Key activities include tracking network health, node performance, and transaction throughput. It's also essential to test the blockchain’s scalability under high load and perform security audits regularly to prevent vulnerabilities. For more information on monitoring and maintenance, refer to the [Maintenance](/develop/parachains/maintenance/) section.
 
-## Tutorials
+## Where to Go Next
 
 <div class="grid cards" markdown>
 
--   __Build a Local Solochain__
+-   <span class="badge tutorial">Tutorial</span> __Build a Local Solochain__
 
     ---
 
@@ -70,7 +70,7 @@ After deployment, regular monitoring and maintenance are essential to ensure tha
 
     [:octicons-arrow-right-24: Reference](tutorials/polkadot-sdk/parachains/local-chain/)
 
--   __Connect to a Relay Chain__
+-   <span class="badge tutorial">Tutorial</span> __Connect to a Relay Chain__
 
     ---
 

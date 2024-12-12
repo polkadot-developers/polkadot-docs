@@ -14,7 +14,7 @@ This tutorial demonstrates deploying a parachain on a public test network like t
 Before you start, you need to have the following prerequisites:
 
 - You know how to generate and modify chain specification files as described in the [Generate Chain Specs](/develop/parachains/deployment/generate-chain-specs){target=\_blank} section
-- You have installed the [`polkadot-omni-node`](https://paritytech.github.io/polkadot-sdk/master/polkadot_sdk_docs/reference_docs/omni_node/index.html){target=\_blank} and [`chain-spec-builder`](https://docs.rs/staging-chain-spec-builder/latest/staging_chain_spec_builder/){target=\_blank} binaries
+- You have installed the [`polkadot-omni-node`](https://paritytech.github.io/polkadot-sdk/master/polkadot_sdk_docs/reference_docs/omni_node/index.html){target=\_blank} and [`chain-spec-builder`](https://crates.io/crates/staging-chain-spec-builder){target=\_blank} binaries
 - You know how to generate and store keys as described in the [Spin Your Nodes](/tutorials/polkadot-sdk/parachains/local-chain/spin-your-nodes){target=\_blank} tutorial
 - You have completed the [Prepare a Local Relay Chain](/tutorials/polkadot-sdk/parachains/connect-to-relay-chain/prepare-relay-chain/){target=\_blank} and the [Prepare a Local Parachain](/tutorials/polkadot-sdk/parachains/connect-to-relay-chain/prepare-parachain/){target=\_blank} tutorials on your local computer
 

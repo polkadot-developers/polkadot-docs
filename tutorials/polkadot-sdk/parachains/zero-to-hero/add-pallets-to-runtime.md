@@ -53,3 +53,48 @@ To perform this, take the following steps:
     ```
 
 ## Recompile the Runtime
+
+After adding and configuring your pallets in the runtime, the next step is to ensure everything is set up correctly. To do this, recompile the runtime using the following command:
+
+```bash
+cargo build --release
+```
+
+This process verifies that your changes integrate seamlessly and that the runtime compiles without errors, preparing it for testing or deployment.
+
+## Run your Chain
+
+To run your chain, run the following commands:
+
+1. Override the generated chain spec file:
+
+    ```bash
+    chain-spec-builder create --relay-chain paseo \
+    --para-id 1000 \
+    --runtime ./target/release/wbuild/parachain-template-runtime/parachain_template_runtime.compact.compressed.wasm \
+    named-preset development
+    ```
+
+2. Start the omni node with the generated chain spec
+
+    ```bash
+    polkadot-omni-node --chain ./chain_spec.json --dev
+    ```
+
+3. Check that the pallets are available trhough the Polkadot.Js Apps interface  
+
+    TODO: add image
+
+## Where to Go Next
+
+<div class="grid cards" markdown>
+
+-   <span class="badge tutorial">Tutorial</span> __Execute a Runtime Upgrade__
+
+    ---
+
+    Learn how to perform forkless runtime upgrades on a Polkadot SDK-based blockchain. Add features and modify parameters without network disruption.
+
+    [:octicons-arrow-right-24: Reference](/tutorials/polkadot-sdk/parachains/zero-to-hero/execute-runtime-upgrade/)
+
+</div>

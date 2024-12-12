@@ -148,5 +148,22 @@ Finally, to compose the runtime, update the list of pallets in the same file by 
 
 With the pallet successfully added and configured, the runtime is ready to be compiled and used. Following this guide’s steps, you’ve integrated a new pallet into the runtime, set up its dependencies, and ensured proper configuration. You can now proceed to any of the following points:
 
-- Dive deeper by [creating your custom pallet](/develop/parachains/customize-parachain/make-custom-pallet/) to expand the functionality of your blockchain
-- Ensure robustness with [Pallet Testing](/develop/parachains/customize-parachain/pallet-testing/) to verify the accuracy and behavior of your code
+<div class="grid cards" markdown>
+
+-   <span class="badge guide">Guide</span> __Make a Custom Pallet__
+
+    ---
+
+    Learn how to create custom pallets using FRAME, allowing for flexible, modular, and scalable blockchain development. Follow the step-by-step guide.
+
+    [:octicons-arrow-right-24: Reference](/develop/parachains/customize-parachain/make-custom-pallet/)
+
+-   <span class="badge guide">Guide</span> __Pallet Testing__
+
+    ---
+
+    Learn how to efficiently test pallets in the Polkadot SDK, ensuring the reliability and security of your pallets operations.
+
+    [:octicons-arrow-right-24: Reference](/develop/parachains/customize-parachain/pallet-testing/)
+
+</div>

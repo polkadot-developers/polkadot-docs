@@ -52,6 +52,7 @@ Building a custom blockchain with the Polkadot SDK involves several core steps, 
 
 Each of these steps is designed to build on the last, helping ensure that your custom blockchain is functional, optimized, and ready for deployment within the Polkadot ecosystem or beyond.
 
+<!-- This page will be removed  -->
 ## Where to Go Next
 
 Once your chain is functional locally, depending on your project’s goals, you can deploy to a TestNet to monitor performance and gather feedback or launch directly on a MainNet. To learn more about this process, check the [Deploy a Parachain](/develop/parachains/deployment/) section of the documentation.

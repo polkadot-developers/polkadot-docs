@@ -23,19 +23,19 @@ In this tutorial, you will:
 
 Before proceeding, you should have the following items:
 
-!!!note
- You may disregard these prerequisites if you only wish to purchase a core without a parachain.
-
 - A parachain ID
 - A chain specification
 - A registered parathread with the correct genesis, runtime, and parachain ID that matches the chain specification
 - A properly configured and synced (with the relay chain) collator
 
+!!!note
+    You may only consider these prerequisites if you wish to purchase a core with a parachain.
+
 Once the above is complete, obtaining coretime is the last step to enable your parachain to start producing and finalizing blocks using the relay chain's validator set. If you don't, refer to the previous tutorial: [Deploy on Paseo TestNet](todo).
 
 ## Purchasing Bulk Coretime
 
-Purchasing bulk coretime involves purchasing a core from the [Coretime Chain](../../../polkadot-protocol/architecture/system-chains/coretime.md), which has an instance of [`pallet_broker`](https://paritytech.github.io/polkadot-sdk/master/pallet_broker/index.html){target=\blank} (the Broker pallet). Although this can be done via sending extrinsics through a tool like Polkadot.js Apps, there are user interfaces for purchasing and managing bulk coretime:
+Purchasing bulk coretime involves purchasing a core from the [Coretime Chain](/polkadot-protocol/architecture/system-chains/coretime/){target=\_blank}, which has an instance of [`pallet_broker`](https://paritytech.github.io/polkadot-sdk/master/pallet_broker/index.html){target=\blank} (the Broker pallet). Although this can be done via sending extrinsics through a tool like Polkadot.js Apps, there are user interfaces for purchasing and managing bulk coretime:
 
 - [RegionX Coretime Marketplace (includes Paseo support)](https://app.regionx.tech){target=\blank}
 - [Lastic Coretime Marketplace](https://www.lastic.xyz/polkadot/bulkcore1){target=\blank}
@@ -53,7 +53,7 @@ After connecting your wallet, you must obtain funds on the Coretime Chain. You c
 ![](/images/tutorials/polkadot-sdk/parachains/obtain-coretime/obtain-coretime-1.webp)
 
 !!!info 
- If you are purchasing a core on a TestNet, be sure to visit the [Polkadot Faucet](https://faucet.polkadot.io/westend){target=\blank}.
+    If you are purchasing a core on a TestNet, be sure to visit the [Polkadot Faucet](https://faucet.polkadot.io/westend){target=\_blank}.
 
 If successful, you should see the balance in the upper right of the **Transfer** page update with balances on the relay and Coretime chain, respectively: 
 
@@ -61,13 +61,13 @@ If successful, you should see the balance in the upper right of the **Transfer**
 
 ### Purchasing a Core
 
-For this tutorial, we will use [RegionX](https://app.regionx.tech){target=\blank}. Once you open the app, you should be presented with the following screen:
+For this tutorial, we will use [RegionX](https://app.regionx.tech){target=\_blank}. Once you open the app, you should be presented with the following screen:
 
 ![](/images/tutorials/polkadot-sdk/parachains/obtain-coretime/obtain-coretime-3.webp)
 
 On the top left is a network switch. Ensure you have selected your parachain and that it is registered before purchasing a core.
 
-To purchase a core, go to the menu on the left and select the **Purchase A Core** item under **Primary Market**. Here, you should see the cores available for purchase, details regarding the sale period, and its current phase. Alternatively, you may use this link to visit it: [**Primary Market > Purchase A Core**](https://app.regionx.tech/purchase){target=\blank}:
+To purchase a core, go to the menu on the left and select the **Purchase A Core** item under **Primary Market**. Here, you should see the cores available for purchase, details regarding the sale period, and its current phase. Alternatively, you may use this link to visit it: [**Primary Market > Purchase A Core**](https://app.regionx.tech/purchase){target=\_blank}:
 
 ![](/images/tutorials/polkadot-sdk/parachains/obtain-coretime/obtain-coretime-4.webp)
 
@@ -75,7 +75,7 @@ At the bottom of the page, select the **Purchase a Core** button on the bottom r
 
 ![](/images/tutorials/polkadot-sdk/parachains/obtain-coretime/obtain-coretime-5.webp)
 
-Once the transaction is confirmed, click [**My Regions**](https://app.regionx.tech/regions){target=\blank} on the left-hand menu, and you will see your purchased core:
+Once the transaction is confirmed, click [**My Regions**](https://app.regionx.tech/regions){target=\_blank} on the left-hand menu, and you will see your purchased core:
 
 ![](/images/tutorials/polkadot-sdk/parachains/obtain-coretime/obtain-coretime-6.webp)
 
@@ -105,15 +105,10 @@ Navigate to [Developer > Extrinsics](https://polkadot.js.org/apps/#/extrinsics){
 !!!info
  There are two extrinsics which allow you to place orders for on-demand coretime:
 
- - `onDemandAssignmentProvider.placeOrderAllowDeath` will
- [reap](https://wiki.polkadot.network/docs/learn-accounts#existential-deposit-and-reaping){target=\blank} the account once the provided funds
- run out.
+ - [`onDemandAssignmentProvider.placeOrderAllowDeath`](https://paritytech.github.io/polkadot-sdk/master/polkadot_runtime_parachains/on_demand/pallet/dispatchables/fn.place_order_allow_death.html){target=\_blank} - will [reap](https://wiki.polkadot.network/docs/learn-accounts#existential-deposit-and-reaping){target=\blank} the account once the provided funds run out.
+ - [`onDemandAssignmentProvider.placeOrderKeepAlive`](https://paritytech.github.io/polkadot-sdk/master/polkadot_runtime_parachains/on_demand/pallet/dispatchables/fn.place_order_keep_alive.html){target=\_blank} - includes a check which will **not** reap the account if the provided funds will run out, ensuring the account is kept alive.
 
- - `onDemandAssignmentProvider.placeOrderKeepAlive` includes a check which will **not** reap the
- account if the provided funds will run out, ensuring the account is kept alive.
-
-With each successful on-demand extrinsic, the parachain head changes (you may have to zoom out on
-the browser for parachain head details to show up on Polkadot-JS UI).
+With each successful on-demand extrinsic, the parachain head changes (you may have to zoom out on the browser for parachain head details to show up on the Polkadot.Js Apps interface).
 
 ![](/images/tutorials/polkadot-sdk/parachains/obtain-coretime/obtain-coretime-10.webp)
 

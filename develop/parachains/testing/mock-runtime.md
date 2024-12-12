@@ -74,4 +74,14 @@ The configuration should be set for each pallet existing in the mocked runtime.
 
 With the mock environment in place, developers can now test and explore how pallets interact and ensure they work seamlessly together.
 
-The [Pallet Testing](/develop/parachains/testing/pallet-testing/) guide offers comprehensive insights and best practices for navigating the intricacies of pallet testing.
+<div class="grid cards" markdown>
+
+-   <span class="badge guide">Guide</span> __Pallet Testing__
+
+    ---
+
+    Learn how to efficiently test pallets in the Polkadot SDK, ensuring the reliability and security of your pallets operations.
+
+    [:octicons-arrow-right-24: Reference](/develop/parachains/testing/pallet-testing/)
+
+</div>

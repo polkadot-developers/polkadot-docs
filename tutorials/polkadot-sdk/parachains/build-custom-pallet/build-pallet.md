@@ -93,13 +93,13 @@ To build and integrate your custom pallet into a Polkadot SDK-based runtime, you
 2. Add the required dependencies in the `[dependencies]` section:
 
     ```toml
-    --8<-- 'code/tutorials/polkadot-sdk/parachains/build-custom-pallet/build-pallet/Cargo.toml:10:18'
+    --8<-- 'code/tutorials/polkadot-sdk/parachains/build-custom-pallet/build-pallet/Cargo.toml:10:14'
     ```
 
 3. Enable `std` features:
 
     ```toml
-    --8<-- 'code/tutorials/polkadot-sdk/parachains/build-custom-pallet/build-pallet/Cargo.toml:20:27'
+    --8<-- 'code/tutorials/polkadot-sdk/parachains/build-custom-pallet/build-pallet/Cargo.toml:16:18'
     ```
 
 The final `Cargo.toml` should resemble the following:
@@ -241,7 +241,7 @@ Below you can find the implementations of each dispatchable call in this pallet:
         - Emits a `CounterIncremented` event on success
 
     ```rust
-    --8<-- 'code/tutorials/polkadot-sdk/parachains/build-custom-pallet/build-pallet/lib.rs:101:141'
+    --8<-- 'code/tutorials/polkadot-sdk/parachains/build-custom-pallet/build-pallet/lib.rs:101:143'
     ```
 
 
@@ -259,7 +259,7 @@ Below you can find the implementations of each dispatchable call in this pallet:
         - Emits a `CounterDecremented` event on success
 
     ```rust
-    --8<-- 'code/tutorials/polkadot-sdk/parachains/build-custom-pallet/build-pallet/lib.rs:143:178'
+    --8<-- 'code/tutorials/polkadot-sdk/parachains/build-custom-pallet/build-pallet/lib.rs:145:182'
     ```
 
 ## Verify Compilation

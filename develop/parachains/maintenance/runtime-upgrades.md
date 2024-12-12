@@ -71,11 +71,11 @@ FRAME storage migrations run in this order:
 2. System `frame_system::on_runtime_upgrade` functions
 3. All `on_runtime_upgrade` functions defined in the runtime starting with the last pallet in the `construct_runtime!` macro
 
-## Tutorials
+## Where to Go Next
 
 <div class="grid cards" markdown>
 
--   __Upgrade a Running Network__
+-   <span class="badge tutorial">Tutorial</span> __Upgrade a Running Network__
 
     ---
 

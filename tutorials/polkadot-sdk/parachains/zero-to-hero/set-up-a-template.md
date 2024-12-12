@@ -3,15 +3,15 @@ title: Set Up a Template
 description: Learn to compile and run a local parachain node using Polkadot SDK. Launch, run, and interact with a pre-configured node template.
 ---
 
-# Launch a Local Solochain
+# Set Up a Template
 
 ## Introduction
 
 [Polkadot SDK](https://github.com/paritytech/polkadot-sdk){target=\_blank} offers a versatile and extensible blockchain development framework, enabling you to create custom blockchains tailored to your specific application or business requirements. 
 
-This tutorial guides you through compiling and running a parachain node using the [Polkadot SDK Parachain Template](https://github.com/paritytech/polkadot-sdk-parachain-template){target=\_blank}.
+This tutorial guides you through compiling and running a parachain node using the [Polkadot SDK Parachain Template](https://github.com/paritytech/polkadot-sdk/tree/master/templates/parachain){target=\_blank}.
 
-The node template provides a pre-configured, functional single-node blockchain you can run in your local development environment. It includes several key components, such as user accounts and account balances.
+The parachain template provides a pre-configured, functional runtime you can use in your local development environment. It includes several key components, such as user accounts and account balances.
 
 These predefined elements allow you to experiment with common blockchain operations without requiring initial template modifications.
 In this tutorial, you will:
@@ -33,12 +33,12 @@ To get started with the node template, you'll need to have the following set up 
 
 This tutorial requires two essential tools:
 
-- [**Chain spec builder**](https://docs.rs/staging-chain-spec-builder/6.0.0/staging_chain_spec_builder/){target=\_blank} - is a Polkadot SDK utility for generating chain specifications
+- [**Chain spec builder**](https://paritytech.github.io/polkadot-sdk/master/staging_chain_spec_builder/index.html){target=\_blank} - is a Polkadot SDK utility for generating chain specifications
     
     Install it by executing the following command:
     
     ```bash
-    cargo install staging-chain-spec-builder
+    cargo install --git https://github.com/paritytech/polkadot-sdk --force staging-chain-spec-builder
     ```
 
     This installs the `chain-spec-builder` binary. Refer to the [Generate Chain Specs](/develop/parachains/deployment/generate-chain-specs.md){target=\_blank} documentation for detailed usage.
@@ -54,24 +54,21 @@ This tutorial requires two essential tools:
 
     This installs the `polkadot-omni-node` binary.
 
-## Compile the Node 
+## Compile the Runtime
 
-The [Polkadot SDK Parachain Template](https://github.com/paritytech/polkadot-sdk-parachain-template){target=\_blank} provides a ready-to-use development environment for building using the [Polkadot SDK](https://github.com/paritytech/polkadot-sdk){target=\_blank}. Follow these steps to compile the node:
+The [Polkadot SDK Parachain Template](https://github.com/paritytech/polkadot-sdk/tree/master/templates/parachain){target=\_blank} provides a ready-to-use development environment for building using the [Polkadot SDK](https://github.com/paritytech/polkadot-sdk){target=\_blank}. Follow these steps to compile the runtime:
 
-1. Clone the node template repository:
+1. Clone the template repository:
     ```bash
-    git clone -b {{dependencies.polkadot_sdk_parachain_template.version}} {{dependencies.polkadot_sdk_parachain_template.repository_url}}
+    git clone https://github.com/paritytech/polkadot-sdk-parachain-template.git parachain-template
     ```
 
-    !!!note
-        This tutorial uses version `{{dependencies.polkadot_sdk_parachain_template.version}}` of the Polkadot SDK Parachain Template. Make sure you're using the correct version to match these instructions.
-
-2. Navigate to the root of the node template directory:
+2. Navigate to the root of the template directory:
     ```bash
-    cd polkadot-sdk-parachain-template
+    cd parachain-template
     ```
 
-3. Compile the node template:
+3. Compile the runtime:
     ```bash
     cargo build --release
     ```
@@ -82,35 +79,32 @@ The [Polkadot SDK Parachain Template](https://github.com/paritytech/polkadot-sdk
 4. Upon successful compilation, you should see output similar to:
     --8<-- 'code/tutorials/polkadot-sdk/parachains/zero-to-hero/set-up-a-template/compilation-output.html'
 
-## Start the Local Node
+## Start the Local Chain
 
-After successfully compiling your node, you can run it and produce blocks. This process will start your local parachain and allow you to interact. Follow these steps to launch your node in development mode:
+After successfully compiling your runtime, you can spin up a local chain and produce blocks. This process will start your local parachain and allow you to interact. Follow these steps to launch your node in development mode:
 
 1. First, you need to generate the chain spec file of your parachain:
     ```bash
-    chain-spec-builder create --relay-chain "paseo-local" --para-id 1000 --runtime \
-    target/release/wbuild/parachain-template-runtime/parachain_template_runtime.wasm named-preset development
+    chain-spec-builder create --relay-chain paseo \
+    --para-id 1000 \
+    --runtime ./target/release/wbuild/parachain-template-runtime/parachain_template_runtime.compact.compressed.wasm \
+    named-preset development
     ```
 
-2. Start the omni node with the generated chain spec. You'll start it in development mode (without a relay chain config), producing and finalizing blocks based on manual seal, configured to seal a block with each second:
+2. Start the omni node with the generated chain spec. You'll start it in development mode (without a relay chain config), producing and finalizing blocks:
 
     ```bash
-    polkadot-omni-node --chain <path/to/chain_spec.json> --dev --dev-block-time 1000
+    polkadot-omni-node --chain ./chain_spec.json --dev
     ```
 
-3. In the terminal where you compiled your node, start it in development mode:
-    ```bash
-    ./target/release/solochain-template-node --dev
-    ```
     The `--dev` option does the following:
-    - Specifies that the node runs using the predefined development chain specification
     - Deletes all active data (keys, blockchain database, networking information) when stopped
     - Ensures a clean working state each time you restart the node
 
-4. Verify that your node is running by reviewing the terminal output. You should see something similar to:
+3. Verify that your node is running by reviewing the terminal output. You should see something similar to:
     --8<-- 'code/tutorials/polkadot-sdk/parachains/zero-to-hero/set-up-a-template/node-output.html'
 
-5. Confirm that your blockchain is producing new blocks by checking if the number after `finalized` is increasing
+4. Confirm that your blockchain is producing new blocks by checking if the number after `finalized` is increasing
     --8<-- 'code/tutorials/polkadot-sdk/parachains/zero-to-hero/set-up-a-template/node-block-production.html'
 
     !!!note
@@ -138,7 +132,7 @@ To interact with your node using the [Polkadot.js Apps](https://polkadot.js.org/
     ![](/images/tutorials/polkadot-sdk/parachains/zero-to-hero/set-up-a-template/set-up-a-template-2.webp)
 
 3. Verify connection:
-    - Once connected, you should see **solochain-template-runtime** in the top left corner
+    - Once connected, you should see **parachain-template-runtime** in the top left corner
     - The interface will display information about your local blockchain
     
     ![](/images/tutorials/polkadot-sdk/parachains/zero-to-hero/set-up-a-template/set-up-a-template-3.webp)
@@ -153,4 +147,4 @@ To stop the local node:
 
 1. Return to the terminal window where the node output is displayed
 2. Press `Control-C` to stop the running process
-3. Verify that your terminal returns to the prompt in the `polkadot-sdk-parachain-template` directory
+3. Verify that your terminal returns to the prompt in the `parachain-template` directory

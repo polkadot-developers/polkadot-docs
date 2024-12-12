@@ -135,9 +135,7 @@ After generating a chain specification, you can use it to initialize the genesis
 - [**Deployment**](/develop/parachains/deployment/) - explore the steps required to deploy your chain specification, ensuring a smooth launch of your network and proper node operation
 - [**Maintenance**](/develop/parachains/maintenance/) - discover best practices for maintaining your blockchain post-deployment, including how to manage upgrades and monitor network health
 
-## Tutorials
-
-
+## Where to Go Next
 
 <div class="grid cards" markdown>
 

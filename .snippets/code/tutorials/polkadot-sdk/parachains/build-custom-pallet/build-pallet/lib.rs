@@ -128,7 +128,10 @@ pub mod pallet {
                     .unwrap_or(0)
                     .checked_add(1)
                     .ok_or(Error::<T>::UserInteractionOverflow)?;
-                Ok(new_interactions)
+                *interactions = Some(new_interactions); // Store the new value
+
+                Ok(())
+            })?;
             })?;
 
             Self::deposit_event(Event::<T>::CounterIncremented {
@@ -165,7 +168,9 @@ pub mod pallet {
                     .unwrap_or(0)
                     .checked_add(1)
                     .ok_or(Error::<T>::UserInteractionOverflow)?;
-                Ok(new_interactions)
+                *interactions = Some(new_interactions); // Store the new value
+
+                Ok(())
             })?;
 
             Self::deposit_event(Event::<T>::CounterDecremented {

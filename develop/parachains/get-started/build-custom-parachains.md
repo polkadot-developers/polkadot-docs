@@ -52,30 +52,9 @@ Building a custom blockchain with the Polkadot SDK involves several core steps, 
 
 Each of these steps is designed to build on the last, helping ensure that your custom blockchain is functional, optimized, and ready for deployment within the Polkadot ecosystem or beyond.
 
+<!-- This page will be removed  -->
 ## Where to Go Next
 
 Once your chain is functional locally, depending on your project’s goals, you can deploy to a TestNet to monitor performance and gather feedback or launch directly on a MainNet. To learn more about this process, check the [Deploy a Parachain](/develop/parachains/deployment/) section of the documentation.
 
 After deployment, regular monitoring and maintenance are essential to ensure that the chain is functioning as expected. Developers need to be able to monitor the chain's performance, identify issues, and troubleshoot problems. Key activities include tracking network health, node performance, and transaction throughput. It's also essential to test the blockchain’s scalability under high load and perform security audits regularly to prevent vulnerabilities. For more information on monitoring and maintenance, refer to the [Maintenance](/develop/parachains/maintenance/) section.
-
-## Where to Go Next
-
-<div class="grid cards" markdown>
-
--   <span class="badge tutorial">Tutorial</span> __Build a Local Solochain__
-
-    ---
-
-    Learn to build and manage Polkadot SDK-based local solochains. Covers setup, networking, authorization, monitoring, and upgrades.
-
-    [:octicons-arrow-right-24: Reference](tutorials/polkadot-sdk/parachains/local-chain/)
-
--   <span class="badge tutorial">Tutorial</span> __Connect to a Relay Chain__
-
-    ---
-
-    Learn how to set up a local relay chain for parachain testing, including managing the genesis state, TestNet deployment, and managing the collator nodes.
-
-    [:octicons-arrow-right-24: Reference](tutorials/polkadot-sdk/parachains/connect-to-relay-chain/)
-
-</div>

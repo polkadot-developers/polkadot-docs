@@ -1,4 +1,5 @@
 title: Build Custom Pallet
 nav:
   - index.md
-  - 'Build Pallet': build-pallet.md
+  - 'Pallet Unit Testing': pallet-unit-testing.md
+  

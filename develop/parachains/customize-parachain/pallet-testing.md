@@ -105,4 +105,15 @@ Some key considerations are:
 ## Where to Go Next
 
 - Dive into the full implementation of the [`mock.rs`](https://github.com/paritytech/polkadot-sdk/blob/master/templates/solochain/pallets/template/src/mock.rs){target=\_blank} and [`test.rs`](https://github.com/paritytech/polkadot-sdk/blob/master/templates/solochain/pallets/template/src/tests.rs){target=\_blank} files in the [Solochain Template](https://github.com/paritytech/polkadot-sdk/tree/master/templates/solochain){target=_blank}
-- To evaluate the resource usage of your pallet operations, refer to the [Benchmarking documentation](/develop/parachains/customize-parachain/benchmarking/) for guidance on measuring efficiency
+
+<div class="grid cards" markdown>
+
+-   <span class="badge guide">Guide</span> __Benchmarking__
+
+    ---
+
+    Explore methods to measure the performance and execution cost of your pallet.
+
+    [:octicons-arrow-right-24: Reference](/develop/parachains/testing/benchmarking)
+
+</div>

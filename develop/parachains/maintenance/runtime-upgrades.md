@@ -75,12 +75,12 @@ FRAME storage migrations run in this order:
 
 <div class="grid cards" markdown>
 
--   <span class="badge tutorial">Tutorial</span> __Upgrade a Running Network__
+-   <span class="badge tutorial">Tutorial</span> __Add Pallets to the Runtime__
 
     ---
 
-    Learn how to perform forkless runtime upgrades on a Polkadot SDK-based blockchain. Add features and modify parameters without network disruption.
+    TODO!
 
-    [:octicons-arrow-right-24: Reference](tutorials/polkadot-sdk/parachains/local-chain/upgrade-a-running-network/)
+    [:octicons-arrow-right-24: Reference](/tutorials/polkadot-sdk/parachains/zero-to-hero/add-pallets-to-runtime/)
 
 </div>

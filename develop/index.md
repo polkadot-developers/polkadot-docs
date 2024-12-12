@@ -33,7 +33,7 @@ graph TD
     A[Development Pathways]
     A --> B[Parachain Development]
     A --> C[Smart Contract Development]
-    A --> D[Client-Side Development]
+    A --> D[Application Development]
 ```
 
 !!! tip 
@@ -100,7 +100,7 @@ Build, deploy, and maintain custom parachains with the Polkadot SDK.
 Leverage smart contracts and execute custom logic over existing chains to streamline your development process.
 
 !!! tip
-    The Polkadot smart contract ecosystem is in active development. Please expect frequent changes.
+    The Polkadot smart contract ecosystem is in active development. Please expect frequent changes. You can follow progress, or join the discussion, by visiting this [Contracts on AssetHub Roadmap](https://forum.polkadot.network/t/contracts-on-assethub-roadmap/9513/57){target=\_blank} Polkadot Network Forum post.
 
 
 #### Learn 

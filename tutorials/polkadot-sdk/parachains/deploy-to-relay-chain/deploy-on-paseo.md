@@ -116,7 +116,7 @@ To modify the chain specification:
 6. Convert the modified plain chain specification file to a raw chain specification file:
 
       ```bash
-      chain-spec-builder convert-to-raw chain_spec.json
+      chain-spec-builder convert-to-raw plain-parachain-chainspec.json
       ````
 
     You should now see your chain specification containing SCALE-encoded hex values versus plain text.

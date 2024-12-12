@@ -189,11 +189,11 @@ These are the methods that can be invoked and their parameters:
         --8<-- 'code/develop/toolkit/parachains/fork-chains/chopsticks/get-started/dev-timeTravel-example.js'
         ```
 
-## Tutorials
+## Where to Go Next
 
 <div class="grid cards" markdown>
 
--   __Fork a Chain with Chopsticks__
+-   <span class="badge tutorial">Tutorial</span> __Fork a Chain with Chopsticks__
 
     ---
 

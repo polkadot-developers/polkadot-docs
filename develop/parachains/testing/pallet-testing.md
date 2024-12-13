@@ -45,7 +45,7 @@ Call the pallet’s extrinsics or functions to simulate user interaction or inte
 
 ### Storage Testing
 
-After calling a function or extrinsic in your pallet, it's important to verify that the state changes in the pallet's storage match the expected behavior. This ensures that data is updated correctly based on the actions taken.
+After calling a function or extrinsic in your pallet, it's essential to verify that the state changes in the pallet's storage match the expected behavior to ensure data is updated correctly based on the actions taken.
 
 The following example shows how to test the storage behavior before and after the function call:
 

@@ -35,7 +35,7 @@ Once the testing module is configured, you can craft your mock runtime using the
 ```
 ### Genesis Storage
 
-The next step is configuring the genesis storage—the initial state of your blockchain. Genesis storage sets the starting conditions for the runtime, defining how pallets are configured before any blocks are produced.
+The next step is configuring the genesis storage—the initial state of your runtime. Genesis storage sets the starting conditions for the runtime, defining how pallets are configured before any blocks are produced.
 
 In Polkadot SDK, you can create this storage using the [`BuildStorage`](https://paritytech.github.io/polkadot-sdk/master/sp_runtime/trait.BuildStorage.html){target=\_blank} trait from the [`sp_runtime`](https://paritytech.github.io/polkadot-sdk/master/sp_runtime){target=\_blank} crate. This trait is essential for building the configuration that initializes the blockchain's state.
 

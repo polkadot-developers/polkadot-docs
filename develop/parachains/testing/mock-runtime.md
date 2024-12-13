@@ -56,7 +56,7 @@ You can also customize the genesis storage to set initial values for your runtim
 
 ### Pallet Configuration
 
-Each pallet in the mocked runtime requires an associated configuration, which specifies the types and values it depends on to function. To simplify testing, these configurations often use basic or primitive types (e.g., u32, bool) instead of more complex types like structs or traits, ensuring the setup remains straightforward and manageable.
+Each pallet in the mocked runtime requires an associated configuration, specifying the types and values it depends on to function. These configurations often use basic or primitive types (e.g., u32, bool) instead of more complex types like structs or traits, ensuring the setup remains straightforward and manageable.
 
 ```rust
 --8<-- 'code/develop/parachains/testing/mock-runtime/pallets-configurations.rs'
@@ -81,7 +81,7 @@ With the mock environment in place, developers can now test and explore how pall
 
     ---
 
-    Learn how to efficiently test pallets in the Polkadot SDK, ensuring the reliability and security of your pallets operations.
+    Learn how to efficiently test pallets in the Polkadot SDK, ensuring your pallet operations are reliable and secure.
 
     [:octicons-arrow-right-24: Reference](/develop/parachains/testing/pallet-testing/)
 

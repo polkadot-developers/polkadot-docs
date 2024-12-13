@@ -56,7 +56,7 @@ You can also customize the genesis storage to set initial values for your runtim
 
 ### Pallet Configuration
 
-Each pallet in the mocked runtime requires an associated configuration. To simplify testing, many of these types are basic or primitive, replacing more complex, abstract types.
+Each pallet in the mocked runtime requires an associated configuration, which specifies the types and values it depends on to function. To simplify testing, these configurations often use basic or primitive types (e.g., u32, bool) instead of more complex types like structs or traits, ensuring the setup remains straightforward and manageable.
 
 ```rust
 --8<-- 'code/develop/parachains/testing/mock-runtime/pallets-configurations.rs'

@@ -3,4 +3,5 @@ nav:
   - index.md
   - local-chain
   - connect-to-relay-chain
+  - deploy-to-relay-chain
   - build-custom-pallet

@@ -72,7 +72,7 @@ The configuration should be set for each pallet existing in the mocked runtime.
 
 ## Where to Go Next
 
-With the mock environment in place, developers can now test and explore how pallets interact and ensure they work seamlessly together.
+With the mock environment in place, developers can now test and explore how pallets interact and ensure they work seamlessly together. For further details about mocking runtimes, see the following [Polkadot SDK docs guide](https://paritytech.github.io/polkadot-sdk/master/polkadot_sdk_docs/guides/your_first_pallet/index.html#your-first-test-runtime){target=\_blank}.
 
 <div class="grid cards" markdown>
 

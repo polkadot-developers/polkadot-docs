@@ -75,22 +75,16 @@ Rewards are paid out in the network's native token (DOT for Polkadot and KSM for
 The following example illustrates a four member validator set with their names, amount they have staked, and how payout of rewards is divided. This scenario assumes all validators earned the same amount of era points and no one received tips: 
 
 ``` mermaid
-%%Payout, 4 val set, A-D are validators/stakes, E is payout%%
-
-block-beta
-    columns 1
-  block
+flowchart TD
     A["Alice (18 DOT)"]
     B["Bob (9 DOT)"]
     C["Carol (8 DOT)"]
     D["Dave (7 DOT)"]
-  end
-    space
-    E["Payout (8 DOT total)"]:1
+    E["Payout (8 DOT total)"]
     E --"2 DOT"--> A
     E --"2 DOT"--> B
     E --"2 DOT"--> C
-    E --"2 DOT"--> D 
+    E --"2 DOT"--> D
 ```
 
 Note that this is different than most other Proof of Stake (PoS) systems. As long as a validator is in the validator set, it will receive the same block reward as every other validator. Validator Alice, who had 18 DOT staked, received the same 2 DOT reward in this era as Dave, who had only 7 DOT staked.
@@ -102,18 +96,12 @@ Running multiple validators can offer a more favorable risk/reward ratio compare
 In the preceding section, with 18 DOT staked and no nominators, Alice earned 2 DOT in one era. This example uses DOT, but the same principles apply for KSM on the Kusama network. By managing stake across multiple validators, you can potentially increase overall returns. Recall the set of validators from the preceding section:
 
 ``` mermaid
-%%Payout, 4 val set, A-D are validators/stakes, E is payout%%
-
-block-beta
-    columns 1
-  block
+flowchart TD
     A["Alice (18 DOT)"]
     B["Bob (9 DOT)"]
     C["Carol (8 DOT)"]
     D["Dave (7 DOT)"]
-  end
-    space
-    E["Payout (8 DOT total)"]:1
+    E["Payout (8 DOT total)"]
     E --"2 DOT"--> A
     E --"2 DOT"--> B
     E --"2 DOT"--> C
@@ -123,18 +111,12 @@ block-beta
 Now, assume Alice decides to split their stake and run two validators, each with a nine DOT stake. This validator set only has four spots and priority is given to validators with a larger stake. In this example, Dave has the smallest stake and loses his spot in the validator set. Now, Alice will earn two shares of the total payout each era as illustrated below:
 
 ``` mermaid
-%%Payout, 4 val set, A-D are validators/stakes, E is payout%%
-
-block-beta
-    columns 1
-  block
+flowchart TD
     A["Alice (9 DOT)"]
     F["Alice (9 DOT)"]
     B["Bob (9 DOT)"]
     C["Carol (8 DOT)"]
-  end
-    space
-    E["Payout (8 DOT total)"]:1
+    E["Payout (8 DOT total)"]
     E --"2 DOT"--> A
     E --"2 DOT"--> B
     E --"2 DOT"--> C
@@ -154,16 +136,12 @@ The following examples model splitting validator payments between nominator and 
 Start with the original validator set from the previous section: 
 
 ``` mermaid
-block-beta
-    columns 1
-  block:e
+flowchart TD
     A["Alice (18 DOT)"]
     B["Bob (9 DOT)"]
     C["Carol (8 DOT)"]
     D["Dave (7 DOT)"]
-  end
-    space
-    E["Payout (8 DOT total)"]:1
+    E["Payout (8 DOT total)"]
     E --"2 DOT"--> A
     E --"2 DOT"--> B
     E --"2 DOT"--> C

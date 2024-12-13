@@ -37,7 +37,7 @@ Each test starts by initializing the runtime environment, typically using the `n
 
 ### Function Call Testing
 
-Call the pallet’s extrinsics or functions to simulate user interaction or internal logic. Use the `assert_ok!` macro to check for successful execution and `assert_err!` to verify that errors are handled properly.
+Call the pallet's extrinsics or functions to simulate user interaction or internal logic. Use the `assert_ok!` macro to check for successful execution and `assert_err!` to verify that errors are correctly handled.
 
 ```rust
 --8<-- 'code/develop/parachains/testing/pallet-testing/function-call-testing.rs'

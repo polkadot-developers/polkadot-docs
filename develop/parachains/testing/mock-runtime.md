@@ -1,6 +1,6 @@
 ---
 title: Mock Runtime for Pallet Testing
-description: Learn how to create a mock environment to test complete pallet functionalities in the Polkadot SDK, ensuring integration between pallets and system components.
+description: Learn to create a mock environment in the Polkadot SDK for testing intra-pallet functionality and inter-pallet interactions seamlessly.
 ---
 
 # Mock Runtime

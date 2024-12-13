@@ -218,7 +218,7 @@ The following example illustrates how to customize your inclusion fee. You must 
 
 You now know the weight system, how it affects transaction fee computation, and how to specify weights for your dispatchable calls. The next step is determining the correct weight for your dispatchable operations. You can use Substrate benchmarking functions and frame-benchmarking calls to test your functions with different parameters and empirically determine the proper weight in their worst-case scenarios.
 
-- [Benchmark](/develop/parachains/customize-parachain/benchmarking/)
+- [Benchmark](/develop/parachains/testing/benchmarking/)
 - [`SignedExtension`](https://paritytech.github.io/polkadot-sdk/master/sp_runtime/traits/trait.SignedExtension.html){target=\_blank}
 - [Custom weights for the Example pallet](https://github.com/paritytech/polkadot-sdk/blob/polkadot-stable2412/substrate/frame/examples/basic/src/weights.rs){target=\_blank}
 - [Web3 Foundation Research](https://research.web3.foundation/Polkadot/overview/token-economics#relay-chain-transaction-fees-and-per-block-transaction-limits){target=\_blank}

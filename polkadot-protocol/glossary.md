@@ -276,7 +276,7 @@ A [parachain](#parachain) test network for the Polkadot network. The [Rococo](#r
 
 ## Runtime
 
-The runtime provides the [state transition function](#state-transition-function-stf) for a node. In Polkadot SDK, the runtime is stored as a [Wasm](#webassembly-wasm) binary in the chain state.
+The runtime represents the [state transition function](#state-transition-function-stf) for a blockchain. In Polkadot SDK, the runtime is stored as a [Wasm](#webassembly-wasm) binary in the chain state. The Runtime is stored under a unique state key and can be modified during the execution of the state transition function.
 
 ## Slot
 

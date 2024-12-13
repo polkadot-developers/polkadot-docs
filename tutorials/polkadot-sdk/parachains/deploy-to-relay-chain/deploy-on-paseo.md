@@ -130,14 +130,14 @@ To prepare the parachain collator to be registered on Paseo, follow these steps:
 
       ```bash
       polkadot-omni-node export-genesis-wasm \
-        --chain raw-parachain-chainspec.json para-4508-wasm
+        --chain raw-parachain-chainspec.json para-wasm
       ```
 
 2. Export the genesis state for the parachain by running a command similar to the following:
 
       ```bash
       polkadot-omni-node export-genesis-state \
-        --chain raw-parachain-chainspec.json para-4508-state
+        --chain raw-parachain-chainspec.json para-state
       ```
 
 ## Register a Parathread
@@ -146,7 +146,7 @@ Once you have the genesis state and runtime, you can now register these with you
 
 1. Go to the [Parachains > Parathreads](https://polkadot.js.org/apps/#/parachains/parathreads){target=\_blank} tab, and select **+ Parathread**
    
-2. You should see fields to place your runtime Wasm and genesis state respectively, along with the parachain ID. Select your parachain ID, and upload `para-4508-wasm` in the "code" field and `para-4508-state` in the "initial state" field:
+2. You should see fields to place your runtime Wasm and genesis state respectively, along with the parachain ID. Select your parachain ID, and upload `para-wasm` in the "code" field and `para-state` in the "initial state" field:
 
 ![](/images/tutorials/polkadot-sdk/parachains/connect-to-relay-chain/acquire-a-testnet-slot/acquire-a-testnet-slot-9.webp)
    

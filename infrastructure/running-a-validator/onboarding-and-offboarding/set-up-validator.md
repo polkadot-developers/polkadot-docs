@@ -83,19 +83,19 @@ You can also download the binaries by using the following direct links and repla
 === "`polkadot`"
 
     ``` text
-    https://github.com/paritytech/polkadot-sdk/releases/download/polkadot-INSERT_VERSION_NUMBER/polkadot
+    curl -LO https://github.com/paritytech/polkadot-sdk/releases/download/polkadot-INSERT_VERSION_NUMBER/polkadot
     ```
 
 === "`polkadot-prepare-worker`"
 
     ``` text
-    https://github.com/paritytech/polkadot-sdk/releases/download/polkadot-INSERT_VERSION_NUMBER/polkadot-prepare-worker
+    curl -LO https://github.com/paritytech/polkadot-sdk/releases/download/polkadot-INSERT_VERSION_NUMBER/polkadot-prepare-worker
     ```
 
 === "`polkadot-execute-worker`"
 
     ``` text
-    https://github.com/paritytech/polkadot-sdk/releases/download/polkadot-INSERT_VERSION_NUMBER/polkadot-execute-worker
+    curl -LO https://github.com/paritytech/polkadot-sdk/releases/download/polkadot-INSERT_VERSION_NUMBER/polkadot-execute-worker
     ```
 
 ### Install with Package Managers
@@ -149,8 +149,8 @@ If you prefer using Docker or an OCI-compatible container runtime, the official 
 
 To pull the latest image, run the following command. Make sure to replace `INSERT_VERSION_NUMBER` with the appropriate version number, e.g. `v1.16.1`
 
-```sh
-docker.io/parity/polkadot:INSERT_VERSION_NUMBER
+```bash
+docker pull parity/polkadot:INSERT_VERSION_NUMBER
 ```
 
 ### Build from Sources

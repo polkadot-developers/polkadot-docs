@@ -75,7 +75,8 @@ Launch your parachain locally and start producing blocks:
 1. Create a new chain specification file with the updated runtime:
 
     ```bash
-    chain-spec-builder create --relay-chain paseo \
+    chain-spec-builder create -t development \
+    --relay-chain paseo \
     --para-id 1000 \
     --runtime ./target/release/wbuild/parachain-template-runtime/parachain_template_runtime.compact.compressed.wasm \
     named-preset development

@@ -85,7 +85,8 @@ After successfully compiling your runtime, you can spin up a local chain and pro
 
 1. First, you need to generate the chain spec file of your parachain:
     ```bash
-    chain-spec-builder create --relay-chain paseo \
+    chain-spec-builder create -t development \
+    --relay-chain paseo \
     --para-id 1000 \
     --runtime ./target/release/wbuild/parachain-template-runtime/parachain_template_runtime.compact.compressed.wasm \
     named-preset development

@@ -54,6 +54,9 @@ You can also customize the genesis storage to set initial values for your runtim
 --8<-- 'code/develop/parachains/testing/mock-runtime/genesis-config-custom.rs'
 ```
 
+!!! note
+    For a more idiomatic approach, consult the [`Your first pallet`](https://paritytech.github.io/polkadot-sdk/master/polkadot_sdk_docs/guides/your_first_pallet/index.html#better-test-setup){target=\_blank} guide from the Polkadot SDK rust documentation.
+
 ### Pallet Configuration
 
 Each pallet in the mocked runtime requires an associated configuration, specifying the types and values it depends on to function. These configurations often use basic or primitive types (e.g., u32, bool) instead of more complex types like structs or traits, ensuring the setup remains straightforward and manageable.

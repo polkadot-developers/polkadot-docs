@@ -15,7 +15,8 @@ This guide will walk you through setting up an environment to test pallets withi
 
 ### Testing Module
 
-The mock runtime includes all the necessary pallets and configurations needed for testing. To simplify the process, you can create a module that integrates all components, making it easier to assess how pallets and system elements interact.
+The mock runtime includes all the necessary pallets and configurations needed for testing. To ensure proper testing, you must create a module that integrates all components, enabling assessment of interactions between pallets and system elements.
+
 
 Here's a simple example of how to create a testing module that simulates these interactions:
 

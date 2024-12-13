@@ -8,7 +8,6 @@ description: Learn to create a mock environment in the Polkadot SDK for testing 
 ## Introduction
 
 Simulating real-world operational conditions is essential to feeling confident your blockchain will perform as expected when you deploy it for interactions with users and applications. 
-
 This guide will walk you through setting up an environment to test pallets within the [runtime](/polkadot-protocol/glossary#runtime){target=\_blank}. Doing so lets you evaluate how different pallets, their configurations, and system components interact, ensuring your blockchain functions reliably under real-world conditions.
 
 ## Configuring a Mock Runtime

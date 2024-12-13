@@ -13,7 +13,7 @@ To begin unit testing, you must first set up a mock runtime that simulates block
 
 ## Writing Unit Tests
 
-Once the mock runtime is in place, the next step is to write unit tests that evaluate the functionality of your pallet. Unit tests allow you to test specific pallet features in isolation, ensuring that each function behaves correctly under various conditions. These tests typically reside in your pallet module’s `test.rs` file.
+Once the mock runtime is in place, the next step is to write unit tests that evaluate the functionality of your pallet. Unit tests allow you to test specific pallet features in isolation, ensuring that each function behaves correctly under various conditions. These tests typically reside in your pallet module's `test.rs` file.
 
 Unit tests in the Polkadot SDK use the Rust testing framework, and the mock runtime you've defined earlier will serve as the test environment. Below are the typical steps involved in writing unit tests for a pallet.
 
@@ -66,7 +66,7 @@ Here's an example of testing events in a mock runtime:
 Some key considerations are:
 
 - **Block number** - events are not emitted on the genesis block, so you need to set the block number using [`System::set_block_number()`](https://paritytech.github.io/polkadot-sdk/master/frame_system/pallet/struct.Pallet.html#method.set_block_number){target=\_blank} to ensure events are triggered
-- **Converting events** - use `.into()` when instantiating your pallet’s event to convert it into a generic event type, as required by the system’s event storage
+- **Converting events** - use `.into()` when instantiating your pallet's event to convert it into a generic event type, as required by the system's event storage
 
 ## Where to Go Next
 

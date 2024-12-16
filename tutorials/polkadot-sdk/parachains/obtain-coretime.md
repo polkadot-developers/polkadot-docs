@@ -75,7 +75,7 @@ At the bottom-right corner of the page, select the **Purchase a Core** button. A
 
 ![](/images/tutorials/polkadot-sdk/parachains/obtain-coretime/obtain-coretime-5.webp)
 
-Once the transaction is confirmed, click [**My Regions**](https://app.regionx.tech/regions){target=\_blank} on the left-hand menu, and you will see your purchased core:
+Once the transaction is confirmed, click [**My Regions**](https://app.regionx.tech/regions){target=\_blank} on the left-hand menu, and you will see your purchased core.
 
 ![](/images/tutorials/polkadot-sdk/parachains/obtain-coretime/obtain-coretime-6.webp)
 

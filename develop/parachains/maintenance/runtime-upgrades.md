@@ -81,6 +81,6 @@ FRAME storage migrations run in this order:
 
     TODO!
 
-    [:octicons-arrow-right-24: Reference](/tutorials/polkadot-sdk/parachains/zero-to-hero/add-pallets-to-runtime/)
+    [:octicons-arrow-right-24: Add Pallets to the Runtime](/tutorials/polkadot-sdk/parachains/zero-to-hero/add-pallets-to-runtime/)
 
 </div>

@@ -28,9 +28,6 @@ Before proceeding, you should have the following items:
 - A registered parathread with the correct genesis, runtime, and parachain ID that matches the chain specification
 - A properly configured and synced (with the relay chain) collator
 
-!!!note
-    You may only consider these prerequisites if you wish to purchase a core with a parachain.
-
 Once the above is complete, obtaining coretime is the last step to enable your parachain to start producing and finalizing blocks using the relay chain's validator set. If you don't, refer to the previous tutorial: [Deploy on Paseo TestNet](todo).
 
 ## Purchasing Bulk Coretime

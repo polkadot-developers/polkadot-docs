@@ -105,19 +105,19 @@ This structure provides the foundation for your script. It imports all the neces
 
 ### Connect to the Forked Chain
 
-Inside your `main` function, add the code to connect to your local Polkadot fork:
+Create a `connectToFork` function outside the `main` function to connect your locally forked chain to the Polkadot.js API:
+
+```typescript
+    --8<-- 'code/tutorials/onchain-governance/fast-track-gov-proposal/test-proposal.ts:connectToFork'
+```
+
+Inside the `main` function, add the code to establish a connection to your local Polkadot fork:
 
 ```typescript hl_lines="2-3"
 --8<-- 'code/tutorials/onchain-governance/fast-track-gov-proposal/test-proposal.ts:226:229'
   ...
 }
 ```
-
-???+ function "connectToFork ()"
-
-    ```typescript
-    --8<-- 'code/tutorials/onchain-governance/fast-track-gov-proposal/test-proposal.ts:connectToFork'
-    ```
 
 ### Create and Submit the Proposal
 

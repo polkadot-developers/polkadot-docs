@@ -55,7 +55,7 @@ After connecting your wallet, you must obtain funds on the Coretime chain. You c
 !!!info 
     If you are purchasing a core on a TestNet, be sure to visit the [Polkadot Faucet](https://faucet.polkadot.io/westend){target=\_blank}.
 
-If successful, you should see the balance in the upper right of the **Transfer** page update with balances on the relay and Coretime chain, respectively: 
+If successful, you should see the balance in the upper right of the **Transfer** page update with balances on the relay and Coretime chain, respectively.
 
 ![](/images/tutorials/polkadot-sdk/parachains/obtain-coretime/obtain-coretime-2.webp)
 

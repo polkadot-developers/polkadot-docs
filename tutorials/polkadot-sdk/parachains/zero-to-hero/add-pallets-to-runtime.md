@@ -108,6 +108,6 @@ Launch your parachain locally and start producing blocks:
 
     This guide walks you through the journey of deploying your Polkadot SDK blockchain on Paseo, detailing each step to a successful TestNet deployment.
 
-    [:octicons-arrow-right-24: Execute a Runtime Upgrade](/tutorials/polkadot-sdk/parachains/zero-to-hero/execute-runtime-upgrade/)
+    [:octicons-arrow-right-24: Deploy to TestNet](/tutorials/polkadot-sdk/parachains/zero-to-hero/deploy-to-testnet/)
 
 </div>

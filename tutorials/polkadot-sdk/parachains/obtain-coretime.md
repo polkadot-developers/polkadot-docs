@@ -48,7 +48,7 @@ Purchasing bulk coretime involves purchasing a core from the [Coretime Chain](/p
 
 First, ensure your wallet is connected to the [RegionX](https://app.regionx.tech){target=\_blank} interface. To do so, go to **Home** in the RegionX app and click the **Connect Wallet** button in the upper right.
 
-After connecting your wallet, you must obtain funds on the Coretime Chain. You can use the [RegionX Transfer](https://app.regionx.tech/transfer){target=\blank} page to perform a cross-chain transfer from the relay to the system chain:
+After connecting your wallet, you must obtain funds on the Coretime chain. You can use the [RegionX Transfer](https://app.regionx.tech/transfer){target=\_blank} page to perform a cross-chain transfer from the relay to the system chain.
 
 ![](/images/tutorials/polkadot-sdk/parachains/obtain-coretime/obtain-coretime-1.webp)
 

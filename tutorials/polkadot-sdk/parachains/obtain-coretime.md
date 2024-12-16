@@ -97,8 +97,7 @@ Once you sign and send this transaction, that task/parachain will be assigned to
 
 ## Ordering On Demand Coretime
 
-Navigate to [Developer > Extrinsics](https://polkadot.js.org/apps/#/extrinsics){target=\blank} on the relay chain and issue`onDemand.placeOrderAllowDeath` extrinsic from the account that registered the
-`ParaID` by specifying sufficient `maxAmount`for the transaction to go through successfully.
+On Polkadot.js Apps, make sure you're connected to the relay chain, then navigate to [**Developer > Extrinsics**](https://polkadot.js.org/apps/#/extrinsics){target=\_blank} and issue the `onDemand.placeOrderAllowDeath` extrinsic from the account that registered the `ParaID` by specifying sufficient `maxAmount` for the transaction to go through successfully.
 
 ![](/images/tutorials/polkadot-sdk/parachains/obtain-coretime/obtain-coretime-9.webp)
 

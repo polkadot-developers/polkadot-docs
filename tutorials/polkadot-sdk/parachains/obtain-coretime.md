@@ -83,7 +83,7 @@ Congratulations, you just purchased a core using RegionX! You can assign the cor
 
 ### Assigning a Core
 
-Once you have the core as shown in the dashboard, select it by clicking on it, then click the **Assign** option on the left-hand side. You will be presented with a modal in which you can add a new task:
+Once you have the core as shown in the dashboard, select it by clicking on it, then click the **Assign** option on the left-hand side. You will be presented with a modal in which you can add a new task.
 
 ![](/images/tutorials/polkadot-sdk/parachains/obtain-coretime/obtain-coretime-7.webp)
 

@@ -82,19 +82,19 @@ You can also download the binaries by using the following direct links and repla
 
 === "`polkadot`"
 
-    ``` text
+    ``` bash
     curl -LO https://github.com/paritytech/polkadot-sdk/releases/download/polkadot-INSERT_VERSION_NUMBER/polkadot
     ```
 
 === "`polkadot-prepare-worker`"
 
-    ``` text
+    ``` bash
     curl -LO https://github.com/paritytech/polkadot-sdk/releases/download/polkadot-INSERT_VERSION_NUMBER/polkadot-prepare-worker
     ```
 
 === "`polkadot-execute-worker`"
 
-    ``` text
+    ``` bash
     curl -LO https://github.com/paritytech/polkadot-sdk/releases/download/polkadot-INSERT_VERSION_NUMBER/polkadot-execute-worker
     ```
 

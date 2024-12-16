@@ -121,18 +121,25 @@ Inside the `main` function, add the code to establish a connection to your local
 
 ### Create and Submit the Proposal
 
-In this step, you will perform the following actions:
+Create a `generateProposal` function responsible for preparing and submitting the on-chain proposal. The function implements a workflow that involves:
 
-1. Define the call you want to execute and its origin
+1. Configuring a keyring for the Alice account to facilitate transaction submission. When using Chopsticks, this development account is pre-funded to execute all necessary actions
 
-2. Register a [preimage](/polkadot-protocol/glossary#preimage){target=\_blank} using the selected call
+2. Executing a batch transaction that comprises three critical operations:
+    1. `preimage.notePreimage` - registers a [preimage](/polkadot-protocol/glossary#preimage){target=\_blank} using the selected call
 
-    !!!note
-        The preimage hash is simply the hash of the proposal to be enacted. The on-chain proposals do not require the entire image of extrinsics and data (for instance the Wasm code, in case of upgrades) to be submitted, but would rather just need that image's hash. That preimage can be submitted and stored on-chain against the hash later, upon the proposal's dispatch.
+        !!!note
+            The preimage hash is simply the hash of the proposal to be enacted. The on-chain proposals do not require the entire image of extrinsics and data (for instance the Wasm code, in case of upgrades) to be submitted, but would rather just need that image's hash. That preimage can be submitted and stored on-chain against the hash later, upon the proposal's dispatch.
 
-3. Submit the proposal. It uses the preimage hash (obtained from the call) as part of the proposal submission process. The proposal is submitted with the selected origin
+    2. `referenda.submit` - submits the proposal to the referenda system. It uses the preimage hash, extracted from the call, as part of the proposal submission process. The proposal is submitted with the selected origin
 
-4. Place decision deposit. This deposit is required to move the referendum from the preparing phase to the deciding phase
+    3. `referenda.placeDecisionDeposit` - places the required decision deposit for the referendum. This deposit is required to move the referendum from the preparing phase to the deciding phase
+
+```typescript
+--8<-- 'code/tutorials/onchain-governance/fast-track-gov-proposal/test-proposal.ts:generateProposal'
+```
+
+Within the `main` function, define the specific call you want to execute and its corresponding origin, then invoke the `generateProposal` method:
 
 ```typescript hl_lines="5-14"
 --8<-- 'code/tutorials/onchain-governance/fast-track-gov-proposal/test-proposal.ts:226:240'
@@ -143,45 +150,30 @@ In this step, you will perform the following actions:
 !!!note
     The [`setCodeWithoutChecks`](https://paritytech.github.io/polkadot-sdk/master/frame_system/pallet/struct.Pallet.html#method.set_code_without_checks){target=\_blank} extrinsic used in this example is for demonstration purposes only. Replace it with the specific extrinsic that matches your governance proposal's intended functionality. Ensure the call matches the runtime requirements and governance process of your target Polkadot SDK-based network.
 
-???+ function "generateProposal (api, call, origin)"
-
-    The `generateProposal` function accomplishes these tasks using a batched transaction, which combines multiple operations into a single transaction:
-
-    1. `preimage.notePreimage` - this submits the preimage of the proposal
-    2. `referenda.submit` - submits the actual proposal to the referenda system
-    3. `referenda.placeDecisionDeposit` - places the required decision deposit for the referendum
-   
-    ```typescript
-    --8<-- 'code/tutorials/onchain-governance/fast-track-gov-proposal/test-proposal.ts:generateProposal'
-    ```
-
 ### Force Proposal Execution
 
-After submitting your proposal, you may want to test its execution without waiting for the standard voting and enactment periods. Chopsticks allows you to force the execution of a proposal by manipulating the chain state and the scheduler.
+After submitting your proposal, you might want to test its execution without waiting for the standard voting and enactment periods. Chopsticks provides a way to force the execution of a proposal by directly manipulating the chain state and scheduler.
+
+Create a utility function called `moveScheduledCallTo` and copy the following code. This function helps move a scheduled call to a specific future block in a forked chain by matching certain criteria.
+
+```typescript
+--8<-- 'code/tutorials/onchain-governance/fast-track-gov-proposal/test-proposal.ts:moveScheduledCallTo'
+```
+
+Now, create the `forceProposalExecution` function. This function does two main things:
+
+1. Modify the chain storage to set the proposal's approvals and support to the values needed for it to pass
+2. Force the scheduler to execute the call in the next block instead of waiting for the original scheduled time
+
+```typescript
+--8<-- 'code/tutorials/onchain-governance/fast-track-gov-proposal/test-proposal.ts:forceProposalExecution'
+```
+
+After creating both functions, you can call `forceProposalExecution` from the `main` function with the `proposalIndex` obtained from calling `generateProposal`:
 
 ```typescript hl_lines="16-17"
 --8<-- 'code/tutorials/onchain-governance/fast-track-gov-proposal/test-proposal.ts:main'
 ```
-
-???+ function "forceProposalExecution (api, call, origin)"
-
-    The `forceProposalExecution` function does the following:
-
-    1. It overwrites the chain storage, modifying the parameters of the proposal to set the approvals and support to the required values for the proposal to pass
-    2. It then forces the scheduler to execute the actual call in the next block, instead of waiting for the original scheduled execution time
-
-    ```typescript
-    --8<-- 'code/tutorials/onchain-governance/fast-track-gov-proposal/test-proposal.ts:forceProposalExecution'
-    ```
-
-    !!! note
-        This function depends on the `moveScheduledCallTo` utility function, which is crucial for manipulating the scheduler in a forked chain by moving a specific scheduled call to a desired block.
-
-    ??? function "moveScheduledCallTo (api, blockCounts, verifier)"
-
-        ```typescript
-        --8<-- 'code/tutorials/onchain-governance/fast-track-gov-proposal/test-proposal.ts:moveScheduledCallTo'
-        ```
 
 ## Executing the Proposal Script
 

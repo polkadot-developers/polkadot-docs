@@ -1,4 +1,3 @@
-
 ---
 title: Build the Pallet
 description: Learn how to build a custom pallet for Polkadot SDK-based blockchains with this step-by-step guide. Create and configure a simple counter pallet from scratch.
@@ -260,6 +259,6 @@ To review this implementation, you can find the complete pallet code below:
 
     Discover how to create thorough unit tests for pallets built with the Polkadot SDK, using a custom pallet as a practical example.
 
-    [:octicons-arrow-right-24: Reference](/tutorials/polkadot-sdk/parachains/zero-to-hero/pallet-unit-testing/)
+    [:octicons-arrow-right-24: Pallet Unit Testing](/tutorials/polkadot-sdk/parachains/zero-to-hero/pallet-unit-testing/)
 
 </div>

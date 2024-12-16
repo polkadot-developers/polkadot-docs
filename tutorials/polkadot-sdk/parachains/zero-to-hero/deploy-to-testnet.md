@@ -201,6 +201,6 @@ For more information on coretime, refer to the [Coretime](/polkadot-protocol/arc
 
     TODO
 
-    [:octicons-arrow-right-24: Reference](/tutorials/polkadot-sdk/parachains/zero-to-hero/obtain-coretime/)
+    [:octicons-arrow-right-24: Obtain Coretime](/tutorials/polkadot-sdk/parachains/zero-to-hero/obtain-coretime/)
 
 </div>

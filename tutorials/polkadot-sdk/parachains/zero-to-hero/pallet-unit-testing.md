@@ -169,6 +169,6 @@ After running the test suite, you should see the following output in your termin
 
     TODO!
 
-    [:octicons-arrow-right-24: Reference](/tutorials/polkadot-sdk/parachains/zero-to-hero/add-pallets-to-runtime/)
+    [:octicons-arrow-right-24: Add Pallets to the Runtime](/tutorials/polkadot-sdk/parachains/zero-to-hero/add-pallets-to-runtime/)
 
 </div>

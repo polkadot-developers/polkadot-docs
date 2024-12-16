@@ -160,6 +160,6 @@ To stop the local node:
 
     Learn how to build a custom pallet for Polkadot SDK-based blockchains with this step-by-step guide. Create and configure a simple counter pallet from scratch.
 
-    [:octicons-arrow-right-24: Reference](/tutorials/polkadot-sdk/parachains/zero-to-hero/build-custom-pallet/)
+    [:octicons-arrow-right-24: Build A Custom Pallet](/tutorials/polkadot-sdk/parachains/zero-to-hero/build-custom-pallet/)
 
 </div>

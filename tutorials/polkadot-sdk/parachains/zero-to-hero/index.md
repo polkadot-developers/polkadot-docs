@@ -10,6 +10,9 @@ template: index-page.html
 
 The **Zero To Hero Tutorials** provide developers with a step-by-step guide to building, testing, and deploying custom pallets and runtimes using the Polkadot SDK. These tutorials are designed to help you gain hands-on experience and understand the core concepts necessary to create efficient and scalable blockchains.  
 
+!!! tip
+    Start with the "Set Up a Template" guide to get the most from this section. As you complete each guide, look for "Where to Go Next" to move to the following guide in the series.
+
 ## In This Section
 
 :::INSERT_IN_THIS_SECTION:::

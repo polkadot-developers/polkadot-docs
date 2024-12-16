@@ -76,7 +76,7 @@ After obtaining the transaction, you must handle the signing and submission proc
 
     `opts` ++"TransferArgsOpts<T>"++
 
-    --8<-- './code/develop/toolkit/interoperability/asset-transfer-api/reference/transfer-arg-opts.md'
+    --8<-- 'code/develop/toolkit/interoperability/asset-transfer-api/reference/transfer-arg-opts.md'
 
 ??? interface "Response parameters"
 

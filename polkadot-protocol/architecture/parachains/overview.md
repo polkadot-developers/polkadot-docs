@@ -117,3 +117,15 @@ The XCM protocol mitigates common interoperability challenges in isolated blockc
 ## Where to Go Next
 
 For further information about the consensus protocol used by parachains, see the [Consensus](/polkadot-protocol/architecture/parachains/consensus/) page.
+
+<div class="grid cards" markdown>
+
+-   <span class="badge learn">Learn</span> __Consensus__
+
+    ---
+
+    Understand how the blocks authored by parachain collators are secured by the relay chain validators and how the parachain transactions achieve finality.
+
+    [:octicons-arrow-right-24: Reference](/polkadot-protocol/architecture/parachains/consensus/)
+
+</div>

@@ -100,8 +100,7 @@ To start the validator nodes, follow these steps:
     1. Generate the plain text chain specification file:
 
         ```bash
-        ./target/release/polkadot build-spec \
-          --chain rococo-local-testnet > /tmp/plain-local-chainspec.json
+        chain-spec-builder create -r <path-to-runtime.compact.compressed.wasm> default
         ```
 
         !!! note
@@ -109,11 +108,9 @@ To start the validator nodes, follow these steps:
 
     2. Convert the plain text chain specification file to the raw format:
 
-        ```bash
-        ./target/release/polkadot build-spec \
-          --chain plain-local-chainspec.json \
-          --raw > /tmp/raw-local-chainspec.json
-        ```
+      ```bash
+      chain-spec-builder convert-to-raw plain-parachain-chainspec.json
+      ````
 
 2. Start the first validator using the `alice` account by running the following command:
 

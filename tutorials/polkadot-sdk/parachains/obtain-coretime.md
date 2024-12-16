@@ -107,7 +107,7 @@ On Polkadot.js Apps, make sure you're connected to the relay chain, then navigat
     - [`onDemand.placeOrderAllowDeath`](https://paritytech.github.io/polkadot-sdk/master/polkadot_runtime_parachains/on_demand/pallet/dispatchables/fn.place_order_allow_death.html){target=\_blank} - will [reap](https://wiki.polkadot.network/docs/learn-accounts#existential-deposit-and-reaping){target=\blank} the account once the provided funds run out.
     - [`onDemand.placeOrderKeepAlive`](https://paritytech.github.io/polkadot-sdk/master/polkadot_runtime_parachains/on_demand/pallet/dispatchables/fn.place_order_keep_alive.html){target=\_blank} - includes a check which will **not** reap the account if the provided funds will run out, ensuring the account is kept alive.
 
-With each successful on-demand extrinsic, the parachain head changes (you may have to zoom out on the browser for parachain head details to show up on the Polkadot.Js Apps interface).
+With each successful on-demand extrinsic, the parachain head changes (you may have to zoom out on the browser for parachain head details to show up on the Polkadot.js Apps interface).
 
 ![](/images/tutorials/polkadot-sdk/parachains/obtain-coretime/obtain-coretime-10.webp)
 

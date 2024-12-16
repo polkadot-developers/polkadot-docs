@@ -3,5 +3,6 @@ nav:
   - index.md
   - local-chain
   - connect-to-relay-chain
+  - obtain-coretime.md
   - deploy-to-relay-chain
   - build-custom-pallet

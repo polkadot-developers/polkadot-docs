@@ -28,7 +28,7 @@ Before proceeding, you should have the following items:
 - A registered parathread with the correct genesis, runtime, and parachain ID that matches the chain specification
 - A properly configured and synced (with the relay chain) collator
 
-Once the above is complete, obtaining coretime is the last step to enable your parachain to start producing and finalizing blocks using the relay chain's validator set. If you don't, refer to the previous tutorial: [Deploy on Paseo TestNet](todo).
+Once the above is complete, obtaining coretime is the last step to enable your parachain to start producing and finalizing blocks using the relay chain's validator set. If you don't, refer to the previous tutorial: [Deploy on Paseo TestNet](/tutorials/polkadot-sdk/parachains/zero-to-hero/deploy-to-testnet/){target=\_blank}.
 
 ## Purchasing Bulk Coretime
 

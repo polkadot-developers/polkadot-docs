@@ -8,11 +8,40 @@ template: index-page.html
 
 # Tutorials
 
-Welcome to the Polkadot Tutorials hub! Whether you’re building parachains, integrating system chains, or developing decentralized applications, these step-by-step guides are designed to help you achieve your goals efficiently and effectively. Each guide links to relevant sections of the Polkadot documentation for developers who want to explore specific topics in greater depth.
+Welcome to the Polkadot Tutorials hub! Whether you’re building parachains, integrating system chains, or developing decentralized applications, these step-by-step guides are designed to help you achieve your goals efficiently and effectively. 
 
 Not sure where to start? Check out the highlighted tutorials below!
 
-## Get Started
+## Polkadot Zero to Hero 
+
+This collection of tutorials takes developers from zero to hero for the parachain, smart contract, and application developer pathways. 
+
+### Parachain Developers
+
+<div class="grid cards" markdown>
+
+- [**Parachain Zero to Hero**](/tutorials/zero-to-hero/parachain-zero-to-hero/){target=\_blank} Begin with a template then follow this series of step-by-step guides to add pallets, write unit tests and benchmarking, run your parachain locally, perform runtime upgrades, deploy to TestNet, and obtain coretime.
+
+</div>
+
+### Smart Contract Developers
+
+_Coming Soon_ 
+
+!!! note
+    The Polkadot smart contract ecosystem is in active development. Please expect frequent changes. You can follow progress, or join the discussion, by visiting this Polkadot Network Forum post: [Contracts on AssetHub Roadmap](https://forum.polkadot.network/t/contracts-on-assethub-roadmap/9513/57){target=\_blank}
+
+### Application Developers
+
+_Coming Soon_
+
+<div class=" grid cards" markdown>
+
+- Check back soon for end-to-end tutorials for integrating with the Polkadot blockchain's underlying protocol features to create solutions that allow users and applications to interact with the ecosystem.
+
+</div>
+
+## Featured Tutorials
 
 <div class="subsection-wrapper">
   <div class="card">

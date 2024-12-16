@@ -6,9 +6,9 @@ hide:
 template: index-page.html
 ---
 
-# Zero To Hero Tutorials
+# Parachain Zero To Hero Tutorials
 
-The **Zero To Hero Tutorials** provide developers with a step-by-step guide to building, testing, and deploying custom pallets and runtimes using the Polkadot SDK. These tutorials are designed to help you gain hands-on experience and understand the core concepts necessary to create efficient and scalable blockchains.  
+The **Parachain Zero To Hero Tutorials** provide developers with a series of step-by-step guides to building, testing, and deploying custom pallets and runtimes using the Polkadot SDK. These tutorials are designed to help you gain hands-on experience and understand the core concepts necessary to create efficient and scalable blockchains.  
 
 !!! tip
     Start with the "Set Up a Template" guide to get the most from this section. As you complete each guide, look for "Where to Go Next" to move to the following guide in the series.

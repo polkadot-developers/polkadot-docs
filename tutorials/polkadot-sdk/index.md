@@ -10,17 +10,19 @@ template: index-page.html
 
 The Polkadot SDK is a versatile framework for building custom blockchains, whether as standalone networks or as part of the Polkadot ecosystem. With its modular design and extensible tools, libraries, and runtime components, the SDK simplifies the process of creating parachains, system chains, and solochains.
 
-Ready to create a parachain from the ground up? Start with the tutorials highlighted in the [Build and Deploy a Parachain](#build-and-deploy-a-parachain) section.
+Ready to create a parachain from the ground up? Start with the tutorials highlighted in the following section:
 
 ## Build and Deploy a Parachain
 
 Follow these key milestones to guide you through parachain development. Each step links to detailed tutorials for a deeper dive into each stage:
 
-- **[Install the Polkadot SDK](/develop/parachains/get-started/install-polkadot-sdk/)** - set up the necessary tools to begin building on Polkadot. This step will get your environment ready for parachain development
+- [**Install the Polkadot SDK**](/develop/parachains/get-started/install-polkadot-sdk/) - set up the necessary tools to begin building on Polkadot. This step will get your environment ready for parachain development
 
-- **[Start Developing Your Own Parachain](/tutorials/polkadot-sdk/parachains/local-chain/launch-a-local-solochain/)** - kickstart your development by setting up a local solochain. This tutorial will lay the foundation for building and customizing your own parachain within the Polkadot ecosystem
+- [**Parachains Zero to Hero**](/tutorials/polkadot-sdk/parachains/zero-to-hero/) - a series of step-by-step guides to building, testing, and deploying custom pallets and runtimes using the Polkadot SDK
 
-- **[Prepare Your Parachain for Deployment](/tutorials/polkadot-sdk/parachains/connect-to-relay-chain/prepare-relay-chain/)** - follow these steps to set up a local relay chain environment and connect your parachain, getting it ready for deployment on the Polkadot network
+- [**Start Developing Your Own Parachain**](/tutorials/polkadot-sdk/parachains/local-chain/launch-a-local-solochain/) - kickstart your development by setting up a local solochain. This tutorial will lay the foundation for building and customizing your own parachain within the Polkadot ecosystem
+
+- [**Prepare Your Parachain for Deployment**](/tutorials/polkadot-sdk/parachains/connect-to-relay-chain/prepare-relay-chain/) - follow these steps to set up a local relay chain environment and connect your parachain, getting it ready for deployment on the Polkadot network
 
 ## In This Section
 

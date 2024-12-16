@@ -87,7 +87,7 @@ Once you have the core as shown in the dashboard, select it by clicking on it, t
 
 ![](/images/tutorials/polkadot-sdk/parachains/obtain-coretime/obtain-coretime-7.webp)
 
-Click the **Add Task** button and input the parachain identifier, along with the name of your project, and finalize it by clicking **Add Task**:
+Click the **Add Task** button and input the parachain identifier, along with the name of your project, and finalize it by clicking **Add Task**.
 
 ![](/images/tutorials/polkadot-sdk/parachains/obtain-coretime/obtain-coretime-8.webp)
 

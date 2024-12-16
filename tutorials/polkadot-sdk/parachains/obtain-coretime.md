@@ -71,7 +71,7 @@ To purchase a core, go to the menu on the left and select the **Purchase A Core*
 
 ![](/images/tutorials/polkadot-sdk/parachains/obtain-coretime/obtain-coretime-4.webp)
 
-At the bottom of the page, select the **Purchase a Core** button on the bottom right, where a modal detailing the fees will appear. Click **Ok** and sign the transaction using the wallet of your choice:
+At the bottom-right corner of the page, select the **Purchase a Core** button. A modal detailing the fees will appear. Review the details, then click **Ok** and sign the transaction using the wallet of your choice.
 
 ![](/images/tutorials/polkadot-sdk/parachains/obtain-coretime/obtain-coretime-5.webp)
 

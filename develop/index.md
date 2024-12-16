@@ -65,13 +65,9 @@ Build, deploy, and maintain custom parachains with the Polkadot SDK.
 <div class="grid cards" markdown>
 
 
-- :octicons-rocket-16:{.lg .middle} [Build and Deploy Your First Parachain](TODO: update-path){target=\_blank}
+- :octicons-rocket-16:{.lg .middle} [Parachain Developer Zero to Hero Guides](tutorials/polkadot-sdk/parachains/zero-to-hero/){target=\_blank}
 
 - :octicons-rocket-16:{.lg .middle} [Install Polkadot SDK Dependencies](/develop/parachains/get-started/install-polkadot-sdk/){target=\_blank}
-
-- :octicons-rocket-16:{.lg .middle} [Spawn a Basic Chain for Testing with Zombienet](/tutorials/polkadot-sdk/testing/spawn-basic-chain/){target=\_blank}
-
-- :octicons-rocket-16:{.lg .middle} [Fork a Chain for Testing with Chopsticks](/tutorials/polkadot-sdk/testing/fork-live-chains/){target=\_blank}
 
 </div>
 
@@ -145,7 +141,7 @@ Leverage smart contracts and execute custom logic over existing chains to stream
 
 ### Application Developers
 
-Integrate with the Polkadot blockchain's underlying protocol features to create solutions that allow users to interact with the ecosystem.
+Integrate with the Polkadot blockchain's underlying protocol features to create solutions that allow users to interact with the ecosystem. 
 
 #### Learn
 

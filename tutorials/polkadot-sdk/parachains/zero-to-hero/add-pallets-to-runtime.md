@@ -108,6 +108,6 @@ Launch your parachain locally and start producing blocks:
 
     Learn how to perform forkless runtime upgrades on a Polkadot SDK-based blockchain. Add features and modify parameters without network disruption.
 
-    [:octicons-arrow-right-24: Reference](/tutorials/polkadot-sdk/parachains/zero-to-hero/execute-runtime-upgrade/)
+    [:octicons-arrow-right-24: Execute a Runtime Upgrade](/tutorials/polkadot-sdk/parachains/zero-to-hero/execute-runtime-upgrade/)
 
 </div>

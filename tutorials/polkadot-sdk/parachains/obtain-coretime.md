@@ -97,7 +97,7 @@ Once you sign and send this transaction, that task/parachain will be assigned to
 
 ## Ordering On Demand Coretime
 
-Navigate to [Developer > Extrinsics](https://polkadot.js.org/apps/#/extrinsics){target=\blank} on the relay chain and issue`onDemandAssignmentProvider.placeOrderAllowDeath` extrinsic from the account that registered the
+Navigate to [Developer > Extrinsics](https://polkadot.js.org/apps/#/extrinsics){target=\blank} on the relay chain and issue`onDemand.placeOrderAllowDeath` extrinsic from the account that registered the
 `ParaID` by specifying sufficient `maxAmount`for the transaction to go through successfully.
 
 ![](/images/tutorials/polkadot-sdk/parachains/obtain-coretime/obtain-coretime-9.webp)
@@ -105,8 +105,8 @@ Navigate to [Developer > Extrinsics](https://polkadot.js.org/apps/#/extrinsics){
 !!!info
  There are two extrinsics which allow you to place orders for on-demand coretime:
 
- - [`onDemandAssignmentProvider.placeOrderAllowDeath`](https://paritytech.github.io/polkadot-sdk/master/polkadot_runtime_parachains/on_demand/pallet/dispatchables/fn.place_order_allow_death.html){target=\_blank} - will [reap](https://wiki.polkadot.network/docs/learn-accounts#existential-deposit-and-reaping){target=\blank} the account once the provided funds run out.
- - [`onDemandAssignmentProvider.placeOrderKeepAlive`](https://paritytech.github.io/polkadot-sdk/master/polkadot_runtime_parachains/on_demand/pallet/dispatchables/fn.place_order_keep_alive.html){target=\_blank} - includes a check which will **not** reap the account if the provided funds will run out, ensuring the account is kept alive.
+ - [`onDemand.placeOrderAllowDeath`](https://paritytech.github.io/polkadot-sdk/master/polkadot_runtime_parachains/on_demand/pallet/dispatchables/fn.place_order_allow_death.html){target=\_blank} - will [reap](https://wiki.polkadot.network/docs/learn-accounts#existential-deposit-and-reaping){target=\blank} the account once the provided funds run out.
+ - [`onDemand.placeOrderKeepAlive`](https://paritytech.github.io/polkadot-sdk/master/polkadot_runtime_parachains/on_demand/pallet/dispatchables/fn.place_order_keep_alive.html){target=\_blank} - includes a check which will **not** reap the account if the provided funds will run out, ensuring the account is kept alive.
 
 With each successful on-demand extrinsic, the parachain head changes (you may have to zoom out on the browser for parachain head details to show up on the Polkadot.Js Apps interface).
 

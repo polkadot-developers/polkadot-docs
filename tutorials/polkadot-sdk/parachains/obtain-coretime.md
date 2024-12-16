@@ -63,7 +63,7 @@ If successful, you should see the balance in the upper right of the **Transfer**
 
 For this tutorial, we will use [RegionX](https://app.regionx.tech){target=\_blank}. Once you open the app, you should be presented with the following screen:
 
-![](/images/tutorials/polkadot-sdk/parachains/obtain-coretime/obtain-coretime-3.webp)
+![Screenshot of the RegionX app displaying the main interface.](/images/tutorials/polkadot-sdk/parachains/obtain-coretime/obtain-coretime-3.webp)
 
 On the top left is a network switch. Ensure you have selected your parachain and that it is registered before purchasing a core.
 

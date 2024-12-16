@@ -68,7 +68,7 @@ Leverage the `constructApiPromise` helper function provided by the library for t
 ```
 
 !!!note
-    The code example id enclosed in an async main function to provide the necessary asynchronous context. However, you can use the code directly if you're already working within an async environment. The key is to ensure you're in an async context when working with these asynchronous operations, regardless of your specific setup.
+    The code example is enclosed in an async main function to provide the necessary asynchronous context. However, you can use the code directly if you're already working within an async environment. The key is to ensure you're in an async context when working with these asynchronous operations, regardless of your specific setup.
 
 ## Asset Transfer API Reference
 

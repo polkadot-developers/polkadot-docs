@@ -37,8 +37,8 @@ Once the above is complete, obtaining coretime is the last step to enable your p
 
 Purchasing bulk coretime involves purchasing a core from the [Coretime Chain](/polkadot-protocol/architecture/system-chains/coretime/){target=\_blank}, which has an instance of [`pallet_broker`](https://paritytech.github.io/polkadot-sdk/master/pallet_broker/index.html){target=\_blank} (the Broker pallet). Although this can be done via sending extrinsics through a tool like Polkadot.js Apps, there are user interfaces for purchasing and managing bulk coretime:
 
-- [RegionX Coretime Marketplace (includes Paseo support)](https://app.regionx.tech){target=\blank}
-- [Lastic Coretime Marketplace](https://www.lastic.xyz/polkadot/bulkcore1){target=\blank}
+- [RegionX Coretime Marketplace (includes Paseo support)](https://app.regionx.tech){target=\_blank}
+- [Lastic Coretime Marketplace](https://www.lastic.xyz/polkadot/bulkcore1){target=\_blank}
   
 !!!info "Obtaining a Core on Paseo"
  Obtaining a core for bulk coretime on Paseo follows a different process from Polkadot or Kusama. To apply for a core on Paseo, visit their guide for doing so: [PAS-10 Onboard Paras Coretime](https://github.com/paseo-network/paseo-action-submission/blob/main/pas/PAS-10-Onboard-paras-coretime.md#summary){target=\blank} 

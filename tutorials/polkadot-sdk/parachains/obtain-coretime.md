@@ -9,7 +9,7 @@ Coretime is the mechanism in which validation resources are allocated from the r
 
 There are two ways to obtain coretime:
 
-- **Bulk coretime** - Bulk coretime allows you to obtain a core or part of a core. It is purchased for some time, up to 28 days. It must be renewed once the lease finishes
+- **Bulk coretime** - bulk coretime allows you to obtain a core or part of a core. It is purchased for some time, up to 28 days. It must be renewed once the lease finishes
 - **On-Demand coretime** - On-demand coretime allows you to buy coretime on a block-by-block basis
 
 In this tutorial, you will:

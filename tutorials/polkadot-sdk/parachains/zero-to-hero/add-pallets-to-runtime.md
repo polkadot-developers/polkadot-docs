@@ -102,11 +102,11 @@ Launch your parachain locally and start producing blocks:
 
 <div class="grid cards" markdown>
 
--   <span class="badge tutorial">Tutorial</span> __Execute a Runtime Upgrade__
+-   <span class="badge tutorial">Tutorial</span> __Deploy on Paseo TestNet__
 
     ---
 
-    Learn how to perform forkless runtime upgrades on a Polkadot SDK-based blockchain. Add features and modify parameters without network disruption.
+    This guide walks you through the journey of deploying your Polkadot SDK blockchain on Paseo, detailing each step to a successful TestNet deployment.
 
     [:octicons-arrow-right-24: Execute a Runtime Upgrade](/tutorials/polkadot-sdk/parachains/zero-to-hero/execute-runtime-upgrade/)
 

@@ -259,6 +259,6 @@ To review this implementation, you can find the complete pallet code below:
 
     Learn to write effective unit tests for Polkadot SDK pallets! Use a custom pallet as a practical example in this comprehensive guide.
 
-    [:octicons-arrow-right-24: Pallet Unit Testing](/tutorials/polkadot-sdk/parachains/zero-to-hero/pallet-unit-testing/)
+    [:octicons-arrow-right-24: Get Started](/tutorials/polkadot-sdk/parachains/zero-to-hero/pallet-unit-testing/)
 
 </div>

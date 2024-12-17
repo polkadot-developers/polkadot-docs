@@ -16,6 +16,9 @@ This section guides you through the tools, resources, and guides to help you bui
 
 For developers building smart contracts in the Polkadot ecosystem, the choice between parachains supporting ink! (for Wasm contracts) and EVM-compatible parachains (for Solidity contracts) depend on the preferred development environment and language. By selecting the right parachain, developers can leverage Polkadot's scalability and interoperability while utilizing the framework that best suits their needs.
 
+!!! tip
+    The Polkadot smart contract ecosystem is in active development. Please expect frequent changes. You can follow progress, or join the discussion, by visiting this [Contracts on AssetHub Roadmap](https://forum.polkadot.network/t/contracts-on-assethub-roadmap/9513/57){target=\_blank} Polkadot Network Forum post.
+
 Here are some key considerations:
 
 - [**Wasm (ink!) contracts**](/develop/smart-contracts/wasm-ink/){target=\_blank} - contracts are written in Rust and compiled to Wasm. The advantage of Wasm is that it allows for more flexibility, speed, and potentially lower execution costs compared to EVM, especially in the context of Polkadot's multi-chain architecture

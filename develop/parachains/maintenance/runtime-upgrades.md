@@ -71,7 +71,7 @@ FRAME storage migrations run in this order:
 2. System `frame_system::on_runtime_upgrade` functions
 3. All `on_runtime_upgrade` functions defined in the runtime starting with the last pallet in the `construct_runtime!` macro
 
-## Where to Go Next
+<!-- ## Where to Go Next
 
 <div class="grid cards" markdown>
 
@@ -83,4 +83,4 @@ FRAME storage migrations run in this order:
 
     [:octicons-arrow-right-24: Add Pallets to the Runtime](/tutorials/polkadot-sdk/parachains/zero-to-hero/add-pallets-to-runtime/)
 
-</div>
+</div> -->

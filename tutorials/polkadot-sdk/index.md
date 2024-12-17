@@ -20,10 +20,6 @@ Follow these key milestones to guide you through parachain development. Each ste
 
 - [**Parachains Zero to Hero**](/tutorials/polkadot-sdk/parachains/zero-to-hero/) - a series of step-by-step guides to building, testing, and deploying custom pallets and runtimes using the Polkadot SDK
 
-- [**Start Developing Your Own Parachain**](/tutorials/polkadot-sdk/parachains/local-chain/launch-a-local-solochain/) - kickstart your development by setting up a local solochain. This tutorial will lay the foundation for building and customizing your own parachain within the Polkadot ecosystem
-
-- [**Prepare Your Parachain for Deployment**](/tutorials/polkadot-sdk/parachains/connect-to-relay-chain/prepare-relay-chain/) - follow these steps to set up a local relay chain environment and connect your parachain, getting it ready for deployment on the Polkadot network
-
 ## In This Section
 
 :::INSERT_IN_THIS_SECTION:::

@@ -66,7 +66,7 @@ Build, deploy, and maintain custom parachains with the Polkadot SDK.
 
 :octicons-rocket-16:{ .lg .middle } **Build** 
 
-[Parachain Developer Zero to Hero Guides](tutorials/polkadot-sdk/parachains/zero-to-hero/){target=\_blank}
+[Parachain Developer Zero to Hero Guides](/tutorials/polkadot-sdk/parachains/zero-to-hero/){target=\_blank}
 
 [Install Polkadot SDK Dependencies](/develop/parachains/get-started/install-polkadot-sdk/){target=\_blank}
 

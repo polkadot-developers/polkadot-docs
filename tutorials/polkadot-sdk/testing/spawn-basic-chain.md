@@ -30,7 +30,7 @@ touch spawn-a-basic-network.toml
 ```
 2. Add the following code to the file you just created:
 ```toml title="spawn-a-basic-network.toml"
---8<-- 'code/tutorials/polkadot-sdk/testing/spawn-basic-chain//spawn-a-basic-network.toml'
+--8<-- 'code/tutorials/polkadot-sdk/testing/spawn-basic-chain/spawn-a-basic-network.toml'
 ```
 
 This configuration file defines a network with the following chains:

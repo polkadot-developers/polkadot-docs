@@ -12,9 +12,9 @@ Explore Polkadot's core development toolkit, designed to support a variety of de
 
 Key tools for different audiences:
 
-- **Blockchain developers** - leverage development tools for building and managing Polkadot SDK-based blockchains, optimizing the infrastructure of the ecosystem
-- **DApp developers** - develop decentralized applications (dApps) that interact seamlessly with the Polkadot network, using APIs, SDKs, and integration tools for efficient application development
-- **Cross-chain application developers** - create applications that operate across multiple blockchains, using Polkadot’s XCM and messaging tools to enable interoperability and asset transfers
+- **Parachain developers** - leverage development tools for building and managing Polkadot SDK-based blockchains, optimizing the infrastructure of the ecosystem
+- **Application developers** - develop decentralized applications (dApps) that interact seamlessly with the Polkadot network, using APIs, SDKs, and integration tools for efficient application development
+- **All development paths** - use Polkadot’s XCM and messaging tools to enable interoperability and asset transfers
 
 ## In This Section
 

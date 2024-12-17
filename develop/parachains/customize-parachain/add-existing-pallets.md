@@ -164,6 +164,6 @@ With the pallet successfully added and configured, the runtime is ready to be co
 
     Learn how to efficiently test pallets in the Polkadot SDK, ensuring the reliability and security of your pallets operations.
 
-    [:octicons-arrow-right-24: Reference](/develop/parachains/customize-parachain/pallet-testing/)
+    [:octicons-arrow-right-24: Reference](/develop/parachains/testing)
 
 </div>

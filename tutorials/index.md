@@ -14,8 +14,8 @@ Not sure where to start? Check out the highlighted tutorials below!
 
 ## Polkadot Zero to Hero 
 
-This collection of tutorials takes developers from zero to hero for the parachain, smart contract, and application developer pathways. 
-
+The Zero to Hero series offers step-by-step guidance to development across the Polkadot ecosystem.
+ 
 ### Parachain Developers
 
 <div class="subsection-wrapper">
@@ -25,23 +25,6 @@ This collection of tutorials takes developers from zero to hero for the parachai
       <p class="description">Begin with a template then follow this series of step-by-step guides to add pallets, write unit tests and benchmarking, run your parachain locally, perform runtime upgrades, deploy to TestNet, and obtain coretime.</p>
     </a>
   </div>
-</div>
-
-### Smart Contract Developers
-
-_Coming Soon_ 
-
-!!! note
-    The Polkadot smart contract ecosystem is in active development. Please expect frequent changes. You can follow progress, or join the discussion, by visiting the [Contracts on AssetHub Roadmap](https://forum.polkadot.network/t/contracts-on-assethub-roadmap/9513/57){target=\_blank} post on the Polkadot Network Forum.
-
-### Application Developers
-
-_Coming Soon_
-
-<div class=" grid cards" markdown>
-
-- Check back soon for end-to-end tutorials for integrating with the Polkadot blockchain's underlying protocol features to create solutions that allow users and applications to interact with the ecosystem.
-
 </div>
 
 ## Featured Tutorials

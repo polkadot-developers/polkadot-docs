@@ -25,7 +25,7 @@ As a Layer-0 blockchain, Polkadot contributes to the multi-chain vision through 
 
 - **Resilient infrastructure** - decentralized and scalable, Polkadot ensures ongoing support for development and community initiatives via its on-chain [treasury](https://wiki.polkadot.network/docs/learn-polkadot-opengov-treasury){target=\_blank} and governance
 
-- **Rapid L1 development** - the [Polkadot SDK](/develop/parachains/get-started/intro-polkadot-sdk/){target=\_blank} allows fast, flexible creation and deployment of Layer-1 chains
+- **Rapid L1 development** - the [Polkadot SDK](/develop/parachains/intro-polkadot-sdk/){target=\_blank} allows fast, flexible creation and deployment of Layer-1 chains
 
 - **Cultivating the next generation of Web3 developers** - Polkadot supports the growth of Web3 core developers through initiatives such as:
 

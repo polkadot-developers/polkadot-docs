@@ -7,4 +7,4 @@ hide:
 - navigation
 ---
 
---8<-- 'https://raw.githubusercontent.com/papermoonio/polkadot-mkdocs/refs/heads/main/legal/policies/terms-of-use.md'
+--8<-- 'https://raw.githubusercontent.com/papermoonio/polkadot-mkdocs/refs/heads/main/policies/terms-of-use.md'

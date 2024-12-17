@@ -45,15 +45,15 @@ _Coming Soon_
 
 <div class="subsection-wrapper">
   <div class="card">
-    <a href="/tutorials/polkadot-sdk/parachains/local-chain/launch-a-local-solochain/">
-      <h2 class="title">Spin Up a Solochain</h2>
-      <p class="description">Learn how to compile and launch a local blockchain node using Polkadot SDK. Launch, run, and interact with a pre-configured node template.</p>
+    <a href="/tutorials/polkadot-sdk/parachains/zero-to-hero/set-up-a-template/">
+      <h2 class="title">Set Up a Template</h2>
+      <p class="description">Learn to compile and run a local parachain node using Polkadot SDK. Launch, run, and interact with a pre-configured runtime template.</p>
     </a>
   </div>
     <div class="card">
-    <a href="/tutorials/polkadot-sdk/parachains/connect-to-relay-chain/">
-      <h2 class="title">Run a Local Relay Chain</h2>
-      <p class="description">This tutorial will guide you through preparing a relay chain so that you can connect a test parachain node to it for local testing.</p>
+    <a href="/tutorials/polkadot-sdk/parachains/zero-to-hero/build-custom-pallet">
+      <h2 class="title">Build a Custom Pallet</h2>
+      <p class="description">Learn how to build a custom pallet for Polkadot SDK-based blockchains with this step-by-step guide. Create and configure a simple counter pallet from scratch.</p>
     </a>
   </div>
     <div class="card">

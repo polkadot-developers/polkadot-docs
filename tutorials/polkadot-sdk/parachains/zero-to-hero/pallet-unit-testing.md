@@ -167,7 +167,7 @@ After running the test suite, you should see the following output in your termin
 
     ---
 
-    Add pallets to your runtime for custom functionality. Learn to configure and integrate pallets in Polkadot SDK-based blockchains.
+    Enhance your runtime with custom functionality! Learn how to add, configure, and integrate pallets in Polkadot SDK-based blockchains.
 
     [:octicons-arrow-right-24: Add Pallets to the Runtime](/tutorials/polkadot-sdk/parachains/zero-to-hero/add-pallets-to-runtime/)
 

@@ -199,7 +199,7 @@ For more information on coretime, refer to the [Coretime](/polkadot-protocol/arc
 
     ---
 
-    Learn how to obtain coretime for block production with this guide, covering both on-demand and bulk options for smooth operations.
+    Get coretime for block production now! Follow this guide to explore on-demand and bulk options for seamless and efficient operations.
 
     [:octicons-arrow-right-24: Obtain Coretime](/tutorials/polkadot-sdk/parachains/zero-to-hero/obtain-coretime/)
 

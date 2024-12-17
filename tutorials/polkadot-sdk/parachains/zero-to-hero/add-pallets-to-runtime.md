@@ -106,7 +106,7 @@ Launch your parachain locally and start producing blocks:
 
     ---
 
-    This guide walks you through the journey of deploying your Polkadot SDK blockchain on Paseo, detailing each step to a successful TestNet deployment.
+    Deploy your Polkadot SDK blockchain on Paseo! Follow this step-by-step guide for a seamless journey to a successful TestNet deployment.
 
     [:octicons-arrow-right-24: Deploy to TestNet](/tutorials/polkadot-sdk/parachains/zero-to-hero/deploy-to-testnet/)
 

@@ -25,9 +25,9 @@ By the end of this tutorial, you'll have a working local parachain and understan
 
 ## Prerequisites
 
-To get started with the node template, you'll need to have the following set up on your development machine first:
+Before getting started, ensure you have done the following:
 
-- Rust installation - the node template is written in [Rust](https://www.rust-lang.org/){target=\_blank}, so you'll need to have it installed and configured on your system. Refer to the [Installation](/develop/parachains/get-started/install-polkadot-sdk){target=\_blank} guide for step-by-step instructions on setting up your development environment
+- Completed the [Install Polkadot SDK Dependencies](/develop/parachains/install-polkadot-sdk/){target=\_blank} guide and successfully installed [Rust](https://www.rust-lang.org/){target=\_blank} and the required packages to set up your development environment
 
 ## Utility Tools
 

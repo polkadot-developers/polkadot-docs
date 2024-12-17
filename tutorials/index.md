@@ -8,19 +8,19 @@ template: index-page.html
 
 # Tutorials
 
-Welcome to the Polkadot Tutorials hub! Whether you’re building parachains, integrating system chains, or developing decentralized applications, these step-by-step guides are designed to help you achieve your goals efficiently and effectively. 
+Welcome to the Polkadot Tutorials hub! Whether you’re building parachains, integrating system chains, or developing decentralized applications, these step-by-step guides are designed to help you achieve your goals efficiently and effectively.
 
 Not sure where to start? Check out the highlighted tutorials below!
 
-## Polkadot Zero to Hero 
+## Polkadot Zero to Hero
 
 The Zero to Hero series offers step-by-step guidance to development across the Polkadot ecosystem.
- 
+
 ### Parachain Developers
 
 <div class="subsection-wrapper">
-  <div class="card"> 
-    <a href="/tutorials/zero-to-hero/parachain-zero-to-hero/" target="_blank"> 
+  <div class="card">
+    <a href="/tutorials/polkadot-sdk/parachains/zero-to-hero/" target="_blank">
       <h2 class="title">Parachain Zero to Hero</h2>
       <p class="description">Begin with a template then follow this series of step-by-step guides to add pallets, write unit tests and benchmarking, run your parachain locally, perform runtime upgrades, deploy to TestNet, and obtain coretime.</p>
     </a>

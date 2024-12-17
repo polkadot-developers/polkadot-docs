@@ -23,7 +23,7 @@ Polkadot SDK’s FRAME framework provides developers with the tools to do the fo
 - **Deploy your blockchain for use** - take your Polkadot SDK-based blockchain from a local environment to production
 - **Maintain your network including monitoring and upgrades** - runtimes can be ugraded through forkless runtime updates, enabling seamless evolution of the parachain
 
-New to parachain development? Start with the [Introduction to the Polkadot SDK](/develop/parachains/get-started/intro-polkadot-sdk/) to discover how this framework simplifies building custom parachains.
+New to parachain development? Start with the [Introduction to the Polkadot SDK](/develop/parachains/intro-polkadot-sdk/) to discover how this framework simplifies building custom parachains.
 
 ## In This Section
 

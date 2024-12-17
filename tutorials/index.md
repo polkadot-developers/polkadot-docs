@@ -18,10 +18,13 @@ This collection of tutorials takes developers from zero to hero for the parachai
 
 ### Parachain Developers
 
-<div class="grid cards" markdown>
-
-- [**Parachain Zero to Hero**](/tutorials/zero-to-hero/parachain-zero-to-hero/){target=\_blank} Begin with a template then follow this series of step-by-step guides to add pallets, write unit tests and benchmarking, run your parachain locally, perform runtime upgrades, deploy to TestNet, and obtain coretime.
-
+<div class="subsection-wrapper">
+  <div class="card"> 
+    <a href="/tutorials/zero-to-hero/parachain-zero-to-hero/" target="_blank"> 
+      <h2 class="title">Parachain Zero to Hero</h2>
+      <p class="description">Begin with a template then follow this series of step-by-step guides to add pallets, write unit tests and benchmarking, run your parachain locally, perform runtime upgrades, deploy to TestNet, and obtain coretime.</p>
+    </a>
+  </div>
 </div>
 
 ### Smart Contract Developers

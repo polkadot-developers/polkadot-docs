@@ -7,7 +7,7 @@ description: Discover how to create thorough unit tests for pallets built with t
 
 ## Introduction
 
-You have learned how to create a custom pallet in the [Build the Pallet](/tutorials/polkadot-sdk/parachains/zero-to-hero/build-custom-pallet/){target=\_blank} tutorial; now you will see how to test the pallet to ensure that it works as expected. As stated in the [Pallet Testing](/develop/parachains/customize-parachain/pallet-testing/){target=\_blank} article, unit testing is crucial for ensuring the reliability and correctness of pallets in Polkadot SDK-based blockchains. Comprehensive testing helps validate pallet functionality, prevent potential bugs, and maintain the integrity of your blockchain logic.
+You have learned how to create a new pallet in the [Build a Custom Pallet](/tutorials/polkadot-sdk/parachains/zero-to-hero/build-custom-pallet/){target=\_blank} tutorial; now you will see how to test the pallet to ensure that it works as expected. As stated in the [Pallet Testing](/develop/parachains/customize-parachain/pallet-testing/){target=\_blank} article, unit testing is crucial for ensuring the reliability and correctness of pallets in Polkadot SDK-based blockchains. Comprehensive testing helps validate pallet functionality, prevent potential bugs, and maintain the integrity of your blockchain logic.
 
 This tutorial will guide you through creating a unit testing suite for a custom pallet built in the [previous tutorial](/tutorials/polkadot-sdk/parachains/zero-to-hero/build-custom-pallet/){target=\_blank}, covering essential testing aspects and steps.
 
@@ -17,7 +17,7 @@ To set up your testing environment for Polkadot SDK pallets, you'll need:
 
 - [Polkadot SDK dependencies](/develop/parachains/get-started/install-polkadot-sdk/){target=\_blank} installed
 - Basic understanding of Substrate/Polkadot SDK concepts
-- A custom pallet implementation, check the [Build the Pallet](/tutorials/polkadot-sdk/parachains/build-custom-pallet/){target=\_blank} tutorial
+- A custom pallet implementation, check the [Build a Custom Pallet](/tutorials/polkadot-sdk/parachains/build-custom-pallet/){target=\_blank} tutorial
 - Familiarity with [Rust testing frameworks](https://doc.rust-lang.org/book/ch11-01-writing-tests.html){target=\_blank}
 
 ## Set Up the Testing Environment

@@ -9,7 +9,7 @@ description: Discover how to create thorough unit tests for pallets built with t
 
 You have learned how to create a new pallet in the [Build a Custom Pallet](/tutorials/polkadot-sdk/parachains/zero-to-hero/build-custom-pallet/){target=\_blank} tutorial; now you will see how to test the pallet to ensure that it works as expected. As stated in the [Pallet Testing](/develop/parachains/customize-parachain/pallet-testing/){target=\_blank} article, unit testing is crucial for ensuring the reliability and correctness of pallets in Polkadot SDK-based blockchains. Comprehensive testing helps validate pallet functionality, prevent potential bugs, and maintain the integrity of your blockchain logic.
 
-This tutorial will guide you through creating a unit testing suite for a custom pallet built in the [previous tutorial](/tutorials/polkadot-sdk/parachains/zero-to-hero/build-custom-pallet/){target=\_blank}, covering essential testing aspects and steps.
+This tutorial will guide you through creating a unit testing suite for a custom pallet created in the [Build a Custom Pallet](/tutorials/polkadot-sdk/parachains/zero-to-hero/build-custom-pallet/){target=\_blank} tutorial, covering essential testing aspects and steps.
 
 ## Prerequisites
 

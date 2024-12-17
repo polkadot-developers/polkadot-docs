@@ -68,7 +68,7 @@ cargo build --release
 
 This command ensures the runtime compiles without errors, validates the pallet configurations, and prepares the build for subsequent testing or deployment.
 
-## Run your Chain Locally
+## Run Your Chain Locally
 
 Launch your parachain locally and start producing blocks:
 

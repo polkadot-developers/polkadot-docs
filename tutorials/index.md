@@ -29,7 +29,7 @@ This collection of tutorials takes developers from zero to hero for the parachai
 _Coming Soon_ 
 
 !!! note
-    The Polkadot smart contract ecosystem is in active development. Please expect frequent changes. You can follow progress, or join the discussion, by visiting this Polkadot Network Forum post: [Contracts on AssetHub Roadmap](https://forum.polkadot.network/t/contracts-on-assethub-roadmap/9513/57){target=\_blank}
+    The Polkadot smart contract ecosystem is in active development. Please expect frequent changes. You can follow progress, or join the discussion, by visiting the [Contracts on AssetHub Roadmap](https://forum.polkadot.network/t/contracts-on-assethub-roadmap/9513/57){target=\_blank} post on the Polkadot Network Forum.
 
 ### Application Developers
 

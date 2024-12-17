@@ -8,23 +8,38 @@ template: index-page.html
 
 # Tutorials
 
-Welcome to the Polkadot Tutorials hub! Whether you’re building parachains, integrating system chains, or developing decentralized applications, these step-by-step guides are designed to help you achieve your goals efficiently and effectively. Each guide links to relevant sections of the Polkadot documentation for developers who want to explore specific topics in greater depth.
+Welcome to the Polkadot Tutorials hub! Whether you’re building parachains, integrating system chains, or developing decentralized applications, these step-by-step guides are designed to help you achieve your goals efficiently and effectively. 
 
 Not sure where to start? Check out the highlighted tutorials below!
 
-## Get Started
+## Polkadot Zero to Hero 
+
+The Zero to Hero series offers step-by-step guidance to development across the Polkadot ecosystem.
+ 
+### Parachain Developers
+
+<div class="subsection-wrapper">
+  <div class="card"> 
+    <a href="/tutorials/zero-to-hero/parachain-zero-to-hero/" target="_blank"> 
+      <h2 class="title">Parachain Zero to Hero</h2>
+      <p class="description">Begin with a template then follow this series of step-by-step guides to add pallets, write unit tests and benchmarking, run your parachain locally, perform runtime upgrades, deploy to TestNet, and obtain coretime.</p>
+    </a>
+  </div>
+</div>
+
+## Featured Tutorials
 
 <div class="subsection-wrapper">
   <div class="card">
-    <a href="/tutorials/polkadot-sdk/parachains/local-chain/launch-a-local-solochain/">
-      <h2 class="title">Spin Up a Solochain</h2>
-      <p class="description">Learn how to compile and launch a local blockchain node using Polkadot SDK. Launch, run, and interact with a pre-configured node template.</p>
+    <a href="/tutorials/polkadot-sdk/parachains/zero-to-hero/set-up-a-template/">
+      <h2 class="title">Set Up a Template</h2>
+      <p class="description">Learn to compile and run a local parachain node using Polkadot SDK. Launch, run, and interact with a pre-configured runtime template.</p>
     </a>
   </div>
     <div class="card">
-    <a href="/tutorials/polkadot-sdk/parachains/connect-to-relay-chain/">
-      <h2 class="title">Run a Local Relay Chain</h2>
-      <p class="description">This tutorial will guide you through preparing a relay chain so that you can connect a test parachain node to it for local testing.</p>
+    <a href="/tutorials/polkadot-sdk/parachains/zero-to-hero/build-custom-pallet">
+      <h2 class="title">Build a Custom Pallet</h2>
+      <p class="description">Learn how to build a custom pallet for Polkadot SDK-based blockchains with this step-by-step guide. Create and configure a simple counter pallet from scratch.</p>
     </a>
   </div>
     <div class="card">

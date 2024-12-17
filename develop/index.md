@@ -166,7 +166,7 @@ Integrate with the Polkadot blockchain's underlying protocol features to create 
 
 [Options for Wallet Integration](/develop/toolkit/integrations/wallets/){target=\_blank}
 
-[Options for Indexer Intergration](/develop/toolkit/integrations/indexers/){target=\_blank}
+[Options for Indexer Integration](/develop/toolkit/integrations/indexers/){target=\_blank}
 
 [Options for Oracle Integration](/develop/toolkit/integrations/oracles/){target=\_blank}
 

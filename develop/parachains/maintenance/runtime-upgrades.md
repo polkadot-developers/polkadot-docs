@@ -71,16 +71,16 @@ FRAME storage migrations run in this order:
 2. System `frame_system::on_runtime_upgrade` functions
 3. All `on_runtime_upgrade` functions defined in the runtime starting with the last pallet in the `construct_runtime!` macro
 
-## Where to Go Next
+<!-- ## Where to Go Next
 
 <div class="grid cards" markdown>
 
--   <span class="badge tutorial">Tutorial</span> __Upgrade a Running Network__
+-   <span class="badge tutorial">Tutorial</span> __Add Pallets to the Runtime__
 
     ---
 
-    Learn how to perform forkless runtime upgrades on a Polkadot SDK-based blockchain. Add features and modify parameters without network disruption.
+    TODO!
 
-    [:octicons-arrow-right-24: Reference](tutorials/polkadot-sdk/parachains/local-chain/upgrade-a-running-network/)
+    [:octicons-arrow-right-24: Get started](/tutorials/polkadot-sdk/parachains/zero-to-hero/add-pallets-to-runtime/)
 
-</div>
+</div> -->

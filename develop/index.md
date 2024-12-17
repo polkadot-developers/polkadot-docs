@@ -19,7 +19,7 @@ This guide is a starting point for developers who wish to build in the Polkadot 
 2. Use the sections under your pathway as follows:
     - **Learn** - content to deepen your knowledge and understanding 
     - **Build** - connect to goal-oriented guides and step-by-step tutorials
-    - **Tools** - ltools commonly used in your pathway
+    - **Tools** - tools commonly used in your pathway
     - **Resources** - resources for your pathway, including references, code repositories, and outside documentation
 
 ## Development Pathways

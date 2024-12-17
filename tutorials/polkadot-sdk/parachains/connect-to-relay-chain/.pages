@@ -1,5 +1,0 @@
-title: Connect to a Local Relay Chain
-nav:
-  - index.md
-  - 'Prepare A Local Relay Chain': prepare-relay-chain.md
-  - 'Prepare Local Parachain': prepare-parachain.md

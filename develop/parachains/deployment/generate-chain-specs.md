@@ -65,13 +65,12 @@ For example, the following JSON shows a basic chain specification file:
 --8<-- "code/develop/parachains/deployment/generate-chain-specs/basic-chain-specs.json"
 ``` 
 
-
 ## Creating a Custom Chain Specification
 
 To create a custom chain specification, you can use the [`chain-spec-builder`](https://paritytech.github.io/polkadot-sdk/master/staging_chain_spec_builder/index.html){target=\_blank} tool. This is a CLI tool that is used to generate chain specifications from the runtime of a node. To install the tool, run the following command:
 
 ```bash
-cargo install staging-chain-spec-builder
+cargo install --git https://github.com/paritytech/polkadot-sdk --force staging-chain-spec-builder
 ```
 
 To verify the installation, run the following:

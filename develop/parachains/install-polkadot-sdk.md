@@ -334,3 +334,7 @@ rustup +nightly show
 The command displays output similar to the following:
 
 --8<-- 'code/develop/parachains/get-started/install-polkadot-sdk/termynal-2.html'
+
+## Where to Go Next
+
+- [Parachain Zero to Hero Tutorials](/tutorials/polkadot-sdk/parachains/zero-to-hero/){target=\_blank} - a series of step-by-step guides to building, testing, and deploying custom pallets and runtimes using the Polkadot SDK

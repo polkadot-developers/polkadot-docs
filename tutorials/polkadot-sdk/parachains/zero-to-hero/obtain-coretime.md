@@ -5,7 +5,7 @@ description: Learn how to obtain coretime for block production with this guide, 
 
 ## Introduction
 
-Coretime is the mechanism in which validation resources are allocated from the relay chain to the respective task, such as a parachain. A parachain could only produce blocks and finalize them on the relay chain by obtaining coretime.
+After deploying a parachain to the Paseo TestNet in the [previous tutorial](/tutorials/polkadot-sdk/parachains/zero-to-hero/deploy-to-testnet/){target=\_blank}, the focus shifts to understanding Coretime, which is the mechanism in which validation resources are allocated from the relay chain to the respective task, such as a parachain. A parachain could only produce blocks and finalize them on the relay chain by obtaining coretime.
 
 There are two ways to obtain coretime:
 

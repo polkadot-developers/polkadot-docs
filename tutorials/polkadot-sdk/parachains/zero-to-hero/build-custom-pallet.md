@@ -15,7 +15,7 @@ In this tutorial, you'll learn how to create a custom pallet from scratch. You w
 - Users can increment and decrement a counter
 - Only a [root origin](https://paritytech.github.io/polkadot-sdk/master/frame_system/pallet/type.Origin.html#variant.Root){target=\_blank} can set an arbitrary counter value
 
-You'll use the [Polkadot SDK Parachain Template](https://github.com/paritytech/polkadot-sdk/tree/master/templates/parachain){target=\_blank} set up in the previous tutorial.
+You'll use the [Polkadot SDK Parachain Template](https://github.com/paritytech/polkadot-sdk/tree/master/templates/parachain){target=\_blank} set up in the [previous tutorial](/tutorials/polkadot-sdk/parachains/zero-to-hero/set-up-a-template/){target=\_blank}.
 
 ## Create a New Project
 

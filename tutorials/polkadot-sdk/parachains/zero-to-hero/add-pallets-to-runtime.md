@@ -7,7 +7,7 @@ description: Add pallets to your runtime for custom functionality. Learn to conf
 
 ## Introduction
 
-In previous tutorials, you learned how to create a custom pallet, test it, and benchmark it. The next step is to include this pallet in your runtime, integrating it into the core logic of your blockchain.
+In previous tutorials, you learned how to [create a custom pallet](/tutorials/polkadot-sdk/parachains/zero-to-hero/build-custom-pallet/){target=\_blank} and [test it](/tutorials/polkadot-sdk/parachains/zero-to-hero/pallet-unit-testing/){target=\_blank}. The next step is to include this pallet in your runtime, integrating it into the core logic of your blockchain.
 
 This tutorial will guide you through adding two pallets to your runtime: the custom pallet you previously developed and the utility pallet. This standard Polkadot SDK pallet provides powerful dispatch functionality. The utility pallet offers, for example, batch dispatch, a stateless operation that enables executing multiple calls in a single transaction.
 

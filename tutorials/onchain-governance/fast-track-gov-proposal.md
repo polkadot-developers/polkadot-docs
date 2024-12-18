@@ -131,7 +131,7 @@ Create a `generateProposal` function that will be responsible for preparing and 
 
 Now, you need to implement the following logic:
 
-1. Set up the keyring and use Alice development account
+1. Set up the keyring and use the Alice development account
 
     ```typescript
     --8<-- 'code/tutorials/onchain-governance/fast-track-gov-proposal/test-proposal.ts:40:44'

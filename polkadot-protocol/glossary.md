@@ -58,7 +58,7 @@ The communication overhead for such systems is `O(n²)`, where `n` is the number
 
 ### Preimage
 
-A preimage is the data that is input into a hash function to calculate a hash. Since a hash function is a one-way function, the output, the hash, cannot be used to reveal the input, the preimage.
+A preimage is the data that is input into a hash function to calculate a hash. Since a hash function is a [one-way function](https://en.wikipedia.org/wiki/One-way_function){target=\_blank}, the output, the hash, cannot be used to reveal the input, the preimage.
 
 ## Call
 

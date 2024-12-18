@@ -18,7 +18,7 @@ By leveraging simulation tools like [Chopsticks](/develop/toolkit/parachains/for
 - Analyze the effects of a successfully executed proposal on the network's state
 - Identify and troubleshoot potential issues or unexpected consequences before submitting the proposals
 
-This tutorial will guide you through the process of using Chopsticks to test OpenGov proposals thoroughly. This ensures that when you submit a proposal to the live network, you can do so with confidence in its effects and viability.
+This tutorial will guide you through using Chopsticks to test OpenGov proposals thoroughly. This ensures that when you submit a proposal to the live network, you can do so with confidence in its effects and viability.
 
 ## Prerequisites
 
@@ -198,8 +198,8 @@ Create a new function called `forceProposalExecution`:
 
 This function will accomplish two primary objectives:
 
-- Modify the chain storage to artificially set the proposal's approvals and support, ensuring its passage
-- Override the scheduler to execute the proposal immediately in the next blocks, circumventing standard waiting periods
+- Modify the chain storage to set the proposal's approvals and support artificially, ensuring its passage
+- Override the scheduler to execute the proposal immediately in the subsequent blocks, circumventing standard waiting periods
 
 Implement the functionality through the following steps:
 
@@ -229,7 +229,7 @@ Implement the functionality through the following steps:
     ```
 
     ???+ child "Utility Function"
-        This section utilizes a `moveScheduledCallTo` utility function that facilitates moving a scheduled call matching specific criteria to a designated future block. Include this function in the same file:
+        This section utilizes a `moveScheduledCallTo` utility function to move a scheduled call matching specific criteria to a designated future block. Include this function in the same file:
 
         ??? code "`moveScheduledCallTo` code"
             ```typescript

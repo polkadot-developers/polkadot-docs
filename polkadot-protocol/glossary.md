@@ -56,6 +56,10 @@ An early approach to Byzantine fault tolerance (BFT), practical Byzantine fault 
 
 The communication overhead for such systems is `O(n²)`, where `n` is the number of nodes (participants) in the system.
 
+### Preimage
+
+A preimage is the data that is input into a hash function to calculate a hash. Since a hash function is a [one-way function](https://en.wikipedia.org/wiki/One-way_function){target=\_blank}, the output, the hash, cannot be used to reveal the input, the preimage.
+
 ## Call
 
 In the context of pallets containing functions to be dispatched to the runtime, `Call` is an enumeration data type that describes the functions that can be dispatched with one variant per pallet. A `Call` represents a [dispatch](#dispatchable) data structure object.

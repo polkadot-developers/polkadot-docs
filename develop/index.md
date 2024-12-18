@@ -69,6 +69,7 @@ Build, deploy, and maintain custom parachains with the Polkadot SDK.
     <hr>
     - [Polkadot SDK source code repository](https://github.com/paritytech/polkadot-sdk){target=\_blank}
     - [FRAME source code repository](https://github.com/paritytech/polkadot-sdk/tree/master/substrate/frame){target=\_blank}
+    - [Polkadot SDK Best Practices](https://libro.blockdeep.dev/index.html){target=\_blank}
 
 </div>
 

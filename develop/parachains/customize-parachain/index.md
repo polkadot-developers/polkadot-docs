@@ -31,4 +31,10 @@ The [FRAME directory](https://github.com/paritytech/polkadot-sdk/tree/master/sub
       <p class="description">Check out the Rust documentation for FRAME, Substrate's preferred framework for building runtimes.</p>
     </a>
   </div>
+  <div class="card">
+    <a href="https://libro.blockdeep.dev/index.html" target="_blank">
+      <h2 class="title">Polkadot SDK Best Practices</h2>
+      <p class="description">Understand and address common issues that can arise in blockchain development when building with the Polkadot SDK.</p>
+    </a>
+  </div>
 </div>

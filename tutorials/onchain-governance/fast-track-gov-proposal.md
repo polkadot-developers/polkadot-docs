@@ -114,7 +114,7 @@ Create a `connectToFork` function outside the `main` function to connect your lo
 Inside the `main` function, add the code to establish a connection to your local Polkadot fork:
 
 ```typescript hl_lines="2-3"
---8<-- 'code/tutorials/onchain-governance/fast-track-gov-proposal/test-proposal.ts:226:229'
+--8<-- 'code/tutorials/onchain-governance/fast-track-gov-proposal/test-proposal.ts:274:276'
   ...
 }
 ```
@@ -160,7 +160,7 @@ Now, you need to implement the following logic:
     --8<-- 'code/tutorials/onchain-governance/fast-track-gov-proposal/test-proposal.ts:51:77'
     ```
 
-4. Return the proposal index
+4. Return the proposal index:
 
     ```typescript
     --8<-- 'code/tutorials/onchain-governance/fast-track-gov-proposal/test-proposal.ts:78:78'
@@ -168,7 +168,7 @@ Now, you need to implement the following logic:
 
 If you followed all the steps correctly, the function should look like this:
 
-??? code "`generateProposal` function"
+??? code "`generateProposal` code"
     ```typescript
     --8<-- 'code/tutorials/onchain-governance/fast-track-gov-proposal/test-proposal.ts:generateProposal'
     ```
@@ -176,7 +176,7 @@ If you followed all the steps correctly, the function should look like this:
 Then, within the `main` function, define the specific call you want to execute and its corresponding origin, then invoke the `generateProposal` method:
 
 ```typescript hl_lines="5-14"
---8<-- 'code/tutorials/onchain-governance/fast-track-gov-proposal/test-proposal.ts:226:240'
+--8<-- 'code/tutorials/onchain-governance/fast-track-gov-proposal/test-proposal.ts:274:287'
   ...
 }
 ```
@@ -186,24 +186,64 @@ Then, within the `main` function, define the specific call you want to execute a
 
 ### Force Proposal Execution
 
-After submitting your proposal, you can test its execution without waiting for the standard voting and enactment periods. Chopsticks provides a way to force the execution of a proposal by directly manipulating the chain state and scheduler.
+After submitting your proposal, you can test its execution by directly manipulating the chain state and scheduler using Chopsticks, bypassing the standard voting and enactment periods.
 
-Create a utility function called `moveScheduledCallTo` and copy the following code. This function helps move a scheduled call to a specific future block in a forked chain by matching certain criteria.
-
-```typescript
---8<-- 'code/tutorials/onchain-governance/fast-track-gov-proposal/test-proposal.ts:moveScheduledCallTo'
-```
-
-Now, create the `forceProposalExecution` function. This function does two main things:
-
-1. Modify the chain storage to set the proposal's approvals and support to the values needed for it to pass
-2. Force the scheduler to execute the call in the next block instead of waiting for the original scheduled time
+Create a new function called `forceProposalExecution`:
 
 ```typescript
---8<-- 'code/tutorials/onchain-governance/fast-track-gov-proposal/test-proposal.ts:forceProposalExecution'
+--8<-- 'code/tutorials/onchain-governance/fast-track-gov-proposal/test-proposal.ts:164:164'
+  ...
+}
 ```
 
-After creating both functions, you can call `forceProposalExecution` from the `main` function with the `proposalIndex` obtained from calling `generateProposal`:
+This function will accomplish two primary objectives:
+
+- Modify the chain storage to artificially set the proposal's approvals and support, ensuring its passage
+- Override the scheduler to execute the proposal immediately in the next blocks, circumventing standard waiting periods
+
+Implement the functionality through the following steps:
+
+1. Get the referendum information and its hash:
+    ```typescript
+    --8<-- 'code/tutorials/onchain-governance/fast-track-gov-proposal/test-proposal.ts:165:195'
+    ```
+
+2. Determine the total amount of existing native tokens:
+    ```typescript
+    --8<-- 'code/tutorials/onchain-governance/fast-track-gov-proposal/test-proposal.ts:197:198'
+    ```
+
+3. Fetch the current block number:
+    ```typescript
+    --8<-- 'code/tutorials/onchain-governance/fast-track-gov-proposal/test-proposal.ts:200:203'
+    ```
+
+4. Modify the proposal data and overwrite the storage:
+    ```typescript
+    --8<-- 'code/tutorials/onchain-governance/fast-track-gov-proposal/test-proposal.ts:205:240'
+    ```
+
+5. Manipulate the scheduler to execute the proposal in the next blocks:
+    ```typescript
+    --8<-- 'code/tutorials/onchain-governance/fast-track-gov-proposal/test-proposal.ts:242:269'
+    ```
+
+    ???+ child "Utility Function"
+        This section utilizes a `moveScheduledCallTo` utility function that facilitates moving a scheduled call matching specific criteria to a designated future block. Include this function in the same file:
+
+        ??? code "`moveScheduledCallTo` code"
+            ```typescript
+            --8<-- 'code/tutorials/onchain-governance/fast-track-gov-proposal/test-proposal.ts:moveScheduledCallTo'
+            ```
+
+After implementing the complete logic, your function will resemble:
+
+??? code "`forceProposalExecution` code"
+    ```typescript
+    --8<-- 'code/tutorials/onchain-governance/fast-track-gov-proposal/test-proposal.ts:forceProposalExecution'
+    ```
+
+Invoke `forceProposalExecution` from the `main` function using the `proposalIndex` obtained from the previous `generateProposal` call:
 
 ```typescript hl_lines="16-17"
 --8<-- 'code/tutorials/onchain-governance/fast-track-gov-proposal/test-proposal.ts:main'

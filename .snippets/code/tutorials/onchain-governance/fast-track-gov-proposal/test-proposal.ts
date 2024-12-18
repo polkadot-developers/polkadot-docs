@@ -93,14 +93,24 @@ async function moveScheduledCallTo(
   blockCounts: number,
   verifier: (call: FrameSupportPreimagesBounded) => boolean
 ) {
+  // Get the current block number
   const blockNumber = (await api.rpc.chain.getHeader()).number.toNumber();
-  // Fast forward the nudge referendum to the next block to get the refendum to be scheduled
+  
+  // Retrieve the scheduler's agenda entries
   const agenda = await api.query.scheduler.agenda.entries();
+  
+  // Initialize a flag to track if a matching scheduled call is found
   let found = false;
+  
+  // Iterate through the scheduler's agenda entries
   for (const agendaEntry of agenda) {
+    // Iterate through the scheduled entries in the current agenda entry
     for (const scheduledEntry of agendaEntry[1]) {
+      // Check if the scheduled entry is valid and matches the verifier criteria
       if (scheduledEntry.isSome && verifier(scheduledEntry.unwrap().call)) {
         found = true;
+        
+        // Overwrite the agendaEntry item in storage
         const result = await api.rpc('dev_setStorage', [
           [agendaEntry[0]], // require to ensure unique id
           [
@@ -108,17 +118,25 @@ async function moveScheduledCallTo(
             agendaEntry[1].toHex(),
           ],
         ]);
+        
+        // Check if the scheduled call has an associated lookup
         if (scheduledEntry.unwrap().maybeId.isSome) {
+          // Get the lookup ID
           const id = scheduledEntry.unwrap().maybeId.unwrap().toHex();
           const lookup = await api.query.scheduler.lookup(id);
 
+          // Check if the lookup exists
           if (lookup.isSome) {
+            // Get the lookup key
             const lookupKey = await api.query.scheduler.lookup.key(id);
-            const lookupJson = lookup.unwrap().toJSON();
+            
+            // Create a new lookup object with the updated block number
             const fastLookup = api.registry.createType('Option<(u32,u32)>', [
               blockNumber + blockCounts,
               0,
             ]);
+            
+            // Overwrite the lookup entry in storage
             const result = await api.rpc('dev_setStorage', [
               [lookupKey, fastLookup.toHex()],
             ]);
@@ -127,6 +145,8 @@ async function moveScheduledCallTo(
       }
     }
   }
+  
+  // Throw an error if no matching scheduled call is found
   if (!found) {
     throw new Error('No scheduled call found');
   }
@@ -142,34 +162,47 @@ async function moveScheduledCallTo(
  * @throws An error if the referendum is not found or not in an ongoing state.
  */
 async function forceProposalExecution(api: ApiPromise, proposalIndex: number) {
+  // Retrieve the referendum data for the given proposal index
   const referendumData = await api.query.referenda.referendumInfoFor(
     proposalIndex
   );
+  // Get the storage key for the referendum data
   const referendumKey =
     api.query.referenda.referendumInfoFor.key(proposalIndex);
+
+  // Check if the referendum data exists
   if (!referendumData.isSome) {
     throw new Error(`Referendum ${proposalIndex} not found`);
   }
+
   const referendumInfo = referendumData.unwrap();
+
+  // Check if the referendum is in an ongoing state
   if (!referendumInfo.isOngoing) {
     throw new Error(`Referendum ${proposalIndex} is not ongoing`);
   }
 
+  // Get the ongoing referendum data
   const ongoingData = referendumInfo.asOngoing;
+  // Convert the ongoing data to JSON
   const ongoingJson = ongoingData.toJSON();
 
-  // Support Lookup, Inline or Legacy
+  // Support Lookup, Inline or Legacy proposals
   const callHash = ongoingData.proposal.isLookup
     ? ongoingData.proposal.asLookup.toHex()
     : ongoingData.proposal.isInline
     ? blake2AsHex(ongoingData.proposal.asInline.toHex())
     : ongoingData.proposal.asLegacy.toHex();
 
+  // Get the total issuance of the native token
   const totalIssuance = (await api.query.balances.totalIssuance()).toBigInt();
 
+  // Get the current block number
   const proposalBlockTarget = (
     await api.rpc.chain.getHeader()
   ).number.toNumber();
+
+  // Create a new proposal data object with the updated fields
   const fastProposalData = {
     ongoing: {
       ...ongoingJson,
@@ -187,6 +220,7 @@ async function forceProposalExecution(api: ApiPromise, proposalIndex: number) {
     },
   };
 
+  // Create a new proposal object from the proposal data
   let fastProposal;
   try {
     fastProposal = api.registry.createType(
@@ -200,6 +234,7 @@ async function forceProposalExecution(api: ApiPromise, proposalIndex: number) {
     );
   }
 
+  // Update the storage with the new proposal object
   const result = await api.rpc('dev_setStorage', [
     [referendumKey, fastProposal.toHex()],
   ]);
@@ -209,15 +244,19 @@ async function forceProposalExecution(api: ApiPromise, proposalIndex: number) {
     if (!call.isInline) {
       return false;
     }
+
     const callData = api.createType('Call', call.asInline.toHex());
+
     return (
       callData.method == 'nudgeReferendum' &&
       (callData.args[0] as any).toNumber() == proposalIndex
     );
   });
 
+  // Create a new block
   await api.rpc('dev_newBlock', { count: 1 });
 
+  // Move the scheduled call to the next block
   await moveScheduledCallTo(api, 1, (call) =>
     call.isLookup
       ? call.asLookup.toHex() == callHash
@@ -226,6 +265,7 @@ async function forceProposalExecution(api: ApiPromise, proposalIndex: number) {
       : call.asLegacy.toHex() == callHash
   );
 
+  // Create another new block
   await api.rpc('dev_newBlock', { count: 1 });
 }
 // --8<-- [end:forceProposalExecution]

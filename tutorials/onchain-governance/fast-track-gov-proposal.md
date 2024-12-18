@@ -121,11 +121,32 @@ Inside the `main` function, add the code to establish a connection to your local
 
 ### Create and Submit the Proposal
 
-Create a `generateProposal` function responsible for preparing and submitting the on-chain proposal. The function implements a workflow that involves the following:
+Create a `generateProposal` function that will be responsible for preparing and submitting the on-chain proposal:
 
-1. Configuring a keyring for the Alice account to facilitate transaction submission. When using Chopsticks, this development account is pre-funded to execute all necessary actions
+```typescript
+--8<-- 'code/tutorials/onchain-governance/fast-track-gov-proposal/test-proposal.ts:35:39'
+    ...
+}
+```
 
-2. Executing a batch transaction that comprises three critical operations:
+Now, you need to implement the following logic:
+
+1. Set up the keyring and use Alice development account
+
+    ```typescript
+    --8<-- 'code/tutorials/onchain-governance/fast-track-gov-proposal/test-proposal.ts:40:44'
+    ```
+ 
+    !!!note
+        When using Chopsticks, this development account is pre-funded to execute all necessary actions.
+
+2. Retrieve the proposal index
+
+    ```typescript
+    --8<-- 'code/tutorials/onchain-governance/fast-track-gov-proposal/test-proposal.ts:46:49'
+    ```
+
+3. Execute a batch transaction that comprises the following three operations:
     1. **`preimage.notePreimage`** - registers a [preimage](/polkadot-protocol/glossary#preimage){target=\_blank} using the selected call
 
         !!!note
@@ -135,11 +156,24 @@ Create a `generateProposal` function responsible for preparing and submitting th
 
     3. **`referenda.placeDecisionDeposit`** - places the required decision deposit for the referendum. This deposit is required to move the referendum from the preparing phase to the deciding phase
 
-```typescript
---8<-- 'code/tutorials/onchain-governance/fast-track-gov-proposal/test-proposal.ts:generateProposal'
-```
+    ```typescript
+    --8<-- 'code/tutorials/onchain-governance/fast-track-gov-proposal/test-proposal.ts:51:77'
+    ```
 
-Within the `main` function, define the specific call you want to execute and its corresponding origin, then invoke the `generateProposal` method:
+4. Return the proposal index
+
+    ```typescript
+    --8<-- 'code/tutorials/onchain-governance/fast-track-gov-proposal/test-proposal.ts:78:78'
+    ```
+
+If you followed all the steps correctly, the function should look like this:
+
+??? code "`generateProposal` function"
+    ```typescript
+    --8<-- 'code/tutorials/onchain-governance/fast-track-gov-proposal/test-proposal.ts:generateProposal'
+    ```
+
+Then, within the `main` function, define the specific call you want to execute and its corresponding origin, then invoke the `generateProposal` method:
 
 ```typescript hl_lines="5-14"
 --8<-- 'code/tutorials/onchain-governance/fast-track-gov-proposal/test-proposal.ts:226:240'
@@ -207,18 +241,19 @@ Using these techniques, you can develop and refine your proposals before submitt
 
 Here's the complete code for the `test-proposal.ts` file, incorporating all the steps we've covered:
 
-```typescript
---8<-- 'code/tutorials/onchain-governance/fast-track-gov-proposal/test-proposal.ts:imports'
+??? code "`test-proposal.ts`"
+    ```typescript
+    --8<-- 'code/tutorials/onchain-governance/fast-track-gov-proposal/test-proposal.ts:imports'
 
---8<-- 'code/tutorials/onchain-governance/fast-track-gov-proposal/test-proposal.ts:connectToFork'
+    --8<-- 'code/tutorials/onchain-governance/fast-track-gov-proposal/test-proposal.ts:connectToFork'
 
---8<-- 'code/tutorials/onchain-governance/fast-track-gov-proposal/test-proposal.ts:generateProposal'
+    --8<-- 'code/tutorials/onchain-governance/fast-track-gov-proposal/test-proposal.ts:generateProposal'
 
---8<-- 'code/tutorials/onchain-governance/fast-track-gov-proposal/test-proposal.ts:moveScheduledCallTo'
+    --8<-- 'code/tutorials/onchain-governance/fast-track-gov-proposal/test-proposal.ts:moveScheduledCallTo'
 
---8<-- 'code/tutorials/onchain-governance/fast-track-gov-proposal/test-proposal.ts:forceProposalExecution'
+    --8<-- 'code/tutorials/onchain-governance/fast-track-gov-proposal/test-proposal.ts:forceProposalExecution'
 
---8<-- 'code/tutorials/onchain-governance/fast-track-gov-proposal/test-proposal.ts:main'
+    --8<-- 'code/tutorials/onchain-governance/fast-track-gov-proposal/test-proposal.ts:main'
 
---8<-- 'code/tutorials/onchain-governance/fast-track-gov-proposal/test-proposal.ts:try-catch-block'
-```
+    --8<-- 'code/tutorials/onchain-governance/fast-track-gov-proposal/test-proposal.ts:try-catch-block'
+    ```

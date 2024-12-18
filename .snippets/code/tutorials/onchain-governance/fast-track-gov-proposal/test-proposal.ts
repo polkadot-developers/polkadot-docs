@@ -37,17 +37,24 @@ async function generateProposal(
   call: SubmittableExtrinsic<'promise', ISubmittableResult>,
   origin: any
 ): Promise<number> {
+  // Initialize the keyring
   const keyring = new Keyring({ type: 'sr25519' });
+
+  // Set up Alice development account
   const alice = keyring.addFromUri('//Alice');
 
+  // Get the next available proposal index
   const proposalIndex = (
     await api.query.referenda.referendumCount()
   ).toNumber();
 
+  // Execute the batch transaction
   await new Promise<void>(async (resolve) => {
     const unsub = await api.tx.utility
       .batch([
+        // Register the preimage for your proposal
         api.tx.preimage.notePreimage(call.method.toHex()),
+        // Submit your proposal to the referenda system
         api.tx.referenda.submit(
           origin as any,
           {
@@ -58,6 +65,7 @@ async function generateProposal(
           },
           { At: 0 }
         ),
+        // Place the required decision deposit
         api.tx.referenda.placeDecisionDeposit(proposalIndex),
       ])
       .signAndSend(alice, (status: any) => {
@@ -149,7 +157,7 @@ async function forceProposalExecution(api: ApiPromise, proposalIndex: number) {
 
   const ongoingData = referendumInfo.asOngoing;
   const ongoingJson = ongoingData.toJSON();
-  
+
   // Support Lookup, Inline or Legacy
   const callHash = ongoingData.proposal.isLookup
     ? ongoingData.proposal.asLookup.toHex()
@@ -229,7 +237,7 @@ const main = async () => {
 
   // Select the call to perform
   const call = api.tx.system.setCodeWithoutChecks('0x1234');
-  
+
   // Select the origin
   const origin = {
     System: 'Root',
@@ -240,7 +248,7 @@ const main = async () => {
 
   // Force the proposal to be executed
   await forceProposalExecution(api, proposalIndex);
-  
+
   process.exit(0);
 };
 // --8<-- [end:main]

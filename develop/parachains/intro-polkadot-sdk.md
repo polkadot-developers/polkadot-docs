@@ -50,17 +50,27 @@ Every blockchain platform relies on a decentralized network of computers—calle
     - Stored as a part of the chain state
     - Also known as State Transition Function (STF)
 
-``` mermaid
+```mermaid
+%%{init: {'flowchart': {'padding': 25, 'nodeSpacing': 10, 'rankSpacing': 50}}}%%
 graph TB
+    %% Define comprehensive styles
+    classDef titleStyle font-size:30px,font-weight:bold,stroke-width:2px,padding:20px
+    
     subgraph sg1[Substrate Node]
+        %% Add invisible spacer with increased height
+        spacer[ ]
+        style spacer height:2px,opacity:0
+        
         B[Wasm Runtime - STF]
         I[RuntimeCall Executor]
         subgraph sg2[Client]
             direction TB
-            C[Network and blockchain</br>infrastructure services]
+            C[Network and Blockchain<br/>Infrastructure Services]
         end
         I -.-> B
     end
+    %% Apply comprehensive styles
+    class sg1 titleStyle
 ```
 
 ### FRAME

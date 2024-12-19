@@ -28,7 +28,7 @@ Features developers can expect from the Polkadot SDK include:
 
 <div class="subsection-wrapper">
   <div class="card">
-    <a href="https://github.com/paritytech/polkadot-sdk" target="_blank">
+    <a href="https://github.com/paritytech/polkadot-sdk/tree/polkadot-stable2412" target="_blank">
       <h2 class="title">Polkadot SDK repository</h2>
       <p class="description">The Polkadot SDK repository provides all the components needed to start building on the Polkadot network. Check out the latest releases, issues, and more.</p>
     </a>

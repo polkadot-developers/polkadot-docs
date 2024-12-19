@@ -7,7 +7,7 @@ description: Learn how to build custom parachains using the Polkadot SDK, focusi
 
 ## Introduction
 
-Building custom parachains with the [Polkadot SDK](https://github.com/paritytech/polkadot-sdk/tree/master){target=\_blank} allows developers to create specialized blockchain solutions tailored to unique requirements. By leveraging [Substrate](https://github.com/paritytech/polkadot-sdk/tree/master/substrate){target=\_blank}—a Rust-based, modular blockchain development framework—the Polkadot SDK provides powerful tools to construct chains that can either stand-alone or connect to Polkadot’s shared security network as parachains. This flexibility empowers projects across various sectors to launch blockchains that meet specific functional, security, and scalability needs.
+Building custom parachains with the [Polkadot SDK](https://github.com/paritytech/polkadot-sdk/tree/polkadot-stable2412){target=\_blank} allows developers to create specialized blockchain solutions tailored to unique requirements. By leveraging [Substrate](https://github.com/paritytech/polkadot-sdk/tree/polkadot-stable2412/substrate){target=\_blank}—a Rust-based, modular blockchain development framework—the Polkadot SDK provides powerful tools to construct chains that can either stand-alone or connect to Polkadot’s shared security network as parachains. This flexibility empowers projects across various sectors to launch blockchains that meet specific functional, security, and scalability needs.
 
 This guide covers the core steps for building a custom blockchain using the Polkadot SDK, starting from pre-built chain templates. These templates simplify development, providing an efficient starting point that can be further customized, allowing you to focus on implementing the features and modules that set your blockchain apart.
 
@@ -17,11 +17,11 @@ Using pre-built templates is an efficient way to begin building a custom blockch
 
 Within the Polkadot SDK, the following templates are available to get you started:
 
-- [**`minimal-template`**](https://github.com/paritytech/polkadot-sdk/tree/master/templates/minimal){target=\_blank} - includes only the essential components necessary for a functioning blockchain. It’s ideal for developers who want to gain familiarity with blockchain basics and test simple customizations before scaling up
+- [**`minimal-template`**](https://github.com/paritytech/polkadot-sdk/tree/polkadot-stable2412/templates/minimal){target=\_blank} - includes only the essential components necessary for a functioning blockchain. It’s ideal for developers who want to gain familiarity with blockchain basics and test simple customizations before scaling up
 
-- [**`solochain-template`**](https://github.com/paritytech/polkadot-sdk/tree/master/templates/solochain){target=\_blank} - provides a foundation for creating standalone blockchains with moderate features, including a simple consensus mechanism and several core FRAME pallets. It’s a solid starting point for developers who want a fully functional chain that doesn’t depend on a relay chain
+- [**`solochain-template`**](https://github.com/paritytech/polkadot-sdk/tree/polkadot-stable2412/templates/solochain){target=\_blank} - provides a foundation for creating standalone blockchains with moderate features, including a simple consensus mechanism and several core FRAME pallets. It’s a solid starting point for developers who want a fully functional chain that doesn’t depend on a relay chain
 
-- [**`parachain-template`**](https://github.com/paritytech/polkadot-sdk/tree/master/templates/parachain){target=\_blank} - designed for connecting to relay chains like Polkadot, Kusama, or Paseo, this template enables a chain to operate as a parachain. For projects aiming to integrate with Polkadot’s ecosystem, this template offers a great starting point
+- [**`parachain-template`**](https://github.com/paritytech/polkadot-sdk/tree/polkadot-stable2412/templates/parachain){target=\_blank} - designed for connecting to relay chains like Polkadot, Kusama, or Paseo, this template enables a chain to operate as a parachain. For projects aiming to integrate with Polkadot’s ecosystem, this template offers a great starting point
 
 In addition, several external templates offer unique features and can align with specific use cases or developer familiarity:
 

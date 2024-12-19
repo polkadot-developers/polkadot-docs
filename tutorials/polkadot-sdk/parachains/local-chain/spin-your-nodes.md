@@ -36,7 +36,7 @@ There are a couple of Polkadot Wiki articles that may help you better understand
 There are several ways you can generate keys. The available methods are:
 
 - **[`solochain-template-node key` subcommand](https://docs.rs/sc-cli/0.46.0/sc_cli/commands/enum.KeySubcommand.html){target=\_blank}** - the most straightforward method for developers working directly with the node is to use the integrated key generation feature. Using the `key` subcommand, you can generate keys directly from your node's command line interface. This method ensures compatibility with your chain and is convenient for quick setup and testing
-- **[subkey](https://github.com/paritytech/polkadot-sdk/tree/master/substrate/bin/utils/subkey){target=\_blank}** - it is a powerful standalone utility specifically designed for Polkadot SDK-based chains. It offers advanced options for key generation, including support for different key types such as `ed25519` and `sr25519`. This tool allows fine-grained control over the key generation process
+- **[subkey](https://github.com/paritytech/polkadot-sdk/tree/polkadot-stable2412/substrate/bin/utils/subkey){target=\_blank}** - it is a powerful standalone utility specifically designed for Polkadot SDK-based chains. It offers advanced options for key generation, including support for different key types such as `ed25519` and `sr25519`. This tool allows fine-grained control over the key generation process
 - **Third-party key generation utilities** - various tools developed by the community
 
 ### Generate Local Keys with the Node Template

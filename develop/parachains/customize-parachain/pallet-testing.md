@@ -15,7 +15,7 @@ This guide will explore how to mock a runtime and test a pallet. For that, the P
 
 To test a pallet, a mock runtime is created to simulate the behavior of the blockchain environment where the pallet will be included. This involves defining a minimal runtime configuration that only provides for the required dependencies for the tested pallet. 
 
-For a complete example of a mocked runtime, check out the `mock.rs` file in the [Solochain Template](https://github.com/paritytech/polkadot-sdk/blob/master/templates/solochain/pallets/template/src/mock.rs){target=\_blank}.
+For a complete example of a mocked runtime, check out the `mock.rs` file in the [Solochain Template](https://github.com/paritytech/polkadot-sdk/blob/polkadot-stable2412/templates/solochain/pallets/template/src/mock.rs){target=\_blank}.
 
 A `mock.rs` file defines the mock runtime in a typical Polkadot SDK project. It includes the elements described below.
 
@@ -104,5 +104,5 @@ Some key considerations are:
 
 ## Where to Go Next
 
-- Dive into the full implementation of the [`mock.rs`](https://github.com/paritytech/polkadot-sdk/blob/master/templates/solochain/pallets/template/src/mock.rs){target=\_blank} and [`test.rs`](https://github.com/paritytech/polkadot-sdk/blob/master/templates/solochain/pallets/template/src/tests.rs){target=\_blank} files in the [Solochain Template](https://github.com/paritytech/polkadot-sdk/tree/master/templates/solochain){target=_blank}
+- Dive into the full implementation of the [`mock.rs`](https://github.com/paritytech/polkadot-sdk/blob/polkadot-stable2412/templates/solochain/pallets/template/src/mock.rs){target=\_blank} and [`test.rs`](https://github.com/paritytech/polkadot-sdk/blob/polkadot-stable2412/templates/solochain/pallets/template/src/tests.rs){target=\_blank} files in the [Solochain Template](https://github.com/paritytech/polkadot-sdk/tree/polkadot-stable2412/templates/solochain){target=_blank}
 - To evaluate the resource usage of your pallet operations, refer to the [Benchmarking documentation](/develop/parachains/customize-parachain/benchmarking/) for guidance on measuring efficiency

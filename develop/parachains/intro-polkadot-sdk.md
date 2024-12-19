@@ -50,6 +50,19 @@ Every blockchain platform relies on a decentralized network of computers—calle
     - Stored as a part of the chain state
     - Also known as State Transition Function (STF)
 
+``` mermaid
+graph TB
+    subgraph sg1[Substrate Node]
+        B[Wasm Runtime - STF]
+        I[RuntimeCall Executor]
+        subgraph sg2[Client]
+            direction TB
+            C[Network and blockchain</br>infrastructure services]
+        end
+        I -.-> B
+    end
+```
+
 ### FRAME
 
 FRAME provides the core modular and extensible components that make the Substrate SDK flexible and adaptable to different use cases. FRAME includes Rust-based libraries that simplify the development of application-specific logic. Most of the functionality that FRAME provides takes the form of plug-in modules called [pallets](/polkadot-protocol/glossary#pallet){target=\_blank} that you can add and configure to suit your requirements.

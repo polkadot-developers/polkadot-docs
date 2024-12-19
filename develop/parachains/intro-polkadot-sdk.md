@@ -51,18 +51,16 @@ Every blockchain platform relies on a decentralized network of computers—calle
     - Also known as State Transition Function (STF)
 
 ``` mermaid
-
 graph TB
     subgraph sg1[Substrate Node]
-        B[Wasm Runtime -</br>application logic]
+        B[Wasm Runtime - STF]
         I[RuntimeCall Executor]
         subgraph sg2[Client]
             direction TB
-            C[Network and blockchain</br>infrastructure activity]
+            C[Network and blockchain</br>infrastructure services]
         end
         I -.-> B
     end
-
 ```
 
 ### FRAME

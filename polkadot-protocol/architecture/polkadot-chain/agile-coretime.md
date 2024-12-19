@@ -10,14 +10,12 @@ description: Explore the efficient scheduling mechanisms to access Polkadot core
 Agile Coretime is the [scheduling](https://en.wikipedia.org/wiki/Scheduling_(computing)){target=\_blank} framework on Polkadot that lets parachains efficiently access cores, which comprise an active validator set tasked with parablock validation. As the first blockchain to enable a flexible scheduling system for blockspace production, Polkadot offers unparalleled adaptability for parachains.
 
 ``` mermaid
-
 graph TB
     A[Cores Designation]
     B[Bulk Coretime]
     C[On-Demand Coretime]
     A --continuous--> B
     A --flexible--> C 
-
 ```
 
 Cores can be designated to a parachain either continuously through [bulk coretime](#bulk-coretime) or dynamically via [on-demand coretime](#on-demand-coretime). Additionally, Polkadot supports scheduling multiple cores in parallel through [elastic scaling](https://wiki.polkadot.network/docs/learn-elastic-scaling){target=\_blank}, which is a feature under active development on Polkadot. This flexibility empowers parachains to optimize their resource usage and block production according to their unique needs.

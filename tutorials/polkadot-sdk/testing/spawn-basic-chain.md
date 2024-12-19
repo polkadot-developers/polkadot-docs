@@ -52,7 +52,7 @@ This command will spawn the network defined in the `spawn-a-basic-network.toml` 
 
 If successful, you will see the following output:
 
---8<-- 'code/tutorials/polkadot-sdk/testing/spawn-basic-chain//spawn-network-terminal-01.html'
+--8<-- 'code/tutorials/polkadot-sdk/testing/spawn-basic-chain/spawn-network-terminal-01.html'
 
 !!! note 
     If the IPs and ports aren't explicitly defined in the configuration file, they may change each time the network is started, causing the links provided in the output to differ from the example.
@@ -68,7 +68,7 @@ Use the [55308 port address](https://polkadot.js.org/apps/?rpc=ws://127.0.0.1:55
 If you want to interact with the nodes more programmatically, you can also use the [Polkadot.js API](https://polkadot.js.org/docs/api/){target=\_blank}. For example, the following code snippet shows how to connect to the `alice` node using the Polkadot.js API and log some information about the chain and node:
 
 ```typescript
---8<-- 'code/tutorials/polkadot-sdk/testing/spawn-basic-chain//connect-to-alice-01.js'
+--8<-- 'code/tutorials/polkadot-sdk/testing/spawn-basic-chain/connect-to-alice-01.js'
 ```
 
 Both methods allow you to interact easily with the network and its nodes.
@@ -77,7 +77,7 @@ Both methods allow you to interact easily with the network and its nodes.
 
 You can also check the metrics of the nodes by accessing the links provided in the output as `Prometheus Link`. [Prometheus](https://prometheus.io/){target=\_blank} is a monitoring and alerting toolkit that collects metrics from the nodes. By accessing the provided links, you can see the metrics of the nodes in a web interface. So, for example, the following image shows the Prometheus metrics for Bob's node from the Zombienet test:
 
-![](/images/tutorials/polkadot-sdk/testing/spawn-basic-chain//spawn-basic-network-01.webp)
+![](/images/tutorials/polkadot-sdk/testing/spawn-basic-chain/spawn-basic-network-01.webp)
 
 ### Check Logs
 

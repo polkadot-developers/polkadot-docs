@@ -54,6 +54,32 @@ Every blockchain platform relies on a decentralized network of computers—calle
 
 FRAME provides the core modular and extensible components that make the Substrate SDK flexible and adaptable to different use cases. FRAME includes Rust-based libraries that simplify the development of application-specific logic. Most of the functionality that FRAME provides takes the form of plug-in modules called [pallets](/polkadot-protocol/glossary#pallet){target=\_blank} that you can add and configure to suit your requirements.
 
+``` mermaid
+graph TB
+    subgraph sg1[Client/Host]
+        direction LR
+        A[JSON-RPC]
+        B[libp2p]
+        C[Transaction Pool]
+        D[Block Builder]
+        E[Database]
+        F[Host Functions]
+    end
+    subgraph sg2[Runtime]
+        direction LR
+        G[Runtime API]
+        H[Executive]
+        I[frame_support::runtime]
+        subgraph sg3[Pallets]
+            direction TB
+            J[System]
+            K[Staking]
+            L[Balances]
+            M[GRANDPA]
+        end
+    end
+```
+
 ### Cumulus
 
 Cumulus provides utilities and libraries to turn FRAME-based runtimes into runtimes that can be a parachain on Polkadot. Cumulus runtimes are still FRAME runtimes but contain the necessary functionality that allows that runtime to become a parachain on a relay chain.

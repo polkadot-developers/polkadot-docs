@@ -211,7 +211,7 @@ mod tests {
         type CounterMaxValue = ConstU32<100>;
     }
 
-    // Helper function to build genesis storage according to the mock runtime.
+    /// Helper function to build genesis storage according to the mock runtime.
     pub fn new_test_ext() -> sp_io::TestExternalities {
         let t = frame_system::GenesisConfig::<Test>::default()
             .build_storage()

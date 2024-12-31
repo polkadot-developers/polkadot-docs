@@ -72,6 +72,9 @@ This command ensures the runtime compiles without errors, validates the pallet c
 
 Launch your parachain locally and start producing blocks:
 
+!!!info 
+    The chain specification generated above includes "Alice" and "Bob" as pre-funded accounts. Take a look on the [Polkadot.js Accounts section](https://polkadot.js.org/apps/#/accounts){target=\_blank}. These accounts can be used to sign and send transactions, as you will need an account with the native parachain's currency to pay fees when sending transactions.
+
 1. Create a new chain specification file with the updated runtime:
 
     ```bash

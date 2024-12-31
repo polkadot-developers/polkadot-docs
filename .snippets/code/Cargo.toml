@@ -1,6 +1,6 @@
 [workspace.package]
 license = "MIT-0"
-authors = ["Parity Technologies <admin@parity.io>"]
+authors = ["Parity Technologies <admin@parity.io>", "Web3 Foundation", "PaperMoon.io"]
 homepage = "docs.polkadot.com"
 repository = "https://github.com/paritytech/polkadot-sdk-parachain-template.git"
 edition = "2021"

@@ -11,6 +11,9 @@ mod tests;
 #[cfg(feature = "runtime-benchmarks")]
 mod benchmarking;
 
+pub mod weights;
+use crate::weights::WeightInfo;
+
 #[frame_support::pallet(dev_mode)]
 pub mod pallet {
     use super::*;
@@ -29,6 +32,9 @@ pub mod pallet {
         // Defines the maximum value the counter can hold
         #[pallet::constant]
         type CounterMaxValue: Get<u32>;
+
+        /// A type representing the weights required by the dispatchables of this pallet.
+        type WeightInfo: WeightInfo;
     }
 
     #[pallet::event]
@@ -89,7 +95,7 @@ pub mod pallet {
         ///
         /// Emits `CounterValueSet` event when successful.
         #[pallet::call_index(0)]
-        #[pallet::weight(0)]
+        #[pallet::weight(T::WeightInfo::set_counter_value())]
         pub fn set_counter_value(origin: OriginFor<T>, new_value: u32) -> DispatchResult {
             ensure_root(origin)?;
 
@@ -115,7 +121,7 @@ pub mod pallet {
         ///
         /// Emits `CounterIncremented` event when successful.
         #[pallet::call_index(1)]
-        #[pallet::weight(0)]
+        #[pallet::weight(T::WeightInfo::increment())]
         pub fn increment(origin: OriginFor<T>, amount_to_increment: u32) -> DispatchResult {
             let who = ensure_signed(origin)?;
 
@@ -159,7 +165,7 @@ pub mod pallet {
         ///
         /// Emits `CounterDecremented` event when successful.
         #[pallet::call_index(2)]
-        #[pallet::weight(0)]
+        #[pallet::weight(T::WeightInfo::decrement())]
         pub fn decrement(origin: OriginFor<T>, amount_to_decrement: u32) -> DispatchResult {
             let who = ensure_signed(origin)?;
 

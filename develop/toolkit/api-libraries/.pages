@@ -5,3 +5,4 @@ nav:
   - 'Polkadot-API': papi.md
   - 'Sidecar Rest API': sidecar.md
   - 'Python Substrate Interface': py-substrate-interface.md
+  - 'Smart Contracts': smart-contracts

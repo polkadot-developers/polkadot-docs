@@ -1,8 +1,6 @@
 ---
 title: Interoperability
 description: Learn how Polkadot enables blockchain interoperability through Cross-Consensus Messaging (XCM), powering secure cross-chain communication.
-hide: 
-- feedback
 template: index-page.html
 ---
 

@@ -3,8 +3,6 @@ title: EVM
 # This content is temporarily hidden and has been commented out to ensure it is preserved.
 # description: Explore EVM support in Polkadot, covering native Asset Hub contracts and parachain implementations like Astar and Moonbeam for smart contract development.
 description: Explore EVM support in Polkadot and learn how EVM-compatible smart contracts integrate seamlessly within the Polkadot ecosystem. 
-hide: 
-    - feedback
 template: index-page.html
 ---
 

@@ -1,4 +1,4 @@
-// This file is part of 'cutom-pallet'.
+// This file is part of 'custom-pallet'.
 
 // Copyright (C) 2025 Parity Technologies (UK) Ltd.
 // SPDX-License-Identifier: MIT-0

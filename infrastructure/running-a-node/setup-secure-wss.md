@@ -9,13 +9,16 @@ description: Instructions on enabling SSL for your node and setting up a secure 
 
 Ensuring secure WebSocket communication is crucial for maintaining the integrity and security of a Polkadot or Kusama node when interacting with remote clients. This guide walks you through setting up a secure WebSocket (WSS) connection for your node by leveraging SSL encryption with popular web server proxies like nginx or Apache. By the end of this guide, you'll be able to secure your node's WebSocket port, enabling safe remote connections without exposing your node to unnecessary risks.
 
+!!!info
+    The following instructions are for UNIX-based systems.
+
 ## Secure a WebSocket Port
 
 You can convert a non-secured WebSocket port to a secure WSS port by placing it behind an SSL-enabled proxy. This approach can be used to secure a bootnode or RPC server. The SSL-enabled apache2/nginx/other proxy server redirects requests to the internal WebSocket and converts it to a secure (WSS) connection. You can use a service like [LetsEncrypt](https://letsencrypt.org/){target=\_blank} to obtain an SSL certificate.
 
 ### Obtain an SSL Certificate
 
-You can follow the LetsEncrypt instructions for your respective web server implementation to get a free SSL certificate:
+You can follow the [LetsEncrypt](https://letsencrypt.org/){target=\_blank} instructions for your respective web server implementation to get a free SSL certificate:
 
 -  [nginx](https://certbot.eff.org/instructions?ws=nginx&os=ubuntufocal){target=\_blank}
 -  [apache2](https://certbot.eff.org/instructions?ws=apache&os=ubuntufocal){target=\_blank}
@@ -26,7 +29,7 @@ You can generate a self-signed certificate and rely on your node's raw IP addres
 
 Use the following commmand to generate a self-signed certificate using OpenSSL:
 
---8<-- 'code/infrastructure/setup-secure-wss/install-openssl.md'
+--8<-- 'code/infrastructure/running-a-node/setup-secure-wss/install-openssl.md'
 
 ## Install a Proxy Server
 
@@ -40,20 +43,20 @@ There are a lot of different implementations of a WebSocket proxy; some of the m
     ```
 
 2. In an SSL-enabled virtual host add:
-    --8<-- 'code/infrastructure/setup-secure-wss/nginx-config.md'
+    --8<-- 'code/infrastructure/running-a-node/setup-secure-wss/nginx-config.md'
 
 3. Optionally, you can introduce some form of rate limiting:
-    --8<-- 'code/infrastructure/setup-secure-wss/nginx-rate-limit.md'
+    --8<-- 'code/infrastructure/running-a-node/setup-secure-wss/nginx-rate-limit.md'
 
 ### Use Apache2
 
 Apache2 can run in various modes, including `prefork`, `worker`, and `event`. In this example, the [`event`](https://httpd.apache.org/docs/2.4/mod/event.html){target=\_blank} mode is recommended for handling higher traffic loads, as it is optimized for performance in such environments. However, depending on the specific requirements of your setup, other modes like `prefork` or `worker` may also be appropriate.
 
 1. Install the `apache2` web server:
-    --8<-- 'code/infrastructure/setup-secure-wss/install-apache2.md'
+    --8<-- 'code/infrastructure/running-a-node/running-a-node/setup-secure-wss/install-apache2.md'
 
 2. The [`mod_proxy_wstunnel`](https://httpd.apache.org/docs/2.4/mod/mod_proxy_wstunnel.html){target=\_blank} provides support for the tunneling of WebSocket connections to a backend WebSocket server. The connection is automatically upgraded to a WebSocket connection. In an SSL-enabled `virtualhost` add:
-    --8<-- 'code/infrastructure/setup-secure-wss/apache2-config.md'
+    --8<-- 'code/infrastructure/running-a-node/setup-secure-wss/apache2-config.md'
 
     !!!warning 
         Older versions of `mod_proxy_wstunnel` don't upgrade the connection automatically and will need the following config added:

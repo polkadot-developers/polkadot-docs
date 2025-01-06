@@ -1,8 +1,6 @@
 ---
 title: Zero To Hero Parachain Tutorial Series
 description: A comprehensive guide for developers to build, test, and deploy custom pallets and runtimes, leveraging the full potential of the Polkadot SDK.
-hide: 
-    - feedback
 template: index-page.html
 ---
 

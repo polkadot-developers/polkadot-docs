@@ -15,4 +15,4 @@ jobs:
 
     - name: Overlay step files and build
       run: |
-        echo ${{ matrix.step }}/* .
+        echo AAAAA

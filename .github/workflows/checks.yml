@@ -44,7 +44,9 @@ jobs:
       - uses: actions/checkout@v4
       - name: Clippy check
         working-directory: .snippets/code
-        run: cargo clippy -- -D warnings
+        run: |
+            cargo clippy --all-targets --locked --workspace --quiet
+            cargo clippy --all-targets --all-features --locked --workspace --quiet
 
   test:
     runs-on: ubuntu-latest

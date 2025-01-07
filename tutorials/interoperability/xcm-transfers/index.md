@@ -1,8 +1,6 @@
 ---
 title: XCM Transfers
 description: Explore tutorials on performing transfers between different consensus systems using XCM technology to enable cross-chain interoperability.
-hide: 
-- feedback
 template: index-page.html
 ---
 

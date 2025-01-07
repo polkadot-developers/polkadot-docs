@@ -1,0 +1,7 @@
+title: EVM Toolkit
+nav:
+  - index.md
+  - 'Connect Your Wallet': connect-your-wallet.md
+  - dev-environment
+  - libraries
+  - indexers

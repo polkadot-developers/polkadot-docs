@@ -1,6 +1,6 @@
 ---
 title: Connect your Wallet
-description: Learn to connect MetaMask to the Westend Asset Hub testnet. Set up your wallet, switch networks, and request test WND tokens for development.
+description: Learn to connect MetaMask to the Asset Hub blockchain. Set up your wallet, switch networks, and request test tokens for development.
 ---
 
 # Connect your Wallet
@@ -11,7 +11,11 @@ Metamask allows users to connect to the Asset Hub to explore and interact with t
 
 ## Prerequisites
 
+<<<<<<< Updated upstream
 To get started with MetaMask, you need to install the [MetaMask extension](https://metamask.io/download/){target=\_blank} and add it to the browser. Once you install MetaMask, you can set up a new wallet and securely store your seed phrase. This phrase is crucial for recovery in case you lose access.
+=======
+To get started with Metamask, you need to install the [MetaMask extension](https://metamask.io/download/){target=\_blank} and add it to the browser. Once, you have metamask installed, you can set up a new wallet and securely store your seed phrase. This phrase is crucial for recovery in case you lose access.[text](vscode-file://vscode-app/Applications/Cursor.app/Contents/Resources/app/out/vs/code/electron-sandbox/workbench/workbench.html)
+>>>>>>> Stashed changes
 
 ## Connect to the Asset Hub Westend Testnet
 

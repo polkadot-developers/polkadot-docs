@@ -11,7 +11,7 @@ Metamask allows users to connect to the Asset Hub to explore and interact with t
 
 ## Prerequisites
 
-To get started with Metamask, you need to install the [MetaMask extension](https://metamask.io/download/){target=\_blank} and add it to the browser. Once, you have metamask installed, you can set up a new wallet and securely store your seed phrase. This phrase is crucial for recovery in case you lose access.
+To get started with MetaMask, you need to install the [MetaMask extension](https://metamask.io/download/){target=\_blank} and add it to the browser. Once you install MetaMask, you can set up a new wallet and securely store your seed phrase. This phrase is crucial for recovery in case you lose access.
 
 ## Connect to the Asset Hub Westend Testnet
 

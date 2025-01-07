@@ -3,7 +3,7 @@ title: Connect your Wallet
 description: Learn to connect MetaMask to the Westend Asset Hub testnet. Set up your wallet, switch networks, and request test WND tokens for development.
 ---
 
-# Connect you Wallet
+# Connect your Wallet
 
 ## Connect to Asset Hub Using MetaMask
 

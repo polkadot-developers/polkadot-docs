@@ -19,11 +19,11 @@ To connect to the Westend Asset Hub TestNet via MetaMask, you need to follow the
 
 1. Open the MetaMask extension and click in the network icon to switch to the Asset Hub Westend TestNet
 
-    ![](/images/develop/smart-contracts/metamask/metamask-connection-1.webp)
+    ![](/images/develop/smart-contracts/evm-toolkit/connect-your-wallet/connect-your-wallet-1.webp)
 
 2. Click on the **Add a custom network** button
 
-    ![](/images/develop/smart-contracts/metamask/metamask-connection-2.webp)
+    ![](/images/develop/smart-contracts/evm-toolkit/connect-your-wallet/connect-your-wallet-2.webp)
 
 3. Fill in the required fields with the following parameters and click the **Save** button
 
@@ -35,11 +35,11 @@ To connect to the Westend Asset Hub TestNet via MetaMask, you need to follow the
     | **Currency symbol**    | <pre>```WND```</pre>                                        |
     | **Block explorer URL** | <pre>```https://assethub-westend.subscan.io```       </pre> |
 
-    ![](/images/develop/smart-contracts/metamask/metamask-connection-3.webp)
+    ![](/images/develop/smart-contracts/evm-toolkit/connect-your-wallet/connect-your-wallet-3.webp)
 
 4. Click on the **Asset-Hub Westend TestNet** to switch the network
 
-    ![](/images/develop/smart-contracts/metamask/metamask-connection-4.webp)
+    ![](/images/develop/smart-contracts/evm-toolkit/connect-your-wallet/connect-your-wallet-4.webp)
 
 
 ## Request Test Tokens
@@ -50,11 +50,11 @@ To start conducting transactions and interacting with smart contracts on the Wes
 
 2. Copy your MetaMask address linked to the Westend Asset Hub and paste it into the designated field on the Faucet page
 
-    ![](/images/develop/smart-contracts/metamask/metamask-connection-5.webp)
+    ![](/images/develop/smart-contracts/evm-toolkit/connect-your-wallet/connect-your-wallet-5.webp)
 
 3. Click **Get Some WND** button to request free test WND tokens. These tokens will be sent to your MetaMask wallet shortly.
 
-    ![](/images/develop/smart-contracts/metamask/metamask-connection-6.webp)
+    ![](/images/develop/smart-contracts/evm-toolkit/connect-your-wallet/connect-your-wallet-6.webp)
 
 ## Conclusion
 

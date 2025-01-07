@@ -4,3 +4,4 @@ nav:
   # This page is temporarily hidden; it has been commented out to preserve its content.
   # - 'Native EVM Contracts': native-evm-contracts.md
   - 'Parachain Contracts': parachain-contracts.md
+  - 'Metamask Connection': metamask-connection.md

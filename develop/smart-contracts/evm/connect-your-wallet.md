@@ -7,7 +7,7 @@ description: Learn to connect MetaMask to the Asset Hub blockchain. Set up your 
 
 ## Connect to Asset Hub Using MetaMask
 
-Metamask allows users to connect to the Asset Hub to explore and interact with the chain. This article will guide you step by step on how to set up an EVM-compatible wallet, connect to the Westend Asset Hub, and request test tokens for development testing.
+MetaMask allows users to connect to the Asset Hub to explore and interact with the chain. This article will guide you step by step on how to set up an EVM-compatible wallet, connect to the Westend Asset Hub, and request test tokens for development testing.
 
 ## Prerequisites
 

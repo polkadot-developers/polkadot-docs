@@ -67,8 +67,7 @@ To build and integrate your custom pallet into a Polkadot SDK-based runtime, you
 3. Enable `std` features:
 
     ```toml
-    --8<-- 'code/tutorials/polkadot-sdk/parachains/zero-to-hero/build-custom-pallet/Cargo.toml:24:30'
-    --8<-- 'code/tutorials/polkadot-sdk/parachains/zero-to-hero/build-custom-pallet/Cargo.toml:35:35'
+    --8<-- 'code/tutorials/polkadot-sdk/parachains/zero-to-hero/build-custom-pallet/Cargo.toml:16:23'
     ```
 
 The final `Cargo.toml` should resemble the following:
@@ -76,9 +75,7 @@ The final `Cargo.toml` should resemble the following:
 ??? note "Complete `Cargo.toml` File"
 
     ```toml
-    --8<-- 'code/tutorials/polkadot-sdk/parachains/zero-to-hero/build-custom-pallet/Cargo.toml:1:14'
-    --8<-- 'code/tutorials/polkadot-sdk/parachains/zero-to-hero/build-custom-pallet/Cargo.toml:23:30'
-    --8<-- 'code/tutorials/polkadot-sdk/parachains/zero-to-hero/build-custom-pallet/Cargo.toml:35:35'
+    --8<-- 'code/tutorials/polkadot-sdk/parachains/zero-to-hero/build-custom-pallet/Cargo.toml'
     ```
 
 ## Implement the Pallet Logic
@@ -256,7 +253,7 @@ To review this implementation, you can find the complete pallet code below:
 
 ???+ example "Complete Pallet Code"
     ```rust
-    --8<-- 'code/tutorials/polkadot-sdk/parachains/zero-to-hero/build-custom-pallet/src/lib.rs::184'
+    --8<-- 'code/tutorials/polkadot-sdk/parachains/zero-to-hero/build-custom-pallet/src/lib.rs'
     ```
 
 ## Where to Go Next

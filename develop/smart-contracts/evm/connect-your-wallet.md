@@ -19,7 +19,7 @@ To get started with Metamask, you need to install the [MetaMask extension](https
 
 ## Connect to the Asset Hub Westend Testnet
 
-To connect to the Westend Asset Hub testnet via Metamask, you need to follow these steps:
+To connect to the Westend Asset Hub testnet via MetaMask, you need to follow these steps:
 
 1. Open the MetaMask extension and click in the network icon to switch to the Asset Hub Westend Testnet
 

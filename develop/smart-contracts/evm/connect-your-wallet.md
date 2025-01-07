@@ -11,17 +11,13 @@ MetaMask allows users to connect to the Asset Hub to explore and interact with t
 
 ## Prerequisites
 
-<<<<<<< Updated upstream
 To get started with MetaMask, you need to install the [MetaMask extension](https://metamask.io/download/){target=\_blank} and add it to the browser. Once you install MetaMask, you can set up a new wallet and securely store your seed phrase. This phrase is crucial for recovery in case you lose access.
-=======
-To get started with Metamask, you need to install the [MetaMask extension](https://metamask.io/download/){target=\_blank} and add it to the browser. Once, you have metamask installed, you can set up a new wallet and securely store your seed phrase. This phrase is crucial for recovery in case you lose access.[text](vscode-file://vscode-app/Applications/Cursor.app/Contents/Resources/app/out/vs/code/electron-sandbox/workbench/workbench.html)
->>>>>>> Stashed changes
 
-## Connect to the Asset Hub Westend Testnet
+## Connect to the Asset Hub Westend TestNet
 
-To connect to the Westend Asset Hub testnet via MetaMask, you need to follow these steps:
+To connect to the Westend Asset Hub TestNet via MetaMask, you need to follow these steps:
 
-1. Open the MetaMask extension and click in the network icon to switch to the Asset Hub Westend Testnet
+1. Open the MetaMask extension and click in the network icon to switch to the Asset Hub Westend TestNet
 
     ![](/images/develop/smart-contracts/metamask/metamask-connection-1.webp)
 
@@ -33,7 +29,7 @@ To connect to the Westend Asset Hub testnet via MetaMask, you need to follow the
 
     | **Attribute**         | **Value**                                                    |
     |------------------------|-------------------------------------------------------------|
-    | **Network name**       | <pre>```Asset-Hub Westend Testnet```</pre>                  |
+    | **Network name**       | <pre>```Asset-Hub Westend TestNet```</pre>                  |
     | **Default RPC URL**    | <pre>```https://westend-asset-hub-eth-rpc.polkadot.io```</pre> |
     | **Chain ID**           | <pre>```420420421```</pre>                                  |
     | **Currency symbol**    | <pre>```WND```</pre>                                        |
@@ -41,14 +37,14 @@ To connect to the Westend Asset Hub testnet via MetaMask, you need to follow the
 
     ![](/images/develop/smart-contracts/metamask/metamask-connection-3.webp)
 
-4. Click on the **Asset-Hub Westend Testnet** to switch the network
+4. Click on the **Asset-Hub Westend TestNet** to switch the network
 
     ![](/images/develop/smart-contracts/metamask/metamask-connection-4.webp)
 
 
 ## Request Test Tokens
 
-To start conducting transactions and interacting with smart contracts on the Westend testnet, you'll need test WND tokens. Here's how to get them:
+To start conducting transactions and interacting with smart contracts on the Westend TestNet, you'll need test WND tokens. Here's how to get them:
 
 1. Navigate to the [Westend Faucet](https://faucet.polkadot.io/westend?parachain=1000){target=\_blank}
 

@@ -11,7 +11,7 @@ The project uses the following Rust toolchains:
 -   **Stable:** `1.81.0` (for building)
 -   **Nightly:** `1.85.0-nightly` (for formatting and linting)
 
-To install the required toolchains, instrall `rustup` and run:
+To install the required toolchains, install `rustup` and run:
 
 ```bash
 rustup toolchain install 1.81.0

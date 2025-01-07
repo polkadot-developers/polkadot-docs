@@ -38,7 +38,7 @@ Key features of BABE include:
 
 - **Epochs and slots** - BABE operates in phases called epochs, each of which is divided into slots (around 6 seconds per slot). Validators are assigned slots at the beginning of each epoch based on stake and randomness
 
-- **Randomized block production** - validators enter a lottery to determine which will produce a block in a specific slot. This randomness is sourced from the relay chain's [randomness cycle](https://docs.polkadot.com/polkadot-protocol/basics/randomness/){target=\_blank}
+- **Randomized block production** - validators enter a lottery to determine which will produce a block in a specific slot. This randomness is sourced from the relay chain's [randomness cycle](/polkadot-protocol/basics/randomness/){target=\_blank}
 
 - **Multiple block producers per slot** - in some cases, more than one validator might win the lottery for the same slot, resulting in multiple blocks being produced. These blocks are broadcasted, and the network's fork choice rule helps decide which chain to follow
 

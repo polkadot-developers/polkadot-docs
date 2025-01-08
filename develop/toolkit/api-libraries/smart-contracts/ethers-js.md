@@ -32,7 +32,7 @@ npm install ethers
 To interact with the Asset Hub, you'll need to set up an Ethers.js provider. This provider connects to a blockchain node, allowing you to query blockchain data and interact with smart contracts. Here's how to configure it:
 
 ```js
---8<-- 'code/develop/toolkit/api-libraries/smart-contracts/ether-js/connectToProvider.js'
+--8<-- 'code/develop/smart-contracts/evm-toolkit/ethers-js/connectToProvider.js'
 ```
 
 !!! note
@@ -51,7 +51,7 @@ With the [`Provider`](https://docs.ethers.org/v6/api/providers/#Provider){target
 ??? code "Fetch Last Block code"
 
     ```js
-    --8<-- 'code/develop/toolkit/api-libraries/smart-contracts/ether-js/fetchLastBlock.js'
+    --8<-- 'code/develop/smart-contracts/evm-toolkit/ethers-js/fetchLastBlock.js'
     ```
 
 ## Compile Contracts
@@ -70,13 +70,13 @@ Here's a sample Solidity contract (`Storage.sol`) to be compiled and deployed to
 ??? code "Storage.sol"
 
     ```solidity
-    --8<-- 'code/develop/toolkit/api-libraries/smart-contracts/ether-js/Storage.sol'
+    --8<-- 'code/develop/smart-contracts/evm-toolkit/ethers-js/Storage.sol'
     ```
 
 To compile this contract, use the following script:
 
 ```js
---8<-- 'code/develop/toolkit/api-libraries/smart-contracts/ether-js/compile.js'
+--8<-- 'code/develop/smart-contracts/evm-toolkit/ethers-js/compile.js'
 ```
 
 Note that the script above is tailored to the `Storage.sol` contract. It can be adjusted for other contracts by changing the file name or modifying the ABI and bytecode paths accordingly.
@@ -90,7 +90,7 @@ To deploy the compiled contract to the Asset Hub, you will need a wallet with a 
 Here's the script to deploy the contract:
 
 ```js
---8<-- 'code/develop/toolkit/api-libraries/smart-contracts/ether-js/deploy.js'
+--8<-- 'code/develop/smart-contracts/evm-toolkit/ethers-js/deploy.js'
 ```
 
 !!! note
@@ -103,7 +103,7 @@ After running the script above, the contract will be deployed to the Asset Hub n
 Once the contract is deployed, you can interact with it by calling its functions. For example, to set a number, read it and then modify that number by its double, you can use the following script:
 
 ```js
---8<-- 'code/develop/toolkit/api-libraries/smart-contracts/ether-js/checkStorage.js'
+--8<-- 'code/develop/smart-contracts/evm-toolkit/ethers-js/checkStorage.js'
 ```
 
 Ensure you replace the `INSERT_MNEMONIC`, `INSERT_CONTRACT_ADDRESS` and `INSERT_ADDRESS_TO_CHECK` placeholders with actual values. Also, the contract ABI file (`Storage.json`) should be correctly referenced.

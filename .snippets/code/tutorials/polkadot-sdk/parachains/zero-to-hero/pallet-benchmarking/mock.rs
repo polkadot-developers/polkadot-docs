@@ -33,7 +33,7 @@ impl frame_system::Config for Test {
     type Block = Block;
 }
 
-// Custom pallet configuration
+// Custom pallet configuration.
 parameter_types! {
     pub const CounterMaxValue: u32 = 10;
 }
@@ -44,7 +44,7 @@ impl custom_pallet::Config for Test {
     type WeightInfo = custom_pallet::weights::SubstrateWeight<Test>;
 }
 
-// Test externalities initialization
+// Test externalities initialization.
 pub fn new_test_ext() -> sp_io::TestExternalities {
     frame_system::GenesisConfig::<Test>::default()
         .build_storage()

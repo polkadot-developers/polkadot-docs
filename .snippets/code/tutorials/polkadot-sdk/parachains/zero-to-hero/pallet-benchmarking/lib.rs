@@ -23,13 +23,13 @@ pub mod pallet {
     #[pallet::pallet]
     pub struct Pallet<T>(_);
 
-    // Configuration trait for the pallet
+    // Configuration trait for the pallet.
     #[pallet::config]
     pub trait Config: frame_system::Config {
-        // Defines the event type for the pallet
+        // Defines the event type for the pallet.
         type RuntimeEvent: From<Event<Self>> + IsType<<Self as frame_system::Config>::RuntimeEvent>;
 
-        // Defines the maximum value the counter can hold
+        // Defines the maximum value the counter can hold.
         #[pallet::constant]
         type CounterMaxValue: Get<u32>;
 
@@ -143,7 +143,7 @@ pub mod pallet {
                     .unwrap_or(0)
                     .checked_add(1)
                     .ok_or(Error::<T>::UserInteractionOverflow)?;
-                *interactions = Some(new_interactions); // Store the new value
+                *interactions = Some(new_interactions); // Store the new value.
 
                 Ok(())
             })?;
@@ -182,7 +182,7 @@ pub mod pallet {
                     .unwrap_or(0)
                     .checked_add(1)
                     .ok_or(Error::<T>::UserInteractionOverflow)?;
-                *interactions = Some(new_interactions); // Store the new value
+                *interactions = Some(new_interactions); // Store the new value.
 
                 Ok(())
             })?;

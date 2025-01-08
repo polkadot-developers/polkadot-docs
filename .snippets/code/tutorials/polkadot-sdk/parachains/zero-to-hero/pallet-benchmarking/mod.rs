@@ -297,7 +297,7 @@ impl pallet_collator_selection::Config for Runtime {
     type MaxCandidates = ConstU32<100>;
     type MinEligibleCollators = ConstU32<4>;
     type MaxInvulnerables = ConstU32<20>;
-    // should be a multiple of session or things will get inconsistent
+    // Should be a multiple of session or things will get inconsistent.
     type KickThreshold = Period;
     type ValidatorId = <Self as frame_system::Config>::AccountId;
     type ValidatorIdOf = pallet_collator_selection::IdentityCollator;
@@ -311,7 +311,7 @@ impl pallet_parachain_template::Config for Runtime {
     type WeightInfo = pallet_parachain_template::weights::SubstrateWeight<Runtime>;
 }
 
-// Configure utility pallet
+// Configure utility pallet.
 impl pallet_utility::Config for Runtime {
     type RuntimeEvent = RuntimeEvent;
     type RuntimeCall = RuntimeCall;
@@ -319,12 +319,12 @@ impl pallet_utility::Config for Runtime {
     type WeightInfo = pallet_utility::weights::SubstrateWeight<Runtime>;
 }
 
-// Define counter max value runtime constant
+// Define counter max value runtime constant.
 parameter_types! {
     pub const CounterMaxValue: u32 = 500;
 }
 
-// Configure custom pallet
+// Configure custom pallet.
 impl custom_pallet::Config for Runtime {
     type RuntimeEvent = RuntimeEvent;
     type CounterMaxValue = CounterMaxValue;

@@ -3,9 +3,11 @@ title: Ethers.js
 description: Learn how to interact with the Asset Hub chain using Ethers.js, compiling and deploying Solidity contracts, and interacting with deployed smart contracts.
 ---
 
-# Ethers.Js
+# Ethers.js
 
 ## Introduction
+
+The `revive` compiler is used to compile Solidity smart contracts to [`PolkaVM`](/develop/smart-contracts/evm/native-evm-contracts/#polkavm){target=\_blank} bytecode, which allows it to be uploaded to Asset Hub. An Ethereum RPC faciliates interaction with existing Ethereum tools, such as Ethers.js or Metamask
 
 Ethers.js is a lightweight library that enables interaction with Ethereum Virtual Machine (EVM)-compatible blockchains through JavaScript. This article demonstrates how to use Ethers.js to interact and deploy smart contracts to the Asset Hub.
 

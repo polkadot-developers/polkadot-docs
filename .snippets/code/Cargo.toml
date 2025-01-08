@@ -1,16 +1,14 @@
 [workspace.package]
 license = "MIT-0"
-authors = [
-  "Parity Technologies <admin@parity.io>",
-  "Web3 Foundation",
-  "PaperMoon.io",
-]
+authors = ["Parity Technologies <admin@parity.io>", "Web3 Foundation", "PaperMoon.io"]
 homepage = "docs.polkadot.com"
 repository = "https://github.com/paritytech/polkadot-sdk-parachain-template.git"
 edition = "2021"
 
 [workspace]
-members = ["tutorials/polkadot-sdk/parachains/zero-to-hero/build-custom-pallet"]
+members = [
+    "tutorials/polkadot-sdk/parachains/zero-to-hero/build-custom-pallet"
+]
 resolver = "2"
 
 [workspace.dependencies]
@@ -27,11 +25,11 @@ pallet-balances = { version = "39.0.0", default-features = false }
 suspicious_double_ref_op = { level = "allow", priority = 2 }
 # `substrate_runtime` is a common `cfg` condition name used in the repo.
 unexpected_cfgs = { level = "warn", check-cfg = [
-  'cfg(build_opt_level, values("3"))',
-  'cfg(build_profile, values("debug", "release"))',
-  'cfg(enable_alloc_error_handler)',
-  'cfg(fuzzing)',
-  'cfg(substrate_runtime)',
+	'cfg(build_opt_level, values("3"))',
+	'cfg(build_profile, values("debug", "release"))',
+	'cfg(enable_alloc_error_handler)',
+	'cfg(fuzzing)',
+	'cfg(substrate_runtime)',
 ] }
 
 [workspace.lints.clippy]

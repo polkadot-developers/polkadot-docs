@@ -259,7 +259,7 @@ Fetch estimated fee information for an extrinsic.
         }
         ```
 
-        For more information on the underlying types and fields of `RuntimeDispatchInfoV1`, check the [RuntimeDispatchInfoV1](https://github.com/polkadot-js/api/blob/v15.0.2/packages/types/src/interfaces/payment/types.ts#L28){target=\_blank} source code.
+        For more information on the underlying types and fields of `RuntimeDispatchInfoV1`, check the [`RuntimeDispatchInfoV1`](https://github.com/polkadot-js/api/blob/v15.0.2/packages/types/src/interfaces/payment/types.ts#L28){target=\_blank} source code.
 
 ??? interface "Example"
 

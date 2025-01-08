@@ -1,0 +1,48 @@
+name: Preflight
+
+on:
+  workflow_call:
+    outputs:
+      changes_rust:
+        value: ${{ jobs.preflight.outputs.changes_rust }}
+      changes_currentWorkflow:
+        value: ${{ jobs.preflight.outputs.changes_currentWorkflow }}
+      IMAGE:
+        value: ${{ jobs.preflight.outputs.IMAGE }}
+        description: "CI image"
+
+jobs:
+  preflight:
+    runs-on: ubuntu-latest
+    outputs:
+      changes_rust: ${{ steps.set_changes.outputs.rust_any_changed || steps.set_changes.outputs.currentWorkflow_any_changed }}
+      changes_currentWorkflow: ${{ steps.set_changes.outputs.currentWorkflow_any_changed }}
+      IMAGE: ${{ steps.set_image.outputs.IMAGE }}
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Current file
+        id: current_file
+        shell: bash
+        run: |
+          echo "currentWorkflowFile=$(echo ${{ github.workflow_ref }} | sed -nE "s/.*(\.github\/workflows\/[a-zA-Z0-9_-]*\.y[a]?ml)@refs.*/\1/p")" >> $GITHUB_OUTPUT
+          echo "currentActionDir=$(echo ${{ github.action_path }} | sed -nE "s/.*(\.github\/actions\/[a-zA-Z0-9_-]*)/\1/p")" >> $GITHUB_OUTPUT
+
+      - name: Set changes
+        id: set_changes
+        uses: tj-actions/changed-files@v45
+        with:
+          files_yaml: |
+            rust:
+              - '.snippets/code/**/*'
+              - '!.github/**/*'
+              - '!docs/**/*'
+            currentWorkflow:
+              - '${{ steps.current_file.outputs.currentWorkflowFile }}'
+              - '.github/workflows/reusable-preflight.yml'
+
+      - name: Set image
+        id: set_image
+        shell: bash
+        run: cat .github/env >> $GITHUB_OUTPUT

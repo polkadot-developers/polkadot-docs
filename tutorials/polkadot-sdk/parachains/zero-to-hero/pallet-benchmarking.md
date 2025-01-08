@@ -69,6 +69,9 @@ Follow these steps to prepare your environment for pallet benchmarking:
         --8<-- 'code/tutorials/polkadot-sdk/parachains/zero-to-hero/pallet-benchmarking/lib.rs:1:12'
         ```
 
+        !!!note
+            The `benchmarking` module is gated behind the `runtime-benchmarks` feature flag. It will only be compiled when this flag is explicitly enabled in your project's `Cargo.toml` or via the `--features runtime-benchmarks` compilation flag.
+
 ## Implement Benchmark Tests
 
 When writing benchmarking tests for your pallet, you'll create specialized test functions for each extrinsic, similar to unit tests. These tests use the mock runtime you created earlier for testing, allowing you to leverage its utility functions.
@@ -79,11 +82,19 @@ Every benchmark test must follow a three-step pattern:
 2. **Execute the extrinsic** - execute the actual extrinsic using the [`#[extrinsic_call]`](https://paritytech.github.io/polkadot-sdk/master/frame_benchmarking/v2/attr.extrinsic_call.html){target=\_blank} macro. This must be a single line that calls your extrinsic function with the origin as its first argument
 3. **Verification** - check that the extrinsic worked correctly within the benchmark context by checking the expected state changes
 
-Check the following example on how to benchmark the `set_counter_value` extrinsic:
+Check the following example on how to benchmark the `increment` extrinsic:
 
 ```rust
---8<-- 'code/tutorials/polkadot-sdk/parachains/zero-to-hero/pallet-benchmarking/benchmarking.rs:15:23'
+--8<-- 'code/tutorials/polkadot-sdk/parachains/zero-to-hero/pallet-benchmarking/benchmarking.rs:23:37'
 ```
+
+This benchmark test:
+
+1. Creates a whitelisted caller and sets an initial counter value of 5
+2. Calls the increment extrinsic to increase the counter by 1
+3. Verifies that the counter was properly incremented to 6 and that the user's interaction was recorded in storage
+
+This example demonstrates how to properly set up state, execute an extrinsic, and verify its effects during benchmarking.
 
 Now, implement the complete set of benchmark tests. Copy the following content in the `benchmarking.rs` file:
 

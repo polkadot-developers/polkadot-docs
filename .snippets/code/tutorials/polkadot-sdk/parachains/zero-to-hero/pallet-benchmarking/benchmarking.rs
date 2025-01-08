@@ -14,8 +14,6 @@ mod benchmarks {
 
     #[benchmark]
     fn set_counter_value() {
-        let caller: T::AccountId = whitelisted_caller();
-
         #[extrinsic_call]
         set_counter_value(RawOrigin::Root, 5);
 

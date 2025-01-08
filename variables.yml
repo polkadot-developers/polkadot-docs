@@ -20,6 +20,8 @@ dependencies:
     repository_url: https://github.com/paritytech/polkadot-sdk
     # version: v1.16.2-rc1 
     stable_version: polkadot-stable2412 
+  polkadot_js_api:
+    version: v15.0.2
   srtool:
     repository_url: https://github.com/paritytech/srtool
     version: v0.16.0

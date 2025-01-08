@@ -155,7 +155,7 @@ docker.io/parity/polkadot:INSERT_VERSION_NUMBER
 
 ### Build from Sources
 
-You may build the binaries from source by following the instructions on the [Polkadot SDK repository](https://github.com/paritytech/polkadot-sdk/tree/polkadot-stable2412/polkadot#building){target=\_blank}.
+You may build the binaries from source by following the instructions on the [Polkadot SDK repository](https://github.com/paritytech/polkadot-sdk/tree/{{dependencies.polkadot_sdk.stable_version}}/polkadot#building){target=\_blank}.
 
 ### Verify Installation
 

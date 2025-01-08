@@ -1,4 +1,4 @@
 title: Smart Contracts
 nav:
   - index.md
-  - ether-js.md
+  - ethers-js.md

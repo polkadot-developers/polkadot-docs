@@ -7,6 +7,7 @@ description: Learn how to benchmark Polkadot SDK-based pallets, assigning precis
 
 After implementing and testing your pallet with a mock runtime in the [Pallet Unit Testing
 ](/tutorials/polkadot-sdk/parachains/zero-to-hero/pallet-unit-testing/){target=\_blank} tutorial, the next crucial step is benchmarking. Benchmarking assigns precise [weight](/polkadot-protocol/glossary/#weight){target=\_blank} to each extrinsic, measuring their computational and storage costs. These derived weights enable accurate fee calculation and resource allocation within the runtime.
+
 This tutorial demonstrates how to:
 
 - Configure your development environment for benchmarking
@@ -21,7 +22,7 @@ For comprehensive information about benchmarking concepts, refer to the [Benchma
 
 Follow these steps to prepare your environment for pallet benchmarking:
 
-1. Install the `frame-omni-bencher` command-line tool:
+1. Install the [`frame-omni-bencher`](https://crates.io/crates/frame-omni-bencher){target=\_blank} command-line tool:
     
     ```bash
     cargo install frame-omni-bencher
@@ -51,7 +52,7 @@ Follow these steps to prepare your environment for pallet benchmarking:
         --8<-- 'code/tutorials/polkadot-sdk/parachains/zero-to-hero/pallet-benchmarking/pallet-cargo.toml'
         ```
 
-3. Add your pallet to the runtime's benchmark configuration:
+3. Add your pallet to the runtime's benchmarks configuration:
     1.  Register your pallet in `runtime/src/benchmarks.rs`:
         ```rust hl_lines="11"
         --8<-- 'code/tutorials/polkadot-sdk/parachains/zero-to-hero/pallet-benchmarking/benchmarks.rs:26:37'
@@ -80,7 +81,7 @@ When writing benchmarking tests for your pallet, you'll create specialized test 
 Every benchmark test must follow a three-step pattern:
 
 1. **Setup** - perform any necessary setup before calling the extrinsic. This might include creating accounts, setting initial states, or preparing test data
-2. **Execute the extrinsic** - execute the actual extrinsic using the `#[extrinsic_call]` macro. This must be a single line that calls your extrinsic function with the origin as its first argument
+2. **Execute the extrinsic** - execute the actual extrinsic using the [`#[extrinsic_call]`](https://paritytech.github.io/polkadot-sdk/master/frame_benchmarking/v2/attr.extrinsic_call.html){target=\_blank} macro. This must be a single line that calls your extrinsic function with the origin as its first argument
 3. **Verification** - check that the extrinsic worked correctly within the benchmark context by checking the expected state changes
 
 Check the following example on how to benchmark the `set_counter_value` extrinsic:
@@ -96,7 +97,7 @@ Now, implement the complete set of benchmark tests. Copy the following content i
 ```
 
 !!!note
-    The `#[benchmark]` macro marks these functions as benchmark tests, while the `#[extrinsic_call]` macro specifically identifies which line contains the extrinsic being measured. For more information check the [frame_benchmarking](https://paritytech.github.io/polkadot-sdk/master/frame_benchmarking/v2/index.html){target=\_blank} rust docs.
+    The [`#[benchmark]`](https://paritytech.github.io/polkadot-sdk/master/frame_benchmarking/v2/attr.benchmark.html){target=\_blank} macro marks these functions as benchmark tests, while the `#[extrinsic_call]` macro specifically identifies which line contains the extrinsic being measured. For more information check the [frame_benchmarking](https://paritytech.github.io/polkadot-sdk/master/frame_benchmarking/v2/index.html){target=\_blank} rust docs.
 
 ## Execute the Benchmarking
 
@@ -116,7 +117,7 @@ After implementing your benchmark test suite, you'll need to execute the tests a
     touch weights.rs
     ```
 
-3. Before running the benchmarking tool, you'll need a template file that defines how weight information should be formatted. Download the official template from the Polkadot SDK repository:
+3. Before running the benchmarking tool, you'll need a template file that defines how weight information should be formatted. Download the official template from the Polkadot SDK repository and save it in your project folders for future use:
 
     ```bash
     mkdir ./pallets/benchmarking && \

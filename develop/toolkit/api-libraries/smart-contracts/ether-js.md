@@ -34,7 +34,7 @@ To interact with the Asset Hub, you'll need to set up an Ethers.js provider. Thi
 ```
 
 !!! note
-    Replace `INSERT_RPC_URL`, `INSERT_CHAIN_ID`, and `INSERT_CHAIN_NAME` with the appropriate values. For example, to connect to Westend Asset Hub, you can use the following parameters:
+    Replace `INSERT_RPC_URL`, `INSERT_CHAIN_ID`, and `INSERT_CHAIN_NAME` with the appropriate values. For example, to connect to Westend Asset Hub's Ethereum RPC instance, you can use the following parameters:
 
     ```js
     const PROVIDER_RPC = {

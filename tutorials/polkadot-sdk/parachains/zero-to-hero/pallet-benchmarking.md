@@ -16,8 +16,6 @@ This tutorial demonstrates how to:
 
 For comprehensive information about benchmarking concepts, refer to the [Benchmarking](/develop/parachains/testing/benchmarking/){target=\_blank} guide.
 
----
-
 ## Environment Setup
 
 Follow these steps to prepare your environment for pallet benchmarking:
@@ -43,16 +41,13 @@ Follow these steps to prepare your environment for pallet benchmarking:
         ```
 
     3. Add the `runtime-benchmarks` feature flag:
-        ```toml
+        ```toml hl_lines="3-8"
+        --8<-- 'code/tutorials/polkadot-sdk/parachains/zero-to-hero/pallet-benchmarking/pallet-cargo.toml:22:22'
+        ...
         --8<-- 'code/tutorials/polkadot-sdk/parachains/zero-to-hero/pallet-benchmarking/pallet-cargo.toml:31:36'
         ```
 
-    ??? "View complete `Cargo.toml` file:"
-        ```toml
-        --8<-- 'code/tutorials/polkadot-sdk/parachains/zero-to-hero/pallet-benchmarking/pallet-cargo.toml'
-        ```
-
-3. Add your pallet to the runtime's benchmarks configuration:
+3. Add your pallet to the runtime's benchmark configuration:
     1.  Register your pallet in `runtime/src/benchmarks.rs`:
         ```rust hl_lines="11"
         --8<-- 'code/tutorials/polkadot-sdk/parachains/zero-to-hero/pallet-benchmarking/benchmarks.rs:26:37'

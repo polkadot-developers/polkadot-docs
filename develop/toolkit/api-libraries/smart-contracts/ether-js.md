@@ -63,7 +63,7 @@ npm install --save-dev @parity/revive
 ```
 ### Example: Storage.sol
 
-Here's a sample Solidity contract (`Storage.sol`) to be compiled and deployed to Asset Hub. This contract's functionality stores a number and permits users to update it with a new value.
+Here's a sample Solidity contract (`Storage.sol`) to be compiled and deployed to the Asset Hub. This contract's functionality stores a number and permits users to update it with a new value.
 
 ??? code "Storage.sol"
 

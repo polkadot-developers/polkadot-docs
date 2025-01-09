@@ -56,7 +56,7 @@ With the [`Provider`](https://docs.ethers.org/v6/api/providers/#Provider){target
 
 ## Compile Contracts
 
-To deploy smart contracts to Asset Hub, you need to compile them into `polkavm` bytecode. Use the [`@parity/revive`](https://www.npmjs.com/package/@parity/revive){target=\_blank} library, which compiles Solidity code for use on Substrate-based chains.
+To deploy smart contracts to Asset Hub, you must compile your Solidity code into `polkavm` bytecode. Use the [`@parity/revive`](https://www.npmjs.com/package/@parity/revive){target=\_blank} library to perform this step.
 
 Install the `@parity/revive` library:
 

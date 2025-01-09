@@ -1,4 +1,4 @@
-use crate as pallet_custom;
+use crate as custom_pallet;
 use frame_support::{derive_impl, parameter_types};
 use sp_runtime::BuildStorage;
 
@@ -22,9 +22,9 @@ mod runtime {
 
     #[runtime::pallet_index(0)]
     pub type System = frame_system::Pallet<Test>;
-    
+
     #[runtime::pallet_index(1)]
-    pub type CustomPallet = pallet_custom::Pallet<Test>;
+    pub type CustomPallet = custom_pallet::Pallet<Test>;
 }
 
 // System pallet configuration
@@ -38,9 +38,10 @@ parameter_types! {
     pub const CounterMaxValue: u32 = 10;
 }
 
-impl pallet_custom::Config for Test {
+impl custom_pallet::Config for Test {
     type RuntimeEvent = RuntimeEvent;
     type CounterMaxValue = CounterMaxValue;
+    type WeightInfo = custom_pallet::weights::SubstrateWeight<Test>;
 }
 
 // Test externalities initialization

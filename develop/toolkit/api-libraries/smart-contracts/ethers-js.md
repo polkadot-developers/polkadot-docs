@@ -79,7 +79,8 @@ To compile this contract, use the following script:
 --8<-- 'code/develop/smart-contracts/evm-toolkit/ethers-js/compile.js'
 ```
 
-Note that the script above is tailored to the `Storage.sol` contract. It can be adjusted for other contracts by changing the file name or modifying the ABI and bytecode paths accordingly.
+!!!note
+    The script above is tailored to the `Storage.sol` contract. It can be adjusted for other contracts by changing the file name or modifying the ABI and bytecode paths accordingly.
 
 After executing the script, the Solidity contract will be compiled into the required `polkavm` bytecode format. The ABI and bytecode will be saved into files with `.json` and `.polkavm` extensions, respectively. You can now proceed with deploying the contract to the Asset Hub network, as outlined in the next section.
 

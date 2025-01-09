@@ -68,11 +68,9 @@ This library will compile your Solidity code for deployment on Asset Hub.
 
 Here's a sample Solidity contract (`Storage.sol`) to be compiled and deployed to the Asset Hub. This contract's functionality stores a number and permits users to update it with a new value.
 
-??? code "Storage.sol"
-
-    ```solidity
-    --8<-- 'code/develop/smart-contracts/evm-toolkit/ethers-js/Storage.sol'
-    ```
+```solidity
+--8<-- 'code/develop/smart-contracts/evm-toolkit/ethers-js/Storage.sol'
+```
 
 To compile this contract, use the following script:
 
@@ -86,7 +84,7 @@ After executing the script, the Solidity contract will be compiled into the requ
 
 ## Contracts Deployment
 
-To deploy your compiled contract to Asset Hub, you'll need a wallet with a private key to sign the deployment transaction. You can use [subkey](/polkadot-protocol/basics/accounts/#using-subkey){target=\_blank} to manage your address.
+To deploy your compiled contract to Asset Hub, you'll need a wallet with a private key to sign the deployment transaction.
 
 The deployment script can be broken down into key components:
 

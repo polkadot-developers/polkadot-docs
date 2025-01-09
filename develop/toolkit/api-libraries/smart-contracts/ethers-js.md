@@ -7,8 +7,6 @@ description: Learn how to interact with the Asset Hub chain using Ethers.js, com
 
 ## Introduction
 
-The `revive` compiler is used to compile Solidity smart contracts to [`PolkaVM`](/develop/smart-contracts/evm/native-evm-contracts/#polkavm){target=\_blank} bytecode, which allows it to be uploaded to Asset Hub. An Ethereum RPC faciliates interaction with existing Ethereum tools, such as Ethers.js or Metamask
-
 Ethers.js is a lightweight library that enables interaction with Ethereum Virtual Machine (EVM)-compatible blockchains through JavaScript. This article demonstrates how to use Ethers.js to interact and deploy smart contracts to the Asset Hub.
 
 ## Set Up the Project
@@ -56,13 +54,16 @@ With the [`Provider`](https://docs.ethers.org/v6/api/providers/#Provider){target
 
 ## Compile Contracts
 
-To deploy smart contracts to Asset Hub, you must compile your Solidity code into `polkavm` bytecode. Use the [`@parity/revive`](https://www.npmjs.com/package/@parity/revive){target=\_blank} library to perform this step.
+The `revive` compiler transforms Solidity smart contracts into [`PolkaVM`](/develop/smart-contracts/evm/native-evm-contracts/#polkavm){target=\_blank} bytecode for deployment on Asset Hub. Through its Ethereum RPC interface, you can still use familiar tools like Ethers.js and MetaMask for contract interactions.
 
-Install the `@parity/revive` library:
+Install the [`@parity/revive`](https://www.npmjs.com/package/@parity/revive){target=\_blank} library:
 
 ```bash
 npm install --save-dev @parity/revive 
 ```
+
+This library will compile your Solidity code for deployment on Asset Hub.
+
 ### Example: Storage.sol
 
 Here's a sample Solidity contract (`Storage.sol`) to be compiled and deployed to the Asset Hub. This contract's functionality stores a number and permits users to update it with a new value.
@@ -79,14 +80,13 @@ To compile this contract, use the following script:
 --8<-- 'code/develop/smart-contracts/evm-toolkit/ethers-js/compile.js'
 ```
 
-!!!note
-    The script above is tailored to the `Storage.sol` contract. It can be adjusted for other contracts by changing the file name or modifying the ABI and bytecode paths accordingly.
+Note that the script above is tailored to the `Storage.sol` contract. It can be adjusted for other contracts by changing the file name or modifying the ABI and bytecode paths accordingly.
 
 After executing the script, the Solidity contract will be compiled into the required `polkavm` bytecode format. The ABI and bytecode will be saved into files with `.json` and `.polkavm` extensions, respectively. You can now proceed with deploying the contract to the Asset Hub network, as outlined in the next section.
 
 ## Contracts Deployment
 
-To deploy the compiled contract to Asset Hub, you will need a wallet with a private key to sign the deployment transaction. You can use [subkey](/polkadot-protocol/basics/accounts/#using-subkey){target=\_blank} to manage your wallet.
+To deploy the compiled contract to the Asset Hub, you will need a wallet with a private key to sign the deployment transaction. You can use [subkey](/polkadot-protocol/basics/accounts/#using-subkey){target=\_blank} to manage your wallet.
 
 Here's the script to deploy the contract:
 

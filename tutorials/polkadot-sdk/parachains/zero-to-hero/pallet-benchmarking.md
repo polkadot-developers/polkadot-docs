@@ -5,8 +5,7 @@ description: Learn how to benchmark Polkadot SDK-based pallets, assigning precis
 
 ## Introduction
 
-After implementing and testing your pallet with a mock runtime in the [Pallet Unit Testing
-](/tutorials/polkadot-sdk/parachains/zero-to-hero/pallet-unit-testing/){target=\_blank} tutorial, the next crucial step is benchmarking. Benchmarking assigns precise [weight](/polkadot-protocol/glossary/#weight){target=\_blank} to each extrinsic, measuring their computational and storage costs. These derived weights enable accurate fee calculation and resource allocation within the runtime.
+After validating your pallet through testing and integrating it into your runtime, the next crucial step is benchmarking. Testing procedures were detailed in the [Pallet Unit Testing](/tutorials/polkadot-sdk/parachains/zero-to-hero/pallet-unit-testing/){target=\_blank} tutorial, while runtime integration was covered in the [Add Pallets to the Runtime](/tutorials/polkadot-sdk/parachains/zero-to-hero/add-pallets-to-runtime/){target=\_blank} guide.
 
 This tutorial demonstrates how to:
 
@@ -201,12 +200,12 @@ Your pallet is now complete with full testing and benchmarking support, ready fo
 
 <div class="grid cards" markdown>
 
--   <span class="badge tutorial">Tutorial</span> __Add Pallets to the Runtime__
+-   <span class="badge tutorial">Tutorial</span> __Deploy on Paseo TestNet__
 
     ---
 
-    Enhance your runtime with custom functionality! Learn how to add, configure, and integrate pallets in Polkadot SDK-based blockchains.
+    Deploy your Polkadot SDK blockchain on Paseo! Follow this step-by-step guide for a seamless journey to a successful TestNet deployment.
 
-    [:octicons-arrow-right-24: Get Started](/tutorials/polkadot-sdk/parachains/zero-to-hero/add-pallets-to-runtime/)
+    [:octicons-arrow-right-24: Get Started](/tutorials/polkadot-sdk/parachains/zero-to-hero/deploy-to-testnet/)
 
 </div>

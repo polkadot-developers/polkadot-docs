@@ -112,4 +112,12 @@ Launch your parachain locally and start producing blocks:
 
     [:octicons-arrow-right-24: Get Started](/tutorials/polkadot-sdk/parachains/zero-to-hero/deploy-to-testnet/)
 
+-   <span class="badge tutorial">Tutorial</span> __Pallet Benchmarking (Optional)__
+
+    ---
+
+    Discover how to measure extrinsic costs and assign precise weights to optimize your pallet for accurate fees and runtime performance.
+
+    [:octicons-arrow-right-24: Get Started](/tutorials/polkadot-sdk/parachains/zero-to-hero/pallet-benchmarking/)
+
 </div>

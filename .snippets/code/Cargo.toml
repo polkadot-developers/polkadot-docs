@@ -14,6 +14,7 @@ members = [
   "tutorials/polkadot-sdk/parachains/zero-to-hero/build-custom-pallet",
   "tutorials/polkadot-sdk/parachains/zero-to-hero/pallet-unit-testing",
   "tutorials/polkadot-sdk/parachains/zero-to-hero/add-pallets-to-runtime/runtime",
+  "tutorials/polkadot-sdk/parachains/zero-to-hero/pallet-benchmarking/runtime",
 ]
 resolver = "2"
 

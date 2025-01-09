@@ -86,7 +86,7 @@ After executing the script, the Solidity contract will be compiled into the requ
 
 ## Contracts Deployment
 
-To deploy the compiled contract to the Asset Hub, you will need a wallet with a private key to sign the deployment transaction. You can use [subkey](/polkadot-protocol/basics/accounts/#using-subkey){target=\_blank} to manage your wallet.
+To deploy the compiled contract to Asset Hub, you will need a wallet with a private key to sign the deployment transaction. You can use [subkey](/polkadot-protocol/basics/accounts/#using-subkey){target=\_blank} to manage your wallet.
 
 Here's the script to deploy the contract:
 

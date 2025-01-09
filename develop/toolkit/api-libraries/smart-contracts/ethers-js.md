@@ -7,7 +7,7 @@ description: Learn how to interact with the Asset Hub chain using Ethers.js, com
 
 ## Introduction
 
-Ethers.js is a lightweight library that enables interaction with Ethereum Virtual Machine (EVM)-compatible blockchains through JavaScript. This article demonstrates how to use Ethers.js to interact and deploy smart contracts to the Asset Hub.
+[Ethers.js](https://docs.ethers.org/v6/){target=\_blank} is a lightweight library that enables interaction with Ethereum Virtual Machine (EVM)-compatible blockchains through JavaScript. This article demonstrates how to use Ethers.js to interact and deploy smart contracts to the Asset Hub.
 
 ## Set Up the Project
 
@@ -86,7 +86,7 @@ After executing the script, the Solidity contract will be compiled into the requ
 
 ## Contracts Deployment
 
-To deploy the compiled contract to the Asset Hub, you will need a wallet with a private key to sign the deployment transaction. You can use [subkey](/polkadot-protocol/basics/accounts/#using-subkey){target=\_blank} to manage your wallet.
+To deploy the compiled contract to the Asset Hub, you will need a wallet with a private key to sign the deployment transaction. You can use [subkey](/polkadot-protocol/basics/accounts/#using-subkey){target=\_blank} to manage your address.
 
 Here's the script to deploy the contract:
 

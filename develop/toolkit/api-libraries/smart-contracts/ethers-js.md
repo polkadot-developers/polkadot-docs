@@ -7,7 +7,7 @@ description: Learn how to interact with the Asset Hub chain using Ethers.js, com
 
 ## Introduction
 
-[Ethers.js](https://docs.ethers.org/v6/){target=\_blank} is a lightweight library that enables interaction with Ethereum Virtual Machine (EVM)-compatible blockchains through JavaScript. This article demonstrates how to use Ethers.js to interact and deploy smart contracts to the Asset Hub.
+[Ethers.js](https://docs.ethers.org/v6/){target=\_blank} is a lightweight library that enables interaction with Ethereum Virtual Machine (EVM)-compatible blockchains through JavaScript. This article demonstrates how to use Ethers.js to interact and deploy smart contracts to Asset Hub.
 
 ## Set Up the Project
 
@@ -66,7 +66,7 @@ This library will compile your Solidity code for deployment on Asset Hub.
 
 ### Example: Storage.sol
 
-Here's a sample Solidity contract (`Storage.sol`) to be compiled and deployed to the Asset Hub. This contract's functionality stores a number and permits users to update it with a new value.
+Here's a sample Solidity contract (`Storage.sol`) to be compiled and deployed to Asset Hub. This contract's functionality stores a number and permits users to update it with a new value.
 
 ```solidity
 --8<-- 'code/develop/smart-contracts/evm-toolkit/ethers-js/Storage.sol'
@@ -80,7 +80,7 @@ To compile this contract, use the following script:
 
 Note that the script above is tailored to the `Storage.sol` contract. It can be adjusted for other contracts by changing the file name or modifying the ABI and bytecode paths accordingly.
 
-After executing the script, the Solidity contract will be compiled into the required `polkavm` bytecode format. The ABI and bytecode will be saved into files with `.json` and `.polkavm` extensions, respectively. You can now proceed with deploying the contract to the Asset Hub network, as outlined in the next section.
+After executing the script, the Solidity contract will be compiled into the required `polkavm` bytecode format. The ABI and bytecode will be saved into files with `.json` and `.polkavm` extensions, respectively. You can now proceed with deploying the contract to Asset Hub network, as outlined in the next section.
 
 ## Contracts Deployment
 
@@ -94,7 +94,7 @@ The deployment script can be broken down into key components:
     --8<-- 'code/develop/smart-contracts/evm-toolkit/ethers-js/deploy.js:1:5'
     ```
 
-2. Create a provider to connect to the Asset Hub network:
+2. Create a provider to connect to Asset Hub network:
 
     ```js
     --8<-- 'code/develop/smart-contracts/evm-toolkit/ethers-js/deploy.js:6:14'

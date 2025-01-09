@@ -1,8 +1,6 @@
 ---
 title: Fork Chains for Testing
 description: Explore tools for forking live blockchain networks, enabling you to replicate real-world conditions in a local environment for accurate testing and debugging.
-hide: 
-    - feedback
 template: index-page.html
 ---
 

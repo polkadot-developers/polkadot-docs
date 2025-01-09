@@ -1,8 +1,6 @@
 ---
 title: Parachain Tutorials
 description: This collection of tutorials will guide you step by step, from setting up your first local chain to deploying and customizing a fully operational parachain.
-hide: 
-    - feedback
 template: index-page.html
 ---
 

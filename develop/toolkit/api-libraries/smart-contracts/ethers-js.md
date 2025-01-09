@@ -86,18 +86,52 @@ After executing the script, the Solidity contract will be compiled into the requ
 
 ## Contracts Deployment
 
-To deploy the compiled contract to the Asset Hub, you will need a wallet with a private key to sign the deployment transaction. You can use [subkey](/polkadot-protocol/basics/accounts/#using-subkey){target=\_blank} to manage your address.
+To deploy your compiled contract to Asset Hub, you'll need a wallet with a private key to sign the deployment transaction. You can use [subkey](/polkadot-protocol/basics/accounts/#using-subkey){target=\_blank} to manage your address.
 
-Here's the script to deploy the contract:
+The deployment script can be broken down into key components:
 
-```js
---8<-- 'code/develop/smart-contracts/evm-toolkit/ethers-js/deploy.js'
-```
+1. First, set up the required imports and utilities:
 
-!!! note
-    Ensure to replace the `INSERT_MNEMONIC` placeholder with the proper value of your mnemonic.
+    ```js
+    --8<-- 'code/develop/smart-contracts/evm-toolkit/ethers-js/deploy.js:1:5'
+    ```
 
-After running the script above, the contract will be deployed to the Asset Hub network, and the contract address will be saved in a contract-address.json file within your project directory. This address can be used for further interactions with the contract, such as calling its methods or checking balances.
+2. Create a provider to connect to the Asset Hub network:
+
+    ```js
+    --8<-- 'code/develop/smart-contracts/evm-toolkit/ethers-js/deploy.js:6:14'
+    ```
+ 
+3. Set up functions to read contract artifacts:
+
+    ```js
+    --8<-- 'code/develop/smart-contracts/evm-toolkit/ethers-js/deploy.js:16:42'
+    ```
+
+4. Create the main deployment function:
+
+    ```js
+    --8<-- 'code/develop/smart-contracts/evm-toolkit/ethers-js/deploy.js:44:79'
+    ```
+
+5. Configure and execute the deployment:
+
+    ```js
+    --8<-- 'code/develop/smart-contracts/evm-toolkit/ethers-js/deploy.js:81:89'
+    ```
+
+    !!! note
+        Ensure to replace the `INSERT_MNEMONIC` placeholder with your actual mnemonic.
+
+Here's the complete deployment script combining all the components above:
+
+??? code "deploy.js"
+
+    ```js
+    --8<-- 'code/develop/smart-contracts/evm-toolkit/ethers-js/deploy.js'
+    ```
+
+After running this script, your contract will be deployed to Asset Hub, and its address will be saved in `contract-address.json` within your project directory. You can use this address for future contract interactions.
 
 ## Interact with the Contract
 

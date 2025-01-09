@@ -72,7 +72,6 @@ const providerConfig = {
 const mnemonic = 'INSERT_MNEMONIC';
 const contractName = 'Storage';
 const contractAddress = 'INSERT_CONTRACT_ADDRESS';
-const checkAddress = 'INSERT_ADDRESS_TO_CHECK';
 const newNumber = 42;
 
 interactWithStorageContract(

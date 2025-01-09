@@ -29,9 +29,9 @@ npm install ethers
 
 ## Set Up the Ethers.js Provider
 
-To interact with the Asset Hub, you must set up an Ethers.js provider. This provider connects to a blockchain node, allowing you to query blockchain data and interact with smart contracts. Here's how to configure it:
+To interact with the Asset Hub, you must set up an Ethers.js provider. This provider connects to a blockchain node, allowing you to query blockchain data and interact with smart contracts. In the root of your project, create a file named `connectToProvider.js` and add the following code:
 
-```js title="provider.js"
+```js title="connectToProvider.js"
 --8<-- 'code/develop/smart-contracts/evm-toolkit/ethers-js/connectToProvider.js'
 ```
 
@@ -50,7 +50,7 @@ With the [`Provider`](https://docs.ethers.org/v6/api/providers/#Provider){target
 
 ??? code "Fetch Last Block code"
 
-    ```js
+    ```js title="fetchLastBlock.js"
     --8<-- 'code/develop/smart-contracts/evm-toolkit/ethers-js/fetchLastBlock.js'
     ```
 
@@ -66,7 +66,6 @@ The [`@parity/revive`](https://www.npmjs.com/package/@parity/revive){target=\_bl
 npm install --save-dev @parity/revive 
 ```
 
-
 ### Sample `Storage.sol` Smart Contract
 
 This example demonstrates compiling a `Storage.sol` Solidity contract for deployment to Asset Hub. The contract's functionality stores a number and permits users to update it with a new value.
@@ -78,48 +77,48 @@ This example demonstrates compiling a `Storage.sol` Solidity contract for deploy
 ### Compile the Smart Contract
 To compile this contract, use the following script:
 
-```js
+```js title="compile.js"
 --8<-- 'code/develop/smart-contracts/evm-toolkit/ethers-js/compile.js'
 ```
 
 !!! note 
      The script above is tailored to the `Storage.sol` contract. It can be adjusted for other contracts by changing the file name or modifying the ABI and bytecode paths.
 
-After executing the script, the Solidity contract will be compiled into the required `polkavm` bytecode format. The ABI and bytecode will be saved into files with `.json` and `.polkavm` extensions. You can now deploy the contract to the Asset Hub network, as outlined in the next section.
+After executing the script, the Solidity contract will be compiled into the required `polkavm` bytecode format. The ABI and bytecode will be saved into files with `.json` and `.polkavm` extensions, respectively. You can now proceed with deploying the contract to the Asset Hub network, as outlined in the next section.
 
 ## Deploy the Compiled Contract
 
 To deploy your compiled contract to Asset Hub, you'll need a wallet with a private key to sign the deployment transaction.
 
-The deployment script can be broken down into key components:
+You can create a `deploy.js` script in the root of your project to achieve this. The deployment script can be divided into key components:
 
 1. First, set up the required imports and utilities:
 
-    ```js
+    ```js title="deploy.js"
     --8<-- 'code/develop/smart-contracts/evm-toolkit/ethers-js/deploy.js:1:5'
     ```
 
-2. Create a provider to connect to Asset Hub network:
+2. Create a provider to connect to the Asset Hub network:
 
-    ```js
+    ```js title="deploy.js"
     --8<-- 'code/develop/smart-contracts/evm-toolkit/ethers-js/deploy.js:6:14'
     ```
  
 3. Set up functions to read contract artifacts:
 
-    ```js
+    ```js title="deploy.js"
     --8<-- 'code/develop/smart-contracts/evm-toolkit/ethers-js/deploy.js:16:42'
     ```
 
 4. Create the main deployment function:
 
-    ```js
+    ```js title="deploy.js"
     --8<-- 'code/develop/smart-contracts/evm-toolkit/ethers-js/deploy.js:44:79'
     ```
 
 5. Configure and execute the deployment:
 
-    ```js
+    ```js title="deploy.js"
     --8<-- 'code/develop/smart-contracts/evm-toolkit/ethers-js/deploy.js:81:89'
     ```
 
@@ -130,7 +129,7 @@ Here's the complete deployment script combining all the components above:
 
 ??? code "deploy.js"
 
-    ```js
+    ```js title="deploy.js"
     --8<-- 'code/develop/smart-contracts/evm-toolkit/ethers-js/deploy.js'
     ```
 
@@ -138,14 +137,18 @@ After running this script, your contract will be deployed to Asset Hub, and its 
 
 ## Interact with the Contract
 
-Once the contract is deployed, you can interact with it by calling its functions. For example, to set a number, read it and then modify that number by its double, you can use the following script:
+Once the contract is deployed, you can interact with it by calling its functions. For example, to set a number, read it and then modify that number by its double, you can create a file named `checkStorage.js` in the root of your project and add the following code:
 
-```js
+```js title="checkStorage.js"
 --8<-- 'code/develop/smart-contracts/evm-toolkit/ethers-js/checkStorage.js'
 ```
 
 Ensure you replace the `INSERT_MNEMONIC`, `INSERT_CONTRACT_ADDRESS`, and `INSERT_ADDRESS_TO_CHECK` placeholders with actual values. Also, ensure the contract ABI file (`Storage.json`) is correctly referenced.
 
-## Conclusion
+## Where to Go Next
 
-Now that you've learned the basics of setting up providers, compiling smart contracts to `polkavm` bytecode, deploying, and interacting with them through Ethers.js, you have a solid foundation to build more complex decentralized applications on the Asset Hub blockchain.
+Now that you have the foundational knowledge to use Ethers.js with Asset Hub, you can:
+
+- Dive into Ethers.js utilities - discover additional Ethers.js features, such as wallet management, signing messages, etc
+- Implement batch transactions - use Ethers.js to execute batch transactions for efficient multi-step contract interactions
+- Build scalable applications - combine Ethers.js with frameworks like [`Next.js`](https://nextjs.org/docs){target=\_blank} or [`Node.js`](https://nodejs.org/en){target=\_blank} to create full-stack decentralized applications (dApps)

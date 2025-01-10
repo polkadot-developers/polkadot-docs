@@ -118,6 +118,6 @@ Key features of BEEFY include:
 ## Resources
 
 - [GRANDPA Rust implementation](https://github.com/paritytech/finality-grandpa){target=\_blank}
-- [GRANDPA Pallet](https://github.com/paritytech/polkadot-sdk/blob/master/substrate/frame/grandpa/src/lib.rs){target=\_blank}
+- [GRANDPA Pallet](https://github.com/paritytech/polkadot-sdk/blob/{{dependencies.polkadot_sdk.stable_version}}/substrate/frame/grandpa/src/lib.rs){target=\_blank}
 - [Block Production and Finalization in Polkadot](https://www.crowdcast.io/e/polkadot-block-production){target=\_blank} - Bill Laboon explains how BABE and GRANDPA work together to produce and finalize blocks on Kusama 
 - [Block Production and Finalization in Polkadot: Understanding the BABE and GRANDPA Protocols](https://www.youtube.com/watch?v=1CuTSluL7v4&t=4s){target=\_blank} - Bill Laboon's MIT Cryptoeconomic Systems 2020 academic talk describing Polkadot's hybrid consensus model in-depth

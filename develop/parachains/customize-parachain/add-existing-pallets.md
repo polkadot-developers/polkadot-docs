@@ -109,7 +109,7 @@ At its core, the `Config` trait typically looks like this:
 This basic structure shows that every pallet must define certain types, such as `RuntimeEvent` and `WeightInfo`, to function within the runtime. The actual implementation can vary depending on the pallet’s specific needs.
 
 ??? "Example - Utility Pallet"
-      For instance, in the [`utility pallet`](https://github.com/paritytech/polkadot-sdk/tree/master/substrate/frame/utility){target=\_blank}, the `Config` trait is implemented with the following types:
+      For instance, in the [`utility pallet`](https://github.com/paritytech/polkadot-sdk/tree/{{dependencies.polkadot_sdk.stable_version}}/substrate/frame/utility){target=\_blank}, the `Config` trait is implemented with the following types:
 
       ```rust
       --8<-- 'code/develop/parachains/customize-parachain/add-existing-pallets/utility-pallet-config-trait.rs'

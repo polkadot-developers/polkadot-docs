@@ -162,9 +162,9 @@ Using Podman, Zombienet deploys additional pods to enhance the monitoring and vi
 
 Upon launching Zombienet, access to these monitoring services is facilitated through specific URLs provided in the output:
 
-- Prometheus - [http://127.0.0.1:34123](http://127.0.0.1:34123){target=\_blank}
-- Tempo - [http://127.0.0.1:34125](http://127.0.0.1:34125){target=\_blank}
-- Grafana - [http://127.0.0.1:41461](http://127.0.0.1:41461){target=\_blank}
+- Prometheus - `http://127.0.0.1:34123`
+- Tempo - `http://127.0.0.1:34125`
+- Grafana - `http://127.0.0.1:41461`
 
 It's important to note that Grafana is deployed with default administrator access. 
     

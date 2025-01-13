@@ -1,3 +1,22 @@
+// This file is part of 'custom-pallet'.
+
+// SPDX-License-Identifier: MIT-0
+
+// Permission is hereby granted, free of charge, to any person obtaining a copy
+// of this software and associated documentation files (the "Software"), to deal
+// in the Software without restriction, including without limitation the rights
+// to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+// copies of the Software, and to permit persons to whom the Software is
+// furnished to do so.
+//
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+// SOFTWARE.
+
 use crate::{mock::*, Error, Event, UserInteractions};
 use frame_support::{assert_noop, assert_ok};
 
@@ -46,15 +65,18 @@ fn it_works_for_increment() {
         System::set_block_number(1);
         // Initialize the counter value to 0
         assert_ok!(CustomPallet::set_counter_value(RuntimeOrigin::root(), 0));
-        
+
         // Increment the counter by 5
         assert_ok!(CustomPallet::increment(RuntimeOrigin::signed(1), 5));
         // Check that the event emitted matches the increment operation
-        System::assert_last_event(Event::CounterIncremented { 
-            counter_value: 5, 
-            who: 1, 
-            incremented_amount: 5 
-        }.into());
+        System::assert_last_event(
+            Event::CounterIncremented {
+                counter_value: 5,
+                who: 1,
+                incremented_amount: 5,
+            }
+            .into(),
+        );
     });
 }
 
@@ -94,15 +116,18 @@ fn it_works_for_decrement() {
         System::set_block_number(1);
         // Initialize counter value to 8
         assert_ok!(CustomPallet::set_counter_value(RuntimeOrigin::root(), 8));
-        
+
         // Decrement counter by 3
         assert_ok!(CustomPallet::decrement(RuntimeOrigin::signed(1), 3));
         // Ensure the event matches the decrement action
-        System::assert_last_event(Event::CounterDecremented { 
-            counter_value: 5, 
-            who: 1, 
-            decremented_amount: 3 
-        }.into());
+        System::assert_last_event(
+            Event::CounterDecremented {
+                counter_value: 5,
+                who: 1,
+                decremented_amount: 3,
+            }
+            .into(),
+        );
     });
 }
 
@@ -145,7 +170,7 @@ fn user_interactions_overflow() {
         System::set_block_number(1);
         // Initialize counter value to 0
         assert_ok!(CustomPallet::set_counter_value(RuntimeOrigin::root(), 0));
-        
+
         // Set user interactions to max value (u32::MAX)
         UserInteractions::<Test>::insert(1, u32::MAX);
         // Ensure that incrementing by 5 fails due to overflow in user interactions

@@ -61,21 +61,25 @@ To build and integrate your custom pallet into a Polkadot SDK-based runtime, you
 2. Add the required dependencies in the `[dependencies]` section:
 
     ```toml
-    --8<-- 'code/tutorials/polkadot-sdk/parachains/zero-to-hero/build-custom-pallet/Cargo.toml:10:14'
+    --8<-- 'code/tutorials/polkadot-sdk/parachains/zero-to-hero/pallet-benchmarking/pallets/custom-pallet/Cargo.toml:10:14'
     ```
 
 3. Enable `std` features:
 
     ```toml
-    --8<-- 'code/tutorials/polkadot-sdk/parachains/zero-to-hero/build-custom-pallet/Cargo.toml:16:23'
+    --8<-- 'code/tutorials/polkadot-sdk/parachains/zero-to-hero/pallet-benchmarking/pallets/custom-pallet/Cargo.toml:22:28'
+    ]
     ```
 
 The final `Cargo.toml` should resemble the following:
 
-??? note "Complete `Cargo.toml` File"
+???+ note "Complete `Cargo.toml` File"
 
     ```toml
-    --8<-- 'code/tutorials/polkadot-sdk/parachains/zero-to-hero/build-custom-pallet/Cargo.toml'
+    --8<-- 'code/tutorials/polkadot-sdk/parachains/zero-to-hero/pallet-benchmarking/pallets/custom-pallet/Cargo.toml::14'
+
+    --8<-- 'code/tutorials/polkadot-sdk/parachains/zero-to-hero/pallet-benchmarking/pallets/custom-pallet/Cargo.toml:22:28'
+    ]
     ```
 
 ## Implement the Pallet Logic
@@ -91,9 +95,9 @@ You now have the bare minimum of package dependencies that your pallet requires 
 2. Prepare the scaffolding for the pallet by adding the following:
 
     ```rust
-    --8<-- 'code/tutorials/polkadot-sdk/parachains/zero-to-hero/build-custom-pallet/src/lib.rs:20:35'
-        --8<-- 'code/tutorials/polkadot-sdk/parachains/zero-to-hero/build-custom-pallet/src/lib.rs:42:42'
-    --8<-- 'code/tutorials/polkadot-sdk/parachains/zero-to-hero/build-custom-pallet/src/lib.rs:203:203'
+    --8<-- 'code/tutorials/polkadot-sdk/parachains/zero-to-hero/pallet-benchmarking/pallets/custom-pallet/src/lib.rs:20:23'
+    --8<-- 'code/tutorials/polkadot-sdk/parachains/zero-to-hero/pallet-benchmarking/pallets/custom-pallet/src/lib.rs:36:47'
+    }
     ```
 
 3. Verify that it compiles by running the following command:
@@ -115,7 +119,8 @@ In this step, you will configure two essential components that are critical for 
 Add the following `Config` trait definition to your pallet:
 
 ```rust
---8<-- 'code/tutorials/polkadot-sdk/parachains/zero-to-hero/build-custom-pallet/src/lib.rs:33:42'
+--8<-- 'code/tutorials/polkadot-sdk/parachains/zero-to-hero/pallet-benchmarking/pallets/custom-pallet/src/lib.rs:45:53'
+}
 ```
 
 ### Add Events
@@ -141,7 +146,7 @@ Below are the events defined for this pallet:
 Define the events in the pallet as follows:
 
 ```rust
---8<-- 'code/tutorials/polkadot-sdk/parachains/zero-to-hero/build-custom-pallet/src/lib.rs:44:70'
+--8<-- 'code/tutorials/polkadot-sdk/parachains/zero-to-hero/pallet-benchmarking/pallets/custom-pallet/src/lib.rs:59:85'
 ```
 
 ### Add Storage Items
@@ -155,7 +160,7 @@ Storage items are used to manage the pallet's state. This pallet defines two ite
 Define the storage items as follows:
 
 ```rust
---8<-- 'code/tutorials/polkadot-sdk/parachains/zero-to-hero/build-custom-pallet/src/lib.rs:72:78'
+--8<-- 'code/tutorials/polkadot-sdk/parachains/zero-to-hero/pallet-benchmarking/pallets/custom-pallet/src/lib.rs:87:93'
 ```
 
 ### Implement Custom Errors
@@ -167,7 +172,7 @@ To add custom errors, use the `#[pallet::error]` macro to define the `Error` enu
 Add the following errors to the pallet:
 
 ```rust
---8<-- 'code/tutorials/polkadot-sdk/parachains/zero-to-hero/build-custom-pallet/src/lib.rs:80:90'
+--8<-- 'code/tutorials/polkadot-sdk/parachains/zero-to-hero/pallet-benchmarking/pallets/custom-pallet/src/lib.rs:95:105'
 ```
 
 ### Implement Calls
@@ -177,10 +182,20 @@ The `#[pallet::call]` macro defines the dispatchable functions (or calls) the pa
 The structure of the dispatchable calls in this pallet is as follows:
 
 ```rust
---8<-- 'code/tutorials/polkadot-sdk/parachains/zero-to-hero/build-custom-pallet/src/lib.rs:92:103'
-    --8<-- 'code/tutorials/polkadot-sdk/parachains/zero-to-hero/build-custom-pallet/src/lib.rs:118:129'
-    --8<-- 'code/tutorials/polkadot-sdk/parachains/zero-to-hero/build-custom-pallet/src/lib.rs:162:173'
---8<-- 'code/tutorials/polkadot-sdk/parachains/zero-to-hero/build-custom-pallet/src/lib.rs:201:202'
+--8<-- 'code/tutorials/polkadot-sdk/parachains/zero-to-hero/pallet-benchmarking/pallets/custom-pallet/src/lib.rs:107:116'
+    #[pallet::weight(0)]
+    --8<-- 'code/tutorials/polkadot-sdk/parachains/zero-to-hero/pallet-benchmarking/pallets/custom-pallet/src/lib.rs:118:118'
+    }
+
+    --8<-- 'code/tutorials/polkadot-sdk/parachains/zero-to-hero/pallet-benchmarking/pallets/custom-pallet/src/lib.rs:135:142'
+    #[pallet::weight(0)]
+    --8<-- 'code/tutorials/polkadot-sdk/parachains/zero-to-hero/pallet-benchmarking/pallets/custom-pallet/src/lib.rs:144:144'
+    }
+
+    --8<-- 'code/tutorials/polkadot-sdk/parachains/zero-to-hero/pallet-benchmarking/pallets/custom-pallet/src/lib.rs:179:186'
+    #[pallet::weight(0)]
+    --8<-- 'code/tutorials/polkadot-sdk/parachains/zero-to-hero/pallet-benchmarking/pallets/custom-pallet/src/lib.rs:188:188'
+    }
 ```
 
 Below you can find the implementations of each dispatchable call in this pallet:
@@ -197,7 +212,9 @@ Below you can find the implementations of each dispatchable call in this pallet:
         - Emits a `CounterValueSet` event on success
 
     ```rust
-    --8<-- 'code/tutorials/polkadot-sdk/parachains/zero-to-hero/build-custom-pallet/src/lib.rs:94:118'
+    --8<-- 'code/tutorials/polkadot-sdk/parachains/zero-to-hero/pallet-benchmarking/pallets/custom-pallet/src/lib.rs:109:116'
+    #[pallet::weight(0)]
+    --8<-- 'code/tutorials/polkadot-sdk/parachains/zero-to-hero/pallet-benchmarking/pallets/custom-pallet/src/lib.rs:118:133'
     ```
 
 ???- function "increment(origin: OriginFor<T>, amount_to_increment: u32) -> DispatchResult"
@@ -214,9 +231,10 @@ Below you can find the implementations of each dispatchable call in this pallet:
         - Emits a `CounterIncremented` event on success
 
     ```rust
-    --8<-- 'code/tutorials/polkadot-sdk/parachains/zero-to-hero/build-custom-pallet/src/lib.rs:120:162'
+    --8<-- 'code/tutorials/polkadot-sdk/parachains/zero-to-hero/pallet-benchmarking/pallets/custom-pallet/src/lib.rs:135:142'
+    #[pallet::weight(0)]
+    --8<-- 'code/tutorials/polkadot-sdk/parachains/zero-to-hero/pallet-benchmarking/pallets/custom-pallet/src/lib.rs:144:177'
     ```
-
 
 ???- function "decrement(origin: OriginFor<T>, amount_to_decrement: u32) -> DispatchResult"
     This call decrements the counter by a specified amount. It is accessible to any signed account.
@@ -232,7 +250,9 @@ Below you can find the implementations of each dispatchable call in this pallet:
         - Emits a `CounterDecremented` event on success
 
     ```rust
-    --8<-- 'code/tutorials/polkadot-sdk/parachains/zero-to-hero/build-custom-pallet/src/lib.rs:164:201'
+    --8<-- 'code/tutorials/polkadot-sdk/parachains/zero-to-hero/pallet-benchmarking/pallets/custom-pallet/src/lib.rs:179:186'
+    #[pallet::weight(0)]
+    --8<-- 'code/tutorials/polkadot-sdk/parachains/zero-to-hero/pallet-benchmarking/pallets/custom-pallet/src/lib.rs:188:216'
     ```
 
 ## Verify Compilation
@@ -254,6 +274,20 @@ To review this implementation, you can find the complete pallet code below:
 ???+ example "Complete Pallet Code"
     ```rust
     --8<-- 'code/tutorials/polkadot-sdk/parachains/zero-to-hero/build-custom-pallet/src/lib.rs'
+    ```
+
+    ---
+
+    ```rust
+    --8<-- 'code/tutorials/polkadot-sdk/parachains/zero-to-hero/pallet-benchmarking/pallets/custom-pallet/src/lib.rs::23'
+    --8<-- 'code/tutorials/polkadot-sdk/parachains/zero-to-hero/pallet-benchmarking/pallets/custom-pallet/src/lib.rs:36:53'
+        --8<-- 'code/tutorials/polkadot-sdk/parachains/zero-to-hero/pallet-benchmarking/pallets/custom-pallet/src/lib.rs:57:116'
+            #[pallet::weight(0)]
+            --8<-- 'code/tutorials/polkadot-sdk/parachains/zero-to-hero/pallet-benchmarking/pallets/custom-pallet/src/lib.rs:118:142'
+            #[pallet::weight(0)]
+            --8<-- 'code/tutorials/polkadot-sdk/parachains/zero-to-hero/pallet-benchmarking/pallets/custom-pallet/src/lib.rs:144:186'
+            #[pallet::weight(0)]
+    --8<-- 'code/tutorials/polkadot-sdk/parachains/zero-to-hero/pallet-benchmarking/pallets/custom-pallet/src/lib.rs:188'
     ```
 
 ## Where to Go Next

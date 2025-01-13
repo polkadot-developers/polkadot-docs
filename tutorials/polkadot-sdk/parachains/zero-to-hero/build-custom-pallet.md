@@ -272,11 +272,6 @@ In this tutorial, you learned how to create a custom pallet by defining storage,
 To review this implementation, you can find the complete pallet code below:
 
 ???+ example "Complete Pallet Code"
-    ```rust
-    --8<-- 'code/tutorials/polkadot-sdk/parachains/zero-to-hero/build-custom-pallet/src/lib.rs'
-    ```
-
-    ---
 
     ```rust
     --8<-- 'code/tutorials/polkadot-sdk/parachains/zero-to-hero/pallet-benchmarking/pallets/custom-pallet/src/lib.rs::23'

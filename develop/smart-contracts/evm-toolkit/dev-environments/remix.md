@@ -1,6 +1,6 @@
 ---
 title: Using Remix IDE
-description: Explore the process of smart contract development and deployment on Asset Hub using Remix IDE, a powerful tool for blockchain developers of all levels.
+description: Explore the process of smart contract development and deployment on Asset Hub using Remix IDE, a visual IDE for blockchain developers.
 ---
 
 # Remix IDE

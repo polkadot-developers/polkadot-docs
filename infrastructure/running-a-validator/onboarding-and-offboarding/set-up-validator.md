@@ -78,25 +78,40 @@ Depending on your preference and operating system setup, there are multiple meth
 
 The preferred, most straightforward method to install the required binaries is downloading the latest versions from the official releases. You can visit the [Github Releases](https://github.com/paritytech/polkadot-sdk/releases){target=\_blank} page for the most current versions of the `polkadot`, `polkadot-prepare-worker`, and `polkadot-execute-worker` binaries.
 
-You can also download the binaries by using the following direct links and replacing `INSERT_VERSION_NUMBER` with the version number, e.g. `v1.16.1`
+You can also download the binaries by using the following direct links:
 
 === "`polkadot`"
 
     ``` bash
-    curl -LO https://github.com/paritytech/polkadot-sdk/releases/download/polkadot-INSERT_VERSION_NUMBER/polkadot
+    # Download the binary
+    curl -LO https://github.com/paritytech/polkadot-sdk/releases/download/{{ dependencies.polkadot_sdk.version }}/polkadot
+
+    # Verify checksum
+    sha256sum polkadot | diff - <(curl -sL https://github.com/paritytech/polkadot-sdk/releases/download/{{ dependencies.polkadot_sdk.version }}/polkadot.sha256)
     ```
 
 === "`polkadot-prepare-worker`"
 
     ``` bash
-    curl -LO https://github.com/paritytech/polkadot-sdk/releases/download/polkadot-INSERT_VERSION_NUMBER/polkadot-prepare-worker
+    # Download the binary
+    curl -LO https://github.com/paritytech/polkadot-sdk/releases/download/{{ dependencies.polkadot_sdk.version }}/polkadot-prepare-worker
+
+    # Verify checksum
+    sha256sum polkadot-prepare-worker | diff - <(curl -sL https://github.com/paritytech/polkadot-sdk/releases/download/{{ dependencies.polkadot_sdk.version }}/polkadot-prepare-worker.sha256)
     ```
 
 === "`polkadot-execute-worker`"
 
     ``` bash
-    curl -LO https://github.com/paritytech/polkadot-sdk/releases/download/polkadot-INSERT_VERSION_NUMBER/polkadot-execute-worker
+    # Download the binary
+    curl -LO https://github.com/paritytech/polkadot-sdk/releases/download/{{ dependencies.polkadot_sdk.version }}/polkadot-execute-worker
+
+    # Verify checksum
+    sha256sum polkadot-execute-worker | diff - <(curl -sL https://github.com/paritytech/polkadot-sdk/releases/download/{{ dependencies.polkadot_sdk.version }}/polkadot-execute-worker.sha256)
     ```
+
+!!!warning
+    The checksum verification commands ensure the downloaded binaries have not been tampered with by comparing their hash against the official ones. No output from the verification commands indicates the checksums match, while any output signals a mismatch.
 
 ### Install with Package Managers
 

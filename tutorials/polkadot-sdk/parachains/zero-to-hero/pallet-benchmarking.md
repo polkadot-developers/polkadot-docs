@@ -53,8 +53,10 @@ Follow these steps to prepare your environment for pallet benchmarking:
         ```
 
     2. Enable runtime benchmarking for your pallet in `runtime/Cargo.toml`:
-        ```toml hl_lines="25"
-        --8<-- 'code/tutorials/polkadot-sdk/parachains/zero-to-hero/pallet-benchmarking/runtime/Cargo.toml:136:161'
+        ```toml hl_lines="3"
+        --8<-- 'code/tutorials/polkadot-sdk/parachains/zero-to-hero/pallet-benchmarking/runtime/Cargo.toml:136:136'
+          ...
+        --8<-- 'code/tutorials/polkadot-sdk/parachains/zero-to-hero/pallet-benchmarking/runtime/Cargo.toml:160:161'
         ```
 
 4. Set up the benchmarking module in your pallet:
@@ -65,7 +67,7 @@ Follow these steps to prepare your environment for pallet benchmarking:
 
     2. Add the benchmarking module to your pallet. In the pallet `lib.rs` file add the following:
         ```rust hl_lines="9-10"
-        --8<-- 'code/tutorials/polkadot-sdk/parachains/zero-to-hero/pallet-benchmarking/lib.rs:1:12'
+        --8<-- 'code/tutorials/polkadot-sdk/parachains/zero-to-hero/pallet-benchmarking/pallets/custom-pallet/src/lib.rs:21:32'
         ```
 
         !!!note
@@ -84,7 +86,7 @@ Every benchmark test must follow a three-step pattern:
 Check the following example on how to benchmark the `increment` extrinsic:
 
 ```rust
---8<-- 'code/tutorials/polkadot-sdk/parachains/zero-to-hero/pallet-benchmarking/pallets/custom-pallet/src/benchmarking.rs:23:37'
+--8<-- 'code/tutorials/polkadot-sdk/parachains/zero-to-hero/pallet-benchmarking/pallets/custom-pallet/src/benchmarking.rs:41:55'
 ```
 
 This benchmark test:
@@ -98,7 +100,7 @@ This example demonstrates how to properly set up state, execute an extrinsic, an
 Now, implement the complete set of benchmark tests. Copy the following content in the `benchmarking.rs` file:
 
 ```rust
---8<-- 'code/tutorials/polkadot-sdk/parachains/zero-to-hero/pallet-benchmarking//pallets/custom-pallet/src/benchmarking.rs'
+--8<-- 'code/tutorials/polkadot-sdk/parachains/zero-to-hero/pallet-benchmarking/pallets/custom-pallet/src/benchmarking.rs:20'
 ```
 
 !!!note
@@ -150,25 +152,28 @@ After generating the weight calculations, you need to integrate these weights in
 First, add the necessary module imports to your pallet. These imports make the weights available to your code:
 
 ```rust hl_lines="4-5"
---8<-- 'code/tutorials/polkadot-sdk/parachains/zero-to-hero/pallet-benchmarking/pallets/custom-pallet/src/lib.rs:11:15'
+--8<-- 'code/tutorials/polkadot-sdk/parachains/zero-to-hero/pallet-benchmarking/pallets/custom-pallet/src/lib.rs:30:34'
 ```
 
 Next, update your pallet's `Config` trait to include weight information. Define the `WeightInfo` type:
 
 ```rust hl_lines="11-12"
---8<-- 'code/tutorials/polkadot-sdk/parachains/zero-to-hero/pallet-benchmarking/pallets/custom-pallet/src/lib.rs:26:38'
+--8<-- 'code/tutorials/polkadot-sdk/parachains/zero-to-hero/pallet-benchmarking/pallets/custom-pallet/src/lib.rs:45:57'
 ```
 
 Now you can assign weights to your extrinsics. Here's how to add weight calculations to the `set_counter_value` function:
 
 ```rust hl_lines="2"
---8<-- 'code/tutorials/polkadot-sdk/parachains/zero-to-hero/pallet-benchmarking/pallets/custom-pallet/src/lib.rs:97:114'
+--8<-- 'code/tutorials/polkadot-sdk/parachains/zero-to-hero/pallet-benchmarking/pallets/custom-pallet/src/lib.rs:116:133'
 ```
+
+!!!note
+    You'll need to apply similar weight annotations to the other extrinsics in your pallet. Add the `#[pallet::weight(T::WeightInfo::function_name())]` attribute to both `increment` and `decrement`, replacing `function_name` with the respective function names from your `WeightInfo` trait.
 
 For testing purposes, you need to implement the weight calculations in your mock runtime. Open `custom-pallet/src/mock.rs` and add:
 
 ```rust hl_lines="4"
---8<-- 'code/tutorials/polkadot-sdk/parachains/zero-to-hero/pallet-benchmarking/pallets/custom-pallet/src/mock.rs:41:45'
+--8<-- 'code/tutorials/polkadot-sdk/parachains/zero-to-hero/pallet-benchmarking/pallets/custom-pallet/src/mock.rs:60:64'
 ```
 
 Finally, configure the actual weight values in your production runtime. In `runtime/src/config/mod.rs`, add:

@@ -20,17 +20,17 @@ Update the runtime's `Cargo.toml` file to include the utility pallet and your cu
 1. Open the `runtime/Cargo.toml` file and locate the `[dependencies]` section. Add the pallets with the following lines:
 
     ```toml hl_lines="3-4"
-    --8<-- 'code/tutorials/polkadot-sdk/parachains/zero-to-hero/pallet-benchmarking/runtime/Cargo.toml:19:19'
+    --8<-- 'code/tutorials/polkadot-sdk/parachains/zero-to-hero/runtime/Cargo.toml:19:19'
     ...
-    --8<-- 'code/tutorials/polkadot-sdk/parachains/zero-to-hero/pallet-benchmarking/runtime/Cargo.toml:74:75'
+    --8<-- 'code/tutorials/polkadot-sdk/parachains/zero-to-hero/runtime/Cargo.toml:74:75'
     ```
 
 2. In the `[features]` section, add the pallets to the `std` feature list:
 
     ```toml hl_lines="5-6"
-    --8<-- 'code/tutorials/polkadot-sdk/parachains/zero-to-hero/pallet-benchmarking/runtime/Cargo.toml:77:79'
+    --8<-- 'code/tutorials/polkadot-sdk/parachains/zero-to-hero/runtime/Cargo.toml:77:79'
     ...
-    --8<-- 'code/tutorials/polkadot-sdk/parachains/zero-to-hero/pallet-benchmarking/runtime/Cargo.toml:132:133'
+    --8<-- 'code/tutorials/polkadot-sdk/parachains/zero-to-hero/runtime/Cargo.toml:132:133'
     ```
 
 3. Save the changes and close the `Cargo.toml` file
@@ -42,22 +42,22 @@ Configure the pallets by implementing their `Config` trait and update the runtim
 1. Add the `OriginCaller` import:
 
     ```rust
-    --8<-- 'code/tutorials/polkadot-sdk/parachains/zero-to-hero/pallet-benchmarking/runtime/src/configs/mod.rs:56:56'
+    --8<-- 'code/tutorials/polkadot-sdk/parachains/zero-to-hero/runtime/src/configs/mod.rs:56:56'
     ```
 
 2. Implement the [`Config`](https://paritytech.github.io/polkadot-sdk/master/pallet_utility/pallet/trait.Config.html){target=\_blank} trait for both pallets at the end of the `runtime/src/config/mod.rs` file:
 
     ```rust
-    --8<-- 'code/tutorials/polkadot-sdk/parachains/zero-to-hero/pallet-benchmarking/runtime/src/configs/mod.rs:314:330'
-    --8<-- 'code/tutorials/polkadot-sdk/parachains/zero-to-hero/pallet-benchmarking/runtime/src/configs/mod.rs:332:332'
+    --8<-- 'code/tutorials/polkadot-sdk/parachains/zero-to-hero/runtime/src/configs/mod.rs:314:330'
+    --8<-- 'code/tutorials/polkadot-sdk/parachains/zero-to-hero/runtime/src/configs/mod.rs:332:332'
     ```
 
 3. Locate the `#[frame_support::runtime]` macro in the `runtime/src/lib.rs` file and add the pallets:
 
     ```rust
-    --8<-- 'code/tutorials/polkadot-sdk/parachains/zero-to-hero/pallet-benchmarking/runtime/src/lib.rs:253:255'
+    --8<-- 'code/tutorials/polkadot-sdk/parachains/zero-to-hero/runtime/src/lib.rs:253:255'
         ...
-    --8<-- 'code/tutorials/polkadot-sdk/parachains/zero-to-hero/pallet-benchmarking/runtime/src/lib.rs:315:320'
+    --8<-- 'code/tutorials/polkadot-sdk/parachains/zero-to-hero/runtime/src/lib.rs:315:320'
     ```
 
 ## Recompile the Runtime
@@ -118,6 +118,6 @@ Launch your parachain locally and start producing blocks:
 
     Discover how to measure extrinsic costs and assign precise weights to optimize your pallet for accurate fees and runtime performance.
 
-    [:octicons-arrow-right-24: Get Started](/tutorials/polkadot-sdk/parachains/zero-to-hero/pallet-benchmarking/)
+    [:octicons-arrow-right-24: Get Started](/tutorials/polkadot-sdk/parachains/zero-to-hero/)
 
 </div>

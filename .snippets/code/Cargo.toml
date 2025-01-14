@@ -11,7 +11,7 @@ edition = "2021"
 
 [workspace]
 members = [
-  "tutorials/polkadot-sdk/parachains/zero-to-hero/pallet-benchmarking/runtime",
+  "tutorials/polkadot-sdk/parachains/zero-to-hero/runtime",
 ]
 resolver = "2"
 

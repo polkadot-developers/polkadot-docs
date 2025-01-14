@@ -29,34 +29,34 @@ Follow these steps to prepare your environment for pallet benchmarking:
     1. Add the [`frame-benchmarking`](https://docs.rs/frame-benchmarking/latest/frame_benchmarking/){target=\_blank} dependency:
     
         ```toml hl_lines="3"
-        --8<-- 'code/tutorials/polkadot-sdk/parachains/zero-to-hero/pallet-benchmarking/pallets/custom-pallet/Cargo.toml:10:10'
+        --8<-- 'code/tutorials/polkadot-sdk/parachains/zero-to-hero/pallets/custom-pallet/Cargo.toml:10:10'
         ...
-        --8<-- 'code/tutorials/polkadot-sdk/parachains/zero-to-hero/pallet-benchmarking/pallets/custom-pallet/Cargo.toml:15:15'
+        --8<-- 'code/tutorials/polkadot-sdk/parachains/zero-to-hero/pallets/custom-pallet/Cargo.toml:15:15'
         ```
 
     2. Enable benchmarking in the `std` features:
         ```toml hl_lines="6"
-        --8<-- 'code/tutorials/polkadot-sdk/parachains/zero-to-hero/pallet-benchmarking/pallets/custom-pallet/Cargo.toml:24:30'
+        --8<-- 'code/tutorials/polkadot-sdk/parachains/zero-to-hero/pallets/custom-pallet/Cargo.toml:24:30'
         ```
 
     3. Add the `runtime-benchmarks` feature flag:
         ```toml hl_lines="3-8"
-        --8<-- 'code/tutorials/polkadot-sdk/parachains/zero-to-hero/pallet-benchmarking/pallets/custom-pallet/Cargo.toml:22:22'
+        --8<-- 'code/tutorials/polkadot-sdk/parachains/zero-to-hero/pallets/custom-pallet/Cargo.toml:22:22'
         ...
-        --8<-- 'code/tutorials/polkadot-sdk/parachains/zero-to-hero/pallet-benchmarking/pallets/custom-pallet/Cargo.toml:31:36'
+        --8<-- 'code/tutorials/polkadot-sdk/parachains/zero-to-hero/pallets/custom-pallet/Cargo.toml:31:36'
         ```
 
 3. Add your pallet to the runtime's benchmark configuration:
     1.  Register your pallet in `runtime/src/benchmarks.rs`:
         ```rust hl_lines="11"
-        --8<-- 'code/tutorials/polkadot-sdk/parachains/zero-to-hero/pallet-benchmarking/runtime/src/benchmarks.rs:26:37'
+        --8<-- 'code/tutorials/polkadot-sdk/parachains/zero-to-hero/runtime/src/benchmarks.rs:26:37'
         ```
 
     2. Enable runtime benchmarking for your pallet in `runtime/Cargo.toml`:
         ```toml hl_lines="3"
-        --8<-- 'code/tutorials/polkadot-sdk/parachains/zero-to-hero/pallet-benchmarking/runtime/Cargo.toml:136:136'
+        --8<-- 'code/tutorials/polkadot-sdk/parachains/zero-to-hero/runtime/Cargo.toml:136:136'
           ...
-        --8<-- 'code/tutorials/polkadot-sdk/parachains/zero-to-hero/pallet-benchmarking/runtime/Cargo.toml:160:161'
+        --8<-- 'code/tutorials/polkadot-sdk/parachains/zero-to-hero/runtime/Cargo.toml:160:161'
         ```
 
 4. Set up the benchmarking module in your pallet:
@@ -67,7 +67,7 @@ Follow these steps to prepare your environment for pallet benchmarking:
 
     2. Add the benchmarking module to your pallet. In the pallet `lib.rs` file add the following:
         ```rust hl_lines="9-10"
-        --8<-- 'code/tutorials/polkadot-sdk/parachains/zero-to-hero/pallet-benchmarking/pallets/custom-pallet/src/lib.rs:21:32'
+        --8<-- 'code/tutorials/polkadot-sdk/parachains/zero-to-hero/pallets/custom-pallet/src/lib.rs:21:32'
         ```
 
         !!!note
@@ -86,7 +86,7 @@ Every benchmark test must follow a three-step pattern:
 Check the following example on how to benchmark the `increment` extrinsic:
 
 ```rust
---8<-- 'code/tutorials/polkadot-sdk/parachains/zero-to-hero/pallet-benchmarking/pallets/custom-pallet/src/benchmarking.rs:41:55'
+--8<-- 'code/tutorials/polkadot-sdk/parachains/zero-to-hero/pallets/custom-pallet/src/benchmarking.rs:41:55'
 ```
 
 This benchmark test:
@@ -100,7 +100,7 @@ This example demonstrates how to properly set up state, execute an extrinsic, an
 Now, implement the complete set of benchmark tests. Copy the following content in the `benchmarking.rs` file:
 
 ```rust
---8<-- 'code/tutorials/polkadot-sdk/parachains/zero-to-hero/pallet-benchmarking/pallets/custom-pallet/src/benchmarking.rs:20'
+--8<-- 'code/tutorials/polkadot-sdk/parachains/zero-to-hero/pallets/custom-pallet/src/benchmarking.rs:20'
 ```
 
 !!!note
@@ -152,19 +152,19 @@ After generating the weight calculations, you need to integrate these weights in
 First, add the necessary module imports to your pallet. These imports make the weights available to your code:
 
 ```rust hl_lines="4-5"
---8<-- 'code/tutorials/polkadot-sdk/parachains/zero-to-hero/pallet-benchmarking/pallets/custom-pallet/src/lib.rs:30:34'
+--8<-- 'code/tutorials/polkadot-sdk/parachains/zero-to-hero/pallets/custom-pallet/src/lib.rs:30:34'
 ```
 
 Next, update your pallet's `Config` trait to include weight information. Define the `WeightInfo` type:
 
 ```rust hl_lines="11-12"
---8<-- 'code/tutorials/polkadot-sdk/parachains/zero-to-hero/pallet-benchmarking/pallets/custom-pallet/src/lib.rs:45:57'
+--8<-- 'code/tutorials/polkadot-sdk/parachains/zero-to-hero/pallets/custom-pallet/src/lib.rs:45:57'
 ```
 
 Now you can assign weights to your extrinsics. Here's how to add weight calculations to the `set_counter_value` function:
 
 ```rust hl_lines="2"
---8<-- 'code/tutorials/polkadot-sdk/parachains/zero-to-hero/pallet-benchmarking/pallets/custom-pallet/src/lib.rs:116:133'
+--8<-- 'code/tutorials/polkadot-sdk/parachains/zero-to-hero/pallets/custom-pallet/src/lib.rs:116:133'
 ```
 
 !!!note
@@ -173,13 +173,13 @@ Now you can assign weights to your extrinsics. Here's how to add weight calculat
 For testing purposes, you need to implement the weight calculations in your mock runtime. Open `custom-pallet/src/mock.rs` and add:
 
 ```rust hl_lines="4"
---8<-- 'code/tutorials/polkadot-sdk/parachains/zero-to-hero/pallet-benchmarking/pallets/custom-pallet/src/mock.rs:60:64'
+--8<-- 'code/tutorials/polkadot-sdk/parachains/zero-to-hero/pallets/custom-pallet/src/mock.rs:60:64'
 ```
 
 Finally, configure the actual weight values in your production runtime. In `runtime/src/config/mod.rs`, add:
 
 ```rust hl_lines="5"
---8<-- 'code/tutorials/polkadot-sdk/parachains/zero-to-hero/pallet-benchmarking/runtime/src/configs/mod.rs:327:332'
+--8<-- 'code/tutorials/polkadot-sdk/parachains/zero-to-hero/runtime/src/configs/mod.rs:327:332'
 ```
 
 Your pallet is now complete with full testing and benchmarking support, ready for production use.

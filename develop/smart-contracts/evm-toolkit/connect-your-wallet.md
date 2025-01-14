@@ -27,13 +27,50 @@ To connect to the Westend Asset Hub TestNet via MetaMask, you need to follow the
 
 3. Fill in the required fields with the following parameters and click the **Save** button
 
-    | **Attribute**         | **Value**                                                    |
-    |------------------------|-------------------------------------------------------------|
-    | **Network name**       | <pre>```Asset-Hub Westend TestNet```</pre>                  |
-    | **Default RPC URL**    | <pre>```https://westend-asset-hub-eth-rpc.polkadot.io```</pre> |
-    | **Chain ID**           | <pre>```420420421```</pre>                                  |
-    | **Currency symbol**    | <pre>```WND```</pre>                                        |
-    | **Block explorer URL** | <pre>```https://assethub-westend.subscan.io```       </pre> |
+    === "Network Details"
+
+        **Network name** - `Asset-Hub Westend TestNet`
+
+        ---
+
+        **Currency symbol** - `WND`
+
+        ---
+        
+        **Chain ID** - ```420420421```
+
+        ---
+        
+        **Block explorer URL** - ```https://assethub-westend.subscan.io```
+
+        ---
+
+    === "RPC Endpoints"
+        Dwellir
+        ```
+        wss://westend-asset-hub-eth-rpc.polkadot.io
+        ```
+        ---
+        Dwellir Tunisia
+        ```
+        wss://westmint-rpc.polkadot.io
+        ```
+        ---
+        IBP1
+        ```
+        wss://rpc.ibp.network/asset-hub-westend
+        ```
+        ---
+        IBP2
+        ```
+        wss://asset-hub-westend.dotters.network
+        ```
+        ---
+        Parity
+        ```
+        wss://westend-asset-hub-rpc.polkadot.io
+        ```
+
 
     ![](/images/develop/smart-contracts/evm-toolkit/connect-your-wallet/connect-your-wallet-3.webp)
 

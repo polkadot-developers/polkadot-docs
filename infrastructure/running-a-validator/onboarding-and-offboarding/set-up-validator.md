@@ -162,10 +162,10 @@ You can also manage Polkadot installations using Ansible. This approach can be b
 
 If you prefer using Docker or an OCI-compatible container runtime, the official Polkadot Docker image can be pulled directly from Docker Hub.
 
-To pull the latest image, run the following command. Make sure to replace `INSERT_VERSION_NUMBER` with the appropriate version number, e.g. `v1.16.1`
+To pull the latest stable image, run the following command:
 
 ```bash
-docker pull parity/polkadot:INSERT_VERSION_NUMBER
+docker pull parity/polkadot:{{ dependencies.docker_image_version }}
 ```
 
 ### Build from Sources

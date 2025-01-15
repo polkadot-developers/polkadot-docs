@@ -24,3 +24,4 @@ dependencies:
   polkadot_sdk:
     repository_url: https://github.com/paritytech/polkadot-sdk
     version: polkadot-stable2412
+    docker_image_version: stable2412

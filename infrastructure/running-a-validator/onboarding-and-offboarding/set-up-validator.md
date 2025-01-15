@@ -165,7 +165,7 @@ If you prefer using Docker or an OCI-compatible container runtime, the official 
 To pull the latest stable image, run the following command:
 
 ```bash
-docker pull parity/polkadot:{{ dependencies.docker_image_version }}
+docker pull parity/polkadot:{{ dependencies.polkadot_sdk.docker_image_version }}
 ```
 
 ### Build from Sources

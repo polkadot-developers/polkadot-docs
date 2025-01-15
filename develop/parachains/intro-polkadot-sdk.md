@@ -54,30 +54,23 @@ Every blockchain platform relies on a decentralized network of computers—calle
 
 FRAME provides the core modular and extensible components that make the Substrate SDK flexible and adaptable to different use cases. FRAME includes Rust-based libraries that simplify the development of application-specific logic. Most of the functionality that FRAME provides takes the form of plug-in modules called [pallets](/polkadot-protocol/glossary#pallet){target=\_blank} that you can add and configure to suit your requirements.
 
-``` mermaid
-graph TB
-    subgraph sg1[Client/Host]
+```mermaid
+graph LR
+    subgraph SP["Runtime"]
         direction LR
-        A[JSON-RPC]
-        B[libp2p]
-        C[Transaction Pool]
-        D[Block Builder]
-        E[Database]
-        F[Host Functions]
+        S1[Timestamp]~~~S2[Aura]~~~S3[GRANDPA]
+        S4[Balances]~~~S5[Transaction Payment]~~~S6[Sudo]
     end
-    subgraph sg2[Runtime]
+
+    subgraph AP["FRAME Pallets"]
         direction LR
-        G[Runtime API]
-        H[Executive]
-        I[frame_support::runtime]
-        subgraph sg3[Pallets]
-            direction TB
-            J[System]
-            K[Staking]
-            L[Balances]
-            M[GRANDPA]
-        end
+        A1[Aura]~~~A2[BABE]~~~A3[GRANDPA]~~~A4[Transaction Payment]
+        B1[Utility]~~~B2[Balances]~~~B3[Sudo]~~~B4[Multisig]
+        C1[Identity]~~~C2[Assets]~~~C3[Contracts]~~~C4[EVM]
+        D1[Collective]~~~D2[Treasury]~~~D3[Democracy]~~~D4[Membership]
+        E1[Randomness]~~~E2[Timestamp]~~~E3[Staking]~~~E4[and more...]
     end
+    AP --> SP
 ```
 
 ### Cumulus

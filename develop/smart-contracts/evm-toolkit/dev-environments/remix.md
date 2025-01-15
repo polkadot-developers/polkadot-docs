@@ -7,7 +7,7 @@ description: Explore the process of smart contract development and deployment on
 
 ## Overview
 
-Remix IDE is a powerful browser-based development environment for smart contracts. This guide will walk you through the essential of the Polkadot Remix IDE, to understand the processes of compiling, developing and deploying smart contracts on Asset Hub.
+Remix IDE is a powerful browser-based development environment for smart contracts. This guide will walk you through the essential of the [Polkadot Remix IDE](https://remix.polkadot.io/){target=\_blank}, to understand the processes of compiling, developing and deploying smart contracts on Asset Hub.
 
 ## Prerequisites
 
@@ -19,43 +19,77 @@ Before getting started, ensure you have:
 
 ## Accessing Remix IDE
 
-1. Visit [https://remix.polkadot.io/](https://remix.polkadot.io/){target=\_blank}
-2. The interface will load with a default workspace containing sample contracts
-3. The main interface consists of:
-    * File Explorer (left panel)
-    * Code Editor (center)
-    * Compilation/Deployment panels (right)
+Navigate to [https://remix.polkadot.io/](https://remix.polkadot.io/){target=\_blank}. The interface will load with a default workspace containing sample contracts.
 
-## Creating and Compiling Contracts
+![](/images/develop/smart-contracts/evm-toolkit/dev-environments/remix/remix-1.webp)
 
-### Creating a New Contract
+The main interface consists of a File Explorer (left panel), a Code Editor (center) and an Extensions panel (right).
 
-1. Click the '+' button in the File Explorer
-2. Name your file with a `.sol` extension
+## Creating a New Contract
+
+1. Click the **Create a new file** button in the **contracts** folder
+
+    ![](/images/develop/smart-contracts/evm-toolkit/dev-environments/remix/remix-2.webp)
+
+2. Name your file with a `.sol` extension, in this case, `Counter.sol`
+
+    ![](/images/develop/smart-contracts/evm-toolkit/dev-environments/remix/remix-3.webp)
+
 3. Write your Solidity code in the editor
 
-### Compiling Your Contract
+    ![](/images/develop/smart-contracts/evm-toolkit/dev-environments/remix/remix-4.webp)
 
-1. Navigate to the Solidity Compiler tab (third icon in the left sidebar)
-2. Select an appropriate compiler version
-3. Configure compilation settings:
-    * Enable optimization if needed
-    * Select EVM version
-    * Adjust metadata settings
-4. Click "Compile" or use `Ctrl+S`
+    The code of the contract above is the following:
 
-!!! note
-    Compilation errors and warnings appear in the terminal panel at the bottom of the screen
+    ???- "code Counter.sol"
+        
+        ```solidity
+        // SPDX-License-Identifier: MIT
+        pragma solidity ^0.8.0;
+
+        contract Counter {
+            int256 private count;
+
+            function increment() public {
+                count += 1;
+            }
+
+            function decrement() public {
+                count -= 1;
+            }
+
+            function getCount() public view returns (int256) {
+                return count;
+            }
+        }
+        ```
+
+## Compiling Your Contract
+
+1. To compile your contract, you need to
+
+    1. Navigate to the Solidity Compiler tab (third icon in the left sidebar)
+    2. Click "Compile" or use `Ctrl+S`
+
+        ![](/images/develop/smart-contracts/evm-toolkit/dev-environments/remix/remix-5.webp)
+    
+        !!! note
+            Compilation errors and warnings appear in the terminal panel at the bottom of the screen
+
+After compiling your contract, you can navigate to the **File Explorer** tab (first icon in the left sidebar) and check that the **artifact** folder exists and the **Counter_metadata.json** and **Counter.json** files have been created as well.
+
+![](/images/develop/smart-contracts/evm-toolkit/dev-environments/remix/remix-6.webp)
 
 ## Deploying Contracts
 
-### Environment Setup
+1. To deploy your contract, you need to
 
-1. Open the "Deploy & Run Transactions" tab
-2. Select your deployment environment:
-    * JavaScript VM (local testing)
-    * Injected Provider - MetaMask (for testnet/mainnet)
-    * Custom Network
+    1. Navigate to the **Deploy & Run Transactions** tab (fourth icon in the left sidebar)
+    2. Select your deployment environment, in this case **Westend Testnet - MetaMask**
+    3. Click in the **Deploy and Confirm** button
+
+        ![](/images/develop/smart-contracts/evm-toolkit/dev-environments/remix/remix-7.webp)
+
 
 ### Deploying to Westend
 
@@ -70,7 +104,6 @@ Before getting started, ensure you have:
 
 ## Interacting with Contracts
 
-### Managing Deployed Contracts
 
 Once deployed, your contract appears in the "Deployed Contracts" section:
 

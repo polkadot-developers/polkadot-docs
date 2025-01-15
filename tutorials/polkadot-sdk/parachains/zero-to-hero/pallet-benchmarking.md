@@ -7,6 +7,10 @@ description: Learn how to benchmark Polkadot SDK-based pallets, assigning precis
 
 After validating your pallet through testing and integrating it into your runtime, the next crucial step is benchmarking. Testing procedures were detailed in the [Pallet Unit Testing](/tutorials/polkadot-sdk/parachains/zero-to-hero/pallet-unit-testing/){target=\_blank} tutorial, while runtime integration was covered in the [Add Pallets to the Runtime](/tutorials/polkadot-sdk/parachains/zero-to-hero/add-pallets-to-runtime/){target=\_blank} guide.
 
+Benchmarking assigns precise [weight](/polkadot-protocol/glossary/#weight){target=\_blank} to each extrinsic, 
+measuring their computational and storage costs. These derived weights enable accurate fee calculation and resource 
+allocation within the runtime.
+
 This tutorial demonstrates how to:
 
 - Configure your development environment for benchmarking

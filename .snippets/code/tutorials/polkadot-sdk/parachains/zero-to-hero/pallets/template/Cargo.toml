@@ -35,11 +35,9 @@ runtime-benchmarks = [
 std = [
   "codec/std",
   "scale-info/std",
-
   "frame-benchmarking?/std",
   "frame-support/std",
   "frame-system/std",
-
   "sp-runtime/std",
 ]
 try-runtime = [

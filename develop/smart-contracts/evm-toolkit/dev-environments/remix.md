@@ -1,13 +1,13 @@
 ---
 title: Using Remix IDE
-description: Explore the process of smart contract development and deployment on Asset Hub using Remix IDE, a visual IDE for blockchain developers.
+description: Explore the smart contract development and deployment process on Asset Hub using Remix IDE, a visual IDE for blockchain developers.
 ---
 
 # Remix IDE
 
 ## Overview
 
-Remix IDE is a powerful browser-based development environment for smart contracts. This guide will walk you through the essential of the [Polkadot Remix IDE](https://remix.polkadot.io/){target=\_blank}, to understand the processes of compiling, developing and deploying smart contracts on Asset Hub.
+Remix IDE is a robust browser-based development environment for smart contracts. This guide will walk you through the essentials of the [Polkadot Remix IDE](https://remix.polkadot.io/){target=\_blank} to understand the processes of compiling, developing, and deploying smart contracts on Asset Hub.
 
 ## Prerequisites
 
@@ -15,7 +15,7 @@ Before getting started, ensure you have:
 
 - A web browser with [MetaMask](https://metamask.io/) extension installed
 - Basic understanding of Solidity programming
-- Some test tokens for transaction fees (you can get them from the [Polkadot faucet](https://faucet.polkadot.io/){target=\_blank})
+- Some test tokens to cover transaction fees (easily obtainable from [Polkadot faucet](https://faucet.polkadot.io/){target=\_blank})
 
 ## Accessing Remix IDE
 
@@ -23,9 +23,11 @@ Navigate to [https://remix.polkadot.io/](https://remix.polkadot.io/){target=\_bl
 
 ![](/images/develop/smart-contracts/evm-toolkit/dev-environments/remix/remix-1.webp)
 
-The main interface consists of a File Explorer (left panel), a Code Editor (center) and an Extensions panel (right).
+The interface is organized into three main sections: the Extensions panel on the right, the Code Editor in the center, and the File Explorer on the left.
 
 ## Creating a New Contract
+
+To create a new contract using the Polkadot Remix IDE, you can follow these steps:
 
 1. Click the **Create a new file** button in the **contracts** folder
 
@@ -76,7 +78,7 @@ The main interface consists of a File Explorer (left panel), a Code Editor (cent
         !!! note
             Compilation errors and warnings appear in the terminal panel at the bottom of the screen
 
-After compiling your contract, you can navigate to the **File Explorer** tab (first icon in the left sidebar) and check that the **artifact** folder exists and the **Counter_metadata.json** and **Counter.json** files have been created as well.
+After compiling your contract, you can navigate to the **File Explorer** tab (first icon in the left sidebar) and check that the **artifact** folder exists and that the **Counter_metadata.json** and **Counter.json** files have also been created.
 
 ![](/images/develop/smart-contracts/evm-toolkit/dev-environments/remix/remix-6.webp)
 
@@ -85,55 +87,24 @@ After compiling your contract, you can navigate to the **File Explorer** tab (fi
 1. To deploy your contract, you need to
 
     1. Navigate to the **Deploy & Run Transactions** tab (fourth icon in the left sidebar)
-    2. Select your deployment environment, in this case **Westend Testnet - MetaMask**
+    2. Select your deployment environment, in this case, **Westend Testnet - MetaMask**
     3. Click in the **Deploy and Confirm** button
 
         ![](/images/develop/smart-contracts/evm-toolkit/dev-environments/remix/remix-7.webp)
 
-
-### Deploying to Westend
-
-1. Select "Westend Testnet - MetaMask" from the environment dropdown
-2. Allow Remix to connect with MetaMask when prompted
-3. Verify your account details in the "ACCOUNT" section
-4. Click "Deploy" and confirm the transaction in MetaMask
-5. Monitor deployment status in the terminal
-
-!!! warning
-    Always ensure you're on the correct network in MetaMask before deploying
-
 ## Interacting with Contracts
 
-
-Once deployed, your contract appears in the "Deployed Contracts" section:
+Once deployed, your contract appears in the **Deployed/Unpinned Contracts** section:
 
 1. Expand the contract to view available methods
-2. Pin important contracts to keep them visible:
-    * Click the pin icon
-    * Contract moves to "Pinned Contracts"
-    * Address and ABI are saved automatically
 
-### Using Contract Methods
+    ![](/images/develop/smart-contracts/evm-toolkit/dev-environments/remix/remix-8.webp)
 
-#### Read Operations
+    !!! tip
+        Pin your frequently used contracts to the Pinned Contracts section for easy access.
 
-1. Click the method button
-2. Results display immediately
-3. No gas fees required
+2. To interact with the contract, you can click on any of the exposed methods
 
-#### Write Operations
+    ![](/images/develop/smart-contracts/evm-toolkit/dev-environments/remix/remix-9.webp)
 
-1. Enter required parameters
-2. Click the method button
-3. Confirm transaction in MetaMask
-4. Wait for confirmation
-
-### Loading Existing Contracts
-
-To interact with already deployed contracts:
-
-1. Copy the contract's address
-2. Click "At Address" in the Deploy panel
-3. Paste the address and click
-4. Contract interface will appear
-
+    In this manner, you can interact with your deployed contract either by reading its state or by writing to it.

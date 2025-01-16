@@ -17,7 +17,7 @@ To get started with MetaMask, you need to install the [MetaMask extension](https
 
 To connect to the Westend Asset Hub TestNet via MetaMask, you need to follow these steps:
 
-1. Open the MetaMask extension and click in the network icon to switch to the Asset Hub Westend TestNet
+1. Open the MetaMask extension and click on the network icon to switch to the Asset Hub Westend TestNet
 
     ![](/images/develop/smart-contracts/evm-toolkit/connect-your-wallet/connect-your-wallet-1.webp)
 

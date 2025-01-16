@@ -123,7 +123,12 @@ You can also download the binaries by using the following direct links:
     ```
 
 !!!warning
-    The checksum verification commands ensure the downloaded binaries have not been tampered with by comparing their hash against the official ones. No output from the verification commands indicates the checksums match, while any output signals a mismatch.
+    Signature verification cryptographically ensures the downloaded binaries are authentic and have not been tampered with by using GPG signing keys. Polkadot releases use two different signing keys:
+
+    - ParityReleases (release-team@parity.io) with key [`90BD75EBBB8E95CB3DA6078F94A4029AB4B35DAE`](https://keyserver.ubuntu.com/pks/lookup?search=9D4B2B6EB8F97156D19669A9FF0812D491B96798&fingerprint=on&op=index){target=\_blank} for current and new releases
+    - Parity Security Team (security@parity.io) with key [`9D4B2B6EB8F97156D19669A9FF0812D491B96798`](https://keyserver.ubuntu.com/pks/lookup?search=90BD75EBBB8E95CB3DA6078F94A4029AB4B35DAE&fingerprint=on&op=index){target=\_blank} for old releases
+
+    When verifying a signature, a "Good signature" message indicates successful verification, while any other output signals a potential security risk.
 
 ### Install with Package Managers
 

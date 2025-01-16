@@ -86,8 +86,12 @@ You can also download the binaries by using the following direct links:
     # Download the binary
     curl -LO https://github.com/paritytech/polkadot-sdk/releases/download/{{ dependencies.polkadot_sdk.version }}/polkadot
 
-    # Verify checksum
-    sha256sum polkadot | diff - <(curl -sL https://github.com/paritytech/polkadot-sdk/releases/download/{{ dependencies.polkadot_sdk.version }}/polkadot.sha256)
+    # Verify signature
+    curl -LO https://github.com/paritytech/polkadot-sdk/releases/download/{{ dependencies.polkadot_sdk.version }}/polkadot.asc
+    
+    gpg --keyserver hkps://keyserver.ubuntu.com --receive-keys 90BD75EBBB8E95CB3DA6078F94A4029AB4B35DAE
+
+    gpg --verify polkadot.asc
     ```
 
 === "`polkadot-prepare-worker`"
@@ -96,8 +100,12 @@ You can also download the binaries by using the following direct links:
     # Download the binary
     curl -LO https://github.com/paritytech/polkadot-sdk/releases/download/{{ dependencies.polkadot_sdk.version }}/polkadot-prepare-worker
 
-    # Verify checksum
-    sha256sum polkadot-prepare-worker | diff - <(curl -sL https://github.com/paritytech/polkadot-sdk/releases/download/{{ dependencies.polkadot_sdk.version }}/polkadot-prepare-worker.sha256)
+    # Verify signature
+    curl -LO https://github.com/paritytech/polkadot-sdk/releases/download/{{ dependencies.polkadot_sdk.version }}/polkadot-prepare-worker.asc
+
+    gpg --keyserver hkps://keyserver.ubuntu.com --receive-keys 90BD75EBBB8E95CB3DA6078F94A4029AB4B35DAE
+
+    gpg --verify polkadot-prepare-worker.asc
     ```
 
 === "`polkadot-execute-worker`"
@@ -106,8 +114,12 @@ You can also download the binaries by using the following direct links:
     # Download the binary
     curl -LO https://github.com/paritytech/polkadot-sdk/releases/download/{{ dependencies.polkadot_sdk.version }}/polkadot-execute-worker
 
-    # Verify checksum
-    sha256sum polkadot-execute-worker | diff - <(curl -sL https://github.com/paritytech/polkadot-sdk/releases/download/{{ dependencies.polkadot_sdk.version }}/polkadot-execute-worker.sha256)
+    # Verify signature
+    curl -LO https://github.com/paritytech/polkadot-sdk/releases/download/{{ dependencies.polkadot_sdk.version }}/polkadot-execute-worker.asc
+
+    gpg --keyserver hkps://keyserver.ubuntu.com --receive-keys 90BD75EBBB8E95CB3DA6078F94A4029AB4B35DAE
+
+    gpg --verify polkadot-execute-worker.asc
     ```
 
 !!!warning

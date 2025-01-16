@@ -56,19 +56,17 @@ FRAME provides the core modular and extensible components that make the Substrat
 
 ```mermaid
 graph LR
-    subgraph SP["Runtime"]
+    subgraph SP["<b style='font-size:18px;'>Runtime</b>"]
         direction LR
         S1[Timestamp]~~~S2[Aura]~~~S3[GRANDPA]
-        S4[Balances]~~~S5[Transaction Payment]~~~S6[Sudo]
+        S4[Balances]~~~S5[Transaction\nPayment]~~~S6[Sudo]
     end
 
-    subgraph AP["FRAME Pallets"]
+    subgraph AP["<b style='font-size:18px;'>FRAME Pallets</b>"]
         direction LR
-        A1[Aura]~~~A2[BABE]~~~A3[GRANDPA]~~~A4[Transaction Payment]
-        B1[Utility]~~~B2[Balances]~~~B3[Sudo]~~~B4[Multisig]
-        C1[Identity]~~~C2[Assets]~~~C3[Contracts]~~~C4[EVM]
-        D1[Collective]~~~D2[Treasury]~~~D3[Democracy]~~~D4[Membership]
-        E1[Randomness]~~~E2[Timestamp]~~~E3[Staking]~~~E4[and more...]
+        A1[Aura]~~~A2[BABE]~~~A3[GRANDPA]~~~A4[Transaction\nPayment]
+        B1[Identity]~~~B2[Balances]~~~B3[Sudo]~~~B4[EVM]
+        C1[Timestamp]~~~C2[Assets]~~~C3[Contracts]~~~C4[and more...]
     end
     AP --> SP
 ```

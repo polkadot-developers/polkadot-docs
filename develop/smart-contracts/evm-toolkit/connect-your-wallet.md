@@ -83,13 +83,13 @@ To connect to the Westend Asset Hub TestNet via MetaMask, you need to follow the
 
 To start conducting transactions and interacting with smart contracts on the Asset Hub Westend TestNet, you'll need test WND tokens. Here's how to get them:
 
-1. Navigate to the [Westend Faucet](https://faucet.polkadot.io/westend?parachain=1000){target=\_blank}
+1. Navigate to the [Westend Asset Hub Faucet](https://faucet.polkadot.io/westend?parachain=1000){target=\_blank}
 
 2. Copy your MetaMask address linked to the Westend Asset Hub and paste it into the designated field on the Faucet page
 
     ![](/images/develop/smart-contracts/evm-toolkit/connect-your-wallet/connect-your-wallet-5.webp)
 
-3. Click **Get Some WND** button to request free test WND tokens. These tokens will be sent to your MetaMask wallet shortly
+3. Click the **Get Some WND** button to request free test WND tokens. These tokens will be sent to your MetaMask wallet shortly
 
     ![](/images/develop/smart-contracts/evm-toolkit/connect-your-wallet/connect-your-wallet-6.webp)
 

@@ -89,7 +89,7 @@ To start conducting transactions and interacting with smart contracts on the Ass
 
     ![](/images/develop/smart-contracts/evm-toolkit/connect-your-wallet/connect-your-wallet-5.webp)
 
-3. Click **Get Some WND** button to request free test WND tokens. These tokens will be sent to your MetaMask wallet shortly.
+3. Click **Get Some WND** button to request free test WND tokens. These tokens will be sent to your MetaMask wallet shortly
 
     ![](/images/develop/smart-contracts/evm-toolkit/connect-your-wallet/connect-your-wallet-6.webp)
 

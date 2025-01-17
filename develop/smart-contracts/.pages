@@ -3,4 +3,6 @@ nav:
   - index.md
   - 'Overview': overview.md
   - 'Wasm (ink!)': wasm-ink.md
-  - evm
+  - 'Native EVM Contracts': native-evm-contracts.md
+  - 'Parachain Contracts': parachain-contracts.md
+  - evm-toolkit

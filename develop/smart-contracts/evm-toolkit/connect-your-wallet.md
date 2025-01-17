@@ -7,7 +7,9 @@ description: Learn to connect MetaMask to the Asset Hub blockchain. Set up your 
 
 ## Connect to Asset Hub Using MetaMask
 
-MetaMask allows users to connect to Asset Hub to explore and interact with the chain. This article will guide you step by step on how to set up an EVM-compatible wallet, connect to the Westend Asset Hub, and request test tokens for development testing.
+MetaMask is a popular wallet for interacting with EVM-compatible chains, allowing users to connect to test networks that support Ethereum-based smart contracts. This article provides guidance on setting up MetaMask, connecting to the contracts deployed on the EVM-compatible test network, the Westend Asset Hub, and requesting test tokens for development purposes.
+
+It’s important to emphasize that MetaMask primarily facilitates interactions with smart contracts, giving you access to various functionalities available on the chain.
 
 ## Prerequisites
 
@@ -85,7 +87,7 @@ To start conducting transactions and interacting with smart contracts on the Ass
 
 1. Navigate to the [Westend Asset Hub Faucet](https://faucet.polkadot.io/westend?parachain=1000){target=\_blank}
 
-2. Copy your MetaMask address linked to the Westend Asset Hub and paste it into the designated field on the Faucet page
+2. Copy your MetaMask address linked to the Westend Asset Hub and paste it into the designated field
 
     ![](/images/develop/smart-contracts/evm-toolkit/connect-your-wallet/connect-your-wallet-5.webp)
 

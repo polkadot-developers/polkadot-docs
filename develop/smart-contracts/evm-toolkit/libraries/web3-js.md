@@ -7,7 +7,7 @@ description: Learn how to interact with the Asset Hub chain using Web3.js, deplo
 
 ## Introduction
 
-Interacting with blockchains typically requires an interface between your application and the network itself. [Web3.js](https://web3js.readthedocs.io/) offers this interface through a comprehensive collection of libraries, facilitating seamless interaction with the nodes using HTTP, IPC, or WebSocket protocols. This guide illustrates how to utilize Web3.js specifically for interactions with the Asset Hub chain.
+Interacting with blockchains typically requires an interface between your application and the network itself. [Web3.js](https://web3js.readthedocs.io/) offers this interface through a comprehensive collection of libraries, facilitating seamless interaction with the nodes using HTTP or WebSocket protocols. This guide illustrates how to utilize Web3.js specifically for interactions with the Asset Hub chain.
 
 ## Set Up the Project
 

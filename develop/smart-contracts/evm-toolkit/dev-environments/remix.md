@@ -108,3 +108,7 @@ Once deployed, your contract appears in the **Deployed/Unpinned Contracts** sect
     ![](/images/develop/smart-contracts/evm-toolkit/dev-environments/remix/remix-9.webp)
 
     In this manner, you can interact with your deployed contract either by reading its state or by writing to it.
+
+## Conclusion
+
+The Polkadot Remix IDE provides a comprehensive an environment for developing, compiling, and deploying smart contracts on Asset Hub. Through its intuitive interface, developers can easily write Solidity code, compile their contracts, and interact with them directly in the browser.

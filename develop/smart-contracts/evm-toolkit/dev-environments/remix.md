@@ -101,7 +101,7 @@ Once deployed, your contract appears in the **Deployed/Unpinned Contracts** sect
     ![](/images/develop/smart-contracts/evm-toolkit/dev-environments/remix/remix-8.webp)
 
     !!! tip
-        Pin your frequently used contracts to the Pinned Contracts section for easy access.
+        Pin your frequently used contracts to the **Pinned Contracts** section for easy access.
 
 2. To interact with the contract, you can click on any of the exposed methods
 

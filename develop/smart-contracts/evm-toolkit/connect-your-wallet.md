@@ -21,11 +21,11 @@ To connect to the Westend Asset Hub TestNet via MetaMask, you need to follow the
 
 1. Open the MetaMask extension and click on the network icon to switch to the Asset Hub Westend TestNet
 
-    ![](/images/develop/smart-contracts/evm-toolkit/connect-your-wallet/connect-your-wallet-1.webp)
+    ![](/images/develop/smart-contracts/evm-toolkit/connect-your-wallet/connect-your-wallet-1.webp){: .browser-extension}
 
 2. Click on the **Add a custom network** button
 
-    ![](/images/develop/smart-contracts/evm-toolkit/connect-your-wallet/connect-your-wallet-2.webp)
+    ![](/images/develop/smart-contracts/evm-toolkit/connect-your-wallet/connect-your-wallet-2.webp){: .browser-extension}
 
 3. Fill in the required fields with the following parameters and click the **Save** button
 
@@ -74,11 +74,11 @@ To connect to the Westend Asset Hub TestNet via MetaMask, you need to follow the
         ```
 
 
-    ![](/images/develop/smart-contracts/evm-toolkit/connect-your-wallet/connect-your-wallet-3.webp)
+    ![](/images/develop/smart-contracts/evm-toolkit/connect-your-wallet/connect-your-wallet-3.webp){: .browser-extension}
 
 4. Click on the **Asset-Hub Westend TestNet** to switch the network
 
-    ![](/images/develop/smart-contracts/evm-toolkit/connect-your-wallet/connect-your-wallet-4.webp)
+    ![](/images/develop/smart-contracts/evm-toolkit/connect-your-wallet/connect-your-wallet-4.webp){: .browser-extension}
 
 
 ## Request Test Tokens

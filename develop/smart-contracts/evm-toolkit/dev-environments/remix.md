@@ -43,27 +43,10 @@ To create a new contract using the Polkadot Remix IDE, you can follow these step
 
     The code of the contract above is the following:
 
-    ???- "code Counter.sol"
+    ???- "Counter.sol"
         
         ```solidity
-        // SPDX-License-Identifier: MIT
-        pragma solidity ^0.8.0;
-
-        contract Counter {
-            int256 private count;
-
-            function increment() public {
-                count += 1;
-            }
-
-            function decrement() public {
-                count -= 1;
-            }
-
-            function getCount() public view returns (int256) {
-                return count;
-            }
-        }
+        --8<-- 'code/develop/smart-contracts/evm-toolkit/dev-environments/remix/Counter.sol'
         ```
 
 ## Compiling Your Contract

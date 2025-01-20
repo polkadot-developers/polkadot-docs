@@ -75,20 +75,24 @@ After compiling your contract, you can navigate to the **File Explorer** tab (fi
 
         ![](/images/develop/smart-contracts/evm-toolkit/dev-environments/remix/remix-7.webp)
 
+Once your contract is deployed successfully, you will see the following output in the REMIX terminal:
+
+![](/images/develop/smart-contracts/evm-toolkit/dev-environments/remix/remix-8.webp)
+
 ## Interacting with Contracts
 
 Once deployed, your contract appears in the **Deployed/Unpinned Contracts** section:
 
 1. Expand the contract to view available methods
 
-    ![](/images/develop/smart-contracts/evm-toolkit/dev-environments/remix/remix-8.webp)
+    ![](/images/develop/smart-contracts/evm-toolkit/dev-environments/remix/remix-9.webp)
 
     !!! tip
         Pin your frequently used contracts to the **Pinned Contracts** section for easy access.
 
 2. To interact with the contract, you can click on any of the exposed methods
 
-    ![](/images/develop/smart-contracts/evm-toolkit/dev-environments/remix/remix-9.webp)
+    ![](/images/develop/smart-contracts/evm-toolkit/dev-environments/remix/remix-10.webp)
 
     In this manner, you can interact with your deployed contract either by reading its state or by writing to it.
 

@@ -75,9 +75,9 @@ After compiling your contract, you can navigate to the **File Explorer** tab (fi
 
         ![](/images/develop/smart-contracts/evm-toolkit/dev-environments/remix/remix-7.webp)
 
-Once your contract is deployed successfully, you will see the following output in the REMIX terminal:
+        Once your contract is deployed successfully, you will see the following output in the REMIX terminal:
 
-![](/images/develop/smart-contracts/evm-toolkit/dev-environments/remix/remix-8.webp)
+        ![](/images/develop/smart-contracts/evm-toolkit/dev-environments/remix/remix-8.webp)
 
 ## Interacting with Contracts
 

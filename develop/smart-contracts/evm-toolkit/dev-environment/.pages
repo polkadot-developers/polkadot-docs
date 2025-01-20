@@ -1,5 +1,0 @@
-title: Development Environment
-nav:
-  - index.md
-  - 'Hardhat': hardhat.md
-  - 'Foundry': foundry.md

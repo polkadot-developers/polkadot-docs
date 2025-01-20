@@ -96,6 +96,12 @@ Once deployed, your contract appears in the **Deployed/Unpinned Contracts** sect
 
     In this manner, you can interact with your deployed contract either by reading its state or by writing to it.
 
-## Conclusion
+## Where to Go Next
 
-The Polkadot Remix IDE provides a comprehensive an environment for developing, compiling, and deploying smart contracts on Asset Hub. Through its intuitive interface, developers can easily write Solidity code, compile their contracts, and interact with them directly in the browser.
+The Polkadot Remix IDE offers a robust environment for developing, compiling, and deploying smart contracts on Asset Hub. Its intuitive interface allows developers to easily write Solidity code, compile contracts, and interact with them directly in the browser.
+
+Explore more about smart contracts through these resources:
+
+- [Frontier](https://github.com/polkadot-evm/frontier){target=\_blank} repository – learn about EVM compatibility on Polkadot-SDK-based chains
+- [Smart Contracts on Polkadot](/develop/smart-contracts/){target=\_blank} – dive into advanced contract development techniques
+- [OpenZeppelin contracts](https://www.openzeppelin.com/solidity-contracts){target=\_blank} – test your skills by deploying a sample dApp

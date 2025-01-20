@@ -75,7 +75,7 @@ The `xcm-simulator` provides the following macros for building a mocked simulati
 
 By leveraging these macros, developers can customize their testing networks by defining relay chains and parachains tailored to their needs.
 
-For guidance on implementing a mock runtime for a Polkadot SDK-based chain, refer to the [Pallet Testing](/develop/parachains/customize-parachain/pallet-testing/){target=\_blank} article. This framework enables thorough testing of runtime and cross-chain interactions.
+For guidance on implementing a mock runtime for a Polkadot SDK-based chain, refer to the [Pallet Testing](/develop/parachains/testing/pallet-testing/){target=\_blank} article. This framework enables thorough testing of runtime and cross-chain interactions.
 
 For a complete example of how to use the `xcm-simulator`, explore the [`sample`](https://github.com/paritytech/polkadot-sdk/tree/master/polkadot/xcm/xcm-simulator/example){target=\_blank} provided in the `xcm-simulator` codebase.
 

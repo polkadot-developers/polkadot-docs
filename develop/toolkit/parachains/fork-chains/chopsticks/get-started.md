@@ -35,7 +35,7 @@ You can install Chopsticks globally or locally in your project. Choose the optio
 To install Chopsticks globally, allowing you to use it across multiple projects, run:
 
 ```bash
-npm i -g @acala-network/chopsticks@{{ dependencies.chopsticks.version }}
+npm i -g @acala-network/chopsticks
 ```
 
 Now, you should be able to run the `chopsticks` command from your terminal.
@@ -53,13 +53,13 @@ npm init -y
 Then, install Chopsticks as a local dependency:
 
 ```bash
-npm i @acala-network/chopsticks@{{ dependencies.chopsticks.version }}
+npm i @acala-network/chopsticks
 ```
 
 Finally, you can run Chopsticks using the `npx` command:
 
 ```bash
-npx @acala-network/chopsticks
+npx @acala-network/chopsticks --config=polkadot
 ```
 
 ## Configure Chopsticks

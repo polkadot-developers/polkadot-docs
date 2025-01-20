@@ -13,7 +13,7 @@ Remix IDE is a robust browser-based development environment for smart contracts.
 
 Before getting started, ensure you have:
 
-- A web browser with [MetaMask](https://metamask.io/) extension installed
+- A web browser with [MetaMask](https://metamask.io/){target=\_blank} extension installed
 - Basic understanding of Solidity programming
 - Some test tokens to cover transaction fees (easily obtainable from [Polkadot faucet](https://faucet.polkadot.io/){target=\_blank})
 
@@ -29,7 +29,7 @@ The interface is organized into three main sections: the Extensions panel on the
 
 To create a new contract using the Polkadot Remix IDE, you can follow these steps:
 
-1. Click the **Create a new file** button in the **contracts** folder
+1. Select the **Create a new file** button in the `contracts` folder
 
     ![](/images/develop/smart-contracts/evm-toolkit/dev-environments/remix/remix-2.webp)
 
@@ -53,15 +53,15 @@ To create a new contract using the Polkadot Remix IDE, you can follow these step
 
 1. To compile your contract, you need to
 
-    1. Navigate to the Solidity Compiler tab (third icon in the left sidebar)
-    2. Click "Compile" or use `Ctrl+S`
+    1. Navigate to the **Solidity Compiler** tab (third icon in the left sidebar)
+    2. Select**Compile** or use `Ctrl+S`
 
         ![](/images/develop/smart-contracts/evm-toolkit/dev-environments/remix/remix-5.webp)
     
         !!! note
-            Compilation errors and warnings appear in the terminal panel at the bottom of the screen
+            Compilation errors and warnings appear in the terminal panel at the bottom of the screen.
 
-After compiling your contract, you can navigate to the **File Explorer** tab (first icon in the left sidebar) and check that the **artifact** folder exists and that the **Counter_metadata.json** and **Counter.json** files have also been created.
+After compiling your contract, you can navigate to the **File Explorer** tab (first icon in the left sidebar) and check that the `artifact` folder exists and that the `Counter_metadata.json` and `Counter.json` files have also been created.
 
 ![](/images/develop/smart-contracts/evm-toolkit/dev-environments/remix/remix-6.webp)
 
@@ -71,7 +71,7 @@ After compiling your contract, you can navigate to the **File Explorer** tab (fi
 
     1. Navigate to the **Deploy & Run Transactions** tab (fourth icon in the left sidebar)
     2. Select your deployment environment, in this case, **Westend Testnet - MetaMask**
-    3. Click in the **Deploy and Confirm** button
+    3. Select the **Deploy and Confirm** button
 
         ![](/images/develop/smart-contracts/evm-toolkit/dev-environments/remix/remix-7.webp)
 
@@ -90,11 +90,11 @@ Once deployed, your contract appears in the **Deployed/Unpinned Contracts** sect
     !!! tip
         Pin your frequently used contracts to the **Pinned Contracts** section for easy access.
 
-2. To interact with the contract, you can click on any of the exposed methods
+2. To interact with the contract, you can select any of the exposed methods
 
     ![](/images/develop/smart-contracts/evm-toolkit/dev-environments/remix/remix-10.webp)
 
-    In this manner, you can interact with your deployed contract either by reading its state or by writing to it.
+    In this way, you can interact with your deployed contract by reading its state or writing to it.
 
 ## Where to Go Next
 
@@ -102,6 +102,6 @@ The Polkadot Remix IDE offers a robust environment for developing, compiling, an
 
 Explore more about smart contracts through these resources:
 
-- [Frontier](https://github.com/polkadot-evm/frontier){target=\_blank} repository – learn about EVM compatibility on Polkadot-SDK-based chains
-- [Smart Contracts on Polkadot](/develop/smart-contracts/){target=\_blank} – dive into advanced contract development techniques
-- [OpenZeppelin contracts](https://www.openzeppelin.com/solidity-contracts){target=\_blank} – test your skills by deploying a sample dApp
+- [**Frontier**](https://github.com/polkadot-evm/frontier){target=\_blank} **repository** – learn about EVM compatibility on Polkadot-SDK-based chains
+- [**Smart Contracts on Polkadot**](/develop/smart-contracts/){target=\_blank} – dive into advanced contract development techniques
+- [**OpenZeppelin contracts**](https://www.openzeppelin.com/solidity-contracts){target=\_blank} – test your skills by deploying a sample dApp

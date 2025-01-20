@@ -149,6 +149,6 @@ Ensure you replace the `INSERT_MNEMONIC`, `INSERT_CONTRACT_ADDRESS`, and `INSERT
 
 Now that you have the foundational knowledge to use Ethers.js with Asset Hub, you can:
 
-- Dive into Ethers.js utilities - discover additional Ethers.js features, such as wallet management, signing messages, etc
-- Implement batch transactions - use Ethers.js to execute batch transactions for efficient multi-step contract interactions
-- Build scalable applications - combine Ethers.js with frameworks like [`Next.js`](https://nextjs.org/docs){target=\_blank} or [`Node.js`](https://nodejs.org/en){target=\_blank} to create full-stack decentralized applications (dApps)
+- **Dive into Ethers.js utilities** - discover additional Ethers.js features, such as wallet management, signing messages, etc
+- **Implement batch transactions** - use Ethers.js to execute batch transactions for efficient multi-step contract interactions
+- **Build scalable applications** - combine Ethers.js with frameworks like [`Next.js`](https://nextjs.org/docs){target=\_blank} or [`Node.js`](https://nodejs.org/en){target=\_blank} to create full-stack decentralized applications (dApps)

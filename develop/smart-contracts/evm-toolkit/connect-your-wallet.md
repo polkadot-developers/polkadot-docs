@@ -7,9 +7,9 @@ description: Learn to connect MetaMask to the Asset Hub blockchain. Set up your 
 
 ## Connect to Asset Hub Using MetaMask
 
-MetaMask is a popular wallet for interacting with EVM-compatible chains, allowing users to connect to test networks that support Ethereum-based smart contracts. This article provides guidance on setting up MetaMask, connecting to the contracts deployed on the EVM-compatible test network, the Westend Asset Hub, and requesting test tokens for development purposes.
+MetaMask is a popular wallet for interacting with EVM-compatible chains. It allows users to connect to test networks that support Ethereum-based smart contracts. This article guides setting up MetaMask, connecting to the contracts deployed on the EVM-compatible test network, the Westend Asset Hub, and requesting test tokens for development purposes.
 
-It’s important to emphasize that MetaMask primarily facilitates interactions with smart contracts, giving you access to various functionalities available on the chain.
+It's important to emphasize that MetaMask primarily facilitates interactions with smart contracts, giving you access to various chain functionalities.
 
 ## Prerequisites
 
@@ -83,7 +83,7 @@ To connect to the Westend Asset Hub TestNet via MetaMask, you need to follow the
 
 ## Request Test Tokens
 
-To start conducting transactions and interacting with smart contracts on the Asset Hub Westend TestNet, you'll need test WND tokens. Here's how to get them:
+To start conducting transactions and interacting with smart contracts on the Asset Hub Westend TestNet, you'll need WND test tokens. Here's how to get them:
 
 1. Navigate to the [Westend Asset Hub Faucet](https://faucet.polkadot.io/westend?parachain=1000){target=\_blank}
 
@@ -97,4 +97,4 @@ To start conducting transactions and interacting with smart contracts on the Ass
 
 ## Conclusion
 
-Congratulations! You have successfully connected to the Westend Asset Hub using MetaMask and acquired test tokens. This setup allows you to experiment with the network’s functionalities without using real ether or encountering financial risks. Remember to keep your MetaMask credentials secure and never share your wallet’s private key or seed phrase with anyone.
+Congratulations! You have successfully connected to the Westend Asset Hub using MetaMask and acquired test tokens. This setup allows you to experiment with the network's functionalities without using real ether or encountering financial risks. Remember to keep your MetaMask credentials secure and never share your wallet's private key or seed phrase with anyone.

@@ -105,6 +105,7 @@ Add the `benchmarking` module to your pallet. In the pallet `lib.rs` file add th
 ```rust
 #[cfg(feature = "runtime-benchmarks")]
 mod benchmarking;
+```
 
 ### Add Benchmarks to Runtime
 
@@ -183,15 +184,17 @@ The generated `weights.rs` file contains weight annotations for your extrinsics,
 
 #### Add Benchmark Weights to Pallet
 
-Once the `weights.rs` is generated, you must integrate it with your pallet. To begin the integration, import the `weights` module and the `WeightInfo` trait, then add both to your pallet's `Config` trait. Complete the following steps to set up the configuration:
+Once the `weights.rs` is generated, you must integrate it with your pallet. 
 
-```rust title="INSERT_FILE_NAME_HERE"
+1. To begin the integration, import the `weights` module and the `WeightInfo` trait, then add both to your pallet's `Config` trait. Complete the following steps to set up the configuration:
+
+```rust title="lib.rs"
 --8<-- 'code/develop/parachains/testing/benchmarking/weight-config.rs'
 ```
 
 2. Next, you must add this to the `#[pallet::weight]` annotation in all the extrinsics via the `Config` as follows:
 
-```rust hl_lines="2" title="INSERT_FILE_NAME_HERE"
+```rust hl_lines="2" title="lib.rs"
 --8<-- 'code/develop/parachains/testing/benchmarking/dispatchable-pallet-weight.rs'
 ```
 

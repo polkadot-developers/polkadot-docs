@@ -1,0 +1,27 @@
+{
+    "label": "moonwall_config",
+    "defaultTestTimeout": 30000,
+    "environments": [
+        {
+            "name": "default_env",
+            "testFileDir": ["tests/"],
+            "foundation": {
+                "launchSpec": [
+                    {
+                        "binPath": "./node-template",
+                        "newRpcBehaviour": true,
+                        "ports": { "rpcPort": 9944 }
+                    }
+                ],
+                "type": "dev"
+            },
+            "connections": [
+                {
+                    "name": "myconnection",
+                    "type": "polkadotJs",
+                    "endpoints": ["ws://127.0.0.1:9944"]
+                }
+            ]
+        }
+    ]
+}

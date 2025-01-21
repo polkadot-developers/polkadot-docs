@@ -81,7 +81,7 @@ You can view the full `mock.rs` implementation for the mock runtime here:
 ???- "Complete `mock.rs`"
 
     ```rust
-    --8<-- 'code/tutorials/polkadot-sdk/parachains/zero-to-hero/pallets/custom-pallet/src/mock.rs::62'
+    --8<-- 'code/tutorials/polkadot-sdk/parachains/zero-to-hero/pallets/custom-pallet/src/mock.rs:20:62'
     --8<-- 'code/tutorials/polkadot-sdk/parachains/zero-to-hero/pallets/custom-pallet/src/mock.rs:64'
     ```
 
@@ -152,7 +152,7 @@ You can check the complete `tests.rs` implementation for the Custom pallet here:
 ???- "Complete `tests.rs`"
 
     ```rust
-    --8<-- 'code/tutorials/polkadot-sdk/parachains/zero-to-hero/pallets/custom-pallet/src/tests.rs'
+    --8<-- 'code/tutorials/polkadot-sdk/parachains/zero-to-hero/pallets/custom-pallet/src/tests.rs:20'
     ```
 
 ## Running Tests

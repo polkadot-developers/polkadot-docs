@@ -54,7 +54,7 @@ Configure the pallets by implementing their `Config` trait and update the runtim
 
 3. Locate the `#[frame_support::runtime]` macro in the `runtime/src/lib.rs` file and add the pallets:
 
-    ```rust
+    ```rust hl_lines="5-9"
     --8<-- 'code/tutorials/polkadot-sdk/parachains/zero-to-hero/runtime/src/lib.rs:253:255'
         ...
     --8<-- 'code/tutorials/polkadot-sdk/parachains/zero-to-hero/runtime/src/lib.rs:315:320'
@@ -121,6 +121,6 @@ Launch your parachain locally and start producing blocks:
 
     Discover how to measure extrinsic costs and assign precise weights to optimize your pallet for accurate fees and runtime performance.
 
-    [:octicons-arrow-right-24: Get Started](/tutorials/polkadot-sdk/parachains/zero-to-hero/)
+    [:octicons-arrow-right-24: Get Started](/tutorials/polkadot-sdk/parachains/zero-to-hero/pallet-benchmarking/)
 
 </div>

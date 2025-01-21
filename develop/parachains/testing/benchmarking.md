@@ -51,6 +51,7 @@ The benchmarking tool runs multiple iterations to model worst-case execution tim
 ### Prepare Your Environment
 
 Install the [`frame-omni-bencher`](https://crates.io/crates/frame-omni-bencher){target=\_blank} command-line tool:
+
 ```bash
 cargo install frame-omni-bencher
 ```
@@ -96,14 +97,14 @@ With the directory structure set, you can use the [`polkadot-sdk-parachain-templ
 In your benchmarking tests, employ these best practices:
 
 - **Write custom testing functions** - the function `do_something` in the preceding example is a placeholder. Similar to writing unit tests, you must write custom functions to benchmark test your extrinsics. Access the mock runtime and use functions such as `whitelisted_caller()` to sign transactions and facilitate testing
-- **Use the `#[extrinsic_call]` macro** - this macro is used when calling the extrinsic itself and is a required part of a benchmarking function. See the [`extrinsic_call Rust docs](https://paritytech.github.io/polkadot-sdk/master/frame_benchmarking/v2/index.html#extrinsic_call-and-block){target=_blank} for more details
+- **Use the `#[extrinsic_call]` macro** - this macro is used when calling the extrinsic itself and is a required part of a benchmarking function. See the [`extrinsic_call`](https://paritytech.github.io/polkadot-sdk/master/frame_benchmarking/v2/index.html#extrinsic_call-and-block){target=\_blank} docs for more details
 - **Validate extrinsic behavior** - the `assert_eq` expression ensures that the extrinsic is working properly within the benchmark context
 
 Add the `benchmarking` module to your pallet. In the pallet `lib.rs` file add the following:
+
 ```rust
 #[cfg(feature = "runtime-benchmarks")]
 mod benchmarking;
-```
 
 ### Add Benchmarks to Runtime
 
@@ -121,7 +122,7 @@ Before running the benchmarking tool, you must integrate benchmarks with your ru
     ```
 
     !!!warning "Updating `define_benchmarks!` macro is required"
-        Any pallet that needs to be benchmarked must be included in the `define_benchmarks!` macro. The CLI will only be able to access and benchmark pallets that are registered here.
+        Any pallet that needs to be benchmarked must be included in the [`define_benchmarks!`](https://paritytech.github.io/polkadot-sdk/master/frame_benchmarking/macro.define_benchmarks.html){target=\_blank} macro. The CLI will only be able to access and benchmark pallets that are registered here.
 
 2. Check your runtime's `lib.rs` file to ensure the `benchmarks` module is imported. The import should look like this:
 
@@ -182,21 +183,21 @@ The generated `weights.rs` file contains weight annotations for your extrinsics,
 
 #### Add Benchmark Weights to Pallet
 
-Once the `weights.rs` is generated, you need to integrate it with your pallet. This involves two steps: importing the `weights` module and the `WeightInfo` trait, and adding it to your pallet's `Config` trait. Here's how to set this up:
+Once the `weights.rs` is generated, you must integrate it with your pallet. To begin the integration, import the `weights` module and the `WeightInfo` trait, then add both to your pallet's `Config` trait. Complete the following steps to set up the configuration:
 
-```rust
+```rust title="INSERT_FILE_NAME_HERE"
 --8<-- 'code/develop/parachains/testing/benchmarking/weight-config.rs'
 ```
 
-After which, you must add this to the `#[pallet::weight]` annotation in all the extrinsics via the `Config`:
+2. Next, you must add this to the `#[pallet::weight]` annotation in all the extrinsics via the `Config` as follows:
 
-```rust hl_lines="2"
+```rust hl_lines="2" title="INSERT_FILE_NAME_HERE"
 --8<-- 'code/develop/parachains/testing/benchmarking/dispatchable-pallet-weight.rs'
 ```
 
-Finally, configure the actual weight values in your runtime. In `runtime/src/config/mod.rs`, add:
+3. Finally, configure the actual weight values in your runtime. In `runtime/src/config/mod.rs`, add the following code:
 
-```rust
+```rust title="mod.rs"
 --8<-- 'code/develop/parachains/testing/benchmarking/runtime-pallet-config.rs'
 ```
 

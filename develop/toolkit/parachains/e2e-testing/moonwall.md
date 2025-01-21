@@ -110,10 +110,12 @@ Simply press `Enter` to accept defaults, or input custom values. The wizard gene
 The default configuration needs to be enhanced with specific details about your blockchain node and test requirements:
 
 - The `foundation` object defines how your test blockchain node will be launched and managed. For local development, the `dev` foundation is used which runs a local node binary
+    
     !!!note
         For more information about available options, check the [Foundations](https://moonsong-labs.github.io/moonwall/guide/intro/foundations.html){target=\_blank} section.
 
 - The `connections` array specifies how your tests will interact with the blockchain node. This typically includes provider configuration and endpoint details.
+    
     !!!note
         A provider is a tool that allows you or your application to connect to a blockchain network and simplifies the low-level details of the process. A provider handles submitting transactions, reading state, and more. For more information on available providers check the [Providers supported](https://moonsong-labs.github.io/moonwall/guide/intro/providers.html#providers-supported){target=\_blank} page.
 

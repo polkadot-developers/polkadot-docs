@@ -1,0 +1,7 @@
+[toolchain]
+channel = "1.81.0"
+components = ["rustfmt", "clippy"]
+
+[toolchain.nightly]
+channel = "1.85.0-nightly"
+components = ["rustfmt", "clippy"]

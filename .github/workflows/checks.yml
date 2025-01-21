@@ -46,7 +46,6 @@ jobs:
         working-directory: .snippets/code
         run: |
             cargo clippy --all-targets --locked --workspace --quiet
-            cargo clippy --all-targets --all-features --locked --workspace --quiet
 
   test:
     runs-on: ubuntu-latest

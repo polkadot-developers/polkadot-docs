@@ -74,6 +74,9 @@ This command ensures the runtime compiles without errors, validates the pallet c
 
 Launch your parachain locally and start producing blocks:
 
+!!!info 
+    Generated chain TestNet specifications include development accounts "Alice" and "Bob." These accounts are pre-funded with native parachain currency, allowing you to sign and send TestNet transactions. Take a look at the [Polkadot.js Accounts section](https://polkadot.js.org/apps/#/accounts){target=\_blank} to view the development accounts for your chain.
+
 1. Create a new chain specification file with the updated runtime:
 
     ```bash

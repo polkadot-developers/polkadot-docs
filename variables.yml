@@ -24,3 +24,6 @@ dependencies:
     version: v0.16.0
     docker_image_name: paritytech/srtool
     docker_image_version: 1.62.0
+  moonwall:
+    repository_url: https://github.com/Moonsong-Labs/moonwall
+    version: 5.9.1

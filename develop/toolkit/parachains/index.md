@@ -14,7 +14,7 @@ This section explores essential tools for blockchain testing, forking live netwo
 
 - [Use Zombienet to spawn a chain](/develop/toolkit/parachains/spawn-chains/zombienet/get-started/)
 - [Use Chopsticks to fork a chain](/develop/toolkit/parachains/fork-chains/chopsticks/get-started/)
-- [Use Moonwall to execute e2e testing](/develop/toolkit/parachains/e2e-testing/moonwall/)
+- [Use Moonwall to execute E2E testing](/develop/toolkit/parachains/e2e-testing/moonwall/)
 
 ## In This Section
 

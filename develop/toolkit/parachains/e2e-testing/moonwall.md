@@ -29,7 +29,7 @@ Before you begin, ensure you have the following installed:
 Moonwall can be installed either globally for system-wide access or locally within specific projects. This section covers both installation methods.
 
 !!! note
-    his documentation corresponds to Moonwall version `{{ dependencies.moonwall.version }}`. Ensure you're using the matching version to avoid compatibility issues with the documented features.
+    This documentation corresponds to Moonwall version `{{ dependencies.moonwall.version }}`. Ensure you're using the matching version to avoid compatibility issues with the documented features.
 
 ### Global Installation
 
@@ -119,7 +119,7 @@ The default configuration needs to be enhanced with specific details about your 
     !!!note
         A provider is a tool that allows you or your application to connect to a blockchain network and simplifies the low-level details of the process. A provider handles submitting transactions, reading state, and more. For more information on available providers check the [Providers supported](https://moonsong-labs.github.io/moonwall/guide/intro/providers.html#providers-supported){target=\_blank} page.
 
-Here's a complete configuration example for testing a local node using polkadot.js as a provider:
+Here's a complete configuration example for testing a local node using Polkadot.js as a provider:
 
 ```json
 --8<-- 'code/develop/toolkit/parachains/e2e-testing/moonwall/moonwall.config.json'

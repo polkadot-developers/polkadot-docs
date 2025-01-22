@@ -1,6 +1,6 @@
 ---
 title: Benchmarking FRAME Pallets
-description: Learn how to use FRAME's benchmarking framework to evaluate custom pallets, ensure accurate weights, and optimize on-chain computations and extrinsics.
+description: Learn how to use FRAME's benchmarking framework to measure extrinsic execution costs and provide accurate weights for on-chain computations.
 ---
 
 # Benchmarking

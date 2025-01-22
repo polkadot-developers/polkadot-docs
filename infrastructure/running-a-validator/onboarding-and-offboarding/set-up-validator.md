@@ -187,7 +187,7 @@ docker pull parity/polkadot:{{ dependencies.polkadot_sdk.docker_image_version }}
 
 ### Build from Sources
 
-You may build the binaries from source by following the instructions on the [Polkadot SDK repository](https://github.com/paritytech/polkadot-sdk/tree/master/polkadot#building){target=\_blank}.
+You may build the binaries from source by following the instructions on the [Polkadot SDK repository](https://github.com/paritytech/polkadot-sdk/tree/{{dependencies.polkadot_sdk.stable_version}}/polkadot#building){target=\_blank}.
 
 ### Verify Installation
 

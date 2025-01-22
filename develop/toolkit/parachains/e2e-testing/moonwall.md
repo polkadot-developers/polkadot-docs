@@ -95,13 +95,17 @@ moonwall init
 
 During setup, you'll be prompted for the following parameters:
 
-- Label - identifies your test configuration
-- Global timeout - maximum time (ms) for test execution
-- Environment name - name for your testing environment
-- Network Foundation - type of blockchain environment to use
-- Test Directory - location of your test files
+- `label` - identifies your test configuration
+- `global timeout` - maximum time (ms) for test execution
+- `environment name` - name for your testing environment
+- `network foundation` - type of blockchain environment to use
+- `tests directory` - location of your test files
 
-Simply press `Enter` to accept defaults, or input custom values. The wizard generates a `moonwall.config` file:
+Simply press `Enter` to accept defaults, or input custom values. You should see something like this:
+
+--8<-- 'code/develop/toolkit/parachains/e2e-testing/moonwall/init.html'
+
+The wizard generates a `moonwall.config` file:
 
 ```json
 --8<-- 'code/develop/toolkit/parachains/e2e-testing/moonwall/init-moonwall.config.json'
@@ -127,11 +131,12 @@ Here's a complete configuration example for testing a local node using Polkadot.
 
 ## Writing Tests
 
-Moonwall uses the `describeSuite` function to define test suites, like using [Mocha](https://mochajs.org/){target=\_blank}. Each test suite requires:
+Moonwall uses the [`describeSuite`](https://github.com/Moonsong-Labs/moonwall/blob/7568048c52e9f7844f38fb4796ae9e1b9205fdaa/packages/cli/src/lib/runnerContext.ts#L65){target=\_blank} function to define test suites, like using [Mocha](https://mochajs.org/){target=\_blank}. Each test suite requires:
 
 - `id` - unique identifier for the suite
 - `title` - descriptive name for the suite
 - `foundationMethods` - specifies the testing environment (e.g., `dev` for local node testing)
+- `testCases` - a callback function that houses the individual test cases of this suite
 
 The following example shows how to test a balance transfer between two accounts:
 
@@ -149,13 +154,7 @@ This test demonstrates several key concepts:
 
 ## Running the Tests
 
-Execute your tests using the Moonwall CLI command:
-
-```bash
-moonwall test INSERT_ENVIRONMENT_NAME_HERE
-```
-
-For the default environment setup:
+Execute your tests using the `test` Moonwall CLI command. For the default environment setup run:
 
 ```bash
 moonwall test default_env

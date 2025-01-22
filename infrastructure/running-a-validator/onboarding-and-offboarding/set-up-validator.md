@@ -78,25 +78,57 @@ Depending on your preference and operating system setup, there are multiple meth
 
 The preferred, most straightforward method to install the required binaries is downloading the latest versions from the official releases. You can visit the [Github Releases](https://github.com/paritytech/polkadot-sdk/releases){target=\_blank} page for the most current versions of the `polkadot`, `polkadot-prepare-worker`, and `polkadot-execute-worker` binaries.
 
-You can also download the binaries by using the following direct links and replacing `INSERT_VERSION_NUMBER` with the version number, e.g. `v1.16.1`
+You can also download the binaries by using the following direct links:
 
 === "`polkadot`"
 
-    ``` text
-    https://github.com/paritytech/polkadot-sdk/releases/download/polkadot-INSERT_VERSION_NUMBER/polkadot
+    ``` bash
+    # Download the binary
+    curl -LO https://github.com/paritytech/polkadot-sdk/releases/download/{{ dependencies.polkadot_sdk.version }}/polkadot
+
+    # Verify signature
+    curl -LO https://github.com/paritytech/polkadot-sdk/releases/download/{{ dependencies.polkadot_sdk.version }}/polkadot.asc
+    
+    gpg --keyserver hkps://keyserver.ubuntu.com --receive-keys 90BD75EBBB8E95CB3DA6078F94A4029AB4B35DAE
+
+    gpg --verify polkadot.asc
     ```
 
 === "`polkadot-prepare-worker`"
 
-    ``` text
-    https://github.com/paritytech/polkadot-sdk/releases/download/polkadot-INSERT_VERSION_NUMBER/polkadot-prepare-worker
+    ``` bash
+    # Download the binary
+    curl -LO https://github.com/paritytech/polkadot-sdk/releases/download/{{ dependencies.polkadot_sdk.version }}/polkadot-prepare-worker
+
+    # Verify signature
+    curl -LO https://github.com/paritytech/polkadot-sdk/releases/download/{{ dependencies.polkadot_sdk.version }}/polkadot-prepare-worker.asc
+
+    gpg --keyserver hkps://keyserver.ubuntu.com --receive-keys 90BD75EBBB8E95CB3DA6078F94A4029AB4B35DAE
+
+    gpg --verify polkadot-prepare-worker.asc
     ```
 
 === "`polkadot-execute-worker`"
 
-    ``` text
-    https://github.com/paritytech/polkadot-sdk/releases/download/polkadot-INSERT_VERSION_NUMBER/polkadot-execute-worker
+    ``` bash
+    # Download the binary
+    curl -LO https://github.com/paritytech/polkadot-sdk/releases/download/{{ dependencies.polkadot_sdk.version }}/polkadot-execute-worker
+
+    # Verify signature
+    curl -LO https://github.com/paritytech/polkadot-sdk/releases/download/{{ dependencies.polkadot_sdk.version }}/polkadot-execute-worker.asc
+
+    gpg --keyserver hkps://keyserver.ubuntu.com --receive-keys 90BD75EBBB8E95CB3DA6078F94A4029AB4B35DAE
+
+    gpg --verify polkadot-execute-worker.asc
     ```
+
+!!!warning
+    Signature verification cryptographically ensures the downloaded binaries are authentic and have not been tampered with by using GPG signing keys. Polkadot releases use two different signing keys:
+
+    - ParityReleases (release-team@parity.io) with key [`90BD75EBBB8E95CB3DA6078F94A4029AB4B35DAE`](https://keyserver.ubuntu.com/pks/lookup?search=9D4B2B6EB8F97156D19669A9FF0812D491B96798&fingerprint=on&op=index){target=\_blank} for current and new releases
+    - Parity Security Team (security@parity.io) with key [`9D4B2B6EB8F97156D19669A9FF0812D491B96798`](https://keyserver.ubuntu.com/pks/lookup?search=90BD75EBBB8E95CB3DA6078F94A4029AB4B35DAE&fingerprint=on&op=index){target=\_blank} for old releases
+
+    When verifying a signature, a "Good signature" message indicates successful verification, while any other output signals a potential security risk.
 
 ### Install with Package Managers
 
@@ -147,10 +179,10 @@ You can also manage Polkadot installations using Ansible. This approach can be b
 
 If you prefer using Docker or an OCI-compatible container runtime, the official Polkadot Docker image can be pulled directly from Docker Hub.
 
-To pull the latest image, run the following command. Make sure to replace `INSERT_VERSION_NUMBER` with the appropriate version number, e.g. `v1.16.1`
+To pull the latest stable image, run the following command:
 
-```sh
-docker.io/parity/polkadot:INSERT_VERSION_NUMBER
+```bash
+docker pull parity/polkadot:{{ dependencies.polkadot_sdk.docker_image_version }}
 ```
 
 ### Build from Sources

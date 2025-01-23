@@ -23,7 +23,7 @@ Navigate to [https://remix.polkadot.io/](https://remix.polkadot.io/){target=\_bl
 
 ![](/images/develop/smart-contracts/evm-toolkit/dev-environments/remix/remix-1.webp)
 
-The interface is organized into three main sections: the Extensions panel on the right, the Code Editor in the center, and the File Explorer on the left.
+In this interface, you can access a file explorer, edit your code, interact with various plugins for development, and use a terminal.
 
 ## Creating a New Contract
 

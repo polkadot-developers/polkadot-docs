@@ -102,6 +102,5 @@ The Polkadot Remix IDE offers an environment for developing, compiling, and depl
 
 Explore more about smart contracts through these resources:
 
-- [**Frontier**](https://github.com/polkadot-evm/frontier){target=\_blank} **repository** – learn about EVM compatibility on Polkadot-SDK-based chains
 - [**Smart Contracts on Polkadot**](/develop/smart-contracts/){target=\_blank} – dive into advanced contract development techniques
 - [**OpenZeppelin contracts**](https://www.openzeppelin.com/solidity-contracts){target=\_blank} – test your skills by deploying a sample dApp

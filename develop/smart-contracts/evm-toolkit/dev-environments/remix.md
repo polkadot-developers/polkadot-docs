@@ -15,7 +15,7 @@ Before getting started, ensure you have:
 
 - A web browser with [MetaMask](https://metamask.io/){target=\_blank} extension installed
 - Basic understanding of Solidity programming
-- Some WND test tokens to cover transaction fees (easily obtainable from [Polkadot faucet](https://faucet.polkadot.io/westend?parachain=1000){target=\_blank})
+- Some WND test tokens to cover transaction fees (easily obtainable from the [Polkadot faucet](https://faucet.polkadot.io/westend?parachain=1000){target=\_blank})
 
 ## Accessing Remix IDE
 
@@ -61,7 +61,7 @@ To create a new contract using the Polkadot Remix IDE, you can follow these step
         !!! note
             Compilation errors and warnings appear in the terminal panel at the bottom of the screen.
 
-1. After compiling your contract, you can navigate to the **File Explorer** tab (first icon in the left sidebar):
+2. After compiling your contract, you can navigate to the **File Explorer** tab (first icon in the left sidebar):
     1. Verify that the `artifact` folder is present
     2. Ensure the `Counter_metadata.json` and `Counter.json` files have been generated
 
@@ -77,7 +77,7 @@ To create a new contract using the Polkadot Remix IDE, you can follow these step
 
         ![](/images/develop/smart-contracts/evm-toolkit/dev-environments/remix/remix-7.webp)
 
-2. Once your contract is deployed successfully, you will see the following output in the REMIX terminal:
+2. Once your contract is deployed successfully, you will see the following output in the Remix terminal:
 
     ![](/images/develop/smart-contracts/evm-toolkit/dev-environments/remix/remix-8.webp)
 
@@ -98,9 +98,9 @@ Once deployed, your contract appears in the **Deployed/Unpinned Contracts** sect
 
     In this way, you can interact with your deployed contract by reading its state or writing to it. The button color indicates the type of interaction available:
 
-    - Red - modifies state and is payable
-    - Orange - modifies state only
-    - Blue - reads state
+    - **Red** - modifies state and is payable
+    - **Orange** - modifies state only
+    - **Blue** - reads state
 
 ## Where to Go Next
 

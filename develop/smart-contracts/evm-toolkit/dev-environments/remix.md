@@ -61,9 +61,11 @@ To create a new contract using the Polkadot Remix IDE, you can follow these step
         !!! note
             Compilation errors and warnings appear in the terminal panel at the bottom of the screen.
 
-After compiling your contract, you can navigate to the **File Explorer** tab (first icon in the left sidebar) and check that the `artifact` folder exists and that the `Counter_metadata.json` and `Counter.json` files have also been created.
+1. After compiling your contract, you can navigate to the **File Explorer** tab (first icon in the left sidebar):
+    1. Verify that the `artifact` folder is present
+    2. Ensure the `Counter_metadata.json` and `Counter.json` files have been generated
 
-![](/images/develop/smart-contracts/evm-toolkit/dev-environments/remix/remix-6.webp)
+        ![](/images/develop/smart-contracts/evm-toolkit/dev-environments/remix/remix-6.webp)
 
 ## Deploying Contracts
 
@@ -75,9 +77,9 @@ After compiling your contract, you can navigate to the **File Explorer** tab (fi
 
         ![](/images/develop/smart-contracts/evm-toolkit/dev-environments/remix/remix-7.webp)
 
-        Once your contract is deployed successfully, you will see the following output in the REMIX terminal:
+2. Once your contract is deployed successfully, you will see the following output in the REMIX terminal:
 
-        ![](/images/develop/smart-contracts/evm-toolkit/dev-environments/remix/remix-8.webp)
+    ![](/images/develop/smart-contracts/evm-toolkit/dev-environments/remix/remix-8.webp)
 
 ## Interacting with Contracts
 

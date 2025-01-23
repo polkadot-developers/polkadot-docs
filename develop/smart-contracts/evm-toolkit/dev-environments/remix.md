@@ -1,5 +1,5 @@
 ---
-title: Using Remix IDE
+title: Using the Polkadot Remix IDE to interact with Asset Hub
 description: Explore the smart contract development and deployment process on Asset Hub using Remix IDE, a visual IDE for blockchain developers.
 ---
 

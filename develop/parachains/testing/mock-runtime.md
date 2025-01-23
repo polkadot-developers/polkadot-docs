@@ -22,10 +22,7 @@ Here's a simple example of how to create a testing module that simulates these i
 --8<-- 'code/develop/parachains/testing/mock-runtime/integration-testing-module.rs'
 ```
 
-!!! note
-    The `crate::*;` snippet imports all the components from your crate (including runtime configurations, pallet modules, and utility functions) into the `tests` module. This allows you to write tests without manually importing each piece, making the code more concise and readable.
-
-Alternatively, you can create a separate `mock.rs` file to define the configuration for your mock runtime and a companion `tests.rs` file to house the specific logic for each test.
+The `crate::*;` snippet imports all the components from your crate (including runtime configurations, pallet modules, and utility functions) into the `tests` module. This allows you to write tests without manually importing each piece, making the code more concise and readable. You can opt to instead create a separate `mock.rs` file to define the configuration for your mock runtime and a companion `tests.rs` file to house the specific logic for each test.
 
 Once the testing module is configured, you can craft your mock runtime using the [`frame_support::runtime`](https://paritytech.github.io/polkadot-sdk/master/frame_support/attr.runtime.html){target=\_blank} macro. This macro allows you to define a runtime environment that will be created for testing purposes:
 
@@ -52,8 +49,7 @@ You can also customize the genesis storage to set initial values for your runtim
 --8<-- 'code/develop/parachains/testing/mock-runtime/genesis-config-custom.rs'
 ```
 
-!!! note
-    For a more idiomatic approach, consult the [`Your first pallet`](https://paritytech.github.io/polkadot-sdk/master/polkadot_sdk_docs/guides/your_first_pallet/index.html#better-test-setup){target=\_blank} guide from the Polkadot SDK rust documentation.
+For a more idiomatic approach, see the [Your First Pallet](https://paritytech.github.io/polkadot-sdk/master/polkadot_sdk_docs/guides/your_first_pallet/index.html#better-test-setup){target=\_blank} guide from the Polkadot SDK rust documentation.
 
 ### Pallet Configuration
 
@@ -63,14 +59,11 @@ Each pallet in the mocked runtime requires an associated configuration, specifyi
 --8<-- 'code/develop/parachains/testing/mock-runtime/pallets-configurations.rs'
 ```
 
-The configuration should be set for each pallet existing in the mocked runtime.
+The configuration should be set for each pallet existing in the mocked runtime. The simplification of types is for simplifying the testing process. For example, `AccountId` is `u64`, meaning a valid account address can be an unsigned integer:
 
-!!! note
-    The simplification of types is for simplifying the testing process. For example, `AccountId` is `u64`, meaning a valid account address can be an unsigned integer:
-
-    ```rust
-    let alice_account: u64 = 1;
-    ```
+```rust
+let alice_account: u64 = 1;
+```
 
 ## Where to Go Next
 

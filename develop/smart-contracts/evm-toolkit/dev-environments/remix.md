@@ -39,15 +39,16 @@ To create a new contract using the Polkadot Remix IDE, you can follow these step
 
 3. Write your Solidity code in the editor
 
-    ![](/images/develop/smart-contracts/evm-toolkit/dev-environments/remix/remix-4.webp)
-
-    The code of the contract above is the following:
+    You can use the following code as an example:
 
     ???- "Counter.sol"
         
         ```solidity
         --8<-- 'code/develop/smart-contracts/evm-toolkit/dev-environments/remix/Counter.sol'
         ```
+
+    ![](/images/develop/smart-contracts/evm-toolkit/dev-environments/remix/remix-4.webp)
+
 
 ## Compiling Your Contract
 

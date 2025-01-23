@@ -1,9 +1,9 @@
 ---
-title: Connect your Wallet
+title: Connect Your Wallet to Asset Hub
 description: Learn to connect MetaMask to the Asset Hub blockchain. Set up your wallet, switch networks, and request test tokens for development.
 ---
 
-# Connect your Wallet
+# Connect Your Wallet
 
 ## Connect to Asset Hub Using MetaMask
 
@@ -45,8 +45,6 @@ To connect to the Westend Asset Hub TestNet via MetaMask, you need to follow the
         
         **Block explorer URL** - ```https://assethub-westend.subscan.io```
 
-        ---
-
     === "RPC Endpoints"
         Dwellir
         ```
@@ -76,7 +74,7 @@ To connect to the Westend Asset Hub TestNet via MetaMask, you need to follow the
 
     ![](/images/develop/smart-contracts/evm-toolkit/connect-your-wallet/connect-your-wallet-3.webp){: .browser-extension}
 
-4. Click on the **Asset-Hub Westend TestNet** to switch the network
+4. Click on **Asset-Hub Westend TestNet** to switch the network
 
     ![](/images/develop/smart-contracts/evm-toolkit/connect-your-wallet/connect-your-wallet-4.webp){: .browser-extension}
 
@@ -94,7 +92,5 @@ To start conducting transactions and interacting with smart contracts on the Ass
 3. Click the **Get Some WND** button to request free test WND tokens. These tokens will be sent to your MetaMask wallet shortly
 
     ![](/images/develop/smart-contracts/evm-toolkit/connect-your-wallet/connect-your-wallet-6.webp)
-
-## Conclusion
 
 Congratulations! You have successfully connected to the Westend Asset Hub using MetaMask and acquired test tokens. This setup allows you to experiment with the network's functionalities without using real ether or encountering financial risks. Remember to keep your MetaMask credentials secure and never share your wallet's private key or seed phrase with anyone.

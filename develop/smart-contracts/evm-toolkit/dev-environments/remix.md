@@ -15,7 +15,7 @@ Before getting started, ensure you have:
 
 - A web browser with [MetaMask](https://metamask.io/){target=\_blank} extension installed
 - Basic understanding of Solidity programming
-- Some test tokens to cover transaction fees (easily obtainable from [Polkadot faucet](https://faucet.polkadot.io/){target=\_blank})
+- Some WND test tokens to cover transaction fees (easily obtainable from [Polkadot faucet](https://faucet.polkadot.io/westend?parachain=1000){target=\_blank})
 
 ## Accessing Remix IDE
 
@@ -51,10 +51,10 @@ To create a new contract using the Polkadot Remix IDE, you can follow these step
 
 ## Compiling Your Contract
 
-1. To compile your contract, you need to
+1. To compile your contract, you need to:
 
     1. Navigate to the **Solidity Compiler** tab (third icon in the left sidebar)
-    2. Select**Compile** or use `Ctrl+S`
+    2. Select **Compile** or use `Ctrl+S`
 
         ![](/images/develop/smart-contracts/evm-toolkit/dev-environments/remix/remix-5.webp)
     
@@ -67,11 +67,11 @@ After compiling your contract, you can navigate to the **File Explorer** tab (fi
 
 ## Deploying Contracts
 
-1. To deploy your contract, you need to
+1. To deploy your contract, you need to:
 
     1. Navigate to the **Deploy & Run Transactions** tab (fourth icon in the left sidebar)
     2. Select your deployment environment, in this case, **Westend Testnet - MetaMask**
-    3. Select the **Deploy and Confirm** button
+    3. Click the **Deploy and Confirm** button
 
         ![](/images/develop/smart-contracts/evm-toolkit/dev-environments/remix/remix-7.webp)
 
@@ -98,7 +98,7 @@ Once deployed, your contract appears in the **Deployed/Unpinned Contracts** sect
 
 ## Where to Go Next
 
-The Polkadot Remix IDE offers a robust environment for developing, compiling, and deploying smart contracts on Asset Hub. Its intuitive interface allows developers to easily write Solidity code, compile contracts, and interact with them directly in the browser.
+The Polkadot Remix IDE offers an environment for developing, compiling, and deploying smart contracts on Asset Hub. Its intuitive interface allows developers to easily write Solidity code, compile contracts, and interact with them directly in the browser.
 
 Explore more about smart contracts through these resources:
 

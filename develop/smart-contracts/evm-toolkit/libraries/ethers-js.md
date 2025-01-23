@@ -1,6 +1,6 @@
 ---
-title: Ethers.js
-description: Learn how to interact with the Asset Hub chain using Ethers.js, compiling and deploying Solidity contracts, and interacting with deployed smart contracts.
+title: Deploy Contracts to Asset Hub with Ethers.js
+description: Learn how to interact with the Asset Hub chain using Ethers.js, from compiling and deploying Solidity contracts to interacting with deployed smart contracts.
 ---
 
 # Ethers.js

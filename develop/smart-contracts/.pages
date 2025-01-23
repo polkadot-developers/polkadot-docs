@@ -5,4 +5,4 @@ nav:
   - 'Wasm (ink!)': wasm-ink.md
   - 'Native EVM Contracts': native-evm-contracts.md
   - 'Parachain Contracts': parachain-contracts.md
-  - 'EVM Toolkit': evm-toolkit
+  - evm-toolkit

@@ -5,8 +5,11 @@ description: Learn how to benchmark Polkadot SDK-based pallets, assigning precis
 
 ## Introduction
 
-After implementing and testing your pallet with a mock runtime in the [Pallet Unit Testing
-](/tutorials/polkadot-sdk/parachains/zero-to-hero/pallet-unit-testing/){target=\_blank} tutorial, the next crucial step is benchmarking. Benchmarking assigns precise [weight](/polkadot-protocol/glossary/#weight){target=\_blank} to each extrinsic, measuring their computational and storage costs. These derived weights enable accurate fee calculation and resource allocation within the runtime.
+After validating your pallet through testing and integrating it into your runtime, the next crucial step is benchmarking. Testing procedures were detailed in the [Pallet Unit Testing](/tutorials/polkadot-sdk/parachains/zero-to-hero/pallet-unit-testing/){target=\_blank} tutorial, while runtime integration was covered in the [Add Pallets to the Runtime](/tutorials/polkadot-sdk/parachains/zero-to-hero/add-pallets-to-runtime/){target=\_blank} guide.
+
+Benchmarking assigns precise [weight](/polkadot-protocol/glossary/#weight){target=\_blank} to each extrinsic, 
+measuring their computational and storage costs. These derived weights enable accurate fee calculation and resource 
+allocation within the runtime.
 
 This tutorial demonstrates how to:
 
@@ -30,32 +33,34 @@ Follow these steps to prepare your environment for pallet benchmarking:
     1. Add the [`frame-benchmarking`](https://docs.rs/frame-benchmarking/latest/frame_benchmarking/){target=\_blank} dependency:
     
         ```toml hl_lines="3"
-        --8<-- 'code/tutorials/polkadot-sdk/parachains/zero-to-hero/pallet-benchmarking/pallet-cargo.toml:10:10'
+        --8<-- 'code/tutorials/polkadot-sdk/parachains/zero-to-hero/pallets/custom-pallet/Cargo.toml:10:10'
         ...
-        --8<-- 'code/tutorials/polkadot-sdk/parachains/zero-to-hero/pallet-benchmarking/pallet-cargo.toml:15:15'
+        --8<-- 'code/tutorials/polkadot-sdk/parachains/zero-to-hero/pallets/custom-pallet/Cargo.toml:15:15'
         ```
 
     2. Enable benchmarking in the `std` features:
         ```toml hl_lines="6"
-        --8<-- 'code/tutorials/polkadot-sdk/parachains/zero-to-hero/pallet-benchmarking/pallet-cargo.toml:24:30'
+        --8<-- 'code/tutorials/polkadot-sdk/parachains/zero-to-hero/pallets/custom-pallet/Cargo.toml:24:30'
         ```
 
     3. Add the `runtime-benchmarks` feature flag:
         ```toml hl_lines="3-8"
-        --8<-- 'code/tutorials/polkadot-sdk/parachains/zero-to-hero/pallet-benchmarking/pallet-cargo.toml:22:22'
+        --8<-- 'code/tutorials/polkadot-sdk/parachains/zero-to-hero/pallets/custom-pallet/Cargo.toml:22:22'
         ...
-        --8<-- 'code/tutorials/polkadot-sdk/parachains/zero-to-hero/pallet-benchmarking/pallet-cargo.toml:31:36'
+        --8<-- 'code/tutorials/polkadot-sdk/parachains/zero-to-hero/pallets/custom-pallet/Cargo.toml:31:36'
         ```
 
 3. Add your pallet to the runtime's benchmark configuration:
     1.  Register your pallet in `runtime/src/benchmarks.rs`:
         ```rust hl_lines="11"
-        --8<-- 'code/tutorials/polkadot-sdk/parachains/zero-to-hero/pallet-benchmarking/benchmarks.rs:26:37'
+        --8<-- 'code/tutorials/polkadot-sdk/parachains/zero-to-hero/runtime/src/benchmarks.rs:26:37'
         ```
 
     2. Enable runtime benchmarking for your pallet in `runtime/Cargo.toml`:
-        ```toml hl_lines="25"
-        --8<-- 'code/tutorials/polkadot-sdk/parachains/zero-to-hero/pallet-benchmarking/runtime-cargo.toml:136:161'
+        ```toml hl_lines="3"
+        --8<-- 'code/tutorials/polkadot-sdk/parachains/zero-to-hero/runtime/Cargo.toml:136:136'
+          ...
+        --8<-- 'code/tutorials/polkadot-sdk/parachains/zero-to-hero/runtime/Cargo.toml:160:161'
         ```
 
 4. Set up the benchmarking module in your pallet:
@@ -66,7 +71,7 @@ Follow these steps to prepare your environment for pallet benchmarking:
 
     2. Add the benchmarking module to your pallet. In the pallet `lib.rs` file add the following:
         ```rust hl_lines="9-10"
-        --8<-- 'code/tutorials/polkadot-sdk/parachains/zero-to-hero/pallet-benchmarking/lib.rs:1:12'
+        --8<-- 'code/tutorials/polkadot-sdk/parachains/zero-to-hero/pallets/custom-pallet/src/lib.rs:21:32'
         ```
 
         !!!note
@@ -85,7 +90,7 @@ Every benchmark test must follow a three-step pattern:
 Check the following example on how to benchmark the `increment` extrinsic:
 
 ```rust
---8<-- 'code/tutorials/polkadot-sdk/parachains/zero-to-hero/pallet-benchmarking/benchmarking.rs:23:37'
+--8<-- 'code/tutorials/polkadot-sdk/parachains/zero-to-hero/pallets/custom-pallet/src/benchmarking.rs:41:55'
 ```
 
 This benchmark test:
@@ -99,7 +104,7 @@ This example demonstrates how to properly set up state, execute an extrinsic, an
 Now, implement the complete set of benchmark tests. Copy the following content in the `benchmarking.rs` file:
 
 ```rust
---8<-- 'code/tutorials/polkadot-sdk/parachains/zero-to-hero/pallet-benchmarking/benchmarking.rs'
+--8<-- 'code/tutorials/polkadot-sdk/parachains/zero-to-hero/pallets/custom-pallet/src/benchmarking.rs:20'
 ```
 
 !!!note
@@ -151,48 +156,34 @@ After generating the weight calculations, you need to integrate these weights in
 First, add the necessary module imports to your pallet. These imports make the weights available to your code:
 
 ```rust hl_lines="4-5"
---8<-- 'code/tutorials/polkadot-sdk/parachains/zero-to-hero/pallet-benchmarking/lib.rs:11:15'
+--8<-- 'code/tutorials/polkadot-sdk/parachains/zero-to-hero/pallets/custom-pallet/src/lib.rs:30:34'
 ```
 
 Next, update your pallet's `Config` trait to include weight information. Define the `WeightInfo` type:
 
 ```rust hl_lines="11-12"
---8<-- 'code/tutorials/polkadot-sdk/parachains/zero-to-hero/pallet-benchmarking/lib.rs:26:38'
+--8<-- 'code/tutorials/polkadot-sdk/parachains/zero-to-hero/pallets/custom-pallet/src/lib.rs:45:57'
 ```
 
 Now you can assign weights to your extrinsics. Here's how to add weight calculations to the `set_counter_value` function:
 
 ```rust hl_lines="2"
-#[pallet::call_index(0)]
-#[pallet::weight(T::WeightInfo::set_counter_value())]
-pub fn set_counter_value(origin: OriginFor<T>, new_value: u32) -> DispatchResult {
-    ensure_root(origin)?;
-
-    ensure!(
-        new_value <= T::CounterMaxValue::get(),
-        Error::<T>::CounterValueExceedsMax
-    );
-
-    CounterValue::<T>::put(new_value);
-
-    Self::deposit_event(Event::<T>::CounterValueSet {
-        counter_value: new_value,
-    });
-
-    Ok(())
-}
+--8<-- 'code/tutorials/polkadot-sdk/parachains/zero-to-hero/pallets/custom-pallet/src/lib.rs:116:133'
 ```
+
+!!!note
+    You'll need to apply similar weight annotations to the other extrinsics in your pallet. Add the `#[pallet::weight(T::WeightInfo::function_name())]` attribute to both `increment` and `decrement`, replacing `function_name` with the respective function names from your `WeightInfo` trait.
 
 For testing purposes, you need to implement the weight calculations in your mock runtime. Open `custom-pallet/src/mock.rs` and add:
 
 ```rust hl_lines="4"
---8<-- 'code/tutorials/polkadot-sdk/parachains/zero-to-hero/pallet-benchmarking/mock.rs:41:45'
+--8<-- 'code/tutorials/polkadot-sdk/parachains/zero-to-hero/pallets/custom-pallet/src/mock.rs:60:64'
 ```
 
 Finally, configure the actual weight values in your production runtime. In `runtime/src/config/mod.rs`, add:
 
 ```rust hl_lines="5"
---8<-- 'code/tutorials/polkadot-sdk/parachains/zero-to-hero/pallet-benchmarking/mod.rs:327:332'
+--8<-- 'code/tutorials/polkadot-sdk/parachains/zero-to-hero/runtime/src/configs/mod.rs:327:332'
 ```
 
 Your pallet is now complete with full testing and benchmarking support, ready for production use.
@@ -201,12 +192,12 @@ Your pallet is now complete with full testing and benchmarking support, ready fo
 
 <div class="grid cards" markdown>
 
--   <span class="badge tutorial">Tutorial</span> __Add Pallets to the Runtime__
+-   <span class="badge tutorial">Tutorial</span> __Deploy on Paseo TestNet__
 
     ---
 
-    Enhance your runtime with custom functionality! Learn how to add, configure, and integrate pallets in Polkadot SDK-based blockchains.
+    Deploy your Polkadot SDK blockchain on Paseo! Follow this step-by-step guide for a seamless journey to a successful TestNet deployment.
 
-    [:octicons-arrow-right-24: Get Started](/tutorials/polkadot-sdk/parachains/zero-to-hero/add-pallets-to-runtime/)
+    [:octicons-arrow-right-24: Get Started](/tutorials/polkadot-sdk/parachains/zero-to-hero/deploy-to-testnet/)
 
 </div>

@@ -96,7 +96,11 @@ Once deployed, your contract appears in the **Deployed/Unpinned Contracts** sect
 
     ![](/images/develop/smart-contracts/evm-toolkit/dev-environments/remix/remix-10.webp)
 
-    In this way, you can interact with your deployed contract by reading its state or writing to it.
+    In this way, you can interact with your deployed contract by reading its state or writing to it. The button color indicates the type of interaction available:
+
+    - Red - modifies state and is payable
+    - Orange - modifies state only
+    - Blue - reads state
 
 ## Where to Go Next
 

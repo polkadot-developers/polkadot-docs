@@ -109,5 +109,22 @@ The Polkadot Remix IDE offers an environment for developing, compiling, and depl
 
 Explore more about smart contracts through these resources:
 
-- [**Smart Contracts on Polkadot**](/develop/smart-contracts/){target=\_blank} – dive into advanced contract development techniques
-- [**OpenZeppelin contracts**](https://www.openzeppelin.com/solidity-contracts){target=\_blank} – test your skills by deploying a sample dApp
+<div class="grid cards" markdown>
+
+-   <span class="badge guide">Guide</span> __Smart Contracts on Polkadot__
+
+    ---
+
+    Dive into advanced smart contract concepts.
+
+    [:octicons-arrow-right-24: Get Started](/develop/smart-contracts/)
+
+-   <span class="badge external">External</span> __OpenZeppelin Contracts__
+
+    ---
+
+    Test your skills by deploying a simple contracts with prebuilt templates.
+
+    [:octicons-arrow-right-24: Get Started](https://www.openzeppelin.com/solidity-contracts){target=\_blank}
+
+</div>

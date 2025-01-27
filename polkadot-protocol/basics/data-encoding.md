@@ -43,7 +43,7 @@ The [`Encode`](https://docs.rs/parity-scale-codec/latest/parity_scale_codec/trai
 - **`using_encoded<R, F: FnOnce(&[u8]) -> R>(&self, f: F) -> R`** - encodes the data and passes it to a closure, returning the result
 - **`encoded_size(&self) -> usize`** - calculates the encoded size. Should be used when the encoded data isn’t required
 
-!!!note
+!!!tip
     For best performance, value types should override `using_encoded`, and allocating types should override `encode_to`. It's recommended to implement `size_hint` for all types where possible.
 
 ### Decode

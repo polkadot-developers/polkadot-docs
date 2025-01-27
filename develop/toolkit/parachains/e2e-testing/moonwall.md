@@ -95,11 +95,11 @@ moonwall init
 
 During setup, you'll be prompted for the following parameters:
 
-- `label` - identifies your test configuration
-- `global timeout` - maximum time (ms) for test execution
-- `environment name` - name for your testing environment
-- `network foundation` - type of blockchain environment to use
-- `tests directory` - location of your test files
+- **`label`** - identifies your test configuration
+- **`global timeout`** - maximum time (ms) for test execution
+- **`environment name`** - name for your testing environment
+- **`network foundation`** - type of blockchain environment to use
+- **`tests directory`** - location of your test files
 
 Simply press `Enter` to accept defaults, or input custom values. You should see something like this:
 
@@ -133,10 +133,10 @@ Here's a complete configuration example for testing a local node using Polkadot.
 
 Moonwall uses the [`describeSuite`](https://github.com/Moonsong-Labs/moonwall/blob/7568048c52e9f7844f38fb4796ae9e1b9205fdaa/packages/cli/src/lib/runnerContext.ts#L65){target=\_blank} function to define test suites, like using [Mocha](https://mochajs.org/){target=\_blank}. Each test suite requires:
 
-- `id` - unique identifier for the suite
-- `title` - descriptive name for the suite
-- `foundationMethods` - specifies the testing environment (e.g., `dev` for local node testing)
-- `testCases` - a callback function that houses the individual test cases of this suite
+- **`id`** - unique identifier for the suite
+- **`title`** - descriptive name for the suite
+- **`foundationMethods`** - specifies the testing environment (e.g., `dev` for local node testing)
+- **`testCases`** - a callback function that houses the individual test cases of this suite
 
 The following example shows how to test a balance transfer between two accounts:
 

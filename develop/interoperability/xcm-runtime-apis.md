@@ -1,0 +1,165 @@
+---
+title: XCM Runtime APIs
+description: Learn about XCM Runtime APIs in Polkadot for cross-chain communication. Explore the APIs to simulate and test XCM messages before execution on the network.
+---
+
+# XCM Runtime APIs
+
+## Introduction
+
+Runtime APIs are the means by which the node-side code extracts information from the state of the runtime.
+
+Although Runtime APIs are often used for simple storage access, they are actually empowered to do arbitrary computation. They are a versatile and powerful tool to leverage the state of the chain. In general,Runtime APIs are used for these purposes:
+
+- Access of a storage item
+- Access of a bundle of related storage items
+- Deriving a value from storage based on arguments
+
+In this sction, you will learn about specific runtime APIs to support XCM processing and manipulation.
+
+## Dry Run API
+
+The [Dry-run API](https://paritytech.github.io/polkadot-sdk/master/xcm_runtime_apis/dry_run/index.html), given an extrinsic, or an XCM program, returns its effects:
+
+- Execution result
+- Local XCM (in the case of an extrinsic)
+- Forwarded XCMs
+- List of events
+
+This API can be used on its own for dry-running purposes, for double-checking or testing, but it mainly shines when used in conjunction with the XcmPaymentApi, given that it works for estimating fees only if you know the specific XCM you want to execute or send.
+
+### Dry Run Call
+
+This API allows to dry-run any extrinsic and obtaint the outcome, if it fails or succeeds and also the local-xcm and remote xcm messages sent to other chains.
+
+```rust
+--8<-- 'https://raw.githubusercontent.com/paritytech/polkadot-sdk/refs/heads/stable2412/polkadot/xcm/xcm-runtime-apis/src/dry_run.rs:67:67'
+```
+
+??? interface "Input parameters"
+
+    `origin` ++"OriginCaller"++ <span class="required" markdown>++"required"++</span>
+    
+    The origin used for executing the transaction.
+
+    ---
+
+    `call` ++"Call"++ <span class="required" markdown>++"required"++</span>
+
+    The extrinsic to be executed.
+
+    ---
+
+??? interface "Output parameters"
+
+    ++"Result<CallDryRunEffects<Event>, Error>"++
+    
+    Effects of dry-running an extrinsic.
+
+    ??? child "Type `CallDryRunEffects<Event>`"
+
+        - [Check source code](https://github.com/paritytech/polkadot-sdk/blob/stable2412/polkadot/xcm/xcm-runtime-apis/src/dry_run.rs#L28){target=\_blank}
+
+        `execution_result` ++"DispatchResultWithPostInfo"++
+
+        The result of executing the extrinsic.
+
+        ---
+
+        `emitted_events` ++"Vec<Event>"++
+
+        The list of events fired by the extrinsic.
+
+        ---
+
+        `local_xcm` ++"Option<VersionedXcm<()>>"++
+
+        The local XCM that was attempted to be executed, if any.
+
+        ---
+
+        `forwarded_xcms` ++"Vec<(VersionedLocation, Vec<VersionedXcm<()>>)>"++
+
+        The list of XCMs that were queued for sending.
+
+    ---
+
+??? interface "Example"
+
+    This example demonstrates how to simulate a cross-chain asset transfer from the Paseo network to the Pop Network using a reserve transfer mechanism. Instead of executing the actual transfer, the code shows how to test and verify the transaction's behavior through a dry run before performing it on the live network:
+
+    ***Usage with PAPI***
+
+    ```js
+    --8<-- 'code/develop/interoperability/xcm-runtime-apis/call-example.js'
+    ```
+
+    ***Output***
+
+    --8<-- 'code/develop/interoperability/xcm-runtime-apis/call-example-output.html::12'
+        ...
+    --8<-- 'code/develop/interoperability/xcm-runtime-apis/call-example-output.html:187'
+    ---
+
+### Dry Run XCM
+
+This API allows to directly dry-run an xcm message instead of an extrinsic and check if it will execute succesfully and what other xcm messages will be forwarded to other chains.
+
+```rust
+--8<-- 'https://raw.githubusercontent.com/paritytech/polkadot-sdk/refs/heads/stable2412/polkadot/xcm/xcm-runtime-apis/src/dry_run.rs:70:70'
+```
+
+??? interface "Input parameters"
+
+    `origin_location` ++"VersionedLocation"++ <span class="required" markdown>++"required"++</span>
+    
+    The location of the origin that will execute the xcm message.
+
+    ---
+
+    `xcm` ++"VersionedXcm<Call>"++ <span class="required" markdown>++"required"++</span>
+
+    A versioned XCM message.
+
+    ---
+
+??? interface "Output parameters"
+
+    ++"Result<XcmDryRunEffects<Event>, Error>"++
+    
+    Effects of dry-running an extrinsic.
+
+    ??? child "Type `CallDryRunEffects<Event>`"
+
+        `execution_result` ++"DispatchResultWithPostInfo"++
+
+        The result of executing the extrinsic.
+
+        ---
+
+        `emitted_events` ++"Vec<Event>"++
+
+        The list of events fired by the extrinsic.
+
+        ---
+
+        `forwarded_xcms` ++"Vec<(VersionedLocation, Vec<VersionedXcm<()>>)>"++
+
+        The list of XCMs that were queued for sending.
+
+    ---
+
+??? interface "Example"
+
+    This example demonstrates how to simulate a teleport asset transfer from the Paseo network to the Asset Hub parachain. The code shows how to test and verify the received XCM message's behavior in the destination chain through a dry run on the live network.
+
+     ***Usage with PAPI***
+
+    ```js
+    --8<-- 'code/develop/interoperability/xcm-runtime-apis/xcm-example.js'
+    ```
+
+    ***Output***
+
+    --8<-- 'code/develop/interoperability/xcm-runtime-apis/xcm-example-output.html'
+    ---

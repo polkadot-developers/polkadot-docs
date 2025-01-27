@@ -17,7 +17,7 @@ Bridge Hub provides a mode of trustless bridging through its implementation of o
 
 [BEEFY (Bridge Efficiency Enabling Finality Yielder)](https://wiki.polkadot.network/docs/learn-consensus#bridging-beefy){target=\_blank} is instrumental in this solution. It provides a more efficient way to verify the consensus on the relay chain. It allows the participants in a network to verify finality proofs, meaning a remote chain like Ethereum can verify the state of Polkadot at a given block height.
 
-!!!info
+!!!tip
     In this context, "trustless" refers to the lack of need to trust a human when interacting with various system components. Trustless systems are based instead on trusting mathematics, cryptography, and code.
 
 Trustless bridges are essentially two one-way bridges, where each chain has a method of verifying the state of the other in a trustless manner through consensus proofs.

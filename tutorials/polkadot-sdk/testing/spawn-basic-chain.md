@@ -54,7 +54,7 @@ If successful, you will see the following output:
 
 --8<-- 'code/tutorials/polkadot-sdk/testing/spawn-basic-chain/spawn-network-terminal-01.html'
 
-!!! note 
+!!! tip 
     If the IPs and ports aren't explicitly defined in the configuration file, they may change each time the network is started, causing the links provided in the output to differ from the example.
 
 ## Interact with the Spawned Network

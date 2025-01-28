@@ -53,12 +53,10 @@ This API allows to dry-run any extrinsic and obtaint the outcome, if it fails or
 ??? interface "Output parameters"
 
     ++"Result<CallDryRunEffects<Event>, Error>"++
-    
+
     Effects of dry-running an extrinsic. If an error occurs, it is returned instead of the effects.
 
     ??? child "Type `CallDryRunEffects<Event>`"
-
-        - [Check source code](https://github.com/paritytech/polkadot-sdk/blob/stable2412/polkadot/xcm/xcm-runtime-apis/src/dry_run.rs#L28){target=\_blank}
 
         `execution_result` ++"DispatchResultWithPostInfo"++
 
@@ -99,6 +97,7 @@ This API allows to dry-run any extrinsic and obtaint the outcome, if it fails or
     --8<-- 'code/develop/interoperability/xcm-runtime-apis/call-example-output.html::12'
         ...
     --8<-- 'code/develop/interoperability/xcm-runtime-apis/call-example-output.html:187'
+
     ---
 
 ### Dry Run XCM
@@ -112,7 +111,7 @@ This API allows to directly dry-run an xcm message instead of an extrinsic and c
 ??? interface "Input parameters"
 
     `origin_location` ++"VersionedLocation"++ <span class="required" markdown>++"required"++</span>
-    
+
     The location of the origin that will execute the xcm message.
 
     ---
@@ -126,7 +125,7 @@ This API allows to directly dry-run an xcm message instead of an extrinsic and c
 ??? interface "Output parameters"
 
     ++"Result<XcmDryRunEffects<Event>, Error>"++
-    
+
     Effects of dry-running an extrinsic. If an error occurs, it is returned instead of the effects.
 
     ??? child "Type `CallDryRunEffects<Event>`"
@@ -162,6 +161,7 @@ This API allows to directly dry-run an xcm message instead of an extrinsic and c
     ***Output***
 
     --8<-- 'code/develop/interoperability/xcm-runtime-apis/xcm-example-output.html'
+
     ---
 
 ## XCM Payment API
@@ -188,15 +188,15 @@ Retrieves the list of assets that are acceptable for paying fees when using a sp
 ??? interface "Input parameters"
 
     `xcm_version` ++"Version"++ <span class="required" markdown>++"required"++</span>
-    
+
     Specifies the XCM version that will be used to send the XCM message.
 
     ---
 
 ??? interface "Output parameters"
 
-    ++"Result<Vec<VersionedAssetId>, Error>;"++
-    
+    ++"Result<Vec<VersionedAssetId>, Error>"++
+
     A list of acceptable payment assets. Each asset is provided in a versioned format (`VersionedAssetId`) that matches the specified XCM version. If an error occurs, it is returned instead of the asset list.
 
     ---
@@ -214,10 +214,136 @@ Retrieves the list of assets that are acceptable for paying fees when using a sp
     ***Output***
 
     --8<-- 'code/develop/interoperability/xcm-runtime-apis/query-assets-output.html'
+
     ---
 
 ### Query XCM Weight
 
+Calculates the weight required to execute a given XCM message. It is useful for estimating the execution cost of a cross-chain message in the destination chain before sending it.
+
+```rust
+--8<-- 'https://raw.githubusercontent.com/paritytech/polkadot-sdk/refs/heads/stable2412/polkadot/xcm/xcm-runtime-apis/src/fees.rs:50:50'
+```
+
+??? interface "Input parameters"
+
+    `message` ++"VersionedXcm<()>"++ <span class="required" markdown>++"required"++</span>
+    
+    A versioned XCM message whose execution weight is being queried.
+
+    ---
+
+??? interface "Output parameters"
+
+    ++"Result<Weight, Error>"++
+    
+    The calculated weight required to execute the provided XCM message. If the calculation fails, an error is returned instead.
+
+    ---
+
+??? interface "Example"
+
+    This example demonstrates how to calculate the weight needed to execute a teleport transfer from the Paseo network to the Asset Hub parachain using the XCM Payment API. The result shows the required weight in terms of reference time and proof size needed in the destination chain.
+
+    ***Usage with PAPI***
+
+    ```js
+    --8<-- 'code/develop/interoperability/xcm-runtime-apis/query-xcm-weight.js'
+    ```
+
+    ***Output***
+
+    --8<-- 'code/develop/interoperability/xcm-runtime-apis/query-xcm-weight-output.html'
+
+    ---
+
 ### Query Weight to Asset Fee
 
+converts a given weight into the corresponding fee for a specified `AssetId`. It allows clients to determine the cost of execution in terms of the desired asset.
+
+```rust
+--8<-- 'https://raw.githubusercontent.com/paritytech/polkadot-sdk/refs/heads/stable2412/polkadot/xcm/xcm-runtime-apis/src/fees.rs:58:58'
+```
+
+??? interface "Input parameters"
+
+    `weight` ++"Weight"++ <span class="required" markdown>++"required"++</span>
+    
+    The execution weight to be converted into a fee.
+
+    ---
+
+    `asset` ++"VersionedAssetId"++ <span class="required" markdown>++"required"++</span>
+    
+    The asset in which the fee will be calculated. This must be a versioned asset ID compatible with the runtime.
+
+    ---
+
+??? interface "Output parameters"
+
+    ++"Result<u128, Error>"++
+    
+    The fee needed to pay for the execution for the given AssetId.
+
+    ---
+
+??? interface "Example"
+
+    This example demonstrates how to calculate the fee for a given execution weight using a specific versioned asset ID (PAS token) on Paseo Asset Hub.
+
+    ***Usage with PAPI***
+
+    ```js
+    --8<-- 'code/develop/interoperability/xcm-runtime-apis/query-weight-to-fee.js'
+    ```
+
+    ***Output***
+
+    --8<-- 'code/develop/interoperability/xcm-runtime-apis/query-weight-to-fee-output.html'
+    ---
+
 ### Query Delivery Fees
+
+Get delivery fees for sending a specific `message` to a `destination`.
+These always come in a specific asset, defined by the chain.
+
+```rust
+--8<-- 'https://raw.githubusercontent.com/paritytech/polkadot-sdk/refs/heads/stable2412/polkadot/xcm/xcm-runtime-apis/src/fees.rs:68:68'
+```
+
+??? interface "Input parameters"
+
+    `destination` ++"VersionedLocation"++ <span class="required" markdown>++"required"++</span>
+    
+    The destination to send the message to. Different destinations may use different senders that charge different fees.
+
+    ---
+
+    `message` ++"VersionedXcm<()>"++ <span class="required" markdown>++"required"++</span>
+    
+    The message that'll be sent, necessary because most delivery fees are based on the size of the message.
+
+    ---
+
+??? interface "Output parameters"
+
+    ++"Result<VersionedAssets, Error>"++
+    
+    Delivery fees
+
+    ---
+
+??? interface "Example"
+
+    This example demonstrates how to calculate the fee for a given execution weight using a specific versioned asset ID (PAS token) on Paseo Asset Hub.
+
+    ***Usage with PAPI***
+
+    ```js
+    --8<-- 'code/develop/interoperability/xcm-runtime-apis/query-weight-to-fee.js'
+    ```
+
+    ***Output***
+
+    --8<-- 'code/develop/interoperability/xcm-runtime-apis/query-weight-to-fee-output.html'
+    ---

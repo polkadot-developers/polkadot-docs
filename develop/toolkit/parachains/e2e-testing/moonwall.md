@@ -1,5 +1,5 @@
 ---
-title: Moonwall
+title: E2E Testing with Moonwall
 description: Enhance blockchain end-to-end testing with Moonwall's standardized environment setup, comprehensive configuration management, and simple network interactions.
 ---
 
@@ -7,9 +7,9 @@ description: Enhance blockchain end-to-end testing with Moonwall's standardized 
 
 ## Introduction
 
-Moonwall is a end-to-end testing framework specifically designed for Polkadot SDK-based blockchain networks. It addresses one of the most significant challenges in blockchain development: managing complex test environments and network configurations.
+Moonwall is an end-to-end testing framework designed explicitly for Polkadot SDK-based blockchain networks. It addresses one of the most significant challenges in blockchain development: managing complex test environments and network configurations.
 
-Moonwall consolidates this complexity by providing:
+Moonwall consolidates this complexity by providing the following:
 
 - A centralized configuration management system that explicitly defines all network parameters
 - A standardized approach to environment setup across different Substrate-based chains
@@ -22,14 +22,14 @@ Developers can focus on writing meaningful tests rather than managing infrastruc
 Before you begin, ensure you have the following installed:
 
 - [Node.js](https://nodejs.org/en/){target=\_blank} (version 20.10 or higher)
-- A package manager such as [npm](https://www.npmjs.com/){target=\_blank}, [yarn](https://yarnpkg.com/){target=\_blank} or [pnpm](https://pnpm.io/){target=\_blank}
+- A package manager such as [npm](https://www.npmjs.com/){target=\_blank}, [yarn](https://yarnpkg.com/){target=\_blank}, or [pnpm](https://pnpm.io/){target=\_blank}
 
 ## Install Moonwall
 
-Moonwall can be installed either globally for system-wide access or locally within specific projects. This section covers both installation methods.
+Moonwall can be installed globally for system-wide access or locally within specific projects. This section covers both installation methods.
 
-!!! note
-    This documentation corresponds to Moonwall version `{{ dependencies.moonwall.version }}`. Ensure you're using the matching version to avoid compatibility issues with the documented features.
+!!! tip
+    This documentation corresponds to Moonwall version `{{ dependencies.moonwall.version }}`. To avoid compatibility issues with the documented features, ensure you're using the matching version.
 
 ### Global Installation
 
@@ -53,11 +53,11 @@ Global installation provides system-wide access to the Moonwall CLI, making it i
     yarn global add @moonwall/cli@{{ dependencies.moonwall.version }}
     ```
 
-Now, you should be able to run the `moonwall` command from your terminal.
+Now, you can run the `moonwall` command from your terminal.
 
 ### Local Installation
 
-For better dependency management and version control within a specific project, local installation is recommended. First, initialize your project:
+Local installation is recommended for better dependency management and version control within a specific project. First, initialize your project:
 
 ```bash
 mkdir my-moonwall-project
@@ -93,7 +93,7 @@ The `moonwall init` command launches an interactive wizard to create your config
 moonwall init
 ```
 
-During setup, you'll be prompted for the following parameters:
+During setup, you will see prompts for the following parameters:
 
 - **`label`** - identifies your test configuration
 - **`global timeout`** - maximum time (ms) for test execution
@@ -101,7 +101,7 @@ During setup, you'll be prompted for the following parameters:
 - **`network foundation`** - type of blockchain environment to use
 - **`tests directory`** - location of your test files
 
-Simply press `Enter` to accept defaults, or input custom values. You should see something like this:
+Select `Enter` to accept defaults or input custom values. You should see something like this:
 
 --8<-- 'code/develop/toolkit/parachains/e2e-testing/moonwall/init.html'
 
@@ -111,17 +111,15 @@ The wizard generates a `moonwall.config` file:
 --8<-- 'code/develop/toolkit/parachains/e2e-testing/moonwall/init-moonwall.config.json'
 ```
 
-The default configuration needs to be enhanced with specific details about your blockchain node and test requirements:
+The default configuration requires specific details about your blockchain node and test requirements:
 
-- The `foundation` object defines how your test blockchain node will be launched and managed. For local development, the `dev` foundation is used which runs a local node binary
+- The `foundation` object defines how your test blockchain node will be launched and managed. The dev foundation, which runs a local node binary, is used for local development
     
-    !!!note
-        For more information about available options, check the [Foundations](https://moonsong-labs.github.io/moonwall/guide/intro/foundations.html){target=\_blank} section.
+For more information about available options, check the [Foundations](https://moonsong-labs.github.io/moonwall/guide/intro/foundations.html){target=\_blank} section.
 
-- The `connections` array specifies how your tests will interact with the blockchain node. This typically includes provider configuration and endpoint details.
+- The `connections` array specifies how your tests will interact with the blockchain node. This typically includes provider configuration and endpoint details
     
-    !!!note
-        A provider is a tool that allows you or your application to connect to a blockchain network and simplifies the low-level details of the process. A provider handles submitting transactions, reading state, and more. For more information on available providers check the [Providers supported](https://moonsong-labs.github.io/moonwall/guide/intro/providers.html#providers-supported){target=\_blank} page.
+A provider is a tool that allows you or your application to connect to a blockchain network and simplifies the low-level details of the process. A provider handles submitting transactions, reading state, and more. For more information on available providers, check the [Providers supported](https://moonsong-labs.github.io/moonwall/guide/intro/providers.html#providers-supported){target=\_blank} page in the Moonwall documentation.
 
 Here's a complete configuration example for testing a local node using Polkadot.js as a provider:
 
@@ -131,7 +129,7 @@ Here's a complete configuration example for testing a local node using Polkadot.
 
 ## Writing Tests
 
-Moonwall uses the [`describeSuite`](https://github.com/Moonsong-Labs/moonwall/blob/7568048c52e9f7844f38fb4796ae9e1b9205fdaa/packages/cli/src/lib/runnerContext.ts#L65){target=\_blank} function to define test suites, like using [Mocha](https://mochajs.org/){target=\_blank}. Each test suite requires:
+Moonwall uses the [`describeSuite`](https://github.com/Moonsong-Labs/moonwall/blob/7568048c52e9f7844f38fb4796ae9e1b9205fdaa/packages/cli/src/lib/runnerContext.ts#L65){target=\_blank} function to define test suites, like using [Mocha](https://mochajs.org/){target=\_blank}. Each test suite requires the following:
 
 - **`id`** - unique identifier for the suite
 - **`title`** - descriptive name for the suite
@@ -172,4 +170,4 @@ Example output:
 
 ## Where to Go Next
 
-To explore Moonwall's full capabilities, refer to the official [Moonwall](https://moonsong-labs.github.io/moonwall/){target=\_blank} documentation. This provides a comprehensive guide to the available configurations and advanced usage.
+For a comprehensive guide to Moonwall's full capabilities, available configurations, and advanced usage, see the official [Moonwall](https://moonsong-labs.github.io/moonwall/){target=\_blank} documentation.

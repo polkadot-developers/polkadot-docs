@@ -54,7 +54,7 @@ This API allows to dry-run any extrinsic and obtaint the outcome, if it fails or
 
     ++"Result<CallDryRunEffects<Event>, Error>"++
     
-    Effects of dry-running an extrinsic.
+    Effects of dry-running an extrinsic. If an error occurs, it is returned instead of the effects.
 
     ??? child "Type `CallDryRunEffects<Event>`"
 
@@ -127,7 +127,7 @@ This API allows to directly dry-run an xcm message instead of an extrinsic and c
 
     ++"Result<XcmDryRunEffects<Event>, Error>"++
     
-    Effects of dry-running an extrinsic.
+    Effects of dry-running an extrinsic. If an error occurs, it is returned instead of the effects.
 
     ??? child "Type `CallDryRunEffects<Event>`"
 
@@ -163,3 +163,61 @@ This API allows to directly dry-run an xcm message instead of an extrinsic and c
 
     --8<-- 'code/develop/interoperability/xcm-runtime-apis/xcm-example-output.html'
     ---
+
+## XCM Payment API
+
+The XCM Payment API provides a standardized way to determine the costs and payment options for executing XCM messages. Specifically, it enables clients to:
+
+- Retrieve the weight required to execute an XCM message
+- Obtain a list of acceptable AssetIds for paying execution fees
+- Calculate the cost of the weight in a specified AssetId
+- Estimate the fees for XCM message delivery
+
+This API eliminates the need for clients to guess execution fees or identify acceptable assets manually. Instead, clients can query the list of supported asset IDs formatted according to the XCM version they understand. With this information, they can weigh the XCM program they intend to execute and convert the computed weight into its cost using one of the acceptable assets.
+
+To use the API effectively, the client must already know the XCM program to be executed and the chains involved in the program’s execution.
+
+### Query Acceptable Payment Assets
+
+Retrieves the list of assets that are acceptable for paying fees when using a specific XCM version
+
+```rust
+--8<-- 'https://raw.githubusercontent.com/paritytech/polkadot-sdk/refs/heads/stable2412/polkadot/xcm/xcm-runtime-apis/src/fees.rs:43:43'
+```
+
+??? interface "Input parameters"
+
+    `xcm_version` ++"Version"++ <span class="required" markdown>++"required"++</span>
+    
+    Specifies the XCM version that will be used to send the XCM message.
+
+    ---
+
+??? interface "Output parameters"
+
+    ++"Result<Vec<VersionedAssetId>, Error>;"++
+    
+    A list of acceptable payment assets. Each asset is provided in a versioned format (`VersionedAssetId`) that matches the specified XCM version. If an error occurs, it is returned instead of the asset list.
+
+    ---
+
+??? interface "Example"
+
+    This example demonstrates how to query the acceptable payment assets for executing XCM messages on the Paseo network using XCM version 3.
+
+    ***Usage with PAPI***
+
+    ```js
+    --8<-- 'code/develop/interoperability/xcm-runtime-apis/query-assets.js'
+    ```
+
+    ***Output***
+
+    --8<-- 'code/develop/interoperability/xcm-runtime-apis/query-assets-output.html'
+    ---
+
+### Query XCM Weight
+
+### Query Weight to Asset Fee
+
+### Query Delivery Fees

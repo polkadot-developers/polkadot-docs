@@ -304,8 +304,7 @@ converts a given weight into the corresponding fee for a specified `AssetId`. It
 
 ### Query Delivery Fees
 
-Get delivery fees for sending a specific `message` to a `destination`.
-These always come in a specific asset, defined by the chain.
+Retrieves the delivery fees for sending a specific XCM message to a designated destination. The fees are always returned in a specific asset defined by the destination chain.
 
 ```rust
 --8<-- 'https://raw.githubusercontent.com/paritytech/polkadot-sdk/refs/heads/stable2412/polkadot/xcm/xcm-runtime-apis/src/fees.rs:68:68'
@@ -315,13 +314,13 @@ These always come in a specific asset, defined by the chain.
 
     `destination` ++"VersionedLocation"++ <span class="required" markdown>++"required"++</span>
     
-    The destination to send the message to. Different destinations may use different senders that charge different fees.
+    The target location where the message will be sent. Fees may vary depending on the destination, as different destinations often have unique fee structures and sender mechanisms.
 
     ---
 
     `message` ++"VersionedXcm<()>"++ <span class="required" markdown>++"required"++</span>
     
-    The message that'll be sent, necessary because most delivery fees are based on the size of the message.
+    The XCM message to be sent. The delivery fees are calculated based on the message's content and size, which can influence the cost.
 
     ---
 
@@ -329,21 +328,21 @@ These always come in a specific asset, defined by the chain.
 
     ++"Result<VersionedAssets, Error>"++
     
-    Delivery fees
+    The calculated delivery fees expressed in a specific asset supported by the destination chain. If an error occurs during the query, it returns an error instead.
 
     ---
 
 ??? interface "Example"
 
-    This example demonstrates how to calculate the fee for a given execution weight using a specific versioned asset ID (PAS token) on Paseo Asset Hub.
+    This example demonstrates how to query the delivery fees for sending an XCM message from Paseo to Paseo Asset Hub.
 
     ***Usage with PAPI***
 
     ```js
-    --8<-- 'code/develop/interoperability/xcm-runtime-apis/query-weight-to-fee.js'
+    --8<-- 'code/develop/interoperability/xcm-runtime-apis/query-delivery-fees.js'
     ```
 
     ***Output***
 
-    --8<-- 'code/develop/interoperability/xcm-runtime-apis/query-weight-to-fee-output.html'
+    --8<-- 'code/develop/interoperability/xcm-runtime-apis/query-delivery-fees-output.html'
     ---

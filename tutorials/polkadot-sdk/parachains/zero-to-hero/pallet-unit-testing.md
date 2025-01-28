@@ -171,12 +171,12 @@ After running the test suite, you should see the following output in your termin
 
 <div class="grid cards" markdown>
 
--   <span class="badge tutorial">Tutorial</span> __Add Pallets to the Runtime__
+-   <span class="badge tutorial">Tutorial</span> __Pallet Benchmarking__
 
     ---
 
-    Enhance your runtime with custom functionality! Learn how to add, configure, and integrate pallets in Polkadot SDK-based blockchains.
+    Discover how to measure extrinsic costs and assign precise weights to optimize your pallet for accurate fees and runtime performance.
 
-    [:octicons-arrow-right-24: Get Started](/tutorials/polkadot-sdk/parachains/zero-to-hero/add-pallets-to-runtime/)
+    [:octicons-arrow-right-24: Get Started](/tutorials/polkadot-sdk/parachains/zero-to-hero/pallet-benchmarking/)
 
 </div>

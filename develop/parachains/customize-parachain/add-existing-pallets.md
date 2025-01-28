@@ -41,7 +41,7 @@ This line imports the `pallet-example` crate as a dependency and specifies the f
 - **`default-features`** - determines the behavior for including pallet features when compiling the runtime with standard Rust libraries
 
 !!! tip
-    If you’re importing a pallet that isn’t available on [`crates.io`](https://crates.io/){target=\_blank}, you can specify the pallet's location (either locally or from a remote repository) by using the `git` or `path` key. For example:
+    If you're importing a pallet that isn't available on [`crates.io`](https://crates.io/){target=\_blank}, you can specify the pallet's location (either locally or from a remote repository) by using the `git` or `path` key. For example:
 
     ```toml title="Cargo.toml"
     pallet-example = { 
@@ -107,9 +107,9 @@ At its core, the `Config` trait typically looks like this:
 
 This basic structure shows that every pallet must define certain types, such as `RuntimeEvent` and `WeightInfo`, to function within the runtime. The actual implementation can vary depending on the pallet’s specific needs.
 
-### Example - Utility Pallet
+### Utility Pallet Example
 
-For instance, in the [`utility pallet`](https://github.com/paritytech/polkadot-sdk/tree/{{dependencies.polkadot_sdk.stable_version}}/substrate/frame/utility){target=\_blank}, the `Config` trait is implemented with the following types:
+For instance, in the [`utility`](https://github.com/paritytech/polkadot-sdk/tree/{{dependencies.polkadot_sdk.stable_version}}/substrate/frame/utility){target=\_blank} pallet, the `Config` trait is implemented with the following types:
 
 ```rust
 --8<-- 'code/develop/parachains/customize-parachain/add-existing-pallets/utility-pallet-config-trait.rs'

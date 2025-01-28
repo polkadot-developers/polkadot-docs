@@ -155,7 +155,7 @@ This test demonstrates several key concepts:
 Execute your tests using the `test` Moonwall CLI command. For the default environment setup run:
 
 ```bash
-moonwall test default_env
+moonwall test default_env -c moonwall.config
 ```
 
 The test runner will output detailed results showing:

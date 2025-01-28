@@ -15,7 +15,7 @@ Chopsticks is an innovative tool that simplifies the process of forking live Pol
 
 With support for both configuration files and CLI commands, Chopsticks offers flexibility for diverse development workflows. Whether you're testing locally or exploring complex blockchain scenarios, Chopsticks empowers developers to gain deeper insights and accelerate application development.
 
-Chopsticks uses [Smoldot](https://github.com/smol-dot/smoldot){target=\_blank} light client, which only supports the native Polkadot SDK API. As a result, Ethereum JSON-RPC calls are not supported, and tools like Metamask cannot connect to Chopsticks-based forks.
+Chopsticks uses [Smoldot](https://github.com/smol-dot/smoldot){target=\_blank} light client, which only supports the native Polkadot SDK API. As a result, Ethereum JSON-RPC calls are not supported, and tools like MetaMask cannot connect to Chopsticks-based forks.
 
 For additional support and information, please reach out through [GitHub Issues](https://github.com/AcalaNetwork/chopsticks/issues){target=\_blank}.
 

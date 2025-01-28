@@ -203,7 +203,7 @@ Retrieves the list of assets that are acceptable for paying fees when using a sp
 
 ??? interface "Example"
 
-    This example demonstrates how to query the acceptable payment assets for executing XCM messages on the Paseo network using XCM version 3.
+    This example demonstrates how to query the acceptable payment assets for executing XCM messages on the Paseo Asset Hub network using XCM version 3.
 
     ***Usage with PAPI***
 

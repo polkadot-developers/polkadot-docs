@@ -24,7 +24,7 @@ scale-info = { features = ["derive"], workspace = true }
 smallvec = { workspace = true, default-features = true }
 docify = { workspace = true }
 serde_json = { workspace = true, default-features = false }
-pallet-parachain-template.workspace = true
+pallet-parachain-template = { path = "../pallets/template", default-features = false }
 frame-benchmarking = { optional = true, workspace = true }
 frame-executive.workspace = true
 frame-metadata-hash-extension.workspace = true
@@ -157,6 +157,7 @@ runtime-benchmarks = [
   "sp-runtime/runtime-benchmarks",
   "xcm-builder/runtime-benchmarks",
   "xcm-executor/runtime-benchmarks",
+  "custom-pallet/runtime-benchmarks",
 ]
 
 try-runtime = [

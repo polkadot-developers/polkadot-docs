@@ -1,11 +1,10 @@
-use crate as pallet_custom;
-use frame_support::{derive_impl, parameter_types};
-use sp_runtime::BuildStorage;
+use frame_support::{derive_impl, weights::constants::RocksDbWeight};
+use frame_system::{mocking::MockBlock, GenesisConfig};
+use sp_runtime::{traits::ConstU64, BuildStorage};
 
-type Block = frame_system::mocking::MockBlock<Test>;
-
+// Configure a mock runtime to test the pallet.
 #[frame_support::runtime]
-mod runtime {
+mod test_runtime {
     #[runtime::runtime]
     #[runtime::derive(
         RuntimeCall,
@@ -21,31 +20,27 @@ mod runtime {
     pub struct Test;
 
     #[runtime::pallet_index(0)]
-    pub type System = frame_system::Pallet<Test>;
-    
+    pub type System = frame_system;
     #[runtime::pallet_index(1)]
-    pub type CustomPallet = pallet_custom::Pallet<Test>;
+    pub type TemplateModule = crate;
 }
 
-// System pallet configuration
 #[derive_impl(frame_system::config_preludes::TestDefaultConfig)]
 impl frame_system::Config for Test {
-    type Block = Block;
+    type Nonce = u64;
+    type Block = MockBlock<Test>;
+    type BlockHashCount = ConstU64<250>;
+    type DbWeight = RocksDbWeight;
 }
 
-// Custom pallet configuration
-parameter_types! {
-    pub const CounterMaxValue: u32 = 10;
-}
-
-impl pallet_custom::Config for Test {
+impl crate::Config for Test {
     type RuntimeEvent = RuntimeEvent;
-    type CounterMaxValue = CounterMaxValue;
+    type WeightInfo = ();
 }
 
-// Test externalities initialization
+// Build genesis storage according to the mock runtime.
 pub fn new_test_ext() -> sp_io::TestExternalities {
-    frame_system::GenesisConfig::<Test>::default()
+    GenesisConfig::<Test>::default()
         .build_storage()
         .unwrap()
         .into()

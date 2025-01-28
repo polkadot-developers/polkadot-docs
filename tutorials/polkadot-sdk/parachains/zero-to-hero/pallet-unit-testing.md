@@ -76,7 +76,7 @@ Explanation of the additions:
 
 ### Full Mocked Runtime
 
-You can view the full `mock.rs` implementation for the mock runtime here:
+Expand the following item to see the complete `mock.rs` implementation for the mock runtime.
 
 ???-code "mock.rs"
 
@@ -89,7 +89,7 @@ You can view the full `mock.rs` implementation for the mock runtime here:
 
 Unit testing a pallet involves creating a comprehensive test suite that validates various scenarios. You ensure your pallet’s reliability, security, and expected behavior under different conditions by systematically testing successful operations, error handling, event emissions, state modifications, and access control.
 
-As demonstrated in the previous tutorial, the pallet calls to be tested are as follows:
+Expand the following item to see the pallet calls to be tested.
 
 ???-code "Custom pallet calls"
 
@@ -147,7 +147,7 @@ Test that pallet operations modify the internal state correctly and maintain exp
 
 ### Full Test Suite
 
-You can check the complete `tests.rs` implementation for the custom pallet here:
+Expand the following item to see the complete `tests.rs` implementation for the custom pallet.
 
 ???-code "tests.rs"
 

@@ -46,7 +46,7 @@ From the Asset Hub perspective, the Multilocation that identifies the PPM token 
 }
 ```
 
-  The `PalletInstance` value of `50` represents the Assets pallet on Asset Hub. The `GeneralIndex` value of `1112` is the PPM asset's asset ID.
+The `PalletInstance` value of `50` represents the Assets pallet on Asset Hub. The `GeneralIndex` value of `1112` is the PPM asset's asset ID.
 
 To create the liquidity pool, you can follow these steps:
 

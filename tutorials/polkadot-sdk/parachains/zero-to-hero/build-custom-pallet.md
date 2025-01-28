@@ -71,7 +71,7 @@ To build and integrate your custom pallet into a Polkadot SDK-based runtime, you
     --8<-- 'code/tutorials/polkadot-sdk/parachains/zero-to-hero/pallets/custom-pallet/Cargo.toml:30:30'
     ```
 
-The final `Cargo.toml` should resemble the following:
+Expand the following item to view an example complete `Cargo.toml` file.
 
 ??? code "Cargo.toml"
 
@@ -200,7 +200,7 @@ The structure of the dispatchable calls in this pallet is as follows:
 --8<-- 'code/tutorials/polkadot-sdk/parachains/zero-to-hero/pallets/custom-pallet/src/lib.rs:217:217'
 ```
 
-Below you can find the implementations of each dispatchable call in this pallet:
+Expand the following items to view the implementations of each dispatchable call in this pallet.
 
 ???- code "set_counter_value(origin: OriginFor<T>, new_value: u32) -> DispatchResult"
     This call sets the counter to a specific value. It is restricted to the Root origin, meaning it can only be invoked by privileged users or entities.
@@ -271,7 +271,7 @@ If you encounter any errors or warnings, carefully review your code to resolve t
 
 In this tutorial, you learned how to create a custom pallet by defining storage, implementing errors, adding dispatchable calls, and emitting events. These are the foundational building blocks for developing robust Polkadot SDK-based blockchain logic.
 
-To review this implementation, you can find the complete pallet code below:
+Expand the following item to review this implementation and the complete pallet code.
 
 ???- code "src/lib.rs"
 

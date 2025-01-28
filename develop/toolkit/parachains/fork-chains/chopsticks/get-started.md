@@ -56,10 +56,10 @@ Then, install Chopsticks as a local dependency:
 npm i @acala-network/chopsticks@{{ dependencies.chopsticks.version }}
 ```
 
-Finally, you can run Chopsticks using the `npx` command:
+Finally, you can run Chopsticks using the `npx` command. To see all available options and commands, run it with the `--help` flag:
 
 ```bash
-npx @acala-network/chopsticks
+npx @acala-network/chopsticks --help
 ```
 
 ## Configure Chopsticks

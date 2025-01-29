@@ -1,7 +1,7 @@
 ---
-title: Smart Contracts Tutorials
+title: Smart Contracts
 description: TODO
 template: index-page.html
 ---
 
-# Smart Contracts Tutorials
+# Smart Contracts

@@ -49,6 +49,9 @@ To create the NFT contract, you can follow the steps below:
 
         - [`_safeMint(to, tokenId)`](https://github.com/OpenZeppelin/openzeppelin-contracts/blob/v5.0.0/contracts/token/ERC721/ERC721.sol#L304){target=\_blank} - an internal function from `ERC721` that safely mints new tokens. It includes checks to ensure the recipient can handle ERC721 tokens (important when minting to smart contracts)
 
+    !!! tip
+        Use the [OpenZeppelin Contracts Wizard](https://wizard.openzeppelin.com/){target=\_blank} to generate customized smart contracts quickly. Simply configure your contract, copy the generated code, and paste it into Polkadot Remix IDE for deployment.
+
 ## Compiling the Contract
 
 1. Select the **Solidity Compiler** plugin from the left panel

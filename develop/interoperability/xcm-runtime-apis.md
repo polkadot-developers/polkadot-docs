@@ -9,17 +9,17 @@ description: Learn about XCM Runtime APIs in Polkadot for cross-chain communicat
 
 Runtime APIs are the means by which the node-side code extracts information from the state of the runtime.
 
-Although Runtime APIs are often used for simple storage access, they are actually empowered to do arbitrary computation. They are a versatile and powerful tool to leverage the state of the chain. In general,Runtime APIs are used for these purposes:
+Although Runtime APIs are often used for simple storage access, they are empowered to do arbitrary computations. They are a versatile and powerful tool to leverage the chain's state. In general, Runtime APIs are used for these purposes:
 
 - Access of a storage item
 - Access of a bundle of related storage items
 - Deriving a value from storage based on arguments
 
-In this sction, you will learn about specific runtime APIs to support XCM processing and manipulation.
+In this section, you will learn about specific runtime APIs that support XCM processing and manipulation.
 
 ## Dry Run API
 
-The [Dry-run API](https://paritytech.github.io/polkadot-sdk/master/xcm_runtime_apis/dry_run/index.html), given an extrinsic, or an XCM program, returns its effects:
+The [Dry-run API](https://paritytech.github.io/polkadot-sdk/master/xcm_runtime_apis/dry_run/index.html){target=\_blank}, given an extrinsic, or an XCM program, returns its effects:
 
 - Execution result
 - Local XCM (in the case of an extrinsic)
@@ -169,8 +169,8 @@ This API allows to directly dry-run an xcm message instead of an extrinsic and c
 The XCM Payment API provides a standardized way to determine the costs and payment options for executing XCM messages. Specifically, it enables clients to:
 
 - Retrieve the weight required to execute an XCM message
-- Obtain a list of acceptable AssetIds for paying execution fees
-- Calculate the cost of the weight in a specified AssetId
+- Obtain a list of acceptable `AssetIds` for paying execution fees
+- Calculate the cost of the weight in a specified `AssetId`
 - Estimate the fees for XCM message delivery
 
 This API eliminates the need for clients to guess execution fees or identify acceptable assets manually. Instead, clients can query the list of supported asset IDs formatted according to the XCM version they understand. With this information, they can weigh the XCM program they intend to execute and convert the computed weight into its cost using one of the acceptable assets.
@@ -259,7 +259,7 @@ Calculates the weight required to execute a given XCM message. It is useful for 
 
 ### Query Weight to Asset Fee
 
-converts a given weight into the corresponding fee for a specified `AssetId`. It allows clients to determine the cost of execution in terms of the desired asset.
+Converts a given weight into the corresponding fee for a specified `AssetId`. It allows clients to determine the cost of execution in terms of the desired asset.
 
 ```rust
 --8<-- 'https://raw.githubusercontent.com/paritytech/polkadot-sdk/refs/heads/stable2412/polkadot/xcm/xcm-runtime-apis/src/fees.rs:58:58'
@@ -283,7 +283,7 @@ converts a given weight into the corresponding fee for a specified `AssetId`. It
 
     ++"Result<u128, Error>"++
     
-    The fee needed to pay for the execution for the given AssetId.
+    The fee needed to pay for the execution for the given `AssetId.`
 
     ---
 

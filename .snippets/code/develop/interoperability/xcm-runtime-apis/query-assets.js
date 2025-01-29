@@ -3,7 +3,7 @@ import { createClient } from 'polkadot-api';
 import { getWsProvider } from 'polkadot-api/ws-provider/web';
 import { withPolkadotSdkCompat } from 'polkadot-api/polkadot-sdk-compat';
 
-// Connect to the polkadot relay chain.
+// Connect to the polkadot relay chain
 const client = createClient(
   withPolkadotSdkCompat(getWsProvider('wss://asset-hub-paseo-rpc.dwellir.com')),
 );

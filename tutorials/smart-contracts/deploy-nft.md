@@ -28,27 +28,8 @@ To create the NFT contract, you can follow the steps below:
 
 3. Now, paste the following NFT contract code into the editor
 
-    ```solidity
-    // SPDX-License-Identifier: MIT
-    // Compatible with OpenZeppelin Contracts ^5.0.0
-    pragma solidity ^0.8.22;
-
-    import {ERC721} from "@openzeppelin/contracts/token/ERC721/ERC721.sol";
-    import {Ownable} from "@openzeppelin/contracts/access/Ownable.sol";
-
-    contract MyToken is ERC721, Ownable {
-        uint256 private _nextTokenId;
-
-        constructor(address initialOwner)
-            ERC721("MyToken", "MTK")
-            Ownable(initialOwner)
-        {}
-
-        function safeMint(address to) public onlyOwner {
-            uint256 tokenId = _nextTokenId++;
-            _safeMint(to, tokenId);
-        }
-    }
+    ```solidity title="MyNFT.sol"
+    --8<-- 'code/tutorials/smart-contracts/deploy-nft/MyNFT.sol'
     ```
 
     The key components of the code above are:

@@ -23,6 +23,7 @@ const client = createClient(
 
 const paseoApi = client.getTypedApi(paseo);
 
+const paseoAssetHubParaID = 1000;
 const userAddress = 'INSERT_USER_ADDRESS';
 const userPublicKey = ss58Decode(userAddress)[0];
 const idBenef = Binary.fromBytes(userPublicKey);
@@ -30,7 +31,7 @@ const idBenef = Binary.fromBytes(userPublicKey);
 // Define the destination
 const destination = XcmVersionedLocation.V3({
   parents: 0,
-  interior: XcmV3Junctions.X1(XcmV3Junction.Parachain(1000)),
+  interior: XcmV3Junctions.X1(XcmV3Junction.Parachain(paseoAssetHubParaID)),
 });
 
 // Define the xcm message that will be sent to the destination
@@ -51,7 +52,7 @@ const xcm = XcmVersionedXcm.V3([
         parents: 1,
         interior: XcmV3Junctions.Here(),
       }),
-      fun: XcmV3MultiassetFungibility.Fungible(BigInt(12000000000)),
+      fun: XcmV3MultiassetFungibility.Fungible(BigInt(12000000000n)),
     },
     weight_limit: XcmV3WeightLimit.Unlimited(),
   }),

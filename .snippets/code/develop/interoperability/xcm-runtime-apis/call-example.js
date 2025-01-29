@@ -23,6 +23,7 @@ const client = createClient(
 
 const paseoApi = client.getTypedApi(paseo);
 
+const popParaID = 4001;
 const userAddress = 'INSERT_USER_ADDRESS';
 const userPublicKey = ss58Decode(userAddress)[0];
 const idBenef = Binary.fromBytes(userPublicKey);
@@ -37,7 +38,7 @@ const tx = paseoApi.tx.XcmPallet.limited_reserve_transfer_assets({
   dest: XcmVersionedLocation.V3({
     parents: 0,
     interior: XcmV3Junctions.X1(
-      XcmV3Junction.Parachain(4001), // Destination is the Pop Network parachain
+      XcmV3Junction.Parachain(popParaID), // Destination is the Pop Network parachain
     ),
   }),
   beneficiary: XcmVersionedLocation.V3({
@@ -56,7 +57,7 @@ const tx = paseoApi.tx.XcmPallet.limited_reserve_transfer_assets({
         parents: 0,
         interior: XcmV3Junctions.Here(), // Asset from the sender's location
       }),
-      fun: XcmV3MultiassetFungibility.Fungible(120000000000), // Asset amount to transfer
+      fun: XcmV3MultiassetFungibility.Fungible(120000000000n), // Asset amount to transfer
     },
   ]),
   fee_asset_item: 0, // Asset used to pay transaction fees
@@ -84,7 +85,7 @@ const xcmsToPop = forwardedXcms.find(
     location.value.parents === 0 &&
     location.value.interior.type === 'X1' &&
     location.value.interior.value.type === 'Parachain' &&
-    location.value.interior.value.value === 4001, // Pop network's ParaID.
+    location.value.interior.value.value === popParaID, // Pop network's ParaID.
 );
 const destination = xcmsToPop[0];
 const remoteXcm = xcmsToPop[1][0];

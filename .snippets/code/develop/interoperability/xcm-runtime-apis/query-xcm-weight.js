@@ -45,7 +45,7 @@ const xcm = XcmVersionedXcm.V3([
         parents: 1,
         interior: XcmV3Junctions.Here(),
       }),
-      fun: XcmV3MultiassetFungibility.Fungible(BigInt(12000000000)),
+      fun: XcmV3MultiassetFungibility.Fungible(BigInt(12000000000n)),
     },
     weight_limit: XcmV3WeightLimit.Unlimited(),
   }),

@@ -30,7 +30,7 @@ This API can be used on its own for dry-running purposes, for double-checking or
 
 ### Dry Run Call
 
-This API allows to dry-run any extrinsic and obtaint the outcome, if it fails or succeeds and also the local-xcm and remote xcm messages sent to other chains.
+This API allows to dry-run any extrinsic and obtaint the outcome, if it fails or succeeds and also the local xcm and remote xcm messages sent to other chains.
 
 ```rust
 --8<-- 'https://raw.githubusercontent.com/paritytech/polkadot-sdk/refs/heads/stable2412/polkadot/xcm/xcm-runtime-apis/src/dry_run.rs:67:67'
@@ -92,6 +92,9 @@ This API allows to dry-run any extrinsic and obtaint the outcome, if it fails or
     --8<-- 'code/develop/interoperability/xcm-runtime-apis/call-example.js'
     ```
 
+    !!!note
+        Make sure to replace `INSERT_USER_ADDRESS` with your SS58 address before running the script.
+
     ***Output***
 
     --8<-- 'code/develop/interoperability/xcm-runtime-apis/call-example-output.html::11'
@@ -150,13 +153,16 @@ This API allows to directly dry-run an xcm message instead of an extrinsic and c
 
 ??? interface "Example"
 
-    This example demonstrates how to simulate a teleport asset transfer from the Paseo network to the Asset Hub parachain. The code shows how to test and verify the received XCM message's behavior in the destination chain through a dry run on the live network.
+    This example demonstrates how to simulate a teleport asset transfer from the Paseo network to the Paseo Asset Hub parachain. The code shows how to test and verify the received XCM message's behavior in the destination chain through a dry run on the live network.
 
      ***Usage with PAPI***
 
     ```js
     --8<-- 'code/develop/interoperability/xcm-runtime-apis/xcm-example.js'
     ```
+
+    !!!note
+        Make sure to replace `INSERT_USER_ADDRESS` with your SS58 address before running the script.
 
     ***Output***
 
@@ -166,7 +172,7 @@ This API allows to directly dry-run an xcm message instead of an extrinsic and c
 
 ## XCM Payment API
 
-The XCM Payment API provides a standardized way to determine the costs and payment options for executing XCM messages. Specifically, it enables clients to:
+The [XCM Payment API](https://paritytech.github.io/polkadot-sdk/master/xcm_runtime_apis/fees/index.html){target=\_blank} provides a standardized way to determine the costs and payment options for executing XCM messages. Specifically, it enables clients to:
 
 - Retrieve the weight required to execute an XCM message
 - Obtain a list of acceptable `AssetIds` for paying execution fees
@@ -243,13 +249,16 @@ Calculates the weight required to execute a given XCM message. It is useful for 
 
 ??? interface "Example"
 
-    This example demonstrates how to calculate the weight needed to execute a teleport transfer from the Paseo network to the Asset Hub parachain using the XCM Payment API. The result shows the required weight in terms of reference time and proof size needed in the destination chain.
+    This example demonstrates how to calculate the weight needed to execute a teleport transfer from the Paseo network to the Paseo Asset Hub parachain using the XCM Payment API. The result shows the required weight in terms of reference time and proof size needed in the destination chain.
 
     ***Usage with PAPI***
 
     ```js
     --8<-- 'code/develop/interoperability/xcm-runtime-apis/query-xcm-weight.js'
     ```
+
+    !!!note
+        Make sure to replace `INSERT_USER_ADDRESS` with your SS58 address before running the script.
 
     ***Output***
 
@@ -341,6 +350,9 @@ Retrieves the delivery fees for sending a specific XCM message to a designated d
     ```js
     --8<-- 'code/develop/interoperability/xcm-runtime-apis/query-delivery-fees.js'
     ```
+
+    !!!note
+        Make sure to replace `INSERT_USER_ADDRESS` with your SS58 address before running the script.
 
     ***Output***
 

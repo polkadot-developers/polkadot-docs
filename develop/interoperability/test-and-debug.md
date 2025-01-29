@@ -1,6 +1,6 @@
 ---
 title: Testing and Debugging
-description: Learn how to test and debug cross-chain communication via the XCM Simulator and Emulator to ensure interoperability and reliable execution.
+description: Learn how to test and debug cross-chain communication via the XCM Emulator to ensure interoperability and reliable execution.
 ---
 
 # Testing and Debugging
@@ -9,22 +9,36 @@ description: Learn how to test and debug cross-chain communication via the XCM S
 
 Cross-Consensus Messaging (XCM) is a core feature of the Polkadot ecosystem, enabling communication between parachains, relay chains, and system chains. To ensure the reliability of XCM-powered blockchains, thorough testing and debugging are essential before production deployment.
 
-This article explores two indispensable tools for XCM testing, the [XCM Simulator](#xcm-simulator) and  the [XCM Emulator](#xcm-emulator), to help developers onboard and test their solutions effectively.
+This guide focuses on the XCM Emulator, a tool designed to help developers onboard and test their solutions effectively. For additional XCM testing capabilities, you can also use [Chopsticks](/tutorials/polkadot-sdk/testing/fork-live-chains/#xcm-testing){target=\_blank}.
 
-## XCM Simulator
+## XCM Emulator
 
-Setting up a live network with multiple interconnected parachains for XCM testing can be complex and resource-intensive. To address this, the [`xcm-simulator`](https://github.com/paritytech/polkadot-sdk/tree/{{dependencies.polkadot_sdk.stable_version}}/polkadot/xcm/xcm-simulator){target=\_blank} was developed. This versatile tool enables developers to test and experiment with XCM in a controlled, simulated network environment.
+Setting up a live network with multiple interconnected parachains for XCM testing can be complex and resource-intensive. 
 
-The `xcm-simulator` offers a fast and efficient way to test [XCM instructions](https://github.com/polkadot-fellows/xcm-format?tab=readme-ov-file#5-the-xcvm-instruction-set){target=\_blank} against the [`xcm-executor`](https://paritytech.github.io/polkadot-sdk/master/staging_xcm_executor/index.html){target=\_blank}. It serves as an experimental playground for developers, supporting features such as:
+The [`xcm-emulator`](https://github.com/paritytech/polkadot-sdk/tree/{{dependencies.polkadot_sdk.stable_version}}/cumulus/xcm/xcm-emulator){target=\_blank} is a tool designed to simulate the execution of XCM programs using predefined runtime configurations. These configurations include those utilized by live networks like Kusama, Polkadot, and the Asset Hub.
 
-- **Mocking Downward Message Passing (DMP)** - retrieve incoming XCMs from the relay chain using the `received_dmp` getter
-- **Rapid iteration** - test XCM messages in isolation without relying on full network simulations
+This tool enables testing of cross-chain message passing, providing a way to verify outcomes, weights, and side effects efficiently. It achieves this by utilizing mocked runtimes for both the relay chain and connected parachains, enabling developers to focus on message logic and configuration without needing a live network.
 
-The `xcm-simulator` achieves this by utilizing mocked runtimes for both the relay chain and connected parachains, enabling developers to focus on message logic and configuration without needing a live network.
+The `xcm-emulator` relies on transport layer pallets. However, the messages do not leverage the same messaging infrastructure as live networks since the transport mechanism is mocked. Additionally, consensus-related events are not covered, such as disputes, staking, and ImOnline events. Parachains should use end-to-end (E2E) tests to validate these events.
 
-### How does it work?
+### Pros and Cons
 
-The `xcm-simulator` provides the following macros for building a mocked simulation environment:
+The XCM Emulator provides both advantages and limitations when testing cross-chain communication in simulated environments.
+
+- **Pros**:
+    - **Interactive debugging** - offers tracing capabilities similar to EVM, enabling detailed analysis of issues
+    - **Runtime composability** - facilitates testing and integration of multiple runtime components
+    - **Immediate feedback** - supports Test-Driven Development (TDD) by providing rapid test results
+    - **Seamless integration testing** - simplifies the process of testing new runtime versions in an isolated environment
+
+- **Cons**:
+    - **Simplified emulation** - always assumes message delivery, which may not mimic real-world network behavior
+    - **Dependency challenges** - requires careful management of dependency versions and patching. Refer to the [Cargo dependency documentation](https://doc.rust-lang.org/cargo/reference/overriding-dependencies.html){target=\_blank}
+    - **Compilation overhead** - testing environments can be resource-intensive, requiring frequent compilation updates
+
+### How Does It Work?
+
+The `xcm-emulator` provides the following macros for building a mocked simulation environment:
 
 - [**`decl_test_relay_chain`**](https://github.com/paritytech/polkadot-sdk/blob/{{dependencies.polkadot_sdk.stable_version}}/polkadot/xcm/xcm-simulator/src/lib.rs#L110C14-L110C35){target=\_blank} - implements upward message passing (UMP) for the specified relay chain struct. The struct must define the XCM configuration for the relay chain:
 
@@ -70,41 +84,6 @@ The `xcm-simulator` provides the following macros for building a mocked simulati
     }
     ```
 
-By leveraging these macros, developers can customize their testing networks by defining relay chains and parachains tailored to their needs.
-
-For guidance on implementing a mock runtime for a Polkadot SDK-based chain, refer to the [Pallet Testing](/develop/parachains/testing/pallet-testing/){target=\_blank} article. This framework enables thorough testing of runtime and cross-chain interactions.
-
-For a complete example of how to use the `xcm-simulator`, explore the [`sample`](https://github.com/paritytech/polkadot-sdk/tree/master/polkadot/xcm/xcm-simulator/example){target=\_blank} provided in the `xcm-simulator` codebase.
-
-## XCM Emulator
-
-The [`xcm-emulator`](https://github.com/paritytech/polkadot-sdk/tree/{{dependencies.polkadot_sdk.stable_version}}/cumulus/xcm/xcm-emulator){target=\_blank} is a tool designed to simulate the execution of XCM programs using predefined runtime configurations. These configurations include those utilized by live networks like Kusama, Polkadot, and the Asset Hub.
-
-This tool enables testing of cross-chain message passing, providing a way to verify outcomes, weights, and side effects efficiently.
-
-The `xcm-emulator` relies on transport layer pallets. However, the messages do not leverage the same messaging infrastructure as live networks since the transport mechanism is mocked. Additionally, consensus-related events are not covered, such as disputes, staking, and ImOnline events. Parachains should use end-to-end (E2E) tests to validate these events.
-
-### Pros and Cons
-
-The XCM Emulator provides both advantages and limitations when testing cross-chain communication in simulated environments.
-
-- **Pros**:
-    - **Interactive debugging** - offers tracing capabilities similar to EVM, enabling detailed analysis of issues
-    - **Runtime composability** - facilitates testing and integration of multiple runtime components
-    - **Immediate feedback** - supports Test-Driven Development (TDD) by providing rapid test results
-    - **Seamless integration testing** - simplifies the process of testing new runtime versions in an isolated environment
-
-- **Cons**:
-    - **Simplified emulation** - always assumes message delivery, which may not mimic real-world network behavior
-    - **Dependency challenges** - requires careful management of dependency versions and patching. Refer to the [Cargo dependency documentation](https://doc.rust-lang.org/cargo/reference/overriding-dependencies.html){target=\_blank}
-    - **Compilation overhead** - testing environments can be resource-intensive, requiring frequent compilation updates
-
-### How Does It Work?
-
-The `xcm-emulator` package builds upon the functionality provided by the `xcm-simulator` package, offering the same set of macros while extending their capabilities. In addition to the standard features, `xcm-emulator` introduces new tools that make testing cross-chain communication more comprehensive.
-
-One of the key additions is the [`decl_test_bridges`](https://github.com/paritytech/polkadot-sdk/blob/{{dependencies.polkadot_sdk.stable_version}}/cumulus/xcm/xcm-emulator/src/lib.rs#L1178){target=\_blank} macro. This macro allows developers to define and implement mock bridges for testing interoperability in the Polkadot ecosystem.
-
 - [**`decl_test_bridges`**](https://github.com/paritytech/polkadot-sdk/blob/{{dependencies.polkadot_sdk.stable_version}}/cumulus/xcm/xcm-emulator/src/lib.rs#L1178){target=\_blank} - enables the creation of multiple bridges between chains, specifying their source chain, target chain, and the handler responsible for processing messages
 
     ```rust
@@ -122,4 +101,6 @@ One of the key additions is the [`decl_test_bridges`](https://github.com/parityt
     }
     ```
 
-Utilizing the capabilities of the xcm-emulator, developers can effectively design, test, and optimize cross-chain functionality, fostering interoperability within the Polkadot ecosystem.
+By leveraging these macros, developers can customize their testing networks by defining relay chains and parachains tailored to their needs. For guidance on implementing a mock runtime for a Polkadot SDK-based chain, refer to the [Pallet Testing](/develop/parachains/testing/pallet-testing/){target=\_blank} article. 
+
+This framework enables thorough testing of runtime and cross-chain interactions, enabling developers to effectively design, test, and optimize cross-chain functionality.

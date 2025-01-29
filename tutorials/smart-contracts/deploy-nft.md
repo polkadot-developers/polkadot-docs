@@ -1,145 +1,137 @@
 ---
 title: Deploy a NFT to Asset Hub
-description: TODO
+description: Deploy an NFT on Asset Hub using PolkaVM and OpenZeppelin. Learn how to compile, deploy, and interact with your contract using Polkadot Remix IDE.
 ---
 
 # Deploy NFT to Asset Hub
 
 ## Introduction
 
-Polkadot Remix is a web-based IDE that allows developers to write, compile, and deploy smart contracts to any Substrate-based chain that supports the Ethereum Virtual Machine (EVM). Asset Hub (formerly known as Statemint) is Polkadot's native asset parachain, making it an ideal destination for deploying NFT contracts. This guide will walk you through creating and deploying a simple NFT contract using Polkadot Remix.
+Non-Fungible Tokens (NFTs) represent unique digital assets commonly used for digital art, collectibles, gaming, and identity verification. Asset Hub supports EVM-compatible smart contracts through PolkaVM, enabling straightforward NFT deployment. This tutorial guides you through deploying an NFT contract on the Westend TestNet using the [Polkadot Remix IDE](https://polkadot.remix.io){target=\_blank}, a web-based development environment. This tutorial uses OpenZeppelin's NFT contract implementation to ensure security and standard compliance.
+
 
 ## Prerequisites
 
 Before starting, make sure you have:
-- A Polkadot account with some DOT tokens
-- MetaMask installed and configured for Asset Hub
+
+- MetaMask installed and connected to Westend Asset Hub
+- A funded account with some WND tokens (you can get them from the [Westend Faucet](https://faucet.polkadot.io/westend?parachain=1000){target=\_blank})
 - Basic understanding of Solidity and NFTs
-
-## Getting Started with Polkadot Remix
-
-1. Navigate to [polkadot.remix.io](https://polkadot.remix.io)
-2. You'll see a similar interface to Ethereum's Remix, with the following sections:
-   - Plugin panel (left)
-   - Side panel
-   - Main panel (editor)
-   - Terminal
 
 ## Creating the NFT Contract
 
-First, let's create a new file for our NFT contract:
+To create the NFT contract, you can follow the steps below:
 
-1. Click the "File Explorer" icon in the plugin panel
-2. Click the "Create New File" button
-3. Name your file `MyNFT.sol`
+1. Navigate to the [Polkadot Remix IDE](https://polkadot.remix.io){target=\_blank}
+2. Click in the **Create new file** button under the **contracts** folder, and name your contract as `MyNFT.sol`
 
-Now, paste the following NFT contract code into the editor:
+    ![](/images/tutorials/smart-contracts/deploy-nft/deploy-nft-1.webp)
 
-```solidity
-// SPDX-License-Identifier: MIT
-pragma solidity ^0.8.20;
+3. Now, paste the following NFT contract code into the editor
 
-import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
-import "@openzeppelin/contracts/token/ERC721/extensions/ERC721URIStorage.sol";
-import "@openzeppelin/contracts/access/Ownable.sol";
+    ```solidity
+    // SPDX-License-Identifier: MIT
+    // Compatible with OpenZeppelin Contracts ^5.0.0
+    pragma solidity ^0.8.22;
 
-contract MyNFT is ERC721URIStorage, Ownable {
-    uint256 private _nextTokenId;
-    
-    // Event emitted when a new NFT is minted
-    event NFTMinted(address indexed to, uint256 indexed tokenId, string tokenURI);
+    import {ERC721} from "@openzeppelin/contracts/token/ERC721/ERC721.sol";
+    import {Ownable} from "@openzeppelin/contracts/access/Ownable.sol";
 
-    constructor() ERC721("MyNFT", "MNFT") Ownable(msg.sender) {}
+    contract MyToken is ERC721, Ownable {
+        uint256 private _nextTokenId;
 
-    function safeMint(address to, string memory uri) public onlyOwner {
-        uint256 tokenId = _nextTokenId++;
-        _safeMint(to, tokenId);
-        _setTokenURI(tokenId, uri);
-        emit NFTMinted(to, tokenId, uri);
+        constructor(address initialOwner)
+            ERC721("MyToken", "MTK")
+            Ownable(initialOwner)
+        {}
+
+        function safeMint(address to) public onlyOwner {
+            uint256 tokenId = _nextTokenId++;
+            _safeMint(to, tokenId);
+        }
     }
-}
-```
+    ```
 
-Let's break down the key components:
+    The key components of the code above are:
 
-### Understanding the Imports
-1. `ERC721.sol`: The base contract for non-fungible tokens, implementing core NFT functionality like transfers and approvals.
-2. `ERC721URIStorage.sol`: An extension that adds storage and retrieval of token metadata URIs.
-3. `Ownable.sol`: Provides basic authorization control, ensuring only the contract owner can mint new tokens.
+    - Contract Imports
 
-### Key Functions Explained
+        - [`ERC721.sol`](https://github.com/OpenZeppelin/openzeppelin-contracts/blob/v5.0.0/contracts/token/ERC721/ERC721.sol){target=\_blank} - the base contract for non-fungible tokens, implementing core NFT functionality like transfers and approvals
+        - [`Ownable.sol`](https://github.com/OpenZeppelin/openzeppelin-contracts/blob/v5.0.0/contracts/access/Ownable.sol){target=\_blank} - provides basic authorization control, ensuring only the contract owner can mint new tokens
+    
+    - Constructor Parameters:
 
-- `_safeMint(to, tokenId)`: An internal function from ERC721 that safely mints new tokens. It includes checks to ensure the recipient can handle ERC721 tokens (important when minting to smart contracts).
-- `_setTokenURI(tokenId, uri)`: An internal function from ERC721URIStorage that associates metadata URI with a token. The URI typically points to a JSON file containing the NFT's metadata (image, description, attributes).
+        - `initialOwner` - sets the address that will have administrative rights over the contract
+        - `"MyToken"` - the full name of your NFT collection
+        - `"MTK"`- the symbol representing your token in wallets and marketplaces
 
-### Events
+    - Key Function
 
-The contract emits the `NFTMinted` event whenever a new token is created, making it easier to track minting activity off-chain. This is particularly useful for:
-- Updating user interfaces
-- Tracking minting history
-- Triggering external systems
+        - [`_safeMint(to, tokenId)`](https://github.com/OpenZeppelin/openzeppelin-contracts/blob/v5.0.0/contracts/token/ERC721/ERC721.sol#L304){target=\_blank} - an internal function from `ERC721` that safely mints new tokens. It includes checks to ensure the recipient can handle ERC721 tokens (important when minting to smart contracts)
 
 ## Compiling the Contract
 
-1. Select the "Solidity Compiler" plugin from the left panel
-2. Ensure the compiler version is set to 0.8.20 or higher
-3. Click "Compile MyNFT.sol"
-4. Look for the green checkmark indicating successful compilation
+1. Select the **Solidity Compiler** plugin from the left panel
 
-## Connecting to Asset Hub
+    ![](/images/tutorials/smart-contracts/deploy-nft/deploy-nft-3.webp)
 
-1. Select the "Deploy & Run Transactions" plugin
-2. From the "ENVIRONMENT" dropdown, select "Injected Provider - MetaMask"
-3. MetaMask will prompt you to connect - select your account and click "Connect"
-4. Make sure MetaMask is configured for Asset Hub with the following network settings:
-   - Network Name: Asset Hub
-   - RPC URL: https://polkadot-asset-hub-rpc.polkadot.io
-   - Chain ID: 1338
-   - Symbol: DOT
-   - Explorer: https://assethub.polkascan.io
+3. Click in the **Compile MyNFT.sol** button
+
+    ![](/images/tutorials/smart-contracts/deploy-nft/deploy-nft-4.webp)
+
+4. If the compilation succeeded, you can see a green checkmark indicating success in the **Solidity Compiler** icon
+
+    ![](/images/tutorials/smart-contracts/deploy-nft/deploy-nft-5.webp)
 
 ## Deploying the Contract
 
-1. Ensure your MyNFT contract is selected in the "CONTRACT" dropdown
-2. Click "Deploy"
-3. MetaMask will pop up - review the transaction details
-4. Click "Confirm" to deploy your contract
-5. Wait for the transaction to be confirmed
+1. Select the **Deploy & Run Transactions** plugin from the left panel
+
+    ![](/images/tutorials/smart-contracts/deploy-nft/deploy-nft-6.webp)
+
+2. Configure the deployment settings
+    1. From the **ENVIRONMENT** dropdown, select **Westend Testnet - MetaMask**
+    2. From the **ACCOUNT** dropdown, select the account you want to use for the deploy
+
+        ![](/images/tutorials/smart-contracts/deploy-nft/deploy-nft-7.webp)
+
+3. Configure the contract parameters
+    1. Enter the address that will own the deployed NFT.
+    2. Click the **Deploy** button to initiate the deployment
+
+        ![](/images/tutorials/smart-contracts/deploy-nft/deploy-nft-8.webp)
+
+4. MetaMask will pop up - review the transaction details. Click **Confirm** to deploy your contract
+
+    ![](/images/tutorials/smart-contracts/deploy-nft/deploy-nft-9.webp){: .browser-extension}
+
+    If the deployment process succeeded, you will see the following output in the terminal:
+
+    ![](/images/tutorials/smart-contracts/deploy-nft/deploy-nft-10.webp)
 
 ## Interacting with Your NFT Contract
 
 Once deployed, you can interact with your contract through Remix:
 
-1. Find your contract under "Deployed Contracts"
-2. To mint an NFT:
-   - Expand the `safeMint` function
-   - Enter the recipient address
-   - Provide the metadata URI (e.g., IPFS link to your NFT metadata)
-   - Click "transact"
-   - Confirm the transaction in MetaMask
+1. Find your contract under **Deployed/Unpinned Contracts**, and click it to expand the available methods for the contract
 
-### Metadata URI Format
+    ![](/images/tutorials/smart-contracts/deploy-nft/deploy-nft-11.webp)
 
-Your metadata URI should point to a JSON file with the following structure:
-```json
-{
-    "name": "NFT Name",
-    "description": "NFT Description",
-    "image": "https://ipfs.io/ipfs/your-image-hash",
-    "attributes": [
-        {
-            "trait_type": "Property",
-            "value": "Value"
-        }
-    ]
-}
-```
+2. To mint an NFT
 
-## Verifying Your NFT
+    1. Click in the contract to expand its associated methods
+    1. Expand the **safeMint** function
+    2. Enter the recipient address
+    3. Click **Transact**
 
-After minting, you can verify your NFT:
+        ![](/images/tutorials/smart-contracts/deploy-nft/deploy-nft-12.webp)
 
-1. Use the `balanceOf` function to check token balances
-2. Use `tokenURI` with a token ID to view metadata links
-3. View your NFT on Asset Hub's block explorer by searching for your contract address
-4. Monitor the `NFTMinted` events in the transaction logs
+3. Click **Confirm** to confirm the transaction in MetaMask
+
+    ![](/images/tutorials/smart-contracts/deploy-nft/deploy-nft-13.webp){: .browser-extension}
+
+    If the transaction is successful, the terminal will display the following output, which details the information about the transaction, including the transaction hash, the block number, the logs associated, and so on.
+
+    ![](/images/tutorials/smart-contracts/deploy-nft/deploy-nft-14.webp)
+
+Feel free to explore and interact with the contract's other functions using the same approach - selecting the method, providing any required parameters, and confirming the transaction through MetaMask when needed.

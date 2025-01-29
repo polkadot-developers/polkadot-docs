@@ -94,9 +94,9 @@ This API allows to dry-run any extrinsic and obtaint the outcome, if it fails or
 
     ***Output***
 
-    --8<-- 'code/develop/interoperability/xcm-runtime-apis/call-example-output.html::12'
-        ...
-    --8<-- 'code/develop/interoperability/xcm-runtime-apis/call-example-output.html:187'
+    --8<-- 'code/develop/interoperability/xcm-runtime-apis/call-example-output.html::11'
+                ...
+    --8<-- 'code/develop/interoperability/xcm-runtime-apis/call-example-output.html:189'
 
     ---
 

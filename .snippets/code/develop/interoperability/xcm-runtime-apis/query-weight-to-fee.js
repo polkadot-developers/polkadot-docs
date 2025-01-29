@@ -26,11 +26,7 @@ const result =
     versionedAssetId,
   );
 
-// Extract the data from the runtime call result
-const fee = result.value;
-
 // Print the fee
-console.log('Fee:');
-console.dir(fee, { depth: null });
+console.dir(result.value, { depth: null });
 
 client.destroy();

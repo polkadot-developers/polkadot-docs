@@ -68,11 +68,7 @@ const xcm = XcmVersionedXcm.V3([
 // Execute the query weight runtime call
 const result = await paseoAssetHubApi.apis.XcmPaymentApi.query_xcm_weight(xcm);
 
-// Extract the data from the result
-const weight = result.value;
-
 // Print the results
-console.log('Weight:');
-console.dir(weight, { depth: null });
+console.dir(result.value, { depth: null });
 
 client.destroy();

@@ -19,11 +19,7 @@ const result =
     xcmVersion,
   );
 
-// Extract the data from the runtime call result
-const assets = result.value;
-
 // Print the assets
-console.log('Assets:');
-console.dir(assets, { depth: null });
+console.dir(result.value, { depth: null });
 
 client.destroy();

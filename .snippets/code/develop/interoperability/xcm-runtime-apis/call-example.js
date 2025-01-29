@@ -90,19 +90,14 @@ const destination = xcmsToPop[0];
 const remoteXcm = xcmsToPop[1][0];
 
 // Print the results
-console.log('\nexecution_result:');
-console.dir(executionResult, { depth: null });
+const resultObject = {
+  execution_result: executionResult,
+  emitted_events: emmitedEvents,
+  local_xcm: localXcm,
+  destination: destination,
+  remote_xcm: remoteXcm,
+};
 
-console.log('\nemitted_events:');
-console.dir(emmitedEvents, { depth: null });
-
-console.log('\nlocal_xcm:');
-console.dir(localXcm, { depth: null });
-
-console.log('\ndestination:');
-console.dir(destination, { depth: null });
-
-console.log('\nremote_xcm:');
-console.dir(remoteXcm, { depth: null });
+console.dir(resultObject, { depth: null });
 
 client.destroy();

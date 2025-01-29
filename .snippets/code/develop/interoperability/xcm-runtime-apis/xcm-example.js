@@ -78,21 +78,7 @@ const dryRunResult = await paseoAssetHubApi.apis.DryRunApi.dry_run_xcm(
   xcm,
 );
 
-// Extract the data from the dry run result
-const {
-  execution_result: executionResult,
-  emitted_events: emmitedEvents,
-  forwarded_xcms: forwardedXcms,
-} = dryRunResult.value;
-
 // Print the results
-console.log('\nexecution_result:');
-console.dir(executionResult, { depth: null });
-
-console.log('\nemitted_events:');
-console.dir(emmitedEvents, { depth: null });
-
-console.log('\nforwardedXcms:');
-console.dir(forwardedXcms, { depth: null });
+console.dir(dryRunResult.value, { depth: null });
 
 client.destroy();

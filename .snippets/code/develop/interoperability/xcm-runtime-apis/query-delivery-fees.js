@@ -77,11 +77,7 @@ const result = await paseoApi.apis.XcmPaymentApi.query_delivery_fees(
   xcm,
 );
 
-// Extract the data from the result
-const deliveryFees = result.value;
-
 // Print the results
-console.log('\Delivery Fees:');
-console.dir(deliveryFees, { depth: null });
+console.dir(result.value, { depth: null });
 
 client.destroy();

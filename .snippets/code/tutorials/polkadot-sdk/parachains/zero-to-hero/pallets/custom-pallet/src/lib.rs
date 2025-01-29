@@ -21,7 +21,19 @@
 
 pub use pallet::*;
 
-#[frame_support::pallet(dev_mode)]
+#[cfg(test)]
+mod mock;
+
+#[cfg(test)]
+mod tests;
+
+#[cfg(feature = "runtime-benchmarks")]
+mod benchmarking;
+
+pub mod weights;
+use crate::weights::WeightInfo;
+
+#[frame_support::pallet]
 pub mod pallet {
     use super::*;
     use frame_support::pallet_prelude::*;
@@ -30,15 +42,18 @@ pub mod pallet {
     #[pallet::pallet]
     pub struct Pallet<T>(_);
 
-    // Configuration trait for the pallet
+    // Configuration trait for the pallet.
     #[pallet::config]
     pub trait Config: frame_system::Config {
-        // Defines the event type for the pallet
+        // Defines the event type for the pallet.
         type RuntimeEvent: From<Event<Self>> + IsType<<Self as frame_system::Config>::RuntimeEvent>;
 
-        // Defines the maximum value the counter can hold
+        // Defines the maximum value the counter can hold.
         #[pallet::constant]
         type CounterMaxValue: Get<u32>;
+
+        /// A type representing the weights required by the dispatchables of this pallet.
+        type WeightInfo: WeightInfo;
     }
 
     #[pallet::event]
@@ -99,7 +114,7 @@ pub mod pallet {
         ///
         /// Emits `CounterValueSet` event when successful.
         #[pallet::call_index(0)]
-        #[pallet::weight(0)]
+        #[pallet::weight(T::WeightInfo::set_counter_value())]
         pub fn set_counter_value(origin: OriginFor<T>, new_value: u32) -> DispatchResult {
             ensure_root(origin)?;
 
@@ -125,7 +140,7 @@ pub mod pallet {
         ///
         /// Emits `CounterIncremented` event when successful.
         #[pallet::call_index(1)]
-        #[pallet::weight(0)]
+        #[pallet::weight(T::WeightInfo::increment())]
         pub fn increment(origin: OriginFor<T>, amount_to_increment: u32) -> DispatchResult {
             let who = ensure_signed(origin)?;
 
@@ -147,7 +162,7 @@ pub mod pallet {
                     .unwrap_or(0)
                     .checked_add(1)
                     .ok_or(Error::<T>::UserInteractionOverflow)?;
-                *interactions = Some(new_interactions); // Store the new value
+                *interactions = Some(new_interactions); // Store the new value.
 
                 Ok(())
             })?;
@@ -169,7 +184,7 @@ pub mod pallet {
         ///
         /// Emits `CounterDecremented` event when successful.
         #[pallet::call_index(2)]
-        #[pallet::weight(0)]
+        #[pallet::weight(T::WeightInfo::decrement())]
         pub fn decrement(origin: OriginFor<T>, amount_to_decrement: u32) -> DispatchResult {
             let who = ensure_signed(origin)?;
 
@@ -186,7 +201,7 @@ pub mod pallet {
                     .unwrap_or(0)
                     .checked_add(1)
                     .ok_or(Error::<T>::UserInteractionOverflow)?;
-                *interactions = Some(new_interactions); // Store the new value
+                *interactions = Some(new_interactions); // Store the new value.
 
                 Ok(())
             })?;
@@ -199,148 +214,5 @@ pub mod pallet {
 
             Ok(())
         }
-    }
-}
-
-#[cfg(test)]
-mod tests {
-    use super::*;
-    use crate as custom_pallet;
-    use frame_support::{assert_noop, assert_ok, derive_impl, traits::ConstU32};
-    use sp_runtime::BuildStorage;
-
-    type Block = frame_system::mocking::MockBlock<Test>;
-
-    // Configure a mock runtime to test the pallet.
-    frame_support::construct_runtime!(
-        pub enum Test
-        {
-            System: frame_system,
-            CustomPallet: custom_pallet,
-        }
-    );
-
-    #[derive_impl(frame_system::config_preludes::TestDefaultConfig)]
-    impl frame_system::Config for Test {
-        type Block = Block;
-    }
-
-    impl Config for Test {
-        type RuntimeEvent = RuntimeEvent;
-        type CounterMaxValue = ConstU32<100>;
-    }
-
-    /// Helper function to build genesis storage according to the mock runtime.
-    pub fn new_test_ext() -> sp_io::TestExternalities {
-        let t = frame_system::GenesisConfig::<Test>::default()
-            .build_storage()
-            .expect("Failed to create test externalities.");
-        let mut ext = sp_io::TestExternalities::new(t);
-        ext.execute_with(|| System::set_block_number(1)); // Initialize system pallet
-        ext
-    }
-
-    #[test]
-    fn set_counter_value_works() {
-        new_test_ext().execute_with(|| {
-            // Set counter value as root
-            assert_ok!(CustomPallet::set_counter_value(RuntimeOrigin::root(), 42));
-
-            // Check storage
-            assert_eq!(CounterValue::<Test>::get(), Some(42));
-
-            // Check event
-            System::assert_has_event(RuntimeEvent::CustomPallet(Event::CounterValueSet {
-                counter_value: 42,
-            }));
-        });
-    }
-
-    #[test]
-    fn set_counter_value_fails_if_not_root() {
-        new_test_ext().execute_with(|| {
-            // Try to set counter value as a regular user (ID: 1)
-            assert_noop!(
-                CustomPallet::set_counter_value(RuntimeOrigin::signed(1), 42),
-                frame_support::error::BadOrigin,
-            );
-        });
-    }
-
-    #[test]
-    fn set_counter_value_fails_if_exceeds_max() {
-        new_test_ext().execute_with(|| {
-            // Try to set counter value above max (100)
-            assert_noop!(
-                CustomPallet::set_counter_value(RuntimeOrigin::root(), 101),
-                Error::<Test>::CounterValueExceedsMax
-            );
-        });
-    }
-
-    #[test]
-    fn increment_works() {
-        new_test_ext().execute_with(|| {
-            // Increment counter by 5 as user 1
-            assert_ok!(CustomPallet::increment(RuntimeOrigin::signed(1), 5));
-
-            // Check storage
-            assert_eq!(CounterValue::<Test>::get(), Some(5));
-            assert_eq!(UserInteractions::<Test>::get(1), Some(1));
-
-            // Check event
-            System::assert_has_event(RuntimeEvent::CustomPallet(Event::CounterIncremented {
-                counter_value: 5,
-                who: 1,
-                incremented_amount: 5,
-            }));
-        });
-    }
-
-    #[test]
-    fn increment_fails_on_overflow() {
-        new_test_ext().execute_with(|| {
-            // Set initial value close to max
-            assert_ok!(CustomPallet::set_counter_value(RuntimeOrigin::root(), 95));
-
-            // Try to increment by more than available space
-            assert_noop!(
-                CustomPallet::increment(RuntimeOrigin::signed(1), 10),
-                Error::<Test>::CounterValueExceedsMax
-            );
-        });
-    }
-
-    #[test]
-    fn decrement_works() {
-        new_test_ext().execute_with(|| {
-            // Set initial value
-            assert_ok!(CustomPallet::set_counter_value(RuntimeOrigin::root(), 10));
-
-            // Decrement counter by 5 as user 1
-            assert_ok!(CustomPallet::decrement(RuntimeOrigin::signed(1), 5));
-
-            // Check storage
-            assert_eq!(CounterValue::<Test>::get(), Some(5));
-            assert_eq!(UserInteractions::<Test>::get(1), Some(1));
-
-            // Check event
-            System::assert_has_event(RuntimeEvent::CustomPallet(Event::CounterDecremented {
-                counter_value: 5,
-                who: 1,
-                decremented_amount: 5,
-            }));
-        });
-    }
-
-    #[test]
-    fn decrement_fails_if_below_zero() {
-        new_test_ext().execute_with(|| {
-            // Try to decrement when counter is at 0
-            assert_noop!(
-                CustomPallet::decrement(RuntimeOrigin::signed(1), 1),
-                Error::<Test>::CounterValueBelowZero
-            );
-        });
     }
 }

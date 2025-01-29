@@ -54,10 +54,7 @@ The `xcm-simulator` provides the following macros for building a mocked simulati
     }
     ```
 
-    The [`para_ext(para_id: u32)`](https://github.com/paritytech/polkadot-sdk/blob/{{dependencies.polkadot_sdk.stable_version}}/polkadot/xcm/xcm-simulator/example/src/lib.rs#L97C1-L115C2){target=\_blank} function initializes a test environment for a parachain with a specified `para_id`, sets the initial configuration of the parachain, returning a [`TestExternalities`](https://paritytech.github.io/polkadot-sdk/master/polkadot_sdk_frame/testing_prelude/type.TestExternalities.html){target=\_blank} instance for testing.
-
-    !!!note
-        Developers can take this idea and define as many parachains as they want, like `ParaA`, `ParaB`, `ParaC`, etc
+    The [`para_ext(para_id: u32)`](https://github.com/paritytech/polkadot-sdk/blob/{{dependencies.polkadot_sdk.stable_version}}/polkadot/xcm/xcm-simulator/example/src/lib.rs#L97C1-L115C2){target=\_blank} function initializes a test environment for a parachain with a specified `para_id`, sets the initial configuration of the parachain, returning a [`TestExternalities`](https://paritytech.github.io/polkadot-sdk/master/polkadot_sdk_frame/testing_prelude/type.TestExternalities.html){target=\_blank} instance for testing. Developers can follow this example and define as many parachains as they want, like `ParaA`, `ParaB`, `ParaC`, etc.
 
 - [**`decl_test_network`**](https://github.com/paritytech/polkadot-sdk/blob/{{dependencies.polkadot_sdk.stable_version}}/polkadot/xcm/xcm-simulator/src/lib.rs#L292){target=\_blank} - defines a testing network consisting of a relay chain and multiple parachains. Takes a network struct as input and implements functionalities for testing, including [`ParachainXcmRouter`](https://paritytech.github.io/polkadot-sdk/master/xcm_simulator_example/struct.ParachainXcmRouter.html){target=\_blank} and [`RelayChainXcmRouter`](https://paritytech.github.io/polkadot-sdk/master/xcm_simulator_example/struct.RelayChainXcmRouter.html){target=\_blank}. The struct must specify the relay chain and an indexed list of parachains to be included in the network:
 

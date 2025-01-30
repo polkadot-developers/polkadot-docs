@@ -65,5 +65,6 @@ In most cases, you don't need to know details about how transactions are gossipe
 
 These traits govern how blocks are validated and imported across the network, ensuring consistency and security.
 
-??? interface "Additional information"
-    Refer to the [`Block` reference](https://paritytech.github.io/polkadot-sdk/master/sp_runtime/traits/trait.Block.html){target=\_blank} to learn more about the block structure in the Polkadot SDK runtime.
+## Additional Resources
+
+To learn more about the block structure in the Polkadot SDK runtime, see the [`Block` reference](https://paritytech.github.io/polkadot-sdk/master/sp_runtime/traits/trait.Block.html){target=\_blank} entry in the Rust Docs.

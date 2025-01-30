@@ -55,8 +55,7 @@ As a result, there may be multiple validators eligible to propose a block for a 
 
 Because validators roll independently, no block candidates may appear in some slots if all roll numbers are above the threshold. 
 
-!!!note
-    The resolution of this issue and the assurance that Polkadot block times remain near constant-time can be checked on the [PoS Consensus](/polkadot-protocol/architecture/polkadot-chain/pos-consensus/){target=\_blank} page.
+To verify resolution of this issue and that Polkadot block times remain near constant-time, see the [PoS Consensus](/polkadot-protocol/architecture/polkadot-chain/pos-consensus/){target=\_blank} page of this documentation.
 
 ## RANDAO
 
@@ -64,8 +63,7 @@ An alternative on-chain randomness method is Ethereum's RANDAO, where validator
 
 To enhance security, RANDAO can optionally be combined with a Verifiable Delay Function (VDF), ensuring that randomness can't be predicted or manipulated during computation.
 
-!!!note
-    More information about RANDAO can be found in the [ETH documentation](https://eth2book.info/capella/part2/building_blocks/randomness/){target=\_blank}.
+For more information about RANDAO, see the [Randomness - RANDAO](https://eth2book.info/capella/part2/building_blocks/randomness/){target=\_blank} section of the Upgrading Ethereum documentation.
 
 ## VDFs
 
@@ -76,9 +74,10 @@ They produce a unique result that can be quickly verified publicly. When combine
 However, VDF likely requires specialized ASIC devices to run separately from standard nodes.
 
 !!!warning 
-    While only one is needed to secure the system, and they will be open-source and inexpensive, running them involves significant costs without direct incentives, adding friction for blockchain users.
+    While only one is needed to secure the system, and they will be open-source and inexpensive, running VDF devices involves significant costs without direct incentives, adding friction for blockchain users.
 
 ## Additional Resources
 
-- [**Polkadot's research on blockchain randomness and sortition**](https://research.web3.foundation/Polkadot/protocols/block-production){target=\_blank} - contains reasoning for choices made along with proofs
-- [**Discussion on Randomness used in Polkadot**](https://github.com/use-ink/ink/issues/57){target=\_blank} - W3F researchers explore when and under what conditions Polkadot's randomness can be utilized
+For more information about the reasoning for choices made along with proofs, see Polkadot's research on blockchain randomness and sortition in the [Block production](https://research.web3.foundation/Polkadot/protocols/block-production){target=\_blank} entry of the Polkadot Wiki. 
+
+For a discussion with Web3 Foundation researchers about when and under what conditions Polkadot's randomness can be utilized, see the [Discussion on Randomness used in Polkadot](https://github.com/use-ink/ink/issues/57){target=\_blank} issue on GitHub.

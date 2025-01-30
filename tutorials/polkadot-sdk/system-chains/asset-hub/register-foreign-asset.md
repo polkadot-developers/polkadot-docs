@@ -63,20 +63,19 @@ This guide will use Polkadot, its local Asset Hub instance, and the [Astar](http
 
     - **admin** - refers to the account that will be the admin of this asset. This account will be able to manage the asset, including updating its metadata. As the registered asset corresponds to a native asset of the source parachain, the admin account should be the sovereign account of the source parachain
       
-        ??? note "Obtain the sovereign account"
-            The sovereign account can be obtained through [Substrate Utilities](https://www.shawntabrizi.com/substrate-js-utilities/){target=\_blank}.
+        The sovereign account can be obtained through [Substrate Utilities](https://www.shawntabrizi.com/substrate-js-utilities/){target=\_blank}.
 
-            Ensure that **Sibling** is selected and that the **Para ID** corresponds to the source parachain. In this case, since the guide follows the test setup stated in the [Test Environment Setup](#test-environment-setup) section, the **Para ID** is `2006`.
+        Ensure that **Sibling** is selected and that the **Para ID** corresponds to the source parachain. In this case, since the guide follows the test setup stated in the [Test Environment Setup](#test-environment-setup) section, the **Para ID** is `2006`.
 
-            ![Get parachain sovereign account](/images/tutorials/polkadot-sdk/system-chains/asset-hub/register-foreign-assets/register-a-foreign-asset-3.webp)
+        ![Get parachain sovereign account](/images/tutorials/polkadot-sdk/system-chains/asset-hub/register-foreign-assets/register-a-foreign-asset-3.webp)
 
 
     - **`minBalance`** - the minimum balance required to hold this asset
 
     ![Fill out the required fields](/images/tutorials/polkadot-sdk/system-chains/asset-hub/register-foreign-assets/register-a-foreign-asset-4.webp)
 
-    ??? note "Encoded call data"
-        If you want an example of the encoded call data, you can copy the following:
+    !!! tip 
+        If you need an example of the encoded call data, you can copy the following:
         ```
         0x3500010100591f007369626cd6070000000000000000000000000000000000000000000000000000a0860100000000000000000000000000
         ```
@@ -96,13 +95,12 @@ This guide will use Polkadot, its local Asset Hub instance, and the [Astar](http
     !!! warning
         Note that the sovereign account on the Asset Hub parachain must have a sufficient balance to cover the XCM `BuyExecution` instruction. If the account does not have enough balance, the transaction will fail.
 
-    ??? note "Example of the encoded call data"
-        If you want to have the whole XCM call ready to be copied, go to the **Developer > Extrinsics > Decode** section and paste the following hex-encoded call data:
-        ```
-        0x6300330003010100a10f030c000400010000070010a5d4e81300010000070010a5d4e80006030700b4f13501419ce03500010100591f007369626cd607000000000000000000000000000000000000000000000000000000000000000000000000000000000000
-        ```
+    If you want to have the whole XCM call ready to be copied, go to the **Developer > Extrinsics > Decode** section and paste the following hex-encoded call data:
+    ```
+    0x6300330003010100a10f030c000400010000070010a5d4e81300010000070010a5d4e80006030700b4f13501419ce03500010100591f007369626cd607000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+    ```
 
-        Ensure to replace the encoded call data with the one you copied in the previous step.
+    Be sure to replace the encoded call data with the one you copied in the previous step.
 
 After the transaction is successfully executed, the foreign asset will be registered on the Asset Hub parachain. 
 
@@ -127,8 +125,7 @@ npx @acala-network/chopsticks xcm \
 --p astar
 ```
 
-!!! note
-    The above command will create a lazy fork of Polkadot as the relay chain, its Asset Hub instance, and the Astar parachain. The `xcm` parameter enables communication through the XCMP protocol between the relay chain and the parachains, allowing the registration of foreign assets on Asset Hub. For further information on the chopsticks usage of the XCMP protocol, refer to the [XCM Testing](/tutorials/polkadot-sdk/testing/fork-live-chains/#xcm-testing){target=\_blank} section of the Chopsticks documentation.
+The preceding command will create a lazy fork of Polkadot as the relay chain, its Asset Hub instance, and the Astar parachain. The `xcm` parameter enables communication through the XCMP protocol between the relay chain and the parachains, allowing the registration of foreign assets on Asset Hub. For further information on the chopsticks usage of the XCMP protocol, refer to the [XCM Testing](/tutorials/polkadot-sdk/testing/fork-live-chains/#xcm-testing){target=\_blank} section of the Chopsticks documentation.
 
 After executing the command, the terminal will display output indicating the Polkadot relay chain, the Polkadot Asset Hub, and the Astar parachain are running locally and connected through XCM. You can access them individually via the Polkadot.js Apps interface.
 

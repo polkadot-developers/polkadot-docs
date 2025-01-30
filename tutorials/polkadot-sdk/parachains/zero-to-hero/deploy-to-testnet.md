@@ -76,7 +76,7 @@ The files required to register a parachain must specify the correct relay chain 
 
 To modify the chain specification:
 
-1. Generate the plain chain specification for the parachain template node by running the following command. You should find your runtime's Wasm file inside `target/release/wbuild`:
+1. Generate the plain chain specification for the parachain template node by running the following command. Make sure to use the `*.compact.compressed.wasm` version of your file when generating your chain specification. You should find your runtime's Wasm file inside `target/release/wbuild`:
 
     ```bash
     chain-spec-builder create --relay-chain paseo \
@@ -84,9 +84,6 @@ To modify the chain specification:
     -r <runtime.compact.compressed.wasm> \
     default
     ```
-
-    !!!info
-        Make sure to use the `*.compact.compressed.wasm` version of your file when generating your chain specification.
 
 2. Open the plain text chain specification for the parachain template node in a text editor
 

@@ -32,19 +32,19 @@ Follow these steps to prepare your environment for pallet benchmarking:
 2. Update your pallet's `Cargo.toml` file in the `pallets/custom-pallet` directory with the following modifications:
     1. Add the [`frame-benchmarking`](https://docs.rs/frame-benchmarking/latest/frame_benchmarking/){target=\_blank} dependency:
     
-        ```toml hl_lines="3"
+        ```toml hl_lines="3" title="Cargo.toml"
         --8<-- 'code/tutorials/polkadot-sdk/parachains/zero-to-hero/pallets/custom-pallet/Cargo.toml:10:10'
         ...
         --8<-- 'code/tutorials/polkadot-sdk/parachains/zero-to-hero/pallets/custom-pallet/Cargo.toml:15:15'
         ```
 
     2. Enable benchmarking in the `std` features:
-        ```toml hl_lines="6"
+        ```toml hl_lines="6" title="Cargo.toml"
         --8<-- 'code/tutorials/polkadot-sdk/parachains/zero-to-hero/pallets/custom-pallet/Cargo.toml:24:30'
         ```
 
     3. Add the `runtime-benchmarks` feature flag:
-        ```toml hl_lines="3-8"
+        ```toml hl_lines="3-8" title="Cargo.toml"
         --8<-- 'code/tutorials/polkadot-sdk/parachains/zero-to-hero/pallets/custom-pallet/Cargo.toml:22:22'
         ...
         --8<-- 'code/tutorials/polkadot-sdk/parachains/zero-to-hero/pallets/custom-pallet/Cargo.toml:31:36'
@@ -52,12 +52,12 @@ Follow these steps to prepare your environment for pallet benchmarking:
 
 3. Add your pallet to the runtime's benchmark configuration:
     1.  Register your pallet in `runtime/src/benchmarks.rs`:
-        ```rust hl_lines="11"
+        ```rust hl_lines="11" title="benchmarks.rs"
         --8<-- 'code/tutorials/polkadot-sdk/parachains/zero-to-hero/runtime/src/benchmarks.rs:26:37'
         ```
 
     2. Enable runtime benchmarking for your pallet in `runtime/Cargo.toml`:
-        ```toml hl_lines="3"
+        ```toml hl_lines="3" title="Cargo.toml"
         --8<-- 'code/tutorials/polkadot-sdk/parachains/zero-to-hero/runtime/Cargo.toml:136:136'
           ...
         --8<-- 'code/tutorials/polkadot-sdk/parachains/zero-to-hero/runtime/Cargo.toml:160:161'
@@ -70,12 +70,11 @@ Follow these steps to prepare your environment for pallet benchmarking:
         ```
 
     2. Add the benchmarking module to your pallet. In the pallet `lib.rs` file add the following:
-        ```rust hl_lines="9-10"
+        ```rust hl_lines="9-10" title="lib.rs"
         --8<-- 'code/tutorials/polkadot-sdk/parachains/zero-to-hero/pallets/custom-pallet/src/lib.rs:21:32'
         ```
 
-        !!!note
-            The `benchmarking` module is gated behind the `runtime-benchmarks` feature flag. It will only be compiled when this flag is explicitly enabled in your project's `Cargo.toml` or via the `--features runtime-benchmarks` compilation flag.
+    The `benchmarking` module is gated behind the `runtime-benchmarks` feature flag. It will only be compiled when this flag is explicitly enabled in your project's `Cargo.toml` or via the `--features runtime-benchmarks` compilation flag.
 
 ## Implement Benchmark Tests
 
@@ -103,12 +102,11 @@ This example demonstrates how to properly set up state, execute an extrinsic, an
 
 Now, implement the complete set of benchmark tests. Copy the following content in the `benchmarking.rs` file:
 
-```rust
+```rust title="benchmarking.rs"
 --8<-- 'code/tutorials/polkadot-sdk/parachains/zero-to-hero/pallets/custom-pallet/src/benchmarking.rs:20'
 ```
 
-!!!note
-    The [`#[benchmark]`](https://paritytech.github.io/polkadot-sdk/master/frame_benchmarking/v2/attr.benchmark.html){target=\_blank} macro marks these functions as benchmark tests, while the `#[extrinsic_call]` macro specifically identifies which line contains the extrinsic being measured. For more information, check the [frame_benchmarking](https://paritytech.github.io/polkadot-sdk/master/frame_benchmarking/v2/index.html){target=\_blank} Rust docs.
+The [`#[benchmark]`](https://paritytech.github.io/polkadot-sdk/master/frame_benchmarking/v2/attr.benchmark.html){target=\_blank} macro marks these functions as benchmark tests, while the `#[extrinsic_call]` macro specifically identifies which line contains the extrinsic being measured. For more information, see the [frame_benchmarking](https://paritytech.github.io/polkadot-sdk/master/frame_benchmarking/v2/index.html){target=\_blank} Rust docs.
 
 ## Execute the Benchmarking
 
@@ -155,34 +153,33 @@ After generating the weight calculations, you need to integrate these weights in
 
 First, add the necessary module imports to your pallet. These imports make the weights available to your code:
 
-```rust hl_lines="4-5"
+```rust hl_lines="4-5" title="lib.rs"
 --8<-- 'code/tutorials/polkadot-sdk/parachains/zero-to-hero/pallets/custom-pallet/src/lib.rs:30:34'
 ```
 
 Next, update your pallet's `Config` trait to include weight information. Define the `WeightInfo` type:
 
-```rust hl_lines="11-12"
+```rust hl_lines="11-12" title="lib.rs"
 --8<-- 'code/tutorials/polkadot-sdk/parachains/zero-to-hero/pallets/custom-pallet/src/lib.rs:45:57'
 ```
 
 Now you can assign weights to your extrinsics. Here's how to add weight calculations to the `set_counter_value` function:
 
-```rust hl_lines="2"
+```rust hl_lines="2" title="lib.rs"
 --8<-- 'code/tutorials/polkadot-sdk/parachains/zero-to-hero/pallets/custom-pallet/src/lib.rs:116:133'
 ```
 
-!!!note
-    You'll need to apply similar weight annotations to the other extrinsics in your pallet. Add the `#[pallet::weight(T::WeightInfo::function_name())]` attribute to both `increment` and `decrement`, replacing `function_name` with the respective function names from your `WeightInfo` trait.
+You must apply similar weight annotations to the other extrinsics in your pallet. Add the `#[pallet::weight(T::WeightInfo::function_name())]` attribute to both `increment` and `decrement`, replacing `function_name` with the respective function names from your `WeightInfo` trait.
 
-For testing purposes, you need to implement the weight calculations in your mock runtime. Open `custom-pallet/src/mock.rs` and add:
+For testing purposes, you must implement the weight calculations in your mock runtime. Open `custom-pallet/src/mock.rs` and add:
 
-```rust hl_lines="4"
+```rust hl_lines="4" title="mock.rs"
 --8<-- 'code/tutorials/polkadot-sdk/parachains/zero-to-hero/pallets/custom-pallet/src/mock.rs:60:64'
 ```
 
 Finally, configure the actual weight values in your production runtime. In `runtime/src/config/mod.rs`, add:
 
-```rust hl_lines="5"
+```rust hl_lines="5" title="mod.rs"
 --8<-- 'code/tutorials/polkadot-sdk/parachains/zero-to-hero/runtime/src/configs/mod.rs:327:332'
 ```
 

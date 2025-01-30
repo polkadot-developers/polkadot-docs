@@ -72,12 +72,12 @@ After completing these steps, the asset will be successfully registered. You can
 
 ![Asset listed on Polkadot.js Apps](/images/tutorials/polkadot-sdk/system-chains/asset-hub/register-local-assets/register-a-local-asset-7.webp)
 
-!!! note
+!!! tip
     Take into consideration that the **Assets** section’s link may differ depending on the network you are using. For the local environment, enter `ws://127.0.0.1:8000` into the **Custom Endpoint** field.
 
 In this way, you have successfully registered a local asset on the Asset Hub parachain.
 
-For an in-depth explanation of Asset Hub and its features, please refer to the Polkadot Wiki page on [Asset Hub](https://wiki.polkadot.network/docs/learn-asset-conversion-assethub){target=\_blank}.
+For an in-depth explanation about Asset Hub and its features, see the [Asset Hub](https://wiki.polkadot.network/docs/learn-asset-conversion-assethub){target=\_blank} entry in the Polkadot Wiki.
 
 ## Test Setup Environment
 
@@ -90,7 +90,6 @@ npx @acala-network/chopsticks \
 --config=https://raw.githubusercontent.com/AcalaNetwork/chopsticks/master/configs/polkadot-asset-hub.yml
 ```
 
-!!!note 
-    The above command will spawn a lazy fork of Polkadot Asset Hub with the latest block data from the network. If you need to test Kusama Asset Hub, replace `polkadot-asset-hub.yml` with `kusama-asset-hub.yml` in the command.
+The above command will spawn a lazy fork of Polkadot Asset Hub with the latest block data from the network. If you need to test Kusama Asset Hub, replace `polkadot-asset-hub.yml` with `kusama-asset-hub.yml` in the command.
 
 An Asset Hub instance is now running locally, and you can proceed with the asset registration process. Note that the local registration process does not differ from the live network process. Once you have a successful TestNet transaction, you can use the same steps to register the asset on MainNet.

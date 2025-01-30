@@ -122,13 +122,14 @@ You can also download the binaries by using the following direct links:
     gpg --verify polkadot-execute-worker.asc
     ```
 
-!!!warning
-    Signature verification cryptographically ensures the downloaded binaries are authentic and have not been tampered with by using GPG signing keys. Polkadot releases use two different signing keys:
 
-    - ParityReleases (release-team@parity.io) with key [`90BD75EBBB8E95CB3DA6078F94A4029AB4B35DAE`](https://keyserver.ubuntu.com/pks/lookup?search=9D4B2B6EB8F97156D19669A9FF0812D491B96798&fingerprint=on&op=index){target=\_blank} for current and new releases
-    - Parity Security Team (security@parity.io) with key [`9D4B2B6EB8F97156D19669A9FF0812D491B96798`](https://keyserver.ubuntu.com/pks/lookup?search=90BD75EBBB8E95CB3DA6078F94A4029AB4B35DAE&fingerprint=on&op=index){target=\_blank} for old releases
+Signature verification cryptographically ensures the downloaded binaries are authentic and have not been tampered with by using GPG signing keys. Polkadot releases use two different signing keys:
 
-    When verifying a signature, a "Good signature" message indicates successful verification, while any other output signals a potential security risk.
+- ParityReleases (release-team@parity.io) with key [`90BD75EBBB8E95CB3DA6078F94A4029AB4B35DAE`](https://keyserver.ubuntu.com/pks/lookup?search=9D4B2B6EB8F97156D19669A9FF0812D491B96798&fingerprint=on&op=index){target=\_blank} for current and new releases
+- Parity Security Team (security@parity.io) with key [`9D4B2B6EB8F97156D19669A9FF0812D491B96798`](https://keyserver.ubuntu.com/pks/lookup?search=90BD75EBBB8E95CB3DA6078F94A4029AB4B35DAE&fingerprint=on&op=index){target=\_blank} for old releases
+
+    !!!warning
+        When verifying a signature, a "Good signature" message indicates successful verification, while any other output signals a potential security risk.
 
 ### Install with Package Managers
 
@@ -252,13 +253,11 @@ After successfully installing and verifying the Polkadot binaries, the next step
 
         Warp sync ensures that your node quickly updates to the latest finalized state. The historical blocks are downloaded in the background as the node continues to operate.
 
-    ??? info "Adjustments for TestNets"
+    If you're planning to run a validator on a TestNet, you can specify the chain using the `--chain` flag. For example, the following will run a validator on Kusama:
 
-        If you're planning to run a validator on a TetNet, you can specify the chain using the `--chain` flag. For example, the following will run a validator on Kusama:
-
-        ```sh
-        polkadot --chain=kusama
-        ```
+    ```sh
+    polkadot --chain=kusama
+    ```
 
 2. **Monitor sync progress** - once the sync starts, you will see a stream of logs providing information about the node's status and progress. Here's an example of what the output might look like:
 
@@ -277,10 +276,7 @@ If you'd like to speed up the process further, you can use a database snapshot. 
 !!!warning
     Although snapshots are convenient, syncing from scratch is recommended for security purposes. If snapshots become corrupted and most nodes rely on them, the network could inadvertently run on a non-canonical chain.
 
-??? info "Why am I unable to synchronize the chain with 0 peers?"
-    Make sure you have libp2p port `30333` activated. It will take some time to discover other peers over the network.
-
-    ![Terminal logs showing 0 peers](/images/infrastructure/running-a-validator/onboarding-and-offboarding/set-up-validator/set-up-a-validator-01.webp)
+If you are unable to synchronize the chain due to having zero peers, make sure you have libp2p port `30333` activated. It will take some time to discover other peers over the network.
 
 ## Bond DOT
 
@@ -452,7 +448,7 @@ In this unit file, you will write the commands that you want to run on server bo
 --8<-- 'https://raw.githubusercontent.com/paritytech/polkadot-sdk/refs/heads/master/polkadot/scripts/packaging/polkadot.service'
 ```
 
-!!! warning "Restart Delay Recommendation"
+!!! warning "Restart delay and equivocation risk"
     It is recommended that a node's restart be delayed with `RestartSec` in the case of a crash. It's possible that when a node crashes, consensus votes in GRANDPA aren't persisted to disk. In this case, there is potential to equivocate when immediately restarting. Delaying the restart will allow the network to progress past potentially conflicting votes.
 
 ### Run the Service

@@ -51,10 +51,9 @@ All pallets, including custom ones, can implement these attribute macros:
 - **`#[pallet::storage]`** - defines elements to be persisted in storage
 - **`#[pallet::call]`** - defines functions exposed as transactions, allowing dispatch to the runtime
 
-These macros are applied as attributes to Rust modules, functions, structures, enums, and types. They enable the pallet to be built and added to the runtime, exposing the custom logic to the outer world.
+These macros are applied as attributes to Rust modules, functions, structures, enums, and types and serve as the core components of a pallet. They enable the pallet to be built and added to the runtime, exposing the custom logic to the outer world.
 
-!!! note
-    The macros above are the core components of a pallet. For a comprehensive guide on these and additional macros, refer to the [`pallet_macros`](https://paritytech.github.io/polkadot-sdk/master/frame_support/pallet_macros/index.html){target=\_blank} section in the Polkadot SDK documentation.
+For a comprehensive guide on these and additional macros, see the [`pallet_macros`](https://paritytech.github.io/polkadot-sdk/master/frame_support/pallet_macros/index.html){target=\_blank} section in the Polkadot SDK documentation.
 
 ### Support Libraries
 

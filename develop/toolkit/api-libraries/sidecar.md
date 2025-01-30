@@ -18,6 +18,16 @@ Some of the key features of the Sidecar API include:
 - **Caching layer** - acts as a caching layer to improve performance and reduce direct node requests
 - **Multiple chain support** - works with any Polkadot SDK-based chain, including Polkadot, Kusama, and custom chains
 
+## Prerequisites
+
+Sidecar API requires Node.js version 18.14 LTS or higher. Verify your Node.js version:
+
+```bash
+node --version
+```
+
+If you need to install or update Node.js, visit the [official Node.js website](https://nodejs.org/){target=\_blank} to download and install the latest LTS version.
+
 ## Installation
 
 To install Substrate API Sidecar, use one of the following commands:
@@ -40,22 +50,13 @@ To install Substrate API Sidecar, use one of the following commands:
     yarn global add @substrate/api-sidecar
     ```
 
-!!! note
-    Sidecar API requires Node.js version 18.14 LTS or higher. Verify your Node.js version:
-
-    ```bash
-    node --version
-    ```
-
-    If you need to install or update Node.js, visit the [official Node.js website](https://nodejs.org/){target=\_blank} to download and install the latest LTS version.
-
 You can confirm the installation by running:
 
 ```bash
 substrate-api-sidecar --version
 ```
 
-For more information about the Sidecar API installation, please refer to the [official documentation](https://github.com/paritytech/substrate-api-sidecar?tab=readme-ov-file#npm-package-installation-and-usage){target=\_blank}.
+For more information about the Sidecar API installation, see the [installation and usage](https://github.com/paritytech/substrate-api-sidecar?tab=readme-ov-file#npm-package-installation-and-usage){target=\_blank} section of the Sidecar API README.
 
 ## Usage
 
@@ -70,8 +71,7 @@ To use the Sidecar API, you have two options:
     SAS_SUBSTRATE_URL=wss://polkadot-asset-hub-rpc.polkadot.io substrate-api-sidecar
     ```
 
-    !!! note
-        More configuration details are available in the [Configuration](https://github.com/paritytech/substrate-api-sidecar?tab=readme-ov-file#configuration){target=\_blank} section of the Sidecar API documentation.
+    For more configuration details, see the [Configuration](https://github.com/paritytech/substrate-api-sidecar?tab=readme-ov-file#configuration){target=\_blank} section of the Sidecar API documentation.
 
 Once the Sidecar API is running, you’ll see output similar to this:
 
@@ -88,8 +88,8 @@ For example, to retrieve the version of the node, use the `/node/version` endpoi
 ```bash
 --8<-- 'code/develop/toolkit/api-libraries/sidecar/get-node-version.md'
 ```
-!!! note
-    Alternatively, you can access `http://127.0.0.1:8080/node/version` directly in a browser since it’s a `GET` request.
+
+Alternatively, you can access `http://127.0.0.1:8080/node/version` directly in a browser since it’s a `GET` request.
 
 In response, you’ll see output similar to this (assuming you’re connected to Polkadot Asset Hub):
 

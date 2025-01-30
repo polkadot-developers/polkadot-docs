@@ -42,14 +42,11 @@ To use `asset-transfer-api`, you need a TypeScript project. If you don't have on
     && npx tsc --init
     ```
 
-Once you have a project set up, you can install the `asset-transfer-api` package:
+Once you have a project set up, you can install the `asset-transfer-api` package. This documentation covers version `{{dependencies.asset_transfer_api.version}}` of Asset Transfer API. Run the following command to install the package:
 
 ```bash
 npm install @substrate/asset-transfer-api@{{dependencies.asset_transfer_api.version}}
 ```
-
-!!!note
-    This documentation covers version `{{dependencies.asset_transfer_api.version}}` of Asset Transfer API.
 
 ## Set Up Asset Transfer API
 
@@ -67,7 +64,7 @@ Leverage the `constructApiPromise` helper function provided by the library for t
 --8<-- 'code/develop/toolkit/interoperability/asset-transfer-api/overview/setup.ts'
 ```
 
-!!!note
+!!!tip
     The code example is enclosed in an async main function to provide the necessary asynchronous context. However, you can use the code directly if you're already working within an async environment. The key is to ensure you're in an async context when working with these asynchronous operations, regardless of your specific setup.
 
 ## Asset Transfer API Reference

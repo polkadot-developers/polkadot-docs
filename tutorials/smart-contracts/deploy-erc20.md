@@ -48,6 +48,12 @@ To create the ERC20 contract, you can follow the steps below:
     - Key Function
 
         - `mint(address to, uint256 amount)` - allows the contract owner to create new tokens for any address. The amount should include 18 decimals (e.g., 1 token = 1000000000000000000)
+        - Inherited [Standard ERC20](https://ethereum.org/en/developers/docs/standards/tokens/erc-20/){target=\_blank} functions:
+            - `transfer(address recipient, uint256 amount)` - sends a specified amount of tokens to another address
+            - `approve(address spender, uint256 amount)` - grants permission for another address to spend a specific number of tokens on behalf of the token owner
+            - `transferFrom(address sender, address recipient, uint256 amount)` - transfers tokens from one address to another, if previously approved
+            - `balanceOf(address account)` - returns the token balance of a specific address
+            - `allowance(address owner, address spender)` - checks how many tokens an address is allowed to spend on behalf of another address
 
     !!! tip
         Use the [OpenZeppelin Contracts Wizard](https://wizard.openzeppelin.com/){target=\_blank} to quickly generate customized smart contracts. Simply configure your contract, copy the generated code, and paste it into Polkadot Remix IDE for deployment.

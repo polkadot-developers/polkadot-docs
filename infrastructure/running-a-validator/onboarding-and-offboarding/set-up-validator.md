@@ -22,7 +22,9 @@ To get the most from this guide, ensure you've done the following before going f
 
 ## Initial Setup
 
-Before you can begin running your validator, you'll need to configure your server environment to meet the operational and security standards required for validating. Configuration includes setting up time synchronization, ensuring critical security features are active, and installing the necessary binaries. Proper setup at this stage is essential to prevent issues like block production errors or being penalized for downtime. Below are the essential steps to get your system ready.
+Before you can begin running your validator, you'll need to configure your server environment to meet the operational and security standards required for validating.
+
+You must use a Linux-based operating system with Kernel 5.16 or later. Configuration includes setting up time synchronization, ensuring critical security features are active, and installing the necessary binaries. Proper setup at this stage is essential to prevent issues like block production errors or being penalized for downtime. Below are the essential steps to get your system ready.
 
 ### Install Network Time Protocol Client
 

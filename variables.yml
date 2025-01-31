@@ -3,6 +3,9 @@ dependencies:
   open_zeppelin:
     repository_url: https://github.com/OpenZeppelin/polkadot-runtime-templates
     version: v1.0.0
+  open_zeppelin_contracts:
+    repository_url: https://github.com/OpenZeppelin/openzeppelin-contracts
+    version: v5.0.0
   chopsticks:
     repository_url: https://github.com/AcalaNetwork/chopsticks
     version: 0.13.1

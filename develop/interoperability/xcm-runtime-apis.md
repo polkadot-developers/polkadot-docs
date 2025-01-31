@@ -94,7 +94,7 @@ This API allows to dry-run any extrinsic and obtaint the outcome, if it fails or
 
 ??? interface "Example"
 
-    This example demonstrates how to simulate a cross-chain asset transfer from the Paseo network to the Pop Network using a reserve transfer mechanism. Instead of executing the actual transfer, the code shows how to test and verify the transaction's behavior through a dry run before performing it on the live network:
+    This example demonstrates how to simulate a cross-chain asset transfer from the Paseo network to the Pop Network using a [reserve transfer](https://wiki.polkadot.network/docs/learn/xcm/journey/transfers-reserve){target=\_blank} mechanism. Instead of executing the actual transfer, the code shows how to test and verify the transaction's behavior through a dry run before performing it on the live network:
 
     ***Usage with PAPI***
 
@@ -170,7 +170,7 @@ This API allows to directly dry-run an xcm message instead of an extrinsic and c
 
 ??? interface "Example"
 
-    This example demonstrates how to simulate a teleport asset transfer from the Paseo network to the Paseo Asset Hub parachain. The code shows how to test and verify the received XCM message's behavior in the destination chain through a dry run on the live network.
+    This example demonstrates how to simulate a [teleport asset transfer](https://wiki.polkadot.network/docs/learn/xcm/journey/transfers-teleport){target=\_blank} from the Paseo network to the Paseo Asset Hub parachain. The code shows how to test and verify the received XCM message's behavior in the destination chain through a dry run on the live network.
 
      ***Usage with PAPI***
 
@@ -302,7 +302,7 @@ Calculates the weight required to execute a given XCM message. It is useful for 
 
 ??? interface "Example"
 
-    This example demonstrates how to calculate the weight needed to execute a teleport transfer from the Paseo network to the Paseo Asset Hub parachain using the XCM Payment API. The result shows the required weight in terms of reference time and proof size needed in the destination chain.
+    This example demonstrates how to calculate the weight needed to execute a [teleport transfer](https://wiki.polkadot.network/docs/learn/xcm/journey/transfers-teleport){target=\_blank} from the Paseo network to the Paseo Asset Hub parachain using the XCM Payment API. The result shows the required weight in terms of reference time and proof size needed in the destination chain.
 
     ***Usage with PAPI***
 

@@ -26,7 +26,7 @@ const paseoApi = client.getTypedApi(paseo);
 const paseoAssetHubParaID = 1000;
 const userAddress = 'INSERT_USER_ADDRESS';
 const userPublicKey = ss58Decode(userAddress)[0];
-const idBenef = Binary.fromBytes(userPublicKey);
+const idBeneficiary = Binary.fromBytes(userPublicKey);
 
 // Define the destination
 const destination = XcmVersionedLocation.V3({
@@ -65,7 +65,7 @@ const xcm = XcmVersionedXcm.V3([
       interior: XcmV3Junctions.X1(
         XcmV3Junction.AccountId32({
           network: undefined,
-          id: idBenef,
+          id: idBeneficiary,
         }),
       ),
     },

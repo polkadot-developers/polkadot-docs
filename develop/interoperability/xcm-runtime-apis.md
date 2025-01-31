@@ -7,19 +7,22 @@ description: Learn about XCM Runtime APIs in Polkadot for cross-chain communicat
 
 ## Introduction
 
-Runtime APIs are the means by which the node-side code extracts information from the state of the runtime.
+Runtime APIs allow node-side code to extract information from the runtime state. While simple storage access retrieves stored values directly, runtime APIs enable arbitrary computation, making them a powerful tool for interacting with the chain’s state.
 
-Although Runtime APIs are often used for simple storage access, they are empowered to do arbitrary computations. They are a versatile and powerful tool to leverage the chain's state. In general, Runtime APIs are used for these purposes:
+Unlike direct storage access, runtime APIs can derive values from storage based on arguments or perform computations that don’t require storage access at all. For example, a runtime API might expose a formula for fee calculation, using only the provided arguments as inputs rather than fetching data from storage.
 
-- Access of a storage item
-- Access of a bundle of related storage items
+In general, runtime APIs are used for:
+
+- Accessing a storage item
+- Retrieving a bundle of related storage items
 - Deriving a value from storage based on arguments
+- Exposing formulas for complex computational calculations
 
 In this section, you will learn about specific runtime APIs that support XCM processing and manipulation.
 
 ## Dry Run API
 
-The [Dry-run API](https://paritytech.github.io/polkadot-sdk/master/xcm_runtime_apis/dry_run/index.html){target=\_blank}, given an extrinsic, or an XCM program, returns its effects:
+The [Dry-run API](https://paritytech.github.io/polkadot-sdk/master/xcm_runtime_apis/dry_run/trait.DryRunApi.html){target=\_blank}, given an extrinsic, or an XCM program, returns its effects:
 
 - Execution result
 - Local XCM (in the case of an extrinsic)
@@ -80,6 +83,13 @@ This API allows to dry-run any extrinsic and obtaint the outcome, if it fails or
 
         The list of XCMs that were queued for sending.
 
+    ??? child "Type `Error`"
+
+        Enum:
+
+        - **`Unimplemented`** - an API part is unsupported
+        - **`VersionedConversionFailed`** - converting a versioned data structure from one version to another failed
+
     ---
 
 ??? interface "Example"
@@ -131,7 +141,7 @@ This API allows to directly dry-run an xcm message instead of an extrinsic and c
 
     Effects of dry-running an extrinsic. If an error occurs, it is returned instead of the effects.
 
-    ??? child "Type `CallDryRunEffects<Event>`"
+    ??? child "Type `XcmDryRunEffects<Event>`"
 
         `execution_result` ++"DispatchResultWithPostInfo"++
 
@@ -148,6 +158,13 @@ This API allows to directly dry-run an xcm message instead of an extrinsic and c
         `forwarded_xcms` ++"Vec<(VersionedLocation, Vec<VersionedXcm<()>>)>"++
 
         The list of XCMs that were queued for sending.
+
+    ??? child "Type `Error`"
+
+        Enum:
+
+        - **`Unimplemented`** - an API part is unsupported
+        - **`VersionedConversionFailed`** - converting a versioned data structure from one version to another failed
 
     ---
 
@@ -172,9 +189,9 @@ This API allows to directly dry-run an xcm message instead of an extrinsic and c
 
 ## XCM Payment API
 
-The [XCM Payment API](https://paritytech.github.io/polkadot-sdk/master/xcm_runtime_apis/fees/index.html){target=\_blank} provides a standardized way to determine the costs and payment options for executing XCM messages. Specifically, it enables clients to:
+The [XCM Payment API](https://paritytech.github.io/polkadot-sdk/master/xcm_runtime_apis/fees/trait.XcmPaymentApi.html){target=\_blank} provides a standardized way to determine the costs and payment options for executing XCM messages. Specifically, it enables clients to:
 
-- Retrieve the weight required to execute an XCM message
+- Retrieve the [weight](/polkadot-protocol/glossary.md#weight) required to execute an XCM message
 - Obtain a list of acceptable `AssetIds` for paying execution fees
 - Calculate the cost of the weight in a specified `AssetId`
 - Estimate the fees for XCM message delivery
@@ -204,6 +221,17 @@ Retrieves the list of assets that are acceptable for paying fees when using a sp
     ++"Result<Vec<VersionedAssetId>, Error>"++
 
     A list of acceptable payment assets. Each asset is provided in a versioned format (`VersionedAssetId`) that matches the specified XCM version. If an error occurs, it is returned instead of the asset list.
+
+    ??? child "Type `Error`"
+
+        Enum:
+
+        - **`Unimplemented`** - an API part is unsupported
+        - **`VersionedConversionFailed`** - converting a versioned data structure from one version to another failed
+        - **`WeightNotComputable`** - XCM message weight calculation failed
+        - **`UnhandledXcmVersion`** - XCM version not able to be handled
+        - **`AssetNotFound`** - the given asset is not handled as a fee asset
+        - **`Unroutable`** - destination is known to be unroutable
 
     ---
 
@@ -245,6 +273,31 @@ Calculates the weight required to execute a given XCM message. It is useful for 
     
     The calculated weight required to execute the provided XCM message. If the calculation fails, an error is returned instead.
 
+    ??? child "Type `Weight`"
+
+        `ref_time` ++"u64"++
+
+        The weight of computational time used based on some reference hardware.
+
+        ---
+
+        `proof_size` ++"u64"++
+
+        The weight of storage space used by proof of validity.
+
+        ---
+
+    ??? child "Type `Error`"
+
+        Enum:
+
+        - **`Unimplemented`** - an API part is unsupported
+        - **`VersionedConversionFailed`** - converting a versioned data structure from one version to another failed
+        - **`WeightNotComputable`** - XCM message weight calculation failed
+        - **`UnhandledXcmVersion`** - XCM version not able to be handled
+        - **`AssetNotFound`** - the given asset is not handled as a fee asset
+        - **`Unroutable`** - destination is known to be unroutable
+
     ---
 
 ??? interface "Example"
@@ -280,6 +333,20 @@ Converts a given weight into the corresponding fee for a specified `AssetId`. It
     
     The execution weight to be converted into a fee.
 
+    ??? child "Type `Weight`"
+
+        `ref_time` ++"u64"++
+
+        The weight of computational time used based on some reference hardware.
+
+        ---
+
+        `proof_size` ++"u64"++
+
+        The weight of storage space used by proof of validity.
+
+        ---
+
     ---
 
     `asset` ++"VersionedAssetId"++ <span class="required" markdown>++"required"++</span>
@@ -293,6 +360,17 @@ Converts a given weight into the corresponding fee for a specified `AssetId`. It
     ++"Result<u128, Error>"++
     
     The fee needed to pay for the execution for the given `AssetId.`
+
+    ??? child "Type `Error`"
+
+        Enum:
+
+        - **`Unimplemented`** - an API part is unsupported
+        - **`VersionedConversionFailed`** - converting a versioned data structure from one version to another failed
+        - **`WeightNotComputable`** - XCM message weight calculation failed
+        - **`UnhandledXcmVersion`** - XCM version not able to be handled
+        - **`AssetNotFound`** - the given asset is not handled as a fee asset
+        - **`Unroutable`** - destination is known to be unroutable
 
     ---
 
@@ -338,6 +416,17 @@ Retrieves the delivery fees for sending a specific XCM message to a designated d
     ++"Result<VersionedAssets, Error>"++
     
     The calculated delivery fees expressed in a specific asset supported by the destination chain. If an error occurs during the query, it returns an error instead.
+
+    ??? child "Type `Error`"
+
+        Enum:
+
+        - **`Unimplemented`** - an API part is unsupported
+        - **`VersionedConversionFailed`** - converting a versioned data structure from one version to another failed
+        - **`WeightNotComputable`** - XCM message weight calculation failed
+        - **`UnhandledXcmVersion`** - XCM version not able to be handled
+        - **`AssetNotFound`** - the given asset is not handled as a fee asset
+        - **`Unroutable`** - destination is known to be unroutable
 
     ---
 

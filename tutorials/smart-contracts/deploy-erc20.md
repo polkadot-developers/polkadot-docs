@@ -7,13 +7,13 @@ description: Deploy an ERC20 token on Asset Hub using PolkaVM. This guide covers
 
 ## Introduction
 
-ERC20 tokens are fungible tokens commonly used for creating cryptocurrencies, governance tokens, and staking mechanisms. Asset Hub enables easy token deployment with EVM-compatible smart contracts via PolkaVM. This tutorial covers deploying an ERC20 contract on the Westend TestNet using [Polkadot Remix IDE](https://polkadot.remix.io){target=\_blank}, a web-based development tool. [OpenZeppelin's ERC20 contracts](https://github.com/OpenZeppelin/openzeppelin-contracts/tree/v5.0.0/contracts/token/ERC20){target=\_blank} is used for security and compliance.
+[ERC20](https://eips.ethereum.org/EIPS/eip-20){target=\_blank} tokens are fungible tokens commonly used for creating cryptocurrencies, governance tokens, and staking mechanisms. Asset Hub enables easy token deployment with EVM-compatible smart contracts via PolkaVM. This tutorial covers deploying an ERC20 contract on the Westend TestNet using [Polkadot Remix IDE](https://remix.polkadot.io){target=\_blank}, a web-based development tool. [OpenZeppelin's ERC20 contracts](https://github.com/OpenZeppelin/openzeppelin-contracts/tree/v5.0.0/contracts/token/ERC20){target=\_blank} are used for security and compliance.
 
 ## Prerequisites
 
 Before starting, make sure you have:
 
-- MetaMask installed and connected to Westend Asset Hub
+- [MetaMask](https://metamask.io/){target=\_blank} installed and connected to [Westend Asset Hub](https://chainlist.org/chain/420420421){target=\_blank}
 - A funded account with some WND tokens (you can get them from the [Westend Faucet](https://faucet.polkadot.io/westend?parachain=1000){target=\_blank})
 - Basic understanding of Solidity and fungible tokens
 
@@ -21,7 +21,7 @@ Before starting, make sure you have:
 
 To create the ERC20 contract, you can follow the steps below:
 
-1. Navigate to the [Polkadot Remix IDE](https://polkadot.remix.io){target=\_blank}
+1. Navigate to the [Polkadot Remix IDE](https://remix.polkadot.io){target=\_blank}
 2. Click in the **Create new file** button under the **contracts** folder, and name your contract as `MyToken.sol`
 
     ![](/images/tutorials/smart-contracts/deploy-erc20/deploy-erc20-1.webp)
@@ -76,13 +76,13 @@ To create the ERC20 contract, you can follow the steps below:
     1. From the **ENVIRONMENT** dropdown, select **Westend Testnet - MetaMask**
     2. From the **ACCOUNT** dropdown, select the account you want to use for the deploy
 
-        ![](/images/tutorials/smart-contracts/deploy-erc20/deploy-erc20-6.webp)
+    ![](/images/tutorials/smart-contracts/deploy-erc20/deploy-erc20-6.webp)
 
 3. Configure the contract parameters
     1. Enter the address that will own the deployed token contract
     2. Click the **Deploy** button to initiate the deployment
 
-        ![](/images/tutorials/smart-contracts/deploy-erc20/deploy-erc20-7.webp)
+    ![](/images/tutorials/smart-contracts/deploy-erc20/deploy-erc20-7.webp)
 
 4. MetaMask will pop up - review the transaction details. Click **Confirm** to deploy your contract
 
@@ -107,9 +107,9 @@ Once deployed, you can interact with your contract through Remix:
         - The amount (remember to add 18 zeros for 1 whole token)
     3. Click **Transact**
 
-        ![](/images/tutorials/smart-contracts/deploy-erc20/deploy-erc20-11.webp)
+    ![](/images/tutorials/smart-contracts/deploy-erc20/deploy-erc20-11.webp)
 
-5. Confirm the transaction in MetaMask
+3. Confirm the transaction in MetaMask
 
     ![](/images/tutorials/smart-contracts/deploy-erc20/deploy-erc20-12.webp){: .browser-extension}
 

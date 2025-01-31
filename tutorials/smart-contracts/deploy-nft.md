@@ -7,7 +7,7 @@ description: Deploy an NFT on Asset Hub using PolkaVM and OpenZeppelin. Learn ho
 
 ## Introduction
 
-Non-Fungible Tokens (NFTs) represent unique digital assets commonly used for digital art, collectibles, gaming, and identity verification. Asset Hub supports EVM-compatible smart contracts through PolkaVM, enabling straightforward NFT deployment. This tutorial guides you through deploying an [ERC721](https://eips.ethereum.org/EIPS/eip-721){target=\_blank} NFT contract on the Westend TestNet using the [Polkadot Remix IDE](https://remix.polkadot.io){target=\_blank}, a web-based development environment. This tutorial uses [OpenZeppelin's NFT contracts](https://github.com/OpenZeppelin/openzeppelin-contracts/tree/v5.0.0){target=\_blank} implementation to ensure security and standard compliance.
+Non-Fungible Tokens (NFTs) represent unique digital assets commonly used for digital art, collectibles, gaming, and identity verification. Asset Hub supports EVM-compatible smart contracts through PolkaVM, enabling straightforward NFT deployment. This tutorial guides you through deploying an [ERC721](https://eips.ethereum.org/EIPS/eip-721){target=\_blank} NFT contract on the Westend TestNet using the [Polkadot Remix IDE](https://remix.polkadot.io){target=\_blank}, a web-based development environment. This tutorial uses [OpenZeppelin's NFT contracts]({{ dependencies.open_zeppelin_contracts.repository_url}}/tree/{{ dependencies.open_zeppelin_contracts.version}}){target=\_blank} implementation to ensure security and standard compliance.
 
 ## Prerequisites
 
@@ -36,8 +36,8 @@ To create the NFT contract, you can follow the steps below:
 
     - Contract Imports
 
-        - [`ERC721.sol`](https://github.com/OpenZeppelin/openzeppelin-contracts/blob/v5.0.0/contracts/token/ERC721/ERC721.sol){target=\_blank} - the base contract for non-fungible tokens, implementing core NFT functionality like transfers and approvals
-        - [`Ownable.sol`](https://github.com/OpenZeppelin/openzeppelin-contracts/blob/v5.0.0/contracts/access/Ownable.sol){target=\_blank} - provides basic authorization control, ensuring only the contract owner can mint new tokens
+        - [`ERC721.sol`]({{ dependencies.open_zeppelin_contracts.repository_url }}/blob/{{ dependencies.open_zeppelin_contracts.version }}/contracts/token/ERC721/ERC721.sol){target=\_blank} - the base contract for non-fungible tokens, implementing core NFT functionality like transfers and approvals
+        - [`Ownable.sol`]({{ dependencies.open_zeppelin_contracts.repository_url }}/blob/{{ dependencies.open_zeppelin_contracts.version }}/contracts/access/Ownable.sol){target=\_blank} - provides basic authorization control, ensuring only the contract owner can mint new tokens
     
     - Constructor Parameters
 
@@ -47,26 +47,37 @@ To create the NFT contract, you can follow the steps below:
 
     - Key Function
 
-        - [`_safeMint(to, tokenId)`](https://github.com/OpenZeppelin/openzeppelin-contracts/blob/v5.0.0/contracts/token/ERC721/ERC721.sol#L304){target=\_blank} - an internal function from `ERC721` that safely mints new tokens. It includes checks to ensure the recipient can handle ERC721 tokens (important when minting to smart contracts)
+        - [`_safeMint(to, tokenId)`]({{ dependencies.open_zeppelin_contracts.repository_url }}/blob/{{ dependencies.open_zeppelin_contracts.version }}/contracts/token/ERC721/ERC721.sol#L304){target=\_blank} - an internal function from `ERC721` that safely mints new tokens. It includes checks to ensure the recipient can handle ERC721 tokens (important when minting to smart contracts)
+        - Inherited [Standard ERC721](https://ethereum.org/en/developers/docs/standards/tokens/erc-721/){target=\_blank} functions:
+            - `transferFrom(address from, address to, uint256 tokenId)` - transfers a specific NFT from one address to another
+            - `safeTransferFrom(address from, address to, uint256 tokenId)` - safely transfers an NFT, including additional checks to prevent loss
+            - `approve(address to, uint256 tokenId)` - grants permission for another address to transfer a specific NFT
+            - `setApprovalForAll(address operator, bool approved)` - allows an address to manage all of the owner's NFTs
+            - `balanceOf(address owner)` - returns the number of NFTs owned by a specific address
+            - `ownerOf(uint256 tokenId)` - returns the current owner of a specific NFT
 
     !!! tip
         Use the [OpenZeppelin Contracts Wizard](https://wizard.openzeppelin.com/){target=\_blank} to generate customized smart contracts quickly. Simply configure your contract, copy the generated code, and paste it into Polkadot Remix IDE for deployment.
 
 ## Compiling the Contract
 
+Compilation is an stage that converts your Solidity source code into bytecode suitable for deployment on the blockchain. Throughout this process, the compiler  examines your contract for syntax errors, verifies type safety, and produces the machine-readable instructions required for executing on the blockchain.
+
 1. Select the **Solidity Compiler** plugin from the left panel
 
     ![](/images/tutorials/smart-contracts/deploy-nft/deploy-nft-3.webp)
 
-3. Click in the **Compile MyNFT.sol** button
+2. Click in the **Compile MyNFT.sol** button
 
     ![](/images/tutorials/smart-contracts/deploy-nft/deploy-nft-4.webp)
 
-4. If the compilation succeeded, you can see a green checkmark indicating success in the **Solidity Compiler** icon
+3. If the compilation succeeded, you can see a green checkmark indicating success in the **Solidity Compiler** icon
 
     ![](/images/tutorials/smart-contracts/deploy-nft/deploy-nft-5.webp)
 
 ## Deploying the Contract
+
+Deployment is the process of uploading your compiled smart contract to the blockchain, allowing for interaction. During deployment, you will instantiate your contract on the blockchain, which involves:
 
 1. Select the **Deploy & Run Transactions** plugin from the left panel
 

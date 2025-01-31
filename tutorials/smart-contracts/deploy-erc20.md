@@ -60,6 +60,8 @@ To create the ERC20 contract, you can follow the steps below:
 
 ## Compiling the Contract
 
+The compilation transforms your Solidity source code into bytecode that can be deployed on the blockchain. During this process, the compiler checks your contract for syntax errors, ensures type safety, and generates the machine-readable instructions needed for blockchain execution. To compile your contract, follow the instructions below:
+
 1. Select the **Solidity Compiler** plugin from the left panel
 
     ![](/images/tutorials/smart-contracts/deploy-erc20/deploy-erc20-2.webp)
@@ -73,6 +75,8 @@ To create the ERC20 contract, you can follow the steps below:
     ![](/images/tutorials/smart-contracts/deploy-erc20/deploy-erc20-4.webp)
 
 ## Deploying the Contract
+
+Deployment is the process of publishing your compiled smart contract to the blockchain, making it permanently available for interaction. During deployment, you'll create a new instance of your contract on the blockchain, which involves:
 
 1. Select the **Deploy & Run Transactions** plugin from the left panel
 
@@ -107,11 +111,12 @@ Once deployed, you can interact with your contract through Remix:
     ![](/images/tutorials/smart-contracts/deploy-erc20/deploy-erc20-10.webp)
 
 2. To mint new tokens:
-    1. Expand the **mint** function
-    2. Enter:
+    1. Click in the contract to expand its associated methods
+    2. Expand the **mint** function
+    3. Enter:
         - The recipient address
         - The amount (remember to add 18 zeros for 1 whole token)
-    3. Click **Transact**
+    4. Click **Transact**
 
     ![](/images/tutorials/smart-contracts/deploy-erc20/deploy-erc20-11.webp)
 

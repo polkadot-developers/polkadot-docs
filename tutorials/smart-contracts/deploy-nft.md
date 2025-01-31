@@ -3,11 +3,11 @@ title: Deploy a NFT to Asset Hub
 description: Deploy an NFT on Asset Hub using PolkaVM and OpenZeppelin. Learn how to compile, deploy, and interact with your contract using Polkadot Remix IDE.
 ---
 
-# Deploy NFT to Asset Hub
+# Deploy a NFT to Asset Hub
 
 ## Introduction
 
-Non-Fungible Tokens (NFTs) represent unique digital assets commonly used for digital art, collectibles, gaming, and identity verification. Asset Hub supports EVM-compatible smart contracts through PolkaVM, enabling straightforward NFT deployment. This tutorial guides you through deploying an NFT contract on the Westend TestNet using the [Polkadot Remix IDE](https://polkadot.remix.io){target=\_blank}, a web-based development environment. This tutorial uses [OpenZeppelin's NFT contracts](https://github.com/OpenZeppelin/openzeppelin-contracts/tree/v5.0.0){target=\_blank} implementation to ensure security and standard compliance.
+Non-Fungible Tokens (NFTs) represent unique digital assets commonly used for digital art, collectibles, gaming, and identity verification. Asset Hub supports EVM-compatible smart contracts through PolkaVM, enabling straightforward NFT deployment. This tutorial guides you through deploying an [ERC721](https://eips.ethereum.org/EIPS/eip-721){target=\_blank} NFT contract on the Westend TestNet using the [Polkadot Remix IDE](https://remix.polkadot.io){target=\_blank}, a web-based development environment. This tutorial uses [OpenZeppelin's NFT contracts](https://github.com/OpenZeppelin/openzeppelin-contracts/tree/v5.0.0){target=\_blank} implementation to ensure security and standard compliance.
 
 ## Prerequisites
 
@@ -21,7 +21,7 @@ Before starting, make sure you have:
 
 To create the NFT contract, you can follow the steps below:
 
-1. Navigate to the [Polkadot Remix IDE](https://polkadot.remix.io){target=\_blank}
+1. Navigate to the [Polkadot Remix IDE](https://remix.polkadot.io/){target=\_blank}
 2. Click in the **Create new file** button under the **contracts** folder, and name your contract as `MyNFT.sol`
 
     ![](/images/tutorials/smart-contracts/deploy-nft/deploy-nft-1.webp)
@@ -76,7 +76,7 @@ To create the NFT contract, you can follow the steps below:
     1. From the **ENVIRONMENT** dropdown, select **Westend Testnet - MetaMask**
     2. From the **ACCOUNT** dropdown, select the account you want to use for the deploy
 
-        ![](/images/tutorials/smart-contracts/deploy-nft/deploy-nft-7.webp)
+    ![](/images/tutorials/smart-contracts/deploy-nft/deploy-nft-7.webp)
 
 3. Configure the contract parameters
     1. Enter the address that will own the deployed NFT.

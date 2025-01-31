@@ -93,7 +93,7 @@ Deployment is the process of uploading your compiled smart contract to the block
     1. Enter the address that will own the deployed NFT.
     2. Click the **Deploy** button to initiate the deployment
 
-        ![](/images/tutorials/smart-contracts/deploy-nft/deploy-nft-8.webp)
+    ![](/images/tutorials/smart-contracts/deploy-nft/deploy-nft-8.webp)
 
 4. MetaMask will pop up - review the transaction details. Click **Confirm** to deploy your contract
 
@@ -114,11 +114,11 @@ Once deployed, you can interact with your contract through Remix:
 2. To mint an NFT
 
     1. Click in the contract to expand its associated methods
-    1. Expand the **safeMint** function
-    2. Enter the recipient address
-    3. Click **Transact**
+    2. Expand the **safeMint** function
+    3. Enter the recipient address
+    4. Click **Transact**
 
-        ![](/images/tutorials/smart-contracts/deploy-nft/deploy-nft-12.webp)
+    ![](/images/tutorials/smart-contracts/deploy-nft/deploy-nft-12.webp)
 
 3. Click **Confirm** to confirm the transaction in MetaMask
 

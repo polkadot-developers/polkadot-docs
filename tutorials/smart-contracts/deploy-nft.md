@@ -47,7 +47,7 @@ To create the NFT contract, you can follow the steps below:
 
     - Key Function
 
-        - [`_safeMint(to, tokenId)`]({{ dependencies.open_zeppelin_contracts.repository_url }}/blob/{{ dependencies.open_zeppelin_contracts.version }}/contracts/token/ERC721/ERC721.sol#L304){target=\_blank} - an internal function from `ERC721` that safely mints new tokens. It includes checks to ensure the recipient can handle ERC721 tokens (important when minting to smart contracts)
+        - [`_safeMint(to, tokenId)`]({{ dependencies.open_zeppelin_contracts.repository_url }}/blob/{{ dependencies.open_zeppelin_contracts.version }}/contracts/token/ERC721/ERC721.sol#L304){target=\_blank} - an internal function from `ERC721` that safely mints new tokens. It includes checks to ensure the recipient can handle ERC721 tokens (important when minting smart contracts)
         - Inherited [Standard ERC721](https://ethereum.org/en/developers/docs/standards/tokens/erc-721/){target=\_blank} functions:
             - `transferFrom(address from, address to, uint256 tokenId)` - transfers a specific NFT from one address to another
             - `safeTransferFrom(address from, address to, uint256 tokenId)` - safely transfers an NFT, including additional checks to prevent loss
@@ -113,7 +113,7 @@ Once deployed, you can interact with your contract through Remix:
 
 2. To mint an NFT
 
-    1. Click in the contract to expand its associated methods
+    1. Click on the contract to expand its associated methods
     2. Expand the **safeMint** function
     3. Enter the recipient address
     4. Click **Transact**
@@ -124,7 +124,7 @@ Once deployed, you can interact with your contract through Remix:
 
     ![](/images/tutorials/smart-contracts/deploy-nft/deploy-nft-13.webp){: .browser-extension}
 
-    If the transaction is successful, the terminal will display the following output, which details the information about the transaction, including the transaction hash, the block number, the logs associated, and so on.
+    If the transaction is successful, the terminal will display the following output, which details the information about the transaction, including the transaction hash, the block number, the associated logs, and so on.
 
     ![](/images/tutorials/smart-contracts/deploy-nft/deploy-nft-14.webp)
 

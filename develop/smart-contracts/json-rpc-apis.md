@@ -90,7 +90,7 @@ https://westend-asset-hub-eth-rpc.polkadot.io
 - [`eth_getBlockByNumber`](https://ethereum.org/en/developers/docs/apis/json-rpc/#eth_getblockbynumber){target=\_blank} - returns information about a block by its number
 
     - Parameters
-        - Block Value - quantity or tag of the [block value](#block-parameter-values) to be fetched
+        - Block Value - quantity or tag of the block value to be fetched
         - Boolean - `true` returns full transaction details, while `false` provides only transaction hashes
 
     ???- "Query Example" 
@@ -129,7 +129,7 @@ https://westend-asset-hub-eth-rpc.polkadot.io
 
     - Parameters
         - Address - address to query balance
-        - Block Value - quantity or tag of the [block value](#block-parameter-values) to be fetched
+        - Block Value - quantity or tag of the block value to be fetched
 
     ???- "Query Example" 
 
@@ -206,7 +206,7 @@ https://westend-asset-hub-eth-rpc.polkadot.io
 
     - Parameters
         - Address - address to query balance
-        - Block Value - quantity or tag of the [block value](#block-parameter-values) to be fetched
+        - Block Value - quantity or tag of the block value to be fetched
 
     ???- "Query Example" 
 
@@ -234,7 +234,7 @@ https://westend-asset-hub-eth-rpc.polkadot.io
         - Gas Price (optional) - gas price for execution
         - Value (optional) - amount of token sent with the call
         - Input (optional) - hash of the method signature and encoded parameters
-        - Block Value - quantity or tag of the [block value](#block-parameter-values) to be fetched
+        - Block Value - quantity or tag of the block value to be fetched
 
     ???- "Query Example" 
 
@@ -263,7 +263,7 @@ https://westend-asset-hub-eth-rpc.polkadot.io
         - Gas Price (optional) - gas price for execution
         - Value (optional) - amount of token sent with the call
         - Input (optional) - hash of the method signature and encoded parameters
-        - Block Value (optional) - quantity or tag of the [block value](#block-parameter-values) to be fetched
+        - Block Value (optional) - quantity or tag of the block value to be fetched
 
     ???- "Query Example" 
 
@@ -321,7 +321,7 @@ https://westend-asset-hub-eth-rpc.polkadot.io
 
     - Parameters
       - Address - contract or account address to query code
-      - Block Value (optional) - quantity or tag of the [block value](#block-parameter-values) to be fetched
+      - Block Value (optional) - quantity or tag of the block value to be fetched
 
     ???- "Query Example" 
 
@@ -343,7 +343,7 @@ https://westend-asset-hub-eth-rpc.polkadot.io
     - Parameters
         - Address - contract or account address to query storage
         - Storage Key - position in storage to retrieve data from
-        - Block Value (optional) - quantity or tag of the [block value](#block-parameter-values) to be fetched
+        - Block Value (optional) - quantity or tag of the block value to be fetched
 
     ???- "Query Example" 
 
@@ -359,15 +359,6 @@ https://westend-asset-hub-eth-rpc.polkadot.io
         ```
 
         Ensure to replace the `INSERT_ADDRESS`, `INSERT_STORAGE_KEY` and `INSERT_BLOCK_VALUE` with the proper values.
-
-## Block Parameter Values
-
-When making requests that accept a block parameter, you can use the following values:
-
-- `latest` - the most recent block
-- `earliest` - the genesis block
-- `pending` - the pending state/transactions
-- Block Number in Hex: e.g., "0x1b4"
 
 ## Response Format
 

@@ -39,24 +39,24 @@ To create the NFT contract, you can follow the steps below:
     - Contract Imports
 
         - [**`ERC721.sol`**]({{ dependencies.open_zeppelin_contracts.repository_url }}/blob/{{ dependencies.open_zeppelin_contracts.version }}/contracts/token/ERC721/ERC721.sol){target=\_blank} - the base contract for non-fungible tokens, implementing core NFT functionality like transfers and approvals
-        - [`Ownable.sol`]({{ dependencies.open_zeppelin_contracts.repository_url }}/blob/{{ dependencies.open_zeppelin_contracts.version }}/contracts/access/Ownable.sol){target=\_blank} - provides basic authorization control, ensuring only the contract owner can mint new tokens
+        - [**`Ownable.sol`**]({{ dependencies.open_zeppelin_contracts.repository_url }}/blob/{{ dependencies.open_zeppelin_contracts.version }}/contracts/access/Ownable.sol){target=\_blank} - provides basic authorization control, ensuring only the contract owner can mint new tokens
     
     - Constructor Parameters
 
-        - `initialOwner` - sets the address that will have administrative rights over the contract
-        - `"MyToken"` - the full name of your NFT collection
-        - `"MTK"`- the symbol representing your token in wallets and marketplaces
+        - **`initialOwner`** - sets the address that will have administrative rights over the contract
+        - **`"MyToken"`** - the full name of your NFT collection
+        - **`"MTK"`** - the symbol representing your token in wallets and marketplaces
 
     - Key Function
 
-        - [`_safeMint(to, tokenId)`]({{ dependencies.open_zeppelin_contracts.repository_url }}/blob/{{ dependencies.open_zeppelin_contracts.version }}/contracts/token/ERC721/ERC721.sol#L304){target=\_blank} - an internal function from `ERC721` that safely mints new tokens. It includes checks to ensure the recipient can handle ERC721 tokens (important when minting smart contracts)
+        - [**`_safeMint(to, tokenId)`**]({{ dependencies.open_zeppelin_contracts.repository_url }}/blob/{{ dependencies.open_zeppelin_contracts.version }}/contracts/token/ERC721/ERC721.sol#L304){target=\_blank} - an internal function from `ERC721` that safely mints new tokens. It includes checks to ensure the recipient can handle ERC721 tokens (important when minting smart contracts)
         - Inherited [Standard ERC721](https://ethereum.org/en/developers/docs/standards/tokens/erc-721/){target=\_blank} functions:
-            - `transferFrom(address from, address to, uint256 tokenId)` - transfers a specific NFT from one address to another
-            - `safeTransferFrom(address from, address to, uint256 tokenId)` - safely transfers an NFT, including additional checks to prevent loss
-            - `approve(address to, uint256 tokenId)` - grants permission for another address to transfer a specific NFT
-            - `setApprovalForAll(address operator, bool approved)` - allows an address to manage all of the owner's NFTs
-            - `balanceOf(address owner)` - returns the number of NFTs owned by a specific address
-            - `ownerOf(uint256 tokenId)` - returns the current owner of a specific NFT
+            - **`transferFrom(address from, address to, uint256 tokenId)`** - transfers a specific NFT from one address to another
+            - **`safeTransferFrom(address from, address to, uint256 tokenId)`** - safely transfers an NFT, including additional checks to prevent loss
+            - **`approve(address to, uint256 tokenId)`** - grants permission for another address to transfer a specific NFT
+            - **`setApprovalForAll(address operator, bool approved)`** - allows an address to manage all of the owner's NFTs
+            - **`balanceOf(address owner)`** - returns the number of NFTs owned by a specific address
+            - **`ownerOf(uint256 tokenId)`** - returns the current owner of a specific NFT
 
     !!! tip
         Use the [OpenZeppelin Contracts Wizard](https://wizard.openzeppelin.com/){target=\_blank} to generate customized smart contracts quickly. Simply configure your contract, copy the generated code, and paste it into Polkadot Remix IDE for deployment.

@@ -1,9 +1,9 @@
 ---
 title: Deploy an ERC-20 to Asset Hub
-description: Deploy an ERC20 token on Asset Hub using PolkaVM. This guide covers contract creation, compilation, deployment, and interaction via Polkadot Remix IDE.
+description: Deploy an ERC-20 token on Asset Hub using PolkaVM. This guide covers contract creation, compilation, deployment, and interaction via Polkadot Remix IDE.
 ---
 
-# Deploy ERC20 to Asset Hub
+# Deploy ERC-20 to Asset Hub
 
 ## Introduction
 
@@ -19,16 +19,16 @@ Before starting, make sure you have:
 - A funded account with some WND tokens (you can get them from the [Westend Faucet](https://faucet.polkadot.io/westend?parachain=1000){target=\_blank})
 - Basic understanding of Solidity and fungible tokens
 
-## Creating the ERC20 Contract
+## Creating the ERC-20 Contract
 
-To create the ERC20 contract, you can follow the steps below:
+To create the ERC-20 contract, you can follow the steps below:
 
 1. Navigate to the [Polkadot Remix IDE](https://remix.polkadot.io){target=\_blank}
 2. Click in the **Create new file** button under the **contracts** folder, and name your contract as `MyToken.sol`
 
     ![](/images/tutorials/smart-contracts/deploy-erc20/deploy-erc20-1.webp)
 
-3. Now, paste the following ERC20 contract code into the editor
+3. Now, paste the following ERC-20 contract code into the editor
 
     ```solidity title="MyToken.sol"
     --8<-- 'code/tutorials/smart-contracts/deploy-erc20/MyToken.sol'
@@ -50,7 +50,7 @@ To create the ERC20 contract, you can follow the steps below:
     - Key Function
 
         - `mint(address to, uint256 amount)` - allows the contract owner to create new tokens for any address. The amount should include 18 decimals (e.g., 1 token = 1000000000000000000)
-        - Inherited [Standard ERC20](https://ethereum.org/en/developers/docs/standards/tokens/erc-20/){target=\_blank} functions:
+        - Inherited [Standard ERC-20](https://ethereum.org/en/developers/docs/standards/tokens/erc-20/){target=\_blank} functions:
             - `transfer(address recipient, uint256 amount)` - sends a specified amount of tokens to another address
             - `approve(address spender, uint256 amount)` - grants permission for another address to spend a specific number of tokens on behalf of the token owner
             - `transferFrom(address sender, address recipient, uint256 amount)` - transfers tokens from one address to another, if previously approved
@@ -104,7 +104,7 @@ Deployment is the process of publishing your compiled smart contract to the bloc
 
     ![](/images/tutorials/smart-contracts/deploy-erc20/deploy-erc20-9.webp)
 
-## Interacting with Your ERC20 Contract
+## Interacting with Your ERC-20 Contract
 
 Once deployed, you can interact with your contract through Remix:
 

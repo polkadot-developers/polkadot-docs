@@ -1,6 +1,6 @@
 ---
 title: JSON-RPC APIs
-description: JSON-RPC APIs guide for Asset Hub, covering supported methods, parameters, and examples for interacting with the Asset Hub chain
+description: JSON-RPC APIs guide for Asset Hub, covering supported methods, parameters, and examples for interacting with the Asset Hub chain.
 ---
 
 # JSON RPC APIs

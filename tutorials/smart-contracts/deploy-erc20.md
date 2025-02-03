@@ -19,7 +19,7 @@ Before starting, make sure you have:
 - A funded account with some WND tokens (you can get them from the [Westend Faucet](https://faucet.polkadot.io/westend?parachain=1000){target=\_blank})
 - Basic understanding of Solidity and fungible tokens
 
-## Creating the ERC-20 Contract
+## Create the ERC-20 Contract
 
 To create the ERC-20 contract, you can follow the steps below:
 
@@ -60,7 +60,7 @@ To create the ERC-20 contract, you can follow the steps below:
     !!! tip
         Use the [OpenZeppelin Contracts Wizard](https://wizard.openzeppelin.com/){target=\_blank} to quickly generate customized smart contracts. Simply configure your contract, copy the generated code, and paste it into Polkadot Remix IDE for deployment.
 
-## Compiling the Contract
+## Compile the Contract
 
 The compilation transforms your Solidity source code into bytecode that can be deployed on the blockchain. During this process, the compiler checks your contract for syntax errors, ensures type safety, and generates the machine-readable instructions needed for blockchain execution. To compile your contract, follow the instructions below:
 
@@ -76,7 +76,7 @@ The compilation transforms your Solidity source code into bytecode that can be d
 
     ![](/images/tutorials/smart-contracts/deploy-erc20/deploy-erc20-4.webp)
 
-## Deploying the Contract
+## Deploy the Contract
 
 Deployment is the process of publishing your compiled smart contract to the blockchain, making it permanently available for interaction. During deployment, you'll create a new instance of your contract on the blockchain, which involves:
 
@@ -104,7 +104,7 @@ Deployment is the process of publishing your compiled smart contract to the bloc
 
     ![](/images/tutorials/smart-contracts/deploy-erc20/deploy-erc20-9.webp)
 
-## Interacting with Your ERC-20 Contract
+## Interact with Your ERC-20 Contract
 
 Once deployed, you can interact with your contract through Remix:
 

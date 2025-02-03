@@ -71,7 +71,7 @@ To build and integrate your custom pallet into a Polkadot SDK-based runtime, you
     --8<-- 'code/tutorials/polkadot-sdk/parachains/zero-to-hero/pallets/custom-pallet/Cargo.toml:30:30'
     ```
 
-Expand the following item to view an example complete `Cargo.toml` file.
+The final `Cargo.toml` file should resemble the following:
 
 ??? code "Cargo.toml"
 

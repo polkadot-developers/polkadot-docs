@@ -1,13 +1,15 @@
 ---
-title: Deploy a NFT to Asset Hub
+title: Deploy an NFT to Asset Hub
 description: Deploy an NFT on Asset Hub using PolkaVM and OpenZeppelin. Learn how to compile, deploy, and interact with your contract using Polkadot Remix IDE.
 ---
 
-# Deploy a NFT to Asset Hub
+# Deploy an NFT to Asset Hub
 
 ## Introduction
 
-Non-Fungible Tokens (NFTs) represent unique digital assets commonly used for digital art, collectibles, gaming, and identity verification. Asset Hub supports EVM-compatible smart contracts through PolkaVM, enabling straightforward NFT deployment. This tutorial guides you through deploying an [ERC721](https://eips.ethereum.org/EIPS/eip-721){target=\_blank} NFT contract on the Westend TestNet using the [Polkadot Remix IDE](https://remix.polkadot.io){target=\_blank}, a web-based development environment. This tutorial uses [OpenZeppelin's NFT contracts]({{ dependencies.open_zeppelin_contracts.repository_url}}/tree/{{ dependencies.open_zeppelin_contracts.version}}){target=\_blank} implementation to ensure security and standard compliance.
+Non-Fungible Tokens (NFTs) represent unique digital assets commonly used for digital art, collectibles, gaming, and identity verification. Asset Hub supports EVM-compatible smart contracts through PolkaVM, enabling straightforward NFT deployment.
+
+This tutorial guides you through deploying an [ERC-721](https://eips.ethereum.org/EIPS/eip-721){target=\_blank} NFT contract on the Westend TestNet using the [Polkadot Remix IDE](https://remix.polkadot.io){target=\_blank}, a web-based development environment. It uses [OpenZeppelin's NFT contracts]({{ dependencies.open_zeppelin_contracts.repository_url}}/tree/{{ dependencies.open_zeppelin_contracts.version}}){target=\_blank} implementation to ensure security and standard compliance.
 
 ## Prerequisites
 

@@ -41,13 +41,13 @@ To create the ERC-20 contract, you can follow the steps below:
         - [`ERC20.sol`](https://github.com/OpenZeppelin/openzeppelin-contracts/blob/v5.0.0/contracts/token/ERC20/ERC20.sol){target=\_blank} - the base contract for fungible tokens, implementing core functionality like transfers, approvals, and balance tracking
         - [`Ownable.sol`](https://github.com/OpenZeppelin/openzeppelin-contracts/blob/v5.0.0/contracts/access/Ownable.sol){target=\_blank} - provides basic authorization control, ensuring only the contract owner can mint new tokens
     
-    - Constructor Parameters
+    - Constructor parameters
 
         - `initialOwner` - sets the address that will have administrative rights over the contract
         - `"MyToken"` - the full name of your token
         - `"MTK"` - the symbol representing your token in wallets and exchanges
 
-    - Key Function
+    - Key functions
 
         - `mint(address to, uint256 amount)` - allows the contract owner to create new tokens for any address. The amount should include 18 decimals (e.g., 1 token = 1000000000000000000)
         - Inherited [Standard ERC-20](https://ethereum.org/en/developers/docs/standards/tokens/erc-20/){target=\_blank} functions:

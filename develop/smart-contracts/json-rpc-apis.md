@@ -11,7 +11,7 @@ Asset Hub provides Ethereum compatibility through its JSON-RPC interface, allowi
 
 This article uses the Westend Asset Hub endpoint to interact with:
 
-```
+```text
 https://westend-asset-hub-eth-rpc.polkadot.io
 ```
 

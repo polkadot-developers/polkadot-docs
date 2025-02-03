@@ -72,7 +72,7 @@ The compilation transforms your Solidity source code into bytecode that can be d
 
     ![](/images/tutorials/smart-contracts/deploy-erc20/deploy-erc20-3.webp)
 
-3. If the compilation succeeded, you can see a green checkmark indicating success in the **Solidity Compiler** icon
+3. If the compilation succeeded, you'll see a green checkmark indicating success in the **Solidity Compiler** icon
 
     ![](/images/tutorials/smart-contracts/deploy-erc20/deploy-erc20-4.webp)
 

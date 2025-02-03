@@ -91,7 +91,7 @@ This section will walk you through installing and building the Polkadot binary f
     - O /var/lib/polkadot-data/polkadot
     ```
 
-    !!!info
+    !!!tip
         The nature of pre-built binaries means that they may not work on your particular architecture or Linux distribution. If you see an error like `cannot execute binary file: Exec format error` it likely means the binary is incompatible with your system. You will either need to compile the binary or use [Docker](#use-docker).
 
     Ensure that you properly configure the permissions to make the Polkadot release binary executable:
@@ -204,8 +204,7 @@ Now that you've installed and built the Polkadot binary, the next step is to con
 
 Also, note that you can use the same binary for Polkadot as you would for Kusama or any other relay chain. You'll need to use the `--chain` flag to differentiate between chains.
 
-!!!note
-    Not sure which type of node to run? Explore an [overview of the different node types](/infrastructure/running-a-node/#types-of-nodes){target=\_blank}.
+If you aren't sure which type of node to run, see the [Types of Full Nodes](/infrastructure/running-a-node/#types-of-nodes){target=\_blank} section.
 
 The base commands for running a Polkadot node are as follows:
 

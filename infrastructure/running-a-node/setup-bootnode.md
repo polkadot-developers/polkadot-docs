@@ -30,8 +30,8 @@ Bootnodes must be accessible through three key channels to connect with other no
     --listen-addr /ip4/0.0.0.0/tcp/INSERT_PORT
 
     ```
-    !!! note
-        This is not enabled by default on non-validator nodes like archive RPC nodes.
+    
+    This is not enabled by default on non-validator nodes like archive RPC nodes.
 
 - **P2P/WS** - a WebSocket (WS) connection, also configured via `--listen-addr`
 - **P2P/WSS** - a secure WebSocket (WSS) connection using SSL, often required for light clients. An SSL proxy is needed, as the node itself cannot handle certificates

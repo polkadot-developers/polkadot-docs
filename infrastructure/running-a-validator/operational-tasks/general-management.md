@@ -294,8 +294,8 @@ Follow these steps to visualize node metrics:
 6. Finally, start your Polkadot node by running `./polkadot`. You should now be able to monitor your node's performance such as the current block height, network traffic, and running tasks on the Grafana dashboard
 ![Live dashboard](/images/infrastructure/running-a-validator/operational-tasks/general-management/general-management-5.webp)
 
-!!! tip "Import via grafana.com" 
-    The [Grafana dashboards](https://grafana.com/grafana/dashboards){target=\_blank} page features user created dashboards made available for public use. Visit ["Substrate Node Metrics"](https://grafana.com/grafana/dashboards/21715-substrate-node-metrics/){target=\_blank} for an example of available dashboards.
+ 
+The [Grafana dashboards](https://grafana.com/grafana/dashboards){target=\_blank} page features user created dashboards made available for public use. For an example of available dashboards, see the [Substrate Node Metrics](https://grafana.com/grafana/dashboards/21715-substrate-node-metrics/){target=\_blank} dashboard.
 
 ### Install and Configure Alertmanager
 
@@ -319,14 +319,10 @@ The optional `Alertmanager` complements Prometheus by handling alerts and notify
     sudo mkdir /etc/alertmanager
     sudo nano /etc/alertmanager/alertmanager.yml
     ```
-    Add the following code to the configuration file to define email notifications:
+    You must generate an [`app password` in your Gmail account](https://support.google.com/accounts/answer/185833?hl=en){target=\_blank} to allow `Alertmanager` to send you alert notification emails. Once you have the `app password`, add the following code to the configuration file to define email notifications:
     ```yml title="alertmanager.yml"
     -8<-- 'code/infrastructure/running-a-validator/operational-tasks/general-management/alertmanager.yml'
     ```
-
-    !!! note "App password"
-
-        You must generate an [`app password` in your Gmail account](https://support.google.com/accounts/answer/185833?hl=en){target=\_blank} to allow `Alertmanager` to send you alert notification emails.
 
     Ensure the configuration file has the correct permissions:
     ```bash
@@ -402,13 +398,12 @@ A few more steps are required to allow the Prometheus server to talk to the Aler
     sudo systemctl restart prometheus && sudo systemctl restart alertmanager
     ```
 
-Now you will receive an email alert if one of your rule triggering conditions is met.
+Now you will receive an email alert if one of your rule triggering conditions is met. 
 
-??? interface "Updated `prometheus.yml`"
-        
+??? code "prometheus.yml"
+
         --8<-- 'code/infrastructure/running-a-validator/operational-tasks/general-management/update-prometheus.yml'
         
-
 ## Secure Your Validator
 
 Validators in Polkadot's Proof of Stake network play a critical role in maintaining network integrity and security by keeping the network in consensus and verifying state transitions. To ensure optimal performance and minimize risks, validators must adhere to strict guidelines around security and reliable operations.
@@ -443,7 +438,7 @@ Polkadot's Secure-Validator mode offers an extra layer of protection through str
     CONFIG_SECCOMP=y
     ```
 
-!!! note 
+!!! tip 
     Optionally, **Linux 5.13** may also be used, as it provides access to even more strict filesystem protections.
 
 ### Linux Best Practices

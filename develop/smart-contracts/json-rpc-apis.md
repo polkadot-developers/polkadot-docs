@@ -3,7 +3,7 @@ title: JSON-RPC APIs
 description: JSON-RPC APIs guide for Asset Hub, covering supported methods, parameters, and examples for interacting with the Asset Hub chain.
 ---
 
-# JSON RPC APIs
+# JSON-RPC APIs
 
 ## Introduction
 
@@ -366,9 +366,9 @@ All responses follow the standard JSON-RPC 2.0 format:
 
 ```json
 {
-  "jsonrpc": "2.0",
-  "id": 1,
-  "result": ... // The return value varies by method
+    "jsonrpc": "2.0",
+    "id": 1,
+    "result": ... // The return value varies by method
 }
 ```
 
@@ -378,11 +378,11 @@ If an error occurs, the response will include an error object:
 
 ```json
 {
-  "jsonrpc": "2.0",
-  "id": 1,
-  "error": {
-    "code": -32000,
-    "message": "Error message here"
-  }
+    "jsonrpc": "2.0",
+    "id": 1,
+    "error": {
+        "code": -32000,
+        "message": "Error message here"
+    }
 }
 ```

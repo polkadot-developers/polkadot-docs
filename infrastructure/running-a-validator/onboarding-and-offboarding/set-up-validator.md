@@ -276,7 +276,9 @@ If you'd like to speed up the process further, you can use a database snapshot. 
 !!!warning
     Although snapshots are convenient, syncing from scratch is recommended for security purposes. If snapshots become corrupted and most nodes rely on them, the network could inadvertently run on a non-canonical chain.
 
-If you are unable to synchronize the chain due to having zero peers, make sure you have libp2p port `30333` activated. It will take some time to discover other peers over the network.
+--8<-- 'code/infrastructure/running-a-validator/onboarding-and-offboarding/set-up-a-validator/terminal-output-03.html'
+
+If you see terminal output similar to the preceding, and you are unable to synchronize the chain due to having zero peers, make sure you have libp2p port `30333` activated. It will take some time to discover other peers over the network.
 
 ## Bond DOT
 
@@ -335,7 +337,7 @@ Now that you have generated your session keys, you must submit them to the chain
 2. Select **Set Session Key** on the bonding account you generated earlier
 3. Paste the hex-encoded session key string you generated (from either the UI or CLI) into the input field and submit the transaction
 
-![](/images/infrastructure/running-a-validator/onboarding-and-offboarding/set-up-validator/set-up-a-validator-02.webp)
+![](/images/infrastructure/running-a-validator/onboarding-and-offboarding/set-up-validator/set-up-a-validator-01.webp)
 
 Once the transaction is signed and submitted, your session keys will be registered on-chain.
 
@@ -398,7 +400,7 @@ To confirm that your validator is live and synchronized with the Polkadot networ
 
 In the following example, a node named `techedtest` is successfully located and synchronized, ensuring it's prepared to participate in the network:
 
-![Polkadot telemetry dashboard](/images/infrastructure/running-a-validator/onboarding-and-offboarding/set-up-validator/set-up-a-validator-03.webp)
+![Polkadot telemetry dashboard](/images/infrastructure/running-a-validator/onboarding-and-offboarding/set-up-validator/set-up-a-validator-02.webp)
 
 ### Activate using Polkadot.js Apps
 
@@ -406,19 +408,19 @@ Follow these steps to use Polkadot.js Apps to activate your validator:
 
 1. Go to the **Validator** tab in the Polkadot.js Apps UI and locate the section where you input the keys generated from `rotateKeys`. Paste the output from `author_rotateKeys`, which is a hex-encoded key that links your validator with its session keys:
 
-    ![](/images/infrastructure/running-a-validator/onboarding-and-offboarding/set-up-validator/set-up-a-validator-04.webp)
+    ![](/images/infrastructure/running-a-validator/onboarding-and-offboarding/set-up-validator/set-up-a-validator-03.webp)
 
 2. Set a reward commission percentage if desired. You can set a percentage of the rewards to pay to your validator and the remainder pays to your nominators. A 100% commission rate indicates the validator intends to keep all rewards and is seen as a signal the validator is not seeking nominators
 3. Toggle the **allows new nominations** option if your validator is open to more nominations from DOT holders
 4. Once everything is configured, select **Bond & Validate** to activate your validator status
 
-    ![](/images/infrastructure/running-a-validator/onboarding-and-offboarding/set-up-validator/set-up-a-validator-05.webp)
+    ![](/images/infrastructure/running-a-validator/onboarding-and-offboarding/set-up-validator/set-up-a-validator-04.webp)
 
 ### Monitor Validation Status and Slots
 
 On the [**Staking**](https://polkadot.js.org/apps/#/staking){target=\_blank} tab in Polkadot.js Apps, you can see your validator's status, the number of available validator slots, and the nodes that have signaled their intent to validate. Your node may initially appear in the waiting queue, especially if the validator slots are full. The following is an example view of the **Staking** tab:
 
-![staking queue](/images/infrastructure/running-a-validator/onboarding-and-offboarding/set-up-validator/set-up-a-validator-06.webp)
+![staking queue](/images/infrastructure/running-a-validator/onboarding-and-offboarding/set-up-validator/set-up-a-validator-05.webp)
 
 The validator set refreshes each era. If there's an available slot in the next era, your node may be selected to move from the waiting queue to the active validator set, allowing it to start validating blocks. If your validator is not selected, it remains in the waiting queue. Increasing your stake or gaining more nominators may improve your chance of being selected in future eras.
 

@@ -19,7 +19,7 @@ Before starting, make sure you have:
 - A funded account with some WND tokens (you can get them from the [Westend Faucet](https://faucet.polkadot.io/westend?parachain=1000){target=\_blank})
 - Basic understanding of Solidity and NFTs
 
-## Creating the NFT Contract
+## Create the NFT Contract
 
 To create the NFT contract, you can follow the steps below:
 
@@ -36,18 +36,18 @@ To create the NFT contract, you can follow the steps below:
 
     The key components of the code above are:
 
-    - Contract Imports
+    - Contract imports
 
         - [**`ERC721.sol`**]({{ dependencies.open_zeppelin_contracts.repository_url }}/blob/{{ dependencies.open_zeppelin_contracts.version }}/contracts/token/ERC721/ERC721.sol){target=\_blank} - the base contract for non-fungible tokens, implementing core NFT functionality like transfers and approvals
         - [**`Ownable.sol`**]({{ dependencies.open_zeppelin_contracts.repository_url }}/blob/{{ dependencies.open_zeppelin_contracts.version }}/contracts/access/Ownable.sol){target=\_blank} - provides basic authorization control, ensuring only the contract owner can mint new tokens
     
-    - Constructor Parameters
+    - Constructor parameters
 
         - **`initialOwner`** - sets the address that will have administrative rights over the contract
         - **`"MyToken"`** - the full name of your NFT collection
         - **`"MTK"`** - the symbol representing your token in wallets and marketplaces
 
-    - Key Function
+    - Key functions
 
         - [**`_safeMint(to, tokenId)`**]({{ dependencies.open_zeppelin_contracts.repository_url }}/blob/{{ dependencies.open_zeppelin_contracts.version }}/contracts/token/ERC721/ERC721.sol#L304){target=\_blank} - an internal function from `ERC721` that safely mints new tokens. It includes checks to ensure the recipient can handle ERC721 tokens (important when minting smart contracts)
         - Inherited [Standard ERC721](https://ethereum.org/en/developers/docs/standards/tokens/erc-721/){target=\_blank} functions:
@@ -61,7 +61,7 @@ To create the NFT contract, you can follow the steps below:
     !!! tip
         Use the [OpenZeppelin Contracts Wizard](https://wizard.openzeppelin.com/){target=\_blank} to generate customized smart contracts quickly. Simply configure your contract, copy the generated code, and paste it into Polkadot Remix IDE for deployment.
 
-## Compiling the Contract
+## Compile the Contract
 
 Compilation is an stage that converts your Solidity source code into bytecode suitable for deployment on the blockchain. Throughout this process, the compiler  examines your contract for syntax errors, verifies type safety, and produces the machine-readable instructions required for executing on the blockchain.
 
@@ -77,7 +77,7 @@ Compilation is an stage that converts your Solidity source code into bytecode su
 
     ![](/images/tutorials/smart-contracts/deploy-nft/deploy-nft-5.webp)
 
-## Deploying the Contract
+## Deploy the Contract
 
 Deployment is the process of uploading your compiled smart contract to the blockchain, allowing for interaction. During deployment, you will instantiate your contract on the blockchain, which involves:
 
@@ -105,7 +105,7 @@ Deployment is the process of uploading your compiled smart contract to the block
 
     ![](/images/tutorials/smart-contracts/deploy-nft/deploy-nft-10.webp)
 
-## Interacting with Your NFT Contract
+## Interact with Your NFT Contract
 
 Once deployed, you can interact with your contract through Remix:
 

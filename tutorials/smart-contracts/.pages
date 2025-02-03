@@ -1,4 +1,4 @@
 title: Smart Contracts
 nav:
   - index.md
-  - 'Deploy an ERC20': deploy-erc20.md
+  - 'Deploy an ERC-20': deploy-erc20.md

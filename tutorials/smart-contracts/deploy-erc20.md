@@ -68,7 +68,7 @@ The compilation transforms your Solidity source code into bytecode that can be d
 
     ![](/images/tutorials/smart-contracts/deploy-erc20/deploy-erc20-2.webp)
 
-2. Click in the **Compile MyToken.sol** button
+2. Click the **Compile MyToken.sol** button
 
     ![](/images/tutorials/smart-contracts/deploy-erc20/deploy-erc20-3.webp)
 

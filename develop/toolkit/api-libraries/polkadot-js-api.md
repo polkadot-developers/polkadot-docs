@@ -69,7 +69,7 @@ To create an API connection:
 --8<-- 'code/develop/toolkit/api-libraries/polkadot-js-sdk/api-instance.js'
 ```
 
-!!!tip
+!!!warning
     All `await` operations must be wrapped in an async function or block since the API uses promises for asynchronous operations.
 
 ### Reading Chain Data
@@ -101,7 +101,7 @@ To make a transfer:
 --8<-- 'code/develop/toolkit/api-libraries/polkadot-js-sdk/send-txs.js'
 ```
 
-The `alice` keypair in the example comes from a Keyring object. For more details about managing keypairs, see the [Keyring documentation](https://polkadot.js.org/docs/keyring){target=\_blank}.
+The `alice` keypair in the example comes from a `Keyring` object. For more details about managing keypairs, see the [Keyring documentation](https://polkadot.js.org/docs/keyring){target=\_blank}.
 
 ## Where to Go Next
 

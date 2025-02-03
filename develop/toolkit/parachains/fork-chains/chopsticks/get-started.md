@@ -13,7 +13,7 @@ This guide walks you through installing Chopsticks and provides information on c
 
 For additional support and information, please reach out through [GitHub Issues](https://github.com/AcalaNetwork/chopsticks/issues){target=_blank}.
 
-!!! tip
+!!! warning
     Chopsticks uses [Smoldot](https://github.com/smol-dot/smoldot){target=_blank} light client, which only supports the native Polkadot SDK API. Consequently, a Chopsticks-based fork doesn't support Ethereum JSON-RPC calls, meaning you cannot use it to fork your chain and connect Metamask.
 
 ## Prerequisites

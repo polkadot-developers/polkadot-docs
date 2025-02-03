@@ -825,18 +825,22 @@ You can use the `hrmp_channels` keyword to define further parameters for the XCM
         - `max_capacity` ++"number"++ - maximum capacity of the HRMP channel
         - `max_message_size` ++"number"++ - maximum message size allowed in the HRMP channel
 
-## Additional Support Resources
-
-[Parity Technologies](https://www.parity.io/){target=\_blank} has designed and developed this framework, now maintained by the Zombienet team. 
-
-For further support and information, refer to the following contact points:
-
-- [Zombienet repository](https://github.com/paritytech/zombienet){target=\_blank}
-- [Element public channel](https://matrix.to/#/!FWyuEyNvIFygLnWNMh:parity.io?via=parity.io&via=matrix.org&via=web3.foundation){target=\_blank}
-
 ## Where to Go Next
 
 <div class="grid cards" markdown>
+
+-  <span class="badge external">External</span> __Zombienet Support__
+
+    ---
+
+    [Parity Technologies](https://www.parity.io/){target=\_blank} has designed and developed this framework, now maintained by the Zombienet team. 
+
+    For further support and information, refer to the following contact points:
+
+    [:octicons-arrow-right-24: Zombienet repository](https://github.com/paritytech/zombienet){target=\_blank}
+
+    [:octicons-arrow-right-24: Element public channel](https://matrix.to/#/!FWyuEyNvIFygLnWNMh:parity.io?via=parity.io&via=matrix.org&via=web3.foundation){target=\_blank}
+
 
 -   <span class="badge tutorial">Tutorial</span> __Spawn a Basic Chain with Zombienet__
 

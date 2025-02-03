@@ -74,4 +74,4 @@ Now that you understand the basics, you can:
 - Learn about batch transactions and utility functions
 - Discover how to work with custom pallets and types
 
-For comprehensive reference materials and advanced features, see the [py-substrate-interface](https://polkascan.github.io/py-substrate-interface/){target=\_blank} documentation.
+For comprehensive reference materials and advanced features, see the [Python Substrate Interface](https://polkascan.github.io/py-substrate-interface/){target=\_blank} documentation.

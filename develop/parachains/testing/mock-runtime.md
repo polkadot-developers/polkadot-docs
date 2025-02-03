@@ -49,7 +49,7 @@ You can also customize the genesis storage to set initial values for your runtim
 --8<-- 'code/develop/parachains/testing/mock-runtime/genesis-config-custom.rs'
 ```
 
-For a more idiomatic approach, see the [Your First Pallet](https://paritytech.github.io/polkadot-sdk/master/polkadot_sdk_docs/guides/your_first_pallet/index.html#better-test-setup){target=\_blank} guide from the Polkadot SDK rust documentation.
+For a more idiomatic approach, see the [Your First Pallet](https://paritytech.github.io/polkadot-sdk/master/polkadot_sdk_docs/guides/your_first_pallet/index.html#better-test-setup){target=\_blank} guide from the Polkadot SDK Rust documentation.
 
 ### Pallet Configuration
 

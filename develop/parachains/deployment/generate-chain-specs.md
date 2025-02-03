@@ -84,10 +84,10 @@ chain-spec-builder --help
 To create a plain chain specification, first ensure that the runtime has been compiled and is available at the specified path. Next, you can use the following utility within your project:
 
 ```bash
-chain-spec-builder create -r <INSERT_RUNTIME_WASM_PATH> <INSERT_COMMAND> 
+chain-spec-builder create -r INSERT_RUNTIME_WASM_PATH INSERT_COMMAND
 ```
 
-Replace `<INSERT_RUNTIME_WASM_PATH>` with the path to the runtime Wasm file and `<INSERT_COMMAND>` with the command to insert the runtime into the chain specification. 
+Replace `INSERT_RUNTIME_WASM_PATH` with the path to the runtime Wasm file and `INSERT_COMMAND` with the command to insert the runtime into the chain specification. 
 
 The available commands are:
 

@@ -1,4 +1,4 @@
 title: Smart Contracts
 nav:
   - index.md
-  - 'Deploy a NFT': deploy-nft.md
+  - 'Deploy an NFT': deploy-nft.md

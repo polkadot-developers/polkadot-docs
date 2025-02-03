@@ -38,7 +38,7 @@ To create the NFT contract, you can follow the steps below:
 
     - Contract Imports
 
-        - [`ERC721.sol`]({{ dependencies.open_zeppelin_contracts.repository_url }}/blob/{{ dependencies.open_zeppelin_contracts.version }}/contracts/token/ERC721/ERC721.sol){target=\_blank} - the base contract for non-fungible tokens, implementing core NFT functionality like transfers and approvals
+        - [**`ERC721.sol`**]({{ dependencies.open_zeppelin_contracts.repository_url }}/blob/{{ dependencies.open_zeppelin_contracts.version }}/contracts/token/ERC721/ERC721.sol){target=\_blank} - the base contract for non-fungible tokens, implementing core NFT functionality like transfers and approvals
         - [`Ownable.sol`]({{ dependencies.open_zeppelin_contracts.repository_url }}/blob/{{ dependencies.open_zeppelin_contracts.version }}/contracts/access/Ownable.sol){target=\_blank} - provides basic authorization control, ensuring only the contract owner can mint new tokens
     
     - Constructor Parameters

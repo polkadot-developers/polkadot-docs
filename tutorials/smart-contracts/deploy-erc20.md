@@ -36,7 +36,7 @@ To create the ERC-20 contract, you can follow the steps below:
 
     The key components of the code above are:
 
-    - Contract Imports
+    - Contract imports
 
         - [`ERC20.sol`](https://github.com/OpenZeppelin/openzeppelin-contracts/blob/v5.0.0/contracts/token/ERC20/ERC20.sol){target=\_blank} - the base contract for fungible tokens, implementing core functionality like transfers, approvals, and balance tracking
         - [`Ownable.sol`](https://github.com/OpenZeppelin/openzeppelin-contracts/blob/v5.0.0/contracts/access/Ownable.sol){target=\_blank} - provides basic authorization control, ensuring only the contract owner can mint new tokens

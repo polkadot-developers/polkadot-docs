@@ -39,23 +39,23 @@ To create the ERC-20 contract, you can follow the steps below:
     - Contract imports
 
         - [**`ERC20.sol`**](https://github.com/OpenZeppelin/openzeppelin-contracts/blob/v5.0.0/contracts/token/ERC20/ERC20.sol){target=\_blank} - the base contract for fungible tokens, implementing core functionality like transfers, approvals, and balance tracking
-        - [`Ownable.sol`](https://github.com/OpenZeppelin/openzeppelin-contracts/blob/v5.0.0/contracts/access/Ownable.sol){target=\_blank} - provides basic authorization control, ensuring only the contract owner can mint new tokens
+        - [**`Ownable.sol`**](https://github.com/OpenZeppelin/openzeppelin-contracts/blob/v5.0.0/contracts/access/Ownable.sol){target=\_blank} - provides basic authorization control, ensuring only the contract owner can mint new tokens
     
     - Constructor parameters
 
-        - `initialOwner` - sets the address that will have administrative rights over the contract
-        - `"MyToken"` - the full name of your token
-        - `"MTK"` - the symbol representing your token in wallets and exchanges
+        - **`initialOwner`** - sets the address that will have administrative rights over the contract
+        - **`"MyToken"`** - the full name of your token
+        - **`"MTK"`** - the symbol representing your token in wallets and exchanges
 
     - Key functions
 
-        - `mint(address to, uint256 amount)` - allows the contract owner to create new tokens for any address. The amount should include 18 decimals (e.g., 1 token = 1000000000000000000)
+        - **`mint(address to, uint256 amount)`** - allows the contract owner to create new tokens for any address. The amount should include 18 decimals (e.g., 1 token = 1000000000000000000)
         - Inherited [Standard ERC-20](https://ethereum.org/en/developers/docs/standards/tokens/erc-20/){target=\_blank} functions:
-            - `transfer(address recipient, uint256 amount)` - sends a specified amount of tokens to another address
-            - `approve(address spender, uint256 amount)` - grants permission for another address to spend a specific number of tokens on behalf of the token owner
-            - `transferFrom(address sender, address recipient, uint256 amount)` - transfers tokens from one address to another, if previously approved
-            - `balanceOf(address account)` - returns the token balance of a specific address
-            - `allowance(address owner, address spender)` - checks how many tokens an address is allowed to spend on behalf of another address
+            - **`transfer(address recipient, uint256 amount)`** - sends a specified amount of tokens to another address
+            - **`approve(address spender, uint256 amount)`** - grants permission for another address to spend a specific number of tokens on behalf of the token owner
+            - **`transferFrom(address sender, address recipient, uint256 amount)`** - transfers tokens from one address to another, if previously approved
+            - **`balanceOf(address account)`** - returns the token balance of a specific address
+            - **`allowance(address owner, address spender)`** - checks how many tokens an address is allowed to spend on behalf of another address
 
     !!! tip
         Use the [OpenZeppelin Contracts Wizard](https://wizard.openzeppelin.com/){target=\_blank} to quickly generate customized smart contracts. Simply configure your contract, copy the generated code, and paste it into Polkadot Remix IDE for deployment.
@@ -132,8 +132,8 @@ Once deployed, you can interact with your contract through Remix:
 
 Other common functions you can use:
 
-- `balanceOf(address)` - check token balance of any address
-- `transfer(address to, uint256 amount)` - send tokens to another address
-- `approve(address spender, uint256 amount)` - allow another address to spend your tokens
+- **`balanceOf(address)`** - check token balance of any address
+- **`transfer(address to, uint256 amount)`** - send tokens to another address
+- **`approve(address spender, uint256 amount)`** - allow another address to spend your tokens
 
 Feel free to explore and interact with the contract's other functions using the same approach - selecting the method, providing any required parameters, and confirming the transaction through MetaMask when needed.

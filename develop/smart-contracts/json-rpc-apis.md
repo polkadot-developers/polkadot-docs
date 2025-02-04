@@ -21,7 +21,7 @@ https://westend-asset-hub-eth-rpc.polkadot.io
 
 - [`eth_chainId`](https://ethereum.org/en/developers/docs/apis/json-rpc/#eth_chainid){target=\_blank} - returns the chain ID used for signing transactions
 
-    ???- "Query Example" 
+    ???- code "Query Example" 
 
         ```bash title="eth_chainId"
         curl -X POST https://westend-asset-hub-eth-rpc.polkadot.io \

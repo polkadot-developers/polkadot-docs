@@ -37,7 +37,7 @@ The `StorageMap` consists of the following parameters:
     - **`T::AccountData`** - custom account data defined by the runtime configuration, which could include balances, locked funds, or other relevant information
 - **`ValueQuery`** - defines how queries to the storage map behave when no value is found; returns a default value instead of `None`
 
-For a detailed explanation of storage maps, see the [`StorageMap` Rust docs](https://paritytech.github.io/polkadot-sdk/master/frame_support/storage/types/struct.StorageMap.html){target=\_blank}.
+For a detailed explanation of storage maps, see the [`StorageMap`](https://paritytech.github.io/polkadot-sdk/master/frame_support/storage/types/struct.StorageMap.html){target=\_blank} entry in the Rust docs.
 
 ### Account Info
 
@@ -223,7 +223,7 @@ base58encode(concat(<address-type>, <address>, <checksum>))
 
 The encoding process transforms the concatenated components into a Base58 string, providing a compact and human-readable format that avoids easily confused characters (e.g., zero '0', capital 'O', lowercase 'l'). This encoding function ([`encode`](https://docs.rs/bs58/latest/bs58/fn.encode.html){target=\_blank}) is implemented exactly as defined in Bitcoin and IPFS specifications, using the same alphabet as both implementations.
 
-For more details about the SS58 address format implementation, see the [Ss58Codec](https://paritytech.github.io/polkadot-sdk/master/sp_core/crypto/trait.Ss58Codec.html){target=\_blank} trait in the Rust Docs.
+For more details about the SS58 address format implementation, see the [`Ss58Codec`](https://paritytech.github.io/polkadot-sdk/master/sp_core/crypto/trait.Ss58Codec.html){target=\_blank} trait in the Rust Docs.
 
 ### Address Type
 

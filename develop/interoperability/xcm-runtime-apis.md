@@ -29,7 +29,7 @@ The [Dry-run API](https://paritytech.github.io/polkadot-sdk/master/xcm_runtime_a
 - Forwarded XCMs
 - List of events
 
-This API can be used on its own for dry-running purposes, for double-checking or testing, but it mainly shines when used in conjunction with the XcmPaymentApi, given that it works for estimating fees only if you know the specific XCM you want to execute or send.
+This API can be used independently for dry-running, double-checking, or testing. However, it mainly shines when used with the [Xcm Payment API](#xcm-payment-api), given that it only estimates fees if you know the specific XCM you want to execute or send.
 
 ### Dry Run Call
 
@@ -94,16 +94,15 @@ This API allows a dry-run of any extrinsic and obtaining the outcome if it fails
 
 ??? interface "Example"
 
-    This example demonstrates how to simulate a cross-chain asset transfer from the Paseo network to the Pop Network using a [reserve transfer](https://wiki.polkadot.network/docs/learn/xcm/journey/transfers-reserve){target=\_blank} mechanism. Instead of executing the actual transfer, the code shows how to test and verify the transaction's behavior through a dry run before performing it on the live network:
+    This example demonstrates how to simulate a cross-chain asset transfer from the Paseo network to the Pop Network using a [reserve transfer](https://wiki.polkadot.network/docs/learn/xcm/journey/transfers-reserve){target=\_blank} mechanism. Instead of executing the actual transfer, the code shows how to test and verify the transaction's behavior through a dry run before performing it on the live network.
+
+    Replace `INSERT_USER_ADDRESS` with your SS58 address before running the script.
 
     ***Usage with PAPI***
 
     ```js
     --8<-- 'code/develop/interoperability/xcm-runtime-apis/call-example.js'
     ```
-
-    !!!note
-        Make sure to replace `INSERT_USER_ADDRESS` with your SS58 address before running the script.
 
     ***Output***
 
@@ -172,14 +171,13 @@ This API allows the direct dry-run of an xcm message instead of an extrinsic one
 
     This example demonstrates how to simulate a [teleport asset transfer](https://wiki.polkadot.network/docs/learn/xcm/journey/transfers-teleport){target=\_blank} from the Paseo network to the Paseo Asset Hub parachain. The code shows how to test and verify the received XCM message's behavior in the destination chain through a dry run on the live network.
 
+    Replace `INSERT_USER_ADDRESS` with your SS58 address before running the script.
+
      ***Usage with PAPI***
 
     ```js
     --8<-- 'code/develop/interoperability/xcm-runtime-apis/xcm-example.js'
     ```
-
-    !!!note
-        Make sure to replace `INSERT_USER_ADDRESS` with your SS58 address before running the script.
 
     ***Output***
 
@@ -304,14 +302,13 @@ Calculates the weight required to execute a given XCM message. It is useful for 
 
     This example demonstrates how to calculate the weight needed to execute a [teleport transfer](https://wiki.polkadot.network/docs/learn/xcm/journey/transfers-teleport){target=\_blank} from the Paseo network to the Paseo Asset Hub parachain using the XCM Payment API. The result shows the required weight in terms of reference time and proof size needed in the destination chain.
 
+    Replace `INSERT_USER_ADDRESS` with your SS58 address before running the script.
+
     ***Usage with PAPI***
 
     ```js
     --8<-- 'code/develop/interoperability/xcm-runtime-apis/query-xcm-weight.js'
     ```
-
-    !!!note
-        Make sure to replace `INSERT_USER_ADDRESS` with your SS58 address before running the script.
 
     ***Output***
 
@@ -434,14 +431,13 @@ Retrieves the delivery fees for sending a specific XCM message to a designated d
 
     This example demonstrates how to query the delivery fees for sending an XCM message from Paseo to Paseo Asset Hub.
 
+    Replace `INSERT_USER_ADDRESS` with your SS58 address before running the script.
+
     ***Usage with PAPI***
 
     ```js
     --8<-- 'code/develop/interoperability/xcm-runtime-apis/query-delivery-fees.js'
     ```
-
-    !!!note
-        Make sure to replace `INSERT_USER_ADDRESS` with your SS58 address before running the script.
 
     ***Output***
 

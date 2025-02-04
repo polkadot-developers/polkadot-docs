@@ -44,7 +44,7 @@ The XCM Emulator provides both advantages and limitations when testing cross-cha
 
 ### How Does It Work?
 
-The xcm-emulator provides macros for defining a mocked testing environment. Check all the existing macros and functionality in the [XCM Emulator source code](https://github.com/paritytech/polkadot-sdk/blob/{{dependencies.polkadot_sdk.stable_version}}/cumulus/xcm/xcm-emulator/src/lib.rs){target=\_blank}. The most important macros are:
+The `xcm-emulator` provides macros for defining a mocked testing environment. Check all the existing macros and functionality in the [XCM Emulator source code](https://github.com/paritytech/polkadot-sdk/blob/{{dependencies.polkadot_sdk.stable_version}}/cumulus/xcm/xcm-emulator/src/lib.rs){target=\_blank}. The most important macros are:
 
 - [**`decl_test_relay_chains`**](https://github.com/paritytech/polkadot-sdk/blob/{{dependencies.polkadot_sdk.stable_version}}/cumulus/xcm/xcm-emulator/src/lib.rs#L355){target=\_blank} - defines runtime and configuration for the relay chains. Example:
 

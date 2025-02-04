@@ -7,9 +7,9 @@ description: Learn about XCM Runtime APIs in Polkadot for cross-chain communicat
 
 ## Introduction
 
-Runtime APIs allow node-side code to extract information from the runtime state. While simple storage access retrieves stored values directly, runtime APIs enable arbitrary computation, making them a powerful tool for interacting with the chain’s state.
+Runtime APIs allow node-side code to extract information from the runtime state. While simple storage access retrieves stored values directly, runtime APIs enable arbitrary computation, making them a powerful tool for interacting with the chain's state.
 
-Unlike direct storage access, runtime APIs can derive values from storage based on arguments or perform computations that don’t require storage access at all. For example, a runtime API might expose a formula for fee calculation, using only the provided arguments as inputs rather than fetching data from storage.
+Unlike direct storage access, runtime APIs can derive values from storage based on arguments or perform computations that don't require storage access. For example, a runtime API might expose a formula for fee calculation, using only the provided arguments as inputs rather than fetching data from storage.
 
 In general, runtime APIs are used for:
 
@@ -18,7 +18,7 @@ In general, runtime APIs are used for:
 - Deriving a value from storage based on arguments
 - Exposing formulas for complex computational calculations
 
-In this section, you will learn about specific runtime APIs that support XCM processing and manipulation.
+This section will teach you about specific runtime APIs that support XCM processing and manipulation.
 
 ## Dry Run API
 
@@ -33,7 +33,7 @@ This API can be used on its own for dry-running purposes, for double-checking or
 
 ### Dry Run Call
 
-This API allows to dry-run any extrinsic and obtaint the outcome, if it fails or succeeds and also the local xcm and remote xcm messages sent to other chains.
+This API allows a dry-run of any extrinsic and obtaining the outcome if it fails or succeeds, as well as the local xcm and remote xcm messages sent to other chains.
 
 ```rust
 --8<-- 'https://raw.githubusercontent.com/paritytech/polkadot-sdk/refs/heads/stable2412/polkadot/xcm/xcm-runtime-apis/src/dry_run.rs:67:67'
@@ -115,7 +115,7 @@ This API allows to dry-run any extrinsic and obtaint the outcome, if it fails or
 
 ### Dry Run XCM
 
-This API allows to directly dry-run an xcm message instead of an extrinsic and check if it will execute succesfully and what other xcm messages will be forwarded to other chains.
+This API allows the direct dry-run of an xcm message instead of an extrinsic one, checks if it will execute successfully, and determines what other xcm messages will be forwarded to other chains.
 
 ```rust
 --8<-- 'https://raw.githubusercontent.com/paritytech/polkadot-sdk/refs/heads/stable2412/polkadot/xcm/xcm-runtime-apis/src/dry_run.rs:70:70'
@@ -198,7 +198,7 @@ The [XCM Payment API](https://paritytech.github.io/polkadot-sdk/master/xcm_runti
 
 This API eliminates the need for clients to guess execution fees or identify acceptable assets manually. Instead, clients can query the list of supported asset IDs formatted according to the XCM version they understand. With this information, they can weigh the XCM program they intend to execute and convert the computed weight into its cost using one of the acceptable assets.
 
-To use the API effectively, the client must already know the XCM program to be executed and the chains involved in the program’s execution.
+To use the API effectively, the client must already know the XCM program to be executed and the chains involved in the program's execution.
 
 ### Query Acceptable Payment Assets
 

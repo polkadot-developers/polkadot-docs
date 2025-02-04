@@ -36,7 +36,7 @@ https://westend-asset-hub-eth-rpc.polkadot.io
 
 - [`net_version`](https://ethereum.org/en/developers/docs/apis/json-rpc/#net_version){target=\_blank} - returns the current network ID as a string
 
-    ???- "Query Example" 
+    ???- code "Query Example" 
 
         ```bash title="net_version"
         curl -X POST https://westend-asset-hub-eth-rpc.polkadot.io \
@@ -53,7 +53,7 @@ https://westend-asset-hub-eth-rpc.polkadot.io
 
 - [`eth_blockNumber`](https://ethereum.org/en/developers/docs/apis/json-rpc/#eth_blocknumber){target=\_blank} - returns the number of the most recent block
 
-    ???- "Query Example" 
+    ???- code "Query Example" 
 
         ```bash title="eth_blockNumber"
         curl -X POST https://westend-asset-hub-eth-rpc.polkadot.io \
@@ -72,7 +72,7 @@ https://westend-asset-hub-eth-rpc.polkadot.io
         - Block Hash - The block hash of the block to retrieve
         - Boolean - `true` returns full transaction details, while `false` provides only transaction hashes
 
-    ???- "Query Example"
+    ???- code "Query Example"
 
         ```bash title="eth_getBlockByHash"
         curl -X POST https://westend-asset-hub-eth-rpc.polkadot.io \
@@ -93,7 +93,7 @@ https://westend-asset-hub-eth-rpc.polkadot.io
         - Block Value - quantity or tag of the block value to be fetched
         - Boolean - `true` returns full transaction details, while `false` provides only transaction hashes
 
-    ???- "Query Example" 
+    ???- code "Query Example" 
 
         ```bash title="eth_getBlockByNumber"
         curl -X POST https://westend-asset-hub-eth-rpc.polkadot.io \
@@ -112,7 +112,7 @@ https://westend-asset-hub-eth-rpc.polkadot.io
 
 - [`eth_accounts`](https://ethereum.org/en/developers/docs/apis/json-rpc/#eth_accounts){target=\_blank} - returns a list of addresses owned by the client
 
-    ???- "Query Example" 
+    ???- code "Query Example" 
 
         ```bash
         curl -X POST https://westend-asset-hub-eth-rpc.polkadot.io \
@@ -131,7 +131,7 @@ https://westend-asset-hub-eth-rpc.polkadot.io
         - Address - address to query balance
         - Block Value - quantity or tag of the block value to be fetched
 
-    ???- "Query Example" 
+    ???- code "Query Example" 
 
         ```bash title="eth_getBalance"
         curl -X POST https://westend-asset-hub-eth-rpc.polkadot.io \
@@ -159,7 +159,7 @@ https://westend-asset-hub-eth-rpc.polkadot.io
         - Input - contract bytecode or encoded method call  
         - Nonce - (optional) transaction nonce
     
-    ???- "Query Example" 
+    ???- code "Query Example" 
 
         ```bash title="eth_sendtransaction"
         curl -X POST https://westend-asset-hub-eth-rpc.polkadot.io \
@@ -187,7 +187,7 @@ https://westend-asset-hub-eth-rpc.polkadot.io
     - Parameters
         - Call Data - signed transaction data 
 
-    ???- "Query Example" 
+    ???- code "Query Example" 
 
         ```bash title="eth_sendRawTransaction"
         curl -X POST https://westend-asset-hub-eth-rpc.polkadot.io \
@@ -208,7 +208,7 @@ https://westend-asset-hub-eth-rpc.polkadot.io
         - Address - address to query balance
         - Block Value - quantity or tag of the block value to be fetched
 
-    ???- "Query Example" 
+    ???- code "Query Example" 
 
         ```bash title="eth_getTransactionCount"
         curl -X POST https://westend-asset-hub-eth-rpc.polkadot.io \
@@ -236,7 +236,7 @@ https://westend-asset-hub-eth-rpc.polkadot.io
         - Input (optional) - hash of the method signature and encoded parameters
         - Block Value - quantity or tag of the block value to be fetched
 
-    ???- "Query Example" 
+    ???- code "Query Example" 
 
         ```bash title="eth_call"
         curl -X POST https://westend-asset-hub-eth-rpc.polkadot.io \
@@ -265,7 +265,7 @@ https://westend-asset-hub-eth-rpc.polkadot.io
         - Input (optional) - hash of the method signature and encoded parameters
         - Block Value (optional) - quantity or tag of the block value to be fetched
 
-    ???- "Query Example" 
+    ???- code "Query Example" 
 
         ```bash title="eth_estimateGas"
         curl -X POST https://westend-asset-hub-eth-rpc.polkadot.io \
@@ -287,7 +287,7 @@ https://westend-asset-hub-eth-rpc.polkadot.io
 
 - [`eth_gasPrice`](https://ethereum.org/en/developers/docs/apis/json-rpc/#eth_gasprice){target=\_blank} - returns the current gas price in wei
 
-    ???- "Query Example" 
+    ???- code "Query Example" 
 
         ```bash title="eth_gasPrice"
         curl -X POST https://westend-asset-hub-eth-rpc.polkadot.io \
@@ -302,7 +302,7 @@ https://westend-asset-hub-eth-rpc.polkadot.io
 
 - [`eth_maxPriorityFeePerGas`](){target=\_blank} - returns the current maxPriorityFeePerGas in wei
 
-    ???- "Query Example" 
+    ???- code "Query Example" 
 
         ```bash title="eth_maxPriorityFeePerGas"
         curl -X POST https://westend-asset-hub-eth-rpc.polkadot.io \
@@ -323,7 +323,7 @@ https://westend-asset-hub-eth-rpc.polkadot.io
       - Address - contract or account address to query code
       - Block Value (optional) - quantity or tag of the block value to be fetched
 
-    ???- "Query Example" 
+    ???- code "Query Example" 
 
         ```bash title "eth_getCode"
         curl -X POST https://westend-asset-hub-eth-rpc.polkadot.io \
@@ -345,7 +345,7 @@ https://westend-asset-hub-eth-rpc.polkadot.io
         - Storage Key - position in storage to retrieve data from
         - Block Value (optional) - quantity or tag of the block value to be fetched
 
-    ???- "Query Example" 
+    ???- code "Query Example" 
 
         ```bash title="eth_getStorageAt"
         curl -X POST https://westend-asset-hub-eth-rpc.polkadot.io \

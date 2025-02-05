@@ -24,14 +24,14 @@ For Rust programs, this configuration is defined in the `Cargo.toml` file, which
 - The locations and versions of the pallets that are to be imported as dependencies for the runtime
 - The features in each pallet that should be enabled when compiling the native Rust binary. By enabling the standard (`std`) feature set from each pallet, you ensure that the runtime includes the functions, types, and primitives necessary for the native build, which are otherwise excluded when compiling the Wasm binary
 
-!!! note
-    For information about adding dependencies in `Cargo.toml` files, see the [Dependencies](https://doc.rust-lang.org/cargo/guide/dependencies.html){target=\_blank} page in the Cargo documentation. For information about enabling and managing features from dependent packages, see the [Features](https://doc.rust-lang.org/cargo/reference/features.html){target=\_blank} section in the Cargo documentation.
+
+For information about adding dependencies in `Cargo.toml` files, see the [Dependencies](https://doc.rust-lang.org/cargo/guide/dependencies.html){target=\_blank} page in the Cargo documentation. To learn more about enabling and managing features from dependent packages, see the [Features](https://doc.rust-lang.org/cargo/reference/features.html){target=\_blank} section in the Cargo documentation.
 
 ## Dependencies for a New Pallet
 
 To add the dependencies for a new pallet to the runtime, you must modify the `Cargo.toml` file by adding a new line into the `[workspace.dependencies]` section with the pallet you want to add. This pallet definition might look like:
 
-```toml
+```toml title="Cargo.toml"
 pallet-example = { version = "4.0.0-dev", default-features = false }
 ```
 
@@ -40,10 +40,10 @@ This line imports the `pallet-example` crate as a dependency and specifies the f
 - **`version`** - the specific version of the crate to import
 - **`default-features`** - determines the behavior for including pallet features when compiling the runtime with standard Rust libraries
 
-!!! note
-    If you’re importing a pallet that isn’t available on [`crates.io`](https://crates.io/){target=\_blank}, you can specify the pallet's location (either locally or from a remote repository) by using the `git` or `path` key. For example:
+!!! tip
+    If you're importing a pallet that isn't available on [`crates.io`](https://crates.io/){target=\_blank}, you can specify the pallet's location (either locally or from a remote repository) by using the `git` or `path` key. For example:
 
-    ```toml
+    ```toml title="Cargo.toml"
     pallet-example = { 
         version = "4.0.0-dev",
         default-features = false,
@@ -53,7 +53,7 @@ This line imports the `pallet-example` crate as a dependency and specifies the f
 
     In this case, replace `INSERT_PALLET_REMOTE_URL` with the correct repository URL. For local paths, use the path key like so:
 
-    ```toml
+    ```toml title="Cargo.toml"
     pallet-example = { 
         version = "4.0.0-dev",
         default-features = false,
@@ -65,13 +65,13 @@ This line imports the `pallet-example` crate as a dependency and specifies the f
 
 Next, add this dependency to the `[dependencies]` section of the `runtime/Cargo.toml` file, so it inherits from the main `Cargo.toml` file:
 
-```toml
+```toml title="runtime/Cargo.toml"
 pallet-examples.workspace = true
 ```
 
 To enable the `std` feature of the pallet, add the pallet to the following section:
 
-```toml
+```toml title="runtime/Cargo.toml"
 [features]
 default = ["std"]
 std = [
@@ -81,10 +81,9 @@ std = [
 ]
 ```
 
-This section specifies the default feature set for the runtime, which includes the `std` features for each pallet. When the runtime is compiled with the `std` feature set, the standard library features for all listed pallets are enabled. For more details on how the runtime is compiled as both a native binary (using `std`) and a Wasm binary (using `no_std`), refer to the [Wasm build](https://paritytech.github.io/polkadot-sdk/master/polkadot_sdk_docs/polkadot_sdk/substrate/index.html#wasm-build){target=\_blank} section in the Polkadot SDK documentation.
+This section specifies the default feature set for the runtime, which includes the `std` features for each pallet. When the runtime is compiled with the `std` feature set, the standard library features for all listed pallets are enabled. If you forget to update the features section in the `Cargo.toml` file, you might encounter `cannot find function` errors when compiling the runtime.
 
-!!! note
-    If you forget to update the features section in the `Cargo.toml` file, you might encounter `cannot find function` errors when compiling the runtime.
+For more details about how the runtime is compiled as both a native binary (using `std`) and a Wasm binary (using `no_std`), refer to the [Wasm build](https://paritytech.github.io/polkadot-sdk/master/polkadot_sdk_docs/polkadot_sdk/substrate/index.html#wasm-build){target=\_blank} section in the Polkadot SDK documentation.
 
 To ensure that the new dependencies resolve correctly for the runtime, you can run the following command:
 
@@ -108,14 +107,15 @@ At its core, the `Config` trait typically looks like this:
 
 This basic structure shows that every pallet must define certain types, such as `RuntimeEvent` and `WeightInfo`, to function within the runtime. The actual implementation can vary depending on the pallet’s specific needs.
 
-??? "Example - Utility Pallet"
-      For instance, in the [`utility pallet`](https://github.com/paritytech/polkadot-sdk/tree/{{dependencies.polkadot_sdk.stable_version}}/substrate/frame/utility){target=\_blank}, the `Config` trait is implemented with the following types:
+### Utility Pallet Example
 
-      ```rust
-      --8<-- 'code/develop/parachains/customize-parachain/add-existing-pallets/utility-pallet-config-trait.rs'
-      ```
+For instance, in the [`utility`](https://github.com/paritytech/polkadot-sdk/tree/{{dependencies.polkadot_sdk.stable_version}}/substrate/frame/utility){target=\_blank} pallet, the `Config` trait is implemented with the following types:
 
-     This example shows how the `Config` trait defines types like `RuntimeEvent`, `RuntimeCall`, `PalletsOrigin`, and `WeightInfo`, which the pallet will use when interacting with the runtime.
+```rust
+--8<-- 'code/develop/parachains/customize-parachain/add-existing-pallets/utility-pallet-config-trait.rs'
+```
+
+This example shows how the `Config` trait defines types like `RuntimeEvent`, `RuntimeCall`, `PalletsOrigin`, and `WeightInfo`, which the pallet will use when interacting with the runtime.
 
 ## Parameter Configuration for Pallets
 
@@ -135,14 +135,13 @@ To integrate a new pallet into the runtime, you must implement its `Config` trai
 --8<-- 'code/develop/parachains/customize-parachain/add-existing-pallets/impl-pallet-example-in-runtime.rs'
 ```
 
-Finally, to compose the runtime, update the list of pallets in the same file by modifying the [`#[frame_support::runtime]`](https://paritytech.github.io/polkadot-sdk/master/frame_support/attr.runtime.html){target=\_blank} section. This Rust macro constructs the runtime with a specified name and the pallets you want to include. Use the following format when adding your pallet:
+Finally, to compose the runtime, update the list of pallets in the same file by modifying the [`#[frame_support::runtime]`](https://paritytech.github.io/polkadot-sdk/master/frame_support/attr.runtime.html){target=\_blank} section. This Rust macro constructs the runtime with your specified name and pallets, wraps the runtime's configuration, and automatically generates boilerplate code for pallet inclusion. 
+
+Use the following format when adding your pallet:
 
 ```rust
 --8<-- 'code/develop/parachains/customize-parachain/add-existing-pallets/frame-support-runtime-macro.rs'
 ```
-
-!!! note
-    The `#[frame_support::runtime]` macro wraps the runtime's configuration, automatically generating boilerplate code for pallet inclusion.
 
 ## Where to Go Next
 

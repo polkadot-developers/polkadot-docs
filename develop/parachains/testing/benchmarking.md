@@ -171,7 +171,7 @@ curl https://raw.githubusercontent.com/paritytech/polkadot-sdk/refs/tags/polkado
     --output weights.rs
     ```
 
-    !!! info "Flag definitions"
+    !!! tip "Flag definitions"
         - `--runtime` - the path to your runtime's Wasm
         - `--pallet` - the name of the pallet you wish to benchmark. This pallet must be configured in your runtime and defined in `define_benchmarks`
         - `--extrinsic` - which extrinsic to test. Using `""` implies all extrinsics will be benchmarked

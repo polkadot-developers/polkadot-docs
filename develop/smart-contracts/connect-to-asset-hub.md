@@ -79,19 +79,19 @@ For example, to connect to the Westend Asset Hub TestNet via MetaMask, you need 
 
 1. Open the MetaMask extension and click on the network icon to switch to the Asset Hub Westend TestNet
 
-    ![](/images/develop/smart-contracts/evm-toolkit/connect-your-wallet/connect-your-wallet-1.webp){: .browser-extension}
+    ![](/images/develop/smart-contracts/connect-to-asset-hub/connect-to-asset-hub-1.webp){: .browser-extension}
 
 2. Click on the **Add a custom network** button
 
-    ![](/images/develop/smart-contracts/evm-toolkit/connect-your-wallet/connect-your-wallet-2.webp){: .browser-extension}
+    ![](/images/develop/smart-contracts/connect-to-asset-hub/connect-to-asset-hub-2.webp){: .browser-extension}
 
 3. Complete the necessary fields using the specified parameters, then click the **Save** button (refer to the [Networks](#networks) section for copy and paste parameters)
 
-    ![](/images/develop/smart-contracts/evm-toolkit/connect-your-wallet/connect-your-wallet-3.webp){: .browser-extension}
+    ![](/images/develop/smart-contracts/connect-to-asset-hub/connect-to-asset-hub-3.webp){: .browser-extension}
 
 4. Click on **Asset-Hub Westend TestNet** to switch the network
 
-    ![](/images/develop/smart-contracts/evm-toolkit/connect-your-wallet/connect-your-wallet-4.webp){: .browser-extension}
+    ![](/images/develop/smart-contracts/connect-to-asset-hub/connect-to-asset-hub-4.webp){: .browser-extension}
 
 The same steps as above can be used to connect to any Asset Hub chain, modifying the corresponding parameters.
 
@@ -103,8 +103,8 @@ To perform transactions and engage with smart contracts on any Asset Hub chain, 
 
 2. Copy your MetaMask address linked to the Westend Asset Hub and paste it into the designated field
 
-    ![](/images/develop/smart-contracts/evm-toolkit/connect-your-wallet/connect-your-wallet-5.webp)
+    ![](/images/develop/smart-contracts/connect-to-asset-hub/connect-to-asset-hub-5.webp)
 
 3. Click the **Get Some WND** button to request free test WND tokens. These tokens will be sent to your MetaMask wallet shortly
 
-    ![](/images/develop/smart-contracts/evm-toolkit/connect-your-wallet/connect-your-wallet-6.webp)
+    ![](/images/develop/smart-contracts/connect-to-asset-hub/connect-to-asset-hub-6.webp)

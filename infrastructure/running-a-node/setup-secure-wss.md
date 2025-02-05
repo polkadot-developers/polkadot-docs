@@ -90,4 +90,4 @@ Apache2 can run in various modes, including `prefork`, `worker`, and `event`. In
     wss://example.com:443
     ```
 
-![A sync-in-progress chain connected to Polkadot.js UI](/images/infrastructure/general/setup-secure-wss/secure-wss-01.webp)
+![A sync-in-progress chain connected to Polkadot.js UI](/images/infrastructure/running-a-validator/running-a-node/setup-secure-wss/setup-secure-wss-1.webp)

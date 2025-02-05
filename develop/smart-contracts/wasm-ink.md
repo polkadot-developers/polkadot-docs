@@ -104,8 +104,7 @@ Example:
 --8<-- 'code/develop/smart-contracts/wasm-ink/constructors.rs'
 ```
 
-!!!note
-    In this example, `new(init_value: u32)` initializes `number` with a specified value, while `default()` initializes it with the type’s default value (0 for `u32`). These constructors provide flexibility in contract deployment by supporting custom and default initialization options.
+In this example, `new(init_value: u32)` initializes `number` with a specified value, while `default()` initializes it with the type’s default value (0 for `u32`). These constructors provide flexibility in contract deployment by supporting custom and default initialization options.
 
 For more information, refer to the official documentation for the [`#[ink(constructor)]`](https://use.ink/macros-attributes/constructor){target=\_blank} macro definition.
 
@@ -118,8 +117,7 @@ There are two types of messages:
 - **Immutable messages (`&self`)** - these messages can only read the contract's state and cannot modify it
 - **Mutable messages (`&mut self`)** - these messages can read and modify the contract's state
 
-!!!note
-    `&self` is a reference to the contract's storage.
+In the example above, `&self` is a reference to the contract's storage.
 
 Example:
 
@@ -127,8 +125,7 @@ Example:
 --8<-- 'code/develop/smart-contracts/wasm-ink/messages.rs'
 ```
 
-!!!note
-    In the example above, `my_getter` is an immutable message that reads state, while `my_setter` is a mutable message that updates state.
+In the example above, `my_getter` is an immutable message that reads state, while `my_setter` is a mutable message that updates state.
 
 For more information, refer to the official documentation on the [`#[ink(message)]`](https://use.ink/macros-attributes/message){target=\_blank} macro.
 
@@ -145,8 +142,7 @@ Example:
 --8<-- 'code/develop/smart-contracts/wasm-ink/errors.rs'
 ```
 
-!!!note
-    In this example, the `Error` enum defines custom error types `InsufficientBalance` and `InsufficientAllowance`. When `transfer_from` is called, it checks if the allowance is sufficient. If not, it returns an `InsufficientAllowance` error, causing the contract to revert. This approach ensures robust error handling for smart contracts.
+In this example, the `Error` enum defines custom error types `InsufficientBalance` and `InsufficientAllowance`. When `transfer_from` is called, it checks if the allowance is sufficient. If not, it returns an `InsufficientAllowance` error, causing the contract to revert. This approach ensures robust error handling for smart contracts.
 
 ### Events
 
@@ -160,8 +156,7 @@ Example:
 --8<-- 'code/develop/smart-contracts/wasm-ink/events.rs'
 ```
 
-!!!note
-    In this example, the `Transfer` event records the sender (`from`), the receiver (`to`), and the amount transferred (`value`). The event is emitted in the `transfer_from` function to notify external listeners whenever a transfer occurs.
+In this example, the `Transfer` event records the sender (`from`), the receiver (`to`), and the amount transferred (`value`). The event is emitted in the `transfer_from` function to notify external listeners whenever a transfer occurs.
 
 For more details, check the [Events](https://use.ink/basics/events){target=\_blank} section and the [`#[ink(event)]`](https://use.ink/macros-attributes/event){target=\_blank} macro documentation.
 

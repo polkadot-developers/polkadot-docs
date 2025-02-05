@@ -136,8 +136,7 @@ Before a transaction is sent to the network, it is serialized and encoded using 
 
 This encoded format ensures consistency and efficiency in processing transactions across the network. By adhering to this format, applications can construct valid transactions and pass them to the network for execution.
 
-??? interface "Additional Information"
-    Learn how compact encoding works using [SCALE](https://github.com/paritytech/parity-scale-codec){target=\_blank}.
+To learn more about how compact encoding works using SCALE, see the [SCALE Codec](https://github.com/paritytech/parity-scale-codec){target=\_blank} README on GitHub.
 
 ### Customize Transaction Construction
 
@@ -211,5 +210,6 @@ Once a block author selects transactions from the pool, the transactions are exe
 
 Events are also written to storage. Runtime logic should not emit an event before performing the associated actions. If the associated transaction fails after the event was emitted, the event will not revert.
 
-??? interface "Additional Information"
-    Watch [Seminar: Lifecycle of a transaction](https://www.youtube.com/watch?v=3pfM0GOp02c){target=\_blank} for a video overview of the lifecycle of transactions and the types of transactions that exist.
+## Additional Resources
+
+For a video overview of the lifecycle of transactions and the types of transactions that exist, see the [Transaction lifecycle](https://www.youtube.com/watch?v=3pfM0GOp02c){target=\_blank} seminar from Parity Tech.

@@ -4,6 +4,9 @@ dependencies:
     open_zeppelin:
       repository_url: https://github.com/OpenZeppelin/polkadot-runtime-templates
       version: v1.0.0
+    open_zeppelin_contracts:
+      repository_url: https://github.com/OpenZeppelin/openzeppelin-contracts
+      version: v5.0.0
     zombienet:
       repository_url: https://github.com/paritytech/zombienet
       version: v1.3.126

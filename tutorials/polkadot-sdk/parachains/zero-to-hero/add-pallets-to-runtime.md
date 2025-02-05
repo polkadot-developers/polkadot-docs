@@ -19,7 +19,7 @@ Update the runtime's `Cargo.toml` file to include the utility pallet and your cu
 
 1. Open the `runtime/Cargo.toml` file and locate the `[dependencies]` section. Add the pallets with the following lines:
 
-    ```toml hl_lines="3-4"
+    ```toml hl_lines="3-4" title="Cargo.toml"
     --8<-- 'code/tutorials/polkadot-sdk/parachains/zero-to-hero/runtime/Cargo.toml:19:19'
     ...
     --8<-- 'code/tutorials/polkadot-sdk/parachains/zero-to-hero/runtime/Cargo.toml:74:75'
@@ -27,7 +27,7 @@ Update the runtime's `Cargo.toml` file to include the utility pallet and your cu
 
 2. In the `[features]` section, add the pallets to the `std` feature list:
 
-    ```toml hl_lines="5-6"
+    ```toml hl_lines="5-6" title="Cargo.toml"
     --8<-- 'code/tutorials/polkadot-sdk/parachains/zero-to-hero/runtime/Cargo.toml:77:79'
       ...
     --8<-- 'code/tutorials/polkadot-sdk/parachains/zero-to-hero/runtime/Cargo.toml:132:134'
@@ -47,14 +47,14 @@ Configure the pallets by implementing their `Config` trait and update the runtim
 
 2. Implement the [`Config`](https://paritytech.github.io/polkadot-sdk/master/pallet_utility/pallet/trait.Config.html){target=\_blank} trait for both pallets at the end of the `runtime/src/config/mod.rs` file:
 
-    ```rust
+    ```rust title="mod.rs"
     --8<-- 'code/tutorials/polkadot-sdk/parachains/zero-to-hero/runtime/src/configs/mod.rs:314:330'
     --8<-- 'code/tutorials/polkadot-sdk/parachains/zero-to-hero/runtime/src/configs/mod.rs:332:332'
     ```
 
 3. Locate the `#[frame_support::runtime]` macro in the `runtime/src/lib.rs` file and add the pallets:
 
-    ```rust hl_lines="5-9"
+    ```rust hl_lines="5-9" title="lib.rs"
     --8<-- 'code/tutorials/polkadot-sdk/parachains/zero-to-hero/runtime/src/lib.rs:253:255'
         ...
     --8<-- 'code/tutorials/polkadot-sdk/parachains/zero-to-hero/runtime/src/lib.rs:315:320'
@@ -74,7 +74,7 @@ This command ensures the runtime compiles without errors, validates the pallet c
 
 Launch your parachain locally and start producing blocks:
 
-!!!info 
+!!!tip
     Generated chain TestNet specifications include development accounts "Alice" and "Bob." These accounts are pre-funded with native parachain currency, allowing you to sign and send TestNet transactions. Take a look at the [Polkadot.js Accounts section](https://polkadot.js.org/apps/#/accounts){target=\_blank} to view the development accounts for your chain.
 
 1. Create a new chain specification file with the updated runtime:

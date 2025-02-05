@@ -73,7 +73,7 @@ The [Polkadot SDK Parachain Template](https://github.com/paritytech/polkadot-sdk
     cargo build --release
     ```
 
-    !!!note
+    !!!tip
         Initial compilation may take several minutes, depending on your machine specifications. Always use the `--release` flag to build optimized, production-ready artifacts.
 
 4. Upon successful compilation, you should see output similar to:
@@ -108,8 +108,7 @@ After successfully compiling your runtime, you can spin up a local chain and pro
 4. Confirm that your blockchain is producing new blocks by checking if the number after `finalized` is increasing
     --8<-- 'code/tutorials/polkadot-sdk/parachains/zero-to-hero/set-up-a-template/node-block-production.html'
 
-    !!!note
-        The details of the log output will be explored in a later tutorial. For now, knowing that your node is running and producing blocks is sufficient.
+The details of the log output will be explored in a later tutorial. For now, knowing that your node is running and producing blocks is sufficient.
 
 ## Interact with the Node
 

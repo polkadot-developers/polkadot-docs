@@ -25,8 +25,7 @@ Zombienet provides a Domain Specific Language (DSL) for writing tests. The DSL i
 
 These abstractions are expressed by sentences defined in a natural language style. Therefore, each test line will be mapped to a test to run. Also, the test file (`*.zndsl`) includes pre-defined header fields used to define information about the suite, such as network configuration and credentials location.
 
-!!! note
-    View the [Testing DSL](https://paritytech.github.io/zombienet/cli/test-dsl-definition-spec.html){target=\_blank} specification for more details on the Zombienet DSL.
+For more details about the Zombienet DSL, see the [Testing DSL](https://paritytech.github.io/zombienet/cli/test-dsl-definition-spec.html){target=\_blank} specification.
 
 ## The Test File
 

@@ -52,7 +52,7 @@ PolkaVM introduces two fundamental architectural differences compared to the Eth
     - Reduces overhead for operations not requiring extended precision
     - Facilitates efficient integration with modern CPU architectures
 
-## Revive
+## Revive Compiler
 
 [**Revive**](https://github.com/paritytech/revive){target=\_blank} enables Solidity execution on PolkaVM through a particular compilation pipeline:
 

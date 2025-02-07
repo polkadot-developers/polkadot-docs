@@ -85,7 +85,7 @@ For example, to connect to the Westend Asset Hub TestNet via MetaMask, you need 
 
     ![](/images/develop/smart-contracts/connect-to-asset-hub/connect-to-asset-hub-2.webp){: .browser-extension}
 
-3. Complete the necessary fields using the specified parameters, then click the **Save** button (refer to the [Networks](#networks) section for copy and paste parameters)
+3. Complete the necessary fields using the parameters in the [Specifications](#specifications) section, then click the **Save** button (refer to the [Networks](#networks) section for copy and paste parameters)
 
     ![](/images/develop/smart-contracts/connect-to-asset-hub/connect-to-asset-hub-3.webp){: .browser-extension}
 

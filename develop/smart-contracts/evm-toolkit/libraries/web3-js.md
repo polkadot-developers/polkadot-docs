@@ -56,7 +56,7 @@ For instance, to fetch the latest block number of the chain, you can use the fol
 
 ## Compile Contracts
 
-Asset Hub requires contracts to be compiled to PolkaVM bytecode. This is achieved using the [`revive`](https://github.com/paritytech/revive){target=\_blank} compiler. Install the [`@parity/revive`](https://github.com/paritytech/js-revive){target=\_blank} library as a development dependency:
+Asset Hub requires contracts to be compiled to [PolkaVM](/polkadot-protocol/smart-contracts-basics/polkavm-design){target=\_blank} bytecode. This is achieved using the [`revive`](https://github.com/paritytech/revive){target=\_blank} compiler. Install the [`@parity/revive`](https://github.com/paritytech/js-revive){target=\_blank} library as a development dependency:
 
 ```bash
 npm install --save-dev @parity/revive

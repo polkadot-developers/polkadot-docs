@@ -61,13 +61,11 @@ Parachains inherently offer features such as logic upgradeability, flexible tran
 
 ## Building a Smart Contract
 
-Polkadot's primary purpose is to provide security for parachains that connect to it. Therefore, it is not meant to support smart contract execution. Developers looking to build smart contract projects in Polkadot need to look into its ecosystem for parachains that support it.
-
 The Polkadot SDK supports multiple smart contract execution environments:
 
 - **PolkaVM** - a cutting-edge virtual machine tailored to optimize smart contract execution on Polkadot. Unlike traditional EVMs, PolkaVM is built with a [RISC-V-based register architecture](https://en.wikipedia.org/wiki/RISC-V){target=\_blank} for increased performance and scalability
 - **EVM** - through [Frontier](https://github.com/polkadot-evm/frontier){target=\_blank}. It consists of a full Ethereum JSON RPC compatible client, an Ethereum emulation layer, and a [Rust-based EVM](https://github.com/rust-ethereum/evm){target=\_blank}. This is used by chains like [Acala](https://acala.network/){target=\_blank}, [Astar](https://astar.network/){target=\_blank}, [Moonbeam](https://moonbeam.network){target=\_blank} and more
-- **Wasm** - through the [Contracts pallet](https://github.com/paritytech/polkadot-sdk/blob/master/substrate/frame/contracts/){target=\_blank}. [ink!](https://use.ink/){target=\_blank} is a smart contract language that provides a compiler to Wasm. Wasm contracts can be used by chains like [Astar](https://astar.network/){target=\_blank}
+- **Wasm** - through the [Contracts pallet](https://github.com/paritytech/polkadot-sdk/blob/master/substrate/frame/contracts/){target=\_blank}. [ink!](https://use.ink/){target=\_blank} is a domain-specific language (DSL) for Rust smart contract development, with [`cargo-contract`](https://github.com/use-ink/cargo-contract){target=\_blank} serving as the compuler to WebAssembly. Wasm contracts can be used by chains like [Astar](https://astar.network/){target=\_blank}
 
 ### PolkaVM Contracts
 
@@ -116,8 +114,6 @@ Although it seems complex, users and developers are abstracted of that complexit
 
 The Rust EVM is capable of executing regular [EVM bytecode](https://www.ethervm.io/){target=\_blank}. Consequently, any language that compiles to EVM bytecode can be used to create programs that the parachain can execute.
 
-You can find more information on deploying EVM smart contracts to [Polkadot's native smart contract platform](/develop/smart-contracts/evm/native-evm-contracts/){target=\_blank}, or any of [the ecosystem parachains](/develop/smart-contracts/evm/parachain-contracts/){target=\_blank}.
-
 ### Wasm Contracts
 
 The [`pallet_contracts`](https://docs.rs/pallet-contracts/latest/pallet_contracts/index.html#contracts-pallet){target=\_blank} provides the execution environment for Wasm-based smart contracts. Consequently, any smart contract language that compiles to Wasm can be executed in a parachain that enables this module.
@@ -148,5 +144,3 @@ flowchart TD
 
     style A fill:#ffffff,stroke:#000000,stroke-width:1px
 ```
-
-Learn more on how to build and deploy Wasm smart contracts on the [Wasm Smart Contracts](/develop/smart-contracts/wasm-ink/){target=\_blank} page.

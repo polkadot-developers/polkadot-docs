@@ -21,7 +21,7 @@ This proxy-based approach eliminates the need for node binary modifications, mai
 
 ## PolkaVM
 
-[**PolkaVM**](https://github.com/paritytech/polkavm){target=\_blank} is a custom virtual machine optimized for performance with RISC-V-based architecture, supporting Solidity and additional high-performance languages. It serves as the core execution environment, integrated directly within the runtime. It features:
+[**PolkaVM**](https://github.com/paritytech/polkavm){target=\_blank} is a custom virtual machine optimized for performance with [RISC-V-based](https://en.wikipedia.org/wiki/RISC-V){target=\_blank} architecture, supporting Solidity and additional high-performance languages. It serves as the core execution environment, integrated directly within the runtime. It features:
 
 - An efficient interpreter for immediate code execution
 - A planned JIT compiler for optimized performance

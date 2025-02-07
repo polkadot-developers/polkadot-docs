@@ -74,7 +74,7 @@ With that, you can now create a `compile.js` snippet that transform your solidit
 --8<-- 'code/develop/smart-contracts/evm-toolkit/libraries/web3-js/compile.js'
 ```
 
-After compilation, you'll have the `.json` ABI file and `.polkavm` bytecode file ready for deployment.
+After compilation, you'll have two key files: an ABI (`.json`) file, which provides a JSON interface describing the contract's functions and how to interact with it, and a bytecode (`.polkavm`) file, which contains the low-level machine code executable on PolkaVM that represents the compiled smart contract ready for blockchain deployment.
 
 ## Contract Deployment
 

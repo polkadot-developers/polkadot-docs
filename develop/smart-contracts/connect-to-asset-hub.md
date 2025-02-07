@@ -101,7 +101,7 @@ To perform transactions and engage with smart contracts on any Asset Hub chain, 
 
 1. Navigate to the [Polkadot Faucet](https://faucet.polkadot.io){target=\_blank}
 
-2. Copy your MetaMask address linked to the Westend Asset Hub and paste it into the designated field
+2. Copy your MetaMask address linked to Westend Asset Hub and paste it into the designated field
 
     ![](/images/develop/smart-contracts/connect-to-asset-hub/connect-to-asset-hub-5.webp)
 

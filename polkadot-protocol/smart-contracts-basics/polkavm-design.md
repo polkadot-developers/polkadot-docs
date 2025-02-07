@@ -11,7 +11,7 @@ The smart contract solution comprises several key components designed to deliver
 
 ## Pallet Revive
 
-[**`pallet_revive`**](https://paritytech.github.io/polkadot-sdk/master/pallet_revive/index.html){target=\_blank} is a runtime module that executes smart contracts by adding extrinsics, runtime APIs, and logic to convert Ethereum-style transactions into formats compatible with the blockchain. It processes Ethereum-style transactions through the following workflow:
+[**`pallet_revive`**](https://paritytech.github.io/polkadot-sdk/master/pallet_revive/index.html){target=\_blank} is a runtime module that executes smart contracts by adding extrinsics, runtime APIs, and logic to convert Ethereum-style transactions into formats compatible with Polkadot SDK-based blockchains. It processes Ethereum-style transactions through the following workflow:
 
 - Users interact with a proxy server that emulates the Ethereum JSON RPC interface
 - The proxy server transforms Ethereum transactions into special dispatchable transactions while preserving the original payload

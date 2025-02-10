@@ -7,7 +7,7 @@ description: Discover PolkaVM, a high-performance smart contract VM for Polkadot
 
 ## Introduction
 
-The Asset Hub smart contracts solution includes various components that ensure Ethereum compatibility and high performance. Its architecture allows for integration with current Ethereum tools, while its innovative virtual machine design enhances performance characteristics.
+The Asset Hub smart contracts solution includes multiple components to ensure Ethereum compatibility and high performance. Its architecture allows for integration with current Ethereum tools, while its innovative virtual machine design enhances performance characteristics.
 
 ## PolkaVM
 

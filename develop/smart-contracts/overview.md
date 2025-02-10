@@ -47,8 +47,36 @@ Asset Hub's smart contract platform is suitable for a wide range of applications
 - Governance systems integrated with Polkadot's democracy mechanisms
 - Cross-chain bridges and asset management solutions
 
-## Kickstart Your Development
+## Where to Go Next
 
 Developers can use their existing Ethereum development tools and connect to Asset Hub's RPC endpoints. The platform's Ethereum compatibility layer ensures a smooth transition for teams already building on EVM-compatible chains.
 
-The subsequent sections in this guide provide detailed information about specific development tools, advanced features, and best practices for building on Asset Hub.
+Subsequent sections of this guide provide detailed information about specific development tools, advanced features, and best practices for building on Asset Hub.
+
+<div class="grid cards" markdown>
+
+-   <span class="badge guide">Guide</span> __Libraries__
+
+    ---
+
+    Explore essential libraries to optimize smart contract development and interaction.
+
+    [:octicons-arrow-right-24: Reference](/develop/smart-contracts/evm-toolkit/libraries/)
+
+-   <span class="badge guide">Guide</span> __Dev Environments__
+
+    ---
+
+    Set up your development environment for seamless contract deployment and testing.
+
+    [:octicons-arrow-right-24: Reference](/develop/smart-contracts/evm-toolkit/dev-environments/)
+
+-   <span class="badge guide">Guide</span> __Indexers__
+
+    ---
+
+    Leverage indexers to efficiently query on-chain data and improve dApp performance.
+
+    [:octicons-arrow-right-24: Reference](/develop/smart-contracts/evm-toolkit/indexers/)
+
+</div>

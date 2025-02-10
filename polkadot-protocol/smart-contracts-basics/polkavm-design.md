@@ -46,9 +46,9 @@ PolkaVM introduces two fundamental architectural differences compared to the Eth
 
 [**`pallet_revive`**](https://paritytech.github.io/polkadot-sdk/master/pallet_revive/index.html){target=\_blank} is a runtime module that executes smart contracts by adding extrinsics, runtime APIs, and logic to convert Ethereum-style transactions into formats compatible with Polkadot SDK-based blockchains. It processes Ethereum-style transactions through the following workflow:
 
-- Users interact with a proxy server that emulates the Ethereum JSON RPC interface
-- The proxy server transforms Ethereum transactions into special dispatchable transactions while preserving the original payload
-- The pallet's internal logic decodes and processes these transactions for blockchain compatibility
+1. Users interact with a proxy server that emulates the Ethereum JSON RPC interface
+2. The proxy server transforms Ethereum transactions into special dispatchable transactions while preserving the original payload
+3. The pallet's internal logic decodes and processes these transactions for blockchain compatibility
 
 This proxy-based approach eliminates the need for node binary modifications, maintaining compatibility across different client implementations. Preserving the original Ethereum transaction payload simplifies adapting existing tools, which can continue processing familiar transaction formats.
 

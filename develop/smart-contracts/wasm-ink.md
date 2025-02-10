@@ -163,7 +163,7 @@ Example:
 !!!note
     In this example, the `Transfer` event records the sender (`from`), the receiver (`to`), and the amount transferred (`value`). The event is emitted in the `transfer_from` function to notify external listeners whenever a transfer occurs.
 
-For more details, check the [Events](https://use.ink/parachain-basics/events){target=\_blank} section and the [`#[ink(event)]`](https://use.ink/macros-attributes/event){target=\_blank} macro documentation.
+For more details, check the [Events](https://use.ink/basics/events){target=\_blank} section and the [`#[ink(event)]`](https://use.ink/macros-attributes/event){target=\_blank} macro documentation.
 
 ## Where to Go Next?
 

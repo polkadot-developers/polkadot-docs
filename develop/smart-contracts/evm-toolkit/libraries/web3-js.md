@@ -29,29 +29,19 @@ npm install web3
 
 The provider configuration is the foundation of any Web3.js application. The following example establishes a connection to the Asset Hub network. To use the example script, replace `INSERT_RPC_URL`, `INSERT_CHAIN_ID`, and `INSERT_CHAIN_NAME` with the appropriate values. For example, for Westend Asset Hub testnet, use these specific connection parameters:
 
-    ```js
-    const PROVIDER_RPC = {
-        rpc: 'https://westend-asset-hub-eth-rpc.polkadot.io',
-        chainId: 420420421,
-        name: 'westend-asset-hub'
-    };
-    ```
+```js
+const PROVIDER_RPC = {
+    rpc: 'https://westend-asset-hub-eth-rpc.polkadot.io',
+    chainId: 420420421,
+    name: 'westend-asset-hub'
+};
+```
+
+The provider connection script should look something like:
 
 ```javascript title="connectToProvider.js"
 --8<-- 'code/develop/smart-contracts/evm-toolkit/libraries/web3-js/connectToProvider.js'
 ```
-
-!!! note
-    Replace `INSERT_RPC_URL`, `INSERT_CHAIN_ID`, and `INSERT_CHAIN_NAME` with the appropriate values. For example, For Westend Asset Hub testnet, use these specific connection parameters:
-
-    ```js
-    const PROVIDER_RPC = {
-        rpc: 'https://westend-asset-hub-eth-rpc.polkadot.io',
-        chainId: 420420421,
-        name: 'westend-asset-hub'
-    };
-    ```
-
 With the Web3 provider set up, you can start querying the blockchain.
 
 For instance, to fetch the latest block number of the chain, you can use the following code snippet:
@@ -86,24 +76,22 @@ After compilation, you'll have two key files: an ABI (`.json`) file, which provi
 
 ## Contract Deployment
 
-To deploy your compiled contract to Asset Hub using Web3.js, you'll need an account with a private key to sign the deployment transaction. The deployment process is exactly the same as for any EVM-compatible chain, involving creating a contract instance, estimating gas, and sending a deployment transaction. Here's how to deploy the contract:
+To deploy your compiled contract to Asset Hub using Web3.js, you'll need an account with a private key to sign the deployment transaction. The deployment process is exactly the same as for any EVM-compatible chain, involving creating a contract instance, estimating gas, and sending a deployment transaction. Here's how to deploy the contract, ensure replacing the `INSERT_RPC_URL`, `INSERT_PRIVATE_KEY`, and `INSERT_CONTRACT_NAME` with the appropriate values:
 
 ```javascript title="deploy.js"
 --8<-- 'code/develop/smart-contracts/evm-toolkit/libraries/web3-js/deploy.js'
 ```
-
-Replace `INSERT_RPC_URL`, `INSERT_PRIVATE_KEY`, and `INSERT_CONTRACT_NAME` with the appropriate values.
-
 ## Interact with the Contract
 
-Once deployed, you can interact with your contract using Web3.js methods. Here's how to set a number and read it back:
+Once deployed, you can interact with your contract using Web3.js methods. Here's how to set a number and read it back, ensure replacing `INSERT_RPC_URL`, `INSERT_PRIVATE_KEY`, and `INSERT_CONTRACT_ADDRESS` with the appropriate values:
 
 ```javascript title="updateStorage.js"
 --8<-- 'code/develop/smart-contracts/evm-toolkit/libraries/web3-js/updateStorage.js'
 ```
 
-Replace `INSERT_RPC_URL`, `INSERT_PRIVATE_KEY`, and `INSERT_CONTRACT_ADDRESS` with the appropriate values.
+## Where to Go Next
 
-## Conclusion
+Now that you’ve learned how to use Web3.js with Asset Hub, explore more advanced topics:
 
-This guide demonstrates how to use Web3.js to interact with the Asset Hub chain, from setting up a provider to deploying and interacting with smart contracts. By leveraging tools like `@parity/revive` for PolkaVM bytecode compilation and Web3.js for blockchain interaction, developers can seamlessly build and manage dApps within the Asset Hub ecosystem. 
+- Utilize Web3.js utilities – learn about additional [Web3.js](https://docs.web3js.org/){target=\_blank} features such as signing transactions, managing wallets, and subscribing to events
+- Build full-stack dApps – [integrate Web3.js](https://docs.web3js.org/guides/dapps/intermediate-dapp){target=\_blank} with different libraries and frameworks to build decentralized web applications

@@ -24,7 +24,7 @@ The interpreter remains particularly beneficial for contracts with minimal code 
 
 PolkaVM introduces two fundamental architectural differences compared to the Ethereum Virtual Machine (EVM):
 
-- **Register-Based design** - unlike EVM's stack-based architecture, PolkaVM utilizes a RISC-V register-based approach. This design:
+- **Register-based design** - unlike EVM's stack-based architecture, PolkaVM utilizes a RISC-V register-based approach. This design:
 
     - Employs a finite set of registers for argument passing instead of an infinite stack
     - Facilitates efficient translation to underlying hardware architectures

@@ -7,7 +7,7 @@ description: Learn how to interact with the Asset Hub chain using Web3.js, deplo
 
 ## Introduction
 
-Interacting with blockchains typically requires an interface between your application and the network itself. [Web3.js](https://web3js.readthedocs.io/){target=\_blank} offers this interface through a comprehensive collection of libraries, facilitating seamless interaction with the nodes using HTTP or WebSocket protocols. This guide illustrates how to utilize Web3.js specifically for interactions with the Asset Hub chain.
+Interacting with blockchains typically requires an interface between your application and the network. [Web3.js](https://web3js.readthedocs.io/){target=\_blank} offers this interface through a comprehensive collection of libraries, facilitating seamless interaction with the nodes using HTTP or WebSocket protocols. This guide illustrates how to utilize Web3.js specifically for interactions with the Asset Hub chain.
 
 ## Set Up the Project
 
@@ -48,7 +48,7 @@ With the Web3 provider set up, you can start querying the blockchain.
 
 For instance, to fetch the latest block number of the chain, you can use the following code snippet:
 
-???- "fetchLastBlock.js"
+???- code "fetchLastBlock.js"
 
     ```javascript title="fetchLastBlock.js"
     --8<-- 'code/develop/smart-contracts/evm-toolkit/libraries/web3-js/fetchLastBlock.js'
@@ -62,13 +62,13 @@ Asset Hub requires contracts to be compiled to [PolkaVM](/polkadot-protocol/smar
 npm install --save-dev @parity/revive
 ```
 
-Here’s a simple storage contract that you can use to follow the process:
+Here's a simple storage contract that you can use to follow the process:
 
 ```solidity title="Storage.sol"
 --8<-- 'code/develop/smart-contracts/evm-toolkit/libraries/web3-js/Storage.sol'
 ```
 
-With that, you can now create a `compile.js` snippet that transform your solidity code into PolkaVM bytecode:
+With that, you can now create a `compile.js` snippet that transforms your solidity code into PolkaVM bytecode:
 
 ```javascript title="compile.js"
 --8<-- 'code/develop/smart-contracts/evm-toolkit/libraries/web3-js/compile.js'

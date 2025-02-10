@@ -33,7 +33,7 @@ PolkaVM introduces two fundamental architectural differences compared to the Eth
     - Reduces compilation complexity through strategic register limitation
     - Improves overall execution performance through hardware-aligned design
 
-- **64-Bit word size**  - PolkaVM operates with a 64-bit word size, contrasting with EVM's 256-bit architecture:
+- **64-bit word size**  - PolkaVM operates with a 64-bit word size, which differs from EVM's 256-bit architecture as follows:
 
     - Enables direct hardware-supported arithmetic operations
     - Maintains compatibility with Solidity's 256-bit operations through YUL translation

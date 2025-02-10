@@ -46,7 +46,7 @@ With the Web3 provider set up, you can start querying the blockchain.
 
 For instance, to fetch the latest block number of the chain, you can use the following code snippet:
 
-???- code "fetchLastBlock.js"
+???+ code "Complete script"
 
     ```javascript title="fetchLastBlock.js"
     --8<-- 'code/develop/smart-contracts/evm-toolkit/libraries/web3-js/fetchLastBlock.js'

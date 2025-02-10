@@ -97,7 +97,7 @@ The steps in the preceding section can be used to connect to any Asset Hub chain
 
 ## Test Tokens
 
-To perform transactions and engage with smart contracts on any Asset Hub chain, you will require tokens. Here's how to obtain Westend Asset Hub (WND) tokens for testing purposes:
+You will need testnet tokens to perform transactions and engage with smart contracts on any Asset Hub chain. Here's how to obtain Westend Asset Hub (WND) tokens for testing purposes:
 
 1. Navigate to the [Polkadot Faucet](https://faucet.polkadot.io){target=\_blank}
 

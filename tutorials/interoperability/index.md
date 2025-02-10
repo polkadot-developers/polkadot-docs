@@ -29,7 +29,7 @@ Learn to establish and use cross-chain communication channels:
 
 <div class="subsection-wrapper">
   <div class="card">
-    <a href="/polkadot-protocol/basics/interoperability/">
+    <a href="/polkadot-protocol/parachain-basics/interoperability/">
       <h2 class="title">Learn about Polkadot's Interoperability</h2>
       <p class="description">Explore the importance of interoperability in the Polkadot ecosystem, covering XCM, bridges, and cross-chain communication.</p>
     </a>

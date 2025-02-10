@@ -27,7 +27,15 @@ npm install web3
 
 ## Set Up the Web3 Provider
 
-The foundation of any Web3.js application is the provider configuration. This establishes your connection to the Asset Hub network:
+The provider configuration is the foundation of any Web3.js application. The following example establishes a connection to the Asset Hub network. To use the example script, replace `INSERT_RPC_URL`, `INSERT_CHAIN_ID`, and `INSERT_CHAIN_NAME` with the appropriate values. For example, for Westend Asset Hub testnet, use these specific connection parameters:
+
+    ```js
+    const PROVIDER_RPC = {
+        rpc: 'https://westend-asset-hub-eth-rpc.polkadot.io',
+        chainId: 420420421,
+        name: 'westend-asset-hub'
+    };
+    ```
 
 ```javascript title="connectToProvider.js"
 --8<-- 'code/develop/smart-contracts/evm-toolkit/libraries/web3-js/connectToProvider.js'

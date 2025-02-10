@@ -49,6 +49,6 @@ Asset Hub's smart contract platform is suitable for a wide range of applications
 
 ## Kickstart Your Development
 
-To begin developing on Asset Hub, developers can use their existing Ethereum development tools and connect to Asset Hub's RPC endpoints. The platform's Ethereum compatibility layer ensures a smooth transition for teams already building on EVM-compatible chains.
+Developers can use their existing Ethereum development tools and connect to Asset Hub's RPC endpoints. The platform's Ethereum compatibility layer ensures a smooth transition for teams already building on EVM-compatible chains.
 
 The subsequent sections in this guide provide detailed information about specific development tools, advanced features, and best practices for building on Asset Hub.

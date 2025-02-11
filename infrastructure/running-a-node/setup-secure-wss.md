@@ -3,14 +3,13 @@ title: Set Up Secure WebSocket
 description: Instructions on enabling SSL for your node and setting up a secure WebSocket proxy server using nginx for remote connections.
 ---
 
-# Setup Secure WebSocket
+# Set Up Secure WebSocket
 
 ## Introduction
 
-Ensuring secure WebSocket communication is crucial for maintaining the integrity and security of a Polkadot or Kusama node when interacting with remote clients. This guide walks you through setting up a secure WebSocket (WSS) connection for your node by leveraging SSL encryption with popular web server proxies like nginx or Apache. By the end of this guide, you'll be able to secure your node's WebSocket port, enabling safe remote connections without exposing your node to unnecessary risks.
+Ensuring secure WebSocket communication is crucial for maintaining the integrity and security of a Polkadot or Kusama node when interacting with remote clients. This guide walks you through setting up a secure WebSocket (WSS) connection for your node by leveraging SSL encryption with popular web server proxies like nginx or Apache.
 
-!!!info
-    The following instructions are for UNIX-based systems.
+By the end of this guide, you'll be able to secure your node's WebSocket port, enabling safe remote connections without exposing your node to unnecessary risks. The instructions in this guide are for UNIX-based systems.
 
 ## Secure a WebSocket Port
 
@@ -20,8 +19,8 @@ You can convert a non-secured WebSocket port to a secure WSS port by placing it 
 
 LetsEncrypt suggests using the [Certbot ACME client](https://letsencrypt.org/getting-started/#with-shell-access/){target=\_blank} for your respective web server implementation to get a free SSL certificate:
 
--  [nginx](https://certbot.eff.org/instructions?ws=nginx&os=ubuntufocal){target=\_blank}
--  [apache2](https://certbot.eff.org/instructions?ws=apache&os=ubuntufocal){target=\_blank}
+- [nginx](https://certbot.eff.org/instructions?ws=nginx&os=ubuntufocal){target=\_blank}
+- [apache2](https://certbot.eff.org/instructions?ws=apache&os=ubuntufocal){target=\_blank}
  
 LetsEncrypt will auto-generate an SSL certificate and include it in your configuration.
 

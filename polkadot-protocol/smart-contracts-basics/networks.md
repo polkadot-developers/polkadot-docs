@@ -1,6 +1,6 @@
 ---
 title: Networks for Smart Contract Development
-description: Explore the testing and production networks available for smart contract development on Asset Hub, including Westend Asset Hub, Kusama Asset Hub, and Polkadot Asset Hub.
+description: Explore the available networks for smart contract development on Asset Hub, including Westend Asset Hub, Kusama Asset Hub, and Polkadot Asset Hub.
 ---
 
 # Networks

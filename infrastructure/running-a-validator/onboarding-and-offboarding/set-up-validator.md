@@ -206,7 +206,7 @@ Once the Polkadot binaries are installed, it's essential to verify that everythi
 
     The output should show the version numbers for each of the binaries. Ensure that the versions match and are consistent, similar to the following example (the specific version may vary):
 
-    --8<-- 'code/infrastructure/running-a-validator/onboarding-and-offboarding/requirements/terminal-output-01.html'
+    --8<-- 'code/infrastructure/running-a-validator/onboarding-and-offboarding/set-up-a-validator/terminal-output-01.html'
 
     If the versions do not match or if there is an error, double-check that all the binaries were correctly installed and are accessible within your `$PATH`.
 

@@ -16,18 +16,18 @@ dependencies:
   polkadot_sdk_solochain_template:
     repository_url: https://github.com/paritytech/polkadot-sdk-solochain-template
     version: v0.0.2
-  polkadot_sdk:
-    repository_url: https://github.com/paritytech/polkadot-sdk
-    # version: v1.16.2-rc1 
-    stable_version: polkadot-stable2412 
   polkadot_js_api:
     version: v15.0.2
   srtool:
     repository_url: https://github.com/paritytech/srtool
-    version: v0.16.0
+    version: v0.17.0
     docker_image_name: paritytech/srtool
-    docker_image_version: 1.62.0
+    docker_image_version: 1.81.0
   polkadot_sdk:
     repository_url: https://github.com/paritytech/polkadot-sdk
     version: polkadot-stable2412
     docker_image_version: stable2412
+    stable_version: polkadot-stable2412 
+  moonwall:
+    repository_url: https://github.com/Moonsong-Labs/moonwall
+    version: 5.9.1

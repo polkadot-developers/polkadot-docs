@@ -30,7 +30,7 @@ If an asset on Asset Hub does not have an existing liquidity pool, the first ste
 
 The asset conversion pallet provides the `createPool` extrinsic to create a new liquidity pool, creating an empty liquidity pool and a new `LP token` asset.
 
-!!! note
+!!! tip
     A testing token with the asset ID `1112` and the name `PPM` was created for this example.
 
 As stated in the [Test Environment Setup](#test-environment-setup) section, this tutorial is based on the assumption that you have an instance of Polkadot Asset Hub running locally. Therefore, the demo liquidity pool will be created between DOT and PPM tokens. However, the same steps can be applied to any other asset on Asset Hub.
@@ -46,8 +46,7 @@ From the Asset Hub perspective, the Multilocation that identifies the PPM token 
 }
 ```
 
-!!!note
-    The `PalletInstance` value of `50` represents the Assets pallet on Asset Hub. The `GeneralIndex` value of `1112` is the PPM asset's asset ID.
+The `PalletInstance` value of `50` represents the Assets pallet on Asset Hub. The `GeneralIndex` value of `1112` is the PPM asset's asset ID.
 
 To create the liquidity pool, you can follow these steps:
 
@@ -335,7 +334,6 @@ npx @acala-network/chopsticks \
 --config=https://raw.githubusercontent.com/AcalaNetwork/chopsticks/master/configs/polkadot-asset-hub.yml
 ```
 
-!!! note
-    This command initiates a lazy fork of Polkadot Asset Hub, including the most recent block information from the network. For Kusama Asset Hub testing, simply switch out `polkadot-asset-hub.yml` with `kusama-asset-hub.yml` in the command.
+This command initiates a lazy fork of Polkadot Asset Hub, including the most recent block information from the network. For Kusama Asset Hub testing, simply switch out `polkadot-asset-hub.yml` with `kusama-asset-hub.yml` in the command.
 
 You now have a local Asset Hub instance up and running, ready for you to test various asset conversion procedures. The process here mirrors what you'd do on MainNet. After completing a transaction on TestNet, you can apply the same steps to convert assets on MainNet.

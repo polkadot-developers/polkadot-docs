@@ -18,8 +18,7 @@ Whether you're building a standalone chain or deploying a parachain on Polkadot,
 - A selection of pre-built modules, called [pallets](/polkadot-protocol/glossary#pallet){target=\_blank}
 - Benchmarking and testing suites
 
-!!!note
-    For an in-depth dive into the monorepo, the [Polkadot SDK Rust documentation](https://paritytech.github.io/polkadot-sdk/master/polkadot_sdk_docs/polkadot_sdk/index.html){target=\_blank} is highly recommended.
+For an in-depth look at the monorepo, see the [Polkadot SDK Rust documentation](https://paritytech.github.io/polkadot-sdk/master/polkadot_sdk_docs/polkadot_sdk/index.html){target=\_blank}.
 
 ## Polkadot SDK Overview
 

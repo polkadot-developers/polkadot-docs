@@ -214,7 +214,7 @@ The following example illustrates how to customize your inclusion fee. You must 
 --8<-- 'code/polkadot-protocol/basics/blocks-transactions-fees/fees/custom-inclusion-fee.rs'
 ```
 
-## Further Resources
+## Additional Resources
 
 You now know the weight system, how it affects transaction fee computation, and how to specify weights for your dispatchable calls. The next step is determining the correct weight for your dispatchable operations. You can use Substrate benchmarking functions and frame-benchmarking calls to test your functions with different parameters and empirically determine the proper weight in their worst-case scenarios.
 

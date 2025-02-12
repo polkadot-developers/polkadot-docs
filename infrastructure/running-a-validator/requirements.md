@@ -20,18 +20,9 @@ Running a validator requires solid system administration skills and a secure, we
 - **Staking requirements** - a minimum amount of native token (KSM or DOT) is required to be elected into the validator set. The required stake can come from your own holdings or from nominators
 - **Risk of slashing** - any DOT you stake is at risk if your setup fails or your validator misbehaves. If you’re unsure of your ability to maintain a reliable validator, consider nominating your DOT to a trusted validator
 
-## Technical Requirements
+## Minimum Hardware Requirements
 
-Running a Polkadot validator node on Linux is the most common approach, especially for beginners. While you can use any VPS provider that meets the technical specifications, this guide uses Ubuntu 22.04. However, the steps should be adaptable to other Linux distributions.
-
-### Reference Hardware
-
-Polkadot validators rely on high-performance hardware to process blocks efficiently. The following specifications are based on benchmarking using two VM instances:
-
-- **Google Cloud Platform (GCP)** - `n2-standard-8` instance
-- **Amazon Web Services (AWS)** - `c6i.4xlarge` instance
-
-The recommended minimum hardware requirements to ensure a fully functional and performant validator are as follows:
+Polkadot validators rely on high-performance hardware to process blocks efficiently. The recommended minimum hardware requirements to ensure a fully functional and performant validator are as follows:
 
 - **CPU**:
 
@@ -55,15 +46,9 @@ The recommended minimum hardware requirements to ensure a fully functional and p
 
     - 32 GB DDR4 ECC
 
-- **System**:
-
-    - Linux Kernel 5.16 or newer
-
 - **Network**:
 
     - Symmetric networking speed of 500 Mbit/s is required to handle large numbers of parachains and ensure congestion control during peak times
-
-While the hardware specs above are best practices and not strict requirements, subpar hardware may lead to performance issues and increase the risk of slashing.
 
 ## VPS Provider List
 

@@ -57,7 +57,7 @@ This section will guide you through the initial steps of creating the foundation
             - Use workspace inheritance in your pallet's `Cargo.toml` to maintain consistency across your project
         - Regularly check for updates to FRAME and Polkadot SDK dependencies to benefit from the latest features, performance improvements, and security patches
 
-        For detailed information on workspace inheritance and how to properly integrate your pallet with the runtime, refer to the [Add an Existing Pallet to the Runtime](/develop/parachains/customize-parachain/add-existing-pallets/){target=\_blank} page.
+    For detailed information about workspace inheritance and how to properly integrate your pallet with the runtime, see the [Add an Existing Pallet to the Runtime](/develop/parachains/customize-parachain/add-existing-pallets/){target=\_blank} page.
 
 3.  Initialize the pallet structure by replacing the contents of `src/lib.rs` with the following scaffold code:
 

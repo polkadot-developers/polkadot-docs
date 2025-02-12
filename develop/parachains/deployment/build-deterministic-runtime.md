@@ -128,7 +128,7 @@ To pull the image from Docker Hub:
 6. Paste the command you copied from the Docker Hub. For example, you might run a command similar to the following, which downloads and unpacks the image:
 
     ```bash
-    docker pull paritytech/srtool:1.62.0
+    docker pull paritytech/srtool:{{ dependencies.srtool.docker_image_version }}
     ```
 
 ### Naming Convention for Images

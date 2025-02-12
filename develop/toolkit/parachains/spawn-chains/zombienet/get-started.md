@@ -13,14 +13,6 @@ This guide will outline the different installation methods for Zombienet, provid
 
 By following this guide, Zombienet will be up and running quickly, ready to streamline your blockchain testing and development workflows.
 
-!!! note "Additional support resources"
-    [Parity Technologies](https://www.parity.io/){target=\_blank} has designed and developed this framework, now maintained by the Zombienet team. 
-
-    For further support and information, refer to the following contact points:
-
-    - [Zombienet repository](https://github.com/paritytech/zombienet){target=\_blank}
-    - [Element public channel](https://matrix.to/#/!FWyuEyNvIFygLnWNMh:parity.io?via=parity.io&via=matrix.org&via=web3.foundation){target=\_blank}
-
 ## Install Zombienet
 
 Zombienet releases are available on the [Zombienet repository](https://github.com/paritytech/zombienet){target=\_blank}.
@@ -30,8 +22,7 @@ Multiple options are available for installing Zombienet, depending on the user's
 === "Use the executable"
     Install Zombienet using executables by visiting the [latest release](https://github.com/paritytech/zombienet/releases){target=\_blank} page and selecting the appropriate asset for your operating system. You can download the executable and move it to a directory in your PATH. 
 
-    !!!note
-        Each release includes executables for Linux and macOS. Executables are generated using [pkg](https://github.com/vercel/pkg){target=\_blank}, which allows the Zombienet CLI to operate without requiring Node.js to be installed. 
+    Each release includes executables for Linux and macOS. Executables are generated using [pkg](https://github.com/vercel/pkg){target=\_blank}, which allows the Zombienet CLI to operate without requiring Node.js to be installed. 
 
     Then, ensure the downloaded file is executable:
 
@@ -67,9 +58,7 @@ Multiple options are available for installing Zombienet, depending on the user's
     spawn INSERT_ZOMBIENET_CONFIG_FILE_NAME.toml
     ```
 
-    !!! note
-        - Replace the `INSERT_ZOMBIENET_VERSION` with the desired version of Zombienet
-        - Replace the `INSERT_ZOMBIENET_CONFIG_FILE_NAME` with the name of the configuration file you want to use
+    Replace the `INSERT_ZOMBIENET_VERSION` with the desired version of Zombienet and the `INSERT_ZOMBIENET_CONFIG_FILE_NAME` with the name of the configuration file you want to use.
 
     To run the command above, you need to have [Flakes](https://nixos.wiki/wiki/Flakes#Enable_flakes){target=\_blank} enabled.
 
@@ -210,7 +199,7 @@ Finally, add the custom binary to your PATH as follows:
 export PATH=$PATH:INSERT_PATH_TO_RUNTIME_TEMPLATES/parachain-template-node/target/release
 ```
 
-Alternatively, you can specify the binary path in the network configuration file.
+Alternatively, you can specify the binary path in the network configuration file. The local provider exclusively utilizes the command configuration for nodes, which supports both relative and absolute paths. You can employ the `default_command` configuration to specify the binary for spawning all nodes in the relay chain.
 
 ```toml
 [relaychain]
@@ -229,9 +218,6 @@ id = 1000
 
 The local provider does not offer any additional features.
 
-!!! note
-    The local provider exclusively utilizes the command configuration for nodes, which supports both relative and absolute paths. You can employ the `default_command` configuration to specify the binary for spawning all nodes in the relay chain.
-
 ## Configure Zombienet
 
 Effective network configuration is crucial for deploying and managing blockchain systems. Zombienet simplifies this process by offering versatile configuration options in both JSON and TOML formats. Whether setting up a simple test network or a complex multi-node system, Zombienet's tools provide the flexibility to customize every aspect of your network's setup.
@@ -242,8 +228,7 @@ The following sections will explore the structure and usage of Zombienet configu
 
 The network configuration file can be either JSON or TOML format. The Zombienet repository also provides a collection of [example configuration files](https://github.com/paritytech/zombienet/tree/main/examples){target=\_blank} that can be used as a reference.
 
-!!! note
-    Each section may include provider-specific keys that aren't recognized by other providers. For example, if you use the local provider, any references to images for nodes will be disregarded.
+Each section may include provider-specific keys that aren't recognized by other providers. For example, if you use the local provider, any references to images for nodes will be disregarded.
 
 ### CLI Usage
 
@@ -843,6 +828,19 @@ You can use the `hrmp_channels` keyword to define further parameters for the XCM
 ## Where to Go Next
 
 <div class="grid cards" markdown>
+
+-  <span class="badge external">External</span> __Zombienet Support__
+
+    ---
+
+    [Parity Technologies](https://www.parity.io/){target=\_blank} has designed and developed this framework, now maintained by the Zombienet team. 
+
+    For further support and information, refer to the following contact points:
+
+    [:octicons-arrow-right-24: Zombienet repository](https://github.com/paritytech/zombienet){target=\_blank}
+
+    [:octicons-arrow-right-24: Element public channel](https://matrix.to/#/!FWyuEyNvIFygLnWNMh:parity.io?via=parity.io&via=matrix.org&via=web3.foundation){target=\_blank}
+
 
 -   <span class="badge tutorial">Tutorial</span> __Spawn a Basic Chain with Zombienet__
 

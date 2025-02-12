@@ -34,6 +34,13 @@ Developers can leverage Asset Hub across diverse networks, from TestNets to Main
 
     ---
     
+    RPC URL
+    ```
+    https://westend-asset-hub-eth-rpc.polkadot.io
+    ```
+
+    ---
+    
     Block explorer URL
     ```
     https://assethub-westend.subscan.io
@@ -44,27 +51,27 @@ Developers can leverage Asset Hub across diverse networks, from TestNets to Main
 === "Westend Asset Hub"
     Dwellir
     ```
-    wss://westend-asset-hub-eth-rpc.polkadot.io
+    https://westend-asset-hub-eth-rpc.polkadot.io
     ```
     ---
     Dwellir Tunisia
     ```
-    wss://westmint-rpc.polkadot.io
+    https://westmint-rpc.polkadot.io
     ```
     ---
     IBP1
     ```
-    wss://rpc.ibp.network/asset-hub-westend
+    https://rpc.ibp.network/asset-hub-westend
     ```
     ---
     IBP2
     ```
-    wss://asset-hub-westend.dotters.network
+    https://asset-hub-westend.dotters.network
     ```
     ---
     Parity
     ```
-    wss://westend-asset-hub-rpc.polkadot.io
+    https://westend-asset-hub-rpc.polkadot.io
     ```
 
 ## Connect your Wallet

@@ -21,7 +21,11 @@ A promise containing the result of constructing the transaction.
     ??? child "Type `Format`"
 
         ```ts
+<<<<<<< Updated upstream
         --8<-- 'https://raw.githubusercontent.com/paritytech/asset-transfer-api/refs/tags/{{dependencies.asset_transfer_api.version}}/src/types.ts:132:132'
+=======
+        --8<-- 'https://raw.githubusercontent.com/paritytech/asset-transfer-api/refs/tags/v0.5.0/src/types.ts:132:132'
+>>>>>>> Stashed changes
         ```
 
     ---
@@ -109,14 +113,22 @@ A promise containing the result of constructing the transaction.
     ??? child "Type `Methods`"
 
         ```ts
+<<<<<<< Updated upstream
         --8<-- 'https://raw.githubusercontent.com/paritytech/asset-transfer-api/refs/tags/{{dependencies.asset_transfer_api.version}}/src/types.ts:170:179'
+=======
+        --8<-- 'https://raw.githubusercontent.com/paritytech/asset-transfer-api/refs/tags/v0.5.0/src/types.ts:170:179'
+>>>>>>> Stashed changes
         ```
 
         ??? child "Type `LocalTransferTypes`"
 
 
             ```ts
+<<<<<<< Updated upstream
             --8<-- 'https://raw.githubusercontent.com/paritytech/asset-transfer-api/refs/tags/{{dependencies.asset_transfer_api.version}}/src/types.ts:148:163'
+=======
+            --8<-- 'https://raw.githubusercontent.com/paritytech/asset-transfer-api/refs/tags/v0.5.0/src/types.ts:148:163'
+>>>>>>> Stashed changes
             ```
 
     ---
@@ -128,7 +140,11 @@ A promise containing the result of constructing the transaction.
     ??? child "Type `ConstructedFormat<T>`"
 
         ```ts
+<<<<<<< Updated upstream
         --8<-- 'https://raw.githubusercontent.com/paritytech/asset-transfer-api/refs/tags/{{dependencies.asset_transfer_api.version}}/src/types.ts:137:143'
+=======
+        --8<-- 'https://raw.githubusercontent.com/paritytech/asset-transfer-api/refs/tags/v0.5.0/src/types.ts:137:143'
+>>>>>>> Stashed changes
         ```
 
         The `ConstructedFormat` type is a conditional type that returns a specific type based on the value of the TxResult `format` field.

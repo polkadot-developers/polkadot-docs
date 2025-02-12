@@ -90,7 +90,7 @@ Here's how the `Encode` and `Decode` traits are implemented:
 
 
 ```rust
---8<-- 'code/polkadot-protocol/basics/blocks-transactions-fees/data-encode-decode.rs'
+--8<-- 'code/polkadot-protocol/parachain-basics/blocks-transactions-fees/data-encode-decode.rs'
 ```
 
 ## SCALE Codec Libraries

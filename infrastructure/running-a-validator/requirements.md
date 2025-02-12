@@ -63,7 +63,7 @@ When selecting a VPS provider for your validator node, prioritize reliability, c
 - [**Scaleway**](https://www.scaleway.com/){target=\_blank} - offers high-performance cloud instances that can be suitable for validator nodes
 - [**OnFinality**](https://onfinality.io/){target=\_blank} - specialized in blockchain infrastructure, OnFinality provides validator-specific support and configurations
 
-??? warning "Acceptable use policies"
+!!! warning "Acceptable use policies"
     Different VPS providers have varying acceptable use policies, and not all allow cryptocurrency-related activities. 
 
     For example, Digital Ocean, requires explicit permission to use servers for cryptocurrency mining and defines unauthorized mining as [network abuse](https://www.digitalocean.com/legal/acceptable-use-policy#network-abuse){target=\_blank} in their acceptable use policy. 

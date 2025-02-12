@@ -78,7 +78,11 @@ Developers can leverage Asset Hub across diverse networks, from TestNets to Main
 
 ### Metamask
 
-MetaMask is a popular wallet for interacting with EVM-compatible chains. It allows users to connect to test networks that support Ethereum-based smart contracts. However, it's important to emphasize that MetaMask primarily facilitates interactions with smart contracts, giving users access to various chain functionalities.
+MetaMask is a popular wallet for interacting with EVM-compatible chains. It allows users to connect to test networks that support Ethereum-based smart contracts. However, it's important to emphasize that MetaMask primarily facilitates interactions with smart contracts, giving users access to various chain functionalities. If you already have MetaMask installed, you can easily connect MetaMask to the network of your choice:
+
+<div class="button-wrapper">
+    <a href="#" class="md-button connectMetaMask" value="westendAssetHub">Connect to Westend Asset Hub</a>
+</div>
 
 To get started with MetaMask, you need to install the [MetaMask extension](https://metamask.io/download/){target=\_blank} and add it to the browser. Once you install MetaMask, you can set up a new wallet and securely store your seed phrase. This phrase is crucial for recovery in case you lose access.
 

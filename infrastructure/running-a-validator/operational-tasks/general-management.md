@@ -358,8 +358,7 @@ To visualize node metrics, follow these steps:
 
     ![Live dashboard](/images/infrastructure/running-a-validator/operational-tasks/general-management/general-management-5.webp)
 
- 
-The [Grafana dashboards](https://grafana.com/grafana/dashboards){target=\_blank} page features user created dashboards made available for public use. For an example of available dashboards, see the [Substrate Node Metrics](https://grafana.com/grafana/dashboards/21715-substrate-node-metrics/){target=\_blank} dashboard.
+The [Grafana dashboards](https://grafana.com/grafana/dashboards){target=\_blank} page features user created dashboards made available for public use. For an example, see the [Substrate Node Metrics](https://grafana.com/grafana/dashboards/21715-substrate-node-metrics/){target=\_blank} dashboard.
 
 ### Install and Configure Alertmanager
 
@@ -391,7 +390,7 @@ Follow these steps to install and configure Alertmanager:
     sudo nano /etc/alertmanager/alertmanager.yml
     ```
 
-    You must generate an [`app password` in your Gmail account](https://support.google.com/accounts/answer/185833?hl=en){target=\_blank} to allow `Alertmanager` to send you alert notification emails. Once you have the `app password`, add the following code to the configuration file to define email notifications:
+    Generate an [app password in your Google account](https://support.google.com/accounts/answer/185833?hl=en){target=\_blank} to enable email notifications from Alertmanager. Then, add the following code to the configuration file to define email notifications using your  email and app password: 
 
     ```yml title="alertmanager.yml"
     -8<-- 'code/infrastructure/running-a-validator/operational-tasks/general-management/alertmanager.yml'
@@ -506,10 +505,6 @@ Complete the integration by following these steps to enable communication betwee
     ```
 
 Now you will receive an email alert if one of your rule triggering conditions is met. 
-
-??? code "prometheus.yml"
-
-        --8<-- 'code/infrastructure/running-a-validator/operational-tasks/general-management/update-prometheus.yml'
         
 ## Secure Your Validator
 

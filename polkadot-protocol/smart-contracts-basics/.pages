@@ -1,0 +1,6 @@
+title: Smart Contracts Basics
+nav:
+  - index.md
+  - overview.md
+  - polkavm-design.md
+  - evm-vs-polkavm.md

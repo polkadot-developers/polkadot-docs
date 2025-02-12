@@ -1,5 +1,5 @@
 ---
-title: Parachian Basics
+title: Parachain Basics
 description: Discover Polkadot’s technical foundations, from blockchain basics and cryptography to network features like interoperability and randomness.
 template: index-page.html
 ---

@@ -2,8 +2,11 @@ title: Smart Contracts
 nav:
   - index.md
   - 'Overview': overview.md
-  - 'Wasm (ink!)': wasm-ink.md
-  - 'Native EVM Contracts': native-evm-contracts.md
-  - 'Parachain Contracts': parachain-contracts.md
-  - evm-toolkit
+  - 'Connect Your Wallet': connect-your-wallet.md
+  # - 'Wasm (ink!)': wasm-ink.md
+  # - 'Native EVM Contracts': native-evm-contracts.md
+  # - 'Parachain Contracts': parachain-contracts.md
+  - dev-environments
+  - libraries
+  - indexers
   - 'JSON-RPC APIs': json-rpc-apis.md

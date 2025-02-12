@@ -69,6 +69,7 @@ Doc-Page: https://docs.polkadot.com/infrastructure/index
 Doc-Page: https://docs.polkadot.com/infrastructure/running-a-node/index
 Doc-Page: https://docs.polkadot.com/infrastructure/running-a-node/setup-bootnode
 Doc-Page: https://docs.polkadot.com/infrastructure/running-a-node/setup-full-node
+Doc-Page: https://docs.polkadot.com/infrastructure/running-a-node/setup-secure-wss
 Doc-Page: https://docs.polkadot.com/infrastructure/running-a-validator/index
 Doc-Page: https://docs.polkadot.com/infrastructure/running-a-validator/onboarding-and-offboarding/index
 Doc-Page: https://docs.polkadot.com/infrastructure/running-a-validator/onboarding-and-offboarding/set-up-validator
@@ -3841,7 +3842,7 @@ To pull the image from Docker Hub:
 6. Paste the command you copied from the Docker Hub. For example, you might run a command similar to the following, which downloads and unpacks the image:
 
     ```bash
-    docker pull paritytech/srtool:1.62.0
+    docker pull paritytech/srtool:{{ dependencies.srtool.docker_image_version }}
     ```
 
 ### Naming Convention for Images
@@ -6177,7 +6178,7 @@ const provider = new BrowserProvider(window.ethereum);
     import { JsonRpcProvider } from 'ethers';
 
 const provider = new JsonRpcProvider(
-  'https://westend-asset-hub-eth-rpc.polkadot.io',
+  'https://westend-asset-hub-eth-rpc.polkadot.io'
 );
     ```
 
@@ -11669,8 +11670,8 @@ Bootnodes must be accessible through three key channels to connect with other no
     --listen-addr /ip4/0.0.0.0/tcp/INSERT_PORT
 
     ```
-    !!! note
-        This is not enabled by default on non-validator nodes like archive RPC nodes.
+    
+    This is not enabled by default on non-validator nodes like archive RPC nodes.
 
 - **P2P/WS** - a WebSocket (WS) connection, also configured via `--listen-addr`
 - **P2P/WSS** - a secure WebSocket (WSS) connection using SSL, often required for light clients. An SSL proxy is needed, as the node itself cannot handle certificates
@@ -11879,7 +11880,7 @@ This section will walk you through installing and building the Polkadot binary f
     - O /var/lib/polkadot-data/polkadot
     ```
 
-    !!!info
+    !!!tip
         The nature of pre-built binaries means that they may not work on your particular architecture or Linux distribution. If you see an error like `cannot execute binary file: Exec format error` it likely means the binary is incompatible with your system. You will either need to compile the binary or use [Docker](#use-docker).
 
     Ensure that you properly configure the permissions to make the Polkadot release binary executable:
@@ -12002,8 +12003,7 @@ Now that you've installed and built the Polkadot binary, the next step is to con
 
 Also, note that you can use the same binary for Polkadot as you would for Kusama or any other relay chain. You'll need to use the `--chain` flag to differentiate between chains.
 
-!!!note
-    Not sure which type of node to run? Explore an [overview of the different node types](/infrastructure/running-a-node/#types-of-nodes){target=\_blank}.
+If you aren't sure which type of node to run, see the [Types of Full Nodes](/infrastructure/running-a-node/#types-of-nodes){target=\_blank} section.
 
 The base commands for running a Polkadot node are as follows:
 
@@ -12108,6 +12108,137 @@ Open [Polkadot.js Apps](https://polkadot.js.org/apps/?rpc=ws%3A%2F%2F127.0.0.1%3
 ```bash
 ws://127.0.0.1:9944
 ```
+--- END CONTENT ---
+
+Doc-Content: https://docs.polkadot.com/infrastructure/running-a-node/setup-secure-wss
+--- BEGIN CONTENT ---
+---
+title: Set Up Secure WebSocket
+description: Instructions on enabling SSL for your node and setting up a secure WebSocket proxy server using nginx for remote connections.
+---
+
+# Set Up Secure WebSocket
+
+## Introduction
+
+Ensuring secure WebSocket communication is crucial for maintaining the integrity and security of a Polkadot or Kusama node when interacting with remote clients. This guide walks you through setting up a secure WebSocket (WSS) connection for your node by leveraging SSL encryption with popular web server proxies like nginx or Apache.
+
+By the end of this guide, you'll be able to secure your node's WebSocket port, enabling safe remote connections without exposing your node to unnecessary risks. The instructions in this guide are for UNIX-based systems.
+
+## Secure a WebSocket Port
+
+You can convert a non-secured WebSocket port to a secure WSS port by placing it behind an SSL-enabled proxy. This approach can be used to secure a bootnode or RPC server. The SSL-enabled apache2/nginx/other proxy server redirects requests to the internal WebSocket and converts it to a secure (WSS) connection. You can use a service like [LetsEncrypt](https://letsencrypt.org/){target=\_blank} to obtain an SSL certificate.
+
+### Obtain an SSL Certificate
+
+LetsEncrypt suggests using the [Certbot ACME client](https://letsencrypt.org/getting-started/#with-shell-access/){target=\_blank} for your respective web server implementation to get a free SSL certificate:
+
+- [nginx](https://certbot.eff.org/instructions?ws=nginx&os=ubuntufocal){target=\_blank}
+- [apache2](https://certbot.eff.org/instructions?ws=apache&os=ubuntufocal){target=\_blank}
+ 
+LetsEncrypt will auto-generate an SSL certificate and include it in your configuration.
+
+When connecting, you can generate a self-signed certificate and rely on your node's raw IP address. However, self-signed certificates aren't optimal because you must include the certificate in an allowlist to access it from a browser.
+
+Use the following command to generate a self-signed certificate using OpenSSL:
+
+```bash
+sudo openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout /etc/ssl/private/selfsigned.key -out /etc/ssl/certs/selfsigned.crt
+sudo openssl dhparam -out /etc/ssl/certs/dhparam.pem 2048
+```
+
+## Install a Proxy Server
+
+There are a lot of different implementations of a WebSocket proxy; some of the more widely used are [nginx](https://www.nginx.com/){target=\_blank} and [apache2](https://httpd.apache.org/){target=\_blank}, both of which are commonly used web server implementations. See the following section for configuration examples for both implementations.
+
+### Use nginx
+
+1. Install the `nginx` web server: 
+    ```bash
+    apt install nginx
+    ```
+
+2. In an SSL-enabled virtual host, add:
+    ```conf
+server {
+    (...)
+    location / {
+    proxy_buffers 16 4k;
+    proxy_buffer_size 2k;
+    proxy_pass http://localhost:9944;
+    proxy_http_version 1.1;
+    proxy_set_header Upgrade $http_upgrade;
+    proxy_set_header Connection "Upgrade";
+    proxy_set_header Host $host;
+    }
+}
+```
+
+3. Optionally, you can introduce some form of rate limiting:
+    ```conf
+http {
+    limit_req_zone  "$http_x_forwarded_for" zone=zone:10m rate=2r/s;
+    (...)
+}
+location / {
+    limit_req zone=zone burst=5;
+    (...)
+}
+```
+
+### Use Apache2
+
+Apache2 can run in various modes, including `prefork`, `worker`, and `event`. In this example, the [`event`](https://httpd.apache.org/docs/2.4/mod/event.html){target=\_blank} mode is recommended for handling higher traffic loads, as it is optimized for performance in such environments. However, depending on the specific requirements of your setup, other modes like `prefork` or `worker` may also be appropriate.
+
+1. Install the `apache2` web server:
+    ```bash
+apt install apache2
+a2dismod mpm_prefork
+a2enmod mpm_event proxy proxy_html proxy_http proxy_wstunnel rewrite ssl
+```
+
+2. The [`mod_proxy_wstunnel`](https://httpd.apache.org/docs/2.4/mod/mod_proxy_wstunnel.html){target=\_blank} provides support for the tunneling of WebSocket connections to a backend WebSocket server. The connection is automatically upgraded to a WebSocket connection. In an SSL-enabled virtual host add:
+    ```apacheconf
+# (...)
+SSLProxyEngine on
+ProxyRequests off
+ProxyPass / ws://localhost:9944
+ProxyPassReverse / ws://localhost:9944
+```
+
+    !!!warning 
+        Older versions of `mod_proxy_wstunnel` don't upgrade the connection automatically and will need the following config added:
+        ```apacheconf
+        RewriteEngine on
+        RewriteCond %{HTTP:Upgrade} websocket [NC]
+        RewriteRule /(.*) ws://localhost:9944/$1 [P,L]
+        RewriteRule /(.*) http://localhost:9944/$1 [P,L]
+        ```
+
+3. Optionally, some form of rate limiting can be introduced by first running the following command:
+
+    ```bash
+    apt install libapache2-mod-qos
+    a2enmod qos
+    ```
+
+    Then edit `/etc/apache2/mods-available/qos.conf` as follows:
+
+    ```conf
+    # allows max 50 connections from a single IP address:
+    QS_SrvMaxConnPerIP                                 50
+    ```
+
+## Connect to the Node
+
+1. Open [Polkadot.js Apps interface](https://polkadot.js.org/apps){target=\_blank} and click the logo in the top left to switch the node
+2. Activate the **Development** toggle and input either your node's domain or IP address. Remember to prefix with `wss://` and, if you're using the 443 port, append `:443` as follows:
+
+    ```bash
+    wss://example.com:443
+    ```
+
+![A sync-in-progress chain connected to Polkadot.js UI](/images/infrastructure/running-a-validator/running-a-node/setup-secure-wss/setup-secure-wss-1.webp)
 --- END CONTENT ---
 
 Doc-Content: https://docs.polkadot.com/infrastructure/running-a-validator/index
@@ -12334,13 +12465,14 @@ You can also download the binaries by using the following direct links:
     gpg --verify polkadot-execute-worker.asc
     ```
 
-!!!warning
-    Signature verification cryptographically ensures the downloaded binaries are authentic and have not been tampered with by using GPG signing keys. Polkadot releases use two different signing keys:
 
-    - ParityReleases (release-team@parity.io) with key [`90BD75EBBB8E95CB3DA6078F94A4029AB4B35DAE`](https://keyserver.ubuntu.com/pks/lookup?search=9D4B2B6EB8F97156D19669A9FF0812D491B96798&fingerprint=on&op=index){target=\_blank} for current and new releases
-    - Parity Security Team (security@parity.io) with key [`9D4B2B6EB8F97156D19669A9FF0812D491B96798`](https://keyserver.ubuntu.com/pks/lookup?search=90BD75EBBB8E95CB3DA6078F94A4029AB4B35DAE&fingerprint=on&op=index){target=\_blank} for old releases
+Signature verification cryptographically ensures the downloaded binaries are authentic and have not been tampered with by using GPG signing keys. Polkadot releases use two different signing keys:
 
-    When verifying a signature, a "Good signature" message indicates successful verification, while any other output signals a potential security risk.
+- ParityReleases (release-team@parity.io) with key [`90BD75EBBB8E95CB3DA6078F94A4029AB4B35DAE`](https://keyserver.ubuntu.com/pks/lookup?search=9D4B2B6EB8F97156D19669A9FF0812D491B96798&fingerprint=on&op=index){target=\_blank} for current and new releases
+- Parity Security Team (security@parity.io) with key [`9D4B2B6EB8F97156D19669A9FF0812D491B96798`](https://keyserver.ubuntu.com/pks/lookup?search=90BD75EBBB8E95CB3DA6078F94A4029AB4B35DAE&fingerprint=on&op=index){target=\_blank} for old releases
+
+    !!!warning
+        When verifying a signature, a "Good signature" message indicates successful verification, while any other output signals a potential security risk.
 
 ### Install with Package Managers
 
@@ -12470,13 +12602,11 @@ After successfully installing and verifying the Polkadot binaries, the next step
 
         Warp sync ensures that your node quickly updates to the latest finalized state. The historical blocks are downloaded in the background as the node continues to operate.
 
-    ??? info "Adjustments for TestNets"
+    If you're planning to run a validator on a TestNet, you can specify the chain using the `--chain` flag. For example, the following will run a validator on Kusama:
 
-        If you're planning to run a validator on a TetNet, you can specify the chain using the `--chain` flag. For example, the following will run a validator on Kusama:
-
-        ```sh
-        polkadot --chain=kusama
-        ```
+    ```sh
+    polkadot --chain=kusama
+    ```
 
 2. **Monitor sync progress** - once the sync starts, you will see a stream of logs providing information about the node's status and progress. Here's an example of what the output might look like:
 
@@ -12510,10 +12640,18 @@ If you'd like to speed up the process further, you can use a database snapshot. 
 !!!warning
     Although snapshots are convenient, syncing from scratch is recommended for security purposes. If snapshots become corrupted and most nodes rely on them, the network could inadvertently run on a non-canonical chain.
 
-??? info "Why am I unable to synchronize the chain with 0 peers?"
-    Make sure you have libp2p port `30333` activated. It will take some time to discover other peers over the network.
+<div id="termynal" data-termynal>
+    <span data-ty="input"><span class="file-path"></span>polkadot</span>
+    <span data-ty>2021-06-17 03:07:07 Idle (0 peers), best: #0 (0x3fd7...5baf), finalized #0 (0x3fd7...5baf), ⬇ 2.9kiB/s ⬆ 3.7kiB/s</span>
+    <span data-ty>2021-06-17 03:07:12 Idle (0 peers), best: #0 (0x3fd7...5baf), finalized #0 (0x3fd7...5baf), ⬇ 1.7kiB/s ⬆ 2.0kiB/s</span>
+    <span data-ty>2021-06-17 03:07:17 Idle (0 peers), best: #0 (0x3fd7...5baf), finalized #0 (0x3fd7...5baf), ⬇ 0.9kiB/s ⬆ 1.2kiB/s</span>
+    <span data-ty>2021-06-17 03:07:19 Libp2p => Random Kademlia query has yielded empty results</span>
+    <span data-ty>2021-06-17 03:08:00 Idle (0 peers), best: #0 (0x3fd7...5baf), finalized #0 (0x3fd7...5baf), ⬇ 1.6kiB/s ⬆ 1.9kiB/s</span>
+    <span data-ty>2021-06-17 03:08:05 Idle (0 peers), best: #0 (0x3fd7...5baf), finalized #0 (0x3fd7...5baf), ⬇ 0.6kiB/s ⬆ 0.9kiB/s</span>
+    <span data-ty>...</span>
+  </div>
 
-    ![Terminal logs showing 0 peers](/images/infrastructure/running-a-validator/onboarding-and-offboarding/set-up-validator/set-up-a-validator-01.webp)
+If you see terminal output similar to the preceding, and you are unable to synchronize the chain due to having zero peers, make sure you have libp2p port `30333` activated. It will take some time to discover other peers over the network.
 
 ## Bond DOT
 
@@ -12572,7 +12710,7 @@ Now that you have generated your session keys, you must submit them to the chain
 2. Select **Set Session Key** on the bonding account you generated earlier
 3. Paste the hex-encoded session key string you generated (from either the UI or CLI) into the input field and submit the transaction
 
-![](/images/infrastructure/running-a-validator/onboarding-and-offboarding/set-up-validator/set-up-a-validator-02.webp)
+![](/images/infrastructure/running-a-validator/onboarding-and-offboarding/set-up-validator/set-up-a-validator-01.webp)
 
 Once the transaction is signed and submitted, your session keys will be registered on-chain.
 
@@ -12647,7 +12785,7 @@ To confirm that your validator is live and synchronized with the Polkadot networ
 
 In the following example, a node named `techedtest` is successfully located and synchronized, ensuring it's prepared to participate in the network:
 
-![Polkadot telemetry dashboard](/images/infrastructure/running-a-validator/onboarding-and-offboarding/set-up-validator/set-up-a-validator-03.webp)
+![Polkadot telemetry dashboard](/images/infrastructure/running-a-validator/onboarding-and-offboarding/set-up-validator/set-up-a-validator-02.webp)
 
 ### Activate using Polkadot.js Apps
 
@@ -12655,19 +12793,19 @@ Follow these steps to use Polkadot.js Apps to activate your validator:
 
 1. Go to the **Validator** tab in the Polkadot.js Apps UI and locate the section where you input the keys generated from `rotateKeys`. Paste the output from `author_rotateKeys`, which is a hex-encoded key that links your validator with its session keys:
 
-    ![](/images/infrastructure/running-a-validator/onboarding-and-offboarding/set-up-validator/set-up-a-validator-04.webp)
+    ![](/images/infrastructure/running-a-validator/onboarding-and-offboarding/set-up-validator/set-up-a-validator-03.webp)
 
 2. Set a reward commission percentage if desired. You can set a percentage of the rewards to pay to your validator and the remainder pays to your nominators. A 100% commission rate indicates the validator intends to keep all rewards and is seen as a signal the validator is not seeking nominators
 3. Toggle the **allows new nominations** option if your validator is open to more nominations from DOT holders
 4. Once everything is configured, select **Bond & Validate** to activate your validator status
 
-    ![](/images/infrastructure/running-a-validator/onboarding-and-offboarding/set-up-validator/set-up-a-validator-05.webp)
+    ![](/images/infrastructure/running-a-validator/onboarding-and-offboarding/set-up-validator/set-up-a-validator-04.webp)
 
 ### Monitor Validation Status and Slots
 
 On the [**Staking**](https://polkadot.js.org/apps/#/staking){target=\_blank} tab in Polkadot.js Apps, you can see your validator's status, the number of available validator slots, and the nodes that have signaled their intent to validate. Your node may initially appear in the waiting queue, especially if the validator slots are full. The following is an example view of the **Staking** tab:
 
-![staking queue](/images/infrastructure/running-a-validator/onboarding-and-offboarding/set-up-validator/set-up-a-validator-06.webp)
+![staking queue](/images/infrastructure/running-a-validator/onboarding-and-offboarding/set-up-validator/set-up-a-validator-05.webp)
 
 The validator set refreshes each era. If there's an available slot in the next era, your node may be selected to move from the waiting queue to the active validator set, allowing it to start validating blocks. If your validator is not selected, it remains in the waiting queue. Increasing your stake or gaining more nominators may improve your chance of being selected in future eras.
 
@@ -12734,7 +12872,7 @@ UMask=0027
 WantedBy=multi-user.target
 ```
 
-!!! warning "Restart Delay Recommendation"
+!!! warning "Restart delay and equivocation risk"
     It is recommended that a node's restart be delayed with `RestartSec` in the case of a crash. It's possible that when a node crashes, consensus votes in GRANDPA aren't persisted to disk. In this case, there is potential to equivocate when immediately restarting. Delaying the restart will allow the network to progress past potentially conflicting votes.
 
 ### Run the Service
@@ -13210,8 +13348,7 @@ To visualize node metrics, follow these steps:
 
     ![Live dashboard](/images/infrastructure/running-a-validator/operational-tasks/general-management/general-management-5.webp)
 
-!!! tip "Import via grafana.com"
-    The [Grafana dashboards](https://grafana.com/grafana/dashboards){target=\_blank} page offers a collection of community-contributed dashboards. For an example, check out the [Substrate Node Metrics](https://grafana.com/grafana/dashboards/21715-substrate-node-metrics/){target=\_blank} dashboard.
+The [Grafana dashboards](https://grafana.com/grafana/dashboards){target=\_blank} page features user created dashboards made available for public use. For an example, see the [Substrate Node Metrics](https://grafana.com/grafana/dashboards/21715-substrate-node-metrics/){target=\_blank} dashboard.
 
 ### Install and Configure Alertmanager
 
@@ -13243,16 +13380,12 @@ Follow these steps to install and configure Alertmanager:
     sudo nano /etc/alertmanager/alertmanager.yml
     ```
 
-    Add the following code to the configuration file to define email notifications:
+    Generate an [app password in your Google account](https://support.google.com/accounts/answer/185833?hl=en){target=\_blank} to enable email notifications from Alertmanager. Then, add the following code to the configuration file to define email notifications using your  email and app password: 
 
     ```yml title="alertmanager.yml"
     -8<-- 'code/infrastructure/running-a-validator/operational-tasks/general-management/alertmanager.yml'
     ```
 
-    !!! note "App password"
-        You must generate an [app password in your Google account](https://support.google.com/accounts/answer/185833?hl=en){target=\_blank} to enable email notifications from Alertmanager.
-
-4. Ensure the configuration file has the correct permissions:
 
     ```bash
     sudo chown -R prometheus:prometheus /etc/alertmanager
@@ -13388,6 +13521,8 @@ scrape_configs:
     sudo systemctl restart prometheus && sudo systemctl restart alertmanager
     ```
 
+Now you will receive an email alert if one of your rule triggering conditions is met. 
+        
 ## Secure Your Validator
 
 Validators in Polkadot's Proof of Stake (PoS) network play a critical role in maintaining network integrity and security by keeping the network in consensus and verifying state transitions. To ensure optimal performance and minimize risks, validators must adhere to strict guidelines around security and reliable operations.
@@ -13425,7 +13560,7 @@ Polkadot's Secure-Validator mode offers an extra layer of protection through str
     CONFIG_SECCOMP=y
     ```
 
-!!! note
+!!! tip 
     Optionally, **Linux 5.13** may also be used, as it provides access to even more strict filesystem protections.
 
 ### Linux Best Practices
@@ -13686,7 +13821,7 @@ When selecting a VPS provider for your validator node, prioritize reliability, c
 - [**Scaleway**](https://www.scaleway.com/){target=\_blank} - offers high-performance cloud instances that can be suitable for validator nodes
 - [**OnFinality**](https://onfinality.io/){target=\_blank} - specialized in blockchain infrastructure, OnFinality provides validator-specific support and configurations
 
-??? warning "Acceptable use policies"
+!!! warning "Acceptable use policies"
     Different VPS providers have varying acceptable use policies, and not all allow cryptocurrency-related activities. 
 
     For example, Digital Ocean, requires explicit permission to use servers for cryptocurrency mining and defines unauthorized mining as [network abuse](https://www.digitalocean.com/legal/acceptable-use-policy#network-abuse){target=\_blank} in their acceptable use policy. 
@@ -13791,8 +13926,7 @@ Validators engaging in bad actor behavior in the network may be subject to slash
 
 Any slashed DOT or KSM will be added to the [Treasury](https://wiki.polkadot.network/docs/learn-polkadot-opengov-treasury){target=\_blank} rather than burned or distributed as rewards. Moving slashed funds to the Treasury allows tokens to be quickly moved away from malicious validators while maintaining the ability to revert faulty slashes when needed.
 
-!!! info "Multiple active nominations"
-    A nominator with a very large bond may nominate several validators in a single era. In this case, a slash is proportionate to the amount staked to the offending validator. Stake allocation and validator activation is controlled by the [Phragmén algorithm](https://wiki.polkadot.network/docs/learn-phragmen#understanding-phragm%C3%A9n){target=\_blank}.
+A nominator with a very large bond may nominate several validators in a single era. In this case, a slash is proportionate to the amount staked to the offending validator. Stake allocation and validator activation is controlled by the [Phragmén algorithm](https://wiki.polkadot.network/docs/learn-phragmen#understanding-phragm%C3%A9n){target=\_blank}.
 
 A validator slash creates an `unapplied` state transition. You can view pending slashes on [Polkadot.js Apps](https://polkadot.js.org/apps/?rpc=wss%3A%2F%2Frpc.polkadot.io#/staking/slashes){target=\_blank}. The UI will display the slash per validator, the affected nominators, and the slash amounts. The unapplied state includes a 27-day grace period during which a governance proposal can be made to reverse the slash. Once this grace period expires, the slash is applied.
 
@@ -13906,9 +14040,7 @@ The disabling mechanism is triggered when validators commit serious infractions,
 
 Off-chain disabling is always a lower priority than on-chain disabling. Off-chain disabling prioritizes disabling first backers and then approval checkers.
 
-!!! note
-
-    The material in this guide reflects the changes introduced in Stage 2. For more details, refer to the [State of Disabling issue](https://github.com/paritytech/polkadot-sdk/issues/4359){target=\_blank} on GitHub.
+The material in this guide reflects the changes introduced in Stage 2. For more details, see the [State of Disabling issue](https://github.com/paritytech/polkadot-sdk/issues/4359){target=\_blank} on GitHub.
 
 
 ### Reputation Changes
@@ -13953,10 +14085,7 @@ The Polkadot ecosystem measures their reward cycles in a unit called an era. Kus
 - Producing a reference to a previously unreferenced uncle block
 - Producing a referenced uncle block
 
-!!!note
-    An uncle block is a relay chain block that is valid in every regard but has failed to become canonical. This can happen when two or more validators are block producers in a single slot, and the block produced by one validator reaches the next block producer before the others. The lagging blocks are called uncle blocks.
-
-Payments occur at the end of every era.
+An uncle block is a relay chain block that is valid in every regard but has failed to become canonical. This can happen when two or more validators are block producers in a single slot, and the block produced by one validator reaches the next block producer before the others. The lagging blocks are called uncle blocks.
 
 ## Reward Variance
 
@@ -18384,13 +18513,13 @@ import { Binary } from 'polkadot-api';
 
 // Create Polkadot client using WebSocket provider for Polkadot chain
 const polkadotClient = createClient(
-  withPolkadotSdkCompat(getWsProvider('ws://127.0.0.1:8001')),
+  withPolkadotSdkCompat(getWsProvider('ws://127.0.0.1:8001'))
 );
 const dotApi = polkadotClient.getTypedApi(dot);
 
 // Create Astar client using WebSocket provider for Astar chain
 const astarClient = createClient(
-  withPolkadotSdkCompat(getWsProvider('ws://localhost:8000')),
+  withPolkadotSdkCompat(getWsProvider('ws://localhost:8000'))
 );
 const astarApi = astarClient.getTypedApi(astar);
 
@@ -18401,7 +18530,7 @@ const aliceKeyPair = derive('//Alice');
 const alice = getPolkadotSigner(
   aliceKeyPair.publicKey,
   'Sr25519',
-  aliceKeyPair.sign,
+  aliceKeyPair.sign
 );
 
 // Define recipient (Dave) address on Astar chain
@@ -18415,7 +18544,7 @@ const polkadotAssetId = 340282366920938463463374607431768211455n;
 // Fetch asset balance of recipient (Dave) before transaction
 let assetMetadata = await astarApi.query.Assets.Account.getValue(
   polkadotAssetId,
-  daveAddress,
+  daveAddress
 );
 console.log('Asset balance before tx:', assetMetadata?.balance ?? 0);
 
@@ -18424,7 +18553,7 @@ const tx = dotApi.tx.XcmPallet.limited_reserve_transfer_assets({
   dest: XcmVersionedLocation.V3({
     parents: 0,
     interior: XcmV3Junctions.X1(
-      XcmV3Junction.Parachain(2006), // Destination is the Astar parachain
+      XcmV3Junction.Parachain(2006) // Destination is the Astar parachain
     ),
   }),
   beneficiary: XcmVersionedLocation.V3({
@@ -18434,7 +18563,7 @@ const tx = dotApi.tx.XcmPallet.limited_reserve_transfer_assets({
         // Beneficiary address on Astar
         network: undefined,
         id: idBenef,
-      }),
+      })
     ),
   }),
   assets: XcmVersionedAssets.V3([
@@ -18469,7 +18598,7 @@ await new Promise((resolve) => setTimeout(resolve, 20000));
 // Fetch asset balance of recipient (Dave) after transaction
 assetMetadata = await astarApi.query.Assets.Account.getValue(
   polkadotAssetId,
-  daveAddress,
+  daveAddress
 );
 console.log('Asset balance after tx:', assetMetadata?.balance ?? 0);
 
@@ -27314,7 +27443,7 @@ async function main() {
   ]);
 
   console.log(
-    `You are connected to chain ${chain} using ${nodeName} v${nodeVersion}`,
+    `You are connected to chain ${chain} using ${nodeName} v${nodeVersion}`
   );
 }
 

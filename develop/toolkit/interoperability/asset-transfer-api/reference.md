@@ -32,7 +32,7 @@ description: Explore the Asset Transfer API Reference for comprehensive details 
 
 Holds open an API connection to a specified chain within the `ApiPromise` to help construct transactions for assets and estimate fees.
 
-For a more in-depth explanation of the Asset Transfer API class structure, check the [source code](https://github.com/paritytech/asset-transfer-api/blob/f2aa50db83882f23492f975221dd5501c35a26d5/src/AssetTransferApi.ts#L106){target=\_blank}.
+For a more in-depth explanation of the Asset Transfer API class structure, check the [source code](https://github.com/paritytech/asset-transfer-api/blob/a949bba1d1102eb7f4640c872fdb9c491fc0871a/src/AssetTransferApi.ts#L121){target=\_blank}.
 
 ### Methods
 
@@ -43,7 +43,7 @@ Generates an XCM transaction for transferring assets between chains. It simplifi
 After obtaining the transaction, you must handle the signing and submission process separately.
 
 ```ts
---8<-- 'https://raw.githubusercontent.com/paritytech/asset-transfer-api/refs/tags/{{dependencies.asset_transfer_api.version}}/src/AssetTransferApi.ts:169:175'
+--8<-- 'https://raw.githubusercontent.com/paritytech/asset-transfer-api/refs/tags/{{dependencies.asset_transfer_api.version}}/src/AssetTransferApi.ts:184:190'
 ```
 
 ??? interface "Request parameters"
@@ -102,7 +102,7 @@ Creates a local XCM transaction to retrieve trapped assets. This function can be
 
 
 ```ts
---8<-- 'https://raw.githubusercontent.com/paritytech/asset-transfer-api/refs/tags/v0.3.1/src/AssetTransferApi.ts:344:349'
+--8<-- 'https://raw.githubusercontent.com/paritytech/asset-transfer-api/refs/tags/{{dependencies.asset_transfer_api.version}}/src/AssetTransferApi.ts:368:373'
 ```
 
 ??? interface "Request parameters"
@@ -153,7 +153,7 @@ Creates a local XCM transaction to retrieve trapped assets. This function can be
 Decodes the hex of an extrinsic into a string readable format.
 
 ```ts
---8<-- 'https://raw.githubusercontent.com/paritytech/asset-transfer-api/refs/tags/v0.3.1/src/AssetTransferApi.ts:466:466'
+--8<-- 'https://raw.githubusercontent.com/paritytech/asset-transfer-api/refs/tags/{{dependencies.asset_transfer_api.version}}/src/AssetTransferApi.ts:529:529'
 ```
 
 ??? interface "Request parameters"
@@ -171,7 +171,7 @@ Decodes the hex of an extrinsic into a string readable format.
     ??? child "Type `Format`"
 
         ```ts
-        --8<-- 'https://raw.githubusercontent.com/paritytech/asset-transfer-api/refs/tags/v0.3.1/src/types.ts:122:122'
+        --8<-- 'https://raw.githubusercontent.com/paritytech/asset-transfer-api/refs/tags/{{dependencies.asset_transfer_api.version}}/src/types.ts:132:132'
         ```
 
 ??? interface "Response parameters"
@@ -197,7 +197,7 @@ Decodes the hex of an extrinsic into a string readable format.
 Fetch estimated fee information for an extrinsic.
 
 ```ts
---8<-- 'https://raw.githubusercontent.com/paritytech/asset-transfer-api/refs/tags/v0.3.1/src/AssetTransferApi.ts:420:423'
+--8<-- 'https://raw.githubusercontent.com/paritytech/asset-transfer-api/refs/tags/{{dependencies.asset_transfer_api.version}}/src/AssetTransferApi.ts:444:447'
 ```
 
 ??? interface "Request parameters"
@@ -209,7 +209,7 @@ Fetch estimated fee information for an extrinsic.
     ??? child "Type `ConstructedFormat<T>`"
 
         ```ts
-        --8<-- 'https://raw.githubusercontent.com/paritytech/asset-transfer-api/refs/tags/v0.3.1/src/types.ts:127:133'
+        --8<-- 'https://raw.githubusercontent.com/paritytech/asset-transfer-api/refs/tags/{{dependencies.asset_transfer_api.version}}/src/types.ts:137:143'
         ```
 
         The `ConstructedFormat` type is a conditional type that returns a specific type based on the value of the TxResult `format` field.
@@ -227,7 +227,7 @@ Fetch estimated fee information for an extrinsic.
     ??? child "Type `Format`"
 
         ```ts
-        --8<-- 'https://raw.githubusercontent.com/paritytech/asset-transfer-api/refs/tags/v0.3.1/src/types.ts:122:122'
+        --8<-- 'https://raw.githubusercontent.com/paritytech/asset-transfer-api/refs/tags/{{dependencies.asset_transfer_api.version}}/src/types.ts:132:132'
         ```
 
 ??? interface "Response parameters"

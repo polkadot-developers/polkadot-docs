@@ -21,7 +21,7 @@ A promise containing the result of constructing the transaction.
     ??? child "Type `Format`"
 
         ```ts
-        --8<-- 'https://raw.githubusercontent.com/paritytech/asset-transfer-api/refs/tags/v0.3.1/src/types.ts:122:122'
+        --8<-- 'https://raw.githubusercontent.com/paritytech/asset-transfer-api/refs/tags/{{dependencies.asset_transfer_api.version}}/src/types.ts:132:132'
         ```
 
     ---
@@ -109,14 +109,14 @@ A promise containing the result of constructing the transaction.
     ??? child "Type `Methods`"
 
         ```ts
-        --8<-- 'https://raw.githubusercontent.com/paritytech/asset-transfer-api/refs/tags/v0.3.1/src/types.ts:153:162'
+        --8<-- 'https://raw.githubusercontent.com/paritytech/asset-transfer-api/refs/tags/{{dependencies.asset_transfer_api.version}}/src/types.ts:170:179'
         ```
 
         ??? child "Type `LocalTransferTypes`"
 
 
             ```ts
-            --8<-- 'https://raw.githubusercontent.com/paritytech/asset-transfer-api/refs/tags/v0.3.1/src/types.ts:138:148'
+            --8<-- 'https://raw.githubusercontent.com/paritytech/asset-transfer-api/refs/tags/{{dependencies.asset_transfer_api.version}}/src/types.ts:148:163'
             ```
 
     ---
@@ -128,7 +128,7 @@ A promise containing the result of constructing the transaction.
     ??? child "Type `ConstructedFormat<T>`"
 
         ```ts
-        --8<-- 'https://raw.githubusercontent.com/paritytech/asset-transfer-api/refs/tags/v0.3.1/src/types.ts:127:133'
+        --8<-- 'https://raw.githubusercontent.com/paritytech/asset-transfer-api/refs/tags/{{dependencies.asset_transfer_api.version}}/src/types.ts:137:143'
         ```
 
         The `ConstructedFormat` type is a conditional type that returns a specific type based on the value of the TxResult `format` field.

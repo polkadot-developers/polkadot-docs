@@ -77,7 +77,7 @@ const handleError = (message) => {
 };
 
 /*
- Handles the logic for the buttons inside of content pages (i.e., the Connect MetaMask guide).
+ Handles the logic for the buttons inside of content pages.
  Directly connect to the network specified in 'value'
  */
 const connectMetaMaskBodyButtons =

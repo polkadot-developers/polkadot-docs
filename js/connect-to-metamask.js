@@ -40,18 +40,18 @@ const connectNetwork = async (network) => {
 // Get the network that the user is currently connected to
 const getConnectedNetwork = async () => {
   const chainId = await provider.request({ method: 'eth_chainId' });
-  const connectedAssetHubNetwork = Object.values(supportedNetworks).find(
+  const connectedHubNetwork = Object.values(supportedNetworks).find(
     (network) => network.chainId === chainId
   );
-  if (connectedAssetHubNetwork) {
-    const connectedAssetHubNetworkButton = document.querySelector(
-      `.connect-network[data-value="${connectedAssetHubNetwork.name}"]`
+  if (connectedNetwork) {
+    const connectedNetworkButton = document.querySelector(
+      `.connect-network[data-value="${connectedNetwork.name}"]`
     );
-    return { connectedAssetHubNetwork, connectedAssetHubNetworkButton };
+    return { connectedNetwork, connectedNetworkButton };
   } else {
     return {
-      connectedAssetHubNetwork: null,
-      connectedAssetHubNetworkButton: null,
+      connectedNetwork: null,
+      connectedNetworkButton: null,
     };
   }
 };

@@ -94,7 +94,7 @@ curl -X POST https://westend-asset-hub-rpc.polkadot.io \
 }'
 ```
 
-Ensure to replace the `INSERT_RECIPIENT_ADDRESS`, `INSERT_ENCODED_CALL` and `INSERT_BLOCK_VALUE` with the proper values.
+Ensure to replace the `INSERT_RECIPIENT_ADDRESS`, `INSERT_ENCODED_CALL`, and `INSERT_BLOCK_VALUE` with the proper values.
 
 ---
 
@@ -306,7 +306,7 @@ curl -X POST https://westend-asset-hub-eth-rpc.polkadot.io \
 }'
 ```
 
-Ensure to replace the `INSERT_ADDRESS`, `INSERT_STORAGE_KEY` and `INSERT_BLOCK_VALUE` with the proper values.
+Ensure to replace the `INSERT_ADDRESS`, `INSERT_STORAGE_KEY`, and `INSERT_BLOCK_VALUE` with the proper values.
 
 ### eth_getTransactionCount
 
@@ -418,7 +418,7 @@ curl -X POST https://westend-asset-hub-rpc.polkadot.io \
 }'
 ```
 
-Ensure to replace the `INSERT_SENDER_ADDRESS`, `INSERT_RECIPIENT_ADDRESS`, `INSERT_GAS_LIMIT`, `INSERT_GAS_PRICE`, `INSERT_VALUE`, `INSERT_INPUT_DATA` and `INSERT_NONCE` with the proper values.
+Ensure to replace the `INSERT_SENDER_ADDRESS`, `INSERT_RECIPIENT_ADDRESS`, `INSERT_GAS_LIMIT`, `INSERT_GAS_PRICE`, `INSERT_VALUE`, `INSERT_INPUT_DATA`, and `INSERT_NONCE` with the proper values.
 
 ---
 

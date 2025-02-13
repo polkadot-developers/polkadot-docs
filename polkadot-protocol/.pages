@@ -3,6 +3,6 @@ nav:
   - index.md
   - architecture
   - basics
-  - smart-contracts-basics
+  - smart-contract-basics
   - onchain-governance
   - 'Glossary': glossary.md

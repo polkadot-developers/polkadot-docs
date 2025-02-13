@@ -15,13 +15,13 @@ However, this architectural difference becomes relevant in specific scenarios. T
 
 ## Gas Model
 
-Ethereum's resource model relies on a single metric: [`gas`](https://ethereum.org/en/developers/docs/gas/#what-is-gas){target=\_blank}, which serves as the universal unit for measuring computational costs. Each operation on the network consumes a specific amount of gas. Most platforms aiming for Ethereum compatibility typically adopt identical gas values to ensure seamless integration.
+Ethereum's resource model relies on a single metric: [gas](https://ethereum.org/en/developers/docs/gas/#what-is-gas){target=\_blank}, which serves as the universal unit for measuring computational costs. Each operation on the network consumes a specific amount of gas. Most platforms aiming for Ethereum compatibility typically adopt identical gas values to ensure seamless integration.
 
 PolkaVM introduces two significant changes to Ethereum's gas model:
 
 ### Dynamic Gas Value Scaling
 
-Instead of adhering to Ethereum's fixed gas values, PolkaVM implements benchmark-based pricing that better reflects its improved execution performance. This makes instructions cheaper relative to I/O-bound operations but requires developers to avoid hardcoding gas values, particularly in cross-contract calls
+Instead of adhering to Ethereum's fixed gas values, PolkaVM implements benchmark-based pricing that better reflects its improved execution performance. This makes instructions cheaper relative to I/O-bound operations but requires developers to avoid hardcoding gas values, particularly in cross-contract calls.
 
 ### Multi-Dimensional Resource Metering
 
@@ -37,7 +37,7 @@ These resources can also be limited when making a cross-contract call. However, 
 
 Resource limiting in cross-contract calls serves a critical security purpose, particularly when interacting with untrusted contracts.
 
-For compatibility, PolkaVM maps traditional gas-related operations to its `ref_time` metric - the closest analog to Ethereum's gas system.
+For compatibility, PolkaVM maps traditional gas-related operations to its `ref_time` metric, which is the closest analog to Ethereum's gas system.
 
 ## Memory Management
 
@@ -51,7 +51,7 @@ The EVM and the PolkaVM take fundamentally different approaches to memory constr
 
 ## Account Management - Existential Deposit
 
-Polkadot implements an [existential deposit](http://localhost:8000/polkadot-protocol/glossary/#existential-deposit){target=\_blank} (ED) system, requiring accounts to maintain a minimum balance to exist. When an account's balance falls below this threshold, the account is automatically deleted. This mechanism prevents state bloat from inactive accounts, unlike Ethereum, where accounts persist indefinitely regardless of balance and require no minimum funds to maintain their associated data structures (such as the nonce). This requirement extends to smart contracts, which operate as specialized accounts containing executable code.
+Polkadot implements an [existential deposit](/polkadot-protocol/glossary/#existential-deposit){target=\_blank} (ED) system, requiring accounts to maintain a minimum balance to exist. When an account's balance falls below this threshold, the account is automatically deleted. This mechanism prevents state bloat from inactive accounts, unlike Ethereum, where accounts persist indefinitely regardless of balance and require no minimum funds to maintain their associated data structures (such as the nonce). This requirement extends to smart contracts, which are specialized accounts containing executable code.
 
 The ED system creates a scenario where each Polkadot account has an unavailable portion of its balance. This difference could cause compatibility issues with Ethereum-designed contracts and tools, mainly wallets. However, the system implements several transparent mechanisms to maintain compatibility:
 
@@ -61,7 +61,7 @@ Transfers to new accounts automatically include the ED on top of the specified a
 
 For contract-to-contract transfers, the system manages the ED requirement by:
 
-- Drawing the ED from the transaction signer rather than the sending contract
+- Drawing the ED from the transaction signer rather than the contract sending the transaction
 - Maintaining transfer amount transparency for contract logic
 - Including ED costs in transaction fees when multiple new accounts are funded
 - Treating ED requirements similarly to other storage deposit costs

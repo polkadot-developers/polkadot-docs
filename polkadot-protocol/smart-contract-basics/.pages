@@ -4,4 +4,4 @@ nav:
   - overview.md
   - polkavm-design.md
   - evm-vs-polkavm.md
-  - accounts.md
+  - 'Accounts': accounts.md

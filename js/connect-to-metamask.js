@@ -112,12 +112,12 @@ if (provider) {
   });
   provider.on('accountsChanged', async (accounts) => {
     if (accounts.length > 0) {
-      const { connectedMoonbeamNetwork, connectedMoonbeamNetworkButton } =
+      const { connectedNetwork, connectedNetworkButton } =
         await getConnectedNetwork();
-      if (connectedMoonbeamNetwork) {
+      if (connectedNetwork) {
         await displayConnectedAccount(
-          connectedMoonbeamNetwork,
-          connectedMoonbeamNetworkButton
+          connectedNetwork,
+          connectedNetworkButton
         );
       }
     } else {

@@ -7,7 +7,7 @@ description: Explore the available networks for smart contract development on As
 
 ## Introduction
 
-Smart contract development in the Polkadot ecosystem is primarily facilitated through Asset Hub, which provides robust smart contract functionality across multiple networks. Whether you're testing new contracts or deploying to production, Asset Hub offers several network environments tailored for each stage of development. Developers can thoroughly test, iterate, and validate their smart contracts, from local testing environments to production networks like Polkadot Asset Hub.
+Smart contract development in the Polkadot ecosystem is primarily facilitated through Asset Hub, which provides robust smart contract functionality across multiple networks. Whether you're testing new contracts or deploying to production, Asset Hub offers several network environments tailored for each stage of development. Developers can thoroughly test, iterate, and validate their smart contracts from local testing environments to production networks like Polkadot Asset Hub.
 
 This guide will introduce you to the various networks available (and incoming) for smart contract development and explain how they fit into the development workflow.
 
@@ -39,10 +39,10 @@ In addition, developers can leverage the upcoming Paseo Asset Hub for additional
 
 ## Local Development
 
-The local development environment is crucial for smart contract development on Asset Hub. It provides developers with a controlled space for rapid testing and iteration before moving to public networks. The local setup consists of several key components:
+The local development environment is crucial for smart contract development on Asset Hub. It provides developers a controlled space for rapid testing and iteration before moving to public networks. The local setup consists of several key components:
 
 - [**Kitchensink node**](https://paritytech.github.io/polkadot-sdk/master/pallet_revive_eth_rpc/subxt_client/src_chain/runtime_types/kitchensink_runtime/index.html){taget=\_blank} - a local node that can be run for development and testing. It includes logging capabilities for debugging contract execution and provides a pre-configured development environment with pre-funded accounts for testing purposes
-- [**Ethereum RPC proxy**](https://paritytech.github.io/polkadot-sdk/master/pallet_revive_eth_rpc/index.html){target=\_blank} - bridges Ethereum-compatible tools with the Polkadot SDK-based network. It enables seamless integration with popular development tools like MetaMask and Remix IDE. The purpose of this component is to translate Ethereum RPC calls to Substrate format
+- [**Ethereum RPC proxy**](https://paritytech.github.io/polkadot-sdk/master/pallet_revive_eth_rpc/index.html){target=\_blank} - bridges Ethereum-compatible tools with the Polkadot SDK-based network. It enables seamless integration with popular development tools like MetaMask and Remix IDE. The purpose of this component is to translate Ethereum RPC calls into Substrate format
 
 ## Test Networks
 
@@ -64,4 +64,4 @@ Polkadot Asset Hub is the primary production network for deploying smart contrac
 
 ### Kusama Asset Hub
 
-Kusama Asset Hub serves as the experimental version of Polkadot Asset Hub, designed for developers who want to move quickly and test their smart contracts in a real-world environment with economic incentives. It provides a more flexible space for innovation while maintaining the same core functionality as Polkadot Asset Hub.
+Kusama Asset Hub is the experimental version of Polkadot Asset Hub. It is designed for developers who want to move quickly and test their smart contracts in a real-world environment with economic incentives. It provides a more flexible space for innovation while maintaining the same core functionality as Polkadot Asset Hub.

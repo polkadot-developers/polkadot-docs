@@ -25,13 +25,13 @@ import { Binary } from 'polkadot-api';
 
 // Create Polkadot client using WebSocket provider for Polkadot chain
 const polkadotClient = createClient(
-  withPolkadotSdkCompat(getWsProvider('ws://127.0.0.1:8001'))
+  withPolkadotSdkCompat(getWsProvider('ws://127.0.0.1:8001')),
 );
 const dotApi = polkadotClient.getTypedApi(dot);
 
 // Create Astar client using WebSocket provider for Astar chain
 const astarClient = createClient(
-  withPolkadotSdkCompat(getWsProvider('ws://localhost:8000'))
+  withPolkadotSdkCompat(getWsProvider('ws://localhost:8000')),
 );
 const astarApi = astarClient.getTypedApi(astar);
 
@@ -42,7 +42,7 @@ const aliceKeyPair = derive('//Alice');
 const alice = getPolkadotSigner(
   aliceKeyPair.publicKey,
   'Sr25519',
-  aliceKeyPair.sign
+  aliceKeyPair.sign,
 );
 
 // Define recipient (Dave) address on Astar chain
@@ -56,7 +56,7 @@ const polkadotAssetId = 340282366920938463463374607431768211455n;
 // Fetch asset balance of recipient (Dave) before transaction
 let assetMetadata = await astarApi.query.Assets.Account.getValue(
   polkadotAssetId,
-  daveAddress
+  daveAddress,
 );
 console.log('Asset balance before tx:', assetMetadata?.balance ?? 0);
 
@@ -65,7 +65,7 @@ const tx = dotApi.tx.XcmPallet.limited_reserve_transfer_assets({
   dest: XcmVersionedLocation.V3({
     parents: 0,
     interior: XcmV3Junctions.X1(
-      XcmV3Junction.Parachain(2006) // Destination is the Astar parachain
+      XcmV3Junction.Parachain(2006), // Destination is the Astar parachain
     ),
   }),
   beneficiary: XcmVersionedLocation.V3({
@@ -75,7 +75,7 @@ const tx = dotApi.tx.XcmPallet.limited_reserve_transfer_assets({
         // Beneficiary address on Astar
         network: undefined,
         id: idBenef,
-      })
+      }),
     ),
   }),
   assets: XcmVersionedAssets.V3([
@@ -110,7 +110,7 @@ await new Promise((resolve) => setTimeout(resolve, 20000));
 // Fetch asset balance of recipient (Dave) after transaction
 assetMetadata = await astarApi.query.Assets.Account.getValue(
   polkadotAssetId,
-  daveAddress
+  daveAddress,
 );
 console.log('Asset balance after tx:', assetMetadata?.balance ?? 0);
 

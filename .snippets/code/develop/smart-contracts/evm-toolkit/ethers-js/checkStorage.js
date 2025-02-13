@@ -28,7 +28,7 @@ const interactWithStorageContract = async (
   contractAddress,
   mnemonic,
   providerConfig,
-  numberToSet
+  numberToSet,
 ) => {
   try {
     console.log(`Setting new number in Storage contract: ${numberToSet}`);
@@ -79,5 +79,5 @@ interactWithStorageContract(
   contractAddress,
   mnemonic,
   providerConfig,
-  newNumber
+  newNumber,
 );

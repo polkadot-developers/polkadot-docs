@@ -30,7 +30,7 @@ const compileContract = async (solidityFilePath, outputDir) => {
         const bytecodePath = join(outputDir, `${name}.polkavm`);
         writeFileSync(
           bytecodePath,
-          Buffer.from(contract.evm.bytecode.object, 'hex')
+          Buffer.from(contract.evm.bytecode.object, 'hex'),
         );
         console.log(`Bytecode saved to ${bytecodePath}`);
       }

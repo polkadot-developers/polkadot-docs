@@ -82,7 +82,7 @@ Developers can leverage Asset Hub across diverse networks, from TestNets to Main
 
 ### Metamask
 
-MetaMask is a popular wallet for interacting with EVM-compatible chains. It allows users to connect to test networks that support Ethereum-based smart contracts. However, it's important to emphasize that MetaMask primarily facilitates interactions with smart contracts, giving users access to various chain functionalities. 
+[MetaMask](https://metamask.io/){target=\_blank} is a popular wallet for interacting with EVM-compatible chains. It allows users to connect to test networks that support Ethereum-based smart contracts. However, it's important to emphasize that MetaMask primarily facilitates interactions with smart contracts, giving users access to various chain functionalities. 
 
 To get started with MetaMask, you need to install the [MetaMask extension](https://metamask.io/download/){target=\_blank} and add it to the browser. Once you install MetaMask, you can set up a new wallet and securely store your seed phrase. This phrase is crucial for recovery in case you lose access.
 
@@ -110,7 +110,7 @@ The steps in the preceding section can be used to connect to any Asset Hub chain
 
 You will need testnet tokens to perform transactions and engage with smart contracts on any Asset Hub chain. Here's how to obtain Westend Asset Hub (WND) tokens for testing purposes:
 
-1. Navigate to the [Polkadot Faucet](https://faucet.polkadot.io){target=\_blank}. If the desired network is not already selected, choose it from the Network drop-down.
+1. Navigate to the [Polkadot Faucet](https://faucet.polkadot.io){target=\_blank}. If the desired network is not already selected, choose it from the Network drop-down
 
 2. Copy your MetaMask address linked to Westend Asset Hub and paste it into the designated field
 

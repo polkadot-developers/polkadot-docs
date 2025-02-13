@@ -9,11 +9,7 @@ Options for customizing the claim assets transaction. These options allow you to
     ??? child "Type `Format`"
 
         ```ts
-<<<<<<< Updated upstream
-        --8<-- 'https://raw.githubusercontent.com/paritytech/asset-transfer-api/refs/tags/{{dependencies.asset_transfer_api.version}}/src/types.ts:132:132'
-=======
         --8<-- 'https://raw.githubusercontent.com/paritytech/asset-transfer-api/refs/tags/v0.5.0/src/types.ts:132:132'
->>>>>>> Stashed changes
         ```
 
     ---
@@ -64,11 +60,7 @@ Options for customizing the claim assets transaction. These options allow you to
     ??? child "Type `AssetTransferType`"
 
         ```ts
-<<<<<<< Updated upstream
-        --8<-- 'https://raw.githubusercontent.com/paritytech/asset-transfer-api/refs/tags/{{dependencies.asset_transfer_api.version}}/src/types.ts:540:540'
-=======
         --8<-- 'https://raw.githubusercontent.com/paritytech/asset-transfer-api/refs/tags/v0.5.0/src/types.ts:540:540'
->>>>>>> Stashed changes
         ```
         
         !!! note
@@ -90,11 +82,7 @@ Options for customizing the claim assets transaction. These options allow you to
     ??? child "Type `AssetTransferType`"
 
         ```ts
-<<<<<<< Updated upstream
-        --8<-- 'https://raw.githubusercontent.com/paritytech/asset-transfer-api/refs/tags/{{dependencies.asset_transfer_api.version}}/src/types.ts:540:540'
-=======
         --8<-- 'https://raw.githubusercontent.com/paritytech/asset-transfer-api/refs/tags/v0.5.0/src/types.ts:540:540'
->>>>>>> Stashed changes
         ```
         
         !!! note

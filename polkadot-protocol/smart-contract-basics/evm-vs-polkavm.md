@@ -15,7 +15,7 @@ However, this architectural difference becomes relevant in specific scenarios. T
 
 ## Gas Model
 
-Ethereum's resource model relies on a single metric: [gas](https://ethereum.org/en/developers/docs/gas/#what-is-gas){target=\_blank}, which serves as the universal unit for measuring computational costs. Each operation on the network consumes a specific amount of gas. Most platforms aiming for Ethereum compatibility typically adopt identical gas values to ensure seamless integration.
+Ethereum's resource model relies on a single metric: [gas](https://ethereum.org/en/developers/docs/gas/#what-is-gas){target=\_blank}, which serves as the universal unit for measuring computational costs. Each operation on the network consumes a specific amount of gas. Most platforms aiming for Ethereum compatibility typically adopt identical gas values to ensure seamless integration. The significant changes to Ethereum's gas model will be outlined in the following sections.
 
 PolkaVM introduces two significant changes to Ethereum's gas model:
 
@@ -51,19 +51,29 @@ The EVM and the PolkaVM take fundamentally different approaches to memory constr
 
 ## Account Management - Existential Deposit
 
-Polkadot implements an [existential deposit](/polkadot-protocol/glossary/#existential-deposit){target=\_blank} (ED) system, requiring accounts to maintain a minimum balance to exist. When an account's balance falls below this threshold, the account is automatically deleted. This mechanism prevents state bloat from inactive accounts, unlike Ethereum, where accounts persist indefinitely regardless of balance and require no minimum funds to maintain their associated data structures (such as the nonce). This requirement extends to smart contracts, which are specialized accounts containing executable code.
+Ethereum and Polkadot handle account persistence differently, affecting state management and contract interactions:
 
-The ED system creates a scenario where each Polkadot account has an unavailable portion of its balance. This difference could cause compatibility issues with Ethereum-designed contracts and tools, mainly wallets. However, the system implements several transparent mechanisms to maintain compatibility:
+- **Ethereum's approach**
 
-Balance queries through Ethereum RPC calls automatically deduct the ED, ensuring reported balances reflect spendable amounts. Account balance checks via EVM opcodes similarly subtract the ED from reported values.
+    - Accounts persist indefinitely, even with zero balance
+    - No minimum balance is required to maintain account data (nonce, storage)
+    - Contracts are simply accounts with executable code, following the same persistence rules
+ 
+- **Polkadot's approach**
 
-Transfers to new accounts automatically include the ED on top of the specified amount (`x + ED`). While this means the sender transfers more than the specified amount, the additional ED cost is incorporated into the transaction fee for transparency.
+    - Uses an [existential deposit](/polkadot-protocol/glossary/#existential-deposit){target=\_blank} (ED), requiring a minimum balance for an account to exist
+    - Accounts with balances below ED are automatically deleted, reducing state bloat
+    - Smart contracts, as specialized accounts, must also maintain the ED
 
-For contract-to-contract transfers, the system manages the ED requirement by:
+This difference introduces potential compatibility challenges for Ethereum-based contracts and tools, particularly wallets. To mitigate this, PolkaVM implements several transparent adjustments:
 
-- Drawing the ED from the transaction signer rather than the contract sending the transaction
-- Maintaining transfer amount transparency for contract logic
-- Including ED costs in transaction fees when multiple new accounts are funded
-- Treating ED requirements similarly to other storage deposit costs
+- Balance queries via Ethereum RPC automatically deduct the ED, ensuring reported balances match spendable amounts
+- Account balance checks through EVM opcodes reflect the ED-adjusted balance
+- Transfers to new accounts automatically include the ED (`x + ED`), with the extra cost incorporated into transaction fees
+- Contract-to-contract transfers handle ED requirements by:
 
-This implementation ensures that existing Ethereum contracts can operate without modification while maintaining Polkadot's state management benefits. The system effectively bridges the architectural differences between the two platforms while preserving their respective advantages.
+    - Drawing ED from the transaction signer instead of the sending contract
+    - Keeping transfer amounts transparent for contract logic
+    - Treating ED like other storage deposit costs
+
+This approach ensures that Ethereum contracts work without modifications while maintaining Polkadot’s optimized state management.

@@ -56,7 +56,7 @@ const getConnectedNetwork = async () => {
   }
 };
 
-// Display the account that is connected and the Moonbeam network the account is connected to
+/* Updates the button to show the connected network. */
 const displayConnectedAccount = async (connectedNetwork, networkButton) => {
   const accounts = await provider.request({ method: 'eth_requestAccounts' });
   if (!accounts || accounts.length === 0) return;

@@ -1,4 +1,4 @@
 title: Smart Contract Basics
 nav:
   - index.md
-  - evm-vs-polkavm.md
+  - 'EVM vs PolkaVM': evm-vs-polkavm.md

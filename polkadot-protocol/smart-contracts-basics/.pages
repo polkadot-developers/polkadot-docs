@@ -1,4 +1,6 @@
 title: Smart Contracts Basics
 nav:
   - index.md
+  - overview.md
   - 'PolkaVM Design': polkavm-design.md
+  - evm-vs-polkavm.md

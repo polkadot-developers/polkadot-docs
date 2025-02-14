@@ -7,7 +7,16 @@ description: Bridges Ethereum's 20-byte addresses with Polkadot's 32-byte accoun
 
 ## Introduction
 
-Asset Hub's smart contract platform implements an innovative account system that bridges the gap between Ethereum's 20-byte addresses and Polkadot's native 32-byte account identifiers. This system enables seamless interaction between existing Polkadot accounts and smart contracts while maintaining compatibility with Ethereum tooling.
+Asset Hub natively uses Polkadot's 32-byte account system, but provides interoperability with Ethereum's 20-byte addresses through an automatic conversion system. When interacting with smart contracts:
+
+- EVM-compatible wallets (like MetaMask) can use their familiar 20-byte addresses
+- Polkadot accounts continue using their native 32-byte format
+- The Asset Hub chain automatically handles conversion between the two formats behind the scenes:
+
+    - 20-byte Ethereum addresses are padded with `0xEE` bytes to create valid 32-byte Polkadot accounts
+    - 32-byte Polkadot accounts can optionally register a mapping to a 20-byte address for Ethereum compatibility
+
+This dual-format approach enables Asset Hub to maintain compatibility with Ethereum tooling while fully integrating with the Polkadot ecosystem.
 
 ## Address Types and Mappings
 

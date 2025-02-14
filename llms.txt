@@ -4,145 +4,145 @@
 Documentation: https://docs.polkadot.com/
 
 # List of doc pages:
-Doc-Page: https://docs.polkadot.com/develop/index
-Doc-Page: https://docs.polkadot.com/develop/interoperability/index
-Doc-Page: https://docs.polkadot.com/develop/interoperability/intro-to-xcm
-Doc-Page: https://docs.polkadot.com/develop/interoperability/send-messages
-Doc-Page: https://docs.polkadot.com/develop/interoperability/test-and-debug
-Doc-Page: https://docs.polkadot.com/develop/interoperability/xcm-channels
-Doc-Page: https://docs.polkadot.com/develop/interoperability/xcm-config
-Doc-Page: https://docs.polkadot.com/develop/interoperability/xcm-runtime-apis
-Doc-Page: https://docs.polkadot.com/develop/networks
-Doc-Page: https://docs.polkadot.com/develop/parachains/customize-parachain/add-existing-pallets
-Doc-Page: https://docs.polkadot.com/develop/parachains/customize-parachain/add-smart-contract-functionality
-Doc-Page: https://docs.polkadot.com/develop/parachains/customize-parachain/index
-Doc-Page: https://docs.polkadot.com/develop/parachains/customize-parachain/make-custom-pallet
-Doc-Page: https://docs.polkadot.com/develop/parachains/customize-parachain/overview
-Doc-Page: https://docs.polkadot.com/develop/parachains/deployment/build-deterministic-runtime
-Doc-Page: https://docs.polkadot.com/develop/parachains/deployment/generate-chain-specs
-Doc-Page: https://docs.polkadot.com/develop/parachains/deployment/index
-Doc-Page: https://docs.polkadot.com/develop/parachains/deployment/obtain-coretime
-Doc-Page: https://docs.polkadot.com/develop/parachains/index
-Doc-Page: https://docs.polkadot.com/develop/parachains/install-polkadot-sdk
-Doc-Page: https://docs.polkadot.com/develop/parachains/intro-polkadot-sdk
-Doc-Page: https://docs.polkadot.com/develop/parachains/maintenance/index
-Doc-Page: https://docs.polkadot.com/develop/parachains/maintenance/runtime-metrics-monitoring
-Doc-Page: https://docs.polkadot.com/develop/parachains/maintenance/runtime-upgrades
-Doc-Page: https://docs.polkadot.com/develop/parachains/maintenance/storage-migrations
-Doc-Page: https://docs.polkadot.com/develop/parachains/testing/benchmarking
-Doc-Page: https://docs.polkadot.com/develop/parachains/testing/index
-Doc-Page: https://docs.polkadot.com/develop/parachains/testing/mock-runtime
-Doc-Page: https://docs.polkadot.com/develop/parachains/testing/pallet-testing
-Doc-Page: https://docs.polkadot.com/develop/smart-contracts/evm/index
-Doc-Page: https://docs.polkadot.com/develop/smart-contracts/evm/native-evm-contracts
-Doc-Page: https://docs.polkadot.com/develop/smart-contracts/evm/parachain-contracts
-Doc-Page: https://docs.polkadot.com/develop/smart-contracts/index
-Doc-Page: https://docs.polkadot.com/develop/smart-contracts/overview
-Doc-Page: https://docs.polkadot.com/develop/smart-contracts/wasm-ink
-Doc-Page: https://docs.polkadot.com/develop/toolkit/api-libraries/index
-Doc-Page: https://docs.polkadot.com/develop/toolkit/api-libraries/papi
-Doc-Page: https://docs.polkadot.com/develop/toolkit/api-libraries/polkadot-js-api
-Doc-Page: https://docs.polkadot.com/develop/toolkit/api-libraries/py-substrate-interface
-Doc-Page: https://docs.polkadot.com/develop/toolkit/api-libraries/sidecar
-Doc-Page: https://docs.polkadot.com/develop/toolkit/index
-Doc-Page: https://docs.polkadot.com/develop/toolkit/integrations/index
-Doc-Page: https://docs.polkadot.com/develop/toolkit/integrations/indexers
-Doc-Page: https://docs.polkadot.com/develop/toolkit/integrations/oracles
-Doc-Page: https://docs.polkadot.com/develop/toolkit/integrations/wallets
-Doc-Page: https://docs.polkadot.com/develop/toolkit/interoperability/asset-transfer-api/index
-Doc-Page: https://docs.polkadot.com/develop/toolkit/interoperability/asset-transfer-api/overview
-Doc-Page: https://docs.polkadot.com/develop/toolkit/interoperability/asset-transfer-api/reference
-Doc-Page: https://docs.polkadot.com/develop/toolkit/interoperability/index
-Doc-Page: https://docs.polkadot.com/develop/toolkit/interoperability/xcm-tools
-Doc-Page: https://docs.polkadot.com/develop/toolkit/parachains/e2e-testing/index
-Doc-Page: https://docs.polkadot.com/develop/toolkit/parachains/e2e-testing/moonwall
-Doc-Page: https://docs.polkadot.com/develop/toolkit/parachains/fork-chains/chopsticks/get-started
-Doc-Page: https://docs.polkadot.com/develop/toolkit/parachains/fork-chains/chopsticks/index
-Doc-Page: https://docs.polkadot.com/develop/toolkit/parachains/fork-chains/index
-Doc-Page: https://docs.polkadot.com/develop/toolkit/parachains/index
-Doc-Page: https://docs.polkadot.com/develop/toolkit/parachains/spawn-chains/index
-Doc-Page: https://docs.polkadot.com/develop/toolkit/parachains/spawn-chains/zombienet/get-started
-Doc-Page: https://docs.polkadot.com/develop/toolkit/parachains/spawn-chains/zombienet/index
-Doc-Page: https://docs.polkadot.com/develop/toolkit/parachains/spawn-chains/zombienet/write-tests
-Doc-Page: https://docs.polkadot.com/images/README
-Doc-Page: https://docs.polkadot.com/infrastructure/index
-Doc-Page: https://docs.polkadot.com/infrastructure/running-a-node/index
-Doc-Page: https://docs.polkadot.com/infrastructure/running-a-node/setup-bootnode
-Doc-Page: https://docs.polkadot.com/infrastructure/running-a-node/setup-full-node
-Doc-Page: https://docs.polkadot.com/infrastructure/running-a-node/setup-secure-wss
-Doc-Page: https://docs.polkadot.com/infrastructure/running-a-validator/index
-Doc-Page: https://docs.polkadot.com/infrastructure/running-a-validator/onboarding-and-offboarding/index
-Doc-Page: https://docs.polkadot.com/infrastructure/running-a-validator/onboarding-and-offboarding/set-up-validator
-Doc-Page: https://docs.polkadot.com/infrastructure/running-a-validator/onboarding-and-offboarding/stop-validating
-Doc-Page: https://docs.polkadot.com/infrastructure/running-a-validator/operational-tasks/general-management
-Doc-Page: https://docs.polkadot.com/infrastructure/running-a-validator/operational-tasks/index
-Doc-Page: https://docs.polkadot.com/infrastructure/running-a-validator/operational-tasks/pause-validating
-Doc-Page: https://docs.polkadot.com/infrastructure/running-a-validator/operational-tasks/upgrade-your-node
-Doc-Page: https://docs.polkadot.com/infrastructure/running-a-validator/requirements
-Doc-Page: https://docs.polkadot.com/infrastructure/staking-mechanics/index
-Doc-Page: https://docs.polkadot.com/infrastructure/staking-mechanics/offenses-and-slashes
-Doc-Page: https://docs.polkadot.com/infrastructure/staking-mechanics/rewards-payout
-Doc-Page: https://docs.polkadot.com/polkadot-protocol/architecture/index
-Doc-Page: https://docs.polkadot.com/polkadot-protocol/architecture/parachains/consensus
-Doc-Page: https://docs.polkadot.com/polkadot-protocol/architecture/parachains/index
-Doc-Page: https://docs.polkadot.com/polkadot-protocol/architecture/parachains/overview
-Doc-Page: https://docs.polkadot.com/polkadot-protocol/architecture/polkadot-chain/agile-coretime
-Doc-Page: https://docs.polkadot.com/polkadot-protocol/architecture/polkadot-chain/index
-Doc-Page: https://docs.polkadot.com/polkadot-protocol/architecture/polkadot-chain/overview
-Doc-Page: https://docs.polkadot.com/polkadot-protocol/architecture/polkadot-chain/pos-consensus
-Doc-Page: https://docs.polkadot.com/polkadot-protocol/architecture/system-chains/asset-hub
-Doc-Page: https://docs.polkadot.com/polkadot-protocol/architecture/system-chains/bridge-hub
-Doc-Page: https://docs.polkadot.com/polkadot-protocol/architecture/system-chains/coretime
-Doc-Page: https://docs.polkadot.com/polkadot-protocol/architecture/system-chains/index
-Doc-Page: https://docs.polkadot.com/polkadot-protocol/architecture/system-chains/overview
-Doc-Page: https://docs.polkadot.com/polkadot-protocol/basics/accounts
-Doc-Page: https://docs.polkadot.com/polkadot-protocol/basics/blocks-transactions-fees/blocks
-Doc-Page: https://docs.polkadot.com/polkadot-protocol/basics/blocks-transactions-fees/fees
-Doc-Page: https://docs.polkadot.com/polkadot-protocol/basics/blocks-transactions-fees/index
-Doc-Page: https://docs.polkadot.com/polkadot-protocol/basics/blocks-transactions-fees/transactions
-Doc-Page: https://docs.polkadot.com/polkadot-protocol/basics/chain-data
-Doc-Page: https://docs.polkadot.com/polkadot-protocol/basics/cryptography
-Doc-Page: https://docs.polkadot.com/polkadot-protocol/basics/data-encoding
-Doc-Page: https://docs.polkadot.com/polkadot-protocol/basics/index
-Doc-Page: https://docs.polkadot.com/polkadot-protocol/basics/interoperability
-Doc-Page: https://docs.polkadot.com/polkadot-protocol/basics/networks
-Doc-Page: https://docs.polkadot.com/polkadot-protocol/basics/randomness
-Doc-Page: https://docs.polkadot.com/polkadot-protocol/glossary
-Doc-Page: https://docs.polkadot.com/polkadot-protocol/index
-Doc-Page: https://docs.polkadot.com/polkadot-protocol/onchain-governance/index
-Doc-Page: https://docs.polkadot.com/polkadot-protocol/onchain-governance/origins-tracks
-Doc-Page: https://docs.polkadot.com/polkadot-protocol/onchain-governance/overview
-Doc-Page: https://docs.polkadot.com/tutorials/index
-Doc-Page: https://docs.polkadot.com/tutorials/interoperability/index
-Doc-Page: https://docs.polkadot.com/tutorials/interoperability/xcm-channels/index
-Doc-Page: https://docs.polkadot.com/tutorials/interoperability/xcm-channels/para-to-para
-Doc-Page: https://docs.polkadot.com/tutorials/interoperability/xcm-channels/para-to-system
-Doc-Page: https://docs.polkadot.com/tutorials/interoperability/xcm-transfers/from-relaychain-to-parachain
-Doc-Page: https://docs.polkadot.com/tutorials/interoperability/xcm-transfers/index
-Doc-Page: https://docs.polkadot.com/tutorials/onchain-governance/fast-track-gov-proposal
-Doc-Page: https://docs.polkadot.com/tutorials/onchain-governance/index
-Doc-Page: https://docs.polkadot.com/tutorials/polkadot-sdk/index
-Doc-Page: https://docs.polkadot.com/tutorials/polkadot-sdk/parachains/index
-Doc-Page: https://docs.polkadot.com/tutorials/polkadot-sdk/parachains/zero-to-hero/add-pallets-to-runtime
-Doc-Page: https://docs.polkadot.com/tutorials/polkadot-sdk/parachains/zero-to-hero/build-custom-pallet
-Doc-Page: https://docs.polkadot.com/tutorials/polkadot-sdk/parachains/zero-to-hero/deploy-to-testnet
-Doc-Page: https://docs.polkadot.com/tutorials/polkadot-sdk/parachains/zero-to-hero/index
-Doc-Page: https://docs.polkadot.com/tutorials/polkadot-sdk/parachains/zero-to-hero/obtain-coretime
-Doc-Page: https://docs.polkadot.com/tutorials/polkadot-sdk/parachains/zero-to-hero/pallet-benchmarking
-Doc-Page: https://docs.polkadot.com/tutorials/polkadot-sdk/parachains/zero-to-hero/pallet-unit-testing
-Doc-Page: https://docs.polkadot.com/tutorials/polkadot-sdk/parachains/zero-to-hero/set-up-a-template
-Doc-Page: https://docs.polkadot.com/tutorials/polkadot-sdk/system-chains/asset-hub/asset-conversion
-Doc-Page: https://docs.polkadot.com/tutorials/polkadot-sdk/system-chains/asset-hub/index
-Doc-Page: https://docs.polkadot.com/tutorials/polkadot-sdk/system-chains/asset-hub/register-foreign-asset
-Doc-Page: https://docs.polkadot.com/tutorials/polkadot-sdk/system-chains/asset-hub/register-local-asset
-Doc-Page: https://docs.polkadot.com/tutorials/polkadot-sdk/system-chains/index
-Doc-Page: https://docs.polkadot.com/tutorials/polkadot-sdk/testing/fork-live-chains
-Doc-Page: https://docs.polkadot.com/tutorials/polkadot-sdk/testing/index
-Doc-Page: https://docs.polkadot.com/tutorials/polkadot-sdk/testing/spawn-basic-chain
+Doc-Page: https://docs.polkadot.com/develop\index
+Doc-Page: https://docs.polkadot.com/develop\interoperability\index
+Doc-Page: https://docs.polkadot.com/develop\interoperability\intro-to-xcm
+Doc-Page: https://docs.polkadot.com/develop\interoperability\send-messages
+Doc-Page: https://docs.polkadot.com/develop\interoperability\test-and-debug
+Doc-Page: https://docs.polkadot.com/develop\interoperability\xcm-channels
+Doc-Page: https://docs.polkadot.com/develop\interoperability\xcm-config
+Doc-Page: https://docs.polkadot.com/develop\interoperability\xcm-runtime-apis
+Doc-Page: https://docs.polkadot.com/develop\networks
+Doc-Page: https://docs.polkadot.com/develop\parachains\customize-parachain\add-existing-pallets
+Doc-Page: https://docs.polkadot.com/develop\parachains\customize-parachain\add-smart-contract-functionality
+Doc-Page: https://docs.polkadot.com/develop\parachains\customize-parachain\index
+Doc-Page: https://docs.polkadot.com/develop\parachains\customize-parachain\make-custom-pallet
+Doc-Page: https://docs.polkadot.com/develop\parachains\customize-parachain\overview
+Doc-Page: https://docs.polkadot.com/develop\parachains\deployment\build-deterministic-runtime
+Doc-Page: https://docs.polkadot.com/develop\parachains\deployment\generate-chain-specs
+Doc-Page: https://docs.polkadot.com/develop\parachains\deployment\index
+Doc-Page: https://docs.polkadot.com/develop\parachains\deployment\obtain-coretime
+Doc-Page: https://docs.polkadot.com/develop\parachains\index
+Doc-Page: https://docs.polkadot.com/develop\parachains\install-polkadot-sdk
+Doc-Page: https://docs.polkadot.com/develop\parachains\intro-polkadot-sdk
+Doc-Page: https://docs.polkadot.com/develop\parachains\maintenance\index
+Doc-Page: https://docs.polkadot.com/develop\parachains\maintenance\runtime-metrics-monitoring
+Doc-Page: https://docs.polkadot.com/develop\parachains\maintenance\runtime-upgrades
+Doc-Page: https://docs.polkadot.com/develop\parachains\maintenance\storage-migrations
+Doc-Page: https://docs.polkadot.com/develop\parachains\testing\benchmarking
+Doc-Page: https://docs.polkadot.com/develop\parachains\testing\index
+Doc-Page: https://docs.polkadot.com/develop\parachains\testing\mock-runtime
+Doc-Page: https://docs.polkadot.com/develop\parachains\testing\pallet-testing
+Doc-Page: https://docs.polkadot.com/develop\smart-contracts\evm\index
+Doc-Page: https://docs.polkadot.com/develop\smart-contracts\evm\native-evm-contracts
+Doc-Page: https://docs.polkadot.com/develop\smart-contracts\evm\parachain-contracts
+Doc-Page: https://docs.polkadot.com/develop\smart-contracts\index
+Doc-Page: https://docs.polkadot.com/develop\smart-contracts\overview
+Doc-Page: https://docs.polkadot.com/develop\smart-contracts\wasm-ink
+Doc-Page: https://docs.polkadot.com/develop\toolkit\api-libraries\index
+Doc-Page: https://docs.polkadot.com/develop\toolkit\api-libraries\papi
+Doc-Page: https://docs.polkadot.com/develop\toolkit\api-libraries\polkadot-js-api
+Doc-Page: https://docs.polkadot.com/develop\toolkit\api-libraries\py-substrate-interface
+Doc-Page: https://docs.polkadot.com/develop\toolkit\api-libraries\sidecar
+Doc-Page: https://docs.polkadot.com/develop\toolkit\index
+Doc-Page: https://docs.polkadot.com/develop\toolkit\integrations\index
+Doc-Page: https://docs.polkadot.com/develop\toolkit\integrations\indexers
+Doc-Page: https://docs.polkadot.com/develop\toolkit\integrations\oracles
+Doc-Page: https://docs.polkadot.com/develop\toolkit\integrations\wallets
+Doc-Page: https://docs.polkadot.com/develop\toolkit\interoperability\asset-transfer-api\index
+Doc-Page: https://docs.polkadot.com/develop\toolkit\interoperability\asset-transfer-api\overview
+Doc-Page: https://docs.polkadot.com/develop\toolkit\interoperability\asset-transfer-api\reference
+Doc-Page: https://docs.polkadot.com/develop\toolkit\interoperability\index
+Doc-Page: https://docs.polkadot.com/develop\toolkit\interoperability\xcm-tools
+Doc-Page: https://docs.polkadot.com/develop\toolkit\parachains\e2e-testing\index
+Doc-Page: https://docs.polkadot.com/develop\toolkit\parachains\e2e-testing\moonwall
+Doc-Page: https://docs.polkadot.com/develop\toolkit\parachains\fork-chains\chopsticks\get-started
+Doc-Page: https://docs.polkadot.com/develop\toolkit\parachains\fork-chains\chopsticks\index
+Doc-Page: https://docs.polkadot.com/develop\toolkit\parachains\fork-chains\index
+Doc-Page: https://docs.polkadot.com/develop\toolkit\parachains\index
+Doc-Page: https://docs.polkadot.com/develop\toolkit\parachains\spawn-chains\index
+Doc-Page: https://docs.polkadot.com/develop\toolkit\parachains\spawn-chains\zombienet\get-started
+Doc-Page: https://docs.polkadot.com/develop\toolkit\parachains\spawn-chains\zombienet\index
+Doc-Page: https://docs.polkadot.com/develop\toolkit\parachains\spawn-chains\zombienet\write-tests
+Doc-Page: https://docs.polkadot.com/images\README
+Doc-Page: https://docs.polkadot.com/infrastructure\index
+Doc-Page: https://docs.polkadot.com/infrastructure\running-a-node\index
+Doc-Page: https://docs.polkadot.com/infrastructure\running-a-node\setup-bootnode
+Doc-Page: https://docs.polkadot.com/infrastructure\running-a-node\setup-full-node
+Doc-Page: https://docs.polkadot.com/infrastructure\running-a-node\setup-secure-wss
+Doc-Page: https://docs.polkadot.com/infrastructure\running-a-validator\index
+Doc-Page: https://docs.polkadot.com/infrastructure\running-a-validator\onboarding-and-offboarding\index
+Doc-Page: https://docs.polkadot.com/infrastructure\running-a-validator\onboarding-and-offboarding\set-up-validator
+Doc-Page: https://docs.polkadot.com/infrastructure\running-a-validator\onboarding-and-offboarding\stop-validating
+Doc-Page: https://docs.polkadot.com/infrastructure\running-a-validator\operational-tasks\general-management
+Doc-Page: https://docs.polkadot.com/infrastructure\running-a-validator\operational-tasks\index
+Doc-Page: https://docs.polkadot.com/infrastructure\running-a-validator\operational-tasks\pause-validating
+Doc-Page: https://docs.polkadot.com/infrastructure\running-a-validator\operational-tasks\upgrade-your-node
+Doc-Page: https://docs.polkadot.com/infrastructure\running-a-validator\requirements
+Doc-Page: https://docs.polkadot.com/infrastructure\staking-mechanics\index
+Doc-Page: https://docs.polkadot.com/infrastructure\staking-mechanics\offenses-and-slashes
+Doc-Page: https://docs.polkadot.com/infrastructure\staking-mechanics\rewards-payout
+Doc-Page: https://docs.polkadot.com/polkadot-protocol\architecture\index
+Doc-Page: https://docs.polkadot.com/polkadot-protocol\architecture\parachains\consensus
+Doc-Page: https://docs.polkadot.com/polkadot-protocol\architecture\parachains\index
+Doc-Page: https://docs.polkadot.com/polkadot-protocol\architecture\parachains\overview
+Doc-Page: https://docs.polkadot.com/polkadot-protocol\architecture\polkadot-chain\agile-coretime
+Doc-Page: https://docs.polkadot.com/polkadot-protocol\architecture\polkadot-chain\index
+Doc-Page: https://docs.polkadot.com/polkadot-protocol\architecture\polkadot-chain\overview
+Doc-Page: https://docs.polkadot.com/polkadot-protocol\architecture\polkadot-chain\pos-consensus
+Doc-Page: https://docs.polkadot.com/polkadot-protocol\architecture\system-chains\asset-hub
+Doc-Page: https://docs.polkadot.com/polkadot-protocol\architecture\system-chains\bridge-hub
+Doc-Page: https://docs.polkadot.com/polkadot-protocol\architecture\system-chains\coretime
+Doc-Page: https://docs.polkadot.com/polkadot-protocol\architecture\system-chains\index
+Doc-Page: https://docs.polkadot.com/polkadot-protocol\architecture\system-chains\overview
+Doc-Page: https://docs.polkadot.com/polkadot-protocol\basics\accounts
+Doc-Page: https://docs.polkadot.com/polkadot-protocol\basics\blocks-transactions-fees\blocks
+Doc-Page: https://docs.polkadot.com/polkadot-protocol\basics\blocks-transactions-fees\fees
+Doc-Page: https://docs.polkadot.com/polkadot-protocol\basics\blocks-transactions-fees\index
+Doc-Page: https://docs.polkadot.com/polkadot-protocol\basics\blocks-transactions-fees\transactions
+Doc-Page: https://docs.polkadot.com/polkadot-protocol\basics\chain-data
+Doc-Page: https://docs.polkadot.com/polkadot-protocol\basics\cryptography
+Doc-Page: https://docs.polkadot.com/polkadot-protocol\basics\data-encoding
+Doc-Page: https://docs.polkadot.com/polkadot-protocol\basics\index
+Doc-Page: https://docs.polkadot.com/polkadot-protocol\basics\interoperability
+Doc-Page: https://docs.polkadot.com/polkadot-protocol\basics\networks
+Doc-Page: https://docs.polkadot.com/polkadot-protocol\basics\randomness
+Doc-Page: https://docs.polkadot.com/polkadot-protocol\glossary
+Doc-Page: https://docs.polkadot.com/polkadot-protocol\index
+Doc-Page: https://docs.polkadot.com/polkadot-protocol\onchain-governance\index
+Doc-Page: https://docs.polkadot.com/polkadot-protocol\onchain-governance\origins-tracks
+Doc-Page: https://docs.polkadot.com/polkadot-protocol\onchain-governance\overview
+Doc-Page: https://docs.polkadot.com/tutorials\index
+Doc-Page: https://docs.polkadot.com/tutorials\interoperability\index
+Doc-Page: https://docs.polkadot.com/tutorials\interoperability\xcm-channels\index
+Doc-Page: https://docs.polkadot.com/tutorials\interoperability\xcm-channels\para-to-para
+Doc-Page: https://docs.polkadot.com/tutorials\interoperability\xcm-channels\para-to-system
+Doc-Page: https://docs.polkadot.com/tutorials\interoperability\xcm-transfers\from-relaychain-to-parachain
+Doc-Page: https://docs.polkadot.com/tutorials\interoperability\xcm-transfers\index
+Doc-Page: https://docs.polkadot.com/tutorials\onchain-governance\fast-track-gov-proposal
+Doc-Page: https://docs.polkadot.com/tutorials\onchain-governance\index
+Doc-Page: https://docs.polkadot.com/tutorials\polkadot-sdk\index
+Doc-Page: https://docs.polkadot.com/tutorials\polkadot-sdk\parachains\index
+Doc-Page: https://docs.polkadot.com/tutorials\polkadot-sdk\parachains\zero-to-hero\add-pallets-to-runtime
+Doc-Page: https://docs.polkadot.com/tutorials\polkadot-sdk\parachains\zero-to-hero\build-custom-pallet
+Doc-Page: https://docs.polkadot.com/tutorials\polkadot-sdk\parachains\zero-to-hero\deploy-to-testnet
+Doc-Page: https://docs.polkadot.com/tutorials\polkadot-sdk\parachains\zero-to-hero\index
+Doc-Page: https://docs.polkadot.com/tutorials\polkadot-sdk\parachains\zero-to-hero\obtain-coretime
+Doc-Page: https://docs.polkadot.com/tutorials\polkadot-sdk\parachains\zero-to-hero\pallet-benchmarking
+Doc-Page: https://docs.polkadot.com/tutorials\polkadot-sdk\parachains\zero-to-hero\pallet-unit-testing
+Doc-Page: https://docs.polkadot.com/tutorials\polkadot-sdk\parachains\zero-to-hero\set-up-a-template
+Doc-Page: https://docs.polkadot.com/tutorials\polkadot-sdk\system-chains\asset-hub\asset-conversion
+Doc-Page: https://docs.polkadot.com/tutorials\polkadot-sdk\system-chains\asset-hub\index
+Doc-Page: https://docs.polkadot.com/tutorials\polkadot-sdk\system-chains\asset-hub\register-foreign-asset
+Doc-Page: https://docs.polkadot.com/tutorials\polkadot-sdk\system-chains\asset-hub\register-local-asset
+Doc-Page: https://docs.polkadot.com/tutorials\polkadot-sdk\system-chains\index
+Doc-Page: https://docs.polkadot.com/tutorials\polkadot-sdk\testing\fork-live-chains
+Doc-Page: https://docs.polkadot.com/tutorials\polkadot-sdk\testing\index
+Doc-Page: https://docs.polkadot.com/tutorials\polkadot-sdk\testing\spawn-basic-chain
 
 # Full content for each doc page
 
-Doc-Content: https://docs.polkadot.com/develop/index
+Doc-Content: https://docs.polkadot.com/develop\index
 --- BEGIN CONTENT ---
 ---
 title: Develop
@@ -282,7 +282,7 @@ Integrate with the Polkadot blockchain's underlying protocol features to create 
 :::INSERT_IN_THIS_SECTION:::
 --- END CONTENT ---
 
-Doc-Content: https://docs.polkadot.com/develop/interoperability/index
+Doc-Content: https://docs.polkadot.com/develop\interoperability\index
 --- BEGIN CONTENT ---
 ---
 title: Interoperability
@@ -331,7 +331,7 @@ This section covers everything you need to know about building and implementing 
 </div>
 --- END CONTENT ---
 
-Doc-Content: https://docs.polkadot.com/develop/interoperability/intro-to-xcm
+Doc-Content: https://docs.polkadot.com/develop\interoperability\intro-to-xcm
 --- BEGIN CONTENT ---
 ---
 title: Introduction to XCM
@@ -452,7 +452,7 @@ XCM revolutionizes cross-chain communication by enabling use cases such as:
 These functionalities empower developers to build innovative, multi-chain applications, leveraging the strengths of various blockchain networks. To stay updated on XCM’s evolving format or contribute, visit the [XCM repository](https://github.com/paritytech/xcm-docs/blob/main/examples/src/0_first_look/mod.rs){target=\_blank}.
 --- END CONTENT ---
 
-Doc-Content: https://docs.polkadot.com/develop/interoperability/send-messages
+Doc-Content: https://docs.polkadot.com/develop\interoperability\send-messages
 --- BEGIN CONTENT ---
 ---
 title: Send XCM Messages
@@ -553,7 +553,7 @@ For instance, the Kusama network employs the [`ChildParachainRouter`](https://pa
 For more details about XCM transport protocols, see the [XCM Channels](/develop/interoperability/xcm-channels/){target=\_blank} page.
 --- END CONTENT ---
 
-Doc-Content: https://docs.polkadot.com/develop/interoperability/test-and-debug
+Doc-Content: https://docs.polkadot.com/develop\interoperability\test-and-debug
 --- BEGIN CONTENT ---
 ---
 title: Testing and Debugging
@@ -703,7 +703,7 @@ This framework enables thorough testing of runtime and cross-chain interactions,
 To see a complete example of implementing and executing tests, refer to the [integration tests](https://github.com/paritytech/polkadot-sdk/tree/{{dependencies.polkadot_sdk.stable_version}}/cumulus/parachains/integration-tests/emulated){target=\_blank} in the Polkadot SDK repository.
 --- END CONTENT ---
 
-Doc-Content: https://docs.polkadot.com/develop/interoperability/xcm-channels
+Doc-Content: https://docs.polkadot.com/develop\interoperability\xcm-channels
 --- BEGIN CONTENT ---
 ---
 title: XCM Channels
@@ -787,7 +787,7 @@ Explore the following tutorials for detailed, step-by-step guidance on setting u
 </div>
 --- END CONTENT ---
 
-Doc-Content: https://docs.polkadot.com/develop/interoperability/xcm-config
+Doc-Content: https://docs.polkadot.com/develop\interoperability\xcm-config
 --- BEGIN CONTENT ---
 ---
 title: XCM Config
@@ -1083,7 +1083,7 @@ impl xcm_executor::Config for XcmConfig {
 ```
 --- END CONTENT ---
 
-Doc-Content: https://docs.polkadot.com/develop/interoperability/xcm-runtime-apis
+Doc-Content: https://docs.polkadot.com/develop\interoperability\xcm-runtime-apis
 --- BEGIN CONTENT ---
 ---
 title: XCM Runtime APIs
@@ -2564,7 +2564,7 @@ client.destroy();
     ---
 --- END CONTENT ---
 
-Doc-Content: https://docs.polkadot.com/develop/networks
+Doc-Content: https://docs.polkadot.com/develop\networks
 --- BEGIN CONTENT ---
 ---
 title: Networks
@@ -2842,7 +2842,7 @@ Paseo is a decentralised, community run, stable testnet for parachain and dapp d
 - [**Polkadot Fellowship runtimes repository**](https://github.com/polkadot-fellows/runtimes){target=\_blank} - find a collection of runtimes for Polkadot, Kusama, and their system-parachains as maintained by the community via the [Polkadot Technical Fellowship](https://wiki.polkadot.network/docs/learn-polkadot-technical-fellowship){target=\_blank}
 --- END CONTENT ---
 
-Doc-Content: https://docs.polkadot.com/develop/parachains/customize-parachain/add-existing-pallets
+Doc-Content: https://docs.polkadot.com/develop\parachains\customize-parachain\add-existing-pallets
 --- BEGIN CONTENT ---
 ---
 title: Add a Pallet to the Runtime
@@ -3078,7 +3078,7 @@ With the pallet successfully added and configured, the runtime is ready to be co
 </div>
 --- END CONTENT ---
 
-Doc-Content: https://docs.polkadot.com/develop/parachains/customize-parachain/add-smart-contract-functionality
+Doc-Content: https://docs.polkadot.com/develop\parachains\customize-parachain\add-smart-contract-functionality
 --- BEGIN CONTENT ---
 ---
 title: Add Smart Contract Functionality
@@ -3147,7 +3147,7 @@ Now that you understand how to enable smart contract functionality in your block
 </div>
 --- END CONTENT ---
 
-Doc-Content: https://docs.polkadot.com/develop/parachains/customize-parachain/index
+Doc-Content: https://docs.polkadot.com/develop\parachains\customize-parachain\index
 --- BEGIN CONTENT ---
 ---
 title: Customize Your Parachain
@@ -3189,7 +3189,7 @@ The [FRAME directory](https://github.com/paritytech/polkadot-sdk/tree/{{dependen
 </div>
 --- END CONTENT ---
 
-Doc-Content: https://docs.polkadot.com/develop/parachains/customize-parachain/make-custom-pallet
+Doc-Content: https://docs.polkadot.com/develop\parachains\customize-parachain\make-custom-pallet
 --- BEGIN CONTENT ---
 ---
 title: Make a Custom Pallet
@@ -3554,7 +3554,7 @@ With the pallet implemented, the next steps involve ensuring its reliability and
 </div>
 --- END CONTENT ---
 
-Doc-Content: https://docs.polkadot.com/develop/parachains/customize-parachain/overview
+Doc-Content: https://docs.polkadot.com/develop\parachains\customize-parachain\overview
 --- BEGIN CONTENT ---
 ---
 title: Overview of FRAME
@@ -3685,7 +3685,7 @@ For more detailed information on implementing this process, refer to the followi
 - [Create a Custom Pallet](/develop/parachains/customize-parachain/make-custom-pallet/)
 --- END CONTENT ---
 
-Doc-Content: https://docs.polkadot.com/develop/parachains/deployment/build-deterministic-runtime
+Doc-Content: https://docs.polkadot.com/develop\parachains\deployment\build-deterministic-runtime
 --- BEGIN CONTENT ---
 ---
 title: Build a deterministic runtime
@@ -3852,7 +3852,7 @@ Keep in mind that there is no `latest` tag for the `srtool` image. Ensure that t
 The naming convention for `paritytech/srtool` Docker images specifies the version of the Rust compiler used to compile the code included in the image. Some images specify both a compiler version and the version of the build script used. For example, an image named `paritytech/srtool:1.62.0-0.9.19` was compiled with version `1.62.0` of the `rustc` compiler and version `0.9.19` of the build script. Images that only specify the compiler version always contain the software's latest version.
 --- END CONTENT ---
 
-Doc-Content: https://docs.polkadot.com/develop/parachains/deployment/generate-chain-specs
+Doc-Content: https://docs.polkadot.com/develop\parachains\deployment\generate-chain-specs
 --- BEGIN CONTENT ---
 ---
 title: Generate Chain Specs
@@ -4027,7 +4027,7 @@ After generating a chain specification, you can use it to initialize the genesis
 </div>
 --- END CONTENT ---
 
-Doc-Content: https://docs.polkadot.com/develop/parachains/deployment/index
+Doc-Content: https://docs.polkadot.com/develop\parachains\deployment\index
 --- BEGIN CONTENT ---
 ---
 title: Deployment
@@ -4108,7 +4108,7 @@ If you’re building a standalone blockchain (solochain) that won’t connect to
 </div>
 --- END CONTENT ---
 
-Doc-Content: https://docs.polkadot.com/develop/parachains/deployment/obtain-coretime
+Doc-Content: https://docs.polkadot.com/develop\parachains\deployment\obtain-coretime
 --- BEGIN CONTENT ---
 ---
 title: Obtain Coretime
@@ -4193,7 +4193,7 @@ On-demand coretime allows for flexible, as-needed block production. To purchase:
 After succesfully executing the extrinsic, your parachain will produce a block.
 --- END CONTENT ---
 
-Doc-Content: https://docs.polkadot.com/develop/parachains/index
+Doc-Content: https://docs.polkadot.com/develop\parachains\index
 --- BEGIN CONTENT ---
 ---
 title: Parachains
@@ -4225,7 +4225,7 @@ New to parachain development? Start with the [Introduction to the Polkadot SDK](
 :::INSERT_IN_THIS_SECTION:::
 --- END CONTENT ---
 
-Doc-Content: https://docs.polkadot.com/develop/parachains/install-polkadot-sdk
+Doc-Content: https://docs.polkadot.com/develop\parachains\install-polkadot-sdk
 --- BEGIN CONTENT ---
 ---
 title: Install Polkadot SDK Dependencies
@@ -4589,7 +4589,7 @@ The command displays output similar to the following:
 - [Parachain Zero to Hero Tutorials](/tutorials/polkadot-sdk/parachains/zero-to-hero/){target=\_blank} - a series of step-by-step guides to building, testing, and deploying custom pallets and runtimes using the Polkadot SDK
 --- END CONTENT ---
 
-Doc-Content: https://docs.polkadot.com/develop/parachains/intro-polkadot-sdk
+Doc-Content: https://docs.polkadot.com/develop\parachains\intro-polkadot-sdk
 --- BEGIN CONTENT ---
 ---
 title: Introduction to Polkadot SDK
@@ -4741,7 +4741,7 @@ graph LR
 Each stage is covered in detail in its respective guide, walking you through the process from initial setup to final deployment.
 --- END CONTENT ---
 
-Doc-Content: https://docs.polkadot.com/develop/parachains/maintenance/index
+Doc-Content: https://docs.polkadot.com/develop\parachains\maintenance\index
 --- BEGIN CONTENT ---
 ---
 title: Maintenance
@@ -4775,7 +4775,7 @@ Learn how to maintain Polkadot SDK-based networks, focusing on runtime monitorin
 </div>
 --- END CONTENT ---
 
-Doc-Content: https://docs.polkadot.com/develop/parachains/maintenance/runtime-metrics-monitoring
+Doc-Content: https://docs.polkadot.com/develop\parachains\maintenance\runtime-metrics-monitoring
 --- BEGIN CONTENT ---
 ---
 title: Runtime Metrics and Monitoring
@@ -4883,7 +4883,7 @@ For instance, setting a custom telemetry server with verbosity level 5 would loo
 For more information on the backend components for telemetry or configuring your own server, you can refer to the [`substrate-telemetry`](https://github.com/paritytech/substrate-telemetry){target=\_blank} project or the [Substrate Telemetry Helm Chart](https://github.com/paritytech/helm-charts/blob/main/charts/substrate-telemetry/README.md){target=\_blank} for Kubernetes deployments.
 --- END CONTENT ---
 
-Doc-Content: https://docs.polkadot.com/develop/parachains/maintenance/runtime-upgrades
+Doc-Content: https://docs.polkadot.com/develop\parachains\maintenance\runtime-upgrades
 --- BEGIN CONTENT ---
 ---
 title: Runtime Upgrades
@@ -4981,7 +4981,7 @@ FRAME storage migrations run in this order:
 </div> -->
 --- END CONTENT ---
 
-Doc-Content: https://docs.polkadot.com/develop/parachains/maintenance/storage-migrations
+Doc-Content: https://docs.polkadot.com/develop\parachains\maintenance\storage-migrations
 --- BEGIN CONTENT ---
 ---
 title: Storage Migrations
@@ -5331,7 +5331,7 @@ The primary trade-off is increased implementation complexity, as you must manage
 For a complete implementation example of multi-block migrations, refer to the [official example](https://github.com/paritytech/polkadot-sdk/tree/{{dependencies.polkadot_sdk.stable_version}}/substrate/frame/examples/multi-block-migrations){target=\_blank} in the Polkadot SDK.
 --- END CONTENT ---
 
-Doc-Content: https://docs.polkadot.com/develop/parachains/testing/benchmarking
+Doc-Content: https://docs.polkadot.com/develop\parachains\testing\benchmarking
 --- BEGIN CONTENT ---
 ---
 title: Benchmarking FRAME Pallets
@@ -5651,7 +5651,7 @@ impl pallet_parachain_template::Config for Runtime {
 - Read the [FRAME Benchmarking and Weights](https://paritytech.github.io/polkadot-sdk/master/polkadot_sdk_docs/reference_docs/frame_benchmarking_weight/index.html){target=_blank} reference document, a concise guide which details how weights and benchmarking work
 --- END CONTENT ---
 
-Doc-Content: https://docs.polkadot.com/develop/parachains/testing/index
+Doc-Content: https://docs.polkadot.com/develop\parachains\testing\index
 --- BEGIN CONTENT ---
 ---
 title: Testing Your Polkadot SDK-Based Blockchain
@@ -5692,7 +5692,7 @@ Through these guides, you'll learn to:
 </div>
 --- END CONTENT ---
 
-Doc-Content: https://docs.polkadot.com/develop/parachains/testing/mock-runtime
+Doc-Content: https://docs.polkadot.com/develop\parachains\testing\mock-runtime
 --- BEGIN CONTENT ---
 ---
 title: Mock Runtime for Pallet Testing
@@ -5872,7 +5872,7 @@ With the mock environment in place, developers can now test and explore how pall
 </div>
 --- END CONTENT ---
 
-Doc-Content: https://docs.polkadot.com/develop/parachains/testing/pallet-testing
+Doc-Content: https://docs.polkadot.com/develop\parachains\testing\pallet-testing
 --- BEGIN CONTENT ---
 ---
 title: Pallet Testing
@@ -6006,7 +6006,7 @@ Some key considerations are:
 </div>
 --- END CONTENT ---
 
-Doc-Content: https://docs.polkadot.com/develop/smart-contracts/evm/index
+Doc-Content: https://docs.polkadot.com/develop\smart-contracts\evm\index
 --- BEGIN CONTENT ---
 ---
 title: EVM 
@@ -6062,7 +6062,7 @@ Whether deploying existing Ethereum contracts on Polkadot or creating new applic
 </div>
 --- END CONTENT ---
 
-Doc-Content: https://docs.polkadot.com/develop/smart-contracts/evm/native-evm-contracts
+Doc-Content: https://docs.polkadot.com/develop\smart-contracts\evm\native-evm-contracts
 --- BEGIN CONTENT ---
 ---
 title: Native EVM Contracts
@@ -6189,7 +6189,7 @@ Once your application is connected, you can retrieve network data, access contra
 For further information about the Asset Hub smart contracts, please refer to the [official documentation](https://contracts.polkadot.io/){target=\_blank}.
 --- END CONTENT ---
 
-Doc-Content: https://docs.polkadot.com/develop/smart-contracts/evm/parachain-contracts
+Doc-Content: https://docs.polkadot.com/develop\smart-contracts\evm\parachain-contracts
 --- BEGIN CONTENT ---
 ---
 title: Parachain Contracts
@@ -6537,7 +6537,7 @@ Check out the links below for each respective parachain for network endpoints, g
     - [About the Acala Network](https://wiki.acala.network/learn/acala-introduction){target=\_blank}
 --- END CONTENT ---
 
-Doc-Content: https://docs.polkadot.com/develop/smart-contracts/index
+Doc-Content: https://docs.polkadot.com/develop\smart-contracts\index
 --- BEGIN CONTENT ---
 ---
 title: Smart Contracts
@@ -6591,7 +6591,7 @@ Throughout the pages in this section, you'll find resources and guides to help y
 </div>
 --- END CONTENT ---
 
-Doc-Content: https://docs.polkadot.com/develop/smart-contracts/overview
+Doc-Content: https://docs.polkadot.com/develop\smart-contracts\overview
 --- BEGIN CONTENT ---
 ---
 title: Smart Contracts Overview
@@ -6749,7 +6749,7 @@ Learn more on how to build and deploy Wasm smart contracts on the [Wasm Smart Co
 A component of the Asset Hub parachain, PolkaVM helps enable the deployment of Solidity-based smart contracts directly on Asset Hub. Learn more about how this cutting edge virtual machine facilitates using familiar EVM contracts and tools with Asset Hub by visiting the [Native EVM Contracts](/develop/smart-contracts/evm/native-evm-contracts/){target=\_blank} guide. -->
 --- END CONTENT ---
 
-Doc-Content: https://docs.polkadot.com/develop/smart-contracts/wasm-ink
+Doc-Content: https://docs.polkadot.com/develop\smart-contracts\wasm-ink
 --- BEGIN CONTENT ---
 ---
 title: Wasm (ink!)
@@ -7066,7 +7066,7 @@ To deepen your knowledge of ink! development, whether you're exploring foundatio
 - [**`ink-examples` repository**](https://github.com/use-ink/ink-examples){target=\_blank} — a curated collection of smart contract examples that demonstrate best practices and commonly used design patterns
 --- END CONTENT ---
 
-Doc-Content: https://docs.polkadot.com/develop/toolkit/api-libraries/index
+Doc-Content: https://docs.polkadot.com/develop\toolkit\api-libraries\index
 --- BEGIN CONTENT ---
 ---
 title: API Libraries
@@ -7100,7 +7100,7 @@ Explore the powerful API libraries designed for interacting with the Polkadot ne
 </div>
 --- END CONTENT ---
 
-Doc-Content: https://docs.polkadot.com/develop/toolkit/api-libraries/papi
+Doc-Content: https://docs.polkadot.com/develop\toolkit\api-libraries\papi
 --- BEGIN CONTENT ---
 ---
 title: Polkadot-API
@@ -7320,7 +7320,7 @@ For more information about sending transactions, refer to the [Transactions](htt
 For an in-depth guide on how to use PAPI, refer to the official [PAPI](https://papi.how/){target=\_blank} documentation.
 --- END CONTENT ---
 
-Doc-Content: https://docs.polkadot.com/develop/toolkit/api-libraries/polkadot-js-api
+Doc-Content: https://docs.polkadot.com/develop\toolkit\api-libraries\polkadot-js-api
 --- BEGIN CONTENT ---
 ---
 title: Polkadot.js API
@@ -7464,7 +7464,7 @@ The `alice` keypair in the example comes from a `Keyring` object. For more detai
 For more detailed information about the Polkadot.js API, check the [official documentation](https://polkadot.js.org/docs/){target=\_blank}.
 --- END CONTENT ---
 
-Doc-Content: https://docs.polkadot.com/develop/toolkit/api-libraries/py-substrate-interface
+Doc-Content: https://docs.polkadot.com/develop\toolkit\api-libraries\py-substrate-interface
 --- BEGIN CONTENT ---
 ---
 title: Python Substrate Interface
@@ -7608,7 +7608,7 @@ Now that you understand the basics, you can:
 For comprehensive reference materials and advanced features, see the [Python Substrate Interface](https://polkascan.github.io/py-substrate-interface/){target=\_blank} documentation.
 --- END CONTENT ---
 
-Doc-Content: https://docs.polkadot.com/develop/toolkit/api-libraries/sidecar
+Doc-Content: https://docs.polkadot.com/develop\toolkit\api-libraries\sidecar
 --- BEGIN CONTENT ---
 ---
 title: Sidecar Rest API
@@ -7761,7 +7761,7 @@ For a complete list of available endpoints and their documentation, visit the [S
 To dive deeper, refer to the [official Sidecar documentation](https://github.com/paritytech/substrate-api-sidecar?tab=readme-ov-file#substrateapi-sidecar){target=\_blank}. This provides a comprehensive guide to the available configurations and advanced usage.
 --- END CONTENT ---
 
-Doc-Content: https://docs.polkadot.com/develop/toolkit/index
+Doc-Content: https://docs.polkadot.com/develop\toolkit\index
 --- BEGIN CONTENT ---
 ---
 title: Toolkit
@@ -7784,7 +7784,7 @@ Key tools for different audiences:
 :::INSERT_IN_THIS_SECTION:::
 --- END CONTENT ---
 
-Doc-Content: https://docs.polkadot.com/develop/toolkit/integrations/index
+Doc-Content: https://docs.polkadot.com/develop\toolkit\integrations\index
 --- BEGIN CONTENT ---
 ---
 title: Integrations
@@ -7807,7 +7807,7 @@ Some of the available integrations are explained [in this section](#in-this-sect
 :::INSERT_IN_THIS_SECTION:::
 --- END CONTENT ---
 
-Doc-Content: https://docs.polkadot.com/develop/toolkit/integrations/indexers
+Doc-Content: https://docs.polkadot.com/develop\toolkit\integrations\indexers
 --- BEGIN CONTENT ---
 ---
 title: Indexers
@@ -7858,7 +7858,7 @@ A blockchain indexer is a specialized infrastructure tool that processes, organi
 </div>
 --- END CONTENT ---
 
-Doc-Content: https://docs.polkadot.com/develop/toolkit/integrations/oracles
+Doc-Content: https://docs.polkadot.com/develop\toolkit\integrations\oracles
 --- BEGIN CONTENT ---
 ---
 title: Oracles
@@ -7896,7 +7896,7 @@ While simple oracle implementations may rely on a single trusted provider, more 
 </div>
 --- END CONTENT ---
 
-Doc-Content: https://docs.polkadot.com/develop/toolkit/integrations/wallets
+Doc-Content: https://docs.polkadot.com/develop\toolkit\integrations\wallets
 --- BEGIN CONTENT ---
 ---
 title: Wallets
@@ -7967,7 +7967,7 @@ Wallet types fall into two categories based on their connection to the internet:
 </div>
 --- END CONTENT ---
 
-Doc-Content: https://docs.polkadot.com/develop/toolkit/interoperability/asset-transfer-api/index
+Doc-Content: https://docs.polkadot.com/develop\toolkit\interoperability\asset-transfer-api\index
 --- BEGIN CONTENT ---
 ---
 title: Asset Transfer API
@@ -8009,7 +8009,7 @@ The Asset Transfer API is a library designed to streamline asset transfers for P
 </div>
 --- END CONTENT ---
 
-Doc-Content: https://docs.polkadot.com/develop/toolkit/interoperability/asset-transfer-api/overview
+Doc-Content: https://docs.polkadot.com/develop\toolkit\interoperability\asset-transfer-api\overview
 --- BEGIN CONTENT ---
 ---
 title: Asset Transfer API
@@ -8416,7 +8416,7 @@ After running this script, you'll see the following output in your terminal. Thi
 </div>
 --- END CONTENT ---
 
-Doc-Content: https://docs.polkadot.com/develop/toolkit/interoperability/asset-transfer-api/reference
+Doc-Content: https://docs.polkadot.com/develop\toolkit\interoperability\asset-transfer-api\reference
 --- BEGIN CONTENT ---
 ---
 title: Asset Transfer API Reference
@@ -9355,7 +9355,7 @@ main()
 </div>
 --- END CONTENT ---
 
-Doc-Content: https://docs.polkadot.com/develop/toolkit/interoperability/index
+Doc-Content: https://docs.polkadot.com/develop\toolkit\interoperability\index
 --- BEGIN CONTENT ---
 ---
 title: Interoperability
@@ -9376,7 +9376,7 @@ Whether you're a blockchain pioneer or an emerging builder, Polkadot's tools pro
 :::INSERT_IN_THIS_SECTION:::
 --- END CONTENT ---
 
-Doc-Content: https://docs.polkadot.com/develop/toolkit/interoperability/xcm-tools
+Doc-Content: https://docs.polkadot.com/develop\toolkit\interoperability\xcm-tools
 --- BEGIN CONTENT ---
 ---
 title: XCM Tools
@@ -9453,7 +9453,7 @@ For more details on using Astar xcm-tools, consult the [official documentation](
 The Chopsticks library provides XCM functionality for testing XCM messages across networks, enabling you to fork multiple parachains along with a relay chain. For further details, see the [Chopsticks documentation](/tutorials/polkadot-sdk/testing/fork-live-chains/){target=\_blank} about XCM.
 --- END CONTENT ---
 
-Doc-Content: https://docs.polkadot.com/develop/toolkit/parachains/e2e-testing/index
+Doc-Content: https://docs.polkadot.com/develop\toolkit\parachains\e2e-testing\index
 --- BEGIN CONTENT ---
 ---
 title: E2E Testing on Polkadot SDK Chains
@@ -9468,7 +9468,7 @@ template: index-page.html
 :::INSERT_IN_THIS_SECTION:::
 --- END CONTENT ---
 
-Doc-Content: https://docs.polkadot.com/develop/toolkit/parachains/e2e-testing/moonwall
+Doc-Content: https://docs.polkadot.com/develop\toolkit\parachains\e2e-testing\moonwall
 --- BEGIN CONTENT ---
 ---
 title: E2E Testing with Moonwall
@@ -9755,7 +9755,7 @@ Example output:
 For a comprehensive guide to Moonwall's full capabilities, available configurations, and advanced usage, see the official [Moonwall](https://moonsong-labs.github.io/moonwall/){target=\_blank} documentation.
 --- END CONTENT ---
 
-Doc-Content: https://docs.polkadot.com/develop/toolkit/parachains/fork-chains/chopsticks/get-started
+Doc-Content: https://docs.polkadot.com/develop\toolkit\parachains\fork-chains\chopsticks\get-started
 --- BEGIN CONTENT ---
 ---
 title: Get Started
@@ -10038,7 +10038,7 @@ main();
 </div>
 --- END CONTENT ---
 
-Doc-Content: https://docs.polkadot.com/develop/toolkit/parachains/fork-chains/chopsticks/index
+Doc-Content: https://docs.polkadot.com/develop\toolkit\parachains\fork-chains\chopsticks\index
 --- BEGIN CONTENT ---
 ---
 title: Chopsticks
@@ -10082,7 +10082,7 @@ Whether you're debugging an issue, testing new features, or exploring cross-chai
 </div>
 --- END CONTENT ---
 
-Doc-Content: https://docs.polkadot.com/develop/toolkit/parachains/fork-chains/index
+Doc-Content: https://docs.polkadot.com/develop\toolkit\parachains\fork-chains\index
 --- BEGIN CONTENT ---
 ---
 title: Fork Chains for Testing
@@ -10121,7 +10121,7 @@ Forking a live chain creates a controlled environment that mirrors live network 
 </div>
 --- END CONTENT ---
 
-Doc-Content: https://docs.polkadot.com/develop/toolkit/parachains/index
+Doc-Content: https://docs.polkadot.com/develop\toolkit\parachains\index
 --- BEGIN CONTENT ---
 ---
 title: Parachains
@@ -10146,7 +10146,7 @@ This section explores essential tools for blockchain testing, forking live netwo
 :::INSERT_IN_THIS_SECTION:::
 --- END CONTENT ---
 
-Doc-Content: https://docs.polkadot.com/develop/toolkit/parachains/spawn-chains/index
+Doc-Content: https://docs.polkadot.com/develop\toolkit\parachains\spawn-chains\index
 --- BEGIN CONTENT ---
 ---
 title: Spawn Networks for Testing
@@ -10184,7 +10184,7 @@ Spawning a network provides a controlled environment to test and validate variou
 </div>
 --- END CONTENT ---
 
-Doc-Content: https://docs.polkadot.com/develop/toolkit/parachains/spawn-chains/zombienet/get-started
+Doc-Content: https://docs.polkadot.com/develop\toolkit\parachains\spawn-chains\zombienet\get-started
 --- BEGIN CONTENT ---
 ---
 title: Get Started 
@@ -11197,7 +11197,7 @@ You can use the `hrmp_channels` keyword to define further parameters for the XCM
 </div>
 --- END CONTENT ---
 
-Doc-Content: https://docs.polkadot.com/develop/toolkit/parachains/spawn-chains/zombienet/index
+Doc-Content: https://docs.polkadot.com/develop\toolkit\parachains\spawn-chains\zombienet\index
 --- BEGIN CONTENT ---
 ---
 title: Zombienet
@@ -11233,7 +11233,7 @@ Whether you're building a new parachain or testing runtime upgrades, Zombienet p
 </div>
 --- END CONTENT ---
 
-Doc-Content: https://docs.polkadot.com/develop/toolkit/parachains/spawn-chains/zombienet/write-tests
+Doc-Content: https://docs.polkadot.com/develop\toolkit\parachains\spawn-chains\zombienet\write-tests
 --- BEGIN CONTENT ---
 ---
 title: Write Tests
@@ -11536,14 +11536,14 @@ alice: trace with traceID 94c1501a78a0d83c498cc92deec264d9 contains ["answer-chu
 ```
 --- END CONTENT ---
 
-Doc-Content: https://docs.polkadot.com/images/README
+Doc-Content: https://docs.polkadot.com/images\README
 --- BEGIN CONTENT ---
 # Images
 
 TODO
 --- END CONTENT ---
 
-Doc-Content: https://docs.polkadot.com/infrastructure/index
+Doc-Content: https://docs.polkadot.com/infrastructure\index
 --- BEGIN CONTENT ---
 ---
 title: Infrastructure
@@ -11588,7 +11588,7 @@ Selecting your role within the Polkadot ecosystem depends on your goals, resourc
 :::INSERT_IN_THIS_SECTION:::
 --- END CONTENT ---
 
-Doc-Content: https://docs.polkadot.com/infrastructure/running-a-node/index
+Doc-Content: https://docs.polkadot.com/infrastructure\running-a-node\index
 --- BEGIN CONTENT ---
 ---
 title: Running a Node
@@ -11636,7 +11636,7 @@ Despite these deletions, pruned nodes are still capable of performing many essen
 :::INSERT_IN_THIS_SECTION:::
 --- END CONTENT ---
 
-Doc-Content: https://docs.polkadot.com/infrastructure/running-a-node/setup-bootnode
+Doc-Content: https://docs.polkadot.com/infrastructure\running-a-node\setup-bootnode
 --- BEGIN CONTENT ---
 ---
 title: Set Up a Bootnode
@@ -11768,7 +11768,7 @@ polkadot --chain polkadot \
 ```
 --- END CONTENT ---
 
-Doc-Content: https://docs.polkadot.com/infrastructure/running-a-node/setup-full-node
+Doc-Content: https://docs.polkadot.com/infrastructure\running-a-node\setup-full-node
 --- BEGIN CONTENT ---
 ---
 title: Set Up a Node
@@ -12110,7 +12110,7 @@ ws://127.0.0.1:9944
 ```
 --- END CONTENT ---
 
-Doc-Content: https://docs.polkadot.com/infrastructure/running-a-node/setup-secure-wss
+Doc-Content: https://docs.polkadot.com/infrastructure\running-a-node\setup-secure-wss
 --- BEGIN CONTENT ---
 ---
 title: Set Up Secure WebSocket
@@ -12241,7 +12241,7 @@ ProxyPassReverse / ws://localhost:9944
 ![A sync-in-progress chain connected to Polkadot.js UI](/images/infrastructure/running-a-validator/running-a-node/setup-secure-wss/setup-secure-wss-1.webp)
 --- END CONTENT ---
 
-Doc-Content: https://docs.polkadot.com/infrastructure/running-a-validator/index
+Doc-Content: https://docs.polkadot.com/infrastructure\running-a-validator\index
 --- BEGIN CONTENT ---
 ---
 title: Running a Validator
@@ -12289,7 +12289,7 @@ Learn the requirements for setting up a Polkadot validator node, along with deta
 </div>
 --- END CONTENT ---
 
-Doc-Content: https://docs.polkadot.com/infrastructure/running-a-validator/onboarding-and-offboarding/index
+Doc-Content: https://docs.polkadot.com/infrastructure\running-a-validator\onboarding-and-offboarding\index
 --- BEGIN CONTENT ---
 ---
 title: Onboarding and Offboarding
@@ -12337,7 +12337,7 @@ This section provides guidance on how to set up, activate, and deactivate your v
 </div>
 --- END CONTENT ---
 
-Doc-Content: https://docs.polkadot.com/infrastructure/running-a-validator/onboarding-and-offboarding/set-up-validator
+Doc-Content: https://docs.polkadot.com/infrastructure\running-a-validator\onboarding-and-offboarding\set-up-validator
 --- BEGIN CONTENT ---
 ---
 title: Set Up a Validator
@@ -12906,7 +12906,7 @@ With these steps, you can effectively manage and monitor your validator as a sys
 Once your validator is active, it's officially part of Polkadot's security infrastructure. For questions or further support, you can reach out to the [Polkadot Validator chat](https://matrix.to/#/!NZrbtteFeqYKCUGQtr:matrix.parity.io?via=matrix.parity.io&via=matrix.org&via=web3.foundation){target=\_blank} for tips and troubleshooting.
 --- END CONTENT ---
 
-Doc-Content: https://docs.polkadot.com/infrastructure/running-a-validator/onboarding-and-offboarding/stop-validating
+Doc-Content: https://docs.polkadot.com/infrastructure\running-a-validator\onboarding-and-offboarding\stop-validating
 --- BEGIN CONTENT ---
 ---
 title: Stop Validating
@@ -12953,7 +12953,7 @@ To unbond tokens, go to **Network > Staking > Account Actions** on Polkadot.js A
 Once the unbonding period is complete, your tokens will be available for use in transactions or transfers outside of staking.
 --- END CONTENT ---
 
-Doc-Content: https://docs.polkadot.com/infrastructure/running-a-validator/operational-tasks/general-management
+Doc-Content: https://docs.polkadot.com/infrastructure\running-a-validator\operational-tasks\general-management
 --- BEGIN CONTENT ---
 ---
 title: General Management
@@ -13595,7 +13595,7 @@ Additional best practices can add an additional layer of security and operationa
 For additional guidance, connect with other validators and the Polkadot engineering team in the [Polkadot Validator Lounge](https://matrix.to/#/#polkadotvalidatorlounge:web3.foundation){target=\_blank} on Element.
 --- END CONTENT ---
 
-Doc-Content: https://docs.polkadot.com/infrastructure/running-a-validator/operational-tasks/index
+Doc-Content: https://docs.polkadot.com/infrastructure\running-a-validator\operational-tasks\index
 --- BEGIN CONTENT ---
 ---
 title: Operational Tasks
@@ -13629,7 +13629,7 @@ Running a Polkadot validator node involves several key operational tasks to ensu
 </div>
 --- END CONTENT ---
 
-Doc-Content: https://docs.polkadot.com/infrastructure/running-a-validator/operational-tasks/pause-validating
+Doc-Content: https://docs.polkadot.com/infrastructure\running-a-validator\operational-tasks\pause-validating
 --- BEGIN CONTENT ---
 ---
 title: Pause Validating
@@ -13677,7 +13677,7 @@ Historical constraints in the runtime prevented unlimited nominators and validat
 This control mechanism included a `ChillThreshold`, which was structured to define how close to the maximum number of nominators or validators the staking system would be allowed to get before users could start chilling one another. With the passage of [Referendum #90](https://polkadot.polkassembly.io/referendum/90){target=\_blank}, the value for `maxNominatorCount` on Polkadot was set to `None`, effectively removing the limit on how many nominators and validators can participate. This means the `ChillThreshold` will never be met; thus, `chillOther` no longer has any effect.
 --- END CONTENT ---
 
-Doc-Content: https://docs.polkadot.com/infrastructure/running-a-validator/operational-tasks/upgrade-your-node
+Doc-Content: https://docs.polkadot.com/infrastructure\running-a-validator\operational-tasks\upgrade-your-node
 --- BEGIN CONTENT ---
 ---
 title: Upgrade a Validator Node
@@ -13754,7 +13754,7 @@ Keep Validator B active until the session during which you executed the `set-key
 </div>
 --- END CONTENT ---
 
-Doc-Content: https://docs.polkadot.com/infrastructure/running-a-validator/requirements
+Doc-Content: https://docs.polkadot.com/infrastructure\running-a-validator\requirements
 --- BEGIN CONTENT ---
 ---
 title: Validator Requirements
@@ -13839,7 +13839,7 @@ For example, on November 19, 2024, the minimum stake backing a validator in Polk
 - [**Staking Dashboard**](https://staking.polkadot.cloud/#/overview){target=\_blank}
 --- END CONTENT ---
 
-Doc-Content: https://docs.polkadot.com/infrastructure/staking-mechanics/index
+Doc-Content: https://docs.polkadot.com/infrastructure\staking-mechanics\index
 --- BEGIN CONTENT ---
 ---
 title: Staking Mechanics
@@ -13879,7 +13879,7 @@ Gain a deep understanding of the staking mechanics in Polkadot, with a focus on 
 </div>
 --- END CONTENT ---
 
-Doc-Content: https://docs.polkadot.com/infrastructure/staking-mechanics/offenses-and-slashes
+Doc-Content: https://docs.polkadot.com/infrastructure\staking-mechanics\offenses-and-slashes
 --- BEGIN CONTENT ---
 ---
 title: Offenses and Slashes
@@ -14061,7 +14061,7 @@ Below, you can find a summary of penalties for specific offenses:
 |     Double Seconded Equivocation     |           -            |                   No                   |                  No                  |                     Yes                     |
 --- END CONTENT ---
 
-Doc-Content: https://docs.polkadot.com/infrastructure/staking-mechanics/rewards-payout
+Doc-Content: https://docs.polkadot.com/infrastructure\staking-mechanics\rewards-payout
 --- BEGIN CONTENT ---
 ---
 title: Rewards Payout
@@ -14078,7 +14078,7 @@ This guide explains the payout scheme, factors influencing rewards, and how mult
 
 ## Era Points
 
-The Polkadot ecosystem measures their reward cycles in a unit called an era. Kusama eras are approximately 6 hours long, and Polkadot eras are 24 hours. At the end of each era, validators are paid proportionally to the amount of [era points](https://wiki.polkadot.network/docs/maintain-guides-validator-payout#era-points){target=\_blank} they have collected. Era points are reward points earned for payable actions like:
+The Polkadot ecosystem measures its reward cycles in a unit called an era. Kusama eras are approximately 6 hours long, and Polkadot eras are 24 hours long. At the end of each era, validators are paid proportionally to the amount of [era points](https://wiki.polkadot.network/docs/maintain-guides-validator-payout#era-points){target=\_blank} they have collected. Era points are reward points earned for payable actions like:
 
 - Issuing validity statements for [parachain blocks](/polkadot-protocol/basics/blocks-transactions-fees/blocks/){target=\_blank}
 - Producing a non-uncle block in the relay chain
@@ -14267,7 +14267,7 @@ flowchart TD
 Bob holds a smaller percentage of their node's total stake, making their stake reward smaller than Alice's. In this scenario, Bob makes up the difference by charging a 40% commission rate and ultimately ends up with the same total payment as Alice. Each validator will need to find their ideal balance between the amount of stake and commission rate to attract nominators while still making running a validator worthwhile.
 --- END CONTENT ---
 
-Doc-Content: https://docs.polkadot.com/polkadot-protocol/architecture/index
+Doc-Content: https://docs.polkadot.com/polkadot-protocol\architecture\index
 --- BEGIN CONTENT ---
 ---
 title: Architecture
@@ -14296,7 +14296,7 @@ Learn more about these components by checking out the articles in this section.
 :::INSERT_IN_THIS_SECTION:::
 --- END CONTENT ---
 
-Doc-Content: https://docs.polkadot.com/polkadot-protocol/architecture/parachains/consensus
+Doc-Content: https://docs.polkadot.com/polkadot-protocol\architecture\parachains\consensus
 --- BEGIN CONTENT ---
 ---
 title: Parachain Consensus
@@ -14416,7 +14416,7 @@ For more technical details, refer to the:
 - [Parachain Wiki](https://wiki.polkadot.network/docs/learn-parachains){target=\_blank} page
 --- END CONTENT ---
 
-Doc-Content: https://docs.polkadot.com/polkadot-protocol/architecture/parachains/index
+Doc-Content: https://docs.polkadot.com/polkadot-protocol\architecture\parachains\index
 --- BEGIN CONTENT ---
 ---
 title: Parachains
@@ -14435,7 +14435,7 @@ Parachains serve as the foundation of Polkadot’s multichain ecosystem, enablin
 :::INSERT_IN_THIS_SECTION:::
 --- END CONTENT ---
 
-Doc-Content: https://docs.polkadot.com/polkadot-protocol/architecture/parachains/overview
+Doc-Content: https://docs.polkadot.com/polkadot-protocol\architecture\parachains\overview
 --- BEGIN CONTENT ---
 ---
 title: Overview
@@ -14569,7 +14569,7 @@ For further information about the consensus protocol used by parachains, see the
 </div>
 --- END CONTENT ---
 
-Doc-Content: https://docs.polkadot.com/polkadot-protocol/architecture/polkadot-chain/agile-coretime
+Doc-Content: https://docs.polkadot.com/polkadot-protocol\architecture\polkadot-chain\agile-coretime
 --- BEGIN CONTENT ---
 ---
 title: Agile Coretime
@@ -14612,7 +14612,7 @@ It is the action of dividing bulk coretime into multiple contiguous regions. Thi
 Polkadot has dedicated cores assigned to provide core time on demand. These cores are excluded from the coretime sales and are reserved for on-demand parachains, which pay in DOT per block.
 --- END CONTENT ---
 
-Doc-Content: https://docs.polkadot.com/polkadot-protocol/architecture/polkadot-chain/index
+Doc-Content: https://docs.polkadot.com/polkadot-protocol\architecture\polkadot-chain\index
 --- BEGIN CONTENT ---
 ---
 title: The Polkadot Relay Chain
@@ -14629,7 +14629,7 @@ Discover the central role of the Polkadot Relay Chain in securing the network an
 :::INSERT_IN_THIS_SECTION:::
 --- END CONTENT ---
 
-Doc-Content: https://docs.polkadot.com/polkadot-protocol/architecture/polkadot-chain/overview
+Doc-Content: https://docs.polkadot.com/polkadot-protocol\architecture\polkadot-chain\overview
 --- BEGIN CONTENT ---
 ---
 title: Overview of the Polkadot Relay Chain
@@ -14775,7 +14775,7 @@ JAM removes many of the opinions and constraints of the current relay chain whil
 This architectural evolution promises to enhance Polkadot's scalability and flexibility while maintaining robust security guarantees. JAM is planned to be rolled out to Polkadot as a single, complete upgrade rather than a stream of smaller updates. This approach seeks to minimize the developer overhead required to address any breaking changes.
 --- END CONTENT ---
 
-Doc-Content: https://docs.polkadot.com/polkadot-protocol/architecture/polkadot-chain/pos-consensus
+Doc-Content: https://docs.polkadot.com/polkadot-protocol\architecture\polkadot-chain\pos-consensus
 --- BEGIN CONTENT ---
 ---
 title: Proof of Stake Consensus
@@ -14906,7 +14906,7 @@ Key features of BEEFY include:
 For BEEFY technical definitions, constants, and formulas, see the [Bridge design (BEEFY)](https://spec.polkadot.network/sect-finality#sect-grandpa-beefy){target=\_blank} section of the Polkadot Protocol Specification.
 --- END CONTENT ---
 
-Doc-Content: https://docs.polkadot.com/polkadot-protocol/architecture/system-chains/asset-hub
+Doc-Content: https://docs.polkadot.com/polkadot-protocol\architecture\system-chains\asset-hub
 --- BEGIN CONTENT ---
 ---
 title: Asset Hub
@@ -15143,7 +15143,7 @@ For detailed error management in XCM, see Gavin Wood's blog post on [XCM Executi
 </div>
 --- END CONTENT ---
 
-Doc-Content: https://docs.polkadot.com/polkadot-protocol/architecture/system-chains/bridge-hub
+Doc-Content: https://docs.polkadot.com/polkadot-protocol\architecture\system-chains\bridge-hub
 --- BEGIN CONTENT ---
 ---
 title: Bridge Hub
@@ -15194,7 +15194,7 @@ To view the complete list of which pallets are included in Bridge Hub, visit the
 - Read more about BEEFY and Bridging in the Polkadot Wiki: [Bridging: BEEFY](https://wiki.polkadot.network/docs/learn-consensus#bridging-beefy){target=\_blank}
 --- END CONTENT ---
 
-Doc-Content: https://docs.polkadot.com/polkadot-protocol/architecture/system-chains/coretime
+Doc-Content: https://docs.polkadot.com/polkadot-protocol\architecture\system-chains\coretime
 --- BEGIN CONTENT ---
 ---
 title: Coretime
@@ -15253,7 +15253,7 @@ The Coretime chain also handles coretime sales, details of which can be found on
 - Learn about [Agile Coretime](https://wiki.polkadot.network/docs/learn-agile-coretime#introduction-to-agile-coretime){target=\_blank} on the Polkadot Wiki
 --- END CONTENT ---
 
-Doc-Content: https://docs.polkadot.com/polkadot-protocol/architecture/system-chains/index
+Doc-Content: https://docs.polkadot.com/polkadot-protocol\architecture\system-chains\index
 --- BEGIN CONTENT ---
 ---
 title: System Chains
@@ -15272,7 +15272,7 @@ These system chains are integral to Polkadot's architecture, ensuring that the r
 :::INSERT_IN_THIS_SECTION:::
 --- END CONTENT ---
 
-Doc-Content: https://docs.polkadot.com/polkadot-protocol/architecture/system-chains/overview
+Doc-Content: https://docs.polkadot.com/polkadot-protocol\architecture\system-chains\overview
 --- BEGIN CONTENT ---
 ---
 title: Overview of Polkadot's System Chains
@@ -15376,7 +15376,7 @@ Referendums marking key Encointer adoption milestones include:
 To learn more about Encointer, see the official [Encointer book](https://book.encointer.org/introduction.html){target=\_blank} or watch an [Encointer ceremony](https://www.youtube.com/watch?v=tcgpCCYBqko){target=\_blank} in action.
 --- END CONTENT ---
 
-Doc-Content: https://docs.polkadot.com/polkadot-protocol/basics/accounts
+Doc-Content: https://docs.polkadot.com/polkadot-protocol\basics\accounts
 --- BEGIN CONTENT ---
 ---
 title: Polkadot SDK Accounts
@@ -15770,7 +15770,7 @@ Support for encoding and decoding Polkadot SDK SS58 addresses has been implement
 - **TypeScript** - [`subsquid/squid-sdk`](https://github.com/subsquid/squid-sdk){target=\_blank}
 --- END CONTENT ---
 
-Doc-Content: https://docs.polkadot.com/polkadot-protocol/basics/blocks-transactions-fees/blocks
+Doc-Content: https://docs.polkadot.com/polkadot-protocol\basics\blocks-transactions-fees\blocks
 --- BEGIN CONTENT ---
 ---
 title: Blocks
@@ -15844,7 +15844,7 @@ These traits govern how blocks are validated and imported across the network, en
 To learn more about the block structure in the Polkadot SDK runtime, see the [`Block` reference](https://paritytech.github.io/polkadot-sdk/master/sp_runtime/traits/trait.Block.html){target=\_blank} entry in the Rust Docs.
 --- END CONTENT ---
 
-Doc-Content: https://docs.polkadot.com/polkadot-protocol/basics/blocks-transactions-fees/fees
+Doc-Content: https://docs.polkadot.com/polkadot-protocol\basics\blocks-transactions-fees\fees
 --- BEGIN CONTENT ---
 ---
 title: Transactions Weights and Fees
@@ -16188,7 +16188,7 @@ You now know the weight system, how it affects transaction fee computation, and 
 - [Web3 Foundation Research](https://research.web3.foundation/Polkadot/overview/token-economics#relay-chain-transaction-fees-and-per-block-transaction-limits){target=\_blank}
 --- END CONTENT ---
 
-Doc-Content: https://docs.polkadot.com/polkadot-protocol/basics/blocks-transactions-fees/index
+Doc-Content: https://docs.polkadot.com/polkadot-protocol\basics\blocks-transactions-fees\index
 --- BEGIN CONTENT ---
 ---
 title: Blocks, Transactions, and Fees
@@ -16207,7 +16207,7 @@ Uncover how Polkadot’s fee system balances resource usage and economic incenti
 :::INSERT_IN_THIS_SECTION:::
 --- END CONTENT ---
 
-Doc-Content: https://docs.polkadot.com/polkadot-protocol/basics/blocks-transactions-fees/transactions
+Doc-Content: https://docs.polkadot.com/polkadot-protocol\basics\blocks-transactions-fees\transactions
 --- BEGIN CONTENT ---
 ---
 title: Transactions
@@ -16431,7 +16431,7 @@ Events are also written to storage. Runtime logic should not emit an event befor
 For a video overview of the lifecycle of transactions and the types of transactions that exist, see the [Transaction lifecycle](https://www.youtube.com/watch?v=3pfM0GOp02c){target=\_blank} seminar from Parity Tech.
 --- END CONTENT ---
 
-Doc-Content: https://docs.polkadot.com/polkadot-protocol/basics/chain-data
+Doc-Content: https://docs.polkadot.com/polkadot-protocol\basics\chain-data
 --- BEGIN CONTENT ---
 ---
 title: Chain Data
@@ -16787,7 +16787,7 @@ The following tools can help you locate and decode metadata:
 - [De[code] Sub[strate]](https://github.com/paritytech/desub){target=\_blank}
 --- END CONTENT ---
 
-Doc-Content: https://docs.polkadot.com/polkadot-protocol/basics/cryptography
+Doc-Content: https://docs.polkadot.com/polkadot-protocol\basics\cryptography
 --- BEGIN CONTENT ---
 ---
 title: Cryptography
@@ -16906,7 +16906,7 @@ One sacrifice that is made when using Schnorr signatures over ECDSA is that both
 - [SR25519](https://research.web3.foundation/Polkadot/security/keys/accounts-more){target=\_blank} - is based on the same underlying curve as Ed25519. However, it uses Schnorr signatures instead of the EdDSA scheme
 --- END CONTENT ---
 
-Doc-Content: https://docs.polkadot.com/polkadot-protocol/basics/data-encoding
+Doc-Content: https://docs.polkadot.com/polkadot-protocol\basics\data-encoding
 --- BEGIN CONTENT ---
 ---
 title: Data Encoding
@@ -17059,7 +17059,7 @@ Several SCALE codec implementations are available in various languages. Here's a
 - **TypeScript** - [`parity-scale-codec-ts`](https://github.com/tjjfvi/subshape){target=\_blank}, [`scale-ts`](https://github.com/unstoppablejs/unstoppablejs/tree/main/packages/scale-ts#scale-ts){target=\_blank}, [`soramitsu/scale-codec-js-library`](https://github.com/soramitsu/scale-codec-js-library){target=\_blank}, [`subsquid/scale-codec`](https://github.com/subsquid/squid-sdk/tree/master/substrate/scale-codec){target=\_blank}
 --- END CONTENT ---
 
-Doc-Content: https://docs.polkadot.com/polkadot-protocol/basics/index
+Doc-Content: https://docs.polkadot.com/polkadot-protocol\basics\index
 --- BEGIN CONTENT ---
 ---
 title: Basics
@@ -17078,7 +17078,7 @@ By exploring these core topics, developers can leverage Polkadot's unique archit
 :::INSERT_IN_THIS_SECTION:::
 --- END CONTENT ---
 
-Doc-Content: https://docs.polkadot.com/polkadot-protocol/basics/interoperability
+Doc-Content: https://docs.polkadot.com/polkadot-protocol\basics\interoperability
 --- BEGIN CONTENT ---
 ---
 title: Interoperability
@@ -17147,7 +17147,7 @@ Polkadot was purpose-built for interoperability. Unlike networks that add intero
 Polkadot’s vision of interoperability extends beyond technical functionality, representing a shift towards a more collaborative blockchain landscape. By enabling chains to work together, Polkadot fosters innovation, efficiency, and accessibility, paving the way for a decentralized future where blockchains are not isolated competitors but interconnected collaborators.
 --- END CONTENT ---
 
-Doc-Content: https://docs.polkadot.com/polkadot-protocol/basics/networks
+Doc-Content: https://docs.polkadot.com/polkadot-protocol\basics\networks
 --- BEGIN CONTENT ---
 ---
 title: Networks
@@ -17244,7 +17244,7 @@ Key features of Chopsticks include:
 Chopsticks provides a controlled environment for developers to safely explore the effects of runtime changes. It ensures that network behavior is tested and verified before upgrades are deployed to live networks.
 --- END CONTENT ---
 
-Doc-Content: https://docs.polkadot.com/polkadot-protocol/basics/randomness
+Doc-Content: https://docs.polkadot.com/polkadot-protocol\basics\randomness
 --- BEGIN CONTENT ---
 ---
 title: Randomness
@@ -17331,7 +17331,7 @@ For more information about the reasoning for choices made along with proofs, see
 For a discussion with Web3 Foundation researchers about when and under what conditions Polkadot's randomness can be utilized, see the [Discussion on Randomness used in Polkadot](https://github.com/use-ink/ink/issues/57){target=\_blank} issue on GitHub.
 --- END CONTENT ---
 
-Doc-Content: https://docs.polkadot.com/polkadot-protocol/glossary
+Doc-Content: https://docs.polkadot.com/polkadot-protocol\glossary
 --- BEGIN CONTENT ---
 ---
 title: Glossary
@@ -17687,7 +17687,7 @@ By defining weights, you can trade-off the number of transactions per second and
 Westend is a Parity-maintained, Polkadot SDK-based blockchain that serves as a test network for the [Polkadot](#polkadot) network.
 --- END CONTENT ---
 
-Doc-Content: https://docs.polkadot.com/polkadot-protocol/index
+Doc-Content: https://docs.polkadot.com/polkadot-protocol\index
 --- BEGIN CONTENT ---
 ---
 title: Learn About the Polkadot Protocol
@@ -17708,7 +17708,7 @@ Whether you're new to blockchain or an experienced developer, you'll gain insigh
 :::INSERT_IN_THIS_SECTION:::
 --- END CONTENT ---
 
-Doc-Content: https://docs.polkadot.com/polkadot-protocol/onchain-governance/index
+Doc-Content: https://docs.polkadot.com/polkadot-protocol\onchain-governance\index
 --- BEGIN CONTENT ---
 ---
 title: On-Chain Governance
@@ -17735,7 +17735,7 @@ To develop solutions related to Polkadot's governance system, it’s essential t
 :::INSERT_IN_THIS_SECTION:::
 --- END CONTENT ---
 
-Doc-Content: https://docs.polkadot.com/polkadot-protocol/onchain-governance/origins-tracks
+Doc-Content: https://docs.polkadot.com/polkadot-protocol\onchain-governance\origins-tracks
 --- BEGIN CONTENT ---
 ---
 title: Origins and Tracks
@@ -17782,7 +17782,7 @@ Tracks customize these stages with parameters like decision deposit requirements
 - For a deeper dive into the approval and support system, see the [Approval and Support](https://wiki.polkadot.network/docs/learn-polkadot-opengov#approval-and-support){target=\_blank} entry of the Polkadot Wiki.
 --- END CONTENT ---
 
-Doc-Content: https://docs.polkadot.com/polkadot-protocol/onchain-governance/overview
+Doc-Content: https://docs.polkadot.com/polkadot-protocol\onchain-governance\overview
 --- BEGIN CONTENT ---
 ---
 title: On-Chain Governance Overview
@@ -17875,7 +17875,7 @@ See [Cancelling, Killing, and Blacklisting](https://wiki.polkadot.network/docs/l
 - [**Polkadot.js Apps Governance**](https://polkadot.js.org/apps/#/referenda){target=\_blank} - overview of active referendums
 --- END CONTENT ---
 
-Doc-Content: https://docs.polkadot.com/tutorials/index
+Doc-Content: https://docs.polkadot.com/tutorials\index
 --- BEGIN CONTENT ---
 ---
 title: Tutorials
@@ -17938,7 +17938,7 @@ The Zero to Hero series offers step-by-step guidance to development across the P
 :::INSERT_IN_THIS_SECTION:::
 --- END CONTENT ---
 
-Doc-Content: https://docs.polkadot.com/tutorials/interoperability/index
+Doc-Content: https://docs.polkadot.com/tutorials\interoperability\index
 --- BEGIN CONTENT ---
 ---
 title: Interoperability Tutorials
@@ -17985,7 +17985,7 @@ Learn to establish and use cross-chain communication channels:
 </div>
 --- END CONTENT ---
 
-Doc-Content: https://docs.polkadot.com/tutorials/interoperability/xcm-channels/index
+Doc-Content: https://docs.polkadot.com/tutorials\interoperability\xcm-channels\index
 --- BEGIN CONTENT ---
 ---
 title: Tutorials for Managing XCM Channels
@@ -18021,7 +18021,7 @@ To enable communication between parachains, explicit HRMP channels must be estab
 </div>
 --- END CONTENT ---
 
-Doc-Content: https://docs.polkadot.com/tutorials/interoperability/xcm-channels/para-to-para
+Doc-Content: https://docs.polkadot.com/tutorials\interoperability\xcm-channels\para-to-para
 --- BEGIN CONTENT ---
 ---
 title: Opening HRMP Channels Between Parachains
@@ -18206,7 +18206,7 @@ By following these steps, you will have successfully accepted the HRMP channel r
     Remember that for full bidirectional communication, you'll need to repeat this process in the opposite direction, with parachain 2600 initiating a channel request to parachain 2500.
 --- END CONTENT ---
 
-Doc-Content: https://docs.polkadot.com/tutorials/interoperability/xcm-channels/para-to-system
+Doc-Content: https://docs.polkadot.com/tutorials\interoperability\xcm-channels\para-to-system
 --- BEGIN CONTENT ---
 ---
 title: Opening HRMP Channels with System Parachains
@@ -18353,7 +18353,7 @@ The output confirms the successful establishment of two HRMP channels:
 This bidirectional channel enables direct communication between the system chain and the parachain, allowing for cross-chain message passing.
 --- END CONTENT ---
 
-Doc-Content: https://docs.polkadot.com/tutorials/interoperability/xcm-transfers/from-relaychain-to-parachain
+Doc-Content: https://docs.polkadot.com/tutorials\interoperability\xcm-transfers\from-relaychain-to-parachain
 --- BEGIN CONTENT ---
 ---
 title: XCM Transfers from Relay Chain to Parachain
@@ -18629,7 +18629,7 @@ process.exit(0);
 You can perform these operations using the Asset Transfer API for an alternative approach. Refer to the [Asset Transfer API](/develop/toolkit/interoperability/asset-transfer-api/){target=\_blank} guide in the documentation for more details.
 --- END CONTENT ---
 
-Doc-Content: https://docs.polkadot.com/tutorials/interoperability/xcm-transfers/index
+Doc-Content: https://docs.polkadot.com/tutorials\interoperability\xcm-transfers\index
 --- BEGIN CONTENT ---
 ---
 title: XCM Transfers
@@ -18648,7 +18648,7 @@ By mastering XCM-based transfers, you'll unlock new possibilities for building c
 :::INSERT_IN_THIS_SECTION:::
 --- END CONTENT ---
 
-Doc-Content: https://docs.polkadot.com/tutorials/onchain-governance/fast-track-gov-proposal
+Doc-Content: https://docs.polkadot.com/tutorials\onchain-governance\fast-track-gov-proposal
 --- BEGIN CONTENT ---
 ---
 title: Fast Track a Governance Proposal
@@ -23328,7 +23328,7 @@ try {
     ```
 --- END CONTENT ---
 
-Doc-Content: https://docs.polkadot.com/tutorials/onchain-governance/index
+Doc-Content: https://docs.polkadot.com/tutorials\onchain-governance\index
 --- BEGIN CONTENT ---
 ---
 title: On-Chain Governance Tutorials
@@ -23358,7 +23358,7 @@ This section provides step-by-step tutorials to help you navigate the technical 
 </div>
 --- END CONTENT ---
 
-Doc-Content: https://docs.polkadot.com/tutorials/polkadot-sdk/index
+Doc-Content: https://docs.polkadot.com/tutorials\polkadot-sdk\index
 --- BEGIN CONTENT ---
 ---
 title: Polkadot SDK Tutorials
@@ -23396,7 +23396,7 @@ Follow these key milestones to guide you through parachain development. Each ste
 </div>
 --- END CONTENT ---
 
-Doc-Content: https://docs.polkadot.com/tutorials/polkadot-sdk/parachains/index
+Doc-Content: https://docs.polkadot.com/tutorials\polkadot-sdk\parachains\index
 --- BEGIN CONTENT ---
 ---
 title: Parachain Tutorials
@@ -23429,7 +23429,7 @@ Each tutorial builds upon previous concepts while providing flexibility to focus
 :::INSERT_IN_THIS_SECTION:::
 --- END CONTENT ---
 
-Doc-Content: https://docs.polkadot.com/tutorials/polkadot-sdk/parachains/zero-to-hero/add-pallets-to-runtime
+Doc-Content: https://docs.polkadot.com/tutorials\polkadot-sdk\parachains\zero-to-hero\add-pallets-to-runtime
 --- BEGIN CONTENT ---
 ---
 title: Add Pallets to the Runtime
@@ -23581,7 +23581,7 @@ Launch your parachain locally and start producing blocks:
 </div>
 --- END CONTENT ---
 
-Doc-Content: https://docs.polkadot.com/tutorials/polkadot-sdk/parachains/zero-to-hero/build-custom-pallet
+Doc-Content: https://docs.polkadot.com/tutorials\polkadot-sdk\parachains\zero-to-hero\build-custom-pallet
 --- BEGIN CONTENT ---
 ---
 title: Build a Custom Pallet
@@ -24457,7 +24457,7 @@ pub mod pallet {
 </div>
 --- END CONTENT ---
 
-Doc-Content: https://docs.polkadot.com/tutorials/polkadot-sdk/parachains/zero-to-hero/deploy-to-testnet
+Doc-Content: https://docs.polkadot.com/tutorials\polkadot-sdk\parachains\zero-to-hero\deploy-to-testnet
 --- BEGIN CONTENT ---
 ---
 title: Deploy on Paseo TestNet
@@ -24738,7 +24738,7 @@ For more information on coretime, refer to the [Coretime](/polkadot-protocol/arc
 </div>
 --- END CONTENT ---
 
-Doc-Content: https://docs.polkadot.com/tutorials/polkadot-sdk/parachains/zero-to-hero/index
+Doc-Content: https://docs.polkadot.com/tutorials\polkadot-sdk\parachains\zero-to-hero\index
 --- BEGIN CONTENT ---
 ---
 title: Zero To Hero Parachain Tutorial Series
@@ -24757,7 +24757,7 @@ To get the most from this section, start with the [Set Up a Template](/tutorials
 :::INSERT_IN_THIS_SECTION:::
 --- END CONTENT ---
 
-Doc-Content: https://docs.polkadot.com/tutorials/polkadot-sdk/parachains/zero-to-hero/obtain-coretime
+Doc-Content: https://docs.polkadot.com/tutorials\polkadot-sdk\parachains\zero-to-hero\obtain-coretime
 --- BEGIN CONTENT ---
 ---
 title: Obtain Coretime
@@ -24880,7 +24880,7 @@ The same should also be reflected in the collator's logs, where you should see o
 </div>
 --- END CONTENT ---
 
-Doc-Content: https://docs.polkadot.com/tutorials/polkadot-sdk/parachains/zero-to-hero/pallet-benchmarking
+Doc-Content: https://docs.polkadot.com/tutorials\polkadot-sdk\parachains\zero-to-hero\pallet-benchmarking
 --- BEGIN CONTENT ---
 ---
 title: Pallet Benchmarking
@@ -25235,7 +25235,7 @@ Your pallet is now complete with full testing and benchmarking support, ready fo
 </div>
 --- END CONTENT ---
 
-Doc-Content: https://docs.polkadot.com/tutorials/polkadot-sdk/parachains/zero-to-hero/pallet-unit-testing
+Doc-Content: https://docs.polkadot.com/tutorials\polkadot-sdk\parachains\zero-to-hero\pallet-unit-testing
 --- BEGIN CONTENT ---
 ---
 title: Pallet Unit Testing
@@ -26022,7 +26022,7 @@ test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; fini
 </div>
 --- END CONTENT ---
 
-Doc-Content: https://docs.polkadot.com/tutorials/polkadot-sdk/parachains/zero-to-hero/set-up-a-template
+Doc-Content: https://docs.polkadot.com/tutorials\polkadot-sdk\parachains\zero-to-hero\set-up-a-template
 --- BEGIN CONTENT ---
 ---
 title: Set Up a Template
@@ -26224,7 +26224,7 @@ To stop the local node:
 </div>
 --- END CONTENT ---
 
-Doc-Content: https://docs.polkadot.com/tutorials/polkadot-sdk/system-chains/asset-hub/asset-conversion
+Doc-Content: https://docs.polkadot.com/tutorials\polkadot-sdk\system-chains\asset-hub\asset-conversion
 --- BEGIN CONTENT ---
 ---
 title: Convert Assets on Asset Hub
@@ -26567,7 +26567,7 @@ This command initiates a lazy fork of Polkadot Asset Hub, including the most rec
 You now have a local Asset Hub instance up and running, ready for you to test various asset conversion procedures. The process here mirrors what you'd do on MainNet. After completing a transaction on TestNet, you can apply the same steps to convert assets on MainNet.
 --- END CONTENT ---
 
-Doc-Content: https://docs.polkadot.com/tutorials/polkadot-sdk/system-chains/asset-hub/index
+Doc-Content: https://docs.polkadot.com/tutorials\polkadot-sdk\system-chains\asset-hub\index
 --- BEGIN CONTENT ---
 ---
 title: Asset Hub Tutorials
@@ -26612,7 +26612,7 @@ Through these tutorials, you'll learn how to manage cross-chain assets, includin
 </div>
 --- END CONTENT ---
 
-Doc-Content: https://docs.polkadot.com/tutorials/polkadot-sdk/system-chains/asset-hub/register-foreign-asset
+Doc-Content: https://docs.polkadot.com/tutorials\polkadot-sdk\system-chains\asset-hub\register-foreign-asset
 --- BEGIN CONTENT ---
 ---
 title: Register a Foreign Asset on Asset Hub
@@ -26750,7 +26750,7 @@ After executing the command, the terminal will display output indicating the Pol
 - [Astar Parachain](https://polkadot.js.org/apps/?rpc=wss%3A%2F%2Flocalhost%3A8001#/explorer){target=\_blank}
 --- END CONTENT ---
 
-Doc-Content: https://docs.polkadot.com/tutorials/polkadot-sdk/system-chains/asset-hub/register-local-asset
+Doc-Content: https://docs.polkadot.com/tutorials\polkadot-sdk\system-chains\asset-hub\register-local-asset
 --- BEGIN CONTENT ---
 ---
 title: Register a Local Asset
@@ -26849,7 +26849,7 @@ The above command will spawn a lazy fork of Polkadot Asset Hub with the latest b
 An Asset Hub instance is now running locally, and you can proceed with the asset registration process. Note that the local registration process does not differ from the live network process. Once you have a successful TestNet transaction, you can use the same steps to register the asset on MainNet.
 --- END CONTENT ---
 
-Doc-Content: https://docs.polkadot.com/tutorials/polkadot-sdk/system-chains/index
+Doc-Content: https://docs.polkadot.com/tutorials\polkadot-sdk\system-chains\index
 --- BEGIN CONTENT ---
 ---
 title: System Chains Tutorials
@@ -26882,7 +26882,7 @@ Unlock new possibilities by tapping into Polkadot’s system chains:
 :::INSERT_IN_THIS_SECTION:::
 --- END CONTENT ---
 
-Doc-Content: https://docs.polkadot.com/tutorials/polkadot-sdk/testing/fork-live-chains
+Doc-Content: https://docs.polkadot.com/tutorials\polkadot-sdk\testing\fork-live-chains
 --- BEGIN CONTENT ---
 ---
 title: Fork a Chain with Chopsticks
@@ -27229,7 +27229,7 @@ After running it, you should see output similar to the following:
 Now you can interact with your forked chains using the ports specified in the output.
 --- END CONTENT ---
 
-Doc-Content: https://docs.polkadot.com/tutorials/polkadot-sdk/testing/index
+Doc-Content: https://docs.polkadot.com/tutorials\polkadot-sdk\testing\index
 --- BEGIN CONTENT ---
 ---
 title: Blockchain Testing Tutorials
@@ -27258,7 +27258,7 @@ Each tutorial provides step-by-step guidance for using these tools effectively i
 :::INSERT_IN_THIS_SECTION:::
 --- END CONTENT ---
 
-Doc-Content: https://docs.polkadot.com/tutorials/polkadot-sdk/testing/spawn-basic-chain
+Doc-Content: https://docs.polkadot.com/tutorials\polkadot-sdk\testing\spawn-basic-chain
 --- BEGIN CONTENT ---
 ---
 title: Spawn a Basic Chain with Zombienet

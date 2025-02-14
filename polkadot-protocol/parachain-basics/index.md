@@ -1,10 +1,10 @@
 ---
 title: Parachain Basics
-description: Discover Polkadot’s parachains technical foundations, from blockchain basics and cryptography to network features like interoperability and randomness.
+description: Discover Polkadot’s technical foundations, from blockchain basics and cryptography to network features like interoperability and randomness.
 template: index-page.html
 ---
 
-# Basics
+# Parachain Basics
 
 This section equips developers with the essential knowledge to create, deploy, and enhance applications and blockchains within the Polkadot ecosystem. Gain a comprehensive understanding of Polkadot’s foundational components, including accounts, balances, and transactions, as well as advanced topics like data encoding and cryptographic methods. Mastering these concepts is vital for building robust and secure applications on Polkadot.
 

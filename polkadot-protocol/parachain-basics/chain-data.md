@@ -105,7 +105,7 @@ In general, the metadata includes the following information:
 The following example illustrates a condensed and annotated section of metadata decoded and converted to JSON:
 
 ```json
---8<-- 'code/polkadot-protocol/basics/chain-data/metadata-format.json'
+--8<-- 'code/polkadot-protocol/parachain-basics/chain-data/metadata-format.json'
 ```
 
 The constant `1635018093` is a magic number that identifies the file as a metadata file. The rest of the metadata is divided into the `types`, `pallets`, and `extrinsic` sections:
@@ -114,16 +114,14 @@ The constant `1635018093` is a magic number that identifies the file as a metada
 - The `pallets` section contains information about each pallet in the runtime
 - The `extrinsic` section describes the type identifier and transaction format version that the runtime uses
 
-Different extrinsic versions can have varying formats, especially when considering [signed transactions](/polkadot-protocol/basics/blocks-transactions-fees/transactions/#signed-transactions){target=\_blank}. 
+Different extrinsic versions can have varying formats, especially when considering [signed transactions](/polkadot-protocol/parachain-basics/blocks-transactions-fees/transactions/#signed-transactions){target=\_blank}. 
 
 ### Pallets
 
 The following is a condensed and annotated example of metadata for a single element in the `pallets` array (the [`sudo`](https://paritytech.github.io/polkadot-sdk/master/pallet_sudo/index.html){target=\_blank} pallet):
 
 ```json
-
---8<-- 'code/polkadot-protocol/basics/chain-data/sudo-metadata.json'
-
+--8<-- 'code/polkadot-protocol/parachain-basics/chain-data/sudo-metadata.json'
 ```
 
 Every element metadata contains the name of the pallet it represents and information about its storage, calls, events, and errors. You can look up details about the definition of the calls, events, and errors by viewing the type index identifier. The type index identifier is the `u32` integer used to access the type information for that item. For example, the type index identifier for calls in the Sudo pallet is 117. If you view information for that type identifier in the `types` section of the metadata, it provides information about the available calls, including the documentation for each call.
@@ -131,7 +129,7 @@ Every element metadata contains the name of the pallet it represents and informa
 For example, the following is a condensed excerpt of the calls for the Sudo pallet:
 
 ```json
---8<-- 'code/polkadot-protocol/basics/chain-data/sudo-metadata-calls.json'
+--8<-- 'code/polkadot-protocol/parachain-basics/chain-data/sudo-metadata-calls.json'
 ```
 
 For each field, you can access type information and metadata for the following:
@@ -152,7 +150,7 @@ The runtime generates extrinsic metadata and provides useful information about t
 For example:
 
 ```json
---8<-- 'code/polkadot-protocol/basics/chain-data/extrinsic-metadata.json'
+--8<-- 'code/polkadot-protocol/parachain-basics/chain-data/extrinsic-metadata.json'
 ```
 
 The type system is [composite](https://paritytech.github.io/polkadot-sdk/master/polkadot_sdk_docs/reference_docs/frame_runtime_types/index.html){target=\_blank}, meaning each type identifier contains a reference to a specific type or to another type identifier that provides information about the associated primitive types.

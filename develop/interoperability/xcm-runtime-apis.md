@@ -189,7 +189,7 @@ This API allows the direct dry-run of an xcm message instead of an extrinsic one
 
 The [XCM Payment API](https://paritytech.github.io/polkadot-sdk/master/xcm_runtime_apis/fees/trait.XcmPaymentApi.html){target=\_blank} provides a standardized way to determine the costs and payment options for executing XCM messages. Specifically, it enables clients to:
 
-- Retrieve the [weight](/polkadot-protocol/glossary.md#weight) required to execute an XCM message
+- Retrieve the [weight](/polkadot-protocol/glossary/#weight) required to execute an XCM message
 - Obtain a list of acceptable `AssetIds` for paying execution fees
 - Calculate the cost of the weight in a specified `AssetId`
 - Estimate the fees for XCM message delivery

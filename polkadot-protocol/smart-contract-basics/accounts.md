@@ -5,7 +5,7 @@ description: Bridges Ethereum's 20-byte addresses with Polkadot's 32-byte accoun
 
 # Accounts on Asset Hub Smart Contracts
 
-## Overview
+## Introduction
 
 Asset Hub's smart contract platform implements an innovative account system that bridges the gap between Ethereum's 20-byte addresses and Polkadot's native 32-byte account identifiers. This system enables seamless interaction between existing Polkadot accounts and smart contracts while maintaining compatibility with Ethereum tooling.
 
@@ -21,7 +21,7 @@ The platform handles two distinct address formats:
 The [`AccountId32Mapper`](https://paritytech.github.io/polkadot-sdk/master/pallet_revive/struct.AccountId32Mapper.html){target=\_blank} implementation in [`pallet_revive`](https://paritytech.github.io/polkadot-sdk/master/pallet_revive/index.html){target=\_blank} handles the core address conversion logic. For converting a 20-byte Ethereum address to a 32-byte Polkadot address, the pallet uses a simple concatenation approach:
 
 - [**Core mechanism**](https://paritytech.github.io/polkadot-sdk/master/pallet_revive/trait.AddressMapper.html#tymethod.to_fallback_account_id){target=\_blank} - takes a 20-byte Ethereum address and extends it to 32 bytes by adding twelve `0xEE` bytes at the end. The key benefits of this approach are:
-    - Able to fully revert, allowing for smooth transition back to the Ethereum format.
+    - Able to fully revert, allowing a smooth transition back to the Ethereum format
     - Provides clear identification of Ethereum-controlled accounts through the `0xEE` suffix pattern
     - Maintains cryptographic security with a `2^96` difficulty for pattern reproduction
 
@@ -46,7 +46,7 @@ The registration process is implemented through the [`map`](https://paritytech.g
 
 The fallback mechanism is integrated into the [`to_account_id`](https://paritytech.github.io/polkadot-sdk/master/pallet_revive/trait.AddressMapper.html#tymethod.to_account_id){target=\_blank} function. It provides a safety net for address conversion by:
 
-- First attempting to retrieve stored mapping data
+- First, attempting to retrieve stored mapping data
 - Falling back to the default conversion method if no mapping exists
 - Maintaining consistency in address representation
 
@@ -54,14 +54,14 @@ The fallback mechanism is integrated into the [`to_account_id`](https://parityte
 
 The system supports two methods for generating contract addresses:
 
-- [**CREATE1 method**](https://paritytech.github.io/polkadot-sdk/master/pallet_revive/fn.create1.html){target=\_blank} 
+- [**CREATE1 method**](https://paritytech.github.io/polkadot-sdk/master/pallet_revive/fn.create1.html){target=\_blank}:
 
-    - Uses deployer address and nonce
+    - Uses the deployer address and nonce
     - Generates deterministic addresses for standard contract deployment
 
-- [**CREATE2 method**](https://paritytech.github.io/polkadot-sdk/master/pallet_revive/fn.create2.html){target=\_blank}
+- [**CREATE2 method**](https://paritytech.github.io/polkadot-sdk/master/pallet_revive/fn.create2.html){target=\_blank}:
 
-    - Uses deployer address, initialization code, input data, and salt
+    - Uses the deployer address, initialization code, input data, and salt
     - Enables predictable address generation for advanced use cases
 
 ## Security Considerations
@@ -73,4 +73,4 @@ The address mapping system maintains security through several design choices evi
 - Mapping operations are protected against common errors through explicit checks
 - The system prevents double-mapping through the [`ensure!(!Self::is_mapped(account_id))`](https://github.com/paritytech/polkadot-sdk/blob/stable2412/substrate/frame/revive/src/address.rs#L125){target=\_blank} check
 
-All source code references are from the [`address.rs`](https://github.com/paritytech/polkadot-sdk/blob/stable2412/substrate/frame/revive/src/address.rs){target=\_blank} file in the pallet revive of the Polkadot SDK repository.
+All source code references are from the [`address.rs`](https://github.com/paritytech/polkadot-sdk/blob/stable2412/substrate/frame/revive/src/address.rs){target=\_blank} file in the Revive pallet of the Polkadot SDK repository.

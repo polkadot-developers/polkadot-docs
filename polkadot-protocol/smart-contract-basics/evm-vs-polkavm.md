@@ -15,9 +15,9 @@ However, this architectural difference becomes relevant in specific scenarios. T
 
 ## Gas Model
 
-Ethereum's resource model relies on a single metric: [gas](https://ethereum.org/en/developers/docs/gas/#what-is-gas){target=\_blank}, which serves as the universal unit for measuring computational costs. Each operation on the network consumes a specific amount of gas. Most platforms aiming for Ethereum compatibility typically adopt identical gas values to ensure seamless integration. The significant changes to Ethereum's gas model will be outlined in the following sections.
+Ethereum's resource model relies on a single metric: [gas](https://ethereum.org/en/developers/docs/gas/#what-is-gas){target=\_blank}, which serves as the universal unit for measuring computational costs. Each operation on the network consumes a specific amount of gas. Most platforms aiming for Ethereum compatibility typically adopt identical gas values to ensure seamless integration. 
 
-PolkaVM introduces two significant changes to Ethereum's gas model:
+The significant changes to Ethereum's gas model will be outlined in the following sections.
 
 ### Dynamic Gas Value Scaling
 

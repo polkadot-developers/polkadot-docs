@@ -4,26 +4,14 @@
 echo "Running Prettier on .snippets/code/**/*.{js,json,html}"
 npx prettier --write .snippets/code/**/*.{js,json,html}
 
-IGNORED_FILES=(
-  ".snippets/code/develop/toolkit/parachains/spawn-chains/zombienet/write-tests/big-network-test.toml"
-  ".snippets/code/develop/toolkit/parachains/spawn-chains/zombienet/write-tests/small-network-test.toml"
-  ".snippets/code/develop/toolkit/parachains/spawn-chains/zombienet/write-tests/spawn-a-basic-chain-test.toml"
-  ".snippets/code/tutorials/polkadot-sdk/parachains/zero-to-hero/pallet-unit-testing/cargo-dev-dependencies.toml"
-)
-
-# Normalize ignored files pattern
-EXCLUDE_PATTERN=$(printf "%s\n" "${IGNORED_FILES[@]}" | sed 's/\//\\\//g' | paste -sd "|" -)
-
 # Find all TOML files and normalize paths
 ALL_FILES=$(find .snippets/code/ -type f -name "*.toml" | sed 's|//|/|g')
 
-# Exclude ignored files
-FILES_TO_FORMAT=$(echo "$ALL_FILES" | grep -Ev "$EXCLUDE_PATTERN")
-
 # Run Taplo if there are files to format
-if [ -n "$FILES_TO_FORMAT" ]; then
+if [ -n "$ALL_FILES" ]; then
   echo "Formatting files with Taplo..."
-  echo "$FILES_TO_FORMAT" | while read -r file; do
+  echo "$ALL_FILES" | while read -r file; do
+    echo "Formatting $file"
     npx taplo fmt "$file"
     if [ $? -ne 0 ]; then
       echo "Error: Taplo formatting failed."
@@ -35,4 +23,12 @@ else
 fi
 
 echo "Adding formatted files back to the commit..."
-git add .snippets/code/**/*.{js,json,html,toml}
+
+# Collect files to add
+FILES_TO_ADD=$(find .snippets/code/ -type f \( -name "*.js" -o -name "*.json" -o -name "*.html" -o -name "*.toml" \))
+
+if [ -n "$FILES_TO_ADD" ]; then
+  echo "$FILES_TO_ADD" | xargs git add
+else
+  echo "No files to add."
+fi

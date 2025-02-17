@@ -82,6 +82,8 @@ Doc-Page: https://docs.polkadot.com/infrastructure/running-a-validator/requireme
 Doc-Page: https://docs.polkadot.com/infrastructure/staking-mechanics/index
 Doc-Page: https://docs.polkadot.com/infrastructure/staking-mechanics/offenses-and-slashes
 Doc-Page: https://docs.polkadot.com/infrastructure/staking-mechanics/rewards-payout
+Doc-Page: https://docs.polkadot.com/node_modules/@taplo/cli/README
+Doc-Page: https://docs.polkadot.com/node_modules/husky/README
 Doc-Page: https://docs.polkadot.com/polkadot-protocol/architecture/index
 Doc-Page: https://docs.polkadot.com/polkadot-protocol/architecture/parachains/consensus
 Doc-Page: https://docs.polkadot.com/polkadot-protocol/architecture/parachains/index
@@ -6178,7 +6180,7 @@ const provider = new BrowserProvider(window.ethereum);
     import { JsonRpcProvider } from 'ethers';
 
 const provider = new JsonRpcProvider(
-  'https://westend-asset-hub-eth-rpc.polkadot.io'
+  'https://westend-asset-hub-eth-rpc.polkadot.io',
 );
     ```
 
@@ -12641,15 +12643,15 @@ If you'd like to speed up the process further, you can use a database snapshot. 
     Although snapshots are convenient, syncing from scratch is recommended for security purposes. If snapshots become corrupted and most nodes rely on them, the network could inadvertently run on a non-canonical chain.
 
 <div id="termynal" data-termynal>
-    <span data-ty="input"><span class="file-path"></span>polkadot</span>
-    <span data-ty>2021-06-17 03:07:07 Idle (0 peers), best: #0 (0x3fd7...5baf), finalized #0 (0x3fd7...5baf), ⬇ 2.9kiB/s ⬆ 3.7kiB/s</span>
-    <span data-ty>2021-06-17 03:07:12 Idle (0 peers), best: #0 (0x3fd7...5baf), finalized #0 (0x3fd7...5baf), ⬇ 1.7kiB/s ⬆ 2.0kiB/s</span>
-    <span data-ty>2021-06-17 03:07:17 Idle (0 peers), best: #0 (0x3fd7...5baf), finalized #0 (0x3fd7...5baf), ⬇ 0.9kiB/s ⬆ 1.2kiB/s</span>
-    <span data-ty>2021-06-17 03:07:19 Libp2p => Random Kademlia query has yielded empty results</span>
-    <span data-ty>2021-06-17 03:08:00 Idle (0 peers), best: #0 (0x3fd7...5baf), finalized #0 (0x3fd7...5baf), ⬇ 1.6kiB/s ⬆ 1.9kiB/s</span>
-    <span data-ty>2021-06-17 03:08:05 Idle (0 peers), best: #0 (0x3fd7...5baf), finalized #0 (0x3fd7...5baf), ⬇ 0.6kiB/s ⬆ 0.9kiB/s</span>
-    <span data-ty>...</span>
-  </div>
+  <span data-ty="input"><span class="file-path"></span>polkadot</span>
+  <span data-ty>2021-06-17 03:07:07 Idle (0 peers), best: #0 (0x3fd7...5baf), finalized #0 (0x3fd7...5baf), ⬇ 2.9kiB/s ⬆ 3.7kiB/s</span>
+  <span data-ty>2021-06-17 03:07:12 Idle (0 peers), best: #0 (0x3fd7...5baf), finalized #0 (0x3fd7...5baf), ⬇ 1.7kiB/s ⬆ 2.0kiB/s</span>
+  <span data-ty>2021-06-17 03:07:17 Idle (0 peers), best: #0 (0x3fd7...5baf), finalized #0 (0x3fd7...5baf), ⬇ 0.9kiB/s ⬆ 1.2kiB/s</span>
+  <span data-ty>2021-06-17 03:07:19 Libp2p => Random Kademlia query has yielded empty results</span>
+  <span data-ty>2021-06-17 03:08:00 Idle (0 peers), best: #0 (0x3fd7...5baf), finalized #0 (0x3fd7...5baf), ⬇ 1.6kiB/s ⬆ 1.9kiB/s</span>
+  <span data-ty>2021-06-17 03:08:05 Idle (0 peers), best: #0 (0x3fd7...5baf), finalized #0 (0x3fd7...5baf), ⬇ 0.6kiB/s ⬆ 0.9kiB/s</span>
+  <span data-ty>...</span>
+</div>
 
 If you see terminal output similar to the preceding, and you are unable to synchronize the chain due to having zero peers, make sure you have libp2p port `30333` activated. It will take some time to discover other peers over the network.
 
@@ -14265,6 +14267,55 @@ flowchart TD
 ```
 
 Bob holds a smaller percentage of their node's total stake, making their stake reward smaller than Alice's. In this scenario, Bob makes up the difference by charging a 40% commission rate and ultimately ends up with the same total payment as Alice. Each validator will need to find their ideal balance between the amount of stake and commission rate to attract nominators while still making running a validator worthwhile.
+--- END CONTENT ---
+
+Doc-Content: https://docs.polkadot.com/node_modules/@taplo/cli/README
+--- BEGIN CONTENT ---
+This is a JavaScript wrapper for the Taplo TOML CLI tool.
+
+All the documentation and information is available on the [website](https://taplo.tamasfe.dev).
+--- END CONTENT ---
+
+Doc-Content: https://docs.polkadot.com/node_modules/husky/README
+--- BEGIN CONTENT ---
+# husky
+
+> Modern native Git hooks made easy
+
+Husky improves your commits and more 🐶 *woof!*
+
+# Install
+
+```
+npm install husky --save-dev
+```
+
+# Usage
+
+Edit `package.json > prepare` script and run it once:
+
+```sh
+npm pkg set scripts.prepare="husky install"
+npm run prepare
+```
+
+Add a hook:
+
+```sh
+npx husky add .husky/pre-commit "npm test"
+git add .husky/pre-commit
+```
+
+Make a commit:
+
+```sh
+git commit -m "Keep calm and commit"
+# `npm test` will run
+```
+
+# Documentation
+
+https://typicode.github.io/husky
 --- END CONTENT ---
 
 Doc-Content: https://docs.polkadot.com/polkadot-protocol/architecture/index
@@ -18513,13 +18564,13 @@ import { Binary } from 'polkadot-api';
 
 // Create Polkadot client using WebSocket provider for Polkadot chain
 const polkadotClient = createClient(
-  withPolkadotSdkCompat(getWsProvider('ws://127.0.0.1:8001'))
+  withPolkadotSdkCompat(getWsProvider('ws://127.0.0.1:8001')),
 );
 const dotApi = polkadotClient.getTypedApi(dot);
 
 // Create Astar client using WebSocket provider for Astar chain
 const astarClient = createClient(
-  withPolkadotSdkCompat(getWsProvider('ws://localhost:8000'))
+  withPolkadotSdkCompat(getWsProvider('ws://localhost:8000')),
 );
 const astarApi = astarClient.getTypedApi(astar);
 
@@ -18530,7 +18581,7 @@ const aliceKeyPair = derive('//Alice');
 const alice = getPolkadotSigner(
   aliceKeyPair.publicKey,
   'Sr25519',
-  aliceKeyPair.sign
+  aliceKeyPair.sign,
 );
 
 // Define recipient (Dave) address on Astar chain
@@ -18544,7 +18595,7 @@ const polkadotAssetId = 340282366920938463463374607431768211455n;
 // Fetch asset balance of recipient (Dave) before transaction
 let assetMetadata = await astarApi.query.Assets.Account.getValue(
   polkadotAssetId,
-  daveAddress
+  daveAddress,
 );
 console.log('Asset balance before tx:', assetMetadata?.balance ?? 0);
 
@@ -18553,7 +18604,7 @@ const tx = dotApi.tx.XcmPallet.limited_reserve_transfer_assets({
   dest: XcmVersionedLocation.V3({
     parents: 0,
     interior: XcmV3Junctions.X1(
-      XcmV3Junction.Parachain(2006) // Destination is the Astar parachain
+      XcmV3Junction.Parachain(2006), // Destination is the Astar parachain
     ),
   }),
   beneficiary: XcmVersionedLocation.V3({
@@ -18563,7 +18614,7 @@ const tx = dotApi.tx.XcmPallet.limited_reserve_transfer_assets({
         // Beneficiary address on Astar
         network: undefined,
         id: idBenef,
-      })
+      }),
     ),
   }),
   assets: XcmVersionedAssets.V3([
@@ -18598,7 +18649,7 @@ await new Promise((resolve) => setTimeout(resolve, 20000));
 // Fetch asset balance of recipient (Dave) after transaction
 assetMetadata = await astarApi.query.Assets.Account.getValue(
   polkadotAssetId,
-  daveAddress
+  daveAddress,
 );
 console.log('Asset balance after tx:', assetMetadata?.balance ?? 0);
 
@@ -27279,7 +27330,7 @@ By the end of this tutorial, you'll be equipped to deploy and test your own bloc
 
 To successfully complete this tutorial, you must ensure you've first:
 
-- [Installed Zombienet](/develop/toolkit/parachains/spawn-chains/zombienet/get-started/#install-zombienet){target=\_blank}
+- [Installed Zombienet](/develop/toolkit/parachains/spawn-chains/zombienet/get-started/#install-zombienet){target=\_blank}. This tutorial requires Zombienet version `{{ dependencies.zombienet.version }}`. Verify that you're using the specified version to ensure compatibility with the instructions.
 - Reviewed the information in [Configure Zombienet](/develop/toolkit/parachains/spawn-chains/zombienet/get-started/#configure-zombienet){target=\_blank} and understand how to customize a spawned network
 
 ## Define the Network
@@ -27443,7 +27494,7 @@ async function main() {
   ]);
 
   console.log(
-    `You are connected to chain ${chain} using ${nodeName} v${nodeVersion}`
+    `You are connected to chain ${chain} using ${nodeName} v${nodeVersion}`,
   );
 }
 

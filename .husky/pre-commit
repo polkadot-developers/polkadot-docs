@@ -32,3 +32,15 @@ if [ -n "$FILES_TO_ADD" ]; then
 else
   echo "No files to add."
 fi
+
+# Run the Python script to generate llms.txt
+echo "Running Python script to generate llms.txt..."
+python3 scripts/generate_llms.py
+
+# Check if llms.txt was generated and add it to the commit
+if [ -f "llms.txt" ]; then
+  echo "Staging llms.txt file..."
+  git add llms.txt
+else
+  echo "No llms.txt file generated."
+fi

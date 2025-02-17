@@ -11438,25 +11438,37 @@ touch spawn-a-basic-network-test.zndsl
 
 2. Add the following code to the file you just created.
 ```toml title="spawn-a-basic-network-test.zndsl"
-Description: Test the basic functionality of the network (minimal example)
-Network: ./spawn-a-basic-network.toml
-Creds: config
+Description = "Test the basic functionality of the network (minimal example)"
+Network = "./spawn-a-basic-network.toml"
+Creds = "config"
 
-alice: is up
-alice: parachain 100 is registered within 225 seconds
-alice: parachain 100 block height is at least 10 within 250 seconds
+# Alice's tasks
+[[tasks]]
+name = "alice"
+is_up = true
+parachain_100_registered = { condition = "within", timeout = 225 }
+parachain_100_block_height = { condition = "at least 10", timeout = 250 }
 
-bob: is up
-bob: parachain 100 is registered within 225 seconds
-bob: parachain 100 block height is at least 10 within 250 seconds
+# Bob's tasks
+[[tasks]]
+name = "bob"
+is_up = true
+parachain_100_registered = { condition = "within", timeout = 225 }
+parachain_100_block_height = { condition = "at least 10", timeout = 250 }
 
-# metrics
-alice: reports node_roles is 4
-alice: reports sub_libp2p_is_major_syncing is 0
+# Metrics
+[[metrics]]
+name = "alice"
+node_roles = 4
+sub_libp2p_is_major_syncing = 0
 
-bob: reports node_roles is 4
+[[metrics]]
+name = "bob"
+node_roles = 4
 
-collator01: reports node_roles is 4
+[[metrics]]
+name = "collator01"
+node_roles = 4
 ```
 
 This test scenario checks to verify the following:
@@ -11483,56 +11495,75 @@ The following example test files define two tests, a small network test and a bi
 The tests define assertions to evaluate the network’s metrics and logs. The assertions are defined by sentences in the DSL, which are mapped to tests to run.
 
 ```toml title="small-network-test.zndsl"
-Description: Small Network test
-Network: ./0000-test-config-small-network.toml
-Creds: config
+Description = "Small Network test"
+Network = "./0000-test-config-small-network.toml"
+Creds = "config"
 
-# metrics
-alice: reports node_roles is 4
-alice: reports sub_libp2p_is_major_syncing is 0
+# Metrics
+[[metrics]]
+node_roles = 4
+sub_libp2p_is_major_syncing = 0
 
-# logs
-bob: log line matches glob "*rted #1*" within 10 seconds
-bob: log line matches "Imported #[0-9]+" within 10 seconds
+# Logs
+[[logs]]
+bob_log_line_glob = "*rted #1*"
+bob_log_line_regex = "Imported #[0-9]+"
 ```
 
 And the second test file:
 
 ```toml title="big-network-test.zndsl"
-Description: Big Network test
-Network: ./0001-test-config-big-network.toml
-Creds: config
+Description = "Big Network test"
+Network = "./0001-test-config-big-network.toml"
+Creds = "config"
 
-# metrics
-alice: reports node_roles is 4
-alice: reports sub_libp2p_is_major_syncing is 0
+# Metrics
+[[metrics]]
+node_roles = 4
+sub_libp2p_is_major_syncing = 0
 
-# logs
-bob: log line matches glob "*rted #1*" within 10 seconds
-bob: log line matches "Imported #[0-9]+" within 10 seconds
+# Logs
+[[logs]]
+bob_log_line_glob = "*rted #1*"
+bob_log_line_regex = "Imported #[0-9]+"
 
-# custom js script
-alice: js-script ./0008-custom.js return is greater than 1 within 200 seconds
+# Custom JS script
+[[custom_scripts]]
+alice_js_script = { path = "./0008-custom.js", condition = "return is greater than 1", timeout = 200 }
 
-# custom ts script
-alice: ts-script ./0008-custom-ts.ts return is greater than 1 within 200 seconds
+# Custom TS script
+[[custom_scripts]]
+alice_ts_script = { path = "./0008-custom-ts.ts", condition = "return is greater than 1", timeout = 200 }
 
-# backchannel
-alice: wait for name and use as X within 30 seconds
+# Backchannel
+[[backchannel]]
+alice_wait_for_name = { use_as = "X", timeout = 30 }
 
-# well know functions
-alice: is up
-alice: parachain 100 is registered within 225 seconds
-alice: parachain 100 block height is at least 10 within 250 seconds
+# Well-known functions
+[[functions]]
+alice_is_up = true
+alice_parachain_100_registered = { condition = "within", timeout = 225 }
+alice_parachain_100_block_height = { condition = "at least 10", timeout = 250 }
 
-# histogram
-alice: reports histogram polkadot_pvf_execution_time has at least 2 samples in buckets ["0.1", "0.25", "0.5", "+Inf"] within 100 seconds
+# Histogram
+[[histogram]]
+alice_polkadot_pvf_execution_time = { min_samples = 2, buckets = [
+  "0.1",
+  "0.25",
+  "0.5",
+  "+Inf",
+], timeout = 100 }
 
-# system events
-alice: system event matches ""paraId":[0-9]+" within 10 seconds
+# System events
+[[system_events]]
+alice_system_event_matches = { pattern = "\"paraId\":[0-9]+", timeout = 10 }
 
-# tracing
-alice: trace with traceID 94c1501a78a0d83c498cc92deec264d9 contains ["answer-chunk-request", "answer-chunk-request"]
+# Tracing
+[[tracing]]
+alice_trace = { traceID = "94c1501a78a0d83c498cc92deec264d9", contains = [
+  "answer-chunk-request",
+  "answer-chunk-request",
+] }
 ```
 --- END CONTENT ---
 

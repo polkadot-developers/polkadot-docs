@@ -3,7 +3,7 @@ name: Check Documentation Changes
 on:
   pull_request:
     branches:
-      - master  # Only run on PRs targeting master
+      - master
 
 jobs:
   check-changes:
@@ -13,7 +13,7 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
-          fetch-depth: 0  # Fetch full history for accurate diff
+          fetch-depth: 0 
 
       - name: Get base commit of the PR
         run: |
@@ -21,35 +21,24 @@ jobs:
 
       - name: Identify deleted and renamed files
         run: |
-          BASE_COMMIT=${{ env.BASE_COMMIT }}
+          BASE_SHA=$(git merge-base ${{ github.event.pull_request.base.sha }} ${{ github.event.pull_request.head.sha }})
+          HEAD_SHA=${{ github.event.pull_request.head.sha }}
+          
+          echo "Deleted files:"
+          DELETED_FILES=$(git diff --name-status $BASE_SHA $HEAD_SHA | grep '^D' | cut -f2-)
+          if [[ -n "$DELETED_FILES" ]]; then
+            echo "$DELETED_FILES"
+          fi
+          
+          echo -e "\nRenamed files:"
+          RENAMED_FILES=$(git diff --name-status $BASE_SHA $HEAD_SHA | grep '^R' | while read -r status old new; do
+            echo "$old -> $new"
+          done)
+          if [[ -n "$RENAMED_FILES" ]]; then
+            echo "$RENAMED_FILES"
+          fi
 
-          # Detect deleted files
-          DELETED_FILES=$(git diff --name-status $BASE_COMMIT...HEAD | awk '$1 == "D" {print $2}')
-
-          # Detect renamed files (Git-detected)
-          RENAMED_FILES=$(git diff --name-status $BASE_COMMIT...HEAD | awk '$1 == "R" {print $3}')
-
-          # Detect renamed files (content-based matching)
-          for file in $DELETED_FILES; do
-            for new_file in $(git diff --name-only $BASE_COMMIT...HEAD); do
-              if [[ -f "$new_file" ]]; then
-                if git diff --no-index --exit-code "$file" "$new_file" >/dev/null 2>&1; then
-                  RENAMED_FILES+="$file → $new_file\n"
-                  DELETED_FILES=$(echo "$DELETED_FILES" | grep -v "^$file$")
-                fi
-              fi
-            done
-          done
-
-          # Store results
-          echo "DELETED_FILES<<EOF" >> $GITHUB_ENV
-          echo -e "$DELETED_FILES" >> $GITHUB_ENV
-          echo "EOF" >> $GITHUB_ENV
-
-          echo "RENAMED_FILES<<EOF" >> $GITHUB_ENV
-          echo -e "$RENAMED_FILES" >> $GITHUB_ENV
-          echo "EOF" >> $GITHUB_ENV
-
+          # Set the warning flag if there are deleted or renamed files
           if [[ -n "$DELETED_FILES" || -n "$RENAMED_FILES" ]]; then
             echo "warning=true" >> $GITHUB_ENV
           fi

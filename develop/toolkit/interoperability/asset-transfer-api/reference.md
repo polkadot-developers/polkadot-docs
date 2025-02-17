@@ -32,7 +32,7 @@ description: Explore the Asset Transfer API Reference for comprehensive details 
 
 Holds open an API connection to a specified chain within the `ApiPromise` to help construct transactions for assets and estimate fees.
 
-For a more in-depth explanation of the Asset Transfer API class structure, check the [source code](https://github.com/paritytech/asset-transfer-api/blob/a949bba1d1102eb7f4640c872fdb9c491fc0871a/src/AssetTransferApi.ts#L121){target=\_blank}.
+For a more in-depth explanation of the Asset Transfer API class structure, check the [source code](https://github.com/paritytech/asset-transfer-api/blob/{{dependencies.asset_transfer_api.version}}/src/AssetTransferApi.ts#L121){target=\_blank}.
 
 ### Methods
 

@@ -8,7 +8,7 @@ dependencies:
     version: 1.0.2
   zombienet:
     repository_url: https://github.com/paritytech/zombienet
-    version: v1.3.120
+    version: v1.3.121
     architecture: macos-arm64
   asset_transfer_api:
     repository_url: https://github.com/paritytech/asset-transfer-api

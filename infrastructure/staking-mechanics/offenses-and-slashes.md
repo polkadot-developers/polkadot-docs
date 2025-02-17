@@ -43,8 +43,7 @@ Validators engaging in bad actor behavior in the network may be subject to slash
 
 Any slashed DOT or KSM will be added to the [Treasury](https://wiki.polkadot.network/docs/learn-polkadot-opengov-treasury){target=\_blank} rather than burned or distributed as rewards. Moving slashed funds to the Treasury allows tokens to be quickly moved away from malicious validators while maintaining the ability to revert faulty slashes when needed.
 
-!!! info "Multiple active nominations"
-    A nominator with a very large bond may nominate several validators in a single era. In this case, a slash is proportionate to the amount staked to the offending validator. Stake allocation and validator activation is controlled by the [Phragmén algorithm](https://wiki.polkadot.network/docs/learn-phragmen#understanding-phragm%C3%A9n){target=\_blank}.
+A nominator with a very large bond may nominate several validators in a single era. In this case, a slash is proportionate to the amount staked to the offending validator. Stake allocation and validator activation is controlled by the [Phragmén algorithm](https://wiki.polkadot.network/docs/learn-phragmen#understanding-phragm%C3%A9n){target=\_blank}.
 
 A validator slash creates an `unapplied` state transition. You can view pending slashes on [Polkadot.js Apps](https://polkadot.js.org/apps/?rpc=wss%3A%2F%2Frpc.polkadot.io#/staking/slashes){target=\_blank}. The UI will display the slash per validator, the affected nominators, and the slash amounts. The unapplied state includes a 27-day grace period during which a governance proposal can be made to reverse the slash. Once this grace period expires, the slash is applied.
 
@@ -158,9 +157,7 @@ The disabling mechanism is triggered when validators commit serious infractions,
 
 Off-chain disabling is always a lower priority than on-chain disabling. Off-chain disabling prioritizes disabling first backers and then approval checkers.
 
-!!! note
-
-    The material in this guide reflects the changes introduced in Stage 2. For more details, refer to the [State of Disabling issue](https://github.com/paritytech/polkadot-sdk/issues/4359){target=\_blank} on GitHub.
+The material in this guide reflects the changes introduced in Stage 2. For more details, see the [State of Disabling issue](https://github.com/paritytech/polkadot-sdk/issues/4359){target=\_blank} on GitHub.
 
 
 ### Reputation Changes

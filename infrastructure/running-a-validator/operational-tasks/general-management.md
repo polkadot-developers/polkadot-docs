@@ -358,8 +358,7 @@ To visualize node metrics, follow these steps:
 
     ![Live dashboard](/images/infrastructure/running-a-validator/operational-tasks/general-management/general-management-5.webp)
 
-!!! tip "Import via grafana.com"
-    The [Grafana dashboards](https://grafana.com/grafana/dashboards){target=\_blank} page offers a collection of community-contributed dashboards. For an example, check out the [Substrate Node Metrics](https://grafana.com/grafana/dashboards/21715-substrate-node-metrics/){target=\_blank} dashboard.
+The [Grafana dashboards](https://grafana.com/grafana/dashboards){target=\_blank} page features user created dashboards made available for public use. For an example, see the [Substrate Node Metrics](https://grafana.com/grafana/dashboards/21715-substrate-node-metrics/){target=\_blank} dashboard.
 
 ### Install and Configure Alertmanager
 
@@ -391,16 +390,12 @@ Follow these steps to install and configure Alertmanager:
     sudo nano /etc/alertmanager/alertmanager.yml
     ```
 
-    Add the following code to the configuration file to define email notifications:
+    Generate an [app password in your Google account](https://support.google.com/accounts/answer/185833?hl=en){target=\_blank} to enable email notifications from Alertmanager. Then, add the following code to the configuration file to define email notifications using your  email and app password: 
 
     ```yml title="alertmanager.yml"
     -8<-- 'code/infrastructure/running-a-validator/operational-tasks/general-management/alertmanager.yml'
     ```
 
-    !!! note "App password"
-        You must generate an [app password in your Google account](https://support.google.com/accounts/answer/185833?hl=en){target=\_blank} to enable email notifications from Alertmanager.
-
-4. Ensure the configuration file has the correct permissions:
 
     ```bash
     sudo chown -R prometheus:prometheus /etc/alertmanager
@@ -509,6 +504,8 @@ Complete the integration by following these steps to enable communication betwee
     sudo systemctl restart prometheus && sudo systemctl restart alertmanager
     ```
 
+Now you will receive an email alert if one of your rule triggering conditions is met. 
+        
 ## Secure Your Validator
 
 Validators in Polkadot's Proof of Stake (PoS) network play a critical role in maintaining network integrity and security by keeping the network in consensus and verifying state transitions. To ensure optimal performance and minimize risks, validators must adhere to strict guidelines around security and reliable operations.
@@ -546,7 +543,7 @@ Polkadot's Secure-Validator mode offers an extra layer of protection through str
     CONFIG_SECCOMP=y
     ```
 
-!!! note
+!!! tip 
     Optionally, **Linux 5.13** may also be used, as it provides access to even more strict filesystem protections.
 
 ### Linux Best Practices

@@ -1,38 +1,53 @@
 #!/bin/sh
 . "$(dirname "$0")/_/husky.sh"
 
-echo "Running Prettier on .snippets/code/**/*.{js,json,html}"
-npx prettier --write .snippets/code/**/*.{js,json,html}
+# Get list of staged files that match our patterns
+STAGED_JS_JSON_HTML=$(git diff --cached --name-only --diff-filter=AM | grep -E '^.snippets/code/.*\.(js|json|html)$' || true)
+STAGED_TOML=$(git diff --cached --name-only --diff-filter=AM | grep -E '^.snippets/code/.*\.toml$' || true)
 
-IGNORED_FILES=(
-  ".snippets/code/develop/toolkit/parachains/spawn-chains/zombienet/write-tests/big-network-test.toml"
-  ".snippets/code/develop/toolkit/parachains/spawn-chains/zombienet/write-tests/small-network-test.toml"
-  ".snippets/code/develop/toolkit/parachains/spawn-chains/zombienet/write-tests/spawn-a-basic-chain-test.toml"
-  ".snippets/code/tutorials/polkadot-sdk/parachains/zero-to-hero/pallet-unit-testing/cargo-dev-dependencies.toml"
-)
-
-# Normalize ignored files pattern
-EXCLUDE_PATTERN=$(printf "%s\n" "${IGNORED_FILES[@]}" | sed 's/\//\\\//g' | paste -sd "|" -)
-
-# Find all TOML files and normalize paths
-ALL_FILES=$(find .snippets/code/ -type f -name "*.toml" | sed 's|//|/|g')
-
-# Exclude ignored files
-FILES_TO_FORMAT=$(echo "$ALL_FILES" | grep -Ev "$EXCLUDE_PATTERN")
-
-# Run Taplo if there are files to format
-if [ -n "$FILES_TO_FORMAT" ]; then
-  echo "Formatting files with Taplo..."
-  echo "$FILES_TO_FORMAT" | while read -r file; do
-    npx taplo fmt "$file"
-    if [ $? -ne 0 ]; then
-      echo "Error: Taplo formatting failed."
-      exit 1
-    fi
-  done
+# Format JavaScript, JSON, and HTML files if any exist
+if [ -n "$STAGED_JS_JSON_HTML" ]; then
+    echo "Running Prettier on staged files..."
+    echo "$STAGED_JS_JSON_HTML" | while read -r file; do
+        if [ -f "$file" ]; then
+            echo "Formatting $file"
+            npx prettier --write "$file" || exit 1
+            git add "$file"
+        fi
+    done
 else
-  echo "No files to format."
+    echo "No JavaScript, JSON, or HTML files to format."
 fi
 
-echo "Adding formatted files back to the commit..."
-git add .snippets/code/**/*.{js,json,html,toml}
+# Format TOML files if any exist
+if [ -n "$STAGED_TOML" ]; then
+    echo "Formatting TOML files with Taplo..."
+    echo "$STAGED_TOML" | while read -r file; do
+        if [ -f "$file" ]; then
+            echo "Formatting $file"
+            npx taplo fmt "$file" || exit 1
+            git add "$file"
+        fi
+    done
+else
+    echo "No TOML files to format."
+fi
+
+# Run the Python script to generate llms.txt if any relevant files changed
+CHANGED_FILES=$(git diff --cached --name-only --diff-filter=AM | grep -E '^.snippets/code/' || true)
+echo "Changed files in snippets/code: $CHANGED_FILES"
+
+if [ -n "$CHANGED_FILES" ]; then
+    echo "Running Python script to generate llms.txt..."
+    python3 scripts/generate_llms.py || exit 1
+    
+    # Check if llms.txt was generated and add it to the commit
+    if [ -f "llms.txt" ]; then
+        echo "Staging llms.txt file..."
+        git add llms.txt
+    else
+        echo "No llms.txt file generated."
+    fi
+else
+    echo "No relevant files changed, skipping llms.txt generation."
+fi

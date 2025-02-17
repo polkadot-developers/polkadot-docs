@@ -13,11 +13,9 @@ Polkadot SDK-based nodes consist of two main components, each with distinct resp
 
 If the system were a monolithic protocol, any modification would require updating the entire system. Instead, Polkadot achieves true upgradeability by defining an immutable meta-protocol (the client) and a protocol (the runtime) that can be upgraded independently.
 
-This separation gives the Polkadot Relay Chain and all connected parachains an evolutionary advantage over other blockchain platforms.
+This separation gives the [Polkadot Relay Chain](/polkadot-protocol/architecture/polkadot-chain){target=\_blank} and all connected [parachains](/polkadot-protocol/architecture/parachains){target=\_blank} an evolutionary advantage over other blockchain platforms.
 
 ## Architectural Principles
-
-### Separation of Concerns
 
 The Polkadot SDK-based blockchain architecture is fundamentally built on two distinct yet interconnected components:
 
@@ -53,7 +51,7 @@ The node, also known as the client, is the core component responsible for execut
 
 ## Runtime
 
-The runtime is more than just a set of rules—it's the fundamental logic engine that defines the entire behavior of a blockchain. In Polkadot SDK-based blockchains, the runtime represents a complete, self-contained description of the blockchain's state transition function.
+The runtime is more than just a set of rules—it's the fundamental logic engine that defines a blockchain's entire behavior. In Polkadot SDK-based blockchains, the runtime represents a complete, self-contained description of the blockchain's state transition function.
 
 ### Characteristics
 
@@ -76,7 +74,7 @@ The runtime performs several critical functions, such as:
 
 ## Communication Between Node and Runtime
 
-The client and runtime communicate exclusively using SCALE-encoded communication to ensure efficient and compact data exchange between the two components.
+The client and runtime communicate exclusively using [SCALE-encoded](/polkadot-protocol/basics/data-encoding){target=\_blank} communication. This ensures efficient and compact data exchange between the two components.
 
 ### Runtime APIs
 

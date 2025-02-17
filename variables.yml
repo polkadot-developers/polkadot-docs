@@ -5,7 +5,7 @@ dependencies:
     version: v1.0.0
   chopsticks:
     repository_url: https://github.com/AcalaNetwork/chopsticks
-    version: 0.13.1
+    version: 1.0.2
   zombienet:
     repository_url: https://github.com/paritytech/zombienet
     version: v1.3.120

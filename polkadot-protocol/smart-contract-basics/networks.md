@@ -7,7 +7,7 @@ description: Explore the available networks for smart contract development on As
 
 ## Introduction
 
-Smart contract development in the Polkadot ecosystem is primarily facilitated through Asset Hub, which provides robust smart contract functionality across multiple networks. Whether you're testing new contracts or deploying to production, Asset Hub offers several network environments tailored for each stage of development. Developers can thoroughly test, iterate, and validate their smart contracts from local testing environments to production networks like Polkadot Asset Hub.
+Smart contract development in the Polkadot ecosystem is primarily facilitated through Asset Hub, which provides smart contract functionality across multiple networks. Whether you're testing new contracts or deploying to production, Asset Hub offers several network environments tailored for each stage of development. Developers can thoroughly test, iterate, and validate their smart contracts from local testing environments to production networks like Polkadot Asset Hub.
 
 This guide will introduce you to the various networks available (and incoming) for smart contract development and explain how they fit into the development workflow.
 

@@ -82,6 +82,8 @@ Doc-Page: https://docs.polkadot.com/infrastructure/running-a-validator/requireme
 Doc-Page: https://docs.polkadot.com/infrastructure/staking-mechanics/index
 Doc-Page: https://docs.polkadot.com/infrastructure/staking-mechanics/offenses-and-slashes
 Doc-Page: https://docs.polkadot.com/infrastructure/staking-mechanics/rewards-payout
+Doc-Page: https://docs.polkadot.com/node_modules/@taplo/cli/README
+Doc-Page: https://docs.polkadot.com/node_modules/husky/README
 Doc-Page: https://docs.polkadot.com/polkadot-protocol/architecture/index
 Doc-Page: https://docs.polkadot.com/polkadot-protocol/architecture/parachains/consensus
 Doc-Page: https://docs.polkadot.com/polkadot-protocol/architecture/parachains/index
@@ -106,6 +108,7 @@ Doc-Page: https://docs.polkadot.com/polkadot-protocol/basics/data-encoding
 Doc-Page: https://docs.polkadot.com/polkadot-protocol/basics/index
 Doc-Page: https://docs.polkadot.com/polkadot-protocol/basics/interoperability
 Doc-Page: https://docs.polkadot.com/polkadot-protocol/basics/networks
+Doc-Page: https://docs.polkadot.com/polkadot-protocol/basics/node-and-runtime
 Doc-Page: https://docs.polkadot.com/polkadot-protocol/basics/randomness
 Doc-Page: https://docs.polkadot.com/polkadot-protocol/glossary
 Doc-Page: https://docs.polkadot.com/polkadot-protocol/index
@@ -6178,7 +6181,7 @@ const provider = new BrowserProvider(window.ethereum);
     import { JsonRpcProvider } from 'ethers';
 
 const provider = new JsonRpcProvider(
-  'https://westend-asset-hub-eth-rpc.polkadot.io'
+  'https://westend-asset-hub-eth-rpc.polkadot.io',
 );
     ```
 
@@ -12641,15 +12644,15 @@ If you'd like to speed up the process further, you can use a database snapshot. 
     Although snapshots are convenient, syncing from scratch is recommended for security purposes. If snapshots become corrupted and most nodes rely on them, the network could inadvertently run on a non-canonical chain.
 
 <div id="termynal" data-termynal>
-    <span data-ty="input"><span class="file-path"></span>polkadot</span>
-    <span data-ty>2021-06-17 03:07:07 Idle (0 peers), best: #0 (0x3fd7...5baf), finalized #0 (0x3fd7...5baf), ⬇ 2.9kiB/s ⬆ 3.7kiB/s</span>
-    <span data-ty>2021-06-17 03:07:12 Idle (0 peers), best: #0 (0x3fd7...5baf), finalized #0 (0x3fd7...5baf), ⬇ 1.7kiB/s ⬆ 2.0kiB/s</span>
-    <span data-ty>2021-06-17 03:07:17 Idle (0 peers), best: #0 (0x3fd7...5baf), finalized #0 (0x3fd7...5baf), ⬇ 0.9kiB/s ⬆ 1.2kiB/s</span>
-    <span data-ty>2021-06-17 03:07:19 Libp2p => Random Kademlia query has yielded empty results</span>
-    <span data-ty>2021-06-17 03:08:00 Idle (0 peers), best: #0 (0x3fd7...5baf), finalized #0 (0x3fd7...5baf), ⬇ 1.6kiB/s ⬆ 1.9kiB/s</span>
-    <span data-ty>2021-06-17 03:08:05 Idle (0 peers), best: #0 (0x3fd7...5baf), finalized #0 (0x3fd7...5baf), ⬇ 0.6kiB/s ⬆ 0.9kiB/s</span>
-    <span data-ty>...</span>
-  </div>
+  <span data-ty="input"><span class="file-path"></span>polkadot</span>
+  <span data-ty>2021-06-17 03:07:07 Idle (0 peers), best: #0 (0x3fd7...5baf), finalized #0 (0x3fd7...5baf), ⬇ 2.9kiB/s ⬆ 3.7kiB/s</span>
+  <span data-ty>2021-06-17 03:07:12 Idle (0 peers), best: #0 (0x3fd7...5baf), finalized #0 (0x3fd7...5baf), ⬇ 1.7kiB/s ⬆ 2.0kiB/s</span>
+  <span data-ty>2021-06-17 03:07:17 Idle (0 peers), best: #0 (0x3fd7...5baf), finalized #0 (0x3fd7...5baf), ⬇ 0.9kiB/s ⬆ 1.2kiB/s</span>
+  <span data-ty>2021-06-17 03:07:19 Libp2p => Random Kademlia query has yielded empty results</span>
+  <span data-ty>2021-06-17 03:08:00 Idle (0 peers), best: #0 (0x3fd7...5baf), finalized #0 (0x3fd7...5baf), ⬇ 1.6kiB/s ⬆ 1.9kiB/s</span>
+  <span data-ty>2021-06-17 03:08:05 Idle (0 peers), best: #0 (0x3fd7...5baf), finalized #0 (0x3fd7...5baf), ⬇ 0.6kiB/s ⬆ 0.9kiB/s</span>
+  <span data-ty>...</span>
+</div>
 
 If you see terminal output similar to the preceding, and you are unable to synchronize the chain due to having zero peers, make sure you have libp2p port `30333` activated. It will take some time to discover other peers over the network.
 
@@ -14265,6 +14268,55 @@ flowchart TD
 ```
 
 Bob holds a smaller percentage of their node's total stake, making their stake reward smaller than Alice's. In this scenario, Bob makes up the difference by charging a 40% commission rate and ultimately ends up with the same total payment as Alice. Each validator will need to find their ideal balance between the amount of stake and commission rate to attract nominators while still making running a validator worthwhile.
+--- END CONTENT ---
+
+Doc-Content: https://docs.polkadot.com/node_modules/@taplo/cli/README
+--- BEGIN CONTENT ---
+This is a JavaScript wrapper for the Taplo TOML CLI tool.
+
+All the documentation and information is available on the [website](https://taplo.tamasfe.dev).
+--- END CONTENT ---
+
+Doc-Content: https://docs.polkadot.com/node_modules/husky/README
+--- BEGIN CONTENT ---
+# husky
+
+> Modern native Git hooks made easy
+
+Husky improves your commits and more 🐶 *woof!*
+
+# Install
+
+```
+npm install husky --save-dev
+```
+
+# Usage
+
+Edit `package.json > prepare` script and run it once:
+
+```sh
+npm pkg set scripts.prepare="husky install"
+npm run prepare
+```
+
+Add a hook:
+
+```sh
+npx husky add .husky/pre-commit "npm test"
+git add .husky/pre-commit
+```
+
+Make a commit:
+
+```sh
+git commit -m "Keep calm and commit"
+# `npm test` will run
+```
+
+# Documentation
+
+https://typicode.github.io/husky
 --- END CONTENT ---
 
 Doc-Content: https://docs.polkadot.com/polkadot-protocol/architecture/index
@@ -17244,6 +17296,105 @@ Key features of Chopsticks include:
 Chopsticks provides a controlled environment for developers to safely explore the effects of runtime changes. It ensures that network behavior is tested and verified before upgrades are deployed to live networks.
 --- END CONTENT ---
 
+Doc-Content: https://docs.polkadot.com/polkadot-protocol/basics/node-and-runtime
+--- BEGIN CONTENT ---
+---
+title: Node and Runtime
+description: Learn how Polkadot SDK-based nodes function, how the client and runtime are separated, and how they communicate using SCALE-encoded data.
+---
+
+# Node and Runtime
+
+## Introduction
+
+Every blockchain platform relies on a decentralized network of computers—called nodes—that communicate with each other about transactions and blocks. In this context, a node refers to the software running on the connected devices rather than the physical or virtual machines in the network.
+
+Polkadot SDK-based nodes consist of two main components, each with distinct responsibilities: the client (also called node) and the runtime.
+
+If the system were a monolithic protocol, any modification would require updating the entire system. Instead, Polkadot achieves true upgradeability by defining an immutable meta-protocol (the client) and a protocol (the runtime) that can be upgraded independently.
+
+This separation gives the [Polkadot Relay Chain](/polkadot-protocol/architecture/polkadot-chain){target=\_blank} and all connected [parachains](/polkadot-protocol/architecture/parachains){target=\_blank} an evolutionary advantage over other blockchain platforms.
+
+## Architectural Principles
+
+The Polkadot SDK-based blockchain architecture is fundamentally built on two distinct yet interconnected components:
+
+- **Client (Meta-protocol)**
+    - Handles the foundational infrastructure of the blockchain
+    - Manages runtime execution, networking, consensus, and other off-chain components
+    - Provides an immutable base layer that ensures network stability
+    - Upgradable only through hard forks
+
+- **Runtime (Protocol)** 
+    - Defines the blockchain's state transition logic
+    - Determines the specific rules and behaviors of the blockchain
+    - Compiled to WebAssembly (Wasm) for platform-independent execution
+    - Capable of being upgraded without network-wide forking
+
+### Advantages of this Architecture
+
+- **Forkless upgrades** - runtime can be updated without disrupting the entire network
+- **Modularity** - clear separation allows independent development of client and runtime
+- **Flexibility** - enables rapid iteration and evolution of blockchain logic
+- **Performance** - WebAssembly compilation provides efficient, cross-platform execution
+
+## Node (Client)
+
+The node, also known as the client, is the core component responsible for executing the Wasm runtime and orchestrating various essential blockchain components. It ensures the correct execution of the state transition function and manages multiple critical subsystems, including:
+
+- **Wasm execution** - runs the blockchain runtime, which defines the state transition rules
+- **Database management** - stores blockchain data
+- **Networking** - facilitates peer-to-peer communication, block propagation, and transaction gossiping
+- **Transaction pool (Mempool)** - manages pending transactions before they are included in a block
+- **Consensus mechanism** - ensures agreement on the blockchain state across nodes
+- **RPC services** - provides external interfaces for applications and users to interact with the node
+
+## Runtime
+
+The runtime is more than just a set of rules—it's the fundamental logic engine that defines a blockchain's entire behavior. In Polkadot SDK-based blockchains, the runtime represents a complete, self-contained description of the blockchain's state transition function.
+
+### Characteristics
+
+The runtime is distinguished by three key characteristics:
+
+- **Business logic** - defines the complete application-specific blockchain behavior
+- **WebAssembly compilation** - ensures platform-independent, secure execution
+- **On-chain storage** - stored within the blockchain's state, allowing dynamic updates
+
+### Key Functions
+
+The runtime performs several critical functions, such as:
+
+- Define state transition rules
+- Implement blockchain-specific logic
+- Manage account interactions
+- Control transaction processing
+- Define governance mechanisms
+- Handle custom pallets and modules
+
+## Communication Between Node and Runtime
+
+The client and runtime communicate exclusively using [SCALE-encoded](/polkadot-protocol/basics/data-encoding){target=\_blank} communication. This ensures efficient and compact data exchange between the two components.
+
+### Runtime APIs
+
+The Runtime API consists of well-defined functions and constants a client assumes are implemented in the Runtime Wasm blob. These APIs enable the client to interact with the runtime to execute blockchain operations and retrieve information. The client invokes these APIs to:
+
+- Build, execute, and finalize blocks
+- Access metadata
+- Access consensus related information
+- Handle transaction execution
+
+### Host Functions
+
+While executing, the runtime can access certain external functionalities of the client via host functions. These are specific functions that the client exposes to allow the runtime to perform operations outside the WebAssembly domain. Host functions enable the runtime to:
+
+- Perform cryptographic operations
+- Access the current blockchain state
+- Handle storage modifications
+- Allocate memory
+--- END CONTENT ---
+
 Doc-Content: https://docs.polkadot.com/polkadot-protocol/basics/randomness
 --- BEGIN CONTENT ---
 ---
@@ -18513,13 +18664,13 @@ import { Binary } from 'polkadot-api';
 
 // Create Polkadot client using WebSocket provider for Polkadot chain
 const polkadotClient = createClient(
-  withPolkadotSdkCompat(getWsProvider('ws://127.0.0.1:8001'))
+  withPolkadotSdkCompat(getWsProvider('ws://127.0.0.1:8001')),
 );
 const dotApi = polkadotClient.getTypedApi(dot);
 
 // Create Astar client using WebSocket provider for Astar chain
 const astarClient = createClient(
-  withPolkadotSdkCompat(getWsProvider('ws://localhost:8000'))
+  withPolkadotSdkCompat(getWsProvider('ws://localhost:8000')),
 );
 const astarApi = astarClient.getTypedApi(astar);
 
@@ -18530,7 +18681,7 @@ const aliceKeyPair = derive('//Alice');
 const alice = getPolkadotSigner(
   aliceKeyPair.publicKey,
   'Sr25519',
-  aliceKeyPair.sign
+  aliceKeyPair.sign,
 );
 
 // Define recipient (Dave) address on Astar chain
@@ -18544,7 +18695,7 @@ const polkadotAssetId = 340282366920938463463374607431768211455n;
 // Fetch asset balance of recipient (Dave) before transaction
 let assetMetadata = await astarApi.query.Assets.Account.getValue(
   polkadotAssetId,
-  daveAddress
+  daveAddress,
 );
 console.log('Asset balance before tx:', assetMetadata?.balance ?? 0);
 
@@ -18553,7 +18704,7 @@ const tx = dotApi.tx.XcmPallet.limited_reserve_transfer_assets({
   dest: XcmVersionedLocation.V3({
     parents: 0,
     interior: XcmV3Junctions.X1(
-      XcmV3Junction.Parachain(2006) // Destination is the Astar parachain
+      XcmV3Junction.Parachain(2006), // Destination is the Astar parachain
     ),
   }),
   beneficiary: XcmVersionedLocation.V3({
@@ -18563,7 +18714,7 @@ const tx = dotApi.tx.XcmPallet.limited_reserve_transfer_assets({
         // Beneficiary address on Astar
         network: undefined,
         id: idBenef,
-      })
+      }),
     ),
   }),
   assets: XcmVersionedAssets.V3([
@@ -18598,7 +18749,7 @@ await new Promise((resolve) => setTimeout(resolve, 20000));
 // Fetch asset balance of recipient (Dave) after transaction
 assetMetadata = await astarApi.query.Assets.Account.getValue(
   polkadotAssetId,
-  daveAddress
+  daveAddress,
 );
 console.log('Asset balance after tx:', assetMetadata?.balance ?? 0);
 
@@ -27443,7 +27594,7 @@ async function main() {
   ]);
 
   console.log(
-    `You are connected to chain ${chain} using ${nodeName} v${nodeVersion}`
+    `You are connected to chain ${chain} using ${nodeName} v${nodeVersion}`,
   );
 }
 

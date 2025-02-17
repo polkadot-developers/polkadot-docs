@@ -19,28 +19,38 @@ jobs:
         run: |
           DELETED_FILES=$(git diff --name-status HEAD^ | awk '$1 == "D" {print $2}')
           RENAMED_FILES=$(git diff --name-status HEAD^ | awk '$1 == "R" {print $2}')
-          
+
+          echo "DELETED_FILES<<EOF" >> $GITHUB_ENV
+          echo "$DELETED_FILES" >> $GITHUB_ENV
+          echo "EOF" >> $GITHUB_ENV
+
+          echo "RENAMED_FILES<<EOF" >> $GITHUB_ENV
+          echo "$RENAMED_FILES" >> $GITHUB_ENV
+          echo "EOF" >> $GITHUB_ENV
+
           if [[ -n "$DELETED_FILES" || -n "$RENAMED_FILES" ]]; then
-            echo "WARNING: Some files were deleted or renamed!"
-            echo "Deleted files: $DELETED_FILES"
-            echo "Renamed files: $RENAMED_FILES"
             echo "warning=true" >> $GITHUB_ENV
           fi
 
       - name: Check for title changes in modified Markdown files
         run: |
-          MODIFIED_MD_FILES=$(git diff --name-only HEAD^ -- "docs/**/*.md")
+          MODIFIED_MD_FILES=$(git diff --name-only HEAD^ -- "*.md")
           TITLE_CHANGED=false
-          
+          TITLE_CHANGES=""
+
           for file in $MODIFIED_MD_FILES; do
-            OLD_TITLE=$(git show HEAD^:"$file" | grep -m 1 "^# " || echo "")
-            NEW_TITLE=$(grep -m 1 "^# " "$file" || echo "")
+            OLD_TITLE=$(git show HEAD^:"$file" | grep -m 1 "^# " || echo "No title found")
+            NEW_TITLE=$(grep -m 1 "^# " "$file" || echo "No title found")
 
             if [[ "$OLD_TITLE" != "$NEW_TITLE" ]]; then
-              echo "Title changed in $file: '$OLD_TITLE' → '$NEW_TITLE'"
               TITLE_CHANGED=true
+              TITLE_CHANGES+="$file\nOld: $OLD_TITLE\nNew: $NEW_TITLE\n\n"
             fi
           done
+
+          echo "TITLE_CHANGES<<EOF" >> $GITHUB_ENV
+          echo -e "$TITLE_CHANGES" >> $GITHUB_ENV
+          echo "EOF" >> $GITHUB_ENV
 
           if [[ "$TITLE_CHANGED" == "true" ]]; then
             echo "warning=true" >> $GITHUB_ENV
@@ -54,12 +64,26 @@ jobs:
           script: |
             const issue_number = context.payload.pull_request.number;
             const repo = context.repo;
-            const message = `
-            ⚠️ **Documentation Warning**
-            - Some files were **deleted** or **renamed**.
-            - Some **titles in Markdown files** were modified.
-            Please verify these changes carefully before merging.
-            `;
+            const deletedFiles = `${process.env.DELETED_FILES}`.trim();
+            const renamedFiles = `${process.env.RENAMED_FILES}`.trim();
+            const titleChanges = `${process.env.TITLE_CHANGES}`.trim();
+
+            let message = `⚠️ **Documentation Warning**\n\n`;
+            message += `- Some files were **deleted** or **renamed**.\n`;
+            message += `- Some **titles in Markdown files** were modified.\n\n`;
+
+            if (deletedFiles) {
+              message += `**Deleted files:**\n\`\`\`\n${deletedFiles}\n\`\`\`\n\n`;
+            }
+            if (renamedFiles) {
+              message += `**Renamed files:**\n\`\`\`\n${renamedFiles}\n\`\`\`\n\n`;
+            }
+            if (titleChanges) {
+              message += `**Files with changed titles:**\n\`\`\`\n${titleChanges}\n\`\`\`\n\n`;
+            }
+
+            message += `Please verify these changes carefully before merging.`;
+
             github.rest.issues.createComment({
               owner: repo.owner,
               repo: repo.repo,

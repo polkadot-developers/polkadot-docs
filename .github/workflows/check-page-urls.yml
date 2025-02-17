@@ -1,0 +1,68 @@
+name: Check Documentation Changes
+
+on:
+  pull_request:
+    branches:
+      - master  # Only run on PRs targeting master
+
+jobs:
+  check-changes:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 2  # Fetch previous commit to compare changes
+
+      - name: Check for deleted or renamed files
+        run: |
+          DELETED_FILES=$(git diff --name-status HEAD^ | awk '$1 == "D" {print $2}')
+          RENAMED_FILES=$(git diff --name-status HEAD^ | awk '$1 == "R" {print $2}')
+          
+          if [[ -n "$DELETED_FILES" || -n "$RENAMED_FILES" ]]; then
+            echo "WARNING: Some files were deleted or renamed!"
+            echo "Deleted files: $DELETED_FILES"
+            echo "Renamed files: $RENAMED_FILES"
+            echo "warning=true" >> $GITHUB_ENV
+          fi
+
+      - name: Check for title changes in modified Markdown files
+        run: |
+          MODIFIED_MD_FILES=$(git diff --name-only HEAD^ -- "docs/**/*.md")
+          TITLE_CHANGED=false
+          
+          for file in $MODIFIED_MD_FILES; do
+            OLD_TITLE=$(git show HEAD^:"$file" | grep -m 1 "^# " || echo "")
+            NEW_TITLE=$(grep -m 1 "^# " "$file" || echo "")
+
+            if [[ "$OLD_TITLE" != "$NEW_TITLE" ]]; then
+              echo "Title changed in $file: '$OLD_TITLE' → '$NEW_TITLE'"
+              TITLE_CHANGED=true
+            fi
+          done
+
+          if [[ "$TITLE_CHANGED" == "true" ]]; then
+            echo "warning=true" >> $GITHUB_ENV
+          fi
+
+      - name: Post PR warning if necessary
+        if: env.warning == 'true'
+        uses: actions/github-script@v7
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const issue_number = context.payload.pull_request.number;
+            const repo = context.repo;
+            const message = `
+            ⚠️ **Documentation Warning**
+            - Some files were **deleted** or **renamed**.
+            - Some **titles in Markdown files** were modified.
+            Please verify these changes carefully before merging.
+            `;
+            github.rest.issues.createComment({
+              owner: repo.owner,
+              repo: repo.repo,
+              issue_number: issue_number,
+              body: message
+            });

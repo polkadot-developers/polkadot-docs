@@ -1,78 +1,39 @@
 ---
 title: Blocks, Transactions and Fees for Asset Hub Smart Contracts
-description: TODO
+description: Explore how Asset Hub smart contracts handle blocks, transactions, and fees with EVM compatibility, supporting various Ethereum transaction types.
 ---
 
 # Blocks, Transactions and Fees
 
 ## Introduction
 
-Asset Hub smart contracts operate within the Polkadot ecosystem using the pallet-revive implementation, which provides EVM compatibility. While many aspects of blocks and transactions are inherited from the underlying parachain architecture, there are specific considerations and mechanisms unique to smart contract operations on Asset Hub.
+Asset Hub smart contracts operate within the Polkadot ecosystem using the [`pallet_revive`](https://paritytech.github.io/polkadot-sdk/master/pallet_revive/){target=\_blank} implementation, which provides EVM compatibility. While many aspects of blocks and transactions are inherited from the underlying parachain architecture, there are specific considerations and mechanisms unique to smart contract operations on Asset Hub.
 
 ## Smart Contract Blocks
 
-Smart contract blocks in Asset Hub follow the same fundamental structure as parachain blocks. All standard parachain block components (refer to [parachain blocks documentation](/polkadot-protocol/parachain-basics/blocks-transactions-fees/blocks/){target=\_blank}).
-
- For further infromation about smart contract blocks, see the [Blocks](https://paritytech.github.io/polkadot-sdk/master/pallet_revive/evm/struct.Block.html){target=\_blank} struct implementation in `pallet_revive`.
+Smart contract blocks in Asset Hub follow the same fundamental structure as parachain blocks, inheriting all standard parachain block components. The `pallet_revive` implementation maintains this consistency while adding necessary [EVM-specific features](https://paritytech.github.io/polkadot-sdk/master/pallet_revive/evm){target=\_blank}. For detailed implementation specifics, the [Block](https://paritytech.github.io/polkadot-sdk/master/pallet_revive/evm/struct.Block.html){target=\_blank} struct in `pallet_revive` demonstrates how parachain and smart contract block implementations align.
 
 ## Smart Contract Transactions
 
-Asset Hub supports several transaction types specifically for smart contract interactions:
+Asset Hub implements a sophisticated transaction system that supports various transaction types and formats, encompassing both traditional parachain operations and EVM-specific interactions.
 
-### EVM Transactions
+### EVM Transaction Types
 
-1. **eth_transact**
+The system provides a fundamental [`eth_transact`](https://paritytech.github.io/polkadot-sdk/master/pallet_revive/pallet/dispatchables/fn.eth_transact.html){target=\_blank} interface for processing raw EVM transactions dispatched through Ethereum JSON-RPC servers. This interface acts as a wrapper for Ethereum transactions, requiring an encoded signed transaction payload, though it cannot be dispatched directly. Building upon this foundation, the system supports multiple transaction formats to accommodate different use cases and optimization needs:
 
-    - Raw EVM transactions dispatched by Ethereum JSON-RPC servers
-    - Requires encoded signed transaction payload
-    - Cannot be dispatched directly; serves as a wrapper for Ethereum transactions
+- [**Legacy Transactions**](https://paritytech.github.io/polkadot-sdk/master/pallet_revive/evm/struct.TransactionLegacyUnsigned.html){target=\_blank} - the original Ethereum transaction format, providing basic transfer and contract interaction capabilities. These transactions use a simple pricing mechanism and are supported for backward compatibility
 
-2. **Contract Calls**
+- [**EIP-1559 Transactions**](https://paritytech.github.io/polkadot-sdk/master/pallet_revive/evm/struct.Transaction1559Unsigned.html){target=\_blank} - an improved transaction format that introduces a more predictable fee mechanism with base fee and priority fee components. This format helps optimize gas fee estimation and network congestion management
 
-    - Direct calls to smart contract accounts (`call`)
-    - Contract instantiation (`instantiate`, `instantiate_with_code`)
-    - Code management (`upload_code`, `remove_code`, `set_code`)
+- [**EIP-2930 Transactions**](https://paritytech.github.io/polkadot-sdk/master/pallet_revive/evm/struct.Transaction2930Unsigned.html){target=\_blank} - introduces access lists to optimize gas costs for contract interactions by pre-declaring accessed addresses and storage slots
 
-### Transaction Types
+- [**EIP-4844 Transactions**](https://paritytech.github.io/polkadot-sdk/master/pallet_revive/evm/struct.Transaction4844Unsigned.html){target=\_blank} - implements blob-carrying transactions, designed to optimize Layer 2 scaling solutions by providing dedicated space for roll-up data
 
-1. **Standard Contract Calls**
-
-    - Similar to parachain extrinsics but specifically for contract interaction
-    - Includes `dest` (contract address), `value` (transfer amount), and `data` (input data)
-
-2. **Contract Deployment**
-
-    - Deploys new contract code
-    - Creates contract account
-    - Executes constructor function
-
-3. **Account Management**
-
-    - `map_account` - registers account for contract interactions
-    - `unmap_account` - unregisters account and releases deposit
-    - `dispatch_as_fallback_account` - recovery function for unmapped accounts
-
-## Transaction Processing
-Smart contract transactions follow a specialized processing flow:
-
-1. **Validation**
-
-    - Standard parachain validation
-    - Additional EVM-specific validation:
-        - Gas limit checks
-        - Code size limits
-        - Input data validation
-
-2. **Execution**
-
-   - EVM state transition
-   - Storage updates
-   - Event emission
-   - Receipt generation
+Each transaction type can exist in both signed and unsigned states, with appropriate validation and processing mechanisms for each.
 
 ## Fees and Gas
 
-Asset Hub implements a dual fee system combining parachain transaction fees with EVM gas mechanics:
+Asset Hub implements a dual fee system combining parachain transaction fees with EVM gas mechanics.
 
 ### Gas Mechanisms
 
@@ -98,36 +59,8 @@ Asset Hub implements a dual fee system combining parachain transaction fees with
     - Deposit for long-term storage usage
     - Refundable when storage is freed
 
-### Special Fee Considerations
-
-- Storage deposits for code upload
-- Account mapping deposits
-- Fallback account operations
-
-## Key Differences from Standard Parachain Operations
-
-1. **Transaction Format**
-
-    - Additional EVM-specific fields
-    - Support for Ethereum transaction types (Legacy, EIP-1559, EIP-2930, EIP-4844)
-
-2. **State Management**
-
-    - Dual state roots (Substrate and EVM)
-    - Additional storage for contract code and state
-
-3. **Fee Mechanics**
-
-    - Combination of weight-based and gas-based calculations
-    - Storage deposits specific to contract operations
-
 ## Integration with Parachain Systems
 
-Asset Hub smart contracts seamlessly integrate with:
-
-- Parachain consensus
-- Block production and import
-- Network message propagation
-- State transitions and finality
+Asset Hub's smart contract system achieves seamless integration with core parachain components while maintaining EVM compatibility. This integration encompasses consensus mechanisms, block production, network message propagation, and state transitions. The system leverages the strengths of both architectures to provide a robust and efficient smart contract platform.
 
 For detailed information about these underlying systems, refer to the [parachain documentation](/polkadot-protocol/parachain-basics/blocks-transactions-fees/).

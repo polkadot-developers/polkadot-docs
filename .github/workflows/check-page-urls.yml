@@ -13,12 +13,17 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
-          fetch-depth: 2  # Fetch previous commit to compare changes
+          fetch-depth: 0  # Fetch full history for accurate diff
 
-      - name: Check for deleted or renamed files
+      - name: Get base commit of the PR
         run: |
-          DELETED_FILES=$(git diff --name-status HEAD^ | awk '$1 == "D" {print $2}')
-          RENAMED_FILES=$(git diff --name-status HEAD^ | awk '$1 == "R" {print $2}')
+          BASE_COMMIT=${{ github.event.pull_request.base.sha }}
+          echo "BASE_COMMIT=$BASE_COMMIT" >> $GITHUB_ENV
+
+      - name: Identify deleted and renamed files
+        run: |
+          DELETED_FILES=$(git diff --name-status $BASE_COMMIT...HEAD | awk '$1 == "D" {print $2}')
+          RENAMED_FILES=$(git diff --name-status $BASE_COMMIT...HEAD | awk '$1 == "R" {print $2}')
 
           echo "DELETED_FILES<<EOF" >> $GITHUB_ENV
           echo "$DELETED_FILES" >> $GITHUB_ENV
@@ -34,12 +39,18 @@ jobs:
 
       - name: Check for title changes in modified Markdown files
         run: |
-          MODIFIED_MD_FILES=$(git diff --name-only HEAD^ -- "*.md")
+          MODIFIED_MD_FILES=$(git diff --name-only $BASE_COMMIT...HEAD -- "*.md")
+
+          # Remove deleted files from the list
+          for file in $DELETED_FILES; do
+            MODIFIED_MD_FILES=$(echo "$MODIFIED_MD_FILES" | grep -v "^$file$")
+          done
+
           TITLE_CHANGED=false
           TITLE_CHANGES=""
 
           for file in $MODIFIED_MD_FILES; do
-            OLD_TITLE=$(git show HEAD^:"$file" | grep -m 1 "^# " || echo "No title found")
+            OLD_TITLE=$(git show $BASE_COMMIT:"$file" | grep -m 1 "^# " || echo "No title found")
             NEW_TITLE=$(grep -m 1 "^# " "$file" || echo "No title found")
 
             if [[ "$OLD_TITLE" != "$NEW_TITLE" ]]; then

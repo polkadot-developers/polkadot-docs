@@ -37,7 +37,7 @@ const PROVIDER_RPC = {
 };
 ```
 
-The provider connection script should look something like:
+The provider connection script should look something like this:
 
 ```javascript title="connectToProvider.js"
 --8<-- 'code/develop/smart-contracts/evm-toolkit/libraries/web3-js/connectToProvider.js'

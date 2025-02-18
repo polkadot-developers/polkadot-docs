@@ -6178,7 +6178,7 @@ const provider = new BrowserProvider(window.ethereum);
     import { JsonRpcProvider } from 'ethers';
 
 const provider = new JsonRpcProvider(
-  'https://westend-asset-hub-eth-rpc.polkadot.io'
+  'https://westend-asset-hub-eth-rpc.polkadot.io',
 );
     ```
 
@@ -11438,25 +11438,37 @@ touch spawn-a-basic-network-test.zndsl
 
 2. Add the following code to the file you just created.
 ```toml title="spawn-a-basic-network-test.zndsl"
-Description: Test the basic functionality of the network (minimal example)
-Network: ./spawn-a-basic-network.toml
-Creds: config
+Description = "Test the basic functionality of the network (minimal example)"
+Network = "./spawn-a-basic-network.toml"
+Creds = "config"
 
-alice: is up
-alice: parachain 100 is registered within 225 seconds
-alice: parachain 100 block height is at least 10 within 250 seconds
+# Alice's tasks
+[[tasks]]
+name = "alice"
+is_up = true
+parachain_100_registered = { condition = "within", timeout = 225 }
+parachain_100_block_height = { condition = "at least 10", timeout = 250 }
 
-bob: is up
-bob: parachain 100 is registered within 225 seconds
-bob: parachain 100 block height is at least 10 within 250 seconds
+# Bob's tasks
+[[tasks]]
+name = "bob"
+is_up = true
+parachain_100_registered = { condition = "within", timeout = 225 }
+parachain_100_block_height = { condition = "at least 10", timeout = 250 }
 
-# metrics
-alice: reports node_roles is 4
-alice: reports sub_libp2p_is_major_syncing is 0
+# Metrics
+[[metrics]]
+name = "alice"
+node_roles = 4
+sub_libp2p_is_major_syncing = 0
 
-bob: reports node_roles is 4
+[[metrics]]
+name = "bob"
+node_roles = 4
 
-collator01: reports node_roles is 4
+[[metrics]]
+name = "collator01"
+node_roles = 4
 ```
 
 This test scenario checks to verify the following:
@@ -11483,56 +11495,75 @@ The following example test files define two tests, a small network test and a bi
 The tests define assertions to evaluate the network’s metrics and logs. The assertions are defined by sentences in the DSL, which are mapped to tests to run.
 
 ```toml title="small-network-test.zndsl"
-Description: Small Network test
-Network: ./0000-test-config-small-network.toml
-Creds: config
+Description = "Small Network test"
+Network = "./0000-test-config-small-network.toml"
+Creds = "config"
 
-# metrics
-alice: reports node_roles is 4
-alice: reports sub_libp2p_is_major_syncing is 0
+# Metrics
+[[metrics]]
+node_roles = 4
+sub_libp2p_is_major_syncing = 0
 
-# logs
-bob: log line matches glob "*rted #1*" within 10 seconds
-bob: log line matches "Imported #[0-9]+" within 10 seconds
+# Logs
+[[logs]]
+bob_log_line_glob = "*rted #1*"
+bob_log_line_regex = "Imported #[0-9]+"
 ```
 
 And the second test file:
 
 ```toml title="big-network-test.zndsl"
-Description: Big Network test
-Network: ./0001-test-config-big-network.toml
-Creds: config
+Description = "Big Network test"
+Network = "./0001-test-config-big-network.toml"
+Creds = "config"
 
-# metrics
-alice: reports node_roles is 4
-alice: reports sub_libp2p_is_major_syncing is 0
+# Metrics
+[[metrics]]
+node_roles = 4
+sub_libp2p_is_major_syncing = 0
 
-# logs
-bob: log line matches glob "*rted #1*" within 10 seconds
-bob: log line matches "Imported #[0-9]+" within 10 seconds
+# Logs
+[[logs]]
+bob_log_line_glob = "*rted #1*"
+bob_log_line_regex = "Imported #[0-9]+"
 
-# custom js script
-alice: js-script ./0008-custom.js return is greater than 1 within 200 seconds
+# Custom JS script
+[[custom_scripts]]
+alice_js_script = { path = "./0008-custom.js", condition = "return is greater than 1", timeout = 200 }
 
-# custom ts script
-alice: ts-script ./0008-custom-ts.ts return is greater than 1 within 200 seconds
+# Custom TS script
+[[custom_scripts]]
+alice_ts_script = { path = "./0008-custom-ts.ts", condition = "return is greater than 1", timeout = 200 }
 
-# backchannel
-alice: wait for name and use as X within 30 seconds
+# Backchannel
+[[backchannel]]
+alice_wait_for_name = { use_as = "X", timeout = 30 }
 
-# well know functions
-alice: is up
-alice: parachain 100 is registered within 225 seconds
-alice: parachain 100 block height is at least 10 within 250 seconds
+# Well-known functions
+[[functions]]
+alice_is_up = true
+alice_parachain_100_registered = { condition = "within", timeout = 225 }
+alice_parachain_100_block_height = { condition = "at least 10", timeout = 250 }
 
-# histogram
-alice: reports histogram polkadot_pvf_execution_time has at least 2 samples in buckets ["0.1", "0.25", "0.5", "+Inf"] within 100 seconds
+# Histogram
+[[histogram]]
+alice_polkadot_pvf_execution_time = { min_samples = 2, buckets = [
+  "0.1",
+  "0.25",
+  "0.5",
+  "+Inf",
+], timeout = 100 }
 
-# system events
-alice: system event matches ""paraId":[0-9]+" within 10 seconds
+# System events
+[[system_events]]
+alice_system_event_matches = { pattern = "\"paraId\":[0-9]+", timeout = 10 }
 
-# tracing
-alice: trace with traceID 94c1501a78a0d83c498cc92deec264d9 contains ["answer-chunk-request", "answer-chunk-request"]
+# Tracing
+[[tracing]]
+alice_trace = { traceID = "94c1501a78a0d83c498cc92deec264d9", contains = [
+  "answer-chunk-request",
+  "answer-chunk-request",
+] }
 ```
 --- END CONTENT ---
 
@@ -12641,15 +12672,15 @@ If you'd like to speed up the process further, you can use a database snapshot. 
     Although snapshots are convenient, syncing from scratch is recommended for security purposes. If snapshots become corrupted and most nodes rely on them, the network could inadvertently run on a non-canonical chain.
 
 <div id="termynal" data-termynal>
-    <span data-ty="input"><span class="file-path"></span>polkadot</span>
-    <span data-ty>2021-06-17 03:07:07 Idle (0 peers), best: #0 (0x3fd7...5baf), finalized #0 (0x3fd7...5baf), ⬇ 2.9kiB/s ⬆ 3.7kiB/s</span>
-    <span data-ty>2021-06-17 03:07:12 Idle (0 peers), best: #0 (0x3fd7...5baf), finalized #0 (0x3fd7...5baf), ⬇ 1.7kiB/s ⬆ 2.0kiB/s</span>
-    <span data-ty>2021-06-17 03:07:17 Idle (0 peers), best: #0 (0x3fd7...5baf), finalized #0 (0x3fd7...5baf), ⬇ 0.9kiB/s ⬆ 1.2kiB/s</span>
-    <span data-ty>2021-06-17 03:07:19 Libp2p => Random Kademlia query has yielded empty results</span>
-    <span data-ty>2021-06-17 03:08:00 Idle (0 peers), best: #0 (0x3fd7...5baf), finalized #0 (0x3fd7...5baf), ⬇ 1.6kiB/s ⬆ 1.9kiB/s</span>
-    <span data-ty>2021-06-17 03:08:05 Idle (0 peers), best: #0 (0x3fd7...5baf), finalized #0 (0x3fd7...5baf), ⬇ 0.6kiB/s ⬆ 0.9kiB/s</span>
-    <span data-ty>...</span>
-  </div>
+  <span data-ty="input"><span class="file-path"></span>polkadot</span>
+  <span data-ty>2021-06-17 03:07:07 Idle (0 peers), best: #0 (0x3fd7...5baf), finalized #0 (0x3fd7...5baf), ⬇ 2.9kiB/s ⬆ 3.7kiB/s</span>
+  <span data-ty>2021-06-17 03:07:12 Idle (0 peers), best: #0 (0x3fd7...5baf), finalized #0 (0x3fd7...5baf), ⬇ 1.7kiB/s ⬆ 2.0kiB/s</span>
+  <span data-ty>2021-06-17 03:07:17 Idle (0 peers), best: #0 (0x3fd7...5baf), finalized #0 (0x3fd7...5baf), ⬇ 0.9kiB/s ⬆ 1.2kiB/s</span>
+  <span data-ty>2021-06-17 03:07:19 Libp2p => Random Kademlia query has yielded empty results</span>
+  <span data-ty>2021-06-17 03:08:00 Idle (0 peers), best: #0 (0x3fd7...5baf), finalized #0 (0x3fd7...5baf), ⬇ 1.6kiB/s ⬆ 1.9kiB/s</span>
+  <span data-ty>2021-06-17 03:08:05 Idle (0 peers), best: #0 (0x3fd7...5baf), finalized #0 (0x3fd7...5baf), ⬇ 0.6kiB/s ⬆ 0.9kiB/s</span>
+  <span data-ty>...</span>
+</div>
 
 If you see terminal output similar to the preceding, and you are unable to synchronize the chain due to having zero peers, make sure you have libp2p port `30333` activated. It will take some time to discover other peers over the network.
 
@@ -14078,7 +14109,7 @@ This guide explains the payout scheme, factors influencing rewards, and how mult
 
 ## Era Points
 
-The Polkadot ecosystem measures their reward cycles in a unit called an era. Kusama eras are approximately 6 hours long, and Polkadot eras are 24 hours. At the end of each era, validators are paid proportionally to the amount of [era points](https://wiki.polkadot.network/docs/maintain-guides-validator-payout#era-points){target=\_blank} they have collected. Era points are reward points earned for payable actions like:
+The Polkadot ecosystem measures its reward cycles in a unit called an era. Kusama eras are approximately 6 hours long, and Polkadot eras are 24 hours long. At the end of each era, validators are paid proportionally to the amount of [era points](https://wiki.polkadot.network/docs/maintain-guides-validator-payout#era-points){target=\_blank} they have collected. Era points are reward points earned for payable actions like:
 
 - Issuing validity statements for [parachain blocks](/polkadot-protocol/basics/blocks-transactions-fees/blocks/){target=\_blank}
 - Producing a non-uncle block in the relay chain
@@ -18513,13 +18544,13 @@ import { Binary } from 'polkadot-api';
 
 // Create Polkadot client using WebSocket provider for Polkadot chain
 const polkadotClient = createClient(
-  withPolkadotSdkCompat(getWsProvider('ws://127.0.0.1:8001'))
+  withPolkadotSdkCompat(getWsProvider('ws://127.0.0.1:8001')),
 );
 const dotApi = polkadotClient.getTypedApi(dot);
 
 // Create Astar client using WebSocket provider for Astar chain
 const astarClient = createClient(
-  withPolkadotSdkCompat(getWsProvider('ws://localhost:8000'))
+  withPolkadotSdkCompat(getWsProvider('ws://localhost:8000')),
 );
 const astarApi = astarClient.getTypedApi(astar);
 
@@ -18530,7 +18561,7 @@ const aliceKeyPair = derive('//Alice');
 const alice = getPolkadotSigner(
   aliceKeyPair.publicKey,
   'Sr25519',
-  aliceKeyPair.sign
+  aliceKeyPair.sign,
 );
 
 // Define recipient (Dave) address on Astar chain
@@ -18544,7 +18575,7 @@ const polkadotAssetId = 340282366920938463463374607431768211455n;
 // Fetch asset balance of recipient (Dave) before transaction
 let assetMetadata = await astarApi.query.Assets.Account.getValue(
   polkadotAssetId,
-  daveAddress
+  daveAddress,
 );
 console.log('Asset balance before tx:', assetMetadata?.balance ?? 0);
 
@@ -18553,7 +18584,7 @@ const tx = dotApi.tx.XcmPallet.limited_reserve_transfer_assets({
   dest: XcmVersionedLocation.V3({
     parents: 0,
     interior: XcmV3Junctions.X1(
-      XcmV3Junction.Parachain(2006) // Destination is the Astar parachain
+      XcmV3Junction.Parachain(2006), // Destination is the Astar parachain
     ),
   }),
   beneficiary: XcmVersionedLocation.V3({
@@ -18563,7 +18594,7 @@ const tx = dotApi.tx.XcmPallet.limited_reserve_transfer_assets({
         // Beneficiary address on Astar
         network: undefined,
         id: idBenef,
-      })
+      }),
     ),
   }),
   assets: XcmVersionedAssets.V3([
@@ -18598,7 +18629,7 @@ await new Promise((resolve) => setTimeout(resolve, 20000));
 // Fetch asset balance of recipient (Dave) after transaction
 assetMetadata = await astarApi.query.Assets.Account.getValue(
   polkadotAssetId,
-  daveAddress
+  daveAddress,
 );
 console.log('Asset balance after tx:', assetMetadata?.balance ?? 0);
 
@@ -27443,7 +27474,7 @@ async function main() {
   ]);
 
   console.log(
-    `You are connected to chain ${chain} using ${nodeName} v${nodeVersion}`
+    `You are connected to chain ${chain} using ${nodeName} v${nodeVersion}`,
   );
 }
 

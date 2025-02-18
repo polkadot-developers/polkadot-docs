@@ -37,6 +37,10 @@ def get_all_markdown_files(directory):
         if '.github' in root.split(os.sep):
             continue
 
+        # Skip 'node_modules'
+        if 'node_modules' in root.split(os.sep):
+            continue
+
         for file in files:
             if file.endswith(('.md', '.mdx')):
                 results.append(os.path.join(root, file))

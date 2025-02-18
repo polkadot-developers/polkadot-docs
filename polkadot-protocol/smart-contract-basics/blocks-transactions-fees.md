@@ -33,28 +33,67 @@ Each transaction type can exist in both signed and unsigned states, with appropr
 
 ## Fees and Gas
 
-Asset Hub implements a dual fee system combining parachain transaction fees with EVM gas mechanics.
+Asset Hub implements a sophisticated resource management system that combines parachain transaction fees with EVM gas mechanics, providing both Ethereum compatibility and enhanced features.
 
-### Gas Mechanisms
+### Gas Model Overview
 
-- Gas limit enforced during contract execution
-- Gas price fixed at network level
-- Gas calculated based on computational complexity
-- Conversion between substrate weight and EVM gas units
+Gas serves as the fundamental unit for measuring computational costs, with each network operation consuming a specified amount. This implementation maintains compatibility with Ethereum's approach while adding parachain-specific optimizations.
+
+- **Dynamic gas scaling** - Asset Hub implements a dynamic pricing mechanism that reflects actual execution performance. This results in:
+    - More efficient pricing for computational instructions relative to I/O operations
+    - Better correlation between gas costs and actual resource consumption
+    - Need for developers to implement flexible gas calculation rather than hardcoding values
+
+- **Multi-Dimensional resource metering** -  Asset Hub extends beyond the traditional single-metric gas model to track three distinct resources:
+
+    - `ref_time` (computation time)
+
+        - Functions as traditional gas equivalent
+        - Measures actual computational resource usage
+        - Primary metric for basic operation costs
+
+
+    - `proof_size` (verification overhead)
+
+        - Tracks state proof size required for validator verification
+        - Helps manage consensus-related resource consumption
+        - Important for cross-chain operations
+
+
+    - `storage_deposit` (state management)
+
+        - Manages blockchain state growth
+        - Implements a deposit-based system for long-term storage
+        - Refundable when storage is freed
+
+These resources can be limited at both transaction and contract levels, similar to Ethereum's gas limits. For more information, check the [Gas Model](/polkadot-protocol/smart-contract-basics/evm-vs-polkavm#gas-model){target=\_blank} section in the [EVM vs PolkaVM](/polkadot-protocol/smart-contract-basics/evm-vs-polkavm/){target=\_blank} article.
 
 ### Fee Components
 
-1. **Base Fees**
+- **Base Fees**
 
     - Storage deposit for contract deployment
-    - Minimum transaction fee
+    - Minimum transaction fee for network access
+    - Network maintenance costs
 
-2. **Execution Fees**
+- **Execution Fees**
 
     - Computed based on gas consumption
     - Converted to native currency using network-defined rates
+    - Reflects actual computational resource usage
 
-3. **Storage Fees**
+- **Storage Fees**
 
     - Deposit for long-term storage usage
     - Refundable when storage is freed
+    - Helps prevent state bloat
+
+### Gas Calculation and Conversion
+
+The system maintains precise conversion mechanisms between:
+
+- Substrate weights and EVM gas units
+- Native currency and gas costs
+- Different resource metrics within the multi-dimensional model
+
+This ensures accurate fee calculation while maintaining compatibility with existing Ethereum tools and workflows.

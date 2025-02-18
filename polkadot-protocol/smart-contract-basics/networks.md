@@ -13,29 +13,29 @@ This guide will introduce you to the current and upcoming networks available for
 
 ## Network Overview
 
-Smart contract development on Asset Hub follows a structured process to ensure rigorous testing of new contracts and upgrades before deployment on production networks. The progression follows a well-defined path, starting from local environments and advancing through TestNets, ultimately reaching the Polkadot Asset Hub. The diagram below outlines the typical progression of the smart contract development cycle:
+Smart contract development on Asset Hub follows a structured process to ensure rigorous testing of new contracts and upgrades before deployment on production networks. Development progresses through a well-defined path, beginning with local environments, advancing through TestNets, and ultimately reaching MainNets. The diagram below illustrates this progression:
 
 ``` mermaid
 flowchart LR
-    id1[Local] --> id2[Westend Asset Hub] --> id4[Kusama Asset Hub] --> id5[Polkadot Asset Hub]
-    id1[Local] --> id3[Paseo Asset Hub] --> id5[Polkadot Asset Hub]
+    id1[Local Asset Hub] --> id2[TestNet Asset Hub] --> id4[MainNet Asset Hub]
 ```
 
-This flow ensures developers can thoroughly test and iterate their smart contracts without risking real tokens or affecting production networks. Development tools and various TestNets make it easier to experiment safely before releasing it to production.
+This progression ensures developers can thoroughly test and iterate their smart contracts without risking real tokens or affecting production networks. A typical development journey consists of three main stages:
 
-A typical journey through the smart contract development process might look like this:
+1. **Local Development**
 
-1. **Local development node** - development starts in a local environment, where developers can create, test, and iterate on smart contracts using a local development node. This stage allows rapid experimentation in an isolated setup without any external dependencies
+    - Developers start in a local environment to create, test, and iterate on smart contracts
+    - Provides rapid experimentation in an isolated setup without external dependencies
 
-2. **Westend Asset Hub** - after testing locally, contracts are deployed to Westend Asset Hub, the primary TestNet for smart contract development. It simulates real-world conditions without using real tokens, making it ideal for rigorous contract testing
+2. **TestNet Development**
 
-3. **Kusama Asset Hub** - once contracts pass extensive testing on Westend, they can be deployed to Kusama Asset Hub. This "canary" network version provides a high-fidelity testing ground with actual economic incentives
+    - Contracts move to TestNets like Westend Asset Hub and Paseo Asset Hub
+    - Enables testing in simulated real-world conditions without using real tokens
 
-4. **Polkadot Asset Hub** - after passing tests on Westend and Kusama Asset Hub, smart contracts are considered ready for deployment to Polkadot Asset Hub, the live production network
+3. **Production Deployment**
 
-In addition, developers can leverage the upcoming Paseo Asset Hub for additional testing capabilities:
-
-- **Paseo Asset Hub** - Serves as a community-run TestNet that mirrors Asset Hub's runtime. Like Westend Asset Hub for protocol development, Paseo provides a testing ground for smart contract development without affecting live networks
+    - Final deployment to MainNets like Kusama Asset Hub and Polkadot Asset Hub
+    - Represents the live environment where contracts interact with real economic value
 
 ## Local Development
 
@@ -46,17 +46,31 @@ The local development environment is crucial for smart contract development on A
 
 ## Test Networks
 
-The following test networks provide controlled environments for testing smart contracts. TestNet tokens are available from the [Polkadot faucet](https://faucet.polkadot.io/){target=\_blank}.
+The following test networks provide controlled environments for testing smart contracts. TestNet tokens are available from the [Polkadot faucet](https://faucet.polkadot.io/){target=\_blank}. They provide a stable environment for testing your contracts without using real tokens.
 
-### Westend Asset Hub
-
-Westend Asset Hub is the primary permanent TestNet for smart contract development. It provides a stable environment for testing contracts without using real tokens. The network maintains the same features and capabilities as the production Asset Hub, making it an ideal environment for thorough testing before moving to production networks.
+``` mermaid
+flowchart TB
+    id1[Asset Hub TestNets] --> id2[Paseo Asset Hub]
+    id1[Asset Hub TestNets] --> id3[Westend Asset Hub]
+```
 
 ### Paseo Asset Hub
 
-The upcoming Paseo Asset Hub will be a community-managed TestNet designed specifically for smart contract development. It will mirror Asset Hub's runtime and provide developers with an additional environment for testing their contracts before deployment to production networks.
+The Paseo Asset Hub will be a community-managed TestNet designed specifically for smart contract development. It will mirror Asset Hub's runtime and provide developers with an additional environment for testing their contracts before deployment to production networks.
+
+### Westend Asset Hub
+
+Westend Asset Hub is the TestNet for smart contract development and its cutting-edge features. The network maintains the same features and capabilities as the production Asset Hub, and also incorporates the latest features developed by core developers.
 
 ## Production Networks
+
+The MainNet environments represent the final destination for thoroughly tested and validated smart contracts, where they operate with real economic value and serve actual users.
+
+``` mermaid
+flowchart TB
+    id1[Asset Hub MainNets] --> id2[Polkadot Asset Hub]
+    id1[Asset Hub MainNets] --> id3[Kusama Asset Hub]
+```
 
 ### Polkadot Asset Hub
 

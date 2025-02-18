@@ -16,14 +16,14 @@ jobs:
 
       - name: Identify deleted and renamed files
         run: |
-          # Store deleted files
-          DELETED_FILES=$(git diff --name-status origin/master ${{ github.event.pull_request.head.sha }} | grep '^D' | cut -f2- || true)
+          # Store deleted markdown files
+          DELETED_FILES=$(git diff --name-status origin/master ${{ github.event.pull_request.head.sha }} | grep '^D.*\.md$' | cut -f2- || true)
           echo "DELETED_FILES<<EOF" >> $GITHUB_ENV
           echo "$DELETED_FILES" >> $GITHUB_ENV
           echo "EOF" >> $GITHUB_ENV
           
-          # Store renamed files
-          RENAMED_FILES=$(git diff --name-status origin/master ${{ github.event.pull_request.head.sha }} | grep '^R' | awk '{print $2 " -> " $3}' || true)
+          # Store renamed markdown files
+          RENAMED_FILES=$(git diff --name-status origin/master ${{ github.event.pull_request.head.sha }} | grep '^R.*\.md$' | awk '{print $2 " -> " $3}' || true)
           echo "RENAMED_FILES<<EOF" >> $GITHUB_ENV
           echo "$RENAMED_FILES" >> $GITHUB_ENV
           echo "EOF" >> $GITHUB_ENV
@@ -38,7 +38,7 @@ jobs:
           # Print to console for logging
           echo "Deleted files:"
           echo "$DELETED_FILES"
-          echo -e "\nRenamed files:"
+          echo -e "\nRenamed/Moved files:"
           echo "$RENAMED_FILES"
 
       - name: Post PR warning
@@ -52,17 +52,17 @@ jobs:
             const deletedFiles = `${process.env.DELETED_FILES}`.trim();
             const renamedFiles = `${process.env.RENAMED_FILES}`.trim();
             
-            let message = `⚠️ **Documentation Warning**\n\n`;
+            let message = `🔍 **Documentation URL Checker**\n\nThis PR modifies documentation files in ways that could potentially create broken links.\n\n`;
             
             if (deletedFiles) {
               message += `**Deleted files:**\n\`\`\`\n${deletedFiles}\n\`\`\`\n\n`;
             }
             
             if (renamedFiles) {
-              message += `**Renamed files:**\n\`\`\`\n${renamedFiles}\n\`\`\`\n\n`;
+              message += `**Renamed/Moved files:**\n\`\`\`\n${renamedFiles}\n\`\`\`\n\n`;
             }
             
-            message += `Please verify these changes before merging.`;
+            message += `🚨 Please review these changes carefully 🚨\n\n If not handled properly, broken links (404 errors) could appear. To maintain a smooth user experience, consider:\n- Adding redirects in the \`mkdocs.yml\` file from the old URLs to the new ones\n- Updating internal references to these files`;
             
             github.rest.issues.createComment({
               owner: repo.owner,

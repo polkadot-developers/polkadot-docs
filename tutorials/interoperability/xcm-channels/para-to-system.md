@@ -23,7 +23,7 @@ To successfully complete this process, you'll need to have the following in plac
     - An Asset Hub system chain
 - A wallet containing enough funds to cover transaction fees on each of the participating chains
 
-## Procedure for Establishing HRMP Channel
+## Procedure for Establish HRMP Channel
 
 This guide demonstrates opening an HRMP channel between parachain 2500 and system chain Asset Hub (parachain 1000) on the Rococo Local relay chain.
 
@@ -70,7 +70,7 @@ Use [Polkadot.js Apps](https://polkadot.js.org/apps/#/explorer){target=\_blank} 
     ![](/images/tutorials/interoperability/xcm-channels/para-to-system/hrmp-para-to-system-1.webp)
     The encoded call data for establishing a channel with system parachain 1000 should be `0x3c0ae8030000`
 
-### Crafting and Submitting the XCM Message
+### Craft and Submit the XCM Message
 
 Connect to parachain 2500 using Polkadot.js Apps to send the XCM message to the relay chain. Input the necessary parameters as illustrated in the image below. Make sure to:
 

@@ -24,7 +24,7 @@ Before converting assets on Asset Hub, you must ensure you have:
 - A funded wallet containing the assets you wish to convert and enough available funds to cover the transaction fees
 - An asset registered on Asset Hub that you want to convert. If you haven't created an asset on Asset Hub yet, refer to the [Register a Local Asset](/tutorials/polkadot-sdk/system-chains/asset-hub/register-local-asset/){target=\_blank} or [Register a Foreign Asset](/tutorials/polkadot-sdk/system-chains/asset-hub/register-foreign-asset/){target=\_blank} documentation to create an asset.
 
-## Creating a Liquidity Pool
+## Create a Liquidity Pool
 
 If an asset on Asset Hub does not have an existing liquidity pool, the first step is to create one.
 
@@ -93,7 +93,7 @@ Signing and submitting the transaction triggers the creation of the liquidity po
 
 As the preceding image shows, the **`lpToken`** ID created for this pool is 19. This ID is essential to identify the liquidity pool and associated LP tokens.
 
-## Adding Liquidity to a Pool
+## Add Liquidity to a Pool
 
 The `addLiquidity` extrinsic allows users to provide liquidity to a pool of two assets. Users specify their preferred amounts for both assets and minimum acceptable quantities. The function determines the best asset contribution, which may vary from the amounts desired but won't fall below the specified minimums. Providers receive liquidity tokens representing their pool portion in return for their contribution.
 
@@ -150,9 +150,9 @@ Signing and submitting the transaction adds liquidity to the pool. To verify the
 
 ![Liquidity Added Event](/images/tutorials/polkadot-sdk/system-chains/asset-hub/asset-conversion/asset-conversion-7.webp)
 
-## Swapping Assets
+## Swap Assets
 
-### Swapping From an Exact Amount of Tokens
+### Swap From an Exact Amount of Tokens
 
 The asset conversion pallet enables users to exchange a specific quantity of one asset for another in a designated liquidity pool by swapping them for an exact amount of tokens. It guarantees the user will receive at least a predetermined minimum amount of the second asset. This function increases trading predictability and allows users to conduct asset exchanges with confidence that they are assured a minimum return.
 
@@ -210,7 +210,7 @@ Signing and submitting the transaction will execute the swap. To verify executio
 
 ![Swap From Exact Tokens Event](/images/tutorials/polkadot-sdk/system-chains/asset-hub/asset-conversion/asset-conversion-10.webp)
 
-### Swapping To an Exact Amount of Tokens
+### Swap To an Exact Amount of Tokens
 
 Conversely, the Asset Conversion pallet comes with a function that allows users to trade a variable amount of one asset to acquire a precise quantity of another. It ensures that users stay within a set maximum of the initial asset to obtain the desired amount of the second asset. This provides a method to control transaction costs while achieving the intended result.
 
@@ -267,7 +267,7 @@ Signing and submitting the transaction will execute the swap. To verify executio
 
 ![Swap Tokens For Exact Tokens Event](/images/tutorials/polkadot-sdk/system-chains/asset-hub/asset-conversion/asset-conversion-13.webp)
 
-## Withdrawing Liquidity from a Pool
+## Withdraw Liquidity from a Pool
 
 The Asset Conversion pallet provides the `removeLiquidity` extrinsic to remove liquidity from a pool. This function allows users to withdraw the liquidity they offered from a pool, returning the original assets. When calling this function, users specify the number of liquidity tokens (representing their share in the pool) they wish to burn. They also set minimum acceptable amounts for the assets they expect to receive back. This mechanism ensures that users can control the minimum value they receive, protecting against unfavorable price movements during the withdrawal process.
 

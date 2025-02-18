@@ -58,9 +58,3 @@ Asset Hub implements a dual fee system combining parachain transaction fees with
 
     - Deposit for long-term storage usage
     - Refundable when storage is freed
-
-## Integration with Parachain Systems
-
-Asset Hub's smart contract system achieves seamless integration with core parachain components while maintaining EVM compatibility. This integration encompasses consensus mechanisms, block production, network message propagation, and state transitions. The system leverages the strengths of both architectures to provide a robust and efficient smart contract platform.
-
-For detailed information about these underlying systems, refer to the [parachain documentation](/polkadot-protocol/parachain-basics/blocks-transactions-fees/).

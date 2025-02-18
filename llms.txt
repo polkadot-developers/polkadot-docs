@@ -82,8 +82,6 @@ Doc-Page: https://docs.polkadot.com/infrastructure/running-a-validator/requireme
 Doc-Page: https://docs.polkadot.com/infrastructure/staking-mechanics/index
 Doc-Page: https://docs.polkadot.com/infrastructure/staking-mechanics/offenses-and-slashes
 Doc-Page: https://docs.polkadot.com/infrastructure/staking-mechanics/rewards-payout
-Doc-Page: https://docs.polkadot.com/node_modules/@taplo/cli/README
-Doc-Page: https://docs.polkadot.com/node_modules/husky/README
 Doc-Page: https://docs.polkadot.com/polkadot-protocol/architecture/index
 Doc-Page: https://docs.polkadot.com/polkadot-protocol/architecture/parachains/consensus
 Doc-Page: https://docs.polkadot.com/polkadot-protocol/architecture/parachains/index
@@ -14298,55 +14296,6 @@ flowchart TD
 ```
 
 Bob holds a smaller percentage of their node's total stake, making their stake reward smaller than Alice's. In this scenario, Bob makes up the difference by charging a 40% commission rate and ultimately ends up with the same total payment as Alice. Each validator will need to find their ideal balance between the amount of stake and commission rate to attract nominators while still making running a validator worthwhile.
---- END CONTENT ---
-
-Doc-Content: https://docs.polkadot.com/node_modules/@taplo/cli/README
---- BEGIN CONTENT ---
-This is a JavaScript wrapper for the Taplo TOML CLI tool.
-
-All the documentation and information is available on the [website](https://taplo.tamasfe.dev).
---- END CONTENT ---
-
-Doc-Content: https://docs.polkadot.com/node_modules/husky/README
---- BEGIN CONTENT ---
-# husky
-
-> Modern native Git hooks made easy
-
-Husky improves your commits and more 🐶 *woof!*
-
-# Install
-
-```
-npm install husky --save-dev
-```
-
-# Usage
-
-Edit `package.json > prepare` script and run it once:
-
-```sh
-npm pkg set scripts.prepare="husky install"
-npm run prepare
-```
-
-Add a hook:
-
-```sh
-npx husky add .husky/pre-commit "npm test"
-git add .husky/pre-commit
-```
-
-Make a commit:
-
-```sh
-git commit -m "Keep calm and commit"
-# `npm test` will run
-```
-
-# Documentation
-
-https://typicode.github.io/husky
 --- END CONTENT ---
 
 Doc-Content: https://docs.polkadot.com/polkadot-protocol/architecture/index

@@ -152,7 +152,7 @@ Signing and submitting the transaction adds liquidity to the pool. To verify the
 
 ## Swap Assets
 
-### Swap From an Exact Amount of Tokens
+### Swap from an Exact Amount of Tokens
 
 The asset conversion pallet enables users to exchange a specific quantity of one asset for another in a designated liquidity pool by swapping them for an exact amount of tokens. It guarantees the user will receive at least a predetermined minimum amount of the second asset. This function increases trading predictability and allows users to conduct asset exchanges with confidence that they are assured a minimum return.
 
@@ -210,7 +210,7 @@ Signing and submitting the transaction will execute the swap. To verify executio
 
 ![Swap From Exact Tokens Event](/images/tutorials/polkadot-sdk/system-chains/asset-hub/asset-conversion/asset-conversion-10.webp)
 
-### Swap To an Exact Amount of Tokens
+### Swap to an Exact Amount of Tokens
 
 Conversely, the Asset Conversion pallet comes with a function that allows users to trade a variable amount of one asset to acquire a precise quantity of another. It ensures that users stay within a set maximum of the initial asset to obtain the desired amount of the second asset. This provides a method to control transaction costs while achieving the intended result.
 

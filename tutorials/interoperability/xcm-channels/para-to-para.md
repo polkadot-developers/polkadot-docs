@@ -25,7 +25,7 @@ Before proceeding, ensure you meet the following requirements:
 - Blockchain network with a relay chain and at least two connected parachains
 - Wallet with sufficient funds to execute transactions on the participant chains
 
-## Procedure for Initiate HRMP Channel Setup
+## Procedure to Initiate an HRMP Channel
 
 This example will demonstrate how to open a channel between parachain 2500 and parachain 2600, using Rococo Local as the relay chain.
 
@@ -119,7 +119,7 @@ After submitting the XCM message to initiate the HRMP channel opening, you shoul
 
 If your channel request was successful, you should see an entry for your parachain ID in the list of open channel requests. This confirms that your request has been properly registered on the relay chain and is awaiting acceptance by the target parachain.
 
-## Procedure for Accept HRMP Channel
+## Procedure to Accept an HRMP Channel
 
 For the channel to be fully established, the target parachain must accept the channel request by submitting an XCM message to the relay chain.
 

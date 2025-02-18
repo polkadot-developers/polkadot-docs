@@ -23,7 +23,7 @@ To successfully complete this process, you'll need to have the following in plac
     - An Asset Hub system chain
 - A wallet containing enough funds to cover transaction fees on each of the participating chains
 
-## Procedure for Establish HRMP Channel
+## Procedure to Establish an HRMP Channel
 
 This guide demonstrates opening an HRMP channel between parachain 2500 and system chain Asset Hub (parachain 1000) on the Rococo Local relay chain.
 

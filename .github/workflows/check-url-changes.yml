@@ -1,0 +1,72 @@
+name: Check Documentation URL Changes
+
+on:
+  pull_request:
+    branches:
+      - master
+
+jobs:
+  check-url-changes:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Identify deleted and renamed files
+        run: |
+          # Store deleted files
+          DELETED_FILES=$(git diff --name-status origin/master ${{ github.event.pull_request.head.sha }} | grep '^D' | cut -f2- || true)
+          echo "DELETED_FILES<<EOF" >> $GITHUB_ENV
+          echo "$DELETED_FILES" >> $GITHUB_ENV
+          echo "EOF" >> $GITHUB_ENV
+          
+          # Store renamed files
+          RENAMED_FILES=$(git diff --name-status origin/master ${{ github.event.pull_request.head.sha }} | grep '^R' | awk '{print $2 " -> " $3}' || true)
+          echo "RENAMED_FILES<<EOF" >> $GITHUB_ENV
+          echo "$RENAMED_FILES" >> $GITHUB_ENV
+          echo "EOF" >> $GITHUB_ENV
+          
+          # Set warning flag if there are any changes
+          if [ ! -z "$DELETED_FILES" ] || [ ! -z "$RENAMED_FILES" ]; then
+            echo "warning=true" >> $GITHUB_ENV
+          else
+            echo "warning=false" >> $GITHUB_ENV
+          fi
+          
+          # Print to console for logging
+          echo "Deleted files:"
+          echo "$DELETED_FILES"
+          echo -e "\nRenamed files:"
+          echo "$RENAMED_FILES"
+
+      - name: Post PR warning
+        if: env.warning == 'true'
+        uses: actions/github-script@v7
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const issue_number = context.payload.pull_request.number;
+            const repo = context.repo;
+            const deletedFiles = `${process.env.DELETED_FILES}`.trim();
+            const renamedFiles = `${process.env.RENAMED_FILES}`.trim();
+            
+            let message = `⚠️ **Documentation Warning**\n\n`;
+            
+            if (deletedFiles) {
+              message += `**Deleted files:**\n\`\`\`\n${deletedFiles}\n\`\`\`\n\n`;
+            }
+            
+            if (renamedFiles) {
+              message += `**Renamed files:**\n\`\`\`\n${renamedFiles}\n\`\`\`\n\n`;
+            }
+            
+            message += `Please verify these changes before merging.`;
+            
+            github.rest.issues.createComment({
+              owner: repo.owner,
+              repo: repo.repo,
+              issue_number: issue_number,
+              body: message
+            });

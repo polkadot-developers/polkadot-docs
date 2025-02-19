@@ -1,25 +1,36 @@
 #!/bin/sh
 . "$(dirname "$0")/_/husky.sh"
 
-echo "Running Prettier on .snippets/code/**/*.{js,json,html}"
-npx prettier --write .snippets/code/**/*.{js,json,html}
+# Get list of staged files that match our patterns
+STAGED_JS_JSON_HTML=$(git diff --cached --name-only --diff-filter=AM | grep -E '^.snippets/code/.*\.(js|json|html)$' || true)
+STAGED_TOML=$(git diff --cached --name-only --diff-filter=AM | grep -E '^.snippets/code/.*\.toml$' || true)
 
-# Find all TOML files and normalize paths
-ALL_FILES=$(find .snippets/code/ -type f -name "*.toml" | sed 's|//|/|g')
-
-# Run Taplo if there are files to format
-if [ -n "$ALL_FILES" ]; then
-  echo "Formatting files with Taplo..."
-  echo "$ALL_FILES" | while read -r file; do
-    echo "Formatting $file"
-    npx taplo fmt "$file"
-    if [ $? -ne 0 ]; then
-      echo "Error: Taplo formatting failed."
-      exit 1
-    fi
-  done
+# Format JavaScript, JSON, and HTML files if any exist
+if [ -n "$STAGED_JS_JSON_HTML" ]; then
+    echo "Running Prettier on staged files..."
+    echo "$STAGED_JS_JSON_HTML" | while read -r file; do
+        if [ -f "$file" ]; then
+            echo "Formatting $file"
+            npx prettier --write "$file" || exit 1
+            git add "$file"
+        fi
+    done
 else
-  echo "No files to format."
+    echo "No JavaScript, JSON, or HTML files to format."
+fi
+
+# Format TOML files if any exist
+if [ -n "$STAGED_TOML" ]; then
+    echo "Formatting TOML files with Taplo..."
+    echo "$STAGED_TOML" | while read -r file; do
+        if [ -f "$file" ]; then
+            echo "Formatting $file"
+            npx taplo fmt "$file" || exit 1
+            git add "$file"
+        fi
+    done
+else
+    echo "No TOML files to format."
 fi
 
 echo "Adding formatted files back to the commit..."

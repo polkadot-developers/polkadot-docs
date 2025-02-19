@@ -3,7 +3,7 @@ title: Blocks, Transactions and Fees for Asset Hub Smart Contracts
 description: Explore how Asset Hub smart contracts handle blocks, transactions, and fees with EVM compatibility, supporting various Ethereum transaction types.
 ---
 
-# Blocks, Transactions and Fees
+# Blocks, Transactions, and Fees
 
 ## Introduction
 
@@ -11,7 +11,7 @@ Asset Hub smart contracts operate within the Polkadot ecosystem using the [`pall
 
 ## Smart Contract Blocks
 
-Smart contract blocks in Asset Hub follow the same fundamental structure as parachain blocks, inheriting all standard parachain block components. The `pallet_revive` implementation maintains this consistency while adding necessary [EVM-specific features](https://paritytech.github.io/polkadot-sdk/master/pallet_revive/evm){target=\_blank}. For detailed implementation specifics, the [Block](https://paritytech.github.io/polkadot-sdk/master/pallet_revive/evm/struct.Block.html){target=\_blank} struct in `pallet_revive` demonstrates how parachain and smart contract block implementations align.
+Smart contract blocks in Asset Hub follow the same fundamental structure as parachain blocks, inheriting all standard parachain block components. The `pallet_revive` implementation maintains this consistency while adding necessary [EVM-specific features](https://paritytech.github.io/polkadot-sdk/master/pallet_revive/evm){target=\_blank}. For detailed implementation specifics, the [`Block`](https://paritytech.github.io/polkadot-sdk/master/pallet_revive/evm/struct.Block.html){target=\_blank} struct in `pallet_revive` demonstrates how parachain and smart contract block implementations align.
 
 ## Smart Contract Transactions
 
@@ -21,13 +21,13 @@ Asset Hub implements a sophisticated transaction system that supports various tr
 
 The system provides a fundamental [`eth_transact`](https://paritytech.github.io/polkadot-sdk/master/pallet_revive/pallet/dispatchables/fn.eth_transact.html){target=\_blank} interface for processing raw EVM transactions dispatched through Ethereum JSON-RPC APIs. This interface acts as a wrapper for Ethereum transactions, requiring an encoded signed transaction payload, though it cannot be dispatched directly. Building upon this foundation, the system supports multiple transaction formats to accommodate different use cases and optimization needs:
 
-- [**Legacy Transactions**](https://paritytech.github.io/polkadot-sdk/master/pallet_revive/evm/struct.TransactionLegacyUnsigned.html){target=\_blank} - the original Ethereum transaction format, providing basic transfer and contract interaction capabilities. These transactions use a simple pricing mechanism and are supported for backward compatibility
+- [**Legacy transactions**](https://paritytech.github.io/polkadot-sdk/master/pallet_revive/evm/struct.TransactionLegacyUnsigned.html){target=\_blank} - the original Ethereum transaction format, providing basic transfer and contract interaction capabilities. These transactions use a simple pricing mechanism and are supported for backward compatibility
 
-- [**EIP-1559 Transactions**](https://paritytech.github.io/polkadot-sdk/master/pallet_revive/evm/struct.Transaction1559Unsigned.html){target=\_blank} - an improved transaction format that introduces a more predictable fee mechanism with base fee and priority fee components. This format helps optimize gas fee estimation and network congestion management
+- [**EIP-1559 transactions**](https://paritytech.github.io/polkadot-sdk/master/pallet_revive/evm/struct.Transaction1559Unsigned.html){target=\_blank} - an improved transaction format that introduces a more predictable fee mechanism with base fee and priority fee components. This format helps optimize gas fee estimation and network congestion management
 
-- [**EIP-2930 Transactions**](https://paritytech.github.io/polkadot-sdk/master/pallet_revive/evm/struct.Transaction2930Unsigned.html){target=\_blank} - introduces access lists to optimize gas costs for contract interactions by pre-declaring accessed addresses and storage slots
+- [**EIP-2930 transactions**](https://paritytech.github.io/polkadot-sdk/master/pallet_revive/evm/struct.Transaction2930Unsigned.html){target=\_blank} - introduces access lists to optimize gas costs for contract interactions by pre-declaring accessed addresses and storage slots
 
-- [**EIP-4844 Transactions**](https://paritytech.github.io/polkadot-sdk/master/pallet_revive/evm/struct.Transaction4844Unsigned.html){target=\_blank} - implements blob-carrying transactions, designed to optimize Layer 2 scaling solutions by providing dedicated space for roll-up data
+- [**EIP-4844 transactions**](https://paritytech.github.io/polkadot-sdk/master/pallet_revive/evm/struct.Transaction4844Unsigned.html){target=\_blank} - implements blob-carrying transactions, designed to optimize Layer 2 scaling solutions by providing dedicated space for roll-up data
 
 Each transaction type can exist in both signed and unsigned states, with appropriate validation and processing mechanisms for each.
 
@@ -44,7 +44,7 @@ Gas serves as the fundamental unit for measuring computational costs, with each 
     - Better correlation between gas costs and actual resource consumption
     - Need for developers to implement flexible gas calculation rather than hardcoding values
 
-- **Multi-Dimensional resource metering** -  Asset Hub extends beyond the traditional single-metric gas model to track three distinct resources:
+- **Multi-dimensional resource metering** -  Asset Hub extends beyond the traditional single-metric gas model to track three distinct resources:
 
     - `ref_time` (computation time)
 
@@ -70,19 +70,19 @@ These resources can be limited at both transaction and contract levels, similar 
 
 ### Fee Components
 
-- **Base Fees**
+- **Base fees**
 
     - Storage deposit for contract deployment
     - Minimum transaction fee for network access
     - Network maintenance costs
 
-- **Execution Fees**
+- **Execution fees**
 
     - Computed based on gas consumption
     - Converted to native currency using network-defined rates
     - Reflects actual computational resource usage
 
-- **Storage Fees**
+- **Storage fees**
 
     - Deposit for long-term storage usage
     - Refundable when storage is freed

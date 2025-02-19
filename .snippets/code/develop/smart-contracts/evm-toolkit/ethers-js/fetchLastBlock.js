@@ -20,7 +20,7 @@ const main = async () => {
     const provider = createProvider(
       PROVIDER_RPC.rpc,
       PROVIDER_RPC.chainId,
-      PROVIDER_RPC.name,
+      PROVIDER_RPC.name
     );
     const latestBlock = await provider.getBlockNumber();
     console.log(`Latest block: ${latestBlock}`);

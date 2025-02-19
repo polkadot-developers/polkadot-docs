@@ -5,3 +5,4 @@ nav:
   - 'PolkaVM Design': polkavm-design.md
   - 'EVM vs PolkaVM': evm-vs-polkavm.md
   - 'Networks': networks.md
+  - 'Accounts': accounts.md

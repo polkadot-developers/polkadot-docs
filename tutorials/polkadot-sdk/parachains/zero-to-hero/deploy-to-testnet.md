@@ -40,7 +40,7 @@ To prepare an account, follow these steps:
 
     ![](/images/tutorials/polkadot-sdk/parachains/zero-to-hero/deploy-to-testnet/deploy-to-testnet-4.webp)
 
-    After a few seconds, you will receive 100 PAS tokens in your account.
+    After a few seconds, you will receive 5000 PAS tokens in your account.
 
 ## Reserve a Parachain Identifier
 

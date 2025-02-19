@@ -12,7 +12,7 @@ async function main() {
   ]);
 
   console.log(
-    `You are connected to chain ${chain} using ${nodeName} v${nodeVersion}`
+    `You are connected to chain ${chain} using ${nodeName} v${nodeVersion}`,
   );
 }
 

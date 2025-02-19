@@ -8452,7 +8452,7 @@ description: Explore the Asset Transfer API Reference for comprehensive details 
 
 Holds open an API connection to a specified chain within the `ApiPromise` to help construct transactions for assets and estimate fees.
 
-For a more in-depth explanation of the Asset Transfer API class structure, check the [source code](https://github.com/paritytech/asset-transfer-api/blob/f2aa50db83882f23492f975221dd5501c35a26d5/src/AssetTransferApi.ts#L106){target=\_blank}.
+For a more in-depth explanation of the Asset Transfer API class structure, check the [source code](https://github.com/paritytech/asset-transfer-api/blob/{{dependencies.asset_transfer_api.version}}/src/AssetTransferApi.ts#L121){target=\_blank}.
 
 ### Methods
 
@@ -8513,7 +8513,7 @@ public async createTransferTransaction<T extends Format>(
     ??? child "Type `Format`"
 
         ```ts
-        --8<-- 'https://raw.githubusercontent.com/paritytech/asset-transfer-api/refs/tags/v0.3.1/src/types.ts:122:122'
+        --8<-- 'https://raw.githubusercontent.com/paritytech/asset-transfer-api/refs/tags/v0.5.0/src/types.ts:132:132'
         ```
 
     ---
@@ -8564,7 +8564,7 @@ public async createTransferTransaction<T extends Format>(
     ??? child "Type `AssetTransferType`"
 
         ```ts
-        --8<-- 'https://raw.githubusercontent.com/paritytech/asset-transfer-api/refs/tags/v0.3.1/src/types.ts:480:480'
+        --8<-- 'https://raw.githubusercontent.com/paritytech/asset-transfer-api/refs/tags/v0.5.0/src/types.ts:540:540'
         ```
         
         !!! note
@@ -8586,7 +8586,7 @@ public async createTransferTransaction<T extends Format>(
     ??? child "Type `AssetTransferType`"
 
         ```ts
-        --8<-- 'https://raw.githubusercontent.com/paritytech/asset-transfer-api/refs/tags/v0.3.1/src/types.ts:480:480'
+        --8<-- 'https://raw.githubusercontent.com/paritytech/asset-transfer-api/refs/tags/v0.5.0/src/types.ts:540:540'
         ```
         
         !!! note
@@ -8635,7 +8635,7 @@ public async createTransferTransaction<T extends Format>(
     ??? child "Type `Format`"
 
         ```ts
-        --8<-- 'https://raw.githubusercontent.com/paritytech/asset-transfer-api/refs/tags/v0.3.1/src/types.ts:122:122'
+        --8<-- 'https://raw.githubusercontent.com/paritytech/asset-transfer-api/refs/tags/v0.5.0/src/types.ts:132:132'
         ```
 
     ---
@@ -8723,14 +8723,14 @@ public async createTransferTransaction<T extends Format>(
     ??? child "Type `Methods`"
 
         ```ts
-        --8<-- 'https://raw.githubusercontent.com/paritytech/asset-transfer-api/refs/tags/v0.3.1/src/types.ts:153:162'
+        --8<-- 'https://raw.githubusercontent.com/paritytech/asset-transfer-api/refs/tags/v0.5.0/src/types.ts:170:179'
         ```
 
         ??? child "Type `LocalTransferTypes`"
 
 
             ```ts
-            --8<-- 'https://raw.githubusercontent.com/paritytech/asset-transfer-api/refs/tags/v0.3.1/src/types.ts:138:148'
+            --8<-- 'https://raw.githubusercontent.com/paritytech/asset-transfer-api/refs/tags/v0.5.0/src/types.ts:148:163'
             ```
 
     ---
@@ -8742,7 +8742,7 @@ public async createTransferTransaction<T extends Format>(
     ??? child "Type `ConstructedFormat<T>`"
 
         ```ts
-        --8<-- 'https://raw.githubusercontent.com/paritytech/asset-transfer-api/refs/tags/v0.3.1/src/types.ts:127:133'
+        --8<-- 'https://raw.githubusercontent.com/paritytech/asset-transfer-api/refs/tags/v0.5.0/src/types.ts:137:143'
         ```
 
         The `ConstructedFormat` type is a conditional type that returns a specific type based on the value of the TxResult `format` field.
@@ -8854,7 +8854,7 @@ public async claimAssets<T extends Format>(
     ??? child "Type `Format`"
 
         ```ts
-        --8<-- 'https://raw.githubusercontent.com/paritytech/asset-transfer-api/refs/tags/v0.3.1/src/types.ts:122:122'
+        --8<-- 'https://raw.githubusercontent.com/paritytech/asset-transfer-api/refs/tags/v0.5.0/src/types.ts:132:132'
         ```
 
     ---
@@ -8905,7 +8905,7 @@ public async claimAssets<T extends Format>(
     ??? child "Type `AssetTransferType`"
 
         ```ts
-        --8<-- 'https://raw.githubusercontent.com/paritytech/asset-transfer-api/refs/tags/v0.3.1/src/types.ts:480:480'
+        --8<-- 'https://raw.githubusercontent.com/paritytech/asset-transfer-api/refs/tags/v0.5.0/src/types.ts:540:540'
         ```
         
         !!! note
@@ -8927,7 +8927,7 @@ public async claimAssets<T extends Format>(
     ??? child "Type `AssetTransferType`"
 
         ```ts
-        --8<-- 'https://raw.githubusercontent.com/paritytech/asset-transfer-api/refs/tags/v0.3.1/src/types.ts:480:480'
+        --8<-- 'https://raw.githubusercontent.com/paritytech/asset-transfer-api/refs/tags/v0.5.0/src/types.ts:540:540'
         ```
         
         !!! note
@@ -8976,7 +8976,7 @@ public async claimAssets<T extends Format>(
     ??? child "Type `Format`"
 
         ```ts
-        --8<-- 'https://raw.githubusercontent.com/paritytech/asset-transfer-api/refs/tags/v0.3.1/src/types.ts:122:122'
+        --8<-- 'https://raw.githubusercontent.com/paritytech/asset-transfer-api/refs/tags/v0.5.0/src/types.ts:132:132'
         ```
 
     ---
@@ -9064,14 +9064,14 @@ public async claimAssets<T extends Format>(
     ??? child "Type `Methods`"
 
         ```ts
-        --8<-- 'https://raw.githubusercontent.com/paritytech/asset-transfer-api/refs/tags/v0.3.1/src/types.ts:153:162'
+        --8<-- 'https://raw.githubusercontent.com/paritytech/asset-transfer-api/refs/tags/v0.5.0/src/types.ts:170:179'
         ```
 
         ??? child "Type `LocalTransferTypes`"
 
 
             ```ts
-            --8<-- 'https://raw.githubusercontent.com/paritytech/asset-transfer-api/refs/tags/v0.3.1/src/types.ts:138:148'
+            --8<-- 'https://raw.githubusercontent.com/paritytech/asset-transfer-api/refs/tags/v0.5.0/src/types.ts:148:163'
             ```
 
     ---
@@ -9083,7 +9083,7 @@ public async claimAssets<T extends Format>(
     ??? child "Type `ConstructedFormat<T>`"
 
         ```ts
-        --8<-- 'https://raw.githubusercontent.com/paritytech/asset-transfer-api/refs/tags/v0.3.1/src/types.ts:127:133'
+        --8<-- 'https://raw.githubusercontent.com/paritytech/asset-transfer-api/refs/tags/v0.5.0/src/types.ts:137:143'
         ```
 
         The `ConstructedFormat` type is a conditional type that returns a specific type based on the value of the TxResult `format` field.
@@ -9253,10 +9253,10 @@ public async fetchFeeInfo<T extends Format>(
         export type ConstructedFormat<T> = T extends 'payload'
 	? GenericExtrinsicPayload
 	: T extends 'call'
-	  ? `0x${string}`
-	  : T extends 'submittable'
-	    ? SubmittableExtrinsic<'promise', ISubmittableResult>
-	    : never;
+		? `0x${string}`
+		: T extends 'submittable'
+			? SubmittableExtrinsic<'promise', ISubmittableResult>
+			: never;
         ```
 
         The `ConstructedFormat` type is a conditional type that returns a specific type based on the value of the TxResult `format` field.

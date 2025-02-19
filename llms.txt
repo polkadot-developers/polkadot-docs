@@ -17307,7 +17307,7 @@ description: Learn how Polkadot SDK-based nodes function, how the client and run
 
 ## Introduction
 
-Every blockchain platform relies on a decentralized network of computers—called nodes—that communicate with each other about transactions and blocks. In this context, a node refers to the software running on the connected devices rather than the physical or virtual machines in the network.
+Every blockchain platform relies on a decentralized network of computers, called nodes, that communicate with each other about transactions and blocks. In this context, a node refers to the software running on the connected devices rather than the physical or virtual machines in the network.
 
 Polkadot SDK-based nodes consist of two main components, each with distinct responsibilities: the client (also called node) and the runtime.
 
@@ -17351,7 +17351,7 @@ The node, also known as the client, is the core component responsible for execut
 
 ## Runtime
 
-The runtime is more than just a set of rules—it's the fundamental logic engine that defines a blockchain's entire behavior. In Polkadot SDK-based blockchains, the runtime represents a complete, self-contained description of the blockchain's state transition function.
+The runtime is more than just a set of rules. It's the fundamental logic engine that defines a blockchain's entire behavior. In Polkadot SDK-based blockchains, the runtime represents a complete, self-contained description of the blockchain's state transition function.
 
 ### Characteristics
 
@@ -17387,7 +17387,7 @@ The Runtime API consists of well-defined functions and constants a client assume
 
 ### Host Functions
 
-While executing, the runtime can access certain external functionalities of the client via host functions. These are specific functions that the client exposes to allow the runtime to perform operations outside the WebAssembly domain. Host functions enable the runtime to:
+During execution, the runtime can access certain external client functionalities via host functions. The specific functions the client exposes allow the runtime to perform operations outside the WebAssembly domain. Host functions enable the runtime to:
 
 - Perform cryptographic operations
 - Access the current blockchain state

@@ -25,7 +25,7 @@ Before proceeding, ensure you meet the following requirements:
 - Blockchain network with a relay chain and at least two connected parachains
 - Wallet with sufficient funds to execute transactions on the participant chains
 
-## Procedure for Initiating HRMP Channel Setup
+## Procedure to Initiate an HRMP Channel
 
 This example will demonstrate how to open a channel between parachain 2500 and parachain 2600, using Rococo Local as the relay chain.
 
@@ -73,7 +73,7 @@ Use [Polkadot.js Apps](https://polkadot.js.org/apps/#/explorer){target=\_blank} 
     ![](/images/tutorials/interoperability/xcm-channels/para-to-para/hrmp-para-to-para-2.webp)
     The encoded call data for opening a channel with parachain 2600 is `0x3c00280a00000800000000001000`.
 
-### Crafting and Submitting the XCM Message from the Sender
+### Craft and Submit the XCM Message from the Sender
 
 To initiate the HRMP channel opening process, you need to create an XCM message that includes the encoded `hrmpInitOpenChannel` call data from the previous step. This message will be sent from your parachain to the relay chain.
 
@@ -119,7 +119,7 @@ After submitting the XCM message to initiate the HRMP channel opening, you shoul
 
 If your channel request was successful, you should see an entry for your parachain ID in the list of open channel requests. This confirms that your request has been properly registered on the relay chain and is awaiting acceptance by the target parachain.
 
-## Procedure for Accepting HRMP Channel
+## Procedure to Accept an HRMP Channel
 
 For the channel to be fully established, the target parachain must accept the channel request by submitting an XCM message to the relay chain.
 
@@ -144,9 +144,9 @@ To fund the account, follow the same process described in the previous section, 
     ![](/images/tutorials/interoperability/xcm-channels/para-to-para/hrmp-para-to-para-5.webp)
     The encoded call data for accepting a channel with parachain 2500 should be `0x3c01c4090000`
 
-### Crafting and Submitting the XCM Message from the Receiver
+### Craft and Submit the XCM Message from the Receiver
 
-To accept the HRMP channel opening, you need to create and submit an XCM message that includes the encoded `hrmpAcceptOpenChannel` call data from the previous step. This process is similar to the one described in the previous section, [Crafting and Submitting the XCM Message](#crafting-and-submitting-the-xcm-message-from-the-sender), with a few key differences:
+To accept the HRMP channel opening, you need to create and submit an XCM message that includes the encoded `hrmpAcceptOpenChannel` call data from the previous step. This process is similar to the one described in the previous section, [Craft and Submit the XCM Message](#craft-and-submit-the-xcm-message-from-the-sender), with a few key differences:
 
 - Use the encoded call data for `hrmpAcceptOpenChannel` obtained in Step 2 of this section
 - In the last XCM instruction (DepositAsset), set the beneficiary to parachain 2600's sovereign account to receive any surplus funds

@@ -18081,7 +18081,7 @@ Before proceeding, ensure you meet the following requirements:
 - Blockchain network with a relay chain and at least two connected parachains
 - Wallet with sufficient funds to execute transactions on the participant chains
 
-## Procedure for Initiating HRMP Channel Setup
+## Procedure to Initiate an HRMP Channel
 
 This example will demonstrate how to open a channel between parachain 2500 and parachain 2600, using Rococo Local as the relay chain.
 
@@ -18129,7 +18129,7 @@ Use [Polkadot.js Apps](https://polkadot.js.org/apps/#/explorer){target=\_blank} 
     ![](/images/tutorials/interoperability/xcm-channels/para-to-para/hrmp-para-to-para-2.webp)
     The encoded call data for opening a channel with parachain 2600 is `0x3c00280a00000800000000001000`.
 
-### Crafting and Submitting the XCM Message from the Sender
+### Craft and Submit the XCM Message from the Sender
 
 To initiate the HRMP channel opening process, you need to create an XCM message that includes the encoded `hrmpInitOpenChannel` call data from the previous step. This message will be sent from your parachain to the relay chain.
 
@@ -18175,7 +18175,7 @@ After submitting the XCM message to initiate the HRMP channel opening, you shoul
 
 If your channel request was successful, you should see an entry for your parachain ID in the list of open channel requests. This confirms that your request has been properly registered on the relay chain and is awaiting acceptance by the target parachain.
 
-## Procedure for Accepting HRMP Channel
+## Procedure to Accept an HRMP Channel
 
 For the channel to be fully established, the target parachain must accept the channel request by submitting an XCM message to the relay chain.
 
@@ -18200,9 +18200,9 @@ To fund the account, follow the same process described in the previous section, 
     ![](/images/tutorials/interoperability/xcm-channels/para-to-para/hrmp-para-to-para-5.webp)
     The encoded call data for accepting a channel with parachain 2500 should be `0x3c01c4090000`
 
-### Crafting and Submitting the XCM Message from the Receiver
+### Craft and Submit the XCM Message from the Receiver
 
-To accept the HRMP channel opening, you need to create and submit an XCM message that includes the encoded `hrmpAcceptOpenChannel` call data from the previous step. This process is similar to the one described in the previous section, [Crafting and Submitting the XCM Message](#crafting-and-submitting-the-xcm-message-from-the-sender), with a few key differences:
+To accept the HRMP channel opening, you need to create and submit an XCM message that includes the encoded `hrmpAcceptOpenChannel` call data from the previous step. This process is similar to the one described in the previous section, [Craft and Submit the XCM Message](#craft-and-submit-the-xcm-message-from-the-sender), with a few key differences:
 
 - Use the encoded call data for `hrmpAcceptOpenChannel` obtained in Step 2 of this section
 - In the last XCM instruction (DepositAsset), set the beneficiary to parachain 2600's sovereign account to receive any surplus funds
@@ -18264,7 +18264,7 @@ To successfully complete this process, you'll need to have the following in plac
     - An Asset Hub system chain
 - A wallet containing enough funds to cover transaction fees on each of the participating chains
 
-## Procedure for Establishing HRMP Channel
+## Procedure to Establish an HRMP Channel
 
 This guide demonstrates opening an HRMP channel between parachain 2500 and system chain Asset Hub (parachain 1000) on the Rococo Local relay chain.
 
@@ -18311,7 +18311,7 @@ Use [Polkadot.js Apps](https://polkadot.js.org/apps/#/explorer){target=\_blank} 
     ![](/images/tutorials/interoperability/xcm-channels/para-to-system/hrmp-para-to-system-1.webp)
     The encoded call data for establishing a channel with system parachain 1000 should be `0x3c0ae8030000`
 
-### Crafting and Submitting the XCM Message
+### Craft and Submit the XCM Message
 
 Connect to parachain 2500 using Polkadot.js Apps to send the XCM message to the relay chain. Input the necessary parameters as illustrated in the image below. Make sure to:
 
@@ -18424,7 +18424,7 @@ After executing this command, the relay chain and parachain will expose the foll
 
 You can perform the reserve-backed transfer using either the [Polkadot.js Apps interface](#using-polkadotjs-apps) or the [Polkadot API](#using-papi), depending on your preference. Both methods provide the same functionality to facilitate asset transfers between the relay chain and parachain.
 
-## Using Polkadot.js Apps
+## Use Polkadot.js Apps
 
 Open two browser tabs and can connect these endpoints using the [Polkadot.js Apps](https://polkadot.js.org/apps/){target=\_blank} interface:
 
@@ -18485,7 +18485,7 @@ After submitting the transaction from the relay chain, confirm its success by ch
 
 ![](/images/tutorials/interoperability/xcm-transfers/from-relaychain-to-parachain/from-relaychain-to-parachain-07.webp)
 
-## Using PAPI
+## Use PAPI
 
 To programmatically execute the reserve-backed asset transfer between the relay chain and the parachain, you can use [Polkadot API (PAPI)](/develop/toolkit/api-libraries/papi/){target=\_blank}. PAPI is a robust toolkit that simplifies interactions with Polkadot-based chains. For this project, you'll first need to set up your environment, install necessary dependencies, and create a script to handle the transfer process.
 
@@ -18712,7 +18712,7 @@ Before proceeding, ensure the following prerequisites are met:
     - [Polkadot.js](/develop/toolkit/api-libraries/polkadot-js-api){target=\_blank} 
     - [OpenGov](/polkadot-protocol/onchain-governance/overview){target=\_blank}
 
-## Setting Up the Project
+## Set Up the Project
 
 Before testing OpenGov proposals, you need to set up your development environment. 
 You'll set up a TypeScript project and install the required dependencies to simulate and evaluate proposals. You'll use Chopsticks to fork the Polkadot network and simulate the proposal lifecycle, while Polkadot.js will be your interface for interacting with the forked network and submitting proposals.
@@ -18761,7 +18761,7 @@ Follow these steps to set up your project:
 }
     ```
 
-## Submitting and Executing a Proposal Using Chopsticks
+## Submit and Execute a Proposal Using Chopsticks
 
 You should identify the right track and origin for your proposal. For example, select the appropriate treasury track based on the spending limits if you're requesting funds from the treasury. For more detailed information, refer to [Polkadot OpenGov Origins](https://wiki.polkadot.network/docs/learn-polkadot-opengov-origins){target=\_blank}.
 
@@ -21195,7 +21195,7 @@ try {
 // --8<-- [end:try-catch-block]
 ```
 
-## Executing the Proposal Script
+## Execute the Proposal Script
 
 To run the proposal execution script, use the following command in your terminal:
 
@@ -24822,7 +24822,7 @@ Before proceeding, you should have the following items:
 
 Once the above is complete, obtaining coretime is the last step to enable your parachain to start producing and finalizing blocks using the relay chain's validator set. If you don't, refer to the previous tutorial: [Deploy on Paseo TestNet](/tutorials/polkadot-sdk/parachains/zero-to-hero/deploy-to-testnet/){target=\_blank}.
 
-## Purchasing Bulk Coretime
+## Purchase Bulk Coretime
 
 Purchasing bulk coretime involves purchasing a core from the [Coretime Chain](/polkadot-protocol/architecture/system-chains/coretime/){target=\_blank}, which has an instance of [`pallet_broker`](https://paritytech.github.io/polkadot-sdk/master/pallet_broker/index.html){target=\_blank} (the Broker pallet). Although this can be done via sending extrinsics through a tool like Polkadot.js Apps, there are user interfaces for purchasing and managing bulk coretime:
 
@@ -24832,7 +24832,7 @@ Purchasing bulk coretime involves purchasing a core from the [Coretime Chain](/p
 !!!tip
     Obtaining a core for bulk coretime on Paseo follows a different process from Polkadot or Kusama. To apply for a core on Paseo, visit their guide for doing so: [PAS-10 Onboard Paras Coretime](https://github.com/paseo-network/paseo-action-submission/blob/main/pas/PAS-10-Onboard-paras-coretime.md#summary){target=\_blank}. 
 
-### Getting Coretime Funds
+### Get Coretime Funds
 
 First, ensure your wallet is connected to the [RegionX](https://app.regionx.tech){target=\_blank} interface. To do so, go to **Home** in the RegionX app and click the **Connect Wallet** button in the upper right.
 
@@ -24846,7 +24846,7 @@ If successful, you should see the balance in the upper right of the **Transfer**
 
 ![](/images/tutorials/polkadot-sdk/parachains/zero-to-hero/obtain-coretime/obtain-coretime-2.webp)
 
-### Purchasing a Core
+### Purchase a Core
 
 For this tutorial, we will use [RegionX](https://app.regionx.tech){target=\_blank}. Once you open the app, you should be presented with the following screen:
 
@@ -24868,7 +24868,7 @@ Once the transaction is confirmed, click [**My Regions**](https://app.regionx.te
 
 Congratulations, you just purchased a core using RegionX! You can assign the core to your parachain, partition, interlace, and more using RegionX.
 
-### Assigning a Core
+### Assign a Core
 
 Once you have the core as shown in the dashboard, select it by clicking on it, then click the **Assign** option on the left-hand side. You will be presented with a modal in which you can add a new task.
 
@@ -24882,7 +24882,7 @@ You may now select a task from the list. You must also set the core's finality, 
 
 Once you sign and send this transaction, that task/parachain will be assigned to that core.
 
-## Ordering On Demand Coretime
+## Order On Demand Coretime
 
 On Polkadot.js Apps, make sure you're connected to the relay chain, then navigate to [**Developer > Extrinsics**](https://polkadot.js.org/apps/#/extrinsics){target=\_blank} and issue the `onDemand.placeOrderAllowDeath` extrinsic from the account that registered the `ParaID` by specifying sufficient `maxAmount` for the transaction to go through successfully.
 
@@ -25790,7 +25790,7 @@ fn increment_handles_overflow() {
 }
 ```
 
-### Verifying State Changes
+### Verify State Changes
 
 Test that pallet operations modify the internal state correctly and maintain expected storage values across different interactions.
 
@@ -26003,7 +26003,7 @@ fn user_interactions_overflow() {
 }
     ```
 
-## Running Tests
+## Run the Tests
 
 Execute the test suite for your custom pallet using Cargo's test command. This will run all defined test cases and provide detailed output about the test results.
 
@@ -26283,7 +26283,7 @@ Before converting assets on Asset Hub, you must ensure you have:
 - A funded wallet containing the assets you wish to convert and enough available funds to cover the transaction fees
 - An asset registered on Asset Hub that you want to convert. If you haven't created an asset on Asset Hub yet, refer to the [Register a Local Asset](/tutorials/polkadot-sdk/system-chains/asset-hub/register-local-asset/){target=\_blank} or [Register a Foreign Asset](/tutorials/polkadot-sdk/system-chains/asset-hub/register-foreign-asset/){target=\_blank} documentation to create an asset.
 
-## Creating a Liquidity Pool
+## Create a Liquidity Pool
 
 If an asset on Asset Hub does not have an existing liquidity pool, the first step is to create one.
 
@@ -26352,7 +26352,7 @@ Signing and submitting the transaction triggers the creation of the liquidity po
 
 As the preceding image shows, the **`lpToken`** ID created for this pool is 19. This ID is essential to identify the liquidity pool and associated LP tokens.
 
-## Adding Liquidity to a Pool
+## Add Liquidity to a Pool
 
 The `addLiquidity` extrinsic allows users to provide liquidity to a pool of two assets. Users specify their preferred amounts for both assets and minimum acceptable quantities. The function determines the best asset contribution, which may vary from the amounts desired but won't fall below the specified minimums. Providers receive liquidity tokens representing their pool portion in return for their contribution.
 
@@ -26409,9 +26409,9 @@ Signing and submitting the transaction adds liquidity to the pool. To verify the
 
 ![Liquidity Added Event](/images/tutorials/polkadot-sdk/system-chains/asset-hub/asset-conversion/asset-conversion-7.webp)
 
-## Swapping Assets
+## Swap Assets
 
-### Swapping From an Exact Amount of Tokens
+### Swap from an Exact Amount of Tokens
 
 The asset conversion pallet enables users to exchange a specific quantity of one asset for another in a designated liquidity pool by swapping them for an exact amount of tokens. It guarantees the user will receive at least a predetermined minimum amount of the second asset. This function increases trading predictability and allows users to conduct asset exchanges with confidence that they are assured a minimum return.
 
@@ -26469,7 +26469,7 @@ Signing and submitting the transaction will execute the swap. To verify executio
 
 ![Swap From Exact Tokens Event](/images/tutorials/polkadot-sdk/system-chains/asset-hub/asset-conversion/asset-conversion-10.webp)
 
-### Swapping To an Exact Amount of Tokens
+### Swap to an Exact Amount of Tokens
 
 Conversely, the Asset Conversion pallet comes with a function that allows users to trade a variable amount of one asset to acquire a precise quantity of another. It ensures that users stay within a set maximum of the initial asset to obtain the desired amount of the second asset. This provides a method to control transaction costs while achieving the intended result.
 
@@ -26526,7 +26526,7 @@ Signing and submitting the transaction will execute the swap. To verify executio
 
 ![Swap Tokens For Exact Tokens Event](/images/tutorials/polkadot-sdk/system-chains/asset-hub/asset-conversion/asset-conversion-13.webp)
 
-## Withdrawing Liquidity from a Pool
+## Withdraw Liquidity from a Pool
 
 The Asset Conversion pallet provides the `removeLiquidity` extrinsic to remove liquidity from a pool. This function allows users to withdraw the liquidity they offered from a pool, returning the original assets. When calling this function, users specify the number of liquidity tokens (representing their share in the pool) they wish to burn. They also set minimum acceptable amounts for the assets they expect to receive back. This mechanism ensures that users can control the minimum value they receive, protecting against unfavorable price movements during the withdrawal process.
 

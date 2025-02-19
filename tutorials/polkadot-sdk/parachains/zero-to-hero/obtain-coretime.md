@@ -30,7 +30,7 @@ Before proceeding, you should have the following items:
 
 Once the above is complete, obtaining coretime is the last step to enable your parachain to start producing and finalizing blocks using the relay chain's validator set. If you don't, refer to the previous tutorial: [Deploy on Paseo TestNet](/tutorials/polkadot-sdk/parachains/zero-to-hero/deploy-to-testnet/){target=\_blank}.
 
-## Purchasing Bulk Coretime
+## Purchase Bulk Coretime
 
 Purchasing bulk coretime involves purchasing a core from the [Coretime Chain](/polkadot-protocol/architecture/system-chains/coretime/){target=\_blank}, which has an instance of [`pallet_broker`](https://paritytech.github.io/polkadot-sdk/master/pallet_broker/index.html){target=\_blank} (the Broker pallet). Although this can be done via sending extrinsics through a tool like Polkadot.js Apps, there are user interfaces for purchasing and managing bulk coretime:
 
@@ -40,7 +40,7 @@ Purchasing bulk coretime involves purchasing a core from the [Coretime Chain](/p
 !!!tip
     Obtaining a core for bulk coretime on Paseo follows a different process from Polkadot or Kusama. To apply for a core on Paseo, visit their guide for doing so: [PAS-10 Onboard Paras Coretime](https://github.com/paseo-network/paseo-action-submission/blob/main/pas/PAS-10-Onboard-paras-coretime.md#summary){target=\_blank}. 
 
-### Getting Coretime Funds
+### Get Coretime Funds
 
 First, ensure your wallet is connected to the [RegionX](https://app.regionx.tech){target=\_blank} interface. To do so, go to **Home** in the RegionX app and click the **Connect Wallet** button in the upper right.
 
@@ -54,7 +54,7 @@ If successful, you should see the balance in the upper right of the **Transfer**
 
 ![](/images/tutorials/polkadot-sdk/parachains/zero-to-hero/obtain-coretime/obtain-coretime-2.webp)
 
-### Purchasing a Core
+### Purchase a Core
 
 For this tutorial, we will use [RegionX](https://app.regionx.tech){target=\_blank}. Once you open the app, you should be presented with the following screen:
 
@@ -76,7 +76,7 @@ Once the transaction is confirmed, click [**My Regions**](https://app.regionx.te
 
 Congratulations, you just purchased a core using RegionX! You can assign the core to your parachain, partition, interlace, and more using RegionX.
 
-### Assigning a Core
+### Assign a Core
 
 Once you have the core as shown in the dashboard, select it by clicking on it, then click the **Assign** option on the left-hand side. You will be presented with a modal in which you can add a new task.
 
@@ -90,7 +90,7 @@ You may now select a task from the list. You must also set the core's finality, 
 
 Once you sign and send this transaction, that task/parachain will be assigned to that core.
 
-## Ordering On Demand Coretime
+## Order On Demand Coretime
 
 On Polkadot.js Apps, make sure you're connected to the relay chain, then navigate to [**Developer > Extrinsics**](https://polkadot.js.org/apps/#/extrinsics){target=\_blank} and issue the `onDemand.placeOrderAllowDeath` extrinsic from the account that registered the `ParaID` by specifying sufficient `maxAmount` for the transaction to go through successfully.
 

@@ -152,7 +152,7 @@ npm run interact
 
 Now that you have the foundation for using Viem with Asset Hub, consider exploring:
 
-- **Advanced Viem features** - such as multi call, batch transactions, and custom actions
+- **Advanced Viem features** - such as [multi call](https://viem.sh/docs/contract/multicall#multicall){target=\_blank}, [batch transactions](https://viem.sh/docs/clients/transports/http#batch-json-rpc){target=\_blank}, and [custom actions](https://viem.sh/docs/clients/custom#extending-with-actions-or-configuration){target=\_blank}
 - **Test frameworks** - integrate with tools like [Hardhat](https://hardhat.org/){target=\_blank} or [Foundry](https://book.getfoundry.sh/){target=\_blank} for comprehensive testing
 - **Event handling** - subscribe to and process contract events
 - **Building dApps** - combine Viem with frameworks like [`Next.js`](https://nextjs.org/docs){target=\_blank} or [`Node.js`](https://nodejs.org/en){target=\_blank} for full-stack applications

@@ -1,13 +1,13 @@
 ---
-title: Viem
-description: TODO
+title: Viem for Asset Hub Smart Contracts
+description: Viem is a TypeScript library for interacting with EVM-compatible chains. This guide covers using Viem to deploy and interact with smart contracts on Asset Hub.
 ---
 
 # Viem
 
 ## Introduction
 
-Viem is a lightweight TypeScript library for interacting with Ethereum Virtual Machine (EVM)-compatible blockchains. This guide demonstrates how to use Viem to interact with and deploy smart contracts to Asset Hub.
+[Viem](https://viem.sh/){target=\_blank} is a lightweight TypeScript library designed for interacting with EVM-compatible blockchains. This comprehensive guide will walk you through using Viem to interact with and deploy smart contracts to Asset Hub.
 
 ## Set Up the Project
 
@@ -21,7 +21,7 @@ npm init -y
 
 ## Install Dependencies
 
-Install Viem and other required dependencies:
+Install Viem along with other necessary dependencies:
 
 ```bash
 # Install Viem and Revive
@@ -33,27 +33,26 @@ npm install --save-dev typescript ts-node @types/node
 
 ## Init Project
 
-Init TypeScript project
+Init a TypeScript project by running the following command:
 
 ```bash
 npx tsc --init
 ```
 
-Update the `package.json` file to add scripts for running TypeScript files:
+Add the following scripts to your `package.json` file to enable running TypeScript files:
 
 ```json
 {
   "scripts": {
-    "compile": "tsc",
-    "start": "ts-node",
-    "build": "tsc -p tsconfig.json",
+    "client": "ts-node src/createClient.ts",
+    "compile": "ts-node src/compile.ts",
     "deploy": "ts-node src/deploy.ts",
     "interact": "ts-node src/interact.ts"
-  }
+  },
 }
 ```
 
-Create a `src` directory for your TypeScript files:
+Create a directory for your TypeScript source files:
 
 ```bash
 mkdir src
@@ -61,333 +60,99 @@ mkdir src
 
 ## Set Up the Viem Client
 
-Create `src/createClient.ts`:
+To interact with the chain, you need to instantiate a client. To do so, create a new file at `src/createClient.ts`:
 
-```typescript
-import { createPublicClient, createWalletClient, http } from 'viem'
-import { privateKeyToAccount } from 'viem/accounts'
+```typescript title="createClient.ts"
+--8<-- 'code/develop/smart-contracts/libraries/viem/createClient.ts'
+```
 
-const transport = http('https://westend-asset-hub-eth-rpc.polkadot.io')
+Ensure to replace `INSERT_RPC_URL`, `INSERT_CHAIN_ID`, `INSERT_CHAIN_NAME`, `INSERT_NETWORK_NAME`, `INSERT_CHAIN_DECIMALS`, `INSERT_CURRENCY_NAME`, and `INSERT_CURRENCY_SYMBOL` with the proper values.
 
-// Configure the Asset Hub chain
-const assetHub = {
-  id: 420420421,
-  name: 'Westend Asset Hub',
-  network: 'westend-asset-hub',
-  nativeCurrency: {
-    decimals: 18,
-    name: 'WND',
-    symbol: 'WND',
-  },
-  rpcUrls: {
-    default: {
-      http: ['https://westend-asset-hub-eth-rpc.polkadot.io'],
-    },
-  },
-} as const
+After setting up the [Public Client](https://viem.sh/docs/clients/public#public-client){target=\_blank}, you can begin querying the blockchain. Here's an example of fetching the latest block number:
 
-// Create a public client for reading data
-export const publicClient = createPublicClient({
-  chain: assetHub,
-  transport
-})
 
-// Create a wallet client for writing data
-export const createWallet = (privateKey: `0x${string}`) => {
-  const account = privateKeyToAccount(privateKey)
-  return createWalletClient({
-    account,
-    chain: assetHub,
-    transport
-  })
-}
+??? code "Fetch Last Block code"
+
+    ```js title="fetchLastBlock.ts"
+    --8<-- 'code/develop/smart-contracts/libraries/viem/fetchLastBlock.ts'
+    ```
+
+## Set Up a Wallet
+
+In case you need to sign transactions, you will need to instantiate a [Wallet Client](https://viem.sh/docs/clients/wallet#wallet-client){target=\_blank} object within your project. To do so, create `src/createWallet.ts`:
+
+```typescript title="createWallet.ts"
+--8<-- 'code/develop/smart-contracts/libraries/viem/createWallet.ts'
+```
+
+Ensure to replace `INSERT_RPC_URL`, `INSERT_CHAIN_ID`, `INSERT_CHAIN_NAME`, `INSERT_NETWORK_NAME`, `INSERT_CHAIN_DECIMALS`, `INSERT_CURRENCY_NAME`, and `INSERT_CURRENCY_SYMBOL` with the proper values.
+
+## Sample Smart Contract
+
+This example demonstrates compiling a `Storage.sol` Solidity contract for deployment to Asset Hub. The contract's functionality stores a number and permits users to update it with a new value.
+
+```bash
+mkdir contracts artifacts
+```
+
+You can use the following contract to interact with the blockchain. Paste the following contract in `contracts/Storage.sol`:
+
+```solidity title="Storage.sol"
+--8<-- 'code/develop/smart-contracts/libraries/viem/Storage.sol'
 ```
 
 ## Compile Contracts
 
-Create `src/compile.ts`:
+Create a new file at `src/compile.ts` for handling contract compilation:
 
-```typescript
-import { compile } from '@parity/revive'
-import { readFileSync, writeFileSync } from 'fs'
-import { basename, join } from 'path'
-
-const compileContract = async (solidityFilePath: string, outputDir: string) => {
-  try {
-    const source = readFileSync(solidityFilePath, 'utf8')
-    const input = {
-      [basename(solidityFilePath)]: { content: source }
-    }
-
-    console.log(`Compiling contract: ${basename(solidityFilePath)}...`)
-    const output = await compile(input)
-
-    for (const contracts of Object.values(output.contracts)) {
-      for (const [name, contract] of Object.entries(contracts)) {
-        console.log(`Compiled contract: ${name}`)
-
-        // Save ABI
-        const abiPath = join(outputDir, `${name}.json`)
-        writeFileSync(abiPath, JSON.stringify(contract.abi, null, 2))
-        console.log(`ABI saved to ${abiPath}`)
-
-        // Save bytecode
-        const bytecodePath = join(outputDir, `${name}.polkavm`)
-        writeFileSync(
-          bytecodePath,
-          Buffer.from(contract.evm.bytecode.object, 'hex')
-        )
-        console.log(`Bytecode saved to ${bytecodePath}`)
-      }
-    }
-  } catch (error) {
-    console.error('Error compiling contracts:', error)
-  }
-}
-
-// Run if this file is executed directly
-if (require.main === module) {
-  compileContract('./contracts/Storage.sol', './artifacts')
-}
-
-export { compileContract }
+```typescript title="compile.ts"
+--8<-- 'code/develop/smart-contracts/libraries/viem/compile.ts'
 ```
 
-To run the compilation:
+To compile your contract:
 
 ```bash
-# Create directories
-mkdir contracts artifacts
-
-# Copy your Storage.sol contract to contracts/
-# Then run:
-npm run start src/compile.ts
+npm run compile
 ```
 
-## Deploy the Compiled Contract
+## Contract Deployment
 
-Create `src/deploy.ts`:
 
-```typescript
-import { readFileSync } from 'fs'
-import { join } from 'path'
-import { parseEther } from 'viem'
-import { publicClient, createWallet } from './createClient'
+Create a new file at `src/deploy.ts` for handling contract deployment:
 
-const deployContract = async (
-  contractName: string,
-  privateKey: `0x${string}`
-) => {
-  try {
-    console.log(`Deploying ${contractName}...`)
-
-    // Read contract artifacts
-    const abi = JSON.parse(
-      readFileSync(join(__dirname, '../artifacts', `${contractName}.json`), 'utf8')
-    )
-    const bytecode = `0x${readFileSync(
-      join(__dirname, '../artifacts', `${contractName}.polkavm`)
-    ).toString('hex')}`
-
-    // Create wallet
-    const wallet = createWallet(privateKey)
-
-    // Deploy contract
-    const hash = await wallet.deployContract({
-      abi,
-      bytecode,
-      args: [] // Add constructor arguments if needed
-    })
-
-    // Wait for deployment
-    const receipt = await publicClient.waitForTransactionReceipt({ hash })
-    const contractAddress = receipt.contractAddress
-
-    console.log(`Contract deployed at: ${contractAddress}`)
-    return contractAddress
-  } catch (error) {
-    console.error('Deployment failed:', error)
-    throw error
-  }
-}
-
-// Run if this file is executed directly
-if (require.main === module) {
-  const PRIVATE_KEY = process.env.PRIVATE_KEY as `0x${string}`
-  if (!PRIVATE_KEY) {
-    throw new Error('PRIVATE_KEY environment variable is required')
-  }
-  deployContract('Storage', PRIVATE_KEY)
-}
-
-export { deployContract }
+```typescript title="deploy.ts"
+--8<-- 'code/develop/smart-contracts/libraries/viem/deploy.ts'
 ```
+
+Ensure to replace `INSERT_PRIVATE_KEY` with the proper value.
 
 To deploy:
 
 ```bash
-# Set your private key and run
-PRIVATE_KEY=0x... npm run deploy
+npm run deploy
 ```
 
 ## Interact with the Contract
 
-Create `src/interact.ts`:
+Create a new file at `src/interact.ts` for interacting with your deployed contract:
 
-```typescript
-import { parseAbi } from 'viem'
-import { publicClient, createWallet } from './createClient'
-
-const STORAGE_ABI = parseAbi([
-  'function storedNumber() view returns (uint256)',
-  'function setNumber(uint256 _newNumber)'
-])
-
-const interactWithStorage = async (
-  contractAddress: `0x${string}`,
-  privateKey: `0x${string}`
-) => {
-  try {
-    const wallet = createWallet(privateKey)
-
-    // Read the current number
-    const currentNumber = await publicClient.readContract({
-      address: contractAddress,
-      abi: STORAGE_ABI,
-      functionName: 'storedNumber'
-    })
-    console.log('Current stored number:', currentNumber)
-
-    // Set a new number
-    const newNumber = 42n
-    const { request } = await publicClient.simulateContract({
-      address: contractAddress,
-      abi: STORAGE_ABI,
-      functionName: 'setNumber',
-      args: [newNumber],
-      account: wallet.account
-    })
-
-    const hash = await wallet.writeContract(request)
-    await publicClient.waitForTransactionReceipt({ hash })
-    console.log(`Number updated to ${newNumber}`)
-
-    // Read the updated number
-    const updatedNumber = await publicClient.readContract({
-      address: contractAddress,
-      abi: STORAGE_ABI,
-      functionName: 'storedNumber'
-    })
-    console.log('Updated stored number:', updatedNumber)
-  } catch (error) {
-    console.error('Interaction failed:', error)
-  }
-}
-
-// Run if this file is executed directly
-if (require.main === module) {
-  const CONTRACT_ADDRESS = process.env.CONTRACT_ADDRESS as `0x${string}`
-  const PRIVATE_KEY = process.env.PRIVATE_KEY as `0x${string}`
-  
-  if (!CONTRACT_ADDRESS || !PRIVATE_KEY) {
-    throw new Error('CONTRACT_ADDRESS and PRIVATE_KEY environment variables are required')
-  }
-  
-  interactWithStorage(CONTRACT_ADDRESS, PRIVATE_KEY)
-}
-
-export { interactWithStorage }
+```typescript title="interact.ts"
+--8<-- 'code/develop/smart-contracts/libraries/viem/interact.ts'
 ```
+
+Ensure to replace `INSERT_PRIVATE_KEY` and `INSERT_CONTRACT_ADDRESS` with the proper values.
 
 To interact with the contract:
 
 ```bash
-CONTRACT_ADDRESS=0x... PRIVATE_KEY=0x... npm run interact
-```
-
-## Project Structure
-
-After setting up, your project structure should look like this:
-
-```
-viem-project/
-├── src/
-│   ├── createClient.ts
-│   ├── compile.ts
-│   ├── deploy.ts
-│   └── interact.ts
-├── contracts/
-│   └── Storage.sol
-├── artifacts/
-│   ├── Storage.json
-│   └── Storage.polkavm
-├── package.json
-└── tsconfig.json
-```
-
-## Error Handling and Gas Estimation
-
-Create `src/safeInteract.ts`:
-
-```typescript
-import { BaseError } from 'viem'
-import { publicClient, createWallet } from './createClient'
-import { STORAGE_ABI } from './interact'
-
-const safeContractInteraction = async (
-  contractAddress: `0x${string}`,
-  privateKey: `0x${string}`,
-  newValue: bigint
-) => {
-  const wallet = createWallet(privateKey)
-
-  try {
-    // Simulate the transaction first
-    const { request } = await publicClient.simulateContract({
-      address: contractAddress,
-      abi: STORAGE_ABI,
-      functionName: 'setNumber',
-      args: [newValue],
-      account: wallet.account
-    })
-
-    // Estimate gas
-    const gasEstimate = await publicClient.estimateContractGas({
-      ...request,
-      account: wallet.account
-    })
-
-    // Execute with gas estimate
-    const hash = await wallet.writeContract({
-      ...request,
-      gas: gasEstimate
-    })
-
-    const receipt = await publicClient.waitForTransactionReceipt({ hash })
-    return receipt
-  } catch (error) {
-    if (error instanceof BaseError) {
-      console.error('Contract interaction failed:', error.shortMessage)
-    }
-    throw error
-  }
-}
-
-export { safeContractInteraction }
+npm run interact
 ```
 
 ## Where to Go Next
 
 Now that you have the foundation for using Viem with Asset Hub, consider exploring:
 
-- Advanced Viem features - such as multicall, batch transactions, and custom actions
-- Test frameworks - integrate with tools like Hardhat or Foundry for comprehensive testing
-- Event handling - subscribe to and process contract events
-- Building dApps - combine Viem with frameworks like Next.js or React for full-stack applications
-
-## Resources
-
-- [Viem Documentation](https://viem.sh)
-- [Asset Hub Documentation](https://contracts.polkadot.io)
-- [Polkadot Developer Resources](https://wiki.polkadot.network/docs/build-index)
-- [TypeScript Documentation](https://www.typescriptlang.org/docs/)
+- **Advanced Viem features** - such as multi call, batch transactions, and custom actions
+- **Test frameworks** - integrate with tools like [Hardhat](https://hardhat.org/){target=\_blank} or [Foundry](https://book.getfoundry.sh/){target=\_blank} for comprehensive testing
+- **Event handling** - subscribe to and process contract events
+- **Building dApps** - combine Viem with frameworks like [`Next.js`](https://nextjs.org/docs){target=\_blank} or [`Node.js`](https://nodejs.org/en){target=\_blank} for full-stack applications

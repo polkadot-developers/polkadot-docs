@@ -74,24 +74,7 @@ Let's create a simple storage contract that will:
 6. Add the getter and setter functions:
 
     ```solidity
-    contract Storage {
-        // State variable to store our number
-        uint256 private number;
-        
-        // Event to notify when the number changes
-        event NumberChanged(uint256 newNumber);
-        
-        // Function to store a new number
-        function store(uint256 newNumber) public {
-            number = newNumber;
-            emit NumberChanged(newNumber);
-        }
-        
-        // Function to retrieve the stored number
-        function retrieve() public view returns (uint256) {
-            return number;
-        }
-    }
+    --8<-- 'code/tutorials/smart-contracts/launch-your-first-project/create-contracts/Storage.sol'
     ```
 
 The complete contract should look like this:

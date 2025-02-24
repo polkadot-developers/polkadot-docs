@@ -16,13 +16,13 @@ jobs:
 
       - name: Identify deleted and renamed files
         run: |
-          # Store deleted markdown files
+          # Store deleted files
           DELETED_FILES=$(git diff --name-status origin/master ${{ github.event.pull_request.head.sha }} | grep '^D.*\.md$' | cut -f2- || true)
           echo "DELETED_FILES<<EOF" >> $GITHUB_ENV
           echo "$DELETED_FILES" >> $GITHUB_ENV
           echo "EOF" >> $GITHUB_ENV
           
-          # Store renamed markdown files
+          # Store renamed/moved files
           RENAMED_FILES=$(git diff --name-status origin/master ${{ github.event.pull_request.head.sha }} | grep '^R.*\.md$' | awk '{print $2 " -> " $3}' || true)
           echo "RENAMED_FILES<<EOF" >> $GITHUB_ENV
           echo "$RENAMED_FILES" >> $GITHUB_ENV

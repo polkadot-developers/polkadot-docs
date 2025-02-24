@@ -21,17 +21,9 @@ Before starting, make sure you have:
 
 ## Understanding Smart Contract Structure
 
-A Solidity smart contract follows a basic structure that includes:
-
-1. [SPDX license identifier](https://docs.soliditylang.org/en/v0.6.8/layout-of-source-files.html){target=\_blank}
-2. Pragma directive
-3. Contract declaration
-4. State variables
-5. Functions
-
 Let's explore these components before building the contract:
 
-- **SPDX license identifier** - a standardized way to declare the license under which your code is released. This helps with legal compliance and is required by the Solidity compiler to avoid warnings
+- [**SPDX license identifier**](https://docs.soliditylang.org/en/v0.6.8/layout-of-source-files.html){target=\_blank} - a standardized way to declare the license under which your code is released. This helps with legal compliance and is required by the Solidity compiler to avoid warnings
 - **Pragma directive** - specifies which version of Solidity compiler should be used for your contract
 - **Contract declaration** - similar to a class in object-oriented programming, it defines the boundaries of your smart contract
 - **State variables** - data stored directly in the contract that persists between function calls. These represent the contract's "state" on the blockchain

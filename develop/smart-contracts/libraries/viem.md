@@ -1,13 +1,13 @@
 ---
-title: Viem for Asset Hub Smart Contracts
-description: Viem is a TypeScript library for interacting with EVM-compatible chains. This guide covers using Viem to deploy and interact with smart contracts on Asset Hub.
+title: viem for Asset Hub Smart Contracts
+description: viem is a TypeScript library for interacting with EVM-compatible chains. This guide covers using viem to deploy and interact with smart contracts on Asset Hub.
 ---
 
-# Viem
+# viem
 
 ## Introduction
 
-[Viem](https://viem.sh/){target=\_blank} is a lightweight TypeScript library designed for interacting with EVM-compatible blockchains. This comprehensive guide will walk you through using Viem to interact with and deploy smart contracts to Asset Hub.
+[viem](https://viem.sh/){target=\_blank} is a lightweight TypeScript library designed for interacting with EVM-compatible blockchains. This comprehensive guide will walk you through using viem to interact with and deploy smart contracts to Asset Hub.
 
 ## Set Up the Project
 
@@ -21,10 +21,10 @@ npm init -y
 
 ## Install Dependencies
 
-Install Viem along with other necessary dependencies:
+Install viem along with other necessary dependencies:
 
 ```bash
-# Install Viem and Revive
+# Install viem and Revive
 npm install viem @parity/revive
 
 # Install TypeScript and development dependencies
@@ -58,7 +58,7 @@ Create a directory for your TypeScript source files:
 mkdir src
 ```
 
-## Set Up the Viem Client
+## Set Up the viem Client
 
 To interact with the chain, you need to instantiate a client. To do so, create a new file at `src/createClient.ts`:
 
@@ -148,9 +148,9 @@ npm run interact
 
 ## Where to Go Next
 
-Now that you have the foundation for using Viem with Asset Hub, consider exploring:
+Now that you have the foundation for using viem with Asset Hub, consider exploring:
 
-- **Advanced Viem features** - such as [multi call](https://viem.sh/docs/contract/multicall#multicall){target=\_blank}, [batch transactions](https://viem.sh/docs/clients/transports/http#batch-json-rpc){target=\_blank}, and [custom actions](https://viem.sh/docs/clients/custom#extending-with-actions-or-configuration){target=\_blank}
+- **Advanced viem features** - such as [multi call](https://viem.sh/docs/contract/multicall#multicall){target=\_blank}, [batch transactions](https://viem.sh/docs/clients/transports/http#batch-json-rpc){target=\_blank}, and [custom actions](https://viem.sh/docs/clients/custom#extending-with-actions-or-configuration){target=\_blank}
 - **Test frameworks** - integrate with tools like [Hardhat](https://hardhat.org/){target=\_blank} or [Foundry](https://book.getfoundry.sh/){target=\_blank} for comprehensive testing
 - **Event handling** - subscribe to and process contract events
-- **Building dApps** - combine Viem with frameworks like [`Next.js`](https://nextjs.org/docs){target=\_blank} or [`Node.js`](https://nodejs.org/en){target=\_blank} for full-stack applications
+- **Building dApps** - combine viem with frameworks like [`Next.js`](https://nextjs.org/docs){target=\_blank} or [`Node.js`](https://nodejs.org/en){target=\_blank} for full-stack applications

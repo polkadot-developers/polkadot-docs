@@ -1,11 +1,11 @@
+# Polkadot-specific input
+docs_repo = 'polkadot-docs'
+docs_url = 'https://docs.polkadot.com/'
+
 import yaml
 import os
 import re
 import requests
-
-# Polkadot-specific input
-docs_repo = 'polkadot-docs'
-docs_url = 'https://docs.polkadot.com/'
 
 # Set the base directory to the root of docs
 base_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..'))
@@ -16,7 +16,6 @@ snippet_dir = os.path.join(docs_dir, '.snippets')
 
 # Regex to find lines like: --8<-- 'code/build/applications/...' and --8<-- 'http....'
 SNIPPET_REGEX = r"--8<--\s*['\"](https?://[^'\"]+|[^'\"]+)['\"]"
-
 
 def get_all_markdown_files(directory):
     """
@@ -35,6 +34,10 @@ def get_all_markdown_files(directory):
 
         # Skip '.github'
         if '.github' in root.split(os.sep):
+            continue
+
+        # Skip 'node_modules'
+        if 'node_modules' in root.split(os.sep):
             continue
 
         for file in files:
@@ -58,7 +61,12 @@ def build_index_section(files):
 
         doc_url_path = re.sub(r'\.(md|mdx)$', '', relative_path)
         doc_url = f"{docs_url}{doc_url_path}"
-        section += f"Doc-Page: {doc_url}\n"
+
+        # Remove trailing /index from doc_url
+        if doc_url.endswith('/index'):
+            doc_url = doc_url[:-6]
+
+        section += f"Doc-Page: {doc_url}/\n"
     return section
 
 
@@ -179,13 +187,17 @@ def build_content_section(files,yaml_file):
         doc_url_path = re.sub(r'\.(md|mdx)$', '', relative_path)
         doc_url = f"{docs_url}{doc_url_path}"
 
+        # Remove trailing /index from doc_url
+        if doc_url.endswith('/index'):
+            doc_url = doc_url[:-6]
+
         with open(file, 'r', encoding='utf-8') as file_content:
             content = file_content.read()
 
         # Replace snippet placeholders
         content = replace_snippet_placeholders(content, snippet_dir, yaml_file)
 
-        section += f"Doc-Content: {doc_url}\n"
+        section += f"Doc-Content: {doc_url}/\n"
         section += "--- BEGIN CONTENT ---\n"
         section += content.strip()
         section += "\n--- END CONTENT ---\n\n"

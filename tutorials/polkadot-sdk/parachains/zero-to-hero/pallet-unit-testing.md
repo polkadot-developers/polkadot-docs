@@ -137,7 +137,7 @@ Ensure the pallet gracefully handles edge cases, such as preventing increment op
 --8<-- 'code/tutorials/polkadot-sdk/parachains/zero-to-hero/pallets/custom-pallet/src/tests.rs:98:110'
 ```
 
-### Verifying State Changes
+### Verify State Changes
 
 Test that pallet operations modify the internal state correctly and maintain expected storage values across different interactions.
 
@@ -155,7 +155,7 @@ Expand the following item to see the complete `tests.rs` implementation for the 
     --8<-- 'code/tutorials/polkadot-sdk/parachains/zero-to-hero/pallets/custom-pallet/src/tests.rs:20'
     ```
 
-## Running Tests
+## Run the Tests
 
 Execute the test suite for your custom pallet using Cargo's test command. This will run all defined test cases and provide detailed output about the test results.
 

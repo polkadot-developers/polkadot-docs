@@ -60,7 +60,7 @@ mkdir src
 
 ## Set Up the viem Client
 
-To interact with the chain, you need to instantiate a client. To do so, create a new file at `src/createClient.ts`:
+To interact with the chain, you need to create a client that is used solely for reading data. To accomplish this, create a new file at `src/createClient.ts`:
 
 ```typescript title="createClient.ts"
 --8<-- 'code/develop/smart-contracts/libraries/viem/createClient.ts'

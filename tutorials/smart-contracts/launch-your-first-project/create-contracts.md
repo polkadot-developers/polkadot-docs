@@ -15,7 +15,7 @@ This tutorial will guide you through creating a basic smart contract that can be
 
 Before starting, make sure you have:
 
-- A text editor of your choice (VS Code, Sublime Text, etc.)
+- A text editor of your choice ([VS Code](https://code.visualstudio.com/){target=\_blank}, [Sublime Text](https://www.sublimetext.com/){target=\_blank}, etc.)
 - Basic understanding of programming concepts
 - Familiarity with the Solidity programming language syntax. For further references, check the official [Solidity documentation](https://docs.soliditylang.org/en/latest/){target=\_blank}
 

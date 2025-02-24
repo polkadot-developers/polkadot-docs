@@ -117,7 +117,7 @@ This basic contract serves as a foundation for learning smart contract developme
 
     ---
 
-    Learn how to test and deploy the smart contract you created by using hardhat
+    Learn how to test and deploy the smart contract you created by using Hardhat.
 
     [:octicons-arrow-right-24: Get Started](/tutorials/smart-contracts/launch-your-first-project/test-and-deploy-with-hardhat/)
 

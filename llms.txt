@@ -140,7 +140,6 @@ Doc-Page: https://docs.polkadot.com/tutorials/polkadot-sdk/system-chains/
 Doc-Page: https://docs.polkadot.com/tutorials/polkadot-sdk/testing/fork-live-chains/
 Doc-Page: https://docs.polkadot.com/tutorials/polkadot-sdk/testing/
 Doc-Page: https://docs.polkadot.com/tutorials/polkadot-sdk/testing/spawn-basic-chain/
-Doc-Page: https://docs.polkadot.com/venv/lib/python3.12/site-packages/idna-3.10.dist-info/LICENSE/
 
 # Full content for each doc page
 
@@ -27601,40 +27600,5 @@ tail -f  /tmp/zombie-794af21178672e1ff32c612c3c7408dc_-2397036-6717MXDxcS55/alic
 ```
 
 After running this command, you will see the logs of the `alice` node in real-time, which can be useful for debugging purposes. The logs of the `bob` and `collator01` nodes can be checked similarly.
---- END CONTENT ---
-
-Doc-Content: https://docs.polkadot.com/venv/lib/python3.12/site-packages/idna-3.10.dist-info/LICENSE/
---- BEGIN CONTENT ---
-BSD 3-Clause License
-
-Copyright (c) 2013-2024, Kim Davies and contributors.
-All rights reserved.
-
-Redistribution and use in source and binary forms, with or without
-modification, are permitted provided that the following conditions are
-met:
-
-1. Redistributions of source code must retain the above copyright
-   notice, this list of conditions and the following disclaimer.
-
-2. Redistributions in binary form must reproduce the above copyright
-   notice, this list of conditions and the following disclaimer in the
-   documentation and/or other materials provided with the distribution.
-
-3. Neither the name of the copyright holder nor the names of its
-   contributors may be used to endorse or promote products derived from
-   this software without specific prior written permission.
-
-THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
-"AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
-LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
-A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT
-HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
-SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED
-TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
-PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
-LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
-NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
-SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 --- END CONTENT ---
 

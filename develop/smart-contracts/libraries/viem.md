@@ -43,12 +43,12 @@ Add the following scripts to your `package.json` file to enable running TypeScri
 
 ```json
 {
-  "scripts": {
-    "client": "ts-node src/createClient.ts",
-    "compile": "ts-node src/compile.ts",
-    "deploy": "ts-node src/deploy.ts",
-    "interact": "ts-node src/interact.ts"
-  },
+    "scripts": {
+        "client": "ts-node src/createClient.ts",
+        "compile": "ts-node src/compile.ts",
+        "deploy": "ts-node src/deploy.ts",
+        "interact": "ts-node src/interact.ts"
+    },
 }
 ```
 
@@ -69,7 +69,6 @@ To interact with the chain, you need to instantiate a client. To do so, create a
 Ensure to replace `INSERT_RPC_URL`, `INSERT_CHAIN_ID`, `INSERT_CHAIN_NAME`, `INSERT_NETWORK_NAME`, `INSERT_CHAIN_DECIMALS`, `INSERT_CURRENCY_NAME`, and `INSERT_CURRENCY_SYMBOL` with the proper values.
 
 After setting up the [Public Client](https://viem.sh/docs/clients/public#public-client){target=\_blank}, you can begin querying the blockchain. Here's an example of fetching the latest block number:
-
 
 ??? code "Fetch Last Block code"
 
@@ -101,7 +100,7 @@ You can use the following contract to interact with the blockchain. Paste the fo
 --8<-- 'code/develop/smart-contracts/libraries/viem/Storage.sol'
 ```
 
-## Compile Contracts
+## Compile the Contract
 
 Create a new file at `src/compile.ts` for handling contract compilation:
 
@@ -115,8 +114,7 @@ To compile your contract:
 npm run compile
 ```
 
-## Contract Deployment
-
+## Deploy the Contract
 
 Create a new file at `src/deploy.ts` for handling contract deployment:
 

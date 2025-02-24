@@ -58,7 +58,10 @@ To create the ERC-20 contract, you can follow the steps below:
             - **`allowance(address owner, address spender)`** - checks how many tokens an address is allowed to spend on behalf of another address
 
     !!! tip
-        Use the [OpenZeppelin Contracts Wizard](https://wizard.openzeppelin.com/){target=\_blank} to quickly generate customized smart contracts. Simply configure your contract, copy the generated code, and paste it into Polkadot Remix IDE for deployment.
+        Use the [OpenZeppelin Contracts Wizard](https://wizard.openzeppelin.com/){target=\_blank} to quickly generate customized smart contracts. Simply configure your contract, copy the generated code, and paste it into Polkadot Remix IDE for deployment. Below is an example of an ERC-20 token contract created with it:
+
+        ![](/images/tutorials/smart-contracts/deploy-erc20/deploy-erc20-14.webp)
+        
 
 ## Compile the Contract
 

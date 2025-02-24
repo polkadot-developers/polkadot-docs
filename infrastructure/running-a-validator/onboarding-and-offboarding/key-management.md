@@ -15,11 +15,11 @@ Setting up your validator's session keys is essential to associate your node wit
 
 ### Generate Session Keys
 
-There are multiple ways to create the session keys. It can be done by interacting with the Polkadot.js Apps UI, using the curl command or by using [Subkey](https://paritytech.github.io/polkadot-sdk/master/subkey/index.html){target=\_blank}.
+There are multiple ways to create the session keys. It can be done by interacting with the [Polkadot.js Apps UI](https://polkadot.js.org/apps/#/explorer){target=\_blank}, using the curl command or by using [Subkey](https://paritytech.github.io/polkadot-sdk/master/subkey/index.html){target=\_blank}.
 
 === "Polkadot.js Apps UI"
 
-    1. Ensure that you are connected to your validator node through the Polkadot.js Apps interface
+    1. Ensure that you are connected to your validator node through the [Polkadot.js Apps interface](https://polkadot.js.org/apps/#/explorer){target=\_blank}
     2. In the **Toolbox** tab, navigate to **RPC calls**
     3. Select **`author_rotateKeys`** from the drop-down menu and run the command. This will generate new session keys in your node's keystore and return the result as a hex-encoded string
     4. Copy and save this hex-encoded output for the next step
@@ -48,9 +48,7 @@ There are multiple ways to create the session keys. It can be done by interactin
 
     --8<-- 'code/infrastructure/running-a-validator/onboarding-and-offboarding/key-management/subkey-generate.html'
 
-    To properly store these keys, create a file in your keystore directory with a specific naming convention. The filename must consist of two parts: the hex string `61757261` (which represents "aura" in hex) followed by the public key without its `0x` prefix.
-
-    The name of the file must be the public key prepended with `61757261` (hex representation of aura) and without the 0x prefix, while the content of the file has to be the secret phrase.
+    To properly store these keys, create a file in your keystore directory with a specific naming convention. The filename must consist of the hex string `61757261` (which represents "aura" in hex) followed by the public key without its `0x` prefix.
 
     Using the example above, you would create a file named:
 

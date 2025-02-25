@@ -124,6 +124,9 @@ Create a new file at `src/deploy.ts` for handling contract deployment:
 
 Ensure to replace `INSERT_PRIVATE_KEY` with the proper value.
 
+!!! warning
+    Never commit or share your private key. Exposed keys can lead to immediate theft of all associated funds. Use environment variables instead.
+
 To deploy:
 
 ```bash

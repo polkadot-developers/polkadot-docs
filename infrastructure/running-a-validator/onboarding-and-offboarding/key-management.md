@@ -19,10 +19,16 @@ There are multiple ways to create the session keys. It can be done by interactin
 
 === "Polkadot.js Apps UI"
 
-    1. Ensure that you are connected to your validator node through the [Polkadot.js Apps interface](https://polkadot.js.org/apps/#/explorer){target=\_blank}
-    2. In the **Toolbox** tab, navigate to **RPC calls**
-    3. Select **`author_rotateKeys`** from the drop-down menu and run the command. This will generate new session keys in your node's keystore and return the result as a hex-encoded string
-    4. Copy and save this hex-encoded output for the next step
+    1. In Polkadot.js Apps, connect to your local node, navigate to the **Developer** dropdown, and select the **RPC Calls** option
+
+    2. Construct an `author_rotateKeys` RPC call and execute it
+
+        1. Select the **author** endpoint
+        2. Choose the **rotateKeys()** call
+        3. Click the **Submit RPC Call** button
+        4. Copy the hex-encoded public key from the response
+
+        ![](/images/infrastructure/running-a-validator/onboarding-and-offboarding/key-management/key-management-1.webp)
 
 === "Curl"
 
@@ -70,7 +76,7 @@ Now that you have generated your session keys, you must submit them to the chain
 2. Select **Set Session Key** on the bonding account you generated earlier
 3. Paste the hex-encoded session key string you generated (from either the UI or CLI) into the input field and submit the transaction
 
-![](/images/infrastructure/running-a-validator/onboarding-and-offboarding/set-up-validator/set-up-a-validator-01.webp)
+![](/images/infrastructure/running-a-validator/onboarding-and-offboarding/key-management/key-management-2.webp)
 
 Once the transaction is signed and submitted, your session keys will be registered on-chain.
 

@@ -72,7 +72,9 @@ Doc-Page: https://docs.polkadot.com/infrastructure/running-a-node/setup-full-nod
 Doc-Page: https://docs.polkadot.com/infrastructure/running-a-node/setup-secure-wss/
 Doc-Page: https://docs.polkadot.com/infrastructure/running-a-validator/
 Doc-Page: https://docs.polkadot.com/infrastructure/running-a-validator/onboarding-and-offboarding/
+Doc-Page: https://docs.polkadot.com/infrastructure/running-a-validator/onboarding-and-offboarding/key-management/
 Doc-Page: https://docs.polkadot.com/infrastructure/running-a-validator/onboarding-and-offboarding/set-up-validator/
+Doc-Page: https://docs.polkadot.com/infrastructure/running-a-validator/onboarding-and-offboarding/start-validating/
 Doc-Page: https://docs.polkadot.com/infrastructure/running-a-validator/onboarding-and-offboarding/stop-validating/
 Doc-Page: https://docs.polkadot.com/infrastructure/running-a-validator/operational-tasks/general-management/
 Doc-Page: https://docs.polkadot.com/infrastructure/running-a-validator/operational-tasks/
@@ -12369,11 +12371,168 @@ This section provides guidance on how to set up, activate, and deactivate your v
 </div>
 --- END CONTENT ---
 
+Doc-Content: https://docs.polkadot.com/infrastructure/running-a-validator/onboarding-and-offboarding/key-management/
+--- BEGIN CONTENT ---
+---
+title: Validator Key Management
+description: Learn how to generate and manage validator keys, including session keys for consensus participation and node keys for maintaining a stable network identity.
+---
+
+# Key Management
+
+## Introduction
+
+After setting up your node environment as shown in the [Setup](/infrastructure/running-a-validator/onboarding-and-offboarding/set-up-validator){target=\_blank} section, you'll need to configure multiple keys for your validator to operate properly. This includes setting up session keys, which are essential for participating in the consensus process, and configuring a node key that maintains a stable network identity. This guide walks you through the key management process, showing you how to generate, store, and register these keys.
+
+## Set Session Keys
+
+Setting up your validator's session keys is essential to associate your node with your stash account on the Polkadot network. Validators use session keys to participate in the consensus process. Your validator can only perform its role in the network by properly setting session keys which consist of several key pairs for different parts of the protocol (e.g., GRANDPA, BABE). These keys must be registered on-chain and associated with your validator node to ensure it can participate in validating blocks.
+
+### Generate Session Keys
+
+There are multiple ways to create the session keys. It can be done by interacting with the [Polkadot.js Apps UI](https://polkadot.js.org/apps/#/explorer){target=\_blank}, using the curl command or by using [Subkey](https://paritytech.github.io/polkadot-sdk/master/subkey/index.html){target=\_blank}.
+
+=== "Polkadot.js Apps UI"
+
+    1. In Polkadot.js Apps, connect to your local node, navigate to the **Developer** dropdown, and select the **RPC Calls** option
+
+    2. Construct an `author_rotateKeys` RPC call and execute it
+
+        1. Select the **author** endpoint
+        2. Choose the **rotateKeys()** call
+        3. Click the **Submit RPC Call** button
+        4. Copy the hex-encoded public key from the response
+
+        ![](/images/infrastructure/running-a-validator/onboarding-and-offboarding/key-management/key-management-1.webp)
+
+=== "Curl"
+
+    Generate session keys by running the following command on your validator node:
+
+    ``` bash
+    curl -H "Content-Type: application/json" \
+    -d '{"id":1, "jsonrpc":"2.0", "method": "author_rotateKeys", "params":[]}' \
+    http://localhost:9944
+    ```
+
+    This command will return a JSON object. The `result` key is the hex-encoded public part of the newly created session key. Save this for later use.
+    
+    ```json
+    {"jsonrpc":"2.0","result":"0xda3861a45e0197f3ca145c2c209f9126e5053fas503e459af4255cf8011d51010","id":1}
+    ```
+
+=== "Subkey"
+
+    To create a keypair for your node's session keys, use the `subkey generate` command. This generates a set of cryptographic keys that must be stored in your node's keystore directory.
+
+    When you run the command, it produces output similar to this example:
+
+    <div id="termynal" data-termynal>
+  <span data-ty="input"><span class="file-path"></span>subkey generate</span>
+  <pre>
+Secret phrase:       twist buffalo mixture excess device drastic vague mammal fitness punch match hammer
+  Network ID:        substrate
+  Secret seed:       0x5faa9e5defe42b201388d5c2b8202d6625a344abc9aa52943a71f12cb90b88a9
+  Public key (hex):  0x28cc2fdb6e28835e2bbac9a16feb65c23d448c9314ef12fe083b61bab8fc2755
+  Account ID:        0x28cc2fdb6e28835e2bbac9a16feb65c23d448c9314ef12fe083b61bab8fc2755
+  Public key (SS58): 5CzCRpXzHYhuo6G3gYFR3cgV6X3qCNwVt51m8q14ZcChsSXQ
+  SS58 Address:      5CzCRpXzHYhuo6G3gYFR3cgV6X3qCNwVt51m8q14ZcChsSXQ
+  </pre>
+</div>
+
+    To properly store these keys, create a file in your keystore directory with a specific naming convention. The filename must consist of the hex string `61757261` (which represents "aura" in hex) followed by the public key without its `0x` prefix.
+
+    Using the example above, you would create a file named:
+
+    ```
+    ./keystores/6175726128cc2fdb6e28835e2bbac9a16feb65c23d448c9314ef12fe083b61bab8fc2755
+    ```
+
+    And store only the secret phrase in the file:
+
+    ```
+    "twist buffalo mixture excess device drastic vague mammal fitness punch match hammer"
+    ```
+
+### Submit Transaction to Set Keys
+
+Now that you have generated your session keys, you must submit them to the chain. Follow these steps:
+
+1. Go to the **Network > Staking > Accounts** section on Polkadot.js Apps
+2. Select **Set Session Key** on the bonding account you generated earlier
+3. Paste the hex-encoded session key string you generated (from either the UI or CLI) into the input field and submit the transaction
+
+![](/images/infrastructure/running-a-validator/onboarding-and-offboarding/key-management/key-management-2.webp)
+
+Once the transaction is signed and submitted, your session keys will be registered on-chain.
+
+### Verify Session Key Setup
+
+To verify that your session keys are properly set, you can use one of two RPC calls:
+
+- **`hasKey`** - checks if the node has a specific key by public key and key type
+- **`hasSessionKeys`** - verifies if your node has the full session key string associated with the validator
+
+For example, you can [check session keys on the Polkadot.js Apps](https://polkadot.js.org/apps/#/rpc){target=\_blank} interface or by running an RPC query against your node. Once this is done, your validator node is ready for its role.
+
+## Set the Node Key
+
+Validators on Polkadot need a static network key (also known as the node key) to maintain a stable node identity. This key ensures that your validator can maintain a consistent peer ID, even across restarts, which is crucial for maintaining reliable network connections.
+
+Starting with Polkadot version 1.11, validators without a stable network key may encounter the following error on startup:
+
+<div id="termynal" data-termynal>
+  <span data-ty="input"><span class="file-path"></span>polkadot --validator --name "INSERT_NAME_FROM_TELEMETRY"</span>
+  <span data-ty>Error:</span>
+  <span data-ty>0: Starting an authority without network key</span>
+  <span data-ty>This is not a safe operation because other authorities in the network may depend on your node having a stable identity.</span>
+  <span data-ty>Otherwise these other authorities may not being able to reach you.</span>
+  <span data-ty>If it is the first time running your node you could use one of the following methods:</span>
+  <span data-ty>1. [Preferred] Separately generate the key with: INSERT_NODE_BINARY key generate-node-key --base-path INSERT_YOUR_BASE_PATH</span>
+  <span data-ty>2. [Preferred] Separately generate the key with: INSERT_NODE_BINARY key generate-node-key --file INSERT_YOUR_PATH_TO_NODE_KEY</span>
+  <span data-ty>3. [Preferred] Separately generate the key with: INSERT_NODE_BINARY key generate-node-key --default-base-path</span>
+  <span data-ty>4. [Unsafe] Pass --unsafe-force-node-key-generation and make sure you remove it for subsequent node restarts</span>
+  <span data-ty="input"><span class="file-path"></span></span>
+</div>
+
+### Generate the Node Key
+
+Use one of the following methods to generate your node key:
+
+=== "Save to file"
+
+    The recommended solution is to generate a node key and save it to a file using the following command:
+
+    ``` bash
+    polkadot key generate-node-key --file INSERT_PATH_TO_NODE_KEY
+    ```
+    
+=== "Use default path"
+
+    You can also generate the node key with the following command, which will automatically save the key to the base path of your node:
+
+    ``` bash
+    polkadot key generate-node-key --default-base-path
+    ```
+
+Save the file path for reference. You will need it in the next step to configure your node with a static identity.
+
+### Set Node Key
+
+After generating the node key, configure your node to use it by specifying the path to the key file when launching your node. Add the following flag to your validator node's startup command:
+
+``` bash
+polkadot --node-key-file INSERT_PATH_TO_NODE_KEY
+```
+
+Following these steps ensures that your node retains its identity, making it discoverable by peers without the risk of conflicting identities across sessions. For further technical background, see Polkadot SDK [Pull Request #3852](https://github.com/paritytech/polkadot-sdk/pull/3852){target=\_blank} for the rationale behind requiring static keys.
+--- END CONTENT ---
+
 Doc-Content: https://docs.polkadot.com/infrastructure/running-a-validator/onboarding-and-offboarding/set-up-validator/
 --- BEGIN CONTENT ---
 ---
 title: Set Up a Validator
-description: Learn how to set up a Polkadot validator node, covering installation steps, security best practices, and staking management.
+description: Set up a Polkadot validator node to secure the network and earn staking rewards. Follow this step-by-step guide to install, configure, and manage your node.
 ---
 
 # Set Up a Validator
@@ -12565,7 +12724,7 @@ docker pull parity/polkadot:{{ dependencies.polkadot_sdk.docker_image_version }}
 
 You may build the binaries from source by following the instructions on the [Polkadot SDK repository](https://github.com/paritytech/polkadot-sdk/tree/{{dependencies.polkadot_sdk.stable_version}}/polkadot#building){target=\_blank}.
 
-### Verify Installation
+## Verify Installation
 
 Once the Polkadot binaries are installed, it's essential to verify that everything is set up correctly and that all the necessary components are in place. Follow these steps to ensure the binaries are installed and functioning as expected.
 
@@ -12598,19 +12757,32 @@ Once the Polkadot binaries are installed, it's essential to verify that everythi
     ```
 
     If necessary, you can move the binaries to a shared location, such as `/usr/local/bin/`, and add it to your `$PATH`.
+--- END CONTENT ---
 
-## Run a Validator on a TestNet
+Doc-Content: https://docs.polkadot.com/infrastructure/running-a-validator/onboarding-and-offboarding/start-validating/
+--- BEGIN CONTENT ---
+---
+title: Start Validating
+description: Learn how to start validating on Polkadot by choosing a network, syncing your node, bonding DOT tokens, and activating your validator.
+---
+
+# Start Validating
+
+## Introduction
+
+After configuring your node keys as shown in the [Key Management](/infrastructure/running-a-validator/onboarding-and-offboarding/key-management){target=\_blank} section and ensuring your system is set up, you're ready to begin the validator setup process. This guide will walk you through choosing a network, synchronizing your node with the blockchain, bonding your DOT tokens, and starting your validator.
+
+## Choose a Network
 
 Running your validator on a test network like Westend or Kusama is a smart way to familiarize yourself with the process and identify any setup issues in a lower-stakes environment before joining the Polkadot MainNet.
 
-### Choose a Network
-
 - **Westend** - Polkadot's primary TestNet is open to anyone for testing purposes. Validator slots are intentionally limited to keep the network stable for the Polkadot release process, so it may not support as many validators at any given time
-- **Kusama** - often called Polkadot's “canary network,” Kusama has real economic value but operates with a faster and more experimental approach. Running a validator here provides an experience closer to MainNet with the benefit of more frequent validation opportunities with an era time of 6 hours vs 24 hours for Polkadot
+- **Kusama** - often called Polkadot's "canary network," Kusama has real economic value but operates with a faster and more experimental approach. Running a validator here provides an experience closer to MainNet with the benefit of more frequent validation opportunities with an era time of 6 hours vs 24 hours for Polkadot
+- **Polkadot** - the main network, where validators secure the Polkadot relay chain. It has a slower era time of 24 hours and requires a higher minimum bond amount to participate
 
 ## Synchronize Chain Data
 
-After successfully installing and verifying the Polkadot binaries, the next step is to sync your node with the blockchain network. Synchronization is necessary to download and validate the blockchain data, ensuring your node is ready to participate as a validator. Follow these steps to sync your node:
+The next step is to sync your node with the chosen blockchain network. Synchronization is necessary to download and validate the blockchain data, ensuring your node is ready to participate as a validator. Follow these steps to sync your node:
 
 1. **Start syncing** - you can run a full or warp sync
 
@@ -12704,108 +12876,6 @@ To get started with the bond submission, click on the **Accounts** tab, then the
 Once everything is filled in properly, select **Bond** and sign the transaction with your stash account. If successful, you should see an `ExtrinsicSuccess` message.
 
 Your bonded account will be available under **Stashes**. After refreshing the screen, you should now see a card with all your accounts. The bonded amount on the right corresponds to the funds bonded by the stash account.
-
-## Set Session Keys
-
-Setting up your validator's session keys is essential to associate your node with your stash account on the Polkadot network. Validators use session keys to participate in the consensus process. Your validator can only perform its role in the network by properly setting session keys which consist of several key pairs for different parts of the protocol (e.g., GRANDPA, BABE). These keys must be registered on-chain and associated with your validator node to ensure it can participate in validating blocks.
-
-The following sections will cover generating session keys, submitting key data on-chain, and verifying that session keys are correctly set.
-
-### Generate Session Keys
-
-The Polkadot.js Apps UI and the CLI are the two primary methods used to generate session keys.
-
-=== "Use Polkadot.js Apps UI"
-
-    1. Ensure that you are connected to your validator node through the Polkadot.js Apps interface
-    2. In the **Toolbox** tab, navigate to **RPC calls**
-    3. Select **`author_rotateKeys`** from the drop-down menu and run the command. This will generate new session keys in your node's keystore and return the result as a hex-encoded string
-    4. Copy and save this hex-encoded output for the next step
-
-=== "Use the CLI"
-
-    Generate session keys by running the following command on your validator node:
-
-    ``` bash
-    curl -H "Content-Type: application/json" \
-    -d '{"id":1, "jsonrpc":"2.0", "method": "author_rotateKeys", "params":[]}' \
-    http://localhost:9944
-    ```
-
-    This command will return a hex-encoded string that is the concatenation of your session keys. Save this string for later use.
-
-### Submit Transaction to Set Keys
-
-Now that you have generated your session keys, you must submit them to the chain. Follow these steps:
-
-1. Go to the **Network > Staking > Accounts** section on Polkadot.js Apps
-2. Select **Set Session Key** on the bonding account you generated earlier
-3. Paste the hex-encoded session key string you generated (from either the UI or CLI) into the input field and submit the transaction
-
-![](/images/infrastructure/running-a-validator/onboarding-and-offboarding/set-up-validator/set-up-a-validator-01.webp)
-
-Once the transaction is signed and submitted, your session keys will be registered on-chain.
-
-### Verify Session Key Setup
-
-To verify that your session keys are properly set, you can use one of two RPC calls:
-
-- **`hasKey`** - checks if the node has a specific key by public key and key type
-- **`hasSessionKeys`** - verifies if your node has the full session key string associated with the validator
-
-For example, you can [check session keys on the Polkadot.js Apps](https://polkadot.js.org/apps/#/rpc){target=\_blank} interface or by running an RPC query against your node. Once this is done, your validator node is ready for its role.
-
-## Set the Node Key
-
-Validators on Polkadot need a static network key (also known as the node key) to maintain a stable node identity. This key ensures that your validator can maintain a consistent peer ID, even across restarts, which is crucial for maintaining reliable network connections.
-
-Starting with Polkadot version 1.11, validators without a stable network key may encounter the following error on startup:
-
-<div id="termynal" data-termynal>
-  <span data-ty="input"><span class="file-path"></span>polkadot --validator --name "INSERT_NAME_FROM_TELEMETRY"</span>
-  <span data-ty>Error:</span>
-  <span data-ty>0: Starting an authority without network key</span>
-  <span data-ty>This is not a safe operation because other authorities in the network may depend on your node having a stable identity.</span>
-  <span data-ty>Otherwise these other authorities may not being able to reach you.</span>
-  <span data-ty>If it is the first time running your node you could use one of the following methods:</span>
-  <span data-ty>1. [Preferred] Separately generate the key with: INSERT_NODE_BINARY key generate-node-key --base-path INSERT_YOUR_BASE_PATH</span>
-  <span data-ty>2. [Preferred] Separately generate the key with: INSERT_NODE_BINARY key generate-node-key --file INSERT_YOUR_PATH_TO_NODE_KEY</span>
-  <span data-ty>3. [Preferred] Separately generate the key with: INSERT_NODE_BINARY key generate-node-key --default-base-path</span>
-  <span data-ty>4. [Unsafe] Pass --unsafe-force-node-key-generation and make sure you remove it for subsequent node restarts</span>
-  <span data-ty="input"><span class="file-path"></span></span>
-</div>
-
-### Generate the Node Key
-
-Use one of the following methods to generate your node key:
-
-=== "Save to file"
-
-    The recommended solution is to generate a node key and save it to a file using the following command:
-
-    ``` bash
-    polkadot key generate-node-key --file INSERT_PATH_TO_NODE_KEY
-    ```
-    
-=== "Use default path"
-
-    You can also generate the node key with the following command, which will automatically save the key to the base path of your node:
-
-    ``` bash
-    polkadot key generate-node-key --default-base-path
-    ```
-
-Save the file path for reference. You will need it in the next step to configure your node with a static identity.
-
-### Set the Node Key
-
-After generating the node key, configure your node to use it by specifying the path to the key file when launching your node. Add the following flag to your validator node's startup command:
-
-``` bash
-polkadot --node-key-file INSERT_PATH_TO_NODE_KEY
-```
-
-Following these steps ensures that your node retains its identity, making it discoverable by peers without the risk of conflicting identities across sessions. For further technical background, see Polkadot SDK [Pull Request #3852](https://github.com/paritytech/polkadot-sdk/pull/3852){target=\_blank} for the rationale behind requiring static keys.
 
 ## Validate
 

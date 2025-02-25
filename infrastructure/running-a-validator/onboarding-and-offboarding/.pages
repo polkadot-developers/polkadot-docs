@@ -3,4 +3,6 @@ nav:
   - index.md
   # - 'Community Validator Program': community-validator-program.md
   - 'Set Up a Validator': set-up-validator.md
+  - 'Key Management': key-management.md
+  - 'Start Validating': start-validating.md
   - 'Stop Validating': stop-validating.md

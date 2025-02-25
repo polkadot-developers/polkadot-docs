@@ -59,9 +59,9 @@ To create the NFT contract, you can follow the steps below:
             - **`ownerOf(uint256 tokenId)`** - returns the current owner of a specific NFT
 
     !!! tip
-        Use the [OpenZeppelin Contracts Wizard](https://wizard.openzeppelin.com/){target=\_blank} to generate customized smart contracts quickly. Simply configure your contract, copy the generated code, and paste it into Polkadot Remix IDE for deployment.  Below is an example of an ERC-721 token contract created with it:
+        Use the [OpenZeppelin Contracts Wizard](https://wizard.openzeppelin.com/){target=\_blank} to generate customized smart contracts quickly. Simply configure your contract, copy the generated code, and paste it into Polkadot Remix IDE for deployment. Below is an example of an ERC-721 token contract created with it:
 
-        ![](/images/tutorials/smart-contracts/deploy-nft/deploy-nft-2.webp)
+        ![Screenshot of the OpenZeppelin Contracts Wizard showing an ERC-721 contract configuration.](/images/tutorials/smart-contracts/deploy-nft/deploy-nft-2.webp)
 
 
 ## Compile the Contract

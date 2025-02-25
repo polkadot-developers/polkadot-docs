@@ -58,7 +58,10 @@ To create the ERC-20 contract, you can follow the steps below:
             - **`allowance(address owner, address spender)`** - checks how many tokens an address is allowed to spend on behalf of another address
 
     !!! tip
-        Use the [OpenZeppelin Contracts Wizard](https://wizard.openzeppelin.com/){target=\_blank} to quickly generate customized smart contracts. Simply configure your contract, copy the generated code, and paste it into Polkadot Remix IDE for deployment.
+        Use the [OpenZeppelin Contracts Wizard](https://wizard.openzeppelin.com/){target=\_blank} to quickly generate customized smart contracts. Simply configure your contract, copy the generated code, and paste it into Polkadot Remix IDE for deployment. Below is an example of an ERC-20 token contract created with it:
+
+        ![Screenshot of the OpenZeppelin Contracts Wizard showing an ERC-20 contract configuration.](/images/tutorials/smart-contracts/deploy-erc20/deploy-erc20-2.webp)
+        
 
 ## Compile the Contract
 
@@ -66,15 +69,15 @@ The compilation transforms your Solidity source code into bytecode that can be d
 
 1. Select the **Solidity Compiler** plugin from the left panel
 
-    ![](/images/tutorials/smart-contracts/deploy-erc20/deploy-erc20-2.webp)
+    ![](/images/tutorials/smart-contracts/deploy-erc20/deploy-erc20-3.webp)
 
 2. Click the **Compile MyToken.sol** button
 
-    ![](/images/tutorials/smart-contracts/deploy-erc20/deploy-erc20-3.webp)
+    ![](/images/tutorials/smart-contracts/deploy-erc20/deploy-erc20-4.webp)
 
 3. If the compilation succeeded, you'll see a green checkmark indicating success in the **Solidity Compiler** icon
 
-    ![](/images/tutorials/smart-contracts/deploy-erc20/deploy-erc20-4.webp)
+    ![](/images/tutorials/smart-contracts/deploy-erc20/deploy-erc20-5.webp)
 
 ## Deploy the Contract
 
@@ -82,27 +85,27 @@ Deployment is the process of publishing your compiled smart contract to the bloc
 
 1. Select the **Deploy & Run Transactions** plugin from the left panel
 
-    ![](/images/tutorials/smart-contracts/deploy-erc20/deploy-erc20-5.webp)
+    ![](/images/tutorials/smart-contracts/deploy-erc20/deploy-erc20-6.webp)
 
 2. Configure the deployment settings
     1. From the **ENVIRONMENT** dropdown, select **Westend Testnet - MetaMask**
     2. From the **ACCOUNT** dropdown, select the account you want to use for the deploy
 
-    ![](/images/tutorials/smart-contracts/deploy-erc20/deploy-erc20-6.webp)
+    ![](/images/tutorials/smart-contracts/deploy-erc20/deploy-erc20-7.webp)
 
 3. Configure the contract parameters
     1. Enter the address that will own the deployed token contract
     2. Click the **Deploy** button to initiate the deployment
 
-    ![](/images/tutorials/smart-contracts/deploy-erc20/deploy-erc20-7.webp)
+    ![](/images/tutorials/smart-contracts/deploy-erc20/deploy-erc20-8.webp)
 
 4. MetaMask will pop up - review the transaction details. Click **Confirm** to deploy your contract
 
-     ![](/images/tutorials/smart-contracts/deploy-erc20/deploy-erc20-8.webp){: .browser-extension}
+     ![](/images/tutorials/smart-contracts/deploy-erc20/deploy-erc20-9.webp){: .browser-extension}
 
     If the deployment process succeeded, you will see the transaction details in the terminal, including the contract address and deployment transaction hash:
 
-    ![](/images/tutorials/smart-contracts/deploy-erc20/deploy-erc20-9.webp)
+    ![](/images/tutorials/smart-contracts/deploy-erc20/deploy-erc20-10.webp)
 
 ## Interact with Your ERC-20 Contract
 
@@ -110,7 +113,7 @@ Once deployed, you can interact with your contract through Remix:
 
 1. Find your contract under **Deployed/Unpinned Contracts**, and click it to expand the available methods
 
-    ![](/images/tutorials/smart-contracts/deploy-erc20/deploy-erc20-10.webp)
+    ![](/images/tutorials/smart-contracts/deploy-erc20/deploy-erc20-11.webp)
 
 2. To mint new tokens:
     1. Click in the contract to expand its associated methods
@@ -120,15 +123,15 @@ Once deployed, you can interact with your contract through Remix:
         - The amount (remember to add 18 zeros for 1 whole token)
     4. Click **Transact**
 
-    ![](/images/tutorials/smart-contracts/deploy-erc20/deploy-erc20-11.webp)
+    ![](/images/tutorials/smart-contracts/deploy-erc20/deploy-erc20-12.webp)
 
 3. Confirm the transaction in MetaMask
 
-    ![](/images/tutorials/smart-contracts/deploy-erc20/deploy-erc20-12.webp){: .browser-extension}
+    ![](/images/tutorials/smart-contracts/deploy-erc20/deploy-erc20-13.webp){: .browser-extension}
 
     If the transaction succeeds, you will see the following output in the terminal:
 
-    ![](/images/tutorials/smart-contracts/deploy-erc20/deploy-erc20-13.webp)
+    ![](/images/tutorials/smart-contracts/deploy-erc20/deploy-erc20-14.webp)
 
 Other common functions you can use:
 

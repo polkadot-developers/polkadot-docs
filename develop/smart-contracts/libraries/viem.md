@@ -150,7 +150,49 @@ npm run interact
 
 Now that you have the foundation for using viem with Asset Hub, consider exploring:
 
-- **Advanced viem features** - such as [multi call](https://viem.sh/docs/contract/multicall#multicall){target=\_blank}, [batch transactions](https://viem.sh/docs/clients/transports/http#batch-json-rpc){target=\_blank}, and [custom actions](https://viem.sh/docs/clients/custom#extending-with-actions-or-configuration){target=\_blank}
-- **Test frameworks** - integrate with tools like [Hardhat](https://hardhat.org/){target=\_blank} or [Foundry](https://book.getfoundry.sh/){target=\_blank} for comprehensive testing
-- **Event handling** - subscribe to and process contract events
-- **Building dApps** - combine viem with frameworks like [`Next.js`](https://nextjs.org/docs){target=\_blank} or [`Node.js`](https://nodejs.org/en){target=\_blank} for full-stack applications
+<div class="grid cards" markdown>
+
+-   <span class="badge external">External</span> __Advanced viem Features__
+
+    ---
+    Explore viem's documentation:
+    <ul class="card-list">
+    [:octicons-arrow-right-24: Multi call](https://viem.sh/docs/contract/multicall#multicall){target=\_blank}
+
+    [:octicons-arrow-right-24: Batch transactions](https://viem.sh/docs/clients/transports/http#batch-json-rpc){target=\_blank}
+
+    [:octicons-arrow-right-24: Custom actions](https://viem.sh/docs/clients/custom#extending-with-actions-or-configuration){target=\_blank}
+    </ul>
+
+-   <span class="badge external">External</span> __Test Frameworks__
+
+    ---
+
+    Integrate viem with the following frameworks for comprehensive testing:
+    <ul class="card-list">
+    [:octicons-arrow-right-24: Hardhat](https://hardhat.org/){target=\_blank}
+
+    [:octicons-arrow-right-24: Foundry](https://book.getfoundry.sh/){target=\_blank}
+    </ul>
+
+-   <span class="badge external">External</span> __Event Handling__
+
+    ---
+
+    Learn how to subscribe to and process contract events:
+    <ul class="card-list">
+    [:octicons-arrow-right-24: Event subscription](https://viem.sh/docs/actions/public/watchEvent#watchevent){target=\_blank}
+    </ul>
+
+-   <span class="badge external">External</span> __Building dApps__
+
+    ---
+
+    Combine viem the following technologies to create full-stack applications:
+    <ul class="card-list">
+    [:octicons-arrow-right-24: Next.js](https://nextjs.org/docs){target=\_blank}
+
+    [:octicons-arrow-right-24: Node.js](https://nodejs.org/en){target=\_blank}
+    </ul>
+
+</div>

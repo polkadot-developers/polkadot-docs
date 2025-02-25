@@ -38,7 +38,7 @@ This tutorial requires two essential tools:
     Install it by executing the following command:
     
     ```bash
-    cargo install --git https://github.com/paritytech/polkadot-sdk --tag {{dependencies.polkadot_sdk.stable_version}} --force staging-chain-spec-builder
+    cargo install staging-chain-spec-builder
     ```
 
     This installs the `chain-spec-builder` binary. Refer to the [Generate Chain Specs](/develop/parachains/deployment/generate-chain-specs/){target=\_blank} documentation for detailed usage.
@@ -49,7 +49,7 @@ This tutorial requires two essential tools:
     To install it, run the following command:
 
     ```bash
-    cargo install --git https://github.com/paritytech/polkadot-sdk --tag {{dependencies.polkadot_sdk.stable_version}} --force polkadot-omni-node
+    cargo install polkadot-omni-node
     ```
 
     This installs the `polkadot-omni-node` binary.

@@ -157,11 +157,11 @@ Now that you have the foundation for using viem with Asset Hub, consider explori
     ---
     Explore viem's documentation:
     <ul class="card-list">
-    [:octicons-arrow-right-24: Multi call](https://viem.sh/docs/contract/multicall#multicall){target=\_blank}
+    <li>[:octicons-arrow-right-24: Multi call](https://viem.sh/docs/contract/multicall#multicall){target=\_blank}</li>
 
-    [:octicons-arrow-right-24: Batch transactions](https://viem.sh/docs/clients/transports/http#batch-json-rpc){target=\_blank}
+    <li>[:octicons-arrow-right-24: Batch transactions](https://viem.sh/docs/clients/transports/http#batch-json-rpc){target=\_blank}</li>
 
-    [:octicons-arrow-right-24: Custom actions](https://viem.sh/docs/clients/custom#extending-with-actions-or-configuration){target=\_blank}
+    <li>[:octicons-arrow-right-24: Custom actions](https://viem.sh/docs/clients/custom#extending-with-actions-or-configuration){target=\_blank}</li>
     </ul>
 
 -   <span class="badge external">External</span> __Test Frameworks__
@@ -170,9 +170,9 @@ Now that you have the foundation for using viem with Asset Hub, consider explori
 
     Integrate viem with the following frameworks for comprehensive testing:
     <ul class="card-list">
-    [:octicons-arrow-right-24: Hardhat](https://hardhat.org/){target=\_blank}
+    <li>[:octicons-arrow-right-24: Hardhat](https://hardhat.org/){target=\_blank}</li>
 
-    [:octicons-arrow-right-24: Foundry](https://book.getfoundry.sh/){target=\_blank}
+    <li>[:octicons-arrow-right-24: Foundry](https://book.getfoundry.sh/){target=\_blank}</li>
     </ul>
 
 -   <span class="badge external">External</span> __Event Handling__
@@ -181,7 +181,7 @@ Now that you have the foundation for using viem with Asset Hub, consider explori
 
     Learn how to subscribe to and process contract events:
     <ul class="card-list">
-    [:octicons-arrow-right-24: Event subscription](https://viem.sh/docs/actions/public/watchEvent#watchevent){target=\_blank}
+    <li>[:octicons-arrow-right-24: Event subscription](https://viem.sh/docs/actions/public/watchEvent#watchevent){target=\_blank}</li>
     </ul>
 
 -   <span class="badge external">External</span> __Building dApps__
@@ -190,9 +190,9 @@ Now that you have the foundation for using viem with Asset Hub, consider explori
 
     Combine viem the following technologies to create full-stack applications:
     <ul class="card-list">
-    [:octicons-arrow-right-24: Next.js](https://nextjs.org/docs){target=\_blank}
+    <li>[:octicons-arrow-right-24: Next.js](https://nextjs.org/docs){target=\_blank}</li>
 
-    [:octicons-arrow-right-24: Node.js](https://nodejs.org/en){target=\_blank}
+    <li>[:octicons-arrow-right-24: Node.js](https://nodejs.org/en){target=\_blank}</li>
     </ul>
 
 </div>

@@ -7,9 +7,9 @@ description: Learn how to write a basic smart contract using just a text editor.
 
 ## Introduction
 
-Creating smart contracts is fundamental to blockchain development. While many frameworks and tools are available, understanding how to write a contract from scratch with just a text editor is essential knowledge.
+Creating [smart contracts](/develop/smart-contracts/overview/){target=\_blank} is fundamental to blockchain development. While many frameworks and tools are available, understanding how to write a contract from scratch with just a text editor is essential knowledge.
 
-This tutorial will guide you through creating a basic smart contract that can be used with other tutorials for deployment and integration.
+This tutorial will guide you through creating a basic smart contract that can be used with other tutorials for deployment and integration on Asset Hub.
 
 ## Prerequisites
 
@@ -108,7 +108,7 @@ Let's break down the key components of the contract:
 - **State Variable**
 
     - `uint256 private number` - a private variable that can only be accessed through the contract's functions
-    - The `private` keyword prevents direct access from outside the contract
+    - The `private` keyword prevents direct access from other contracts, but it's important to note that while other contracts cannot read this variable directly, the data itself is still visible on the blockchain and can be read by external tools or applications that interact with the blockchain. "Private" in Solidity doesn't mean the data is encrypted or truly hidden.
     - State variables in Solidity are permanent storage on the blockchain, making them different from variables in traditional programming. Every change to a state variable requires a transaction and costs gas (the fee paid for blockchain operations)
 
 - **Event**

@@ -21,7 +21,7 @@ npm init -y
 
 ## Install Dependencies
 
-Install viem along with other necessary dependencies, including [@parity/revive](/polkadot-protocol/smart-contract-basics/polkavm-design/){target=\_blank}, which enables Ethereum-style transactions on Polkadot SDK-based chains:
+Install viem along with other necessary dependencies, including [@parity/revive](https://www.npmjs.com/package/@parity/revive){target=\_blank}, which enables to compile smart contracts to [PolkaVM](/polkadot-protocol/smart-contract-basics/polkavm-design/#polkavm){target=\_blank} bytecode:
 
 ```bash
 # Install viem and Revive

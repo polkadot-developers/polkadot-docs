@@ -44,7 +44,7 @@ To build the smart contract, follow the steps below:
 
 1. Create a new file named `Storage.sol`
 
-2. Add the SPDX license identifier at the top of the file. The Solidity compiler requires this:
+2. Add the SPDX license identifier at the top of the file:
 
     ```solidity
     // SPDX-License-Identifier: MIT

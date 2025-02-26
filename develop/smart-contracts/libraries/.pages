@@ -4,3 +4,4 @@ nav:
   - 'Ethers.js': ethers-js.md
   - 'Web3.js': web3-js.md
   - 'viem': viem.md
+  - 'Web3.py': web3-py.md

@@ -3,6 +3,10 @@ use subxt::utils::AccountId32;
 use subxt::{OnlineClient, PolkadotConfig};
 use subxt_signer::{bip39::Mnemonic,sr25519::Keypair};
 
+// Generate an interface that we can use from the node's metadata.
+#[subxt::subxt(runtime_metadata_path = "./polkadot_metadata.scale")]
+pub mod polkadot {}
+
 #[tokio::main(flavor = "current_thread")]
 async fn main() -> Result<(), Box<dyn std::error::Error>> {
     // Define the node URL.

@@ -15,10 +15,10 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
     // Initialize the Subxt client for interacting with the blockchain.
     let api = OnlineClient::<PolkadotConfig>::from_url(NODE_URL).await?;
 
-    // A query to obtain some contant:
+    // A query to obtain some constant.
     let constant_query = polkadot::constants().balances().existential_deposit();
 
-    // Obtain the value:
+    // Obtain the value.
     let value = api.constants().at(&constant_query)?;
 
     println!("Existential deposit: {:?}", value);

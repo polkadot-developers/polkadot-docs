@@ -38,7 +38,7 @@ This tutorial requires two essential tools:
     Install it by executing the following command:
     
     ```bash
-    cargo install staging-chain-spec-builder
+    cargo install staging-chain-spec-builder@9.0.0
     ```
 
     This installs the `chain-spec-builder` binary. Refer to the [Generate Chain Specs](/develop/parachains/deployment/generate-chain-specs/){target=\_blank} documentation for detailed usage.

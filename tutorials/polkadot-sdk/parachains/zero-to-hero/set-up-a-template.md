@@ -49,7 +49,7 @@ This tutorial requires two essential tools:
     To install it, run the following command:
 
     ```bash
-    cargo install polkadot-omni-node
+    cargo install polkadot-omni-node@0.4.0
     ```
 
     This installs the `polkadot-omni-node` binary.

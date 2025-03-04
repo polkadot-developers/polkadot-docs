@@ -104,7 +104,9 @@ Next, let's create a component to handle wallet connections. Create a new file c
 --8<-- "code/tutorials/smart-contracts/launch-your-first-project/create-dapp-ethers-js/WalletConnect.js"
 ```
 
-This component handles connecting to the wallet, switching networks if necessary, and keeping track of the connected account. To integrate this component to your dApp, you need to overwrite the existing boilerplate in `app/page.js` with the following code:
+This component handles connecting to the wallet, switching networks if necessary, and keeping track of the connected account. 
+
+To integrate this component to your dApp, you need to overwrite the existing boilerplate in `app/page.js` with the following code:
 
 ```javascript title="page.js"
 --8<-- "code/tutorials/smart-contracts/launch-your-first-project/create-dapp-ethers-js/page.js:0:5"

@@ -32,7 +32,7 @@ npm install wagmi viem @tanstack/react-query
 
 ## Configure Wagmi for Asset Hub
 
-Create a configuration file to initialize Wagmi with Asset Hub. Create a file named `src/lib/wagmi.ts` and add the following code, ensure to replace `INSERT_RPC_URL`, `INSERT_CHAIN_ID`, `INSERT_CHAIN_NAME`, `INSERT_NETWORK_NAME`, `INSERT_CHAIN_DECIMALS`, `INSERT_CURRENCY_NAME`, and `INSERT_CURRENCY_SYMBOL` with the proper values.
+Create a configuration file to initialize Wagmi with Asset Hub. In your project, create a file named `src/lib/wagmi.ts` and add the code below. Be sure to replace `INSERT_RPC_URL`, `INSERT_CHAIN_ID`, `INSERT_CHAIN_NAME`, `INSERT_NETWORK_NAME`, `INSERT_CHAIN_DECIMALS`, `INSERT_CURRENCY_NAME`, and `INSERT_CURRENCY_SYMBOL` with your specific values.
 
 ```typescript
 --8<-- 'code/develop/smart-contracts/libraries/wagmi/wagmi.ts'
@@ -49,7 +49,7 @@ For example, to connect to Westend Asset Hub, you can use the following configur
 
 To enable Wagmi in your React application, you need to wrap your app with the [`WagmiProvider`](https://wagmi.sh/react/api/WagmiProvider#wagmiprovider){target=\_blank}. Update your `app/layout.tsx` file (for Next.js app router) with the following code:
 
-```tsx
+```typescript
 --8<-- 'code/develop/smart-contracts/libraries/wagmi/layout.tsx'
 ```
 
@@ -60,7 +60,7 @@ To enable Wagmi in your React application, you need to wrap your app with the [`
 
 Create a component to connect wallets to your dApp. Create a file named `app/components/ConnectWallet.tsx`:
 
-```tsx
+```typescript
 --8<-- 'code/develop/smart-contracts/libraries/wagmi/ConnectWallet.tsx'
 ```
 

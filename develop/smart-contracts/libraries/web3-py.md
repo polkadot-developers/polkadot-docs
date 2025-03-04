@@ -13,44 +13,44 @@ This guide illustrates how to utilize Web3.py for interactions with the Asset Hu
 
 ## Set Up the Project
 
-To start working with Web3.py, begin by initializing your project:
-
+1. To start working with Web3.py, begin by initializing your project:
 ```
 mkdir web3py-project
 cd web3py-project
 ```
 
-Create and activate a virtual environment for your project:
-
+2. Create and activate a virtual environment for your project:
 ```
 python -m venv venv
 source venv/bin/activate
 ```
 
-Next, install the Web3.py library:
-
+3. Next, install the Web3.py library:
 ```
 pip install web3
 ```
 
 ## Set Up the Web3 Provider
 
-The [provider](https://web3py.readthedocs.io/en/stable/providers.html){target=\_blank} configuration is the foundation of any Web3.py application. The following example establishes a connection to the Asset Hub network. To use it, replace `INSERT_RPC_URL` with the appropriate value. For instance, to connect to the Westend Asset Hub TestNet, use the following parameter:
+The [provider](https://web3py.readthedocs.io/en/stable/providers.html){target=\_blank} configuration is the foundation of any Web3.py application. The following example establishes a connection to the Asset Hub network. Follow these steps to use the provider configuration:
 
+1. Replace `INSERT_RPC_URL` with the appropriate value. For instance, to connect to the Westend Asset Hub TestNet, use the following parameter:
 ```python
 PROVIDER_RPC = 'https://westend-asset-hub-eth-rpc.polkadot.io'
 ```
 
-The provider connection script should look something like this:
+    The provider connection script should look something like this:
 
-```python title="connect_to_provider.py"
---8<-- "code/develop/smart-contracts/libraries/web3-py/connect_to_provider.py"
+    ```python title="connect_to_provider.py"
+    --8<-- "code/develop/smart-contracts/libraries/web3-py/connect_to_provider.py"
+    ```
+
+2. With the Web3 provider set up, start querying the blockchain. For instance, you can use the following code snippet to fetch the latest block number of the chain:
+```python title="fetch_last_block.py"
+--8<-- "code/develop/smart-contracts/libraries/web3-py/fetch_last_block.py:9:18"
 ```
 
-With the Web3 provider set up, you can start querying the blockchain.
-For instance, to fetch the latest block number of the chain, you can use the following code snippet:
-
-???+ code "Complete script"
+??? code "View complete script"
 
     ```python title="fetch_last_block.py"
     --8<-- "code/develop/smart-contracts/libraries/web3-py/fetch_last_block.py"

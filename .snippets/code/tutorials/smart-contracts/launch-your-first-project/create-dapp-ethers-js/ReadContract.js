@@ -9,10 +9,12 @@ const ReadContract = () => {
   const [error, setError] = useState(null);
 
   useEffect(() => {
+    // Function to read data from the blockchain
     const fetchData = async () => {
       try {
         setLoading(true);
         const contract = getContract();
+        // Call the smart contract's storedNumber function
         const number = await contract.storedNumber();
         setStoredNumber(number.toString());
         setError(null);
@@ -25,7 +27,11 @@ const ReadContract = () => {
     };
 
     fetchData();
+
+    // Poll for updates every 10 seconds to keep UI in sync with blockchain
     const interval = setInterval(fetchData, 10000);
+
+    // Clean up interval on component unmount
     return () => clearInterval(interval);
   }, []);
 

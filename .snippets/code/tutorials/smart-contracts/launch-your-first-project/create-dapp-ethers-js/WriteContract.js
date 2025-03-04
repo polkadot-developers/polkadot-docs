@@ -12,6 +12,7 @@ const WriteContract = ({ account }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    // Validation checks
     if (!account) {
       setStatus({ type: 'error', message: 'Please connect your wallet first' });
       return;
@@ -26,16 +27,21 @@ const WriteContract = ({ account }) => {
       setIsSubmitting(true);
       setStatus({ type: 'info', message: 'Initiating transaction...' });
 
+      // Get a signer from the connected wallet
       const provider = new ethers.BrowserProvider(window.ethereum);
       const signer = await provider.getSigner();
       const contract = await getSignedContract(signer);
 
+      // Send transaction to blockchain and wait for user confirmation in wallet
       setStatus({
         type: 'info',
         message: 'Please confirm the transaction in your wallet...',
       });
+
+      // Call the contract's setNumber function
       const tx = await contract.setNumber(newNumber);
 
+      // Wait for transaction to be mined
       setStatus({
         type: 'info',
         message: 'Transaction submitted. Waiting for confirmation...',
@@ -50,6 +56,7 @@ const WriteContract = ({ account }) => {
     } catch (err) {
       console.error('Error updating number:', err);
 
+      // Error code 4001 is MetaMask's code for user rejection
       if (err.code === 4001) {
         setStatus({ type: 'error', message: 'Transaction rejected by user.' });
       } else {

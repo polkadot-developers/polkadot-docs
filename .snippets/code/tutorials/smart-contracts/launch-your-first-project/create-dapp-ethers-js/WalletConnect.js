@@ -9,9 +9,11 @@ const WalletConnect = ({ onConnect }) => {
   const [error, setError] = useState(null);
 
   useEffect(() => {
+    // Check if user already has an authorized wallet connection
     const checkConnection = async () => {
       if (window.ethereum) {
         try {
+          // eth_accounts doesn't trigger the wallet popup
           const accounts = await window.ethereum.request({
             method: 'eth_accounts',
           });
@@ -32,6 +34,7 @@ const WalletConnect = ({ onConnect }) => {
     checkConnection();
 
     if (window.ethereum) {
+      // Setup wallet event listeners
       window.ethereum.on('accountsChanged', (accounts) => {
         setAccount(accounts[0] || null);
         if (accounts[0] && onConnect) onConnect(accounts[0]);
@@ -43,6 +46,7 @@ const WalletConnect = ({ onConnect }) => {
     }
 
     return () => {
+      // Cleanup event listeners
       if (window.ethereum) {
         window.ethereum.removeListener('accountsChanged', () => {});
         window.ethereum.removeListener('chainChanged', () => {});
@@ -59,6 +63,7 @@ const WalletConnect = ({ onConnect }) => {
     }
 
     try {
+      // eth_requestAccounts triggers the wallet popup
       const accounts = await window.ethereum.request({
         method: 'eth_requestAccounts',
       });
@@ -70,6 +75,7 @@ const WalletConnect = ({ onConnect }) => {
       const currentChainId = parseInt(chainIdHex, 16);
       setChainId(currentChainId);
 
+      // Prompt user to switch networks if needed
       if (currentChainId !== ASSET_HUB_CONFIG.chainId) {
         await switchNetwork();
       }
@@ -88,6 +94,7 @@ const WalletConnect = ({ onConnect }) => {
         params: [{ chainId: `0x${ASSET_HUB_CONFIG.chainId.toString(16)}` }],
       });
     } catch (switchError) {
+      // Error 4902 means the chain hasn't been added to MetaMask
       if (switchError.code === 4902) {
         try {
           await window.ethereum.request({
@@ -110,6 +117,7 @@ const WalletConnect = ({ onConnect }) => {
     }
   };
 
+  // UI-only disconnection - MetaMask doesn't support programmatic disconnection
   const disconnectWallet = () => {
     setAccount(null);
   };

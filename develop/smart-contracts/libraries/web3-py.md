@@ -35,7 +35,7 @@ pip install web3
 
 ## Set Up the Web3 Provider
 
-The [provider](https://web3py.readthedocs.io/en/stable/providers.html){target=\_blank} configuration is the foundation of any Web3.py application. The following example establishes a connection to the Asset Hub network. To use the example script, replace `INSERT_RPC_URL` with the appropriate value. For example, for the Westend Asset Hub TestNet, you can use this specific connection parameter:
+The [provider](https://web3py.readthedocs.io/en/stable/providers.html){target=\_blank} configuration is the foundation of any Web3.py application. The following example establishes a connection to the Asset Hub network. To use it, replace `INSERT_RPC_URL` with the appropriate value. For instance, to connect to the Westend Asset Hub TestNet, use the following parameter:
 
 ```python
 PROVIDER_RPC = 'https://westend-asset-hub-eth-rpc.polkadot.io'

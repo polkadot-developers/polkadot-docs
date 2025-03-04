@@ -77,7 +77,7 @@ To deploy your compiled contract to Asset Hub using Web3.py, you'll need an acco
 
 ## Interact with the Contract
 
-Once deployed, you can interact with your contract using Web3.py methods. Here's how to set a number and read it back, ensure replacing `INSERT_RPC_URL`, `INSERT_PRIVATE_KEY`, and `INSERT_CONTRACT_ADDRESS` with the appropriate values:
+After deployment, interact with your contract using Web3.py methods. The example below demonstrates how to set and retrieve a number. Be sure to replace the `INSERT_RPC_URL`, `INSERT_PRIVATE_KEY`, and `INSERT_CONTRACT_ADDRESS` placeholders with your specific values:
 
 ```python title="update_storage.py"
 --8<-- "code/develop/smart-contracts/libraries/web3-py/update_storage.py"

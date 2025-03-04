@@ -74,7 +74,7 @@ This component uses the following React hooks:
 
 Wagmi provides various hooks to fetch blockchain data. Here's an example component that demonstrates some of these hooks:
 
-```tsx
+```typescript
 --8<-- 'code/develop/smart-contracts/libraries/wagmi/BlockchainInfo.tsx'
 ```
 
@@ -95,7 +95,7 @@ This guide uses a simple Storage contract that's already been deployed (`0xabBd4
 
 Create a component to interact with your deployed contract. Create a file named `app/components/StorageContract.tsx`:
 
-```tsx
+```typescript
 --8<-- 'code/develop/smart-contracts/libraries/wagmi/StorageContract.tsx'
 ```
 
@@ -117,7 +117,7 @@ The component also includes proper state handling to:
 
 Update your main page to combine all the components. Create or update the file `src/app/page.tsx`:
 
-```tsx
+```typescript
 --8<-- 'code/develop/smart-contracts/libraries/wagmi/page.tsx'
 ```
 

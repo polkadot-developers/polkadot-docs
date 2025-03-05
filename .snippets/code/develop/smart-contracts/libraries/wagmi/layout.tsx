@@ -1,17 +1,17 @@
 // For app router (src/app/layout.tsx)
-'use client'
+"use client";
 
-import { WagmiProvider } from 'wagmi'
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
-import { config } from './lib/wagmi'
+import { WagmiProvider } from "wagmi";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { config } from "./lib/wagmi";
 
 // Create a query client
-const queryClient = new QueryClient()
+const queryClient = new QueryClient();
 
 export default function RootLayout({
   children,
 }: {
-  children: React.ReactNode
+  children: React.ReactNode;
 }) {
   return (
     <html lang="en">
@@ -23,5 +23,5 @@ export default function RootLayout({
         </WagmiProvider>
       </body>
     </html>
-  )
+  );
 }

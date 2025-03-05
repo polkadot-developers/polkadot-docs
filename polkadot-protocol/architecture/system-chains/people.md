@@ -44,12 +44,12 @@ After establishing an on-chain identity, users can request verification from reg
 
 Registrars can assign the following confidence levels to identity information:
 
-- Unknown - default status; no judgment rendered yet
-- Reasonable - data appears valid but without formal verification (standard for most verified identities)
-- Known good - information certified correct through formal verification (requires documentation; limited to registrars)
-- Out of date - previously verified information that requires updating
-- Low quality - imprecise information requiring correction
-- Erroneous - incorrect information, potentially indicating fraudulent intent
+- **Unknown** - default status; no judgment rendered yet
+- **Reasonable** - data appears valid but without formal verification (standard for most verified identities)
+- **Known good** - information certified correct through formal verification (requires documentation; limited to registrars)
+- **Out of date** - previously verified information that requires updating
+- **Low quality** - imprecise information requiring correction
+- **Erroneous** - incorrect information, potentially indicating fraudulent intent
 
 A temporary "Fee Paid" status indicates judgment in progress. Both "Fee Paid" and "Erroneous" statuses lock identity information from modification until resolved.
 

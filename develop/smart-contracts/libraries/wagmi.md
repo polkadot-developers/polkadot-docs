@@ -162,5 +162,3 @@ Now that you have the foundational knowledge to use Wagmi with Asset Hub, consid
     <li>[:octicons-arrow-right-24: Dev Playground](https://wagmi.sh/dev/contributing#_5-running-the-dev-playgrounds){target=\_blank}</li>
     </ul>
 </div>
-
-For more information, refer to the official [Wagmi documentation](https://wagmi.sh/){target=\_blank} and [Asset Hub documentation](/develop/smart-contracts/){target=\_blank}.

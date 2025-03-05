@@ -22,12 +22,11 @@ Before you begin, make sure you have:
 
 ## Project Overview
 
-The dApp will interact with a simple Storage contract, for more references, you can check the [Create Contracts](/tutorials/smart-contracts/launch-your-first-project/create-contracts){target=\_blank} tutorial that creates this contract step by step. This contract allows:
+The dApp will interact with a simple Storage contract. For a step-by-step guide on creating it, refer to the [Create Contracts](/tutorials/smart-contracts/launch-your-first-project/create-contracts){target=\_blank} tutorial. This contract allows:
 
 - Reading a stored number from the blockchain
 - Updating the stored number with a new value
 
-<!-- TODO: Ideally, contract address `0xabBd46Ef74b88E8B1CDa49BeFb5057710443Fd29` should be linked to some explorer, like Subscan. But that feature is not developed yet. -->
 The contract has already been deployed to Westend Asset Hub for testing purposes: `0xabBd46Ef74b88E8B1CDa49BeFb5057710443Fd29`
 
 Here's a simplified view of what you'll be building:
@@ -80,7 +79,7 @@ This file establishes a connection to Asset Hub and provides helper functions fo
 
 ## Set Up the Smart Contract Interface
 
-For this dApp, you'll use a simple Storage contract that's already been deployed. So you need to create an interface to interact with it. First, ensure to create a folder called `abis` in the root of your project, create a file `Storage.json`, and paste the corresponding ABI (Application Binary Interface) of the Storage contract. You can copy and paste the following:
+For this dApp, you'll use a simple Storage contract already deployed. So, you need to create an interface to interact with it. First, ensure to create a folder called `abis` at the root of your project, create a file `Storage.json`, and paste the corresponding ABI (Application Binary Interface) of the Storage contract. You can copy and paste the following:
 
 ??? code "Storage.sol ABI"
 
@@ -154,7 +153,7 @@ Finally, let's create a component that allows users to update the stored number.
 --8<-- "code/tutorials/smart-contracts/launch-your-first-project/create-dapp-ethers-js/WriteContract.js"
 ```
 
-This component allows users to input a new number and send a transaction to update the value stored in the contract. When the transaction is successful, users will see the stored value update in the ReadContract component after the transaction is confirmed.
+This component allows users to input a new number and send a transaction to update the value stored in the contract. When the transaction is successful, users will see the stored value update in the `ReadContract` component after the transaction is confirmed.
 
 Update the `app/page.js` file to integrate all components:
 

@@ -92,4 +92,12 @@ You must contact specific registrars individually to request judgment. Each regi
 
     [:octicons-arrow-right-24: Reference](https://support.polkadot.network/support/solutions/articles/65000181981-how-to-set-and-clear-an-identity)
 
+-   <span class="badge external">External</span> __People Chain Runtime Implementation__
+
+    ---
+
+    Source code for the People Chain runtime, detailing the technical architecture of decentralized identity management.
+
+    [:octicons-arrow-right-24: Reference](https://github.com/polkadot-fellows/runtimes/tree/main/system-parachains/people)
+
 </div>

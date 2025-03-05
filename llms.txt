@@ -7792,13 +7792,13 @@ Before using subxt, ensure you have the following installed:
 
 To use subxt in your project, you need to install the necessary dependencies. Each plays a specific role in enabling interaction with the blockchain:
 
-1. Install the subxt CLI - [`subxt-cli`](https://crates.io/crates/subxt-cli){target=\_blank} is a command-line tool that provides utilities for working with Polkadot SDK metadata. In the context of subxt, it is essential for downloading chain metadata, which is required to generate type-safe Rust interfaces for interacting with the blockchain. Install it using:
+1. **Install the subxt CLI** - [`subxt-cli`](https://crates.io/crates/subxt-cli){target=\_blank} is a command-line tool that provides utilities for working with Polkadot SDK metadata. In the context of subxt, it is essential for downloading chain metadata, which is required to generate type-safe Rust interfaces for interacting with the blockchain. Install it using:
 
     ```bash
     cargo install subxt-cli
     ```
 
-2. Add core dependencies - these dependencies are essential for interacting with the blockchain:
+2. **Add core dependencies** - these dependencies are essential for interacting with the blockchain:
 
     - **[subxt](https://crates.io/crates/subxt){target=\_blank}** - the main library for communicating with Polkadot SDK nodes. It handles RPC requests, encoding/decoding, and type generation
 

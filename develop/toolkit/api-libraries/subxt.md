@@ -23,41 +23,37 @@ Before using subxt, ensure you have the following installed:
 
 To use subxt in your project, you need to install the necessary dependencies. Each plays a specific role in enabling interaction with the blockchain:
 
-### Install the Subxt CLI
-
-[`subxt-cli`](https://crates.io/crates/subxt-cli){target=\_blank} is a command-line tool that provides utilities for working with Polkadot SDK metadata. In the context of subxt, it is essential for downloading chain metadata, which is required to generate type-safe Rust interfaces for interacting with the blockchain. Install it using:
-
-```bash
-cargo install subxt-cli
-```
-
-### Add Core Dependencies
-
-These dependencies are essential for interacting with the blockchain:
-
-- **[subxt](https://crates.io/crates/subxt){target=\_blank}** - the main library for communicating with Polkadot SDK nodes. It handles RPC requests, encoding/decoding, and type generation
+1. Install the subxt CLI - [`subxt-cli`](https://crates.io/crates/subxt-cli){target=\_blank} is a command-line tool that provides utilities for working with Polkadot SDK metadata. In the context of subxt, it is essential for downloading chain metadata, which is required to generate type-safe Rust interfaces for interacting with the blockchain. Install it using:
 
     ```bash
-    cargo add subxt
+    cargo install subxt-cli
     ```
 
-- **[subxt-signer](https://crates.io/crates/subxt-signer){target=\_blank}** - provides cryptographic functionality for signing transactions. Without this, you can only read data but cannot submit transactions
+2. Add core dependencies - these dependencies are essential for interacting with the blockchain:
 
-    ```bash
-    cargo add subxt-signer
+    - **[subxt](https://crates.io/crates/subxt){target=\_blank}** - the main library for communicating with Polkadot SDK nodes. It handles RPC requests, encoding/decoding, and type generation
+
+        ```bash
+        cargo add subxt
+        ```
+
+    - **[subxt-signer](https://crates.io/crates/subxt-signer){target=\_blank}** - provides cryptographic functionality for signing transactions. Without this, you can only read data but cannot submit transactions
+
+        ```bash
+        cargo add subxt-signer
+        ```
+
+    - **[tokio](https://crates.io/crates/tokio){target=\_blank}** - an asynchronous runtime for Rust. Since blockchain operations are async, Tokio enables efficient handling of network requests. The `rt` feature enables Tokio’s runtime, including the current-thread single-threaded scheduler, necessary for async execution. The `macros` feature provides procedural macros like `#[tokio::main]` to simplify runtime setup
+
+        ```bash
+        cargo add tokio --features rt,macros
+        ```
+
+    After adding the dependencies, your `Cargo.toml` should look like this:
+
+    ```toml
+    --8<-- 'code/develop/toolkit/api-libraries/subxt/Cargo.toml'
     ```
-
-- **[tokio](https://crates.io/crates/tokio){target=\_blank}** - an asynchronous runtime for Rust. Since blockchain operations are async, Tokio enables efficient handling of network requests. The `rt` feature enables Tokio’s runtime, including the current-thread single-threaded scheduler, necessary for async execution. The `macros` feature provides procedural macros like `#[tokio::main]` to simplify runtime setup
-
-    ```bash
-    cargo add tokio --features rt,macros
-    ```
-
-After adding the dependencies, your `Cargo.toml` should look like this:
-
-```toml
---8<-- 'code/develop/toolkit/api-libraries/subxt/Cargo.toml'
-```
 
 ## Get Started
 

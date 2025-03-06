@@ -11,7 +11,7 @@ subxt is a Rust library designed to interact with Polkadot SDK-based blockchains
 
 ## Prerequisites
 
-Before using subxt, ensure you have the following installed:
+Before using subxt, ensure you have the following requirements:
 
 - Rust and Cargo installed on your system. You can install them using [Rustup](https://rustup.rs/){target=\_blank}
 - A Rust project initialized. If you don’t have one, create it with:

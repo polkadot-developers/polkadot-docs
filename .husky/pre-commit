@@ -1,8 +1,8 @@
 #!/bin/sh
 . "$(dirname "$0")/_/husky.sh"
 
-echo "Running Prettier on .snippets/code/**/*.{js,json,html}"
-npx prettier --write .snippets/code/**/*.{js,json,html}
+echo "Running Prettier on .snippets/code/**/*.{js,json,html,tsx}"
+npx prettier --write .snippets/code/**/*.{js,json,html,tsx}
 
 IGNORED_FILES=(
   ".snippets/code/develop/toolkit/parachains/spawn-chains/zombienet/write-tests/big-network-test.toml"
@@ -35,4 +35,4 @@ else
 fi
 
 echo "Adding formatted files back to the commit..."
-git add .snippets/code/**/*.{js,json,html,toml}
+git add .snippets/code/**/*.{js,json,html,toml,tsx}

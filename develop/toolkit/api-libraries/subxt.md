@@ -7,7 +7,7 @@ description: Subxt is a Rust library for type-safe interaction with Polkadot SDK
 
 ## Introduction
 
-subxt is a Rust library designed for interacting with Polkadot SDK-based blockchains. It provides a type-safe interface for submitting transactions, querying on-chain state, and performing other blockchain interactions. By leveraging Rust’s strong type system, subxt ensures that your code is validated at compile time, reducing runtime errors and improving reliability.
+subxt is a Rust library designed to interact with Polkadot SDK-based blockchains. It provides a type-safe interface for submitting transactions, querying on-chain state, and performing other blockchain interactions. By leveraging Rust’s strong type system, subxt ensures that your code is validated at compile time, reducing runtime errors and improving reliability.
 
 ## Prerequisites
 
@@ -23,7 +23,7 @@ Before using subxt, ensure you have the following installed:
 
 To use subxt in your project, you need to install the necessary dependencies. Each plays a specific role in enabling interaction with the blockchain:
 
-1. **Install the subxt CLI** - [`subxt-cli`](https://crates.io/crates/subxt-cli){target=\_blank} is a command-line tool that provides utilities for working with Polkadot SDK metadata. In the context of subxt, it is essential for downloading chain metadata, which is required to generate type-safe Rust interfaces for interacting with the blockchain. Install it using:
+1. **Install the subxt CLI** - [`subxt-cli`](https://crates.io/crates/subxt-cli){target=\_blank} is a command-line tool that provides utilities for working with Polkadot SDK metadata. In the context of subxt, it is essential to download chain metadata, which is required to generate type-safe Rust interfaces for interacting with the blockchain. Install it using:
 
     ```bash
     cargo install subxt-cli
@@ -100,7 +100,7 @@ To interact with a blockchain node using subxt, create an asynchronous main func
 
 subxt provides multiple ways to access on-chain data:
 
-- Constants - constants are predefined values in the runtime that remain unchanged unless modified by a runtime upgrade
+- **Constants** - constants are predefined values in the runtime that remain unchanged unless modified by a runtime upgrade
 
     For example, to retrieve the existential deposit, use:
     
@@ -108,7 +108,7 @@ subxt provides multiple ways to access on-chain data:
     --8<-- 'code/develop/toolkit/api-libraries/subxt/subxt.rs:18:24'
     ```
 
-- State - state refers to the current chain data, which updates with each block
+- **State** - state refers to the current chain data, which updates with each block
 
     To fetch account information, replace `INSERT_ADDRESS` with the address you want to fetch data from and use:
 

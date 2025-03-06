@@ -12,7 +12,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
     // Define the node URL.
     const NODE_URL: &str = "INSERT_NODE_URL";
 
-    // Initialize the Subxt client for interacting with the blockchain.
+    // Initialize the Subxt client to interact with the blockchain.
     let api = OnlineClient::<PolkadotConfig>::from_url(NODE_URL).await?;
 
     // A query to obtain some constant.

@@ -4,3 +4,4 @@ nav:
   - create-contracts.md
   - test-and-deploy-with-hardhat.md
   - 'Create a dApp with Viem': create-dapp-viem.md
+  - 'Create a dApp with Ethers.js': create-dapp-ethers-js.md

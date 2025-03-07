@@ -20,7 +20,7 @@ Before getting started, ensure you have the following:
 
 ## Project Overview
 
-This dApp will interact with a basic Storage contract. For a step-by-step guide on creating this contract, refer to the [Create Contracts](/tutorials/smart-contracts/launch-your-first-project/create-contracts) tutorial. The contract allows:
+This dApp will interact with a basic Storage contract. Refer to the [Create Contracts](/tutorials/smart-contracts/launch-your-first-project/create-contracts) tutorial for a step-by-step guide on creating this contract. The contract allows:
 
 - Retrieving a stored number from the blockchain
 - Updating the stored number with a new value
@@ -72,51 +72,11 @@ npm install --save-dev typescript @types/node
 
 To interact with Asset Hub (Westend Asset Hub in this case), you need to set up a [Public Client](https://viem.sh/docs/clients/public#public-client) that connects to the blockchain. Create a new file called `utils/viem.ts` and add the following code:
 
-```ts title="viem.ts"
-import { createPublicClient, http, createWalletClient, custom } from 'viem'
-import 'viem/window';
-
-
-const transport = http('https://westend-asset-hub-eth-rpc.polkadot.io')
-
-// Configure the Asset Hub chain
-export const assetHub = {
-  id: 420420421,
-  name: 'Westend Asset Hub',
-  network: 'westend-asset-hub',
-  nativeCurrency: {
-    decimals: 18,
-    name: 'WND',
-    symbol: 'WND',
-  },
-  rpcUrls: {
-    default: {
-      http: ['https://westend-asset-hub-eth-rpc.polkadot.io'],
-    },
-  },
-} as const
-
-// Create a public client for reading data
-export const publicClient = createPublicClient({
-  chain: assetHub,
-  transport
-})
-
-// Create a wallet client for signing transactions
-export const getWalletClient = async () => {
-  if (typeof window !== 'undefined' && window.ethereum) {
-    const [account] = await window.ethereum.request({ method: 'eth_requestAccounts' });
-    return createWalletClient({
-      chain: assetHub,
-      transport: custom(window.ethereum),
-      account,
-    });
-  }
-  throw new Error('No Ethereum browser provider detected');
-};
+```typescript title="viem.ts"
+--8<-- "code/tutorials/smart-contracts/launch-your-first-project/create-dapp-viem/viem.ts"
 ```
 
-This file initializes a Viem client, providing helper functions for obtaining a Public Client and a [Wallet Client](https://viem.sh/docs/clients/wallet#wallet-client). The public client enables reading blockchain data, while the wallet client allows users to sign and send transactions. Also, note that by importing `'viem/window'` the global `window.ethereum` will typed as an `EIP1193Provider`, check the [`window` Pollifyll](https://viem.sh/docs/typescript#window-polyfill) reference for more information.
+This file initializes a Viem client, providing helper functions for obtaining a Public Client and a [Wallet Client](https://viem.sh/docs/clients/wallet#wallet-client). The public client enables reading blockchain data, while the wallet client allows users to sign and send transactions. Also, note that by importing `'viem/window'` the global `window.ethereum` will be typed as an `EIP1193Provider`, check the [`window` Pollifyll](https://viem.sh/docs/typescript#window-polyfill) reference for more information.
 
 ## Set Up the Smart Contract Interface
 
@@ -124,67 +84,15 @@ For this dApp, you'll use a simple [Storage contract](/tutorials/smart-contracts
 
 Create a folder called `abis` at the root of your project, then create a file named `Storage.json` and paste the corresponding ABI (Application Binary Interface) of the Storage contract. You can copy and paste the following:
 
-
 ??? code "Storage.sol ABI"
     ```json
-    [
-    {
-        "inputs": [
-        {
-            "internalType": "uint256",
-            "name": "_newNumber",
-            "type": "uint256"
-        }
-        ],
-        "name": "setNumber",
-        "outputs": [],
-        "stateMutability": "nonpayable",
-        "type": "function"
-    },
-    {
-        "inputs": [],
-        "name": "storedNumber",
-        "outputs": [
-        {
-            "internalType": "uint256",
-            "name": "",
-            "type": "uint256"
-        }
-        ],
-        "stateMutability": "view",
-        "type": "function"
-    }
-    ]
+    --8<-- "code/tutorials/smart-contracts/launch-your-first-project/create-dapp-viem/Storage.json"
     ```
 
 Next, create a file called `utils/contract.ts`:
 
-```ts title="contract.ts"
-import { getContract } from 'viem';
-import { publicClient, getWalletClient } from './viem';
-import StorageABI from '../../abis/Storage.json';
-
-export const CONTRACT_ADDRESS = '0xabBd46Ef74b88E8B1CDa49BeFb5057710443Fd29';
-export const CONTRACT_ABI = StorageABI;
-
-// Create a function to get a contract instance for reading
-export const getContractInstance = () => {
-  return getContract({
-    address: CONTRACT_ADDRESS,
-    abi: CONTRACT_ABI,
-    client: publicClient,
-  });
-};
-
-// Create a function to get a contract instance with a signer for writing
-export const getSignedContract = async () => {
-  const walletClient = await getWalletClient();
-  return getContract({
-    address: CONTRACT_ADDRESS,
-    abi: CONTRACT_ABI,
-    client: walletClient,
-  });
-};
+```typescript title="contract.ts"
+--8<-- "code/tutorials/smart-contracts/launch-your-first-project/create-dapp-viem/viem.ts"
 ```
 
 This file defines the contract address, ABI, and functions to create a Viem [contract instance](https://viem.sh/docs/contract/getContract#contract-instances) for reading and writing operations. Viem's contract utilities ensure a more efficient and type-safe interaction with smart contracts.
@@ -207,6 +115,16 @@ To use this component in your dApp, replace the existing boilerplate in `app/pag
 --8<-- "code/tutorials/smart-contracts/launch-your-first-project/create-dapp-viem/page.tsx:23:25"
 ```
 
+Now you're ready to run your dApp. From your project directory, execute:
+
+```bash
+npm run dev
+```
+
+Navigate to `http://localhost:3000` in your browser, and you should see your dApp with the wallet connection button, the stored number display, and the form to update the number.
+
+![](/images/tutorials/smart-contracts/launch-your-first-project/create-dapp-viem/create-dapp-viem-2.webp)
+
 ## Create the Read Contract Component
 
 Now, let's create a component to read data from the contract. Create a file called `components/ReadContract.tsx`:
@@ -225,6 +143,10 @@ To reflect this change in your dApp, incorporate this component into the `app/pa
 --8<-- "code/tutorials/smart-contracts/launch-your-first-project/create-dapp-viem/page.tsx:23:25"
 ```
 
+And you will see in your browser:
+
+![](/images/tutorials/smart-contracts/launch-your-first-project/create-dapp-viem/create-dapp-viem-3.webp)
+
 ## Create the Write Contract Component
 
 Finally, let's create a component that allows users to update the stored number. Create a file called `components/WriteContract.tsx`:
@@ -240,16 +162,9 @@ Update the `app/page.tsx` file to integrate all components:
 ```typescript title="page.tsx"
 --8<-- "code/tutorials/smart-contracts/launch-your-first-project/create-dapp-viem/page.tsx"
 ```
+After that, you will see:
 
-## Run Your dApp
-
-Now you're ready to run your dApp. From your project directory, execute:
-
-```bash
-npm run dev
-```
-
-Navigate to `http://localhost:3000` in your browser, and you should see your dApp with the wallet connection button, the stored number display, and the form to update the number.
+![](/images/tutorials/smart-contracts/launch-your-first-project/create-dapp-viem/create-dapp-viem-4.webp)
 
 ## How It Works
 

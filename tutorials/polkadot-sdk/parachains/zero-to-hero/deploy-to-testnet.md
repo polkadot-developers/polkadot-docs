@@ -70,45 +70,85 @@ To reserve a parachain identifier, follow these steps:
 
     ![](/images/tutorials/polkadot-sdk/parachains/zero-to-hero/deploy-to-testnet/deploy-to-testnet-8.webp)
 
+## Generate Customs Keys for Your Collator
+
+To securely deploy your parachain, it is essential to generate custom keys specifically for your collators (block producers). You should generate two sets of keys for each collator:
+
+- **Account keys** - used to interact with the network and manage funds. These should be protected carefully and should never exist on the filesystem of the collator node
+
+- **Session keys** - used in block production. These identify your node and its blocks on the network. Stored in the parachain keystore, these are disposable "hot wallet" keys. If leaked, they could be used to impersonate your node, potentially leading to fund slashing. To mitigate risks, rotate these keys frequently. Treat them with the same caution as a hot wallet to protect your node security
+
+To perform this step, you can use [subkey](https://docs.rs/crate/subkey/latest){target=_blank}, a command-line tool for generating and managing keys:
+
+```bash
+docker run -it parity/subkey:latest generate --scheme sr25519
+```
+
+The output should look similar to the following:
+
+<div id="termynal" data-termynal>
+  <span data-ty="input"><span class="file-path"></span>docker run -it parity/subkey:latest generate --scheme sr25519</span>
+  <span>
+  <br>Secret phrase: lemon play remain picture leopard frog mad bridge hire hazard best buddy
+  <br>Network ID: substrate
+  <br>Secret seed: 0xb748b501de061bae1fcab1c0b814255979d74d9637b84e06414a57a1a149c004
+  <br>Public key (hex): 0xf4ec62ec6e70a3c0f8dcbe0531e2b1b8916cf16d30635bbe9232f6ed3f0bf422
+  <br>Account ID: 0xf4ec62ec6e70a3c0f8dcbe0531e2b1b8916cf16d30635bbe9232f6ed3f0bf422
+  <br>Public key (SS58): 5HbqmBBJ5ALUzho7tw1k1jEgKBJM7dNsQwrtfSfUskT1a3oe
+  <br>SS58 Address: 5HbqmBBJ5ALUzho7tw1k1jEgKBJM7dNsQwrtfSfUskT1a3oe
+</div>
+
+Ensure that this command is executed twice to generate the keys for both the account and session keys. Save them for future reference.
+
 ## Generate the Chain Specification
+
+Polkadot SDK-based blockchains are defined by a file called the chain specification, or chain spec for short. There are two types of chain spec files:
+
+- **Plain chain spec** - a human-readable JSON file that can be modified to suit your parachain's requirements. It serves as a template for initial configuration and includes human-readable keys and structures
+- **Raw chain spec** - a binary-encoded file used to start your parachain node. This file is generated from the plain chain spec and contains the encoded information necessary for the parachain node to synchronize with the blockchain network. It ensures compatibility across different runtime versions by providing data in a format directly interpretable by the node's runtime, regardless of upgrades since the chain's genesis
 
 The files required to register a parachain must specify the correct relay chain to connect to and the parachain identifier you have been assigned. To make these changes, you must build and modify the chain specification file for your parachain. In this tutorial, the relay chain is `paseo`, and the parachain identifier is `4508`.
 
 To modify the chain specification:
 
-1. Generate the plain chain specification for the parachain template node by running the following command. Make sure to use the `*.compact.compressed.wasm` version of your file when generating your chain specification. You should find your runtime's Wasm file inside `target/release/wbuild`:
+1. Generate the plain chain specification for the parachain template node by running the following command. Make sure to use the `*.compact.compressed.wasm` version of your file when generating your chain specification, and replace `INSERT_PARA_ID` with the id you obtained in the [Reserve a Parachain Identifier](#reserve-a-parachain-identifier) section:
 
     ```bash
-    chain-spec-builder create --relay-chain paseo \
-    --para-id 4508 \
-    -r <runtime.compact.compressed.wasm> \
-    default
+    chain-spec-builder \
+    --chain-spec-path ./plain_chain_spec.json \
+    create \
+    --relay-chain paseo \
+    --para-id INSERT_PARA_ID \
+    --runtime target/release/wbuild/parachain-template-runtime/parachain_template_runtime.compact.compressed.wasm \
+    named-preset local_testnet
     ```
 
-2. Open the plain text chain specification for the parachain template node in a text editor
+2. Edit the `plain_chain_spec.json` file:
 
-3. Set the `parachainId` to the parachain identifier that you previously reserved:
+    - Update the `name`, `id` and `protocolId` fields to unique values for your parachain
+    - Change `para_id` and `parachainInfo.parachainId` fields to the parachain ID you obtained previously. Make sure to use a number without quotes
+    - Modify the `balances` field to specify the initial balances for your accounts in SS58 format
+    - Insert the account IDs and session keys in SS58 format generated for your collators in the `collatorSelection.invulnerables` and `session.keys` fields
+    - Modify the `sudo` value to specify the account that will have sudo access to the parachain
+  
+    ```json
+    --8<-- 'code/tutorials/polkadot-sdk/parachains/zero-to-hero/deploy-to-testnet/chain_spec_placeholder.json'
+    ```
+
+    For this example, the `plain_chain_spec.json` file should look similar to the following. Take into account that the same account is being used for the collator and sudo, which must not be the case in a production environment:
 
     ```json
-    --8<-- 'code/tutorials/polkadot-sdk/parachains/zero-to-hero/deploy-to-testnet/partial-chain-spec.json::2'
-    --8<-- 'code/tutorials/polkadot-sdk/parachains/zero-to-hero/deploy-to-testnet/partial-chain-spec.json:5:10'
-    --8<-- 'code/tutorials/polkadot-sdk/parachains/zero-to-hero/deploy-to-testnet/partial-chain-spec.json:22:25'
+    --8<-- 'code/tutorials/polkadot-sdk/parachains/zero-to-hero/deploy-to-testnet/plain_chain_spec.json'
     ```
 
-4. Add the public key for your account to the session keys section. Each configured session key will require a running collator:
+3. Save your changes and close the plain text chain specification file
 
-    ```json
-    --8<-- 'code/tutorials/polkadot-sdk/parachains/zero-to-hero/deploy-to-testnet/partial-chain-spec.json::2'
-    --8<-- 'code/tutorials/polkadot-sdk/parachains/zero-to-hero/deploy-to-testnet/partial-chain-spec.json:5:7'
-    --8<-- 'code/tutorials/polkadot-sdk/parachains/zero-to-hero/deploy-to-testnet/partial-chain-spec.json:11:25'
-    ```
-
-5. Save your changes and close the plain text chain specification file
-
-6. Convert the modified plain chain specification file to a raw chain specification file:
+4. Convert the modified plain chain specification file to a raw chain specification file:
 
     ```bash
-    chain-spec-builder convert-to-raw plain-parachain-chainspec.json
+    chain-spec-builder \
+    --chain-spec-path ./raw_chain_spec.json \
+    convert-to-raw plain_chain_spec.json
     ```
 
     You should now see your chain specification containing SCALE-encoded hex values versus plain text.
@@ -117,18 +157,18 @@ To modify the chain specification:
 
 To prepare the parachain collator to be registered on Paseo, follow these steps:
 
-1. Export the Wasm runtime for the parachain by running a command similar to the following:
+1. Export the Wasm runtime for the parachain by running the following command:
 
     ```bash
     polkadot-omni-node export-genesis-wasm \
-    --chain raw-parachain-chainspec.json para-wasm
+    --chain raw_chain_spec.json para-wasm
     ```
 
-2. Export the genesis state for the parachain by running a command similar to the following:
+2. Export the genesis state for the parachain by running the following command:
 
     ```bash
     polkadot-omni-node export-genesis-state \
-    --chain raw-parachain-chainspec.json para-state
+    --chain raw_chain_spec.json para-state
     ```
 
 ## Register a Parathread
@@ -137,45 +177,73 @@ Once you have the genesis state and runtime, you can now register these with you
 
 1. Go to the [Parachains > Parathreads](https://polkadot.js.org/apps/#/parachains/parathreads){target=\_blank} tab, and select **+ Parathread**
    
-2. You should see fields to place your runtime Wasm and genesis state respectively, along with the parachain ID. Select your parachain ID, and upload `para-wasm` in the "code" field and `para-state` in the "initial state" field:
+2. You should see fields to place your runtime Wasm and genesis state respectively, along with the parachain ID. Select your parachain ID, and upload `para-wasm` in the **code** field and `para-state` in the **initial state** field:
 
-![](/images/tutorials/polkadot-sdk/parachains/zero-to-hero/deploy-to-testnet/deploy-to-testnet-9.webp)
+    ![](/images/tutorials/polkadot-sdk/parachains/zero-to-hero/deploy-to-testnet/deploy-to-testnet-9.webp)
    
 3. Confirm your details and **+ Submit** button, where there should be a new Parathread with your parachain ID and an active **Deregister** button:
 
-![](/images/tutorials/polkadot-sdk/parachains/zero-to-hero/deploy-to-testnet/deploy-to-testnet-10.webp)
+    ![](/images/tutorials/polkadot-sdk/parachains/zero-to-hero/deploy-to-testnet/deploy-to-testnet-10.webp)
 
 Your parachain's runtime logic and genesis are now part of the relay chain. The next step is to ensure you are able to run a collator to produce blocks for your parachain.
 
 ## Start the Collator Node
 
-Before starting a collator, generate a node key. A node key is responsible for communicating with other nodes over Libp2p:
+Before starting a collator, you need to generate a node key. This key, is responsible for communicating with other nodes over Libp2p:
 
 ```bash
 polkadot-omni-node key generate-node-key \
---base-path /tmp/parachain/pubs-demo \
---chain raw-parachain-chainspec.json
+--base-path data \
+--chain raw_chain_spec.json
 ```
 
 After running the command, you should see the following output, indicating the base path now has a suitable node key: 
 
 --8<-- 'code/tutorials/polkadot-sdk/parachains/zero-to-hero/deploy-to-testnet/deploy-on-paseo.html'
 
-You must have the ports for the collator publicly accessible and discoverable to enable parachain nodes to peer with Paseo validator nodes to produce blocks. You can specify the ports with the `--port` command-line option. For example, you can start the collator with a command similar to the following:
+You must have the ports for the collator publicly accessible and discoverable to enable parachain nodes to peer with Paseo validator nodes to produce blocks. You can specify the ports with the `--port` command-line option. You can start the collator with a command similar to the following:
 
 ```bash
 polkadot-omni-node --collator \
---chain raw-parachain-chainspec.json \
---base-path /tmp/parachain/pubs-demo \
---port 50333 \
---rpc-port 8855 \
+--chain raw_chain_spec.json \
+--base-path data \
+--port 40333 \
+--rpc-port 8845 \
+--force-authoring \
+--node-key-file ./data/chains/custom/network/secret_ed25519 \
 -- \
+--sync warp \
 --chain paseo \
 --port 50343 \
 --rpc-port 9988
 ```
 
 In this example, the first `--port` setting specifies the port for the collator node and the second `--port` specifies the embedded relay chain node port. The first `--rpc-port` setting specifies the port you can connect to the collator. The second `--rpc-port` specifies the port for connecting to the embedded relay chain.
+
+Finally, insert the session key previously generated in your collator keystore by running the following command with the appropriate values:
+
+```bash
+curl -H "Content-Type: application/json" \
+--data '{
+  "jsonrpc":"2.0",
+  "method":"author_insertKey",
+  "params":[
+    "aura",
+    "INSERT_SECRET_PHRASE",
+    "INSERT_PUBLIC_KEY_HEX_FORMAT"
+  ],
+  "id":1
+}' \
+http://localhost:8845
+```
+
+If successful, you should see the following response:
+
+```json
+{"jsonrpc":"2.0","result":null,"id":1}
+```
+
+Once your collator is synced with the Paseo relay chain, and your parathread finished onboarding, it will be ready to start producing blocks. This process may take some time.
 
 ## Producing Blocks
 

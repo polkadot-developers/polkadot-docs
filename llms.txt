@@ -24771,7 +24771,7 @@ Polkadot SDK-based blockchains are defined by a file called the chain specificat
 
 The files required to register a parachain must specify the correct relay chain to connect to and the parachain identifier you have been assigned. To make these changes, you must build and modify the chain specification file for your parachain. In this tutorial, the relay chain is `paseo`, and the parachain identifier is `4508`.
 
-To modify the chain specification:
+To define your chain specification:
 
 1. Generate the plain chain specification for the parachain template node by running the following command. Make sure to use the `*.compact.compressed.wasm` version of your file when generating your chain specification, and replace `INSERT_PARA_ID` with the id you obtained in the [Reserve a Parachain Identifier](#reserve-a-parachain-identifier) section:
 
@@ -24856,10 +24856,12 @@ To modify the chain specification:
 }
     ```
 
-    For this example, the `plain_chain_spec.json` file should look similar to the following. Take into account that the same account is being used for the collator and sudo, which must not be the case in a production environment:
+    For this tutorial, the `plain_chain_spec.json` file should look similar to the following. Take into account that the same account is being used for the collator and sudo, which must not be the case in a production environment:
 
-    ```json
-    {
+    ??? code "Plain Chain Spec Example"
+
+        ```json title="plain_chain_spec.json"
+        {
     "bootNodes": [],
     "chainType": "Live",
     "codeSubstitutes": {},
@@ -24926,7 +24928,7 @@ To modify the chain specification:
     "relay_chain": "paseo",
     "telemetryEndpoints": null
 }
-    ```
+        ```
 
 3. Save your changes and close the plain text chain specification file
 
@@ -25012,7 +25014,7 @@ polkadot-omni-node --collator \
 
 In this example, the first `--port` setting specifies the port for the collator node and the second `--port` specifies the embedded relay chain node port. The first `--rpc-port` setting specifies the port you can connect to the collator. The second `--rpc-port` specifies the port for connecting to the embedded relay chain.
 
-Finally, insert the session key previously generated in your collator keystore by running the following command with the appropriate values:
+Insert your generated session key into your collator keystore. Run the following command replacing `INSERT_SECRET_PHRASE` and `INSERT_PUBLIC_KEY_HEX_FORMAT` with the values from the session key you generated in the [Generate Customs Keys for Your Collator](#generate-customs-keys-for-your-collator) section:
 
 ```bash
 curl -H "Content-Type: application/json" \
@@ -25095,8 +25097,8 @@ After deploying a parachain to the Paseo TestNet in the [Deploy to TestNet](/tut
 
 There are two ways to obtain coretime:
 
-- **Bulk coretime** - bulk coretime allows you to obtain a core or part of a core. It is purchased for some time, up to 28 days. It must be renewed once the lease finishes
-- **On-demand coretime** - on-demand coretime allows you to buy coretime on a block-by-block basis
+- **[On-demand coretime](#order-on-demand-coretime)** - on-demand coretime allows you to buy coretime on a block-by-block basis
+- **[Bulk coretime](#purchase-bulk-coretime)** - bulk coretime allows you to obtain a core or part of a core. It is purchased for some time, up to 28 days. It must be renewed once the lease finishes
 
 In this tutorial, you will:
 
@@ -25115,6 +25117,27 @@ Before proceeding, you should have the following items:
 - A properly configured and synced (with the relay chain) collator
 
 Once the above is complete, obtaining coretime is the last step to enable your parachain to start producing and finalizing blocks using the relay chain's validator set. If you don't, refer to the previous tutorial: [Deploy on Paseo TestNet](/tutorials/polkadot-sdk/parachains/zero-to-hero/deploy-to-testnet/){target=\_blank}.
+
+## Order On Demand Coretime
+
+There are two extrinsics which allow you to place orders for on-demand coretime:
+
+- [**`onDemand.placeOrderAllowDeath`**](https://paritytech.github.io/polkadot-sdk/master/polkadot_runtime_parachains/on_demand/pallet/dispatchables/fn.place_order_allow_death.html){target=\_blank} - will [reap](https://wiki.polkadot.network/docs/learn-accounts#existential-deposit-and-reaping){target=\_blank} the account once the provided funds run out
+- [**`onDemand.placeOrderKeepAlive`**](https://paritytech.github.io/polkadot-sdk/master/polkadot_runtime_parachains/on_demand/pallet/dispatchables/fn.place_order_keep_alive.html){target=\_blank} - includes a check which will **not** reap the account if the provided funds will run out, ensuring the account is kept alive
+
+To produce a block in your parachain, navigate to Polkadot.js Apps and ensure you're connected to the Paseo relay chain. Then, access the [**Developer > Extrinsics**](https://polkadot.js.org/apps/#/extrinsics){target=\_blank} tab and execute the `onDemand.placeOrderAllowDeath` extrinsic from the account that registered the `ParaID`. For this example, `maxAmount` is set to `1000000000000` (this value may vary depending on the network conditions), and `paraId` is set to `4518`:
+
+![](/images/tutorials/polkadot-sdk/parachains/zero-to-hero/obtain-coretime/obtain-coretime-9.webp)
+
+With each successful on-demand extrinsic, the parachain will produce a new block. You can verify this by checking the logs of the collator. If the extrinsic is successful, you should see output similar to the following:
+
+<div id="termynal" data-termynal>
+  <span data-ty="progress">2024-12-11 18:03:29 [Parachain] 🙌 Starting consensus session on top of parent </span>
+  <span data-ty="progress">0x860e5e37dbc04e736e76c4a42c64e71e069084548862d4007d32958578b26d87 (#214) </span>
+  <span data-ty="progress">2024-12-11 18:03:30 [Parachain] 🎁 Prepared block for proposing at 215 (701 ms) hash: </span>
+  <span data-ty="progress">0xee48b7dd559ab4cbff679f59e5cd37f2fd5b60c53a25b11d770dce999968076c; parent_hash: 0x860e…6d87; end: NoMoreTransactions; extrinsics_count: 2 </span>
+  <span data-ty="progress">2024-12-11 18:03:30 [Parachain] 🏆 Imported #215 (0x860e…6d87 → 0xee48…076c)</span>
+</div>
 
 ## Purchase Bulk Coretime
 
@@ -25174,35 +25197,7 @@ Click the **Add Task** button and input the parachain identifier, along with the
 
 You may now select a task from the list. You must also set the core's finality, which determines whether you can renew this specific core. Provisional finality allows for interlacing and partitioning, whereas Final finality does not allow the region to be modified. A core must not be interlaced or partitioned to be renewable, so Finality should be selected if you want to renew this specific core.
 
-Once you sign and send this transaction, that task/parachain will be assigned to that core.
-
-## Order On Demand Coretime
-
-On Polkadot.js Apps, make sure you're connected to the relay chain, then navigate to [**Developer > Extrinsics**](https://polkadot.js.org/apps/#/extrinsics){target=\_blank} and issue the `onDemand.placeOrderAllowDeath` extrinsic from the account that registered the `ParaID` by specifying sufficient `maxAmount` for the transaction to go through successfully.
-
-![](/images/tutorials/polkadot-sdk/parachains/zero-to-hero/obtain-coretime/obtain-coretime-9.webp)
-
-There are two extrinsics which allow you to place orders for on-demand coretime:
-
-- [**`onDemand.placeOrderAllowDeath`**](https://paritytech.github.io/polkadot-sdk/master/polkadot_runtime_parachains/on_demand/pallet/dispatchables/fn.place_order_allow_death.html){target=\_blank} - will [reap](https://wiki.polkadot.network/docs/learn-accounts#existential-deposit-and-reaping){target=\_blank} the account once the provided funds run out
-- [**`onDemand.placeOrderKeepAlive`**](https://paritytech.github.io/polkadot-sdk/master/polkadot_runtime_parachains/on_demand/pallet/dispatchables/fn.place_order_keep_alive.html){target=\_blank} - includes a check which will **not** reap the account if the provided funds will run out, ensuring the account is kept alive
-
-With each successful on-demand extrinsic, the parachain head changes (you may have to zoom out on the browser for parachain head details to show up on the Polkadot.js Apps interface).
-
-![](/images/tutorials/polkadot-sdk/parachains/zero-to-hero/obtain-coretime/obtain-coretime-10.webp)
-
-The same should also be reflected in the collator's logs, where you should see output similar to the following:
-
-<div id="termynal" data-termynal>
-  <span data-ty="input"><span class="file-path"></span>polkadot-omni-node</span>
-  <br />
-
-  <span data-ty="progress">2024-12-11 18:03:29 [Parachain] 🙌 Starting consensus session on top of parent </span>
-  <span data-ty="progress">0x860e5e37dbc04e736e76c4a42c64e71e069084548862d4007d32958578b26d87 (#214) </span>
-  <span data-ty="progress">2024-12-11 18:03:30 [Parachain] 🎁 Prepared block for proposing at 215 (701 ms) hash: </span>
-  <span data-ty="progress">0xee48b7dd559ab4cbff679f59e5cd37f2fd5b60c53a25b11d770dce999968076c; parent_hash: 0x860e…6d87; end: NoMoreTransactions; extrinsics_count: 2 </span>
-  <span data-ty="progress">2024-12-11 18:03:30 [Parachain] 🏆 Imported #215 (0x860e…6d87 → 0xee48…076c)</span>
-</div>
+Once you sign and send this transaction, your parachain will be assigned to that core.
 --- END CONTENT ---
 
 Doc-Content: https://docs.polkadot.com/tutorials/polkadot-sdk/parachains/zero-to-hero/pallet-benchmarking/

@@ -109,7 +109,7 @@ Polkadot SDK-based blockchains are defined by a file called the chain specificat
 
 The files required to register a parachain must specify the correct relay chain to connect to and the parachain identifier you have been assigned. To make these changes, you must build and modify the chain specification file for your parachain. In this tutorial, the relay chain is `paseo`, and the parachain identifier is `4508`.
 
-To modify the chain specification:
+To define your chain specification:
 
 1. Generate the plain chain specification for the parachain template node by running the following command. Make sure to use the `*.compact.compressed.wasm` version of your file when generating your chain specification, and replace `INSERT_PARA_ID` with the id you obtained in the [Reserve a Parachain Identifier](#reserve-a-parachain-identifier) section:
 
@@ -135,11 +135,13 @@ To modify the chain specification:
     --8<-- 'code/tutorials/polkadot-sdk/parachains/zero-to-hero/deploy-to-testnet/chain_spec_placeholder.json'
     ```
 
-    For this example, the `plain_chain_spec.json` file should look similar to the following. Take into account that the same account is being used for the collator and sudo, which must not be the case in a production environment:
+    For this tutorial, the `plain_chain_spec.json` file should look similar to the following. Take into account that the same account is being used for the collator and sudo, which must not be the case in a production environment:
 
-    ```json
-    --8<-- 'code/tutorials/polkadot-sdk/parachains/zero-to-hero/deploy-to-testnet/plain_chain_spec.json'
-    ```
+    ??? code "Plain Chain Spec Example"
+
+        ```json title="plain_chain_spec.json"
+        --8<-- 'code/tutorials/polkadot-sdk/parachains/zero-to-hero/deploy-to-testnet/plain_chain_spec.json'
+        ```
 
 3. Save your changes and close the plain text chain specification file
 
@@ -220,7 +222,7 @@ polkadot-omni-node --collator \
 
 In this example, the first `--port` setting specifies the port for the collator node and the second `--port` specifies the embedded relay chain node port. The first `--rpc-port` setting specifies the port you can connect to the collator. The second `--rpc-port` specifies the port for connecting to the embedded relay chain.
 
-Finally, insert the session key previously generated in your collator keystore by running the following command with the appropriate values:
+Insert your generated session key into your collator keystore. Run the following command replacing `INSERT_SECRET_PHRASE` and `INSERT_PUBLIC_KEY_HEX_FORMAT` with the values from the session key you generated in the [Generate Customs Keys for Your Collator](#generate-customs-keys-for-your-collator) section:
 
 ```bash
 curl -H "Content-Type: application/json" \

@@ -78,7 +78,7 @@ To securely deploy your parachain, it is essential to generate custom keys speci
 
 - **Session keys** - used in block production. These identify your node and its blocks on the network. Stored in the parachain keystore, these are disposable "hot wallet" keys. If leaked, they could be used to impersonate your node, potentially leading to fund slashing. To mitigate risks, rotate these keys frequently. Treat them with the same caution as a hot wallet to protect your node security
 
-To perform this step, you can use [subkey](https://docs.rs/crate/subkey/latest){target=_blank}, a command-line tool for generating and managing keys:
+To perform this step, you can use [subkey](https://docs.rs/crate/subkey/latest){target=\_blank}, a command-line tool for generating and managing keys:
 
 ```bash
 docker run -it parity/subkey:latest generate --scheme sr25519

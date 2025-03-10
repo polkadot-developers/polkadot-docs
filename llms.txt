@@ -94,6 +94,7 @@ Doc-Page: https://docs.polkadot.com/polkadot-protocol/architecture/polkadot-chai
 Doc-Page: https://docs.polkadot.com/polkadot-protocol/architecture/polkadot-chain/pos-consensus/
 Doc-Page: https://docs.polkadot.com/polkadot-protocol/architecture/system-chains/asset-hub/
 Doc-Page: https://docs.polkadot.com/polkadot-protocol/architecture/system-chains/bridge-hub/
+Doc-Page: https://docs.polkadot.com/polkadot-protocol/architecture/system-chains/collectives/
 Doc-Page: https://docs.polkadot.com/polkadot-protocol/architecture/system-chains/coretime/
 Doc-Page: https://docs.polkadot.com/polkadot-protocol/architecture/system-chains/
 Doc-Page: https://docs.polkadot.com/polkadot-protocol/architecture/system-chains/overview/
@@ -15294,6 +15295,30 @@ To view the complete list of which pallets are included in Bridge Hub, visit the
 - Go over the Bridge Hub README in the Polkadot SDK [Bridge-hub Parachains](https://github.com/paritytech/polkadot-sdk/blob/{{dependencies.polkadot_sdk.stable_version}}/cumulus/parachains/runtimes/bridge-hubs/README.md){target=\_blank} repository
 - Take a deeper dive into bridging architecture in the Polkadot SDK [High-Level Bridge](https://github.com/paritytech/polkadot-sdk/blob/{{dependencies.polkadot_sdk.stable_version}}/bridges/docs/high-level-overview.md){target=\_blank} documentation
 - Read more about BEEFY and Bridging in the Polkadot Wiki: [Bridging: BEEFY](https://wiki.polkadot.network/docs/learn-consensus#bridging-beefy){target=\_blank}
+--- END CONTENT ---
+
+Doc-Content: https://docs.polkadot.com/polkadot-protocol/architecture/system-chains/collectives/
+--- BEGIN CONTENT ---
+---
+title: Collectives Chain
+description: Learn how the Collectives chain provides infrastructure for governance organizations, enabling decentralized network stewardship and decision-making.
+---
+
+## Introduction
+
+Established through [Referendum 81](https://polkadot.polkassembly.io/referendum/81){target=\_blank}, the Collectives Chain operates as a dedicated parachain exclusive to the Polkadot network with no counterpart on Kusama. This specialized infrastructure provides a foundation for various on-chain governance groups essential to Polkadot's ecosystem.
+
+The architecture enables entire networks to function as unified entities, allowing them to present cohesive positions and participate in cross-network governance through [Bridge Hub](/polkadot-protocol/architecture/system-chains/bridge-hub){target=\_blank}. This capability represents a fundamental advancement in Web3 principles, eliminating dependencies on traditional third-party intermediaries such as legal systems or jurisdictional authorities.
+
+## Key Collectives
+
+The collectives chain hosts several important governance bodies:
+
+- **[Polkadot Technical Fellowship](https://wiki.polkadot.network/docs/learn-polkadot-technical-fellowship){target=\_blank}** - a self-governing assembly of protocol experts and developers who oversee technical aspects of the Polkadot and Kusama networks. The Fellowship operates both on-chain through the Collectives system and off-chain via GitHub repositories, public discussion forums, and monthly development calls that are publicly accessible.
+
+- **[Polkadot Alliance](https://wiki.polkadot.network/docs/glossary#polkadot-alliance){target=\_blank}** - a consortium founded by seven leading parachain projects (Acala, Astar, Interlay, Kilt, Moonbeam, Phala, and Subscan) to establish development standards and ethical guidelines within the ecosystem. This ranked collective, comprised of "Fellows" and "Allies," focuses on promoting best practices and identifying potential bad actors. Membership is primarily designed for organizations, projects, and other networks rather than individuals.
+
+These collectives serve as pillars of Polkadot's decentralized governance model, enabling community-driven decision-making and establishing technical standards that shape the network's evolution. Through structured on-chain representation, they provide transparent mechanisms for ecosystem development while maintaining the core Web3 principles of trustlessness and decentralization.
 --- END CONTENT ---
 
 Doc-Content: https://docs.polkadot.com/polkadot-protocol/architecture/system-chains/coretime/

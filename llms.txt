@@ -7776,21 +7776,21 @@ description: Subxt is a Rust library for type-safe interaction with Polkadot SDK
 
 ## Introduction
 
-subxt is a Rust library designed to interact with Polkadot SDK-based blockchains. It provides a type-safe interface for submitting transactions, querying on-chain state, and performing other blockchain interactions. By leveraging Rust’s strong type system, subxt ensures that your code is validated at compile time, reducing runtime errors and improving reliability.
+subxt is a Rust library designed to interact with Polkadot SDK-based blockchains. It provides a type-safe interface for submitting transactions, querying on-chain state, and performing other blockchain interactions. By leveraging Rust's strong type system, subxt ensures that your code is validated at compile time, reducing runtime errors and improving reliability.
 
 ## Prerequisites
 
 Before using subxt, ensure you have the following requirements:
 
 - Rust and Cargo installed on your system. You can install them using [Rustup](https://rustup.rs/){target=\_blank}
-- A Rust project initialized. If you don’t have one, create it with:
+- A Rust project initialized. If you don't have one, create it with:
     ```bash
     cargo new my_project && cd my_project
     ```
 
 ## Installation
 
-To use subxt in your project, you need to install the necessary dependencies. Each plays a specific role in enabling interaction with the blockchain:
+To use subxt in your project, you must install the necessary dependencies. Each plays a specific role in enabling interaction with the blockchain:
 
 1. **Install the subxt CLI** - [`subxt-cli`](https://crates.io/crates/subxt-cli){target=\_blank} is a command-line tool that provides utilities for working with Polkadot SDK metadata. In the context of subxt, it is essential to download chain metadata, which is required to generate type-safe Rust interfaces for interacting with the blockchain. Install it using:
 
@@ -7812,7 +7812,7 @@ To use subxt in your project, you need to install the necessary dependencies. Ea
         cargo add subxt-signer
         ```
 
-    - **[tokio](https://crates.io/crates/tokio){target=\_blank}** - an asynchronous runtime for Rust. Since blockchain operations are async, Tokio enables efficient handling of network requests. The `rt` feature enables Tokio’s runtime, including the current-thread single-threaded scheduler, necessary for async execution. The `macros` feature provides procedural macros like `#[tokio::main]` to simplify runtime setup
+    - **[tokio](https://crates.io/crates/tokio){target=\_blank}** - an asynchronous runtime for Rust. Since blockchain operations are async, Tokio enables the efficient handling of network requests. The `rt` feature enables Tokio's runtime, including the current-thread single-threaded scheduler, which is necessary for async execution. The `macros` feature provides procedural macros like `#[tokio::main]` to simplify runtime setup
 
         ```bash
         cargo add tokio --features rt,macros
@@ -7836,7 +7836,7 @@ tokio = { version = "1.43.0", features = ["rt", "macros"] }
 
 This guide will walk you through the fundamental operations of subxt, from setting up your environment to executing transactions and querying blockchain state.
 
-### Downloading Chain Metadata
+### Download Chain Metadata
 
 Before interacting with a blockchain, you need to retrieve its metadata. This metadata defines storage structures, extrinsics, and other runtime details. Use the `subxt-cli` tool to download the metadata, replacing `INSERT_NODE_URL` with the URL of the node you want to interact with:
 
@@ -7844,7 +7844,7 @@ Before interacting with a blockchain, you need to retrieve its metadata. This me
 subxt metadata --url INSERT_NODE_URL > polkadot_metadata.scale
 ```
 
-### Generating Type-Safe Interfaces
+### Generate Type-Safe Interfaces
 
 Use the `#[subxt::subxt]` macro to generate a type-safe Rust interface from the downloaded metadata:
 
@@ -7853,7 +7853,7 @@ Use the `#[subxt::subxt]` macro to generate a type-safe Rust interface from the 
 pub mod polkadot {}
 ```
 
-Once subxt interfaces are generated, you can interact with your node in the following ways:
+Once subxt interfaces are generated, you can interact with your node in the following ways. You can use the links below to view the related subxt documentation:
 
 - **[Transactions](https://docs.rs/subxt/latest/subxt/book/usage/transactions/index.html){target=\_blank}** - builds and submits transactions, monitors their inclusion in blocks, and retrieves associated events
 - **[Storage](https://docs.rs/subxt/latest/subxt/book/usage/storage/index.html){target=\_blank}** - enables querying of node storage data
@@ -7864,7 +7864,7 @@ Once subxt interfaces are generated, you can interact with your node in the foll
 - **[Custom values](https://docs.rs/subxt/latest/subxt/book/usage/custom_values/index.html){target=\_blank}** - accesses "custom values" contained within metadata
 - **[Raw RPC calls](https://docs.rs/subxt/latest/subxt/book/usage/rpc/index.html){target=\_blank}** - facilitates raw RPC requests to compatible nodes
 
-### Initializing the Subxt client
+### Initialize the Subxt client
 
 To interact with a blockchain node using subxt, create an asynchronous main function and initialize the client. Replace `INSERT_NODE_URL` with the URL of your target node:
 
@@ -7949,7 +7949,7 @@ Ok(())
 }
 ```
 
-### Reading Chain Data
+### Read Chain Data
 
 subxt provides multiple ways to access on-chain data:
 
@@ -7989,9 +7989,9 @@ subxt provides multiple ways to access on-chain data:
     println!("Account info: {:?}", result);
     ```
 
-### Submitting Transasctions
+### Submit Transactions
 
-To submit a transaction, you need to construct an extrinsic, sign it with your private key, and send it to the blockchain. Replace `INSERT_DEST_ADDRESS` with the recipient’s address, `INSERT_AMOUNT` with the amount to transfer, and `INSERT_SECRET_PHRASE` with the sender’s mnemonic phrase:
+To submit a transaction, you must construct an extrinsic, sign it with your private key, and send it to the blockchain. Replace `INSERT_DEST_ADDRESS` with the recipient's address, `INSERT_AMOUNT` with the amount to transfer, and `INSERT_SECRET_PHRASE` with the sender's mnemonic phrase:
 
 ```rust
 const DEST_ADDRESS: &str = "INSERT_DEST_ADDRESS";
@@ -8026,7 +8026,7 @@ const DEST_ADDRESS: &str = "INSERT_DEST_ADDRESS";
 
 ## Where to Go Next
 
-Now that you've covered the basics, dive into the official [subxt documentation](https://docs.rs/subxt/latest/subxt/book/index.html){target=\_blank} for comprehensive reference materials and advanced features.
+Now that you've covered the basics dive into the official [subxt documentation](https://docs.rs/subxt/latest/subxt/book/index.html){target=\_blank} for comprehensive reference materials and advanced features.
 --- END CONTENT ---
 
 Doc-Content: https://docs.polkadot.com/develop/toolkit/

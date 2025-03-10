@@ -1,9 +1,9 @@
-'use client';
+"use client";
 
-import { useState } from 'react';
-import WalletConnect from './components/WalletConnect';
-import ReadContract from './components/ReadContract';
-import WriteContract from './components/WriteContract';
+import { useState } from "react";
+import WalletConnect from "./components/WalletConnect";
+import ReadContract from "./components/ReadContract";
+import WriteContract from "./components/WriteContract";
 
 export default function Home() {
   const [account, setAccount] = useState<string | null>(null);

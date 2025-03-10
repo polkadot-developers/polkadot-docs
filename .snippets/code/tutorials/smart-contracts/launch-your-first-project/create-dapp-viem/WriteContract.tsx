@@ -99,7 +99,7 @@ const WriteContract: React.FC<WriteContractProps> = ({ account }) => {
       });
 
       // Simulate the contract call first
-      console.log('newNumber', newNumber);
+      console.log("newNumber", newNumber);
       const { request } = await publicClient.simulateContract({
         address: CONTRACT_ADDRESS,
         abi: CONTRACT_ABI,

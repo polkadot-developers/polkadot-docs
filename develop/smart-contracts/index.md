@@ -28,20 +28,6 @@ Ready to build? Start your smart contract journey by checking the following arti
 
 ## Additional Resources
 
-<div class="subsection-wrapper">
-  <div class="card">
-    <a href="https://use.ink/" target="_blank"> 
-      <h2 class="title">View the Official ink! Documentation</h2>
-      <p class="description">Learn everything you need to know about developing smart contracts with ink!.</p>
-    </a>
-  </div>
-  <div class="card">
-    <a href="https://use.ink/" target="_blank"> 
-      <h2 class="title">View the Official ink! Documentation</h2>
-      <p class="description">Learn everything you need to know about developing smart contracts with ink!.</p>
-    </a>
-  </div>
-</div>
 <div class="grid cards" markdown>
 
 -   <span class="badge external">External</span> __View the Official ink! Documentation__
@@ -52,12 +38,12 @@ Ready to build? Start your smart contract journey by checking the following arti
 
     [:octicons-arrow-right-24: Reference](https://use.ink/){target=\_blank}
 
--   <span class="badge guide">Guide</span> __Pallet Testing__
+-   <span class="badge guide">Guide</span> __Smart Contracts Overview__
 
     ---
 
-    Learn how to efficiently test pallets in the Polkadot SDK, ensuring the reliability and security of your pallets operations.
+    Check out the Smart Contracts overview in the Polkadot ecosystem.
 
-    [:octicons-arrow-right-24: Reference](/develop/parachains/testing)
+    [:octicons-arrow-right-24: Reference](/develop/smart-contracts/overview)
 
 </div>

@@ -109,7 +109,7 @@ This basic structure shows that every pallet must define certain types, such as 
 
 ### Utility Pallet Example
 
-For instance, in the [`utility`](https://github.com/paritytech/polkadot-sdk/tree/{{dependencies.polkadot_sdk.stable_version}}/substrate/frame/utility){target=\_blank} pallet, the `Config` trait is implemented with the following types:
+For instance, in the [`utility`](https://github.com/paritytech/polkadot-sdk/tree/{{dependencies.repositories.polkadot_sdk.version}}/substrate/frame/utility){target=\_blank} pallet, the `Config` trait is implemented with the following types:
 
 ```rust
 --8<-- 'code/develop/parachains/customize-parachain/add-existing-pallets/utility-pallet-config-trait.rs'

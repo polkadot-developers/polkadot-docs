@@ -75,7 +75,7 @@ def main():
 
     # Read the JSON file with outdated repositories
     try:
-        with open("outdated_repositories.json", "r") as f:
+        with open("outdated_dependencies.json", "r") as f:
             data = json.load(f)
     except Exception as e:
         print(f"Error reading JSON file: {e}")

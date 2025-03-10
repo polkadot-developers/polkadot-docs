@@ -1,0 +1,17 @@
+{
+  "outdated_dependencies": [
+    {
+      "name": "open_zeppelin",
+      "category": "repositories",
+      "current_version": "v1.0.0",
+      "latest_version": "v3.0.0"
+    },
+    {
+      "name": "polkadot_sdk",
+      "category": "repositories",
+      "current_version": "polkadot-stable2412",
+      "latest_version": "polkadot-stable2412-2"
+    }
+  ],
+  "outdated_count": 2
+}

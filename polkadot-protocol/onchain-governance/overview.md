@@ -82,7 +82,7 @@ See [Cancelling, Killing, and Blacklisting](https://wiki.polkadot.network/docs/l
 
 ## Additional Resources
 
-- [**Democracy pallet**](https://github.com/paritytech/polkadot-sdk/tree/{{dependencies.polkadot_sdk.stable_version}}/substrate/frame/democracy/src){target=\_blank} - handles administration of general stakeholder voting
+- [**Democracy pallet**](https://github.com/paritytech/polkadot-sdk/tree/{{dependencies.repositories.polkadot_sdk.version}}/substrate/frame/democracy/src){target=\_blank} - handles administration of general stakeholder voting
 - [**Gov2: Polkadot’s Next Generation of Decentralised Governance**](https://medium.com/polkadot-network/gov2-polkadots-next-generation-of-decentralised-governance-4d9ef657d11b){target=\_blank} - Medium article by Gavin Wood
 - [**Polkadot Direction**](https://matrix.to/#/#Polkadot-Direction:parity.io){target=\_blank} -  Matrix Element client
 - [**Polkassembly**](https://polkadot.polkassembly.io/){target=\_blank} - OpenGov dashboard and UI

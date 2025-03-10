@@ -7,25 +7,24 @@ description: Learn how to build a decentralized application on Asset Hub using V
 
 Decentralized applications (dApps) are a key component of the Web3 ecosystem, enabling developers to build applications that communicate directly with blockchain networks. Asset Hub, a blockchain with smart contract support, serves as a robust platform for deploying and interacting with dApps.
 
-This tutorial will guide you through building a fully functional dApp that interacts with a smart contract on Asset Hub. You'll use [Viem](https://viem.sh/) for blockchain interactions and [Next.js](https://nextjs.org/) for the frontend. By the end, you'll have a dApp that lets users connect their wallets, retrieve on-chain data, and execute transactions.
+This tutorial will guide you through building a fully functional dApp that interacts with a smart contract on Asset Hub. You'll use [Viem](https://viem.sh/){target=\_blank} for blockchain interactions and [Next.js](https://nextjs.org/){target=\_blank} for the frontend. By the end, you'll have a dApp that lets users connect their wallets, retrieve on-chain data, and execute transactions.
 
 ## Prerequisites
 
 Before getting started, ensure you have the following:
 
-- [Node.js](https://nodejs.org/en) v16 or later installed on your system
-- A crypto wallet (such as MetaMask) funded with test tokens. Refer to the [Connect to Asset Hub](/develop/smart-contracts/connect-to-asset-hub) guide for more details
+- [Node.js](https://nodejs.org/en){target=\_blank} v16 or later installed on your system
+- A crypto wallet (such as MetaMask) funded with test tokens. Refer to the [Connect to Asset Hub](/develop/smart-contracts/connect-to-asset-hub){target=\_blank} guide for more details
 - A basic understanding of React and JavaScript
 - Some familiarity with blockchain fundamentals and Solidity (useful but not required)
 
 ## Project Overview
 
-This dApp will interact with a basic Storage contract. Refer to the [Create Contracts](/tutorials/smart-contracts/launch-your-first-project/create-contracts) tutorial for a step-by-step guide on creating this contract. The contract allows:
+This dApp will interact with a basic Storage contract. Refer to the [Create Contracts](/tutorials/smart-contracts/launch-your-first-project/create-contracts){target=\_blank} tutorial for a step-by-step guide on creating this contract. The contract allows:
 
 - Retrieving a stored number from the blockchain
 - Updating the stored number with a new value
 
-The contract has already been deployed on Westend Asset Hub for testing at: `0xabBd46Ef74b88E8B1CDa49BeFb5057710443Fd29`
 
 Below is a high-level overview of what you'll be building:
 
@@ -70,17 +69,17 @@ npm install --save-dev typescript @types/node
 
 ## Connect to Asset Hub
 
-To interact with Asset Hub (Westend Asset Hub in this case), you need to set up a [Public Client](https://viem.sh/docs/clients/public#public-client) that connects to the blockchain. Create a new file called `utils/viem.ts` and add the following code:
+To interact with Asset Hub (Westend Asset Hub in this case), you need to set up a [Public Client](https://viem.sh/docs/clients/public#public-client){target=\_blank} that connects to the blockchain. Create a new file called `utils/viem.ts` and add the following code:
 
 ```typescript title="viem.ts"
 --8<-- "code/tutorials/smart-contracts/launch-your-first-project/create-dapp-viem/viem.ts"
 ```
 
-This file initializes a Viem client, providing helper functions for obtaining a Public Client and a [Wallet Client](https://viem.sh/docs/clients/wallet#wallet-client). The public client enables reading blockchain data, while the wallet client allows users to sign and send transactions. Also, note that by importing `'viem/window'` the global `window.ethereum` will be typed as an `EIP1193Provider`, check the [`window` Pollifyll](https://viem.sh/docs/typescript#window-polyfill) reference for more information.
+This file initializes a Viem client, providing helper functions for obtaining a Public Client and a [Wallet Client](https://viem.sh/docs/clients/wallet#wallet-client){target=\_blank}. The public client enables reading blockchain data, while the wallet client allows users to sign and send transactions. Also, note that by importing `'viem/window'` the global `window.ethereum` will be typed as an `EIP1193Provider`, check the [`window` Pollifyll](https://viem.sh/docs/typescript#window-polyfill){target=\_blank} reference for more information.
 
 ## Set Up the Smart Contract Interface
 
-For this dApp, you'll use a simple [Storage contract](/tutorials/smart-contracts/launch-your-first-project/create-contracts) that's already deployed in Westend Asset Hub: `0xabBd46Ef74b88E8B1CDa49BeFb5057710443Fd29`. To interact with it, you need to define the contract interface.
+For this dApp, you'll use a simple [Storage contract](/tutorials/smart-contracts/launch-your-first-project/create-contracts){target=\_blank} that's already deployed in Westend Asset Hub: `0xabBd46Ef74b88E8B1CDa49BeFb5057710443Fd29`. To interact with it, you need to define the contract interface.
 
 Create a folder called `abis` at the root of your project, then create a file named `Storage.json` and paste the corresponding ABI (Application Binary Interface) of the Storage contract. You can copy and paste the following:
 
@@ -92,10 +91,10 @@ Create a folder called `abis` at the root of your project, then create a file na
 Next, create a file called `utils/contract.ts`:
 
 ```typescript title="contract.ts"
---8<-- "code/tutorials/smart-contracts/launch-your-first-project/create-dapp-viem/viem.ts"
+--8<-- "code/tutorials/smart-contracts/launch-your-first-project/create-dapp-viem/contract.ts"
 ```
 
-This file defines the contract address, ABI, and functions to create a Viem [contract instance](https://viem.sh/docs/contract/getContract#contract-instances) for reading and writing operations. Viem's contract utilities ensure a more efficient and type-safe interaction with smart contracts.
+This file defines the contract address, ABI, and functions to create a Viem [contract instance](https://viem.sh/docs/contract/getContract#contract-instances){target=\_blank} for reading and writing operations. Viem's contract utilities ensure a more efficient and type-safe interaction with smart contracts.
 
 ## Create the Wallet Connection Component
 

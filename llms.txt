@@ -4188,7 +4188,7 @@ For current marketplaces and pricing, consult the [Coretime Marketplaces](https:
 On-demand coretime allows for flexible, as-needed block production. To purchase:
 
 1. Ensure your collator node is fully synchronized with the relay chain
-2. From the account that registered the `ParaID`, submit the `onDemand.placeOrderAllowDeath` extrinsic with:
+2. Submit the `onDemand.placeOrderAllowDeath` extrinsic on the relay chain with:
 
     - **`maxAmountFor`** - sufficient funds for the transaction
     - **`paraId`** - your registered `ParaID`

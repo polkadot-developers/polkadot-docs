@@ -1,10 +1,8 @@
 name: Check Dependencies
 
 on:
-#   schedule: # Run every day at midnight.
-#     - cron: '0 0 * * *'
-  schedule: # Run every 5 minutes for testing.
-    - cron: '*/5 * * * *'
+  schedule: # Run every day at midnight.
+    - cron: '0 0 * * *'
   workflow_dispatch:  # Allows manual triggering of the workflow.
 
 jobs:

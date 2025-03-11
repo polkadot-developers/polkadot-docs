@@ -1,12 +1,14 @@
-name: Check Repositories
+name: Check Dependencies
 
 on:
-  schedule: # Run every day at midnight.
-    - cron: '0 0 * * *'
+#   schedule: # Run every day at midnight.
+#     - cron: '0 0 * * *'
+  schedule: # Run every 5 minutes for testing.
+    - cron: '*/5 * * * *'
   workflow_dispatch:  # Allows manual triggering of the workflow.
 
 jobs:
-  check-repositories:
+  check-dependencies:
     runs-on: ubuntu-latest
     permissions:
       issues: write
@@ -24,12 +26,12 @@ jobs:
         python -m pip install --upgrade pip
         pip install requests pyyaml
 
-    - name: Check for Outdated Repositories
-      id: check_repositories
+    - name: Check for Outdated Dependencies
+      id: check_dependencies
       run: |
-        python .github/scripts/check_repositories.py
+        python .github/scripts/check_dependencies.py
 
-    - name: Create GitHub Issues for Outdated Repositories
+    - name: Create GitHub Issues for Outdated Dependencies
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       run: |

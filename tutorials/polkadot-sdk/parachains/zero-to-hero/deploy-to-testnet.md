@@ -181,7 +181,7 @@ Your parachain's runtime logic and genesis are now part of the relay chain. The 
 
 ## Start the Collator Node
 
-Before starting a collator, you need to generate a node key. This key, is responsible for communicating with other nodes over Libp2p:
+Before starting a collator, you need to generate a node key. This key is responsible for communicating with other nodes over Libp2p:
 
 ```bash
 polkadot-omni-node key generate-node-key \

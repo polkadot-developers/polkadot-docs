@@ -115,7 +115,7 @@ To define your chain specification:
 
 2. Edit the `plain_chain_spec.json` file:
 
-    - Update the `name`, `id` and `protocolId` fields to unique values for your parachain
+    - Update the `name`, `id`, and `protocolId` fields to unique values for your parachain
     - Change `para_id` and `parachainInfo.parachainId` fields to the parachain ID you obtained previously. Make sure to use a number without quotes
     - Modify the `balances` field to specify the initial balances for your accounts in SS58 format
     - Insert the account IDs and session keys in SS58 format generated for your collators in the `collatorSelection.invulnerables` and `session.keys` fields
@@ -210,7 +210,7 @@ polkadot-omni-node --collator \
 --rpc-port 9988
 ```
 
-In this example, the first `--port` setting specifies the port for the collator node and the second `--port` specifies the embedded relay chain node port. The first `--rpc-port` setting specifies the port you can connect to the collator. The second `--rpc-port` specifies the port for connecting to the embedded relay chain.
+In this example, the first `--port` setting specifies the port for the collator node, and the second `--port` specifies the embedded relay chain node port. The first `--rpc-port` setting specifies the port you can connect to the collator. The second `--rpc-port` specifies the port for connecting to the embedded relay chain.
 
 Insert your generated session key into your collator keystore. Run the following command replacing `INSERT_SECRET_PHRASE` and `INSERT_PUBLIC_KEY_HEX_FORMAT` with the values from the session key you generated in the [Generate Customs Keys for Your Collator](#generate-customs-keys-for-your-collator) section:
 

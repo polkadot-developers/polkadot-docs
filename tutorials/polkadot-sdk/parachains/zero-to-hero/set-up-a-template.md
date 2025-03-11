@@ -43,7 +43,7 @@ This tutorial requires two essential tools:
 
     This installs the `chain-spec-builder` binary.
 
-- [**Polkadot Omni Node**](https://crates.io/crates/polkadot-omni-node/0.4.0){target=\_blank} - is a white-labeled binary, released as a part of Polkadot SDK that can act as the collator of a parachain in production, with all the related auxillary functionalities that a normal collator node has: RPC server, archiving state, etc. Moreover, it can also run the wasm blob of the parachain locally for testing and development.
+- [**Polkadot Omni Node**](https://crates.io/crates/polkadot-omni-node/0.4.0){target=\_blank} - is a white-labeled binary, released as a part of Polkadot SDK that can act as the collator of a parachain in production, with all the related auxiliary functionalities that a normal collator node has: RPC server, archiving state, etc. Moreover, it can also run the wasm blob of the parachain locally for testing and development.
 
     To install it, run the following command:
 

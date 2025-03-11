@@ -127,7 +127,7 @@ To define your chain specification:
 
     For this tutorial, the `plain_chain_spec.json` file should look similar to the following. Take into account that the same account is being used for the collator and sudo, which must not be the case in a production environment:
 
-    ??? code "Plain Chain Spec Example"
+    ??? code "View complete script"
 
         ```json title="plain_chain_spec.json"
         --8<-- 'code/tutorials/polkadot-sdk/parachains/zero-to-hero/deploy-to-testnet/plain_chain_spec.json'

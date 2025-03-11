@@ -8,26 +8,24 @@ dependencies:
       repository_url: https://github.com/paritytech/zombienet
       version: v1.3.126
       architecture: macos-arm64
-  #   asset_transfer_api:
-  #     repository_url: https://github.com/paritytech/asset-transfer-api
-  #     version: v0.5.0
-  #   polkadot_sdk_solochain_template:
-  #     repository_url: https://github.com/paritytech/polkadot-sdk-solochain-template
-  #     version: v0.0.2
-  #   polkadot_js_api:
-  #     version: v15.0.2
-  #   srtool:
-  #     repository_url: https://github.com/paritytech/srtool
-  #     version: v0.17.0
-  #     docker_image_name: paritytech/srtool
-  #     docker_image_version: 1.81.0
+    asset_transfer_api:
+      repository_url: https://github.com/paritytech/asset-transfer-api
+      version: v0.5.0
+    polkadot_sdk_solochain_template:
+      repository_url: https://github.com/paritytech/polkadot-sdk-solochain-template
+      version: v0.0.2
+    polkadot_js_api:
+      repository_url: https://github.com/polkadot-js/api
+      version: v15.0.2
+    srtool:
+      repository_url: https://github.com/paritytech/srtool
+      version: v0.17.0
+      docker_image_name: paritytech/srtool
+      docker_image_version: 1.81.0
     polkadot_sdk:
       repository_url: https://github.com/paritytech/polkadot-sdk
       version: polkadot-stable2412
       docker_image_version: stable2412
-  #   moonwall:
-  #     repository_url: https://github.com/Moonsong-Labs/moonwall
-  #     version: 5.9.1
   crates:
     subxt:
       name: subxt
@@ -47,18 +45,14 @@ dependencies:
     polkadot-omni-node:
       name: polkadot-omni-node
       version: 0.4.0
-    
-  #   polkadot-sdk:
-  #     name: polkadot-sdk
-  #     version: 0.9.45
   javascript_packages:
     chopsticks:
       name: '@acala-network/chopsticks'
       version: 1.0.3
-  #   polkadot-api:
-  #     name: "@polkadot/api"
-  #     version: 10.1.2
-  #   ethers:
-  #     name: ethers
-  #     version: 6.8.1
-  # python_packages:
+    asset_transfer_api:
+      name: '@substrate/asset-transfer-api'
+      version: 0.5.0
+    moonwall:
+      name: '@moonwall/cli'
+      version: 5.9.1
+#   python_packages:

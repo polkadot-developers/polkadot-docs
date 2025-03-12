@@ -86,10 +86,10 @@ You can also download the binaries by using the following direct links:
 
     ``` bash
     # Download the binary
-    curl -LO https://github.com/paritytech/polkadot-sdk/releases/download/{{ dependencies.polkadot_sdk.version }}/polkadot
+    curl -LO https://github.com/paritytech/polkadot-sdk/releases/download/{{ dependencies.repositories.polkadot_sdk.version }}/polkadot
 
     # Verify signature
-    curl -LO https://github.com/paritytech/polkadot-sdk/releases/download/{{ dependencies.polkadot_sdk.version }}/polkadot.asc
+    curl -LO https://github.com/paritytech/polkadot-sdk/releases/download/{{ dependencies.repositories.polkadot_sdk.version }}/polkadot.asc
     
     gpg --keyserver hkps://keyserver.ubuntu.com --receive-keys 90BD75EBBB8E95CB3DA6078F94A4029AB4B35DAE
 
@@ -100,10 +100,10 @@ You can also download the binaries by using the following direct links:
 
     ``` bash
     # Download the binary
-    curl -LO https://github.com/paritytech/polkadot-sdk/releases/download/{{ dependencies.polkadot_sdk.version }}/polkadot-prepare-worker
+    curl -LO https://github.com/paritytech/polkadot-sdk/releases/download/{{ dependencies.repositories.polkadot_sdk.version }}/polkadot-prepare-worker
 
     # Verify signature
-    curl -LO https://github.com/paritytech/polkadot-sdk/releases/download/{{ dependencies.polkadot_sdk.version }}/polkadot-prepare-worker.asc
+    curl -LO https://github.com/paritytech/polkadot-sdk/releases/download/{{ dependencies.repositories.polkadot_sdk.version }}/polkadot-prepare-worker.asc
 
     gpg --keyserver hkps://keyserver.ubuntu.com --receive-keys 90BD75EBBB8E95CB3DA6078F94A4029AB4B35DAE
 
@@ -114,10 +114,10 @@ You can also download the binaries by using the following direct links:
 
     ``` bash
     # Download the binary
-    curl -LO https://github.com/paritytech/polkadot-sdk/releases/download/{{ dependencies.polkadot_sdk.version }}/polkadot-execute-worker
+    curl -LO https://github.com/paritytech/polkadot-sdk/releases/download/{{ dependencies.repositories.polkadot_sdk.version }}/polkadot-execute-worker
 
     # Verify signature
-    curl -LO https://github.com/paritytech/polkadot-sdk/releases/download/{{ dependencies.polkadot_sdk.version }}/polkadot-execute-worker.asc
+    curl -LO https://github.com/paritytech/polkadot-sdk/releases/download/{{ dependencies.repositories.polkadot_sdk.version }}/polkadot-execute-worker.asc
 
     gpg --keyserver hkps://keyserver.ubuntu.com --receive-keys 90BD75EBBB8E95CB3DA6078F94A4029AB4B35DAE
 
@@ -185,12 +185,12 @@ If you prefer using Docker or an OCI-compatible container runtime, the official 
 To pull the latest stable image, run the following command:
 
 ```bash
-docker pull parity/polkadot:{{ dependencies.polkadot_sdk.docker_image_version }}
+docker pull parity/polkadot:{{ dependencies.repositories.polkadot_sdk.docker_image_version }}
 ```
 
 ### Build from Sources
 
-You may build the binaries from source by following the instructions on the [Polkadot SDK repository](https://github.com/paritytech/polkadot-sdk/tree/{{dependencies.polkadot_sdk.stable_version}}/polkadot#building){target=\_blank}.
+You may build the binaries from source by following the instructions on the [Polkadot SDK repository](https://github.com/paritytech/polkadot-sdk/tree/{{dependencies.repositories.polkadot_sdk.version}}/polkadot#building){target=\_blank}.
 
 ## Verify Installation
 

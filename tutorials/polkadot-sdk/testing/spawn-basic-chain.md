@@ -17,7 +17,7 @@ By the end of this tutorial, you'll be equipped to deploy and test your own bloc
 
 To successfully complete this tutorial, you must ensure you've first:
 
-- [Installed Zombienet](/develop/toolkit/parachains/spawn-chains/zombienet/get-started/#install-zombienet){target=\_blank}. This tutorial requires Zombienet version `{{ dependencies.zombienet.version }}`. Verify that you're using the specified version to ensure compatibility with the instructions.
+- [Installed Zombienet](/develop/toolkit/parachains/spawn-chains/zombienet/get-started/#install-zombienet){target=\_blank}. This tutorial requires Zombienet version `{{ dependencies.repositories.zombienet.version }}`. Verify that you're using the specified version to ensure compatibility with the instructions.
 - Reviewed the information in [Configure Zombienet](/develop/toolkit/parachains/spawn-chains/zombienet/get-started/#configure-zombienet){target=\_blank} and understand how to customize a spawned network
 
 ## Define the Network

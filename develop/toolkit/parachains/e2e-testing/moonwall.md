@@ -29,7 +29,7 @@ Before you begin, ensure you have the following installed:
 Moonwall can be installed globally for system-wide access or locally within specific projects. This section covers both installation methods.
 
 !!! tip
-    This documentation corresponds to Moonwall version `{{ dependencies.moonwall.version }}`. To avoid compatibility issues with the documented features, ensure you're using the matching version.
+    This documentation corresponds to Moonwall version `{{ dependencies.javascript_packages.moonwall.version }}`. To avoid compatibility issues with the documented features, ensure you're using the matching version.
 
 ### Global Installation
 
@@ -38,19 +38,19 @@ Global installation provides system-wide access to the Moonwall CLI, making it i
 === "npm"
 
     ```bash
-    npm install -g @moonwall/cli@{{ dependencies.moonwall.version }}
+    npm install -g @moonwall/cli@{{ dependencies.javascript_packages.moonwall.version }}
     ```
 
 === "pnpm"
 
     ```bash
-    pnpm -g install @moonwall/cli@{{ dependencies.moonwall.version }}
+    pnpm -g install @moonwall/cli@{{ dependencies.javascript_packages.moonwall.version }}
     ```
 
 === "yarn"
 
     ```bash
-    yarn global add @moonwall/cli@{{ dependencies.moonwall.version }}
+    yarn global add @moonwall/cli@{{ dependencies.javascript_packages.moonwall.version }}
     ```
 
 Now, you can run the `moonwall` command from your terminal.
@@ -70,19 +70,19 @@ Then, install it as a local dependency:
 === "npm"
 
     ```bash
-    npm install @moonwall/cli@{{ dependencies.moonwall.version }}
+    npm install @moonwall/cli@{{ dependencies.javascript_packages.moonwall.version }}
     ```
 
 === "pnpm"
 
     ```bash
-    pnpm install @moonwall/cli@{{ dependencies.moonwall.version }}
+    pnpm install @moonwall/cli@{{ dependencies.javascript_packages.moonwall.version }}
     ```
 
 === "yarn"
 
     ```bash
-    yarn add @moonwall/cli@{{ dependencies.moonwall.version }}
+    yarn add @moonwall/cli@{{ dependencies.javascript_packages.moonwall.version }}
     ```
 
 ## Initialize Moonwall

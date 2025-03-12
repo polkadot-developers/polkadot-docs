@@ -27,19 +27,19 @@ Multiple options are available for installing Zombienet, depending on the user's
     Then, ensure the downloaded file is executable:
 
     ```bash
-    chmod +x zombienet-{{ dependencies.zombienet.architecture }}
+    chmod +x zombienet-{{ dependencies.repositories.zombienet.architecture }}
     ```
 
     Finally, you can run the following command to check if the installation was successful. If so, it will display the version of the installed Zombienet:
 
     ```bash
-    ./zombienet-{{ dependencies.zombienet.architecture }} version
+    ./zombienet-{{ dependencies.repositories.zombienet.architecture }} version
     ```
 
     If you want to add the `zombienet` executable to your PATH, you can move it to a directory in your PATH, such as `/usr/local/bin`:
 
     ```bash
-    mv zombienet-{{ dependencies.zombienet.architecture }} /usr/local/bin/zombienet
+    mv zombienet-{{ dependencies.repositories.zombienet.architecture }} /usr/local/bin/zombienet
     ```
 
     Now you can refer to the `zombienet` executable directly.

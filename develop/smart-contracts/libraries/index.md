@@ -1,6 +1,6 @@
 ---
 title: Libraries
-description: Explore libraries for interacting with smart contracts on Polkadot, including Ethers.js, Web3.js, viem, and more.
+description: Discover libraries for interacting with smart contracts on Polkadot, including Ethers.js, Web3.js, viem, and other essential tools.
 template: index-page.html
 ---
 

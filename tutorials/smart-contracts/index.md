@@ -1,6 +1,6 @@
 ---
 title: Smart Contracts
-description: Step-by-step tutorials on how to create, manage and deploy smart contracts in the Polkadot ecosystem.
+description: Learn how to create, deploy, and manage smart contracts in the Polkadot ecosystem with detailed, step-by-step tutorials.
 template: index-page.html
 ---
 

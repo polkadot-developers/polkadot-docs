@@ -1,6 +1,6 @@
 ---
 title: Launch Your First Project
-description: A step-by-step guide to creating, deploying, and managing your first smart contract project on Polkadot.
+description: Follow a step-by-step guide to creating, deploying, and managing your first smart contract project on Polkadot, from coding to execution.
 template: index-page.html
 ---
 

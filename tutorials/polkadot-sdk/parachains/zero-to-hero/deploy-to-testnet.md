@@ -101,7 +101,7 @@ The files required to register a parachain must specify the correct relay chain 
 
 To define your chain specification:
 
-1. Generate the plain chain specification for the parachain template node by running the following command. Make sure to use the `*.compact.compressed.wasm` version of your compiled runtime when generating your chain specification, and replace `INSERT_PARA_ID` with the id you obtained in the [Reserve a Parachain Identifier](#reserve-a-parachain-identifier) section:
+1. Generate the plain chain specification for the parachain template node by running the following command. Make sure to use the `*.compact.compressed.wasm` version of your compiled runtime when generating your chain specification, and replace `INSERT_PARA_ID` with the ID you obtained in the [Reserve a Parachain Identifier](#reserve-a-parachain-identifier) section:
 
     ```bash
     chain-spec-builder \

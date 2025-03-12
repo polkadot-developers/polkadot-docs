@@ -42,7 +42,7 @@ dependencies:
     chain_spec_builder:
       name: staging-chain-spec-builder
       version: 9.0.0
-    polkadot-omni-node:
+    polkadot_omni_node:
       name: polkadot-omni-node
       version: 0.4.0
   javascript_packages:

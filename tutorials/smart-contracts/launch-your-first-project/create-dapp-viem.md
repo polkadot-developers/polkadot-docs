@@ -60,6 +60,7 @@ cd viem-dapp
 ```
 
 ## Install Dependencies
+
 Install viem and related packages:
 
 ```bash
@@ -75,7 +76,7 @@ To interact with Asset Hub (Westend Asset Hub in this case), you need to set up 
 --8<-- "code/tutorials/smart-contracts/launch-your-first-project/create-dapp-viem/viem.ts"
 ```
 
-This file initializes a Viem client, providing helper functions for obtaining a Public Client and a [Wallet Client](https://viem.sh/docs/clients/wallet#wallet-client){target=\_blank}. The public client enables reading blockchain data, while the wallet client allows users to sign and send transactions. Also, note that by importing `'viem/window'` the global `window.ethereum` will be typed as an `EIP1193Provider`, check the [`window` Pollifyll](https://viem.sh/docs/typescript#window-polyfill){target=\_blank} reference for more information.
+This file initializes a viem client, providing helper functions for obtaining a Public Client and a [Wallet Client](https://viem.sh/docs/clients/wallet#wallet-client){target=\_blank}. The Public Client enables reading blockchain data, while the Wallet Client allows users to sign and send transactions. Also, note that by importing `'viem/window'` the global `window.ethereum` will be typed as an `EIP1193Provider`, check the [`window` Polyfill](https://viem.sh/docs/typescript#window-polyfill){target=\_blank} reference for more information.
 
 ## Set Up the Smart Contract Interface
 
@@ -84,7 +85,7 @@ For this dApp, you'll use a simple [Storage contract](/tutorials/smart-contracts
 Create a folder called `abis` at the root of your project, then create a file named `Storage.json` and paste the corresponding ABI (Application Binary Interface) of the Storage contract. You can copy and paste the following:
 
 ??? code "Storage.sol ABI"
-    ```json
+    ```json title="Storage.json"
     --8<-- "code/tutorials/smart-contracts/launch-your-first-project/create-dapp-viem/Storage.json"
     ```
 
@@ -94,7 +95,7 @@ Next, create a file called `utils/contract.ts`:
 --8<-- "code/tutorials/smart-contracts/launch-your-first-project/create-dapp-viem/contract.ts"
 ```
 
-This file defines the contract address, ABI, and functions to create a Viem [contract instance](https://viem.sh/docs/contract/getContract#contract-instances){target=\_blank} for reading and writing operations. Viem's contract utilities ensure a more efficient and type-safe interaction with smart contracts.
+This file defines the contract address, ABI, and functions to create a viem [contract instance](https://viem.sh/docs/contract/getContract#contract-instances){target=\_blank} for reading and writing operations. viem's contract utilities ensure a more efficient and type-safe interaction with smart contracts.
 
 ## Create the Wallet Connection Component
 
@@ -175,12 +176,12 @@ Let's examine how the dApp interacts with the blockchain:
     - Once connected, it provides the user's account address to the parent component
 
 2. **Reading Data**:
-    - The `ReadContract` component uses Viem's `readContract` function to call the `storedNumber` view function
+    - The `ReadContract` component uses viem's `readContract` function to call the `storedNumber` view function
     - It periodically polls for updates to keep the UI in sync with the blockchain state
     - The component displays a loading indicator while fetching data and handles error states
 
 3. **Writing Data**:
-    - The `WriteContract` component uses Viem's `writeContract` function to send a transaction to the `setNumber` function
+    - The `WriteContract` component uses viem's `writeContract` function to send a transaction to the `setNumber` function
     - It ensures the wallet is connected before allowing a transaction
     - The component shows detailed feedback during transaction submission and confirmation
     - After a successful transaction, the value displayed in the `ReadContract` component will update on the next poll

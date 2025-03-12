@@ -7,7 +7,7 @@ description: Subxt is a Rust library for type-safe interaction with Polkadot SDK
 
 ## Introduction
 
-subxt is a Rust library designed to interact with Polkadot SDK-based blockchains. It provides a type-safe interface for submitting transactions, querying on-chain state, and performing other blockchain interactions. By leveraging Rust's strong type system, subxt ensures that your code is validated at compile time, reducing runtime errors and improving reliability.
+Subxt is a Rust library designed to interact with Polkadot SDK-based blockchains. It provides a type-safe interface for submitting transactions, querying on-chain state, and performing other blockchain interactions. By leveraging Rust's strong type system, subxt ensures that your code is validated at compile time, reducing runtime errors and improving reliability.
 
 ## Prerequisites
 
@@ -86,7 +86,7 @@ Once subxt interfaces are generated, you can interact with your node in the foll
 - **[Custom values](https://docs.rs/subxt/latest/subxt/book/usage/custom_values/index.html){target=\_blank}** - accesses "custom values" contained within metadata
 - **[Raw RPC calls](https://docs.rs/subxt/latest/subxt/book/usage/rpc/index.html){target=\_blank}** - facilitates raw RPC requests to compatible nodes
 
-### Initialize the Subxt client
+### Initialize the Subxt Client
 
 To interact with a blockchain node using subxt, create an asynchronous main function and initialize the client. Replace `INSERT_NODE_URL` with the URL of your target node:
 

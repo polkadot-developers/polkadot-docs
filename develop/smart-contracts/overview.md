@@ -57,16 +57,12 @@ While Asset Hub provides native smart contract support through PolkaVM, Polkadot
 
 Polkadot's ecosystem includes several parachains that offer EVM compatibility, allowing developers to leverage Ethereum's extensive tooling and developer community while benefiting from Polkadot's security and interoperability features.
 
-#### Why Adopt the EVM as a Polkadot Parachain?
-
 EVM compatibility provides significant advantages:
 
 - Access to Ethereum's large developer ecosystem and mindshare
 - Smart contract portability across chains
 - Extensive tooling including wallets, explorers, and development frameworks
 - Established security auditors and institutional asset management systems
-
-#### Major EVM-Compatible Parachains
 
 Some of the EVM-compatible parachains are:
 
@@ -75,8 +71,6 @@ Some of the EVM-compatible parachains are:
 - **Astar** - Astar distinguishes itself with a unique multiple virtual machine approach supporting both EVM and WebAssembly (Wasm) smart contracts. This dual VM support allows developers to choose their preferred programming environment while maintaining full Ethereum compatibility. Astar has established itself as an innovation hub through initiatives like zk-rollup development and integration with Layer 2 scaling solutions
 
 - **Acala** - this parachian positions itself as Polkadot's DeFi hub with its Acala EVM+, an enhanced version of the EVM optimized for DeFi operations. This customized implementation enables seamless deployment of Ethereum-based DeFi protocols while offering advanced features like on-chain scheduling, pre-built DeFi primitives, and native multi-token support that aren't available in traditional EVMs
-
-#### Developer Tools Support
 
 All these parachains support familiar Ethereum development tools:
 
@@ -88,8 +82,6 @@ All these parachains support familiar Ethereum development tools:
 ### Wasm (ink!)
 
 The [`pallet_contracts`](https://docs.rs/pallet-contracts/latest/pallet_contracts/index.html#contracts-pallet){target=\_blank} is a specialized pallet within the Polkadot SDK that enables smart contract functionality through a WebAssembly (Wasm) execution environment. For developing smart contracts for this pallet, [ink!](https://use.ink/){target=\_blank} emerges as the primary and recommended language.
-
-#### What is ink!?
 
 ink! is an embedded domain-specific language (eDSL) designed to develop Wasm smart contracts using the Rust programming language. Rather than creating a new language, ink! is just standard Rust in a well-defined "contract format" with specialized `#[ink(…)]` attribute macros. These macros tell ink! what the different parts of your Rust smart contract represent and allow it to create Polkadot SDK-compatible Wasm bytecode.
 

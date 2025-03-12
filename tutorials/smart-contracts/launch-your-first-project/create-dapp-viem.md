@@ -187,7 +187,7 @@ Let's examine how the dApp interacts with the blockchain:
 
 ## Conclusion
 
-Congratulations! You've successfully built a fully functional dApp that interacts with a smart contract on Asset Hub using Viem and Next.js. Your application can now:
+Congratulations! You've successfully built a fully functional dApp that interacts with a smart contract on Asset Hub using viem and Next.js. Your application can now:
 
 - Connect to a user's wallet and handle network switching
 - Read data from a smart contract and keep it updated

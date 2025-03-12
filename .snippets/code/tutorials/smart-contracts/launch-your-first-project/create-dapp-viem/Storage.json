@@ -1,0 +1,28 @@
+[
+    {
+        "inputs": [
+            {
+                "internalType": "uint256",
+                "name": "_newNumber",
+                "type": "uint256"
+            }
+        ],
+        "name": "setNumber",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "inputs": [],
+        "name": "storedNumber",
+        "outputs": [
+            {
+                "internalType": "uint256",
+                "name": "",
+                "type": "uint256"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    }
+]

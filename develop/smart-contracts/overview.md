@@ -1,6 +1,6 @@
 ---
 title: Smart Contracts Overview
-description: Learn about smart contract development capabilities on the Polkadot ecosystem, either by leveraging the Asset Hub parachain or other alternatives.
+description: Learn about smart contract development capabilities in the Polkadot ecosystem, either by leveraging the Asset Hub parachain or other alternatives.
 ---
 
 # Smart Contracts on Polkadot
@@ -68,11 +68,11 @@ EVM compatibility provides significant advantages:
 
 Some of the EVM-compatible parachains are:
 
-- **Moonbeam** - Moonbeam was the first parachain to bring full Ethereum-compatibility to Polkadot. Its runtime is built using FRAME and combines components from the Polkadot-SDK, Frontier, and custom pallets. Moonbeam serves as an interoperability hub with connections to multiple external chains through various general message passing (GMP) providers like Wormhole, LayerZero, and Axelar.
+- **Moonbeam** - Moonbeam was the first parachain to bring full Ethereum-compatibility to Polkadot. Its runtime is built using FRAME and combines components from the Polkadot SDK, Frontier, and custom pallets. Moonbeam serves as an interoperability hub with connections to multiple external chains through various general message passing (GMP) providers like Wormhole, LayerZero, and Axelar
 
-- **Astar** - Astar distinguishes itself with a unique multiple virtual machine approach supporting both EVM and WebAssembly (Wasm) smart contracts. This dual VM support allows developers to choose their preferred programming environment while maintaining full Ethereum compatibility. Astar has established itself as an innovation hub through initiatives like zk-rollup development and integration with Layer 2 scaling solutions.
+- **Astar** - Astar distinguishes itself with a unique multiple virtual machine approach supporting both EVM and WebAssembly (Wasm) smart contracts. This dual VM support allows developers to choose their preferred programming environment while maintaining full Ethereum compatibility. Astar has established itself as an innovation hub through initiatives like zk-rollup development and integration with Layer 2 scaling solutions
 
-- **Acala** - this parachian positions itself as Polkadot's DeFi hub with its Acala EVM+, an enhanced version of the EVM optimized for DeFi operations. This customized implementation enables seamless deployment of Ethereum-based DeFi protocols while offering advanced features like on-chain scheduling, pre-built DeFi primitives, and native multi-token support that aren't available in traditional EVMs.
+- **Acala** - this parachian positions itself as Polkadot's DeFi hub with its Acala EVM+, an enhanced version of the EVM optimized for DeFi operations. This customized implementation enables seamless deployment of Ethereum-based DeFi protocols while offering advanced features like on-chain scheduling, pre-built DeFi primitives, and native multi-token support that aren't available in traditional EVMs
 
 #### Developer Tools Support
 
@@ -85,7 +85,7 @@ All these parachains support familiar Ethereum development tools:
 
 ### Wasm (ink!)
 
-The [pallet_contracts](https://docs.rs/pallet-contracts/latest/pallet_contracts/index.html#contracts-pallet){target=\_blank} is a specialized pallet within the Polkadot SDK that enables smart contract functionality through a WebAssembly (Wasm) execution environment. For developing smart contracts for this pallet, [ink!](https://use.ink/){target=\_blank} emerges as the primary and recommended language.
+The [`pallet_contracts`](https://docs.rs/pallet-contracts/latest/pallet_contracts/index.html#contracts-pallet){target=\_blank} is a specialized pallet within the Polkadot SDK that enables smart contract functionality through a WebAssembly (Wasm) execution environment. For developing smart contracts for this pallet, [ink!](https://use.ink/){target=\_blank} emerges as the primary and recommended language.
 
 #### What is ink!?
 

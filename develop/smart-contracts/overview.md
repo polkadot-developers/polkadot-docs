@@ -51,6 +51,8 @@ Asset Hub's smart contract platform is suitable for a wide range of applications
 
 ## Other Smart Contract Environments
 
+While Asset Hub provides native smart contract support through PolkaVM, Polkadot's ecosystem offers several alternatives for smart contract development. These include EVM-compatible parachains like Moonbeam, Astar, and Acala that support Ethereum tooling and development workflows, as well as WebAssembly-based environments using ink!. Each environment offers unique advantages depending on your development preferences and application requirements.
+
 ### Parachain Contracts
 
 Polkadot's ecosystem includes several parachains that offer EVM compatibility, allowing developers to leverage Ethereum's extensive tooling and developer community while benefiting from Polkadot's security and interoperability features.

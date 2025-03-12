@@ -109,7 +109,7 @@ This basic structure shows that every pallet must define certain types, such as 
 
 ### Utility Pallet Example
 
-For instance, in the [`utility`](https://github.com/paritytech/polkadot-sdk/tree/{{dependencies.polkadot_sdk.stable_version}}/substrate/frame/utility){target=\_blank} pallet, the `Config` trait is implemented with the following types:
+For instance, in the [`utility`](https://github.com/paritytech/polkadot-sdk/tree/{{dependencies.repositories.polkadot_sdk.version}}/substrate/frame/utility){target=\_blank} pallet, the `Config` trait is implemented with the following types:
 
 ```rust
 --8<-- 'code/develop/parachains/customize-parachain/add-existing-pallets/utility-pallet-config-trait.rs'
@@ -121,7 +121,7 @@ This example shows how the `Config` trait defines types like `RuntimeEvent`, `Ru
 
 Traits in Rust define shared behavior, and within the Polkadot SDK, they allow runtimes to integrate and utilize a pallet's functionality by implementing its associated configuration trait and parameters. Some of these parameters may require constant values, which can be defined using the [`parameter_types!`](https://paritytech.github.io/polkadot-sdk/master/frame_support/macro.parameter_types.html){target=\_blank} macro. This macro simplifies development by expanding the constants into the appropriate struct types with functions that the runtime can use to access their types and values in a consistent manner.
 
-For example, the following code snippet shows how the solochain template configures certain parameters through the [`parameter_types!`]({{ dependencies.polkadot_sdk_solochain_template.repository_url }}/blob/v0.0.2/runtime/src/lib.rs#L138){target=\_blank} macro in the `runtime/lib.rs` file:
+For example, the following code snippet shows how the solochain template configures certain parameters through the [`parameter_types!`]({{ dependencies.repositories.polkadot_sdk_solochain_template.repository_url }}/blob/{{dependencies.repositories.polkadot_sdk_solochain_template.version}}/runtime/src/lib.rs#L138){target=\_blank} macro in the `runtime/lib.rs` file:
 
 ```rust
 --8<-- 'code/develop/parachains/customize-parachain/add-existing-pallets/parameter-types-example.rs'

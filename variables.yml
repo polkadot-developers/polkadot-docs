@@ -1,33 +1,58 @@
 # Variables that can be reused should be added to this file
 dependencies:
-  open_zeppelin:
-    repository_url: https://github.com/OpenZeppelin/polkadot-runtime-templates
-    version: v1.0.0
-  chopsticks:
-    repository_url: https://github.com/AcalaNetwork/chopsticks
-    version: 1.0.2
-  zombienet:
-    repository_url: https://github.com/paritytech/zombienet
-    version: v1.3.121
-    architecture: macos-arm64
-  asset_transfer_api:
-    repository_url: https://github.com/paritytech/asset-transfer-api
-    version: v0.5.0
-  polkadot_sdk_solochain_template:
-    repository_url: https://github.com/paritytech/polkadot-sdk-solochain-template
-    version: v0.0.2
-  polkadot_js_api:
-    version: v15.0.2
-  srtool:
-    repository_url: https://github.com/paritytech/srtool
-    version: v0.17.0
-    docker_image_name: paritytech/srtool
-    docker_image_version: 1.81.0
-  polkadot_sdk:
-    repository_url: https://github.com/paritytech/polkadot-sdk
-    version: polkadot-stable2412
-    docker_image_version: stable2412
-    stable_version: polkadot-stable2412 
-  moonwall:
-    repository_url: https://github.com/Moonsong-Labs/moonwall
-    version: 5.9.1
+  repositories:
+    open_zeppelin:
+      repository_url: https://github.com/OpenZeppelin/polkadot-runtime-templates
+      version: v1.0.0
+    zombienet:
+      repository_url: https://github.com/paritytech/zombienet
+      version: v1.3.126
+      architecture: macos-arm64
+    asset_transfer_api:
+      repository_url: https://github.com/paritytech/asset-transfer-api
+      version: v0.5.0
+    polkadot_sdk_solochain_template:
+      repository_url: https://github.com/paritytech/polkadot-sdk-solochain-template
+      version: v0.0.2
+    polkadot_js_api:
+      repository_url: https://github.com/polkadot-js/api
+      version: v15.0.2
+    srtool:
+      repository_url: https://github.com/paritytech/srtool
+      version: v0.17.0
+      docker_image_name: paritytech/srtool
+      docker_image_version: 1.81.0
+    polkadot_sdk:
+      repository_url: https://github.com/paritytech/polkadot-sdk
+      version: polkadot-stable2412
+      docker_image_version: stable2412
+  crates:
+    subxt:
+      name: subxt
+      version: 0.40.0
+    subxt-cli:
+      name: subxt-cli
+      version: 0.40.0
+    subxt-signer:
+      name: subxt-signer
+      version: 0.40.0
+    tokio:
+      name: tokio
+      version: 1.44.0
+    chain_spec_builder:
+      name: staging-chain-spec-builder
+      version: 9.0.0
+    polkadot-omni-node:
+      name: polkadot-omni-node
+      version: 0.4.0
+  javascript_packages:
+    chopsticks:
+      name: '@acala-network/chopsticks'
+      version: 1.0.3
+    asset_transfer_api:
+      name: '@substrate/asset-transfer-api'
+      version: 0.5.0
+    moonwall:
+      name: '@moonwall/cli'
+      version: 5.9.1
+#   python_packages:

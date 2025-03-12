@@ -92,7 +92,7 @@ For technical insights, including formal proofs and detailed algorithms, see the
 For a deeper look at the code behind GRANDPA, see the following GitHub repositories:
 
 - [GRANDPA Rust implementation](https://github.com/paritytech/finality-grandpa){target=\_blank}
-- [GRANDPA Pallet](https://github.com/paritytech/polkadot-sdk/blob/{{dependencies.polkadot_sdk.stable_version}}/substrate/frame/grandpa/src/lib.rs){target=\_blank}
+- [GRANDPA Pallet](https://github.com/paritytech/polkadot-sdk/blob/{{dependencies.repositories.polkadot_sdk.version}}/substrate/frame/grandpa/src/lib.rs){target=\_blank}
 
 ## Fork Choice
 

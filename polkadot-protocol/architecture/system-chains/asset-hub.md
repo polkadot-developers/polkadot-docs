@@ -161,7 +161,7 @@ The API supports various asset operations, such as paying transaction fees with 
 
 ### Parachain Node
 
-To fully leverage the Asset Hub's functionality, developers will need to run a system parachain node. Setting up an Asset Hub node allows users to interact with the parachain in real time, syncing data and participating in the broader Polkadot ecosystem. Guidelines for setting up an [Asset Hub node](https://github.com/paritytech/polkadot-sdk/tree/{{dependencies.polkadot_sdk.stable_version}}/cumulus#asset-hub-){target=\_blank} are available in the Parity documentation.
+To fully leverage the Asset Hub's functionality, developers will need to run a system parachain node. Setting up an Asset Hub node allows users to interact with the parachain in real time, syncing data and participating in the broader Polkadot ecosystem. Guidelines for setting up an [Asset Hub node](https://github.com/paritytech/polkadot-sdk/tree/{{dependencies.repositories.polkadot_sdk.version}}/cumulus#asset-hub-){target=\_blank} are available in the Parity documentation.
 
 Using these integration tools, developers can manage assets seamlessly and integrate Asset Hub functionality into their applications, leveraging Polkadot's powerful infrastructure.
 

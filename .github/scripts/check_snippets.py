@@ -210,20 +210,12 @@ def compare_code_snippets(repo_references, repo_dependencies):
                 start_line, end_line = None, None
         
         # Fetch both versions of the code
-        print(f"Fetching code snippets for {repo_name}...")
-
-        # Print url with line numbers
-        print(f"Current URL: {current_url}")
         current_code = fetch_code_snippet(raw_current_url, current_version, start_line, end_line)
-        print(current_code)
-
-        print(f"Latest: {latest_url}")
         latest_code = fetch_code_snippet(raw_latest_url, latest_version, start_line, end_line)
-        print(latest_code)
 
         # Check if they match
         match = (current_code == latest_code) if current_code and latest_code else False
-        
+
         results.append({
             'file': ref['file'],
             'line_number': ref['line_number'],
@@ -238,6 +230,32 @@ def compare_code_snippets(repo_references, repo_dependencies):
         })
     
     return results
+
+def convert_raw_to_regular_url(raw_url, line_start=None):
+    """
+    Convert a raw.githubusercontent.com URL back to a regular GitHub URL.
+    
+    Args:
+        raw_url: Raw GitHub URL to convert
+        line_start: Starting line number (optional)
+        
+    Returns:
+        Regular GitHub URL with line number if provided
+    """
+    # Pattern: https://raw.githubusercontent.com/{owner}/{repo}/{branch}/{path}
+    pattern = r'https://raw\.githubusercontent\.com/([^/]+)/([^/]+)/([^/]+)/(.+)'
+    match = re.match(pattern, raw_url)
+    
+    if match:
+        owner, repo, branch, path = match.groups()
+        github_url = f"https://github.com/{owner}/{repo}/blob/{branch}/{path}"
+        
+        # Add line number if provided
+        if line_start:
+            github_url += f"#L{line_start}"
+            
+        return github_url
+    return raw_url
 
 def check_outdated_snippets(json_file_path, codebase_root_dir):
     """
@@ -260,7 +278,6 @@ def check_outdated_snippets(json_file_path, codebase_root_dir):
     
     # Step 3: Compare code snippets between current and latest versions
     comparison_results = compare_code_snippets(repo_references, repo_dependencies)
-    #print(comparison_results)
     
     # Filter for outdated snippets (where match is False)
     outdated_snippets = [result for result in comparison_results if not result['match']]
@@ -276,12 +293,60 @@ def check_outdated_snippets(json_file_path, codebase_root_dir):
         repo_name = snippet['repo_name']
         if repo_name not in repo_to_outdated:
             repo_to_outdated[repo_name] = []
+        
+        # Convert raw URLs to regular GitHub URLs for better clickability
+        current_url = snippet['current_url']
+        latest_url = snippet['latest_url']
+        
+        # Extract line numbers from the URLs if present
+        current_line = None
+        latest_line = None
+        
+        # Check if URLs are in raw format and extract line numbers
+        if "raw.githubusercontent.com" in current_url:
+            base_url, start_line, _ = extract_line_range(current_url)
+            if not start_line and ":" in current_url:
+                # Handle the case where line numbers are in the URL format
+                parts = current_url.split(":")
+                if len(parts) >= 2 and parts[-2].isdigit():
+                    start_line = int(parts[-2])
+            current_line = start_line
+            current_url = base_url
+        else:
+            # Extract line number from regular GitHub URL
+            line_match = re.search(r'#L(\d+)', current_url)
+            if line_match:
+                current_line = int(line_match.group(1))
+        
+        if "raw.githubusercontent.com" in latest_url:
+            base_url, start_line, _ = extract_line_range(latest_url)
+            if not start_line and ":" in latest_url:
+                # Handle the case where line numbers are in the URL format
+                parts = latest_url.split(":")
+                if len(parts) >= 2 and parts[-2].isdigit():
+                    start_line = int(parts[-2])
+            latest_line = start_line
+            latest_url = base_url
+        else:
+            # Extract line number from regular GitHub URL
+            line_match = re.search(r'#L(\d+)', latest_url)
+            if line_match:
+                latest_line = int(line_match.group(1))
+        
+        # Convert raw URLs to regular GitHub URLs
+        if "raw.githubusercontent.com" in current_url:
+            current_url = convert_raw_to_regular_url(current_url, current_line)
+        
+        if "raw.githubusercontent.com" in latest_url:
+            latest_url = convert_raw_to_regular_url(latest_url, latest_line)
             
         repo_to_outdated[repo_name].append({
             'file': snippet['file'],
             'line_number': snippet['line_number'],
-            'current_url': snippet['current_url'],
-            'latest_url': snippet['latest_url']
+            'current_url': current_url,
+            'latest_url': latest_url,
+            'current_code': snippet['current_code'],
+            'latest_code': snippet['latest_code']
         })
     
     # Add outdated_snippets field to each repository in the JSON

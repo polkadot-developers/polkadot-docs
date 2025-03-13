@@ -24,12 +24,17 @@ jobs:
         python -m pip install --upgrade pip
         pip install requests pyyaml
 
-    - name: Check for Outdated Dependencies
+    - name: Check for outdated dependencies
       id: check_dependencies
       run: |
         python .github/scripts/check_dependencies.py
 
-    - name: Create GitHub Issues for Outdated Dependencies
+    - name: Check for snippets that need updating
+      id: check_snippets
+      run: |
+        python .github/scripts/check_snippets.py ./outdated_dependencies.json .
+
+    - name: Create gitHub issues for outdated dependencies
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       run: |

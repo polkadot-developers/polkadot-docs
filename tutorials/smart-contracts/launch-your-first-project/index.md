@@ -10,9 +10,9 @@ Kickstart your journey into smart contract development with this comprehensive g
 
 ## What You'll Learn
 
-- **Create Contracts** – write, compile, and test your first smart contract before deployment
-- **Deploy and Interact** – deploy your contract to a Polkadot-based chain and interact with it using developer tools
-- **Development Tools** – explore essential tools for writing, debugging, and monitoring smart contracts
+- **Create contracts** – write, compile, and test your first smart contract before deployment
+- **Deploy and interact** – deploy your contract to a Polkadot-based chain and interact with it using developer tools
+- **Development tools** – explore essential tools for writing, debugging, and monitoring smart contracts
 
 ## Get Started
 

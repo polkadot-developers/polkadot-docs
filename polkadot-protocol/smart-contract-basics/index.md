@@ -12,11 +12,11 @@ Gain a deep understanding of smart contracts on Polkadot, from execution environ
 
 Explore foundational concepts that shape smart contract functionality on Polkadot:
 
-- **PolkaVM Design** – insights into PolkaVM’s architecture, Ethereum compatibility, and optimized execution
+- **PolkaVM design** – insights into PolkaVM’s architecture, Ethereum compatibility, and optimized execution
 - **EVM vs PolkaVM** – a comparison of Ethereum's EVM and PolkaVM, highlighting key differences in design, gas models, and memory management
 - **Accounts** – how accounts function within Polkadot’s ecosystem, including existential deposits and contract account handling
 - **Networks** – an overview of smart contract-enabled networks within the Polkadot ecosystem
-- **Blocks, Transactions, and Fees** – understanding transaction lifecycle, execution fees, and resource management
+- **Blocks, transactions, and fees** – understanding transaction lifecycle, execution fees, and resource management
 
 ## Learn More
 

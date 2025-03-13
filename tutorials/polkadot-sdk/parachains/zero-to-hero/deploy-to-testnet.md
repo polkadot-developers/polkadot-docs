@@ -179,6 +179,8 @@ Once you have the genesis state and runtime, you can now register these with you
 
 Your parachain's runtime logic and genesis are now part of the relay chain. The next step is to ensure you are able to run a collator to produce blocks for your parachain.
 
+!!! note You may have to wait up to a few hours for your parachain to onboard. Before it has onboarded, you will not be able to purchase coretime, and thus will not be able to perform transactions on your network.
+
 ## Start the Collator Node
 
 Before starting a collator, you need to generate a node key. This key is responsible for communicating with other nodes over Libp2p:

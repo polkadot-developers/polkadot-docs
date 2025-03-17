@@ -1,4 +1,3 @@
-
 ---
 title: Use Hardhat with Asset Hub
 description: Learn how to create, compile, test, and deploy smart contracts on Asset Hub using Hardhat, a powerful development environment for blockchain developers.
@@ -8,7 +7,7 @@ description: Learn how to create, compile, test, and deploy smart contracts on A
 
 ## Overview
 
-Hardhat is a robust development environment for Ethereum-compatible chains that makes smart contract development more efficient. This guide will walk you through the essentials of using Hardhat to create, compile, test, and deploy smart contracts on Asset Hub.
+Hardhat is a robust development environment for EVM-compatible chains that makes smart contract development more efficient. This guide will walk you through the essentials of using Hardhat to create, compile, test, and deploy smart contracts on Asset Hub.
 
 ## Prerequisites
 
@@ -54,42 +53,58 @@ Before getting started, ensure you have:
 
     Select "Create a JavaScript project" when prompted and follow the instructions. After that, your project will be created with 3 mains folders:
 
-    - **`contracts`** - TODO
-    - **`test`** - TODO
-    - **`ignition`** - TODO
+    - **`contracts`** - where your Solidity smart contracts live
+    - **`test`** - contains your test files that validate contract functionality
+    - **`ignition`** - deployment modules for safely deploying your contracts to various networks
 
 5. Update your Hardhat configuration file (`hardhat.config.js`) to include the plugins:
 
     ```javascript title="hardhat.config.js"
     --8<-- 'code/develop/smart-contracts/dev-environments/hardhat/hardhat.config.js:0:8'
-    --8<-- 'code/develop/smart-contracts/dev-environments/hardhat/hardhat.config.js:63:63'
+        ...
+    --8<-- 'code/develop/smart-contracts/dev-environments/hardhat/hardhat.config.js:62:62'
     ```
 
 ## Compiling Your Contract
 
-When compiling your contract using the `hardhat-resolc` plugin, there are two ways to configure your compilation process:
+The `hardhat-resolc` plugin will compile your Solidity contracts to be PolkaVM compatible. This works for Solidity versions `0.8.0` and higher. When compiling your contract using the `hardhat-resolc` plugin, there are two ways to configure your compilation process:
 
-- **Binary compiler** - TODO
-- **Remix compiler** - TODO
+- **Remix compiler** - uses the Remix online compiler backend for simplicity and ease of use
+- **Binary compiler** - uses the resolc binary directly for more control and configuration options
 
-To compile your, follow the instructions below:
+1. Modify your hardhat configuration file to specify your which compilation process you will be using:
 
-1. Compile the contract with Hardhat:
+    === "Remix Configuration"
+
+        ```javascript title="hardhat.config.js"
+        --8<-- 'code/develop/smart-contracts/dev-environments/hardhat/hardhat.config.js:0:9'
+          --8<-- 'code/develop/smart-contracts/dev-environments/hardhat/hardhat.config.js:11:21'
+        --8<-- 'code/develop/smart-contracts/dev-environments/hardhat/hardhat.config.js:62:62'
+        ```
+
+    === "Binary Configuration"
+
+        ```javascript title="hardhat.config.js"
+        --8<-- 'code/develop/smart-contracts/dev-environments/hardhat/hardhat.config.js:0:9'
+          --8<-- 'code/develop/smart-contracts/dev-environments/hardhat/hardhat.config.js:23:34'
+        --8<-- 'code/develop/smart-contracts/dev-environments/hardhat/hardhat.config.js:62:62'
+        ```
+
+    For the binary configuration, ensure to replace the `INSERT_PATH_TO_RESOLC_COMPILER` with the proper path to the binary. For more information about its installation, check the [installation](https://github.com/paritytech/revive?tab=readme-ov-file#installation){target=\_blank} section of the `pallet-revive`.
+
+2. Compile the contract with Hardhat:
 
     ```bash
     npx hardhat compile
     ```
 
-    !!! note
-        The `hardhat-resolc` plugin will compile your Solidity contracts to be PolkaVM compatible. This works for Solidity versions 0.8.0 and higher.
-
-2. After successful compilation, you'll see the artifacts generated in the `artifacts` directory:
+3. After successful compilation, you'll see the artifacts generated in the `artifacts-pvm` directory:
 
     ```bash
-    ls artifacts/contracts/Counter.sol/
+    ls artifacts-pvm/contracts/*.sol/
     ```
 
-    This should show files like `Counter.json` containing the contract ABI and bytecode.
+    This should show json files containing the contract ABI and bytecode of the contracts you compiled.
 
 ## Testing Your Contract
 
@@ -97,33 +112,57 @@ TODO: waiting for https://github.com/paritytech/contract-issues/issues/41
 
 ## Deploying with a Local Node
 
-Before deploying to a live network, you can deploy your contract to a local node using the `hardhat-revive-node` plugin and Ignition modules:
+Before deploying to a live network, you can deploy your contract to a local node using the [`hardhat-revive-node`](https://www.npmjs.com/package/hardhat-revive-node){target=\_blank} plugin and Ignition modules:
 
-1. Create a new directory for your deployment scripts:
+1. First, ensure that you have compiled a substrate node and the eth rpc adapter from the polkadot sdk. Checkout the [compatible commit](https://github.com/paritytech/polkadot-sdk/commit/c29e72a8628835e34deb6aa7db9a78a2e4eabcee){target=\_blank} from the sdk and build the node and the eth-rpc from source:
 
     ```bash
-    mkdir -p deploy/ignition
+    git clone https://github.com/paritytech/polkadot-sdk.git
+    cd polkadot-sdk
+    git checkout c29e72a8628835e34deb6aa7db9a78a2e4eabcee
     ```
 
-2. Create a file `deploy/ignition/counter.js` with the following content:
-
-    ???- "counter.js"
-    
-        ```javascript
-        const { buildModule } = require("@nomicfoundation/hardhat-ignition/modules");
-
-        module.exports = buildModule("CounterModule", (m) => {
-          const initialCount = 0;
-          const counter = m.contract("Counter", [initialCount]);
-          
-          return { counter };
-        });
-        ```
-
-3. Start a local node:
+    Now, build the node and the eth rpc adapter. Consider that this process might take a long time to complete:
 
     ```bash
-    npx hardhat node
+    # Build the substrate node
+    cargo build --release
+    # Build the eth-rpc adapter
+    cargo build -p pallet-revive-eth-rpc --bin eth-rpc --release
+    ```
+
+2. Update the hardhat configuration file to add the local node as a target for local deployment:
+
+    === "Remix Configuration"
+
+        ```javascript title="hardhat.config.js"
+        --8<-- 'code/develop/smart-contracts/dev-environments/hardhat/hardhat.config.js:0:9'
+          --8<-- 'code/develop/smart-contracts/dev-environments/hardhat/hardhat.config.js:11:21'
+        --8<-- 'code/develop/smart-contracts/dev-environments/hardhat/hardhat.config.js:44:62'
+        ```
+
+    === "Binary Configuration"
+
+        ```javascript title="hardhat.config.js"
+        --8<-- 'code/develop/smart-contracts/dev-environments/hardhat/hardhat.config.js:0:9'
+          --8<-- 'code/develop/smart-contracts/dev-environments/hardhat/hardhat.config.js:23:34'
+        --8<-- 'code/develop/smart-contracts/dev-environments/hardhat/hardhat.config.js:44:62'
+        ```
+
+
+    Ensure to replace to replace the `INSERT_PATH_TO_SUBSTRATE_NODE` and `INSERT_PATH_TO_ETH_RPC_ADAPTER` with the proper paths.
+
+3. Modify the ignition modules as needed, considering that the pallet revive `block.timestamp` value is returned in seconds according to this [PR](https://github.com/paritytech/polkadot-sdk/pull/7792/files){target=\_blank}. For example, for the default `ignition/modules/Lock.js` file, the needed mofication will be:
+
+    ```diff
+    - const JAN_1ST_2030 = 1893456000;
+    + const JAN_1ST_2030 = 18934560000000;
+    ```
+
+4. Start a local node:
+
+    ```bash
+    npx hardhat node-polkavm
     ```
 
     This will start a local PolkaVM node powered by the `hardhat-revive-node` plugin.
@@ -131,93 +170,18 @@ Before deploying to a live network, you can deploy your contract to a local node
 4. In a new terminal window, deploy the contract using Ignition:
 
     ```bash
-    npx hardhat ignition deploy ./deploy/ignition/counter.js --network localhost
+    npx hardhat ignition deploy ./ignition/modules/INSERT_IGNITION_MODULE_NAME.js --network polkavm
     ```
 
-    You'll see deployment information including the contract address.
+    Ensure to replace the `INSERT_IGNITION_MODULE_NAME` with the proper name for your contract. You'll see deployment information including the contract address.
 
 ## Deploying to a Live Network
 
-To deploy your contract to the Asset Hub on Westend testnet:
-
-1. Ensure you have configured your Westend Asset Hub network in `hardhat.config.js` as shown earlier.
-
-2. Create a `.env` file in your project root to store your private key:
-
-    ```
-    PRIVATE_KEY=your_private_key_here
-    ```
-
-    !!! warning
-        Never commit your `.env` file to version control systems. Add `.env` to your `.gitignore` file.
-
-3. Install and configure dotenv:
-
-    ```bash
-    npm install --save-dev dotenv
-    ```
-
-4. Update your `hardhat.config.js` to use dotenv:
-
-    ```javascript
-    require("@nomicfoundation/hardhat-toolbox");
-    require("hardhat-resolc");
-    require("hardhat-revive-node");
-    require('dotenv').config();
-
-    /** @type import('hardhat/config').HardhatUserConfig */
-    module.exports = {
-      solidity: "0.8.19",
-      networks: {
-        westend_asset_hub: {
-          url: "https://westend-asset-hub-rpc.polkadot.io",
-          accounts: [process.env.PRIVATE_KEY],
-          chainId: 1000
-        }
-      }
-    };
-    ```
-
-5. Deploy to Westend Asset Hub using Ignition:
-
-    ```bash
-    npx hardhat ignition deploy ./deploy/ignition/counter.js --network westend_asset_hub
-    ```
-
-6. After successful deployment, you'll receive the deployed contract address and transaction details.
-
-    !!! note
-        Make sure you have WND tokens in your wallet to cover gas fees.
+TODO: it needs to be updated once the plugin is released - https://github.com/paritytech/contract-issues/issues/25#issuecomment-2725019136
 
 ## Interacting with Your Contract
 
-You can interact with your deployed contract using Hardhat's console:
-
-1. Open the Hardhat console for the network where your contract is deployed:
-
-    ```bash
-    npx hardhat console --network westend_asset_hub
-    ```
-
-2. Get your contract instance:
-
-    ```javascript
-    const Counter = await ethers.getContractFactory("Counter");
-    const counter = await Counter.attach("your_deployed_contract_address");
-    ```
-
-3. Interact with your contract:
-
-    ```javascript
-    // Get the current count
-    await counter.getCount();
-    
-    // Increment the count
-    await counter.increment();
-    
-    // Get the updated count
-    await counter.getCount();
-    ```
+TODO: it needs to be updated once the plugin is released - https://github.com/paritytech/contract-issues/issues/25#issuecomment-2725019136
 
 ## Where to Go Next
 

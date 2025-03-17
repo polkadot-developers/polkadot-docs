@@ -28,7 +28,7 @@ module.exports = {
         runs: 400,
       },
       evmVersion: 'istanbul',
-      compilerPath: '/Users/nhussein11/Downloads/resolc-universal-apple-darwin',
+      compilerPath: 'INSERT_PATH_TO_RESOLC_COMPILER',
       standardJson: true,
     },
   },
@@ -45,12 +45,12 @@ module.exports = {
     hardhat: {
       polkavm: true,
       nodeConfig: {
-        nodeBinaryPath: '.../substrate-node',
+        nodeBinaryPath: 'INSERT_PATH_TO_SUBSTRATE_NODE',
         rpcPort: 8000,
         dev: true,
       },
       adapterConfig: {
-        adapterBinaryPath: '.../eth-rpc',
+        adapterBinaryPath: 'INSERT_PATH_TO_ETH_RPC_ADAPTER',
         dev: true,
       },
     },

@@ -59,7 +59,7 @@ Before getting started, ensure you have:
 
 5. Update your Hardhat configuration file (`hardhat.config.js`) to include the plugins:
 
-    ```javascript title="hardhat.config.js"
+    ```javascript title="hardhat.config.js" hl_lines="3-4"
     --8<-- 'code/develop/smart-contracts/dev-environments/hardhat/hardhat.config.js:0:8'
         ...
     --8<-- 'code/develop/smart-contracts/dev-environments/hardhat/hardhat.config.js:62:62'
@@ -121,7 +121,7 @@ Before deploying to a live network, you can deploy your contract to a local node
     ```bash
     git clone https://github.com/paritytech/polkadot-sdk.git
     cd polkadot-sdk
-    git checkout c29e72a8628835e34deb6aa7db9a78a2e4eabcee
+    git checkout {{ dependencies.repositories.polkadot_sdk_compatible_hardhat_node }}
     ```
 
     Now, build the node and the eth rpc adapter. Consider that this process might take a long time to complete:

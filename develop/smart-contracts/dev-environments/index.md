@@ -8,14 +8,14 @@ template: index-page.html
 
 Explore the tools and frameworks available for building and testing smart contracts on the Polkadot network. These environments streamline the development process, from writing and compiling to testing and deploying smart contracts.
 
-## Choose the Right Environment
+## What to Consider
 
-Selecting the right development environment is key to an efficient workflow. Below are some popular options:
+When evaluating development environments for your workflow:
 
-- **Remix** – a browser-based IDE, ideal for quick prototyping and testing
-- **Hardhat** – a local development framework offering flexibility and automation
-
-Each environment has unique features designed to enhance productivity, catering to different project needs and developer preferences.
+- **Learning curve** – some tools offer greater simplicity for newcomers
+- **Integration capabilities** – compatibility with testing frameworks and deployment pipelines
+- **Debugging features** – robust debugging tools can significantly accelerate development
+- **Community resources** – availability of plugins, templates, and support forums
 
 ## Learn More
 

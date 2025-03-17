@@ -23,7 +23,7 @@ Before you begin, ensure you have the following installed:
 - [Node.js](https://nodejs.org/en/){target=\_blank} (recommended version 21 or greater)
 - Package manager - [npm](https://www.npmjs.com/){target=\_blank} should be installed with Node.js by default. Alternatively, you can use other package managers like [Yarn](https://yarnpkg.com/){target=\_blank}
 
-This documentation covers version `{{dependencies.asset_transfer_api.version}}` of Asset Transfer API. 
+This documentation covers version `{{dependencies.javascript_packages.asset_transfer_api.version}}` of Asset Transfer API. 
 
 ## Install Asset Transfer API
 
@@ -47,7 +47,7 @@ To use `asset-transfer-api`, you need a TypeScript project. If you don't have on
 Once you have a project set up, you can install the `asset-transfer-api` package. Run the following command to install the package:
 
 ```bash
-npm install @substrate/asset-transfer-api@{{dependencies.asset_transfer_api.version}}
+npm install @substrate/asset-transfer-api@{{dependencies.javascript_packages.asset_transfer_api.version}}
 ```
 
 ## Set Up Asset Transfer API

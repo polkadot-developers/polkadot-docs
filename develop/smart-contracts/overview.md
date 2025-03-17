@@ -44,7 +44,7 @@ These strengths do come with certain limitations. Some smart contracts environme
 
 Another downside is that smart contracts often follow a gas metering model, where program execution is associated with a given unit and a marketplace is set up to pay for such an execution unit. This fee system is often very rigid, and some complex flows, like account abstraction, have been developed to circumvent this problem.
 
-In contrast, parachains can create their own custom logics (known as pallets or modules), and combine them as the state transition function (STF or runtime) thanks to the modularity provided by the [Polkadot-SDK](https://github.com/paritytech/polkadot-sdk/tree/{{dependencies.polkadot_sdk.stable_version}}){target=\_blank}. The different pallets within the parachain runtime can give developers a lot of flexibility when building applications on top of it.
+In contrast, parachains can create their own custom logics (known as pallets or modules), and combine them as the state transition function (STF or runtime) thanks to the modularity provided by the [Polkadot-SDK](https://github.com/paritytech/polkadot-sdk/tree/{{dependencies.repositories.polkadot_sdk.version}}){target=\_blank}. The different pallets within the parachain runtime can give developers a lot of flexibility when building applications on top of it.
 
 ``` mermaid
 flowchart LR

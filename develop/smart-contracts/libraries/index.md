@@ -8,15 +8,13 @@ template: index-page.html
 
 Leverage popular libraries to interact with smart contracts on Polkadot-based networks. These libraries simplify contract calls, event listening, and transaction handling.
 
-## Popular Libraries
+## Selection Guide
 
-Choose the right library based on your needs and development stack:
+When choosing a library for your project, consider:
 
-- **Ethers.js** – a lightweight and modular library for interacting with Ethereum-compatible networks
-- **Web3.js** – a comprehensive solution with broad compatibility for dApp development
-- **viem** – a modern, TypeScript-first alternative designed for flexibility and performance
-
-Each library offers unique features tailored to different development styles and project requirements.
+- **Development experience** – some libraries offer more intuitive APIs for specific programming backgrounds
+- **Project requirements** – evaluate performance needs, bundle size, and specific feature support
+- **Community support** – larger communities often mean better documentation and more examples
 
 ## Learn More
 

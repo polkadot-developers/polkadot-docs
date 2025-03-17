@@ -120,4 +120,29 @@ You will need testnet tokens to perform transactions and engage with smart contr
 
     ![](/images/develop/smart-contracts/connect-to-asset-hub/connect-to-asset-hub-6.webp)
 
-Now that you have obtained WND tokens in your MetaMask wallet, you’re ready to deploy and interact with smart contracts on the Westend Asset Hub! These tokens will allow you to pay for gas fees when executing transactions, deploying contracts, and testing your dApp functionality in a secure testnet environment. For your next steps, explore the various smart contract guides demonstrating how to use and integrate different tools and development environments into your workflow.
+Now that you have obtained WND tokens in your MetaMask wallet, you’re ready to deploy and interact with smart contracts on the Westend Asset Hub! These tokens will allow you to pay for gas fees when executing transactions, deploying contracts, and testing your dApp functionality in a secure testnet environment. 
+
+## Where to Go Next
+
+For your next steps, explore the various smart contract guides demonstrating how to use and integrate different tools and development environments into your workflow.
+
+<div class="grid cards" markdown>
+
+-   <span class="badge guide">Guide</span> __viem__
+
+    ---
+
+    Use viem, a TypeScript library for interacting with EVM-compatible chains, to deploy and interact with smart contracts on Asset Hub.
+
+    [:octicons-arrow-right-24: Build with viem](/develop/smart-contracts/libraries/viem/)
+
+-   <span class="badge guide">Guide</span> __Remix IDE__
+
+    ---
+
+    Explore the smart contract development and deployment process on Asset Hub using Remix IDE, a visual IDE for blockchain developers.
+
+    [:octicons-arrow-right-24: Build with Remix IDE](/develop/smart-contracts/dev-environments/remix/)
+
+</div>
+

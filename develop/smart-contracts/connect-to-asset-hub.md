@@ -128,21 +128,21 @@ For your next steps, explore the various smart contract guides demonstrating how
 
 <div class="grid cards" markdown>
 
--   <span class="badge guide">Guide</span> __viem__
+-   <span class="badge guide">Guide</span> __Deploy your first contract with Remix__
 
     ---
 
-    Use viem, a TypeScript library for interacting with EVM-compatible chains, to deploy and interact with smart contracts on Asset Hub.
-
-    [:octicons-arrow-right-24: Build with viem](/develop/smart-contracts/libraries/viem/)
-
--   <span class="badge guide">Guide</span> __Remix IDE__
-
-    ---
-
-    Explore the smart contract development and deployment process on Asset Hub using Remix IDE, a visual IDE for blockchain developers.
+    Explore the smart contract development and deployment process on Asset Hub using the Remix IDE.
 
     [:octicons-arrow-right-24: Build with Remix IDE](/develop/smart-contracts/dev-environments/remix/)
+
+-   <span class="badge guide">Guide</span> __Interact with the Blockchain with viem__
+
+    ---
+
+    Use viem for interacting with EVM-compatible chains, to deploy and interact with smart contracts on Asset Hub.
+
+    [:octicons-arrow-right-24: Build with viem](/develop/smart-contracts/libraries/viem/)
 
 </div>
 

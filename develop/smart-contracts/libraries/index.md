@@ -10,7 +10,7 @@ Leverage popular libraries to interact with smart contracts on Polkadot-based ne
 
 ## Selection Guide
 
-When choosing a library for your project, consider:
+Consider the following when choosing a library for your project:
 
 - **Development experience** – some libraries offer more intuitive APIs for specific programming backgrounds
 - **Project requirements** – evaluate performance needs, bundle size, and specific feature support

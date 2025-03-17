@@ -10,7 +10,7 @@ Explore the tools and frameworks available for building and testing smart contra
 
 ## What to Consider
 
-When evaluating development environments for your workflow:
+Consider the following when evaluating development environments for your workflow:
 
 - **Learning curve** – some tools offer greater simplicity for newcomers
 - **Integration capabilities** – compatibility with testing frameworks and deployment pipelines

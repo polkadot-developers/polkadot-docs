@@ -18,12 +18,6 @@ Learn the requirements for setting up a Polkadot validator node, along with deta
 
 <div class="subsection-wrapper">
   <div class="card">
-    <a href="https://education.web3.foundation/docs/Polkadot/Module3/sharedsecurity" target="_blank">
-      <h2 class="title">Learn About Securing the Network</h2>
-      <p class="description">Get a better understanding of Polkadot's trust model for parachains and the relay chain, including security mechanisms and how Polkadot ensures decentralization.</p>
-    </a>
-  </div>
-  <div class="card">
     <a href="/infrastructure/staking-mechanics/" target="_blank">
       <h2 class="title">Explore Rewards, Offenses, and Slashes</h2>
       <p class="description">Learn about Polkadot's offenses and slashing system, along with validator rewards, era points, and nominator payments.</p>

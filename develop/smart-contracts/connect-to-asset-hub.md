@@ -40,7 +40,7 @@ Developers can leverage Asset Hub across diverse networks, from TestNets to Main
     
     RPC URL
     ```
-    https://westend-asset-hub-eth-rpc.polkadot.io
+    https://westend-asset-hub-rpc.polkadot.io
     ```
 
     ---
@@ -55,7 +55,7 @@ Developers can leverage Asset Hub across diverse networks, from TestNets to Main
 === "Westend Asset Hub"
     Dwellir
     ```
-    https://westend-asset-hub-eth-rpc.polkadot.io
+    https://westend-asset-hub-rpc.polkadot.io
     ```
     ---
     Dwellir Tunisia

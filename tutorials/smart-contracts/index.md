@@ -8,11 +8,11 @@ template: index-page.html
 
 Learn how to deploy and interact with smart contracts on Polkadot through practical, hands-on tutorials. These guides walk you through key deployment steps and best practices.
 
-## What You'll Learn
+## Tutorial Features
 
-- **Deploy an NFT** – step-by-step instructions to launch an NFT contract, mint tokens, and interact with them
-- **Deploy an ERC-20** – learn how to deploy an ERC-20 token contract, set up transfers, and manage balances
-- **Launch your first project** – a complete guide to setting up and deploying a smart contract-based project from scratch
+- **Beginner to advanced** – suitable for developers at all experience levels
+- **Complete workflows** – covers the entire process from writing code to on-chain deployment
+- **Interactive examples** – follow along with working code that you can customize
 
 ## Get Started
 

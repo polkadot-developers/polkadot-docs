@@ -179,11 +179,11 @@ Before deploying to a live network, you can deploy your contract to a local node
 
 ## Deploying to a Live Network
 
-TODO: it needs to be updated once the plugin is released - https://github.com/paritytech/contract-issues/issues/25#issuecomment-2725019136
+TODO: this sections depends on the plugin release of this feature - https://github.com/paritytech/contract-issues/issues/25#issuecomment-2725019136
 
 ## Interacting with Your Contract
 
-TODO: it needs to be updated once the plugin is released - https://github.com/paritytech/contract-issues/issues/25#issuecomment-2725019136
+TODO: this sections depends on the plugin release of this feature - https://github.com/paritytech/contract-issues/issues/25#issuecomment-2725019136
 
 ## Where to Go Next
 

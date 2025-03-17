@@ -72,6 +72,8 @@ The `hardhat-resolc` plugin will compile your Solidity contracts to be PolkaVM c
 - **Remix compiler** - uses the Remix online compiler backend for simplicity and ease of use
 - **Binary compiler** - uses the resolc binary directly for more control and configuration options
 
+To compile your project, you can need to follow the instructions below:
+
 1. Modify your hardhat configuration file to specify your which compilation process you will be using:
 
     === "Remix Configuration"

@@ -136,7 +136,7 @@ For your next steps, explore the various smart contract guides demonstrating how
 
     [:octicons-arrow-right-24: Build with Remix IDE](/develop/smart-contracts/dev-environments/remix/)
 
--   <span class="badge guide">Guide</span> __Interact with the Blockchain with viem__
+-   <span class="badge guide">Guide</span> __Interact with the blockchain with viem__
 
     ---
 

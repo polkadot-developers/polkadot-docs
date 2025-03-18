@@ -69,7 +69,7 @@ EVM compatibility provides significant advantages:
 
 - Access to Ethereum's large developer ecosystem and mindshare
 - Smart contract portability across chains
-- Extensive tooling including wallets, explorers, and development frameworks
+- Extensive tooling, including wallets, explorers, and development frameworks
 - Established security auditors and institutional asset management systems
 
 Some of the EVM-compatible parachains are:

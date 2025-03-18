@@ -16,56 +16,6 @@ Follow this step-by-step process to develop and deploy smart contracts in the Po
 
 [timeline(polkadot-docs/.snippets/text/develop/smart-contracts/index/index-timeline.json)]
 
-## Steps Breakdown
-
-### 1. Choose a Smart Contract Platform
-
-Select from one of these platforms based on your project needs:
-
-- [**PolkaVM (Asset Hub)**](/develop/smart-contracts/overview#native-smart-contracts){target=\_blank} - Native smart contracts on Polkadot's system parachain
-- [**EVM (Parachain-based)**](/develop/smart-contracts/overview#parachain-contracts){target=\_blank} - Ethereum Virtual Machine compatibility on parachains
-- [**Wasm (ink!)**](/develop/smart-contracts/overview#wasm-ink){target\_blank} - WebAssembly contracts using Rust and ink!
-
-### 2. Get Network Configuration Details
-
-Configure your development environment with the appropriate network settings:
-
-- **PolkaVM** - [Connect to Asset Hub](/develop/build/polkadot-asset-hub){target=\_blank}
-
-- **EVM**
-
-    - [Moonbeam Documentation](https://docs.moonbeam.network/){target=\_blank}
-    - [Astar Documentation](https://docs.astar.network/){target=\_blank}
-    - [Acala Documentation](https://guide.acalanetwork.com/){target=\_blank}
-
-- **Wasm (ink!):** - depends on those parachains that implement `pallet-contracts`, for more information check the [ink! documentation](https://use.ink/how-it-works#why-include-pallet-contracts-on-a-parachain){target=\_blank}
-
-### 3. Set Up Your Development Environment
-
-Install and configure the necessary tools and frameworks:
-
-- **PolkaVM/EVM:** [Development Environments](/develop/smart-contracts/dev-environments/){target=\_blank}
-- **ink!:** [Development Environment Setup](https://use.ink/getting-started/setup){target=\_blank}
-
-### 4. Write, Compile, Test, and Deploy Your Contracts
-
-Develop your smart contracts and deploy them:
-
-- **Writing Solidity Contracts (PolkaVM/EVM)** - [Solidity Development Guide](https://docs.soliditylang.org/en/v0.8.29/introduction-to-smart-contracts.html){target=\_blank}
-- **Using Remix IDE and Hardhat** - [EVM Development Frameworks](/develop/smart-contracts/dev-environments/){target=\_blank}
-- **Writing ink! Smart Contracts** - [ink! Contract Structure](https://use.ink/basics/contract-structure){target=\_blank}
-
-### 5. Interact With Your Deployed Contracts
-
-Integrate your contracts into applications:
-
-- **PolkaVM/EVM Libraries:** [Contract Libraries](/develop/smart-contracts/libraries/)
-- **ink! Interaction:** [Contract Interaction](https://use.ink/basics/contract-interaction)
-
-## In This Section
-
-:::INSERT_IN_THIS_SECTION:::
-
 ## Additional Resources
 
 <div class="grid cards" markdown>

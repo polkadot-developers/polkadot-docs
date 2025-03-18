@@ -70,20 +70,20 @@ Integrate your contracts into applications:
 
 <div class="grid cards" markdown>
 
-- <span class="badge external">External</span> **View the Official ink! Documentation**
+-   <span class="badge guide">Guide</span> __Smart Contracts Overview__
 
-  ***
+    ---
 
-  Learn everything you need to know about developing smart contracts with ink!.
+    Check out the Smart Contracts overview in the Polkadot ecosystem.
 
-  [:octicons-arrow-right-24: Reference](https://use.ink/){target=\_blank}
+    [:octicons-arrow-right-24: Reference](/develop/smart-contracts/overview)
 
-- <span class="badge guide">Guide</span> **Smart Contracts Overview**
+-   <span class="badge external">External</span> __View the Official ink! Documentation__
 
-  ***
+    ---
 
-  Check out the Smart Contracts overview in the Polkadot ecosystem.
+    Learn everything you need to know about developing smart contracts with ink!.
 
-  [:octicons-arrow-right-24: Reference](/develop/smart-contracts/overview)
+    [:octicons-arrow-right-24: Reference](https://use.ink/){target=\_blank}
 
 </div>

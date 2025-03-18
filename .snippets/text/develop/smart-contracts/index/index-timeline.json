@@ -2,7 +2,29 @@
     {
         "title": "Choose a Smart Contract Platform",
         "content": "Select the platform that best fits your project requirements and development expertise.",
-        "icon": ":fontawesome-solid-1:"
+        "icon": ":fontawesome-solid-1:",
+        "links": [
+            {
+                "text": "Ethereum",
+                "url": "https://ethereum.org/"
+            },
+            {
+                "text": "Solana",
+                "url": "https://solana.com/"
+            },
+            {
+                "text": "Binance Smart Chain",
+                "url": "https://bscscan.com/"
+            },
+            {
+                "text": "Polygon",
+                "url": "https://polygonscan.com/"
+            },
+            {
+                "text": "Avax",
+                "url": "https://www.avax.network/"
+            }
+        ]
     },
     {
         "title": "Get Network Configuration Details",

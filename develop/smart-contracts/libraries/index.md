@@ -1,20 +1,24 @@
 ---
+
 title: Libraries
-description: Discover libraries for interacting with smart contracts on Polkadot, including Ethers.js, Web3.js, viem, and other essential tools.
+description: Compare libraries for interacting with smart contracts on Polkadot, including Ethers.js, Web3.js, viem, and their key differences.
 template: index-page.html
 ---
 
 # Libraries
 
-Leverage popular libraries to interact with smart contracts on Polkadot-based networks. These libraries simplify contract calls, event listening, and transaction handling. The guides in this section provide an overview of each library, including setup instructions, usage examples, and best practices.
+Explore the key libraries for interacting with smart contracts on Polkadot-based networks. These libraries simplify contract calls, event listening, and transaction handling. This section provides setup instructions, usage examples, and a comparison to help you select the right tool for your project.
 
-## Selection Guide
+## Library Comparison
 
 Consider the following when choosing a library for your project:
 
-- **Development experience** – some libraries offer more intuitive APIs for specific programming backgrounds
-- **Project requirements** – evaluate performance needs, bundle size, and specific feature support
-- **Community support** – larger communities often mean better documentation and more examples
+| Feature          | Ethers.js                   | Web3.js                                | viem                                         |
+| ---------------- | --------------------------- | -------------------------------------- | -------------------------------------------- |
+| Language Support | JavaScript, TypeScript      | JavaScript, TypeScript                 | TypeScript only                              |
+| Type Safety      | Limited                     | Limited                                | Strong TypeScript support                    |
+| Performance      | Efficient, widely optimized | Older codebase, can be less performant | Lightweight, optimized for bundling          |
+| Best For         | General dApp development    | Legacy projects, Web3.js users         | TypeScript-heavy projects, modular workflows |
 
 ## In This Section
 

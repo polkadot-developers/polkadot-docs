@@ -78,7 +78,7 @@ Some of the EVM-compatible parachains are:
 
 - [**Astar**](https://astar.network/){target=\_blank} - Astar distinguishes itself with a unique multiple virtual machine approach supporting both EVM and WebAssembly (Wasm) smart contracts. This dual VM support allows developers to choose their preferred programming environment while maintaining full Ethereum compatibility. Astar has established itself as an innovation hub through initiatives like zk-rollup development and integration with Layer 2 scaling solutions.
 
-- [**Acala**](https://acala.network/){taget=\_blank} - this parachian positions itself as Polkadot's DeFi hub with its Acala EVM+, an enhanced version of the EVM optimized for DeFi operations. This customized implementation enables seamless deployment of Ethereum-based DeFi protocols while offering advanced features like on-chain scheduling, pre-built DeFi primitives, and native multi-token support that aren't available in traditional EVMs.
+- [**Acala**](https://acala.network/){taget=\_blank} - this parachian positions itself as Polkadot's DeFi hub with its Acala EVM+, an enhanced version of the EVM optimized for DeFi operations. This customized implementation enables seamless deployment of Ethereum-based DeFi protocols while offering advanced features like on-chain scheduling, pre-built DeFi primitives, and native multi-token support unavailable in traditional EVMs
 
 All these parachains support familiar Ethereum development tools:
 

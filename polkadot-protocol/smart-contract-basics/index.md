@@ -6,7 +6,9 @@ template: index-page.html
 
 # Smart Contract Basics
 
-Gain a deep understanding of smart contracts on Polkadot, from execution environments to transaction mechanics. This section covers the essential components of the ecosystem.
+Gain a deep understanding of smart contracts on Polkadot, from execution environments to transaction mechanics.
+
+This section covers the essential components of the ecosystem.
 
 ## Comparison Overview
 

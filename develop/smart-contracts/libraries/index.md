@@ -7,7 +7,9 @@ template: index-page.html
 
 # Libraries
 
-Explore the key libraries for interacting with smart contracts on Polkadot-based networks. These libraries simplify contract calls, event listening, and transaction handling. This section provides setup instructions, usage examples, and a comparison to help you select the right tool for your project.
+Explore the key libraries for interacting with smart contracts on Polkadot-based networks. These libraries simplify contract calls, event listening, and transaction handling.
+
+This section provides setup instructions, usage examples, and a comparison to help you select the right tool for your project.
 
 ## Library Comparison
 

@@ -9,6 +9,8 @@ description: Learn how to interact with the Asset Hub chain using Ethers.js, fro
 
 [Ethers.js](https://docs.ethers.org/v6/){target=\_blank} is a lightweight library that enables interaction with Ethereum Virtual Machine (EVM)-compatible blockchains through JavaScript. Ethers is widely used as a toolkit to establish connections and read and write blockchain data. This article demonstrates using Ethers.js to interact and deploy smart contracts to Asset Hub.
 
+This guide is intended for developers who are familiar with JavaScript and want to interact with the Polkadot Asset Hub using Ethers.js.
+
 ## Set Up the Project
 
 To start working with Ethers.js, create a new folder and initialize your project by running the following commands in your terminal:

@@ -1,6 +1,5 @@
-title: Development Environment
+title: Development Environments
 nav:
   - index.md
-  - 'Hardhat': hardhat.md
-  - 'Foundry': foundry.md
   - 'Remix IDE': remix.md
+  - 'Hardhat': hardhat.md

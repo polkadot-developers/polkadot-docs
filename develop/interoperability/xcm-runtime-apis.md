@@ -36,7 +36,7 @@ This API can be used independently for dry-running, double-checking, or testing.
 This API allows a dry-run of any extrinsic and obtaining the outcome if it fails or succeeds, as well as the local xcm and remote xcm messages sent to other chains.
 
 ```rust
---8<-- 'https://raw.githubusercontent.com/paritytech/polkadot-sdk/refs/heads/stable2412/polkadot/xcm/xcm-runtime-apis/src/dry_run.rs:67:67'
+--8<-- 'https://raw.githubusercontent.com/paritytech/polkadot-sdk/refs/tags/{{dependencies.repositories.polkadot_sdk.version}}/polkadot/xcm/xcm-runtime-apis/src/dry_run.rs:67:67'
 ```
 
 ??? interface "Input parameters"
@@ -117,7 +117,7 @@ This API allows a dry-run of any extrinsic and obtaining the outcome if it fails
 This API allows the direct dry-run of an xcm message instead of an extrinsic one, checks if it will execute successfully, and determines what other xcm messages will be forwarded to other chains.
 
 ```rust
---8<-- 'https://raw.githubusercontent.com/paritytech/polkadot-sdk/refs/heads/stable2412/polkadot/xcm/xcm-runtime-apis/src/dry_run.rs:70:70'
+--8<-- 'https://raw.githubusercontent.com/paritytech/polkadot-sdk/refs/tags/{{dependencies.repositories.polkadot_sdk.version}}/polkadot/xcm/xcm-runtime-apis/src/dry_run.rs:70:70'
 ```
 
 ??? interface "Input parameters"
@@ -203,7 +203,7 @@ To use the API effectively, the client must already know the XCM program to be e
 Retrieves the list of assets that are acceptable for paying fees when using a specific XCM version
 
 ```rust
---8<-- 'https://raw.githubusercontent.com/paritytech/polkadot-sdk/refs/heads/stable2412/polkadot/xcm/xcm-runtime-apis/src/fees.rs:43:43'
+--8<-- 'https://raw.githubusercontent.com/paritytech/polkadot-sdk/refs/tags/{{dependencies.repositories.polkadot_sdk.version}}/polkadot/xcm/xcm-runtime-apis/src/fees.rs:43:43'
 ```
 
 ??? interface "Input parameters"
@@ -254,7 +254,7 @@ Retrieves the list of assets that are acceptable for paying fees when using a sp
 Calculates the weight required to execute a given XCM message. It is useful for estimating the execution cost of a cross-chain message in the destination chain before sending it.
 
 ```rust
---8<-- 'https://raw.githubusercontent.com/paritytech/polkadot-sdk/refs/heads/stable2412/polkadot/xcm/xcm-runtime-apis/src/fees.rs:50:50'
+--8<-- 'https://raw.githubusercontent.com/paritytech/polkadot-sdk/refs/tags/{{dependencies.repositories.polkadot_sdk.version}}/polkadot/xcm/xcm-runtime-apis/src/fees.rs:50:50'
 ```
 
 ??? interface "Input parameters"
@@ -321,7 +321,7 @@ Calculates the weight required to execute a given XCM message. It is useful for 
 Converts a given weight into the corresponding fee for a specified `AssetId`. It allows clients to determine the cost of execution in terms of the desired asset.
 
 ```rust
---8<-- 'https://raw.githubusercontent.com/paritytech/polkadot-sdk/refs/heads/stable2412/polkadot/xcm/xcm-runtime-apis/src/fees.rs:58:58'
+--8<-- 'https://raw.githubusercontent.com/paritytech/polkadot-sdk/refs/tags/{{dependencies.repositories.polkadot_sdk.version}}/polkadot/xcm/xcm-runtime-apis/src/fees.rs:58:58'
 ```
 
 ??? interface "Input parameters"
@@ -391,7 +391,7 @@ Converts a given weight into the corresponding fee for a specified `AssetId`. It
 Retrieves the delivery fees for sending a specific XCM message to a designated destination. The fees are always returned in a specific asset defined by the destination chain.
 
 ```rust
---8<-- 'https://raw.githubusercontent.com/paritytech/polkadot-sdk/refs/heads/stable2412/polkadot/xcm/xcm-runtime-apis/src/fees.rs:68:68'
+--8<-- 'https://raw.githubusercontent.com/paritytech/polkadot-sdk/refs/tags/{{dependencies.repositories.polkadot_sdk.version}}/polkadot/xcm/xcm-runtime-apis/src/fees.rs:68:68'
 ```
 
 ??? interface "Input parameters"

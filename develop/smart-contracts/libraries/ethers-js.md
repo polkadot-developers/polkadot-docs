@@ -19,6 +19,31 @@ Before getting started, ensure you have the following installed:
 - **npm** - v6.13.4 or later (comes bundled with Node.js)
 - **Solidity** - this guide uses Solidity `^0.8.9` for smart contract development
 
+## Project Structure
+
+This project organizes contracts, scripts, and compiled artifacts for easy development and deployment.
+
+```bash title="Ethers.js Asset Hub"
+ethers-asset-hub
+├── contracts
+│   ├── Storage.sol
+├── scripts
+│   ├── connectToProvider.js
+│   ├── fetchLastBlock.js
+│   ├── compile.js
+│   ├── deploy.js
+│   ├── checkStorage.js
+├── abis
+│   ├── Storage.json
+├── artifacts
+│   ├── Storage.polkavm
+├── contract-address.json
+├── node_modules/
+├── package.json
+├── package-lock.json
+└── README.md
+```
+
 ## Set Up the Project
 
 To start working with Ethers.js, create a new folder and initialize your project by running the following commands in your terminal:
@@ -39,7 +64,7 @@ npm install ethers
 
 ## Set Up the Ethers.js Provider
 
-A provider is an abstraction of a connection to the Ethereum network, allowing you to query blockchain data and send transactions. It serves as a bridge between your application and the blockchain.
+A [`Provider`](https://docs.ethers.org/v6/api/providers/#Provider){target=\_blank} is an abstraction of a connection to the Ethereum network, allowing you to query blockchain data and send transactions. It serves as a bridge between your application and the blockchain.
 
 To interact with the Asset Hub, you must set up an Ethers.js provider. This provider connects to a blockchain node, allowing you to query blockchain data and interact with smart contracts. In the root of your project, create a file named `connectToProvider.js` and add the following code:
 
@@ -58,7 +83,7 @@ To interact with the Asset Hub, you must set up an Ethers.js provider. This prov
     };
     ```
 
-With the [`Provider`](https://docs.ethers.org/v6/api/providers/#Provider){target=\_blank} set up, you can start querying the blockchain. For instance, to fetch the latest block number:
+With the provider set up, you can start querying the blockchain. For instance, to fetch the latest block number:
 
 ??? code "Fetch Last Block code"
 

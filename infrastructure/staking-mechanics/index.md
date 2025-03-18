@@ -12,11 +12,11 @@ Gain a deep understanding of the staking mechanics in Polkadot, with a focus on 
 
 :::INSERT_IN_THIS_SECTION:::
 
-## Additional Resourcs
+## Additional Resources
 
 <div class="subsection-wrapper">
   <div class="card">
-    <a href="https://education.web3.foundation/docs/Polkadot/Module3/npos" target="_blank">
+    <a href="https://research.web3.foundation/Polkadot/protocols/NPoS/Overview" target="_blank">
       <h2 class="title">Learn About Nominated Proof of Staking</h2>
       <p class="description">Take a deeper dive into the fundamentals of Polkadot's Nominated Proof of Stake (NPoS) consensus mechanism.</p>
     </a>

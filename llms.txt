@@ -12564,12 +12564,6 @@ Learn the requirements for setting up a Polkadot validator node, along with deta
 
 <div class="subsection-wrapper">
   <div class="card">
-    <a href="https://education.web3.foundation/docs/Polkadot/Module3/sharedsecurity" target="_blank">
-      <h2 class="title">Learn About Securing the Network</h2>
-      <p class="description">Get a better understanding of Polkadot's trust model for parachains and the relay chain, including security mechanisms and how Polkadot ensures decentralization.</p>
-    </a>
-  </div>
-  <div class="card">
     <a href="/infrastructure/staking-mechanics/" target="_blank">
       <h2 class="title">Explore Rewards, Offenses, and Slashes</h2>
       <p class="description">Learn about Polkadot's offenses and slashing system, along with validator rewards, era points, and nominator payments.</p>
@@ -14224,11 +14218,11 @@ Gain a deep understanding of the staking mechanics in Polkadot, with a focus on 
 
 :::INSERT_IN_THIS_SECTION:::
 
-## Additional Resourcs
+## Additional Resources
 
 <div class="subsection-wrapper">
   <div class="card">
-    <a href="https://education.web3.foundation/docs/Polkadot/Module3/npos" target="_blank">
+    <a href="https://research.web3.foundation/Polkadot/protocols/NPoS/Overview" target="_blank">
       <h2 class="title">Learn About Nominated Proof of Staking</h2>
       <p class="description">Take a deeper dive into the fundamentals of Polkadot's Nominated Proof of Stake (NPoS) consensus mechanism.</p>
     </a>

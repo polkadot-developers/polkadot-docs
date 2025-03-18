@@ -31,6 +31,8 @@ npm install ethers
 
 ## Set Up the Ethers.js Provider
 
+A provider is an abstraction of a connection to the Ethereum network, allowing you to query blockchain data and send transactions. It serves as a bridge between your application and the blockchain.
+
 To interact with the Asset Hub, you must set up an Ethers.js provider. This provider connects to a blockchain node, allowing you to query blockchain data and interact with smart contracts. In the root of your project, create a file named `connectToProvider.js` and add the following code:
 
 ```js title="connectToProvider.js"
@@ -77,6 +79,7 @@ This example demonstrates compiling a `Storage.sol` Solidity contract for deploy
 ```
 
 ### Compile the Smart Contract
+
 To compile this contract, use the following script:
 
 ```js title="compile.js"
@@ -85,6 +88,8 @@ To compile this contract, use the following script:
 
 !!! note 
      The script above is tailored to the `Storage.sol` contract. It can be adjusted for other contracts by changing the file name or modifying the ABI and bytecode paths.
+
+The ABI (Application Binary Interface) is a JSON representation of your contract's functions, events, and their parameters. It serves as the interface between your JavaScript code and the deployed smart contract, allowing your application to know how to format function calls and interpret returned data.
 
 After executing the script, the Solidity contract will be compiled into the required `polkavm` bytecode format. The ABI and bytecode will be saved into files with `.json` and `.polkavm` extensions, respectively. You can now proceed with deploying the contract to the Asset Hub network, as outlined in the next section.
 
@@ -125,6 +130,8 @@ You can create a `deploy.js` script in the root of your project to achieve this.
     ```
 
     !!! note
+        A mnemonic (seed phrase) is a series of words that can generate multiple private keys and their corresponding addresses. It's used here to derive the wallet that will sign and pay for the deployment transaction. Always keep your mnemonic secure and never share it publicly.
+
         Ensure to replace the `INSERT_MNEMONIC` placeholder with your actual mnemonic.
 
 Here's the complete deployment script combining all the components above:

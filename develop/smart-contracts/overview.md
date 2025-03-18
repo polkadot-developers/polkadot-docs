@@ -74,7 +74,7 @@ EVM compatibility provides significant advantages:
 
 Some of the EVM-compatible parachains are:
 
-- [**Moonbeam**](https://moonbeam.network/){target=\_blank} - Moonbeam was the first parachain to bring full Ethereum-compatibility to Polkadot. Its runtime is built using FRAME and combines components from the Polkadot-SDK, Frontier, and custom pallets. Moonbeam serves as an interoperability hub with connections to multiple external chains through various general message passing (GMP) providers like Wormhole, LayerZero, and Axelar.
+- [**Moonbeam**](https://moonbeam.network/){target=\_blank} - Moonbeam was the first parachain to bring full Ethereum-compatibility to Polkadot. Its runtime is built using FRAME and combines components from the Polkadot-SDK, Frontier, and custom pallets. Moonbeam serves as an interoperability hub with connections to multiple external chains through various general message passing (GMP) providers like Wormhole, LayerZero, and Axelar
 
 - [**Astar**](https://astar.network/){target=\_blank} - Astar distinguishes itself with a unique multiple virtual machine approach supporting both EVM and WebAssembly (Wasm) smart contracts. This dual VM support allows developers to choose their preferred programming environment while maintaining full Ethereum compatibility. Astar has established itself as an innovation hub through initiatives like zk-rollup development and integration with Layer 2 scaling solutions
 

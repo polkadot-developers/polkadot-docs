@@ -11,7 +11,7 @@
     },
     {
         "title": "Set Up Your Development Environment",
-        "content": "Install and configure the necessary tools and frameworks for your chosen smart contract platform: <br><br> - **PolkaVM/EVM** - [Development Environments](/develop/smart-contracts/dev-environments/){target=_blank} <br> - **Wasm (ink!)** [Development Environment Setup](https://use.ink/getting-started/setup){target=_blank}",
+        "content": "Install and configure the necessary tools and frameworks for your chosen smart contract platform: <br><br> - **PolkaVM/EVM** - [Development Environments](/develop/smart-contracts/dev-environments/){target=_blank} <br> - **Wasm (ink!)** - [Development Environment Setup](https://use.ink/getting-started/setup){target=_blank}",
         "icon": ":fontawesome-solid-3:"
     },
     {

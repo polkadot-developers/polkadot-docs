@@ -103,6 +103,8 @@ The [`@parity/revive`](https://www.npmjs.com/package/@parity/revive){target=\_bl
 npm install --save-dev @parity/revive 
 ```
 
+This guide uses `@parity/revive` version `0.0.8`.
+
 ### Sample `Storage.sol` Smart Contract
 
 This example demonstrates compiling a `Storage.sol` Solidity contract for deployment to Asset Hub. The contract's functionality stores a number and permits users to update it with a new value.

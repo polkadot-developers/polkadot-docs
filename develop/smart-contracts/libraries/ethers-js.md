@@ -11,6 +11,14 @@ description: Learn how to interact with the Asset Hub chain using Ethers.js, fro
 
 This guide is intended for developers who are familiar with JavaScript and want to interact with the Polkadot Asset Hub using Ethers.js.
 
+## Prerequisites
+
+Before getting started, ensure you have the following installed:
+
+- **Node.js** - v22.13.1 or later, check the [Node.js installation guide](https://nodejs.org/en/download/current/){target=\_blank}
+- **npm** - v6.13.4 or later (comes bundled with Node.js)
+- **Solidity** - this guide uses Solidity `^0.8.9` for smart contract development
+
 ## Set Up the Project
 
 To start working with Ethers.js, create a new folder and initialize your project by running the following commands in your terminal:

@@ -21,13 +21,13 @@ Asset Hub, Polkadot's system parachain, enables smart contract deployment and ex
 
 ### Smart Contract Development
 
-The smart contract platform on Asset Hub combines Polkadot's robust security and scalability with the extensive Ethereum development ecosystem. Developers can utilize familiar Ethereum libraries for contract interactions and leverage industry-standard development environments for writing and testing smart contracts.
+The smart contract platform on Asset Hub combines _Polkadot's robust security and scalability_ with the extensive Ethereum development ecosystem. Developers can utilize familiar Ethereum libraries for contract interactions and leverage industry-standard development environments for writing and testing smart contracts.
 
-Asset Hub provides full Ethereum JSON-RPC API compatibility, ensuring seamless integration with existing development tools and services. This compatibility enables developers to maintain their preferred workflows while building on Polkadot's native infrastructure.
+Asset Hub provides _full Ethereum JSON-RPC API compatibility_, ensuring seamless integration with existing development tools and services. This compatibility enables developers to maintain their preferred workflows while building on Polkadot's native infrastructure.
 
 ### Technical Architecture
 
-PolkaVM, the underlying virtual machine, utilizes a RISC-V-based register architecture optimized for the Polkadot ecosystem. This design choice offers several advantages:
+PolkaVM, the underlying virtual machine, utilizes a RISC-V-based register architecture _optimized for the Polkadot ecosystem_. This design choice offers several advantages:
 
 - Enhanced performance for smart contract execution
 - Improved gas efficiency for complex operations
@@ -46,13 +46,13 @@ Asset Hub supports a comprehensive suite of development tools familiar to Ethere
 
 ### Cross-Chain Capabilities
 
-Smart contracts deployed on Asset Hub can leverage the [cross-consensus messaging (XCM) protocol](/develop/interoperability/intro-to-xcm/){target=\_blank} to interact with other parachains in the Polkadot ecosystem. This native interoperability enables developers to build truly cross-chain applications, accessing functionality and assets across the entire Polkadot network.
+Smart contracts deployed on Asset Hub can leverage Polkadot's [cross-consensus messaging (XCM) protocol](/develop/interoperability/intro-to-xcm/){target=\_blank} protocol to seamlessly _transfer tokens and call functions on other blockchain networks_ within the Polkadot ecosystem, all without complex bridging infrastructure or third-party solutions. For further references, check the [Interoperability](/develop/interoperability/index){target=\_blank} section.
 
 ### Use Cases
 
 Asset Hub's smart contract platform is suitable for a wide range of applications:
 
-- DeFi protocols leveraging cross-chain capabilities
+- DeFi protocols leveraging _cross-chain capabilities_
 - NFT platforms utilizing Polkadot's native token standards
 - Governance systems integrated with Polkadot's democracy mechanisms
 - Cross-chain bridges and asset management solutions

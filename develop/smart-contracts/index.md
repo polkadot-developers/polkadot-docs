@@ -10,17 +10,57 @@ Polkadot allows scalable execution of smart contracts offering cross-chain compa
 
 This section guides you through the tools, resources, and guides for building and deploying smart contracts on parachains. [Parachains](/polkadot-protocol/architecture/parachains/overview/){target=\_blank} are specialized blockchains connected to the relay chain, benefiting from shared security and interoperability. Depending on your language and environment preference, you can develop contracts using Wasm/ink! or EVM-based solutions.
 
-## Choosing the Right Smart Contract Execution Environment
+## Smart Contract Development Process
 
-For developers building smart contracts in the Polkadot ecosystem, the choice between EVM-compatible parachains (for Solidity contracts) and parachains supporting ink! (for Wasm contracts) depends on the preferred development environment and language. EVM-compatible parachains provide familiarity for Solidity developers, while Wasm contracts offer efficiency and security through Rust-based development. By selecting the right parachain, developers can leverage Polkadot's scalability and interoperability while utilizing the framework that best suits their needs.
+Follow this step-by-step process to develop and deploy smart contracts in the Polkadot ecosystem:
 
-Here are some key considerations:
+[timeline(polkadot-docs/.snippets/text/develop/smart-contracts/index/index-timeline.json)]
 
-- [**PolkaVM-compatible contracts**](/develop/smart-contracts/overview#native-smart-contracts){target=\_blank} - contracts are written in languages like Solidity or Vyper and executed by the [PolkaVM](/polkadot-protocol/smart-contract-basics/polkavm-design#polkavm){target=\_blank}. This compatibility provides a seamless transition for developers coming from EVM environments while also enabling interactions with other Polkadot parachains and leveraging Polkadot's interoperability
-- [**EVM-compatible contracts**](/develop/smart-contracts/overview#parachain-contracts){target=\_blank} - contracts are written in languages like Solidity or Vyper and executed by the Ethereum Virtual Machine (EVM). The EVM is widely standardized across blockchains, including Polkadot parachains like Astar, Moonbeam, and Acala. This compatibility allows contracts to be deployed across multiple networks with minimal modifications, benefiting from a well-established, broad development ecosystem
-- [**Wasm (ink!) contracts**](/develop/smart-contracts/overview#wasm-ink){target=\_blank} - contracts are written in Rust and compiled to Wasm. The advantage of Wasm is that it allows for more flexibility, speed, and potentially lower execution costs compared to EVM, especially in the context of Polkadot's multi-chain architecture
+## Steps Breakdown
 
-Ready to build? Start your smart contract journey by checking the following articles. Throughout the pages in this section, you'll find resources and guides to help you get started with developing smart contracts in the Polkadot ecosystem.
+### 1. Choose a Smart Contract Platform
+
+Select from one of these platforms based on your project needs:
+
+- [**PolkaVM (Asset Hub)**](/develop/smart-contracts/overview#native-smart-contracts){target=\_blank} - Native smart contracts on Polkadot's system parachain
+- [**EVM (Parachain-based)**](/develop/smart-contracts/overview#parachain-contracts){target=\_blank} - Ethereum Virtual Machine compatibility on parachains
+- [**Wasm (ink!)**](/develop/smart-contracts/overview#wasm-ink){target\_blank} - WebAssembly contracts using Rust and ink!
+
+### 2. Get Network Configuration Details
+
+Configure your development environment with the appropriate network settings:
+
+- **PolkaVM** - [Connect to Asset Hub](/develop/build/polkadot-asset-hub){target=\_blank}
+
+- **EVM**
+
+    - [Moonbeam Documentation](https://docs.moonbeam.network/){target=\_blank}
+    - [Astar Documentation](https://docs.astar.network/){target=\_blank}
+    - [Acala Documentation](https://guide.acalanetwork.com/){target=\_blank}
+
+- **Wasm (ink!):** - depends on those parachains that implement `pallet-contracts`, for more information check the [ink! documentation](https://use.ink/how-it-works#why-include-pallet-contracts-on-a-parachain){target=\_blank}
+
+### 3. Set Up Your Development Environment
+
+Install and configure the necessary tools and frameworks:
+
+- **PolkaVM/EVM:** [Development Environments](/develop/smart-contracts/dev-environments/){target=\_blank}
+- **ink!:** [Development Environment Setup](https://use.ink/getting-started/setup){target=\_blank}
+
+### 4. Write, Compile, Test, and Deploy Your Contracts
+
+Develop your smart contracts and deploy them:
+
+- **Writing Solidity Contracts (PolkaVM/EVM)** - [Solidity Development Guide](https://docs.soliditylang.org/en/v0.8.29/introduction-to-smart-contracts.html){target=\_blank}
+- **Using Remix IDE and Hardhat** - [EVM Development Frameworks](/develop/smart-contracts/dev-environments/){target=\_blank}
+- **Writing ink! Smart Contracts** - [ink! Contract Structure](https://use.ink/basics/contract-structure){target=\_blank}
+
+### 5. Interact With Your Deployed Contracts
+
+Integrate your contracts into applications:
+
+- **PolkaVM/EVM Libraries:** [Contract Libraries](/develop/smart-contracts/libraries/)
+- **ink! Interaction:** [Contract Interaction](https://use.ink/basics/contract-interaction)
 
 ## In This Section
 
@@ -30,20 +70,20 @@ Ready to build? Start your smart contract journey by checking the following arti
 
 <div class="grid cards" markdown>
 
--   <span class="badge external">External</span> __View the Official ink! Documentation__
+- <span class="badge external">External</span> **View the Official ink! Documentation**
 
-    ---
+  ***
 
-    Learn everything you need to know about developing smart contracts with ink!.
+  Learn everything you need to know about developing smart contracts with ink!.
 
-    [:octicons-arrow-right-24: Reference](https://use.ink/){target=\_blank}
+  [:octicons-arrow-right-24: Reference](https://use.ink/){target=\_blank}
 
--   <span class="badge guide">Guide</span> __Smart Contracts Overview__
+- <span class="badge guide">Guide</span> **Smart Contracts Overview**
 
-    ---
+  ***
 
-    Check out the Smart Contracts overview in the Polkadot ecosystem.
+  Check out the Smart Contracts overview in the Polkadot ecosystem.
 
-    [:octicons-arrow-right-24: Reference](/develop/smart-contracts/overview)
+  [:octicons-arrow-right-24: Reference](/develop/smart-contracts/overview)
 
 </div>

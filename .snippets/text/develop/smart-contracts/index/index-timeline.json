@@ -1,0 +1,27 @@
+[
+    {
+        "title": "Choose a Smart Contract Platform",
+        "content": "Select the platform that best fits your project requirements and development expertise.",
+        "icon": ":fontawesome-solid-1:"
+    },
+    {
+        "title": "Get Network Configuration Details",
+        "content": "Configure your development environment with the appropriate network settings for your chosen platform.",
+        "icon": ":fontawesome-solid-2:"
+    },
+    {
+        "title": "Set Up Your Development Environment",
+        "content": "Install and configure the necessary tools and frameworks for your chosen smart contract platform.",
+        "icon": ":fontawesome-solid-3:"
+    },
+    {
+        "title": "Write, Compile, Test, and Deploy Your Contracts",
+        "content": "Develop your smart contracts, test their functionality, and deploy them to your chosen network.",
+        "icon": ":fontawesome-solid-4:"
+    },
+    {
+        "title": "Interact With Your Deployed Contracts",
+        "content": "Utilize libraries and tools to interact with your deployed smart contracts and integrate them into applications.",
+        "icon": ":fontawesome-solid-5:"
+    }
+]

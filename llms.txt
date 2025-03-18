@@ -9,6 +9,11 @@ Doc-Page: https://docs.polkadot.com/develop/interoperability/
 Doc-Page: https://docs.polkadot.com/develop/interoperability/intro-to-xcm/
 Doc-Page: https://docs.polkadot.com/develop/interoperability/send-messages/
 Doc-Page: https://docs.polkadot.com/develop/interoperability/test-and-debug/
+Doc-Page: https://docs.polkadot.com/develop/interoperability/versions/
+Doc-Page: https://docs.polkadot.com/develop/interoperability/versions/v5/crafting-raw-xcms/
+Doc-Page: https://docs.polkadot.com/develop/interoperability/versions/v5/fees/
+Doc-Page: https://docs.polkadot.com/develop/interoperability/versions/v5/
+Doc-Page: https://docs.polkadot.com/develop/interoperability/versions/v5/transfers/
 Doc-Page: https://docs.polkadot.com/develop/interoperability/xcm-channels/
 Doc-Page: https://docs.polkadot.com/develop/interoperability/xcm-config/
 Doc-Page: https://docs.polkadot.com/develop/interoperability/xcm-runtime-apis/
@@ -703,6 +708,272 @@ This framework enables thorough testing of runtime and cross-chain interactions,
 To see a complete example of implementing and executing tests, refer to the [integration tests](https://github.com/paritytech/polkadot-sdk/tree/{{dependencies.polkadot_sdk.stable_version}}/cumulus/parachains/integration-tests/emulated){target=\_blank} in the Polkadot SDK repository.
 --- END CONTENT ---
 
+Doc-Content: https://docs.polkadot.com/develop/interoperability/versions/
+--- BEGIN CONTENT ---
+# Versions
+--- END CONTENT ---
+
+Doc-Content: https://docs.polkadot.com/develop/interoperability/versions/v5/crafting-raw-xcms/
+--- BEGIN CONTENT ---
+---
+title: Raw XCMs
+description: Learn how to craft raw XCMs and why that's the recommended way with XCMv5.
+---
+
+# Crafting raw XCMs
+
+Before XCMv5, the recommended way of interacting with XCM was via dedicated extrinsics, either in [pallet-xcm](https://github.com/paritytech/polkadot-sdk/blob/35e6befc5dd61deb154ff0eb7c180a038e626d66/polkadot/xcm/pallet-xcm/src/lib.rs#L17) or [xtokens](https://github.com/open-web3-stack/open-runtime-module-library/blob/0b0bbadb8d0539bbd855eb7eeebcc95397a2a013/xtokens/README.md).
+This includes extrinsics for doing teleports, reserve asset transfers, claiming trapped assets, among others.
+
+With XCMv5 we are moving towards crafting raw XCMs and executing them directly via something like `pallet_xcm::execute()`.
+In the last section we had an example XCM that when executed resulted in a teleport between two parachains.
+Below we see how we can execute this XCM.
+
+```typescript
+// `PolkadotXcm` is the name given to `pallet_xcm` in system parachains.
+const tx = api.tx.PolkadotXcm.execute({
+  message: xcm, // From last section.
+  max_weight: weight, // Some weight.
+})
+```
+
+NOTE: We can calculate the weight with the [query_xcm_weight runtime API](/develop/interoperability/xcm-runtime-apis/#query-xcm-weight).
+
+This move to raw XCMs and then `execute()` directly was motivated by the flexibility offered by XCM.
+You have so much more control when you craft the XCM directly.
+Only using dedicated extrinsics was very limiting, leading to more and more scenarios which required their own extrinsic.
+This is seen in the [large number of extrinsics that had to be added to pallet-xcm](https://paritytech.github.io/polkadot-sdk/master/pallet_xcm/pallet/enum.Call.html#variants).
+
+This extrinsics will still be supported for a long while, however, the recommended way of interacting with XCM from version 5 onwards is via crafting raw XCMs.
+--- END CONTENT ---
+
+Doc-Content: https://docs.polkadot.com/develop/interoperability/versions/v5/fees/
+--- BEGIN CONTENT ---
+---
+title: Fees
+description: How to handle fees in XCMv5.
+---
+
+# Fees
+
+In blockchain systems, fees are very important.
+They prevent malicious actors from exhausting the results of the network, making such attacks expensive.
+The XCM subsystem has its own way of dealing with fees, flexible enough to allow feeless execution in situations where it's deemed useful.
+
+## Execution
+
+All XCMs have a weight associated to them.
+All XCM instructions are benchmarked for a particular system (blockchain).
+This process generates weights.
+The weight of an XCM is the sum of the weight of all instructions.
+It's important to correctly benchmark this with the worst case so that your system is safe from Denial-of-Service attacks.
+
+This generated weight represents how much time, and space, is needed for executing the XCM.
+It directly translates to **execution fees**.
+
+## Delivery
+
+XCMs, although capable of performing tasks locally, are meant to be sent to other consensus systems, i.e. blockchains.
+**Delivery fees** are charged when .
+
+## PayFees
+
+In order to keep things simpler, these two fees are dealt in the same way.
+The user is asked to input the maximum amount they want to dedicate for fees.
+This amount is used **only** for fees.
+
+The amount is specified using the `PayFees` instruction:
+
+```typescript
+XcmV5Instruction.PayFees({
+  asset: {
+    id: // Asset id.
+    fun: // Fungibility. You specify the amount if it's fungible or the instance if it's an NFT.
+  },
+})
+```
+
+This mechanism is simple and flexible.
+The user requires no knowledge of the different types of fees.
+New fees might arise in the future and they'll be taken using this same mechanism, without the need for any modification.
+
+## Estimations
+
+The entirety of the asset passed to `PayFees` will be taken from the effective assets and used only for fees.
+This means if you overestimate the fees required, you'll be losing efficiency.
+
+It's necessary to have a mechanism to accurately estimate the fee needed so it can be put into `PayFees`.
+This is more complicated than it sounds since we're dealing with execution and delivery fees, potentially in multiple hops.
+
+Imagine a scenario where parachain A sends a message to B which forwards another message to C.
+
+``` mermaid
+flowchart LR
+  A(A) --> B(B)
+  B --> C(C)
+```
+
+Execution fees need to be paid on A.
+Delivery fees from A to B.
+Execution on B.
+Delivery from B to C.
+Finally, execution on C.
+
+An XCM that does this might look like so.
+
+```typescript
+const xcm = XcmVersionedXcm.V5([
+  XcmV5Instruction.WithdrawAsset(/* some assets */),
+  XcmV5Instruction.PayFees(/* execution + delivery on A */),
+  XcmV5Instruction.InitiateTransfer({
+    // ...
+    remote_fees: /* execution + delivery on B */,
+    remote_xcm: [
+      XcmV5Instruction.InitiateTransfer({
+        // ...
+        remote_fees: /* execution on C */,
+        // ...
+      }),
+    ],
+    // ...
+  }),
+])
+```
+
+NOTE: paying fees on a remote system is so common that the `InitiateTransfer` instruction doesn't
+require putting the instruction in `remote_xcm`, you only need to put them in `remote_fees`.
+
+<!-- TODO: Fee estimation tutorial? -->
+The solution is to use the [runtime APIs](/develop/interoperability/xcm-runtime-apis/) as shown in [the fee estimation tutorial]().
+--- END CONTENT ---
+
+Doc-Content: https://docs.polkadot.com/develop/interoperability/versions/v5/
+--- BEGIN CONTENT ---
+---
+title: XCMv5
+description: Learn about XCM version 5.
+---
+
+# XCMv5
+
+NOTE: This version is still not live in any Polkadot or Kusama runtime.
+
+The latest iteration of XCM is version 5.
+Changes to the standard are managed by the [Polkadot Technical Fellowship RFCs](https://github.com/polkadot-fellows/RFCs/).
+The main RFCs defining the changes in version 5 are the following:
+
+- [Legacy #37 - SetAssetClaimer](https://github.com/polkadot-fellows/xcm-format/blob/master/proposals/0037-custom-asset-claimer.md)
+
+- [Legacy #38 - ExecuteWithOrigin](https://github.com/polkadot-fellows/xcm-format/blob/master/proposals/0038-execute-with-origin.md)
+
+- [#100 - InitiateTransfer instruction](https://github.com/polkadot-fellows/RFCs/pull/100)
+
+- [#101 - Remove weight from Transact](https://github.com/polkadot-fellows/RFCs/pull/101)
+
+- [#105 - Improved fee mechanism](https://github.com/polkadot-fellows/RFCs/pull/105)
+
+- [#107 - Execution hints](https://github.com/polkadot-fellows/RFCs/pull/107)
+
+- [#108 - Remove testnet network ids](https://github.com/polkadot-fellows/RFCs/pull/108)
+
+- [#122 - InitiateTransfer origin preservation](https://github.com/polkadot-fellows/RFCs/pull/122)
+
+NOTE: The first two RFCs are legacy ones when XCM RFCs were separate from the Polkadot Technical Fellowship RFCs.
+
+Version 5 of XCM achieves a couple of things:
+
+- Improves the situation with fee payment
+
+- Simplify cross-chain transfers
+
+- Improve claiming assets
+
+## Example
+
+Since XCMv5 is still not live on Polkadot or Kusama, we're going to use the Westend testnet for our examples.
+We'll use [Polkadot-API](/develop/toolkit/api-libraries/papi) to interact with the chain.
+
+Below is an example of a teleport between two parachains.
+
+```typescript
+const xcm = XcmVersionedXcm.V5([
+  XcmV5Instruction.WithdrawAsset([
+    {
+      id: { parents: 1, interior: XcmV5Junctions.Here() },
+      // WND, the native token of Westend, has 12 decimals.
+      // Here we are withdrawing 1 WND.
+      fun: XcmV3MultiassetFungibility.Fungible(1_000_000_000_000n),
+    },
+  ]),
+  XcmV5Instruction.PayFees({
+    asset: {
+      id: { parents: 1, interior: XcmV5Junctions.Here() },
+      // We dedicate 0.1 WND to fees.
+      fun: XcmV3MultiassetFungibility.Fungible(100_000_000_000n),
+    },
+  }),
+  XcmV5Instruction.InitiateTransfer({
+    destination: { parents: 1, interior: XcmV5Junctions.X1(XcmV5Junction.Parachain(1001)) },
+    remote_fees: Enum(
+      'Teleport',
+      XcmV5AssetFilter.Definite([
+        {
+          id: { parents: 1, interior: XcmV5Junctions.Here() },
+          // We dedicate 0.1 WND for fees on the remote chain.
+          fun: XcmV3MultiassetFungibility.Fungible(100_000_000_000n)
+        },
+      ])
+    ),
+    preserve_origin: false,
+    assets: [
+      Enum(
+        'Teleport',
+        // All the rest is sent across as assets...
+        XcmV5AssetFilter.Wild(XcmV5WildAsset.AllCounted(1)),
+      ),
+    ],
+    remote_xcm: [
+      // ...and deposited to `beneficiary`.
+      XcmV5Instruction.DepositAsset({
+        assets: XcmV5AssetFilter.Wild(XcmV5WildAsset.AllCounted(1)),
+        beneficiary: {
+          parents: 0,
+          interior: XcmV5Junctions.X1(XcmV5Junction.AccountId32({
+            id: beneficiary,
+            network: undefined,
+          })),
+        },
+      }),
+    ],
+  }),
+])
+```
+--- END CONTENT ---
+
+Doc-Content: https://docs.polkadot.com/develop/interoperability/versions/v5/transfers/
+--- BEGIN CONTENT ---
+---
+title: Transfers
+description: How to do transfers in XCMv5.
+---
+
+# Transfers
+
+As we've seen already, the `InitiateTransfer` instruction is the star of the show when it comes to cross-chain transfers.
+In previous versions of XCM, we had instructions like `InitiateTeleport` and `InitiateReserveWithdraw` for different types of transfers.
+`InitiateTransfer` unifies both and brings some extra functionalities not possible with previous versions.
+
+```typescript
+XcmV5Instruction.InitiateTransfer({
+  destination: /* location of recipient */,
+  remote_fees: /* fees for recipient */,
+  preserve_origin: /* whether or not the original origin should be preserved */,
+  assets: /* the assets being transferred and the type of transfer */,
+  remote_xcm: /* xcm to be executed in the recipient after transferring the assets */,
+})
+```
+--- END CONTENT ---
+
 Doc-Content: https://docs.polkadot.com/develop/interoperability/xcm-channels/
 --- BEGIN CONTENT ---
 ---
@@ -1123,7 +1394,7 @@ This API can be used independently for dry-running, double-checking, or testing.
 This API allows a dry-run of any extrinsic and obtaining the outcome if it fails or succeeds, as well as the local xcm and remote xcm messages sent to other chains.
 
 ```rust
-fn dry_run_call(origin: OriginCaller, call: Call) -> Result<CallDryRunEffects<Event>, Error>;
+/// Dry run call V2.
 ```
 
 ??? interface "Input parameters"
@@ -1850,7 +2121,7 @@ client.destroy();
 This API allows the direct dry-run of an xcm message instead of an extrinsic one, checks if it will execute successfully, and determines what other xcm messages will be forwarded to other chains.
 
 ```rust
-fn dry_run_xcm(origin_location: VersionedLocation, xcm: VersionedXcm<Call>) -> Result<XcmDryRunEffects<Event>, Error>;
+/// Dry run call V1.
 ```
 
 ??? interface "Input parameters"

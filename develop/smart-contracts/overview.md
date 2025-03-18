@@ -9,7 +9,7 @@ description: Learn about smart contract development capabilities in the Polkadot
 
 Polkadot offers developers multiple approaches to building and deploying smart contracts within its ecosystem. As a multi-chain network designed for interoperability, Polkadot provides various environments optimized for different developer preferences and application requirements. From native smart contract support on Asset Hub to specialized parachain environments, developers can choose the platform that best suits their technical needs while benefiting from Polkadot's shared security model and cross-chain messaging capabilities.
 
-Whether you're looking for Ethereum compatibility through EVM-based parachains like Moonbeam, Astar, and Acala, or prefer WebAssembly-based development with ink!, the Polkadot ecosystem accommodates diverse developer.
+Whether you're looking for Ethereum compatibility through EVM-based parachains like Moonbeam, Astar, and Acala or prefer WebAssembly-based development with ink!, the Polkadot ecosystem accommodates diverse developers.
 
 These guides explore the diverse smart contract options available in the Polkadot ecosystem, helping developers understand the unique advantages of each approach and make informed decisions about where to deploy their decentralized applications.
 

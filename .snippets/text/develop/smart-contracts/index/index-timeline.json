@@ -21,7 +21,7 @@
     },
     {
         "title": "Interact With Your Deployed Contracts",
-        "content": "Utilize libraries and tools to interact with your deployed smart contracts and integrate them into applications: <br><br> - **PolkaVM/EVM** - [Contract Libraries](/develop/smart-contracts/libraries/) <br> - **Wasm (ink!)** [Contract Interaction](https://use.ink/getting-started/calling-your-contract){target=_blank}",
+        "content": "Utilize libraries and tools to interact with your deployed smart contracts and integrate them into applications: <br><br> - **PolkaVM/EVM** - [Contract Libraries](/develop/smart-contracts/libraries/) <br> - **Wasm (ink!)** - [Contract Interaction](https://use.ink/getting-started/calling-your-contract){target=_blank}",
         "icon": ":fontawesome-solid-5:"
     }
 ]

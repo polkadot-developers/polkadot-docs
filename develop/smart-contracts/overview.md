@@ -11,7 +11,7 @@ Polkadot offers developers multiple approaches to building and deploying smart c
 
 Whether you're looking for Ethereum compatibility through EVM-based parachains like Moonbeam, Astar, and Acala, or prefer WebAssembly-based development with ink!, the Polkadot ecosystem accommodates diverse developer.
 
-These guides explores the diverse smart contract options available in the Polkadot ecosystem, helping developers understand the unique advantages of each approach and make informed decisions about where to deploy their decentralized applications.
+These guides explore the diverse smart contract options available in the Polkadot ecosystem, helping developers understand the unique advantages of each approach and make informed decisions about where to deploy their decentralized applications.
 
 ## Native Smart Contracts
 

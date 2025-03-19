@@ -83,6 +83,12 @@ To interact with the Asset Hub, you must set up an Ethers.js provider. This prov
     };
     ```
 
+To connect to the provider, execute:
+
+```bash
+node connectToProvider
+```
+
 With the provider set up, you can start querying the blockchain. For instance, to fetch the latest block number:
 
 ??? code "Fetch Last Block code"
@@ -125,6 +131,12 @@ To compile this contract, use the following script:
      The script above is tailored to the `Storage.sol` contract. It can be adjusted for other contracts by changing the file name or modifying the ABI and bytecode paths.
 
 The ABI (Application Binary Interface) is a JSON representation of your contract's functions, events, and their parameters. It serves as the interface between your JavaScript code and the deployed smart contract, allowing your application to know how to format function calls and interpret returned data.
+
+Execute the script above by running:
+
+```bash
+node compile
+```
 
 After executing the script, the Solidity contract will be compiled into the required `polkavm` bytecode format. The ABI and bytecode will be saved into files with `.json` and `.polkavm` extensions, respectively. You can now proceed with deploying the contract to the Asset Hub network, as outlined in the next section.
 
@@ -176,6 +188,11 @@ Here's the complete deployment script combining all the components above:
     ```js title="deploy.js"
     --8<-- 'code/develop/smart-contracts/evm-toolkit/ethers-js/deploy.js'
     ```
+To run the script, execute the following command:
+
+```bash
+node deploy
+```
 
 After running this script, your contract will be deployed to Asset Hub, and its address will be saved in `contract-address.json` within your project directory. You can use this address for future contract interactions.
 
@@ -188,6 +205,12 @@ Once the contract is deployed, you can interact with it by calling its functions
 ```
 
 Ensure you replace the `INSERT_MNEMONIC`, `INSERT_CONTRACT_ADDRESS`, and `INSERT_ADDRESS_TO_CHECK` placeholders with actual values. Also, ensure the contract ABI file (`Storage.json`) is correctly referenced.
+
+To interact with the contract, run:
+
+```bash
+node checkStorage
+```
 
 ## Where to Go Next
 

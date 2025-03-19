@@ -4,7 +4,7 @@ description: Learn about Polkadot light clients their importance, usage, and how
 template: root-subdirectory-page.html
 ---
 
-Light clients are a more secure, trust-minimized, efficient way of communicating to a blockchain.  Along with the oft-used JSON remote procedural calls (RPC), they are one of the primary methods for interacting with a blockchain. 
+Light clients are a more secure, trust-minimized, efficient way of communicating to a blockchain. Along with the oft-used JSON remote procedural calls (RPC), they are one of the primary methods for interacting with a blockchain. 
 
 > "Light clients are applications that fetch the required data that they need from a Polkadot node with an associated [cryptographic] proof to validate the data. This makes it possible to interact with the Polkadot network without requiring to run a full node or having to trust the remote peers." - [Polkadot Specification, Light Client Messages](https://spec.polkadot.network/sect-lightclient#sect-light-msg){target=\blank}
 
@@ -23,7 +23,7 @@ LC -- Response --> DAPP
 FN -- Response (validated via Merkle proof) --> LC
 ```
 
-In the above diagram, the decentralized application is able to query the account's on-chain info through the light client. This light client is running as part of the application, takes very little memory and computational overhead, and utilizes Merkle proofs to verify the state from a full node in a trust-minimized manner. Polkadot compatible light clients utilize [warp syncing](https://spec.polkadot.network/sect-lightclient#sect-sync-warp-lightclient){target=\blank}, which only downloads the block headers.
+In the preceding diagram, the decentralized application is able to query the account's on-chain info through the light client. This light client is running as part of the application, takes very little memory and computational overhead, and utilizes Merkle proofs to verify the state from a full node in a trust-minimized manner. Polkadot compatible light clients utilize [warp syncing](https://spec.polkadot.network/sect-lightclient#sect-sync-warp-lightclient){target=\blank}, which only downloads the block headers.
 
 Light clients can quickly verify the blockchain's state, including [GRANDPA finality](../polkadot-protocol/glossary.md#grandpa) justifications.
 
@@ -39,7 +39,7 @@ protocol. Generally, the UI will showcase the information that is available on t
    machine.
       - These nodes are secure, but installation and maintenance of these nodes tend to be an
      inconvenience.
-2. **Publicly Accessible Nodes**: The UI connects to a third-party-owned publicly-accessible node
+2. **Publicly Accessible Nodes**: The UI connects to a third-party-owned publicly accessible node
    client.
       - While these nodes are more prevalent in their usage as they are convenient to use, they are
         centralized and insecure. Applications would need to maintain a list of backup nodes in case the one in use goes down.
@@ -75,5 +75,5 @@ Establishing a sufficient number of peers is difficult due to browser limitation
 
 - [What is a light client and why you should care?](https://medium.com/paritytech/what-is-a-light-client-and-why-you-should-care-75f813ae2670){target=\blank}
 - [Introducing Substrate Connect: Browser-Based Light Clients for Connecting to Substrate Chains](https://www.parity.io/blog/introducing-substrate-connect){target=\blank}
-- [Substrate connect GitHub Repo](https://github.com/paritytech/substrate-connect/tree/master/projects/extension){target=\blank}
+- [Substrate Connect GitHub Repository](https://github.com/paritytech/substrate-connect/tree/master/projects/extension){target=\blank}
 - [Light Clients - Polkadot Specification](https://spec.polkadot.network/sect-lightclient){target=\blank}

@@ -13,7 +13,7 @@ Polkadot has first class support for light clients, which are a crucial part of 
 !!!info "Light node or light client?"
     The terms 'light node' and 'light client' are interchangeable, both describing a blockchain client that syncs without downloading the entire blockchain state. All nodes in a blockchain network are fundamentally clients, engaging in peer-to-peer communication.
 
-However, unlike interacting with a JSON RPC interface, where an application has to either maintain a list of providers to use, or rely on a single node, **light clients are not limited to nor depend on a single node**. They verify the state of the blockchain using cryptographic proofs, ensuring it has not only the latest but *correct* state. As it just verifies the headers of the blocks, it does not need to sync whole state, making it ideal for resource-constrained environments.
+However, unlike interacting with a JSON RPC interface, where an application has to either maintain a list of providers to use, or rely on a single node, **light clients are not limited to nor depend on a single node**. They use cryptographic proofs to verify the blockchain's state, ensuring it is both up-to-date and accurate. Because it verifies only block headers, it avoids syncing the entire state, making it ideal for resource-constrained environments.
 
 ```mermaid
 flowchart LR
@@ -25,9 +25,9 @@ FN -- Response (validated via Merkle proof) --> LC
 
 In the above diagram, the decentralized application is able to query the account's on-chain info through the light client. This light client is running as part of the application, takes very little memory and computational overhead, and utilizes Merkle proofs to verify the state from a full node in a trust-minimized manner. Polkadot compatible light clients utilize [warp syncing](https://spec.polkadot.network/sect-lightclient#sect-sync-warp-lightclient){target=\blank}, which only downloads the block headers.
 
-This means that light clients can quickly verify the entire state of the blockchain, including [GRANDPA (finality)](../polkadot-protocol/glossary.md#grandpa) justifications.
+Light clients can quickly verify the blockchain's state, including [GRANDPA finality](../polkadot-protocol/glossary.md#grandpa) justifications.
 
-!!!info What does it mean to be 'trust-minimized'?
+!!!info "What does it mean to be 'trust-minimized'?"
     The term "trust-minimized" refers to the fact that the light client does not have to completely trust the full node before retrieving its state. This is due to the usage of Merkle proofs, where the light client can check the Merkle tree root to ensure the full node it is retrieving from has the correct state.
 
 ## JSON RPC and Light Client Comparison
@@ -37,12 +37,12 @@ protocol. Generally, the UI will showcase the information that is available on t
 
 1. **User Controlled Nodes**: The UI connects to a node client that the user has installed on their
    machine.
-   - These nodes are secure, but installation and maintenance of these nodes tend to be an
+      - These nodes are secure, but installation and maintenance of these nodes tend to be an
      inconvenience.
 2. **Publicly Accessible Nodes**: The UI connects to a third-party-owned publicly-accessible node
    client.
-   - While these nodes are more prevalent in their usage as they are convenient to use, they are
-     centralized and insecure. Applications would need to maintain a list of backup nodes in case the one in use goes down.
+      - While these nodes are more prevalent in their usage as they are convenient to use, they are
+        centralized and insecure. Applications would need to maintain a list of backup nodes in case the one in use goes down.
 
 It's important to note that light clients still communicate with [full nodes](../polkadot-protocol/glossary.md#full-node), however in the context of applications, light clients offer benefits for applications that need a secure alternative to running a full node:
 
@@ -50,7 +50,7 @@ It's important to note that light clients still communicate with [full nodes](..
 | ----------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------- |
 | Full verification of all blocks of the chain                                                                | Only verifies the authenticity of blocks of the chain                                                         |
 | Contains the previous block data and the chain's storage in database                                    | No database                                                                                                   |
-| Installation, maintenance, and execution tend to be exhaustive and require system administration expertise | No installation; is typically included as part of the application |
+| Installation, maintenance, and execution are resource-intensive and often require system administration expertise | No installation; is typically included as part of the application |
 
 ## Using Light Clients
 

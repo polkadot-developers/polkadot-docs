@@ -3,3 +3,4 @@ nav:
   - index.md
   - xcm-channels
   - xcm-transfers
+  - 'XCM Fee Estimation': xcm-fee-estimation.md

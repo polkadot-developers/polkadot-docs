@@ -66,7 +66,13 @@ This guide uses `web3` version `4.16.0`.
 
 ## Set Up the Web3 Provider
 
-The provider configuration is the foundation of any Web3.js application. The following example establishes a connection to the Asset Hub network. To use the example script, replace `INSERT_RPC_URL`, `INSERT_CHAIN_ID`, and `INSERT_CHAIN_NAME` with the appropriate values. For example, for the Westend Asset Hub testnet, use these specific connection parameters:
+The provider configuration is the foundation of any Web3.js application. The following example establishes a connection to the Asset Hub network. To use the example script, replace `INSERT_RPC_URL`, `INSERT_CHAIN_ID`, and `INSERT_CHAIN_NAME` with the appropriate values. The provider connection script should look something like this:
+
+```javascript title="connectToProvider.js"
+--8<-- 'code/develop/smart-contracts/evm-toolkit/libraries/web3-js/connectToProvider.js'
+```
+
+For example, for the Westend Asset Hub testnet, use these specific connection parameters:
 
 ```js
 const PROVIDER_RPC = {
@@ -74,12 +80,6 @@ const PROVIDER_RPC = {
     chainId: 420420421,
     name: 'westend-asset-hub'
 };
-```
-
-The provider connection script should look something like this:
-
-```javascript title="connectToProvider.js"
---8<-- 'code/develop/smart-contracts/evm-toolkit/libraries/web3-js/connectToProvider.js'
 ```
 
 To connect to the provider, execute:

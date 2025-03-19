@@ -9,7 +9,7 @@ description: Learn how to write a basic smart contract using just a text editor.
 
 Creating [smart contracts](/develop/smart-contracts/overview/){target=\_blank} is fundamental to blockchain development. While many frameworks and tools are available, understanding how to write a contract from scratch with just a text editor is essential knowledge.
 
-This tutorial will guide you through creating a basic smart contract that can be used with other tutorials for deployment and integration on Asset Hub.
+This tutorial will guide you through creating a basic smart contract that can be used with other tutorials for deployment and integration on Asset Hub. To understand how smart contracts work in Asset Hub, check the [Smart Contract basics](/polkadot-protocol/smart-contract-basics/){target=\_blank} guide for more information.
 
 ## Prerequisites
 
@@ -32,7 +32,7 @@ Let's explore these components before building the contract:
 
 ## Create the Smart Contract
 
-In this section, you'll build a simple storage contract step by step. Later, you'll explore each component in more detail to understand what's happening behind the scenes.
+In this section, you'll build a simple storage contract step by step. This basic Storage contract is a great starting point for beginners. It introduces key concepts like state variables, functions, and events in a simple way, demonstrating how data is stored and updated on the blockchain. Later, you'll explore each component in more detail to understand what's happening behind the scenes.
 
 This contract will:
 

@@ -188,6 +188,7 @@ Here's the complete deployment script combining all the components above:
     ```js title="deploy.js"
     --8<-- 'code/develop/smart-contracts/evm-toolkit/ethers-js/deploy.js'
     ```
+
 To run the script, execute the following command:
 
 ```bash

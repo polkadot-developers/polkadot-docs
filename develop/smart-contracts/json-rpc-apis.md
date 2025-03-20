@@ -7,12 +7,12 @@ description: JSON-RPC APIs guide for Asset Hub, covering supported methods, para
 
 ## Introduction
 
-Asset Hub provides Ethereum compatibility through its JSON-RPC interface, allowing developers to interact with the chain using familiar Ethereum tooling and methods. This document outlines the supported Ethereum JSON-RPC methods and provides examples of how to use them.
+Asset Hub provides full Ethereum compatibility through its JSON-RPC interface, allowing developers to interact with the chain using familiar Ethereum tooling and methods. This document outlines the supported [Ethereum JSON-RPC methods](https://ethereum.org/en/developers/docs/apis/json-rpc/#json-rpc-methods){target=\_blank} and provides examples of how to use them.
 
 This article uses the Westend Asset Hub endpoint to interact with:
 
 ```text
-https://westend-asset-hub-eth-rpc.polkadot.io
+https://westend-asset-hub-rpc.polkadot.io
 ```
 
 ## Available Methods
@@ -139,7 +139,7 @@ Estimates gas required for a transaction. [Reference](https://ethereum.org/en/de
 **Example**:
 
 ```bash title="eth_estimateGas"
-curl -X POST https://westend-asset-hub-eth-rpc.polkadot.io \
+curl -X POST https://westend-asset-hub-rpc.polkadot.io \
 -H "Content-Type: application/json" \
 --data '{
     "jsonrpc":"2.0",
@@ -167,7 +167,7 @@ None
 **Example**:
 
 ```bash title="eth_gasPrice"
-curl -X POST https://westend-asset-hub-eth-rpc.polkadot.io \
+curl -X POST https://westend-asset-hub-rpc.polkadot.io \
 -H "Content-Type: application/json" \
 --data '{
     "jsonrpc":"2.0",
@@ -269,7 +269,7 @@ Returns the code at a given address. [Reference](https://ethereum.org/en/develop
 **Example**:
 
 ```bash title="eth_getCode"
-curl -X POST https://westend-asset-hub-eth-rpc.polkadot.io \
+curl -X POST https://westend-asset-hub-rpc.polkadot.io \
 -H "Content-Type: application/json" \
 --data '{
     "jsonrpc":"2.0",
@@ -296,7 +296,7 @@ Returns the value from a storage position at a given address. [Reference](https:
 **Example**:
 
 ```bash title="eth_getStorageAt"
-curl -X POST https://westend-asset-hub-eth-rpc.polkadot.io \
+curl -X POST https://westend-asset-hub-rpc.polkadot.io \
 -H "Content-Type: application/json" \
 --data '{
     "jsonrpc":"2.0",
@@ -345,7 +345,7 @@ None
 **Example**:
 
 ```bash title="eth_maxPriorityFeePerGas"
-curl -X POST https://westend-asset-hub-eth-rpc.polkadot.io \
+curl -X POST https://westend-asset-hub-rpc.polkadot.io \
 -H "Content-Type: application/json" \
 --data '{
     "jsonrpc":"2.0",

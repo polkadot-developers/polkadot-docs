@@ -146,7 +146,7 @@ Ensure to replace `INSERT_PRIVATE_KEY` with the proper value. For further detail
 !!! warning
     Never commit or share your private key. Exposed keys can lead to immediate theft of all associated funds. Use environment variables instead.
 
-To deploy run the following command:
+To deploy, run the following command:
 
 ```bash
 npm run deploy
@@ -170,13 +170,13 @@ To interact with the contract:
 npm run interact
 ```
 
-Following a successful interaction, you will see the stored value before and after the transaction. The output will show the initial stored number (which will be 0 if you haven't modified it yet), confirm when the transaction to set the number to 42 is complete, and then display the updated stored number value. This demonstrates both reading from and writing to your smart contract.
+Following a successful interaction, you will see the stored value before and after the transaction. The output will show the initial stored number (0 if you haven't modified it yet), confirm when the transaction to set the number to 42 is complete, and then display the updated stored number value. This demonstrates both reading from and writing to your smart contract.
 
 ## Complete Project Structure
 
-After completing this guide, your project directory should look like the following structure. This overview helps you verify that you've created all the necessary files in their correct locations for your viem integration with Asset Hub:
+After completing this guide, your project directory should have the following structure. This overview helps you verify that you've created all the necessary files in their correct locations for your viem integration with Asset Hub:
 
-```
+```text
 viem-project/
 ├── package.json
 ├── tsconfig.json

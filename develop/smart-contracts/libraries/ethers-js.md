@@ -177,7 +177,7 @@ You can create a `deploy.js` script in the root of your project to achieve this.
     ```
 
     !!! note
-        A mnemonic (seed phrase) is a series of words that can generate multiple private keys and their corresponding addresses. It's used here to derive the wallet that will sign and pay for the deployment transaction. Always keep your mnemonic secure and never share it publicly.
+        A mnemonic (seed phrase) is a series of words that can generate multiple private keys and their corresponding addresses. It's used here to derive the wallet that will sign and pay for the deployment transaction. **Always keep your mnemonic secure and never share it publicly**.
 
         Ensure to replace the `INSERT_MNEMONIC` placeholder with your actual mnemonic.
 

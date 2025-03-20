@@ -81,13 +81,6 @@ const PROVIDER_RPC = {
     name: 'westend-asset-hub'
 };
 ```
-
-To connect to the provider, execute:
-
-```bash
-node connectToProvider
-```
-
 With the Web3 provider set up, you can start querying the blockchain.
 
 For instance, to fetch the latest block number of the chain, you can use the following code snippet:

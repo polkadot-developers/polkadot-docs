@@ -26,7 +26,7 @@ Before getting started, ensure you have the following installed:
 
 This project organizes contracts, scripts, and compiled artifacts for easy development and deployment.
 
-```bash title="Web3.js Asset Hub"
+```text title="Web3.js Asset Hub"
 web3js-asset-hub
 ├── contracts
 │   ├── Storage.sol

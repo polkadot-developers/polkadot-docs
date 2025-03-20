@@ -23,7 +23,7 @@ Before getting started, ensure you have the following installed:
 
 This project organizes contracts, scripts, and compiled artifacts for easy development and deployment.
 
-```bash title="Ethers.js Asset Hub"
+```text title="Ethers.js Asset Hub"
 ethers-asset-hub
 ├── contracts
 │   ├── Storage.sol

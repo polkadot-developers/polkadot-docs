@@ -109,7 +109,7 @@ The [`@parity/revive`](https://www.npmjs.com/package/@parity/revive){target=\_bl
 npm install --save-dev @parity/revive 
 ```
 
-This guide uses `@parity/revive` version `0.0.8`.
+This guide uses `@parity/revive` version `{{ dependencies.revive_node_package.version }}`.
 
 ### Sample `Storage.sol` Smart Contract
 

@@ -59,7 +59,7 @@ Before getting started, ensure you have:
 
 5. Update your Hardhat configuration file (`hardhat.config.js`) to include the plugins:
 
-    ```javascript title="hardhat.config.js" hl_lines="10-11"
+    ```javascript title="hardhat.config.js" hl_lines="9-10"
     --8<-- 'code/develop/smart-contracts/dev-environments/hardhat/hardhat.config.js:0:12'
     --8<-- 'code/develop/smart-contracts/dev-environments/hardhat/hardhat.config.js:15:16'
       // Additional configuration will be added later
@@ -79,15 +79,16 @@ To compile your project, follow these instructions:
 
     === "Remix Configuration"
 
-        ```javascript title="hardhat.config.js"
+        ```javascript title="hardhat.config.js" hl_lines="15-25"
         --8<-- 'code/develop/smart-contracts/dev-environments/hardhat/hardhat.config.js:0:12'
-        --8<-- 'code/develop/smart-contracts/dev-environments/hardhat/hardhat.config.js:15:29'
+        --8<-- 'code/develop/smart-contracts/dev-environments/hardhat/hardhat.config.js:15:17'
+          --8<-- 'code/develop/smart-contracts/dev-environments/hardhat/hardhat.config.js:19:29'
         --8<-- 'code/develop/smart-contracts/dev-environments/hardhat/hardhat.config.js:66:66'
         ```
 
     === "Binary Configuration"
 
-        ```javascript title="hardhat.config.js"
+        ```javascript title="hardhat.config.js" hl_lines="15-26"
         --8<-- 'code/develop/smart-contracts/dev-environments/hardhat/hardhat.config.js:0:12'
         --8<-- 'code/develop/smart-contracts/dev-environments/hardhat/hardhat.config.js:15:17'
           --8<-- 'code/develop/smart-contracts/dev-environments/hardhat/hardhat.config.js:31:42'
@@ -151,7 +152,7 @@ Before deploying to a live network, you can deploy your contract to a local node
 
     === "Remix Configuration"
 
-        ```javascript title="hardhat.config.js"
+        ```javascript title="hardhat.config.js" hl_lines="27-44"
         --8<-- 'code/develop/smart-contracts/dev-environments/hardhat/hardhat.config.js:0:12'
         --8<-- 'code/develop/smart-contracts/dev-environments/hardhat/hardhat.config.js:15:29'
           --8<-- 'code/develop/smart-contracts/dev-environments/hardhat/hardhat.config.js:43:59'
@@ -160,7 +161,7 @@ Before deploying to a live network, you can deploy your contract to a local node
 
     === "Binary Configuration"
 
-        ```javascript title="hardhat.config.js"
+        ```javascript title="hardhat.config.js" hl_lines="27-44"
         --8<-- 'code/develop/smart-contracts/dev-environments/hardhat/hardhat.config.js:0:12'
         --8<-- 'code/develop/smart-contracts/dev-environments/hardhat/hardhat.config.js:15:17'
           --8<-- 'code/develop/smart-contracts/dev-environments/hardhat/hardhat.config.js:31:42'
@@ -234,7 +235,7 @@ After testing your contract locally, you can deploy it to a live network. This g
 
     === "Remix Configuration"
 
-        ```javascript title="hardhat.config.js"
+        ```javascript title="hardhat.config.js" hl_lines="44-48"
         --8<-- 'code/develop/smart-contracts/dev-environments/hardhat/hardhat.config.js:0:12'
         --8<-- 'code/develop/smart-contracts/dev-environments/hardhat/hardhat.config.js:15:29'
         --8<-- 'code/develop/smart-contracts/dev-environments/hardhat/hardhat.config.js:43:66'
@@ -242,7 +243,7 @@ After testing your contract locally, you can deploy it to a live network. This g
 
     === "Binary Configuration"
 
-        ```javascript title="hardhat.config.js"
+        ```javascript title="hardhat.config.js" hl_lines="44-48"
         --8<-- 'code/develop/smart-contracts/dev-environments/hardhat/hardhat.config.js:0:12'
         --8<-- 'code/develop/smart-contracts/dev-environments/hardhat/hardhat.config.js:15:17'
           --8<-- 'code/develop/smart-contracts/dev-environments/hardhat/hardhat.config.js:31:42'

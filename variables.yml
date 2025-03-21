@@ -27,3 +27,7 @@ dependencies:
     version: v0.16.0
     docker_image_name: paritytech/srtool
     docker_image_version: 1.62.0
+  revive_node_package:
+    version: 0.0.8
+  web3_js:
+    version: 4.16.0

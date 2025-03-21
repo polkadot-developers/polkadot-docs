@@ -16,7 +16,7 @@ This tutorial covers deploying an ERC-20 contract on the Westend TestNet using [
 Before starting, make sure you have:
 
 - [MetaMask](https://metamask.io/){target=\_blank} installed and connected to [Westend Asset Hub](https://chainlist.org/chain/420420421){target=\_blank}. For more detailed instructions on connecting your wallet, see the [Connect Your Wallet](/develop/smart-contracts/connect-to-asset-hub/#connect-your-wallet){target=\_blank} section
-- A funded account with some WND tokens (you can get them from the [Westend Faucet](https://faucet.polkadot.io/westend?parachain=1000){target=\_blank}). To learn how to get test tokens, check out the [Test Tokens](/develop/smart-contracts/connect-to-asset-hub/#test-tokens){target=\_blank} guide
+- A funded account with some WND tokens (you can get them from the [Westend Faucet](https://faucet.polkadot.io/westend?parachain=1000){target=\_blank}). To learn how to get test tokens, check out the [Test Tokens](/develop/smart-contracts/connect-to-asset-hub/#test-tokens){target=\_blank} section
 - Basic understanding of Solidity and fungible tokens
 
 ## Create the ERC-20 Contract

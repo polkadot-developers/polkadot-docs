@@ -197,7 +197,7 @@ Before deploying to a live network, you can deploy your contract to a local node
     npx hardhat ignition deploy ./ignition/modules/INSERT_IGNITION_MODULE_NAME.js --network localNode
     ```
 
-    Replace `INSERT_IGNITION_MODULE_NAME` with the proper name for your contract. You'll see deployment information including the contract address.
+    Replace `INSERT_IGNITION_MODULE_NAME` with the proper name for your contract. You'll see deployment information, including the contract address.
 
 ## Deploying to a Live Network
 
@@ -214,9 +214,9 @@ After testing your contract locally, you can deploy it to a live network. This g
     Replace `INSERT_PRIVATE_KEY` with your actual private key. For further details on private key exportation, refer to the article [How to export an account's private key](https://support.metamask.io/configure/accounts/how-to-export-an-accounts-private-key/){target=\_blank}.
 
     !!! warning
-        Never reveal your private key and add the `.env` file to your .gitignore file.
+        Never reveal your private key, and add the `.env` file to your .gitignore file.
 
-3. Install the dotenv package to load the private key into your Hardhat configuration:
+3. Install the [`dotenv`](https://www.npmjs.com/package/dotenv){target=\_blank} package to load the private key into your Hardhat configuration:
 
     ```bash
     npm install dotenv
@@ -255,7 +255,7 @@ After testing your contract locally, you can deploy it to a live network. This g
     npx hardhat ignition deploy ./ignition/modules/INSERT_IGNITION_MODULE_NAME.js --network westendAssetHub
     ```
 
-    Replace `INSERT_IGNITION_MODULE_NAME` with the proper name for your contract. You'll see deployment information including the contract address.
+    Replace `INSERT_IGNITION_MODULE_NAME` with the proper name for your contract. You'll see deployment information, including the contract address.
 
 ## Interacting with Your Contract
 

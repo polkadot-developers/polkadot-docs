@@ -27,3 +27,5 @@ dependencies:
     version: v0.16.0
     docker_image_name: paritytech/srtool
     docker_image_version: 1.62.0
+  repositories:
+    polkadot_sdk_compatible_hardhat_node: c29e72a8628835e34deb6aa7db9a78a2e4eabcee 

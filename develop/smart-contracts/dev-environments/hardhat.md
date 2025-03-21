@@ -51,7 +51,7 @@ Before getting started, ensure you have:
     npx hardhat init
     ```
 
-    Select "Create a JavaScript project" when prompted and follow the instructions. After that, your project will be created with 3 mains folders:
+    Select "Create a JavaScript project" when prompted and follow the instructions. After that, your project will be created with 3 main folders:
 
     - **`contracts`** - where your Solidity smart contracts live
     - **`test`** - contains your test files that validate contract functionality
@@ -70,13 +70,12 @@ Before getting started, ensure you have:
 
 The `hardhat-resolc` plugin will compile your Solidity contracts to be PolkaVM compatible. This works for Solidity versions `0.8.0` and higher. When compiling your contract using the `hardhat-resolc` plugin, there are two ways to configure your compilation process:
 
-<!-- TODO: check grammar, maybe this can be said in other words, more technically-->
 - **Remix compiler** - uses the Remix online compiler backend for simplicity and ease of use
 - **Binary compiler** - uses the resolc binary directly for more control and configuration options
 
-To compile your project, you need to follow the instructions below:
+To compile your project, follow these instructions:
 
-1. Modify your hardhat configuration file to specify which compilation process you will be using:
+1. Modify your Hardhat configuration file to specify which compilation process you will be using:
 
     === "Remix Configuration"
 
@@ -95,7 +94,7 @@ To compile your project, you need to follow the instructions below:
         --8<-- 'code/develop/smart-contracts/dev-environments/hardhat/hardhat.config.js:66:66'
         ```
 
-    For the binary configuration, ensure to replace the `INSERT_PATH_TO_RESOLC_COMPILER` with the proper path to the binary. For more information about its installation, check the [installation](https://github.com/paritytech/revive?tab=readme-ov-file#installation){target=\_blank} section of the `pallet-revive`.
+    For the binary configuration, ensure to replace `INSERT_PATH_TO_RESOLC_COMPILER` with the proper path to the binary. For more information about its installation, check the [installation](https://github.com/paritytech/revive?tab=readme-ov-file#installation){target=\_blank} section of the `pallet-revive`.
 
 2. Compile the contract with Hardhat:
 
@@ -113,9 +112,9 @@ To compile your project, you need to follow the instructions below:
 
 ## Testing Your Contract
 
-When testing your contract, be aware that [`@nomicfoundation/hardhat-toolbox/network-helpers`](https://hardhat.org/hardhat-network-helpers/docs/overview){target=\_blank} is not fully compatible with the Asset Hub’s available RPCs. Specifically, Hardhat-only helpers like time and loadFixture may not work due to missing RPC calls in the node. For more details, refer to the [Compatibility](https://github.com/paritytech/hardhat-revive/tree/main/packages/hardhat-revive-node#compatibility){target=\_blank} section in the `hardhat-revive` docs.
+When testing your contract, be aware that [`@nomicfoundation/hardhat-toolbox/network-helpers`](https://hardhat.org/hardhat-network-helpers/docs/overview){target=\_blank} is not fully compatible with Asset Hub's available RPCs. Specifically, Hardhat-only helpers like `time` and `loadFixture` may not work due to missing RPC calls in the node. For more details, refer to the [Compatibility](https://github.com/paritytech/hardhat-revive/tree/main/packages/hardhat-revive-node#compatibility){target=\_blank} section in the `hardhat-revive` docs.
 
-So, when writing test, you should avoid using helpers like `time` and `loadFixture`. For example, for the `Lock.sol` contract, you can replace the default test file under `tests/Lock.js` with the following logic:
+When writing tests, you should avoid using helpers like `time` and `loadFixture`. For example, for the `Lock.sol` contract, you can replace the default test file under `tests/Lock.js` with the following logic:
 
 ```javascript title="Lock.js"
 --8<-- "code/develop/smart-contracts/dev-environments/hardhat/lock-test.js"
@@ -131,7 +130,7 @@ npx hardhat test
 
 Before deploying to a live network, you can deploy your contract to a local node using the [`hardhat-revive-node`](https://www.npmjs.com/package/hardhat-revive-node){target=\_blank} plugin and Ignition modules:
 
-1. First, ensure that you have compiled a substrate node and the eth rpc adapter from the polkadot sdk. Checkout the [compatible commit](https://github.com/paritytech/polkadot-sdk/commit/c29e72a8628835e34deb6aa7db9a78a2e4eabcee){target=\_blank} from the sdk and build the node and the eth-rpc from source:
+1. First, ensure that you have compiled a Substrate node and the ETH RPC adapter from the Polkadot SDK. Checkout the [compatible commit](https://github.com/paritytech/polkadot-sdk/commit/c29e72a8628835e34deb6aa7db9a78a2e4eabcee){target=\_blank} from the SDK and build the node and the ETH-RPC from source:
 
     ```bash
     git clone https://github.com/paritytech/polkadot-sdk.git
@@ -139,7 +138,7 @@ Before deploying to a live network, you can deploy your contract to a local node
     git checkout {{ dependencies.repositories.polkadot_sdk_compatible_hardhat_node }}
     ```
 
-    Now, build the node and the eth-rpc adapter. Consider that this process might take a long time to complete:
+    Now, build the node and the ETH-RPC adapter. Note that this process might take a long time to complete:
 
     ```bash
     # Build the substrate node
@@ -148,7 +147,7 @@ Before deploying to a live network, you can deploy your contract to a local node
     cargo build -p pallet-revive-eth-rpc --bin eth-rpc --release
     ```
 
-2. Update the hardhat configuration file to add the local node as a target for local deployment:
+2. Update the Hardhat configuration file to add the local node as a target for local deployment:
 
     === "Remix Configuration"
 
@@ -171,7 +170,7 @@ Before deploying to a live network, you can deploy your contract to a local node
 
     Ensure to replace to replace the `INSERT_PATH_TO_SUBSTRATE_NODE` and `INSERT_PATH_TO_ETH_RPC_ADAPTER` with the proper paths.
 
-3. Modify the ignition modules, considering that the pallet revive `block.timestamp` value is returned in seconds, check this [PR](https://github.com/paritytech/polkadot-sdk/pull/7792/files){target=\_blank} for more information. For example, for the default `ignition/modules/Lock.js` file, the needed mofication should be:
+3. Modify the Ignition modules, considering that the pallet revive `block.timestamp` value is returned in seconds. Check this [PR](https://github.com/paritytech/polkadot-sdk/pull/7792/files){target=\_blank} for more information. For example, for the default `ignition/modules/Lock.js` file, the needed modification should be:
 
     ```diff
     - const JAN_1ST_2030 = 1893456000;
@@ -192,31 +191,32 @@ Before deploying to a live network, you can deploy your contract to a local node
 
     This will start a local PolkaVM node powered by the `hardhat-revive-node` plugin.
 
-4. In a new terminal window, deploy the contract using Ignition:
+5. In a new terminal window, deploy the contract using Ignition:
 
     ```bash
     npx hardhat ignition deploy ./ignition/modules/INSERT_IGNITION_MODULE_NAME.js --network localNode
     ```
 
-    Ensure to replace the `INSERT_IGNITION_MODULE_NAME` with the proper name for your contract. You'll see deployment information including the contract address.
+    Replace `INSERT_IGNITION_MODULE_NAME` with the proper name for your contract. You'll see deployment information including the contract address.
 
 ## Deploying to a Live Network
 
 After testing your contract locally, you can deploy it to a live network. This guide will use Westend Asset Hub as the target network. Here's how to configure and deploy:
 
-1. Fund your deployment account with enough tokens to cover gas fees accordingly. In this case, the needed tokens are WND (on Westend), you can check [Polkadot faucet](https://faucet.polkadot.io/westend?parachain=1000){target=\_blank}) to obtain testing tokens.
+1. Fund your deployment account with enough tokens to cover gas fees. In this case, the needed tokens are WND (on Westend). You can use the [Polkadot faucet](https://faucet.polkadot.io/westend?parachain=1000){target=\_blank} to obtain testing tokens.
 
-2. Export your private key and save it in a `.env` file. the `dotenv` package:
+2. Export your private key and save it in a `.env` file:
 
     ```text
     PRIVATE_KEY="INSERT_PRIVATE_KEY"
     ```
-    Ensure to replace `INSERT_PRIVATE_KEY` with your actual private key. For further details on private key exportation, refer to the article [How to export an account's private key](https://support.metamask.io/configure/accounts/how-to-export-an-accounts-private-key/){target=\_blank}.
+    
+    Replace `INSERT_PRIVATE_KEY` with your actual private key. For further details on private key exportation, refer to the article [How to export an account's private key](https://support.metamask.io/configure/accounts/how-to-export-an-accounts-private-key/){target=\_blank}.
 
     !!! warning
         Never reveal your private key and add the `.env` file to your .gitignore file.
 
-3. Install the dotenv package to load the private key into your hardhat configuration:
+3. Install the dotenv package to load the private key into your Hardhat configuration:
 
     ```bash
     npm install dotenv
@@ -255,13 +255,13 @@ After testing your contract locally, you can deploy it to a live network. This g
     npx hardhat ignition deploy ./ignition/modules/INSERT_IGNITION_MODULE_NAME.js --network westendAssetHub
     ```
 
-    Ensure to replace the `INSERT_IGNITION_MODULE_NAME` with the proper name for your contract. You'll see deployment information including the contract address.
+    Replace `INSERT_IGNITION_MODULE_NAME` with the proper name for your contract. You'll see deployment information including the contract address.
 
 ## Interacting with Your Contract
 
-You can create a script to interact with you contract once deployed. To do so, create a file `scripts/interact.js` and add some logic to interact with the contract. 
+You can create a script to interact with your contract once deployed. To do so, create a file `scripts/interact.js` and add some logic to interact with the contract. 
 
-For example, for the `Lock.sol` you can use the following file that connects to the contract at its address and retrieves the `unlockTime`, which represents when funds can be withdrawn. The script converts this timestamp into a readable date and logs it. It then checks the contract’s balance and displays it. Finally, it attempts to call the withdraw function on the contract, but if the withdrawal is not yet allowed (e.g., before `unlockTime`), it catches and logs the error message.
+For example, for the default `Lock.sol` contract, you can use the following file that connects to the contract at its address and retrieves the `unlockTime`, which represents when funds can be withdrawn. The script converts this timestamp into a readable date and logs it. It then checks the contract's balance and displays it. Finally, it attempts to call the withdraw function on the contract, but if the withdrawal is not yet allowed (e.g., before `unlockTime`), it catches and logs the error message.
 
 ```javascript title="interact.js"
 --8<-- 'code/develop/smart-contracts/dev-environments/hardhat/interact.js'

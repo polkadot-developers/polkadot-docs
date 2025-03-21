@@ -1,8 +1,16 @@
-// Hardhat configuration according to polkavm
+// hardhat.config.js
 require('@nomicfoundation/hardhat-toolbox');
+
+require('@nomicfoundation/hardhat-network-helpers');
+require('@nomicfoundation/hardhat-chai-matchers');
+require('@nomicfoundation/hardhat-ethers');
+require('hardhat-gas-reporter');
+require('@nomicfoundation/hardhat-ignition');
 
 require('hardhat-resolc');
 require('hardhat-revive-node');
+
+require('dotenv').config();
 
 /** @type import('hardhat/config').HardhatUserConfig */
 module.exports = {
@@ -32,15 +40,6 @@ module.exports = {
       standardJson: true,
     },
   },
-  // Westend AH
-  networks: {
-    hardhat: { polkavm: true },
-    polkavm: {
-      url: 'https://westend-asset-hub-eth-rpc.polkadot.io',
-      accounts: [process.env.PRIVATE_KEY],
-    },
-  },
-  // Local node
   networks: {
     hardhat: {
       polkavm: true,
@@ -54,9 +53,14 @@ module.exports = {
         dev: true,
       },
     },
-    polkavm: {
+    localNode: {
       polkavm: true,
       url: `http://127.0.0.1:8545`,
+    },
+    westendAssetHub: {
+      polkavm: true,
+      url: 'https://westend-asset-hub-eth-rpc.polkadot.io',
+      accounts: [process.env.PRIVATE_KEY],
     },
   },
 };

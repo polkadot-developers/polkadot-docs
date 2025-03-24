@@ -169,7 +169,17 @@ Before deploying to a live network, you can deploy your contract to a local node
         --8<-- 'code/develop/smart-contracts/dev-environments/hardhat/hardhat.config.js:65:66'
         ```
 
-    Ensure to replace to replace the `INSERT_PATH_TO_SUBSTRATE_NODE` and `INSERT_PATH_TO_ETH_RPC_ADAPTER` with the proper paths.
+    Ensure to replace `INSERT_PATH_TO_SUBSTRATE_NODE` and `INSERT_PATH_TO_ETH_RPC_ADAPTER` with the proper paths to the compiled binaries. Since you compiled these from source using Rust's Cargo build system, you can find them at:
+
+    - Substrate node path - `polkadot-sdk/target/release/substrate-node`
+    - ETH-RPC adapter path - `polkadot-sdk/target/release/eth-rpc`
+
+    For example, if you cloned the polkadot-sdk repository to your home directory, the paths might look like:
+
+    ```javascript
+    nodeBinaryPath: '/home/username/polkadot-sdk/target/release/substrate-node',
+    adapterBinaryPath: '/home/username/polkadot-sdk/target/release/eth-rpc',
+    ```
 
 3. Modify the Ignition modules, considering that the value of the pallet revive `block.timestamp` is returned in seconds. Check this [PR](https://github.com/paritytech/polkadot-sdk/pull/7792/files){target=\_blank} for more information. For example, for the default `ignition/modules/Lock.js` file, the needed modification should be:
 

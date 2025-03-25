@@ -5,6 +5,9 @@ description: Explore the smart contract development and deployment process on As
 
 # Remix IDE
 
+!!! warning
+    Remix IDE's contract compilation functionality is currently limited to Google Chrome. Alternative browsers are not recommended for this task.
+
 ## Overview
 
 Remix IDE is a robust browser-based development environment for smart contracts. This guide will walk you through the essentials of the [Polkadot Remix IDE](https://remix.polkadot.io/){target=\_blank} to understand the processes of compiling, developing, and deploying smart contracts on Asset Hub.

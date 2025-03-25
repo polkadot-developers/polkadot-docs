@@ -27,3 +27,6 @@ dependencies:
     version: v0.16.0
     docker_image_name: paritytech/srtool
     docker_image_version: 1.62.0
+  node_packages:
+    hardhat_resolc: 0.0.7  
+    hardhat_revive_node: 0.0.6

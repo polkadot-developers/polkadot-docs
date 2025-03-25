@@ -83,7 +83,8 @@ To compile your project, follow these instructions:
         --8<-- 'code/develop/smart-contracts/dev-environments/hardhat/hardhat.config.js:0:12'
         --8<-- 'code/develop/smart-contracts/dev-environments/hardhat/hardhat.config.js:15:17'
           --8<-- 'code/develop/smart-contracts/dev-environments/hardhat/hardhat.config.js:19:29'
-        --8<-- 'code/develop/smart-contracts/dev-environments/hardhat/hardhat.config.js:66:66'
+          --8<-- 'code/develop/smart-contracts/dev-environments/hardhat/hardhat.config.js:43:45'
+        --8<-- 'code/develop/smart-contracts/dev-environments/hardhat/hardhat.config.js:65:66'
         ```
 
     === "Binary Configuration"
@@ -92,7 +93,8 @@ To compile your project, follow these instructions:
         --8<-- 'code/develop/smart-contracts/dev-environments/hardhat/hardhat.config.js:0:12'
         --8<-- 'code/develop/smart-contracts/dev-environments/hardhat/hardhat.config.js:15:17'
           --8<-- 'code/develop/smart-contracts/dev-environments/hardhat/hardhat.config.js:31:42'
-        --8<-- 'code/develop/smart-contracts/dev-environments/hardhat/hardhat.config.js:66:66'
+          --8<-- 'code/develop/smart-contracts/dev-environments/hardhat/hardhat.config.js:43:45'
+        --8<-- 'code/develop/smart-contracts/dev-environments/hardhat/hardhat.config.js:65:66'
         ```
 
     For the binary configuration, replace `INSERT_PATH_TO_RESOLC_COMPILER` with the proper path to the binary. For more information about its installation, check the [installation](https://github.com/paritytech/revive?tab=readme-ov-file#installation){target=\_blank} section of the `pallet-revive`.

@@ -17,7 +17,6 @@ Before starting, make sure you have:
 - [Node.js](https://nodejs.org/){target=\_blank} (v16.0.0 or later) and npm installed
 - Basic understanding of JavaScript for writing tests
 - Some WND test tokens to cover transaction fees (obtained from the [Polkadot faucet](https://faucet.polkadot.io/westend?parachain=1000){target=\_blank})
-- [MetaMask](https://metamask.io/){target=\_blank} connected to Westend Asset Hub
 
 ## Setting Up the Development Environment
 

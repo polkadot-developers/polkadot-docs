@@ -1,6 +1,6 @@
 ---
 title: Test and Deploy with Hardhat
-description: TODO
+description: Learn how to set up a Hardhat development environment, write comprehensive tests for a Solidity smart contract, and deploy it to local and Asset Hub networks.
 ---
 
 # Test and Deploy with Hardhat
@@ -148,7 +148,7 @@ Let's start by setting up Hardhat for your Storage contract project:
     }
     ```
 
-2. Check out the contract compilation by running:
+2. Compile the contract:
 
     ```bash
     npx hardhat compile
@@ -422,7 +422,7 @@ Hardhat's Ignition is a deployment system designed to make deployments predictab
 
 ## Interacting with Your Deployed Contract
 
-Let's create a script to interact with your deployed contract:
+To interact with your deployed contract:
 
 1. Create a new folder named `scripts` and add the `interact.js` with the following content:
 
@@ -463,7 +463,7 @@ Let's create a script to interact with your deployed contract:
         });
     ```
 
-2. Run the script to interact with your contract:
+2. Run the interaction script:
 
     ```bash
     npx hardhat run scripts/interact.js --network westendAssetHub
@@ -479,4 +479,8 @@ Let's create a script to interact with your deployed contract:
     <span data-ty>Updated stored value: 42<span data-ty>
     </div>
 
-    <!-- TODO: add where to go next to link to dapps tutorials once they are available -->
+## Conclusion
+
+Congratulations! You've successfully set up a Hardhat development environment, written comprehensive tests for your Storage contract, and deployed it to both local and Westend Asset Hub networks. This tutorial covered essential steps in smart contract development, including configuration, testing, deployment, and interaction.
+
+<!-- TODO: add where to go next to link to dapps tutorials once they are available -->

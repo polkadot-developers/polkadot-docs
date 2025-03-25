@@ -21,11 +21,11 @@ Before starting, ensure the following tools and dependencies are installed:
 - `npm` (or an alternative package manager)
 - `node`
 - `git`
-- [Polkadot.js Browser Extension (wallet)](https://polkadot.js.org/extension/)
+- [Polkadot.js Browser Extension (wallet)](https://polkadot.js.org/extension/){target=\blank} 
 
 Additionally, you will need an account with Westend tokens. Refer to the following resources for assistance:
 
-- [Westend Faucet](https://faucet.polkadot.io/westend)
+- [Westend Faucet](https://faucet.polkadot.io/westend){target=\blank} 
 
 ### Cloning the Repository
 
@@ -64,7 +64,7 @@ async function main() {
 main()
 ```
 
-The `withLightClient` function is of particular importance. It leverages the built-in light client functionality, powered by [`smoldot`](https://github.com/smol-dot/smoldot), to create a light client that synchronizes and interacts with Polkadot directly within the application.
+The `withLightClient` function is of particular importance. It leverages the built-in light client functionality, powered by [`smoldot`](https://github.com/smol-dot/smoldot){target=\blank} , to create a light client that synchronizes and interacts with Polkadot directly within the application.
 
 ### Creating the CLI
 
@@ -143,11 +143,11 @@ Watching account: 5GrwvaEF5zXb26Fz9rcQpDWS57CtERHpNehXCPcNoHGKutQY
 
 ### Testing the CLI
 
-To test the application, navigate to the [PAPI Dev Console > Extrinsics](https://dev.papi.how/extrinsics#networkId=westend&endpoint=light-client). Select the `System` pallet and the `remark_with_event` call.
+To test the application, navigate to the [PAPI Dev Console > Extrinsics](https://dev.papi.how/extrinsics#networkId=westend&endpoint=light-client){target=\blank}. Select the `System` pallet and the `remark_with_event` call.
 
 Ensure the input field follows the convention `address+email`. For example, if monitoring `5GrwvaEF5zXb26Fz9rcQpDWS57CtERHpNehXCPcNoHGKutQY`, the input should be:
 
-![Screenshot 2025-03-03 at 4.58.04 PM](https://hackmd.io/_uploads/S1nx8omo1x.png)
+![](images/develop/dapps/papi/papi-console.webp)
 
 Submit the extrinsic and sign it using the Polkadot.js browser wallet. The CLI will display the following output and play the "You've Got Mail!" sound:
 
@@ -164,6 +164,8 @@ From: 5Cm8yiG45rqrpyV2zPLrbtr8efksrRuCXcqcB4xj8AejfcTB
 Hash: 0xb6999c9082f5b1dede08b387404c9eb4eb2deee4781415dfa7edf08b87472050
 ```
 
-### Conclusion
+### Where to go next?
 
-This application can be extended in various ways, such as implementing a chatroom using remarks or leveraging rollups on Polkadot to enhance functionality.
+This application shows how Polkadot API can be used in building applications. Note that while this application is not meant to be a production-grade application, it showcases and introduces several crucial features that relate to devleoping with the Polkadot API.
+
+Explore all of the functions exposed by PAPI here in their [official documentation](https://papi.how){target=\blank}.

@@ -187,7 +187,7 @@ Hardhat's Ignition is a deployment system designed to make deployments predictab
 
 2. Deploy to the local network:
 
-    a. First, start a local node (if you have the necessary dependencies installed):
+    a. First, start a local node:
 
     ```bash
     npx hardhat node-polkavm

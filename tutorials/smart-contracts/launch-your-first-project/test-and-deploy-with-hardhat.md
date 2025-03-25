@@ -45,7 +45,7 @@ Let's start by setting up Hardhat for your Storage contract project:
 4. Install the Hardhat revive specific plugins:
 
     ```bash
-    npm install --save-dev hardhat-resolc hardhat-revive-node dot-env
+    npm install --save-dev hardhat-resolc hardhat-revive-node dotenv
     ```
 
 5. Initialize a Hardhat project:
@@ -54,50 +54,63 @@ Let's start by setting up Hardhat for your Storage contract project:
     npx hardhat init
     ```
 
-    Select "Create a JavaScript project" when prompted.
+    Select "Create an empty hardhat.config.js" when prompted.
 
 6. Configure Hardhat by updating the `hardhat.config.js` file:
 
     ```javascript title="hardhat.config.js"
-    require('@nomicfoundation/hardhat-toolbox');
+    require("@nomicfoundation/hardhat-toolbox");
 
-    require('hardhat-resolc');
-    require('hardhat-revive-node');
+    require("hardhat-resolc");
+    require("hardhat-revive-node");
 
-    require('dot-env').config();
+    require("dotenv").config();
 
     /** @type import('hardhat/config').HardhatUserConfig */
     module.exports = {
-        solidity: '0.8.19',
+        solidity: "0.8.28",
         resolc: {
-        version: '1.5.2',
-        compilerSource: 'remix',
+        version: "1.5.2",
+        compilerSource: "remix",
         settings: {
             optimizer: {
-            enabled: true,
-            runs: 200,
+            enabled: false,
+            runs: 600,
             },
-            evmVersion: 'istanbul',
+            evmVersion: "istanbul",
         },
         },
         networks: {
+        hardhat: {
+            polkavm: true,
+            nodeConfig: {
+            nodeBinaryPath: "INSERT_PATH_TO_SUBSTRATE_NODE",
+            rpcPort: 8000,
+            dev: true,
+            },
+            adapterConfig: {
+            adapterBinaryPath: "INSERT_PATH_TO_ETH_RPC_ADAPTER",
+            dev: true,
+            },
+        },
         localNode: {
             polkavm: true,
             url: `http://127.0.0.1:8545`,
         },
         westendAssetHub: {
             polkavm: true,
-            url: 'https://westend-asset-hub-eth-rpc.polkadot.io',
+            url: "https://westend-asset-hub-eth-rpc.polkadot.io",
             accounts: [process.env.PRIVATE_KEY],
         },
         },
     };
     ```
 
-    This setup loads essential plugins, including `hardhat-toolbox`, `hardhat-resolc`, and `hardhat-revive-node`, while also utilizing environment variables through `dotenv`. The Solidity compiler is set to version 0.8.19 with optimization enabled for improved gas efficiency. Additionally, the resolc plugin is configured to use the Remix compiler with Istanbul compatibility. The configuration also defines two network settings: 
+    Ensure to replace `INSERT_PATH_TO_SUBSTRATE_NODE` and `INSERT_PATH_TO_ETH_RPC_ADAPTER` with the proper paths to the compiled binaries. For more information about these compiled binaries, see the [Deploying with a local node](/develop/smart-contracts/dev-environments/hardhat#deploying-with-a-local-node){target=\_blank} section in the Hardhat documentation.
 
-    - `localNode` - will be used for local testing
-    - `westendAssetHub` - will be used to connect to the Westend Asset Hub network using a predefined RPC URL and a private key stored in environment variables
+    This setup loads essential plugins, including `hardhat-toolbox`, `hardhat-resolc`, and `hardhat-revive-node`, while also utilizing environment variables through `dotenv`. The Solidity compiler is set to version 0.8.19 with optimization enabled for improved gas efficiency. Additionally, the resolc plugin is configured to use the Remix compiler with Istanbul compatibility.
+
+    The configuration also defines two network settings: `localNode`, which runs a PolkaVM instance on `http://127.0.0.1:8545` for local development and testing, and `westendAssetHub`, which connects to the Westend Asset Hub network using a predefined RPC URL and a private key stored in environment variables.
 
 7. Create a `.env` file in your project root to store your private key:
 
@@ -109,11 +122,11 @@ Let's start by setting up Hardhat for your Storage contract project:
 
 ## Adding the Smart Contract
 
-1. Create a new file in the `contracts` directory named `Storage.sol` and add the contract code from the previous tutorial:
+1. Create a new folder `contracts` and create a file named `Storage.sol`. Add the contract code from the previous tutorial:
 
     ```solidity
     // SPDX-License-Identifier: MIT
-    pragma solidity ^0.8.19;
+    pragma solidity ^0.8.28;
 
     contract Storage {
         // State variable to store our number
@@ -135,238 +148,335 @@ Let's start by setting up Hardhat for your Storage contract project:
     }
     ```
 
+2. Check out the contract compilation by running:
+
+    ```bash
+    npx hardhat compile
+    ```
+
+3. If sucess, you will see the following output in your terminal:
+
+    <div id="termynal" data-termynal>
+    <span data-ty="input"><span class="file-path"></span>npx hardhat compile</span>
+    <span data-ty>Compiling 1 Solidity file</span>
+    <span data-ty>Successfully compiled 1 Solidity file</span>
+    </div>
+
+    After compilation, the `artifacts-pvm` and the `cache-pvm` folders will be created in the root of your project.
+
 ## Writing Tests
 
 Testing is a critical part of smart contract development. Hardhat makes it easy to write tests in JavaScript using frameworks like Mocha and Chai.
 
-1. Create a test file in the `test` directory named `Storage.js`:
+1. Create a folder for testing called `test`. Inside that directory, create a file named `Storage.js` and add the following code:
 
-   ```javascript
-   const { expect } = require('chai');
-   const { ethers } = require('hardhat');
+    ```javascript
+    const { expect } = require("chai");
+    const { ethers } = require("hardhat");
 
-   describe('Storage', function () {
-     let storage;
-     let owner;
-     let addr1;
+    describe("Storage", function () {
+        let storage;
+        let owner;
+        let addr1;
 
-     beforeEach(async function () {
-       // Get signers
-       [owner, addr1] = await ethers.getSigners();
+        beforeEach(async function () {
+        // Get signers
+        [owner, addr1] = await ethers.getSigners();
 
-       // Deploy the Storage contract
-       const Storage = await ethers.getContractFactory('Storage');
-       storage = await Storage.deploy();
-     });
+        // Deploy the Storage contract
+        const Storage = await ethers.getContractFactory("Storage");
+        storage = await Storage.deploy();
+        });
 
-     describe('Basic functionality', function () {
-       it('Should return 0 initially', async function () {
-         expect(await storage.retrieve()).to.equal(0);
-       });
+        describe("Basic functionality", function () {
+            // Add your logic here
+        });
+    });
+    ```
 
-       it('Should update when store is called', async function () {
-         const testValue = 42;
-         
-         // Store a value
-         await storage.store(testValue);
-         
-         // Check if the value was updated
-         expect(await storage.retrieve()).to.equal(testValue);
-       });
+    Now you can add your custom unit tests to check your contract functionality. For example, some tests examples are available below:
 
-       it('Should emit an event when storing a value', async function () {
-         const testValue = 100;
-         
-         // Check if the NumberChanged event is emitted with the correct value
-         await expect(storage.store(testValue))
-           .to.emit(storage, 'NumberChanged')
-           .withArgs(testValue);
-       });
+    a. **Initial state verification** - ensures that the contract starts with a default value of zero, which is a fundamental expectation for a simple storage contract
 
-       it('Should allow different accounts to store values', async function () {
-         // Store a value from owner account
-         await storage.store(123);
-         expect(await storage.retrieve()).to.equal(123);
-         
-         // Store a value from another account
-         await storage.connect(addr1).store(456);
-         expect(await storage.retrieve()).to.equal(456);
-       });
-     });
-   });
-   ```
+    ```javascript
+    it("Should return 0 initially", async function () {
+        expect(await storage.retrieve()).to.equal(0);
+    });
+    ```
+
+    Explanation:
+
+    - Checks the initial state of the contract
+    - Verifies that a newly deployed contract has a default value of 0
+    - Confirms the `retrieve()` method works correctly for a new contract
+
+    b. **Value storage test** - validate the core functionality of storing and retrieving a value in the contract
+
+    ```javascript
+    it("Should update when store is called", async function () {
+        const testValue = 42;
+
+        // Store a value
+        await storage.store(testValue);
+
+        // Check if the value was updated
+        expect(await storage.retrieve()).to.equal(testValue);
+    });
+    ```
+
+    Explanation:
+
+    - Demonstrates the ability to store a specific value
+    - Checks that the stored value can be retrieved correctly
+    - Verifies the basic write and read functionality of the contract
+
+    c. **Event emission verification** - confirm that the contract emits the correct event when storing a value, which is crucial for off-chain tracking
+
+    ```javascript
+    it("Should emit an event when storing a value", async function () {
+        const testValue = 100;
+
+        // Check if the NumberChanged event is emitted with the correct value
+        await expect(storage.store(testValue))
+        .to.emit(storage, "NumberChanged")
+        .withArgs(testValue);
+    });
+    ```
+
+    Explanation:
+
+    - Ensures the `NumberChanged` event is emitted during storage
+    - Verifies that the event contains the correct stored value
+    - Validates the contract's event logging mechanism
+
+    d. **Sequential value storage test** - check the contract's ability to store multiple values sequentially and maintain the most recent value
+
+    ```javascript
+    it('Should allow storing sequentially increasing values', async function () { 
+        const values = [10, 20, 30, 40]; 
+        
+        for (const value of values) {
+            await storage.store(value);
+            expect(await storage.retrieve()).to.equal(value);
+        }
+    }); 
+    ```
+
+    Explanation:
+
+    - Verifies that multiple values can be stored in sequence
+    - Confirms that each new store operation updates the contract's state
+    - Demonstrates the contract's ability to always reflect the most recently stored value
+
+    The complete `test/Storage.js` should look like this:
+
+    ???--- code "Complete `test/Storage.js`:"
+        ```javascript
+        const { expect } = require('chai'); 
+        const { ethers } = require('hardhat'); 
+
+        describe('Storage', function () { 
+        let storage; 
+        let owner; 
+        let addr1; 
+
+        beforeEach(async function () { 
+            // Get signers 
+            [owner, addr1] = await ethers.getSigners(); 
+
+            // Deploy the Storage contract 
+            const Storage = await ethers.getContractFactory('Storage'); 
+            storage = await Storage.deploy(); 
+            await storage.waitForDeployment(); 
+        }); 
+
+        describe('Basic functionality', function () { 
+            it('Should return 0 initially', async function () { 
+            expect(await storage.retrieve()).to.equal(0); 
+            }); 
+
+            it('Should update when store is called', async function () { 
+            const testValue = 42; 
+            // Store a value 
+            await storage.store(testValue); 
+            // Check if the value was updated 
+            expect(await storage.retrieve()).to.equal(testValue); 
+            }); 
+
+            it('Should emit an event when storing a value', async function () { 
+            const testValue = 100; 
+            // Check if the NumberChanged event is emitted with the correct value 
+            await expect(storage.store(testValue)) 
+                .to.emit(storage, 'NumberChanged') 
+                .withArgs(testValue); 
+            }); 
+
+            it('Should allow storing sequentially increasing values', async function () { 
+            const values = [10, 20, 30, 40]; 
+            
+            for (const value of values) {
+                await storage.store(value);
+                expect(await storage.retrieve()).to.equal(value);
+            }
+            }); 
+        }); 
+        });
+        ```
 
 2. Run the tests:
 
-   ```bash
-   npx hardhat test
-   ```
+    ```bash
+    npx hardhat test
+    ```
 
-   You should see output showing that all tests have passed.
+3. After running above command, you will see output showing that all tests have passed:
 
-## Compiling Your Contract
-
-Compile the contract to generate the ABI and bytecode:
-
-```bash
-npx hardhat compile
-```
-
-After compilation, the artifacts will be generated in the `artifacts-pvm` directory.
+    <div id="termynal" data-termynal>
+    <span data-ty="input"><span class="file-path"></span>npx hardhat test</span>
+    <span data-ty>Storage</span>
+    <span data-ty>Basic functionality</span>
+    <span data-ty>   ✔ Should return 0 initially</span>
+    <span data-ty>   ✔ Should update when store is called (1126ms)</span>
+    <span data-ty>   ✔ Should emit an event when storing a value (1131ms)</span>
+    <span data-ty>   ✔ Should allow storing sequentially increasing values (12477ms)</span>
+    <span data-ty>4 passing (31s) </span>
+    </div>
 
 ## Deploying with Ignition
 
 Hardhat's Ignition is a deployment system designed to make deployments predictable and manageable. Let's create a deployment script:
 
-1. Create a new file in the `ignition/modules` directory named `StorageModule.js`:
+1. Create a new folder called`ignition/modules`. Add a new file named `StorageModule.js` with the following logic:
 
-   ```javascript
-   const { buildModule } = require('@nomicfoundation/hardhat-ignition/modules');
+    ```javascript
+    const { buildModule } = require("@nomicfoundation/hardhat-ignition/modules");
 
-   module.exports = buildModule('StorageModule', (m) => {
-     const storage = m.contract('Storage');
-     
-     return { storage };
-   });
-   ```
+    module.exports = buildModule("StorageModule", (m) => {
+        const storage = m.contract("Storage");
+
+        return { storage };
+    });
+    ```
 
 2. Deploy to the local network:
 
-   First, start a local node (if you have the necessary dependencies installed):
+    a. First, start a local node (if you have the necessary dependencies installed):
 
-   ```bash
-   npx hardhat node-polkavm
-   ```
+    ```bash
+    npx hardhat node-polkavm
+    ```
 
-   Then in a new terminal window, deploy the contract:
+    b. Then in a new terminal window, deploy the contract:
 
-   ```bash
-   npx hardhat ignition deploy ./ignition/modules/StorageModule.js --network localNode
-   ```
+    ```bash
+    npx hardhat ignition deploy ./ignition/modules/Storage.js --network localNode
+    ```
+
+    c. If successful, the following output will be prompted in your terminal:
+
+    <div id="termynal" data-termynal>
+    <span data-ty="input"><span class="file-path"></span>npx hardhat ignition deploy ./ignition/modules/Storage.js --network localNode</span>
+    <span data-ty>✔ Confirm deploy to network localNode (420420420)? … yes</span>
+    <span data-ty></span>
+    <span data-ty>Hardhat Ignition 🚀</span>
+    <span data-ty></span>
+    <span data-ty>Deploying [ StorageModule ]</span>
+    <span data-ty></span>
+    <span data-ty>Batch #1</span>
+    <span data-ty> Executed StorageModule#Storage</span>
+    <span data-ty></span>
+    <span data-ty>[ StorageModule ] successfully deployed 🚀</span>
+    <span data-ty></span>
+    <span data-ty>Deployed Addresses</span>
+    <span data-ty></span>
+    <span data-ty>StorageModule#Storage - 0xc01Ee7f10EA4aF4673cFff62710E1D7792aBa8f3</span>
+    </div>
 
 3. Deploy to Westend Asset Hub:
 
-   Make sure your account has enough WND tokens for gas fees, then run:
+    a. Make sure your account has enough WND tokens for gas fees, then run:
 
-   ```bash
-   npx hardhat ignition deploy ./ignition/modules/StorageModule.js --network westendAssetHub
-   ```
+    ```bash
+    npx hardhat ignition deploy ./ignition/modules/StorageModule.js --network westendAssetHub
+    ```
 
-   After deployment, you'll see the contract address in the console output. Save this address for future interactions.
+    b. After deployment, you'll see the contract address in the console output. Save this address for future interactions.
+
+    <div id="termynal" data-termynal>
+    <span data-ty="input"><span class="file-path"></span>npx hardhat ignition deploy ./ignition/modules/Storage.js --network westendAssetHub</span>
+    <span data-ty>✔ Confirm deploy to network localNode (420420420)? … yes</span>
+    <span data-ty></span>
+    <span data-ty>Hardhat Ignition 🚀</span>
+    <span data-ty></span>
+    <span data-ty>Deploying [ StorageModule ]</span>
+    <span data-ty></span>
+    <span data-ty>Batch #1</span>
+    <span data-ty> Executed StorageModule#Storage</span>
+    <span data-ty></span>
+    <span data-ty>[ StorageModule ] successfully deployed 🚀</span>
+    <span data-ty></span>
+    <span data-ty>Deployed Addresses</span>
+    <span data-ty></span>
+    <span data-ty>StorageModule#Storage - 0x5BCE10D9e89ffc067B6C0Da04eD0D44E37df7224</span>
+    </div>
 
 ## Interacting with Your Deployed Contract
 
 Let's create a script to interact with your deployed contract:
 
-1. Create a new file in the `scripts` directory named `interact.js`:
+1. Create a new folder named `scripts` and add the `interact.js` with the following content:
 
-   ```javascript
-   const hre = require('hardhat');
+    ```javascript title="interact.js"
+    const hre = require("hardhat");
 
-   async function main() {
-     // Replace with your deployed contract address
-     const contractAddress = 'YOUR_DEPLOYED_CONTRACT_ADDRESS';
-     
-     // Get the contract instance
-     const Storage = await hre.ethers.getContractFactory('Storage');
-     const storage = await Storage.attach(contractAddress);
-     
-     // Get current value
-     const currentValue = await storage.retrieve();
-     console.log('Current stored value:', currentValue.toString());
-     
-     // Store a new value
-     const newValue = 42;
-     console.log(`Storing new value: ${newValue}...`);
-     const tx = await storage.store(newValue);
-     
-     // Wait for transaction to be mined
-     await tx.wait();
-     console.log('Transaction confirmed');
-     
-     // Get updated value
-     const updatedValue = await storage.retrieve();
-     console.log('Updated stored value:', updatedValue.toString());
-   }
+    async function main() {
+        // Replace with your deployed contract address
+        const contractAddress = "YOUR_DEPLOYED_CONTRACT_ADDRESS";
 
-   main()
-     .then(() => process.exit(0))
-     .catch((error) => {
-       console.error(error);
-       process.exit(1);
-     });
-   ```
+        // Get the contract instance
+        const Storage = await hre.ethers.getContractFactory("Storage");
+        const storage = await Storage.attach(contractAddress);
+
+        // Get current value
+        const currentValue = await storage.retrieve();
+        console.log("Current stored value:", currentValue.toString());
+
+        // Store a new value
+        const newValue = 42;
+        console.log(`Storing new value: ${newValue}...`);
+        const tx = await storage.store(newValue);
+
+        // Wait for transaction to be mined
+        await tx.wait();
+        console.log("Transaction confirmed");
+
+        // Get updated value
+        const updatedValue = await storage.retrieve();
+        console.log("Updated stored value:", updatedValue.toString());
+    }
+
+    main()
+        .then(() => process.exit(0))
+        .catch((error) => {
+        console.error(error);
+        process.exit(1);
+        });
+    ```
 
 2. Run the script to interact with your contract:
 
-   ```bash
-   npx hardhat run scripts/interact.js --network westendAssetHub
-   ```
+    ```bash
+    npx hardhat run scripts/interact.js --network westendAssetHub
+    ```
 
-## Understanding the Testing Process
+3. If successful, the terminal will show the following output:
 
-Let's review the key components of our testing strategy:
+    <div id="termynal" data-termynal>
+    <span data-ty="input"><span class="file-path"></span>npx hardhat run scripts/interact.js --network westendAssetHub</span>
+    <span data-ty>Current stored value: 0<span data-ty>
+    <span data-ty>Storing new value: 42...<span data-ty>
+    <span data-ty>Transaction confirmed<span data-ty>
+    <span data-ty>Updated stored value: 42<span data-ty>
+    </div>
 
-1. **Setup Phase**: In the `beforeEach` function, we deploy a fresh instance of the contract for each test, ensuring test isolation.
-
-2. **Test Cases**:
-   - **Initial State Test**: Verifies the contract starts with the expected default value (0).
-   - **State Change Test**: Checks if the contract properly updates state when the `store` function is called.
-   - **Event Emission Test**: Confirms the contract emits the correct event with the right parameters.
-   - **Multiple User Test**: Ensures the contract works correctly when called by different accounts.
-
-3. **Assertions**: Using Chai's `expect` syntax, we make assertions about what should happen, making our test intentions clear.
-
-## Deployment Process Explained
-
-The deployment process involves several steps:
-
-1. **Compilation**: Converts human-readable Solidity code into bytecode that can run on the blockchain.
-
-2. **Ignition Configuration**: Defines how the contract should be deployed, including any constructor arguments or initialization steps.
-
-3. **Network Selection**: Determines which blockchain network your contract will be deployed to.
-
-4. **Transaction Submission**: Sends a transaction containing your contract's bytecode to the blockchain.
-
-5. **Contract Creation**: Once the transaction is mined, your contract is assigned an address on the blockchain.
-
-This process is the same whether you're deploying to a local test network or a live public blockchain.
-
-## Best Practices
-
-- **Test Thoroughly**: Cover all functions and edge cases in your tests.
-- **Use Test Networks First**: Deploy to test networks like Westend Asset Hub before going to production.
-- **Secure Private Keys**: Never commit private keys to version control.
-- **Gas Optimization**: Monitor gas costs during testing to optimize your contract.
-- **Event Logging**: Use events for important state changes to make frontend integration easier.
-
-## Where to Go Next
-
-<div class="grid cards" markdown>
-
--   <span class="badge guide">Guide</span> __Contract Interaction with Web3.js__
-
-    ---
-
-    Learn how to interact with your deployed contract from a web application.
-
-    [:octicons-arrow-right-24: Get Started](/develop/smart-contracts/interact-with-contracts)
-
--   <span class="badge guide">Guide</span> __Advanced Testing Techniques__
-
-    ---
-
-    Explore more sophisticated testing strategies for complex contracts.
-
-    [:octicons-arrow-right-24: Get Started](/develop/smart-contracts/testing)
-
--   <span class="badge external">External</span> __OpenZeppelin Contracts__
-
-    ---
-
-    Build upon secure, community-vetted smart contract components.
-
-    [:octicons-arrow-right-24: Get Started](https://www.openzeppelin.com/contracts)
-
-</div>
+    <!-- TODO: add where to go next to link to dapps tutorials once they are available -->

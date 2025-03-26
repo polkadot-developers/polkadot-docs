@@ -52,10 +52,10 @@ To build the smart contract, follow the steps below:
 
     This line tells users and tools which license governs your code. The [MIT license](https://opensource.org/license/mit){target=\_blank} is commonly used for open-source projects. The Solidity compiler requires this line to avoid licensing-related warnings.
 
-3. Specify the Solidity version you want to use. We'll use a recent stable version:
+3. Specify the Solidity version:
 
     ```solidity
-    pragma solidity ^0.8.19;
+    pragma solidity ^0.8.28;
     ```
 
     The caret `^` means "this version or any compatible newer version." This helps ensure your contract compiles correctly with the intended compiler features.

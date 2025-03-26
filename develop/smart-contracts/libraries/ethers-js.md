@@ -9,6 +9,41 @@ description: Learn how to interact with the Asset Hub chain using Ethers.js, fro
 
 [Ethers.js](https://docs.ethers.org/v6/){target=\_blank} is a lightweight library that enables interaction with Ethereum Virtual Machine (EVM)-compatible blockchains through JavaScript. Ethers is widely used as a toolkit to establish connections and read and write blockchain data. This article demonstrates using Ethers.js to interact and deploy smart contracts to Asset Hub.
 
+This guide is intended for developers who are familiar with JavaScript and want to interact with the Polkadot Asset Hub using Ethers.js.
+
+## Prerequisites
+
+Before getting started, ensure you have the following installed:
+
+- **Node.js** - v22.13.1 or later, check the [Node.js installation guide](https://nodejs.org/en/download/current/){target=\_blank}
+- **npm** - v6.13.4 or later (comes bundled with Node.js)
+- **Solidity** - this guide uses Solidity `^0.8.9` for smart contract development
+
+## Project Structure
+
+This project organizes contracts, scripts, and compiled artifacts for easy development and deployment.
+
+```text title="Ethers.js Asset Hub"
+ethers-asset-hub
+├── contracts
+│   ├── Storage.sol
+├── scripts
+│   ├── connectToProvider.js
+│   ├── fetchLastBlock.js
+│   ├── compile.js
+│   ├── deploy.js
+│   ├── checkStorage.js
+├── abis
+│   ├── Storage.json
+├── artifacts
+│   ├── Storage.polkavm
+├── contract-address.json
+├── node_modules/
+├── package.json
+├── package-lock.json
+└── README.md
+```
+
 ## Set Up the Project
 
 To start working with Ethers.js, create a new folder and initialize your project by running the following commands in your terminal:
@@ -29,6 +64,8 @@ npm install ethers
 
 ## Set Up the Ethers.js Provider
 
+A [`Provider`](https://docs.ethers.org/v6/api/providers/#Provider){target=\_blank} is an abstraction of a connection to the Ethereum network, allowing you to query blockchain data and send transactions. It serves as a bridge between your application and the blockchain.
+
 To interact with the Asset Hub, you must set up an Ethers.js provider. This provider connects to a blockchain node, allowing you to query blockchain data and interact with smart contracts. In the root of your project, create a file named `connectToProvider.js` and add the following code:
 
 ```js title="connectToProvider.js"
@@ -46,7 +83,13 @@ To interact with the Asset Hub, you must set up an Ethers.js provider. This prov
     };
     ```
 
-With the [`Provider`](https://docs.ethers.org/v6/api/providers/#Provider){target=\_blank} set up, you can start querying the blockchain. For instance, to fetch the latest block number:
+To connect to the provider, execute:
+
+```bash
+node connectToProvider
+```
+
+With the provider set up, you can start querying the blockchain. For instance, to fetch the latest block number:
 
 ??? code "Fetch Last Block code"
 
@@ -66,6 +109,8 @@ The [`@parity/revive`](https://www.npmjs.com/package/@parity/revive){target=\_bl
 npm install --save-dev @parity/revive 
 ```
 
+This guide uses `@parity/revive` version `{{ dependencies.revive_node_package.version }}`.
+
 ### Sample `Storage.sol` Smart Contract
 
 This example demonstrates compiling a `Storage.sol` Solidity contract for deployment to Asset Hub. The contract's functionality stores a number and permits users to update it with a new value.
@@ -75,6 +120,7 @@ This example demonstrates compiling a `Storage.sol` Solidity contract for deploy
 ```
 
 ### Compile the Smart Contract
+
 To compile this contract, use the following script:
 
 ```js title="compile.js"
@@ -83,6 +129,14 @@ To compile this contract, use the following script:
 
 !!! note 
      The script above is tailored to the `Storage.sol` contract. It can be adjusted for other contracts by changing the file name or modifying the ABI and bytecode paths.
+
+The ABI (Application Binary Interface) is a JSON representation of your contract's functions, events, and their parameters. It serves as the interface between your JavaScript code and the deployed smart contract, allowing your application to know how to format function calls and interpret returned data.
+
+Execute the script above by running:
+
+```bash
+node compile
+```
 
 After executing the script, the Solidity contract will be compiled into the required `polkavm` bytecode format. The ABI and bytecode will be saved into files with `.json` and `.polkavm` extensions, respectively. You can now proceed with deploying the contract to the Asset Hub network, as outlined in the next section.
 
@@ -107,22 +161,24 @@ You can create a `deploy.js` script in the root of your project to achieve this.
 3. Set up functions to read contract artifacts:
 
     ```js title="deploy.js"
-    --8<-- 'code/develop/smart-contracts/evm-toolkit/ethers-js/deploy.js:16:42'
+    --8<-- 'code/develop/smart-contracts/evm-toolkit/ethers-js/deploy.js:16:44'
     ```
 
 4. Create the main deployment function:
 
     ```js title="deploy.js"
-    --8<-- 'code/develop/smart-contracts/evm-toolkit/ethers-js/deploy.js:44:79'
+    --8<-- 'code/develop/smart-contracts/evm-toolkit/ethers-js/deploy.js:46:81'
     ```
 
 5. Configure and execute the deployment:
 
     ```js title="deploy.js"
-    --8<-- 'code/develop/smart-contracts/evm-toolkit/ethers-js/deploy.js:81:89'
+    --8<-- 'code/develop/smart-contracts/evm-toolkit/ethers-js/deploy.js:83:92'
     ```
 
     !!! note
+        A mnemonic (seed phrase) is a series of words that can generate multiple private keys and their corresponding addresses. It's used here to derive the wallet that will sign and pay for the deployment transaction. **Always keep your mnemonic secure and never share it publicly**.
+
         Ensure to replace the `INSERT_MNEMONIC` placeholder with your actual mnemonic.
 
 Here's the complete deployment script combining all the components above:
@@ -132,6 +188,12 @@ Here's the complete deployment script combining all the components above:
     ```js title="deploy.js"
     --8<-- 'code/develop/smart-contracts/evm-toolkit/ethers-js/deploy.js'
     ```
+
+To run the script, execute the following command:
+
+```bash
+node deploy
+```
 
 After running this script, your contract will be deployed to Asset Hub, and its address will be saved in `contract-address.json` within your project directory. You can use this address for future contract interactions.
 
@@ -144,6 +206,12 @@ Once the contract is deployed, you can interact with it by calling its functions
 ```
 
 Ensure you replace the `INSERT_MNEMONIC`, `INSERT_CONTRACT_ADDRESS`, and `INSERT_ADDRESS_TO_CHECK` placeholders with actual values. Also, ensure the contract ABI file (`Storage.json`) is correctly referenced.
+
+To interact with the contract, run:
+
+```bash
+node checkStorage
+```
 
 ## Where to Go Next
 

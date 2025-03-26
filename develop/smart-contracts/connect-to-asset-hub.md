@@ -40,7 +40,7 @@ Developers can leverage Asset Hub across diverse networks, from TestNets to Main
     
     RPC URL
     ```
-    https://westend-asset-hub-eth-rpc.polkadot.io
+    https://westend-asset-hub-rpc.polkadot.io
     ```
 
     ---
@@ -55,7 +55,7 @@ Developers can leverage Asset Hub across diverse networks, from TestNets to Main
 === "Westend Asset Hub"
     Dwellir
     ```
-    https://westend-asset-hub-eth-rpc.polkadot.io
+    https://westend-asset-hub-rpc.polkadot.io
     ```
     ---
     Dwellir Tunisia
@@ -119,3 +119,30 @@ You will need testnet tokens to perform transactions and engage with smart contr
 3. Click the **Get Some WND** button to request free test WND tokens. These tokens will be sent to your MetaMask wallet shortly
 
     ![](/images/develop/smart-contracts/connect-to-asset-hub/connect-to-asset-hub-6.webp)
+
+Now that you have obtained WND tokens in your MetaMask wallet, you’re ready to deploy and interact with smart contracts on the Westend Asset Hub! These tokens will allow you to pay for gas fees when executing transactions, deploying contracts, and testing your dApp functionality in a secure testnet environment. 
+
+## Where to Go Next
+
+For your next steps, explore the various smart contract guides demonstrating how to use and integrate different tools and development environments into your workflow.
+
+<div class="grid cards" markdown>
+
+-   <span class="badge guide">Guide</span> __Deploy your first contract with Remix__
+
+    ---
+
+    Explore the smart contract development and deployment process on Asset Hub using the Remix IDE.
+
+    [:octicons-arrow-right-24: Build with Remix IDE](/develop/smart-contracts/dev-environments/remix/)
+
+-   <span class="badge guide">Guide</span> __Interact with the blockchain with viem__
+
+    ---
+
+    Use viem for interacting with EVM-compatible chains, to deploy and interact with smart contracts on Asset Hub.
+
+    [:octicons-arrow-right-24: Build with viem](/develop/smart-contracts/libraries/viem/)
+
+</div>
+

@@ -30,3 +30,9 @@ dependencies:
   node_packages:
     hardhat_resolc: 0.0.7  
     hardhat_revive_node: 0.0.6
+  revive_node_package:
+    version: 0.0.8
+  web3_js:
+    version: 4.16.0
+  repositories:
+    polkadot_sdk_compatible_hardhat_node: c29e72a8628835e34deb6aa7db9a78a2e4eabcee 

@@ -1,6 +1,7 @@
 ---
 title: Register a Local Asset
 description: Comprehensive guide to registering a local asset on the Asset Hub system parachain, including step-by-step instructions.
+tutorial_badge: Beginner
 ---
 
 # Register a Local Asset on Asset Hub

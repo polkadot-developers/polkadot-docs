@@ -1,6 +1,7 @@
 ---
 title: Deploy on Paseo TestNet
 description: This guide walks you through the journey of deploying your Polkadot SDK blockchain on Paseo, detailing each step to a successful TestNet deployment.
+tutorial_badge: Intermediate
 ---
 
 # Deploy on Paseo TestNet

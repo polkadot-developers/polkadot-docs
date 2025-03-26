@@ -78,7 +78,7 @@ Let's start by setting up Hardhat for your Storage contract project:
 
 ## Adding the Smart Contract
 
-1. Create a new folder `contracts` and create a file named `Storage.sol`. Add the contract code from the previous tutorial:
+1. Create a new folder called `contracts` and create a `Storage.sol` file. Add the contract code from the previous tutorial:
 
     ```solidity title="Storage.sol"
     --8<-- 'code/tutorials/smart-contracts/launch-your-first-project/test-and-deploy-hardhat/Storage.sol'
@@ -94,7 +94,7 @@ Let's start by setting up Hardhat for your Storage contract project:
 
     --8<-- 'code/tutorials/smart-contracts/launch-your-first-project/test-and-deploy-hardhat/compilation-output.html'
 
-After compilation, the `artifacts-pvm` and the `cache-pvm` folders will be created in the root of your project with the ABI and metadata files of your compiled contract.
+After compilation, the `artifacts-pvm` and `cache-pvm` folders, containing the metadata and binary files of your compiled contract, will be created in the root of your project.
 
 ## Writing Tests
 

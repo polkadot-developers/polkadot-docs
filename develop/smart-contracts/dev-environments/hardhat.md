@@ -5,6 +5,18 @@ description: Learn how to create, compile, test, and deploy smart contracts on A
 
 # Hardhat
 
+<div class="grid cards" markdown>
+-   :octicons-download-16:{ .lg .middle } __Test and Deploy with Hardhat__
+
+    ---
+
+    Master Solidity smart contract development with Hardhat! Learn testing, deployment, and network interaction in one comprehensive guide.
+
+    <br>
+    [:octicons-arrow-right-24: Get started](/tutorials/smart-contracts/launch-your-first-project/test-and-deploy-with-hardhat){target=\_blank}
+
+</div>
+
 ## Overview
 
 Hardhat is a robust development environment for EVM-compatible chains that makes smart contract development more efficient. This guide walks you through the essentials of using Hardhat to create, compile, test, and deploy smart contracts on Asset Hub.

@@ -9,14 +9,15 @@ require('dotenv').config();
 module.exports = {
   solidity: '0.8.28',
   resolc: {
-    version: '1.5.2',
-    compilerSource: 'remix',
+    compilerSource: 'binary',
     settings: {
       optimizer: {
-        enabled: false,
-        runs: 600,
+        enabled: true,
+        runs: 400,
       },
       evmVersion: 'istanbul',
+      compilerPath: 'INSERT_PATH_TO_RESOLC_COMPILER',
+      standardJson: true,
     },
   },
   networks: {

@@ -61,11 +61,14 @@ Let's start by setting up Hardhat for your Storage contract project:
     --8<-- 'code/tutorials/smart-contracts/launch-your-first-project/test-and-deploy-hardhat/hardhat.config.js'
     ```
 
-    Ensure that `INSERT_PATH_TO_SUBSTRATE_NODE` and `INSERT_PATH_TO_ETH_RPC_ADAPTER` are replaced with the proper paths to the compiled binaries. For more information about these compiled binaries, see the [Deploying with a local node](/develop/smart-contracts/dev-environments/hardhat#deploying-with-a-local-node){target=\_blank} section in the Hardhat documentation.
+    To configure the binary, replace `INSERT_PATH_TO_RESOLC_COMPILER` with the correct path to the compiler binary. Detailed installation instructions can be found in the [installation section](https://github.com/paritytech/revive?tab=readme-ov-file#installation){target=\_blank} of the `pallet-revive` repository. Also, ensure that `INSERT_PATH_TO_SUBSTRATE_NODE` and `INSERT_PATH_TO_ETH_RPC_ADAPTER` are replaced with the proper paths to the compiled binaries. For more information about these compiled binaries, see the [Deploying with a local node](/develop/smart-contracts/dev-environments/hardhat#deploying-with-a-local-node){target=\_blank} section in the Hardhat documentation.
 
     This setup loads essential plugins, including [`hardhat-toolbox`](https://www.npmjs.com/package/@nomicfoundation/hardhat-toolbox){target=\_blank}, [`hardhat-resolc`](https://www.npmjs.com/package/hardhat-resolc){target=\_blank}, and [`hardhat-revive-node`](https://www.npmjs.com/package/hardhat-revive-node){target=\_blank}, while utilizing environment variables through `dotenv`. The Solidity compiler is set to version 0.8.19 with optimization enabled for improved gas efficiency. The resolc plugin is configured to use the Remix compiler with Istanbul compatibility.
 
-    The configuration also defines two network settings: `localNode`, which runs a PolkaVM instance on `http://127.0.0.1:8545` for local development and testing, and `westendAssetHub`, which connects to the Westend Asset Hub network using a predefined RPC URL and a private key stored in environment variables.
+    The configuration also defines two network settings: 
+
+    - `localNode` - runs a PolkaVM instance on `http://127.0.0.1:8545` for local development and testing
+    - `westendAssetHub` - connects to the Westend Asset Hub network using a predefined RPC URL and a private key stored in environment variables
 
 7. Create a `.env` file in your project root to store your private key:
 
@@ -74,6 +77,9 @@ Let's start by setting up Hardhat for your Storage contract project:
     ```
 
     Replace `INSERT_PRIVATE_KEY` with your actual private key. For further details on private key exportation, refer to the article [How to export an account's private key](https://support.metamask.io/configure/accounts/how-to-export-an-accounts-private-key/){target=\_blank}.
+
+    !!! warning
+        Keep your private keys safe and never share it with anyone. If it is compromised, your funds can be stolen
 
 ## Adding the Smart Contract
 
@@ -97,7 +103,7 @@ After compilation, the `artifacts-pvm` and `cache-pvm` folders, containing the m
 
 ## Writing Tests
 
-Testing is a critical part of smart contract development. Hardhat makes it easy to write tests in JavaScript using frameworks like Mocha and Chai.
+Testing is a critical part of smart contract development. Hardhat makes it easy to write tests in JavaScript using frameworks like [Mocha](https://mochajs.org/){target=\_blank} and [Chai](https://www.chaijs.com/){target=\_blank}.
 
 1. Create a folder for testing called `test`. Inside that directory, create a file named `Storage.js` and add the following code:
 
@@ -106,6 +112,8 @@ Testing is a critical part of smart contract development. Hardhat makes it easy 
         // Add your logic here
     --8<-- 'code/tutorials/smart-contracts/launch-your-first-project/test-and-deploy-hardhat/Storage.test.js:48:49'
     ```
+
+    The `beforeEach` hook ensures stateless contract execution by redeploying a fresh instance of the Storage contract before each test case. This approach guarantees that every individual test starts with a clean and independent contract state. By using `ethers.getSigners()` to obtain test accounts and `ethers.getContractFactory('Storage').deploy()` to create a new contract instance.
 
     Now you can add your custom unit tests to check your contract functionality. For example, some tests examples are available below:
 
@@ -176,7 +184,7 @@ Testing is a critical part of smart contract development. Hardhat makes it easy 
 
 ## Deploying with Ignition
 
-Hardhat's Ignition is a deployment system designed to make deployments predictable and manageable. Let's create a deployment script:
+[Hardhat's Ignition](https://hardhat.org/ignition/docs/getting-started#overview){target=\_blank} is a deployment system designed to make deployments predictable and manageable. Let's create a deployment script:
 
 1. Create a new folder called`ignition/modules`. Add a new file named `StorageModule.js` with the following logic:
 

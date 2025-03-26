@@ -7,13 +7,13 @@ description: Learn how to set up a Hardhat development environment, write compre
 
 ## Introduction
 
-After creating a smart contract, the next crucial steps are testing and deployment. Proper testing ensures your contract behaves as expected, while deployment makes your contract available on the blockchain. This tutorial will guide you through using Hardhat, a popular development environment, to test and deploy the Storage contract you created in the [previous tutorial](/tutorials/smart-contracts/launch-your-first-project/create-contracts/){target=\_blank}. For more information about Hardhat usage, check the [Hardhat guide](/develop/smart-contracts/dev-environments/hardhat/){target=\_blank}.
+After creating a smart contract, the next crucial steps are testing and deployment. Proper testing ensures your contract behaves as expected, while deployment makes your contract available on the blockchain. This tutorial will guide you through using Hardhat, a popular development environment, to test and deploy the `Storage.sol` contract you created in the [Create a Smart Contract](/tutorials/smart-contracts/launch-your-first-project/create-contracts/){target=\_blank} tutorial. For more information about Hardhat usage, check the [Hardhat guide](/develop/smart-contracts/dev-environments/hardhat/){target=\_blank}.
 
 ## Prerequisites
 
 Before starting, make sure you have:
 
-- The [Storage contract](/tutorials/smart-contracts/launch-your-first-project/create-contracts/#create-the-smart-contract){target=\_blank} created in the previous tutorial
+- The [`Storage.sol` contract](/tutorials/smart-contracts/launch-your-first-project/create-contracts/#create-the-smart-contract){target=\_blank} created in the previous tutorial
 - [Node.js](https://nodejs.org/){target=\_blank} (v16.0.0 or later) and npm installed
 - Basic understanding of JavaScript for writing tests
 - Some WND test tokens to cover transaction fees (obtained from the [Polkadot faucet](https://faucet.polkadot.io/westend?parachain=1000){target=\_blank})
@@ -61,7 +61,9 @@ Let's start by setting up Hardhat for your Storage contract project:
     --8<-- 'code/tutorials/smart-contracts/launch-your-first-project/test-and-deploy-hardhat/hardhat.config.js'
     ```
 
-    To configure the binary, replace `INSERT_PATH_TO_RESOLC_COMPILER` with the correct path to the compiler binary. Detailed installation instructions can be found in the [installation section](https://github.com/paritytech/revive?tab=readme-ov-file#installation){target=\_blank} of the `pallet-revive` repository. Also, ensure that `INSERT_PATH_TO_SUBSTRATE_NODE` and `INSERT_PATH_TO_ETH_RPC_ADAPTER` are replaced with the proper paths to the compiled binaries. For more information about these compiled binaries, see the [Deploying with a local node](/develop/smart-contracts/dev-environments/hardhat#deploying-with-a-local-node){target=\_blank} section in the Hardhat documentation.
+    To configure the binary, replace `INSERT_PATH_TO_RESOLC_COMPILER` with the correct path to the compiler binary. Detailed installation instructions can be found in the [installation section](https://github.com/paritytech/revive?tab=readme-ov-file#installation){target=\_blank} of the `pallet-revive` repository. Also, ensure that `INSERT_PATH_TO_SUBSTRATE_NODE` and `INSERT_PATH_TO_ETH_RPC_ADAPTER` are replaced with the proper paths to the compiled binaries. 
+    
+    For more information about these compiled binaries, see the [Deploying with a local node](/develop/smart-contracts/dev-environments/hardhat#deploying-with-a-local-node){target=\_blank} section in the Hardhat documentation.
 
     This setup loads essential plugins, including [`hardhat-toolbox`](https://www.npmjs.com/package/@nomicfoundation/hardhat-toolbox){target=\_blank}, [`hardhat-resolc`](https://www.npmjs.com/package/hardhat-resolc){target=\_blank}, and [`hardhat-revive-node`](https://www.npmjs.com/package/hardhat-revive-node){target=\_blank}, while utilizing environment variables through `dotenv`. The Solidity compiler is set to version 0.8.19 with optimization enabled for improved gas efficiency. The resolc plugin is configured to use the Remix compiler with Istanbul compatibility.
 
@@ -76,10 +78,12 @@ Let's start by setting up Hardhat for your Storage contract project:
     PRIVATE_KEY="INSERT_PRIVATE_KEY"
     ```
 
-    Replace `INSERT_PRIVATE_KEY` with your actual private key. For further details on private key exportation, refer to the article [How to export an account's private key](https://support.metamask.io/configure/accounts/how-to-export-an-accounts-private-key/){target=\_blank}.
+    Replace `INSERT_PRIVATE_KEY` with your actual private key. 
+    
+    For further details on private key exportation, refer to the article [How to export an account's private key](https://support.metamask.io/configure/accounts/how-to-export-an-accounts-private-key/){target=\_blank}.
 
     !!! warning
-        Keep your private keys safe and never share it with anyone. If it is compromised, your funds can be stolen
+        Keep your private key safe, and never share it with anyone. If it is compromised, your funds can be stolen.
 
 ## Adding the Smart Contract
 
@@ -113,9 +117,9 @@ Testing is a critical part of smart contract development. Hardhat makes it easy 
     --8<-- 'code/tutorials/smart-contracts/launch-your-first-project/test-and-deploy-hardhat/Storage.test.js:48:49'
     ```
 
-    The `beforeEach` hook ensures stateless contract execution by redeploying a fresh instance of the Storage contract before each test case. This approach guarantees that every individual test starts with a clean and independent contract state. By using `ethers.getSigners()` to obtain test accounts and `ethers.getContractFactory('Storage').deploy()` to create a new contract instance.
+    The `beforeEach` hook ensures stateless contract execution by redeploying a fresh instance of the Storage contract before each test case. This approach guarantees that each test starts with a clean and independent contract state by using `ethers.getSigners()` to obtain test accounts and `ethers.getContractFactory('Storage').deploy()` to create a new contract instance.
 
-    Now you can add your custom unit tests to check your contract functionality. For example, some tests examples are available below:
+    Now, you can add custom unit tests to check your contract functionality. Some example tests are available below:
 
     a. **Initial state verification** - ensures that the contract starts with a default value of zero, which is a fundamental expectation for a simple storage contract
 
@@ -163,11 +167,11 @@ Testing is a critical part of smart contract development. Hardhat makes it easy 
 
     - Verifies that multiple values can be stored in sequence
     - Confirms that each new store operation updates the contract's state
-    - Demonstrates the contract's ability to always reflect the most recently stored value
+    - Demonstrates the contract's ability always to reflect the most recently stored value
 
     The complete `test/Storage.js` should look like this:
 
-    ???--- code "Complete `test/Storage.js`:"
+    ???--- code "View complete script"
         ```javascript title="Storage.js"
         --8<-- 'code/tutorials/smart-contracts/launch-your-first-project/test-and-deploy-hardhat/Storage.test.js'
         ```
@@ -178,7 +182,7 @@ Testing is a critical part of smart contract development. Hardhat makes it easy 
     npx hardhat test
     ```
 
-3. After running above command, you will see output showing that all tests have passed:
+3. After running the above command, you will see the output showing that all tests have passed:
 
     --8<-- 'code/tutorials/smart-contracts/launch-your-first-project/test-and-deploy-hardhat/testing-output.html'
 
@@ -200,13 +204,13 @@ Testing is a critical part of smart contract development. Hardhat makes it easy 
     npx hardhat node-polkavm
     ```
 
-    b. Then in a new terminal window, deploy the contract:
+    b. Then, in a new terminal window, deploy the contract:
 
     ```bash
     npx hardhat ignition deploy ./ignition/modules/StorageModule.js --network localNode
     ```
 
-    c. If successful, the following output will be prompted in your terminal:
+    c. If successful, output similar to the following will display in your terminal:
 
     --8<-- 'code/tutorials/smart-contracts/launch-your-first-project/test-and-deploy-hardhat/local-deployment-output.html'
 

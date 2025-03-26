@@ -121,7 +121,7 @@ Testing is a critical part of smart contract development. Hardhat makes it easy 
 
     Now, you can add custom unit tests to check your contract functionality. Some example tests are available below:
 
-    a. **Initial state verification** - ensures that the contract starts with a default value of zero, which is a fundamental expectation for a simple storage contract
+    a. **Initial state verification** - ensures that the contract starts with a default value of zero, which is a fundamental expectation for the `Storage.sol` contract
 
     ```javascript title="Storage.js"
     --8<-- 'code/tutorials/smart-contracts/launch-your-first-project/test-and-deploy-hardhat/Storage.test.js:20:22'
@@ -251,5 +251,3 @@ To interact with your deployed contract:
 ## Conclusion
 
 Congratulations! You've successfully set up a Hardhat development environment, written comprehensive tests for your Storage contract, and deployed it to local and Westend Asset Hub networks. This tutorial covered essential steps in smart contract development, including configuration, testing, deployment, and interaction.
-
-<!-- TODO: add where to go next to link to dapps tutorials once they are available -->

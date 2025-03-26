@@ -53,7 +53,7 @@ Let's start by setting up Hardhat for your Storage contract project:
     npx hardhat init
     ```
 
-    Select "Create an empty hardhat.config.js" when prompted.
+    Select **Create an empty hardhat.config.js** when prompted.
 
 6. Configure Hardhat by updating the `hardhat.config.js` file:
 
@@ -63,7 +63,7 @@ Let's start by setting up Hardhat for your Storage contract project:
 
     Ensure that `INSERT_PATH_TO_SUBSTRATE_NODE` and `INSERT_PATH_TO_ETH_RPC_ADAPTER` are replaced with the proper paths to the compiled binaries. For more information about these compiled binaries, see the [Deploying with a local node](/develop/smart-contracts/dev-environments/hardhat#deploying-with-a-local-node){target=\_blank} section in the Hardhat documentation.
 
-    This setup loads essential plugins, including `hardhat-toolbox`, `hardhat-resolc`, and `hardhat-revive-node`, while utilizing environment variables through `dotenv`. The Solidity compiler is set to version 0.8.19 with optimization enabled for improved gas efficiency. The resolc plugin is configured to use the Remix compiler with Istanbul compatibility.
+    This setup loads essential plugins, including [`hardhat-toolbox`](https://www.npmjs.com/package/@nomicfoundation/hardhat-toolbox){target=\_blank}, [`hardhat-resolc`](https://www.npmjs.com/package/hardhat-resolc){target=\_blank}, and [`hardhat-revive-node`](https://www.npmjs.com/package/hardhat-revive-node){target=\_blank}, while utilizing environment variables through `dotenv`. The Solidity compiler is set to version 0.8.19 with optimization enabled for improved gas efficiency. The resolc plugin is configured to use the Remix compiler with Istanbul compatibility.
 
     The configuration also defines two network settings: `localNode`, which runs a PolkaVM instance on `http://127.0.0.1:8545` for local development and testing, and `westendAssetHub`, which connects to the Westend Asset Hub network using a predefined RPC URL and a private key stored in environment variables.
 

@@ -13,7 +13,7 @@ Polkadot SDK-based nodes consist of two main components, each with distinct resp
 
 If the system were a monolithic protocol, any modification would require updating the entire system. Instead, Polkadot achieves true upgradeability by defining an immutable meta-protocol (the client) and a protocol (the runtime) that can be upgraded independently.
 
-This separation gives the [Polkadot Relay Chain](/polkadot-protocol/architecture/polkadot-chain){target=\_blank} and all connected [parachains](/polkadot-protocol/architecture/parachains){target=\_blank} an evolutionary advantage over other blockchain platforms.
+This separation gives the [Polkadot Relay Chain](/polkadot-protocol/architecture/polkadot-chain){target=\_blank} and all connected [rollups](/polkadot-protocol/architecture/rollups){target=\_blank} an evolutionary advantage over other blockchain platforms.
 
 ## Architectural Principles
 

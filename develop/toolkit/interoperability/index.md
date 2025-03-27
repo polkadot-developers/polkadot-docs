@@ -6,7 +6,7 @@ template: index-page.html
 
 # Interoperability
 
-Polkadot's XCM tooling ecosystem redefines the boundaries of cross-chain communication and asset movement. With unparalleled flexibility and scalability, these advanced tools empower developers to build decentralized applications that connect parachains, relay chains, and external networks. By bridging siloed blockchains, Polkadot paves the way for a unified, interoperable ecosystem that accelerates innovation and collaboration.
+Polkadot's XCM tooling ecosystem redefines the boundaries of cross-chain communication and asset movement. With unparalleled flexibility and scalability, these advanced tools empower developers to build decentralized applications that connect rollups, relay chains, and external networks. By bridging siloed blockchains, Polkadot paves the way for a unified, interoperable ecosystem that accelerates innovation and collaboration.
 
 From enabling cross-chain messaging to facilitating secure asset transfers and integrating with external blockchains, Polkadot's XCM tools serve as the cornerstone for next-generation blockchain solutions. These resources not only enhance developer workflows but also lower technical barriers, unlocking opportunities for scalable, interconnected systems. 
 

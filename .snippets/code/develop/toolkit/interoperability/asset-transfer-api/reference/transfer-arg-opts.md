@@ -16,7 +16,7 @@ Options for customizing the claim assets transaction. These options allow you to
 
     `paysWithFeeOrigin` ++"string"++
     
-    The Asset ID to pay fees on the current common good parachain. The defaults are as follows:
+    The Asset ID to pay fees on the current common good rollup. The defaults are as follows:
 
     - Polkadot Asset Hub - `'DOT'`
     - Kusama Asset Hub - `'KSM'`
@@ -25,7 +25,7 @@ Options for customizing the claim assets transaction. These options allow you to
 
     `paysWithFeeDest` ++"string"++
     
-    Asset ID to pay fees on the destination parachain.
+    Asset ID to pay fees on the destination rollup.
 
     ---
 

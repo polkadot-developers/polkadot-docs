@@ -512,7 +512,7 @@ Validators in Polkadot's Proof of Stake (PoS) network play a critical role in ma
 
 ### Key Management
 
-Though they don't transfer funds, session keys are essential for validators as they sign messages related to consensus and parachains. Securing session keys is crucial as allowing them to be exploited or used across multiple nodes can lead to a loss of staked funds via [slashing](/infrastructure/staking-mechanics/offenses-and-slashes/){target=\_blank}.
+Though they don't transfer funds, session keys are essential for validators as they sign messages related to consensus and rollups. Securing session keys is crucial as allowing them to be exploited or used across multiple nodes can lead to a loss of staked funds via [slashing](/infrastructure/staking-mechanics/offenses-and-slashes/){target=\_blank}.
 
 Given the current limitations in high-availability setups and the risks associated with double-signing, it’s recommended to run only a single validator instance. Keys should be securely managed, and processes automated to minimize human error.
 

@@ -1,13 +1,13 @@
 ---
 title: Smart Contracts Overview
-description: Learn how developers can build smart contracts on Polkadot by leveraging either Wasm/ink! or EVM contracts across many parachains.
+description: Learn how developers can build smart contracts on Polkadot by leveraging either Wasm/ink! or EVM contracts across many rollups.
 ---
 
 # An Overview of the Smart Contract Landscape on Polkadot
 
 ## Introduction
 
-Polkadot is designed to support an ecosystem of parachains, rather than hosting smart contracts directly. Developers aiming to build smart contract applications on Polkadot rely on parachains within the ecosystem that provide smart contract functionality.
+Polkadot is designed to support an ecosystem of rollups, rather than hosting smart contracts directly. Developers aiming to build smart contract applications on Polkadot rely on rollups within the ecosystem that provide smart contract functionality.
 
 This guide outlines the primary approaches to developing smart contracts in the Polkadot ecosystem:
 
@@ -16,11 +16,11 @@ This guide outlines the primary approaches to developing smart contracts in the 
 <!-- This content is temporarily hidden and has been commented out to ensure it is preserved. -->
 <!-- - **PolkaVM-compatible contracts** - which support Solidity and Rust while maintaining compatibility with Ethereum based tools -->
 
-You'll explore the key differences between these development paths, along with considerations for parachain developers integrating smart contract functionality.
+You'll explore the key differences between these development paths, along with considerations for rollup developers integrating smart contract functionality.
 
-If you are a parachain developer looking to add smart contract functionality to your chain, please refer to the [Add Smart Contract Functionality](/develop/parachains/customize-parachain/add-smart-contract-functionality/){target=\_blank} page, which covers both Wasm and EVM-based contract implementations.
+If you are a rollup developer looking to add smart contract functionality to your chain, please refer to the [Add Smart Contract Functionality](/develop/rollups/customize-rollup/add-smart-contract-functionality/){target=\_blank} page, which covers both Wasm and EVM-based contract implementations.
 
-## Smart Contracts Versus Parachains
+## Smart Contracts Versus Rollups
 
 A smart contract is a program that executes specific logic isolated to the chain on which it is being executed. All the logic executed is bound to the same state transition rules determined by the underlying virtual machine (VM). Consequently, smart contracts are more streamlined to develop, and programs can easily interact with each other through similar interfaces.
 
@@ -44,7 +44,7 @@ These strengths do come with certain limitations. Some smart contracts environme
 
 Another downside is that smart contracts often follow a gas metering model, where program execution is associated with a given unit and a marketplace is set up to pay for such an execution unit. This fee system is often very rigid, and some complex flows, like account abstraction, have been developed to circumvent this problem.
 
-In contrast, parachains can create their own custom logics (known as pallets or modules), and combine them as the state transition function (STF or runtime) thanks to the modularity provided by the [Polkadot-SDK](https://github.com/paritytech/polkadot-sdk/tree/{{dependencies.repositories.polkadot_sdk.version}}){target=\_blank}. The different pallets within the parachain runtime can give developers a lot of flexibility when building applications on top of it.
+In contrast, rollups can create their own custom logics (known as pallets or modules), and combine them as the state transition function (STF or runtime) thanks to the modularity provided by the [Polkadot-SDK](https://github.com/paritytech/polkadot-sdk/tree/{{dependencies.repositories.polkadot_sdk.version}}){target=\_blank}. The different pallets within the rollup runtime can give developers a lot of flexibility when building applications on top of it.
 
 ``` mermaid
 flowchart LR
@@ -54,13 +54,13 @@ flowchart LR
     B --> F[Execution Logs]
 ```
 
-Parachains inherently offer features such as logic upgradeability, flexible transaction fee mechanisms, and chain abstraction logic. More so, by using Polkadot, parachains can benefit from robust consensus guarantees with little engineering overhead.
+Rollups inherently offer features such as logic upgradeability, flexible transaction fee mechanisms, and chain abstraction logic. More so, by using Polkadot, rollups can benefit from robust consensus guarantees with little engineering overhead.
 
-To learn more about the differences between smart contracts and parachain runtimes, please see the [Runtime vs. Smart Contracts](https://paritytech.github.io/polkadot-sdk/master/polkadot_sdk_docs/reference_docs/runtime_vs_smart_contract/index.html){target=\_blank} section of the Polkadot SDK Rust docs. For a more in-depth discussion on choosing between runtime development and smart contract development, see the post ["When should one build a Polkadot SDK runtime versus a Substrate (Polkadot SDK) smart contract?"](https://stackoverflow.com/a/56041305){target=\_blank} from Stack Overflow.
+To learn more about the differences between smart contracts and rollup runtimes, please see the [Runtime vs. Smart Contracts](https://paritytech.github.io/polkadot-sdk/master/polkadot_sdk_docs/reference_docs/runtime_vs_smart_contract/index.html){target=\_blank} section of the Polkadot SDK Rust docs. For a more in-depth discussion on choosing between runtime development and smart contract development, see the post ["When should one build a Polkadot SDK runtime versus a Substrate (Polkadot SDK) smart contract?"](https://stackoverflow.com/a/56041305){target=\_blank} from Stack Overflow.
 
 ## Building a Smart Contract
 
-Polkadot's primary purpose is to provide security for parachains that connect to it. Therefore, it is not meant to support smart contract execution. Developers looking to build smart contract projects in Polkadot need to look into its ecosystem for parachains that support it.
+Polkadot's primary purpose is to provide security for rollups that connect to it. Therefore, it is not meant to support smart contract execution. Developers looking to build smart contract projects in Polkadot need to look into its ecosystem for rollups that support it.
 
 The Polkadot SDK supports multiple smart contract execution environments:
 
@@ -108,21 +108,21 @@ flowchart TD
     style F fill:#ffffff,stroke:#000000,stroke-width:1px
 ```
 
-Although it seems complex, users and developers are abstracted of that complexity, and tools can easily interact with the parachain as they would with any other EVM-compatible environment.
+Although it seems complex, users and developers are abstracted of that complexity, and tools can easily interact with the rollup as they would with any other EVM-compatible environment.
 
-The Rust EVM is capable of executing regular [EVM bytecode](https://www.ethervm.io/){target=\_blank}. Consequently, any language that compiles to EVM bytecode can be used to create programs that the parachain can execute.
+The Rust EVM is capable of executing regular [EVM bytecode](https://www.ethervm.io/){target=\_blank}. Consequently, any language that compiles to EVM bytecode can be used to create programs that the rollup can execute.
 
 <!-- This content is temporarily hidden and has been commented out to ensure it is preserved. -->
-<!-- You can find more information on deploying EVM smart contracts to [Polkadot's native smart contract platform](/develop/smart-contracts/evm/native-evm-contracts/){target=\_blank}, or any of [the ecosystem parachains](/develop/smart-contracts/evm/parachain-contracts/){target=\_blank}. -->
+<!-- You can find more information on deploying EVM smart contracts to [Polkadot's native smart contract platform](/develop/smart-contracts/evm/native-evm-contracts/){target=\_blank}, or any of [the ecosystem rollups](/develop/smart-contracts/evm/rollup-contracts/){target=\_blank}. -->
 
 ### Wasm Contracts
 
-The [`pallet_contracts`](https://docs.rs/pallet-contracts/latest/pallet_contracts/index.html#contracts-pallet){target=\_blank} provides the execution environment for Wasm-based smart contracts. Consequently, any smart contract language that compiles to Wasm can be executed in a parachain that enables this module.
+The [`pallet_contracts`](https://docs.rs/pallet-contracts/latest/pallet_contracts/index.html#contracts-pallet){target=\_blank} provides the execution environment for Wasm-based smart contracts. Consequently, any smart contract language that compiles to Wasm can be executed in a rollup that enables this module.
 
 At the time of writing there are two main languages that can be used for Wasm programs:
 
 - [**ink!**](https://use.ink/){target=\_blank} - it is a Rust-based language that compiles to Wasm. It allows developers to inherit all its safety guarantees and use normal Rust tooling, being the dedicated domain-specific language
-- **Solidity** - it can be compiled to Wasm via the [Solang](https://github.com/hyperledger-solang/solang/){target=\_blank} compiler. Consequently, developers can write Solidity 0.8 smart contracts that can be executed as Wasm programs in parachains
+- **Solidity** - it can be compiled to Wasm via the [Solang](https://github.com/hyperledger-solang/solang/){target=\_blank} compiler. Consequently, developers can write Solidity 0.8 smart contracts that can be executed as Wasm programs in rollups
 
 Broadly speaking, with [`pallet_contracts`](https://docs.rs/pallet-contracts/latest/pallet_contracts/index.html#contracts-pallet){target=\_blank}, a transaction follows the path presented in the diagram below:
 
@@ -151,4 +151,4 @@ Learn more on how to build and deploy Wasm smart contracts on the [Wasm Smart Co
 <!-- This content is temporarily hidden and has been commented out to ensure it is preserved. -->
 <!-- ### PolkaVM Contracts
 
-A component of the Asset Hub parachain, PolkaVM helps enable the deployment of Solidity-based smart contracts directly on Asset Hub. Learn more about how this cutting edge virtual machine facilitates using familiar EVM contracts and tools with Asset Hub by visiting the [Native EVM Contracts](/develop/smart-contracts/evm/native-evm-contracts/){target=\_blank} guide. -->
+A component of the Asset Hub rollup, PolkaVM helps enable the deployment of Solidity-based smart contracts directly on Asset Hub. Learn more about how this cutting edge virtual machine facilitates using familiar EVM contracts and tools with Asset Hub by visiting the [Native EVM Contracts](/develop/smart-contracts/evm/native-evm-contracts/){target=\_blank} guide. -->

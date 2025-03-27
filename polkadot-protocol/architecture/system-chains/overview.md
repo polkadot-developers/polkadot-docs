@@ -1,30 +1,30 @@
 ---
 title: Overview of Polkadot's System Chains
-description: Discover how system parachains enhance Polkadot's scalability and performance by offloading tasks like governance, asset management, and bridging from the relay chain.
+description: Discover how system rollups enhance Polkadot's scalability and performance by offloading tasks like governance, asset management, and bridging from the relay chain.
 ---
 
 ## Introduction
 
-Polkadot's relay chain is designed to secure parachains and facilitate seamless inter-chain communication. However, resource-intensive—tasks like governance, asset management, and bridging are more efficiently handled by system parachains. These specialized chains offload functionality from the relay chain, leveraging Polkadot's parallel execution model to improve performance and scalability. By distributing key functionalities across system parachains, Polkadot can maximize its relay chain's blockspace for its core purpose of securing and validating parachains.
+Polkadot's relay chain is designed to secure rollups and facilitate seamless inter-chain communication. However, resource-intensive—tasks like governance, asset management, and bridging are more efficiently handled by system rollups. These specialized chains offload functionality from the relay chain, leveraging Polkadot's parallel execution model to improve performance and scalability. By distributing key functionalities across system rollups, Polkadot can maximize its relay chain's blockspace for its core purpose of securing and validating rollups.
 
-This guide will explore how system parachains operate within Polkadot and Kusama, detailing their critical roles in network governance, asset management, and bridging. You'll learn about the currently deployed system parachains, their unique functions, and how they enhance Polkadot's decentralized ecosystem.
+This guide will explore how system rollups operate within Polkadot and Kusama, detailing their critical roles in network governance, asset management, and bridging. You'll learn about the currently deployed system rollups, their unique functions, and how they enhance Polkadot's decentralized ecosystem.
 
 ## System Chains
 
-System parachains contain core Polkadot protocol features, but in parachains rather than the relay chain. Execution cores for system chains are allocated via network [governance](/polkadot-protocol/onchain-governance/overview/){target=\_blank} rather than purchasing coretime on a marketplace.
+System rollups contain core Polkadot protocol features, but in rollups rather than the relay chain. Execution cores for system chains are allocated via network [governance](/polkadot-protocol/onchain-governance/overview/){target=\_blank} rather than purchasing coretime on a marketplace.
 
-System parachains defer to on-chain governance to manage their upgrades and other sensitive actions as they do not have native tokens or governance systems separate from DOT or KSM. It is not uncommon to see a system parachain implemented specifically to manage network governance.
+System rollups defer to on-chain governance to manage their upgrades and other sensitive actions as they do not have native tokens or governance systems separate from DOT or KSM. It is not uncommon to see a system rollups implemented specifically to manage network governance.
 
 !!!note
-    You may see system parachains called common good parachains in articles and discussions. This nomenclature caused confusion as the network evolved, so system parachains is preferred. 
+    You may see system rollups called common good rollups in articles and discussions. This nomenclature caused confusion as the network evolved, so system rollups is preferred. 
     
-    For more details on this evolution, review this [parachains forum discussion](https://forum.polkadot.network/t/polkadot-protocol-and-common-good-parachains/866){target=\_blank}.
+    For more details on this evolution, review this [rollups forum discussion](https://forum.polkadot.network/t/polkadot-protocol-and-common-good-rollups/866){target=\_blank}.
 
 ## Existing System Chains
 
 ```mermaid
 ---
-title: System Parachains at a Glance
+title: System Rollups at a Glance
 ---
 flowchart TB
     subgraph POLKADOT["Polkadot"]
@@ -46,22 +46,22 @@ flowchart TB
         end
 ```
 
-All system parachains are on both Polkadot and Kusama with the following exceptions:
+All system rollups are on both Polkadot and Kusama with the following exceptions:
 
 - [**Collectives**](#collectives) - only on Polkadot
 - [**Encointer**](#encointer) - only on Kusama
 
 ### Asset Hub
 
-The [Asset Hub](https://github.com/paritytech/polkadot-sdk/tree/{{dependencies.repositories.polkadot_sdk.version}}/cumulus#asset-hub-){target=\_blank} is an asset portal for the entire network. It helps asset creators, such as reserve-backed stablecoin issuers, track the total issuance of an asset in the network, including amounts transferred to other parachains. It also serves as the hub where asset creators can perform on-chain operations, such as minting and burning, to manage their assets effectively.
+The [Asset Hub](https://github.com/paritytech/polkadot-sdk/tree/{{dependencies.repositories.polkadot_sdk.version}}/cumulus#asset-hub-){target=\_blank} is an asset portal for the entire network. It helps asset creators, such as reserve-backed stablecoin issuers, track the total issuance of an asset in the network, including amounts transferred to other rollups. It also serves as the hub where asset creators can perform on-chain operations, such as minting and burning, to manage their assets effectively.
 
-This asset management logic is encoded directly in the runtime of the chain rather than in smart contracts. The efficiency of executing logic in a parachain allows for fees and deposits that are about 1/10th of what is required on the relay chain. These low fees mean that the Asset Hub is well suited for handling the frequent transactions required when managing balances, transfers, and on-chain assets.
+This asset management logic is encoded directly in the runtime of the chain rather than in smart contracts. The efficiency of executing logic in a rollup allows for fees and deposits that are about 1/10th of what is required on the relay chain. These low fees mean that the Asset Hub is well suited for handling the frequent transactions required when managing balances, transfers, and on-chain assets.
 
 The Asset Hub also supports non-fungible assets (NFTs) via the [Uniques pallet](https://polkadot.js.org/docs/substrate/extrinsics#uniques){target=\_blank} and [NFTs pallet](https://polkadot.js.org/docs/substrate/extrinsics#nfts){target=\_blank}. For more information about NFTs, see the Polkadot Wiki section on [NFT Pallets](https://wiki.polkadot.network/docs/learn-nft-pallets){target=\_blank}.
 
 ### Collectives
 
-The Polkadot Collectives parachain was added in [Referendum 81](https://polkadot.polkassembly.io/referendum/81){target=\_blank} and exists on Polkadot but not on Kusama. The Collectives chain hosts on-chain collectives that serve the Polkadot network, including the following:
+The Polkadot Collectives rollup was added in [Referendum 81](https://polkadot.polkassembly.io/referendum/81){target=\_blank} and exists on Polkadot but not on Kusama. The Collectives chain hosts on-chain collectives that serve the Polkadot network, including the following:
 
 - [**Polkadot Alliance**](https://polkadot.polkassembly.io/referendum/94){target=\_blank} - provides a set of ethics and standards for the community to follow. Includes an on-chain means to call out bad actors
 - [**Polkadot Technical Fellowship**](https://wiki.polkadot.network/docs/learn-polkadot-technical-fellowship){target=\_blank} - a rules-based social organization to support and incentivize highly-skilled developers to contribute to the technical stability, security, and progress of the network
@@ -70,9 +70,9 @@ These on-chain collectives will play essential roles in the future of network st
 
 ### Bridge Hub
 
-Before parachains, the only way to design a bridge was to put the logic onto the relay chain. Since both networks now support parachains and the isolation they provide, each network can have a parachain dedicated to bridges. 
+Before rollups, the only way to design a bridge was to put the logic onto the relay chain. Since both networks now support rollups and the isolation they provide, each network can have a rollup dedicated to bridges. 
 
-The Bridge Hub system parachain operates on the relay chain, and is responsible for faciliating bridges to the wider Web3 space. It contains the required bridge [pallets](/polkadot-protocol/glossary/#pallet){target=\_blank} in its runtime, which enable trustless bridging with other blockchain networks like Polkadot, Kusama, and Ethereum. The Bridge Hub uses the native token of the relay chain.
+The Bridge Hub system rollup operates on the relay chain, and is responsible for faciliating bridges to the wider Web3 space. It contains the required bridge [pallets](/polkadot-protocol/glossary/#pallet){target=\_blank} in its runtime, which enable trustless bridging with other blockchain networks like Polkadot, Kusama, and Ethereum. The Bridge Hub uses the native token of the relay chain.
 
 See the [Bridge Hub](/polkadot-protocol/architecture/system-chains/bridge-hub/){target=\_blank} documentation for additional information.
 
@@ -94,7 +94,7 @@ Participants are requested to attend physical key-signing ceremonies with small 
 
 Referendums marking key Encointer adoption milestones include: 
 
-- [**Referendum 158 - Register Encointer As a Common Good Chain**](https://kusama.polkassembly.io/referendum/158){target=\_blank} - registered Encointer as the second system parachain on Kusama's network
+- [**Referendum 158 - Register Encointer As a Common Good Chain**](https://kusama.polkassembly.io/referendum/158){target=\_blank} - registered Encointer as the second system rollup on Kusama's network
 - [**Referendum 187 - Encointer Runtime Upgrade to Full Functionality**](https://kusama.polkassembly.io/referendum/187){target=\_blank} - introduced a runtime upgrade bringing governance and full functionality for communities to use the protocol
 
 To learn more about Encointer, see the official [Encointer book](https://book.encointer.org/introduction.html){target=\_blank} or watch an [Encointer ceremony](https://www.youtube.com/watch?v=tcgpCCYBqko){target=\_blank} in action.

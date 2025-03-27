@@ -1,15 +1,15 @@
 ---
 title: XCM Channels
-description: Learn how Polkadot's cross-consensus messaging (XCM) channels connect parachains, facilitating communication and blockchain interaction.
+description: Learn how Polkadot's cross-consensus messaging (XCM) channels connect rollups, facilitating communication and blockchain interaction.
 ---
 
 # XCM Channels
 
 ## Introduction
 
-Polkadot is designed to enable interoperability between its connected parachains. At the core of this interoperability is the [Cross-Consensus Message Format (XCM)](https://wiki.polkadot.network/docs/learn-xcm), a standard language that allows parachains to communicate and interact with each other.
+Polkadot is designed to enable interoperability between its connected rollups. At the core of this interoperability is the [Cross-Consensus Message Format (XCM)](https://wiki.polkadot.network/docs/learn-xcm), a standard language that allows rollups to communicate and interact with each other.
 
-The network-layer protocol responsible for delivering XCM-formatted messages between parachains is the Cross-Chain Message Passing (XCMP) protocol. XCMP maintains messaging queues on the relay chain, serving as a bridge to facilitate cross-chain interactions.
+The network-layer protocol responsible for delivering XCM-formatted messages between rollups is the Cross-Chain Message Passing (XCMP) protocol. XCMP maintains messaging queues on the relay chain, serving as a bridge to facilitate cross-chain interactions.
 
 As XCMP is still under development, Polkadot has implemented a temporary alternative called Horizontal Relay-routed Message Passing (HRMP). HRMP offers the same interface and functionality as the planned XCMP but it has a crucial difference, it stores all messages directly in the relay chain’s storage, which is more resource-intensive.
 
@@ -17,17 +17,17 @@ Once XCMP is fully implemented, HRMP will be deprecated in favor of the native X
 
 ## Establishing HRMP Channels
 
-To enable communication between parachains using the HRMP protocol, the parachains must explicitly establish communication channels by registering them on the relay chain.
+To enable communication between rollups using the HRMP protocol, the rollups must explicitly establish communication channels by registering them on the relay chain.
 
 Downward and upward channels from and to the relay chain are implicitly available, meaning they do not need to be explicitly opened.
 
-Opening an HRMP channel requires the parachains involved to make a deposit on the relay chain. This deposit serves a specific purpose, it covers the costs associated with using the relay chain's storage for the message queues linked to the channel. The amount of this deposit varies based on parameters defined by the specific relay chain being used.
+Opening an HRMP channel requires the rollups involved to make a deposit on the relay chain. This deposit serves a specific purpose, it covers the costs associated with using the relay chain's storage for the message queues linked to the channel. The amount of this deposit varies based on parameters defined by the specific relay chain being used.
 
 ### Relay Chain Parameters
 
-Each Polkadot relay chain has a set of configurable parameters that control the behavior of the message channels between parachains. These parameters include `hrmpSenderDeposit`, `hrmpRecipientDeposit`, `hrmpChannelMaxMessageSize`, `hrmpChannelMaxCapacity`, and more.
+Each Polkadot relay chain has a set of configurable parameters that control the behavior of the message channels between rollups. These parameters include `hrmpSenderDeposit`, `hrmpRecipientDeposit`, `hrmpChannelMaxMessageSize`, `hrmpChannelMaxCapacity`, and more.
 
-When a parachain wants to open a new channel, it must consider these parameter values to ensure the channel is configured correctly.
+When a rollup wants to open a new channel, it must consider these parameter values to ensure the channel is configured correctly.
 
 To view the current values of these parameters in the Polkadot network:
 
@@ -45,15 +45,15 @@ To view the current values of these parameters in the Polkadot network:
 
 ### Dispatching Extrinsics
 
-Establishing new HRMP channels between parachains requires dispatching specific extrinsic calls on the Polkadot relay chain from the parachain's origin.
+Establishing new HRMP channels between rollups requires dispatching specific extrinsic calls on the Polkadot relay chain from the rollup's origin.
 
 The most straightforward approach is to implement the channel opening logic off-chain, then use the XCM pallet's `send` extrinsic to submit the necessary instructions to the relay chain. However, the ability to send arbitrary programs through the `Transact` instruction in XCM is typically restricted to privileged origins, such as the `sudo` pallet or governance mechanisms.
 
-Parachain developers have a few options for triggering the required extrinsic calls from their parachain's origin, depending on the configuration and access controls defined:
+Rollup developers have a few options for triggering the required extrinsic calls from their rollup's origin, depending on the configuration and access controls defined:
 
-- **Sudo** - if the parachain has a `sudo` pallet configured, the sudo key holder can use the sudo extrinsic to dispatch the necessary channel opening calls
-- **Governance** - the parachain's governance system, such as a council or OpenGov, can be used to authorize the channel opening calls
-- **Privileged accounts** - the parachain may have other designated privileged accounts that are allowed to dispatch the HRMP channel opening extrinsics
+- **Sudo** - if the rollup has a `sudo` pallet configured, the sudo key holder can use the sudo extrinsic to dispatch the necessary channel opening calls
+- **Governance** - the rollup's governance system, such as a council or OpenGov, can be used to authorize the channel opening calls
+- **Privileged accounts** - the rollup may have other designated privileged accounts that are allowed to dispatch the HRMP channel opening extrinsics
 
 ## Where to Go Next
 
@@ -61,19 +61,19 @@ Explore the following tutorials for detailed, step-by-step guidance on setting u
 
 <div class="grid cards" markdown>
 
--   <span class="badge tutorial">Tutorial</span> __Opening HRMP Channels Between Parachains__
+-   <span class="badge tutorial">Tutorial</span> __Opening HRMP Channels Between Rollups__
 
     ---
 
-    Learn how to open HRMP channels between parachains on Polkadot. Discover the step-by-step process for establishing uni- and bidirectional communication.
+    Learn how to open HRMP channels between rollups on Polkadot. Discover the step-by-step process for establishing uni- and bidirectional communication.
 
     [:octicons-arrow-right-24: Reference](/tutorials/interoperability/xcm-channels/para-to-para/)
 
--   <span class="badge tutorial">Tutorial</span> __Opening HRMP Channels with System Parachains__
+-   <span class="badge tutorial">Tutorial</span> __Opening HRMP Channels with System Rollups__
 
     ---
 
-    Learn how to open HRMP channels with Polkadot system parachains. Discover the process for establishing bi-directional communication using a single XCM message.
+    Learn how to open HRMP channels with Polkadot system rollups. Discover the process for establishing bi-directional communication using a single XCM message.
 
     [:octicons-arrow-right-24: Reference](/tutorials/interoperability/xcm-channels/para-to-system/)
 

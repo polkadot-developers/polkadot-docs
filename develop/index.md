@@ -1,6 +1,6 @@
 ---
 title: Develop
-description: Explore and learn how to build in the Polkadot ecosystem, from a custom parachain to smart contracts, supported by robust integrations and developer tools.
+description: Explore and learn how to build in the Polkadot ecosystem, from a custom rollup to smart contracts, supported by robust integrations and developer tools.
 template: index-page.html
 ---
 
@@ -11,7 +11,7 @@ template: index-page.html
 This guide is a starting point for developers who wish to build in the Polkadot ecosystem. To get the most from this section:
 
 1. Identify your development pathway:
-    - [**Parachain Developers**](#parachain-developers) - build, deploy, and maintain custom parachains with the Polkadot SDK
+    - [**Rollup Developers**](#rollup-developers) - build, deploy, and maintain custom rollups with the Polkadot SDK
     - [**Smart Contract Developers**](#smart-contract-developers) - leverage smart contracts and execute custom logic over existing chains to streamline your development process
     - [**Application Developers**](#application-developers) - leverage Polkadot's underlying protocol features to create solutions for your users to interact with the ecosystem
 2. Use the sections under your pathway as follows:
@@ -29,7 +29,7 @@ The Polkadot ecosystem provides multiple development pathways:
 ```mermaid
 graph TD
     A[Development Pathways]
-    A --> B[Parachain Development]
+    A --> B[Rollup Development]
     A --> C[Smart Contract Development]
     A --> D[Application Development]
 ```
@@ -40,26 +40,26 @@ All three pathways can leverage Cross-Consensus Messaging (XCM) to create innova
 - [**XCM Tools**](/develop/toolkit/interoperability/xcm-tools/){target=\_blank} - provides an overview of popular XCM tools
 - [**Tutorials for Managing XCM Channels**](/tutorials/interoperability/xcm-channels/){target=\_blank} - guides for using [Polkadot.js Apps](https://polkadot.js.org/apps/#/explorer){target=\_blank} UI to establish cross-chain messaging channels 
 
-### Parachain Developers
+### Rollup Developers
 
-Build, deploy, and maintain custom parachains with the Polkadot SDK.
+Build, deploy, and maintain custom rollups with the Polkadot SDK.
 
 <div class="grid cards links" markdown>
 
 - <h3>:octicons-book-16:{ .lg .middle } Learn</h3>
     <hr>
-    - [Parachains Overview](/polkadot-protocol/architecture/parachains/overview/){target=\_blank}
-    - [Introduction to the Polkadot SDK](/develop/parachains/intro-polkadot-sdk/){target=\_blank}
-    - [Customize Your Parachain](/develop/parachains/customize-parachain/){target=\_blank}
+    - [Rollups Overview](/polkadot-protocol/architecture/rollups/overview/){target=\_blank}
+    - [Introduction to the Polkadot SDK](/develop/rollups/intro-polkadot-sdk/){target=\_blank}
+    - [Customize Your Rollup](/develop/rollups/customize-rollup/){target=\_blank}
 
 - <h3>:octicons-rocket-16:{ .lg .middle } Build</h3>
     <hr>
-    - [Parachain Developer Zero to Hero Guides](/tutorials/polkadot-sdk/parachains/zero-to-hero/){target=\_blank}
-    - [Install Polkadot SDK Dependencies](/develop/parachains/install-polkadot-sdk/){target=\_blank}
+    - [Rollup Developer Zero to Hero Guides](/tutorials/polkadot-sdk/rollups/zero-to-hero/){target=\_blank}
+    - [Install Polkadot SDK Dependencies](/develop/rollups/install-polkadot-sdk/){target=\_blank}
 
 - <h3>:octicons-tools-16:{.lg .middle} Tools</h3>
     <hr>
-    - [Parachain Template](https://github.com/paritytech/polkadot-sdk/tree/master/templates/parachain){target=\_blank}
+    - [Rollup Template](https://github.com/paritytech/polkadot-sdk/tree/master/templates/parachain){target=\_blank}
     - [OpenZeppelin Polkadot Runtime Templates](https://github.com/OpenZeppelin/polkadot-runtime-templates/tree/main){target=\_blank}
 
 - <h3>:octicons-code-square-16:{.lg .middle} Resources</h3>
@@ -81,7 +81,7 @@ The Polkadot smart contract ecosystem is in active development. Please expect fr
 - <h3>:octicons-book-16:{ .lg .middle } Learn</h3>
     <hr>
     - [Overview - Smart Contracts on Polkadot](/develop/smart-contracts/overview/){target=\_blank}
-    - [EVM-Compatible Parachains](/develop/smart-contracts/evm/parachain-contracts/#evm-compatible-parachains){target=\_blank}
+    - [EVM-Compatible Rollups](/develop/smart-contracts/evm/rollup-contracts/#evm-compatible-rollups){target=\_blank}
 
 - <h3>:octicons-rocket-16:{.lg .middle} Build</h3>
     <hr>

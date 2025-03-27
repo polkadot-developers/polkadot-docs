@@ -7,7 +7,7 @@ description: Deploy Solidity smart contracts directly on Asset Hub with PolkaVM,
 
 ## Introduction
 
-The Asset Hub parachain is the cornerstone of asset management within the Polkadot ecosystem, providing seamless, secure access to digital assets. Native EVM contracts allow developers to deploy Solidity-based smart contracts directly on Asset Hub, enhancing developer efficiency and simplifying application design. This approach eliminates the complexity of asynchronous cross-chain communication and avoids the overhead of additional governance systems or tokens.
+The Asset Hub rollup is the cornerstone of asset management within the Polkadot ecosystem, providing seamless, secure access to digital assets. Native EVM contracts allow developers to deploy Solidity-based smart contracts directly on Asset Hub, enhancing developer efficiency and simplifying application design. This approach eliminates the complexity of asynchronous cross-chain communication and avoids the overhead of additional governance systems or tokens.
 
 This guide will help you understand the role of native EVM contracts and how they integrate with the Polkadot ecosystem. You will explore the components powering this functionality, including PolkaVM and Revive, and learn how to deploy and interact with smart contracts on Asset Hub using tools like MetaMask, Revive Remix, and Ethers.js.
 

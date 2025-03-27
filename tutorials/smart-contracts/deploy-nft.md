@@ -66,7 +66,7 @@ To create the NFT contract, you can follow the steps below:
 
 ## Compile the Contract
 
-Compilation is a stage that converts your Solidity source code into bytecode suitable for deployment on the blockchain. Throughout this process, the compiler examines your contract for syntax errors, verifies type safety, and produces the machine-readable instructions required for executing on the blockchain.
+Compilation is a stage that converts your Solidity source code into bytecode suitable for deployment on the blockchain. Throughout this process, the compiler examines your contract for syntax errors, verifies type safety, and produces machine-readable instructions for execution on the blockchain.
 
 1. Select the **Solidity Compiler** plugin from the left panel
 

@@ -21,7 +21,7 @@ As XCM is central to enabling communication between blockchains, developers need
 - **XCM initializer** - initializes XCM, sets default XCM versions, and configures revert codes for XCM-related precompiles
 - **HRMP manipulator** - manages HRMP channel actions, including opening, accepting, or closing channels
 - **XCM-Transactor-Info-Setter** - configures transactor information, including extra weight and fee settings
-- **Decode XCM** - decodes XCM messages on the relay chain or parachains to help interpret cross-chain communication
+- **Decode XCM** - decodes XCM messages on the relay chain or rollups to help interpret cross-chain communication
 
 To get started, clone the repository and install the required dependencies:
 
@@ -43,15 +43,15 @@ For a full overview of each script, visit the [scripts](https://github.com/Moons
 - [**XCM analyser**](https://paraspell.xyz/#xcm-analyser){target=\_blank} - decodes and translates complex XCM multilocation data into readable information, supporting easier troubleshooting and debugging
 - [**XCM visualizator**](https://paraspell.xyz/#xcm-visualizator){target=\_blank} - a tool designed to give developers a clear, interactive view of XCM activity across the Polkadot ecosystem, providing insights into cross-chain communication flow
 
-ParaSpell's tools make it simple for developers to build, test, and deploy cross-chain solutions without needing extensive knowledge of the XCM protocol. With features like message composition, decoding, and practical utility functions for parachain interactions, ParaSpell is especially useful for debugging and optimizing cross-chain communications.
+ParaSpell's tools make it simple for developers to build, test, and deploy cross-chain solutions without needing extensive knowledge of the XCM protocol. With features like message composition, decoding, and practical utility functions for rollup interactions, ParaSpell is especially useful for debugging and optimizing cross-chain communications.
 
 ### Astar XCM Tools
 
-The [Astar parachain](https://github.com/AstarNetwork/Astar/tree/master){target=\_blank} offers a crate with a set of utilities for interacting with the XCM protocol. The [xcm-tools](https://github.com/AstarNetwork/Astar/tree/master/bin/xcm-tools){target=\_blank} crate provides a straightforward method for users to locate a sovereign account or calculate an XC20 asset ID. Some commands included by the xcm-tools crate allow users to perform the following tasks:
+The [Astar rollup](https://github.com/AstarNetwork/Astar/tree/master){target=\_blank} offers a crate with a set of utilities for interacting with the XCM protocol. The [xcm-tools](https://github.com/AstarNetwork/Astar/tree/master/bin/xcm-tools){target=\_blank} crate provides a straightforward method for users to locate a sovereign account or calculate an XC20 asset ID. Some commands included by the xcm-tools crate allow users to perform the following tasks:
 
-- **Sovereign accounts** - obtain the sovereign account address for any parachain, either on the Relay Chain or for sibling parachains, using a simple command
+- **Sovereign accounts** - obtain the sovereign account address for any rollup, either on the Relay Chain or for sibling rollups, using a simple command
 - **XC20 EVM addresses** - generate XC20-compatible EVM addresses for assets by entering the asset ID, making it easy to integrate assets across EVM-compatible environments
-- **Remote accounts** - retrieve remote account addresses needed for multi-location compatibility, using flexible options to specify account types and parachain IDs
+- **Remote accounts** - retrieve remote account addresses needed for multi-location compatibility, using flexible options to specify account types and rollup IDs
 
 To start using these tools, clone the [Astar repository](https://github.com/AstarNetwork/Astar){target=\_blank} and compile the xcm-tools package:
 
@@ -70,4 +70,4 @@ For more details on using Astar xcm-tools, consult the [official documentation](
 
 ### Chopsticks
 
-The Chopsticks library provides XCM functionality for testing XCM messages across networks, enabling you to fork multiple parachains along with a relay chain. For further details, see the [Chopsticks documentation](/tutorials/polkadot-sdk/testing/fork-live-chains/){target=\_blank} about XCM.
+The Chopsticks library provides XCM functionality for testing XCM messages across networks, enabling you to fork multiple rollups along with a relay chain. For further details, see the [Chopsticks documentation](/tutorials/polkadot-sdk/testing/fork-live-chains/){target=\_blank} about XCM.

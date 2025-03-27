@@ -65,7 +65,7 @@ const tx = dotApi.tx.XcmPallet.limited_reserve_transfer_assets({
   dest: XcmVersionedLocation.V3({
     parents: 0,
     interior: XcmV3Junctions.X1(
-      XcmV3Junction.Parachain(2006), // Destination is the Astar parachain
+      XcmV3Junction.Parachain(2006), // Destination is the Astar rollup
     ),
   }),
   beneficiary: XcmVersionedLocation.V3({

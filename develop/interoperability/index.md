@@ -21,7 +21,7 @@ This section covers everything you need to know about building and implementing 
   <div class="card"> 
     <a href="https://paritytech.github.io/polkadot-sdk/master/xcm_docs/index.html" target="_blank"> 
       <h2 class="title">Review the Polkadot SDK's XCM Documentation</h2>
-      <p class="description">Dive into the official documentation to learn about the key components for supporting XCM in your parachain and enabling seamless cross-chain communication.</p>
+      <p class="description">Dive into the official documentation to learn about the key components for supporting XCM in your rollup and enabling seamless cross-chain communication.</p>
     </a>
   </div>
   <div class="card">

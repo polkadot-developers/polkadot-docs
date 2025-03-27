@@ -11,7 +11,7 @@ Polkadot's [OpenGov](/polkadot-protocol/onchain-governance/overview){target=\_bl
 
 Testing governance proposals before submission is crucial for the ecosystem. This process enhances efficiency by reducing the need for repeated submissions, improves security by identifying potential risks, and allows proposal optimization based on simulated outcomes. It also serves as an educational tool, providing stakeholders with a safe environment to understand the impacts of different voting scenarios. 
 
-By leveraging simulation tools like [Chopsticks](/develop/toolkit/parachains/fork-chains/chopsticks){target=\_blank}, developers can:
+By leveraging simulation tools like [Chopsticks](/develop/toolkit/rollups/fork-chains/chopsticks){target=\_blank}, developers can:
 
 - Simulate the entire lifecycle of a proposal
 - Test the voting outcomes by varying the support and approval levels
@@ -24,7 +24,7 @@ This tutorial will guide you through using Chopsticks to test OpenGov proposals 
 
 Before proceeding, ensure the following prerequisites are met:
 
-- **Chopsticks installation** - if you have not installed Chopsticks yet, refer to the [Install Chopsticks](/develop/toolkit/parachains/fork-chains/chopsticks/get-started/#install-chopsticks){target=\_blank} guide for detailed instructions
+- **Chopsticks installation** - if you have not installed Chopsticks yet, refer to the [Install Chopsticks](/develop/toolkit/rollups/fork-chains/chopsticks/get-started/#install-chopsticks){target=\_blank} guide for detailed instructions
 - **Familiarity with key concepts** - you should have a basic understanding of the following:
     - [Polkadot.js](/develop/toolkit/api-libraries/polkadot-js-api){target=\_blank} 
     - [OpenGov](/polkadot-protocol/onchain-governance/overview){target=\_blank}

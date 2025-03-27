@@ -13,7 +13,7 @@ Polkadot's Proof of Stake consensus model leverages a unique hybrid approach by 
 
 Polkadot uses Nominated Proof of Stake (NPoS) to select the validator set and secure the network. This model is designed to maximize decentralization and security by balancing the roles of [validators](https://wiki.polkadot.network/docs/learn-validator){target=\_blank} and [nominators](https://wiki.polkadot.network/docs/learn-nominator){target=\_blank}.
 
-- **Validators** - play a key role in maintaining the network's integrity. They produce new blocks, validate parachain blocks, and ensure the finality of transactions across the relay chain
+- **Validators** - play a key role in maintaining the network's integrity. They produce new blocks, validate rollup blocks, and ensure the finality of transactions across the relay chain
 - **Nominators** - support the network by selecting validators to back with their stake. This mechanism allows users who don't want to run a validator node to still participate in securing the network and earn rewards based on the validators they support
 
 In Polkadot's NPoS system, nominators can delegate their tokens to trusted validators, giving them voting power in selecting validators while spreading security responsibilities across the network.

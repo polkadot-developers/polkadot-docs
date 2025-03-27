@@ -325,7 +325,7 @@ Signing and submitting the transaction will initiate the withdrawal of liquidity
 
 ## Test Environment Setup
 
-To test the Asset Conversion pallet, you can set up a local test environment to simulate different scenarios. This guide uses Chopsticks to spin up an instance of Polkadot Asset Hub. For further details on using Chopsticks, please refer to the [Chopsticks documentation](/develop/toolkit/parachains/fork-chains/chopsticks/get-started){target=\_blank}.
+To test the Asset Conversion pallet, you can set up a local test environment to simulate different scenarios. This guide uses Chopsticks to spin up an instance of Polkadot Asset Hub. For further details on using Chopsticks, please refer to the [Chopsticks documentation](/develop/toolkit/rollups/fork-chains/chopsticks/get-started){target=\_blank}.
 
 To set up a local test environment, execute the following command:
 

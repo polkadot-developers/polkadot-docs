@@ -9,8 +9,8 @@ description: Asset Transfer API is a library that simplifies the transfer of ass
 
 [Asset Transfer API](https://github.com/paritytech/asset-transfer-api){target=\_blank}, a tool developed and maintained by [Parity](https://www.parity.io/){target=\_blank}, is a specialized library designed to streamline asset transfers for Polkadot SDK-based blockchains. This API provides a simplified set of methods for users to:
 
-- Execute asset transfers to other parachains or locally within the same chain
-- Facilitate transactions involving system parachains like Asset Hub (Polkadot and Kusama)
+- Execute asset transfers to other rollups or locally within the same chain
+- Facilitate transactions involving system rollups like Asset Hub (Polkadot and Kusama)
 
 Using this API, developers can manage asset transfers more efficiently, reducing the complexity of cross-chain transactions and enabling smoother operations within the ecosystem.
 
@@ -75,9 +75,9 @@ For detailed information on the Asset Transfer API, including available methods,
 
 ## Examples
 
-### Relay to System Parachain Transfer
+### Relay to System Rollup Transfer
 
-This example demonstrates how to initiate a cross-chain token transfer from a relay chain to a system parachain. Specifically, 1 WND will be transferred from a Westend (relay chain) account to a Westmint (system parachain) account.
+This example demonstrates how to initiate a cross-chain token transfer from a relay chain to a system rollup. Specifically, 1 WND will be transferred from a Westend (relay chain) account to a Westmint (system rollup) account.
 
 ```ts
 --8<-- 'code/develop/toolkit/interoperability/asset-transfer-api/overview/relayToSystem.ts'
@@ -87,9 +87,9 @@ After running the script, you'll see the following output in the terminal, which
 
 --8<-- 'code/develop/toolkit/interoperability/asset-transfer-api/overview/relayToSystem.md'
 
-### Local Parachain Transfer
+### Local Rollup Transfer
 
-The following example demonstrates a local GLMR transfer within Moonbeam, using the `balances` pallet. It transfers 1 GLMR token from one account to another account, where both the sender and recipient accounts are located on the same parachain.
+The following example demonstrates a local GLMR transfer within Moonbeam, using the `balances` pallet. It transfers 1 GLMR token from one account to another account, where both the sender and recipient accounts are located on the same rollup.
 
 ```ts
 --8<-- 'code/develop/toolkit/interoperability/asset-transfer-api/overview/localParachainTx.ts'
@@ -99,9 +99,9 @@ Upon executing this script, the terminal will display the following output, illu
 
 --8<-- 'code/develop/toolkit/interoperability/asset-transfer-api/overview/localParachainTx.md'
 
-### Parachain to Parachain Transfer
+### Rollup to Rollup Transfer
 
-This example demonstrates creating a cross-chain asset transfer between two parachains. It shows how to send vMOVR and vBNC from a Moonriver account to a Bifrost Kusama account using the safe XCM version. It connects to Moonriver, initializes the API, and uses the `createTransferTransaction` method to prepare a transaction.
+This example demonstrates creating a cross-chain asset transfer between two rollups. It shows how to send vMOVR and vBNC from a Moonriver account to a Bifrost Kusama account using the safe XCM version. It connects to Moonriver, initializes the API, and uses the `createTransferTransaction` method to prepare a transaction.
 
 ```ts
 --8<-- 'code/develop/toolkit/interoperability/asset-transfer-api/overview/paraToPara.ts'

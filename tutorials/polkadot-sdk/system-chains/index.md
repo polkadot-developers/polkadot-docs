@@ -1,6 +1,6 @@
 ---
 title: System Chains Tutorials
-description: Explore step-by-step tutorials on how to integrate with system parachains, such as the Asset Hub chain, within the Polkadot ecosystem.
+description: Explore step-by-step tutorials on how to integrate with system rollups, such as the Asset Hub chain, within the Polkadot ecosystem.
 template: index-page.html
 ---
 
@@ -10,11 +10,11 @@ In this section, you'll gain hands-on experience building solutions that integra
 
 Through these tutorials, you'll learn how to leverage these system chains to enhance the functionality and security of your blockchain applications.
 
-## For Parachain Integrators
+## For Rollup Integrators
 
-Enhance cross-chain interoperability and expand your parachain’s functionality:
+Enhance cross-chain interoperability and expand your rollup’s functionality:
 
-- **[Register your parachain's asset on Asset Hub](/tutorials/polkadot-sdk/system-chains/asset-hub/register-foreign-asset/)** - connect your parachain’s assets to Asset Hub as a foreign asset using XCM, enabling seamless cross-chain transfers and integration
+- **[Register your rollup's asset on Asset Hub](/tutorials/polkadot-sdk/system-chains/asset-hub/register-foreign-asset/)** - connect your rollup’s assets to Asset Hub as a foreign asset using XCM, enabling seamless cross-chain transfers and integration
 
 ## For Developers Leveraging System Chains
 

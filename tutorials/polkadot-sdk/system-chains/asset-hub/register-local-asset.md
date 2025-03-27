@@ -1,15 +1,15 @@
 ---
 title: Register a Local Asset
-description: Comprehensive guide to registering a local asset on the Asset Hub system parachain, including step-by-step instructions.
+description: Comprehensive guide to registering a local asset on the Asset Hub system rollup, including step-by-step instructions.
 ---
 
 # Register a Local Asset on Asset Hub
 
 ## Introduction
 
-As detailed in the [Asset Hub Overview](/polkadot-protocol/architecture/system-chains/asset-hub){target=\_blank} page, Asset Hub accommodates two types of assets: local and foreign. Local assets are those that were created in Asset Hub and are identifiable by an integer ID. On the other hand, foreign assets originate from a sibling parachain and are identified by a Multilocation.
+As detailed in the [Asset Hub Overview](/polkadot-protocol/architecture/system-chains/asset-hub){target=\_blank} page, Asset Hub accommodates two types of assets: local and foreign. Local assets are those that were created in Asset Hub and are identifiable by an integer ID. On the other hand, foreign assets originate from a sibling rollup and are identified by a Multilocation.
 
-This guide will take you through the steps of registering a local asset on the Asset Hub parachain.
+This guide will take you through the steps of registering a local asset on the Asset Hub rollup.
 
 ## Prerequisites
 
@@ -22,12 +22,12 @@ You need to ensure that your Asset Hub account balance is a bit more than the su
 
 ## Steps to Register a Local Asset
 
-To register a local asset on the Asset Hub parachain, follow these steps:
+To register a local asset on the Asset Hub rollup, follow these steps:
 
-1. Open the [Polkadot.js Apps](https://polkadot.js.org/apps/){target=\_blank} interface and connect to the Asset Hub parachain using the network selector in the top left corner 
+1. Open the [Polkadot.js Apps](https://polkadot.js.org/apps/){target=\_blank} interface and connect to the Asset Hub rollup using the network selector in the top left corner 
 
       - You may prefer to test local asset registration on TestNet before registering the asset on a MainNet hub. If you still need to set up a local testing environment, review the [Environment setup](#test-setup-environment) section for instructions. Once the local environment is set up, connect to the Local Node (Chopsticks) available on `ws://127.0.0.1:8000`
-      - For the live network, connect to the **Asset Hub** parachain. Either Polkadot or Kusama Asset Hub can be selected from the dropdown list, choosing the desired RPC provider
+      - For the live network, connect to the **Asset Hub** rollup. Either Polkadot or Kusama Asset Hub can be selected from the dropdown list, choosing the desired RPC provider
 
 2. Click on the **Network** tab on the top navigation bar and select **Assets** from the dropdown list
 
@@ -75,13 +75,13 @@ After completing these steps, the asset will be successfully registered. You can
 !!! tip
     Take into consideration that the **Assets** section’s link may differ depending on the network you are using. For the local environment, enter `ws://127.0.0.1:8000` into the **Custom Endpoint** field.
 
-In this way, you have successfully registered a local asset on the Asset Hub parachain.
+In this way, you have successfully registered a local asset on the Asset Hub rollup.
 
 For an in-depth explanation about Asset Hub and its features, see the [Asset Hub](https://wiki.polkadot.network/docs/learn-asset-conversion-assethub){target=\_blank} entry in the Polkadot Wiki.
 
 ## Test Setup Environment
 
-You can set up a local parachain environment to test the asset registration process before deploying it on the live network. This guide uses Chopsticks to simulate that process. For further information on chopsticks usage, refer to the [Chopsticks](/develop/toolkit/parachains/fork-chains/chopsticks/get-started){target=\_blank} documentation.
+You can set up a local rollup environment to test the asset registration process before deploying it on the live network. This guide uses Chopsticks to simulate that process. For further information on chopsticks usage, refer to the [Chopsticks](/develop/toolkit/rollups/fork-chains/chopsticks/get-started){target=\_blank} documentation.
 
 To set up a test environment, execute the following command:
 

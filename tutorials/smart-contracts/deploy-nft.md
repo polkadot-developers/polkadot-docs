@@ -49,7 +49,7 @@ To create the NFT contract, you can follow the steps below:
 
     - Key functions
 
-        - [**`_safeMint(to, tokenId)`**]({{ dependencies.open_zeppelin_contracts.repository_url }}/blob/{{ dependencies.open_zeppelin_contracts.version }}/contracts/token/ERC721/ERC721.sol#L304){target=\_blank} - an internal function from `ERC721` that safely mints new tokens. It includes checks to ensure the recipient can handle `ERC721` tokens, with the `_nextTokenId` mechanism automatically generating unique sequential token IDs, and the `onlyOwner` modifier restricting minting rights to the contract owner
+        - [**`_safeMint(to, tokenId)`**]({{ dependencies.open_zeppelin_contracts.repository_url }}/blob/{{ dependencies.open_zeppelin_contracts.version }}/contracts/token/ERC721/ERC721.sol#L304){target=\_blank} - an internal function from `ERC721` that safely mints new tokens. It includes checks to ensure the recipient can handle `ERC721` tokens, with the `_nextTokenId` mechanism automatically generating unique sequential token IDs and the `onlyOwner` modifier restricting minting rights to the contract owner
         - Inherited [Standard ERC721](https://ethereum.org/en/developers/docs/standards/tokens/erc-721/){target=\_blank} functions provide a standardized set of methods that enable interoperability across different platforms, wallets, and marketplaces, ensuring that your NFT can be easily transferred, traded, and managed by any system that supports the `ERC721` standard:
             - **`transferFrom(address from, address to, uint256 tokenId)`** - transfers a specific NFT from one address to another
             - **`safeTransferFrom(address from, address to, uint256 tokenId)`** - safely transfers an NFT, including additional checks to prevent loss

@@ -6,7 +6,7 @@ description: Learn how to create, compile, test, and deploy smart contracts on A
 # Hardhat
 
 <div class="grid cards" markdown>
--   :octicons-download-16:{ .lg .middle } __Test and Deploy with Hardhat__
+-   :octicons-code-16:{ .lg .middle } __Test and Deploy with Hardhat__
 
     ---
 

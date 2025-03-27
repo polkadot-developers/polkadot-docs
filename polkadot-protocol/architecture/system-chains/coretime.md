@@ -1,11 +1,11 @@
 ---
 title: Coretime Chain
-description: Learn about the role of the Coretime system parachain, which facilitates the sale, purchase, assignment, and mechanisms of bulk coretime.
+description: Learn about the role of the Coretime system rollup, which facilitates the sale, purchase, assignment, and mechanisms of bulk coretime.
 ---
 
 ## Introduction
 
-The Coretime system chain facilitates the allocation, procurement, sale, and scheduling of bulk [coretime](/polkadot-protocol/glossary/#coretime){target=\_blank}, enabling tasks (such as [parachains](/polkadot-protocol/glossary/#parachain){target=\_blank}) to utilize the computation and security provided by Polkadot. 
+The Coretime system chain facilitates the allocation, procurement, sale, and scheduling of bulk [coretime](/polkadot-protocol/glossary/#coretime){target=\_blank}, enabling tasks (such as [rollups](/polkadot-protocol/glossary/#rollup){target=\_blank}) to utilize the computation and security provided by Polkadot. 
 
 The [Broker pallet](https://paritytech.github.io/polkadot-sdk/master/pallet_broker/index.html){target=\_blank}, along with [Cross Consensus Messaging (XCM)](/develop/interoperability/intro-to-xcm/){target=\_blank}, enables this functionality to be delegated to the system chain rather than the relay chain. Using [XCMP's Upward Message Passing (UMP)](https://wiki.polkadot.network/docs/learn-xcm-transport#ump-upward-message-passing){target=\_blank} to the relay chain allows for core assignments to take place for a task registered on the relay chain.
 
@@ -32,7 +32,7 @@ A core can be considered a logical representation of an active validator set on 
 
 Regions can be managed in the following manner on the Coretime chain:
 
-- **Assigning region** - regions can be assigned to a task on the relay chain, such as a parachain/rollup using the [`assign`](https://paritytech.github.io/polkadot-sdk/master/pallet_broker/pallet/dispatchables/fn.assign.html){target=\_blank} dispatchable
+- **Assigning region** - regions can be assigned to a task on the relay chain, such as a rollup using the [`assign`](https://paritytech.github.io/polkadot-sdk/master/pallet_broker/pallet/dispatchables/fn.assign.html){target=\_blank} dispatchable
 
 - **Transferring regions** - regions may be transferred on the Coretime chain, upon which the [`transfer`](https://paritytech.github.io/polkadot-sdk/master/pallet_broker/pallet/dispatchables/fn.transfer.html){target=\_blank} [dispatchable](/polkadot-protocol/glossary/#dispatchable){target=\_blank} in the Broker pallet would assign a new owner to that specific region
 
@@ -46,7 +46,7 @@ For more information regarding these mechanisms, see the coretime page on the Po
 
 ## On Demand Coretime
 
-At this writing, on-demand coretime is currently deployed on the relay chain and will eventually be deployed to the Coretime chain. On-demand coretime allows parachains (previously known as parathreads) to utilize available cores per block.
+At this writing, on-demand coretime is currently deployed on the relay chain and will eventually be deployed to the Coretime chain. On-demand coretime allows rollups (previously known as parathreads) to utilize available cores per block.
 
 The Coretime chain also handles coretime sales, details of which can be found on the Polkadot Wiki: [Agile Coretime: Coretime Sales](https://wiki.polkadot.network/docs/learn-agile-coretime#coretime-sales){target=\_blank}.
 

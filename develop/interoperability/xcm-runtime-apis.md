@@ -169,7 +169,7 @@ This API allows the direct dry-run of an xcm message instead of an extrinsic one
 
 ??? interface "Example"
 
-    This example demonstrates how to simulate a [teleport asset transfer](https://wiki.polkadot.network/docs/learn/xcm/journey/transfers-teleport){target=\_blank} from the Paseo network to the Paseo Asset Hub parachain. The code shows how to test and verify the received XCM message's behavior in the destination chain through a dry run on the live network.
+    This example demonstrates how to simulate a [teleport asset transfer](https://wiki.polkadot.network/docs/learn/xcm/journey/transfers-teleport){target=\_blank} from the Paseo network to the Paseo Asset Hub rollup. The code shows how to test and verify the received XCM message's behavior in the destination chain through a dry run on the live network.
 
     Replace `INSERT_USER_ADDRESS` with your SS58 address before running the script.
 
@@ -300,7 +300,7 @@ Calculates the weight required to execute a given XCM message. It is useful for 
 
 ??? interface "Example"
 
-    This example demonstrates how to calculate the weight needed to execute a [teleport transfer](https://wiki.polkadot.network/docs/learn/xcm/journey/transfers-teleport){target=\_blank} from the Paseo network to the Paseo Asset Hub parachain using the XCM Payment API. The result shows the required weight in terms of reference time and proof size needed in the destination chain.
+    This example demonstrates how to calculate the weight needed to execute a [teleport transfer](https://wiki.polkadot.network/docs/learn/xcm/journey/transfers-teleport){target=\_blank} from the Paseo network to the Paseo Asset Hub rollup using the XCM Payment API. The result shows the required weight in terms of reference time and proof size needed in the destination chain.
 
     Replace `INSERT_USER_ADDRESS` with your SS58 address before running the script.
 

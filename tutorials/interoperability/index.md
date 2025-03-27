@@ -6,20 +6,20 @@ template: index-page.html
 
 # Cross-Chain Interoperability Tutorials
 
-This section introduces you to the core interoperability solutions within the Polkadot ecosystem through practical, hands-on tutorials. These resources are designed to help you master cross-chain communication techniques, from setting up messaging channels between parachains to leveraging Polkadot's advanced features of the [XCM protocol](/develop/interoperability/intro-to-xcm/){target=\_blank}.
+This section introduces you to the core interoperability solutions within the Polkadot ecosystem through practical, hands-on tutorials. These resources are designed to help you master cross-chain communication techniques, from setting up messaging channels between rollups to leveraging Polkadot's advanced features of the [XCM protocol](/develop/interoperability/intro-to-xcm/){target=\_blank}.
 
 By following these guides, you’ll gain the skills needed to implement seamless integration and interaction across diverse blockchains, unlocking the full potential of Polkadot's interconnected network.
 
 ## XCM (Cross-Consensus Messaging)
 
-XCM provides a secure and trustless framework that facilitates communication between parachains, relay chains, and external blockchains, enabling asset transfers, data sharing, and complex cross-chain workflows.
+XCM provides a secure and trustless framework that facilitates communication between rollups, relay chains, and external blockchains, enabling asset transfers, data sharing, and complex cross-chain workflows.
 
-### For Parachain Integrators
+### For Rollup Integrators
 
 Learn to establish and use cross-chain communication channels:
 
-- **[Opening HRMP Channels Between Parachains](/tutorials/interoperability/xcm-channels/para-to-para/)** - set up uni- and bidirectional messaging channels between parachains
-- **[Opening HRMP Channels with System Parachains](/tutorials/interoperability/xcm-channels/para-to-system/)** - establish communication channels with system parachains using optimized XCM messages
+- **[Opening HRMP Channels Between Rollups](/tutorials/interoperability/xcm-channels/para-to-para/)** - set up uni- and bidirectional messaging channels between rollups
+- **[Opening HRMP Channels with System Rollups](/tutorials/interoperability/xcm-channels/para-to-system/)** - establish communication channels with system rollups using optimized XCM messages
 
 ## In This Section
 

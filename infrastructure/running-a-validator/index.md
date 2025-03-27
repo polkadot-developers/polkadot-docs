@@ -6,7 +6,7 @@ template: index-page.html
 
 # Running a Validator
 
-Running a Polkadot validator is crucial for securing the network and maintaining its integrity. Validators play a key role in verifying parachain blocks, participating in consensus, and ensuring the reliability of the Polkadot relay chain.
+Running a Polkadot validator is crucial for securing the network and maintaining its integrity. Validators play a key role in verifying rollup blocks, participating in consensus, and ensuring the reliability of the Polkadot relay chain.
 
 Learn the requirements for setting up a Polkadot validator node, along with detailed steps on how to install, run, upgrade, and maintain the node.
 

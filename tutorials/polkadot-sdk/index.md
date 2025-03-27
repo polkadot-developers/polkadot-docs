@@ -6,17 +6,17 @@ template: index-page.html
 
 # Polkadot SDK Tutorials
 
-The Polkadot SDK is a versatile framework for building custom blockchains, whether as standalone networks or as part of the Polkadot ecosystem. With its modular design and extensible tools, libraries, and runtime components, the SDK simplifies the process of creating parachains, system chains, and solochains.
+The Polkadot SDK is a versatile framework for building custom blockchains, whether as standalone networks or as part of the Polkadot ecosystem. With its modular design and extensible tools, libraries, and runtime components, the SDK simplifies the process of creating rollups, system chains, and solochains.
 
-Ready to create a parachain from the ground up? Start with the tutorials highlighted in the following section.
+Ready to create a rollup from the ground up? Start with the tutorials highlighted in the following section.
 
-## Build and Deploy a Parachain
+## Build and Deploy a Rollup
 
-Follow these key milestones to guide you through parachain development. Each step links to detailed tutorials for a deeper dive into each stage:
+Follow these key milestones to guide you through rollup development. Each step links to detailed tutorials for a deeper dive into each stage:
 
-- [**Install the Polkadot SDK**](/develop/parachains/install-polkadot-sdk/) - set up the necessary tools to begin building on Polkadot. This step will get your environment ready for parachain development
+- [**Install the Polkadot SDK**](/develop/rollups/install-polkadot-sdk/) - set up the necessary tools to begin building on Polkadot. This step will get your environment ready for rollup development
 
-- [**Parachains Zero to Hero**](/tutorials/polkadot-sdk/parachains/zero-to-hero/) - a series of step-by-step guides to building, testing, and deploying custom pallets and runtimes using the Polkadot SDK
+- [**Rollups Zero to Hero**](/tutorials/polkadot-sdk/rollups/zero-to-hero/) - a series of step-by-step guides to building, testing, and deploying custom pallets and runtimes using the Polkadot SDK
 
 ## In This Section
 

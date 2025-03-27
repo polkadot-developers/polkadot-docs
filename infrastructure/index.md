@@ -25,7 +25,7 @@ Selecting your role within the Polkadot ecosystem depends on your goals, resourc
         - **Production use** - provides consistent and reliable data access for dApps and other applications, ensuring minimal downtime
 
 - **Running a validator**:
-    - **Purpose** - validators play a critical role in securing the Polkadot relay chain. They validate parachain block submissions, participate in consensus, and help maintain the network's overall integrity
+    - **Purpose** - validators play a critical role in securing the Polkadot relay chain. They validate rollup block submissions, participate in consensus, and help maintain the network's overall integrity
     - **Requirements** - becoming a validator requires:
         - **Staking** - a variable amount of DOT tokens to secure the network and demonstrate commitment
         - **Hardware** - high-performing hardware resources capable of supporting intensive blockchain operations
@@ -33,7 +33,7 @@ Selecting your role within the Polkadot ecosystem depends on your goals, resourc
         - **Community involvement** - building trust and rapport within the community to attract nominators willing to stake with your validator
     - **Responsibilities** - validators have critical responsibilities to ensure network health:
         - **Uptime** - maintain near-constant availability to avoid slashing penalties for downtime or unresponsiveness
-        - **Network security** - participate in consensus and verify parachain transactions to uphold the network's security and integrity
+        - **Network security** - participate in consensus and verify rollup transactions to uphold the network's security and integrity
         - **Availability** - monitor the network for events and respond to issues promptly, such as misbehavior reports or protocol updates
 
 ## In This Section

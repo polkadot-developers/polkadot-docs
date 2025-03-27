@@ -22,7 +22,7 @@ Wallet types fall into two categories based on their connection to the internet:
 
     ---
 
-    A non-custodial, mobile-first wallet for managing assets and interacting with the Polkadot and Kusama ecosystems. It supports staking, governance, cross-chain transfers, and crowdloans. With advanced features, seamless multi-network support, and strong security, Nova Wallet empowers users to explore the full potential of Polkadot parachains on the go.
+    A non-custodial, mobile-first wallet for managing assets and interacting with the Polkadot and Kusama ecosystems. It supports staking, governance, cross-chain transfers, and crowdloans. With advanced features, seamless multi-network support, and strong security, Nova Wallet empowers users to explore the full potential of Polkadot rollups on the go.
 
     [:octicons-arrow-right-24: Reference](https://novawallet.io/){target=\_blank}
 

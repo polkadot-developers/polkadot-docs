@@ -1,6 +1,6 @@
 ---
 title: Smart Contracts
-description: Learn about smart contract development in Polkadot using ink! for Wasm contracts and EVM and PolkaVM support for Solidity contracts on Asset Hub and parachains.
+description: Learn about smart contract development in Polkadot using ink! for Wasm contracts and EVM and PolkaVM support for Solidity contracts on Asset Hub and rollups.
 template: index-page.html
 ---
 
@@ -8,7 +8,7 @@ template: index-page.html
 
 Polkadot allows scalable execution of smart contracts, offering cross-chain compatibility and lower fees than legacy L1 platforms. Polkadot offers developers flexibility in building smart contracts, supporting both Solidity contracts executed either by the [PolkaVM](/polkadot-protocol/smart-contract-basics/polkavm-design#polkavm){target=\_blank} or by the EVM (Ethereum Virtual Machine), and Wasm-based contracts using [ink!](https://use.ink/){target=\_blank} (written in Rust).
 
-This section provides tools, resources, and guides for building and deploying smart contracts on parachains. [Parachains](/polkadot-protocol/architecture/parachains/overview/){target=\_blank} are specialized blockchains connected to the relay chain, benefiting from shared security and interoperability. Depending on your language and environment preference, you can develop contracts using Wasm/ink! or EVM-based solutions.
+This section provides tools, resources, and guides for building and deploying smart contracts on rollups. [Rollups](/polkadot-protocol/architecture/rollups/overview/){target=\_blank} are specialized blockchains connected to the relay chain, benefiting from shared security and interoperability. Depending on your language and environment preference, you can develop contracts using Wasm/ink! or EVM-based solutions.
 
 ## Smart Contract Development Process
 

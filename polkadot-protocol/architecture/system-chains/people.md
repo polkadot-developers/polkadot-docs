@@ -7,7 +7,7 @@ description: Learn how People chain secures decentralized identity management, e
 
 ## Introduction
 
-People chain is a specialized parachain within the Polkadot ecosystem dedicated to secure, decentralized identity management. 
+People chain is a specialized rollup within the Polkadot ecosystem dedicated to secure, decentralized identity management. 
 
 This solution empowers users to create, control, and verify their digital identities without reliance on centralized authorities. By prioritizing user sovereignty and data privacy, People chain establishes a foundation for trusted interactions throughout the Polkadot ecosystem while returning control of personal information to individuals.
 

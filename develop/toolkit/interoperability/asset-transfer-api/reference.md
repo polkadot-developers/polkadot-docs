@@ -50,7 +50,7 @@ After obtaining the transaction, you must handle the signing and submission proc
 
     `destChainId` ++"string"++ <span class="required" markdown>++"required"++</span>
     
-    ID of the destination chain (`'0'` for relay chain, other values for parachains).
+    ID of the destination chain (`'0'` for relay chain, other values for rollups).
 
     ---
 
@@ -98,7 +98,7 @@ After obtaining the transaction, you must handle the signing and submission proc
 
 #### Claim Assets
 
-Creates a local XCM transaction to retrieve trapped assets. This function can be used to claim assets either locally on a system parachain, on the relay chain, or on any chain that supports the `claimAssets` runtime call.
+Creates a local XCM transaction to retrieve trapped assets. This function can be used to claim assets either locally on a system rollup, on the relay chain, or on any chain that supports the `claimAssets` runtime call.
 
 
 ```ts

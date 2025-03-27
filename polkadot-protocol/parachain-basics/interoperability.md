@@ -7,7 +7,7 @@ description: Explore the importance of interoperability in the Polkadot ecosyste
 
 ## Introduction
 
-Interoperability lies at the heart of the Polkadot ecosystem, enabling communication and collaboration across a diverse range of blockchains. By bridging the gaps between parachains, relay chains, and even external networks, Polkadot unlocks the potential for truly decentralized applications, efficient resource sharing, and scalable solutions.
+Interoperability lies at the heart of the Polkadot ecosystem, enabling communication and collaboration across a diverse range of blockchains. By bridging the gaps between rollups, relay chains, and even external networks, Polkadot unlocks the potential for truly decentralized applications, efficient resource sharing, and scalable solutions.
 
 Polkadot’s design ensures that blockchains can transcend their individual limitations by working together as part of a unified system. This cooperative architecture is what sets Polkadot apart in the blockchain landscape.
 
@@ -29,7 +29,7 @@ At the core of Polkadot's cross-chain collaboration are foundational technologie
 
 ### Cross-Consensus Messaging (XCM): The Backbone of Communication
 
-Polkadot's Cross-Consensus Messaging (XCM) is the standard framework for interaction between parachains, relay chains, and, eventually, external blockchains. XCM provides a trustless, secure messaging format for exchanging assets, sharing data, and executing cross-chain operations.
+Polkadot's Cross-Consensus Messaging (XCM) is the standard framework for interaction between rollups, relay chains, and, eventually, external blockchains. XCM provides a trustless, secure messaging format for exchanging assets, sharing data, and executing cross-chain operations.
 
 Through XCM, decentralized applications can:
 

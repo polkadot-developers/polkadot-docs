@@ -1,13 +1,13 @@
 ---
 title: Bridge Hub
-description: Learn about the Bridge Hub system parachain, a parachain that facilitates the interactions from Polkadot to the rest of Web3.
+description: Learn about the Bridge Hub system rollup, a rollup that facilitates the interactions from Polkadot to the rest of Web3.
 ---
 
 # Bridge Hub
 
 ## Introduction
 
-The Bridge Hub system parachain plays a crucial role in facilitating trustless interactions between Polkadot, Kusama, Ethereum, and other blockchain ecosystems. By implementing on-chain light clients and supporting protocols like BEEFY and GRANDPA, Bridge Hub ensures seamless message transmission and state verification across chains. It also provides essential [pallets](/polkadot-protocol/glossary/#pallet){target=\_blank} for sending and receiving messages, making it a cornerstone of Polkadot’s interoperability framework. With built-in support for XCM (Cross-Consensus Messaging), Bridge Hub enables secure, efficient communication between diverse blockchain networks.
+The Bridge Hub system rollup plays a crucial role in facilitating trustless interactions between Polkadot, Kusama, Ethereum, and other blockchain ecosystems. By implementing on-chain light clients and supporting protocols like BEEFY and GRANDPA, Bridge Hub ensures seamless message transmission and state verification across chains. It also provides essential [pallets](/polkadot-protocol/glossary/#pallet){target=\_blank} for sending and receiving messages, making it a cornerstone of Polkadot’s interoperability framework. With built-in support for XCM (Cross-Consensus Messaging), Bridge Hub enables secure, efficient communication between diverse blockchain networks.
 
 This guide covers the architecture, components, and deployment of the Bridge Hub system. You'll explore its trustless bridging mechanisms, key pallets for various blockchains, and specific implementations like Snowbridge and the Polkadot <> Kusama bridge. By the end, you'll understand how Bridge Hub enhances connectivity within the Polkadot ecosystem and beyond.
 
@@ -24,7 +24,7 @@ For example, the Ethereum and Polkadot bridging solution that [Snowbridge](https
 In any given Bridge Hub implementation (Kusama, Polkadot, or other relay chains), there are a few primary pallets that are utilized:
 
 - [**Pallet Bridge GRANDPA**](https://paritytech.github.io/polkadot-sdk/master/pallet_bridge_grandpa/index.html){target=\_blank} - an on-chain GRANDPA light client for Substrate based chains
-- [**Pallet Bridge Parachains**](https://paritytech.github.io/polkadot-sdk/master/pallet_bridge_parachains/index.html){target=\_blank} - a finality module for parachains
+- [**Pallet Bridge Parachains**](https://paritytech.github.io/polkadot-sdk/master/pallet_bridge_parachains/index.html){target=\_blank} - a finality module for rollups
 - [**Pallet Bridge Messages**](https://paritytech.github.io/polkadot-sdk/master/pallet_bridge_messages/index.html){target=\_blank} - a pallet which allows sending, receiving, and tracking of inbound and outbound messages 
 - [**Pallet XCM Bridge**](https://paritytech.github.io/polkadot-sdk/master/pallet_xcm_bridge_hub/index.html){target=\_blank} - a pallet which, with the Bridge Messages pallet, adds XCM support to bridge pallets
 

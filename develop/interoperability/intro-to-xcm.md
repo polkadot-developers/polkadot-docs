@@ -7,7 +7,7 @@ description: Unlock blockchain interoperability with XCM — Polkadot's Cross-Co
 
 ## Introduction
 
-Polkadot’s unique value lies in its ability to enable interoperability between parachains and other blockchain systems. At the core of this capability is XCM (Cross-Consensus Messaging)—a flexible messaging format that facilitates communication and collaboration between independent consensus systems.
+Polkadot’s unique value lies in its ability to enable interoperability between rollups and other blockchain systems. At the core of this capability is XCM (Cross-Consensus Messaging)—a flexible messaging format that facilitates communication and collaboration between independent consensus systems.
 
 With XCM, one chain can send intents to another one, fostering a more interconnected ecosystem. Although it was developed specifically for Polkadot, XCM is a universal format, usable in any blockchain environment. This guide provides an overview of XCM’s core principles, design, and functionality, alongside practical examples of its implementation.
 
@@ -42,7 +42,7 @@ XCM enhances cross-consensus communication by introducing several powerful featu
 - **Functional Multichain Decomposition** - enables mechanisms such as remote asset locking, asset namespacing, and inter-chain state referencing, with contextual message identification 
 - **Bridging** - establishes a universal reference framework for multi-hop setups, connecting disparate systems like Ethereum and Bitcoin with the Polkadot relay chain acting as a universal location
 
-The standardized format for messages allows parachains to handle tasks like user balances, governance, and staking, freeing the Polkadot relay chain to focus on shared security. These features make XCM indispensable for implementing scalable and interoperable blockchain applications. 
+The standardized format for messages allows rollups to handle tasks like user balances, governance, and staking, freeing the Polkadot relay chain to focus on shared security. These features make XCM indispensable for implementing scalable and interoperable blockchain applications. 
 
 ## XCM Example
 
@@ -58,10 +58,10 @@ The message consists of three instructions described as follows:
 ```rust
 --8<-- 'code/develop/interoperability/intro-to-xcm/XCM-first-look.rs:2:2'
 ```
-    - `Here` - the native parachain token
+    - `Here` - the native rollup token
     - `amount` - the number of tokens that are transferred
 
-    The first instruction takes as an input the MultiAsset that should be withdrawn. The MultiAsset describes the native parachain token with the `Here` keyword. The `amount` parameter is the number of tokens that are transferred. The withdrawal account depends on the origin of the message. In this example the origin of the message is Alice. The `WithdrawAsset` instruction moves `amount` number of native tokens from Alice's account into the holding register.
+    The first instruction takes as an input the MultiAsset that should be withdrawn. The MultiAsset describes the native rollup token with the `Here` keyword. The `amount` parameter is the number of tokens that are transferred. The withdrawal account depends on the origin of the message. In this example the origin of the message is Alice. The `WithdrawAsset` instruction moves `amount` number of native tokens from Alice's account into the holding register.
 
 - [**BuyExecution**](https://github.com/polkadot-fellows/xcm-format?tab=readme-ov-file#buyexecution){target=\_blank} - allocates fees to cover the execution [weight](/polkadot-protocol/glossary/#weight){target=\_blank} of the XCM instructions
 ```rust

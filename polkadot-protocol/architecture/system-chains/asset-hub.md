@@ -11,9 +11,9 @@ The Asset Hub is a critical component in the Polkadot ecosystem, enabling the ma
 
 ## Assets Basics
 
-In the Polkadot ecosystem, the relay chain does not natively support additional assets beyond its native token (DOT for Polkadot, KSM for Kusama). The Asset Hub parachain on Polkadot and Kusama provides a fungible and non-fungible assets framework. Asset Hub allows developers and users to create, manage, and use assets across the ecosystem.
+In the Polkadot ecosystem, the relay chain does not natively support additional assets beyond its native token (DOT for Polkadot, KSM for Kusama). The Asset Hub rollup on Polkadot and Kusama provides a fungible and non-fungible assets framework. Asset Hub allows developers and users to create, manage, and use assets across the ecosystem.
 
-Asset creators can use Asset Hub to track their asset issuance across multiple parachains and manage assets through operations such as minting, burning, and transferring. Projects that need a standardized method of handling on-chain assets will find this particularly useful. The fungible asset interface provided by Asset Hub closely resembles Ethereum's ERC-20 standard but is directly integrated into Polkadot's runtime, making it more efficient in terms of speed and transaction fees.
+Asset creators can use Asset Hub to track their asset issuance across multiple rollups and manage assets through operations such as minting, burning, and transferring. Projects that need a standardized method of handling on-chain assets will find this particularly useful. The fungible asset interface provided by Asset Hub closely resembles Ethereum's ERC-20 standard but is directly integrated into Polkadot's runtime, making it more efficient in terms of speed and transaction fees.
 
 Integrating with Asset Hub offers several key benefits, particularly for infrastructure providers and users:
 
@@ -107,7 +107,7 @@ These delegated operations make it easier to manage multi-step transactions and 
 
 ## Foreign Assets
 
-Foreign assets in Asset Hub refer to assets originating from external blockchains or parachains that are registered in the Asset Hub. These assets are typically native tokens from other parachains within the Polkadot ecosystem or bridged tokens from external blockchains such as Ethereum.
+Foreign assets in Asset Hub refer to assets originating from external blockchains or rollups that are registered in the Asset Hub. These assets are typically native tokens from other rollups within the Polkadot ecosystem or bridged tokens from external blockchains such as Ethereum.
 
 Once a foreign asset is registered in the Asset Hub by its originating blockchain's root origin, users are able to send these tokens to the Asset Hub and interact with them as they would any other asset within the Polkadot ecosystem.
 
@@ -115,7 +115,7 @@ Once a foreign asset is registered in the Asset Hub by its originating blockchai
 
 The Foreign Assets pallet, an instance of the Assets pallet, manages these assets. Since foreign assets are integrated into the same interface as native assets, developers can use the same functionalities, such as transferring and querying balances. However, there are important distinctions when dealing with foreign assets.
 
-- **Asset identifier** - unlike native assets, foreign assets are identified using an XCM Multilocation rather than a simple numeric `AssetId`. This multilocation identifier represents the cross-chain location of the asset and provides a standardized way to reference it across different parachains and relay chains
+- **Asset identifier** - unlike native assets, foreign assets are identified using an XCM Multilocation rather than a simple numeric `AssetId`. This multilocation identifier represents the cross-chain location of the asset and provides a standardized way to reference it across different rollups and relay chains
 
 - **Transfers** - once registered in the Asset Hub, foreign assets can be transferred between accounts, just like native assets. Users can also send these assets back to their originating blockchain if supported by the relevant cross-chain messaging mechanisms
 
@@ -150,28 +150,28 @@ These public instances are primarily for ad-hoc testing and quick checks.
 
 ### Asset Transfer API
 
-[Asset Transfer API](https://github.com/paritytech/asset-transfer-api){target=\_blank} is a library focused on simplifying the construction of asset transfers for Polkadot SDK-based chains that involve system parachains like Asset Hub. It exposes a reduced set of methods that facilitate users sending transfers to other parachains or locally. Refer to the [cross-chain support table](https://github.com/paritytech/asset-transfer-api/tree/main#current-cross-chain-support){target=\_blank} for the current status of cross-chain support development.
+[Asset Transfer API](https://github.com/paritytech/asset-transfer-api){target=\_blank} is a library focused on simplifying the construction of asset transfers for Polkadot SDK-based chains that involve system rollups like Asset Hub. It exposes a reduced set of methods that facilitate users sending transfers to other rollups or locally. Refer to the [cross-chain support table](https://github.com/paritytech/asset-transfer-api/tree/main#current-cross-chain-support){target=\_blank} for the current status of cross-chain support development.
 
 Key features include:
 
-- Support for cross-chain transfers between parachains
-- Streamlined transaction construction with support for the necessary parachain metadata
+- Support for cross-chain transfers between rollups
+- Streamlined transaction construction with support for the necessary rollup metadata
 
 The API supports various asset operations, such as paying transaction fees with non-native tokens and managing asset liquidity.
 
-### Parachain Node
+### Rollup Node
 
-To fully leverage the Asset Hub's functionality, developers will need to run a system parachain node. Setting up an Asset Hub node allows users to interact with the parachain in real time, syncing data and participating in the broader Polkadot ecosystem. Guidelines for setting up an [Asset Hub node](https://github.com/paritytech/polkadot-sdk/tree/{{dependencies.repositories.polkadot_sdk.version}}/cumulus#asset-hub-){target=\_blank} are available in the Parity documentation.
+To fully leverage the Asset Hub's functionality, developers will need to run a system rollup node. Setting up an Asset Hub node allows users to interact with the rollup in real time, syncing data and participating in the broader Polkadot ecosystem. Guidelines for setting up an [Asset Hub node](https://github.com/paritytech/polkadot-sdk/tree/{{dependencies.repositories.polkadot_sdk.version}}/cumulus#asset-hub-){target=\_blank} are available in the Parity documentation.
 
 Using these integration tools, developers can manage assets seamlessly and integrate Asset Hub functionality into their applications, leveraging Polkadot's powerful infrastructure.
 
 ## XCM Transfer Monitoring
 
-Since Asset Hub facilitates cross-chain asset transfers across the Polkadot ecosystem, XCM transfer monitoring becomes an essential practice for developers and infrastructure providers. This section outlines how to monitor the cross-chain movement of assets between parachains, the relay chain, and other systems.
+Since Asset Hub facilitates cross-chain asset transfers across the Polkadot ecosystem, XCM transfer monitoring becomes an essential practice for developers and infrastructure providers. This section outlines how to monitor the cross-chain movement of assets between rollups, the relay chain, and other systems.
 
 ### Monitor XCM Deposits
 
-As assets move between chains, tracking the cross-chain transfers in real time is crucial. Whether assets are transferred via a teleport from system parachains or through a reserve-backed transfer from any other parachain, each transfer emits a relevant event (such as the `balances.minted` event).
+As assets move between chains, tracking the cross-chain transfers in real time is crucial. Whether assets are transferred via a teleport from system rollups or through a reserve-backed transfer from any other rollup, each transfer emits a relevant event (such as the `balances.minted` event).
 
 To ensure accurate monitoring of these events:
 
@@ -189,16 +189,16 @@ While the `balances.minted` event confirms the arrival of assets, there may be i
 
 The preceding sections outline the process of monitoring XCM deposits to specific accounts and then tracing back the origin of these deposits. The process of tracking an XCM transfer and the specific events to monitor may vary based on the direction of the XCM message. Here are some examples to showcase the slight differences:
 
-- **Transfer from parachain to relay chain** - track `parachainsystem(UpwardMessageSent)` on the parachain and `messagequeue(Processed)` on the relay chain
-- **Transfer from relay chain to parachain** - track `xcmPallet(sent)` on the relay chain and `dmpqueue(ExecutedDownward)` on the parachain
-- **Transfer between parachains** - track `xcmpqueue(XcmpMessageSent)` on the system parachain and `xcmpqueue(Success)` on the destination parachain
+- **Transfer from rollup to relay chain** - track `parachainsystem(UpwardMessageSent)` on the rollup and `messagequeue(Processed)` on the relay chain
+- **Transfer from relay chain to rollup** - track `xcmPallet(sent)` on the relay chain and `dmpqueue(ExecutedDownward)` on the rollup
+- **Transfer between rollups** - track `xcmpqueue(XcmpMessageSent)` on the system rollup and `xcmpqueue(Success)` on the destination rollup
 
 ### Monitor for Failed XCM Transfers
 
 Sometimes, XCM transfers may fail due to liquidity or other errors. Failed transfers emit specific error events, which are key to resolving issues in asset transfers. Monitoring for these failure events helps catch issues before they affect asset balances.
 
-- **Relay chain to system parachain** - look for the `dmpqueue(ExecutedDownward)` event on the parachain with an `Incomplete` outcome and an error type such as `UntrustedReserveLocation`
-- **Parachain to parachain** - monitor for `xcmpqueue(Fail)` on the destination parachain with error types like `TooExpensive`
+- **Relay chain to system rollup** - look for the `dmpqueue(ExecutedDownward)` event on the rollup with an `Incomplete` outcome and an error type such as `UntrustedReserveLocation`
+- **Rollup to rollup** - monitor for `xcmpqueue(Fail)` on the destination rollup with error types like `TooExpensive`
 
 For detailed error management in XCM, see Gavin Wood's blog post on [XCM Execution and Error Management](https://www.polkadot.network/blog/xcm-part-three-execution-and-error-management){target=\_blank}.
 
@@ -210,7 +210,7 @@ For detailed error management in XCM, see Gavin Wood's blog post on [XCM Executi
 
     ---
 
-    Comprehensive guide to registering a local asset on the Asset Hub system parachain, including step-by-step instructions.
+    Comprehensive guide to registering a local asset on the Asset Hub system rollup, including step-by-step instructions.
 
     [:octicons-arrow-right-24: Reference](/tutorials/polkadot-sdk/system-chains/asset-hub/register-local-asset/)
 
@@ -218,7 +218,7 @@ For detailed error management in XCM, see Gavin Wood's blog post on [XCM Executi
 
     ---
 
-    An in-depth guide to registering a foreign asset on the Asset Hub parachain, providing clear, step-by-step instructions.
+    An in-depth guide to registering a foreign asset on the Asset Hub rollup, providing clear, step-by-step instructions.
 
     [:octicons-arrow-right-24: Reference](/tutorials/polkadot-sdk/system-chains/asset-hub/register-foreign-asset/)
 

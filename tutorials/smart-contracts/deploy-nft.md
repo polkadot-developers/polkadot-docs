@@ -104,7 +104,7 @@ Deployment is the process of uploading your compiled smart contract to the block
 
     ![](/images/tutorials/smart-contracts/deploy-nft/deploy-nft-9.webp){: .browser-extension}
 
-    Deploying this contract requires paying gas fees in WND tokens on the Westend Asset Hub TestNet. Ensure your MetaMask account is funded with sufficient WND tokens from the Westend Faucet before confirming the transaction. Gas fees cover the computational resources needed to deploy and execute the smart contract on the blockchain.
+    Deploying this contract requires paying gas fees in WND tokens on the Westend Asset Hub TestNet. Ensure your MetaMask account is funded with sufficient WND tokens from the Westend Faucet before confirming the transaction, check the [Test Tokens](/develop/smart-contracts/connect-to-asset-hub/#test-tokens){target=\_blank} section for more information. Gas fees cover the computational resources needed to deploy and execute the smart contract on the blockchain.
 
     If the deployment process succeeded, you will see the following output in the terminal:
 

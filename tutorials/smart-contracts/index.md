@@ -10,9 +10,9 @@ Get started with deploying and interacting with smart contracts on Polkadot thro
 
 ## Why Learn Here?
 
-- **Beginner to advanced** – Suitable for developers of all levels
-- **Complete workflows** – Covers the entire process from writing code to on-chain deployment
-- **Interactive examples** – Follow along with real, working code that you can modify and expand
+- **Beginner to advanced** – suitable for developers of all levels
+- **Complete workflows** – covers the entire process from writing code to on-chain deployment
+- **Interactive examples** – follow along with real, working code that you can modify and expand
 
 ## Start Building
 

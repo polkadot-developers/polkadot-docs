@@ -6,7 +6,7 @@ description: Explore the smart contract development and deployment process on As
 # Remix IDE
 
 !!! warning
-    Remix IDE's contract compilation functionality is currently limited to Google Chrome. Alternative browsers are not recommended for this task.
+    The Polkadot Remix IDE's contract compilation functionality is currently limited to Google Chrome. Alternative browsers are not recommended for this task.
 
 ## Overview
 

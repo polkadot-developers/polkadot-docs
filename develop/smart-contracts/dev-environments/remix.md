@@ -5,8 +5,29 @@ description: Explore the smart contract development and deployment process on As
 
 # Remix IDE
 
+<div class="grid cards" markdown>
+-   :octicons-code-16:{ .lg .middle } __Deploy NFTs Using Remix IDE__
+
+    ---
+
+    Mint your NFT on Polkadot's Asset Hub. Use PolkaVM and OpenZeppelin to bring your digital asset to life with Polkadot Remix IDE.
+
+    <br>
+    [:octicons-arrow-right-24: Get Started](/tutorials/smart-contracts/deploy-nft){target=\_blank}
+
+-   :octicons-code-16:{ .lg .middle } __Deploy ERC20s Using Remix IDE__
+
+    ---
+
+    Mint your custom ERC-20 token on Polkadot's Asset Hub. Leverage PolkaVM and Polkadot Remix IDE to bring your blockchain project to life.
+
+    <br>
+    [:octicons-arrow-right-24: Get Started](/tutorials/smart-contracts/deploy-erc20){target=\_blank}
+</div>
+
 !!! warning
     The Polkadot Remix IDE's contract compilation functionality is currently limited to Google Chrome. Alternative browsers are not recommended for this task.
+
 
 ## Overview
 

@@ -6,7 +6,7 @@ description: Explore the smart contract development and deployment process on As
 # Remix IDE
 
 <div class="grid cards" markdown>
--   :octicons-code-16:{ .lg .middle } __Deploy NFT using Remix IDE__
+-   :octicons-code-16:{ .lg .middle } __Deploy NFTs using Remix IDE__
 
     ---
 

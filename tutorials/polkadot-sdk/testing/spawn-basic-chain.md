@@ -22,8 +22,6 @@ To successfully complete this tutorial, you must ensure you've first:
 
 ## Set Up Local Provider
 
-In this tutorial, you will use the the Zombienet , also called native, that enables you to run nodes as local processes in your environment. 
-
 In this tutorial, you will use the Zombienet [local provider](/develop/toolkit/parachains/spawn-chains/zombienet/get-started/#local-provider){target=\_blank} (also called native provider) that enables you to run nodes as local processes in your development environment.
 
 You must have the necessary binaries installed (such as `polkadot` and `polkadot-parachain`) to spin up your network successfully.
@@ -36,10 +34,10 @@ zombienet setup polkadot polkadot-parachain
 
 This command downloads the following binaries:
 
-- **polkadot**
-- **polkadot-execute-worker**
-- **polkadot-parachain**
-- **polkadot-prepare-worker**
+- `polkadot`
+- `polkadot-execute-worker`
+- `polkadot-parachain`
+- `polkadot-prepare-worker`
 
 Finally, add these binaries to your PATH environment variable to ensure Zombienet can locate them when spawning the network.
 

@@ -97,6 +97,9 @@ Polkadot SDK-based blockchains are defined by a file called the [chain specifica
 - **Plain chain spec** - a human-readable JSON file that can be modified to suit your parachain's requirements. It serves as a template for initial configuration and includes human-readable keys and structures
 - **Raw chain spec** - a binary-encoded file used to start your parachain node. This file is generated from the plain chain spec and contains the encoded information necessary for the parachain node to synchronize with the blockchain network. It ensures compatibility across different runtime versions by providing data in a format directly interpretable by the node's runtime, regardless of upgrades since the chain's genesis
 
+    !!!tip
+        The chain spec is only used for genesis, when you start the chain for the first time. If you are doing runtime upgrades in the future, you do not need to generate a new chain spec.
+
 The files required to register a parachain must specify the correct relay chain to connect to and the parachain identifier you have been assigned. To make these changes, you must build and modify the chain specification file for your parachain. In this tutorial, the relay chain is `paseo`, and the parachain identifier is `4508`.
 
 To define your chain specification:

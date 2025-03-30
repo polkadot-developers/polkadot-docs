@@ -1,6 +1,7 @@
 ---
 title: Deploy an ERC-20 to Asset Hub
 description: Deploy an ERC-20 token on Asset Hub using PolkaVM. This guide covers contract creation, compilation, deployment, and interaction via Polkadot Remix IDE.
+tutorial_badge: Beginner
 ---
 
 # Deploy ERC-20 to Asset Hub

@@ -12,10 +12,10 @@ Explore the tools and frameworks available for building and testing smart contra
 
 Consider the following when evaluating development environments for your workflow:
 
-| Development Environment | Web-Based | Installation Required     | Best For                                    | Compilation & Deployment | Testing & Debugging          | Extensibility          |
-| ----------------------- | --------- | ------------------------- | ------------------------------------------- | ------------------------ | ---------------------------- | ---------------------- |
-| **Remix**               | ✅        | No                        | Beginners, quick prototyping                | Built-in UI & compiler   | Basic tools                  | Limited plugin support |
-| **Hardhat**             | ❌        | Yes (via package manager) | Advanced development, scripting, automation | Script-based             | Mocha, Chai, mainnet forking | Highly customizable    |
+| Development Environment | Web-Based           | Installation Required     | Best For                                    | Compilation & Deployment | Testing & Debugging          | Extensibility          |
+| ----------------------- | ------------------- | ------------------------- | ------------------------------------------- | ------------------------ | ---------------------------- | ---------------------- |
+| **Remix**               | :octicons-check-24: | No                        | Beginners, quick prototyping                | Built-in UI & compiler   | Basic tools                  | Limited plugin support |
+| **Hardhat**             | :octicons-x-24:     | Yes (via package manager) | Advanced development, scripting, automation | Script-based             | Mocha, Chai, mainnet forking | Highly customizable    |
 
 ## In This Section
 

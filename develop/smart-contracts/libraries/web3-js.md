@@ -99,7 +99,7 @@ Asset Hub requires contracts to be compiled to [PolkaVM](/polkadot-protocol/smar
 npm install --save-dev @parity/revive
 ```
 
-This guide uses `@parity/revive` version `{{ dependencies.revive.version }}`.
+This guide uses `@parity/revive` version `{{ dependencies.javascript_packages.revive.version }}`.
 
 Here's a simple storage contract that you can use to follow the process:
 

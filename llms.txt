@@ -18789,7 +18789,7 @@ Doc-Content: https://docs.polkadot.com/tutorials/interoperability/xcm-channels/p
 ---
 title: Opening HRMP Channels with System Parachains
 description: Learn how to open HRMP channels with Polkadot system parachains. Discover the process for establishing bi-directional communication using a single XCM message.
-tutorial_badge: Intermediate
+tutorial_badge: Advanced
 ---
 
 # Opening HRMP Channels with System Parachains
@@ -19233,7 +19233,7 @@ Doc-Content: https://docs.polkadot.com/tutorials/onchain-governance/fast-track-g
 ---
 title: Fast Track a Governance Proposal
 description: Learn how to fast-track governance proposals in Polkadot's OpenGov using Chopsticks. Simulate, test, and execute proposals confidently.
-tutorial_badge: Intermediate
+tutorial_badge: Advanced
 ---
 
 # Fast Track a Governance Proposal
@@ -24015,7 +24015,7 @@ Doc-Content: https://docs.polkadot.com/tutorials/polkadot-sdk/parachains/zero-to
 ---
 title: Add Pallets to the Runtime
 description: Add pallets to your runtime for custom functionality. Learn to configure and integrate pallets in Polkadot SDK-based blockchains.
-tutorial_badge: Intermediate
+tutorial_badge: Beginner
 ---
 
 # Add Pallets to the Runtime
@@ -25045,7 +25045,7 @@ Doc-Content: https://docs.polkadot.com/tutorials/polkadot-sdk/parachains/zero-to
 ---
 title: Deploy on Paseo TestNet
 description: This guide walks you through the journey of deploying your Polkadot SDK blockchain on Paseo, detailing each step to a successful TestNet deployment.
-tutorial_badge: Intermediate
+tutorial_badge: Advanced
 ---
 
 # Deploy on Paseo TestNet
@@ -27324,7 +27324,7 @@ Doc-Content: https://docs.polkadot.com/tutorials/polkadot-sdk/system-chains/asse
 ---
 title: Register a Foreign Asset on Asset Hub
 description: An in-depth guide to registering a foreign asset on the Asset Hub parachain, providing clear, step-by-step instructions.
-tutorial_badge: Advanced
+tutorial_badge: Intermediate
 ---
 
 # Register a Foreign Asset on Asset Hub

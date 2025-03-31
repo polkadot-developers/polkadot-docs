@@ -62,7 +62,7 @@ Next, install the Web3.js library:
 npm install web3
 ```
 
-This guide uses `web3` version `{{ dependencies.web3_js.version }}`.
+This guide uses `web3` version `{{ dependencies.javascript_packages.web3_js.version }}`.
 
 ## Set Up the Web3 Provider
 
@@ -99,7 +99,7 @@ Asset Hub requires contracts to be compiled to [PolkaVM](/polkadot-protocol/smar
 npm install --save-dev @parity/revive
 ```
 
-This guide uses `@parity/revive` version `{{ dependencies.revive_node_package.version }}`.
+This guide uses `@parity/revive` version `{{ dependencies.revive.version }}`.
 
 Here's a simple storage contract that you can use to follow the process:
 

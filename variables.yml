@@ -59,4 +59,16 @@ dependencies:
     moonwall:
       name: '@moonwall/cli'
       version: 5.9.1
+    hardhat_resolc: 
+      name: '@hardhat-resolc'
+      version: 0.0.7  
+    hardhat_revive_node: 
+      name: '@hardhat-revive-node'
+      version: 0.0.6
+    revive:
+      name: '@revive'
+      version: 0.0.8
+    web3_js:
+      name: '@web3js'
+      version: 4.16.0
 #   python_packages:

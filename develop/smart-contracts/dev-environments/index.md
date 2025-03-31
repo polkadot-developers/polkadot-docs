@@ -12,14 +12,11 @@ Explore the tools and frameworks available for building and testing smart contra
 
 Consider the following when evaluating development environments for your workflow:
 
-| Feature                  | Remix                                     | Hardhat                                                |
-| ------------------------ | ----------------------------------------- | ------------------------------------------------------ |
-| Type                     | Web-based IDE                             | Local development environment                          |
-| Installation             | No installation required (browser-based)  | Requires installation via a package manager            |
-| Best for                 | Beginners, quick prototyping, and testing | Advanced development, scripting, and automation        |
-| Compilation & Deployment | Built-in compiler and UI for deployment   | Uses scripts for compilation and deployment            |
-| Testing & Debugging      | Basic built-in tools                      | Advanced testing with Mocha, Chai, and mainnet forking |
-| Extensibility            | Limited plugin support                    | Highly customizable with plugins and scripts           |
+| Development Environment | Web-Based           | Installation Required     | Compilation & Deployment | Testing & Debugging          | Extensibility          |
+| ----------------------- | ------------------- | ------------------------- | ------------------------ | ---------------------------- | ---------------------- |
+| **Remix**               | :octicons-check-24: | No                        | Built-in UI & compiler   | Basic tools                  | Limited plugin support |
+| **Hardhat**             | :octicons-x-24:     | Yes (via package manager) | Script-based             | Mocha, Chai, mainnet forking | Highly customizable    |
+
 
 ## In This Section
 

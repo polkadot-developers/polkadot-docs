@@ -18937,7 +18937,7 @@ Doc-Content: https://docs.polkadot.com/tutorials/interoperability/xcm-transfers/
 ---
 title: XCM Transfers from Relay Chain to Parachain
 description: Learn how to perform a reserve-backed asset transfer between a relay chain and a parachain using XCM for cross-chain interoperability.
-tutorial_badge: Beginner
+tutorial_badge: Intermediate
 ---
 
 # From Relay Chain to Parachain
@@ -26919,7 +26919,23 @@ To stop the local node:
 
 <div class="grid cards" markdown>
 
--   <span class="badge tutorial">Tutorial</span> __Build a Custom Pallet__
+-   <span class="badge tutorial">Tutorial</span> <span class="badge beginner">Beginner</span> __Build a Custom Pallet__
+
+    ---
+
+    Build your own custom pallet for Polkadot SDK-based blockchains! Follow this step-by-step guide to create and configure a simple counter pallet from scratch.
+
+    [:octicons-arrow-right-24: Get Started](/tutorials/polkadot-sdk/parachains/zero-to-hero/build-custom-pallet/)
+
+-   <span class="badge tutorial">Tutorial</span> <span class="badge intermediate">Intermediate</span> __Build a Custom Pallet__
+
+    ---
+
+    Build your own custom pallet for Polkadot SDK-based blockchains! Follow this step-by-step guide to create and configure a simple counter pallet from scratch.
+
+    [:octicons-arrow-right-24: Get Started](/tutorials/polkadot-sdk/parachains/zero-to-hero/build-custom-pallet/)
+
+-   <span class="badge tutorial">Tutorial</span> <span class="badge advanced">Advanced</span> __Build a Custom Pallet__
 
     ---
 

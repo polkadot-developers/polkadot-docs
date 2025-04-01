@@ -122,7 +122,7 @@ A signed transaction in the Polkadot SDK includes various pieces of data to ensu
 The following is an example of how a signed transaction might look:
 
 ``` rust
---8<-- 'code/polkadot-protocol/parachain-basics/blocks-transactions-fees/transactions/signed-tx-example.rs'
+--8<-- 'code/polkadot-protocol/rollup-basics/blocks-transactions-fees/transactions/signed-tx-example.rs'
 ```
 
 ### Transaction Encoding
@@ -165,7 +165,7 @@ Pallets, which compose the runtime's logic, define the specific transactions tha
 
 In Polkadot SDK-based networks, some nodes are authorized to author blocks. These nodes validate and process transactions. When a transaction is sent to a node that can produce blocks, it undergoes a lifecycle that involves several stages, including validation and execution. Non-authoring nodes gossip the transaction across the network until an authoring node receives it. The following diagram illustrates the lifecycle of a transaction that's submitted to a network and processed by an authoring node.
 
-![Transaction lifecycle diagram](/images/polkadot-protocol/parachain-basics/blocks-transactions-fees/transactions/transaction-lifecycle-1.webp)
+![Transaction lifecycle diagram](/images/polkadot-protocol/rollup-basics/blocks-transactions-fees/transactions/transaction-lifecycle-1.webp)
 
 ### Validate and Queue
 

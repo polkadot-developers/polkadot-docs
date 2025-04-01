@@ -1,7 +1,7 @@
 //! # Template Pallet
 //!
 //! A pallet with minimal functionality to help developers understand the essential components of
-//! writing a FRAME pallet. It is typically used in beginner tutorials or in Polkadot SDK template
+//! writing a FRAME pallet. It is typically used in beginner tutorials or in the Polkadot SDK template
 //! as a starting point for creating a new pallet and **not meant to be used in production**.
 //!
 //! ## Overview

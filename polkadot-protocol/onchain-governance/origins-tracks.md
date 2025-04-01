@@ -40,4 +40,4 @@ Tracks customize these stages with parameters like decision deposit requirements
 
 - For a list of origins and tracks for Polkadot and Kusama, including associated parameters, see the [Origins and Tracks Info](https://wiki.polkadot.network/docs/learn-polkadot-opengov-origins#origins-and-tracks-info){target=\_blank} entry in the Polkadot Wiki.
 
-- For a deeper dive into the approval and support system, see the [Approval and Support](https://wiki.polkadot.network/docs/learn-polkadot-opengov#approval-and-support){target=\_blank} entry of the Polkadot Wiki.
+- For a deeper dive into the approval and support system, see the [Approval and Support](https://wiki.polkadot.network/docs/learn-polkadot-opengov#approval-and-support){target=\_blank} entry of the Polkadot Wiki

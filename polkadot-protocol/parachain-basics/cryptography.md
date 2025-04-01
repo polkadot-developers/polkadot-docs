@@ -28,10 +28,7 @@ The Polkadot SDK utilizes Blake2, a state-of-the-art hashing method that offers:
 - Equal or greater security compared to [SHA-2](https://en.wikipedia.org/wiki/SHA-2){target=\_blank}
 - Significantly faster performance than other algorithms
 
-These properties make Blake2 ideal for blockchain systems, reducing sync times for new nodes and lowering the resources required for validation.
-
-!!! note
-    For detailed technical specifications on Blake2, refer to the [official Blake2 paper](https://www.blake2.net/blake2.pdf){target=\_blank}.
+These properties make Blake2 ideal for blockchain systems, reducing sync times for new nodes and lowering the resources required for validation. For detailed technical specifications about Blake2, see the [official Blake2 paper](https://www.blake2.net/blake2.pdf){target=\_blank}.
 
 ## Types of Cryptography
 

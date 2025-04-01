@@ -13,7 +13,7 @@ This guide walks you through installing Chopsticks and provides information on c
 
 For additional support and information, please reach out through [GitHub Issues](https://github.com/AcalaNetwork/chopsticks/issues){target=_blank}.
 
-!!! note
+!!! warning
     Chopsticks uses [Smoldot](https://github.com/smol-dot/smoldot){target=_blank} light client, which only supports the native Polkadot SDK API. Consequently, a Chopsticks-based fork doesn't support Ethereum JSON-RPC calls, meaning you cannot use it to fork your chain and connect Metamask.
 
 ## Prerequisites
@@ -25,17 +25,14 @@ Before you begin, ensure you have the following installed:
 
 ## Install Chopsticks
 
-You can install Chopsticks globally or locally in your project. Choose the option that best fits your development workflow.
-
-!!! note
-    This documentation explains the features of Chopsticks version `{{ dependencies.chopsticks.version }}`. Make sure you're using the correct version to match these instructions.
+You can install Chopsticks globally or locally in your project. Choose the option that best fits your development workflow. This documentation explains the features of Chopsticks version `{{ dependencies.javascript_packages.chopsticks.version }}`. Make sure you're using the correct version to match these instructions.
 
 ### Global Installation
 
 To install Chopsticks globally, allowing you to use it across multiple projects, run:
 
 ```bash
-npm i -g @acala-network/chopsticks@{{ dependencies.chopsticks.version }}
+npm i -g @acala-network/chopsticks@{{ dependencies.javascript_packages.chopsticks.version }}
 ```
 
 Now, you should be able to run the `chopsticks` command from your terminal.
@@ -53,13 +50,13 @@ npm init -y
 Then, install Chopsticks as a local dependency:
 
 ```bash
-npm i @acala-network/chopsticks@{{ dependencies.chopsticks.version }}
+npm i @acala-network/chopsticks@{{ dependencies.javascript_packages.chopsticks.version }}
 ```
 
-Finally, you can run Chopsticks using the `npx` command:
+Finally, you can run Chopsticks using the `npx` command. To see all available options and commands, run it with the `--help` flag:
 
 ```bash
-npx @acala-network/chopsticks
+npx @acala-network/chopsticks --help
 ```
 
 ## Configure Chopsticks

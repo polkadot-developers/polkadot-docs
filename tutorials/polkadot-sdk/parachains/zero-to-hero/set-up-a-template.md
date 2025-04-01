@@ -33,23 +33,22 @@ Before getting started, ensure you have done the following:
 
 This tutorial requires two essential tools:
 
-- [**Chain spec builder**](https://paritytech.github.io/polkadot-sdk/master/staging_chain_spec_builder/index.html){target=\_blank} - is a Polkadot SDK utility for generating chain specifications
+- [**Chain spec builder**](https://crates.io/crates/staging-chain-spec-builder/{{dependencies.crates.chain_spec_builder.version}}){target=\_blank} - is a Polkadot SDK utility for generating chain specifications. Refer to the [Generate Chain Specs](/develop/parachains/deployment/generate-chain-specs/){target=\_blank} documentation for detailed usage.
     
     Install it by executing the following command:
     
     ```bash
-    cargo install --git https://github.com/paritytech/polkadot-sdk --force staging-chain-spec-builder
+    cargo install staging-chain-spec-builder@{{dependencies.crates.chain_spec_builder.version}}
     ```
 
-    This installs the `chain-spec-builder` binary. Refer to the [Generate Chain Specs](/develop/parachains/deployment/generate-chain-specs/){target=\_blank} documentation for detailed usage.
+    This installs the `chain-spec-builder` binary.
 
-- [**Polkadot Omni Node**](https://paritytech.github.io/polkadot-sdk/master/polkadot_sdk_docs/reference_docs/omni_node/index.html){target=\_blank} - is a white-labeled binary, released as a part of Polkadot SDK that can act as the collator of a parachain in production, with all the related auxillary functionalities that a normal collator node has: RPC server, archiving state, etc. Moreover, it can also run the wasm blob of the parachain locally for testing and development.
+- [**Polkadot Omni Node**](https://crates.io/crates/polkadot-omni-node/{{dependencies.crates.polkadot_omni_node.version}}){target=\_blank} - is a white-labeled binary, released as a part of Polkadot SDK that can act as the collator of a parachain in production, with all the related auxiliary functionalities that a normal collator node has: RPC server, archiving state, etc. Moreover, it can also run the wasm blob of the parachain locally for testing and development.
 
-    
     To install it, run the following command:
 
     ```bash
-    cargo install --git https://github.com/paritytech/polkadot-sdk --force polkadot-omni-node
+    cargo install polkadot-omni-node@{{dependencies.crates.polkadot_omni_node.version}}
     ```
 
     This installs the `polkadot-omni-node` binary.
@@ -73,7 +72,7 @@ The [Polkadot SDK Parachain Template](https://github.com/paritytech/polkadot-sdk
     cargo build --release
     ```
 
-    !!!note
+    !!!tip
         Initial compilation may take several minutes, depending on your machine specifications. Always use the `--release` flag to build optimized, production-ready artifacts.
 
 4. Upon successful compilation, you should see output similar to:
@@ -81,9 +80,12 @@ The [Polkadot SDK Parachain Template](https://github.com/paritytech/polkadot-sdk
 
 ## Start the Local Chain
 
-After successfully compiling your runtime, you can spin up a local chain and produce blocks. This process will start your local parachain and allow you to interact. Follow these steps to launch your node in development mode:
+After successfully compiling your runtime, you can spin up a local chain and produce blocks. This process will start your local parachain and allow you to interact with it. You'll first need to generate a chain specification that defines your network's identity, initial connections, and genesis state, providing the foundational configuration for how your nodes connect and what initial state they agree upon, and then run the chain. 
 
-1. First, you need to generate the chain spec file of your parachain:
+Follow these steps to launch your node in development mode:
+
+1. Generate the chain specification file of your parachain:
+
     ```bash
     chain-spec-builder create -t development \
     --relay-chain paseo \
@@ -99,6 +101,7 @@ After successfully compiling your runtime, you can spin up a local chain and pro
     ```
 
     The `--dev` option does the following:
+
     - Deletes all active data (keys, blockchain database, networking information) when stopped
     - Ensures a clean working state each time you restart the node
 
@@ -108,8 +111,7 @@ After successfully compiling your runtime, you can spin up a local chain and pro
 4. Confirm that your blockchain is producing new blocks by checking if the number after `finalized` is increasing
     --8<-- 'code/tutorials/polkadot-sdk/parachains/zero-to-hero/set-up-a-template/node-block-production.html'
 
-    !!!note
-        The details of the log output will be explored in a later tutorial. For now, knowing that your node is running and producing blocks is sufficient.
+The details of the log output will be explored in a later tutorial. For now, knowing that your node is running and producing blocks is sufficient.
 
 ## Interact with the Node
 

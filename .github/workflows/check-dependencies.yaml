@@ -1,0 +1,41 @@
+name: Check Dependencies
+
+on:
+  schedule: # Run every day at midnight.
+    - cron: '0 0 * * *'
+  workflow_dispatch:  # Allows manual triggering of the workflow.
+
+jobs:
+  check-dependencies:
+    runs-on: ubuntu-latest
+    permissions:
+      issues: write
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3
+
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.x'
+
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install requests pyyaml
+
+    - name: Check for outdated dependencies
+      id: check_dependencies
+      run: |
+        python .github/scripts/check_dependencies.py
+
+    - name: Check for snippets that need updating
+      id: check_snippets
+      run: |
+        python .github/scripts/check_snippets.py ./outdated_dependencies.json .
+
+    - name: Create gitHub issues for outdated dependencies
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      run: |
+        python .github/scripts/create_issues.py

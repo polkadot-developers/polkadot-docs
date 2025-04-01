@@ -9,7 +9,7 @@ description: Deploy an ERC-20 token on Asset Hub using PolkaVM. This guide cover
 
 [ERC-20](https://eips.ethereum.org/EIPS/eip-20){target=\_blank} tokens are fungible tokens commonly used for creating cryptocurrencies, governance tokens, and staking mechanisms. Asset Hub enables easy token deployment with EVM-compatible smart contracts via PolkaVM.
 
-This tutorial covers deploying an ERC-20 contract on the Westend TestNet using [Polkadot Remix IDE](https://remix.polkadot.io){target=\_blank}, a web-based development tool. [OpenZeppelin's ERC-20 contracts]({{ dependencies.open_zeppelin_contracts.repository_url}}/tree/{{ dependencies.open_zeppelin_contracts.version}}/contracts/token/ERC20){target=\_blank} are used for security and compliance.
+This tutorial covers deploying an ERC-20 contract on the Westend TestNet using [Polkadot Remix IDE](https://remix.polkadot.io){target=\_blank}, a web-based development tool. [OpenZeppelin's ERC-20 contracts]({{ dependencies.repositories.open_zeppelin_contracts.repository_url}}/tree/{{ dependencies.repositories.open_zeppelin_contracts.version}}/contracts/token/ERC20){target=\_blank} are used for security and compliance.
 
 ## Prerequisites
 
@@ -38,8 +38,8 @@ To create the ERC-20 contract, you can follow the steps below:
 
     - Contract imports
 
-        - [**`ERC20.sol`**]({{ dependencies.open_zeppelin_contracts.repository_url}}/tree/{{ dependencies.open_zeppelin_contracts.version}}/contracts/token/ERC20/ERC20.sol){target=\_blank} - the base contract for fungible tokens, implementing core functionality like transfers, approvals, and balance tracking
-        - [**`Ownable.sol`**]({{ dependencies.open_zeppelin_contracts.repository_url}}/tree/{{ dependencies.open_zeppelin_contracts.version}}/contracts/access/Ownable.sol){target=\_blank} - provides basic authorization control, ensuring only the contract owner can mint new tokens
+        - [**`ERC20.sol`**]({{ dependencies.repositories.open_zeppelin_contracts.repository_url}}/tree/{{ dependencies.repositories.open_zeppelin_contracts.version}}/contracts/token/ERC20/ERC20.sol){target=\_blank} - the base contract for fungible tokens, implementing core functionality like transfers, approvals, and balance tracking
+        - [**`Ownable.sol`**]({{ dependencies.repositories.open_zeppelin_contracts.repository_url}}/tree/{{ dependencies.repositories.open_zeppelin_contracts.version}}/contracts/access/Ownable.sol){target=\_blank} - provides basic authorization control, ensuring only the contract owner can mint new tokens
     
     - Constructor parameters
 

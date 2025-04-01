@@ -9,8 +9,8 @@ After deploying a parachain to the Paseo TestNet in the [Deploy to TestNet](/tut
 
 There are two ways to obtain coretime:
 
-- **Bulk coretime** - bulk coretime allows you to obtain a core or part of a core. It is purchased for some time, up to 28 days. It must be renewed once the lease finishes
-- **On-demand coretime** - on-demand coretime allows you to buy coretime on a block-by-block basis
+- **[On-demand coretime](#order-on-demand-coretime)** - on-demand coretime allows you to buy coretime on a block-by-block basis
+- **[Bulk coretime](#purchase-bulk-coretime)** - bulk coretime allows you to obtain a core or part of a core. It is purchased for some time, up to 28 days. It must be renewed once the lease finishes
 
 In this tutorial, you will:
 
@@ -30,17 +30,32 @@ Before proceeding, you should have the following items:
 
 Once the above is complete, obtaining coretime is the last step to enable your parachain to start producing and finalizing blocks using the relay chain's validator set. If you don't, refer to the previous tutorial: [Deploy on Paseo TestNet](/tutorials/polkadot-sdk/parachains/zero-to-hero/deploy-to-testnet/){target=\_blank}.
 
-## Purchasing Bulk Coretime
+## Order On Demand Coretime
+
+There are two extrinsics which allow you to place orders for on-demand coretime:
+
+- [**`onDemand.placeOrderAllowDeath`**](https://paritytech.github.io/polkadot-sdk/master/polkadot_runtime_parachains/on_demand/pallet/dispatchables/fn.place_order_allow_death.html){target=\_blank} - will [reap](https://wiki.polkadot.network/docs/learn-accounts#existential-deposit-and-reaping){target=\_blank} the account once the provided funds run out
+- [**`onDemand.placeOrderKeepAlive`**](https://paritytech.github.io/polkadot-sdk/master/polkadot_runtime_parachains/on_demand/pallet/dispatchables/fn.place_order_keep_alive.html){target=\_blank} - includes a check that will **not** reap the account if the provided funds run out, ensuring the account is kept alive
+
+To produce a block in your parachain, navigate to Polkadot.js Apps and ensure you're connected to the Paseo relay chain. Then, access the [**Developer > Extrinsics**](https://polkadot.js.org/apps/#/extrinsics){target=\_blank} tab and execute the `onDemand.placeOrderAllowDeath` extrinsic from the account that registered the `ParaID`. For this example, `maxAmount` is set to `1000000000000` (this value may vary depending on the network conditions), and `paraId` is set to `4518`:
+
+![](/images/tutorials/polkadot-sdk/parachains/zero-to-hero/obtain-coretime/obtain-coretime-9.webp)
+
+With each successful on-demand extrinsic, the parachain will produce a new block. You can verify this by checking the collator logs. If the extrinsic is successful, you should see output similar to the following:
+
+--8<-- 'code/tutorials/polkadot-sdk/parachains/zero-to-hero/obtain-coretime/obtain-coretime-1.html'
+
+## Purchase Bulk Coretime
 
 Purchasing bulk coretime involves purchasing a core from the [Coretime Chain](/polkadot-protocol/architecture/system-chains/coretime/){target=\_blank}, which has an instance of [`pallet_broker`](https://paritytech.github.io/polkadot-sdk/master/pallet_broker/index.html){target=\_blank} (the Broker pallet). Although this can be done via sending extrinsics through a tool like Polkadot.js Apps, there are user interfaces for purchasing and managing bulk coretime:
 
 - [RegionX Coretime Marketplace (includes Paseo support)](https://app.regionx.tech){target=\_blank}
 - [Lastic Coretime Marketplace](https://www.lastic.xyz/polkadot/bulkcore1){target=\_blank}
   
-!!!info "Obtaining a Core on Paseo"
-    Obtaining a core for bulk coretime on Paseo follows a different process from Polkadot or Kusama. To apply for a core on Paseo, visit their guide for doing so: [PAS-10 Onboard Paras Coretime](https://github.com/paseo-network/paseo-action-submission/blob/main/pas/PAS-10-Onboard-paras-coretime.md#summary){target=\_blank} 
+!!!tip
+    Obtaining a core for bulk coretime on Paseo follows a different process from Polkadot or Kusama. To apply for a core on Paseo, visit their guide for doing so: [PAS-10 Onboard Paras Coretime](https://github.com/paseo-network/paseo-action-submission/blob/main/pas/PAS-10-Onboard-paras-coretime.md#summary){target=\_blank}. 
 
-### Getting Coretime Funds
+### Get Coretime Funds
 
 First, ensure your wallet is connected to the [RegionX](https://app.regionx.tech){target=\_blank} interface. To do so, go to **Home** in the RegionX app and click the **Connect Wallet** button in the upper right.
 
@@ -48,14 +63,13 @@ After connecting your wallet, you must obtain funds on the Coretime chain. You c
 
 ![](/images/tutorials/polkadot-sdk/parachains/zero-to-hero/obtain-coretime/obtain-coretime-1.webp)
 
-!!!info 
-    If you are purchasing a core on a TestNet, be sure to visit the [Polkadot Faucet](https://faucet.polkadot.io/westend){target=\_blank}.
+If you are purchasing a core on a TestNet, be sure to visit the [Polkadot Faucet](https://faucet.polkadot.io/westend){target=\_blank} for TestNet tokens.
 
 If successful, you should see the balance in the upper right of the **Transfer** page update with balances on the relay and Coretime chain, respectively.
 
 ![](/images/tutorials/polkadot-sdk/parachains/zero-to-hero/obtain-coretime/obtain-coretime-2.webp)
 
-### Purchasing a Core
+### Purchase a Core
 
 For this tutorial, we will use [RegionX](https://app.regionx.tech){target=\_blank}. Once you open the app, you should be presented with the following screen:
 
@@ -77,7 +91,7 @@ Once the transaction is confirmed, click [**My Regions**](https://app.regionx.te
 
 Congratulations, you just purchased a core using RegionX! You can assign the core to your parachain, partition, interlace, and more using RegionX.
 
-### Assigning a Core
+### Assign a Core
 
 Once you have the core as shown in the dashboard, select it by clicking on it, then click the **Assign** option on the left-hand side. You will be presented with a modal in which you can add a new task.
 
@@ -89,24 +103,4 @@ Click the **Add Task** button and input the parachain identifier, along with the
 
 You may now select a task from the list. You must also set the core's finality, which determines whether you can renew this specific core. Provisional finality allows for interlacing and partitioning, whereas Final finality does not allow the region to be modified. A core must not be interlaced or partitioned to be renewable, so Finality should be selected if you want to renew this specific core.
 
-Once you sign and send this transaction, that task/parachain will be assigned to that core.
-
-## Ordering On Demand Coretime
-
-On Polkadot.js Apps, make sure you're connected to the relay chain, then navigate to [**Developer > Extrinsics**](https://polkadot.js.org/apps/#/extrinsics){target=\_blank} and issue the `onDemand.placeOrderAllowDeath` extrinsic from the account that registered the `ParaID` by specifying sufficient `maxAmount` for the transaction to go through successfully.
-
-![](/images/tutorials/polkadot-sdk/parachains/zero-to-hero/obtain-coretime/obtain-coretime-9.webp)
-
-!!!info
-    There are two extrinsics which allow you to place orders for on-demand coretime:
-
-    - [**`onDemand.placeOrderAllowDeath`**](https://paritytech.github.io/polkadot-sdk/master/polkadot_runtime_parachains/on_demand/pallet/dispatchables/fn.place_order_allow_death.html){target=\_blank} - will [reap](https://wiki.polkadot.network/docs/learn-accounts#existential-deposit-and-reaping){target=\_blank} the account once the provided funds run out
-    - [**`onDemand.placeOrderKeepAlive`**](https://paritytech.github.io/polkadot-sdk/master/polkadot_runtime_parachains/on_demand/pallet/dispatchables/fn.place_order_keep_alive.html){target=\_blank} - includes a check which will **not** reap the account if the provided funds will run out, ensuring the account is kept alive
-
-With each successful on-demand extrinsic, the parachain head changes (you may have to zoom out on the browser for parachain head details to show up on the Polkadot.js Apps interface).
-
-![](/images/tutorials/polkadot-sdk/parachains/zero-to-hero/obtain-coretime/obtain-coretime-10.webp)
-
-The same should also be reflected in the collator's logs, where you should see output similar to the following:
-
---8<-- 'code/tutorials/polkadot-sdk/parachains/zero-to-hero/obtain-coretime/obtain-coretime-1.html'
+Once you sign and send this transaction, your parachain will be assigned to that core.

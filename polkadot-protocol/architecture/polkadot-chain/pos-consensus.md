@@ -46,11 +46,6 @@ Key features of BABE include:
 
 BABE's combination of randomness and slot allocation creates a secure, decentralized system for consistent block production while also allowing for fork resolution when multiple validators produce blocks for the same slot.
 
-??? interface "Additional Information"
-
-     - Refer to the [BABE paper](https://research.web3.foundation/Polkadot/protocols/block-production/Babe){target=\_blank} for further technical insights, including cryptographic details and formal proofs
-     - Visit the [Block Production Lottery](https://spec.polkadot.network/sect-block-production#sect-block-production-lottery){target=\_blank} section of the Polkadot Protocol Specification for technical definitions and formulas
-
 ### Validator Participation
 
 In BABE, validators participate in a lottery for every slot to determine whether they are responsible for producing a block during that slot. This process's randomness ensures a decentralized and unpredictable block production mechanism.
@@ -62,6 +57,12 @@ There are two lottery outcomes for any given slot that initiate additional proce
 - **No validators in a slot** - on occasions when no validator is selected by the lottery, a [secondary validator selection algorithm](https://spec.polkadot.network/sect-block-production#defn-babe-secondary-slots){target=\_blank} steps in. This backup ensures that a block is still produced, preventing skipped slots. However, if the primary block produced by a verifiable random function [(VRF)-selected](/polkadot-protocol/parachain-basics/randomness/#vrf){target=\_blank} validator exists for that slot, the secondary block will be ignored. As a result, every slot will have either a primary or a secondary block
 
 This design ensures continuous block production, even in cases of multiple competing validators or an absence of selected validators.
+
+### Additional Resources
+
+For further technical insights about BABE, including cryptographic details and formal proofs, see the [BABE paper](https://research.web3.foundation/Polkadot/protocols/block-production/Babe){target=\_blank} from Web3 Foundation.
+
+For BABE technical definitions, constants, and formulas, see the [Block Production Lottery](https://spec.polkadot.network/sect-block-production#sect-block-production-lottery){target=\_blank} section of the Polkadot Protocol Specification.
 
 ## Finality Gadget - GRANDPA
 
@@ -75,19 +76,23 @@ Key features of GRANDPA include:
 - **Partial synchrony tolerance** – GRANDPA works effectively in a partially synchronous network environment, managing both asynchronous and synchronous conditions
 - **Byzantine fault tolerance** – can handle up to 1/5 Byzantine (malicious) nodes, ensuring the system remains secure even when faced with adversarial behavior
 
-??? interface "What is GHOST?"
+??? note "What is GHOST?"
     [GHOST (Greedy Heaviest-Observed Subtree)](https://eprint.iacr.org/2018/104.pdf){target=\blank} is a consensus protocol used in blockchain networks to select the heaviest branch in a block tree. Unlike traditional longest-chain rules, GHOST can more efficiently handle high block production rates by considering the weight of subtrees rather than just the chain length.
 
 ### Probabilistic vs. Provable Finality
 
-In traditional Proof of Work (PoW) blockchains, finality is probabilistic. As blocks are added to the chain, the probability that a block is final increases, but it can never be guaranteed. Eventual consensus means that over time, all nodes will agree on a single version of the blockchain, but this process can be unpredictable and slow.
+In traditional Proof of Work (PoW) blockchains, finality is probabilistic. As blocks are added to the chain, the probability that a block is final increases, but it can never be guaranteed. Eventual consensus means that all nodes will agree on a single version of the blockchain over time, but this process can be unpredictable and slow.
 
-Conversely, GRANDPA provides provable finality, which means that once a block is finalized, it is irreversible. By using Byzantine fault-tolerant agreements, GRANDPA finalizes blocks more efficiently and securely than probabilistic mechanisms like Nakamoto consensus. Like Ethereum's Casper the Friendly Finality Gadget (FFG), GRANDPA ensures that finalized blocks cannot be reverted, offering stronger guarantees of consensus.
+Conversely, GRANDPA provides provable finality, which means that once a block is finalized, it is irreversible. By using Byzantine fault-tolerant agreements, GRANDPA finalizes blocks more efficiently and securely than probabilistic mechanisms like Nakamoto consensus. Like Ethereum's Casper the Friendly Finality Gadget (FFG), GRANDPA ensures that finalized blocks cannot be reverted, offering stronger consensus guarantees.
 
+### Additional Resources
 
-??? interface "Additional Information"
+For technical insights, including formal proofs and detailed algorithms, see the [GRANDPA paper](https://github.com/w3f/consensus/blob/master/pdf/grandpa.pdf){target=\_blank} from Web3 Foundation.
 
-    For more details, including formal proofs and detailed algorithms, see the [GRANDPA paper](https://github.com/w3f/consensus/blob/master/pdf/grandpa.pdf){target=\_blank}.
+For a deeper look at the code behind GRANDPA, see the following GitHub repositories:
+
+- [GRANDPA Rust implementation](https://github.com/paritytech/finality-grandpa){target=\_blank}
+- [GRANDPA Pallet](https://github.com/paritytech/polkadot-sdk/blob/{{dependencies.repositories.polkadot_sdk.version}}/substrate/frame/grandpa/src/lib.rs){target=\_blank}
 
 ## Fork Choice
 
@@ -100,6 +105,12 @@ The fork choice of the relay chain combines BABE and GRANDPA:
 
 In the preceding diagram, finalized blocks are black, and non-finalized blocks are yellow. Primary blocks are labeled '1', and secondary blocks are labeled '2.' The topmost chain is the longest chain originating from the last finalized block, but it is not selected because it only has one primary block at the time of evaluation. In comparison, the one below it originates from the last finalized block and has three primary blocks.
 
+### Additional Resources
+
+To learn more about how BABE and GRANDPA work together to produce and finalize blocks on Kusama, see this [Block Production and Finalization in Polkadot](https://youtu.be/FiEAnVECa8c){target=\_blank} talk from Web3 Foundation's Bill Laboon. 
+
+For an in-depth academic discussion about Polkadot's hybrid consensus model, see this [Block Production and Finalization in Polkadot: Understanding the BABE and GRANDPA Protocols](https://www.youtube.com/watch?v=1CuTSluL7v4&t=4s){target=\_blank} MIT Cryptoeconomic Systems 2020 talk by Web3 Foundation's Bill Laboon.
+
 ## Bridging - BEEFY
 
 Bridge Efficiency Enabling Finality Yielder (BEEFY) is a specialized protocol that extends the finality guarantees provided by GRANDPA. It is specifically designed to facilitate efficient bridging between Polkadot relay chains (such as Polkadot and Kusama) and external blockchains like Ethereum. While GRANDPA is well-suited for finalizing blocks within Polkadot, it has limitations when bridging external chains that weren't built with Polkadot's interoperability features in mind. BEEFY addresses these limitations by ensuring other networks can efficiently verify finality proofs.
@@ -111,13 +122,13 @@ Key features of BEEFY include:
 - **ECDSA signature schemes** - BEEFY uses ECDSA signatures, which are widely supported on Ethereum and other EVM-based chains, making integration with these ecosystems smoother
 - **Light client optimization** - BEEFY reduces the computational burden on light clients by allowing them to check for a super-majority of validator votes rather than needing to process all validator signatures, improving performance
 
-??? interface "Additional Information"
+### Additional Resources
 
-    For more details, including technical definitions and formulas, see [Bridge design (BEEFY)](https://spec.polkadot.network/sect-finality#sect-grandpa-beefy){target=\_blank} in the Polkadot Protocol Specification.
+For BEEFY technical definitions, constants, and formulas, see the [Bridge design (BEEFY)](https://spec.polkadot.network/sect-finality#sect-grandpa-beefy){target=\_blank} section of the Polkadot Protocol Specification.
+ 
 
-## Resources
 
-- [GRANDPA Rust implementation](https://github.com/paritytech/finality-grandpa){target=\_blank}
-- [GRANDPA Pallet](https://github.com/paritytech/polkadot-sdk/blob/master/substrate/frame/grandpa/src/lib.rs){target=\_blank}
-- [Block Production and Finalization in Polkadot](https://www.crowdcast.io/e/polkadot-block-production){target=\_blank} - Bill Laboon explains how BABE and GRANDPA work together to produce and finalize blocks on Kusama 
-- [Block Production and Finalization in Polkadot: Understanding the BABE and GRANDPA Protocols](https://www.youtube.com/watch?v=1CuTSluL7v4&t=4s){target=\_blank} - Bill Laboon's MIT Cryptoeconomic Systems 2020 academic talk describing Polkadot's hybrid consensus model in-depth
+
+
+
+

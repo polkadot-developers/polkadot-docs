@@ -81,20 +81,18 @@ chain-spec-builder --help
 
 ### Plain Chain Specifications
 
-To create a plain chain specification, you can use the following utility within your project:
+To create a plain chain specification, first ensure that the runtime has been compiled and is available at the specified path. Next, you can use the following utility within your project:
 
 ```bash
-chain-spec-builder create -r <INSERT_RUNTIME_WASM_PATH> <INSERT_COMMAND> 
+chain-spec-builder create -r INSERT_RUNTIME_WASM_PATH INSERT_COMMAND
 ```
 
-!!! note
+Replace `INSERT_RUNTIME_WASM_PATH` with the path to the runtime Wasm file and `INSERT_COMMAND` with the command to insert the runtime into the chain specification. 
 
-    Before running the command, ensure that the runtime has been compiled and is available at the specified path.
+The available commands are:
 
-Ensure to replace `<INSERT_RUNTIME_WASM_PATH>` with the path to the runtime Wasm file and `<INSERT_COMMAND>` with the command to insert the runtime into the chain specification. The available commands are:
-
-- **`patch`** - overwrites the runtime's default genesis config with the provided patch. You can check the following [patch file](https://github.com/paritytech/polkadot-sdk/blob/polkadot-stable1985-rc1/substrate/bin/utils/chain-spec-builder/tests/input/patch.json){target=\_blank} as a reference
-- **`full`** - build the genesis config for runtime using the JSON file. No defaults will be used. As a reference, you can check the following [full file](https://github.com/paritytech/polkadot-sdk/blob/polkadot-stable1985-rc1/substrate/bin/utils/chain-spec-builder/tests/input/full.json){target=\_blank}
+- **`patch`** - overwrites the runtime's default genesis config with the provided patch. You can check the following [patch file](https://github.com/paritytech/polkadot-sdk/blob/{{dependencies.repositories.polkadot_sdk.version}}/substrate/bin/utils/chain-spec-builder/tests/input/patch.json){target=\_blank} as a reference
+- **`full`** - build the genesis config for runtime using the JSON file. No defaults will be used. As a reference, you can check the following [full file](https://github.com/paritytech/polkadot-sdk/blob/{{dependencies.repositories.polkadot_sdk.version}}/substrate/bin/utils/chain-spec-builder/tests/input/full.json){target=\_blank}
 - **`default`** - gets the default genesis config for the runtime and uses it in `ChainSpec`. Please note that the default genesis config may not be valid. For some runtimes, initial values should be added there (e.g., session keys, BABE epoch)
 - **`named-preset`** - uses named preset provided by the runtime to build the chain spec
 

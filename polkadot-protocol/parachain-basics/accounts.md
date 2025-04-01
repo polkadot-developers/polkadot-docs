@@ -22,7 +22,7 @@ The [`Account` data type](https://paritytech.github.io/polkadot-sdk/master/frame
 The code snippet below shows how accounts are defined:
 
 ```rs
- --8<-- 'code/polkadot-protocol/parachain-basics/accounts/account-data-structure-1.rs'
+ --8<-- 'https://raw.githubusercontent.com/paritytech/polkadot-sdk/refs/tags/v1.16.2-rc1/substrate/frame/system/src/lib.rs:893:902'
 ```
 
 The preceding code block defines a storage map named `Account`. The `StorageMap` is a type of on-chain storage that maps keys to values. In the `Account` map, the key is an account ID, and the value is the account's information. Here, `T` represents the generic parameter for the runtime configuration, which is defined by the pallet's configuration trait (`Config`).
@@ -37,15 +37,14 @@ The `StorageMap` consists of the following parameters:
     - **`T::AccountData`** - custom account data defined by the runtime configuration, which could include balances, locked funds, or other relevant information
 - **`ValueQuery`** - defines how queries to the storage map behave when no value is found; returns a default value instead of `None`
 
-??? interface "Additional information"
-    For a detailed explanation of storage maps, refer to the [`StorageMap` Rust docs](https://paritytech.github.io/polkadot-sdk/master/frame_support/storage/types/struct.StorageMap.html){target=\_blank}.
+For a detailed explanation of storage maps, see the [`StorageMap`](https://paritytech.github.io/polkadot-sdk/master/frame_support/storage/types/struct.StorageMap.html){target=\_blank} entry in the Rust docs.
 
 ### Account Info
 
 The `AccountInfo` structure is another key element within the [System pallet](https://paritytech.github.io/polkadot-sdk/master/src/frame_system/lib.rs.html){target=\_blank}, providing more granular details about each account's state. This structure tracks vital data, such as the number of transactions and the account’s relationships with other modules.
 
 ```rs
---8<-- 'code/polkadot-protocol/parachain-basics/accounts/account-data-structure-2.rs'
+--8<-- 'https://raw.githubusercontent.com/paritytech/polkadot-sdk/refs/tags/v1.16.2-rc1/substrate/frame/system/src/lib.rs:1115:1132'
 ```
 
 The `AccountInfo` structure includes the following components:
@@ -122,7 +121,7 @@ This modular and flexible system of reference counters tightly controls the life
 
 In the Polkadot ecosystem, account balances are categorized into different types based on how the funds are utilized and their availability. These balance types determine the actions that can be performed, such as transferring tokens, paying transaction fees, or participating in governance activities. Understanding these balance types helps developers manage user accounts and implement balance-dependent logic.
 
-!!! tip "A more efficient distribution of account balance types is in development"
+!!! note "A more efficient distribution of account balance types is in development"
     Soon, pallets in the Polkadot SDK will implement the [`Fungible` trait](https://paritytech.github.io/polkadot-sdk/master/frame_support/traits/tokens/fungible/index.html){target=\_blank} (see the [tracking issue](https://github.com/paritytech/polkadot-sdk/issues/226){target=\_blank} for more details). For example, the [`transaction-storage`](https://paritytech.github.io/polkadot-sdk/master/pallet_transaction_storage/index.html){target=\_blank} pallet changed the implementation of the [`Currency`](https://paritytech.github.io/polkadot-sdk/master/frame_support/traits/tokens/currency/index.html){target=\_blank} trait (see the [Refactor transaction storage pallet to use fungible traits](https://github.com/paritytech/polkadot-sdk/pull/1800){target=\_blank} PR for further details):
 
     ```rust
@@ -224,8 +223,7 @@ base58encode(concat(<address-type>, <address>, <checksum>))
 
 The encoding process transforms the concatenated components into a Base58 string, providing a compact and human-readable format that avoids easily confused characters (e.g., zero '0', capital 'O', lowercase 'l'). This encoding function ([`encode`](https://docs.rs/bs58/latest/bs58/fn.encode.html){target=\_blank}) is implemented exactly as defined in Bitcoin and IPFS specifications, using the same alphabet as both implementations.
 
-??? interface "Additional information"
-    Refer to [Ss58Codec](https://paritytech.github.io/polkadot-sdk/master/sp_core/crypto/trait.Ss58Codec.html){target=\_blank} for more details on the SS58 address format implementation.
+For more details about the SS58 address format implementation, see the [`Ss58Codec`](https://paritytech.github.io/polkadot-sdk/master/sp_core/crypto/trait.Ss58Codec.html){target=\_blank} trait in the Rust Docs.
 
 ### Address Type
 

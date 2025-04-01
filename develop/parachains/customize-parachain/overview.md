@@ -29,7 +29,7 @@ Developers have the flexibility to implement any desired behavior in the core lo
 - Storing information
 - Enforcing business rules
 
-Pallets also include necessary wiring code to ensure proper integration and functionality within the runtime. FRAME provides a range of [pre-built pallets](https://github.com/paritytech/polkadot-sdk/tree/master/substrate/frame){target=\_blank} for standard and common blockchain functionalities, including consensus algorithms, staking mechanisms, governance systems, and more. These pre-existing pallets serve as building blocks or templates, which developers can use as-is, modify, or reference when creating custom functionalities. 
+Pallets also include necessary wiring code to ensure proper integration and functionality within the runtime. FRAME provides a range of [pre-built pallets](https://github.com/paritytech/polkadot-sdk/tree/{{dependencies.repositories.polkadot_sdk.version}}/substrate/frame){target=\_blank} for standard and common blockchain functionalities, including consensus algorithms, staking mechanisms, governance systems, and more. These pre-existing pallets serve as building blocks or templates, which developers can use as-is, modify, or reference when creating custom functionalities. 
 
 #### Pallet Structure
 
@@ -51,10 +51,9 @@ All pallets, including custom ones, can implement these attribute macros:
 - **`#[pallet::storage]`** - defines elements to be persisted in storage
 - **`#[pallet::call]`** - defines functions exposed as transactions, allowing dispatch to the runtime
 
-These macros are applied as attributes to Rust modules, functions, structures, enums, and types. They enable the pallet to be built and added to the runtime, exposing the custom logic to the outer world.
+These macros are applied as attributes to Rust modules, functions, structures, enums, and types and serve as the core components of a pallet. They enable the pallet to be built and added to the runtime, exposing the custom logic to the outer world.
 
-!!! note
-    The macros above are the core components of a pallet. For a comprehensive guide on these and additional macros, refer to the [`pallet_macros`](https://paritytech.github.io/polkadot-sdk/master/frame_support/pallet_macros/index.html){target=\_blank} section in the Polkadot SDK documentation.
+For a comprehensive guide on these and additional macros, see the [`pallet_macros`](https://paritytech.github.io/polkadot-sdk/master/frame_support/pallet_macros/index.html){target=\_blank} section in the Polkadot SDK documentation.
 
 ### Support Libraries
 

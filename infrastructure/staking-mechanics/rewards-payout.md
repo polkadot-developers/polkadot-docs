@@ -13,17 +13,14 @@ This guide explains the payout scheme, factors influencing rewards, and how mult
 
 ## Era Points
 
-The Polkadot ecosystem measures their reward cycles in a unit called an era. Kusama eras are approximately 6 hours long, and Polkadot eras are 24 hours. At the end of each era, validators are paid proportionally to the amount of [era points](https://wiki.polkadot.network/docs/maintain-guides-validator-payout#era-points){target=\_blank} they have collected. Era points are reward points earned for payable actions like:
+The Polkadot ecosystem measures its reward cycles in a unit called an era. Kusama eras are approximately 6 hours long, and Polkadot eras are 24 hours long. At the end of each era, validators are paid proportionally to the amount of [era points](https://wiki.polkadot.network/docs/maintain-guides-validator-payout#era-points){target=\_blank} they have collected. Era points are reward points earned for payable actions like:
 
 - Issuing validity statements for [parachain blocks](/polkadot-protocol/parachain-basics/blocks-transactions-fees/blocks/){target=\_blank}
 - Producing a non-uncle block in the relay chain
 - Producing a reference to a previously unreferenced uncle block
 - Producing a referenced uncle block
 
-!!!note
-    An uncle block is a relay chain block that is valid in every regard but has failed to become canonical. This can happen when two or more validators are block producers in a single slot, and the block produced by one validator reaches the next block producer before the others. The lagging blocks are called uncle blocks.
-
-Payments occur at the end of every era.
+An uncle block is a relay chain block that is valid in every regard but has failed to become canonical. This can happen when two or more validators are block producers in a single slot, and the block produced by one validator reaches the next block producer before the others. The lagging blocks are called uncle blocks.
 
 ## Reward Variance
 

@@ -4,6 +4,7 @@ nav:
   - 'Networks': networks.md
   - 'Accounts': accounts.md
   - blocks-transactions-fees
+  - 'Node and Runtime': node-and-runtime.md
   - 'Interoperability': interoperability.md
   - 'Randomness': randomness.md
   - 'Cryptography': cryptography.md

@@ -40,11 +40,7 @@ The node responsible for the creation of a block, also called _block producers_.
 
 ## Byzantine Fault Tolerance (BFT)
 
-The ability of a distributed computer network to remain operational if a certain proportion of its nodes or [authorities](#authority) are defective or behaving maliciously.
-
-!!!note
-
-    A distributed network is typically considered Byzantine fault tolerant if it can remain functional, with up to one-third of nodes assumed to be defective, offline, actively malicious, and part of a coordinated attack.
+The ability of a distributed computer network to remain operational if a certain proportion of its nodes or [authorities](#authority) are defective or behaving maliciously. A distributed network is typically considered Byzantine fault tolerant if it can remain functional, with up to one-third of nodes assumed to be defective, offline, actively malicious, and part of a coordinated attack.
 
 ### Byzantine Failure
 
@@ -120,7 +116,7 @@ Well-known development accounts, such as Alice, Bob, Charlie, Dave, Eve, and Fer
 bottom drive obey lake curtain smoke basket hold race lonely fit walk
 ```
 
-Many tools in the Polkadot SDK ecosystem, such as [`subkey`](https://github.com/paritytech/polkadot-sdk/tree/HEAD/substrate/bin/utils/subkey){target=\_blank}, allow you to implicitly specify an account using a derivation path such as `//Alice`.
+Many tools in the Polkadot SDK ecosystem, such as [`subkey`](https://github.com/paritytech/polkadot-sdk/tree/{{dependencies.repositories.polkadot_sdk.version}}/substrate/bin/utils/subkey){target=\_blank}, allow you to implicitly specify an account using a derivation path such as `//Alice`.
 
 ## Digest
 

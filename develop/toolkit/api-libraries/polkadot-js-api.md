@@ -38,7 +38,7 @@ The available methods and interfaces will automatically reflect what's possible 
 
 ## Installation
 
-To add the Polkadot.js API to your project:
+To add the Polkadot.js API to your project, use the following command to install the latest stable release which supports any Polkadot SDK-based chain:
 
 === "npm"
     ```bash
@@ -55,10 +55,7 @@ To add the Polkadot.js API to your project:
     yarn add @polkadot/api
     ```
 
-This command installs the latest stable release, which supports any Polkadot SDK-based chain.
-
-!!!note
-    For more installation details, refer to the [Installation](https://polkadot.js.org/docs/api/start/install/){target=\_blank} section in the official Polkadot.js API documentation.
+For more detailed information about installation, see the [Installation](https://polkadot.js.org/docs/api/start/install/){target=\_blank} section in the official Polkadot.js API documentation.
 
 ## Get Started
 
@@ -72,7 +69,7 @@ To create an API connection:
 --8<-- 'code/develop/toolkit/api-libraries/polkadot-js-sdk/api-instance.js'
 ```
 
-!!!note
+!!!warning
     All `await` operations must be wrapped in an async function or block since the API uses promises for asynchronous operations.
 
 ### Reading Chain Data
@@ -104,8 +101,7 @@ To make a transfer:
 --8<-- 'code/develop/toolkit/api-libraries/polkadot-js-sdk/send-txs.js'
 ```
 
-!!!note
-    The `alice` keypair in the example comes from a Keyring object. See the [Keyring documentation](https://polkadot.js.org/docs/keyring){target=\_blank} for details on managing keypairs.
+The `alice` keypair in the example comes from a `Keyring` object. For more details about managing keypairs, see the [Keyring documentation](https://polkadot.js.org/docs/keyring){target=\_blank}.
 
 ## Where to Go Next
 

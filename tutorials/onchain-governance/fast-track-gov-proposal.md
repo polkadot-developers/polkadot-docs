@@ -29,7 +29,7 @@ Before proceeding, ensure the following prerequisites are met:
     - [Polkadot.js](/develop/toolkit/api-libraries/polkadot-js-api){target=\_blank} 
     - [OpenGov](/polkadot-protocol/onchain-governance/overview){target=\_blank}
 
-## Setting Up the Project
+## Set Up the Project
 
 Before testing OpenGov proposals, you need to set up your development environment. 
 You'll set up a TypeScript project and install the required dependencies to simulate and evaluate proposals. You'll use Chopsticks to fork the Polkadot network and simulate the proposal lifecycle, while Polkadot.js will be your interface for interacting with the forked network and submitting proposals.
@@ -66,7 +66,7 @@ Follow these steps to set up your project:
     --8<-- 'code/tutorials/onchain-governance/fast-track-gov-proposal/tsconfig.json'
     ```
 
-## Submitting and Executing a Proposal Using Chopsticks
+## Submit and Execute a Proposal Using Chopsticks
 
 You should identify the right track and origin for your proposal. For example, select the appropriate treasury track based on the spending limits if you're requesting funds from the treasury. For more detailed information, refer to [Polkadot OpenGov Origins](https://wiki.polkadot.network/docs/learn-polkadot-opengov-origins){target=\_blank}.
 
@@ -249,7 +249,7 @@ Invoke `forceProposalExecution` from the `main` function using the `proposalInde
 --8<-- 'code/tutorials/onchain-governance/fast-track-gov-proposal/test-proposal.ts:main'
 ```
 
-## Executing the Proposal Script
+## Execute the Proposal Script
 
 To run the proposal execution script, use the following command in your terminal:
 

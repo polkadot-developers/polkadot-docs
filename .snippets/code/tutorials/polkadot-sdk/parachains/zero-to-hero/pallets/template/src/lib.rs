@@ -128,7 +128,7 @@ pub mod pallet {
     #[pallet::hooks]
     impl<T: Config> Hooks<BlockNumberFor<T>> for Pallet<T> {}
 
-    /// Dispatchable functions allows users to interact with the pallet and invoke state changes.
+    /// Dispatchable functions allow users to interact with the pallet and invoke state changes.
     /// These functions materialize as "extrinsics", which are often compared to transactions.
     /// Dispatchable functions must be annotated with a weight and must return a DispatchResult.
     /// <https://paritytech.github.io/polkadot-sdk/master/polkadot_sdk_docs/guides/your_first_pallet/index.html#dispatchables>

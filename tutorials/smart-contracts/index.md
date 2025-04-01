@@ -8,11 +8,11 @@ template: index-page.html
 
 Get started with deploying and interacting with smart contracts on Polkadot through practical, hands-on tutorials. Whether you're a beginner or an experienced developer, these guides will help you navigate the entire development lifecycle.
 
-## Why Learn Here?
+## What to Expect from These Tutorials
 
-- **Beginner to advanced** – Suitable for developers of all levels
-- **Complete workflows** – Covers the entire process from writing code to on-chain deployment
-- **Interactive examples** – Follow along with real, working code that you can modify and expand
+- **Beginner to advanced** – suitable for developers of all levels
+- **Complete workflows** – covers the entire process from writing code to on-chain deployment
+- **Interactive examples** – follow along with real, working code that you can modify and expand
 
 ## Start Building
 

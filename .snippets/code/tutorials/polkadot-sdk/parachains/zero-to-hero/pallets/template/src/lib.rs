@@ -134,7 +134,7 @@ pub mod pallet {
     /// <https://paritytech.github.io/polkadot-sdk/master/polkadot_sdk_docs/guides/your_first_pallet/index.html#dispatchables>
     #[pallet::call]
     impl<T: Config> Pallet<T> {
-        /// An example dispatchable that takes a singles value as a parameter, writes the value to
+        /// An example dispatchable that takes a single value as a parameter, writes the value to
         /// storage and emits an event. This function must be dispatched by a signed extrinsic.
         #[pallet::call_index(0)]
         #[pallet::weight(Weight::from_parts(10_000, 0) + T::DbWeight::get().writes(1))]

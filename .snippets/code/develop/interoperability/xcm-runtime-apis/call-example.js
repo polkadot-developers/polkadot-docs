@@ -39,7 +39,7 @@ const tx = paseoApi.tx.XcmPallet.limited_reserve_transfer_assets({
   dest: XcmVersionedLocation.V3({
     parents: 0,
     interior: XcmV3Junctions.X1(
-      XcmV3Junction.Parachain(popParaID), // Destination is the Pop Network parachain
+      XcmV3Junction.Parachain(popParaID), // Destination is the Pop Network rollup
     ),
   }),
   beneficiary: XcmVersionedLocation.V3({

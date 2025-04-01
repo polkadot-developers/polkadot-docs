@@ -7,15 +7,15 @@ description: Explore how Asset Hub smart contracts handle blocks, transactions, 
 
 ## Introduction
 
-Asset Hub smart contracts operate within the Polkadot ecosystem using the [`pallet_revive`](https://paritytech.github.io/polkadot-sdk/master/pallet_revive/){target=\_blank} implementation, which provides EVM compatibility. While many aspects of blocks and transactions are inherited from the underlying parachain architecture, there are specific considerations and mechanisms unique to smart contract operations on Asset Hub.
+Asset Hub smart contracts operate within the Polkadot ecosystem using the [`pallet_revive`](https://paritytech.github.io/polkadot-sdk/master/pallet_revive/){target=\_blank} implementation, which provides EVM compatibility. While many aspects of blocks and transactions are inherited from the underlying rollup architecture, there are specific considerations and mechanisms unique to smart contract operations on Asset Hub.
 
 ## Smart Contract Blocks
 
-Smart contract blocks in Asset Hub follow the same fundamental structure as parachain blocks, inheriting all standard parachain block components. The `pallet_revive` implementation maintains this consistency while adding necessary [EVM-specific features](https://paritytech.github.io/polkadot-sdk/master/pallet_revive/evm){target=\_blank}. For detailed implementation specifics, the [`Block`](https://paritytech.github.io/polkadot-sdk/master/pallet_revive/evm/struct.Block.html){target=\_blank} struct in `pallet_revive` demonstrates how parachain and smart contract block implementations align.
+Smart contract blocks in Asset Hub follow the same fundamental structure as rollup blocks, inheriting all standard rollup block components. The `pallet_revive` implementation maintains this consistency while adding necessary [EVM-specific features](https://paritytech.github.io/polkadot-sdk/master/pallet_revive/evm){target=\_blank}. For detailed implementation specifics, the [`Block`](https://paritytech.github.io/polkadot-sdk/master/pallet_revive/evm/struct.Block.html){target=\_blank} struct in `pallet_revive` demonstrates how rollup and smart contract block implementations align.
 
 ## Smart Contract Transactions
 
-Asset Hub implements a sophisticated transaction system that supports various transaction types and formats, encompassing both traditional parachain operations and EVM-specific interactions.
+Asset Hub implements a sophisticated transaction system that supports various transaction types and formats, encompassing both traditional rollup operations and EVM-specific interactions.
 
 ### EVM Transaction Types
 
@@ -33,11 +33,11 @@ Each transaction type can exist in both signed and unsigned states, with appropr
 
 ## Fees and Gas
 
-Asset Hub implements a sophisticated resource management system that combines parachain transaction fees with EVM gas mechanics, providing both Ethereum compatibility and enhanced features.
+Asset Hub implements a sophisticated resource management system that combines rollup transaction fees with EVM gas mechanics, providing both Ethereum compatibility and enhanced features.
 
 ### Gas Model Overview
 
-Gas serves as the fundamental unit for measuring computational costs, with each network operation consuming a specified amount. This implementation maintains compatibility with Ethereum's approach while adding parachain-specific optimizations.
+Gas serves as the fundamental unit for measuring computational costs, with each network operation consuming a specified amount. This implementation maintains compatibility with Ethereum's approach while adding rollup-specific optimizations.
 
 - **Dynamic gas scaling** - Asset Hub implements a dynamic pricing mechanism that reflects actual execution performance. This results in:
     - More efficient pricing for computational instructions relative to I/O operations

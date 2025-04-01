@@ -113,19 +113,19 @@ Doc-Page: https://docs.polkadot.com/polkadot-protocol/
 Doc-Page: https://docs.polkadot.com/polkadot-protocol/onchain-governance/
 Doc-Page: https://docs.polkadot.com/polkadot-protocol/onchain-governance/origins-tracks/
 Doc-Page: https://docs.polkadot.com/polkadot-protocol/onchain-governance/overview/
-Doc-Page: https://docs.polkadot.com/polkadot-protocol/parachain-basics/accounts/
-Doc-Page: https://docs.polkadot.com/polkadot-protocol/parachain-basics/blocks-transactions-fees/blocks/
-Doc-Page: https://docs.polkadot.com/polkadot-protocol/parachain-basics/blocks-transactions-fees/fees/
-Doc-Page: https://docs.polkadot.com/polkadot-protocol/parachain-basics/blocks-transactions-fees/
-Doc-Page: https://docs.polkadot.com/polkadot-protocol/parachain-basics/blocks-transactions-fees/transactions/
-Doc-Page: https://docs.polkadot.com/polkadot-protocol/parachain-basics/chain-data/
-Doc-Page: https://docs.polkadot.com/polkadot-protocol/parachain-basics/cryptography/
-Doc-Page: https://docs.polkadot.com/polkadot-protocol/parachain-basics/data-encoding/
-Doc-Page: https://docs.polkadot.com/polkadot-protocol/parachain-basics/
-Doc-Page: https://docs.polkadot.com/polkadot-protocol/parachain-basics/interoperability/
-Doc-Page: https://docs.polkadot.com/polkadot-protocol/parachain-basics/networks/
-Doc-Page: https://docs.polkadot.com/polkadot-protocol/parachain-basics/node-and-runtime/
-Doc-Page: https://docs.polkadot.com/polkadot-protocol/parachain-basics/randomness/
+Doc-Page: https://docs.polkadot.com/polkadot-protocol/rollup-basics/accounts/
+Doc-Page: https://docs.polkadot.com/polkadot-protocol/rollup-basics/blocks-transactions-fees/blocks/
+Doc-Page: https://docs.polkadot.com/polkadot-protocol/rollup-basics/blocks-transactions-fees/fees/
+Doc-Page: https://docs.polkadot.com/polkadot-protocol/rollup-basics/blocks-transactions-fees/
+Doc-Page: https://docs.polkadot.com/polkadot-protocol/rollup-basics/blocks-transactions-fees/transactions/
+Doc-Page: https://docs.polkadot.com/polkadot-protocol/rollup-basics/chain-data/
+Doc-Page: https://docs.polkadot.com/polkadot-protocol/rollup-basics/cryptography/
+Doc-Page: https://docs.polkadot.com/polkadot-protocol/rollup-basics/data-encoding/
+Doc-Page: https://docs.polkadot.com/polkadot-protocol/rollup-basics/
+Doc-Page: https://docs.polkadot.com/polkadot-protocol/rollup-basics/interoperability/
+Doc-Page: https://docs.polkadot.com/polkadot-protocol/rollup-basics/networks/
+Doc-Page: https://docs.polkadot.com/polkadot-protocol/rollup-basics/node-and-runtime/
+Doc-Page: https://docs.polkadot.com/polkadot-protocol/rollup-basics/randomness/
 Doc-Page: https://docs.polkadot.com/polkadot-protocol/smart-contract-basics/accounts/
 Doc-Page: https://docs.polkadot.com/polkadot-protocol/smart-contract-basics/blocks-transactions-fees/
 Doc-Page: https://docs.polkadot.com/polkadot-protocol/smart-contract-basics/evm-vs-polkavm/
@@ -323,7 +323,7 @@ template: index-page.html
 
 This section covers everything you need to know about building and implementing [Cross-Consensus Messaging (XCM)](/develop/interoperability/intro-to-xcm/){target=\_blank} solutions in the Polkadot ecosystem. Whether you're working on establishing cross-chain channels, sending and receiving XCM messages, or testing and debugging your cross-chain configurations, you'll find the essential resources and tools here to support your interoperability needs, regardless of your development focus.
 
-- Not sure where to start? Visit the [Interoperability](/polkadot-protocol/parachain-basics/interoperability/){target=\_blank} overview page to explore different options and find the right fit for your project
+- Not sure where to start? Visit the [Interoperability](/polkadot-protocol/rollup-basics/interoperability/){target=\_blank} overview page to explore different options and find the right fit for your project
 - Ready to dive in? Head over to [Send XCM Messages](/develop/interoperability/send-messages/) to learn how to send a message cross-chain via XCM
 
 ## In This Section
@@ -1258,7 +1258,7 @@ const tx = paseoApi.tx.XcmPallet.limited_reserve_transfer_assets({
   dest: XcmVersionedLocation.V3({
     parents: 0,
     interior: XcmV3Junctions.X1(
-      XcmV3Junction.Parachain(popParaID), // Destination is the Pop Network parachain
+      XcmV3Junction.Parachain(popParaID), // Destination is the Pop Network rollup
     ),
   }),
   beneficiary: XcmVersionedLocation.V3({
@@ -10164,7 +10164,7 @@ Explore the powerful API libraries designed for interacting with the Polkadot ne
 
 <div class="subsection-wrapper">
   <div class="card">
-    <a href="/polkadot-protocol/parachain-basics/chain-data/"> 
+    <a href="/polkadot-protocol/rollup-basics/chain-data/"> 
       <h2 class="title">Understand Chain Data</h2>
       <p class="description">Familiarize yourself with the data provided by the APIs, including available calls, events, types, and storage items.</p>
     </a>
@@ -17963,7 +17963,7 @@ Key features of BABE include:
 
 - **Epochs and slots** - BABE operates in phases called epochs, each of which is divided into slots (around 6 seconds per slot). Validators are assigned slots at the beginning of each epoch based on stake and randomness
 
-- **Randomized block production** - validators enter a lottery to determine which will produce a block in a specific slot. This randomness is sourced from the relay chain's [randomness cycle](/polkadot-protocol/parachain-basics/randomness/){target=\_blank}
+- **Randomized block production** - validators enter a lottery to determine which will produce a block in a specific slot. This randomness is sourced from the relay chain's [randomness cycle](/polkadot-protocol/rollup-basics/randomness/){target=\_blank}
 
 - **Multiple block producers per slot** - in some cases, more than one validator might win the lottery for the same slot, resulting in multiple blocks being produced. These blocks are broadcasted, and the network's fork choice rule helps decide which chain to follow
 
@@ -17979,7 +17979,7 @@ There are two lottery outcomes for any given slot that initiate additional proce
 
 - **Multiple validators in a slot** - due to the randomness, multiple validators can be selected to produce a block for the same slot. When this happens, each validator produces a block and broadcasts it to the network resulting in a race condition. The network's topology and latency then determine which block reaches the majority of nodes first. BABE allows both chains to continue building until the finalization process resolves which one becomes canonical. The [Fork Choice](#fork-choice) rule is then used to decide which chain the network should follow
 
-- **No validators in a slot** - on occasions when no validator is selected by the lottery, a [secondary validator selection algorithm](https://spec.polkadot.network/sect-block-production#defn-babe-secondary-slots){target=\_blank} steps in. This backup ensures that a block is still produced, preventing skipped slots. However, if the primary block produced by a verifiable random function [(VRF)-selected](/polkadot-protocol/parachain-basics/randomness/#vrf){target=\_blank} validator exists for that slot, the secondary block will be ignored. As a result, every slot will have either a primary or a secondary block
+- **No validators in a slot** - on occasions when no validator is selected by the lottery, a [secondary validator selection algorithm](https://spec.polkadot.network/sect-block-production#defn-babe-secondary-slots){target=\_blank} steps in. This backup ensures that a block is still produced, preventing skipped slots. However, if the primary block produced by a verifiable random function [(VRF)-selected](/polkadot-protocol/rollup-basics/randomness/#vrf){target=\_blank} validator exists for that slot, the secondary block will be ignored. As a result, every slot will have either a primary or a secondary block
 
 This design ensures continuous block production, even in cases of multiple competing validators or an absence of selected validators.
 
@@ -19470,7 +19470,7 @@ See [Cancelling, Killing, and Blacklisting](https://wiki.polkadot.network/docs/l
 - [**Polkadot.js Apps Governance**](https://polkadot.js.org/apps/#/referenda){target=\_blank} - overview of active referendums
 --- END CONTENT ---
 
-Doc-Content: https://docs.polkadot.com/polkadot-protocol/parachain-basics/accounts/
+Doc-Content: https://docs.polkadot.com/polkadot-protocol/rollup-basics/accounts/
 --- BEGIN CONTENT ---
 ---
 title: Polkadot SDK Accounts
@@ -19673,7 +19673,7 @@ Consider an example where an account has 80 DOT locked for both staking and gove
 
 In this case, the total locked amount is 80 DOT because only the largest lock (80 DOT from staking) governs the locked balance. These 80 DOT will be released at different times based on the lock durations. In this example, the 24 DOT locked for governance will be released first since the shortest lock period is seven days. The 80 DOT stake with a 28-day lock period is released next. Now, all that remains locked is the 4 DOT for governance. After 224 days, all 80 DOT (minus the existential deposit) will be free and transferrable.
 
-![Illustration of Lock Example](/images/polkadot-protocol/parachain-basics/accounts/locks-example-2.webp)
+![Illustration of Lock Example](/images/polkadot-protocol/rollup-basics/accounts/locks-example-2.webp)
 
 #### Edge Cases for Locks
 
@@ -19683,7 +19683,7 @@ In scenarios where multiple convictions and lock periods are active, the lock du
 
 Polkadot.js provides a user-friendly interface for managing and visualizing various account balances on Polkadot and Kusama networks. When interacting with Polkadot.js, you will encounter multiple balance types that are critical for understanding how your funds are distributed and restricted. This section explains how different balances are displayed in the Polkadot.js UI and what each type represents.
 
-![](/images/polkadot-protocol/parachain-basics/accounts/account-balance-types-1.webp)
+![](/images/polkadot-protocol/rollup-basics/accounts/account-balance-types-1.webp)
 
 The most common balance types displayed on Polkadot.js are:
 
@@ -19864,7 +19864,7 @@ Support for encoding and decoding Polkadot SDK SS58 addresses has been implement
 - **TypeScript** - [`subsquid/squid-sdk`](https://github.com/subsquid/squid-sdk){target=\_blank}
 --- END CONTENT ---
 
-Doc-Content: https://docs.polkadot.com/polkadot-protocol/parachain-basics/blocks-transactions-fees/blocks/
+Doc-Content: https://docs.polkadot.com/polkadot-protocol/rollup-basics/blocks-transactions-fees/blocks/
 --- BEGIN CONTENT ---
 ---
 title: Blocks
@@ -19875,7 +19875,7 @@ description: Understand how blocks are produced, validated, and imported in Polk
 
 ## Introduction
 
-In the Polkadot SDK, blocks are fundamental to the functioning of the blockchain, serving as containers for [transactions](/polkadot-protocol/parachain-basics/blocks-transactions-fees/transactions/){target=\_blank} and changes to the chain's state. Blocks consist of headers and an array of transactions, ensuring the integrity and validity of operations on the network. This guide explores the essential components of a block, the process of block production, and how blocks are validated and imported across the network. By understanding these concepts, developers can better grasp how blockchains maintain security, consistency, and performance within the Polkadot ecosystem.
+In the Polkadot SDK, blocks are fundamental to the functioning of the blockchain, serving as containers for [transactions](/polkadot-protocol/rollup-basics/blocks-transactions-fees/transactions/){target=\_blank} and changes to the chain's state. Blocks consist of headers and an array of transactions, ensuring the integrity and validity of operations on the network. This guide explores the essential components of a block, the process of block production, and how blocks are validated and imported across the network. By understanding these concepts, developers can better grasp how blockchains maintain security, consistency, and performance within the Polkadot ecosystem.
 
 ## What is a Block?
 
@@ -19938,7 +19938,7 @@ These traits govern how blocks are validated and imported across the network, en
 To learn more about the block structure in the Polkadot SDK runtime, see the [`Block` reference](https://paritytech.github.io/polkadot-sdk/master/sp_runtime/traits/trait.Block.html){target=\_blank} entry in the Rust Docs.
 --- END CONTENT ---
 
-Doc-Content: https://docs.polkadot.com/polkadot-protocol/parachain-basics/blocks-transactions-fees/fees/
+Doc-Content: https://docs.polkadot.com/polkadot-protocol/rollup-basics/blocks-transactions-fees/fees/
 --- BEGIN CONTENT ---
 ---
 title: Transactions Weights and Fees
@@ -20282,7 +20282,7 @@ You now know the weight system, how it affects transaction fee computation, and 
 - [Web3 Foundation Research](https://research.web3.foundation/Polkadot/overview/token-economics#relay-chain-transaction-fees-and-per-block-transaction-limits){target=\_blank}
 --- END CONTENT ---
 
-Doc-Content: https://docs.polkadot.com/polkadot-protocol/parachain-basics/blocks-transactions-fees/
+Doc-Content: https://docs.polkadot.com/polkadot-protocol/rollup-basics/blocks-transactions-fees/
 --- BEGIN CONTENT ---
 ---
 title: Blocks, Transactions, and Fees
@@ -20301,7 +20301,7 @@ Uncover how Polkadot’s fee system balances resource usage and economic incenti
 :::INSERT_IN_THIS_SECTION:::
 --- END CONTENT ---
 
-Doc-Content: https://docs.polkadot.com/polkadot-protocol/parachain-basics/blocks-transactions-fees/transactions/
+Doc-Content: https://docs.polkadot.com/polkadot-protocol/rollup-basics/blocks-transactions-fees/transactions/
 --- BEGIN CONTENT ---
 ---
 title: Transactions
@@ -20475,7 +20475,7 @@ Pallets, which compose the runtime's logic, define the specific transactions tha
 
 In Polkadot SDK-based networks, some nodes are authorized to author blocks. These nodes validate and process transactions. When a transaction is sent to a node that can produce blocks, it undergoes a lifecycle that involves several stages, including validation and execution. Non-authoring nodes gossip the transaction across the network until an authoring node receives it. The following diagram illustrates the lifecycle of a transaction that's submitted to a network and processed by an authoring node.
 
-![Transaction lifecycle diagram](/images/polkadot-protocol/parachain-basics/blocks-transactions-fees/transactions/transaction-lifecycle-1.webp)
+![Transaction lifecycle diagram](/images/polkadot-protocol/rollup-basics/blocks-transactions-fees/transactions/transaction-lifecycle-1.webp)
 
 ### Validate and Queue
 
@@ -20525,7 +20525,7 @@ Events are also written to storage. Runtime logic should not emit an event befor
 For a video overview of the lifecycle of transactions and the types of transactions that exist, see the [Transaction lifecycle](https://www.youtube.com/watch?v=3pfM0GOp02c){target=\_blank} seminar from Parity Tech.
 --- END CONTENT ---
 
-Doc-Content: https://docs.polkadot.com/polkadot-protocol/parachain-basics/chain-data/
+Doc-Content: https://docs.polkadot.com/polkadot-protocol/rollup-basics/chain-data/
 --- BEGIN CONTENT ---
 ---
 title: Chain Data
@@ -20659,7 +20659,7 @@ The constant `1635018093` is a magic number that identifies the file as a metada
 - The `pallets` section contains information about each pallet in the runtime
 - The `extrinsic` section describes the type identifier and transaction format version that the runtime uses
 
-Different extrinsic versions can have varying formats, especially when considering [signed transactions](/polkadot-protocol/parachain-basics/blocks-transactions-fees/transactions/#signed-transactions){target=\_blank}. 
+Different extrinsic versions can have varying formats, especially when considering [signed transactions](/polkadot-protocol/rollup-basics/blocks-transactions-fees/transactions/#signed-transactions){target=\_blank}. 
 
 ### Pallets
 
@@ -20879,7 +20879,7 @@ The following tools can help you locate and decode metadata:
 - [De[code] Sub[strate]](https://github.com/paritytech/desub){target=\_blank}
 --- END CONTENT ---
 
-Doc-Content: https://docs.polkadot.com/polkadot-protocol/parachain-basics/cryptography/
+Doc-Content: https://docs.polkadot.com/polkadot-protocol/rollup-basics/cryptography/
 --- BEGIN CONTENT ---
 ---
 title: Cryptography
@@ -20998,7 +20998,7 @@ One sacrifice that is made when using Schnorr signatures over ECDSA is that both
 - [SR25519](https://research.web3.foundation/Polkadot/security/keys/accounts-more){target=\_blank} - is based on the same underlying curve as Ed25519. However, it uses Schnorr signatures instead of the EdDSA scheme
 --- END CONTENT ---
 
-Doc-Content: https://docs.polkadot.com/polkadot-protocol/parachain-basics/data-encoding/
+Doc-Content: https://docs.polkadot.com/polkadot-protocol/rollup-basics/data-encoding/
 --- BEGIN CONTENT ---
 ---
 title: Data Encoding
@@ -21151,15 +21151,15 @@ Several SCALE codec implementations are available in various languages. Here's a
 - **TypeScript** - [`parity-scale-codec-ts`](https://github.com/tjjfvi/subshape){target=\_blank}, [`scale-ts`](https://github.com/unstoppablejs/unstoppablejs/tree/main/packages/scale-ts#scale-ts){target=\_blank}, [`soramitsu/scale-codec-js-library`](https://github.com/soramitsu/scale-codec-js-library){target=\_blank}, [`subsquid/scale-codec`](https://github.com/subsquid/squid-sdk/tree/master/substrate/scale-codec){target=\_blank}
 --- END CONTENT ---
 
-Doc-Content: https://docs.polkadot.com/polkadot-protocol/parachain-basics/
+Doc-Content: https://docs.polkadot.com/polkadot-protocol/rollup-basics/
 --- BEGIN CONTENT ---
 ---
-title: Parachain Basics
+title: Rollup Basics
 description: Discover Polkadot’s technical foundations, from blockchain basics and cryptography to network features like interoperability and randomness.
 template: index-page.html
 ---
 
-# Parachain Basics
+# Rollup Basics
 
 This section equips developers with the essential knowledge to create, deploy, and enhance applications and blockchains within the Polkadot ecosystem. Gain a comprehensive understanding of Polkadot’s foundational components, including accounts, balances, and transactions, as well as advanced topics like data encoding and cryptographic methods. Mastering these concepts is vital for building robust and secure applications on Polkadot.
 
@@ -21170,7 +21170,7 @@ By exploring these core topics, developers can leverage Polkadot's unique archit
 :::INSERT_IN_THIS_SECTION:::
 --- END CONTENT ---
 
-Doc-Content: https://docs.polkadot.com/polkadot-protocol/parachain-basics/interoperability/
+Doc-Content: https://docs.polkadot.com/polkadot-protocol/rollup-basics/interoperability/
 --- BEGIN CONTENT ---
 ---
 title: Interoperability
@@ -21239,7 +21239,7 @@ Polkadot was purpose-built for interoperability. Unlike networks that add intero
 Polkadot’s vision of interoperability extends beyond technical functionality, representing a shift towards a more collaborative blockchain landscape. By enabling chains to work together, Polkadot fosters innovation, efficiency, and accessibility, paving the way for a decentralized future where blockchains are not isolated competitors but interconnected collaborators.
 --- END CONTENT ---
 
-Doc-Content: https://docs.polkadot.com/polkadot-protocol/parachain-basics/networks/
+Doc-Content: https://docs.polkadot.com/polkadot-protocol/rollup-basics/networks/
 --- BEGIN CONTENT ---
 ---
 title: Networks
@@ -21336,7 +21336,7 @@ Key features of Chopsticks include:
 Chopsticks provides a controlled environment for developers to safely explore the effects of runtime changes. It ensures that network behavior is tested and verified before upgrades are deployed to live networks.
 --- END CONTENT ---
 
-Doc-Content: https://docs.polkadot.com/polkadot-protocol/parachain-basics/node-and-runtime/
+Doc-Content: https://docs.polkadot.com/polkadot-protocol/rollup-basics/node-and-runtime/
 --- BEGIN CONTENT ---
 ---
 title: Node and Runtime
@@ -21435,7 +21435,7 @@ During execution, the runtime can access certain external client functionalities
 - Allocate memory
 --- END CONTENT ---
 
-Doc-Content: https://docs.polkadot.com/polkadot-protocol/parachain-basics/randomness/
+Doc-Content: https://docs.polkadot.com/polkadot-protocol/rollup-basics/randomness/
 --- BEGIN CONTENT ---
 ---
 title: Randomness
@@ -21474,7 +21474,7 @@ This process helps maintain fair randomness across the network.
 
 Here is a graphical representation:
 
-![](/images/polkadot-protocol/parachain-basics/blocks-transactions-fees/randomness/slots-epochs.webp)
+![](/images/polkadot-protocol/rollup-basics/blocks-transactions-fees/randomness/slots-epochs.webp)
 
 The VRF produces two outputs: a result (the random number) and a proof (verifying that the number was generated correctly).
 
@@ -21622,15 +21622,15 @@ description: Explore how Asset Hub smart contracts handle blocks, transactions, 
 
 ## Introduction
 
-Asset Hub smart contracts operate within the Polkadot ecosystem using the [`pallet_revive`](https://paritytech.github.io/polkadot-sdk/master/pallet_revive/){target=\_blank} implementation, which provides EVM compatibility. While many aspects of blocks and transactions are inherited from the underlying parachain architecture, there are specific considerations and mechanisms unique to smart contract operations on Asset Hub.
+Asset Hub smart contracts operate within the Polkadot ecosystem using the [`pallet_revive`](https://paritytech.github.io/polkadot-sdk/master/pallet_revive/){target=\_blank} implementation, which provides EVM compatibility. While many aspects of blocks and transactions are inherited from the underlying rollup architecture, there are specific considerations and mechanisms unique to smart contract operations on Asset Hub.
 
 ## Smart Contract Blocks
 
-Smart contract blocks in Asset Hub follow the same fundamental structure as parachain blocks, inheriting all standard parachain block components. The `pallet_revive` implementation maintains this consistency while adding necessary [EVM-specific features](https://paritytech.github.io/polkadot-sdk/master/pallet_revive/evm){target=\_blank}. For detailed implementation specifics, the [`Block`](https://paritytech.github.io/polkadot-sdk/master/pallet_revive/evm/struct.Block.html){target=\_blank} struct in `pallet_revive` demonstrates how parachain and smart contract block implementations align.
+Smart contract blocks in Asset Hub follow the same fundamental structure as rollup blocks, inheriting all standard rollup block components. The `pallet_revive` implementation maintains this consistency while adding necessary [EVM-specific features](https://paritytech.github.io/polkadot-sdk/master/pallet_revive/evm){target=\_blank}. For detailed implementation specifics, the [`Block`](https://paritytech.github.io/polkadot-sdk/master/pallet_revive/evm/struct.Block.html){target=\_blank} struct in `pallet_revive` demonstrates how rollup and smart contract block implementations align.
 
 ## Smart Contract Transactions
 
-Asset Hub implements a sophisticated transaction system that supports various transaction types and formats, encompassing both traditional parachain operations and EVM-specific interactions.
+Asset Hub implements a sophisticated transaction system that supports various transaction types and formats, encompassing both traditional rollup operations and EVM-specific interactions.
 
 ### EVM Transaction Types
 
@@ -21648,11 +21648,11 @@ Each transaction type can exist in both signed and unsigned states, with appropr
 
 ## Fees and Gas
 
-Asset Hub implements a sophisticated resource management system that combines parachain transaction fees with EVM gas mechanics, providing both Ethereum compatibility and enhanced features.
+Asset Hub implements a sophisticated resource management system that combines rollup transaction fees with EVM gas mechanics, providing both Ethereum compatibility and enhanced features.
 
 ### Gas Model Overview
 
-Gas serves as the fundamental unit for measuring computational costs, with each network operation consuming a specified amount. This implementation maintains compatibility with Ethereum's approach while adding parachain-specific optimizations.
+Gas serves as the fundamental unit for measuring computational costs, with each network operation consuming a specified amount. This implementation maintains compatibility with Ethereum's approach while adding rollup-specific optimizations.
 
 - **Dynamic gas scaling** - Asset Hub implements a dynamic pricing mechanism that reflects actual execution performance. This results in:
     - More efficient pricing for computational instructions relative to I/O operations
@@ -21915,14 +21915,14 @@ Doc-Content: https://docs.polkadot.com/polkadot-protocol/smart-contract-basics/o
 --- BEGIN CONTENT ---
 ---
 title: Smart Contracts Basics Overview
-description: Learn how developers can build smart contracts on Polkadot by leveraging either Wasm/ink! or EVM contracts across many parachains.
+description: Learn how developers can build smart contracts on Polkadot by leveraging either Wasm/ink! or EVM contracts across many rollups.
 ---
 
 # An Overview of the Smart Contract Landscape on Polkadot
 
 ## Introduction
 
-Polkadot is designed to support an ecosystem of parachains, rather than hosting smart contracts directly. Developers aiming to build smart contract applications on Polkadot rely on parachains within the ecosystem that provide smart contract functionality.
+Polkadot is designed to support an ecosystem of rollups, rather than hosting smart contracts directly. Developers aiming to build smart contract applications on Polkadot rely on rollups within the ecosystem that provide smart contract functionality.
 
 This guide outlines the primary approaches to developing smart contracts in the Polkadot ecosystem:
 
@@ -21930,12 +21930,12 @@ This guide outlines the primary approaches to developing smart contracts in the 
 - **EVM-compatible contracts** - which support languages like [Solidity](https://soliditylang.org/){target=\_blank} and [Vyper](https://vyperlang.org/){target=\_blank}, offering compatibility with popular Ethereum tools and wallets
 - **Wasm-based smart contracts** - using [ink!](https://use.ink/){target=\_blank}, a Rust-based embedded domain-specific language (eDSL), enabling developers to leverage Rust’s safety and tooling
 
-You'll explore the key differences between these development paths, along with considerations for parachain developers integrating smart contract functionality.
+You'll explore the key differences between these development paths, along with considerations for rollup developers integrating smart contract functionality.
 
-!!!note "Parachain Developer?"
-    If you are a parachain developer looking to add smart contract functionality to your chain, please refer to the [Add Smart Contract Functionality](/develop/parachains/customize-parachain/add-smart-contract-functionality/){target=\_blank} page, which covers both Wasm and EVM-based contract implementations.
+!!!note "Rollup Developer?"
+    If you are a rollup developer looking to add smart contract functionality to your chain, please refer to the [Add Smart Contract Functionality](/develop/rollups/customize-rollup/add-smart-contract-functionality/){target=\_blank} page, which covers both Wasm and EVM-based contract implementations.
 
-## Smart Contracts Versus Parachains
+## Smart Contracts Versus Rollups
 
 A smart contract is a program that executes specific logic isolated to the chain on which it is being executed. All the logic executed is bound to the same state transition rules determined by the underlying virtual machine (VM). Consequently, smart contracts are more streamlined to develop, and programs can easily interact with each other through similar interfaces.
 
@@ -21959,7 +21959,7 @@ These strengths do come with certain limitations. Some smart contracts environme
 
 Another downside is that smart contracts often follow a gas metering model, where program execution is associated with a given unit and a marketplace is set up to pay for such an execution unit. This fee system is often very rigid, and some complex flows, like account abstraction, have been developed to circumvent this problem.
 
-In contrast, parachains can create their own custom logics (known as pallets or modules), and combine them as the state transition function (STF or runtime) thanks to the modularity provided by the [Polkadot-SDK](https://github.com/paritytech/polkadot-sdk/){target=\_blank}. The different pallets within the parachain runtime can give developers a lot of flexibility when building applications on top of it.
+In contrast, rollups can create their own custom logics (known as pallets or modules), and combine them as the state transition function (STF or runtime) thanks to the modularity provided by the [Polkadot-SDK](https://github.com/paritytech/polkadot-sdk/){target=\_blank}. The different pallets within the rollup runtime can give developers a lot of flexibility when building applications on top of it.
 
 ``` mermaid
 flowchart LR
@@ -21969,9 +21969,9 @@ flowchart LR
     B --> F[Execution Logs]
 ```
 
-Parachains inherently offer features such as logic upgradeability, flexible transaction fee mechanisms, and chain abstraction logic. More so, by using Polkadot, parachains can benefit from robust consensus guarantees with little engineering overhead.
+Rollups inherently offer features such as logic upgradeability, flexible transaction fee mechanisms, and chain abstraction logic. More so, by using Polkadot, rollups can benefit from robust consensus guarantees with little engineering overhead.
 
-To read more about the differences between smart contracts and parachain runtimes, see the [Runtime vs. Smart Contracts](https://paritytech.github.io/polkadot-sdk/master/polkadot_sdk_docs/reference_docs/runtime_vs_smart_contract/index.html){target=\_blank} section of the Polkadot SDK Rust docs. 
+To read more about the differences between smart contracts and rollup runtimes, see the [Runtime vs. Smart Contracts](https://paritytech.github.io/polkadot-sdk/master/polkadot_sdk_docs/reference_docs/runtime_vs_smart_contract/index.html){target=\_blank} section of the Polkadot SDK Rust docs. 
 
 For a more in-depth discussion about choosing between runtime development and smart contract development, see the post ["When should one build a Polkadot SDK runtime versus a Substrate (Polkadot SDK) smart contract?"](https://stackoverflow.com/a/56041305){target=\_blank} from Stack Overflow.
 
@@ -21985,7 +21985,7 @@ The Polkadot SDK supports multiple smart contract execution environments:
 
 ### PolkaVM Contracts
 
-A component of the Asset Hub parachain, PolkaVM helps enable the deployment of Solidity-based smart contracts directly on Asset Hub. Learn more about how this cutting edge virtual machine facilitates using familiar EVM contracts and tools with Asset Hub by visiting the [Native EVM Contracts](/develop/smart-contracts/evm/native-evm-contracts/){target=\_blank} guide.
+A component of the Asset Hub rollup, PolkaVM helps enable the deployment of Solidity-based smart contracts directly on Asset Hub. Learn more about how this cutting edge virtual machine facilitates using familiar EVM contracts and tools with Asset Hub by visiting the [Native EVM Contracts](/develop/smart-contracts/evm/native-evm-contracts/){target=\_blank} guide.
 
 ### EVM Contracts
 
@@ -22026,18 +22026,18 @@ flowchart TD
     style F fill:#ffffff,stroke:#000000,stroke-width:1px
 ```
 
-Although it seems complex, users and developers are abstracted of that complexity, and tools can easily interact with the parachain as they would with any other EVM-compatible environment.
+Although it seems complex, users and developers are abstracted of that complexity, and tools can easily interact with the rollup as they would with any other EVM-compatible environment.
 
-The Rust EVM is capable of executing regular [EVM bytecode](https://www.ethervm.io/){target=\_blank}. Consequently, any language that compiles to EVM bytecode can be used to create programs that the parachain can execute.
+The Rust EVM is capable of executing regular [EVM bytecode](https://www.ethervm.io/){target=\_blank}. Consequently, any language that compiles to EVM bytecode can be used to create programs that the rollup can execute.
 
 ### Wasm Contracts
 
-The [`pallet_contracts`](https://docs.rs/pallet-contracts/latest/pallet_contracts/index.html#contracts-pallet){target=\_blank} provides the execution environment for Wasm-based smart contracts. Consequently, any smart contract language that compiles to Wasm can be executed in a parachain that enables this module.
+The [`pallet_contracts`](https://docs.rs/pallet-contracts/latest/pallet_contracts/index.html#contracts-pallet){target=\_blank} provides the execution environment for Wasm-based smart contracts. Consequently, any smart contract language that compiles to Wasm can be executed in a rollup that enables this module.
 
 At the time of writing there are two main languages that can be used for Wasm programs:
 
 - [**ink!**](https://use.ink/){target=\_blank} - a Rust-based language that compiles to Wasm. It allows developers to inherit all its safety guarantees and use normal Rust tooling, being the dedicated domain-specific language
-- **Solidity** - can be compiled to Wasm via the [Solang](https://github.com/hyperledger-solang/solang/){target=\_blank} compiler. Consequently, developers can write Solidity 0.8 smart contracts that can be executed as Wasm programs in parachains
+- **Solidity** - can be compiled to Wasm via the [Solang](https://github.com/hyperledger-solang/solang/){target=\_blank} compiler. Consequently, developers can write Solidity 0.8 smart contracts that can be executed as Wasm programs in rollups
 
 The following diagram illustrates a high-level overview of the path a transaction follows when using [`pallet_contracts`](https://docs.rs/pallet-contracts/latest/pallet_contracts/index.html#contracts-pallet){target=\_blank}:
 
@@ -22224,7 +22224,7 @@ Learn to establish and use cross-chain communication channels:
 
 <div class="subsection-wrapper">
   <div class="card">
-    <a href="/polkadot-protocol/parachain-basics/interoperability/">
+    <a href="/polkadot-protocol/rollup-basics/interoperability/">
       <h2 class="title">Learn about Polkadot's Interoperability</h2>
       <p class="description">Explore the importance of interoperability in the Polkadot ecosystem, covering XCM, bridges, and cross-chain communication.</p>
     </a>

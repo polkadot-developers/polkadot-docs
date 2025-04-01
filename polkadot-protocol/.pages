@@ -2,7 +2,7 @@ title: Polkadot Protocol
 nav:
   - index.md
   - architecture
-  - parachain-basics
+  - rollup-basics
   - smart-contract-basics
   - onchain-governance
   - 'Glossary': glossary.md

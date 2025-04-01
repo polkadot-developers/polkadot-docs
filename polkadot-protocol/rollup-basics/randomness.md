@@ -35,7 +35,7 @@ This process helps maintain fair randomness across the network.
 
 Here is a graphical representation:
 
-![](/images/polkadot-protocol/parachain-basics/blocks-transactions-fees/randomness/slots-epochs.webp)
+![](/images/polkadot-protocol/rollup-basics/blocks-transactions-fees/randomness/slots-epochs.webp)
 
 The VRF produces two outputs: a result (the random number) and a proof (verifying that the number was generated correctly).
 

@@ -51,7 +51,7 @@ The next step is to sync your node with the chosen blockchain network. Synchroni
 
 2. **Monitor sync progress** - once the sync starts, you will see a stream of logs providing information about the node's status and progress. Here's an example of what the output might look like:
 
-    --8<-- 'code/infrastructure/running-a-validator/onboarding-and-offboarding/set-up-a-validator/terminal-output-02.html'
+    --8<-- 'code/infrastructure/running-a-validator/onboarding-and-offboarding/start-validating/terminal-output-01.html'
 
     The output logs provide information such as the current block number, node name, and network connections. Monitor the sync progress and any errors that might occur during the process. Look for information about the latest processed block and compare it with the current highest block using tools like [Telemetry](https://telemetry.polkadot.io/#list/Polkadot%20CC1){target=\_blank} or [Polkadot.js Apps Explorer](https://polkadot.js.org/apps/#/explorer){target=\_blank}.
 
@@ -66,7 +66,7 @@ If you'd like to speed up the process further, you can use a database snapshot. 
 !!!warning
     Although snapshots are convenient, syncing from scratch is recommended for security purposes. If snapshots become corrupted and most nodes rely on them, the network could inadvertently run on a non-canonical chain.
 
---8<-- 'code/infrastructure/running-a-validator/onboarding-and-offboarding/set-up-a-validator/terminal-output-03.html'
+--8<-- 'code/infrastructure/running-a-validator/onboarding-and-offboarding/start-validating/terminal-output-02.html'
 
 If you see terminal output similar to the preceding, and you are unable to synchronize the chain due to having zero peers, make sure you have libp2p port `30333` activated. It will take some time to discover other peers over the network.
 

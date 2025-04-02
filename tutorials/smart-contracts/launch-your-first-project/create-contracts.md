@@ -1,6 +1,7 @@
 ---
 title: Create a Smart Contract
 description: Learn how to write a basic smart contract using just a text editor. This guide covers creating and preparing a contract for deployment on Asset Hub.
+tutorial_badge: Beginner
 ---
 
 # Create a Smart Contract

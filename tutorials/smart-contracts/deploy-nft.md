@@ -1,6 +1,7 @@
 ---
 title: Deploy an NFT to Asset Hub
 description: Deploy an NFT on Asset Hub using PolkaVM and OpenZeppelin. Learn how to compile, deploy, and interact with your contract using Polkadot Remix IDE.
+tutorial_badge: Beginner
 ---
 
 # Deploy an NFT to Asset Hub

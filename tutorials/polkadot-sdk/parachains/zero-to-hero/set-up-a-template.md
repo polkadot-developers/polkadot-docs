@@ -1,6 +1,7 @@
 ---
 title: Set Up a Template
 description: Learn to compile and run a local parachain node using Polkadot SDK. Launch, run, and interact with a pre-configured runtime template.
+tutorial_badge: Beginner
 ---
 
 # Set Up a Template

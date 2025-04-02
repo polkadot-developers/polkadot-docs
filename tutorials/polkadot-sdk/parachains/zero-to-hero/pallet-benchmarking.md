@@ -1,6 +1,7 @@
 ---
 title: Pallet Benchmarking
 description: Learn how to benchmark Polkadot SDK-based pallets, assigning precise weights to extrinsics for accurate fee calculation and runtime optimization.
+tutorial_badge: Advanced
 ---
 
 ## Introduction

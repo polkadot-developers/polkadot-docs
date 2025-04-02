@@ -97,7 +97,7 @@ For more information on the Wasm meta protocol that powers runtimes, see the [WA
 
 The relay chain provides a layer of economic security for its rollups. Rollups submit proof of validation (PoV) data to the relay chain for validation through [collators](/polkadot-protocol/glossary/#collator), upon which the relay chains' validators ensure the validity of this data in accordance with the STF for that particular rollup. In other words, the consensus for a rollup follows the relay chain. While rollups choose how a block is authored, what it contains, and who authors it, the relay chain ultimately provides finality and consensus for those blocks.
 
-For more information about the rollup and relay chain validation process, see the [Parachains' Protocol Overview: Protocols' Summary](https://wiki.polkadot.network/docs/learn-parachains-protocol#protocols-summary){target=\blank} entry in the Polkadot Wiki.
+For more information about the rollups (previously referred to as parachains) and the relay chain validation process, see the [Parachains' Protocol Overview: Protocols' Summary](https://wiki.polkadot.network/docs/learn-parachains-protocol#protocols-summary){target=\blank} entry in the Polkadot Wiki.
 
 Rollups need at least one honest collator to submit PoV data to the relay chain. Without this, the rollup can't progress. The mechanisms that facilitate this are found in the Cumulus portion of the Polkadot SDK, some of which are found in the [`cumulus_pallet_parachain_system`](https://paritytech.github.io/polkadot-sdk/master/cumulus_pallet_parachain_system/index.html){target=\blank}
 

@@ -40,6 +40,10 @@ def get_all_markdown_files(directory):
         if 'node_modules' in root.split(os.sep):
             continue
 
+        # Skip 'venv' directory
+        if 'venv' in root.split(os.sep):
+            continue
+
         for file in files:
             if file.endswith(('.md', '.mdx')):
                 results.append(os.path.join(root, file))

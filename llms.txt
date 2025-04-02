@@ -162,6 +162,8 @@ Doc-Page: https://docs.polkadot.com/tutorials/smart-contracts/deploy-erc20/
 Doc-Page: https://docs.polkadot.com/tutorials/smart-contracts/deploy-nft/
 Doc-Page: https://docs.polkadot.com/tutorials/smart-contracts/
 Doc-Page: https://docs.polkadot.com/tutorials/smart-contracts/launch-your-first-project/create-contracts/
+Doc-Page: https://docs.polkadot.com/tutorials/smart-contracts/launch-your-first-project/create-dapp-ethers-js/
+Doc-Page: https://docs.polkadot.com/tutorials/smart-contracts/launch-your-first-project/create-dapp-viem/
 Doc-Page: https://docs.polkadot.com/tutorials/smart-contracts/launch-your-first-project/
 Doc-Page: https://docs.polkadot.com/tutorials/smart-contracts/launch-your-first-project/test-and-deploy-with-hardhat/
 
@@ -6958,14 +6960,10 @@ Explore the tools and frameworks available for building and testing smart contra
 
 Consider the following when evaluating development environments for your workflow:
 
-| Feature                  | Remix                                     | Hardhat                                                |
-| ------------------------ | ----------------------------------------- | ------------------------------------------------------ |
-| Type                     | Web-based IDE                             | Local development environment                          |
-| Installation             | No installation required (browser-based)  | Requires installation via a package manager            |
-| Best for                 | Beginners, quick prototyping, and testing | Advanced development, scripting, and automation        |
-| Compilation & Deployment | Built-in compiler and UI for deployment   | Uses scripts for compilation and deployment            |
-| Testing & Debugging      | Basic built-in tools                      | Advanced testing with Mocha, Chai, and mainnet forking |
-| Extensibility            | Limited plugin support                    | Highly customizable with plugins and scripts           |
+| Development Environment | Web-Based           | Installation Required     | Best For                                    | Compilation & Deployment | Testing & Debugging          | Extensibility          |
+| ----------------------- | ------------------- | ------------------------- | ------------------------------------------- | ------------------------ | ---------------------------- | ---------------------- |
+| **Remix**               | :octicons-check-24: | No                        | Beginners, quick prototyping                | Built-in UI & compiler   | Basic tools                  | Limited plugin support |
+| **Hardhat**             | :octicons-x-24:     | Yes (via package manager) | Advanced development, scripting, automation | Script-based             | Mocha, Chai, mainnet forking | Highly customizable    |
 
 ## In This Section
 
@@ -8257,9 +8255,8 @@ Now that you have the foundational knowledge to use Ethers.js with Asset Hub, yo
 Doc-Content: https://docs.polkadot.com/develop/smart-contracts/libraries/
 --- BEGIN CONTENT ---
 ---
-
 title: Libraries
-description: Compare libraries for interacting with smart contracts on Polkadot, including Ethers.js, Web3.js, viem, and their key differences.
+description: Compare libraries for interacting with smart contracts on Polkadot, including Ethers.js, Web3.js, viem, Wagmi, Web3.py, and their key differences.
 template: index-page.html
 ---
 
@@ -8271,14 +8268,15 @@ This section provides setup instructions, usage examples, and a comparison to he
 
 ## Library Comparison
 
-Consider the following when choosing a library for your project:
+Consider the following features when choosing a library for your project:
 
-| Feature          | Ethers.js                   | Web3.js                                | viem                                         |
-| ---------------- | --------------------------- | -------------------------------------- | -------------------------------------------- |
-| Language Support | JavaScript, TypeScript      | JavaScript, TypeScript                 | TypeScript only                              |
-| Type Safety      | Limited                     | Limited                                | Strong TypeScript support                    |
-| Performance      | Efficient, widely optimized | Older codebase, can be less performant | Lightweight, optimized for bundling          |
-| Best For         | General dApp development    | Legacy projects, Web3.js users         | TypeScript-heavy projects, modular workflows |
+| Library    | Language Support         | Type Safety                  | Performance                           | Best For                                       |
+|------------|--------------------------|------------------------------|---------------------------------------|------------------------------------------------|
+| Ethers.js  | JavaScript, TypeScript   | Limited                      | Efficient, widely optimized           | General dApp development                        |
+| Web3.js    | JavaScript, TypeScript   | Limited                      | Older codebase, can be less performant| Legacy projects, Web3.js users                 |
+| viem       | TypeScript only          | Strong TypeScript support    | Lightweight, optimized for bundling   | TypeScript-heavy projects, modular workflows   |
+| Wagmi      | TypeScript, React        | Strong TypeScript support    | React hooks-based, efficient caching  | React applications, hook-based development     |
+| Web3.py    | Python                   | Python typing support        | Standard Python performance           | Python-based blockchain applications           |
 
 !!! warning
     Web3.js has been [sunset](https://blog.chainsafe.io/web3-js-sunset/){target=\_blank}. You can find guides on using [Ethers.js](/develop/smart-contracts/libraries/ethers-js){target=\_blank} and [viem](/develop/smart-contracts/libraries/viem){target=\_blank} in the [Libraries](/develop/smart-contracts/libraries/){target=\_blank} section.
@@ -31413,11 +31411,11 @@ template: index-page.html
 
 Get started with deploying and interacting with smart contracts on Polkadot through practical, hands-on tutorials. Whether you're a beginner or an experienced developer, these guides will help you navigate the entire development lifecycle.
 
-## Why Learn Here?
+## What to Expect from These Tutorials
 
-- **Beginner to advanced** – Suitable for developers of all levels
-- **Complete workflows** – Covers the entire process from writing code to on-chain deployment
-- **Interactive examples** – Follow along with real, working code that you can modify and expand
+- **Beginner to advanced** – suitable for developers of all levels
+- **Complete workflows** – covers the entire process from writing code to on-chain deployment
+- **Interactive examples** – follow along with real, working code that you can modify and expand
 
 ## Start Building
 
@@ -31624,6 +31622,1472 @@ For more detailed information about Solidity types, functions, and best practice
     Learn how to test and deploy the smart contract you created by using Hardhat.
 
     [:octicons-arrow-right-24: Get Started](/tutorials/smart-contracts/launch-your-first-project/test-and-deploy-with-hardhat/)
+
+</div>
+--- END CONTENT ---
+
+Doc-Content: https://docs.polkadot.com/tutorials/smart-contracts/launch-your-first-project/create-dapp-ethers-js/
+--- BEGIN CONTENT ---
+---
+title: Create a dApp With Ethers.js
+description: Learn how to build a decentralized application on Asset Hub using Ethers.js and Next.js by creating a simple dApp that interacts with a smart contract.
+---
+
+# Create a dApp With Ethers.js
+
+## Introduction
+
+Decentralized applications (dApps) have become a cornerstone of the Web3 ecosystem, allowing developers to create applications that interact directly with blockchain networks. Asset Hub, a blockchain that supports smart contract functionality, provides an excellent platform for deploying and interacting with dApps.
+
+In this tutorial, you'll build a complete dApp that interacts with a smart contract deployed on Asset Hub. It will use [Ethers.js](/develop/smart-contracts/libraries/ethers-js){target=\_blank} to interact with the blockchain and [Next.js](https://nextjs.org/){target=\_blank} as the frontend framework. By the end of this tutorial, you'll have a functional dApp that allows users to connect their wallets, read data from the blockchain, and execute transactions.
+
+## Prerequisites
+
+Before you begin, make sure you have:
+
+- [Node.js](https://nodejs.org/en){target=\_blank} v16 or newer installed on your machine
+- A crypto wallet (like MetaMask) with some test tokens. For further information, check the [Connect to Asset Hub](/develop/smart-contracts/connect-to-asset-hub){target=\_blank} guide
+- Basic understanding of React and JavaScript
+- Familiarity with blockchain concepts and Solidity (helpful but not mandatory)
+
+## Project Overview
+
+The dApp will interact with a simple Storage contract. For a step-by-step guide on creating it, refer to the [Create Contracts](/tutorials/smart-contracts/launch-your-first-project/create-contracts){target=\_blank} tutorial. This contract allows:
+
+- Reading a stored number from the blockchain
+- Updating the stored number with a new value
+
+The contract has already been deployed to Westend Asset Hub for testing purposes: `0xabBd46Ef74b88E8B1CDa49BeFb5057710443Fd29`. If you want to deploy your own, follow the [Deploying Contracts](/develop/smart-contracts/dev-environments/remix/#deploying-contracts){target=\_blank} section.
+
+Here's a simplified view of what you'll be building:
+
+![](/images/tutorials/smart-contracts/launch-your-first-project/create-dapp-ethers-js/create-dapp-ethers-js-1.webp)
+
+The general structure of the project should end up as follows:
+
+```bash
+ethers-dapp
+├── abis
+│   └── Storage.json
+└── app
+    ├── components
+    │   ├── ReadContract.js
+    │   ├── WalletConnect.js
+    │   └── WriteContract.js
+    ├── favicon.ico
+    ├── globals.css
+    ├── layout.js
+    ├── page.js
+    └── utils
+        ├── contract.js
+        └── ethers.js
+```
+
+## Set Up the Project
+
+Let's start by creating a new Next.js project:
+
+```
+npx create-next-app ethers-dapp
+cd ethers-dapp
+```
+
+Next, install the needed dependencies:
+
+```
+npm install ethers
+```
+
+## Connect to Asset Hub
+
+To interact with Asset Hub (Westend Asset Hub in this case), you need to set up an [Ethers.js Provider](/develop/smart-contracts/libraries/ethers-js/#set-up-the-ethersjs-provider){target=\_blank} that connects to the blockchain. Create a new file called `utils/ethers.js` and add the following code:
+
+```javascript title="ethers.js"
+import { JsonRpcProvider } from 'ethers';
+
+export const ASSET_HUB_CONFIG = {
+  name: 'Westend Asset Hub',
+  rpc: 'https://westend-asset-hub-eth-rpc.polkadot.io', // Westend Asset Hub testnet RPC
+  chainId: 420420421, // Westend Asset Hub testnet chainId
+  blockExplorer: 'https://westend-asset-hub.subscan.io/',
+};
+
+export const getProvider = () => {
+  return new JsonRpcProvider(ASSET_HUB_CONFIG.rpc, {
+    chainId: ASSET_HUB_CONFIG.chainId,
+    name: ASSET_HUB_CONFIG.name,
+  });
+};
+
+// Helper to get a signer from a provider
+export const getSigner = async (provider) => {
+  if (window.ethereum) {
+    await window.ethereum.request({ method: 'eth_requestAccounts' });
+    const ethersProvider = new ethers.BrowserProvider(window.ethereum);
+    return ethersProvider.getSigner();
+  }
+  throw new Error('No Ethereum browser provider detected');
+};
+```
+This file establishes a connection to Asset Hub and provides helper functions for obtaining a [Provider](https://docs.ethers.org/v5/api/providers/provider/){target=_blank} and [Signer](https://docs.ethers.org/v5/api/signer/){target=_blank}. The provider allows you to read data from the blockchain, while the signer enables users to send transactions and modify the blockchain state.
+
+## Set Up the Smart Contract Interface
+
+For this dApp, you'll use a simple Storage contract already deployed. So, you need to create an interface to interact with it. First, ensure to create a folder called `abis` at the root of your project, create a file `Storage.json`, and paste the corresponding ABI (Application Binary Interface) of the Storage contract. You can copy and paste the following:
+
+??? code "Storage.sol ABI"
+
+    ```json title="Storage.json"
+    [
+    {
+        "inputs": [
+            {
+                "internalType": "uint256",
+                "name": "_newNumber",
+                "type": "uint256"
+            }
+        ],
+        "name": "setNumber",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "inputs": [],
+        "name": "storedNumber",
+        "outputs": [
+            {
+                "internalType": "uint256",
+                "name": "",
+                "type": "uint256"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    }
+]
+    ```
+
+Now, create a file called `utils/contract.js`:
+
+```javascript title="contract.js"
+import { Contract } from 'ethers';
+import { getProvider } from './ethers';
+import StorageABI from '../../abis/Storage.json';
+
+export const CONTRACT_ADDRESS = '0xabBd46Ef74b88E8B1CDa49BeFb5057710443Fd29';
+
+export const CONTRACT_ABI = StorageABI;
+
+export const getContract = () => {
+  const provider = getProvider();
+  return new Contract(CONTRACT_ADDRESS, CONTRACT_ABI, provider);
+};
+
+export const getSignedContract = async (signer) => {
+  return new Contract(CONTRACT_ADDRESS, CONTRACT_ABI, signer);
+};
+```
+
+This file defines the contract address, ABI, and functions to create instances of the contract for reading and writing.
+
+## Create the Wallet Connection Component
+
+Next, let's create a component to handle wallet connections. Create a new file called `components/WalletConnect.js`:
+
+```javascript title="WalletConnect.js"
+'use client';
+
+import React, { useState, useEffect } from 'react';
+import { ASSET_HUB_CONFIG } from '../utils/ethers';
+
+const WalletConnect = ({ onConnect }) => {
+  const [account, setAccount] = useState(null);
+  const [chainId, setChainId] = useState(null);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    // Check if user already has an authorized wallet connection
+    const checkConnection = async () => {
+      if (window.ethereum) {
+        try {
+          // eth_accounts doesn't trigger the wallet popup
+          const accounts = await window.ethereum.request({
+            method: 'eth_accounts',
+          });
+          if (accounts.length > 0) {
+            setAccount(accounts[0]);
+            const chainIdHex = await window.ethereum.request({
+              method: 'eth_chainId',
+            });
+            setChainId(parseInt(chainIdHex, 16));
+          }
+        } catch (err) {
+          console.error('Error checking connection:', err);
+          setError('Failed to check wallet connection');
+        }
+      }
+    };
+
+    checkConnection();
+
+    if (window.ethereum) {
+      // Setup wallet event listeners
+      window.ethereum.on('accountsChanged', (accounts) => {
+        setAccount(accounts[0] || null);
+        if (accounts[0] && onConnect) onConnect(accounts[0]);
+      });
+
+      window.ethereum.on('chainChanged', (chainIdHex) => {
+        setChainId(parseInt(chainIdHex, 16));
+      });
+    }
+
+    return () => {
+      // Cleanup event listeners
+      if (window.ethereum) {
+        window.ethereum.removeListener('accountsChanged', () => {});
+        window.ethereum.removeListener('chainChanged', () => {});
+      }
+    };
+  }, [onConnect]);
+
+  const connectWallet = async () => {
+    if (!window.ethereum) {
+      setError(
+        'MetaMask not detected! Please install MetaMask to use this dApp.'
+      );
+      return;
+    }
+
+    try {
+      // eth_requestAccounts triggers the wallet popup
+      const accounts = await window.ethereum.request({
+        method: 'eth_requestAccounts',
+      });
+      setAccount(accounts[0]);
+
+      const chainIdHex = await window.ethereum.request({
+        method: 'eth_chainId',
+      });
+      const currentChainId = parseInt(chainIdHex, 16);
+      setChainId(currentChainId);
+
+      // Prompt user to switch networks if needed
+      if (currentChainId !== ASSET_HUB_CONFIG.chainId) {
+        await switchNetwork();
+      }
+
+      if (onConnect) onConnect(accounts[0]);
+    } catch (err) {
+      console.error('Error connecting to wallet:', err);
+      setError('Failed to connect wallet');
+    }
+  };
+
+  const switchNetwork = async () => {
+    try {
+      await window.ethereum.request({
+        method: 'wallet_switchEthereumChain',
+        params: [{ chainId: `0x${ASSET_HUB_CONFIG.chainId.toString(16)}` }],
+      });
+    } catch (switchError) {
+      // Error 4902 means the chain hasn't been added to MetaMask
+      if (switchError.code === 4902) {
+        try {
+          await window.ethereum.request({
+            method: 'wallet_addEthereumChain',
+            params: [
+              {
+                chainId: `0x${ASSET_HUB_CONFIG.chainId.toString(16)}`,
+                chainName: ASSET_HUB_CONFIG.name,
+                rpcUrls: [ASSET_HUB_CONFIG.rpc],
+                blockExplorerUrls: [ASSET_HUB_CONFIG.blockExplorer],
+              },
+            ],
+          });
+        } catch (addError) {
+          setError('Failed to add network to wallet');
+        }
+      } else {
+        setError('Failed to switch network');
+      }
+    }
+  };
+
+  // UI-only disconnection - MetaMask doesn't support programmatic disconnection
+  const disconnectWallet = () => {
+    setAccount(null);
+  };
+
+  return (
+    <div className="border border-pink-500 rounded-lg p-4 shadow-md bg-white text-pink-500 max-w-sm mx-auto">
+      {error && <p className="text-red-500 text-sm mb-2">{error}</p>}
+
+      {!account ? (
+        <button
+          onClick={connectWallet}
+          className="w-full bg-pink-500 hover:bg-pink-600 text-white font-bold py-2 px-4 rounded-lg transition"
+        >
+          Connect Wallet
+        </button>
+      ) : (
+        <div className="flex flex-col items-center">
+          <span className="text-sm font-mono bg-pink-100 px-2 py-1 rounded-md text-pink-700">
+            {`${account.substring(0, 6)}...${account.substring(38)}`}
+          </span>
+          <button
+            onClick={disconnectWallet}
+            className="mt-3 w-full bg-gray-200 hover:bg-gray-300 text-pink-500 py-2 px-4 rounded-lg transition"
+          >
+            Disconnect
+          </button>
+          {chainId !== ASSET_HUB_CONFIG.chainId && (
+            <button
+              onClick={switchNetwork}
+              className="mt-3 w-full bg-yellow-500 hover:bg-yellow-600 text-white font-bold py-2 px-4 rounded-lg transition"
+            >
+              Switch to Asset Hub
+            </button>
+          )}
+        </div>
+      )}
+    </div>
+  );
+};
+
+export default WalletConnect;
+```
+
+This component handles connecting to the wallet, switching networks if necessary, and keeping track of the connected account. 
+
+To integrate this component to your dApp, you need to overwrite the existing boilerplate in `app/page.js` with the following code:
+
+```javascript title="page.js"
+'use client';
+
+import { useState } from 'react';
+
+import WalletConnect from './components/WalletConnect';
+export default function Home() {
+  const [account, setAccount] = useState(null);
+
+  const handleConnect = (connectedAccount) => {
+    setAccount(connectedAccount);
+  };
+
+  return (
+    <section className="min-h-screen bg-white text-black flex flex-col justify-center items-center gap-4 py-10">
+      <h1 className="text-2xl font-semibold text-center">
+        Ethers.js dApp - Asset Hub Smart Contracts
+      </h1>
+      <WalletConnect onConnect={handleConnect} />
+);
+}
+```
+
+In your terminal, you can launch your project by running:
+
+```bash
+npm run dev
+```
+
+And you will see the following:
+
+![](/images/tutorials/smart-contracts/launch-your-first-project/create-dapp-ethers-js/create-dapp-ethers-js-2.webp)
+
+## Read Data from the Blockchain
+
+Now, let's create a component to read data from the contract. Create a file called `components/ReadContract.js`:
+
+```javascript title="ReadContract.js"
+'use client';
+
+import React, { useState, useEffect } from 'react';
+import { getContract } from '../utils/contract';
+
+const ReadContract = () => {
+  const [storedNumber, setStoredNumber] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    // Function to read data from the blockchain
+    const fetchData = async () => {
+      try {
+        setLoading(true);
+        const contract = getContract();
+        // Call the smart contract's storedNumber function
+        const number = await contract.storedNumber();
+        setStoredNumber(number.toString());
+        setError(null);
+      } catch (err) {
+        console.error('Error fetching stored number:', err);
+        setError('Failed to fetch data from the contract');
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchData();
+
+    // Poll for updates every 10 seconds to keep UI in sync with blockchain
+    const interval = setInterval(fetchData, 10000);
+
+    // Clean up interval on component unmount
+    return () => clearInterval(interval);
+  }, []);
+
+  return (
+    <div className="border border-pink-500 rounded-lg p-4 shadow-md bg-white text-pink-500 max-w-sm mx-auto">
+      <h2 className="text-lg font-bold text-center mb-4">Contract Data</h2>
+      {loading ? (
+        <div className="flex justify-center my-4">
+          <div className="w-6 h-6 border-4 border-pink-500 border-t-transparent rounded-full animate-spin"></div>
+        </div>
+      ) : error ? (
+        <p className="text-red-500 text-center">{error}</p>
+      ) : (
+        <div className="text-center">
+          <p className="text-sm font-mono bg-pink-100 px-2 py-1 rounded-md text-pink-700">
+            <strong>Stored Number:</strong> {storedNumber}
+          </p>
+        </div>
+      )}
+    </div>
+  );
+};
+
+export default ReadContract;
+```
+
+This component reads the `storedNumber` value from the contract and displays it to the user. It also sets up a polling interval to refresh the data periodically.
+
+To see this change in your dApp, you need to integrate this component into the `app/page.js` file:
+
+```javascript title="page.js"
+'use client';
+
+import { useState } from 'react';
+
+import WalletConnect from './components/WalletConnect';
+import ReadContract from './components/ReadContract';
+export default function Home() {
+  const [account, setAccount] = useState(null);
+
+  const handleConnect = (connectedAccount) => {
+    setAccount(connectedAccount);
+  };
+
+  return (
+    <section className="min-h-screen bg-white text-black flex flex-col justify-center items-center gap-4 py-10">
+      <h1 className="text-2xl font-semibold text-center">
+        Ethers.js dApp - Asset Hub Smart Contracts
+      </h1>
+      <WalletConnect onConnect={handleConnect} />
+      <ReadContract />
+);
+}
+```
+
+Your dApp will automatically be updated to the following:
+
+![](/images/tutorials/smart-contracts/launch-your-first-project/create-dapp-ethers-js/create-dapp-ethers-js-3.webp)
+
+## Write Data to the Blockchain
+
+Finally, let's create a component that allows users to update the stored number. Create a file called `components/WriteContract.js`:
+
+```javascript title="WriteContract.js"
+'use client';
+
+import { useState } from 'react';
+import { getSignedContract } from '../utils/contract';
+import { ethers } from 'ethers';
+
+const WriteContract = ({ account }) => {
+  const [newNumber, setNewNumber] = useState('');
+  const [status, setStatus] = useState({ type: null, message: '' });
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    // Validation checks
+    if (!account) {
+      setStatus({ type: 'error', message: 'Please connect your wallet first' });
+      return;
+    }
+
+    if (!newNumber || isNaN(Number(newNumber))) {
+      setStatus({ type: 'error', message: 'Please enter a valid number' });
+      return;
+    }
+
+    try {
+      setIsSubmitting(true);
+      setStatus({ type: 'info', message: 'Initiating transaction...' });
+
+      // Get a signer from the connected wallet
+      const provider = new ethers.BrowserProvider(window.ethereum);
+      const signer = await provider.getSigner();
+      const contract = await getSignedContract(signer);
+
+      // Send transaction to blockchain and wait for user confirmation in wallet
+      setStatus({
+        type: 'info',
+        message: 'Please confirm the transaction in your wallet...',
+      });
+
+      // Call the contract's setNumber function
+      const tx = await contract.setNumber(newNumber);
+
+      // Wait for transaction to be mined
+      setStatus({
+        type: 'info',
+        message: 'Transaction submitted. Waiting for confirmation...',
+      });
+      const receipt = await tx.wait();
+
+      setStatus({
+        type: 'success',
+        message: `Transaction confirmed! Transaction hash: ${receipt.hash}`,
+      });
+      setNewNumber('');
+    } catch (err) {
+      console.error('Error updating number:', err);
+
+      // Error code 4001 is MetaMask's code for user rejection
+      if (err.code === 4001) {
+        setStatus({ type: 'error', message: 'Transaction rejected by user.' });
+      } else {
+        setStatus({
+          type: 'error',
+          message: `Error: ${err.message || 'Failed to send transaction'}`,
+        });
+      }
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
+  return (
+    <div className="border border-pink-500 rounded-lg p-4 shadow-md bg-white text-pink-500 max-w-sm mx-auto space-y-4">
+      <h2 className="text-lg font-bold">Update Stored Number</h2>
+      {status.message && (
+        <div
+          className={`p-2 rounded-md break-words h-fit text-sm ${
+            status.type === 'error'
+              ? 'bg-red-100 text-red-500'
+              : 'bg-green-100 text-green-700'
+          }`}
+        >
+          {status.message}
+        </div>
+      )}
+      <form onSubmit={handleSubmit} className="space-y-4">
+        <input
+          type="number"
+          placeholder="New Number"
+          value={newNumber}
+          onChange={(e) => setNewNumber(e.target.value)}
+          disabled={isSubmitting || !account}
+          className="w-full p-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-pink-400"
+        />
+        <button
+          type="submit"
+          disabled={isSubmitting || !account}
+          className="w-full bg-pink-500 hover:bg-pink-600 text-white font-bold py-2 px-4 rounded-lg transition disabled:bg-gray-300"
+        >
+          {isSubmitting ? 'Updating...' : 'Update'}
+        </button>
+      </form>
+      {!account && (
+        <p className="text-sm text-gray-500">
+          Connect your wallet to update the stored number.
+        </p>
+      )}
+    </div>
+  );
+};
+
+export default WriteContract;
+```
+
+This component allows users to input a new number and send a transaction to update the value stored in the contract. When the transaction is successful, users will see the stored value update in the `ReadContract` component after the transaction is confirmed.
+
+Update the `app/page.js` file to integrate all components:
+
+```javascript title="page.js"
+'use client';
+
+import { useState } from 'react';
+
+import WalletConnect from './components/WalletConnect';
+import ReadContract from './components/ReadContract';
+import WriteContract from './components/WriteContract';
+
+export default function Home() {
+  const [account, setAccount] = useState(null);
+
+  const handleConnect = (connectedAccount) => {
+    setAccount(connectedAccount);
+  };
+
+  return (
+    <section className="min-h-screen bg-white text-black flex flex-col justify-center items-center gap-4 py-10">
+      <h1 className="text-2xl font-semibold text-center">
+        Ethers.js dApp - Asset Hub Smart Contracts
+      </h1>
+      <WalletConnect onConnect={handleConnect} />
+      <ReadContract />
+      <WriteContract account={account} />
+    </section>
+  );
+}
+```
+
+The completed UI will display:
+
+![](/images/tutorials/smart-contracts/launch-your-first-project/create-dapp-ethers-js/create-dapp-ethers-js-4.webp)
+
+## Conclusion
+
+Congratulations! You've built a complete dApp that interacts with a smart contract on Asset Hub using Ethers.js and Next.js. Your application can now:
+
+- Connect to a user's wallet
+- Read data from a smart contract
+- Send transactions to update the contract state
+
+These fundamental skills provide the foundation for building more complex dApps on Asset Hub. With these building blocks, you can extend your application to interact with more sophisticated smart contracts and create more advanced user interfaces.
+
+## Where to Go Next
+
+<div class="grid cards" markdown>
+
+-   <span class="badge tutorial">Tutorial</span> __Create a dApp with WAGMI__
+
+    ---
+
+    Learn how to build a decentralized application by using the WAGMI framework.
+
+    [:octicons-arrow-right-24: Get Started](/tutorials/smart-contracts/launch-your-first-project/create-dapp-wagmi/)
+
+</div>
+--- END CONTENT ---
+
+Doc-Content: https://docs.polkadot.com/tutorials/smart-contracts/launch-your-first-project/create-dapp-viem/
+--- BEGIN CONTENT ---
+---
+title: Create a dApp With Viem
+description: Learn how to build a decentralized application on Asset Hub using Viem and Next.js by creating a simple dApp that interacts with a smart contract.
+---
+
+# Create a dApp with Viem
+
+Decentralized applications (dApps) are a key component of the Web3 ecosystem, enabling developers to build applications that communicate directly with blockchain networks. Asset Hub, a blockchain with smart contract support, serves as a robust platform for deploying and interacting with dApps.
+
+This tutorial will guide you through building a fully functional dApp that interacts with a smart contract on Asset Hub. You'll use [Viem](https://viem.sh/){target=\_blank} for blockchain interactions and [Next.js](https://nextjs.org/){target=\_blank} for the frontend. By the end, you'll have a dApp that lets users connect their wallets, retrieve on-chain data, and execute transactions.
+
+## Prerequisites
+
+Before getting started, ensure you have the following:
+
+- [Node.js](https://nodejs.org/en){target=\_blank} v16 or later installed on your system
+- A crypto wallet (such as MetaMask) funded with test tokens. Refer to the [Connect to Asset Hub](/develop/smart-contracts/connect-to-asset-hub){target=\_blank} guide for more details
+- A basic understanding of React and JavaScript
+- Some familiarity with blockchain fundamentals and Solidity (useful but not required)
+
+## Project Overview
+
+This dApp will interact with a basic Storage contract. Refer to the [Create Contracts](/tutorials/smart-contracts/launch-your-first-project/create-contracts){target=\_blank} tutorial for a step-by-step guide on creating this contract. The contract allows:
+
+- Retrieving a stored number from the blockchain
+- Updating the stored number with a new value
+
+
+Below is a high-level overview of what you'll be building:
+
+![](/images/tutorials/smart-contracts/launch-your-first-project/create-dapp-viem/create-dapp-viem-1.webp)
+
+Your project directory will be organized as follows:
+
+```bash
+viem-dapp
+├── abis
+│   └── Storage.json
+└── app
+    ├── components
+    │   ├── ReadContract.tsx
+    │   ├── WalletConnect.tsx
+    │   └── WriteContract.tsx
+    ├── favicon.ico
+    ├── globals.css
+    ├── layout.tsx
+    ├── page.tsx
+    └── utils
+        ├── contract.ts
+        └── viem.ts
+```
+
+## Set Up the Project
+
+Create a new Next.js project:
+
+```bash
+npx create-next-app viem-dapp --typescript
+cd viem-dapp
+```
+
+## Install Dependencies
+
+Install viem and related packages:
+
+```bash
+npm install viem
+npm install --save-dev typescript @types/node
+```
+
+## Connect to Asset Hub
+
+To interact with Asset Hub (Westend Asset Hub in this case), you need to set up a [Public Client](https://viem.sh/docs/clients/public#public-client){target=\_blank} that connects to the blockchain. Create a new file called `utils/viem.ts` and add the following code:
+
+```typescript title="viem.ts"
+import { createPublicClient, http, createWalletClient, custom } from 'viem'
+import 'viem/window';
+
+
+const transport = http('https://westend-asset-hub-eth-rpc.polkadot.io')
+
+// Configure the Asset Hub chain
+export const assetHub = {
+  id: 420420421,
+  name: 'Westend Asset Hub',
+  network: 'westend-asset-hub',
+  nativeCurrency: {
+    decimals: 18,
+    name: 'WND',
+    symbol: 'WND',
+  },
+  rpcUrls: {
+    default: {
+      http: ['https://westend-asset-hub-eth-rpc.polkadot.io'],
+    },
+  },
+} as const
+
+// Create a public client for reading data
+export const publicClient = createPublicClient({
+  chain: assetHub,
+  transport
+})
+
+// Create a wallet client for signing transactions
+export const getWalletClient = async () => {
+  if (typeof window !== 'undefined' && window.ethereum) {
+    const [account] = await window.ethereum.request({ method: 'eth_requestAccounts' });
+    return createWalletClient({
+      chain: assetHub,
+      transport: custom(window.ethereum),
+      account,
+    });
+  }
+  throw new Error('No Ethereum browser provider detected');
+};
+```
+
+This file initializes a viem client, providing helper functions for obtaining a Public Client and a [Wallet Client](https://viem.sh/docs/clients/wallet#wallet-client){target=\_blank}. The Public Client enables reading blockchain data, while the Wallet Client allows users to sign and send transactions. Also, note that by importing `'viem/window'` the global `window.ethereum` will be typed as an `EIP1193Provider`, check the [`window` Polyfill](https://viem.sh/docs/typescript#window-polyfill){target=\_blank} reference for more information.
+
+## Set Up the Smart Contract Interface
+
+For this dApp, you'll use a simple [Storage contract](/tutorials/smart-contracts/launch-your-first-project/create-contracts){target=\_blank} that's already deployed in Westend Asset Hub: `0xabBd46Ef74b88E8B1CDa49BeFb5057710443Fd29`. To interact with it, you need to define the contract interface.
+
+Create a folder called `abis` at the root of your project, then create a file named `Storage.json` and paste the corresponding ABI (Application Binary Interface) of the Storage contract. You can copy and paste the following:
+
+??? code "Storage.sol ABI"
+    ```json title="Storage.json"
+    [
+    {
+        "inputs": [
+            {
+                "internalType": "uint256",
+                "name": "_newNumber",
+                "type": "uint256"
+            }
+        ],
+        "name": "setNumber",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "inputs": [],
+        "name": "storedNumber",
+        "outputs": [
+            {
+                "internalType": "uint256",
+                "name": "",
+                "type": "uint256"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    }
+]
+    ```
+
+Next, create a file called `utils/contract.ts`:
+
+```typescript title="contract.ts"
+import { getContract } from 'viem';
+import { publicClient, getWalletClient } from './viem';
+import StorageABI from '../../abis/Storage.json';
+
+export const CONTRACT_ADDRESS = '0xabBd46Ef74b88E8B1CDa49BeFb5057710443Fd29';
+export const CONTRACT_ABI = StorageABI;
+
+// Create a function to get a contract instance for reading
+export const getContractInstance = () => {
+  return getContract({
+    address: CONTRACT_ADDRESS,
+    abi: CONTRACT_ABI,
+    client: publicClient,
+  });
+};
+
+// Create a function to get a contract instance with a signer for writing
+export const getSignedContract = async () => {
+  const walletClient = await getWalletClient();
+  return getContract({
+    address: CONTRACT_ADDRESS,
+    abi: CONTRACT_ABI,
+    client: walletClient,
+  });
+};
+```
+
+This file defines the contract address, ABI, and functions to create a viem [contract instance](https://viem.sh/docs/contract/getContract#contract-instances){target=\_blank} for reading and writing operations. viem's contract utilities ensure a more efficient and type-safe interaction with smart contracts.
+
+## Create the Wallet Connection Component
+
+Now, let's create a component to handle wallet connections. Create a new file called `components/WalletConnect.tsx`:
+
+```typescript title="WalletConnect.tsx"
+"use client";
+
+import React, { useState, useEffect } from "react";
+import { assetHub } from "../utils/viem";
+
+interface WalletConnectProps {
+  onConnect: (account: string) => void;
+}
+
+const WalletConnect: React.FC<WalletConnectProps> = ({ onConnect }) => {
+  const [account, setAccount] = useState<string | null>(null);
+  const [chainId, setChainId] = useState<number | null>(null);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    // Check if user already has an authorized wallet connection
+    const checkConnection = async () => {
+      if (typeof window !== "undefined" && window.ethereum) {
+        try {
+          // eth_accounts doesn't trigger the wallet popup
+          const accounts = (await window.ethereum.request({
+            method: "eth_accounts",
+          })) as string[];
+
+          if (accounts.length > 0) {
+            setAccount(accounts[0]);
+            const chainIdHex = (await window.ethereum.request({
+              method: "eth_chainId",
+            })) as string;
+            setChainId(parseInt(chainIdHex, 16));
+            onConnect(accounts[0]);
+          }
+        } catch (err) {
+          console.error("Error checking connection:", err);
+          setError("Failed to check wallet connection");
+        }
+      }
+    };
+
+    checkConnection();
+
+    if (typeof window !== "undefined" && window.ethereum) {
+      // Setup wallet event listeners
+      window.ethereum.on("accountsChanged", (accounts: string[]) => {
+        setAccount(accounts[0] || null);
+        if (accounts[0]) onConnect(accounts[0]);
+      });
+
+      window.ethereum.on("chainChanged", (chainIdHex: string) => {
+        setChainId(parseInt(chainIdHex, 16));
+      });
+    }
+
+    return () => {
+      // Cleanup event listeners
+      if (typeof window !== "undefined" && window.ethereum) {
+        window.ethereum.removeListener("accountsChanged", () => {});
+        window.ethereum.removeListener("chainChanged", () => {});
+      }
+    };
+  }, [onConnect]);
+
+  const connectWallet = async () => {
+    if (typeof window === "undefined" || !window.ethereum) {
+      setError(
+        "MetaMask not detected! Please install MetaMask to use this dApp."
+      );
+      return;
+    }
+
+    try {
+      // eth_requestAccounts triggers the wallet popup
+      const accounts = (await window.ethereum.request({
+        method: "eth_requestAccounts",
+      })) as string[];
+
+      setAccount(accounts[0]);
+
+      const chainIdHex = (await window.ethereum.request({
+        method: "eth_chainId",
+      })) as string;
+
+      const currentChainId = parseInt(chainIdHex, 16);
+      setChainId(currentChainId);
+
+      // Prompt user to switch networks if needed
+      if (currentChainId !== assetHub.id) {
+        await switchNetwork();
+      }
+
+      onConnect(accounts[0]);
+    } catch (err) {
+      console.error("Error connecting to wallet:", err);
+      setError("Failed to connect wallet");
+    }
+  };
+
+  const switchNetwork = async () => {
+    console.log("Switch network");
+    try {
+      await window.ethereum.request({
+        method: "wallet_switchEthereumChain",
+        params: [{ chainId: `0x${assetHub.id.toString(16)}` }],
+      });
+    } catch (switchError: any) {
+      // Error 4902 means the chain hasn't been added to MetaMask
+      if (switchError.code === 4902) {
+        try {
+          await window.ethereum.request({
+            method: "wallet_addEthereumChain",
+            params: [
+              {
+                chainId: `0x${assetHub.id.toString(16)}`,
+                chainName: assetHub.name,
+                rpcUrls: [assetHub.rpcUrls.default.http[0]],
+                nativeCurrency: {
+                  name: assetHub.nativeCurrency.name,
+                  symbol: assetHub.nativeCurrency.symbol,
+                  decimals: assetHub.nativeCurrency.decimals,
+                },
+              },
+            ],
+          });
+        } catch (addError) {
+          setError("Failed to add network to wallet");
+        }
+      } else {
+        setError("Failed to switch network");
+      }
+    }
+  };
+
+  // UI-only disconnection - MetaMask doesn't support programmatic disconnection
+  const disconnectWallet = () => {
+    setAccount(null);
+  };
+
+  return (
+    <div className="border border-pink-500 rounded-lg p-4 shadow-md bg-white text-pink-500 max-w-sm mx-auto">
+      {error && <p className="text-red-500 text-sm mb-2">{error}</p>}
+
+      {!account ? (
+        <button
+          onClick={connectWallet}
+          className="w-full bg-pink-500 hover:bg-pink-600 text-white font-bold py-2 px-4 rounded-lg transition"
+        >
+          Connect Wallet
+        </button>
+      ) : (
+        <div className="flex flex-col items-center">
+          <span className="text-sm font-mono bg-pink-100 px-2 py-1 rounded-md text-pink-700">
+            {`${account.substring(0, 6)}...${account.substring(38)}`}
+          </span>
+          <button
+            onClick={disconnectWallet}
+            className="mt-3 w-full bg-gray-200 hover:bg-gray-300 text-pink-500 py-2 px-4 rounded-lg transition"
+          >
+            Disconnect
+          </button>
+          {chainId !== assetHub.id && (
+            <button
+              onClick={switchNetwork}
+              className="mt-3 w-full bg-yellow-500 hover:bg-yellow-600 text-white font-bold py-2 px-4 rounded-lg transition"
+            >
+              Switch to Asset Hub
+            </button>
+          )}
+        </div>
+      )}
+    </div>
+  );
+};
+
+export default WalletConnect;
+```
+
+This component handles connecting to the wallet, switching networks if necessary, and keeping track of the connected account. It provides a button for users to connect their wallet and displays the connected account address once connected.
+
+To use this component in your dApp, replace the existing boilerplate in `app/page.tsx` with the following code:
+
+```typescript title="page.tsx"
+"use client";
+
+import { useState } from "react";
+import WalletConnect from "./components/WalletConnect";
+export default function Home() {
+  const [account, setAccount] = useState<string | null>(null);
+
+  const handleConnect = (connectedAccount: string) => {
+    setAccount(connectedAccount);
+  };
+
+  return (
+    <section className="min-h-screen bg-white text-black flex flex-col justify-center items-center gap-4 py-10">
+      <h1 className="text-2xl font-semibold text-center">
+        Viem dApp - Asset Hub Smart Contracts
+      </h1>
+      <WalletConnect onConnect={handleConnect} />
+);
+}
+```
+
+Now you're ready to run your dApp. From your project directory, execute:
+
+```bash
+npm run dev
+```
+
+Navigate to `http://localhost:3000` in your browser, and you should see your dApp with the wallet connection button, the stored number display, and the form to update the number.
+
+![](/images/tutorials/smart-contracts/launch-your-first-project/create-dapp-viem/create-dapp-viem-2.webp)
+
+## Create the Read Contract Component
+
+Now, let's create a component to read data from the contract. Create a file called `components/ReadContract.tsx`:
+
+```typescript title="ReadContract.tsx"
+"use client";
+
+import React, { useState, useEffect } from "react";
+import { readContract } from "viem";
+import { publicClient } from "../utils/viem";
+import { CONTRACT_ADDRESS, CONTRACT_ABI } from "../utils/contract";
+
+const ReadContract: React.FC = () => {
+  const [storedNumber, setStoredNumber] = useState<string | null>(null);
+  const [loading, setLoading] = useState<boolean>(true);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    // Function to read data from the blockchain
+    const fetchData = async () => {
+      try {
+        setLoading(true);
+        // Call the smart contract's storedNumber function
+        const number = await readContract(publicClient, {
+          address: CONTRACT_ADDRESS,
+          abi: CONTRACT_ABI,
+          functionName: "storedNumber",
+        });
+
+        setStoredNumber(number.toString());
+        setError(null);
+      } catch (err) {
+        console.error("Error fetching stored number:", err);
+        setError("Failed to fetch data from the contract");
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchData();
+
+    // Poll for updates every 10 seconds to keep UI in sync with blockchain
+    const interval = setInterval(fetchData, 10000);
+
+    // Clean up interval on component unmount
+    return () => clearInterval(interval);
+  }, []);
+
+  return (
+    <div className="border border-pink-500 rounded-lg p-4 shadow-md bg-white text-pink-500 max-w-sm mx-auto">
+      <h2 className="text-lg font-bold text-center mb-4">Contract Data</h2>
+      {loading ? (
+        <div className="flex justify-center my-4">
+          <div className="w-6 h-6 border-4 border-pink-500 border-t-transparent rounded-full animate-spin"></div>
+        </div>
+      ) : error ? (
+        <p className="text-red-500 text-center">{error}</p>
+      ) : (
+        <div className="text-center">
+          <p className="text-sm font-mono bg-pink-100 px-2 py-1 rounded-md text-pink-700">
+            <strong>Stored Number:</strong> {storedNumber}
+          </p>
+        </div>
+      )}
+    </div>
+  );
+};
+
+export default ReadContract;
+```
+
+This component reads the `storedNumber` value from the contract and displays it to the user. It also sets up a polling interval to refresh the data periodically, ensuring that the UI stays in sync with the blockchain state.
+
+To reflect this change in your dApp, incorporate this component into the `app/page.tsx` file.
+
+```typescript title="page.tsx"
+"use client";
+
+import { useState } from "react";
+import WalletConnect from "./components/WalletConnect";
+import ReadContract from "./components/ReadContract";
+export default function Home() {
+  const [account, setAccount] = useState<string | null>(null);
+
+  const handleConnect = (connectedAccount: string) => {
+    setAccount(connectedAccount);
+  };
+
+  return (
+    <section className="min-h-screen bg-white text-black flex flex-col justify-center items-center gap-4 py-10">
+      <h1 className="text-2xl font-semibold text-center">
+        Viem dApp - Asset Hub Smart Contracts
+      </h1>
+      <WalletConnect onConnect={handleConnect} />
+      <ReadContract />
+);
+}
+```
+
+And you will see in your browser:
+
+![](/images/tutorials/smart-contracts/launch-your-first-project/create-dapp-viem/create-dapp-viem-3.webp)
+
+## Create the Write Contract Component
+
+Finally, let's create a component that allows users to update the stored number. Create a file called `components/WriteContract.tsx`:
+
+```typescript title="WriteContract.tsx"
+"use client";
+
+import React, { useState, useEffect } from "react";
+import { publicClient, getWalletClient } from "../utils/viem";
+import { CONTRACT_ADDRESS, CONTRACT_ABI } from "../utils/contract";
+
+interface WriteContractProps {
+  account: string | null;
+}
+
+const WriteContract: React.FC<WriteContractProps> = ({ account }) => {
+  const [newNumber, setNewNumber] = useState<string>("");
+  const [status, setStatus] = useState<{
+    type: string | null;
+    message: string;
+  }>({
+    type: null,
+    message: "",
+  });
+  const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
+  const [isCorrectNetwork, setIsCorrectNetwork] = useState<boolean>(true);
+
+  // Check if the account is on the correct network
+  useEffect(() => {
+    const checkNetwork = async () => {
+      if (!account) return;
+
+      try {
+        // Get the chainId from the public client
+        const chainId = await publicClient.getChainId();
+
+        // Get the user's current chainId from their wallet
+        const walletClient = await getWalletClient();
+        if (!walletClient) return;
+
+        const walletChainId = await walletClient.getChainId();
+
+        // Check if they match
+        setIsCorrectNetwork(chainId === walletChainId);
+      } catch (err) {
+        console.error("Error checking network:", err);
+        setIsCorrectNetwork(false);
+      }
+    };
+
+    checkNetwork();
+  }, [account]);
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+
+    // Validation checks
+    if (!account) {
+      setStatus({ type: "error", message: "Please connect your wallet first" });
+      return;
+    }
+
+    if (!isCorrectNetwork) {
+      setStatus({
+        type: "error",
+        message: "Please switch to the correct network in your wallet",
+      });
+      return;
+    }
+
+    if (!newNumber || isNaN(Number(newNumber))) {
+      setStatus({ type: "error", message: "Please enter a valid number" });
+      return;
+    }
+
+    try {
+      setIsSubmitting(true);
+      setStatus({ type: "info", message: "Initiating transaction..." });
+
+      // Get wallet client for transaction signing
+      const walletClient = await getWalletClient();
+
+      if (!walletClient) {
+        setStatus({ type: "error", message: "Wallet client not available" });
+        return;
+      }
+
+      // Check if account matches
+      if (
+        walletClient.account?.address.toLowerCase() !== account.toLowerCase()
+      ) {
+        setStatus({
+          type: "error",
+          message:
+            "Connected wallet account doesn't match the selected account",
+        });
+        return;
+      }
+
+      // Prepare transaction and wait for user confirmation in wallet
+      setStatus({
+        type: "info",
+        message: "Please confirm the transaction in your wallet...",
+      });
+
+      // Simulate the contract call first
+      console.log("newNumber", newNumber);
+      const { request } = await publicClient.simulateContract({
+        address: CONTRACT_ADDRESS,
+        abi: CONTRACT_ABI,
+        functionName: "setNumber",
+        args: [BigInt(newNumber)],
+        account: walletClient.account,
+      });
+
+      // Send the transaction with wallet client
+      const hash = await walletClient.writeContract(request);
+
+      // Wait for transaction to be mined
+      setStatus({
+        type: "info",
+        message: "Transaction submitted. Waiting for confirmation...",
+      });
+
+      const receipt = await publicClient.waitForTransactionReceipt({
+        hash,
+      });
+
+      setStatus({
+        type: "success",
+        message: `Transaction confirmed! Transaction hash: ${receipt.transactionHash}`,
+      });
+
+      setNewNumber("");
+    } catch (err: any) {
+      console.error("Error updating number:", err);
+
+      // Handle specific errors
+      if (err.code === 4001) {
+        // User rejected transaction
+        setStatus({ type: "error", message: "Transaction rejected by user." });
+      } else if (err.message?.includes("Account not found")) {
+        // Account not found on the network
+        setStatus({
+          type: "error",
+          message:
+            "Account not found on current network. Please check your wallet is connected to the correct network.",
+        });
+      } else if (err.message?.includes("JSON is not a valid request object")) {
+        // JSON error - specific to your current issue
+        setStatus({
+          type: "error",
+          message:
+            "Invalid request format. Please try again or contact support.",
+        });
+      } else {
+        // Other errors
+        setStatus({
+          type: "error",
+          message: `Error: ${err.message || "Failed to send transaction"}`,
+        });
+      }
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
+  return (
+    <div className="border border-pink-500 rounded-lg p-4 shadow-md bg-white text-pink-500 max-w-sm mx-auto space-y-4">
+      <h2 className="text-lg font-bold">Update Stored Number</h2>
+
+      {!isCorrectNetwork && account && (
+        <div className="p-2 rounded-md bg-yellow-100 text-yellow-700 text-sm">
+          ⚠️ You are not connected to the correct network. Please switch
+          networks in your wallet.
+        </div>
+      )}
+
+      {status.message && (
+        <div
+          className={`p-2 rounded-md break-words h-fit text-sm ${
+            status.type === "error"
+              ? "bg-red-100 text-red-500"
+              : status.type === "success"
+              ? "bg-green-100 text-green-700"
+              : "bg-blue-100 text-blue-700"
+          }`}
+        >
+          {status.message}
+        </div>
+      )}
+
+      <form onSubmit={handleSubmit} className="space-y-4">
+        <input
+          type="number"
+          placeholder="New Number"
+          value={newNumber}
+          onChange={(e) => setNewNumber(e.target.value)}
+          disabled={isSubmitting || !account}
+          className="w-full p-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-pink-400"
+        />
+        <button
+          type="submit"
+          disabled={
+            isSubmitting || !account || (!isCorrectNetwork && !!account)
+          }
+          className="w-full bg-pink-500 hover:bg-pink-600 text-white font-bold py-2 px-4 rounded-lg transition disabled:bg-gray-300"
+        >
+          {isSubmitting ? "Updating..." : "Update"}
+        </button>
+      </form>
+
+      {!account && (
+        <p className="text-sm text-gray-500">
+          Connect your wallet to update the stored number.
+        </p>
+      )}
+    </div>
+  );
+};
+
+export default WriteContract;
+```
+
+This component allows users to input a new number and send a transaction to update the value stored in the contract. It provides appropriate feedback during each step of the transaction process and handles error scenarios.
+
+Update the `app/page.tsx` file to integrate all components:
+
+```typescript title="page.tsx"
+"use client";
+
+import { useState } from "react";
+import WalletConnect from "./components/WalletConnect";
+import ReadContract from "./components/ReadContract";
+import WriteContract from "./components/WriteContract";
+
+export default function Home() {
+  const [account, setAccount] = useState<string | null>(null);
+
+  const handleConnect = (connectedAccount: string) => {
+    setAccount(connectedAccount);
+  };
+
+  return (
+    <section className="min-h-screen bg-white text-black flex flex-col justify-center items-center gap-4 py-10">
+      <h1 className="text-2xl font-semibold text-center">
+        Viem dApp - Asset Hub Smart Contracts
+      </h1>
+      <WalletConnect onConnect={handleConnect} />
+      <ReadContract />
+      <WriteContract account={account} />
+    </section>
+  );
+}
+```
+After that, you will see:
+
+![](/images/tutorials/smart-contracts/launch-your-first-project/create-dapp-viem/create-dapp-viem-4.webp)
+
+## How It Works
+
+Let's examine how the dApp interacts with the blockchain:
+
+1. **Wallet Connection**: 
+    - The `WalletConnect` component uses the browser's Ethereum provider (MetaMask) to connect to the user's wallet
+    - It handles network switching to ensure the user is connected to Asset Hub
+    - Once connected, it provides the user's account address to the parent component
+
+2. **Reading Data**:
+    - The `ReadContract` component uses viem's `readContract` function to call the `storedNumber` view function
+    - It periodically polls for updates to keep the UI in sync with the blockchain state
+    - The component displays a loading indicator while fetching data and handles error states
+
+3. **Writing Data**:
+    - The `WriteContract` component uses viem's `writeContract` function to send a transaction to the `setNumber` function
+    - It ensures the wallet is connected before allowing a transaction
+    - The component shows detailed feedback during transaction submission and confirmation
+    - After a successful transaction, the value displayed in the `ReadContract` component will update on the next poll
+
+## Conclusion
+
+Congratulations! You've successfully built a fully functional dApp that interacts with a smart contract on Asset Hub using viem and Next.js. Your application can now:
+
+- Connect to a user's wallet and handle network switching
+- Read data from a smart contract and keep it updated
+- Write data to the blockchain through transactions
+
+These fundamental skills provide the foundation for building more complex dApps on Asset Hub. With this knowledge, you can extend your application to interact with more sophisticated smart contracts and create advanced user interfaces.
+
+## Where to Go Next
+
+<div class="grid cards" markdown>
+
+-   <span class="badge guide">Tutorial</span> __Create a dApp with WAGMI__
+
+    ---
+
+    Learn how to build a decentralized application by using the WAGMI framework.
+
+    [:octicons-arrow-right-24: Get Started](/develop/smart-contracts/libraries/wagmi)
 
 </div>
 --- END CONTENT ---

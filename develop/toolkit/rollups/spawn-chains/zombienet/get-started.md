@@ -569,15 +569,15 @@ The following configuration file defines a minimal example for the relay chain, 
     --8<-- 'code/develop/toolkit/rollups/spawn-chains/zombienet/get-started/relaychain-example-node-groups.json'
     ```
 
-### Parachain Configuration
+### Rollup Configuration
 
-The `parachain` keyword defines further parameters for the parachain. The available keys are:
+The `parachain` keyword defines further parameters for the rollup. The available keys are:
 
-- **`id`** ++"number"++ - the id to assign to this parachain. Must be unique
+- **`id`** ++"number"++ - the id to assign to this rollup. Must be unique
 - **`chain?`** ++"string"++ - the chain name
 - **`force_decorator?`** ++"string"++ - force the use of a specific decorator
 - **`genesis?`** ++"JSON"++ - the genesis configuration
-- **`balance?`** ++"number"++ - balance to set in balances for parachain's account
+- **`balance?`** ++"number"++ - balance to set in balances for rollup's account
 - **`delay_network_settings?`** ++"DelayNetworkSettings"++ - sets the expected configuration to delay the network
 
     ??? child "`DelayNetworkSettings` interface definition"
@@ -589,9 +589,9 @@ The `parachain` keyword defines further parameters for the parachain. The availa
         }
         ```
 
-- **`add_to_genesis?`** ++"boolean"++ - flag to add parachain to genesis or register in runtime. Defaults to `true`
+- **`add_to_genesis?`** ++"boolean"++ - flag to add rollup to genesis or register in runtime. Defaults to `true`
 - **`register_para?`** ++"boolean"++ - flag to specify whether the para should be registered. The `add_to_genesis` flag must be set to false for this flag to have any effect. Defaults to `true`
-- **`onboard_as_parachain?`** ++"boolean"++ - flag to specify whether the para should be onboarded as a parachain, rather than remaining a parathread. Defaults to `true`
+- **`onboard_as_parachain?`** ++"boolean"++ - flag to specify whether the para should be onboarded as a rollup, rather than remaining a parathread. Defaults to `true`
 - **`genesis_wasm_path?`** ++"string"++ - path to the Wasm file to use
 - **`genesis_wasm_generator?`** ++"string"++ - command to generate the Wasm file
 - **`genesis_state_path?`** ++"string"++ - path to the state file to use
@@ -600,11 +600,11 @@ The `parachain` keyword defines further parameters for the parachain. The availa
 - **`chain_spec_command?`** ++"string"++ - command to generate the chain spec
 - **`cumulus_based?`** ++"boolean"++ - flag to use cumulus command generation. Defaults to `true`
 - **`bootnodes?`** ++"string[]"++ - array of bootnodes to use
-- **`prometheus_prefix?`** ++"string"++ - parameter for customizing the metric's prefix for all parachain nodes/collators. Defaults to `substrate`
+- **`prometheus_prefix?`** ++"string"++ - parameter for customizing the metric's prefix for all rollup nodes/collators. Defaults to `substrate`
 - **`collator?`** ++"Collator"++ - further defined in the [Collator Configuration](#collator-configuration) section
 - **`collator_groups?`** ++"CollatorGroup[]"++ - an array of collator groups to spawn. It is further defined in the [Collator Groups Configuration](#collator-groups-configuration) section
  
-For example, the following configuration file defines a minimal example for the parachain:
+For example, the following configuration file defines a minimal example for the rollup:
 
 === "TOML"
 
@@ -820,8 +820,8 @@ You can use the `hrmp_channels` keyword to define further parameters for the XCM
         ```
         Each of the `HrmpChannelsConfig` keys are defined as follows:
 
-        - `sender` ++"number"++ - parachain ID of the sender
-        - `recipient` ++"number"++ - parachain ID of the recipient
+        - `sender` ++"number"++ - rollup ID of the sender
+        - `recipient` ++"number"++ - rollup ID of the recipient
         - `max_capacity` ++"number"++ - maximum capacity of the HRMP channel
         - `max_message_size` ++"number"++ - maximum message size allowed in the HRMP channel
 

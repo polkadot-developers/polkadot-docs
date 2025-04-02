@@ -109,9 +109,10 @@ await new Promise((resolve) => setTimeout(resolve, 20000));
 
 // Fetch asset balance of recipient (Dave) after transaction 
 // testtesttest
+// testagain
 assetMetadata = await astarApi.query.Assets.Account.getValue(
   polkadotAssetId,
-  daveAddress
+  daveAddress,
 );
 console.log('Asset balance after tx:', assetMetadata?.balance ?? 0);
 

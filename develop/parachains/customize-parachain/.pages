@@ -1,7 +1,0 @@
-title: Customize Your Parachain
-nav:
-  - index.md
-  - 'Overview (FRAME)': overview.md
-  - 'Add Existing Pallets': add-existing-pallets.md
-  - 'Add Smart Contract Functionality': add-smart-contract-functionality.md
-  - 'Make a Custom Pallet': make-custom-pallet.md

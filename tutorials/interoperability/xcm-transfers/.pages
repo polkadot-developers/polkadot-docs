@@ -1,4 +1,4 @@
 title: XCM Transfers
 nav:
   - index.md
-  - 'From Relay Chain to Parachain': from-relaychain-to-parachain.md
+  - 'From Relay Chain to Rollup': from-relaychain-to-rollup.md

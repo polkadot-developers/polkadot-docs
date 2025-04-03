@@ -46,7 +46,7 @@ A promise containing the result of constructing the transaction.
 
         `SystemToPara`
 
-        System parachain to parachain.
+        System rollup to rollup.
 
         ---
 
@@ -58,43 +58,43 @@ A promise containing the result of constructing the transaction.
 
         `SystemToSystem`
 
-        System parachain to System parachain chain.
+        System rollup to system rollup.
 
         ---
 
         `SystemToBridge`
 
-        System parachain to an external `GlobalConsensus` chain.
+        System rollup to an external `GlobalConsensus` chain.
         
         ---
 
         `ParaToPara`
 
-        Parachain to Parachain.
+        Rollup to rollup.
 
         ---
 
         `ParaToRelay`
 
-        Parachain to Relay chain.
+        Rollup to relay chain.
 
         ---
         
         `ParaToSystem`
 
-        Parachain to System parachain.
+        Rollup to system rollup.
 
         ---
 
         `RelayToSystem`
 
-        Relay to System Parachain.
+        Relay to system rollup.
 
         ---
 
         `RelayToPara`
 
-        Relay chain to Parachain.
+        Relay chain to rollup.
 
         ---
 

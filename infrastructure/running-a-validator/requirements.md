@@ -48,7 +48,7 @@ Polkadot validators rely on high-performance hardware to process blocks efficien
 
 - **Network**:
 
-    - Symmetric networking speed of 500 Mbit/s is required to handle large numbers of parachains and ensure congestion control during peak times
+    - Symmetric networking speed of 500 Mbit/s is required to handle large numbers of rollups and ensure congestion control during peak times
 
 ## VPS Provider List
 

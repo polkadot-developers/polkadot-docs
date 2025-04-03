@@ -2,7 +2,7 @@ title: Develop
 nav:
   - index.md
   - 'Networks': networks.md
-  - parachains
+  - rollups
   - smart-contracts
   - interoperability
   - toolkit

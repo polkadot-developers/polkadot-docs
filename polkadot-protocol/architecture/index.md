@@ -16,7 +16,7 @@ The following provides a brief overview of the role of each chain:
 
 - [**System chains**](/polkadot-protocol/architecture/system-chains/) - specialized chains that provide essential services to the ecosystem, like the Asset Hub, Bridge Hub, and Coretime chain
 
-- [**Rollups**](/polkadot-protocol/architecture/rollups/) -  individual, specialized blockchains that run parallel to the relay chain and are connected to it
+- [**Rollups**](/polkadot-protocol/architecture/rollups/) - individual, specialized blockchains that run parallel to the relay chain and are connected to it
 
 Learn more about these components by checking out the articles in this section.
 

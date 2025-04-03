@@ -49,7 +49,7 @@ ParaSpell's tools make it simple for developers to build, test, and deploy cross
 
 The [Astar rollup](https://github.com/AstarNetwork/Astar/tree/master){target=\_blank} offers a crate with a set of utilities for interacting with the XCM protocol. The [xcm-tools](https://github.com/AstarNetwork/Astar/tree/master/bin/xcm-tools){target=\_blank} crate provides a straightforward method for users to locate a sovereign account or calculate an XC20 asset ID. Some commands included by the xcm-tools crate allow users to perform the following tasks:
 
-- **Sovereign accounts** - obtain the sovereign account address for any rollup, either on the Relay Chain or for sibling rollups, using a simple command
+- **Sovereign accounts** - obtain the sovereign account address for any rollup, either on the relay chain or for sibling rollups, using a simple command
 - **XC20 EVM addresses** - generate XC20-compatible EVM addresses for assets by entering the asset ID, making it easy to integrate assets across EVM-compatible environments
 - **Remote accounts** - retrieve remote account addresses needed for multi-location compatibility, using flexible options to specify account types and rollup IDs
 

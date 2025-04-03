@@ -59,7 +59,7 @@ Build, deploy, and maintain custom rollups with the Polkadot SDK.
 
 - <h3>:octicons-tools-16:{.lg .middle} Tools</h3>
     <hr>
-    - [Rollup Template](https://github.com/paritytech/polkadot-sdk/tree/master/templates/parachain){target=\_blank}
+    - [Rollup (Parachain) Template](https://github.com/paritytech/polkadot-sdk/tree/master/templates/parachain){target=\_blank}
     - [OpenZeppelin Polkadot Runtime Templates](https://github.com/OpenZeppelin/polkadot-runtime-templates/tree/main){target=\_blank}
 
 - <h3>:octicons-code-square-16:{.lg .middle} Resources</h3>

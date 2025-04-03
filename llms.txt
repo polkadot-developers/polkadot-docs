@@ -26789,7 +26789,7 @@ The [Polkadot SDK Parachain Template](https://github.com/paritytech/polkadot-sdk
 
 4. Upon successful compilation, you should see output similar to:
     <div id="termynal" data-termynal>
-  <span data-ty="input"><span class="file-path"></span>cargo build --release</span>
+  <span data-ty="input"><span class="file-path"></span>cargo build --release --locked</span>
   <span data-ty>...</span>
   <span data-ty>Finished `release` profile [optimized] target(s) in 1.79s</span>
   <span data-ty="input"><span class="file-path"></span></span>

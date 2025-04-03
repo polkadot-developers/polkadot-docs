@@ -58,7 +58,7 @@ A promise containing the result of constructing the transaction.
 
         `SystemToSystem`
 
-        System rollup to System rollup chain.
+        System rollup to system rollup.
 
         ---
 
@@ -70,31 +70,31 @@ A promise containing the result of constructing the transaction.
 
         `ParaToPara`
 
-        Rollup to Rollup.
+        Rollup to rollup.
 
         ---
 
         `ParaToRelay`
 
-        Rollup to Relay chain.
+        Rollup to relay chain.
 
         ---
         
         `ParaToSystem`
 
-        Rollup to System rollup.
+        Rollup to system rollup.
 
         ---
 
         `RelayToSystem`
 
-        Relay to System Rollup.
+        Relay to system rollup.
 
         ---
 
         `RelayToPara`
 
-        Relay chain to Rollup.
+        Relay chain to rollup.
 
         ---
 

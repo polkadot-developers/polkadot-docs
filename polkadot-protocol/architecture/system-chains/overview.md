@@ -18,7 +18,7 @@ System rollups defer to on-chain governance to manage their upgrades and other s
 !!!note
     You may see system rollups called common good rollups in articles and discussions. This nomenclature caused confusion as the network evolved, so system rollups is preferred. 
     
-    For more details on this evolution, review this [rollups forum discussion](https://forum.polkadot.network/t/polkadot-protocol-and-common-good-rollups/866){target=\_blank}.
+    For more details on this evolution, review this [rollups forum discussion](https://forum.polkadot.network/t/polkadot-protocol-and-common-good-parachains/866){target=\_blank}.
 
 ## Existing System Chains
 

@@ -38,7 +38,7 @@ As a Layer-0 blockchain, Polkadot contributes to the multi-chain vision through 
 
 Polkadot features a chain that serves as the central component of the system. This chain is depicted as a ring encircled by several rollups that are connected to it.
 
-According to Polkadot's design, any blockchain that can compile to WebAssembly (Wasm) and adheres to the Rollups Protocol becomes a rollup on the Polkadot network.
+According to Polkadot's design, any blockchain that can compile to WebAssembly (Wasm) and adheres to the [Parachains Protocol](https://wiki.polkadot.network/learn/learn-parachains-protocol/){target=\_blank} becomes a rollup on the Polkadot network.
 
 Here’s a high-level overview of the Polkadot protocol architecture:
 

@@ -253,10 +253,9 @@ A [FRAME](#frame-framework-for-runtime-aggregation-of-modularized-entities) prim
 A module that can be used to extend the capabilities of a [FRAME](#frame-framework-for-runtime-aggregation-of-modularized-entities)-based [runtime](#runtime).
 Pallets bundle domain-specific logic with runtime primitives like [events](#events) and [storage items](#storage-item).
 
-## Rollup
+## Parachain
 
-A rollup is a blockchain that derives shared infrastructure and security from a _[relay chain](#relay-chain)_.
-You can learn more about rollups on the [Polkadot Wiki](https://wiki.polkadot.network/learn/learn-parachains/){target=\_blank}.
+Now referred to as a [rollup](#rollup).
 
 ## Paseo
 
@@ -273,6 +272,11 @@ Relay chains are blockchains that provide shared infrastructure and security to 
 ## Rococo
 
 A [rollup](#rollup) test network for the Polkadot network. The [Rococo](#rococo) network is a Polkadot SDK-based blockchain with an October 14, 2024 deprecation date. Development teams are encouraged to use the Paseo TestNet instead.
+
+## Rollup
+
+A rollup is a blockchain that derives shared infrastructure and security from a _[relay chain](#relay-chain)_.
+You can learn more about rollups on the [Polkadot Wiki](https://wiki.polkadot.network/learn/learn-parachains/){target=\_blank}.
 
 ## Runtime
 

@@ -234,7 +234,7 @@ Build, deploy, and maintain custom rollups with the Polkadot SDK.
 
 - <h3>:octicons-tools-16:{.lg .middle} Tools</h3>
     <hr>
-    - [Rollup Template](https://github.com/paritytech/polkadot-sdk/tree/master/templates/parachain){target=\_blank}
+    - [Rollup (Parachain) Template](https://github.com/paritytech/polkadot-sdk/tree/master/templates/parachain){target=\_blank}
     - [OpenZeppelin Polkadot Runtime Templates](https://github.com/OpenZeppelin/polkadot-runtime-templates/tree/main){target=\_blank}
 
 - <h3>:octicons-code-square-16:{.lg .middle} Resources</h3>
@@ -4629,7 +4629,7 @@ description: Learn about the Polkadot SDK, a robust developer toolkit for buildi
 
 ## Introduction
 
-The [Polkadot SDK](https://github.com/paritytech/polkadot-sdk/tree/{{dependencies.repositories.polkadot_sdk.version}}){target=\_blank} is a powerful and versatile developer kit designed to facilitate building on the Polkadot network. It provides the necessary components for creating custom blockchains, rollups, generalized rollups, and more. Written in the Rust programming language, it puts security and robustness at the forefront of its design.
+The [Polkadot SDK](https://github.com/paritytech/polkadot-sdk/tree/{{dependencies.repositories.polkadot_sdk.version}}){target=\_blank} is a powerful and versatile developer kit designed to facilitate building on the Polkadot network. It provides the necessary components for creating custom blockchains, rollups, and more. Written in the Rust programming language, it puts security and robustness at the forefront of its design.
 
 Whether you're building a standalone chain or deploying a rollup on Polkadot, this SDK equips developers with the libraries and tools needed to manage runtime logic, compile the codebase, and utilize core features like staking, governance, and Cross-Consensus Messaging (XCM). It also provides a means for building generalized peer-to-peer systems beyond blockchains. The Polkadot SDK houses the following overall functionality:
 
@@ -10020,7 +10020,6 @@ description: Learn about smart contract development capabilities in the Polkadot
 Polkadot offers developers multiple approaches to building and deploying smart contracts within its ecosystem. As a multi-chain network designed for interoperability, Polkadot provides various environments optimized for different developer preferences and application requirements. From native smart contract support on Asset Hub to specialized rollup environments, developers can choose the platform that best suits their technical needs while benefiting from Polkadot's shared security model and cross-chain messaging capabilities.
 
 Whether you're looking for Ethereum compatibility through EVM-based rollups like Moonbeam, Astar, and Acala or prefer WebAssembly-based development with ink!, the Polkadot ecosystem accommodates diverse developers.
-rollup
 These guides explore the diverse smart contract options available in the Polkadot ecosystem, helping developers understand the unique advantages of each approach and make informed decisions about where to deploy their decentralized applications.
 
 ## Native Smart Contracts
@@ -12014,7 +12013,7 @@ public async createTransferTransaction<T extends Format>(
 
         `SystemToSystem`
 
-        System rollup to System rollup chain.
+        System rollup to system rollup.
 
         ---
 
@@ -12026,31 +12025,31 @@ public async createTransferTransaction<T extends Format>(
 
         `ParaToPara`
 
-        Rollup to Rollup.
+        Rollup to rollup.
 
         ---
 
         `ParaToRelay`
 
-        Rollup to Relay chain.
+        Rollup to relay chain.
 
         ---
         
         `ParaToSystem`
 
-        Rollup to System rollup.
+        Rollup to system rollup.
 
         ---
 
         `RelayToSystem`
 
-        Relay to System Rollup.
+        Relay to system rollup.
 
         ---
 
         `RelayToPara`
 
-        Relay chain to Rollup.
+        Relay chain to rollup.
 
         ---
 
@@ -12355,7 +12354,7 @@ public async claimAssets<T extends Format>(
 
         `SystemToSystem`
 
-        System rollup to System rollup chain.
+        System rollup to system rollup.
 
         ---
 
@@ -12367,31 +12366,31 @@ public async claimAssets<T extends Format>(
 
         `ParaToPara`
 
-        Rollup to Rollup.
+        Rollup to rollup.
 
         ---
 
         `ParaToRelay`
 
-        Rollup to Relay chain.
+        Rollup to relay chain.
 
         ---
         
         `ParaToSystem`
 
-        Rollup to System rollup.
+        Rollup to system rollup.
 
         ---
 
         `RelayToSystem`
 
-        Relay to System Rollup.
+        Relay to system rollup.
 
         ---
 
         `RelayToPara`
 
-        Relay chain to Rollup.
+        Relay chain to rollup.
 
         ---
 
@@ -12771,7 +12770,7 @@ ParaSpell's tools make it simple for developers to build, test, and deploy cross
 
 The [Astar rollup](https://github.com/AstarNetwork/Astar/tree/master){target=\_blank} offers a crate with a set of utilities for interacting with the XCM protocol. The [xcm-tools](https://github.com/AstarNetwork/Astar/tree/master/bin/xcm-tools){target=\_blank} crate provides a straightforward method for users to locate a sovereign account or calculate an XC20 asset ID. Some commands included by the xcm-tools crate allow users to perform the following tasks:
 
-- **Sovereign accounts** - obtain the sovereign account address for any rollup, either on the Relay Chain or for sibling rollups, using a simple command
+- **Sovereign accounts** - obtain the sovereign account address for any rollup, either on the relay chain or for sibling rollups, using a simple command
 - **XC20 EVM addresses** - generate XC20-compatible EVM addresses for assets by entering the asset ID, making it easy to integrate assets across EVM-compatible environments
 - **Remote accounts** - retrieve remote account addresses needed for multi-location compatibility, using flexible options to specify account types and rollup IDs
 
@@ -17706,7 +17705,7 @@ The following provides a brief overview of the role of each chain:
 
 - [**System chains**](/polkadot-protocol/architecture/system-chains/) - specialized chains that provide essential services to the ecosystem, like the Asset Hub, Bridge Hub, and Coretime chain
 
-- [**Rollups**](/polkadot-protocol/architecture/rollups/) -  individual, specialized blockchains that run parallel to the relay chain and are connected to it
+- [**Rollups**](/polkadot-protocol/architecture/rollups/) - individual, specialized blockchains that run parallel to the relay chain and are connected to it
 
 Learn more about these components by checking out the articles in this section.
 
@@ -18737,7 +18736,7 @@ System rollups defer to on-chain governance to manage their upgrades and other s
 !!!note
     You may see system rollups called common good rollups in articles and discussions. This nomenclature caused confusion as the network evolved, so system rollups is preferred. 
     
-    For more details on this evolution, review this [rollups forum discussion](https://forum.polkadot.network/t/polkadot-protocol-and-common-good-rollups/866){target=\_blank}.
+    For more details on this evolution, review this [rollups forum discussion](https://forum.polkadot.network/t/polkadot-protocol-and-common-good-parachains/866){target=\_blank}.
 
 ## Existing System Chains
 
@@ -19183,10 +19182,9 @@ A [FRAME](#frame-framework-for-runtime-aggregation-of-modularized-entities) prim
 A module that can be used to extend the capabilities of a [FRAME](#frame-framework-for-runtime-aggregation-of-modularized-entities)-based [runtime](#runtime).
 Pallets bundle domain-specific logic with runtime primitives like [events](#events) and [storage items](#storage-item).
 
-## Rollup
+## Parachain
 
-A rollup is a blockchain that derives shared infrastructure and security from a _[relay chain](#relay-chain)_.
-You can learn more about rollups on the [Polkadot Wiki](https://wiki.polkadot.network/docs/en/learn-parachains){target=\_blank}.
+Now referred to as a [rollup](#rollup).
 
 ## Paseo
 
@@ -19203,6 +19201,11 @@ Relay chains are blockchains that provide shared infrastructure and security to 
 ## Rococo
 
 A [rollup](#rollup) test network for the Polkadot network. The [Rococo](#rococo) network is a Polkadot SDK-based blockchain with an October 14, 2024 deprecation date. Development teams are encouraged to use the Paseo TestNet instead.
+
+## Rollup
+
+A rollup is a blockchain that derives shared infrastructure and security from a _[relay chain](#relay-chain)_.
+You can learn more about rollups on the [Polkadot Wiki](https://wiki.polkadot.network/learn/learn-parachains/){target=\_blank}.
 
 ## Runtime
 

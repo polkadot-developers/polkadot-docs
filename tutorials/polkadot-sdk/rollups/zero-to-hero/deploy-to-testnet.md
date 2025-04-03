@@ -109,7 +109,7 @@ To define your chain specification:
     create \
     --relay-chain paseo \
     --para-id INSERT_PARA_ID \
-    --runtime target/release/wbuild/rollup-template-runtime/parachain_template_runtime.compact.compressed.wasm \
+    --runtime target/release/wbuild/parachain-template-runtime/parachain_template_runtime.compact.compressed.wasm \
     named-preset local_testnet
     ```
 

@@ -1,5 +1,5 @@
 <div id="termynal" data-termynal>
-    <span data-ty="input"><span class="file-path"></span>ts-node localParachainTx.ts</span>
+    <span data-ty="input"><span class="file-path"></span>ts-node localRollupTx.ts</span>
     <br>
 	<span data-ty>Call data:</span>
 	<span data-ty>{</span>

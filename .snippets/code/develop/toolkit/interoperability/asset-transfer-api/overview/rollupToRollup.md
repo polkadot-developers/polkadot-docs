@@ -1,5 +1,5 @@
 <div id='termynal' data-termynal>
-    <span data-ty='input'><span class='file-path'></span>ts-node paraToPara.ts</span>
+    <span data-ty='input'><span class='file-path'></span>ts-node rollupToRollup.ts</span>
 
     <br>
     <span data-ty>Call data:</span>

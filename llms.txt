@@ -136,8 +136,8 @@ Doc-Page: https://docs.polkadot.com/polkadot-protocol/smart-contract-basics/polk
 Doc-Page: https://docs.polkadot.com/tutorials/
 Doc-Page: https://docs.polkadot.com/tutorials/interoperability/
 Doc-Page: https://docs.polkadot.com/tutorials/interoperability/xcm-channels/
-Doc-Page: https://docs.polkadot.com/tutorials/interoperability/xcm-channels/para-to-para/
-Doc-Page: https://docs.polkadot.com/tutorials/interoperability/xcm-channels/para-to-system/
+Doc-Page: https://docs.polkadot.com/tutorials/interoperability/xcm-channels/rollup-to-rollup/
+Doc-Page: https://docs.polkadot.com/tutorials/interoperability/xcm-channels/rollup-to-system/
 Doc-Page: https://docs.polkadot.com/tutorials/interoperability/xcm-transfers/from-relaychain-to-rollup/
 Doc-Page: https://docs.polkadot.com/tutorials/interoperability/xcm-transfers/
 Doc-Page: https://docs.polkadot.com/tutorials/onchain-governance/fast-track-gov-proposal/
@@ -11599,7 +11599,7 @@ main()
 Upon executing this script, the terminal will display the following output, illustrating the encoded extrinsic for the cross-chain message and its corresponding decoded format:
 
 <div id="termynal" data-termynal>
-    <span data-ty="input"><span class="file-path"></span>ts-node localParachainTx.ts</span>
+    <span data-ty="input"><span class="file-path"></span>ts-node localRollupTx.ts</span>
     <br>
 	<span data-ty>Call data:</span>
 	<span data-ty>{</span>
@@ -11669,7 +11669,7 @@ main()
 After running this script, you'll see the following output in your terminal. This output presents the encoded extrinsic for the cross-chain message, along with its decoded format, providing a clear view of the transaction details.
 
 <div id='termynal' data-termynal>
-    <span data-ty='input'><span class='file-path'></span>ts-node paraToPara.ts</span>
+    <span data-ty='input'><span class='file-path'></span>ts-node rollupToRollup.ts</span>
 
     <br>
     <span data-ty>Call data:</span>
@@ -12007,7 +12007,7 @@ public async createTransferTransaction<T extends Format>(
 
         `SystemToRelay`
 
-        System paracahin to system relay chain.
+        System rollup to relay chain.
 
         ---
 
@@ -12348,7 +12348,7 @@ public async claimAssets<T extends Format>(
 
         `SystemToRelay`
 
-        System paracahin to system relay chain.
+        System rollup to relay chain.
 
         ---
 
@@ -22277,7 +22277,7 @@ To enable communication between rollups, explicit HRMP channels must be establis
 </div>
 --- END CONTENT ---
 
-Doc-Content: https://docs.polkadot.com/tutorials/interoperability/xcm-channels/para-to-para/
+Doc-Content: https://docs.polkadot.com/tutorials/interoperability/xcm-channels/rollup-to-rollup/
 --- BEGIN CONTENT ---
 ---
 title: Opening HRMP Channels Between Rollups
@@ -22462,7 +22462,7 @@ By following these steps, you will have successfully accepted the HRMP channel r
     Remember that for full bidirectional communication, you'll need to repeat this process in the opposite direction, with rollup 2600 initiating a channel request to rollup 2500.
 --- END CONTENT ---
 
-Doc-Content: https://docs.polkadot.com/tutorials/interoperability/xcm-channels/para-to-system/
+Doc-Content: https://docs.polkadot.com/tutorials/interoperability/xcm-channels/rollup-to-system/
 --- BEGIN CONTENT ---
 ---
 title: Opening HRMP Channels with System Rollups

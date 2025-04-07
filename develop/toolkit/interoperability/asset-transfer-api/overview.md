@@ -92,21 +92,21 @@ After running the script, you'll see the following output in the terminal, which
 The following example demonstrates a local GLMR transfer within Moonbeam, using the `balances` pallet. It transfers 1 GLMR token from one account to another account, where both the sender and recipient accounts are located on the same rollup.
 
 ```ts
---8<-- 'code/develop/toolkit/interoperability/asset-transfer-api/overview/localParachainTx.ts'
+--8<-- 'code/develop/toolkit/interoperability/asset-transfer-api/overview/localRollupTx.ts'
 ```
 
 Upon executing this script, the terminal will display the following output, illustrating the encoded extrinsic for the cross-chain message and its corresponding decoded format:
 
---8<-- 'code/develop/toolkit/interoperability/asset-transfer-api/overview/localParachainTx.md'
+--8<-- 'code/develop/toolkit/interoperability/asset-transfer-api/overview/localRollupTx.md'
 
 ### Rollup to Rollup Transfer
 
 This example demonstrates creating a cross-chain asset transfer between two rollups. It shows how to send vMOVR and vBNC from a Moonriver account to a Bifrost Kusama account using the safe XCM version. It connects to Moonriver, initializes the API, and uses the `createTransferTransaction` method to prepare a transaction.
 
 ```ts
---8<-- 'code/develop/toolkit/interoperability/asset-transfer-api/overview/paraToPara.ts'
+--8<-- 'code/develop/toolkit/interoperability/asset-transfer-api/overview/rollupToRollup.ts'
 ```
 
 After running this script, you'll see the following output in your terminal. This output presents the encoded extrinsic for the cross-chain message, along with its decoded format, providing a clear view of the transaction details.
 
---8<-- 'code/develop/toolkit/interoperability/asset-transfer-api/overview/paraToPara.md'
+--8<-- 'code/develop/toolkit/interoperability/asset-transfer-api/overview/rollupToRollup.md'

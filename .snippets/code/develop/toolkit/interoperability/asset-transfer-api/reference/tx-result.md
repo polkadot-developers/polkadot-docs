@@ -52,7 +52,7 @@ A promise containing the result of constructing the transaction.
 
         `SystemToRelay`
 
-        System paracahin to system relay chain.
+        System rollup to relay chain.
 
         ---
 

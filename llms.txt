@@ -18734,9 +18734,9 @@ System rollups contain core Polkadot protocol features, but in rollups rather th
 System rollups defer to on-chain governance to manage their upgrades and other sensitive actions as they do not have native tokens or governance systems separate from DOT or KSM. It is not uncommon to see a system rollups implemented specifically to manage network governance.
 
 !!!note
-    You may see system rollups called common good rollups in articles and discussions. This nomenclature caused confusion as the network evolved, so system rollups is preferred. 
+    You may see system rollups referred to as system parachains or common good parachains in older articles and discussions. As the network evolved, this terminology became outdated, and system rollups is now preferred. 
     
-    For more details on this evolution, review this [rollups forum discussion](https://forum.polkadot.network/t/polkadot-protocol-and-common-good-parachains/866){target=\_blank}.
+    For more details on this evolution, review this [forum discussion](https://forum.polkadot.network/t/polkadot-protocol-and-common-good-parachains/866){target=\_blank}.
 
 ## Existing System Chains
 

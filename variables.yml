@@ -16,9 +16,9 @@ dependencies:
       version: v15.0.2
     srtool:
       repository_url: https://github.com/paritytech/srtool
-      version: v0.17.0
+      version: v0.18.2
       docker_image_name: paritytech/srtool
-      docker_image_version: 1.81.0
+      docker_image_version: 1.84.1
     polkadot_sdk:
       repository_url: https://github.com/paritytech/polkadot-sdk
       version: polkadot-stable2412
@@ -56,4 +56,7 @@ dependencies:
     polkadot_js_api:
       name: '@polkadot/api'
       version: 15.9.1
+    polkadot_api:
+      name: polkadot-api
+      version: 1.9.9
 #   python_packages:

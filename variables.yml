@@ -26,16 +26,16 @@ dependencies:
   crates:
     subxt:
       name: subxt
-      version: 0.40.0
-    subxt-cli:
+      version: 0.41.0
+    subxt_cli:
       name: subxt-cli
-      version: 0.40.0
-    subxt-signer:
+      version: 0.41.0
+    subxt_signer:
       name: subxt-signer
-      version: 0.40.0
+      version: 0.41.0
     tokio:
       name: tokio
-      version: 1.44.0
+      version: 1.44.2
     chain_spec_builder:
       name: staging-chain-spec-builder
       version: 9.0.0

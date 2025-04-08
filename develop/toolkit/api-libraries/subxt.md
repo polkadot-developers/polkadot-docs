@@ -26,7 +26,7 @@ To use subxt in your project, you must install the necessary dependencies. Each 
 1. **Install the subxt CLI** - [`subxt-cli`](https://crates.io/crates/subxt-cli){target=\_blank} is a command-line tool that provides utilities for working with Polkadot SDK metadata. In the context of subxt, it is essential to download chain metadata, which is required to generate type-safe Rust interfaces for interacting with the blockchain. Install it using:
 
     ```bash
-    cargo install subxt-cli
+    cargo install subxt-cli@{{dependencies.crates.subxt_cli.version}}
     ```
 
 2. **Add core dependencies** - these dependencies are essential for interacting with the blockchain:
@@ -34,19 +34,19 @@ To use subxt in your project, you must install the necessary dependencies. Each 
     - **[subxt](https://crates.io/crates/subxt){target=\_blank}** - the main library for communicating with Polkadot SDK nodes. It handles RPC requests, encoding/decoding, and type generation
 
         ```bash
-        cargo add subxt
+        cargo add subxt@{{dependencies.crates.subxt.version}}
         ```
 
     - **[subxt-signer](https://crates.io/crates/subxt-signer){target=\_blank}** - provides cryptographic functionality for signing transactions. Without this, you can only read data but cannot submit transactions
 
         ```bash
-        cargo add subxt-signer
+        cargo add subxt-signer@{{dependencies.crates.subxt_signer.version}}
         ```
 
     - **[tokio](https://crates.io/crates/tokio){target=\_blank}** - an asynchronous runtime for Rust. Since blockchain operations are async, Tokio enables the efficient handling of network requests. The `rt` feature enables Tokio's runtime, including the current-thread single-threaded scheduler, which is necessary for async execution. The `macros` feature provides procedural macros like `#[tokio::main]` to simplify runtime setup
 
         ```bash
-        cargo add tokio --features rt,macros
+        cargo add tokio@{{dependencies.crates.tokio.version}} --features rt,macros
         ```
 
     After adding the dependencies, your `Cargo.toml` should look like this:

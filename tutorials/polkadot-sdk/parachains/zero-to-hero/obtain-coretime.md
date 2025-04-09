@@ -1,6 +1,7 @@
 ---
 title: Obtain Coretime
 description: Learn how to obtain coretime for block production with this guide, covering both on-demand and bulk options for smooth operations.
+tutorial_badge: Advanced
 ---
 
 ## Introduction

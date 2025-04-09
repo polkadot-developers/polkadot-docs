@@ -18597,6 +18597,7 @@ Doc-Content: https://docs.polkadot.com/tutorials/interoperability/xcm-channels/p
 ---
 title: Opening HRMP Channels Between Parachains
 description: Learn how to open HRMP channels between parachains on Polkadot. Discover the step-by-step process for establishing uni- and bidirectional communication.
+tutorial_badge: Advanced
 ---
 
 # Opening HRMP Channels Between Parachains
@@ -18782,6 +18783,7 @@ Doc-Content: https://docs.polkadot.com/tutorials/interoperability/xcm-channels/p
 ---
 title: Opening HRMP Channels with System Parachains
 description: Learn how to open HRMP channels with Polkadot system parachains. Discover the process for establishing bi-directional communication using a single XCM message.
+tutorial_badge: Advanced
 ---
 
 # Opening HRMP Channels with System Parachains
@@ -18929,6 +18931,7 @@ Doc-Content: https://docs.polkadot.com/tutorials/interoperability/xcm-transfers/
 ---
 title: XCM Transfers from Relay Chain to Parachain
 description: Learn how to perform a reserve-backed asset transfer between a relay chain and a parachain using XCM for cross-chain interoperability.
+tutorial_badge: Intermediate
 ---
 
 # From Relay Chain to Parachain
@@ -19224,6 +19227,7 @@ Doc-Content: https://docs.polkadot.com/tutorials/onchain-governance/fast-track-g
 ---
 title: Fast Track a Governance Proposal
 description: Learn how to fast-track governance proposals in Polkadot's OpenGov using Chopsticks. Simulate, test, and execute proposals confidently.
+tutorial_badge: Advanced
 ---
 
 # Fast Track a Governance Proposal
@@ -24005,6 +24009,7 @@ Doc-Content: https://docs.polkadot.com/tutorials/polkadot-sdk/parachains/zero-to
 ---
 title: Add Pallets to the Runtime
 description: Add pallets to your runtime for custom functionality. Learn to configure and integrate pallets in Polkadot SDK-based blockchains.
+tutorial_badge: Beginner
 ---
 
 # Add Pallets to the Runtime
@@ -24157,6 +24162,7 @@ Doc-Content: https://docs.polkadot.com/tutorials/polkadot-sdk/parachains/zero-to
 ---
 title: Build a Custom Pallet
 description: Learn how to build a custom pallet for Polkadot SDK-based blockchains with this step-by-step guide. Create and configure a simple counter pallet from scratch.
+tutorial_badge: Beginner
 ---
 
 # Build a Custom Pallet
@@ -25033,6 +25039,7 @@ Doc-Content: https://docs.polkadot.com/tutorials/polkadot-sdk/parachains/zero-to
 ---
 title: Deploy on Paseo TestNet
 description: This guide walks you through the journey of deploying your Polkadot SDK blockchain on Paseo, detailing each step to a successful TestNet deployment.
+tutorial_badge: Advanced
 ---
 
 # Deploy on Paseo TestNet
@@ -25455,6 +25462,7 @@ Doc-Content: https://docs.polkadot.com/tutorials/polkadot-sdk/parachains/zero-to
 ---
 title: Obtain Coretime
 description: Learn how to obtain coretime for block production with this guide, covering both on-demand and bulk options for smooth operations.
+tutorial_badge: Advanced
 ---
 
 ## Introduction
@@ -25571,6 +25579,7 @@ Doc-Content: https://docs.polkadot.com/tutorials/polkadot-sdk/parachains/zero-to
 ---
 title: Pallet Benchmarking
 description: Learn how to benchmark Polkadot SDK-based pallets, assigning precise weights to extrinsics for accurate fee calculation and runtime optimization.
+tutorial_badge: Advanced
 ---
 
 ## Introduction
@@ -25926,6 +25935,7 @@ Doc-Content: https://docs.polkadot.com/tutorials/polkadot-sdk/parachains/zero-to
 ---
 title: Pallet Unit Testing
 description: Discover how to create thorough unit tests for pallets built with the Polkadot SDK, using a custom pallet as a practical example.
+tutorial_badge: Intermediate
 ---
 
 # Pallet Unit Testing
@@ -26713,6 +26723,7 @@ Doc-Content: https://docs.polkadot.com/tutorials/polkadot-sdk/parachains/zero-to
 ---
 title: Set Up a Template
 description: Learn to compile and run a local parachain node using Polkadot SDK. Launch, run, and interact with a pre-configured runtime template.
+tutorial_badge: Beginner
 ---
 
 # Set Up a Template
@@ -26918,6 +26929,7 @@ Doc-Content: https://docs.polkadot.com/tutorials/polkadot-sdk/system-chains/asse
 ---
 title: Convert Assets on Asset Hub
 description: A guide detailing the step-by-step process of converting assets on Asset Hub, helping users efficiently navigate asset management on the platform.
+tutorial_badge: Intermediate
 ---
 
 # Convert Assets on Asset Hub
@@ -27306,6 +27318,7 @@ Doc-Content: https://docs.polkadot.com/tutorials/polkadot-sdk/system-chains/asse
 ---
 title: Register a Foreign Asset on Asset Hub
 description: An in-depth guide to registering a foreign asset on the Asset Hub parachain, providing clear, step-by-step instructions.
+tutorial_badge: Intermediate
 ---
 
 # Register a Foreign Asset on Asset Hub
@@ -27444,6 +27457,7 @@ Doc-Content: https://docs.polkadot.com/tutorials/polkadot-sdk/system-chains/asse
 ---
 title: Register a Local Asset
 description: Comprehensive guide to registering a local asset on the Asset Hub system parachain, including step-by-step instructions.
+tutorial_badge: Beginner
 ---
 
 # Register a Local Asset on Asset Hub
@@ -27576,6 +27590,7 @@ Doc-Content: https://docs.polkadot.com/tutorials/polkadot-sdk/testing/fork-live-
 ---
 title: Fork a Chain with Chopsticks
 description: Learn how to fork live Polkadot SDK chains with Chopsticks. Configure forks, replay blocks, test XCM, and interact programmatically or via UI.
+tutorial_badge: Beginner
 ---
 
 # Fork a Chain with Chopsticks
@@ -27952,6 +27967,7 @@ Doc-Content: https://docs.polkadot.com/tutorials/polkadot-sdk/testing/spawn-basi
 ---
 title: Spawn a Basic Chain with Zombienet
 description: Learn to spawn, connect to and monitor a basic blockchain network with Zombienet, using customizable configurations for streamlined development and debugging.
+tutorial_badge: Beginner
 ---
 
 # Spawn a Basic Chain with Zombienet

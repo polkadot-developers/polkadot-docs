@@ -6534,6 +6534,14 @@ npx hardhat test
 
 Before deploying to a live network, you can deploy your contract to a local node using the [`hardhat-revive-node`](https://www.npmjs.com/package/hardhat-revive-node){target=\_blank} plugin and Ignition modules:
 
+!!! warning "Contract Size Limitation in Testing Environment"
+
+    When testing or deploying large contracts in Hardhat's local environment, you may encounter this error:
+
+    `Error: the initcode size of this transaction is too large`
+    
+    This limitation is established by Hardhat based on Ethereum's default contract size limits. While Hardhat can disable this limitation, technical constraints currently prevent it from being applied to the PolkaVM test environment.
+
 1. First, ensure you have compiled a Substrate node and the ETH RPC adapter from the Polkadot SDK. Checkout the [compatible commit](https://github.com/paritytech/polkadot-sdk/commit/c29e72a8628835e34deb6aa7db9a78a2e4eabcee){target=\_blank} from the SDK and build the node and the ETH-RPC from source:
 
     ```bash

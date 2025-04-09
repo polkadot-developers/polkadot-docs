@@ -7129,17 +7129,17 @@ To instantiate the API, you can install the package by using the following comma
 
 === "npm"
     ```bash
-    npm i polkadot-api
+    npm i polkadot-api@{{dependencies.javascript_packages.polkadot_api.version}}
     ```
 
 === "pnpm"
     ```bash
-    pnpm add polkadot-api
+    pnpm add polkadot-api@{{dependencies.javascript_packages.polkadot_api.version}}
     ```
 
 === "yarn"
     ```bash
-    yarn add polkadot-api
+    yarn add polkadot-api@{{dependencies.javascript_packages.polkadot_api.version}}
     ```
 
 Then, obtain the latest metadata from the target chain and generate the necessary types:
@@ -7368,21 +7368,21 @@ The available methods and interfaces will automatically reflect what's possible 
 
 ## Installation
 
-To add the Polkadot.js API to your project, use the following command to install the latest stable release which supports any Polkadot SDK-based chain:
+To add the Polkadot.js API to your project, use the following command to install the version `{{ dependencies.javascript_packages.polkadot_js_api.version }}` which supports any Polkadot SDK-based chain:
 
 === "npm"
     ```bash
-    npm i @polkadot/api
+    npm i @polkadot/api@{{ dependencies.javascript_packages.polkadot_js_api.version }}
     ```
 
 === "pnpm"
     ```bash
-    pnpm add @polkadot/api
+    pnpm add @polkadot/api@{{ dependencies.javascript_packages.polkadot_js_api.version }}
     ```
 
 === "yarn"
     ```bash
-    yarn add @polkadot/api
+    yarn add @polkadot/api@{{ dependencies.javascript_packages.polkadot_js_api.version }}
     ```
 
 For more detailed information about installation, see the [Installation](https://polkadot.js.org/docs/api/start/install/){target=\_blank} section in the official Polkadot.js API documentation.
@@ -7797,7 +7797,7 @@ To use subxt in your project, you must install the necessary dependencies. Each 
 1. **Install the subxt CLI** - [`subxt-cli`](https://crates.io/crates/subxt-cli){target=\_blank} is a command-line tool that provides utilities for working with Polkadot SDK metadata. In the context of subxt, it is essential to download chain metadata, which is required to generate type-safe Rust interfaces for interacting with the blockchain. Install it using:
 
     ```bash
-    cargo install subxt-cli
+    cargo install subxt-cli@{{dependencies.crates.subxt_cli.version}}
     ```
 
 2. **Add core dependencies** - these dependencies are essential for interacting with the blockchain:
@@ -7805,33 +7805,33 @@ To use subxt in your project, you must install the necessary dependencies. Each 
     - **[subxt](https://crates.io/crates/subxt){target=\_blank}** - the main library for communicating with Polkadot SDK nodes. It handles RPC requests, encoding/decoding, and type generation
 
         ```bash
-        cargo add subxt
+        cargo add subxt@{{dependencies.crates.subxt.version}}
         ```
 
     - **[subxt-signer](https://crates.io/crates/subxt-signer){target=\_blank}** - provides cryptographic functionality for signing transactions. Without this, you can only read data but cannot submit transactions
 
         ```bash
-        cargo add subxt-signer
+        cargo add subxt-signer@{{dependencies.crates.subxt_signer.version}}
         ```
 
     - **[tokio](https://crates.io/crates/tokio){target=\_blank}** - an asynchronous runtime for Rust. Since blockchain operations are async, Tokio enables the efficient handling of network requests. The `rt` feature enables Tokio's runtime, including the current-thread single-threaded scheduler, which is necessary for async execution. The `macros` feature provides procedural macros like `#[tokio::main]` to simplify runtime setup
 
         ```bash
-        cargo add tokio --features rt,macros
+        cargo add tokio@{{dependencies.crates.tokio.version}} --features rt,macros
         ```
 
     After adding the dependencies, your `Cargo.toml` should look like this:
 
     ```toml
     [package]
-name = "my-project"
+name = "my_project"
 version = "0.1.0"
 edition = "2021"
 
 [dependencies]
-subxt = "0.39.0"
-subxt-signer = "0.39.0"
-tokio = { version = "1.43.0", features = ["rt", "macros"] }
+subxt = "0.41.0"
+subxt-signer = "0.41.0"
+tokio = { version = "1.44.2", features = ["rt", "macros"] }
     ```
 
 ## Get Started
@@ -8722,7 +8722,7 @@ description: Explore the Asset Transfer API Reference for comprehensive details 
 
 Holds open an API connection to a specified chain within the `ApiPromise` to help construct transactions for assets and estimate fees.
 
-For a more in-depth explanation of the Asset Transfer API class structure, check the [source code](https://github.com/paritytech/asset-transfer-api/blob/{{dependencies.repositories.asset_transfer_api.version}}/src/AssetTransferApi.ts#L121){target=\_blank}.
+For a more in-depth explanation of the Asset Transfer API class structure, check the [source code](https://github.com/paritytech/asset-transfer-api/blob/{{dependencies.repositories.asset_transfer_api.version}}/src/AssetTransferApi.ts#L123){target=\_blank}.
 
 ### Methods
 
@@ -9017,9 +9017,9 @@ public async createTransferTransaction<T extends Format>(
 
         The `ConstructedFormat` type is a conditional type that returns a specific type based on the value of the TxResult `format` field.
 
-        - **Payload format** - if the format field is set to `'payload'`, the `ConstructedFormat` type will return a [`GenericExtrinsicPayload`](https://github.com/polkadot-js/api/blob/{{ dependencies.repositories.polkadot_js_api.version}}/packages/types/src/extrinsic/ExtrinsicPayload.ts#L83){target=\_blank}
+        - **Payload format** - if the format field is set to `'payload'`, the `ConstructedFormat` type will return a [`GenericExtrinsicPayload`](https://github.com/polkadot-js/api/blob/v15.8.1/packages/types/src/extrinsic/ExtrinsicPayload.ts#L87){target=\_blank}
         - **Call format** - if the format field is set to `'call'`, the `ConstructedFormat` type will return a hexadecimal string (`0x${string}`). This is the encoded representation of the extrinsic call
-        - **Submittable format** - if the format field is set to `'submittable'`, the `ConstructedFormat` type will return a [`SubmittableExtrinsic`](https://github.com/polkadot-js/api/blob/{{ dependencies.repositories.polkadot_js_api.version}}/packages/api-base/src/types/submittable.ts#L56){target=\_blank}. This is a Polkadot.js type that represents a transaction that can be submitted to the blockchain
+        - **Submittable format** - if the format field is set to `'submittable'`, the `ConstructedFormat` type will return a [`SubmittableExtrinsic`](https://github.com/polkadot-js/api/blob/v15.8.1/packages/api-base/src/types/submittable.ts#L56){target=\_blank}. This is a Polkadot.js type that represents a transaction that can be submitted to the blockchain
 
 ??? interface "Example"
 
@@ -9358,9 +9358,9 @@ public async claimAssets<T extends Format>(
 
         The `ConstructedFormat` type is a conditional type that returns a specific type based on the value of the TxResult `format` field.
 
-        - **Payload format** - if the format field is set to `'payload'`, the `ConstructedFormat` type will return a [`GenericExtrinsicPayload`](https://github.com/polkadot-js/api/blob/{{ dependencies.repositories.polkadot_js_api.version}}/packages/types/src/extrinsic/ExtrinsicPayload.ts#L83){target=\_blank}
+        - **Payload format** - if the format field is set to `'payload'`, the `ConstructedFormat` type will return a [`GenericExtrinsicPayload`](https://github.com/polkadot-js/api/blob/v15.8.1/packages/types/src/extrinsic/ExtrinsicPayload.ts#L87){target=\_blank}
         - **Call format** - if the format field is set to `'call'`, the `ConstructedFormat` type will return a hexadecimal string (`0x${string}`). This is the encoded representation of the extrinsic call
-        - **Submittable format** - if the format field is set to `'submittable'`, the `ConstructedFormat` type will return a [`SubmittableExtrinsic`](https://github.com/polkadot-js/api/blob/{{ dependencies.repositories.polkadot_js_api.version}}/packages/api-base/src/types/submittable.ts#L56){target=\_blank}. This is a Polkadot.js type that represents a transaction that can be submitted to the blockchain
+        - **Submittable format** - if the format field is set to `'submittable'`, the `ConstructedFormat` type will return a [`SubmittableExtrinsic`](https://github.com/polkadot-js/api/blob/v15.8.1/packages/api-base/src/types/submittable.ts#L56){target=\_blank}. This is a Polkadot.js type that represents a transaction that can be submitted to the blockchain
 
 ??? interface "Example"
 
@@ -9531,9 +9531,9 @@ public async fetchFeeInfo<T extends Format>(
 
         The `ConstructedFormat` type is a conditional type that returns a specific type based on the value of the TxResult `format` field.
 
-        - **Payload format** - if the format field is set to `'payload'`, the `ConstructedFormat` type will return a [`GenericExtrinsicPayload`](https://github.com/polkadot-js/api/blob/{{ dependencies.repositories.polkadot_js_api.version}}/packages/types/src/extrinsic/ExtrinsicPayload.ts#L83){target=\_blank}
+        - **Payload format** - if the format field is set to `'payload'`, the `ConstructedFormat` type will return a [`GenericExtrinsicPayload`](https://github.com/polkadot-js/api/blob/{{ dependencies.javascript_packages.asset_transfer_api.polkadot_js_api_version}}/packages/types/src/extrinsic/ExtrinsicPayload.ts#L87){target=\_blank}
         - Call format - if the format field is set to `'call'`, the `ConstructedFormat` type will return a hexadecimal string (`0x${string}`). This is the encoded representation of the extrinsic call
-        - **Submittable format** - if the format field is set to `'submittable'`, the `ConstructedFormat` type will return a [`SubmittableExtrinsic`](https://github.com/polkadot-js/api/blob/{{ dependencies.repositories.polkadot_js_api.version}}/packages/api-base/src/types/submittable.ts#L56){target=\_blank}. This is a Polkadot.js type that represents a transaction that can be submitted to the blockchain
+        - **Submittable format** - if the format field is set to `'submittable'`, the `ConstructedFormat` type will return a [`SubmittableExtrinsic`](https://github.com/polkadot-js/api/blob/{{dependencies.javascript_packages.asset_transfer_api.polkadot_js_api_version}}/packages/api-base/src/types/submittable.ts#L56){target=\_blank}. This is a Polkadot.js type that represents a transaction that can be submitted to the blockchain
 
     ---
 
@@ -9563,7 +9563,7 @@ public async fetchFeeInfo<T extends Format>(
         }
         ```
 
-        For more information on the underlying types and fields of `RuntimeDispatchInfo`, check the [`RuntimeDispatchInfo`](https://github.com/polkadot-js/api/blob/{{ dependencies.repositories.polkadot_js_api.version}}/packages/types/src/interfaces/payment/types.ts#L21){target=\_blank} source code.
+        For more information on the underlying types and fields of `RuntimeDispatchInfo`, check the [`RuntimeDispatchInfo`](https://github.com/polkadot-js/api/blob/{{ dependencies.javascript_packages.asset_transfer_api.polkadot_js_api_version}}/packages/types/src/interfaces/payment/types.ts#L21){target=\_blank} source code.
 
 
     ??? child "Type `RuntimeDispatchInfoV1`"
@@ -9576,7 +9576,7 @@ public async fetchFeeInfo<T extends Format>(
         }
         ```
 
-        For more information on the underlying types and fields of `RuntimeDispatchInfoV1`, check the [`RuntimeDispatchInfoV1`](https://github.com/polkadot-js/api/blob/{{ dependencies.repositories.polkadot_js_api.version}}/packages/types/src/interfaces/payment/types.ts#L28){target=\_blank} source code.
+        For more information on the underlying types and fields of `RuntimeDispatchInfoV1`, check the [`RuntimeDispatchInfoV1`](https://github.com/polkadot-js/api/blob/{{dependencies.javascript_packages.asset_transfer_api.polkadot_js_api_version}}/packages/types/src/interfaces/payment/types.ts#L28){target=\_blank} source code.
 
 ??? interface "Example"
 

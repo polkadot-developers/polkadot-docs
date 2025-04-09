@@ -8155,14 +8155,6 @@ While simple oracle implementations may rely on a single trusted provider, more 
 
     [:octicons-arrow-right-24: Reference](https://acurast.com/){target=\_blank}
 
--   __Chainlink__
-
-    ---
-
-    Chainlink is a decentralized oracle network that brings external data onto blockchains. It acts as a secure bridge between traditional data sources and blockchain networks, enabling access to real-world information reliably. In the Polkadot ecosystem, Chainlink provides the [Chainlink Feed Pallet](https://github.com/smartcontractkit/chainlink-polkadot/tree/master/pallet-chainlink-feed){target=\_blank}, a Polkadot SDK-based oracle module that enables access to price reference data across your runtime logic.
-
-    [:octicons-arrow-right-24: Reference](https://chain.link/){target=\_blank}
-
 </div>
 --- END CONTENT ---
 

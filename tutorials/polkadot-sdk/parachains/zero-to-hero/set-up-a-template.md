@@ -74,7 +74,7 @@ The [Polkadot SDK Parachain Template](https://github.com/paritytech/polkadot-sdk
     ```
 
     !!!tip
-        Initial compilation may take several minutes, depending on your machine specifications. Use the `--release` flag to build binaries for optimized runtimes. 
+        Initial compilation may take several minutes, depending on your machine specifications. Use the `--release` flag to build binaries with improved runtime performance compared to a ``--debug`` build. 
 
 4. Upon successful compilation, you should see output similar to:
     --8<-- 'code/tutorials/polkadot-sdk/parachains/zero-to-hero/set-up-a-template/compilation-output.html'

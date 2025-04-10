@@ -1,13 +1,13 @@
 ---
 title: viem for Asset Hub Smart Contracts
-description: viem is a TypeScript library for interacting with EVM-compatible chains. This guide covers using viem to deploy and interact with smart contracts on Asset Hub.
+description: viem is a TypeScript library for interacting with Ethereum-compatible chains. This guide covers using viem to deploy and interact with smart contracts on Asset Hub.
 ---
 
 # viem
 
 ## Introduction
 
-[viem](https://viem.sh/){target=\_blank} is a lightweight TypeScript library designed for interacting with EVM-compatible blockchains. This comprehensive guide will walk you through using viem to interact with and deploy smart contracts to Asset Hub.
+[viem](https://viem.sh/){target=\_blank} is a lightweight TypeScript library designed for interacting with Ethereum-compatible blockchains. This comprehensive guide will walk you through using viem to interact with and deploy smart contracts to Asset Hub.
 
 ## Prerequisites
 

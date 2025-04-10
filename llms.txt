@@ -6121,7 +6121,7 @@ Developers can leverage Asset Hub across diverse networks, from TestNets to Main
 
 ### Metamask
 
-[MetaMask](https://metamask.io/){target=\_blank} is a popular wallet for interacting with EVM-compatible chains. It allows users to connect to test networks that support Ethereum-based smart contracts. However, it's important to emphasize that MetaMask primarily facilitates interactions with smart contracts, giving users access to various chain functionalities. 
+[MetaMask](https://metamask.io/){target=\_blank} is a popular wallet for interacting with Ethereum-compatible chains. It allows users to connect to test networks that support Ethereum-based smart contracts. However, it's important to emphasize that MetaMask primarily facilitates interactions with smart contracts, giving users access to various chain functionalities. 
 
 To get started with MetaMask, you need to install the [MetaMask extension](https://metamask.io/download/){target=\_blank} and add it to the browser. Once you install MetaMask, you can set up a new wallet and securely store your seed phrase. This phrase is crucial for recovery in case you lose access.
 
@@ -6179,7 +6179,7 @@ For your next steps, explore the various smart contract guides demonstrating how
 
     ---
 
-    Use viem for interacting with EVM-compatible chains, to deploy and interact with smart contracts on Asset Hub.
+    Use viem for interacting with Ethereum-compatible chains, to deploy and interact with smart contracts on Asset Hub.
 
     [:octicons-arrow-right-24: Build with viem](/develop/smart-contracts/libraries/viem/)
 
@@ -6197,7 +6197,7 @@ description: Learn to connect MetaMask to the Asset Hub blockchain. Set up your 
 
 ## Connect to Asset Hub Using MetaMask
 
-MetaMask is a popular wallet for interacting with EVM-compatible chains. It allows users to connect to test networks that support Ethereum-based smart contracts. This article guides setting up MetaMask, connecting to the contracts deployed on the EVM-compatible test network, the Westend Asset Hub, and requesting test tokens for development purposes.
+MetaMask is a popular wallet for interacting with Ethereum-compatible chains. It allows users to connect to test networks that support Ethereum-based smart contracts. This article guides setting up MetaMask, connecting to the contracts deployed on the Ethereum-compatible test network, the Westend Asset Hub, and requesting test tokens for development purposes.
 
 It's important to emphasize that MetaMask primarily facilitates interactions with smart contracts, giving you access to various chain functionalities.
 
@@ -6309,7 +6309,7 @@ description: Learn how to create, compile, test, and deploy smart contracts on A
 
 ## Overview
 
-Hardhat is a robust development environment for EVM-compatible chains that makes smart contract development more efficient. This guide walks you through the essentials of using Hardhat to create, compile, test, and deploy smart contracts on Asset Hub.
+Hardhat is a robust development environment for Ethereum-compatible chains that makes smart contract development more efficient. This guide walks you through the essentials of using Hardhat to create, compile, test, and deploy smart contracts on Asset Hub.
 
 ## Prerequisites
 
@@ -8300,14 +8300,14 @@ Doc-Content: https://docs.polkadot.com/develop/smart-contracts/libraries/viem/
 --- BEGIN CONTENT ---
 ---
 title: viem for Asset Hub Smart Contracts
-description: viem is a TypeScript library for interacting with EVM-compatible chains. This guide covers using viem to deploy and interact with smart contracts on Asset Hub.
+description: viem is a TypeScript library for interacting with Ethereum-compatible chains. This guide covers using viem to deploy and interact with smart contracts on Asset Hub.
 ---
 
 # viem
 
 ## Introduction
 
-[viem](https://viem.sh/){target=\_blank} is a lightweight TypeScript library designed for interacting with EVM-compatible blockchains. This comprehensive guide will walk you through using viem to interact with and deploy smart contracts to Asset Hub.
+[viem](https://viem.sh/){target=\_blank} is a lightweight TypeScript library designed for interacting with Ethereum-compatible blockchains. This comprehensive guide will walk you through using viem to interact with and deploy smart contracts to Asset Hub.
 
 ## Prerequisites
 
@@ -8842,7 +8842,7 @@ description: Learn how to use Wagmi React Hooks to fetch and interact with smart
 
 ## Introduction
 
-[Wagmi](https://wagmi.sh/){target=\_blank} is a collection of [React Hooks](https://wagmi.sh/react/api/hooks){target=\_blank} for interacting with EVM-compatible blockchains, focusing on developer experience, feature richness, and reliability.
+[Wagmi](https://wagmi.sh/){target=\_blank} is a collection of [React Hooks](https://wagmi.sh/react/api/hooks){target=\_blank} for interacting with Ethereum-compatible blockchains, focusing on developer experience, feature richness, and reliability.
 
 This guide demonstrates how to use Wagmi to interact with and deploy smart contracts to Asset Hub, providing a seamless frontend integration for your dApps.
 
@@ -9489,7 +9489,7 @@ After compilation, you'll have two key files: an ABI (`.json`) file, which provi
 
 ## Contract Deployment
 
-To deploy your compiled contract to Asset Hub using Web3.js, you'll need an account with a private key to sign the deployment transaction. The deployment process is exactly the same as for any EVM-compatible chain, involving creating a contract instance, estimating gas, and sending a deployment transaction. Here's how to deploy the contract, ensure replacing the `INSERT_RPC_URL`, `INSERT_PRIVATE_KEY`, and `INSERT_CONTRACT_NAME` with the appropriate values:
+To deploy your compiled contract to Asset Hub using Web3.js, you'll need an account with a private key to sign the deployment transaction. The deployment process is exactly the same as for any Ethereum-compatible chain, involving creating a contract instance, estimating gas, and sending a deployment transaction. Here's how to deploy the contract, ensure replacing the `INSERT_RPC_URL`, `INSERT_PRIVATE_KEY`, and `INSERT_CONTRACT_NAME` with the appropriate values:
 
 ```javascript title="deploy.js"
 import { readFileSync } from 'fs';
@@ -9807,7 +9807,7 @@ contract Storage {
 }
 ```
 
-To deploy your compiled contract to Asset Hub using Web3.py, you'll need an account with a private key to sign the deployment transaction. The deployment process is exactly the same as for any EVM-compatible chain, involving creating a contract instance, estimating gas, and sending a deployment transaction. Here's how to deploy the contract. Replace `INSERT_RPC_URL` and `INSERT_PRIVATE_KEY` with the appropriate values:
+To deploy your compiled contract to Asset Hub using Web3.py, you'll need an account with a private key to sign the deployment transaction. The deployment process is exactly the same as for any Ethereum-compatible chain, involving creating a contract instance, estimating gas, and sending a deployment transaction. Here's how to deploy the contract. Replace `INSERT_RPC_URL` and `INSERT_PRIVATE_KEY` with the appropriate values:
 
 ```python title="deploy.py"
 from web3 import Web3
@@ -10121,7 +10121,7 @@ Key benefits include:
 
 ## Where to Go Next
 
-Developers can use their existing Ethereum development tools and connect to Asset Hub's RPC endpoints. The platform's Ethereum compatibility layer ensures a smooth transition for teams already building on EVM-compatible chains.
+Developers can use their existing Ethereum development tools and connect to Asset Hub's RPC endpoints. The platform's Ethereum compatibility layer ensures a smooth transition for teams already building on Ethereum-compatible chains.
 
 Subsequent sections of this guide provide detailed information about specific development tools, advanced features, and best practices for building on Asset Hub.
 
@@ -12782,7 +12782,7 @@ ParaSpell's tools make it simple for developers to build, test, and deploy cross
 The [Astar parachain](https://github.com/AstarNetwork/Astar/tree/master){target=\_blank} offers a crate with a set of utilities for interacting with the XCM protocol. The [xcm-tools](https://github.com/AstarNetwork/Astar/tree/master/bin/xcm-tools){target=\_blank} crate provides a straightforward method for users to locate a sovereign account or calculate an XC20 asset ID. Some commands included by the xcm-tools crate allow users to perform the following tasks:
 
 - **Sovereign accounts** - obtain the sovereign account address for any parachain, either on the Relay Chain or for sibling parachains, using a simple command
-- **XC20 EVM addresses** - generate XC20-compatible EVM addresses for assets by entering the asset ID, making it easy to integrate assets across EVM-compatible environments
+- **XC20 EVM addresses** - generate XC20-compatible Ethereum addresses for assets by entering the asset ID, making it easy to integrate assets across Ethereum-compatible environments
 - **Remote accounts** - retrieve remote account addresses needed for multi-location compatibility, using flexible options to specify account types and parachain IDs
 
 To start using these tools, clone the [Astar repository](https://github.com/AstarNetwork/Astar){target=\_blank} and compile the xcm-tools package:
@@ -21545,7 +21545,7 @@ description: Bridges Ethereum's 20-byte addresses with Polkadot's 32-byte accoun
 
 Asset Hub natively uses Polkadot's 32-byte account system but provides interoperability with Ethereum's 20-byte addresses through an automatic conversion system. When interacting with smart contracts:
 
-- EVM-compatible wallets (like MetaMask) can use their familiar 20-byte addresses
+- Ethereum-compatible wallets (like MetaMask) can use their familiar 20-byte addresses
 - Polkadot accounts continue using their native 32-byte format
 - The Asset Hub chain automatically handles conversion between the two formats behind the scenes:
 
@@ -22036,7 +22036,7 @@ flowchart TD
     style F fill:#ffffff,stroke:#000000,stroke-width:1px
 ```
 
-Although it seems complex, users and developers are abstracted of that complexity, and tools can easily interact with the parachain as they would with any other EVM-compatible environment.
+Although it seems complex, users and developers are abstracted of that complexity, and tools can easily interact with the parachain as they would with any other Ethereum-compatible environment.
 
 The Rust EVM is capable of executing regular [EVM bytecode](https://www.ethervm.io/){target=\_blank}. Consequently, any language that compiles to EVM bytecode can be used to create programs that the parachain can execute.
 
@@ -31857,13 +31857,14 @@ Doc-Content: https://docs.polkadot.com/tutorials/smart-contracts/deploy-erc20/
 ---
 title: Deploy an ERC-20 to Asset Hub
 description: Deploy an ERC-20 token on Asset Hub using PolkaVM. This guide covers contract creation, compilation, deployment, and interaction via Polkadot Remix IDE.
+tutorial_badge: Beginner
 ---
 
 # Deploy ERC-20 to Asset Hub
 
 ## Introduction
 
-[ERC-20](https://eips.ethereum.org/EIPS/eip-20){target=\_blank} tokens are fungible tokens commonly used for creating cryptocurrencies, governance tokens, and staking mechanisms. Asset Hub enables easy token deployment with EVM-compatible smart contracts via PolkaVM.
+[ERC-20](https://eips.ethereum.org/EIPS/eip-20){target=\_blank} tokens are fungible tokens commonly used for creating cryptocurrencies, governance tokens, and staking mechanisms. Asset Hub enables easy token deployment with Ethereum-compatible smart contracts via PolkaVM.
 
 This tutorial covers deploying an ERC-20 contract on the Westend TestNet using [Polkadot Remix IDE](https://remix.polkadot.io){target=\_blank}, a web-based development tool. [OpenZeppelin's ERC-20 contracts]({{ dependencies.repositories.open_zeppelin_contracts.repository_url}}/tree/{{ dependencies.repositories.open_zeppelin_contracts.version}}/contracts/token/ERC20){target=\_blank} are used for security and compliance.
 
@@ -32019,13 +32020,14 @@ Doc-Content: https://docs.polkadot.com/tutorials/smart-contracts/deploy-nft/
 ---
 title: Deploy an NFT to Asset Hub
 description: Deploy an NFT on Asset Hub using PolkaVM and OpenZeppelin. Learn how to compile, deploy, and interact with your contract using Polkadot Remix IDE.
+tutorial_badge: Beginner
 ---
 
 # Deploy an NFT to Asset Hub
 
 ## Introduction
 
-Non-Fungible Tokens (NFTs) represent unique digital assets commonly used for digital art, collectibles, gaming, and identity verification. Asset Hub supports EVM-compatible smart contracts through PolkaVM, enabling straightforward NFT deployment.
+Non-Fungible Tokens (NFTs) represent unique digital assets commonly used for digital art, collectibles, gaming, and identity verification. Asset Hub supports Ethereum-compatible smart contracts through PolkaVM, enabling straightforward NFT deployment.
 
 This tutorial guides you through deploying an [ERC-721](https://eips.ethereum.org/EIPS/eip-721){target=\_blank} NFT contract on the Westend TestNet using the [Polkadot Remix IDE](https://remix.polkadot.io){target=\_blank}, a web-based development environment. To ensure security and standard compliance, it uses [OpenZeppelin's NFT contracts]({{ dependencies.repositories.open_zeppelin_contracts.repository_url}}/tree/{{ dependencies.repositories.open_zeppelin_contracts.version}}){target=\_blank} implementation.
 
@@ -32213,6 +32215,7 @@ Doc-Content: https://docs.polkadot.com/tutorials/smart-contracts/launch-your-fir
 ---
 title: Create a Smart Contract
 description: Learn how to write a basic smart contract using just a text editor. This guide covers creating and preparing a contract for deployment on Asset Hub.
+tutorial_badge: Beginner
 ---
 
 # Create a Smart Contract
@@ -33905,6 +33908,7 @@ Doc-Content: https://docs.polkadot.com/tutorials/smart-contracts/launch-your-fir
 ---
 title: Test and Deploy with Hardhat
 description: Learn how to set up a Hardhat development environment, write comprehensive tests for a Solidity smart contract, and deploy it to local and Asset Hub networks.
+tutorial_badge: Intermediate
 ---
 
 # Test and Deploy with Hardhat

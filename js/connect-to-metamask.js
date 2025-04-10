@@ -88,7 +88,7 @@ connectMetaMaskBodyButtons.forEach((btn) => {
 
     if (!provider) {
       handleError(
-        `No EVM-compatible wallet found. Please install MetaMask.`
+        `No Ethereum-compatible wallet found. Please install MetaMask.`
       );
       return;
     }

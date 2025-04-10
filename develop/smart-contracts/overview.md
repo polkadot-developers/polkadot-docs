@@ -103,7 +103,7 @@ Key benefits include:
 
 ## Where to Go Next
 
-Developers can use their existing Ethereum development tools and connect to Asset Hub's RPC endpoints. The platform's Ethereum compatibility layer ensures a smooth transition for teams already building on EVM-compatible chains.
+Developers can use their existing Ethereum development tools and connect to Asset Hub's RPC endpoints. The platform's Ethereum compatibility layer ensures a smooth transition for teams already building on Ethereum-compatible chains.
 
 Subsequent sections of this guide provide detailed information about specific development tools, advanced features, and best practices for building on Asset Hub.
 

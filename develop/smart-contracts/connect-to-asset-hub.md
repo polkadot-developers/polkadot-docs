@@ -82,7 +82,7 @@ Developers can leverage Asset Hub across diverse networks, from TestNets to Main
 
 ### Metamask
 
-[MetaMask](https://metamask.io/){target=\_blank} is a popular wallet for interacting with EVM-compatible chains. It allows users to connect to test networks that support Ethereum-based smart contracts. However, it's important to emphasize that MetaMask primarily facilitates interactions with smart contracts, giving users access to various chain functionalities. 
+[MetaMask](https://metamask.io/){target=\_blank} is a popular wallet for interacting with Ethereum-compatible chains. It allows users to connect to test networks that support Ethereum-based smart contracts. However, it's important to emphasize that MetaMask primarily facilitates interactions with smart contracts, giving users access to various chain functionalities. 
 
 To get started with MetaMask, you need to install the [MetaMask extension](https://metamask.io/download/){target=\_blank} and add it to the browser. Once you install MetaMask, you can set up a new wallet and securely store your seed phrase. This phrase is crucial for recovery in case you lose access.
 
@@ -140,7 +140,7 @@ For your next steps, explore the various smart contract guides demonstrating how
 
     ---
 
-    Use viem for interacting with EVM-compatible chains, to deploy and interact with smart contracts on Asset Hub.
+    Use viem for interacting with Ethereum-compatible chains, to deploy and interact with smart contracts on Asset Hub.
 
     [:octicons-arrow-right-24: Build with viem](/develop/smart-contracts/libraries/viem/)
 

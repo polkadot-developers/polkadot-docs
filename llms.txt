@@ -21766,7 +21766,7 @@ However, this architectural difference becomes relevant in specific scenarios. T
 
 |            Feature            |                            Ethereum Virtual Machine (EVM)                            |                        PolkaVM                         |
 | :---------------------------: | :----------------------------------------------------------------------------------: | :----------------------------------------------------: |
-|      **Instruction Set**      |                           Custom stack-based architecture                            |                 RISC-V instruction set                 |
+|      **Instruction Set**      |                           Stack-based architecture                                   |                 RISC-V instruction set                 |
 |      **Bytecode Format**      |                                     EVM bytecode                                     |                     RISC-V format                      |
 |    **Contract Size Limit**    |                                 24KB code size limit                                 |            Contract-specific memory limits             |
 |         **Compiler**          |                                  Solidity Compiler                                   |                    Revive Compiler                     |

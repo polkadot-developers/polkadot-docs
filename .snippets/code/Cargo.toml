@@ -10,7 +10,7 @@ repository = "https://github.com/paritytech/polkadot-sdk-parachain-template.git"
 edition = "2021"
 
 [workspace]
-members = ["tutorials/polkadot-sdk/parachains/zero-to-hero/runtime"]
+members = ["tutorials/polkadot-sdk/rollups/zero-to-hero/runtime"]
 resolver = "2"
 
 [workspace.dependencies]

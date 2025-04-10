@@ -1,0 +1,10 @@
+title: Zero to Hero
+nav:
+  - index.md
+  - 'Set Up a Template': set-up-a-template.md
+  - 'Build a Custom Pallet': build-custom-pallet.md
+  - 'Pallet Unit Testing': pallet-unit-testing.md
+  - 'Add Pallets to the Runtime': add-pallets-to-runtime.md
+  - 'Pallet Benchmarking': pallet-benchmarking.md
+  - 'Deploy to Paseo TestNet': deploy-to-testnet.md
+  - 'Obtain Coretime': obtain-coretime.md

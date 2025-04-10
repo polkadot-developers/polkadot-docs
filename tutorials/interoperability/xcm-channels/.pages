@@ -1,5 +1,5 @@
 title: XCM Channels
 nav:
   - index.md
-  - para-to-para.md
-  - para-to-system.md
+  - rollup-to-rollup.md
+  - rollup-to-system.md

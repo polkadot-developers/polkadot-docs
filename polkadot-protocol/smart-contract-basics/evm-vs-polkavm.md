@@ -78,7 +78,7 @@ For compatibility, PolkaVM maps traditional gas-related operations to its `ref_t
 
 The EVM and the PolkaVM take fundamentally different approaches to memory constraints:
 
-| Feature                  | Ethereum Virtual Machine (EVM)            | PolkaVM                                        |
+|          Feature         |       Ethereum Virtual Machine (EVM)      |                   PolkaVM                      |
 | :----------------------: | :---------------------------------------: | :--------------------------------------------: |
 | **Memory Constraints**   | Indirect control via gas costs            | Hard memory limits per contract                |
 | **Cost Model**           | Increasing gas curve with allocation size | Fixed costs separated from execution gas       |

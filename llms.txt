@@ -21739,11 +21739,46 @@ While [PolkaVM](/polkadot-protocol/smart-contract-basics/polkavm-design/){target
 
 The most significant departure from Ethereum comes from PolkaVM's foundation itself. Rather than implementing the EVM, PolkaVM utilizes a RISC-V instruction set. For most Solidity developers, this architectural change remains transparent thanks to the [Revive compiler's](https://github.com/paritytech/revive){target=\_blank} complete Solidity support, including inline assembler functionality.
 
+```mermaid
+graph TD
+    subgraph "Ethereum Path"
+        EthCompile["Standard Solidity Compiler"] --> EVM_Bytecode["EVM Bytecode"]
+        EVM_Bytecode --> EVM["Stack-based EVM"]
+        EVM --> EthExecution["Contract Execution"]
+    end
+
+    subgraph "PolkaVM Path"
+        ReviveCompile["Revive Compiler"] --> RISCV_Bytecode["RISC-V Format Bytecode"]
+        RISCV_Bytecode --> PolkaVM["RISC-V Based PolkaVM"]
+        PolkaVM --> PolkaExecution["Contract Execution"]
+    end
+
+    EthExecution -.-> DifferencesNote["Key Differences:
+    - Instruction Set Architecture
+    - Bytecode Format
+    - Runtime Behavior"]
+    PolkaExecution -.-> DifferencesNote
+```
+
 However, this architectural difference becomes relevant in specific scenarios. Tools that attempt to download and inspect contract bytecode will fail, as they expect EVM bytecode rather than PolkaVM's RISC-V format. This primarily affects contracts using [`EXTCODECOPY`](https://www.evm.codes/?fork=cancun#3c){target=\_blank} to manipulate code at runtime, though such cases are rare. PolkaVM offers an elegant alternative through its [on-chain constructors](https://paritytech.github.io/polkadot-sdk/master/pallet_revive/pallet/struct.Pallet.html#method.bare_instantiate){target=\_blank}, enabling contract instantiation without runtime code modification.
+
+### High-Level Architecture Comparison
+
+|            Feature            |                            Ethereum Virtual Machine (EVM)                            |                        PolkaVM                         |
+| :---------------------------: | :----------------------------------------------------------------------------------: | :----------------------------------------------------: |
+|      **Instruction Set**      |                           Custom stack-based architecture                            |                 RISC-V instruction set                 |
+|      **Bytecode Format**      |                                     EVM bytecode                                     |                     RISC-V format                      |
+|    **Contract Size Limit**    |                                 24KB code size limit                                 |            Contract-specific memory limits             |
+|         **Compiler**          |                                  Solidity Compiler                                   |                    Revive Compiler                     |
+|      **Inline Assembly**      |                                      Supported                                       |           Supported with compatibility layer           |
+|    **Code Introspection**     | Supported via [`EXTCODECOPY`](https://www.evm.codes/?fork=cancun#3c){target=\_blank} | Limited support, alternative via on-chain constructors |
+|     **Resource Metering**     |                                  Single gas metric                                   |                   Multi-dimensional                    |
+| **Runtime Code Modification** |                                      Supported                                       |               Limited, with alternatives               |
+|  **Contract Instantiation**   |                                 Standard deployment                                  |    On-chain constructors for flexible instantiation    |
 
 ## Gas Model
 
-Ethereum's resource model relies on a single metric: [gas](https://ethereum.org/en/developers/docs/gas/#what-is-gas){target=\_blank}, which serves as the universal unit for measuring computational costs. Each operation on the network consumes a specific amount of gas. Most platforms aiming for Ethereum compatibility typically adopt identical gas values to ensure seamless integration. 
+Ethereum's resource model relies on a single metric: [gas](https://ethereum.org/en/developers/docs/gas/#what-is-gas){target=\_blank}, which serves as the universal unit for measuring computational costs. Each operation on the network consumes a specific amount of gas. Most platforms aiming for Ethereum compatibility typically adopt identical gas values to ensure seamless integration.
 
 The significant changes to Ethereum's gas model will be outlined in the following sections.
 
@@ -21771,27 +21806,36 @@ For compatibility, PolkaVM maps traditional gas-related operations to its `ref_t
 
 The EVM and the PolkaVM take fundamentally different approaches to memory constraints:
 
-- **EVM's approach** - Ethereum uses gas costs as an indirect memory control mechanism. Beyond a 24KB code size limit, memory usage is constrained through a gas curve that increases costs based on total allocation. While elegant, this approach can lead to overcharging for memory operations, reducing overall system efficiency
+| Feature                  | Ethereum Virtual Machine (EVM)            | PolkaVM                                        |
+| :----------------------: | :---------------------------------------: | :--------------------------------------------: |
+| **Memory Constraints**   | Indirect control via gas costs            | Hard memory limits per contract                |
+| **Cost Model**           | Increasing gas curve with allocation size | Fixed costs separated from execution gas       |
+| **Memory Limits**        | Soft limits through prohibitive gas costs | Hard fixed limits per contract                 |
+| **Pricing Efficiency**   | Potential overcharging for memory         | More efficient through separation of concerns  |
+| **Contract Nesting**     | Limited by available gas                  | Limited by constant memory per contract        |
+| **Memory Metering**      | Dynamic based on total allocation         | Static limits per contract instance            |
+| **Future Improvements**  | Incremental gas cost updates              | Potential dynamic metering for deeper nesting  |
+| **Cross-Contract Calls** | Handled through gas forwarding            | Requires careful boundary limit implementation |
 
-- **PolkaVM's approach** - PolkaVM takes a different approach to memory limits than Ethereum. Instead of variable gas costs, it implements fixed-cost operations with hard memory limits. This separation of memory constraints from execution time gas enables more efficient pricing, though it can occasionally result in more restrictive [limits](https://github.com/paritytech/polkadot-sdk/blob/master/substrate/frame/revive/src/limits.rs){target=\_blank}. The system's parameters are continuously adjusted to optimize functionality based on real-world usage patterns and community feedback
-
-    The architecture establishes a constant memory limit per contract, which is the basis for calculating maximum contract nesting depth. This calculation assumes worst-case memory usage for each nested contract, resulting in a straightforward but conservative limit that operates independently of actual memory consumption. Future iterations may introduce dynamic memory metering, allowing deeper nesting depths for contracts with smaller memory footprints. However, such an enhancement would require careful implementation of cross-contract boundary limits before API stabilization, as it would introduce an additional resource metric to the system.
+The architecture establishes a constant memory limit per contract, which is the basis for calculating maximum contract nesting depth. This calculation assumes worst-case memory usage for each nested contract, resulting in a straightforward but conservative limit that operates independently of actual memory consumption. Future iterations may introduce dynamic memory metering, allowing deeper nesting depths for contracts with smaller memory footprints. However, such an enhancement would require careful implementation of cross-contract boundary limits before API stabilization, as it would introduce an additional resource metric to the system.
 
 ## Account Management - Existential Deposit
 
 Ethereum and Polkadot handle account persistence differently, affecting state management and contract interactions:
 
-- **Ethereum's approach**
+### Account Management Comparison
 
-    - Accounts persist indefinitely, even with zero balance
-    - No minimum balance is required to maintain account data (nonce, storage)
-    - Contracts are simply accounts with executable code, following the same persistence rules
- 
-- **Polkadot's approach**
-
-    - Uses an [existential deposit](/polkadot-protocol/glossary/#existential-deposit){target=\_blank} (ED), requiring a minimum balance for an account to exist
-    - Accounts with balances below ED are automatically deleted, reducing state bloat
-    - Smart contracts, as specialized accounts, must also maintain the ED
+|          Feature          |                   Ethereum Approach                   |               PolkaVM/Polkadot Approach                |
+| :-----------------------: | :---------------------------------------------------: | :----------------------------------------------------: |
+|  **Account Persistence**  | Accounts persist indefinitely, even with zero balance | Requires existential deposit (ED) to maintain account  |
+|  **Account Persistence**  |  Accounts exist indefinitely, even with zero balance  | Requires existential deposit (ED) to maintain account  |
+|    **Minimum Balance**    |                         None                          |                      ED required                       |
+|   **Account Deletion**    |               Accounts remain in state                |      Accounts below ED are automatically deleted       |
+|   **Contract Accounts**   |                  Exist indefinitely                   |                    Must maintain ED                    |
+|   **Balance Reporting**   |                 Reports full balance                  |      Reports ED-adjusted balance via Ethereum RPC      |
+| **New Account Transfers** |                   Standard transfer                   |     Includes ED automatically with extra fee cost      |
+| **Contract-to-Contract**  |                   Direct transfers                    | ED drawn from transaction signer, not sending contract |
+|   **State Management**    |      Potential bloat from zero-balance accounts       |     Optimized with auto-deletion of dust accounts      |
 
 This difference introduces potential compatibility challenges for Ethereum-based contracts and tools, particularly wallets. To mitigate this, PolkaVM implements several transparent adjustments:
 
@@ -21800,11 +21844,11 @@ This difference introduces potential compatibility challenges for Ethereum-based
 - Transfers to new accounts automatically include the ED (`x + ED`), with the extra cost incorporated into transaction fees
 - Contract-to-contract transfers handle ED requirements by:
 
-    - Drawing ED from the transaction signer instead of the sending contract
-    - Keeping transfer amounts transparent for contract logic
-    - Treating ED like other storage deposit costs
+  - Drawing ED from the transaction signer instead of the sending contract
+  - Keeping transfer amounts transparent for contract logic
+  - Treating ED like other storage deposit costs
 
-This approach ensures that Ethereum contracts work without modifications while maintaining Polkadot’s optimized state management.
+This approach ensures that Ethereum contracts work without modifications while maintaining Polkadot's optimized state management.
 --- END CONTENT ---
 
 Doc-Content: https://docs.polkadot.com/polkadot-protocol/smart-contract-basics/
@@ -31857,6 +31901,7 @@ Doc-Content: https://docs.polkadot.com/tutorials/smart-contracts/deploy-erc20/
 ---
 title: Deploy an ERC-20 to Asset Hub
 description: Deploy an ERC-20 token on Asset Hub using PolkaVM. This guide covers contract creation, compilation, deployment, and interaction via Polkadot Remix IDE.
+tutorial_badge: Beginner
 ---
 
 # Deploy ERC-20 to Asset Hub
@@ -32019,6 +32064,7 @@ Doc-Content: https://docs.polkadot.com/tutorials/smart-contracts/deploy-nft/
 ---
 title: Deploy an NFT to Asset Hub
 description: Deploy an NFT on Asset Hub using PolkaVM and OpenZeppelin. Learn how to compile, deploy, and interact with your contract using Polkadot Remix IDE.
+tutorial_badge: Beginner
 ---
 
 # Deploy an NFT to Asset Hub
@@ -32213,6 +32259,7 @@ Doc-Content: https://docs.polkadot.com/tutorials/smart-contracts/launch-your-fir
 ---
 title: Create a Smart Contract
 description: Learn how to write a basic smart contract using just a text editor. This guide covers creating and preparing a contract for deployment on Asset Hub.
+tutorial_badge: Beginner
 ---
 
 # Create a Smart Contract
@@ -33905,6 +33952,7 @@ Doc-Content: https://docs.polkadot.com/tutorials/smart-contracts/launch-your-fir
 ---
 title: Test and Deploy with Hardhat
 description: Learn how to set up a Hardhat development environment, write comprehensive tests for a Solidity smart contract, and deploy it to local and Asset Hub networks.
+tutorial_badge: Intermediate
 ---
 
 # Test and Deploy with Hardhat

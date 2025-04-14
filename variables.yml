@@ -63,6 +63,7 @@ dependencies:
       name: '@hardhat-resolc'
       version: 0.0.7  
     hardhat_revive_node: 
+      name: '@hardhat-revive-node'
       version: 0.0.6
     revive:
       name: '@revive'

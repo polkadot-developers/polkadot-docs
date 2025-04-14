@@ -63,7 +63,6 @@ dependencies:
       name: '@hardhat-resolc'
       version: 0.0.7  
     hardhat_revive_node: 
-      name: '@hardhat-revive-node'
       version: 0.0.6
     revive:
       name: '@revive'
@@ -74,4 +73,7 @@ dependencies:
     viem:
       name: '@viem'
       version: 2.23.6 
+    ethersjs:
+      name: '@ethersjs'
+      version: 6.13.5
 #   python_packages:

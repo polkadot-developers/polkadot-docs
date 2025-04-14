@@ -32467,14 +32467,14 @@ ethers-dapp
 Let's start by creating a new Next.js project:
 
 ```
-npx create-next-app ethers-dapp
+npx create-next-app ethers-dapp --js --eslint --tailwind --app --yes
 cd ethers-dapp
 ```
 
 Next, install the needed dependencies:
 
 ```
-npm install ethers
+npm install ethers@{{ dependencies.javascript_packages.ethersjs.version }}
 ```
 
 ## Connect to Asset Hub
@@ -32748,6 +32748,27 @@ To integrate this component to your dApp, you need to overwrite the existing boi
 import { useState } from 'react';
 
 import WalletConnect from './components/WalletConnect';
+import ReadContract from './components/ReadContract';
+import WriteContract from './components/WriteContract';
+
+export default function Home() {
+  const [account, setAccount] = useState(null);
+
+  const handleConnect = (connectedAccount) => {
+    setAccount(connectedAccount);
+  };
+
+  return (
+    <section className="min-h-screen bg-white text-black flex flex-col justify-center items-center gap-4 py-10">
+      <h1 className="text-2xl font-semibold text-center">
+        Ethers.js dApp - Asset Hub Smart Contracts
+      </h1>
+      <WalletConnect onConnect={handleConnect} />
+      <ReadContract />
+      <WriteContract account={account} />
+    </section>
+  );
+}
 export default function Home() {
   const [account, setAccount] = useState(null);
 
@@ -32851,6 +32872,26 @@ import { useState } from 'react';
 
 import WalletConnect from './components/WalletConnect';
 import ReadContract from './components/ReadContract';
+import WriteContract from './components/WriteContract';
+
+export default function Home() {
+  const [account, setAccount] = useState(null);
+
+  const handleConnect = (connectedAccount) => {
+    setAccount(connectedAccount);
+  };
+
+  return (
+    <section className="min-h-screen bg-white text-black flex flex-col justify-center items-center gap-4 py-10">
+      <h1 className="text-2xl font-semibold text-center">
+        Ethers.js dApp - Asset Hub Smart Contracts
+      </h1>
+      <WalletConnect onConnect={handleConnect} />
+      <ReadContract />
+      <WriteContract account={account} />
+    </section>
+  );
+}
 export default function Home() {
   const [account, setAccount] = useState(null);
 

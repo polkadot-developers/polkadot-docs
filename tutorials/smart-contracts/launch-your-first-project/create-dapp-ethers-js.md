@@ -58,14 +58,14 @@ ethers-dapp
 Let's start by creating a new Next.js project:
 
 ```
-npx create-next-app ethers-dapp
+npx create-next-app ethers-dapp --js --eslint --tailwind --app --yes
 cd ethers-dapp
 ```
 
 Next, install the needed dependencies:
 
 ```
-npm install ethers
+npm install ethers@{{ dependencies.javascript_packages.ethersjs.version }}
 ```
 
 ## Connect to Asset Hub
@@ -108,7 +108,7 @@ This component handles connecting to the wallet, switching networks if necessary
 To integrate this component to your dApp, you need to overwrite the existing boilerplate in `app/page.js` with the following code:
 
 ```javascript title="page.js"
---8<-- "code/tutorials/smart-contracts/launch-your-first-project/create-dapp-ethers-js/page.js:0:5"
+--8<-- "code/tutorials/smart-contracts/launch-your-first-project/create-dapp-ethers-js/page.js::5"
 --8<-- "code/tutorials/smart-contracts/launch-your-first-project/create-dapp-ethers-js/page.js:8:21"
 --8<-- "code/tutorials/smart-contracts/launch-your-first-project/create-dapp-ethers-js/page.js:24:26"
 ```
@@ -136,7 +136,7 @@ This component reads the `storedNumber` value from the contract and displays it 
 To see this change in your dApp, you need to integrate this component into the `app/page.js` file:
 
 ```javascript title="page.js"
---8<-- "code/tutorials/smart-contracts/launch-your-first-project/create-dapp-ethers-js/page.js:0:6"
+--8<-- "code/tutorials/smart-contracts/launch-your-first-project/create-dapp-ethers-js/page.js::6"
 --8<-- "code/tutorials/smart-contracts/launch-your-first-project/create-dapp-ethers-js/page.js:8:22"
 --8<-- "code/tutorials/smart-contracts/launch-your-first-project/create-dapp-ethers-js/page.js:24:26"
 ```

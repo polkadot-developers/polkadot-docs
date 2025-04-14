@@ -102,7 +102,7 @@ flowchart LR
 
 The compilation process integrates several specialized components:
 
-1. **Solc** - the standard Ethereum Solidity compiler that translates Solidity source code to YUL IR
+1. **Solc** - the standard Ethereum Solidity compiler that translates Solidity source code to [YUL IR](https://docs.soliditylang.org/en/latest/yul.html){target=\_blank}
 2. **Revive Compiler** - takes YUL IR and transforms it to LLVM IR
 3. **LLVM** - a compiler infrastructure that optimizes the code and generates RISC-V ELF objects
 4. **PVM linker** - links the RISC-V ELF object into a final PolkaVM blob with metadata

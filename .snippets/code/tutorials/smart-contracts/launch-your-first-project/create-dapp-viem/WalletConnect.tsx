@@ -15,71 +15,71 @@ const WalletConnect: React.FC<WalletConnectProps> = ({ onConnect }) => {
   useEffect(() => {
     // Check if user already has an authorized wallet connection
     const checkConnection = async () => {
-      if (typeof window !== "undefined" && window.ethereum) {
+      if (typeof window !== 'undefined' && window.ethereum) {
         try {
           // eth_accounts doesn't trigger the wallet popup
-          const accounts = (await window.ethereum.request({
-            method: "eth_accounts",
-          })) as string[];
-
+          const accounts = await window.ethereum.request({
+            method: 'eth_accounts',
+          }) as string[];
+          
           if (accounts.length > 0) {
             setAccount(accounts[0]);
-            const chainIdHex = (await window.ethereum.request({
-              method: "eth_chainId",
-            })) as string;
+            const chainIdHex = await window.ethereum.request({
+              method: 'eth_chainId',
+            }) as string;
             setChainId(parseInt(chainIdHex, 16));
             onConnect(accounts[0]);
           }
         } catch (err) {
-          console.error("Error checking connection:", err);
-          setError("Failed to check wallet connection");
+          console.error('Error checking connection:', err);
+          setError('Failed to check wallet connection');
         }
       }
     };
 
     checkConnection();
 
-    if (typeof window !== "undefined" && window.ethereum) {
+    if (typeof window !== 'undefined' && window.ethereum) {
       // Setup wallet event listeners
-      window.ethereum.on("accountsChanged", (accounts: string[]) => {
+      window.ethereum.on('accountsChanged', (accounts: string[]) => {
         setAccount(accounts[0] || null);
         if (accounts[0]) onConnect(accounts[0]);
       });
 
-      window.ethereum.on("chainChanged", (chainIdHex: string) => {
+      window.ethereum.on('chainChanged', (chainIdHex: string) => {
         setChainId(parseInt(chainIdHex, 16));
       });
     }
 
     return () => {
       // Cleanup event listeners
-      if (typeof window !== "undefined" && window.ethereum) {
-        window.ethereum.removeListener("accountsChanged", () => {});
-        window.ethereum.removeListener("chainChanged", () => {});
+      if (typeof window !== 'undefined' && window.ethereum) {
+        window.ethereum.removeListener('accountsChanged', () => {});
+        window.ethereum.removeListener('chainChanged', () => {});
       }
     };
   }, [onConnect]);
 
   const connectWallet = async () => {
-    if (typeof window === "undefined" || !window.ethereum) {
+    if (typeof window === 'undefined' || !window.ethereum) {
       setError(
-        "MetaMask not detected! Please install MetaMask to use this dApp."
+        'MetaMask not detected! Please install MetaMask to use this dApp.'
       );
       return;
     }
 
     try {
       // eth_requestAccounts triggers the wallet popup
-      const accounts = (await window.ethereum.request({
-        method: "eth_requestAccounts",
-      })) as string[];
-
+      const accounts = await window.ethereum.request({
+        method: 'eth_requestAccounts',
+      }) as string[];
+      
       setAccount(accounts[0]);
 
-      const chainIdHex = (await window.ethereum.request({
-        method: "eth_chainId",
-      })) as string;
-
+      const chainIdHex = await window.ethereum.request({
+        method: 'eth_chainId',
+      }) as string;
+      
       const currentChainId = parseInt(chainIdHex, 16);
       setChainId(currentChainId);
 
@@ -90,16 +90,16 @@ const WalletConnect: React.FC<WalletConnectProps> = ({ onConnect }) => {
 
       onConnect(accounts[0]);
     } catch (err) {
-      console.error("Error connecting to wallet:", err);
-      setError("Failed to connect wallet");
+      console.error('Error connecting to wallet:', err);
+      setError('Failed to connect wallet');
     }
   };
 
   const switchNetwork = async () => {
-    console.log("Switch network");
+    console.log('Switch network')
     try {
       await window.ethereum.request({
-        method: "wallet_switchEthereumChain",
+        method: 'wallet_switchEthereumChain',
         params: [{ chainId: `0x${assetHub.id.toString(16)}` }],
       });
     } catch (switchError: any) {
@@ -107,7 +107,7 @@ const WalletConnect: React.FC<WalletConnectProps> = ({ onConnect }) => {
       if (switchError.code === 4902) {
         try {
           await window.ethereum.request({
-            method: "wallet_addEthereumChain",
+            method: 'wallet_addEthereumChain',
             params: [
               {
                 chainId: `0x${assetHub.id.toString(16)}`,
@@ -122,10 +122,10 @@ const WalletConnect: React.FC<WalletConnectProps> = ({ onConnect }) => {
             ],
           });
         } catch (addError) {
-          setError("Failed to add network to wallet");
+          setError('Failed to add network to wallet');
         }
       } else {
-        setError("Failed to switch network");
+        setError('Failed to switch network');
       }
     }
   };

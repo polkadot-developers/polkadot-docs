@@ -71,4 +71,7 @@ dependencies:
     web3_js:
       name: '@web3js'
       version: 4.16.0
+    viem:
+      name: '@viem'
+      version: 2.23.6 
 #   python_packages:

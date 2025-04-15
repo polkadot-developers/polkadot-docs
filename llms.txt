@@ -22094,9 +22094,49 @@ The Asset Hub smart contracts solution includes multiple components to ensure Et
 
 The interpreter remains particularly beneficial for contracts with minimal code execution, as it eliminates JIT compilation overhead and enables immediate code execution through lazy interpretation.
 
-### Architecture
+## Architecture
+
+The smart contract solution consists of the following key components that work together to enable Ethereum compatibility on Polkadot-based chains:
+
+### Pallet Revive
+
+[**`pallet_revive`**](https://paritytech.github.io/polkadot-sdk/master/pallet_revive/index.html){target=\_blank} is a runtime module that executes smart contracts by adding extrinsics, runtime APIs, and logic to convert Ethereum-style transactions into formats compatible with Polkadot SDK-based blockchains. It processes Ethereum-style transactions through the following workflow:
+
+```mermaid
+sequenceDiagram
+    participant User as User/dApp
+    participant Proxy as Ethereum JSON RPC Proxy
+    participant Chain as Blockchain Node
+    participant Pallet as pallet_revive
+    
+    User->>Proxy: Submit Ethereum Transaction
+    Proxy->>Chain: Repackage as Polkadot Compatible Transaction
+    Chain->>Pallet: Process Transaction
+    Pallet->>Pallet: Decode Ethereum Transaction
+    Pallet->>Pallet: Execute Contract via PolkaVM
+    Pallet->>Chain: Return Results
+    Chain->>Proxy: Forward Results
+    Proxy->>User: Return Ethereum-compatible Response
+```
+
+This proxy-based approach eliminates the need for node binary modifications, maintaining compatibility across different client implementations. Preserving the original Ethereum transaction payload simplifies adapting existing tools, which can continue processing familiar transaction formats.
+
+### PolkaVM Design Fundamentals
 
 PolkaVM introduces two fundamental architectural differences compared to the Ethereum Virtual Machine (EVM):
+
+```mermaid
+flowchart TB
+    subgraph "EVM Architecture"
+        EVMStack[Stack-Based]
+        EVM256[256-bit Word Size]
+    end
+    
+    subgraph "PolkaVM Architecture"
+        PVMReg[Register-Based]
+        PVM64[64-bit Word Size]
+    end
+```
 
 - **Register-based design** - PolkaVM utilizes a RISC-V register-based approach. This design:
 
@@ -22116,24 +22156,30 @@ PolkaVM introduces two fundamental architectural differences compared to the Eth
     - Reduces overhead for operations not requiring extended precision
     - Facilitates efficient integration with modern CPU architectures
 
-## Pallet Revive
+## Compilation Process
 
-[**`pallet_revive`**](https://paritytech.github.io/polkadot-sdk/master/pallet_revive/index.html){target=\_blank} is a runtime module that executes smart contracts by adding extrinsics, runtime APIs, and logic to convert Ethereum-style transactions into formats compatible with Polkadot SDK-based blockchains. It processes Ethereum-style transactions through the following workflow:
+When compiling a Solidity smart contract, the code passes through the following stages:
 
-1. Users interact with a proxy server that emulates the Ethereum JSON RPC interface
-2. The proxy server transforms Ethereum transactions into special dispatchable transactions while preserving the original payload
-3. The pallet's internal logic decodes and processes these transactions for blockchain compatibility
+```mermaid
+flowchart LR
+    Dev[Developer] --> |Solidity\nSource\nCode| Solc
+    
+    subgraph "Compilation Process"
+        direction LR
+        Solc[solc] --> |YUL\nIR| Revive
+        Revive[Revive Compiler] --> |LLVM\nIR| LLVM
+        LLVM[LLVM\nOptimizer] --> |RISC-V ELF\nShared Object| PVMLinker
+    end
+    
+    PVMLinker[PVM Linker] --> PVM[PVM Blob\nwith Metadata]
+```
 
-This proxy-based approach eliminates the need for node binary modifications, maintaining compatibility across different client implementations. Preserving the original Ethereum transaction payload simplifies adapting existing tools, which can continue processing familiar transaction formats.
+The compilation process integrates several specialized components:
 
-## Revive Compiler
-
-[**Revive**](https://github.com/paritytech/revive){target=\_blank} enables Solidity execution on PolkaVM through a particular compilation pipeline:
-
-- Utilizes the standard Solidity compiler (solc) as its foundation
-- Converts Solidity's [YUL](https://docs.soliditylang.org/en/latest/yul.html){target=\_blank} intermediate representation to RISC-V instructions
-- Maintains complete compatibility with all Solidity versions and features
-- Simplifies implementation by focusing on YUL transformation rather than full compiler development
+1. **Solc** - the standard Ethereum Solidity compiler that translates Solidity source code to YUL IR
+2. **Revive Compiler** - takes YUL IR and transforms it to LLVM IR
+3. **LLVM** - a compiler infrastructure that optimizes the code and generates RISC-V ELF objects
+4. **PVM linker** - links the RISC-V ELF object into a final PolkaVM blob with metadata
 --- END CONTENT ---
 
 Doc-Content: https://docs.polkadot.com/tutorials/

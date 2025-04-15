@@ -69,7 +69,7 @@ To follow this guide, you can use the following solidity contract as an example:
 --8<-- "code/develop/smart-contracts/libraries/web3-py/Storage.sol"
 ```
 
-To deploy your compiled contract to Asset Hub using Web3.py, you'll need an account with a private key to sign the deployment transaction. The deployment process is exactly the same as for any EVM-compatible chain, involving creating a contract instance, estimating gas, and sending a deployment transaction. Here's how to deploy the contract. Replace `INSERT_RPC_URL` and `INSERT_PRIVATE_KEY` with the appropriate values:
+To deploy your compiled contract to Asset Hub using Web3.py, you'll need an account with a private key to sign the deployment transaction. The deployment process is exactly the same as for any Ethereum-compatible chain, involving creating a contract instance, estimating gas, and sending a deployment transaction. Here's how to deploy the contract. Replace `INSERT_RPC_URL` and `INSERT_PRIVATE_KEY` with the appropriate values:
 
 ```python title="deploy.py"
 --8<-- "code/develop/smart-contracts/libraries/web3-py/deploy.py"

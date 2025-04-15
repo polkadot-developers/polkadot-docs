@@ -116,6 +116,9 @@ Follow these steps to use Polkadot.js Apps to activate your validator:
 
     ![](/images/infrastructure/running-a-validator/onboarding-and-offboarding/set-up-validator/set-up-a-validator-04.webp)
 
+5. Edit the **commission** and the **blocked** option via `staking.validate` extrinsic. By default, the blocked option is set to FALSE (i.e., the validator accepts nominations)
+    ![](/images/infrastructure/running-a-validator/onboarding-and-offboarding/set-up-validator/set-up-a-validator-06.webp)
+
 ### Monitor Validation Status and Slots
 
 On the [**Staking**](https://polkadot.js.org/apps/#/staking){target=\_blank} tab in Polkadot.js Apps, you can see your validator's status, the number of available validator slots, and the nodes that have signaled their intent to validate. Your node may initially appear in the waiting queue, especially if the validator slots are full. The following is an example view of the **Staking** tab:

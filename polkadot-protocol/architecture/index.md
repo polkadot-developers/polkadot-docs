@@ -12,7 +12,7 @@ Explore Polkadot's architecture, including the relay chain, parachains, and syst
 
 The following provides a brief overview of the role of each chain:
 
-- [**Polkadot chain**](/polkadot-protocol/architecture/polkadot-chain/) - the central hub and main chain responsible for the overall security, consensus, and interoperability between all connected chains
+- [**Polkadot relay chain**](/polkadot-protocol/architecture/polkadot-chain/) - the central hub and main chain responsible for the overall security, consensus, and interoperability between all connected chains
 
 - [**System chains**](/polkadot-protocol/architecture/system-chains/) - specialized chains that provide essential services to the ecosystem, like the Asset Hub, Bridge Hub, and Coretime chain
 

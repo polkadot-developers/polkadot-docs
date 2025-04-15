@@ -55,7 +55,7 @@ viem-dapp
 Create a new Next.js project:
 
 ```bash
-npx create-next-app viem-dapp --typescript
+npx create-next-app viem-dapp --ts --eslint --tailwind --app --yes
 cd viem-dapp
 ```
 
@@ -64,7 +64,7 @@ cd viem-dapp
 Install viem and related packages:
 
 ```bash
-npm install viem
+npm install viem@{{dependencies.javascript_packages.viem.version}}
 npm install --save-dev typescript @types/node
 ```
 
@@ -110,7 +110,7 @@ This component handles connecting to the wallet, switching networks if necessary
 To use this component in your dApp, replace the existing boilerplate in `app/page.tsx` with the following code:
 
 ```typescript title="page.tsx"
---8<-- "code/tutorials/smart-contracts/launch-your-first-project/create-dapp-viem/page.tsx:0:4"
+--8<-- "code/tutorials/smart-contracts/launch-your-first-project/create-dapp-viem/page.tsx::4"
 --8<-- "code/tutorials/smart-contracts/launch-your-first-project/create-dapp-viem/page.tsx:7:20"
 --8<-- "code/tutorials/smart-contracts/launch-your-first-project/create-dapp-viem/page.tsx:23:25"
 ```
@@ -138,7 +138,7 @@ This component reads the `storedNumber` value from the contract and displays it 
 To reflect this change in your dApp, incorporate this component into the `app/page.tsx` file.
 
 ```typescript title="page.tsx"
---8<-- "code/tutorials/smart-contracts/launch-your-first-project/create-dapp-viem/page.tsx:0:5"
+--8<-- "code/tutorials/smart-contracts/launch-your-first-project/create-dapp-viem/page.tsx::5"
 --8<-- "code/tutorials/smart-contracts/launch-your-first-project/create-dapp-viem/page.tsx:7:21"
 --8<-- "code/tutorials/smart-contracts/launch-your-first-project/create-dapp-viem/page.tsx:23:25"
 ```

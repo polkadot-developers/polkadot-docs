@@ -32555,14 +32555,14 @@ ethers-dapp
 Let's start by creating a new Next.js project:
 
 ```
-npx create-next-app ethers-dapp
+npx create-next-app ethers-dapp --js --eslint --tailwind --app --yes
 cd ethers-dapp
 ```
 
 Next, install the needed dependencies:
 
 ```
-npm install ethers
+npm install ethers@{{ dependencies.javascript_packages.ethersjs.version }}
 ```
 
 ## Connect to Asset Hub
@@ -32836,6 +32836,27 @@ To integrate this component to your dApp, you need to overwrite the existing boi
 import { useState } from 'react';
 
 import WalletConnect from './components/WalletConnect';
+import ReadContract from './components/ReadContract';
+import WriteContract from './components/WriteContract';
+
+export default function Home() {
+  const [account, setAccount] = useState(null);
+
+  const handleConnect = (connectedAccount) => {
+    setAccount(connectedAccount);
+  };
+
+  return (
+    <section className="min-h-screen bg-white text-black flex flex-col justify-center items-center gap-4 py-10">
+      <h1 className="text-2xl font-semibold text-center">
+        Ethers.js dApp - Asset Hub Smart Contracts
+      </h1>
+      <WalletConnect onConnect={handleConnect} />
+      <ReadContract />
+      <WriteContract account={account} />
+    </section>
+  );
+}
 export default function Home() {
   const [account, setAccount] = useState(null);
 
@@ -32939,6 +32960,26 @@ import { useState } from 'react';
 
 import WalletConnect from './components/WalletConnect';
 import ReadContract from './components/ReadContract';
+import WriteContract from './components/WriteContract';
+
+export default function Home() {
+  const [account, setAccount] = useState(null);
+
+  const handleConnect = (connectedAccount) => {
+    setAccount(connectedAccount);
+  };
+
+  return (
+    <section className="min-h-screen bg-white text-black flex flex-col justify-center items-center gap-4 py-10">
+      <h1 className="text-2xl font-semibold text-center">
+        Ethers.js dApp - Asset Hub Smart Contracts
+      </h1>
+      <WalletConnect onConnect={handleConnect} />
+      <ReadContract />
+      <WriteContract account={account} />
+    </section>
+  );
+}
 export default function Home() {
   const [account, setAccount] = useState(null);
 
@@ -33202,7 +33243,7 @@ viem-dapp
 Create a new Next.js project:
 
 ```bash
-npx create-next-app viem-dapp --typescript
+npx create-next-app viem-dapp --ts --eslint --tailwind --app --yes
 cd viem-dapp
 ```
 
@@ -33211,7 +33252,7 @@ cd viem-dapp
 Install viem and related packages:
 
 ```bash
-npm install viem
+npm install viem@{{dependencies.javascript_packages.viem.version}}
 npm install --save-dev typescript @types/node
 ```
 
@@ -33357,71 +33398,71 @@ const WalletConnect: React.FC<WalletConnectProps> = ({ onConnect }) => {
   useEffect(() => {
     // Check if user already has an authorized wallet connection
     const checkConnection = async () => {
-      if (typeof window !== "undefined" && window.ethereum) {
+      if (typeof window !== 'undefined' && window.ethereum) {
         try {
           // eth_accounts doesn't trigger the wallet popup
-          const accounts = (await window.ethereum.request({
-            method: "eth_accounts",
-          })) as string[];
-
+          const accounts = await window.ethereum.request({
+            method: 'eth_accounts',
+          }) as string[];
+          
           if (accounts.length > 0) {
             setAccount(accounts[0]);
-            const chainIdHex = (await window.ethereum.request({
-              method: "eth_chainId",
-            })) as string;
+            const chainIdHex = await window.ethereum.request({
+              method: 'eth_chainId',
+            }) as string;
             setChainId(parseInt(chainIdHex, 16));
             onConnect(accounts[0]);
           }
         } catch (err) {
-          console.error("Error checking connection:", err);
-          setError("Failed to check wallet connection");
+          console.error('Error checking connection:', err);
+          setError('Failed to check wallet connection');
         }
       }
     };
 
     checkConnection();
 
-    if (typeof window !== "undefined" && window.ethereum) {
+    if (typeof window !== 'undefined' && window.ethereum) {
       // Setup wallet event listeners
-      window.ethereum.on("accountsChanged", (accounts: string[]) => {
+      window.ethereum.on('accountsChanged', (accounts: string[]) => {
         setAccount(accounts[0] || null);
         if (accounts[0]) onConnect(accounts[0]);
       });
 
-      window.ethereum.on("chainChanged", (chainIdHex: string) => {
+      window.ethereum.on('chainChanged', (chainIdHex: string) => {
         setChainId(parseInt(chainIdHex, 16));
       });
     }
 
     return () => {
       // Cleanup event listeners
-      if (typeof window !== "undefined" && window.ethereum) {
-        window.ethereum.removeListener("accountsChanged", () => {});
-        window.ethereum.removeListener("chainChanged", () => {});
+      if (typeof window !== 'undefined' && window.ethereum) {
+        window.ethereum.removeListener('accountsChanged', () => {});
+        window.ethereum.removeListener('chainChanged', () => {});
       }
     };
   }, [onConnect]);
 
   const connectWallet = async () => {
-    if (typeof window === "undefined" || !window.ethereum) {
+    if (typeof window === 'undefined' || !window.ethereum) {
       setError(
-        "MetaMask not detected! Please install MetaMask to use this dApp."
+        'MetaMask not detected! Please install MetaMask to use this dApp.'
       );
       return;
     }
 
     try {
       // eth_requestAccounts triggers the wallet popup
-      const accounts = (await window.ethereum.request({
-        method: "eth_requestAccounts",
-      })) as string[];
-
+      const accounts = await window.ethereum.request({
+        method: 'eth_requestAccounts',
+      }) as string[];
+      
       setAccount(accounts[0]);
 
-      const chainIdHex = (await window.ethereum.request({
-        method: "eth_chainId",
-      })) as string;
-
+      const chainIdHex = await window.ethereum.request({
+        method: 'eth_chainId',
+      }) as string;
+      
       const currentChainId = parseInt(chainIdHex, 16);
       setChainId(currentChainId);
 
@@ -33432,16 +33473,16 @@ const WalletConnect: React.FC<WalletConnectProps> = ({ onConnect }) => {
 
       onConnect(accounts[0]);
     } catch (err) {
-      console.error("Error connecting to wallet:", err);
-      setError("Failed to connect wallet");
+      console.error('Error connecting to wallet:', err);
+      setError('Failed to connect wallet');
     }
   };
 
   const switchNetwork = async () => {
-    console.log("Switch network");
+    console.log('Switch network')
     try {
       await window.ethereum.request({
-        method: "wallet_switchEthereumChain",
+        method: 'wallet_switchEthereumChain',
         params: [{ chainId: `0x${assetHub.id.toString(16)}` }],
       });
     } catch (switchError: any) {
@@ -33449,7 +33490,7 @@ const WalletConnect: React.FC<WalletConnectProps> = ({ onConnect }) => {
       if (switchError.code === 4902) {
         try {
           await window.ethereum.request({
-            method: "wallet_addEthereumChain",
+            method: 'wallet_addEthereumChain',
             params: [
               {
                 chainId: `0x${assetHub.id.toString(16)}`,
@@ -33464,10 +33505,10 @@ const WalletConnect: React.FC<WalletConnectProps> = ({ onConnect }) => {
             ],
           });
         } catch (addError) {
-          setError("Failed to add network to wallet");
+          setError('Failed to add network to wallet');
         }
       } else {
-        setError("Failed to switch network");
+        setError('Failed to switch network');
       }
     }
   };
@@ -33525,6 +33566,27 @@ To use this component in your dApp, replace the existing boilerplate in `app/pag
 
 import { useState } from "react";
 import WalletConnect from "./components/WalletConnect";
+import ReadContract from "./components/ReadContract";
+import WriteContract from "./components/WriteContract";
+
+export default function Home() {
+  const [account, setAccount] = useState<string | null>(null);
+
+  const handleConnect = (connectedAccount: string) => {
+    setAccount(connectedAccount);
+  };
+
+  return (
+    <section className="min-h-screen bg-white text-black flex flex-col justify-center items-center gap-4 py-10">
+      <h1 className="text-2xl font-semibold text-center">
+        Viem dApp - Asset Hub Smart Contracts
+      </h1>
+      <WalletConnect onConnect={handleConnect} />
+      <ReadContract />
+      <WriteContract account={account} />
+    </section>
+  );
+}
 export default function Home() {
   const [account, setAccount] = useState<string | null>(null);
 
@@ -33557,12 +33619,11 @@ Navigate to `http://localhost:3000` in your browser, and you should see your dAp
 Now, let's create a component to read data from the contract. Create a file called `components/ReadContract.tsx`:
 
 ```typescript title="ReadContract.tsx"
-"use client";
+'use client';
 
-import React, { useState, useEffect } from "react";
-import { readContract } from "viem";
-import { publicClient } from "../utils/viem";
-import { CONTRACT_ADDRESS, CONTRACT_ABI } from "../utils/contract";
+import React, { useState, useEffect } from 'react';
+import { publicClient } from '../utils/viem';
+import { CONTRACT_ADDRESS, CONTRACT_ABI } from '../utils/contract';
 
 const ReadContract: React.FC = () => {
   const [storedNumber, setStoredNumber] = useState<string | null>(null);
@@ -33575,17 +33636,18 @@ const ReadContract: React.FC = () => {
       try {
         setLoading(true);
         // Call the smart contract's storedNumber function
-        const number = await readContract(publicClient, {
-          address: CONTRACT_ADDRESS,
-          abi: CONTRACT_ABI,
-          functionName: "storedNumber",
-        });
+        const number = await publicClient.readContract({
+            address: CONTRACT_ADDRESS,
+            abi: CONTRACT_ABI,
+            functionName: 'storedNumber',
+            args: [],
+          }) as bigint;
 
         setStoredNumber(number.toString());
         setError(null);
       } catch (err) {
-        console.error("Error fetching stored number:", err);
-        setError("Failed to fetch data from the contract");
+        console.error('Error fetching stored number:', err);
+        setError('Failed to fetch data from the contract');
       } finally {
         setLoading(false);
       }
@@ -33633,6 +33695,26 @@ To reflect this change in your dApp, incorporate this component into the `app/pa
 import { useState } from "react";
 import WalletConnect from "./components/WalletConnect";
 import ReadContract from "./components/ReadContract";
+import WriteContract from "./components/WriteContract";
+
+export default function Home() {
+  const [account, setAccount] = useState<string | null>(null);
+
+  const handleConnect = (connectedAccount: string) => {
+    setAccount(connectedAccount);
+  };
+
+  return (
+    <section className="min-h-screen bg-white text-black flex flex-col justify-center items-center gap-4 py-10">
+      <h1 className="text-2xl font-semibold text-center">
+        Viem dApp - Asset Hub Smart Contracts
+      </h1>
+      <WalletConnect onConnect={handleConnect} />
+      <ReadContract />
+      <WriteContract account={account} />
+    </section>
+  );
+}
 export default function Home() {
   const [account, setAccount] = useState<string | null>(null);
 
@@ -33761,7 +33843,7 @@ const WriteContract: React.FC<WriteContractProps> = ({ account }) => {
       });
 
       // Simulate the contract call first
-      console.log("newNumber", newNumber);
+      console.log('newNumber', newNumber);
       const { request } = await publicClient.simulateContract({
         address: CONTRACT_ADDRESS,
         abi: CONTRACT_ABI,

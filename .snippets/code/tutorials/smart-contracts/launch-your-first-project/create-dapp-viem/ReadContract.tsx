@@ -1,9 +1,8 @@
-"use client";
+'use client';
 
-import React, { useState, useEffect } from "react";
-import { readContract } from "viem";
-import { publicClient } from "../utils/viem";
-import { CONTRACT_ADDRESS, CONTRACT_ABI } from "../utils/contract";
+import React, { useState, useEffect } from 'react';
+import { publicClient } from '../utils/viem';
+import { CONTRACT_ADDRESS, CONTRACT_ABI } from '../utils/contract';
 
 const ReadContract: React.FC = () => {
   const [storedNumber, setStoredNumber] = useState<string | null>(null);
@@ -16,17 +15,18 @@ const ReadContract: React.FC = () => {
       try {
         setLoading(true);
         // Call the smart contract's storedNumber function
-        const number = await readContract(publicClient, {
-          address: CONTRACT_ADDRESS,
-          abi: CONTRACT_ABI,
-          functionName: "storedNumber",
-        });
+        const number = await publicClient.readContract({
+            address: CONTRACT_ADDRESS,
+            abi: CONTRACT_ABI,
+            functionName: 'storedNumber',
+            args: [],
+          }) as bigint;
 
         setStoredNumber(number.toString());
         setError(null);
       } catch (err) {
-        console.error("Error fetching stored number:", err);
-        setError("Failed to fetch data from the contract");
+        console.error('Error fetching stored number:', err);
+        setError('Failed to fetch data from the contract');
       } finally {
         setLoading(false);
       }

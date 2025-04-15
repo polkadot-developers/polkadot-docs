@@ -45,7 +45,7 @@ Let's start by setting up Hardhat for your Storage contract project:
 4. Install the Hardhat revive specific plugins:
 
     ```bash
-    npm install --save-dev hardhat-resolc@{{ dependencies.javascript_packages.hardhat_resolc }} hardhat-revive-node@{{ dependencies.javascript_packages.hardhat_revive_node }} dotenv
+    npm install --save-dev hardhat-resolc@{{ dependencies.javascript_packages.hardhat_resolc.version }} hardhat-revive-node@{{ dependencies.javascript_packages.hardhat_revive_node.version }} dotenv
     ```
 
 5. Initialize a Hardhat project:

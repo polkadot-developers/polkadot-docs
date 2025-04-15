@@ -31901,6 +31901,7 @@ Doc-Content: https://docs.polkadot.com/tutorials/smart-contracts/deploy-erc20/
 ---
 title: Deploy an ERC-20 to Asset Hub
 description: Deploy an ERC-20 token on Asset Hub using PolkaVM. This guide covers contract creation, compilation, deployment, and interaction via Polkadot Remix IDE.
+tutorial_badge: Beginner
 ---
 
 # Deploy ERC-20 to Asset Hub
@@ -32063,6 +32064,7 @@ Doc-Content: https://docs.polkadot.com/tutorials/smart-contracts/deploy-nft/
 ---
 title: Deploy an NFT to Asset Hub
 description: Deploy an NFT on Asset Hub using PolkaVM and OpenZeppelin. Learn how to compile, deploy, and interact with your contract using Polkadot Remix IDE.
+tutorial_badge: Beginner
 ---
 
 # Deploy an NFT to Asset Hub
@@ -32257,6 +32259,7 @@ Doc-Content: https://docs.polkadot.com/tutorials/smart-contracts/launch-your-fir
 ---
 title: Create a Smart Contract
 description: Learn how to write a basic smart contract using just a text editor. This guide covers creating and preparing a contract for deployment on Asset Hub.
+tutorial_badge: Beginner
 ---
 
 # Create a Smart Contract
@@ -33949,6 +33952,7 @@ Doc-Content: https://docs.polkadot.com/tutorials/smart-contracts/launch-your-fir
 ---
 title: Test and Deploy with Hardhat
 description: Learn how to set up a Hardhat development environment, write comprehensive tests for a Solidity smart contract, and deploy it to local and Asset Hub networks.
+tutorial_badge: Intermediate
 ---
 
 # Test and Deploy with Hardhat
@@ -33992,7 +33996,7 @@ Let's start by setting up Hardhat for your Storage contract project:
 4. Install the Hardhat revive specific plugins:
 
     ```bash
-    npm install --save-dev hardhat-resolc@{{ dependencies.javascript_packages.hardhat_resolc }} hardhat-revive-node@{{ dependencies.javascript_packages.hardhat_revive_node }} dotenv
+    npm install --save-dev hardhat-resolc@{{ dependencies.javascript_packages.hardhat_resolc.version }} hardhat-revive-node@{{ dependencies.javascript_packages.hardhat_revive_node.version }} dotenv
     ```
 
 5. Initialize a Hardhat project:

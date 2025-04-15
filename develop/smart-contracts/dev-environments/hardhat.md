@@ -1,6 +1,6 @@
 ---
 title: Use Hardhat with Asset Hub
-description: Learn how to create, compile, test, and deploy smart contracts on Asset Hub using Hardhat, a powerful development environment for blockchain developers.
+description: Learn how to create, compile, test, and deploy smart contracts on Polkadot Hub using Hardhat, a powerful development environment for blockchain developers.
 ---
 
 # Hardhat
@@ -51,10 +51,10 @@ Before getting started, ensure you have:
     npm install --save-dev hardhat @nomicfoundation/hardhat-toolbox
     ```
 
-    To interact with Asset Hub, Hardhat requires the [`hardhat-resolc`](https://www.npmjs.com/package/hardhat-resolc){target=\_blank} plugin to compile contracts to PolkaVM bytecode and the [`hardhat-revive-node`](https://www.npmjs.com/package/hardhat-revive-node){target=\_blank} plugin to spawn a local node compatible with PolkaVM.
+    To interact with Polkadot Hub, Hardhat requires a plugin to compile contracts to PolkaVM bytecode and the and to spawn a local node compatible with PolkaVM.
 
     ```bash
-    npm install --save-dev hardhat-resolc hardhat-revive-node
+    npm install --save-dev @parity/hardhat-polkadot
     ```
 
 4. Create a Hardhat project:
@@ -80,9 +80,9 @@ Before getting started, ensure you have:
 
 ## Compiling Your Contract
 
-The `hardhat-resolc` plugin will compile your Solidity contracts for Solidity versions `0.8.0` and higher to be PolkaVM compatible. When compiling your contract using the `hardhat-resolc` plugin, there are two ways to configure your compilation process:
+The plugin will compile your Solidity contracts for Solidity versions `0.8.0` and higher to be PolkaVM compatible. When compiling your contract, there are two ways to configure your compilation process:
 
-- **Remix compiler** - uses the Remix online compiler backend for simplicity and ease of use
+- **Npm compiler** - uses library [@parity/revive](https://www.npmjs.com/package/@parity/revive){target=\_blank} for simplicity and ease of use
 - **Binary compiler** - uses the resolc binary directly for more control and configuration options
 
 To compile your project, follow these instructions:
@@ -109,7 +109,7 @@ To compile your project, follow these instructions:
         --8<-- 'code/develop/smart-contracts/dev-environments/hardhat/hardhat.config.js:65:66'
         ```
 
-    For the binary configuration, replace `INSERT_PATH_TO_RESOLC_COMPILER` with the proper path to the binary. For more information about its installation, check the [installation](https://github.com/paritytech/revive?tab=readme-ov-file#installation){target=\_blank} section of the `pallet-revive`.
+    For the binary configuration, check the [installation](https://github.com/paritytech/revive?tab=readme-ov-file#installation){target=\_blank} section of the `pallet-revive`.
 
 2. Compile the contract with Hardhat:
 
@@ -126,32 +126,6 @@ To compile your project, follow these instructions:
     You should see JSON files containing the contract ABI and bytecode of the contracts you compiled.
 
 ## Testing Your Contract
-
-When testing your contract, be aware that [`@nomicfoundation/hardhat-toolbox/network-helpers`](https://hardhat.org/hardhat-network-helpers/docs/overview){target=\_blank} is not fully compatible with Asset Hub's available RPCs. Specifically, Hardhat-only helpers like `time` and `loadFixture` may not work due to missing RPC calls in the node. For more details, refer to the [Compatibility](https://github.com/paritytech/hardhat-revive/tree/main/packages/hardhat-revive-node#compatibility){target=\_blank} section in the `hardhat-revive` docs.
-
-You should avoid using helpers like `time` and `loadFixture` when writing tests. For example, for the `Lock.sol` contract, you can replace the default test file under `tests/Lock.js` with the following logic:
-
-```javascript title="Lock.js"
---8<-- "code/develop/smart-contracts/dev-environments/hardhat/lock-test.js"
-```
-
-To run your test, execute the following command:
-
-```bash
-npx hardhat test
-```
-
-## Deploying with a Local Node
-
-Before deploying to a live network, you can deploy your contract to a local node using the [`hardhat-revive-node`](https://www.npmjs.com/package/hardhat-revive-node){target=\_blank} plugin and Ignition modules:
-
-!!! warning "Contract Size Limitation in Testing Environment"
-
-    When testing or deploying large contracts in Hardhat's local environment, you may encounter this error:
-
-    `Error: the initcode size of this transaction is too large`
-    
-    This limitation is established by Hardhat based on Ethereum's default contract size limits. While Hardhat can disable this limitation, technical constraints currently prevent it from being applied to the PolkaVM test environment.
 
 1. First, ensure you have compiled a Substrate node and the ETH RPC adapter from the Polkadot SDK. Checkout the [compatible commit](https://github.com/paritytech/polkadot-sdk/commit/c29e72a8628835e34deb6aa7db9a78a2e4eabcee){target=\_blank} from the SDK and build the node and the ETH-RPC from source:
 
@@ -203,7 +177,33 @@ Before deploying to a live network, you can deploy your contract to a local node
     adapterBinaryPath: '/home/username/polkadot-sdk/target/release/eth-rpc',
     ```
 
-3. Modify the Ignition modules, considering that the value of the pallet revive `block.timestamp` is returned in seconds. Check this [PR](https://github.com/paritytech/polkadot-sdk/pull/7792/files){target=\_blank} for more information. For example, for the default `ignition/modules/Lock.js` file, the needed modification should be:
+When testing your contract, be aware that [`@nomicfoundation/hardhat-toolbox/network-helpers`](https://hardhat.org/hardhat-network-helpers/docs/overview){target=\_blank} is not fully compatible with Asset Hub's available RPCs. Specifically, Hardhat-only helpers like `time` and `loadFixture` may not work due to missing RPC calls in the node. For more details, refer to the [Compatibility](https://github.com/paritytech/hardhat-polkadot#compatibility){target=\_blank} section docs.
+
+You should avoid using helpers like `time` and `loadFixture` when writing tests. For example, for the `Lock.sol` contract, you can replace the default test file under `tests/Lock.js` with the following logic:
+
+```javascript title="Lock.js"
+--8<-- "code/develop/smart-contracts/dev-environments/hardhat/lock-test.js"
+```
+
+To run your test, execute the following command:
+
+```bash
+npx hardhat test
+```
+
+## Deploying with a Local Node
+
+Before deploying to a live network, you can deploy your contract to a local node using the [`hardhat-revive-node`](https://www.npmjs.com/package/hardhat-revive-node){target=\_blank} plugin and Ignition modules:
+
+!!! warning "Contract Size Limitation in Testing Environment"
+
+    When testing or deploying large contracts in Hardhat's local environment, you may encounter this error:
+
+    `Error: the initcode size of this transaction is too large`
+    
+    This limitation is established by Hardhat based on Ethereum's default contract size limits. While Hardhat can disable this limitation, technical constraints currently prevent it from being applied to the PolkaVM test environment.
+
+1. Modify the Ignition modules, considering that the value of the pallet revive `block.timestamp` is returned in seconds. Check this [PR](https://github.com/paritytech/polkadot-sdk/pull/7792/files){target=\_blank} for more information. For example, for the default `ignition/modules/Lock.js` file, the needed modification should be:
 
     ```diff
     - const JAN_1ST_2030 = 1893456000;
@@ -216,7 +216,7 @@ Before deploying to a live network, you can deploy your contract to a local node
         --8<-- 'code/develop/smart-contracts/dev-environments/hardhat/lock-ignition.js'
         ```
 
-4. Start a local node:
+2. Start a local node:
 
     ```bash
     npx hardhat node-polkavm
@@ -224,7 +224,7 @@ Before deploying to a live network, you can deploy your contract to a local node
 
     This command will start a local PolkaVM node powered by the `hardhat-revive-node` plugin.
 
-5. In a new terminal window, deploy the contract using Ignition:
+3. In a new terminal window, deploy the contract using Ignition:
 
     ```bash
     npx hardhat ignition deploy ./ignition/modules/INSERT_IGNITION_MODULE_NAME.js --network localNode
@@ -263,7 +263,7 @@ After testing your contract locally, you can deploy it to a live network. This g
     --8<-- 'code/develop/smart-contracts/dev-environments/hardhat/hardhat.config.js:66:66'
     ```
 
-5. Update your Hardhat configuration file with network settings for the Asset Hub network you want to target:
+5. Update your Hardhat configuration file with network settings for the Polkadot Hub network you want to target:
 
     === "Remix Configuration"
 
@@ -303,7 +303,7 @@ For example, for the default `Lock.sol` contract, you can use the following file
 Run your interaction script:
 
 ```bash
-npx hardhat run scripts/interact.js --network westendAssetHub
+npx hardhat run scripts/interact.js --network polkadotHub
 ```
 
 ## Where to Go Next

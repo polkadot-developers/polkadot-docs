@@ -12,6 +12,7 @@ This section explores essential tools for blockchain testing, forking live netwo
 
 ## Quick Links
 
+- [Use Pop CLI to start your parachain project](/develop/toolkit/parachains/quickstart/pop-cli/)
 - [Use Zombienet to spawn a chain](/develop/toolkit/parachains/spawn-chains/zombienet/get-started/)
 - [Use Chopsticks to fork a chain](/develop/toolkit/parachains/fork-chains/chopsticks/get-started/)
 - [Use Moonwall to execute E2E testing](/develop/toolkit/parachains/e2e-testing/moonwall/)

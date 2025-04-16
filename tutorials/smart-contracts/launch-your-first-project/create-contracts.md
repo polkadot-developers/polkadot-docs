@@ -91,7 +91,7 @@ To build the smart contract, follow the steps below:
 6. Add the getter and setter functions:
 
     ```solidity
-    --8<-- 'code/tutorials/smart-contracts/launch-your-first-project/create-contracts/Storage.sol'
+    --8<-- 'https://raw.githubusercontent.com/polkadot-developers/polkavm-hardhat-examples/refs/tags/v0.0.1/storage-hardhat/contracts/Storage.sol'
     ```
 
 The complete contract should look like this:
@@ -99,7 +99,7 @@ The complete contract should look like this:
 ??? code "Storage.sol"
 
     ```solidity title="Storage.sol"
-    --8<-- 'code/tutorials/smart-contracts/launch-your-first-project/create-contracts/Storage.sol'
+    --8<-- 'https://raw.githubusercontent.com/polkadot-developers/polkavm-hardhat-examples/refs/tags/v0.0.1/storage-hardhat/contracts/Storage.sol'
     ```
 
 ## Understanding the Code

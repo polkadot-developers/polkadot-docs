@@ -34478,7 +34478,7 @@ Congratulations! You've successfully set up a Hardhat development environment, w
 To get started with a working example right away, you can clone the repository and navigate to the project directory:
 
 ```bash
-git clone https://github.com/polkadot-developers/polkavm-hardhat-examples.git
+git clone https://github.com/polkadot-developers/polkavm-hardhat-examples.git -b v0.0.1
 cd polkavm-hardhat-examples/storage-hardhat
 ```
 --- END CONTENT ---

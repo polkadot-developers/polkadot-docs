@@ -3,7 +3,7 @@ title: Quickstart Parachain Development with Pop CLI
 description: Quickly bootstrap parachain projects, scaffold templates, deploy local networks, and streamline development workflows using Pop CLI.
 ---
 
-# Quickstart Parachain Development with Pop CLI
+# Quickstart Parachain Development With Pop CLI
 
 ## Introduction
 
@@ -33,7 +33,7 @@ Confirm that Pop CLI is installed by running `pop --help` in your terminal:
 pop --help
 ```
 
-### Set up your development environment
+### Set Up Your Development Environment
 
 To develop and build Polkadot SDK-based it's essential to prepare your local environment with the necessary tools and dependencies. The [Install Polkadot SDK Dependencies](/develop/parachains/install-polkadot-sdk/){target=\_blank} guide walks you through this setup step-by-step.
 
@@ -53,12 +53,17 @@ Start a new project quickly using Pop CLI `pop new parachain` command:
 
 --8<-- 'code/develop/toolkit/parachains/quickstart/pop-cli/new-parachain.html'
 
+The command above scaffolds a new parachain project using the default template included with Pop CLI. For more specialized implementations, additional templates are available, you can explore them by running `pop new parachain --help`.
+
 Once the project is generated, move into the new directory and build your parachain:
 
 ```
 cd my-parachain
 pop build --release
 ```
+
+!!! note
+    Under the hood, `pop build --release` runs `cargo build --release`, but `pop build` adds functionality specific to Polkadot SDK projects, such as deterministic runtime builds and automatic management of feature flags like `benchmark` or `try-runtime`.
 
 Pop CLI integrates the [Zombienet-SDK](https://github.com/paritytech/zombienet-sdk){target=\_blank} allowing you to easily launch ephemeral local networks for development and testing. To start a network, simply run the following:
 

@@ -373,7 +373,7 @@ These principles guarantee that XCM provides a reliable framework for cross-chai
 
 ![Diagram of the XCM tech stack](/images/develop/interoperability/intro-to-xcm/intro-to-xcm-01.webp)
 
-The XCM tech stack is designed to faciliate seamless interoperable communication between chains that reside within the Polkadot ecosystem. XCM can be used to ecpress the meaning of the messages over each of the communicatio channels.
+The XCM tech stack is designed to facilitate seamless interoperable communication between chains that reside within the Polkadot ecosystem. XCM can be used to express the meaning of the messages over each of the communication channels.
 
 ## Core Functionalities of XCM
 

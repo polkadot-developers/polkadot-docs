@@ -1,6 +1,6 @@
 ---
-title: Use Hardhat with Asset Hub
-description: Learn how to create, compile, test, and deploy smart contracts on Asset Hub using Hardhat, a powerful development environment for blockchain developers.
+title: Use Hardhat with Polkadot Hub
+description: Learn how to create, compile, test, and deploy smart contracts on Polkadot Hub using Hardhat, a powerful development environment for blockchain developers.
 ---
 
 # Hardhat
@@ -19,7 +19,7 @@ description: Learn how to create, compile, test, and deploy smart contracts on A
 
 ## Overview
 
-Hardhat is a robust development environment for Ethereum-compatible chains that makes smart contract development more efficient. This guide walks you through the essentials of using Hardhat to create, compile, test, and deploy smart contracts on Asset Hub.
+Hardhat is a robust development environment for Ethereum-compatible chains that makes smart contract development more efficient. This guide walks you through the essentials of using Hardhat to create, compile, test, and deploy smart contracts on Polkadot Hub.
 
 ## Prerequisites
 
@@ -27,8 +27,8 @@ Before getting started, ensure you have:
 
 - [Node.js](https://nodejs.org/){target=\_blank} (v16.0.0 or later) and npm installed
 - Basic understanding of Solidity programming
-- Some WND test tokens to cover transaction fees (easily obtainable from the [Polkadot faucet](https://faucet.polkadot.io/westend?parachain=1000){target=\_blank}). To learn how to get test tokens, check out the [Test Tokens](/develop/smart-contracts/connect-to-asset-hub/#test-tokens){target=\_blank} section
-- [MetaMask](https://metamask.io/){target=\_blank} installed and connected to [Westend Asset Hub](https://chainlist.org/chain/420420421){target=\_blank}. For more detailed instructions on connecting your wallet, see the [Connect Your Wallet](/develop/smart-contracts/connect-to-asset-hub/#connect-your-wallet){target=\_blank} section
+- Some WND test tokens to cover transaction fees (easily obtainable from the [Polkadot faucet](https://faucet.polkadot.io/westend?parachain=1000){target=\_blank}). To learn how to get test tokens, check out the [Test Tokens](/develop/smart-contracts/connect-to-polkadot/#test-tokens){target=\_blank} section
+- [MetaMask](https://metamask.io/){target=\_blank} installed and connected to [Westend Hub](https://chainlist.org/chain/420420421){target=\_blank}. For more detailed instructions on connecting your wallet, see the [Connect Your Wallet](/develop/smart-contracts/connect-to-polkadot/#connect-your-wallet){target=\_blank} section
 
 ## Setting Up Hardhat
 
@@ -51,7 +51,7 @@ Before getting started, ensure you have:
     npm install --save-dev hardhat @nomicfoundation/hardhat-toolbox
     ```
 
-    To interact with Asset Hub, Hardhat requires the [`hardhat-resolc`](https://www.npmjs.com/package/hardhat-resolc){target=\_blank} plugin to compile contracts to PolkaVM bytecode and the [`hardhat-revive-node`](https://www.npmjs.com/package/hardhat-revive-node){target=\_blank} plugin to spawn a local node compatible with PolkaVM.
+    To interact with Polkadot Hub, Hardhat requires the [`hardhat-resolc`](https://www.npmjs.com/package/hardhat-resolc){target=\_blank} plugin to compile contracts to PolkaVM bytecode and the [`hardhat-revive-node`](https://www.npmjs.com/package/hardhat-revive-node){target=\_blank} plugin to spawn a local node compatible with PolkaVM.
 
     ```bash
     npm install --save-dev hardhat-resolc hardhat-revive-node
@@ -127,7 +127,7 @@ To compile your project, follow these instructions:
 
 ## Testing Your Contract
 
-When testing your contract, be aware that [`@nomicfoundation/hardhat-toolbox/network-helpers`](https://hardhat.org/hardhat-network-helpers/docs/overview){target=\_blank} is not fully compatible with Asset Hub's available RPCs. Specifically, Hardhat-only helpers like `time` and `loadFixture` may not work due to missing RPC calls in the node. For more details, refer to the [Compatibility](https://github.com/paritytech/hardhat-revive/tree/main/packages/hardhat-revive-node#compatibility){target=\_blank} section in the `hardhat-revive` docs.
+When testing your contract, be aware that [`@nomicfoundation/hardhat-toolbox/network-helpers`](https://hardhat.org/hardhat-network-helpers/docs/overview){target=\_blank} is not fully compatible with Polkadot Hub's available RPCs. Specifically, Hardhat-only helpers like `time` and `loadFixture` may not work due to missing RPC calls in the node. For more details, refer to the [Compatibility](https://github.com/paritytech/hardhat-revive/tree/main/packages/hardhat-revive-node#compatibility){target=\_blank} section in the `hardhat-revive` docs.
 
 You should avoid using helpers like `time` and `loadFixture` when writing tests. For example, for the `Lock.sol` contract, you can replace the default test file under `tests/Lock.js` with the following logic:
 
@@ -234,7 +234,7 @@ Before deploying to a live network, you can deploy your contract to a local node
 
 ## Deploying to a Live Network
 
-After testing your contract locally, you can deploy it to a live network. This guide will use Westend Asset Hub as the target network. Here's how to configure and deploy:
+After testing your contract locally, you can deploy it to a live network. This guide will use Westend Hub as the target network. Here's how to configure and deploy:
 
 1. Fund your deployment account with enough tokens to cover gas fees. In this case, the needed tokens are WND (on Westend). You can use the [Polkadot faucet](https://faucet.polkadot.io/westend?parachain=1000){target=\_blank} to obtain testing tokens.
 
@@ -263,7 +263,7 @@ After testing your contract locally, you can deploy it to a live network. This g
     --8<-- 'code/develop/smart-contracts/dev-environments/hardhat/hardhat.config.js:66:66'
     ```
 
-5. Update your Hardhat configuration file with network settings for the Asset Hub network you want to target:
+5. Update your Hardhat configuration file with network settings for the Polkadot Hub network you want to target:
 
     === "Remix Configuration"
 
@@ -308,7 +308,7 @@ npx hardhat run scripts/interact.js --network westendAssetHub
 
 ## Where to Go Next
 
-Hardhat provides a powerful environment for developing, testing, and deploying smart contracts on Asset Hub. Its plugin architecture allows seamless integration with PolkaVM through the `hardhat-resolc` and `hardhat-revive-node` plugins.
+Hardhat provides a powerful environment for developing, testing, and deploying smart contracts on Polkadot Hub. Its plugin architecture allows seamless integration with PolkaVM through the `hardhat-resolc` and `hardhat-revive-node` plugins.
 
 Explore more about smart contracts through these resources:
 

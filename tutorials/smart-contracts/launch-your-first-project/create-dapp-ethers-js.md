@@ -1,22 +1,22 @@
 ---
 title: Create a dApp With Ethers.js
-description: Learn how to build a decentralized application on Asset Hub using Ethers.js and Next.js by creating a simple dApp that interacts with a smart contract.
+description: Learn how to build a decentralized application on Polkadot Hub using Ethers.js and Next.js by creating a simple dApp that interacts with a smart contract.
 ---
 
 # Create a dApp With Ethers.js
 
 ## Introduction
 
-Decentralized applications (dApps) have become a cornerstone of the Web3 ecosystem, allowing developers to create applications that interact directly with blockchain networks. Asset Hub, a blockchain that supports smart contract functionality, provides an excellent platform for deploying and interacting with dApps.
+Decentralized applications (dApps) have become a cornerstone of the Web3 ecosystem, allowing developers to create applications that interact directly with blockchain networks. Polkadot Hub, a blockchain that supports smart contract functionality, provides an excellent platform for deploying and interacting with dApps.
 
-In this tutorial, you'll build a complete dApp that interacts with a smart contract deployed on Asset Hub. It will use [Ethers.js](/develop/smart-contracts/libraries/ethers-js){target=\_blank} to interact with the blockchain and [Next.js](https://nextjs.org/){target=\_blank} as the frontend framework. By the end of this tutorial, you'll have a functional dApp that allows users to connect their wallets, read data from the blockchain, and execute transactions.
+In this tutorial, you'll build a complete dApp that interacts with a smart contract deployed on Westend Hub. It will use [Ethers.js](/develop/smart-contracts/libraries/ethers-js){target=\_blank} to interact with the blockchain and [Next.js](https://nextjs.org/){target=\_blank} as the frontend framework. By the end of this tutorial, you'll have a functional dApp that allows users to connect their wallets, read data from the blockchain, and execute transactions.
 
 ## Prerequisites
 
 Before you begin, make sure you have:
 
 - [Node.js](https://nodejs.org/en){target=\_blank} v16 or newer installed on your machine
-- A crypto wallet (like MetaMask) with some test tokens. For further information, check the [Connect to Asset Hub](/develop/smart-contracts/connect-to-asset-hub){target=\_blank} guide
+- A crypto wallet (like MetaMask) with some test tokens. For further information, check the [Connect to Polkadot](/develop/smart-contracts/connect-to-polkadot){target=\_blank} guide
 - Basic understanding of React and JavaScript
 - Familiarity with blockchain concepts and Solidity (helpful but not mandatory)
 
@@ -27,7 +27,7 @@ The dApp will interact with a simple Storage contract. For a step-by-step guide 
 - Reading a stored number from the blockchain
 - Updating the stored number with a new value
 
-The contract has already been deployed to Westend Asset Hub for testing purposes: `0xabBd46Ef74b88E8B1CDa49BeFb5057710443Fd29`. If you want to deploy your own, follow the [Deploying Contracts](/develop/smart-contracts/dev-environments/remix/#deploying-contracts){target=\_blank} section.
+The contract has already been deployed to Westend Hub for testing purposes: `0xabBd46Ef74b88E8B1CDa49BeFb5057710443Fd29`. If you want to deploy your own, follow the [Deploying Contracts](/develop/smart-contracts/dev-environments/remix/#deploying-contracts){target=\_blank} section.
 
 Here's a simplified view of what you'll be building:
 
@@ -68,14 +68,14 @@ Next, install the needed dependencies:
 npm install ethers@{{ dependencies.javascript_packages.ethersjs.version }}
 ```
 
-## Connect to Asset Hub
+## Connect to Polkadot Hub
 
-To interact with Asset Hub (Westend Asset Hub in this case), you need to set up an [Ethers.js Provider](/develop/smart-contracts/libraries/ethers-js/#set-up-the-ethersjs-provider){target=\_blank} that connects to the blockchain. Create a new file called `utils/ethers.js` and add the following code:
+To interact with Polkadot Hub (Westend Hub in this case), you need to set up an [Ethers.js Provider](/develop/smart-contracts/libraries/ethers-js/#set-up-the-ethersjs-provider){target=\_blank} that connects to the blockchain. Create a new file called `utils/ethers.js` and add the following code:
 
 ```javascript title="ethers.js"
 --8<-- "code/tutorials/smart-contracts/launch-your-first-project/create-dapp-ethers-js/ethers.js"
 ```
-This file establishes a connection to Asset Hub and provides helper functions for obtaining a [Provider](https://docs.ethers.org/v5/api/providers/provider/){target=_blank} and [Signer](https://docs.ethers.org/v5/api/signer/){target=_blank}. The provider allows you to read data from the blockchain, while the signer enables users to send transactions and modify the blockchain state.
+This file establishes a connection to Westend Hub and provides helper functions for obtaining a [Provider](https://docs.ethers.org/v5/api/providers/provider/){target=_blank} and [Signer](https://docs.ethers.org/v5/api/signer/){target=_blank}. The provider allows you to read data from the blockchain, while the signer enables users to send transactions and modify the blockchain state.
 
 ## Set Up the Smart Contract Interface
 
@@ -167,13 +167,13 @@ The completed UI will display:
 
 ## Conclusion
 
-Congratulations! You've built a complete dApp that interacts with a smart contract on Asset Hub using Ethers.js and Next.js. Your application can now:
+Congratulations! You've built a complete dApp that interacts with a smart contract on Westend Hub using Ethers.js and Next.js. Your application can now:
 
 - Connect to a user's wallet
 - Read data from a smart contract
 - Send transactions to update the contract state
 
-These fundamental skills provide the foundation for building more complex dApps on Asset Hub. With these building blocks, you can extend your application to interact with more sophisticated smart contracts and create more advanced user interfaces.
+These fundamental skills provide the foundation for building more complex dApps on Polkadot Hub. With these building blocks, you can extend your application to interact with more sophisticated smart contracts and create more advanced user interfaces.
 
 ## Where to Go Next
 

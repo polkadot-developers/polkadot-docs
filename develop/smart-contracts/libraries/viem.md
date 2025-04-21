@@ -1,13 +1,13 @@
 ---
-title: viem for Asset Hub Smart Contracts
-description: viem is a TypeScript library for interacting with Ethereum-compatible chains. This guide covers using viem to deploy and interact with smart contracts on Asset Hub.
+title: viem for Polkadot Hub Smart Contracts
+description: viem is a TypeScript library for interacting with Ethereum-compatible chains. This guide covers using viem to deploy and interact with smart contracts on Polkadot Hub.
 ---
 
 # viem
 
 ## Introduction
 
-[viem](https://viem.sh/){target=\_blank} is a lightweight TypeScript library designed for interacting with Ethereum-compatible blockchains. This comprehensive guide will walk you through using viem to interact with and deploy smart contracts to Asset Hub.
+[viem](https://viem.sh/){target=\_blank} is a lightweight TypeScript library designed for interacting with Ethereum-compatible blockchains. This comprehensive guide will walk you through using viem to interact with and deploy smart contracts to Polkadot Hub.
 
 ## Prerequisites
 
@@ -74,7 +74,7 @@ The first step is to set up the chain configuration. Create a new file at `src/c
 --8<-- 'code/develop/smart-contracts/libraries/viem/chainConfig.ts'
 ```
 
-Ensure to replace `INSERT_RPC_URL`, `INSERT_CHAIN_ID`, `INSERT_CHAIN_NAME`, `INSERT_NETWORK_NAME`, `INSERT_CHAIN_DECIMALS`, `INSERT_CURRENCY_NAME`, and `INSERT_CURRENCY_SYMBOL` with the proper values. Check the [Connect to Asset Hub](/develop/smart-contracts/connect-to-asset-hub){target=\_blank} page for more information on the possible values.
+Ensure to replace `INSERT_RPC_URL`, `INSERT_CHAIN_ID`, `INSERT_CHAIN_NAME`, `INSERT_NETWORK_NAME`, `INSERT_CHAIN_DECIMALS`, `INSERT_CURRENCY_NAME`, and `INSERT_CURRENCY_SYMBOL` with the proper values. Check the [Connect to Polkadot](/develop/smart-contracts/connect-to-polkadot){target=\_blank} page for more information on the possible values.
 
 ## Set Up the viem Client
 
@@ -105,7 +105,7 @@ In case you need to sign transactions, you will need to instantiate a [Wallet Cl
 
 ## Sample Smart Contract
 
-This example demonstrates compiling a `Storage.sol` Solidity contract for deployment to Asset Hub. The contract's functionality stores a number and permits users to update it with a new value.
+This example demonstrates compiling a `Storage.sol` Solidity contract for deployment to Polkadot Hub. The contract's functionality stores a number and permits users to update it with a new value.
 
 ```bash
 mkdir contracts artifacts
@@ -131,7 +131,7 @@ To compile your contract:
 npm run compile
 ```
 
-After executing this script, you will see the compilation results including the generated `Storage.json` (containing the contract's ABI) and `Storage.polkavm` (containing the compiled bytecode) files in the `artifacts` folder. These files contain all the necessary information for deploying and interacting with your smart contract on Asset Hub.
+After executing this script, you will see the compilation results including the generated `Storage.json` (containing the contract's ABI) and `Storage.polkavm` (containing the compiled bytecode) files in the `artifacts` folder. These files contain all the necessary information for deploying and interacting with your smart contract on Polkadot Hub.
 
 ## Deploy the Contract
 
@@ -174,7 +174,7 @@ Following a successful interaction, you will see the stored value before and aft
 
 ## Complete Project Structure
 
-After completing this guide, your project directory should have the following structure. This overview helps you verify that you've created all the necessary files in their correct locations for your viem integration with Asset Hub:
+After completing this guide, your project directory should have the following structure. This overview helps you verify that you've created all the necessary files in their correct locations for your viem integration with Polkadot Hub:
 
 ```text
 viem-project/
@@ -196,7 +196,7 @@ viem-project/
 
 ## Where to Go Next
 
-Now that you have the foundation for using viem with Asset Hub, consider exploring:
+Now that you have the foundation for using viem with Polkadot Hub, consider exploring:
 
 <div class="grid cards" markdown>
 

@@ -1,6 +1,6 @@
 ---
 title: Test and Deploy with Hardhat
-description: Learn how to set up a Hardhat development environment, write comprehensive tests for a Solidity smart contract, and deploy it to local and Asset Hub networks.
+description: Learn how to set up a Hardhat development environment, write comprehensive tests for a Solidity smart contract, and deploy it to local and Polkadot Hub networks.
 tutorial_badge: Intermediate
 ---
 
@@ -71,7 +71,7 @@ Let's start by setting up Hardhat for your Storage contract project:
     The configuration also defines two network settings: 
 
     - `localNode` - runs a PolkaVM instance on `http://127.0.0.1:8545` for local development and testing
-    - `westendAssetHub` - connects to the Westend Asset Hub network using a predefined RPC URL and a private key stored in environment variables
+    - `westendAssetHub` - connects to the Westend Hub network using a predefined RPC URL and a private key stored in environment variables
 
 7. Create a `.env` file in your project root to store your private key:
 
@@ -215,7 +215,7 @@ Testing is a critical part of smart contract development. Hardhat makes it easy 
 
     --8<-- 'code/tutorials/smart-contracts/launch-your-first-project/test-and-deploy-hardhat/local-deployment-output.html'
 
-3. Deploy to Westend Asset Hub:
+3. Deploy to Westend Hub:
 
     a. Make sure your account has enough WND tokens for gas fees, then run:
 
@@ -251,4 +251,4 @@ To interact with your deployed contract:
 
 ## Conclusion
 
-Congratulations! You've successfully set up a Hardhat development environment, written comprehensive tests for your Storage contract, and deployed it to local and Westend Asset Hub networks. This tutorial covered essential steps in smart contract development, including configuration, testing, deployment, and interaction.
+Congratulations! You've successfully set up a Hardhat development environment, written comprehensive tests for your Storage contract, and deployed it to local and Westend Polkadot Hub networks. This tutorial covered essential steps in smart contract development, including configuration, testing, deployment, and interaction.

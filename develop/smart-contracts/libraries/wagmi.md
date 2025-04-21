@@ -1,6 +1,6 @@
 ---
-title: Wagmi for Asset Hub Smart Contracts
-description: Learn how to use Wagmi React Hooks to fetch and interact with smart contracts on Asset Hub for seamless dApp integration.
+title: Wagmi for Polkadot Hub Smart Contracts
+description: Learn how to use Wagmi React Hooks to fetch and interact with smart contracts on Polkadot Hub for seamless dApp integration.
 ---
 
 # Wagmi
@@ -9,7 +9,7 @@ description: Learn how to use Wagmi React Hooks to fetch and interact with smart
 
 [Wagmi](https://wagmi.sh/){target=\_blank} is a collection of [React Hooks](https://wagmi.sh/react/api/hooks){target=\_blank} for interacting with Ethereum-compatible blockchains, focusing on developer experience, feature richness, and reliability.
 
-This guide demonstrates how to use Wagmi to interact with and deploy smart contracts to Asset Hub, providing a seamless frontend integration for your dApps.
+This guide demonstrates how to use Wagmi to interact with and deploy smart contracts to Polkadot Hub, providing a seamless frontend integration for your dApps.
 
 ## Set Up the Project
 
@@ -30,16 +30,16 @@ Install Wagmi and its peer dependencies:
 npm install wagmi viem @tanstack/react-query
 ```
 
-## Configure Wagmi for Asset Hub
+## Configure Wagmi for Polkadot Hub
 
-Create a configuration file to initialize Wagmi with Asset Hub. In your project, create a file named `src/lib/wagmi.ts` and add the code below. Be sure to replace `INSERT_RPC_URL`, `INSERT_CHAIN_ID`, `INSERT_CHAIN_NAME`, `INSERT_NETWORK_NAME`, `INSERT_CHAIN_DECIMALS`, `INSERT_CURRENCY_NAME`, and `INSERT_CURRENCY_SYMBOL` with your specific values.
+Create a configuration file to initialize Wagmi with Polkadot Hub. In your project, create a file named `src/lib/wagmi.ts` and add the code below. Be sure to replace `INSERT_RPC_URL`, `INSERT_CHAIN_ID`, `INSERT_CHAIN_NAME`, `INSERT_NETWORK_NAME`, `INSERT_CHAIN_DECIMALS`, `INSERT_CURRENCY_NAME`, and `INSERT_CURRENCY_SYMBOL` with your specific values.
 
 ```typescript
 --8<-- 'code/develop/smart-contracts/libraries/wagmi/wagmi.ts'
 ```
-For example, to connect to Westend Asset Hub, you can use the following configuration:
+For example, to connect to Westend Polkadot Hub, you can use the following configuration:
 
-??? code "Westend Asset Hub - wagmi.ts"
+??? code "Westend Hub - wagmi.ts"
 
     ```typescript title="wagmi.ts"
     --8<-- 'code/develop/smart-contracts/libraries/wagmi/wagmi-westend-ah.ts'
@@ -85,7 +85,7 @@ This component uses the following React hooks:
 
 ## Interact with Deployed Contract
 
-This guide uses a simple Storage contract already deployed to Westend Asset Hub (`0xabBd46Ef74b88E8B1CDa49BeFb5057710443Fd29`). The code of that contract is:
+This guide uses a simple Storage contract already deployed to Westend Hub (`0xabBd46Ef74b88E8B1CDa49BeFb5057710443Fd29`). The code of that contract is:
 
 ??? code "Storage.sol"
 
@@ -123,7 +123,7 @@ Update your main page to combine all the components. Create or update the file `
 
 ## Where to Go Next
 
-Now that you have the foundational knowledge to use Wagmi with Asset Hub, consider exploring:
+Now that you have the foundational knowledge to use Wagmi with Polkadot Hub, consider exploring:
 
 <div class="grid cards" markdown>
 

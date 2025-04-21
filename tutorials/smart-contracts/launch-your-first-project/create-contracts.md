@@ -1,6 +1,6 @@
 ---
 title: Create a Smart Contract
-description: Learn how to write a basic smart contract using just a text editor. This guide covers creating and preparing a contract for deployment on Asset Hub.
+description: Learn how to write a basic smart contract using just a text editor. This guide covers creating and preparing a contract for deployment on Polkadot Hub.
 tutorial_badge: Beginner
 ---
 
@@ -10,7 +10,7 @@ tutorial_badge: Beginner
 
 Creating [smart contracts](/develop/smart-contracts/overview/){target=\_blank} is fundamental to blockchain development. While many frameworks and tools are available, understanding how to write a contract from scratch with just a text editor is essential knowledge.
 
-This tutorial will guide you through creating a basic smart contract that can be used with other tutorials for deployment and integration on Asset Hub. To understand how smart contracts work in Asset Hub, check the [Smart Contract Basics](/polkadot-protocol/smart-contract-basics/){target=\_blank} guide for more information.
+This tutorial will guide you through creating a basic smart contract that can be used with other tutorials for deployment and integration on Polkadot Hub. To understand how smart contracts work in Polkadot Hub, check the [Smart Contract Basics](/polkadot-protocol/smart-contract-basics/){target=\_blank} guide for more information.
 
 ## Prerequisites
 

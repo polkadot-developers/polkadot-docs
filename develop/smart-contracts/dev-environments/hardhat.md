@@ -1,6 +1,6 @@
 ---
-title: Use Hardhat with Polkadot Hub
-description: Learn how to create, compile, test, and deploy smart contracts on Polkadot Hub using Hardhat, a powerful development environment for blockchain developers.
+title: Use Hardhat with Polkadot
+description: Learn how to create, compile, test, and deploy smart contracts on Polkadot using Hardhat, a powerful development environment for blockchain developers.
 ---
 
 # Hardhat
@@ -51,7 +51,7 @@ Before getting started, ensure you have:
     npm install --save-dev hardhat @nomicfoundation/hardhat-toolbox
     ```
 
-    To interact with Polkadot Hub, Hardhat requires a plugin to compile contracts to PolkaVM bytecode and the and to spawn a local node compatible with PolkaVM.
+    To interact with Polkadot, Hardhat requires a plugin to compile contracts to PolkaVM bytecode and the and to spawn a local node compatible with PolkaVM.
 
     ```bash
     npm install --save-dev @parity/hardhat-polkadot
@@ -71,11 +71,11 @@ Before getting started, ensure you have:
 
 5. Update your Hardhat configuration file (`hardhat.config.js`) to include the plugins:
 
-    ```javascript title="hardhat.config.js" hl_lines="9-10"
-    --8<-- 'code/develop/smart-contracts/dev-environments/hardhat/hardhat.config.js:0:12'
-    --8<-- 'code/develop/smart-contracts/dev-environments/hardhat/hardhat.config.js:15:16'
+    ```javascript title="hardhat.config.js" hl_lines="8-8"
+    --8<-- 'code/develop/smart-contracts/dev-environments/hardhat/hardhat.config.js:0:10'
+    --8<-- 'code/develop/smart-contracts/dev-environments/hardhat/hardhat.config.js:13:14'
       // Additional configuration will be added later
-    --8<-- 'code/develop/smart-contracts/dev-environments/hardhat/hardhat.config.js:66:66'
+    --8<-- 'code/develop/smart-contracts/dev-environments/hardhat/hardhat.config.js:57:57'
     ```
 
 ## Compiling Your Contract
@@ -89,27 +89,27 @@ To compile your project, follow these instructions:
 
 1. Modify your Hardhat configuration file to specify which compilation process you will be using:
 
-    === "Remix Configuration"
+    === "Npm Configuration"
 
-        ```javascript title="hardhat.config.js" hl_lines="15-25"
-        --8<-- 'code/develop/smart-contracts/dev-environments/hardhat/hardhat.config.js:0:12'
-        --8<-- 'code/develop/smart-contracts/dev-environments/hardhat/hardhat.config.js:15:17'
-          --8<-- 'code/develop/smart-contracts/dev-environments/hardhat/hardhat.config.js:19:29'
-          --8<-- 'code/develop/smart-contracts/dev-environments/hardhat/hardhat.config.js:43:45'
-        --8<-- 'code/develop/smart-contracts/dev-environments/hardhat/hardhat.config.js:65:66'
+        ```javascript title="hardhat.config.js" hl_lines="13-16"
+        --8<-- 'code/develop/smart-contracts/dev-environments/hardhat/hardhat.config.js:0:10'
+        --8<-- 'code/develop/smart-contracts/dev-environments/hardhat/hardhat.config.js:13:15'
+          --8<-- 'code/develop/smart-contracts/dev-environments/hardhat/hardhat.config.js:17:20'
+          --8<-- 'code/develop/smart-contracts/dev-environments/hardhat/hardhat.config.js:34:36'
+        --8<-- 'code/develop/smart-contracts/dev-environments/hardhat/hardhat.config.js:56:57'
         ```
 
     === "Binary Configuration"
 
-        ```javascript title="hardhat.config.js" hl_lines="15-26"
-        --8<-- 'code/develop/smart-contracts/dev-environments/hardhat/hardhat.config.js:0:12'
-        --8<-- 'code/develop/smart-contracts/dev-environments/hardhat/hardhat.config.js:15:17'
-          --8<-- 'code/develop/smart-contracts/dev-environments/hardhat/hardhat.config.js:31:42'
-          --8<-- 'code/develop/smart-contracts/dev-environments/hardhat/hardhat.config.js:43:45'
-        --8<-- 'code/develop/smart-contracts/dev-environments/hardhat/hardhat.config.js:65:66'
+        ```javascript title="hardhat.config.js" hl_lines="13-24"
+        --8<-- 'code/develop/smart-contracts/dev-environments/hardhat/hardhat.config.js:0:10'
+        --8<-- 'code/develop/smart-contracts/dev-environments/hardhat/hardhat.config.js:13:15'
+          --8<-- 'code/develop/smart-contracts/dev-environments/hardhat/hardhat.config.js:22:33'
+          --8<-- 'code/develop/smart-contracts/dev-environments/hardhat/hardhat.config.js:34:36'
+        --8<-- 'code/develop/smart-contracts/dev-environments/hardhat/hardhat.config.js:56:57'
         ```
 
-    For the binary configuration, check the [installation](https://github.com/paritytech/revive?tab=readme-ov-file#installation){target=\_blank} section of the `pallet-revive`.
+    For the binary configuration, replace `INSERT_PATH_TO_RESOLC_COMPILER` with the proper path to the binary. For more information about its installation, check the [installation](https://github.com/paritytech/revive?tab=readme-ov-file#installation){target=\_blank} section of the `pallet-revive`.
 
 2. Compile the contract with Hardhat:
 
@@ -144,25 +144,25 @@ To compile your project, follow these instructions:
     cargo build -p pallet-revive-eth-rpc --bin eth-rpc --release
     ```
 
-2. Update the Hardhat configuration file to add the local node as a target for local deployment:
+2. Update the Hardhat configuration file to use an in-memory node as a target for testing:
 
-    === "Remix Configuration"
+    === "Npm Configuration"
 
-        ```javascript title="hardhat.config.js" hl_lines="27-44"
-        --8<-- 'code/develop/smart-contracts/dev-environments/hardhat/hardhat.config.js:0:12'
-        --8<-- 'code/develop/smart-contracts/dev-environments/hardhat/hardhat.config.js:15:29'
-          --8<-- 'code/develop/smart-contracts/dev-environments/hardhat/hardhat.config.js:43:59'
-        --8<-- 'code/develop/smart-contracts/dev-environments/hardhat/hardhat.config.js:65:66'
+        ```javascript title="hardhat.config.js" hl_lines="21-29"
+        --8<-- 'code/develop/smart-contracts/dev-environments/hardhat/hardhat.config.js:0:10'
+        --8<-- 'code/develop/smart-contracts/dev-environments/hardhat/hardhat.config.js:13:20'
+          --8<-- 'code/develop/smart-contracts/dev-environments/hardhat/hardhat.config.js:34:46'
+        --8<-- 'code/develop/smart-contracts/dev-environments/hardhat/hardhat.config.js:56:57'
         ```
 
     === "Binary Configuration"
 
-        ```javascript title="hardhat.config.js" hl_lines="27-44"
-        --8<-- 'code/develop/smart-contracts/dev-environments/hardhat/hardhat.config.js:0:12'
-        --8<-- 'code/develop/smart-contracts/dev-environments/hardhat/hardhat.config.js:15:17'
-          --8<-- 'code/develop/smart-contracts/dev-environments/hardhat/hardhat.config.js:31:42'
-          --8<-- 'code/develop/smart-contracts/dev-environments/hardhat/hardhat.config.js:43:59'
-        --8<-- 'code/develop/smart-contracts/dev-environments/hardhat/hardhat.config.js:65:66'
+        ```javascript title="hardhat.config.js" hl_lines="28-36"
+        --8<-- 'code/develop/smart-contracts/dev-environments/hardhat/hardhat.config.js:0:10'
+        --8<-- 'code/develop/smart-contracts/dev-environments/hardhat/hardhat.config.js:13:15'
+          --8<-- 'code/develop/smart-contracts/dev-environments/hardhat/hardhat.config.js:22:33'
+          --8<-- 'code/develop/smart-contracts/dev-environments/hardhat/hardhat.config.js:34:46'
+        --8<-- 'code/develop/smart-contracts/dev-environments/hardhat/hardhat.config.js:56:57'
         ```
 
     Ensure to replace `INSERT_PATH_TO_SUBSTRATE_NODE` and `INSERT_PATH_TO_ETH_RPC_ADAPTER` with the proper paths to the compiled binaries. Since you compiled these from source using Rust's Cargo build system, you can find them at:
@@ -177,15 +177,13 @@ To compile your project, follow these instructions:
     adapterBinaryPath: '/home/username/polkadot-sdk/target/release/eth-rpc',
     ```
 
-When testing your contract, be aware that [`@nomicfoundation/hardhat-toolbox/network-helpers`](https://hardhat.org/hardhat-network-helpers/docs/overview){target=\_blank} is not fully compatible with Asset Hub's available RPCs. Specifically, Hardhat-only helpers like `time` and `loadFixture` may not work due to missing RPC calls in the node. For more details, refer to the [Compatibility](https://github.com/paritytech/hardhat-polkadot#compatibility){target=\_blank} section docs.
-
-You should avoid using helpers like `time` and `loadFixture` when writing tests. For example, for the `Lock.sol` contract, you can replace the default test file under `tests/Lock.js` with the following logic:
+3. When testing your contract, be aware that [`@nomicfoundation/hardhat-toolbox/network-helpers`](https://hardhat.org/hardhat-network-helpers/docs/overview){target=\_blank} is not fully compatible with Polkadot's available RPCs. Specifically, Hardhat-only helpers like `time` and `loadFixture` may not work due to missing RPC calls in the node. For more details, refer to the [Compatibility](https://github.com/paritytech/hardhat-polkadot#compatibility){target=\_blank} section docs. You should avoid using helpers like `time` and `loadFixture` when writing tests. For example, for the `Lock.sol` contract, you can replace the default test file under `tests/Lock.js` with the following logic:
 
 ```javascript title="Lock.js"
 --8<-- "code/develop/smart-contracts/dev-environments/hardhat/lock-test.js"
 ```
 
-To run your test, execute the following command:
+4. To run your test, execute the following command:
 
 ```bash
 npx hardhat test
@@ -193,7 +191,7 @@ npx hardhat test
 
 ## Deploying with a Local Node
 
-Before deploying to a live network, you can deploy your contract to a local node using the [`hardhat-revive-node`](https://www.npmjs.com/package/hardhat-revive-node){target=\_blank} plugin and Ignition modules:
+Before deploying to a live network, you can deploy your contract to a local node using Ignition modules:
 
 !!! warning "Contract Size Limitation in Testing Environment"
 
@@ -203,26 +201,34 @@ Before deploying to a live network, you can deploy your contract to a local node
     
     This limitation is established by Hardhat based on Ethereum's default contract size limits. While Hardhat can disable this limitation, technical constraints currently prevent it from being applied to the PolkaVM test environment.
 
-1. Modify the Ignition modules, considering that the value of the pallet revive `block.timestamp` is returned in seconds. Check this [PR](https://github.com/paritytech/polkadot-sdk/pull/7792/files){target=\_blank} for more information. For example, for the default `ignition/modules/Lock.js` file, the needed modification should be:
+1. Update the Hardhat configuration file to add the local node as a target for local deployment:
 
-    ```diff
-    - const JAN_1ST_2030 = 1893456000;
-    + const JAN_1ST_2030 = 18934560000000;
-    ```
+    === "Npm Configuration"
 
-    ???--- code "Modified `ignition/modules/Lock.js` file"
+        ```javascript title="hardhat.config.js" hl_lines="31-34"
+        --8<-- 'code/develop/smart-contracts/dev-environments/hardhat/hardhat.config.js:0:10'
+        --8<-- 'code/develop/smart-contracts/dev-environments/hardhat/hardhat.config.js:13:20'
+          --8<-- 'code/develop/smart-contracts/dev-environments/hardhat/hardhat.config.js:34:50'
+        --8<-- 'code/develop/smart-contracts/dev-environments/hardhat/hardhat.config.js:56:57'
+        ```
 
-        ```js title="Lock.js"
-        --8<-- 'code/develop/smart-contracts/dev-environments/hardhat/lock-ignition.js'
+    === "Binary Configuration"
+
+        ```javascript title="hardhat.config.js" hl_lines="38-41"
+        --8<-- 'code/develop/smart-contracts/dev-environments/hardhat/hardhat.config.js:0:10'
+        --8<-- 'code/develop/smart-contracts/dev-environments/hardhat/hardhat.config.js:13:15'
+          --8<-- 'code/develop/smart-contracts/dev-environments/hardhat/hardhat.config.js:22:33'
+          --8<-- 'code/develop/smart-contracts/dev-environments/hardhat/hardhat.config.js:34:50'
+        --8<-- 'code/develop/smart-contracts/dev-environments/hardhat/hardhat.config.js:56:57'
         ```
 
 2. Start a local node:
 
     ```bash
-    npx hardhat node-polkavm
+    npx hardhat node
     ```
 
-    This command will start a local PolkaVM node powered by the `hardhat-revive-node` plugin.
+    This command will start a local PolkaVM node
 
 3. In a new terminal window, deploy the contract using Ignition:
 
@@ -257,32 +263,32 @@ After testing your contract locally, you can deploy it to a live network. This g
 
 4. Update your config to load it:
 
-    ```javascript title="hardhat.config.js" hl_lines="12"
-    --8<-- 'code/develop/smart-contracts/dev-environments/hardhat/hardhat.config.js:0:16'
+    ```javascript title="hardhat.config.js" hl_lines="10"
+    --8<-- 'code/develop/smart-contracts/dev-environments/hardhat/hardhat.config.js:0:14'
       // The rest remains the same...
-    --8<-- 'code/develop/smart-contracts/dev-environments/hardhat/hardhat.config.js:66:66'
+    --8<-- 'code/develop/smart-contracts/dev-environments/hardhat/hardhat.config.js:57:57'
     ```
 
-5. Update your Hardhat configuration file with network settings for the Polkadot Hub network you want to target:
+5. Update your Hardhat configuration file with network settings for the Polkadot network you want to target:
 
-    === "Remix Configuration"
+    === "Npm Configuration"
 
-        ```javascript title="hardhat.config.js" hl_lines="44-48"
-        --8<-- 'code/develop/smart-contracts/dev-environments/hardhat/hardhat.config.js:0:12'
-        --8<-- 'code/develop/smart-contracts/dev-environments/hardhat/hardhat.config.js:15:29'
-        --8<-- 'code/develop/smart-contracts/dev-environments/hardhat/hardhat.config.js:43:66'
+        ```javascript title="hardhat.config.js" hl_lines="37-41"
+        --8<-- 'code/develop/smart-contracts/dev-environments/hardhat/hardhat.config.js:0:20'
+          --8<-- 'code/develop/smart-contracts/dev-environments/hardhat/hardhat.config.js:34:55'
+        --8<-- 'code/develop/smart-contracts/dev-environments/hardhat/hardhat.config.js:56:57'
         ```
 
     === "Binary Configuration"
 
-        ```javascript title="hardhat.config.js" hl_lines="44-48"
-        --8<-- 'code/develop/smart-contracts/dev-environments/hardhat/hardhat.config.js:0:12'
-        --8<-- 'code/develop/smart-contracts/dev-environments/hardhat/hardhat.config.js:15:17'
-          --8<-- 'code/develop/smart-contracts/dev-environments/hardhat/hardhat.config.js:31:42'
-          --8<-- 'code/develop/smart-contracts/dev-environments/hardhat/hardhat.config.js:43:66'
+        ```javascript title="hardhat.config.js" hl_lines="42-46"
+        --8<-- 'code/develop/smart-contracts/dev-environments/hardhat/hardhat.config.js:0:10'
+        --8<-- 'code/develop/smart-contracts/dev-environments/hardhat/hardhat.config.js:13:15'
+          --8<-- 'code/develop/smart-contracts/dev-environments/hardhat/hardhat.config.js:22:33'
+        --8<-- 'code/develop/smart-contracts/dev-environments/hardhat/hardhat.config.js:34:57'
         ```
 
-4. Deploy your contract using Ignition:
+6. Deploy your contract using Ignition:
 
     ```bash
     npx hardhat ignition deploy ./ignition/modules/INSERT_IGNITION_MODULE_NAME.js --network westendAssetHub
@@ -303,7 +309,7 @@ For example, for the default `Lock.sol` contract, you can use the following file
 Run your interaction script:
 
 ```bash
-npx hardhat run scripts/interact.js --network polkadotHub
+npx hardhat run scripts/interact.js --network polkadotTestnet
 ```
 
 ## Where to Go Next

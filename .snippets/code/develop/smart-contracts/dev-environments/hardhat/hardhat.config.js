@@ -1,31 +1,22 @@
 // hardhat.config.js
 require('@nomicfoundation/hardhat-toolbox');
-
 require('@nomicfoundation/hardhat-network-helpers');
 require('@nomicfoundation/hardhat-chai-matchers');
 require('@nomicfoundation/hardhat-ethers');
-require('hardhat-gas-reporter');
 require('@nomicfoundation/hardhat-ignition');
+require('hardhat-gas-reporter');
 
-require('hardhat-resolc');
-require('hardhat-revive-node');
+require('@parity/hardhat-polkadot');
 
 require('dotenv').config();
 
 /** @type import('hardhat/config').HardhatUserConfig */
 module.exports = {
   solidity: '0.8.28',
-  // Remix Compiler
+  // Npm Compiler
   resolc: {
     version: '1.5.2',
-    compilerSource: 'remix',
-    settings: {
-      optimizer: {
-        enabled: false,
-        runs: 600,
-      },
-      evmVersion: 'istanbul',
-    },
+    compilerSource: 'npm',
   },
   // Binary Compiler
   resolc: {
@@ -57,7 +48,7 @@ module.exports = {
       polkavm: true,
       url: `http://127.0.0.1:8545`,
     },
-    westendAssetHub: {
+    polkadotTestnet: {
       polkavm: true,
       url: 'https://westend-asset-hub-eth-rpc.polkadot.io',
       accounts: [process.env.PRIVATE_KEY],

@@ -19,6 +19,7 @@ Doc-Page: https://docs.polkadot.com/develop/parachains/customize-parachain/
 Doc-Page: https://docs.polkadot.com/develop/parachains/customize-parachain/make-custom-pallet/
 Doc-Page: https://docs.polkadot.com/develop/parachains/customize-parachain/overview/
 Doc-Page: https://docs.polkadot.com/develop/parachains/deployment/build-deterministic-runtime/
+Doc-Page: https://docs.polkadot.com/develop/parachains/deployment/coretime-renewal/
 Doc-Page: https://docs.polkadot.com/develop/parachains/deployment/generate-chain-specs/
 Doc-Page: https://docs.polkadot.com/develop/parachains/deployment/
 Doc-Page: https://docs.polkadot.com/develop/parachains/deployment/obtain-coretime/
@@ -3856,6 +3857,18 @@ To pull the image from Docker Hub:
 Keep in mind that there is no `latest` tag for the `srtool` image. Ensure that the image selected is compatible with the locally available version of the Rust compiler.
 
 The naming convention for `paritytech/srtool` Docker images specifies the version of the Rust compiler used to compile the code included in the image. Some images specify both a compiler version and the version of the build script used. For example, an image named `paritytech/srtool:1.62.0-0.9.19` was compiled with version `1.62.0` of the `rustc` compiler and version `0.9.19` of the build script. Images that only specify the compiler version always contain the software's latest version.
+--- END CONTENT ---
+
+Doc-Content: https://docs.polkadot.com/develop/parachains/deployment/coretime-renewal/
+--- BEGIN CONTENT ---
+---
+title: Coretime Renewal
+description: TODO
+---
+
+# Coretime Renewal
+
+## Introduction
 --- END CONTENT ---
 
 Doc-Content: https://docs.polkadot.com/develop/parachains/deployment/generate-chain-specs/

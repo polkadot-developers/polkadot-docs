@@ -309,7 +309,7 @@ For example, for the default `Lock.sol` contract, you can use the following file
 Run your interaction script:
 
 ```bash
-npx hardhat run scripts/interact.js --network polkadotTestnet
+npx hardhat run scripts/interact.js --network westendHub
 ```
 
 ## Where to Go Next

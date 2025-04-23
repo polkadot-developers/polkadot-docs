@@ -6,3 +6,168 @@ description: TODO
 # Coretime Renewal
 
 ## Introduction
+
+Coretime can be purchased in bulk for a period of 28 days, providing access to Polkadot's shared security and interoperability for Polkadot Rollups (Parachains). The bulk purchase of coretime includes a rent-control mechanism that keeps future purchases within a predictable price range of the initial purchase. This allows cores to be renewed at a known price without competing against other participants in the open market.
+
+## Bulk Sale Phases
+
+The bulk sale process consists of three distinct phases:
+
+- **Interlude phase** - the period between bulk sales when renewals are prioritized
+- **Leading phase** - after the interlude phase, the Coretime Chain sets a new `start_price` and initiates a Dutch auction lasting `leadin_length` blocks. During this phase, prices experience downward pressure as the system works to find the market equilibrium. The final price at the end of this phase becomes the `regular_price` that will be used in the subsequent fixed price phase
+- **Fixed price phase** - the final phase where remaining cores are sold at the `regular_price` established during the leading phase. This provides a stable and predictable pricing environment for participants who did not purchase during the price discovery period
+
+For more comprehensive information about the coretime sales process, refer to the [Coretime Sales](https://wiki.polkadot.network/learn/learn-agile-coretime/#coretime-sales){target=\_blank} section in the Polkadot Wiki.
+
+## Renewal Timing
+
+While renewals can technically be made during any phase, it is strongly recommended to complete renewals during the interlude phase. Delaying renewal introduces the risk that the core could be sold to another participant in the market, preventing successful renewal. Renewals must be initiated in advance of when you need the coretime. 
+
+For example, if you purchase a core in bulk sale #1, you obtain coretime for the upcoming bulk period (during which bulk sale #2 takes place).
+Your renewal must be completed during bulk sale #2, ideally during its interlude phase, to secure coretime for the subsequent period.
+
+## Manual Renewal
+
+Cores can be renewed by issuing the `broker.renew(core)` extrinsic during the coretime sale period. While this process is straightforward, it requires manual action that must not be overlooked. Failure to complete this renewal step before all available cores are sold could result in your parachain being unable to secure a core for the next operational period.
+
+To manually renew a core:
+
+1. In [Polkadot.js Apps](https://polkadot.js.org/apps/#/explorer){target=\_blank}, connect to the Coretime chain, navigate to the **Developer** dropdown and select the **Extrinsics** option
+
+    ![](/images/develop/parachains/deployment/coretime-renewal/coretime-renewal-1.webp)
+
+2. Submit the `broker.renew` extrinsic
+    1. Select the **broker** pallet
+    2. Choose the **renew** extrinsic
+    3. Fill in the **core** parameter
+    4. Click the **Submit Transaction** button
+
+    ![](/images/develop/parachains/deployment/coretime-renewal/coretime-renewal-2.webp)
+
+For optimal results, the renewal should be performed during the interlude phase. Upon successful submission, your core will be renewed for the next coretime period, ensuring continued operation of your parachain.
+
+## Auto Renewal
+
+The Coretime auto-renewal feature simplifies the process of maintaining continuous coretime allocation by automatically renewing cores at the beginning of each sale period. This eliminates the need for parachains to manually renew their cores for each bulk period, reducing operational overhead and the risk of missing renewal deadlines.
+
+When auto-renewal is enabled, the system follows this process at the start of each sale:
+
+1. The system scans all registered auto-renewal records
+2. For each record, it attempts to process renewal payments from the task's sovereign account
+3. Upon successful payment, the system emits a `Renewed` event and secures the core for the next period
+4. If payment fails due to insufficient funds or other issues, the system emits an `AutoRenewalFailed` event
+
+Even if an auto-renewal attempt fails, the auto-renewal setting remains active for subsequent sales. This means once you've configured auto-renewal, the setting persists across multiple periods.
+
+There is a limit on the total number of auto-renewals allowed, specified at the runtime level as `T::MaxAutoRenewals`.
+
+To enable auto-renewal for your parachain, you'll need to configure several components as detailed in the following sections.
+
+### Set Up HRMP Channel
+
+An Horizontal Relay-routed Message Passing (HRMP) channel must be open between your parachain and the Coretime System Chain before auto-renewal can be configured. 
+
+For instructions on establishing this connection, consult the [Opening HRMP Channels with System Parachains](/tutorials/interoperability/xcm-channels/para-to-system/){target=\_blank} guide.
+
+### Fund Sovereign Account
+
+The [sovereign account](https://github.com/polkadot-fellows/xcm-format/blob/10726875bd3016c5e528c85ed6e82415e4b847d7/README.md?plain=1#L50){target=\_blank} of your parachain on the Coretime chain needs adequate funding to cover both XCM transaction fees and the recurring coretime renewal payments.
+
+To determine your parachain's sovereign account address, you can:
+
+- Use the "Para ID" to Address section in [Substrate Utilities](https://www.shawntabrizi.com/substrate-js-utilities/){target=\_blank} with the **Sibling** option selected
+
+- Calculate it manually:
+
+    1. Identify the appropriate prefix:
+
+        - For sibling chains: `0x7369626c` (decodes to `b"sibl"`)
+         
+    2. Encode your parachain ID as a u32 [SCALE](https://docs.polkadot.com/polkadot-protocol/basics/data-encoding/#data-types){target=\_blank} value:
+
+        - For parachain 2000, this would be `d0070000`
+
+    3. Combine the prefix with the encoded ID to form the sovereign account address:
+
+        - **Hex** - `0x7369626cd0070000000000000000000000000000000000000000000000000000`
+        - **SS58 format** - `5Eg2fntJ27qsari4FGrGhrMqKFDRnkNSR6UshkZYBGXmSuC8`
+
+### Auto-Renewal Configuration Extrinsics
+
+The Coretime chain provides two primary extrinsics for managing the auto-renewal functionality:
+
+- `enable_auto_renew(core, task, workload_end_hint)` - use this extrinsic to activate automatic renewals for a specific core. This transaction must originate from the sovereign account of the parachain task
+
+    **Parameters:**
+
+    - **`core`**: the core currently assigned to the task
+    - **`task`**: the task for which auto-renewal is being enabled
+    - **`workload_end_hint`**: used when the core is not expiring in the current bulk period (e.g., due to a lease). This allows you to enable auto-renewal in advance, instead of needing to wait for the sale in which your core will expire
+
+- `disable_auto_renew(core, task)` - use this extrinsic to stop automatic renewals. This extrinsic also requires that the origin is the sovereign account of the parachain task
+
+     **Parameters:**
+
+    - **`core`**: the core currently assigned to the task
+    - **`task`**: the task for which auto-renewal is enabled
+
+### Construct the Enable Auto Renewal Extrinsic
+
+To configure auto-renewal, you'll need to gather specific information for the `enable_auto_renew` extrinsic parameters:
+
+- **`core`** - identify which core your parachain is assigned to when the it expires. This requires checking both current assignments and planned future assignments:
+    - For current period - query `broker.workload()`
+    - For next period - query `broker.workplan()`
+
+    **Example for parachain `2000`:**
+    
+    Current assignment (workload)
+    ```
+    [
+      [50]
+      [{
+        mask: 0xffffffffffffffffffff
+        assignment: {Task: 2,000}
+      }]
+    ]
+    ```
+
+    Future assignment (workplan)
+    ```
+    [
+      [[322,845, 48]]
+      [{
+        mask: 0xffffffffffffffffffff
+        assignment: {Task: 2,000}
+      }]
+    ]
+    ```
+
+    **Note:** use the core from workplan (`48` in this example) if your task appears there. Only use the core from workload if it's not listed in workplan.
+
+- **`task`** - use your parachain ID, which can be verified by connecting to your parachain and querying `parachainInfo.parachainId()`
+
+- **workload_end_hint** - if your task only appears in workload, you can leave this value empty. Otherwise, calculate the timeslice when your future assignment ends:
+    1. Each bulk period is 5040 timeslices (28 days)
+    2. Add 5040 to the `regionBegin` value, which in this case it `322845` as you can see in the workplan output
+    3. The value you will put is `327,885 = 322,845 + 5040`
+
+Once you have these values, construct the extrinsic:
+
+1. In [Polkadot.js Apps](https://polkadot.js.org/apps/#/explorer){target=\_blank}, connect to the Coretime chain, navigate to the **Developer** dropdown and select the **Extrinsics** option
+
+    ![](/images/develop/parachains/deployment/coretime-renewal/coretime-renewal-1.webp)
+
+2. Create the `broker.enable_auto_renew` extrinsic
+    1. Select the **broker** pallet
+    2. Choose the **enableAutoRenew** extrinsic
+    3. Fill in the parameters
+    4. Copy the encoded call data
+
+    ![](/images/develop/parachains/deployment/coretime-renewal/coretime-renewal-3.webp)
+
+    For parachain `2000` on core `48` with workload_end_hint `327885`, the encoded call data would be:`0x32153000d007000001cd000500`
+
+3. Check the transaction weight for executing the call. You can estimate this by executing the `transactionPaymentCallApi.queryCallInfo` runtime call with the encoded call data previously obtained:
+
+    ![](/images/develop/parachains/deployment/coretime-renewal/coretime-renewal-4.webp)

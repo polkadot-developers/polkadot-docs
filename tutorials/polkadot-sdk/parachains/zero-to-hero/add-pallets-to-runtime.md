@@ -42,7 +42,7 @@ Configure the pallets by implementing their `Config` trait and update the runtim
 
 1. Add the `OriginCaller` import:
 
-    ```rust
+    ```rust title="mod.rs"
     --8<-- 'code/tutorials/polkadot-sdk/parachains/zero-to-hero/runtime/src/configs/mod.rs:56:56'
     ```
 

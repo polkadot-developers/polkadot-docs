@@ -24047,7 +24047,7 @@ Configure the pallets by implementing their `Config` trait and update the runtim
 
 1. Add the `OriginCaller` import:
 
-    ```rust
+    ```rust title="mod.rs"
     
     ```
 

@@ -225,7 +225,7 @@ Before deploying to a live network, you can deploy your contract to a local node
 2. Start a local node:
 
     ```bash
-    npx hardhat node
+    npx hardhat node-polkavm
     ```
 
     This command will start a local PolkaVM node

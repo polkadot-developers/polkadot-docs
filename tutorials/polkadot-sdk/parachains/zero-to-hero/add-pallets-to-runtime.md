@@ -54,7 +54,8 @@ Configure the pallets by implementing their `Config` trait and update the runtim
     ```rust title="mod.rs" hl_lines="7-24"
     ...
     --8<-- 'code/tutorials/polkadot-sdk/parachains/zero-to-hero/runtime/src/configs/mod.rs:309:330'
-    --8<-- 'code/tutorials/polkadot-sdk/parachains/zero-to-hero/runtime/src/configs/mod.rs:332:333'
+    --8<-- 'code/tutorials/polkadot-sdk/parachains/zero-to-hero/runtime/src/configs/mod.rs:332:335'
+    ...
     ```
 
 3. Locate the `#[frame_support::runtime]` macro in the `runtime/src/lib.rs` file and add the pallets:

@@ -110,7 +110,7 @@ The Coretime chain provides two primary extrinsics for managing the auto-renewal
 
         - If a lease is active, use the timeslice when the lease ends
 
-- `disable_auto_renew(core, task)` - use this extrinsic to stop automatic renewals. This extrinsic also requires that the origin is the sovereign account of the parachain task
+- [`disable_auto_renew(core, task)`](https://paritytech.github.io/polkadot-sdk/master/pallet_broker/pallet/struct.Pallet.html#method.disable_auto_renew){target=\_blank} - use this extrinsic to stop automatic renewals. This extrinsic also requires that the origin is the sovereign account of the parachain task
 
      **Parameters:**
 
@@ -153,10 +153,46 @@ To configure auto-renewal, you'll need to gather specific information for the `e
 
 - **`task`** - use your parachain ID, which can be verified by connecting to your parachain and querying `parachainInfo.parachainId()`
 
-- **workload_end_hint** - if your task only appears in workload, you can leave this value empty. Otherwise, calculate the timeslice when your future assignment ends:
-    1. Each bulk period is 5040 timeslices (28 days)
-    2. Add 5040 to the `regionBegin` value, which in this case it `322845` as you can see in the workplan output
-    3. The value you will put is `327,885 = 322,845 + 5040`
+- **`workload_end_hint`** - you should always set it explicitly to avoid misbehavior. This value indicate when your assigned core will expire. Here's how to calculate the correct value based on how your core is assigned:
+    - If the parachain uses bulk coretime:
+
+        Query `broker.saleinfo`. You’ll get a result like:
+
+        ```json
+        {
+        "saleStart": 1544949,
+        "leadinLength": 100800,
+        "endPrice": 922760076,
+        "regionBegin": 322845,
+        "regionEnd": 327885,
+        "idealCoresSold": 18,
+        "coresOffered": 18,
+        "firstCore": 44,
+        "selloutPrice": 92272712073,
+        "coresSold": 18
+        }
+        ```
+
+        - If the core expires in the current sale, use the `regionBegin` value, which in this case is  `322845`
+
+        - If the core has already been renewed and will expire in the next sale, use the `regionEnd` value. In this example, that would be `327885`
+
+
+    - If the parachain has a lease:
+
+        Query `broker.leases`, which returns entries like:
+
+        ```json
+        [
+          {
+            "until": 359280,
+            "task": 2035
+          },
+          ...
+        ]
+        ```
+
+        - Use the `until` value of the lease corresponding to your task. For example, `359280` would be the value for `workload_end_hint` in the case of task `2035`
 
 Once you have these values, construct the extrinsic:
 
@@ -177,7 +213,6 @@ Once you have these values, construct the extrinsic:
 3. Check the transaction weight for executing the call. You can estimate this by executing the `transactionPaymentCallApi.queryCallInfo` runtime call with the encoded call data previously obtained:
 
     ![](/images/develop/parachains/deployment/coretime-renewal/coretime-renewal-4.webp)
-
 
 ### Submit the XCM from your Parachain
 

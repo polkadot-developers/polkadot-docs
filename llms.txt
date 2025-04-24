@@ -3963,9 +3963,15 @@ The Coretime chain provides two primary extrinsics for managing the auto-renewal
 
     **Parameters:**
 
-    - **`core`**: the core currently assigned to the task
-    - **`task`**: the task for which auto-renewal is being enabled
-    - **`workload_end_hint`**: used when the core is not expiring in the current bulk period (e.g., due to a lease). This allows you to enable auto-renewal in advance, instead of needing to wait for the sale in which your core will expire
+    - **`core`** - the core currently assigned to the task
+    - **`task`** - the task for which auto-renewal is being enabled
+    - **`workload_end_hint`** - the timeslice at which the currently assigned core will stop being used. This value helps the system determine when auto-renewal should begin. It is recommended to always provide this value to avoid ambiguity
+
+        - If the coretime expires in the current sale period, use the last timeslice of the current sale period
+
+        - If the coretime expires at the end of the next sale period (e.g., because you've already renewed), use the last timeslice of the next sale period
+
+        - If a lease is active, use the timeslice when the lease ends
 
 - `disable_auto_renew(core, task)` - use this extrinsic to stop automatic renewals. This extrinsic also requires that the origin is the sovereign account of the parachain task
 

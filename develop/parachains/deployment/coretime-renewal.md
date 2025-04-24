@@ -1,6 +1,6 @@
 ---
 title: Coretime Renewal
-description: TODO
+description: Learn how to renew coretime manually or automatically to ensure uninterrupted parachain operation with predictable pricing and minimal risk.
 ---
 
 # Coretime Renewal

@@ -171,3 +171,46 @@ Once you have these values, construct the extrinsic:
 3. Check the transaction weight for executing the call. You can estimate this by executing the `transactionPaymentCallApi.queryCallInfo` runtime call with the encoded call data previously obtained:
 
     ![](/images/develop/parachains/deployment/coretime-renewal/coretime-renewal-4.webp)
+
+
+### Submit the XCM from your Parachain
+
+To activate auto-renewal, you must submit an XCM from your parachain to the Coretime chain using Root origin. This can be done either through the sudo pallet (if available) or through your parachain's governance system.
+
+The XCM message needs to execute these operations:
+
+1. Withdraw DOT from your parachain's sovereign account on the Coretime chain
+2. Buy execution to pay for transaction fees
+3. Execute the auto-renewal extrinsic
+4. Refund surplus DOT back to the sovereign account
+
+Here's how to submit this XCM using Acala (Parachain 2000) as an example:
+
+1. In [Polkadot.js Apps](https://polkadot.js.org/apps/#/explorer){target=\_blank}, connect to your parachain, navigate to the **Developer** dropdown and select the **Extrinsics** option
+
+2. Create a `sudo.sudo` extrinsic that executes `polkadotXcm.send`:
+    1. Use the `sudo.sudo` extrinsic to execute the following call as Root
+    2. Select the **polkadotXcm** pallet
+    3. Choose the **send** extrinsic
+    4. Set the **dest** parameter as the Coretime chain (Parachain 1005)
+
+    ![](/images/develop/parachains/deployment/coretime-renewal/coretime-renewal-5.webp)
+
+
+3. Construct the XCM and submit it:
+
+    1. Add a **WithdrawAsset** instruction
+    2. Add a **BuyExecution** instruction
+    3. Add a **Transact** instruction with the following parameters:
+        - **originKind** - use `SovereignAccount`
+        - **requireWeightAtMost** - use the weight calculated previously
+        - **call** - use the encoded call data generated before
+    4. Add a **RefundSurplus** instruction
+    5. Add a **DepositAsset** instruction to send remaining funds to the parachain sovereign account
+    6. Click the **Submit Transaction** button
+
+    ![](/images/develop/parachains/deployment/coretime-renewal/coretime-renewal-6.webp)
+
+After successful execution, your parachain should have auto-renewal enabled. To verify this, check the events emitted in the Coretime chain.You should see confirmation events similar to:
+
+![](/images/develop/parachains/deployment/coretime-renewal/coretime-renewal-7.webp)

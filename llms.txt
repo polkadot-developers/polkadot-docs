@@ -24080,7 +24080,6 @@ impl custom_pallet::Config for Runtime {
     type RuntimeEvent = RuntimeEvent;
     type CounterMaxValue = CounterMaxValue;
     
-    ...
     ```
 
 3. Locate the `#[frame_support::runtime]` macro in the `runtime/src/lib.rs` file and add the pallets:

@@ -3877,14 +3877,14 @@ Coretime can be purchased in bulk for a period of 28 days, providing access to P
 The bulk sale process consists of three distinct phases:
 
 - **Interlude phase** - the period between bulk sales when renewals are prioritized
-- **Leading phase** - after the interlude phase, the Coretime Chain sets a new `start_price` and initiates a Dutch auction lasting `leadin_length` blocks. During this phase, prices experience downward pressure as the system works to find the market equilibrium. The final price at the end of this phase becomes the `regular_price` that will be used in the subsequent fixed price phase
+- **Lead-in phase** - after the interlude phase, the Coretime Chain sets a new `start_price` and initiates a Dutch auction lasting `leadin_length` blocks. During this phase, prices experience downward pressure as the system works to find the market equilibrium. The final price at the end of this phase becomes the `regular_price` that will be used in the subsequent fixed price phase
 - **Fixed price phase** - the final phase where remaining cores are sold at the `regular_price` established during the leading phase. This provides a stable and predictable pricing environment for participants who did not purchase during the price discovery period
 
 For more comprehensive information about the coretime sales process, refer to the [Coretime Sales](https://wiki.polkadot.network/learn/learn-agile-coretime/#coretime-sales){target=\_blank} section in the Polkadot Wiki.
 
 ## Renewal Timing
 
-While renewals can technically be made during any phase, it is strongly recommended to complete renewals during the interlude phase. Delaying renewal introduces the risk that the core could be sold to another participant in the market, preventing successful renewal. Renewals must be initiated in advance of when you need the coretime. 
+While renewals can technically be made during any phase, it is strongly recommended to complete renewals during the interlude phase. Delaying renewal introduces the risk that the core could be sold to another participant in the market, preventing successful renewal. Renewals must be initiated well in advance to avoid the aforementioned scenario. 
 
 For example, if you purchase a core in bulk sale #1, you obtain coretime for the upcoming bulk period (during which bulk sale #2 takes place).
 Your renewal must be completed during bulk sale #2, ideally during its interlude phase, to secure coretime for the subsequent period.
@@ -3916,13 +3916,13 @@ The Coretime auto-renewal feature simplifies the process of maintaining continuo
 When auto-renewal is enabled, the system follows this process at the start of each sale:
 
 1. The system scans all registered auto-renewal records
-2. For each record, it attempts to process renewal payments from the task's sovereign account
+2. For each record, it attempts to process renewal payments from the task's sovereign account (which is the sibling account on the Coretime chain derived from the Parachain ID)
 3. Upon successful payment, the system emits a `Renewed` event and secures the core for the next period
 4. If payment fails due to insufficient funds or other issues, the system emits an `AutoRenewalFailed` event
 
 Even if an auto-renewal attempt fails, the auto-renewal setting remains active for subsequent sales. This means once you've configured auto-renewal, the setting persists across multiple periods.
 
-There is a limit on the total number of auto-renewals allowed, specified at the runtime level as `T::MaxAutoRenewals`.
+There is a limit on the total number of auto-renewals allowed, specified at the runtime level as `T::MaxAutoRenewals` (which is currently set to 100).
 
 To enable auto-renewal for your parachain, you'll need to configure several components as detailed in the following sections.
 

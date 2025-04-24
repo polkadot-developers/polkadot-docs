@@ -28,7 +28,7 @@ Your renewal must be completed during bulk sale #2, ideally during its interlude
 
 ## Manual Renewal
 
-Cores can be renewed by issuing the `broker.renew(core)` extrinsic during the coretime sale period. While this process is straightforward, it requires manual action that must not be overlooked. Failure to complete this renewal step before all available cores are sold could result in your parachain being unable to secure a core for the next operational period.
+Cores can be renewed by issuing the [`broker.renew(core)`](https://paritytech.github.io/polkadot-sdk/master/pallet_broker/pallet/struct.Pallet.html#method.renew){target=\_blank} extrinsic during the coretime sale period. While this process is straightforward, it requires manual action that must not be overlooked. Failure to complete this renewal step before all available cores are sold could result in your parachain being unable to secure a core for the next operational period.
 
 To manually renew a core:
 
@@ -59,7 +59,7 @@ When auto-renewal is enabled, the system follows this process at the start of ea
 
 Even if an auto-renewal attempt fails, the auto-renewal setting remains active for subsequent sales. This means once you've configured auto-renewal, the setting persists across multiple periods.
 
-There is a limit on the total number of auto-renewals allowed, specified at the runtime level as `T::MaxAutoRenewals` (which is currently set to 100).
+There is a limit on the total number of auto-renewals allowed, specified at the runtime level as [`T::MaxAutoRenewals`](https://paritytech.github.io/polkadot-sdk/master/pallet_broker/pallet/trait.Config.html#associatedtype.MaxAutoRenewals){target=\_blank} (which is currently set to 100).
 
 To enable auto-renewal for your parachain, you'll need to configure several components as detailed in the following sections.
 
@@ -81,7 +81,7 @@ To determine your parachain's sovereign account address, you can:
 
     1. Identify the appropriate prefix:
 
-        - For sibling chains: `0x7369626c` (decodes to `b"sibl"`)
+        - For sibling chains - `0x7369626c` (decodes to `b"sibl"`)
          
     2. Encode your parachain ID as a u32 [SCALE](https://docs.polkadot.com/polkadot-protocol/basics/data-encoding/#data-types){target=\_blank} value:
 
@@ -96,7 +96,7 @@ To determine your parachain's sovereign account address, you can:
 
 The Coretime chain provides two primary extrinsics for managing the auto-renewal functionality:
 
-- `enable_auto_renew(core, task, workload_end_hint)` - use this extrinsic to activate automatic renewals for a specific core. This transaction must originate from the sovereign account of the parachain task
+- [`enable_auto_renew(core, task, workload_end_hint)`](https://paritytech.github.io/polkadot-sdk/master/pallet_broker/pallet/struct.Pallet.html#method.enable_auto_renew){target=\_blank} - use this extrinsic to activate automatic renewals for a specific core. This transaction must originate from the sovereign account of the parachain task
 
     **Parameters:**
 

@@ -14,7 +14,7 @@ Coretime can be purchased in bulk for a period of 28 days, providing access to P
 The bulk sale process consists of three distinct phases:
 
 - **Interlude phase** - the period between bulk sales when renewals are prioritized
-- **Lead-in phase** - after the interlude phase, the Coretime Chain sets a new `start_price` and initiates a Dutch auction lasting `leadin_length` blocks. During this phase, prices experience downward pressure as the system works to find the market equilibrium. The final price at the end of this phase becomes the `regular_price` that will be used in the subsequent fixed price phase
+- **Lead-in phase** - following the interlude phase, a new `start_price` is set, and a Dutch auction begins, lasting for `leadin_length` blocks. During this phase, prices experience downward pressure as the system aims to find market equilibrium. The final price at the end of this phase becomes the `regular_price`, which will be used in the subsequent fixed price phase
 - **Fixed price phase** - the final phase where remaining cores are sold at the `regular_price` established during the leading phase. This provides a stable and predictable pricing environment for participants who did not purchase during the price discovery period
 
 For more comprehensive information about the coretime sales process, refer to the [Coretime Sales](https://wiki.polkadot.network/learn/learn-agile-coretime/#coretime-sales){target=\_blank} section in the Polkadot Wiki.
@@ -48,18 +48,16 @@ For optimal results, the renewal should be performed during the interlude phase.
 
 ## Auto Renewal
 
-The Coretime auto-renewal feature simplifies the process of maintaining continuous coretime allocation by automatically renewing cores at the beginning of each sale period. This eliminates the need for parachains to manually renew their cores for each bulk period, reducing operational overhead and the risk of missing renewal deadlines.
+The coretime auto-renewal feature simplifies the process of maintaining continuous coretime allocation by automatically renewing cores at the beginning of each sale period. This eliminates the need for parachains to manually renew their cores for each bulk period, reducing operational overhead and the risk of missing renewal deadlines.
 
 When auto-renewal is enabled, the system follows this process at the start of each sale:
 
 1. The system scans all registered auto-renewal records
-2. For each record, it attempts to process renewal payments from the task's sovereign account (which is the sibling account on the Coretime chain derived from the Parachain ID)
+2. For each record, it attempts to process renewal payments from the task's [sovereign account](/polkadot-protocol/glossary/#sovereign-account){target=\_blank} (which is the sibling account on the Coretime chain derived from the Parachain ID)
 3. Upon successful payment, the system emits a `Renewed` event and secures the core for the next period
 4. If payment fails due to insufficient funds or other issues, the system emits an `AutoRenewalFailed` event
 
 Even if an auto-renewal attempt fails, the auto-renewal setting remains active for subsequent sales. This means once you've configured auto-renewal, the setting persists across multiple periods.
-
-There is a limit on the total number of auto-renewals allowed, specified at the runtime level as [`T::MaxAutoRenewals`](https://paritytech.github.io/polkadot-sdk/master/pallet_broker/pallet/trait.Config.html#associatedtype.MaxAutoRenewals){target=\_blank} (which is currently set to 100).
 
 To enable auto-renewal for your parachain, you'll need to configure several components as detailed in the following sections.
 
@@ -218,7 +216,7 @@ Once you have these values, construct the extrinsic:
 
 To activate auto-renewal, you must submit an XCM from your parachain to the Coretime chain using Root origin. This can be done either through the sudo pallet (if available) or through your parachain's governance system.
 
-The XCM message needs to execute these operations:
+The XCM needs to execute these operations:
 
 1. Withdraw DOT from your parachain's sovereign account on the Coretime chain
 2. Buy execution to pay for transaction fees
@@ -252,6 +250,6 @@ Here's how to submit this XCM using Acala (Parachain 2000) as an example:
 
     ![](/images/develop/parachains/deployment/coretime-renewal/coretime-renewal-6.webp)
 
-After successful execution, your parachain should have auto-renewal enabled. To verify this, check the events emitted in the Coretime chain.You should see confirmation events similar to:
+After successful execution, your parachain should have auto-renewal enabled. To verify this, check the events emitted in the Coretime chain. You should see confirmation events similar to:
 
 ![](/images/develop/parachains/deployment/coretime-renewal/coretime-renewal-7.webp)

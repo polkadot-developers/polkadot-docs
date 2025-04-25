@@ -7,7 +7,7 @@ description: Learn how to renew coretime manually or automatically to ensure uni
 
 ## Introduction
 
-Coretime can be purchased in bulk for a period of 28 days, providing access to Polkadot's shared security and interoperability for Polkadot Rollups (Parachains). The bulk purchase of coretime includes a rent-control mechanism that keeps future purchases within a predictable price range of the initial purchase. This allows cores to be renewed at a known price without competing against other participants in the open market.
+Coretime can be purchased in bulk for a period of 28 days, providing access to Polkadot's shared security and interoperability for Polkadot parachains. The bulk purchase of coretime includes a rent-control mechanism that keeps future purchases within a predictable price range of the initial purchase. This allows cores to be renewed at a known price without competing against other participants in the open market.
 
 ## Bulk Sale Phases
 
@@ -125,27 +125,27 @@ To configure auto-renewal, you'll need to gather specific information for the `e
 
     **Example for parachain `2000`:**
     
-    Current assignment (workload)
-    ```
-    [
-      [50]
-      [{
-        mask: 0xffffffffffffffffffff
-        assignment: {Task: 2,000}
-      }]
-    ]
-    ```
+    - Current assignment (workload)
+        ```txt
+        [
+          [50]
+          [{
+            mask: 0xffffffffffffffffffff
+            assignment: {Task: 2,000}
+          }]
+        ]
+        ```
 
-    Future assignment (workplan)
-    ```
-    [
-      [[322,845, 48]]
-      [{
-        mask: 0xffffffffffffffffffff
-        assignment: {Task: 2,000}
-      }]
-    ]
-    ```
+    - Future assignment (workplan)
+        ```txt
+        [
+          [[322,845, 48]]
+          [{
+            mask: 0xffffffffffffffffffff
+            assignment: {Task: 2,000}
+          }]
+        ]
+        ```
 
     **Note:** use the core from workplan (`48` in this example) if your task appears there. Only use the core from workload if it's not listed in workplan.
 
@@ -246,6 +246,11 @@ Here's how to submit this XCM using Acala (Parachain 2000) as an example:
 
     ![](/images/develop/parachains/deployment/coretime-renewal/coretime-renewal-6.webp)
 
-After successful execution, your parachain should have auto-renewal enabled. To verify this, check the events emitted in the Coretime chain. You should see confirmation events similar to:
+After successful execution, your parachain should have auto-renewal enabled. To verify this, check the events emitted in the Coretime chain. You should see a confirmation event named `broker.AutoRenewalEnabled`, which includes two parameters:
+
+- **core** - the core currently assigned to your task, in this example, `48`
+- **task** - the task for which auto-renewal was enabled, in this example, `2000`
+
+You can find this event in the list of recent events. It should look similar to the following:
 
 ![](/images/develop/parachains/deployment/coretime-renewal/coretime-renewal-7.webp)

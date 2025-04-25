@@ -9,7 +9,7 @@ description: Explores how Polkadot integrates precompiles to run essential funct
 
 Precompiles play a critical role in enabling high-performance smart contracts by providing native, optimized implementations of frequently used functions. This article explores how Polkadot leverages precompiles within the Revive pallet to enhance efficiency and extend functionality for developers.
 
-Precompiles are special contract implementations that run directly at the runtime level rather than as on-chain Wasm contracts. In typical EVM environments, precompiles provide essential cryptographic and utility functionality at addresses that start with specific patterns. Revive follows this design pattern but with its own implementation optimized for PolkaVM.
+Precompiles are special contract implementations that run directly at the runtime level rather than as on-chain PolkaVM contracts. In typical EVM environments, precompiles provide essential cryptographic and utility functionality at addresses that start with specific patterns. Revive follows this design pattern but with its own implementation optimized for PolkaVM.
 
 ```mermaid
 flowchart LR

@@ -108,7 +108,7 @@ The Coretime chain provides two primary extrinsics for managing the auto-renewal
 
         - If a lease is active, use the timeslice when the lease ends
 
-- [`disable_auto_renew(core, task)`](https://paritytech.github.io/polkadot-sdk/master/pallet_broker/pallet/struct.Pallet.html#method.disable_auto_renew){target=\_blank} - use this extrinsic to stop automatic renewals. This extrinsic also requires that the origin is the sovereign account of the parachain task
+- [**`disable_auto_renew(core, task)`**](https://paritytech.github.io/polkadot-sdk/master/pallet_broker/pallet/struct.Pallet.html#method.disable_auto_renew){target=\_blank} - use this extrinsic to stop automatic renewals. This extrinsic also requires that the origin is the sovereign account of the parachain task
 
      **Parameters:**
 

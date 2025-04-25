@@ -65,7 +65,7 @@ To enable auto-renewal for your parachain, you'll need to configure several comp
 
 ### Set Up HRMP Channel
 
-An Horizontal Relay-routed Message Passing (HRMP) channel must be open between your parachain and the Coretime System Chain before auto-renewal can be configured. 
+A Horizontal Relay-routed Message Passing (HRMP) channel must be open between your parachain and the Coretime System Chain before auto-renewal can be configured. 
 
 For instructions on establishing this connection, consult the [Opening HRMP Channels with System Parachains](/tutorials/interoperability/xcm-channels/para-to-system/){target=\_blank} guide.
 
@@ -153,7 +153,7 @@ To configure auto-renewal, you'll need to gather specific information for the `e
 
 - **`task`** - use your parachain ID, which can be verified by connecting to your parachain and querying `parachainInfo.parachainId()`
 
-- **`workload_end_hint`** - you should always set it explicitly to avoid misbehavior. This value indicate when your assigned core will expire. Here's how to calculate the correct value based on how your core is assigned:
+- **`workload_end_hint`** - you should always set it explicitly to avoid misbehavior. This value indicates when your assigned core will expire. Here's how to calculate the correct value based on how your core is assigned:
     - If the parachain uses bulk coretime:
 
         Query `broker.saleinfo`. You’ll get a result like:
@@ -208,7 +208,7 @@ Once you have these values, construct the extrinsic:
 
     ![](/images/develop/parachains/deployment/coretime-renewal/coretime-renewal-3.webp)
 
-    For parachain `2000` on core `48` with workload_end_hint `327885`, the encoded call data would be:`0x32153000d007000001cd000500`
+    For parachain `2000` on core `48` with `workload_end_hint` `327885`, the encoded call data would be:`0x32153000d007000001cd000500`
 
 3. Check the transaction weight for executing the call. You can estimate this by executing the `transactionPaymentCallApi.queryCallInfo` runtime call with the encoded call data previously obtained:
 

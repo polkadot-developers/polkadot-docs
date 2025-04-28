@@ -7,7 +7,7 @@ description: Explores how Polkadot integrates precompiles to run essential funct
 
 ## Introduction
 
-Precompiles play a critical role in enabling high-performance smart contracts by providing native, optimized implementations of frequently used functions. This article explores how Polkadot leverages precompiles within the Revive pallet to enhance efficiency and extend functionality for developers.
+Precompiles serve a dual purpose in the Polkadot ecosystem: they not only enable high-performance smart contracts by providing native, optimized implementations of frequently used functions, but will also eventually act as critical bridges allowing contracts to interact with core platform capabilities. This article explores how Polkadot leverages precompiles within the Revive pallet to enhance efficiency and how they will extend functionality for developers in the future, including planned access to native features like Cross-Consensus Messaging (XCM).
 
 Precompiles are special contract implementations that run directly at the runtime level rather than as on-chain PolkaVM contracts. In typical EVM environments, precompiles provide essential cryptographic and utility functionality at addresses that start with specific patterns. Revive follows this design pattern but with its own implementation optimized for PolkaVM.
 
@@ -15,7 +15,7 @@ Precompiles are special contract implementations that run directly at the runtim
 flowchart LR
     User(["User"])
     DApp["DApp/Contract"]
-    PolkaEVM["Revive EVM Interface"]
+    PolkaEVM["ETH RPC Adapter"]
     Precompiles["Precompiles"]
     Runtime["PolkaVM"]
 
@@ -51,6 +51,6 @@ Revive implements the standard set of Ethereum precompiles:
 
 ## Conclusion
 
-For smart contract developers, precompiles offer a powerful way to access low-level, high-performance operations without leaving the EVM environment. Through Revive, Polkadot exposes these native capabilities, allowing developers to build faster, more efficient contracts.
+For smart contract developers, precompiles offer a powerful way to access both low-level, high-performance operations and core platform capabilities within the smart contract execution context. Through Revive, Polkadot exposes these native functionalities, allowing developers to build faster, more efficient contracts that can take full advantage of the Polkadot ecosystem.
 
 Understanding and utilizing precompiles can unlock advanced functionality and performance gains, making them an essential tool for anyone building on PolkaVM.

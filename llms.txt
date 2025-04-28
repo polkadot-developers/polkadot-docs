@@ -24026,17 +24026,17 @@ Update the runtime's `Cargo.toml` file to include the utility pallet and your cu
     ```toml hl_lines="3-4" title="Cargo.toml"
     
     ...
-    "cumulus-pallet-aura-ext",
+    custom-pallet = { path = "../pallets/custom-pallet", default-features = false }
     ```
 
 2. In the `[features]` section, add the pallets to the `std` feature list:
 
     ```toml hl_lines="5-6" title="Cargo.toml"
-    "cumulus-pallet-xcmp-queue",
-  "cumulus-primitives-aura",
+    default = ["std"]
+std = [
         ...
-    "pallet-sudo",
-  "pallet-timestamp",
+    "custom-pallet/std",
+]
     ```
 
 3. Save the changes and close the `Cargo.toml` file
@@ -25932,12 +25932,12 @@ runtime-benchmarks = ["frame/runtime-benchmarks"]
 
     2. Enable runtime benchmarking for your pallet in `runtime/Cargo.toml`:
         ```toml hl_lines="6" title="Cargo.toml"
-        "pallet-xcm",
-  "parachains-common",
-  "polkadot-parachain-primitives",
-  "polkadot-runtime-common",
-  "runtime",
-  "staging-parachain-info",
+        "cumulus-pallet-parachain-system/runtime-benchmarks",
+  "hex-literal",
+  "pallet-parachain-template/runtime-benchmarks",
+  "polkadot-sdk/runtime-benchmarks",
+  "custom-pallet/runtime-benchmarks",
+]
         ```
 
 4. Set up the benchmarking module in your pallet:

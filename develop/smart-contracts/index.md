@@ -1,6 +1,6 @@
 ---
 title: Smart Contracts
-description: Learn about smart contract development in Polkadot using ink! for Wasm contracts and EVM and PolkaVM support for Solidity contracts on Polkadot Hub and parachains.
+description: Learn about smart contract development in Polkadot, including ink! for Wasm contracts and Solidity support via EVM and PolkaVM on Polkadot Hub and parachains.
 template: index-page.html
 ---
 

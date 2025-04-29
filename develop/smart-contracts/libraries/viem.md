@@ -1,6 +1,6 @@
 ---
 title: viem for Polkadot Hub Smart Contracts
-description: viem is a TypeScript library for interacting with Ethereum-compatible chains. This guide covers using viem to deploy and interact with smart contracts on Polkadot Hub.
+description: This guide covers deploying and interacting with contracts on Polkadot Hub using viem, a TypeScript library for Ethereum-compatible chains.
 ---
 
 # viem

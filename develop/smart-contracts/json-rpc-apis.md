@@ -9,7 +9,7 @@ description: JSON-RPC APIs guide for Polkadot Hub, covering supported methods, p
 
 Polkadot Hub provides Ethereum compatibility through its JSON-RPC interface, allowing developers to interact with the chain using familiar Ethereum tooling and methods. This document outlines the supported [Ethereum JSON-RPC methods](https://ethereum.org/en/developers/docs/apis/json-rpc/#json-rpc-methods){target=\_blank} and provides examples of how to use them.
 
-This article uses the Westend Polkadot Hub endpoint to interact with:
+This article uses the Westend Hub endpoint to interact with:
 
 ```text
 https://westend-asset-hub-eth-rpc.polkadot.io

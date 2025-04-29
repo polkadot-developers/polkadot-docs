@@ -108,11 +108,11 @@ The steps in the preceding section can be used to connect to any chain by modify
 
 ## Test Tokens
 
-You will need testnet tokens to perform transactions and engage with smart contracts on any chain. Here's how to obtain Westend Hub (WND) tokens for testing purposes:
+You will need testnet tokens to perform transactions and engage with smart contracts on any chain. Here's how to obtain Westend (WND) tokens for testing purposes:
 
 1. Navigate to the [Polkadot Faucet](https://faucet.polkadot.io){target=\_blank}. If the desired network is not already selected, choose it from the Network drop-down
 
-2. Copy your MetaMask address linked to Westend Hub and paste it into the designated field
+2. Copy your MetaMask address linked to Westend and paste it into the designated field
 
     ![](/images/develop/smart-contracts/connect-to-asset-hub/connect-to-asset-hub-5.webp)
 

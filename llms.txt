@@ -3895,7 +3895,7 @@ Cores can be renewed by issuing the [`broker.renew(core)`](https://paritytech.gi
 
 To manually renew a core:
 
-1. In [Polkadot.js Apps](https://polkadot.js.org/apps/#/explorer){target=\_blank}, connect to the Coretime chain, navigate to the **Developer** dropdown and select the **Extrinsics** option
+1. In [Polkadot.js Apps](https://polkadot.js.org/apps/#/explorer){target=\_blank}, connect to the Coretime chain, navigate to the **Developer** dropdown, and select the **Extrinsics** option
 
     ![](/images/develop/parachains/deployment/coretime-renewal/coretime-renewal-1.webp)
 
@@ -3926,7 +3926,7 @@ To enable auto-renewal for your parachain, you must configure several components
 
 ### Set Up an HRMP Channel
 
-A Horizontal Relay-routed Message Passing (HRMP) channel must be opened between your parachain and the Coretime system chain before auto-renewal can be configured. 
+A Horizontal Relay-routed Message Passing (HRMP) channel must be opened between your parachain and the Coretime system chain before configuring auto-renewal. 
 
 For instructions on establishing this connection, consult the [Opening HRMP Channels with System Parachains](/tutorials/interoperability/xcm-channels/para-to-system/){target=\_blank} guide.
 
@@ -3982,7 +3982,7 @@ The Coretime chain provides two primary extrinsics for managing the auto-renewal
 
 To configure auto-renewal, you'll need to gather specific information for the `enable_auto_renew` extrinsic parameters:
 
-- **`core`** - identify which core your parachain is assigned to when the it expires. This requires checking both current assignments and planned future assignments:
+- **`core`** - identify which core your parachain is assigned to when it expires. This requires checking both current assignments and planned future assignments:
     - **For current period** - query `broker.workload()`
     - **For next period** - query `broker.workplan()`
 
@@ -4049,11 +4049,11 @@ To configure auto-renewal, you'll need to gather specific information for the `e
         ]
         ```
 
-        - Use the `until` value of the lease corresponding to your task. For example, `359280` would be the value for `workload_end_hint` in the case of task `2035`
+        - Use the `until` value of the lease that corresponds to your task. For example, `359280` would be the value for `workload_end_hint` in the case of task `2035`
 
 Once you have these values, construct the extrinsic:
 
-1. In [Polkadot.js Apps](https://polkadot.js.org/apps/#/explorer){target=\_blank}, connect to the Coretime chain, navigate to the **Developer** dropdown and select the **Extrinsics** option
+1. In [Polkadot.js Apps](https://polkadot.js.org/apps/#/explorer){target=\_blank}, connect to the Coretime chain, navigate to the **Developer** dropdown, and select the **Extrinsics** option
 
     ![](/images/develop/parachains/deployment/coretime-renewal/coretime-renewal-1.webp)
 
@@ -4104,7 +4104,7 @@ Here's how to submit this XCM using Acala (Parachain 2000) as an example:
         - **requireWeightAtMost** - use the weight calculated previously
         - **call** - use the encoded call data generated before
     4. Add a **RefundSurplus** instruction
-    5. Add a **DepositAsset** instruction to send remaining funds to the parachain sovereign account
+    5. Add a **DepositAsset** instruction to send the remaining funds to the parachain sovereign account
     6. Click the **Submit Transaction** button
 
     ![](/images/develop/parachains/deployment/coretime-renewal/coretime-renewal-6.webp)

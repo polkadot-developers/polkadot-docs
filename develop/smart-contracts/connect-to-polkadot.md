@@ -9,17 +9,15 @@ description: Explore how to connect to Polkadot Hub, configure your wallet, and 
     <a href="#" class="md-button connectMetaMask" value="westendAssetHub">Connect to Westend Hub</a>
 </div>
 
-## Networks
+## Networks Details
 
 Developers can leverage smart contracts across diverse networks, from TestNets to MainNet. This section outlines the network specifications and connection details for each environment.
 
-### Specifications
-
-=== "Westend Hub"
+=== "Westend Asset Hub"
 
     Network name
     ```
-    Westend Hub TestNet
+    Westend Asset Hub
     ```
 
     ---
@@ -48,34 +46,6 @@ Developers can leverage smart contracts across diverse networks, from TestNets t
     Block explorer URL
     ```
     https://assethub-westend.subscan.io
-    ```
-
-### Endpoints
-
-=== "Westend Hub"
-    Dwellir
-    ```
-    https://westend-asset-hub-rpc.polkadot.io
-    ```
-    ---
-    Dwellir Tunisia
-    ```
-    https://westmint-rpc.polkadot.io
-    ```
-    ---
-    IBP1
-    ```
-    https://rpc.ibp.network/asset-hub-westend
-    ```
-    ---
-    IBP2
-    ```
-    https://asset-hub-westend.dotters.network
-    ```
-    ---
-    Parity
-    ```
-    https://westend-asset-hub-rpc.polkadot.io
     ```
 
 ## Connect your Wallet

@@ -263,7 +263,7 @@ After testing your contract locally, you can deploy it to a live network. This g
     --8<-- 'code/develop/smart-contracts/dev-environments/hardhat/hardhat.config.js:66:66'
     ```
 
-5. Update your Hardhat configuration file with network settings for the Polkadot Hub network you want to target:
+5. Update your Hardhat configuration file with network settings for the Polkadot network you want to target:
 
     === "Remix Configuration"
 
@@ -282,7 +282,7 @@ After testing your contract locally, you can deploy it to a live network. This g
           --8<-- 'code/develop/smart-contracts/dev-environments/hardhat/hardhat.config.js:43:66'
         ```
 
-4. Deploy your contract using Ignition:
+6. Deploy your contract using Ignition:
 
     ```bash
     npx hardhat ignition deploy ./ignition/modules/INSERT_IGNITION_MODULE_NAME.js --network westendAssetHub

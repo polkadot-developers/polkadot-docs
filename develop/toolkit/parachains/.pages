@@ -1,6 +1,7 @@
 title: Parachains
 nav:
   - index.md
+  - light-clients.md
   - spawn-chains
   - fork-chains
   - e2e-testing

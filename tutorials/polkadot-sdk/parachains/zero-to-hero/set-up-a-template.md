@@ -60,13 +60,12 @@ The [Polkadot SDK Parachain Template](https://github.com/paritytech/polkadot-sdk
 
 1. Clone the template repository:
     ```bash
-    git clone https://github.com/paritytech/polkadot-sdk-parachain-template.git parachain-template
+    git clone -b stable2412 https://github.com/paritytech/polkadot-sdk-parachain-template.git parachain-template
     ```
 
-2. Navigate into the project directory and check out the specific commit:
+2. Navigate into the project directory:
     ```bash
     cd parachain-template
-    git checkout ecaf71d
     ```
 
 3. Compile the runtime:

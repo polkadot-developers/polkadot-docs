@@ -18,12 +18,12 @@
 // SOFTWARE.
 
 use crate as custom_pallet;
-use frame_support::{derive_impl, parameter_types};
-use sp_runtime::BuildStorage;
+use frame::{prelude::*, runtime::prelude::*, testing_prelude::*};
 
 type Block = frame_system::mocking::MockBlock<Test>;
 
-#[frame_support::runtime]
+// Configure a mock runtime to test the pallet.
+#[frame_construct_runtime]
 mod runtime {
     #[runtime::runtime]
     #[runtime::derive(
@@ -40,10 +40,10 @@ mod runtime {
     pub struct Test;
 
     #[runtime::pallet_index(0)]
-    pub type System = frame_system::Pallet<Test>;
+    pub type System = frame_system;
 
     #[runtime::pallet_index(1)]
-    pub type CustomPallet = custom_pallet::Pallet<Test>;
+    pub type CustomPallet = custom_pallet;
 }
 
 // System pallet configuration
@@ -64,7 +64,7 @@ impl custom_pallet::Config for Test {
 }
 
 // Test externalities initialization
-pub fn new_test_ext() -> sp_io::TestExternalities {
+pub fn new_test_ext() -> TestExternalities {
     frame_system::GenesisConfig::<Test>::default()
         .build_storage()
         .unwrap()

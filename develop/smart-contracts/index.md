@@ -37,6 +37,7 @@ Throughout the pages in this section, you'll find resources and guides to help y
   <div class="card">
     <a href="https://use.ink/" target="_blank"> 
       <h2 class="title">View the Official ink! Documentation</h2>
+      <hr>
       <p class="description">Learn everything you need to know about developing smart contracts with ink!.</p>
     </a>
   </div>

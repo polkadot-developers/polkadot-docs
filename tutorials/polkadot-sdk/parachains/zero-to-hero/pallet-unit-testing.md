@@ -31,24 +31,14 @@ To effectively create the test environment for your pallet, you'll need to follo
     cd custom-pallet
     ```
 
-2. Add the required dependencies to your test configuration in the `Cargo.toml` file of the pallet:
-
-    ```toml title="Cargo.toml"
-    --8<-- 'code/tutorials/polkadot-sdk/parachains/zero-to-hero/pallets/custom-pallet/Cargo.toml:10:10'
-    ...
-
-    --8<-- 'code/tutorials/polkadot-sdk/parachains/zero-to-hero/pallets/custom-pallet/Cargo.toml:17:22'
-    ...
-    ```
-
-3. Create a `mock.rs` and a `tests.rs` files (leave these files empty for now, they will be filled in later):
+2. Create a `mock.rs` and a `tests.rs` files (leave these files empty for now, they will be filled in later):
 
     ```bash
     touch src/mock.rs
     touch src/tests.rs
     ```
 
-4. Include them in your `lib.rs` module:
+3. Include them in your `lib.rs` module:
 
     ```rust hl_lines="5-9" title="lib.rs"
     --8<-- 'code/tutorials/polkadot-sdk/parachains/zero-to-hero/pallets/custom-pallet/src/lib.rs:20:28'
@@ -95,13 +85,13 @@ Expand the following item to see the pallet calls to be tested.
 ???-code "Custom pallet calls"
 
     ```rust
-    --8<-- 'code/tutorials/polkadot-sdk/parachains/zero-to-hero/pallets/custom-pallet/src/lib.rs:107:116'
+    --8<-- 'code/tutorials/polkadot-sdk/parachains/zero-to-hero/pallets/custom-pallet/src/lib.rs:106:115'
         #[pallet::weight(0)]
-        --8<-- 'code/tutorials/polkadot-sdk/parachains/zero-to-hero/pallets/custom-pallet/src/lib.rs:118:142'
+        --8<-- 'code/tutorials/polkadot-sdk/parachains/zero-to-hero/pallets/custom-pallet/src/lib.rs:117:141'
         #[pallet::weight(0)]
-        --8<-- 'code/tutorials/polkadot-sdk/parachains/zero-to-hero/pallets/custom-pallet/src/lib.rs:144:186'
+        --8<-- 'code/tutorials/polkadot-sdk/parachains/zero-to-hero/pallets/custom-pallet/src/lib.rs:143:185'
         #[pallet::weight(0)]
-    --8<-- 'code/tutorials/polkadot-sdk/parachains/zero-to-hero/pallets/custom-pallet/src/lib.rs:188:217'
+    --8<-- 'code/tutorials/polkadot-sdk/parachains/zero-to-hero/pallets/custom-pallet/src/lib.rs:187:216'
     ```
 
 The following sub-sections outline various scenarios in which the `custom-pallet` can be tested. Feel free to add these snippets to your `tests.rs` while you read the examples.
@@ -111,7 +101,7 @@ The following sub-sections outline various scenarios in which the `custom-pallet
 Verify that the counter can be successfully incremented under normal conditions, ensuring the increment works and the correct event is emitted.
 
 ```rust title="tests.rs"
---8<-- 'code/tutorials/polkadot-sdk/parachains/zero-to-hero/pallets/custom-pallet/src/tests.rs:61:81'
+--8<-- 'code/tutorials/polkadot-sdk/parachains/zero-to-hero/pallets/custom-pallet/src/tests.rs:62:82'
 ```
 
 ### Preventing Value Overflow
@@ -119,7 +109,7 @@ Verify that the counter can be successfully incremented under normal conditions,
 Test that the pallet prevents incrementing beyond the maximum allowed value, protecting against unintended state changes.
 
 ```rust title="tests.rs"
---8<-- 'code/tutorials/polkadot-sdk/parachains/zero-to-hero/pallets/custom-pallet/src/tests.rs:83:96'
+--8<-- 'code/tutorials/polkadot-sdk/parachains/zero-to-hero/pallets/custom-pallet/src/tests.rs:84:97'
 ```
 
 ### Origin and Access Control
@@ -127,7 +117,7 @@ Test that the pallet prevents incrementing beyond the maximum allowed value, pro
 Confirm that sensitive operations like setting counter value are restricted to authorized origins, preventing unauthorized modifications.
 
 ```rust title="tests.rs"
---8<-- 'code/tutorials/polkadot-sdk/parachains/zero-to-hero/pallets/custom-pallet/src/tests.rs:35:46'
+--8<-- 'code/tutorials/polkadot-sdk/parachains/zero-to-hero/pallets/custom-pallet/src/tests.rs:36:47'
 ```
 
 ### Edge Case Handling
@@ -135,7 +125,7 @@ Confirm that sensitive operations like setting counter value are restricted to a
 Ensure the pallet gracefully handles edge cases, such as preventing increment operations that would cause overflow.
 
 ```rust title="tests.rs"
---8<-- 'code/tutorials/polkadot-sdk/parachains/zero-to-hero/pallets/custom-pallet/src/tests.rs:98:110'
+--8<-- 'code/tutorials/polkadot-sdk/parachains/zero-to-hero/pallets/custom-pallet/src/tests.rs:99:111'
 ```
 
 ### Verify State Changes
@@ -143,7 +133,7 @@ Ensure the pallet gracefully handles edge cases, such as preventing increment op
 Test that pallet operations modify the internal state correctly and maintain expected storage values across different interactions.
 
 ```rust title="tests.rs"
---8<-- 'code/tutorials/polkadot-sdk/parachains/zero-to-hero/pallets/custom-pallet/src/tests.rs:149:164'
+--8<-- 'code/tutorials/polkadot-sdk/parachains/zero-to-hero/pallets/custom-pallet/src/tests.rs:150:165'
 ```
 
 ### Full Test Suite

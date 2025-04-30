@@ -19,6 +19,7 @@ Doc-Page: https://docs.polkadot.com/develop/parachains/customize-parachain/
 Doc-Page: https://docs.polkadot.com/develop/parachains/customize-parachain/make-custom-pallet/
 Doc-Page: https://docs.polkadot.com/develop/parachains/customize-parachain/overview/
 Doc-Page: https://docs.polkadot.com/develop/parachains/deployment/build-deterministic-runtime/
+Doc-Page: https://docs.polkadot.com/develop/parachains/deployment/coretime-renewal/
 Doc-Page: https://docs.polkadot.com/develop/parachains/deployment/generate-chain-specs/
 Doc-Page: https://docs.polkadot.com/develop/parachains/deployment/
 Doc-Page: https://docs.polkadot.com/develop/parachains/deployment/obtain-coretime/
@@ -314,24 +315,28 @@ This section covers everything you need to know about building and implementing 
   <div class="card"> 
     <a href="https://paritytech.github.io/polkadot-sdk/master/xcm_docs/index.html" target="_blank"> 
       <h2 class="title">Review the Polkadot SDK's XCM Documentation</h2>
+      <hr>
       <p class="description">Dive into the official documentation to learn about the key components for supporting XCM in your parachain and enabling seamless cross-chain communication.</p>
     </a>
   </div>
   <div class="card">
     <a href="/tutorials/interoperability/"> 
       <h2 class="title">Follow Step-by-Step Tutorials</h2>
+      <hr>
       <p class="description">Enhance your XCM skills with step-by-step tutorials on building interoperability solutions on Polkadot SDK-based blockchains.</p>
     </a>
   </div>
   <div class="card"> 
     <a href="https://github.com/polkadot-fellows/xcm-format" target="_blank"> 
       <h2 class="title">Familiarize Yourself with the XCM Format</h2>
+      <hr>
       <p class="description">Gain a deeper understanding of the XCM format and structure, including any extra data it may need and what each part of a message means.</p>
     </a>
   </div>
   <div class="card"> 
     <a href="/develop/toolkit/interoperability/"> 
       <h2 class="title">Essential XCM Tools</h2>
+      <hr>
       <p class="description">Explore essential tools for creating and integrating cross-chain solutions within the Polkadot ecosystem.</p>
     </a>
   </div>
@@ -3178,18 +3183,21 @@ The [FRAME directory](https://github.com/paritytech/polkadot-sdk/tree/{{dependen
   <div class="card">
     <a href="https://github.com/paritytech/polkadot-sdk/tree/{{dependencies.repositories.polkadot_sdk.version}}/substrate/frame" target="_blank">
       <h2 class="title">FRAME Repository</h2>
+      <hr>
       <p class="description">View the source code of the FRAME development environment that provides pallets you can use, modify, and extend to build the runtime logic to suit the needs of your blockchain.</p>
     </a>
   </div>
     <div class="card">
     <a href="https://paritytech.github.io/polkadot-sdk/master/polkadot_sdk_docs/polkadot_sdk/frame_runtime/index.html" target="_blank">
       <h2 class="title">FRAME Rust docs</h2>
+      <hr>
       <p class="description">Check out the Rust documentation for FRAME, Substrate's preferred framework for building runtimes.</p>
     </a>
   </div>
   <div class="card">
     <a href="https://libro.blockdeep.dev/index.html" target="_blank">
       <h2 class="title">Polkadot SDK Best Practices</h2>
+      <hr>
       <p class="description">Understand and address common issues that can arise in blockchain development when building with the Polkadot SDK.</p>
     </a>
   </div>
@@ -3859,6 +3867,266 @@ Keep in mind that there is no `latest` tag for the `srtool` image. Ensure that t
 The naming convention for `paritytech/srtool` Docker images specifies the version of the Rust compiler used to compile the code included in the image. Some images specify both a compiler version and the version of the build script used. For example, an image named `paritytech/srtool:1.62.0-0.9.19` was compiled with version `1.62.0` of the `rustc` compiler and version `0.9.19` of the build script. Images that only specify the compiler version always contain the software's latest version.
 --- END CONTENT ---
 
+Doc-Content: https://docs.polkadot.com/develop/parachains/deployment/coretime-renewal/
+--- BEGIN CONTENT ---
+---
+title: Coretime Renewal
+description: Learn how to renew coretime manually or automatically to ensure uninterrupted parachain operation with predictable pricing and minimal risk.
+---
+
+# Coretime Renewal
+
+## Introduction
+
+Coretime can be purchased in bulk for a period of 28 days, providing access to Polkadot's shared security and interoperability for Polkadot parachains. The bulk purchase of coretime includes a rent-control mechanism that keeps future purchases within a predictable price range of the initial purchase. This allows cores to be renewed at a known price without competing against other participants in the open market.
+
+## Bulk Sale Phases
+
+The bulk sale process consists of three distinct phases:
+
+1. **Interlude phase** - the period between bulk sales when renewals are prioritized
+2. **Lead-in phase** - following the interlude phase, a new `start_price` is set, and a Dutch auction begins, lasting for `leadin_length` blocks. During this phase, prices experience downward pressure as the system aims to find market equilibrium. The final price at the end of this phase becomes the `regular_price`, which will be used in the subsequent fixed price phase
+3. **Fixed price phase** - the final phase where remaining cores are sold at the `regular_price` established during the lead-in phase. This provides a stable and predictable pricing environment for participants who did not purchase during the price discovery period
+
+For more comprehensive information about the coretime sales process, refer to the [Coretime Sales](https://wiki.polkadot.network/learn/learn-agile-coretime/#coretime-sales){target=\_blank} section in the Polkadot Wiki.
+
+## Renewal Timing
+
+While renewals can technically be made during any phase, it is strongly recommended that they be completed during the interlude phase. Delaying renewal introduces the risk that the core could be sold to another market participant, preventing successful renewal. Renewals must be initiated well in advance to avoid the scenario above. 
+
+For example, if you purchase a core in bulk sale #1, you obtain coretime for the upcoming bulk period (during which bulk sale #2 takes place).
+Your renewal must be completed during bulk sale #2, ideally during its interlude phase, to secure coretime for the subsequent period.
+
+## Manual Renewal
+
+Cores can be renewed by issuing the [`broker.renew(core)`](https://paritytech.github.io/polkadot-sdk/master/pallet_broker/pallet/struct.Pallet.html#method.renew){target=\_blank} extrinsic during the coretime sale period. While this process is straightforward, it requires manual action that must not be overlooked. Failure to complete this renewal step before all available cores are sold could result in your parachain being unable to secure a core for the next operational period.
+
+To manually renew a core:
+
+1. In [Polkadot.js Apps](https://polkadot.js.org/apps/#/explorer){target=\_blank}, connect to the Coretime chain, navigate to the **Developer** dropdown, and select the **Extrinsics** option
+
+    ![](/images/develop/parachains/deployment/coretime-renewal/coretime-renewal-1.webp)
+
+2. Submit the `broker.renew` extrinsic
+    1. Select the **broker** pallet
+    2. Choose the **renew** extrinsic
+    3. Fill in the **core** parameter
+    4. Click the **Submit Transaction** button
+
+    ![](/images/develop/parachains/deployment/coretime-renewal/coretime-renewal-2.webp)
+
+For optimal results, the renewal should be performed during the interlude phase. Upon successful submission, your core will be renewed for the next coretime period, ensuring the continued operation of your parachain.
+
+## Auto-Renewal
+
+The coretime auto-renewal feature simplifies maintaining continuous coretime allocation by automatically renewing cores at the beginning of each sale period. This eliminates the need for parachains to manually renew their cores for each bulk period, reducing operational overhead and the risk of missing renewal deadlines.
+
+When auto-renewal is enabled, the system follows this process at the start of each sale:
+
+1. The system scans all registered auto-renewal records
+2. For each record, it attempts to process renewal payments from the task's [sovereign account](/polkadot-protocol/glossary/#sovereign-account){target=\_blank} (which is the sibling account on the Coretime chain derived from the parachain ID)
+3. Upon successful payment, the system emits a `Renewed` event and secures the core for the next period
+4. If payment fails due to insufficient funds or other issues, the system emits an `AutoRenewalFailed` event
+
+Even if an auto-renewal attempt fails, the auto-renewal setting remains active for subsequent sales. This means the setting persists across multiple periods once you've configured auto-renewal.
+
+To enable auto-renewal for your parachain, you must configure several components, as detailed in the following sections.
+
+### Set Up an HRMP Channel
+
+A Horizontal Relay-routed Message Passing (HRMP) channel must be opened between your parachain and the Coretime system chain before configuring auto-renewal. 
+
+For instructions on establishing this connection, consult the [Opening HRMP Channels with System Parachains](/tutorials/interoperability/xcm-channels/para-to-system/){target=\_blank} guide.
+
+### Fund Sovereign Account
+
+The [sovereign account](https://github.com/polkadot-fellows/xcm-format/blob/10726875bd3016c5e528c85ed6e82415e4b847d7/README.md?plain=1#L50){target=\_blank} of your parachain on the Coretime chain needs adequate funding to cover both XCM transaction fees and the recurring coretime renewal payments.
+
+To determine your parachain's sovereign account address, you can:
+
+- Use the **"Para ID" to Address** section in [Substrate Utilities](https://www.shawntabrizi.com/substrate-js-utilities/){target=\_blank} with the **Sibling** option selected
+
+- Calculate it manually:
+
+    1. Identify the appropriate prefix:
+
+        - For sibling chains - `0x7369626c` (decodes to `b"sibl"`)
+         
+    2. Encode your parachain ID as a u32 [SCALE](https://docs.polkadot.com/polkadot-protocol/basics/data-encoding/#data-types){target=\_blank} value:
+
+        - For parachain 2000, this would be `d0070000`
+
+    3. Combine the prefix with the encoded ID to form the sovereign account address:
+
+        - **Hex** - `0x7369626cd0070000000000000000000000000000000000000000000000000000`
+        - **SS58 format** - `5Eg2fntJ27qsari4FGrGhrMqKFDRnkNSR6UshkZYBGXmSuC8`
+
+### Auto-Renewal Configuration Extrinsics
+
+The Coretime chain provides two primary extrinsics for managing the auto-renewal functionality:
+
+- [**`enable_auto_renew(core, task, workload_end_hint)`**](https://paritytech.github.io/polkadot-sdk/master/pallet_broker/pallet/struct.Pallet.html#method.enable_auto_renew){target=\_blank} - use this extrinsic to activate automatic renewals for a specific core. This transaction must originate from the sovereign account of the parachain task
+
+    **Parameters:**
+
+    - **`core`** - the core currently assigned to the task
+    - **`task`** - the task for which auto-renewal is being enabled
+    - **`workload_end_hint`** - the timeslice at which the currently assigned core will stop being used. This value helps the system determine when auto-renewal should begin. It is recommended to always provide this value to avoid ambiguity
+
+        - If the coretime expires in the current sale period, use the last timeslice of the current sale period
+
+        - If the coretime expires at the end of the next sale period (e.g., because you've already renewed), use the last timeslice of the next sale period
+
+        - If a lease is active, use the timeslice when the lease ends
+
+- [**`disable_auto_renew(core, task)`**](https://paritytech.github.io/polkadot-sdk/master/pallet_broker/pallet/struct.Pallet.html#method.disable_auto_renew){target=\_blank} - use this extrinsic to stop automatic renewals. This extrinsic also requires that the origin is the sovereign account of the parachain task
+
+     **Parameters:**
+
+    - **`core`** - the core currently assigned to the task
+    - **`task`** - the task for which auto-renewal is enabled
+
+### Construct the Enable Auto-Renewal Extrinsic
+
+To configure auto-renewal, you'll need to gather specific information for the `enable_auto_renew` extrinsic parameters:
+
+- **`core`** - identify which core your parachain is assigned to when it expires. This requires checking both current assignments and planned future assignments:
+    - **For current period** - query `broker.workload()`
+    - **For next period** - query `broker.workplan()`
+
+    **Example for parachain `2000`:**
+    
+    - Current assignment (workload)
+        ```txt
+        [
+          [50]
+          [{
+            mask: 0xffffffffffffffffffff
+            assignment: {Task: 2,000}
+          }]
+        ]
+        ```
+
+    - Future assignment (workplan)
+        ```txt
+        [
+          [[322,845, 48]]
+          [{
+            mask: 0xffffffffffffffffffff
+            assignment: {Task: 2,000}
+          }]
+        ]
+        ```
+
+    **Note:** use the core from workplan (`48` in this example) if your task appears there. Only use the core from workload if it's not listed in workplan.
+
+- **`task`** - use your parachain ID, which can be verified by connecting to your parachain and querying `parachainInfo.parachainId()`
+
+- **`workload_end_hint`** - you should always set it explicitly to avoid misbehavior. This value indicates when your assigned core will expire. Here's how to calculate the correct value based on how your core is assigned:
+    - If the parachain uses bulk coretime, query `broker.saleinfo`. You’ll get a result like:
+
+        ```json
+        {
+        "saleStart": 1544949,
+        "leadinLength": 100800,
+        "endPrice": 922760076,
+        "regionBegin": 322845,
+        "regionEnd": 327885,
+        "idealCoresSold": 18,
+        "coresOffered": 18,
+        "firstCore": 44,
+        "selloutPrice": 92272712073,
+        "coresSold": 18
+        }
+        ```
+
+        - If the core expires in the current sale, use the `regionBegin` value, which in this case is  `322845`
+
+        - If the core has already been renewed and will expire in the next sale, use the `regionEnd` value. In this example, that would be `327885`
+
+
+    - If the parachain has a lease, query `broker.leases`, which returns entries like:
+
+        ```json
+        [
+          {
+            "until": 359280,
+            "task": 2035
+          },
+          ...
+        ]
+        ```
+
+        - Use the `until` value of the lease that corresponds to your task. For example, `359280` would be the value for `workload_end_hint` in the case of task `2035`
+
+Once you have these values, construct the extrinsic:
+
+1. In [Polkadot.js Apps](https://polkadot.js.org/apps/#/explorer){target=\_blank}, connect to the Coretime chain, navigate to the **Developer** dropdown, and select the **Extrinsics** option
+
+    ![](/images/develop/parachains/deployment/coretime-renewal/coretime-renewal-1.webp)
+
+2. Create the `broker.enable_auto_renew` extrinsic
+    1. Select the **broker** pallet
+    2. Choose the **enableAutoRenew** extrinsic
+    3. Fill in the parameters
+    4. Copy the encoded call data
+
+    ![](/images/develop/parachains/deployment/coretime-renewal/coretime-renewal-3.webp)
+
+    For parachain `2000` on core `48` with `workload_end_hint` `327885`, the **encoded call data** is:`0x32153000d007000001cd000500`
+
+3. Check the transaction weight for executing the call. You can estimate this by executing the `transactionPaymentCallApi.queryCallInfo` runtime call with the encoded call data previously obtained
+
+    ![](/images/develop/parachains/deployment/coretime-renewal/coretime-renewal-4.webp)
+
+### Submit the XCM from Your Parachain
+
+To activate auto-renewal, you must submit an XCM from your parachain to the Coretime chain using Root origin.  This can be done through the sudo pallet (if available) or your parachain's governance system.
+
+The XCM needs to execute these operations:
+
+1. Withdraw DOT from your parachain's sovereign account on the Coretime chain
+2. Buy execution to pay for transaction fees
+3. Execute the auto-renewal extrinsic
+4. Refund surplus DOT back to the sovereign account
+
+Here's how to submit this XCM using Acala (Parachain 2000) as an example:
+
+1. In [Polkadot.js Apps](https://polkadot.js.org/apps/#/explorer){target=\_blank}, connect to your parachain, navigate to the **Developer** dropdown and select the **Extrinsics** option
+
+2. Create a `sudo.sudo` extrinsic that executes `polkadotXcm.send`:
+    1. Use the `sudo.sudo` extrinsic to execute the following call as Root
+    2. Select the **polkadotXcm** pallet
+    3. Choose the **send** extrinsic
+    4. Set the **dest** parameter as the Coretime chain (Parachain 1005)
+
+    ![](/images/develop/parachains/deployment/coretime-renewal/coretime-renewal-5.webp)
+
+
+3. Construct the XCM and submit it:
+
+    1. Add a **WithdrawAsset** instruction
+    2. Add a **BuyExecution** instruction
+    3. Add a **Transact** instruction with the following parameters:
+        - **originKind** - use `SovereignAccount`
+        - **requireWeightAtMost** - use the weight calculated previously
+        - **call** - use the encoded call data generated before
+    4. Add a **RefundSurplus** instruction
+    5. Add a **DepositAsset** instruction to send the remaining funds to the parachain sovereign account
+    6. Click the **Submit Transaction** button
+
+    ![](/images/develop/parachains/deployment/coretime-renewal/coretime-renewal-6.webp)
+
+After successful execution, your parachain should have auto-renewal enabled. To verify this, check the events emitted in the Coretime chain. You should see a confirmation event named `broker.AutoRenewalEnabled`, which includes two parameters:
+
+- **core** - the core currently assigned to your task, in this example, `48`
+- **task** - the task for which auto-renewal was enabled, in this example, `2000`
+
+You can find this event in the list of recent events. It should look similar to the following:
+
+![](/images/develop/parachains/deployment/coretime-renewal/coretime-renewal-7.webp)
+--- END CONTENT ---
+
 Doc-Content: https://docs.polkadot.com/develop/parachains/deployment/generate-chain-specs/
 --- BEGIN CONTENT ---
 ---
@@ -4109,6 +4377,7 @@ If you’re building a standalone blockchain (solochain) that won’t connect to
   <div class="card">
     <a href="https://paritytech.github.io/polkadot-sdk/master/staging_chain_spec_builder/index.html" target="_blank">
       <h2 class="title">Check Out the Chain Spec Builder Docs</h2>
+      <hr>
       <p class="description">Learn about Substrate’s chain spec builder utility.</p>
     </a>
   </div>
@@ -4770,12 +5039,14 @@ Learn how to maintain Polkadot SDK-based networks, focusing on runtime monitorin
   <div class="card">
     <a href="https://paritytech.github.io/polkadot-sdk/master/pallet_example_single_block_migrations/index.html" target="_blank">
       <h2 class="title">Single Block Migration Example</h2>
+      <hr>
       <p class="description">Check out an example pallet demonstrating best practices for writing single-block migrations while upgrading pallet storage.</p>
     </a>
   </div>
   <div class="card">
     <a href="https://paritytech.github.io/polkadot-sdk/master/pallet_example_single_block_migrations/index.html" target="_blank">
       <h2 class="title">Client Telemetry Crate</h2>
+      <hr>
       <p class="description">Check out the docs on Substrate's client telemetry, a part of Substrate that allows ingesting telemetry data with, for example, Polkadot telemetry.</p>
     </a>
   </div>
@@ -5687,12 +5958,14 @@ Through these guides, you'll learn to:
   <div class="card">
     <a href="https://paritytech.github.io/polkadot-sdk/master/sp_runtime/" target="_blank">
       <h2 class="title">`sp_runtime` crate Rust docs</h2>
+      <hr>
       <p class="description">Learn about Substrate Runtime primitives that enable communication between a Substrate blockchain's runtime and client.</p>
     </a>
   </div>
   <div class="card">
     <a href="https://github.com/Moonsong-Labs/moonwall" target="_blank">
       <h2 class="title">Moonwall Testing Framework</h2>
+      <hr>
       <p class="description">Moonwall is a comprehensive blockchain test framework for Substrate-based networks.</p>
     </a>
   </div>
@@ -6051,18 +6324,21 @@ Whether deploying existing Ethereum contracts on Polkadot or creating new applic
   <div class="card">
     <a href="https://docs.astar.network/docs/build/EVM/first-contract/" target="_blank">
       <h2 class="title">Deploy a Smart Contract on Astar</h2>
+      <hr>
       <p class="description">Follow instructions to deploy your first contract on the Astar parachain using Remix.</p>
     </a>
   </div>
   <div class="card">
     <a href="https://docs.moonbeam.network/builders/ethereum/dev-env/remix/" target="_blank">
       <h2 class="title">Deploy a Smart Contract on Moonbeam</h2>
+      <hr>
       <p class="description">Follow instructions to deploy your first contract on the Moonbeam parachain using Remix.</p>
     </a>
   </div>
   <div class="card">
     <a href="https://evmdocs.acala.network/tooling/remix-ide/deploying-a-smart-contract" target="_blank">
       <h2 class="title">Deploy a Smart Contract on Acala</h2>
+      <hr>
       <p class="description">Follow instructions to deploy your first contract on the Acala parachain using Remix.</p>
     </a>
   </div>
@@ -6585,6 +6861,7 @@ Throughout the pages in this section, you'll find resources and guides to help y
   <div class="card">
     <a href="https://use.ink/" target="_blank"> 
       <h2 class="title">View the Official ink! Documentation</h2>
+      <hr>
       <p class="description">Learn everything you need to know about developing smart contracts with ink!.</p>
     </a>
   </div>
@@ -7095,12 +7372,14 @@ Explore the powerful API libraries designed for interacting with the Polkadot ne
   <div class="card">
     <a href="/polkadot-protocol/basics/chain-data/"> 
       <h2 class="title">Understand Chain Data</h2>
+      <hr>
       <p class="description">Familiarize yourself with the data provided by the APIs, including available calls, events, types, and storage items.</p>
     </a>
   </div>
     <div class="card">
     <a href="/develop/networks/">
       <h2 class="title">Network Configurations</h2>
+      <hr>
       <p class="description">Obtain the necessary configurations and WSS endpoints to interact with the APIs on Polkadot networks.</p>
     </a>
   </div>
@@ -8260,12 +8539,14 @@ The Asset Transfer API is a library designed to streamline asset transfers for P
   <div class="card">
     <a href="https://github.com/paritytech/asset-transfer-api" target="_blank">
       <h2 class="title">View the Source Code</h2>
+      <hr>
       <p class="description">Explore the Asset Transfer API repository on GitHub to familiarize yourself with the source code.</p>
     </a>
   </div>
     <div class="card">
     <a href="https://github.com/paritytech/asset-transfer-api" target="_blank">
       <h2 class="title">Learn Through Examples</h2>
+      <hr>
       <p class="description">Check out the provided examples on GitHub to get a better understanding of how to implement the Asset Transfer API.</p>
     </a>
   </div>
@@ -10333,12 +10614,14 @@ Whether you're debugging an issue, testing new features, or exploring cross-chai
   <div class="card">
     <a href="https://github.com/AcalaNetwork/chopsticks/"  target="_blank">
       <h2 class="title">Chopsticks Repository</h2>
+      <hr>
       <p class="description">View the official Chopsticks Github Repository. Check out the code, check out sample commands, and track issues and new releases.</p>
     </a>
   </div>
     <div class="card">
     <a href="/tutorials/polkadot-sdk/testing/fork-live-chains/">
       <h2 class="title">Fork Live Chains with Chopsticks</h2>
+      <hr>
       <p class="description">Learn how to fork live Polkadot SDK chains with Chopsticks. Configure forks, replay blocks, test XCM, and interact programmatically or via UI.</p>
     </a>
   </div>
@@ -10378,6 +10661,7 @@ Forking a live chain creates a controlled environment that mirrors live network 
   <div class="card">
     <a href="/tutorials/polkadot-sdk/testing/fork-live-chains/">
       <h2 class="title">Step-by-Step Tutorial on Forking Live Chains with Chopsticks</h2>
+      <hr>
       <p class="description">This tutorial walks you through how to fork live Polkadot SDK chains with Chopsticks. Configure forks, replay blocks, test XCM execution.</p>
     </a>
   </div>
@@ -10527,6 +10811,7 @@ Spawning a network provides a controlled environment to test and validate variou
   <div class="card">
     <a href="/tutorials/polkadot-sdk/testing/spawn-basic-chain/">
       <h2 class="title">Spawn a Chain with Zombienet</h2>
+      <hr>
       <p class="description">Learn to spawn, connect to and monitor a basic blockchain network with Zombienet, using customizable configurations for streamlined development and debugging.</p>
     </a>
 </div>
@@ -11570,6 +11855,7 @@ Whether you're building a new parachain or testing runtime upgrades, Zombienet p
   <div class="card">
     <a href="/tutorials/polkadot-sdk/testing/spawn-basic-chain/">
       <h2 class="title">Spawn a Chain with Zombienet Tutorial</h2>
+      <hr>
       <p class="description">Follow step-by-step instructions to spawn, connect to and monitor a basic blockchain network with Zombienet, using customizable configurations for streamlined development and debugging.</p>
     </a>
 </div>
@@ -12638,18 +12924,21 @@ Learn the requirements for setting up a Polkadot validator node, along with deta
   <div class="card">
     <a href="/infrastructure/staking-mechanics/" target="_blank">
       <h2 class="title">Explore Rewards, Offenses, and Slashes</h2>
+      <hr>
       <p class="description">Learn about Polkadot's offenses and slashing system, along with validator rewards, era points, and nominator payments.</p>
     </a>
   </div>
   <div class="card">
     <a href="https://nodes.web3.foundation/" target="_blank">
       <h2 class="title">Check Out the Decentralized Nodes Program</h2>
+      <hr>
       <p class="description">The Decentralized Nodes program aims to support Polkadot's security and decentralization by involving a diverse set of validators. Learn more and apply.</p>
     </a>
   </div>
   <div class="card">
     <a href="https://matrix.to/#/#polkadotvalidatorlounge:web3.foundation" target="_blank">
       <h2 class="title">Get Help and Connect With Experts</h2>
+      <hr>
       <p class="description">For help, connect with the Polkadot Validator Lounge on Element, where both the team and experienced validators are ready to assist.</p>
     </a>
   </div>
@@ -12680,24 +12969,28 @@ This section provides guidance on how to set up, activate, and deactivate your v
   <div class="card">
     <a href="/infrastructure/running-a-validator/requirements/" target="_blank">
       <h2 class="title">Review the Requirements</h2>
+      <hr>
       <p class="description">Explore the technical and system requirements for running a Polkadot validator, including setup, hardware, staking prerequisites, and security best practices.</p>
     </a>
   </div>
   <div class="card">
     <a href="/infrastructure/staking-mechanics/rewards-payout/" target="_blank">
       <h2 class="title">Learn About Staking Mechanics</h2>
+      <hr>
       <p class="description">Explore the staking mechanics in Polkadot, focusing on how they relate to validators, including offenses and slashes, as well as reward payouts.</p>
     </a>
   </div>
   <div class="card">
     <a href="/infrastructure/running-a-validator/operational-tasks/" target="_blank">
       <h2 class="title">Maintain Your Node</h2>
+      <hr>
       <p class="description">Learn how to manage your Polkadot validator node, including monitoring performance, running a backup validator for maintenance, and rotating keys.</p>
     </a>
   </div>
   <div class="card">
     <a href="https://matrix.to/#/#polkadotvalidatorlounge:web3.foundation" target="_blank">
       <h2 class="title">Get Help and Connect With Experts</h2>
+      <hr>
       <p class="description">For help, connect with the Polkadot Validator Lounge on Element, where both the team and experienced validators are ready to assist.</p>
     </a>
   </div>
@@ -14039,12 +14332,14 @@ Running a Polkadot validator node involves several key operational tasks to ensu
   <div class="card">
     <a href="https://telemetry.polkadot.io/" target="_blank">
       <h2 class="title">Access Real-Time Validator Metrics</h2>
+      <hr>
       <p class="description">Check the Polkadot Telemetry dashboard for real-time insights into node performance, including validator status, connectivity, block production, and software version to identify potential issues.</p>
     </a>
   </div>
     <div class="card">
     <a href="https://wiki.polkadot.network/docs/learn-runtime-upgrades#monitoring-runtime-changes" target="_blank">
       <h2 class="title">Stay Up to Date with Runtime Upgrades</h2>
+      <hr>
       <p class="description">Learn how to monitor the Polkadot network for upcoming upgrades, so you can prepare your validator node for any required updates or modifications.</p>
     </a>
   </div>
@@ -14283,18 +14578,21 @@ Gain a deep understanding of the staking mechanics in Polkadot, with a focus on 
   <div class="card">
     <a href="https://research.web3.foundation/Polkadot/protocols/NPoS/Overview" target="_blank">
       <h2 class="title">Learn About Nominated Proof of Staking</h2>
+      <hr>
       <p class="description">Take a deeper dive into the fundamentals of Polkadot's Nominated Proof of Stake (NPoS) consensus mechanism.</p>
     </a>
   </div>
     <div class="card">
     <a href="https://research.web3.foundation/Polkadot/security/slashing/amounts" target="_blank">
       <h2 class="title">Dive Deep into Slashing Mechanisms</h2>
+      <hr>
       <p class="description">Read the Web3 Foundation's research article on slashing mechanisms for a comprehensive understanding of slashing, along with an in-depth examination of the offenses involved.</p>
     </a>
   </div>
   <div class="card">
     <a href="https://dune.com/substrate/polkadot-staking-validators#polkadot-staking-rewards" target="_blank">
       <h2 class="title">Review Validator Rewards Metrics</h2>
+      <hr>
       <p class="description">Check out Dune's Polkadot Staking Rewards dashboard for a detailed look at validator-specific metrics over time, such as daily staking rewards, nominators count, reward points, and more.</p>
     </a>
   </div>
@@ -17538,7 +17836,7 @@ The table below outlines how the Rust implementation of the Parity SCALE codec e
 |-------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------|
 | Boolean                       | Boolean values are encoded using the least significant bit of a single byte.                                                                                                | `false` / `true`                                                                                                                           | `0x00` / `0x01`                                                 |
 | Compact/general integers      | A "compact" or general integer encoding is sufficient for encoding large integers (up to 2^536) and is more efficient at encoding most values than the fixed-width version. | `unsigned integer 0` / `unsigned integer 1` / `unsigned integer 42` / `unsigned integer 69` / `unsigned integer 65535` / `BigInt(100000000000000)` | `0x00` / `0x04` / `0xa8` / `0x1501` / `0xfeff0300` / `0x0b00407a10f35a` |
-| Enumerations (tagged-unions)  | A fixed number of variants                                                                                                                                                  |
+| Enumerations (tagged-unions)  | A fixed number of variants, each mutually exclusive and potentially implying a further value or series of values. Encoded as the first byte identifying the index of the variant that the value is. Any further bytes are used to encode any data that the variant implies. Thus, no more than 256 variants are supported.                                                                                                                                                  | `Int(42)` and `Bool(true)` where `enum IntOrBool { Int(u8), Bool(bool) }` | `0x002a` and `0x0101` |
 | Fixed-width integers          | Basic integers are encoded using a fixed-width little-endian (LE) format.                                                                                                   | `signed 8-bit integer 69` / `unsigned 16-bit integer 42` / `unsigned 32-bit integer 16777215`                                                | `0x45` / `0x2a00` / `0xffffff00`                                  |
 | Options                       | One or zero values of a particular type.                                                                                                                                    | `Some` / `None`                                                                                                                            | `0x01` followed by the encoded value / `0x00`                   |
 | Results                       | Results are commonly used enumerations which indicate whether certain operations were successful or unsuccessful.                                                           | `Ok(42)` / `Err(false)`                                                                                                                    | `0x002a` / `0x0100`                                             |
@@ -18551,6 +18849,7 @@ The Zero to Hero series offers step-by-step guidance to development across the P
   <div class="card">
     <a href="/tutorials/polkadot-sdk/parachains/zero-to-hero/" target="_blank">
       <h2 class="title">Parachain Zero to Hero</h2>
+      <hr>
       <p class="description">Begin with a template then follow this series of step-by-step guides to add pallets, write unit tests and benchmarking, run your parachain locally, perform runtime upgrades, deploy to TestNet, and obtain coretime.</p>
     </a>
   </div>
@@ -18562,24 +18861,28 @@ The Zero to Hero series offers step-by-step guidance to development across the P
   <div class="card">
     <a href="/tutorials/polkadot-sdk/parachains/zero-to-hero/set-up-a-template/">
       <h2 class="title">Set Up a Template</h2>
+      <hr>
       <p class="description">Learn to compile and run a local parachain node using Polkadot SDK. Launch, run, and interact with a pre-configured runtime template.</p>
     </a>
   </div>
     <div class="card">
     <a href="/tutorials/polkadot-sdk/parachains/zero-to-hero/build-custom-pallet">
       <h2 class="title">Build a Custom Pallet</h2>
+      <hr>
       <p class="description">Learn how to build a custom pallet for Polkadot SDK-based blockchains with this step-by-step guide. Create and configure a simple counter pallet from scratch.</p>
     </a>
   </div>
     <div class="card">
     <a href="/tutorials/polkadot-sdk/testing/fork-live-chains/">
       <h2 class="title">Fork a Live Chain with Chopsticks</h2>
+      <hr>
       <p class="description">Learn how to fork live Polkadot SDK chains with Chopsticks. Configure forks, replay blocks, test XCM, and interact programmatically or via UI.</p>
     </a>
   </div>
     <div class="card">
     <a href="/tutorials/interoperability/xcm-channels/para-to-para/">
       <h2 class="title">Open an XCM Channel</h2>
+      <hr>
       <p class="description">Learn how to open HRMP channels between parachains on Polkadot. Discover the step-by-step process for establishing uni- and bidirectional communication.</p>
     </a>
   </div>
@@ -18625,12 +18928,14 @@ Learn to establish and use cross-chain communication channels:
   <div class="card">
     <a href="/polkadot-protocol/basics/interoperability/">
       <h2 class="title">Learn about Polkadot's Interoperability</h2>
+      <hr>
       <p class="description">Explore the importance of interoperability in the Polkadot ecosystem, covering XCM, bridges, and cross-chain communication.</p>
     </a>
   </div>
     <div class="card">
     <a href="/develop/interoperability/">
       <h2 class="title">Explore Comprehensive XCM Guides</h2>
+      <hr>
       <p class="description">Looking for comprehensive guides and technical resources on XCM? Explore foundational concepts, advanced configuration, and best practices for building cross-chain solutions using XCM.</p>
     </a>
   </div>
@@ -18667,6 +18972,7 @@ To enable communication between parachains, explicit HRMP channels must be estab
   <div class="card">
     <a href="/develop/interoperability/xcm-channels/">
       <h2 class="title">Review HRMP Configurations and Extrinsics</h2>
+      <hr>
       <p class="description">Learn about the configurable parameters that govern HRMP channel behavior and the dispatchable extrinsics used to manage them.</p>
     </a>
   </div>
@@ -24008,6 +24314,7 @@ This section provides step-by-step tutorials to help you navigate the technical 
   <div class="card">
     <a href="/polkadot-protocol/onchain-governance/" target="_blank">
       <h2 class="title">Learn More About Polkadot's OpenGov</h2>
+      <hr>
       <p class="description">Explore Polkadot's decentralized on-chain governance system, OpenGov, including how it works, the proposal process, and key info for developers.</p>
     </a>
   </div>
@@ -24046,6 +24353,7 @@ Follow these key milestones to guide you through parachain development. Each ste
   <div class="card">
     <a href="https://github.com/paritytech/polkadot-sdk" target="_blank">
       <h2 class="title">View the Polkadot SDK Source Code</h2>
+      <hr>
       <p class="description">Check out the Polkadot SDK repository on GitHub to explore the source code and stay updated on the latest releases.</p>
     </a>
   </div>
@@ -24120,7 +24428,7 @@ Update the runtime's `Cargo.toml` file to include the utility pallet and your cu
     ```toml hl_lines="5-6" title="Cargo.toml"
     default = ["std"]
 std = [
-      ...
+        ...
     "custom-pallet/std",
 ]
     ```
@@ -24133,14 +24441,336 @@ Configure the pallets by implementing their `Config` trait and update the runtim
 
 1. Add the `OriginCaller` import:
 
-    ```rust
-    
+    ```rust title="mod.rs" hl_lines="2"
+    use super::OriginCaller;
+    ...
     ```
 
 2. Implement the [`Config`](https://paritytech.github.io/polkadot-sdk/master/pallet_utility/pallet/trait.Config.html){target=\_blank} trait for both pallets at the end of the `runtime/src/config/mod.rs` file:
 
-    ```rust title="mod.rs"
-    impl pallet_utility::Config for Runtime {
+    ```rust title="mod.rs" hl_lines="7-25"
+    ...
+    // This is free and unencumbered software released into the public domain.
+//
+// Anyone is free to copy, modify, publish, use, compile, sell, or
+// distribute this software, either in source code form or as a compiled
+// binary, for any purpose, commercial or non-commercial, and by any
+// means.
+//
+// In jurisdictions that recognize copyright laws, the author or authors
+// of this software dedicate any and all copyright interest in the
+// software to the public domain. We make this dedication for the benefit
+// of the public at large and to the detriment of our heirs and
+// successors. We intend this dedication to be an overt act of
+// relinquishment in perpetuity of all present and future rights to this
+// software under copyright law.
+//
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+// EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+// MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+// IN NO EVENT SHALL THE AUTHORS BE LIABLE FOR ANY CLAIM, DAMAGES OR
+// OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
+// ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
+// OTHER DEALINGS IN THE SOFTWARE.
+//
+// For more information, please refer to <http://unlicense.org>
+
+mod xcm_config;
+
+use polkadot_sdk::{staging_parachain_info as parachain_info, staging_xcm as xcm, *};
+#[cfg(not(feature = "runtime-benchmarks"))]
+use polkadot_sdk::{staging_xcm_builder as xcm_builder, staging_xcm_executor as xcm_executor};
+
+// Substrate and Polkadot dependencies
+use cumulus_pallet_parachain_system::RelayNumberMonotonicallyIncreases;
+use cumulus_primitives_core::{AggregateMessageOrigin, ParaId};
+use frame_support::{
+    derive_impl,
+    dispatch::DispatchClass,
+    parameter_types,
+    traits::{
+        ConstBool, ConstU32, ConstU64, ConstU8, EitherOfDiverse, TransformOrigin, VariantCountOf,
+    },
+    weights::{ConstantMultiplier, Weight},
+    PalletId,
+};
+use frame_system::{
+    limits::{BlockLength, BlockWeights},
+    EnsureRoot,
+};
+use pallet_xcm::{EnsureXcm, IsVoiceOfBody};
+use parachains_common::message_queue::{NarrowOriginToSibling, ParaIdToSibling};
+use polkadot_runtime_common::{
+    xcm_sender::NoPriceForMessageDelivery, BlockHashCount, SlowAdjustingFeeUpdate,
+};
+use sp_consensus_aura::sr25519::AuthorityId as AuraId;
+use sp_runtime::Perbill;
+use sp_version::RuntimeVersion;
+use xcm::latest::prelude::BodyId;
+
+// Local module imports
+use super::OriginCaller;
+use super::{
+    weights::{BlockExecutionWeight, ExtrinsicBaseWeight, RocksDbWeight},
+    AccountId, Aura, Balance, Balances, Block, BlockNumber, CollatorSelection, ConsensusHook, Hash,
+    MessageQueue, Nonce, PalletInfo, ParachainSystem, Runtime, RuntimeCall, RuntimeEvent,
+    RuntimeFreezeReason, RuntimeHoldReason, RuntimeOrigin, RuntimeTask, Session, SessionKeys,
+    System, WeightToFee, XcmpQueue, AVERAGE_ON_INITIALIZE_RATIO, EXISTENTIAL_DEPOSIT, HOURS,
+    MAXIMUM_BLOCK_WEIGHT, MICRO_UNIT, NORMAL_DISPATCH_RATIO, SLOT_DURATION, VERSION,
+};
+use xcm_config::{RelayLocation, XcmOriginToTransactDispatchOrigin};
+
+parameter_types! {
+    pub const Version: RuntimeVersion = VERSION;
+
+    // This part is copied from Substrate's `bin/node/runtime/src/lib.rs`.
+    //  The `RuntimeBlockLength` and `RuntimeBlockWeights` exist here because the
+    // `DeletionWeightLimit` and `DeletionQueueDepth` depend on those to parameterize
+    // the lazy contract deletion.
+    pub RuntimeBlockLength: BlockLength =
+        BlockLength::max_with_normal_ratio(5 * 1024 * 1024, NORMAL_DISPATCH_RATIO);
+    pub RuntimeBlockWeights: BlockWeights = BlockWeights::builder()
+        .base_block(BlockExecutionWeight::get())
+        .for_class(DispatchClass::all(), |weights| {
+            weights.base_extrinsic = ExtrinsicBaseWeight::get();
+        })
+        .for_class(DispatchClass::Normal, |weights| {
+            weights.max_total = Some(NORMAL_DISPATCH_RATIO * MAXIMUM_BLOCK_WEIGHT);
+        })
+        .for_class(DispatchClass::Operational, |weights| {
+            weights.max_total = Some(MAXIMUM_BLOCK_WEIGHT);
+            // Operational transactions have some extra reserved space, so that they
+            // are included even if block reached `MAXIMUM_BLOCK_WEIGHT`.
+            weights.reserved = Some(
+                MAXIMUM_BLOCK_WEIGHT - NORMAL_DISPATCH_RATIO * MAXIMUM_BLOCK_WEIGHT
+            );
+        })
+        .avg_block_initialization(AVERAGE_ON_INITIALIZE_RATIO)
+        .build_or_panic();
+    pub const SS58Prefix: u16 = 42;
+}
+
+/// The default types are being injected by [`derive_impl`](`frame_support::derive_impl`) from
+/// [`ParaChainDefaultConfig`](`struct@frame_system::config_preludes::ParaChainDefaultConfig`),
+/// but overridden as needed.
+#[derive_impl(frame_system::config_preludes::ParaChainDefaultConfig)]
+impl frame_system::Config for Runtime {
+    /// The identifier used to distinguish between accounts.
+    type AccountId = AccountId;
+    /// The index type for storing how many extrinsics an account has signed.
+    type Nonce = Nonce;
+    /// The type for hashing blocks and tries.
+    type Hash = Hash;
+    /// The block type.
+    type Block = Block;
+    /// Maximum number of block number to block hash mappings to keep (oldest pruned first).
+    type BlockHashCount = BlockHashCount;
+    /// Runtime version.
+    type Version = Version;
+    /// The data to be stored in an account.
+    type AccountData = pallet_balances::AccountData<Balance>;
+    /// The weight of database operations that the runtime can invoke.
+    type DbWeight = RocksDbWeight;
+    /// Block & extrinsics weights: base values and limits.
+    type BlockWeights = RuntimeBlockWeights;
+    /// The maximum length of a block (in bytes).
+    type BlockLength = RuntimeBlockLength;
+    /// This is used as an identifier of the chain. 42 is the generic substrate prefix.
+    type SS58Prefix = SS58Prefix;
+    /// The action to take on a Runtime Upgrade
+    type OnSetCode = cumulus_pallet_parachain_system::ParachainSetCode<Self>;
+    type MaxConsumers = frame_support::traits::ConstU32<16>;
+}
+
+impl pallet_timestamp::Config for Runtime {
+    /// A timestamp: milliseconds since the unix epoch.
+    type Moment = u64;
+    type OnTimestampSet = Aura;
+    type MinimumPeriod = ConstU64<0>;
+    type WeightInfo = ();
+}
+
+impl pallet_authorship::Config for Runtime {
+    type FindAuthor = pallet_session::FindAccountFromAuthorIndex<Self, Aura>;
+    type EventHandler = (CollatorSelection,);
+}
+
+parameter_types! {
+    pub const ExistentialDeposit: Balance = EXISTENTIAL_DEPOSIT;
+}
+
+impl pallet_balances::Config for Runtime {
+    type MaxLocks = ConstU32<50>;
+    /// The type for recording an account's balance.
+    type Balance = Balance;
+    /// The ubiquitous event type.
+    type RuntimeEvent = RuntimeEvent;
+    type DustRemoval = ();
+    type ExistentialDeposit = ExistentialDeposit;
+    type AccountStore = System;
+    type WeightInfo = pallet_balances::weights::SubstrateWeight<Runtime>;
+    type MaxReserves = ConstU32<50>;
+    type ReserveIdentifier = [u8; 8];
+    type RuntimeHoldReason = RuntimeHoldReason;
+    type RuntimeFreezeReason = RuntimeFreezeReason;
+    type FreezeIdentifier = RuntimeFreezeReason;
+    type MaxFreezes = VariantCountOf<RuntimeFreezeReason>;
+    type DoneSlashHandler = ();
+}
+
+parameter_types! {
+    /// Relay Chain `TransactionByteFee` / 10
+    pub const TransactionByteFee: Balance = 10 * MICRO_UNIT;
+}
+
+impl pallet_transaction_payment::Config for Runtime {
+    type RuntimeEvent = RuntimeEvent;
+    type OnChargeTransaction = pallet_transaction_payment::FungibleAdapter<Balances, ()>;
+    type WeightToFee = WeightToFee;
+    type LengthToFee = ConstantMultiplier<Balance, TransactionByteFee>;
+    type FeeMultiplierUpdate = SlowAdjustingFeeUpdate<Self>;
+    type OperationalFeeMultiplier = ConstU8<5>;
+    type WeightInfo = ();
+}
+
+impl pallet_sudo::Config for Runtime {
+    type RuntimeEvent = RuntimeEvent;
+    type RuntimeCall = RuntimeCall;
+    type WeightInfo = ();
+}
+
+parameter_types! {
+    pub const ReservedXcmpWeight: Weight = MAXIMUM_BLOCK_WEIGHT.saturating_div(4);
+    pub const ReservedDmpWeight: Weight = MAXIMUM_BLOCK_WEIGHT.saturating_div(4);
+    pub const RelayOrigin: AggregateMessageOrigin = AggregateMessageOrigin::Parent;
+}
+
+impl cumulus_pallet_parachain_system::Config for Runtime {
+    type WeightInfo = ();
+    type RuntimeEvent = RuntimeEvent;
+    type OnSystemEvent = ();
+    type SelfParaId = parachain_info::Pallet<Runtime>;
+    type OutboundXcmpMessageSource = XcmpQueue;
+    type DmpQueue = frame_support::traits::EnqueueWithOrigin<MessageQueue, RelayOrigin>;
+    type ReservedDmpWeight = ReservedDmpWeight;
+    type XcmpMessageHandler = XcmpQueue;
+    type ReservedXcmpWeight = ReservedXcmpWeight;
+    type CheckAssociatedRelayNumber = RelayNumberMonotonicallyIncreases;
+    type ConsensusHook = ConsensusHook;
+    type SelectCore = cumulus_pallet_parachain_system::DefaultCoreSelector<Runtime>;
+}
+
+impl parachain_info::Config for Runtime {}
+
+parameter_types! {
+    pub MessageQueueServiceWeight: Weight = Perbill::from_percent(35) * RuntimeBlockWeights::get().max_block;
+}
+
+impl pallet_message_queue::Config for Runtime {
+    type RuntimeEvent = RuntimeEvent;
+    type WeightInfo = ();
+    #[cfg(feature = "runtime-benchmarks")]
+    type MessageProcessor = pallet_message_queue::mock_helpers::NoopMessageProcessor<
+        cumulus_primitives_core::AggregateMessageOrigin,
+    >;
+    #[cfg(not(feature = "runtime-benchmarks"))]
+    type MessageProcessor = xcm_builder::ProcessXcmMessage<
+        AggregateMessageOrigin,
+        xcm_executor::XcmExecutor<xcm_config::XcmConfig>,
+        RuntimeCall,
+    >;
+    type Size = u32;
+    // The XCMP queue pallet is only ever able to handle the `Sibling(ParaId)` origin:
+    type QueueChangeHandler = NarrowOriginToSibling<XcmpQueue>;
+    type QueuePausedQuery = NarrowOriginToSibling<XcmpQueue>;
+    type HeapSize = sp_core::ConstU32<{ 103 * 1024 }>;
+    type MaxStale = sp_core::ConstU32<8>;
+    type ServiceWeight = MessageQueueServiceWeight;
+    type IdleMaxServiceWeight = ();
+}
+
+impl cumulus_pallet_aura_ext::Config for Runtime {}
+
+impl cumulus_pallet_xcmp_queue::Config for Runtime {
+    type RuntimeEvent = RuntimeEvent;
+    type ChannelInfo = ParachainSystem;
+    type VersionWrapper = ();
+    // Enqueue XCMP messages from siblings for later processing.
+    type XcmpQueue = TransformOrigin<MessageQueue, AggregateMessageOrigin, ParaId, ParaIdToSibling>;
+    type MaxInboundSuspended = sp_core::ConstU32<1_000>;
+    type MaxActiveOutboundChannels = ConstU32<128>;
+    type MaxPageSize = ConstU32<{ 1 << 16 }>;
+    type ControllerOrigin = EnsureRoot<AccountId>;
+    type ControllerOriginConverter = XcmOriginToTransactDispatchOrigin;
+    type WeightInfo = ();
+    type PriceForSiblingDelivery = NoPriceForMessageDelivery<ParaId>;
+}
+
+parameter_types! {
+    pub const Period: u32 = 6 * HOURS;
+    pub const Offset: u32 = 0;
+}
+
+impl pallet_session::Config for Runtime {
+    type RuntimeEvent = RuntimeEvent;
+    type ValidatorId = <Self as frame_system::Config>::AccountId;
+    // we don't have stash and controller, thus we don't need the convert as well.
+    type ValidatorIdOf = pallet_collator_selection::IdentityCollator;
+    type ShouldEndSession = pallet_session::PeriodicSessions<Period, Offset>;
+    type NextSessionRotation = pallet_session::PeriodicSessions<Period, Offset>;
+    type SessionManager = CollatorSelection;
+    // Essentially just Aura, but let's be pedantic.
+    type SessionHandler = <SessionKeys as sp_runtime::traits::OpaqueKeys>::KeyTypeIdProviders;
+    type Keys = SessionKeys;
+    type WeightInfo = ();
+}
+
+#[docify::export(aura_config)]
+impl pallet_aura::Config for Runtime {
+    type AuthorityId = AuraId;
+    type DisabledValidators = ();
+    type MaxAuthorities = ConstU32<100_000>;
+    type AllowMultipleBlocksPerSlot = ConstBool<true>;
+    type SlotDuration = ConstU64<SLOT_DURATION>;
+}
+
+parameter_types! {
+    pub const PotId: PalletId = PalletId(*b"PotStake");
+    pub const SessionLength: BlockNumber = 6 * HOURS;
+    // StakingAdmin pluralistic body.
+    pub const StakingAdminBodyId: BodyId = BodyId::Defense;
+}
+
+/// We allow root and the StakingAdmin to execute privileged collator selection operations.
+pub type CollatorSelectionUpdateOrigin = EitherOfDiverse<
+    EnsureRoot<AccountId>,
+    EnsureXcm<IsVoiceOfBody<RelayLocation, StakingAdminBodyId>>,
+>;
+
+impl pallet_collator_selection::Config for Runtime {
+    type RuntimeEvent = RuntimeEvent;
+    type Currency = Balances;
+    type UpdateOrigin = CollatorSelectionUpdateOrigin;
+    type PotId = PotId;
+    type MaxCandidates = ConstU32<100>;
+    type MinEligibleCollators = ConstU32<4>;
+    type MaxInvulnerables = ConstU32<20>;
+    // should be a multiple of session or things will get inconsistent
+    type KickThreshold = Period;
+    type ValidatorId = <Self as frame_system::Config>::AccountId;
+    type ValidatorIdOf = pallet_collator_selection::IdentityCollator;
+    type ValidatorRegistration = Session;
+    type WeightInfo = ();
+}
+
+/// Configure the pallet template in pallets/template.
+impl pallet_parachain_template::Config for Runtime {
+    type RuntimeEvent = RuntimeEvent;
+    type WeightInfo = pallet_parachain_template::weights::SubstrateWeight<Runtime>;
+}
+
+// Configure utility pallet.
+impl pallet_utility::Config for Runtime {
     type RuntimeEvent = RuntimeEvent;
     type RuntimeCall = RuntimeCall;
     type PalletsOrigin = OriginCaller;
@@ -24156,14 +24786,15 @@ parameter_types! {
 impl custom_pallet::Config for Runtime {
     type RuntimeEvent = RuntimeEvent;
     type CounterMaxValue = CounterMaxValue;
-    
+    type WeightInfo = custom_pallet::weights::SubstrateWeight<Runtime>;
+}
     ```
 
 3. Locate the `#[frame_support::runtime]` macro in the `runtime/src/lib.rs` file and add the pallets:
 
     ```rust hl_lines="5-9" title="lib.rs"
-    #[frame_support::runtime]
-mod runtime {
+    mod runtime {
+    #[runtime::runtime]
         ...
     pub type Utility = pallet_utility;
 
@@ -24306,20 +24937,14 @@ To build and integrate your custom pallet into a Polkadot SDK-based runtime, you
     ```toml
     codec = { features = ["derive"], workspace = true }
 scale-info = { features = ["derive"], workspace = true }
-frame-support.workspace = true
-frame-system.workspace = true
+frame = { features = ["experimental", "runtime"], workspace = true }
     ```
 
 3. Enable `std` features:
 
     ```toml
     default = ["std"]
-std = [
-  "codec/std",
-  "frame-support/std",
-  "frame-system/std",
-  "scale-info/std",
-    
+std = ["codec/std", "frame/std", "scale-info/std"]
     ```
 
 The final `Cargo.toml` file should resemble the following:
@@ -24339,39 +24964,12 @@ edition.workspace = true
 [dependencies]
 codec = { features = ["derive"], workspace = true }
 scale-info = { features = ["derive"], workspace = true }
-frame-support.workspace = true
-frame-system.workspace = true
-frame-benchmarking = { optional = true, workspace = true }
-
-[dev-dependencies]
-sp-core = { workspace = true, default-features = true }
-sp-io = { workspace = true, default-features = true }
-sp-runtime = { workspace = true, default-features = true }
+frame = { features = ["experimental", "runtime"], workspace = true }
 
 [features]
 default = ["std"]
-std = [
-  "codec/std",
-  "frame-support/std",
-  "frame-system/std",
-  "scale-info/std",
-  "frame-benchmarking?/std",
-]
-runtime-benchmarks = [
-  "frame-benchmarking/runtime-benchmarks",
-  "frame-support/runtime-benchmarks",
-  "frame-system/runtime-benchmarks",
-  "sp-runtime/runtime-benchmarks",
-]
-try-runtime = []
-
-    default = ["std"]
-std = [
-  "codec/std",
-  "frame-support/std",
-  "frame-system/std",
-  "scale-info/std",
-    
+std = ["codec/std", "frame/std", "scale-info/std"]
+runtime-benchmarks = ["frame/runtime-benchmarks"]
     ```
 
 ## Implement the Pallet Logic
@@ -24390,8 +24988,7 @@ You now have the bare minimum of package dependencies that your pallet requires 
     pub use pallet::*;
     pub mod pallet {
     use super::*;
-    use frame_support::pallet_prelude::*;
-    use frame_system::pallet_prelude::*;
+    use frame::prelude::*;
 
     #[pallet::pallet]
     pub struct Pallet<T>(_);
@@ -24738,8 +25335,7 @@ Expand the following item to review this implementation and the complete pallet 
     pub use pallet::*;
     pub mod pallet {
     use super::*;
-    use frame_support::pallet_prelude::*;
-    use frame_system::pallet_prelude::*;
+    use frame::prelude::*;
 
     #[pallet::pallet]
     pub struct Pallet<T>(_);
@@ -24915,11 +25511,10 @@ mod benchmarking;
 pub mod weights;
 use crate::weights::WeightInfo;
 
-#[frame_support::pallet]
+#[frame::pallet]
 pub mod pallet {
     use super::*;
-    use frame_support::pallet_prelude::*;
-    use frame_system::pallet_prelude::*;
+    use frame::prelude::*;
 
     #[pallet::pallet]
     pub struct Pallet<T>(_);
@@ -25691,35 +26286,27 @@ Follow these steps to prepare your environment for pallet benchmarking:
     cargo install frame-omni-bencher
     ```
 
-2. Update your pallet's `Cargo.toml` file in the `pallets/custom-pallet` directory with the following modifications:
-    1. Add the [`frame-benchmarking`](https://docs.rs/frame-benchmarking/latest/frame_benchmarking/){target=\_blank} dependency:
-    
-        ```toml hl_lines="3" title="Cargo.toml"
-        
-        ...
-        
-        ```
+2. Update your pallet's `Cargo.toml` file in the `pallets/custom-pallet` directory by adding the `runtime-benchmarks` feature flag:
+    ```toml hl_lines="4" title="Cargo.toml"
+    [package]
+name = "custom-pallet"
+version = "0.1.0"
+license.workspace = true
+authors.workspace = true
+homepage.workspace = true
+repository.workspace = true
+edition.workspace = true
 
-    2. Enable benchmarking in the `std` features:
-        ```toml hl_lines="6" title="Cargo.toml"
-        "codec/std",
-  "frame-support/std",
-  "frame-system/std",
-  "scale-info/std",
-  "frame-benchmarking?/std",
-]
-        ```
+[dependencies]
+codec = { features = ["derive"], workspace = true }
+scale-info = { features = ["derive"], workspace = true }
+frame = { features = ["experimental", "runtime"], workspace = true }
 
-    3. Add the `runtime-benchmarks` feature flag:
-        ```toml hl_lines="3-8" title="Cargo.toml"
-        
-        ...
-        "frame-benchmarking/runtime-benchmarks",
-  "frame-support/runtime-benchmarks",
-  "frame-system/runtime-benchmarks",
-  "sp-runtime/runtime-benchmarks",
-]
-        ```
+[features]
+default = ["std"]
+std = ["codec/std", "frame/std", "scale-info/std"]
+runtime-benchmarks = ["frame/runtime-benchmarks"]
+    ```
 
 3. Add your pallet to the runtime's benchmark configuration:
     1.  Register your pallet in `runtime/src/benchmarks.rs`:
@@ -25738,10 +26325,13 @@ Follow these steps to prepare your environment for pallet benchmarking:
         ```
 
     2. Enable runtime benchmarking for your pallet in `runtime/Cargo.toml`:
-        ```toml hl_lines="3" title="Cargo.toml"
-        
-          ...
-        ]
+        ```toml hl_lines="6" title="Cargo.toml"
+        "cumulus-pallet-parachain-system/runtime-benchmarks",
+  "hex-literal",
+  "pallet-parachain-template/runtime-benchmarks",
+  "polkadot-sdk/runtime-benchmarks",
+  "custom-pallet/runtime-benchmarks",
+]
         ```
 
 4. Set up the benchmarking module in your pallet:
@@ -25828,8 +26418,8 @@ Now, implement the complete set of benchmark tests. Copy the following content i
 #![cfg(feature = "runtime-benchmarks")]
 
 use super::{Pallet as CustomPallet, *};
-use frame_benchmarking::v2::*;
-use frame_support::assert_ok;
+use frame::deps::frame_support::assert_ok;
+use frame::{deps::frame_benchmarking::v2::*, prelude::*};
 
 #[benchmarks]
 mod benchmarks {
@@ -25906,8 +26496,8 @@ After implementing your benchmark test suite, you'll need to execute the tests a
 
     ```bash
     mkdir ./pallets/benchmarking && \
-    curl https://raw.githubusercontent.com/paritytech/polkadot-sdk/refs/tags/polkadot-stable2412/substrate/.maintain/frame-weight-template.hbs \
-    --output ./pallets/benchmarking/frame-weight-template.hbs
+    curl https://raw.githubusercontent.com/paritytech/polkadot-sdk/refs/heads/stable2412/substrate/.maintain/frame-umbrella-weight-template.hbs \
+    --output ./pallets/benchmarking/frame-umbrella-weight-template.hbs
     ```
 
 4. Execute the benchmarking process using the `frame-omni-bencher` CLI:
@@ -25917,7 +26507,7 @@ After implementing your benchmark test suite, you'll need to execute the tests a
     --runtime target/release/wbuild/parachain-template-runtime/parachain_template_runtime.compact.compressed.wasm \
     --pallet "custom_pallet" \
     --extrinsic "" \
-    --template ./pallets/benchmarking/frame-weight-template.hbs \
+    --template ./pallets/benchmarking/frame-umbrella-weight-template.hbs \
     --output ./pallets/custom-pallet/src/weights.rs
     ```
 
@@ -25938,9 +26528,8 @@ use crate::weights::WeightInfo;
 
 Next, update your pallet's `Config` trait to include weight information. Define the `WeightInfo` type:
 
-```rust hl_lines="11-12" title="lib.rs"
-#[pallet::config]
-    pub trait Config: frame_system::Config {
+```rust hl_lines="10-11" title="lib.rs"
+pub trait Config: frame_system::Config {
         // Defines the event type for the pallet.
         type RuntimeEvent: From<Event<Self>> + IsType<<Self as frame_system::Config>::RuntimeEvent>;
 
@@ -26048,28 +26637,14 @@ To effectively create the test environment for your pallet, you'll need to follo
     cd custom-pallet
     ```
 
-2. Add the required dependencies to your test configuration in the `Cargo.toml` file of the pallet:
-
-    ```toml title="Cargo.toml"
-    
-    ...
-
-    sp-core = { workspace = true, default-features = true }
-sp-io = { workspace = true, default-features = true }
-sp-runtime = { workspace = true, default-features = true }
-
-[features]
-    ...
-    ```
-
-3. Create a `mock.rs` and a `tests.rs` files (leave these files empty for now, they will be filled in later):
+2. Create a `mock.rs` and a `tests.rs` files (leave these files empty for now, they will be filled in later):
 
     ```bash
     touch src/mock.rs
     touch src/tests.rs
     ```
 
-4. Include them in your `lib.rs` module:
+3. Include them in your `lib.rs` module:
 
     ```rust hl_lines="5-9" title="lib.rs"
     pub use pallet::*;
@@ -26086,12 +26661,12 @@ mod tests;
 The following portion of code sets up a mock runtime (`Test`) to test the `custom-pallet` in an isolated environment. Using [`frame_support`](https://paritytech.github.io/polkadot-sdk/master/frame_support/index.html){target=\_blank} macros, it defines a minimal runtime configuration with traits such as `RuntimeCall` and `RuntimeEvent` to simulate runtime behavior. The mock runtime integrates the [`System pallet`](https://paritytech.github.io/polkadot-sdk/master/frame_system/index.html){target=\_blank}, which provides core functionality, and the `custom pallet` under specific indices. Copy and paste the following snippet of code into your `mock.rs` file:
 
 ```rust title="mock.rs"
-use frame_support::{derive_impl, parameter_types};
-use sp_runtime::BuildStorage;
+use frame::{prelude::*, runtime::prelude::*, testing_prelude::*};
 
 type Block = frame_system::mocking::MockBlock<Test>;
 
-#[frame_support::runtime]
+// Configure a mock runtime to test the pallet.
+#[frame_construct_runtime]
 mod runtime {
     #[runtime::runtime]
     #[runtime::derive(
@@ -26108,10 +26683,10 @@ mod runtime {
     pub struct Test;
 
     #[runtime::pallet_index(0)]
-    pub type System = frame_system::Pallet<Test>;
+    pub type System = frame_system;
 
     #[runtime::pallet_index(1)]
-    pub type CustomPallet = custom_pallet::Pallet<Test>;
+    pub type CustomPallet = custom_pallet;
 }
 ```
 
@@ -26151,12 +26726,12 @@ impl custom_pallet::Config for Test {
 // SOFTWARE.
 
 use crate as custom_pallet;
-use frame_support::{derive_impl, parameter_types};
-use sp_runtime::BuildStorage;
+use frame::{prelude::*, runtime::prelude::*, testing_prelude::*};
 
 type Block = frame_system::mocking::MockBlock<Test>;
 
-#[frame_support::runtime]
+// Configure a mock runtime to test the pallet.
+#[frame_construct_runtime]
 mod runtime {
     #[runtime::runtime]
     #[runtime::derive(
@@ -26173,10 +26748,10 @@ mod runtime {
     pub struct Test;
 
     #[runtime::pallet_index(0)]
-    pub type System = frame_system::Pallet<Test>;
+    pub type System = frame_system;
 
     #[runtime::pallet_index(1)]
-    pub type CustomPallet = custom_pallet::Pallet<Test>;
+    pub type CustomPallet = custom_pallet;
 }
 
 // System pallet configuration
@@ -26197,7 +26772,7 @@ impl custom_pallet::Config for Test {
 }
 
 // Test externalities initialization
-pub fn new_test_ext() -> sp_io::TestExternalities {
+pub fn new_test_ext() -> TestExternalities {
     frame_system::GenesisConfig::<Test>::default()
         .build_storage()
         .unwrap()
@@ -26218,12 +26793,12 @@ Expand the following item to see the complete `mock.rs` implementation for the m
 ???-code "mock.rs"
 
     ```rust title="mock.rs"
-    use frame_support::{derive_impl, parameter_types};
-use sp_runtime::BuildStorage;
+    use frame::{prelude::*, runtime::prelude::*, testing_prelude::*};
 
 type Block = frame_system::mocking::MockBlock<Test>;
 
-#[frame_support::runtime]
+// Configure a mock runtime to test the pallet.
+#[frame_construct_runtime]
 mod runtime {
     #[runtime::runtime]
     #[runtime::derive(
@@ -26240,10 +26815,10 @@ mod runtime {
     pub struct Test;
 
     #[runtime::pallet_index(0)]
-    pub type System = frame_system::Pallet<Test>;
+    pub type System = frame_system;
 
     #[runtime::pallet_index(1)]
-    pub type CustomPallet = custom_pallet::Pallet<Test>;
+    pub type CustomPallet = custom_pallet;
 }
 
 // System pallet configuration
@@ -26280,12 +26855,12 @@ impl custom_pallet::Config for Test {
 // SOFTWARE.
 
 use crate as custom_pallet;
-use frame_support::{derive_impl, parameter_types};
-use sp_runtime::BuildStorage;
+use frame::{prelude::*, runtime::prelude::*, testing_prelude::*};
 
 type Block = frame_system::mocking::MockBlock<Test>;
 
-#[frame_support::runtime]
+// Configure a mock runtime to test the pallet.
+#[frame_construct_runtime]
 mod runtime {
     #[runtime::runtime]
     #[runtime::derive(
@@ -26302,10 +26877,10 @@ mod runtime {
     pub struct Test;
 
     #[runtime::pallet_index(0)]
-    pub type System = frame_system::Pallet<Test>;
+    pub type System = frame_system;
 
     #[runtime::pallet_index(1)]
-    pub type CustomPallet = custom_pallet::Pallet<Test>;
+    pub type CustomPallet = custom_pallet;
 }
 
 // System pallet configuration
@@ -26326,7 +26901,7 @@ impl custom_pallet::Config for Test {
 }
 
 // Test externalities initialization
-pub fn new_test_ext() -> sp_io::TestExternalities {
+pub fn new_test_ext() -> TestExternalities {
     frame_system::GenesisConfig::<Test>::default()
         .build_storage()
         .unwrap()
@@ -26587,7 +27162,8 @@ Expand the following item to see the complete `tests.rs` implementation for the 
 // SOFTWARE.
 
 use crate::{mock::*, Error, Event, UserInteractions};
-use frame_support::{assert_noop, assert_ok};
+use frame::deps::sp_runtime;
+use frame::testing_prelude::*;
 
 // Verify root can successfully set counter value
 #[test]
@@ -26865,13 +27441,12 @@ The [Polkadot SDK Parachain Template](https://github.com/paritytech/polkadot-sdk
 
 1. Clone the template repository:
     ```bash
-    git clone https://github.com/paritytech/polkadot-sdk-parachain-template.git parachain-template
+    git clone -b stable2412 https://github.com/paritytech/polkadot-sdk-parachain-template.git parachain-template
     ```
 
-2. Navigate into the project directory and check out the specific commit:
+2. Navigate into the project directory:
     ```bash
     cd parachain-template
-    git checkout ecaf71d
     ```
 
 3. Compile the runtime:
@@ -27391,6 +27966,7 @@ Through these tutorials, you'll learn how to manage cross-chain assets, includin
   <div class="card">
     <a href="/polkadot-protocol/architecture/system-chains/asset-hub/">
       <h2 class="title">Learn More About Asset Hub</h2>
+      <hr>
       <p class="description">Explore the fundamentals of Asset Hub, including managing on-chain assets, foreign asset integration, and using XCM for cross-chain asset transfers.</p>
     </a>
   </div>

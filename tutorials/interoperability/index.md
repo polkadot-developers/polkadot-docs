@@ -31,12 +31,14 @@ Learn to establish and use cross-chain communication channels:
   <div class="card">
     <a href="/polkadot-protocol/basics/interoperability/">
       <h2 class="title">Learn about Polkadot's Interoperability</h2>
+      <hr>
       <p class="description">Explore the importance of interoperability in the Polkadot ecosystem, covering XCM, bridges, and cross-chain communication.</p>
     </a>
   </div>
     <div class="card">
     <a href="/develop/interoperability/">
       <h2 class="title">Explore Comprehensive XCM Guides</h2>
+      <hr>
       <p class="description">Looking for comprehensive guides and technical resources on XCM? Explore foundational concepts, advanced configuration, and best practices for building cross-chain solutions using XCM.</p>
     </a>
   </div>

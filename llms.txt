@@ -314,24 +314,28 @@ This section covers everything you need to know about building and implementing 
   <div class="card"> 
     <a href="https://paritytech.github.io/polkadot-sdk/master/xcm_docs/index.html" target="_blank"> 
       <h2 class="title">Review the Polkadot SDK's XCM Documentation</h2>
+      <hr>
       <p class="description">Dive into the official documentation to learn about the key components for supporting XCM in your parachain and enabling seamless cross-chain communication.</p>
     </a>
   </div>
   <div class="card">
     <a href="/tutorials/interoperability/"> 
       <h2 class="title">Follow Step-by-Step Tutorials</h2>
+      <hr>
       <p class="description">Enhance your XCM skills with step-by-step tutorials on building interoperability solutions on Polkadot SDK-based blockchains.</p>
     </a>
   </div>
   <div class="card"> 
     <a href="https://github.com/polkadot-fellows/xcm-format" target="_blank"> 
       <h2 class="title">Familiarize Yourself with the XCM Format</h2>
+      <hr>
       <p class="description">Gain a deeper understanding of the XCM format and structure, including any extra data it may need and what each part of a message means.</p>
     </a>
   </div>
   <div class="card"> 
     <a href="/develop/toolkit/interoperability/"> 
       <h2 class="title">Essential XCM Tools</h2>
+      <hr>
       <p class="description">Explore essential tools for creating and integrating cross-chain solutions within the Polkadot ecosystem.</p>
     </a>
   </div>
@@ -3178,18 +3182,21 @@ The [FRAME directory](https://github.com/paritytech/polkadot-sdk/tree/{{dependen
   <div class="card">
     <a href="https://github.com/paritytech/polkadot-sdk/tree/{{dependencies.repositories.polkadot_sdk.version}}/substrate/frame" target="_blank">
       <h2 class="title">FRAME Repository</h2>
+      <hr>
       <p class="description">View the source code of the FRAME development environment that provides pallets you can use, modify, and extend to build the runtime logic to suit the needs of your blockchain.</p>
     </a>
   </div>
     <div class="card">
     <a href="https://paritytech.github.io/polkadot-sdk/master/polkadot_sdk_docs/polkadot_sdk/frame_runtime/index.html" target="_blank">
       <h2 class="title">FRAME Rust docs</h2>
+      <hr>
       <p class="description">Check out the Rust documentation for FRAME, Substrate's preferred framework for building runtimes.</p>
     </a>
   </div>
   <div class="card">
     <a href="https://libro.blockdeep.dev/index.html" target="_blank">
       <h2 class="title">Polkadot SDK Best Practices</h2>
+      <hr>
       <p class="description">Understand and address common issues that can arise in blockchain development when building with the Polkadot SDK.</p>
     </a>
   </div>
@@ -4369,6 +4376,7 @@ If you’re building a standalone blockchain (solochain) that won’t connect to
   <div class="card">
     <a href="https://paritytech.github.io/polkadot-sdk/master/staging_chain_spec_builder/index.html" target="_blank">
       <h2 class="title">Check Out the Chain Spec Builder Docs</h2>
+      <hr>
       <p class="description">Learn about Substrate’s chain spec builder utility.</p>
     </a>
   </div>
@@ -5030,12 +5038,14 @@ Learn how to maintain Polkadot SDK-based networks, focusing on runtime monitorin
   <div class="card">
     <a href="https://paritytech.github.io/polkadot-sdk/master/pallet_example_single_block_migrations/index.html" target="_blank">
       <h2 class="title">Single Block Migration Example</h2>
+      <hr>
       <p class="description">Check out an example pallet demonstrating best practices for writing single-block migrations while upgrading pallet storage.</p>
     </a>
   </div>
   <div class="card">
     <a href="https://paritytech.github.io/polkadot-sdk/master/pallet_example_single_block_migrations/index.html" target="_blank">
       <h2 class="title">Client Telemetry Crate</h2>
+      <hr>
       <p class="description">Check out the docs on Substrate's client telemetry, a part of Substrate that allows ingesting telemetry data with, for example, Polkadot telemetry.</p>
     </a>
   </div>
@@ -5947,12 +5957,14 @@ Through these guides, you'll learn to:
   <div class="card">
     <a href="https://paritytech.github.io/polkadot-sdk/master/sp_runtime/" target="_blank">
       <h2 class="title">`sp_runtime` crate Rust docs</h2>
+      <hr>
       <p class="description">Learn about Substrate Runtime primitives that enable communication between a Substrate blockchain's runtime and client.</p>
     </a>
   </div>
   <div class="card">
     <a href="https://github.com/Moonsong-Labs/moonwall" target="_blank">
       <h2 class="title">Moonwall Testing Framework</h2>
+      <hr>
       <p class="description">Moonwall is a comprehensive blockchain test framework for Substrate-based networks.</p>
     </a>
   </div>
@@ -6311,18 +6323,21 @@ Whether deploying existing Ethereum contracts on Polkadot or creating new applic
   <div class="card">
     <a href="https://docs.astar.network/docs/build/EVM/first-contract/" target="_blank">
       <h2 class="title">Deploy a Smart Contract on Astar</h2>
+      <hr>
       <p class="description">Follow instructions to deploy your first contract on the Astar parachain using Remix.</p>
     </a>
   </div>
   <div class="card">
     <a href="https://docs.moonbeam.network/builders/ethereum/dev-env/remix/" target="_blank">
       <h2 class="title">Deploy a Smart Contract on Moonbeam</h2>
+      <hr>
       <p class="description">Follow instructions to deploy your first contract on the Moonbeam parachain using Remix.</p>
     </a>
   </div>
   <div class="card">
     <a href="https://evmdocs.acala.network/tooling/remix-ide/deploying-a-smart-contract" target="_blank">
       <h2 class="title">Deploy a Smart Contract on Acala</h2>
+      <hr>
       <p class="description">Follow instructions to deploy your first contract on the Acala parachain using Remix.</p>
     </a>
   </div>
@@ -6845,6 +6860,7 @@ Throughout the pages in this section, you'll find resources and guides to help y
   <div class="card">
     <a href="https://use.ink/" target="_blank"> 
       <h2 class="title">View the Official ink! Documentation</h2>
+      <hr>
       <p class="description">Learn everything you need to know about developing smart contracts with ink!.</p>
     </a>
   </div>
@@ -7355,12 +7371,14 @@ Explore the powerful API libraries designed for interacting with the Polkadot ne
   <div class="card">
     <a href="/polkadot-protocol/basics/chain-data/"> 
       <h2 class="title">Understand Chain Data</h2>
+      <hr>
       <p class="description">Familiarize yourself with the data provided by the APIs, including available calls, events, types, and storage items.</p>
     </a>
   </div>
     <div class="card">
     <a href="/develop/networks/">
       <h2 class="title">Network Configurations</h2>
+      <hr>
       <p class="description">Obtain the necessary configurations and WSS endpoints to interact with the APIs on Polkadot networks.</p>
     </a>
   </div>
@@ -8520,12 +8538,14 @@ The Asset Transfer API is a library designed to streamline asset transfers for P
   <div class="card">
     <a href="https://github.com/paritytech/asset-transfer-api" target="_blank">
       <h2 class="title">View the Source Code</h2>
+      <hr>
       <p class="description">Explore the Asset Transfer API repository on GitHub to familiarize yourself with the source code.</p>
     </a>
   </div>
     <div class="card">
     <a href="https://github.com/paritytech/asset-transfer-api" target="_blank">
       <h2 class="title">Learn Through Examples</h2>
+      <hr>
       <p class="description">Check out the provided examples on GitHub to get a better understanding of how to implement the Asset Transfer API.</p>
     </a>
   </div>
@@ -10593,12 +10613,14 @@ Whether you're debugging an issue, testing new features, or exploring cross-chai
   <div class="card">
     <a href="https://github.com/AcalaNetwork/chopsticks/"  target="_blank">
       <h2 class="title">Chopsticks Repository</h2>
+      <hr>
       <p class="description">View the official Chopsticks Github Repository. Check out the code, check out sample commands, and track issues and new releases.</p>
     </a>
   </div>
     <div class="card">
     <a href="/tutorials/polkadot-sdk/testing/fork-live-chains/">
       <h2 class="title">Fork Live Chains with Chopsticks</h2>
+      <hr>
       <p class="description">Learn how to fork live Polkadot SDK chains with Chopsticks. Configure forks, replay blocks, test XCM, and interact programmatically or via UI.</p>
     </a>
   </div>
@@ -10638,6 +10660,7 @@ Forking a live chain creates a controlled environment that mirrors live network 
   <div class="card">
     <a href="/tutorials/polkadot-sdk/testing/fork-live-chains/">
       <h2 class="title">Step-by-Step Tutorial on Forking Live Chains with Chopsticks</h2>
+      <hr>
       <p class="description">This tutorial walks you through how to fork live Polkadot SDK chains with Chopsticks. Configure forks, replay blocks, test XCM execution.</p>
     </a>
   </div>
@@ -10702,6 +10725,7 @@ Spawning a network provides a controlled environment to test and validate variou
   <div class="card">
     <a href="/tutorials/polkadot-sdk/testing/spawn-basic-chain/">
       <h2 class="title">Spawn a Chain with Zombienet</h2>
+      <hr>
       <p class="description">Learn to spawn, connect to and monitor a basic blockchain network with Zombienet, using customizable configurations for streamlined development and debugging.</p>
     </a>
 </div>
@@ -11745,6 +11769,7 @@ Whether you're building a new parachain or testing runtime upgrades, Zombienet p
   <div class="card">
     <a href="/tutorials/polkadot-sdk/testing/spawn-basic-chain/">
       <h2 class="title">Spawn a Chain with Zombienet Tutorial</h2>
+      <hr>
       <p class="description">Follow step-by-step instructions to spawn, connect to and monitor a basic blockchain network with Zombienet, using customizable configurations for streamlined development and debugging.</p>
     </a>
 </div>
@@ -12813,18 +12838,21 @@ Learn the requirements for setting up a Polkadot validator node, along with deta
   <div class="card">
     <a href="/infrastructure/staking-mechanics/" target="_blank">
       <h2 class="title">Explore Rewards, Offenses, and Slashes</h2>
+      <hr>
       <p class="description">Learn about Polkadot's offenses and slashing system, along with validator rewards, era points, and nominator payments.</p>
     </a>
   </div>
   <div class="card">
     <a href="https://nodes.web3.foundation/" target="_blank">
       <h2 class="title">Check Out the Decentralized Nodes Program</h2>
+      <hr>
       <p class="description">The Decentralized Nodes program aims to support Polkadot's security and decentralization by involving a diverse set of validators. Learn more and apply.</p>
     </a>
   </div>
   <div class="card">
     <a href="https://matrix.to/#/#polkadotvalidatorlounge:web3.foundation" target="_blank">
       <h2 class="title">Get Help and Connect With Experts</h2>
+      <hr>
       <p class="description">For help, connect with the Polkadot Validator Lounge on Element, where both the team and experienced validators are ready to assist.</p>
     </a>
   </div>
@@ -12855,24 +12883,28 @@ This section provides guidance on how to set up, activate, and deactivate your v
   <div class="card">
     <a href="/infrastructure/running-a-validator/requirements/" target="_blank">
       <h2 class="title">Review the Requirements</h2>
+      <hr>
       <p class="description">Explore the technical and system requirements for running a Polkadot validator, including setup, hardware, staking prerequisites, and security best practices.</p>
     </a>
   </div>
   <div class="card">
     <a href="/infrastructure/staking-mechanics/rewards-payout/" target="_blank">
       <h2 class="title">Learn About Staking Mechanics</h2>
+      <hr>
       <p class="description">Explore the staking mechanics in Polkadot, focusing on how they relate to validators, including offenses and slashes, as well as reward payouts.</p>
     </a>
   </div>
   <div class="card">
     <a href="/infrastructure/running-a-validator/operational-tasks/" target="_blank">
       <h2 class="title">Maintain Your Node</h2>
+      <hr>
       <p class="description">Learn how to manage your Polkadot validator node, including monitoring performance, running a backup validator for maintenance, and rotating keys.</p>
     </a>
   </div>
   <div class="card">
     <a href="https://matrix.to/#/#polkadotvalidatorlounge:web3.foundation" target="_blank">
       <h2 class="title">Get Help and Connect With Experts</h2>
+      <hr>
       <p class="description">For help, connect with the Polkadot Validator Lounge on Element, where both the team and experienced validators are ready to assist.</p>
     </a>
   </div>
@@ -14214,12 +14246,14 @@ Running a Polkadot validator node involves several key operational tasks to ensu
   <div class="card">
     <a href="https://telemetry.polkadot.io/" target="_blank">
       <h2 class="title">Access Real-Time Validator Metrics</h2>
+      <hr>
       <p class="description">Check the Polkadot Telemetry dashboard for real-time insights into node performance, including validator status, connectivity, block production, and software version to identify potential issues.</p>
     </a>
   </div>
     <div class="card">
     <a href="https://wiki.polkadot.network/docs/learn-runtime-upgrades#monitoring-runtime-changes" target="_blank">
       <h2 class="title">Stay Up to Date with Runtime Upgrades</h2>
+      <hr>
       <p class="description">Learn how to monitor the Polkadot network for upcoming upgrades, so you can prepare your validator node for any required updates or modifications.</p>
     </a>
   </div>
@@ -14458,18 +14492,21 @@ Gain a deep understanding of the staking mechanics in Polkadot, with a focus on 
   <div class="card">
     <a href="https://research.web3.foundation/Polkadot/protocols/NPoS/Overview" target="_blank">
       <h2 class="title">Learn About Nominated Proof of Staking</h2>
+      <hr>
       <p class="description">Take a deeper dive into the fundamentals of Polkadot's Nominated Proof of Stake (NPoS) consensus mechanism.</p>
     </a>
   </div>
     <div class="card">
     <a href="https://research.web3.foundation/Polkadot/security/slashing/amounts" target="_blank">
       <h2 class="title">Dive Deep into Slashing Mechanisms</h2>
+      <hr>
       <p class="description">Read the Web3 Foundation's research article on slashing mechanisms for a comprehensive understanding of slashing, along with an in-depth examination of the offenses involved.</p>
     </a>
   </div>
   <div class="card">
     <a href="https://dune.com/substrate/polkadot-staking-validators#polkadot-staking-rewards" target="_blank">
       <h2 class="title">Review Validator Rewards Metrics</h2>
+      <hr>
       <p class="description">Check out Dune's Polkadot Staking Rewards dashboard for a detailed look at validator-specific metrics over time, such as daily staking rewards, nominators count, reward points, and more.</p>
     </a>
   </div>
@@ -18726,6 +18763,7 @@ The Zero to Hero series offers step-by-step guidance to development across the P
   <div class="card">
     <a href="/tutorials/polkadot-sdk/parachains/zero-to-hero/" target="_blank">
       <h2 class="title">Parachain Zero to Hero</h2>
+      <hr>
       <p class="description">Begin with a template then follow this series of step-by-step guides to add pallets, write unit tests and benchmarking, run your parachain locally, perform runtime upgrades, deploy to TestNet, and obtain coretime.</p>
     </a>
   </div>
@@ -18737,24 +18775,28 @@ The Zero to Hero series offers step-by-step guidance to development across the P
   <div class="card">
     <a href="/tutorials/polkadot-sdk/parachains/zero-to-hero/set-up-a-template/">
       <h2 class="title">Set Up a Template</h2>
+      <hr>
       <p class="description">Learn to compile and run a local parachain node using Polkadot SDK. Launch, run, and interact with a pre-configured runtime template.</p>
     </a>
   </div>
     <div class="card">
     <a href="/tutorials/polkadot-sdk/parachains/zero-to-hero/build-custom-pallet">
       <h2 class="title">Build a Custom Pallet</h2>
+      <hr>
       <p class="description">Learn how to build a custom pallet for Polkadot SDK-based blockchains with this step-by-step guide. Create and configure a simple counter pallet from scratch.</p>
     </a>
   </div>
     <div class="card">
     <a href="/tutorials/polkadot-sdk/testing/fork-live-chains/">
       <h2 class="title">Fork a Live Chain with Chopsticks</h2>
+      <hr>
       <p class="description">Learn how to fork live Polkadot SDK chains with Chopsticks. Configure forks, replay blocks, test XCM, and interact programmatically or via UI.</p>
     </a>
   </div>
     <div class="card">
     <a href="/tutorials/interoperability/xcm-channels/para-to-para/">
       <h2 class="title">Open an XCM Channel</h2>
+      <hr>
       <p class="description">Learn how to open HRMP channels between parachains on Polkadot. Discover the step-by-step process for establishing uni- and bidirectional communication.</p>
     </a>
   </div>
@@ -18800,12 +18842,14 @@ Learn to establish and use cross-chain communication channels:
   <div class="card">
     <a href="/polkadot-protocol/basics/interoperability/">
       <h2 class="title">Learn about Polkadot's Interoperability</h2>
+      <hr>
       <p class="description">Explore the importance of interoperability in the Polkadot ecosystem, covering XCM, bridges, and cross-chain communication.</p>
     </a>
   </div>
     <div class="card">
     <a href="/develop/interoperability/">
       <h2 class="title">Explore Comprehensive XCM Guides</h2>
+      <hr>
       <p class="description">Looking for comprehensive guides and technical resources on XCM? Explore foundational concepts, advanced configuration, and best practices for building cross-chain solutions using XCM.</p>
     </a>
   </div>
@@ -18842,6 +18886,7 @@ To enable communication between parachains, explicit HRMP channels must be estab
   <div class="card">
     <a href="/develop/interoperability/xcm-channels/">
       <h2 class="title">Review HRMP Configurations and Extrinsics</h2>
+      <hr>
       <p class="description">Learn about the configurable parameters that govern HRMP channel behavior and the dispatchable extrinsics used to manage them.</p>
     </a>
   </div>
@@ -24183,6 +24228,7 @@ This section provides step-by-step tutorials to help you navigate the technical 
   <div class="card">
     <a href="/polkadot-protocol/onchain-governance/" target="_blank">
       <h2 class="title">Learn More About Polkadot's OpenGov</h2>
+      <hr>
       <p class="description">Explore Polkadot's decentralized on-chain governance system, OpenGov, including how it works, the proposal process, and key info for developers.</p>
     </a>
   </div>
@@ -24221,6 +24267,7 @@ Follow these key milestones to guide you through parachain development. Each ste
   <div class="card">
     <a href="https://github.com/paritytech/polkadot-sdk" target="_blank">
       <h2 class="title">View the Polkadot SDK Source Code</h2>
+      <hr>
       <p class="description">Check out the Polkadot SDK repository on GitHub to explore the source code and stay updated on the latest releases.</p>
     </a>
   </div>
@@ -27575,6 +27622,7 @@ Through these tutorials, you'll learn how to manage cross-chain assets, includin
   <div class="card">
     <a href="/polkadot-protocol/architecture/system-chains/asset-hub/">
       <h2 class="title">Learn More About Asset Hub</h2>
+      <hr>
       <p class="description">Explore the fundamentals of Asset Hub, including managing on-chain assets, foreign asset integration, and using XCM for cross-chain asset transfers.</p>
     </a>
   </div>

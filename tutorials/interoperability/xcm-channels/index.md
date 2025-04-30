@@ -26,6 +26,7 @@ To enable communication between parachains, explicit HRMP channels must be estab
   <div class="card">
     <a href="/develop/interoperability/xcm-channels/">
       <h2 class="title">Review HRMP Configurations and Extrinsics</h2>
+      <hr>
       <p class="description">Learn about the configurable parameters that govern HRMP channel behavior and the dispatchable extrinsics used to manage them.</p>
     </a>
   </div>

@@ -11,8 +11,8 @@ Running multiple instances of the same pallet within a runtime is a powerful tec
 
 ## Understanding Instantiable Pallets
 
-Unlike standard pallets that exist as a single instance in a runtime, instantiable pallets require special configuration through an additional generic parameter `I`.
-This generic `I` creates a unique lifetime for each pallet instance, affecting the pallet's generic types and its configuration trait `T`.
+Unlike standard pallets that exist as a single instance in a runtime, instantiable pallets require special configuration through an additional [generic parameter](https://doc.rust-lang.org/reference/items/generics.html){target=\_blank} `I`.
+This generic `I` creates a unique [lifetime](https://doc.rust-lang.org/rust-by-example/scope/lifetime.html){target=\_blank} for each pallet instance, affecting the pallet's generic types and its configuration trait `T`.
 
 You can identify an instantiable pallet by examining its `Pallet` struct definition, which will include both the standard generic `T` and the instantiation generic `I`:
 

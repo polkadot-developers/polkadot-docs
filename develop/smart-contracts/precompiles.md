@@ -1,5 +1,5 @@
 ---
-title: Advanced Functionalities (Precompiles)
+title: Advanced Functionalities via Precompiles
 description: Explores how Polkadot integrates precompiles to run essential functions natively, improving the speed and efficiency of smart contracts on the Hub.
 ---
 

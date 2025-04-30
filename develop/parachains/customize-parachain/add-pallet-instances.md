@@ -44,7 +44,7 @@ parameter_types! {
 
 For a single instance, the configuration would look like this:
 
-```rust
+```rust hl_lines="1"
 impl pallet_collective::Config for Runtime {
     type RuntimeOrigin = RuntimeOrigin;
     type Proposal = RuntimeCall;
@@ -64,7 +64,7 @@ impl pallet_collective::Config for Runtime {
 
 For multiple instances, you need to create a unique identifier for each instance using the `Instance` type with a number suffix, then implement the configuration for each one:
 
-```rust
+```rust hl_lines="2-3"
 // Configure first instance
 type Collective1 = pallet_collective::Instance1;
 impl pallet_collective::Config<Collective1> for Runtime {
@@ -82,7 +82,8 @@ impl pallet_collective::Config<Collective1> for Runtime {
     type KillOrigin = EnsureRoot<Self::AccountId>;
     type Consideration = ();
 }
-
+```
+```rust hl_lines="2-3"
 // Configure second instance
 type Collective2 = pallet_collective::Instance2;
 impl pallet_collective::Config<Collective2> for Runtime {
@@ -111,7 +112,7 @@ Finally, add both pallet instances to your runtime definition, ensuring each has
 - A unique pallet index
 - The correct instance type specified
 
-```rust
+```rust hl_lines="6-10"
 #[frame_support::runtime]
 mod runtime {
     #[runtime::runtime]

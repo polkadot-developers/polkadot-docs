@@ -3109,8 +3109,8 @@ Running multiple instances of the same pallet within a runtime is a powerful tec
 
 ## Understanding Instantiable Pallets
 
-Unlike standard pallets that exist as a single instance in a runtime, instantiable pallets require special configuration through an additional generic parameter `I`.
-This generic `I` creates a unique lifetime for each pallet instance, affecting the pallet's generic types and its configuration trait `T`.
+Unlike standard pallets that exist as a single instance in a runtime, instantiable pallets require special configuration through an additional [generic parameter](https://doc.rust-lang.org/reference/items/generics.html){target=\_blank} `I`.
+This generic `I` creates a unique [lifetime](https://doc.rust-lang.org/rust-by-example/scope/lifetime.html){target=\_blank} for each pallet instance, affecting the pallet's generic types and its configuration trait `T`.
 
 You can identify an instantiable pallet by examining its `Pallet` struct definition, which will include both the standard generic `T` and the instantiation generic `I`:
 
@@ -3142,7 +3142,7 @@ parameter_types! {
 
 For a single instance, the configuration would look like this:
 
-```rust
+```rust hl_lines="1"
 impl pallet_collective::Config for Runtime {
     type RuntimeOrigin = RuntimeOrigin;
     type Proposal = RuntimeCall;
@@ -3162,7 +3162,7 @@ impl pallet_collective::Config for Runtime {
 
 For multiple instances, you need to create a unique identifier for each instance using the `Instance` type with a number suffix, then implement the configuration for each one:
 
-```rust
+```rust hl_lines="2-3"
 // Configure first instance
 type Collective1 = pallet_collective::Instance1;
 impl pallet_collective::Config<Collective1> for Runtime {
@@ -3180,7 +3180,8 @@ impl pallet_collective::Config<Collective1> for Runtime {
     type KillOrigin = EnsureRoot<Self::AccountId>;
     type Consideration = ();
 }
-
+```
+```rust hl_lines="2-3"
 // Configure second instance
 type Collective2 = pallet_collective::Instance2;
 impl pallet_collective::Config<Collective2> for Runtime {
@@ -3209,7 +3210,7 @@ Finally, add both pallet instances to your runtime definition, ensuring each has
 - A unique pallet index
 - The correct instance type specified
 
-```rust
+```rust hl_lines="6-10"
 #[frame_support::runtime]
 mod runtime {
     #[runtime::runtime]

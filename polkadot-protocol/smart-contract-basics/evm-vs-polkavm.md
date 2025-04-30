@@ -124,7 +124,7 @@ This approach ensures that Ethereum contracts work without modifications while m
 
 ## Contract Instantiation
 
-In the PolkaVM, contract deployment follows a fundamentally different model from EVM. The EVM allows contracts to be deployed with a single transaction, where the contract code is bundled with the deployment transaction. In contrast, PolkaVM requires a different process for contract instantiation:
+In the PolkaVM, contract deployment follows a fundamentally different model from EVM. The EVM allows contracts to be deployed with a single transaction, where the contract code is bundled with the deployment transaction. In contrast, PolkaVM requires a different process for contract instantiation.
 
 - **Code must be pre-uploaded** - unlike EVM where contract code is bundled within the deploying contract, PolkaVM requires all contract bytecode to be uploaded to the chain before instantiation
 - **Factory pattern limitations** - the common EVM pattern, where contracts dynamically create other contracts, will fail with CodeNotFound error unless the dependent contract code was previously uploaded
@@ -137,3 +137,5 @@ This design affects common EVM patterns:
 - Runtime code generation is not supported due to PolkaVM's different RISC-V bytecode format
 
 When migrating EVM projects to PolkaVM, developers should identify all contracts that will be instantiated at runtime and ensure they are pre-uploaded to the chain separately, before any contracts attempt to instantiate them.
+
+For standard contract deployments that don't create other contracts, this process is abstracted away. If you're just deploying a single contract like Storage or an ERC20 token, you don't need to perform separate steps. The special handling described below is only required when contracts dynamically create other contracts at runtime.

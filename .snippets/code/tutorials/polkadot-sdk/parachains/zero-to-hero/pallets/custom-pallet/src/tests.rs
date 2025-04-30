@@ -18,8 +18,8 @@
 // SOFTWARE.
 
 use crate::{mock::*, Error, Event, UserInteractions};
-use frame::testing_prelude::*;
 use frame::deps::sp_runtime;
+use frame::testing_prelude::*;
 
 // Verify root can successfully set counter value
 #[test]

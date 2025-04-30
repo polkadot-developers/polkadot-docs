@@ -10420,14 +10420,23 @@ description: Learn about Polkadot light clients, their importance, usage, and ho
 
 ## Introduction
 
-Light clients provide a secure, trust-minimized, and efficient method of interacting with a blockchain. Alongside the commonly used JSON Remote Procedure Calls (RPC), they are one of the primary mechanisms for blockchain communication. Polkadot offers first-class support for light clients, which play a critical role in the development of decentralized applications.
+Light clients enable secure and efficient blockchain interaction without running a full node. They provide a trust-minimized alternative to JSON-RPC by verifying data through cryptographic proofs rather than blindly trusting remote nodes.
 
-Light clients are applications that fetch the required data they need from a Polkadot node with an associated cryptographic proof to validate the data. This makes it possible to interact with the Polkadot network without running a full node or having to trust remote peers (for further references, check the [Polkadot Specification, Light Client Messages](https://spec.polkadot.network/sect-lightclient#sect-light-msg){target=\_blank} page).
+This guide covers:
+
+- What light clients are and how they work
+- Their advantages compared to full nodes and JSON-RPC
+- Available implementations in the Polkadot ecosystem
+- How to use light clients in your applications
+
+Light clients are particularly valuable for resource-constrained environments and applications requiring secure, decentralized blockchain access without the overhead of maintaining full nodes.
 
 !!!info "Light node or light client?"
     The terms "light node" and "light client" are interchangeable. Both refer to a blockchain client that syncs without downloading the entire blockchain state. All nodes in a blockchain network are fundamentally clients, engaging in peer-to-peer communication.
 
-Unlike JSON RPC interfaces, where an application must either maintain a list of providers or rely on a single node, light clients are not limited to nor dependent on a single node. They use cryptographic proofs to verify the blockchain's state, ensuring it is both up-to-date and accurate. By verifying only block headers, light clients avoid syncing the entire state, making them ideal for resource-constrained environments.
+## Light Clients Workflow
+
+Unlike JSON-RPC interfaces, where an application must either maintain a list of providers or rely on a single node, light clients are not limited to nor dependent on a single node. They use cryptographic proofs to verify the blockchain's state, ensuring it is both up-to-date and accurate. By verifying only block headers, light clients avoid syncing the entire state, making them ideal for resource-constrained environments.
 
 ```mermaid
 flowchart LR
@@ -10444,13 +10453,13 @@ Light clients can quickly verify the blockchain's state, including [GRANDPA fina
 !!!info "What does it mean to be 'trust-minimized'?"
     "Trust-minimized" means that the light client does not need to fully trust the full node from which it retrieves state. This is achieved through the use of Merkle proofs, which allow the light client to verify the correctness of the state by checking the Merkle tree root.
 
-## JSON RPC and Light Client Comparison
+## JSON-RPC and Light Client Comparison
 
-Another common method of communication between a user interface (UI) and a node is through the JSON RPC protocol. Generally, the UI retrieves information from the node, fetches network or [pallet](/polkadot-protocol/glossary#pallet){target=\_blank} data, and interacts with the blockchain. This is typically done in one of two ways:
+Another common method of communication between a user interface (UI) and a node is through the JSON-RPC protocol. Generally, the UI retrieves information from the node, fetches network or [pallet](/polkadot-protocol/glossary#pallet){target=\_blank} data, and interacts with the blockchain. This is typically done in one of two ways:
 
-1. **User-Controlled Nodes** - the UI connects to a node client installed on the user's machine
+- **User-Controlled Nodes** - the UI connects to a node client installed on the user's machine
     - These nodes are secure, but installation and maintenance can be inconvenient
-2. **Publicly Accessible Nodes** - the UI connects to a third-party-owned publicly accessible node client
+- **Publicly Accessible Nodes** - the UI connects to a third-party-owned publicly accessible node client
     - These nodes are convenient but centralized and less secure. Applications must maintain a list of backup nodes in case the primary node becomes unavailable
 
 While light clients still communicate with [full nodes](/polkadot-protocol/glossary#full-node), they offer significant advantages for applications requiring a secure alternative to running a full node:

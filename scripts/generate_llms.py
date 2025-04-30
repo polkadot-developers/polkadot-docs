@@ -6,6 +6,7 @@ import yaml
 import os
 import re
 import requests
+import time
 
 # Set the base directory to the root of docs
 base_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..'))
@@ -115,7 +116,7 @@ def fetch_local_snippet(snippet_ref, snippet_directory):
 
     return snippet_content.strip()
 
-def fetch_remote_snippet(snippet_ref, yaml_data):
+def fetch_remote_snippet(snippet_ref, yaml_data, max_retries=3, backoff_factor=2):
     # Match URL with optional line range (start:end)
     match = re.match(r'^(https?://[^:]+)(?::(\d+))?(?::(\d+))?$', snippet_ref)
 
@@ -129,30 +130,36 @@ def fetch_remote_snippet(snippet_ref, yaml_data):
 
     # Resolve any template placeholders using the yaml_data
     url = resolve_placeholders(url, yaml_data)
-    #print(f"{url}")
-    #print(f"{line_start}")
-    #print(f"{line_end}")
-
 
     # Skip URLs containing unresolved template placeholders
     if "{{" in url:
         print(f"Skipping snippet with unresolved template: {url}")
         return f"Unresolved template: {url}"
 
-    try:
-        response = requests.get(url)
-        response.raise_for_status()
-        snippet_content = response.text        
+    for attempt in range(1, max_retries + 1):
+        try:
+            response = requests.get(url)
+            if response.status_code == 429:
+                wait = backoff_factor ** attempt
+                print(f"429 Too Many Requests. Retrying in {wait} seconds...")
+                time.sleep(wait)
+                continue
+            response.raise_for_status()
+            snippet_content = response.text
 
-        # Extract specific lines if requested
-        if line_start is not None and line_end is not None:
-            lines = snippet_content.split('\n')
-            snippet_content = '\n'.join(lines[line_start-1:line_end])
+            # Extract specific lines if requested
+            if line_start is not None and line_end is not None:
+                lines = snippet_content.split('\n')
+                snippet_content = '\n'.join(lines[line_start - 1:line_end])
 
-        return snippet_content.strip()
-    except requests.RequestException as e:
-        print(f"Failed to fetch snippet from {url}: {e}")
-        return f"Error fetching snippet from {url}"
+            return snippet_content.strip()
+
+        except requests.RequestException as e:
+            print(f"Attempt {attempt} failed: {e}")
+            if attempt == max_retries:
+                return f"Error fetching snippet from {url}"
+
+    return f"Failed to fetch snippet after {max_retries} attempts"
 
 def resolve_placeholders(text, data):
     # Replace placeholders like {{dependencies.repositories.asset_transfer_api.version}}

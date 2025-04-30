@@ -32370,16 +32370,16 @@ pragma solidity ^0.8.28;
 contract Storage {
     // State variable to store our number
     uint256 private number;
-    
+
     // Event to notify when the number changes
     event NumberChanged(uint256 newNumber);
-    
+
     // Function to store a new number
     function store(uint256 newNumber) public {
         number = newNumber;
         emit NumberChanged(newNumber);
     }
-    
+
     // Function to retrieve the stored number
     function retrieve() public view returns (uint256) {
         return number;
@@ -32398,16 +32398,16 @@ pragma solidity ^0.8.28;
 contract Storage {
     // State variable to store our number
     uint256 private number;
-    
+
     // Event to notify when the number changes
     event NumberChanged(uint256 newNumber);
-    
+
     // Function to store a new number
     function store(uint256 newNumber) public {
         number = newNumber;
         emit NumberChanged(newNumber);
     }
-    
+
     // Function to retrieve the stored number
     function retrieve() public view returns (uint256) {
         return number;
@@ -32803,14 +32803,7 @@ This component handles connecting to the wallet, switching networks if necessary
 To integrate this component to your dApp, you need to overwrite the existing boilerplate in `app/page.js` with the following code:
 
 ```javascript title="page.js"
-'use client';
-
-import { useState } from 'react';
-
-import WalletConnect from './components/WalletConnect';
-import ReadContract from './components/ReadContract';
-import WriteContract from './components/WriteContract';
-
+Invalid snippet reference: https://raw.githubusercontent.com/polkadot-developers/polkavm-storage-contract-dapps/refs/tags/v0.0.1/ethers-dapp/app/page.js::5
 export default function Home() {
   const [account, setAccount] = useState(null);
 
@@ -32824,25 +32817,8 @@ export default function Home() {
         Ethers.js dApp - Asset Hub Smart Contracts
       </h1>
       <WalletConnect onConnect={handleConnect} />
-      <ReadContract />
-      <WriteContract account={account} />
-    </section>
+</section>
   );
-}
-export default function Home() {
-  const [account, setAccount] = useState(null);
-
-  const handleConnect = (connectedAccount) => {
-    setAccount(connectedAccount);
-  };
-
-  return (
-    <section className="min-h-screen bg-white text-black flex flex-col justify-center items-center gap-4 py-10">
-      <h1 className="text-2xl font-semibold text-center">
-        Ethers.js dApp - Asset Hub Smart Contracts
-      </h1>
-      <WalletConnect onConnect={handleConnect} />
-);
 }
 ```
 
@@ -32926,14 +32902,7 @@ This component reads the `storedNumber` value from the contract and displays it 
 To see this change in your dApp, you need to integrate this component into the `app/page.js` file:
 
 ```javascript title="page.js"
-'use client';
-
-import { useState } from 'react';
-
-import WalletConnect from './components/WalletConnect';
-import ReadContract from './components/ReadContract';
-import WriteContract from './components/WriteContract';
-
+Invalid snippet reference: https://raw.githubusercontent.com/polkadot-developers/polkavm-storage-contract-dapps/refs/tags/v0.0.1/ethers-dapp/app/page.js::6
 export default function Home() {
   const [account, setAccount] = useState(null);
 
@@ -32948,25 +32917,8 @@ export default function Home() {
       </h1>
       <WalletConnect onConnect={handleConnect} />
       <ReadContract />
-      <WriteContract account={account} />
-    </section>
+</section>
   );
-}
-export default function Home() {
-  const [account, setAccount] = useState(null);
-
-  const handleConnect = (connectedAccount) => {
-    setAccount(connectedAccount);
-  };
-
-  return (
-    <section className="min-h-screen bg-white text-black flex flex-col justify-center items-center gap-4 py-10">
-      <h1 className="text-2xl font-semibold text-center">
-        Ethers.js dApp - Asset Hub Smart Contracts
-      </h1>
-      <WalletConnect onConnect={handleConnect} />
-      <ReadContract />
-);
 }
 ```
 
@@ -33140,6 +33092,13 @@ Congratulations! You've built a complete dApp that interacts with a smart contra
 - Send transactions to update the contract state
 
 These fundamental skills provide the foundation for building more complex dApps on Polkadot Hub. With these building blocks, you can extend your application to interact with more sophisticated smart contracts and create more advanced user interfaces.
+
+To get started right away with a working example, you can clone the repository and navigate to the implementation:
+
+```
+git clone https://github.com/polkadot-developers/polkavm-storage-contract-dapps.git -b v0.0.1
+cd polkavm-storage-contract-dapps/ethers-dapp
+```
 
 ## Where to Go Next
 
@@ -33534,13 +33493,7 @@ This component handles connecting to the wallet, switching networks if necessary
 To use this component in your dApp, replace the existing boilerplate in `app/page.tsx` with the following code:
 
 ```typescript title="page.tsx"
-"use client";
-
-import { useState } from "react";
-import WalletConnect from "./components/WalletConnect";
-import ReadContract from "./components/ReadContract";
-import WriteContract from "./components/WriteContract";
-
+Invalid snippet reference: https://raw.githubusercontent.com/polkadot-developers/polkavm-storage-contract-dapps/refs/tags/v0.0.1/viem-dapp/app/page.tsx::4
 export default function Home() {
   const [account, setAccount] = useState<string | null>(null);
 
@@ -33554,25 +33507,8 @@ export default function Home() {
         Viem dApp - Asset Hub Smart Contracts
       </h1>
       <WalletConnect onConnect={handleConnect} />
-      <ReadContract />
-      <WriteContract account={account} />
-    </section>
+</section>
   );
-}
-export default function Home() {
-  const [account, setAccount] = useState<string | null>(null);
-
-  const handleConnect = (connectedAccount: string) => {
-    setAccount(connectedAccount);
-  };
-
-  return (
-    <section className="min-h-screen bg-white text-black flex flex-col justify-center items-center gap-4 py-10">
-      <h1 className="text-2xl font-semibold text-center">
-        Viem dApp - Asset Hub Smart Contracts
-      </h1>
-      <WalletConnect onConnect={handleConnect} />
-);
 }
 ```
 
@@ -33662,13 +33598,7 @@ This component reads the `storedNumber` value from the contract and displays it 
 To reflect this change in your dApp, incorporate this component into the `app/page.tsx` file.
 
 ```typescript title="page.tsx"
-"use client";
-
-import { useState } from "react";
-import WalletConnect from "./components/WalletConnect";
-import ReadContract from "./components/ReadContract";
-import WriteContract from "./components/WriteContract";
-
+Invalid snippet reference: https://raw.githubusercontent.com/polkadot-developers/polkavm-storage-contract-dapps/refs/tags/v0.0.1/viem-dapp/app/page.tsx::5
 export default function Home() {
   const [account, setAccount] = useState<string | null>(null);
 
@@ -33683,25 +33613,8 @@ export default function Home() {
       </h1>
       <WalletConnect onConnect={handleConnect} />
       <ReadContract />
-      <WriteContract account={account} />
-    </section>
+</section>
   );
-}
-export default function Home() {
-  const [account, setAccount] = useState<string | null>(null);
-
-  const handleConnect = (connectedAccount: string) => {
-    setAccount(connectedAccount);
-  };
-
-  return (
-    <section className="min-h-screen bg-white text-black flex flex-col justify-center items-center gap-4 py-10">
-      <h1 className="text-2xl font-semibold text-center">
-        Viem dApp - Asset Hub Smart Contracts
-      </h1>
-      <WalletConnect onConnect={handleConnect} />
-      <ReadContract />
-);
 }
 ```
 
@@ -33998,6 +33911,13 @@ Congratulations! You've successfully built a fully functional dApp that interact
 
 These fundamental skills provide the foundation for building more complex dApps on Polkadot Hub. With this knowledge, you can extend your application to interact with more sophisticated smart contracts and create advanced user interfaces.
 
+To get started right away with a working example, you can clone the repository and navigate to the implementation:
+
+```
+git clone https://github.com/polkadot-developers/polkavm-storage-contract-dapps.git -b v0.0.1
+cd polkavm-storage-contract-dapps/viem-dapp
+```
+
 ## Where to Go Next
 
 <div class="grid cards" markdown>
@@ -34231,27 +34151,10 @@ Testing is a critical part of smart contract development. Hardhat makes it easy 
 1. Create a folder for testing called `test`. Inside that directory, create a file named `Storage.js` and add the following code:
 
     ```javascript title="Storage.js" 
-    const { expect } = require('chai');
-const { ethers } = require('hardhat');
-
-describe('Storage', function () {
-  let storage;
-  let owner;
-  let addr1;
-
-  beforeEach(async function () {
-    // Get signers
-    [owner, addr1] = await ethers.getSigners();
-
-    // Deploy the Storage contract
-    const Storage = await ethers.getContractFactory('Storage');
-    storage = await Storage.deploy();
-    await storage.waitForDeployment();
-  });
-
-  describe('Basic functionality', function () {
+    
         // Add your logic here
     });
+});
     ```
 
     The `beforeEach` hook ensures stateless contract execution by redeploying a fresh instance of the Storage contract before each test case. This approach guarantees that each test starts with a clean and independent contract state by using `ethers.getSigners()` to obtain test accounts and `ethers.getContractFactory('Storage').deploy()` to create a new contract instance.
@@ -34261,7 +34164,8 @@ describe('Storage', function () {
     a. **Initial state verification** - ensures that the contract starts with a default value of zero, which is a fundamental expectation for the `Storage.sol` contract
 
     ```javascript title="Storage.js"
-    expect(await storage.retrieve()).to.equal(0);
+    it('Should return 0 initially', async function () {
+      expect(await storage.retrieve()).to.equal(0);
     });
     ```
 
@@ -34274,7 +34178,8 @@ describe('Storage', function () {
     b. **Value storage test** - validate the core functionality of storing and retrieving a value in the contract
 
     ```javascript title="Storage.js"
-    const testValue = 42;
+    it('Should update when store is called', async function () {
+      const testValue = 42;
       // Store a value
       await storage.store(testValue);
       // Check if the value was updated
@@ -34291,7 +34196,8 @@ describe('Storage', function () {
     c. **Event emission verification** - confirm that the contract emits the correct event when storing a value, which is crucial for off-chain tracking
 
     ```javascript title="Storage.js"
-    const testValue = 100;
+    it('Should emit an event when storing a value', async function () {
+      const testValue = 100;
       // Check if the NumberChanged event is emitted with the correct value
       await expect(storage.store(testValue))
         .to.emit(storage, 'NumberChanged')
@@ -34308,7 +34214,8 @@ describe('Storage', function () {
     d. **Sequential value storage test** - check the contract's ability to store multiple values sequentially and maintain the most recent value
 
     ```javascript title="Storage.js"
-    const values = [10, 20, 30, 40];
+    it('Should allow storing sequentially increasing values', async function () {
+      const values = [10, 20, 30, 40];
 
       for (const value of values) {
         await storage.store(value);
@@ -34538,6 +34445,13 @@ main()
 
 ## Conclusion
 
-Congratulations! You've successfully set up a Hardhat development environment, written comprehensive tests for your Storage contract, and deployed it to local and Westend Polkadot Hub networks. This tutorial covered essential steps in smart contract development, including configuration, testing, deployment, and interaction.
+Congratulations! You've successfully set up a Hardhat development environment, written comprehensive tests for your Storage contract, and deployed it to local and Westend Asset Hub networks. This tutorial covered essential steps in smart contract development, including configuration, testing, deployment, and interaction.
+
+To get started with a working example right away, you can clone the repository and navigate to the project directory:
+
+```bash
+git clone https://github.com/polkadot-developers/polkavm-hardhat-examples.git -b v0.0.1
+cd polkavm-hardhat-examples/storage-hardhat
+```
 --- END CONTENT ---
 

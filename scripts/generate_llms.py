@@ -140,7 +140,7 @@ def fetch_remote_snippet(snippet_ref, yaml_data, max_retries=3, backoff_factor=2
         try:
             response = requests.get(url)
             if response.status_code == 429:
-                wait = backoff_factor ** attempt
+                wait = backoff_factor * attempt
                 print(f"429 Too Many Requests. Retrying in {wait} seconds...")
                 time.sleep(wait)
                 continue

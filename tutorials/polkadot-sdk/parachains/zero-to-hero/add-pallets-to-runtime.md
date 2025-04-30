@@ -42,15 +42,19 @@ Configure the pallets by implementing their `Config` trait and update the runtim
 
 1. Add the `OriginCaller` import:
 
-    ```rust
+    ```rust title="mod.rs" hl_lines="3-3"
+    ...
+    // Local module imports
     --8<-- 'code/tutorials/polkadot-sdk/parachains/zero-to-hero/runtime/src/configs/mod.rs:56:56'
+    ...
     ```
 
 2. Implement the [`Config`](https://paritytech.github.io/polkadot-sdk/master/pallet_utility/pallet/trait.Config.html){target=\_blank} trait for both pallets at the end of the `runtime/src/config/mod.rs` file:
 
-    ```rust title="mod.rs"
-    --8<-- 'code/tutorials/polkadot-sdk/parachains/zero-to-hero/runtime/src/configs/mod.rs:314:330'
-    --8<-- 'code/tutorials/polkadot-sdk/parachains/zero-to-hero/runtime/src/configs/mod.rs:332:332'
+    ```rust title="mod.rs" hl_lines="7-24"
+    ...
+    --8<-- 'code/tutorials/polkadot-sdk/parachains/zero-to-hero/runtime/src/configs/mod.rs:309:330'
+    --8<-- 'code/tutorials/polkadot-sdk/parachains/zero-to-hero/runtime/src/configs/mod.rs:332:335'
     ```
 
 3. Locate the `#[frame_support::runtime]` macro in the `runtime/src/lib.rs` file and add the pallets:

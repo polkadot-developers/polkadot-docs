@@ -24308,14 +24308,23 @@ Configure the pallets by implementing their `Config` trait and update the runtim
 
 1. Add the `OriginCaller` import:
 
-    ```rust
+    ```rust title="mod.rs" hl_lines="3-3"
+    ...
+    // Local module imports
     
+    ...
     ```
 
 2. Implement the [`Config`](https://paritytech.github.io/polkadot-sdk/master/pallet_utility/pallet/trait.Config.html){target=\_blank} trait for both pallets at the end of the `runtime/src/config/mod.rs` file:
 
-    ```rust title="mod.rs"
-    impl pallet_utility::Config for Runtime {
+    ```rust title="mod.rs" hl_lines="7-24"
+    ...
+    type RuntimeEvent = RuntimeEvent;
+    type WeightInfo = pallet_parachain_template::weights::SubstrateWeight<Runtime>;
+}
+
+// Configure utility pallet.
+impl pallet_utility::Config for Runtime {
     type RuntimeEvent = RuntimeEvent;
     type RuntimeCall = RuntimeCall;
     type PalletsOrigin = OriginCaller;

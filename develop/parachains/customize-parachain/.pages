@@ -3,5 +3,6 @@ nav:
   - index.md
   - 'Overview (FRAME)': overview.md
   - 'Add Existing Pallets': add-existing-pallets.md
+  - 'Add Multiple Pallet Instances': add-pallet-instances.md
   - 'Add Smart Contract Functionality': add-smart-contract-functionality.md
   - 'Make a Custom Pallet': make-custom-pallet.md

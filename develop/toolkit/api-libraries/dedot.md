@@ -17,7 +17,7 @@ description: Dedot is a next-generation JavaScript client for Polkadot and Polka
 
 -	**Multi-Version JSON-RPC Support** – Compatible with both [legacy](https://github.com/w3f/PSPs/blob/master/PSPs/drafts/psp-6.md) and [new](https://paritytech.github.io/json-rpc-interface-spec/introduction.html) JSON-RPC APIs for broad ecosystem interoperability.
 
--	**Light Client Supports** – Designed to work with light clients such as [Smoldot](https://github.com/smol-dot/smoldot).
+-	**Light Client Support** – Designed to work with light clients such as [Smoldot](https://github.com/smol-dot/smoldot).
 
 -	**Native TypeScript for Scale Codec** – Implements Scale codec parsing directly in TypeScript without relying on custom wrappers.
 
@@ -65,7 +65,7 @@ To enable auto-completion/IntelliSense for individual chains, install the `@dedo
 
 ### Initialize a client instance to connect to the networks
 
-To start connect & interact with networks, Dedot provides two client options depending on your needs:
+To connect to & interact with networks, Dedot provides two client options depending on your needs:
 
 - **[DedotClient](https://docs.dedot.dev/clients-and-providers/clients#dedotclient)**: Interacts with chains via the [new JSON-RPC APIs](https://paritytech.github.io/json-rpc-interface-spec/introduction.html)
 - **[LegacyClient](https://docs.dedot.dev/clients-and-providers/clients#legacyclient)**: Interacts with chains via the [legacy JSON-RPC APIs](https://github.com/w3f/PSPs/blob/master/PSPs/drafts/psp-6.md)
@@ -102,7 +102,7 @@ Let's connect to Polkadot network using `DedotClient`:
     const client = await DedotClient.new<PolkadotApi>(provider);
     ```
 
-If the node doesn't support new JSON-RPC APIs yet, you can connect to the network using the `LegacyClient` which build on top of the legacy JSON-RPC APIs.
+If the node doesn't support new JSON-RPC APIs yet, you can connect to the network using the `LegacyClient` which is built on top of the legacy JSON-RPC APIs.
 
 ```typescript
 import { LegacyClient, WsProvider } from 'dedot';
@@ -114,7 +114,7 @@ const client = await LegacyClient.new<PolkadotApi>(provider);
 
 ### Pick `ChainApi` interface for the network you're working with
 
-We recommend specifying the `ChainApi` interface (e.g: `PolkadotApi` in the example above) of the chain that you want to interact with. This enable Types & APIs suggestion/autocompletion for that particular chain (via IntelliSense). If you don't specify a `ChainApi` interface, a default `SubstrateApi` interface will be used.
+We recommend specifying the `ChainApi` interface (e.g: `PolkadotApi` in the example above) of the chain that you want to interact with. This enables Types & APIs suggestion/autocompletion for that particular chain (via IntelliSense). If you don't specify a `ChainApi` interface, a default `SubstrateApi` interface will be used.
 
 ```typescript
 import { DedotClient, WsProvider } from 'dedot';
@@ -175,7 +175,7 @@ const unsub = await client.events.system.NewAccount.watch((events) => {
 })
 ```
 
-### Sign & Sending Transactions
+### Signing & Sending Transactions
 
 Sign the transaction using `IKeyringPair` from Keyring ([`@polkadot/keyring`](https://polkadot.js.org/docs/keyring/start/sign-verify)) and send the transaction.
 

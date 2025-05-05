@@ -3105,7 +3105,7 @@ description: Learn how to implement multiple instances of the same pallet in you
 
 ## Introduction
 
-Running multiple instances of the same pallet within a runtime is a powerful technique in Polkadot SDK development. This approach lets you reuse pallet functionality without reimplementing it, enabling diverse use cases with the same codebase. The Polkadot SDK provides developer-friendly traits for creating instantiable pallets and in most cases handles unique storage allocation for different instances automatically. This guide teaches you how to implement and configure multiple instances of a pallet in your runtime.
+Running multiple instances of the same pallet within a runtime is a powerful technique in Polkadot SDK development. This approach lets you reuse pallet functionality without reimplementing it, enabling diverse use cases with the same codebase. The Polkadot SDK provides developer-friendly traits for creating instantiable pallets and, in most cases, handles unique storage allocation for different instances automatically. This guide teaches you how to implement and configure multiple instances of a pallet in your runtime.
 
 ## Understanding Instantiable Pallets
 
@@ -3230,7 +3230,7 @@ mod runtime {
 
 If you've followed all the steps correctly, you should now be able to compile your runtime and interact with both instances of the pallet. Each instance will operate independently with its own storage, events, and configured parameters.
 
-Now that you've mastered implementing multiple pallet instances, the natural next step is creating your own custom pallets. Explore the following resources:
+Now that you've mastered implementing multiple pallet instances, the next step is creating your own custom pallets. Explore the following resources:
 
 <div class="grid cards" markdown>
 

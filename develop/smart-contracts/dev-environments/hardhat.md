@@ -19,7 +19,7 @@ description: Learn how to create, compile, test, and deploy smart contracts on P
 
 ## Overview
 
-Hardhat is a robust development environment for EVM-compatible chains that makes smart contract development more efficient. This guide walks you through the essentials of using Hardhat to create, compile, test, and deploy smart contracts on Asset Hub.
+Hardhat is a robust development environment for Ethereum-compatible chains that makes smart contract development more efficient. This guide walks you through the essentials of using Hardhat to create, compile, test, and deploy smart contracts on Polkadot.
 
 ## Prerequisites
 
@@ -28,7 +28,7 @@ Before getting started, ensure you have:
 - [Node.js](https://nodejs.org/){target=\_blank} (v16.0.0 or later) and npm installed
 - Basic understanding of Solidity programming
 - Some WND test tokens to cover transaction fees (easily obtainable from the [Polkadot faucet](https://faucet.polkadot.io/westend?parachain=1000){target=\_blank}). To learn how to get test tokens, check out the [Test Tokens](/develop/smart-contracts/connect-to-asset-hub/#test-tokens){target=\_blank} section
-- [MetaMask](https://metamask.io/){target=\_blank} installed and connected to [Westend Asset Hub](https://chainlist.org/chain/420420421){target=\_blank}. For more detailed instructions on connecting your wallet, see the [Connect Your Wallet](/develop/smart-contracts/connect-to-asset-hub/#connect-your-wallet){target=\_blank} section
+- [MetaMask](https://metamask.io/){target=\_blank} installed and connected to [Westend Hub](https://chainlist.org/chain/420420421){target=\_blank}. For more detailed instructions on connecting your wallet, see the [Connect Your Wallet](/develop/smart-contracts/connect-to-asset-hub/#connect-your-wallet){target=\_blank} section
 
 ## Setting Up Hardhat
 
@@ -48,10 +48,10 @@ Before getting started, ensure you have:
 3. Install Hardhat and the required plugins:
 
     ```bash
-    npm install --save-dev hardhat @nomicfoundation/hardhat-toolbox
+    npm install --save-dev hardhat@"<2.23.0" @nomicfoundation/hardhat-toolbox
     ```
 
-    To interact with Polkadot, Hardhat requires a plugin to compile contracts to PolkaVM bytecode and the and to spawn a local node compatible with PolkaVM.
+    To interact with Polkadot, Hardhat requires a plugin to compile contracts to PolkaVM bytecode and to spawn a local node compatible with PolkaVM.
 
     ```bash
     npm install --save-dev @parity/hardhat-polkadot
@@ -87,16 +87,16 @@ The plugin will compile your Solidity contracts for Solidity versions `0.8.0` an
 
 To compile your project, follow these instructions:
 
-1. Modify your Hardhat configuration file to specify which compilation process you will be using:
+1. Modify your Hardhat configuration file to specify which compilation process you will be using and activate the `polkavm` flag in the hardhat network:
 
     === "Npm Configuration"
 
-        ```javascript title="hardhat.config.js" hl_lines="13-16"
+        ```javascript title="hardhat.config.js" hl_lines="13-21"
         --8<-- 'code/develop/smart-contracts/dev-environments/hardhat/hardhat.config.js:0:10'
         --8<-- 'code/develop/smart-contracts/dev-environments/hardhat/hardhat.config.js:13:15'
           --8<-- 'code/develop/smart-contracts/dev-environments/hardhat/hardhat.config.js:17:20'
           --8<-- 'code/develop/smart-contracts/dev-environments/hardhat/hardhat.config.js:34:36'
-        --8<-- 'code/develop/smart-contracts/dev-environments/hardhat/hardhat.config.js:56:57'
+        --8<-- 'code/develop/smart-contracts/dev-environments/hardhat/hardhat.config.js:55:57'
         ```
 
     === "Binary Configuration"
@@ -225,7 +225,7 @@ Before deploying to a live network, you can deploy your contract to a local node
 2. Start a local node:
 
     ```bash
-    npx hardhat node-polkavm
+    npx hardhat node
     ```
 
     This command will start a local PolkaVM node
@@ -233,10 +233,8 @@ Before deploying to a live network, you can deploy your contract to a local node
 3. In a new terminal window, deploy the contract using Ignition:
 
     ```bash
-    npx hardhat ignition deploy ./ignition/modules/INSERT_IGNITION_MODULE_NAME.js --network localNode
+    npx hardhat ignition deploy ./ignition/modules/Lock.js --network localNode
     ```
-
-    Replace `INSERT_IGNITION_MODULE_NAME` with the proper name for your contract. You'll see deployment information, including the contract address.
 
 ## Deploying to a Live Network
 
@@ -288,13 +286,19 @@ After testing your contract locally, you can deploy it to a live network. This g
         --8<-- 'code/develop/smart-contracts/dev-environments/hardhat/hardhat.config.js:34:57'
         ```
 
+5. Start a local node, if not running already:
+
+    ```bash
+    npx hardhat node
+    ```
+
+    This command will start a local PolkaVM node
+
 6. Deploy your contract using Ignition:
 
     ```bash
-    npx hardhat ignition deploy ./ignition/modules/INSERT_IGNITION_MODULE_NAME.js --network westendAssetHub
+    npx hardhat ignition deploy ./ignition/modules/Lock.js --network westendHub
     ```
-
-    Replace `INSERT_IGNITION_MODULE_NAME` with the proper name for your contract. You'll see deployment information, including the contract address.
 
 ## Interacting with Your Contract
 

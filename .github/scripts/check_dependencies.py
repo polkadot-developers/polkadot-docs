@@ -73,6 +73,10 @@ def check_releases(releases_source_file):
             continue
         
         for name, info in items.items():
+            # Skip dependencies marked with ignore_updates=true
+            if info.get("ignore_updates", False):
+                continue
+            
             current_version = info.get("version")
             latest_version, latest_url = REGISTRIES[category](info)
             

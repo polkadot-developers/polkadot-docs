@@ -14,6 +14,7 @@ dependencies:
     polkadot_js_api:
       repository_url: https://github.com/polkadot-js/api
       version: v15.0.2
+      ignore_updates: true # This specific version is used in asset-transfer-api. Should only be updated when asset-transfer-api is updated.
     srtool:
       repository_url: https://github.com/paritytech/srtool
       version: v0.18.2
@@ -36,6 +37,7 @@ dependencies:
     tokio:
       name: tokio
       version: 1.44.2
+      ignore_updates: true
     chain_spec_builder:
       name: staging-chain-spec-builder
       version: 10.0.0

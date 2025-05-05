@@ -50,7 +50,7 @@ dependencies:
       polkadot_js_api_version: v15.9.2 # Check changelog for pjs version bumps
     moonwall:
       name: '@moonwall/cli'
-      version: 5.9.1
+      version: 5.11.0
     polkadot_js_api:
       name: '@polkadot/api'
       version: 15.9.2

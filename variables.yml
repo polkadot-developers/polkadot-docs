@@ -7,14 +7,10 @@ dependencies:
       architecture: macos-arm64
     asset_transfer_api:
       repository_url: https://github.com/paritytech/asset-transfer-api
-      version: v0.6.0
+      version: v0.6.1
     polkadot_sdk_solochain_template:
       repository_url: https://github.com/paritytech/polkadot-sdk-solochain-template
       version: v0.0.2
-    polkadot_js_api:
-      repository_url: https://github.com/polkadot-js/api
-      version: v15.0.2
-      ignore_updates: true # This specific version is used in asset-transfer-api. Should only be updated when asset-transfer-api is updated.
     srtool:
       repository_url: https://github.com/paritytech/srtool
       version: v0.18.2
@@ -50,8 +46,8 @@ dependencies:
       version: 1.0.4
     asset_transfer_api:
       name: '@substrate/asset-transfer-api'
-      version: 0.6.0
-      polkadot_js_api_version: v15.8.1 # Check changelog for pjs version bumps
+      version: 0.6.1
+      polkadot_js_api_version: v15.9.2 # Check changelog for pjs version bumps
     moonwall:
       name: '@moonwall/cli'
       version: 5.9.1

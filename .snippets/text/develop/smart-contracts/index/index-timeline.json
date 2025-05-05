@@ -1,12 +1,12 @@
 [
     {
         "title": "Choose a Smart Contract Platform",
-        "content": "Select the platform that best fits your project requirements and development expertise: <br><br> - [**PolkaVM (Asset Hub)**](/develop/smart-contracts/overview#native-smart-contracts){target=_blank} - Native smart contracts on Polkadot's system parachain <br> - [**EVM (Parachain-based)**](/develop/smart-contracts/overview#parachain-contracts){target=_blank} - Ethereum Virtual Machine compatibility on parachains <br> - [**Wasm (ink!)**](/develop/smart-contracts/overview#wasm-ink){target=_blank} - WebAssembly contracts using Rust and ink!",
+        "content": "Select the platform that best fits your project requirements and development expertise: <br><br> - [**PolkaVM**](/develop/smart-contracts/overview#native-smart-contracts){target=_blank} - Native smart contracts on Polkadot Hub <br> - [**EVM (Parachain-based)**](/develop/smart-contracts/overview#parachain-contracts){target=_blank} - Ethereum Virtual Machine compatibility on parachains <br> - [**Wasm (ink!)**](/develop/smart-contracts/overview#wasm-ink){target=_blank} - WebAssembly contracts using Rust and ink!",
         "icon": ":fontawesome-solid-1:"
     },
     {
         "title": "Get Network Configuration Details",
-        "content": "Configure your development environment with the appropriate network settings for your chosen platform: <br><br> - **PolkaVM** - [Connect to Asset Hub](/develop/smart-contracts/connect-to-polkadot/){target=_blank} <br> - **EVM** - [Moonbeam Documentation](https://docs.moonbeam.network/){target=_blank}, [Astar Documentation](https://docs.astar.network/){target=_blank}, [Acala Documentation](https://wiki.acala.network/){target=_blank} <br> - **Wasm (ink!)** - depends on those parachains that implement `pallet-contracts`, for more information check the [ink! documentation](https://use.ink/how-it-works#why-include-pallet-contracts-on-a-parachain){target=_blank}",
+        "content": "Configure your development environment with the appropriate network settings for your chosen platform: <br><br> - **PolkaVM** - [Connect to Polkadot](/develop/smart-contracts/connect-to-polkadot/){target=_blank} <br> - **EVM** - [Moonbeam Documentation](https://docs.moonbeam.network/){target=_blank}, [Astar Documentation](https://docs.astar.network/){target=_blank}, [Acala Documentation](https://wiki.acala.network/){target=_blank} <br> - **Wasm (ink!)** - depends on those parachains that implement `pallet-contracts`, for more information check the [ink! documentation](https://use.ink/how-it-works#why-include-pallet-contracts-on-a-parachain){target=_blank}",
         "icon": ":fontawesome-solid-2:"
     },
     {

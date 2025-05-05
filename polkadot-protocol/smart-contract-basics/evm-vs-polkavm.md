@@ -126,8 +126,8 @@ This approach ensures that Ethereum contracts work without modifications while m
 
 In the PolkaVM, contract deployment follows a fundamentally different model from EVM. The EVM allows contracts to be deployed with a single transaction, where the contract code is bundled with the deployment transaction. In contrast, PolkaVM requires a different process for contract instantiation.
 
-- **Code must be pre-uploaded** - unlike EVM where contract code is bundled within the deploying contract, PolkaVM requires all contract bytecode to be uploaded to the chain before instantiation
-- **Factory pattern limitations** - the common EVM pattern, where contracts dynamically create other contracts, will fail with CodeNotFound error unless the dependent contract code was previously uploaded
+- **Code must be pre-uploaded** - unlike EVM, where contract code is bundled within the deploying contract, PolkaVM requires all contract bytecode to be uploaded to the chain before instantiation
+- **Factory pattern limitations** - the common EVM pattern, where contracts dynamically create other contracts, will fail with `CodeNotFound` error unless the dependent contract code was previously uploaded
 - **Separate upload and instantiation** - this creates a two-step process where developers must first upload all contract code, then instantiate relationships between contracts
 
 This design affects common EVM patterns:
@@ -138,4 +138,4 @@ This design affects common EVM patterns:
 
 When migrating EVM projects to PolkaVM, developers should identify all contracts that will be instantiated at runtime and ensure they are pre-uploaded to the chain separately, before any contracts attempt to instantiate them.
 
-For standard contract deployments that don't create other contracts, this process is abstracted away. If you're just deploying a single contract like Storage or an ERC20 token, you don't need to perform separate steps. The special handling described below is only required when contracts dynamically create other contracts at runtime.
+This process is abstracted away for standard contract deployments that don't create other contracts. You don't need to perform separate steps if you're deploying a single contract like Storage or an ERC20 token. The special handling described below is only required when contracts dynamically create other contracts at runtime.

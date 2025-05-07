@@ -75,41 +75,19 @@ Let's connect to Polkadot network using `DedotClient`:
 === "WebSocket"
 
     ```typescript
-    import { DedotClient, WsProvider } from 'dedot';
-    import type { PolkadotApi } from '@dedot/chaintypes';
-    
-    // Initialize providers & clients
-    const provider = new WsProvider('wss://rpc.polkadot.io');
-    const client = await DedotClient.new<PolkadotApi>(provider);
+    --8<-- "code/develop/toolkit/api-libraries/dedot/client-initialization-via-ws.ts"
     ```
 
 === "Light Client (Smoldot)"
 
     ```typescript
-    import { DedotClient, SmoldotProvider } from 'dedot';
-    import type { PolkadotApi } from '@dedot/chaintypes';
-    import * as smoldot from 'smoldot';
-    
-    // import `polkadot` chain spec to connect to Polkadot
-    import { polkadot } from '@substrate/connect-known-chains'
-    
-    // Start smoldot instance & initialize a chain
-    const client = smoldot.start();
-    const chain = await client.addChain({ chainSpec: polkadot });
-    
-    // Initialize providers & clients
-    const provider = new SmoldotProvider(chain);
-    const client = await DedotClient.new<PolkadotApi>(provider);
+    --8<-- "code/develop/toolkit/api-libraries/dedot/client-initialization-via-smoldot.ts"
     ```
 
 If the node doesn't support new JSON-RPC APIs yet, you can connect to the network using the `LegacyClient` which is built on top of the legacy JSON-RPC APIs.
 
 ```typescript
-import { LegacyClient, WsProvider } from 'dedot';
-import type { PolkadotApi } from '@dedot/chaintypes';
-
-const provider = new WsProvider('wss://rpc.polkadot.io');
-const client = await LegacyClient.new<PolkadotApi>(provider);
+--8<-- "code/develop/toolkit/api-libraries/dedot/legacy-client-initialization.ts"
 ```
 
 ### Pick a `ChainApi` interface for the connected network
@@ -117,12 +95,7 @@ const client = await LegacyClient.new<PolkadotApi>(provider);
 We recommend specifying the `ChainApi` interface (e.g: `PolkadotApi` in the example above) of the chain that you want to interact with. This enables types and APIs suggestion/autocompletion for that particular chain (via IntelliSense). If you don't specify a `ChainApi` interface, a default `SubstrateApi` interface will be used.
 
 ```typescript
-import { DedotClient, WsProvider } from 'dedot';
-import type { PolkadotApi, KusamaApi } from '@dedot/chaintypes';
-
-const polkadotClient = await DedotClient.new<PolkadotApi>(new WsProvider('wss://rpc.polkadot.io'));
-const kusamaClient = await DedotClient.new<KusamaApi>(new WsProvider('wss://kusama-rpc.polkadot.io'));
-const genericClient = await DedotClient.new(new WsProvider('ws://localhost:9944'));
+--8<-- "code/develop/toolkit/api-libraries/dedot/pick-chainapi-interface.ts"
 ```
 
 If you don't find the `ChainApi` for the network that you're working with in [the list](https://github.com/dedotdev/chaintypes?tab=readme-ov-file#supported-networks){target=\_blank}, you can generate the `ChainApi` (types and APIs) for it using the built-in [dedot cli](https://docs.dedot.dev/cli){target=\_blank}.
@@ -141,38 +114,31 @@ Dedot provides several ways to read data from the chain:
 - **Access runtime constants**:
 
     ```typescript
-    const ss58Prefix = client.consts.system.ss58Prefix;
-    console.log('Polkadot ss58Prefix:', ss58Prefix);
+    --8<-- "code/develop/toolkit/api-libraries/dedot/runtime-constants.ts"
     ```
 
 - **Storage queries**:
 
     ```typescript
-    const balance = await client.query.system.account(<address>);
-    console.log('Balance:', balance.data.free);
+    --8<-- "code/develop/toolkit/api-libraries/dedot/storage-queries.ts"
     ```
 
 - **Subscribe to storage changes**:
 
     ```typescript
-    const unsub = await client.query.system.number((blockNumber) => {
-      console.log(`Current block number: ${blockNumber}`);
-    });
+    --8<-- "code/develop/toolkit/api-libraries/dedot/subscribe-storage-changes.ts"
     ```
 
 - **Call Runtime APIs**:
 
     ```typescript
-    const metadata = await client.call.metadata.metadataAtVersion(15);
-    console.log('Metadata V15', metadata)
+    --8<-- "code/develop/toolkit/api-libraries/dedot/call-runtime-apis.ts"
     ```
 
 - **Watching on-chain events**:
-  
+
     ```typescript
-    const unsub = await client.events.system.NewAccount.watch((events) => {
-      console.log('New Account Created', events)
-    })
+    --8<-- "code/develop/toolkit/api-libraries/dedot/watch-on-chain-events.ts"
     ```
 
 ### Signing & Sending Transactions
@@ -180,50 +146,13 @@ Dedot provides several ways to read data from the chain:
 Sign the transaction using `IKeyringPair` from Keyring ([`@polkadot/keyring`](https://polkadot.js.org/docs/keyring/start/sign-verify){target=\_blank}) and send the transaction.
 
 ```typescript
-import { cryptoWaitReady } from '@polkadot/util-crypto';
-import { Keyring } from '@polkadot/keyring';
-
-// Setup keyring
-await cryptoWaitReady();
-const keyring = new Keyring({ type: 'sr25519' });
-const alice = keyring.addFromUri('//Alice');
-
-// Send transaction
-const unsub = await client.tx.balances
-    .transferKeepAlive(<destAddress>, 2_000_000_000_000n)
-    .signAndSend(alice, async ({ status }) => {
-      console.log('Transaction status', status.type);
-      if (status.type === 'BestChainBlockIncluded') {
-        console.log(`Transaction is included in best block`);
-      }
-
-      if (status.type === 'Finalized') {
-        console.log(`Transaction completed at block hash ${status.value.blockHash}`);
-        await unsub();
-      }
-    });
+--8<-- "code/develop/toolkit/api-libraries/dedot/sign-and-send-tx-with-keyring.ts"
 ```
 
 You can also use `Signer` from wallet extensions:
 
 ```typescript
-const injected = await window.injectedWeb3['polkadot-js'].enable('My dApp');
-const account = (await injected.accounts.get())[0];
-const signer = injected.signer;
-
-const unsub = await client.tx.balances
-    .transferKeepAlive(<destAddress>, 2_000_000_000_000n)
-    .signAndSend(account.address, { signer }, async ({ status }) => {
-      console.log('Transaction status', status.type);
-      if (status.type === 'BestChainBlockIncluded') {
-        console.log(`Transaction is included in best block`);
-      }
-
-      if (status.type === 'Finalized') {
-        console.log(`Transaction completed at block hash ${status.value.blockHash}`);
-        await unsub();
-      }
-    });
+--8<-- "code/develop/toolkit/api-libraries/dedot/sign-and-send-tx-with-extension-signer.ts"
 ```
 
 ## Where to Go Next

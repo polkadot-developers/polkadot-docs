@@ -7219,12 +7219,16 @@ Dedot provides several ways to read data from the chain:
 
 - **Access runtime constants**:
 
+    Runtime constants (parameter types) can be inspected via `client.consts` entry point with syntax: `client.consts.<pallet>.<constantName>`.    
+
     ```typescript
     const ss58Prefix = client.consts.system.ss58Prefix;
 console.log('Polkadot ss58Prefix:', ss58Prefix);
     ```
 
 - **Storage queries**:
+
+    On-chain storage can be queried via `client.query` entry point and can be executed with format: `client.query.<pallet>.<storgeEntry>`.
 
     ```typescript
     const balance = await client.query.system.account(<address>);
@@ -7241,6 +7245,8 @@ console.log('Balance:', balance.data.free);
 
 - **Call Runtime APIs**:
 
+    Runtime APIs can be executed with syntax `client.call.<runtimeApi>.<methodName>`.
+
     ```typescript
     const metadata = await client.call.metadata.metadataAtVersion(15);
 console.log('Metadata V15', metadata)
@@ -7248,6 +7254,8 @@ console.log('Metadata V15', metadata)
 
 - **Watching on-chain events**:
 
+    Pallet events can be accessed via syntax: `client.events.<pallet>.<eventName>`.
+    
     ```typescript
     const unsub = await client.events.system.NewAccount.watch((events) => {
   console.log('New Account Created', events)

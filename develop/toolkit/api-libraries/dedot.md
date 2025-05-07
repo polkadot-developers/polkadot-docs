@@ -147,10 +147,10 @@ console.log('Polkadot ss58Prefix:', ss58Prefix);
 
 - **Storage queries**:
 
-```typescript
-const balance = await client.query.system.account(<address>);
-console.log('Balance:', balance.data.free);
-```
+    ```typescript
+    const balance = await client.query.system.account(<address>);
+    console.log('Balance:', balance.data.free);
+    ```
 
 - **Subscribe to storage changes**:
 

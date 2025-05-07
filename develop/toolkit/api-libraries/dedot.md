@@ -140,10 +140,10 @@ Dedot provides several ways to read data from the chain:
 
 - **Access runtime constants**:
 
-```typescript
-const ss58Prefix = client.consts.system.ss58Prefix;
-console.log('Polkadot ss58Prefix:', ss58Prefix);
-```
+    ```typescript
+    const ss58Prefix = client.consts.system.ss58Prefix;
+    console.log('Polkadot ss58Prefix:', ss58Prefix);
+    ```
 
 - **Storage queries**:
 

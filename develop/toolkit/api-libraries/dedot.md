@@ -125,7 +125,7 @@ const kusamaClient = await DedotClient.new<KusamaApi>(new WsProvider('wss://kusa
 const genericClient = await DedotClient.new(new WsProvider('ws://localhost:9944'));
 ```
 
-If you don't find the ChainApi for the network that you're working with in [the list](https://github.com/dedotdev/chaintypes?tab=readme-ov-file#supported-networks), you can generate the ChainApi (Types & APIs) for it using the built-in [dedot cli](https://docs.dedot.dev/cli).
+If you don't find the `ChainApi` for the network that you're working with in [the list](https://github.com/dedotdev/chaintypes?tab=readme-ov-file#supported-networks){target=\_blank}, you can generate the `ChainApi` (types and APIs) for it using the built-in [dedot cli](https://docs.dedot.dev/cli){target=\_blank}.
 
 ```bash
 # Generate ChainApi interface for Polkadot network via rpc endpoint: wss://rpc.polkadot.io

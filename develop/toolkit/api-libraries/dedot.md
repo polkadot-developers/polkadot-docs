@@ -67,8 +67,8 @@ To enable auto-completion/IntelliSense for individual chains, install the `@dedo
 
 To connect to and interact with different networks, Dedot provides two client options depending on your needs:
 
-- **[DedotClient](https://docs.dedot.dev/clients-and-providers/clients#dedotclient)**: Interacts with chains via the [new JSON-RPC APIs](https://paritytech.github.io/json-rpc-interface-spec/introduction.html)
-- **[LegacyClient](https://docs.dedot.dev/clients-and-providers/clients#legacyclient)**: Interacts with chains via the [legacy JSON-RPC APIs](https://github.com/w3f/PSPs/blob/master/PSPs/drafts/psp-6.md)
+- **[DedotClient](https://docs.dedot.dev/clients-and-providers/clients#dedotclient){target=\_blank}** - interacts with chains via the [new JSON-RPC APIs](https://paritytech.github.io/json-rpc-interface-spec/introduction.html){target=\_blank}
+- **[LegacyClient](https://docs.dedot.dev/clients-and-providers/clients#legacyclient){target=\_blank}** - interacts with chains via the [legacy JSON-RPC APIs](https://github.com/w3f/PSPs/blob/master/PSPs/drafts/psp-6.md){target=\_blank}
 
 Let's connect to Polkadot network using `DedotClient`:
 

@@ -114,7 +114,7 @@ const client = await LegacyClient.new<PolkadotApi>(provider);
 
 ### Pick a `ChainApi` interface for the connected network
 
-We recommend specifying the `ChainApi` interface (e.g: `PolkadotApi` in the example above) of the chain that you want to interact with. This enables Types & APIs suggestion/autocompletion for that particular chain (via IntelliSense). If you don't specify a `ChainApi` interface, a default `SubstrateApi` interface will be used.
+We recommend specifying the `ChainApi` interface (e.g: `PolkadotApi` in the example above) of the chain that you want to interact with. This enables types and APIs suggestion/autocompletion for that particular chain (via IntelliSense). If you don't specify a `ChainApi` interface, a default `SubstrateApi` interface will be used.
 
 ```typescript
 import { DedotClient, WsProvider } from 'dedot';

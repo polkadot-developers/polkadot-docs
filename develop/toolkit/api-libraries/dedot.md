@@ -132,7 +132,7 @@ If you don't find the `ChainApi` for the network that you're working with in [th
 npx dedot chaintypes -w wss://rpc.polkadot.io
 ```
 
-Or open a pull request to add your favorite network to the [`@dedot/chaintypes`](https://github.com/dedotdev/chaintypes) repo.
+Or open a pull request to add your favorite network to the [`@dedot/chaintypes`](https://github.com/dedotdev/chaintypes){target=\_blank} repo.
 
 ### Reading On-Chain Data
 

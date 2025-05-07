@@ -30,6 +30,7 @@ Doc-Page: https://docs.polkadot.com/develop/parachains/maintenance/
 Doc-Page: https://docs.polkadot.com/develop/parachains/maintenance/runtime-metrics-monitoring/
 Doc-Page: https://docs.polkadot.com/develop/parachains/maintenance/runtime-upgrades/
 Doc-Page: https://docs.polkadot.com/develop/parachains/maintenance/storage-migrations/
+Doc-Page: https://docs.polkadot.com/develop/parachains/maintenance/unlock-parachain/
 Doc-Page: https://docs.polkadot.com/develop/parachains/testing/benchmarking/
 Doc-Page: https://docs.polkadot.com/develop/parachains/testing/
 Doc-Page: https://docs.polkadot.com/develop/parachains/testing/mock-runtime/
@@ -692,21 +693,7 @@ decl_test_parachains! {
 - [**`decl_test_networks`**](https://github.com/paritytech/polkadot-sdk/blob/{{dependencies.repositories.polkadot_sdk.version}}/cumulus/xcm/xcm-emulator/src/lib.rs#L916){target=\_blank} - defines a testing network with relay chains, parachains, and bridges, implementing message transport and processing logic. Example:
 
     ```rust
-    decl_test_networks! {
-	pub struct WestendMockNet {
-		relay_chain = Westend,
-		parachains = vec![
-			AssetHubWestend,
-			BridgeHubWestend,
-			CollectivesWestend,
-			CoretimeWestend,
-			PeopleWestend,
-			PenpalA,
-			PenpalB,
-		],
-		bridge = ()
-	},
-}
+    Failed to fetch snippet after 3 attempts
     ```
 
 By leveraging these macros, developers can customize their testing networks by defining relay chains and parachains tailored to their needs. For guidance on implementing a mock runtime for a Polkadot SDK-based chain, refer to the [Pallet Testing](/develop/parachains/testing/pallet-testing/){target=\_blank} article. 
@@ -5608,6 +5595,35 @@ Multi-block migrations are ideal when dealing with:
 The primary trade-off is increased implementation complexity, as you must manage the migration state and handle partial completion scenarios. However, multi-block migrations' significant safety benefits and operational reliability are typically worth the increased complexity.
 
 For a complete implementation example of multi-block migrations, refer to the [official example](https://github.com/paritytech/polkadot-sdk/tree/{{dependencies.repositories.polkadot_sdk.version}}/substrate/frame/examples/multi-block-migrations){target=\_blank} in the Polkadot SDK.
+--- END CONTENT ---
+
+Doc-Content: https://docs.polkadot.com/develop/parachains/maintenance/unlock-parachain/
+--- BEGIN CONTENT ---
+---
+title: Unlock Parachain
+description: TODO
+---
+
+# Unlock Parachain
+
+## Introduction
+
+Parachain locks are designed in such way to ensure the decentralization of parachains. If parachains are not locked when it should be, it could introduce centralization risk for new parachains.
+
+A parachain can be locked only with following conditions:
+
+- Relaychain governance MUST be able to lock any parachain.
+- A parachain MUST be able to lock its own lock.
+- A parachain manager SHOULD be able to lock the parachain.
+- A parachain SHOULD be locked when it successfully produced a block for the first time.
+
+A parachain can be unlocked only with following conditions:
+- Relaychain governance MUST be able to unlock any parachain.
+- A parachain MUST be able to unlock its own lock.
+
+## Check if a Parachain is Locked
+
+To check if a parachain is locked,
 --- END CONTENT ---
 
 Doc-Content: https://docs.polkadot.com/develop/parachains/testing/benchmarking/

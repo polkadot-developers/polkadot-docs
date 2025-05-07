@@ -11,19 +11,19 @@ description: Dedot is a next-gen JavaScript client for Polkadot and Polkadot SDK
 
 ### Key Features
 
--	**Lightweight and Tree-Shakable** – No more bn.js or WebAssembly blobs, optimized for dapps bundle size.
+- **Lightweight and tree-shakable** – no more bn.js or WebAssembly blobs, optimized for dapps bundle size
 
--	**Fully Typed API** – Comprehensive TypeScript support for seamless on-chain interaction and ink! Smart Contract integration.
+- **Fully typed API** – comprehensive TypeScript support for seamless on-chain interaction and ink! smart contract integration
 
--	**Multi-Version JSON-RPC Support** – Compatible with both [legacy](https://github.com/w3f/PSPs/blob/master/PSPs/drafts/psp-6.md) and [new](https://paritytech.github.io/json-rpc-interface-spec/introduction.html) JSON-RPC APIs for broad ecosystem interoperability.
+- **Multi-version JSON-RPC support** – compatible with both [legacy](https://github.com/w3f/PSPs/blob/master/PSPs/drafts/psp-6.md){target=\_blank} and [new](https://paritytech.github.io/json-rpc-interface-spec/introduction.html){target=\_blank} JSON-RPC APIs for broad ecosystem interoperability
 
--	**Light Client Support** – Designed to work with light clients such as [Smoldot](https://github.com/smol-dot/smoldot).
+- **Light client support** – designed to work with light clients such as [Smoldot](https://github.com/smol-dot/smoldot){target=\_blank}
 
--	**Native TypeScript for Scale Codec** – Implements Scale codec parsing directly in TypeScript without relying on custom wrappers.
+- **Native TypeScript for scale codec** – implements scale codec parsing directly in TypeScript without relying on custom wrappers
 
--	**Wallet Integration** – Works out-of-the-box with [@polkadot/extension-based](https://github.com/polkadot-js/extension?tab=readme-ov-file#api-interface) wallets
+- **Wallet integration** – works out-of-the-box with [@polkadot/extension-based](https://github.com/polkadot-js/extension?tab=readme-ov-file#api-interface){target=\_blank} wallets
 
--	**Familiar API Design** – Similar API style with Polkadot.js for easy & fast migration.
+- **Familiar API design** – similar API style with Polkadot.js for easy and fast migration
 
 ## Installation
 

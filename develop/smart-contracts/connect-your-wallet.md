@@ -1,13 +1,13 @@
 ---
-title: Connect Your Wallet to Asset Hub
-description: Learn to connect MetaMask to the Asset Hub blockchain. Set up your wallet, switch networks, and request test tokens for development.
+title: Connect Your Wallet to Polkadot
+description: Learn to connect MetaMask to Polkadot Hub. Set up your wallet, switch networks, and request test tokens for development.
 ---
 
 # Connect Your Wallet
 
-## Connect to Asset Hub Using MetaMask
+## Connect to Polkadot Hub Using MetaMask
 
-MetaMask is a popular wallet for interacting with Ethereum-compatible chains. It allows users to connect to test networks that support Ethereum-based smart contracts. This article guides setting up MetaMask, connecting to the contracts deployed on the Ethereum-compatible test network, the Westend Asset Hub, and requesting test tokens for development purposes.
+MetaMask is a popular wallet for interacting with Ethereum-compatible chains. It allows users to connect to test networks that support Ethereum-based smart contracts. This article guides setting up MetaMask, connecting to the contracts deployed on the Ethereum-compatible test network, Westend Hub, and requesting test tokens for development purposes.
 
 It's important to emphasize that MetaMask primarily facilitates interactions with smart contracts, giving you access to various chain functionalities.
 
@@ -15,11 +15,11 @@ It's important to emphasize that MetaMask primarily facilitates interactions wit
 
 To get started with MetaMask, you need to install the [MetaMask extension](https://metamask.io/download/){target=\_blank} and add it to the browser. Once you install MetaMask, you can set up a new wallet and securely store your seed phrase. This phrase is crucial for recovery in case you lose access.
 
-## Connect to the Asset Hub Westend TestNet
+## Connect to the Westend Hub TestNet
 
-To connect to the Westend Asset Hub TestNet via MetaMask, you need to follow these steps:
+To connect to the Westend Hub TestNet via MetaMask, you need to follow these steps:
 
-1. Open the MetaMask extension and click on the network icon to switch to the Asset Hub Westend TestNet
+1. Open the MetaMask extension and click on the network icon to switch to the Westend Hub TestNet
 
     ![](/images/develop/smart-contracts/evm-toolkit/connect-your-wallet/connect-your-wallet-1.webp){: .browser-extension}
 
@@ -81,11 +81,11 @@ To connect to the Westend Asset Hub TestNet via MetaMask, you need to follow the
 
 ## Request Test Tokens
 
-To start conducting transactions and interacting with smart contracts on the Asset Hub Westend TestNet, you'll need WND test tokens. Here's how to get them:
+To start conducting transactions and interacting with smart contracts on the Westend Hub TestNet, you'll need WND test tokens. Here's how to get them:
 
-1. Navigate to the [Westend Asset Hub Faucet](https://faucet.polkadot.io/westend?parachain=1000){target=\_blank}
+1. Navigate to the [Westend Hub Faucet](https://faucet.polkadot.io/westend?parachain=1000){target=\_blank}
 
-2. Copy your MetaMask address linked to the Westend Asset Hub and paste it into the designated field
+2. Copy your MetaMask address linked to Westend Hub and paste it into the designated field
 
     ![](/images/develop/smart-contracts/evm-toolkit/connect-your-wallet/connect-your-wallet-5.webp)
 
@@ -93,4 +93,4 @@ To start conducting transactions and interacting with smart contracts on the Ass
 
     ![](/images/develop/smart-contracts/evm-toolkit/connect-your-wallet/connect-your-wallet-6.webp)
 
-Congratulations! You have successfully connected to the Westend Asset Hub using MetaMask and acquired test tokens. This setup allows you to experiment with the network's functionalities without using real ether or encountering financial risks. Remember to keep your MetaMask credentials secure and never share your wallet's private key or seed phrase with anyone.
+Congratulations! You have successfully connected to Westend Hub using MetaMask and acquired test tokens. This setup allows you to experiment with the network's functionalities without using real ether or encountering financial risks. Remember to keep your MetaMask credentials secure and never share your wallet's private key or seed phrase with anyone.

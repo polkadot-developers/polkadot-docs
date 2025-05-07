@@ -154,26 +154,26 @@ Dedot provides several ways to read data from the chain:
 
 - **Subscribe to storage changes**:
 
-```typescript
-const unsub = await client.query.system.number((blockNumber) => {
-  console.log(`Current block number: ${blockNumber}`);
-});
-```
+    ```typescript
+    const unsub = await client.query.system.number((blockNumber) => {
+      console.log(`Current block number: ${blockNumber}`);
+    });
+    ```
 
 - **Call Runtime APIs**:
 
-```typescript
-const metadata = await client.call.metadata.metadataAtVersion(15);
-console.log('Metadata V15', metadata)
-```
+    ```typescript
+    const metadata = await client.call.metadata.metadataAtVersion(15);
+    console.log('Metadata V15', metadata)
+    ```
 
 - **Watching on-chain events**:
   
-```typescript
-const unsub = await client.events.system.NewAccount.watch((events) => {
-  console.log('New Account Created', events)
-})
-```
+    ```typescript
+    const unsub = await client.events.system.NewAccount.watch((events) => {
+      console.log('New Account Created', events)
+    })
+    ```
 
 ### Signing & Sending Transactions
 

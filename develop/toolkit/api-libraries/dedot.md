@@ -177,7 +177,7 @@ const unsub = await client.events.system.NewAccount.watch((events) => {
 
 ### Signing & Sending Transactions
 
-Sign the transaction using `IKeyringPair` from Keyring ([`@polkadot/keyring`](https://polkadot.js.org/docs/keyring/start/sign-verify)) and send the transaction.
+Sign the transaction using `IKeyringPair` from Keyring ([`@polkadot/keyring`](https://polkadot.js.org/docs/keyring/start/sign-verify){target=\_blank}) and send the transaction.
 
 ```typescript
 import { cryptoWaitReady } from '@polkadot/util-crypto';

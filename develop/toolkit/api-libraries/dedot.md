@@ -44,7 +44,7 @@ To add Dedot to your project, use the following command:
     yarn add dedot
     ```
 
-To enable auto-completion/IntelliSense for individual chains, install the `@dedot/chaintypes` package as a development dependency:
+To enable auto-completion/IntelliSense for individual chains, install the [`@dedot/chaintypes`](https://www.npmjs.com/package/@dedot/chaintypes){target=\_blank} package as a development dependency:
 
 === "npm"
     ```bash

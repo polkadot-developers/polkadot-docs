@@ -17,7 +17,7 @@ These block explorers provide essential capabilities for interacting with smart 
 - **Address analysis** - view account balances, transaction history, and associated contracts
 - **Block information** - examine block contents
 - **Smart contract interaction** - review contract code, verification status, and interaction history
-- **Token tracking** - monitor ERC-20/ERC-721/other token standards with transfer history and holder analytics
+- **Token tracking** - monitor ERC-20, ERC-721, and other token standards with transfer history and holder analytics
 - **Network statistics** - access metrics on transaction volume, gas usage, and other network parameters
 
 ## Available Block Explorers

@@ -38,7 +38,7 @@ Subscan is the flagship Polkadot ecosystem block explorer with comprehensive sup
 BlockScout is an open-source explorer platform with a user-friendly interface adapted for PolkaVM contracts. It excels at detailed contract analytics and provides developers with comprehensive API access.
 
 === "Westend Hub"
-    URL: [https://blockscout-asset-hub.parity-chains-scw.parity.io/](){target=\_blank}
+    URL: [https://blockscout-asset-hub.parity-chains-scw.parity.io/](https://blockscout-asset-hub.parity-chains-scw.parity.io/){target=\_blank}
 
 ![](/images/develop/smart-contracts/block-explorers/block-explorers-2.webp)
 

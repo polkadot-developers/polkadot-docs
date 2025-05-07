@@ -65,7 +65,7 @@ To enable auto-completion/IntelliSense for individual chains, install the `@dedo
 
 ### Initialize a client instance to connect to the networks
 
-To connect to & interact with networks, Dedot provides two client options depending on your needs:
+To connect to and interact with different networks, Dedot provides two client options depending on your needs:
 
 - **[DedotClient](https://docs.dedot.dev/clients-and-providers/clients#dedotclient)**: Interacts with chains via the [new JSON-RPC APIs](https://paritytech.github.io/json-rpc-interface-spec/introduction.html)
 - **[LegacyClient](https://docs.dedot.dev/clients-and-providers/clients#legacyclient)**: Interacts with chains via the [legacy JSON-RPC APIs](https://github.com/w3f/PSPs/blob/master/PSPs/drafts/psp-6.md)

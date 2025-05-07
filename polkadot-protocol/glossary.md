@@ -268,7 +268,7 @@ The [Polkadot network](https://polkadot.network/){target=\_blank} is a blockchai
 
 ## Polkadot Cloud
 
-Polkadot Cloud is a scalable platform for deploying resilient, customizable Web3 applications through Polkadot's functionality. It encompasses the wider Polkadot network infrastructure and security layer where parachains operate. The platform enables users to launch Ethereum-compatible chains, build specialized blockchains, and flexibly manage computing resources through on-demand or bulk coretime purchases. Initially launched with basic parachain functionality, Polkadot Cloud has evolved to offer enhanced flexibility with features like coretime, elastic scaling, and async backing for improved performance and economic options.
+Polkadot Cloud is a platform for deploying resilient, customizable and scalable Web3 applications through Polkadot's functionality. It encompasses the wider Polkadot network infrastructure and security layer where parachains operate. The platform enables users to launch Ethereum-compatible chains, build specialized blockchains, and flexibly manage computing resources through on-demand or bulk coretime purchases. Initially launched with basic parachain functionality, Polkadot Cloud has evolved to offer enhanced flexibility with features like coretime, elastic scaling, and async backing for improved performance.
 
 ## Polkadot Hub
 
@@ -276,7 +276,7 @@ Polkadot Hub is a Layer 1 platform that serves as the primary entry point to the
 
 ## PolkaVM
 
-A cutting-edge virtual machine designed specifically for the Polkadot ecosystem that enables smart contract deployment and execution.
+PolkaVM is a custom virtual machine optimized for performance, leveraging a RISC-V-based architecture to support Solidity and any language that compiles to RISC-V. It is specifically designed for the Polkadot ecosystem, enabling smart contract deployment and execution.
 
 ## Relay Chain
 

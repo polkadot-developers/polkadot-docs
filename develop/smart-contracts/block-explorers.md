@@ -1,13 +1,13 @@
 ---
 title: Block Explorers
-description: TODO
+description: Access PolkaVM explorers like Subscan, BlockScout, and Routescan to track transactions, analyze contracts, and view on-chain data from smart contracts.
 ---
 
 # Block Explorers
 
 ## Introduction
 
-Block explorers serve as comprehensive blockchain analytics platforms that provide access to on-chain data. These web applications function as search engines for blockchain networks, allowing users to query, visualize, and analyze blockchain data in real-time through intuitive interfaces.
+Block explorers serve as comprehensive blockchain analytics platforms that provide access to on-chain data. These web applications function as search engines for blockchain networks, allowing users to query, visualize, and analyze blockchain data in real time through intuitive interfaces.
 
 ## Core Functionality
 
@@ -34,7 +34,7 @@ URL: [https://assethub-westend.subscan.io/](https://assethub-westend.subscan.io/
 
 ### BlockScout
 
-BlockScout offers an open-source explorer platform adapted for PolkaVM contracts with a user-friendly interface. It excels in detailed contract analytics and provides comprehensive API access for developers.
+BlockScout is an open-source explorer platform with a user-friendly interface adapted for PolkaVM contracts. It excels at detailed contract analytics and provides developers with comprehensive API access.
 
 URL: [https://blockscout-asset-hub.parity-chains-scw.parity.io/](){target=\_blank}
 

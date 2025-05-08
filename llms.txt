@@ -710,7 +710,21 @@ decl_test_parachains! {
 - [**`decl_test_networks`**](https://github.com/paritytech/polkadot-sdk/blob/{{dependencies.repositories.polkadot_sdk.version}}/cumulus/xcm/xcm-emulator/src/lib.rs#L916){target=\_blank} - defines a testing network with relay chains, parachains, and bridges, implementing message transport and processing logic. Example:
 
     ```rust
-    Error fetching snippet from https://raw.githubusercontent.com/paritytech/polkadot-sdk/refs/tags/polkadot-stable2412/cumulus/parachains/integration-tests/emulated/networks/westend-system/src/lib.rs
+    decl_test_networks! {
+	pub struct WestendMockNet {
+		relay_chain = Westend,
+		parachains = vec![
+			AssetHubWestend,
+			BridgeHubWestend,
+			CollectivesWestend,
+			CoretimeWestend,
+			PeopleWestend,
+			PenpalA,
+			PenpalB,
+		],
+		bridge = ()
+	},
+}
     ```
 
 By leveraging these macros, developers can customize their testing networks by defining relay chains and parachains tailored to their needs. For guidance on implementing a mock runtime for a Polkadot SDK-based chain, refer to the [Pallet Testing](/develop/parachains/testing/pallet-testing/){target=\_blank} article. 
@@ -19624,7 +19638,16 @@ The [`Account` data type](https://paritytech.github.io/polkadot-sdk/master/frame
 The code snippet below shows how accounts are defined:
 
 ```rs
- Error fetching snippet from https://raw.githubusercontent.com/paritytech/polkadot-sdk/refs/tags/v1.16.2-rc1/substrate/frame/system/src/lib.rs
+ /// The full account information for a particular account ID.
+	#[pallet::storage]
+	#[pallet::getter(fn account)]
+	pub type Account<T: Config> = StorageMap<
+		_,
+		Blake2_128Concat,
+		T::AccountId,
+		AccountInfo<T::Nonce, T::AccountData>,
+		ValueQuery,
+	>;
 ```
 
 The preceding code block defines a storage map named `Account`. The `StorageMap` is a type of on-chain storage that maps keys to values. In the `Account` map, the key is an account ID, and the value is the account's information. Here, `T` represents the generic parameter for the runtime configuration, which is defined by the pallet's configuration trait (`Config`).
@@ -32941,7 +32964,19 @@ To integrate this component to your dApp, you need to overwrite the existing boi
 
 ```javascript title="page.js"
 Invalid snippet reference: https://raw.githubusercontent.com/polkadot-developers/polkavm-storage-contract-dapps/refs/tags/v0.0.1/ethers-dapp/app/page.js::5
-Error fetching snippet from https://raw.githubusercontent.com/polkadot-developers/polkavm-storage-contract-dapps/refs/tags/v0.0.1/ethers-dapp/app/page.js
+export default function Home() {
+  const [account, setAccount] = useState(null);
+
+  const handleConnect = (connectedAccount) => {
+    setAccount(connectedAccount);
+  };
+
+  return (
+    <section className="min-h-screen bg-white text-black flex flex-col justify-center items-center gap-4 py-10">
+      <h1 className="text-2xl font-semibold text-center">
+        Ethers.js dApp - Asset Hub Smart Contracts
+      </h1>
+      <WalletConnect onConnect={handleConnect} />
 </section>
   );
 }

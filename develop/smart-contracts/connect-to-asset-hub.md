@@ -13,8 +13,6 @@ description: Explore how to connect to different Asset Hub networks, configure y
 
 Developers can leverage Asset Hub across diverse networks, from TestNets to MainNet. This section outlines the network specifications and connection details for each environment.
 
-### Specifications
-
 === "Westend Asset Hub"
 
     Network name

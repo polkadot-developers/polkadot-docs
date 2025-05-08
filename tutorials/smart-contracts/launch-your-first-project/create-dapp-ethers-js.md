@@ -58,14 +58,14 @@ ethers-dapp
 Let's start by creating a new Next.js project:
 
 ```
-npx create-next-app ethers-dapp
+npx create-next-app ethers-dapp --js --eslint --tailwind --app --yes
 cd ethers-dapp
 ```
 
 Next, install the needed dependencies:
 
 ```
-npm install ethers
+npm install ethers@{{ dependencies.javascript_packages.ethersjs.version }}
 ```
 
 ## Connect to Asset Hub
@@ -73,7 +73,7 @@ npm install ethers
 To interact with Asset Hub (Westend Asset Hub in this case), you need to set up an [Ethers.js Provider](/develop/smart-contracts/libraries/ethers-js/#set-up-the-ethersjs-provider){target=\_blank} that connects to the blockchain. Create a new file called `utils/ethers.js` and add the following code:
 
 ```javascript title="ethers.js"
---8<-- "code/tutorials/smart-contracts/launch-your-first-project/create-dapp-ethers-js/ethers.js"
+--8<-- "https://raw.githubusercontent.com/polkadot-developers/polkavm-storage-contract-dapps/refs/tags/v0.0.1/ethers-dapp/app/utils/ethers.js"
 ```
 This file establishes a connection to Asset Hub and provides helper functions for obtaining a [Provider](https://docs.ethers.org/v5/api/providers/provider/){target=_blank} and [Signer](https://docs.ethers.org/v5/api/signer/){target=_blank}. The provider allows you to read data from the blockchain, while the signer enables users to send transactions and modify the blockchain state.
 
@@ -84,13 +84,13 @@ For this dApp, you'll use a simple Storage contract already deployed. So, you ne
 ??? code "Storage.sol ABI"
 
     ```json title="Storage.json"
-    --8<-- "code/tutorials/smart-contracts/launch-your-first-project/create-dapp-ethers-js/Storage.json"
+    --8<-- "https://raw.githubusercontent.com/polkadot-developers/polkavm-storage-contract-dapps/refs/tags/v0.0.1/ethers-dapp/abis/Storage.json"
     ```
 
 Now, create a file called `utils/contract.js`:
 
 ```javascript title="contract.js"
---8<-- "code/tutorials/smart-contracts/launch-your-first-project/create-dapp-ethers-js/contract.js"
+--8<-- "https://raw.githubusercontent.com/polkadot-developers/polkavm-storage-contract-dapps/refs/tags/v0.0.1/ethers-dapp/app/utils/contract.js"
 ```
 
 This file defines the contract address, ABI, and functions to create instances of the contract for reading and writing.
@@ -100,7 +100,7 @@ This file defines the contract address, ABI, and functions to create instances o
 Next, let's create a component to handle wallet connections. Create a new file called `components/WalletConnect.js`:
 
 ```javascript title="WalletConnect.js"
---8<-- "code/tutorials/smart-contracts/launch-your-first-project/create-dapp-ethers-js/WalletConnect.js"
+--8<-- "https://raw.githubusercontent.com/polkadot-developers/polkavm-storage-contract-dapps/refs/tags/v0.0.1/ethers-dapp/app/components/WalletConnect.js"
 ```
 
 This component handles connecting to the wallet, switching networks if necessary, and keeping track of the connected account. 
@@ -108,9 +108,9 @@ This component handles connecting to the wallet, switching networks if necessary
 To integrate this component to your dApp, you need to overwrite the existing boilerplate in `app/page.js` with the following code:
 
 ```javascript title="page.js"
---8<-- "code/tutorials/smart-contracts/launch-your-first-project/create-dapp-ethers-js/page.js:0:5"
---8<-- "code/tutorials/smart-contracts/launch-your-first-project/create-dapp-ethers-js/page.js:8:21"
---8<-- "code/tutorials/smart-contracts/launch-your-first-project/create-dapp-ethers-js/page.js:24:26"
+--8<-- "https://raw.githubusercontent.com/polkadot-developers/polkavm-storage-contract-dapps/refs/tags/v0.0.1/ethers-dapp/app/page.js::5"
+--8<-- "https://raw.githubusercontent.com/polkadot-developers/polkavm-storage-contract-dapps/refs/tags/v0.0.1/ethers-dapp/app/page.js:8:21"
+--8<-- "https://raw.githubusercontent.com/polkadot-developers/polkavm-storage-contract-dapps/refs/tags/v0.0.1/ethers-dapp/app/page.js:24:26"
 ```
 
 In your terminal, you can launch your project by running:
@@ -128,7 +128,7 @@ And you will see the following:
 Now, let's create a component to read data from the contract. Create a file called `components/ReadContract.js`:
 
 ```javascript title="ReadContract.js"
---8<-- "code/tutorials/smart-contracts/launch-your-first-project/create-dapp-ethers-js/ReadContract.js"
+--8<-- "https://raw.githubusercontent.com/polkadot-developers/polkavm-storage-contract-dapps/refs/tags/v0.0.1/ethers-dapp/app/components/ReadContract.js"
 ```
 
 This component reads the `storedNumber` value from the contract and displays it to the user. It also sets up a polling interval to refresh the data periodically.
@@ -136,9 +136,9 @@ This component reads the `storedNumber` value from the contract and displays it 
 To see this change in your dApp, you need to integrate this component into the `app/page.js` file:
 
 ```javascript title="page.js"
---8<-- "code/tutorials/smart-contracts/launch-your-first-project/create-dapp-ethers-js/page.js:0:6"
---8<-- "code/tutorials/smart-contracts/launch-your-first-project/create-dapp-ethers-js/page.js:8:22"
---8<-- "code/tutorials/smart-contracts/launch-your-first-project/create-dapp-ethers-js/page.js:24:26"
+--8<-- "https://raw.githubusercontent.com/polkadot-developers/polkavm-storage-contract-dapps/refs/tags/v0.0.1/ethers-dapp/app/page.js::6"
+--8<-- "https://raw.githubusercontent.com/polkadot-developers/polkavm-storage-contract-dapps/refs/tags/v0.0.1/ethers-dapp/app/page.js:8:22"
+--8<-- "https://raw.githubusercontent.com/polkadot-developers/polkavm-storage-contract-dapps/refs/tags/v0.0.1/ethers-dapp/app/page.js:24:26"
 ```
 
 Your dApp will automatically be updated to the following:
@@ -150,7 +150,7 @@ Your dApp will automatically be updated to the following:
 Finally, let's create a component that allows users to update the stored number. Create a file called `components/WriteContract.js`:
 
 ```javascript title="WriteContract.js"
---8<-- "code/tutorials/smart-contracts/launch-your-first-project/create-dapp-ethers-js/WriteContract.js"
+--8<-- "https://raw.githubusercontent.com/polkadot-developers/polkavm-storage-contract-dapps/refs/tags/v0.0.1/ethers-dapp/app/components/WriteContract.js"
 ```
 
 This component allows users to input a new number and send a transaction to update the value stored in the contract. When the transaction is successful, users will see the stored value update in the `ReadContract` component after the transaction is confirmed.
@@ -158,7 +158,7 @@ This component allows users to input a new number and send a transaction to upda
 Update the `app/page.js` file to integrate all components:
 
 ```javascript title="page.js"
---8<-- "code/tutorials/smart-contracts/launch-your-first-project/create-dapp-ethers-js/page.js"
+--8<-- "https://raw.githubusercontent.com/polkadot-developers/polkavm-storage-contract-dapps/refs/tags/v0.0.1/ethers-dapp/app/page.js"
 ```
 
 The completed UI will display:
@@ -174,6 +174,13 @@ Congratulations! You've built a complete dApp that interacts with a smart contra
 - Send transactions to update the contract state
 
 These fundamental skills provide the foundation for building more complex dApps on Asset Hub. With these building blocks, you can extend your application to interact with more sophisticated smart contracts and create more advanced user interfaces.
+
+To get started right away with a working example, you can clone the repository and navigate to the implementation:
+
+```
+git clone https://github.com/polkadot-developers/polkavm-storage-contract-dapps.git -b v0.0.1
+cd polkavm-storage-contract-dapps/ethers-dapp
+```
 
 ## Where to Go Next
 

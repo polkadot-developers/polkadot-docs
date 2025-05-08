@@ -47,6 +47,7 @@ Doc-Page: https://docs.polkadot.com/develop/smart-contracts/libraries/wagmi/
 Doc-Page: https://docs.polkadot.com/develop/smart-contracts/libraries/web3-js/
 Doc-Page: https://docs.polkadot.com/develop/smart-contracts/libraries/web3-py/
 Doc-Page: https://docs.polkadot.com/develop/smart-contracts/overview/
+Doc-Page: https://docs.polkadot.com/develop/smart-contracts/precompiles/
 Doc-Page: https://docs.polkadot.com/develop/toolkit/api-libraries/
 Doc-Page: https://docs.polkadot.com/develop/toolkit/api-libraries/papi/
 Doc-Page: https://docs.polkadot.com/develop/toolkit/api-libraries/polkadot-js-api/
@@ -6121,7 +6122,7 @@ Developers can leverage Asset Hub across diverse networks, from TestNets to Main
 
 ### Metamask
 
-[MetaMask](https://metamask.io/){target=\_blank} is a popular wallet for interacting with EVM-compatible chains. It allows users to connect to test networks that support Ethereum-based smart contracts. However, it's important to emphasize that MetaMask primarily facilitates interactions with smart contracts, giving users access to various chain functionalities. 
+[MetaMask](https://metamask.io/){target=\_blank} is a popular wallet for interacting with Ethereum-compatible chains. It allows users to connect to test networks that support Ethereum-based smart contracts. However, it's important to emphasize that MetaMask primarily facilitates interactions with smart contracts, giving users access to various chain functionalities. 
 
 To get started with MetaMask, you need to install the [MetaMask extension](https://metamask.io/download/){target=\_blank} and add it to the browser. Once you install MetaMask, you can set up a new wallet and securely store your seed phrase. This phrase is crucial for recovery in case you lose access.
 
@@ -6179,7 +6180,7 @@ For your next steps, explore the various smart contract guides demonstrating how
 
     ---
 
-    Use viem for interacting with EVM-compatible chains, to deploy and interact with smart contracts on Asset Hub.
+    Use viem for interacting with Ethereum-compatible chains, to deploy and interact with smart contracts on Asset Hub.
 
     [:octicons-arrow-right-24: Build with viem](/develop/smart-contracts/libraries/viem/)
 
@@ -6197,7 +6198,7 @@ description: Learn to connect MetaMask to the Asset Hub blockchain. Set up your 
 
 ## Connect to Asset Hub Using MetaMask
 
-MetaMask is a popular wallet for interacting with EVM-compatible chains. It allows users to connect to test networks that support Ethereum-based smart contracts. This article guides setting up MetaMask, connecting to the contracts deployed on the EVM-compatible test network, the Westend Asset Hub, and requesting test tokens for development purposes.
+MetaMask is a popular wallet for interacting with Ethereum-compatible chains. It allows users to connect to test networks that support Ethereum-based smart contracts. This article guides setting up MetaMask, connecting to the contracts deployed on the Ethereum-compatible test network, the Westend Asset Hub, and requesting test tokens for development purposes.
 
 It's important to emphasize that MetaMask primarily facilitates interactions with smart contracts, giving you access to various chain functionalities.
 
@@ -6309,7 +6310,7 @@ description: Learn how to create, compile, test, and deploy smart contracts on A
 
 ## Overview
 
-Hardhat is a robust development environment for EVM-compatible chains that makes smart contract development more efficient. This guide walks you through the essentials of using Hardhat to create, compile, test, and deploy smart contracts on Asset Hub.
+Hardhat is a robust development environment for Ethereum-compatible chains that makes smart contract development more efficient. This guide walks you through the essentials of using Hardhat to create, compile, test, and deploy smart contracts on Asset Hub.
 
 ## Prerequisites
 
@@ -7165,7 +7166,7 @@ template: index-page.html
 
 # Smart Contracts
 
-Polkadot allows scalable execution of smart contracts, offering cross-chain compatibility and lower fees than legacy L1 platforms. Polkadot offers developers flexibility in building smart contracts, supporting both Solidity contracts executed either by the [PolkaVM](/polkadot-protocol/smart-contract-basics/polkavm-design#polkavm){target=\_blank} or by the EVM (Ethereum Virtual Machine), and Wasm-based contracts using [ink!](https://use.ink/){target=\_blank} (written in Rust).
+Polkadot allows scalable execution of smart contracts, offering cross-chain compatibility and lower fees than legacy L1 platforms. Polkadot provides developers with flexibility in building smart contracts, supporting both Solidity contracts executed by the [PolkaVM](/polkadot-protocol/smart-contract-basics/polkavm-design#polkavm){target=\_blank} (a Polkadot-native virtual machine for programming languages that can be compiled down to RISC-V) and EVM (Ethereum Virtual Machine), as well as Wasm-based contracts using ink! (written in Rust).
 
 This section provides tools, resources, and guides for building and deploying smart contracts on parachains. [Parachains](/polkadot-protocol/architecture/parachains/overview/){target=\_blank} are specialized blockchains connected to the relay chain, benefiting from shared security and interoperability. Depending on your language and environment preference, you can develop contracts using Wasm/ink! or EVM-based solutions.
 
@@ -7214,7 +7215,7 @@ Asset Hub provides Ethereum compatibility through its JSON-RPC interface, allowi
 This article uses the Westend Asset Hub endpoint to interact with:
 
 ```text
-https://westend-asset-hub-rpc.polkadot.io
+https://westend-asset-hub-eth-rpc.polkadot.io
 ```
 
 ## Available Methods
@@ -7230,7 +7231,7 @@ None
 **Example**:
 
 ```bash title="eth_accounts"
-curl -X POST https://westend-asset-hub-rpc.polkadot.io \
+curl -X POST https://westend-asset-hub-eth-rpc.polkadot.io \
 -H "Content-Type: application/json" \
 --data '{
     "jsonrpc":"2.0",
@@ -7253,7 +7254,7 @@ None
 **Example**:
 
 ```bash title="eth_blockNumber"
-curl -X POST https://westend-asset-hub-rpc.polkadot.io \
+curl -X POST https://westend-asset-hub-eth-rpc.polkadot.io \
 -H "Content-Type: application/json" \
 --data '{
     "jsonrpc":"2.0",
@@ -7283,7 +7284,7 @@ Executes a new message call immediately without creating a transaction. [Referen
 **Example**:
 
 ```bash title="eth_call"
-curl -X POST https://westend-asset-hub-rpc.polkadot.io \
+curl -X POST https://westend-asset-hub-eth-rpc.polkadot.io \
 -H "Content-Type: application/json" \
 --data '{
     "jsonrpc":"2.0",
@@ -7311,7 +7312,7 @@ None
 **Example**:
 
 ```bash title="eth_chainId"
-curl -X POST https://westend-asset-hub-rpc.polkadot.io \
+curl -X POST https://westend-asset-hub-eth-rpc.polkadot.io \
 -H "Content-Type: application/json" \
 --data '{
     "jsonrpc":"2.0",
@@ -7341,7 +7342,7 @@ Estimates gas required for a transaction. [Reference](https://ethereum.org/en/de
 **Example**:
 
 ```bash title="eth_estimateGas"
-curl -X POST https://westend-asset-hub-rpc.polkadot.io \
+curl -X POST https://westend-asset-hub-eth-rpc.polkadot.io \
 -H "Content-Type: application/json" \
 --data '{
     "jsonrpc":"2.0",
@@ -7369,7 +7370,7 @@ None
 **Example**:
 
 ```bash title="eth_gasPrice"
-curl -X POST https://westend-asset-hub-rpc.polkadot.io \
+curl -X POST https://westend-asset-hub-eth-rpc.polkadot.io \
 -H "Content-Type: application/json" \
 --data '{
     "jsonrpc":"2.0",
@@ -7393,7 +7394,7 @@ Returns the balance of a given address. [Reference](https://ethereum.org/en/deve
 **Example**:
 
 ```bash title="eth_getBalance"
-curl -X POST https://westend-asset-hub-rpc.polkadot.io \
+curl -X POST https://westend-asset-hub-eth-rpc.polkadot.io \
 -H "Content-Type: application/json" \
 --data '{
     "jsonrpc":"2.0",
@@ -7419,7 +7420,7 @@ Returns information about a block by its hash. [Reference](https://ethereum.org/
 **Example**:
 
 ```bash title="eth_getBlockByHash"
-curl -X POST https://westend-asset-hub-rpc.polkadot.io \
+curl -X POST https://westend-asset-hub-eth-rpc.polkadot.io \
 -H "Content-Type: application/json" \
 --data '{
     "jsonrpc":"2.0",
@@ -7445,7 +7446,7 @@ Returns information about a block by its number. [Reference](https://ethereum.or
 **Example**:
 
 ```bash title="eth_getBlockByNumber"
-curl -X POST https://westend-asset-hub-rpc.polkadot.io \
+curl -X POST https://westend-asset-hub-eth-rpc.polkadot.io \
 -H "Content-Type: application/json" \
 --data '{
     "jsonrpc":"2.0",
@@ -7471,7 +7472,7 @@ Returns the code at a given address. [Reference](https://ethereum.org/en/develop
 **Example**:
 
 ```bash title="eth_getCode"
-curl -X POST https://westend-asset-hub-rpc.polkadot.io \
+curl -X POST https://westend-asset-hub-eth-rpc.polkadot.io \
 -H "Content-Type: application/json" \
 --data '{
     "jsonrpc":"2.0",
@@ -7498,7 +7499,7 @@ Returns the value from a storage position at a given address. [Reference](https:
 **Example**:
 
 ```bash title="eth_getStorageAt"
-curl -X POST https://westend-asset-hub-rpc.polkadot.io \
+curl -X POST https://westend-asset-hub-eth-rpc.polkadot.io \
 -H "Content-Type: application/json" \
 --data '{
     "jsonrpc":"2.0",
@@ -7522,7 +7523,7 @@ Returns the number of transactions sent from an address (nonce). [Reference](htt
 **Example**:
 
 ```bash title="eth_getTransactionCount"
-curl -X POST https://westend-asset-hub-rpc.polkadot.io \
+curl -X POST https://westend-asset-hub-eth-rpc.polkadot.io \
 -H "Content-Type: application/json" \
 --data '{
     "jsonrpc":"2.0",
@@ -7547,7 +7548,7 @@ None
 **Example**:
 
 ```bash title="eth_maxPriorityFeePerGas"
-curl -X POST https://westend-asset-hub-rpc.polkadot.io \
+curl -X POST https://westend-asset-hub-eth-rpc.polkadot.io \
 -H "Content-Type: application/json" \
 --data '{
     "jsonrpc":"2.0",
@@ -7570,7 +7571,7 @@ Submits a raw transaction. [Reference](https://ethereum.org/en/developers/docs/a
 **Example**:
 
 ```bash title="eth_sendRawTransaction"
-curl -X POST https://westend-asset-hub-rpc.polkadot.io \
+curl -X POST https://westend-asset-hub-eth-rpc.polkadot.io \
 -H "Content-Type: application/json" \
 --data '{
     "jsonrpc":"2.0",
@@ -7602,7 +7603,7 @@ Creates and sends a new transaction. [Reference](https://ethereum.org/en/develop
 **Example**:
 
 ```bash title="eth_sendTransaction"
-curl -X POST https://westend-asset-hub-rpc.polkadot.io \
+curl -X POST https://westend-asset-hub-eth-rpc.polkadot.io \
 -H "Content-Type: application/json" \
 --data '{
     "jsonrpc":"2.0",
@@ -7635,7 +7636,7 @@ None
 **Example**:
 
 ```bash title="net_version"
-curl -X POST https://westend-asset-hub-rpc.polkadot.io \
+curl -X POST https://westend-asset-hub-eth-rpc.polkadot.io \
 -H "Content-Type: application/json" \
 --data '{
     "jsonrpc":"2.0",
@@ -8300,14 +8301,14 @@ Doc-Content: https://docs.polkadot.com/develop/smart-contracts/libraries/viem/
 --- BEGIN CONTENT ---
 ---
 title: viem for Asset Hub Smart Contracts
-description: viem is a TypeScript library for interacting with EVM-compatible chains. This guide covers using viem to deploy and interact with smart contracts on Asset Hub.
+description: viem is a TypeScript library for interacting with Ethereum-compatible chains. This guide covers using viem to deploy and interact with smart contracts on Asset Hub.
 ---
 
 # viem
 
 ## Introduction
 
-[viem](https://viem.sh/){target=\_blank} is a lightweight TypeScript library designed for interacting with EVM-compatible blockchains. This comprehensive guide will walk you through using viem to interact with and deploy smart contracts to Asset Hub.
+[viem](https://viem.sh/){target=\_blank} is a lightweight TypeScript library designed for interacting with Ethereum-compatible blockchains. This comprehensive guide will walk you through using viem to interact with and deploy smart contracts to Asset Hub.
 
 ## Prerequisites
 
@@ -8842,7 +8843,7 @@ description: Learn how to use Wagmi React Hooks to fetch and interact with smart
 
 ## Introduction
 
-[Wagmi](https://wagmi.sh/){target=\_blank} is a collection of [React Hooks](https://wagmi.sh/react/api/hooks){target=\_blank} for interacting with EVM-compatible blockchains, focusing on developer experience, feature richness, and reliability.
+[Wagmi](https://wagmi.sh/){target=\_blank} is a collection of [React Hooks](https://wagmi.sh/react/api/hooks){target=\_blank} for interacting with Ethereum-compatible blockchains, focusing on developer experience, feature richness, and reliability.
 
 This guide demonstrates how to use Wagmi to interact with and deploy smart contracts to Asset Hub, providing a seamless frontend integration for your dApps.
 
@@ -9489,7 +9490,7 @@ After compilation, you'll have two key files: an ABI (`.json`) file, which provi
 
 ## Contract Deployment
 
-To deploy your compiled contract to Asset Hub using Web3.js, you'll need an account with a private key to sign the deployment transaction. The deployment process is exactly the same as for any EVM-compatible chain, involving creating a contract instance, estimating gas, and sending a deployment transaction. Here's how to deploy the contract, ensure replacing the `INSERT_RPC_URL`, `INSERT_PRIVATE_KEY`, and `INSERT_CONTRACT_NAME` with the appropriate values:
+To deploy your compiled contract to Asset Hub using Web3.js, you'll need an account with a private key to sign the deployment transaction. The deployment process is exactly the same as for any Ethereum-compatible chain, involving creating a contract instance, estimating gas, and sending a deployment transaction. Here's how to deploy the contract, ensure replacing the `INSERT_RPC_URL`, `INSERT_PRIVATE_KEY`, and `INSERT_CONTRACT_NAME` with the appropriate values:
 
 ```javascript title="deploy.js"
 import { readFileSync } from 'fs';
@@ -9807,7 +9808,7 @@ contract Storage {
 }
 ```
 
-To deploy your compiled contract to Asset Hub using Web3.py, you'll need an account with a private key to sign the deployment transaction. The deployment process is exactly the same as for any EVM-compatible chain, involving creating a contract instance, estimating gas, and sending a deployment transaction. Here's how to deploy the contract. Replace `INSERT_RPC_URL` and `INSERT_PRIVATE_KEY` with the appropriate values:
+To deploy your compiled contract to Asset Hub using Web3.py, you'll need an account with a private key to sign the deployment transaction. The deployment process is exactly the same as for any Ethereum-compatible chain, involving creating a contract instance, estimating gas, and sending a deployment transaction. Here's how to deploy the contract. Replace `INSERT_RPC_URL` and `INSERT_PRIVATE_KEY` with the appropriate values:
 
 ```python title="deploy.py"
 from web3 import Web3
@@ -10121,7 +10122,7 @@ Key benefits include:
 
 ## Where to Go Next
 
-Developers can use their existing Ethereum development tools and connect to Asset Hub's RPC endpoints. The platform's Ethereum compatibility layer ensures a smooth transition for teams already building on EVM-compatible chains.
+Developers can use their existing Ethereum development tools and connect to Asset Hub's RPC endpoints. The platform's Ethereum compatibility layer ensures a smooth transition for teams already building on Ethereum-compatible chains.
 
 Subsequent sections of this guide provide detailed information about specific development tools, advanced features, and best practices for building on Asset Hub.
 
@@ -10152,6 +10153,70 @@ Subsequent sections of this guide provide detailed information about specific de
     [:octicons-arrow-right-24: Reference](/develop/smart-contracts/evm-toolkit/indexers/)
 
 </div>
+--- END CONTENT ---
+
+Doc-Content: https://docs.polkadot.com/develop/smart-contracts/precompiles/
+--- BEGIN CONTENT ---
+---
+title: Advanced Functionalities via Precompiles
+description: Explores how Polkadot integrates precompiles to run essential functions natively, improving the speed and efficiency of smart contracts on the Hub.
+---
+
+# Advanced Functionalities via Precompiles
+
+## Introduction
+
+Precompiles serve a dual purpose in the Polkadot ecosystem: they not only enable high-performance smart contracts by providing native, optimized implementations of frequently used functions but will also eventually act as critical bridges, allowing contracts to interact with core platform capabilities.
+
+This article explores how Polkadot leverages precompiles within the Revive pallet to enhance efficiency and how they will extend functionality for developers in the future, including planned access to native features like Cross-Consensus Messaging (XCM).
+
+## What are Precompiles?
+
+Precompiles are special contract implementations that run directly at the runtime level rather than as on-chain PolkaVM contracts. In typical EVM environments, precompiles provide essential cryptographic and utility functionality at addresses that start with specific patterns. Revive follows this design pattern but with its own implementation optimized for PolkaVM.
+
+```mermaid
+flowchart LR
+    User(["User"])
+    DApp["DApp/Contract"]
+    PolkaEVM["ETH RPC Adapter"]
+    Precompiles["Precompiles"]
+    Runtime["PolkaVM"]
+
+    User --> DApp
+    DApp -->|"Call\nfunction"| PolkaEVM
+    PolkaEVM -->|"Detect\nprecompile\naddress"| Precompiles
+    Precompiles -->|"Execute\noptimized\nnative code"| Runtime
+
+    subgraph "Polkadot Hub"
+        PolkaEVM
+        Precompiles
+        Runtime
+    end
+
+    classDef edgeLabel background:#eceff3;
+```
+
+## Standard Precompiles in Polkadot Hub
+
+Revive implements the standard set of Ethereum precompiles:
+
+|                                                                                   Contract Name                                                                                   | Address (Last Byte) |                                           Description                                           |
+| :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: | :-----------------: | :---------------------------------------------------------------------------------------------: |
+|  [ECRecover](https://github.com/paritytech/polkadot-sdk/tree/polkadot-stable2503/substrate/frame/revive/src/pure_precompiles/ecrecover.rs){target=\_blank}   |        0x01         |                       Recovers the public key associated with a signature                       |
+|     [Sha256](https://github.com/paritytech/polkadot-sdk/tree/polkadot-stable2503/substrate/frame/revive/src/pure_precompiles/sha256.rs){target=\_blank}      |        0x02         |                              Implements the SHA-256 hash function                               |
+|  [Ripemd160](https://github.com/paritytech/polkadot-sdk/tree/polkadot-stable2503/substrate/frame/revive/src/pure_precompiles/ripemd160.rs){target=\_blank}   |        0x03         |                             Implements the RIPEMD-160 hash function                             |
+|   [Identity](https://github.com/paritytech/polkadot-sdk/tree/polkadot-stable2503/substrate/frame/revive/src/pure_precompiles/identity.rs){target=\_blank}    |        0x04         |                          Data copy function (returns input as output)                           |
+|     [Modexp](https://github.com/paritytech/polkadot-sdk/tree/polkadot-stable2503/substrate/frame/revive/src/pure_precompiles/modexp.rs){target=\_blank}      |        0x05         |                                     Modular exponentiation                                      |
+|   [Bn128Add](https://github.com/paritytech/polkadot-sdk/tree/polkadot-stable2503/substrate/frame/revive/src/pure_precompiles/bn128.rs#L27){target=\_blank}   |        0x06         |    Addition on the [alt_bn128 curve](https://eips.ethereum.org/EIPS/eip-196){target=\_blank}    |
+|   [Bn128Mul](https://github.com/paritytech/polkadot-sdk/tree/polkadot-stable2503/substrate/frame/revive/src/pure_precompiles/bn128.rs#L48){target=\_blank}   |        0x07         | Multiplication on the [alt_bn128 curve](https://eips.ethereum.org/EIPS/eip-196){target=\_blank} |
+| [Bn128Pairing](https://github.com/paritytech/polkadot-sdk/tree/polkadot-stable2503/substrate/frame/revive/src/pure_precompiles/bn128.rs#L69){target=\_blank} |        0x08         |                              Pairing check on the alt_bn128 curve                               |
+|    [Blake2F](https://github.com/paritytech/polkadot-sdk/tree/polkadot-stable2503/substrate/frame/revive/src/pure_precompiles/blake2f.rs){target=\_blank}     |        0x09         |                                  Blake2 compression function F                                  |
+
+## Conclusion
+
+For smart contract developers, precompiles offer a powerful way to access both low-level, high-performance operations and core platform capabilities within the smart contract execution context. Through Revive, Polkadot exposes these native functionalities, allowing developers to build faster, more efficient contracts that can take full advantage of the Polkadot ecosystem.
+
+Understanding and utilizing precompiles can unlock advanced functionality and performance gains, making them an essential tool for anyone building on the Polkadot Hub.
 --- END CONTENT ---
 
 Doc-Content: https://docs.polkadot.com/develop/toolkit/api-libraries/
@@ -12782,7 +12847,7 @@ ParaSpell's tools make it simple for developers to build, test, and deploy cross
 The [Astar parachain](https://github.com/AstarNetwork/Astar/tree/master){target=\_blank} offers a crate with a set of utilities for interacting with the XCM protocol. The [xcm-tools](https://github.com/AstarNetwork/Astar/tree/master/bin/xcm-tools){target=\_blank} crate provides a straightforward method for users to locate a sovereign account or calculate an XC20 asset ID. Some commands included by the xcm-tools crate allow users to perform the following tasks:
 
 - **Sovereign accounts** - obtain the sovereign account address for any parachain, either on the Relay Chain or for sibling parachains, using a simple command
-- **XC20 EVM addresses** - generate XC20-compatible EVM addresses for assets by entering the asset ID, making it easy to integrate assets across EVM-compatible environments
+- **XC20 EVM addresses** - generate XC20-compatible Ethereum addresses for assets by entering the asset ID, making it easy to integrate assets across Ethereum-compatible environments
 - **Remote accounts** - retrieve remote account addresses needed for multi-location compatibility, using flexible options to specify account types and parachain IDs
 
 To start using these tools, clone the [Astar repository](https://github.com/AstarNetwork/Astar){target=\_blank} and compile the xcm-tools package:
@@ -21545,7 +21610,7 @@ description: Bridges Ethereum's 20-byte addresses with Polkadot's 32-byte accoun
 
 Asset Hub natively uses Polkadot's 32-byte account system but provides interoperability with Ethereum's 20-byte addresses through an automatic conversion system. When interacting with smart contracts:
 
-- EVM-compatible wallets (like MetaMask) can use their familiar 20-byte addresses
+- Ethereum-compatible wallets (like MetaMask) can use their familiar 20-byte addresses
 - Polkadot accounts continue using their native 32-byte format
 - The Asset Hub chain automatically handles conversion between the two formats behind the scenes:
 
@@ -21739,11 +21804,46 @@ While [PolkaVM](/polkadot-protocol/smart-contract-basics/polkavm-design/){target
 
 The most significant departure from Ethereum comes from PolkaVM's foundation itself. Rather than implementing the EVM, PolkaVM utilizes a RISC-V instruction set. For most Solidity developers, this architectural change remains transparent thanks to the [Revive compiler's](https://github.com/paritytech/revive){target=\_blank} complete Solidity support, including inline assembler functionality.
 
+```mermaid
+graph TD
+    subgraph "Ethereum Path"
+        EthCompile["Standard Solidity Compiler"] --> EVM_Bytecode["EVM Bytecode"]
+        EVM_Bytecode --> EVM["Stack-based EVM"]
+        EVM --> EthExecution["Contract Execution"]
+    end
+
+    subgraph "PolkaVM Path"
+        ReviveCompile["Revive Compiler"] --> RISCV_Bytecode["RISC-V Format Bytecode"]
+        RISCV_Bytecode --> PolkaVM["RISC-V Based PolkaVM"]
+        PolkaVM --> PolkaExecution["Contract Execution"]
+    end
+
+    EthExecution -.-> DifferencesNote["Key Differences:
+    - Instruction Set Architecture
+    - Bytecode Format
+    - Runtime Behavior"]
+    PolkaExecution -.-> DifferencesNote
+```
+
 However, this architectural difference becomes relevant in specific scenarios. Tools that attempt to download and inspect contract bytecode will fail, as they expect EVM bytecode rather than PolkaVM's RISC-V format. This primarily affects contracts using [`EXTCODECOPY`](https://www.evm.codes/?fork=cancun#3c){target=\_blank} to manipulate code at runtime, though such cases are rare. PolkaVM offers an elegant alternative through its [on-chain constructors](https://paritytech.github.io/polkadot-sdk/master/pallet_revive/pallet/struct.Pallet.html#method.bare_instantiate){target=\_blank}, enabling contract instantiation without runtime code modification.
+
+### High-Level Architecture Comparison
+
+|            Feature            |                            Ethereum Virtual Machine (EVM)                            |                        PolkaVM                         |
+| :---------------------------: | :----------------------------------------------------------------------------------: | :----------------------------------------------------: |
+|      **Instruction Set**      |                           Stack-based architecture                                   |                 RISC-V instruction set                 |
+|      **Bytecode Format**      |                                     EVM bytecode                                     |                     RISC-V format                      |
+|    **Contract Size Limit**    |                                 24KB code size limit                                 |            Contract-specific memory limits             |
+|         **Compiler**          |                                  Solidity Compiler                                   |                    Revive Compiler                     |
+|      **Inline Assembly**      |                                      Supported                                       |           Supported with compatibility layer           |
+|    **Code Introspection**     | Supported via [`EXTCODECOPY`](https://www.evm.codes/?fork=cancun#3c){target=\_blank} | Limited support, alternative via on-chain constructors |
+|     **Resource Metering**     |                                  Single gas metric                                   |                   Multi-dimensional                    |
+| **Runtime Code Modification** |                                      Supported                                       |               Limited, with alternatives               |
+|  **Contract Instantiation**   |                                 Standard deployment                                  |    On-chain constructors for flexible instantiation    |
 
 ## Gas Model
 
-Ethereum's resource model relies on a single metric: [gas](https://ethereum.org/en/developers/docs/gas/#what-is-gas){target=\_blank}, which serves as the universal unit for measuring computational costs. Each operation on the network consumes a specific amount of gas. Most platforms aiming for Ethereum compatibility typically adopt identical gas values to ensure seamless integration. 
+Ethereum's resource model relies on a single metric: [gas](https://ethereum.org/en/developers/docs/gas/#what-is-gas){target=\_blank}, which serves as the universal unit for measuring computational costs. Each operation on the network consumes a specific amount of gas. Most platforms aiming for Ethereum compatibility typically adopt identical gas values to ensure seamless integration.
 
 The significant changes to Ethereum's gas model will be outlined in the following sections.
 
@@ -21771,27 +21871,36 @@ For compatibility, PolkaVM maps traditional gas-related operations to its `ref_t
 
 The EVM and the PolkaVM take fundamentally different approaches to memory constraints:
 
-- **EVM's approach** - Ethereum uses gas costs as an indirect memory control mechanism. Beyond a 24KB code size limit, memory usage is constrained through a gas curve that increases costs based on total allocation. While elegant, this approach can lead to overcharging for memory operations, reducing overall system efficiency
+|          Feature         |       Ethereum Virtual Machine (EVM)      |                   PolkaVM                      |
+| :----------------------: | :---------------------------------------: | :--------------------------------------------: |
+| **Memory Constraints**   | Indirect control via gas costs            | Hard memory limits per contract                |
+| **Cost Model**           | Increasing gas curve with allocation size | Fixed costs separated from execution gas       |
+| **Memory Limits**        | Soft limits through prohibitive gas costs | Hard fixed limits per contract                 |
+| **Pricing Efficiency**   | Potential overcharging for memory         | More efficient through separation of concerns  |
+| **Contract Nesting**     | Limited by available gas                  | Limited by constant memory per contract        |
+| **Memory Metering**      | Dynamic based on total allocation         | Static limits per contract instance            |
+| **Future Improvements**  | Incremental gas cost updates              | Potential dynamic metering for deeper nesting  |
+| **Cross-Contract Calls** | Handled through gas forwarding            | Requires careful boundary limit implementation |
 
-- **PolkaVM's approach** - PolkaVM takes a different approach to memory limits than Ethereum. Instead of variable gas costs, it implements fixed-cost operations with hard memory limits. This separation of memory constraints from execution time gas enables more efficient pricing, though it can occasionally result in more restrictive [limits](https://github.com/paritytech/polkadot-sdk/blob/master/substrate/frame/revive/src/limits.rs){target=\_blank}. The system's parameters are continuously adjusted to optimize functionality based on real-world usage patterns and community feedback
-
-    The architecture establishes a constant memory limit per contract, which is the basis for calculating maximum contract nesting depth. This calculation assumes worst-case memory usage for each nested contract, resulting in a straightforward but conservative limit that operates independently of actual memory consumption. Future iterations may introduce dynamic memory metering, allowing deeper nesting depths for contracts with smaller memory footprints. However, such an enhancement would require careful implementation of cross-contract boundary limits before API stabilization, as it would introduce an additional resource metric to the system.
+The architecture establishes a constant memory limit per contract, which is the basis for calculating maximum contract nesting depth. This calculation assumes worst-case memory usage for each nested contract, resulting in a straightforward but conservative limit that operates independently of actual memory consumption. Future iterations may introduce dynamic memory metering, allowing deeper nesting depths for contracts with smaller memory footprints. However, such an enhancement would require careful implementation of cross-contract boundary limits before API stabilization, as it would introduce an additional resource metric to the system.
 
 ## Account Management - Existential Deposit
 
 Ethereum and Polkadot handle account persistence differently, affecting state management and contract interactions:
 
-- **Ethereum's approach**
+### Account Management Comparison
 
-    - Accounts persist indefinitely, even with zero balance
-    - No minimum balance is required to maintain account data (nonce, storage)
-    - Contracts are simply accounts with executable code, following the same persistence rules
- 
-- **Polkadot's approach**
-
-    - Uses an [existential deposit](/polkadot-protocol/glossary/#existential-deposit){target=\_blank} (ED), requiring a minimum balance for an account to exist
-    - Accounts with balances below ED are automatically deleted, reducing state bloat
-    - Smart contracts, as specialized accounts, must also maintain the ED
+|          Feature          |                   Ethereum Approach                   |               PolkaVM/Polkadot Approach                |
+| :-----------------------: | :---------------------------------------------------: | :----------------------------------------------------: |
+|  **Account Persistence**  | Accounts persist indefinitely, even with zero balance | Requires existential deposit (ED) to maintain account  |
+|  **Account Persistence**  |  Accounts exist indefinitely, even with zero balance  | Requires existential deposit (ED) to maintain account  |
+|    **Minimum Balance**    |                         None                          |                      ED required                       |
+|   **Account Deletion**    |               Accounts remain in state                |      Accounts below ED are automatically deleted       |
+|   **Contract Accounts**   |                  Exist indefinitely                   |                    Must maintain ED                    |
+|   **Balance Reporting**   |                 Reports full balance                  |      Reports ED-adjusted balance via Ethereum RPC      |
+| **New Account Transfers** |                   Standard transfer                   |     Includes ED automatically with extra fee cost      |
+| **Contract-to-Contract**  |                   Direct transfers                    | ED drawn from transaction signer, not sending contract |
+|   **State Management**    |      Potential bloat from zero-balance accounts       |     Optimized with auto-deletion of dust accounts      |
 
 This difference introduces potential compatibility challenges for Ethereum-based contracts and tools, particularly wallets. To mitigate this, PolkaVM implements several transparent adjustments:
 
@@ -21800,11 +21909,11 @@ This difference introduces potential compatibility challenges for Ethereum-based
 - Transfers to new accounts automatically include the ED (`x + ED`), with the extra cost incorporated into transaction fees
 - Contract-to-contract transfers handle ED requirements by:
 
-    - Drawing ED from the transaction signer instead of the sending contract
-    - Keeping transfer amounts transparent for contract logic
-    - Treating ED like other storage deposit costs
+  - Drawing ED from the transaction signer instead of the sending contract
+  - Keeping transfer amounts transparent for contract logic
+  - Treating ED like other storage deposit costs
 
-This approach ensures that Ethereum contracts work without modifications while maintaining Polkadot’s optimized state management.
+This approach ensures that Ethereum contracts work without modifications while maintaining Polkadot's optimized state management.
 --- END CONTENT ---
 
 Doc-Content: https://docs.polkadot.com/polkadot-protocol/smart-contract-basics/
@@ -21981,9 +22090,7 @@ flowchart LR
 
 Parachains inherently offer features such as logic upgradeability, flexible transaction fee mechanisms, and chain abstraction logic. More so, by using Polkadot, parachains can benefit from robust consensus guarantees with little engineering overhead.
 
-To read more about the differences between smart contracts and parachain runtimes, see the [Runtime vs. Smart Contracts](https://paritytech.github.io/polkadot-sdk/master/polkadot_sdk_docs/reference_docs/runtime_vs_smart_contract/index.html){target=\_blank} section of the Polkadot SDK Rust docs. 
-
-For a more in-depth discussion about choosing between runtime development and smart contract development, see the post ["When should one build a Polkadot SDK runtime versus a Substrate (Polkadot SDK) smart contract?"](https://stackoverflow.com/a/56041305){target=\_blank} from Stack Overflow.
+To read more about the differences between smart contracts and parachain runtimes, see the [Runtime vs. Smart Contracts](https://paritytech.github.io/polkadot-sdk/master/polkadot_sdk_docs/reference_docs/runtime_vs_smart_contract/index.html){target=\_blank} section of the Polkadot SDK Rust docs. For a more in-depth discussion about choosing between runtime development and smart contract development, see the Stack Overflow post on [building a Polkadot SDK runtime versus a smart contract](https://stackoverflow.com/a/56041305){target=\_blank}.
 
 ## Building a Smart Contract
 
@@ -22036,7 +22143,7 @@ flowchart TD
     style F fill:#ffffff,stroke:#000000,stroke-width:1px
 ```
 
-Although it seems complex, users and developers are abstracted of that complexity, and tools can easily interact with the parachain as they would with any other EVM-compatible environment.
+Although it seems complex, users and developers are abstracted of that complexity, and tools can easily interact with the parachain as they would with any other Ethereum-compatible environment.
 
 The Rust EVM is capable of executing regular [EVM bytecode](https://www.ethervm.io/){target=\_blank}. Consequently, any language that compiles to EVM bytecode can be used to create programs that the parachain can execute.
 
@@ -22096,9 +22203,49 @@ The Asset Hub smart contracts solution includes multiple components to ensure Et
 
 The interpreter remains particularly beneficial for contracts with minimal code execution, as it eliminates JIT compilation overhead and enables immediate code execution through lazy interpretation.
 
-### Architecture
+## Architecture
+
+The smart contract solution consists of the following key components that work together to enable Ethereum compatibility on Polkadot-based chains:
+
+### Pallet Revive
+
+[**`pallet_revive`**](https://paritytech.github.io/polkadot-sdk/master/pallet_revive/index.html){target=\_blank} is a runtime module that executes smart contracts by adding extrinsics, runtime APIs, and logic to convert Ethereum-style transactions into formats compatible with Polkadot SDK-based blockchains. It processes Ethereum-style transactions through the following workflow:
+
+```mermaid
+sequenceDiagram
+    participant User as User/dApp
+    participant Proxy as Ethereum JSON RPC Proxy
+    participant Chain as Blockchain Node
+    participant Pallet as pallet_revive
+    
+    User->>Proxy: Submit Ethereum Transaction
+    Proxy->>Chain: Repackage as Polkadot Compatible Transaction
+    Chain->>Pallet: Process Transaction
+    Pallet->>Pallet: Decode Ethereum Transaction
+    Pallet->>Pallet: Execute Contract via PolkaVM
+    Pallet->>Chain: Return Results
+    Chain->>Proxy: Forward Results
+    Proxy->>User: Return Ethereum-compatible Response
+```
+
+This proxy-based approach eliminates the need for node binary modifications, maintaining compatibility across different client implementations. Preserving the original Ethereum transaction payload simplifies adapting existing tools, which can continue processing familiar transaction formats.
+
+### PolkaVM Design Fundamentals
 
 PolkaVM introduces two fundamental architectural differences compared to the Ethereum Virtual Machine (EVM):
+
+```mermaid
+flowchart TB
+    subgraph "EVM Architecture"
+        EVMStack[Stack-Based]
+        EVM256[256-bit Word Size]
+    end
+    
+    subgraph "PolkaVM Architecture"
+        PVMReg[Register-Based]
+        PVM64[64-bit Word Size]
+    end
+```
 
 - **Register-based design** - PolkaVM utilizes a RISC-V register-based approach. This design:
 
@@ -22118,24 +22265,30 @@ PolkaVM introduces two fundamental architectural differences compared to the Eth
     - Reduces overhead for operations not requiring extended precision
     - Facilitates efficient integration with modern CPU architectures
 
-## Pallet Revive
+## Compilation Process
 
-[**`pallet_revive`**](https://paritytech.github.io/polkadot-sdk/master/pallet_revive/index.html){target=\_blank} is a runtime module that executes smart contracts by adding extrinsics, runtime APIs, and logic to convert Ethereum-style transactions into formats compatible with Polkadot SDK-based blockchains. It processes Ethereum-style transactions through the following workflow:
+When compiling a Solidity smart contract, the code passes through the following stages:
 
-1. Users interact with a proxy server that emulates the Ethereum JSON RPC interface
-2. The proxy server transforms Ethereum transactions into special dispatchable transactions while preserving the original payload
-3. The pallet's internal logic decodes and processes these transactions for blockchain compatibility
+```mermaid
+flowchart LR
+    Dev[Developer] --> |Solidity\nSource\nCode| Solc
+    
+    subgraph "Compilation Process"
+        direction LR
+        Solc[solc] --> |YUL\nIR| Revive
+        Revive[Revive Compiler] --> |LLVM\nIR| LLVM
+        LLVM[LLVM\nOptimizer] --> |RISC-V ELF\nShared Object| PVMLinker
+    end
+    
+    PVMLinker[PVM Linker] --> PVM[PVM Blob\nwith Metadata]
+```
 
-This proxy-based approach eliminates the need for node binary modifications, maintaining compatibility across different client implementations. Preserving the original Ethereum transaction payload simplifies adapting existing tools, which can continue processing familiar transaction formats.
+The compilation process integrates several specialized components:
 
-## Revive Compiler
-
-[**Revive**](https://github.com/paritytech/revive){target=\_blank} enables Solidity execution on PolkaVM through a particular compilation pipeline:
-
-- Utilizes the standard Solidity compiler (solc) as its foundation
-- Converts Solidity's [YUL](https://docs.soliditylang.org/en/latest/yul.html){target=\_blank} intermediate representation to RISC-V instructions
-- Maintains complete compatibility with all Solidity versions and features
-- Simplifies implementation by focusing on YUL transformation rather than full compiler development
+1. **Solc** - the standard Ethereum Solidity compiler that translates Solidity source code to [YUL IR](https://docs.soliditylang.org/en/latest/yul.html){target=\_blank}
+2. **Revive Compiler** - takes YUL IR and transforms it to [LLVM IR](https://llvm.org/){target=\_blank}
+3. **LLVM** - a compiler infrastructure that optimizes the code and generates RISC-V ELF objects
+4. **PVM linker** - links the RISC-V ELF object into a final PolkaVM blob with metadata
 --- END CONTENT ---
 
 Doc-Content: https://docs.polkadot.com/tutorials/
@@ -31857,13 +32010,14 @@ Doc-Content: https://docs.polkadot.com/tutorials/smart-contracts/deploy-erc20/
 ---
 title: Deploy an ERC-20 to Asset Hub
 description: Deploy an ERC-20 token on Asset Hub using PolkaVM. This guide covers contract creation, compilation, deployment, and interaction via Polkadot Remix IDE.
+tutorial_badge: Beginner
 ---
 
 # Deploy ERC-20 to Asset Hub
 
 ## Introduction
 
-[ERC-20](https://eips.ethereum.org/EIPS/eip-20){target=\_blank} tokens are fungible tokens commonly used for creating cryptocurrencies, governance tokens, and staking mechanisms. Asset Hub enables easy token deployment with EVM-compatible smart contracts via PolkaVM.
+[ERC-20](https://eips.ethereum.org/EIPS/eip-20){target=\_blank} tokens are fungible tokens commonly used for creating cryptocurrencies, governance tokens, and staking mechanisms. Asset Hub enables easy token deployment with Ethereum-compatible smart contracts via PolkaVM.
 
 This tutorial covers deploying an ERC-20 contract on the Westend TestNet using [Polkadot Remix IDE](https://remix.polkadot.io){target=\_blank}, a web-based development tool. [OpenZeppelin's ERC-20 contracts]({{ dependencies.repositories.open_zeppelin_contracts.repository_url}}/tree/{{ dependencies.repositories.open_zeppelin_contracts.version}}/contracts/token/ERC20){target=\_blank} are used for security and compliance.
 
@@ -32019,13 +32173,14 @@ Doc-Content: https://docs.polkadot.com/tutorials/smart-contracts/deploy-nft/
 ---
 title: Deploy an NFT to Asset Hub
 description: Deploy an NFT on Asset Hub using PolkaVM and OpenZeppelin. Learn how to compile, deploy, and interact with your contract using Polkadot Remix IDE.
+tutorial_badge: Beginner
 ---
 
 # Deploy an NFT to Asset Hub
 
 ## Introduction
 
-Non-Fungible Tokens (NFTs) represent unique digital assets commonly used for digital art, collectibles, gaming, and identity verification. Asset Hub supports EVM-compatible smart contracts through PolkaVM, enabling straightforward NFT deployment.
+Non-Fungible Tokens (NFTs) represent unique digital assets commonly used for digital art, collectibles, gaming, and identity verification. Asset Hub supports Ethereum-compatible smart contracts through PolkaVM, enabling straightforward NFT deployment.
 
 This tutorial guides you through deploying an [ERC-721](https://eips.ethereum.org/EIPS/eip-721){target=\_blank} NFT contract on the Westend TestNet using the [Polkadot Remix IDE](https://remix.polkadot.io){target=\_blank}, a web-based development environment. To ensure security and standard compliance, it uses [OpenZeppelin's NFT contracts]({{ dependencies.repositories.open_zeppelin_contracts.repository_url}}/tree/{{ dependencies.repositories.open_zeppelin_contracts.version}}){target=\_blank} implementation.
 
@@ -32213,6 +32368,7 @@ Doc-Content: https://docs.polkadot.com/tutorials/smart-contracts/launch-your-fir
 ---
 title: Create a Smart Contract
 description: Learn how to write a basic smart contract using just a text editor. This guide covers creating and preparing a contract for deployment on Asset Hub.
+tutorial_badge: Beginner
 ---
 
 # Create a Smart Contract
@@ -32308,16 +32464,16 @@ pragma solidity ^0.8.28;
 contract Storage {
     // State variable to store our number
     uint256 private number;
-    
+
     // Event to notify when the number changes
     event NumberChanged(uint256 newNumber);
-    
+
     // Function to store a new number
     function store(uint256 newNumber) public {
         number = newNumber;
         emit NumberChanged(newNumber);
     }
-    
+
     // Function to retrieve the stored number
     function retrieve() public view returns (uint256) {
         return number;
@@ -32336,16 +32492,16 @@ pragma solidity ^0.8.28;
 contract Storage {
     // State variable to store our number
     uint256 private number;
-    
+
     // Event to notify when the number changes
     event NumberChanged(uint256 newNumber);
-    
+
     // Function to store a new number
     function store(uint256 newNumber) public {
         number = newNumber;
         emit NumberChanged(newNumber);
     }
-    
+
     // Function to retrieve the stored number
     function retrieve() public view returns (uint256) {
         return number;
@@ -32464,14 +32620,14 @@ ethers-dapp
 Let's start by creating a new Next.js project:
 
 ```
-npx create-next-app ethers-dapp
+npx create-next-app ethers-dapp --js --eslint --tailwind --app --yes
 cd ethers-dapp
 ```
 
 Next, install the needed dependencies:
 
 ```
-npm install ethers
+npm install ethers@{{ dependencies.javascript_packages.ethersjs.version }}
 ```
 
 ## Connect to Asset Hub
@@ -32740,11 +32896,7 @@ This component handles connecting to the wallet, switching networks if necessary
 To integrate this component to your dApp, you need to overwrite the existing boilerplate in `app/page.js` with the following code:
 
 ```javascript title="page.js"
-'use client';
-
-import { useState } from 'react';
-
-import WalletConnect from './components/WalletConnect';
+Invalid snippet reference: https://raw.githubusercontent.com/polkadot-developers/polkavm-storage-contract-dapps/refs/tags/v0.0.1/ethers-dapp/app/page.js::5
 export default function Home() {
   const [account, setAccount] = useState(null);
 
@@ -32758,7 +32910,8 @@ export default function Home() {
         Ethers.js dApp - Asset Hub Smart Contracts
       </h1>
       <WalletConnect onConnect={handleConnect} />
-);
+</section>
+  );
 }
 ```
 
@@ -32842,12 +32995,7 @@ This component reads the `storedNumber` value from the contract and displays it 
 To see this change in your dApp, you need to integrate this component into the `app/page.js` file:
 
 ```javascript title="page.js"
-'use client';
-
-import { useState } from 'react';
-
-import WalletConnect from './components/WalletConnect';
-import ReadContract from './components/ReadContract';
+Invalid snippet reference: https://raw.githubusercontent.com/polkadot-developers/polkavm-storage-contract-dapps/refs/tags/v0.0.1/ethers-dapp/app/page.js::6
 export default function Home() {
   const [account, setAccount] = useState(null);
 
@@ -32862,7 +33010,8 @@ export default function Home() {
       </h1>
       <WalletConnect onConnect={handleConnect} />
       <ReadContract />
-);
+</section>
+  );
 }
 ```
 
@@ -33037,6 +33186,13 @@ Congratulations! You've built a complete dApp that interacts with a smart contra
 
 These fundamental skills provide the foundation for building more complex dApps on Asset Hub. With these building blocks, you can extend your application to interact with more sophisticated smart contracts and create more advanced user interfaces.
 
+To get started right away with a working example, you can clone the repository and navigate to the implementation:
+
+```
+git clone https://github.com/polkadot-developers/polkavm-storage-contract-dapps.git -b v0.0.1
+cd polkavm-storage-contract-dapps/ethers-dapp
+```
+
 ## Where to Go Next
 
 <div class="grid cards" markdown>
@@ -33111,7 +33267,7 @@ viem-dapp
 Create a new Next.js project:
 
 ```bash
-npx create-next-app viem-dapp --typescript
+npx create-next-app viem-dapp --ts --eslint --tailwind --app --yes
 cd viem-dapp
 ```
 
@@ -33120,7 +33276,7 @@ cd viem-dapp
 Install viem and related packages:
 
 ```bash
-npm install viem
+npm install viem@{{dependencies.javascript_packages.viem.version}}
 npm install --save-dev typescript @types/node
 ```
 
@@ -33266,71 +33422,71 @@ const WalletConnect: React.FC<WalletConnectProps> = ({ onConnect }) => {
   useEffect(() => {
     // Check if user already has an authorized wallet connection
     const checkConnection = async () => {
-      if (typeof window !== "undefined" && window.ethereum) {
+      if (typeof window !== 'undefined' && window.ethereum) {
         try {
           // eth_accounts doesn't trigger the wallet popup
-          const accounts = (await window.ethereum.request({
-            method: "eth_accounts",
-          })) as string[];
-
+          const accounts = await window.ethereum.request({
+            method: 'eth_accounts',
+          }) as string[];
+          
           if (accounts.length > 0) {
             setAccount(accounts[0]);
-            const chainIdHex = (await window.ethereum.request({
-              method: "eth_chainId",
-            })) as string;
+            const chainIdHex = await window.ethereum.request({
+              method: 'eth_chainId',
+            }) as string;
             setChainId(parseInt(chainIdHex, 16));
             onConnect(accounts[0]);
           }
         } catch (err) {
-          console.error("Error checking connection:", err);
-          setError("Failed to check wallet connection");
+          console.error('Error checking connection:', err);
+          setError('Failed to check wallet connection');
         }
       }
     };
 
     checkConnection();
 
-    if (typeof window !== "undefined" && window.ethereum) {
+    if (typeof window !== 'undefined' && window.ethereum) {
       // Setup wallet event listeners
-      window.ethereum.on("accountsChanged", (accounts: string[]) => {
+      window.ethereum.on('accountsChanged', (accounts: string[]) => {
         setAccount(accounts[0] || null);
         if (accounts[0]) onConnect(accounts[0]);
       });
 
-      window.ethereum.on("chainChanged", (chainIdHex: string) => {
+      window.ethereum.on('chainChanged', (chainIdHex: string) => {
         setChainId(parseInt(chainIdHex, 16));
       });
     }
 
     return () => {
       // Cleanup event listeners
-      if (typeof window !== "undefined" && window.ethereum) {
-        window.ethereum.removeListener("accountsChanged", () => {});
-        window.ethereum.removeListener("chainChanged", () => {});
+      if (typeof window !== 'undefined' && window.ethereum) {
+        window.ethereum.removeListener('accountsChanged', () => {});
+        window.ethereum.removeListener('chainChanged', () => {});
       }
     };
   }, [onConnect]);
 
   const connectWallet = async () => {
-    if (typeof window === "undefined" || !window.ethereum) {
+    if (typeof window === 'undefined' || !window.ethereum) {
       setError(
-        "MetaMask not detected! Please install MetaMask to use this dApp."
+        'MetaMask not detected! Please install MetaMask to use this dApp.'
       );
       return;
     }
 
     try {
       // eth_requestAccounts triggers the wallet popup
-      const accounts = (await window.ethereum.request({
-        method: "eth_requestAccounts",
-      })) as string[];
-
+      const accounts = await window.ethereum.request({
+        method: 'eth_requestAccounts',
+      }) as string[];
+      
       setAccount(accounts[0]);
 
-      const chainIdHex = (await window.ethereum.request({
-        method: "eth_chainId",
-      })) as string;
-
+      const chainIdHex = await window.ethereum.request({
+        method: 'eth_chainId',
+      }) as string;
+      
       const currentChainId = parseInt(chainIdHex, 16);
       setChainId(currentChainId);
 
@@ -33341,16 +33497,16 @@ const WalletConnect: React.FC<WalletConnectProps> = ({ onConnect }) => {
 
       onConnect(accounts[0]);
     } catch (err) {
-      console.error("Error connecting to wallet:", err);
-      setError("Failed to connect wallet");
+      console.error('Error connecting to wallet:', err);
+      setError('Failed to connect wallet');
     }
   };
 
   const switchNetwork = async () => {
-    console.log("Switch network");
+    console.log('Switch network')
     try {
       await window.ethereum.request({
-        method: "wallet_switchEthereumChain",
+        method: 'wallet_switchEthereumChain',
         params: [{ chainId: `0x${assetHub.id.toString(16)}` }],
       });
     } catch (switchError: any) {
@@ -33358,7 +33514,7 @@ const WalletConnect: React.FC<WalletConnectProps> = ({ onConnect }) => {
       if (switchError.code === 4902) {
         try {
           await window.ethereum.request({
-            method: "wallet_addEthereumChain",
+            method: 'wallet_addEthereumChain',
             params: [
               {
                 chainId: `0x${assetHub.id.toString(16)}`,
@@ -33373,10 +33529,10 @@ const WalletConnect: React.FC<WalletConnectProps> = ({ onConnect }) => {
             ],
           });
         } catch (addError) {
-          setError("Failed to add network to wallet");
+          setError('Failed to add network to wallet');
         }
       } else {
-        setError("Failed to switch network");
+        setError('Failed to switch network');
       }
     }
   };
@@ -33430,10 +33586,7 @@ This component handles connecting to the wallet, switching networks if necessary
 To use this component in your dApp, replace the existing boilerplate in `app/page.tsx` with the following code:
 
 ```typescript title="page.tsx"
-"use client";
-
-import { useState } from "react";
-import WalletConnect from "./components/WalletConnect";
+Invalid snippet reference: https://raw.githubusercontent.com/polkadot-developers/polkavm-storage-contract-dapps/refs/tags/v0.0.1/viem-dapp/app/page.tsx::4
 export default function Home() {
   const [account, setAccount] = useState<string | null>(null);
 
@@ -33447,7 +33600,8 @@ export default function Home() {
         Viem dApp - Asset Hub Smart Contracts
       </h1>
       <WalletConnect onConnect={handleConnect} />
-);
+</section>
+  );
 }
 ```
 
@@ -33466,12 +33620,11 @@ Navigate to `http://localhost:3000` in your browser, and you should see your dAp
 Now, let's create a component to read data from the contract. Create a file called `components/ReadContract.tsx`:
 
 ```typescript title="ReadContract.tsx"
-"use client";
+'use client';
 
-import React, { useState, useEffect } from "react";
-import { readContract } from "viem";
-import { publicClient } from "../utils/viem";
-import { CONTRACT_ADDRESS, CONTRACT_ABI } from "../utils/contract";
+import React, { useState, useEffect } from 'react';
+import { publicClient } from '../utils/viem';
+import { CONTRACT_ADDRESS, CONTRACT_ABI } from '../utils/contract';
 
 const ReadContract: React.FC = () => {
   const [storedNumber, setStoredNumber] = useState<string | null>(null);
@@ -33484,17 +33637,18 @@ const ReadContract: React.FC = () => {
       try {
         setLoading(true);
         // Call the smart contract's storedNumber function
-        const number = await readContract(publicClient, {
-          address: CONTRACT_ADDRESS,
-          abi: CONTRACT_ABI,
-          functionName: "storedNumber",
-        });
+        const number = await publicClient.readContract({
+            address: CONTRACT_ADDRESS,
+            abi: CONTRACT_ABI,
+            functionName: 'storedNumber',
+            args: [],
+          }) as bigint;
 
         setStoredNumber(number.toString());
         setError(null);
       } catch (err) {
-        console.error("Error fetching stored number:", err);
-        setError("Failed to fetch data from the contract");
+        console.error('Error fetching stored number:', err);
+        setError('Failed to fetch data from the contract');
       } finally {
         setLoading(false);
       }
@@ -33537,11 +33691,7 @@ This component reads the `storedNumber` value from the contract and displays it 
 To reflect this change in your dApp, incorporate this component into the `app/page.tsx` file.
 
 ```typescript title="page.tsx"
-"use client";
-
-import { useState } from "react";
-import WalletConnect from "./components/WalletConnect";
-import ReadContract from "./components/ReadContract";
+Invalid snippet reference: https://raw.githubusercontent.com/polkadot-developers/polkavm-storage-contract-dapps/refs/tags/v0.0.1/viem-dapp/app/page.tsx::5
 export default function Home() {
   const [account, setAccount] = useState<string | null>(null);
 
@@ -33556,7 +33706,8 @@ export default function Home() {
       </h1>
       <WalletConnect onConnect={handleConnect} />
       <ReadContract />
-);
+</section>
+  );
 }
 ```
 
@@ -33670,7 +33821,7 @@ const WriteContract: React.FC<WriteContractProps> = ({ account }) => {
       });
 
       // Simulate the contract call first
-      console.log("newNumber", newNumber);
+      console.log('newNumber', newNumber);
       const { request } = await publicClient.simulateContract({
         address: CONTRACT_ADDRESS,
         abi: CONTRACT_ABI,
@@ -33853,6 +34004,13 @@ Congratulations! You've successfully built a fully functional dApp that interact
 
 These fundamental skills provide the foundation for building more complex dApps on Asset Hub. With this knowledge, you can extend your application to interact with more sophisticated smart contracts and create advanced user interfaces.
 
+To get started right away with a working example, you can clone the repository and navigate to the implementation:
+
+```
+git clone https://github.com/polkadot-developers/polkavm-storage-contract-dapps.git -b v0.0.1
+cd polkavm-storage-contract-dapps/viem-dapp
+```
+
 ## Where to Go Next
 
 <div class="grid cards" markdown>
@@ -33905,6 +34063,7 @@ Doc-Content: https://docs.polkadot.com/tutorials/smart-contracts/launch-your-fir
 ---
 title: Test and Deploy with Hardhat
 description: Learn how to set up a Hardhat development environment, write comprehensive tests for a Solidity smart contract, and deploy it to local and Asset Hub networks.
+tutorial_badge: Intermediate
 ---
 
 # Test and Deploy with Hardhat
@@ -33948,7 +34107,7 @@ Let's start by setting up Hardhat for your Storage contract project:
 4. Install the Hardhat revive specific plugins:
 
     ```bash
-    npm install --save-dev hardhat-resolc@{{ dependencies.javascript_packages.hardhat_resolc }} hardhat-revive-node@{{ dependencies.javascript_packages.hardhat_revive_node }} dotenv
+    npm install --save-dev hardhat-resolc@{{ dependencies.javascript_packages.hardhat_resolc.version }} hardhat-revive-node@{{ dependencies.javascript_packages.hardhat_revive_node.version }} dotenv
     ```
 
 5. Initialize a Hardhat project:
@@ -34085,27 +34244,10 @@ Testing is a critical part of smart contract development. Hardhat makes it easy 
 1. Create a folder for testing called `test`. Inside that directory, create a file named `Storage.js` and add the following code:
 
     ```javascript title="Storage.js" 
-    const { expect } = require('chai');
-const { ethers } = require('hardhat');
-
-describe('Storage', function () {
-  let storage;
-  let owner;
-  let addr1;
-
-  beforeEach(async function () {
-    // Get signers
-    [owner, addr1] = await ethers.getSigners();
-
-    // Deploy the Storage contract
-    const Storage = await ethers.getContractFactory('Storage');
-    storage = await Storage.deploy();
-    await storage.waitForDeployment();
-  });
-
-  describe('Basic functionality', function () {
+    
         // Add your logic here
     });
+});
     ```
 
     The `beforeEach` hook ensures stateless contract execution by redeploying a fresh instance of the Storage contract before each test case. This approach guarantees that each test starts with a clean and independent contract state by using `ethers.getSigners()` to obtain test accounts and `ethers.getContractFactory('Storage').deploy()` to create a new contract instance.
@@ -34115,7 +34257,8 @@ describe('Storage', function () {
     a. **Initial state verification** - ensures that the contract starts with a default value of zero, which is a fundamental expectation for the `Storage.sol` contract
 
     ```javascript title="Storage.js"
-    expect(await storage.retrieve()).to.equal(0);
+    it('Should return 0 initially', async function () {
+      expect(await storage.retrieve()).to.equal(0);
     });
     ```
 
@@ -34128,7 +34271,8 @@ describe('Storage', function () {
     b. **Value storage test** - validate the core functionality of storing and retrieving a value in the contract
 
     ```javascript title="Storage.js"
-    const testValue = 42;
+    it('Should update when store is called', async function () {
+      const testValue = 42;
       // Store a value
       await storage.store(testValue);
       // Check if the value was updated
@@ -34145,7 +34289,8 @@ describe('Storage', function () {
     c. **Event emission verification** - confirm that the contract emits the correct event when storing a value, which is crucial for off-chain tracking
 
     ```javascript title="Storage.js"
-    const testValue = 100;
+    it('Should emit an event when storing a value', async function () {
+      const testValue = 100;
       // Check if the NumberChanged event is emitted with the correct value
       await expect(storage.store(testValue))
         .to.emit(storage, 'NumberChanged')
@@ -34162,7 +34307,8 @@ describe('Storage', function () {
     d. **Sequential value storage test** - check the contract's ability to store multiple values sequentially and maintain the most recent value
 
     ```javascript title="Storage.js"
-    const values = [10, 20, 30, 40];
+    it('Should allow storing sequentially increasing values', async function () {
+      const values = [10, 20, 30, 40];
 
       for (const value of values) {
         await storage.store(value);
@@ -34393,5 +34539,12 @@ main()
 ## Conclusion
 
 Congratulations! You've successfully set up a Hardhat development environment, written comprehensive tests for your Storage contract, and deployed it to local and Westend Asset Hub networks. This tutorial covered essential steps in smart contract development, including configuration, testing, deployment, and interaction.
+
+To get started with a working example right away, you can clone the repository and navigate to the project directory:
+
+```bash
+git clone https://github.com/polkadot-developers/polkavm-hardhat-examples.git -b v0.0.1
+cd polkavm-hardhat-examples/storage-hardhat
+```
 --- END CONTENT ---
 

@@ -12,7 +12,7 @@ Asset Hub provides Ethereum compatibility through its JSON-RPC interface, allowi
 This article uses the Westend Asset Hub endpoint to interact with:
 
 ```text
-https://westend-asset-hub-rpc.polkadot.io
+https://westend-asset-hub-eth-rpc.polkadot.io
 ```
 
 ## Available Methods
@@ -28,7 +28,7 @@ None
 **Example**:
 
 ```bash title="eth_accounts"
-curl -X POST https://westend-asset-hub-rpc.polkadot.io \
+curl -X POST https://westend-asset-hub-eth-rpc.polkadot.io \
 -H "Content-Type: application/json" \
 --data '{
     "jsonrpc":"2.0",
@@ -51,7 +51,7 @@ None
 **Example**:
 
 ```bash title="eth_blockNumber"
-curl -X POST https://westend-asset-hub-rpc.polkadot.io \
+curl -X POST https://westend-asset-hub-eth-rpc.polkadot.io \
 -H "Content-Type: application/json" \
 --data '{
     "jsonrpc":"2.0",
@@ -81,7 +81,7 @@ Executes a new message call immediately without creating a transaction. [Referen
 **Example**:
 
 ```bash title="eth_call"
-curl -X POST https://westend-asset-hub-rpc.polkadot.io \
+curl -X POST https://westend-asset-hub-eth-rpc.polkadot.io \
 -H "Content-Type: application/json" \
 --data '{
     "jsonrpc":"2.0",
@@ -109,7 +109,7 @@ None
 **Example**:
 
 ```bash title="eth_chainId"
-curl -X POST https://westend-asset-hub-rpc.polkadot.io \
+curl -X POST https://westend-asset-hub-eth-rpc.polkadot.io \
 -H "Content-Type: application/json" \
 --data '{
     "jsonrpc":"2.0",
@@ -139,7 +139,7 @@ Estimates gas required for a transaction. [Reference](https://ethereum.org/en/de
 **Example**:
 
 ```bash title="eth_estimateGas"
-curl -X POST https://westend-asset-hub-rpc.polkadot.io \
+curl -X POST https://westend-asset-hub-eth-rpc.polkadot.io \
 -H "Content-Type: application/json" \
 --data '{
     "jsonrpc":"2.0",
@@ -167,7 +167,7 @@ None
 **Example**:
 
 ```bash title="eth_gasPrice"
-curl -X POST https://westend-asset-hub-rpc.polkadot.io \
+curl -X POST https://westend-asset-hub-eth-rpc.polkadot.io \
 -H "Content-Type: application/json" \
 --data '{
     "jsonrpc":"2.0",
@@ -191,7 +191,7 @@ Returns the balance of a given address. [Reference](https://ethereum.org/en/deve
 **Example**:
 
 ```bash title="eth_getBalance"
-curl -X POST https://westend-asset-hub-rpc.polkadot.io \
+curl -X POST https://westend-asset-hub-eth-rpc.polkadot.io \
 -H "Content-Type: application/json" \
 --data '{
     "jsonrpc":"2.0",
@@ -217,7 +217,7 @@ Returns information about a block by its hash. [Reference](https://ethereum.org/
 **Example**:
 
 ```bash title="eth_getBlockByHash"
-curl -X POST https://westend-asset-hub-rpc.polkadot.io \
+curl -X POST https://westend-asset-hub-eth-rpc.polkadot.io \
 -H "Content-Type: application/json" \
 --data '{
     "jsonrpc":"2.0",
@@ -243,7 +243,7 @@ Returns information about a block by its number. [Reference](https://ethereum.or
 **Example**:
 
 ```bash title="eth_getBlockByNumber"
-curl -X POST https://westend-asset-hub-rpc.polkadot.io \
+curl -X POST https://westend-asset-hub-eth-rpc.polkadot.io \
 -H "Content-Type: application/json" \
 --data '{
     "jsonrpc":"2.0",
@@ -269,7 +269,7 @@ Returns the code at a given address. [Reference](https://ethereum.org/en/develop
 **Example**:
 
 ```bash title="eth_getCode"
-curl -X POST https://westend-asset-hub-rpc.polkadot.io \
+curl -X POST https://westend-asset-hub-eth-rpc.polkadot.io \
 -H "Content-Type: application/json" \
 --data '{
     "jsonrpc":"2.0",
@@ -296,7 +296,7 @@ Returns the value from a storage position at a given address. [Reference](https:
 **Example**:
 
 ```bash title="eth_getStorageAt"
-curl -X POST https://westend-asset-hub-rpc.polkadot.io \
+curl -X POST https://westend-asset-hub-eth-rpc.polkadot.io \
 -H "Content-Type: application/json" \
 --data '{
     "jsonrpc":"2.0",
@@ -320,7 +320,7 @@ Returns the number of transactions sent from an address (nonce). [Reference](htt
 **Example**:
 
 ```bash title="eth_getTransactionCount"
-curl -X POST https://westend-asset-hub-rpc.polkadot.io \
+curl -X POST https://westend-asset-hub-eth-rpc.polkadot.io \
 -H "Content-Type: application/json" \
 --data '{
     "jsonrpc":"2.0",
@@ -345,7 +345,7 @@ None
 **Example**:
 
 ```bash title="eth_maxPriorityFeePerGas"
-curl -X POST https://westend-asset-hub-rpc.polkadot.io \
+curl -X POST https://westend-asset-hub-eth-rpc.polkadot.io \
 -H "Content-Type: application/json" \
 --data '{
     "jsonrpc":"2.0",
@@ -368,7 +368,7 @@ Submits a raw transaction. [Reference](https://ethereum.org/en/developers/docs/a
 **Example**:
 
 ```bash title="eth_sendRawTransaction"
-curl -X POST https://westend-asset-hub-rpc.polkadot.io \
+curl -X POST https://westend-asset-hub-eth-rpc.polkadot.io \
 -H "Content-Type: application/json" \
 --data '{
     "jsonrpc":"2.0",
@@ -400,7 +400,7 @@ Creates and sends a new transaction. [Reference](https://ethereum.org/en/develop
 **Example**:
 
 ```bash title="eth_sendTransaction"
-curl -X POST https://westend-asset-hub-rpc.polkadot.io \
+curl -X POST https://westend-asset-hub-eth-rpc.polkadot.io \
 -H "Content-Type: application/json" \
 --data '{
     "jsonrpc":"2.0",
@@ -433,7 +433,7 @@ None
 **Example**:
 
 ```bash title="net_version"
-curl -X POST https://westend-asset-hub-rpc.polkadot.io \
+curl -X POST https://westend-asset-hub-eth-rpc.polkadot.io \
 -H "Content-Type: application/json" \
 --data '{
     "jsonrpc":"2.0",

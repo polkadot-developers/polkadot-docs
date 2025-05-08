@@ -6080,7 +6080,7 @@ Developers can leverage Asset Hub across diverse networks, from TestNets to Main
     
     RPC URL
     ```
-    https://westend-asset-hub-rpc.polkadot.io
+    https://westend-asset-hub-eth-rpc.polkadot.io
     ```
 
     ---
@@ -6088,34 +6088,6 @@ Developers can leverage Asset Hub across diverse networks, from TestNets to Main
     Block explorer URL
     ```
     https://assethub-westend.subscan.io
-    ```
-
-### Endpoints
-
-=== "Westend Asset Hub"
-    Dwellir
-    ```
-    https://westend-asset-hub-rpc.polkadot.io
-    ```
-    ---
-    Dwellir Tunisia
-    ```
-    https://westmint-rpc.polkadot.io
-    ```
-    ---
-    IBP1
-    ```
-    https://rpc.ibp.network/asset-hub-westend
-    ```
-    ---
-    IBP2
-    ```
-    https://asset-hub-westend.dotters.network
-    ```
-    ---
-    Parity
-    ```
-    https://westend-asset-hub-rpc.polkadot.io
     ```
 
 ## Connect your Wallet
@@ -6450,7 +6422,8 @@ require('hardhat-revive-node');
   },
           hardhat: {
       polkavm: true,
-        };
+        },
+};
         ```
 
     For the binary configuration, replace `INSERT_PATH_TO_RESOLC_COMPILER` with the proper path to the binary. For more information about its installation, check the [installation](https://github.com/paritytech/revive?tab=readme-ov-file#installation){target=\_blank} section of the `pallet-revive`.
@@ -16326,44 +16299,7 @@ touch /etc/systemd/system/polkadot-validator.service
 In this unit file, you will write the commands that you want to run on server boot/restart:
 
 ```systemd title="/etc/systemd/system/polkadot-validator.service"
-[Unit]
-Description=Polkadot Node
-After=network.target
-Documentation=https://github.com/paritytech/polkadot
-
-[Service]
-EnvironmentFile=-/etc/default/polkadot
-ExecStart=/usr/bin/polkadot $POLKADOT_CLI_ARGS
-User=polkadot
-Group=polkadot
-Restart=always
-RestartSec=120
-CapabilityBoundingSet=
-LockPersonality=true
-NoNewPrivileges=true
-PrivateDevices=true
-PrivateMounts=true
-PrivateTmp=true
-PrivateUsers=true
-ProtectClock=true
-ProtectControlGroups=true
-ProtectHostname=true
-ProtectKernelModules=true
-ProtectKernelTunables=true
-ProtectSystem=strict
-RemoveIPC=true
-RestrictAddressFamilies=AF_INET AF_INET6 AF_NETLINK AF_UNIX
-RestrictNamespaces=false
-RestrictSUIDSGID=true
-SystemCallArchitectures=native
-SystemCallFilter=@system-service
-SystemCallFilter=landlock_add_rule landlock_create_ruleset landlock_restrict_self seccomp mount umount2
-SystemCallFilter=~@clock @module @reboot @swap @privileged
-SystemCallFilter=pivot_root
-UMask=0027
-
-[Install]
-WantedBy=multi-user.target
+Error fetching snippet from https://raw.githubusercontent.com/paritytech/polkadot-sdk/refs/heads/master/polkadot/scripts/packaging/polkadot.service
 ```
 
 !!! warning "Restart delay and equivocation risk"

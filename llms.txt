@@ -33,6 +33,7 @@ Doc-Page: https://docs.polkadot.com/develop/parachains/testing/benchmarking/
 Doc-Page: https://docs.polkadot.com/develop/parachains/testing/
 Doc-Page: https://docs.polkadot.com/develop/parachains/testing/mock-runtime/
 Doc-Page: https://docs.polkadot.com/develop/parachains/testing/pallet-testing/
+Doc-Page: https://docs.polkadot.com/develop/smart-contracts/block-explorers/
 Doc-Page: https://docs.polkadot.com/develop/smart-contracts/connect-to-asset-hub/
 Doc-Page: https://docs.polkadot.com/develop/smart-contracts/connect-your-wallet/
 Doc-Page: https://docs.polkadot.com/develop/smart-contracts/dev-environments/hardhat/
@@ -709,21 +710,7 @@ decl_test_parachains! {
 - [**`decl_test_networks`**](https://github.com/paritytech/polkadot-sdk/blob/{{dependencies.repositories.polkadot_sdk.version}}/cumulus/xcm/xcm-emulator/src/lib.rs#L916){target=\_blank} - defines a testing network with relay chains, parachains, and bridges, implementing message transport and processing logic. Example:
 
     ```rust
-    decl_test_networks! {
-	pub struct WestendMockNet {
-		relay_chain = Westend,
-		parachains = vec![
-			AssetHubWestend,
-			BridgeHubWestend,
-			CollectivesWestend,
-			CoretimeWestend,
-			PeopleWestend,
-			PenpalA,
-			PenpalB,
-		],
-		bridge = ()
-	},
-}
+    Error fetching snippet from https://raw.githubusercontent.com/paritytech/polkadot-sdk/refs/tags/polkadot-stable2412/cumulus/parachains/integration-tests/emulated/networks/westend-system/src/lib.rs
     ```
 
 By leveraging these macros, developers can customize their testing networks by defining relay chains and parachains tailored to their needs. For guidance on implementing a mock runtime for a Polkadot SDK-based chain, refer to the [Pallet Testing](/develop/parachains/testing/pallet-testing/){target=\_blank} article. 
@@ -6036,6 +6023,59 @@ Some key considerations are:
 </div>
 --- END CONTENT ---
 
+Doc-Content: https://docs.polkadot.com/develop/smart-contracts/block-explorers/
+--- BEGIN CONTENT ---
+npm init -y---
+title: Block Explorers
+description: Access PolkaVM explorers like Subscan, BlockScout, and Routescan to track transactions, analyze contracts, and view on-chain data from smart contracts.
+---
+
+# Block Explorers
+
+## Introduction
+
+Block explorers serve as comprehensive blockchain analytics platforms that provide access to on-chain data. These web applications function as search engines for blockchain networks, allowing users to query, visualize, and analyze blockchain data in real time through intuitive interfaces.
+
+## Core Functionality
+
+These block explorers provide essential capabilities for interacting with smart contracts in Polkadot Hub:
+
+- **Transaction tracking** - monitor transaction status, confirmations, fees, and metadata
+- **Address analysis** - view account balances, transaction history, and associated contracts
+- **Block information** - examine block contents
+- **Smart contract interaction** - review contract code, verification status, and interaction history
+- **Token tracking** - monitor ERC-20/ERC-721/other token standards with transfer history and holder analytics
+- **Network statistics** - access metrics on transaction volume, gas usage, and other network parameters
+
+## Available Block Explorers
+
+The following block explorers are available for PolkaVM smart contracts, providing specialized tools for monitoring and analyzing contract activity within the Polkadot ecosystem:
+
+### Subscan
+
+Subscan is the flagship Polkadot ecosystem block explorer with comprehensive support for PolkaVM smart contracts. It provides robust transaction indexing, account analysis, and monitoring tools specifically optimized for Polkadot SDK-based networks.
+
+- [Westend Hub Subscan](https://assethub-westend.subscan.io/){target=\_blank}
+
+![](/images/develop/smart-contracts/block-explorers/block-explorers-1.webp)
+
+### BlockScout
+
+BlockScout is an open-source explorer platform with a user-friendly interface adapted for PolkaVM contracts. It excels at detailed contract analytics and provides developers with comprehensive API access.
+
+- [Westend Hub BlockScout](https://blockscout-asset-hub.parity-chains-scw.parity.io/){target=\_blank}
+
+![](/images/develop/smart-contracts/block-explorers/block-explorers-2.webp)
+
+### Routescan
+
+Routescan delivers multi-chain explorer capabilities with specialized support for PolkaVM environments.
+
+- [Westend Hub Routescan](https://420420421.testnet.routescan.io/){target=\_blank}
+
+![](/images/develop/smart-contracts/block-explorers/block-explorers-3.webp)
+--- END CONTENT ---
+
 Doc-Content: https://docs.polkadot.com/develop/smart-contracts/connect-to-asset-hub/
 --- BEGIN CONTENT ---
 ---
@@ -6450,7 +6490,8 @@ require('hardhat-revive-node');
   },
           hardhat: {
       polkavm: true,
-        };
+        },
+};
         ```
 
     For the binary configuration, replace `INSERT_PATH_TO_RESOLC_COMPILER` with the proper path to the binary. For more information about its installation, check the [installation](https://github.com/paritytech/revive?tab=readme-ov-file#installation){target=\_blank} section of the `pallet-revive`.
@@ -7022,7 +7063,7 @@ Remix IDE is a robust browser-based development environment for smart contracts.
 
 Before getting started, ensure you have:
 
-- A web browser with [MetaMask](https://metamask.io/){target=\_blank} extension installed
+- A web browser with [Talisman](https://talisman.xyz/){target=\_blank} extension installed
 - Basic understanding of Solidity programming
 - Some WND test tokens to cover transaction fees (easily obtainable from the [Polkadot faucet](https://faucet.polkadot.io/westend?parachain=1000){target=\_blank})
 
@@ -7099,14 +7140,26 @@ contract Counter {
 1. To deploy your contract, you need to:
 
     1. Navigate to the **Deploy & Run Transactions** tab (fourth icon in the left sidebar)
-    2. Select your deployment environment, in this case, **Westend Testnet - MetaMask**
-    3. Click the **Deploy and Confirm** button
+    2. Click the **Enviroment** dropdown 
+    3. Select **Customize this list**
 
         ![](/images/develop/smart-contracts/evm-toolkit/dev-environments/remix/remix-7.webp)
 
-2. Once your contract is deployed successfully, you will see the following output in the Remix terminal:
+2. Enable the **Injected Provider - Talisman** option
 
     ![](/images/develop/smart-contracts/evm-toolkit/dev-environments/remix/remix-8.webp)
+
+4. Click again the **Enviroment** dropdown and select **Injected Provider - Talisman**
+
+    ![](/images/develop/smart-contracts/evm-toolkit/dev-environments/remix/remix-9.webp)
+
+4. Click the **Deploy** button and then click **Approve** in the Talisman wallet popup
+
+    ![](/images/develop/smart-contracts/evm-toolkit/dev-environments/remix/remix-10.webp)
+
+5. Once your contract is deployed successfully, you will see the following output in the Remix terminal:
+
+    ![](/images/develop/smart-contracts/evm-toolkit/dev-environments/remix/remix-11.webp)
 
 ## Interacting with Contracts
 
@@ -7114,14 +7167,14 @@ Once deployed, your contract appears in the **Deployed/Unpinned Contracts** sect
 
 1. Expand the contract to view available methods
 
-    ![](/images/develop/smart-contracts/evm-toolkit/dev-environments/remix/remix-9.webp)
+    ![](/images/develop/smart-contracts/evm-toolkit/dev-environments/remix/remix-12.webp)
 
     !!! tip
         Pin your frequently used contracts to the **Pinned Contracts** section for easy access.
 
 2. To interact with the contract, you can select any of the exposed methods
 
-    ![](/images/develop/smart-contracts/evm-toolkit/dev-environments/remix/remix-10.webp)
+    ![](/images/develop/smart-contracts/evm-toolkit/dev-environments/remix/remix-13.webp)
 
     In this way, you can interact with your deployed contract by reading its state or writing to it. The button color indicates the type of interaction available:
 
@@ -19571,16 +19624,7 @@ The [`Account` data type](https://paritytech.github.io/polkadot-sdk/master/frame
 The code snippet below shows how accounts are defined:
 
 ```rs
- /// The full account information for a particular account ID.
-	#[pallet::storage]
-	#[pallet::getter(fn account)]
-	pub type Account<T: Config> = StorageMap<
-		_,
-		Blake2_128Concat,
-		T::AccountId,
-		AccountInfo<T::Nonce, T::AccountData>,
-		ValueQuery,
-	>;
+ Error fetching snippet from https://raw.githubusercontent.com/paritytech/polkadot-sdk/refs/tags/v1.16.2-rc1/substrate/frame/system/src/lib.rs
 ```
 
 The preceding code block defines a storage map named `Account`. The `StorageMap` is a type of on-chain storage that maps keys to values. In the `Account` map, the key is an account ID, and the value is the account's information. Here, `T` represents the generic parameter for the runtime configuration, which is defined by the pallet's configuration trait (`Config`).
@@ -32025,7 +32069,7 @@ This tutorial covers deploying an ERC-20 contract on the Westend TestNet using [
 
 Before starting, make sure you have:
 
-- [MetaMask](https://metamask.io/){target=\_blank} installed and connected to [Westend Asset Hub](https://chainlist.org/chain/420420421){target=\_blank}. For more detailed instructions on connecting your wallet, see the [Connect Your Wallet](/develop/smart-contracts/connect-to-asset-hub/#connect-your-wallet){target=\_blank} section
+- [Talisman](https://talisman.xyz/){target=\_blank} installed and connected to Westend Asset Hub
 - A funded account with some WND tokens (you can get them from the [Westend Faucet](https://faucet.polkadot.io/westend?parachain=1000){target=\_blank}). To learn how to get test tokens, check out the [Test Tokens](/develop/smart-contracts/connect-to-asset-hub/#test-tokens){target=\_blank} section
 - Basic understanding of Solidity and fungible tokens
 
@@ -32114,7 +32158,7 @@ Deployment is the process of publishing your compiled smart contract to the bloc
     ![](/images/tutorials/smart-contracts/deploy-erc20/deploy-erc20-6.webp)
 
 2. Configure the deployment settings
-    1. From the **ENVIRONMENT** dropdown, select **Westend Testnet - MetaMask**
+    1. From the **ENVIRONMENT** dropdown, select **Injected Provider - Talisman** (check the [Deploying Contracts](/develop/smart-contracts/dev-environments/remix/#deploying-contracts){target=\_blank} section the Remix IDE guide for more details)
     2. From the **ACCOUNT** dropdown, select the account you want to use for the deploy
 
     ![](/images/tutorials/smart-contracts/deploy-erc20/deploy-erc20-7.webp)
@@ -32125,7 +32169,7 @@ Deployment is the process of publishing your compiled smart contract to the bloc
 
     ![](/images/tutorials/smart-contracts/deploy-erc20/deploy-erc20-8.webp)
 
-4. MetaMask will pop up - review the transaction details. Click **Confirm** to deploy your contract
+4. Talisman will pop up - review the transaction details. Click **Confirm** to deploy your contract
 
      ![](/images/tutorials/smart-contracts/deploy-erc20/deploy-erc20-9.webp){: .browser-extension}
 
@@ -32151,7 +32195,7 @@ Once deployed, you can interact with your contract through Remix:
 
     ![](/images/tutorials/smart-contracts/deploy-erc20/deploy-erc20-12.webp)
 
-3. Confirm the transaction in MetaMask
+3. Click **Approve** to confirm the transaction in the Talisman popup
 
     ![](/images/tutorials/smart-contracts/deploy-erc20/deploy-erc20-13.webp){: .browser-extension}
 
@@ -32165,7 +32209,7 @@ Other common functions you can use:
 - **`transfer(address to, uint256 amount)`** - send tokens to another address
 - **`approve(address spender, uint256 amount)`** - allow another address to spend your tokens
 
-Feel free to explore and interact with the contract's other functions using the same approach - selecting the method, providing any required parameters, and confirming the transaction through MetaMask when needed.
+Feel free to explore and interact with the contract's other functions using the same approach - selecting the method, providing any required parameters, and confirming the transaction through Talisman when needed.
 --- END CONTENT ---
 
 Doc-Content: https://docs.polkadot.com/tutorials/smart-contracts/deploy-nft/
@@ -32188,7 +32232,7 @@ This tutorial guides you through deploying an [ERC-721](https://eips.ethereum.or
 
 Before starting, make sure you have:
 
-- MetaMask installed and connected to Westend Asset Hub, check the [Connect to Asset Hub](/develop/smart-contracts/connect-to-asset-hub/){target=\_blank} guide for more information
+- [Talisman](https://talisman.xyz/){target=\_blank} installed and connected to Westend Asset Hub
 - A funded account with some WND tokens (you can get them from the [Westend Faucet](https://faucet.polkadot.io/westend?parachain=1000){target=\_blank}, noting that the faucet imposes a daily token limit, which may require multiple requests to obtain sufficient funds for testing)
 - Basic understanding of Solidity and NFTs, see the [Solidity Basics](https://soliditylang.org/){target=\_blank} and the [NFT Overview](https://ethereum.org/en/nft/){target=\_blank} guides for more details
 
@@ -32281,7 +32325,7 @@ Deployment is the process of uploading your compiled smart contract to the block
     ![](/images/tutorials/smart-contracts/deploy-nft/deploy-nft-6.webp)
 
 2. Configure the deployment settings
-    1. From the **ENVIRONMENT** dropdown, select **Westend Testnet - MetaMask**
+    1. From the **ENVIRONMENT** dropdown, select **Injected Provider - Talisman** (check the [Deploying Contracts](/develop/smart-contracts/dev-environments/remix/#deploying-contracts){target=\_blank} section the Remix IDE guide for more details)
     2. From the **ACCOUNT** dropdown, select the account you want to use for the deploy
 
     ![](/images/tutorials/smart-contracts/deploy-nft/deploy-nft-7.webp)
@@ -32292,11 +32336,11 @@ Deployment is the process of uploading your compiled smart contract to the block
 
     ![](/images/tutorials/smart-contracts/deploy-nft/deploy-nft-8.webp)
 
-4. MetaMask will pop up - review the transaction details. Click **Confirm** to deploy your contract
+4. Talisman will pop up - review the transaction details. Click **Confirm** to deploy your contract
 
     ![](/images/tutorials/smart-contracts/deploy-nft/deploy-nft-9.webp){: .browser-extension}
 
-    Deploying this contract requires paying gas fees in WND tokens on the Westend Asset Hub TestNet. Ensure your MetaMask account is funded with sufficient WND tokens from the Westend Faucet before confirming the transaction, check the [Test Tokens](/develop/smart-contracts/connect-to-asset-hub/#test-tokens){target=\_blank} section for more information. Gas fees cover the computational resources needed to deploy and execute the smart contract on the blockchain.
+    Deploying this contract requires paying gas fees in WND tokens on the Westend Asset Hub TestNet. Ensure your Talisman account is funded with sufficient WND tokens from the Westend Faucet before confirming the transaction, check the [Test Tokens](/develop/smart-contracts/connect-to-asset-hub/#test-tokens){target=\_blank} section for more information. Gas fees cover the computational resources needed to deploy and execute the smart contract on the blockchain.
 
     If the deployment process succeeded, you will see the following output in the terminal:
 
@@ -32319,7 +32363,7 @@ Once deployed, you can interact with your contract through Remix:
 
     ![](/images/tutorials/smart-contracts/deploy-nft/deploy-nft-12.webp)
 
-3. Click **Confirm** to confirm the transaction in MetaMask
+3. Click **Approve** to confirm the transaction in the Talisman popup
 
     ![](/images/tutorials/smart-contracts/deploy-nft/deploy-nft-13.webp){: .browser-extension}
 
@@ -32327,7 +32371,7 @@ Once deployed, you can interact with your contract through Remix:
 
     ![](/images/tutorials/smart-contracts/deploy-nft/deploy-nft-14.webp)
 
-Feel free to explore and interact with the contract's other functions using the same approach - selecting the method, providing any required parameters, and confirming the transaction through MetaMask when needed.
+Feel free to explore and interact with the contract's other functions using the same approach - selecting the method, providing any required parameters, and confirming the transaction through Talisman when needed.
 --- END CONTENT ---
 
 Doc-Content: https://docs.polkadot.com/tutorials/smart-contracts/
@@ -32897,19 +32941,7 @@ To integrate this component to your dApp, you need to overwrite the existing boi
 
 ```javascript title="page.js"
 Invalid snippet reference: https://raw.githubusercontent.com/polkadot-developers/polkavm-storage-contract-dapps/refs/tags/v0.0.1/ethers-dapp/app/page.js::5
-export default function Home() {
-  const [account, setAccount] = useState(null);
-
-  const handleConnect = (connectedAccount) => {
-    setAccount(connectedAccount);
-  };
-
-  return (
-    <section className="min-h-screen bg-white text-black flex flex-col justify-center items-center gap-4 py-10">
-      <h1 className="text-2xl font-semibold text-center">
-        Ethers.js dApp - Asset Hub Smart Contracts
-      </h1>
-      <WalletConnect onConnect={handleConnect} />
+Error fetching snippet from https://raw.githubusercontent.com/polkadot-developers/polkavm-storage-contract-dapps/refs/tags/v0.0.1/ethers-dapp/app/page.js
 </section>
   );
 }
@@ -34404,13 +34436,7 @@ describe('Storage', function () {
 1. Create a new folder called`ignition/modules`. Add a new file named `StorageModule.js` with the following logic:
 
     ```javascript title="StorageModule.js"
-    const { buildModule } = require('@nomicfoundation/hardhat-ignition/modules');
-
-module.exports = buildModule('StorageModule', (m) => {
-  const storage = m.contract('Storage');
-
-  return { storage };
-});
+    Error fetching snippet from https://raw.githubusercontent.com/polkadot-developers/polkavm-hardhat-examples/refs/tags/v0.0.1/storage-hardhat/ignition/modules/StorageModule.js
     ```
 
 2. Deploy to the local network:

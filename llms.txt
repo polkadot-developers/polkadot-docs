@@ -34471,7 +34471,13 @@ describe('Storage', function () {
 1. Create a new folder called`ignition/modules`. Add a new file named `StorageModule.js` with the following logic:
 
     ```javascript title="StorageModule.js"
-    Error fetching snippet from https://raw.githubusercontent.com/polkadot-developers/polkavm-hardhat-examples/refs/tags/v0.0.1/storage-hardhat/ignition/modules/StorageModule.js
+    const { buildModule } = require('@nomicfoundation/hardhat-ignition/modules');
+
+module.exports = buildModule('StorageModule', (m) => {
+  const storage = m.contract('Storage');
+
+  return { storage };
+});
     ```
 
 2. Deploy to the local network:

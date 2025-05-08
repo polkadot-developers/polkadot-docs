@@ -83,7 +83,7 @@ Before getting started, ensure you have:
 The plugin will compile your Solidity contracts for Solidity versions `0.8.0` and higher to be PolkaVM compatible. When compiling your contract, there are two ways to configure your compilation process:
 
 - **Npm compiler** - uses library [@parity/revive](https://www.npmjs.com/package/@parity/revive){target=\_blank} for simplicity and ease of use
-- **Binary compiler** - uses the resolc binary directly for more control and configuration options
+- **Binary compiler** - uses your local `resolc` binary directly for more control and configuration options
 
 To compile your project, follow these instructions:
 
@@ -286,15 +286,7 @@ After testing your contract locally, you can deploy it to a live network. This g
         --8<-- 'code/develop/smart-contracts/dev-environments/hardhat/hardhat.config.js:34:57'
         ```
 
-5. Start a local node, if not running already:
-
-    ```bash
-    npx hardhat node
-    ```
-
-    This command will start a local PolkaVM node
-
-6. Deploy your contract using Ignition:
+5. Deploy your contract using Ignition:
 
     ```bash
     npx hardhat ignition deploy ./ignition/modules/Lock.js --network westendHub

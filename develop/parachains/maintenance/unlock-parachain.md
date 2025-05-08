@@ -1,28 +1,32 @@
 ---
 title: Unlock a Parachain
-description: TODO
+description: Learn how to unlock your parachain. This step-by-step guide covers verifying lock status, preparing calls, and executing the unlock process.
 ---
 
 # Unlock a Parachain
 
 ## Introduction
 
-Parachain locks are designed in such way to ensure the decentralization of parachains. If parachains are not locked when it should be, it could introduce centralization risk for new parachains.
+Parachain locks are a critical security mechanism in the Polkadot ecosystem designed to maintain decentralization during the parachain lifecycle. These locks prevent potential centralization risks that could emerge during the early stages of parachain operation.
+The locking system follows strict, well-defined conditions that distribute control across multiple authorities:
 
-A parachain can be locked only with following conditions:
+The locking system follows strict, well-defined conditions that distribute control across multiple authorities:
 
-- Relaychain governance MUST be able to lock any parachain.
-- A parachain MUST be able to lock its own lock.
-- A parachain manager SHOULD be able to lock the parachain.
-- A parachain SHOULD be locked when it successfully produced a block for the first time.
+- Relay chain governance has the authority to lock any parachain
+- A parachain can lock its own lock
+- Parachain managers have permission to lock the parachain
+- Parachains are locked automatically when they successfully produce their first block
 
-A parachain can be unlocked only with following conditions:
-- Relaychain governance MUST be able to unlock any parachain.
-- A parachain MUST be able to unlock its own lock.
+Similarly, unlocking a parachain follows controlled procedures:
 
-## Check if a Parachain is Locked
+- Relay chain governance retains the authority to unlock any parachain
+- A parachain has the ability to unlock its own lock
 
-To check if a parachain is locked:
+This document guides you through the process of checking a parachain's lock status and safely executing the unlock procedure from a parachain using XCM (Cross-Consensus Messaging).
+
+## Check if the Parachain is Locked
+
+Before attempting to unlock a parachain, you should verify its current lock status. This can be done through the Polkadot.js interface:
 
 1. In [Polkadot.js Apps](https://polkadot.js.org/apps/#/explorer){target=\_blank}, connect to the relay chain, navigate to the **Developer** dropdown and select the **Chain State** option
 
@@ -37,15 +41,15 @@ To check if a parachain is locked:
 
 ## How to Unlock a Parachain
 
-Unlocking a parachain is then allowed by sending an XCM call to the relay chain with the parachain origin or by executing this from the governance of the relay chain as a roo call.
+Unlocking a parachain requires sending an XCM (Cross-Consensus Message) to the relay chain from the parachain itself, sending a message with Root origin, or this can be accomplished through the relay chain's governance mechanism executing a root call.
 
-From a parachain, the XCM message has to be sent from the Root origin. Depending on the parachain, this can be done by using the Sudo pallet or by using the governance mechanism of the parachain.
+If sending an XCM, the parachain origin must have proper authorization, which typically comes from either the parachain's sudo pallet (if enabled) or through its governance system.
 
-This guide explains how to send this message assuming your parachain has a Sudo pallet (and the XCM configuration/pallets).
+This guide demonstrates the unlocking process using a parachain with the sudo pallet. For parachains using governance-based authorization instead, the process will require adjustments to how the XCM is sent.
 
-### Prepare the Call
+### Prepare the Unlock Call
 
-First, you need to prepara the call that will be executed on the relay chain. To do this:
+Before sending the XCM, you need to construct the relay chain call that will be executed. Follow these steps to prepare the `registrar.removeLock` extrinsic:
 
 1. In [Polkadot.js Apps](https://polkadot.js.org/apps/#/explorer){target=\_blank}, connect to the relay chain, navigate to the **Developer** dropdown and select the **Extrinsics** option
 
@@ -57,14 +61,17 @@ First, you need to prepara the call that will be executed on the relay chain. To
 
     ![](/images/develop/parachains/maintenance/unlock-parachain/unlock-parachain-2.webp)
 
-3. Check the transaction weight for executing the call. You can estimate this by executing the `transactionPaymentCallApi.queryCallInfo` runtime call with the encoded call data previously obtained:
+3. Determine the transaction weight required for executing the call. You can estimate this by executing the `transactionPaymentCallApi.queryCallInfo` runtime call with the encoded call data previously obtained:
 
     ![](/images/develop/parachains/deployment/coretime-renewal/coretime-renewal-3.webp)
 
-### Fund Sovereign Account
+    This weight information is crucial for properly configuring your XCM message's execution parameters in the next steps.
 
-The [sovereign account](https://github.com/polkadot-fellows/xcm-format/blob/10726875bd3016c5e528c85ed6e82415e4b847d7/README.md?plain=1#L50){target=\_blank} of your parachain on the relay chain needs adequate funding to cover the XCM transaction fees.
-To determine your parachain's sovereign account address, you can:
+### Fund the Sovereign Account
+
+For a successful XCM execution, the [sovereign account](https://github.com/polkadot-fellows/xcm-format/blob/10726875bd3016c5e528c85ed6e82415e4b847d7/README.md?plain=1#L50){target=\_blank} of your parachain on the relay chain must have sufficient funds to cover transaction fees. The sovereign account is a deterministic address derived from your parachain ID.
+
+You can identify your parachain's sovereign account using either of these methods:
 
 - Use the **"Para ID" to Address** section in [Substrate Utilities](https://www.shawntabrizi.com/substrate-js-utilities/){target=\_blank} with the **Sibling** option selected
 
@@ -82,17 +89,17 @@ To determine your parachain's sovereign account address, you can:
 
         - **Hex** - `0x70617261d6070000000000000000000000000000000000000000000000000000`
         - **SS58 format** - `5Ec4AhPW97z4ZyYkd3mYkJrSeZWcwVv4wiANES2QrJi1x17F`
+  
+You can transfer funds to this account from any account on the relay chain using a standard transfer.
 
 ### Craft and Submit the XCM
 
-To unlock your parachain, you will submit an XCM from your parachain to the relay chain using Root origin.
+With the call data prepared and the sovereign account funded, you can now construct and send the XCM from your parachain to the relay chain. The XCM will need to perform several operations in sequence:
 
-The XCM needs to execute these operations:
-
-1. Withdraw DOT from your parachain's sovereign account on the relay chain
+1. Withdraw DOT from your parachain's sovereign account
 2. Buy execution to pay for transaction fees
 3. Execute the `registrar.removeLock` extrinsic
-4. Refund surplus DOT back to the sovereign account
+4. Return any unused funds to your sovereign account
 
 Here's how to submit this XCM using Astar (Parachain 2006) as an example:
 
@@ -119,6 +126,6 @@ Here's how to submit this XCM using Astar (Parachain 2006) as an example:
 
     ![](/images/develop/parachains/maintenance/unlock-parachain/unlock-parachain-5.webp)
 
-After successful execution, your parachain should be unlocked. To verify this, check the status of the parachain lock again using the method described in the [Check if a Parachain is Locked](#check-if-a-parachain-is-locked) section. You should see that the lock has been removed.
+After submitting the transaction, wait for it to be finalized and then verify that your parachain has been successfully unlocked by following the steps described in the [Check if a Parachain is Locked](#check-if-a-parachain-is-locked) section. If the parachain shows as unlocked, your operation has been successful. If it still appears locked, verify that your XCM transaction was processed correctly and consider troubleshooting the XCM built.
 
 ![](/images/develop/parachains/maintenance/unlock-parachain/unlock-parachain-6.webp)

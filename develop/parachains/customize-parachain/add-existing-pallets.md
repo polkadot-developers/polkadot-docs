@@ -149,6 +149,14 @@ With the pallet successfully added and configured, the runtime is ready to be co
 
 <div class="grid cards" markdown>
 
+-   <span class="badge guide">Guide</span> __Add Multiple Pallet Instances__
+
+    ---
+
+    Learn how to implement multiple instances of the same pallet in your Polkadot SDK-based runtime to create and interact with modular blockchain components.
+
+    [:octicons-arrow-right-24: Reference](/develop/parachains/customize-parachain/add-pallet-instances/)
+
 -   <span class="badge guide">Guide</span> __Make a Custom Pallet__
 
     ---

@@ -102,7 +102,7 @@ To compile your project, follow these instructions:
         --8<-- 'code/develop/smart-contracts/dev-environments/hardhat/hardhat.config.js:60:60'
         ```
 
-    For the binary configuration, replace `INSERT_PATH_TO_RESOLC_COMPILER` with the proper path to the binary. To obtain the binary, check the [releases](https://github.com/paritytech/revive/releases){target=\_blank} section of the `revive` compiler, and download the latest version.
+    For the binary configuration, replace `INSERT_PATH_TO_RESOLC_COMPILER` with the proper path to the binary. To obtain the binary, check the [releases](https://github.com/paritytech/revive/releases){target=\_blank} section of the `resolc` compiler, and download the latest version.
 
     Consider that the optimizer settings are using the default values in the examples above. You can change them according to your project needs.
 

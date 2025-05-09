@@ -91,7 +91,9 @@ To compile your project, follow these instructions:
 
         ```javascript title="hardhat.config.js" hl_lines="10-21"
         --8<-- 'code/develop/smart-contracts/dev-environments/hardhat/hardhat.config.js:1:21'
-        --8<-- 'code/develop/smart-contracts/dev-environments/hardhat/hardhat.config.js:60:60'
+          --8<-- 'code/develop/smart-contracts/dev-environments/hardhat/hardhat.config.js:37:39'
+            --8<-- 'code/develop/smart-contracts/dev-environments/hardhat/hardhat.config.js:49:49'
+        --8<-- 'code/develop/smart-contracts/dev-environments/hardhat/hardhat.config.js:59:60'
         ```
 
     === "Binary Configuration"
@@ -99,7 +101,9 @@ To compile your project, follow these instructions:
         ```javascript title="hardhat.config.js" hl_lines="10-23"
         --8<-- 'code/develop/smart-contracts/dev-environments/hardhat/hardhat.config.js:1:8'
           --8<-- 'code/develop/smart-contracts/dev-environments/hardhat/hardhat.config.js:22:36'
-        --8<-- 'code/develop/smart-contracts/dev-environments/hardhat/hardhat.config.js:60:60'
+          --8<-- 'code/develop/smart-contracts/dev-environments/hardhat/hardhat.config.js:37:39'
+            --8<-- 'code/develop/smart-contracts/dev-environments/hardhat/hardhat.config.js:49:49'
+        --8<-- 'code/develop/smart-contracts/dev-environments/hardhat/hardhat.config.js:59:60'
         ```
 
     For the binary configuration, replace `INSERT_PATH_TO_RESOLC_COMPILER` with the proper path to the binary. To obtain the binary, check the [releases](https://github.com/paritytech/revive/releases){target=\_blank} section of the `resolc` compiler, and download the latest version.

@@ -37,7 +37,7 @@ Remix IDE is a robust browser-based development environment for smart contracts.
 
 Before getting started, ensure you have:
 
-- A web browser with [MetaMask](https://metamask.io/){target=\_blank} extension installed
+- A web browser with [Talisman](https://talisman.xyz/){target=\_blank} extension installed
 - Basic understanding of Solidity programming
 - Some WND test tokens to cover transaction fees (easily obtainable from the [Polkadot faucet](https://faucet.polkadot.io/westend?parachain=1000){target=\_blank})
 
@@ -97,14 +97,26 @@ To create a new contract using the Polkadot Remix IDE, you can follow these step
 1. To deploy your contract, you need to:
 
     1. Navigate to the **Deploy & Run Transactions** tab (fourth icon in the left sidebar)
-    2. Select your deployment environment, in this case, **Westend Testnet - MetaMask**
-    3. Click the **Deploy and Confirm** button
+    2. Click the **Enviroment** dropdown 
+    3. Select **Customize this list**
 
         ![](/images/develop/smart-contracts/evm-toolkit/dev-environments/remix/remix-7.webp)
 
-2. Once your contract is deployed successfully, you will see the following output in the Remix terminal:
+2. Enable the **Injected Provider - Talisman** option
 
     ![](/images/develop/smart-contracts/evm-toolkit/dev-environments/remix/remix-8.webp)
+
+4. Click again the **Enviroment** dropdown and select **Injected Provider - Talisman**
+
+    ![](/images/develop/smart-contracts/evm-toolkit/dev-environments/remix/remix-9.webp)
+
+4. Click the **Deploy** button and then click **Approve** in the Talisman wallet popup
+
+    ![](/images/develop/smart-contracts/evm-toolkit/dev-environments/remix/remix-10.webp)
+
+5. Once your contract is deployed successfully, you will see the following output in the Remix terminal:
+
+    ![](/images/develop/smart-contracts/evm-toolkit/dev-environments/remix/remix-11.webp)
 
 ## Interacting with Contracts
 
@@ -112,14 +124,14 @@ Once deployed, your contract appears in the **Deployed/Unpinned Contracts** sect
 
 1. Expand the contract to view available methods
 
-    ![](/images/develop/smart-contracts/evm-toolkit/dev-environments/remix/remix-9.webp)
+    ![](/images/develop/smart-contracts/evm-toolkit/dev-environments/remix/remix-12.webp)
 
     !!! tip
         Pin your frequently used contracts to the **Pinned Contracts** section for easy access.
 
 2. To interact with the contract, you can select any of the exposed methods
 
-    ![](/images/develop/smart-contracts/evm-toolkit/dev-environments/remix/remix-10.webp)
+    ![](/images/develop/smart-contracts/evm-toolkit/dev-environments/remix/remix-13.webp)
 
     In this way, you can interact with your deployed contract by reading its state or writing to it. The button color indicates the type of interaction available:
 

@@ -73,7 +73,7 @@ Before getting started, ensure you have:
     ```javascript title="hardhat.config.js" hl_lines="4-4"
     --8<-- 'code/develop/smart-contracts/dev-environments/hardhat/hardhat.config.js:1:7'
       // Additional configuration will be added later
-    --8<-- 'code/develop/smart-contracts/dev-environments/hardhat/hardhat.config.js:50:50'
+    --8<-- 'code/develop/smart-contracts/dev-environments/hardhat/hardhat.config.js:60:60'
     ```
 
 ## Compiling Your Contract
@@ -89,20 +89,22 @@ To compile your project, follow these instructions:
 
     === "Npm Configuration"
 
-        ```javascript title="hardhat.config.js" hl_lines="10-13"
-        --8<-- 'code/develop/smart-contracts/dev-environments/hardhat/hardhat.config.js:1:13'
-        --8<-- 'code/develop/smart-contracts/dev-environments/hardhat/hardhat.config.js:50:50'
+        ```javascript title="hardhat.config.js" hl_lines="10-21"
+        --8<-- 'code/develop/smart-contracts/dev-environments/hardhat/hardhat.config.js:1:21'
+        --8<-- 'code/develop/smart-contracts/dev-environments/hardhat/hardhat.config.js:60:60'
         ```
 
     === "Binary Configuration"
 
-        ```javascript title="hardhat.config.js" hl_lines="10-21"
+        ```javascript title="hardhat.config.js" hl_lines="10-23"
         --8<-- 'code/develop/smart-contracts/dev-environments/hardhat/hardhat.config.js:1:8'
-          --8<-- 'code/develop/smart-contracts/dev-environments/hardhat/hardhat.config.js:14:26'
-        --8<-- 'code/develop/smart-contracts/dev-environments/hardhat/hardhat.config.js:50:50'
+          --8<-- 'code/develop/smart-contracts/dev-environments/hardhat/hardhat.config.js:22:36'
+        --8<-- 'code/develop/smart-contracts/dev-environments/hardhat/hardhat.config.js:60:60'
         ```
 
     For the binary configuration, replace `INSERT_PATH_TO_RESOLC_COMPILER` with the proper path to the binary. To obtain the binary, check the [releases](https://github.com/paritytech/revive/releases){target=\_blank} section of the `revive` compiler, and download the latest version.
+
+    Consider that the optimizer settings are using the default values in the examples above. You can change them according to your project needs.
 
 2. Compile the contract with Hardhat:
 
@@ -150,18 +152,18 @@ Before deploying to a live network, you can deploy your contract to a local node
 
     === "Npm Configuration"
 
-        ```javascript title="hardhat.config.js" hl_lines="27-30"
-        --8<-- 'code/develop/smart-contracts/dev-environments/hardhat/hardhat.config.js:1:13'
-          --8<-- 'code/develop/smart-contracts/dev-environments/hardhat/hardhat.config.js:27:43'
-        --8<-- 'code/develop/smart-contracts/dev-environments/hardhat/hardhat.config.js:49:50'
+        ```javascript title="hardhat.config.js" hl_lines="22-39"
+        --8<-- 'code/develop/smart-contracts/dev-environments/hardhat/hardhat.config.js:1:21'
+          --8<-- 'code/develop/smart-contracts/dev-environments/hardhat/hardhat.config.js:37:53'
+        --8<-- 'code/develop/smart-contracts/dev-environments/hardhat/hardhat.config.js:59:60'
         ```
 
     === "Binary Configuration"
 
-        ```javascript title="hardhat.config.js" hl_lines="35-38"
+        ```javascript title="hardhat.config.js" hl_lines="24-41"
         --8<-- 'code/develop/smart-contracts/dev-environments/hardhat/hardhat.config.js:1:8'
-          --8<-- 'code/develop/smart-contracts/dev-environments/hardhat/hardhat.config.js:14:43'
-        --8<-- 'code/develop/smart-contracts/dev-environments/hardhat/hardhat.config.js:49:50'
+          --8<-- 'code/develop/smart-contracts/dev-environments/hardhat/hardhat.config.js:22:53'
+        --8<-- 'code/develop/smart-contracts/dev-environments/hardhat/hardhat.config.js:59:60'
         ```
 
 2. Start a local node:
@@ -217,16 +219,18 @@ After testing your contract locally, you can deploy it to a live network. This g
 
     === "Npm Configuration"
 
-        ```javascript title="hardhat.config.js" hl_lines="31-35"
-        --8<-- 'code/develop/smart-contracts/dev-environments/hardhat/hardhat.config.js:1:13'
-          --8<-- 'code/develop/smart-contracts/dev-environments/hardhat/hardhat.config.js:27:50'
+        ```javascript title="hardhat.config.js" hl_lines="39-43"
+        --8<-- 'code/develop/smart-contracts/dev-environments/hardhat/hardhat.config.js:1:21'
+          --8<-- 'code/develop/smart-contracts/dev-environments/hardhat/hardhat.config.js:37:58'
+        --8<-- 'code/develop/smart-contracts/dev-environments/hardhat/hardhat.config.js:59:60'
         ```
 
     === "Binary Configuration"
 
-        ```javascript title="hardhat.config.js" hl_lines="39-43"
+        ```javascript title="hardhat.config.js" hl_lines="41-45"
         --8<-- 'code/develop/smart-contracts/dev-environments/hardhat/hardhat.config.js:1:8'
-          --8<-- 'code/develop/smart-contracts/dev-environments/hardhat/hardhat.config.js:14:50'
+          --8<-- 'code/develop/smart-contracts/dev-environments/hardhat/hardhat.config.js:22:58'
+        --8<-- 'code/develop/smart-contracts/dev-environments/hardhat/hardhat.config.js:59:60'
         ```
 
 5. Deploy your contract using Ignition:

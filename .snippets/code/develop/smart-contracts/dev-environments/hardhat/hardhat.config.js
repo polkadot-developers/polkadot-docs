@@ -10,6 +10,14 @@ module.exports = {
   resolc: {
     version: '1.5.2',
     compilerSource: 'npm',
+    settings: {
+      optimizer: {
+        enabled: true,
+        parameters: 'z',
+        fallbackOz: true,
+        runs: 200,
+      },
+    },
   },
   // Binary Compiler
   resolc: {
@@ -17,7 +25,9 @@ module.exports = {
     settings: {
       optimizer: {
         enabled: true,
-        runs: 400,
+        parameters: 'z',
+        fallbackOz: true,
+        runs: 200,
       },
       evmVersion: 'istanbul',
       compilerPath: 'INSERT_PATH_TO_RESOLC_COMPILER',

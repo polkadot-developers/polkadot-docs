@@ -6395,7 +6395,7 @@ Before getting started, ensure you have:
     npm install --save-dev hardhat@"<2.23.0" @nomicfoundation/hardhat-toolbox
     ```
 
-    To interact with Polkadot, Hardhat requires the followin plugins to compile contracts to PolkaVM bytecode and to spawn a local node compatible with PolkaVM.
+    To interact with Polkadot, Hardhat requires the following plugins to compile contracts to PolkaVM bytecode and to spawn a local node compatible with PolkaVM.
 
     ```bash
     npm install --save-dev @parity/hardhat-polkadot @parity/resolc
@@ -6430,7 +6430,7 @@ module.exports = {
 
 The plugin will compile your Solidity contracts for Solidity versions `0.8.0` and higher to be PolkaVM compatible. When compiling your contract, there are two ways to configure your compilation process:
 
-- **Npm compiler** - uses library [@parity/revive](https://www.npmjs.com/package/@parity/revive){target=\_blank} for simplicity and ease of use
+- **Npm compiler** - uses library [@parity/resolc](https://www.npmjs.com/package/@parity/resolc){target=\_blank} for simplicity and ease of use
 - **Binary compiler** - uses your local `resolc` binary directly for more control and configuration options
 
 To compile your project, follow these instructions:
@@ -6439,7 +6439,7 @@ To compile your project, follow these instructions:
 
     === "Npm Configuration"
 
-        ```javascript title="hardhat.config.js" hl_lines="10-13"
+        ```javascript title="hardhat.config.js" hl_lines="10-21"
         require('@nomicfoundation/hardhat-toolbox');
 
 require('@parity/hardhat-polkadot');
@@ -6451,13 +6451,21 @@ module.exports = {
   resolc: {
     version: '1.5.2',
     compilerSource: 'npm',
+    settings: {
+      optimizer: {
+        enabled: true,
+        parameters: 'z',
+        fallbackOz: true,
+        runs: 200,
+      },
+    },
   },
         
         ```
 
     === "Binary Configuration"
 
-        ```javascript title="hardhat.config.js" hl_lines="10-21"
+        ```javascript title="hardhat.config.js" hl_lines="10-23"
         require('@nomicfoundation/hardhat-toolbox');
 
 require('@parity/hardhat-polkadot');
@@ -6470,7 +6478,9 @@ module.exports = {
     settings: {
       optimizer: {
         enabled: true,
-        runs: 400,
+        parameters: 'z',
+        fallbackOz: true,
+        runs: 200,
       },
       evmVersion: 'istanbul',
       compilerPath: 'INSERT_PATH_TO_RESOLC_COMPILER',
@@ -6481,6 +6491,8 @@ module.exports = {
         ```
 
     For the binary configuration, replace `INSERT_PATH_TO_RESOLC_COMPILER` with the proper path to the binary. To obtain the binary, check the [releases](https://github.com/paritytech/revive/releases){target=\_blank} section of the `revive` compiler, and download the latest version.
+
+    Consider that the optimizer settings are using the default values in the examples above. You can change them according to your project needs.
 
 2. Compile the contract with Hardhat:
 
@@ -6574,7 +6586,7 @@ Before deploying to a live network, you can deploy your contract to a local node
 
     === "Npm Configuration"
 
-        ```javascript title="hardhat.config.js" hl_lines="27-30"
+        ```javascript title="hardhat.config.js" hl_lines="22-39"
         require('@nomicfoundation/hardhat-toolbox');
 
 require('@parity/hardhat-polkadot');
@@ -6586,6 +6598,14 @@ module.exports = {
   resolc: {
     version: '1.5.2',
     compilerSource: 'npm',
+    settings: {
+      optimizer: {
+        enabled: true,
+        parameters: 'z',
+        fallbackOz: true,
+        runs: 200,
+      },
+    },
   },
           hardhat: {
       polkavm: true,
@@ -6608,7 +6628,7 @@ module.exports = {
 
     === "Binary Configuration"
 
-        ```javascript title="hardhat.config.js" hl_lines="35-38"
+        ```javascript title="hardhat.config.js" hl_lines="24-41"
         require('@nomicfoundation/hardhat-toolbox');
 
 require('@parity/hardhat-polkadot');
@@ -6621,7 +6641,9 @@ module.exports = {
     settings: {
       optimizer: {
         enabled: true,
-        runs: 400,
+        parameters: 'z',
+        fallbackOz: true,
+        runs: 200,
       },
       evmVersion: 'istanbul',
       compilerPath: 'INSERT_PATH_TO_RESOLC_COMPILER',
@@ -6654,7 +6676,7 @@ module.exports = {
     npx hardhat node
     ```
 
-    This command will spawn a local substrate node along with the ETC-RPC adapter.
+    This command will spawn a local substrate node along with the ETH-RPC adapter.
 
 3. In a new terminal window, deploy the contract using Ignition:
 
@@ -6703,7 +6725,7 @@ require('@parity/hardhat-polkadot');
 
     === "Npm Configuration"
 
-        ```javascript title="hardhat.config.js" hl_lines="31-35"
+        ```javascript title="hardhat.config.js" hl_lines="39-43"
         require('@nomicfoundation/hardhat-toolbox');
 
 require('@parity/hardhat-polkadot');
@@ -6715,6 +6737,14 @@ module.exports = {
   resolc: {
     version: '1.5.2',
     compilerSource: 'npm',
+    settings: {
+      optimizer: {
+        enabled: true,
+        parameters: 'z',
+        fallbackOz: true,
+        runs: 200,
+      },
+    },
   },
           hardhat: {
       polkavm: true,
@@ -6737,13 +6767,12 @@ module.exports = {
       url: 'https://westend-asset-hub-eth-rpc.polkadot.io',
       accounts: [process.env.PRIVATE_KEY],
     },
-  },
-};
+        };
         ```
 
     === "Binary Configuration"
 
-        ```javascript title="hardhat.config.js" hl_lines="39-43"
+        ```javascript title="hardhat.config.js" hl_lines="41-45"
         require('@nomicfoundation/hardhat-toolbox');
 
 require('@parity/hardhat-polkadot');
@@ -6756,7 +6785,9 @@ module.exports = {
     settings: {
       optimizer: {
         enabled: true,
-        runs: 400,
+        parameters: 'z',
+        fallbackOz: true,
+        runs: 200,
       },
       evmVersion: 'istanbul',
       compilerPath: 'INSERT_PATH_TO_RESOLC_COMPILER',
@@ -6785,8 +6816,7 @@ module.exports = {
       url: 'https://westend-asset-hub-eth-rpc.polkadot.io',
       accounts: [process.env.PRIVATE_KEY],
     },
-  },
-};
+        };
         ```
 
 5. Deploy your contract using Ignition:
@@ -12511,7 +12541,7 @@ public decodeExtrinsic<T extends Format>(encodedTransaction: string, format: T):
     ??? child "Type `Format`"
 
         ```ts
-        Error fetching snippet from https://raw.githubusercontent.com/paritytech/asset-transfer-api/refs/tags/v0.5.0/src/types.ts
+        export type Format = 'payload' | 'call' | 'submittable';
         ```
 
 ??? interface "Response parameters"
@@ -32155,7 +32185,26 @@ To create the NFT contract, you can follow the steps below:
 3. Now, paste the following NFT contract code into the editor
 
     ```solidity title="MyNFT.sol"
-    Error fetching snippet from https://raw.githubusercontent.com/polkadot-developers/polkavm-hardhat-examples/refs/tags/v0.0.1/erc721-hardhat/contracts/MyNFT.sol
+    // SPDX-License-Identifier: MIT
+// Compatible with OpenZeppelin Contracts ^5.0.0
+pragma solidity ^0.8.22;
+
+import {ERC721} from "@openzeppelin/contracts/token/ERC721/ERC721.sol";
+import {Ownable} from "@openzeppelin/contracts/access/Ownable.sol";
+
+contract MyToken is ERC721, Ownable {
+    uint256 private _nextTokenId;
+
+    constructor(address initialOwner)
+        ERC721("MyToken", "MTK")
+        Ownable(initialOwner)
+    {}
+
+    function safeMint(address to) public onlyOwner {
+        uint256 tokenId = _nextTokenId++;
+        _safeMint(to, tokenId);
+    }
+}
     ```
 
     The key components of the code above are:
@@ -33208,34 +33257,7 @@ Create a folder called `abis` at the root of your project, then create a file na
 
 ??? code "Storage.sol ABI"
     ```json title="Storage.json"
-    [
-    {
-        "inputs": [
-            {
-                "internalType": "uint256",
-                "name": "_newNumber",
-                "type": "uint256"
-            }
-        ],
-        "name": "setNumber",
-        "outputs": [],
-        "stateMutability": "nonpayable",
-        "type": "function"
-    },
-    {
-        "inputs": [],
-        "name": "storedNumber",
-        "outputs": [
-            {
-                "internalType": "uint256",
-                "name": "",
-                "type": "uint256"
-            }
-        ],
-        "stateMutability": "view",
-        "type": "function"
-    }
-]
+    Error fetching snippet from https://raw.githubusercontent.com/polkadot-developers/polkavm-storage-contract-dapps/refs/tags/v0.0.1/viem-dapp/abis/Storage.json
     ```
 
 Next, create a file called `utils/contract.ts`:
@@ -34114,7 +34136,7 @@ Testing is a critical part of smart contract development. Hardhat makes it easy 
 1. Create a folder for testing called `test`. Inside that directory, create a file named `Storage.js` and add the following code:
 
     ```javascript title="Storage.js" 
-    
+    Error fetching snippet from https://raw.githubusercontent.com/polkadot-developers/polkavm-hardhat-examples/refs/tags/v0.0.1/storage-hardhat/test/Storage.js
         // Add your logic here
     });
 });
@@ -34274,7 +34296,13 @@ describe('Storage', function () {
 1. Create a new folder called`ignition/modules`. Add a new file named `StorageModule.js` with the following logic:
 
     ```javascript title="StorageModule.js"
-    Error fetching snippet from https://raw.githubusercontent.com/polkadot-developers/polkavm-hardhat-examples/refs/tags/v0.0.1/storage-hardhat/ignition/modules/StorageModule.js
+    const { buildModule } = require('@nomicfoundation/hardhat-ignition/modules');
+
+module.exports = buildModule('StorageModule', (m) => {
+  const storage = m.contract('Storage');
+
+  return { storage };
+});
     ```
 
 2. Deploy to the local network:

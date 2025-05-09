@@ -83,21 +83,23 @@ This modular design allows developers to:
 
 Using pre-built templates is an efficient way to begin building a custom blockchain. Templates provide a foundational setup with pre-configured modules, letting developers avoid starting from scratch and instead focus on customization. Depending on your project’s goals—whether you want a simple test chain, a standalone chain, or a parachain that integrates with Polkadot’s relay chains—there are templates designed to suit different levels of complexity and scalability.
 
-Within the Polkadot SDK, the following templates are available to get you started:
+### Solochain Templates
+
+Solochain templates are designed for developers who want to create standalone blockchains that operate independently without connecting to a relay chain:
 
 - [**`minimal-template`**](https://github.com/paritytech/polkadot-sdk/tree/master/templates/minimal){target=\_blank} - includes only the essential components necessary for a functioning blockchain. It’s ideal for developers who want to gain familiarity with blockchain basics and test simple customizations before scaling up
 
 - [**`solochain-template`**](https://github.com/paritytech/polkadot-sdk/tree/master/templates/solochain){target=\_blank} - provides a foundation for creating standalone blockchains with moderate features, including a simple consensus mechanism and several core FRAME pallets. It’s a solid starting point for developers who want a fully functional chain that doesn’t depend on a relay chain
 
-- [**`parachain-template`**](https://github.com/paritytech/polkadot-sdk/tree/master/templates/parachain){target=\_blank} - designed for connecting to relay chains like Polkadot, Kusama, or Paseo, this template enables a chain to operate as a parachain. For projects aiming to integrate with Polkadot’s ecosystem, this template offers a great starting point
+### Parachain Templates
 
-In addition, several external templates offer unique features and can align with specific use cases or developer familiarity:
+Parachain templates are specifically designed for chains that will connect to and interact with relay chains in the Polkadot ecosystem:
+
+- [**`parachain-template`**](https://github.com/paritytech/polkadot-sdk/tree/master/templates/parachain){target=\_blank} - designed for connecting to relay chains like Polkadot, Kusama, or Paseo, this template enables a chain to operate as a parachain. For projects aiming to integrate with Polkadot’s ecosystem, this template offers a great starting point
 
 - [**`OpenZeppelin`**](https://github.com/OpenZeppelin/polkadot-runtime-templates/tree/main){target=\_blank} - offers two flexible starting points:
     - The [`generic-runtime-template`](https://github.com/OpenZeppelin/polkadot-runtime-templates/tree/main/generic-template){target=\_blank} provides a minimal setup with essential pallets and secure defaults, creating a reliable foundation for custom blockchain development
     - The [`evm-runtime-template`](https://github.com/OpenZeppelin/polkadot-runtime-templates/tree/main/evm-template){target=\_blank} enables EVM compatibility, allowing developers to migrate Solidity contracts and EVM-based dApps. This template is ideal for Ethereum developers looking to leverage Substrate's capabilities
-
-- [**`Tanssi`**](https://github.com/moondance-labs/tanssi/tree/master/container-chains/runtime-templates){target=\_blank} - provides developers with pre-built templates that can help accelerate the process of creating appchain
 
 - [**`Pop Network`**](https://learn.onpop.io/appchains/pop-cli/new#templates){target=\_blank} - designed with user-friendliness in mind, Pop Network offers an approachable starting point for new developers, with a simple CLI interface for creating appchains 
 

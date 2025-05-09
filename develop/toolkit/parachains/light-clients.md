@@ -19,7 +19,7 @@ This guide covers:
 Light clients are particularly valuable for resource-constrained environments and applications requiring secure, decentralized blockchain access without the overhead of maintaining full nodes.
 
 !!!info "Light node or light client?"
-    The terms *light node* and *light client* are interchangeable. Both refer to a blockchain client that syncs without downloading the entire blockchain state. All nodes in a blockchain network are fundamentally clients, engaging in peer-to-peer communication.
+    The terms _light node_ and _light client_ are interchangeable. Both refer to a blockchain client that syncs without downloading the entire blockchain state. All nodes in a blockchain network are fundamentally clients, engaging in peer-to-peer communication.
 
 ## Light Clients Workflow
 
@@ -37,8 +37,8 @@ In the diagram above, the decentralized application queries on-chain account inf
 
 Light clients can quickly verify the blockchain's state, including [GRANDPA finality](/polkadot-protocol/glossary#grandpa){target=\_blank} justifications.
 
-!!!info "What does it mean to be *trust-minimized*?"
-    *Trust-minimized* means that the light client does not need to fully trust the full node from which it retrieves the state. This is achieved through the use of Merkle proofs, which allow the light client to verify the correctness of the state by checking the Merkle tree root.
+!!!info "What does it mean to be _trust-minimized_?"
+    _Trust-minimized_ means that the light client does not need to fully trust the full node from which it retrieves the state. This is achieved through the use of Merkle proofs, which allow the light client to verify the correctness of the state by checking the Merkle tree root.
 
 ## JSON-RPC and Light Client Comparison
 

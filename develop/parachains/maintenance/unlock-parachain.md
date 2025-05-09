@@ -8,7 +8,7 @@ description: Learn how to unlock your parachain. This step-by-step guide covers 
 ## Introduction
 
 Parachain locks are a critical security mechanism in the Polkadot ecosystem designed to maintain decentralization during the parachain lifecycle. These locks prevent potential centralization risks that could emerge during the early stages of parachain operation.
-The locking system follows strict, well-defined conditions that distribute control across multiple authorities:
+The locking system operates under strict and well-defined conditions, distributing control across multiple authorities.
 
 The locking system follows strict, well-defined conditions that distribute control across multiple authorities:
 
@@ -20,13 +20,13 @@ The locking system follows strict, well-defined conditions that distribute contr
 Similarly, unlocking a parachain follows controlled procedures:
 
 - Relay chain governance retains the authority to unlock any parachain
-- A parachain has the ability to unlock its own lock
+- A parachain can unlock its own lock
 
-This document guides you through the process of checking a parachain's lock status and safely executing the unlock procedure from a parachain using XCM (Cross-Consensus Messaging).
+This document guides you through checking a parachain's lock status and safely executing the unlock procedure from a parachain using XCM (Cross-Consensus Messaging).
 
-## Check if the Parachain is Locked
+## Check If the Parachain Is Locked
 
-Before attempting to unlock a parachain, you should verify its current lock status. This can be done through the Polkadot.js interface:
+Before unlocking a parachain, you should verify its current lock status. This can be done through the Polkadot.js interface:
 
 1. In [Polkadot.js Apps](https://polkadot.js.org/apps/#/explorer){target=\_blank}, connect to the relay chain, navigate to the **Developer** dropdown and select the **Chain State** option
 
@@ -41,9 +41,9 @@ Before attempting to unlock a parachain, you should verify its current lock stat
 
 ## How to Unlock a Parachain
 
-Unlocking a parachain requires sending an XCM (Cross-Consensus Message) to the relay chain from the parachain itself, sending a message with Root origin, or this can be accomplished through the relay chain's governance mechanism executing a root call.
+Unlocking a parachain requires sending an XCM (Cross-Consensus Message) to the relay chain from the parachain itself, sending a message with Root origin, or this can be accomplished through the relay chain's governance mechanism, executing a root call.
 
-If sending an XCM, the parachain origin must have proper authorization, which typically comes from either the parachain's sudo pallet (if enabled) or through its governance system.
+If sending an XCM, the parachain origin must have proper authorization, typically from either the parachain's sudo pallet (if enabled) or its governance system.
 
 This guide demonstrates the unlocking process using a parachain with the sudo pallet. For parachains using governance-based authorization instead, the process will require adjustments to how the XCM is sent.
 
@@ -56,8 +56,8 @@ Before sending the XCM, you need to construct the relay chain call that will be 
 2. Build the `registrar.removeLock` extrinsic
     1. Select the **registrar** pallet
     2. Choose the **removeLock** extrinsic
-    3. Fill in the parachain ID parameter (e.g. `2006`)
-    4. Copy the encoded call data
+    3. Fill in the parachain ID parameter (e.g., `2006`)
+    4. Copy the **encoded call data**
 
     ![](/images/develop/parachains/maintenance/unlock-parachain/unlock-parachain-2.webp)
 
@@ -81,7 +81,7 @@ You can identify your parachain's sovereign account using either of these method
 
         - For parent/child chains use the prefix `0x70617261` (which decodes to `b"para"`)
          
-    2. Encode your parachain ID as a u32 [SCALE](https://docs.polkadot.com/polkadot-protocol/basics/data-encoding/#data-types){target=\_blank} value:
+    2. Encode your parachain ID as a u32 [SCALE](/polkadot-protocol/basics/data-encoding/#data-types){target=\_blank} value:
 
         - For parachain 2006, this would be `d6070000`
 

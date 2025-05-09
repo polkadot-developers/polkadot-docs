@@ -33,6 +33,7 @@ Doc-Page: https://docs.polkadot.com/develop/parachains/testing/benchmarking/
 Doc-Page: https://docs.polkadot.com/develop/parachains/testing/
 Doc-Page: https://docs.polkadot.com/develop/parachains/testing/mock-runtime/
 Doc-Page: https://docs.polkadot.com/develop/parachains/testing/pallet-testing/
+Doc-Page: https://docs.polkadot.com/develop/smart-contracts/block-explorers/
 Doc-Page: https://docs.polkadot.com/develop/smart-contracts/connect-to-asset-hub/
 Doc-Page: https://docs.polkadot.com/develop/smart-contracts/connect-your-wallet/
 Doc-Page: https://docs.polkadot.com/develop/smart-contracts/dev-environments/hardhat/
@@ -6036,6 +6037,59 @@ Some key considerations are:
 </div>
 --- END CONTENT ---
 
+Doc-Content: https://docs.polkadot.com/develop/smart-contracts/block-explorers/
+--- BEGIN CONTENT ---
+---
+title: Block Explorers
+description: Access PolkaVM explorers like Subscan, BlockScout, and Routescan to track transactions, analyze contracts, and view on-chain data from smart contracts.
+---
+
+# Block Explorers
+
+## Introduction
+
+Block explorers serve as comprehensive blockchain analytics platforms that provide access to on-chain data. These web applications function as search engines for blockchain networks, allowing users to query, visualize, and analyze blockchain data in real time through intuitive interfaces.
+
+## Core Functionality
+
+These block explorers provide essential capabilities for interacting with smart contracts in Polkadot Hub:
+
+- **Transaction tracking** - monitor transaction status, confirmations, fees, and metadata
+- **Address analysis** - view account balances, transaction history, and associated contracts
+- **Block information** - examine block contents
+- **Smart contract interaction** - review contract code, verification status, and interaction history
+- **Token tracking** - monitor ERC-20, ERC-721, and other token standards with transfer history and holder analytics
+- **Network statistics** - access metrics on transaction volume, gas usage, and other network parameters
+
+## Available Block Explorers
+
+The following block explorers are available for PolkaVM smart contracts, providing specialized tools for monitoring and analyzing contract activity within the Polkadot ecosystem:
+
+### Subscan
+
+Subscan is the flagship Polkadot ecosystem block explorer with comprehensive support for PolkaVM smart contracts. It provides robust transaction indexing, account analysis, and monitoring tools specifically optimized for Polkadot SDK-based networks.
+
+- [Westend Hub Subscan](https://assethub-westend.subscan.io/){target=\_blank}
+
+![](/images/develop/smart-contracts/block-explorers/block-explorers-1.webp)
+
+### BlockScout
+
+BlockScout is an open-source explorer platform with a user-friendly interface adapted for PolkaVM contracts. It excels at detailed contract analytics and provides developers with comprehensive API access.
+
+- [Westend Hub BlockScout](https://blockscout-asset-hub.parity-chains-scw.parity.io/){target=\_blank}
+
+![](/images/develop/smart-contracts/block-explorers/block-explorers-2.webp)
+
+### Routescan
+
+Routescan delivers multi-chain explorer capabilities with specialized support for PolkaVM environments.
+
+- [Westend Hub Routescan](https://420420421.testnet.routescan.io/){target=\_blank}
+
+![](/images/develop/smart-contracts/block-explorers/block-explorers-3.webp)
+--- END CONTENT ---
+
 Doc-Content: https://docs.polkadot.com/develop/smart-contracts/connect-to-asset-hub/
 --- BEGIN CONTENT ---
 ---
@@ -6290,8 +6344,8 @@ Congratulations! You have successfully connected to the Westend Asset Hub using 
 Doc-Content: https://docs.polkadot.com/develop/smart-contracts/dev-environments/hardhat/
 --- BEGIN CONTENT ---
 ---
-title: Use Hardhat with Asset Hub
-description: Learn how to create, compile, test, and deploy smart contracts on Asset Hub using Hardhat, a powerful development environment for blockchain developers.
+title: Use Hardhat with Polkadot
+description: Learn how to create, compile, test, and deploy smart contracts on Polkadot using Hardhat, a powerful development environment for blockchain developers.
 ---
 
 # Hardhat
@@ -6310,7 +6364,7 @@ description: Learn how to create, compile, test, and deploy smart contracts on A
 
 ## Overview
 
-Hardhat is a robust development environment for Ethereum-compatible chains that makes smart contract development more efficient. This guide walks you through the essentials of using Hardhat to create, compile, test, and deploy smart contracts on Asset Hub.
+Hardhat is a robust development environment for Ethereum-compatible chains that makes smart contract development more efficient. This guide walks you through the essentials of using Hardhat to create, compile, test, and deploy smart contracts on Polkadot.
 
 ## Prerequisites
 
@@ -6319,7 +6373,6 @@ Before getting started, ensure you have:
 - [Node.js](https://nodejs.org/){target=\_blank} (v16.0.0 or later) and npm installed
 - Basic understanding of Solidity programming
 - Some WND test tokens to cover transaction fees (easily obtainable from the [Polkadot faucet](https://faucet.polkadot.io/westend?parachain=1000){target=\_blank}). To learn how to get test tokens, check out the [Test Tokens](/develop/smart-contracts/connect-to-asset-hub/#test-tokens){target=\_blank} section
-- [MetaMask](https://metamask.io/){target=\_blank} installed and connected to [Westend Asset Hub](https://chainlist.org/chain/420420421){target=\_blank}. For more detailed instructions on connecting your wallet, see the [Connect Your Wallet](/develop/smart-contracts/connect-to-asset-hub/#connect-your-wallet){target=\_blank} section
 
 ## Setting Up Hardhat
 
@@ -6339,13 +6392,13 @@ Before getting started, ensure you have:
 3. Install Hardhat and the required plugins:
 
     ```bash
-    npm install --save-dev hardhat @nomicfoundation/hardhat-toolbox
+    npm install --save-dev hardhat@"<2.23.0" @nomicfoundation/hardhat-toolbox
     ```
 
-    To interact with Asset Hub, Hardhat requires the [`hardhat-resolc`](https://www.npmjs.com/package/hardhat-resolc){target=\_blank} plugin to compile contracts to PolkaVM bytecode and the [`hardhat-revive-node`](https://www.npmjs.com/package/hardhat-revive-node){target=\_blank} plugin to spawn a local node compatible with PolkaVM.
+    To interact with Polkadot, Hardhat requires the followin plugins to compile contracts to PolkaVM bytecode and to spawn a local node compatible with PolkaVM.
 
     ```bash
-    npm install --save-dev hardhat-resolc hardhat-revive-node
+    npm install --save-dev @parity/hardhat-polkadot @parity/resolc
     ```
 
 4. Create a Hardhat project:
@@ -6360,84 +6413,60 @@ Before getting started, ensure you have:
     - **`test`** - contains your test files that validate contract functionality
     - **`ignition`** - deployment modules for safely deploying your contracts to various networks
 
-5. Update your Hardhat configuration file (`hardhat.config.js`) to include the plugins:
+5. Update your Hardhat configuration file (`hardhat.config.js`) to include the `hardhat-polkadot` plugin:
 
-    ```javascript title="hardhat.config.js" hl_lines="9-10"
-    // hardhat.config.js
-require('@nomicfoundation/hardhat-toolbox');
+    ```javascript title="hardhat.config.js" hl_lines="4-4"
+    require('@nomicfoundation/hardhat-toolbox');
 
-require('@nomicfoundation/hardhat-network-helpers');
-require('@nomicfoundation/hardhat-chai-matchers');
-require('@nomicfoundation/hardhat-ethers');
-require('hardhat-gas-reporter');
-require('@nomicfoundation/hardhat-ignition');
+require('@parity/hardhat-polkadot');
 
-require('hardhat-resolc');
-require('hardhat-revive-node');
-    module.exports = {
+/** @type import('hardhat/config').HardhatUserConfig */
+module.exports = {
       // Additional configuration will be added later
     
     ```
 
 ## Compiling Your Contract
 
-The `hardhat-resolc` plugin will compile your Solidity contracts for Solidity versions `0.8.0` and higher to be PolkaVM compatible. When compiling your contract using the `hardhat-resolc` plugin, there are two ways to configure your compilation process:
+The plugin will compile your Solidity contracts for Solidity versions `0.8.0` and higher to be PolkaVM compatible. When compiling your contract, there are two ways to configure your compilation process:
 
-- **Remix compiler** - uses the Remix online compiler backend for simplicity and ease of use
-- **Binary compiler** - uses the resolc binary directly for more control and configuration options
+- **Npm compiler** - uses library [@parity/revive](https://www.npmjs.com/package/@parity/revive){target=\_blank} for simplicity and ease of use
+- **Binary compiler** - uses your local `resolc` binary directly for more control and configuration options
 
 To compile your project, follow these instructions:
 
-1. Modify your Hardhat configuration file to specify which compilation process you will be using:
+1. Modify your Hardhat configuration file to specify which compilation process you will be using and activate the `polkavm` flag in the hardhat network:
 
-    === "Remix Configuration"
+    === "Npm Configuration"
 
-        ```javascript title="hardhat.config.js" hl_lines="15-25"
-        // hardhat.config.js
-require('@nomicfoundation/hardhat-toolbox');
+        ```javascript title="hardhat.config.js" hl_lines="10-13"
+        require('@nomicfoundation/hardhat-toolbox');
 
-require('@nomicfoundation/hardhat-network-helpers');
-require('@nomicfoundation/hardhat-chai-matchers');
-require('@nomicfoundation/hardhat-ethers');
-require('hardhat-gas-reporter');
-require('@nomicfoundation/hardhat-ignition');
+require('@parity/hardhat-polkadot');
 
-require('hardhat-resolc');
-require('hardhat-revive-node');
-        module.exports = {
+/** @type import('hardhat/config').HardhatUserConfig */
+module.exports = {
   solidity: '0.8.28',
-          version: '1.5.2',
-    compilerSource: 'remix',
-    settings: {
-      optimizer: {
-        enabled: false,
-        runs: 600,
-      },
-      evmVersion: 'istanbul',
-    },
+  // Npm Compiler
+  resolc: {
+    version: '1.5.2',
+    compilerSource: 'npm',
   },
-          hardhat: {
-      polkavm: true,
-        };
+        
         ```
 
     === "Binary Configuration"
 
-        ```javascript title="hardhat.config.js" hl_lines="15-26"
-        // hardhat.config.js
-require('@nomicfoundation/hardhat-toolbox');
+        ```javascript title="hardhat.config.js" hl_lines="10-21"
+        require('@nomicfoundation/hardhat-toolbox');
 
-require('@nomicfoundation/hardhat-network-helpers');
-require('@nomicfoundation/hardhat-chai-matchers');
-require('@nomicfoundation/hardhat-ethers');
-require('hardhat-gas-reporter');
-require('@nomicfoundation/hardhat-ignition');
+require('@parity/hardhat-polkadot');
 
-require('hardhat-resolc');
-require('hardhat-revive-node');
-        module.exports = {
+/** @type import('hardhat/config').HardhatUserConfig */
+module.exports = {
   solidity: '0.8.28',
-          compilerSource: 'binary',
+          resolc: {
+    compilerSource: 'binary',
     settings: {
       optimizer: {
         enabled: true,
@@ -6448,12 +6477,10 @@ require('hardhat-revive-node');
       standardJson: true,
     },
   },
-          hardhat: {
-      polkavm: true,
-        };
+        
         ```
 
-    For the binary configuration, replace `INSERT_PATH_TO_RESOLC_COMPILER` with the proper path to the binary. For more information about its installation, check the [installation](https://github.com/paritytech/revive?tab=readme-ov-file#installation){target=\_blank} section of the `pallet-revive`.
+    For the binary configuration, replace `INSERT_PATH_TO_RESOLC_COMPILER` with the proper path to the binary. To obtain the binary, check the [releases](https://github.com/paritytech/revive/releases){target=\_blank} section of the `revive` compiler, and download the latest version.
 
 2. Compile the contract with Hardhat:
 
@@ -6533,7 +6560,7 @@ npx hardhat test
 
 ## Deploying with a Local Node
 
-Before deploying to a live network, you can deploy your contract to a local node using the [`hardhat-revive-node`](https://www.npmjs.com/package/hardhat-revive-node){target=\_blank} plugin and Ignition modules:
+Before deploying to a live network, you can deploy your contract to a local node using Ignition modules:
 
 !!! warning "Contract Size Limitation in Testing Environment"
 
@@ -6543,52 +6570,22 @@ Before deploying to a live network, you can deploy your contract to a local node
     
     This limitation is established by Hardhat based on Ethereum's default contract size limits. While Hardhat can disable this limitation, technical constraints currently prevent it from being applied to the PolkaVM test environment.
 
-1. First, ensure you have compiled a Substrate node and the ETH RPC adapter from the Polkadot SDK. Checkout the [compatible commit](https://github.com/paritytech/polkadot-sdk/commit/c29e72a8628835e34deb6aa7db9a78a2e4eabcee){target=\_blank} from the SDK and build the node and the ETH-RPC from source:
+1. Update the Hardhat configuration file to add the local node as a target for local deployment:
 
-    ```bash
-    git clone https://github.com/paritytech/polkadot-sdk.git
-    cd polkadot-sdk
-    git checkout {{ dependencies.repositories.polkadot_sdk_compatible_hardhat_node }}
-    ```
+    === "Npm Configuration"
 
-    Now, build the node and the ETH-RPC adapter. Note that this process might take a long time to complete:
+        ```javascript title="hardhat.config.js" hl_lines="27-30"
+        require('@nomicfoundation/hardhat-toolbox');
 
-    ```bash
-    # Build the substrate node
-    cargo build --release
-    # Build the eth-rpc adapter
-    cargo build -p pallet-revive-eth-rpc --bin eth-rpc --release
-    ```
+require('@parity/hardhat-polkadot');
 
-2. Update the Hardhat configuration file to add the local node as a target for local deployment:
-
-    === "Remix Configuration"
-
-        ```javascript title="hardhat.config.js" hl_lines="27-44"
-        // hardhat.config.js
-require('@nomicfoundation/hardhat-toolbox');
-
-require('@nomicfoundation/hardhat-network-helpers');
-require('@nomicfoundation/hardhat-chai-matchers');
-require('@nomicfoundation/hardhat-ethers');
-require('hardhat-gas-reporter');
-require('@nomicfoundation/hardhat-ignition');
-
-require('hardhat-resolc');
-require('hardhat-revive-node');
-        module.exports = {
+/** @type import('hardhat/config').HardhatUserConfig */
+module.exports = {
   solidity: '0.8.28',
-  // Remix Compiler
+  // Npm Compiler
   resolc: {
     version: '1.5.2',
-    compilerSource: 'remix',
-    settings: {
-      optimizer: {
-        enabled: false,
-        runs: 600,
-      },
-      evmVersion: 'istanbul',
-    },
+    compilerSource: 'npm',
   },
           hardhat: {
       polkavm: true,
@@ -6611,21 +6608,16 @@ require('hardhat-revive-node');
 
     === "Binary Configuration"
 
-        ```javascript title="hardhat.config.js" hl_lines="27-44"
-        // hardhat.config.js
-require('@nomicfoundation/hardhat-toolbox');
+        ```javascript title="hardhat.config.js" hl_lines="35-38"
+        require('@nomicfoundation/hardhat-toolbox');
 
-require('@nomicfoundation/hardhat-network-helpers');
-require('@nomicfoundation/hardhat-chai-matchers');
-require('@nomicfoundation/hardhat-ethers');
-require('hardhat-gas-reporter');
-require('@nomicfoundation/hardhat-ignition');
+require('@parity/hardhat-polkadot');
 
-require('hardhat-resolc');
-require('hardhat-revive-node');
-        module.exports = {
+/** @type import('hardhat/config').HardhatUserConfig */
+module.exports = {
   solidity: '0.8.28',
-          compilerSource: 'binary',
+          resolc: {
+    compilerSource: 'binary',
     settings: {
       optimizer: {
         enabled: true,
@@ -6636,7 +6628,8 @@ require('hardhat-revive-node');
       standardJson: true,
     },
   },
-          hardhat: {
+  networks: {
+    hardhat: {
       polkavm: true,
       nodeConfig: {
         nodeBinaryPath: 'INSERT_PATH_TO_SUBSTRATE_NODE',
@@ -6655,63 +6648,19 @@ require('hardhat-revive-node');
         };
         ```
 
-    Ensure to replace `INSERT_PATH_TO_SUBSTRATE_NODE` and `INSERT_PATH_TO_ETH_RPC_ADAPTER` with the proper paths to the compiled binaries. Since you compiled these from source using Rust's Cargo build system, you can find them at:
-
-    - Substrate node path - `polkadot-sdk/target/release/substrate-node`
-    - ETH-RPC adapter path - `polkadot-sdk/target/release/eth-rpc`
-
-    For example, if you cloned the polkadot-sdk repository to your home directory, the paths might look like:
-
-    ```javascript
-    nodeBinaryPath: '/home/username/polkadot-sdk/target/release/substrate-node',
-    adapterBinaryPath: '/home/username/polkadot-sdk/target/release/eth-rpc',
-    ```
-
-3. Modify the Ignition modules, considering that the value of the pallet revive `block.timestamp` is returned in seconds. Check this [PR](https://github.com/paritytech/polkadot-sdk/pull/7792/files){target=\_blank} for more information. For example, for the default `ignition/modules/Lock.js` file, the needed modification should be:
-
-    ```diff
-    - const JAN_1ST_2030 = 1893456000;
-    + const JAN_1ST_2030 = 18934560000000;
-    ```
-
-    ???--- code "Modified `ignition/modules/Lock.js` file"
-
-        ```js title="Lock.js"
-        // This setup uses Hardhat Ignition to manage smart contract deployments.
-// Learn more about it at https://hardhat.org/ignition
-
-const { buildModule } = require('@nomicfoundation/hardhat-ignition/modules');
-
-const JAN_1ST_2030 = 18934560000000;
-const ONE_GWEI = 1_000_000_000n;
-
-module.exports = buildModule('LockModule', (m) => {
-  const unlockTime = m.getParameter('unlockTime', JAN_1ST_2030);
-  const lockedAmount = m.getParameter('lockedAmount', ONE_GWEI);
-
-  const lock = m.contract('Lock', [unlockTime], {
-    value: lockedAmount,
-  });
-
-  return { lock };
-});
-        ```
-
-4. Start a local node:
+2. Start a local node:
 
     ```bash
-    npx hardhat node-polkavm
+    npx hardhat node
     ```
 
-    This command will start a local PolkaVM node powered by the `hardhat-revive-node` plugin.
+    This command will spawn a local substrate node along with the ETC-RPC adapter.
 
-5. In a new terminal window, deploy the contract using Ignition:
+3. In a new terminal window, deploy the contract using Ignition:
 
     ```bash
-    npx hardhat ignition deploy ./ignition/modules/INSERT_IGNITION_MODULE_NAME.js --network localNode
+    npx hardhat ignition deploy ./ignition/modules/Lock.js --network localNode
     ```
-
-    Replace `INSERT_IGNITION_MODULE_NAME` with the proper name for your contract. You'll see deployment information, including the contract address.
 
 ## Deploying to a Live Network
 
@@ -6733,113 +6682,39 @@ After testing your contract locally, you can deploy it to a live network. This g
 3. Install the [`dotenv`](https://www.npmjs.com/package/dotenv){target=\_blank} package to load the private key into your Hardhat configuration:
 
     ```bash
-    npm install dotenv
+    npm install --save-dev dotenv
     ```
 
 4. Update your config to load it:
 
-    ```javascript title="hardhat.config.js" hl_lines="12"
-    // hardhat.config.js
-require('@nomicfoundation/hardhat-toolbox');
+    ```javascript title="hardhat.config.js" hl_lines="6"
+    require('@nomicfoundation/hardhat-toolbox');
 
-require('@nomicfoundation/hardhat-network-helpers');
-require('@nomicfoundation/hardhat-chai-matchers');
-require('@nomicfoundation/hardhat-ethers');
-require('hardhat-gas-reporter');
-require('@nomicfoundation/hardhat-ignition');
+require('@parity/hardhat-polkadot');
 
-require('hardhat-resolc');
-require('hardhat-revive-node');
+    require('dotenv').config();
 
-require('dotenv').config();
-
-/** @type import('hardhat/config').HardhatUserConfig */
-module.exports = {
+    module.exports = {
       // The rest remains the same...
     
     ```
 
-5. Update your Hardhat configuration file with network settings for the Asset Hub network you want to target:
+5. Update your Hardhat configuration file with network settings for the Polkadot network you want to target:
 
-    === "Remix Configuration"
+    === "Npm Configuration"
 
-        ```javascript title="hardhat.config.js" hl_lines="44-48"
-        // hardhat.config.js
-require('@nomicfoundation/hardhat-toolbox');
+        ```javascript title="hardhat.config.js" hl_lines="31-35"
+        require('@nomicfoundation/hardhat-toolbox');
 
-require('@nomicfoundation/hardhat-network-helpers');
-require('@nomicfoundation/hardhat-chai-matchers');
-require('@nomicfoundation/hardhat-ethers');
-require('hardhat-gas-reporter');
-require('@nomicfoundation/hardhat-ignition');
+require('@parity/hardhat-polkadot');
 
-require('hardhat-resolc');
-require('hardhat-revive-node');
-        module.exports = {
+/** @type import('hardhat/config').HardhatUserConfig */
+module.exports = {
   solidity: '0.8.28',
-  // Remix Compiler
+  // Npm Compiler
   resolc: {
     version: '1.5.2',
-    compilerSource: 'remix',
-    settings: {
-      optimizer: {
-        enabled: false,
-        runs: 600,
-      },
-      evmVersion: 'istanbul',
-    },
-  },
-        hardhat: {
-      polkavm: true,
-      nodeConfig: {
-        nodeBinaryPath: 'INSERT_PATH_TO_SUBSTRATE_NODE',
-        rpcPort: 8000,
-        dev: true,
-      },
-      adapterConfig: {
-        adapterBinaryPath: 'INSERT_PATH_TO_ETH_RPC_ADAPTER',
-        dev: true,
-      },
-    },
-    localNode: {
-      polkavm: true,
-      url: `http://127.0.0.1:8545`,
-    },
-    westendAssetHub: {
-      polkavm: true,
-      url: 'https://westend-asset-hub-eth-rpc.polkadot.io',
-      accounts: [process.env.PRIVATE_KEY],
-    },
-  },
-};
-        ```
-
-    === "Binary Configuration"
-
-        ```javascript title="hardhat.config.js" hl_lines="44-48"
-        // hardhat.config.js
-require('@nomicfoundation/hardhat-toolbox');
-
-require('@nomicfoundation/hardhat-network-helpers');
-require('@nomicfoundation/hardhat-chai-matchers');
-require('@nomicfoundation/hardhat-ethers');
-require('hardhat-gas-reporter');
-require('@nomicfoundation/hardhat-ignition');
-
-require('hardhat-resolc');
-require('hardhat-revive-node');
-        module.exports = {
-  solidity: '0.8.28',
-          compilerSource: 'binary',
-    settings: {
-      optimizer: {
-        enabled: true,
-        runs: 400,
-      },
-      evmVersion: 'istanbul',
-      compilerPath: 'INSERT_PATH_TO_RESOLC_COMPILER',
-      standardJson: true,
-    },
+    compilerSource: 'npm',
   },
           hardhat: {
       polkavm: true,
@@ -6857,7 +6732,7 @@ require('hardhat-revive-node');
       polkavm: true,
       url: `http://127.0.0.1:8545`,
     },
-    westendAssetHub: {
+    westendHub: {
       polkavm: true,
       url: 'https://westend-asset-hub-eth-rpc.polkadot.io',
       accounts: [process.env.PRIVATE_KEY],
@@ -6866,13 +6741,59 @@ require('hardhat-revive-node');
 };
         ```
 
-4. Deploy your contract using Ignition:
+    === "Binary Configuration"
+
+        ```javascript title="hardhat.config.js" hl_lines="39-43"
+        require('@nomicfoundation/hardhat-toolbox');
+
+require('@parity/hardhat-polkadot');
+
+/** @type import('hardhat/config').HardhatUserConfig */
+module.exports = {
+  solidity: '0.8.28',
+          resolc: {
+    compilerSource: 'binary',
+    settings: {
+      optimizer: {
+        enabled: true,
+        runs: 400,
+      },
+      evmVersion: 'istanbul',
+      compilerPath: 'INSERT_PATH_TO_RESOLC_COMPILER',
+      standardJson: true,
+    },
+  },
+  networks: {
+    hardhat: {
+      polkavm: true,
+      nodeConfig: {
+        nodeBinaryPath: 'INSERT_PATH_TO_SUBSTRATE_NODE',
+        rpcPort: 8000,
+        dev: true,
+      },
+      adapterConfig: {
+        adapterBinaryPath: 'INSERT_PATH_TO_ETH_RPC_ADAPTER',
+        dev: true,
+      },
+    },
+    localNode: {
+      polkavm: true,
+      url: `http://127.0.0.1:8545`,
+    },
+    westendHub: {
+      polkavm: true,
+      url: 'https://westend-asset-hub-eth-rpc.polkadot.io',
+      accounts: [process.env.PRIVATE_KEY],
+    },
+  },
+};
+        ```
+
+5. Deploy your contract using Ignition:
 
     ```bash
-    npx hardhat ignition deploy ./ignition/modules/INSERT_IGNITION_MODULE_NAME.js --network westendAssetHub
+    npx hardhat ignition deploy ./ignition/modules/Lock.js --network westendHub
     ```
-
-    Replace `INSERT_IGNITION_MODULE_NAME` with the proper name for your contract. You'll see deployment information, including the contract address.
 
 ## Interacting with Your Contract
 
@@ -6917,7 +6838,7 @@ main().catch((error) => {
 Run your interaction script:
 
 ```bash
-npx hardhat run scripts/interact.js --network westendAssetHub
+npx hardhat run scripts/interact.js --network westendHub
 ```
 
 ## Where to Go Next
@@ -12590,7 +12511,7 @@ public decodeExtrinsic<T extends Format>(encodedTransaction: string, format: T):
     ??? child "Type `Format`"
 
         ```ts
-        export type Format = 'payload' | 'call' | 'submittable';
+        Error fetching snippet from https://raw.githubusercontent.com/paritytech/asset-transfer-api/refs/tags/v0.5.0/src/types.ts
         ```
 
 ??? interface "Response parameters"
@@ -19273,7 +19194,7 @@ The [Polkadot network](https://polkadot.network/){target=\_blank} is a blockchai
 
 ## Polkadot Cloud
 
-Polkadot Cloud is a scalable platform for deploying resilient, customizable Web3 applications through Polkadot's functionality. It encompasses the wider Polkadot network infrastructure and security layer where parachains operate. The platform enables users to launch Ethereum-compatible chains, build specialized blockchains, and flexibly manage computing resources through on-demand or bulk coretime purchases. Initially launched with basic parachain functionality, Polkadot Cloud has evolved to offer enhanced flexibility with features like coretime, elastic scaling, and async backing for improved performance and economic options.
+Polkadot Cloud is a platform for deploying resilient, customizable and scalable Web3 applications through Polkadot's functionality. It encompasses the wider Polkadot network infrastructure and security layer where parachains operate. The platform enables users to launch Ethereum-compatible chains, build specialized blockchains, and flexibly manage computing resources through on-demand or bulk coretime purchases. Initially launched with basic parachain functionality, Polkadot Cloud has evolved to offer enhanced flexibility with features like coretime, elastic scaling, and async backing for improved performance.
 
 ## Polkadot Hub
 
@@ -19281,7 +19202,7 @@ Polkadot Hub is a Layer 1 platform that serves as the primary entry point to the
 
 ## PolkaVM
 
-A cutting-edge virtual machine designed specifically for the Polkadot ecosystem that enables smart contract deployment and execution.
+PolkaVM is a custom virtual machine optimized for performance, leveraging a RISC-V-based architecture to support Solidity and any language that compiles to RISC-V. It is specifically designed for the Polkadot ecosystem, enabling smart contract deployment and execution.
 
 ## Relay Chain
 
@@ -21927,23 +21848,23 @@ This difference introduces potential compatibility challenges for Ethereum-based
 
 This approach ensures that Ethereum contracts work without modifications while maintaining Polkadot's optimized state management.
 
-## Contract Instantiation
+## Contract Deployment
 
-In the PolkaVM, contract deployment follows a fundamentally different model from EVM. The EVM allows contracts to be deployed with a single transaction, where the contract code is bundled with the deployment transaction. In contrast, PolkaVM requires a different process for contract instantiation.
+For most users deploying contracts (like ERC-20 tokens), contract deployment works seamlessly without requiring special steps. However, when using advanced patterns like factory contracts that dynamically create other contracts at runtime, you'll need to understand PolkaVM's unique deployment model.
 
-- **Code must be pre-uploaded** - unlike EVM where contract code is bundled within the deploying contract, PolkaVM requires all contract bytecode to be uploaded to the chain before instantiation
-- **Factory pattern limitations** - the common EVM pattern, where contracts dynamically create other contracts, will fail with CodeNotFound error unless the dependent contract code was previously uploaded
+In the PolkaVM, contract deployment follows a fundamentally different model from EVM. The EVM allows contracts to be deployed with a single transaction, where the contract code is bundled with the deployment transaction. In contrast, PolkaVM has a different process for contract instantiation.
+
+- **Code must be pre-uploaded** - unlike EVM, where contract code is bundled within the deploying contract, PolkaVM requires all contract bytecode to be uploaded to the chain before instantiation
+- **Factory pattern limitations** - the common EVM pattern, where contracts dynamically create other contracts, will fail with `CodeNotFound` error unless the dependent contract code was previously uploaded
 - **Separate upload and instantiation** - this creates a two-step process where developers must first upload all contract code, then instantiate relationships between contracts
 
-This design affects common EVM patterns:
+This architecture impacts several common EVM patterns:
 
-- Factory contracts require modification to work with pre-uploaded code rather than embedding bytecode
-- [`create`](https://www.evm.codes/?fork=cancun#f0){target=\_blank} and [`create2`](https://www.evm.codes/?fork=cancun#f5){target=\_blank} deployments need adaptation as they can't dynamically generate contract code
-- Runtime code generation is not supported due to PolkaVM's different RISC-V bytecode format
+- Factory contracts must be modified to work with pre-uploaded code rather than embedding bytecode
+- [`create`](https://www.evm.codes/?fork=cancun#f0){target=\_blank} and [`create2`](https://www.evm.codes/?fork=cancun#f5){target=\_blank} deployments need adaptation since they can't dynamically generate contract code
+- Runtime code generation is not supported due to PolkaVM's RISC-V bytecode format
 
-When migrating EVM projects to PolkaVM, developers should identify all contracts that will be instantiated at runtime and ensure they are pre-uploaded to the chain separately, before any contracts attempt to instantiate them.
-
-For standard contract deployments that don't create other contracts, this process is abstracted away. If you're just deploying a single contract like Storage or an ERC20 token, you don't need to perform separate steps. The special handling described below is only required when contracts dynamically create other contracts at runtime.
+When migrating EVM projects to PolkaVM, developers should identify all contracts that will be instantiated at runtime and ensure they are pre-uploaded to the chain before any instantiation attempts.
 --- END CONTENT ---
 
 Doc-Content: https://docs.polkadot.com/polkadot-protocol/smart-contract-basics/
@@ -32234,26 +32155,7 @@ To create the NFT contract, you can follow the steps below:
 3. Now, paste the following NFT contract code into the editor
 
     ```solidity title="MyNFT.sol"
-    // SPDX-License-Identifier: MIT
-// Compatible with OpenZeppelin Contracts ^5.0.0
-pragma solidity ^0.8.22;
-
-import {ERC721} from "@openzeppelin/contracts/token/ERC721/ERC721.sol";
-import {Ownable} from "@openzeppelin/contracts/access/Ownable.sol";
-
-contract MyToken is ERC721, Ownable {
-    uint256 private _nextTokenId;
-
-    constructor(address initialOwner)
-        ERC721("MyToken", "MTK")
-        Ownable(initialOwner)
-    {}
-
-    function safeMint(address to) public onlyOwner {
-        uint256 tokenId = _nextTokenId++;
-        _safeMint(to, tokenId);
-    }
-}
+    Error fetching snippet from https://raw.githubusercontent.com/polkadot-developers/polkavm-hardhat-examples/refs/tags/v0.0.1/erc721-hardhat/contracts/MyNFT.sol
     ```
 
     The key components of the code above are:
@@ -32593,6 +32495,7 @@ Doc-Content: https://docs.polkadot.com/tutorials/smart-contracts/launch-your-fir
 ---
 title: Create a dApp With Ethers.js
 description: Learn how to build a decentralized application on Asset Hub using Ethers.js and Next.js by creating a simple dApp that interacts with a smart contract.
+tutorial_badge:  Intermediate
 ---
 
 # Create a dApp With Ethers.js
@@ -32665,31 +32568,7 @@ npm install ethers@{{ dependencies.javascript_packages.ethersjs.version }}
 To interact with Asset Hub (Westend Asset Hub in this case), you need to set up an [Ethers.js Provider](/develop/smart-contracts/libraries/ethers-js/#set-up-the-ethersjs-provider){target=\_blank} that connects to the blockchain. Create a new file called `utils/ethers.js` and add the following code:
 
 ```javascript title="ethers.js"
-import { JsonRpcProvider } from 'ethers';
-
-export const ASSET_HUB_CONFIG = {
-  name: 'Westend Asset Hub',
-  rpc: 'https://westend-asset-hub-eth-rpc.polkadot.io', // Westend Asset Hub testnet RPC
-  chainId: 420420421, // Westend Asset Hub testnet chainId
-  blockExplorer: 'https://westend-asset-hub.subscan.io/',
-};
-
-export const getProvider = () => {
-  return new JsonRpcProvider(ASSET_HUB_CONFIG.rpc, {
-    chainId: ASSET_HUB_CONFIG.chainId,
-    name: ASSET_HUB_CONFIG.name,
-  });
-};
-
-// Helper to get a signer from a provider
-export const getSigner = async (provider) => {
-  if (window.ethereum) {
-    await window.ethereum.request({ method: 'eth_requestAccounts' });
-    const ethersProvider = new ethers.BrowserProvider(window.ethereum);
-    return ethersProvider.getSigner();
-  }
-  throw new Error('No Ethereum browser provider detected');
-};
+Error fetching snippet from https://raw.githubusercontent.com/polkadot-developers/polkavm-storage-contract-dapps/refs/tags/v0.0.1/ethers-dapp/app/utils/ethers.js
 ```
 This file establishes a connection to Asset Hub and provides helper functions for obtaining a [Provider](https://docs.ethers.org/v5/api/providers/provider/){target=_blank} and [Signer](https://docs.ethers.org/v5/api/signer/){target=_blank}. The provider allows you to read data from the blockchain, while the signer enables users to send transactions and modify the blockchain state.
 
@@ -33243,6 +33122,7 @@ Doc-Content: https://docs.polkadot.com/tutorials/smart-contracts/launch-your-fir
 ---
 title: Create a dApp With Viem
 description: Learn how to build a decentralized application on Asset Hub using Viem and Next.js by creating a simple dApp that interacts with a smart contract.
+tutorial_badge:  Intermediate
 ---
 
 # Create a dApp with Viem
@@ -33315,47 +33195,7 @@ npm install --save-dev typescript @types/node
 To interact with Asset Hub (Westend Asset Hub in this case), you need to set up a [Public Client](https://viem.sh/docs/clients/public#public-client){target=\_blank} that connects to the blockchain. Create a new file called `utils/viem.ts` and add the following code:
 
 ```typescript title="viem.ts"
-import { createPublicClient, http, createWalletClient, custom } from 'viem'
-import 'viem/window';
-
-
-const transport = http('https://westend-asset-hub-eth-rpc.polkadot.io')
-
-// Configure the Asset Hub chain
-export const assetHub = {
-  id: 420420421,
-  name: 'Westend Asset Hub',
-  network: 'westend-asset-hub',
-  nativeCurrency: {
-    decimals: 18,
-    name: 'WND',
-    symbol: 'WND',
-  },
-  rpcUrls: {
-    default: {
-      http: ['https://westend-asset-hub-eth-rpc.polkadot.io'],
-    },
-  },
-} as const
-
-// Create a public client for reading data
-export const publicClient = createPublicClient({
-  chain: assetHub,
-  transport
-})
-
-// Create a wallet client for signing transactions
-export const getWalletClient = async () => {
-  if (typeof window !== 'undefined' && window.ethereum) {
-    const [account] = await window.ethereum.request({ method: 'eth_requestAccounts' });
-    return createWalletClient({
-      chain: assetHub,
-      transport: custom(window.ethereum),
-      account,
-    });
-  }
-  throw new Error('No Ethereum browser provider detected');
-};
+Error fetching snippet from https://raw.githubusercontent.com/polkadot-developers/polkavm-storage-contract-dapps/refs/tags/v0.0.1/viem-dapp/app/utils/viem.ts
 ```
 
 This file initializes a viem client, providing helper functions for obtaining a Public Client and a [Wallet Client](https://viem.sh/docs/clients/wallet#wallet-client){target=\_blank}. The Public Client enables reading blockchain data, while the Wallet Client allows users to sign and send transactions. Also, note that by importing `'viem/window'` the global `window.ethereum` will be typed as an `EIP1193Provider`, check the [`window` Polyfill](https://viem.sh/docs/typescript#window-polyfill){target=\_blank} reference for more information.
@@ -34434,13 +34274,7 @@ describe('Storage', function () {
 1. Create a new folder called`ignition/modules`. Add a new file named `StorageModule.js` with the following logic:
 
     ```javascript title="StorageModule.js"
-    const { buildModule } = require('@nomicfoundation/hardhat-ignition/modules');
-
-module.exports = buildModule('StorageModule', (m) => {
-  const storage = m.contract('Storage');
-
-  return { storage };
-});
+    Error fetching snippet from https://raw.githubusercontent.com/polkadot-developers/polkavm-hardhat-examples/refs/tags/v0.0.1/storage-hardhat/ignition/modules/StorageModule.js
     ```
 
 2. Deploy to the local network:

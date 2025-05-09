@@ -1,14 +1,7 @@
 // hardhat.config.js
 require('@nomicfoundation/hardhat-toolbox');
-require('@nomicfoundation/hardhat-network-helpers');
-require('@nomicfoundation/hardhat-chai-matchers');
-require('@nomicfoundation/hardhat-ethers');
-require('@nomicfoundation/hardhat-ignition');
-require('hardhat-gas-reporter');
 
 require('@parity/hardhat-polkadot');
-
-require('dotenv').config();
 
 /** @type import('hardhat/config').HardhatUserConfig */
 module.exports = {

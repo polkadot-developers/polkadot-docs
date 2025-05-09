@@ -50,7 +50,7 @@ Before getting started, ensure you have:
     npm install --save-dev hardhat@"<2.23.0" @nomicfoundation/hardhat-toolbox
     ```
 
-    To interact with Polkadot, Hardhat requires the followin plugins to compile contracts to PolkaVM bytecode and to spawn a local node compatible with PolkaVM.
+    To interact with Polkadot, Hardhat requires the following plugins to compile contracts to PolkaVM bytecode and to spawn a local node compatible with PolkaVM.
 
     ```bash
     npm install --save-dev @parity/hardhat-polkadot @parity/resolc
@@ -80,7 +80,7 @@ Before getting started, ensure you have:
 
 The plugin will compile your Solidity contracts for Solidity versions `0.8.0` and higher to be PolkaVM compatible. When compiling your contract, there are two ways to configure your compilation process:
 
-- **Npm compiler** - uses library [@parity/revive](https://www.npmjs.com/package/@parity/revive){target=\_blank} for simplicity and ease of use
+- **Npm compiler** - uses library [@parity/resolc](https://www.npmjs.com/package/@parity/resolc){target=\_blank} for simplicity and ease of use
 - **Binary compiler** - uses your local `resolc` binary directly for more control and configuration options
 
 To compile your project, follow these instructions:
@@ -170,7 +170,7 @@ Before deploying to a live network, you can deploy your contract to a local node
     npx hardhat node
     ```
 
-    This command will spawn a local substrate node along with the ETC-RPC adapter.
+    This command will spawn a local substrate node along with the ETH-RPC adapter.
 
 3. In a new terminal window, deploy the contract using Ignition:
 

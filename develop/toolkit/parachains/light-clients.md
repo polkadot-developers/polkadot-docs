@@ -1,6 +1,6 @@
 ---
 title: Light Clients
-description: Learn about Polkadot light clients, their importance, usage, and how they enable robust, cohesive, and secure application composition.
+description:Light clients enable secure and efficient blockchain interaction without running a full node. Learn everything you need to know about light clients on Polkadot.
 ---
 
 # Light Clients
@@ -23,7 +23,7 @@ Light clients are particularly valuable for resource-constrained environments an
 
 ## Light Clients Workflow
 
-Unlike JSON-RPC interfaces, where an application must either maintain a list of providers or rely on a single node, light clients are not limited to nor dependent on a single node. They use cryptographic proofs to verify the blockchain's state, ensuring it is both up-to-date and accurate. By verifying only block headers, light clients avoid syncing the entire state, making them ideal for resource-constrained environments.
+Unlike JSON-RPC interfaces, where an application must maintain a list of providers or rely on a single node, light clients are not limited to or dependent on a single node. They use cryptographic proofs to verify the blockchain's state, ensuring it is up-to-date and accurate. By verifying only block headers, light clients avoid syncing the entire state, making them ideal for resource-constrained environments.
 
 ```mermaid
 flowchart LR
@@ -33,20 +33,20 @@ LC -- Response --> DAPP
 FN -- Response (validated via Merkle proof) --> LC
 ```
 
-In the diagram above, the decentralized application queries on-chain account information through the light client. The light client, which runs as part of the application, requires minimal memory and computational resources. It uses Merkle proofs to verify the state retrieved from a full node in a trust-minimized manner. Polkadot-compatible light clients utilize [warp syncing](https://spec.polkadot.network/sect-lightclient#sect-sync-warp-lightclient){target=\_blank}, which downloads only block headers.
+In the diagram above, the decentralized application queries on-chain account information through the light client. The light client runs as part of the application and requires minimal memory and computational resources. It uses Merkle proofs to verify the state retrieved from a full node in a trust-minimized manner. Polkadot-compatible light clients utilize [warp syncing](https://spec.polkadot.network/sect-lightclient#sect-sync-warp-lightclient){target=\_blank}, which downloads only block headers.
 
 Light clients can quickly verify the blockchain's state, including [GRANDPA finality](/polkadot-protocol/glossary#grandpa){target=\_blank} justifications.
 
 !!!info "What does it mean to be 'trust-minimized'?"
-    "Trust-minimized" means that the light client does not need to fully trust the full node from which it retrieves state. This is achieved through the use of Merkle proofs, which allow the light client to verify the correctness of the state by checking the Merkle tree root.
+    "Trust-minimized" means that the light client does not need to fully trust the full node from which it retrieves the state. This is achieved through the use of Merkle proofs, which allow the light client to verify the correctness of the state by checking the Merkle tree root.
 
 ## JSON-RPC and Light Client Comparison
 
 Another common method of communication between a user interface (UI) and a node is through the JSON-RPC protocol. Generally, the UI retrieves information from the node, fetches network or [pallet](/polkadot-protocol/glossary#pallet){target=\_blank} data, and interacts with the blockchain. This is typically done in one of two ways:
 
-- **User-Controlled Nodes** - the UI connects to a node client installed on the user's machine
+- **User-controlled nodes** - the UI connects to a node client installed on the user's machine
     - These nodes are secure, but installation and maintenance can be inconvenient
-- **Publicly Accessible Nodes** - the UI connects to a third-party-owned publicly accessible node client
+- **Publicly accessible nodes** - the UI connects to a third-party-owned publicly accessible node client
     - These nodes are convenient but centralized and less secure. Applications must maintain a list of backup nodes in case the primary node becomes unavailable
 
 While light clients still communicate with [full nodes](/polkadot-protocol/glossary#full-node), they offer significant advantages for applications requiring a secure alternative to running a full node:
@@ -55,7 +55,7 @@ While light clients still communicate with [full nodes](/polkadot-protocol/gloss
 | :---------------------------------------------------------------------------------------------: | :------------------------------------------------------------: |
 | Fully verifies all blocks of the chain                                                          | Verifies only the authenticity of blocks                       |
 | Stores previous block data and the chain's storage in a database                                | Does not require a database                                    |
-| Installation, maintenance, and execution are resource-intensive and require technical expertise | No installation; typically included as part of the application |
+| Installation, maintenance, and execution are resource-intensive and require technical expertise | No installation is typically included as part of the application |
 
 ## Using Light Clients
 
@@ -63,7 +63,7 @@ The [`smoldot`](https://github.com/smol-dot/smoldot){target=\_blank} client is t
 
 ### PAPI Light Client Support
 
-The [Polkadot API (PAPI)](/develop//toolkit/api-libraries/papi){target=\_blank} library natively supports light client configurations, powered by [`smoldot`](https://github.com/smol-dot/smoldot){target=\_blank}. This allows developers to connect to multiple chains simultaneously using a light client.
+The [Polkadot API (PAPI)](/develop//toolkit/api-libraries/papi){target=\_blank} library natively supports light client configurations powered by [`smoldot`](https://github.com/smol-dot/smoldot){target=\_blank}. This allows developers to connect to multiple chains simultaneously using a light client.
 
 ### Substrate Connect - Browser Extension
 

@@ -33,7 +33,6 @@ Doc-Page: https://docs.polkadot.com/develop/parachains/testing/benchmarking/
 Doc-Page: https://docs.polkadot.com/develop/parachains/testing/
 Doc-Page: https://docs.polkadot.com/develop/parachains/testing/mock-runtime/
 Doc-Page: https://docs.polkadot.com/develop/parachains/testing/pallet-testing/
-Doc-Page: https://docs.polkadot.com/develop/smart-contracts/block-explorers/
 Doc-Page: https://docs.polkadot.com/develop/smart-contracts/connect-to-asset-hub/
 Doc-Page: https://docs.polkadot.com/develop/smart-contracts/connect-your-wallet/
 Doc-Page: https://docs.polkadot.com/develop/smart-contracts/dev-environments/hardhat/
@@ -1154,7 +1153,7 @@ This API can be used independently for dry-running, double-checking, or testing.
 This API allows a dry-run of any extrinsic and obtaining the outcome if it fails or succeeds, as well as the local xcm and remote xcm messages sent to other chains.
 
 ```rust
-fn dry_run_call(origin: OriginCaller, call: Call) -> Result<CallDryRunEffects<Event>, Error>;
+Error fetching snippet from https://raw.githubusercontent.com/paritytech/polkadot-sdk/refs/tags/polkadot-stable2412/polkadot/xcm/xcm-runtime-apis/src/dry_run.rs
 ```
 
 ??? interface "Input parameters"
@@ -1881,7 +1880,7 @@ client.destroy();
 This API allows the direct dry-run of an xcm message instead of an extrinsic one, checks if it will execute successfully, and determines what other xcm messages will be forwarded to other chains.
 
 ```rust
-fn dry_run_xcm(origin_location: VersionedLocation, xcm: VersionedXcm<Call>) -> Result<XcmDryRunEffects<Event>, Error>;
+Error fetching snippet from https://raw.githubusercontent.com/paritytech/polkadot-sdk/refs/tags/polkadot-stable2412/polkadot/xcm/xcm-runtime-apis/src/dry_run.rs
 ```
 
 ??? interface "Input parameters"
@@ -2111,7 +2110,7 @@ To use the API effectively, the client must already know the XCM program to be e
 Retrieves the list of assets that are acceptable for paying fees when using a specific XCM version
 
 ```rust
-fn query_acceptable_payment_assets(xcm_version: Version) -> Result<Vec<VersionedAssetId>, Error>;
+Error fetching snippet from https://raw.githubusercontent.com/paritytech/polkadot-sdk/refs/tags/polkadot-stable2412/polkadot/xcm/xcm-runtime-apis/src/fees.rs
 ```
 
 ??? interface "Input parameters"
@@ -6037,59 +6036,6 @@ Some key considerations are:
 </div>
 --- END CONTENT ---
 
-Doc-Content: https://docs.polkadot.com/develop/smart-contracts/block-explorers/
---- BEGIN CONTENT ---
-npm init -y---
-title: Block Explorers
-description: Access PolkaVM explorers like Subscan, BlockScout, and Routescan to track transactions, analyze contracts, and view on-chain data from smart contracts.
----
-
-# Block Explorers
-
-## Introduction
-
-Block explorers serve as comprehensive blockchain analytics platforms that provide access to on-chain data. These web applications function as search engines for blockchain networks, allowing users to query, visualize, and analyze blockchain data in real time through intuitive interfaces.
-
-## Core Functionality
-
-These block explorers provide essential capabilities for interacting with smart contracts in Polkadot Hub:
-
-- **Transaction tracking** - monitor transaction status, confirmations, fees, and metadata
-- **Address analysis** - view account balances, transaction history, and associated contracts
-- **Block information** - examine block contents
-- **Smart contract interaction** - review contract code, verification status, and interaction history
-- **Token tracking** - monitor ERC-20/ERC-721/other token standards with transfer history and holder analytics
-- **Network statistics** - access metrics on transaction volume, gas usage, and other network parameters
-
-## Available Block Explorers
-
-The following block explorers are available for PolkaVM smart contracts, providing specialized tools for monitoring and analyzing contract activity within the Polkadot ecosystem:
-
-### Subscan
-
-Subscan is the flagship Polkadot ecosystem block explorer with comprehensive support for PolkaVM smart contracts. It provides robust transaction indexing, account analysis, and monitoring tools specifically optimized for Polkadot SDK-based networks.
-
-- [Westend Hub Subscan](https://assethub-westend.subscan.io/){target=\_blank}
-
-![](/images/develop/smart-contracts/block-explorers/block-explorers-1.webp)
-
-### BlockScout
-
-BlockScout is an open-source explorer platform with a user-friendly interface adapted for PolkaVM contracts. It excels at detailed contract analytics and provides developers with comprehensive API access.
-
-- [Westend Hub BlockScout](https://blockscout-asset-hub.parity-chains-scw.parity.io/){target=\_blank}
-
-![](/images/develop/smart-contracts/block-explorers/block-explorers-2.webp)
-
-### Routescan
-
-Routescan delivers multi-chain explorer capabilities with specialized support for PolkaVM environments.
-
-- [Westend Hub Routescan](https://420420421.testnet.routescan.io/){target=\_blank}
-
-![](/images/develop/smart-contracts/block-explorers/block-explorers-3.webp)
---- END CONTENT ---
-
 Doc-Content: https://docs.polkadot.com/develop/smart-contracts/connect-to-asset-hub/
 --- BEGIN CONTENT ---
 ---
@@ -6199,6 +6145,23 @@ For example, to connect to the Westend Asset Hub TestNet via MetaMask, you need 
     ![](/images/develop/smart-contracts/connect-to-asset-hub/connect-to-asset-hub-4.webp){: .browser-extension}
 
 The steps in the preceding section can be used to connect to any Asset Hub chain by modifying the network specification and endpoint parameters.
+
+### Talisman
+
+[Talisman](https://talisman.xyz/){target=\_blank} is a specialized wallet for the Polkadot ecosystem that supports both Substrate and EVM accounts, making it an excellent choice for Asset Hub interactions. Talisman offers a more integrated experience for Polkadot-based chains while still providing Ethereum compatibility.
+
+To use Talisman with Polkadot Hub:
+
+1. Install the [Talisman extension](https://talisman.xyz/download){target=\_blank} and set up your wallet by following the on-screen instructions
+2. Once installed, click on the Talisman icon in your browser extensions and select Networks dropdown:  
+
+    ![](/images/develop/smart-contracts/connect-to-asset-hub/connect-to-asset-hub-7.webp){: .browser-extension}
+
+3. Search for **Westend Asset Hub** in the list of networks and select it (ensure that the checkbox **Enable Testnets** is selected to view the available testnet):
+
+    ![](/images/develop/smart-contracts/connect-to-asset-hub/connect-to-asset-hub-8.webp){: .browser-extension}
+
+After selecting the network, Talisman will automatically configure the necessary RPC URL and chain ID for you. You can now use Talisman to interact with the Westend Asset Hub.
 
 ## Test Tokens
 
@@ -32181,7 +32144,7 @@ Deployment is the process of publishing your compiled smart contract to the bloc
     ![](/images/tutorials/smart-contracts/deploy-erc20/deploy-erc20-6.webp)
 
 2. Configure the deployment settings
-    1. From the **ENVIRONMENT** dropdown, select **Injected Provider - Talisman** (check the [Deploying Contracts](/develop/smart-contracts/dev-environments/remix/#deploying-contracts){target=\_blank} section the Remix IDE guide for more details)
+    1. From the **ENVIRONMENT** dropdown, select **Injected Provider - Talisman** (check the [Deploying Contracts](/develop/smart-contracts/dev-environments/remix/#deploying-contracts){target=\_blank} section of the Remix IDE guide for more details)
     2. From the **ACCOUNT** dropdown, select the account you want to use for the deploy
 
     ![](/images/tutorials/smart-contracts/deploy-erc20/deploy-erc20-7.webp)
@@ -32348,7 +32311,7 @@ Deployment is the process of uploading your compiled smart contract to the block
     ![](/images/tutorials/smart-contracts/deploy-nft/deploy-nft-6.webp)
 
 2. Configure the deployment settings
-    1. From the **ENVIRONMENT** dropdown, select **Injected Provider - Talisman** (check the [Deploying Contracts](/develop/smart-contracts/dev-environments/remix/#deploying-contracts){target=\_blank} section the Remix IDE guide for more details)
+    1. From the **ENVIRONMENT** dropdown, select **Injected Provider - Talisman** (check the [Deploying Contracts](/develop/smart-contracts/dev-environments/remix/#deploying-contracts){target=\_blank} section of the Remix IDE guide for more details)
     2. From the **ACCOUNT** dropdown, select the account you want to use for the deploy
 
     ![](/images/tutorials/smart-contracts/deploy-nft/deploy-nft-7.webp)
@@ -32997,64 +32960,7 @@ And you will see the following:
 Now, let's create a component to read data from the contract. Create a file called `components/ReadContract.js`:
 
 ```javascript title="ReadContract.js"
-'use client';
-
-import React, { useState, useEffect } from 'react';
-import { getContract } from '../utils/contract';
-
-const ReadContract = () => {
-  const [storedNumber, setStoredNumber] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
-
-  useEffect(() => {
-    // Function to read data from the blockchain
-    const fetchData = async () => {
-      try {
-        setLoading(true);
-        const contract = getContract();
-        // Call the smart contract's storedNumber function
-        const number = await contract.storedNumber();
-        setStoredNumber(number.toString());
-        setError(null);
-      } catch (err) {
-        console.error('Error fetching stored number:', err);
-        setError('Failed to fetch data from the contract');
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchData();
-
-    // Poll for updates every 10 seconds to keep UI in sync with blockchain
-    const interval = setInterval(fetchData, 10000);
-
-    // Clean up interval on component unmount
-    return () => clearInterval(interval);
-  }, []);
-
-  return (
-    <div className="border border-pink-500 rounded-lg p-4 shadow-md bg-white text-pink-500 max-w-sm mx-auto">
-      <h2 className="text-lg font-bold text-center mb-4">Contract Data</h2>
-      {loading ? (
-        <div className="flex justify-center my-4">
-          <div className="w-6 h-6 border-4 border-pink-500 border-t-transparent rounded-full animate-spin"></div>
-        </div>
-      ) : error ? (
-        <p className="text-red-500 text-center">{error}</p>
-      ) : (
-        <div className="text-center">
-          <p className="text-sm font-mono bg-pink-100 px-2 py-1 rounded-md text-pink-700">
-            <strong>Stored Number:</strong> {storedNumber}
-          </p>
-        </div>
-      )}
-    </div>
-  );
-};
-
-export default ReadContract;
+Error fetching snippet from https://raw.githubusercontent.com/polkadot-developers/polkavm-storage-contract-dapps/refs/tags/v0.0.1/ethers-dapp/app/components/ReadContract.js
 ```
 
 This component reads the `storedNumber` value from the contract and displays it to the user. It also sets up a polling interval to refresh the data periodically.
@@ -33654,19 +33560,7 @@ To use this component in your dApp, replace the existing boilerplate in `app/pag
 
 ```typescript title="page.tsx"
 Invalid snippet reference: https://raw.githubusercontent.com/polkadot-developers/polkavm-storage-contract-dapps/refs/tags/v0.0.1/viem-dapp/app/page.tsx::4
-export default function Home() {
-  const [account, setAccount] = useState<string | null>(null);
-
-  const handleConnect = (connectedAccount: string) => {
-    setAccount(connectedAccount);
-  };
-
-  return (
-    <section className="min-h-screen bg-white text-black flex flex-col justify-center items-center gap-4 py-10">
-      <h1 className="text-2xl font-semibold text-center">
-        Viem dApp - Asset Hub Smart Contracts
-      </h1>
-      <WalletConnect onConnect={handleConnect} />
+Error fetching snippet from https://raw.githubusercontent.com/polkadot-developers/polkavm-storage-contract-dapps/refs/tags/v0.0.1/viem-dapp/app/page.tsx
 </section>
   );
 }
@@ -33787,223 +33681,7 @@ And you will see in your browser:
 Finally, let's create a component that allows users to update the stored number. Create a file called `components/WriteContract.tsx`:
 
 ```typescript title="WriteContract.tsx"
-"use client";
-
-import React, { useState, useEffect } from "react";
-import { publicClient, getWalletClient } from "../utils/viem";
-import { CONTRACT_ADDRESS, CONTRACT_ABI } from "../utils/contract";
-
-interface WriteContractProps {
-  account: string | null;
-}
-
-const WriteContract: React.FC<WriteContractProps> = ({ account }) => {
-  const [newNumber, setNewNumber] = useState<string>("");
-  const [status, setStatus] = useState<{
-    type: string | null;
-    message: string;
-  }>({
-    type: null,
-    message: "",
-  });
-  const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
-  const [isCorrectNetwork, setIsCorrectNetwork] = useState<boolean>(true);
-
-  // Check if the account is on the correct network
-  useEffect(() => {
-    const checkNetwork = async () => {
-      if (!account) return;
-
-      try {
-        // Get the chainId from the public client
-        const chainId = await publicClient.getChainId();
-
-        // Get the user's current chainId from their wallet
-        const walletClient = await getWalletClient();
-        if (!walletClient) return;
-
-        const walletChainId = await walletClient.getChainId();
-
-        // Check if they match
-        setIsCorrectNetwork(chainId === walletChainId);
-      } catch (err) {
-        console.error("Error checking network:", err);
-        setIsCorrectNetwork(false);
-      }
-    };
-
-    checkNetwork();
-  }, [account]);
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-
-    // Validation checks
-    if (!account) {
-      setStatus({ type: "error", message: "Please connect your wallet first" });
-      return;
-    }
-
-    if (!isCorrectNetwork) {
-      setStatus({
-        type: "error",
-        message: "Please switch to the correct network in your wallet",
-      });
-      return;
-    }
-
-    if (!newNumber || isNaN(Number(newNumber))) {
-      setStatus({ type: "error", message: "Please enter a valid number" });
-      return;
-    }
-
-    try {
-      setIsSubmitting(true);
-      setStatus({ type: "info", message: "Initiating transaction..." });
-
-      // Get wallet client for transaction signing
-      const walletClient = await getWalletClient();
-
-      if (!walletClient) {
-        setStatus({ type: "error", message: "Wallet client not available" });
-        return;
-      }
-
-      // Check if account matches
-      if (
-        walletClient.account?.address.toLowerCase() !== account.toLowerCase()
-      ) {
-        setStatus({
-          type: "error",
-          message:
-            "Connected wallet account doesn't match the selected account",
-        });
-        return;
-      }
-
-      // Prepare transaction and wait for user confirmation in wallet
-      setStatus({
-        type: "info",
-        message: "Please confirm the transaction in your wallet...",
-      });
-
-      // Simulate the contract call first
-      console.log('newNumber', newNumber);
-      const { request } = await publicClient.simulateContract({
-        address: CONTRACT_ADDRESS,
-        abi: CONTRACT_ABI,
-        functionName: "setNumber",
-        args: [BigInt(newNumber)],
-        account: walletClient.account,
-      });
-
-      // Send the transaction with wallet client
-      const hash = await walletClient.writeContract(request);
-
-      // Wait for transaction to be mined
-      setStatus({
-        type: "info",
-        message: "Transaction submitted. Waiting for confirmation...",
-      });
-
-      const receipt = await publicClient.waitForTransactionReceipt({
-        hash,
-      });
-
-      setStatus({
-        type: "success",
-        message: `Transaction confirmed! Transaction hash: ${receipt.transactionHash}`,
-      });
-
-      setNewNumber("");
-    } catch (err: any) {
-      console.error("Error updating number:", err);
-
-      // Handle specific errors
-      if (err.code === 4001) {
-        // User rejected transaction
-        setStatus({ type: "error", message: "Transaction rejected by user." });
-      } else if (err.message?.includes("Account not found")) {
-        // Account not found on the network
-        setStatus({
-          type: "error",
-          message:
-            "Account not found on current network. Please check your wallet is connected to the correct network.",
-        });
-      } else if (err.message?.includes("JSON is not a valid request object")) {
-        // JSON error - specific to your current issue
-        setStatus({
-          type: "error",
-          message:
-            "Invalid request format. Please try again or contact support.",
-        });
-      } else {
-        // Other errors
-        setStatus({
-          type: "error",
-          message: `Error: ${err.message || "Failed to send transaction"}`,
-        });
-      }
-    } finally {
-      setIsSubmitting(false);
-    }
-  };
-
-  return (
-    <div className="border border-pink-500 rounded-lg p-4 shadow-md bg-white text-pink-500 max-w-sm mx-auto space-y-4">
-      <h2 className="text-lg font-bold">Update Stored Number</h2>
-
-      {!isCorrectNetwork && account && (
-        <div className="p-2 rounded-md bg-yellow-100 text-yellow-700 text-sm">
-          ⚠️ You are not connected to the correct network. Please switch
-          networks in your wallet.
-        </div>
-      )}
-
-      {status.message && (
-        <div
-          className={`p-2 rounded-md break-words h-fit text-sm ${
-            status.type === "error"
-              ? "bg-red-100 text-red-500"
-              : status.type === "success"
-              ? "bg-green-100 text-green-700"
-              : "bg-blue-100 text-blue-700"
-          }`}
-        >
-          {status.message}
-        </div>
-      )}
-
-      <form onSubmit={handleSubmit} className="space-y-4">
-        <input
-          type="number"
-          placeholder="New Number"
-          value={newNumber}
-          onChange={(e) => setNewNumber(e.target.value)}
-          disabled={isSubmitting || !account}
-          className="w-full p-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-pink-400"
-        />
-        <button
-          type="submit"
-          disabled={
-            isSubmitting || !account || (!isCorrectNetwork && !!account)
-          }
-          className="w-full bg-pink-500 hover:bg-pink-600 text-white font-bold py-2 px-4 rounded-lg transition disabled:bg-gray-300"
-        >
-          {isSubmitting ? "Updating..." : "Update"}
-        </button>
-      </form>
-
-      {!account && (
-        <p className="text-sm text-gray-500">
-          Connect your wallet to update the stored number.
-        </p>
-      )}
-    </div>
-  );
-};
-
-export default WriteContract;
+Error fetching snippet from https://raw.githubusercontent.com/polkadot-developers/polkavm-storage-contract-dapps/refs/tags/v0.0.1/viem-dapp/app/components/WriteContract.tsx
 ```
 
 This component allows users to input a new number and send a transaction to update the value stored in the contract. It provides appropriate feedback during each step of the transaction process and handles error scenarios.

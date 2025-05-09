@@ -8,7 +8,6 @@ description: Learn how to unlock your parachain. This step-by-step guide covers 
 ## Introduction
 
 Parachain locks are a critical security mechanism in the Polkadot ecosystem designed to maintain decentralization during the parachain lifecycle. These locks prevent potential centralization risks that could emerge during the early stages of parachain operation.
-The locking system operates under strict and well-defined conditions, distributing control across multiple authorities.
 
 The locking system follows strict, well-defined conditions that distribute control across multiple authorities:
 
@@ -22,7 +21,7 @@ Similarly, unlocking a parachain follows controlled procedures:
 - Relay chain governance retains the authority to unlock any parachain
 - A parachain can unlock its own lock
 
-This document guides you through checking a parachain's lock status and safely executing the unlock procedure from a parachain using XCM (Cross-Consensus Messaging).
+This document guides you through checking a parachain's lock status and safely executing the unlock procedure from a parachain using [XCM (Cross-Consensus Messaging)](/develop/interoperability/intro-to-xcm/){target=\_blank}.
 
 ## Check If the Parachain Is Locked
 
@@ -36,6 +35,9 @@ Before unlocking a parachain, you should verify its current lock status. This ca
     3. Input the parachain ID you want to check as a parameter (e.g. `2006`)
     4. Click the **+** button to execute the query
     5. Check the status of the parachain lock
+        - **`manager`** - the account that has placed a deposit for registering this parachain
+        - **`deposit`** - the amount reserved by the `manager` account for the registration
+        - **`locked`** - whether the parachain registration should be locked from being controlled by the manager
 
     ![](/images/develop/parachains/maintenance/unlock-parachain/unlock-parachain-1.webp)
 
@@ -61,9 +63,11 @@ Before sending the XCM, you need to construct the relay chain call that will be 
 
     ![](/images/develop/parachains/maintenance/unlock-parachain/unlock-parachain-2.webp)
 
+    To ensure your encoded call data is correct, check this [example](https://polkadot.js.org/apps/?rpc=wss%3A%2F%2Fdot-rpc.stakeworld.io#/extrinsics/decode/0x4604d6070000){target=\_blank} of a decoded `removeLock` call for parachain 2006. Your encoded data should follow the same pattern.
+
 3. Determine the transaction weight required for executing the call. You can estimate this by executing the `transactionPaymentCallApi.queryCallInfo` runtime call with the encoded call data previously obtained:
 
-    ![](/images/develop/parachains/deployment/coretime-renewal/coretime-renewal-3.webp)
+    ![](/images/develop/parachains/maintenance/unlock-parachain/unlock-parachain-3.webp)
 
     This weight information is crucial for properly configuring your XCM message's execution parameters in the next steps.
 
@@ -73,10 +77,17 @@ For a successful XCM execution, the [sovereign account](https://github.com/polka
 
 You can identify your parachain's sovereign account using either of these methods:
 
-- Use the **"Para ID" to Address** section in [Substrate Utilities](https://www.shawntabrizi.com/substrate-js-utilities/){target=\_blank} with the **Sibling** option selected
+=== "Runtime API"
 
-- Calculate it manually:
+    Execute the `locationToAccountApi.convertLocation` runtime API call to convert your parachain's location into its sovereign account address on the relay chain.
 
+    ![](/images/develop/parachains/maintenance/unlock-parachain/unlock-parachain-7.webp)
+
+=== "Substrate Utilities"
+
+    Use the **"Para ID" to Address** section in [Substrate Utilities](https://www.shawntabrizi.com/substrate-js-utilities/){target=\_blank} with the **Child** option selected.
+
+=== "Manual Calculation"
     1. Identify the appropriate prefix:
 
         - For parent/child chains use the prefix `0x70617261` (which decodes to `b"para"`)
@@ -89,8 +100,8 @@ You can identify your parachain's sovereign account using either of these method
 
         - **Hex** - `0x70617261d6070000000000000000000000000000000000000000000000000000`
         - **SS58 format** - `5Ec4AhPW97z4ZyYkd3mYkJrSeZWcwVv4wiANES2QrJi1x17F`
-  
-You can transfer funds to this account from any account on the relay chain using a standard transfer.
+
+You can transfer funds to this account from any account on the relay chain using a standard transfer. To calculate the amount needed, refer to the [XCM Payment API](/develop/interoperability/xcm-runtime-apis/#xcm-payment-api){target=\_blank}. The calculation will depend on the XCM built in the next step.
 
 ### Craft and Submit the XCM
 
@@ -111,11 +122,15 @@ Here's how to submit this XCM using Astar (Parachain 2006) as an example:
     3. Choose the **send** extrinsic
     4. Set the **dest** parameter as the relay chain
 
-    ![](/images/develop/parachains/maintenance/unlock-parachain/unlock-parachain-4.webp) 
+    ![](/images/develop/parachains/maintenance/unlock-parachain/unlock-parachain-4.webp)
 
 3. Construct the XCM and submit it:
     1. Add a **WithdrawAsset** instruction
     2. Add a **BuyExecution** instruction
+        - **fees**
+            - **id** - the asset location to use for the fee payment. In this example, the relay chain native asset is used
+            - **fun** - select `Fungible` and use the same amount you withdrew from the sovereign account in the previous step
+        - **weightLimit** - use `Unlimited`
     3. Add a **Transact** instruction with the following parameters:
         - **originKind** - use `Native`
         - **requireWeightAtMost** - use the weight calculated previously
@@ -126,6 +141,10 @@ Here's how to submit this XCM using Astar (Parachain 2006) as an example:
 
     ![](/images/develop/parachains/maintenance/unlock-parachain/unlock-parachain-5.webp)
 
-After submitting the transaction, wait for it to be finalized and then verify that your parachain has been successfully unlocked by following the steps described in the [Check if a Parachain is Locked](#check-if-a-parachain-is-locked) section. If the parachain shows as unlocked, your operation has been successful. If it still appears locked, verify that your XCM transaction was processed correctly and consider troubleshooting the XCM built.
+    If the amount withdrawn in the first instruction is exactly the amount needed to pay the transaction fees, instructions 4 and 5 can be omitted.
+
+    To validate your XCM, examine the following reference [extrinsic](https://polkadot.js.org/apps/?rpc=wss%3A%2F%2Fastar.public.curie.radiumblock.co%2Fws#/extrinsics/decode/0x63003300040100041400040000000700e40b5402130000000700e40b540200060042d3c91800184604d6070000140d0100000100591f){target=_blank} showing the proper instruction sequence and parameter formatting. Following this structure will help ensure successful execution of your message.
+
+After submitting the transaction, wait for it to be finalized and then verify that your parachain has been successfully unlocked by following the steps described in the [Check if the Parachain is Locked](#check-if-the-parachain-is-locked) section. If the parachain shows as unlocked, your operation has been successful. If it still appears locked, verify that your XCM transaction was processed correctly and consider troubleshooting the XCM built.
 
 ![](/images/develop/parachains/maintenance/unlock-parachain/unlock-parachain-6.webp)

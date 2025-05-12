@@ -3,7 +3,7 @@ import type { PolkadotApi } from '@dedot/chaintypes';
 import * as smoldot from 'smoldot';
 
 // import `polkadot` chain spec to connect to Polkadot
-import { polkadot } from '@substrate/connect-known-chains'
+import { polkadot } from '@substrate/connect-known-chains';
 
 // Start smoldot instance & initialize a chain
 const client = smoldot.start();

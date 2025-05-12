@@ -1,28 +1,31 @@
 const hre = require('hardhat');
 
 async function main() {
-  // Get the contract instance
-  const Lock = await hre.ethers.getContractFactory('Lock');
-  const contractAddress = '0x46E0a43DC905a5b8FA9Fc4dA61774abE31a098a5';
-  const lock = await Lock.attach(contractAddress);
+  // Get the contract factory
+  const MyToken = await hre.ethers.getContractFactory('MyToken');
+
+  // Replace with your deployed contract address
+  const contractAddress = '0x9E06fbc6648592135d60E0071dE845f95cD1878f';
+
+  // Attach to existing contract
+  const token = await MyToken.attach(contractAddress);
+
+  // Get signers
+  const [deployer] = await hre.ethers.getSigners();
 
   // Read contract state
-  const unlockTime = await lock.unlockTime();
+  const name = await token.name();
+  const symbol = await token.symbol();
+  const totalSupply = await token.totalSupply();
+  const balance = await token.balanceOf(deployer.address);
 
-  const unlockTimestamp = Number(unlockTime);
-  console.log(`Unlock time: ${new Date(unlockTimestamp)}`);
-
-  const balance = await hre.ethers.provider.getBalance(lock.target);
-  console.log(`Contract balance: ${hre.ethers.formatEther(balance)} ETH`);
-
-  // Interact with contract (transaction)
-  try {
-    const tx = await lock.withdraw();
-    await tx.wait();
-    console.log('Withdrawal successful!');
-  } catch (error) {
-    console.error(`Error during withdrawal: ${error.message}`);
-  }
+  console.log(`Token: ${name} (${symbol})`);
+  console.log(
+    `Total Supply: ${hre.ethers.formatUnits(totalSupply, 18)} tokens`
+  );
+  console.log(
+    `Deployer Balance: ${hre.ethers.formatUnits(balance, 18)} tokens`
+  );
 }
 
 main().catch((error) => {

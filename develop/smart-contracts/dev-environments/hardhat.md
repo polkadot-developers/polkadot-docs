@@ -44,22 +44,16 @@ Before getting started, ensure you have:
     npm init -y
     ```
 
-3. Install Hardhat and the required plugins:
+3. To interact with Polkadot, Hardhat requires the following plugins to compile contracts to PolkaVM bytecode and to spawn a local node compatible with PolkaVM.
 
     ```bash
-    npm install --save-dev hardhat@"<2.23.0" @nomicfoundation/hardhat-toolbox
-    ```
-
-    To interact with Polkadot, Hardhat requires the following plugins to compile contracts to PolkaVM bytecode and to spawn a local node compatible with PolkaVM.
-
-    ```bash
-    npm install --save-dev @parity/hardhat-polkadot @parity/resolc
+    npm install --save-dev @parity/hardhat-polkadot
     ```
 
 4. Create a Hardhat project:
 
     ```bash
-    npx hardhat init
+    npx hardhat-polkadot init
     ```
 
     Select "Create a JavaScript project" when prompted and follow the instructions. After that, your project will be created with three main folders:
@@ -68,13 +62,14 @@ Before getting started, ensure you have:
     - **`test`** - contains your test files that validate contract functionality
     - **`ignition`** - deployment modules for safely deploying your contracts to various networks
 
-5. Update your Hardhat configuration file (`hardhat.config.js`) to include the `hardhat-polkadot` plugin:
+5. Finish the setup by installing all the dependencies:
 
-    ```javascript title="hardhat.config.js" hl_lines="4-4"
-    --8<-- 'code/develop/smart-contracts/dev-environments/hardhat/hardhat.config.js:1:7'
-      // Additional configuration will be added later
-    --8<-- 'code/develop/smart-contracts/dev-environments/hardhat/hardhat.config.js:60:60'
+    ```bash
+    npm install
     ```
+
+    !!! note
+        This last step is needed for how the `hardhat-polkadot` plugin is set up. It will install the `@parity/hardhat-polkadot` package and all its dependencies. In the future this will be handled automatically by the plugin.
 
 ## Compiling Your Contract
 
@@ -128,17 +123,33 @@ To compile your project, follow these instructions:
 
 When testing your contract, be aware that [`@nomicfoundation/hardhat-toolbox/network-helpers`](https://hardhat.org/hardhat-network-helpers/docs/overview){target=\_blank} is not fully compatible with Asset Hub's available RPCs. Specifically, Hardhat-only helpers like `time` and `loadFixture` may not work due to missing RPC calls in the node. For more details, refer to the [Compatibility](https://github.com/paritytech/hardhat-revive/tree/main/packages/hardhat-revive-node#compatibility){target=\_blank} section in the `hardhat-revive` docs.
 
-You should avoid using helpers like `time` and `loadFixture` when writing tests. For example, for the `Lock.sol` contract, you can replace the default test file under `tests/Lock.js` with the following logic:
+You should avoid using helpers like `time` and `loadFixture` when writing tests. 
 
-```javascript title="Lock.js"
---8<-- "code/develop/smart-contracts/dev-environments/hardhat/lock-test.js"
-```
+To run your test:
 
-To run your test, execute the following command:
+1. Update the `hardhat.config.js` file to specify the path of the local node and the ETH-RPC adapter:
 
-```bash
-npx hardhat test
-```
+    === "Npm Configuration"
+
+        ```javascript title="hardhat.config.js" hl_lines="25-33"
+        --8<-- 'code/develop/smart-contracts/dev-environments/hardhat/hardhat.config.js:1:21'
+          --8<-- 'code/develop/smart-contracts/dev-environments/hardhat/hardhat.config.js:37:49'
+        --8<-- 'code/develop/smart-contracts/dev-environments/hardhat/hardhat.config.js:59:60'
+        ```
+
+    === "Binary Configuration"
+
+        ```javascript title="hardhat.config.js" hl_lines="27-35"
+        --8<-- 'code/develop/smart-contracts/dev-environments/hardhat/hardhat.config.js:1:8'
+          --8<-- 'code/develop/smart-contracts/dev-environments/hardhat/hardhat.config.js:22:49'
+        --8<-- 'code/develop/smart-contracts/dev-environments/hardhat/hardhat.config.js:59:60'
+        ```
+
+2. Execute the following command:
+
+    ```bash
+    npx hardhat test
+    ```
 
 ## Deploying with a Local Node
 
@@ -152,11 +163,11 @@ Before deploying to a live network, you can deploy your contract to a local node
     
     This limitation is established by Hardhat based on Ethereum's default contract size limits. While Hardhat can disable this limitation, technical constraints currently prevent it from being applied to the PolkaVM test environment.
 
-1. Update the Hardhat configuration file to add the local node as a target for local deployment:
+1. Update the Hardhat configuration file to add the local network as a target for local deployment:
 
     === "Npm Configuration"
 
-        ```javascript title="hardhat.config.js" hl_lines="22-39"
+        ```javascript title="hardhat.config.js" hl_lines="35-38"
         --8<-- 'code/develop/smart-contracts/dev-environments/hardhat/hardhat.config.js:1:21'
           --8<-- 'code/develop/smart-contracts/dev-environments/hardhat/hardhat.config.js:37:53'
         --8<-- 'code/develop/smart-contracts/dev-environments/hardhat/hardhat.config.js:59:60'
@@ -164,7 +175,7 @@ Before deploying to a live network, you can deploy your contract to a local node
 
     === "Binary Configuration"
 
-        ```javascript title="hardhat.config.js" hl_lines="24-41"
+        ```javascript title="hardhat.config.js" hl_lines="37-40"
         --8<-- 'code/develop/smart-contracts/dev-environments/hardhat/hardhat.config.js:1:8'
           --8<-- 'code/develop/smart-contracts/dev-environments/hardhat/hardhat.config.js:22:53'
         --8<-- 'code/develop/smart-contracts/dev-environments/hardhat/hardhat.config.js:59:60'
@@ -181,7 +192,7 @@ Before deploying to a live network, you can deploy your contract to a local node
 3. In a new terminal window, deploy the contract using Ignition:
 
     ```bash
-    npx hardhat ignition deploy ./ignition/modules/Lock.js --network localNode
+    npx hardhat ignition deploy ./ignition/modules/MyToken.js --network localNode
     ```
 
 ## Deploying to a Live Network
@@ -216,23 +227,33 @@ After testing your contract locally, you can deploy it to a live network. This g
 
     --8<-- 'code/develop/smart-contracts/dev-environments/hardhat/hardhat.config.js:6:7'
       // The rest remains the same...
-    --8<-- 'code/develop/smart-contracts/dev-environments/hardhat/hardhat.config.js:50:50'
+    --8<-- 'code/develop/smart-contracts/dev-environments/hardhat/hardhat.config.js:60:60'
     ```
 
 5. Update your Hardhat configuration file with network settings for the Polkadot network you want to target:
 
     === "Npm Configuration"
 
-        ```javascript title="hardhat.config.js" hl_lines="39-43"
-        --8<-- 'code/develop/smart-contracts/dev-environments/hardhat/hardhat.config.js:1:21'
+        ```javascript title="hardhat.config.js" hl_lines="42-46"
+        --8<-- 'code/develop/smart-contracts/dev-environments/hardhat/hardhat.config.js:1:4'
+
+        require('dotenv').config();
+
+        --8<-- 'code/develop/smart-contracts/dev-environments/hardhat/hardhat.config.js:6:21'
+
           --8<-- 'code/develop/smart-contracts/dev-environments/hardhat/hardhat.config.js:37:58'
         --8<-- 'code/develop/smart-contracts/dev-environments/hardhat/hardhat.config.js:59:60'
         ```
 
     === "Binary Configuration"
 
-        ```javascript title="hardhat.config.js" hl_lines="41-45"
-        --8<-- 'code/develop/smart-contracts/dev-environments/hardhat/hardhat.config.js:1:8'
+        ```javascript title="hardhat.config.js" hl_lines="46-50"
+        --8<-- 'code/develop/smart-contracts/dev-environments/hardhat/hardhat.config.js:1:4'
+
+        require('dotenv').config();
+
+        --8<-- 'code/develop/smart-contracts/dev-environments/hardhat/hardhat.config.js:4:8'
+        
           --8<-- 'code/develop/smart-contracts/dev-environments/hardhat/hardhat.config.js:22:58'
         --8<-- 'code/develop/smart-contracts/dev-environments/hardhat/hardhat.config.js:59:60'
         ```
@@ -240,14 +261,14 @@ After testing your contract locally, you can deploy it to a live network. This g
 5. Deploy your contract using Ignition:
 
     ```bash
-    npx hardhat ignition deploy ./ignition/modules/Lock.js --network westendHub
+    npx hardhat ignition deploy ./ignition/modules/MyToken.js --network westendHub
     ```
 
 ## Interacting with Your Contract
 
 Once deployed, you can create a script to interact with your contract. To do so, create a file called `scripts/interact.js` and add some logic to interact with the contract. 
 
-For example, for the default `Lock.sol` contract, you can use the following file that connects to the contract at its address and retrieves the `unlockTime`, which represents when funds can be withdrawn. The script converts this timestamp into a readable date and logs it. It then checks the contract's balance and displays it. Finally, it attempts to call the withdrawal function on the contract, but it catches and logs the error message if the withdrawal is not yet allowed (e.g., before `unlockTime`).
+For example, for the default `MyToken.sol` contract, you can use the following file that connects to the contract at its address and retrieves the `unlockTime`, which represents when funds can be withdrawn. The script converts this timestamp into a readable date and logs it. It then checks the contract's balance and displays it. Finally, it attempts to call the withdrawal function on the contract, but it catches and logs the error message if the withdrawal is not yet allowed (e.g., before `unlockTime`).
 
 ```javascript title="interact.js"
 --8<-- 'code/develop/smart-contracts/dev-environments/hardhat/interact.js'

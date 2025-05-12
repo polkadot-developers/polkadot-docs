@@ -23,7 +23,7 @@ description: Dedot is a next-gen JavaScript client for Polkadot and Polkadot SDK
 
 - **Wallet integration** – works out-of-the-box with [@polkadot/extension-based](https://github.com/polkadot-js/extension?tab=readme-ov-file#api-interface){target=\_blank} wallets
 
-- **Familiar API design** – similar API style with Polkadot.js for easy and fast migration
+- **Familiar API design** – similar API style to Polkadot.js for easy and fast migration
 
 ## Installation
 
@@ -63,14 +63,14 @@ To enable auto-completion/IntelliSense for individual chains, install the [`@ded
 
 ## Get Started
 
-### Initialize a client instance to connect to the networks
+### Initialize a Client Instance
 
 To connect to and interact with different networks, Dedot provides two client options depending on your needs:
 
-- **[DedotClient](https://docs.dedot.dev/clients-and-providers/clients#dedotclient){target=\_blank}** - interacts with chains via the [new JSON-RPC APIs](https://paritytech.github.io/json-rpc-interface-spec/introduction.html){target=\_blank}
-- **[LegacyClient](https://docs.dedot.dev/clients-and-providers/clients#legacyclient){target=\_blank}** - interacts with chains via the [legacy JSON-RPC APIs](https://github.com/w3f/PSPs/blob/master/PSPs/drafts/psp-6.md){target=\_blank}
+- **[`DedotClient`](https://docs.dedot.dev/clients-and-providers/clients#dedotclient){target=\_blank}** - interacts with chains via the [new JSON-RPC APIs](https://paritytech.github.io/json-rpc-interface-spec/introduction.html){target=\_blank}
+- **[`LegacyClient`](https://docs.dedot.dev/clients-and-providers/clients#legacyclient){target=\_blank}** - interacts with chains via the [legacy JSON-RPC APIs](https://github.com/w3f/PSPs/blob/master/PSPs/drafts/psp-6.md){target=\_blank}
 
-Let's connect to Polkadot network using `DedotClient`:
+Use the following snippets to connect to Polkadot using `DedotClient`:
 
 === "WebSocket"
 
@@ -84,21 +84,21 @@ Let's connect to Polkadot network using `DedotClient`:
     --8<-- "code/develop/toolkit/api-libraries/dedot/client-initialization-via-smoldot.ts"
     ```
 
-If the node doesn't support new JSON-RPC APIs yet, you can connect to the network using the `LegacyClient` which is built on top of the legacy JSON-RPC APIs.
+If the node doesn't support new JSON-RPC APIs yet, you can connect to the network using the `LegacyClient`, which is built on top of the legacy JSON-RPC APIs.
 
 ```typescript
 --8<-- "code/develop/toolkit/api-libraries/dedot/legacy-client-initialization.ts"
 ```
 
-### Pick a `ChainApi` interface for the connected network
+### Enable Type and API Suggestions
 
-We recommend specifying the `ChainApi` interface (e.g: `PolkadotApi` in the example above) of the chain that you want to interact with. This enables types and APIs suggestion/autocompletion for that particular chain (via IntelliSense). If you don't specify a `ChainApi` interface, a default `SubstrateApi` interface will be used.
+It is recommended to specify the `ChainApi` interface (e.g., `PolkadotApi` in the example in the previous section) of the chain you want to interact with. This enables type and API suggestions/autocompletion for that particular chain (via IntelliSense). If you don't specify a `ChainApi` interface, a default `SubstrateApi` interface will be used.
 
 ```typescript
 --8<-- "code/develop/toolkit/api-libraries/dedot/pick-chainapi-interface.ts"
 ```
 
-If you don't find the `ChainApi` for the network that you're working with in [the list](https://github.com/dedotdev/chaintypes?tab=readme-ov-file#supported-networks){target=\_blank}, you can generate the `ChainApi` (types and APIs) for it using the built-in [dedot cli](https://docs.dedot.dev/cli){target=\_blank}.
+If you don't find the `ChainApi` for the network you're working with in [the list](https://github.com/dedotdev/chaintypes?tab=readme-ov-file#supported-networks){target=\_blank}, you can generate the `ChainApi` (types and APIs) using the built-in [`dedot` cli](https://docs.dedot.dev/cli){target=\_blank}.
 
 ```bash
 # Generate ChainApi interface for Polkadot network via rpc endpoint: wss://rpc.polkadot.io
@@ -107,7 +107,7 @@ npx dedot chaintypes -w wss://rpc.polkadot.io
 
 Or open a pull request to add your favorite network to the [`@dedot/chaintypes`](https://github.com/dedotdev/chaintypes){target=\_blank} repo.
 
-### Reading On-Chain Data
+### Read On-Chain Data
 
 Dedot provides several ways to read data from the chain:
 
@@ -149,7 +149,7 @@ Dedot provides several ways to read data from the chain:
     --8<-- "code/develop/toolkit/api-libraries/dedot/watch-on-chain-events.ts"
     ```
 
-### Signing & Sending Transactions
+### Sign and Send Transactions
 
 Sign the transaction using `IKeyringPair` from Keyring ([`@polkadot/keyring`](https://polkadot.js.org/docs/keyring/start/sign-verify){target=\_blank}) and send the transaction.
 

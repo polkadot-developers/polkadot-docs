@@ -113,7 +113,7 @@ Dedot provides several ways to read data from the chain:
 
 - **Access runtime constants**:
 
-    Runtime constants (parameter types) can be inspected with syntax: `client.consts.<pallet>.<constantName>`.    
+    Runtime constants (parameter types) can be inspected with the syntax: `client.consts.<pallet>.<constantName>`.    
 
     ```typescript
     --8<-- "code/develop/toolkit/api-libraries/dedot/runtime-constants.ts"
@@ -121,7 +121,7 @@ Dedot provides several ways to read data from the chain:
 
 - **Storage queries**:
 
-    On-chain storage can be queried with syntax: `client.query.<pallet>.<storgeEntry>`.
+    On-chain storage can be queried with the syntax: `client.query.<pallet>.<storgeEntry>`.
 
     ```typescript
     --8<-- "code/develop/toolkit/api-libraries/dedot/storage-queries.ts"
@@ -135,7 +135,7 @@ Dedot provides several ways to read data from the chain:
 
 - **Call Runtime APIs**:
 
-    Runtime APIs can be executed with syntax `client.call.<runtimeApi>.<methodName>`.
+    Runtime APIs can be executed with the syntax `client.call.<runtimeApi>.<methodName>`.
 
     ```typescript
     --8<-- "code/develop/toolkit/api-libraries/dedot/call-runtime-apis.ts"
@@ -143,7 +143,7 @@ Dedot provides several ways to read data from the chain:
 
 - **Watching on-chain events**:
 
-    Pallet events can be accessed with syntax: `client.events.<pallet>.<eventName>`.
+    Pallet events can be accessed with the syntax: `client.events.<pallet>.<eventName>`.
     
     ```typescript
     --8<-- "code/develop/toolkit/api-libraries/dedot/watch-on-chain-events.ts"

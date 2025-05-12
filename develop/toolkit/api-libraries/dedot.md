@@ -111,17 +111,13 @@ Or open a pull request to add your favorite network to the [`@dedot/chaintypes`]
 
 Dedot provides several ways to read data from the chain:
 
-- **Access runtime constants**:
-
-    Runtime constants (parameter types) can be inspected with the syntax: `client.consts.<pallet>.<constantName>`.    
+- **Access runtime constants** - use the syntax `client.consts.<pallet>.<constantName>` to inspect runtime constants (parameter types):
 
     ```typescript
     --8<-- "code/develop/toolkit/api-libraries/dedot/runtime-constants.ts"
     ```
 
-- **Storage queries**:
-
-    On-chain storage can be queried with the syntax: `client.query.<pallet>.<storgeEntry>`.
+- **Storage queries** - use the syntax `client.query.<pallet>.<storgeEntry>` to query on-chain storage:
 
     ```typescript
     --8<-- "code/develop/toolkit/api-libraries/dedot/storage-queries.ts"
@@ -133,17 +129,13 @@ Dedot provides several ways to read data from the chain:
     --8<-- "code/develop/toolkit/api-libraries/dedot/subscribe-storage-changes.ts"
     ```
 
-- **Call Runtime APIs**:
-
-    Runtime APIs can be executed with the syntax `client.call.<runtimeApi>.<methodName>`.
+- **Call Runtime APIs** - use the syntax `client.call.<runtimeApi>.<methodName>` to execute Runtime APIs:
 
     ```typescript
     --8<-- "code/develop/toolkit/api-libraries/dedot/call-runtime-apis.ts"
     ```
 
-- **Watching on-chain events**:
-
-    Pallet events can be accessed with the syntax: `client.events.<pallet>.<eventName>`.
+- **Watch on-chain events** - use the syntax `client.events.<pallet>.<eventName>` to access pallet events:
     
     ```typescript
     --8<-- "code/develop/toolkit/api-libraries/dedot/watch-on-chain-events.ts"

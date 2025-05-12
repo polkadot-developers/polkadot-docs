@@ -37,7 +37,7 @@ In the diagram above, the decentralized application queries on-chain account inf
 
 Light clients can quickly verify the blockchain's state, including [GRANDPA finality](/polkadot-protocol/glossary#grandpa){target=\_blank} justifications.
 
-!!!info "What does it mean to be trust-minimized?"
+!!!note "What does it mean to be trust-minimized?"
     _Trust-minimized_ means that the light client does not need to fully trust the full node from which it retrieves the state. This is achieved through the use of Merkle proofs, which allow the light client to verify the correctness of the state by checking the Merkle tree root.
 
 ## JSON-RPC and Light Client Comparison

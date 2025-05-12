@@ -18,7 +18,7 @@ This guide covers:
 
 Light clients are particularly valuable for resource-constrained environments and applications requiring secure, decentralized blockchain access without the overhead of maintaining full nodes.
 
-!!!info "Light node or light client?"
+!!!note "Light node or light client?"
     The terms _light node_ and _light client_ are interchangeable. Both refer to a blockchain client that syncs without downloading the entire blockchain state. All nodes in a blockchain network are fundamentally clients, engaging in peer-to-peer communication.
 
 ## Light Clients Workflow

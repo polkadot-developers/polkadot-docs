@@ -664,7 +664,30 @@ decl_test_relay_chains! {
 - [**`decl_test_parachains`**](https://github.com/paritytech/polkadot-sdk/blob/{{dependencies.repositories.polkadot_sdk.version}}/cumulus/xcm/xcm-emulator/src/lib.rs#L590){target=\_blank} - defines runtime and configuration for the parachains. Example:
 
     ```rust
-    Error fetching snippet from https://raw.githubusercontent.com/paritytech/polkadot-sdk/refs/tags/polkadot-stable2412/cumulus/parachains/integration-tests/emulated/chains/parachains/assets/asset-hub-westend/src/lib.rs
+    // AssetHubWestend Parachain declaration
+decl_test_parachains! {
+	pub struct AssetHubWestend {
+		genesis = genesis::genesis(),
+		on_init = {
+			asset_hub_westend_runtime::AuraExt::on_initialize(1);
+		},
+		runtime = asset_hub_westend_runtime,
+		core = {
+			XcmpMessageHandler: asset_hub_westend_runtime::XcmpQueue,
+			LocationToAccountId: asset_hub_westend_runtime::xcm_config::LocationToAccountId,
+			ParachainInfo: asset_hub_westend_runtime::ParachainInfo,
+			MessageOrigin: cumulus_primitives_core::AggregateMessageOrigin,
+		},
+		pallets = {
+			PolkadotXcm: asset_hub_westend_runtime::PolkadotXcm,
+			Balances: asset_hub_westend_runtime::Balances,
+			Assets: asset_hub_westend_runtime::Assets,
+			ForeignAssets: asset_hub_westend_runtime::ForeignAssets,
+			PoolAssets: asset_hub_westend_runtime::PoolAssets,
+			AssetConversion: asset_hub_westend_runtime::AssetConversion,
+		}
+	},
+}
     ```
 
 - [**`decl_test_bridges`**](https://github.com/paritytech/polkadot-sdk/blob/{{dependencies.repositories.polkadot_sdk.version}}/cumulus/xcm/xcm-emulator/src/lib.rs#L1178){target=\_blank} - creates bridges between chains, specifying the source, target, and message handler. Example:
@@ -1131,7 +1154,7 @@ This API can be used independently for dry-running, double-checking, or testing.
 This API allows a dry-run of any extrinsic and obtaining the outcome if it fails or succeeds, as well as the local xcm and remote xcm messages sent to other chains.
 
 ```rust
-Error fetching snippet from https://raw.githubusercontent.com/paritytech/polkadot-sdk/refs/tags/polkadot-stable2412/polkadot/xcm/xcm-runtime-apis/src/dry_run.rs
+fn dry_run_call(origin: OriginCaller, call: Call) -> Result<CallDryRunEffects<Event>, Error>;
 ```
 
 ??? interface "Input parameters"
@@ -6849,7 +6872,7 @@ async function main() {
   const MyToken = await hre.ethers.getContractFactory('MyToken');
 
   // Replace with your deployed contract address
-  const contractAddress = '0x9E06fbc6648592135d60E0071dE845f95cD1878f';
+  const contractAddress = 'INSERT_CONTRACT_ADDRESS';
 
   // Attach to existing contract
   const token = await MyToken.attach(contractAddress);
@@ -32892,7 +32915,19 @@ To integrate this component to your dApp, you need to overwrite the existing boi
 
 ```javascript title="page.js"
 Invalid snippet reference: https://raw.githubusercontent.com/polkadot-developers/polkavm-storage-contract-dapps/refs/tags/v0.0.1/ethers-dapp/app/page.js::5
-Error fetching snippet from https://raw.githubusercontent.com/polkadot-developers/polkavm-storage-contract-dapps/refs/tags/v0.0.1/ethers-dapp/app/page.js
+export default function Home() {
+  const [account, setAccount] = useState(null);
+
+  const handleConnect = (connectedAccount) => {
+    setAccount(connectedAccount);
+  };
+
+  return (
+    <section className="min-h-screen bg-white text-black flex flex-col justify-center items-center gap-4 py-10">
+      <h1 className="text-2xl font-semibold text-center">
+        Ethers.js dApp - Asset Hub Smart Contracts
+      </h1>
+      <WalletConnect onConnect={handleConnect} />
 </section>
   );
 }
@@ -33269,7 +33304,47 @@ npm install --save-dev typescript @types/node
 To interact with Asset Hub (Westend Asset Hub in this case), you need to set up a [Public Client](https://viem.sh/docs/clients/public#public-client){target=\_blank} that connects to the blockchain. Create a new file called `utils/viem.ts` and add the following code:
 
 ```typescript title="viem.ts"
-Error fetching snippet from https://raw.githubusercontent.com/polkadot-developers/polkavm-storage-contract-dapps/refs/tags/v0.0.1/viem-dapp/app/utils/viem.ts
+import { createPublicClient, http, createWalletClient, custom } from 'viem'
+import 'viem/window';
+
+
+const transport = http('https://westend-asset-hub-eth-rpc.polkadot.io')
+
+// Configure the Asset Hub chain
+export const assetHub = {
+  id: 420420421,
+  name: 'Westend Asset Hub',
+  network: 'westend-asset-hub',
+  nativeCurrency: {
+    decimals: 18,
+    name: 'WND',
+    symbol: 'WND',
+  },
+  rpcUrls: {
+    default: {
+      http: ['https://westend-asset-hub-eth-rpc.polkadot.io'],
+    },
+  },
+} as const
+
+// Create a public client for reading data
+export const publicClient = createPublicClient({
+  chain: assetHub,
+  transport
+})
+
+// Create a wallet client for signing transactions
+export const getWalletClient = async () => {
+  if (typeof window !== 'undefined' && window.ethereum) {
+    const [account] = await window.ethereum.request({ method: 'eth_requestAccounts' });
+    return createWalletClient({
+      chain: assetHub,
+      transport: custom(window.ethereum),
+      account,
+    });
+  }
+  throw new Error('No Ethereum browser provider detected');
+};
 ```
 
 This file initializes a viem client, providing helper functions for obtaining a Public Client and a [Wallet Client](https://viem.sh/docs/clients/wallet#wallet-client){target=\_blank}. The Public Client enables reading blockchain data, while the Wallet Client allows users to sign and send transactions. Also, note that by importing `'viem/window'` the global `window.ethereum` will be typed as an `EIP1193Provider`, check the [`window` Polyfill](https://viem.sh/docs/typescript#window-polyfill){target=\_blank} reference for more information.

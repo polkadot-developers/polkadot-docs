@@ -5,7 +5,7 @@ async function main() {
   const MyToken = await hre.ethers.getContractFactory('MyToken');
 
   // Replace with your deployed contract address
-  const contractAddress = '0x9E06fbc6648592135d60E0071dE845f95cD1878f';
+  const contractAddress = 'INSERT_CONTRACT_ADDRESS';
 
   // Attach to existing contract
   const token = await MyToken.attach(contractAddress);

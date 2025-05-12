@@ -117,11 +117,11 @@ To use Talisman with Polkadot Hub:
 
     ![](/images/develop/smart-contracts/connect-to-asset-hub/connect-to-asset-hub-7.webp){: .browser-extension}
 
-3. Search for **Westend Asset Hub** in the list of networks and select it (ensure that the checkbox **Enable Testnets** is selected to view the available testnet):
+3. Search for **Westend Asset Hub** in the list of networks and select it (ensure that the checkbox **Enable Testnets** is enabled to view the available testnets):
 
     ![](/images/develop/smart-contracts/connect-to-asset-hub/connect-to-asset-hub-8.webp){: .browser-extension}
 
-After selecting the network, Talisman will automatically configure the necessary RPC URL and chain ID for you. You can now use Talisman to interact with the Westend Asset Hub.
+After selecting the network, Talisman will automatically configure the necessary RPC URL and chain ID for you. You can now use Talisman to interact with Westend Asset Hub.
 
 ## Test Tokens
 

@@ -147,11 +147,17 @@ Before deploying to a live network, you can deploy your contract to a local node
 
 !!! warning "Contract Size Limitation in Testing Environment"
 
-    When testing or deploying large contracts in Hardhat's local environment, you may encounter this error:
+    When deploying large contracts, you might encounter: `Error: the initcode size of this transaction is too large`.
 
-    `Error: the initcode size of this transaction is too large`
-    
-    This limitation is established by Hardhat based on Ethereum's default contract size limits. While Hardhat can disable this limitation, technical constraints currently prevent it from being applied to the PolkaVM test environment.
+    This limitation is imposed by Hardhat's client-side checks, not by PolkaVM itself. As a workaround, you can use a direct `JsonRpcProvider`:
+
+    ```javascript
+    --8<-- "code/develop/smart-contracts/dev-environments/hardhat/disclaimer-json-rpc-provider-alternative.js"
+    ```
+
+    For more details, see [this GitHub issue](https://github.com/paritytech/contract-issues/issues/47#issuecomment-2790181622){target=\_blank}.
+
+
 
 1. First, ensure you have compiled a Substrate node and the ETH RPC adapter from the Polkadot SDK. Checkout the [compatible commit](https://github.com/paritytech/polkadot-sdk/commit/c29e72a8628835e34deb6aa7db9a78a2e4eabcee){target=\_blank} from the SDK and build the node and the ETH-RPC from source:
 

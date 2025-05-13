@@ -6314,8 +6314,8 @@ Congratulations! You have successfully connected to the Westend Asset Hub using 
 Doc-Content: https://docs.polkadot.com/develop/smart-contracts/dev-environments/hardhat/
 --- BEGIN CONTENT ---
 ---
-title: Use Hardhat with Asset Hub
-description: Learn how to create, compile, test, and deploy smart contracts on Asset Hub using Hardhat, a powerful development environment for blockchain developers.
+title: Use Hardhat with Polkadot
+description: Learn how to create, compile, test, and deploy smart contracts on Polkadot using Hardhat, a powerful development environment for blockchain developers.
 ---
 
 # Hardhat
@@ -6334,7 +6334,7 @@ description: Learn how to create, compile, test, and deploy smart contracts on A
 
 ## Overview
 
-Hardhat is a robust development environment for Ethereum-compatible chains that makes smart contract development more efficient. This guide walks you through the essentials of using Hardhat to create, compile, test, and deploy smart contracts on Asset Hub.
+Hardhat is a robust development environment for Ethereum-compatible chains that makes smart contract development more efficient. This guide walks you through the essentials of using Hardhat to create, compile, test, and deploy smart contracts on Polkadot.
 
 ## Prerequisites
 
@@ -6343,7 +6343,6 @@ Before getting started, ensure you have:
 - [Node.js](https://nodejs.org/){target=\_blank} (v16.0.0 or later) and npm installed
 - Basic understanding of Solidity programming
 - Some WND test tokens to cover transaction fees (easily obtainable from the [Polkadot faucet](https://faucet.polkadot.io/westend?parachain=1000){target=\_blank}). To learn how to get test tokens, check out the [Test Tokens](/develop/smart-contracts/connect-to-asset-hub/#test-tokens){target=\_blank} section
-- [MetaMask](https://metamask.io/){target=\_blank} installed and connected to [Westend Asset Hub](https://chainlist.org/chain/420420421){target=\_blank}. For more detailed instructions on connecting your wallet, see the [Connect Your Wallet](/develop/smart-contracts/connect-to-asset-hub/#connect-your-wallet){target=\_blank} section
 
 ## Setting Up Hardhat
 
@@ -6360,22 +6359,16 @@ Before getting started, ensure you have:
     npm init -y
     ```
 
-3. Install Hardhat and the required plugins:
+3. To interact with Polkadot, Hardhat requires the following plugins to compile contracts to PolkaVM bytecode and to spawn a local node compatible with PolkaVM:
 
     ```bash
-    npm install --save-dev hardhat @nomicfoundation/hardhat-toolbox
-    ```
-
-    To interact with Asset Hub, Hardhat requires the [`hardhat-resolc`](https://www.npmjs.com/package/hardhat-resolc){target=\_blank} plugin to compile contracts to PolkaVM bytecode and the [`hardhat-revive-node`](https://www.npmjs.com/package/hardhat-revive-node){target=\_blank} plugin to spawn a local node compatible with PolkaVM.
-
-    ```bash
-    npm install --save-dev hardhat-resolc hardhat-revive-node
+    npm install --save-dev @parity/hardhat-polkadot
     ```
 
 4. Create a Hardhat project:
 
     ```bash
-    npx hardhat init
+    npx hardhat-polkadot init
     ```
 
     Select "Create a JavaScript project" when prompted and follow the instructions. After that, your project will be created with three main folders:
@@ -6384,88 +6377,73 @@ Before getting started, ensure you have:
     - **`test`** - contains your test files that validate contract functionality
     - **`ignition`** - deployment modules for safely deploying your contracts to various networks
 
-5. Update your Hardhat configuration file (`hardhat.config.js`) to include the plugins:
+5. Finish the setup by installing all the dependencies:
 
-    ```javascript title="hardhat.config.js" hl_lines="9-10"
-    // hardhat.config.js
-require('@nomicfoundation/hardhat-toolbox');
-
-require('@nomicfoundation/hardhat-network-helpers');
-require('@nomicfoundation/hardhat-chai-matchers');
-require('@nomicfoundation/hardhat-ethers');
-require('hardhat-gas-reporter');
-require('@nomicfoundation/hardhat-ignition');
-
-require('hardhat-resolc');
-require('hardhat-revive-node');
-    module.exports = {
-      // Additional configuration will be added later
-    
+    ```bash
+    npm install
     ```
+
+    !!! note
+        This last step is needed to set up the `hardhat-polkadot` plugin. It will install the `@parity/hardhat-polkadot` package and all its dependencies. In the future, the plugin will handle this automatically.
 
 ## Compiling Your Contract
 
-The `hardhat-resolc` plugin will compile your Solidity contracts for Solidity versions `0.8.0` and higher to be PolkaVM compatible. When compiling your contract using the `hardhat-resolc` plugin, there are two ways to configure your compilation process:
+The plugin will compile your Solidity contracts for Solidity versions `0.8.0` and higher to be PolkaVM compatible. When compiling your contract, there are two ways to configure your compilation process:
 
-- **Remix compiler** - uses the Remix online compiler backend for simplicity and ease of use
-- **Binary compiler** - uses the resolc binary directly for more control and configuration options
+- **npm compiler** - uses library [@parity/resolc](https://www.npmjs.com/package/@parity/resolc){target=\_blank} for simplicity and ease of use
+- **Binary compiler** - uses your local `resolc` binary directly for more control and configuration options
 
 To compile your project, follow these instructions:
 
-1. Modify your Hardhat configuration file to specify which compilation process you will be using:
+1. Modify your Hardhat configuration file to specify which compilation process you will be using and activate the `polkavm` flag in the Hardhat network:
 
-    === "Remix Configuration"
+    === "npm Configuration"
 
-        ```javascript title="hardhat.config.js" hl_lines="15-25"
-        // hardhat.config.js
-require('@nomicfoundation/hardhat-toolbox');
+        ```javascript title="hardhat.config.js" hl_lines="10-21"
+        require('@nomicfoundation/hardhat-toolbox');
 
-require('@nomicfoundation/hardhat-network-helpers');
-require('@nomicfoundation/hardhat-chai-matchers');
-require('@nomicfoundation/hardhat-ethers');
-require('hardhat-gas-reporter');
-require('@nomicfoundation/hardhat-ignition');
+require('@parity/hardhat-polkadot');
 
-require('hardhat-resolc');
-require('hardhat-revive-node');
-        module.exports = {
+/** @type import('hardhat/config').HardhatUserConfig */
+module.exports = {
   solidity: '0.8.28',
-          version: '1.5.2',
-    compilerSource: 'remix',
+  // npm Compiler
+  resolc: {
+    version: '1.5.2',
+    compilerSource: 'npm',
     settings: {
       optimizer: {
-        enabled: false,
-        runs: 600,
+        enabled: true,
+        parameters: 'z',
+        fallbackOz: true,
+        runs: 200,
       },
-      evmVersion: 'istanbul',
     },
   },
           hardhat: {
       polkavm: true,
+            
         };
         ```
 
     === "Binary Configuration"
 
-        ```javascript title="hardhat.config.js" hl_lines="15-26"
-        // hardhat.config.js
-require('@nomicfoundation/hardhat-toolbox');
+        ```javascript title="hardhat.config.js" hl_lines="10-23"
+        require('@nomicfoundation/hardhat-toolbox');
 
-require('@nomicfoundation/hardhat-network-helpers');
-require('@nomicfoundation/hardhat-chai-matchers');
-require('@nomicfoundation/hardhat-ethers');
-require('hardhat-gas-reporter');
-require('@nomicfoundation/hardhat-ignition');
+require('@parity/hardhat-polkadot');
 
-require('hardhat-resolc');
-require('hardhat-revive-node');
-        module.exports = {
+/** @type import('hardhat/config').HardhatUserConfig */
+module.exports = {
   solidity: '0.8.28',
-          compilerSource: 'binary',
+          resolc: {
+    compilerSource: 'binary',
     settings: {
       optimizer: {
         enabled: true,
-        runs: 400,
+        parameters: 'z',
+        fallbackOz: true,
+        runs: 200,
       },
       evmVersion: 'istanbul',
       compilerPath: 'INSERT_PATH_TO_RESOLC_COMPILER',
@@ -6474,11 +6452,13 @@ require('hardhat-revive-node');
   },
           hardhat: {
       polkavm: true,
-        },
-};
+            
+        };
         ```
 
-    For the binary configuration, replace `INSERT_PATH_TO_RESOLC_COMPILER` with the proper path to the binary. For more information about its installation, check the [installation](https://github.com/paritytech/revive?tab=readme-ov-file#installation){target=\_blank} section of the `pallet-revive`.
+    For the binary configuration, replace `INSERT_PATH_TO_RESOLC_COMPILER` with the proper path to the binary. To obtain the binary, check the [releases](https://github.com/paritytech/revive/releases){target=\_blank} section of the `resolc` compiler, and download the latest version.
+
+    The optimizer settings use the default values in the examples above. You can change them according to your project needs.
 
 2. Compile the contract with Hardhat:
 
@@ -6496,69 +6476,99 @@ require('hardhat-revive-node');
 
 ## Testing Your Contract
 
-When testing your contract, be aware that [`@nomicfoundation/hardhat-toolbox/network-helpers`](https://hardhat.org/hardhat-network-helpers/docs/overview){target=\_blank} is not fully compatible with Asset Hub's available RPCs. Specifically, Hardhat-only helpers like `time` and `loadFixture` may not work due to missing RPC calls in the node. For more details, refer to the [Compatibility](https://github.com/paritytech/hardhat-revive/tree/main/packages/hardhat-revive-node#compatibility){target=\_blank} section in the `hardhat-revive` docs.
+When testing your contract, be aware that [`@nomicfoundation/hardhat-toolbox/network-helpers`](https://hardhat.org/hardhat-network-helpers/docs/overview){target=\_blank} is not fully compatible with Asset Hub's available RPCs. Specifically, Hardhat-only helpers like `time` and `loadFixture` may not work due to missing RPC calls in the node. For more details, refer to the [Compatibility](https://github.com/paritytech/hardhat-revive/tree/main/packages/hardhat-revive-node#compatibility){target=\_blank} section in the `hardhat-revive` docs. You should avoid using helpers like `time` and `loadFixture` when writing tests. 
 
-You should avoid using helpers like `time` and `loadFixture` when writing tests. For example, for the `Lock.sol` contract, you can replace the default test file under `tests/Lock.js` with the following logic:
+To run your test:
 
-```javascript title="Lock.js"
-const { expect } = require('chai');
-const { ethers } = require('hardhat');
+1. Update the `hardhat.config.js` file to specify the path of the local node and the ETH-RPC adapter:
 
-describe('Lock', function () {
-  let owner, otherAccount;
+    === "npm Configuration"
 
-  beforeEach(async function () {
-    [owner, otherAccount] = await ethers.getSigners();
-  });
+        ```javascript title="hardhat.config.js" hl_lines="25-33"
+        require('@nomicfoundation/hardhat-toolbox');
 
-  const FAR_FUTURE_TIME = 10 ** 13;
-  const ONE_GWEI = 1_000_000_000;
+require('@parity/hardhat-polkadot');
 
-  it('Should deploy successfully with future unlock time', async function () {
-    // Deploy with a timestamp far in the future
-    const Lock = await ethers.getContractFactory('Lock');
-    const lock = await Lock.deploy(FAR_FUTURE_TIME, { value: ONE_GWEI });
+/** @type import('hardhat/config').HardhatUserConfig */
+module.exports = {
+  solidity: '0.8.28',
+  // npm Compiler
+  resolc: {
+    version: '1.5.2',
+    compilerSource: 'npm',
+    settings: {
+      optimizer: {
+        enabled: true,
+        parameters: 'z',
+        fallbackOz: true,
+        runs: 200,
+      },
+    },
+  },
+          hardhat: {
+      polkavm: true,
+      nodeConfig: {
+        nodeBinaryPath: 'INSERT_PATH_TO_SUBSTRATE_NODE',
+        rpcPort: 8000,
+        dev: true,
+      },
+      adapterConfig: {
+        adapterBinaryPath: 'INSERT_PATH_TO_ETH_RPC_ADAPTER',
+        dev: true,
+      },
+    },
+        };
+        ```
 
-    // Verify the contract was deployed successfully
-    expect(await lock.unlockTime()).to.equal(FAR_FUTURE_TIME);
-    expect(await lock.owner()).to.equal(owner.address);
-    expect(await ethers.provider.getBalance(lock.target)).to.equal(ONE_GWEI);
-  });
+    === "Binary Configuration"
 
-  it('Should fail if unlock time is not in the future', async function () {
-    // Use a timestamp in the past
-    const PAST_TIME = Math.floor(Date.now() / 1000) - 1000;
+        ```javascript title="hardhat.config.js" hl_lines="27-35"
+        require('@nomicfoundation/hardhat-toolbox');
 
-    const Lock = await ethers.getContractFactory('Lock');
+require('@parity/hardhat-polkadot');
 
-    // This should be reverted due to the past timestamp
-    await expect(
-      Lock.deploy(PAST_TIME, { value: ONE_GWEI })
-    ).to.be.revertedWith('Unlock time should be in the future');
-  });
+/** @type import('hardhat/config').HardhatUserConfig */
+module.exports = {
+  solidity: '0.8.28',
+          resolc: {
+    compilerSource: 'binary',
+    settings: {
+      optimizer: {
+        enabled: true,
+        parameters: 'z',
+        fallbackOz: true,
+        runs: 200,
+      },
+      evmVersion: 'istanbul',
+      compilerPath: 'INSERT_PATH_TO_RESOLC_COMPILER',
+      standardJson: true,
+    },
+  },
+  networks: {
+    hardhat: {
+      polkavm: true,
+      nodeConfig: {
+        nodeBinaryPath: 'INSERT_PATH_TO_SUBSTRATE_NODE',
+        rpcPort: 8000,
+        dev: true,
+      },
+      adapterConfig: {
+        adapterBinaryPath: 'INSERT_PATH_TO_ETH_RPC_ADAPTER',
+        dev: true,
+      },
+    },
+        };
+        ```
 
-  it('Should not allow non-owners to withdraw', async function () {
-    // Deploy with a future timestamp
-    const Lock = await ethers.getContractFactory('Lock');
-    const lock = await Lock.deploy(FAR_FUTURE_TIME, { value: ONE_GWEI });
+2. Execute the following command:
 
-    // Try to withdraw as non-owner
-    await expect(lock.connect(otherAccount).withdraw()).to.be.revertedWith(
-      "You can't withdraw yet"
-    );
-  });
-});
-```
-
-To run your test, execute the following command:
-
-```bash
-npx hardhat test
-```
+    ```bash
+    npx hardhat test
+    ```
 
 ## Deploying with a Local Node
 
-Before deploying to a live network, you can deploy your contract to a local node using the [`hardhat-revive-node`](https://www.npmjs.com/package/hardhat-revive-node){target=\_blank} plugin and Ignition modules:
+Before deploying to a live network, you can deploy your contract to a local node using [Ignition](https://hardhat.org/ignition/docs/getting-started#overview){target=\_blank} modules:
 
 !!! warning "Contract Size Limitation in Testing Environment"
 
@@ -6584,51 +6594,29 @@ const contract = await ContractFactory.deploy(...constructorArgs);
 
 
 
-1. First, ensure you have compiled a Substrate node and the ETH RPC adapter from the Polkadot SDK. Checkout the [compatible commit](https://github.com/paritytech/polkadot-sdk/commit/c29e72a8628835e34deb6aa7db9a78a2e4eabcee){target=\_blank} from the SDK and build the node and the ETH-RPC from source:
+1. Update the Hardhat configuration file to add the local network as a target for local deployment:
 
-    ```bash
-    git clone https://github.com/paritytech/polkadot-sdk.git
-    cd polkadot-sdk
-    git checkout {{ dependencies.repositories.polkadot_sdk_compatible_hardhat_node }}
-    ```
+    === "npm Configuration"
 
-    Now, build the node and the ETH-RPC adapter. Note that this process might take a long time to complete:
+        ```javascript title="hardhat.config.js" hl_lines="35-38"
+        require('@nomicfoundation/hardhat-toolbox');
 
-    ```bash
-    # Build the substrate node
-    cargo build --release
-    # Build the eth-rpc adapter
-    cargo build -p pallet-revive-eth-rpc --bin eth-rpc --release
-    ```
+require('@parity/hardhat-polkadot');
 
-2. Update the Hardhat configuration file to add the local node as a target for local deployment:
-
-    === "Remix Configuration"
-
-        ```javascript title="hardhat.config.js" hl_lines="27-44"
-        // hardhat.config.js
-require('@nomicfoundation/hardhat-toolbox');
-
-require('@nomicfoundation/hardhat-network-helpers');
-require('@nomicfoundation/hardhat-chai-matchers');
-require('@nomicfoundation/hardhat-ethers');
-require('hardhat-gas-reporter');
-require('@nomicfoundation/hardhat-ignition');
-
-require('hardhat-resolc');
-require('hardhat-revive-node');
-        module.exports = {
+/** @type import('hardhat/config').HardhatUserConfig */
+module.exports = {
   solidity: '0.8.28',
-  // Remix Compiler
+  // npm Compiler
   resolc: {
     version: '1.5.2',
-    compilerSource: 'remix',
+    compilerSource: 'npm',
     settings: {
       optimizer: {
-        enabled: false,
-        runs: 600,
+        enabled: true,
+        parameters: 'z',
+        fallbackOz: true,
+        runs: 200,
       },
-      evmVersion: 'istanbul',
     },
   },
           hardhat: {
@@ -6652,32 +6640,30 @@ require('hardhat-revive-node');
 
     === "Binary Configuration"
 
-        ```javascript title="hardhat.config.js" hl_lines="27-44"
-        // hardhat.config.js
-require('@nomicfoundation/hardhat-toolbox');
+        ```javascript title="hardhat.config.js" hl_lines="37-40"
+        require('@nomicfoundation/hardhat-toolbox');
 
-require('@nomicfoundation/hardhat-network-helpers');
-require('@nomicfoundation/hardhat-chai-matchers');
-require('@nomicfoundation/hardhat-ethers');
-require('hardhat-gas-reporter');
-require('@nomicfoundation/hardhat-ignition');
+require('@parity/hardhat-polkadot');
 
-require('hardhat-resolc');
-require('hardhat-revive-node');
-        module.exports = {
+/** @type import('hardhat/config').HardhatUserConfig */
+module.exports = {
   solidity: '0.8.28',
-          compilerSource: 'binary',
+          resolc: {
+    compilerSource: 'binary',
     settings: {
       optimizer: {
         enabled: true,
-        runs: 400,
+        parameters: 'z',
+        fallbackOz: true,
+        runs: 200,
       },
       evmVersion: 'istanbul',
       compilerPath: 'INSERT_PATH_TO_RESOLC_COMPILER',
       standardJson: true,
     },
   },
-          hardhat: {
+  networks: {
+    hardhat: {
       polkavm: true,
       nodeConfig: {
         nodeBinaryPath: 'INSERT_PATH_TO_SUBSTRATE_NODE',
@@ -6696,63 +6682,19 @@ require('hardhat-revive-node');
         };
         ```
 
-    Ensure to replace `INSERT_PATH_TO_SUBSTRATE_NODE` and `INSERT_PATH_TO_ETH_RPC_ADAPTER` with the proper paths to the compiled binaries. Since you compiled these from source using Rust's Cargo build system, you can find them at:
-
-    - Substrate node path - `polkadot-sdk/target/release/substrate-node`
-    - ETH-RPC adapter path - `polkadot-sdk/target/release/eth-rpc`
-
-    For example, if you cloned the polkadot-sdk repository to your home directory, the paths might look like:
-
-    ```javascript
-    nodeBinaryPath: '/home/username/polkadot-sdk/target/release/substrate-node',
-    adapterBinaryPath: '/home/username/polkadot-sdk/target/release/eth-rpc',
-    ```
-
-3. Modify the Ignition modules, considering that the value of the pallet revive `block.timestamp` is returned in seconds. Check this [PR](https://github.com/paritytech/polkadot-sdk/pull/7792/files){target=\_blank} for more information. For example, for the default `ignition/modules/Lock.js` file, the needed modification should be:
-
-    ```diff
-    - const JAN_1ST_2030 = 1893456000;
-    + const JAN_1ST_2030 = 18934560000000;
-    ```
-
-    ???--- code "Modified `ignition/modules/Lock.js` file"
-
-        ```js title="Lock.js"
-        // This setup uses Hardhat Ignition to manage smart contract deployments.
-// Learn more about it at https://hardhat.org/ignition
-
-const { buildModule } = require('@nomicfoundation/hardhat-ignition/modules');
-
-const JAN_1ST_2030 = 18934560000000;
-const ONE_GWEI = 1_000_000_000n;
-
-module.exports = buildModule('LockModule', (m) => {
-  const unlockTime = m.getParameter('unlockTime', JAN_1ST_2030);
-  const lockedAmount = m.getParameter('lockedAmount', ONE_GWEI);
-
-  const lock = m.contract('Lock', [unlockTime], {
-    value: lockedAmount,
-  });
-
-  return { lock };
-});
-        ```
-
-4. Start a local node:
+2. Start a local node:
 
     ```bash
-    npx hardhat node-polkavm
+    npx hardhat node
     ```
 
-    This command will start a local PolkaVM node powered by the `hardhat-revive-node` plugin.
+    This command will spawn a local substrate node along with the ETH-RPC adapter.
 
-5. In a new terminal window, deploy the contract using Ignition:
+3. In a new terminal window, deploy the contract using Ignition:
 
     ```bash
-    npx hardhat ignition deploy ./ignition/modules/INSERT_IGNITION_MODULE_NAME.js --network localNode
+    npx hardhat ignition deploy ./ignition/modules/MyToken.js --network localNode
     ```
-
-    Replace `INSERT_IGNITION_MODULE_NAME` with the proper name for your contract. You'll see deployment information, including the contract address.
 
 ## Deploying to a Live Network
 
@@ -6774,114 +6716,50 @@ After testing your contract locally, you can deploy it to a live network. This g
 3. Install the [`dotenv`](https://www.npmjs.com/package/dotenv){target=\_blank} package to load the private key into your Hardhat configuration:
 
     ```bash
-    npm install dotenv
+    npm install --save-dev dotenv
     ```
 
 4. Update your config to load it:
 
-    ```javascript title="hardhat.config.js" hl_lines="12"
-    // hardhat.config.js
-require('@nomicfoundation/hardhat-toolbox');
+    ```javascript title="hardhat.config.js" hl_lines="6"
+    require('@nomicfoundation/hardhat-toolbox');
 
-require('@nomicfoundation/hardhat-network-helpers');
-require('@nomicfoundation/hardhat-chai-matchers');
-require('@nomicfoundation/hardhat-ethers');
-require('hardhat-gas-reporter');
-require('@nomicfoundation/hardhat-ignition');
+require('@parity/hardhat-polkadot');
 
-require('hardhat-resolc');
-require('hardhat-revive-node');
+    require('dotenv').config();
 
-require('dotenv').config();
-
-/** @type import('hardhat/config').HardhatUserConfig */
-module.exports = {
+    module.exports = {
       // The rest remains the same...
     
     ```
 
-5. Update your Hardhat configuration file with network settings for the Asset Hub network you want to target:
+5. Update your Hardhat configuration file with network settings for the Polkadot network you want to target:
 
-    === "Remix Configuration"
+    === "npm Configuration"
 
-        ```javascript title="hardhat.config.js" hl_lines="44-48"
-        // hardhat.config.js
-require('@nomicfoundation/hardhat-toolbox');
+        ```javascript title="hardhat.config.js" hl_lines="42-46"
+        require('@nomicfoundation/hardhat-toolbox');
 
-require('@nomicfoundation/hardhat-network-helpers');
-require('@nomicfoundation/hardhat-chai-matchers');
-require('@nomicfoundation/hardhat-ethers');
-require('hardhat-gas-reporter');
-require('@nomicfoundation/hardhat-ignition');
+require('@parity/hardhat-polkadot');
 
-require('hardhat-resolc');
-require('hardhat-revive-node');
+        require('dotenv').config();
+
         module.exports = {
   solidity: '0.8.28',
-  // Remix Compiler
+  // npm Compiler
   resolc: {
     version: '1.5.2',
-    compilerSource: 'remix',
-    settings: {
-      optimizer: {
-        enabled: false,
-        runs: 600,
-      },
-      evmVersion: 'istanbul',
-    },
-  },
-        hardhat: {
-      polkavm: true,
-      nodeConfig: {
-        nodeBinaryPath: 'INSERT_PATH_TO_SUBSTRATE_NODE',
-        rpcPort: 8000,
-        dev: true,
-      },
-      adapterConfig: {
-        adapterBinaryPath: 'INSERT_PATH_TO_ETH_RPC_ADAPTER',
-        dev: true,
-      },
-    },
-    localNode: {
-      polkavm: true,
-      url: `http://127.0.0.1:8545`,
-    },
-    westendAssetHub: {
-      polkavm: true,
-      url: 'https://westend-asset-hub-eth-rpc.polkadot.io',
-      accounts: [process.env.PRIVATE_KEY],
-    },
-  },
-};
-        ```
-
-    === "Binary Configuration"
-
-        ```javascript title="hardhat.config.js" hl_lines="44-48"
-        // hardhat.config.js
-require('@nomicfoundation/hardhat-toolbox');
-
-require('@nomicfoundation/hardhat-network-helpers');
-require('@nomicfoundation/hardhat-chai-matchers');
-require('@nomicfoundation/hardhat-ethers');
-require('hardhat-gas-reporter');
-require('@nomicfoundation/hardhat-ignition');
-
-require('hardhat-resolc');
-require('hardhat-revive-node');
-        module.exports = {
-  solidity: '0.8.28',
-          compilerSource: 'binary',
+    compilerSource: 'npm',
     settings: {
       optimizer: {
         enabled: true,
-        runs: 400,
+        parameters: 'z',
+        fallbackOz: true,
+        runs: 200,
       },
-      evmVersion: 'istanbul',
-      compilerPath: 'INSERT_PATH_TO_RESOLC_COMPILER',
-      standardJson: true,
     },
   },
+
           hardhat: {
       polkavm: true,
       nodeConfig: {
@@ -6898,55 +6776,107 @@ require('hardhat-revive-node');
       polkavm: true,
       url: `http://127.0.0.1:8545`,
     },
-    westendAssetHub: {
+    westendHub: {
       polkavm: true,
       url: 'https://westend-asset-hub-eth-rpc.polkadot.io',
       accounts: [process.env.PRIVATE_KEY],
     },
-  },
-};
+        };
         ```
 
-4. Deploy your contract using Ignition:
+    === "Binary Configuration"
+
+        ```javascript title="hardhat.config.js" hl_lines="46-50"
+        require('@nomicfoundation/hardhat-toolbox');
+
+require('@parity/hardhat-polkadot');
+
+        require('dotenv').config();
+
+        /** @type import('hardhat/config').HardhatUserConfig */
+module.exports = {
+  solidity: '0.8.28',
+        
+          resolc: {
+    compilerSource: 'binary',
+    settings: {
+      optimizer: {
+        enabled: true,
+        parameters: 'z',
+        fallbackOz: true,
+        runs: 200,
+      },
+      evmVersion: 'istanbul',
+      compilerPath: 'INSERT_PATH_TO_RESOLC_COMPILER',
+      standardJson: true,
+    },
+  },
+  networks: {
+    hardhat: {
+      polkavm: true,
+      nodeConfig: {
+        nodeBinaryPath: 'INSERT_PATH_TO_SUBSTRATE_NODE',
+        rpcPort: 8000,
+        dev: true,
+      },
+      adapterConfig: {
+        adapterBinaryPath: 'INSERT_PATH_TO_ETH_RPC_ADAPTER',
+        dev: true,
+      },
+    },
+    localNode: {
+      polkavm: true,
+      url: `http://127.0.0.1:8545`,
+    },
+    westendHub: {
+      polkavm: true,
+      url: 'https://westend-asset-hub-eth-rpc.polkadot.io',
+      accounts: [process.env.PRIVATE_KEY],
+    },
+        };
+        ```
+
+5. Deploy your contract using Ignition:
 
     ```bash
-    npx hardhat ignition deploy ./ignition/modules/INSERT_IGNITION_MODULE_NAME.js --network westendAssetHub
+    npx hardhat ignition deploy ./ignition/modules/MyToken.js --network westendHub
     ```
-
-    Replace `INSERT_IGNITION_MODULE_NAME` with the proper name for your contract. You'll see deployment information, including the contract address.
 
 ## Interacting with Your Contract
 
 Once deployed, you can create a script to interact with your contract. To do so, create a file called `scripts/interact.js` and add some logic to interact with the contract. 
 
-For example, for the default `Lock.sol` contract, you can use the following file that connects to the contract at its address and retrieves the `unlockTime`, which represents when funds can be withdrawn. The script converts this timestamp into a readable date and logs it. It then checks the contract's balance and displays it. Finally, it attempts to call the withdrawal function on the contract, but it catches and logs the error message if the withdrawal is not yet allowed (e.g., before `unlockTime`).
+For example, for the default `MyToken.sol` contract, you can use the following file that connects to the contract at its address and retrieves the `unlockTime`, which represents when funds can be withdrawn. The script converts this timestamp into a readable date and logs it. It then checks the contract's balance and displays it. Finally, it attempts to call the withdrawal function on the contract, but it catches and logs the error message if the withdrawal is not yet allowed (e.g., before `unlockTime`).
 
 ```javascript title="interact.js"
 const hre = require('hardhat');
 
 async function main() {
-  // Get the contract instance
-  const Lock = await hre.ethers.getContractFactory('Lock');
-  const contractAddress = '0x46E0a43DC905a5b8FA9Fc4dA61774abE31a098a5';
-  const lock = await Lock.attach(contractAddress);
+  // Get the contract factory
+  const MyToken = await hre.ethers.getContractFactory('MyToken');
+
+  // Replace with your deployed contract address
+  const contractAddress = 'INSERT_CONTRACT_ADDRESS';
+
+  // Attach to existing contract
+  const token = await MyToken.attach(contractAddress);
+
+  // Get signers
+  const [deployer] = await hre.ethers.getSigners();
 
   // Read contract state
-  const unlockTime = await lock.unlockTime();
+  const name = await token.name();
+  const symbol = await token.symbol();
+  const totalSupply = await token.totalSupply();
+  const balance = await token.balanceOf(deployer.address);
 
-  const unlockTimestamp = Number(unlockTime);
-  console.log(`Unlock time: ${new Date(unlockTimestamp)}`);
-
-  const balance = await hre.ethers.provider.getBalance(lock.target);
-  console.log(`Contract balance: ${hre.ethers.formatEther(balance)} ETH`);
-
-  // Interact with contract (transaction)
-  try {
-    const tx = await lock.withdraw();
-    await tx.wait();
-    console.log('Withdrawal successful!');
-  } catch (error) {
-    console.error(`Error during withdrawal: ${error.message}`);
-  }
+  console.log(`Token: ${name} (${symbol})`);
+  console.log(
+    `Total Supply: ${hre.ethers.formatUnits(totalSupply, 18)} tokens`
+  );
+  console.log(
+    `Deployer Balance: ${hre.ethers.formatUnits(balance, 18)} tokens`
+  );
 }
 
 main().catch((error) => {
@@ -6958,7 +6888,7 @@ main().catch((error) => {
 Run your interaction script:
 
 ```bash
-npx hardhat run scripts/interact.js --network westendAssetHub
+npx hardhat run scripts/interact.js --network westendHub
 ```
 
 ## Where to Go Next

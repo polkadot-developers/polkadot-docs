@@ -33,6 +33,7 @@ Doc-Page: https://docs.polkadot.com/develop/parachains/testing/benchmarking/
 Doc-Page: https://docs.polkadot.com/develop/parachains/testing/
 Doc-Page: https://docs.polkadot.com/develop/parachains/testing/mock-runtime/
 Doc-Page: https://docs.polkadot.com/develop/parachains/testing/pallet-testing/
+Doc-Page: https://docs.polkadot.com/develop/smart-contracts/block-explorers/
 Doc-Page: https://docs.polkadot.com/develop/smart-contracts/connect-to-asset-hub/
 Doc-Page: https://docs.polkadot.com/develop/smart-contracts/connect-your-wallet/
 Doc-Page: https://docs.polkadot.com/develop/smart-contracts/dev-environments/hardhat/
@@ -1153,7 +1154,7 @@ This API can be used independently for dry-running, double-checking, or testing.
 This API allows a dry-run of any extrinsic and obtaining the outcome if it fails or succeeds, as well as the local xcm and remote xcm messages sent to other chains.
 
 ```rust
-Error fetching snippet from https://raw.githubusercontent.com/paritytech/polkadot-sdk/refs/tags/polkadot-stable2412/polkadot/xcm/xcm-runtime-apis/src/dry_run.rs
+fn dry_run_call(origin: OriginCaller, call: Call) -> Result<CallDryRunEffects<Event>, Error>;
 ```
 
 ??? interface "Input parameters"
@@ -1880,7 +1881,7 @@ client.destroy();
 This API allows the direct dry-run of an xcm message instead of an extrinsic one, checks if it will execute successfully, and determines what other xcm messages will be forwarded to other chains.
 
 ```rust
-Error fetching snippet from https://raw.githubusercontent.com/paritytech/polkadot-sdk/refs/tags/polkadot-stable2412/polkadot/xcm/xcm-runtime-apis/src/dry_run.rs
+fn dry_run_xcm(origin_location: VersionedLocation, xcm: VersionedXcm<Call>) -> Result<XcmDryRunEffects<Event>, Error>;
 ```
 
 ??? interface "Input parameters"
@@ -2110,7 +2111,7 @@ To use the API effectively, the client must already know the XCM program to be e
 Retrieves the list of assets that are acceptable for paying fees when using a specific XCM version
 
 ```rust
-Error fetching snippet from https://raw.githubusercontent.com/paritytech/polkadot-sdk/refs/tags/polkadot-stable2412/polkadot/xcm/xcm-runtime-apis/src/fees.rs
+fn query_acceptable_payment_assets(xcm_version: Version) -> Result<Vec<VersionedAssetId>, Error>;
 ```
 
 ??? interface "Input parameters"
@@ -6036,6 +6037,59 @@ Some key considerations are:
 </div>
 --- END CONTENT ---
 
+Doc-Content: https://docs.polkadot.com/develop/smart-contracts/block-explorers/
+--- BEGIN CONTENT ---
+---
+title: Block Explorers
+description: Access PolkaVM explorers like Subscan, BlockScout, and Routescan to track transactions, analyze contracts, and view on-chain data from smart contracts.
+---
+
+# Block Explorers
+
+## Introduction
+
+Block explorers serve as comprehensive blockchain analytics platforms that provide access to on-chain data. These web applications function as search engines for blockchain networks, allowing users to query, visualize, and analyze blockchain data in real time through intuitive interfaces.
+
+## Core Functionality
+
+These block explorers provide essential capabilities for interacting with smart contracts in Polkadot Hub:
+
+- **Transaction tracking** - monitor transaction status, confirmations, fees, and metadata
+- **Address analysis** - view account balances, transaction history, and associated contracts
+- **Block information** - examine block contents
+- **Smart contract interaction** - review contract code, verification status, and interaction history
+- **Token tracking** - monitor ERC-20, ERC-721, and other token standards with transfer history and holder analytics
+- **Network statistics** - access metrics on transaction volume, gas usage, and other network parameters
+
+## Available Block Explorers
+
+The following block explorers are available for PolkaVM smart contracts, providing specialized tools for monitoring and analyzing contract activity within the Polkadot ecosystem:
+
+### Subscan
+
+Subscan is the flagship Polkadot ecosystem block explorer with comprehensive support for PolkaVM smart contracts. It provides robust transaction indexing, account analysis, and monitoring tools specifically optimized for Polkadot SDK-based networks.
+
+- [Westend Hub Subscan](https://assethub-westend.subscan.io/){target=\_blank}
+
+![](/images/develop/smart-contracts/block-explorers/block-explorers-1.webp)
+
+### BlockScout
+
+BlockScout is an open-source explorer platform with a user-friendly interface adapted for PolkaVM contracts. It excels at detailed contract analytics and provides developers with comprehensive API access.
+
+- [Westend Hub BlockScout](https://blockscout-asset-hub.parity-chains-scw.parity.io/){target=\_blank}
+
+![](/images/develop/smart-contracts/block-explorers/block-explorers-2.webp)
+
+### Routescan
+
+Routescan delivers multi-chain explorer capabilities with specialized support for PolkaVM environments.
+
+- [Westend Hub Routescan](https://420420421.testnet.routescan.io/){target=\_blank}
+
+![](/images/develop/smart-contracts/block-explorers/block-explorers-3.webp)
+--- END CONTENT ---
+
 Doc-Content: https://docs.polkadot.com/develop/smart-contracts/connect-to-asset-hub/
 --- BEGIN CONTENT ---
 ---
@@ -6052,8 +6106,6 @@ description: Explore how to connect to different Asset Hub networks, configure y
 ## Networks
 
 Developers can leverage Asset Hub across diverse networks, from TestNets to MainNet. This section outlines the network specifications and connection details for each environment.
-
-### Specifications
 
 === "Westend Asset Hub"
 
@@ -6080,7 +6132,7 @@ Developers can leverage Asset Hub across diverse networks, from TestNets to Main
     
     RPC URL
     ```
-    https://westend-asset-hub-rpc.polkadot.io
+    https://westend-asset-hub-eth-rpc.polkadot.io
     ```
 
     ---
@@ -6088,34 +6140,6 @@ Developers can leverage Asset Hub across diverse networks, from TestNets to Main
     Block explorer URL
     ```
     https://assethub-westend.subscan.io
-    ```
-
-### Endpoints
-
-=== "Westend Asset Hub"
-    Dwellir
-    ```
-    https://westend-asset-hub-rpc.polkadot.io
-    ```
-    ---
-    Dwellir Tunisia
-    ```
-    https://westmint-rpc.polkadot.io
-    ```
-    ---
-    IBP1
-    ```
-    https://rpc.ibp.network/asset-hub-westend
-    ```
-    ---
-    IBP2
-    ```
-    https://asset-hub-westend.dotters.network
-    ```
-    ---
-    Parity
-    ```
-    https://westend-asset-hub-rpc.polkadot.io
     ```
 
 ## Connect your Wallet
@@ -6157,11 +6181,11 @@ To use Talisman with Polkadot Hub:
 
     ![](/images/develop/smart-contracts/connect-to-asset-hub/connect-to-asset-hub-7.webp){: .browser-extension}
 
-3. Search for **Westend Asset Hub** in the list of networks and select it (ensure that the checkbox **Enable Testnets** is selected to view the available testnet):
+3. Search for **Westend Asset Hub** in the list of networks and select it (ensure that the checkbox **Enable Testnets** is enabled to view the available testnets):
 
     ![](/images/develop/smart-contracts/connect-to-asset-hub/connect-to-asset-hub-8.webp){: .browser-extension}
 
-After selecting the network, Talisman will automatically configure the necessary RPC URL and chain ID for you. You can now use Talisman to interact with the Westend Asset Hub.
+After selecting the network, Talisman will automatically configure the necessary RPC URL and chain ID for you. You can now use Talisman to interact with Westend Asset Hub.
 
 ## Test Tokens
 
@@ -6307,8 +6331,8 @@ Congratulations! You have successfully connected to the Westend Asset Hub using 
 Doc-Content: https://docs.polkadot.com/develop/smart-contracts/dev-environments/hardhat/
 --- BEGIN CONTENT ---
 ---
-title: Use Hardhat with Asset Hub
-description: Learn how to create, compile, test, and deploy smart contracts on Asset Hub using Hardhat, a powerful development environment for blockchain developers.
+title: Use Hardhat with Polkadot
+description: Learn how to create, compile, test, and deploy smart contracts on Polkadot using Hardhat, a powerful development environment for blockchain developers.
 ---
 
 # Hardhat
@@ -6327,7 +6351,7 @@ description: Learn how to create, compile, test, and deploy smart contracts on A
 
 ## Overview
 
-Hardhat is a robust development environment for Ethereum-compatible chains that makes smart contract development more efficient. This guide walks you through the essentials of using Hardhat to create, compile, test, and deploy smart contracts on Asset Hub.
+Hardhat is a robust development environment for Ethereum-compatible chains that makes smart contract development more efficient. This guide walks you through the essentials of using Hardhat to create, compile, test, and deploy smart contracts on Polkadot.
 
 ## Prerequisites
 
@@ -6336,7 +6360,6 @@ Before getting started, ensure you have:
 - [Node.js](https://nodejs.org/){target=\_blank} (v16.0.0 or later) and npm installed
 - Basic understanding of Solidity programming
 - Some WND test tokens to cover transaction fees (easily obtainable from the [Polkadot faucet](https://faucet.polkadot.io/westend?parachain=1000){target=\_blank}). To learn how to get test tokens, check out the [Test Tokens](/develop/smart-contracts/connect-to-asset-hub/#test-tokens){target=\_blank} section
-- [MetaMask](https://metamask.io/){target=\_blank} installed and connected to [Westend Asset Hub](https://chainlist.org/chain/420420421){target=\_blank}. For more detailed instructions on connecting your wallet, see the [Connect Your Wallet](/develop/smart-contracts/connect-to-asset-hub/#connect-your-wallet){target=\_blank} section
 
 ## Setting Up Hardhat
 
@@ -6353,22 +6376,16 @@ Before getting started, ensure you have:
     npm init -y
     ```
 
-3. Install Hardhat and the required plugins:
+3. To interact with Polkadot, Hardhat requires the following plugins to compile contracts to PolkaVM bytecode and to spawn a local node compatible with PolkaVM:
 
     ```bash
-    npm install --save-dev hardhat @nomicfoundation/hardhat-toolbox
-    ```
-
-    To interact with Asset Hub, Hardhat requires the [`hardhat-resolc`](https://www.npmjs.com/package/hardhat-resolc){target=\_blank} plugin to compile contracts to PolkaVM bytecode and the [`hardhat-revive-node`](https://www.npmjs.com/package/hardhat-revive-node){target=\_blank} plugin to spawn a local node compatible with PolkaVM.
-
-    ```bash
-    npm install --save-dev hardhat-resolc hardhat-revive-node
+    npm install --save-dev @parity/hardhat-polkadot
     ```
 
 4. Create a Hardhat project:
 
     ```bash
-    npx hardhat init
+    npx hardhat-polkadot init
     ```
 
     Select "Create a JavaScript project" when prompted and follow the instructions. After that, your project will be created with three main folders:
@@ -6377,88 +6394,73 @@ Before getting started, ensure you have:
     - **`test`** - contains your test files that validate contract functionality
     - **`ignition`** - deployment modules for safely deploying your contracts to various networks
 
-5. Update your Hardhat configuration file (`hardhat.config.js`) to include the plugins:
+5. Finish the setup by installing all the dependencies:
 
-    ```javascript title="hardhat.config.js" hl_lines="9-10"
-    // hardhat.config.js
-require('@nomicfoundation/hardhat-toolbox');
-
-require('@nomicfoundation/hardhat-network-helpers');
-require('@nomicfoundation/hardhat-chai-matchers');
-require('@nomicfoundation/hardhat-ethers');
-require('hardhat-gas-reporter');
-require('@nomicfoundation/hardhat-ignition');
-
-require('hardhat-resolc');
-require('hardhat-revive-node');
-    module.exports = {
-      // Additional configuration will be added later
-    
+    ```bash
+    npm install
     ```
+
+    !!! note
+        This last step is needed to set up the `hardhat-polkadot` plugin. It will install the `@parity/hardhat-polkadot` package and all its dependencies. In the future, the plugin will handle this automatically.
 
 ## Compiling Your Contract
 
-The `hardhat-resolc` plugin will compile your Solidity contracts for Solidity versions `0.8.0` and higher to be PolkaVM compatible. When compiling your contract using the `hardhat-resolc` plugin, there are two ways to configure your compilation process:
+The plugin will compile your Solidity contracts for Solidity versions `0.8.0` and higher to be PolkaVM compatible. When compiling your contract, there are two ways to configure your compilation process:
 
-- **Remix compiler** - uses the Remix online compiler backend for simplicity and ease of use
-- **Binary compiler** - uses the resolc binary directly for more control and configuration options
+- **npm compiler** - uses library [@parity/resolc](https://www.npmjs.com/package/@parity/resolc){target=\_blank} for simplicity and ease of use
+- **Binary compiler** - uses your local `resolc` binary directly for more control and configuration options
 
 To compile your project, follow these instructions:
 
-1. Modify your Hardhat configuration file to specify which compilation process you will be using:
+1. Modify your Hardhat configuration file to specify which compilation process you will be using and activate the `polkavm` flag in the Hardhat network:
 
-    === "Remix Configuration"
+    === "npm Configuration"
 
-        ```javascript title="hardhat.config.js" hl_lines="15-25"
-        // hardhat.config.js
-require('@nomicfoundation/hardhat-toolbox');
+        ```javascript title="hardhat.config.js" hl_lines="10-21"
+        require('@nomicfoundation/hardhat-toolbox');
 
-require('@nomicfoundation/hardhat-network-helpers');
-require('@nomicfoundation/hardhat-chai-matchers');
-require('@nomicfoundation/hardhat-ethers');
-require('hardhat-gas-reporter');
-require('@nomicfoundation/hardhat-ignition');
+require('@parity/hardhat-polkadot');
 
-require('hardhat-resolc');
-require('hardhat-revive-node');
-        module.exports = {
+/** @type import('hardhat/config').HardhatUserConfig */
+module.exports = {
   solidity: '0.8.28',
-          version: '1.5.2',
-    compilerSource: 'remix',
+  // npm Compiler
+  resolc: {
+    version: '1.5.2',
+    compilerSource: 'npm',
     settings: {
       optimizer: {
-        enabled: false,
-        runs: 600,
+        enabled: true,
+        parameters: 'z',
+        fallbackOz: true,
+        runs: 200,
       },
-      evmVersion: 'istanbul',
     },
   },
           hardhat: {
       polkavm: true,
+            
         };
         ```
 
     === "Binary Configuration"
 
-        ```javascript title="hardhat.config.js" hl_lines="15-26"
-        // hardhat.config.js
-require('@nomicfoundation/hardhat-toolbox');
+        ```javascript title="hardhat.config.js" hl_lines="10-23"
+        require('@nomicfoundation/hardhat-toolbox');
 
-require('@nomicfoundation/hardhat-network-helpers');
-require('@nomicfoundation/hardhat-chai-matchers');
-require('@nomicfoundation/hardhat-ethers');
-require('hardhat-gas-reporter');
-require('@nomicfoundation/hardhat-ignition');
+require('@parity/hardhat-polkadot');
 
-require('hardhat-resolc');
-require('hardhat-revive-node');
-        module.exports = {
+/** @type import('hardhat/config').HardhatUserConfig */
+module.exports = {
   solidity: '0.8.28',
-          compilerSource: 'binary',
+          resolc: {
+    compilerSource: 'binary',
     settings: {
       optimizer: {
         enabled: true,
-        runs: 400,
+        parameters: 'z',
+        fallbackOz: true,
+        runs: 200,
       },
       evmVersion: 'istanbul',
       compilerPath: 'INSERT_PATH_TO_RESOLC_COMPILER',
@@ -6467,11 +6469,13 @@ require('hardhat-revive-node');
   },
           hardhat: {
       polkavm: true,
-        },
-};
+            
+        };
         ```
 
-    For the binary configuration, replace `INSERT_PATH_TO_RESOLC_COMPILER` with the proper path to the binary. For more information about its installation, check the [installation](https://github.com/paritytech/revive?tab=readme-ov-file#installation){target=\_blank} section of the `pallet-revive`.
+    For the binary configuration, replace `INSERT_PATH_TO_RESOLC_COMPILER` with the proper path to the binary. To obtain the binary, check the [releases](https://github.com/paritytech/revive/releases){target=\_blank} section of the `resolc` compiler, and download the latest version.
+
+    The optimizer settings use the default values in the examples above. You can change them according to your project needs.
 
 2. Compile the contract with Hardhat:
 
@@ -6489,123 +6493,147 @@ require('hardhat-revive-node');
 
 ## Testing Your Contract
 
-When testing your contract, be aware that [`@nomicfoundation/hardhat-toolbox/network-helpers`](https://hardhat.org/hardhat-network-helpers/docs/overview){target=\_blank} is not fully compatible with Asset Hub's available RPCs. Specifically, Hardhat-only helpers like `time` and `loadFixture` may not work due to missing RPC calls in the node. For more details, refer to the [Compatibility](https://github.com/paritytech/hardhat-revive/tree/main/packages/hardhat-revive-node#compatibility){target=\_blank} section in the `hardhat-revive` docs.
+When testing your contract, be aware that [`@nomicfoundation/hardhat-toolbox/network-helpers`](https://hardhat.org/hardhat-network-helpers/docs/overview){target=\_blank} is not fully compatible with Asset Hub's available RPCs. Specifically, Hardhat-only helpers like `time` and `loadFixture` may not work due to missing RPC calls in the node. For more details, refer to the [Compatibility](https://github.com/paritytech/hardhat-revive/tree/main/packages/hardhat-revive-node#compatibility){target=\_blank} section in the `hardhat-revive` docs. You should avoid using helpers like `time` and `loadFixture` when writing tests. 
 
-You should avoid using helpers like `time` and `loadFixture` when writing tests. For example, for the `Lock.sol` contract, you can replace the default test file under `tests/Lock.js` with the following logic:
+To run your test:
 
-```javascript title="Lock.js"
-const { expect } = require('chai');
-const { ethers } = require('hardhat');
+1. Update the `hardhat.config.js` file to specify the path of the local node and the ETH-RPC adapter:
 
-describe('Lock', function () {
-  let owner, otherAccount;
+    === "npm Configuration"
 
-  beforeEach(async function () {
-    [owner, otherAccount] = await ethers.getSigners();
-  });
+        ```javascript title="hardhat.config.js" hl_lines="25-33"
+        require('@nomicfoundation/hardhat-toolbox');
 
-  const FAR_FUTURE_TIME = 10 ** 13;
-  const ONE_GWEI = 1_000_000_000;
+require('@parity/hardhat-polkadot');
 
-  it('Should deploy successfully with future unlock time', async function () {
-    // Deploy with a timestamp far in the future
-    const Lock = await ethers.getContractFactory('Lock');
-    const lock = await Lock.deploy(FAR_FUTURE_TIME, { value: ONE_GWEI });
+/** @type import('hardhat/config').HardhatUserConfig */
+module.exports = {
+  solidity: '0.8.28',
+  // npm Compiler
+  resolc: {
+    version: '1.5.2',
+    compilerSource: 'npm',
+    settings: {
+      optimizer: {
+        enabled: true,
+        parameters: 'z',
+        fallbackOz: true,
+        runs: 200,
+      },
+    },
+  },
+          hardhat: {
+      polkavm: true,
+      nodeConfig: {
+        nodeBinaryPath: 'INSERT_PATH_TO_SUBSTRATE_NODE',
+        rpcPort: 8000,
+        dev: true,
+      },
+      adapterConfig: {
+        adapterBinaryPath: 'INSERT_PATH_TO_ETH_RPC_ADAPTER',
+        dev: true,
+      },
+    },
+        };
+        ```
 
-    // Verify the contract was deployed successfully
-    expect(await lock.unlockTime()).to.equal(FAR_FUTURE_TIME);
-    expect(await lock.owner()).to.equal(owner.address);
-    expect(await ethers.provider.getBalance(lock.target)).to.equal(ONE_GWEI);
-  });
+    === "Binary Configuration"
 
-  it('Should fail if unlock time is not in the future', async function () {
-    // Use a timestamp in the past
-    const PAST_TIME = Math.floor(Date.now() / 1000) - 1000;
+        ```javascript title="hardhat.config.js" hl_lines="27-35"
+        require('@nomicfoundation/hardhat-toolbox');
 
-    const Lock = await ethers.getContractFactory('Lock');
+require('@parity/hardhat-polkadot');
 
-    // This should be reverted due to the past timestamp
-    await expect(
-      Lock.deploy(PAST_TIME, { value: ONE_GWEI })
-    ).to.be.revertedWith('Unlock time should be in the future');
-  });
+/** @type import('hardhat/config').HardhatUserConfig */
+module.exports = {
+  solidity: '0.8.28',
+          resolc: {
+    compilerSource: 'binary',
+    settings: {
+      optimizer: {
+        enabled: true,
+        parameters: 'z',
+        fallbackOz: true,
+        runs: 200,
+      },
+      evmVersion: 'istanbul',
+      compilerPath: 'INSERT_PATH_TO_RESOLC_COMPILER',
+      standardJson: true,
+    },
+  },
+  networks: {
+    hardhat: {
+      polkavm: true,
+      nodeConfig: {
+        nodeBinaryPath: 'INSERT_PATH_TO_SUBSTRATE_NODE',
+        rpcPort: 8000,
+        dev: true,
+      },
+      adapterConfig: {
+        adapterBinaryPath: 'INSERT_PATH_TO_ETH_RPC_ADAPTER',
+        dev: true,
+      },
+    },
+        };
+        ```
 
-  it('Should not allow non-owners to withdraw', async function () {
-    // Deploy with a future timestamp
-    const Lock = await ethers.getContractFactory('Lock');
-    const lock = await Lock.deploy(FAR_FUTURE_TIME, { value: ONE_GWEI });
+2. Execute the following command:
 
-    // Try to withdraw as non-owner
-    await expect(lock.connect(otherAccount).withdraw()).to.be.revertedWith(
-      "You can't withdraw yet"
-    );
-  });
-});
-```
-
-To run your test, execute the following command:
-
-```bash
-npx hardhat test
-```
+    ```bash
+    npx hardhat test
+    ```
 
 ## Deploying with a Local Node
 
-Before deploying to a live network, you can deploy your contract to a local node using the [`hardhat-revive-node`](https://www.npmjs.com/package/hardhat-revive-node){target=\_blank} plugin and Ignition modules:
+Before deploying to a live network, you can deploy your contract to a local node using [Ignition](https://hardhat.org/ignition/docs/getting-started#overview){target=\_blank} modules:
 
 !!! warning "Contract Size Limitation in Testing Environment"
 
-    When testing or deploying large contracts in Hardhat's local environment, you may encounter this error:
+    When deploying large contracts, you might encounter: `Error: the initcode size of this transaction is too large`.
 
-    `Error: the initcode size of this transaction is too large`
-    
-    This limitation is established by Hardhat based on Ethereum's default contract size limits. While Hardhat can disable this limitation, technical constraints currently prevent it from being applied to the PolkaVM test environment.
+    This limitation is imposed by Hardhat's client-side checks, not by PolkaVM itself. As a workaround, you can use a direct `JsonRpcProvider`:
 
-1. First, ensure you have compiled a Substrate node and the ETH RPC adapter from the Polkadot SDK. Checkout the [compatible commit](https://github.com/paritytech/polkadot-sdk/commit/c29e72a8628835e34deb6aa7db9a78a2e4eabcee){target=\_blank} from the SDK and build the node and the ETH-RPC from source:
+    ```javascript
+    const { JsonRpcProvider } = require('ethers');
+const provider = new JsonRpcProvider('http://localhost:8545');
+const wallet = new ethers.Wallet('INSERT_PRIVATE_KEY', provider);
 
-    ```bash
-    git clone https://github.com/paritytech/polkadot-sdk.git
-    cd polkadot-sdk
-    git checkout {{ dependencies.repositories.polkadot_sdk_compatible_hardhat_node }}
+// Deploy using direct provider instead of Hardhat's wrapper
+const ContractFactory = new ethers.ContractFactory(
+  contractABI,
+  contractBytecode,
+  wallet
+);
+const contract = await ContractFactory.deploy(...constructorArgs);
     ```
 
-    Now, build the node and the ETH-RPC adapter. Note that this process might take a long time to complete:
+    For more details, see [this GitHub issue](https://github.com/paritytech/contract-issues/issues/47#issuecomment-2790181622){target=\_blank}.
 
-    ```bash
-    # Build the substrate node
-    cargo build --release
-    # Build the eth-rpc adapter
-    cargo build -p pallet-revive-eth-rpc --bin eth-rpc --release
-    ```
 
-2. Update the Hardhat configuration file to add the local node as a target for local deployment:
 
-    === "Remix Configuration"
+1. Update the Hardhat configuration file to add the local network as a target for local deployment:
 
-        ```javascript title="hardhat.config.js" hl_lines="27-44"
-        // hardhat.config.js
-require('@nomicfoundation/hardhat-toolbox');
+    === "npm Configuration"
 
-require('@nomicfoundation/hardhat-network-helpers');
-require('@nomicfoundation/hardhat-chai-matchers');
-require('@nomicfoundation/hardhat-ethers');
-require('hardhat-gas-reporter');
-require('@nomicfoundation/hardhat-ignition');
+        ```javascript title="hardhat.config.js" hl_lines="35-38"
+        require('@nomicfoundation/hardhat-toolbox');
 
-require('hardhat-resolc');
-require('hardhat-revive-node');
-        module.exports = {
+require('@parity/hardhat-polkadot');
+
+/** @type import('hardhat/config').HardhatUserConfig */
+module.exports = {
   solidity: '0.8.28',
-  // Remix Compiler
+  // npm Compiler
   resolc: {
     version: '1.5.2',
-    compilerSource: 'remix',
+    compilerSource: 'npm',
     settings: {
       optimizer: {
-        enabled: false,
-        runs: 600,
+        enabled: true,
+        parameters: 'z',
+        fallbackOz: true,
+        runs: 200,
       },
-      evmVersion: 'istanbul',
     },
   },
           hardhat: {
@@ -6629,32 +6657,30 @@ require('hardhat-revive-node');
 
     === "Binary Configuration"
 
-        ```javascript title="hardhat.config.js" hl_lines="27-44"
-        // hardhat.config.js
-require('@nomicfoundation/hardhat-toolbox');
+        ```javascript title="hardhat.config.js" hl_lines="37-40"
+        require('@nomicfoundation/hardhat-toolbox');
 
-require('@nomicfoundation/hardhat-network-helpers');
-require('@nomicfoundation/hardhat-chai-matchers');
-require('@nomicfoundation/hardhat-ethers');
-require('hardhat-gas-reporter');
-require('@nomicfoundation/hardhat-ignition');
+require('@parity/hardhat-polkadot');
 
-require('hardhat-resolc');
-require('hardhat-revive-node');
-        module.exports = {
+/** @type import('hardhat/config').HardhatUserConfig */
+module.exports = {
   solidity: '0.8.28',
-          compilerSource: 'binary',
+          resolc: {
+    compilerSource: 'binary',
     settings: {
       optimizer: {
         enabled: true,
-        runs: 400,
+        parameters: 'z',
+        fallbackOz: true,
+        runs: 200,
       },
       evmVersion: 'istanbul',
       compilerPath: 'INSERT_PATH_TO_RESOLC_COMPILER',
       standardJson: true,
     },
   },
-          hardhat: {
+  networks: {
+    hardhat: {
       polkavm: true,
       nodeConfig: {
         nodeBinaryPath: 'INSERT_PATH_TO_SUBSTRATE_NODE',
@@ -6673,63 +6699,19 @@ require('hardhat-revive-node');
         };
         ```
 
-    Ensure to replace `INSERT_PATH_TO_SUBSTRATE_NODE` and `INSERT_PATH_TO_ETH_RPC_ADAPTER` with the proper paths to the compiled binaries. Since you compiled these from source using Rust's Cargo build system, you can find them at:
-
-    - Substrate node path - `polkadot-sdk/target/release/substrate-node`
-    - ETH-RPC adapter path - `polkadot-sdk/target/release/eth-rpc`
-
-    For example, if you cloned the polkadot-sdk repository to your home directory, the paths might look like:
-
-    ```javascript
-    nodeBinaryPath: '/home/username/polkadot-sdk/target/release/substrate-node',
-    adapterBinaryPath: '/home/username/polkadot-sdk/target/release/eth-rpc',
-    ```
-
-3. Modify the Ignition modules, considering that the value of the pallet revive `block.timestamp` is returned in seconds. Check this [PR](https://github.com/paritytech/polkadot-sdk/pull/7792/files){target=\_blank} for more information. For example, for the default `ignition/modules/Lock.js` file, the needed modification should be:
-
-    ```diff
-    - const JAN_1ST_2030 = 1893456000;
-    + const JAN_1ST_2030 = 18934560000000;
-    ```
-
-    ???--- code "Modified `ignition/modules/Lock.js` file"
-
-        ```js title="Lock.js"
-        // This setup uses Hardhat Ignition to manage smart contract deployments.
-// Learn more about it at https://hardhat.org/ignition
-
-const { buildModule } = require('@nomicfoundation/hardhat-ignition/modules');
-
-const JAN_1ST_2030 = 18934560000000;
-const ONE_GWEI = 1_000_000_000n;
-
-module.exports = buildModule('LockModule', (m) => {
-  const unlockTime = m.getParameter('unlockTime', JAN_1ST_2030);
-  const lockedAmount = m.getParameter('lockedAmount', ONE_GWEI);
-
-  const lock = m.contract('Lock', [unlockTime], {
-    value: lockedAmount,
-  });
-
-  return { lock };
-});
-        ```
-
-4. Start a local node:
+2. Start a local node:
 
     ```bash
-    npx hardhat node-polkavm
+    npx hardhat node
     ```
 
-    This command will start a local PolkaVM node powered by the `hardhat-revive-node` plugin.
+    This command will spawn a local substrate node along with the ETH-RPC adapter.
 
-5. In a new terminal window, deploy the contract using Ignition:
+3. In a new terminal window, deploy the contract using Ignition:
 
     ```bash
-    npx hardhat ignition deploy ./ignition/modules/INSERT_IGNITION_MODULE_NAME.js --network localNode
+    npx hardhat ignition deploy ./ignition/modules/MyToken.js --network localNode
     ```
-
-    Replace `INSERT_IGNITION_MODULE_NAME` with the proper name for your contract. You'll see deployment information, including the contract address.
 
 ## Deploying to a Live Network
 
@@ -6751,114 +6733,50 @@ After testing your contract locally, you can deploy it to a live network. This g
 3. Install the [`dotenv`](https://www.npmjs.com/package/dotenv){target=\_blank} package to load the private key into your Hardhat configuration:
 
     ```bash
-    npm install dotenv
+    npm install --save-dev dotenv
     ```
 
 4. Update your config to load it:
 
-    ```javascript title="hardhat.config.js" hl_lines="12"
-    // hardhat.config.js
-require('@nomicfoundation/hardhat-toolbox');
+    ```javascript title="hardhat.config.js" hl_lines="6"
+    require('@nomicfoundation/hardhat-toolbox');
 
-require('@nomicfoundation/hardhat-network-helpers');
-require('@nomicfoundation/hardhat-chai-matchers');
-require('@nomicfoundation/hardhat-ethers');
-require('hardhat-gas-reporter');
-require('@nomicfoundation/hardhat-ignition');
+require('@parity/hardhat-polkadot');
 
-require('hardhat-resolc');
-require('hardhat-revive-node');
+    require('dotenv').config();
 
-require('dotenv').config();
-
-/** @type import('hardhat/config').HardhatUserConfig */
-module.exports = {
+    module.exports = {
       // The rest remains the same...
     
     ```
 
-5. Update your Hardhat configuration file with network settings for the Asset Hub network you want to target:
+5. Update your Hardhat configuration file with network settings for the Polkadot network you want to target:
 
-    === "Remix Configuration"
+    === "npm Configuration"
 
-        ```javascript title="hardhat.config.js" hl_lines="44-48"
-        // hardhat.config.js
-require('@nomicfoundation/hardhat-toolbox');
+        ```javascript title="hardhat.config.js" hl_lines="42-46"
+        require('@nomicfoundation/hardhat-toolbox');
 
-require('@nomicfoundation/hardhat-network-helpers');
-require('@nomicfoundation/hardhat-chai-matchers');
-require('@nomicfoundation/hardhat-ethers');
-require('hardhat-gas-reporter');
-require('@nomicfoundation/hardhat-ignition');
+require('@parity/hardhat-polkadot');
 
-require('hardhat-resolc');
-require('hardhat-revive-node');
+        require('dotenv').config();
+
         module.exports = {
   solidity: '0.8.28',
-  // Remix Compiler
+  // npm Compiler
   resolc: {
     version: '1.5.2',
-    compilerSource: 'remix',
-    settings: {
-      optimizer: {
-        enabled: false,
-        runs: 600,
-      },
-      evmVersion: 'istanbul',
-    },
-  },
-        hardhat: {
-      polkavm: true,
-      nodeConfig: {
-        nodeBinaryPath: 'INSERT_PATH_TO_SUBSTRATE_NODE',
-        rpcPort: 8000,
-        dev: true,
-      },
-      adapterConfig: {
-        adapterBinaryPath: 'INSERT_PATH_TO_ETH_RPC_ADAPTER',
-        dev: true,
-      },
-    },
-    localNode: {
-      polkavm: true,
-      url: `http://127.0.0.1:8545`,
-    },
-    westendAssetHub: {
-      polkavm: true,
-      url: 'https://westend-asset-hub-eth-rpc.polkadot.io',
-      accounts: [process.env.PRIVATE_KEY],
-    },
-  },
-};
-        ```
-
-    === "Binary Configuration"
-
-        ```javascript title="hardhat.config.js" hl_lines="44-48"
-        // hardhat.config.js
-require('@nomicfoundation/hardhat-toolbox');
-
-require('@nomicfoundation/hardhat-network-helpers');
-require('@nomicfoundation/hardhat-chai-matchers');
-require('@nomicfoundation/hardhat-ethers');
-require('hardhat-gas-reporter');
-require('@nomicfoundation/hardhat-ignition');
-
-require('hardhat-resolc');
-require('hardhat-revive-node');
-        module.exports = {
-  solidity: '0.8.28',
-          compilerSource: 'binary',
+    compilerSource: 'npm',
     settings: {
       optimizer: {
         enabled: true,
-        runs: 400,
+        parameters: 'z',
+        fallbackOz: true,
+        runs: 200,
       },
-      evmVersion: 'istanbul',
-      compilerPath: 'INSERT_PATH_TO_RESOLC_COMPILER',
-      standardJson: true,
     },
   },
+
           hardhat: {
       polkavm: true,
       nodeConfig: {
@@ -6875,55 +6793,107 @@ require('hardhat-revive-node');
       polkavm: true,
       url: `http://127.0.0.1:8545`,
     },
-    westendAssetHub: {
+    westendHub: {
       polkavm: true,
       url: 'https://westend-asset-hub-eth-rpc.polkadot.io',
       accounts: [process.env.PRIVATE_KEY],
     },
-  },
-};
+        };
         ```
 
-4. Deploy your contract using Ignition:
+    === "Binary Configuration"
+
+        ```javascript title="hardhat.config.js" hl_lines="46-50"
+        require('@nomicfoundation/hardhat-toolbox');
+
+require('@parity/hardhat-polkadot');
+
+        require('dotenv').config();
+
+        /** @type import('hardhat/config').HardhatUserConfig */
+module.exports = {
+  solidity: '0.8.28',
+        
+          resolc: {
+    compilerSource: 'binary',
+    settings: {
+      optimizer: {
+        enabled: true,
+        parameters: 'z',
+        fallbackOz: true,
+        runs: 200,
+      },
+      evmVersion: 'istanbul',
+      compilerPath: 'INSERT_PATH_TO_RESOLC_COMPILER',
+      standardJson: true,
+    },
+  },
+  networks: {
+    hardhat: {
+      polkavm: true,
+      nodeConfig: {
+        nodeBinaryPath: 'INSERT_PATH_TO_SUBSTRATE_NODE',
+        rpcPort: 8000,
+        dev: true,
+      },
+      adapterConfig: {
+        adapterBinaryPath: 'INSERT_PATH_TO_ETH_RPC_ADAPTER',
+        dev: true,
+      },
+    },
+    localNode: {
+      polkavm: true,
+      url: `http://127.0.0.1:8545`,
+    },
+    westendHub: {
+      polkavm: true,
+      url: 'https://westend-asset-hub-eth-rpc.polkadot.io',
+      accounts: [process.env.PRIVATE_KEY],
+    },
+        };
+        ```
+
+5. Deploy your contract using Ignition:
 
     ```bash
-    npx hardhat ignition deploy ./ignition/modules/INSERT_IGNITION_MODULE_NAME.js --network westendAssetHub
+    npx hardhat ignition deploy ./ignition/modules/MyToken.js --network westendHub
     ```
-
-    Replace `INSERT_IGNITION_MODULE_NAME` with the proper name for your contract. You'll see deployment information, including the contract address.
 
 ## Interacting with Your Contract
 
 Once deployed, you can create a script to interact with your contract. To do so, create a file called `scripts/interact.js` and add some logic to interact with the contract. 
 
-For example, for the default `Lock.sol` contract, you can use the following file that connects to the contract at its address and retrieves the `unlockTime`, which represents when funds can be withdrawn. The script converts this timestamp into a readable date and logs it. It then checks the contract's balance and displays it. Finally, it attempts to call the withdrawal function on the contract, but it catches and logs the error message if the withdrawal is not yet allowed (e.g., before `unlockTime`).
+For example, for the default `MyToken.sol` contract, you can use the following file that connects to the contract at its address and retrieves the `unlockTime`, which represents when funds can be withdrawn. The script converts this timestamp into a readable date and logs it. It then checks the contract's balance and displays it. Finally, it attempts to call the withdrawal function on the contract, but it catches and logs the error message if the withdrawal is not yet allowed (e.g., before `unlockTime`).
 
 ```javascript title="interact.js"
 const hre = require('hardhat');
 
 async function main() {
-  // Get the contract instance
-  const Lock = await hre.ethers.getContractFactory('Lock');
-  const contractAddress = '0x46E0a43DC905a5b8FA9Fc4dA61774abE31a098a5';
-  const lock = await Lock.attach(contractAddress);
+  // Get the contract factory
+  const MyToken = await hre.ethers.getContractFactory('MyToken');
+
+  // Replace with your deployed contract address
+  const contractAddress = 'INSERT_CONTRACT_ADDRESS';
+
+  // Attach to existing contract
+  const token = await MyToken.attach(contractAddress);
+
+  // Get signers
+  const [deployer] = await hre.ethers.getSigners();
 
   // Read contract state
-  const unlockTime = await lock.unlockTime();
+  const name = await token.name();
+  const symbol = await token.symbol();
+  const totalSupply = await token.totalSupply();
+  const balance = await token.balanceOf(deployer.address);
 
-  const unlockTimestamp = Number(unlockTime);
-  console.log(`Unlock time: ${new Date(unlockTimestamp)}`);
-
-  const balance = await hre.ethers.provider.getBalance(lock.target);
-  console.log(`Contract balance: ${hre.ethers.formatEther(balance)} ETH`);
-
-  // Interact with contract (transaction)
-  try {
-    const tx = await lock.withdraw();
-    await tx.wait();
-    console.log('Withdrawal successful!');
-  } catch (error) {
-    console.error(`Error during withdrawal: ${error.message}`);
-  }
+  console.log(`Token: ${name} (${symbol})`);
+  console.log(
+    `Total Supply: ${hre.ethers.formatUnits(totalSupply, 18)} tokens`
+  );
+  console.log(
+    `Deployer Balance: ${hre.ethers.formatUnits(balance, 18)} tokens`
+  );
 }
 
 main().catch((error) => {
@@ -6935,7 +6905,7 @@ main().catch((error) => {
 Run your interaction script:
 
 ```bash
-npx hardhat run scripts/interact.js --network westendAssetHub
+npx hardhat run scripts/interact.js --network westendHub
 ```
 
 ## Where to Go Next
@@ -19301,6 +19271,18 @@ Paseo TestNet provisions testing on Polkadot's "production" runtime, which means
 
 The [Polkadot network](https://polkadot.network/){target=\_blank} is a blockchain that serves as the central hub of a heterogeneous blockchain network. It serves the role of the [relay chain](#relay-chain) and provides shared infrastructure and security to support [parachains](#parachain).
 
+## Polkadot Cloud
+
+Polkadot Cloud is a platform for deploying resilient, customizable and scalable Web3 applications through Polkadot's functionality. It encompasses the wider Polkadot network infrastructure and security layer where parachains operate. The platform enables users to launch Ethereum-compatible chains, build specialized blockchains, and flexibly manage computing resources through on-demand or bulk coretime purchases. Initially launched with basic parachain functionality, Polkadot Cloud has evolved to offer enhanced flexibility with features like coretime, elastic scaling, and async backing for improved performance.
+
+## Polkadot Hub
+
+Polkadot Hub is a Layer 1 platform that serves as the primary entry point to the Polkadot ecosystem, providing essential functionality without requiring parachain deployment. It offers core services including smart contracts, identity management, staking, governance, and interoperability with other ecosystems, making it simple and fast for both builders and users to get started in Web3.
+
+## PolkaVM
+
+PolkaVM is a custom virtual machine optimized for performance, leveraging a RISC-V-based architecture to support Solidity and any language that compiles to RISC-V. It is specifically designed for the Polkadot ecosystem, enabling smart contract deployment and execution.
+
 ## Relay Chain
 
 Relay chains are blockchains that provide shared infrastructure and security to the [parachains](#parachain) in the network. In addition to providing [consensus](#consensus) capabilities, relay chains allow parachains to communicate and exchange digital assets without needing to trust one another.
@@ -21944,6 +21926,24 @@ This difference introduces potential compatibility challenges for Ethereum-based
   - Treating ED like other storage deposit costs
 
 This approach ensures that Ethereum contracts work without modifications while maintaining Polkadot's optimized state management.
+
+## Contract Deployment
+
+For most users deploying contracts (like ERC-20 tokens), contract deployment works seamlessly without requiring special steps. However, when using advanced patterns like factory contracts that dynamically create other contracts at runtime, you'll need to understand PolkaVM's unique deployment model.
+
+In the PolkaVM, contract deployment follows a fundamentally different model from EVM. The EVM allows contracts to be deployed with a single transaction, where the contract code is bundled with the deployment transaction. In contrast, PolkaVM has a different process for contract instantiation.
+
+- **Code must be pre-uploaded** - unlike EVM, where contract code is bundled within the deploying contract, PolkaVM requires all contract bytecode to be uploaded to the chain before instantiation
+- **Factory pattern limitations** - the common EVM pattern, where contracts dynamically create other contracts, will fail with `CodeNotFound` error unless the dependent contract code was previously uploaded
+- **Separate upload and instantiation** - this creates a two-step process where developers must first upload all contract code, then instantiate relationships between contracts
+
+This architecture impacts several common EVM patterns:
+
+- Factory contracts must be modified to work with pre-uploaded code rather than embedding bytecode
+- [`create`](https://www.evm.codes/?fork=cancun#f0){target=\_blank} and [`create2`](https://www.evm.codes/?fork=cancun#f5){target=\_blank} deployments need adaptation since they can't dynamically generate contract code
+- Runtime code generation is not supported due to PolkaVM's RISC-V bytecode format
+
+When migrating EVM projects to PolkaVM, developers should identify all contracts that will be instantiated at runtime and ensure they are pre-uploaded to the chain before any instantiation attempts.
 --- END CONTENT ---
 
 Doc-Content: https://docs.polkadot.com/polkadot-protocol/smart-contract-basics/
@@ -32593,6 +32593,7 @@ Doc-Content: https://docs.polkadot.com/tutorials/smart-contracts/launch-your-fir
 ---
 title: Create a dApp With Ethers.js
 description: Learn how to build a decentralized application on Asset Hub using Ethers.js and Next.js by creating a simple dApp that interacts with a smart contract.
+tutorial_badge:  Intermediate
 ---
 
 # Create a dApp With Ethers.js
@@ -32960,7 +32961,64 @@ And you will see the following:
 Now, let's create a component to read data from the contract. Create a file called `components/ReadContract.js`:
 
 ```javascript title="ReadContract.js"
-Error fetching snippet from https://raw.githubusercontent.com/polkadot-developers/polkavm-storage-contract-dapps/refs/tags/v0.0.1/ethers-dapp/app/components/ReadContract.js
+'use client';
+
+import React, { useState, useEffect } from 'react';
+import { getContract } from '../utils/contract';
+
+const ReadContract = () => {
+  const [storedNumber, setStoredNumber] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    // Function to read data from the blockchain
+    const fetchData = async () => {
+      try {
+        setLoading(true);
+        const contract = getContract();
+        // Call the smart contract's storedNumber function
+        const number = await contract.storedNumber();
+        setStoredNumber(number.toString());
+        setError(null);
+      } catch (err) {
+        console.error('Error fetching stored number:', err);
+        setError('Failed to fetch data from the contract');
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchData();
+
+    // Poll for updates every 10 seconds to keep UI in sync with blockchain
+    const interval = setInterval(fetchData, 10000);
+
+    // Clean up interval on component unmount
+    return () => clearInterval(interval);
+  }, []);
+
+  return (
+    <div className="border border-pink-500 rounded-lg p-4 shadow-md bg-white text-pink-500 max-w-sm mx-auto">
+      <h2 className="text-lg font-bold text-center mb-4">Contract Data</h2>
+      {loading ? (
+        <div className="flex justify-center my-4">
+          <div className="w-6 h-6 border-4 border-pink-500 border-t-transparent rounded-full animate-spin"></div>
+        </div>
+      ) : error ? (
+        <p className="text-red-500 text-center">{error}</p>
+      ) : (
+        <div className="text-center">
+          <p className="text-sm font-mono bg-pink-100 px-2 py-1 rounded-md text-pink-700">
+            <strong>Stored Number:</strong> {storedNumber}
+          </p>
+        </div>
+      )}
+    </div>
+  );
+};
+
+export default ReadContract;
 ```
 
 This component reads the `storedNumber` value from the contract and displays it to the user. It also sets up a polling interval to refresh the data periodically.
@@ -33165,20 +33223,6 @@ To get started right away with a working example, you can clone the repository a
 git clone https://github.com/polkadot-developers/polkavm-storage-contract-dapps.git -b v0.0.1
 cd polkavm-storage-contract-dapps/ethers-dapp
 ```
-
-## Where to Go Next
-
-<div class="grid cards" markdown>
-
--   <span class="badge tutorial">Tutorial</span> __Create a dApp with WAGMI__
-
-    ---
-
-    Learn how to build a decentralized application by using the WAGMI framework.
-
-    [:octicons-arrow-right-24: Get Started](/tutorials/smart-contracts/launch-your-first-project/create-dapp-wagmi/)
-
-</div>
 --- END CONTENT ---
 
 Doc-Content: https://docs.polkadot.com/tutorials/smart-contracts/launch-your-first-project/create-dapp-viem/
@@ -33186,6 +33230,7 @@ Doc-Content: https://docs.polkadot.com/tutorials/smart-contracts/launch-your-fir
 ---
 title: Create a dApp With Viem
 description: Learn how to build a decentralized application on Asset Hub using Viem and Next.js by creating a simple dApp that interacts with a smart contract.
+tutorial_badge:  Intermediate
 ---
 
 # Create a dApp with Viem
@@ -33560,7 +33605,19 @@ To use this component in your dApp, replace the existing boilerplate in `app/pag
 
 ```typescript title="page.tsx"
 Invalid snippet reference: https://raw.githubusercontent.com/polkadot-developers/polkavm-storage-contract-dapps/refs/tags/v0.0.1/viem-dapp/app/page.tsx::4
-Error fetching snippet from https://raw.githubusercontent.com/polkadot-developers/polkavm-storage-contract-dapps/refs/tags/v0.0.1/viem-dapp/app/page.tsx
+export default function Home() {
+  const [account, setAccount] = useState<string | null>(null);
+
+  const handleConnect = (connectedAccount: string) => {
+    setAccount(connectedAccount);
+  };
+
+  return (
+    <section className="min-h-screen bg-white text-black flex flex-col justify-center items-center gap-4 py-10">
+      <h1 className="text-2xl font-semibold text-center">
+        Viem dApp - Asset Hub Smart Contracts
+      </h1>
+      <WalletConnect onConnect={handleConnect} />
 </section>
   );
 }
@@ -33681,7 +33738,223 @@ And you will see in your browser:
 Finally, let's create a component that allows users to update the stored number. Create a file called `components/WriteContract.tsx`:
 
 ```typescript title="WriteContract.tsx"
-Error fetching snippet from https://raw.githubusercontent.com/polkadot-developers/polkavm-storage-contract-dapps/refs/tags/v0.0.1/viem-dapp/app/components/WriteContract.tsx
+"use client";
+
+import React, { useState, useEffect } from "react";
+import { publicClient, getWalletClient } from "../utils/viem";
+import { CONTRACT_ADDRESS, CONTRACT_ABI } from "../utils/contract";
+
+interface WriteContractProps {
+  account: string | null;
+}
+
+const WriteContract: React.FC<WriteContractProps> = ({ account }) => {
+  const [newNumber, setNewNumber] = useState<string>("");
+  const [status, setStatus] = useState<{
+    type: string | null;
+    message: string;
+  }>({
+    type: null,
+    message: "",
+  });
+  const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
+  const [isCorrectNetwork, setIsCorrectNetwork] = useState<boolean>(true);
+
+  // Check if the account is on the correct network
+  useEffect(() => {
+    const checkNetwork = async () => {
+      if (!account) return;
+
+      try {
+        // Get the chainId from the public client
+        const chainId = await publicClient.getChainId();
+
+        // Get the user's current chainId from their wallet
+        const walletClient = await getWalletClient();
+        if (!walletClient) return;
+
+        const walletChainId = await walletClient.getChainId();
+
+        // Check if they match
+        setIsCorrectNetwork(chainId === walletChainId);
+      } catch (err) {
+        console.error("Error checking network:", err);
+        setIsCorrectNetwork(false);
+      }
+    };
+
+    checkNetwork();
+  }, [account]);
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+
+    // Validation checks
+    if (!account) {
+      setStatus({ type: "error", message: "Please connect your wallet first" });
+      return;
+    }
+
+    if (!isCorrectNetwork) {
+      setStatus({
+        type: "error",
+        message: "Please switch to the correct network in your wallet",
+      });
+      return;
+    }
+
+    if (!newNumber || isNaN(Number(newNumber))) {
+      setStatus({ type: "error", message: "Please enter a valid number" });
+      return;
+    }
+
+    try {
+      setIsSubmitting(true);
+      setStatus({ type: "info", message: "Initiating transaction..." });
+
+      // Get wallet client for transaction signing
+      const walletClient = await getWalletClient();
+
+      if (!walletClient) {
+        setStatus({ type: "error", message: "Wallet client not available" });
+        return;
+      }
+
+      // Check if account matches
+      if (
+        walletClient.account?.address.toLowerCase() !== account.toLowerCase()
+      ) {
+        setStatus({
+          type: "error",
+          message:
+            "Connected wallet account doesn't match the selected account",
+        });
+        return;
+      }
+
+      // Prepare transaction and wait for user confirmation in wallet
+      setStatus({
+        type: "info",
+        message: "Please confirm the transaction in your wallet...",
+      });
+
+      // Simulate the contract call first
+      console.log('newNumber', newNumber);
+      const { request } = await publicClient.simulateContract({
+        address: CONTRACT_ADDRESS,
+        abi: CONTRACT_ABI,
+        functionName: "setNumber",
+        args: [BigInt(newNumber)],
+        account: walletClient.account,
+      });
+
+      // Send the transaction with wallet client
+      const hash = await walletClient.writeContract(request);
+
+      // Wait for transaction to be mined
+      setStatus({
+        type: "info",
+        message: "Transaction submitted. Waiting for confirmation...",
+      });
+
+      const receipt = await publicClient.waitForTransactionReceipt({
+        hash,
+      });
+
+      setStatus({
+        type: "success",
+        message: `Transaction confirmed! Transaction hash: ${receipt.transactionHash}`,
+      });
+
+      setNewNumber("");
+    } catch (err: any) {
+      console.error("Error updating number:", err);
+
+      // Handle specific errors
+      if (err.code === 4001) {
+        // User rejected transaction
+        setStatus({ type: "error", message: "Transaction rejected by user." });
+      } else if (err.message?.includes("Account not found")) {
+        // Account not found on the network
+        setStatus({
+          type: "error",
+          message:
+            "Account not found on current network. Please check your wallet is connected to the correct network.",
+        });
+      } else if (err.message?.includes("JSON is not a valid request object")) {
+        // JSON error - specific to your current issue
+        setStatus({
+          type: "error",
+          message:
+            "Invalid request format. Please try again or contact support.",
+        });
+      } else {
+        // Other errors
+        setStatus({
+          type: "error",
+          message: `Error: ${err.message || "Failed to send transaction"}`,
+        });
+      }
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
+  return (
+    <div className="border border-pink-500 rounded-lg p-4 shadow-md bg-white text-pink-500 max-w-sm mx-auto space-y-4">
+      <h2 className="text-lg font-bold">Update Stored Number</h2>
+
+      {!isCorrectNetwork && account && (
+        <div className="p-2 rounded-md bg-yellow-100 text-yellow-700 text-sm">
+          ⚠️ You are not connected to the correct network. Please switch
+          networks in your wallet.
+        </div>
+      )}
+
+      {status.message && (
+        <div
+          className={`p-2 rounded-md break-words h-fit text-sm ${
+            status.type === "error"
+              ? "bg-red-100 text-red-500"
+              : status.type === "success"
+              ? "bg-green-100 text-green-700"
+              : "bg-blue-100 text-blue-700"
+          }`}
+        >
+          {status.message}
+        </div>
+      )}
+
+      <form onSubmit={handleSubmit} className="space-y-4">
+        <input
+          type="number"
+          placeholder="New Number"
+          value={newNumber}
+          onChange={(e) => setNewNumber(e.target.value)}
+          disabled={isSubmitting || !account}
+          className="w-full p-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-pink-400"
+        />
+        <button
+          type="submit"
+          disabled={
+            isSubmitting || !account || (!isCorrectNetwork && !!account)
+          }
+          className="w-full bg-pink-500 hover:bg-pink-600 text-white font-bold py-2 px-4 rounded-lg transition disabled:bg-gray-300"
+        >
+          {isSubmitting ? "Updating..." : "Update"}
+        </button>
+      </form>
+
+      {!account && (
+        <p className="text-sm text-gray-500">
+          Connect your wallet to update the stored number.
+        </p>
+      )}
+    </div>
+  );
+};
+
+export default WriteContract;
 ```
 
 This component allows users to input a new number and send a transaction to update the value stored in the contract. It provides appropriate feedback during each step of the transaction process and handles error scenarios.

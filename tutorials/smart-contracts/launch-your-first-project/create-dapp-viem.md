@@ -1,6 +1,7 @@
 ---
 title: Create a dApp With Viem
 description: Learn how to build a decentralized application on Asset Hub using Viem and Next.js by creating a simple dApp that interacts with a smart contract.
+tutorial_badge:  Intermediate
 ---
 
 # Create a dApp with Viem

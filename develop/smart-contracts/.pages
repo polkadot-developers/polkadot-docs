@@ -3,6 +3,7 @@ nav:
   - index.md
   - 'Overview': overview.md
   - 'Connect to Asset Hub': connect-to-asset-hub.md
+  - 'Block Explorers': block-explorers.md
   - dev-environments
   - libraries
   - 'JSON-RPC APIs': json-rpc-apis.md

@@ -27,7 +27,7 @@ Before getting started, ensure you have the following installed:
 This project organizes contracts, scripts, and compiled artifacts for easy development and deployment.
 
 ```text title="Web3.js Polkadot Hub"
-web3js-asset-hub
+web3js-project
 ├── contracts
 │   ├── Storage.sol
 ├── scripts
@@ -68,7 +68,7 @@ This guide uses `web3` version `{{ dependencies.javascript_packages.web3_js.vers
 
 The provider configuration is the foundation of any Web3.js application. The following example establishes a connection to Polkadot Hub. To use the example script, replace `INSERT_RPC_URL`, `INSERT_CHAIN_ID`, and `INSERT_CHAIN_NAME` with the appropriate values. The provider connection script should look something like this:
 
-```javascript title="connectToProvider.js"
+```javascript title="scripts/connectToProvider.js"
 --8<-- 'code/develop/smart-contracts/evm-toolkit/libraries/web3-js/connectToProvider.js'
 ```
 
@@ -85,9 +85,9 @@ With the Web3 provider set up, you can start querying the blockchain.
 
 For instance, to fetch the latest block number of the chain, you can use the following code snippet:
 
-???+ code "Complete script"
+???+ code "View complete script"
 
-    ```javascript title="fetchLastBlock.js"
+    ```javascript title="scripts/fetchLastBlock.js"
     --8<-- 'code/develop/smart-contracts/evm-toolkit/libraries/web3-js/fetchLastBlock.js'
     ```
 
@@ -103,13 +103,13 @@ This guide uses `@parity/revive` version `{{ dependencies.javascript_packages.re
 
 Here's a simple storage contract that you can use to follow the process:
 
-```solidity title="Storage.sol"
+```solidity title="contracts/Storage.sol"
 --8<-- 'code/develop/smart-contracts/evm-toolkit/libraries/web3-js/Storage.sol'
 ```
 
 With that, you can now create a `compile.js` snippet that transforms your solidity code into PolkaVM bytecode:
 
-```javascript title="compile.js"
+```javascript title="scripts/compile.js"
 --8<-- 'code/develop/smart-contracts/evm-toolkit/libraries/web3-js/compile.js'
 ```
 
@@ -125,7 +125,7 @@ After compilation, you'll have two key files: an ABI (`.json`) file, which provi
 
 To deploy your compiled contract to Polkadot Hub using Web3.js, you'll need an account with a private key to sign the deployment transaction. The deployment process is exactly the same as for any Ethereum-compatible chain, involving creating a contract instance, estimating gas, and sending a deployment transaction. Here's how to deploy the contract, ensure replacing the `INSERT_RPC_URL`, `INSERT_PRIVATE_KEY`, and `INSERT_CONTRACT_NAME` with the appropriate values:
 
-```javascript title="deploy.js"
+```javascript title="scripts/deploy.js"
 --8<-- 'code/develop/smart-contracts/evm-toolkit/libraries/web3-js/deploy.js'
 ```
 
@@ -141,7 +141,7 @@ node deploy
 
 Once deployed, you can interact with your contract using Web3.js methods. Here's how to set a number and read it back, ensure replacing `INSERT_RPC_URL`, `INSERT_PRIVATE_KEY`, and `INSERT_CONTRACT_ADDRESS` with the appropriate values:
 
-```javascript title="updateStorage.js"
+```javascript title="scripts/updateStorage.js"
 --8<-- 'code/develop/smart-contracts/evm-toolkit/libraries/web3-js/updateStorage.js'
 ```
 

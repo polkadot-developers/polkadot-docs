@@ -4,7 +4,7 @@ description: Deploy an ERC-20 token on Polkadot Hub using PolkaVM. This guide co
 tutorial_badge: Beginner
 ---
 
-# Deploy ERC-20 to Polkadot Hub
+# Deploy an ERC-20 to Polkadot Hub
 
 ## Introduction
 
@@ -16,7 +16,7 @@ This tutorial covers deploying an ERC-20 contract on the Westend TestNet using [
 
 Before starting, make sure you have:
 
-- [MetaMask](https://metamask.io/){target=\_blank} installed and connected to [Westend Hub](https://chainlist.org/chain/420420421){target=\_blank}. For more detailed instructions on connecting your wallet, see the [Connect Your Wallet](/develop/smart-contracts/connect-to-polkadot/#connect-your-wallet){target=\_blank} section
+- [MetaMask](https://metamask.io/){target=\_blank} installed and connected to [Westend Hub](https://chainlist.org/chain/420420421){target=\_blank}. For detailed instructions, see the [Connect Your Wallet](/develop/smart-contracts/connect-to-polkadot/#connect-your-wallet){target=\_blank} section
 - A funded account with some WND tokens (you can get them from the [Westend Faucet](https://faucet.polkadot.io/westend?parachain=1000){target=\_blank}). To learn how to get test tokens, check out the [Test Tokens](/develop/smart-contracts/connect-to-polkadot/#test-tokens){target=\_blank} section
 - Basic understanding of Solidity and fungible tokens
 

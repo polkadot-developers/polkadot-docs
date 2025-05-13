@@ -2,7 +2,7 @@ import { createPublicClient, http } from 'viem';
 
 const transport = http('https://westend-asset-hub-eth-rpc.polkadot.io');
 
-// Configure the Asset Hub chain
+// Configure the Polkadot Hub chain
 const assetHub = {
   id: 420420421,
   name: 'Westend Asset Hub',
@@ -30,7 +30,7 @@ const main = async () => {
     const block = await publicClient.getBlock();
     console.log('Last block: ' + block.number.toString());
   } catch (error: unknown) {
-    console.error('Error connecting to Asset Hub: ' + error);
+    console.error('Error connecting to Westend Hub: ' + error);
   }
 };
 

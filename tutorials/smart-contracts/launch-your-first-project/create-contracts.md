@@ -94,9 +94,7 @@ To build the smart contract, follow the steps below:
     --8<-- 'https://raw.githubusercontent.com/polkadot-developers/polkavm-hardhat-examples/refs/tags/v0.0.1/storage-hardhat/contracts/Storage.sol'
     ```
 
-The complete contract should look like this:
-
-??? code "Storage.sol"
+??? code "Complete Storage.sol contract"
 
     ```solidity title="Storage.sol"
     --8<-- 'https://raw.githubusercontent.com/polkadot-developers/polkavm-hardhat-examples/refs/tags/v0.0.1/storage-hardhat/contracts/Storage.sol'
@@ -121,11 +119,11 @@ Let's break down the key components of the contract:
 
 - **Functions**
 
-    - `store(uint256 newNumber)` - Updates the stored number and emits an event.
+    - `store(uint256 newNumber)` - updates the stored number and emits an event
         - This function changes the state of the contract and requires a transaction to execute
         - The `emit` keyword is used to trigger the defined event
 
-    - `retrieve()` - Returns the current stored number.
+    - `retrieve()` - returns the current stored number
         - The `view` keyword indicates that this function only reads data and doesn't modify the contract's state
         - View functions don't require a transaction and don't cost gas when called externally
 

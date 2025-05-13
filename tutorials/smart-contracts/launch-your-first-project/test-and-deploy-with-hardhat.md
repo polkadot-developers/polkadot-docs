@@ -251,7 +251,7 @@ To interact with your deployed contract:
 
 ## Conclusion
 
-Congratulations! You've successfully set up a Hardhat development environment, written comprehensive tests for your Storage contract, and deployed it to local and Westend Asset Hub networks. This tutorial covered essential steps in smart contract development, including configuration, testing, deployment, and interaction.
+Congratulations! You've successfully set up a Hardhat development environment, written comprehensive tests for your Storage contract, and deployed it to local and Westend Hub networks. This tutorial covered essential steps in smart contract development, including configuration, testing, deployment, and interaction.
 
 To get started with a working example right away, you can clone the repository and navigate to the project directory:
 

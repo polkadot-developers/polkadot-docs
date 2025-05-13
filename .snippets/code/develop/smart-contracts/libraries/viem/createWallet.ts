@@ -3,7 +3,7 @@ import { createWalletClient, http } from 'viem';
 
 const transport = http('INSERT_RPC_URL');
 
-// Configure the Asset Hub chain
+// Configure the Polkadot Hub chain
 const assetHub = {
   id: INSERT_CHAIN_ID,
   name: 'INSERT_CHAIN_NAME',

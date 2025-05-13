@@ -28,9 +28,9 @@ Before getting started, ensure you have:
 - [Node.js](https://nodejs.org/){target=\_blank} (v16.0.0 or later) and npm installed
 - Basic understanding of Solidity programming
 - Some WND test tokens to cover transaction fees (easily obtainable from the [Polkadot faucet](https://faucet.polkadot.io/westend?parachain=1000){target=\_blank}). To learn how to get test tokens, check out the [Test Tokens](/develop/smart-contracts/connect-to-polkadot/#test-tokens){target=\_blank} section
-- [MetaMask](https://metamask.io/){target=\_blank} installed and connected to [Westend Hub](https://chainlist.org/chain/420420421){target=\_blank}. For more detailed instructions on connecting your wallet, see the [Connect Your Wallet](/develop/smart-contracts/connect-to-polkadot/#connect-your-wallet){target=\_blank} section
+- [MetaMask](https://metamask.io/){target=\_blank} installed and connected to [Westend Hub](https://chainlist.org/chain/420420421){target=\_blank}. For detailed instructions, see the [Connect Your Wallet](/develop/smart-contracts/connect-to-polkadot/#connect-your-wallet){target=\_blank} section
 
-## Setting Up Hardhat
+## Set Up Hardhat
 
 1. Create a new directory for your project and navigate into it:
 
@@ -63,7 +63,7 @@ Before getting started, ensure you have:
     npx hardhat init
     ```
 
-    Select "Create a JavaScript project" when prompted and follow the instructions. After that, your project will be created with three main folders:
+    Select **Create a JavaScript project** when prompted and follow the instructions. After that, your project will be created with three main folders:
 
     - **`contracts`** - where your Solidity smart contracts live
     - **`test`** - contains your test files that validate contract functionality

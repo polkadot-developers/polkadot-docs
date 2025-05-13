@@ -10,7 +10,7 @@ export default function Home() {
 
   return (
     <main>
-      <h1>Wagmi - Asset Hub Smart Contracts</h1>
+      <h1>Wagmi - Polkadot Hub Smart Contracts</h1>
       <ConnectWallet />
       {isConnected ? <BlockchainInfo /> : <span>Connect your wallet</span>}
       {isConnected ? <StorageContract /> : <span>Connect your wallet</span>}

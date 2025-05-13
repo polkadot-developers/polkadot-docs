@@ -1,6 +1,6 @@
 import { http, createConfig } from 'wagmi'
 
-// Configure the Asset Hub chain
+// Configure the Polkadot Hub chain
 const assetHub = {
   id: INSERT_CHAIN_ID,
   name: 'INSERT_CHAIN_NAME',

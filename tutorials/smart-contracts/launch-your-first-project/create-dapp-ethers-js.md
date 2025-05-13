@@ -3,7 +3,7 @@ title: Create a dApp With Ethers.js
 description: Learn how to build a decentralized application on Polkadot Hub using Ethers.js and Next.js by creating a simple dApp that interacts with a smart contract.
 ---
 
-# Create a dApp With Ethers.js
+# Create a DApp With Ethers.js
 
 ## Introduction
 
@@ -57,14 +57,14 @@ ethers-dapp
 
 Let's start by creating a new Next.js project:
 
-```
+```bash
 npx create-next-app ethers-dapp --js --eslint --tailwind --app --yes
 cd ethers-dapp
 ```
 
 Next, install the needed dependencies:
 
-```
+```bash
 npm install ethers@{{ dependencies.javascript_packages.ethersjs.version }}
 ```
 
@@ -72,7 +72,7 @@ npm install ethers@{{ dependencies.javascript_packages.ethersjs.version }}
 
 To interact with the Polkadot Hub, you need to set up an [Ethers.js Provider](/develop/smart-contracts/libraries/ethers-js/#set-up-the-ethersjs-provider){target=\_blank} that connects to the blockchain. In this example, you will interact with Westend Hub, the testnet version of Polkadot Hub, so you can experiment safely. Start by creating a new file called `utils/ethers.js` and add the following code:
 
-```javascript title="ethers.js"
+```javascript title="app/utils/ethers.js"
 --8<-- "https://raw.githubusercontent.com/polkadot-developers/polkavm-storage-contract-dapps/refs/tags/v0.0.1/ethers-dapp/app/utils/ethers.js"
 ```
 
@@ -82,15 +82,15 @@ This file establishes a connection to Westend Hub and provides helper functions 
 
 For this dApp, you'll use a simple Storage contract already deployed. So, you need to create an interface to interact with it. First, ensure to create a folder called `abis` at the root of your project, create a file `Storage.json`, and paste the corresponding ABI (Application Binary Interface) of the Storage contract. You can copy and paste the following:
 
-??? code "Storage.sol ABI"
+???+ code "Storage.sol ABI"
 
-    ```json title="Storage.json"
+    ```json title="abis/Storage.json"
     --8<-- "https://raw.githubusercontent.com/polkadot-developers/polkavm-storage-contract-dapps/refs/tags/v0.0.1/ethers-dapp/abis/Storage.json"
     ```
 
-Now, create a file called `utils/contract.js`:
+Now, create a file called `app/utils/contract.js`:
 
-```javascript title="contract.js"
+```javascript title="app/utils/contract.js"
 --8<-- "https://raw.githubusercontent.com/polkadot-developers/polkavm-storage-contract-dapps/refs/tags/v0.0.1/ethers-dapp/app/utils/contract.js"
 ```
 
@@ -98,9 +98,9 @@ This file defines the contract address, ABI, and functions to create instances o
 
 ## Create the Wallet Connection Component
 
-Next, let's create a component to handle wallet connections. Create a new file called `components/WalletConnect.js`:
+Next, let's create a component to handle wallet connections. Create a new file called `app/components/WalletConnect.js`:
 
-```javascript title="WalletConnect.js"
+```javascript title="app/components/WalletConnect.js"
 --8<-- "https://raw.githubusercontent.com/polkadot-developers/polkavm-storage-contract-dapps/refs/tags/v0.0.1/ethers-dapp/app/components/WalletConnect.js"
 ```
 
@@ -108,7 +108,7 @@ This component handles connecting to the wallet, switching networks if necessary
 
 To integrate this component to your dApp, you need to overwrite the existing boilerplate in `app/page.js` with the following code:
 
-```javascript title="page.js"
+```javascript title="app/page.js"
 --8<-- "https://raw.githubusercontent.com/polkadot-developers/polkavm-storage-contract-dapps/refs/tags/v0.0.1/ethers-dapp/app/page.js::5"
 --8<-- "https://raw.githubusercontent.com/polkadot-developers/polkavm-storage-contract-dapps/refs/tags/v0.0.1/ethers-dapp/app/page.js:8:21"
 --8<-- "https://raw.githubusercontent.com/polkadot-developers/polkavm-storage-contract-dapps/refs/tags/v0.0.1/ethers-dapp/app/page.js:24:26"
@@ -126,9 +126,9 @@ And you will see the following:
 
 ## Read Data from the Blockchain
 
-Now, let's create a component to read data from the contract. Create a file called `components/ReadContract.js`:
+Now, let's create a component to read data from the contract. Create a file called `app/components/ReadContract.js`:
 
-```javascript title="ReadContract.js"
+```javascript title="app/components/ReadContract.js"
 --8<-- "https://raw.githubusercontent.com/polkadot-developers/polkavm-storage-contract-dapps/refs/tags/v0.0.1/ethers-dapp/app/components/ReadContract.js"
 ```
 
@@ -136,7 +136,7 @@ This component reads the `storedNumber` value from the contract and displays it 
 
 To see this change in your dApp, you need to integrate this component into the `app/page.js` file:
 
-```javascript title="page.js"
+```javascript title="app/page.js"
 --8<-- "https://raw.githubusercontent.com/polkadot-developers/polkavm-storage-contract-dapps/refs/tags/v0.0.1/ethers-dapp/app/page.js::6"
 --8<-- "https://raw.githubusercontent.com/polkadot-developers/polkavm-storage-contract-dapps/refs/tags/v0.0.1/ethers-dapp/app/page.js:8:22"
 --8<-- "https://raw.githubusercontent.com/polkadot-developers/polkavm-storage-contract-dapps/refs/tags/v0.0.1/ethers-dapp/app/page.js:24:26"
@@ -148,9 +148,9 @@ Your dApp will automatically be updated to the following:
 
 ## Write Data to the Blockchain
 
-Finally, let's create a component that allows users to update the stored number. Create a file called `components/WriteContract.js`:
+Finally, let's create a component that allows users to update the stored number. Create a file called `app/components/WriteContract.js`:
 
-```javascript title="WriteContract.js"
+```javascript title="app/components/WriteContract.js"
 --8<-- "https://raw.githubusercontent.com/polkadot-developers/polkavm-storage-contract-dapps/refs/tags/v0.0.1/ethers-dapp/app/components/WriteContract.js"
 ```
 
@@ -158,7 +158,7 @@ This component allows users to input a new number and send a transaction to upda
 
 Update the `app/page.js` file to integrate all components:
 
-```javascript title="page.js"
+```javascript title="app/page.js"
 --8<-- "https://raw.githubusercontent.com/polkadot-developers/polkavm-storage-contract-dapps/refs/tags/v0.0.1/ethers-dapp/app/page.js"
 ```
 
@@ -187,11 +187,11 @@ cd polkavm-storage-contract-dapps/ethers-dapp
 
 <div class="grid cards" markdown>
 
--   <span class="badge tutorial">Tutorial</span> __Create a dApp with WAGMI__
+-   <span class="badge tutorial">Tutorial</span> __Create a dApp with Wagmi__
 
     ---
 
-    Learn how to build a decentralized application by using the WAGMI framework.
+    Learn how to build a decentralized application by using the Wagmi framework.
 
     [:octicons-arrow-right-24: Get Started](/tutorials/smart-contracts/launch-your-first-project/create-dapp-wagmi/)
 

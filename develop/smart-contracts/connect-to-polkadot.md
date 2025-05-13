@@ -13,44 +13,44 @@ description: Explore how to connect to Polkadot Hub, configure your wallet, and 
 
 Developers can leverage smart contracts across diverse networks, from TestNets to MainNet. This section outlines the network specifications and connection details for each environment.
 
-=== "Westend Asset Hub"
+=== "Westend Hub"
 
     Network name
-    ```
+    ```text
     Westend Asset Hub
     ```
 
     ---
 
     Currency symbol
-    ```
+    ```text
     WND
     ```
 
     ---
     
     Chain ID
-    ```
+    ```text
     420420421
     ```
 
     ---
     
     RPC URL
-    ```
+    ```text
     https://westend-asset-hub-rpc.polkadot.io
     ```
 
     ---
     
     Block explorer URL
-    ```
+    ```text
     https://assethub-westend.subscan.io
     ```
 
-## Connect your Wallet
+## Connect Your Wallet
 
-### Metamask
+### MetaMask
 
 [MetaMask](https://metamask.io/){target=\_blank} is a popular wallet for interacting with Ethereum-compatible chains. It allows users to connect to test networks that support Ethereum-based smart contracts. However, it's important to emphasize that MetaMask primarily facilitates interactions with smart contracts, giving users access to various chain functionalities. 
 
@@ -110,7 +110,7 @@ For your next steps, explore the various smart contract guides demonstrating how
 
     ---
 
-    Use viem for interacting with Ethereum-compatible chains, to deploy and interact with smart contracts on Asset Hub.
+    Use viem for interacting with Ethereum-compatible chains, to deploy and interact with smart contracts on Polkadot Hub.
 
     [:octicons-arrow-right-24: Build with viem](/develop/smart-contracts/libraries/viem/)
 

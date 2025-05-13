@@ -12,7 +12,7 @@ def main():
         latest_block = web3.eth.block_number
         print('Last block: ' + str(latest_block))
     except Exception as error:
-        print('Error connecting to Asset Hub: ' + str(error))
+        print('Error connecting to Westend Hub: ' + str(error))
 
 if __name__ == "__main__":
     main()

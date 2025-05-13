@@ -25,7 +25,7 @@ const main = async () => {
     const latestBlock = await provider.getBlockNumber();
     console.log(`Latest block: ${latestBlock}`);
   } catch (error) {
-    console.error('Error connecting to Asset Hub: ' + error.message);
+    console.error('Error connecting to Westend Hub: ' + error.message);
   }
 };
 

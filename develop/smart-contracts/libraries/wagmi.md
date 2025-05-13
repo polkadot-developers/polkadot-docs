@@ -34,15 +34,13 @@ npm install wagmi viem @tanstack/react-query
 
 Create a configuration file to initialize Wagmi with Polkadot Hub. In your project, create a file named `src/lib/wagmi.ts` and add the code below. Be sure to replace `INSERT_RPC_URL`, `INSERT_CHAIN_ID`, `INSERT_CHAIN_NAME`, `INSERT_NETWORK_NAME`, `INSERT_CHAIN_DECIMALS`, `INSERT_CURRENCY_NAME`, and `INSERT_CURRENCY_SYMBOL` with your specific values.
 
-```typescript
+```typescript title="src/lib/wagmi.ts"
 --8<-- 'code/develop/smart-contracts/libraries/wagmi/wagmi.ts'
 ```
 
-For example, to connect to Westend Hub, you can use the following configuration:
+??? code "Example Westend Hub Configuration"
 
-??? code "Westend Hub - wagmi.ts"
-
-    ```typescript title="wagmi.ts"
+    ```typescript title="src/lib/wagmi.ts"
     --8<-- 'code/develop/smart-contracts/libraries/wagmi/wagmi-westend-ah.ts'
     ```
 
@@ -50,7 +48,7 @@ For example, to connect to Westend Hub, you can use the following configuration:
 
 To enable Wagmi in your React application, you need to wrap your app with the [`WagmiProvider`](https://wagmi.sh/react/api/WagmiProvider#wagmiprovider){target=\_blank}. Update your `app/layout.tsx` file (for Next.js app router) with the following code:
 
-```typescript
+```typescript title="app/layout.tsx"
 --8<-- 'code/develop/smart-contracts/libraries/wagmi/layout.tsx'
 ```
 
@@ -61,7 +59,7 @@ To enable Wagmi in your React application, you need to wrap your app with the [`
 
 Create a component to connect wallets to your dApp. Create a file named `app/components/ConnectWallet.tsx`:
 
-```typescript
+```typescript title="app/components/ConnectWallet.tsx"
 --8<-- 'code/develop/smart-contracts/libraries/wagmi/ConnectWallet.tsx'
 ```
 
@@ -75,7 +73,7 @@ This component uses the following React hooks:
 
 Wagmi provides various hooks to fetch blockchain data. Here's an example component that demonstrates some of these hooks:
 
-```typescript
+```typescript title="app/components/BlockchainInfo.tsx"
 --8<-- 'code/develop/smart-contracts/libraries/wagmi/BlockchainInfo.tsx'
 ```
 
@@ -96,7 +94,7 @@ This guide uses a simple Storage contract already deployed to Westend Hub (`0xab
 
 Create a component to interact with your deployed contract. Create a file named `app/components/StorageContract.tsx`:
 
-```typescript
+```typescript title="app/components/StorageContract.tsx"
 --8<-- 'code/develop/smart-contracts/libraries/wagmi/StorageContract.tsx'
 ```
 
@@ -118,7 +116,7 @@ The component also includes proper state handling to:
 
 Update your main page to combine all the components. Create or update the file `src/app/page.tsx`:
 
-```typescript
+```typescript title="src/app/page.tsx"
 --8<-- 'code/develop/smart-contracts/libraries/wagmi/page.tsx'
 ```
 

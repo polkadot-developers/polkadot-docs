@@ -17,7 +17,7 @@ const main = async () => {
     const latestBlock = await web3.eth.getBlockNumber();
     console.log('Last block: ' + latestBlock);
   } catch (error) {
-    console.error('Error connecting to Asset Hub: ' + error.message);
+    console.error('Error connecting to Westend Hub: ' + error.message);
   }
 };
 

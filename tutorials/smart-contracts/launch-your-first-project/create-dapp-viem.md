@@ -3,7 +3,7 @@ title: Create a dApp With Viem
 description: Learn how to build a decentralized application on Polkadot Hub using Viem and Next.js by creating a simple dApp that interacts with a smart contract.
 ---
 
-# Create a dApp with Viem
+# Create a DApp with Viem
 
 Decentralized applications (dApps) are a key component of the Web3 ecosystem, enabling developers to build applications that communicate directly with blockchain networks. Polkadot Hub, a blockchain with smart contract support, serves as a robust platform for deploying and interacting with dApps.
 
@@ -207,11 +207,11 @@ cd polkavm-storage-contract-dapps/viem-dapp
 
 <div class="grid cards" markdown>
 
--   <span class="badge guide">Tutorial</span> __Create a dApp with WAGMI__
+-   <span class="badge guide">Guide</span> __Create a dApp with Wagmi__
 
     ---
 
-    Learn how to build a decentralized application by using the WAGMI framework.
+    Learn how to build a decentralized application by using the Wagmi framework.
 
     [:octicons-arrow-right-24: Get Started](/develop/smart-contracts/libraries/wagmi)
 

@@ -15,7 +15,7 @@ description: Explore the smart contract development and deployment process on Po
     <br>
     [:octicons-arrow-right-24: Get Started](/tutorials/smart-contracts/deploy-nft){target=\_blank}
 
--   :octicons-code-16:{ .lg .middle } __Deploy ERC20s Using Remix IDE__
+-   :octicons-code-16:{ .lg .middle } __Deploy ERC-20s Using Remix IDE__
 
     ---
 

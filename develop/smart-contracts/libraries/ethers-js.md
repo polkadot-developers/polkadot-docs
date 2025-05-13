@@ -24,7 +24,7 @@ Before getting started, ensure you have the following installed:
 This project organizes contracts, scripts, and compiled artifacts for easy development and deployment.
 
 ```text title="Ethers.js Polkadot Hub"
-ethers-asset-hub
+ethers-project
 ├── contracts
 │   ├── Storage.sol
 ├── scripts
@@ -68,7 +68,7 @@ A [`Provider`](https://docs.ethers.org/v6/api/providers/#Provider){target=\_blan
 
 To interact with Polkadot Hub, you must set up an Ethers.js provider. This provider connects to a blockchain node, allowing you to query blockchain data and interact with smart contracts. In the root of your project, create a file named `connectToProvider.js` and add the following code:
 
-```js title="connectToProvider.js"
+```js title="scripts/connectToProvider.js"
 --8<-- 'code/develop/smart-contracts/evm-toolkit/ethers-js/connectToProvider.js'
 ```
 
@@ -93,13 +93,13 @@ With the provider set up, you can start querying the blockchain. For instance, t
 
 ??? code "Fetch Last Block code"
 
-    ```js title="fetchLastBlock.js"
+    ```js title="scripts/fetchLastBlock.js"
     --8<-- 'code/develop/smart-contracts/evm-toolkit/ethers-js/fetchLastBlock.js'
     ```
 
 ## Compile Contracts
 
-The `revive` compiler transforms Solidity smart contracts into [`PolkaVM`](/develop/smart-contracts/native-evm-contracts/#polkavm){target=\_blank} bytecode for deployment on Polkadot Hub. Revive's Ethereum RPC interface allows you to use familiar tools like Ethers.js and MetaMask to interact with contracts.
+The `revive` compiler transforms Solidity smart contracts into [PolkaVM](/develop/smart-contracts/native-evm-contracts/#polkavm){target=\_blank} bytecode for deployment on Polkadot Hub. Revive's Ethereum RPC interface allows you to use familiar tools like Ethers.js and MetaMask to interact with contracts.
 
 ### Install the Revive Library
 
@@ -111,11 +111,11 @@ npm install --save-dev @parity/revive
 
 This guide uses `@parity/revive` version `{{ dependencies.javascript_packages.revive.version }}`.
 
-### Sample `Storage.sol` Smart Contract
+### Sample Storage Smart Contract
 
 This example demonstrates compiling a `Storage.sol` Solidity contract for deployment to Polkadot Hub. The contract's functionality stores a number and permits users to update it with a new value.
 
-```solidity title="storage.sol"
+```solidity title="contracts/Storage.sol"
 --8<-- 'code/develop/smart-contracts/evm-toolkit/ethers-js/Storage.sol'
 ```
 
@@ -123,7 +123,7 @@ This example demonstrates compiling a `Storage.sol` Solidity contract for deploy
 
 To compile this contract, use the following script:
 
-```js title="compile.js"
+```js title="scripts/compile.js"
 --8<-- 'code/develop/smart-contracts/evm-toolkit/ethers-js/compile.js'
 ```
 
@@ -138,7 +138,7 @@ Execute the script above by running:
 node compile
 ```
 
-After executing the script, the Solidity contract will be compiled into the required `polkavm` bytecode format. The ABI and bytecode will be saved into files with `.json` and `.polkavm` extensions, respectively. You can now proceed with deploying the contract to Polkadot Hub, as outlined in the next section.
+After executing the script, the Solidity contract will be compiled into the required PolkaVM bytecode format. The ABI and bytecode will be saved into files with `.json` and `.polkavm` extensions, respectively. You can now proceed with deploying the contract to Polkadot Hub, as outlined in the next section.
 
 ## Deploy the Compiled Contract
 
@@ -146,33 +146,33 @@ To deploy your compiled contract to Polkadot Hub, you'll need a wallet with a pr
 
 You can create a `deploy.js` script in the root of your project to achieve this. The deployment script can be divided into key components:
 
-1. First, set up the required imports and utilities:
+1. Set up the required imports and utilities:
 
-    ```js title="deploy.js"
+    ```js title="scripts/deploy.js"
     --8<-- 'code/develop/smart-contracts/evm-toolkit/ethers-js/deploy.js:1:5'
     ```
 
 2. Create a provider to connect to Polkadot Hub:
 
-    ```js title="deploy.js"
+    ```js title="scripts/deploy.js"
     --8<-- 'code/develop/smart-contracts/evm-toolkit/ethers-js/deploy.js:6:14'
     ```
  
 3. Set up functions to read contract artifacts:
 
-    ```js title="deploy.js"
+    ```js title="scripts/deploy.js"
     --8<-- 'code/develop/smart-contracts/evm-toolkit/ethers-js/deploy.js:16:44'
     ```
 
 4. Create the main deployment function:
 
-    ```js title="deploy.js"
+    ```js title="scripts/deploy.js"
     --8<-- 'code/develop/smart-contracts/evm-toolkit/ethers-js/deploy.js:46:81'
     ```
 
 5. Configure and execute the deployment:
 
-    ```js title="deploy.js"
+    ```js title="scripts/deploy.js"
     --8<-- 'code/develop/smart-contracts/evm-toolkit/ethers-js/deploy.js:83:92'
     ```
 
@@ -181,11 +181,9 @@ You can create a `deploy.js` script in the root of your project to achieve this.
 
         Ensure to replace the `INSERT_MNEMONIC` placeholder with your actual mnemonic.
 
-Here's the complete deployment script combining all the components above:
+??? code "View complete script"
 
-??? code "deploy.js"
-
-    ```js title="deploy.js"
+    ```js title="scripts/deploy.js"
     --8<-- 'code/develop/smart-contracts/evm-toolkit/ethers-js/deploy.js'
     ```
 
@@ -201,7 +199,7 @@ After running this script, your contract will be deployed to Polkadot Hub, and i
 
 Once the contract is deployed, you can interact with it by calling its functions. For example, to set a number, read it and then modify that number by its double, you can create a file named `checkStorage.js` in the root of your project and add the following code:
 
-```js title="checkStorage.js"
+```js title="scripts/checkStorage.js"
 --8<-- 'code/develop/smart-contracts/evm-toolkit/ethers-js/checkStorage.js'
 ```
 

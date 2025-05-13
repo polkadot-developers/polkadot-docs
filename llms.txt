@@ -6170,6 +6170,23 @@ For example, to connect to the Westend Asset Hub TestNet via MetaMask, you need 
 
 The steps in the preceding section can be used to connect to any Asset Hub chain by modifying the network specification and endpoint parameters.
 
+### Talisman
+
+[Talisman](https://talisman.xyz/){target=\_blank} is a specialized wallet for the Polkadot ecosystem that supports both Substrate and EVM accounts, making it an excellent choice for Asset Hub interactions. Talisman offers a more integrated experience for Polkadot-based chains while still providing Ethereum compatibility.
+
+To use Talisman with Polkadot Hub:
+
+1. Install the [Talisman extension](https://talisman.xyz/download){target=\_blank} and set up your wallet by following the on-screen instructions
+2. Once installed, click on the Talisman icon in your browser extensions and select Networks dropdown:  
+
+    ![](/images/develop/smart-contracts/connect-to-asset-hub/connect-to-asset-hub-7.webp){: .browser-extension}
+
+3. Search for **Westend Asset Hub** in the list of networks and select it (ensure that the checkbox **Enable Testnets** is enabled to view the available testnets):
+
+    ![](/images/develop/smart-contracts/connect-to-asset-hub/connect-to-asset-hub-8.webp){: .browser-extension}
+
+After selecting the network, Talisman will automatically configure the necessary RPC URL and chain ID for you. You can now use Talisman to interact with Westend Asset Hub.
+
 ## Test Tokens
 
 You will need testnet tokens to perform transactions and engage with smart contracts on any Asset Hub chain. Here's how to obtain Westend Asset Hub (WND) tokens for testing purposes:
@@ -6579,7 +6596,7 @@ Before deploying to a live network, you can deploy your contract to a local node
     ```javascript
     const { JsonRpcProvider } = require('ethers');
 const provider = new JsonRpcProvider('http://localhost:8545');
-const wallet = new ethers.Wallet('YOUR_PRIVATE_KEY', provider);
+const wallet = new ethers.Wallet('INSERT_PRIVATE_KEY', provider);
 
 // Deploy using direct provider instead of Hardhat's wrapper
 const ContractFactory = new ethers.ContractFactory(
@@ -6993,7 +7010,7 @@ Remix IDE is a robust browser-based development environment for smart contracts.
 
 Before getting started, ensure you have:
 
-- A web browser with [MetaMask](https://metamask.io/){target=\_blank} extension installed
+- A web browser with [Talisman](https://talisman.xyz/){target=\_blank} extension installed
 - Basic understanding of Solidity programming
 - Some WND test tokens to cover transaction fees (easily obtainable from the [Polkadot faucet](https://faucet.polkadot.io/westend?parachain=1000){target=\_blank})
 
@@ -7070,14 +7087,26 @@ contract Counter {
 1. To deploy your contract, you need to:
 
     1. Navigate to the **Deploy & Run Transactions** tab (fourth icon in the left sidebar)
-    2. Select your deployment environment, in this case, **Westend Testnet - MetaMask**
-    3. Click the **Deploy and Confirm** button
+    2. Click the **Enviroment** dropdown 
+    3. Select **Customize this list**
 
         ![](/images/develop/smart-contracts/evm-toolkit/dev-environments/remix/remix-7.webp)
 
-2. Once your contract is deployed successfully, you will see the following output in the Remix terminal:
+2. Enable the **Injected Provider - Talisman** option
 
     ![](/images/develop/smart-contracts/evm-toolkit/dev-environments/remix/remix-8.webp)
+
+4. Click again the **Enviroment** dropdown and select **Injected Provider - Talisman**
+
+    ![](/images/develop/smart-contracts/evm-toolkit/dev-environments/remix/remix-9.webp)
+
+4. Click the **Deploy** button and then click **Approve** in the Talisman wallet popup
+
+    ![](/images/develop/smart-contracts/evm-toolkit/dev-environments/remix/remix-10.webp)
+
+5. Once your contract is deployed successfully, you will see the following output in the Remix terminal:
+
+    ![](/images/develop/smart-contracts/evm-toolkit/dev-environments/remix/remix-11.webp)
 
 ## Interacting with Contracts
 
@@ -7085,14 +7114,14 @@ Once deployed, your contract appears in the **Deployed/Unpinned Contracts** sect
 
 1. Expand the contract to view available methods
 
-    ![](/images/develop/smart-contracts/evm-toolkit/dev-environments/remix/remix-9.webp)
+    ![](/images/develop/smart-contracts/evm-toolkit/dev-environments/remix/remix-12.webp)
 
     !!! tip
         Pin your frequently used contracts to the **Pinned Contracts** section for easy access.
 
 2. To interact with the contract, you can select any of the exposed methods
 
-    ![](/images/develop/smart-contracts/evm-toolkit/dev-environments/remix/remix-10.webp)
+    ![](/images/develop/smart-contracts/evm-toolkit/dev-environments/remix/remix-13.webp)
 
     In this way, you can interact with your deployed contract by reading its state or writing to it. The button color indicates the type of interaction available:
 
@@ -32026,7 +32055,7 @@ This tutorial covers deploying an ERC-20 contract on the Westend TestNet using [
 
 Before starting, make sure you have:
 
-- [MetaMask](https://metamask.io/){target=\_blank} installed and connected to [Westend Asset Hub](https://chainlist.org/chain/420420421){target=\_blank}. For more detailed instructions on connecting your wallet, see the [Connect Your Wallet](/develop/smart-contracts/connect-to-asset-hub/#connect-your-wallet){target=\_blank} section
+- [Talisman](https://talisman.xyz/){target=\_blank} installed and connected to Westend Asset Hub
 - A funded account with some WND tokens (you can get them from the [Westend Faucet](https://faucet.polkadot.io/westend?parachain=1000){target=\_blank}). To learn how to get test tokens, check out the [Test Tokens](/develop/smart-contracts/connect-to-asset-hub/#test-tokens){target=\_blank} section
 - Basic understanding of Solidity and fungible tokens
 
@@ -32115,7 +32144,7 @@ Deployment is the process of publishing your compiled smart contract to the bloc
     ![](/images/tutorials/smart-contracts/deploy-erc20/deploy-erc20-6.webp)
 
 2. Configure the deployment settings
-    1. From the **ENVIRONMENT** dropdown, select **Westend Testnet - MetaMask**
+    1. From the **ENVIRONMENT** dropdown, select **Injected Provider - Talisman** (check the [Deploying Contracts](/develop/smart-contracts/dev-environments/remix/#deploying-contracts){target=\_blank} section of the Remix IDE guide for more details)
     2. From the **ACCOUNT** dropdown, select the account you want to use for the deploy
 
     ![](/images/tutorials/smart-contracts/deploy-erc20/deploy-erc20-7.webp)
@@ -32126,7 +32155,7 @@ Deployment is the process of publishing your compiled smart contract to the bloc
 
     ![](/images/tutorials/smart-contracts/deploy-erc20/deploy-erc20-8.webp)
 
-4. MetaMask will pop up - review the transaction details. Click **Confirm** to deploy your contract
+4. Talisman will pop up - review the transaction details. Click **Confirm** to deploy your contract
 
      ![](/images/tutorials/smart-contracts/deploy-erc20/deploy-erc20-9.webp){: .browser-extension}
 
@@ -32152,7 +32181,7 @@ Once deployed, you can interact with your contract through Remix:
 
     ![](/images/tutorials/smart-contracts/deploy-erc20/deploy-erc20-12.webp)
 
-3. Confirm the transaction in MetaMask
+3. Click **Approve** to confirm the transaction in the Talisman popup
 
     ![](/images/tutorials/smart-contracts/deploy-erc20/deploy-erc20-13.webp){: .browser-extension}
 
@@ -32166,7 +32195,7 @@ Other common functions you can use:
 - **`transfer(address to, uint256 amount)`** - send tokens to another address
 - **`approve(address spender, uint256 amount)`** - allow another address to spend your tokens
 
-Feel free to explore and interact with the contract's other functions using the same approach - selecting the method, providing any required parameters, and confirming the transaction through MetaMask when needed.
+Feel free to explore and interact with the contract's other functions using the same approach - selecting the method, providing any required parameters, and confirming the transaction through Talisman when needed.
 --- END CONTENT ---
 
 Doc-Content: https://docs.polkadot.com/tutorials/smart-contracts/deploy-nft/
@@ -32189,7 +32218,7 @@ This tutorial guides you through deploying an [ERC-721](https://eips.ethereum.or
 
 Before starting, make sure you have:
 
-- MetaMask installed and connected to Westend Asset Hub, check the [Connect to Asset Hub](/develop/smart-contracts/connect-to-asset-hub/){target=\_blank} guide for more information
+- [Talisman](https://talisman.xyz/){target=\_blank} installed and connected to Westend Asset Hub
 - A funded account with some WND tokens (you can get them from the [Westend Faucet](https://faucet.polkadot.io/westend?parachain=1000){target=\_blank}, noting that the faucet imposes a daily token limit, which may require multiple requests to obtain sufficient funds for testing)
 - Basic understanding of Solidity and NFTs, see the [Solidity Basics](https://soliditylang.org/){target=\_blank} and the [NFT Overview](https://ethereum.org/en/nft/){target=\_blank} guides for more details
 
@@ -32282,7 +32311,7 @@ Deployment is the process of uploading your compiled smart contract to the block
     ![](/images/tutorials/smart-contracts/deploy-nft/deploy-nft-6.webp)
 
 2. Configure the deployment settings
-    1. From the **ENVIRONMENT** dropdown, select **Westend Testnet - MetaMask**
+    1. From the **ENVIRONMENT** dropdown, select **Injected Provider - Talisman** (check the [Deploying Contracts](/develop/smart-contracts/dev-environments/remix/#deploying-contracts){target=\_blank} section of the Remix IDE guide for more details)
     2. From the **ACCOUNT** dropdown, select the account you want to use for the deploy
 
     ![](/images/tutorials/smart-contracts/deploy-nft/deploy-nft-7.webp)
@@ -32293,11 +32322,11 @@ Deployment is the process of uploading your compiled smart contract to the block
 
     ![](/images/tutorials/smart-contracts/deploy-nft/deploy-nft-8.webp)
 
-4. MetaMask will pop up - review the transaction details. Click **Confirm** to deploy your contract
+4. Talisman will pop up - review the transaction details. Click **Confirm** to deploy your contract
 
     ![](/images/tutorials/smart-contracts/deploy-nft/deploy-nft-9.webp){: .browser-extension}
 
-    Deploying this contract requires paying gas fees in WND tokens on the Westend Asset Hub TestNet. Ensure your MetaMask account is funded with sufficient WND tokens from the Westend Faucet before confirming the transaction, check the [Test Tokens](/develop/smart-contracts/connect-to-asset-hub/#test-tokens){target=\_blank} section for more information. Gas fees cover the computational resources needed to deploy and execute the smart contract on the blockchain.
+    Deploying this contract requires paying gas fees in WND tokens on the Westend Asset Hub TestNet. Ensure your Talisman account is funded with sufficient WND tokens from the Westend Faucet before confirming the transaction, check the [Test Tokens](/develop/smart-contracts/connect-to-asset-hub/#test-tokens){target=\_blank} section for more information. Gas fees cover the computational resources needed to deploy and execute the smart contract on the blockchain.
 
     If the deployment process succeeded, you will see the following output in the terminal:
 
@@ -32320,7 +32349,7 @@ Once deployed, you can interact with your contract through Remix:
 
     ![](/images/tutorials/smart-contracts/deploy-nft/deploy-nft-12.webp)
 
-3. Click **Confirm** to confirm the transaction in MetaMask
+3. Click **Approve** to confirm the transaction in the Talisman popup
 
     ![](/images/tutorials/smart-contracts/deploy-nft/deploy-nft-13.webp){: .browser-extension}
 
@@ -32328,7 +32357,7 @@ Once deployed, you can interact with your contract through Remix:
 
     ![](/images/tutorials/smart-contracts/deploy-nft/deploy-nft-14.webp)
 
-Feel free to explore and interact with the contract's other functions using the same approach - selecting the method, providing any required parameters, and confirming the transaction through MetaMask when needed.
+Feel free to explore and interact with the contract's other functions using the same approach - selecting the method, providing any required parameters, and confirming the transaction through Talisman when needed.
 --- END CONTENT ---
 
 Doc-Content: https://docs.polkadot.com/tutorials/smart-contracts/

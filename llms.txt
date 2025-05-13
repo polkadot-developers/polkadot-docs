@@ -6567,15 +6567,17 @@ Before deploying to a live network, you can deploy your contract to a local node
     This limitation is imposed by Hardhat's client-side checks, not by PolkaVM itself. As a workaround, you can use a direct `JsonRpcProvider`:
 
     ```javascript
-    const { JsonRpcProvider } = require("ethers");
-    const provider = new JsonRpcProvider("http://localhost:8545");
-    const wallet = new ethers.Wallet("YOUR_PRIVATE_KEY", provider);
+    const { JsonRpcProvider } = require('ethers');
+const provider = new JsonRpcProvider('http://localhost:8545');
+const wallet = new ethers.Wallet('YOUR_PRIVATE_KEY', provider);
 
-    // Deploy using direct provider instead of Hardhat's wrapper
-    const ContractFactory = new ethers.ContractFactory(
-        contractABI, contractBytecode, wallet
-    );
-    const contract = await ContractFactory.deploy(...constructorArgs);
+// Deploy using direct provider instead of Hardhat's wrapper
+const ContractFactory = new ethers.ContractFactory(
+  contractABI,
+  contractBytecode,
+  wallet
+);
+const contract = await ContractFactory.deploy(...constructorArgs);
     ```
 
     For more details, see [this GitHub issue](https://github.com/paritytech/contract-issues/issues/47#issuecomment-2790181622){target=\_blank}.

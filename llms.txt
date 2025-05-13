@@ -33,6 +33,7 @@ Doc-Page: https://docs.polkadot.com/develop/parachains/testing/benchmarking/
 Doc-Page: https://docs.polkadot.com/develop/parachains/testing/
 Doc-Page: https://docs.polkadot.com/develop/parachains/testing/mock-runtime/
 Doc-Page: https://docs.polkadot.com/develop/parachains/testing/pallet-testing/
+Doc-Page: https://docs.polkadot.com/develop/smart-contracts/block-explorers/
 Doc-Page: https://docs.polkadot.com/develop/smart-contracts/connect-to-asset-hub/
 Doc-Page: https://docs.polkadot.com/develop/smart-contracts/connect-your-wallet/
 Doc-Page: https://docs.polkadot.com/develop/smart-contracts/dev-environments/hardhat/
@@ -5162,9 +5163,21 @@ pub type Value<T: Config> = StorageValue<_, u32>;
 
 - New `StorageValue` format:
 ```rust
-Error fetching snippet from https://raw.githubusercontent.com/paritytech/polkadot-sdk/refs/tags/polkadot-stable2409-1/substrate/frame/examples/single-block-migrations/src/lib.rs
+/// Example struct holding the most recently set [`u32`] and the
+/// second most recently set [`u32`] (if one existed).
+#[docify::export]
+#[derive(
+	Clone, Eq, PartialEq, Encode, Decode, RuntimeDebug, scale_info::TypeInfo, MaxEncodedLen,
+)]
+pub struct CurrentAndPreviousValue {
+	/// The most recently set value.
+	pub current: u32,
+	/// The previous value, if one existed.
+	pub previous: Option<u32>,
+}
 
-Error fetching snippet from https://raw.githubusercontent.com/paritytech/polkadot-sdk/refs/tags/polkadot-stable2409-1/substrate/frame/examples/single-block-migrations/src/lib.rs
+#[pallet::storage]
+	pub type Value<T: Config> = StorageValue<_, CurrentAndPreviousValue>;
 ```
 
 - Migration:
@@ -6022,6 +6035,59 @@ Some key considerations are:
     [:octicons-arrow-right-24: Reference](/develop/parachains/testing/benchmarking)
 
 </div>
+--- END CONTENT ---
+
+Doc-Content: https://docs.polkadot.com/develop/smart-contracts/block-explorers/
+--- BEGIN CONTENT ---
+---
+title: Block Explorers
+description: Access PolkaVM explorers like Subscan, BlockScout, and Routescan to track transactions, analyze contracts, and view on-chain data from smart contracts.
+---
+
+# Block Explorers
+
+## Introduction
+
+Block explorers serve as comprehensive blockchain analytics platforms that provide access to on-chain data. These web applications function as search engines for blockchain networks, allowing users to query, visualize, and analyze blockchain data in real time through intuitive interfaces.
+
+## Core Functionality
+
+These block explorers provide essential capabilities for interacting with smart contracts in Polkadot Hub:
+
+- **Transaction tracking** - monitor transaction status, confirmations, fees, and metadata
+- **Address analysis** - view account balances, transaction history, and associated contracts
+- **Block information** - examine block contents
+- **Smart contract interaction** - review contract code, verification status, and interaction history
+- **Token tracking** - monitor ERC-20, ERC-721, and other token standards with transfer history and holder analytics
+- **Network statistics** - access metrics on transaction volume, gas usage, and other network parameters
+
+## Available Block Explorers
+
+The following block explorers are available for PolkaVM smart contracts, providing specialized tools for monitoring and analyzing contract activity within the Polkadot ecosystem:
+
+### Subscan
+
+Subscan is the flagship Polkadot ecosystem block explorer with comprehensive support for PolkaVM smart contracts. It provides robust transaction indexing, account analysis, and monitoring tools specifically optimized for Polkadot SDK-based networks.
+
+- [Westend Hub Subscan](https://assethub-westend.subscan.io/){target=\_blank}
+
+![](/images/develop/smart-contracts/block-explorers/block-explorers-1.webp)
+
+### BlockScout
+
+BlockScout is an open-source explorer platform with a user-friendly interface adapted for PolkaVM contracts. It excels at detailed contract analytics and provides developers with comprehensive API access.
+
+- [Westend Hub BlockScout](https://blockscout-asset-hub.parity-chains-scw.parity.io/){target=\_blank}
+
+![](/images/develop/smart-contracts/block-explorers/block-explorers-2.webp)
+
+### Routescan
+
+Routescan delivers multi-chain explorer capabilities with specialized support for PolkaVM environments.
+
+- [Westend Hub Routescan](https://420420421.testnet.routescan.io/){target=\_blank}
+
+![](/images/develop/smart-contracts/block-explorers/block-explorers-3.webp)
 --- END CONTENT ---
 
 Doc-Content: https://docs.polkadot.com/develop/smart-contracts/connect-to-asset-hub/
@@ -19232,7 +19298,7 @@ The [Polkadot network](https://polkadot.network/){target=\_blank} is a blockchai
 
 ## Polkadot Cloud
 
-Polkadot Cloud is a scalable platform for deploying resilient, customizable Web3 applications through Polkadot's functionality. It encompasses the wider Polkadot network infrastructure and security layer where parachains operate. The platform enables users to launch Ethereum-compatible chains, build specialized blockchains, and flexibly manage computing resources through on-demand or bulk coretime purchases. Initially launched with basic parachain functionality, Polkadot Cloud has evolved to offer enhanced flexibility with features like coretime, elastic scaling, and async backing for improved performance and economic options.
+Polkadot Cloud is a platform for deploying resilient, customizable and scalable Web3 applications through Polkadot's functionality. It encompasses the wider Polkadot network infrastructure and security layer where parachains operate. The platform enables users to launch Ethereum-compatible chains, build specialized blockchains, and flexibly manage computing resources through on-demand or bulk coretime purchases. Initially launched with basic parachain functionality, Polkadot Cloud has evolved to offer enhanced flexibility with features like coretime, elastic scaling, and async backing for improved performance.
 
 ## Polkadot Hub
 
@@ -19240,7 +19306,7 @@ Polkadot Hub is a Layer 1 platform that serves as the primary entry point to the
 
 ## PolkaVM
 
-A cutting-edge virtual machine designed specifically for the Polkadot ecosystem that enables smart contract deployment and execution.
+PolkaVM is a custom virtual machine optimized for performance, leveraging a RISC-V-based architecture to support Solidity and any language that compiles to RISC-V. It is specifically designed for the Polkadot ecosystem, enabling smart contract deployment and execution.
 
 ## Relay Chain
 
@@ -21886,23 +21952,23 @@ This difference introduces potential compatibility challenges for Ethereum-based
 
 This approach ensures that Ethereum contracts work without modifications while maintaining Polkadot's optimized state management.
 
-## Contract Instantiation
+## Contract Deployment
 
-In the PolkaVM, contract deployment follows a fundamentally different model from EVM. The EVM allows contracts to be deployed with a single transaction, where the contract code is bundled with the deployment transaction. In contrast, PolkaVM requires a different process for contract instantiation.
+For most users deploying contracts (like ERC-20 tokens), contract deployment works seamlessly without requiring special steps. However, when using advanced patterns like factory contracts that dynamically create other contracts at runtime, you'll need to understand PolkaVM's unique deployment model.
 
-- **Code must be pre-uploaded** - unlike EVM where contract code is bundled within the deploying contract, PolkaVM requires all contract bytecode to be uploaded to the chain before instantiation
-- **Factory pattern limitations** - the common EVM pattern, where contracts dynamically create other contracts, will fail with CodeNotFound error unless the dependent contract code was previously uploaded
+In the PolkaVM, contract deployment follows a fundamentally different model from EVM. The EVM allows contracts to be deployed with a single transaction, where the contract code is bundled with the deployment transaction. In contrast, PolkaVM has a different process for contract instantiation.
+
+- **Code must be pre-uploaded** - unlike EVM, where contract code is bundled within the deploying contract, PolkaVM requires all contract bytecode to be uploaded to the chain before instantiation
+- **Factory pattern limitations** - the common EVM pattern, where contracts dynamically create other contracts, will fail with `CodeNotFound` error unless the dependent contract code was previously uploaded
 - **Separate upload and instantiation** - this creates a two-step process where developers must first upload all contract code, then instantiate relationships between contracts
 
-This design affects common EVM patterns:
+This architecture impacts several common EVM patterns:
 
-- Factory contracts require modification to work with pre-uploaded code rather than embedding bytecode
-- [`create`](https://www.evm.codes/?fork=cancun#f0){target=\_blank} and [`create2`](https://www.evm.codes/?fork=cancun#f5){target=\_blank} deployments need adaptation as they can't dynamically generate contract code
-- Runtime code generation is not supported due to PolkaVM's different RISC-V bytecode format
+- Factory contracts must be modified to work with pre-uploaded code rather than embedding bytecode
+- [`create`](https://www.evm.codes/?fork=cancun#f0){target=\_blank} and [`create2`](https://www.evm.codes/?fork=cancun#f5){target=\_blank} deployments need adaptation since they can't dynamically generate contract code
+- Runtime code generation is not supported due to PolkaVM's RISC-V bytecode format
 
-When migrating EVM projects to PolkaVM, developers should identify all contracts that will be instantiated at runtime and ensure they are pre-uploaded to the chain separately, before any contracts attempt to instantiate them.
-
-For standard contract deployments that don't create other contracts, this process is abstracted away. If you're just deploying a single contract like Storage or an ERC20 token, you don't need to perform separate steps. The special handling described below is only required when contracts dynamically create other contracts at runtime.
+When migrating EVM projects to PolkaVM, developers should identify all contracts that will be instantiated at runtime and ensure they are pre-uploaded to the chain before any instantiation attempts.
 --- END CONTENT ---
 
 Doc-Content: https://docs.polkadot.com/polkadot-protocol/smart-contract-basics/
@@ -32030,7 +32096,23 @@ To create the ERC-20 contract, you can follow the steps below:
 3. Now, paste the following ERC-20 contract code into the editor
 
     ```solidity title="MyToken.sol"
-    Error fetching snippet from https://raw.githubusercontent.com/polkadot-developers/polkavm-hardhat-examples/refs/tags/v0.0.1/erc20-hardhat/contracts/MyToken.sol
+    // SPDX-License-Identifier: MIT
+// Compatible with OpenZeppelin Contracts ^5.0.0
+pragma solidity ^0.8.22;
+
+import {ERC20} from "@openzeppelin/contracts/token/ERC20/ERC20.sol";
+import {Ownable} from "@openzeppelin/contracts/access/Ownable.sol";
+
+contract MyToken is ERC20, Ownable {
+    constructor(address initialOwner)
+        ERC20("MyToken", "MTK")
+        Ownable(initialOwner)
+    {}
+
+    function mint(address to, uint256 amount) public onlyOwner {
+        _mint(to, amount);
+    }
+}
     ```
 
     The key components of the code above are:
@@ -32536,6 +32618,7 @@ Doc-Content: https://docs.polkadot.com/tutorials/smart-contracts/launch-your-fir
 ---
 title: Create a dApp With Ethers.js
 description: Learn how to build a decentralized application on Asset Hub using Ethers.js and Next.js by creating a simple dApp that interacts with a smart contract.
+tutorial_badge:  Intermediate
 ---
 
 # Create a dApp With Ethers.js
@@ -32676,22 +32759,7 @@ For this dApp, you'll use a simple Storage contract already deployed. So, you ne
 Now, create a file called `utils/contract.js`:
 
 ```javascript title="contract.js"
-import { Contract } from 'ethers';
-import { getProvider } from './ethers';
-import StorageABI from '../../abis/Storage.json';
-
-export const CONTRACT_ADDRESS = '0xabBd46Ef74b88E8B1CDa49BeFb5057710443Fd29';
-
-export const CONTRACT_ABI = StorageABI;
-
-export const getContract = () => {
-  const provider = getProvider();
-  return new Contract(CONTRACT_ADDRESS, CONTRACT_ABI, provider);
-};
-
-export const getSignedContract = async (signer) => {
-  return new Contract(CONTRACT_ADDRESS, CONTRACT_ABI, signer);
-};
+Failed to fetch snippet after 3 attempts
 ```
 
 This file defines the contract address, ABI, and functions to create instances of the contract for reading and writing.
@@ -32870,7 +32938,19 @@ To integrate this component to your dApp, you need to overwrite the existing boi
 
 ```javascript title="page.js"
 Invalid snippet reference: https://raw.githubusercontent.com/polkadot-developers/polkavm-storage-contract-dapps/refs/tags/v0.0.1/ethers-dapp/app/page.js::5
-Error fetching snippet from https://raw.githubusercontent.com/polkadot-developers/polkavm-storage-contract-dapps/refs/tags/v0.0.1/ethers-dapp/app/page.js
+export default function Home() {
+  const [account, setAccount] = useState(null);
+
+  const handleConnect = (connectedAccount) => {
+    setAccount(connectedAccount);
+  };
+
+  return (
+    <section className="min-h-screen bg-white text-black flex flex-col justify-center items-center gap-4 py-10">
+      <h1 className="text-2xl font-semibold text-center">
+        Ethers.js dApp - Asset Hub Smart Contracts
+      </h1>
+      <WalletConnect onConnect={handleConnect} />
 </section>
   );
 }
@@ -33153,20 +33233,6 @@ To get started right away with a working example, you can clone the repository a
 git clone https://github.com/polkadot-developers/polkavm-storage-contract-dapps.git -b v0.0.1
 cd polkavm-storage-contract-dapps/ethers-dapp
 ```
-
-## Where to Go Next
-
-<div class="grid cards" markdown>
-
--   <span class="badge tutorial">Tutorial</span> __Create a dApp with WAGMI__
-
-    ---
-
-    Learn how to build a decentralized application by using the WAGMI framework.
-
-    [:octicons-arrow-right-24: Get Started](/tutorials/smart-contracts/launch-your-first-project/create-dapp-wagmi/)
-
-</div>
 --- END CONTENT ---
 
 Doc-Content: https://docs.polkadot.com/tutorials/smart-contracts/launch-your-first-project/create-dapp-viem/
@@ -33174,6 +33240,7 @@ Doc-Content: https://docs.polkadot.com/tutorials/smart-contracts/launch-your-fir
 ---
 title: Create a dApp With Viem
 description: Learn how to build a decentralized application on Asset Hub using Viem and Next.js by creating a simple dApp that interacts with a smart contract.
+tutorial_badge:  Intermediate
 ---
 
 # Create a dApp with Viem
@@ -33299,7 +33366,34 @@ Create a folder called `abis` at the root of your project, then create a file na
 
 ??? code "Storage.sol ABI"
     ```json title="Storage.json"
-    Error fetching snippet from https://raw.githubusercontent.com/polkadot-developers/polkavm-storage-contract-dapps/refs/tags/v0.0.1/viem-dapp/abis/Storage.json
+    [
+    {
+        "inputs": [
+            {
+                "internalType": "uint256",
+                "name": "_newNumber",
+                "type": "uint256"
+            }
+        ],
+        "name": "setNumber",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "inputs": [],
+        "name": "storedNumber",
+        "outputs": [
+            {
+                "internalType": "uint256",
+                "name": "",
+                "type": "uint256"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    }
+]
     ```
 
 Next, create a file called `utils/contract.ts`:
@@ -33521,7 +33615,19 @@ To use this component in your dApp, replace the existing boilerplate in `app/pag
 
 ```typescript title="page.tsx"
 Invalid snippet reference: https://raw.githubusercontent.com/polkadot-developers/polkavm-storage-contract-dapps/refs/tags/v0.0.1/viem-dapp/app/page.tsx::4
-Error fetching snippet from https://raw.githubusercontent.com/polkadot-developers/polkavm-storage-contract-dapps/refs/tags/v0.0.1/viem-dapp/app/page.tsx
+export default function Home() {
+  const [account, setAccount] = useState<string | null>(null);
+
+  const handleConnect = (connectedAccount: string) => {
+    setAccount(connectedAccount);
+  };
+
+  return (
+    <section className="min-h-screen bg-white text-black flex flex-col justify-center items-center gap-4 py-10">
+      <h1 className="text-2xl font-semibold text-center">
+        Viem dApp - Asset Hub Smart Contracts
+      </h1>
+      <WalletConnect onConnect={handleConnect} />
 </section>
   );
 }
@@ -34326,7 +34432,13 @@ describe('Storage', function () {
 1. Create a new folder called`ignition/modules`. Add a new file named `StorageModule.js` with the following logic:
 
     ```javascript title="StorageModule.js"
-    Error fetching snippet from https://raw.githubusercontent.com/polkadot-developers/polkavm-hardhat-examples/refs/tags/v0.0.1/storage-hardhat/ignition/modules/StorageModule.js
+    const { buildModule } = require('@nomicfoundation/hardhat-ignition/modules');
+
+module.exports = buildModule('StorageModule', (m) => {
+  const storage = m.contract('Storage');
+
+  return { storage };
+});
     ```
 
 2. Deploy to the local network:
@@ -34398,7 +34510,40 @@ To interact with your deployed contract:
 1. Create a new folder named `scripts` and add the `interact.js` with the following content:
 
     ```javascript title="interact.js"
-    Error fetching snippet from https://raw.githubusercontent.com/polkadot-developers/polkavm-hardhat-examples/refs/tags/v0.0.1/storage-hardhat/scripts/interact.js
+    const hre = require('hardhat');
+
+async function main() {
+  // Replace with your deployed contract address
+  const contractAddress = 'INSERT_DEPLOYED_CONTRACT_ADDRESS';
+
+  // Get the contract instance
+  const Storage = await hre.ethers.getContractFactory('Storage');
+  const storage = await Storage.attach(contractAddress);
+
+  // Get current value
+  const currentValue = await storage.retrieve();
+  console.log('Current stored value:', currentValue.toString());
+
+  // Store a new value
+  const newValue = 42;
+  console.log(`Storing new value: ${newValue}...`);
+  const tx = await storage.store(newValue);
+
+  // Wait for transaction to be mined
+  await tx.wait();
+  console.log('Transaction confirmed');
+
+  // Get updated value
+  const updatedValue = await storage.retrieve();
+  console.log('Updated stored value:', updatedValue.toString());
+}
+
+main()
+  .then(() => process.exit(0))
+  .catch((error) => {
+    console.error(error);
+    process.exit(1);
+  });
     ```
 
     Ensure that `INSERT_DEPLOYED_CONTRACT_ADDRESS` is replaced with the value obtained in the previous step.

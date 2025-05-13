@@ -2,8 +2,8 @@ import { http } from 'viem';
 
 export const TRANSPORT = http('INSERT_RPC_URL');
 
-// Configure the Asset Hub chain
-export const ASSET_HUB = {
+// Configure the Polkadot Hub chain
+export const POLKADOT_HUB = {
   id: INSERT_CHAIN_ID,
   name: 'INSERT_CHAIN_NAME',
   network: 'INSERT_NETWORK_NAME',

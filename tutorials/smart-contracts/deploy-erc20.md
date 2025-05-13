@@ -1,13 +1,14 @@
 ---
-title: Deploy an ERC-20 to Asset Hub
-description: Deploy an ERC-20 token on Asset Hub using PolkaVM. This guide covers contract creation, compilation, deployment, and interaction via Polkadot Remix IDE.
+title: Deploy an ERC-20 to Polkadot Hub
+description: Deploy an ERC-20 token on Polkadot Hub using PolkaVM. This guide covers contract creation, compilation, deployment, and interaction via Polkadot Remix IDE.
+tutorial_badge: Beginner
 ---
 
-# Deploy ERC-20 to Asset Hub
+# Deploy an ERC-20 to Polkadot Hub
 
 ## Introduction
 
-[ERC-20](https://eips.ethereum.org/EIPS/eip-20){target=\_blank} tokens are fungible tokens commonly used for creating cryptocurrencies, governance tokens, and staking mechanisms. Asset Hub enables easy token deployment with EVM-compatible smart contracts via PolkaVM.
+[ERC-20](https://eips.ethereum.org/EIPS/eip-20){target=\_blank} tokens are fungible tokens commonly used for creating cryptocurrencies, governance tokens, and staking mechanisms. Polkadot Hub enables easy token deployment with Ethereum-compatible smart contracts via PolkaVM.
 
 This tutorial covers deploying an ERC-20 contract on the Westend TestNet using [Polkadot Remix IDE](https://remix.polkadot.io){target=\_blank}, a web-based development tool. [OpenZeppelin's ERC-20 contracts]({{ dependencies.repositories.open_zeppelin_contracts.repository_url}}/tree/{{ dependencies.repositories.open_zeppelin_contracts.version}}/contracts/token/ERC20){target=\_blank} are used for security and compliance.
 
@@ -15,7 +16,7 @@ This tutorial covers deploying an ERC-20 contract on the Westend TestNet using [
 
 Before starting, make sure you have:
 
-- [MetaMask](https://metamask.io/){target=\_blank} installed and connected to [Westend Asset Hub](https://chainlist.org/chain/420420421){target=\_blank}. For more detailed instructions on connecting your wallet, see the [Connect Your Wallet](/develop/smart-contracts/connect-to-asset-hub/#connect-your-wallet){target=\_blank} section
+- [Talisman](https://talisman.xyz/){target=\_blank} installed and connected to [Westend Hub](https://chainlist.org/chain/420420421){target=\_blank}. For detailed instructions, see the [Connect Your Wallet](/develop/smart-contracts/connect-to-polkadot/#connect-your-wallet){target=\_blank} section
 - A funded account with some WND tokens (you can get them from the [Westend Faucet](https://faucet.polkadot.io/westend?parachain=1000){target=\_blank}). To learn how to get test tokens, check out the [Test Tokens](/develop/smart-contracts/connect-to-asset-hub/#test-tokens){target=\_blank} section
 - Basic understanding of Solidity and fungible tokens
 
@@ -31,7 +32,7 @@ To create the ERC-20 contract, you can follow the steps below:
 3. Now, paste the following ERC-20 contract code into the editor
 
     ```solidity title="MyToken.sol"
-    --8<-- 'code/tutorials/smart-contracts/deploy-erc20/MyToken.sol'
+    --8<-- 'https://raw.githubusercontent.com/polkadot-developers/polkavm-hardhat-examples/refs/tags/v0.0.1/erc20-hardhat/contracts/MyToken.sol'
     ```
 
     The key components of the code above are:
@@ -88,7 +89,7 @@ Deployment is the process of publishing your compiled smart contract to the bloc
     ![](/images/tutorials/smart-contracts/deploy-erc20/deploy-erc20-6.webp)
 
 2. Configure the deployment settings
-    1. From the **ENVIRONMENT** dropdown, select **Westend Testnet - MetaMask**
+    1. From the **ENVIRONMENT** dropdown, select **Injected Provider - Talisman** (check the [Deploying Contracts](/develop/smart-contracts/dev-environments/remix/#deploying-contracts){target=\_blank} section of the Remix IDE guide for more details)
     2. From the **ACCOUNT** dropdown, select the account you want to use for the deploy
 
     ![](/images/tutorials/smart-contracts/deploy-erc20/deploy-erc20-7.webp)
@@ -99,7 +100,7 @@ Deployment is the process of publishing your compiled smart contract to the bloc
 
     ![](/images/tutorials/smart-contracts/deploy-erc20/deploy-erc20-8.webp)
 
-4. MetaMask will pop up - review the transaction details. Click **Confirm** to deploy your contract
+4. Talisman will pop up - review the transaction details. Click **Confirm** to deploy your contract
 
      ![](/images/tutorials/smart-contracts/deploy-erc20/deploy-erc20-9.webp){: .browser-extension}
 
@@ -125,7 +126,7 @@ Once deployed, you can interact with your contract through Remix:
 
     ![](/images/tutorials/smart-contracts/deploy-erc20/deploy-erc20-12.webp)
 
-3. Confirm the transaction in MetaMask
+3. Click **Approve** to confirm the transaction in the Talisman popup
 
     ![](/images/tutorials/smart-contracts/deploy-erc20/deploy-erc20-13.webp){: .browser-extension}
 
@@ -139,4 +140,4 @@ Other common functions you can use:
 - **`transfer(address to, uint256 amount)`** - send tokens to another address
 - **`approve(address spender, uint256 amount)`** - allow another address to spend your tokens
 
-Feel free to explore and interact with the contract's other functions using the same approach - selecting the method, providing any required parameters, and confirming the transaction through MetaMask when needed.
+Feel free to explore and interact with the contract's other functions using the same approach - selecting the method, providing any required parameters, and confirming the transaction through Talisman when needed.

@@ -1,13 +1,14 @@
 ---
-title: Deploy an NFT to Asset Hub
-description: Deploy an NFT on Asset Hub using PolkaVM and OpenZeppelin. Learn how to compile, deploy, and interact with your contract using Polkadot Remix IDE.
+title: Deploy an NFT to Polkadot Hub
+description: Deploy an NFT on Polkadot Hub using PolkaVM and OpenZeppelin. Learn how to compile, deploy, and interact with your contract using Polkadot Remix IDE.
+tutorial_badge: Beginner
 ---
 
-# Deploy an NFT to Asset Hub
+# Deploy an NFT to Polkadot Hub
 
 ## Introduction
 
-Non-Fungible Tokens (NFTs) represent unique digital assets commonly used for digital art, collectibles, gaming, and identity verification. Asset Hub supports EVM-compatible smart contracts through PolkaVM, enabling straightforward NFT deployment.
+Non-Fungible Tokens (NFTs) represent unique digital assets commonly used for digital art, collectibles, gaming, and identity verification. Polkadot Hub supports Ethereum-compatible smart contracts through PolkaVM, enabling straightforward NFT deployment.
 
 This tutorial guides you through deploying an [ERC-721](https://eips.ethereum.org/EIPS/eip-721){target=\_blank} NFT contract on the Westend TestNet using the [Polkadot Remix IDE](https://remix.polkadot.io){target=\_blank}, a web-based development environment. To ensure security and standard compliance, it uses [OpenZeppelin's NFT contracts]({{ dependencies.repositories.open_zeppelin_contracts.repository_url}}/tree/{{ dependencies.repositories.open_zeppelin_contracts.version}}){target=\_blank} implementation.
 
@@ -15,7 +16,7 @@ This tutorial guides you through deploying an [ERC-721](https://eips.ethereum.or
 
 Before starting, make sure you have:
 
-- MetaMask installed and connected to Westend Asset Hub, check the [Connect to Asset Hub](/develop/smart-contracts/connect-to-asset-hub/){target=\_blank} guide for more information
+- [Talisman](https://talisman.xyz/){target=\_blank} installed and connected to Westend Hub. Check the [Connect to Polkadot](/develop/smart-contracts/connect-to-polkadot/){target=\_blank} guide for more information
 - A funded account with some WND tokens (you can get them from the [Westend Faucet](https://faucet.polkadot.io/westend?parachain=1000){target=\_blank}, noting that the faucet imposes a daily token limit, which may require multiple requests to obtain sufficient funds for testing)
 - Basic understanding of Solidity and NFTs, see the [Solidity Basics](https://soliditylang.org/){target=\_blank} and the [NFT Overview](https://ethereum.org/en/nft/){target=\_blank} guides for more details
 
@@ -31,7 +32,7 @@ To create the NFT contract, you can follow the steps below:
 3. Now, paste the following NFT contract code into the editor
 
     ```solidity title="MyNFT.sol"
-    --8<-- 'code/tutorials/smart-contracts/deploy-nft/MyNFT.sol'
+    --8<-- 'https://raw.githubusercontent.com/polkadot-developers/polkavm-hardhat-examples/refs/tags/v0.0.1/erc721-hardhat/contracts/MyNFT.sol'
     ```
 
     The key components of the code above are:
@@ -89,7 +90,7 @@ Deployment is the process of uploading your compiled smart contract to the block
     ![](/images/tutorials/smart-contracts/deploy-nft/deploy-nft-6.webp)
 
 2. Configure the deployment settings
-    1. From the **ENVIRONMENT** dropdown, select **Westend Testnet - MetaMask**
+    1. From the **ENVIRONMENT** dropdown, select **Injected Provider - Talisman** (check the [Deploying Contracts](/develop/smart-contracts/dev-environments/remix/#deploying-contracts){target=\_blank} section of the Remix IDE guide for more details)
     2. From the **ACCOUNT** dropdown, select the account you want to use for the deploy
 
     ![](/images/tutorials/smart-contracts/deploy-nft/deploy-nft-7.webp)
@@ -100,11 +101,11 @@ Deployment is the process of uploading your compiled smart contract to the block
 
     ![](/images/tutorials/smart-contracts/deploy-nft/deploy-nft-8.webp)
 
-4. MetaMask will pop up - review the transaction details. Click **Confirm** to deploy your contract
+4. Talisman will pop up - review the transaction details. Click **Confirm** to deploy your contract
 
     ![](/images/tutorials/smart-contracts/deploy-nft/deploy-nft-9.webp){: .browser-extension}
 
-    Deploying this contract requires paying gas fees in WND tokens on the Westend Asset Hub TestNet. Ensure your MetaMask account is funded with sufficient WND tokens from the Westend Faucet before confirming the transaction, check the [Test Tokens](/develop/smart-contracts/connect-to-asset-hub/#test-tokens){target=\_blank} section for more information. Gas fees cover the computational resources needed to deploy and execute the smart contract on the blockchain.
+    Deploying this contract requires paying gas fees in WND tokens on the Westend Asset Hub TestNet. Ensure your Talisman account is funded with sufficient WND tokens from the Westend Faucet before confirming the transaction, check the [Test Tokens](/develop/smart-contracts/connect-to-polkadot/#test-tokens){target=\_blank} section for more information. Gas fees cover the computational resources needed to deploy and execute the smart contract on the blockchain.
 
     If the deployment process succeeded, you will see the following output in the terminal:
 
@@ -127,7 +128,7 @@ Once deployed, you can interact with your contract through Remix:
 
     ![](/images/tutorials/smart-contracts/deploy-nft/deploy-nft-12.webp)
 
-3. Click **Confirm** to confirm the transaction in MetaMask
+3. Click **Approve** to confirm the transaction in the Talisman popup
 
     ![](/images/tutorials/smart-contracts/deploy-nft/deploy-nft-13.webp){: .browser-extension}
 
@@ -135,4 +136,4 @@ Once deployed, you can interact with your contract through Remix:
 
     ![](/images/tutorials/smart-contracts/deploy-nft/deploy-nft-14.webp)
 
-Feel free to explore and interact with the contract's other functions using the same approach - selecting the method, providing any required parameters, and confirming the transaction through MetaMask when needed.
+Feel free to explore and interact with the contract's other functions using the same approach - selecting the method, providing any required parameters, and confirming the transaction through Talisman when needed.

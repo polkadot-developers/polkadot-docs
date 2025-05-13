@@ -6,7 +6,7 @@ require('@parity/hardhat-polkadot');
 /** @type import('hardhat/config').HardhatUserConfig */
 module.exports = {
   solidity: '0.8.28',
-  // Npm Compiler
+  // npm Compiler
   resolc: {
     version: '1.5.2',
     compilerSource: 'npm',

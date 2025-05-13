@@ -484,7 +484,7 @@ Complete the integration by following these steps to enable communication betwee
     -8<-- 'code/infrastructure/running-a-validator/operational-tasks/general-management/instance-down.yml'
     ```
 
-    If any of the conditions defined in the rules file are met, an alert will be triggered. For more on alert rules, refer to [Alerting Rules](https://prometheus.io/docs/prometheus/latest/configuration/alerting_rules/){target=\_blank} and [additional alerts](https://awesome-prometheus-alerts.grep.to/rules.html){target=\_blank}.
+    If any of the conditions defined in the rules file are met, an alert will be triggered. For more on alert rules, refer to [Alerting Rules](https://prometheus.io/docs/prometheus/latest/configuration/alerting_rules/){target=\_blank} and [additional alerts](https://samber.github.io/awesome-prometheus-alerts/rules.html){target=\_blank}.
 
 3. Update the file ownership to `prometheus`:
 

@@ -1,6 +1,6 @@
 ---
 title: Use the Polkadot Remix IDE
-description: Explore the smart contract development and deployment process on Asset Hub using Remix IDE, a visual IDE for blockchain developers.
+description: Explore the smart contract development and deployment process on Polkadot Hub using Remix IDE, a visual IDE for blockchain developers.
 ---
 
 # Remix IDE
@@ -10,16 +10,16 @@ description: Explore the smart contract development and deployment process on As
 
     ---
 
-    Mint your NFT on Polkadot's Asset Hub. Use PolkaVM and OpenZeppelin to bring your digital asset to life with Polkadot Remix IDE.
+    Mint your NFT on Polkadot Hub. Use PolkaVM and OpenZeppelin to bring your digital asset to life with Polkadot Remix IDE.
 
     <br>
     [:octicons-arrow-right-24: Get Started](/tutorials/smart-contracts/deploy-nft){target=\_blank}
 
--   :octicons-code-16:{ .lg .middle } __Deploy ERC20s Using Remix IDE__
+-   :octicons-code-16:{ .lg .middle } __Deploy ERC-20s Using Remix IDE__
 
     ---
 
-    Mint your custom ERC-20 token on Polkadot's Asset Hub. Leverage PolkaVM and Polkadot Remix IDE to bring your blockchain project to life.
+    Mint your custom ERC-20 token on Polkadot Hub. Leverage PolkaVM and Polkadot Remix IDE to bring your blockchain project to life.
 
     <br>
     [:octicons-arrow-right-24: Get Started](/tutorials/smart-contracts/deploy-erc20){target=\_blank}
@@ -31,7 +31,7 @@ description: Explore the smart contract development and deployment process on As
 
 ## Overview
 
-Remix IDE is a robust browser-based development environment for smart contracts. This guide will walk you through the essentials of the [Polkadot Remix IDE](https://remix.polkadot.io/){target=\_blank} to understand the processes of compiling, developing, and deploying smart contracts on Asset Hub.
+Remix IDE is a robust browser-based development environment for smart contracts. This guide will walk you through the essentials of the [Polkadot Remix IDE](https://remix.polkadot.io/){target=\_blank} to understand the processes of compiling, developing, and deploying smart contracts on Polkadot Hub.
 
 ## Prerequisites
 
@@ -141,7 +141,7 @@ Once deployed, your contract appears in the **Deployed/Unpinned Contracts** sect
 
 ## Where to Go Next
 
-The Polkadot Remix IDE offers an environment for developing, compiling, and deploying smart contracts on Asset Hub. Its intuitive interface allows developers to easily write Solidity code, compile contracts, and interact with them directly in the browser.
+The Polkadot Remix IDE offers an environment for developing, compiling, and deploying smart contracts on Polkadot Hub. Its intuitive interface allows developers to easily write Solidity code, compile contracts, and interact with them directly in the browser.
 
 Explore more about smart contracts through these resources:
 

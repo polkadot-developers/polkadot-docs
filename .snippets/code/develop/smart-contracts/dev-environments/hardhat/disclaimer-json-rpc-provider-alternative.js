@@ -6,6 +6,6 @@ const wallet = new ethers.Wallet('INSERT_PRIVATE_KEY', provider);
 const ContractFactory = new ethers.ContractFactory(
   contractABI,
   contractBytecode,
-  wallet
+  wallet,
 );
 const contract = await ContractFactory.deploy(...constructorArgs);

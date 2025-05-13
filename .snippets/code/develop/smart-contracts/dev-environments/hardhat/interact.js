@@ -21,10 +21,10 @@ async function main() {
 
   console.log(`Token: ${name} (${symbol})`);
   console.log(
-    `Total Supply: ${hre.ethers.formatUnits(totalSupply, 18)} tokens`
+    `Total Supply: ${hre.ethers.formatUnits(totalSupply, 18)} tokens`,
   );
   console.log(
-    `Deployer Balance: ${hre.ethers.formatUnits(balance, 18)} tokens`
+    `Deployer Balance: ${hre.ethers.formatUnits(balance, 18)} tokens`,
   );
 }
 

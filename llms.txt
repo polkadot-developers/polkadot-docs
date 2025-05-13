@@ -34,8 +34,7 @@ Doc-Page: https://docs.polkadot.com/develop/parachains/testing/
 Doc-Page: https://docs.polkadot.com/develop/parachains/testing/mock-runtime/
 Doc-Page: https://docs.polkadot.com/develop/parachains/testing/pallet-testing/
 Doc-Page: https://docs.polkadot.com/develop/smart-contracts/block-explorers/
-Doc-Page: https://docs.polkadot.com/develop/smart-contracts/connect-to-asset-hub/
-Doc-Page: https://docs.polkadot.com/develop/smart-contracts/connect-your-wallet/
+Doc-Page: https://docs.polkadot.com/develop/smart-contracts/connect-to-polkadot/
 Doc-Page: https://docs.polkadot.com/develop/smart-contracts/dev-environments/hardhat/
 Doc-Page: https://docs.polkadot.com/develop/smart-contracts/dev-environments/
 Doc-Page: https://docs.polkadot.com/develop/smart-contracts/dev-environments/remix/
@@ -188,9 +187,9 @@ template: index-page.html
 This guide is a starting point for developers who wish to build in the Polkadot ecosystem. To get the most from this section:
 
 1. Identify your development pathway:
-    - [**Parachain Developers**](#parachain-developers) - build, deploy, and maintain custom parachains with the Polkadot SDK
-    - [**Smart Contract Developers**](#smart-contract-developers) - leverage smart contracts and execute custom logic over existing chains to streamline your development process
-    - [**Application Developers**](#application-developers) - leverage Polkadot's underlying protocol features to create solutions for your users to interact with the ecosystem
+    - [**Parachain developers**](#parachain-developers) - build, deploy, and maintain custom parachains with the Polkadot SDK
+    - [**Smart contract developers**](#smart-contract-developers) - leverage smart contracts and execute custom logic over existing chains to streamline your development process
+    - [**Application developers**](#application-developers) - leverage Polkadot's underlying protocol features to create solutions for your users to interact with the ecosystem
 2. Use the sections under your pathway as follows:
     - **Learn** - content to deepen your knowledge and understanding
     - **Build** - connect to goal-oriented guides and step-by-step tutorials
@@ -258,12 +257,13 @@ The Polkadot smart contract ecosystem is in active development. Please expect fr
 - <h3>:octicons-book-16:{ .lg .middle } Learn</h3>
     <hr>
     - [Overview - Smart Contracts on Polkadot](/develop/smart-contracts/overview/){target=\_blank}
-    - [EVM-Compatible Parachains](/develop/smart-contracts/evm/parachain-contracts/#evm-compatible-parachains){target=\_blank}
+    - [Smart Contract Basics](/polkadot-protocol/smart-contract-basics/){target=\_blank}
 
 - <h3>:octicons-rocket-16:{.lg .middle} Build</h3>
     <hr>
-    - [Deploy a Smart Contract to Asset Hub](/develop/smart-contracts/evm/native-evm-contracts/#deploy-a-smart-contract-to-asset-hub){target=\_blank}
-    - [Deploy a Wasm Smart Contract](/develop/smart-contracts/wasm-ink/){target=\_blank}
+    - [Launch Your First Smart Contract Project](/tutorials/smart-contracts/launch-your-first-project/){target=\_blank}
+    - [Deploy an NFT](/tutorials/smart-contracts/deploy-nft/){target=\_blank}
+    - [Deploy an ERC-20](/tutorials/smart-contracts/deploy-erc20/){target=\_blank}
 
 - <h3>:octicons-tools-16:{.lg .middle} Tools</h3>
     <hr>
@@ -6090,69 +6090,69 @@ Routescan delivers multi-chain explorer capabilities with specialized support fo
 ![](/images/develop/smart-contracts/block-explorers/block-explorers-3.webp)
 --- END CONTENT ---
 
-Doc-Content: https://docs.polkadot.com/develop/smart-contracts/connect-to-asset-hub/
+Doc-Content: https://docs.polkadot.com/develop/smart-contracts/connect-to-polkadot/
 --- BEGIN CONTENT ---
 ---
-title: Connect to Asset Hub
-description: Explore how to connect to different Asset Hub networks, configure your wallet, and obtain test tokens for developing and testing smart contracts.
+title: Connect to Polkadot
+description: Explore how to connect to Polkadot Hub, configure your wallet, and obtain test tokens for developing and testing smart contracts.
 ---
 
-# Connect to Asset Hub
+# Connect to Polkadot
 
 <div class="button-wrapper">
-    <a href="#" class="md-button connectMetaMask" value="westendAssetHub">Connect to Westend Asset Hub</a>
+    <a href="#" class="md-button connectMetaMask" value="westendAssetHub">Connect to Westend Hub</a>
 </div>
 
-## Networks
+## Networks Details
 
-Developers can leverage Asset Hub across diverse networks, from TestNets to MainNet. This section outlines the network specifications and connection details for each environment.
+Developers can leverage smart contracts across diverse networks, from TestNets to MainNet. This section outlines the network specifications and connection details for each environment.
 
-=== "Westend Asset Hub"
+=== "Westend Hub"
 
     Network name
-    ```
-    Asset-Hub Westend TestNet
+    ```text
+    Westend Asset Hub
     ```
 
     ---
 
     Currency symbol
-    ```
+    ```text
     WND
     ```
 
     ---
     
     Chain ID
-    ```
+    ```text
     420420421
     ```
 
     ---
     
     RPC URL
-    ```
-    https://westend-asset-hub-eth-rpc.polkadot.io
+    ```text
+    https://westend-asset-hub-rpc.polkadot.io
     ```
 
     ---
     
     Block explorer URL
-    ```
+    ```text
     https://assethub-westend.subscan.io
     ```
 
-## Connect your Wallet
+## Connect Your Wallet
 
-### Metamask
+### MetaMask
 
 [MetaMask](https://metamask.io/){target=\_blank} is a popular wallet for interacting with Ethereum-compatible chains. It allows users to connect to test networks that support Ethereum-based smart contracts. However, it's important to emphasize that MetaMask primarily facilitates interactions with smart contracts, giving users access to various chain functionalities. 
 
 To get started with MetaMask, you need to install the [MetaMask extension](https://metamask.io/download/){target=\_blank} and add it to the browser. Once you install MetaMask, you can set up a new wallet and securely store your seed phrase. This phrase is crucial for recovery in case you lose access.
 
-For example, to connect to the Westend Asset Hub TestNet via MetaMask, you need to follow these steps:
+For example, to connect to the Westend Hub TestNet via MetaMask, you need to follow these steps:
 
-1. Open the MetaMask extension and click on the network icon to switch to the Asset Hub Westend TestNet
+1. Open the MetaMask extension and click on the network icon to switch to the Westend Hub TestNet
 
     ![](/images/develop/smart-contracts/connect-to-asset-hub/connect-to-asset-hub-1.webp){: .browser-extension}
 
@@ -6168,11 +6168,11 @@ For example, to connect to the Westend Asset Hub TestNet via MetaMask, you need 
 
     ![](/images/develop/smart-contracts/connect-to-asset-hub/connect-to-asset-hub-4.webp){: .browser-extension}
 
-The steps in the preceding section can be used to connect to any Asset Hub chain by modifying the network specification and endpoint parameters.
+The steps in the preceding section can be used to connect to any chain by modifying the network specification and endpoint parameters.
 
 ### Talisman
 
-[Talisman](https://talisman.xyz/){target=\_blank} is a specialized wallet for the Polkadot ecosystem that supports both Substrate and EVM accounts, making it an excellent choice for Asset Hub interactions. Talisman offers a more integrated experience for Polkadot-based chains while still providing Ethereum compatibility.
+[Talisman](https://talisman.xyz/){target=\_blank} is a specialized wallet for the Polkadot ecosystem that supports both Substrate and EVM accounts, making it an excellent choice for Polkadot Hub interactions. Talisman offers a more integrated experience for Polkadot-based chains while still providing Ethereum compatibility.
 
 To use Talisman with Polkadot Hub:
 
@@ -6189,11 +6189,11 @@ After selecting the network, Talisman will automatically configure the necessary
 
 ## Test Tokens
 
-You will need testnet tokens to perform transactions and engage with smart contracts on any Asset Hub chain. Here's how to obtain Westend Asset Hub (WND) tokens for testing purposes:
+You will need testnet tokens to perform transactions and engage with smart contracts on any chain. Here's how to obtain Westend (WND) tokens for testing purposes:
 
 1. Navigate to the [Polkadot Faucet](https://faucet.polkadot.io){target=\_blank}. If the desired network is not already selected, choose it from the Network drop-down
 
-2. Copy your MetaMask address linked to Westend Asset Hub and paste it into the designated field
+2. Copy your MetaMask address linked to Westend and paste it into the designated field
 
     ![](/images/develop/smart-contracts/connect-to-asset-hub/connect-to-asset-hub-5.webp)
 
@@ -6201,7 +6201,7 @@ You will need testnet tokens to perform transactions and engage with smart contr
 
     ![](/images/develop/smart-contracts/connect-to-asset-hub/connect-to-asset-hub-6.webp)
 
-Now that you have obtained WND tokens in your MetaMask wallet, you’re ready to deploy and interact with smart contracts on the Westend Asset Hub! These tokens will allow you to pay for gas fees when executing transactions, deploying contracts, and testing your dApp functionality in a secure testnet environment. 
+Now that you have obtained WND tokens in your MetaMask wallet, you’re ready to deploy and interact with smart contracts on Westend Hub! These tokens will allow you to pay for gas fees when executing transactions, deploying contracts, and testing your dApp functionality in a secure testnet environment. 
 
 ## Where to Go Next
 
@@ -6213,7 +6213,7 @@ For your next steps, explore the various smart contract guides demonstrating how
 
     ---
 
-    Explore the smart contract development and deployment process on Asset Hub using the Remix IDE.
+    Explore the smart contract development and deployment process on Polkadot Hub using the Remix IDE.
 
     [:octicons-arrow-right-24: Build with Remix IDE](/develop/smart-contracts/dev-environments/remix/)
 
@@ -6221,118 +6221,18 @@ For your next steps, explore the various smart contract guides demonstrating how
 
     ---
 
-    Use viem for interacting with Ethereum-compatible chains, to deploy and interact with smart contracts on Asset Hub.
+    Use viem for interacting with Ethereum-compatible chains, to deploy and interact with smart contracts on Polkadot Hub.
 
     [:octicons-arrow-right-24: Build with viem](/develop/smart-contracts/libraries/viem/)
 
 </div>
 --- END CONTENT ---
 
-Doc-Content: https://docs.polkadot.com/develop/smart-contracts/connect-your-wallet/
---- BEGIN CONTENT ---
----
-title: Connect Your Wallet to Asset Hub
-description: Learn to connect MetaMask to the Asset Hub blockchain. Set up your wallet, switch networks, and request test tokens for development.
----
-
-# Connect Your Wallet
-
-## Connect to Asset Hub Using MetaMask
-
-MetaMask is a popular wallet for interacting with Ethereum-compatible chains. It allows users to connect to test networks that support Ethereum-based smart contracts. This article guides setting up MetaMask, connecting to the contracts deployed on the Ethereum-compatible test network, the Westend Asset Hub, and requesting test tokens for development purposes.
-
-It's important to emphasize that MetaMask primarily facilitates interactions with smart contracts, giving you access to various chain functionalities.
-
-## Prerequisites
-
-To get started with MetaMask, you need to install the [MetaMask extension](https://metamask.io/download/){target=\_blank} and add it to the browser. Once you install MetaMask, you can set up a new wallet and securely store your seed phrase. This phrase is crucial for recovery in case you lose access.
-
-## Connect to the Asset Hub Westend TestNet
-
-To connect to the Westend Asset Hub TestNet via MetaMask, you need to follow these steps:
-
-1. Open the MetaMask extension and click on the network icon to switch to the Asset Hub Westend TestNet
-
-    ![](/images/develop/smart-contracts/evm-toolkit/connect-your-wallet/connect-your-wallet-1.webp){: .browser-extension}
-
-2. Click on the **Add a custom network** button
-
-    ![](/images/develop/smart-contracts/evm-toolkit/connect-your-wallet/connect-your-wallet-2.webp){: .browser-extension}
-
-3. Fill in the required fields with the following parameters and click the **Save** button
-
-    === "Network Details"
-
-        **Network name** - `Asset-Hub Westend TestNet`
-
-        ---
-
-        **Currency symbol** - `WND`
-
-        ---
-        
-        **Chain ID** - ```420420421```
-
-        ---
-        
-        **Block explorer URL** - ```https://assethub-westend.subscan.io```
-
-    === "RPC Endpoints"
-        Dwellir
-        ```
-        wss://westend-asset-hub-eth-rpc.polkadot.io
-        ```
-        ---
-        Dwellir Tunisia
-        ```
-        wss://westmint-rpc.polkadot.io
-        ```
-        ---
-        IBP1
-        ```
-        wss://rpc.ibp.network/asset-hub-westend
-        ```
-        ---
-        IBP2
-        ```
-        wss://asset-hub-westend.dotters.network
-        ```
-        ---
-        Parity
-        ```
-        wss://westend-asset-hub-rpc.polkadot.io
-        ```
-
-
-    ![](/images/develop/smart-contracts/evm-toolkit/connect-your-wallet/connect-your-wallet-3.webp){: .browser-extension}
-
-4. Click on **Asset-Hub Westend TestNet** to switch the network
-
-    ![](/images/develop/smart-contracts/evm-toolkit/connect-your-wallet/connect-your-wallet-4.webp){: .browser-extension}
-
-
-## Request Test Tokens
-
-To start conducting transactions and interacting with smart contracts on the Asset Hub Westend TestNet, you'll need WND test tokens. Here's how to get them:
-
-1. Navigate to the [Westend Asset Hub Faucet](https://faucet.polkadot.io/westend?parachain=1000){target=\_blank}
-
-2. Copy your MetaMask address linked to the Westend Asset Hub and paste it into the designated field
-
-    ![](/images/develop/smart-contracts/evm-toolkit/connect-your-wallet/connect-your-wallet-5.webp)
-
-3. Click the **Get Some WND** button to request free test WND tokens. These tokens will be sent to your MetaMask wallet shortly
-
-    ![](/images/develop/smart-contracts/evm-toolkit/connect-your-wallet/connect-your-wallet-6.webp)
-
-Congratulations! You have successfully connected to the Westend Asset Hub using MetaMask and acquired test tokens. This setup allows you to experiment with the network's functionalities without using real ether or encountering financial risks. Remember to keep your MetaMask credentials secure and never share your wallet's private key or seed phrase with anyone.
---- END CONTENT ---
-
 Doc-Content: https://docs.polkadot.com/develop/smart-contracts/dev-environments/hardhat/
 --- BEGIN CONTENT ---
 ---
-title: Use Hardhat with Polkadot
-description: Learn how to create, compile, test, and deploy smart contracts on Polkadot using Hardhat, a powerful development environment for blockchain developers.
+title: Use Hardhat with Polkadot Hub
+description: Learn how to create, compile, test, and deploy smart contracts on Polkadot Hub using Hardhat, a powerful development environment for blockchain developers.
 ---
 
 # Hardhat
@@ -6351,7 +6251,7 @@ description: Learn how to create, compile, test, and deploy smart contracts on P
 
 ## Overview
 
-Hardhat is a robust development environment for Ethereum-compatible chains that makes smart contract development more efficient. This guide walks you through the essentials of using Hardhat to create, compile, test, and deploy smart contracts on Polkadot.
+Hardhat is a robust development environment for Ethereum-compatible chains that makes smart contract development more efficient. This guide walks you through the essentials of using Hardhat to create, compile, test, and deploy smart contracts on Polkadot Hub.
 
 ## Prerequisites
 
@@ -6359,9 +6259,9 @@ Before getting started, ensure you have:
 
 - [Node.js](https://nodejs.org/){target=\_blank} (v16.0.0 or later) and npm installed
 - Basic understanding of Solidity programming
-- Some WND test tokens to cover transaction fees (easily obtainable from the [Polkadot faucet](https://faucet.polkadot.io/westend?parachain=1000){target=\_blank}). To learn how to get test tokens, check out the [Test Tokens](/develop/smart-contracts/connect-to-asset-hub/#test-tokens){target=\_blank} section
+- Some WND test tokens to cover transaction fees (easily obtainable from the [Polkadot faucet](https://faucet.polkadot.io/westend?parachain=1000){target=\_blank}). To learn how to get test tokens, check out the [Test Tokens](/develop/smart-contracts/connect-to-polkadot/#test-tokens){target=\_blank} section
 
-## Setting Up Hardhat
+## Set Up Hardhat
 
 1. Create a new directory for your project and navigate into it:
 
@@ -6379,7 +6279,13 @@ Before getting started, ensure you have:
 3. To interact with Polkadot, Hardhat requires the following plugins to compile contracts to PolkaVM bytecode and to spawn a local node compatible with PolkaVM:
 
     ```bash
-    npm install --save-dev @parity/hardhat-polkadot
+    npm install --save-dev hardhat @nomicfoundation/hardhat-toolbox
+    ```
+
+    To interact with Polkadot Hub, Hardhat requires the [`hardhat-resolc`](https://www.npmjs.com/package/hardhat-resolc){target=\_blank} plugin to compile contracts to PolkaVM bytecode and the [`hardhat-revive-node`](https://www.npmjs.com/package/hardhat-revive-node){target=\_blank} plugin to spawn a local node compatible with PolkaVM.
+
+    ```bash
+    npm install --save-dev hardhat-resolc hardhat-revive-node
     ```
 
 4. Create a Hardhat project:
@@ -6388,7 +6294,7 @@ Before getting started, ensure you have:
     npx hardhat-polkadot init
     ```
 
-    Select "Create a JavaScript project" when prompted and follow the instructions. After that, your project will be created with three main folders:
+    Select **Create a JavaScript project** when prompted and follow the instructions. After that, your project will be created with three main folders:
 
     - **`contracts`** - where your Solidity smart contracts live
     - **`test`** - contains your test files that validate contract functionality
@@ -6493,7 +6399,7 @@ module.exports = {
 
 ## Testing Your Contract
 
-When testing your contract, be aware that [`@nomicfoundation/hardhat-toolbox/network-helpers`](https://hardhat.org/hardhat-network-helpers/docs/overview){target=\_blank} is not fully compatible with Asset Hub's available RPCs. Specifically, Hardhat-only helpers like `time` and `loadFixture` may not work due to missing RPC calls in the node. For more details, refer to the [Compatibility](https://github.com/paritytech/hardhat-revive/tree/main/packages/hardhat-revive-node#compatibility){target=\_blank} section in the `hardhat-revive` docs. You should avoid using helpers like `time` and `loadFixture` when writing tests. 
+When testing your contract, be aware that [`@nomicfoundation/hardhat-toolbox/network-helpers`](https://hardhat.org/hardhat-network-helpers/docs/overview){target=\_blank} is not fully compatible with Polkadot Hub's available RPCs. Specifically, Hardhat-only helpers like `time` and `loadFixture` may not work due to missing RPC calls in the node. For more details, refer to the [Compatibility](https://github.com/paritytech/hardhat-revive/tree/main/packages/hardhat-revive-node#compatibility){target=\_blank} section in the `hardhat-revive` docs. You should avoid using helpers like `time` and `loadFixture` when writing tests. 
 
 To run your test:
 
@@ -6602,7 +6508,7 @@ const wallet = new ethers.Wallet('INSERT_PRIVATE_KEY', provider);
 const ContractFactory = new ethers.ContractFactory(
   contractABI,
   contractBytecode,
-  wallet
+  wallet,
 );
 const contract = await ContractFactory.deploy(...constructorArgs);
     ```
@@ -6715,7 +6621,7 @@ module.exports = {
 
 ## Deploying to a Live Network
 
-After testing your contract locally, you can deploy it to a live network. This guide will use Westend Asset Hub as the target network. Here's how to configure and deploy:
+After testing your contract locally, you can deploy it to a live network. This guide will use Westend Hub as the target network. Here's how to configure and deploy:
 
 1. Fund your deployment account with enough tokens to cover gas fees. In this case, the needed tokens are WND (on Westend). You can use the [Polkadot faucet](https://faucet.polkadot.io/westend?parachain=1000){target=\_blank} to obtain testing tokens.
 
@@ -6853,7 +6759,7 @@ module.exports = {
         };
         ```
 
-5. Deploy your contract using Ignition:
+6. Deploy your contract using Ignition:
 
     ```bash
     npx hardhat ignition deploy ./ignition/modules/MyToken.js --network westendHub
@@ -6889,10 +6795,10 @@ async function main() {
 
   console.log(`Token: ${name} (${symbol})`);
   console.log(
-    `Total Supply: ${hre.ethers.formatUnits(totalSupply, 18)} tokens`
+    `Total Supply: ${hre.ethers.formatUnits(totalSupply, 18)} tokens`,
   );
   console.log(
-    `Deployer Balance: ${hre.ethers.formatUnits(balance, 18)} tokens`
+    `Deployer Balance: ${hre.ethers.formatUnits(balance, 18)} tokens`,
   );
 }
 
@@ -6910,7 +6816,7 @@ npx hardhat run scripts/interact.js --network westendHub
 
 ## Where to Go Next
 
-Hardhat provides a powerful environment for developing, testing, and deploying smart contracts on Asset Hub. Its plugin architecture allows seamless integration with PolkaVM through the `hardhat-resolc` and `hardhat-revive-node` plugins.
+Hardhat provides a powerful environment for developing, testing, and deploying smart contracts on Polkadot Hub. Its plugin architecture allows seamless integration with PolkaVM through the `hardhat-resolc` and `hardhat-revive-node` plugins.
 
 Explore more about smart contracts through these resources:
 
@@ -6973,7 +6879,7 @@ Doc-Content: https://docs.polkadot.com/develop/smart-contracts/dev-environments/
 --- BEGIN CONTENT ---
 ---
 title: Use the Polkadot Remix IDE
-description: Explore the smart contract development and deployment process on Asset Hub using Remix IDE, a visual IDE for blockchain developers.
+description: Explore the smart contract development and deployment process on Polkadot Hub using Remix IDE, a visual IDE for blockchain developers.
 ---
 
 # Remix IDE
@@ -6983,16 +6889,16 @@ description: Explore the smart contract development and deployment process on As
 
     ---
 
-    Mint your NFT on Polkadot's Asset Hub. Use PolkaVM and OpenZeppelin to bring your digital asset to life with Polkadot Remix IDE.
+    Mint your NFT on Polkadot Hub. Use PolkaVM and OpenZeppelin to bring your digital asset to life with Polkadot Remix IDE.
 
     <br>
     [:octicons-arrow-right-24: Get Started](/tutorials/smart-contracts/deploy-nft){target=\_blank}
 
--   :octicons-code-16:{ .lg .middle } __Deploy ERC20s Using Remix IDE__
+-   :octicons-code-16:{ .lg .middle } __Deploy ERC-20s Using Remix IDE__
 
     ---
 
-    Mint your custom ERC-20 token on Polkadot's Asset Hub. Leverage PolkaVM and Polkadot Remix IDE to bring your blockchain project to life.
+    Mint your custom ERC-20 token on Polkadot Hub. Leverage PolkaVM and Polkadot Remix IDE to bring your blockchain project to life.
 
     <br>
     [:octicons-arrow-right-24: Get Started](/tutorials/smart-contracts/deploy-erc20){target=\_blank}
@@ -7004,7 +6910,7 @@ description: Explore the smart contract development and deployment process on As
 
 ## Overview
 
-Remix IDE is a robust browser-based development environment for smart contracts. This guide will walk you through the essentials of the [Polkadot Remix IDE](https://remix.polkadot.io/){target=\_blank} to understand the processes of compiling, developing, and deploying smart contracts on Asset Hub.
+Remix IDE is a robust browser-based development environment for smart contracts. This guide will walk you through the essentials of the [Polkadot Remix IDE](https://remix.polkadot.io/){target=\_blank} to understand the processes of compiling, developing, and deploying smart contracts on Polkadot Hub.
 
 ## Prerequisites
 
@@ -7131,7 +7037,7 @@ Once deployed, your contract appears in the **Deployed/Unpinned Contracts** sect
 
 ## Where to Go Next
 
-The Polkadot Remix IDE offers an environment for developing, compiling, and deploying smart contracts on Asset Hub. Its intuitive interface allows developers to easily write Solidity code, compile contracts, and interact with them directly in the browser.
+The Polkadot Remix IDE offers an environment for developing, compiling, and deploying smart contracts on Polkadot Hub. Its intuitive interface allows developers to easily write Solidity code, compile contracts, and interact with them directly in the browser.
 
 Explore more about smart contracts through these resources:
 
@@ -7160,7 +7066,7 @@ Doc-Content: https://docs.polkadot.com/develop/smart-contracts/
 --- BEGIN CONTENT ---
 ---
 title: Smart Contracts
-description: Learn about smart contract development in Polkadot using ink! for Wasm contracts and EVM and PolkaVM support for Solidity contracts on Asset Hub and parachains.
+description: Learn about smart contract development in Polkadot, including ink! for Wasm contracts and Solidity support via EVM and PolkaVM on Polkadot Hub and parachains.
 template: index-page.html
 ---
 
@@ -7203,16 +7109,16 @@ Doc-Content: https://docs.polkadot.com/develop/smart-contracts/json-rpc-apis/
 --- BEGIN CONTENT ---
 ---
 title: JSON-RPC APIs
-description: JSON-RPC APIs guide for Asset Hub, covering supported methods, parameters, and examples for interacting with the Asset Hub chain.
+description: JSON-RPC APIs guide for Polkadot Hub, covering supported methods, parameters, and examples for interacting with the chain.
 ---
 
 # JSON-RPC APIs
 
 ## Introduction
 
-Asset Hub provides Ethereum compatibility through its JSON-RPC interface, allowing developers to interact with the chain using familiar Ethereum tooling and methods. This document outlines the supported [Ethereum JSON-RPC methods](https://ethereum.org/en/developers/docs/apis/json-rpc/#json-rpc-methods){target=\_blank} and provides examples of how to use them.
+Polkadot Hub provides Ethereum compatibility through its JSON-RPC interface, allowing developers to interact with the chain using familiar Ethereum tooling and methods. This document outlines the supported [Ethereum JSON-RPC methods](https://ethereum.org/en/developers/docs/apis/json-rpc/#json-rpc-methods){target=\_blank} and provides examples of how to use them.
 
-This article uses the Westend Asset Hub endpoint to interact with:
+This article uses the Westend Hub endpoint:
 
 ```text
 https://westend-asset-hub-eth-rpc.polkadot.io
@@ -7677,17 +7583,17 @@ If an error occurs, the response will include an error object:
 Doc-Content: https://docs.polkadot.com/develop/smart-contracts/libraries/ethers-js/
 --- BEGIN CONTENT ---
 ---
-title: Deploy Contracts to Asset Hub with Ethers.js
-description: Learn how to interact with the Asset Hub chain using Ethers.js, from compiling and deploying Solidity contracts to interacting with deployed smart contracts.
+title: Deploy Contracts to Polkadot Hub with Ethers.js
+description: Learn how to interact with Polkadot Hub using Ethers.js, from compiling and deploying Solidity contracts to interacting with deployed smart contracts.
 ---
 
 # Ethers.js
 
 ## Introduction
 
-[Ethers.js](https://docs.ethers.org/v6/){target=\_blank} is a lightweight library that enables interaction with Ethereum Virtual Machine (EVM)-compatible blockchains through JavaScript. Ethers is widely used as a toolkit to establish connections and read and write blockchain data. This article demonstrates using Ethers.js to interact and deploy smart contracts to Asset Hub.
+[Ethers.js](https://docs.ethers.org/v6/){target=\_blank} is a lightweight library that enables interaction with Ethereum Virtual Machine (EVM)-compatible blockchains through JavaScript. Ethers is widely used as a toolkit to establish connections and read and write blockchain data. This article demonstrates using Ethers.js to interact and deploy smart contracts to Polkadot Hub.
 
-This guide is intended for developers who are familiar with JavaScript and want to interact with the Polkadot Asset Hub using Ethers.js.
+This guide is intended for developers who are familiar with JavaScript and want to interact with Polkadot Hub using Ethers.js.
 
 ## Prerequisites
 
@@ -7701,8 +7607,8 @@ Before getting started, ensure you have the following installed:
 
 This project organizes contracts, scripts, and compiled artifacts for easy development and deployment.
 
-```text title="Ethers.js Asset Hub"
-ethers-asset-hub
+```text title="Ethers.js Polkadot Hub"
+ethers-project
 ├── contracts
 │   ├── Storage.sol
 ├── scripts
@@ -7744,9 +7650,9 @@ npm install ethers
 
 A [`Provider`](https://docs.ethers.org/v6/api/providers/#Provider){target=\_blank} is an abstraction of a connection to the Ethereum network, allowing you to query blockchain data and send transactions. It serves as a bridge between your application and the blockchain.
 
-To interact with the Asset Hub, you must set up an Ethers.js provider. This provider connects to a blockchain node, allowing you to query blockchain data and interact with smart contracts. In the root of your project, create a file named `connectToProvider.js` and add the following code:
+To interact with Polkadot Hub, you must set up an Ethers.js provider. This provider connects to a blockchain node, allowing you to query blockchain data and interact with smart contracts. In the root of your project, create a file named `connectToProvider.js` and add the following code:
 
-```js title="connectToProvider.js"
+```js title="scripts/connectToProvider.js"
 const { JsonRpcProvider } = require('ethers');
 
 const createProvider = (rpcUrl, chainId, chainName) => {
@@ -7768,7 +7674,7 @@ createProvider(PROVIDER_RPC.rpc, PROVIDER_RPC.chainId, PROVIDER_RPC.name);
 ```
 
 !!! note
-    Replace `INSERT_RPC_URL`, `INSERT_CHAIN_ID`, and `INSERT_CHAIN_NAME` with the appropriate values. For example, to connect to Westend Asset Hub's Ethereum RPC instance, you can use the following parameters:
+    Replace `INSERT_RPC_URL`, `INSERT_CHAIN_ID`, and `INSERT_CHAIN_NAME` with the appropriate values. For example, to connect to Westend Hub's Ethereum RPC instance, you can use the following parameters:
 
     ```js
     const PROVIDER_RPC = {
@@ -7788,7 +7694,7 @@ With the provider set up, you can start querying the blockchain. For instance, t
 
 ??? code "Fetch Last Block code"
 
-    ```js title="fetchLastBlock.js"
+    ```js title="scripts/fetchLastBlock.js"
     const { JsonRpcProvider } = require('ethers');
 
 const createProvider = (rpcUrl, chainId, chainName) => {
@@ -7816,7 +7722,7 @@ const main = async () => {
     const latestBlock = await provider.getBlockNumber();
     console.log(`Latest block: ${latestBlock}`);
   } catch (error) {
-    console.error('Error connecting to Asset Hub: ' + error.message);
+    console.error('Error connecting to Westend Hub: ' + error.message);
   }
 };
 
@@ -7825,11 +7731,11 @@ main();
 
 ## Compile Contracts
 
-The `revive` compiler transforms Solidity smart contracts into [`PolkaVM`](/develop/smart-contracts/native-evm-contracts/#polkavm){target=\_blank} bytecode for deployment on Asset Hub. Revive's Ethereum RPC interface allows you to use familiar tools like Ethers.js and MetaMask to interact with contracts.
+The `revive` compiler transforms Solidity smart contracts into [PolkaVM](/develop/smart-contracts/native-evm-contracts/#polkavm){target=\_blank} bytecode for deployment on Polkadot Hub. Revive's Ethereum RPC interface allows you to use familiar tools like Ethers.js and MetaMask to interact with contracts.
 
 ### Install the Revive Library
 
-The [`@parity/revive`](https://www.npmjs.com/package/@parity/revive){target=\_blank} library will compile your Solidity code for deployment on Asset Hub. Run the following command in your terminal to install the library:
+The [`@parity/revive`](https://www.npmjs.com/package/@parity/revive){target=\_blank} library will compile your Solidity code for deployment on Polkadot Hub. Run the following command in your terminal to install the library:
 
 ```bash
 npm install --save-dev @parity/revive 
@@ -7837,11 +7743,11 @@ npm install --save-dev @parity/revive
 
 This guide uses `@parity/revive` version `{{ dependencies.javascript_packages.revive.version }}`.
 
-### Sample `Storage.sol` Smart Contract
+### Sample Storage Smart Contract
 
-This example demonstrates compiling a `Storage.sol` Solidity contract for deployment to Asset Hub. The contract's functionality stores a number and permits users to update it with a new value.
+This example demonstrates compiling a `Storage.sol` Solidity contract for deployment to Polkadot Hub. The contract's functionality stores a number and permits users to update it with a new value.
 
-```solidity title="storage.sol"
+```solidity title="contracts/Storage.sol"
 //SPDX-License-Identifier: MIT
 
 // Solidity files have to start with this pragma.
@@ -7869,7 +7775,7 @@ contract Storage {
 
 To compile this contract, use the following script:
 
-```js title="compile.js"
+```js title="scripts/compile.js"
 const { compile } = require('@parity/revive');
 const { readFileSync, writeFileSync } = require('fs');
 const { basename, join } = require('path');
@@ -7929,26 +7835,26 @@ Execute the script above by running:
 node compile
 ```
 
-After executing the script, the Solidity contract will be compiled into the required `polkavm` bytecode format. The ABI and bytecode will be saved into files with `.json` and `.polkavm` extensions, respectively. You can now proceed with deploying the contract to the Asset Hub network, as outlined in the next section.
+After executing the script, the Solidity contract will be compiled into the required PolkaVM bytecode format. The ABI and bytecode will be saved into files with `.json` and `.polkavm` extensions, respectively. You can now proceed with deploying the contract to Polkadot Hub, as outlined in the next section.
 
 ## Deploy the Compiled Contract
 
-To deploy your compiled contract to Asset Hub, you'll need a wallet with a private key to sign the deployment transaction.
+To deploy your compiled contract to Polkadot Hub, you'll need a wallet with a private key to sign the deployment transaction.
 
 You can create a `deploy.js` script in the root of your project to achieve this. The deployment script can be divided into key components:
 
-1. First, set up the required imports and utilities:
+1. Set up the required imports and utilities:
 
-    ```js title="deploy.js"
+    ```js title="scripts/deploy.js"
     const { join } = require('path');
 const { ethers, JsonRpcProvider } = require('ethers');
 
 const codegenDir = join(__dirname);
     ```
 
-2. Create a provider to connect to the Asset Hub network:
+2. Create a provider to connect to Polkadot Hub:
 
-    ```js title="deploy.js"
+    ```js title="scripts/deploy.js"
     // Creates an Ethereum provider with specified RPC URL and chain details
 const createProvider = (rpcUrl, chainId, chainName) => {
   const provider = new JsonRpcProvider(rpcUrl, {
@@ -7961,7 +7867,7 @@ const createProvider = (rpcUrl, chainId, chainName) => {
  
 3. Set up functions to read contract artifacts:
 
-    ```js title="deploy.js"
+    ```js title="scripts/deploy.js"
     const getAbi = (contractName) => {
   try {
     return JSON.parse(
@@ -7994,7 +7900,7 @@ const getByteCode = (contractName) => {
 
 4. Create the main deployment function:
 
-    ```js title="deploy.js"
+    ```js title="scripts/deploy.js"
     console.log(`Deploying ${contractName}...`);
 
   try {
@@ -8034,7 +7940,7 @@ const getByteCode = (contractName) => {
 
 5. Configure and execute the deployment:
 
-    ```js title="deploy.js"
+    ```js title="scripts/deploy.js"
     rpc: 'https://westend-asset-hub-eth-rpc.polkadot.io',
   chainId: 420420421,
   name: 'westend-asset-hub',
@@ -8050,11 +7956,9 @@ deployContract('Storage', mnemonic, providerConfig);
 
         Ensure to replace the `INSERT_MNEMONIC` placeholder with your actual mnemonic.
 
-Here's the complete deployment script combining all the components above:
+??? code "View complete script"
 
-??? code "deploy.js"
-
-    ```js title="deploy.js"
+    ```js title="scripts/deploy.js"
     const { writeFileSync, existsSync, readFileSync } = require('fs');
 const { join } = require('path');
 const { ethers, JsonRpcProvider } = require('ethers');
@@ -8154,13 +8058,13 @@ To run the script, execute the following command:
 node deploy
 ```
 
-After running this script, your contract will be deployed to Asset Hub, and its address will be saved in `contract-address.json` within your project directory. You can use this address for future contract interactions.
+After running this script, your contract will be deployed to Polkadot Hub, and its address will be saved in `contract-address.json` within your project directory. You can use this address for future contract interactions.
 
 ## Interact with the Contract
 
 Once the contract is deployed, you can interact with it by calling its functions. For example, to set a number, read it and then modify that number by its double, you can create a file named `checkStorage.js` in the root of your project and add the following code:
 
-```js title="checkStorage.js"
+```js title="scripts/checkStorage.js"
 const { ethers } = require('ethers');
 const { readFileSync } = require('fs');
 const { join } = require('path');
@@ -8256,7 +8160,7 @@ node checkStorage
 
 ## Where to Go Next
 
-Now that you have the foundational knowledge to use Ethers.js with Asset Hub, you can:
+Now that you have the foundational knowledge to use Ethers.js with Polkadot Hub, you can:
 
 - **Dive into Ethers.js utilities** - discover additional Ethers.js features, such as wallet management, signing messages, etc
 - **Implement batch transactions** - use Ethers.js to execute batch transactions for efficient multi-step contract interactions
@@ -8300,15 +8204,15 @@ Consider the following features when choosing a library for your project:
 Doc-Content: https://docs.polkadot.com/develop/smart-contracts/libraries/viem/
 --- BEGIN CONTENT ---
 ---
-title: viem for Asset Hub Smart Contracts
-description: viem is a TypeScript library for interacting with Ethereum-compatible chains. This guide covers using viem to deploy and interact with smart contracts on Asset Hub.
+title: viem for Polkadot Hub Smart Contracts
+description: This guide covers deploying and interacting with contracts on Polkadot Hub using viem, a TypeScript library for Ethereum-compatible chains.
 ---
 
 # viem
 
 ## Introduction
 
-[viem](https://viem.sh/){target=\_blank} is a lightweight TypeScript library designed for interacting with Ethereum-compatible blockchains. This comprehensive guide will walk you through using viem to interact with and deploy smart contracts to Asset Hub.
+[viem](https://viem.sh/){target=\_blank} is a lightweight TypeScript library designed for interacting with Ethereum-compatible blockchains. This comprehensive guide will walk you through using viem to interact with and deploy smart contracts to Polkadot Hub.
 
 ## Prerequisites
 
@@ -8317,6 +8221,28 @@ Before getting started, ensure you have the following installed:
 - **Node.js** - v22.13.1 or later, check the [Node.js installation guide](https://nodejs.org/en/download/current/){target=\_blank}
 - **npm** - v6.13.4 or later (comes bundled with Node.js)
 - **Solidity** - this guide uses Solidity `^0.8.9` for smart contract development
+
+## Project Structure
+
+This project organizes contracts, scripts, and compiled artifacts for easy development and deployment.
+
+```text
+viem-project/
+├── package.json
+├── tsconfig.json
+├── src/
+│   ├── chainConfig.ts
+│   ├── createClient.ts
+│   ├── createWallet.ts
+│   ├── compile.ts
+│   ├── deploy.ts
+│   └── interact.ts
+├── contracts/
+│   └── Storage.sol
+└── artifacts/
+    ├── Storage.json
+    └── Storage.polkavm
+```
 
 ## Set Up the Project
 
@@ -8340,9 +8266,9 @@ npm install viem @parity/revive
 npm install --save-dev typescript ts-node @types/node
 ```
 
-## Init Project
+## Initialize Project
 
-Init a TypeScript project by running the following command:
+Initialize a TypeScript project by running the following command:
 
 ```bash
 npx tsc --init
@@ -8371,13 +8297,13 @@ mkdir src
 
 The first step is to set up the chain configuration. Create a new file at `src/chainConfig.ts`:
 
-```typescript title="chainConfig.ts"
+```typescript title="src/chainConfig.ts"
 import { http } from 'viem';
 
 export const TRANSPORT = http('INSERT_RPC_URL');
 
-// Configure the Asset Hub chain
-export const ASSET_HUB = {
+// Configure the Polkadot Hub chain
+export const POLKADOT_HUB = {
   id: INSERT_CHAIN_ID,
   name: 'INSERT_CHAIN_NAME',
   network: 'INSERT_NETWORK_NAME',
@@ -8394,18 +8320,18 @@ export const ASSET_HUB = {
 } as const;
 ```
 
-Ensure to replace `INSERT_RPC_URL`, `INSERT_CHAIN_ID`, `INSERT_CHAIN_NAME`, `INSERT_NETWORK_NAME`, `INSERT_CHAIN_DECIMALS`, `INSERT_CURRENCY_NAME`, and `INSERT_CURRENCY_SYMBOL` with the proper values. Check the [Connect to Asset Hub](/develop/smart-contracts/connect-to-asset-hub){target=\_blank} page for more information on the possible values.
+Ensure to replace `INSERT_RPC_URL`, `INSERT_CHAIN_ID`, `INSERT_CHAIN_NAME`, `INSERT_NETWORK_NAME`, `INSERT_CHAIN_DECIMALS`, `INSERT_CURRENCY_NAME`, and `INSERT_CURRENCY_SYMBOL` with the proper values. Check the [Connect to Polkadot](/develop/smart-contracts/connect-to-polkadot){target=\_blank} page for more information on the possible values.
 
 ## Set Up the viem Client
 
 To interact with the chain, you need to create a client that is used solely for reading data. To accomplish this, create a new file at `src/createClient.ts`:
 
-```typescript title="createClient.ts"
+```typescript title="src/createClient.ts"
 import { createPublicClient, createWalletClient, http } from 'viem';
 
 const transport = http('INSERT_RPC_URL');
 
-// Configure the Asset Hub chain
+// Configure the Polkadot Hub chain
 const assetHub = {
   id: INSERT_CHAIN_ID,
   name: 'INSERT_CHAIN_NAME',
@@ -8433,12 +8359,12 @@ After setting up the [Public Client](https://viem.sh/docs/clients/public#public-
 
 ??? code "Fetch Last Block code"
 
-    ```js title="fetchLastBlock.ts"
+    ```js title="src/fetchLastBlock.ts"
     import { createPublicClient, http } from 'viem';
 
 const transport = http('https://westend-asset-hub-eth-rpc.polkadot.io');
 
-// Configure the Asset Hub chain
+// Configure the Polkadot Hub chain
 const assetHub = {
   id: 420420421,
   name: 'Westend Asset Hub',
@@ -8466,7 +8392,7 @@ const main = async () => {
     const block = await publicClient.getBlock();
     console.log('Last block: ' + block.number.toString());
   } catch (error: unknown) {
-    console.error('Error connecting to Asset Hub: ' + error);
+    console.error('Error connecting to Westend Hub: ' + error);
   }
 };
 
@@ -8477,13 +8403,13 @@ main();
 
 In case you need to sign transactions, you will need to instantiate a [Wallet Client](https://viem.sh/docs/clients/wallet#wallet-client){target=\_blank} object within your project. To do so, create `src/createWallet.ts`:
 
-```typescript title="createWallet.ts"
+```typescript title="src/createWallet.ts"
 import { privateKeyToAccount } from 'viem/accounts';
 import { createWalletClient, http } from 'viem';
 
 const transport = http('INSERT_RPC_URL');
 
-// Configure the Asset Hub chain
+// Configure the Polkadot Hub chain
 const assetHub = {
   id: INSERT_CHAIN_ID,
   name: 'INSERT_CHAIN_NAME',
@@ -8519,7 +8445,7 @@ export const createWallet = (privateKey: `0x${string}`) => {
 
 ## Sample Smart Contract
 
-This example demonstrates compiling a `Storage.sol` Solidity contract for deployment to Asset Hub. The contract's functionality stores a number and permits users to update it with a new value.
+This example demonstrates compiling a `Storage.sol` Solidity contract for deployment to Polkadot Hub. The contract's functionality stores a number and permits users to update it with a new value.
 
 ```bash
 mkdir contracts artifacts
@@ -8527,7 +8453,7 @@ mkdir contracts artifacts
 
 You can use the following contract to interact with the blockchain. Paste the following contract in `contracts/Storage.sol`:
 
-```solidity title="Storage.sol"
+```solidity title="contracts/Storage.sol"
 //SPDX-License-Identifier: MIT
 
 // Solidity files have to start with this pragma.
@@ -8555,7 +8481,7 @@ contract Storage {
 
 Create a new file at `src/compile.ts` for handling contract compilation:
 
-```typescript title="compile.ts"
+```typescript title="src/compile.ts"
 import { compile } from '@parity/revive';
 import { readFileSync, writeFileSync } from 'fs';
 import { basename, join } from 'path';
@@ -8621,13 +8547,13 @@ To compile your contract:
 npm run compile
 ```
 
-After executing this script, you will see the compilation results including the generated `Storage.json` (containing the contract's ABI) and `Storage.polkavm` (containing the compiled bytecode) files in the `artifacts` folder. These files contain all the necessary information for deploying and interacting with your smart contract on Asset Hub.
+After executing this script, you will see the compilation results including the generated `Storage.json` (containing the contract's ABI) and `Storage.polkavm` (containing the compiled bytecode) files in the `artifacts` folder. These files contain all the necessary information for deploying and interacting with your smart contract on Polkadot Hub.
 
 ## Deploy the Contract
 
 Create a new file at `src/deploy.ts` for handling contract deployment:
 
-```typescript title="deploy.ts"
+```typescript title="src/deploy.ts"
 import { readFileSync } from 'fs';
 import { join } from 'path';
 import { createWallet } from './createWallet';
@@ -8694,7 +8620,7 @@ If everything is successful, you will see the address of your deployed contract 
 
 Create a new file at `src/interact.ts` for interacting with your deployed contract:
 
-```typescript title="interact.ts"
+```typescript title="src/interact.ts"
 import { publicClient } from './createClient';
 import { createWallet } from './createWallet';
 import { readFileSync } from 'fs';
@@ -8758,31 +8684,9 @@ npm run interact
 
 Following a successful interaction, you will see the stored value before and after the transaction. The output will show the initial stored number (0 if you haven't modified it yet), confirm when the transaction to set the number to 42 is complete, and then display the updated stored number value. This demonstrates both reading from and writing to your smart contract.
 
-## Complete Project Structure
-
-After completing this guide, your project directory should have the following structure. This overview helps you verify that you've created all the necessary files in their correct locations for your viem integration with Asset Hub:
-
-```text
-viem-project/
-├── package.json
-├── tsconfig.json
-├── src/
-│   ├── chainConfig.ts
-│   ├── createClient.ts
-│   ├── createWallet.ts
-│   ├── compile.ts
-│   ├── deploy.ts
-│   └── interact.ts
-├── contracts/
-│   └── Storage.sol
-└── artifacts/
-    ├── Storage.json
-    └── Storage.polkavm
-```
-
 ## Where to Go Next
 
-Now that you have the foundation for using viem with Asset Hub, consider exploring:
+Now that you have the foundation for using viem with Polkadot Hub, consider exploring:
 
 <div class="grid cards" markdown>
 
@@ -8835,8 +8739,8 @@ Now that you have the foundation for using viem with Asset Hub, consider explori
 Doc-Content: https://docs.polkadot.com/develop/smart-contracts/libraries/wagmi/
 --- BEGIN CONTENT ---
 ---
-title: Wagmi for Asset Hub Smart Contracts
-description: Learn how to use Wagmi React Hooks to fetch and interact with smart contracts on Asset Hub for seamless dApp integration.
+title: Wagmi for Polkadot Hub Smart Contracts
+description: Learn how to use Wagmi React Hooks to fetch and interact with smart contracts on Polkadot Hub for seamless dApp integration.
 ---
 
 # Wagmi
@@ -8845,7 +8749,7 @@ description: Learn how to use Wagmi React Hooks to fetch and interact with smart
 
 [Wagmi](https://wagmi.sh/){target=\_blank} is a collection of [React Hooks](https://wagmi.sh/react/api/hooks){target=\_blank} for interacting with Ethereum-compatible blockchains, focusing on developer experience, feature richness, and reliability.
 
-This guide demonstrates how to use Wagmi to interact with and deploy smart contracts to Asset Hub, providing a seamless frontend integration for your dApps.
+This guide demonstrates how to use Wagmi to interact with and deploy smart contracts to Polkadot Hub, providing a seamless frontend integration for your dApps.
 
 ## Set Up the Project
 
@@ -8866,14 +8770,14 @@ Install Wagmi and its peer dependencies:
 npm install wagmi viem @tanstack/react-query
 ```
 
-## Configure Wagmi for Asset Hub
+## Configure Wagmi for Polkadot Hub
 
-Create a configuration file to initialize Wagmi with Asset Hub. In your project, create a file named `src/lib/wagmi.ts` and add the code below. Be sure to replace `INSERT_RPC_URL`, `INSERT_CHAIN_ID`, `INSERT_CHAIN_NAME`, `INSERT_NETWORK_NAME`, `INSERT_CHAIN_DECIMALS`, `INSERT_CURRENCY_NAME`, and `INSERT_CURRENCY_SYMBOL` with your specific values.
+Create a configuration file to initialize Wagmi with Polkadot Hub. In your project, create a file named `src/lib/wagmi.ts` and add the code below. Be sure to replace `INSERT_RPC_URL`, `INSERT_CHAIN_ID`, `INSERT_CHAIN_NAME`, `INSERT_NETWORK_NAME`, `INSERT_CHAIN_DECIMALS`, `INSERT_CURRENCY_NAME`, and `INSERT_CURRENCY_SYMBOL` with your specific values.
 
-```typescript
+```typescript title="src/lib/wagmi.ts"
 import { http, createConfig } from 'wagmi'
 
-// Configure the Asset Hub chain
+// Configure the Polkadot Hub chain
 const assetHub = {
   id: INSERT_CHAIN_ID,
   name: 'INSERT_CHAIN_NAME',
@@ -8898,14 +8802,13 @@ export const config = createConfig({
   },
 })
 ```
-For example, to connect to Westend Asset Hub, you can use the following configuration:
 
-??? code "Westend Asset Hub - wagmi.ts"
+??? code "Example Westend Hub Configuration"
 
-    ```typescript title="wagmi.ts"
+    ```typescript title="src/lib/wagmi.ts"
     import { http, createConfig } from 'wagmi';
 
-// Configure the Asset Hub chain
+// Configure the Polkadot Hub chain
 const assetHub = {
   id: 420420421,
   name: 'westend-asset-hub',
@@ -8935,7 +8838,7 @@ export const config = createConfig({
 
 To enable Wagmi in your React application, you need to wrap your app with the [`WagmiProvider`](https://wagmi.sh/react/api/WagmiProvider#wagmiprovider){target=\_blank}. Update your `app/layout.tsx` file (for Next.js app router) with the following code:
 
-```typescript
+```typescript title="app/layout.tsx"
 // For app router (src/app/layout.tsx)
 "use client";
 
@@ -8972,7 +8875,7 @@ export default function RootLayout({
 
 Create a component to connect wallets to your dApp. Create a file named `app/components/ConnectWallet.tsx`:
 
-```typescript
+```typescript title="app/components/ConnectWallet.tsx"
 "use client";
 
 import React from "react";
@@ -9011,7 +8914,7 @@ This component uses the following React hooks:
 
 Wagmi provides various hooks to fetch blockchain data. Here's an example component that demonstrates some of these hooks:
 
-```typescript
+```typescript title="app/components/BlockchainInfo.tsx"
 "use client";
 
 import { useBlockNumber, useBalance, useAccount } from "wagmi";
@@ -9054,7 +8957,7 @@ This component uses the following React hooks:
 
 ## Interact with Deployed Contract
 
-This guide uses a simple Storage contract already deployed to Westend Asset Hub (`0xabBd46Ef74b88E8B1CDa49BeFb5057710443Fd29`). The code of that contract is:
+This guide uses a simple Storage contract already deployed to Westend Hub (`0xabBd46Ef74b88E8B1CDa49BeFb5057710443Fd29`). The code of that contract is:
 
 ??? code "Storage.sol"
 
@@ -9084,7 +8987,7 @@ contract Storage {
 
 Create a component to interact with your deployed contract. Create a file named `app/components/StorageContract.tsx`:
 
-```typescript
+```typescript title="app/components/StorageContract.tsx"
 "use client";
 
 import { useState } from "react";
@@ -9200,7 +9103,7 @@ The component also includes proper state handling to:
 
 Update your main page to combine all the components. Create or update the file `src/app/page.tsx`:
 
-```typescript
+```typescript title="src/app/page.tsx"
 "use client";
 
 import { BlockchainInfo } from "./components/BlockchainInfo";
@@ -9213,7 +9116,7 @@ export default function Home() {
 
   return (
     <main>
-      <h1>Wagmi - Asset Hub Smart Contracts</h1>
+      <h1>Wagmi - Polkadot Hub Smart Contracts</h1>
       <ConnectWallet />
       {isConnected ? <BlockchainInfo /> : <span>Connect your wallet</span>}
       {isConnected ? <StorageContract /> : <span>Connect your wallet</span>}
@@ -9224,7 +9127,7 @@ export default function Home() {
 
 ## Where to Go Next
 
-Now that you have the foundational knowledge to use Wagmi with Asset Hub, consider exploring:
+Now that you have the foundational knowledge to use Wagmi with Polkadot Hub, consider exploring:
 
 <div class="grid cards" markdown>
 
@@ -9269,7 +9172,7 @@ Doc-Content: https://docs.polkadot.com/develop/smart-contracts/libraries/web3-js
 --- BEGIN CONTENT ---
 ---
 title: Web3.js
-description: Learn how to interact with the Asset Hub chain using Web3.js, deploying Solidity contracts, and interacting with deployed smart contracts.
+description: Learn how to interact with Polkadot Hub using Web3.js, deploying Solidity contracts, and interacting with deployed smart contracts.
 ---
 
 # Web3.js
@@ -9279,9 +9182,9 @@ description: Learn how to interact with the Asset Hub chain using Web3.js, deplo
 
 ## Introduction
 
-Interacting with blockchains typically requires an interface between your application and the network. [Web3.js](https://web3js.readthedocs.io/){target=\_blank} offers this interface through a comprehensive collection of libraries, facilitating seamless interaction with the nodes using HTTP or WebSocket protocols. This guide illustrates how to utilize Web3.js specifically for interactions with the Asset Hub chain.
+Interacting with blockchains typically requires an interface between your application and the network. [Web3.js](https://web3js.readthedocs.io/){target=\_blank} offers this interface through a comprehensive collection of libraries, facilitating seamless interaction with the nodes using HTTP or WebSocket protocols. This guide illustrates how to utilize Web3.js specifically for interactions with Polkadot Hub.
 
-This guide is intended for developers who are familiar with JavaScript and want to interact with the Polkadot Asset Hub using Web3.js.
+This guide is intended for developers who are familiar with JavaScript and want to interact with the Polkadot Hub using Web3.js.
 
 ## Prerequisites
 
@@ -9295,8 +9198,8 @@ Before getting started, ensure you have the following installed:
 
 This project organizes contracts, scripts, and compiled artifacts for easy development and deployment.
 
-```text title="Web3.js Asset Hub"
-web3js-asset-hub
+```text title="Web3.js Polkadot Hub"
+web3js-project
 ├── contracts
 │   ├── Storage.sol
 ├── scripts
@@ -9335,9 +9238,9 @@ This guide uses `web3` version `{{ dependencies.javascript_packages.web3_js.vers
 
 ## Set Up the Web3 Provider
 
-The provider configuration is the foundation of any Web3.js application. The following example establishes a connection to the Asset Hub network. To use the example script, replace `INSERT_RPC_URL`, `INSERT_CHAIN_ID`, and `INSERT_CHAIN_NAME` with the appropriate values. The provider connection script should look something like this:
+The provider configuration is the foundation of any Web3.js application. The following example establishes a connection to Polkadot Hub. To use the example script, replace `INSERT_RPC_URL`, `INSERT_CHAIN_ID`, and `INSERT_CHAIN_NAME` with the appropriate values. The provider connection script should look something like this:
 
-```javascript title="connectToProvider.js"
+```javascript title="scripts/connectToProvider.js"
 const { Web3 } = require('web3');
 
 const createProvider = (rpcUrl) => {
@@ -9354,7 +9257,7 @@ const PROVIDER_RPC = {
 createProvider(PROVIDER_RPC.rpc);
 ```
 
-For example, for the Westend Asset Hub testnet, use these specific connection parameters:
+For example, for the Westend Hub TestNet, use these specific connection parameters:
 
 ```js
 const PROVIDER_RPC = {
@@ -9367,9 +9270,9 @@ With the Web3 provider set up, you can start querying the blockchain.
 
 For instance, to fetch the latest block number of the chain, you can use the following code snippet:
 
-???+ code "Complete script"
+???+ code "View complete script"
 
-    ```javascript title="fetchLastBlock.js"
+    ```javascript title="scripts/fetchLastBlock.js"
     const { Web3 } = require('web3');
 
 const createProvider = (rpcUrl) => {
@@ -9389,7 +9292,7 @@ const main = async () => {
     const latestBlock = await web3.eth.getBlockNumber();
     console.log('Last block: ' + latestBlock);
   } catch (error) {
-    console.error('Error connecting to Asset Hub: ' + error.message);
+    console.error('Error connecting to Westend Hub: ' + error.message);
   }
 };
 
@@ -9398,7 +9301,7 @@ main();
 
 ## Compile Contracts
 
-Asset Hub requires contracts to be compiled to [PolkaVM](/polkadot-protocol/smart-contracts-basics/polkavm-design){target=\_blank} bytecode. This is achieved using the [`revive`](https://github.com/paritytech/revive){target=\_blank} compiler. Install the [`@parity/revive`](https://github.com/paritytech/js-revive){target=\_blank} library as a development dependency:
+Polkadot Hub requires contracts to be compiled to [PolkaVM](/polkadot-protocol/smart-contracts-basics/polkavm-design){target=\_blank} bytecode. This is achieved using the [`revive`](https://github.com/paritytech/revive){target=\_blank} compiler. Install the [`@parity/revive`](https://github.com/paritytech/js-revive){target=\_blank} library as a development dependency:
 
 ```bash
 npm install --save-dev @parity/revive
@@ -9408,7 +9311,7 @@ This guide uses `@parity/revive` version `{{ dependencies.javascript_packages.re
 
 Here's a simple storage contract that you can use to follow the process:
 
-```solidity title="Storage.sol"
+```solidity title="contracts/Storage.sol"
 //SPDX-License-Identifier: MIT
 pragma solidity ^0.8.9;
 
@@ -9431,7 +9334,7 @@ contract Storage {
 
 With that, you can now create a `compile.js` snippet that transforms your solidity code into PolkaVM bytecode:
 
-```javascript title="compile.js"
+```javascript title="scripts/compile.js"
 const { compile } = require('@parity/revive');
 const { readFileSync, writeFileSync } = require('fs');
 const { basename, join } = require('path');
@@ -9490,9 +9393,9 @@ After compilation, you'll have two key files: an ABI (`.json`) file, which provi
 
 ## Contract Deployment
 
-To deploy your compiled contract to Asset Hub using Web3.js, you'll need an account with a private key to sign the deployment transaction. The deployment process is exactly the same as for any Ethereum-compatible chain, involving creating a contract instance, estimating gas, and sending a deployment transaction. Here's how to deploy the contract, ensure replacing the `INSERT_RPC_URL`, `INSERT_PRIVATE_KEY`, and `INSERT_CONTRACT_NAME` with the appropriate values:
+To deploy your compiled contract to Polkadot Hub using Web3.js, you'll need an account with a private key to sign the deployment transaction. The deployment process is exactly the same as for any Ethereum-compatible chain, involving creating a contract instance, estimating gas, and sending a deployment transaction. Here's how to deploy the contract, ensure replacing the `INSERT_RPC_URL`, `INSERT_PRIVATE_KEY`, and `INSERT_CONTRACT_NAME` with the appropriate values:
 
-```javascript title="deploy.js"
+```javascript title="scripts/deploy.js"
 import { readFileSync } from 'fs';
 import { Web3 } from 'web3';
 
@@ -9589,7 +9492,7 @@ node deploy
 
 Once deployed, you can interact with your contract using Web3.js methods. Here's how to set a number and read it back, ensure replacing `INSERT_RPC_URL`, `INSERT_PRIVATE_KEY`, and `INSERT_CONTRACT_ADDRESS` with the appropriate values:
 
-```javascript title="updateStorage.js"
+```javascript title="scripts/updateStorage.js"
 import { readFileSync } from 'fs';
 import { Web3 } from 'web3';
 
@@ -9676,7 +9579,7 @@ node updateStorage
 
 ## Where to Go Next
 
-Now that you’ve learned how to use Web3.js with Asset Hub, explore more advanced topics:
+Now that you’ve learned how to use Web3.js with Polkadot Hub, explore more advanced topics:
 
 - Utilize Web3.js utilities – learn about additional [Web3.js](https://docs.web3js.org/){target=\_blank} features such as signing transactions, managing wallets, and subscribing to events
 - Build full-stack dApps – [integrate Web3.js](https://docs.web3js.org/guides/dapps/intermediate-dapp){target=\_blank} with different libraries and frameworks to build decentralized web applications
@@ -9686,7 +9589,7 @@ Doc-Content: https://docs.polkadot.com/develop/smart-contracts/libraries/web3-py
 --- BEGIN CONTENT ---
 ---
 title: Web3.py
-description: Learn how to interact with the Asset Hub chain using the Web3 python library, deploying Solidity contracts, and interacting with deployed smart contracts.
+description: Learn how to interact with Polkadot Hub using the Web3 python library, deploying Solidity contracts, and interacting with deployed smart contracts.
 ---
 
 # Web3.py
@@ -9695,7 +9598,7 @@ description: Learn how to interact with the Asset Hub chain using the Web3 pytho
 
 Interacting with blockchains typically requires an interface between your application and the network. [Web3.py](https://web3py.readthedocs.io/en/stable/index.html){target=\_blank} offers this interface through a collection of libraries, facilitating seamless interaction with the nodes using HTTP or WebSocket protocols. 
 
-This guide illustrates how to utilize Web3.py for interactions with the Asset Hub chain.
+This guide illustrates how to utilize Web3.py for interactions with Polkadot Hub.
 
 ## Set Up the Project
 
@@ -9718,9 +9621,9 @@ pip install web3
 
 ## Set Up the Web3 Provider
 
-The [provider](https://web3py.readthedocs.io/en/stable/providers.html){target=\_blank} configuration is the foundation of any Web3.py application. The following example establishes a connection to the Asset Hub network. Follow these steps to use the provider configuration:
+The [provider](https://web3py.readthedocs.io/en/stable/providers.html){target=\_blank} configuration is the foundation of any Web3.py application. The following example establishes a connection to Polkadot Hub. Follow these steps to use the provider configuration:
 
-1. Replace `INSERT_RPC_URL` with the appropriate value. For instance, to connect to the Westend Asset Hub TestNet, use the following parameter:
+1. Replace `INSERT_RPC_URL` with the appropriate value. For instance, to connect to Westend Hub TestNet, use the following parameter:
 ```python
 PROVIDER_RPC = 'https://westend-asset-hub-eth-rpc.polkadot.io'
 ```
@@ -9739,14 +9642,14 @@ PROVIDER_RPC = 'INSERT_RPC_URL'
 create_provider(PROVIDER_RPC)
     ```
 
-2. With the Web3 provider set up, start querying the blockchain. For instance, you can use the following code snippet to fetch the latest block number of the chain:
+1. With the Web3 provider set up, start querying the blockchain. For instance, you can use the following code snippet to fetch the latest block number of the chain:
 ```python title="fetch_last_block.py"
 try:
         web3 = create_provider(PROVIDER_RPC)
         latest_block = web3.eth.block_number
         print('Last block: ' + str(latest_block))
     except Exception as error:
-        print('Error connecting to Asset Hub: ' + str(error))
+        print('Error connecting to Westend Hub: ' + str(error))
 
 if __name__ == "__main__":
     main()
@@ -9769,7 +9672,7 @@ def main():
         latest_block = web3.eth.block_number
         print('Last block: ' + str(latest_block))
     except Exception as error:
-        print('Error connecting to Asset Hub: ' + str(error))
+        print('Error connecting to Westend Hub: ' + str(error))
 
 if __name__ == "__main__":
     main()
@@ -9808,7 +9711,7 @@ contract Storage {
 }
 ```
 
-To deploy your compiled contract to Asset Hub using Web3.py, you'll need an account with a private key to sign the deployment transaction. The deployment process is exactly the same as for any Ethereum-compatible chain, involving creating a contract instance, estimating gas, and sending a deployment transaction. Here's how to deploy the contract. Replace `INSERT_RPC_URL` and `INSERT_PRIVATE_KEY` with the appropriate values:
+To deploy your compiled contract to Polkadot Hub using Web3.py, you'll need an account with a private key to sign the deployment transaction. The deployment process is exactly the same as for any Ethereum-compatible chain, involving creating a contract instance, estimating gas, and sending a deployment transaction. Here's how to deploy the contract. Replace `INSERT_RPC_URL` and `INSERT_PRIVATE_KEY` with the appropriate values:
 
 ```python title="deploy.py"
 from web3 import Web3
@@ -9967,7 +9870,7 @@ if __name__ == "__main__":
 
 ## Where to Go Next
 
-Now that you have the foundation for using Web3.py with Asset Hub, consider exploring:
+Now that you have the foundation for using Web3.py with Polkadot Hub, consider exploring:
 
 <div class="grid cards" markdown>
 
@@ -10019,14 +9922,14 @@ Doc-Content: https://docs.polkadot.com/develop/smart-contracts/overview/
 --- BEGIN CONTENT ---
 ---
 title: Smart Contracts Overview
-description: Learn about smart contract development capabilities in the Polkadot ecosystem, either by leveraging the Asset Hub parachain or other alternatives.
+description: Learn about smart contract development capabilities in the Polkadot ecosystem, either by leveraging Polkadot Hub or other alternatives.
 ---
 
 # Smart Contracts on Polkadot
 
 ## Introduction
 
-Polkadot offers developers multiple approaches to building and deploying smart contracts within its ecosystem. As a multi-chain network designed for interoperability, Polkadot provides various environments optimized for different developer preferences and application requirements. From native smart contract support on Asset Hub to specialized parachain environments, developers can choose the platform that best suits their technical needs while benefiting from Polkadot's shared security model and cross-chain messaging capabilities.
+Polkadot offers developers multiple approaches to building and deploying smart contracts within its ecosystem. As a multi-chain network designed for interoperability, Polkadot provides various environments optimized for different developer preferences and application requirements. From native smart contract support on Polkadot Hub to specialized parachain environments, developers can choose the platform that best suits their technical needs while benefiting from Polkadot's shared security model and cross-chain messaging capabilities.
 
 Whether you're looking for Ethereum compatibility through EVM-based parachains like Moonbeam, Astar, and Acala or prefer WebAssembly-based development with ink!, the Polkadot ecosystem accommodates diverse developers.
 
@@ -10036,13 +9939,13 @@ These guides explore the diverse smart contract options available in the Polkado
 
 ### Introduction
 
-Asset Hub, Polkadot's system parachain, enables smart contract deployment and execution through PolkaVM, a cutting-edge virtual machine designed specifically for the Polkadot ecosystem. This native integration allows developers to deploy smart contracts directly on Polkadot's system chain while maintaining compatibility with Ethereum development tools and workflows.
+Polkadot Hub enables smart contract deployment and execution through PolkaVM, a cutting-edge virtual machine designed specifically for the Polkadot ecosystem. This native integration allows developers to deploy smart contracts directly on Polkadot's system chain while maintaining compatibility with Ethereum development tools and workflows.
 
 ### Smart Contract Development
 
-The smart contract platform on Asset Hub combines _Polkadot's robust security and scalability_ with the extensive Ethereum development ecosystem. Developers can utilize familiar Ethereum libraries for contract interactions and leverage industry-standard development environments for writing and testing smart contracts.
+The smart contract platform on Polkadot Hub combines _Polkadot's robust security and scalability_ with the extensive Ethereum development ecosystem. Developers can utilize familiar Ethereum libraries for contract interactions and leverage industry-standard development environments for writing and testing smart contracts.
 
-Asset Hub provides _full Ethereum JSON-RPC API compatibility_, ensuring seamless integration with existing development tools and services. This compatibility enables developers to maintain their preferred workflows while building on Polkadot's native infrastructure.
+Polkadot Hub provides _full Ethereum JSON-RPC API compatibility_, ensuring seamless integration with existing development tools and services. This compatibility enables developers to maintain their preferred workflows while building on Polkadot's native infrastructure.
 
 ### Technical Architecture
 
@@ -10055,7 +9958,7 @@ PolkaVM, the underlying virtual machine, utilizes a RISC-V-based register archit
 
 ### Development Tools and Resources
 
-Asset Hub supports a comprehensive suite of development tools familiar to Ethereum developers. The platform integrates with popular development frameworks, testing environments, and deployment tools. Key features include:
+Polkadot Hub supports a comprehensive suite of development tools familiar to Ethereum developers. The platform integrates with popular development frameworks, testing environments, and deployment tools. Key features include:
 
 - Contract development in Solidity or Rust
 - Support for standard Ethereum development libraries
@@ -10065,11 +9968,11 @@ Asset Hub supports a comprehensive suite of development tools familiar to Ethere
 
 ### Cross-Chain Capabilities
 
-Smart contracts deployed on Asset Hub can leverage Polkadot's [cross-consensus messaging (XCM) protocol](/develop/interoperability/intro-to-xcm/){target=\_blank} protocol to seamlessly _transfer tokens and call functions on other blockchain networks_ within the Polkadot ecosystem, all without complex bridging infrastructure or third-party solutions. For further references, check the [Interoperability](/develop/interoperability/index){target=\_blank} section.
+Smart contracts deployed on Polkadot Hub can leverage Polkadot's [cross-consensus messaging (XCM) protocol](/develop/interoperability/intro-to-xcm/){target=\_blank} protocol to seamlessly _transfer tokens and call functions on other blockchain networks_ within the Polkadot ecosystem, all without complex bridging infrastructure or third-party solutions. For further references, check the [Interoperability](/develop/interoperability/index){target=\_blank} section.
 
 ### Use Cases
 
-Asset Hub's smart contract platform is suitable for a wide range of applications:
+Polkadot Hub's smart contract platform is suitable for a wide range of applications:
 
 - DeFi protocols leveraging _cross-chain capabilities_
 - NFT platforms utilizing Polkadot's native token standards
@@ -10078,7 +9981,7 @@ Asset Hub's smart contract platform is suitable for a wide range of applications
 
 ## Other Smart Contract Environments
 
-While Asset Hub provides native smart contract support through PolkaVM, Polkadot's ecosystem offers several alternatives for smart contract development. These include EVM-compatible parachains like Moonbeam, Astar, and Acala that support Ethereum tooling and development workflows, as well as WebAssembly-based environments using ink!. Each environment offers unique advantages depending on your development preferences and application requirements.
+While Polkadot Hub provides native smart contract support through PolkaVM, Polkadot's ecosystem offers several alternatives for smart contract development. These include EVM-compatible parachains like Moonbeam, Astar, and Acala that support Ethereum tooling and development workflows, as well as WebAssembly-based environments using ink!. Each environment offers unique advantages depending on your development preferences and application requirements.
 
 ### Parachain Contracts
 
@@ -10122,9 +10025,9 @@ Key benefits include:
 
 ## Where to Go Next
 
-Developers can use their existing Ethereum development tools and connect to Asset Hub's RPC endpoints. The platform's Ethereum compatibility layer ensures a smooth transition for teams already building on Ethereum-compatible chains.
+Developers can use their existing Ethereum development tools and connect to Polkadot Hub's RPC endpoints. The platform's Ethereum compatibility layer ensures a smooth transition for teams already building on Ethereum-compatible chains.
 
-Subsequent sections of this guide provide detailed information about specific development tools, advanced features, and best practices for building on Asset Hub.
+Subsequent sections of this guide provide detailed information about specific development tools, advanced features, and best practices for building on Polkadot Hub.
 
 <div class="grid cards" markdown>
 
@@ -32038,16 +31941,16 @@ After running this command, you will see the logs of the `alice` node in real-ti
 Doc-Content: https://docs.polkadot.com/tutorials/smart-contracts/deploy-erc20/
 --- BEGIN CONTENT ---
 ---
-title: Deploy an ERC-20 to Asset Hub
-description: Deploy an ERC-20 token on Asset Hub using PolkaVM. This guide covers contract creation, compilation, deployment, and interaction via Polkadot Remix IDE.
+title: Deploy an ERC-20 to Polkadot Hub
+description: Deploy an ERC-20 token on Polkadot Hub using PolkaVM. This guide covers contract creation, compilation, deployment, and interaction via Polkadot Remix IDE.
 tutorial_badge: Beginner
 ---
 
-# Deploy ERC-20 to Asset Hub
+# Deploy an ERC-20 to Polkadot Hub
 
 ## Introduction
 
-[ERC-20](https://eips.ethereum.org/EIPS/eip-20){target=\_blank} tokens are fungible tokens commonly used for creating cryptocurrencies, governance tokens, and staking mechanisms. Asset Hub enables easy token deployment with Ethereum-compatible smart contracts via PolkaVM.
+[ERC-20](https://eips.ethereum.org/EIPS/eip-20){target=\_blank} tokens are fungible tokens commonly used for creating cryptocurrencies, governance tokens, and staking mechanisms. Polkadot Hub enables easy token deployment with Ethereum-compatible smart contracts via PolkaVM.
 
 This tutorial covers deploying an ERC-20 contract on the Westend TestNet using [Polkadot Remix IDE](https://remix.polkadot.io){target=\_blank}, a web-based development tool. [OpenZeppelin's ERC-20 contracts]({{ dependencies.repositories.open_zeppelin_contracts.repository_url}}/tree/{{ dependencies.repositories.open_zeppelin_contracts.version}}/contracts/token/ERC20){target=\_blank} are used for security and compliance.
 
@@ -32055,7 +31958,7 @@ This tutorial covers deploying an ERC-20 contract on the Westend TestNet using [
 
 Before starting, make sure you have:
 
-- [Talisman](https://talisman.xyz/){target=\_blank} installed and connected to Westend Asset Hub
+- [Talisman](https://talisman.xyz/){target=\_blank} installed and connected to [Westend Hub](https://chainlist.org/chain/420420421){target=\_blank}. For detailed instructions, see the [Connect Your Wallet](/develop/smart-contracts/connect-to-polkadot/#connect-your-wallet){target=\_blank} section
 - A funded account with some WND tokens (you can get them from the [Westend Faucet](https://faucet.polkadot.io/westend?parachain=1000){target=\_blank}). To learn how to get test tokens, check out the [Test Tokens](/develop/smart-contracts/connect-to-asset-hub/#test-tokens){target=\_blank} section
 - Basic understanding of Solidity and fungible tokens
 
@@ -32201,16 +32104,16 @@ Feel free to explore and interact with the contract's other functions using the 
 Doc-Content: https://docs.polkadot.com/tutorials/smart-contracts/deploy-nft/
 --- BEGIN CONTENT ---
 ---
-title: Deploy an NFT to Asset Hub
-description: Deploy an NFT on Asset Hub using PolkaVM and OpenZeppelin. Learn how to compile, deploy, and interact with your contract using Polkadot Remix IDE.
+title: Deploy an NFT to Polkadot Hub
+description: Deploy an NFT on Polkadot Hub using PolkaVM and OpenZeppelin. Learn how to compile, deploy, and interact with your contract using Polkadot Remix IDE.
 tutorial_badge: Beginner
 ---
 
-# Deploy an NFT to Asset Hub
+# Deploy an NFT to Polkadot Hub
 
 ## Introduction
 
-Non-Fungible Tokens (NFTs) represent unique digital assets commonly used for digital art, collectibles, gaming, and identity verification. Asset Hub supports Ethereum-compatible smart contracts through PolkaVM, enabling straightforward NFT deployment.
+Non-Fungible Tokens (NFTs) represent unique digital assets commonly used for digital art, collectibles, gaming, and identity verification. Polkadot Hub supports Ethereum-compatible smart contracts through PolkaVM, enabling straightforward NFT deployment.
 
 This tutorial guides you through deploying an [ERC-721](https://eips.ethereum.org/EIPS/eip-721){target=\_blank} NFT contract on the Westend TestNet using the [Polkadot Remix IDE](https://remix.polkadot.io){target=\_blank}, a web-based development environment. To ensure security and standard compliance, it uses [OpenZeppelin's NFT contracts]({{ dependencies.repositories.open_zeppelin_contracts.repository_url}}/tree/{{ dependencies.repositories.open_zeppelin_contracts.version}}){target=\_blank} implementation.
 
@@ -32218,7 +32121,7 @@ This tutorial guides you through deploying an [ERC-721](https://eips.ethereum.or
 
 Before starting, make sure you have:
 
-- [Talisman](https://talisman.xyz/){target=\_blank} installed and connected to Westend Asset Hub
+- [Talisman](https://talisman.xyz/){target=\_blank} installed and connected to Westend Hub. Check the [Connect to Polkadot](/develop/smart-contracts/connect-to-polkadot/){target=\_blank} guide for more information
 - A funded account with some WND tokens (you can get them from the [Westend Faucet](https://faucet.polkadot.io/westend?parachain=1000){target=\_blank}, noting that the faucet imposes a daily token limit, which may require multiple requests to obtain sufficient funds for testing)
 - Basic understanding of Solidity and NFTs, see the [Solidity Basics](https://soliditylang.org/){target=\_blank} and the [NFT Overview](https://ethereum.org/en/nft/){target=\_blank} guides for more details
 
@@ -32326,7 +32229,7 @@ Deployment is the process of uploading your compiled smart contract to the block
 
     ![](/images/tutorials/smart-contracts/deploy-nft/deploy-nft-9.webp){: .browser-extension}
 
-    Deploying this contract requires paying gas fees in WND tokens on the Westend Asset Hub TestNet. Ensure your Talisman account is funded with sufficient WND tokens from the Westend Faucet before confirming the transaction, check the [Test Tokens](/develop/smart-contracts/connect-to-asset-hub/#test-tokens){target=\_blank} section for more information. Gas fees cover the computational resources needed to deploy and execute the smart contract on the blockchain.
+    Deploying this contract requires paying gas fees in WND tokens on the Westend Asset Hub TestNet. Ensure your Talisman account is funded with sufficient WND tokens from the Westend Faucet before confirming the transaction, check the [Test Tokens](/develop/smart-contracts/connect-to-polkadot/#test-tokens){target=\_blank} section for more information. Gas fees cover the computational resources needed to deploy and execute the smart contract on the blockchain.
 
     If the deployment process succeeded, you will see the following output in the terminal:
 
@@ -32397,7 +32300,7 @@ Doc-Content: https://docs.polkadot.com/tutorials/smart-contracts/launch-your-fir
 --- BEGIN CONTENT ---
 ---
 title: Create a Smart Contract
-description: Learn how to write a basic smart contract using just a text editor. This guide covers creating and preparing a contract for deployment on Asset Hub.
+description: Learn how to write a basic smart contract using just a text editor. This guide covers creating and preparing a contract for deployment on Polkadot Hub.
 tutorial_badge: Beginner
 ---
 
@@ -32407,7 +32310,7 @@ tutorial_badge: Beginner
 
 Creating [smart contracts](/develop/smart-contracts/overview/){target=\_blank} is fundamental to blockchain development. While many frameworks and tools are available, understanding how to write a contract from scratch with just a text editor is essential knowledge.
 
-This tutorial will guide you through creating a basic smart contract that can be used with other tutorials for deployment and integration on Asset Hub. To understand how smart contracts work in Asset Hub, check the [Smart Contract Basics](/polkadot-protocol/smart-contract-basics/){target=\_blank} guide for more information.
+This tutorial will guide you through creating a basic smart contract that can be used with other tutorials for deployment and integration on Polkadot Hub. To understand how smart contracts work in Polkadot Hub, check the [Smart Contract Basics](/polkadot-protocol/smart-contract-basics/){target=\_blank} guide for more information.
 
 ## Prerequisites
 
@@ -32511,9 +32414,7 @@ contract Storage {
 }
     ```
 
-The complete contract should look like this:
-
-??? code "Storage.sol"
+??? code "Complete Storage.sol contract"
 
     ```solidity title="Storage.sol"
     // SPDX-License-Identifier: MIT
@@ -32558,11 +32459,11 @@ Let's break down the key components of the contract:
 
 - **Functions**
 
-    - `store(uint256 newNumber)` - Updates the stored number and emits an event.
+    - `store(uint256 newNumber)` - updates the stored number and emits an event
         - This function changes the state of the contract and requires a transaction to execute
         - The `emit` keyword is used to trigger the defined event
 
-    - `retrieve()` - Returns the current stored number.
+    - `retrieve()` - returns the current stored number
         - The `view` keyword indicates that this function only reads data and doesn't modify the contract's state
         - View functions don't require a transaction and don't cost gas when called externally
 
@@ -32592,24 +32493,24 @@ Doc-Content: https://docs.polkadot.com/tutorials/smart-contracts/launch-your-fir
 --- BEGIN CONTENT ---
 ---
 title: Create a dApp With Ethers.js
-description: Learn how to build a decentralized application on Asset Hub using Ethers.js and Next.js by creating a simple dApp that interacts with a smart contract.
+description: Learn how to build a decentralized application on Polkadot Hub using Ethers.js and Next.js by creating a simple dApp that interacts with a smart contract.
 tutorial_badge:  Intermediate
 ---
 
-# Create a dApp With Ethers.js
+# Create a DApp With Ethers.js
 
 ## Introduction
 
-Decentralized applications (dApps) have become a cornerstone of the Web3 ecosystem, allowing developers to create applications that interact directly with blockchain networks. Asset Hub, a blockchain that supports smart contract functionality, provides an excellent platform for deploying and interacting with dApps.
+Decentralized applications (dApps) have become a cornerstone of the Web3 ecosystem, allowing developers to create applications that interact directly with blockchain networks. Polkadot Hub, a blockchain that supports smart contract functionality, provides an excellent platform for deploying and interacting with dApps.
 
-In this tutorial, you'll build a complete dApp that interacts with a smart contract deployed on Asset Hub. It will use [Ethers.js](/develop/smart-contracts/libraries/ethers-js){target=\_blank} to interact with the blockchain and [Next.js](https://nextjs.org/){target=\_blank} as the frontend framework. By the end of this tutorial, you'll have a functional dApp that allows users to connect their wallets, read data from the blockchain, and execute transactions.
+In this tutorial, you'll build a complete dApp that interacts with a smart contract deployed on Westend Hub. It will use [Ethers.js](/develop/smart-contracts/libraries/ethers-js){target=\_blank} to interact with the blockchain and [Next.js](https://nextjs.org/){target=\_blank} as the frontend framework. By the end of this tutorial, you'll have a functional dApp that allows users to connect their wallets, read data from the blockchain, and execute transactions.
 
 ## Prerequisites
 
 Before you begin, make sure you have:
 
 - [Node.js](https://nodejs.org/en){target=\_blank} v16 or newer installed on your machine
-- A crypto wallet (like MetaMask) with some test tokens. For further information, check the [Connect to Asset Hub](/develop/smart-contracts/connect-to-asset-hub){target=\_blank} guide
+- A crypto wallet (like MetaMask) with some test tokens. For further information, check the [Connect to Polkadot](/develop/smart-contracts/connect-to-polkadot){target=\_blank} guide
 - Basic understanding of React and JavaScript
 - Familiarity with blockchain concepts and Solidity (helpful but not mandatory)
 
@@ -32620,7 +32521,7 @@ The dApp will interact with a simple Storage contract. For a step-by-step guide 
 - Reading a stored number from the blockchain
 - Updating the stored number with a new value
 
-The contract has already been deployed to Westend Asset Hub for testing purposes: `0xabBd46Ef74b88E8B1CDa49BeFb5057710443Fd29`. If you want to deploy your own, follow the [Deploying Contracts](/develop/smart-contracts/dev-environments/remix/#deploying-contracts){target=\_blank} section.
+The contract has already been deployed to Westend Hub for testing purposes: `0xabBd46Ef74b88E8B1CDa49BeFb5057710443Fd29`. If you want to deploy your own, follow the [Deploying Contracts](/develop/smart-contracts/dev-environments/remix/#deploying-contracts){target=\_blank} section.
 
 Here's a simplified view of what you'll be building:
 
@@ -32650,22 +32551,22 @@ ethers-dapp
 
 Let's start by creating a new Next.js project:
 
-```
+```bash
 npx create-next-app ethers-dapp --js --eslint --tailwind --app --yes
 cd ethers-dapp
 ```
 
 Next, install the needed dependencies:
 
-```
+```bash
 npm install ethers@{{ dependencies.javascript_packages.ethersjs.version }}
 ```
 
-## Connect to Asset Hub
+## Connect to Polkadot Hub
 
-To interact with Asset Hub (Westend Asset Hub in this case), you need to set up an [Ethers.js Provider](/develop/smart-contracts/libraries/ethers-js/#set-up-the-ethersjs-provider){target=\_blank} that connects to the blockchain. Create a new file called `utils/ethers.js` and add the following code:
+To interact with the Polkadot Hub, you need to set up an [Ethers.js Provider](/develop/smart-contracts/libraries/ethers-js/#set-up-the-ethersjs-provider){target=\_blank} that connects to the blockchain. In this example, you will interact with Westend Hub, the testnet version of Polkadot Hub, so you can experiment safely. Start by creating a new file called `utils/ethers.js` and add the following code:
 
-```javascript title="ethers.js"
+```javascript title="app/utils/ethers.js"
 import { JsonRpcProvider } from 'ethers';
 
 export const ASSET_HUB_CONFIG = {
@@ -32692,15 +32593,16 @@ export const getSigner = async (provider) => {
   throw new Error('No Ethereum browser provider detected');
 };
 ```
-This file establishes a connection to Asset Hub and provides helper functions for obtaining a [Provider](https://docs.ethers.org/v5/api/providers/provider/){target=_blank} and [Signer](https://docs.ethers.org/v5/api/signer/){target=_blank}. The provider allows you to read data from the blockchain, while the signer enables users to send transactions and modify the blockchain state.
+
+This file establishes a connection to Westend Hub and provides helper functions for obtaining a [Provider](https://docs.ethers.org/v5/api/providers/provider/){target=_blank} and [Signer](https://docs.ethers.org/v5/api/signer/){target=_blank}. The provider allows you to read data from the blockchain, while the signer enables users to send transactions and modify the blockchain state.
 
 ## Set Up the Smart Contract Interface
 
 For this dApp, you'll use a simple Storage contract already deployed. So, you need to create an interface to interact with it. First, ensure to create a folder called `abis` at the root of your project, create a file `Storage.json`, and paste the corresponding ABI (Application Binary Interface) of the Storage contract. You can copy and paste the following:
 
-??? code "Storage.sol ABI"
+???+ code "Storage.sol ABI"
 
-    ```json title="Storage.json"
+    ```json title="abis/Storage.json"
     [
     {
         "inputs": [
@@ -32731,9 +32633,9 @@ For this dApp, you'll use a simple Storage contract already deployed. So, you ne
 ]
     ```
 
-Now, create a file called `utils/contract.js`:
+Now, create a file called `app/utils/contract.js`:
 
-```javascript title="contract.js"
+```javascript title="app/utils/contract.js"
 import { Contract } from 'ethers';
 import { getProvider } from './ethers';
 import StorageABI from '../../abis/Storage.json';
@@ -32756,9 +32658,9 @@ This file defines the contract address, ABI, and functions to create instances o
 
 ## Create the Wallet Connection Component
 
-Next, let's create a component to handle wallet connections. Create a new file called `components/WalletConnect.js`:
+Next, let's create a component to handle wallet connections. Create a new file called `app/components/WalletConnect.js`:
 
-```javascript title="WalletConnect.js"
+```javascript title="app/components/WalletConnect.js"
 'use client';
 
 import React, { useState, useEffect } from 'react';
@@ -32926,8 +32828,8 @@ This component handles connecting to the wallet, switching networks if necessary
 
 To integrate this component to your dApp, you need to overwrite the existing boilerplate in `app/page.js` with the following code:
 
-```javascript title="page.js"
-Invalid snippet reference: https://raw.githubusercontent.com/polkadot-developers/polkavm-storage-contract-dapps/refs/tags/v0.0.1/ethers-dapp/app/page.js::5
+```javascript title="app/page.js"
+import WalletConnect from './components/WalletConnect';
 export default function Home() {
   const [account, setAccount] = useState(null);
 
@@ -32958,9 +32860,9 @@ And you will see the following:
 
 ## Read Data from the Blockchain
 
-Now, let's create a component to read data from the contract. Create a file called `components/ReadContract.js`:
+Now, let's create a component to read data from the contract. Create a file called `app/components/ReadContract.js`:
 
-```javascript title="ReadContract.js"
+```javascript title="app/components/ReadContract.js"
 'use client';
 
 import React, { useState, useEffect } from 'react';
@@ -33025,8 +32927,8 @@ This component reads the `storedNumber` value from the contract and displays it 
 
 To see this change in your dApp, you need to integrate this component into the `app/page.js` file:
 
-```javascript title="page.js"
-Invalid snippet reference: https://raw.githubusercontent.com/polkadot-developers/polkavm-storage-contract-dapps/refs/tags/v0.0.1/ethers-dapp/app/page.js::6
+```javascript title="app/page.js"
+import ReadContract from './components/ReadContract';
 export default function Home() {
   const [account, setAccount] = useState(null);
 
@@ -33052,9 +32954,9 @@ Your dApp will automatically be updated to the following:
 
 ## Write Data to the Blockchain
 
-Finally, let's create a component that allows users to update the stored number. Create a file called `components/WriteContract.js`:
+Finally, let's create a component that allows users to update the stored number. Create a file called `app/components/WriteContract.js`:
 
-```javascript title="WriteContract.js"
+```javascript title="app/components/WriteContract.js"
 'use client';
 
 import { useState } from 'react';
@@ -33174,7 +33076,7 @@ This component allows users to input a new number and send a transaction to upda
 
 Update the `app/page.js` file to integrate all components:
 
-```javascript title="page.js"
+```javascript title="app/page.js"
 'use client';
 
 import { useState } from 'react';
@@ -33209,13 +33111,13 @@ The completed UI will display:
 
 ## Conclusion
 
-Congratulations! You've built a complete dApp that interacts with a smart contract on Asset Hub using Ethers.js and Next.js. Your application can now:
+Congratulations! You've built a complete dApp that interacts with a smart contract on Westend Hub using Ethers.js and Next.js. Your application can now:
 
 - Connect to a user's wallet
 - Read data from a smart contract
 - Send transactions to update the contract state
 
-These fundamental skills provide the foundation for building more complex dApps on Asset Hub. With these building blocks, you can extend your application to interact with more sophisticated smart contracts and create more advanced user interfaces.
+These fundamental skills provide the foundation for building more complex dApps on Polkadot Hub. With these building blocks, you can extend your application to interact with more sophisticated smart contracts and create more advanced user interfaces.
 
 To get started right away with a working example, you can clone the repository and navigate to the implementation:
 
@@ -33223,28 +33125,42 @@ To get started right away with a working example, you can clone the repository a
 git clone https://github.com/polkadot-developers/polkavm-storage-contract-dapps.git -b v0.0.1
 cd polkavm-storage-contract-dapps/ethers-dapp
 ```
+
+## Where to Go Next
+
+<div class="grid cards" markdown>
+
+-   <span class="badge tutorial">Tutorial</span> __Create a dApp with Wagmi__
+
+    ---
+
+    Learn how to build a decentralized application by using the Wagmi framework.
+
+    [:octicons-arrow-right-24: Get Started](/tutorials/smart-contracts/launch-your-first-project/create-dapp-wagmi/)
+
+</div>
 --- END CONTENT ---
 
 Doc-Content: https://docs.polkadot.com/tutorials/smart-contracts/launch-your-first-project/create-dapp-viem/
 --- BEGIN CONTENT ---
 ---
 title: Create a dApp With Viem
-description: Learn how to build a decentralized application on Asset Hub using Viem and Next.js by creating a simple dApp that interacts with a smart contract.
+description: Learn how to build a decentralized application on Polkadot Hub using Viem and Next.js by creating a simple dApp that interacts with a smart contract.
 tutorial_badge:  Intermediate
 ---
 
-# Create a dApp with Viem
+# Create a DApp with Viem
 
-Decentralized applications (dApps) are a key component of the Web3 ecosystem, enabling developers to build applications that communicate directly with blockchain networks. Asset Hub, a blockchain with smart contract support, serves as a robust platform for deploying and interacting with dApps.
+Decentralized applications (dApps) are a key component of the Web3 ecosystem, enabling developers to build applications that communicate directly with blockchain networks. Polkadot Hub, a blockchain with smart contract support, serves as a robust platform for deploying and interacting with dApps.
 
-This tutorial will guide you through building a fully functional dApp that interacts with a smart contract on Asset Hub. You'll use [Viem](https://viem.sh/){target=\_blank} for blockchain interactions and [Next.js](https://nextjs.org/){target=\_blank} for the frontend. By the end, you'll have a dApp that lets users connect their wallets, retrieve on-chain data, and execute transactions.
+This tutorial will guide you through building a fully functional dApp that interacts with a smart contract on Polkadot Hub. You'll use [Viem](https://viem.sh/){target=\_blank} for blockchain interactions and [Next.js](https://nextjs.org/){target=\_blank} for the frontend. By the end, you'll have a dApp that lets users connect their wallets, retrieve on-chain data, and execute transactions.
 
 ## Prerequisites
 
 Before getting started, ensure you have the following:
 
 - [Node.js](https://nodejs.org/en){target=\_blank} v16 or later installed on your system
-- A crypto wallet (such as MetaMask) funded with test tokens. Refer to the [Connect to Asset Hub](/develop/smart-contracts/connect-to-asset-hub){target=\_blank} guide for more details
+- A crypto wallet (such as MetaMask) funded with test tokens. Refer to the [Connect to Polkadot](/develop/smart-contracts/connect-to-polkadot){target=\_blank} guide for more details
 - A basic understanding of React and JavaScript
 - Some familiarity with blockchain fundamentals and Solidity (useful but not required)
 
@@ -33298,9 +33214,9 @@ npm install viem@{{dependencies.javascript_packages.viem.version}}
 npm install --save-dev typescript @types/node
 ```
 
-## Connect to Asset Hub
+## Connect to Polkadot Hub
 
-To interact with Asset Hub (Westend Asset Hub in this case), you need to set up a [Public Client](https://viem.sh/docs/clients/public#public-client){target=\_blank} that connects to the blockchain. Create a new file called `utils/viem.ts` and add the following code:
+To interact with the Polkadot Hub, you need to set up a [Public Client](https://viem.sh/docs/clients/public#public-client){target=\_blank} that connects to the blockchain. In this example, you will interact with Westend Hub, the testnet version of Polkadot Hub, so you can experiment safely. Start by creating a new file called `utils/viem.ts` and add the following code:
 
 ```typescript title="viem.ts"
 import { createPublicClient, http, createWalletClient, custom } from 'viem'
@@ -33350,7 +33266,7 @@ This file initializes a viem client, providing helper functions for obtaining a 
 
 ## Set Up the Smart Contract Interface
 
-For this dApp, you'll use a simple [Storage contract](/tutorials/smart-contracts/launch-your-first-project/create-contracts){target=\_blank} that's already deployed in Westend Asset Hub: `0xabBd46Ef74b88E8B1CDa49BeFb5057710443Fd29`. To interact with it, you need to define the contract interface.
+For this dApp, you'll use a simple [Storage contract](/tutorials/smart-contracts/launch-your-first-project/create-contracts){target=\_blank} that's already deployed in Westend Hub: `0xabBd46Ef74b88E8B1CDa49BeFb5057710443Fd29`. To interact with it, you need to define the contract interface.
 
 Create a folder called `abis` at the root of your project, then create a file named `Storage.json` and paste the corresponding ABI (Application Binary Interface) of the Storage contract. You can copy and paste the following:
 
@@ -33604,7 +33520,7 @@ This component handles connecting to the wallet, switching networks if necessary
 To use this component in your dApp, replace the existing boilerplate in `app/page.tsx` with the following code:
 
 ```typescript title="page.tsx"
-Invalid snippet reference: https://raw.githubusercontent.com/polkadot-developers/polkavm-storage-contract-dapps/refs/tags/v0.0.1/viem-dapp/app/page.tsx::4
+import WalletConnect from "./components/WalletConnect";
 export default function Home() {
   const [account, setAccount] = useState<string | null>(null);
 
@@ -33709,7 +33625,7 @@ This component reads the `storedNumber` value from the contract and displays it 
 To reflect this change in your dApp, incorporate this component into the `app/page.tsx` file.
 
 ```typescript title="page.tsx"
-Invalid snippet reference: https://raw.githubusercontent.com/polkadot-developers/polkavm-storage-contract-dapps/refs/tags/v0.0.1/viem-dapp/app/page.tsx::5
+import ReadContract from "./components/ReadContract";
 export default function Home() {
   const [account, setAccount] = useState<string | null>(null);
 
@@ -33998,7 +33914,7 @@ Let's examine how the dApp interacts with the blockchain:
 
 1. **Wallet Connection**: 
     - The `WalletConnect` component uses the browser's Ethereum provider (MetaMask) to connect to the user's wallet
-    - It handles network switching to ensure the user is connected to Asset Hub
+    - It handles network switching to ensure the user is connected to Westend Hub
     - Once connected, it provides the user's account address to the parent component
 
 2. **Reading Data**:
@@ -34014,13 +33930,13 @@ Let's examine how the dApp interacts with the blockchain:
 
 ## Conclusion
 
-Congratulations! You've successfully built a fully functional dApp that interacts with a smart contract on Asset Hub using viem and Next.js. Your application can now:
+Congratulations! You've successfully built a fully functional dApp that interacts with a smart contract on Polkadot Hub using viem and Next.js. Your application can now:
 
 - Connect to a user's wallet and handle network switching
 - Read data from a smart contract and keep it updated
 - Write data to the blockchain through transactions
 
-These fundamental skills provide the foundation for building more complex dApps on Asset Hub. With this knowledge, you can extend your application to interact with more sophisticated smart contracts and create advanced user interfaces.
+These fundamental skills provide the foundation for building more complex dApps on Polkadot Hub. With this knowledge, you can extend your application to interact with more sophisticated smart contracts and create advanced user interfaces.
 
 To get started right away with a working example, you can clone the repository and navigate to the implementation:
 
@@ -34033,11 +33949,11 @@ cd polkavm-storage-contract-dapps/viem-dapp
 
 <div class="grid cards" markdown>
 
--   <span class="badge guide">Tutorial</span> __Create a dApp with WAGMI__
+-   <span class="badge guide">Guide</span> __Create a dApp with Wagmi__
 
     ---
 
-    Learn how to build a decentralized application by using the WAGMI framework.
+    Learn how to build a decentralized application by using the Wagmi framework.
 
     [:octicons-arrow-right-24: Get Started](/develop/smart-contracts/libraries/wagmi)
 
@@ -34080,7 +33996,7 @@ Doc-Content: https://docs.polkadot.com/tutorials/smart-contracts/launch-your-fir
 --- BEGIN CONTENT ---
 ---
 title: Test and Deploy with Hardhat
-description: Learn how to set up a Hardhat development environment, write comprehensive tests for a Solidity smart contract, and deploy it to local and Asset Hub networks.
+description: Learn how to set up a Hardhat development environment, write comprehensive tests for Solidity smart contracts, and deploy to local and Polkadot Hub networks.
 tutorial_badge: Intermediate
 ---
 
@@ -34196,7 +34112,7 @@ module.exports = {
     The configuration also defines two network settings: 
 
     - `localNode` - runs a PolkaVM instance on `http://127.0.0.1:8545` for local development and testing
-    - `westendAssetHub` - connects to the Westend Asset Hub network using a predefined RPC URL and a private key stored in environment variables
+    - `westendAssetHub` - connects to the Westend Hub network using a predefined RPC URL and a private key stored in environment variables
 
 7. Create a `.env` file in your project root to store your private key:
 
@@ -34465,7 +34381,7 @@ module.exports = buildModule('StorageModule', (m) => {
   <span data-ty>StorageModule#Storage - 0xc01Ee7f10EA4aF4673cFff62710E1D7792aBa8f3</span>
 </div>
 
-3. Deploy to Westend Asset Hub:
+3. Deploy to Westend Hub:
 
     a. Make sure your account has enough WND tokens for gas fees, then run:
 
@@ -34556,7 +34472,7 @@ main()
 
 ## Conclusion
 
-Congratulations! You've successfully set up a Hardhat development environment, written comprehensive tests for your Storage contract, and deployed it to local and Westend Asset Hub networks. This tutorial covered essential steps in smart contract development, including configuration, testing, deployment, and interaction.
+Congratulations! You've successfully set up a Hardhat development environment, written comprehensive tests for your Storage contract, and deployed it to local and Westend Hub networks. This tutorial covered essential steps in smart contract development, including configuration, testing, deployment, and interaction.
 
 To get started with a working example right away, you can clone the repository and navigate to the project directory:
 

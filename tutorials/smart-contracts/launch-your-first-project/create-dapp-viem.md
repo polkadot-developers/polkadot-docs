@@ -1,21 +1,21 @@
 ---
 title: Create a dApp With Viem
-description: Learn how to build a decentralized application on Asset Hub using Viem and Next.js by creating a simple dApp that interacts with a smart contract.
+description: Learn how to build a decentralized application on Polkadot Hub using Viem and Next.js by creating a simple dApp that interacts with a smart contract.
 tutorial_badge:  Intermediate
 ---
 
-# Create a dApp with Viem
+# Create a DApp with Viem
 
-Decentralized applications (dApps) are a key component of the Web3 ecosystem, enabling developers to build applications that communicate directly with blockchain networks. Asset Hub, a blockchain with smart contract support, serves as a robust platform for deploying and interacting with dApps.
+Decentralized applications (dApps) are a key component of the Web3 ecosystem, enabling developers to build applications that communicate directly with blockchain networks. Polkadot Hub, a blockchain with smart contract support, serves as a robust platform for deploying and interacting with dApps.
 
-This tutorial will guide you through building a fully functional dApp that interacts with a smart contract on Asset Hub. You'll use [Viem](https://viem.sh/){target=\_blank} for blockchain interactions and [Next.js](https://nextjs.org/){target=\_blank} for the frontend. By the end, you'll have a dApp that lets users connect their wallets, retrieve on-chain data, and execute transactions.
+This tutorial will guide you through building a fully functional dApp that interacts with a smart contract on Polkadot Hub. You'll use [Viem](https://viem.sh/){target=\_blank} for blockchain interactions and [Next.js](https://nextjs.org/){target=\_blank} for the frontend. By the end, you'll have a dApp that lets users connect their wallets, retrieve on-chain data, and execute transactions.
 
 ## Prerequisites
 
 Before getting started, ensure you have the following:
 
 - [Node.js](https://nodejs.org/en){target=\_blank} v16 or later installed on your system
-- A crypto wallet (such as MetaMask) funded with test tokens. Refer to the [Connect to Asset Hub](/develop/smart-contracts/connect-to-asset-hub){target=\_blank} guide for more details
+- A crypto wallet (such as MetaMask) funded with test tokens. Refer to the [Connect to Polkadot](/develop/smart-contracts/connect-to-polkadot){target=\_blank} guide for more details
 - A basic understanding of React and JavaScript
 - Some familiarity with blockchain fundamentals and Solidity (useful but not required)
 
@@ -69,9 +69,9 @@ npm install viem@{{dependencies.javascript_packages.viem.version}}
 npm install --save-dev typescript @types/node
 ```
 
-## Connect to Asset Hub
+## Connect to Polkadot Hub
 
-To interact with Asset Hub (Westend Asset Hub in this case), you need to set up a [Public Client](https://viem.sh/docs/clients/public#public-client){target=\_blank} that connects to the blockchain. Create a new file called `utils/viem.ts` and add the following code:
+To interact with the Polkadot Hub, you need to set up a [Public Client](https://viem.sh/docs/clients/public#public-client){target=\_blank} that connects to the blockchain. In this example, you will interact with Westend Hub, the testnet version of Polkadot Hub, so you can experiment safely. Start by creating a new file called `utils/viem.ts` and add the following code:
 
 ```typescript title="viem.ts"
 --8<-- "https://raw.githubusercontent.com/polkadot-developers/polkavm-storage-contract-dapps/refs/tags/v0.0.1/viem-dapp/app/utils/viem.ts"
@@ -81,7 +81,7 @@ This file initializes a viem client, providing helper functions for obtaining a 
 
 ## Set Up the Smart Contract Interface
 
-For this dApp, you'll use a simple [Storage contract](/tutorials/smart-contracts/launch-your-first-project/create-contracts){target=\_blank} that's already deployed in Westend Asset Hub: `0xabBd46Ef74b88E8B1CDa49BeFb5057710443Fd29`. To interact with it, you need to define the contract interface.
+For this dApp, you'll use a simple [Storage contract](/tutorials/smart-contracts/launch-your-first-project/create-contracts){target=\_blank} that's already deployed in Westend Hub: `0xabBd46Ef74b88E8B1CDa49BeFb5057710443Fd29`. To interact with it, you need to define the contract interface.
 
 Create a folder called `abis` at the root of your project, then create a file named `Storage.json` and paste the corresponding ABI (Application Binary Interface) of the Storage contract. You can copy and paste the following:
 
@@ -111,7 +111,7 @@ This component handles connecting to the wallet, switching networks if necessary
 To use this component in your dApp, replace the existing boilerplate in `app/page.tsx` with the following code:
 
 ```typescript title="page.tsx"
---8<-- "https://raw.githubusercontent.com/polkadot-developers/polkavm-storage-contract-dapps/refs/tags/v0.0.1/viem-dapp/app/page.tsx::4"
+--8<-- "https://raw.githubusercontent.com/polkadot-developers/polkavm-storage-contract-dapps/refs/tags/v0.0.1/viem-dapp/app/page.tsx:4:4"
 --8<-- "https://raw.githubusercontent.com/polkadot-developers/polkavm-storage-contract-dapps/refs/tags/v0.0.1/viem-dapp/app/page.tsx:7:20"
 --8<-- "https://raw.githubusercontent.com/polkadot-developers/polkavm-storage-contract-dapps/refs/tags/v0.0.1/viem-dapp/app/page.tsx:23:25"
 ```
@@ -139,7 +139,7 @@ This component reads the `storedNumber` value from the contract and displays it 
 To reflect this change in your dApp, incorporate this component into the `app/page.tsx` file.
 
 ```typescript title="page.tsx"
---8<-- "https://raw.githubusercontent.com/polkadot-developers/polkavm-storage-contract-dapps/refs/tags/v0.0.1/viem-dapp/app/page.tsx::5"
+--8<-- "https://raw.githubusercontent.com/polkadot-developers/polkavm-storage-contract-dapps/refs/tags/v0.0.1/viem-dapp/app/page.tsx:5:5"
 --8<-- "https://raw.githubusercontent.com/polkadot-developers/polkavm-storage-contract-dapps/refs/tags/v0.0.1/viem-dapp/app/page.tsx:7:21"
 --8<-- "https://raw.githubusercontent.com/polkadot-developers/polkavm-storage-contract-dapps/refs/tags/v0.0.1/viem-dapp/app/page.tsx:23:25"
 ```
@@ -173,7 +173,7 @@ Let's examine how the dApp interacts with the blockchain:
 
 1. **Wallet Connection**: 
     - The `WalletConnect` component uses the browser's Ethereum provider (MetaMask) to connect to the user's wallet
-    - It handles network switching to ensure the user is connected to Asset Hub
+    - It handles network switching to ensure the user is connected to Westend Hub
     - Once connected, it provides the user's account address to the parent component
 
 2. **Reading Data**:
@@ -189,13 +189,13 @@ Let's examine how the dApp interacts with the blockchain:
 
 ## Conclusion
 
-Congratulations! You've successfully built a fully functional dApp that interacts with a smart contract on Asset Hub using viem and Next.js. Your application can now:
+Congratulations! You've successfully built a fully functional dApp that interacts with a smart contract on Polkadot Hub using viem and Next.js. Your application can now:
 
 - Connect to a user's wallet and handle network switching
 - Read data from a smart contract and keep it updated
 - Write data to the blockchain through transactions
 
-These fundamental skills provide the foundation for building more complex dApps on Asset Hub. With this knowledge, you can extend your application to interact with more sophisticated smart contracts and create advanced user interfaces.
+These fundamental skills provide the foundation for building more complex dApps on Polkadot Hub. With this knowledge, you can extend your application to interact with more sophisticated smart contracts and create advanced user interfaces.
 
 To get started right away with a working example, you can clone the repository and navigate to the implementation:
 
@@ -208,11 +208,11 @@ cd polkavm-storage-contract-dapps/viem-dapp
 
 <div class="grid cards" markdown>
 
--   <span class="badge guide">Tutorial</span> __Create a dApp with WAGMI__
+-   <span class="badge guide">Guide</span> __Create a dApp with Wagmi__
 
     ---
 
-    Learn how to build a decentralized application by using the WAGMI framework.
+    Learn how to build a decentralized application by using the Wagmi framework.
 
     [:octicons-arrow-right-24: Get Started](/develop/smart-contracts/libraries/wagmi)
 

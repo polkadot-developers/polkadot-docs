@@ -1,13 +1,13 @@
 ---
-title: viem for Asset Hub Smart Contracts
-description: viem is a TypeScript library for interacting with Ethereum-compatible chains. This guide covers using viem to deploy and interact with smart contracts on Asset Hub.
+title: viem for Polkadot Hub Smart Contracts
+description: This guide covers deploying and interacting with contracts on Polkadot Hub using viem, a TypeScript library for Ethereum-compatible chains.
 ---
 
 # viem
 
 ## Introduction
 
-[viem](https://viem.sh/){target=\_blank} is a lightweight TypeScript library designed for interacting with Ethereum-compatible blockchains. This comprehensive guide will walk you through using viem to interact with and deploy smart contracts to Asset Hub.
+[viem](https://viem.sh/){target=\_blank} is a lightweight TypeScript library designed for interacting with Ethereum-compatible blockchains. This comprehensive guide will walk you through using viem to interact with and deploy smart contracts to Polkadot Hub.
 
 ## Prerequisites
 
@@ -16,6 +16,28 @@ Before getting started, ensure you have the following installed:
 - **Node.js** - v22.13.1 or later, check the [Node.js installation guide](https://nodejs.org/en/download/current/){target=\_blank}
 - **npm** - v6.13.4 or later (comes bundled with Node.js)
 - **Solidity** - this guide uses Solidity `^0.8.9` for smart contract development
+
+## Project Structure
+
+This project organizes contracts, scripts, and compiled artifacts for easy development and deployment.
+
+```text
+viem-project/
+├── package.json
+├── tsconfig.json
+├── src/
+│   ├── chainConfig.ts
+│   ├── createClient.ts
+│   ├── createWallet.ts
+│   ├── compile.ts
+│   ├── deploy.ts
+│   └── interact.ts
+├── contracts/
+│   └── Storage.sol
+└── artifacts/
+    ├── Storage.json
+    └── Storage.polkavm
+```
 
 ## Set Up the Project
 
@@ -39,9 +61,9 @@ npm install viem @parity/revive
 npm install --save-dev typescript ts-node @types/node
 ```
 
-## Init Project
+## Initialize Project
 
-Init a TypeScript project by running the following command:
+Initialize a TypeScript project by running the following command:
 
 ```bash
 npx tsc --init
@@ -70,17 +92,17 @@ mkdir src
 
 The first step is to set up the chain configuration. Create a new file at `src/chainConfig.ts`:
 
-```typescript title="chainConfig.ts"
+```typescript title="src/chainConfig.ts"
 --8<-- 'code/develop/smart-contracts/libraries/viem/chainConfig.ts'
 ```
 
-Ensure to replace `INSERT_RPC_URL`, `INSERT_CHAIN_ID`, `INSERT_CHAIN_NAME`, `INSERT_NETWORK_NAME`, `INSERT_CHAIN_DECIMALS`, `INSERT_CURRENCY_NAME`, and `INSERT_CURRENCY_SYMBOL` with the proper values. Check the [Connect to Asset Hub](/develop/smart-contracts/connect-to-asset-hub){target=\_blank} page for more information on the possible values.
+Ensure to replace `INSERT_RPC_URL`, `INSERT_CHAIN_ID`, `INSERT_CHAIN_NAME`, `INSERT_NETWORK_NAME`, `INSERT_CHAIN_DECIMALS`, `INSERT_CURRENCY_NAME`, and `INSERT_CURRENCY_SYMBOL` with the proper values. Check the [Connect to Polkadot](/develop/smart-contracts/connect-to-polkadot){target=\_blank} page for more information on the possible values.
 
 ## Set Up the viem Client
 
 To interact with the chain, you need to create a client that is used solely for reading data. To accomplish this, create a new file at `src/createClient.ts`:
 
-```typescript title="createClient.ts"
+```typescript title="src/createClient.ts"
 --8<-- 'code/develop/smart-contracts/libraries/viem/createClient.ts'
 ```
 
@@ -88,7 +110,7 @@ After setting up the [Public Client](https://viem.sh/docs/clients/public#public-
 
 ??? code "Fetch Last Block code"
 
-    ```js title="fetchLastBlock.ts"
+    ```js title="src/fetchLastBlock.ts"
     --8<-- 'code/develop/smart-contracts/libraries/viem/fetchLastBlock.ts'
     ```
 
@@ -96,7 +118,7 @@ After setting up the [Public Client](https://viem.sh/docs/clients/public#public-
 
 In case you need to sign transactions, you will need to instantiate a [Wallet Client](https://viem.sh/docs/clients/wallet#wallet-client){target=\_blank} object within your project. To do so, create `src/createWallet.ts`:
 
-```typescript title="createWallet.ts"
+```typescript title="src/createWallet.ts"
 --8<-- 'code/develop/smart-contracts/libraries/viem/createWallet.ts'
 ```
 
@@ -105,7 +127,7 @@ In case you need to sign transactions, you will need to instantiate a [Wallet Cl
 
 ## Sample Smart Contract
 
-This example demonstrates compiling a `Storage.sol` Solidity contract for deployment to Asset Hub. The contract's functionality stores a number and permits users to update it with a new value.
+This example demonstrates compiling a `Storage.sol` Solidity contract for deployment to Polkadot Hub. The contract's functionality stores a number and permits users to update it with a new value.
 
 ```bash
 mkdir contracts artifacts
@@ -113,7 +135,7 @@ mkdir contracts artifacts
 
 You can use the following contract to interact with the blockchain. Paste the following contract in `contracts/Storage.sol`:
 
-```solidity title="Storage.sol"
+```solidity title="contracts/Storage.sol"
 --8<-- 'code/develop/smart-contracts/libraries/viem/Storage.sol'
 ```
 
@@ -121,7 +143,7 @@ You can use the following contract to interact with the blockchain. Paste the fo
 
 Create a new file at `src/compile.ts` for handling contract compilation:
 
-```typescript title="compile.ts"
+```typescript title="src/compile.ts"
 --8<-- 'code/develop/smart-contracts/libraries/viem/compile.ts'
 ```
 
@@ -131,13 +153,13 @@ To compile your contract:
 npm run compile
 ```
 
-After executing this script, you will see the compilation results including the generated `Storage.json` (containing the contract's ABI) and `Storage.polkavm` (containing the compiled bytecode) files in the `artifacts` folder. These files contain all the necessary information for deploying and interacting with your smart contract on Asset Hub.
+After executing this script, you will see the compilation results including the generated `Storage.json` (containing the contract's ABI) and `Storage.polkavm` (containing the compiled bytecode) files in the `artifacts` folder. These files contain all the necessary information for deploying and interacting with your smart contract on Polkadot Hub.
 
 ## Deploy the Contract
 
 Create a new file at `src/deploy.ts` for handling contract deployment:
 
-```typescript title="deploy.ts"
+```typescript title="src/deploy.ts"
 --8<-- 'code/develop/smart-contracts/libraries/viem/deploy.ts'
 ```
 
@@ -158,7 +180,7 @@ If everything is successful, you will see the address of your deployed contract 
 
 Create a new file at `src/interact.ts` for interacting with your deployed contract:
 
-```typescript title="interact.ts"
+```typescript title="src/interact.ts"
 --8<-- 'code/develop/smart-contracts/libraries/viem/interact.ts'
 ```
 
@@ -172,31 +194,9 @@ npm run interact
 
 Following a successful interaction, you will see the stored value before and after the transaction. The output will show the initial stored number (0 if you haven't modified it yet), confirm when the transaction to set the number to 42 is complete, and then display the updated stored number value. This demonstrates both reading from and writing to your smart contract.
 
-## Complete Project Structure
-
-After completing this guide, your project directory should have the following structure. This overview helps you verify that you've created all the necessary files in their correct locations for your viem integration with Asset Hub:
-
-```text
-viem-project/
-├── package.json
-├── tsconfig.json
-├── src/
-│   ├── chainConfig.ts
-│   ├── createClient.ts
-│   ├── createWallet.ts
-│   ├── compile.ts
-│   ├── deploy.ts
-│   └── interact.ts
-├── contracts/
-│   └── Storage.sol
-└── artifacts/
-    ├── Storage.json
-    └── Storage.polkavm
-```
-
 ## Where to Go Next
 
-Now that you have the foundation for using viem with Asset Hub, consider exploring:
+Now that you have the foundation for using viem with Polkadot Hub, consider exploring:
 
 <div class="grid cards" markdown>
 

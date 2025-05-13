@@ -1,14 +1,14 @@
 ---
-title: Deploy an ERC-20 to Asset Hub
-description: Deploy an ERC-20 token on Asset Hub using PolkaVM. This guide covers contract creation, compilation, deployment, and interaction via Polkadot Remix IDE.
+title: Deploy an ERC-20 to Polkadot Hub
+description: Deploy an ERC-20 token on Polkadot Hub using PolkaVM. This guide covers contract creation, compilation, deployment, and interaction via Polkadot Remix IDE.
 tutorial_badge: Beginner
 ---
 
-# Deploy ERC-20 to Asset Hub
+# Deploy an ERC-20 to Polkadot Hub
 
 ## Introduction
 
-[ERC-20](https://eips.ethereum.org/EIPS/eip-20){target=\_blank} tokens are fungible tokens commonly used for creating cryptocurrencies, governance tokens, and staking mechanisms. Asset Hub enables easy token deployment with Ethereum-compatible smart contracts via PolkaVM.
+[ERC-20](https://eips.ethereum.org/EIPS/eip-20){target=\_blank} tokens are fungible tokens commonly used for creating cryptocurrencies, governance tokens, and staking mechanisms. Polkadot Hub enables easy token deployment with Ethereum-compatible smart contracts via PolkaVM.
 
 This tutorial covers deploying an ERC-20 contract on the Westend TestNet using [Polkadot Remix IDE](https://remix.polkadot.io){target=\_blank}, a web-based development tool. [OpenZeppelin's ERC-20 contracts]({{ dependencies.repositories.open_zeppelin_contracts.repository_url}}/tree/{{ dependencies.repositories.open_zeppelin_contracts.version}}/contracts/token/ERC20){target=\_blank} are used for security and compliance.
 
@@ -16,7 +16,7 @@ This tutorial covers deploying an ERC-20 contract on the Westend TestNet using [
 
 Before starting, make sure you have:
 
-- [Talisman](https://talisman.xyz/){target=\_blank} installed and connected to Westend Asset Hub
+- [Talisman](https://talisman.xyz/){target=\_blank} installed and connected to [Westend Hub](https://chainlist.org/chain/420420421){target=\_blank}. For detailed instructions, see the [Connect Your Wallet](/develop/smart-contracts/connect-to-polkadot/#connect-your-wallet){target=\_blank} section
 - A funded account with some WND tokens (you can get them from the [Westend Faucet](https://faucet.polkadot.io/westend?parachain=1000){target=\_blank}). To learn how to get test tokens, check out the [Test Tokens](/develop/smart-contracts/connect-to-asset-hub/#test-tokens){target=\_blank} section
 - Basic understanding of Solidity and fungible tokens
 

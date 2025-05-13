@@ -1,6 +1,6 @@
 ---
 title: Web3.js
-description: Learn how to interact with the Asset Hub chain using Web3.js, deploying Solidity contracts, and interacting with deployed smart contracts.
+description: Learn how to interact with Polkadot Hub using Web3.js, deploying Solidity contracts, and interacting with deployed smart contracts.
 ---
 
 # Web3.js
@@ -10,9 +10,9 @@ description: Learn how to interact with the Asset Hub chain using Web3.js, deplo
 
 ## Introduction
 
-Interacting with blockchains typically requires an interface between your application and the network. [Web3.js](https://web3js.readthedocs.io/){target=\_blank} offers this interface through a comprehensive collection of libraries, facilitating seamless interaction with the nodes using HTTP or WebSocket protocols. This guide illustrates how to utilize Web3.js specifically for interactions with the Asset Hub chain.
+Interacting with blockchains typically requires an interface between your application and the network. [Web3.js](https://web3js.readthedocs.io/){target=\_blank} offers this interface through a comprehensive collection of libraries, facilitating seamless interaction with the nodes using HTTP or WebSocket protocols. This guide illustrates how to utilize Web3.js specifically for interactions with Polkadot Hub.
 
-This guide is intended for developers who are familiar with JavaScript and want to interact with the Polkadot Asset Hub using Web3.js.
+This guide is intended for developers who are familiar with JavaScript and want to interact with the Polkadot Hub using Web3.js.
 
 ## Prerequisites
 
@@ -26,8 +26,8 @@ Before getting started, ensure you have the following installed:
 
 This project organizes contracts, scripts, and compiled artifacts for easy development and deployment.
 
-```text title="Web3.js Asset Hub"
-web3js-asset-hub
+```text title="Web3.js Polkadot Hub"
+web3js-project
 ├── contracts
 │   ├── Storage.sol
 ├── scripts
@@ -66,13 +66,13 @@ This guide uses `web3` version `{{ dependencies.javascript_packages.web3_js.vers
 
 ## Set Up the Web3 Provider
 
-The provider configuration is the foundation of any Web3.js application. The following example establishes a connection to the Asset Hub network. To use the example script, replace `INSERT_RPC_URL`, `INSERT_CHAIN_ID`, and `INSERT_CHAIN_NAME` with the appropriate values. The provider connection script should look something like this:
+The provider configuration is the foundation of any Web3.js application. The following example establishes a connection to Polkadot Hub. To use the example script, replace `INSERT_RPC_URL`, `INSERT_CHAIN_ID`, and `INSERT_CHAIN_NAME` with the appropriate values. The provider connection script should look something like this:
 
-```javascript title="connectToProvider.js"
+```javascript title="scripts/connectToProvider.js"
 --8<-- 'code/develop/smart-contracts/evm-toolkit/libraries/web3-js/connectToProvider.js'
 ```
 
-For example, for the Westend Asset Hub testnet, use these specific connection parameters:
+For example, for the Westend Hub TestNet, use these specific connection parameters:
 
 ```js
 const PROVIDER_RPC = {
@@ -85,15 +85,15 @@ With the Web3 provider set up, you can start querying the blockchain.
 
 For instance, to fetch the latest block number of the chain, you can use the following code snippet:
 
-???+ code "Complete script"
+???+ code "View complete script"
 
-    ```javascript title="fetchLastBlock.js"
+    ```javascript title="scripts/fetchLastBlock.js"
     --8<-- 'code/develop/smart-contracts/evm-toolkit/libraries/web3-js/fetchLastBlock.js'
     ```
 
 ## Compile Contracts
 
-Asset Hub requires contracts to be compiled to [PolkaVM](/polkadot-protocol/smart-contracts-basics/polkavm-design){target=\_blank} bytecode. This is achieved using the [`revive`](https://github.com/paritytech/revive){target=\_blank} compiler. Install the [`@parity/revive`](https://github.com/paritytech/js-revive){target=\_blank} library as a development dependency:
+Polkadot Hub requires contracts to be compiled to [PolkaVM](/polkadot-protocol/smart-contracts-basics/polkavm-design){target=\_blank} bytecode. This is achieved using the [`revive`](https://github.com/paritytech/revive){target=\_blank} compiler. Install the [`@parity/revive`](https://github.com/paritytech/js-revive){target=\_blank} library as a development dependency:
 
 ```bash
 npm install --save-dev @parity/revive
@@ -103,13 +103,13 @@ This guide uses `@parity/revive` version `{{ dependencies.javascript_packages.re
 
 Here's a simple storage contract that you can use to follow the process:
 
-```solidity title="Storage.sol"
+```solidity title="contracts/Storage.sol"
 --8<-- 'code/develop/smart-contracts/evm-toolkit/libraries/web3-js/Storage.sol'
 ```
 
 With that, you can now create a `compile.js` snippet that transforms your solidity code into PolkaVM bytecode:
 
-```javascript title="compile.js"
+```javascript title="scripts/compile.js"
 --8<-- 'code/develop/smart-contracts/evm-toolkit/libraries/web3-js/compile.js'
 ```
 
@@ -123,9 +123,9 @@ After compilation, you'll have two key files: an ABI (`.json`) file, which provi
 
 ## Contract Deployment
 
-To deploy your compiled contract to Asset Hub using Web3.js, you'll need an account with a private key to sign the deployment transaction. The deployment process is exactly the same as for any Ethereum-compatible chain, involving creating a contract instance, estimating gas, and sending a deployment transaction. Here's how to deploy the contract, ensure replacing the `INSERT_RPC_URL`, `INSERT_PRIVATE_KEY`, and `INSERT_CONTRACT_NAME` with the appropriate values:
+To deploy your compiled contract to Polkadot Hub using Web3.js, you'll need an account with a private key to sign the deployment transaction. The deployment process is exactly the same as for any Ethereum-compatible chain, involving creating a contract instance, estimating gas, and sending a deployment transaction. Here's how to deploy the contract, ensure replacing the `INSERT_RPC_URL`, `INSERT_PRIVATE_KEY`, and `INSERT_CONTRACT_NAME` with the appropriate values:
 
-```javascript title="deploy.js"
+```javascript title="scripts/deploy.js"
 --8<-- 'code/develop/smart-contracts/evm-toolkit/libraries/web3-js/deploy.js'
 ```
 
@@ -141,7 +141,7 @@ node deploy
 
 Once deployed, you can interact with your contract using Web3.js methods. Here's how to set a number and read it back, ensure replacing `INSERT_RPC_URL`, `INSERT_PRIVATE_KEY`, and `INSERT_CONTRACT_ADDRESS` with the appropriate values:
 
-```javascript title="updateStorage.js"
+```javascript title="scripts/updateStorage.js"
 --8<-- 'code/develop/smart-contracts/evm-toolkit/libraries/web3-js/updateStorage.js'
 ```
 
@@ -153,7 +153,7 @@ node updateStorage
 
 ## Where to Go Next
 
-Now that you’ve learned how to use Web3.js with Asset Hub, explore more advanced topics:
+Now that you’ve learned how to use Web3.js with Polkadot Hub, explore more advanced topics:
 
 - Utilize Web3.js utilities – learn about additional [Web3.js](https://docs.web3js.org/){target=\_blank} features such as signing transactions, managing wallets, and subscribing to events
 - Build full-stack dApps – [integrate Web3.js](https://docs.web3js.org/guides/dapps/intermediate-dapp){target=\_blank} with different libraries and frameworks to build decentralized web applications

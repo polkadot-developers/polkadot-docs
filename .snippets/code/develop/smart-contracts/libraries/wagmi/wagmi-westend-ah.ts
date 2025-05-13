@@ -1,6 +1,6 @@
 import { http, createConfig } from 'wagmi';
 
-// Configure the Asset Hub chain
+// Configure the Polkadot Hub chain
 const assetHub = {
   id: 420420421,
   name: 'westend-asset-hub',

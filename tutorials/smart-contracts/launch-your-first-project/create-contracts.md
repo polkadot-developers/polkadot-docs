@@ -1,6 +1,6 @@
 ---
 title: Create a Smart Contract
-description: Learn how to write a basic smart contract using just a text editor. This guide covers creating and preparing a contract for deployment on Asset Hub.
+description: Learn how to write a basic smart contract using just a text editor. This guide covers creating and preparing a contract for deployment on Polkadot Hub.
 tutorial_badge: Beginner
 ---
 
@@ -10,7 +10,7 @@ tutorial_badge: Beginner
 
 Creating [smart contracts](/develop/smart-contracts/overview/){target=\_blank} is fundamental to blockchain development. While many frameworks and tools are available, understanding how to write a contract from scratch with just a text editor is essential knowledge.
 
-This tutorial will guide you through creating a basic smart contract that can be used with other tutorials for deployment and integration on Asset Hub. To understand how smart contracts work in Asset Hub, check the [Smart Contract Basics](/polkadot-protocol/smart-contract-basics/){target=\_blank} guide for more information.
+This tutorial will guide you through creating a basic smart contract that can be used with other tutorials for deployment and integration on Polkadot Hub. To understand how smart contracts work in Polkadot Hub, check the [Smart Contract Basics](/polkadot-protocol/smart-contract-basics/){target=\_blank} guide for more information.
 
 ## Prerequisites
 
@@ -94,9 +94,7 @@ To build the smart contract, follow the steps below:
     --8<-- 'https://raw.githubusercontent.com/polkadot-developers/polkavm-hardhat-examples/refs/tags/v0.0.1/storage-hardhat/contracts/Storage.sol'
     ```
 
-The complete contract should look like this:
-
-??? code "Storage.sol"
+??? code "Complete Storage.sol contract"
 
     ```solidity title="Storage.sol"
     --8<-- 'https://raw.githubusercontent.com/polkadot-developers/polkavm-hardhat-examples/refs/tags/v0.0.1/storage-hardhat/contracts/Storage.sol'
@@ -121,11 +119,11 @@ Let's break down the key components of the contract:
 
 - **Functions**
 
-    - `store(uint256 newNumber)` - Updates the stored number and emits an event.
+    - `store(uint256 newNumber)` - updates the stored number and emits an event
         - This function changes the state of the contract and requires a transaction to execute
         - The `emit` keyword is used to trigger the defined event
 
-    - `retrieve()` - Returns the current stored number.
+    - `retrieve()` - returns the current stored number
         - The `view` keyword indicates that this function only reads data and doesn't modify the contract's state
         - View functions don't require a transaction and don't cost gas when called externally
 

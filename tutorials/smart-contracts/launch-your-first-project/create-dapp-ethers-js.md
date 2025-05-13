@@ -182,17 +182,3 @@ To get started right away with a working example, you can clone the repository a
 git clone https://github.com/polkadot-developers/polkavm-storage-contract-dapps.git -b v0.0.1
 cd polkavm-storage-contract-dapps/ethers-dapp
 ```
-
-## Where to Go Next
-
-<div class="grid cards" markdown>
-
--   <span class="badge tutorial">Tutorial</span> __Create a dApp with WAGMI__
-
-    ---
-
-    Learn how to build a decentralized application by using the WAGMI framework.
-
-    [:octicons-arrow-right-24: Get Started](/tutorials/smart-contracts/launch-your-first-project/create-dapp-wagmi/)
-
-</div>

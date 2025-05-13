@@ -5,3 +5,4 @@ nav:
   - spawn-chains
   - fork-chains
   - e2e-testing
+  - 'Light Clients': light-clients.md

@@ -16,8 +16,8 @@ This tutorial covers deploying an ERC-20 contract on the Westend TestNet using [
 
 Before starting, make sure you have:
 
-- [MetaMask](https://metamask.io/){target=\_blank} installed and connected to [Westend Hub](https://chainlist.org/chain/420420421){target=\_blank}. For detailed instructions, see the [Connect Your Wallet](/develop/smart-contracts/connect-to-polkadot/#connect-your-wallet){target=\_blank} section
-- A funded account with some WND tokens (you can get them from the [Westend Faucet](https://faucet.polkadot.io/westend?parachain=1000){target=\_blank}). To learn how to get test tokens, check out the [Test Tokens](/develop/smart-contracts/connect-to-polkadot/#test-tokens){target=\_blank} section
+- [Talisman](https://talisman.xyz/){target=\_blank} installed and connected to [Westend Hub](https://chainlist.org/chain/420420421){target=\_blank}. For detailed instructions, see the [Connect Your Wallet](/develop/smart-contracts/connect-to-polkadot/#connect-your-wallet){target=\_blank} section
+- A funded account with some WND tokens (you can get them from the [Westend Faucet](https://faucet.polkadot.io/westend?parachain=1000){target=\_blank}). To learn how to get test tokens, check out the [Test Tokens](/develop/smart-contracts/connect-to-asset-hub/#test-tokens){target=\_blank} section
 - Basic understanding of Solidity and fungible tokens
 
 ## Create the ERC-20 Contract
@@ -89,7 +89,7 @@ Deployment is the process of publishing your compiled smart contract to the bloc
     ![](/images/tutorials/smart-contracts/deploy-erc20/deploy-erc20-6.webp)
 
 2. Configure the deployment settings
-    1. From the **ENVIRONMENT** dropdown, select **Westend Testnet - MetaMask**
+    1. From the **ENVIRONMENT** dropdown, select **Injected Provider - Talisman** (check the [Deploying Contracts](/develop/smart-contracts/dev-environments/remix/#deploying-contracts){target=\_blank} section of the Remix IDE guide for more details)
     2. From the **ACCOUNT** dropdown, select the account you want to use for the deploy
 
     ![](/images/tutorials/smart-contracts/deploy-erc20/deploy-erc20-7.webp)
@@ -100,7 +100,7 @@ Deployment is the process of publishing your compiled smart contract to the bloc
 
     ![](/images/tutorials/smart-contracts/deploy-erc20/deploy-erc20-8.webp)
 
-4. MetaMask will pop up - review the transaction details. Click **Confirm** to deploy your contract
+4. Talisman will pop up - review the transaction details. Click **Confirm** to deploy your contract
 
      ![](/images/tutorials/smart-contracts/deploy-erc20/deploy-erc20-9.webp){: .browser-extension}
 
@@ -126,7 +126,7 @@ Once deployed, you can interact with your contract through Remix:
 
     ![](/images/tutorials/smart-contracts/deploy-erc20/deploy-erc20-12.webp)
 
-3. Confirm the transaction in MetaMask
+3. Click **Approve** to confirm the transaction in the Talisman popup
 
     ![](/images/tutorials/smart-contracts/deploy-erc20/deploy-erc20-13.webp){: .browser-extension}
 
@@ -140,4 +140,4 @@ Other common functions you can use:
 - **`transfer(address to, uint256 amount)`** - send tokens to another address
 - **`approve(address spender, uint256 amount)`** - allow another address to spend your tokens
 
-Feel free to explore and interact with the contract's other functions using the same approach - selecting the method, providing any required parameters, and confirming the transaction through MetaMask when needed.
+Feel free to explore and interact with the contract's other functions using the same approach - selecting the method, providing any required parameters, and confirming the transaction through Talisman when needed.

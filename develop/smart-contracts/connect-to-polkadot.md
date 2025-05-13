@@ -76,6 +76,23 @@ For example, to connect to the Westend Hub TestNet via MetaMask, you need to fol
 
 The steps in the preceding section can be used to connect to any chain by modifying the network specification and endpoint parameters.
 
+### Talisman
+
+[Talisman](https://talisman.xyz/){target=\_blank} is a specialized wallet for the Polkadot ecosystem that supports both Substrate and EVM accounts, making it an excellent choice for Polkadot Hub interactions. Talisman offers a more integrated experience for Polkadot-based chains while still providing Ethereum compatibility.
+
+To use Talisman with Polkadot Hub:
+
+1. Install the [Talisman extension](https://talisman.xyz/download){target=\_blank} and set up your wallet by following the on-screen instructions
+2. Once installed, click on the Talisman icon in your browser extensions and select Networks dropdown:  
+
+    ![](/images/develop/smart-contracts/connect-to-asset-hub/connect-to-asset-hub-7.webp){: .browser-extension}
+
+3. Search for **Westend Asset Hub** in the list of networks and select it (ensure that the checkbox **Enable Testnets** is enabled to view the available testnets):
+
+    ![](/images/develop/smart-contracts/connect-to-asset-hub/connect-to-asset-hub-8.webp){: .browser-extension}
+
+After selecting the network, Talisman will automatically configure the necessary RPC URL and chain ID for you. You can now use Talisman to interact with Westend Asset Hub.
+
 ## Test Tokens
 
 You will need testnet tokens to perform transactions and engage with smart contracts on any chain. Here's how to obtain Westend (WND) tokens for testing purposes:

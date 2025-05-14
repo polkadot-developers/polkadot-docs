@@ -44,16 +44,10 @@ Before getting started, ensure you have:
     npm init -y
     ```
 
-3. To interact with Polkadot, Hardhat requires the following plugins to compile contracts to PolkaVM bytecode and to spawn a local node compatible with PolkaVM:
+3. To interact with Polkadot, Hardhat requires the following plugin to compile contracts to PolkaVM bytecode and to spawn a local node compatible with PolkaVM:
 
     ```bash
-    npm install --save-dev hardhat @nomicfoundation/hardhat-toolbox
-    ```
-
-    To interact with Polkadot Hub, Hardhat requires the [`hardhat-resolc`](https://www.npmjs.com/package/hardhat-resolc){target=\_blank} plugin to compile contracts to PolkaVM bytecode and the [`hardhat-revive-node`](https://www.npmjs.com/package/hardhat-revive-node){target=\_blank} plugin to spawn a local node compatible with PolkaVM.
-
-    ```bash
-    npm install --save-dev hardhat-resolc hardhat-revive-node
+    npm install --save-dev @parity/hardhat-polkadot
     ```
 
 4. Create a Hardhat project:

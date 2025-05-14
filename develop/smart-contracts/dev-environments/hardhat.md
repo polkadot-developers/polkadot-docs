@@ -29,7 +29,7 @@ Before getting started, ensure you have:
 - Basic understanding of Solidity programming
 - Some WND test tokens to cover transaction fees (easily obtainable from the [Polkadot faucet](https://faucet.polkadot.io/westend?parachain=1000){target=\_blank}). To learn how to get test tokens, check out the [Test Tokens](/develop/smart-contracts/connect-to-polkadot/#test-tokens){target=\_blank} section
 
-## Set Up Hardhat
+## Setting Up Hardhat
 
 1. Create a new directory for your project and navigate into it:
 
@@ -44,16 +44,10 @@ Before getting started, ensure you have:
     npm init -y
     ```
 
-3. To interact with Polkadot, Hardhat requires the following plugins to compile contracts to PolkaVM bytecode and to spawn a local node compatible with PolkaVM:
+3. To interact with Polkadot, Hardhat requires the following plugin to compile contracts to PolkaVM bytecode and to spawn a local node compatible with PolkaVM:
 
     ```bash
-    npm install --save-dev hardhat @nomicfoundation/hardhat-toolbox
-    ```
-
-    To interact with Polkadot Hub, Hardhat requires the [`hardhat-resolc`](https://www.npmjs.com/package/hardhat-resolc){target=\_blank} plugin to compile contracts to PolkaVM bytecode and the [`hardhat-revive-node`](https://www.npmjs.com/package/hardhat-revive-node){target=\_blank} plugin to spawn a local node compatible with PolkaVM.
-
-    ```bash
-    npm install --save-dev hardhat-resolc hardhat-revive-node
+    npm install --save-dev @parity/hardhat-polkadot
     ```
 
 4. Create a Hardhat project:
@@ -62,7 +56,7 @@ Before getting started, ensure you have:
     npx hardhat-polkadot init
     ```
 
-    Select **Create a JavaScript project** when prompted and follow the instructions. After that, your project will be created with three main folders:
+    Select "Create a JavaScript project" when prompted and follow the instructions. After that, your project will be created with three main folders:
 
     - **`contracts`** - where your Solidity smart contracts live
     - **`test`** - contains your test files that validate contract functionality

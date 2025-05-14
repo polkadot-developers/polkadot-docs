@@ -6316,7 +6316,7 @@ To compile your project, follow these instructions:
 
     === "npm Configuration"
 
-        ```javascript title="hardhat.config.js" hl_lines="10-21"
+        ```javascript title="hardhat.config.js" hl_lines="9-20"
         require('@nomicfoundation/hardhat-toolbox');
 
 require('@parity/hardhat-polkadot');
@@ -6345,7 +6345,7 @@ module.exports = {
 
     === "Binary Configuration"
 
-        ```javascript title="hardhat.config.js" hl_lines="10-23"
+        ```javascript title="hardhat.config.js" hl_lines="9-22"
         require('@nomicfoundation/hardhat-toolbox');
 
 require('@parity/hardhat-polkadot');
@@ -6401,7 +6401,7 @@ To run your test:
 
     === "npm Configuration"
 
-        ```javascript title="hardhat.config.js" hl_lines="25-33"
+        ```javascript title="hardhat.config.js" hl_lines="24-32"
         require('@nomicfoundation/hardhat-toolbox');
 
 require('@parity/hardhat-polkadot');
@@ -6439,7 +6439,7 @@ module.exports = {
 
     === "Binary Configuration"
 
-        ```javascript title="hardhat.config.js" hl_lines="27-35"
+        ```javascript title="hardhat.config.js" hl_lines="26-34"
         require('@nomicfoundation/hardhat-toolbox');
 
 require('@parity/hardhat-polkadot');
@@ -6484,10 +6484,10 @@ module.exports = {
 
     For example, if you cloned the polkadot-sdk repository to your home directory, the paths might look like:
 
-        ```javascript
-        nodeBinaryPath: '/home/username/polkadot-sdk/target/release/substrate-node',
-        adapterBinaryPath: '/home/username/polkadot-sdk/target/release/eth-rpc',
-        ```
+    ```javascript
+    nodeBinaryPath: '/home/username/polkadot-sdk/target/release/substrate-node',
+    adapterBinaryPath: '/home/username/polkadot-sdk/target/release/eth-rpc',
+    ```
 
 2. Execute the following command:
 
@@ -6527,7 +6527,7 @@ const contract = await ContractFactory.deploy(...constructorArgs);
 
     === "npm Configuration"
 
-        ```javascript title="hardhat.config.js" hl_lines="35-38"
+        ```javascript title="hardhat.config.js" hl_lines="34-37"
         require('@nomicfoundation/hardhat-toolbox');
 
 require('@parity/hardhat-polkadot');
@@ -6569,7 +6569,7 @@ module.exports = {
 
     === "Binary Configuration"
 
-        ```javascript title="hardhat.config.js" hl_lines="37-40"
+        ```javascript title="hardhat.config.js" hl_lines="36-39"
         require('@nomicfoundation/hardhat-toolbox');
 
 require('@parity/hardhat-polkadot');
@@ -6650,7 +6650,7 @@ After testing your contract locally, you can deploy it to a live network. This g
 
 4. Update your config to load it:
 
-    ```javascript title="hardhat.config.js" hl_lines="6"
+    ```javascript title="hardhat.config.js" hl_lines="5"
     require('@nomicfoundation/hardhat-toolbox');
 
 require('@parity/hardhat-polkadot');
@@ -6666,7 +6666,7 @@ require('@parity/hardhat-polkadot');
 
     === "npm Configuration"
 
-        ```javascript title="hardhat.config.js" hl_lines="42-46"
+        ```javascript title="hardhat.config.js" hl_lines="41-45"
         require('@nomicfoundation/hardhat-toolbox');
 
 require('@parity/hardhat-polkadot');
@@ -6715,7 +6715,7 @@ require('@parity/hardhat-polkadot');
 
     === "Binary Configuration"
 
-        ```javascript title="hardhat.config.js" hl_lines="46-50"
+        ```javascript title="hardhat.config.js" hl_lines="45-49"
         require('@nomicfoundation/hardhat-toolbox');
 
 require('@parity/hardhat-polkadot');

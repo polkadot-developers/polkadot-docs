@@ -84,7 +84,7 @@ To compile your project, follow these instructions:
 
     === "npm Configuration"
 
-        ```javascript title="hardhat.config.js" hl_lines="10-21"
+        ```javascript title="hardhat.config.js" hl_lines="9-20"
         --8<-- 'code/develop/smart-contracts/dev-environments/hardhat/hardhat.config.js:1:21'
           --8<-- 'code/develop/smart-contracts/dev-environments/hardhat/hardhat.config.js:37:39'
             --8<-- 'code/develop/smart-contracts/dev-environments/hardhat/hardhat.config.js:49:49'
@@ -93,7 +93,7 @@ To compile your project, follow these instructions:
 
     === "Binary Configuration"
 
-        ```javascript title="hardhat.config.js" hl_lines="10-23"
+        ```javascript title="hardhat.config.js" hl_lines="9-22"
         --8<-- 'code/develop/smart-contracts/dev-environments/hardhat/hardhat.config.js:1:8'
           --8<-- 'code/develop/smart-contracts/dev-environments/hardhat/hardhat.config.js:22:36'
           --8<-- 'code/develop/smart-contracts/dev-environments/hardhat/hardhat.config.js:37:39'
@@ -129,7 +129,7 @@ To run your test:
 
     === "npm Configuration"
 
-        ```javascript title="hardhat.config.js" hl_lines="25-33"
+        ```javascript title="hardhat.config.js" hl_lines="24-32"
         --8<-- 'code/develop/smart-contracts/dev-environments/hardhat/hardhat.config.js:1:21'
           --8<-- 'code/develop/smart-contracts/dev-environments/hardhat/hardhat.config.js:37:49'
         --8<-- 'code/develop/smart-contracts/dev-environments/hardhat/hardhat.config.js:59:60'
@@ -137,7 +137,7 @@ To run your test:
 
     === "Binary Configuration"
 
-        ```javascript title="hardhat.config.js" hl_lines="27-35"
+        ```javascript title="hardhat.config.js" hl_lines="26-34"
         --8<-- 'code/develop/smart-contracts/dev-environments/hardhat/hardhat.config.js:1:8'
           --8<-- 'code/develop/smart-contracts/dev-environments/hardhat/hardhat.config.js:22:49'
         --8<-- 'code/develop/smart-contracts/dev-environments/hardhat/hardhat.config.js:59:60'
@@ -150,10 +150,10 @@ To run your test:
 
     For example, if you cloned the polkadot-sdk repository to your home directory, the paths might look like:
 
-        ```javascript
-        nodeBinaryPath: '/home/username/polkadot-sdk/target/release/substrate-node',
-        adapterBinaryPath: '/home/username/polkadot-sdk/target/release/eth-rpc',
-        ```
+    ```javascript
+    nodeBinaryPath: '/home/username/polkadot-sdk/target/release/substrate-node',
+    adapterBinaryPath: '/home/username/polkadot-sdk/target/release/eth-rpc',
+    ```
 
 2. Execute the following command:
 
@@ -183,7 +183,7 @@ Before deploying to a live network, you can deploy your contract to a local node
 
     === "npm Configuration"
 
-        ```javascript title="hardhat.config.js" hl_lines="35-38"
+        ```javascript title="hardhat.config.js" hl_lines="34-37"
         --8<-- 'code/develop/smart-contracts/dev-environments/hardhat/hardhat.config.js:1:21'
           --8<-- 'code/develop/smart-contracts/dev-environments/hardhat/hardhat.config.js:37:53'
         --8<-- 'code/develop/smart-contracts/dev-environments/hardhat/hardhat.config.js:59:60'
@@ -191,7 +191,7 @@ Before deploying to a live network, you can deploy your contract to a local node
 
     === "Binary Configuration"
 
-        ```javascript title="hardhat.config.js" hl_lines="37-40"
+        ```javascript title="hardhat.config.js" hl_lines="36-39"
         --8<-- 'code/develop/smart-contracts/dev-environments/hardhat/hardhat.config.js:1:8'
           --8<-- 'code/develop/smart-contracts/dev-environments/hardhat/hardhat.config.js:22:53'
         --8<-- 'code/develop/smart-contracts/dev-environments/hardhat/hardhat.config.js:59:60'
@@ -236,7 +236,7 @@ After testing your contract locally, you can deploy it to a live network. This g
 
 4. Update your config to load it:
 
-    ```javascript title="hardhat.config.js" hl_lines="6"
+    ```javascript title="hardhat.config.js" hl_lines="5"
     --8<-- 'code/develop/smart-contracts/dev-environments/hardhat/hardhat.config.js:1:4'
 
     require('dotenv').config();
@@ -250,7 +250,7 @@ After testing your contract locally, you can deploy it to a live network. This g
 
     === "npm Configuration"
 
-        ```javascript title="hardhat.config.js" hl_lines="42-46"
+        ```javascript title="hardhat.config.js" hl_lines="41-45"
         --8<-- 'code/develop/smart-contracts/dev-environments/hardhat/hardhat.config.js:1:4'
 
         require('dotenv').config();
@@ -263,7 +263,7 @@ After testing your contract locally, you can deploy it to a live network. This g
 
     === "Binary Configuration"
 
-        ```javascript title="hardhat.config.js" hl_lines="46-50"
+        ```javascript title="hardhat.config.js" hl_lines="45-49"
         --8<-- 'code/develop/smart-contracts/dev-environments/hardhat/hardhat.config.js:1:4'
 
         require('dotenv').config();

@@ -56,7 +56,7 @@ Before getting started, ensure you have:
     npx hardhat-polkadot init
     ```
 
-    Select "Create a JavaScript project" when prompted and follow the instructions. After that, your project will be created with three main folders:
+    Select **Create a JavaScript project** when prompted and follow the instructions. After that, your project will be created with three main folders:
 
     - **`contracts`** - where your Solidity smart contracts live
     - **`test`** - contains your test files that validate contract functionality

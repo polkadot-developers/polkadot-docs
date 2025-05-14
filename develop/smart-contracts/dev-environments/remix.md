@@ -106,7 +106,7 @@ To create a new contract using the Polkadot Remix IDE, you can follow these step
 
     ![](/images/develop/smart-contracts/evm-toolkit/dev-environments/remix/remix-8.webp)
 
-3. Click again the **Enviroment** dropdown and select **Injected Provider - Talisman**
+3. Click again the **Environment** dropdown and select **Injected Provider - Talisman**
 
     ![](/images/develop/smart-contracts/evm-toolkit/dev-environments/remix/remix-9.webp)
 

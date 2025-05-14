@@ -29,7 +29,7 @@ Before getting started, ensure you have:
 - Basic understanding of Solidity programming
 - Some WND test tokens to cover transaction fees (easily obtainable from the [Polkadot faucet](https://faucet.polkadot.io/westend?parachain=1000){target=\_blank}). To learn how to get test tokens, check out the [Test Tokens](/develop/smart-contracts/connect-to-polkadot/#test-tokens){target=\_blank} section
 
-## Setting Up Hardhat
+## Set Up Hardhat
 
 1. Create a new directory for your project and navigate into it:
 

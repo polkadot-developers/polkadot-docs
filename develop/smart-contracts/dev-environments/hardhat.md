@@ -158,8 +158,8 @@ To run your test:
     
     Since you compiled these from source using Rust's Cargo build system, you can find them at:
 
-    - Substrate node path - `polkadot-sdk/target/release/substrate-node`
-    - ETH-RPC adapter path - `polkadot-sdk/target/release/eth-rpc`
+    - **Substrate node path** - `polkadot-sdk/target/release/substrate-node`
+    - **ETH-RPC adapter path** - `polkadot-sdk/target/release/eth-rpc`
 
     For example, if you cloned the polkadot-sdk repository to your home directory, the paths might look like:
 

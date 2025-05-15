@@ -146,7 +146,7 @@ To run your test:
     Ensure to replace `INSERT_PATH_TO_SUBSTRATE_NODE` and `INSERT_PATH_TO_ETH_RPC_ADAPTER` with the proper paths to the compiled binaries. To obtain these binaries, you can run the following commands:
 
     ```bash
-    git clone https://github.com/paritytech/polkadot-sdk.git
+    git clone https://github.com/paritytech/polkadot-sdk.git && cd polkadot-sdk
     ```
 
     And then build the binaries:

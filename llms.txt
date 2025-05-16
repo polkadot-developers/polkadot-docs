@@ -34068,27 +34068,18 @@ Let's start by setting up Hardhat for your Storage contract project:
 6. Configure Hardhat by updating the `hardhat.config.js` file:
 
     ```javascript title="hardhat.config.js"
-    require('@nomicfoundation/hardhat-toolbox');
+    require("@nomicfoundation/hardhat-toolbox");
 
-require('hardhat-resolc');
-require('hardhat-revive-node');
+require("@parity/hardhat-polkadot");
 
-require('dotenv').config();
+require("dotenv").config();
 
 /** @type import('hardhat/config').HardhatUserConfig */
 module.exports = {
-  solidity: '0.8.28',
+  solidity: "0.8.28",
   resolc: {
-    compilerSource: 'binary',
-    settings: {
-      optimizer: {
-        enabled: true,
-        runs: 400,
-      },
-      evmVersion: 'istanbul',
-      compilerPath: 'INSERT_PATH_TO_RESOLC_COMPILER',
-      standardJson: true,
-    },
+    version: "1.5.2",
+    compilerSource: "npm",
   },
   networks: {
     hardhat: {
@@ -34401,7 +34392,7 @@ module.exports = buildModule('StorageModule', (m) => {
     b. After deployment, you'll see the contract address in the console output. Save this address for future interactions.
 
     <div id="termynal" data-termynal>
-  <span data-ty="input"><span class="file-path"></span>npx hardhat ignition deploy ./ignition/modules/Storage.js --network westendAssetHub</span>
+  <span data-ty="input"><span class="file-path"></span>npx hardhat ignition deploy ./ignition/modules/Storage.js --network westendHub</span>
   <span data-ty>✔ Confirm deploy to network localNode (420420420)? … yes</span>
   <span data-ty></span>
   <span data-ty>Hardhat Ignition 🚀</span>
@@ -34472,7 +34463,7 @@ main()
 3. If successful, the terminal will show the following output:
 
     <div id="termynal" data-termynal>
-  <span data-ty="input"><span class="file-path"></span>npx hardhat run scripts/interact.js --network westendAssetHub</span>
+  <span data-ty="input"><span class="file-path"></span>npx hardhat run scripts/interact.js --network westendHub</span>
   <span data-ty>Current stored value: 0</span>
   <span data-ty>Storing new value: 42...</span>
   <span data-ty>Transaction confirmed</span>
@@ -34486,7 +34477,7 @@ Congratulations! You've successfully set up a Hardhat development environment, w
 To get started with a working example right away, you can clone the repository and navigate to the project directory:
 
 ```bash
-git clone https://github.com/polkadot-developers/polkavm-hardhat-examples.git -b v0.0.1
+git clone https://github.com/polkadot-developers/polkavm-hardhat-examples.git -b v0.0.2
 cd polkavm-hardhat-examples/storage-hardhat
 ```
 --- END CONTENT ---

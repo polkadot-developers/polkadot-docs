@@ -35,6 +35,7 @@ Doc-Page: https://docs.polkadot.com/develop/parachains/testing/mock-runtime/
 Doc-Page: https://docs.polkadot.com/develop/parachains/testing/pallet-testing/
 Doc-Page: https://docs.polkadot.com/develop/smart-contracts/block-explorers/
 Doc-Page: https://docs.polkadot.com/develop/smart-contracts/connect-to-polkadot/
+Doc-Page: https://docs.polkadot.com/develop/smart-contracts/contract-verification/
 Doc-Page: https://docs.polkadot.com/develop/smart-contracts/dev-environments/hardhat/
 Doc-Page: https://docs.polkadot.com/develop/smart-contracts/dev-environments/
 Doc-Page: https://docs.polkadot.com/develop/smart-contracts/dev-environments/remix/
@@ -48,7 +49,6 @@ Doc-Page: https://docs.polkadot.com/develop/smart-contracts/libraries/web3-js/
 Doc-Page: https://docs.polkadot.com/develop/smart-contracts/libraries/web3-py/
 Doc-Page: https://docs.polkadot.com/develop/smart-contracts/overview/
 Doc-Page: https://docs.polkadot.com/develop/smart-contracts/precompiles/
-Doc-Page: https://docs.polkadot.com/develop/smart-contracts/verify-contracts/
 Doc-Page: https://docs.polkadot.com/develop/toolkit/api-libraries/
 Doc-Page: https://docs.polkadot.com/develop/toolkit/api-libraries/papi/
 Doc-Page: https://docs.polkadot.com/develop/toolkit/api-libraries/polkadot-js-api/
@@ -6229,6 +6229,105 @@ For your next steps, explore the various smart contract guides demonstrating how
 </div>
 --- END CONTENT ---
 
+Doc-Content: https://docs.polkadot.com/develop/smart-contracts/contract-verification/
+--- BEGIN CONTENT ---
+---
+title: Contract Verification
+description: Learn how to verify Solidity smart contracts on Subscan to improve transparency, trust, and usability for dApps on Polkadot Hub.
+---
+
+# Contract Verification
+
+## Introduction
+
+Verifying smart contracts on a block explorer improves the transparency and security of deployed smart contracts on the blockchain. Users can view the source code for verified contracts and, in some cases, interact directly with the contract's public methods through the block explorer's interface.
+
+This guide will outline the steps for verifying Solidity smart contracts on Polkadot Hub, through the [Subscan block explorer](https://assethub-westend.subscan.io/){target=\_blank}, explicitly focusing on the Westend Hub for testing purposes.
+
+## Deploying the Contract
+
+To verify a smart contract on the Subscan explorer, the contract must first be deployed on the target network. For further guidance about this process, you can check the [Deploy a NFT](/tutorials/smart-contracts/deploy-nft){target=\_blank} or [Deploy an ERC-20](/tutorials/smart-contracts/deploy-erc20){target=\_blank} tutorials.
+
+You can deploy your Solidity smart contract using various development tools compatible with the Polkadot Hub, such as [Remix](/develop/smart-contracts/dev-environments/remix){target=\_blank}, [Hardhat](/develop/smart-contracts/dev-environments/hardhat){target=\_blank}, or other preferred tools that connect to the Polkadot network.
+
+This guide uses a simple incrementer contract as an example. The Solidity code is the following:
+
+```solidity title="Incrementer.sol"
+// SPDX-License-Identifier: MIT
+
+pragma solidity ^0.8.0;
+
+contract Incrementer {
+    uint256 public number;
+
+    constructor(uint256 _initialNumber) {
+        number = _initialNumber;
+    }
+
+    function increment(uint256 _value) public {
+        number = number + _value;
+    }
+
+    function reset() public {
+        number = 0;
+    }
+}
+```
+
+## Collecting Information for Contract Verification
+
+You will need to collect some information related to the contract's compiler and deployment to verify it successfully:
+
+1. Take note of the name of the contract (in this example, `Incrementer`)
+2. Take note of the Solidity compiler version used to compile the contract (in this example, `v0.8.28+commit.7893614a`)
+
+    ![](/images/develop/smart-contracts/contract-verification/contract-verification-01.webp)
+
+3. If optimization is enabled during compilation, take note of the optimization runs parameter
+4. After deployment, take note of the deployed contract address. This can be found in the console output of your deployment tool or the interface of tools like Remix
+
+    ![](/images/develop/smart-contracts/contract-verification/contract-verification-02.webp)
+
+## Verify the Contract
+
+Follow these steps to verify your contract on [Westend Hub Subscan](https://assethub-westend.subscan.io/){target=\_blank}:
+
+1. Navigate to the [Subscan explorer](https://assethub-westend.subscan.io/){target=\_blank} for the Westend Hub
+2. Open the **Tools** dropdown and select **Contract Verification Tool**
+
+    ![](/images/develop/smart-contracts/contract-verification/contract-verification-03.webp)
+
+3. Fill in the contract's information in the verification form:
+    - Contract address
+    - Select the compiler type. For this `Incrementer.sol` example, select **Solidity (Single file)**
+    - Fill in the contract name (e.g., `Incrementer`)
+    - Select the compiler version used to compile the contract (e.g., `v0.8.28+commit.7893614a`)
+    - Add the Solidity source code of the contract
+  
+    ![](/images/develop/smart-contracts/contract-verification/contract-verification-04.webp)
+
+4. Click the **Verify and Publish** button to verify the contract
+
+## Verification Results
+
+After a successful verification, you should be redirected to a new page (for this example, you can check the following [contract page](https://assethub-westend.subscan.io/account/0x6e95330945ca37667c4c70a60287b4b271e1205e?tab=contract){target=\_blank}). The contract page on Subscan will now display:
+
+- Contract information
+- Contract ABI
+- Contract's source code
+- Contract bytecode
+
+    ![](/images/develop/smart-contracts/contract-verification/contract-verification-05.webp)
+
+This verified contract status gives users confidence that the contract's source code matches the deployed bytecode on the blockchain.
+
+## Conclusion
+
+Verifying your Solidity smart contracts on Subscan enhances transparency and trust in your decentralized applications on Polkadot Hub. Users can inspect the source code and interact with your contracts directly through the explorer interface, which is crucial for building community trust and facilitating the adoption of your project.
+
+Remember that verification is a one-time process for each deployed contract. Once your contract is verified, its source code will remain accessible on the blockchain explorer for as long as the explorer maintains its database.
+--- END CONTENT ---
+
 Doc-Content: https://docs.polkadot.com/develop/smart-contracts/dev-environments/hardhat/
 --- BEGIN CONTENT ---
 ---
@@ -10115,105 +10214,6 @@ Revive implements the standard set of Ethereum precompiles:
 For smart contract developers, precompiles offer a powerful way to access both low-level, high-performance operations and core platform capabilities within the smart contract execution context. Through Revive, Polkadot exposes these native functionalities, allowing developers to build faster, more efficient contracts that can take full advantage of the Polkadot ecosystem.
 
 Understanding and utilizing precompiles can unlock advanced functionality and performance gains, making them an essential tool for anyone building on the Polkadot Hub.
---- END CONTENT ---
-
-Doc-Content: https://docs.polkadot.com/develop/smart-contracts/verify-contracts/
---- BEGIN CONTENT ---
----
-title: Verify Contracts
-description: Learn how to verify Solidity smart contracts on Subscan to improve transparency, trust, and usability for dApps on Polkadot Hub.
----
-
-# Verify Contracts
-
-## Introduction
-
-Verifying smart contracts on a block explorer improves the transparency and security of deployed smart contracts on the blockchain. Users can view the source code for verified contracts and, in some cases, interact directly with the contract's public methods through the block explorer's interface.
-
-This guide will outline the steps for verifying Solidity smart contracts on Polkadot Hub, through the [Subscan block explorer](https://assethub-westend.subscan.io/){target=\_blank}, explicitly focusing on the Westend Hub for testing purposes.
-
-## Deploying the Contract
-
-To verify a smart contract on the Subscan explorer, the contract must first be deployed on the target network. For further guidance about this process, you can check the [Deploy a NFT](/tutorials/smart-contracts/deploy-nft){target=\_blank} or [Deploy an ERC-20](/tutorials/smart-contracts/deploy-erc20){target=\_blank} tutorials.
-
-You can deploy your Solidity smart contract using various development tools compatible with the Polkadot Hub, such as Remix, Hardhat, or other preferred tools that connect to the Polkadot network.
-
-This guide uses a simple incrementer contract as an example. The Solidity code is the following:
-
-```solidity title="Incrementer.sol"
-// SPDX-License-Identifier: MIT
-
-pragma solidity ^0.8.0;
-
-contract Incrementer {
-    uint256 public number;
-
-    constructor(uint256 _initialNumber) {
-        number = _initialNumber;
-    }
-
-    function increment(uint256 _value) public {
-        number = number + _value;
-    }
-
-    function reset() public {
-        number = 0;
-    }
-}
-```
-
-## Collecting Information for Contract Verification
-
-You will need to collect some information related to the contract's compiler and deployment to verify it successfully:
-
-1. Take note of the name of the contract (in this example, `Incrementer`)
-2. Take note of the Solidity compiler version used to compile and deploy the contract (in this example, `v0.8.28+commit.7893614a`)
-
-    ![](/images/develop/smart-contracts/verify-contracts/verify-contracts-01.webp)
-
-3. If optimization is enabled during compilation, take note of the optimization runs parameter
-4. After deployment, take note of the deployed contract address. This can be found in the console output of your deployment tool or the interface of tools like Remix
-
-    ![](/images/develop/smart-contracts/verify-contracts/verify-contracts-02.webp)
-
-## Verify the Contract
-
-Follow these steps to verify your contract on [Westend Hub Subscan](https://assethub-westend.subscan.io/){target=\_blank}:
-
-1. Navigate to the [Subscan explorer](https://assethub-westend.subscan.io/){target=\_blank} for the Westend Hub
-2. Open the **Tools** dropdown and select **Contract Verification Tool**
-
-    ![](/images/develop/smart-contracts/verify-contracts/verify-contracts-03.webp)
-
-3. Fill in the contract's information in the verification form:
-    - Contract address
-    - Select the compiler type. For this `Incrementer.sol` example, select **Solidity (Single file)**
-    - Fill in the contract name (e.g., `Incrementer`)
-    - Select the compiler version used to compile the contract (e.g., `v0.8.28+commit.7893614a`)
-    - Add the Solidity source code of the contract
-  
-    ![](/images/develop/smart-contracts/verify-contracts/verify-contracts-04.webp)
-
-4. Click the **Verify and Publish** button to verify the contract
-
-## Verification Results
-
-After a successful verification, you should be redirected to a new page (for this example, the verified contract page is [here](https://assethub-westend.subscan.io/account/0x6e95330945ca37667c4c70a60287b4b271e1205e?tab=contract){target=\_blank}). The contract page on Subscan will now display:
-
-- Contract information
-- Contract ABI
-- Contract's source code
-- Contract bytecode
-
-    ![](/images/develop/smart-contracts/verify-contracts/verify-contracts-05.webp)
-
-This verified contract status gives users confidence that the contract's source code matches the deployed bytecode on the blockchain.
-
-## Conclusion
-
-Verifying your Solidity smart contracts on Subscan enhances transparency and trust in your decentralized applications on Polkadot Hub. Users can inspect the source code and interact with your contracts directly through the explorer interface, which is crucial for building community trust and facilitating the adoption of your project.
-
-Remember that verification is a one-time process for each deployed contract. Once your contract is verified, its source code will remain accessible on the blockchain explorer for as long as the explorer maintains its database.
 --- END CONTENT ---
 
 Doc-Content: https://docs.polkadot.com/develop/toolkit/api-libraries/

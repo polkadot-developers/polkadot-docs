@@ -6,6 +6,6 @@ nav:
   - dev-environments
   - libraries
   - 'Block Explorers': block-explorers.md
-  - 'Verify Contracts': verify-contracts.md
+  - 'Contract Verification': contract-verification.md
   - 'JSON-RPC APIs': json-rpc-apis.md
   - 'Precompiles': precompiles.md

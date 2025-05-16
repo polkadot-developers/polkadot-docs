@@ -17,10 +17,16 @@ This technical advancement enables parachains to process multiple blocks within 
 
 Elastic scaling enables parachains to process multiple blocks in parallel by utilizing additional cores on the relay chain. This section provides a technical analysis of the performance advantages and details of the implementation.
 
-Consider a parachain that needs to process four consecutive parablocks (P1-P4). With traditional single-core allocation, the validation process follows a strictly sequential pattern. Each parablock undergoes a two-phase process on the relay chain:
+Consider a parachain that needs to process four consecutive parablocks. With traditional single-core allocation, the validation process follows a strictly sequential pattern. Each parablock undergoes a two-phase process on the relay chain:
 
 1. **Backing phase** - validators create and distribute validity statements
 2. **Inclusion phase** - the parablock is included in the relay chain after availability verification
+
+Throughout the following diagrams, specific notation is used to represent different components of the system:
+
+- R1, R2, ... - relay chain blocks (produced at ~6-second intervals)
+- P1, P2, ... - parachain blocks that need validation and inclusion
+- C1, C2, ... - cores on the relay chain
 
 In the single-core scenario (assuming a 6-second relay chain block time), processing four parablocks requires approximately 30 seconds:
 
@@ -75,6 +81,13 @@ sequenceDiagram
     R3->>R3: Include P4
     end
 ```
+
+To help interpret the sequence diagrams above, note the following key elements:
+
+- The horizontal axis represents time progression through relay chain blocks (R1-R5)
+- Each colored rectangle shows processing on a specific core (C1 or C2)
+- In the single-core scenario, all blocks must be processed sequentially on one core
+- In the multi-core scenario, blocks are processed in parallel across multiple cores, reducing total time
 
 The relay chain processes these multiple parablocks as independent validation units during the backing, availability, and approval phases. However, during inclusion, it verifies that their state roots align properly to maintain chain consistency.
 

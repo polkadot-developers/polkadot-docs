@@ -36,22 +36,16 @@ Let's start by setting up Hardhat for your Storage contract project:
     npm init -y
     ```
 
-3. Install Hardhat and the required plugins:
+3. Install `hardhat-polkadot` plugin and the required plugins:
 
     ```bash
-    npm install --save-dev hardhat @nomicfoundation/hardhat-toolbox
-    ```
-
-4. Install the Hardhat revive specific plugins:
-
-    ```bash
-    npm install --save-dev hardhat-resolc@{{ dependencies.javascript_packages.hardhat_resolc.version }} hardhat-revive-node@{{ dependencies.javascript_packages.hardhat_revive_node.version }} dotenv
+    npm install --save-dev @parity/hardhat-polkadot @nomicfoundation/hardhat-toolbox solc@0.8.28 dotenv
     ```
 
 5. Initialize a Hardhat project:
 
     ```bash
-    npx hardhat init
+    npx hardhat-polkadot init
     ```
 
     Select **Create an empty hardhat.config.js** when prompted.
@@ -62,11 +56,7 @@ Let's start by setting up Hardhat for your Storage contract project:
     --8<-- 'https://raw.githubusercontent.com/polkadot-developers/polkavm-hardhat-examples/refs/tags/v0.0.1/storage-hardhat/hardhat.config.js'
     ```
 
-    To configure the binary, replace `INSERT_PATH_TO_RESOLC_COMPILER` with the correct path to the compiler binary. Detailed installation instructions can be found in the [installation section](https://github.com/paritytech/revive?tab=readme-ov-file#installation){target=\_blank} of the `pallet-revive` repository. Also, ensure that `INSERT_PATH_TO_SUBSTRATE_NODE` and `INSERT_PATH_TO_ETH_RPC_ADAPTER` are replaced with the proper paths to the compiled binaries. 
-    
-    For more information about these compiled binaries, see the [Deploying with a local node](/develop/smart-contracts/dev-environments/hardhat#deploying-with-a-local-node){target=\_blank} section in the Hardhat documentation.
-
-    This setup loads essential plugins, including [`hardhat-toolbox`](https://www.npmjs.com/package/@nomicfoundation/hardhat-toolbox){target=\_blank}, [`hardhat-resolc`](https://www.npmjs.com/package/hardhat-resolc){target=\_blank}, and [`hardhat-revive-node`](https://www.npmjs.com/package/hardhat-revive-node){target=\_blank}, while utilizing environment variables through `dotenv`. The Solidity compiler is set to version 0.8.19 with optimization enabled for improved gas efficiency. The resolc plugin is configured to use the Remix compiler with Istanbul compatibility.
+    Ensure that `INSERT_PATH_TO_SUBSTRATE_NODE` and `INSERT_PATH_TO_ETH_RPC_ADAPTER` are replaced with the proper paths to the compiled binaries. 
 
     The configuration also defines two network settings: 
 
@@ -202,7 +192,7 @@ Testing is a critical part of smart contract development. Hardhat makes it easy 
     a. First, start a local node:
 
     ```bash
-    npx hardhat node-polkavm
+    npx hardhat node
     ```
 
     b. Then, in a new terminal window, deploy the contract:
@@ -220,7 +210,7 @@ Testing is a critical part of smart contract development. Hardhat makes it easy 
     a. Make sure your account has enough WND tokens for gas fees, then run:
 
     ```bash
-    npx hardhat ignition deploy ./ignition/modules/StorageModule.js --network westendAssetHub
+    npx hardhat ignition deploy ./ignition/modules/StorageModule.js --network westendHub
     ```
 
     b. After deployment, you'll see the contract address in the console output. Save this address for future interactions.
@@ -242,7 +232,7 @@ To interact with your deployed contract:
 2. Run the interaction script:
 
     ```bash
-    npx hardhat run scripts/interact.js --network westendAssetHub
+    npx hardhat run scripts/interact.js --network westendHub
     ```
 
 3. If successful, the terminal will show the following output:

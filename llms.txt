@@ -16118,7 +16118,7 @@ From an implementation perspective:
 
 ## Benefits of Elastic Scaling
 
-- **Increased throughput** - multiple concurrent cores enable parachains to process transactions at multiples of their previous capacity. By breaking the 1:1 relationship between parachain and relay chain blocks, applications can achieve significantly higher transaction volumes
+- **Increased throughput** - multiple concurrent cores enable parachains to process transactions at multiples of their previous capacity. By allowing multiple parachain blocks to be validated within each relay chain block cycle, applications can achieve significantly higher transaction volumes
 
 - **Lower latency** - transaction finality improves substantially with multi-core processing. Parachains currently achieve 2-second latency with three cores, with projected improvements to 500ms using 12 cores, enabling near-real-time application responsiveness
 

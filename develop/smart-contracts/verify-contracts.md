@@ -28,7 +28,7 @@ This guide uses a simple incrementer contract as an example. The Solidity code i
 You will need to collect some information related to the contract's compiler and deployment to verify it successfully:
 
 1. Take note of the name of the contract (in this example, `Incrementer`)
-2. Take note of the Solidity compiler version used to compile and deploy the contract (in this example, `v0.8.28+commit.7893614a`)
+2. Take note of the Solidity compiler version used to compile the contract (in this example, `v0.8.28+commit.7893614a`)
 
     ![](/images/develop/smart-contracts/verify-contracts/verify-contracts-01.webp)
 

@@ -36,22 +36,16 @@ Let's start by setting up Hardhat for your Storage contract project:
     npm init -y
     ```
 
-3. Install Hardhat and the required plugins:
+3. Install `hardhat-polkadot` and all required plugins:
 
     ```bash
-    npm install --save-dev hardhat @nomicfoundation/hardhat-toolbox
-    ```
-
-4. Install the Hardhat revive specific plugins:
-
-    ```bash
-    npm install --save-dev hardhat-resolc@{{ dependencies.javascript_packages.hardhat_resolc.version }} hardhat-revive-node@{{ dependencies.javascript_packages.hardhat_revive_node.version }} dotenv
+    npm install --save-dev @parity/hardhat-polkadot @nomicfoundation/hardhat-toolbox solc@0.8.28 dotenv
     ```
 
 5. Initialize a Hardhat project:
 
     ```bash
-    npx hardhat init
+    npx hardhat-polkadot init
     ```
 
     Select **Create an empty hardhat.config.js** when prompted.
@@ -59,14 +53,10 @@ Let's start by setting up Hardhat for your Storage contract project:
 6. Configure Hardhat by updating the `hardhat.config.js` file:
 
     ```javascript title="hardhat.config.js"
-    --8<-- 'https://raw.githubusercontent.com/polkadot-developers/polkavm-hardhat-examples/refs/tags/v0.0.1/storage-hardhat/hardhat.config.js'
+    --8<-- 'https://raw.githubusercontent.com/polkadot-developers/polkavm-hardhat-examples/refs/tags/v0.0.2/storage-hardhat/hardhat.config.js'
     ```
 
-    To configure the binary, replace `INSERT_PATH_TO_RESOLC_COMPILER` with the correct path to the compiler binary. Detailed installation instructions can be found in the [installation section](https://github.com/paritytech/revive?tab=readme-ov-file#installation){target=\_blank} of the `pallet-revive` repository. Also, ensure that `INSERT_PATH_TO_SUBSTRATE_NODE` and `INSERT_PATH_TO_ETH_RPC_ADAPTER` are replaced with the proper paths to the compiled binaries. 
-    
-    For more information about these compiled binaries, see the [Deploying with a local node](/develop/smart-contracts/dev-environments/hardhat#deploying-with-a-local-node){target=\_blank} section in the Hardhat documentation.
-
-    This setup loads essential plugins, including [`hardhat-toolbox`](https://www.npmjs.com/package/@nomicfoundation/hardhat-toolbox){target=\_blank}, [`hardhat-resolc`](https://www.npmjs.com/package/hardhat-resolc){target=\_blank}, and [`hardhat-revive-node`](https://www.npmjs.com/package/hardhat-revive-node){target=\_blank}, while utilizing environment variables through `dotenv`. The Solidity compiler is set to version 0.8.19 with optimization enabled for improved gas efficiency. The resolc plugin is configured to use the Remix compiler with Istanbul compatibility.
+    Ensure that `INSERT_PATH_TO_SUBSTRATE_NODE` and `INSERT_PATH_TO_ETH_RPC_ADAPTER` are replaced with the proper paths to the compiled binaries. 
 
     The configuration also defines two network settings: 
 
@@ -91,7 +81,7 @@ Let's start by setting up Hardhat for your Storage contract project:
 1. Create a new folder called `contracts` and create a `Storage.sol` file. Add the contract code from the previous tutorial:
 
     ```solidity title="Storage.sol"
-    --8<-- 'https://raw.githubusercontent.com/polkadot-developers/polkavm-hardhat-examples/refs/tags/v0.0.1/storage-hardhat/contracts/Storage.sol'
+    --8<-- 'https://raw.githubusercontent.com/polkadot-developers/polkavm-hardhat-examples/refs/tags/v0.0.2/storage-hardhat/contracts/Storage.sol'
     ```
 
 2. Compile the contract:
@@ -113,9 +103,9 @@ Testing is a critical part of smart contract development. Hardhat makes it easy 
 1. Create a folder for testing called `test`. Inside that directory, create a file named `Storage.js` and add the following code:
 
     ```javascript title="Storage.js" 
-    --8<-- 'https://raw.githubusercontent.com/polkadot-developers/polkavm-hardhat-examples/refs/tags/v0.0.1/storage-hardhat/test/Storage.js:0:19'
+    --8<-- 'https://raw.githubusercontent.com/polkadot-developers/polkavm-hardhat-examples/refs/tags/v0.0.2/storage-hardhat/test/Storage.js:0:19'
         // Add your logic here
-    --8<-- 'https://raw.githubusercontent.com/polkadot-developers/polkavm-hardhat-examples/refs/tags/v0.0.1/storage-hardhat/test/Storage.js:48:49'
+    --8<-- 'https://raw.githubusercontent.com/polkadot-developers/polkavm-hardhat-examples/refs/tags/v0.0.2/storage-hardhat/test/Storage.js:48:49'
     ```
 
     The `beforeEach` hook ensures stateless contract execution by redeploying a fresh instance of the Storage contract before each test case. This approach guarantees that each test starts with a clean and independent contract state by using `ethers.getSigners()` to obtain test accounts and `ethers.getContractFactory('Storage').deploy()` to create a new contract instance.
@@ -125,7 +115,7 @@ Testing is a critical part of smart contract development. Hardhat makes it easy 
     a. **Initial state verification** - ensures that the contract starts with a default value of zero, which is a fundamental expectation for the `Storage.sol` contract
 
     ```javascript title="Storage.js"
-    --8<-- 'https://raw.githubusercontent.com/polkadot-developers/polkavm-hardhat-examples/refs/tags/v0.0.1/storage-hardhat/test/Storage.js:20:22'
+    --8<-- 'https://raw.githubusercontent.com/polkadot-developers/polkavm-hardhat-examples/refs/tags/v0.0.2/storage-hardhat/test/Storage.js:20:22'
     ```
 
     Explanation:
@@ -137,7 +127,7 @@ Testing is a critical part of smart contract development. Hardhat makes it easy 
     b. **Value storage test** - validate the core functionality of storing and retrieving a value in the contract
 
     ```javascript title="Storage.js"
-    --8<-- 'https://raw.githubusercontent.com/polkadot-developers/polkavm-hardhat-examples/refs/tags/v0.0.1/storage-hardhat/test/Storage.js:24:30'
+    --8<-- 'https://raw.githubusercontent.com/polkadot-developers/polkavm-hardhat-examples/refs/tags/v0.0.2/storage-hardhat/test/Storage.js:24:30'
     ```
 
     Explanation:
@@ -149,7 +139,7 @@ Testing is a critical part of smart contract development. Hardhat makes it easy 
     c. **Event emission verification** - confirm that the contract emits the correct event when storing a value, which is crucial for off-chain tracking
 
     ```javascript title="Storage.js"
-    --8<-- 'https://raw.githubusercontent.com/polkadot-developers/polkavm-hardhat-examples/refs/tags/v0.0.1/storage-hardhat/test/Storage.js:32:38'
+    --8<-- 'https://raw.githubusercontent.com/polkadot-developers/polkavm-hardhat-examples/refs/tags/v0.0.2/storage-hardhat/test/Storage.js:32:38'
     ```
 
     Explanation:
@@ -161,7 +151,7 @@ Testing is a critical part of smart contract development. Hardhat makes it easy 
     d. **Sequential value storage test** - check the contract's ability to store multiple values sequentially and maintain the most recent value
 
     ```javascript title="Storage.js"
-    --8<-- 'https://raw.githubusercontent.com/polkadot-developers/polkavm-hardhat-examples/refs/tags/v0.0.1/storage-hardhat/test/Storage.js:40:47'
+    --8<-- 'https://raw.githubusercontent.com/polkadot-developers/polkavm-hardhat-examples/refs/tags/v0.0.2/storage-hardhat/test/Storage.js:40:47'
     ```
 
     Explanation:
@@ -174,7 +164,7 @@ Testing is a critical part of smart contract development. Hardhat makes it easy 
 
     ???--- code "View complete script"
         ```javascript title="Storage.js"
-        --8<-- 'https://raw.githubusercontent.com/polkadot-developers/polkavm-hardhat-examples/refs/tags/v0.0.1/storage-hardhat/test/Storage.js'
+        --8<-- 'https://raw.githubusercontent.com/polkadot-developers/polkavm-hardhat-examples/refs/tags/v0.0.2/storage-hardhat/test/Storage.js'
         ```
 
 2. Run the tests:
@@ -194,7 +184,7 @@ Testing is a critical part of smart contract development. Hardhat makes it easy 
 1. Create a new folder called`ignition/modules`. Add a new file named `StorageModule.js` with the following logic:
 
     ```javascript title="StorageModule.js"
-    --8<-- 'https://raw.githubusercontent.com/polkadot-developers/polkavm-hardhat-examples/refs/tags/v0.0.1/storage-hardhat/ignition/modules/StorageModule.js'
+    --8<-- 'https://raw.githubusercontent.com/polkadot-developers/polkavm-hardhat-examples/refs/tags/v0.0.2/storage-hardhat/ignition/modules/StorageModule.js'
     ```
 
 2. Deploy to the local network:
@@ -202,7 +192,7 @@ Testing is a critical part of smart contract development. Hardhat makes it easy 
     a. First, start a local node:
 
     ```bash
-    npx hardhat node-polkavm
+    npx hardhat node
     ```
 
     b. Then, in a new terminal window, deploy the contract:
@@ -220,7 +210,7 @@ Testing is a critical part of smart contract development. Hardhat makes it easy 
     a. Make sure your account has enough WND tokens for gas fees, then run:
 
     ```bash
-    npx hardhat ignition deploy ./ignition/modules/StorageModule.js --network westendAssetHub
+    npx hardhat ignition deploy ./ignition/modules/StorageModule.js --network westendHub
     ```
 
     b. After deployment, you'll see the contract address in the console output. Save this address for future interactions.
@@ -234,7 +224,7 @@ To interact with your deployed contract:
 1. Create a new folder named `scripts` and add the `interact.js` with the following content:
 
     ```javascript title="interact.js"
-    --8<-- 'https://raw.githubusercontent.com/polkadot-developers/polkavm-hardhat-examples/refs/tags/v0.0.1/storage-hardhat/scripts/interact.js'
+    --8<-- 'https://raw.githubusercontent.com/polkadot-developers/polkavm-hardhat-examples/refs/tags/v0.0.2/storage-hardhat/scripts/interact.js'
     ```
 
     Ensure that `INSERT_DEPLOYED_CONTRACT_ADDRESS` is replaced with the value obtained in the previous step.
@@ -242,7 +232,7 @@ To interact with your deployed contract:
 2. Run the interaction script:
 
     ```bash
-    npx hardhat run scripts/interact.js --network westendAssetHub
+    npx hardhat run scripts/interact.js --network westendHub
     ```
 
 3. If successful, the terminal will show the following output:
@@ -256,6 +246,6 @@ Congratulations! You've successfully set up a Hardhat development environment, w
 To get started with a working example right away, you can clone the repository and navigate to the project directory:
 
 ```bash
-git clone https://github.com/polkadot-developers/polkavm-hardhat-examples.git -b v0.0.1
+git clone https://github.com/polkadot-developers/polkavm-hardhat-examples.git -b v0.0.2
 cd polkavm-hardhat-examples/storage-hardhat
 ```

@@ -41,7 +41,7 @@ You will need to collect some information related to the contract's compiler and
 
 Follow these steps to verify your contract on [Westend Hub Subscan](https://assethub-westend.subscan.io/){target=\_blank}:
 
-1. Navigate to the [Subscan explorer](https://assethub-westend.subscan.io/){target=\_blank} for the Westend Hub
+1. Navigate to the [Subscan explorer](https://assethub-westend.subscan.io/){target=\_blank} for Westend Hub
 2. Open the **Tools** dropdown and select **Contract Verification Tool**
 
     ![](/images/develop/smart-contracts/contract-verification/contract-verification-03.webp)

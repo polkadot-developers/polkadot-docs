@@ -7,66 +7,84 @@ description: Run parachain nodes easily with the polkadot-omni-node, a white-lab
 
 ## Introduction
 
-The [`polkadot-omni-node`]((https://crates.io/crates/polkadot-omni-node/{{dependencies.crates.polkadot_omni_node.version}})){target=\_blank} stands as a versatile, pre-built binary designed to simplify the operation of nodes for a multitude of parachains. Its core capability lies in its independence from specific runtime code. Instead, it operates by ingesting a chain specification, adapting its functionality based on this input. 
+The [`polkadot-omni-node`]((https://crates.io/crates/polkadot-omni-node/{{dependencies.crates.polkadot_omni_node.version}})){target=\_blank} is a versatile, pre-built binary designed to simplify running parachains in the Polkadot ecosystem. Unlike traditional node binaries that are tightly coupled to specific runtime code, the `polkadot-omni-node` operates using an external [chain specification](polkadot-protocol/glossary#chain-specification){target=\_blank} file, allowing it to adapt dynamically to different parachains.
 
-This unique property allows the `polkadot-omni-node` to function as a "white-labeled" solution, capable of running most parachains that do not require node-level customizations.
+This approach enables it to act as a white-labeled node binary, capable of running most parachains that do not require custom node-level logic or extensions. Developers can leverage this flexibility to test, deploy, or operate parachain nodes without maintaining a dedicated codebase for each network.
 
-This guide provides a comprehensive guide for developers seeking to leverage the `polkadot-omni-node` to run a full node for their chosen parachain. 
+This guide provides step-by-step instructions for installing the `polkadot-omni-node`, obtaining a chain specification, and launching a parachain node.
 
 ## Prerequisites
 
 Before getting started, ensure you have the following prerequisites:
 
-- [Rust](https://www.rust-lang.org/tools/install){target=_blank} installed on your operating system
+- **[Rust](https://www.rust-lang.org/tools/install){target=_blank}** - required to build and install the polkadot-omni-node binary
+
+Ensure Rust's `cargo` command is available in your terminal by running:
+
+```bash
+cargo --version
+```
 
 ## Install the Polkadot Omni Node
 
-To install the `polkadot-omni-node` globally, execute the the following command:
+To install the `polkadot-omni-node` globally using `cargo`, run:
 
 ```bash
 cargo install --locked polkadot-omni-node@{{dependencies.crates.polkadot_omni_node.version}}
 ```
 
-This command will download and install the version {{dependencies.crates.polkadot_omni_node.version}} of the `polkadot-omni-node` binary, making it available for use in your development environment.
+This command downloads and installs version {{dependencies.crates.polkadot_omni_node.version}} of the binary, making it available system-wide.
 
-Verify the installation by checking the installed version by running:
+To confirm the installation, run:
 
 ```bash
 polkadot-omni-node --version
 ```
 
-This should return the version number of the installed `polkadot-omni-node`, confirming that the installation was successful.
+You should see the installed version number printed to the terminal, confirming a successful installation.
 
 ## Obtain Chain Specifications
 
-The `polkadot-omni-node` relies on a chain specification file to understand the network configuration of the parachain you intend to run. These JSON files detail the genesis state and runtime settings of the blockchain.
+The `polkadot-omni-node` uses a chain specification file to configure and launch a parachain node. This file defines the parachain's genesis state and network settings.
 
-The primary source for chain specification files is the [paritytech/chainspecs](https://github.com/paritytech/chainspecs){target=\_blank} repository. This repository contains chain specifications for various Polkadot ecosystem networks.
+The most common source for official chain specifications is the [paritytech/chainspecs](https://github.com/paritytech/chainspecs){target=\_blank} repository. These specifications are also browsable in a user-friendly format via the [Chainspect Collection](https://paritytech.github.io/chainspecs/){target=\_blank} website.
 
-To obtain the chain specification for your desired parachain:
+To obtain a chain specification:
 
-1. Navigate to the [Chainspect Collection](https://paritytech.github.io/chainspecs/){target=\_blank} website
-2. Locate the chain specification file corresponding to the parachain you wish to run
-3. Click on it to view the file's content. Copy it and save it as a .json file on your local machine
+1. Visit the [Chainspect Collection](https://paritytech.github.io/chainspecs/){target=\_blank} website
+
+2. Find the parachain you want to run
+
+3. Click the chain spec to open it
+
+4. Copy the JSON content and save it locally as a .json file, e.g., `chain_spec.json`
 
 ## Running a Parachain Full Node
 
-Once you have installed the `polkadot-omni-node` and downloaded the chain specification file, you can launch a full node for your chosen parachain.
+Once you've installed the `polkadot-omni-node` and saved the appropriate chain specification file, you can start a full node for your chosen parachain.
 
-To check all the available options and flags for the `polkadot-omni-node`, you can run the following command in your terminal:
+To see all available flags and configuration options, run:
 
 ```bash
 polkadot-omni-node --help
 ```
 
-In order to run a parachain node, execute the `polkadot-omni-node` command replacing `./INSERT_PARACHAIN_CHAIN_SPEC.json` with the actual path to your downloaded file:
+To launch the node, run the following command, replacing `./INSERT_PARACHAIN_CHAIN_SPEC.json` with the actual path to your saved chain spec file.
+
+This command will:
+
+- Load the chain specification
+
+- Initialize the node using the provided network configuration
+
+- Begin syncing with the parachain network
 
 ```bash
 polkadot-omni-node --chain ./INSERT_PARACHAIN_CHAIN_SPEC.json --sync warp
 ```
 
-The node will start, load the chain specification, and begin the process of synchronizing with the network defined. You will see logs and status updates in your terminal reflecting the node's operation.
+- The `--chain` flag tells the `polkadot-omni-node` which parachain to run by pointing to its chain specification file
 
-The `--chain` flag instructs the `polkadot-omni-node` to initialize and run a node based on the provided chain specification. Its architecture allows it to interpret the chain specification and operate as a full node for that specific parachain without needing a dedicated node binary.
+- The `--sync warp` flag enables warp sync, allowing the node to quickly catch up to the latest finalized state. Historical blocks are fetched in the background as the node continues operating
 
-The `--sync` flag specifies the synchronization method. The `warp` option ensures that your node quickly updates to the latest finalized state. The historical blocks are downloaded in the background as the node continues to operate.
+Once started, the node will begin connecting to peers and syncing with the network. You’ll see logs in your terminal reflecting its progress.

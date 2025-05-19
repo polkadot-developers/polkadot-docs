@@ -6152,11 +6152,11 @@ You will need testnet tokens to perform transactions and engage with smart contr
 
 2. Copy your address linked to Westend and paste it into the designated field
 
-    ![](/images/develop/smart-contracts/connect-to-asset-hub/connect-to-asset-hub-1.webp)
+    ![](/images/develop/smart-contracts/connect-to-polkadot-hub/connect-to-polkadot-hub-1.webp)
 
 3. Click the **Get Some WND** button to request free test WND tokens. These tokens will be sent to your wallet shortly
 
-    ![](/images/develop/smart-contracts/connect-to-asset-hub/connect-to-asset-hub-2.webp)
+    ![](/images/develop/smart-contracts/connect-to-polkadot-hub/connect-to-polkadot-hub-2.webp)
 
 Now that you have obtained WND tokens in your wallet, you’re ready to deploy and interact with smart contracts on Westend Hub! These tokens will allow you to pay for gas fees when executing transactions, deploying contracts, and testing your dApp functionality in a secure testnet environment. 
 
@@ -6216,7 +6216,7 @@ Before getting started, ensure you have:
 
 - [Node.js](https://nodejs.org/){target=\_blank} (v16.0.0 or later) and npm installed
 - Basic understanding of Solidity programming
-- Some WND test tokens to cover transaction fees (easily obtainable from the [Polkadot faucet](https://faucet.polkadot.io/westend?parachain=1000){target=\_blank}). To learn how to get test tokens, check out the [Test Tokens](/develop/smart-contracts/connect-to-polkadot/#test-tokens){target=\_blank} section
+- Some WND test tokens to cover transaction fees (easily obtainable from the [Polkadot faucet](https://faucet.polkadot.io/westend?parachain=1000){target=\_blank}). To learn how to get test tokens, check out the [Test Tokens](/develop/smart-contracts/connect-to-polkadot#test-tokens){target=\_blank} section
 
 ## Set Up Hardhat
 
@@ -10129,7 +10129,7 @@ For example, to connect to the Westend Hub TestNet via MetaMask, you need to fol
 
     ![](/images/develop/smart-contracts/wallets/wallets-2.webp){: .browser-extension}
 
-3. Complete the necessary fields using the parameters in the [Specifications](#specifications) section, then click the **Save** button (refer to the [Networks](#networks) section for copy and paste parameters)
+3. Complete the necessary fields, then click the **Save** button (refer to the [Networks](/develop/smart-contracts/connect-to-polkadot#networks-details) section for copy and paste parameters)
 
     ![](/images/develop/smart-contracts/wallets/wallets-3.webp){: .browser-extension}
 
@@ -16272,7 +16272,7 @@ In this unit file, you will write the commands that you want to run on server bo
 [Unit]
 Description=Polkadot Node
 After=network.target
-Documentation=https://github.com/paritytech/polkadot
+Documentation=https://github.com/paritytech/polkadot-sdk
 
 [Service]
 EnvironmentFile=-/etc/default/polkadot
@@ -31998,7 +31998,7 @@ This tutorial covers deploying an ERC-20 contract on the Westend TestNet using [
 
 Before starting, make sure you have:
 
-- [Talisman](https://talisman.xyz/){target=\_blank} installed and connected to [Westend Hub](https://chainlist.org/chain/420420421){target=\_blank}. For detailed instructions, see the [Connect Your Wallet](/develop/smart-contracts/connect-to-polkadot/#connect-your-wallet){target=\_blank} section
+- [Talisman](https://talisman.xyz/){target=\_blank} installed and connected to [Westend Hub](https://chainlist.org/chain/420420421){target=\_blank}. For detailed instructions, see the [Connect Your Wallet](/develop/smart-contracts/wallets/#connect-your-wallet){target=\_blank} section
 - A funded account with some WND tokens (you can get them from the [Westend Faucet](https://faucet.polkadot.io/westend?parachain=1000){target=\_blank}). To learn how to get test tokens, check out the [Test Tokens](/develop/smart-contracts/connect-to-asset-hub/#test-tokens){target=\_blank} section
 - Basic understanding of Solidity and fungible tokens
 

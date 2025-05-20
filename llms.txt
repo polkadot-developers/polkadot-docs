@@ -6154,7 +6154,7 @@ You will need testnet tokens to perform transactions and engage with smart contr
 
     ![](/images/develop/smart-contracts/connect-to-polkadot-hub/connect-to-polkadot-hub-1.webp)
 
-3. Click the **Get Some WND** button to request free test WND tokens. These tokens will be sent to your wallet shortly
+3. Click the **Get Some WNDs** button to request free test WND tokens. These tokens will be sent to your wallet shortly
 
     ![](/images/develop/smart-contracts/connect-to-polkadot-hub/connect-to-polkadot-hub-2.webp)
 
@@ -10159,7 +10159,10 @@ After selecting the network, Talisman will automatically configure the necessary
 
 ## Conclusion
 
-Choosing the right wallet for Polkadot Hub interactions depends on your specific requirements and familiarity with different interfaces. MetaMask provides a familiar entry point for developers with Ethereum experience, while Talisman offers deeper integration with Polkadot's unique features and native support for both EVM and Substrate accounts. By properly configuring your wallet connection, you gain access to the full spectrum of Polkadot Hub's capabilities. Remember to always verify network parameters when connecting to ensure a secure and reliable connection to the Polkadot ecosystem.
+Choosing the right wallet for Polkadot Hub interactions depends on your specific requirements and familiarity with different interfaces. MetaMask provides a familiar entry point for developers with Ethereum experience, while Talisman offers deeper integration with Polkadot's unique features and native support for both EVM and Substrate accounts. By properly configuring your wallet connection, you gain access to the full spectrum of Polkadot Hub's capabilities.
+
+!!!info
+    Remember to always verify network parameters when connecting to ensure a secure and reliable connection to the Polkadot ecosystem.
 --- END CONTENT ---
 
 Doc-Content: https://docs.polkadot.com/develop/toolkit/api-libraries/
@@ -19526,16 +19529,7 @@ The [`Account` data type](https://paritytech.github.io/polkadot-sdk/master/frame
 The code snippet below shows how accounts are defined:
 
 ```rs
- /// The full account information for a particular account ID.
-	#[pallet::storage]
-	#[pallet::getter(fn account)]
-	pub type Account<T: Config> = StorageMap<
-		_,
-		Blake2_128Concat,
-		T::AccountId,
-		AccountInfo<T::Nonce, T::AccountData>,
-		ValueQuery,
-	>;
+ Failed to fetch snippet after 3 attempts
 ```
 
 The preceding code block defines a storage map named `Account`. The `StorageMap` is a type of on-chain storage that maps keys to values. In the `Account` map, the key is an account ID, and the value is the account's information. Here, `T` represents the generic parameter for the runtime configuration, which is defined by the pallet's configuration trait (`Config`).

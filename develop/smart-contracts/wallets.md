@@ -57,4 +57,7 @@ After selecting the network, Talisman will automatically configure the necessary
 
 ## Conclusion
 
-Choosing the right wallet for Polkadot Hub interactions depends on your specific requirements and familiarity with different interfaces. MetaMask provides a familiar entry point for developers with Ethereum experience, while Talisman offers deeper integration with Polkadot's unique features and native support for both EVM and Substrate accounts. By properly configuring your wallet connection, you gain access to the full spectrum of Polkadot Hub's capabilities. Remember to always verify network parameters when connecting to ensure a secure and reliable connection to the Polkadot ecosystem.
+Choosing the right wallet for Polkadot Hub interactions depends on your specific requirements and familiarity with different interfaces. MetaMask provides a familiar entry point for developers with Ethereum experience, while Talisman offers deeper integration with Polkadot's unique features and native support for both EVM and Substrate accounts. By properly configuring your wallet connection, you gain access to the full spectrum of Polkadot Hub's capabilities.
+
+!!!info
+    Remember to always verify network parameters when connecting to ensure a secure and reliable connection to the Polkadot ecosystem.

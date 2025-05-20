@@ -59,7 +59,7 @@ You will need testnet tokens to perform transactions and engage with smart contr
 
     ![](/images/develop/smart-contracts/connect-to-polkadot-hub/connect-to-polkadot-hub-1.webp)
 
-3. Click the **Get Some WND** button to request free test WND tokens. These tokens will be sent to your wallet shortly
+3. Click the **Get Some WNDs** button to request free test WND tokens. These tokens will be sent to your wallet shortly
 
     ![](/images/develop/smart-contracts/connect-to-polkadot-hub/connect-to-polkadot-hub-2.webp)
 

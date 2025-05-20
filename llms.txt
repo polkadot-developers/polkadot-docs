@@ -6104,6 +6104,8 @@ description: Explore how to connect to Polkadot Hub, configure your wallet, and 
     <a href="#" class="md-button connectMetaMask" value="westendAssetHub">Connect to Westend Hub</a>
 </div>
 
+For more information about how to connect to Polkadot Hub, please check the [Wallets for Polkadot Hub](/develop/smart-contracts/wallets/){target=\_blank} guide.
+
 ## Networks Details
 
 Developers can leverage smart contracts across diverse networks, from TestNets to MainNet. This section outlines the network specifications and connection details for each environment.
@@ -19529,7 +19531,16 @@ The [`Account` data type](https://paritytech.github.io/polkadot-sdk/master/frame
 The code snippet below shows how accounts are defined:
 
 ```rs
- Failed to fetch snippet after 3 attempts
+ /// The full account information for a particular account ID.
+	#[pallet::storage]
+	#[pallet::getter(fn account)]
+	pub type Account<T: Config> = StorageMap<
+		_,
+		Blake2_128Concat,
+		T::AccountId,
+		AccountInfo<T::Nonce, T::AccountData>,
+		ValueQuery,
+	>;
 ```
 
 The preceding code block defines a storage map named `Account`. The `StorageMap` is a type of on-chain storage that maps keys to values. In the `Account` map, the key is an account ID, and the value is the account's information. Here, `T` represents the generic parameter for the runtime configuration, which is defined by the pallet's configuration trait (`Config`).

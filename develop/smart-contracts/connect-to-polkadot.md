@@ -59,11 +59,11 @@ You will need testnet tokens to perform transactions and engage with smart contr
 
 2. Copy your address linked to Westend and paste it into the designated field
 
-    ![](/images/develop/smart-contracts/connect-to-polkadot-hub/connect-to-polkadot-hub-1.webp)
+    ![](/images/develop/smart-contracts/connect-to-polkadot/connect-to-polkadot-1.webp)
 
 3. Click the **Get Some WNDs** button to request free test WND tokens. These tokens will be sent to your wallet shortly
 
-    ![](/images/develop/smart-contracts/connect-to-polkadot-hub/connect-to-polkadot-hub-2.webp)
+    ![](/images/develop/smart-contracts/connect-to-polkadot/connect-to-polkadot-2.webp)
 
 Now that you have obtained WND tokens in your wallet, you’re ready to deploy and interact with smart contracts on Westend Hub! These tokens will allow you to pay for gas fees when executing transactions, deploying contracts, and testing your dApp functionality in a secure testnet environment. 
 

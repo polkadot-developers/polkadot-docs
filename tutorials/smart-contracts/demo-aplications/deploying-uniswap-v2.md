@@ -7,7 +7,7 @@ description: Learn how to write a basic smart contract using just a text editor.
 
 ## Introduction
 
-Decentralized exchanges (DEXs) are a cornerstone of the DeFi ecosystem, allowing for permissionless token swaps without intermediaries. Uniswap V2, with its Automated Market Maker (AMM) model, revolutionized DEXs by enabling liquidity provision for any ERC-20 token pair. This tutorial will guide you through how Uniswap V2 works, so you can take advantage of it in your projects deployed to the Polkadot Hub. By understanding these contracts, you'll gain hands-on experience with one of the most influential DeFi protocols and understand how it functions across blockchain ecosystems.
+Decentralized exchanges (DEXs) are a cornerstone of the DeFi ecosystem, allowing for permissionless token swaps without intermediaries. [Uniswap V2](https://docs.uniswap.org/contracts/v2/overview){target=\_blank}, with its Automated Market Maker (AMM) model, revolutionized DEXs by enabling liquidity provision for any ERC-20 token pair. This tutorial will guide you through how Uniswap V2 works, so you can take advantage of it in your projects deployed to the Polkadot Hub. By understanding these contracts, you'll gain hands-on experience with one of the most influential DeFi protocols and understand how it functions across blockchain ecosystems.
 
 ## Prerequisites
 
@@ -149,12 +149,6 @@ To test it locally, you can run the following commands:
     npx hardhat test --network localNode
     ```
 
-To test it on the Westend Hub, you can run the following command:
-
-```bash
-npx hardhat test --network westendHub
-```
-
 The result should look like this:
 
 --8<-- "code/tutorials/smart-contracts/demo-aplications/deploying-uniswap-V2/testing-output.html"
@@ -169,11 +163,13 @@ To deploy the contracts, run the following command:
 npx hardhat run scripts/deploy.js --network localNode
 ```
 
-or
+This command deploys to your local blockchain for development and testing. If you want to deploy to the Polkadot Hub, you can use the following command:
 
 ```bash
 npx hardhat run scripts/deploy.js --network westendHub
 ```
+
+Commnad above deploys to the actual Polkadot TestNet. Requires WND test tokens, persists on the network, and operates under real network conditions.
 
 The deployment script will output the addresses of the deployed contracts. Save these addresses, as you will need them to interact with the contracts. For example, the output should look like this:
 
@@ -181,14 +177,15 @@ The deployment script will output the addresses of the deployed contracts. Save 
 
 ## Conclusion
 
-This tutorial taught you how to deploy Uniswap V2 contracts to Polkadot Hub, create liquidity pools, and perform token swaps. This implementation brings the powerful AMM model to the Polkadot ecosystem, enabling decentralized trading of any ERC-20 token pair.
+This tutorial guided you through deploying Uniswap V2 contracts to Polkadot Hub. This implementation brings the powerful AMM architecture to the Polkadot ecosystem, laying the foundation for decentralized trading of ERC-20 token pairs.
 
 By following this guide, you've gained practical experience with:
 
 - Setting up a Hardhat project for deploying to Polkadot Hub
 - Understanding the Uniswap V2 architecture
-- Deploying and testing Uniswap V2 contracts
-- Creating liquidity pools and executing swaps
-- Building a basic UI for interacting with your deployment
+- Testing Uniswap V2 contracts in a local environment
+- Deploying contracts to both local and testnet environments
+
+To build on this foundation, you could extend this project by implementing functionality to create liquidity pools, execute token swaps, and build a user interface for interacting with your deployment.
 
 This knowledge can be leveraged to build more complex DeFi applications or to integrate Uniswap V2 functionality into your existing projects on Polkadot.

@@ -3,8 +3,9 @@ nav:
   - index.md
   - 'Overview': overview.md
   - 'Connect to Polkadot': connect-to-polkadot.md
-  - 'Block Explorers': block-explorers.md
   - dev-environments
   - libraries
+  - 'Block Explorers': block-explorers.md
+  - 'Contract Verification': contract-verification.md
   - 'JSON-RPC APIs': json-rpc-apis.md
   - 'Precompiles': precompiles.md

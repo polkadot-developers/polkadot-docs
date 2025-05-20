@@ -35,6 +35,7 @@ Doc-Page: https://docs.polkadot.com/develop/parachains/testing/mock-runtime/
 Doc-Page: https://docs.polkadot.com/develop/parachains/testing/pallet-testing/
 Doc-Page: https://docs.polkadot.com/develop/smart-contracts/block-explorers/
 Doc-Page: https://docs.polkadot.com/develop/smart-contracts/connect-to-polkadot/
+Doc-Page: https://docs.polkadot.com/develop/smart-contracts/contract-verification/
 Doc-Page: https://docs.polkadot.com/develop/smart-contracts/dev-environments/hardhat/
 Doc-Page: https://docs.polkadot.com/develop/smart-contracts/dev-environments/
 Doc-Page: https://docs.polkadot.com/develop/smart-contracts/dev-environments/remix/
@@ -6185,6 +6186,105 @@ For your next steps, explore the various smart contract guides demonstrating how
     [:octicons-arrow-right-24: Build with viem](/develop/smart-contracts/libraries/viem/)
 
 </div>
+--- END CONTENT ---
+
+Doc-Content: https://docs.polkadot.com/develop/smart-contracts/contract-verification/
+--- BEGIN CONTENT ---
+---
+title: Contract Verification
+description: Learn how to verify Solidity smart contracts on Subscan to improve transparency, trust, and usability for dApps on Polkadot Hub.
+---
+
+# Contract Verification
+
+## Introduction
+
+Verifying smart contracts on a block explorer improves the transparency and security of deployed smart contracts on the blockchain. Users can view the source code for verified contracts and, in some cases, interact directly with the contract's public methods through the block explorer's interface.
+
+This guide will outline the steps for verifying Solidity smart contracts on Polkadot Hub, through the [Subscan block explorer](https://assethub-westend.subscan.io/){target=\_blank}, explicitly focusing on the Westend Hub for testing purposes.
+
+## Deploying the Contract
+
+To verify a smart contract on the Subscan explorer, the contract must first be deployed on the target network. For further guidance about this process, you can check the [Deploy a NFT](/tutorials/smart-contracts/deploy-nft){target=\_blank} or [Deploy an ERC-20](/tutorials/smart-contracts/deploy-erc20){target=\_blank} tutorials.
+
+You can deploy your Solidity smart contract using various development tools compatible with the Polkadot Hub, such as [Remix](/develop/smart-contracts/dev-environments/remix){target=\_blank}, [Hardhat](/develop/smart-contracts/dev-environments/hardhat){target=\_blank}, or other preferred tools that connect to the Polkadot network.
+
+This guide uses a simple incrementer contract as an example. The Solidity code is the following:
+
+```solidity title="Incrementer.sol"
+// SPDX-License-Identifier: MIT
+
+pragma solidity ^0.8.0;
+
+contract Incrementer {
+    uint256 public number;
+
+    constructor(uint256 _initialNumber) {
+        number = _initialNumber;
+    }
+
+    function increment(uint256 _value) public {
+        number = number + _value;
+    }
+
+    function reset() public {
+        number = 0;
+    }
+}
+```
+
+## Collecting Information for Contract Verification
+
+You will need to collect some information related to the contract's compiler and deployment to verify it successfully:
+
+1. Take note of the name of the contract (in this example, `Incrementer`)
+2. Take note of the Solidity compiler version used to compile the contract (in this example, `v0.8.28+commit.7893614a`)
+
+    ![](/images/develop/smart-contracts/contract-verification/contract-verification-01.webp)
+
+3. If optimization is enabled during compilation, take note of the optimization runs parameter
+4. After deployment, take note of the deployed contract address. This can be found in the console output of your deployment tool or the interface of tools like Remix
+
+    ![](/images/develop/smart-contracts/contract-verification/contract-verification-02.webp)
+
+## Verify the Contract
+
+Follow these steps to verify your contract on [Westend Hub Subscan](https://assethub-westend.subscan.io/){target=\_blank}:
+
+1. Navigate to the [Subscan explorer](https://assethub-westend.subscan.io/){target=\_blank} for the Westend Hub
+2. Open the **Tools** dropdown and select **Contract Verification Tool**
+
+    ![](/images/develop/smart-contracts/contract-verification/contract-verification-03.webp)
+
+3. Fill in the contract's information in the verification form:
+    - Contract address
+    - Select the compiler type. For this `Incrementer.sol` example, select **Solidity (Single file)**
+    - Fill in the contract name (e.g., `Incrementer`)
+    - Select the compiler version used to compile the contract (e.g., `v0.8.28+commit.7893614a`)
+    - Add the Solidity source code of the contract
+  
+    ![](/images/develop/smart-contracts/contract-verification/contract-verification-04.webp)
+
+4. Click the **Verify and Publish** button to verify the contract
+
+## Verification Results
+
+After a successful verification, you should be redirected to a new page (for this example, you can check the following [contract page](https://assethub-westend.subscan.io/account/0x6e95330945ca37667c4c70a60287b4b271e1205e?tab=contract){target=\_blank}). The contract page on Subscan will now display:
+
+- Contract information
+- Contract ABI
+- Contract's source code
+- Contract bytecode
+
+    ![](/images/develop/smart-contracts/contract-verification/contract-verification-05.webp)
+
+This verified contract status gives users confidence that the contract's source code matches the deployed bytecode on the blockchain.
+
+## Conclusion
+
+Verifying your Solidity smart contracts on Subscan enhances transparency and trust in your decentralized applications on Polkadot Hub. Users can inspect the source code and interact with your contracts directly through the explorer interface, which is crucial for building community trust and facilitating the adoption of your project.
+
+Remember that verification is a one-time process for each deployed contract. Once your contract is verified, its source code will remain accessible on the blockchain explorer for as long as the explorer maintains its database.
 --- END CONTENT ---
 
 Doc-Content: https://docs.polkadot.com/develop/smart-contracts/dev-environments/hardhat/
@@ -34077,22 +34177,16 @@ Let's start by setting up Hardhat for your Storage contract project:
     npm init -y
     ```
 
-3. Install Hardhat and the required plugins:
+3. Install `hardhat-polkadot` plugin and the required plugins:
 
     ```bash
-    npm install --save-dev hardhat @nomicfoundation/hardhat-toolbox
-    ```
-
-4. Install the Hardhat revive specific plugins:
-
-    ```bash
-    npm install --save-dev hardhat-resolc@{{ dependencies.javascript_packages.hardhat_resolc.version }} hardhat-revive-node@{{ dependencies.javascript_packages.hardhat_revive_node.version }} dotenv
+    npm install --save-dev @parity/hardhat-polkadot @nomicfoundation/hardhat-toolbox solc@0.8.28 dotenv
     ```
 
 5. Initialize a Hardhat project:
 
     ```bash
-    npx hardhat init
+    npx hardhat-polkadot init
     ```
 
     Select **Create an empty hardhat.config.js** when prompted.
@@ -34100,27 +34194,18 @@ Let's start by setting up Hardhat for your Storage contract project:
 6. Configure Hardhat by updating the `hardhat.config.js` file:
 
     ```javascript title="hardhat.config.js"
-    require('@nomicfoundation/hardhat-toolbox');
+    require("@nomicfoundation/hardhat-toolbox");
 
-require('hardhat-resolc');
-require('hardhat-revive-node');
+require("@parity/hardhat-polkadot");
 
-require('dotenv').config();
+require("dotenv").config();
 
 /** @type import('hardhat/config').HardhatUserConfig */
 module.exports = {
-  solidity: '0.8.28',
+  solidity: "0.8.28",
   resolc: {
-    compilerSource: 'binary',
-    settings: {
-      optimizer: {
-        enabled: true,
-        runs: 400,
-      },
-      evmVersion: 'istanbul',
-      compilerPath: 'INSERT_PATH_TO_RESOLC_COMPILER',
-      standardJson: true,
-    },
+    version: "1.5.2",
+    compilerSource: "npm",
   },
   networks: {
     hardhat: {
@@ -34148,11 +34233,7 @@ module.exports = {
 };
     ```
 
-    To configure the binary, replace `INSERT_PATH_TO_RESOLC_COMPILER` with the correct path to the compiler binary. Detailed installation instructions can be found in the [installation section](https://github.com/paritytech/revive?tab=readme-ov-file#installation){target=\_blank} of the `pallet-revive` repository. Also, ensure that `INSERT_PATH_TO_SUBSTRATE_NODE` and `INSERT_PATH_TO_ETH_RPC_ADAPTER` are replaced with the proper paths to the compiled binaries. 
-    
-    For more information about these compiled binaries, see the [Deploying with a local node](/develop/smart-contracts/dev-environments/hardhat#deploying-with-a-local-node){target=\_blank} section in the Hardhat documentation.
-
-    This setup loads essential plugins, including [`hardhat-toolbox`](https://www.npmjs.com/package/@nomicfoundation/hardhat-toolbox){target=\_blank}, [`hardhat-resolc`](https://www.npmjs.com/package/hardhat-resolc){target=\_blank}, and [`hardhat-revive-node`](https://www.npmjs.com/package/hardhat-revive-node){target=\_blank}, while utilizing environment variables through `dotenv`. The Solidity compiler is set to version 0.8.19 with optimization enabled for improved gas efficiency. The resolc plugin is configured to use the Remix compiler with Istanbul compatibility.
+    Ensure that `INSERT_PATH_TO_SUBSTRATE_NODE` and `INSERT_PATH_TO_ETH_RPC_ADAPTER` are replaced with the proper paths to the compiled binaries. 
 
     The configuration also defines two network settings: 
 
@@ -34397,7 +34478,7 @@ module.exports = buildModule('StorageModule', (m) => {
     a. First, start a local node:
 
     ```bash
-    npx hardhat node-polkavm
+    npx hardhat node
     ```
 
     b. Then, in a new terminal window, deploy the contract:
@@ -34431,13 +34512,13 @@ module.exports = buildModule('StorageModule', (m) => {
     a. Make sure your account has enough WND tokens for gas fees, then run:
 
     ```bash
-    npx hardhat ignition deploy ./ignition/modules/StorageModule.js --network westendAssetHub
+    npx hardhat ignition deploy ./ignition/modules/StorageModule.js --network westendHub
     ```
 
     b. After deployment, you'll see the contract address in the console output. Save this address for future interactions.
 
     <div id="termynal" data-termynal>
-  <span data-ty="input"><span class="file-path"></span>npx hardhat ignition deploy ./ignition/modules/Storage.js --network westendAssetHub</span>
+  <span data-ty="input"><span class="file-path"></span>npx hardhat ignition deploy ./ignition/modules/Storage.js --network westendHub</span>
   <span data-ty>✔ Confirm deploy to network localNode (420420420)? … yes</span>
   <span data-ty></span>
   <span data-ty>Hardhat Ignition 🚀</span>
@@ -34502,13 +34583,13 @@ main()
 2. Run the interaction script:
 
     ```bash
-    npx hardhat run scripts/interact.js --network westendAssetHub
+    npx hardhat run scripts/interact.js --network westendHub
     ```
 
 3. If successful, the terminal will show the following output:
 
     <div id="termynal" data-termynal>
-  <span data-ty="input"><span class="file-path"></span>npx hardhat run scripts/interact.js --network westendAssetHub</span>
+  <span data-ty="input"><span class="file-path"></span>npx hardhat run scripts/interact.js --network westendHub</span>
   <span data-ty>Current stored value: 0</span>
   <span data-ty>Storing new value: 42...</span>
   <span data-ty>Transaction confirmed</span>
@@ -34522,7 +34603,7 @@ Congratulations! You've successfully set up a Hardhat development environment, w
 To get started with a working example right away, you can clone the repository and navigate to the project directory:
 
 ```bash
-git clone https://github.com/polkadot-developers/polkavm-hardhat-examples.git -b v0.0.1
+git clone https://github.com/polkadot-developers/polkavm-hardhat-examples.git -b v0.0.2
 cd polkavm-hardhat-examples/storage-hardhat
 ```
 --- END CONTENT ---

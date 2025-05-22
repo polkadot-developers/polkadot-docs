@@ -3,11 +3,13 @@ title: Deploying Uniswap V2
 description: Learn how to write a basic smart contract using just a text editor. This guide covers creating and preparing a contract for deployment on Polkadot Hub.
 ---
 
-# Deploying Uniswap V2
+# Deploy Uniswap V2
 
 ## Introduction
 
-Decentralized exchanges (DEXs) are a cornerstone of the DeFi ecosystem, allowing for permissionless token swaps without intermediaries. [Uniswap V2](https://docs.uniswap.org/contracts/v2/overview){target=\_blank}, with its Automated Market Maker (AMM) model, revolutionized DEXs by enabling liquidity provision for any ERC-20 token pair. This tutorial will guide you through how Uniswap V2 works, so you can take advantage of it in your projects deployed to the Polkadot Hub. By understanding these contracts, you'll gain hands-on experience with one of the most influential DeFi protocols and understand how it functions across blockchain ecosystems.
+Decentralized exchanges (DEXs) are a cornerstone of the DeFi ecosystem, allowing for permissionless token swaps without intermediaries. [Uniswap V2](https://docs.uniswap.org/contracts/v2/overview){target=\_blank}, with its Automated Market Maker (AMM) model, revolutionized DEXs by enabling liquidity provision for any ERC-20 token pair.
+
+This tutorial will guide you through how Uniswap V2 works so you can take advantage of it in your projects deployed to Polkadot Hub. By understanding these contracts, you'll gain hands-on experience with one of the most influential DeFi protocols and understand how it functions across blockchain ecosystems.
 
 ## Prerequisites
 
@@ -19,7 +21,7 @@ Before starting, make sure you have:
 - Some WND test tokens to cover transaction fees (obtained from the [Polkadot faucet](https://faucet.polkadot.io/westend){target=\_blank})
 - Basic understanding of how AMMs and liquidity pools work
 
-## Setting Up the Project
+## Set Up the Project
 
 Let's start by cloning the Uniswap V2 project:
 
@@ -36,7 +38,7 @@ Let's start by cloning the Uniswap V2 project:
     npm install
     ```
 
-3. Update the `hardhat.config.js` file so the paths for the substrate node and the eth-rpc adapter match with the paths on your machine. For more info, check the [Testing your Contract](/develop/smart-contracts/dev-environments/hardhat/#testing-your-contract){target=\_blank} section in the hardhat guide
+3. Update the `hardhat.config.js` file so the paths for the substrate node and the ETH-RPC adapter match with the paths on your machine. For more info, check the [Testing your Contract](/develop/smart-contracts/dev-environments/hardhat/#testing-your-contract){target=\_blank} section in the Hardhat guide
 
     ```js title="hardhat.config.js"
     hardhat: {
@@ -62,7 +64,7 @@ Let's start by cloning the Uniswap V2 project:
     AH_PRIV_KEY="INSERT_AH_PRIVATE_KEY"
     ```
 
-    Ensure to replace "INSERT_LOCAL_PRIVATE_KEY" with a private key available in the local environment (you can get them from this [file](https://github.com/paritytech/hardhat-polkadot/blob/main/packages/hardhat-polkadot-node/src/constants.ts#L22){target=\_blank}). And "INSERT_AH_PRIVATE_KEY" with the private key of the account you want to use for deploying the contracts. You can get this by exporting the private key from your wallet (e.g., MetaMask).
+    Ensure to replace `"INSERT_LOCAL_PRIVATE_KEY"` with a private key available in the local environment (you can get them from this [file](https://github.com/paritytech/hardhat-polkadot/blob/main/packages/hardhat-polkadot-node/src/constants.ts#L22){target=\_blank}). And `"INSERT_AH_PRIVATE_KEY"` with the account's private key you want to use to deploy the contracts. You can get this by exporting the private key from your wallet (e.g., MetaMask).
 
     !!!warning
         Keep your private key safe, and never share it with anyone. If it is compromised, your funds can be stolen.
@@ -81,14 +83,14 @@ After running the above command, you should see the compiled contracts in the `a
 
 ## Understanding Uniswap V2 Architecture
 
-Before interacting with the contracts, it's essential to understand the core architecture that powers Uniswap V2. This model forms the basis of nearly every modern DEX implementation and operates under the principles of automated market making, token pair liquidity pools, and deterministic pricing.
+Before interacting with the contracts, it's essential to understand the core architecture that powers Uniswap V2. This model forms the basis of nearly every modern DEX implementation and operates under automated market making, token pair liquidity pools, and deterministic pricing principles.
 
 At the heart of Uniswap V2 lies a simple but powerful system composed of three major smart contracts:
 
 - **Factory Contract** - the factory acts as a registry and creator of new trading pairs. When two ERC-20 tokens are to be traded, the Factory contract is responsible for generating a new Pair contract that will manage that specific token pair’s liquidity pool. It keeps track of all deployed pairs and ensures uniqueness—no duplicate pools can exist for the same token combination
 - **Pair Contract** - each pair contract is a decentralized liquidity pool that holds reserves of two ERC-20 tokens. These contracts implement the core logic of the AMM, maintaining a constant product invariant (x \* y = k) to facilitate swaps and price determination. Users can contribute tokens to these pools in return for LP (liquidity provider) tokens, which represent their proportional share of the reserves
 
-This minimal architecture enables Uniswap to be highly modular, trustless, and extensible. By distributing responsibilities across these components, developers and users can engage with the protocol in a composable and predictable manner, making it an ideal foundation for DEX functionality across ecosystems, including Polkadot Hub.
+This minimal architecture enables Uniswap to be highly modular, trustless, and extensible. By distributing responsibilities across these components, developers, and users can engage with the protocol in a composable and predictable manner, making it an ideal foundation for DEX functionality across ecosystems, including Polkadot Hub.
 
 The project scaffolding is as follows:
 
@@ -129,7 +131,7 @@ uniswap-V2-polkadot
 └── README.md
 ```
 
-## Testing the Contracts
+## Test the Contracts
 
 You can run the provided test suite to ensure the contracts are working as expected. The tests cover various scenarios, including creating pairs, adding liquidity, and executing swaps.
 
@@ -153,9 +155,9 @@ The result should look like this:
 
 --8<-- "code/tutorials/smart-contracts/demo-aplications/deploying-uniswap-V2/testing-output.html"
 
-## Deploying the Contracts
+## Deploy the Contracts
 
-After successfully testing the contracts, you can deploy them to the local node or the Polkadot Hub. The deployment script is located in the `scripts` directory and is named `deploy.js`. This script deploys the `Factory` and `Pair` contracts to the network.
+After successfully testing the contracts, you can deploy them to the local node or Polkadot Hub. The deployment script is located in the `scripts` directory and is named `deploy.js`. This script deploys the `Factory` and `Pair` contracts to the network.
 
 To deploy the contracts, run the following command:
 
@@ -163,13 +165,13 @@ To deploy the contracts, run the following command:
 npx hardhat run scripts/deploy.js --network localNode
 ```
 
-This command deploys to your local blockchain for development and testing. If you want to deploy to the Polkadot Hub, you can use the following command:
+This command deploys the contracts to your local blockchain for development and testing. If you want to deploy to Polkadot Hub, you can use the following command:
 
 ```bash
 npx hardhat run scripts/deploy.js --network westendHub
 ```
 
-Commnad above deploys to the actual Polkadot TestNet. Requires WND test tokens, persists on the network, and operates under real network conditions.
+The command above deploys to the actual Polkadot TestNet. It requires WND test tokens, persists on the network, and operates under real network conditions.
 
 The deployment script will output the addresses of the deployed contracts. Save these addresses, as you will need them to interact with the contracts. For example, the output should look like this:
 
@@ -177,7 +179,7 @@ The deployment script will output the addresses of the deployed contracts. Save 
 
 ## Conclusion
 
-This tutorial guided you through deploying Uniswap V2 contracts to Polkadot Hub. This implementation brings the powerful AMM architecture to the Polkadot ecosystem, laying the foundation for decentralized trading of ERC-20 token pairs.
+This tutorial guided you through deploying Uniswap V2 contracts to Polkadot Hub. This implementation brings the powerful AMM architecture to the Polkadot ecosystem, laying the foundation for the decentralized trading of ERC-20 token pairs.
 
 By following this guide, you've gained practical experience with:
 

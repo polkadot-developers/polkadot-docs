@@ -1,6 +1,6 @@
 ---
 title: Deploying Uniswap V2 on Polkadot
-description: Learn how to write a basic smart contract using just a text editor. This guide covers creating and preparing a contract for deployment on Polkadot Hub.
+description: Learn how to deploy and test Uniswap V2 on Polkadot Hub using Hardhat, bringing AMM-based token swaps to the Polkadot ecosystem.
 ---
 
 # Deploy Uniswap V2

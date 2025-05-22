@@ -63,7 +63,7 @@ The [`smoldot`](https://github.com/smol-dot/smoldot){target=\_blank} client is t
 
 ### PAPI Light Client Support
 
-The [Polkadot API (PAPI)](/develop//toolkit/api-libraries/papi){target=\_blank} library natively supports light client configurations powered by [`smoldot`](https://github.com/smol-dot/smoldot){target=\_blank}. This allows developers to connect to multiple chains simultaneously using a light client.
+The [Polkadot API (PAPI)](/develop/toolkit/api-libraries/papi){target=\_blank} library natively supports light client configurations powered by [`smoldot`](https://github.com/smol-dot/smoldot){target=\_blank}. This allows developers to connect to multiple chains simultaneously using a light client.
 
 ### Substrate Connect - Browser Extension
 

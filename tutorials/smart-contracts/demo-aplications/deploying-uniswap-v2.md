@@ -53,9 +53,6 @@ Let's start by cloning the Uniswap V2 project:
         dev: true,
       },
     },
-    ```
-
-    Ensure that the paths for `nodeBinaryPath` and `adapterBinaryPath` point to the correct locations of your substrate node and eth-rpc adapter binaries.
 
 4. Create a `.env` file in your project root to store your private keys (you can use as an example the `env.example` file):
 

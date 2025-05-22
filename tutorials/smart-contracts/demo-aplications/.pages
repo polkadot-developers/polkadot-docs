@@ -1,4 +1,4 @@
 title: Demo Applications
 nav:
   - index.md
-  - deploying-uniswap-v2.md
+  - 'Deploy Uniswap V2': deploying-uniswap-v2.md

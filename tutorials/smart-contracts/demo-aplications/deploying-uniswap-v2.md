@@ -1,5 +1,5 @@
 ---
-title: Deploying Uniswap V2
+title: Deploying Uniswap V2 on Polkadot
 description: Learn how to write a basic smart contract using just a text editor. This guide covers creating and preparing a contract for deployment on Polkadot Hub.
 ---
 

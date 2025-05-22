@@ -32005,16 +32005,16 @@ Let's start by cloning the Uniswap V2 project:
 
     ```js title="hardhat.config.js"
     hardhat: {
-        polkavm: true,
-        nodeConfig: {
-            nodeBinaryPath: "../bin/substrate-node",
-            rpcPort: 8000,
-            dev: true,
-        },
-        adapterConfig: {
-            adapterBinaryPath: "../bin/eth-rpc",
-            dev: true,
-        },
+      polkavm: true,
+      nodeConfig: {
+        nodeBinaryPath: '../bin/substrate-node',
+        rpcPort: 8000,
+        dev: true,
+      },
+      adapterConfig: {
+        adapterBinaryPath: '../bin/eth-rpc',
+        dev: true,
+      },
     },
     ```
 

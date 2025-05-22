@@ -14232,7 +14232,7 @@ In this unit file, you will write the commands that you want to run on server bo
 [Unit]
 Description=Polkadot Node
 After=network.target
-Documentation=https://github.com/paritytech/polkadot
+Documentation=https://github.com/paritytech/polkadot-sdk
 
 [Service]
 EnvironmentFile=-/etc/default/polkadot

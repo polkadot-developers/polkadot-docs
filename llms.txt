@@ -32049,7 +32049,7 @@ After running the above command, you should see the compiled contracts in the `a
 
 Before interacting with the contracts, it's essential to understand the core architecture that powers Uniswap V2. This model forms the basis of nearly every modern DEX implementation and operates under automated market making, token pair liquidity pools, and deterministic pricing principles.
 
-At the heart of Uniswap V2 lies a simple but powerful system composed of three major smart contracts:
+At the heart of Uniswap V2 lies a simple but powerful system composed of two major smart contracts:
 
 - **Factory Contract** - the factory acts as a registry and creator of new trading pairs. When two ERC-20 tokens are to be traded, the Factory contract is responsible for generating a new Pair contract that will manage that specific token pair’s liquidity pool. It keeps track of all deployed pairs and ensures uniqueness—no duplicate pools can exist for the same token combination
 - **Pair Contract** - each pair contract is a decentralized liquidity pool that holds reserves of two ERC-20 tokens. These contracts implement the core logic of the AMM, maintaining a constant product invariant (x \* y = k) to facilitate swaps and price determination. Users can contribute tokens to these pools in return for LP (liquidity provider) tokens, which represent their proportional share of the reserves

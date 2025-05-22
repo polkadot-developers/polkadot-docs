@@ -38,7 +38,7 @@ Let's start by cloning the Uniswap V2 project:
     npm install
     ```
 
-3. Update the `hardhat.config.js` file so the paths for the substrate node and the ETH-RPC adapter match with the paths on your machine. For more info, check the [Testing your Contract](/develop/smart-contracts/dev-environments/hardhat/#testing-your-contract){target=\_blank} section in the Hardhat guide
+3. Update the `hardhat.config.js` file so the paths for the Substrate node and the ETH-RPC adapter match with the paths on your machine. For more info, check the [Testing your Contract](/develop/smart-contracts/dev-environments/hardhat/#testing-your-contract){target=\_blank} section in the Hardhat guide
 
     ```js title="hardhat.config.js"
     hardhat: {
@@ -140,7 +140,7 @@ To test it locally, you can run the following commands:
     npx hardhat node
     ```
 
-    This command will spawn a local substrate node along with the eth-rpc adapter. The node will be available at `ws://127.0.0.1:8000` and the eth-rpc adapter at `http://localhost:8545`.
+    This command will spawn a local Substrate node along with the ETH-RPC adapter. The node will be available at `ws://127.0.0.1:8000` and the ETH-RPC adapter at `http://localhost:8545`.
 
 2. In a new terminal, run the tests:
 

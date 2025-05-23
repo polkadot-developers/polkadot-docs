@@ -5,6 +5,8 @@ description: Compares EVM and PolkaVM, highlighting key architectural difference
 
 # EVM vs PolkaVM
 
+## Introduction
+
 While [PolkaVM](/polkadot-protocol/smart-contract-basics/polkavm-design/){target=\_blank} strives for maximum Ethereum compatibility, several fundamental design decisions create necessary divergences from the [EVM](https://ethereum.org/en/developers/docs/evm/){target=\_blank}. These differences represent trade-offs that enhance performance and resource management while maintaining accessibility for Solidity developers.
 
 ## Core Virtual Machine Architecture
@@ -32,13 +34,17 @@ graph TD
     PolkaExecution -.-> DifferencesNote
 ```
 
-However, this architectural difference becomes relevant in specific scenarios. Tools that attempt to download and inspect contract bytecode will fail, as they expect EVM bytecode rather than PolkaVM's RISC-V format. This primarily affects contracts using [`EXTCODECOPY`](https://www.evm.codes/?fork=cancun#3c){target=\_blank} to manipulate code at runtime, though such cases are rare. PolkaVM offers an elegant alternative through its [on-chain constructors](https://paritytech.github.io/polkadot-sdk/master/pallet_revive/pallet/struct.Pallet.html#method.bare_instantiate){target=\_blank}, enabling contract instantiation without runtime code modification.
+However, this architectural difference becomes relevant in specific scenarios. Tools that attempt to download and inspect contract bytecode will fail, as they expect EVM bytecode rather than PolkaVM's RISC-V format. Most applications typically pass bytecode as an opaque blob, making this a non-issue for standard use cases.
+
+This primarily affects contracts using [`EXTCODECOPY`](https://www.evm.codes/?fork=cancun#3c){target=\_blank} to manipulate code at runtime. A contract encounters problems specifically when it uses `EXTCODECOPY` to copy contract code into memory and then attempts to mutate it. This pattern is not possible in standard Solidity and requires dropping down to YUL assembly. An example would be a factory contract written in assembly that constructs and instantiates new contracts by generating code at runtime. Such contracts are rare in practice.
+
+PolkaVM offers an elegant alternative through its [on-chain constructors](https://paritytech.github.io/polkadot-sdk/master/pallet_revive/pallet/struct.Pallet.html#method.bare_instantiate){target=\_blank}, enabling contract instantiation without runtime code modification, making this pattern unnecessary.
 
 ### High-Level Architecture Comparison
 
 |            Feature            |                            Ethereum Virtual Machine (EVM)                            |                        PolkaVM                         |
 | :---------------------------: | :----------------------------------------------------------------------------------: | :----------------------------------------------------: |
-|      **Instruction Set**      |                           Stack-based architecture                                   |                 RISC-V instruction set                 |
+|      **Instruction Set**      |                               Stack-based architecture                               |                 RISC-V instruction set                 |
 |      **Bytecode Format**      |                                     EVM bytecode                                     |                     RISC-V format                      |
 |    **Contract Size Limit**    |                                 24KB code size limit                                 |            Contract-specific memory limits             |
 |         **Compiler**          |                                  Solidity Compiler                                   |                    Revive Compiler                     |
@@ -66,30 +72,54 @@ Moving beyond Ethereum's single gas metric, PolkaVM meters three distinct resour
 - **`proof_size`** - tracks state proof size for validator verification
 - **`storage_deposit`** - manages state bloat through a deposit system
 
-These three can be limited at the transaction level, just like gas on Ethereum. The Ethereum RPC proxy maps all three of these into the single dimension gas so that everything behaves as on Ethereum for users. This ensures that the transaction cost displayed in the wallet accurately represents the actual costs, even though it uses these three resources internally.
+All three resources can be limited at the transaction level, just like gas on Ethereum. The [Ethereum RPC proxy](https://github.com/paritytech/polkadot-sdk/tree/master/substrate/frame/revive/rpc){target=\_blank} maps all three dimensions into the single gas dimension, ensuring everything behaves as expected for users.
 
-These resources can also be limited when making a cross-contract call. However, Solidity doesn't allow specifying anything other than `gas_limit` for a cross-contract call. The PolkaVM takes the `gas_limit` the contract supplies and uses that as `ref_time_limit.` The other two resources are just uncapped in this case. Please note that uncapped means the transaction-specified limits still constrain them, so this cannot be used to trick the signer of the transaction.
+These resources can also be limited when making cross-contract calls, which is essential for security when interacting with untrusted contracts. However, Solidity only allows specifying `gas_limit` for cross-contract calls. The `gas_limit` is most similar to Polkadots `ref_time_limit`, but the Revive compiler doesn't supply any imposed `gas_limit` for cross-contract calls for two key reasons:
 
-Resource limiting in cross-contract calls serves a critical security purpose, particularly when interacting with untrusted contracts.
+- **Semantic differences** - `gas_limit` and `ref_time_limit` are not semantically identical; blindly passing EVM gas as `ref_time_limit` can lead to unexpected behavior
+- **Incomplete protection** - the other two resources (`proof_size` and `storage_deposit`) would remain uncapped anyway, making it insufficient to prevent malicious callees from performing DOS attacks
 
-For compatibility, PolkaVM maps traditional gas-related operations to its `ref_time` metric, which is the closest analog to Ethereum's gas system.
+When resources are "uncapped" in cross-contract calls, they remain constrained by transaction-specified limits, preventing abuse of the transaction signer.
+
+!!!info
+    The runtime will provide a special precompile allowing cross-contract calls with limits specified for all weight dimensions in the future.
+
+All gas-related opcodes like [`GAS`](https://www.evm.codes/?fork=cancun#5a){target=\_blank} or [`GAS_LIMIT`](https://www.evm.codes/?fork=cancun#45){target=\_blank} return only the `ref_time` value as it's the closest match to traditional gas. Extended APIs will be provided through precompiles to make full use of all resources, including cross-contract calls with all three resources specified.
 
 ## Memory Management
 
 The EVM and the PolkaVM take fundamentally different approaches to memory constraints:
 
-|          Feature         |       Ethereum Virtual Machine (EVM)      |                   PolkaVM                      |
+|         Feature          |      Ethereum Virtual Machine (EVM)       |                    PolkaVM                     |
 | :----------------------: | :---------------------------------------: | :--------------------------------------------: |
-| **Memory Constraints**   | Indirect control via gas costs            | Hard memory limits per contract                |
-| **Cost Model**           | Increasing gas curve with allocation size | Fixed costs separated from execution gas       |
-| **Memory Limits**        | Soft limits through prohibitive gas costs | Hard fixed limits per contract                 |
-| **Pricing Efficiency**   | Potential overcharging for memory         | More efficient through separation of concerns  |
-| **Contract Nesting**     | Limited by available gas                  | Limited by constant memory per contract        |
-| **Memory Metering**      | Dynamic based on total allocation         | Static limits per contract instance            |
-| **Future Improvements**  | Incremental gas cost updates              | Potential dynamic metering for deeper nesting  |
-| **Cross-Contract Calls** | Handled through gas forwarding            | Requires careful boundary limit implementation |
+|  **Memory Constraints**  |      Indirect control via gas costs       |        Hard memory limits per contract         |
+|      **Cost Model**      | Increasing gas curve with allocation size |    Fixed costs separated from execution gas    |
+|    **Memory Limits**     | Soft limits through prohibitive gas costs |         Hard fixed limits per contract         |
+|  **Pricing Efficiency**  |     Potential overcharging for memory     | More efficient through separation of concerns  |
+|   **Contract Nesting**   |         Limited by available gas          |    Limited by constant memory per contract     |
+|   **Memory Metering**    |     Dynamic based on total allocation     |      Static limits per contract instance       |
+| **Future Improvements**  |       Incremental gas cost updates        | Potential dynamic metering for deeper nesting  |
+| **Cross-Contract Calls** |      Handled through gas forwarding       | Requires careful boundary limit implementation |
 
 The architecture establishes a constant memory limit per contract, which is the basis for calculating maximum contract nesting depth. This calculation assumes worst-case memory usage for each nested contract, resulting in a straightforward but conservative limit that operates independently of actual memory consumption. Future iterations may introduce dynamic memory metering, allowing deeper nesting depths for contracts with smaller memory footprints. However, such an enhancement would require careful implementation of cross-contract boundary limits before API stabilization, as it would introduce an additional resource metric to the system.
+
+### Current Memory Limits
+
+The following table depicts memory-related limits at the time of writing:
+
+| Limit                                      | Maximum         |
+| :----------------------------------------: | :-------------: |
+| Call stack depth                           | 5               |
+| Event topics                               | 4               |
+| Event data payload size (including topics) | 416 bytes       |
+| Storage value size                         | 416 bytes       |
+| Transient storage variables                | 128 uint values |
+| Immutable variables                        | 16 uint values  |
+| Contract code blob size                    | ~100 kilobytes  |
+
+!!! info
+    Limits might be increased in the future. To guarantee existing contracts work as expected, limits will never be decreased.
+
 
 ## Account Management - Existential Deposit
 

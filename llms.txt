@@ -11357,13 +11357,13 @@ The [`polkadot-omni-node`](https://crates.io/crates/polkadot-omni-node/{{depende
 
 This approach enables it to act as a white-labeled node binary, capable of running most parachains that do not require custom node-level logic or extensions. Developers can leverage this flexibility to test, deploy, or operate parachain nodes without maintaining a dedicated codebase for each network.
 
-This guide provides step-by-step instructions for installing the `polkadot-omni-node`, obtaining a chain specification, and launching a parachain node.
+This guide provides step-by-step instructions for installing the `polkadot-omni-node`, obtaining a chain specification, and spinning up a parachain node.
 
 ## Prerequisites
 
 Before getting started, ensure you have the following prerequisites:
 
-- **[Rust](https://www.rust-lang.org/tools/install){target=\_blank}** - required to build and install the polkadot-omni-node binary
+- **[Rust](https://www.rust-lang.org/tools/install){target=\_blank}** - required to build and install the `polkadot-omni-node` binary
 
 Ensure Rust's `cargo` command is available in your terminal by running:
 

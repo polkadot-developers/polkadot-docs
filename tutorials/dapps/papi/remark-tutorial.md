@@ -3,12 +3,9 @@ title: Polkadot API Account Watcher Tutorial
 description: Learn how to build a decentralized command-line application using the Polkadot API.
 ---
 
-!!!info "This tutorial uses the Westend Test Network"
-    Ensure you have an account with WND tokens before proceeding with this tutorial.
-
 ## Introduction
 
-This tutorial demonstrates how to build a simple command-line interface (CLI) application that monitors a user's account on the relay chain for the `system.remarkWithEvent` extrinsic.
+This tutorial demonstrates how to build a simple command-line interface (CLI) application that monitors a user's account on the relay chain for the [`system.remarkWithEvent`](https://paritytech.github.io/polkadot-sdk/master/frame_system/pallet/struct.Pallet.html#method.remark_with_event){target=\_blank} extrinsic.
 
 The `system.remarkWithEvent` extrinsic enables the submission of arbitrary data on-chain. In this tutorial, the data consists of a hash derived from the combination of an account address and the word "email" (`address+email`). This hash is monitored on-chain, and the application listens for remarks addressed to the specified account. The `system.remarkWithEvent` extrinsic emits an event that can be observed using the Polkadot API (PAPI).
 
@@ -18,9 +15,8 @@ When the application detects a remark addressed to the specified account, it pla
 
 Before starting, ensure the following tools and dependencies are installed:
 
-- `npm` (or an alternative package manager)
-- `node`
-- `git`
+- Node.js (version 18 or higher)
+- A package manager (npm or yarn)
 - [Polkadot.js Browser Extension (wallet)](https://polkadot.js.org/extension/){target=\_blank}
 
 Additionally, you need an account with Westend tokens. Refer to the following resources for assistance:
@@ -31,13 +27,13 @@ Additionally, you need an account with Westend tokens. Refer to the following re
 
 To follow this tutorial, you can either run the example directly or use a boilerplate/template. This tutorial uses a template that includes all necessary dependencies for working with the Polkadot API and TypeScript. Clone the appropriate branch (`empty-cli`) of the repository as follows:
 
-```shell
+```bash
 git clone https://github.com/CrackTheCode016/polkadot-api-example-cli --branch empty-cli
 ```
 
 After cloning, install the required dependencies by running:
 
-```shell
+```bash
 cd polkadot-api-example-cli
 npm install
 ```
@@ -46,23 +42,8 @@ npm install
 
 After opening the repository, you will find the following code (excluding imports):
 
-```typescript
-// filepath: /path/to/repository/src/index.ts
-async function withLightClient(): Promise<PolkadotClient> {
-    // Start the light client
-    const smoldot = start();
-    // The Westend Relay Chain
-    const relayChain = await smoldot.addChain({ chainSpec: westEndChainSpec });
-    return createClient(
-        getSmProvider(relayChain)
-    );
-}
-
-async function main() {
-    // CLI code goes here...
-}
-
-main();
+```typescript title="index.ts"
+--8<-- 'code/develop/dapps/papi/remark-tutorial/index.ts'
 ```
 
 The `withLightClient` function is particularly important. It uses the built-in light client functionality, powered by [`smoldot`](https://github.com/smol-dot/smoldot){target=\_blank}, to create a light client that synchronizes and interacts with Polkadot directly within the application.
@@ -71,60 +52,29 @@ The `withLightClient` function is particularly important. It uses the built-in l
 
 The CLI functionality is implemented within the `main` function. The CLI includes an option (`-a` / `--account`) to specify the account to monitor for remarks:
 
-```typescript
-// filepath: /path/to/repository/src/index.ts
-const program = new Command();
-console.log(chalk.white.dim(figlet.textSync("Web3 Mail Watcher")));
-program
-    .version('0.0.1')
-    .description('Web3 Mail Watcher - A simple CLI tool to watch for remarks on the Polkadot network')
-    .option('-a, --account <account>', 'Account to watch')
-    .parse(process.argv);
-
-// CLI arguments from commander
-const options = program.opts();
+```typescript title="index.ts"
+--8<-- 'code/develop/dapps/papi/remark-tutorial/cli.ts'
 ```
 
 ## Watch for Remarks
 
 The application monitors the Westend network for remarks sent to the specified account. The following code, placed within the `main` function, implements this functionality:
 
-```typescript
-// filepath: /path/to/repository/src/index.ts
-if (options.account) {
-    console.log(chalk.black.bgRed("Watching account:"), chalk.bold.whiteBright(options.account));
-    // Create a light client to connect to the Polkadot (Westend) network
-    const lightClient = await withLightClient();
-    // Get the typed API to interact with the network
-    const dotApi = lightClient.getTypedApi(wnd);
-    // Subscribe to the System.Remarked event and watch for remarks from the account
-    dotApi.event.System.Remarked.watch().subscribe((event) => {
-        const { sender, hash } = event.payload;
-        const calculatedHash = bytesToHex(blake2b(`${options.account}+email`, { dkLen: 32 }));
-        if (`0x${calculatedHash}` === hash.asHex()) {
-            sound.play("youve-got-mail-sound.mp3");
-            console.log(chalk.black.bgRed("You got mail!"));
-            console.log(chalk.black.bgCyan("From:"), chalk.bold.whiteBright(sender.toString()));
-            console.log(chalk.black.bgBlue("Hash:"), chalk.bold.whiteBright(hash.asHex()));
-        }
-    });
-} else {
-    console.error('Account is required');
-    return;
-}
+```typescript title="index.ts"
+--8<-- 'code/tutorials/dapps/papi/remark-tutorial/remarks.ts'
 ```
 
 ## Compile and Run
 
 Compile and execute the application using the following command:
 
-```shell
+```bash
 npm start -- --account <account-address>
 ```
 
 For example:
 
-```shell
+```bash
 npm start -- --account 5GrwvaEF5zXb26Fz9rcQpDWS57CtERHpNehXCPcNoHGKutQY
 ```
 

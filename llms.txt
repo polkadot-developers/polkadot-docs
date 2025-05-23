@@ -4436,6 +4436,86 @@ After the conversion to the raw format, the `sudo key` snippet looks like this:
 
 The raw chain specification can be used to initialize the genesis storage for a node.
 
+## Generate Custom Keys for Your Collator
+
+To securely deploy your parachain, you must generate custom cryptographic keys for your collators (block producers). Each collator requires two distinct sets of keys with different security requirements and operational purposes.
+
+- **Account keys** - serve as the primary identity and financial controller for your collator. These keys are used to interact with the network and manage funds. They should be treated as cold storage and must never exist on the filesystem of the collator node. Secure offline backup is essential
+
+- **Session keys** - handle block production operations to identify your node and sign blocks on the network. These keys are stored in the parachain keystore and function as operational "hot wallet" keys. If compromised, an attacker could impersonate your node, potentially resulting in slashing of your funds. To minimize these risks, implement regular session key rotation and treat them with the same caution as hot wallet keys
+
+To perform this step, you can use [subkey](https://docs.rs/crate/subkey/latest){target=\_blank}, a command-line tool for generating and managing keys:
+
+```bash
+docker run -it parity/subkey:latest generate --scheme sr25519
+```
+
+The output should look similar to the following:
+
+<div id="termynal" data-termynal>
+  <span data-ty="input"><span class="file-path"></span>docker run -it parity/subkey:latest generate --scheme sr25519</span>
+  <span> <br />Secret phrase: lemon play remain picture leopard frog mad bridge hire hazard best buddy <br />Network ID: substrate <br />Secret seed: 0xb748b501de061bae1fcab1c0b814255979d74d9637b84e06414a57a1a149c004 <br />Public key (hex): 0xf4ec62ec6e70a3c0f8dcbe0531e2b1b8916cf16d30635bbe9232f6ed3f0bf422 <br />Account ID: 0xf4ec62ec6e70a3c0f8dcbe0531e2b1b8916cf16d30635bbe9232f6ed3f0bf422 <br />Public key (SS58): 5HbqmBBJ5ALUzho7tw1k1jEgKBJM7dNsQwrtfSfUskT1a3oe <br />SS58 Address: 5HbqmBBJ5ALUzho7tw1k1jEgKBJM7dNsQwrtfSfUskT1a3oe </span>
+</div>
+
+Ensure that this command is executed twice to generate the keys for both the account and session keys. Save them for future reference.
+
+After generating the plain chain specification, you need to edit this file by inserting the account IDs and session keys in SS58 format generated for your collators in the `collatorSelection.invulnerables` and `session.keys` fields
+
+### Add Invulnerables
+
+In the `collatorSelection.invulnerables` array, add the SS58 addresses (account keys) of your collators. These addresses will be automatically included in the active collator set:
+
+```json
+"collatorSelection": {
+    "candidacyBond": 16000000000,
+    "desiredCandidates": 0,
+    "invulnerables": [
+        "INSERT_ACCOUNT_ID_COLLATOR_1",
+        "INSERT_ACCOUNT_ID_COLLATOR_2",
+        "INSERT_ACCOUNT_ID_COLLATOR_3"
+    ]
+}
+```
+
+- **candidacyBond**: Minimum stake required for collator candidates (in planck units)
+
+- **desiredCandidates**: Number of candidates beyond invulnerables (set to 0 for invulnerables-only)
+
+- **invulnerables**: Use the SS58 addresses from your generated account keys as collators
+
+### Add Session Keys
+
+For each invulnerable collator, add a corresponding entry in the `session.keys` array. This maps each collator's account ID to their session keys:
+
+```json
+"session": {
+    "keys": [
+        [
+            "INSERT_ACCOUNT_ID_COLLATOR_1",
+            "INSERT_ACCOUNT_ID_COLLATOR_1",
+            {
+                "aura": "INSERT_SESSION_KEY_COLLATOR_1"
+            }
+        ],
+        [
+            "INSERT_ACCOUNT_ID_COLLATOR_2",
+            "INSERT_ACCOUNT_ID_COLLATOR_2",
+            {
+                "aura": "INSERT_SESSION_KEY_COLLATOR_2"
+            }
+        ],
+        [
+            "INSERT_ACCOUNT_ID_COLLATOR_3",
+            "INSERT_ACCOUNT_ID_COLLATOR_3",
+            {
+                "aura": "INSERT_SESSION_KEY_COLLATOR_3"
+            }
+        ]
+    ],
+    "nonAuthorityKeys": []
+}
+```
+
 ## Where to Go Next
 
 After generating a chain specification, you can use it to initialize the genesis storage for a node. Refer to the following guides to learn how to proceed with the deployment of your blockchain:
@@ -14232,7 +14312,7 @@ In this unit file, you will write the commands that you want to run on server bo
 [Unit]
 Description=Polkadot Node
 After=network.target
-Documentation=https://github.com/paritytech/polkadot
+Documentation=https://github.com/paritytech/polkadot-sdk
 
 [Service]
 EnvironmentFile=-/etc/default/polkadot

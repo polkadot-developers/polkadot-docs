@@ -7,9 +7,9 @@ description: Learn how to interact with Polkadot Hub’s precompiles from Solidi
 
 ## Introduction
 
-Precompiles offer Polkadot Hub developers access to high-performance native functions directly from their smart contracts. This guide demonstrates how to interact with each standard precompile available in Polkadot Hub through Solidity smart contracts.
+Precompiles offer Polkadot Hub developers access to high-performance native functions directly from their smart contracts. Each precompile has a specific address and accepts a particular input data format. When called correctly, they execute optimized, native implementations of commonly used functions much more efficiently than equivalent contract-based implementations.
 
-Each precompile has a specific address and accepts a particular input data format. When called correctly, they execute optimized, native implementations of commonly used functions much more efficiently than equivalent contract-based implementations.
+This guide demonstrates how to interact with each standard precompile available in Polkadot Hub through Solidity smart contracts.
 
 ## Basic Precompile Interaction Pattern
 

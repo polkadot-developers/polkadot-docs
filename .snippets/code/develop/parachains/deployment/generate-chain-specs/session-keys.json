@@ -1,0 +1,28 @@
+{
+    "session": {
+        "keys": [
+            [
+                "INSERT_ACCOUNT_ID_COLLATOR_1",
+                "INSERT_ACCOUNT_ID_COLLATOR_1",
+                {
+                    "aura": "INSERT_SESSION_KEY_COLLATOR_1"
+                }
+            ],
+            [
+                "INSERT_ACCOUNT_ID_COLLATOR_2",
+                "INSERT_ACCOUNT_ID_COLLATOR_2",
+                {
+                    "aura": "INSERT_SESSION_KEY_COLLATOR_2"
+                }
+            ],
+            [
+                "INSERT_ACCOUNT_ID_COLLATOR_3",
+                "INSERT_ACCOUNT_ID_COLLATOR_3",
+                {
+                    "aura": "INSERT_SESSION_KEY_COLLATOR_3"
+                }
+            ]
+        ],
+        "nonAuthorityKeys": []
+    }
+}

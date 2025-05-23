@@ -1,0 +1,11 @@
+{
+    "collatorSelection": {
+        "candidacyBond": 16000000000,
+        "desiredCandidates": 0,
+        "invulnerables": [
+            "INSERT_ACCOUNT_ID_COLLATOR_1",
+            "INSERT_ACCOUNT_ID_COLLATOR_2",
+            "INSERT_ACCOUNT_ID_COLLATOR_3"
+        ]
+    }
+}

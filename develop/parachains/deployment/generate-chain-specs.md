@@ -140,7 +140,7 @@ docker run -it parity/subkey:latest generate --scheme sr25519
 
 The output should look similar to the following:
 
---8<-- 'code/tutorials/polkadot-sdk/parachains/zero-to-hero/deploy-to-testnet/key.html'
+--8<-- 'code/develop/parachains/deployment/generate-chain-specs/key.html'
 
 Ensure that this command is executed twice to generate the keys for both the account and session keys. Save them for future reference.
 
@@ -151,15 +151,7 @@ After generating the plain chain specification, you need to edit this file by in
 In the `collatorSelection.invulnerables` array, add the SS58 addresses (account keys) of your collators. These addresses will be automatically included in the active collator set:
 
 ```json
-"collatorSelection": {
-    "candidacyBond": 16000000000,
-    "desiredCandidates": 0,
-    "invulnerables": [
-        "INSERT_ACCOUNT_ID_COLLATOR_1",
-        "INSERT_ACCOUNT_ID_COLLATOR_2",
-        "INSERT_ACCOUNT_ID_COLLATOR_3"
-    ]
-}
+--8<-- 'code/develop/parachains/deployment/generate-chain-specs/invulnerables.json:2:10'
 ```
 
 - **candidacyBond**: Minimum stake required for collator candidates (in planck units)
@@ -173,32 +165,7 @@ In the `collatorSelection.invulnerables` array, add the SS58 addresses (account 
 For each invulnerable collator, add a corresponding entry in the `session.keys` array. This maps each collator's account ID to their session keys:
 
 ```json
-"session": {
-    "keys": [
-        [
-            "INSERT_ACCOUNT_ID_COLLATOR_1",
-            "INSERT_ACCOUNT_ID_COLLATOR_1",
-            {
-                "aura": "INSERT_SESSION_KEY_COLLATOR_1"
-            }
-        ],
-        [
-            "INSERT_ACCOUNT_ID_COLLATOR_2",
-            "INSERT_ACCOUNT_ID_COLLATOR_2",
-            {
-                "aura": "INSERT_SESSION_KEY_COLLATOR_2"
-            }
-        ],
-        [
-            "INSERT_ACCOUNT_ID_COLLATOR_3",
-            "INSERT_ACCOUNT_ID_COLLATOR_3",
-            {
-                "aura": "INSERT_SESSION_KEY_COLLATOR_3"
-            }
-        ]
-    ],
-    "nonAuthorityKeys": []
-}
+--8<-- 'code/develop/parachains/deployment/generate-chain-specs/session-keys.json:2:27'
 ```
 
 ## Where to Go Next

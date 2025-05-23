@@ -3,13 +3,13 @@ title: Interact with Precompiles
 description: A comprehensive guide on how to interact with precompiles in Polkadot Hub from Solidity smart contracts.
 ---
 
-# Interact With to Precompiles
+# Interact with Precompiles
 
 ## Introduction
 
-Precompiles offer Polkadot Hub developers access to high-performance native functions directly from their smart contracts. This guide demonstrates how to interact with each of the standard precompiles available in the Polkadot Hub through Solidity smart contracts.
+Precompiles offer Polkadot Hub developers access to high-performance native functions directly from their smart contracts. This guide demonstrates how to interact with each standard precompile available in Polkadot Hub through Solidity smart contracts.
 
-Each precompile has a specific address and accepts a particular format of input data. When called correctly, they execute optimized, native implementations of commonly used functions much more efficiently than equivalent contract-based implementations.
+Each precompile has a specific address and accepts a particular input data format. When called correctly, they execute optimized, native implementations of commonly used functions much more efficiently than equivalent contract-based implementations.
 
 ## Basic Precompile Interaction Pattern
 
@@ -17,24 +17,27 @@ All precompiles follow a similar interaction pattern:
 
 ```solidity
 // Generic pattern for calling precompiles
-function callPrecompile(address precompileAddress, bytes memory input) internal returns (bool success, bytes memory result) {
+function callPrecompile(address precompileAddress, bytes memory input)
+    internal
+    returns (bool success, bytes memory result)
+{
     // Direct low-level call to the precompile address
     (success, result) = precompileAddress.call(input);
-    
+
     // Ensure the call was successful
     require(success, "Precompile call failed");
-    
+
     return (success, result);
 }
 ```
 
-Feel free to check the [`precompiles-hardhat`](https://github.com/polkadot-developers/polkavm-hardhat-examples/tree/v0.0.3/precompiles-hardhat){target=\_blank} repository to check all the precompiles examples. The repository contains a set of example contracts and test files that demonstrate how to interact with each precompile in the Polkadot Hub.
+Feel free to check the [`precompiles-hardhat`](https://github.com/polkadot-developers/polkavm-hardhat-examples/tree/v0.0.3/precompiles-hardhat){target=\_blank} repository to check all the precompiles examples. The repository contains a set of example contracts and test files demonstrating how to interact with each precompile in Polkadot Hub.
 
 Now, let's explore how to use each precompile available in Polkadot Hub.
 
-## 1. ECRecover (0x01)
+## ECRecover (0x01)
 
-ECRecover recovers an Ethereum address associated with the public key that was used to sign a given message.
+ECRecover recovers an Ethereum address associated with the public key used to sign a message.
 
 ```solidity title="ECRecover.sol"
 --8<-- "https://raw.githubusercontent.com/polkadot-developers/polkavm-hardhat-examples/refs/tags/v0.0.3/precompiles-hardhat/contracts/ECRecover.sol"
@@ -42,7 +45,7 @@ ECRecover recovers an Ethereum address associated with the public key that was u
 
 To interact with the ECRecover precompile, you can deploy the `ECRecoverExample` contract in [Remix](/develop/smart-contracts/dev-environments/remix){target=\_blank} or any Solidity-compatible environment. The `callECRecover` function takes a 128-byte input combining the message `hash`, `v`, `r`, and `s` signature values. Check this [test file](https://github.com/polkadot-developers/polkavm-hardhat-examples/blob/v0.0.3/precompiles-hardhat/test/ECRecover.js){target=\_blank} that shows how to format this input and verify that the recovered address matches the expected result.
 
-## 2. SHA-256 (0x02)
+## SHA-256 (0x02)
 
 The SHA-256 precompile computes the SHA-256 hash of the input data.
 
@@ -53,7 +56,7 @@ The SHA-256 precompile computes the SHA-256 hash of the input data.
 To use it, you can deploy the `SHA256Example` contract in [Remix](/develop/smart-contracts/dev-environments/remix){target=\_blank} or any Solidity-compatible environment and call callH256 with arbitrary bytes. Check out this [test file](https://github.com/polkadot-developers/polkavm-hardhat-examples/blob/v0.0.3/precompiles-hardhat/test/SHA256.js){target=\_blank} shows how to pass a UTF-8 string, hash it using the precompile, and compare it with the expected hash from Node.js's [crypto](https://www.npmjs.com/package/crypto-js){target=\_blank} module.
 
 
-## 3. RIPEMD-160 (0x03)
+## RIPEMD-160 (0x03)
 
 The RIPEMD-160 precompile computes the RIPEMD-160 hash of the input data.
 
@@ -63,7 +66,7 @@ The RIPEMD-160 precompile computes the RIPEMD-160 hash of the input data.
 
 To use it, you can deploy the `RIPEMD160Example` contract in [Remix](/develop/smart-contracts/dev-environments/remix){target=\_blank} or any Solidity-compatible environment and call `calculateRIPEMD160` with arbitrary bytes. This [test file](https://github.com/polkadot-developers/polkavm-hardhat-examples/blob/v0.0.3/precompiles-hardhat/test/RIPEMD160.js){target=\_blank} shows how to hash a UTF-8 string, pad the 20-byte result to 32 bytes, and verify it against the expected output.
 
-## 4. Identity (Data Copy) (0x04)
+## Identity (Data Copy) (0x04)
 
 The Identity precompile simply returns the input data as output. While seemingly trivial, it can be useful for testing and certain specialized scenarios.
 
@@ -73,7 +76,7 @@ The Identity precompile simply returns the input data as output. While seemingly
 
 To use it, you can deploy the `IdentityExample` contract in [Remix](/develop/smart-contracts/dev-environments/remix){target=\_blank} or any Solidity-compatible environment and call `callIdentity` with arbitrary bytes. This [test file](https://github.com/polkadot-developers/polkavm-hardhat-examples/blob/v0.0.3/precompiles-hardhat/test/Identity.js){target=\_blank} shows how to pass input data and verify that the precompile returns it unchanged.
 
-## 5. Modular Exponentiation (0x05)
+## Modular Exponentiation (0x05)
 
 The ModExp precompile performs modular exponentiation, which is an operation commonly needed in cryptographic algorithms.
 
@@ -83,7 +86,7 @@ The ModExp precompile performs modular exponentiation, which is an operation com
 
 To use it, you can deploy the `ModExpExample` contract in [Remix](/develop/smart-contracts/dev-environments/remix){target=\_blank} or any Solidity-compatible environment and call `modularExponentiation` with encoded `base`, `exponent`, and `modulus` bytes. This [test file](https://github.com/polkadot-developers/polkavm-hardhat-examples/blob/v0.0.3/precompiles-hardhat/test/ModExp.js){target=\_blank} shows how to test modular exponentiation like (4 ** 13) % 497 = 445.
 
-## 6. BN128 Addition (0x06)
+## BN128 Addition (0x06)
 
 The BN128Add precompile performs addition on the alt_bn128 elliptic curve, which is essential for zk-SNARK operations.
 
@@ -93,7 +96,7 @@ The BN128Add precompile performs addition on the alt_bn128 elliptic curve, which
 
 To use it, you can deploy the `BN128AddExample` contract in [Remix](/develop/smart-contracts/dev-environments/remix){target=\_blank} or any Solidity-compatible environment and call `callBN128Add` with valid `alt_bn128` points. This [test file](https://github.com/polkadot-developers/polkavm-hardhat-examples/blob/v0.0.3/precompiles-hardhat/test/BN128Add.js){target=\_blank} demonstrates a valid curve addition and checks the result against known expected values.
 
-## 7. BN128 Scalar Multiplication (0x07)
+## BN128 Scalar Multiplication (0x07)
 
 The BN128Mul precompile performs scalar multiplication on the alt_bn128 curve.
 
@@ -103,7 +106,7 @@ The BN128Mul precompile performs scalar multiplication on the alt_bn128 curve.
 
 To use it, deploy `BN128MulExample` in [Remix](/develop/smart-contracts/dev-environments/remix){target=\_blank} or any Solidity-compatible environment and call `bn128ScalarMul` with a valid point and scalar. This [test file](https://github.com/polkadot-developers/polkavm-hardhat-examples/blob/v0.0.3/precompiles-hardhat/test/BN128Mul.js){target=\_blank} shows how to test the operation and verify the expected scalar multiplication result on `alt_bn128`.
 
-## 8. BN128 Pairing Check (0x08)
+## BN128 Pairing Check (0x08)
 
 The BN128Pairing precompile verifies a pairing equation on the alt_bn128 curve, which is critical for zk-SNARK verification.
 
@@ -113,7 +116,7 @@ The BN128Pairing precompile verifies a pairing equation on the alt_bn128 curve, 
 
 You can deploy `BN128PairingExample` in [Remix](/develop/smart-contracts/dev-environments/remix){target=\_blank} or your preferred environment. Check out this [test file](https://github.com/polkadot-developers/polkavm-hardhat-examples/blob/v0.0.3/precompiles-hardhat/test/BN128Pairing.js){target=\_blank} contains these tests with working examples.
 
-## 9. Blake2F (0x09)
+## Blake2F (0x09)
 
 The Blake2F precompile performs the Blake2 compression function F, which is the core of the Blake2 hash function.
 

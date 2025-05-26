@@ -8,4 +8,4 @@ nav:
   - libraries
   - block-explorers
   - 'JSON-RPC APIs': json-rpc-apis.md
-  - 'Precompiles': precompiles.md
+  - precompiles

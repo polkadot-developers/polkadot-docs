@@ -38,7 +38,6 @@ git checkout empty-cli
 After cloning, install the required dependencies by running:
 
 ```bash
-cd polkadot-api-example-cli
 npm install
 ```
 

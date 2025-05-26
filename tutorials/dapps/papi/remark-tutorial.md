@@ -1,11 +1,13 @@
 ---
-title: Polkadot API Account Watcher Tutorial
-description: Learn how to build a decentralized command-line application using the Polkadot API.
+title: Account Watcher
+description: Build a CLI app that monitors on-chain events using the Polkadot API and reacts to custom system.remarkWithEvent messages.
 ---
+
+# PAPI Account Watcher 
 
 ## Introduction
 
-This tutorial demonstrates how to build a simple command-line interface (CLI) application that monitors a user's account on the relay chain for the [`system.remarkWithEvent`](https://paritytech.github.io/polkadot-sdk/master/frame_system/pallet/struct.Pallet.html#method.remark_with_event){target=\_blank} extrinsic.
+This tutorial demonstrates how to build a simple command-line interface (CLI) application that monitors a user's account on the relay chain for the [`system.remarkWithEvent`](https://paritytech.github.io/polkadot-sdk/master/frame_system/pallet/struct.Pallet.html#method.remark_with_event){target=\_blank} extrinsic, using the [Polkadot API](/develop/toolkit/api-libraries/papi){target=\_blank}.
 
 The `system.remarkWithEvent` extrinsic enables the submission of arbitrary data on-chain. In this tutorial, the data consists of a hash derived from the combination of an account address and the word "email" (`address+email`). This hash is monitored on-chain, and the application listens for remarks addressed to the specified account. The `system.remarkWithEvent` extrinsic emits an event that can be observed using the Polkadot API (PAPI).
 
@@ -25,7 +27,7 @@ Additionally, you need an account with Westend tokens. Refer to the following re
 
 ## Clone the Repository
 
-To follow this tutorial, you can either run the example directly or use a boilerplate/template. This tutorial uses a template that includes all necessary dependencies for working with the Polkadot API and TypeScript. Clone the appropriate branch (`empty-cli`) of the repository as follows:
+To follow this tutorial, you can either run the example directly or use a boilerplate/template. This tutorial uses a template that includes all necessary dependencies for working with the Polkadot API and TypeScript. Clone the appropriate branch ([`empty-cli`](https://github.com/CrackTheCode016/polkadot-api-example-cli/tree/empty-cli){target=\_blank}) of the repository as follows:
 
 ```bash
 git clone https://github.com/CrackTheCode016/polkadot-api-example-cli --branch empty-cli
@@ -43,7 +45,7 @@ npm install
 After opening the repository, you will find the following code (excluding imports):
 
 ```typescript title="index.ts"
---8<-- 'code/develop/dapps/papi/remark-tutorial/index.ts'
+--8<-- 'code/tutorials/dapps/papi/remark-tutorial/index.ts'
 ```
 
 The `withLightClient` function is particularly important. It uses the built-in light client functionality, powered by [`smoldot`](https://github.com/smol-dot/smoldot){target=\_blank}, to create a light client that synchronizes and interacts with Polkadot directly within the application.
@@ -53,7 +55,7 @@ The `withLightClient` function is particularly important. It uses the built-in l
 The CLI functionality is implemented within the `main` function. The CLI includes an option (`-a` / `--account`) to specify the account to monitor for remarks:
 
 ```typescript title="index.ts"
---8<-- 'code/develop/dapps/papi/remark-tutorial/cli.ts'
+--8<-- 'code/tutorials/dapps/papi/remark-tutorial/cli.ts'
 ```
 
 ## Watch for Remarks
@@ -80,40 +82,17 @@ npm start -- --account 5GrwvaEF5zXb26Fz9rcQpDWS57CtERHpNehXCPcNoHGKutQY
 
 The output should look like this:
 
-```
- __        __   _    _____   __  __       _ _  __        __    _       _
- \ \      / /__| |__|___ /  |  \/  | __ _(_) | \ \      / /_ _| |_ ___| |__   ___ _ __
-  \ \ /\ / / _ \ '_ \ |_ \  | |\/| |/ _` | | |  \ \ /\ / / _` | __/ __| '_ \ / _ \ '__|
-   \ V  V /  __/ |_) |__) | | |  | | (_| | | |   \ V  V / (_| | || (__| | | |  __/ |
-    \_/\_/ \___|_.__/____/  |_|  |_|\__,_|_|_|    \_/\_/ \__,_|\__\___|_| |_|\___|_|
-
-Watching account: 5GrwvaEF5zXb26Fz9rcQpDWS57CtERHpNehXCPcNoHGKutQY
-[smoldot] Smoldot v2.0.34
-[smoldot] Chain initialization complete for westend2. Name: "Westend". Genesis hash: 0xe143…423e. Chain specification starting at: 0x10cf…b908 (#23920337)
-```
+--8<-- 'code/tutorials/dapps/papi/remark-tutorial/initialization.html'
 
 ## Test the CLI
 
-To test the application, navigate to the [PAPI Dev Console > Extrinsics](https://dev.papi.how/extrinsics#networkId=westend&endpoint=light-client){target=\_blank}. Select the `System` pallet and the `remark_with_event` call.
+To test the application, navigate to the [PAPI Dev Console > Extrinsics](https://dev.papi.how/extrinsics#networkId=westend&endpoint=light-client){target=\_blank}. Select the `System` pallet and the `remark_with_event` call. Ensure the input field follows the convention `address+email`. For example, if monitoring `5GrwvaEF5zXb26Fz9rcQpDWS57CtERHpNehXCPcNoHGKutQY`, the input should be:
 
-Ensure the input field follows the convention `address+email`. For example, if monitoring `5GrwvaEF5zXb26Fz9rcQpDWS57CtERHpNehXCPcNoHGKutQY`, the input should be:
-
-![](images/develop/dapps/papi/papi-console.webp)
+![](/images/tutorials/dapps/papi/papi-console.webp)
 
 Submit the extrinsic and sign it using the Polkadot.js browser wallet. The CLI will display the following output and play the "You've Got Mail!" sound:
 
-```
- __        __   _    _____   __  __       _ _  __        __    _       _
- \ \      / /__| |__|___ /  |  \/  | __ _(_) | \ \      / /_ _| |_ ___| |__   ___ _ __
-  \ \ /\ / / _ \ '_ \ |_ \  | |\/| |/ _` | | |  \ \ /\ / / _` | __/ __| '_ \ / _ \ '__|
-   \ V  V /  __/ |_) |__) | | |  | | (_| | | |   \ V  V / (_| | || (__| | | |  __/ |
-    \_/\_/ \___|_.__/____/  |_|  |_|\__,_|_|_|    \_/\_/ \__,_|\__\___|_| |_|\___|_|
-
-Watching account: 5Cm8yiG45rqrpyV2zPLrbtr8efksrRuCXcqcB4xj8AejfcTB
-You've got mail!
-From: 5Cm8yiG45rqrpyV2zPLrbtr8efksrRuCXcqcB4xj8AejfcTB
-Hash: 0xb6999c9082f5b1dede08b387404c9eb4eb2deee4781415dfa7edf08b87472050
-```
+--8<-- 'code/tutorials/dapps/papi/remark-tutorial/output.html'
 
 ## Next Steps
 

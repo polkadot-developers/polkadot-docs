@@ -1,4 +1,4 @@
 title: Polkadot API (PAPI)
 nav:
   - index.md
-  - remark-tutorial.md
+  - 'Account Watcher': remark-tutorial.md

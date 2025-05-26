@@ -21893,7 +21893,7 @@ However, this architectural difference becomes relevant in specific scenarios. T
 
 This primarily affects contracts using [`EXTCODECOPY`](https://www.evm.codes/?fork=cancun#3c){target=\_blank} to manipulate code at runtime. A contract encounters problems specifically when it uses `EXTCODECOPY` to copy contract code into memory and then attempts to mutate it. This pattern is not possible in standard Solidity and requires dropping down to YUL assembly. An example would be a factory contract written in assembly that constructs and instantiates new contracts by generating code at runtime. Such contracts are rare in practice.
 
-PolkaVM offers an elegant alternative through its [on-chain constructors](https://paritytech.github.io/polkadot-sdk/master/pallet_revive/pallet/struct.Pallet.html#method.bare_instantiate){target=\_blank}, enabling contract instantiation without runtime code modification, making this pattern unnecessary.
+PolkaVM offers an elegant alternative through its [on-chain constructors](https://paritytech.github.io/polkadot-sdk/master/pallet_revive/pallet/struct.Pallet.html#method.bare_instantiate){target=\_blank}, enabling contract instantiation without runtime code modification, making this pattern unnecessary. This architectural difference also impacts how contract deployment works more broadly, as discussed in the [Contract Deployment](#contract-deployment) section.
 
 ### High-Level Architecture Comparison
 
@@ -21985,7 +21985,6 @@ Ethereum and Polkadot handle account persistence differently, affecting state ma
 |          Feature          |                   Ethereum Approach                   |               PolkaVM/Polkadot Approach                |
 | :-----------------------: | :---------------------------------------------------: | :----------------------------------------------------: |
 |  **Account Persistence**  | Accounts persist indefinitely, even with zero balance | Requires existential deposit (ED) to maintain account  |
-|  **Account Persistence**  |  Accounts exist indefinitely, even with zero balance  | Requires existential deposit (ED) to maintain account  |
 |    **Minimum Balance**    |                         None                          |                      ED required                       |
 |   **Account Deletion**    |               Accounts remain in state                |      Accounts below ED are automatically deleted       |
 |   **Contract Accounts**   |                  Exist indefinitely                   |                    Must maintain ED                    |
@@ -22017,11 +22016,7 @@ In the PolkaVM, contract deployment follows a fundamentally different model from
 - **Factory pattern limitations** - the common EVM pattern, where contracts dynamically create other contracts, will fail with `CodeNotFound` error unless the dependent contract code was previously uploaded
 - **Separate upload and instantiation** - this creates a two-step process where developers must first upload all contract code, then instantiate relationships between contracts
 
-This architecture impacts several common EVM patterns:
-
-- Factory contracts must be modified to work with pre-uploaded code rather than embedding bytecode
-- [`create`](https://www.evm.codes/?fork=cancun#f0){target=\_blank} and [`create2`](https://www.evm.codes/?fork=cancun#f5){target=\_blank} deployments need adaptation since they can't dynamically generate contract code
-- Runtime code generation is not supported due to PolkaVM's RISC-V bytecode format
+This architecture impacts several common EVM patterns and requires developers to adapt their deployment strategies accordingly. *Factory contracts must be modified to work with pre-uploaded code rather than embedding bytecode*, and runtime code generation is not supported due to PolkaVM's RISC-V bytecode format. The specific behavior of contract creation opcodes is detailed in the [YUL IR Translation](#yul-function-translation-differences) section.
 
 When migrating EVM projects to PolkaVM, developers should identify all contracts that will be instantiated at runtime and ensure they are pre-uploaded to the chain before any instantiation attempts.
 

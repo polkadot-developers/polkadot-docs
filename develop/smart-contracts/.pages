@@ -10,4 +10,4 @@ nav:
   - 'Block Explorers': block-explorers.md
   - 'Contract Verification': contract-verification.md
   - 'JSON-RPC APIs': json-rpc-apis.md
-  - 'Precompiles': precompiles.md
+  - precompiles

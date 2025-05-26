@@ -27,10 +27,12 @@ Additionally, you need an account with Westend tokens. Refer to the following re
 
 ## Clone the Repository
 
-To follow this tutorial, you can either run the example directly or use a boilerplate/template. This tutorial uses a template that includes all necessary dependencies for working with the Polkadot API and TypeScript. Clone the appropriate branch ([`empty-cli`](https://github.com/CrackTheCode016/polkadot-api-example-cli/tree/empty-cli){target=\_blank}) of the repository as follows:
+To follow this tutorial, you can either run the example directly or use a boilerplate/template. This tutorial uses a template that includes all necessary dependencies for working with the Polkadot API and TypeScript. Clone the project for further referencesanch ([`empty-cli`](https://github.com/CrackTheCode016/polkadot-api-example-cli/tree/empty-cli){target=\_blank}) of the repository as follows:
 
 ```bash
-git clone https://github.com/CrackTheCode016/polkadot-api-example-cli --branch empty-cli
+git clone https://github.com/polkadot-developers/dapp-examples/tree/v0.0.2
+cd polkadot-api-example-cli
+git checkout empty-cli
 ```
 
 After cloning, install the required dependencies by running:

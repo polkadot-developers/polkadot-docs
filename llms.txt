@@ -4459,7 +4459,7 @@ The output should look similar to the following:
 
 Ensure that this command is executed twice to generate the keys for both the account and session keys. Save them for future reference.
 
-After generating the plain chain specification, you need to edit this file by inserting the account IDs and session keys in SS58 format generated for your collators in the `collatorSelection.invulnerables` and `session.keys` fields
+After generating the plain chain specification, you need to edit this file by inserting the account IDs and session keys in SS58 format generated for your collators in the `collatorSelection.invulnerables` and `session.keys` fields.
 
 ### Add Invulnerables
 

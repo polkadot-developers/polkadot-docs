@@ -21903,7 +21903,7 @@ PolkaVM offers an elegant alternative through its [on-chain constructors](https:
 |      **Bytecode Format**      |                                     EVM bytecode                                     |                     RISC-V format                      |
 |    **Contract Size Limit**    |                                 24KB code size limit                                 |            Contract-specific memory limits             |
 |         **Compiler**          |                                  Solidity Compiler                                   |                    Revive Compiler                     |
-|      **Inline Assembly**      |                                      Supported                                       |           Supported with compatibility layer           |
+|      **Inline Assembly**      |                                      Supported                                       |         Supported with the compatibility layer         |
 |    **Code Introspection**     | Supported via [`EXTCODECOPY`](https://www.evm.codes/?fork=cancun#3c){target=\_blank} | Limited support, alternative via on-chain constructors |
 |     **Resource Metering**     |                                  Single gas metric                                   |                   Multi-dimensional                    |
 | **Runtime Code Modification** |                                      Supported                                       |               Limited, with alternatives               |
@@ -21937,7 +21937,7 @@ These resources can also be limited when making cross-contract calls, which is e
 When resources are "uncapped" in cross-contract calls, they remain constrained by transaction-specified limits, preventing abuse of the transaction signer.
 
 !!!info
-    The runtime will provide a special precompile allowing cross-contract calls with limits specified for all weight dimensions in the future.
+The runtime will provide a special precompile, allowing cross-contract calls with limits specified for all weight dimensions in the future.
 
 All gas-related opcodes like [`GAS`](https://www.evm.codes/?fork=cancun#5a){target=\_blank} or [`GAS_LIMIT`](https://www.evm.codes/?fork=cancun#45){target=\_blank} return only the `ref_time` value as it's the closest match to traditional gas. Extended APIs will be provided through precompiles to make full use of all resources, including cross-contract calls with all three resources specified.
 
@@ -21962,19 +21962,18 @@ The architecture establishes a constant memory limit per contract, which is the 
 
 The following table depicts memory-related limits at the time of writing:
 
-| Limit                                      | Maximum         |
+|                   Limit                    |     Maximum     |
 | :----------------------------------------: | :-------------: |
-| Call stack depth                           | 5               |
-| Event topics                               | 4               |
-| Event data payload size (including topics) | 416 bytes       |
-| Storage value size                         | 416 bytes       |
-| Transient storage variables                | 128 uint values |
-| Immutable variables                        | 16 uint values  |
-| Contract code blob size                    | ~100 kilobytes  |
+|              Call stack depth              |        5        |
+|                Event topics                |        4        |
+| Event data payload size (including topics) |    416 bytes    |
+|             Storage value size             |    416 bytes    |
+|        Transient storage variables         | 128 uint values |
+|            Immutable variables             | 16 uint values  |
+|          Contract code blob size           | ~100 kilobytes  |
 
 !!! info
-    Limits might be increased in the future. To guarantee existing contracts work as expected, limits will never be decreased.
-
+Limits might be increased in the future. To guarantee existing contracts work as expected, limits will never be decreased.
 
 ## Account Management - Existential Deposit
 
@@ -22016,7 +22015,7 @@ In the PolkaVM, contract deployment follows a fundamentally different model from
 - **Factory pattern limitations** - the common EVM pattern, where contracts dynamically create other contracts, will fail with `CodeNotFound` error unless the dependent contract code was previously uploaded
 - **Separate upload and instantiation** - this creates a two-step process where developers must first upload all contract code, then instantiate relationships between contracts
 
-This architecture impacts several common EVM patterns and requires developers to adapt their deployment strategies accordingly. *Factory contracts must be modified to work with pre-uploaded code rather than embedding bytecode*, and runtime code generation is not supported due to PolkaVM's RISC-V bytecode format. The specific behavior of contract creation opcodes is detailed in the [YUL IR Translation](#yul-function-translation-differences) section.
+This architecture impacts several common EVM patterns and requires developers to adapt their deployment strategies accordingly. _Factory contracts must be modified to work with pre-uploaded code rather than embedding bytecode_, and runtime code generation is not supported due to PolkaVM's RISC-V bytecode format. The specific behavior of contract creation opcodes is detailed in the [YUL IR Translation](#yul-function-translation-differences) section.
 
 When migrating EVM projects to PolkaVM, developers should identify all contracts that will be instantiated at runtime and ensure they are pre-uploaded to the chain before any instantiation attempts.
 
@@ -22041,49 +22040,60 @@ Several Solidity constructs behave differently under PolkaVM:
 The following YUL functions exhibit notable behavioral differences in PolkaVM:
 
 - **Memory Operations:**
-    - **`mload`, `mstore`, `msize`, `mcopy`** - PolkaVM preserves memory layout but implements several constraints:
-        - EVM linear heap memory is emulated using a fixed 64KB byte buffer, limiting maximum contract memory usage
-        - Accessing memory offsets larger than the buffer size traps the contract with an `OutOfBound` error
-        - Compiler optimizations may eliminate unused memory operations, potentially causing `msize` to differ from EVM behavior
+
+  - **`mload`, `mstore`, `msize`, `mcopy`** - PolkaVM preserves memory layout but implements several constraints:
+    - EVM linear heap memory is emulated using a fixed 64KB byte buffer, limiting maximum contract memory usage
+    - Accessing memory offsets larger than the buffer size traps the contract with an `OutOfBound` error
+    - Compiler optimizations may eliminate unused memory operations, potentially causing `msize` to differ from EVM behavior
 
 - **Call Data Operations:**
-    - **`calldataload`, `calldatacopy`** - in constructor code, the offset parameter is ignored and these functions always return `0`, diverging from EVM behavior where call data represents constructor arguments
+
+  - **`calldataload`, `calldatacopy`** - in constructor code, the offset parameter is ignored and these functions always return `0`, diverging from EVM behavior where call data represents constructor arguments
 
 - **Code Operations:**
-    - **`codecopy`** - only supported within constructor code, reflecting PolkaVM's different approach to code handling and the unified code blob structure
+
+  - **`codecopy`** - only supported within constructor code, reflecting PolkaVM's different approach to code handling and the unified code blob structure
 
 - **Control Flow:**
-    - **`invalid`** - traps the contract execution but does not consume remaining gas, unlike EVM where it consumes all available gas
+
+  - **`invalid`** - traps the contract execution but does not consume remaining gas, unlike EVM where it consumes all available gas
 
 - **Cross-Contract Calls:**
-    - **`call`, `delegatecall`, `staticall`** - these functions ignore supplied gas limits and forward all remaining resources due to PolkaVM's multi-dimensional resource model. This creates important security implications:
 
-        - Contract authors must implement reentrancy protection since gas stipends don't provide protection
-        - The compiler detects `address payable.{send,transfer}` patterns and disables call reentrancy as a protective heuristic
-        - Using `address payable.{send,transfer}` is already deprecated; PolkaVM will provide dedicated precompiles for safe balance transfers
+  - **`call`, `delegatecall`, `staticall`** - these functions ignore supplied gas limits and forward all remaining resources due to PolkaVM's multi-dimensional resource model. This creates important security implications:
 
-        !!!warning
-            The 2300 gas stipend provided by `solc` for `address payable.{send,transfer}` calls offers no reentrancy protection in PolkaVM. While the compiler attempts to detect and mitigate this pattern, developers should avoid these deprecated functions.
+    - Contract authors must implement reentrancy protection since gas stipends don't provide protection
+    - The compiler detects `address payable.{send,transfer}` patterns and disables call reentrancy as a protective heuristic
+    - Using `address payable.{send,transfer}` is already deprecated; PolkaVM will provide dedicated precompiles for safe balance transfers
+
+    !!!warning
+    The 2300 gas stipend that is provided by solc for address payable.{send, transfer} calls offers no reentrancy protection in PolkaVM. While the compiler attempts to detect and mitigate this pattern, developers should avoid these deprecated functions.
+
+
 
 - **Contract Creation:**
-    - **`create`, `create2`** - contract instantiation works fundamentally differently in PolkaVM. Instead of supplying deploy code concatenated with constructor arguments, the runtime expects:
-        1. A buffer containing the code hash to deploy
-        2. The constructor arguments buffer
 
-        PolkaVM translates `dataoffset` and `datasize` instructions to handle contract hashes instead of contract code, enabling seamless use of the `new` keyword in Solidity. However, this translation may fail for contracts creating other contracts within `assembly` blocks.
+  - **`create`, `create2`** - contract instantiation works fundamentally differently in PolkaVM. Instead of supplying deploy code concatenated with constructor arguments, the runtime expects:
 
-        !!!warning
-            Avoid using `create` family opcodes for manual deployment crafting in `assembly` blocks. This pattern is discouraged due to translation complexity and offers no gas savings benefits in PolkaVM.
+    1. A buffer containing the code hash to deploy
+    2. The constructor arguments buffer
+
+    PolkaVM translates `dataoffset` and `datasize` instructions to handle contract hashes instead of contract code, enabling seamless use of the `new` keyword in Solidity. However, this translation may fail for contracts creating other contracts within `assembly` blocks.
+
+    !!!warning
+    Avoid using `create` family opcodes for manual deployment crafting in `assembly` blocks. This pattern is discouraged due to translation complexity and offers no gas savings benefits in PolkaVM.
 
 - **Data Operations**
-    - **`dataoffset`** - returns the contract hash instead of code offset, aligning with PolkaVM's hash-based code referencing
-    - **`datasize`** - returns the constant contract hash size (32 bytes) rather than variable code size
+
+  - **`dataoffset`** - returns the contract hash instead of code offset, aligning with PolkaVM's hash-based code referencing
+  - **`datasize`** - returns the constant contract hash size (32 bytes) rather than variable code size
 
 - Resource Queries
-    - **`gas`, `gaslimit`** - return only the `ref_time` component of PolkaVM's multi-dimensional weight system, providing the closest analog to traditional gas measurements
+
+  - **`gas`, `gaslimit`** - return only the `ref_time` component of PolkaVM's multi-dimensional weight system, providing the closest analog to traditional gas measurements
 
 - **Blockchain State:**
-    - **`prevrandao`, `difficulty`** - both translate to a constant value of `2500000000000000`, as PolkaVM doesn't implement Ethereum's difficulty adjustment or randomness mechanisms
+  - **`prevrandao`, `difficulty`** - both translate to a constant value of `2500000000000000`, as PolkaVM doesn't implement Ethereum's difficulty adjustment or randomness mechanisms
 
 ### Unsupported Operations
 

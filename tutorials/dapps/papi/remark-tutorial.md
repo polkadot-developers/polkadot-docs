@@ -49,7 +49,7 @@ After opening the repository, you will find the following code (excluding import
 --8<-- 'code/tutorials/dapps/papi/remark-tutorial/index.ts'
 ```
 
-The `withLightClient` function is particularly important. It uses the built-in light client functionality, powered by [`smoldot`](https://github.com/smol-dot/smoldot){target=\_blank}, to create a light client that synchronizes and interacts with Polkadot directly within the application.
+The `withLightClient` function is particularly important. It uses the built-in [light client](/develop/toolkit/parachains/light-clients/){target=\_blank} functionality, powered by [`smoldot`](https://github.com/smol-dot/smoldot){target=\_blank}, to create a light client that synchronizes and interacts with Polkadot directly within the application.
 
 ## Create the CLI
 

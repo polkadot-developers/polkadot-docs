@@ -24,7 +24,7 @@ Before starting, ensure the following tools and dependencies are installed:
 
 ## Clone the Repository
 
-To follow this tutorial, you can either run the example directly or use a boilerplate/template. This tutorial uses a template that includes all necessary dependencies for working with the Polkadot API and TypeScript. Clone the project for further referencesanch ([`empty-cli`](https://github.com/CrackTheCode016/polkadot-api-example-cli/tree/empty-cli){target=\_blank}) of the repository as follows:
+To follow this tutorial, you can either run the example directly or use a boilerplate/template. This tutorial uses a template that includes all necessary dependencies for working with the Polkadot API and TypeScript. Clone the `polkadot-api-example-cli` project and checkout to the [`empty-cli`](https://github.com/CrackTheCode016/polkadot-api-example-cli/tree/empty-cli){target=\_blank} as follows:
 
 ```bash
 git clone https://github.com/polkadot-developers/dapp-examples/tree/v0.0.2

@@ -21936,8 +21936,8 @@ These resources can also be limited when making cross-contract calls, which is e
 
 When resources are "uncapped" in cross-contract calls, they remain constrained by transaction-specified limits, preventing abuse of the transaction signer.
 
-!!!info
-The runtime will provide a special precompile, allowing cross-contract calls with limits specified for all weight dimensions in the future.
+!!! note
+    The runtime will provide a special precompile, allowing cross-contract calls with limits specified for all weight dimensions in the future.
 
 All gas-related opcodes like [`GAS`](https://www.evm.codes/?fork=cancun#5a){target=\_blank} or [`GAS_LIMIT`](https://www.evm.codes/?fork=cancun#45){target=\_blank} return only the `ref_time` value as it's the closest match to traditional gas. Extended APIs will be provided through precompiles to make full use of all resources, including cross-contract calls with all three resources specified.
 
@@ -21972,8 +21972,8 @@ The following table depicts memory-related limits at the time of writing:
 |            Immutable variables             | 16 uint values  |
 |          Contract code blob size           | ~100 kilobytes  |
 
-!!! info
-Limits might be increased in the future. To guarantee existing contracts work as expected, limits will never be decreased.
+!!! note
+    Limits might be increased in the future. To guarantee existing contracts work as expected, limits will never be decreased.
 
 ## Account Management - Existential Deposit
 
@@ -22031,7 +22031,7 @@ In constructor code, the `codesize` instruction returns the call data size inste
 
 ### Solidity-Specific Differences
 
-Several Solidity constructs behave differently under PolkaVM:
+Solidity constructs behave differently under PolkaVM:
 
 - **`address.creationCode`** - returns the bytecode keccak256 hash instead of the actual creation code, reflecting PolkaVM's hash-based code referencing system
 
@@ -22066,10 +22066,8 @@ The following YUL functions exhibit notable behavioral differences in PolkaVM:
     - The compiler detects `address payable.{send,transfer}` patterns and disables call reentrancy as a protective heuristic
     - Using `address payable.{send,transfer}` is already deprecated; PolkaVM will provide dedicated precompiles for safe balance transfers
 
-    !!!warning
-    The 2300 gas stipend that is provided by solc for address payable.{send, transfer} calls offers no reentrancy protection in PolkaVM. While the compiler attempts to detect and mitigate this pattern, developers should avoid these deprecated functions.
-
-
+    !!! warning
+        The 2300 gas stipend that is provided by solc for address payable.{send, transfer} calls offers no reentrancy protection in PolkaVM. While the compiler attempts to detect and mitigate this pattern, developers should avoid these deprecated functions.
 
 - **Contract Creation:**
 
@@ -22080,15 +22078,15 @@ The following YUL functions exhibit notable behavioral differences in PolkaVM:
 
     PolkaVM translates `dataoffset` and `datasize` instructions to handle contract hashes instead of contract code, enabling seamless use of the `new` keyword in Solidity. However, this translation may fail for contracts creating other contracts within `assembly` blocks.
 
-    !!!warning
-    Avoid using `create` family opcodes for manual deployment crafting in `assembly` blocks. This pattern is discouraged due to translation complexity and offers no gas savings benefits in PolkaVM.
+    !!! warning
+        Avoid using `create` family opcodes for manual deployment crafting in `assembly` blocks. This pattern is discouraged due to translation complexity and offers no gas savings benefits in PolkaVM.
 
-- **Data Operations**
+- **Data Operations:**
 
   - **`dataoffset`** - returns the contract hash instead of code offset, aligning with PolkaVM's hash-based code referencing
   - **`datasize`** - returns the constant contract hash size (32 bytes) rather than variable code size
 
-- Resource Queries
+- **Resource Queries:**
 
   - **`gas`, `gaslimit`** - return only the `ref_time` component of PolkaVM's multi-dimensional weight system, providing the closest analog to traditional gas measurements
 

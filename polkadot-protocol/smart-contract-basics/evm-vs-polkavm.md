@@ -211,7 +211,7 @@ The following YUL functions exhibit notable behavioral differences in PolkaVM:
     - The compiler detects `address payable.{send,transfer}` patterns and disables call reentrancy as a protective heuristic
     - Using `address payable.{send,transfer}` is already deprecated; PolkaVM will provide dedicated precompiles for safe balance transfers
 
-    !!!warning
+    !!! warning
         The 2300 gas stipend that is provided by solc for address payable.{send, transfer} calls offers no reentrancy protection in PolkaVM. While the compiler attempts to detect and mitigate this pattern, developers should avoid these deprecated functions.
 
 - **Contract Creation:**
@@ -223,7 +223,7 @@ The following YUL functions exhibit notable behavioral differences in PolkaVM:
 
     PolkaVM translates `dataoffset` and `datasize` instructions to handle contract hashes instead of contract code, enabling seamless use of the `new` keyword in Solidity. However, this translation may fail for contracts creating other contracts within `assembly` blocks.
 
-    !!!warning
+    !!! warning
         Avoid using `create` family opcodes for manual deployment crafting in `assembly` blocks. This pattern is discouraged due to translation complexity and offers no gas savings benefits in PolkaVM.
 
 - **Data Operations:**

@@ -4440,11 +4440,11 @@ The raw chain specification can be used to initialize the genesis storage for a 
 
 To securely deploy your parachain, you must generate custom cryptographic keys for your collators (block producers). Each collator requires two distinct sets of keys with different security requirements and operational purposes.
 
-- **Account keys** - serve as the primary identity and financial controller for your collator. These keys are used to interact with the network and manage funds. They should be treated as cold storage and must never exist on the filesystem of the collator node. Secure offline backup is essential
+- **Account keys**: Serve as the primary identity and financial controller for your collator. These keys are used to interact with the network and manage funds. They should be treated as cold storage and must never exist on the filesystem of the collator node. Secure offline backup is essential.
 
-- **Session keys** - handle block production operations to identify your node and sign blocks on the network. These keys are stored in the parachain keystore and function as operational "hot wallet" keys. If compromised, an attacker could impersonate your node, potentially resulting in slashing of your funds. To minimize these risks, implement regular session key rotation and treat them with the same caution as hot wallet keys
+- **Session keys**: Handle block production operations to identify your node and sign blocks on the network. These keys are stored in the parachain keystore and function as operational "hot wallet" keys. If compromised, an attacker could impersonate your node, potentially resulting in slashing of your funds. To minimize these risks, implement regular session key rotation and treat them with the same caution as hot wallet keys.
 
-To perform this step, you can use [subkey](https://docs.rs/crate/subkey/latest){target=\_blank}, a command-line tool for generating and managing keys:
+To perform this step, you can use [Subkey](https://docs.rs/crate/subkey/latest){target=\_blank}, a command-line tool for generating and managing keys:
 
 ```bash
 docker run -it parity/subkey:latest generate --scheme sr25519
@@ -4476,11 +4476,11 @@ In the `collatorSelection.invulnerables` array, add the SS58 addresses (account 
     }
 ```
 
-- **candidacyBond**: Minimum stake required for collator candidates (in planck units)
+- **`candidacyBond`**: Minimum stake required for collator candidates (in Planck units).
 
-- **desiredCandidates**: Number of candidates beyond invulnerables (set to 0 for invulnerables-only)
+- **`desiredCandidates`**: Number of candidates beyond invulnerables (set to 0 for invulnerables-only).
 
-- **invulnerables**: Use the SS58 addresses from your generated account keys as collators
+- **`invulnerables`**: Use the SS58 addresses from your generated account keys as collators.
 
 ### Add Session Keys
 

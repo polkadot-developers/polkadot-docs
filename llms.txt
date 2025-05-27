@@ -19678,7 +19678,7 @@ Learn how to integrate Polkadot APIs, use local or light clients, and interact w
     <a href="/develop/toolkit/api-libraries/papi/">
       <h2 class="title">Polkadot API (PAPI)</h2>
       <hr>
-      <p class="description">Learn how to use the Polkadot API to build dApps that interact with Substrate-based chains directly via RPC or light clients.</p>
+      <p class="description">Learn how to use the Polkadot API to build dApps that interact with Polkadot SDK-based chains directly via RPC or light clients.</p>
     </a>
   </div>
   <div class="card">
@@ -19711,7 +19711,7 @@ This section features practical tutorials for building applications using the [P
 Doc-Content: https://docs.polkadot.com/tutorials/dapps/papi/remark-tutorial/
 --- BEGIN CONTENT ---
 ---
-title: Account Watcher
+title: PAPI Account Watcher Tutorial
 description: Build a CLI app that monitors on-chain events using the Polkadot API and reacts to custom system.remarkWithEvent messages.
 ---
 
@@ -19731,11 +19731,8 @@ Before starting, ensure the following tools and dependencies are installed:
 
 - Node.js (version 18 or higher)
 - A package manager (npm or yarn)
-- [Polkadot.js Browser Extension (wallet)](https://polkadot.js.org/extension/){target=\_blank}
-
-Additionally, you need an account with Westend tokens. Refer to the following resources for assistance:
-
-- [Westend Faucet](https://faucet.polkadot.io/westend){target=\_blank}
+- [Polkadot.js browser extension (wallet)](https://polkadot.js.org/extension/){target=\_blank}
+- An account with [Westend tokens](https://faucet.polkadot.io/westend){target=\_blank}
 
 ## Clone the Repository
 
@@ -19759,23 +19756,21 @@ After opening the repository, you will find the following code (excluding import
 
 ```typescript title="index.ts"
 async function withLightClient(): Promise<PolkadotClient> {
-    // Start the light client
-    const smoldot = start();
-    // The Westend Relay Chain
-    const relayChain = await smoldot.addChain({ chainSpec: westEndChainSpec });
-    return createClient(
-        getSmProvider(relayChain)
-    );
+  // Start the light client
+  const smoldot = start();
+  // The Westend Relay Chain
+  const relayChain = await smoldot.addChain({ chainSpec: westEndChainSpec });
+  return createClient(getSmProvider(relayChain));
 }
 
 async function main() {
-    // CLI code goes here...
+  // CLI code goes here...
 }
 
 main();
 ```
 
-The `withLightClient` function is particularly important. It uses the built-in light client functionality, powered by [`smoldot`](https://github.com/smol-dot/smoldot){target=\_blank}, to create a light client that synchronizes and interacts with Polkadot directly within the application.
+The `withLightClient` function is particularly important. It uses the built-in [light client](/develop/toolkit/parachains/light-clients/){target=\_blank} functionality, powered by [`smoldot`](https://github.com/smol-dot/smoldot){target=\_blank}, to create a light client that synchronizes and interacts with Polkadot directly within the application.
 
 ## Create the CLI
 
@@ -19783,12 +19778,14 @@ The CLI functionality is implemented within the `main` function. The CLI include
 
 ```typescript title="index.ts"
 const program = new Command();
-console.log(chalk.white.dim(figlet.textSync("Web3 Mail Watcher")));
+console.log(chalk.white.dim(figlet.textSync('Web3 Mail Watcher')));
 program
-    .version('0.0.1')
-    .description('Web3 Mail Watcher - A simple CLI tool to watch for remarks on the Polkadot network')
-    .option('-a, --account <account>', 'Account to watch')
-    .parse(process.argv);
+  .version('0.0.1')
+  .description(
+    'Web3 Mail Watcher - A simple CLI tool to watch for remarks on the Polkadot network'
+  )
+  .option('-a, --account <account>', 'Account to watch')
+  .parse(process.argv);
 
 // CLI arguments from commander
 const options = program.opts();
@@ -19800,25 +19797,36 @@ The application monitors the Westend network for remarks sent to the specified a
 
 ```typescript title="index.ts"
 if (options.account) {
-    console.log(chalk.black.bgRed("Watching account:"), chalk.bold.whiteBright(options.account));
-    // Create a light client to connect to the Polkadot (Westend) network
-    const lightClient = await withLightClient();
-    // Get the typed API to interact with the network
-    const dotApi = lightClient.getTypedApi(wnd);
-    // Subscribe to the System.Remarked event and watch for remarks from the account
-    dotApi.event.System.Remarked.watch().subscribe((event) => {
-        const { sender, hash } = event.payload;
-        const calculatedHash = bytesToHex(blake2b(`${options.account}+email`, { dkLen: 32 }));
-        if (`0x${calculatedHash}` === hash.asHex()) {
-            sound.play("youve-got-mail-sound.mp3");
-            console.log(chalk.black.bgRed("You got mail!"));
-            console.log(chalk.black.bgCyan("From:"), chalk.bold.whiteBright(sender.toString()));
-            console.log(chalk.black.bgBlue("Hash:"), chalk.bold.whiteBright(hash.asHex()));
-        }
-    });
+  console.log(
+    chalk.black.bgRed('Watching account:'),
+    chalk.bold.whiteBright(options.account)
+  );
+  // Create a light client to connect to the Polkadot (Westend) network
+  const lightClient = await withLightClient();
+  // Get the typed API to interact with the network
+  const dotApi = lightClient.getTypedApi(wnd);
+  // Subscribe to the System.Remarked event and watch for remarks from the account
+  dotApi.event.System.Remarked.watch().subscribe((event) => {
+    const { sender, hash } = event.payload;
+    const calculatedHash = bytesToHex(
+      blake2b(`${options.account}+email`, { dkLen: 32 })
+    );
+    if (`0x${calculatedHash}` === hash.asHex()) {
+      sound.play('youve-got-mail-sound.mp3');
+      console.log(chalk.black.bgRed('You got mail!'));
+      console.log(
+        chalk.black.bgCyan('From:'),
+        chalk.bold.whiteBright(sender.toString())
+      );
+      console.log(
+        chalk.black.bgBlue('Hash:'),
+        chalk.bold.whiteBright(hash.asHex())
+      );
+    }
+  });
 } else {
-    console.error('Account is required');
-    return;
+  console.error('Account is required');
+  return;
 }
 ```
 
@@ -19839,7 +19847,7 @@ npm start -- --account 5GrwvaEF5zXb26Fz9rcQpDWS57CtERHpNehXCPcNoHGKutQY
 The output should look like this:
 
 <div id="termynal" data-termynal>
-  <span data-ty>$ npm start -- --account 5GrwvaEF5zXb26Fz9rcQpDWS57CtERHpNehXCPcNoHGKutQY</span>
+  <span data-ty="input"><span class="file-path"></span>npm start -- --account 5GrwvaEF5zXb26Fz9rcQpDWS57CtERHpNehXCPcNoHGKutQY</span>
   <span data-ty> __ __ _ _____ __ __ _ _ __ __ _ _</span>
   <span data-ty> \ \ / /__| |__|___ / | \/ | __ _(_) | \ \ / /_ _| |_ ___| |__ ___ _ __</span>
   <span data-ty> \ \ /\ / / _ \ '_ \ |_ \ | |\/| |/ _` | | | \ \ /\ / / _` | __/ __| '_ \ / _ \ '__|</span>
@@ -19856,14 +19864,14 @@ The output should look like this:
 
 ## Test the CLI
 
-To test the application, navigate to the [PAPI Dev Console > Extrinsics](https://dev.papi.how/extrinsics#networkId=westend&endpoint=light-client){target=\_blank}. Select the `System` pallet and the `remark_with_event` call. Ensure the input field follows the convention `address+email`. For example, if monitoring `5GrwvaEF5zXb26Fz9rcQpDWS57CtERHpNehXCPcNoHGKutQY`, the input should be:
+To test the application, navigate to the [**Extrinsics** page of the PAPI Dev Console](https://dev.papi.how/extrinsics#networkId=westend&endpoint=light-client){target=\_blank}. Select the **System** pallet and the **remark_with_event** call. Ensure the input field follows the convention `address+email`. For example, if monitoring `5GrwvaEF5zXb26Fz9rcQpDWS57CtERHpNehXCPcNoHGKutQY`, the input should be:
 
 ![](/images/tutorials/dapps/papi/papi-console.webp)
 
 Submit the extrinsic and sign it using the Polkadot.js browser wallet. The CLI will display the following output and play the "You've Got Mail!" sound:
 
 <div id="termynal" data-termynal>
-  <span data-ty>$ npm start -- --account 5GrwvaEF5zXb26Fz9rcQpDWS57CtERHpNehXCPcNoHGKutQY</span>
+  <span data-ty="input"><span class="file-path"></span>npm start -- --account 5GrwvaEF5zXb26Fz9rcQpDWS57CtERHpNehXCPcNoHGKutQY</span>
   <span data-ty> __ __ _ _____ __ __ _ _ __ __ _ _</span>
   <span data-ty> \ \ / /__| |__|___ / | \/ | __ _(_) | \ \ / /_ _| |_ ___| |__ ___ _ __</span>
   <span data-ty> \ \ /\ / / _ \ '_ \ |_ \ | |\/| |/ _` | | | \ \ /\ / / _` | __/ __| '_ \ / _ \ '__|</span>

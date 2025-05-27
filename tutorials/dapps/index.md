@@ -14,7 +14,7 @@ You'll explore a range of topics—from client-side apps and CLI tools to on-cha
 
 Learn how to integrate Polkadot APIs, use local or light clients, and interact with on-chain logic:
 
-- **[Polkadot API Account Watcher](/tutorials/dapps/papi-account-watcher/){target=\_blank}** – build a CLI that listens for on-chain `remarkWithEvent` extrinsics using the Polkadot API and light clients
+- **[Create Account Watcher with PAPI](/tutorials/dapps/remark-tutorial){target=\_blank}** – build a CLI that listens for on-chain `remarkWithEvent` extrinsics using the Polkadot API and light clients
 
 ## In This Section
 

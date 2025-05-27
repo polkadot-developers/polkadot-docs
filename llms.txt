@@ -127,8 +127,7 @@ Doc-Page: https://docs.polkadot.com/polkadot-protocol/onchain-governance/
 Doc-Page: https://docs.polkadot.com/polkadot-protocol/onchain-governance/origins-tracks/
 Doc-Page: https://docs.polkadot.com/polkadot-protocol/onchain-governance/overview/
 Doc-Page: https://docs.polkadot.com/tutorials/dapps/
-Doc-Page: https://docs.polkadot.com/tutorials/dapps/papi/
-Doc-Page: https://docs.polkadot.com/tutorials/dapps/papi/remark-tutorial/
+Doc-Page: https://docs.polkadot.com/tutorials/dapps/remark-tutorial/
 Doc-Page: https://docs.polkadot.com/tutorials/
 Doc-Page: https://docs.polkadot.com/tutorials/interoperability/
 Doc-Page: https://docs.polkadot.com/tutorials/interoperability/xcm-channels/
@@ -19665,7 +19664,7 @@ You'll explore a range of topics—from client-side apps and CLI tools to on-cha
 
 Learn how to integrate Polkadot APIs, use local or light clients, and interact with on-chain logic:
 
-- **[Polkadot API Account Watcher](/tutorials/dapps/papi-account-watcher/){target=\_blank}** – build a CLI that listens for on-chain `remarkWithEvent` extrinsics using the Polkadot API and light clients
+- **[Create Account Watcher with PAPI](/tutorials/dapps/remark-tutorial){target=\_blank}** – build a CLI that listens for on-chain `remarkWithEvent` extrinsics using the Polkadot API and light clients
 
 ## In This Section
 
@@ -19691,24 +19690,7 @@ Learn how to integrate Polkadot APIs, use local or light clients, and interact w
 </div>
 --- END CONTENT ---
 
-Doc-Content: https://docs.polkadot.com/tutorials/dapps/papi/
---- BEGIN CONTENT ---
----
-title: Polkadot API (PAPI) Tutorials  
-description: Follow hands-on tutorials to build decentralized apps using the Polkadot API, including light clients, event listeners, and extrinsics.
-template: index-page.html  
----
-
-# Build with the Polkadot API (PAPI)
-
-This section features practical tutorials for building applications using the [Polkadot API](/develop/toolkit/api-libraries/papi){target=\_blank}. Learn how to connect to Polkadot SDK-based chains, listen to on-chain events, submit extrinsics, and build apps powered by light or full clients.
-
-## In This Section
-
-:::INSERT_IN_THIS_SECTION:::
---- END CONTENT ---
-
-Doc-Content: https://docs.polkadot.com/tutorials/dapps/papi/remark-tutorial/
+Doc-Content: https://docs.polkadot.com/tutorials/dapps/remark-tutorial/
 --- BEGIN CONTENT ---
 ---
 title: PAPI Account Watcher Tutorial
@@ -19866,7 +19848,7 @@ The output should look like this:
 
 To test the application, navigate to the [**Extrinsics** page of the PAPI Dev Console](https://dev.papi.how/extrinsics#networkId=westend&endpoint=light-client){target=\_blank}. Select the **System** pallet and the **remark_with_event** call. Ensure the input field follows the convention `address+email`. For example, if monitoring `5GrwvaEF5zXb26Fz9rcQpDWS57CtERHpNehXCPcNoHGKutQY`, the input should be:
 
-![](/images/tutorials/dapps/papi/papi-console.webp)
+![](/images/tutorials/dapps/remark-tutorial/papi-console.webp)
 
 Submit the extrinsic and sign it using the Polkadot.js browser wallet. The CLI will display the following output and play the "You've Got Mail!" sound:
 

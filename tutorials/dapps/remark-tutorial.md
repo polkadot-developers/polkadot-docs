@@ -43,7 +43,7 @@ npm install
 After opening the repository, you will find the following code (excluding imports):
 
 ```typescript title="index.ts"
---8<-- 'code/tutorials/dapps/papi/remark-tutorial/index.ts'
+--8<-- 'code/tutorials/dapps/remark-tutorial/index.ts'
 ```
 
 The `withLightClient` function is particularly important. It uses the built-in [light client](/develop/toolkit/parachains/light-clients/){target=\_blank} functionality, powered by [`smoldot`](https://github.com/smol-dot/smoldot){target=\_blank}, to create a light client that synchronizes and interacts with Polkadot directly within the application.
@@ -53,7 +53,7 @@ The `withLightClient` function is particularly important. It uses the built-in [
 The CLI functionality is implemented within the `main` function. The CLI includes an option (`-a` / `--account`) to specify the account to monitor for remarks:
 
 ```typescript title="index.ts"
---8<-- 'code/tutorials/dapps/papi/remark-tutorial/cli.ts'
+--8<-- 'code/tutorials/dapps/remark-tutorial/cli.ts'
 ```
 
 ## Watch for Remarks
@@ -61,7 +61,7 @@ The CLI functionality is implemented within the `main` function. The CLI include
 The application monitors the Westend network for remarks sent to the specified account. The following code, placed within the `main` function, implements this functionality:
 
 ```typescript title="index.ts"
---8<-- 'code/tutorials/dapps/papi/remark-tutorial/remarks.ts'
+--8<-- 'code/tutorials/dapps/remark-tutorial/remarks.ts'
 ```
 
 ## Compile and Run
@@ -80,17 +80,17 @@ npm start -- --account 5GrwvaEF5zXb26Fz9rcQpDWS57CtERHpNehXCPcNoHGKutQY
 
 The output should look like this:
 
---8<-- 'code/tutorials/dapps/papi/remark-tutorial/initialization.html'
+--8<-- 'code/tutorials/dapps/remark-tutorial/initialization.html'
 
 ## Test the CLI
 
 To test the application, navigate to the [**Extrinsics** page of the PAPI Dev Console](https://dev.papi.how/extrinsics#networkId=westend&endpoint=light-client){target=\_blank}. Select the **System** pallet and the **remark_with_event** call. Ensure the input field follows the convention `address+email`. For example, if monitoring `5GrwvaEF5zXb26Fz9rcQpDWS57CtERHpNehXCPcNoHGKutQY`, the input should be:
 
-![](/images/tutorials/dapps/papi/papi-console.webp)
+![](/images/tutorials/dapps/remark-tutorial/papi-console.webp)
 
 Submit the extrinsic and sign it using the Polkadot.js browser wallet. The CLI will display the following output and play the "You've Got Mail!" sound:
 
---8<-- 'code/tutorials/dapps/papi/remark-tutorial/output.html'
+--8<-- 'code/tutorials/dapps/remark-tutorial/output.html'
 
 ## Next Steps
 

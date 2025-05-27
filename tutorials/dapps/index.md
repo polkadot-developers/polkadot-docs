@@ -27,7 +27,7 @@ Learn how to integrate Polkadot APIs, use local or light clients, and interact w
     <a href="/develop/toolkit/api-libraries/papi/">
       <h2 class="title">Polkadot API (PAPI)</h2>
       <hr>
-      <p class="description">Learn how to use the Polkadot API to build dApps that interact with Substrate-based chains directly via RPC or light clients.</p>
+      <p class="description">Learn how to use the Polkadot API to build dApps that interact with Polkadot SDK-based chains directly via RPC or light clients.</p>
     </a>
   </div>
   <div class="card">

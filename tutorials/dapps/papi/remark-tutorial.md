@@ -1,5 +1,5 @@
 ---
-title: Account Watcher
+title: PAPI Account Watcher Tutorial
 description: Build a CLI app that monitors on-chain events using the Polkadot API and reacts to custom system.remarkWithEvent messages.
 ---
 
@@ -19,11 +19,8 @@ Before starting, ensure the following tools and dependencies are installed:
 
 - Node.js (version 18 or higher)
 - A package manager (npm or yarn)
-- [Polkadot.js Browser Extension (wallet)](https://polkadot.js.org/extension/){target=\_blank}
-
-Additionally, you need an account with Westend tokens. Refer to the following resources for assistance:
-
-- [Westend Faucet](https://faucet.polkadot.io/westend){target=\_blank}
+- [Polkadot.js browser extension (wallet)](https://polkadot.js.org/extension/){target=\_blank}
+- An account with [Westend tokens](https://faucet.polkadot.io/westend){target=\_blank}
 
 ## Clone the Repository
 
@@ -87,7 +84,7 @@ The output should look like this:
 
 ## Test the CLI
 
-To test the application, navigate to the [PAPI Dev Console > Extrinsics](https://dev.papi.how/extrinsics#networkId=westend&endpoint=light-client){target=\_blank}. Select the `System` pallet and the `remark_with_event` call. Ensure the input field follows the convention `address+email`. For example, if monitoring `5GrwvaEF5zXb26Fz9rcQpDWS57CtERHpNehXCPcNoHGKutQY`, the input should be:
+To test the application, navigate to the [**Extrinsics** page of the PAPI Dev Console](https://dev.papi.how/extrinsics#networkId=westend&endpoint=light-client){target=\_blank}. Select the **System** pallet and the **remark_with_event** call. Ensure the input field follows the convention `address+email`. For example, if monitoring `5GrwvaEF5zXb26Fz9rcQpDWS57CtERHpNehXCPcNoHGKutQY`, the input should be:
 
 ![](/images/tutorials/dapps/papi/papi-console.webp)
 

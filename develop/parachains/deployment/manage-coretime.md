@@ -11,7 +11,7 @@ Coretime management involves manipulating bulk coretime regions to optimize reso
 
 ## Transfer
 
-Transfer ownership of a bulk coretime region to a new owner. This operation allows you to change who controls and manages a specific region. 
+[Transfer](https://paritytech.github.io/polkadot-sdk/master/pallet_broker/pallet/struct.Pallet.html#method.transfer){target=\_blank} ownership of a bulk coretime region to a new owner. This operation allows you to change who controls and manages a specific region. 
 
 Use this operation when you need to delegate control of computational resources to another account or when selling regions to other parties.
 

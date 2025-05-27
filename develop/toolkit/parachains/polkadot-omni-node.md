@@ -25,9 +25,9 @@ Ensure Rust's `cargo` command is available in your terminal by running:
 cargo --version
 ```
 
-## Install the Polkadot Omni Node
+## Install Polkadot Omni Node
 
-To install the `polkadot-omni-node` globally using `cargo`, run:
+To install `polkadot-omni-node` globally using `cargo`, run:
 
 ```bash
 cargo install --locked polkadot-omni-node@{{dependencies.crates.polkadot_omni_node.version}}
@@ -45,23 +45,23 @@ You should see the installed version number printed to the terminal, confirming 
 
 ## Obtain Chain Specifications
 
-The `polkadot-omni-node` uses a chain specification file to configure and launch a parachain node. This file defines the parachain's genesis state and network settings.
+The `polkadot-omni-node` binary uses a chain specification file to configure and launch a parachain node. This file defines the parachain's genesis state and network settings.
 
-The most common source for official chain specifications is the [paritytech/chainspecs](https://github.com/paritytech/chainspecs){target=\_blank} repository. These specifications are also browsable in a user-friendly format via the [Chainspect Collection](https://paritytech.github.io/chainspecs/){target=\_blank} website.
+The most common source for official chain specifications is the [`paritytech/chainspecs`](https://github.com/paritytech/chainspecs){target=\_blank} repository. These specifications are also browsable in a user-friendly format via the [Chainspec Collection](https://paritytech.github.io/chainspecs/){target=\_blank} website.
 
 To obtain a chain specification:
 
-1. Visit the [Chainspect Collection](https://paritytech.github.io/chainspecs/){target=\_blank} website
+1. Visit the [Chainspec Collection](https://paritytech.github.io/chainspecs/){target=\_blank} website
 
 2. Find the parachain you want to run
 
 3. Click the chain spec to open it
 
-4. Copy the JSON content and save it locally as a .json file, e.g., `chain_spec.json`
+4. Copy the JSON content and save it locally as a `.json` file, e.g., `chain_spec.json`
 
-## Running a Parachain Full Node
+## Run a Parachain Full Node
 
-Once you've installed the `polkadot-omni-node` and saved the appropriate chain specification file, you can start a full node for your chosen parachain.
+Once you've installed `polkadot-omni-node` and saved the appropriate chain specification file, you can start a full node for your chosen parachain.
 
 To see all available flags and configuration options, run:
 
@@ -91,7 +91,7 @@ Once started, the node will begin connecting to peers and syncing with the netwo
 
 ## Interact with the Node
 
-By default, the `polkadot-omni-node` exposes a WebSocket endpoint at `ws://localhost:9944`,  which you can use to interact with the running node. You can connect using:
+By default, `polkadot-omni-node` exposes a WebSocket endpoint at `ws://localhost:9944`,  which you can use to interact with the running node. You can connect using:
 
 - [Polkadot.js Apps](https://polkadot.js.org/apps/#/explorer){target=\_blank} — a web-based interface for exploring and interacting with Polkadot SDK-based chains
 - Custom scripts using compatible [libraries](/develop/toolkit/api-libraries/){target=\_blank}

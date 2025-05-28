@@ -47,4 +47,3 @@ Routescan delivers multi-chain explorer capabilities with specialized support fo
 - [Westend Hub Routescan](https://420420421.testnet.routescan.io/){target=\_blank}
 
 ![](/images/develop/smart-contracts/block-explorers/block-explorers-3.webp)
-

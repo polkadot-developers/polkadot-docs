@@ -53,6 +53,7 @@ Let's start by cloning the Uniswap V2 project:
         dev: true,
       },
     },
+    ```
 
 4. Create a `.env` file in your project root to store your private keys (you can use as an example the `env.example` file):
 

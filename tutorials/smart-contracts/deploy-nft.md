@@ -32,7 +32,7 @@ To create the NFT contract, you can follow the steps below:
 3. Now, paste the following NFT contract code into the editor
 
     ```solidity title="MyNFT.sol"
-    --8<-- 'https://raw.githubusercontent.com/polkadot-developers/polkavm-hardhat-examples/refs/tags/v0.0.1/erc721-hardhat/contracts/MyNFT.sol'
+    --8<-- 'https://raw.githubusercontent.com/polkadot-developers/polkavm-hardhat-examples/refs/tags/v0.0.4/erc721-hardhat/contracts/MyNFT.sol'
     ```
 
     The key components of the code above are:

@@ -143,23 +143,7 @@ To run your test:
         --8<-- 'code/develop/smart-contracts/dev-environments/hardhat/hardhat.config.js:59:60'
         ```
 
-    Ensure to replace `INSERT_PATH_TO_SUBSTRATE_NODE` and `INSERT_PATH_TO_ETH_RPC_ADAPTER` with the proper paths to the compiled binaries. To obtain these binaries, you can run the following commands:
-
-    ```bash
-    git clone https://github.com/paritytech/polkadot-sdk.git && cd polkadot-sdk
-    ```
-
-    And then build the binaries:
-
-    ```bash
-    cargo build --bin substrate-node --release
-    cargo build -p pallet-revive-eth-rpc --bin eth-rpc --release
-    ```
-    
-    Since you compiled these from source using Rust's Cargo build system, you can find them at:
-
-    - **Substrate node path** - `polkadot-sdk/target/release/substrate-node`
-    - **ETH-RPC adapter path** - `polkadot-sdk/target/release/eth-rpc`
+    Ensure to replace `INSERT_PATH_TO_SUBSTRATE_NODE` and `INSERT_PATH_TO_ETH_RPC_ADAPTER` with the proper paths to the compiled binaries. To obtain these binaries, check the [Installation](/develop/smart-contracts/local-development-node#installation) section in the Local Development Node page.
 
     For example, if you cloned the polkadot-sdk repository to your home directory, the paths might look like:
 

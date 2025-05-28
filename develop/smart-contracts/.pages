@@ -7,6 +7,7 @@ nav:
   - 'Block Explorers': block-explorers.md
   - dev-environments
   - libraries
+  - 'Local Development Node': local-development-node.md
   - 'Block Explorers': block-explorers.md
   - 'Contract Verification': contract-verification.md
   - 'JSON-RPC APIs': json-rpc-apis.md

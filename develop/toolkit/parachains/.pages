@@ -6,3 +6,4 @@ nav:
   - fork-chains
   - e2e-testing
   - 'Light Clients': light-clients.md
+  - 'Polkadot Omni Node': polkadot-omni-node.md

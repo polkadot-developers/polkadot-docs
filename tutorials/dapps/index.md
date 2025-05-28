@@ -10,12 +10,6 @@ This section provides hands-on tutorials for building decentralized applications
 
 You'll explore a range of topics—from client-side apps and CLI tools to on-chain interaction patterns—all backed by lightweight or full-node tooling.
 
-## Featured Tutorials
-
-Learn how to integrate Polkadot APIs, use local or light clients, and interact with on-chain logic:
-
-- **[Create Account Watcher with PAPI](/tutorials/dapps/remark-tutorial){target=\_blank}** – build a CLI that listens for on-chain `remarkWithEvent` extrinsics using the Polkadot API and light clients
-
 ## In This Section
 
 :::INSERT_IN_THIS_SECTION:::

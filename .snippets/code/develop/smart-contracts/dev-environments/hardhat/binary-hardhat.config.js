@@ -7,7 +7,10 @@ require('@parity/hardhat-polkadot');
 module.exports = {
   solidity: '0.8.28',
   resolc: {
-    compilerSource: 'npm',
+    compilerSource: 'binary',
+    settings: {
+      compilerPath: 'INSERT_PATH_TO_RESOLC_COMPILER',
+    },
   },
   networks: {
     hardhat: {

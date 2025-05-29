@@ -143,7 +143,7 @@ To run your test:
         --8<-- 'code/develop/smart-contracts/dev-environments/hardhat/hardhat.config.js:59:60'
         ```
 
-    Ensure to replace `INSERT_PATH_TO_SUBSTRATE_NODE` and `INSERT_PATH_TO_ETH_RPC_ADAPTER` with the proper paths to the compiled binaries. To obtain these binaries, check the [Installation](/develop/smart-contracts/local-development-node#installation) section in the Local Development Node page.
+    Ensure to replace `INSERT_PATH_TO_SUBSTRATE_NODE` and `INSERT_PATH_TO_ETH_RPC_ADAPTER` with the proper paths to the compiled binaries. To obtain these binaries, check the [Installation](/develop/smart-contracts/local-development-node#installation){target=\_blank} section on the Local Development Node page.
 
     For example, if you cloned the polkadot-sdk repository to your home directory, the paths might look like:
 

@@ -58,7 +58,7 @@ Let's start by setting up Hardhat for your Storage contract project:
 
     Ensure that `INSERT_PATH_TO_SUBSTRATE_NODE` and `INSERT_PATH_TO_ETH_RPC_ADAPTER` are replaced with the proper paths to the compiled binaries. 
 
-    If you need to build these binaries, follow the [Installation](/develop/smart-contracts/local-development-node#installation) section in the Local Development Node page.
+    If you need to build these binaries, follow the [Installation](/develop/smart-contracts/local-development-node#installation){target=\_blank} section on the Local Development Node page.
 
     The configuration also defines two network settings: 
 

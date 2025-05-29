@@ -1,6 +1,6 @@
 ---
 title: Local Development Node
-description: Set up a local node for smart contract development. Follow this step-by-step guide to install the substrate node & ETH-RPC for testing in a local environment.
+description: Follow this step-by-step guide to install a Substrate node and ETH-RPC adapter for smart contract development in a local environment.
 ---
 
 # Local Development Node
@@ -41,7 +41,7 @@ The compilation process may take 10-30 minutes depending on your system specific
 - **Substrate node path** - `polkadot-sdk/target/release/substrate-node`
 - **ETH-RPC adapter path** - `polkadot-sdk/target/release/eth-rpc`
 
-## Running the Local Node
+## Run the Local Node
 
 With the binaries compiled, you can now start your local development environment. The setup requires running two processes.
 
@@ -57,7 +57,7 @@ The node will begin producing blocks immediately and display initialization logs
 RUST_LOG="error,evm=debug,sc_rpc_server=info,runtime::revive=debug" ./target/release/substrate-node --dev
 ```
 
-Once the substrate node is running, open a new terminal window and start the ETH-RPC adapter. This component translates Ethereum JSON-RPC calls into substrate-compatible requests, allowing you to use familiar Ethereum tooling like MetaMask, Hardhat, or ethers.js:
+Once the substrate node is running, open a new terminal window and start the ETH-RPC adapter. This component translates Ethereum JSON-RPC calls into substrate-compatible requests, allowing you to use familiar Ethereum tools like MetaMask, Hardhat, or Ethers.js:
 
 ```bash
 ./target/release/eth-rpc --dev

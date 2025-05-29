@@ -162,7 +162,7 @@ To prepare the parachain collator to be registered on Paseo, follow these steps:
 2. Export the genesis state for the parachain by running the following command:
 
     ```bash
-    polkadot-omni-node export-genesis-state \
+    polkadot-omni-node export-genesis-head \
     --chain raw_chain_spec.json para-state
     ```
 

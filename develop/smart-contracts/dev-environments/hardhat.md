@@ -140,74 +140,24 @@ To compile your project, follow these instructions:
 
     You should see JSON files containing the contract ABI and bytecode of the contracts you compiled.
 
-## Testing Environments
+## Testing Environment
 
-Hardhat allows you to spin up local testing environments to test and validate your smart contract functionalities before deploying to live networks. The `hardhat-polkadot` plugin provides two main approaches for setting up testing environments:
-
-- Forking live chains
-- Working with a local nodes
-
-### Forking a Live Chain
-
-Network forking creates a local copy of a live blockchain, allowing you to test against real-world state and existing contracts without the risks and costs of mainnet deployment. This approach uses [Chopsticks](https://github.com/AcalaNetwork/chopsticks) under the hood to create an accurate fork of the specified network.
-
-To configure forking, add the `forking` configuration with the WebSocket endpoint URL and ETH-RPC adapter path to your Hardhat config:
-
-```javascript title="hardhat.config.js"
-...
-networks: {
-  hardhat: {
-    polkavm: true,
-    forking: {
-      url: "wss://westend-asset-hub-rpc.polkadot.io",
-    },
-    adapterConfig: {
-      adapterBinaryPath: "../bin/eth-rpc",
-    },
-  },
-}
-...
-```
-
-When you run `npx hardhat node` with forking configured, Hardhat will:
-
-1. Use Chopsticks to create a local fork of the specified live network
-2. Spin up the ETH-RPC adapter to provide Ethereum-compatible JSON-RPC endpoints
-3. Give you access to all existing state, contracts, and balances from the live network
-
-Available networks for forking:
-
-- **Passet Hub (TestNet)**: `wss://testnet-passet-hub.polkadot.io`
-- **Westend Hub (TestNet)**: `wss://westend-asset-hub-rpc.polkadot.io`
-
-### Working With a Local Node
+Hardhat allows you to spin up a local testing environment to test and validate your smart contract functionalities before deploying to live networks. The `hardhat-polkadot` plugin provides the possibility to spin up a local node with an ETH-RPC adapter for running local tests.
 
 For complete isolation and control over the testing environment, you can configure Hardhat to work with a fresh local Substrate node. This approach is ideal when you want to test in a clean environment without any existing state or when you need specific node configurations.
 
 Configure a local node setup by adding the node binary path along with the ETH-RPC adapter path:
 
-```javascript title="hardhat.config.js"
-...
-networks: {
-  hardhat: {
-    polkavm: true,
-    nodeConfig: {
-      nodeBinaryPath: 'INSERT_PATH_TO_SUBSTRATE_NODE',
-      rpcPort: 8000,
-      dev: true,
-    },
-    adapterConfig: {
-      adapterBinaryPath: 'INSERT_PATH_TO_ETH_RPC_ADAPTER',
-      dev: true,
-    },
-  },
-}
-...
+```javascript title="hardhat.config.js" hl_lines="11-19"
+--8<-- 'code/develop/smart-contracts/dev-environments/hardhat/hardhat.config.js:1:4'
+
+--8<-- 'code/develop/smart-contracts/dev-environments/hardhat/hardhat.config.js:6:7'
+    ...
+    --8<-- 'code/develop/smart-contracts/dev-environments/hardhat/hardhat.config.js:12:24'
+--8<-- 'code/develop/smart-contracts/dev-environments/hardhat/hardhat.config.js:34:35'
 ```
 
-Replace `INSERT_PATH_TO_SUBSTRATE_NODE` and `INSERT_PATH_TO_ETH_RPC_ADAPTER` with the actual paths to your compiled binaries. The `dev: true` flag configures both the node and adapter for development mode.
-
-### Starting Your Testing Environment
+Replace `INSERT_PATH_TO_SUBSTRATE_NODE` and `INSERT_PATH_TO_ETH_RPC_ADAPTER` with the actual paths to your compiled binaries. The `dev: true` flag configures both the node and adapter for development mode. To obtain these binaries, check the [Installation](/develop/smart-contracts/local-development-node#install-the-substrate-node-and-eth-rpc-adapter){target=\_blank} section on the Local Development Node page.
 
 Once configured, start your chosen testing environment with:
 
@@ -217,54 +167,17 @@ npx hardhat node
 
 This command will launch either the forked network or local node (depending on your configuration) along with the ETH-RPC adapter, providing you with a complete testing environment ready for contract deployment and interaction. By default, the substrate node will be running on `localhost:8000` and the ETH-RPC adapter on `localhost:8545`.
 
+The output will be something like this:
+
+--8<-- 'code/develop/smart-contracts/dev-environments/hardhat/hardhat-node-output.html'
+
 ## Testing Your Contract
 
 When testing your contract, be aware that [`@nomicfoundation/hardhat-toolbox/network-helpers`](https://hardhat.org/hardhat-network-helpers/docs/overview){target=\_blank} is not fully compatible with Polkadot Hub's available RPCs. Specifically, Hardhat-only helpers like `time` and `loadFixture` may not work due to missing RPC calls in the node. For more details, refer to the [Compatibility](https://github.com/paritytech/hardhat-revive/tree/main/packages/hardhat-revive-node#compatibility){target=\_blank} section in the `hardhat-revive` docs. You should avoid using helpers like `time` and `loadFixture` when writing tests.
 
 To run your test:
 
-1.  Update the `hardhat.config.js` file to specify the path of the local node and the ETH-RPC adapter:
-
-    === "npm Configuration"
-
-        ```javascript title="hardhat.config.js" hl_lines="24-32"
-        --8<-- 'code/develop/smart-contracts/dev-environments/hardhat/hardhat.config.js:1:21'
-          --8<-- 'code/develop/smart-contracts/dev-environments/hardhat/hardhat.config.js:37:49'
-        --8<-- 'code/develop/smart-contracts/dev-environments/hardhat/hardhat.config.js:59:60'
-        ```
-
-    === "Binary Configuration"
-
-        ```javascript title="hardhat.config.js" hl_lines="26-34"
-        --8<-- 'code/develop/smart-contracts/dev-environments/hardhat/hardhat.config.js:1:8'
-          --8<-- 'code/develop/smart-contracts/dev-environments/hardhat/hardhat.config.js:22:49'
-        --8<-- 'code/develop/smart-contracts/dev-environments/hardhat/hardhat.config.js:59:60'
-        ```
-
-    Ensure to replace `INSERT_PATH_TO_SUBSTRATE_NODE` and `INSERT_PATH_TO_ETH_RPC_ADAPTER` with the proper paths to the compiled binaries. To obtain these binaries, you can run the following commands:
-
-    ```bash
-    git clone https://github.com/paritytech/polkadot-sdk.git && cd polkadot-sdk
-    ```
-
-    And then build the binaries:
-
-    ```bash
-    cargo build --bin substrate-node --release
-    cargo build -p pallet-revive-eth-rpc --bin eth-rpc --release
-    ```
-
-    Since you compiled these from source using Rust's Cargo build system, you can find them at:
-
-    - **Substrate node path** - `polkadot-sdk/target/release/substrate-node`
-    - **ETH-RPC adapter path** - `polkadot-sdk/target/release/eth-rpc`
-
-    For example, if you cloned the polkadot-sdk repository to your home directory, the paths might look like:
-
-    ```javascript
-    nodeBinaryPath: '/home/username/polkadot-sdk/target/release/substrate-node',
-    adapterBinaryPath: '/home/username/polkadot-sdk/target/release/eth-rpc',
-    ```
+1.  Update the `hardhat.config.js` file accordingly to the [Testing Environments](#testing-environments) section
 
 2.  Execute the following command:
 
@@ -276,35 +189,18 @@ To run your test:
 
 Before deploying to a live network, you can deploy your contract to a local node using [Ignition](https://hardhat.org/ignition/docs/getting-started#overview){target=\_blank} modules:
 
-!!! warning "Contract Size Limitation in Testing Environment"
-
-    When deploying large contracts, you might encounter: `Error: the initcode size of this transaction is too large`.
-
-    This limitation is imposed by Hardhat's client-side checks, not by PolkaVM itself. As a workaround, you can use a direct `JsonRpcProvider`:
-
-    ```javascript
-    --8<-- "code/develop/smart-contracts/dev-environments/hardhat/disclaimer-json-rpc-provider-alternative.js"
-    ```
-
-    For more details, see [this GitHub issue](https://github.com/paritytech/contract-issues/issues/47#issuecomment-2790181622){target=\_blank}.
-
 1.  Update the Hardhat configuration file to add the local network as a target for local deployment:
 
-    === "npm Configuration"
+    ```javascript title="hardhat.config.js" hl_lines="12-15"
+    --8<-- 'code/develop/smart-contracts/dev-environments/hardhat/hardhat.config.js:1:4'
 
-        ```javascript title="hardhat.config.js" hl_lines="34-37"
-        --8<-- 'code/develop/smart-contracts/dev-environments/hardhat/hardhat.config.js:1:21'
-          --8<-- 'code/develop/smart-contracts/dev-environments/hardhat/hardhat.config.js:37:53'
-        --8<-- 'code/develop/smart-contracts/dev-environments/hardhat/hardhat.config.js:59:60'
-        ```
-
-    === "Binary Configuration"
-
-        ```javascript title="hardhat.config.js" hl_lines="36-39"
-        --8<-- 'code/develop/smart-contracts/dev-environments/hardhat/hardhat.config.js:1:8'
-          --8<-- 'code/develop/smart-contracts/dev-environments/hardhat/hardhat.config.js:22:53'
-        --8<-- 'code/develop/smart-contracts/dev-environments/hardhat/hardhat.config.js:59:60'
-        ```
+    --8<-- 'code/develop/smart-contracts/dev-environments/hardhat/hardhat.config.js:6:7'
+        ...
+        --8<-- 'code/develop/smart-contracts/dev-environments/hardhat/hardhat.config.js:12:13'
+            ...
+          --8<-- 'code/develop/smart-contracts/dev-environments/hardhat/hardhat.config.js:24:28'
+    --8<-- 'code/develop/smart-contracts/dev-environments/hardhat/hardhat.config.js:33:35'
+    ```
 
 2.  Start a local node:
 
@@ -335,7 +231,7 @@ After testing your contract locally, you can deploy it to a live network. This g
     Replace `INSERT_PRIVATE_KEY` with your actual private key. For further details on private key exportation, refer to the article [How to export an account's private key](https://support.metamask.io/configure/accounts/how-to-export-an-accounts-private-key/){target=\_blank}.
 
     !!! warning
-    Never reveal your private key. Be sure you add the `.env` file to your .gitignore file.
+        Never reveal your private key. Be sure you add the `.env` file to your .gitignore file.
 
 3.  Install the [`dotenv`](https://www.npmjs.com/package/dotenv){target=\_blank} package to load the private key into your Hardhat configuration:
 
@@ -352,36 +248,26 @@ After testing your contract locally, you can deploy it to a live network. This g
 
     --8<-- 'code/develop/smart-contracts/dev-environments/hardhat/hardhat.config.js:6:7'
       // The rest remains the same...
-    --8<-- 'code/develop/smart-contracts/dev-environments/hardhat/hardhat.config.js:60:60'
+    --8<-- 'code/develop/smart-contracts/dev-environments/hardhat/hardhat.config.js:34:34'
     ```
 
 5.  Update your Hardhat configuration file with network settings for the Polkadot network you want to target:
 
-    === "npm Configuration"
+    ```javascript title="hardhat.config.js" hl_lines="17-21"
+    --8<-- 'code/develop/smart-contracts/dev-environments/hardhat/hardhat.config.js:1:4'
 
-        ```javascript title="hardhat.config.js" hl_lines="41-45"
-        --8<-- 'code/develop/smart-contracts/dev-environments/hardhat/hardhat.config.js:1:4'
+    require('dotenv').config();
 
-        require('dotenv').config();
-
-        --8<-- 'code/develop/smart-contracts/dev-environments/hardhat/hardhat.config.js:6:21'
-
-          --8<-- 'code/develop/smart-contracts/dev-environments/hardhat/hardhat.config.js:37:58'
-        --8<-- 'code/develop/smart-contracts/dev-environments/hardhat/hardhat.config.js:59:60'
-        ```
-
-    === "Binary Configuration"
-
-        ```javascript title="hardhat.config.js" hl_lines="45-49"
-        --8<-- 'code/develop/smart-contracts/dev-environments/hardhat/hardhat.config.js:1:4'
-
-        require('dotenv').config();
-
-        --8<-- 'code/develop/smart-contracts/dev-environments/hardhat/hardhat.config.js:4:8'
-
-          --8<-- 'code/develop/smart-contracts/dev-environments/hardhat/hardhat.config.js:22:58'
-        --8<-- 'code/develop/smart-contracts/dev-environments/hardhat/hardhat.config.js:59:60'
-        ```
+    --8<-- 'code/develop/smart-contracts/dev-environments/hardhat/hardhat.config.js:6:7'
+        ...
+        --8<-- 'code/develop/smart-contracts/dev-environments/hardhat/hardhat.config.js:12:13'
+            ...
+          --8<-- 'code/develop/smart-contracts/dev-environments/hardhat/hardhat.config.js:24:24'
+          --8<-- 'code/develop/smart-contracts/dev-environments/hardhat/hardhat.config.js:25:25'
+            ...
+          --8<-- 'code/develop/smart-contracts/dev-environments/hardhat/hardhat.config.js:28:33'
+    --8<-- 'code/develop/smart-contracts/dev-environments/hardhat/hardhat.config.js:33:35'
+    ```
 
 6.  Deploy your contract using Ignition:
 

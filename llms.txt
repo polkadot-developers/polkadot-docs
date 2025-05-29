@@ -6462,105 +6462,21 @@ module.exports = {
 
     You should see JSON files containing the contract ABI and bytecode of the contracts you compiled.
 
-## Testing Environments
+## Testing Environment
 
-Hardhat allows you to spin up local testing environments to test and validate your smart contract functionalities before deploying to live networks. The `hardhat-polkadot` plugin provides two main approaches for setting up testing environments:
-
-- Forking live chains
-- Working with a local nodes
-
-### Forking a Live Chain
-
-Network forking creates a local copy of a live blockchain, allowing you to test against real-world state and existing contracts without the risks and costs of mainnet deployment. This approach uses [Chopsticks](https://github.com/AcalaNetwork/chopsticks) under the hood to create an accurate fork of the specified network.
-
-To configure forking, add the `forking` configuration with the WebSocket endpoint URL and ETH-RPC adapter path to your Hardhat config:
-
-```javascript title="hardhat.config.js"
-...
-networks: {
-  hardhat: {
-    polkavm: true,
-    forking: {
-      url: "wss://westend-asset-hub-rpc.polkadot.io",
-    },
-    adapterConfig: {
-      adapterBinaryPath: "../bin/eth-rpc",
-    },
-  },
-}
-...
-```
-
-When you run `npx hardhat node` with forking configured, Hardhat will:
-
-1. Use Chopsticks to create a local fork of the specified live network
-2. Spin up the ETH-RPC adapter to provide Ethereum-compatible JSON-RPC endpoints
-3. Give you access to all existing state, contracts, and balances from the live network
-
-Available networks for forking:
-
-- **Passet Hub (TestNet)**: `wss://testnet-passet-hub.polkadot.io`
-- **Westend Hub (TestNet)**: `wss://westend-asset-hub-rpc.polkadot.io`
-
-### Working With a Local Node
+Hardhat allows you to spin up a local testing environment to test and validate your smart contract functionalities before deploying to live networks. The `hardhat-polkadot` plugin provides the possibility to spin up a local node with an ETH-RPC adapter for running local tests.
 
 For complete isolation and control over the testing environment, you can configure Hardhat to work with a fresh local Substrate node. This approach is ideal when you want to test in a clean environment without any existing state or when you need specific node configurations.
 
 Configure a local node setup by adding the node binary path along with the ETH-RPC adapter path:
 
-```javascript title="hardhat.config.js"
-...
-networks: {
-  hardhat: {
-    polkavm: true,
-    nodeConfig: {
-      nodeBinaryPath: 'INSERT_PATH_TO_SUBSTRATE_NODE',
-      rpcPort: 8000,
-      dev: true,
-    },
-    adapterConfig: {
-      adapterBinaryPath: 'INSERT_PATH_TO_ETH_RPC_ADAPTER',
-      dev: true,
-    },
-  },
-}
-...
-```
-
-Replace `INSERT_PATH_TO_SUBSTRATE_NODE` and `INSERT_PATH_TO_ETH_RPC_ADAPTER` with the actual paths to your compiled binaries. The `dev: true` flag configures both the node and adapter for development mode.
-
-### Starting Your Testing Environment
-
-Once configured, start your chosen testing environment with:
-
-```bash
-npx hardhat node
-```
-
-This command will launch either the forked network or local node (depending on your configuration) along with the ETH-RPC adapter, providing you with a complete testing environment ready for contract deployment and interaction. By default, the substrate node will be running on `localhost:8000` and the ETH-RPC adapter on `localhost:8545`.
-
-## Testing Your Contract
-
-When testing your contract, be aware that [`@nomicfoundation/hardhat-toolbox/network-helpers`](https://hardhat.org/hardhat-network-helpers/docs/overview){target=\_blank} is not fully compatible with Polkadot Hub's available RPCs. Specifically, Hardhat-only helpers like `time` and `loadFixture` may not work due to missing RPC calls in the node. For more details, refer to the [Compatibility](https://github.com/paritytech/hardhat-revive/tree/main/packages/hardhat-revive-node#compatibility){target=\_blank} section in the `hardhat-revive` docs. You should avoid using helpers like `time` and `loadFixture` when writing tests.
-
-To run your test:
-
-1.  Update the `hardhat.config.js` file to specify the path of the local node and the ETH-RPC adapter:
-
-    === "npm Configuration"
-
-        ```javascript title="hardhat.config.js" hl_lines="24-32"
-        require('@nomicfoundation/hardhat-toolbox');
+```javascript title="hardhat.config.js" hl_lines="11-19"
+require('@nomicfoundation/hardhat-toolbox');
 
 require('@parity/hardhat-polkadot');
 
-/** @type import('hardhat/config').HardhatUserConfig */
 module.exports = {
-  solidity: '0.8.28',
-  resolc: {
-    compilerSource: 'npm',
-  },
-  networks: {
+    ...
     hardhat: {
       polkavm: true,
       nodeConfig: {
@@ -6570,60 +6486,52 @@ module.exports = {
       },
       adapterConfig: {
         adapterBinaryPath: 'INSERT_PATH_TO_ETH_RPC_ADAPTER',
-          
-        
-        ```
-
-    === "Binary Configuration"
-
-        ```javascript title="hardhat.config.js" hl_lines="26-34"
-        require('@nomicfoundation/hardhat-toolbox');
-
-require('@parity/hardhat-polkadot');
-
-/** @type import('hardhat/config').HardhatUserConfig */
-module.exports = {
-  solidity: '0.8.28',
-          },
+        dev: true,
+      },
     },
-    localNode: {
-      polkavm: true,
-      url: `http://127.0.0.1:8545`,
-    },
-    westendHub: {
-      polkavm: true,
-      url: 'https://westend-asset-hub-eth-rpc.polkadot.io',
-      accounts: [process.env.PRIVATE_KEY],
-    },
-  },
 };
-        
-        ```
+```
 
-    Ensure to replace `INSERT_PATH_TO_SUBSTRATE_NODE` and `INSERT_PATH_TO_ETH_RPC_ADAPTER` with the proper paths to the compiled binaries. To obtain these binaries, you can run the following commands:
+Replace `INSERT_PATH_TO_SUBSTRATE_NODE` and `INSERT_PATH_TO_ETH_RPC_ADAPTER` with the actual paths to your compiled binaries. The `dev: true` flag configures both the node and adapter for development mode. To obtain these binaries, check the [Installation](/develop/smart-contracts/local-development-node#install-the-substrate-node-and-eth-rpc-adapter){target=\_blank} section on the Local Development Node page.
 
-    ```bash
-    git clone https://github.com/paritytech/polkadot-sdk.git && cd polkadot-sdk
-    ```
+Once configured, start your chosen testing environment with:
 
-    And then build the binaries:
+```bash
+npx hardhat node
+```
 
-    ```bash
-    cargo build --bin substrate-node --release
-    cargo build -p pallet-revive-eth-rpc --bin eth-rpc --release
-    ```
+This command will launch either the forked network or local node (depending on your configuration) along with the ETH-RPC adapter, providing you with a complete testing environment ready for contract deployment and interaction. By default, the substrate node will be running on `localhost:8000` and the ETH-RPC adapter on `localhost:8545`.
 
-    Since you compiled these from source using Rust's Cargo build system, you can find them at:
+The output will be something like this:
 
-    - **Substrate node path** - `polkadot-sdk/target/release/substrate-node`
-    - **ETH-RPC adapter path** - `polkadot-sdk/target/release/eth-rpc`
+<div id="termynal" data-termynal>
+  <span data-ty="input"><span class="file-path"></span>npx hardhat node</span>
+  <br />
+  <span data-ty>Starting server at 127.0.0.1:8000</span>
+  <span data-ty>../bin/substrate-node --rpc-port=8000 --dev</span>
+  <span data-ty>Starting the Eth RPC Adapter at 127.0.0.1:8545</span>
+  <span data-ty>../bin/eth-rpc --node-rpc-url=ws://localhost:8000 --dev</span>
+  <span data-ty>2025-05-29 13:00:32 Running in --dev mode, RPC CORS has been disabled.</span>
+  <span data-ty>2025-05-29 13:00:32 Running in --dev mode, RPC CORS has been disabled.</span>
+  <span data-ty>2025-05-29 13:00:32 🌐 Connecting to node at: ws://localhost:8000 ...</span>
+  <span data-ty>2025-05-29 13:00:32 Substrate Node</span>
+  <span data-ty>2025-05-29 13:00:32 ✌️ version 3.0.0-dev-f73c228b7a1</span>
+  <span data-ty>2025-05-29 13:00:32 ❤️ by Parity Technologies &lt;admin@parity.io&gt;, 2017-2025</span>
+  <span data-ty>2025-05-29 13:00:32 📋 Chain specification: Development</span>
+  <span data-ty>2025-05-29 13:00:32 🏷 Node name: electric-activity-4221</span>
+  <span data-ty>2025-05-29 13:00:32 👤 Role: AUTHORITY</span>
+  <span data-ty>2025-05-29 13:00:32 💾 Database: RocksDb at /var/folders/f4/7rdt2m9d7j361dm453cpggbm0000gn/T/substrateOaoecu/chains/dev/db/full</span>
+  <span data-ty>2025-05-29 13:00:36 [0] 💸 generated 1 npos voters, 1 from validators and 0 nominators</span>
+  <span data-ty>...</span>
+</div>
 
-    For example, if you cloned the polkadot-sdk repository to your home directory, the paths might look like:
+## Testing Your Contract
 
-    ```javascript
-    nodeBinaryPath: '/home/username/polkadot-sdk/target/release/substrate-node',
-    adapterBinaryPath: '/home/username/polkadot-sdk/target/release/eth-rpc',
-    ```
+When testing your contract, be aware that [`@nomicfoundation/hardhat-toolbox/network-helpers`](https://hardhat.org/hardhat-network-helpers/docs/overview){target=\_blank} is not fully compatible with Polkadot Hub's available RPCs. Specifically, Hardhat-only helpers like `time` and `loadFixture` may not work due to missing RPC calls in the node. For more details, refer to the [Compatibility](https://github.com/paritytech/hardhat-revive/tree/main/packages/hardhat-revive-node#compatibility){target=\_blank} section in the `hardhat-revive` docs. You should avoid using helpers like `time` and `loadFixture` when writing tests.
+
+To run your test:
+
+1.  Update the `hardhat.config.js` file accordingly to the [Testing Environments](#testing-environments) section
 
 2.  Execute the following command:
 
@@ -6635,82 +6543,24 @@ module.exports = {
 
 Before deploying to a live network, you can deploy your contract to a local node using [Ignition](https://hardhat.org/ignition/docs/getting-started#overview){target=\_blank} modules:
 
-!!! warning "Contract Size Limitation in Testing Environment"
-
-    When deploying large contracts, you might encounter: `Error: the initcode size of this transaction is too large`.
-
-    This limitation is imposed by Hardhat's client-side checks, not by PolkaVM itself. As a workaround, you can use a direct `JsonRpcProvider`:
-
-    ```javascript
-    const { JsonRpcProvider } = require('ethers');
-const provider = new JsonRpcProvider('http://localhost:8545');
-const wallet = new ethers.Wallet('INSERT_PRIVATE_KEY', provider);
-
-// Deploy using direct provider instead of Hardhat's wrapper
-const ContractFactory = new ethers.ContractFactory(
-  contractABI,
-  contractBytecode,
-  wallet,
-);
-const contract = await ContractFactory.deploy(...constructorArgs);
-    ```
-
-    For more details, see [this GitHub issue](https://github.com/paritytech/contract-issues/issues/47#issuecomment-2790181622){target=\_blank}.
-
 1.  Update the Hardhat configuration file to add the local network as a target for local deployment:
 
-    === "npm Configuration"
-
-        ```javascript title="hardhat.config.js" hl_lines="34-37"
-        require('@nomicfoundation/hardhat-toolbox');
+    ```javascript title="hardhat.config.js" hl_lines="12-15"
+    require('@nomicfoundation/hardhat-toolbox');
 
 require('@parity/hardhat-polkadot');
 
-/** @type import('hardhat/config').HardhatUserConfig */
-module.exports = {
-  solidity: '0.8.28',
-  resolc: {
-    compilerSource: 'npm',
-  },
-  networks: {
-    hardhat: {
-      polkavm: true,
-      nodeConfig: {
-        nodeBinaryPath: 'INSERT_PATH_TO_SUBSTRATE_NODE',
-        rpcPort: 8000,
-        dev: true,
-      },
-      adapterConfig: {
-        adapterBinaryPath: 'INSERT_PATH_TO_ETH_RPC_ADAPTER',
-          
-        
-        ```
-
-    === "Binary Configuration"
-
-        ```javascript title="hardhat.config.js" hl_lines="36-39"
-        require('@nomicfoundation/hardhat-toolbox');
-
-require('@parity/hardhat-polkadot');
-
-/** @type import('hardhat/config').HardhatUserConfig */
-module.exports = {
-  solidity: '0.8.28',
-          },
-    },
-    localNode: {
+    module.exports = {
+        ...
+        hardhat: {
+            ...
+          localNode: {
       polkavm: true,
       url: `http://127.0.0.1:8545`,
     },
-    westendHub: {
-      polkavm: true,
-      url: 'https://westend-asset-hub-eth-rpc.polkadot.io',
-      accounts: [process.env.PRIVATE_KEY],
     },
-  },
 };
-        
-        ```
+    ```
 
 2.  Start a local node:
 
@@ -6741,7 +6591,7 @@ After testing your contract locally, you can deploy it to a live network. This g
     Replace `INSERT_PRIVATE_KEY` with your actual private key. For further details on private key exportation, refer to the article [How to export an account's private key](https://support.metamask.io/configure/accounts/how-to-export-an-accounts-private-key/){target=\_blank}.
 
     !!! warning
-    Never reveal your private key. Be sure you add the `.env` file to your .gitignore file.
+        Never reveal your private key. Be sure you add the `.env` file to your .gitignore file.
 
 3.  Install the [`dotenv`](https://www.npmjs.com/package/dotenv){target=\_blank} package to load the private key into your Hardhat configuration:
 
@@ -6765,63 +6615,28 @@ require('@parity/hardhat-polkadot');
 
 5.  Update your Hardhat configuration file with network settings for the Polkadot network you want to target:
 
-    === "npm Configuration"
-
-        ```javascript title="hardhat.config.js" hl_lines="41-45"
-        require('@nomicfoundation/hardhat-toolbox');
+    ```javascript title="hardhat.config.js" hl_lines="17-21"
+    require('@nomicfoundation/hardhat-toolbox');
 
 require('@parity/hardhat-polkadot');
 
-        require('dotenv').config();
+    require('dotenv').config();
 
-        module.exports = {
-  solidity: '0.8.28',
-  resolc: {
-    compilerSource: 'npm',
-  },
-  networks: {
-    hardhat: {
-      polkavm: true,
-      nodeConfig: {
-        nodeBinaryPath: 'INSERT_PATH_TO_SUBSTRATE_NODE',
-        rpcPort: 8000,
-        dev: true,
-      },
-      adapterConfig: {
-        adapterBinaryPath: 'INSERT_PATH_TO_ETH_RPC_ADAPTER',
-
+    module.exports = {
+        ...
+        hardhat: {
+            ...
           
-        
-        ```
-
-    === "Binary Configuration"
-
-        ```javascript title="hardhat.config.js" hl_lines="45-49"
-        require('@nomicfoundation/hardhat-toolbox');
-
-require('@parity/hardhat-polkadot');
-
-        require('dotenv').config();
-
-        /** @type import('hardhat/config').HardhatUserConfig */
-module.exports = {
-  solidity: '0.8.28',
-
-          },
-    },
-    localNode: {
-      polkavm: true,
-      url: `http://127.0.0.1:8545`,
-    },
-    westendHub: {
+          
+            ...
+          westendHub: {
       polkavm: true,
       url: 'https://westend-asset-hub-eth-rpc.polkadot.io',
       accounts: [process.env.PRIVATE_KEY],
     },
-  },
+    },
 };
-        
-        ```
+    ```
 
 6.  Deploy your contract using Ignition:
 

@@ -7280,23 +7280,9 @@ description: Find answers to common questions about smart contract development, 
     - Don't hardcode gas values - use flexible calculations
     - Cross-contract calls ignore gas limits - implement proper access controls
 
-- My contract verification failed - what should I check?
+- I deployed a contract with metamask, and got a `code size` error - why?
 
-    Verification considerations:
-
-    - Ensure you're using the correct compiler version
-    - Check that all dependencies and imports are included
-    - Verify constructor parameters match deployment
-    - Remember: bytecode format is RISC-V, not EVM
-
-- Balance queries show unexpected values - why?
-
-    Existential deposit effects:
-
-    - RPC queries automatically deduct existential deposit
-    - Reported balance = actual balance - existential deposit  
-    - This ensures reported amounts match spendable amounts
-    - Use native Polkadot RPC for full balance details if needed
+    The latest MetaMask update affects the extension’s ability to deploy large contracts. Check the [Wallets](/develop/smart-contracts/wallets){target=_blank} page for more details.
 --- END CONTENT ---
 
 Doc-Content: https://docs.polkadot.com/develop/smart-contracts/

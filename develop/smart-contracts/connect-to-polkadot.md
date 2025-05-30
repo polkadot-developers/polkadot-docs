@@ -6,7 +6,7 @@ description: Explore how to connect to Polkadot Hub, configure your wallet, and 
 # Connect to Polkadot
 
 <div class="button-wrapper">
-    <a href="#" class="md-button connectMetaMask" value="westendAssetHub">Connect to Westend Hub</a>
+    <a href="#" class="md-button connectMetaMask" value="paseoAssetHub">Connect to Polkadot Hub TestNet</a>
 </div>
 
 For more information about how to connect to Polkadot Hub, please check the [Wallets for Polkadot Hub](/develop/smart-contracts/wallets/){target=\_blank} guide.
@@ -15,18 +15,18 @@ For more information about how to connect to Polkadot Hub, please check the [Wal
 
 Developers can leverage smart contracts across diverse networks, from TestNets to MainNet. This section outlines the network specifications and connection details for each environment.
 
-=== "Westend Hub"
+=== "Polkadot Hub TestNet"
 
     Network name
     ```text
-    Westend Asset Hub
+    Polkadot Hub TestNet
     ```
 
     ---
 
     Currency symbol
     ```text
-    WND
+    PAS
     ```
 
     ---
@@ -40,32 +40,32 @@ Developers can leverage smart contracts across diverse networks, from TestNets t
     
     RPC URL
     ```text
-    https://westend-asset-hub-eth-rpc.polkadot.io
+    https://testnet-passet-hub-eth-rpc.polkadot.io
     ```
 
     ---
     
     Block explorer URL
     ```text
-    https://assethub-westend.subscan.io
+    https://blockscout-passet-hub.parity-testnet.parity.io/
     ```
 
 
 ## Test Tokens
 
-You will need testnet tokens to perform transactions and engage with smart contracts on any chain. Here's how to obtain Westend (WND) tokens for testing purposes:
+You will need testnet tokens to perform transactions and engage with smart contracts on any chain. Here's how to obtain Paseo (PAS) tokens for testing purposes:
 
 1. Navigate to the [Polkadot Faucet](https://faucet.polkadot.io){target=\_blank}. If the desired network is not already selected, choose it from the Network drop-down
 
-2. Copy your address linked to Westend and paste it into the designated field
+2. Copy your address linked to the TestNet and paste it into the designated field
 
     ![](/images/develop/smart-contracts/connect-to-polkadot/connect-to-polkadot-1.webp)
 
-3. Click the **Get Some WNDs** button to request free test WND tokens. These tokens will be sent to your wallet shortly
+3. Click the **Get Some PASs** button to request free test PAS tokens. These tokens will be sent to your wallet shortly
 
     ![](/images/develop/smart-contracts/connect-to-polkadot/connect-to-polkadot-2.webp)
 
-Now that you have obtained WND tokens in your wallet, you’re ready to deploy and interact with smart contracts on Westend Hub! These tokens will allow you to pay for gas fees when executing transactions, deploying contracts, and testing your dApp functionality in a secure testnet environment. 
+Now that you have obtained PAS tokens in your wallet, you’re ready to deploy and interact with smart contracts on Polkadot Hub TestNet! These tokens will allow you to pay for gas fees when executing transactions, deploying contracts, and testing your dApp functionality in a secure testnet environment. 
 
 ## Where to Go Next
 

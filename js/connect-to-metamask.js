@@ -12,6 +12,18 @@ const supportedNetworks = {
       decimals: 18,
     },
   },
+  paseoAssetHub: {
+    name: 'Polkadot Hub TestNet',
+    chainId: '0x190F1B45', //Hex value of "420420421"
+    chainName: 'Polkadot Hub TestNet',
+    rpcUrls: ['https://testnet-passet-hub-eth-rpc.polkadot.io'],
+    blockExplorerUrls: ['https://blockscout-passet-hub.parity-testnet.parity.io/'],
+    nativeCurrency: {
+      name: 'Paseo Token',
+      symbol: 'PAS',
+      decimals: 18,
+    },
+  },
 };
 
 /*

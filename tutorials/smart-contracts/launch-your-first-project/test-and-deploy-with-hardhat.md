@@ -42,7 +42,7 @@ Let's start by setting up Hardhat for your Storage contract project:
     npm install --save-dev @parity/hardhat-polkadot solc@0.8.28 dotenv
     ```
 
-    For dependencies compatibility, ensure to install the `@nomicfoundation/hardhat-toolbox` dependency with the `--legacy-peer-deps` flag:
+    For dependencies compatibility, ensure to install the `@nomicfoundation/hardhat-toolbox` dependency with the `--force` flag:
 
     ```bash
     npm install --force @nomicfoundation/hardhat-toolbox 

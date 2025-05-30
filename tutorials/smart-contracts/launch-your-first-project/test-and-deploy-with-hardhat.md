@@ -45,7 +45,7 @@ Let's start by setting up Hardhat for your Storage contract project:
     For dependencies compatibility, ensure to install the `@nomicfoundation/hardhat-toolbox` dependency with the `--legacy-peer-deps` flag:
 
     ```bash
-    npm install --legacy-peer-deps @nomicfoundation/hardhat-toolbox 
+    npm install --force @nomicfoundation/hardhat-toolbox 
     ```
 
 5. Initialize a Hardhat project:

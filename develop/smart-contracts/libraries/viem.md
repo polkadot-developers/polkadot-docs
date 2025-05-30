@@ -141,6 +141,8 @@ You can use the following contract to interact with the blockchain. Paste the fo
 
 ## Compile the Contract
 
+--8<-- 'text/smart-contracts/code-size.md'
+
 Create a new file at `src/compile.ts` for handling contract compilation:
 
 ```typescript title="src/compile.ts"

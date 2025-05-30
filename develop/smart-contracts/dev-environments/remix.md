@@ -28,6 +28,7 @@ description: Explore the smart contract development and deployment process on Po
 !!! warning
     The Polkadot Remix IDE's contract compilation functionality is currently limited to Google Chrome. Alternative browsers are not recommended for this task.
 
+--8<-- 'text/smart-contracts/code-size.md'
 
 ## Overview
 

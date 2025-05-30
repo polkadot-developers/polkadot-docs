@@ -99,6 +99,8 @@ With the provider set up, you can start querying the blockchain. For instance, t
 
 ## Compile Contracts
 
+--8<-- 'text/smart-contracts/code-size.md'
+
 The `revive` compiler transforms Solidity smart contracts into [PolkaVM](/develop/smart-contracts/native-evm-contracts/#polkavm){target=\_blank} bytecode for deployment on Polkadot Hub. Revive's Ethereum RPC interface allows you to use familiar tools like Ethers.js and MetaMask to interact with contracts.
 
 ### Install the Revive Library

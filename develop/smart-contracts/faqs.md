@@ -1,6 +1,6 @@
 ---
 title: FAQs for Smart Contracts in the Polkadot Hub
-description: TODO
+description: Find answers to common questions about smart contract development, deployment, and compatibility in the Polkadot Hub ecosystem.
 ---
 
 # Smart Contracts FAQs
@@ -48,7 +48,7 @@ description: TODO
 
 - How do I set up local development?
 
-    Check the [Loca Development Node](/develop/smart-contracts/local-development-node){target=\_blank} for further instructions.
+    Check the [Local Development Node](/develop/smart-contracts/local-development-node){target=\_blank} for further instructions.
 
 - What networks are available for testing and deployment?
 

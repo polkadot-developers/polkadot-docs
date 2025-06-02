@@ -33591,17 +33591,17 @@ To interact with the Polkadot Hub, you need to set up an [Ethers.js Provider](/d
 ```javascript title="app/utils/ethers.js"
 import { JsonRpcProvider } from 'ethers';
 
-export const ASSET_HUB_CONFIG = {
-  name: 'Westend Asset Hub',
-  rpc: 'https://westend-asset-hub-eth-rpc.polkadot.io', // Westend Asset Hub testnet RPC
-  chainId: 420420421, // Westend Asset Hub testnet chainId
-  blockExplorer: 'https://westend-asset-hub.subscan.io/',
+export const PASSET_HUB_CONFIG = {
+  name: 'Passet Hub',
+  rpc: 'https://testnet-passet-hub-eth-rpc.polkadot.io/', // Passet Hub testnet RPC
+  chainId: 420420421, // Passet Hub testnet chainId
+  blockExplorer: 'https://blockscout-passet-hub.parity-testnet.parity.io/',
 };
 
 export const getProvider = () => {
-  return new JsonRpcProvider(ASSET_HUB_CONFIG.rpc, {
-    chainId: ASSET_HUB_CONFIG.chainId,
-    name: ASSET_HUB_CONFIG.name,
+  return new JsonRpcProvider(PASSET_HUB_CONFIG.rpc, {
+    chainId: PASSET_HUB_CONFIG.chainId,
+    name: PASSET_HUB_CONFIG.name,
   });
 };
 
@@ -33834,7 +33834,7 @@ const WalletConnect = ({ onConnect }) => {
               onClick={switchNetwork}
               className="mt-3 w-full bg-yellow-500 hover:bg-yellow-600 text-white font-bold py-2 px-4 rounded-lg transition"
             >
-              Switch to Asset Hub
+              Switch to Passet Hub
             </button>
           )}
         </div>
@@ -33862,7 +33862,7 @@ export default function Home() {
   return (
     <section className="min-h-screen bg-white text-black flex flex-col justify-center items-center gap-4 py-10">
       <h1 className="text-2xl font-semibold text-center">
-        Ethers.js dApp - Asset Hub Smart Contracts
+        Ethers.js dApp - Passet Hub Smart Contracts
       </h1>
       <WalletConnect onConnect={handleConnect} />
 </section>
@@ -33961,7 +33961,7 @@ export default function Home() {
   return (
     <section className="min-h-screen bg-white text-black flex flex-col justify-center items-center gap-4 py-10">
       <h1 className="text-2xl font-semibold text-center">
-        Ethers.js dApp - Asset Hub Smart Contracts
+        Ethers.js dApp - Passet Hub Smart Contracts
       </h1>
       <WalletConnect onConnect={handleConnect} />
       <ReadContract />
@@ -34117,7 +34117,7 @@ export default function Home() {
   return (
     <section className="min-h-screen bg-white text-black flex flex-col justify-center items-center gap-4 py-10">
       <h1 className="text-2xl font-semibold text-center">
-        Ethers.js dApp - Asset Hub Smart Contracts
+        Ethers.js dApp - Passet Hub Smart Contracts
       </h1>
       <WalletConnect onConnect={handleConnect} />
       <ReadContract />
@@ -34144,7 +34144,7 @@ These fundamental skills provide the foundation for building more complex dApps 
 To get started right away with a working example, you can clone the repository and navigate to the implementation:
 
 ```
-git clone https://github.com/polkadot-developers/polkavm-storage-contract-dapps.git -b v0.0.1
+git clone https://github.com/polkadot-developers/polkavm-storage-contract-dapps.git -b v0.0.2
 cd polkavm-storage-contract-dapps/ethers-dapp
 ```
 
@@ -34245,28 +34245,28 @@ import { createPublicClient, http, createWalletClient, custom } from 'viem'
 import 'viem/window';
 
 
-const transport = http('https://westend-asset-hub-eth-rpc.polkadot.io')
+const transport = http('https://testnet-passet-hub-eth-rpc.polkadot.io')
 
-// Configure the Asset Hub chain
-export const assetHub = {
+// Configure the Passet Hub chain
+export const passetHub = {
   id: 420420421,
-  name: 'Westend Asset Hub',
-  network: 'westend-asset-hub',
+  name: 'Passet Hub',
+  network: 'passet-hub',
   nativeCurrency: {
     decimals: 18,
-    name: 'WND',
-    symbol: 'WND',
+    name: 'PAS',
+    symbol: 'PAS',
   },
   rpcUrls: {
     default: {
-      http: ['https://westend-asset-hub-eth-rpc.polkadot.io'],
+      http: ['https://testnet-passet-hub-eth-rpc.polkadot.io'],
     },
   },
 } as const
 
 // Create a public client for reading data
 export const publicClient = createPublicClient({
-  chain: assetHub,
+  chain: passetHub,
   transport
 })
 
@@ -34275,7 +34275,7 @@ export const getWalletClient = async () => {
   if (typeof window !== 'undefined' && window.ethereum) {
     const [account] = await window.ethereum.request({ method: 'eth_requestAccounts' });
     return createWalletClient({
-      chain: assetHub,
+      chain: passetHub,
       transport: custom(window.ethereum),
       account,
     });
@@ -34331,7 +34331,7 @@ import { getContract } from 'viem';
 import { publicClient, getWalletClient } from './viem';
 import StorageABI from '../../abis/Storage.json';
 
-export const CONTRACT_ADDRESS = '0xabBd46Ef74b88E8B1CDa49BeFb5057710443Fd29';
+export const CONTRACT_ADDRESS = '0x58053f0e8ede1a47a1af53e43368cd04ddcaf66f';
 export const CONTRACT_ABI = StorageABI;
 
 // Create a function to get a contract instance for reading
@@ -34364,7 +34364,7 @@ Now, let's create a component to handle wallet connections. Create a new file ca
 "use client";
 
 import React, { useState, useEffect } from "react";
-import { assetHub } from "../utils/viem";
+import { passetHub } from "../utils/viem";
 
 interface WalletConnectProps {
   onConnect: (account: string) => void;
@@ -34447,7 +34447,7 @@ const WalletConnect: React.FC<WalletConnectProps> = ({ onConnect }) => {
       setChainId(currentChainId);
 
       // Prompt user to switch networks if needed
-      if (currentChainId !== assetHub.id) {
+      if (currentChainId !== passetHub.id) {
         await switchNetwork();
       }
 
@@ -34463,7 +34463,7 @@ const WalletConnect: React.FC<WalletConnectProps> = ({ onConnect }) => {
     try {
       await window.ethereum.request({
         method: 'wallet_switchEthereumChain',
-        params: [{ chainId: `0x${assetHub.id.toString(16)}` }],
+        params: [{ chainId: `0x${passetHub.id.toString(16)}` }],
       });
     } catch (switchError: any) {
       // Error 4902 means the chain hasn't been added to MetaMask
@@ -34473,13 +34473,13 @@ const WalletConnect: React.FC<WalletConnectProps> = ({ onConnect }) => {
             method: 'wallet_addEthereumChain',
             params: [
               {
-                chainId: `0x${assetHub.id.toString(16)}`,
-                chainName: assetHub.name,
-                rpcUrls: [assetHub.rpcUrls.default.http[0]],
+                chainId: `0x${passetHub.id.toString(16)}`,
+                chainName: passetHub.name,
+                rpcUrls: [passetHub.rpcUrls.default.http[0]],
                 nativeCurrency: {
-                  name: assetHub.nativeCurrency.name,
-                  symbol: assetHub.nativeCurrency.symbol,
-                  decimals: assetHub.nativeCurrency.decimals,
+                  name: passetHub.nativeCurrency.name,
+                  symbol: passetHub.nativeCurrency.symbol,
+                  decimals: passetHub.nativeCurrency.decimals,
                 },
               },
             ],
@@ -34520,12 +34520,12 @@ const WalletConnect: React.FC<WalletConnectProps> = ({ onConnect }) => {
           >
             Disconnect
           </button>
-          {chainId !== assetHub.id && (
+          {chainId !== passetHub.id && (
             <button
               onClick={switchNetwork}
               className="mt-3 w-full bg-yellow-500 hover:bg-yellow-600 text-white font-bold py-2 px-4 rounded-lg transition"
             >
-              Switch to Asset Hub
+              Switch to Passet Hub
             </button>
           )}
         </div>
@@ -34553,7 +34553,7 @@ export default function Home() {
   return (
     <section className="min-h-screen bg-white text-black flex flex-col justify-center items-center gap-4 py-10">
       <h1 className="text-2xl font-semibold text-center">
-        Viem dApp - Asset Hub Smart Contracts
+        Viem dApp - Passet Hub Smart Contracts
       </h1>
       <WalletConnect onConnect={handleConnect} />
 </section>
@@ -34658,7 +34658,7 @@ export default function Home() {
   return (
     <section className="min-h-screen bg-white text-black flex flex-col justify-center items-center gap-4 py-10">
       <h1 className="text-2xl font-semibold text-center">
-        Viem dApp - Asset Hub Smart Contracts
+        Viem dApp - Passet Hub Smart Contracts
       </h1>
       <WalletConnect onConnect={handleConnect} />
       <ReadContract />
@@ -34917,7 +34917,7 @@ export default function Home() {
   return (
     <section className="min-h-screen bg-white text-black flex flex-col justify-center items-center gap-4 py-10">
       <h1 className="text-2xl font-semibold text-center">
-        Viem dApp - Asset Hub Smart Contracts
+        Viem dApp - Passet Hub Smart Contracts
       </h1>
       <WalletConnect onConnect={handleConnect} />
       <ReadContract />
@@ -34963,7 +34963,7 @@ These fundamental skills provide the foundation for building more complex dApps 
 To get started right away with a working example, you can clone the repository and navigate to the implementation:
 
 ```
-git clone https://github.com/polkadot-developers/polkavm-storage-contract-dapps.git -b v0.0.1
+git clone https://github.com/polkadot-developers/polkavm-storage-contract-dapps.git -b v0.0.2
 cd polkavm-storage-contract-dapps/viem-dapp
 ```
 

@@ -12,7 +12,7 @@ const supportedNetworks = {
       decimals: 18,
     },
   },
-  paseoAssetHub: {
+  passetHub: {
     name: 'Polkadot Hub TestNet',
     chainId: '0x190F1B45', //Hex value of "420420421"
     chainName: 'Polkadot Hub TestNet',

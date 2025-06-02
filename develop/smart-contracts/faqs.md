@@ -44,7 +44,7 @@ description: Find answers to common questions about smart contract development, 
 
 - Can I use my existing Ethereum development tools?
 
-    Yes, check out the [Wallet](/develop/smart-contracts/wallets){target=\_blank} page and the [Development Environments](/develop/smart-contracts/dev-environments/){target=\_blank} and the [Libraries](/develop/smart-contracts/libraries/){target=\_blank} sections for more information.
+    Yes, check out the [Wallet](/develop/smart-contracts/wallets){target=\_blank} page, the [Development Environments](/develop/smart-contracts/dev-environments/){target=\_blank}, and the [Libraries](/develop/smart-contracts/libraries/){target=\_blank} sections for more information.
 
 - How do I set up local development?
 

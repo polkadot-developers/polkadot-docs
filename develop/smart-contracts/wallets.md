@@ -7,7 +7,7 @@ description: Comprehensive guide to connecting and managing wallets for Polkadot
 
 ## Introduction
 
-Connecting a compatible wallet is the first essential step for interacting with the Polkadot Hub ecosystem. This guide explores wallet options that support both Substrate and Ethereum compatible layers, enabling transactions and smart contract interactions. Whether you're a developer testing on Westend Hub or a user accessing the MainNet, understanding wallet configuration is crucial for accessing the full range of Polkadot Hub's capabilities.
+Connecting a compatible wallet is the first essential step for interacting with the Polkadot Hub ecosystem. This guide explores wallet options that support both Substrate and Ethereum compatible layers, enabling transactions and smart contract interactions. Whether you're a developer testing on Polkadot Hub or a user accessing the MainNet, understanding wallet configuration is crucial for accessing the full range of Polkadot Hub's capabilities.
 
 ## Connect Your Wallet
 
@@ -17,9 +17,9 @@ Connecting a compatible wallet is the first essential step for interacting with 
 
 To get started with MetaMask, you need to install the [MetaMask extension](https://metamask.io/download/){target=\_blank} and add it to the browser. Once you install MetaMask, you can set up a new wallet and securely store your seed phrase. This phrase is crucial for recovery in case you lose access.
 
-For example, to connect to the Westend Hub TestNet via MetaMask, you need to follow these steps:
+For example, to connect to the Passet Hub TestNet via MetaMask, you need to follow these steps:
 
-1. Open the MetaMask extension and click on the network icon to switch to the Westend Hub TestNet
+1. Open the MetaMask extension and click on the network icon to switch to Passet Hub TestNet
 
     ![](/images/develop/smart-contracts/wallets/wallets-1.webp){: .browser-extension}
 
@@ -31,7 +31,7 @@ For example, to connect to the Westend Hub TestNet via MetaMask, you need to fol
 
     ![](/images/develop/smart-contracts/wallets/wallets-3.webp){: .browser-extension}
 
-4. Click on **Asset-Hub Westend TestNet** to switch the network
+4. Click on **Polkadot Hub TestNet** to switch the network
 
     ![](/images/develop/smart-contracts/wallets/wallets-4.webp){: .browser-extension}
 
@@ -44,15 +44,36 @@ The steps in the preceding section can be used to connect to any chain by modify
 To use Talisman with Polkadot Hub:
 
 1. Install the [Talisman extension](https://talisman.xyz/download){target=\_blank} and set up your wallet by following the on-screen instructions
-2. Once installed, click on the Talisman icon in your browser extensions and select Networks dropdown:  
+
+2. Once installed, click on the Talisman icon in your browser extensions and click on the **Settings* button:  
 
     ![](/images/develop/smart-contracts/wallets/wallets-5.webp){: .browser-extension}
 
-3. Search for **Westend Asset Hub** in the list of networks and select it (ensure that the checkbox **Enable Testnets** is enabled to view the available testnets):
+3. Click the button **All settings**:
 
     ![](/images/develop/smart-contracts/wallets/wallets-6.webp){: .browser-extension}
 
-After selecting the network, Talisman will automatically configure the necessary RPC URL and chain ID for you. You can now use Talisman to interact with Westend Hub.
+4. Go to the **Networks & Tokens** section:
+
+    ![](/images/develop/smart-contracts/wallets/wallets-7.webp)
+
+5. Click the **Manage networks** button:
+
+    ![](/images/develop/smart-contracts/wallets/wallets-8.webp)
+
+6. Click the **+ Add network** button:
+
+    ![](/images/develop/smart-contracts/wallets/wallets-9.webp)
+
+7. Fill in the form with the required parameters and click the **Add network** button:
+
+    ![](/images/develop/smart-contracts/wallets/wallets-10.webp)
+
+8. After that, you can switch to the Passet Hub TestNet by clicking on the network icon and selecting **Polkadot Hub TestNet**:
+
+    ![](/images/develop/smart-contracts/wallets/wallets-11.webp)
+
+After selecting the network, Talisman will automatically configure the necessary RPC URL and chain ID for you. You can now use Talisman to interact with Passet Hub.
 
 
 ## Conclusion

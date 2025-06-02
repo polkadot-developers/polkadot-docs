@@ -32716,7 +32716,7 @@ Before starting, make sure you have:
 - Node.js (v16.0.0 or later) and npm installed
 - Basic understanding of Solidity and JavaScript
 - Familiarity with [`hardhat-polkadot`](/develop/smart-contracts/dev-environments/hardhat){target=\_blank} development environment
-- Some WND test tokens to cover transaction fees (obtained from the [Polkadot faucet](https://faucet.polkadot.io/westend){target=\_blank})
+- Some PAS test tokens to cover transaction fees (obtained from the [Polkadot faucet](https://faucet.polkadot.io/?parachain=1111){target=\_blank})
 - Basic understanding of how AMMs and liquidity pools work
 
 ## Set Up the Project
@@ -32908,7 +32908,7 @@ npx hardhat run scripts/deploy.js --network localNode
 This command deploys the contracts to your local blockchain for development and testing. If you want to deploy to Polkadot Hub, you can use the following command:
 
 ```bash
-npx hardhat run scripts/deploy.js --network westendHub
+npx hardhat run scripts/deploy.js --network passetHub
 ```
 
 The command above deploys to the actual Polkadot TestNet. It requires WND test tokens, persists on the network, and operates under real network conditions.

@@ -98,21 +98,17 @@ To create a new contract using the Polkadot Remix IDE, you can follow these step
 
     1. Navigate to the **Deploy & Run Transactions** tab (fourth icon in the left sidebar)
     2. Click the **Enviroment** dropdown 
-    3. Select **Customize this list**
+    3. Select **Injected Provider - MetaMask**
 
         ![](/images/develop/smart-contracts/evm-toolkit/dev-environments/remix/remix-7.webp)
 
-2. Click again the **Environment** dropdown and select **Injected Provider - MetaMask**
+2. Click the **Deploy** button and then click **Confirm** in the MetaMask wallet popup
 
     ![](/images/develop/smart-contracts/evm-toolkit/dev-environments/remix/remix-8.webp)
 
-4. Click the **Deploy** button and then click **Confirm** in the MetaMask wallet popup
+3. Once your contract is deployed successfully, you will see the following output in the Remix terminal:
 
     ![](/images/develop/smart-contracts/evm-toolkit/dev-environments/remix/remix-9.webp)
-
-5. Once your contract is deployed successfully, you will see the following output in the Remix terminal:
-
-    ![](/images/develop/smart-contracts/evm-toolkit/dev-environments/remix/remix-10.webp)
 
 ## Interacting with Contracts
 
@@ -120,14 +116,14 @@ Once deployed, your contract appears in the **Deployed/Unpinned Contracts** sect
 
 1. Expand the contract to view available methods
 
-    ![](/images/develop/smart-contracts/evm-toolkit/dev-environments/remix/remix-11.webp)
+    ![](/images/develop/smart-contracts/evm-toolkit/dev-environments/remix/remix-10.webp)
 
     !!! tip
         Pin your frequently used contracts to the **Pinned Contracts** section for easy access.
 
 2. To interact with the contract, you can select any of the exposed methods
 
-    ![](/images/develop/smart-contracts/evm-toolkit/dev-environments/remix/remix-12.webp)
+    ![](/images/develop/smart-contracts/evm-toolkit/dev-environments/remix/remix-11.webp)
 
     In this way, you can interact with your deployed contract by reading its state or writing to it. The button color indicates the type of interaction available:
 

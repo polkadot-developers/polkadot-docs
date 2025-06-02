@@ -27,7 +27,7 @@ Before getting started, ensure you have:
 
 - [Node.js](https://nodejs.org/){target=\_blank} (v16.0.0 or later) and npm installed
 - Basic understanding of Solidity programming
-- Some WND test tokens to cover transaction fees (easily obtainable from the [Polkadot faucet](https://faucet.polkadot.io/westend?parachain=1000){target=\_blank}). To learn how to get test tokens, check out the [Test Tokens](/develop/smart-contracts/connect-to-polkadot#test-tokens){target=\_blank} section
+- Some PAS test tokens to cover transaction fees (easily obtainable from the [Polkadot faucet](https://faucet.polkadot.io/?parachain=1111){target=\_blank}). To learn how to get test tokens, check out the [Test Tokens](/develop/smart-contracts/connect-to-polkadot#test-tokens){target=\_blank} section
 
 ## Set Up Hardhat
 
@@ -210,9 +210,9 @@ Before deploying to a live network, you can deploy your contract to a local node
 
 ## Deploying to a Live Network
 
-After testing your contract locally, you can deploy it to a live network. This guide will use Westend Hub as the target network. Here's how to configure and deploy:
+After testing your contract locally, you can deploy it to a live network. This guide will use the Polkadot Hub TestNet as the target network. Here's how to configure and deploy:
 
-1. Fund your deployment account with enough tokens to cover gas fees. In this case, the needed tokens are WND (on Westend). You can use the [Polkadot faucet](https://faucet.polkadot.io/westend?parachain=1000){target=\_blank} to obtain testing tokens.
+1. Fund your deployment account with enough tokens to cover gas fees. In this case, the needed tokens are PAS (on Polkadot Hub TestNet). You can use the [Polkadot faucet](https://faucet.polkadot.io/?parachain=1111){target=\_blank} to obtain testing tokens.
 
 2. Export your private key and save it in a `.env` file:
 
@@ -274,7 +274,7 @@ After testing your contract locally, you can deploy it to a live network. This g
 6. Deploy your contract using Ignition:
 
     ```bash
-    npx hardhat ignition deploy ./ignition/modules/MyToken.js --network westendHub
+    npx hardhat ignition deploy ./ignition/modules/MyToken.js --network polkadotHubTestnet
     ```
 
 ## Interacting with Your Contract
@@ -290,7 +290,7 @@ For example, for the default `MyToken.sol` contract, you can use the following f
 Run your interaction script:
 
 ```bash
-npx hardhat run scripts/interact.js --network westendHub
+npx hardhat run scripts/interact.js --network polkadotHubTestnet
 ```
 
 ## Where to Go Next

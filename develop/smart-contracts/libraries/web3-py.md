@@ -34,9 +34,9 @@ pip install web3
 
 The [provider](https://web3py.readthedocs.io/en/stable/providers.html){target=\_blank} configuration is the foundation of any Web3.py application. The following example establishes a connection to Polkadot Hub. Follow these steps to use the provider configuration:
 
-1. Replace `INSERT_RPC_URL` with the appropriate value. For instance, to connect to Westend Hub TestNet, use the following parameter:
+1. Replace `INSERT_RPC_URL` with the appropriate value. For instance, to connect to Polkadot Hub TestNet, use the following parameter:
 ```python
-PROVIDER_RPC = 'https://westend-asset-hub-eth-rpc.polkadot.io'
+PROVIDER_RPC = 'https://testnet-passet-hub-eth-rpc.polkadot.io'
 ```
 
     The provider connection script should look something like this:

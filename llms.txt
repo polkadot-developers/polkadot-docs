@@ -33,7 +33,6 @@ Doc-Page: https://docs.polkadot.com/develop/parachains/testing/benchmarking/
 Doc-Page: https://docs.polkadot.com/develop/parachains/testing/
 Doc-Page: https://docs.polkadot.com/develop/parachains/testing/mock-runtime/
 Doc-Page: https://docs.polkadot.com/develop/parachains/testing/pallet-testing/
-Doc-Page: https://docs.polkadot.com/develop/smart-contracts/block-explorers/contract-verification/
 Doc-Page: https://docs.polkadot.com/develop/smart-contracts/block-explorers/
 Doc-Page: https://docs.polkadot.com/develop/smart-contracts/connect-to-polkadot/
 Doc-Page: https://docs.polkadot.com/develop/smart-contracts/dev-environments/hardhat/
@@ -6043,105 +6042,6 @@ Some key considerations are:
 </div>
 --- END CONTENT ---
 
-Doc-Content: https://docs.polkadot.com/develop/smart-contracts/block-explorers/contract-verification/
---- BEGIN CONTENT ---
----
-title: Contract Verification
-description: Learn how to verify Solidity smart contracts on Subscan to improve transparency, trust, and usability for dApps on Polkadot Hub.
----
-
-# Contract Verification
-
-## Introduction
-
-Verifying smart contracts on a block explorer improves the transparency and security of deployed smart contracts on the blockchain. Users can view the source code for verified contracts and, in some cases, interact directly with the contract's public methods through the block explorer's interface.
-
-This guide will outline the steps for verifying Solidity smart contracts on Polkadot Hub, through the [Subscan block explorer](https://assethub-westend.subscan.io/){target=\_blank}, explicitly focusing on the Westend Hub for testing purposes.
-
-## Deploying the Contract
-
-To verify a smart contract on the Subscan explorer, the contract must first be deployed on the target network. For further guidance about this process, you can check the [Deploy a NFT](/tutorials/smart-contracts/deploy-nft){target=\_blank} or [Deploy an ERC-20](/tutorials/smart-contracts/deploy-erc20){target=\_blank} tutorials.
-
-You can deploy your Solidity smart contract using various development tools compatible with the Polkadot Hub, such as [Remix](/develop/smart-contracts/dev-environments/remix){target=\_blank}, [Hardhat](/develop/smart-contracts/dev-environments/hardhat){target=\_blank}, or other preferred tools that connect to the Polkadot network.
-
-This guide uses a simple incrementer contract as an example. The Solidity code is the following:
-
-```solidity title="Incrementer.sol"
-// SPDX-License-Identifier: MIT
-
-pragma solidity ^0.8.0;
-
-contract Incrementer {
-    uint256 public number;
-
-    constructor(uint256 _initialNumber) {
-        number = _initialNumber;
-    }
-
-    function increment(uint256 _value) public {
-        number = number + _value;
-    }
-
-    function reset() public {
-        number = 0;
-    }
-}
-```
-
-## Collecting Information for Contract Verification
-
-You will need to collect some information related to the contract's compiler and deployment to verify it successfully:
-
-1. Take note of the name of the contract (in this example, `Incrementer`)
-2. Take note of the Solidity compiler version used to compile the contract (in this example, `v0.8.28+commit.7893614a`)
-
-    ![](/images/develop/smart-contracts/contract-verification/contract-verification-01.webp)
-
-3. If optimization is enabled during compilation, take note of the optimization runs parameter
-4. After deployment, take note of the deployed contract address. This can be found in the console output of your deployment tool or the interface of tools like Remix
-
-    ![](/images/develop/smart-contracts/contract-verification/contract-verification-02.webp)
-
-## Verify the Contract
-
-Follow these steps to verify your contract on [Westend Hub Subscan](https://assethub-westend.subscan.io/){target=\_blank}:
-
-1. Navigate to the [Subscan explorer](https://assethub-westend.subscan.io/){target=\_blank} for Westend Hub
-2. Open the **Tools** dropdown and select **Contract Verification Tool**
-
-    ![](/images/develop/smart-contracts/contract-verification/contract-verification-03.webp)
-
-3. Fill in the contract's information in the verification form:
-    - Contract address
-    - Select the compiler type. For this `Incrementer.sol` example, select **Solidity (Single file)**
-    - Fill in the contract name (e.g., `Incrementer`)
-    - Select the compiler version used to compile the contract (e.g., `v0.8.28+commit.7893614a`)
-    - Add the Solidity source code of the contract
-  
-    ![](/images/develop/smart-contracts/contract-verification/contract-verification-04.webp)
-
-4. Click the **Verify and Publish** button to verify the contract
-
-## Verification Results
-
-After a successful verification, you should be redirected to a new page (for this example, you can check the following [contract page](https://assethub-westend.subscan.io/account/0x6e95330945ca37667c4c70a60287b4b271e1205e?tab=contract){target=\_blank}). The contract page on Subscan will now display:
-
-- Contract information
-- Contract ABI
-- Contract's source code
-- Contract bytecode
-
-    ![](/images/develop/smart-contracts/contract-verification/contract-verification-05.webp)
-
-This verified contract status gives users confidence that the contract's source code matches the deployed bytecode on the blockchain.
-
-## Conclusion
-
-Verifying your Solidity smart contracts on Subscan enhances transparency and trust in your decentralized applications on Polkadot Hub. Users can inspect the source code and interact with your contracts directly through the explorer interface, which is crucial for building community trust and facilitating the adoption of your project.
-
-Remember that verification is a one-time process for each deployed contract. Once your contract is verified, its source code will remain accessible on the blockchain explorer for as long as the explorer maintains its database.
---- END CONTENT ---
-
 Doc-Content: https://docs.polkadot.com/develop/smart-contracts/block-explorers/
 --- BEGIN CONTENT ---
 ---
@@ -6170,29 +6070,29 @@ These block explorers provide essential capabilities for interacting with smart 
 
 The following block explorers are available for PolkaVM smart contracts, providing specialized tools for monitoring and analyzing contract activity within the Polkadot ecosystem:
 
-### Subscan
+<!-- ### Subscan
 
 Subscan is the flagship Polkadot ecosystem block explorer with comprehensive support for PolkaVM smart contracts. It provides robust transaction indexing, account analysis, and monitoring tools specifically optimized for Polkadot SDK-based networks.
 
 - [Westend Hub Subscan](https://assethub-westend.subscan.io/){target=\_blank}
 
-![](/images/develop/smart-contracts/block-explorers/block-explorers-1.webp)
+![](/images/develop/smart-contracts/block-explorers/block-explorers-1.webp) -->
 
 ### BlockScout
 
 BlockScout is an open-source explorer platform with a user-friendly interface adapted for PolkaVM contracts. It excels at detailed contract analytics and provides developers with comprehensive API access.
 
-- [Westend Hub BlockScout](https://blockscout-asset-hub.parity-chains-scw.parity.io/){target=\_blank}
+- [Polkadot Hub TestNet BlockScout](https://blockscout-passet-hub.parity-testnet.parity.io/){target=\_blank}
 
 ![](/images/develop/smart-contracts/block-explorers/block-explorers-2.webp)
 
-### Routescan
+<!-- ### Routescan
 
 Routescan delivers multi-chain explorer capabilities with specialized support for PolkaVM environments.
 
 - [Westend Hub Routescan](https://420420421.testnet.routescan.io/){target=\_blank}
 
-![](/images/develop/smart-contracts/block-explorers/block-explorers-3.webp)
+![](/images/develop/smart-contracts/block-explorers/block-explorers-3.webp) -->
 --- END CONTENT ---
 
 Doc-Content: https://docs.polkadot.com/develop/smart-contracts/connect-to-polkadot/
@@ -6205,7 +6105,7 @@ description: Explore how to connect to Polkadot Hub, configure your wallet, and 
 # Connect to Polkadot
 
 <div class="button-wrapper">
-    <a href="#" class="md-button connectMetaMask" value="westendAssetHub">Connect to Westend Hub</a>
+    <a href="#" class="md-button connectMetaMask" value="paseoAssetHub">Connect to Polkadot Hub TestNet</a>
 </div>
 
 For more information about how to connect to Polkadot Hub, please check the [Wallets for Polkadot Hub](/develop/smart-contracts/wallets/){target=\_blank} guide.
@@ -6214,18 +6114,18 @@ For more information about how to connect to Polkadot Hub, please check the [Wal
 
 Developers can leverage smart contracts across diverse networks, from TestNets to MainNet. This section outlines the network specifications and connection details for each environment.
 
-=== "Westend Hub"
+=== "Polkadot Hub TestNet"
 
     Network name
     ```text
-    Westend Asset Hub
+    Polkadot Hub TestNet
     ```
 
     ---
 
     Currency symbol
     ```text
-    WND
+    PAS
     ```
 
     ---
@@ -6239,32 +6139,32 @@ Developers can leverage smart contracts across diverse networks, from TestNets t
     
     RPC URL
     ```text
-    https://westend-asset-hub-eth-rpc.polkadot.io
+    https://testnet-passet-hub-eth-rpc.polkadot.io
     ```
 
     ---
     
     Block explorer URL
     ```text
-    https://assethub-westend.subscan.io
+    https://blockscout-passet-hub.parity-testnet.parity.io/
     ```
 
 
 ## Test Tokens
 
-You will need testnet tokens to perform transactions and engage with smart contracts on any chain. Here's how to obtain Westend (WND) tokens for testing purposes:
+You will need testnet tokens to perform transactions and engage with smart contracts on any chain. Here's how to obtain Paseo (PAS) tokens for testing purposes:
 
-1. Navigate to the [Polkadot Faucet](https://faucet.polkadot.io){target=\_blank}. If the desired network is not already selected, choose it from the Network drop-down
+1. Navigate to the [Polkadot Faucet](https://faucet.polkadot.io/?parachain=1111){target=\_blank}. If the desired network is not already selected, choose it from the Network drop-down
 
-2. Copy your address linked to Westend and paste it into the designated field
+2. Copy your address linked to the TestNet and paste it into the designated field
 
     ![](/images/develop/smart-contracts/connect-to-polkadot/connect-to-polkadot-1.webp)
 
-3. Click the **Get Some WNDs** button to request free test WND tokens. These tokens will be sent to your wallet shortly
+3. Click the **Get Some PASs** button to request free test PAS tokens. These tokens will be sent to your wallet shortly
 
     ![](/images/develop/smart-contracts/connect-to-polkadot/connect-to-polkadot-2.webp)
 
-Now that you have obtained WND tokens in your wallet, you’re ready to deploy and interact with smart contracts on Westend Hub! These tokens will allow you to pay for gas fees when executing transactions, deploying contracts, and testing your dApp functionality in a secure testnet environment. 
+Now that you have obtained PAS tokens in your wallet, you’re ready to deploy and interact with smart contracts on Polkadot Hub TestNet! These tokens will allow you to pay for gas fees when executing transactions, deploying contracts, and testing your dApp functionality in a secure testnet environment. 
 
 ## Where to Go Next
 
@@ -6322,7 +6222,7 @@ Before getting started, ensure you have:
 
 - [Node.js](https://nodejs.org/){target=\_blank} (v16.0.0 or later) and npm installed
 - Basic understanding of Solidity programming
-- Some WND test tokens to cover transaction fees (easily obtainable from the [Polkadot faucet](https://faucet.polkadot.io/westend?parachain=1000){target=\_blank}). To learn how to get test tokens, check out the [Test Tokens](/develop/smart-contracts/connect-to-polkadot#test-tokens){target=\_blank} section
+- Some PAS test tokens to cover transaction fees (easily obtainable from the [Polkadot faucet](https://faucet.polkadot.io/?parachain=1111){target=\_blank}). To learn how to get test tokens, check out the [Test Tokens](/develop/smart-contracts/connect-to-polkadot#test-tokens){target=\_blank} section
 
 ## Set Up Hardhat
 
@@ -6687,9 +6587,9 @@ module.exports = {
 
 ## Deploying to a Live Network
 
-After testing your contract locally, you can deploy it to a live network. This guide will use Westend Hub as the target network. Here's how to configure and deploy:
+After testing your contract locally, you can deploy it to a live network. This guide will use the Polkadot Hub TestNet as the target network. Here's how to configure and deploy:
 
-1. Fund your deployment account with enough tokens to cover gas fees. In this case, the needed tokens are WND (on Westend). You can use the [Polkadot faucet](https://faucet.polkadot.io/westend?parachain=1000){target=\_blank} to obtain testing tokens.
+1. Fund your deployment account with enough tokens to cover gas fees. In this case, the needed tokens are PAS (on Polkadot Hub TestNet). You can use the [Polkadot faucet](https://faucet.polkadot.io/?parachain=1111){target=\_blank} to obtain testing tokens.
 
 2. Export your private key and save it in a `.env` file:
 
@@ -6765,9 +6665,9 @@ require('@parity/hardhat-polkadot');
       polkavm: true,
       url: `http://127.0.0.1:8545`,
     },
-    westendHub: {
+    polkadotHubTestnet: {
       polkavm: true,
-      url: 'https://westend-asset-hub-eth-rpc.polkadot.io',
+      url: 'https://testnet-passet-hub-eth-rpc.polkadot.io',
       accounts: [process.env.PRIVATE_KEY],
     },
         };
@@ -6817,9 +6717,9 @@ module.exports = {
       polkavm: true,
       url: `http://127.0.0.1:8545`,
     },
-    westendHub: {
+    polkadotHubTestnet: {
       polkavm: true,
-      url: 'https://westend-asset-hub-eth-rpc.polkadot.io',
+      url: 'https://testnet-passet-hub-eth-rpc.polkadot.io',
       accounts: [process.env.PRIVATE_KEY],
     },
         };
@@ -6828,7 +6728,7 @@ module.exports = {
 6. Deploy your contract using Ignition:
 
     ```bash
-    npx hardhat ignition deploy ./ignition/modules/MyToken.js --network westendHub
+    npx hardhat ignition deploy ./ignition/modules/MyToken.js --network polkadotHubTestnet
     ```
 
 ## Interacting with Your Contract
@@ -6877,7 +6777,7 @@ main().catch((error) => {
 Run your interaction script:
 
 ```bash
-npx hardhat run scripts/interact.js --network westendHub
+npx hardhat run scripts/interact.js --network polkadotHubTestnet
 ```
 
 ## Where to Go Next
@@ -6984,7 +6884,7 @@ Before getting started, ensure you have:
 
 - A web browser with [Talisman](https://talisman.xyz/){target=\_blank} extension installed
 - Basic understanding of Solidity programming
-- Some WND test tokens to cover transaction fees (easily obtainable from the [Polkadot faucet](https://faucet.polkadot.io/westend?parachain=1000){target=\_blank})
+- Some PAS test tokens to cover transaction fees (easily obtainable from the [Polkadot faucet](https://faucet.polkadot.io/?parachain=1111){target=\_blank})
 
 ## Accessing Remix IDE
 
@@ -7184,10 +7084,10 @@ description: JSON-RPC APIs guide for Polkadot Hub, covering supported methods, p
 
 Polkadot Hub provides Ethereum compatibility through its JSON-RPC interface, allowing developers to interact with the chain using familiar Ethereum tooling and methods. This document outlines the supported [Ethereum JSON-RPC methods](https://ethereum.org/en/developers/docs/apis/json-rpc/#json-rpc-methods){target=\_blank} and provides examples of how to use them.
 
-This article uses the Westend Hub endpoint:
+This guide uses the Polkadot Hub TestNet endpoint:
 
 ```text
-https://westend-asset-hub-eth-rpc.polkadot.io
+https://testnet-passet-hub-eth-rpc.polkadot.io
 ```
 
 ## Available Methods
@@ -7203,7 +7103,7 @@ None
 **Example**:
 
 ```bash title="eth_accounts"
-curl -X POST https://westend-asset-hub-eth-rpc.polkadot.io \
+curl -X POST https://testnet-passet-hub-eth-rpc.polkadot.io \
 -H "Content-Type: application/json" \
 --data '{
     "jsonrpc":"2.0",
@@ -7226,7 +7126,7 @@ None
 **Example**:
 
 ```bash title="eth_blockNumber"
-curl -X POST https://westend-asset-hub-eth-rpc.polkadot.io \
+curl -X POST https://testnet-passet-hub-eth-rpc.polkadot.io \
 -H "Content-Type: application/json" \
 --data '{
     "jsonrpc":"2.0",
@@ -7256,7 +7156,7 @@ Executes a new message call immediately without creating a transaction. [Referen
 **Example**:
 
 ```bash title="eth_call"
-curl -X POST https://westend-asset-hub-eth-rpc.polkadot.io \
+curl -X POST https://testnet-passet-hub-eth-rpc.polkadot.io \
 -H "Content-Type: application/json" \
 --data '{
     "jsonrpc":"2.0",
@@ -7284,7 +7184,7 @@ None
 **Example**:
 
 ```bash title="eth_chainId"
-curl -X POST https://westend-asset-hub-eth-rpc.polkadot.io \
+curl -X POST https://testnet-passet-hub-eth-rpc.polkadot.io \
 -H "Content-Type: application/json" \
 --data '{
     "jsonrpc":"2.0",
@@ -7314,7 +7214,7 @@ Estimates gas required for a transaction. [Reference](https://ethereum.org/en/de
 **Example**:
 
 ```bash title="eth_estimateGas"
-curl -X POST https://westend-asset-hub-eth-rpc.polkadot.io \
+curl -X POST https://testnet-passet-hub-eth-rpc.polkadot.io \
 -H "Content-Type: application/json" \
 --data '{
     "jsonrpc":"2.0",
@@ -7342,7 +7242,7 @@ None
 **Example**:
 
 ```bash title="eth_gasPrice"
-curl -X POST https://westend-asset-hub-eth-rpc.polkadot.io \
+curl -X POST https://testnet-passet-hub-eth-rpc.polkadot.io \
 -H "Content-Type: application/json" \
 --data '{
     "jsonrpc":"2.0",
@@ -7366,7 +7266,7 @@ Returns the balance of a given address. [Reference](https://ethereum.org/en/deve
 **Example**:
 
 ```bash title="eth_getBalance"
-curl -X POST https://westend-asset-hub-eth-rpc.polkadot.io \
+curl -X POST https://testnet-passet-hub-eth-rpc.polkadot.io \
 -H "Content-Type: application/json" \
 --data '{
     "jsonrpc":"2.0",
@@ -7392,7 +7292,7 @@ Returns information about a block by its hash. [Reference](https://ethereum.org/
 **Example**:
 
 ```bash title="eth_getBlockByHash"
-curl -X POST https://westend-asset-hub-eth-rpc.polkadot.io \
+curl -X POST https://testnet-passet-hub-eth-rpc.polkadot.io \
 -H "Content-Type: application/json" \
 --data '{
     "jsonrpc":"2.0",
@@ -7418,7 +7318,7 @@ Returns information about a block by its number. [Reference](https://ethereum.or
 **Example**:
 
 ```bash title="eth_getBlockByNumber"
-curl -X POST https://westend-asset-hub-eth-rpc.polkadot.io \
+curl -X POST https://testnet-passet-hub-eth-rpc.polkadot.io \
 -H "Content-Type: application/json" \
 --data '{
     "jsonrpc":"2.0",
@@ -7444,7 +7344,7 @@ Returns the code at a given address. [Reference](https://ethereum.org/en/develop
 **Example**:
 
 ```bash title="eth_getCode"
-curl -X POST https://westend-asset-hub-eth-rpc.polkadot.io \
+curl -X POST https://testnet-passet-hub-eth-rpc.polkadot.io \
 -H "Content-Type: application/json" \
 --data '{
     "jsonrpc":"2.0",
@@ -7471,7 +7371,7 @@ Returns the value from a storage position at a given address. [Reference](https:
 **Example**:
 
 ```bash title="eth_getStorageAt"
-curl -X POST https://westend-asset-hub-eth-rpc.polkadot.io \
+curl -X POST https://testnet-passet-hub-eth-rpc.polkadot.io \
 -H "Content-Type: application/json" \
 --data '{
     "jsonrpc":"2.0",
@@ -7495,7 +7395,7 @@ Returns the number of transactions sent from an address (nonce). [Reference](htt
 **Example**:
 
 ```bash title="eth_getTransactionCount"
-curl -X POST https://westend-asset-hub-eth-rpc.polkadot.io \
+curl -X POST https://testnet-passet-hub-eth-rpc.polkadot.io \
 -H "Content-Type: application/json" \
 --data '{
     "jsonrpc":"2.0",
@@ -7520,7 +7420,7 @@ None
 **Example**:
 
 ```bash title="eth_maxPriorityFeePerGas"
-curl -X POST https://westend-asset-hub-eth-rpc.polkadot.io \
+curl -X POST https://testnet-passet-hub-eth-rpc.polkadot.io \
 -H "Content-Type: application/json" \
 --data '{
     "jsonrpc":"2.0",
@@ -7543,7 +7443,7 @@ Submits a raw transaction. [Reference](https://ethereum.org/en/developers/docs/a
 **Example**:
 
 ```bash title="eth_sendRawTransaction"
-curl -X POST https://westend-asset-hub-eth-rpc.polkadot.io \
+curl -X POST https://testnet-passet-hub-eth-rpc.polkadot.io \
 -H "Content-Type: application/json" \
 --data '{
     "jsonrpc":"2.0",
@@ -7575,7 +7475,7 @@ Creates and sends a new transaction. [Reference](https://ethereum.org/en/develop
 **Example**:
 
 ```bash title="eth_sendTransaction"
-curl -X POST https://westend-asset-hub-eth-rpc.polkadot.io \
+curl -X POST https://testnet-passet-hub-eth-rpc.polkadot.io \
 -H "Content-Type: application/json" \
 --data '{
     "jsonrpc":"2.0",
@@ -7608,7 +7508,7 @@ None
 **Example**:
 
 ```bash title="net_version"
-curl -X POST https://westend-asset-hub-eth-rpc.polkadot.io \
+curl -X POST https://testnet-passet-hub-eth-rpc.polkadot.io \
 -H "Content-Type: application/json" \
 --data '{
     "jsonrpc":"2.0",
@@ -7740,13 +7640,13 @@ createProvider(PROVIDER_RPC.rpc, PROVIDER_RPC.chainId, PROVIDER_RPC.name);
 ```
 
 !!! note
-    Replace `INSERT_RPC_URL`, `INSERT_CHAIN_ID`, and `INSERT_CHAIN_NAME` with the appropriate values. For example, to connect to Westend Hub's Ethereum RPC instance, you can use the following parameters:
+    Replace `INSERT_RPC_URL`, `INSERT_CHAIN_ID`, and `INSERT_CHAIN_NAME` with the appropriate values. For example, to connect to Polkadot Hub TestNet's Ethereum RPC instance, you can use the following parameters:
 
     ```js
     const PROVIDER_RPC = {
-        rpc: 'https://westend-asset-hub-eth-rpc.polkadot.io',
+        rpc: 'https://testnet-passet-hub-eth-rpc.polkadot.io',
         chainId: 420420421,
-        name: 'westend-asset-hub'
+        name: 'polkadot-hub-testnet'
     };
     ```
 
@@ -7773,9 +7673,9 @@ const createProvider = (rpcUrl, chainId, chainName) => {
 };
 
 const PROVIDER_RPC = {
-  rpc: 'https://westend-asset-hub-eth-rpc.polkadot.io',
+  rpc: 'https://testnet-passet-hub-eth-rpc.polkadot.io',
   chainId: 420420421,
-  name: 'westend-asset-hub',
+  name: 'polkadot-hub-testnet',
 };
 
 const main = async () => {
@@ -7783,12 +7683,12 @@ const main = async () => {
     const provider = createProvider(
       PROVIDER_RPC.rpc,
       PROVIDER_RPC.chainId,
-      PROVIDER_RPC.name
+      PROVIDER_RPC.name,
     );
     const latestBlock = await provider.getBlockNumber();
     console.log(`Latest block: ${latestBlock}`);
   } catch (error) {
-    console.error('Error connecting to Westend Hub: ' + error.message);
+    console.error('Error connecting to Polkadot Hub TestNet: ' + error.message);
   }
 };
 
@@ -7937,12 +7837,12 @@ const createProvider = (rpcUrl, chainId, chainName) => {
     const getAbi = (contractName) => {
   try {
     return JSON.parse(
-      readFileSync(join(codegenDir, `${contractName}.json`), 'utf8')
+      readFileSync(join(codegenDir, `${contractName}.json`), 'utf8'),
     );
   } catch (error) {
     console.error(
       `Could not find ABI for contract ${contractName}:`,
-      error.message
+      error.message,
     );
     throw error;
   }
@@ -7952,12 +7852,12 @@ const createProvider = (rpcUrl, chainId, chainName) => {
 const getByteCode = (contractName) => {
   try {
     return `0x${readFileSync(
-      join(codegenDir, `${contractName}.polkavm`)
+      join(codegenDir, `${contractName}.polkavm`),
     ).toString('hex')}`;
   } catch (error) {
     console.error(
       `Could not find bytecode for contract ${contractName}:`,
-      error.message
+      error.message,
     );
     throw error;
   }
@@ -7974,7 +7874,7 @@ const getByteCode = (contractName) => {
     const provider = createProvider(
       providerConfig.rpc,
       providerConfig.chainId,
-      providerConfig.name
+      providerConfig.name,
     );
     const walletMnemonic = ethers.Wallet.fromPhrase(mnemonic);
     const wallet = walletMnemonic.connect(provider);
@@ -7983,7 +7883,7 @@ const getByteCode = (contractName) => {
     const factory = new ethers.ContractFactory(
       getAbi(contractName),
       getByteCode(contractName),
-      wallet
+      wallet,
     );
     const contract = await factory.deploy();
     await contract.waitForDeployment();
@@ -8007,9 +7907,9 @@ const getByteCode = (contractName) => {
 5. Configure and execute the deployment:
 
     ```js title="scripts/deploy.js"
-    rpc: 'https://westend-asset-hub-eth-rpc.polkadot.io',
+    rpc: 'https://testnet-passet-hub-eth-rpc.polkadot.io',
   chainId: 420420421,
-  name: 'westend-asset-hub',
+  name: 'polkadot-hub-testnet',
 };
 
 const mnemonic = 'INSERT_MNEMONIC';
@@ -8044,12 +7944,12 @@ const createProvider = (rpcUrl, chainId, chainName) => {
 const getAbi = (contractName) => {
   try {
     return JSON.parse(
-      readFileSync(join(codegenDir, `${contractName}.json`), 'utf8')
+      readFileSync(join(codegenDir, `${contractName}.json`), 'utf8'),
     );
   } catch (error) {
     console.error(
       `Could not find ABI for contract ${contractName}:`,
-      error.message
+      error.message,
     );
     throw error;
   }
@@ -8059,12 +7959,12 @@ const getAbi = (contractName) => {
 const getByteCode = (contractName) => {
   try {
     return `0x${readFileSync(
-      join(codegenDir, `${contractName}.polkavm`)
+      join(codegenDir, `${contractName}.polkavm`),
     ).toString('hex')}`;
   } catch (error) {
     console.error(
       `Could not find bytecode for contract ${contractName}:`,
-      error.message
+      error.message,
     );
     throw error;
   }
@@ -8078,7 +7978,7 @@ const deployContract = async (contractName, mnemonic, providerConfig) => {
     const provider = createProvider(
       providerConfig.rpc,
       providerConfig.chainId,
-      providerConfig.name
+      providerConfig.name,
     );
     const walletMnemonic = ethers.Wallet.fromPhrase(mnemonic);
     const wallet = walletMnemonic.connect(provider);
@@ -8087,7 +7987,7 @@ const deployContract = async (contractName, mnemonic, providerConfig) => {
     const factory = new ethers.ContractFactory(
       getAbi(contractName),
       getByteCode(contractName),
-      wallet
+      wallet,
     );
     const contract = await factory.deploy();
     await contract.waitForDeployment();
@@ -8108,9 +8008,9 @@ const deployContract = async (contractName, mnemonic, providerConfig) => {
 };
 
 const providerConfig = {
-  rpc: 'https://westend-asset-hub-eth-rpc.polkadot.io',
+  rpc: 'https://testnet-passet-hub-eth-rpc.polkadot.io',
   chainId: 420420421,
-  name: 'westend-asset-hub',
+  name: 'polkadot-hub-testnet',
 };
 
 const mnemonic = 'INSERT_MNEMONIC';
@@ -8161,7 +8061,7 @@ const interactWithStorageContract = async (
   contractAddress,
   mnemonic,
   providerConfig,
-  numberToSet
+  numberToSet,
 ) => {
   try {
     console.log(`Setting new number in Storage contract: ${numberToSet}`);
@@ -8198,7 +8098,7 @@ const interactWithStorageContract = async (
 
 const providerConfig = {
   name: 'asset-hub-smart-contracts',
-  rpc: 'https://westend-asset-hub-eth-rpc.polkadot.io',
+  rpc: 'https://testnet-passet-hub-eth-rpc.polkadot.io',
   chainId: 420420421,
 };
 
@@ -8212,7 +8112,7 @@ interactWithStorageContract(
   contractAddress,
   mnemonic,
   providerConfig,
-  newNumber
+  newNumber,
 );
 ```
 
@@ -8428,28 +8328,28 @@ After setting up the [Public Client](https://viem.sh/docs/clients/public#public-
     ```js title="src/fetchLastBlock.ts"
     import { createPublicClient, http } from 'viem';
 
-const transport = http('https://westend-asset-hub-eth-rpc.polkadot.io');
+const transport = http('https://testnet-passet-hub-eth-rpc.polkadot.io');
 
 // Configure the Polkadot Hub chain
-const assetHub = {
+const polkadotHubTestnet = {
   id: 420420421,
-  name: 'Westend Asset Hub',
-  network: 'westend-asset-hub',
+  name: 'Polkadot Hub TestNet',
+  network: 'polkadot-hub-testnet',
   nativeCurrency: {
     decimals: 18,
-    name: 'WND',
-    symbol: 'WND',
+    name: 'PAS',
+    symbol: 'PAS',
   },
   rpcUrls: {
     default: {
-      http: ['https://westend-asset-hub-eth-rpc.polkadot.io'],
+      http: ['https://testnet-passet-hub-eth-rpc.polkadot.io'],
     },
   },
 } as const;
 
 // Create a public client for reading data
 export const publicClient = createPublicClient({
-  chain: assetHub,
+  chain: polkadotHubTestnet,
   transport,
 });
 
@@ -8458,7 +8358,7 @@ const main = async () => {
     const block = await publicClient.getBlock();
     console.log('Last block: ' + block.number.toString());
   } catch (error: unknown) {
-    console.error('Error connecting to Westend Hub: ' + error);
+    console.error('Error connecting to Polkadot Hub TestNet: ' + error);
   }
 };
 
@@ -8869,7 +8769,7 @@ export const config = createConfig({
 })
 ```
 
-??? code "Example Westend Hub Configuration"
+??? code "Example Polkadot Hub TestNet Configuration"
 
     ```typescript title="src/lib/wagmi.ts"
     import { http, createConfig } from 'wagmi';
@@ -8877,16 +8777,16 @@ export const config = createConfig({
 // Configure the Polkadot Hub chain
 const assetHub = {
   id: 420420421,
-  name: 'westend-asset-hub',
-  network: 'westend',
+  name: 'polkadot-hub-testnet',
+  network: 'polkadot-hub-testnet',
   nativeCurrency: {
     decimals: 18,
-    name: 'WND',
-    symbol: 'WND',
+    name: 'PAS',
+    symbol: 'PAS',
   },
   rpcUrls: {
     default: {
-      http: ['https://westend-asset-hub-eth-rpc.polkadot.io'],
+      http: ['https://testnet-passet-hub-eth-rpc.polkadot.io'],
     },
   },
 } as const;
@@ -9323,13 +9223,13 @@ const PROVIDER_RPC = {
 createProvider(PROVIDER_RPC.rpc);
 ```
 
-For example, for the Westend Hub TestNet, use these specific connection parameters:
+For example, for the Polkadot Hub TestNet, use these specific connection parameters:
 
 ```js
 const PROVIDER_RPC = {
-    rpc: 'https://westend-asset-hub-eth-rpc.polkadot.io',
+    rpc: 'https://testnet-passet-hub-eth-rpc.polkadot.io',
     chainId: 420420421,
-    name: 'westend-asset-hub'
+    name: 'polkadot-hub-testnet'
 };
 ```
 With the Web3 provider set up, you can start querying the blockchain.
@@ -9347,9 +9247,9 @@ const createProvider = (rpcUrl) => {
 };
 
 const PROVIDER_RPC = {
-  rpc: 'https://westend-asset-hub-eth-rpc.polkadot.io',
+  rpc: 'https://testnet-passet-hub-eth-rpc.polkadot.io',
   chainId: 420420421,
-  name: 'westend-asset-hub',
+  name: 'polkadot-hub-testnet',
 };
 
 const main = async () => {
@@ -9358,7 +9258,7 @@ const main = async () => {
     const latestBlock = await web3.eth.getBlockNumber();
     console.log('Last block: ' + latestBlock);
   } catch (error) {
-    console.error('Error connecting to Westend Hub: ' + error.message);
+    console.error('Error connecting to Polkadot Hub TestNet: ' + error.message);
   }
 };
 
@@ -9689,9 +9589,9 @@ pip install web3
 
 The [provider](https://web3py.readthedocs.io/en/stable/providers.html){target=\_blank} configuration is the foundation of any Web3.py application. The following example establishes a connection to Polkadot Hub. Follow these steps to use the provider configuration:
 
-1. Replace `INSERT_RPC_URL` with the appropriate value. For instance, to connect to Westend Hub TestNet, use the following parameter:
+1. Replace `INSERT_RPC_URL` with the appropriate value. For instance, to connect to Polkadot Hub TestNet, use the following parameter:
 ```python
-PROVIDER_RPC = 'https://westend-asset-hub-eth-rpc.polkadot.io'
+PROVIDER_RPC = 'https://testnet-passet-hub-eth-rpc.polkadot.io'
 ```
 
     The provider connection script should look something like this:
@@ -9715,7 +9615,7 @@ try:
         latest_block = web3.eth.block_number
         print('Last block: ' + str(latest_block))
     except Exception as error:
-        print('Error connecting to Westend Hub: ' + str(error))
+        print('Error connecting to Polkadot Hub TestNet: ' + str(error))
 
 if __name__ == "__main__":
     main()
@@ -9730,7 +9630,7 @@ def create_provider(rpc_url):
     web3 = Web3(Web3.HTTPProvider(rpc_url))
     return web3
 
-PROVIDER_RPC = 'https://westend-asset-hub-eth-rpc.polkadot.io'
+PROVIDER_RPC = 'https://testnet-passet-hub-eth-rpc.polkadot.io'
 
 def main():
     try:
@@ -9738,7 +9638,7 @@ def main():
         latest_block = web3.eth.block_number
         print('Last block: ' + str(latest_block))
     except Exception as error:
-        print('Error connecting to Westend Hub: ' + str(error))
+        print('Error connecting to Polkadot Hub TestNet: ' + str(error))
 
 if __name__ == "__main__":
     main()

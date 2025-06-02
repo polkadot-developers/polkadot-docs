@@ -38,7 +38,7 @@ Create a configuration file to initialize Wagmi with Polkadot Hub. In your proje
 --8<-- 'code/develop/smart-contracts/libraries/wagmi/wagmi.ts'
 ```
 
-??? code "Example Westend Hub Configuration"
+??? code "Example Polkadot Hub TestNet Configuration"
 
     ```typescript title="src/lib/wagmi.ts"
     --8<-- 'code/develop/smart-contracts/libraries/wagmi/wagmi-westend-ah.ts'

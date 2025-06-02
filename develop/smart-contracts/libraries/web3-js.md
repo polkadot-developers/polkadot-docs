@@ -72,13 +72,13 @@ The provider configuration is the foundation of any Web3.js application. The fol
 --8<-- 'code/develop/smart-contracts/evm-toolkit/libraries/web3-js/connectToProvider.js'
 ```
 
-For example, for the Westend Hub TestNet, use these specific connection parameters:
+For example, for the Polkadot Hub TestNet, use these specific connection parameters:
 
 ```js
 const PROVIDER_RPC = {
-    rpc: 'https://westend-asset-hub-eth-rpc.polkadot.io',
+    rpc: 'https://testnet-passet-hub-eth-rpc.polkadot.io',
     chainId: 420420421,
-    name: 'westend-asset-hub'
+    name: 'polkadot-hub-testnet'
 };
 ```
 With the Web3 provider set up, you can start querying the blockchain.

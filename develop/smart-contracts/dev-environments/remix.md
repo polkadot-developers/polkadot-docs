@@ -39,7 +39,7 @@ Before getting started, ensure you have:
 
 - A web browser with [Talisman](https://talisman.xyz/){target=\_blank} extension installed
 - Basic understanding of Solidity programming
-- Some WND test tokens to cover transaction fees (easily obtainable from the [Polkadot faucet](https://faucet.polkadot.io/westend?parachain=1000){target=\_blank})
+- Some PAS test tokens to cover transaction fees (easily obtainable from the [Polkadot faucet](https://faucet.polkadot.io/?parachain=1111){target=\_blank})
 
 ## Accessing Remix IDE
 

@@ -35035,7 +35035,7 @@ Before starting, make sure you have:
 - The [`Storage.sol` contract](/tutorials/smart-contracts/launch-your-first-project/create-contracts/#create-the-smart-contract){target=\_blank} created in the previous tutorial
 - [Node.js](https://nodejs.org/){target=\_blank} (v16.0.0 or later) and npm installed
 - Basic understanding of JavaScript for writing tests
-- Some WND test tokens to cover transaction fees (obtained from the [Polkadot faucet](https://faucet.polkadot.io/westend?parachain=1000){target=\_blank})
+- Some PAS test tokens to cover transaction fees (obtained from the [Polkadot faucet](https://faucet.polkadot.io/?parachain=1111){target=\_blank})
 
 ## Setting Up the Development Environment
 
@@ -35107,9 +35107,9 @@ module.exports = {
       polkavm: true,
       url: `http://127.0.0.1:8545`,
     },
-    westendHub: {
+    passetHub: {
       polkavm: true,
-      url: 'https://westend-asset-hub-eth-rpc.polkadot.io',
+      url: 'https://testnet-passet-hub-eth-rpc.polkadot.io',
       accounts: [process.env.PRIVATE_KEY],
     },
   },
@@ -35123,7 +35123,7 @@ module.exports = {
     The configuration also defines two network settings: 
 
     - `localNode` - runs a PolkaVM instance on `http://127.0.0.1:8545` for local development and testing
-    - `westendAssetHub` - connects to the Westend Hub network using a predefined RPC URL and a private key stored in environment variables
+    - `passetHub` - connects to the Passet Hub network using a predefined RPC URL and a private key stored in environment variables
 
 7. Create a `.env` file in your project root to store your private key:
 
@@ -35376,7 +35376,7 @@ module.exports = buildModule('StorageModule', (m) => {
 
     <div id="termynal" data-termynal>
   <span data-ty="input"><span class="file-path"></span>npx hardhat ignition deploy ./ignition/modules/Storage.js --network localNode</span>
-  <span data-ty>✔ Confirm deploy to network localNode (420420420)? … yes</span>
+  <span data-ty>✔ Confirm deploy to network localNode (420420421)? … yes</span>
   <span data-ty></span>
   <span data-ty>Hardhat Ignition 🚀</span>
   <span data-ty></span>
@@ -35392,19 +35392,19 @@ module.exports = buildModule('StorageModule', (m) => {
   <span data-ty>StorageModule#Storage - 0xc01Ee7f10EA4aF4673cFff62710E1D7792aBa8f3</span>
 </div>
 
-3. Deploy to Westend Hub:
+3. Deploy to Passet Hub:
 
     a. Make sure your account has enough WND tokens for gas fees, then run:
 
     ```bash
-    npx hardhat ignition deploy ./ignition/modules/StorageModule.js --network westendHub
+    npx hardhat ignition deploy ./ignition/modules/StorageModule.js --network passetHub
     ```
 
     b. After deployment, you'll see the contract address in the console output. Save this address for future interactions.
 
     <div id="termynal" data-termynal>
-  <span data-ty="input"><span class="file-path"></span>npx hardhat ignition deploy ./ignition/modules/Storage.js --network westendHub</span>
-  <span data-ty>✔ Confirm deploy to network localNode (420420420)? … yes</span>
+  <span data-ty="input"><span class="file-path"></span>npx hardhat ignition deploy ./ignition/modules/Storage.js --network passetHub</span>
+  <span data-ty>✔ Confirm deploy to network localNode (420420421)? … yes</span>
   <span data-ty></span>
   <span data-ty>Hardhat Ignition 🚀</span>
   <span data-ty></span>
@@ -35417,7 +35417,7 @@ module.exports = buildModule('StorageModule', (m) => {
   <span data-ty></span>
   <span data-ty>Deployed Addresses</span>
   <span data-ty></span>
-  <span data-ty>StorageModule#Storage - 0x5BCE10D9e89ffc067B6C0Da04eD0D44E37df7224</span>
+  <span data-ty>StorageModule#Storage - 0xE8693cE64b294E26765573398C7Ca5C700E9C85c</span>
 </div>
 
 ## Interacting with Your Deployed Contract
@@ -35468,13 +35468,13 @@ main()
 2. Run the interaction script:
 
     ```bash
-    npx hardhat run scripts/interact.js --network westendHub
+    npx hardhat run scripts/interact.js --network passetHub
     ```
 
 3. If successful, the terminal will show the following output:
 
     <div id="termynal" data-termynal>
-  <span data-ty="input"><span class="file-path"></span>npx hardhat run scripts/interact.js --network westendHub</span>
+  <span data-ty="input"><span class="file-path"></span>npx hardhat run scripts/interact.js --network passetHub</span>
   <span data-ty>Current stored value: 0</span>
   <span data-ty>Storing new value: 42...</span>
   <span data-ty>Transaction confirmed</span>
@@ -35483,12 +35483,12 @@ main()
 
 ## Conclusion
 
-Congratulations! You've successfully set up a Hardhat development environment, written comprehensive tests for your Storage contract, and deployed it to local and Westend Hub networks. This tutorial covered essential steps in smart contract development, including configuration, testing, deployment, and interaction.
+Congratulations! You've successfully set up a Hardhat development environment, written comprehensive tests for your Storage contract, and deployed it to local and Passet Hub networks. This tutorial covered essential steps in smart contract development, including configuration, testing, deployment, and interaction.
 
 To get started with a working example right away, you can clone the repository and navigate to the project directory:
 
 ```bash
-git clone https://github.com/polkadot-developers/polkavm-hardhat-examples.git -b v0.0.2
+git clone https://github.com/polkadot-developers/polkavm-hardhat-examples.git -b v0.0.5
 cd polkavm-hardhat-examples/storage-hardhat
 ```
 --- END CONTENT ---

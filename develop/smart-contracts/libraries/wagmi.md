@@ -84,7 +84,7 @@ This component uses the following React hooks:
 
 ## Interact with Deployed Contract
 
-This guide uses a simple Storage contract already deployed to Westend Hub (`0xabBd46Ef74b88E8B1CDa49BeFb5057710443Fd29`). The code of that contract is:
+This guide uses a simple Storage contract already deployed to Passet Hub (`0x58053f0e8ede1a47a1af53e43368cd04ddcaf66f`). The code of that contract is:
 
 ??? code "Storage.sol"
 

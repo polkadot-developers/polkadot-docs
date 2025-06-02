@@ -7144,9 +7144,9 @@ description: Find answers to common questions about smart contract development, 
 
     Polkadot supports three main smart contract environments:
 
-    1. **PolkaVM Contracts** - Available on Polkadot Hub, using a RISC-V-based virtual machine with Solidity compatibility
-    2. **EVM Contracts** - Available on parachains like Moonbeam, Astar, and Acala via the Frontier framework
-    3. **Wasm Contracts** - Using ink! (Rust-based) or Solidity via Solang compiler
+    1. **PolkaVM Contracts**: available on Polkadot Hub, using a RISC-V-based virtual machine with Solidity compatibility
+    2. **EVM Contracts**: available on parachains like Moonbeam, Astar, and Acala via the Frontier framework
+    3. **Wasm Contracts**: using ink! (Rust-based) or Solidity via Solang compiler
 
 - Should I build a smart contract or a parachain?
 
@@ -7168,10 +7168,10 @@ description: Find answers to common questions about smart contract development, 
 
     Polkadot Hub uses [PolkaVM](/polkadot-protocol/smart-contract-basics/polkavm-design){target=\_blank} instead of traditional EVM:
 
-    - **Performance** - RISC-V register-based architecture vs. stack-based EVM
-    - **Resource Metering** - three dimensions (`ref_time`, `proof_size`, `storage_deposit`) vs. single gas metric
-    - **Memory Management** - hard memory limits per contract vs. gas-based soft limits
-    - **Account System** - Polkadot's 32-byte accounts with automatic 20-byte address conversion
+    - **Performance**: RISC-V register-based architecture vs. stack-based EVM
+    - **Resource Metering**: three dimensions (`ref_time`, `proof_size`, `storage_deposit`) vs. single gas metric
+    - **Memory Management**: hard memory limits per contract vs. gas-based soft limits
+    - **Account System**: Polkadot's 32-byte accounts with automatic 20-byte address conversion
 
 ## Development Environment
 
@@ -7200,18 +7200,18 @@ description: Find answers to common questions about smart contract development, 
 
     Polkadot uses a [dual-address system](/polkadot-protocol/smart-contract-basics/evm-vs-polkavm#account-management-comparison){target=\_blank}:
 
-    - **20-byte Ethereum addresses** are padded with `0xEE` bytes to create 32-byte Polkadot accounts
-    - **32-byte Polkadot accounts** can register mappings to 20-byte addresses
-    - **Automatic conversion** happens behind the scenes
-    - **MetaMask compatibility** is maintained through the mapping system
+    - *20-byte Ethereum addresses* are padded with `0xEE` bytes to create 32-byte Polkadot accounts
+    - *32-byte Polkadot accounts* can register mappings to 20-byte addresses
+    - *Automatic conversion* happens behind the scenes
+    - *MetaMask compatibility* is maintained through the mapping system
 
 - What are the key differences in the gas model?
 
     PolkaVM uses three resource dimensions:
 
-    - **`ref_time`** - computational time (similar to traditional gas)
-    - **`proof_size`** - state proof size for validator verification  
-    - **`storage_deposit`** - refundable deposit for state storage
+    - **`ref_time`**: computational time (similar to traditional gas)
+    - **`proof_size`**: state proof size for validator verification  
+    - **`storage_deposit`**: refundable deposit for state storage
 
     Key implications:
 
@@ -7223,18 +7223,18 @@ description: Find answers to common questions about smart contract development, 
 
     PolkaVM deployment differs from EVM:
 
-    - **Code must be pre-uploaded** to the chain before instantiation
-    - **Factory contracts** need modification to work with pre-uploaded code hashes
-    - **Two-step process**: upload code, then instantiate contracts
-    - **Runtime code generation** is not supported
+    - *Code must be pre-uploaded* to the chain before instantiation
+    - *Factory contracts* need modification to work with pre-uploaded code hashes
+    - *Two-step process*, upload code, then instantiate contracts
+    - *Runtime code generation* is not supported
 
 - What Solidity features are not supported?
 
     Limited support for:
     
-    - **`EXTCODECOPY`** - only works in constructor code
-    - **Runtime code modification** - use on-chain constructors instead
-    - **Gas stipends** - `address.send()` and `address.transfer()` don't provide reentrancy protection
+    - **`EXTCODECOPY`**: only works in constructor code
+    - **Runtime code modification**: use on-chain constructors instead
+    - **Gas stipends**: `address.send()` and `address.transfer()` don't provide reentrancy protection
 
     Unsupported operations:
 
@@ -7250,9 +7250,9 @@ description: Find answers to common questions about smart contract development, 
 
     How it's handled:
 
-    - **Balance queries** via Ethereum RPC automatically deduct the ED
-    - **New account transfers** automatically include ED with transaction fees
-    - **Contract-to-contract transfers** draw ED from transaction signer, not sending contract
+    - *Balance queries* via Ethereum RPC automatically deduct the ED
+    - *New account transfers* automatically include ED with transaction fees
+    - *Contract-to-contract transfers* draw ED from transaction signer, not sending contract
 
 ## Migration and Compatibility
 
@@ -7282,7 +7282,7 @@ description: Find answers to common questions about smart contract development, 
 
 - I deployed a contract with metamask, and got a `code size` error - why?
 
-    The latest MetaMask update affects the extension’s ability to deploy large contracts. Check the [Wallets](/develop/smart-contracts/wallets){target=_blank} page for more details.
+    The latest MetaMask update affects the extension’s ability to deploy large contracts. Check the [Wallets](/develop/smart-contracts/wallets){target=\_blank} page for more details.
 --- END CONTENT ---
 
 Doc-Content: https://docs.polkadot.com/develop/smart-contracts/

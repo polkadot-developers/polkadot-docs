@@ -35,10 +35,10 @@ description: Find answers to common questions about smart contract development, 
 
     Polkadot Hub uses [PolkaVM](/polkadot-protocol/smart-contract-basics/polkavm-design){target=\_blank} instead of traditional EVM:
 
-    - **Performance**: RISC-V register-based architecture vs. stack-based EVM
-    - **Resource Metering**: Three dimensions (`ref_time`, `proof_size`, `storage_deposit`) vs. single gas metric
-    - **Memory Management**: Hard memory limits per contract vs. gas-based soft limits
-    - **Account System**: Polkadot's 32-byte accounts with automatic 20-byte address conversion
+    - **Performance** - RISC-V register-based architecture vs. stack-based EVM
+    - **Resource Metering** - three dimensions (`ref_time`, `proof_size`, `storage_deposit`) vs. single gas metric
+    - **Memory Management** - hard memory limits per contract vs. gas-based soft limits
+    - **Account System** - Polkadot's 32-byte accounts with automatic 20-byte address conversion
 
 ## Development Environment
 

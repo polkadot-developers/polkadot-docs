@@ -61,10 +61,10 @@ description: Find answers to common questions about smart contract development, 
 
     Polkadot uses a [dual-address system](/polkadot-protocol/smart-contract-basics/evm-vs-polkavm#account-management-comparison){target=\_blank}:
 
-    - *20-byte Ethereum addresses* are padded with `0xEE` bytes to create 32-byte Polkadot accounts
-    - *32-byte Polkadot accounts* can register mappings to 20-byte addresses
-    - *Automatic conversion* happens behind the scenes
-    - *MetaMask compatibility* is maintained through the mapping system
+    - _20-byte Ethereum addresses_ are padded with `0xEE` bytes to create 32-byte Polkadot accounts
+    - _32-byte Polkadot accounts_ can register mappings to 20-byte addresses
+    - _Automatic conversion_ happens behind the scenes
+    - _MetaMask compatibility_ is maintained through the mapping system
 
 - What are the key differences in the gas model?
 
@@ -84,10 +84,10 @@ description: Find answers to common questions about smart contract development, 
 
     PolkaVM deployment differs from EVM:
 
-    - *Code must be pre-uploaded* to the chain before instantiation
-    - *Factory contracts* need modification to work with pre-uploaded code hashes
-    - *Two-step process*, upload code, then instantiate contracts
-    - *Runtime code generation* is not supported
+    - _Code must be pre-uploaded_ to the chain before instantiation
+    - _Factory contracts_ need modification to work with pre-uploaded code hashes
+    - _Two-step process_, upload code, then instantiate contracts
+    - _Runtime code generation_ is not supported
 
 - What Solidity features are not supported?
 
@@ -111,9 +111,9 @@ description: Find answers to common questions about smart contract development, 
 
     How it's handled:
 
-    - *Balance queries* via Ethereum RPC automatically deduct the ED
-    - *New account transfers* automatically include ED with transaction fees
-    - *Contract-to-contract transfers* draw ED from transaction signer, not sending contract
+    - _Balance queries_ via Ethereum RPC automatically deduct the ED
+    - _New account transfers_ automatically include ED with transaction fees
+    - _Contract-to-contract transfers_ draw ED from transaction signer, not sending contract
 
 ## Migration and Compatibility
 

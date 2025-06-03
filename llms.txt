@@ -6313,10 +6313,7 @@ description: Learn how to create, compile, test, and deploy smart contracts on P
 </div>
 
 !!! note "Contracts Code Blob Size Disclaimer"
-    The maximum contract code blob size on Polkadot Hub networks is *100 kilobytes*, significantly larger than Ethereum’s EVM limit of 24 kilobytes. This difference stems from fundamental architectural distinctions between the two virtual machines:
-
-    - **PolkaVM**: Uses a RISC-V, register-based architecture, allowing for more efficient code compilation and larger contract sizes
-    - **EVM**: Uses a stack-based architecture with stricter size constraints due to gas optimization and network efficiency considerations
+    The maximum contract code blob size on Polkadot Hub networks is _100 kilobytes_, significantly larger than Ethereum’s EVM limit of 24 kilobytes. This difference stems from fundamental architectural distinctions between the two virtual machines:
 
     For detailed comparisons and migration guidelines, see the [EVM vs. PolkaVM](/polkadot-protocol/smart-contract-basics/evm-vs-polkavm/#current-memory-limits){target=\_blank} documentation page.
 
@@ -6982,10 +6979,7 @@ description: Explore the smart contract development and deployment process on Po
     The Polkadot Remix IDE's contract compilation functionality is currently limited to Google Chrome. Alternative browsers are not recommended for this task.
 
 !!! note "Contracts Code Blob Size Disclaimer"
-    The maximum contract code blob size on Polkadot Hub networks is *100 kilobytes*, significantly larger than Ethereum’s EVM limit of 24 kilobytes. This difference stems from fundamental architectural distinctions between the two virtual machines:
-
-    - **PolkaVM**: Uses a RISC-V, register-based architecture, allowing for more efficient code compilation and larger contract sizes
-    - **EVM**: Uses a stack-based architecture with stricter size constraints due to gas optimization and network efficiency considerations
+    The maximum contract code blob size on Polkadot Hub networks is _100 kilobytes_, significantly larger than Ethereum’s EVM limit of 24 kilobytes. This difference stems from fundamental architectural distinctions between the two virtual machines:
 
     For detailed comparisons and migration guidelines, see the [EVM vs. PolkaVM](/polkadot-protocol/smart-contract-basics/evm-vs-polkavm/#current-memory-limits){target=\_blank} documentation page.
 
@@ -7813,10 +7807,7 @@ main();
 ## Compile Contracts
 
 !!! note "Contracts Code Blob Size Disclaimer"
-    The maximum contract code blob size on Polkadot Hub networks is *100 kilobytes*, significantly larger than Ethereum’s EVM limit of 24 kilobytes. This difference stems from fundamental architectural distinctions between the two virtual machines:
-
-    - **PolkaVM**: Uses a RISC-V, register-based architecture, allowing for more efficient code compilation and larger contract sizes
-    - **EVM**: Uses a stack-based architecture with stricter size constraints due to gas optimization and network efficiency considerations
+    The maximum contract code blob size on Polkadot Hub networks is _100 kilobytes_, significantly larger than Ethereum’s EVM limit of 24 kilobytes. This difference stems from fundamental architectural distinctions between the two virtual machines:
 
     For detailed comparisons and migration guidelines, see the [EVM vs. PolkaVM](/polkadot-protocol/smart-contract-basics/evm-vs-polkavm/#current-memory-limits){target=\_blank} documentation page.
 
@@ -8569,10 +8560,7 @@ contract Storage {
 ## Compile the Contract
 
 !!! note "Contracts Code Blob Size Disclaimer"
-    The maximum contract code blob size on Polkadot Hub networks is *100 kilobytes*, significantly larger than Ethereum’s EVM limit of 24 kilobytes. This difference stems from fundamental architectural distinctions between the two virtual machines:
-
-    - **PolkaVM**: Uses a RISC-V, register-based architecture, allowing for more efficient code compilation and larger contract sizes
-    - **EVM**: Uses a stack-based architecture with stricter size constraints due to gas optimization and network efficiency considerations
+    The maximum contract code blob size on Polkadot Hub networks is _100 kilobytes_, significantly larger than Ethereum’s EVM limit of 24 kilobytes. This difference stems from fundamental architectural distinctions between the two virtual machines:
 
     For detailed comparisons and migration guidelines, see the [EVM vs. PolkaVM](/polkadot-protocol/smart-contract-basics/evm-vs-polkavm/#current-memory-limits){target=\_blank} documentation page.
 
@@ -9399,10 +9387,7 @@ main();
 ## Compile Contracts
 
 !!! note "Contracts Code Blob Size Disclaimer"
-    The maximum contract code blob size on Polkadot Hub networks is *100 kilobytes*, significantly larger than Ethereum’s EVM limit of 24 kilobytes. This difference stems from fundamental architectural distinctions between the two virtual machines:
-
-    - **PolkaVM**: Uses a RISC-V, register-based architecture, allowing for more efficient code compilation and larger contract sizes
-    - **EVM**: Uses a stack-based architecture with stricter size constraints due to gas optimization and network efficiency considerations
+    The maximum contract code blob size on Polkadot Hub networks is _100 kilobytes_, significantly larger than Ethereum’s EVM limit of 24 kilobytes. This difference stems from fundamental architectural distinctions between the two virtual machines:
 
     For detailed comparisons and migration guidelines, see the [EVM vs. PolkaVM](/polkadot-protocol/smart-contract-basics/evm-vs-polkavm/#current-memory-limits){target=\_blank} documentation page.
 

@@ -28,7 +28,7 @@ Let's start by cloning the Uniswap V2 project:
 1. Clone the Uniswap V2 repository:
 
     ```
-    git clone https://github.com/papermoonio/uniswap-V2-polkadot.git
+    git clone https://github.com/polkadot-developers/polkavm-hardhat-examples.git -b v0.0.3
     cd uniswap-V2-polkadot
     ```
 

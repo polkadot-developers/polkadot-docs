@@ -33,51 +33,51 @@ Before getting started, ensure you have:
 
 1. Create a new directory for your project and navigate into it:
 
-   ```bash
-   mkdir hardhat-example
-   cd hardhat-example
-   ```
+    ```bash
+    mkdir hardhat-example
+    cd hardhat-example
+    ```
 
 2. Initialize a new npm project:
 
-   ```bash
-   npm init -y
-   ```
+    ```bash
+    npm init -y
+    ```
 
 3. To interact with Polkadot, Hardhat requires the following plugin to compile contracts to PolkaVM bytecode and to spawn a local node compatible with PolkaVM:
 
-   ```bash
-   npm install --save-dev @parity/hardhat-polkadot
-   ```
+    ```bash
+    npm install --save-dev @parity/hardhat-polkadot
+    ```
 
 4. Create a Hardhat project:
 
-   ```bash
-   npx hardhat-polkadot init
-   ```
+    ```bash
+    npx hardhat-polkadot init
+    ```
 
-   Select **Create a JavaScript project** when prompted and follow the instructions. After that, your project will be created with three main folders:
+    Select **Create a JavaScript project** when prompted and follow the instructions. After that, your project will be created with three main folders:
 
-   - **`contracts`** - where your Solidity smart contracts live
-   - **`test`** - contains your test files that validate contract functionality
-   - **`ignition`** - deployment modules for safely deploying your contracts to various networks
+    - **`contracts`** - where your Solidity smart contracts live
+    - **`test`** - contains your test files that validate contract functionality
+    - **`ignition`** - deployment modules for safely deploying your contracts to various networks
 
 5. Add the following folders to the `.gitignore` file if they are not already there:
 
-   ```bash
-   echo '/artifacts-pvm' >> .gitignore
-   echo '/cache-pvm' >> .gitignore
-   echo '/ignition/deployments/' >> .gitignore
-   ```
+    ```bash
+    echo '/artifacts-pvm' >> .gitignore
+    echo '/cache-pvm' >> .gitignore
+    echo '/ignition/deployments/' >> .gitignore
+    ```
 
 6. Finish the setup by installing all the dependencies:
 
-   ```bash
-   npm install
-   ```
+    ```bash
+    npm install
+    ```
 
-   !!! note
-   This last step is needed to set up the `hardhat-polkadot` plugin. It will install the `@parity/hardhat-polkadot` package and all its dependencies. In the future, the plugin will handle this automatically.
+    !!! note
+        This last step is needed to set up the `hardhat-polkadot` plugin. It will install the `@parity/hardhat-polkadot` package and all its dependencies. In the future, the plugin will handle this automatically.
 
 ## Compile Your Contract
 
@@ -88,21 +88,21 @@ The plugin will compile your Solidity contracts for Solidity versions `0.8.0` an
 
 To compile your project, follow these instructions:
 
-1.  Modify your Hardhat configuration file to specify which compilation process you will be using and activate the `polkavm` flag in the Hardhat network:
+1. Modify your Hardhat configuration file to specify which compilation process you will be using and activate the `polkavm` flag in the Hardhat network:
 
     === "npm Configuration"
 
-          ```javascript title="hardhat.config.js" hl_lines="8-10"
-          --8<-- 'code/develop/smart-contracts/dev-environments/hardhat/hardhat.config.js:1:14'
-          --8<-- 'code/develop/smart-contracts/dev-environments/hardhat/hardhat.config.js:34:35'
-          ```
+        ```javascript title="hardhat.config.js" hl_lines="8-10"
+        --8<-- 'code/develop/smart-contracts/dev-environments/hardhat/hardhat.config.js:1:14'
+        --8<-- 'code/develop/smart-contracts/dev-environments/hardhat/hardhat.config.js:34:35'
+        ```
 
     === "Binary Configuration"
 
-          ```javascript title="hardhat.config.js" hl_lines="8-13"
-          --8<-- 'code/develop/smart-contracts/dev-environments/hardhat/binary-hardhat.config.js:1:17'
-          --8<-- 'code/develop/smart-contracts/dev-environments/hardhat/binary-hardhat.config.js:37:38'
-          ```
+        ```javascript title="hardhat.config.js" hl_lines="8-13"
+        --8<-- 'code/develop/smart-contracts/dev-environments/hardhat/binary-hardhat.config.js:1:17'
+        --8<-- 'code/develop/smart-contracts/dev-environments/hardhat/binary-hardhat.config.js:37:38'
+        ```
 
     For the binary configuration, replace `INSERT_PATH_TO_RESOLC_COMPILER` with the proper path to the binary. To obtain the binary, check the [releases](https://github.com/paritytech/revive/releases){target=\_blank} section of the `resolc` compiler, and download the latest version.
 
@@ -126,13 +126,13 @@ To compile your project, follow these instructions:
 
     You can check the [`ResolcConfig`](https://github.com/paritytech/hardhat-polkadot/blob/v0.1.5/packages/hardhat-polkadot-resolc/src/types.ts#L26){target=\_blank} for more information about compilation settings.
 
-2.  Compile the contract with Hardhat:
+2. Compile the contract with Hardhat:
 
     ```bash
     npx hardhat compile
     ```
 
-3.  After successful compilation, you'll see the artifacts generated in the `artifacts-pvm` directory:
+3. After successful compilation, you'll see the artifacts generated in the `artifacts-pvm` directory:
 
     ```bash
     ls artifacts-pvm/contracts/*.sol/
@@ -165,7 +165,7 @@ Once configured, start your chosen testing environment with:
 npx hardhat node
 ```
 
-This command will launch either the forked network or local node (depending on your configuration) along with the ETH-RPC adapter, providing you with a complete testing environment ready for contract deployment and interaction. By default, the substrate node will be running on `localhost:8000` and the ETH-RPC adapter on `localhost:8545`.
+This command will launch either the forked network or local node (depending on your configuration) along with the ETH-RPC adapter, providing you with a complete testing environment ready for contract deployment and interaction. By default, the Substrate node will be running on `localhost:8000` and the ETH-RPC adapter on `localhost:8545`.
 
 The output will be something like this:
 
@@ -179,7 +179,7 @@ To run your test:
 
 1. Update the `hardhat.config.js` file accordingly to the [Testing Environments](#testing-environments) section
 
-2.  Execute the following command:
+2. Execute the following command to run your tests:
 
     ```bash
     npx hardhat test
@@ -189,7 +189,7 @@ To run your test:
 
 Before deploying to a live network, you can deploy your contract to a local node using [Ignition](https://hardhat.org/ignition/docs/getting-started#overview){target=\_blank} modules:
 
-1.  Update the Hardhat configuration file to add the local network as a target for local deployment:
+1. Update the Hardhat configuration file to add the local network as a target for local deployment:
 
     ```javascript title="hardhat.config.js" hl_lines="12-15"
     --8<-- 'code/develop/smart-contracts/dev-environments/hardhat/hardhat.config.js:1:4'
@@ -202,15 +202,15 @@ Before deploying to a live network, you can deploy your contract to a local node
     --8<-- 'code/develop/smart-contracts/dev-environments/hardhat/hardhat.config.js:33:35'
     ```
 
-2.  Start a local node:
+2. Start a local node:
 
     ```bash
     npx hardhat node
     ```
 
-    This command will spawn a local substrate node along with the ETH-RPC adapter.
+    This command will spawn a local Substrate node along with the ETH-RPC adapter.
 
-3.  In a new terminal window, deploy the contract using Ignition:
+3. In a new terminal window, deploy the contract using Ignition:
 
     ```bash
     npx hardhat ignition deploy ./ignition/modules/MyToken.js --network localNode
@@ -220,9 +220,9 @@ Before deploying to a live network, you can deploy your contract to a local node
 
 After testing your contract locally, you can deploy it to a live network. This guide will use Westend Hub as the target network. Here's how to configure and deploy:
 
-1.  Fund your deployment account with enough tokens to cover gas fees. In this case, the needed tokens are WND (on Westend). You can use the [Polkadot faucet](https://faucet.polkadot.io/westend?parachain=1000){target=\_blank} to obtain testing tokens.
+1. Fund your deployment account with enough tokens to cover gas fees. In this case, the needed tokens are WND (on Westend). You can use the [Polkadot faucet](https://faucet.polkadot.io/westend?parachain=1000){target=\_blank} to obtain testing tokens.
 
-2.  Export your private key and save it in a `.env` file:
+2. Export your private key and save it in a `.env` file:
 
     ```text
     PRIVATE_KEY="INSERT_PRIVATE_KEY"
@@ -233,13 +233,13 @@ After testing your contract locally, you can deploy it to a live network. This g
     !!! warning
         Never reveal your private key. Be sure you add the `.env` file to your `.gitignore` file.
 
-3.  Install the [`dotenv`](https://www.npmjs.com/package/dotenv){target=\_blank} package to load the private key into your Hardhat configuration:
+3. Install the [`dotenv`](https://www.npmjs.com/package/dotenv){target=\_blank} package to load the private key into your Hardhat configuration:
 
     ```bash
     npm install --save-dev dotenv
     ```
 
-4.  Update your config to load it:
+4. Update your config to load it:
 
     ```javascript title="hardhat.config.js" hl_lines="5"
     --8<-- 'code/develop/smart-contracts/dev-environments/hardhat/hardhat.config.js:1:4'
@@ -251,7 +251,7 @@ After testing your contract locally, you can deploy it to a live network. This g
     --8<-- 'code/develop/smart-contracts/dev-environments/hardhat/hardhat.config.js:34:34'
     ```
 
-5.  Update your Hardhat configuration file with network settings for the Polkadot network you want to target:
+5. Update your Hardhat configuration file with network settings for the Polkadot network you want to target:
 
     ```javascript title="hardhat.config.js" hl_lines="17-21"
     --8<-- 'code/develop/smart-contracts/dev-environments/hardhat/hardhat.config.js:1:4'
@@ -269,7 +269,7 @@ After testing your contract locally, you can deploy it to a live network. This g
     --8<-- 'code/develop/smart-contracts/dev-environments/hardhat/hardhat.config.js:33:35'
     ```
 
-6.  Deploy your contract using Ignition:
+6. Deploy your contract using Ignition:
 
     ```bash
     npx hardhat ignition deploy ./ignition/modules/MyToken.js --network westendHub
@@ -299,28 +299,28 @@ Explore more about smart contracts through these resources:
 
 <div class="grid cards" markdown>
 
-- <span class="badge guide">Guide</span> **Smart Contracts on Polkadot**
+-   <span class="badge guide">Guide</span> **Smart Contracts on Polkadot**
 
-  ***
+    ---
 
-  Dive into advanced smart contract concepts.
+    Dive into advanced smart contract concepts.
 
-  [:octicons-arrow-right-24: Get Started](/develop/smart-contracts/)
+    [:octicons-arrow-right-24: Get Started](/develop/smart-contracts/)
 
-- <span class="badge external">External</span> **Hardhat Documentation**
+-   <span class="badge external">External</span> __Hardhat Documentation__
 
-  ***
+    ---
 
-  Learn more about Hardhat's advanced features and best practices.
+    Learn more about Hardhat's advanced features and best practices.
 
-  [:octicons-arrow-right-24: Get Started](https://hardhat.org/docs){target=\_blank}
+    [:octicons-arrow-right-24: Get Started](https://hardhat.org/docs){target=\_blank}
 
-- <span class="badge external">External</span> **OpenZeppelin Contracts**
+-   <span class="badge external">External</span> __OpenZeppelin Contracts__
 
-  ***
+    ---
 
-  Test your skills by deploying contracts with prebuilt templates.
+    Test your skills by deploying contracts with prebuilt templates.
 
-  [:octicons-arrow-right-24: Get Started](https://www.openzeppelin.com/solidity-contracts){target=\_blank}
+    [:octicons-arrow-right-24: Get Started](https://www.openzeppelin.com/solidity-contracts){target=\_blank}
 
 </div>

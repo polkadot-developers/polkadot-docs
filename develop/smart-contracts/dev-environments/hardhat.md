@@ -140,7 +140,7 @@ To compile your project, follow these instructions:
 
     You should see JSON files containing the contract ABI and bytecode of the contracts you compiled.
 
-## Testing Environment
+## Set Up a Testing Environment
 
 Hardhat allows you to spin up a local testing environment to test and validate your smart contract functionalities before deploying to live networks. The `hardhat-polkadot` plugin provides the possibility to spin up a local node with an ETH-RPC adapter for running local tests.
 
@@ -171,13 +171,13 @@ The output will be something like this:
 
 --8<-- 'code/develop/smart-contracts/dev-environments/hardhat/hardhat-node-output.html'
 
-## Testing Your Contract
+## Test Your Contract
 
 When testing your contract, be aware that [`@nomicfoundation/hardhat-toolbox/network-helpers`](https://hardhat.org/hardhat-network-helpers/docs/overview){target=\_blank} is not fully compatible with Polkadot Hub's available RPCs. Specifically, Hardhat-only helpers like `time` and `loadFixture` may not work due to missing RPC calls in the node. For more details, refer to the [Compatibility](https://github.com/paritytech/hardhat-revive/tree/main/packages/hardhat-revive-node#compatibility){target=\_blank} section in the `hardhat-revive` docs. You should avoid using helpers like `time` and `loadFixture` when writing tests.
 
 To run your test:
 
-1.  Update the `hardhat.config.js` file accordingly to the [Testing Environments](#testing-environments) section
+1. Update the `hardhat.config.js` file accordingly to the [Testing Environments](#testing-environments) section
 
 2.  Execute the following command:
 
@@ -185,7 +185,7 @@ To run your test:
     npx hardhat test
     ```
 
-## Deploying with a Local Node
+## Deploy to a Local Node
 
 Before deploying to a live network, you can deploy your contract to a local node using [Ignition](https://hardhat.org/ignition/docs/getting-started#overview){target=\_blank} modules:
 
@@ -231,7 +231,7 @@ After testing your contract locally, you can deploy it to a live network. This g
     Replace `INSERT_PRIVATE_KEY` with your actual private key. For further details on private key exportation, refer to the article [How to export an account's private key](https://support.metamask.io/configure/accounts/how-to-export-an-accounts-private-key/){target=\_blank}.
 
     !!! warning
-        Never reveal your private key. Be sure you add the `.env` file to your .gitignore file.
+        Never reveal your private key. Be sure you add the `.env` file to your `.gitignore` file.
 
 3.  Install the [`dotenv`](https://www.npmjs.com/package/dotenv){target=\_blank} package to load the private key into your Hardhat configuration:
 

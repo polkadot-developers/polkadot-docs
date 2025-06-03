@@ -79,7 +79,7 @@ Before getting started, ensure you have:
    !!! note
    This last step is needed to set up the `hardhat-polkadot` plugin. It will install the `@parity/hardhat-polkadot` package and all its dependencies. In the future, the plugin will handle this automatically.
 
-## Compiling Your Contract
+## Compile Your Contract
 
 The plugin will compile your Solidity contracts for Solidity versions `0.8.0` and higher to be PolkaVM compatible. When compiling your contract, there are two ways to configure your compilation process:
 

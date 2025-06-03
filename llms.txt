@@ -6531,7 +6531,7 @@ When testing your contract, be aware that [`@nomicfoundation/hardhat-toolbox/net
 
 To run your test:
 
-1. Update the `hardhat.config.js` file accordingly to the [Testing Environments](#testing-environments) section
+1. Update the `hardhat.config.js` file accordingly to the [Set Up a Testing Environment](#set-up-a-testing-environment) section
 
 2. Execute the following command to run your tests:
 

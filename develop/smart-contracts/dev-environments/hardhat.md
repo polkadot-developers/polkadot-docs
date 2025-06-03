@@ -92,16 +92,16 @@ To compile your project, follow these instructions:
 
     === "npm Configuration"
 
-        ```javascript title="hardhat.config.js" hl_lines="8-10"
+        ```javascript title="hardhat.config.js" hl_lines="8-10 13"
         --8<-- 'code/develop/smart-contracts/dev-environments/hardhat/hardhat.config.js:1:14'
-        --8<-- 'code/develop/smart-contracts/dev-environments/hardhat/hardhat.config.js:34:35'
+        --8<-- 'code/develop/smart-contracts/dev-environments/hardhat/hardhat.config.js:33:35'
         ```
 
     === "Binary Configuration"
 
-        ```javascript title="hardhat.config.js" hl_lines="8-13"
+        ```javascript title="hardhat.config.js" hl_lines="8-13 16"
         --8<-- 'code/develop/smart-contracts/dev-environments/hardhat/binary-hardhat.config.js:1:17'
-        --8<-- 'code/develop/smart-contracts/dev-environments/hardhat/binary-hardhat.config.js:37:38'
+        --8<-- 'code/develop/smart-contracts/dev-environments/hardhat/binary-hardhat.config.js:36:38'
         ```
 
     For the binary configuration, replace `INSERT_PATH_TO_RESOLC_COMPILER` with the proper path to the binary. To obtain the binary, check the [releases](https://github.com/paritytech/revive/releases){target=\_blank} section of the `resolc` compiler, and download the latest version.

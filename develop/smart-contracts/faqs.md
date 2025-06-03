@@ -52,8 +52,8 @@ Check the [Local Development Node](/develop/smart-contracts/local-development-no
 
 ### What networks are available for testing and deployment?
 
-- Local Development: Kitchensink node with Ethereum RPC proxy.
-- TestNets: Passet Hub (official TestNet).
+- **Local Development**: Kitchensink node with Ethereum RPC proxy.
+- **TestNets**: Passet Hub (official TestNet).
 
 ## Technical Implementation
 

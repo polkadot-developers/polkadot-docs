@@ -1,5 +1,5 @@
 ---
-title: FAQs for Smart Contracts in the Polkadot Hub
+title: Polkadot Hub Smart Contract FAQs
 description: Find answers to common questions about smart contract development, deployment, and compatibility in the Polkadot Hub ecosystem.
 ---
 
@@ -11,9 +11,9 @@ description: Find answers to common questions about smart contract development, 
 
     Polkadot supports three main smart contract environments:
 
-    1. **PolkaVM Contracts**: available on Polkadot Hub, using a RISC-V-based virtual machine with Solidity compatibility
-    2. **EVM Contracts**: available on parachains like Moonbeam, Astar, and Acala via the Frontier framework
-    3. **Wasm Contracts**: using ink! (Rust-based) or Solidity via Solang compiler
+    1. **PolkaVM contracts**: Available on Polkadot Hub, using a RISC-V-based virtual machine with Solidity compatibility.
+    2. **EVM contracts**: Available on parachains like Moonbeam, Astar, and Acala via the Frontier framework.
+    3. **Wasm contracts**: Using ink! (Rust-based) or Solidity via Solang compiler.
 
 - Should I build a smart contract or a parachain?
 
@@ -35,16 +35,16 @@ description: Find answers to common questions about smart contract development, 
 
     Polkadot Hub uses [PolkaVM](/polkadot-protocol/smart-contract-basics/polkavm-design){target=\_blank} instead of traditional EVM:
 
-    - **Performance**: RISC-V register-based architecture vs. stack-based EVM
-    - **Resource Metering**: three dimensions (`ref_time`, `proof_size`, `storage_deposit`) vs. single gas metric
-    - **Memory Management**: hard memory limits per contract vs. gas-based soft limits
-    - **Account System**: Polkadot's 32-byte accounts with automatic 20-byte address conversion
+    - **Performance**: RISC-V register-based architecture vs. stack-based EVM.
+    - **Resource metering**: Three dimensions (`ref_time`, `proof_size`, `storage_deposit`) vs. single gas metric.
+    - **Memory management**: Hard memory limits per contract vs. gas-based soft limits.
+    - **Account system**: Polkadot's 32-byte accounts with automatic 20-byte address conversion.
 
 ## Development Environment
 
 - Can I use my existing Ethereum development tools?
 
-    Yes, check out the [Wallet](/develop/smart-contracts/wallets){target=\_blank} page, the [Development Environments](/develop/smart-contracts/dev-environments/){target=\_blank}, and the [Libraries](/develop/smart-contracts/libraries/){target=\_blank} sections for more information.
+    Yes, check out the [Wallets](/develop/smart-contracts/wallets){target=\_blank} page, the [Development Environments](/develop/smart-contracts/dev-environments/){target=\_blank}, and the [Libraries](/develop/smart-contracts/libraries/){target=\_blank} sections for more information.
 
 - How do I set up local development?
 
@@ -52,14 +52,8 @@ description: Find answers to common questions about smart contract development, 
 
 - What networks are available for testing and deployment?
 
-    - Local Development:
-    
-        - Kitchensink node with Ethereum RPC proxy
-
-    - TestNets:
-
-        - Passet Hub (official TestNet)
-
+    - Local Development: Kitchensink node with Ethereum RPC proxy.
+    - TestNets: Passet Hub (official TestNet).
 
 ## Technical Implementation
 
@@ -76,9 +70,9 @@ description: Find answers to common questions about smart contract development, 
 
     PolkaVM uses three resource dimensions:
 
-    - **`ref_time`**: computational time (similar to traditional gas)
-    - **`proof_size`**: state proof size for validator verification  
-    - **`storage_deposit`**: refundable deposit for state storage
+    - **`ref_time`**: Computational time (similar to traditional gas).
+    - **`proof_size`**: State proof size for validator verification.
+    - **`storage_deposit`**: Refundable deposit for state storage.
 
     Key implications:
 

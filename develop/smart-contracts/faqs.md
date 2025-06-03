@@ -19,17 +19,17 @@ Polkadot supports three main smart contract environments:
 
 Choose smart contracts if:
 
-- You want to deploy quickly without managing consensus
-- Your application fits within existing chain functionality
-- You prefer familiar development tools (Ethereum ecosystem)
-- You need to interact with other contracts easily
+- You want to deploy quickly without managing consensus.
+- Your application fits within existing chain functionality.
+- You prefer familiar development tools (Ethereum ecosystem).
+- You need to interact with other contracts easily.
 
 Choose a parachain if:
 
-- You need custom logic that doesn't fit smart contract limitations
-- You want full control over governance and upgrades
-- You require specialized consensus mechanisms
-- You need optimized fee structures
+- You need custom logic that doesn't fit smart contract limitations.
+- You want full control over governance and upgrades.
+- You require specialized consensus mechanisms.
+- You need optimized fee structures.
 
 ### What's the difference between Polkadot Hub smart contracts and other EVM chains?
 
@@ -61,10 +61,10 @@ Check the [Local Development Node](/develop/smart-contracts/local-development-no
 
 Polkadot uses a [dual-address system](/polkadot-protocol/smart-contract-basics/evm-vs-polkavm#account-management-comparison){target=\_blank}:
 
-- _20-byte Ethereum addresses_ are padded with `0xEE` bytes to create 32-byte Polkadot accounts
-- _32-byte Polkadot accounts_ can register mappings to 20-byte addresses
-- _Automatic conversion_ happens behind the scenes
-- _MetaMask compatibility_ is maintained through the mapping system
+- _20-byte Ethereum addresses_ are padded with `0xEE` bytes to create 32-byte Polkadot accounts.
+- _32-byte Polkadot accounts_ can register mappings to 20-byte addresses.
+- _Automatic conversion_ happens behind the scenes.
+- _MetaMask compatibility_ is maintained through the mapping system.
 
 ### What are the key differences in the gas model?
 
@@ -76,26 +76,26 @@ PolkaVM uses three resource dimensions:
 
 Key implications:
 
-- Gas values are dynamically scaled based on performance benchmarks
-- Cross-contract calls don't respect gas limits (use reentrancy protection)
-- Storage costs are separate from execution costs
+- Gas values are dynamically scaled based on performance benchmarks.
+- Cross-contract calls don't respect gas limits (use reentrancy protection).
+- Storage costs are separate from execution costs.
 
 ### How does contract deployment work?
 
 PolkaVM deployment differs from EVM:
 
-- _Code must be pre-uploaded_ to the chain before instantiation
-- _Factory contracts_ need modification to work with pre-uploaded code hashes
-- _Two-step process_, upload code, then instantiate contracts
-- _Runtime code generation_ is not supported
+- _Code must be pre-uploaded_ to the chain before instantiation.
+- _Factory contracts_ need modification to work with pre-uploaded code hashes.
+- _Two-step process_: Upload code, then instantiate contracts.
+- _Runtime code generation_ is not supported.
 
 ### What Solidity features are not supported?
 
 Limited support for:
 
-- **`EXTCODECOPY`**: only works in constructor code
-- **Runtime code modification**: use on-chain constructors instead
-- **Gas stipends**: `address.send()` and `address.transfer()` don't provide reentrancy protection
+- **`EXTCODECOPY`**: Only works in constructor code.
+- **Runtime code modification**: Use on-chain constructors instead.
+- **Gas stipends**: `address.send()` and `address.transfer()` don't provide reentrancy protection.
 
 Unsupported operations:
 
@@ -106,14 +106,14 @@ Unsupported operations:
 
 What it means:
 
-- Accounts need a minimum balance (existential deposit) to remain active
-- Accounts below this threshold are automatically deleted
+- Accounts need a minimum balance, also known as an existential deposit (ED), to remain active.
+- Accounts below this threshold are automatically deleted.
 
 How it's handled:
 
-- _Balance queries_ via Ethereum RPC automatically deduct the ED
-- _New account transfers_ automatically include ED with transaction fees
-- _Contract-to-contract transfers_ draw ED from transaction signer, not sending contract
+- _Balance queries_ via Ethereum RPC automatically deduct the ED.
+- _New account transfers_ automatically include ED with transaction fees.
+- _Contract-to-contract transfers_ draw ED from transaction signer, not sending contract.
 
 ## Migration and Compatibility
 
@@ -121,15 +121,15 @@ How it's handled:
 
 Most contracts work without changes:
 
-- Standard ERC-20, ERC-721, ERC-1155 tokens
-- DeFi protocols and DEXs
-- DAOs and governance contracts
+- Standard ERC-20, ERC-721, ERC-1155 tokens.
+- DeFi protocols and DEXs.
+- DAOs and governance contracts.
 
 May need modifications:
 
-- Factory contracts that create other contracts at runtime
-- Contracts using `EXTCODECOPY` for runtime code manipulation
-- Contracts relying on gas stipends for reentrancy protection
+- Factory contracts that create other contracts at runtime.
+- Contracts using `EXTCODECOPY` for runtime code manipulation.
+- Contracts relying on gas stipends for reentrancy protection.
 
 ## Troubleshooting
 
@@ -137,9 +137,9 @@ May need modifications:
 
 PolkaVM uses dynamic gas scaling:
 
-- Gas values reflect actual performance benchmarks
-- Don't hardcode gas values - use flexible calculations
-- Cross-contract calls ignore gas limits - implement proper access controls
+- Gas values reflect actual performance benchmarks.
+- Don't hardcode gas values—use flexible calculations.
+- Cross-contract calls ignore gas limits—implement proper access controls.
 
 ### I deployed a contract with metamask, and got a `code size` error - why?
 

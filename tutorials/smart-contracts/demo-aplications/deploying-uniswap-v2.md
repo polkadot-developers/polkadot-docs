@@ -169,7 +169,7 @@ This command deploys the contracts to your local blockchain for development and 
 npx hardhat run scripts/deploy.js --network passetHub
 ```
 
-The command above deploys to the actual Polkadot TestNet. It requires WND test tokens, persists on the network, and operates under real network conditions.
+The command above deploys to the actual Polkadot TestNet. It requires PAS test tokens, persists on the network, and operates under real network conditions.
 
 The deployment script will output the addresses of the deployed contracts. Save these addresses, as you will need them to interact with the contracts. For example, the output should look like this:
 

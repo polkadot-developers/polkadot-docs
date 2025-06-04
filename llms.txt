@@ -8915,7 +8915,7 @@ This component uses the following React hooks:
 
 ## Interact with Deployed Contract
 
-This guide uses a simple Storage contract already deployed to Passet Hub (`0x58053f0e8ede1a47a1af53e43368cd04ddcaf66f`). The code of that contract is:
+This guide uses a simple Storage contract already deployed to the Polkadot Hub TestNet (`0x58053f0e8ede1a47a1af53e43368cd04ddcaf66f`). The code of that contract is:
 
 ??? code "Storage.sol"
 
@@ -10694,9 +10694,9 @@ Connecting a compatible wallet is the first essential step for interacting with 
 
 To get started with MetaMask, you need to install the [MetaMask extension](https://metamask.io/download/){target=\_blank} and add it to the browser. Once you install MetaMask, you can set up a new wallet and securely store your seed phrase. This phrase is crucial for recovery in case you lose access.
 
-For example, to connect to the Passet Hub TestNet via MetaMask, you need to follow these steps:
+For example, to connect to the Polkadot Hub TestNet via MetaMask, you need to follow these steps:
 
-1. Open the MetaMask extension and click on the network icon to switch to Passet Hub TestNet
+1. Open the MetaMask extension and click on the network icon to switch to the Polkadot Hub TestNet
 
     ![](/images/develop/smart-contracts/wallets/wallets-1.webp){: .browser-extension}
 
@@ -10746,11 +10746,11 @@ To use Talisman with Polkadot Hub:
 
     ![](/images/develop/smart-contracts/wallets/wallets-10.webp)
 
-8. After that, you can switch to the Passet Hub TestNet by clicking on the network icon and selecting **Polkadot Hub TestNet**:
+8. After that, you can switch to the Polkadot Hub TestNet by clicking on the network icon and selecting **Polkadot Hub TestNet**:
 
     ![](/images/develop/smart-contracts/wallets/wallets-11.webp)
 
-After selecting the network, Talisman will automatically configure the necessary RPC URL and chain ID for you. You can now use Talisman to interact with Passet Hub.
+After selecting the network, Talisman will automatically configure the necessary RPC URL and chain ID for you. You can now use Talisman to interact with the Polkadot Hub TestNet.
 
 
 ## Conclusion
@@ -32911,7 +32911,7 @@ This command deploys the contracts to your local blockchain for development and 
 npx hardhat run scripts/deploy.js --network passetHub
 ```
 
-The command above deploys to the actual Polkadot TestNet. It requires WND test tokens, persists on the network, and operates under real network conditions.
+The command above deploys to the actual Polkadot TestNet. It requires PAS test tokens, persists on the network, and operates under real network conditions.
 
 The deployment script will output the addresses of the deployed contracts. Save these addresses, as you will need them to interact with the contracts. For example, the output should look like this:
 
@@ -32974,13 +32974,13 @@ tutorial_badge: Beginner
 
 [ERC-20](https://eips.ethereum.org/EIPS/eip-20){target=\_blank} tokens are fungible tokens commonly used for creating cryptocurrencies, governance tokens, and staking mechanisms. Polkadot Hub enables easy token deployment with Ethereum-compatible smart contracts via PolkaVM.
 
-This tutorial covers deploying an ERC-20 contract on the Passet Hub TestNet using [Polkadot Remix IDE](https://remix.polkadot.io){target=\_blank}, a web-based development tool. [OpenZeppelin's ERC-20 contracts]({{ dependencies.repositories.open_zeppelin_contracts.repository_url}}/tree/{{ dependencies.repositories.open_zeppelin_contracts.version}}/contracts/token/ERC20){target=\_blank} are used for security and compliance.
+This tutorial covers deploying an ERC-20 contract on the Polkadot Hub TestNet using [Polkadot Remix IDE](https://remix.polkadot.io){target=\_blank}, a web-based development tool. [OpenZeppelin's ERC-20 contracts]({{ dependencies.repositories.open_zeppelin_contracts.repository_url}}/tree/{{ dependencies.repositories.open_zeppelin_contracts.version}}/contracts/token/ERC20){target=\_blank} are used for security and compliance.
 
 ## Prerequisites
 
 Before starting, make sure you have:
 
-- [MetaMask](https://metamask.io/){target=\_blank} installed and connected to Passet Hub. For detailed instructions, see the [Connect Your Wallet](/develop/smart-contracts/wallets){target=\_blank} section
+- [MetaMask](https://metamask.io/){target=\_blank} installed and connected to the Polkadot Hub TestNet. For detailed instructions, see the [Connect Your Wallet](/develop/smart-contracts/wallets){target=\_blank} section
 - A funded account with some PAS tokens (you can get them from the [Polkadot Faucet](https://faucet.polkadot.io/?parachain=1111){target=\_blank}). To learn how to get test tokens, check out the [Test Tokens](/develop/smart-contracts/connect-to-polkadot#test-tokens){target=\_blank} section
 - Basic understanding of Solidity and fungible tokens
 
@@ -33144,7 +33144,7 @@ This tutorial guides you through deploying an [ERC-721](https://eips.ethereum.or
 Before starting, make sure you have:
 
 - [Talisman](https://talisman.xyz/){target=\_blank} installed and connected to Westend Hub. Check the [Connect to Polkadot](/develop/smart-contracts/connect-to-polkadot/){target=\_blank} guide for more information
-- A funded account with some WND tokens (you can get them from the [Westend Faucet](https://faucet.polkadot.io/westend?parachain=1000){target=\_blank}, noting that the faucet imposes a daily token limit, which may require multiple requests to obtain sufficient funds for testing)
+- A funded account with some PAS tokens (you can get them from the [Faucet](https://faucet.polkadot.io/?parachain=1111){target=\_blank}, noting that the faucet imposes a daily token limit, which may require multiple requests to obtain sufficient funds for testing)
 - Basic understanding of Solidity and NFTs, see the [Solidity Basics](https://soliditylang.org/){target=\_blank} and the [NFT Overview](https://ethereum.org/en/nft/){target=\_blank} guides for more details
 
 ## Create the NFT Contract
@@ -33251,7 +33251,7 @@ Deployment is the process of uploading your compiled smart contract to the block
 
     ![](/images/tutorials/smart-contracts/deploy-nft/deploy-nft-9.webp){: .browser-extension}
 
-    Deploying this contract requires paying gas fees in WND tokens on the Westend Asset Hub TestNet. Ensure your Talisman account is funded with sufficient WND tokens from the Westend Faucet before confirming the transaction, check the [Test Tokens](/develop/smart-contracts/connect-to-polkadot/#test-tokens){target=\_blank} section for more information. Gas fees cover the computational resources needed to deploy and execute the smart contract on the blockchain.
+    Deploying this contract requires paying gas fees in PAS tokens on the Polkadot Hub TestNet. Ensure your Talisman account is funded with sufficient PAS tokens from the faucet before confirming the transaction, check the [Test Tokens](/develop/smart-contracts/connect-to-polkadot/#test-tokens){target=\_blank} section for more information. Gas fees cover the computational resources needed to deploy and execute the smart contract on the blockchain.
 
     If the deployment process succeeded, you will see the following output in the terminal:
 
@@ -33525,7 +33525,7 @@ tutorial_badge:  Intermediate
 
 Decentralized applications (dApps) have become a cornerstone of the Web3 ecosystem, allowing developers to create applications that interact directly with blockchain networks. Polkadot Hub, a blockchain that supports smart contract functionality, provides an excellent platform for deploying and interacting with dApps.
 
-In this tutorial, you'll build a complete dApp that interacts with a smart contract deployed on Passet Hub. It will use [Ethers.js](/develop/smart-contracts/libraries/ethers-js){target=\_blank} to interact with the blockchain and [Next.js](https://nextjs.org/){target=\_blank} as the frontend framework. By the end of this tutorial, you'll have a functional dApp that allows users to connect their wallets, read data from the blockchain, and execute transactions.
+In this tutorial, you'll build a complete dApp that interacts with a smart contract deployed on the Polkadot Hub TestNet. It will use [Ethers.js](/develop/smart-contracts/libraries/ethers-js){target=\_blank} to interact with the blockchain and [Next.js](https://nextjs.org/){target=\_blank} as the frontend framework. By the end of this tutorial, you'll have a functional dApp that allows users to connect their wallets, read data from the blockchain, and execute transactions.
 
 ## Prerequisites
 
@@ -33543,7 +33543,7 @@ The dApp will interact with a simple Storage contract. For a step-by-step guide 
 - Reading a stored number from the blockchain
 - Updating the stored number with a new value
 
-The contract has already been deployed to Passet Hub for testing purposes: `0x58053f0e8ede1a47a1af53e43368cd04ddcaf66f`. If you want to deploy your own, follow the [Deploying Contracts](/develop/smart-contracts/dev-environments/remix/#deploying-contracts){target=\_blank} section.
+The contract has already been deployed to the Polkadot Hub TestNet for testing purposes: `0x58053f0e8ede1a47a1af53e43368cd04ddcaf66f`. If you want to deploy your own, follow the [Deploying Contracts](/develop/smart-contracts/dev-environments/remix/#deploying-contracts){target=\_blank} section.
 
 Here's a simplified view of what you'll be building:
 
@@ -33586,7 +33586,7 @@ npm install ethers@{{ dependencies.javascript_packages.ethersjs.version }}
 
 ## Connect to Polkadot Hub
 
-To interact with the Polkadot Hub, you need to set up an [Ethers.js Provider](/develop/smart-contracts/libraries/ethers-js/#set-up-the-ethersjs-provider){target=\_blank} that connects to the blockchain. In this example, you will interact with Passet Hub, the testnet version of Polkadot Hub, so you can experiment safely. Start by creating a new file called `utils/ethers.js` and add the following code:
+To interact with the Polkadot Hub, you need to set up an [Ethers.js Provider](/develop/smart-contracts/libraries/ethers-js/#set-up-the-ethersjs-provider){target=\_blank} that connects to the blockchain. In this example, you will interact with the Polkadot Hub TestNet, so you can experiment safely. Start by creating a new file called `utils/ethers.js` and add the following code:
 
 ```javascript title="app/utils/ethers.js"
 import { JsonRpcProvider } from 'ethers';
@@ -33616,7 +33616,7 @@ export const getSigner = async (provider) => {
 };
 ```
 
-This file establishes a connection to Passet Hub and provides helper functions for obtaining a [Provider](https://docs.ethers.org/v5/api/providers/provider/){target=_blank} and [Signer](https://docs.ethers.org/v5/api/signer/){target=_blank}. The provider allows you to read data from the blockchain, while the signer enables users to send transactions and modify the blockchain state.
+This file establishes a connection to the Polkadot Hub TestNet and provides helper functions for obtaining a [Provider](https://docs.ethers.org/v5/api/providers/provider/){target=_blank} and [Signer](https://docs.ethers.org/v5/api/signer/){target=_blank}. The provider allows you to read data from the blockchain, while the signer enables users to send transactions and modify the blockchain state.
 
 ## Set Up the Smart Contract Interface
 
@@ -34133,7 +34133,7 @@ The completed UI will display:
 
 ## Conclusion
 
-Congratulations! You've built a complete dApp that interacts with a smart contract on Passet Hub using Ethers.js and Next.js. Your application can now:
+Congratulations! You've built a complete dApp that interacts with a smart contract on the Polkadot Hub TestNet using Ethers.js and Next.js. Your application can now:
 
 - Connect to a user's wallet
 - Read data from a smart contract
@@ -34238,7 +34238,7 @@ npm install --save-dev typescript @types/node
 
 ## Connect to Polkadot Hub
 
-To interact with the Polkadot Hub, you need to set up a [Public Client](https://viem.sh/docs/clients/public#public-client){target=\_blank} that connects to the blockchain. In this example, you will interact with Passet Hub, the TestNet version of Polkadot Hub, so you can experiment safely. Start by creating a new file called `utils/viem.ts` and add the following code:
+To interact with Polkadot Hub, you need to set up a [Public Client](https://viem.sh/docs/clients/public#public-client){target=\_blank} that connects to the blockchain. In this example, you will interact with the Polkadot Hub TestNet, so you can experiment safely. Start by creating a new file called `utils/viem.ts` and add the following code:
 
 ```typescript title="viem.ts"
 import { createPublicClient, http, createWalletClient, custom } from 'viem'
@@ -34288,7 +34288,7 @@ This file initializes a viem client, providing helper functions for obtaining a 
 
 ## Set Up the Smart Contract Interface
 
-For this dApp, you'll use a simple [Storage contract](/tutorials/smart-contracts/launch-your-first-project/create-contracts){target=\_blank} that's already deployed in Passet Hub: `0x58053f0e8ede1a47a1af53e43368cd04ddcaf66f`. To interact with it, you need to define the contract interface.
+For this dApp, you'll use a simple [Storage contract](/tutorials/smart-contracts/launch-your-first-project/create-contracts){target=\_blank} that's already deployed in the Polkadot Hub TestNet: `0x58053f0e8ede1a47a1af53e43368cd04ddcaf66f`. To interact with it, you need to define the contract interface.
 
 Create a folder called `abis` at the root of your project, then create a file named `Storage.json` and paste the corresponding ABI (Application Binary Interface) of the Storage contract. You can copy and paste the following:
 
@@ -34936,7 +34936,7 @@ Let's examine how the dApp interacts with the blockchain:
 
 1. **Wallet Connection**: 
     - The `WalletConnect` component uses the browser's Ethereum provider (MetaMask) to connect to the user's wallet
-    - It handles network switching to ensure the user is connected to Passet Hub
+    - It handles network switching to ensure the user is connected to the Polkadot Hub TestNet
     - Once connected, it provides the user's account address to the parent component
 
 2. **Reading Data**:
@@ -35123,7 +35123,7 @@ module.exports = {
     The configuration also defines two network settings: 
 
     - `localNode` - runs a PolkaVM instance on `http://127.0.0.1:8545` for local development and testing
-    - `passetHub` - connects to the Passet Hub network using a predefined RPC URL and a private key stored in environment variables
+    - `passetHub` - connects to the the Polkadot Hub TestNet network using a predefined RPC URL and a private key stored in environment variables
 
 7. Create a `.env` file in your project root to store your private key:
 
@@ -35392,9 +35392,9 @@ module.exports = buildModule('StorageModule', (m) => {
   <span data-ty>StorageModule#Storage - 0xc01Ee7f10EA4aF4673cFff62710E1D7792aBa8f3</span>
 </div>
 
-3. Deploy to Passet Hub:
+3. Deploy to the Polkadot Hub TestNet:
 
-    a. Make sure your account has enough WND tokens for gas fees, then run:
+    a. Make sure your account has enough PAS tokens for gas fees, then run:
 
     ```bash
     npx hardhat ignition deploy ./ignition/modules/StorageModule.js --network passetHub
@@ -35483,7 +35483,7 @@ main()
 
 ## Conclusion
 
-Congratulations! You've successfully set up a Hardhat development environment, written comprehensive tests for your Storage contract, and deployed it to local and Passet Hub networks. This tutorial covered essential steps in smart contract development, including configuration, testing, deployment, and interaction.
+Congratulations! You've successfully set up a Hardhat development environment, written comprehensive tests for your Storage contract, and deployed it to local and Polkadot Hub TestNet networks. This tutorial covered essential steps in smart contract development, including configuration, testing, deployment, and interaction.
 
 To get started with a working example right away, you can clone the repository and navigate to the project directory:
 

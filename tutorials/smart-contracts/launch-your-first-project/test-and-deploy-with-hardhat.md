@@ -69,7 +69,7 @@ Let's start by setting up Hardhat for your Storage contract project:
     The configuration also defines two network settings: 
 
     - `localNode` - runs a PolkaVM instance on `http://127.0.0.1:8545` for local development and testing
-    - `passetHub` - connects to the Passet Hub network using a predefined RPC URL and a private key stored in environment variables
+    - `passetHub` - connects to the the Polkadot Hub TestNet network using a predefined RPC URL and a private key stored in environment variables
 
 7. Create a `.env` file in your project root to store your private key:
 
@@ -213,9 +213,9 @@ Testing is a critical part of smart contract development. Hardhat makes it easy 
 
     --8<-- 'code/tutorials/smart-contracts/launch-your-first-project/test-and-deploy-hardhat/local-deployment-output.html'
 
-3. Deploy to Passet Hub:
+3. Deploy to the Polkadot Hub TestNet:
 
-    a. Make sure your account has enough WND tokens for gas fees, then run:
+    a. Make sure your account has enough PAS tokens for gas fees, then run:
 
     ```bash
     npx hardhat ignition deploy ./ignition/modules/StorageModule.js --network passetHub
@@ -249,7 +249,7 @@ To interact with your deployed contract:
 
 ## Conclusion
 
-Congratulations! You've successfully set up a Hardhat development environment, written comprehensive tests for your Storage contract, and deployed it to local and Passet Hub networks. This tutorial covered essential steps in smart contract development, including configuration, testing, deployment, and interaction.
+Congratulations! You've successfully set up a Hardhat development environment, written comprehensive tests for your Storage contract, and deployed it to local and Polkadot Hub TestNet networks. This tutorial covered essential steps in smart contract development, including configuration, testing, deployment, and interaction.
 
 To get started with a working example right away, you can clone the repository and navigate to the project directory:
 

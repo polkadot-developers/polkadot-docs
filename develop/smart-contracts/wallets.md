@@ -17,9 +17,9 @@ Connecting a compatible wallet is the first essential step for interacting with 
 
 To get started with MetaMask, you need to install the [MetaMask extension](https://metamask.io/download/){target=\_blank} and add it to the browser. Once you install MetaMask, you can set up a new wallet and securely store your seed phrase. This phrase is crucial for recovery in case you lose access.
 
-For example, to connect to the Passet Hub TestNet via MetaMask, you need to follow these steps:
+For example, to connect to the Polkadot Hub TestNet via MetaMask, you need to follow these steps:
 
-1. Open the MetaMask extension and click on the network icon to switch to Passet Hub TestNet
+1. Open the MetaMask extension and click on the network icon to switch to the Polkadot Hub TestNet
 
     ![](/images/develop/smart-contracts/wallets/wallets-1.webp){: .browser-extension}
 
@@ -69,11 +69,11 @@ To use Talisman with Polkadot Hub:
 
     ![](/images/develop/smart-contracts/wallets/wallets-10.webp)
 
-8. After that, you can switch to the Passet Hub TestNet by clicking on the network icon and selecting **Polkadot Hub TestNet**:
+8. After that, you can switch to the Polkadot Hub TestNet by clicking on the network icon and selecting **Polkadot Hub TestNet**:
 
     ![](/images/develop/smart-contracts/wallets/wallets-11.webp)
 
-After selecting the network, Talisman will automatically configure the necessary RPC URL and chain ID for you. You can now use Talisman to interact with Passet Hub.
+After selecting the network, Talisman will automatically configure the necessary RPC URL and chain ID for you. You can now use Talisman to interact with the Polkadot Hub TestNet.
 
 
 ## Conclusion

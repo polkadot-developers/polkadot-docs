@@ -10,3 +10,4 @@ nav:
   - block-explorers
   - 'JSON-RPC APIs': json-rpc-apis.md
   - precompiles
+  - 'FAQs': faqs.md

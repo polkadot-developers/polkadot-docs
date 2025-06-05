@@ -7,7 +7,10 @@ require('@parity/hardhat-polkadot');
 module.exports = {
   solidity: '0.8.28',
   resolc: {
-    compilerSource: 'npm',
+    compilerSource: 'binary',
+    settings: {
+      compilerPath: 'INSERT_PATH_TO_RESOLC_COMPILER',
+    },
   },
   networks: {
     hardhat: {
@@ -26,9 +29,9 @@ module.exports = {
       polkavm: true,
       url: `http://127.0.0.1:8545`,
     },
-    polkadotHubTestnet: {
+    westendHub: {
       polkavm: true,
-      url: 'https://testnet-passet-hub-eth-rpc.polkadot.io',
+      url: 'https://westend-asset-hub-eth-rpc.polkadot.io',
       accounts: [process.env.PRIVATE_KEY],
     },
   },

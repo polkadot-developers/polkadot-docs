@@ -101,7 +101,7 @@ Deployment is the process of uploading your compiled smart contract to the block
 
     ![](/images/tutorials/smart-contracts/deploy-nft/deploy-nft-8.webp)
 
-4. Talisman will pop up - review the transaction details. Click **Confirm** to deploy your contract
+4. Talisman will pop up - review the transaction details. Click **Approve** to deploy your contract
 
     ![](/images/tutorials/smart-contracts/deploy-nft/deploy-nft-9.webp){: .browser-extension}
 

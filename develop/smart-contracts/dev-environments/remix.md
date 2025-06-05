@@ -1,6 +1,6 @@
 ---
 title: Use the Polkadot Remix IDE
-description: Explore the smart contract development and deployment process on Polkadot Hub using Remix IDE, a visual IDE for blockchain developers.
+description: Explore the smart contract development and deployment process on Asset Hub using Remix IDE, a visual IDE for blockchain developers.
 ---
 
 # Remix IDE
@@ -10,16 +10,16 @@ description: Explore the smart contract development and deployment process on Po
 
     ---
 
-    Mint your NFT on Polkadot Hub. Use PolkaVM and OpenZeppelin to bring your digital asset to life with Polkadot Remix IDE.
+    Mint your NFT on Polkadot's Asset Hub. Use PolkaVM and OpenZeppelin to bring your digital asset to life with Polkadot Remix IDE.
 
     <br>
     [:octicons-arrow-right-24: Get Started](/tutorials/smart-contracts/deploy-nft){target=\_blank}
 
--   :octicons-code-16:{ .lg .middle } __Deploy ERC-20s Using Remix IDE__
+-   :octicons-code-16:{ .lg .middle } __Deploy ERC20s Using Remix IDE__
 
     ---
 
-    Mint your custom ERC-20 token on Polkadot Hub. Leverage PolkaVM and Polkadot Remix IDE to bring your blockchain project to life.
+    Mint your custom ERC-20 token on Polkadot's Asset Hub. Leverage PolkaVM and Polkadot Remix IDE to bring your blockchain project to life.
 
     <br>
     [:octicons-arrow-right-24: Get Started](/tutorials/smart-contracts/deploy-erc20){target=\_blank}
@@ -28,11 +28,10 @@ description: Explore the smart contract development and deployment process on Po
 !!! warning
     The Polkadot Remix IDE's contract compilation functionality is currently limited to Google Chrome. Alternative browsers are not recommended for this task.
 
---8<-- 'text/smart-contracts/code-size.md'
 
 ## Overview
 
-Remix IDE is a robust browser-based development environment for smart contracts. This guide will walk you through the essentials of the [Polkadot Remix IDE](https://remix.polkadot.io/){target=\_blank} to understand the processes of compiling, developing, and deploying smart contracts on Polkadot Hub.
+Remix IDE is a robust browser-based development environment for smart contracts. This guide will walk you through the essentials of the [Polkadot Remix IDE](https://remix.polkadot.io/){target=\_blank} to understand the processes of compiling, developing, and deploying smart contracts on Asset Hub.
 
 ## Prerequisites
 
@@ -40,7 +39,7 @@ Before getting started, ensure you have:
 
 - A web browser with [Talisman](https://talisman.xyz/){target=\_blank} extension installed
 - Basic understanding of Solidity programming
-- Some PAS test tokens to cover transaction fees (easily obtainable from the [Polkadot faucet](https://faucet.polkadot.io/?parachain=1111){target=\_blank})
+- Some WND test tokens to cover transaction fees (easily obtainable from the [Polkadot faucet](https://faucet.polkadot.io/westend?parachain=1000){target=\_blank})
 
 ## Accessing Remix IDE
 
@@ -99,17 +98,25 @@ To create a new contract using the Polkadot Remix IDE, you can follow these step
 
     1. Navigate to the **Deploy & Run Transactions** tab (fourth icon in the left sidebar)
     2. Click the **Enviroment** dropdown 
-    3. Select **Injected Provider - MetaMask**
+    3. Select **Customize this list**
 
         ![](/images/develop/smart-contracts/evm-toolkit/dev-environments/remix/remix-7.webp)
 
-2. Click the **Deploy** button and then click **Confirm** in the MetaMask wallet popup
+2. Enable the **Injected Provider - Talisman** option
 
     ![](/images/develop/smart-contracts/evm-toolkit/dev-environments/remix/remix-8.webp)
 
-3. Once your contract is deployed successfully, you will see the following output in the Remix terminal:
+4. Click again the **Enviroment** dropdown and select **Injected Provider - Talisman**
 
     ![](/images/develop/smart-contracts/evm-toolkit/dev-environments/remix/remix-9.webp)
+
+4. Click the **Deploy** button and then click **Approve** in the Talisman wallet popup
+
+    ![](/images/develop/smart-contracts/evm-toolkit/dev-environments/remix/remix-10.webp)
+
+5. Once your contract is deployed successfully, you will see the following output in the Remix terminal:
+
+    ![](/images/develop/smart-contracts/evm-toolkit/dev-environments/remix/remix-11.webp)
 
 ## Interacting with Contracts
 
@@ -117,14 +124,14 @@ Once deployed, your contract appears in the **Deployed/Unpinned Contracts** sect
 
 1. Expand the contract to view available methods
 
-    ![](/images/develop/smart-contracts/evm-toolkit/dev-environments/remix/remix-10.webp)
+    ![](/images/develop/smart-contracts/evm-toolkit/dev-environments/remix/remix-12.webp)
 
     !!! tip
         Pin your frequently used contracts to the **Pinned Contracts** section for easy access.
 
 2. To interact with the contract, you can select any of the exposed methods
 
-    ![](/images/develop/smart-contracts/evm-toolkit/dev-environments/remix/remix-11.webp)
+    ![](/images/develop/smart-contracts/evm-toolkit/dev-environments/remix/remix-13.webp)
 
     In this way, you can interact with your deployed contract by reading its state or writing to it. The button color indicates the type of interaction available:
 
@@ -134,7 +141,7 @@ Once deployed, your contract appears in the **Deployed/Unpinned Contracts** sect
 
 ## Where to Go Next
 
-The Polkadot Remix IDE offers an environment for developing, compiling, and deploying smart contracts on Polkadot Hub. Its intuitive interface allows developers to easily write Solidity code, compile contracts, and interact with them directly in the browser.
+The Polkadot Remix IDE offers an environment for developing, compiling, and deploying smart contracts on Asset Hub. Its intuitive interface allows developers to easily write Solidity code, compile contracts, and interact with them directly in the browser.
 
 Explore more about smart contracts through these resources:
 

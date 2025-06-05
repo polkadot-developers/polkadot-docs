@@ -7,7 +7,7 @@ dependencies:
       architecture: macos-arm64
     asset_transfer_api:
       repository_url: https://github.com/paritytech/asset-transfer-api
-      version: v0.6.1
+      version: v0.7.2
     polkadot_sdk_solochain_template:
       repository_url: https://github.com/paritytech/polkadot-sdk-solochain-template
       version: v0.0.2
@@ -23,13 +23,13 @@ dependencies:
   crates:
     subxt:
       name: subxt
-      version: 0.41.0
+      version: 0.42.1
     subxt_cli:
       name: subxt-cli
-      version: 0.41.0
+      version: 0.42.1
     subxt_signer:
       name: subxt-signer
-      version: 0.41.0
+      version: 0.42.1
     tokio:
       name: tokio
       version: 1.44.2
@@ -43,18 +43,18 @@ dependencies:
   javascript_packages:
     chopsticks:
       name: '@acala-network/chopsticks'
-      version: 1.0.5
+      version: 1.0.6
     asset_transfer_api:
       name: '@substrate/asset-transfer-api'
-      version: 0.6.1
-      polkadot_js_api_version: v15.9.2 # Check changelog for pjs version bumps
+      version: 0.7.2
+      polkadot_js_api_version: v16.0.1 # Check changelog for pjs version bumps
     moonwall:
       name: '@moonwall/cli'
-      version: 5.11.0
+      version: 5.12.0
     polkadot_js_api:
       name: '@polkadot/api'
-      version: 15.9.3
+      version: 16.1.2
     polkadot_api:
       name: polkadot-api
-      version: 1.10.1
+      version: 1.13.1
 #   python_packages:

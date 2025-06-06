@@ -28,12 +28,14 @@ Whether you're debugging an issue, testing new features, or exploring cross-chai
   <div class="card">
     <a href="https://github.com/AcalaNetwork/chopsticks/"  target="_blank">
       <h2 class="title">Chopsticks Repository</h2>
+      <hr>
       <p class="description">View the official Chopsticks Github Repository. Check out the code, check out sample commands, and track issues and new releases.</p>
     </a>
   </div>
     <div class="card">
     <a href="/tutorials/polkadot-sdk/testing/fork-live-chains/">
       <h2 class="title">Fork Live Chains with Chopsticks</h2>
+      <hr>
       <p class="description">Learn how to fork live Polkadot SDK chains with Chopsticks. Configure forks, replay blocks, test XCM, and interact programmatically or via UI.</p>
     </a>
   </div>

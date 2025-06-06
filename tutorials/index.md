@@ -20,6 +20,7 @@ The Zero to Hero series offers step-by-step guidance to development across the P
   <div class="card">
     <a href="/tutorials/polkadot-sdk/parachains/zero-to-hero/" target="_blank">
       <h2 class="title">Parachain Zero to Hero</h2>
+      <hr>
       <p class="description">Begin with a template then follow this series of step-by-step guides to add pallets, write unit tests and benchmarking, run your parachain locally, perform runtime upgrades, deploy to TestNet, and obtain coretime.</p>
     </a>
   </div>
@@ -31,24 +32,28 @@ The Zero to Hero series offers step-by-step guidance to development across the P
   <div class="card">
     <a href="/tutorials/polkadot-sdk/parachains/zero-to-hero/set-up-a-template/">
       <h2 class="title">Set Up a Template</h2>
+      <hr>
       <p class="description">Learn to compile and run a local parachain node using Polkadot SDK. Launch, run, and interact with a pre-configured runtime template.</p>
     </a>
   </div>
     <div class="card">
     <a href="/tutorials/polkadot-sdk/parachains/zero-to-hero/build-custom-pallet">
       <h2 class="title">Build a Custom Pallet</h2>
+      <hr>
       <p class="description">Learn how to build a custom pallet for Polkadot SDK-based blockchains with this step-by-step guide. Create and configure a simple counter pallet from scratch.</p>
     </a>
   </div>
     <div class="card">
     <a href="/tutorials/polkadot-sdk/testing/fork-live-chains/">
       <h2 class="title">Fork a Live Chain with Chopsticks</h2>
+      <hr>
       <p class="description">Learn how to fork live Polkadot SDK chains with Chopsticks. Configure forks, replay blocks, test XCM, and interact programmatically or via UI.</p>
     </a>
   </div>
     <div class="card">
     <a href="/tutorials/interoperability/xcm-channels/para-to-para/">
       <h2 class="title">Open an XCM Channel</h2>
+      <hr>
       <p class="description">Learn how to open HRMP channels between parachains on Polkadot. Discover the step-by-step process for establishing uni- and bidirectional communication.</p>
     </a>
   </div>

@@ -25,12 +25,14 @@ Through these guides, you'll learn to:
   <div class="card">
     <a href="https://paritytech.github.io/polkadot-sdk/master/sp_runtime/" target="_blank">
       <h2 class="title">`sp_runtime` crate Rust docs</h2>
+      <hr>
       <p class="description">Learn about Substrate Runtime primitives that enable communication between a Substrate blockchain's runtime and client.</p>
     </a>
   </div>
   <div class="card">
     <a href="https://github.com/Moonsong-Labs/moonwall" target="_blank">
       <h2 class="title">Moonwall Testing Framework</h2>
+      <hr>
       <p class="description">Moonwall is a comprehensive blockchain test framework for Substrate-based networks.</p>
     </a>
   </div>

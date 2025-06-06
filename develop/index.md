@@ -117,12 +117,14 @@ Integrate with the Polkadot blockchain's underlying protocol features to create 
     <hr>
     - [Install and Get Started with Polkadot.js API](/develop/toolkit/api-libraries/polkadot-js-api/){target=\_blank}
     - [Install and Get Started with Polkadot-API (PAPI)](/develop/toolkit/api-libraries/papi/){target=\_blank}
+    - [Install and Get Started with Dedot](/develop/toolkit/api-libraries/dedot/){target=\_blank}
     - [Install and Get Started with Python Substrate Interface](/develop/toolkit/api-libraries/py-substrate-interface/){target=\_blank}
 
 - <h3>:octicons-tools-16:{.lg .middle} Tools</h3>
     <hr>
     - [Polkadot.js API](https://github.com/polkadot-js/api){target=\_blank}
     - [Polkadot-API (PAPI)](https://github.com/polkadot-api/polkadot-api){target=\_blank}
+    - [Dedot](https://github.com/dedotdev/dedot){target=\_blank}
     - [Sidecar REST API](https://github.com/paritytech/substrate-api-sidecar){target=\_blank}
 
 - <h3>:octicons-code-square-16:{.lg .middle} Resources</h3>

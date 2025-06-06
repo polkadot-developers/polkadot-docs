@@ -1,6 +1,7 @@
 ---
 title: Set Up a Template
 description: Learn to compile and run a local parachain node using Polkadot SDK. Launch, run, and interact with a pre-configured runtime template.
+tutorial_badge: Beginner
 ---
 
 # Set Up a Template
@@ -38,7 +39,7 @@ This tutorial requires two essential tools:
     Install it by executing the following command:
     
     ```bash
-    cargo install staging-chain-spec-builder@{{dependencies.crates.chain_spec_builder.version}}
+    cargo install --locked staging-chain-spec-builder@{{dependencies.crates.chain_spec_builder.version}}
     ```
 
     This installs the `chain-spec-builder` binary.
@@ -48,7 +49,7 @@ This tutorial requires two essential tools:
     To install it, run the following command:
 
     ```bash
-    cargo install polkadot-omni-node@{{dependencies.crates.polkadot_omni_node.version}}
+    cargo install --locked polkadot-omni-node@{{dependencies.crates.polkadot_omni_node.version}}
     ```
 
     This installs the `polkadot-omni-node` binary.
@@ -59,17 +60,17 @@ The [Polkadot SDK Parachain Template](https://github.com/paritytech/polkadot-sdk
 
 1. Clone the template repository:
     ```bash
-    git clone https://github.com/paritytech/polkadot-sdk-parachain-template.git parachain-template
+    git clone -b stable2412 https://github.com/paritytech/polkadot-sdk-parachain-template.git parachain-template
     ```
 
-2. Navigate to the root of the template directory:
+2. Navigate into the project directory:
     ```bash
     cd parachain-template
     ```
 
 3. Compile the runtime:
     ```bash
-    cargo build --release
+    cargo build --release --locked
     ```
 
     !!!tip

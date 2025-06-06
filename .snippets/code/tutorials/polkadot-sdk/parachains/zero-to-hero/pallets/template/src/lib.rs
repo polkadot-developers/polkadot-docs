@@ -1,7 +1,7 @@
 //! # Template Pallet
 //!
 //! A pallet with minimal functionality to help developers understand the essential components of
-//! writing a FRAME pallet. It is typically used in beginner tutorials or in the Polkadot SDK template
+//! writing a FRAME pallet. It is typically used in beginner tutorials or in Polkadot SDK template
 //! as a starting point for creating a new pallet and **not meant to be used in production**.
 //!
 //! ## Overview
@@ -66,17 +66,13 @@ mod benchmarking;
 // To see a full list of `pallet` macros and their use cases, see:
 // <https://paritytech.github.io/polkadot-sdk/master/pallet_example_kitchensink/index.html>
 // <https://paritytech.github.io/polkadot-sdk/master/frame_support/pallet_macros/index.html>
-#[frame_support::pallet]
+#[frame::pallet]
 pub mod pallet {
-    use frame_support::{dispatch::DispatchResultWithPostInfo, pallet_prelude::*, DefaultNoBound};
-    use frame_system::pallet_prelude::*;
-    use sp_runtime::traits::{CheckedAdd, One};
+    use frame::prelude::*;
 
     /// Configure the pallet by specifying the parameters and types on which it depends.
     #[pallet::config]
     pub trait Config: frame_system::Config {
-        /// Because this pallet emits events, it depends on the runtime's definition of an event.
-        /// <https://paritytech.github.io/polkadot-sdk/master/polkadot_sdk_docs/reference_docs/frame_runtime_types/index.html>
         type RuntimeEvent: From<Event<Self>> + IsType<<Self as frame_system::Config>::RuntimeEvent>;
 
         /// A type representing the weights required by the dispatchables of this pallet.
@@ -128,13 +124,13 @@ pub mod pallet {
     #[pallet::hooks]
     impl<T: Config> Hooks<BlockNumberFor<T>> for Pallet<T> {}
 
-    /// Dispatchable functions allow users to interact with the pallet and invoke state changes.
+    /// Dispatchable functions allows users to interact with the pallet and invoke state changes.
     /// These functions materialize as "extrinsics", which are often compared to transactions.
     /// Dispatchable functions must be annotated with a weight and must return a DispatchResult.
     /// <https://paritytech.github.io/polkadot-sdk/master/polkadot_sdk_docs/guides/your_first_pallet/index.html#dispatchables>
     #[pallet::call]
     impl<T: Config> Pallet<T> {
-        /// An example dispatchable that takes a single value as a parameter, writes the value to
+        /// An example dispatchable that takes a singles value as a parameter, writes the value to
         /// storage and emits an event. This function must be dispatched by a signed extrinsic.
         #[pallet::call_index(0)]
         #[pallet::weight(Weight::from_parts(10_000, 0) + T::DbWeight::get().writes(1))]

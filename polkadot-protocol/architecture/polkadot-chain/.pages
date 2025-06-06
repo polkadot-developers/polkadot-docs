@@ -1,6 +1,7 @@
-title: Polkadot Chain
+title: Polkadot Relay Chain
 nav:
   - index.md
   - 'Overview': overview.md
   - 'Proof of Stake Consensus': pos-consensus.md
   - 'Agile Coretime': agile-coretime.md
+  - 'Elastic Scaling': elastic-scaling.md

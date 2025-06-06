@@ -38,21 +38,21 @@ The available methods and interfaces will automatically reflect what's possible 
 
 ## Installation
 
-To add the Polkadot.js API to your project, use the following command to install the latest stable release which supports any Polkadot SDK-based chain:
+To add the Polkadot.js API to your project, use the following command to install the version `{{ dependencies.javascript_packages.polkadot_js_api.version }}` which supports any Polkadot SDK-based chain:
 
 === "npm"
     ```bash
-    npm i @polkadot/api
+    npm i @polkadot/api@{{ dependencies.javascript_packages.polkadot_js_api.version }}
     ```
 
 === "pnpm"
     ```bash
-    pnpm add @polkadot/api
+    pnpm add @polkadot/api@{{ dependencies.javascript_packages.polkadot_js_api.version }}
     ```
 
 === "yarn"
     ```bash
-    yarn add @polkadot/api
+    yarn add @polkadot/api@{{ dependencies.javascript_packages.polkadot_js_api.version }}
     ```
 
 For more detailed information about installation, see the [Installation](https://polkadot.js.org/docs/api/start/install/){target=\_blank} section in the official Polkadot.js API documentation.

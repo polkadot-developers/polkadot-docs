@@ -17,7 +17,6 @@ Follow this step-by-step process to develop and deploy smart contracts in the Po
 [timeline(polkadot-docs/.snippets/text/develop/smart-contracts/index/index-timeline.json)]
 
 ## Additional Resources
-
 <div class="grid cards" markdown>
 
 -   <span class="badge guide">Guide</span> __Smart Contracts Overview__

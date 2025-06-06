@@ -6,7 +6,7 @@ template: index-page.html
 
 # The Polkadot Relay Chain
 
-Discover the central role of the Polkadot Relay Chain in securing the network and fostering interoperability. As the backbone of Polkadot, the relay chain provides shared security and ensures consensus across the ecosystem. It empowers parachains with flexible coretime allocation, enabling them to purchase blockspace on demand, ensuring efficiency and scalability for diverse blockchain applications.
+Discover the central role of the Polkadot relay chain in securing the network and fostering interoperability. As the backbone of Polkadot, the relay chain provides shared security and ensures consensus across the ecosystem. It empowers parachains with flexible coretime allocation, enabling them to purchase blockspace on demand, ensuring efficiency and scalability for diverse blockchain applications.
 
 ## In This Section
 

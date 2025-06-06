@@ -1,6 +1,7 @@
 ---
 title: Spawn a Basic Chain with Zombienet
 description: Learn to spawn, connect to and monitor a basic blockchain network with Zombienet, using customizable configurations for streamlined development and debugging.
+tutorial_badge: Beginner
 ---
 
 # Spawn a Basic Chain with Zombienet
@@ -17,8 +18,35 @@ By the end of this tutorial, you'll be equipped to deploy and test your own bloc
 
 To successfully complete this tutorial, you must ensure you've first:
 
-- [Installed Zombienet](/develop/toolkit/parachains/spawn-chains/zombienet/get-started/#install-zombienet){target=\_blank}. This tutorial requires Zombienet version `{{ dependencies.repositories.zombienet.version }}`. Verify that you're using the specified version to ensure compatibility with the instructions
+- [Installed Zombienet](/develop/toolkit/parachains/spawn-chains/zombienet/get-started/#install-zombienet){target=\_blank}. This tutorial requires Zombienet version `{{ dependencies.repositories.zombienet.version }}`. Verify that you're using the specified version to ensure compatibility with the instructions.
 - Reviewed the information in [Configure Zombienet](/develop/toolkit/parachains/spawn-chains/zombienet/get-started/#configure-zombienet){target=\_blank} and understand how to customize a spawned network
+
+## Set Up Local Provider
+
+In this tutorial, you will use the Zombienet [local provider](/develop/toolkit/parachains/spawn-chains/zombienet/get-started/#local-provider){target=\_blank} (also called native provider) that enables you to run nodes as local processes in your development environment.
+
+You must have the necessary binaries installed (such as `polkadot` and `polkadot-parachain`) to spin up your network successfully.
+
+To install the required binaries, use the following Zombienet CLI command:
+
+```bash
+zombienet setup polkadot polkadot-parachain
+```
+
+This command downloads the following binaries:
+
+- `polkadot`
+- `polkadot-execute-worker`
+- `polkadot-parachain`
+- `polkadot-prepare-worker`
+
+Finally, add these binaries to your PATH environment variable to ensure Zombienet can locate them when spawning the network.
+
+For example, you can move the binaries to a directory in your PATH, such as `/usr/local/bin`:
+
+```bash
+sudo mv ./polkadot ./polkadot-execute-worker ./polkadot-parachain ./polkadot-prepare-worker /usr/local/bin
+```
 
 ## Define the Network
 

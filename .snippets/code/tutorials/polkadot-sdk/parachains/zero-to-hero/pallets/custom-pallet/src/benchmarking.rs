@@ -20,8 +20,8 @@
 #![cfg(feature = "runtime-benchmarks")]
 
 use super::{Pallet as CustomPallet, *};
-use frame_benchmarking::v2::*;
-use frame_support::assert_ok;
+use frame::deps::frame_support::assert_ok;
+use frame::{deps::frame_benchmarking::v2::*, prelude::*};
 
 #[benchmarks]
 mod benchmarks {

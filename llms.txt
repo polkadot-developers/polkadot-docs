@@ -6314,7 +6314,7 @@ description: Learn how to create, compile, test, and deploy smart contracts on P
 </div>
 
 !!! note "Contracts Code Blob Size Disclaimer"
-    The maximum contract code blob size on Polkadot Hub networks is _100 kilobytes_, significantly larger than Ethereum’s EVM limit of 24 kilobytes. This difference stems from fundamental architectural distinctions between the two virtual machines:
+    The maximum contract code blob size on Polkadot Hub networks is _100 kilobytes_, significantly larger than Ethereum’s EVM limit of 24 kilobytes.
 
     For detailed comparisons and migration guidelines, see the [EVM vs. PolkaVM](/polkadot-protocol/smart-contract-basics/evm-vs-polkavm/#current-memory-limits){target=\_blank} documentation page.
 
@@ -6795,7 +6795,7 @@ description: Explore the smart contract development and deployment process on Po
     The Polkadot Remix IDE's contract compilation functionality is currently limited to Google Chrome. Alternative browsers are not recommended for this task.
 
 !!! note "Contracts Code Blob Size Disclaimer"
-    The maximum contract code blob size on Polkadot Hub networks is _100 kilobytes_, significantly larger than Ethereum’s EVM limit of 24 kilobytes. This difference stems from fundamental architectural distinctions between the two virtual machines:
+    The maximum contract code blob size on Polkadot Hub networks is _100 kilobytes_, significantly larger than Ethereum’s EVM limit of 24 kilobytes.
 
     For detailed comparisons and migration guidelines, see the [EVM vs. PolkaVM](/polkadot-protocol/smart-contract-basics/evm-vs-polkavm/#current-memory-limits){target=\_blank} documentation page.
 
@@ -6976,17 +6976,17 @@ Polkadot supports three main smart contract environments:
 
 Choose smart contracts if:
 
-- You want to deploy quickly without managing consensus
-- Your application fits within existing chain functionality
-- You prefer familiar development tools (Ethereum ecosystem)
-- You need to interact with other contracts easily
+- You want to deploy quickly without managing consensus.
+- Your application fits within existing chain functionality.
+- You prefer familiar development tools (Ethereum ecosystem).
+- You need to interact with other contracts easily.
 
 Choose a parachain if:
 
-- You need custom logic that doesn't fit smart contract limitations
-- You want full control over governance and upgrades
-- You require specialized consensus mechanisms
-- You need optimized fee structures
+- You need custom logic that doesn't fit smart contract limitations.
+- You want full control over governance and upgrades.
+- You require specialized consensus mechanisms.
+- You need optimized fee structures.
 
 ### What's the difference between Polkadot Hub smart contracts and other EVM chains?
 
@@ -7009,8 +7009,8 @@ Check the [Local Development Node](/develop/smart-contracts/local-development-no
 
 ### What networks are available for testing and deployment?
 
-- Local Development: Kitchensink node with Ethereum RPC proxy.
-- TestNets: Passet Hub (official TestNet).
+- **Local Development**: Kitchensink node with Ethereum RPC proxy.
+- **TestNets**: Passet Hub (official TestNet).
 
 ## Technical Implementation
 
@@ -7018,10 +7018,10 @@ Check the [Local Development Node](/develop/smart-contracts/local-development-no
 
 Polkadot uses a [dual-address system](/polkadot-protocol/smart-contract-basics/evm-vs-polkavm#account-management-comparison){target=\_blank}:
 
-- _20-byte Ethereum addresses_ are padded with `0xEE` bytes to create 32-byte Polkadot accounts
-- _32-byte Polkadot accounts_ can register mappings to 20-byte addresses
-- _Automatic conversion_ happens behind the scenes
-- _MetaMask compatibility_ is maintained through the mapping system
+- _20-byte Ethereum addresses_ are padded with `0xEE` bytes to create 32-byte Polkadot accounts.
+- _32-byte Polkadot accounts_ can register mappings to 20-byte addresses.
+- _Automatic conversion_ happens behind the scenes.
+- _MetaMask compatibility_ is maintained through the mapping system.
 
 ### What are the key differences in the gas model?
 
@@ -7033,26 +7033,26 @@ PolkaVM uses three resource dimensions:
 
 Key implications:
 
-- Gas values are dynamically scaled based on performance benchmarks
-- Cross-contract calls don't respect gas limits (use reentrancy protection)
-- Storage costs are separate from execution costs
+- Gas values are dynamically scaled based on performance benchmarks.
+- Cross-contract calls don't respect gas limits (use reentrancy protection).
+- Storage costs are separate from execution costs.
 
 ### How does contract deployment work?
 
 PolkaVM deployment differs from EVM:
 
-- _Code must be pre-uploaded_ to the chain before instantiation
-- _Factory contracts_ need modification to work with pre-uploaded code hashes
-- _Two-step process_, upload code, then instantiate contracts
-- _Runtime code generation_ is not supported
+- _Code must be pre-uploaded_ to the chain before instantiation.
+- _Factory contracts_ need modification to work with pre-uploaded code hashes.
+- _Two-step process_: Upload code, then instantiate contracts.
+- _Runtime code generation_ is not supported.
 
 ### What Solidity features are not supported?
 
 Limited support for:
 
-- **`EXTCODECOPY`**: only works in constructor code
-- **Runtime code modification**: use on-chain constructors instead
-- **Gas stipends**: `address.send()` and `address.transfer()` don't provide reentrancy protection
+- **`EXTCODECOPY`**: Only works in constructor code.
+- **Runtime code modification**: Use on-chain constructors instead.
+- **Gas stipends**: `address.send()` and `address.transfer()` don't provide reentrancy protection.
 
 Unsupported operations:
 
@@ -7063,14 +7063,14 @@ Unsupported operations:
 
 What it means:
 
-- Accounts need a minimum balance (existential deposit) to remain active
-- Accounts below this threshold are automatically deleted
+- Accounts need a minimum balance, also known as an existential deposit (ED), to remain active.
+- Accounts below this threshold are automatically deleted.
 
 How it's handled:
 
-- _Balance queries_ via Ethereum RPC automatically deduct the ED
-- _New account transfers_ automatically include ED with transaction fees
-- _Contract-to-contract transfers_ draw ED from transaction signer, not sending contract
+- _Balance queries_ via Ethereum RPC automatically deduct the ED.
+- _New account transfers_ automatically include ED with transaction fees.
+- _Contract-to-contract transfers_ draw ED from transaction signer, not sending contract.
 
 ## Migration and Compatibility
 
@@ -7078,15 +7078,15 @@ How it's handled:
 
 Most contracts work without changes:
 
-- Standard ERC-20, ERC-721, ERC-1155 tokens
-- DeFi protocols and DEXs
-- DAOs and governance contracts
+- Standard ERC-20, ERC-721, ERC-1155 tokens.
+- DeFi protocols and DEXs.
+- DAOs and governance contracts.
 
 May need modifications:
 
-- Factory contracts that create other contracts at runtime
-- Contracts using `EXTCODECOPY` for runtime code manipulation
-- Contracts relying on gas stipends for reentrancy protection
+- Factory contracts that create other contracts at runtime.
+- Contracts using `EXTCODECOPY` for runtime code manipulation.
+- Contracts relying on gas stipends for reentrancy protection.
 
 ## Troubleshooting
 
@@ -7094,9 +7094,9 @@ May need modifications:
 
 PolkaVM uses dynamic gas scaling:
 
-- Gas values reflect actual performance benchmarks
-- Don't hardcode gas values - use flexible calculations
-- Cross-contract calls ignore gas limits - implement proper access controls
+- Gas values reflect actual performance benchmarks.
+- Don't hardcode gas values—use flexible calculations.
+- Cross-contract calls ignore gas limits—implement proper access controls.
 
 ### I deployed a contract with metamask, and got a `code size` error - why?
 
@@ -7773,7 +7773,7 @@ main();
 ## Compile Contracts
 
 !!! note "Contracts Code Blob Size Disclaimer"
-    The maximum contract code blob size on Polkadot Hub networks is _100 kilobytes_, significantly larger than Ethereum’s EVM limit of 24 kilobytes. This difference stems from fundamental architectural distinctions between the two virtual machines:
+    The maximum contract code blob size on Polkadot Hub networks is _100 kilobytes_, significantly larger than Ethereum’s EVM limit of 24 kilobytes.
 
     For detailed comparisons and migration guidelines, see the [EVM vs. PolkaVM](/polkadot-protocol/smart-contract-basics/evm-vs-polkavm/#current-memory-limits){target=\_blank} documentation page.
 
@@ -8526,7 +8526,7 @@ contract Storage {
 ## Compile the Contract
 
 !!! note "Contracts Code Blob Size Disclaimer"
-    The maximum contract code blob size on Polkadot Hub networks is _100 kilobytes_, significantly larger than Ethereum’s EVM limit of 24 kilobytes. This difference stems from fundamental architectural distinctions between the two virtual machines:
+    The maximum contract code blob size on Polkadot Hub networks is _100 kilobytes_, significantly larger than Ethereum’s EVM limit of 24 kilobytes.
 
     For detailed comparisons and migration guidelines, see the [EVM vs. PolkaVM](/polkadot-protocol/smart-contract-basics/evm-vs-polkavm/#current-memory-limits){target=\_blank} documentation page.
 
@@ -9353,7 +9353,7 @@ main();
 ## Compile Contracts
 
 !!! note "Contracts Code Blob Size Disclaimer"
-    The maximum contract code blob size on Polkadot Hub networks is _100 kilobytes_, significantly larger than Ethereum’s EVM limit of 24 kilobytes. This difference stems from fundamental architectural distinctions between the two virtual machines:
+    The maximum contract code blob size on Polkadot Hub networks is _100 kilobytes_, significantly larger than Ethereum’s EVM limit of 24 kilobytes.
 
     For detailed comparisons and migration guidelines, see the [EVM vs. PolkaVM](/polkadot-protocol/smart-contract-basics/evm-vs-polkavm/#current-memory-limits){target=\_blank} documentation page.
 
@@ -10121,7 +10121,7 @@ description: Learn about smart contract development capabilities in the Polkadot
 
 Polkadot offers developers multiple approaches to building and deploying smart contracts within its ecosystem. As a multi-chain network designed for interoperability, Polkadot provides various environments optimized for different developer preferences and application requirements. From native smart contract support on Polkadot Hub to specialized parachain environments, developers can choose the platform that best suits their technical needs while benefiting from Polkadot's shared security model and cross-chain messaging capabilities.
 
-Whether you're looking for Ethereum compatibility through EVM-based parachains like Moonbeam, Astar, and Acala or prefer WebAssembly-based development with ink!, the Polkadot ecosystem accommodates diverse developers.
+Whether you're looking for Ethereum compatibility through EVM-based parachains like [Moonbeam](https://docs.moonbeam.network/){target=\_blank}, [Astar](https://docs.astar.network/){target=\_blank}, and [Acala](https://evmdocs.acala.network/){target=\_blank} or prefer WebAssembly-based development with [ink!](https://use.ink/docs/v5/){target=\_blank}, the Polkadot ecosystem accommodates diverse developers.
 
 These guides explore the diverse smart contract options available in the Polkadot ecosystem, helping developers understand the unique advantages of each approach and make informed decisions about where to deploy their decentralized applications.
 
@@ -10171,47 +10171,13 @@ Polkadot Hub's smart contract platform is suitable for a wide range of applicati
 
 ## Other Smart Contract Environments
 
-While Polkadot Hub provides native smart contract support through PolkaVM, Polkadot's ecosystem offers several alternatives for smart contract development. These include EVM-compatible parachains like Moonbeam, Astar, and Acala that support Ethereum tooling and development workflows, as well as WebAssembly-based environments using ink!. Each environment offers unique advantages depending on your development preferences and application requirements.
+Beyond Polkadot Hub's native PolkaVM support, the ecosystem offers two main alternatives for smart contract development:
 
-### Parachain Contracts
+- **EVM-Compatible Parachains**: provide access to Ethereum's extensive developer ecosystem, smart contract portability, and established tooling like Hardhat, Remix, Foundry, and OpenZeppelin. The main options include Moonbeam (the first full Ethereum-compatible parachain serving as an interoperability hub), Astar (featuring dual VM support for both EVM and WebAssembly contracts), and Acala (DeFi-focused with enhanced Acala EVM+ offering advanced DeFi primitives)
 
-Polkadot's ecosystem includes several parachains that offer EVM compatibility, allowing developers to leverage Ethereum's extensive tooling and developer community while benefiting from Polkadot's security and interoperability features.
+- **WebAssembly (ink!)**: is a Rust-based embedded domain-specific language that uses [`#[ink(...)]`](https://use.ink/docs/v5/macros-attributes/){target=\_blank} attributes macros to create Polkadot SDK-compatible Wasm bytecode. It offers strong memory safety from Rust, an advanced type system, high-performance Wasm execution, and platform independence with sandboxed security
 
-EVM compatibility provides significant advantages:
-
-- Access to Ethereum's large developer ecosystem and mindshare
-- Smart contract portability across chains
-- Extensive tooling, including wallets, explorers, and development frameworks
-- Established security auditors and institutional asset management systems
-
-Some of the EVM-compatible parachains are:
-
-- [**Moonbeam**](https://moonbeam.network/){target=\_blank} - Moonbeam was the first parachain to bring full Ethereum-compatibility to Polkadot. Its runtime is built using FRAME and combines components from the Polkadot-SDK, Frontier, and custom pallets. Moonbeam serves as an interoperability hub with connections to multiple external chains through various general message passing (GMP) providers like Wormhole, LayerZero, and Axelar
-
-- [**Astar**](https://astar.network/){target=\_blank} - Astar distinguishes itself with a unique multiple virtual machine approach supporting EVM and WebAssembly (Wasm) smart contracts. This dual VM support allows developers to choose their preferred programming environment while maintaining full Ethereum compatibility. Astar has established itself as an innovation hub through initiatives like zk-rollup development and integration with Layer 2 scaling solutions
-
-- [**Acala**](https://acala.network/){taget=\_blank} - this parachian positions itself as Polkadot's DeFi hub with its Acala EVM+, an enhanced version of the EVM optimized for DeFi operations. This customized implementation enables seamless deployment of Ethereum-based DeFi protocols while offering advanced features like on-chain scheduling, pre-built DeFi primitives, and native multi-token support unavailable in traditional EVMs
-
-All these parachains support familiar Ethereum development tools:
-
-- Hardhat, Remix, Foundry
-- Thirdweb
-- OpenZeppelin contracts
-- Solidity as the primary language
-
-### Wasm (ink!)
-
-The [`pallet_contracts`](https://docs.rs/pallet-contracts/latest/pallet_contracts/index.html#contracts-pallet){target=\_blank} is a specialized pallet within the Polkadot SDK that enables smart contract functionality through a WebAssembly (Wasm) execution environment. For developing smart contracts for this pallet, [ink!](https://use.ink/){target=\_blank} emerges as the primary and recommended language.
-
-ink! is an embedded domain-specific language (eDSL) designed to develop Wasm smart contracts using the Rust programming language. Rather than creating a new language, ink! is just standard Rust in a well-defined "contract format" with specialized `#[ink(…)]` attribute macros. These macros tell ink! what the different parts of your Rust smart contract represent and allow it to create Polkadot SDK-compatible Wasm bytecode.
-
-Key benefits include:
-
-- Strong memory safety guarantees from Rust
-- Advanced type system
-- Comprehensive development tooling
-- High execution speed through Wasm compilation
-- Platform independence and enhanced security through sandboxed execution
+Each environment provides unique advantages based on developer preferences and application requirements.
 
 ## Where to Go Next
 

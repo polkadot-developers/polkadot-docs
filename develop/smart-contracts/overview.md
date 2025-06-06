@@ -9,7 +9,7 @@ description: Learn about smart contract development capabilities in the Polkadot
 
 Polkadot offers developers multiple approaches to building and deploying smart contracts within its ecosystem. As a multi-chain network designed for interoperability, Polkadot provides various environments optimized for different developer preferences and application requirements. From native smart contract support on Polkadot Hub to specialized parachain environments, developers can choose the platform that best suits their technical needs while benefiting from Polkadot's shared security model and cross-chain messaging capabilities.
 
-Whether you're looking for Ethereum compatibility through EVM-based parachains like Moonbeam, Astar, and Acala or prefer WebAssembly-based development with ink!, the Polkadot ecosystem accommodates diverse developers.
+Whether you're looking for Ethereum compatibility through EVM-based parachains like [Moonbeam](https://docs.moonbeam.network/){target=\_blank}, [Astar](https://docs.astar.network/){target=\_blank}, and [Acala](https://evmdocs.acala.network/){target=\_blank} or prefer WebAssembly-based development with [ink!](https://use.ink/docs/v5/){target=\_blank}, the Polkadot ecosystem accommodates diverse developers.
 
 These guides explore the diverse smart contract options available in the Polkadot ecosystem, helping developers understand the unique advantages of each approach and make informed decisions about where to deploy their decentralized applications.
 
@@ -59,47 +59,13 @@ Polkadot Hub's smart contract platform is suitable for a wide range of applicati
 
 ## Other Smart Contract Environments
 
-While Polkadot Hub provides native smart contract support through PolkaVM, Polkadot's ecosystem offers several alternatives for smart contract development. These include EVM-compatible parachains like Moonbeam, Astar, and Acala that support Ethereum tooling and development workflows, as well as WebAssembly-based environments using ink!. Each environment offers unique advantages depending on your development preferences and application requirements.
+Beyond Polkadot Hub's native PolkaVM support, the ecosystem offers two main alternatives for smart contract development:
 
-### Parachain Contracts
+- **EVM-Compatible Parachains**: provide access to Ethereum's extensive developer ecosystem, smart contract portability, and established tooling like Hardhat, Remix, Foundry, and OpenZeppelin. The main options include Moonbeam (the first full Ethereum-compatible parachain serving as an interoperability hub), Astar (featuring dual VM support for both EVM and WebAssembly contracts), and Acala (DeFi-focused with enhanced Acala EVM+ offering advanced DeFi primitives)
 
-Polkadot's ecosystem includes several parachains that offer EVM compatibility, allowing developers to leverage Ethereum's extensive tooling and developer community while benefiting from Polkadot's security and interoperability features.
+- **WebAssembly (ink!)**: is a Rust-based embedded domain-specific language that uses [`#[ink(...)]`](https://use.ink/docs/v5/macros-attributes/){target=\_blank} attributes macros to create Polkadot SDK-compatible Wasm bytecode. It offers strong memory safety from Rust, an advanced type system, high-performance Wasm execution, and platform independence with sandboxed security
 
-EVM compatibility provides significant advantages:
-
-- Access to Ethereum's large developer ecosystem and mindshare
-- Smart contract portability across chains
-- Extensive tooling, including wallets, explorers, and development frameworks
-- Established security auditors and institutional asset management systems
-
-Some of the EVM-compatible parachains are:
-
-- [**Moonbeam**](https://moonbeam.network/){target=\_blank} - Moonbeam was the first parachain to bring full Ethereum-compatibility to Polkadot. Its runtime is built using FRAME and combines components from the Polkadot-SDK, Frontier, and custom pallets. Moonbeam serves as an interoperability hub with connections to multiple external chains through various general message passing (GMP) providers like Wormhole, LayerZero, and Axelar
-
-- [**Astar**](https://astar.network/){target=\_blank} - Astar distinguishes itself with a unique multiple virtual machine approach supporting EVM and WebAssembly (Wasm) smart contracts. This dual VM support allows developers to choose their preferred programming environment while maintaining full Ethereum compatibility. Astar has established itself as an innovation hub through initiatives like zk-rollup development and integration with Layer 2 scaling solutions
-
-- [**Acala**](https://acala.network/){taget=\_blank} - this parachian positions itself as Polkadot's DeFi hub with its Acala EVM+, an enhanced version of the EVM optimized for DeFi operations. This customized implementation enables seamless deployment of Ethereum-based DeFi protocols while offering advanced features like on-chain scheduling, pre-built DeFi primitives, and native multi-token support unavailable in traditional EVMs
-
-All these parachains support familiar Ethereum development tools:
-
-- Hardhat, Remix, Foundry
-- Thirdweb
-- OpenZeppelin contracts
-- Solidity as the primary language
-
-### Wasm (ink!)
-
-The [`pallet_contracts`](https://docs.rs/pallet-contracts/latest/pallet_contracts/index.html#contracts-pallet){target=\_blank} is a specialized pallet within the Polkadot SDK that enables smart contract functionality through a WebAssembly (Wasm) execution environment. For developing smart contracts for this pallet, [ink!](https://use.ink/){target=\_blank} emerges as the primary and recommended language.
-
-ink! is an embedded domain-specific language (eDSL) designed to develop Wasm smart contracts using the Rust programming language. Rather than creating a new language, ink! is just standard Rust in a well-defined "contract format" with specialized `#[ink(…)]` attribute macros. These macros tell ink! what the different parts of your Rust smart contract represent and allow it to create Polkadot SDK-compatible Wasm bytecode.
-
-Key benefits include:
-
-- Strong memory safety guarantees from Rust
-- Advanced type system
-- Comprehensive development tooling
-- High execution speed through Wasm compilation
-- Platform independence and enhanced security through sandboxed execution
+Each environment provides unique advantages based on developer preferences and application requirements.
 
 ## Where to Go Next
 

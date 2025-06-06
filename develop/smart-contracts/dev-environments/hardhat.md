@@ -246,6 +246,8 @@ After testing your contract locally, you can deploy it to a live network. This g
     ```javascript title="hardhat.config.js" hl_lines="15-19"
     --8<-- 'code/develop/smart-contracts/dev-environments/hardhat/hardhat.config.js:1:4'
 
+    const { vars } = require("hardhat/config");
+
     --8<-- 'code/develop/smart-contracts/dev-environments/hardhat/hardhat.config.js:6:7'
         ...
         --8<-- 'code/develop/smart-contracts/dev-environments/hardhat/hardhat.config.js:12:13'

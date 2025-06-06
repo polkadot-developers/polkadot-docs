@@ -1,27 +1,27 @@
 import { createPublicClient, http } from 'viem';
 
-const transport = http('https://westend-asset-hub-eth-rpc.polkadot.io');
+const transport = http('https://testnet-passet-hub-eth-rpc.polkadot.io');
 
 // Configure the Polkadot Hub chain
-const assetHub = {
+const polkadotHubTestnet = {
   id: 420420421,
-  name: 'Westend Asset Hub',
-  network: 'westend-asset-hub',
+  name: 'Polkadot Hub TestNet',
+  network: 'polkadot-hub-testnet',
   nativeCurrency: {
     decimals: 18,
-    name: 'WND',
-    symbol: 'WND',
+    name: 'PAS',
+    symbol: 'PAS',
   },
   rpcUrls: {
     default: {
-      http: ['https://westend-asset-hub-eth-rpc.polkadot.io'],
+      http: ['https://testnet-passet-hub-eth-rpc.polkadot.io'],
     },
   },
 } as const;
 
 // Create a public client for reading data
 export const publicClient = createPublicClient({
-  chain: assetHub,
+  chain: polkadotHubTestnet,
   transport,
 });
 
@@ -30,7 +30,7 @@ const main = async () => {
     const block = await publicClient.getBlock();
     console.log('Last block: ' + block.number.toString());
   } catch (error: unknown) {
-    console.error('Error connecting to Westend Hub: ' + error);
+    console.error('Error connecting to Polkadot Hub TestNet: ' + error);
   }
 };
 

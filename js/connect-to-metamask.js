@@ -4,11 +4,23 @@ const supportedNetworks = {
     name: 'Asset-Hub Westend Testnet',
     chainId: '0x190F1B45', //Hex value of "420420421"
     chainName: 'Asset-Hub Westend Testnet',
-    rpcUrls: ['https://westend-asset-hub-eth-rpc.polkadot.io'],
+    rpcUrls: ['https://testnet-passet-hub-eth-rpc.polkadot.io'],
     blockExplorerUrls: ['https://westend-asset-hub-eth-explorer.parity.io'],
     nativeCurrency: {
       name: 'Westend Token',
       symbol: 'WND',
+      decimals: 18,
+    },
+  },
+  passetHub: {
+    name: 'Polkadot Hub TestNet',
+    chainId: '0x190F1B45', //Hex value of "420420421"
+    chainName: 'Polkadot Hub TestNet',
+    rpcUrls: ['https://testnet-passet-hub-eth-rpc.polkadot.io'],
+    blockExplorerUrls: ['https://blockscout-passet-hub.parity-testnet.parity.io/'],
+    nativeCurrency: {
+      name: 'Paseo Token',
+      symbol: 'PAS',
       decimals: 18,
     },
   },

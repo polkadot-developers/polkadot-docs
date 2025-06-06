@@ -10,9 +10,9 @@ const createProvider = (rpcUrl, chainId, chainName) => {
 };
 
 const PROVIDER_RPC = {
-  rpc: 'https://westend-asset-hub-eth-rpc.polkadot.io',
+  rpc: 'https://testnet-passet-hub-eth-rpc.polkadot.io',
   chainId: 420420421,
-  name: 'westend-asset-hub',
+  name: 'polkadot-hub-testnet',
 };
 
 const main = async () => {
@@ -20,12 +20,12 @@ const main = async () => {
     const provider = createProvider(
       PROVIDER_RPC.rpc,
       PROVIDER_RPC.chainId,
-      PROVIDER_RPC.name
+      PROVIDER_RPC.name,
     );
     const latestBlock = await provider.getBlockNumber();
     console.log(`Latest block: ${latestBlock}`);
   } catch (error) {
-    console.error('Error connecting to Westend Hub: ' + error.message);
+    console.error('Error connecting to Polkadot Hub TestNet: ' + error.message);
   }
 };
 

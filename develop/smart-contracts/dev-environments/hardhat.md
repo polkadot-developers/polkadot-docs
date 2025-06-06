@@ -243,7 +243,7 @@ After testing your contract locally, you can deploy it to a live network. This g
 
 4. Update your Hardhat configuration file with network settings for the Polkadot network you want to target:
 
-    ```javascript title="hardhat.config.js" hl_lines="15-19"
+    ```javascript title="hardhat.config.js" hl_lines="17-21"
     --8<-- 'code/develop/smart-contracts/dev-environments/hardhat/hardhat.config.js:1:4'
 
     const { vars } = require("hardhat/config");

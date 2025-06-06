@@ -224,41 +224,27 @@ After testing your contract locally, you can deploy it to a live network. This g
 
 1. Fund your deployment account with enough tokens to cover gas fees. In this case, the needed tokens are PAS (on Polkadot Hub TestNet). You can use the [Polkadot faucet](https://faucet.polkadot.io/?parachain=1111){target=\_blank} to obtain testing tokens.
 
-2. Export your private key and save it in a `.env` file:
+2. Export your private key and save it in your hardhat environment:
 
-    ```text
-    PRIVATE_KEY="INSERT_PRIVATE_KEY"
+    ```bash
+    npx hardhat vars set PRIVATE_KEY "INSERT_PRIVATE_KEY"
     ```
 
     Replace `INSERT_PRIVATE_KEY` with your actual private key. For further details on private key exportation, refer to the article [How to export an account's private key](https://support.metamask.io/configure/accounts/how-to-export-an-accounts-private-key/){target=\_blank}.
 
     !!! warning
-        Never reveal your private key. Be sure you add the `.env` file to your `.gitignore` file.
+        Never reveal your private key, otherwise anyone with access to it can control your wallet and steal your funds. Store it securely and never share it publicly or commit it to version control systems.
 
-3. Install the [`dotenv`](https://www.npmjs.com/package/dotenv){target=\_blank} package to load the private key into your Hardhat configuration:
+3. Check that your private key has been set up successfully by running:
 
     ```bash
-    npm install --save-dev dotenv
+    npx hardhat vars get PRIVATE_KEY
     ```
 
-4. Update your config to load it:
+4. Update your Hardhat configuration file with network settings for the Polkadot network you want to target:
 
-    ```javascript title="hardhat.config.js" hl_lines="5"
+    ```javascript title="hardhat.config.js" hl_lines="15-19"
     --8<-- 'code/develop/smart-contracts/dev-environments/hardhat/hardhat.config.js:1:4'
-
-    require('dotenv').config();
-
-    --8<-- 'code/develop/smart-contracts/dev-environments/hardhat/hardhat.config.js:6:7'
-      // The rest remains the same...
-    --8<-- 'code/develop/smart-contracts/dev-environments/hardhat/hardhat.config.js:34:34'
-    ```
-
-5. Update your Hardhat configuration file with network settings for the Polkadot network you want to target:
-
-    ```javascript title="hardhat.config.js" hl_lines="17-21"
-    --8<-- 'code/develop/smart-contracts/dev-environments/hardhat/hardhat.config.js:1:4'
-
-    require('dotenv').config();
 
     --8<-- 'code/develop/smart-contracts/dev-environments/hardhat/hardhat.config.js:6:7'
         ...

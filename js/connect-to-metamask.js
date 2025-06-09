@@ -1,17 +1,5 @@
 const provider = window.ethereum;
 const supportedNetworks = {
-  westendAssetHub: {
-    name: 'Asset-Hub Westend Testnet',
-    chainId: '0x190F1B45', //Hex value of "420420421"
-    chainName: 'Asset-Hub Westend Testnet',
-    rpcUrls: ['https://testnet-passet-hub-eth-rpc.polkadot.io'],
-    blockExplorerUrls: ['https://westend-asset-hub-eth-explorer.parity.io'],
-    nativeCurrency: {
-      name: 'Westend Token',
-      symbol: 'WND',
-      decimals: 18,
-    },
-  },
   passetHub: {
     name: 'Polkadot Hub TestNet',
     chainId: '0x190F1B45', //Hex value of "420420421"

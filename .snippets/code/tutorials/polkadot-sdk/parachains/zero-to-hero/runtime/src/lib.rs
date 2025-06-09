@@ -145,7 +145,6 @@ pub mod opaque {
         generic,
         traits::{BlakeTwo256, Hash as HashT},
     };
-aster
     /// Opaque block header type.
     pub type Header = generic::Header<BlockNumber, BlakeTwo256>;
     /// Opaque block type.

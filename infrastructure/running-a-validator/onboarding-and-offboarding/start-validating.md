@@ -111,14 +111,16 @@ Follow these steps to use Polkadot.js Apps to activate your validator:
     ![](/images/infrastructure/running-a-validator/onboarding-and-offboarding/start-validating/start-validating-02.webp)
 
 2. Set a reward commission percentage if desired. You can set a percentage of the rewards to pay to your validator and the remainder pays to your nominators. A 100% commission rate indicates the validator intends to keep all rewards and is seen as a signal the validator is not seeking nominators
+
 3. Toggle the **allows new nominations** option if your validator is open to more nominations from DOT holders
+
 4. Once everything is configured, select **Bond & Validate** to activate your validator status
 
     ![](/images/infrastructure/running-a-validator/onboarding-and-offboarding/start-validating/start-validating-03.webp)
 
 5. Edit the **commission** and the **blocked** option via `staking.validate` extrinsic. By default, the blocked option is set to FALSE (i.e., the validator accepts nominations)
 
-    ![](/images/infrastructure/running-a-validator/onboarding-and-offboarding/start-validating/start-valid4.webp)
+    ![](/images/infrastructure/running-a-validator/onboarding-and-offboarding/start-validating/start-validating-04.webp)
 
 ### Monitor Validation Status and Slots
 

@@ -33,12 +33,10 @@ mod benchmarking;
 pub mod weights;
 use crate::weights::WeightInfo;
 
-
 #[frame::pallet]
 pub mod pallet {
     use super::*;
     use frame::prelude::*;
-    
     #[pallet::pallet]
     pub struct Pallet<T>(_);
 

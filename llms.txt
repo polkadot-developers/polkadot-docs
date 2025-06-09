@@ -7821,6 +7821,21 @@ Follow this step-by-step process to develop and deploy smart contracts in the Po
 
     [:octicons-arrow-right-24: Reference](https://use.ink/){target=\_blank}
 
+<div class="subsection-wrapper">
+  <div class="card">
+    <a href="https://use.ink/" target="_blank"> 
+      <h2 class="title">View the Official ink! Documentation</h2>
+      <hr>
+      <p class="description">Learn everything you need to know about developing smart contracts with ink!.</p>
+    </a>
+  </div>
+  <!-- This content is temporarily hidden and has been commented out to ensure it is preserved. -->
+  <!-- <div class="card">
+    <a href="https://contracts.polkadot.io/" target="_blank"> 
+      <h2 class="title">View the Official Asset Hub Contracts Documentation</h2>
+      <p class="description">Learn everything you need about developing smart contracts on Asset Hub using the PolkaVM.</p>
+    </a>
+  </div> -->
 </div>
 --- END CONTENT ---
 
@@ -14278,7 +14293,7 @@ public async fetchFeeInfo<T extends Format>(
         ```
 
         For more information on the underlying types and fields of `RuntimeDispatchInfoV1`, check the [`RuntimeDispatchInfoV1`](https://github.com/polkadot-js/api/blob/{{dependencies.javascript_packages.asset_transfer_api.polkadot_js_api_version}}/packages/types/src/interfaces/payment/types.ts#L28){target=\_blank} source code.
-        
+
 ??? interface "Example"
 
     ***Request***
@@ -18151,14 +18166,16 @@ Follow these steps to use Polkadot.js Apps to activate your validator:
     ![](/images/infrastructure/running-a-validator/onboarding-and-offboarding/start-validating/start-validating-02.webp)
 
 2. Set a reward commission percentage if desired. You can set a percentage of the rewards to pay to your validator and the remainder pays to your nominators. A 100% commission rate indicates the validator intends to keep all rewards and is seen as a signal the validator is not seeking nominators
+
 3. Toggle the **allows new nominations** option if your validator is open to more nominations from DOT holders
+
 4. Once everything is configured, select **Bond & Validate** to activate your validator status
 
     ![](/images/infrastructure/running-a-validator/onboarding-and-offboarding/start-validating/start-validating-03.webp)
 
 5. Edit the **commission** and the **blocked** option via `staking.validate` extrinsic. By default, the blocked option is set to FALSE (i.e., the validator accepts nominations)
 
-    ![](/images/infrastructure/running-a-validator/onboarding-and-offboarding/start-validating/start-valid4.webp)
+    ![](/images/infrastructure/running-a-validator/onboarding-and-offboarding/start-validating/start-validating-04.webp)
 
 ### Monitor Validation Status and Slots
 
@@ -30634,11 +30651,9 @@ impl custom_pallet::Config for Runtime {
 3. Locate the `#[frame_support::runtime]` macro in the `runtime/src/lib.rs` file and add the pallets:
 
     ```rust hl_lines="5-9" title="lib.rs"
-    mod runtime {
     #[runtime::runtime]
+    #[runtime::derive(
         ...
-    pub type Utility = pallet_utility;
-
     #[runtime::pallet_index(52)]
     pub type CustomPallet = custom_pallet;
 }
@@ -30827,16 +30842,16 @@ You now have the bare minimum of package dependencies that your pallet requires 
 
     ```rust title="lib.rs"
     pub use pallet::*;
-    #[frame::pallet]
-pub mod pallet {
+    pub mod pallet {
     use super::*;
     use frame::prelude::*;
-    
     #[pallet::pallet]
     pub struct Pallet<T>(_);
 
     // Configuration trait for the pallet.
     #[pallet::config]
+    pub trait Config: frame_system::Config {
+        // Defines the event type for the pallet.
         
     
     ```
@@ -30860,14 +30875,13 @@ In this step, you will configure two essential components that are critical for 
 Add the following `Config` trait definition to your pallet:
 
 ```rust title="lib.rs"
-// Configuration trait for the pallet.
-    #[pallet::config]
-    pub trait Config: frame_system::Config {
+pub trait Config: frame_system::Config {
         // Defines the event type for the pallet.
         type RuntimeEvent: From<Event<Self>> + IsType<<Self as frame_system::Config>::RuntimeEvent>;
 
         // Defines the maximum value the counter can hold.
         #[pallet::constant]
+        type CounterMaxValue: Get<u32>;
 
 ```
 
@@ -30894,9 +30908,7 @@ Below are the events defined for this pallet:
 Define the events in the pallet as follows:
 
 ```rust title="lib.rs"
-#[pallet::event]
-    #[pallet::generate_deposit(pub(super) fn deposit_event)]
-    pub enum Event<T: Config> {
+pub enum Event<T: Config> {
         /// The counter value has been set to a new value by Root.
         CounterValueSet {
             /// The new value set.
@@ -30920,6 +30932,7 @@ Define the events in the pallet as follows:
             /// The amount by which the counter was decremented.
             decremented_amount: u32,
         },
+    }
 ```
 
 ### Add Storage Items
@@ -30933,12 +30946,11 @@ Storage items are used to manage the pallet's state. This pallet defines two ite
 Define the storage items as follows:
 
 ```rust title="lib.rs"
-/// Storage for the current value of the counter.
-    #[pallet::storage]
-    pub type CounterValue<T> = StorageValue<_, u32>;
+pub type CounterValue<T> = StorageValue<_, u32>;
 
     /// Storage map to track the number of interactions performed by each account.
     #[pallet::storage]
+    pub type UserInteractions<T: Config> = StorageMap<_, Twox64Concat, T::AccountId, u32>;
 ```
 
 ### Implement Custom Errors
@@ -30950,9 +30962,7 @@ To add custom errors, use the `#[pallet::error]` macro to define the `Error` enu
 Add the following errors to the pallet:
 
 ```rust title="lib.rs"
-#[pallet::error]
-    pub enum Error<T> {
-        /// The counter value exceeds the maximum allowed value.
+/// The counter value exceeds the maximum allowed value.
         CounterValueExceedsMax,
         /// The counter value cannot be decremented below zero.
         CounterValueBelowZero,
@@ -30960,6 +30970,7 @@ Add the following errors to the pallet:
         CounterOverflow,
         /// Overflow occurred in user interactions.
         UserInteractionOverflow,
+    }
 ```
 
 ### Implement Calls
@@ -30969,37 +30980,37 @@ The `#[pallet::call]` macro defines the dispatchable functions (or calls) the pa
 The structure of the dispatchable calls in this pallet is as follows:
 
 ```rust title="lib.rs"
-#[pallet::call]
-    impl<T: Config> Pallet<T> {
-        /// Set the value of the counter.
+/// Set the value of the counter.
         ///
         /// The dispatch origin of this call must be _Root_.
         ///
         /// - `new_value`: The new value to set for the counter.
         ///
         /// Emits `CounterValueSet` event when successful.
+        #[pallet::call_index(0)]
+        #[pallet::weight(T::WeightInfo::set_counter_value())]
     #[pallet::weight(0)]
     
     
 
-    /// Increment the counter by a specified amount.
-        ///
-        /// This function can be called by any signed account.
+    /// This function can be called by any signed account.
         ///
         /// - `amount_to_increment`: The amount by which to increment the counter.
         ///
         /// Emits `CounterIncremented` event when successful.
+        #[pallet::call_index(1)]
+        #[pallet::weight(T::WeightInfo::increment())]
     #[pallet::weight(0)]
     
     
 
-    /// Decrement the counter by a specified amount.
-        ///
-        /// This function can be called by any signed account.
+    /// This function can be called by any signed account.
         ///
         /// - `amount_to_decrement`: The amount by which to decrement the counter.
         ///
         /// Emits `CounterDecremented` event when successful.
+        #[pallet::call_index(2)]
+        #[pallet::weight(T::WeightInfo::decrement())]
     #[pallet::weight(0)]
     
     
@@ -31020,18 +31031,15 @@ Expand the following items to view the implementations of each dispatchable call
         - Emits a `CounterValueSet` event on success
 
     ```rust title="lib.rs"
-    /// Set the value of the counter.
-        ///
-        /// The dispatch origin of this call must be _Root_.
+    /// The dispatch origin of this call must be _Root_.
         ///
         /// - `new_value`: The new value to set for the counter.
         ///
         /// Emits `CounterValueSet` event when successful.
+        #[pallet::call_index(0)]
+        #[pallet::weight(T::WeightInfo::set_counter_value())]
     #[pallet::weight(0)]
-    pub fn set_counter_value(origin: OriginFor<T>, new_value: u32) -> DispatchResult {
-            ensure_root(origin)?;
-
-            ensure!(
+    ensure!(
                 new_value <= T::CounterMaxValue::get(),
                 Error::<T>::CounterValueExceedsMax
             );
@@ -31043,6 +31051,7 @@ Expand the following items to view the implementations of each dispatchable call
             });
 
             Ok(())
+        }
     ```
 
 ???- code "increment(origin: OriginFor<T>, amount_to_increment: u32) -> DispatchResult"
@@ -31059,18 +31068,15 @@ Expand the following items to view the implementations of each dispatchable call
         - Emits a `CounterIncremented` event on success
 
     ```rust title="lib.rs"
-    /// Increment the counter by a specified amount.
-        ///
-        /// This function can be called by any signed account.
+    /// This function can be called by any signed account.
         ///
         /// - `amount_to_increment`: The amount by which to increment the counter.
         ///
         /// Emits `CounterIncremented` event when successful.
+        #[pallet::call_index(1)]
+        #[pallet::weight(T::WeightInfo::increment())]
     #[pallet::weight(0)]
-    pub fn increment(origin: OriginFor<T>, amount_to_increment: u32) -> DispatchResult {
-            let who = ensure_signed(origin)?;
-
-            let current_value = CounterValue::<T>::get().unwrap_or(0);
+    let current_value = CounterValue::<T>::get().unwrap_or(0);
 
             let new_value = current_value
                 .checked_add(amount_to_increment)
@@ -31100,6 +31106,7 @@ Expand the following items to view the implementations of each dispatchable call
             });
 
             Ok(())
+        }
     ```
 
 ???- code "decrement(origin: OriginFor<T>, amount_to_decrement: u32) -> DispatchResult"
@@ -31116,18 +31123,15 @@ Expand the following items to view the implementations of each dispatchable call
         - Emits a `CounterDecremented` event on success
 
     ```rust title="lib.rs"
-    /// Decrement the counter by a specified amount.
-        ///
-        /// This function can be called by any signed account.
+    /// This function can be called by any signed account.
         ///
         /// - `amount_to_decrement`: The amount by which to decrement the counter.
         ///
         /// Emits `CounterDecremented` event when successful.
+        #[pallet::call_index(2)]
+        #[pallet::weight(T::WeightInfo::decrement())]
     #[pallet::weight(0)]
-    pub fn decrement(origin: OriginFor<T>, amount_to_decrement: u32) -> DispatchResult {
-            let who = ensure_signed(origin)?;
-
-            let current_value = CounterValue::<T>::get().unwrap_or(0);
+    let current_value = CounterValue::<T>::get().unwrap_or(0);
 
             let new_value = current_value
                 .checked_sub(amount_to_decrement)
@@ -31152,6 +31156,8 @@ Expand the following items to view the implementations of each dispatchable call
             });
 
             Ok(())
+        }
+    }
     ```
 
 ## Verify Compilation
@@ -31174,11 +31180,9 @@ Expand the following item to review this implementation and the complete pallet 
 
     ```rust title="lib.rs"
     pub use pallet::*;
-    #[frame::pallet]
-pub mod pallet {
+    pub mod pallet {
     use super::*;
     use frame::prelude::*;
-    
     #[pallet::pallet]
     pub struct Pallet<T>(_);
 
@@ -31190,9 +31194,8 @@ pub mod pallet {
 
         // Defines the maximum value the counter can hold.
         #[pallet::constant]
-        }
-
-    #[pallet::event]
+        type CounterMaxValue: Get<u32>;
+        #[pallet::event]
     #[pallet::generate_deposit(pub(super) fn deposit_event)]
     pub enum Event<T: Config> {
         /// The counter value has been set to a new value by Root.
@@ -31249,10 +31252,9 @@ pub mod pallet {
         /// - `new_value`: The new value to set for the counter.
         ///
         /// Emits `CounterValueSet` event when successful.
+        #[pallet::call_index(0)]
+        #[pallet::weight(T::WeightInfo::set_counter_value())]
             #[pallet::weight(0)]
-            pub fn set_counter_value(origin: OriginFor<T>, new_value: u32) -> DispatchResult {
-            ensure_root(origin)?;
-
             ensure!(
                 new_value <= T::CounterMaxValue::get(),
                 Error::<T>::CounterValueExceedsMax
@@ -31274,10 +31276,9 @@ pub mod pallet {
         /// - `amount_to_increment`: The amount by which to increment the counter.
         ///
         /// Emits `CounterIncremented` event when successful.
+        #[pallet::call_index(1)]
+        #[pallet::weight(T::WeightInfo::increment())]
             #[pallet::weight(0)]
-            pub fn increment(origin: OriginFor<T>, amount_to_increment: u32) -> DispatchResult {
-            let who = ensure_signed(origin)?;
-
             let current_value = CounterValue::<T>::get().unwrap_or(0);
 
             let new_value = current_value
@@ -31317,6 +31318,8 @@ pub mod pallet {
         /// - `amount_to_decrement`: The amount by which to decrement the counter.
         ///
         /// Emits `CounterDecremented` event when successful.
+        #[pallet::call_index(2)]
+        #[pallet::weight(T::WeightInfo::decrement())]
             #[pallet::weight(0)]
     // This file is part of 'custom-pallet'.
 
@@ -31353,12 +31356,10 @@ mod benchmarking;
 pub mod weights;
 use crate::weights::WeightInfo;
 
-
 #[frame::pallet]
 pub mod pallet {
     use super::*;
     use frame::prelude::*;
-    
     #[pallet::pallet]
     pub struct Pallet<T>(_);
 
@@ -32372,9 +32373,7 @@ use crate::weights::WeightInfo;
 Next, update your pallet's `Config` trait to include weight information. Define the `WeightInfo` type:
 
 ```rust hl_lines="10-11" title="lib.rs"
-#[pallet::config]
-    pub trait Config: frame_system::Config {
-        // Defines the event type for the pallet.
+// Defines the event type for the pallet.
         type RuntimeEvent: From<Event<Self>> + IsType<<Self as frame_system::Config>::RuntimeEvent>;
 
         // Defines the maximum value the counter can hold.
@@ -32384,14 +32383,14 @@ Next, update your pallet's `Config` trait to include weight information. Define 
         /// A type representing the weights required by the dispatchables of this pallet.
         type WeightInfo: WeightInfo;
     }
+
+    #[pallet::event]
 ```
 
 Now you can assign weights to your extrinsics. Here's how to add weight calculations to the `set_counter_value` function:
 
 ```rust hl_lines="2" title="lib.rs"
-#[pallet::call_index(0)]
-        #[pallet::weight(T::WeightInfo::set_counter_value())]
-        pub fn set_counter_value(origin: OriginFor<T>, new_value: u32) -> DispatchResult {
+pub fn set_counter_value(origin: OriginFor<T>, new_value: u32) -> DispatchResult {
             ensure_root(origin)?;
 
             ensure!(
@@ -32406,6 +32405,7 @@ Now you can assign weights to your extrinsics. Here's how to add weight calculat
             });
 
             Ok(())
+        }
 ```
 
 You must apply similar weight annotations to the other extrinsics in your pallet. Add the `#[pallet::weight(T::WeightInfo::function_name())]` attribute to both `increment` and `decrement`, replacing `function_name` with the respective function names from your `WeightInfo` trait.
@@ -32762,20 +32762,17 @@ Expand the following item to see the pallet calls to be tested.
 ???-code "Custom pallet calls"
 
     ```rust
-    #[pallet::call]
-    impl<T: Config> Pallet<T> {
-        /// Set the value of the counter.
+    /// Set the value of the counter.
         ///
         /// The dispatch origin of this call must be _Root_.
         ///
         /// - `new_value`: The new value to set for the counter.
         ///
         /// Emits `CounterValueSet` event when successful.
+        #[pallet::call_index(0)]
+        #[pallet::weight(T::WeightInfo::set_counter_value())]
         #[pallet::weight(0)]
-        pub fn set_counter_value(origin: OriginFor<T>, new_value: u32) -> DispatchResult {
-            ensure_root(origin)?;
-
-            ensure!(
+        ensure!(
                 new_value <= T::CounterMaxValue::get(),
                 Error::<T>::CounterValueExceedsMax
             );
@@ -32796,11 +32793,10 @@ Expand the following item to see the pallet calls to be tested.
         /// - `amount_to_increment`: The amount by which to increment the counter.
         ///
         /// Emits `CounterIncremented` event when successful.
+        #[pallet::call_index(1)]
+        #[pallet::weight(T::WeightInfo::increment())]
         #[pallet::weight(0)]
-        pub fn increment(origin: OriginFor<T>, amount_to_increment: u32) -> DispatchResult {
-            let who = ensure_signed(origin)?;
-
-            let current_value = CounterValue::<T>::get().unwrap_or(0);
+        let current_value = CounterValue::<T>::get().unwrap_or(0);
 
             let new_value = current_value
                 .checked_add(amount_to_increment)
@@ -32839,11 +32835,10 @@ Expand the following item to see the pallet calls to be tested.
         /// - `amount_to_decrement`: The amount by which to decrement the counter.
         ///
         /// Emits `CounterDecremented` event when successful.
+        #[pallet::call_index(2)]
+        #[pallet::weight(T::WeightInfo::decrement())]
         #[pallet::weight(0)]
-    pub fn decrement(origin: OriginFor<T>, amount_to_decrement: u32) -> DispatchResult {
-            let who = ensure_signed(origin)?;
-
-            let current_value = CounterValue::<T>::get().unwrap_or(0);
+    let current_value = CounterValue::<T>::get().unwrap_or(0);
 
             let new_value = current_value
                 .checked_sub(amount_to_decrement)
@@ -32869,6 +32864,8 @@ Expand the following item to see the pallet calls to be tested.
 
             Ok(())
         }
+    }
+}
     ```
 
 The following sub-sections outline various scenarios in which the `custom-pallet` can be tested. Feel free to add these snippets to your `tests.rs` while you read the examples.

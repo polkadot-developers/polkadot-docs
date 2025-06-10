@@ -61,7 +61,7 @@ Polkadot Hub's smart contract platform is suitable for a wide range of applicati
 
 Beyond Polkadot Hub's native PolkaVM support, the ecosystem offers two main alternatives for smart contract development:
 
-- **EVM-Compatible Parachains**: provide access to Ethereum's extensive developer ecosystem, smart contract portability, and established tooling like Hardhat, Remix, Foundry, and OpenZeppelin. The main options include Moonbeam (the first full Ethereum-compatible parachain serving as an interoperability hub), Astar (featuring dual VM support for both EVM and WebAssembly contracts), and Acala (DeFi-focused with enhanced Acala EVM+ offering advanced DeFi primitives)
+- **EVM-compatible parachains**: Provide access to Ethereum's extensive developer ecosystem, smart contract portability, and established tooling like Hardhat, Remix, Foundry, and OpenZeppelin. The main options include Moonbeam (the first full Ethereum-compatible parachain serving as an interoperability hub), Astar (featuring dual VM support for both EVM and WebAssembly contracts), and Acala (DeFi-focused with enhanced Acala EVM+ offering advanced DeFi primitives).
 
 - **WebAssembly (ink!)**:  pallet-contracts supports any language that compiles to WebAssembly, with ink! being the primary actively maintained Rust-based framework. It uses [`#[ink(...)]`](https://use.ink/docs/v5/macros-attributes/){target=\_blank} attribute macros to create Polkadot SDK-compatible Wasm bytecode, offering strong memory safety from Rust, an advanced type system, high-performance Wasm execution, and platform independence with sandboxed security
 

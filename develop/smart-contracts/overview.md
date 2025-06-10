@@ -125,12 +125,4 @@ Subsequent sections of this guide provide detailed information about specific de
 
     [:octicons-arrow-right-24: Reference](/develop/smart-contracts/dev-environments/)
 
--   <span class="badge guide">Guide</span> __Indexers__
-
-    ---
-
-    Leverage indexers to efficiently query on-chain data and improve dApp performance.
-
-    [:octicons-arrow-right-24: Reference](/develop/smart-contracts/evm-toolkit/indexers/)
-
 </div>

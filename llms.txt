@@ -3338,7 +3338,7 @@ Now that you understand how to enable smart contract functionality in your block
 
     ---
 
-    Learn how developers can build smart contracts on Polkadot by leveraging either Wasm/ink! or EVM contracts across many parachains.
+    Learn how developers can build smart contracts on Polkadot by leveraging the PolkaVM, Wasm/ink! or EVM contracts across many parachains.
 
     [:octicons-arrow-right-24: Reference](/develop/smart-contracts/overview/)
 
@@ -3348,7 +3348,7 @@ Now that you understand how to enable smart contract functionality in your block
 
     Learn to build Wasm smart contracts with ink!, a Rust-based eDSL. Explore installation, contract structure, and key features.
 
-    [:octicons-arrow-right-24: Reference](/develop/smart-contracts/wasm-ink/)
+    [:octicons-arrow-right-24: Reference](/develop/smart-contracts/overview#wasm-ink)
     
 -   <span class="badge guide">Guide</span> __EVM Contracts__
 
@@ -3356,7 +3356,7 @@ Now that you understand how to enable smart contract functionality in your block
 
     Learn how Polkadot parachains such as Moonbeam, Astar, Acala, and Manta leverage the Ethereum Virtual Machine (EVM) and integrate it into their parachains.
 
-    [:octicons-arrow-right-24: Reference](/develop/smart-contracts/evm/)
+    [:octicons-arrow-right-24: Reference](/develop/smart-contracts/overview#parachain-contracts)
 
 </div>
 --- END CONTENT ---
@@ -4156,7 +4156,7 @@ To determine your parachain's sovereign account address, you can:
 
         - For sibling chains - `0x7369626c` (decodes to `b"sibl"`)
          
-    2. Encode your parachain ID as a u32 [SCALE](https://docs.polkadot.com/polkadot-protocol/basics/data-encoding/#data-types){target=\_blank} value:
+    2. Encode your parachain ID as a u32 [SCALE](/polkadot-protocol/parachain-basics/data-encoding#data-types){target=\_blank} value:
 
         - For parachain 2000, this would be `d0070000`
 
@@ -6091,7 +6091,7 @@ You can identify your parachain's sovereign account using either of these method
 
         - For parent/child chains use the prefix `0x70617261` (which decodes to `b"para"`)
          
-    2. Encode your parachain ID as a u32 [SCALE](/polkadot-protocol/basics/data-encoding/#data-types){target=\_blank} value:
+    2. Encode your parachain ID as a u32 [SCALE](/polkadot-protocol/parachain-basics/data-encoding#data-types){target=\_blank} value:
 
         - For parachain 2006, this would be `d6070000`
 
@@ -8151,6 +8151,8 @@ curl -X POST https://testnet-passet-hub-eth-rpc.polkadot.io \
 
 Ensure to replace the `INSERT_ADDRESS`, `INSERT_STORAGE_KEY`, and `INSERT_BLOCK_VALUE` with the proper values.
 
+---
+
 ### eth_getTransactionCount
 
 Returns the number of transactions sent from an address (nonce). [Reference](https://ethereum.org/en/developers/docs/apis/json-rpc/#eth_gettransactioncount){target=\_blank}.
@@ -8285,6 +8287,8 @@ curl -X POST https://testnet-passet-hub-eth-rpc.polkadot.io \
     "id":1
 }'
 ```
+
+---
 
 ## Response Format
 
@@ -8470,7 +8474,7 @@ main();
 
     For detailed comparisons and migration guidelines, see the [EVM vs. PolkaVM](/polkadot-protocol/smart-contract-basics/evm-vs-polkavm/#current-memory-limits){target=\_blank} documentation page.
 
-The `revive` compiler transforms Solidity smart contracts into [PolkaVM](/develop/smart-contracts/native-evm-contracts/#polkavm){target=\_blank} bytecode for deployment on Polkadot Hub. Revive's Ethereum RPC interface allows you to use familiar tools like Ethers.js and MetaMask to interact with contracts.
+The `revive` compiler transforms Solidity smart contracts into [PolkaVM](/develop/smart-contracts/overview#native-smart-contracts){target=\_blank} bytecode for deployment on Polkadot Hub. Revive's Ethereum RPC interface allows you to use familiar tools like Ethers.js and MetaMask to interact with contracts.
 
 ### Install the Revive Library
 
@@ -10851,7 +10855,7 @@ Polkadot Hub supports a comprehensive suite of development tools familiar to Eth
 
 ### Cross-Chain Capabilities
 
-Smart contracts deployed on Polkadot Hub can leverage Polkadot's [cross-consensus messaging (XCM) protocol](/develop/interoperability/intro-to-xcm/){target=\_blank} protocol to seamlessly _transfer tokens and call functions on other blockchain networks_ within the Polkadot ecosystem, all without complex bridging infrastructure or third-party solutions. For further references, check the [Interoperability](/develop/interoperability/index){target=\_blank} section.
+Smart contracts deployed on Polkadot Hub can leverage Polkadot's [cross-consensus messaging (XCM) protocol](/develop/interoperability/intro-to-xcm/){target=\_blank} protocol to seamlessly _transfer tokens and call functions on other blockchain networks_ within the Polkadot ecosystem, all without complex bridging infrastructure or third-party solutions. For further references, check the [Interoperability](/develop/interoperability/){target=\_blank} section.
 
 ### Use Cases
 
@@ -10920,7 +10924,7 @@ Subsequent sections of this guide provide detailed information about specific de
 
     Explore essential libraries to optimize smart contract development and interaction.
 
-    [:octicons-arrow-right-24: Reference](/develop/smart-contracts/evm-toolkit/libraries/)
+    [:octicons-arrow-right-24: Reference](/develop/smart-contracts/libraries/)
 
 -   <span class="badge guide">Guide</span> __Dev Environments__
 
@@ -10928,15 +10932,7 @@ Subsequent sections of this guide provide detailed information about specific de
 
     Set up your development environment for seamless contract deployment and testing.
 
-    [:octicons-arrow-right-24: Reference](/develop/smart-contracts/evm-toolkit/dev-environments/)
-
--   <span class="badge guide">Guide</span> __Indexers__
-
-    ---
-
-    Leverage indexers to efficiently query on-chain data and improve dApp performance.
-
-    [:octicons-arrow-right-24: Reference](/develop/smart-contracts/evm-toolkit/indexers/)
+    [:octicons-arrow-right-24: Reference](/develop/smart-contracts/dev-environments/)
 
 </div>
 --- END CONTENT ---
@@ -20341,7 +20337,7 @@ Key features of BABE include:
 
 - **Epochs and slots** - BABE operates in phases called epochs, each of which is divided into slots (around 6 seconds per slot). Validators are assigned slots at the beginning of each epoch based on stake and randomness
 
-- **Randomized block production** - validators enter a lottery to determine which will produce a block in a specific slot. This randomness is sourced from the relay chain's [randomness cycle](/polkadot-protocol/basics/randomness/){target=\_blank}
+- **Randomized block production** - validators enter a lottery to determine which will produce a block in a specific slot. This randomness is sourced from the relay chain's [randomness cycle](/polkadot-protocol/parachain-basics/randomness/){target=\_blank}
 
 - **Multiple block producers per slot** - in some cases, more than one validator might win the lottery for the same slot, resulting in multiple blocks being produced. These blocks are broadcasted, and the network's fork choice rule helps decide which chain to follow
 
@@ -23531,7 +23527,7 @@ The runtime performs several critical functions, such as:
 
 ## Communication Between Node and Runtime
 
-The client and runtime communicate exclusively using [SCALE-encoded](/polkadot-protocol/basics/data-encoding){target=\_blank} communication. This ensures efficient and compact data exchange between the two components.
+The client and runtime communicate exclusively using [SCALE-encoded](/polkadot-protocol/parachain-basics/data-encoding){target=\_blank} communication. This ensures efficient and compact data exchange between the two components.
 
 ### Runtime APIs
 
@@ -24279,7 +24275,7 @@ The Polkadot SDK supports multiple smart contract execution environments:
 
 ### PolkaVM Contracts
 
-A component of the Asset Hub parachain, PolkaVM helps enable the deployment of Solidity-based smart contracts directly on Asset Hub. Learn more about how this cutting edge virtual machine facilitates using familiar EVM contracts and tools with Asset Hub by visiting the [Native EVM Contracts](/develop/smart-contracts/evm/native-evm-contracts/){target=\_blank} guide.
+A component of the Asset Hub parachain, PolkaVM helps enable the deployment of Solidity-based smart contracts directly on Asset Hub. Learn more about how this cutting edge virtual machine facilitates using familiar Ethereum-compatible contracts and tools with Asset Hub by visiting the [Native Smart Contracts](/develop/smart-contracts/overview#native-smart-contracts){target=\_blank} guide.
 
 ### EVM Contracts
 

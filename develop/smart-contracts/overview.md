@@ -123,7 +123,7 @@ Subsequent sections of this guide provide detailed information about specific de
 
     Set up your development environment for seamless contract deployment and testing.
 
-    [:octicons-arrow-right-24: Reference](/develop/smart-contracts/evm-toolkit/dev-environments/)
+    [:octicons-arrow-right-24: Reference](/develop/smart-contracts/dev-environments/)
 
 -   <span class="badge guide">Guide</span> __Indexers__
 

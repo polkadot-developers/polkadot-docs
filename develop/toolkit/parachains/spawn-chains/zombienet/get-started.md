@@ -124,7 +124,7 @@ It's important to note that each provider has specific requirements and associat
 Kubernetes is a portable, extensible, open-source platform for managing containerized workloads and services. Zombienet is designed to be compatible with a variety of Kubernetes clusters, including: 
 
 - [Google Kubernetes Engine (GKE)](https://cloud.google.com/kubernetes-engine){target=\_blank}
-- [Docker Desktop](https://docs.docker.com/desktop/kubernetes/){target=\_blank}
+- [Docker Desktop](https://docs.docker.com/desktop/features/kubernetes/){target=\_blank}
 - [kind](https://kind.sigs.k8s.io/){target=\_blank}
 
 #### Requirements

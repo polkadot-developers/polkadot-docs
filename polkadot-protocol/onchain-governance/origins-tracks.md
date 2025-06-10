@@ -22,7 +22,7 @@ Origins are the foundation of Polkadot's OpenGov governance system. They categor
 
 Proposers select an origin based on the nature of their referendum. Origins determine parameters like approval thresholds, required deposits, and timeframes for voting and confirmation. Each origin is paired with a track, which acts as a roadmap for the proposal's lifecycle, including preparation, voting, and enactment.
 
-For a detailed list of origins and their associated parameters, see the [Polkadot OpenGov Origins](https://wiki.polkadot.network/docs/learn-polkadot-opengov-origins){target=\_blank} entry in the Polkadot Wiki.
+For a detailed list of origins and their associated parameters, see the [Polkadot OpenGov Origins](https://wiki.polkadot.network/learn/learn-polkadot-opengov-origins/){target=\_blank} entry in the Polkadot Wiki.
 
 ## Tracks
 
@@ -38,6 +38,6 @@ Tracks customize these stages with parameters like decision deposit requirements
 
 ## Additional Resources
 
-- For a list of origins and tracks for Polkadot and Kusama, including associated parameters, see the [Origins and Tracks Info](https://wiki.polkadot.network/docs/learn-polkadot-opengov-origins#origins-and-tracks-info){target=\_blank} entry in the Polkadot Wiki.
+- For a list of origins and tracks for Polkadot and Kusama, including associated parameters, see the [Origins and Tracks Info](https://wiki.polkadot.network/learn/learn-polkadot-opengov-origins/#origins-and-tracks-info){target=\_blank} entry in the Polkadot Wiki.
 
-- For a deeper dive into the approval and support system, see the [Approval and Support](https://wiki.polkadot.network/docs/learn-polkadot-opengov#approval-and-support){target=\_blank} entry of the Polkadot Wiki.
+- For a deeper dive into the approval and support system, see the [Approval and Support](https://wiki.polkadot.network/learn/learn-polkadot-opengov/#approval-and-support){target=\_blank} entry of the Polkadot Wiki.

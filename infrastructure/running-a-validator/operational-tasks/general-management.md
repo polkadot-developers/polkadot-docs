@@ -452,7 +452,7 @@ Follow these steps to use the plugin:
     1. Go to **Configuration** > **Data Sources** and search for **Prometheus Alertmanager**
     2. Enter the server URL and port for the Alertmanager service, and select **Save & Test** to verify the connection
 
-4. Import the [8010](https://grafana.com/dashboards/8010){target=\_blank} dashboard for Alertmanager, selecting **Prometheus Alertmanager** in the last column, then select **Import**
+4. Import the [8010](https://grafana.com/grafana/dashboards/8010-prometheus-alertmanager/){target=\_blank} dashboard for Alertmanager, selecting **Prometheus Alertmanager** in the last column, then select **Import**
 
 #### Integrate Alertmanager
 
@@ -554,7 +554,7 @@ Follow these best practices to keep your validator secure:
 - Regularly apply OS security patches
 - Enable and configure a firewall
 - Use key-based SSH authentication; deactivate password-based login
-- Regularly back up data and harden your SSH configuration. Visit this [SSH guide](https://stribika.github.io/2015/01/04/secure-secure-shell.html){target=\_blank} for more details
+- Regularly back up data and harden your SSH configuration. Visit this [SSH guide](https://blog.stribik.technology/2015/01/04/secure-secure-shell.html){target=\_blank} for more details
 
 ### Validator Best Practices
 

@@ -32,7 +32,7 @@ Use the following command to generate a self-signed certificate using OpenSSL:
 
 ## Install a Proxy Server
 
-There are a lot of different implementations of a WebSocket proxy; some of the more widely used are [nginx](https://www.nginx.com/){target=\_blank} and [apache2](https://httpd.apache.org/){target=\_blank}, both of which are commonly used web server implementations. See the following section for configuration examples for both implementations.
+There are a lot of different implementations of a WebSocket proxy; some of the more widely used are [nginx](https://www.f5.com/go/product/welcome-to-nginx){target=\_blank} and [apache2](https://httpd.apache.org/){target=\_blank}, both of which are commonly used web server implementations. See the following section for configuration examples for both implementations.
 
 ### Use nginx
 

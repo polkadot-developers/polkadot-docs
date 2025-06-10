@@ -76,7 +76,7 @@ The diagram illustrates the layered architecture of Astar Network: at the top, d
 |  EVM Chain ID   | 81                                                                                               |
 | Public RPC URLs | <pre>```https://evm.shibuya.astar.network```</pre>                                               |
 | Public WSS URLs | <pre>```wss://evm.shibuya.astar.network```</pre>                                                 |
-| Block Explorer  | [Shibuya Blockscout](https://blockscout.com/shibuya){target=\_blank}                             |
+| Block Explorer  | [Shibuya Blockscout](https://shibuya.blockscout.com/){target=\_blank}                             |
 |   Faucet Link   | [Faucet - Astar Docs](https://docs.astar.network/docs/build/environment/faucet/){target=\_blank} |
 
 ### Moonbeam
@@ -188,7 +188,7 @@ The diagram illustrates Acala's unique EVM+ architecture, which extends beyond s
 | Public RPC URLs | <pre>```https://eth-rpc-tc9.aca-staging.network```</pre>                             |
 | Public WSS URLs | <pre>```wss://tc7-eth.aca-dev.network```</pre>                                       |
 | Block Explorer  | [Mandala Blockscout](https://blockscout.mandala.aca-staging.network){target=\_blank} |
-|   Faucet Link   | [Mandala Faucet](https://discord.gg/5JJgXKSznc){target=\_blank}                      |
+|   Faucet Link   | [Mandala Faucet](https://discord.com/invite/5JJgXKSznc){target=\_blank}                      |
 
 ## EVM Developer Tools
 

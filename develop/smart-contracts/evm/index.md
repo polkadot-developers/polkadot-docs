@@ -12,7 +12,7 @@ The Polkadot ecosystem supports Ethereum-compatible smart contracts through both
 
 With EVM support, developers can build decentralized applications (dApps) using familiar tools, languages like Solidity, and established smart contract standards, all while taking advantage of Polkadot's unique features, such as scalability and cross-chain interoperability.
 
-Whether deploying existing Ethereum contracts on Polkadot or creating new applications, this section provides the resources you need to get started. Learn how to leverage popular EVM tools, such as [Remix](https://remix.ethereum.org/){target=\_blank} and [Ethers.js](https://docs.ethers.org/){target=\_blank}, to integrate Ethereum-compatible smart contract functionality into the Polkadot ecosystem.
+Whether deploying existing Ethereum contracts on Polkadot or creating new applications, this section provides the resources you need to get started. Learn how to leverage popular EVM tools, such as [Remix](https://remix.ethereum.org/){target=\_blank} and [Ethers.js](https://docs.ethers.org/v6/){target=\_blank}, to integrate Ethereum-compatible smart contract functionality into the Polkadot ecosystem.
 
 - Want to learn more? Jump to [In This Section](#in-this-section) to get started
 - Ready to start coding? Check out the [Deploy a Smart Contract](#deploy-a-smart-contract) section to get started

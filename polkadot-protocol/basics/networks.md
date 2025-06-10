@@ -46,7 +46,7 @@ Development and testing are crucial to building robust dApps and parachains and 
 
 Kusama is the experimental version of Polkadot, designed for developers who want to move quickly and test their applications in a real-world environment with economic incentives. Kusama serves as a production-grade testing ground where developers can deploy features and upgrades with the pressure of game theory and economics in mind. It mirrors Polkadot but operates as a more flexible space for innovation.
 
-The native token for Kusama is KSM. For more information about KSM, visit the [Native Assets](https://wiki.polkadot.network/docs/learn-DOT#kusama){target=\_blank} page.
+The native token for Kusama is KSM. For more information about KSM, visit the [Native Assets](https://wiki.polkadot.network/learn/learn-dot/#kusama){target=\_blank} page.
 
 ## Test Networks
 
@@ -56,13 +56,13 @@ The following test networks provide controlled environments for testing upgrades
 
 Westend is Polkadot's primary permanent TestNet. Unlike temporary test networks, Westend is not reset to the genesis block, making it an ongoing environment for testing Polkadot core features. Managed by Parity Technologies, Westend ensures that developers can test features in a real-world simulation without using actual tokens.
 
-The native token for Westend is WND. More details about WND can be found on the [Native Assets](https://wiki.polkadot.network/docs/learn-DOT#getting-tokens-on-the-westend-testnet){target=\_blank} page.
+The native token for Westend is WND. More details about WND can be found on the [Native Assets](https://wiki.polkadot.network/learn/learn-dot/#getting-tokens-on-the-westend-testnet){target=\_blank} page.
 
 ### Paseo
 
 [Paseo](https://github.com/paseo-network){target=\_blank} is a community-managed TestNet designed for parachain and dApp developers. It mirrors Polkadot's runtime and is maintained by Polkadot community members. Paseo provides a dedicated space for parachain developers to test their applications in a Polkadot-like environment without the risks associated with live networks.
 
-The native token for Paseo is PAS. Additional information on PAS is available on the [Native Assets](https://wiki.polkadot.network/docs/learn-DOT#getting-tokens-on-the-paseo-testnet){target=\_blank} page.
+The native token for Paseo is PAS. Additional information on PAS is available on the [Native Assets](https://wiki.polkadot.network/learn/learn-dot/#getting-tokens-on-the-paseo-testnet){target=\_blank} page.
 
 ## Local Test Networks
 

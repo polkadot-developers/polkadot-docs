@@ -69,7 +69,7 @@ This section will walk you through installing and building the Polkadot binary f
 
 ??? interface "Windows"
 
-    To get started, make sure that you have [WSL and Ubuntu](https://docs.microsoft.com/en-us/windows/wsl/install-win10){target=\_blank} installed on your Windows machine.
+    To get started, make sure that you have [WSL and Ubuntu](https://learn.microsoft.com/en-us/windows/wsl/install){target=\_blank} installed on your Windows machine.
 
     Once installed, you have a couple options for installing the Polkadot binary:
 

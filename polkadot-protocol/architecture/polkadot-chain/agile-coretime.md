@@ -18,9 +18,9 @@ graph TB
     A --flexible--> C 
 ```
 
-Cores can be designated to a parachain either continuously through [bulk coretime](#bulk-coretime) or dynamically via [on-demand coretime](#on-demand-coretime). Additionally, Polkadot supports scheduling multiple cores in parallel through [elastic scaling](https://wiki.polkadot.network/docs/learn-elastic-scaling){target=\_blank}, which is a feature under active development on Polkadot. This flexibility empowers parachains to optimize their resource usage and block production according to their unique needs.
+Cores can be designated to a parachain either continuously through [bulk coretime](#bulk-coretime) or dynamically via [on-demand coretime](#on-demand-coretime). Additionally, Polkadot supports scheduling multiple cores in parallel through [elastic scaling](https://wiki.polkadot.network/learn/learn-elastic-scaling/){target=\_blank}, which is a feature under active development on Polkadot. This flexibility empowers parachains to optimize their resource usage and block production according to their unique needs.
 
-In this guide, you'll learn how bulk coretime enables continuous core access with features like interlacing and splitting, and how on-demand coretime provides flexible, pay-per-use scheduling for parachains. For a deep dive on Agile Coretime and its terminology, refer to the [Wiki doc](https://wiki.polkadot.network/docs/learn-agile-coretime#introduction-to-agile-coretime){target=\_blank}.
+In this guide, you'll learn how bulk coretime enables continuous core access with features like interlacing and splitting, and how on-demand coretime provides flexible, pay-per-use scheduling for parachains. For a deep dive on Agile Coretime and its terminology, refer to the [Wiki doc](https://wiki.polkadot.network/learn/learn-agile-coretime/#introduction-to-agile-coretime){target=\_blank}.
 
 ## Bulk Coretime
 

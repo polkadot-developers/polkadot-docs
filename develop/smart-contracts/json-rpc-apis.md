@@ -308,6 +308,8 @@ curl -X POST https://testnet-passet-hub-eth-rpc.polkadot.io \
 
 Ensure to replace the `INSERT_ADDRESS`, `INSERT_STORAGE_KEY`, and `INSERT_BLOCK_VALUE` with the proper values.
 
+---
+
 ### eth_getTransactionCount
 
 Returns the number of transactions sent from an address (nonce). [Reference](https://ethereum.org/en/developers/docs/apis/json-rpc/#eth_gettransactioncount){target=\_blank}.
@@ -442,6 +444,8 @@ curl -X POST https://testnet-passet-hub-eth-rpc.polkadot.io \
     "id":1
 }'
 ```
+
+---
 
 ## Response Format
 

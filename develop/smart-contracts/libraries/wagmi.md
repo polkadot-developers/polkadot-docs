@@ -38,10 +38,10 @@ Create a configuration file to initialize Wagmi with Polkadot Hub. In your proje
 --8<-- 'code/develop/smart-contracts/libraries/wagmi/wagmi.ts'
 ```
 
-??? code "Example Westend Hub Configuration"
+??? code "Example Polkadot Hub TestNet Configuration"
 
     ```typescript title="src/lib/wagmi.ts"
-    --8<-- 'code/develop/smart-contracts/libraries/wagmi/wagmi-westend-ah.ts'
+    --8<-- 'code/develop/smart-contracts/libraries/wagmi/wagmi-testnet.ts'
     ```
 
 ## Set Up the Wagmi Provider
@@ -84,7 +84,7 @@ This component uses the following React hooks:
 
 ## Interact with Deployed Contract
 
-This guide uses a simple Storage contract already deployed to Westend Hub (`0xabBd46Ef74b88E8B1CDa49BeFb5057710443Fd29`). The code of that contract is:
+This guide uses a simple Storage contract already deployed to the Polkadot Hub TestNet (`0x58053f0e8ede1a47a1af53e43368cd04ddcaf66f`). The code of that contract is:
 
 ??? code "Storage.sol"
 

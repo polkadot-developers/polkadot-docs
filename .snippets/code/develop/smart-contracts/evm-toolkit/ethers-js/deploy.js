@@ -17,12 +17,12 @@ const createProvider = (rpcUrl, chainId, chainName) => {
 const getAbi = (contractName) => {
   try {
     return JSON.parse(
-      readFileSync(join(codegenDir, `${contractName}.json`), 'utf8')
+      readFileSync(join(codegenDir, `${contractName}.json`), 'utf8'),
     );
   } catch (error) {
     console.error(
       `Could not find ABI for contract ${contractName}:`,
-      error.message
+      error.message,
     );
     throw error;
   }
@@ -32,12 +32,12 @@ const getAbi = (contractName) => {
 const getByteCode = (contractName) => {
   try {
     return `0x${readFileSync(
-      join(codegenDir, `${contractName}.polkavm`)
+      join(codegenDir, `${contractName}.polkavm`),
     ).toString('hex')}`;
   } catch (error) {
     console.error(
       `Could not find bytecode for contract ${contractName}:`,
-      error.message
+      error.message,
     );
     throw error;
   }
@@ -51,7 +51,7 @@ const deployContract = async (contractName, mnemonic, providerConfig) => {
     const provider = createProvider(
       providerConfig.rpc,
       providerConfig.chainId,
-      providerConfig.name
+      providerConfig.name,
     );
     const walletMnemonic = ethers.Wallet.fromPhrase(mnemonic);
     const wallet = walletMnemonic.connect(provider);
@@ -60,7 +60,7 @@ const deployContract = async (contractName, mnemonic, providerConfig) => {
     const factory = new ethers.ContractFactory(
       getAbi(contractName),
       getByteCode(contractName),
-      wallet
+      wallet,
     );
     const contract = await factory.deploy();
     await contract.waitForDeployment();
@@ -81,9 +81,9 @@ const deployContract = async (contractName, mnemonic, providerConfig) => {
 };
 
 const providerConfig = {
-  rpc: 'https://westend-asset-hub-eth-rpc.polkadot.io',
+  rpc: 'https://testnet-passet-hub-eth-rpc.polkadot.io',
   chainId: 420420421,
-  name: 'westend-asset-hub',
+  name: 'polkadot-hub-testnet',
 };
 
 const mnemonic = 'INSERT_MNEMONIC';

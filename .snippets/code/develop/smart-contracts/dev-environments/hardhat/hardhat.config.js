@@ -26,9 +26,9 @@ module.exports = {
       polkavm: true,
       url: `http://127.0.0.1:8545`,
     },
-    westendHub: {
+    polkadotHubTestnet: {
       polkavm: true,
-      url: 'https://westend-asset-hub-eth-rpc.polkadot.io',
+      url: 'https://testnet-passet-hub-eth-rpc.polkadot.io',
       accounts: [process.env.PRIVATE_KEY],
     },
   },

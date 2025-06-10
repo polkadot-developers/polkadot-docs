@@ -73,13 +73,13 @@ To interact with Polkadot Hub, you must set up an Ethers.js provider. This provi
 ```
 
 !!! note
-    Replace `INSERT_RPC_URL`, `INSERT_CHAIN_ID`, and `INSERT_CHAIN_NAME` with the appropriate values. For example, to connect to Westend Hub's Ethereum RPC instance, you can use the following parameters:
+    Replace `INSERT_RPC_URL`, `INSERT_CHAIN_ID`, and `INSERT_CHAIN_NAME` with the appropriate values. For example, to connect to Polkadot Hub TestNet's Ethereum RPC instance, you can use the following parameters:
 
     ```js
     const PROVIDER_RPC = {
-        rpc: 'https://westend-asset-hub-eth-rpc.polkadot.io',
+        rpc: 'https://testnet-passet-hub-eth-rpc.polkadot.io',
         chainId: 420420421,
-        name: 'westend-asset-hub'
+        name: 'polkadot-hub-testnet'
     };
     ```
 

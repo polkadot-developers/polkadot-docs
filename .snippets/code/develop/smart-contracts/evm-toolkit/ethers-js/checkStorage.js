@@ -28,7 +28,7 @@ const interactWithStorageContract = async (
   contractAddress,
   mnemonic,
   providerConfig,
-  numberToSet
+  numberToSet,
 ) => {
   try {
     console.log(`Setting new number in Storage contract: ${numberToSet}`);
@@ -65,7 +65,7 @@ const interactWithStorageContract = async (
 
 const providerConfig = {
   name: 'asset-hub-smart-contracts',
-  rpc: 'https://westend-asset-hub-eth-rpc.polkadot.io',
+  rpc: 'https://testnet-passet-hub-eth-rpc.polkadot.io',
   chainId: 420420421,
 };
 
@@ -79,5 +79,5 @@ interactWithStorageContract(
   contractAddress,
   mnemonic,
   providerConfig,
-  newNumber
+  newNumber,
 );

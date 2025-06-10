@@ -136,7 +136,7 @@ This following sections will walk you through creating and managing a systemd se
 Ensure the following requirements are met before proceeding with the systemd setup:
 
 - Confirm your system meets the [requirements](/infrastructure/running-a-validator/requirements/){target=\_blank} for running a validator
-- Ensure you meet the [minimum bond requirements](https://wiki.polkadot.network/docs/chain-state-values#minimum-validator-bond){target=\_blank} for validating
+- Ensure you meet the [minimum bond requirements](https://wiki.polkadot.network/general/chain-state-values/#minimum-validator-bond){target=\_blank} for validating
 - Verify the Polkadot binary is [installed](#install-the-polkadot-binaries)
 
 ### Create the Systemd Service File

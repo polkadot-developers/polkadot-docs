@@ -56,11 +56,11 @@ When selecting a VPS provider for your validator node, prioritize reliability, c
 
 - [**Google Cloud Platform (GCP)**](https://cloud.google.com/){target=\_blank} - `c2` and `c2d` machine families offer high-performance configurations suitable for validators
 - [**Amazon Web Services (AWS)**](https://aws.amazon.com/){target=\_blank} - `c6id` machine family provides strong performance, particularly for I/O-intensive workloads
-- [**OVH**](https://www.ovh.com.au/){target=\_blank} - can be a budget-friendly solution if it meets your minimum hardware specifications
+- [**OVH**](https://www.ovhcloud.com/en-au/){target=\_blank} - can be a budget-friendly solution if it meets your minimum hardware specifications
 - [**Digital Ocean**](https://www.digitalocean.com/){target=\_blank} - popular among developers, Digital Ocean's premium droplets offer configurations suitable for medium to high-intensity workloads
 - [**Vultr**](https://www.vultr.com/){target=\_blank} - offers flexibility with plans that may meet validator requirements, especially for high-bandwidth needs
 - [**Linode**](https://www.linode.com/){target=\_blank} - provides detailed documentation, which can be helpful for setup
-- [**Scaleway**](https://www.scaleway.com/){target=\_blank} - offers high-performance cloud instances that can be suitable for validator nodes
+- [**Scaleway**](https://www.scaleway.com/en/){target=\_blank} - offers high-performance cloud instances that can be suitable for validator nodes
 - [**OnFinality**](https://onfinality.io/){target=\_blank} - specialized in blockchain infrastructure, OnFinality provides validator-specific support and configurations
 
 !!! warning "Acceptable use policies"
@@ -76,6 +76,6 @@ Before bonding DOT, ensure you meet the minimum bond requirement to start a vali
 
 For example, on November 19, 2024, the minimum stake backing a validator in Polkadot's era 1632 was 1,159,434.248 DOT. You can check the current minimum stake required using these tools:
 
-- [**Chain State Values**](https://wiki.polkadot.network/docs/chain-state-values){target=\_blank}
+- [**Chain State Values**](https://wiki.polkadot.network/general/chain-state-values/){target=\_blank}
 - [**Subscan**](https://polkadot.subscan.io/validator_list?status=validator){target=\_blank}
 - [**Staking Dashboard**](https://staking.polkadot.cloud/#/overview){target=\_blank}

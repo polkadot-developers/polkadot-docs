@@ -29,20 +29,20 @@ Polkadot Hub provides _full Ethereum JSON-RPC API compatibility_, ensuring seaml
 
 PolkaVM, the underlying virtual machine, utilizes a RISC-V-based register architecture _optimized for the Polkadot ecosystem_. This design choice offers several advantages:
 
-- Enhanced performance for smart contract execution
-- Improved gas efficiency for complex operations
-- Native compatibility with Polkadot's runtime environment
-- Optimized storage and state management
+- Enhanced performance for smart contract execution.
+- Improved gas efficiency for complex operations.
+- Native compatibility with Polkadot's runtime environment.
+- Optimized storage and state management.
 
 ### Development Tools and Resources
 
 Polkadot Hub supports a comprehensive suite of development tools familiar to Ethereum developers. The platform integrates with popular development frameworks, testing environments, and deployment tools. Key features include:
 
-- Contract development in Solidity or Rust
-- Support for standard Ethereum development libraries
-- Integration with widely used development environments
-- Access to blockchain explorers and indexing solutions
-- Compatibility with contract monitoring and management tools
+- Contract development in Solidity or Rust.
+- Support for standard Ethereum development libraries.
+- Integration with widely used development environments.
+- Access to blockchain explorers and indexing solutions.
+- Compatibility with contract monitoring and management tools.
 
 ### Cross-Chain Capabilities
 
@@ -52,10 +52,10 @@ Smart contracts deployed on Polkadot Hub can leverage Polkadot's [cross-consensu
 
 Polkadot Hub's smart contract platform is suitable for a wide range of applications:
 
-- DeFi protocols leveraging _cross-chain capabilities_
-- NFT platforms utilizing Polkadot's native token standards
-- Governance systems integrated with Polkadot's democracy mechanisms
-- Cross-chain bridges and asset management solutions
+- DeFi protocols leveraging _cross-chain capabilities_.
+- NFT platforms utilizing Polkadot's native token standards.
+- Governance systems integrated with Polkadot's democracy mechanisms.
+- Cross-chain bridges and asset management solutions.
 
 ## Other Smart Contract Environments
 

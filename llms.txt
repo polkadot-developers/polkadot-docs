@@ -12053,6 +12053,9 @@ description: Interact with Polkadot SDK-based chains easily using the Polkadot.j
 
 # Polkadot.js API
 
+!!! warning "Maintenance Mode Only"
+    The Polkadot.js API is now in maintenance mode and is no longer actively developed. New projects should use [Dedot](/develop/toolkit/api-libraries/dedot){target=\_blank} (TypeScript-first API) or [Polkadot API](/develop/toolkit/api-libraries/papi){target=\_blank} (modern, type-safe API) as actively maintained alternatives.
+
 ## Introduction
 
 The [Polkadot.js API](https://github.com/polkadot-js/api){target=\_blank} uses JavaScript/TypeScript to interact with Polkadot SDK-based chains. It allows you to query nodes, read chain state, and submit transactions through a dynamic, auto-generated API interface.

@@ -81,7 +81,7 @@ To determine your parachain's sovereign account address, you can:
 
         - For sibling chains - `0x7369626c` (decodes to `b"sibl"`)
          
-    2. Encode your parachain ID as a u32 [SCALE](https://docs.polkadot.com/polkadot-protocol/basics/data-encoding/#data-types){target=\_blank} value:
+    2. Encode your parachain ID as a u32 [SCALE](/polkadot-protocol/parachain-basics/data-encoding#data-types){target=\_blank} value:
 
         - For parachain 2000, this would be `d0070000`
 

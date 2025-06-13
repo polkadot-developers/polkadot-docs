@@ -95,19 +95,12 @@ To install `openssl` and the Rust toolchain on macOS:
     rustup default stable
     rustup update
     rustup target add wasm32-unknown-unknown
+    rustup component add rust-src
     ```
 
-8. Add the `nightly` release and the `nightly` Wasm targets to your development
-   environment by running the following commands:
+8. [Verify your installation](#verifying-installation)
 
-    ```bash
-    rustup update nightly
-    rustup target add wasm32-unknown-unknown --toolchain nightly
-    ```
-
-9. [Verify your installation](#verifying-installation)
-
-10. Install `cmake` using the following command:
+9. Install `cmake` using the following command:
 
     ```bash
     brew install cmake
@@ -201,16 +194,11 @@ To install the Rust toolchain on Linux:
     ```bash
     rustup default stable
     rustup update
+    rustup target add wasm32-unknown-unknown
+    rustup component add rust-src
     ```
 
-9. Add the `nightly` release and the `nightly` Wasm targets to your development environment by running the following commands:
-
-    ```bash
-    rustup update nightly
-    rustup target add wasm32-unknown-unknown --toolchain nightly
-    ```
-
-10. [Verify your installation](#verifying-installation)
+9.  [Verify your installation](#verifying-installation)
 
 ## Windows (WSL)
 
@@ -311,16 +299,11 @@ To install the Rust toolchain on WSL:
     ```bash
     rustup default stable
     rustup update
+    rustup target add wasm32-unknown-unknown
+    rustup component add rust-src
     ```
 
-11. Add the `nightly` version of the toolchain and the `nightly` Wasm target to your development environment by running the following commands:
-
-    ```bash
-    rustup update nightly
-    rustup target add wasm32-unknown-unknown --toolchain nightly
-    ```
-
-12. [Verify your installation](#verifying-installation)
+11. [Verify your installation](#verifying-installation)
 
 ## Verifying Installation
 
@@ -328,7 +311,6 @@ Verify the configuration of your development environment by running the followin
 
 ```bash
 rustup show
-rustup +nightly show
 ```
 
 The command displays output similar to the following:

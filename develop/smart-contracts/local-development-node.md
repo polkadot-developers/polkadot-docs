@@ -25,7 +25,7 @@ Before getting started, ensure you have done the following:
 The Polkadot SDK repository contains both the [Substrate node](https://github.com/paritytech/polkadot-sdk/tree/master/substrate/bin/node){target=\_blank} implementation and the [ETH-RPC adapter](https://github.com/paritytech/polkadot-sdk/tree/master/substrate/frame/revive/rpc){target=\_blank} required for Ethereum compatibility. Start by cloning the repository and navigating to the project directory:
 
 ```bash
-git clone https://github.com/paritytech/polkadot-sdk.git
+git clone -b {{dependencies.repositories.polkadot_sdk_contracts_node.version}} https://github.com/paritytech/polkadot-sdk.git
 cd polkadot-sdk
 ```
 

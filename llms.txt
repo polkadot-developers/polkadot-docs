@@ -4989,19 +4989,12 @@ To install `openssl` and the Rust toolchain on macOS:
     rustup default stable
     rustup update
     rustup target add wasm32-unknown-unknown
+    rustup component add rust-src
     ```
 
-8. Add the `nightly` release and the `nightly` Wasm targets to your development
-   environment by running the following commands:
+8. [Verify your installation](#verifying-installation)
 
-    ```bash
-    rustup update nightly
-    rustup target add wasm32-unknown-unknown --toolchain nightly
-    ```
-
-9. [Verify your installation](#verifying-installation)
-
-10. Install `cmake` using the following command:
+9. Install `cmake` using the following command:
 
     ```bash
     brew install cmake
@@ -5095,16 +5088,11 @@ To install the Rust toolchain on Linux:
     ```bash
     rustup default stable
     rustup update
+    rustup target add wasm32-unknown-unknown
+    rustup component add rust-src
     ```
 
-9. Add the `nightly` release and the `nightly` Wasm targets to your development environment by running the following commands:
-
-    ```bash
-    rustup update nightly
-    rustup target add wasm32-unknown-unknown --toolchain nightly
-    ```
-
-10. [Verify your installation](#verifying-installation)
+9.  [Verify your installation](#verifying-installation)
 
 ## Windows (WSL)
 
@@ -5205,16 +5193,11 @@ To install the Rust toolchain on WSL:
     ```bash
     rustup default stable
     rustup update
+    rustup target add wasm32-unknown-unknown
+    rustup component add rust-src
     ```
 
-11. Add the `nightly` version of the toolchain and the `nightly` Wasm target to your development environment by running the following commands:
-
-    ```bash
-    rustup update nightly
-    rustup target add wasm32-unknown-unknown --toolchain nightly
-    ```
-
-12. [Verify your installation](#verifying-installation)
+11. [Verify your installation](#verifying-installation)
 
 ## Verifying Installation
 
@@ -5222,7 +5205,6 @@ Verify the configuration of your development environment by running the followin
 
 ```bash
 rustup show
-rustup +nightly show
 ```
 
 The command displays output similar to the following:
@@ -5233,17 +5215,11 @@ The command displays output similar to the following:
   <br />
   <span data-ty>active toolchain</span>
   <span data-ty>----------------</span>
-  <br />
-  <span data-ty>stable-x86_64-apple-darwin (default)</span>
-  <span data-ty>rustc 1.81.0 (eeb90cda1 2024-09-04)</span>
-  <br />
-  <span data-ty>...</span>
-  <br />
-  <span data-ty>active toolchain</span>
-  <span data-ty>----------------</span>
-  <br />
-  <span data-ty>nightly-x86_64-apple-darwin (overridden by +toolchain on the command line)</span>
-  <span data-ty>rustc 1.83.0-nightly (6c6d21008 2024-09-22)</span>
+  <span data-ty>name: stable-aarch64-apple-darwin</span>
+  <span data-ty>active because: it's the default toolchain</span>
+  <span data-ty>installed targets:</span>
+  <span data-ty>  aarch64-apple-darwin</span>
+  <span data-ty>  wasm32-unknown-unknown</span>
 </div>
 
 ## Where to Go Next
@@ -10686,7 +10662,7 @@ Before getting started, ensure you have done the following:
 The Polkadot SDK repository contains both the [Substrate node](https://github.com/paritytech/polkadot-sdk/tree/master/substrate/bin/node){target=\_blank} implementation and the [ETH-RPC adapter](https://github.com/paritytech/polkadot-sdk/tree/master/substrate/frame/revive/rpc){target=\_blank} required for Ethereum compatibility. Start by cloning the repository and navigating to the project directory:
 
 ```bash
-git clone https://github.com/paritytech/polkadot-sdk.git
+git clone -b {{dependencies.repositories.polkadot_sdk_contracts_node.version}} https://github.com/paritytech/polkadot-sdk.git
 cd polkadot-sdk
 ```
 

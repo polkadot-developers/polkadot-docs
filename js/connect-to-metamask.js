@@ -2,7 +2,7 @@ const provider = window.ethereum;
 const supportedNetworks = {
   passetHub: {
     name: 'Polkadot Hub TestNet',
-    chainId: '0x190F1B45', //Hex value of "420420421"
+    chainId: '0x190F1B46', //Hex value of "420420422"
     chainName: 'Polkadot Hub TestNet',
     rpcUrls: ['https://testnet-passet-hub-eth-rpc.polkadot.io'],
     blockExplorerUrls: ['https://blockscout-passet-hub.parity-testnet.parity.io/'],

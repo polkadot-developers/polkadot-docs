@@ -2,7 +2,7 @@ import { http, createConfig } from 'wagmi';
 
 // Configure the Polkadot Hub chain
 const assetHub = {
-  id: 420420421,
+  id: 420420422,
   name: 'polkadot-hub-testnet',
   network: 'polkadot-hub-testnet',
   nativeCurrency: {

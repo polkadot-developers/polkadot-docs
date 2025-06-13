@@ -33,7 +33,7 @@ Developers can leverage smart contracts across diverse networks, from TestNets t
     
     Chain ID
     ```text
-    420420421
+    420420422
     ```
 
     ---

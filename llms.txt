@@ -4989,19 +4989,12 @@ To install `openssl` and the Rust toolchain on macOS:
     rustup default stable
     rustup update
     rustup target add wasm32-unknown-unknown
+    rustup component add rust-src
     ```
 
-8. Add the `nightly` release and the `nightly` Wasm targets to your development
-   environment by running the following commands:
+8. [Verify your installation](#verifying-installation)
 
-    ```bash
-    rustup update nightly
-    rustup target add wasm32-unknown-unknown --toolchain nightly
-    ```
-
-9. [Verify your installation](#verifying-installation)
-
-10. Install `cmake` using the following command:
+9. Install `cmake` using the following command:
 
     ```bash
     brew install cmake
@@ -5095,16 +5088,11 @@ To install the Rust toolchain on Linux:
     ```bash
     rustup default stable
     rustup update
+    rustup target add wasm32-unknown-unknown
+    rustup component add rust-src
     ```
 
-9. Add the `nightly` release and the `nightly` Wasm targets to your development environment by running the following commands:
-
-    ```bash
-    rustup update nightly
-    rustup target add wasm32-unknown-unknown --toolchain nightly
-    ```
-
-10. [Verify your installation](#verifying-installation)
+9.  [Verify your installation](#verifying-installation)
 
 ## Windows (WSL)
 
@@ -5205,16 +5193,11 @@ To install the Rust toolchain on WSL:
     ```bash
     rustup default stable
     rustup update
+    rustup target add wasm32-unknown-unknown
+    rustup component add rust-src
     ```
 
-11. Add the `nightly` version of the toolchain and the `nightly` Wasm target to your development environment by running the following commands:
-
-    ```bash
-    rustup update nightly
-    rustup target add wasm32-unknown-unknown --toolchain nightly
-    ```
-
-12. [Verify your installation](#verifying-installation)
+11. [Verify your installation](#verifying-installation)
 
 ## Verifying Installation
 
@@ -5222,7 +5205,6 @@ Verify the configuration of your development environment by running the followin
 
 ```bash
 rustup show
-rustup +nightly show
 ```
 
 The command displays output similar to the following:
@@ -5233,17 +5215,11 @@ The command displays output similar to the following:
   <br />
   <span data-ty>active toolchain</span>
   <span data-ty>----------------</span>
-  <br />
-  <span data-ty>stable-x86_64-apple-darwin (default)</span>
-  <span data-ty>rustc 1.81.0 (eeb90cda1 2024-09-04)</span>
-  <br />
-  <span data-ty>...</span>
-  <br />
-  <span data-ty>active toolchain</span>
-  <span data-ty>----------------</span>
-  <br />
-  <span data-ty>nightly-x86_64-apple-darwin (overridden by +toolchain on the command line)</span>
-  <span data-ty>rustc 1.83.0-nightly (6c6d21008 2024-09-22)</span>
+  <span data-ty>name: stable-aarch64-apple-darwin</span>
+  <span data-ty>active because: it's the default toolchain</span>
+  <span data-ty>installed targets:</span>
+  <span data-ty>  aarch64-apple-darwin</span>
+  <span data-ty>  wasm32-unknown-unknown</span>
 </div>
 
 ## Where to Go Next
@@ -10686,7 +10662,7 @@ Before getting started, ensure you have done the following:
 The Polkadot SDK repository contains both the [Substrate node](https://github.com/paritytech/polkadot-sdk/tree/master/substrate/bin/node){target=\_blank} implementation and the [ETH-RPC adapter](https://github.com/paritytech/polkadot-sdk/tree/master/substrate/frame/revive/rpc){target=\_blank} required for Ethereum compatibility. Start by cloning the repository and navigating to the project directory:
 
 ```bash
-git clone https://github.com/paritytech/polkadot-sdk.git
+git clone -b {{dependencies.repositories.polkadot_sdk_contracts_node.version}} https://github.com/paritytech/polkadot-sdk.git
 cd polkadot-sdk
 ```
 
@@ -35569,7 +35545,7 @@ import { JsonRpcProvider } from 'ethers';
 export const PASSET_HUB_CONFIG = {
   name: 'Passet Hub',
   rpc: 'https://testnet-passet-hub-eth-rpc.polkadot.io/', // Passet Hub testnet RPC
-  chainId: 420420421, // Passet Hub testnet chainId
+  chainId: 420420422, // Passet Hub testnet chainId
   blockExplorer: 'https://blockscout-passet-hub.parity-testnet.parity.io/',
 };
 
@@ -35637,7 +35613,7 @@ import { Contract } from 'ethers';
 import { getProvider } from './ethers';
 import StorageABI from '../../abis/Storage.json';
 
-export const CONTRACT_ADDRESS = '0xabBd46Ef74b88E8B1CDa49BeFb5057710443Fd29';
+export const CONTRACT_ADDRESS = '0x58053f0e8ede1a47a1af53e43368cd04ddcaf66f';
 
 export const CONTRACT_ABI = StorageABI;
 
@@ -35661,7 +35637,7 @@ Next, let's create a component to handle wallet connections. Create a new file c
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { ASSET_HUB_CONFIG } from '../utils/ethers';
+import { PASSET_HUB_CONFIG } from '../utils/ethers';
 
 const WalletConnect = ({ onConnect }) => {
   const [account, setAccount] = useState(null);
@@ -35736,7 +35712,7 @@ const WalletConnect = ({ onConnect }) => {
       setChainId(currentChainId);
 
       // Prompt user to switch networks if needed
-      if (currentChainId !== ASSET_HUB_CONFIG.chainId) {
+      if (currentChainId !== PASSET_HUB_CONFIG.chainId) {
         await switchNetwork();
       }
 
@@ -35751,7 +35727,7 @@ const WalletConnect = ({ onConnect }) => {
     try {
       await window.ethereum.request({
         method: 'wallet_switchEthereumChain',
-        params: [{ chainId: `0x${ASSET_HUB_CONFIG.chainId.toString(16)}` }],
+        params: [{ chainId: `0x${PASSET_HUB_CONFIG.chainId.toString(16)}` }],
       });
     } catch (switchError) {
       // Error 4902 means the chain hasn't been added to MetaMask
@@ -35761,10 +35737,10 @@ const WalletConnect = ({ onConnect }) => {
             method: 'wallet_addEthereumChain',
             params: [
               {
-                chainId: `0x${ASSET_HUB_CONFIG.chainId.toString(16)}`,
-                chainName: ASSET_HUB_CONFIG.name,
-                rpcUrls: [ASSET_HUB_CONFIG.rpc],
-                blockExplorerUrls: [ASSET_HUB_CONFIG.blockExplorer],
+                chainId: `0x${PASSET_HUB_CONFIG.chainId.toString(16)}`,
+                chainName: PASSET_HUB_CONFIG.name,
+                rpcUrls: [PASSET_HUB_CONFIG.rpc],
+                blockExplorerUrls: [PASSET_HUB_CONFIG.blockExplorer],
               },
             ],
           });
@@ -35804,7 +35780,7 @@ const WalletConnect = ({ onConnect }) => {
           >
             Disconnect
           </button>
-          {chainId !== ASSET_HUB_CONFIG.chainId && (
+          {chainId !== PASSET_HUB_CONFIG.chainId && (
             <button
               onClick={switchNetwork}
               className="mt-3 w-full bg-yellow-500 hover:bg-yellow-600 text-white font-bold py-2 px-4 rounded-lg transition"
@@ -36224,7 +36200,7 @@ const transport = http('https://testnet-passet-hub-eth-rpc.polkadot.io')
 
 // Configure the Passet Hub chain
 export const passetHub = {
-  id: 420420421,
+  id: 420420422,
   name: 'Passet Hub',
   network: 'passet-hub',
   nativeCurrency: {

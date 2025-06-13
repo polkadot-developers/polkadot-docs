@@ -82,7 +82,7 @@ const deployContract = async (contractName, mnemonic, providerConfig) => {
 
 const providerConfig = {
   rpc: 'https://testnet-passet-hub-eth-rpc.polkadot.io',
-  chainId: 420420421,
+  chainId: 420420422,
   name: 'polkadot-hub-testnet',
 };
 

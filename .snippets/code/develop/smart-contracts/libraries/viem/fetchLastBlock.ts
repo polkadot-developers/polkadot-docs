@@ -4,7 +4,7 @@ const transport = http('https://testnet-passet-hub-eth-rpc.polkadot.io');
 
 // Configure the Polkadot Hub chain
 const polkadotHubTestnet = {
-  id: 420420421,
+  id: 420420422,
   name: 'Polkadot Hub TestNet',
   network: 'polkadot-hub-testnet',
   nativeCurrency: {

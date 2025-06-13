@@ -6916,7 +6916,7 @@ Developers can leverage smart contracts across diverse networks, from TestNets t
     
     Chain ID
     ```text
-    420420421
+    420420422
     ```
 
     ---
@@ -8403,7 +8403,7 @@ createProvider(PROVIDER_RPC.rpc, PROVIDER_RPC.chainId, PROVIDER_RPC.name);
     ```js
     const PROVIDER_RPC = {
         rpc: 'https://testnet-passet-hub-eth-rpc.polkadot.io',
-        chainId: 420420421,
+        chainId: 420420422,
         name: 'polkadot-hub-testnet'
     };
     ```
@@ -8432,7 +8432,7 @@ const createProvider = (rpcUrl, chainId, chainName) => {
 
 const PROVIDER_RPC = {
   rpc: 'https://testnet-passet-hub-eth-rpc.polkadot.io',
-  chainId: 420420421,
+  chainId: 420420422,
   name: 'polkadot-hub-testnet',
 };
 
@@ -8671,7 +8671,7 @@ const getByteCode = (contractName) => {
 
     ```js title="scripts/deploy.js"
     rpc: 'https://testnet-passet-hub-eth-rpc.polkadot.io',
-  chainId: 420420421,
+  chainId: 420420422,
   name: 'polkadot-hub-testnet',
 };
 
@@ -8772,7 +8772,7 @@ const deployContract = async (contractName, mnemonic, providerConfig) => {
 
 const providerConfig = {
   rpc: 'https://testnet-passet-hub-eth-rpc.polkadot.io',
-  chainId: 420420421,
+  chainId: 420420422,
   name: 'polkadot-hub-testnet',
 };
 
@@ -8862,7 +8862,7 @@ const interactWithStorageContract = async (
 const providerConfig = {
   name: 'asset-hub-smart-contracts',
   rpc: 'https://testnet-passet-hub-eth-rpc.polkadot.io',
-  chainId: 420420421,
+  chainId: 420420422,
 };
 
 const mnemonic = 'INSERT_MNEMONIC';
@@ -9095,7 +9095,7 @@ const transport = http('https://testnet-passet-hub-eth-rpc.polkadot.io');
 
 // Configure the Polkadot Hub chain
 const polkadotHubTestnet = {
-  id: 420420421,
+  id: 420420422,
   name: 'Polkadot Hub TestNet',
   network: 'polkadot-hub-testnet',
   nativeCurrency: {
@@ -9544,7 +9544,7 @@ export const config = createConfig({
 
 // Configure the Polkadot Hub chain
 const assetHub = {
-  id: 420420421,
+  id: 420420422,
   name: 'polkadot-hub-testnet',
   network: 'polkadot-hub-testnet',
   nativeCurrency: {
@@ -9996,7 +9996,7 @@ For example, for the Polkadot Hub TestNet, use these specific connection paramet
 ```js
 const PROVIDER_RPC = {
     rpc: 'https://testnet-passet-hub-eth-rpc.polkadot.io',
-    chainId: 420420421,
+    chainId: 420420422,
     name: 'polkadot-hub-testnet'
 };
 ```
@@ -10016,7 +10016,7 @@ const createProvider = (rpcUrl) => {
 
 const PROVIDER_RPC = {
   rpc: 'https://testnet-passet-hub-eth-rpc.polkadot.io',
-  chainId: 420420421,
+  chainId: 420420422,
   name: 'polkadot-hub-testnet',
 };
 
@@ -37351,7 +37351,7 @@ module.exports = buildModule('StorageModule', (m) => {
 
     <div id="termynal" data-termynal>
   <span data-ty="input"><span class="file-path"></span>npx hardhat ignition deploy ./ignition/modules/Storage.js --network localNode</span>
-  <span data-ty>✔ Confirm deploy to network localNode (420420421)? … yes</span>
+  <span data-ty>✔ Confirm deploy to network localNode (420420422)? … yes</span>
   <span data-ty></span>
   <span data-ty>Hardhat Ignition 🚀</span>
   <span data-ty></span>
@@ -37379,7 +37379,7 @@ module.exports = buildModule('StorageModule', (m) => {
 
     <div id="termynal" data-termynal>
   <span data-ty="input"><span class="file-path"></span>npx hardhat ignition deploy ./ignition/modules/Storage.js --network passetHub</span>
-  <span data-ty>✔ Confirm deploy to network localNode (420420421)? … yes</span>
+  <span data-ty>✔ Confirm deploy to network localNode (420420422)? … yes</span>
   <span data-ty></span>
   <span data-ty>Hardhat Ignition 🚀</span>
   <span data-ty></span>

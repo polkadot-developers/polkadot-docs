@@ -1,9 +1,10 @@
 title: API Libraries
 nav:
   - index.md
-  - 'Dedot': dedot.md
-  - 'Polkadot-API': papi.md
-  - 'Polkadot.js API': polkadot-js-api.md
-  - 'Python Substrate Interface': py-substrate-interface.md
-  - 'Sidecar Rest API': sidecar.md
-  - 'Subxt': subxt.md
+  - 'Dedot :simple-typescript:': dedot.md
+  - 'Polkadot-API :simple-typescript:': papi.md
+  - 'Polkadot.js API :simple-javascript:': polkadot-js-api.md
+  - 'Python Substrate Interface :simple-python:': py-substrate-interface.md
+  - 'Sidecar Rest API :simple-javascript:': sidecar.md
+  - 'Subxt :simple-rust:': subxt.md
+

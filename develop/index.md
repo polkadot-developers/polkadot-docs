@@ -11,9 +11,9 @@ template: index-page.html
 This guide is a starting point for developers who wish to build in the Polkadot ecosystem. To get the most from this section:
 
 1. Identify your development pathway:
-    - [**Parachain Developers**](#parachain-developers) - build, deploy, and maintain custom parachains with the Polkadot SDK
-    - [**Smart Contract Developers**](#smart-contract-developers) - leverage smart contracts and execute custom logic over existing chains to streamline your development process
-    - [**Application Developers**](#application-developers) - leverage Polkadot's underlying protocol features to create solutions for your users to interact with the ecosystem
+    - [**Parachain developers**](#parachain-developers) - build, deploy, and maintain custom parachains with the Polkadot SDK
+    - [**Smart contract developers**](#smart-contract-developers) - leverage smart contracts and execute custom logic over existing chains to streamline your development process
+    - [**Application developers**](#application-developers) - leverage Polkadot's underlying protocol features to create solutions for your users to interact with the ecosystem
 2. Use the sections under your pathway as follows:
     - **Learn** - content to deepen your knowledge and understanding
     - **Build** - connect to goal-oriented guides and step-by-step tutorials
@@ -81,12 +81,13 @@ The Polkadot smart contract ecosystem is in active development. Please expect fr
 - <h3>:octicons-book-16:{ .lg .middle } Learn</h3>
     <hr>
     - [Overview - Smart Contracts on Polkadot](/develop/smart-contracts/overview/){target=\_blank}
-    - [EVM-Compatible Parachains](/develop/smart-contracts/evm/parachain-contracts/#evm-compatible-parachains){target=\_blank}
+    - [Smart Contract Basics](/polkadot-protocol/smart-contract-basics/){target=\_blank}
 
 - <h3>:octicons-rocket-16:{.lg .middle} Build</h3>
     <hr>
-    - [Deploy a Smart Contract to Asset Hub](/develop/smart-contracts/evm/native-evm-contracts/#deploy-a-smart-contract-to-asset-hub){target=\_blank}
-    - [Deploy a Wasm Smart Contract](/develop/smart-contracts/wasm-ink/){target=\_blank}
+    - [Launch Your First Smart Contract Project](/tutorials/smart-contracts/launch-your-first-project/){target=\_blank}
+    - [Deploy an NFT](/tutorials/smart-contracts/deploy-nft/){target=\_blank}
+    - [Deploy an ERC-20](/tutorials/smart-contracts/deploy-erc20/){target=\_blank}
 
 - <h3>:octicons-tools-16:{.lg .middle} Tools</h3>
     <hr>

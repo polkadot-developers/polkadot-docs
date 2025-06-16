@@ -20,6 +20,13 @@ dependencies:
       repository_url: https://github.com/paritytech/polkadot-sdk
       version: polkadot-stable2412
       docker_image_version: stable2412
+    open_zeppelin_contracts:
+      repository_url: https://github.com/OpenZeppelin/openzeppelin-contracts
+      version: v5.0.0
+    polkadot_sdk_contracts_node:
+      repository_url: https://github.com/paritytech/polkadot-sdk
+      version: polkadot-stable2503-6
+      ignore_updates: true
   crates:
     subxt:
       name: subxt
@@ -57,4 +64,22 @@ dependencies:
     polkadot_api:
       name: polkadot-api
       version: 1.10.1
+    hardhat_resolc: 
+      name: '@hardhat-resolc'
+      version: 0.0.7  
+    hardhat_revive_node: 
+      name: '@hardhat-revive-node'
+      version: 0.0.6
+    revive:
+      name: '@revive'
+      version: 0.0.8
+    web3_js:
+      name: '@web3js'
+      version: 4.16.0
+    viem:
+      name: '@viem'
+      version: 2.23.6 
+    ethersjs:
+      name: '@ethersjs'
+      version: 6.13.5
 #   python_packages:

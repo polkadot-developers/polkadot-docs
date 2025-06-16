@@ -23,7 +23,7 @@ Running a Polkadot validator node involves several key operational tasks to ensu
     </a>
   </div>
     <div class="card">
-    <a href="https://docs.polkadot.com/develop/parachains/maintenance/runtime-upgrades/#monitoring-runtime-changes" target="_blank">
+    <a href="/develop/parachains/maintenance/runtime-upgrades/#monitoring-runtime-changes" target="_blank">
       <h2 class="title">Stay Up to Date with Runtime Upgrades</h2>
       <hr>
       <p class="description">Learn how to monitor the Polkadot network for upcoming upgrades, so you can prepare your validator node for any required updates or modifications.</p>

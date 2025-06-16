@@ -19,7 +19,7 @@ As a Layer-0 blockchain, Polkadot contributes to the multi-chain vision through 
 
 - **Application-specific Layer-1 blockchains (parachains)** - Polkadot's sharded network allows for parallel transaction processing, with shards that can have unique state transition functions, enabling custom-built L1 chains optimized for specific applications
 
-- **Shared security and scalability** - L1 chains connected to Polkadot benefit from its [Nominated Proof of Stake (NPoS)](https://docs.polkadot.com/polkadot-protocol/architecture/polkadot-chain/pos-consensus/#nominated-proof-of-stake){target=\_blank} system, providing security out-of-the-box without the need to bootstrap their own
+- **Shared security and scalability** - L1 chains connected to Polkadot benefit from its [Nominated Proof of Stake (NPoS)](/polkadot-protocol/architecture/polkadot-chain/pos-consensus/#nominated-proof-of-stake){target=\_blank} system, providing security out-of-the-box without the need to bootstrap their own
 
 - **Secure interoperability** - Polkadot's native interoperability enables seamless data and value exchange between parachains. This interoperability can also be used outside of the ecosystem for bridging with external networks
 

@@ -17,16 +17,16 @@ This tutorial focuses specifically on **replaying XCMs with full logging enabled
 
 ## Prerequisites
 
-Before replaying XCM messages with full logging, make sure you’ve completed the [Chopsticks setup instructions](../get-started/) and can run a local fork of your target chain.
+Before replaying XCMs, ensure you have completed the [Chopsticks setup instructions](../get-started/) and can run a local fork of your target chain.
 
-You’ll need:
+You will need:
 
-* A working Chopsticks installation (`npm i -g @acala-network/chopsticks`, or use `npx`)
-* Access to the **endpoint or genesis file** of the parachain you want to fork
-* The block number or hash where the XCM message was sent
-* Optionally, a Chopsticks config file to simplify repeated setups
+- A working Chopsticks installation (`npm i -g @acala-network/chopsticks`)
+- Access to the **endpoint or genesis file** of the parachain you wish to fork
+- The block number or hash at which the XCM was sent
+- Optionally, a Chopsticks configuration file to simplify repeated setups
 
-If you haven’t forked a chain before, see the [Fork a Chain with Chopsticks guide](/tutorials/polkadot-sdk/testing/fork-live-chains/).
+If you have not forked a chain before, see the [Fork a Chain with Chopsticks guide](/tutorials/polkadot-sdk/testing/fork-live-chains/).
 
 ## Step-by-Step Guide
 
@@ -35,7 +35,7 @@ If you haven’t forked a chain before, see the [Fork a Chain with Chopsticks gu
 To replay a specific XCM, you must know:
 
 - The source and destination chains involved
-- The XCM message or block height where it was sent
+- The XCM or block height where it was sent
 - Optionally, the call payload (if simulating manually via dev commands)
 
 You can use Polkadot.js Apps or indexers like Subscan to locate and review the original XCM execution.
@@ -75,7 +75,7 @@ You can also inspect JSON-RPC logs using tools like `jq`, or redirect logs to a 
 ... --log trace > xcm-debug.log
 ```
 
-### 4. Replay the XCM Message
+### 4. Replay the XCM
 
 There are two approaches:
 
@@ -129,7 +129,7 @@ These help you trace how the message was processed and where it may have failed.
 ### The XCM didn't execute
 
 * Ensure the chains were forked at the correct block height
-* Double-check the format of your XCM message (version, instructions, encoding)
+* Double-check the format of your XCM (version, instructions, encoding)
 
 ### Logs are missing or unclear
 

@@ -37,7 +37,6 @@ use crate::weights::WeightInfo;
 pub mod pallet {
     use super::*;
     use frame::prelude::*;
-
     #[pallet::pallet]
     pub struct Pallet<T>(_);
 

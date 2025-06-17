@@ -17,7 +17,6 @@ use sp_keyring::Sr25519Keyring;
 const SAFE_XCM_VERSION: u32 = xcm::prelude::XCM_VERSION;
 /// Parachain id used for gensis config presets of parachain template.
 const PARACHAIN_ID: u32 = 1000;
-
 /// Generate the session keys from individual elements.
 ///
 /// The input must be a tuple of individual keys (a single arg for now since we have just one key).

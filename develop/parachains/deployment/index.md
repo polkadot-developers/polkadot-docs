@@ -71,6 +71,7 @@ If you’re building a standalone blockchain (solochain) that won’t connect to
   <div class="card">
     <a href="https://paritytech.github.io/polkadot-sdk/master/staging_chain_spec_builder/index.html" target="_blank">
       <h2 class="title">Check Out the Chain Spec Builder Docs</h2>
+      <hr>
       <p class="description">Learn about Substrate’s chain spec builder utility.</p>
     </a>
   </div>

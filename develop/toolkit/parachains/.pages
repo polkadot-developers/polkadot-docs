@@ -1,6 +1,9 @@
 title: Parachains
 nav:
   - index.md
+  - quickstart
   - spawn-chains
   - fork-chains
   - e2e-testing
+  - 'Light Clients': light-clients.md
+  - 'Polkadot Omni Node': polkadot-omni-node.md

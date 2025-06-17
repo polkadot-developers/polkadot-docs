@@ -2,5 +2,12 @@ title: Smart Contracts
 nav:
   - index.md
   - 'Overview': overview.md
-  - 'Wasm (ink!)': wasm-ink.md
-  - evm
+  - 'Connect to Polkadot': connect-to-polkadot.md
+  - 'Wallets': wallets.md
+  - 'Local Development Node': local-development-node.md
+  - dev-environments
+  - libraries
+  - block-explorers
+  - 'JSON-RPC APIs': json-rpc-apis.md
+  - precompiles
+  - 'FAQs': faqs.md

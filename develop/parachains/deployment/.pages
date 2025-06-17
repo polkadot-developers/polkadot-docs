@@ -4,5 +4,5 @@ nav:
   - 'Build a Deterministic Runtime': build-deterministic-runtime.md
   - 'Generate Chain Specs': generate-chain-specs.md
   - 'Obtain Coretime': obtain-coretime.md
-  # - 'POP CLI': pop-cli.md
-  # - 'Tanssi': tanssi.md
+  - 'Coretime Renewal': coretime-renewal.md
+  - 'Manage Coretime': manage-coretime.md

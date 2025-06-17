@@ -30,6 +30,16 @@ Before getting started, ensure you have done the following:
 
 - Completed the [Install Polkadot SDK Dependencies](/develop/parachains/install-polkadot-sdk/){target=\_blank} guide and successfully installed [Rust](https://www.rust-lang.org/){target=\_blank} and the required packages to set up your development environment
 
+For this tutorial series, you need to use Rust `1.86`. Newer versions of the compiler may not work with this parachain template version.
+
+Run the following commands to set up the correct Rust version:
+
+```bash
+rustup default 1.86
+rustup target add wasm32-unknown-unknown --toolchain 1.86-aarch64-apple-darwin
+rustup component add rust-src --toolchain 1.86-aarch64-apple-darwin
+```
+
 ## Utility Tools
 
 This tutorial requires two essential tools:
@@ -60,13 +70,12 @@ The [Polkadot SDK Parachain Template](https://github.com/paritytech/polkadot-sdk
 
 1. Clone the template repository:
     ```bash
-    git clone https://github.com/paritytech/polkadot-sdk-parachain-template.git parachain-template
+    git clone -b stable2412 https://github.com/paritytech/polkadot-sdk-parachain-template.git parachain-template
     ```
 
-2. Navigate into the project directory and check out the specific commit:
+2. Navigate into the project directory:
     ```bash
     cd parachain-template
-    git checkout ecaf71d
     ```
 
 3. Compile the runtime:

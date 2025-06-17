@@ -8068,7 +8068,7 @@ Returns the number of transactions in a block from a block number. [Reference](h
 
 **Parameters**:
 
-- `blockValue` ++"string"++ - the block value to be fetched. Must be a [quantity](https://ethereum.org/en/developers/docs/apis/json-rpc/#quantities-encoding){target=\_blank} string or a [default block parameter](https://ethereum.org/en/developers/docs/apis/json-rpc/#default-block)
+- `blockValue` ++"string"++ - the block value to be fetched. Must be a [quantity](https://ethereum.org/en/developers/docs/apis/json-rpc/#quantities-encoding){target=\_blank} string or a [default block parameter](https://ethereum.org/en/developers/docs/apis/json-rpc/#default-block){target=\_blank}
 
 **Example**:
 
@@ -8145,8 +8145,8 @@ Returns an array of all logs matching a given filter object. [Reference](https:/
 **Parameters**:
 
 - `filter` ++"object"++ - the filter object:
-    - `fromBlock` ++"string"++ - (optional) block number or tag to start from. Must be a [quantity](https://ethereum.org/en/developers/docs/apis/json-rpc/#quantities-encoding){target=\_blank} string or a [default block parameter](https://ethereum.org/en/developers/docs/apis/json-rpc/#default-block)
-    - `toBlock` ++"string"++ - (optional) block number or tag to end at. Must be a [quantity](https://ethereum.org/en/developers/docs/apis/json-rpc/#quantities-encoding){target=\_blank} string or a [default block parameter](https://ethereum.org/en/developers/docs/apis/json-rpc/#default-block)
+    - `fromBlock` ++"string"++ - (optional) block number or tag to start from. Must be a [quantity](https://ethereum.org/en/developers/docs/apis/json-rpc/#quantities-encoding){target=\_blank} string or a [default block parameter](https://ethereum.org/en/developers/docs/apis/json-rpc/#default-block){target=\_blank}
+    - `toBlock` ++"string"++ - (optional) block number or tag to end at. Must be a [quantity](https://ethereum.org/en/developers/docs/apis/json-rpc/#quantities-encoding){target=\_blank} string or a [default block parameter](https://ethereum.org/en/developers/docs/apis/json-rpc/#default-block){target=\_blank}
     - `address` ++"string" or "array of strings"++ - (optional) contract address or a list of addresses from which to get logs. Must be a [20-byte data](https://ethereum.org/en/developers/docs/apis/json-rpc/#unformatted-data-encoding){target=\_blank} string
     - `topics` ++"array of strings"++ - (optional) array of topics for filtering logs. Each topic can be a single [32 byte data](https://ethereum.org/en/developers/docs/apis/json-rpc/#unformatted-data-encoding){target=\_blank} string or an array of such strings (meaning OR).
     - `blockhash` ++"string"++ - (optional) hash of a specific block. Cannot be used with `fromBlock` or `toBlock`. Must be a [32 byte data](https://ethereum.org/en/developers/docs/apis/json-rpc/#unformatted-data-encoding){target=\_blank} string
@@ -8253,7 +8253,7 @@ Returns information about a transaction by block number and transaction index. [
 
 **Parameters**:
 
-- `blockValue` ++"string"++ - the block value to be fetched. Must be a [quantity](https://ethereum.org/en/developers/docs/apis/json-rpc/#quantities-encoding){target=\_blank} string or a [default block parameter](https://ethereum.org/en/developers/docs/apis/json-rpc/#default-block)
+- `blockValue` ++"string"++ - the block value to be fetched. Must be a [quantity](https://ethereum.org/en/developers/docs/apis/json-rpc/#quantities-encoding){target=\_blank} string or a [default block parameter](https://ethereum.org/en/developers/docs/apis/json-rpc/#default-block){target=\_blank}
 - `transactionIndex` ++"string"++ - the index of the transaction in the block. Must be a [quantity](https://ethereum.org/en/developers/docs/apis/json-rpc/#quantities-encoding){target=\_blank} string
 
 **Example**:
@@ -8556,7 +8556,7 @@ Traces a block's execution by its number and returns a detailed execution trace 
 
 **Parameters**:
 
-- `blockValue` ++"string"++ - the block number or tag to trace. Must be a [quantity](https://ethereum.org/en/developers/docs/apis/json-rpc/#quantities-encoding){target=\_blank} string or a [default block parameter](https://ethereum.org/en/developers/docs/apis/json-rpc/#default-block)
+- `blockValue` ++"string"++ - the block number or tag to trace. Must be a [quantity](https://ethereum.org/en/developers/docs/apis/json-rpc/#quantities-encoding){target=\_blank} string or a [default block parameter](https://ethereum.org/en/developers/docs/apis/json-rpc/#default-block){target=\_blank}
 - `options` ++"object"++ - (optional) an object containing tracer options:
     - `tracer` ++"string"++ - the name of the tracer to use (e.g., "callTracer", "opTracer").
     - Other tracer-specific options may be supported.
@@ -8617,7 +8617,7 @@ Executes a new message call and returns a detailed execution trace without creat
     - `gas` ++"string"++ - (optional) gas limit to execute the call. Must be a [quantity](https://ethereum.org/en/developers/docs/apis/json-rpc/#quantities-encoding){target=\_blank} string
     - `gasPrice` ++"string"++ - (optional) gas price per unit of gas. Must be a [quantity](https://ethereum.org/en/developers/docs/apis/json-rpc/#quantities-encoding){target=\_blank} string
     - `value` ++"string"++ - (optional) value in wei to send with the call. Must be a [quantity](https://ethereum.org/en/developers/docs/apis/json-rpc/#quantities-encoding){target=\_blank} string
-- `blockValue` ++"string"++ - (optional) block tag or block number to execute the call at. Must be a [quantity](https://ethereum.org/en/developers/docs/apis/json-rpc/#quantities-encoding){target=\_blank} string or a [default block parameter](https://ethereum.org/en/developers/docs/apis/json-rpc/#default-block)
+- `blockValue` ++"string"++ - (optional) block tag or block number to execute the call at. Must be a [quantity](https://ethereum.org/en/developers/docs/apis/json-rpc/#quantities-encoding){target=\_blank} string or a [default block parameter](https://ethereum.org/en/developers/docs/apis/json-rpc/#default-block){target=\_blank}
 - `options` ++"object"++ - (optional) an object containing tracer options (e.g., `tracer: "callTracer"`).
 
 **Example**:

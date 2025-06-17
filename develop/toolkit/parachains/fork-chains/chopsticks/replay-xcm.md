@@ -32,26 +32,36 @@ If you have not forked a chain before, see the [Fork a Chain with Chopsticks gui
 
 ### 1. Capture the XCM to Replay
 
-To replay a specific XCM, you must know:
+To replay a specific XCM, you must identify:
 
-- The source and destination chains involved
-- The XCM or block height where it was sent
-- Optionally, the call payload (if simulating manually via dev commands)
+* The source and destination chains involved
+* The block number or height at which the XCM was sent
+* Optionally, the call payload (if you plan to simulate it manually via development commands)
 
-You can use Polkadot.js Apps or indexers like Subscan to locate and review the original XCM execution.
+You can use [Polkadot.js Apps](/tutorials/polkadot-sdk/testing/fork-live-chains/#use-polkotdotjs-apps) or indexers such as [Subscan](https://polkadot.subscan.io/xcm_dashboard) to locate and review the original XCM execution.
 
 ### 2. Fork the Relevant Chains
 
-Use Chopsticks to fork the involved chains at the relevant block(s):
+Use Chopsticks to [fork](https://docs.polkadot.com/tutorials/polkadot-sdk/testing/fork-live-chains/#xcm-testing) the involved chains at the relevant block(s).
+
+* Set the block number in a `.env` file
+
+```env
+POLKADOT_BLOCK_NUMBER=21588342
+POLKADOT_ASSET_HUB_BLOCK_NUMBER=
+ACALA_BLOCK_NUMBER=
+```
+
+* Run Chopsticks with the config
 
 ```bash
 npx @acala-network/chopsticks xcm \
---r polkadot \
---p asset-hub-polkadot \
---p moonbeam
-````
+  --r polkadot \
+  --p polkadot-asset-hub \
+  --p acala
+```
 
-Make sure to fork at blocks *before* the XCM is sent, so you can replay it in full.
+Ensure at a block *before* the XCM is sent, so you can replay it in full.
 
 ### 3. Enable Full Logging
 
@@ -64,8 +74,8 @@ Pass the `--log trace` flag when launching Chopsticks to view all internal logs,
 ```bash
 npx @acala-network/chopsticks xcm \
 --r polkadot \
---p asset-hub-polkadot \
---p moonbeam \
+--p polkadot-asset-hub \
+--p acala
 --log trace
 ```
 

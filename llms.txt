@@ -15021,10 +15021,10 @@ Before replaying XCMs, ensure you have completed the [Chopsticks setup instructi
 
 You will need:
 
-- A working Chopsticks installation (`npm i -g @acala-network/chopsticks`)
-- Access to the **endpoint or genesis file** of the parachain you wish to fork
-- The block number or hash at which the XCM was sent
-- Optionally, a Chopsticks configuration file to simplify repeated setups
+* A working Chopsticks installation (`npm i -g @acala-network/chopsticks`)
+* Access to the **endpoint or genesis file** of the parachain you wish to fork
+* The block number or hash at which the XCM was sent
+* Optionally, a Chopsticks config file to simplify repeated setups
 
 If you have not forked a chain before, see the [Fork a Chain with Chopsticks guide](/tutorials/polkadot-sdk/testing/fork-live-chains/).
 
@@ -15032,20 +15032,20 @@ If you have not forked a chain before, see the [Fork a Chain with Chopsticks gui
 
 ### 1. Capture the XCM to Replay
 
-To replay a specific XCM, you must identify:
+To replay a specific XCM, identify:
 
 * The source and destination chains involved
 * The block number or height at which the XCM was sent
 * Optionally, the call payload (if you plan to simulate it manually via development commands)
 
-You can use [Polkadot.js Apps](/tutorials/polkadot-sdk/testing/fork-live-chains/#use-polkotdotjs-apps) or indexers such as [Subscan](https://polkadot.subscan.io/xcm_dashboard) to locate and review the original XCM execution.
+You can use [Polkadot.js Apps](/tutorials/polkadot-sdk/testing/fork-live-chains/#use-polkotdotjs-apps) or indexers such as [Subscan](https://polkadot.subscan.io/xcm_dashboard) to locate and inspect the original XCM execution.
 
 ### 2. Fork the Relevant Chains
 
 Use Chopsticks to [fork](https://docs.polkadot.com/tutorials/polkadot-sdk/testing/fork-live-chains/#xcm-testing) the involved chains at the relevant block(s).
 
 * Set the block numbers for each chain in a `.env` file
-    * Ensure each block number *before* the XCM is sent, so you can replay it in full.
+  * Ensure each block number is *before* the XCM is sent, so you can replay it in full.
 
 ```env
 POLKADOT_BLOCK_NUMBER=26481107
@@ -15054,6 +15054,7 @@ ACALA_BLOCK_NUMBER=8826385
 ```
 
 * Launch Chopsticks using the chain config files
+
   * All config files should have `runtime-log-level: 5` set to enable detailed execution logs for debugging.
 
 ```bash
@@ -15124,7 +15125,7 @@ main().catch(console.error);
 
 #### How to Run
 
-1. Save as `send-xcm.ts`
+1. Save the script as `send-xcm.ts`
 2. Install dependencies:
 
 ```bash
@@ -15140,11 +15141,11 @@ npx ts-node send-xcm.ts
 Make sure:
 
 * Chopsticks is running on port `8000`
-* You're on a chain that supports `polkadotXcm.send` (e.g. Polkadot Asset Hub fork)
+* Your're connected to a chain that supports `polkadotXcm.send` (e.g. a Polkadot Asset Hub fork)
 
 ## Conclusion
 
-Replaying XCMs with full logging gives you fine-grained control and visibility into how cross-chain messages behave. Chopsticks makes this possible in a safe local environment, empowering developers to:
+Replaying XCMs with full logging provides fine-grained control and visibility into cross-chain message behaviour. Chopsticks makes this possible in a safe, local environment – empowering developers to:
 
 * Debug complex message flows
 * Identify root causes of XCM failures
@@ -15154,17 +15155,17 @@ Replaying XCMs with full logging gives you fine-grained control and visibility i
 
 <div class="subsection-wrapper">
   <div class="card">
-    <a href="https://github.com/AcalaNetwork/chopsticks/"  target="_blank">
+    <a href="https://github.com/AcalaNetwork/chopsticks/" target="_blank">
       <h2 class="title">Chopsticks Repository</h2>
       <hr>
-      <p class="description">View the official Chopsticks Github Repository.</p>
+      <p class="description">View the official Chopsticks GitHub repository.</p>
     </a>
   </div>
-    <div class="card">
+  <div class="card">
     <a href="/learn/learn-xcm/">
       <h2 class="title">Polkadot XCM Docs</h2>
       <hr>
-      <p class="description">Learn how to use XCM.</p>
+      <p class="description">Learn how to use XCM effectively.</p>
     </a>
   </div>
 </div>

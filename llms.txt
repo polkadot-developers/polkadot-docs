@@ -15140,7 +15140,7 @@ npx ts-node send-xcm.ts
 Make sure:
 
 * Chopsticks is running on port `8000`
-* You're on a chain that supports `polkadotXcm.send` (e.g. `statemint` / Asset Hub fork)
+* You're on a chain that supports `polkadotXcm.send` (e.g. Polkadot Asset Hub fork)
 
 ## Conclusion
 

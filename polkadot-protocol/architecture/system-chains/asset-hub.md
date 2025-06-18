@@ -200,7 +200,7 @@ Sometimes, XCM transfers may fail due to liquidity or other errors. Failed trans
 - **Relay chain to system parachain** - look for the `dmpqueue(ExecutedDownward)` event on the parachain with an `Incomplete` outcome and an error type such as `UntrustedReserveLocation`
 - **Parachain to parachain** - monitor for `xcmpqueue(Fail)` on the destination parachain with error types like `TooExpensive`
 
-For detailed error management in XCM, see Gavin Wood's blog post on [XCM Execution and Error Management](https://www.polkadot.network/blog/xcm-part-three-execution-and-error-management){target=\_blank}.
+For detailed error management in XCM, see Gavin Wood's blog post on [XCM Execution and Error Management](https://polkadot.com/blog/xcm-part-three-execution-and-error-management/){target=\_blank}.
 
 ## Where to Go Next
 

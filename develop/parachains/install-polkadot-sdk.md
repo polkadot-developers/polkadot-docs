@@ -225,7 +225,7 @@ To prepare a development environment using WSL:
 
     If you have Microsoft Windows 10, version 2004 (Build 19041 and higher), or Microsoft Windows 11, WSL is available by default and you can continue to the next step.
 
-    If you have an older version of Microsoft Windows installed, see the [WSL manual installation steps for older versions](https://docs.microsoft.com/en-us/windows/wsl/install-manual){target=\_blank}. If you are installing on an older version of Microsoft Windows, you can download and install WLS 2 if your computer has Windows 10, version 1903 or higher
+    If you have an older version of Microsoft Windows installed, see the [WSL manual installation steps for older versions](https://learn.microsoft.com/en-us/windows/wsl/install-manual){target=\_blank}. If you are installing on an older version of Microsoft Windows, you can download and install WLS 2 if your computer has Windows 10, version 1903 or higher
 
 2. Select **Windows PowerShell** or **Command Prompt** from the **Start** menu, right-click, then **Run as administrator**
 
@@ -250,7 +250,7 @@ To prepare a development environment using WSL:
 
     Restarting the computer is required to start the installation of the Linux distribution. It can take a few minutes for the installation to complete after you restart.
 
-    For more information about setting up WSL as a development environment, see the [Set up a WSL development environment](https://docs.microsoft.com/en-us/windows/wsl/setup/environment){target=\_blank} docs
+    For more information about setting up WSL as a development environment, see the [Set up a WSL development environment](https://learn.microsoft.com/en-us/windows/wsl/setup/environment){target=\_blank} docs
 
 ### Install Required Packages and Rust {: #install-required-packages-and-rust-windows }
 

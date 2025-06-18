@@ -91,30 +91,35 @@ async function main() {
 
   console.log('Submitting extrinsic:', tx.toHuman());
 
-  const unsub = await tx.signAndSend(alice, ({ status, events, dispatchError }) => {
-    if (status.isInBlock) {
-      console.log('📦 Included in block:', status.asInBlock.toHex());
-    } else if (status.isFinalized) {
-      console.log('✅ Finalized in block:', status.asFinalized.toHex());
-      unsub();
-    }
-
-    if (dispatchError) {
-      if (dispatchError.isModule) {
-        const decoded = api.registry.findMetaError(dispatchError.asModule);
-        console.error('❌ Dispatch error:', decoded.section, decoded.name);
-      } else {
-        console.error('❌ Dispatch error:', dispatchError.toString());
+  await new Promise<void>(async (resolve) => {
+    const unsub = await tx.signAndSend(alice, ({ status, events, dispatchError }) => {
+      if (status.isInBlock) {
+        console.log('📦 Included in block:', status.asInBlock.toHex());
+      } else if (status.isFinalized) {
+        console.log('✅ Finalised in block:', status.asFinalized.toHex());
+        unsub();
+        resolve();
       }
-    }
 
-    for (const { event } of events) {
-      console.log('📣 Event:', event.section, event.method, event.data.toHuman());
-    }
+      if (dispatchError) {
+        if (dispatchError.isModule) {
+          const decoded = api.registry.findMetaError(dispatchError.asModule);
+          console.error('❌ Dispatch error:', decoded.section, decoded.name);
+        } else {
+          console.error('❌ Dispatch error:', dispatchError.toString());
+        }
+      }
+
+      for (const { event } of events) {
+        console.log('📣 Event:', event.section, event.method, event.data.toHuman());
+      }
+    });
   });
+
+  await api.disconnect();
 }
 
-main().catch(console.error).finally(() => process.exit());
+main().catch(console.error);
 ```
 
 #### How to Run
@@ -145,10 +150,21 @@ Replaying XCMs with full logging gives you fine-grained control and visibility i
 * Identify root causes of XCM failures
 * Improve observability for future integrations
 
-For further reading:
+## Additional Resources
 
-* [Polkadot XCM Docs](https://wiki.polkadot.network/docs/learn/xcm)
-* [Chopsticks GitHub](https://github.com/AcalaNetwork/chopsticks)
-* [Polkadot SDK Issue #6119: XCM Observability](https://github.com/paritytech/polkadot-sdk/issues/6119)
-
-```
+<div class="subsection-wrapper">
+  <div class="card">
+    <a href="https://github.com/AcalaNetwork/chopsticks/"  target="_blank">
+      <h2 class="title">Chopsticks Repository</h2>
+      <hr>
+      <p class="description">View the official Chopsticks Github Repository.</p>
+    </a>
+  </div>
+    <div class="card">
+    <a href="/learn/learn-xcm/">
+      <h2 class="title">Polkadot XCM Docs</h2>
+      <hr>
+      <p class="description">Learn how to use XCM.</p>
+    </a>
+  </div>
+</div>

@@ -1,8 +1,8 @@
 title: Libraries
 nav:
   - index.md
-  - 'Ethers.js': ethers-js.md
-  - 'Web3.js': web3-js.md
-  - 'Web3.py': web3-py.md
-  - 'viem': viem.md
-  - 'Wagmi': wagmi.md
+  - ':simple-javascript: Ethers.js': ethers-js.md
+  - ':simple-javascript: Web3.js': web3-js.md
+  - ':simple-python: Web3.py': web3-py.md
+  - ':simple-typescript: viem': viem.md
+  - ':simple-typescript: Wagmi': wagmi.md

@@ -542,7 +542,7 @@ curl -X POST https://testnet-passet-hub-eth-rpc.polkadot.io \
 
 ---
 
-### eth\_sendRawTransaction
+### eth_sendRawTransaction
 
 Submits a raw transaction. [Reference](https://ethereum.org/en/developers/docs/apis/json-rpc/#eth_sendrawtransaction){target=\_blank}.
 

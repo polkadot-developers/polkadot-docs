@@ -15044,7 +15044,8 @@ You can use [Polkadot.js Apps](/tutorials/polkadot-sdk/testing/fork-live-chains/
 
 Use Chopsticks to [fork](https://docs.polkadot.com/tutorials/polkadot-sdk/testing/fork-live-chains/#xcm-testing) the involved chains at the relevant block(s).
 
-* Set the block number in a `.env` file
+* Set the block numbers for each chain in a `.env` file
+    * Ensure each block number *before* the XCM is sent, so you can replay it in full.
 
 ```env
 POLKADOT_BLOCK_NUMBER=21588342
@@ -15052,7 +15053,8 @@ POLKADOT_ASSET_HUB_BLOCK_NUMBER=
 ACALA_BLOCK_NUMBER=
 ```
 
-* Run Chopsticks with the config
+* Launch Chopsticks using the chain config files
+  * All config files should have `runtime-log-level: 5` set to enable detailed execution logs for debugging.
 
 ```bash
 npx @acala-network/chopsticks xcm \
@@ -15060,10 +15062,6 @@ npx @acala-network/chopsticks xcm \
   --p polkadot-asset-hub \
   --p acala
 ```
-
-Ensure at a block *before* the XCM is sent, so you can replay it in full.
-
-Use `runtime-log-level: 5` to ensure all trace info is enabled on the config files.
 
 ### 3. Replay the XCM
 

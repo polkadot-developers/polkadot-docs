@@ -49,6 +49,7 @@ Doc-Page: https://docs.polkadot.com/develop/toolkit/api-libraries/papi/
 Doc-Page: https://docs.polkadot.com/develop/toolkit/api-libraries/polkadot-js-api/
 Doc-Page: https://docs.polkadot.com/develop/toolkit/api-libraries/py-substrate-interface/
 Doc-Page: https://docs.polkadot.com/develop/toolkit/api-libraries/sidecar/
+Doc-Page: https://docs.polkadot.com/develop/toolkit/api-libraries/subxt/
 Doc-Page: https://docs.polkadot.com/develop/toolkit/
 Doc-Page: https://docs.polkadot.com/develop/toolkit/integrations/
 Doc-Page: https://docs.polkadot.com/develop/toolkit/integrations/indexers/
@@ -77,7 +78,9 @@ Doc-Page: https://docs.polkadot.com/infrastructure/running-a-node/setup-full-nod
 Doc-Page: https://docs.polkadot.com/infrastructure/running-a-node/setup-secure-wss/
 Doc-Page: https://docs.polkadot.com/infrastructure/running-a-validator/
 Doc-Page: https://docs.polkadot.com/infrastructure/running-a-validator/onboarding-and-offboarding/
+Doc-Page: https://docs.polkadot.com/infrastructure/running-a-validator/onboarding-and-offboarding/key-management/
 Doc-Page: https://docs.polkadot.com/infrastructure/running-a-validator/onboarding-and-offboarding/set-up-validator/
+Doc-Page: https://docs.polkadot.com/infrastructure/running-a-validator/onboarding-and-offboarding/start-validating/
 Doc-Page: https://docs.polkadot.com/infrastructure/running-a-validator/onboarding-and-offboarding/stop-validating/
 Doc-Page: https://docs.polkadot.com/infrastructure/running-a-validator/operational-tasks/general-management/
 Doc-Page: https://docs.polkadot.com/infrastructure/running-a-validator/operational-tasks/
@@ -100,6 +103,7 @@ Doc-Page: https://docs.polkadot.com/polkadot-protocol/architecture/system-chains
 Doc-Page: https://docs.polkadot.com/polkadot-protocol/architecture/system-chains/coretime/
 Doc-Page: https://docs.polkadot.com/polkadot-protocol/architecture/system-chains/
 Doc-Page: https://docs.polkadot.com/polkadot-protocol/architecture/system-chains/overview/
+Doc-Page: https://docs.polkadot.com/polkadot-protocol/architecture/system-chains/people/
 Doc-Page: https://docs.polkadot.com/polkadot-protocol/basics/accounts/
 Doc-Page: https://docs.polkadot.com/polkadot-protocol/basics/blocks-transactions-fees/blocks/
 Doc-Page: https://docs.polkadot.com/polkadot-protocol/basics/blocks-transactions-fees/fees/
@@ -111,6 +115,7 @@ Doc-Page: https://docs.polkadot.com/polkadot-protocol/basics/data-encoding/
 Doc-Page: https://docs.polkadot.com/polkadot-protocol/basics/
 Doc-Page: https://docs.polkadot.com/polkadot-protocol/basics/interoperability/
 Doc-Page: https://docs.polkadot.com/polkadot-protocol/basics/networks/
+Doc-Page: https://docs.polkadot.com/polkadot-protocol/basics/node-and-runtime/
 Doc-Page: https://docs.polkadot.com/polkadot-protocol/basics/randomness/
 Doc-Page: https://docs.polkadot.com/polkadot-protocol/glossary/
 Doc-Page: https://docs.polkadot.com/polkadot-protocol/
@@ -583,7 +588,7 @@ For scenarios where real blockchain state is required, [Chopsticks](/tutorials/p
 
 Setting up a live network with multiple interconnected parachains for XCM testing can be complex and resource-intensive. 
 
-The [`xcm-emulator`](https://github.com/paritytech/polkadot-sdk/tree/{{dependencies.polkadot_sdk.stable_version}}/cumulus/xcm/xcm-emulator){target=\_blank} is a tool designed to simulate the execution of XCM programs using predefined runtime configurations. These configurations include those utilized by live networks like Kusama, Polkadot, and Asset Hub.
+The [`xcm-emulator`](https://github.com/paritytech/polkadot-sdk/tree/{{dependencies.repositories.polkadot_sdk.version}}/cumulus/xcm/xcm-emulator){target=\_blank} is a tool designed to simulate the execution of XCM programs using predefined runtime configurations. These configurations include those utilized by live networks like Kusama, Polkadot, and Asset Hub.
 
 This tool enables testing of cross-chain message passing, providing a way to verify outcomes, weights, and side effects efficiently. It achieves this by utilizing mocked runtimes for both the relay chain and connected parachains, enabling developers to focus on message logic and configuration without needing a live network.
 
@@ -606,9 +611,9 @@ The XCM Emulator provides both advantages and limitations when testing cross-cha
 
 ### How Does It Work?
 
-The `xcm-emulator` provides macros for defining a mocked testing environment. Check all the existing macros and functionality in the [XCM Emulator source code](https://github.com/paritytech/polkadot-sdk/blob/{{dependencies.polkadot_sdk.stable_version}}/cumulus/xcm/xcm-emulator/src/lib.rs){target=\_blank}. The most important macros are:
+The `xcm-emulator` provides macros for defining a mocked testing environment. Check all the existing macros and functionality in the [XCM Emulator source code](https://github.com/paritytech/polkadot-sdk/blob/{{dependencies.repositories.polkadot_sdk.version}}/cumulus/xcm/xcm-emulator/src/lib.rs){target=\_blank}. The most important macros are:
 
-- [**`decl_test_relay_chains`**](https://github.com/paritytech/polkadot-sdk/blob/{{dependencies.polkadot_sdk.stable_version}}/cumulus/xcm/xcm-emulator/src/lib.rs#L355){target=\_blank} - defines runtime and configuration for the relay chains. Example:
+- [**`decl_test_relay_chains`**](https://github.com/paritytech/polkadot-sdk/blob/{{dependencies.repositories.polkadot_sdk.version}}/cumulus/xcm/xcm-emulator/src/lib.rs#L355){target=\_blank} - defines runtime and configuration for the relay chains. Example:
 
     ```rust
     // Westend declaration
@@ -635,7 +640,7 @@ decl_test_relay_chains! {
 }
     ```
 
-- [**`decl_test_parachains`**](https://github.com/paritytech/polkadot-sdk/blob/{{dependencies.polkadot_sdk.stable_version}}/cumulus/xcm/xcm-emulator/src/lib.rs#L590){target=\_blank} - defines runtime and configuration for the parachains. Example:
+- [**`decl_test_parachains`**](https://github.com/paritytech/polkadot-sdk/blob/{{dependencies.repositories.polkadot_sdk.version}}/cumulus/xcm/xcm-emulator/src/lib.rs#L590){target=\_blank} - defines runtime and configuration for the parachains. Example:
 
     ```rust
     // AssetHubWestend Parachain declaration
@@ -664,7 +669,7 @@ decl_test_parachains! {
 }
     ```
 
-- [**`decl_test_bridges`**](https://github.com/paritytech/polkadot-sdk/blob/{{dependencies.polkadot_sdk.stable_version}}/cumulus/xcm/xcm-emulator/src/lib.rs#L1178){target=\_blank} - creates bridges between chains, specifying the source, target, and message handler. Example:
+- [**`decl_test_bridges`**](https://github.com/paritytech/polkadot-sdk/blob/{{dependencies.repositories.polkadot_sdk.version}}/cumulus/xcm/xcm-emulator/src/lib.rs#L1178){target=\_blank} - creates bridges between chains, specifying the source, target, and message handler. Example:
 
     ```rust
     decl_test_bridges! {
@@ -681,7 +686,7 @@ decl_test_parachains! {
 }
     ```
 
-- [**`decl_test_networks`**](https://github.com/paritytech/polkadot-sdk/blob/{{dependencies.polkadot_sdk.stable_version}}/cumulus/xcm/xcm-emulator/src/lib.rs#L916){target=\_blank} - defines a testing network with relay chains, parachains, and bridges, implementing message transport and processing logic. Example:
+- [**`decl_test_networks`**](https://github.com/paritytech/polkadot-sdk/blob/{{dependencies.repositories.polkadot_sdk.version}}/cumulus/xcm/xcm-emulator/src/lib.rs#L916){target=\_blank} - defines a testing network with relay chains, parachains, and bridges, implementing message transport and processing logic. Example:
 
     ```rust
     decl_test_networks! {
@@ -705,7 +710,7 @@ By leveraging these macros, developers can customize their testing networks by d
 
 This framework enables thorough testing of runtime and cross-chain interactions, enabling developers to effectively design, test, and optimize cross-chain functionality.
 
-To see a complete example of implementing and executing tests, refer to the [integration tests](https://github.com/paritytech/polkadot-sdk/tree/{{dependencies.polkadot_sdk.stable_version}}/cumulus/parachains/integration-tests/emulated){target=\_blank} in the Polkadot SDK repository.
+To see a complete example of implementing and executing tests, refer to the [integration tests](https://github.com/paritytech/polkadot-sdk/tree/{{dependencies.repositories.polkadot_sdk.version}}/cumulus/parachains/integration-tests/emulated){target=\_blank} in the Polkadot SDK repository.
 --- END CONTENT ---
 
 Doc-Content: https://docs.polkadot.com/develop/interoperability/versions/
@@ -1077,7 +1082,7 @@ The executor is highly configurable, with the [XCM builder](https://paritytech.g
 
 ## XCM Executor Configuration
 
-The `Config` trait defines the XCM executor’s configuration, which requires several associated types. Each type has specific trait bounds that the concrete implementation must fulfill. Some types, such as `RuntimeCall`, come with a default implementation in most cases, while others use the unit type `()` as the default. For many of these types, selecting the appropriate implementation carefully is crucial. Predefined solutions and building blocks can be adapted to your specific needs. These solutions can be found in the [`xcm-builder`](https://github.com/paritytech/polkadot-sdk/tree/{{dependencies.polkadot_sdk.stable_version}}/polkadot/xcm/xcm-builder){target=\_blank} folder.
+The `Config` trait defines the XCM executor’s configuration, which requires several associated types. Each type has specific trait bounds that the concrete implementation must fulfill. Some types, such as `RuntimeCall`, come with a default implementation in most cases, while others use the unit type `()` as the default. For many of these types, selecting the appropriate implementation carefully is crucial. Predefined solutions and building blocks can be adapted to your specific needs. These solutions can be found in the [`xcm-builder`](https://github.com/paritytech/polkadot-sdk/tree/{{dependencies.repositories.polkadot_sdk.version}}/polkadot/xcm/xcm-builder){target=\_blank} folder.
 
 Each type is explained below, along with an overview of some of its implementations:
 
@@ -3233,7 +3238,7 @@ This basic structure shows that every pallet must define certain types, such as 
 
 ### Utility Pallet Example
 
-For instance, in the [`utility`](https://github.com/paritytech/polkadot-sdk/tree/{{dependencies.polkadot_sdk.stable_version}}/substrate/frame/utility){target=\_blank} pallet, the `Config` trait is implemented with the following types:
+For instance, in the [`utility`](https://github.com/paritytech/polkadot-sdk/tree/{{dependencies.repositories.polkadot_sdk.version}}/substrate/frame/utility){target=\_blank} pallet, the `Config` trait is implemented with the following types:
 
 ```rust
 #[pallet::config]
@@ -3266,7 +3271,7 @@ This example shows how the `Config` trait defines types like `RuntimeEvent`, `Ru
 
 Traits in Rust define shared behavior, and within the Polkadot SDK, they allow runtimes to integrate and utilize a pallet's functionality by implementing its associated configuration trait and parameters. Some of these parameters may require constant values, which can be defined using the [`parameter_types!`](https://paritytech.github.io/polkadot-sdk/master/frame_support/macro.parameter_types.html){target=\_blank} macro. This macro simplifies development by expanding the constants into the appropriate struct types with functions that the runtime can use to access their types and values in a consistent manner.
 
-For example, the following code snippet shows how the solochain template configures certain parameters through the [`parameter_types!`]({{ dependencies.polkadot_sdk_solochain_template.repository_url }}/blob/v0.0.2/runtime/src/lib.rs#L138){target=\_blank} macro in the `runtime/lib.rs` file:
+For example, the following code snippet shows how the solochain template configures certain parameters through the [`parameter_types!`]({{ dependencies.repositories.polkadot_sdk_solochain_template.repository_url }}/blob/{{dependencies.repositories.polkadot_sdk_solochain_template.version}}/runtime/src/lib.rs#L138){target=\_blank} macro in the `runtime/lib.rs` file:
 
 ```rust
 parameter_types! {
@@ -3430,7 +3435,7 @@ template: index-page.html
 
 Learn how to build a custom parachain with Polkadot SDK's FRAME framework, which includes pallet development, testing, smart contracts, and runtime customization. Pallets are modular components within the FRAME ecosystem that contain specific blockchain functionalities. This modularity grants developers increased flexibility and control around which behaviors to include in the core logic of their parachain.
 
-The [FRAME directory](https://github.com/paritytech/polkadot-sdk/tree/{{dependencies.polkadot_sdk.stable_version}}/substrate/frame){target=\_blank} includes a robust library of pre-built pallets you can use as examples or templates to ease development.
+The [FRAME directory](https://github.com/paritytech/polkadot-sdk/tree/{{dependencies.repositories.polkadot_sdk.version}}/substrate/frame){target=\_blank} includes a robust library of pre-built pallets you can use as examples or templates to ease development.
 
 ## In This Section
 
@@ -3440,7 +3445,7 @@ The [FRAME directory](https://github.com/paritytech/polkadot-sdk/tree/{{dependen
 
 <div class="subsection-wrapper">
   <div class="card">
-    <a href="https://github.com/paritytech/polkadot-sdk/tree/{{dependencies.polkadot_sdk.stable_version}}/substrate/frame" target="_blank">
+    <a href="https://github.com/paritytech/polkadot-sdk/tree/{{dependencies.repositories.polkadot_sdk.version}}/substrate/frame" target="_blank">
       <h2 class="title">FRAME Repository</h2>
       <p class="description">View the source code of the FRAME development environment that provides pallets you can use, modify, and extend to build the runtime logic to suit the needs of your blockchain.</p>
     </a>
@@ -3858,7 +3863,7 @@ Developers have the flexibility to implement any desired behavior in the core lo
 - Storing information
 - Enforcing business rules
 
-Pallets also include necessary wiring code to ensure proper integration and functionality within the runtime. FRAME provides a range of [pre-built pallets](https://github.com/paritytech/polkadot-sdk/tree/{{dependencies.polkadot_sdk.stable_version}}/substrate/frame){target=\_blank} for standard and common blockchain functionalities, including consensus algorithms, staking mechanisms, governance systems, and more. These pre-existing pallets serve as building blocks or templates, which developers can use as-is, modify, or reference when creating custom functionalities. 
+Pallets also include necessary wiring code to ensure proper integration and functionality within the runtime. FRAME provides a range of [pre-built pallets](https://github.com/paritytech/polkadot-sdk/tree/{{dependencies.repositories.polkadot_sdk.version}}/substrate/frame){target=\_blank} for standard and common blockchain functionalities, including consensus algorithms, staking mechanisms, governance systems, and more. These pre-existing pallets serve as building blocks or templates, which developers can use as-is, modify, or reference when creating custom functionalities. 
 
 #### Pallet Structure
 
@@ -3979,7 +3984,7 @@ Before you begin, ensure you have [Docker](https://www.docker.com/get-started/){
 
 To compile the Wasm runtime deterministically, the same tooling that produces the runtime for Polkadot, Kusama, and other Polkadot SDK-based chains can be used. This tooling, referred to collectively as the Substrate Runtime Toolbox or [`srtool`](https://github.com/paritytech/srtool){target=\_blank}, ensures that the same source code consistently compiles to an identical Wasm blob.
 
-The core component of `srtool` is a Docker container executed as part of a Docker image. The name of the `srtool` Docker image specifies the version of the Rust compiler used to compile the code included in the image. For example, the image `{{dependencies.srtool.docker_image_name}}:{{dependencies.srtool.docker_image_version}}` indicates that the code in the image was compiled with version `{{dependencies.srtool.docker_image_version}}` of the `rustc` compiler.
+The core component of `srtool` is a Docker container executed as part of a Docker image. The name of the `srtool` Docker image specifies the version of the Rust compiler used to compile the code included in the image. For example, the image `{{dependencies.repositories.srtool.docker_image_name}}:{{dependencies.repositories.srtool.docker_image_version}}` indicates that the code in the image was compiled with version `{{dependencies.repositories.srtool.docker_image_version}}` of the `rustc` compiler.
 
 ## Working with the Docker Container
 
@@ -4113,7 +4118,7 @@ To pull the image from Docker Hub:
 6. Paste the command you copied from the Docker Hub. For example, you might run a command similar to the following, which downloads and unpacks the image:
 
     ```bash
-    docker pull paritytech/srtool:{{ dependencies.srtool.docker_image_version }}
+    docker pull paritytech/srtool:{{ dependencies.repositories.srtool.docker_image_version }}
     ```
 
 ### Naming Convention for Images
@@ -4230,8 +4235,8 @@ Replace `INSERT_RUNTIME_WASM_PATH` with the path to the runtime Wasm file and `I
 
 The available commands are:
 
-- **`patch`** - overwrites the runtime's default genesis config with the provided patch. You can check the following [patch file](https://github.com/paritytech/polkadot-sdk/blob/{{dependencies.polkadot_sdk.stable_version}}/substrate/bin/utils/chain-spec-builder/tests/input/patch.json){target=\_blank} as a reference
-- **`full`** - build the genesis config for runtime using the JSON file. No defaults will be used. As a reference, you can check the following [full file](https://github.com/paritytech/polkadot-sdk/blob/{{dependencies.polkadot_sdk.stable_version}}/substrate/bin/utils/chain-spec-builder/tests/input/full.json){target=\_blank}
+- **`patch`** - overwrites the runtime's default genesis config with the provided patch. You can check the following [patch file](https://github.com/paritytech/polkadot-sdk/blob/{{dependencies.repositories.polkadot_sdk.version}}/substrate/bin/utils/chain-spec-builder/tests/input/patch.json){target=\_blank} as a reference
+- **`full`** - build the genesis config for runtime using the JSON file. No defaults will be used. As a reference, you can check the following [full file](https://github.com/paritytech/polkadot-sdk/blob/{{dependencies.repositories.polkadot_sdk.version}}/substrate/bin/utils/chain-spec-builder/tests/input/full.json){target=\_blank}
 - **`default`** - gets the default genesis config for the runtime and uses it in `ChainSpec`. Please note that the default genesis config may not be valid. For some runtimes, initial values should be added there (e.g., session keys, BABE epoch)
 - **`named-preset`** - uses named preset provided by the runtime to build the chain spec
 
@@ -4456,7 +4461,7 @@ For current marketplaces and pricing, consult the [Coretime Marketplaces](https:
 On-demand coretime allows for flexible, as-needed block production. To purchase:
 
 1. Ensure your collator node is fully synchronized with the relay chain
-2. From the account that registered the `ParaID`, submit the `onDemand.placeOrderAllowDeath` extrinsic with:
+2. Submit the `onDemand.placeOrderAllowDeath` extrinsic on the relay chain with:
 
     - **`maxAmountFor`** - sufficient funds for the transaction
     - **`paraId`** - your registered `ParaID`
@@ -4871,7 +4876,7 @@ description: Learn about the Polkadot SDK, a robust developer toolkit for buildi
 
 ## Introduction
 
-The [Polkadot SDK](https://github.com/paritytech/polkadot-sdk/tree/{{dependencies.polkadot_sdk.stable_version}}){target=\_blank} is a powerful and versatile developer kit designed to facilitate building on the Polkadot network. It provides the necessary components for creating custom blockchains, parachains, generalized rollups, and more. Written in the Rust programming language, it puts security and robustness at the forefront of its design.
+The [Polkadot SDK](https://github.com/paritytech/polkadot-sdk/tree/{{dependencies.repositories.polkadot_sdk.version}}){target=\_blank} is a powerful and versatile developer kit designed to facilitate building on the Polkadot network. It provides the necessary components for creating custom blockchains, parachains, generalized rollups, and more. Written in the Rust programming language, it puts security and robustness at the forefront of its design.
 
 Whether you're building a standalone chain or deploying a parachain on Polkadot, this SDK equips developers with the libraries and tools needed to manage runtime logic, compile the codebase, and utilize core features like staking, governance, and Cross-Consensus Messaging (XCM). It also provides a means for building generalized peer-to-peer systems beyond blockchains. The Polkadot SDK houses the following overall functionality:
 
@@ -5599,7 +5604,7 @@ Multi-block migrations are ideal when dealing with:
 
 The primary trade-off is increased implementation complexity, as you must manage the migration state and handle partial completion scenarios. However, multi-block migrations' significant safety benefits and operational reliability are typically worth the increased complexity.
 
-For a complete implementation example of multi-block migrations, refer to the [official example](https://github.com/paritytech/polkadot-sdk/tree/{{dependencies.polkadot_sdk.stable_version}}/substrate/frame/examples/multi-block-migrations){target=\_blank} in the Polkadot SDK.
+For a complete implementation example of multi-block migrations, refer to the [official example](https://github.com/paritytech/polkadot-sdk/tree/{{dependencies.repositories.polkadot_sdk.version}}/substrate/frame/examples/multi-block-migrations){target=\_blank} in the Polkadot SDK.
 --- END CONTENT ---
 
 Doc-Content: https://docs.polkadot.com/develop/parachains/testing/benchmarking/
@@ -6910,7 +6915,7 @@ These strengths do come with certain limitations. Some smart contracts environme
 
 Another downside is that smart contracts often follow a gas metering model, where program execution is associated with a given unit and a marketplace is set up to pay for such an execution unit. This fee system is often very rigid, and some complex flows, like account abstraction, have been developed to circumvent this problem.
 
-In contrast, parachains can create their own custom logics (known as pallets or modules), and combine them as the state transition function (STF or runtime) thanks to the modularity provided by the [Polkadot-SDK](https://github.com/paritytech/polkadot-sdk/tree/{{dependencies.polkadot_sdk.stable_version}}){target=\_blank}. The different pallets within the parachain runtime can give developers a lot of flexibility when building applications on top of it.
+In contrast, parachains can create their own custom logics (known as pallets or modules), and combine them as the state transition function (STF or runtime) thanks to the modularity provided by the [Polkadot-SDK](https://github.com/paritytech/polkadot-sdk/tree/{{dependencies.repositories.polkadot_sdk.version}}){target=\_blank}. The different pallets within the parachain runtime can give developers a lot of flexibility when building applications on top of it.
 
 ``` mermaid
 flowchart LR
@@ -8032,6 +8037,270 @@ For a complete list of available endpoints and their documentation, visit the [S
 To dive deeper, refer to the [official Sidecar documentation](https://github.com/paritytech/substrate-api-sidecar?tab=readme-ov-file#substrateapi-sidecar){target=\_blank}. This provides a comprehensive guide to the available configurations and advanced usage.
 --- END CONTENT ---
 
+Doc-Content: https://docs.polkadot.com/develop/toolkit/api-libraries/subxt/
+--- BEGIN CONTENT ---
+---
+title: Subxt Rust API
+description: Subxt is a Rust library for type-safe interaction with Polkadot SDK blockchains, enabling transactions, state queries, runtime API access, and more.
+---
+
+# Subxt Rust API
+
+## Introduction
+
+subxt is a Rust library designed to interact with Polkadot SDK-based blockchains. It provides a type-safe interface for submitting transactions, querying on-chain state, and performing other blockchain interactions. By leveraging Rust's strong type system, subxt ensures that your code is validated at compile time, reducing runtime errors and improving reliability.
+
+## Prerequisites
+
+Before using subxt, ensure you have the following requirements:
+
+- Rust and Cargo installed on your system. You can install them using [Rustup](https://rustup.rs/){target=\_blank}
+- A Rust project initialized. If you don't have one, create it with:
+    ```bash
+    cargo new my_project && cd my_project
+    ```
+
+## Installation
+
+To use subxt in your project, you must install the necessary dependencies. Each plays a specific role in enabling interaction with the blockchain:
+
+1. **Install the subxt CLI** - [`subxt-cli`](https://crates.io/crates/subxt-cli){target=\_blank} is a command-line tool that provides utilities for working with Polkadot SDK metadata. In the context of subxt, it is essential to download chain metadata, which is required to generate type-safe Rust interfaces for interacting with the blockchain. Install it using:
+
+    ```bash
+    cargo install subxt-cli
+    ```
+
+2. **Add core dependencies** - these dependencies are essential for interacting with the blockchain:
+
+    - **[subxt](https://crates.io/crates/subxt){target=\_blank}** - the main library for communicating with Polkadot SDK nodes. It handles RPC requests, encoding/decoding, and type generation
+
+        ```bash
+        cargo add subxt
+        ```
+
+    - **[subxt-signer](https://crates.io/crates/subxt-signer){target=\_blank}** - provides cryptographic functionality for signing transactions. Without this, you can only read data but cannot submit transactions
+
+        ```bash
+        cargo add subxt-signer
+        ```
+
+    - **[tokio](https://crates.io/crates/tokio){target=\_blank}** - an asynchronous runtime for Rust. Since blockchain operations are async, Tokio enables the efficient handling of network requests. The `rt` feature enables Tokio's runtime, including the current-thread single-threaded scheduler, which is necessary for async execution. The `macros` feature provides procedural macros like `#[tokio::main]` to simplify runtime setup
+
+        ```bash
+        cargo add tokio --features rt,macros
+        ```
+
+    After adding the dependencies, your `Cargo.toml` should look like this:
+
+    ```toml
+    [package]
+name = "my-project"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+subxt = "0.39.0"
+subxt-signer = "0.39.0"
+tokio = { version = "1.43.0", features = ["rt", "macros"] }
+    ```
+
+## Get Started
+
+This guide will walk you through the fundamental operations of subxt, from setting up your environment to executing transactions and querying blockchain state.
+
+### Download Chain Metadata
+
+Before interacting with a blockchain, you need to retrieve its metadata. This metadata defines storage structures, extrinsics, and other runtime details. Use the `subxt-cli` tool to download the metadata, replacing `INSERT_NODE_URL` with the URL of the node you want to interact with:
+
+```bash
+subxt metadata --url INSERT_NODE_URL > polkadot_metadata.scale
+```
+
+### Generate Type-Safe Interfaces
+
+Use the `#[subxt::subxt]` macro to generate a type-safe Rust interface from the downloaded metadata:
+
+```rust
+#[subxt::subxt(runtime_metadata_path = "./polkadot_metadata.scale")]
+pub mod polkadot {}
+```
+
+Once subxt interfaces are generated, you can interact with your node in the following ways. You can use the links below to view the related subxt documentation:
+
+- **[Transactions](https://docs.rs/subxt/latest/subxt/book/usage/transactions/index.html){target=\_blank}** - builds and submits transactions, monitors their inclusion in blocks, and retrieves associated events
+- **[Storage](https://docs.rs/subxt/latest/subxt/book/usage/storage/index.html){target=\_blank}** - enables querying of node storage data
+- **[Events](https://docs.rs/subxt/latest/subxt/book/usage/events/index.html){target=\_blank}** - retrieves events emitted from recent blocks
+- **[Constants](https://docs.rs/subxt/latest/subxt/book/usage/constants/index.html){target=\_blank}** - accesses constant values stored in nodes that remain unchanged across a specific runtime version.
+- **[Blocks](https://docs.rs/subxt/latest/subxt/book/usage/blocks/index.html){target=\_blank}** - loads recent blocks or subscribes to new/finalized blocks, allowing examination of extrinsics, events, and storage at those blocks
+- **[Runtime APIs](https://docs.rs/subxt/latest/subxt/book/usage/runtime_apis/index.html){target=\_blank}** - makes calls into pallet runtime APIs to fetch data
+- **[Custom values](https://docs.rs/subxt/latest/subxt/book/usage/custom_values/index.html){target=\_blank}** - accesses "custom values" contained within metadata
+- **[Raw RPC calls](https://docs.rs/subxt/latest/subxt/book/usage/rpc/index.html){target=\_blank}** - facilitates raw RPC requests to compatible nodes
+
+### Initialize the Subxt client
+
+To interact with a blockchain node using subxt, create an asynchronous main function and initialize the client. Replace `INSERT_NODE_URL` with the URL of your target node:
+
+```rust
+use std::str::FromStr;
+use subxt::utils::AccountId32;
+use subxt::{OnlineClient, PolkadotConfig};
+use subxt_signer::{bip39::Mnemonic,sr25519::Keypair};
+
+// Generate an interface that we can use from the node's metadata.
+#[subxt::subxt(runtime_metadata_path = "./polkadot_metadata.scale")]
+pub mod polkadot {}
+
+#[tokio::main(flavor = "current_thread")]
+async fn main() -> Result<(), Box<dyn std::error::Error>> {
+    // Define the node URL.
+    const NODE_URL: &str = "INSERT_NODE_URL";
+
+    // Initialize the Subxt client to interact with the blockchain.
+    let api = OnlineClient::<PolkadotConfig>::from_url(NODE_URL).await?;
+
+    // A query to obtain some constant.
+    let constant_query = polkadot::constants().balances().existential_deposit();
+
+    // Obtain the value.
+    let value = api.constants().at(&constant_query)?;
+
+    println!("Existential deposit: {:?}", value);
+
+    // Define the target account address.
+    const ADDRESS: &str = "INSERT_ADDRESS";
+    let account = AccountId32::from_str(ADDRESS).unwrap();
+
+    // Build a storage query to access account information.
+    let storage_query = polkadot::storage().system().account(&account.into());
+
+    // Fetch the latest state for the account.
+    let result = api
+        .storage()
+        .at_latest()
+        .await?
+        .fetch(&storage_query)
+        .await?
+        .unwrap();
+
+    println!("Account info: {:?}", result);
+
+    // Define the recipient address and transfer amount.
+    const DEST_ADDRESS: &str = "INSERT_DEST_ADDRESS";
+    const AMOUNT: u128 = INSERT_AMOUNT;
+
+    // Convert the recipient address into an `AccountId32`.
+    let dest = AccountId32::from_str(DEST_ADDRESS).unwrap();
+
+    // Build the balance transfer extrinsic.
+    let balance_transfer_tx = polkadot::tx()
+        .balances()
+        .transfer_allow_death(dest.into(), AMOUNT);
+
+    // Load the sender's keypair from a mnemonic phrase.
+    const SECRET_PHRASE: &str = "INSERT_SECRET_PHRASE";
+    let mnemonic = Mnemonic::parse(SECRET_PHRASE).unwrap();
+    let sender_keypair = Keypair::from_phrase(&mnemonic, None).unwrap();
+
+    // Sign and submit the extrinsic, then wait for it to be finalized.
+    let events = api
+        .tx()
+        .sign_and_submit_then_watch_default(&balance_transfer_tx, &sender_keypair)
+        .await?
+        .wait_for_finalized_success()
+        .await?;
+
+    // Check for a successful transfer event.
+    if let Some(event) = events.find_first::<polkadot::balances::events::Transfer>()? {
+        println!("Balance transfer successful: {:?}", event);
+    }
+
+    Ok(())
+}
+    // Your code here...
+Ok(())
+}
+```
+
+### Read Chain Data
+
+subxt provides multiple ways to access on-chain data:
+
+- **Constants** - constants are predefined values in the runtime that remain unchanged unless modified by a runtime upgrade
+
+    For example, to retrieve the existential deposit, use:
+    
+    ```rust
+    let constant_query = polkadot::constants().balances().existential_deposit();
+
+    // Obtain the value.
+    let value = api.constants().at(&constant_query)?;
+
+    println!("Existential deposit: {:?}", value);
+    ```
+
+- **State** - state refers to the current chain data, which updates with each block
+
+    To fetch account information, replace `INSERT_ADDRESS` with the address you want to fetch data from and use:
+
+    ```rust
+    const ADDRESS: &str = "INSERT_ADDRESS";
+    let account = AccountId32::from_str(ADDRESS).unwrap();
+
+    // Build a storage query to access account information.
+    let storage_query = polkadot::storage().system().account(&account.into());
+
+    // Fetch the latest state for the account.
+    let result = api
+        .storage()
+        .at_latest()
+        .await?
+        .fetch(&storage_query)
+        .await?
+        .unwrap();
+
+    println!("Account info: {:?}", result);
+    ```
+
+### Submit Transactions
+
+To submit a transaction, you must construct an extrinsic, sign it with your private key, and send it to the blockchain. Replace `INSERT_DEST_ADDRESS` with the recipient's address, `INSERT_AMOUNT` with the amount to transfer, and `INSERT_SECRET_PHRASE` with the sender's mnemonic phrase:
+
+```rust
+const DEST_ADDRESS: &str = "INSERT_DEST_ADDRESS";
+    const AMOUNT: u128 = INSERT_AMOUNT;
+
+    // Convert the recipient address into an `AccountId32`.
+    let dest = AccountId32::from_str(DEST_ADDRESS).unwrap();
+
+    // Build the balance transfer extrinsic.
+    let balance_transfer_tx = polkadot::tx()
+        .balances()
+        .transfer_allow_death(dest.into(), AMOUNT);
+
+    // Load the sender's keypair from a mnemonic phrase.
+    const SECRET_PHRASE: &str = "INSERT_SECRET_PHRASE";
+    let mnemonic = Mnemonic::parse(SECRET_PHRASE).unwrap();
+    let sender_keypair = Keypair::from_phrase(&mnemonic, None).unwrap();
+
+    // Sign and submit the extrinsic, then wait for it to be finalized.
+    let events = api
+        .tx()
+        .sign_and_submit_then_watch_default(&balance_transfer_tx, &sender_keypair)
+        .await?
+        .wait_for_finalized_success()
+        .await?;
+
+    // Check for a successful transfer event.
+    if let Some(event) = events.find_first::<polkadot::balances::events::Transfer>()? {
+        println!("Balance transfer successful: {:?}", event);
+    }
+```
+
+## Where to Go Next
+
+Now that you've covered the basics dive into the official [subxt documentation](https://docs.rs/subxt/latest/subxt/book/index.html){target=\_blank} for comprehensive reference materials and advanced features.
+--- END CONTENT ---
+
 Doc-Content: https://docs.polkadot.com/develop/toolkit/
 --- BEGIN CONTENT ---
 ---
@@ -8307,7 +8576,7 @@ Before you begin, ensure you have the following installed:
 - [Node.js](https://nodejs.org/en/){target=\_blank} (recommended version 21 or greater)
 - Package manager - [npm](https://www.npmjs.com/){target=\_blank} should be installed with Node.js by default. Alternatively, you can use other package managers like [Yarn](https://yarnpkg.com/){target=\_blank}
 
-This documentation covers version `{{dependencies.asset_transfer_api.version}}` of Asset Transfer API. 
+This documentation covers version `{{dependencies.javascript_packages.asset_transfer_api.version}}` of Asset Transfer API. 
 
 ## Install Asset Transfer API
 
@@ -8331,7 +8600,7 @@ To use `asset-transfer-api`, you need a TypeScript project. If you don't have on
 Once you have a project set up, you can install the `asset-transfer-api` package. Run the following command to install the package:
 
 ```bash
-npm install @substrate/asset-transfer-api@{{dependencies.asset_transfer_api.version}}
+npm install @substrate/asset-transfer-api@{{dependencies.javascript_packages.asset_transfer_api.version}}
 ```
 
 ## Set Up Asset Transfer API
@@ -8723,7 +8992,7 @@ description: Explore the Asset Transfer API Reference for comprehensive details 
 
 Holds open an API connection to a specified chain within the `ApiPromise` to help construct transactions for assets and estimate fees.
 
-For a more in-depth explanation of the Asset Transfer API class structure, check the [source code](https://github.com/paritytech/asset-transfer-api/blob/{{dependencies.asset_transfer_api.version}}/src/AssetTransferApi.ts#L121){target=\_blank}.
+For a more in-depth explanation of the Asset Transfer API class structure, check the [source code](https://github.com/paritytech/asset-transfer-api/blob/{{dependencies.repositories.asset_transfer_api.version}}/src/AssetTransferApi.ts#L121){target=\_blank}.
 
 ### Methods
 
@@ -9018,9 +9287,9 @@ public async createTransferTransaction<T extends Format>(
 
         The `ConstructedFormat` type is a conditional type that returns a specific type based on the value of the TxResult `format` field.
 
-        - **Payload format** - if the format field is set to `'payload'`, the `ConstructedFormat` type will return a [`GenericExtrinsicPayload`](https://github.com/polkadot-js/api/blob/{{ dependencies.polkadot_js_api.version}}/packages/types/src/extrinsic/ExtrinsicPayload.ts#L83){target=\_blank}
+        - **Payload format** - if the format field is set to `'payload'`, the `ConstructedFormat` type will return a [`GenericExtrinsicPayload`](https://github.com/polkadot-js/api/blob/{{ dependencies.repositories.polkadot_js_api.version}}/packages/types/src/extrinsic/ExtrinsicPayload.ts#L83){target=\_blank}
         - **Call format** - if the format field is set to `'call'`, the `ConstructedFormat` type will return a hexadecimal string (`0x${string}`). This is the encoded representation of the extrinsic call
-        - **Submittable format** - if the format field is set to `'submittable'`, the `ConstructedFormat` type will return a [`SubmittableExtrinsic`](https://github.com/polkadot-js/api/blob/{{ dependencies.polkadot_js_api.version}}/packages/api-base/src/types/submittable.ts#L56){target=\_blank}. This is a Polkadot.js type that represents a transaction that can be submitted to the blockchain
+        - **Submittable format** - if the format field is set to `'submittable'`, the `ConstructedFormat` type will return a [`SubmittableExtrinsic`](https://github.com/polkadot-js/api/blob/{{ dependencies.repositories.polkadot_js_api.version}}/packages/api-base/src/types/submittable.ts#L56){target=\_blank}. This is a Polkadot.js type that represents a transaction that can be submitted to the blockchain
 
 ??? interface "Example"
 
@@ -9359,9 +9628,9 @@ public async claimAssets<T extends Format>(
 
         The `ConstructedFormat` type is a conditional type that returns a specific type based on the value of the TxResult `format` field.
 
-        - **Payload format** - if the format field is set to `'payload'`, the `ConstructedFormat` type will return a [`GenericExtrinsicPayload`](https://github.com/polkadot-js/api/blob/{{ dependencies.polkadot_js_api.version}}/packages/types/src/extrinsic/ExtrinsicPayload.ts#L83){target=\_blank}
+        - **Payload format** - if the format field is set to `'payload'`, the `ConstructedFormat` type will return a [`GenericExtrinsicPayload`](https://github.com/polkadot-js/api/blob/{{ dependencies.repositories.polkadot_js_api.version}}/packages/types/src/extrinsic/ExtrinsicPayload.ts#L83){target=\_blank}
         - **Call format** - if the format field is set to `'call'`, the `ConstructedFormat` type will return a hexadecimal string (`0x${string}`). This is the encoded representation of the extrinsic call
-        - **Submittable format** - if the format field is set to `'submittable'`, the `ConstructedFormat` type will return a [`SubmittableExtrinsic`](https://github.com/polkadot-js/api/blob/{{ dependencies.polkadot_js_api.version}}/packages/api-base/src/types/submittable.ts#L56){target=\_blank}. This is a Polkadot.js type that represents a transaction that can be submitted to the blockchain
+        - **Submittable format** - if the format field is set to `'submittable'`, the `ConstructedFormat` type will return a [`SubmittableExtrinsic`](https://github.com/polkadot-js/api/blob/{{ dependencies.repositories.polkadot_js_api.version}}/packages/api-base/src/types/submittable.ts#L56){target=\_blank}. This is a Polkadot.js type that represents a transaction that can be submitted to the blockchain
 
 ??? interface "Example"
 
@@ -9532,9 +9801,9 @@ public async fetchFeeInfo<T extends Format>(
 
         The `ConstructedFormat` type is a conditional type that returns a specific type based on the value of the TxResult `format` field.
 
-        - **Payload format** - if the format field is set to `'payload'`, the `ConstructedFormat` type will return a [`GenericExtrinsicPayload`](https://github.com/polkadot-js/api/blob/{{ dependencies.polkadot_js_api.version}}/packages/types/src/extrinsic/ExtrinsicPayload.ts#L83){target=\_blank}
+        - **Payload format** - if the format field is set to `'payload'`, the `ConstructedFormat` type will return a [`GenericExtrinsicPayload`](https://github.com/polkadot-js/api/blob/{{ dependencies.repositories.polkadot_js_api.version}}/packages/types/src/extrinsic/ExtrinsicPayload.ts#L83){target=\_blank}
         - Call format - if the format field is set to `'call'`, the `ConstructedFormat` type will return a hexadecimal string (`0x${string}`). This is the encoded representation of the extrinsic call
-        - **Submittable format** - if the format field is set to `'submittable'`, the `ConstructedFormat` type will return a [`SubmittableExtrinsic`](https://github.com/polkadot-js/api/blob/{{ dependencies.polkadot_js_api.version}}/packages/api-base/src/types/submittable.ts#L56){target=\_blank}. This is a Polkadot.js type that represents a transaction that can be submitted to the blockchain
+        - **Submittable format** - if the format field is set to `'submittable'`, the `ConstructedFormat` type will return a [`SubmittableExtrinsic`](https://github.com/polkadot-js/api/blob/{{ dependencies.repositories.polkadot_js_api.version}}/packages/api-base/src/types/submittable.ts#L56){target=\_blank}. This is a Polkadot.js type that represents a transaction that can be submitted to the blockchain
 
     ---
 
@@ -9564,7 +9833,7 @@ public async fetchFeeInfo<T extends Format>(
         }
         ```
 
-        For more information on the underlying types and fields of `RuntimeDispatchInfo`, check the [`RuntimeDispatchInfo`](https://github.com/polkadot-js/api/blob/{{ dependencies.polkadot_js_api.version}}/packages/types/src/interfaces/payment/types.ts#L21){target=\_blank} source code.
+        For more information on the underlying types and fields of `RuntimeDispatchInfo`, check the [`RuntimeDispatchInfo`](https://github.com/polkadot-js/api/blob/{{ dependencies.repositories.polkadot_js_api.version}}/packages/types/src/interfaces/payment/types.ts#L21){target=\_blank} source code.
 
 
     ??? child "Type `RuntimeDispatchInfoV1`"
@@ -9577,7 +9846,7 @@ public async fetchFeeInfo<T extends Format>(
         }
         ```
 
-        For more information on the underlying types and fields of `RuntimeDispatchInfoV1`, check the [`RuntimeDispatchInfoV1`](https://github.com/polkadot-js/api/blob/{{ dependencies.polkadot_js_api.version}}/packages/types/src/interfaces/payment/types.ts#L28){target=\_blank} source code.
+        For more information on the underlying types and fields of `RuntimeDispatchInfoV1`, check the [`RuntimeDispatchInfoV1`](https://github.com/polkadot-js/api/blob/{{ dependencies.repositories.polkadot_js_api.version}}/packages/types/src/interfaces/payment/types.ts#L28){target=\_blank} source code.
 
 ??? interface "Example"
 
@@ -9772,7 +10041,7 @@ Before you begin, ensure you have the following installed:
 Moonwall can be installed globally for system-wide access or locally within specific projects. This section covers both installation methods.
 
 !!! tip
-    This documentation corresponds to Moonwall version `{{ dependencies.moonwall.version }}`. To avoid compatibility issues with the documented features, ensure you're using the matching version.
+    This documentation corresponds to Moonwall version `{{ dependencies.javascript_packages.moonwall.version }}`. To avoid compatibility issues with the documented features, ensure you're using the matching version.
 
 ### Global Installation
 
@@ -9781,19 +10050,19 @@ Global installation provides system-wide access to the Moonwall CLI, making it i
 === "npm"
 
     ```bash
-    npm install -g @moonwall/cli@{{ dependencies.moonwall.version }}
+    npm install -g @moonwall/cli@{{ dependencies.javascript_packages.moonwall.version }}
     ```
 
 === "pnpm"
 
     ```bash
-    pnpm -g install @moonwall/cli@{{ dependencies.moonwall.version }}
+    pnpm -g install @moonwall/cli@{{ dependencies.javascript_packages.moonwall.version }}
     ```
 
 === "yarn"
 
     ```bash
-    yarn global add @moonwall/cli@{{ dependencies.moonwall.version }}
+    yarn global add @moonwall/cli@{{ dependencies.javascript_packages.moonwall.version }}
     ```
 
 Now, you can run the `moonwall` command from your terminal.
@@ -9813,19 +10082,19 @@ Then, install it as a local dependency:
 === "npm"
 
     ```bash
-    npm install @moonwall/cli@{{ dependencies.moonwall.version }}
+    npm install @moonwall/cli@{{ dependencies.javascript_packages.moonwall.version }}
     ```
 
 === "pnpm"
 
     ```bash
-    pnpm install @moonwall/cli@{{ dependencies.moonwall.version }}
+    pnpm install @moonwall/cli@{{ dependencies.javascript_packages.moonwall.version }}
     ```
 
 === "yarn"
 
     ```bash
-    yarn add @moonwall/cli@{{ dependencies.moonwall.version }}
+    yarn add @moonwall/cli@{{ dependencies.javascript_packages.moonwall.version }}
     ```
 
 ## Initialize Moonwall
@@ -10055,14 +10324,14 @@ Before you begin, ensure you have the following installed:
 
 ## Install Chopsticks
 
-You can install Chopsticks globally or locally in your project. Choose the option that best fits your development workflow. This documentation explains the features of Chopsticks version `{{ dependencies.chopsticks.version }}`. Make sure you're using the correct version to match these instructions.
+You can install Chopsticks globally or locally in your project. Choose the option that best fits your development workflow. This documentation explains the features of Chopsticks version `{{ dependencies.javascript_packages.chopsticks.version }}`. Make sure you're using the correct version to match these instructions.
 
 ### Global Installation
 
 To install Chopsticks globally, allowing you to use it across multiple projects, run:
 
 ```bash
-npm i -g @acala-network/chopsticks@{{ dependencies.chopsticks.version }}
+npm i -g @acala-network/chopsticks@{{ dependencies.javascript_packages.chopsticks.version }}
 ```
 
 Now, you should be able to run the `chopsticks` command from your terminal.
@@ -10080,7 +10349,7 @@ npm init -y
 Then, install Chopsticks as a local dependency:
 
 ```bash
-npm i @acala-network/chopsticks@{{ dependencies.chopsticks.version }}
+npm i @acala-network/chopsticks@{{ dependencies.javascript_packages.chopsticks.version }}
 ```
 
 Finally, you can run Chopsticks using the `npx` command. To see all available options and commands, run it with the `--help` flag:
@@ -10486,19 +10755,19 @@ Multiple options are available for installing Zombienet, depending on the user's
     Then, ensure the downloaded file is executable:
 
     ```bash
-    chmod +x zombienet-{{ dependencies.zombienet.architecture }}
+    chmod +x zombienet-{{ dependencies.repositories.zombienet.architecture }}
     ```
 
     Finally, you can run the following command to check if the installation was successful. If so, it will display the version of the installed Zombienet:
 
     ```bash
-    ./zombienet-{{ dependencies.zombienet.architecture }} version
+    ./zombienet-{{ dependencies.repositories.zombienet.architecture }} version
     ```
 
     If you want to add the `zombienet` executable to your PATH, you can move it to a directory in your PATH, such as `/usr/local/bin`:
 
     ```bash
-    mv zombienet-{{ dependencies.zombienet.architecture }} /usr/local/bin/zombienet
+    mv zombienet-{{ dependencies.repositories.zombienet.architecture }} /usr/local/bin/zombienet
     ```
 
     Now you can refer to the `zombienet` executable directly.
@@ -12639,11 +12908,168 @@ This section provides guidance on how to set up, activate, and deactivate your v
 </div>
 --- END CONTENT ---
 
+Doc-Content: https://docs.polkadot.com/infrastructure/running-a-validator/onboarding-and-offboarding/key-management/
+--- BEGIN CONTENT ---
+---
+title: Validator Key Management
+description: Learn how to generate and manage validator keys, including session keys for consensus participation and node keys for maintaining a stable network identity.
+---
+
+# Key Management
+
+## Introduction
+
+After setting up your node environment as shown in the [Setup](/infrastructure/running-a-validator/onboarding-and-offboarding/set-up-validator){target=\_blank} section, you'll need to configure multiple keys for your validator to operate properly. This includes setting up session keys, which are essential for participating in the consensus process, and configuring a node key that maintains a stable network identity. This guide walks you through the key management process, showing you how to generate, store, and register these keys.
+
+## Set Session Keys
+
+Setting up your validator's session keys is essential to associate your node with your stash account on the Polkadot network. Validators use session keys to participate in the consensus process. Your validator can only perform its role in the network by properly setting session keys which consist of several key pairs for different parts of the protocol (e.g., GRANDPA, BABE). These keys must be registered on-chain and associated with your validator node to ensure it can participate in validating blocks.
+
+### Generate Session Keys
+
+There are multiple ways to create the session keys. It can be done by interacting with the [Polkadot.js Apps UI](https://polkadot.js.org/apps/#/explorer){target=\_blank}, using the curl command or by using [Subkey](https://paritytech.github.io/polkadot-sdk/master/subkey/index.html){target=\_blank}.
+
+=== "Polkadot.js Apps UI"
+
+    1. In Polkadot.js Apps, connect to your local node, navigate to the **Developer** dropdown, and select the **RPC Calls** option
+
+    2. Construct an `author_rotateKeys` RPC call and execute it
+
+        1. Select the **author** endpoint
+        2. Choose the **rotateKeys()** call
+        3. Click the **Submit RPC Call** button
+        4. Copy the hex-encoded public key from the response
+
+        ![](/images/infrastructure/running-a-validator/onboarding-and-offboarding/key-management/key-management-1.webp)
+
+=== "Curl"
+
+    Generate session keys by running the following command on your validator node:
+
+    ``` bash
+    curl -H "Content-Type: application/json" \
+    -d '{"id":1, "jsonrpc":"2.0", "method": "author_rotateKeys", "params":[]}' \
+    http://localhost:9944
+    ```
+
+    This command will return a JSON object. The `result` key is the hex-encoded public part of the newly created session key. Save this for later use.
+    
+    ```json
+    {"jsonrpc":"2.0","result":"0xda3861a45e0197f3ca145c2c209f9126e5053fas503e459af4255cf8011d51010","id":1}
+    ```
+
+=== "Subkey"
+
+    To create a keypair for your node's session keys, use the `subkey generate` command. This generates a set of cryptographic keys that must be stored in your node's keystore directory.
+
+    When you run the command, it produces output similar to this example:
+
+    <div id="termynal" data-termynal>
+  <span data-ty="input"><span class="file-path"></span>subkey generate</span>
+  <pre>
+Secret phrase:       twist buffalo mixture excess device drastic vague mammal fitness punch match hammer
+  Network ID:        substrate
+  Secret seed:       0x5faa9e5defe42b201388d5c2b8202d6625a344abc9aa52943a71f12cb90b88a9
+  Public key (hex):  0x28cc2fdb6e28835e2bbac9a16feb65c23d448c9314ef12fe083b61bab8fc2755
+  Account ID:        0x28cc2fdb6e28835e2bbac9a16feb65c23d448c9314ef12fe083b61bab8fc2755
+  Public key (SS58): 5CzCRpXzHYhuo6G3gYFR3cgV6X3qCNwVt51m8q14ZcChsSXQ
+  SS58 Address:      5CzCRpXzHYhuo6G3gYFR3cgV6X3qCNwVt51m8q14ZcChsSXQ
+  </pre>
+</div>
+
+    To properly store these keys, create a file in your keystore directory with a specific naming convention. The filename must consist of the hex string `61757261` (which represents "aura" in hex) followed by the public key without its `0x` prefix.
+
+    Using the example above, you would create a file named:
+
+    ```
+    ./keystores/6175726128cc2fdb6e28835e2bbac9a16feb65c23d448c9314ef12fe083b61bab8fc2755
+    ```
+
+    And store only the secret phrase in the file:
+
+    ```
+    "twist buffalo mixture excess device drastic vague mammal fitness punch match hammer"
+    ```
+
+### Submit Transaction to Set Keys
+
+Now that you have generated your session keys, you must submit them to the chain. Follow these steps:
+
+1. Go to the **Network > Staking > Accounts** section on Polkadot.js Apps
+2. Select **Set Session Key** on the bonding account you generated earlier
+3. Paste the hex-encoded session key string you generated (from either the UI or CLI) into the input field and submit the transaction
+
+![](/images/infrastructure/running-a-validator/onboarding-and-offboarding/key-management/key-management-2.webp)
+
+Once the transaction is signed and submitted, your session keys will be registered on-chain.
+
+### Verify Session Key Setup
+
+To verify that your session keys are properly set, you can use one of two RPC calls:
+
+- **`hasKey`** - checks if the node has a specific key by public key and key type
+- **`hasSessionKeys`** - verifies if your node has the full session key string associated with the validator
+
+For example, you can [check session keys on the Polkadot.js Apps](https://polkadot.js.org/apps/#/rpc){target=\_blank} interface or by running an RPC query against your node. Once this is done, your validator node is ready for its role.
+
+## Set the Node Key
+
+Validators on Polkadot need a static network key (also known as the node key) to maintain a stable node identity. This key ensures that your validator can maintain a consistent peer ID, even across restarts, which is crucial for maintaining reliable network connections.
+
+Starting with Polkadot version 1.11, validators without a stable network key may encounter the following error on startup:
+
+<div id="termynal" data-termynal>
+  <span data-ty="input"><span class="file-path"></span>polkadot --validator --name "INSERT_NAME_FROM_TELEMETRY"</span>
+  <span data-ty>Error:</span>
+  <span data-ty>0: Starting an authority without network key</span>
+  <span data-ty>This is not a safe operation because other authorities in the network may depend on your node having a stable identity.</span>
+  <span data-ty>Otherwise these other authorities may not being able to reach you.</span>
+  <span data-ty>If it is the first time running your node you could use one of the following methods:</span>
+  <span data-ty>1. [Preferred] Separately generate the key with: INSERT_NODE_BINARY key generate-node-key --base-path INSERT_YOUR_BASE_PATH</span>
+  <span data-ty>2. [Preferred] Separately generate the key with: INSERT_NODE_BINARY key generate-node-key --file INSERT_YOUR_PATH_TO_NODE_KEY</span>
+  <span data-ty>3. [Preferred] Separately generate the key with: INSERT_NODE_BINARY key generate-node-key --default-base-path</span>
+  <span data-ty>4. [Unsafe] Pass --unsafe-force-node-key-generation and make sure you remove it for subsequent node restarts</span>
+  <span data-ty="input"><span class="file-path"></span></span>
+</div>
+
+### Generate the Node Key
+
+Use one of the following methods to generate your node key:
+
+=== "Save to file"
+
+    The recommended solution is to generate a node key and save it to a file using the following command:
+
+    ``` bash
+    polkadot key generate-node-key --file INSERT_PATH_TO_NODE_KEY
+    ```
+    
+=== "Use default path"
+
+    You can also generate the node key with the following command, which will automatically save the key to the base path of your node:
+
+    ``` bash
+    polkadot key generate-node-key --default-base-path
+    ```
+
+Save the file path for reference. You will need it in the next step to configure your node with a static identity.
+
+### Set Node Key
+
+After generating the node key, configure your node to use it by specifying the path to the key file when launching your node. Add the following flag to your validator node's startup command:
+
+``` bash
+polkadot --node-key-file INSERT_PATH_TO_NODE_KEY
+```
+
+Following these steps ensures that your node retains its identity, making it discoverable by peers without the risk of conflicting identities across sessions. For further technical background, see Polkadot SDK [Pull Request #3852](https://github.com/paritytech/polkadot-sdk/pull/3852){target=\_blank} for the rationale behind requiring static keys.
+--- END CONTENT ---
+
 Doc-Content: https://docs.polkadot.com/infrastructure/running-a-validator/onboarding-and-offboarding/set-up-validator/
 --- BEGIN CONTENT ---
 ---
 title: Set Up a Validator
-description: Learn how to set up a Polkadot validator node, covering installation steps, security best practices, and staking management.
+description: Set up a Polkadot validator node to secure the network and earn staking rewards. Follow this step-by-step guide to install, configure, and manage your node.
 ---
 
 # Set Up a Validator
@@ -12729,10 +13155,10 @@ You can also download the binaries by using the following direct links:
 
     ``` bash
     # Download the binary
-    curl -LO https://github.com/paritytech/polkadot-sdk/releases/download/{{ dependencies.polkadot_sdk.version }}/polkadot
+    curl -LO https://github.com/paritytech/polkadot-sdk/releases/download/{{ dependencies.repositories.polkadot_sdk.version }}/polkadot
 
     # Verify signature
-    curl -LO https://github.com/paritytech/polkadot-sdk/releases/download/{{ dependencies.polkadot_sdk.version }}/polkadot.asc
+    curl -LO https://github.com/paritytech/polkadot-sdk/releases/download/{{ dependencies.repositories.polkadot_sdk.version }}/polkadot.asc
     
     gpg --keyserver hkps://keyserver.ubuntu.com --receive-keys 90BD75EBBB8E95CB3DA6078F94A4029AB4B35DAE
 
@@ -12743,10 +13169,10 @@ You can also download the binaries by using the following direct links:
 
     ``` bash
     # Download the binary
-    curl -LO https://github.com/paritytech/polkadot-sdk/releases/download/{{ dependencies.polkadot_sdk.version }}/polkadot-prepare-worker
+    curl -LO https://github.com/paritytech/polkadot-sdk/releases/download/{{ dependencies.repositories.polkadot_sdk.version }}/polkadot-prepare-worker
 
     # Verify signature
-    curl -LO https://github.com/paritytech/polkadot-sdk/releases/download/{{ dependencies.polkadot_sdk.version }}/polkadot-prepare-worker.asc
+    curl -LO https://github.com/paritytech/polkadot-sdk/releases/download/{{ dependencies.repositories.polkadot_sdk.version }}/polkadot-prepare-worker.asc
 
     gpg --keyserver hkps://keyserver.ubuntu.com --receive-keys 90BD75EBBB8E95CB3DA6078F94A4029AB4B35DAE
 
@@ -12757,10 +13183,10 @@ You can also download the binaries by using the following direct links:
 
     ``` bash
     # Download the binary
-    curl -LO https://github.com/paritytech/polkadot-sdk/releases/download/{{ dependencies.polkadot_sdk.version }}/polkadot-execute-worker
+    curl -LO https://github.com/paritytech/polkadot-sdk/releases/download/{{ dependencies.repositories.polkadot_sdk.version }}/polkadot-execute-worker
 
     # Verify signature
-    curl -LO https://github.com/paritytech/polkadot-sdk/releases/download/{{ dependencies.polkadot_sdk.version }}/polkadot-execute-worker.asc
+    curl -LO https://github.com/paritytech/polkadot-sdk/releases/download/{{ dependencies.repositories.polkadot_sdk.version }}/polkadot-execute-worker.asc
 
     gpg --keyserver hkps://keyserver.ubuntu.com --receive-keys 90BD75EBBB8E95CB3DA6078F94A4029AB4B35DAE
 
@@ -12828,14 +13254,14 @@ If you prefer using Docker or an OCI-compatible container runtime, the official 
 To pull the latest stable image, run the following command:
 
 ```bash
-docker pull parity/polkadot:{{ dependencies.polkadot_sdk.docker_image_version }}
+docker pull parity/polkadot:{{ dependencies.repositories.polkadot_sdk.docker_image_version }}
 ```
 
 ### Build from Sources
 
-You may build the binaries from source by following the instructions on the [Polkadot SDK repository](https://github.com/paritytech/polkadot-sdk/tree/{{dependencies.polkadot_sdk.stable_version}}/polkadot#building){target=\_blank}.
+You may build the binaries from source by following the instructions on the [Polkadot SDK repository](https://github.com/paritytech/polkadot-sdk/tree/{{dependencies.repositories.polkadot_sdk.version}}/polkadot#building){target=\_blank}.
 
-### Verify Installation
+## Verify Installation
 
 Once the Polkadot binaries are installed, it's essential to verify that everything is set up correctly and that all the necessary components are in place. Follow these steps to ensure the binaries are installed and functioning as expected.
 
@@ -12868,19 +13294,32 @@ Once the Polkadot binaries are installed, it's essential to verify that everythi
     ```
 
     If necessary, you can move the binaries to a shared location, such as `/usr/local/bin/`, and add it to your `$PATH`.
+--- END CONTENT ---
 
-## Run a Validator on a TestNet
+Doc-Content: https://docs.polkadot.com/infrastructure/running-a-validator/onboarding-and-offboarding/start-validating/
+--- BEGIN CONTENT ---
+---
+title: Start Validating
+description: Learn how to start validating on Polkadot by choosing a network, syncing your node, bonding DOT tokens, and activating your validator.
+---
+
+# Start Validating
+
+## Introduction
+
+After configuring your node keys as shown in the [Key Management](/infrastructure/running-a-validator/onboarding-and-offboarding/key-management){target=\_blank} section and ensuring your system is set up, you're ready to begin the validator setup process. This guide will walk you through choosing a network, synchronizing your node with the blockchain, bonding your DOT tokens, and starting your validator.
+
+## Choose a Network
 
 Running your validator on a test network like Westend or Kusama is a smart way to familiarize yourself with the process and identify any setup issues in a lower-stakes environment before joining the Polkadot MainNet.
 
-### Choose a Network
-
 - **Westend** - Polkadot's primary TestNet is open to anyone for testing purposes. Validator slots are intentionally limited to keep the network stable for the Polkadot release process, so it may not support as many validators at any given time
-- **Kusama** - often called Polkadot's “canary network,” Kusama has real economic value but operates with a faster and more experimental approach. Running a validator here provides an experience closer to MainNet with the benefit of more frequent validation opportunities with an era time of 6 hours vs 24 hours for Polkadot
+- **Kusama** - often called Polkadot's "canary network," Kusama has real economic value but operates with a faster and more experimental approach. Running a validator here provides an experience closer to MainNet with the benefit of more frequent validation opportunities with an era time of 6 hours vs 24 hours for Polkadot
+- **Polkadot** - the main network, where validators secure the Polkadot relay chain. It has a slower era time of 24 hours and requires a higher minimum bond amount to participate
 
 ## Synchronize Chain Data
 
-After successfully installing and verifying the Polkadot binaries, the next step is to sync your node with the blockchain network. Synchronization is necessary to download and validate the blockchain data, ensuring your node is ready to participate as a validator. Follow these steps to sync your node:
+The next step is to sync your node with the chosen blockchain network. Synchronization is necessary to download and validate the blockchain data, ensuring your node is ready to participate as a validator. Follow these steps to sync your node:
 
 1. **Start syncing** - you can run a full or warp sync
 
@@ -12974,108 +13413,6 @@ To get started with the bond submission, click on the **Accounts** tab, then the
 Once everything is filled in properly, select **Bond** and sign the transaction with your stash account. If successful, you should see an `ExtrinsicSuccess` message.
 
 Your bonded account will be available under **Stashes**. After refreshing the screen, you should now see a card with all your accounts. The bonded amount on the right corresponds to the funds bonded by the stash account.
-
-## Set Session Keys
-
-Setting up your validator's session keys is essential to associate your node with your stash account on the Polkadot network. Validators use session keys to participate in the consensus process. Your validator can only perform its role in the network by properly setting session keys which consist of several key pairs for different parts of the protocol (e.g., GRANDPA, BABE). These keys must be registered on-chain and associated with your validator node to ensure it can participate in validating blocks.
-
-The following sections will cover generating session keys, submitting key data on-chain, and verifying that session keys are correctly set.
-
-### Generate Session Keys
-
-The Polkadot.js Apps UI and the CLI are the two primary methods used to generate session keys.
-
-=== "Use Polkadot.js Apps UI"
-
-    1. Ensure that you are connected to your validator node through the Polkadot.js Apps interface
-    2. In the **Toolbox** tab, navigate to **RPC calls**
-    3. Select **`author_rotateKeys`** from the drop-down menu and run the command. This will generate new session keys in your node's keystore and return the result as a hex-encoded string
-    4. Copy and save this hex-encoded output for the next step
-
-=== "Use the CLI"
-
-    Generate session keys by running the following command on your validator node:
-
-    ``` bash
-    curl -H "Content-Type: application/json" \
-    -d '{"id":1, "jsonrpc":"2.0", "method": "author_rotateKeys", "params":[]}' \
-    http://localhost:9944
-    ```
-
-    This command will return a hex-encoded string that is the concatenation of your session keys. Save this string for later use.
-
-### Submit Transaction to Set Keys
-
-Now that you have generated your session keys, you must submit them to the chain. Follow these steps:
-
-1. Go to the **Network > Staking > Accounts** section on Polkadot.js Apps
-2. Select **Set Session Key** on the bonding account you generated earlier
-3. Paste the hex-encoded session key string you generated (from either the UI or CLI) into the input field and submit the transaction
-
-![](/images/infrastructure/running-a-validator/onboarding-and-offboarding/set-up-validator/set-up-a-validator-01.webp)
-
-Once the transaction is signed and submitted, your session keys will be registered on-chain.
-
-### Verify Session Key Setup
-
-To verify that your session keys are properly set, you can use one of two RPC calls:
-
-- **`hasKey`** - checks if the node has a specific key by public key and key type
-- **`hasSessionKeys`** - verifies if your node has the full session key string associated with the validator
-
-For example, you can [check session keys on the Polkadot.js Apps](https://polkadot.js.org/apps/#/rpc){target=\_blank} interface or by running an RPC query against your node. Once this is done, your validator node is ready for its role.
-
-## Set the Node Key
-
-Validators on Polkadot need a static network key (also known as the node key) to maintain a stable node identity. This key ensures that your validator can maintain a consistent peer ID, even across restarts, which is crucial for maintaining reliable network connections.
-
-Starting with Polkadot version 1.11, validators without a stable network key may encounter the following error on startup:
-
-<div id="termynal" data-termynal>
-  <span data-ty="input"><span class="file-path"></span>polkadot --validator --name "INSERT_NAME_FROM_TELEMETRY"</span>
-  <span data-ty>Error:</span>
-  <span data-ty>0: Starting an authority without network key</span>
-  <span data-ty>This is not a safe operation because other authorities in the network may depend on your node having a stable identity.</span>
-  <span data-ty>Otherwise these other authorities may not being able to reach you.</span>
-  <span data-ty>If it is the first time running your node you could use one of the following methods:</span>
-  <span data-ty>1. [Preferred] Separately generate the key with: INSERT_NODE_BINARY key generate-node-key --base-path INSERT_YOUR_BASE_PATH</span>
-  <span data-ty>2. [Preferred] Separately generate the key with: INSERT_NODE_BINARY key generate-node-key --file INSERT_YOUR_PATH_TO_NODE_KEY</span>
-  <span data-ty>3. [Preferred] Separately generate the key with: INSERT_NODE_BINARY key generate-node-key --default-base-path</span>
-  <span data-ty>4. [Unsafe] Pass --unsafe-force-node-key-generation and make sure you remove it for subsequent node restarts</span>
-  <span data-ty="input"><span class="file-path"></span></span>
-</div>
-
-### Generate the Node Key
-
-Use one of the following methods to generate your node key:
-
-=== "Save to file"
-
-    The recommended solution is to generate a node key and save it to a file using the following command:
-
-    ``` bash
-    polkadot key generate-node-key --file INSERT_PATH_TO_NODE_KEY
-    ```
-    
-=== "Use default path"
-
-    You can also generate the node key with the following command, which will automatically save the key to the base path of your node:
-
-    ``` bash
-    polkadot key generate-node-key --default-base-path
-    ```
-
-Save the file path for reference. You will need it in the next step to configure your node with a static identity.
-
-### Set the Node Key
-
-After generating the node key, configure your node to use it by specifying the path to the key file when launching your node. Add the following flag to your validator node's startup command:
-
-``` bash
-polkadot --node-key-file INSERT_PATH_TO_NODE_KEY
-```
-
-Following these steps ensures that your node retains its identity, making it discoverable by peers without the risk of conflicting identities across sessions. For further technical background, see Polkadot SDK [Pull Request #3852](https://github.com/paritytech/polkadot-sdk/pull/3852){target=\_blank} for the rationale behind requiring static keys.
 
 ## Validate
 
@@ -15173,7 +15510,7 @@ For technical insights, including formal proofs and detailed algorithms, see the
 For a deeper look at the code behind GRANDPA, see the following GitHub repositories:
 
 - [GRANDPA Rust implementation](https://github.com/paritytech/finality-grandpa){target=\_blank}
-- [GRANDPA Pallet](https://github.com/paritytech/polkadot-sdk/blob/{{dependencies.polkadot_sdk.stable_version}}/substrate/frame/grandpa/src/lib.rs){target=\_blank}
+- [GRANDPA Pallet](https://github.com/paritytech/polkadot-sdk/blob/{{dependencies.repositories.polkadot_sdk.version}}/substrate/frame/grandpa/src/lib.rs){target=\_blank}
 
 ## Fork Choice
 
@@ -15373,7 +15710,7 @@ The API supports various asset operations, such as paying transaction fees with 
 
 ### Parachain Node
 
-To fully leverage the Asset Hub's functionality, developers will need to run a system parachain node. Setting up an Asset Hub node allows users to interact with the parachain in real time, syncing data and participating in the broader Polkadot ecosystem. Guidelines for setting up an [Asset Hub node](https://github.com/paritytech/polkadot-sdk/tree/{{dependencies.polkadot_sdk.stable_version}}/cumulus#asset-hub-){target=\_blank} are available in the Parity documentation.
+To fully leverage the Asset Hub's functionality, developers will need to run a system parachain node. Setting up an Asset Hub node allows users to interact with the parachain in real time, syncing data and participating in the broader Polkadot ecosystem. Guidelines for setting up an [Asset Hub node](https://github.com/paritytech/polkadot-sdk/tree/{{dependencies.repositories.polkadot_sdk.version}}/cumulus#asset-hub-){target=\_blank} are available in the Parity documentation.
 
 Using these integration tools, developers can manage assets seamlessly and integrate Asset Hub functionality into their applications, leveraging Polkadot's powerful infrastructure.
 
@@ -15481,7 +15818,7 @@ In any given Bridge Hub implementation (Kusama, Polkadot, or other relay chains)
 
 Bridge Hub also has a set of components and pallets that support a bridge between Polkadot and Ethereum through [Snowbridge](https://github.com/Snowfork/snowbridge){target=\_blank}.
 
-To view the complete list of which pallets are included in Bridge Hub, visit the Subscan [Runtime Modules](https://bridgehub-polkadot.subscan.io/runtime){target=\_blank} page. Alternatively, the source code for those pallets can be found in the Polkadot SDK [Snowbridge Pallets](https://github.com/paritytech/polkadot-sdk/tree/{{dependencies.polkadot_sdk.stable_version}}/bridges/snowbridge/pallets){target=\_blank} repository.
+To view the complete list of which pallets are included in Bridge Hub, visit the Subscan [Runtime Modules](https://bridgehub-polkadot.subscan.io/runtime){target=\_blank} page. Alternatively, the source code for those pallets can be found in the Polkadot SDK [Snowbridge Pallets](https://github.com/paritytech/polkadot-sdk/tree/{{dependencies.repositories.polkadot_sdk.version}}/bridges/snowbridge/pallets){target=\_blank} repository.
 
 ## Deployed Bridges
 
@@ -15491,8 +15828,8 @@ To view the complete list of which pallets are included in Bridge Hub, visit the
 
 ## Where to Go Next
 
-- Go over the Bridge Hub README in the Polkadot SDK [Bridge-hub Parachains](https://github.com/paritytech/polkadot-sdk/blob/{{dependencies.polkadot_sdk.stable_version}}/cumulus/parachains/runtimes/bridge-hubs/README.md){target=\_blank} repository
-- Take a deeper dive into bridging architecture in the Polkadot SDK [High-Level Bridge](https://github.com/paritytech/polkadot-sdk/blob/{{dependencies.polkadot_sdk.stable_version}}/bridges/docs/high-level-overview.md){target=\_blank} documentation
+- Go over the Bridge Hub README in the Polkadot SDK [Bridge-hub Parachains](https://github.com/paritytech/polkadot-sdk/blob/{{dependencies.repositories.polkadot_sdk.version}}/cumulus/parachains/runtimes/bridge-hubs/README.md){target=\_blank} repository
+- Take a deeper dive into bridging architecture in the Polkadot SDK [High-Level Bridge](https://github.com/paritytech/polkadot-sdk/blob/{{dependencies.repositories.polkadot_sdk.version}}/bridges/docs/high-level-overview.md){target=\_blank} documentation
 - Read more about BEEFY and Bridging in the Polkadot Wiki: [Bridging: BEEFY](https://wiki.polkadot.network/docs/learn-consensus#bridging-beefy){target=\_blank}
 --- END CONTENT ---
 
@@ -15631,7 +15968,7 @@ All system parachains are on both Polkadot and Kusama with the following excepti
 
 ### Asset Hub
 
-The [Asset Hub](https://github.com/paritytech/polkadot-sdk/tree/{{dependencies.polkadot_sdk.stable_version}}/cumulus#asset-hub-){target=\_blank} is an asset portal for the entire network. It helps asset creators, such as reserve-backed stablecoin issuers, track the total issuance of an asset in the network, including amounts transferred to other parachains. It also serves as the hub where asset creators can perform on-chain operations, such as minting and burning, to manage their assets effectively.
+The [Asset Hub](https://github.com/paritytech/polkadot-sdk/tree/{{dependencies.repositories.polkadot_sdk.version}}/cumulus#asset-hub-){target=\_blank} is an asset portal for the entire network. It helps asset creators, such as reserve-backed stablecoin issuers, track the total issuance of an asset in the network, including amounts transferred to other parachains. It also serves as the hub where asset creators can perform on-chain operations, such as minting and burning, to manage their assets effectively.
 
 This asset management logic is encoded directly in the runtime of the chain rather than in smart contracts. The efficiency of executing logic in a parachain allows for fees and deposits that are about 1/10th of what is required on the relay chain. These low fees mean that the Asset Hub is well suited for handling the frequent transactions required when managing balances, transfers, and on-chain assets.
 
@@ -15676,6 +16013,113 @@ Referendums marking key Encointer adoption milestones include:
 - [**Referendum 187 - Encointer Runtime Upgrade to Full Functionality**](https://kusama.polkassembly.io/referendum/187){target=\_blank} - introduced a runtime upgrade bringing governance and full functionality for communities to use the protocol
 
 To learn more about Encointer, see the official [Encointer book](https://book.encointer.org/introduction.html){target=\_blank} or watch an [Encointer ceremony](https://www.youtube.com/watch?v=tcgpCCYBqko){target=\_blank} in action.
+--- END CONTENT ---
+
+Doc-Content: https://docs.polkadot.com/polkadot-protocol/architecture/system-chains/people/
+--- BEGIN CONTENT ---
+---
+title: People Chain
+description: Learn how People chain secures decentralized identity management, empowering users to control and verify digital identities without central authorities.
+---
+
+# People Chain
+
+## Introduction
+
+People chain is a specialized parachain within the Polkadot ecosystem dedicated to secure, decentralized identity management. 
+
+This solution empowers users to create, control, and verify their digital identities without reliance on centralized authorities. By prioritizing user sovereignty and data privacy, People chain establishes a foundation for trusted interactions throughout the Polkadot ecosystem while returning control of personal information to individuals.
+
+## Identity Management System
+
+People chain provides a comprehensive identity framework allowing users to:
+
+- Establish verifiable on-chain identities
+- Control disclosure of personal information
+- Receive verification from trusted registrars
+- Link multiple accounts under a unified identity
+
+Users must reserve funds in a bond to store their information on chain. These funds are locked, not spent, and returned when the identity is cleared.
+
+### Sub-Identities
+
+The platform supports hierarchical identity structures through sub-accounts:
+
+- Primary accounts can establish up to 100 linked sub-accounts
+- Each sub-account maintains its own distinct identity
+- All sub-accounts require a separate bond deposit
+
+## Verification Process
+
+### Judgment Requests
+
+After establishing an on-chain identity, users can request verification from [registrars](#registrars):
+
+1. Users specify the maximum fee they're willing to pay for judgment
+2. Only registrars whose fees fall below this threshold can provide verification
+3. Registrars assess the provided information and issue a judgment
+
+### Judgment Classifications
+
+Registrars can assign the following confidence levels to identity information:
+
+- **Unknown** - default status; no judgment rendered yet
+- **Reasonable** - data appears valid but without formal verification (standard for most verified identities)
+- **Known good** - information certified correct through formal verification (requires documentation; limited to registrars)
+- **Out of date** - previously verified information that requires updating
+- **Low quality** - imprecise information requiring correction
+- **Erroneous** - incorrect information, potentially indicating fraudulent intent
+
+A temporary "Fee Paid" status indicates judgment in progress. Both "Fee Paid" and "Erroneous" statuses lock identity information from modification until resolved.
+
+### Registrars
+
+Registrars serve as trusted verification authorities within the People chain ecosystem. These entities validate user identities and provide attestations that build trust in the network.
+
+- Registrars set specific fees for their verification services
+- They can specialize in verifying particular identity fields
+- Verification costs vary based on complexity and thoroughness
+
+When requesting verification, users specify their maximum acceptable fee. Only registrars whose fees fall below this threshold can provide judgment. Upon completing the verification process, the user pays the registrar's fee, and the registrar issues an appropriate confidence level classification based on their assessment.
+
+Multiple registrars operate across the Polkadot and People chain ecosystems, each with unique specializations and fee structures. To request verification:
+
+1. Research available registrars and their verification requirements
+2. Contact your chosen registrar directly through their specified channels
+3. Submit required documentation according to their verification process
+4. Pay the associated verification fee
+
+You must contact specific registrars individually to request judgment. Each registrar maintains its own verification procedures and communication channels.
+
+## Where to Go Next
+
+<div class="grid cards" markdown>
+
+-   <span class="badge external">External</span> __Polkadot.js Guides about Identity__
+
+    ---
+
+    Step-by-step instructions for managing identities through the Polkadot.js interface, with practical examples and visual guides.
+
+    [:octicons-arrow-right-24: Reference](https://wiki.polkadot.network/docs/learn-guides-identity)
+
+-   <span class="badge external">External</span> __How to Set and Clear an Identity__
+
+    ---
+
+    Practical walkthrough covering identity setup and removal process on People chain.
+
+    [:octicons-arrow-right-24: Reference](https://support.polkadot.network/support/solutions/articles/65000181981-how-to-set-and-clear-an-identity)
+
+-   <span class="badge external">External</span> __People Chain Runtime Implementation__
+
+    ---
+
+    Source code for the People chain runtime, detailing the technical architecture of decentralized identity management.
+
+    [:octicons-arrow-right-24: Reference](https://github.com/polkadot-fellows/runtimes/tree/main/system-parachains/people)
+
+</div>
 --- END CONTENT ---
 
 Doc-Content: https://docs.polkadot.com/polkadot-protocol/basics/accounts/
@@ -16192,7 +16636,7 @@ Transaction fees are withdrawn before the transaction is executed. After the tra
 
 ## Using the Transaction Payment Pallet
 
-The [Transaction Payment pallet](https://github.com/paritytech/polkadot-sdk/tree/{{dependencies.polkadot_sdk.stable_version}}/substrate/frame/transaction-payment){target=\_blank} provides the basic logic for calculating the inclusion fee. You can also use the Transaction Payment pallet to:
+The [Transaction Payment pallet](https://github.com/paritytech/polkadot-sdk/tree/{{dependencies.repositories.polkadot_sdk.version}}/substrate/frame/transaction-payment){target=\_blank} provides the basic logic for calculating the inclusion fee. You can also use the Transaction Payment pallet to:
 
 - Convert a weight value into a deductible fee based on a currency type using [`Config::WeightToFee`](https://docs.rs/pallet-transaction-payment/latest/pallet_transaction_payment/pallet/trait.Config.html#associatedtype.WeightToFee){target=\_blank}
 - Update the fee for the next block by defining a multiplier based on the chain’s final state at the end of the previous block using [`Config::FeeMultiplierUpdate`](https://docs.rs/pallet-transaction-payment/latest/pallet_transaction_payment/pallet/trait.Config.html#associatedtype.FeeMultiplierUpdate){target=\_blank}
@@ -16246,7 +16690,7 @@ Inclusion fees must be computable before execution and can only represent fixed 
 - Bonds are a type of fee that might be returned or slashed after some on-chain event. For example, you might want to require users to place a bond to participate in a vote. The bond might then be returned at the end of the referendum or slashed if the voter attempted malicious behavior
 - Deposits are fees that might be returned later. For example, you might require users to pay a deposit to execute an operation that uses storage. The user’s deposit could be returned if a subsequent operation frees up storage
 - Burn operations are used to pay for a transaction based on its internal logic. For example, a transaction might burn funds from the sender if the transaction creates new storage items to pay for the increased state size
-- Limits enable you to enforce constant or configurable limits on specific operations. For example, the default [Staking pallet](https://github.com/paritytech/polkadot-sdk/tree/{{dependencies.polkadot_sdk.stable_version}}/substrate/frame/staking){target=\_blank} only allows nominators to nominate 16 validators to limit the complexity of the validator election process
+- Limits enable you to enforce constant or configurable limits on specific operations. For example, the default [Staking pallet](https://github.com/paritytech/polkadot-sdk/tree/{{dependencies.repositories.polkadot_sdk.version}}/substrate/frame/staking){target=\_blank} only allows nominators to nominate 16 validators to limit the complexity of the validator election process
 
 It is important to note that if you query the chain for a transaction fee, it only returns the inclusion fee.
 
@@ -16486,7 +16930,7 @@ You now know the weight system, how it affects transaction fee computation, and 
 
 - [Benchmark](/develop/parachains/testing/benchmarking/)
 - [`SignedExtension`](https://paritytech.github.io/polkadot-sdk/master/sp_runtime/traits/trait.SignedExtension.html){target=\_blank}
-- [Custom weights for the Example pallet](https://github.com/paritytech/polkadot-sdk/blob/{{dependencies.polkadot_sdk.stable_version}}/substrate/frame/examples/basic/src/weights.rs){target=\_blank}
+- [Custom weights for the Example pallet](https://github.com/paritytech/polkadot-sdk/blob/{{dependencies.repositories.polkadot_sdk.version}}/substrate/frame/examples/basic/src/weights.rs){target=\_blank}
 - [Web3 Foundation Research](https://research.web3.foundation/Polkadot/overview/token-economics#relay-chain-transaction-fees-and-per-block-transaction-limits){target=\_blank}
 --- END CONTENT ---
 
@@ -17546,6 +17990,105 @@ Key features of Chopsticks include:
 Chopsticks provides a controlled environment for developers to safely explore the effects of runtime changes. It ensures that network behavior is tested and verified before upgrades are deployed to live networks.
 --- END CONTENT ---
 
+Doc-Content: https://docs.polkadot.com/polkadot-protocol/basics/node-and-runtime/
+--- BEGIN CONTENT ---
+---
+title: Node and Runtime
+description: Learn how Polkadot SDK-based nodes function, how the client and runtime are separated, and how they communicate using SCALE-encoded data.
+---
+
+# Node and Runtime
+
+## Introduction
+
+Every blockchain platform relies on a decentralized network of computers, called nodes, that communicate with each other about transactions and blocks. In this context, a node refers to the software running on the connected devices rather than the physical or virtual machines in the network.
+
+Polkadot SDK-based nodes consist of two main components, each with distinct responsibilities: the client (also called node) and the runtime.
+
+If the system were a monolithic protocol, any modification would require updating the entire system. Instead, Polkadot achieves true upgradeability by defining an immutable meta-protocol (the client) and a protocol (the runtime) that can be upgraded independently.
+
+This separation gives the [Polkadot Relay Chain](/polkadot-protocol/architecture/polkadot-chain){target=\_blank} and all connected [parachains](/polkadot-protocol/architecture/parachains){target=\_blank} an evolutionary advantage over other blockchain platforms.
+
+## Architectural Principles
+
+The Polkadot SDK-based blockchain architecture is fundamentally built on two distinct yet interconnected components:
+
+- **Client (Meta-protocol)**
+    - Handles the foundational infrastructure of the blockchain
+    - Manages runtime execution, networking, consensus, and other off-chain components
+    - Provides an immutable base layer that ensures network stability
+    - Upgradable only through hard forks
+
+- **Runtime (Protocol)** 
+    - Defines the blockchain's state transition logic
+    - Determines the specific rules and behaviors of the blockchain
+    - Compiled to WebAssembly (Wasm) for platform-independent execution
+    - Capable of being upgraded without network-wide forking
+
+### Advantages of this Architecture
+
+- **Forkless upgrades** - runtime can be updated without disrupting the entire network
+- **Modularity** - clear separation allows independent development of client and runtime
+- **Flexibility** - enables rapid iteration and evolution of blockchain logic
+- **Performance** - WebAssembly compilation provides efficient, cross-platform execution
+
+## Node (Client)
+
+The node, also known as the client, is the core component responsible for executing the Wasm runtime and orchestrating various essential blockchain components. It ensures the correct execution of the state transition function and manages multiple critical subsystems, including:
+
+- **Wasm execution** - runs the blockchain runtime, which defines the state transition rules
+- **Database management** - stores blockchain data
+- **Networking** - facilitates peer-to-peer communication, block propagation, and transaction gossiping
+- **Transaction pool (Mempool)** - manages pending transactions before they are included in a block
+- **Consensus mechanism** - ensures agreement on the blockchain state across nodes
+- **RPC services** - provides external interfaces for applications and users to interact with the node
+
+## Runtime
+
+The runtime is more than just a set of rules. It's the fundamental logic engine that defines a blockchain's entire behavior. In Polkadot SDK-based blockchains, the runtime represents a complete, self-contained description of the blockchain's state transition function.
+
+### Characteristics
+
+The runtime is distinguished by three key characteristics:
+
+- **Business logic** - defines the complete application-specific blockchain behavior
+- **WebAssembly compilation** - ensures platform-independent, secure execution
+- **On-chain storage** - stored within the blockchain's state, allowing dynamic updates
+
+### Key Functions
+
+The runtime performs several critical functions, such as:
+
+- Define state transition rules
+- Implement blockchain-specific logic
+- Manage account interactions
+- Control transaction processing
+- Define governance mechanisms
+- Handle custom pallets and modules
+
+## Communication Between Node and Runtime
+
+The client and runtime communicate exclusively using [SCALE-encoded](/polkadot-protocol/basics/data-encoding){target=\_blank} communication. This ensures efficient and compact data exchange between the two components.
+
+### Runtime APIs
+
+The Runtime API consists of well-defined functions and constants a client assumes are implemented in the Runtime Wasm blob. These APIs enable the client to interact with the runtime to execute blockchain operations and retrieve information. The client invokes these APIs to:
+
+- Build, execute, and finalize blocks
+- Access metadata
+- Access consensus related information
+- Handle transaction execution
+
+### Host Functions
+
+During execution, the runtime can access certain external client functionalities via host functions. The specific functions the client exposes allow the runtime to perform operations outside the WebAssembly domain. Host functions enable the runtime to:
+
+- Perform cryptographic operations
+- Access the current blockchain state
+- Handle storage modifications
+- Allocate memory
+--- END CONTENT ---
+
 Doc-Content: https://docs.polkadot.com/polkadot-protocol/basics/randomness/
 --- BEGIN CONTENT ---
 ---
@@ -17753,7 +18296,7 @@ Well-known development accounts, such as Alice, Bob, Charlie, Dave, Eve, and Fer
 bottom drive obey lake curtain smoke basket hold race lonely fit walk
 ```
 
-Many tools in the Polkadot SDK ecosystem, such as [`subkey`](https://github.com/paritytech/polkadot-sdk/tree/{{dependencies.polkadot_sdk.stable_version}}/substrate/bin/utils/subkey){target=\_blank}, allow you to implicitly specify an account using a derivation path such as `//Alice`.
+Many tools in the Polkadot SDK ecosystem, such as [`subkey`](https://github.com/paritytech/polkadot-sdk/tree/{{dependencies.repositories.polkadot_sdk.version}}/substrate/bin/utils/subkey){target=\_blank}, allow you to implicitly specify an account using a derivation path such as `//Alice`.
 
 ## Digest
 
@@ -18170,7 +18713,7 @@ See [Cancelling, Killing, and Blacklisting](https://wiki.polkadot.network/docs/l
 
 ## Additional Resources
 
-- [**Democracy pallet**](https://github.com/paritytech/polkadot-sdk/tree/{{dependencies.polkadot_sdk.stable_version}}/substrate/frame/democracy/src){target=\_blank} - handles administration of general stakeholder voting
+- [**Democracy pallet**](https://github.com/paritytech/polkadot-sdk/tree/{{dependencies.repositories.polkadot_sdk.version}}/substrate/frame/democracy/src){target=\_blank} - handles administration of general stakeholder voting
 - [**Gov2: Polkadot’s Next Generation of Decentralised Governance**](https://medium.com/polkadot-network/gov2-polkadots-next-generation-of-decentralised-governance-4d9ef657d11b){target=\_blank} - Medium article by Gavin Wood
 - [**Polkadot Direction**](https://matrix.to/#/#Polkadot-Direction:parity.io){target=\_blank} -  Matrix Element client
 - [**Polkassembly**](https://polkadot.polkassembly.io/){target=\_blank} - OpenGov dashboard and UI
@@ -24833,113 +25376,205 @@ To reserve a parachain identifier, follow these steps:
 
     ![](/images/tutorials/polkadot-sdk/parachains/zero-to-hero/deploy-to-testnet/deploy-to-testnet-8.webp)
 
+## Generate Customs Keys for Your Collator
+
+To securely deploy your parachain, it is essential to generate custom keys specifically for your collators (block producers). You should generate two sets of keys for each collator:
+
+- **Account keys** - used to interact with the network and manage funds. These should be protected carefully and should never exist on the filesystem of the collator node
+
+- **Session keys** - used in block production to identify your node and its blocks on the network. These keys are stored in the parachain keystore and function as disposable "hot wallet" keys. If these keys are leaked, someone could impersonate your node, which could result in the slashing of your funds. To minimize these risks, rotating your session keys frequently is essential. Treat them with the same level of caution as you would a hot wallet to ensure the security of your node
+
+To perform this step, you can use [subkey](https://docs.rs/crate/subkey/latest){target=\_blank}, a command-line tool for generating and managing keys:
+
+```bash
+docker run -it parity/subkey:latest generate --scheme sr25519
+```
+
+The output should look similar to the following:
+
+<div id="termynal" data-termynal>
+  <span data-ty="input"><span class="file-path"></span>docker run -it parity/subkey:latest generate --scheme sr25519</span>
+  <span> <br />Secret phrase: lemon play remain picture leopard frog mad bridge hire hazard best buddy <br />Network ID: substrate <br />Secret seed: 0xb748b501de061bae1fcab1c0b814255979d74d9637b84e06414a57a1a149c004 <br />Public key (hex): 0xf4ec62ec6e70a3c0f8dcbe0531e2b1b8916cf16d30635bbe9232f6ed3f0bf422 <br />Account ID: 0xf4ec62ec6e70a3c0f8dcbe0531e2b1b8916cf16d30635bbe9232f6ed3f0bf422 <br />Public key (SS58): 5HbqmBBJ5ALUzho7tw1k1jEgKBJM7dNsQwrtfSfUskT1a3oe <br />SS58 Address: 5HbqmBBJ5ALUzho7tw1k1jEgKBJM7dNsQwrtfSfUskT1a3oe </span>
+</div>
+
+Ensure that this command is executed twice to generate the keys for both the account and session keys. Save them for future reference.
+
 ## Generate the Chain Specification
+
+Polkadot SDK-based blockchains are defined by a file called the [chain specification](/develop/parachains/deployment/generate-chain-specs/){target=\_blank}, or chain spec for short. There are two types of chain spec files:
+
+- **Plain chain spec** - a human-readable JSON file that can be modified to suit your parachain's requirements. It serves as a template for initial configuration and includes human-readable keys and structures
+- **Raw chain spec** - a binary-encoded file used to start your parachain node. This file is generated from the plain chain spec and contains the encoded information necessary for the parachain node to synchronize with the blockchain network. It ensures compatibility across different runtime versions by providing data in a format directly interpretable by the node's runtime, regardless of upgrades since the chain's genesis
 
 The files required to register a parachain must specify the correct relay chain to connect to and the parachain identifier you have been assigned. To make these changes, you must build and modify the chain specification file for your parachain. In this tutorial, the relay chain is `paseo`, and the parachain identifier is `4508`.
 
-To modify the chain specification:
+To define your chain specification:
 
-1. Generate the plain chain specification for the parachain template node by running the following command. Make sure to use the `*.compact.compressed.wasm` version of your file when generating your chain specification. You should find your runtime's Wasm file inside `target/release/wbuild`:
-
-    ```bash
-    chain-spec-builder create --relay-chain paseo \
-    --para-id 4508 \
-    -r <runtime.compact.compressed.wasm> \
-    default
-    ```
-
-2. Open the plain text chain specification for the parachain template node in a text editor
-
-3. Set the `parachainId` to the parachain identifier that you previously reserved:
-
-    ```json
-    {
-    "...": "...",
-    "relay_chain": "paseo",
-    "para_id": 4508,
-    "genesis": {
-        "runtime": {
-            "...": {},
-            "parachainInfo": {
-                "parachainId": 4508
-            },
-            "session": {
-                "keys": [
-                    [
-                        "5HErbKmL5JmUKDVsH1aGyXTGZb4i9iaNsFhSgkNDr8qp2Dvj",
-                        "5HErbKmL5JmUKDVsH1aGyXTGZb4i9iaNsFhSgkNDr8qp2Dvj",
-                        {
-                            "aura": "5HErbKmL5JmUKDVsH1aGyXTGZb4i9iaNsFhSgkNDr8qp2Dvj"
-                        }
-                    ]
-                ]
-            }
-        },
-        "...": {}
-    }
-}
-    "runtime": {
-            "...": {},
-            "parachainInfo": {
-                "parachainId": 4508
-            },
-    "...": {}
-    }
-}
-    ```
-
-4. Add the public key for your account to the session keys section. Each configured session key will require a running collator:
-
-    ```json
-    {
-    "...": "...",
-    "relay_chain": "paseo",
-    "para_id": 4508,
-    "genesis": {
-        "runtime": {
-            "...": {},
-            "parachainInfo": {
-                "parachainId": 4508
-            },
-            "session": {
-                "keys": [
-                    [
-                        "5HErbKmL5JmUKDVsH1aGyXTGZb4i9iaNsFhSgkNDr8qp2Dvj",
-                        "5HErbKmL5JmUKDVsH1aGyXTGZb4i9iaNsFhSgkNDr8qp2Dvj",
-                        {
-                            "aura": "5HErbKmL5JmUKDVsH1aGyXTGZb4i9iaNsFhSgkNDr8qp2Dvj"
-                        }
-                    ]
-                ]
-            }
-        },
-        "...": {}
-    }
-}
-    "runtime": {
-            "...": {},
-    "keys": [
-                    [
-                        "5HErbKmL5JmUKDVsH1aGyXTGZb4i9iaNsFhSgkNDr8qp2Dvj",
-                        "5HErbKmL5JmUKDVsH1aGyXTGZb4i9iaNsFhSgkNDr8qp2Dvj",
-                        {
-                            "aura": "5HErbKmL5JmUKDVsH1aGyXTGZb4i9iaNsFhSgkNDr8qp2Dvj"
-                        }
-                    ]
-                ]
-            }
-        },
-        "...": {}
-    }
-}
-    ```
-
-5. Save your changes and close the plain text chain specification file
-
-6. Convert the modified plain chain specification file to a raw chain specification file:
+1. Generate the plain chain specification for the parachain template node by running the following command. Make sure to use the `*.compact.compressed.wasm` version of your compiled runtime when generating your chain specification, and replace `INSERT_PARA_ID` with the ID you obtained in the [Reserve a Parachain Identifier](#reserve-a-parachain-identifier) section:
 
     ```bash
-    chain-spec-builder convert-to-raw plain-parachain-chainspec.json
+    chain-spec-builder \
+    --chain-spec-path ./plain_chain_spec.json \
+    create \
+    --relay-chain paseo \
+    --para-id INSERT_PARA_ID \
+    --runtime target/release/wbuild/parachain-template-runtime/parachain_template_runtime.compact.compressed.wasm \
+    named-preset local_testnet
+    ```
+
+2. Edit the `plain_chain_spec.json` file:
+
+    - Update the `name`, `id`, and `protocolId` fields to unique values for your parachain
+    - Change `para_id` and `parachainInfo.parachainId` fields to the parachain ID you obtained previously. Make sure to use a number without quotes
+    - Modify the `balances` field to specify the initial balances for your accounts in SS58 format
+    - Insert the account IDs and session keys in SS58 format generated for your collators in the `collatorSelection.invulnerables` and `session.keys` fields
+    - Modify the `sudo` value to specify the account that will have sudo access to the parachain
+  
+    ```json
+    {
+    "bootNodes": [],
+    "chainType": "Live",
+    "codeSubstitutes": {},
+    "genesis": {
+        "runtimeGenesis": {
+            "code": "0x...",
+            "patch": {
+                "aura": {
+                    "authorities": []
+                },
+                "auraExt": {},
+                "balances": {
+                    "balances": [["INSERT_SUDO_ACCOUNT", 1152921504606846976]]
+                },
+                "collatorSelection": {
+                    "candidacyBond": 16000000000,
+                    "desiredCandidates": 0,
+                    "invulnerables": ["INSERT_ACCOUNT_ID_COLLATOR_1"]
+                },
+                "parachainInfo": {
+                    "parachainId": "INSERT_PARA_ID"
+                },
+                "parachainSystem": {},
+                "polkadotXcm": {
+                    "safeXcmVersion": 4
+                },
+                "session": {
+                    "keys": [
+                        [
+                            "INSERT_ACCOUNT_ID_COLLATOR_1",
+                            "INSERT_ACCOUNT_ID_COLLATOR_1",
+                            {
+                                "aura": "INSERT_SESSION_KEY_COLLATOR_1"
+                            }
+                        ]
+                    ],
+                    "nonAuthorityKeys": []
+                },
+                "sudo": {
+                    "key": "INSERT_SUDO_ACCOUNT"
+                },
+                "system": {},
+                "transactionPayment": {
+                    "multiplier": "1000000000000000000"
+                }
+            }
+        }
+    },
+    "id": "INSERT_ID",
+    "name": "INSERT_NAME",
+    "para_id": "INSERT_PARA_ID",
+    "properties": {
+        "tokenDecimals": 12,
+        "tokenSymbol": "UNIT"
+    },
+    "protocolId": "INSERT_PROTOCOL_ID",
+    "relay_chain": "paseo",
+    "telemetryEndpoints": null
+}
+    ```
+
+    For this tutorial, the `plain_chain_spec.json` file should look similar to the following. Take into account that the same account is being used for the collator and sudo, which must not be the case in a production environment:
+
+    ??? code "View complete script"
+
+        ```json title="plain_chain_spec.json"
+        {
+    "bootNodes": [],
+    "chainType": "Live",
+    "codeSubstitutes": {},
+    "genesis": {
+        "runtimeGenesis": {
+            "code": "0x...",
+            "patch": {
+                "aura": {
+                    "authorities": []
+                },
+                "auraExt": {},
+                "balances": {
+                    "balances": [
+                        [
+                            "5F9Zteceg3Q4ywi63AxQNVb2b2r5caFSqjQxBkCrux6j8ZpS",
+                            1152921504606846976
+                        ]
+                    ]
+                },
+                "collatorSelection": {
+                    "candidacyBond": 16000000000,
+                    "desiredCandidates": 0,
+                    "invulnerables": [
+                        "5F9Zteceg3Q4ywi63AxQNVb2b2r5caFSqjQxBkCrux6j8ZpS"
+                    ]
+                },
+                "parachainInfo": {
+                    "parachainId": 4508
+                },
+                "parachainSystem": {},
+                "polkadotXcm": {
+                    "safeXcmVersion": 4
+                },
+                "session": {
+                    "keys": [
+                        [
+                            "5F9Zteceg3Q4ywi63AxQNVb2b2r5caFSqjQxBkCrux6j8ZpS",
+                            "5F9Zteceg3Q4ywi63AxQNVb2b2r5caFSqjQxBkCrux6j8ZpS",
+                            {
+                                "aura": "5GcAKNdYcw5ybb2kAnta8WVFyiQbGJ5od3aH9MsgYDmVcrhJ"
+                            }
+                        ]
+                    ],
+                    "nonAuthorityKeys": []
+                },
+                "sudo": {
+                    "key": "5F9Zteceg3Q4ywi63AxQNVb2b2r5caFSqjQxBkCrux6j8ZpS"
+                },
+                "system": {},
+                "transactionPayment": {
+                    "multiplier": "1000000000000000000"
+                }
+            }
+        }
+    },
+    "id": "custom",
+    "name": "Custom",
+    "para_id": 4508,
+    "properties": {
+        "tokenDecimals": 12,
+        "tokenSymbol": "UNIT"
+    },
+    "protocolId": null,
+    "relay_chain": "paseo",
+    "telemetryEndpoints": null
+}
+        ```
+
+3. Save your changes and close the plain text chain specification file
+
+4. Convert the modified plain chain specification file to a raw chain specification file:
+
+    ```bash
+    chain-spec-builder \
+    --chain-spec-path ./raw_chain_spec.json \
+    convert-to-raw plain_chain_spec.json
     ```
 
     You should now see your chain specification containing SCALE-encoded hex values versus plain text.
@@ -24948,18 +25583,18 @@ To modify the chain specification:
 
 To prepare the parachain collator to be registered on Paseo, follow these steps:
 
-1. Export the Wasm runtime for the parachain by running a command similar to the following:
+1. Export the Wasm runtime for the parachain by running the following command:
 
     ```bash
     polkadot-omni-node export-genesis-wasm \
-    --chain raw-parachain-chainspec.json para-wasm
+    --chain raw_chain_spec.json para-wasm
     ```
 
-2. Export the genesis state for the parachain by running a command similar to the following:
+2. Export the genesis state for the parachain by running the following command:
 
     ```bash
     polkadot-omni-node export-genesis-state \
-    --chain raw-parachain-chainspec.json para-state
+    --chain raw_chain_spec.json para-state
     ```
 
 ## Register a Parathread
@@ -24968,51 +25603,78 @@ Once you have the genesis state and runtime, you can now register these with you
 
 1. Go to the [Parachains > Parathreads](https://polkadot.js.org/apps/#/parachains/parathreads){target=\_blank} tab, and select **+ Parathread**
    
-2. You should see fields to place your runtime Wasm and genesis state respectively, along with the parachain ID. Select your parachain ID, and upload `para-wasm` in the "code" field and `para-state` in the "initial state" field:
+2. You should see fields to place your runtime Wasm and genesis state respectively, along with the parachain ID. Select your parachain ID, and upload `para-wasm` in the **code** field and `para-state` in the **initial state** field:
 
-![](/images/tutorials/polkadot-sdk/parachains/zero-to-hero/deploy-to-testnet/deploy-to-testnet-9.webp)
+    ![](/images/tutorials/polkadot-sdk/parachains/zero-to-hero/deploy-to-testnet/deploy-to-testnet-9.webp)
    
 3. Confirm your details and **+ Submit** button, where there should be a new Parathread with your parachain ID and an active **Deregister** button:
 
-![](/images/tutorials/polkadot-sdk/parachains/zero-to-hero/deploy-to-testnet/deploy-to-testnet-10.webp)
+    ![](/images/tutorials/polkadot-sdk/parachains/zero-to-hero/deploy-to-testnet/deploy-to-testnet-10.webp)
 
 Your parachain's runtime logic and genesis are now part of the relay chain. The next step is to ensure you are able to run a collator to produce blocks for your parachain.
 
 ## Start the Collator Node
 
-Before starting a collator, generate a node key. A node key is responsible for communicating with other nodes over Libp2p:
+Before starting a collator, you need to generate a node key. This key is responsible for communicating with other nodes over Libp2p:
 
 ```bash
 polkadot-omni-node key generate-node-key \
---base-path /tmp/parachain/pubs-demo \
---chain raw-parachain-chainspec.json
+--base-path data \
+--chain raw_chain_spec.json
 ```
 
 After running the command, you should see the following output, indicating the base path now has a suitable node key: 
 
 <div id="termynal" data-termynal>
-  <span data-ty="input"><span class="file-path"></span>polkadot-omni-node key generate-node-key --base-path /tmp/parachain/pubs-demo --chain raw-parachain-chainspec.json</span>
+  <span data-ty="input"><span class="file-path"></span>polkadot-omni-node key generate-node-key --base-path data --chain raw_chain_spec.json</span>
   <br />
-  <span data-ty="progress">2024-09-11 09:48:15 Building chain spec</span>
-  <span data-ty="progress">Generating key in "/tmp/parachain/pubs-demo/chains/live/network/secret_ed25519"</span>
-  <span data-ty="progress">12D3KooWJH816dWizsft7MXVrv1nH3dHnGsHxD1qdyQm9mMAbo7Z</span>
+  <span data-ty="progress">Generating key in "/data/chains/custom/network/secret_ed25519"</span>
+  <span data-ty="progress">12D3KooWKGW964eG4fAwsNMFdckbj3GwhpmSGFU9dd8LFAVAa4EE</span>
 </div>
 
-You must have the ports for the collator publicly accessible and discoverable to enable parachain nodes to peer with Paseo validator nodes to produce blocks. You can specify the ports with the `--port` command-line option. For example, you can start the collator with a command similar to the following:
+You must have the ports for the collator publicly accessible and discoverable to enable parachain nodes to peer with Paseo validator nodes to produce blocks. You can specify the ports with the `--port` command-line option. You can start the collator with a command similar to the following:
 
 ```bash
 polkadot-omni-node --collator \
---chain raw-parachain-chainspec.json \
---base-path /tmp/parachain/pubs-demo \
---port 50333 \
---rpc-port 8855 \
+--chain raw_chain_spec.json \
+--base-path data \
+--port 40333 \
+--rpc-port 8845 \
+--force-authoring \
+--node-key-file ./data/chains/custom/network/secret_ed25519 \
 -- \
+--sync warp \
 --chain paseo \
 --port 50343 \
 --rpc-port 9988
 ```
 
-In this example, the first `--port` setting specifies the port for the collator node and the second `--port` specifies the embedded relay chain node port. The first `--rpc-port` setting specifies the port you can connect to the collator. The second `--rpc-port` specifies the port for connecting to the embedded relay chain.
+In this example, the first `--port` setting specifies the port for the collator node, and the second `--port` specifies the embedded relay chain node port. The first `--rpc-port` setting specifies the port you can connect to the collator. The second `--rpc-port` specifies the port for connecting to the embedded relay chain.
+
+Before proceeding, ensure that the collator node is running. Then, open a new terminal and insert your generated session key into the collator keystore by running the following command. Use the same port specified in the `--rpc-port` parameter when starting the collator node (`8845` in this example) to connect to it. Replace `INSERT_SECRET_PHRASE` and `INSERT_PUBLIC_KEY_HEX_FORMAT` with the values from the session key you generated in the [Generate Customs Keys for Your Collator](#generate-customs-keys-for-your-collator) section:
+
+```bash
+curl -H "Content-Type: application/json" \
+--data '{
+  "jsonrpc":"2.0",
+  "method":"author_insertKey",
+  "params":[
+    "aura",
+    "INSERT_SECRET_PHRASE",
+    "INSERT_PUBLIC_KEY_HEX_FORMAT"
+  ],
+  "id":1
+}' \
+http://localhost:8845
+```
+
+If successful, you should see the following response:
+
+```json
+{"jsonrpc":"2.0","result":null,"id":1}
+```
+
+Once your collator is synced with the Paseo relay chain, and your parathread finished onboarding, it will be ready to start producing blocks. This process may take some time.
 
 ## Producing Blocks
 
@@ -25072,8 +25734,8 @@ After deploying a parachain to the Paseo TestNet in the [Deploy to TestNet](/tut
 
 There are two ways to obtain coretime:
 
-- **Bulk coretime** - bulk coretime allows you to obtain a core or part of a core. It is purchased for some time, up to 28 days. It must be renewed once the lease finishes
-- **On-demand coretime** - on-demand coretime allows you to buy coretime on a block-by-block basis
+- **[On-demand coretime](#order-on-demand-coretime)** - on-demand coretime allows you to buy coretime on a block-by-block basis
+- **[Bulk coretime](#purchase-bulk-coretime)** - bulk coretime allows you to obtain a core or part of a core. It is purchased for some time, up to 28 days. It must be renewed once the lease finishes
 
 In this tutorial, you will:
 
@@ -25092,6 +25754,27 @@ Before proceeding, you should have the following items:
 - A properly configured and synced (with the relay chain) collator
 
 Once the above is complete, obtaining coretime is the last step to enable your parachain to start producing and finalizing blocks using the relay chain's validator set. If you don't, refer to the previous tutorial: [Deploy on Paseo TestNet](/tutorials/polkadot-sdk/parachains/zero-to-hero/deploy-to-testnet/){target=\_blank}.
+
+## Order On Demand Coretime
+
+There are two extrinsics which allow you to place orders for on-demand coretime:
+
+- [**`onDemand.placeOrderAllowDeath`**](https://paritytech.github.io/polkadot-sdk/master/polkadot_runtime_parachains/on_demand/pallet/dispatchables/fn.place_order_allow_death.html){target=\_blank} - will [reap](https://wiki.polkadot.network/docs/learn-accounts#existential-deposit-and-reaping){target=\_blank} the account once the provided funds run out
+- [**`onDemand.placeOrderKeepAlive`**](https://paritytech.github.io/polkadot-sdk/master/polkadot_runtime_parachains/on_demand/pallet/dispatchables/fn.place_order_keep_alive.html){target=\_blank} - includes a check that will **not** reap the account if the provided funds run out, ensuring the account is kept alive
+
+To produce a block in your parachain, navigate to Polkadot.js Apps and ensure you're connected to the Paseo relay chain. Then, access the [**Developer > Extrinsics**](https://polkadot.js.org/apps/#/extrinsics){target=\_blank} tab and execute the `onDemand.placeOrderAllowDeath` extrinsic from the account that registered the `ParaID`. For this example, `maxAmount` is set to `1000000000000` (this value may vary depending on the network conditions), and `paraId` is set to `4518`:
+
+![](/images/tutorials/polkadot-sdk/parachains/zero-to-hero/obtain-coretime/obtain-coretime-9.webp)
+
+With each successful on-demand extrinsic, the parachain will produce a new block. You can verify this by checking the collator logs. If the extrinsic is successful, you should see output similar to the following:
+
+<div id="termynal" data-termynal>
+  <span data-ty="progress">2024-12-11 18:03:29 [Parachain] 🙌 Starting consensus session on top of parent </span>
+  <span data-ty="progress">0x860e5e37dbc04e736e76c4a42c64e71e069084548862d4007d32958578b26d87 (#214) </span>
+  <span data-ty="progress">2024-12-11 18:03:30 [Parachain] 🎁 Prepared block for proposing at 215 (701 ms) hash: </span>
+  <span data-ty="progress">0xee48b7dd559ab4cbff679f59e5cd37f2fd5b60c53a25b11d770dce999968076c; parent_hash: 0x860e…6d87; end: NoMoreTransactions; extrinsics_count: 2 </span>
+  <span data-ty="progress">2024-12-11 18:03:30 [Parachain] 🏆 Imported #215 (0x860e…6d87 → 0xee48…076c)</span>
+</div>
 
 ## Purchase Bulk Coretime
 
@@ -25151,35 +25834,7 @@ Click the **Add Task** button and input the parachain identifier, along with the
 
 You may now select a task from the list. You must also set the core's finality, which determines whether you can renew this specific core. Provisional finality allows for interlacing and partitioning, whereas Final finality does not allow the region to be modified. A core must not be interlaced or partitioned to be renewable, so Finality should be selected if you want to renew this specific core.
 
-Once you sign and send this transaction, that task/parachain will be assigned to that core.
-
-## Order On Demand Coretime
-
-On Polkadot.js Apps, make sure you're connected to the relay chain, then navigate to [**Developer > Extrinsics**](https://polkadot.js.org/apps/#/extrinsics){target=\_blank} and issue the `onDemand.placeOrderAllowDeath` extrinsic from the account that registered the `ParaID` by specifying sufficient `maxAmount` for the transaction to go through successfully.
-
-![](/images/tutorials/polkadot-sdk/parachains/zero-to-hero/obtain-coretime/obtain-coretime-9.webp)
-
-There are two extrinsics which allow you to place orders for on-demand coretime:
-
-- [**`onDemand.placeOrderAllowDeath`**](https://paritytech.github.io/polkadot-sdk/master/polkadot_runtime_parachains/on_demand/pallet/dispatchables/fn.place_order_allow_death.html){target=\_blank} - will [reap](https://wiki.polkadot.network/docs/learn-accounts#existential-deposit-and-reaping){target=\_blank} the account once the provided funds run out
-- [**`onDemand.placeOrderKeepAlive`**](https://paritytech.github.io/polkadot-sdk/master/polkadot_runtime_parachains/on_demand/pallet/dispatchables/fn.place_order_keep_alive.html){target=\_blank} - includes a check which will **not** reap the account if the provided funds will run out, ensuring the account is kept alive
-
-With each successful on-demand extrinsic, the parachain head changes (you may have to zoom out on the browser for parachain head details to show up on the Polkadot.js Apps interface).
-
-![](/images/tutorials/polkadot-sdk/parachains/zero-to-hero/obtain-coretime/obtain-coretime-10.webp)
-
-The same should also be reflected in the collator's logs, where you should see output similar to the following:
-
-<div id="termynal" data-termynal>
-  <span data-ty="input"><span class="file-path"></span>polkadot-omni-node</span>
-  <br />
-
-  <span data-ty="progress">2024-12-11 18:03:29 [Parachain] 🙌 Starting consensus session on top of parent </span>
-  <span data-ty="progress">0x860e5e37dbc04e736e76c4a42c64e71e069084548862d4007d32958578b26d87 (#214) </span>
-  <span data-ty="progress">2024-12-11 18:03:30 [Parachain] 🎁 Prepared block for proposing at 215 (701 ms) hash: </span>
-  <span data-ty="progress">0xee48b7dd559ab4cbff679f59e5cd37f2fd5b60c53a25b11d770dce999968076c; parent_hash: 0x860e…6d87; end: NoMoreTransactions; extrinsics_count: 2 </span>
-  <span data-ty="progress">2024-12-11 18:03:30 [Parachain] 🏆 Imported #215 (0x860e…6d87 → 0xee48…076c)</span>
-</div>
+Once you sign and send this transaction, your parachain will be assigned to that core.
 --- END CONTENT ---
 
 Doc-Content: https://docs.polkadot.com/tutorials/polkadot-sdk/parachains/zero-to-hero/pallet-benchmarking/
@@ -26361,23 +27016,22 @@ Before getting started, ensure you have done the following:
 
 This tutorial requires two essential tools:
 
-- [**Chain spec builder**](https://paritytech.github.io/polkadot-sdk/master/staging_chain_spec_builder/index.html){target=\_blank} - is a Polkadot SDK utility for generating chain specifications
+- [**Chain spec builder**](https://crates.io/crates/staging-chain-spec-builder/{{dependencies.crates.chain_spec_builder.version}}){target=\_blank} - is a Polkadot SDK utility for generating chain specifications. Refer to the [Generate Chain Specs](/develop/parachains/deployment/generate-chain-specs/){target=\_blank} documentation for detailed usage.
     
     Install it by executing the following command:
     
     ```bash
-    cargo install --git https://github.com/paritytech/polkadot-sdk --tag {{dependencies.polkadot_sdk.stable_version}} --force staging-chain-spec-builder
+    cargo install staging-chain-spec-builder@{{dependencies.crates.chain_spec_builder.version}}
     ```
 
-    This installs the `chain-spec-builder` binary. Refer to the [Generate Chain Specs](/develop/parachains/deployment/generate-chain-specs/){target=\_blank} documentation for detailed usage.
+    This installs the `chain-spec-builder` binary.
 
-- [**Polkadot Omni Node**](https://paritytech.github.io/polkadot-sdk/master/polkadot_sdk_docs/reference_docs/omni_node/index.html){target=\_blank} - is a white-labeled binary, released as a part of Polkadot SDK that can act as the collator of a parachain in production, with all the related auxillary functionalities that a normal collator node has: RPC server, archiving state, etc. Moreover, it can also run the wasm blob of the parachain locally for testing and development.
+- [**Polkadot Omni Node**](https://crates.io/crates/polkadot-omni-node/{{dependencies.crates.polkadot_omni_node.version}}){target=\_blank} - is a white-labeled binary, released as a part of Polkadot SDK that can act as the collator of a parachain in production, with all the related auxiliary functionalities that a normal collator node has: RPC server, archiving state, etc. Moreover, it can also run the wasm blob of the parachain locally for testing and development.
 
-    
     To install it, run the following command:
 
     ```bash
-    cargo install --git https://github.com/paritytech/polkadot-sdk --tag {{dependencies.polkadot_sdk.stable_version}} --force polkadot-omni-node
+    cargo install polkadot-omni-node@{{dependencies.crates.polkadot_omni_node.version}}
     ```
 
     This installs the `polkadot-omni-node` binary.
@@ -26414,9 +27068,12 @@ The [Polkadot SDK Parachain Template](https://github.com/paritytech/polkadot-sdk
 
 ## Start the Local Chain
 
-After successfully compiling your runtime, you can spin up a local chain and produce blocks. This process will start your local parachain and allow you to interact. Follow these steps to launch your node in development mode:
+After successfully compiling your runtime, you can spin up a local chain and produce blocks. This process will start your local parachain and allow you to interact with it. You'll first need to generate a chain specification that defines your network's identity, initial connections, and genesis state, providing the foundational configuration for how your nodes connect and what initial state they agree upon, and then run the chain. 
 
-1. First, you need to generate the chain spec file of your parachain:
+Follow these steps to launch your node in development mode:
+
+1. Generate the chain specification file of your parachain:
+
     ```bash
     chain-spec-builder create -t development \
     --relay-chain paseo \
@@ -26432,6 +27089,7 @@ After successfully compiling your runtime, you can spin up a local chain and pro
     ```
 
     The `--dev` option does the following:
+
     - Deletes all active data (keys, blockchain database, networking information) when stopped
     - Ensures a clean working state each time you restart the node
 
@@ -26539,7 +27197,7 @@ description: A guide detailing the step-by-step process of converting assets on 
 
 Asset Conversion is an Automated Market Maker (AMM) utilizing [Uniswap V2](https://github.com/Uniswap/v2-core){target=\_blank} logic and implemented as a pallet on Polkadot's Asset Hub. For more details about this feature, please visit the [Asset Conversion on Asset Hub](https://wiki.polkadot.network/docs/learn-asset-conversion-assethub){target=\_blank} wiki page.
 
-This guide will provide detailed information about the key functionalities offered by the [Asset Conversion](https://github.com/paritytech/polkadot-sdk/tree/{{dependencies.polkadot_sdk.stable_version}}/substrate/frame/asset-conversion){target=\_blank} pallet on Asset Hub, including:
+This guide will provide detailed information about the key functionalities offered by the [Asset Conversion](https://github.com/paritytech/polkadot-sdk/tree/{{dependencies.repositories.polkadot_sdk.version}}/substrate/frame/asset-conversion){target=\_blank} pallet on Asset Hub, including:
 
 - Creating a liquidity pool
 - Adding liquidity to a pool
@@ -27581,7 +28239,7 @@ By the end of this tutorial, you'll be equipped to deploy and test your own bloc
 
 To successfully complete this tutorial, you must ensure you've first:
 
-- [Installed Zombienet](/develop/toolkit/parachains/spawn-chains/zombienet/get-started/#install-zombienet){target=\_blank}. This tutorial requires Zombienet version `{{ dependencies.zombienet.version }}`. Verify that you're using the specified version to ensure compatibility with the instructions.
+- [Installed Zombienet](/develop/toolkit/parachains/spawn-chains/zombienet/get-started/#install-zombienet){target=\_blank}. This tutorial requires Zombienet version `{{ dependencies.repositories.zombienet.version }}`. Verify that you're using the specified version to ensure compatibility with the instructions.
 - Reviewed the information in [Configure Zombienet](/develop/toolkit/parachains/spawn-chains/zombienet/get-started/#configure-zombienet){target=\_blank} and understand how to customize a spawned network
 
 ## Define the Network

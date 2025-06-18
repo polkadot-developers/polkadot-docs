@@ -19,7 +19,7 @@ Before you begin, ensure you have [Docker](https://www.docker.com/get-started/){
 
 To compile the Wasm runtime deterministically, the same tooling that produces the runtime for Polkadot, Kusama, and other Polkadot SDK-based chains can be used. This tooling, referred to collectively as the Substrate Runtime Toolbox or [`srtool`](https://github.com/paritytech/srtool){target=\_blank}, ensures that the same source code consistently compiles to an identical Wasm blob.
 
-The core component of `srtool` is a Docker container executed as part of a Docker image. The name of the `srtool` Docker image specifies the version of the Rust compiler used to compile the code included in the image. For example, the image `{{dependencies.srtool.docker_image_name}}:{{dependencies.srtool.docker_image_version}}` indicates that the code in the image was compiled with version `{{dependencies.srtool.docker_image_version}}` of the `rustc` compiler.
+The core component of `srtool` is a Docker container executed as part of a Docker image. The name of the `srtool` Docker image specifies the version of the Rust compiler used to compile the code included in the image. For example, the image `{{dependencies.repositories.srtool.docker_image_name}}:{{dependencies.repositories.srtool.docker_image_version}}` indicates that the code in the image was compiled with version `{{dependencies.repositories.srtool.docker_image_version}}` of the `rustc` compiler.
 
 ## Working with the Docker Container
 
@@ -128,7 +128,7 @@ To pull the image from Docker Hub:
 6. Paste the command you copied from the Docker Hub. For example, you might run a command similar to the following, which downloads and unpacks the image:
 
     ```bash
-    docker pull paritytech/srtool:{{ dependencies.srtool.docker_image_version }}
+    docker pull paritytech/srtool:{{ dependencies.repositories.srtool.docker_image_version }}
     ```
 
 ### Naming Convention for Images

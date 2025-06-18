@@ -151,7 +151,7 @@ def fetch_remote_snippet(snippet_ref, yaml_data):
         return f"Error fetching snippet from {url}"
 
 def resolve_placeholders(text, data):
-    # Replace placeholders like {{dependencies.asset_transfer_api.version}}
+    # Replace placeholders like {{dependencies.repositories.asset_transfer_api.version}}
     while True:
         match = re.search(r'{{(.*?)}}', text)
         if not match:

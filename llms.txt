@@ -22564,13 +22564,13 @@ Events are also written to storage. Runtime logic should not emit an event befor
 
 ## Transaction Mortality
 
-Transactions in the network can be configured as either mortal (with expiration) or immortal (no expiration). Every transaction payload contains a block checkpoint (reference block number and hash) and an era/validity period that determines how many blocks after the checkpoint the transaction remains valid.
+Transactions in the network can be configured as either mortal (with expiration) or immortal (without expiration). Every transaction payload contains a block checkpoint (reference block number and hash) and an era/validity period that determines how many blocks after the checkpoint the transaction remains valid.
 
-When a transaction is submitted, the network validates it against these parameters, and if the transaction is not included in a block within the specified validity window, it is automatically removed from the transaction queue.
+When a transaction is submitted, the network validates it against these parameters. If the transaction is not included in a block within the specified validity window, it is automatically removed from the transaction queue.
 
-- **Mortal transactions**: have a finite lifespan and will expire after a specified number of blocks. For example, a transaction with block checkpoint 1000 and validity period of 64 blocks will be valid from blocks 1000-1064.
+- **Mortal transactions**: have a finite lifespan and will expire after a specified number of blocks. For example, a transaction with a block checkpoint of 1000 and a validity period of 64 blocks will be valid from blocks 1000 to 1064.
 
-- **Immortal transactions**: never expire and remain valid indefinitely. To create an immortal transaction, set the block checkpoint to 0 (genesis block), use the genesis hash as reference, and set the validity period to 0.
+- **Immortal transactions**: never expire and remain valid indefinitely. To create an immortal transaction, set the block checkpoint to 0 (genesis block), use the genesis hash as a reference, and set the validity period to 0.
 
 However, immortal transactions pose significant security risks through replay attacks. If an account is reaped (balance drops to zero, account removed) and later re-funded, malicious actors can replay old immortal transactions.
 
@@ -22598,7 +22598,7 @@ Notice that blocks 100 and 200 contain transactions with identical hashes (0x01)
 
 Additional complexity comes from Polkadot SDK's origin abstraction. Origins can represent collectives, governance bodies, or other non-account entities that don't maintain nonces like regular accounts and might dispatch identical calls multiple times with the same hash values. Each execution occurs in different chain states with different results.
 
-The correct way to uniquely identify an extrinsic on a Polkadot SDK-based chain is to use the block ID (height or hash) and the extrinsic's index. Since the Polkadot SDK defines blocks as headers plus ordered arrays of extrinsics, the index position within a canonical block provides guaranteed uniqueness.
+The correct way to uniquely identify an extrinsic on a Polkadot SDK-based chain is to use the block ID (height or hash) and the extrinsic index. Since the Polkadot SDK defines blocks as headers plus ordered arrays of extrinsics, the index position within a canonical block provides guaranteed uniqueness.
 
 ## Additional Resources
 

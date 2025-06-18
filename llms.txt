@@ -15048,9 +15048,9 @@ Use Chopsticks to [fork](https://docs.polkadot.com/tutorials/polkadot-sdk/testin
     * Ensure each block number *before* the XCM is sent, so you can replay it in full.
 
 ```env
-POLKADOT_BLOCK_NUMBER=21588342
-POLKADOT_ASSET_HUB_BLOCK_NUMBER=
-ACALA_BLOCK_NUMBER=
+POLKADOT_BLOCK_NUMBER=26481107
+POLKADOT_ASSET_HUB_BLOCK_NUMBER=9079591
+ACALA_BLOCK_NUMBER=8826385
 ```
 
 * Launch Chopsticks using the chain config files
@@ -15065,69 +15065,77 @@ npx @acala-network/chopsticks xcm \
 
 ### 3. Replay the XCM
 
-There are two approaches:
+```ts
+import { ApiPromise, WsProvider, Keyring } from '@polkadot/api';
 
-#### a) **Replay by Block**
+async function main() {
+  const provider = new WsProvider('ws://localhost:8000');
+  const api = await ApiPromise.create({ provider });
 
-If you know the block containing the XCM send or execution, you can run:
+  const keyring = new Keyring({ type: 'sr25519' });
+  const alice = keyring.addFromUri('//Alice');
 
-```bash
-npx @acala-network/chopsticks run-block \
---endpoint wss://rpc.polkadot.io \
---block 17000000 \
---output-path ./xcm-output.json \
---html --open
-```
+  const tx = api.tx.polkadotXcm.send(
+          {
+            V5: {
+              parents: 1,
+              interior: 'Here'
+            }
+          },
+          {
+            V5: [
+              { SetTopic: '0x' + '00'.repeat(28) + '12345678' }
+            ]
+          }
+  );
 
-This will replay the block and highlight storage diffs and logs.
+  console.log('Submitting extrinsic:', tx.toHuman());
 
-#### b) **Send the XCM Manually**
-
-Use the `dev.xcm.send` JSON-RPC method with Chopsticks to resend a previously captured message:
-
-```bash
-curl -H "Content-Type: application/json" -d '{
-  "jsonrpc": "2.0",
-  "id": 1,
-  "method": "dev.xcm.send",
-  "params": [
-    "1000", // Parachain ID
-    {
-      "V3": { "instructions": [ ... ] } // your XCM payload
+  const unsub = await tx.signAndSend(alice, ({ status, events, dispatchError }) => {
+    if (status.isInBlock) {
+      console.log('📦 Included in block:', status.asInBlock.toHex());
+    } else if (status.isFinalized) {
+      console.log('✅ Finalized in block:', status.asFinalized.toHex());
+      unsub();
     }
-  ]
-}' http://localhost:8000
+
+    if (dispatchError) {
+      if (dispatchError.isModule) {
+        const decoded = api.registry.findMetaError(dispatchError.asModule);
+        console.error('❌ Dispatch error:', decoded.section, decoded.name);
+      } else {
+        console.error('❌ Dispatch error:', dispatchError.toString());
+      }
+    }
+
+    for (const { event } of events) {
+      console.log('📣 Event:', event.section, event.method, event.data.toHuman());
+    }
+  });
+}
+
+main().catch(console.error).finally(() => process.exit());
 ```
 
-You can find real XCM payloads from prior events, logs, or Subscan.
+#### How to Run
 
-### 4. Interpret the Logs
+1. Save as `send-xcm.ts`
+2. Install dependencies:
 
-Look for logs such as:
+```bash
+npm install @polkadot/api
+```
 
-* `xcm::execute_instruction` or `xcm::attempt_execute_xcm`
-* `frame_system::events`
-* `xcmPallet::success` / `xcmPallet::fail`
-* Any emitted `SetTopic` or `WeightConsumed` details
+3. Run the script:
 
-These help you trace how the message was processed and where it may have failed.
+```bash
+npx ts-node send-xcm.ts
+```
 
-## Common Issues & Troubleshooting
+Make sure:
 
-### The XCM didn't execute
-
-* Ensure the chains were forked at the correct block height
-* Double-check the format of your XCM (version, instructions, encoding)
-
-### Logs are missing or unclear
-
-* Use `--log trace` to ensure all debug info is enabled
-* Consider dumping logs to file and searching by `xcm` or `fail`
-
-### No response from `dev.xcm.send`
-
-* Ensure you're sending to the correct port for the parachain
-* Check that you're using the correct JSON-RPC format and headers
+* Chopsticks is running on port `8000`
+* You're on a chain that supports `polkadotXcm.send` (e.g. `statemint` / Asset Hub fork)
 
 ## Conclusion
 

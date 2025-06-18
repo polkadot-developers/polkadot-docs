@@ -15063,29 +15063,9 @@ npx @acala-network/chopsticks xcm \
 
 Ensure at a block *before* the XCM is sent, so you can replay it in full.
 
-### 3. Enable Full Logging
+Use `runtime-log-level: 5` to ensure all trace info is enabled on the config files.
 
-Pass the `--log trace` flag when launching Chopsticks to view all internal logs, including:
-
-* XCM execution paths
-* Frame events and logs
-* Errors and weight usage
-
-```bash
-npx @acala-network/chopsticks xcm \
---r polkadot \
---p polkadot-asset-hub \
---p acala
---log trace
-```
-
-You can also inspect JSON-RPC logs using tools like `jq`, or redirect logs to a file:
-
-```bash
-... --log trace > xcm-debug.log
-```
-
-### 4. Replay the XCM
+### 3. Replay the XCM
 
 There are two approaches:
 
@@ -15123,7 +15103,7 @@ curl -H "Content-Type: application/json" -d '{
 
 You can find real XCM payloads from prior events, logs, or Subscan.
 
-### 5. Interpret the Logs
+### 4. Interpret the Logs
 
 Look for logs such as:
 

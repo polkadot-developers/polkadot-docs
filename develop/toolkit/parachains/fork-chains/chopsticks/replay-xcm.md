@@ -35,11 +35,11 @@ If you have not forked a chain before, see the [Fork a Chain with Chopsticks gui
 Begin by creating a dedicated directory for your replay environment and installing the required tools:
 
 ```bash
-mkdir ~/projects
-mkdir ~/projects/replay-xcm-tests
+mkdir -p ~/projects/replay-xcm-tests
 cd ~/projects/replay-xcm-tests
 npm init -y
 npm i -g @acala-network/chopsticks@latest
+npm i polkadot-api
 ```
 
 This sets up a clean workspace and ensures you are using the latest version of Chopsticks.
@@ -75,7 +75,7 @@ Full execution logs only work if the runtime was compiled with logging enabled. 
 1. **Clone and build the Polkadot runtime**:
 
 ```bash
-cd ~/projects
+mkdir -p ~/projects && cd ~/projects
 git clone git@github.com:polkadot-fellows/runtimes.git
 cd runtimes
 cargo build --release -p polkadot-runtime
@@ -109,9 +109,9 @@ Start the forked chains using your custom config:
 
 ```bash
 npx @acala-network/chopsticks xcm \
-  --r configs/polkadot-override.yaml \
-  --p polkadot-asset-hub \
-  --p acala
+  -r configs/polkadot-override.yaml \
+  -p polkadot-asset-hub \
+  -p acala
 ```
 
 This will launch the relay chain and parachains locally, with full logging enabled for runtime execution. For other chains, follow similar steps using the corresponding runtime to enable logging support.

@@ -30,6 +30,20 @@ If you have not forked a chain before, see the [Fork a Chain with Chopsticks gui
 
 ## Step-by-Step Guide
 
+### 0. Project Setup
+
+Begin by creating a dedicated directory for your replay environment and installing the required tools:
+
+```bash
+mkdir ~/projects
+mkdir ~/projects/replay-xcm-tests
+cd ~/projects/replay-xcm-tests
+npm init -y
+npm i -g @acala-network/chopsticks@latest
+```
+
+This sets up a clean workspace and ensures you are using the latest version of Chopsticks.
+
 ### 1. Capture the XCM to Replay
 
 To replay a specific XCM, identify:
@@ -42,10 +56,11 @@ You can use [Polkadot.js Apps](/tutorials/polkadot-sdk/testing/fork-live-chains/
 
 ### 2. Fork the Relevant Chains
 
-Use Chopsticks to [fork](https://docs.polkadot.com/tutorials/polkadot-sdk/testing/fork-live-chains/#xcm-testing) the involved chains at the relevant block(s).
+Use Chopsticks to [fork the required chains](/tutorials/polkadot-sdk/testing/fork-live-chains/#xcm-testing) at the appropriate block heights.
 
-* Set the block numbers for each chain in a `.env` file
-  * Ensure each block number is *before* the XCM is sent, so you can replay it in full.
+#### a) Set the Block Numbers
+
+Create (or edit) a `.env` file with the block heights for each chain — these should be **just before** the XCM message is sent to allow a full replay:
 
 ```env
 POLKADOT_BLOCK_NUMBER=26481107
@@ -53,16 +68,53 @@ POLKADOT_ASSET_HUB_BLOCK_NUMBER=9079591
 ACALA_BLOCK_NUMBER=8826385
 ```
 
-* Launch Chopsticks using the chain config files
+#### b) Enable Logging and Wasm Override
 
-  * All config files should have `runtime-log-level: 5` set to enable detailed execution logs for debugging.
+Full execution logs only work if the runtime was compiled with logging enabled. Most live chains are built using the `production` profile, which disables logs. You need to override the Wasm with a `release` build.
+
+1. **Clone and build the Polkadot runtime**:
+
+```bash
+cd ~/projects
+git clone git@github.com:polkadot-fellows/runtimes.git
+cd runtimes
+cargo build --release -p polkadot-runtime
+```
+
+2. **Copy the compiled Wasm to your working directory**:
+
+```bash
+mkdir -p ~/projects/replay-xcm-tests/wasms
+cp target/release/wbuild/polkadot-runtime/polkadot_runtime.compact.compressed.wasm ~/projects/replay-xcm-tests/wasms/
+```
+
+3. **Download and modify a config file**:
+
+```bash
+cd ~/projects/replay-xcm-tests
+mkdir -p configs
+wget https://raw.githubusercontent.com/AcalaNetwork/chopsticks/master/configs/polkadot.yml -O configs/polkadot-override.yaml
+```
+
+Edit `configs/polkadot-override.yaml` to include:
+
+```yaml
+runtime-log-level: 5
+wasm-override: wasms/polkadot_runtime.compact.compressed.wasm
+```
+
+#### c) Launch Chopsticks
+
+Start the forked chains using your custom config:
 
 ```bash
 npx @acala-network/chopsticks xcm \
-  --r polkadot \
+  --r configs/polkadot-override.yaml \
   --p polkadot-asset-hub \
   --p acala
 ```
+
+This will boot the relay chain and parachains locally, with full logging enabled for runtime execution.
 
 ### 3. Replay the XCM
 

@@ -39,7 +39,11 @@ mkdir -p ~/projects/replay-xcm-tests
 cd ~/projects/replay-xcm-tests
 npm init -y
 npm i -g @acala-network/chopsticks@latest
+npm i --save-dev typescript @types/node
+npm i --save-dev tsx
+npm i @polkadot/api
 npm i polkadot-api
+npx tsc --init
 ```
 
 This sets up a clean workspace and ensures you are using the latest version of Chopsticks.
@@ -72,20 +76,20 @@ ACALA_BLOCK_NUMBER=8826385
 
 Full execution logs only work if the runtime was compiled with logging enabled. Most live chains are built using the `production` profile, which disables logs. You need to override the Wasm with a `release` build.
 
-1. **Clone and build the Polkadot runtime**:
+1. **Clone and build the Polkadot Asset Hub runtime**:
 
 ```bash
 mkdir -p ~/projects && cd ~/projects
 git clone git@github.com:polkadot-fellows/runtimes.git
 cd runtimes
-cargo build --release -p polkadot-runtime
+cargo build --release -p asset-hub-polkadot-runtime
 ```
 
 2. **Copy the compiled Wasm to your working directory**:
 
 ```bash
 mkdir -p ~/projects/replay-xcm-tests/wasms
-cp target/release/wbuild/polkadot-runtime/polkadot_runtime.compact.compressed.wasm ~/projects/replay-xcm-tests/wasms/
+cp target/release/wbuild/asset-hub-polkadot-runtime/asset_hub_polkadot_runtime.compact.compressed.wasm ~/projects/replay-xcm-tests/wasms/
 ```
 
 3. **Download and modify a config file**:
@@ -93,14 +97,14 @@ cp target/release/wbuild/polkadot-runtime/polkadot_runtime.compact.compressed.wa
 ```bash
 cd ~/projects/replay-xcm-tests
 mkdir -p configs
-wget https://raw.githubusercontent.com/AcalaNetwork/chopsticks/master/configs/polkadot.yml -O configs/polkadot-override.yaml
+wget https://raw.githubusercontent.com/AcalaNetwork/chopsticks/master/configs/polkadot-asset-hub.yml -O configs/polkadot-asset-hub-override.yaml
 ```
 
-Edit `configs/polkadot-override.yaml` to include:
+Edit `configs/polkadot-asset-hub-override.yaml` to include:
 
 ```yaml
 runtime-log-level: 5
-wasm-override: wasms/polkadot_runtime.compact.compressed.wasm
+wasm-override: wasms/asset_hub_polkadot_runtime.compact.compressed.wasm
 ```
 
 #### c) Launch Chopsticks
@@ -109,8 +113,8 @@ Start the forked chains using your custom config:
 
 ```bash
 npx @acala-network/chopsticks xcm \
-  -r configs/polkadot-override.yaml \
-  -p polkadot-asset-hub \
+  -r polkadot \
+  -p configs/polkadot-asset-hub-override.yaml \
   -p acala
 ```
 
@@ -119,57 +123,70 @@ This will launch the relay chain and parachains locally, with full logging enabl
 ### 3. Replay the XCM
 
 ```ts
-import { ApiPromise, WsProvider, Keyring } from '@polkadot/api';
+import { assetHub, AssetHubCalls, XcmV5Instruction, XcmV5Junction, XcmV5Junctions } from "@polkadot-api/descriptors";
+import { Binary, createClient, Enum } from "polkadot-api";
+import { getWsProvider } from "polkadot-api/ws-provider/web";
+import { getPolkadotSigner } from "polkadot-api/signer";
+import { withPolkadotSdkCompat } from "polkadot-api/polkadot-sdk-compat";
+import { Keyring } from "@polkadot/keyring";
+import { blake2AsHex, cryptoWaitReady } from '@polkadot/util-crypto';
+
+const toHuman = (_key: any, value: any) => {
+    if (typeof value === 'bigint') {
+        return Number(value);
+    }
+
+    if (value && typeof value === "object" && typeof value.asHex === "function") {
+        return value.asHex();
+    }
+
+    return value;
+};
 
 async function main() {
-  const provider = new WsProvider('ws://localhost:8000');
-  const api = await ApiPromise.create({ provider });
+    await cryptoWaitReady();
+    const provider = withPolkadotSdkCompat(getWsProvider("ws://localhost:8000"));
+    const client = createClient(provider);
+    const api = client.getTypedApi(assetHub);
 
-  const keyring = new Keyring({ type: 'sr25519' });
-  const alice = keyring.addFromUri('//Alice');
+    const keyring = new Keyring({ type: "sr25519" });
+    const alice = keyring.addFromUri("//Alice");
+    const aliceSigner = getPolkadotSigner(alice.publicKey, "Sr25519", alice.sign);
 
-  const tx = api.tx.polkadotXcm.send(
-          {
-            V5: {
-              parents: 1,
-              interior: 'Here'
-            }
-          },
-          {
-            V5: [
-              { SetTopic: '0x' + '00'.repeat(28) + '12345678' }
-            ]
-          }
-  );
-
-  console.log('Submitting extrinsic:', tx.toHuman());
-
-  await new Promise<void>(async (resolve) => {
-    const unsub = await tx.signAndSend(alice, ({ status, events, dispatchError }) => {
-      if (status.isInBlock) {
-        console.log('📦 Included in block:', status.asInBlock.toHex());
-      } else if (status.isFinalized) {
-        console.log('✅ Finalised in block:', status.asFinalized.toHex());
-        unsub();
-        resolve();
-      }
-
-      if (dispatchError) {
-        if (dispatchError.isModule) {
-          const decoded = api.registry.findMetaError(dispatchError.asModule);
-          console.error('❌ Dispatch error:', decoded.section, decoded.name);
-        } else {
-          console.error('❌ Dispatch error:', dispatchError.toString());
-        }
-      }
-
-      for (const { event } of events) {
-        console.log('📣 Event:', event.section, event.method, event.data.toHuman());
-      }
+    const message: AssetHubCalls['PolkadotXcm']['execute']['message'] = Enum("V5", [
+        XcmV5Instruction.DescendOrigin(
+            XcmV5Junctions.X1(XcmV5Junction.AccountId32({ id: Binary.fromBytes(alice.publicKey) }))
+        ),
+        XcmV5Instruction.SetTopic(Binary.fromHex(blake2AsHex("replay-xcm-tests-topic", 256))),
+    ]);
+    const weight: any = await api.apis.XcmPaymentApi.query_xcm_weight(message);
+    if (weight.success !== true) {
+        console.error("❌ Failed to query XCM weight:", weight.error);
+        client.destroy();
+        return;
+    }
+    const tx = api.tx.PolkadotXcm.execute({
+        message,
+        max_weight: weight.value,
     });
-  });
+    console.log("Executing XCM:", JSON.stringify(tx.decodedCall, toHuman, 2));
 
-  await api.disconnect();
+    const result = await tx.signAndSubmit(aliceSigner);
+    console.log(`✅ Finalised in block #${result.block.number}: ${result.block.hash}`);
+    if (!result.ok) {
+        const dispatchError = result.dispatchError;
+        if (dispatchError.type === "Module") {
+            const modErr: any = dispatchError.value;
+            console.error("❌ Dispatch error in module:", modErr.type, modErr.value?.type);
+        } else {
+            console.error("❌ Dispatch error:", JSON.stringify(dispatchError, toHuman, 2));
+        }
+    }
+    for (const event of result.events) {
+        console.log("📣 Event:", event.type, JSON.stringify(event.value, toHuman, 2));
+    }
+
+    client.destroy();
 }
 
 main().catch(console.error);
@@ -181,7 +198,9 @@ main().catch(console.error);
 2. Install dependencies:
 
 ```bash
-npm install @polkadot/api
+npm i @polkadot/api
+npm i polkadot-api
+npx papi add assetHub -w ws://localhost:8000
 ```
 
 3. Run the script:

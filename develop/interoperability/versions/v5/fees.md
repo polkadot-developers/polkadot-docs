@@ -5,15 +5,15 @@ description: How to handle fees in XCMv5.
 
 # Fees
 
-In blockchain systems, fees are very important.
+In blockchain systems, fees are crucial.
 They prevent malicious actors from exhausting the results of the network, making such attacks expensive.
-The XCM subsystem has its own way of dealing with fees, flexible enough to allow feeless execution in situations where it's deemed useful.
+The XCM subsystem has its own way of dealing with fees, flexible enough to allow feeless execution in situations that warrant it.
+There are two main types of fees in XCM: **execution** and **delivery**.
 
 ## Execution
 
 All XCMs have a weight associated to them.
-All XCM instructions are benchmarked for a particular system (blockchain).
-This process generates weights.
+Each XCM instruction is benchmarked for a particular system (blockchain), which assigns them a weight.
 The weight of an XCM is the sum of the weight of all instructions.
 It's important to correctly benchmark this with the worst case so that your system is safe from Denial-of-Service attacks.
 
@@ -23,7 +23,8 @@ It directly translates to **execution fees**.
 ## Delivery
 
 XCMs, although capable of performing tasks locally, are meant to be sent to other consensus systems, i.e. blockchains.
-**Delivery fees** are charged when .
+**Delivery fees** are charged when a message is sent to a destination.
+The delivery fee amount depends on the size of the message, in bytes, and the destination.
 
 ## PayFees
 

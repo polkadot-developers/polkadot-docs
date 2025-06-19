@@ -60,7 +60,7 @@ Use Chopsticks to [fork the required chains](/tutorials/polkadot-sdk/testing/for
 
 #### a) Set the Block Numbers
 
-Create (or edit) a `.env` file with the block heights for each chain — these should be **just before** the XCM message is sent to allow a full replay:
+Create/edit a `.env` file with the block heights for each chain. These should be **just before** the XCM is sent to allow a full replay:
 
 ```env
 POLKADOT_BLOCK_NUMBER=26481107
@@ -114,7 +114,7 @@ npx @acala-network/chopsticks xcm \
   --p acala
 ```
 
-This will boot the relay chain and parachains locally, with full logging enabled for runtime execution.
+This will launch the relay chain and parachains locally, with full logging enabled for runtime execution. For other chains, follow similar steps using the corresponding runtime to enable logging support.
 
 ### 3. Replay the XCM
 

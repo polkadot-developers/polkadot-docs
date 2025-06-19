@@ -9,9 +9,9 @@ description: Learn how to replay and analyse XCMs using Chopsticks with full log
 
 [Chopsticks](https://github.com/AcalaNetwork/chopsticks) is a tool for forking live Polkadot SDK-based chains in a local environment. If you're new to it, check out the [Get Started](../get-started/) guide.
 
-This tutorial focuses specifically on **replaying XCMs with full logging enabled** – a powerful technique for:
+This tutorial focuses specifically on **replaying XCMs**, a powerful technique for:
 
-* Debugging cross-chain message failures
+* [Debugging cross-chain message failures](/develop/interoperability/test-and-debug/)
 * Tracing execution across relay chains and parachains
 * Analysing weight usage, error types, and message flow
 
@@ -162,7 +162,7 @@ Replaying XCMs with full logging provides fine-grained control and visibility in
     </a>
   </div>
   <div class="card">
-    <a href="/learn/learn-xcm/">
+    <a href="/develop/interoperability/intro-to-xcm/">
       <h2 class="title">Polkadot XCM Docs</h2>
       <hr>
       <p class="description">Learn how to use XCM effectively.</p>

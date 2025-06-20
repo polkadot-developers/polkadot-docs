@@ -24,6 +24,8 @@ Jump into the tutorials and learn how to:
 
 Choose a tutorial below and start coding today!
 
+--8<-- 'text/smart-contracts/polkaVM-warning.md'
+
 ## In This Section
 
 :::INSERT_IN_THIS_SECTION:::

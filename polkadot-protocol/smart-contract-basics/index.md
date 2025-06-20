@@ -20,6 +20,8 @@ Explore foundational concepts that shape smart contract functionality on Polkado
 - **Networks** – an overview of smart contract-enabled networks within the Polkadot ecosystem
 - **Blocks, transactions, and fees** – understanding transaction lifecycle, execution fees, and resource management
 
+--8<-- 'text/smart-contracts/polkaVM-warning.md'
+
 ## In This Section
 
 :::INSERT_IN_THIS_SECTION:::

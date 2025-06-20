@@ -20,6 +20,8 @@ The Asset Hub smart contracts solution includes multiple components to ensure Et
 
 The interpreter remains particularly beneficial for contracts with minimal code execution, as it eliminates JIT compilation overhead and enables immediate code execution through lazy interpretation.
 
+--8<-- 'text/smart-contracts/polkaVM-warning.md'
+
 ## Architecture
 
 The smart contract solution consists of the following key components that work together to enable Ethereum compatibility on Polkadot-based chains:

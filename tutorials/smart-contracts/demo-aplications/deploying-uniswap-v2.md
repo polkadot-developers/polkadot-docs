@@ -32,6 +32,8 @@ Let's start by cloning the Uniswap V2 project:
     cd polkavm-hardhat-examples/uniswap-v2-polkadot/
     ```
 
+    --8<-- 'text/smart-contracts/polkaVM-warning.md'
+
 2. Install the required dependencies:
 
     ```bash

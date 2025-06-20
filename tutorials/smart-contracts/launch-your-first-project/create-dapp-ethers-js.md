@@ -183,3 +183,4 @@ To get started right away with a working example, you can clone the repository a
 git clone https://github.com/polkadot-developers/polkavm-storage-contract-dapps.git -b v0.0.2
 cd polkavm-storage-contract-dapps/ethers-dapp
 ```
+--8<-- 'text/smart-contracts/polkaVM-warning.md'

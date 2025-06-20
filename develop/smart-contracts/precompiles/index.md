@@ -37,6 +37,8 @@ flowchart LR
     classDef edgeLabel background:#eceff3;
 ```
 
+--8<-- 'text/smart-contracts/polkaVM-warning.md'
+
 ## Standard Precompiles in Polkadot Hub
 
 Revive implements the standard set of Ethereum precompiles:

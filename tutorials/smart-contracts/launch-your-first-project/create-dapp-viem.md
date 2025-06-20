@@ -204,6 +204,8 @@ git clone https://github.com/polkadot-developers/polkavm-storage-contract-dapps.
 cd polkavm-storage-contract-dapps/viem-dapp
 ```
 
+--8<-- 'text/smart-contracts/polkaVM-warning.md'
+
 ## Where to Go Next
 
 <div class="grid cards" markdown>

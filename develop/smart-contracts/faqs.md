@@ -35,6 +35,8 @@ Choose a parachain if:
 
 Polkadot Hub uses [PolkaVM](/polkadot-protocol/smart-contract-basics/polkavm-design){target=\_blank} instead of traditional EVM:
 
+--8<-- 'text/smart-contracts/polkaVM-warning.md'
+
 - **Performance**: RISC-V register-based architecture vs. stack-based EVM.
 - **Resource metering**: Three dimensions (`ref_time`, `proof_size`, `storage_deposit`) vs. single gas metric.
 - **Memory management**: Hard memory limits per contract vs. gas-based soft limits.

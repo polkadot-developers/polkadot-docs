@@ -63,6 +63,8 @@ Before deploying your contracts, make sure you've compiled them and obtained two
 - An ABI (.json) file, which provides a JSON interface describing the contract's functions and how to interact with it
 - A bytecode (.polkavm) file, which contains the low-level machine code executable on [PolkaVM](/polkadot-protocol/smart-contract-basics/polkavm-design#polkavm){target=\_blank} that represents the compiled smart contract ready for blockchain deployment
 
+--8<-- 'text/smart-contracts/polkaVM-warning.md'
+
 To follow this guide, you can use the following solidity contract as an example:
 
 ```solidity title="Storage.sol"

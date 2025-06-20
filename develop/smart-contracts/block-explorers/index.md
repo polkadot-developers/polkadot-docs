@@ -24,6 +24,8 @@ These block explorers provide essential capabilities for interacting with smart 
 
 The following block explorers are available for PolkaVM smart contracts, providing specialized tools for monitoring and analyzing contract activity within the Polkadot ecosystem:
 
+--8<-- 'text/smart-contracts/polkaVM-warning.md'
+
 <!-- ### Subscan
 
 Subscan is the flagship Polkadot ecosystem block explorer with comprehensive support for PolkaVM smart contracts. It provides robust transaction indexing, account analysis, and monitoring tools specifically optimized for Polkadot SDK-based networks.

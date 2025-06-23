@@ -143,7 +143,7 @@ Dedot provides several ways to read data from the chain:
 
 ### Sign and Send Transactions
 
-Sign the transaction using `IKeyringPair` from Keyring ([`@polkadot/keyring`](https://polkadot.js.org/docs/keyring/start/sign-verify){target=\_blank}) and send the transaction.
+Sign the transaction using `IKeyringPair` from Keyring ([`@polkadot/keyring`](https://polkadot.js.org/docs/keyring/start/sign-verify/){target=\_blank}) and send the transaction.
 
 ```typescript
 --8<-- "code/develop/toolkit/api-libraries/dedot/sign-and-send-tx-with-keyring.ts"

@@ -78,7 +78,7 @@ ws://localhost:8000
 
 ## Interact with a Fork
 
-You can interact with the forked chain using various [libraries](https://wiki.polkadot.network/docs/build-tools-index#libraries){target=\_blank} such as [Polkadot.js](https://polkadot.js.org/docs/){target=\_blank} and its user interface, [Polkadot.js Apps](https://polkadot.js.org/apps/#/explorer){target=\_blank}.
+You can interact with the forked chain using various [libraries](/develop/toolkit/#libraries){target=\_blank} such as [Polkadot.js](https://polkadot.js.org/docs/){target=\_blank} and its user interface, [Polkadot.js Apps](https://polkadot.js.org/apps/#/explorer){target=\_blank}.
 
 ### Use Polkadot.js Apps
 

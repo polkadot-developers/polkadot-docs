@@ -257,6 +257,56 @@ Ensure to replace the `INSERT_BLOCK_VALUE` and `INSERT_BOOLEAN` with the proper 
 
 ---
 
+### eth_getBlockTransactionCountByNumber
+
+Returns the number of transactions in a block from a block number. [Reference](https://ethereum.org/en/developers/docs/apis/json-rpc/#eth_getblocktransactioncountbynumber){target=\_blank}.
+
+**Parameters**:
+
+- `blockValue` ++"string"++ - the block value to be fetched. Must be a [quantity](https://ethereum.org/en/developers/docs/apis/json-rpc/#quantities-encoding){target=\_blank} string or a [default block parameter](https://ethereum.org/en/developers/docs/apis/json-rpc/#default-block){target=\_blank}
+
+**Example**:
+
+```bash title="eth_getBlockTransactionCountByNumber"
+curl -X POST https://testnet-passet-hub-eth-rpc.polkadot.io \
+-H "Content-Type: application/json" \
+--data '{
+    "jsonrpc":"2.0",
+    "method":"eth_getBlockTransactionCountByNumber",
+    "params":["INSERT_BLOCK_VALUE"],
+    "id":1
+}'
+```
+
+Ensure to replace the `INSERT_BLOCK_VALUE` with the proper values.
+
+---
+
+### eth_getBlockTransactionCountByHash
+
+Returns the number of transactions in a block from a block hash. [Reference](https://ethereum.org/en/developers/docs/apis/json-rpc/#eth_getblocktransactioncountbyhash){target=\_blank}.
+
+**Parameters**:
+
+- `blockHash` ++"string"++ – the hash of the block to retrieve. Must be a [32 byte data](https://ethereum.org/en/developers/docs/apis/json-rpc/#unformatted-data-encoding){target=\_blank} string
+
+**Example**:
+
+```bash title="eth_getBlockTransactionCountByHash"
+curl -X POST https://testnet-passet-hub-eth-rpc.polkadot.io \
+-H "Content-Type: application/json" \
+--data '{
+    "jsonrpc":"2.0",
+    "method":"eth_getBlockTransactionCountByHash",
+    "params":["INSERT_BLOCK_HASH"],
+    "id":1
+}'
+```
+
+Ensure to replace the `INSERT_BLOCK_HASH` with the proper values.
+
+---
+
 ### eth_getCode
 
 Returns the code at a given address. [Reference](https://ethereum.org/en/developers/docs/apis/json-rpc/#eth_getcode){target=\_blank}.
@@ -280,6 +330,37 @@ curl -X POST https://testnet-passet-hub-eth-rpc.polkadot.io \
 ```
 
 Ensure to replace the `INSERT_ADDRESS` and `INSERT_BLOCK_VALUE` with the proper values.
+
+---
+
+### eth_getLogs
+
+Returns an array of all logs matching a given filter object. [Reference](https://ethereum.org/en/developers/docs/apis/json-rpc/#eth_getlogs){target=\_blank}.
+
+**Parameters**:
+
+- `filter` ++"object"++ - the filter object:
+    - `fromBlock` ++"string"++ - (optional) block number or tag to start from. Must be a [quantity](https://ethereum.org/en/developers/docs/apis/json-rpc/#quantities-encoding){target=\_blank} string or a [default block parameter](https://ethereum.org/en/developers/docs/apis/json-rpc/#default-block){target=\_blank}
+    - `toBlock` ++"string"++ - (optional) block number or tag to end at. Must be a [quantity](https://ethereum.org/en/developers/docs/apis/json-rpc/#quantities-encoding){target=\_blank} string or a [default block parameter](https://ethereum.org/en/developers/docs/apis/json-rpc/#default-block){target=\_blank}
+    - `address` ++"string" or "array of strings"++ - (optional) contract address or a list of addresses from which to get logs. Must be a [20-byte data](https://ethereum.org/en/developers/docs/apis/json-rpc/#unformatted-data-encoding){target=\_blank} string
+    - `topics` ++"array of strings"++ - (optional) array of topics for filtering logs. Each topic can be a single [32 byte data](https://ethereum.org/en/developers/docs/apis/json-rpc/#unformatted-data-encoding){target=\_blank} string or an array of such strings (meaning OR).
+    - `blockhash` ++"string"++ - (optional) hash of a specific block. Cannot be used with `fromBlock` or `toBlock`. Must be a [32 byte data](https://ethereum.org/en/developers/docs/apis/json-rpc/#unformatted-data-encoding){target=\_blank} string
+
+**Example**:
+
+```bash title="eth_getLogs"
+curl -X POST https://testnet-passet-hub-eth-rpc.polkadot.io \
+-H "Content-Type: application/json" \
+--data '{
+    "jsonrpc":"2.0",
+    "method":"eth_getLogs",
+    "params":[{
+        "fromBlock": "latest",
+        "toBlock": "latest"
+    }],
+    "id":1
+}'
+```
 
 ---
 
@@ -333,6 +414,108 @@ curl -X POST https://testnet-passet-hub-eth-rpc.polkadot.io \
 ```
 
 Ensure to replace the `INSERT_ADDRESS` and `INSERT_BLOCK_VALUE` with the proper values.
+
+---
+
+### eth_getTransactionByHash
+
+Returns information about a transaction by its hash. [Reference](https://ethereum.org/en/developers/docs/apis/json-rpc/#eth_gettransactionbyhash){target=\_blank}.
+
+**Parameters**:
+
+- `transactionHash` ++"string"++ - the hash of the transaction. Must be a [32 byte data](https://ethereum.org/en/developers/docs/apis/json-rpc/#unformatted-data-encoding){target=\_blank} string
+
+**Example**:
+
+```bash title="eth_getTransactionByHash"
+curl -X POST https://testnet-passet-hub-eth-rpc.polkadot.io \
+-H "Content-Type: application/json" \
+--data '{
+    "jsonrpc":"2.0",
+    "method":"eth_getTransactionByHash",
+    "params":["INSERT_TRANSACTION_HASH"],
+    "id":1
+}'
+```
+
+Ensure to replace the `INSERT_TRANSACTION_HASH` with the proper values.
+
+---
+
+### eth_getTransactionByBlockNumberAndIndex
+
+Returns information about a transaction by block number and transaction index. [Reference](https://ethereum.org/en/developers/docs/apis/json-rpc/#eth_gettransactionbyblocknumberandindex){target=\_blank}.
+
+**Parameters**:
+
+- `blockValue` ++"string"++ - the block value to be fetched. Must be a [quantity](https://ethereum.org/en/developers/docs/apis/json-rpc/#quantities-encoding){target=\_blank} string or a [default block parameter](https://ethereum.org/en/developers/docs/apis/json-rpc/#default-block){target=\_blank}
+- `transactionIndex` ++"string"++ - the index of the transaction in the block. Must be a [quantity](https://ethereum.org/en/developers/docs/apis/json-rpc/#quantities-encoding){target=\_blank} string
+
+**Example**:
+
+```bash title="eth_getTransactionByBlockNumberAndIndex"
+curl -X POST https://testnet-passet-hub-eth-rpc.polkadot.io \
+-H "Content-Type: application/json" \
+--data '{
+    "jsonrpc":"2.0",
+    "method":"eth_getTransactionByBlockNumberAndIndex",
+    "params":["INSERT_BLOCK_VALUE", "INSERT_TRANSACTION_INDEX"],
+    "id":1
+}'
+```
+
+Ensure to replace the `INSERT_BLOCK_VALUE` and `INSERT_TRANSACTION_INDEX` with the proper values.
+
+---
+
+### eth_getTransactionByBlockHashAndIndex
+
+Returns information about a transaction by block hash and transaction index. [Reference](https://ethereum.org/en/developers/docs/apis/json-rpc/#eth_gettransactionbyblockhashandindex){target=\_blank}.
+
+**Parameters**:
+
+- `blockHash` ++"string"++ – the hash of the block. Must be a [32 byte data](https://ethereum.org/en/developers/docs/apis/json-rpc/#unformatted-data-encoding){target=\_blank} string
+- `transactionIndex` ++"string"++ - the index of the transaction in the block. Must be a [quantity](https://ethereum.org/en/developers/docs/apis/json-rpc/#quantities-encoding){target=\_blank} string
+
+**Example**:
+
+```bash title="eth_getTransactionByBlockHashAndIndex"
+curl -X POST https://testnet-passet-hub-eth-rpc.polkadot.io \
+-H "Content-Type: application/json" \
+--data '{
+    "jsonrpc":"2.0",
+    "method":"eth_getTransactionByBlockHashAndIndex",
+    "params":["INSERT_BLOCK_HASH", "INSERT_TRANSACTION_INDEX"],
+    "id":1
+}'
+```
+
+Ensure to replace the `INSERT_BLOCK_HASH` and `INSERT_TRANSACTION_INDEX` with the proper values.
+
+---
+
+### eth_getTransactionReceipt
+
+Returns the receipt of a transaction by transaction hash. [Reference](https://ethereum.org/en/developers/docs/apis/json-rpc/#eth_gettransactionreceipt){target=\_blank}.
+
+**Parameters**:
+
+- `transactionHash` ++"string"++ - the hash of the transaction. Must be a [32 byte data](https://ethereum.org/en/developers/docs/apis/json-rpc/#unformatted-data-encoding){target=\_blank} string
+
+**Example**:
+
+```bash title="eth_getTransactionReceipt"
+curl -X POST https://testnet-passet-hub-eth-rpc.polkadot.io \
+-H "Content-Type: application/json" \
+--data '{
+    "jsonrpc":"2.0",
+    "method":"eth_getTransactionReceipt",
+    "params":["INSERT_TRANSACTION_HASH"],
+    "id":1
+}'
+```
+
+Ensure to replace the `INSERT_TRANSACTION_HASH` with the proper values.
 
 ---
 
@@ -424,6 +607,75 @@ Ensure to replace the `INSERT_SENDER_ADDRESS`, `INSERT_RECIPIENT_ADDRESS`, `INSE
 
 ---
 
+### eth_syncing
+
+Returns an object with syncing data or `false` if not syncing. [Reference](https://ethereum.org/en/developers/docs/apis/json-rpc/#eth_syncing){target=\_blank}.
+
+**Parameters**:
+
+None
+
+**Example**:
+
+```bash title="eth_syncing"
+curl -X POST https://testnet-passet-hub-eth-rpc.polkadot.io \
+-H "Content-Type: application/json" \
+--data '{
+    "jsonrpc":"2.0",
+    "method":"eth_syncing",
+    "params":[],
+    "id":1
+}'
+```
+
+---
+
+### net_listening
+
+Returns `true` if the client is currently listening for network connections, otherwise `false`. [Reference](https://ethereum.org/en/developers/docs/apis/json-rpc/#net_listening){target=\_blank}.
+
+**Parameters**:
+
+None
+
+**Example**:
+
+```bash title="net_listening"
+curl -X POST https://testnet-passet-hub-eth-rpc.polkadot.io \
+-H "Content-Type: application/json" \
+--data '{
+    "jsonrpc":"2.0",
+    "method":"net_listening",
+    "params":[],
+    "id":1
+}'
+```
+
+---
+
+### net_peerCount
+
+Returns the number of peers currently connected to the client.
+
+**Parameters**:
+
+None
+
+**Example**:
+
+```bash title="net_peerCount"
+curl -X POST https://testnet-passet-hub-eth-rpc.polkadot.io \
+-H "Content-Type: application/json" \
+--data '{
+    "jsonrpc":"2.0",
+    "method":"net_peerCount",
+    "params":[],
+    "id":1
+}'
+```
+
+---
+
 ### net_version
 
 Returns the current network ID as a string. [Reference](https://ethereum.org/en/developers/docs/apis/json-rpc/#net_version){target=\_blank}.
@@ -444,6 +696,143 @@ curl -X POST https://testnet-passet-hub-eth-rpc.polkadot.io \
     "id":1
 }'
 ```
+
+---
+
+### system_health
+
+Returns information about the health of the system.
+
+**Parameters**:
+
+None
+
+**Example**:
+
+```bash title="system_health"
+curl -X POST https://testnet-passet-hub-eth-rpc.polkadot.io \
+-H "Content-Type: application/json" \
+--data '{
+    "jsonrpc":"2.0",
+    "method":"system_health",
+    "params":[],
+    "id":1
+}'
+```
+
+---
+
+### web3_clientVersion
+
+Returns the current client version. [Reference](https://ethereum.org/en/developers/docs/apis/json-rpc/#web3_clientversion){target=\_blank}.
+
+**Parameters**:
+
+None
+
+**Example**:
+
+```bash title="web3_clientVersion"
+curl -X POST https://testnet-passet-hub-eth-rpc.polkadot.io \
+-H "Content-Type: application/json" \
+--data '{
+    "jsonrpc":"2.0",
+    "method":"web3_clientVersion",
+    "params":[],
+    "id":1
+}'
+```
+
+---
+
+### debug_traceBlockByNumber 
+
+Traces a block's execution by its number and returns a detailed execution trace for each transaction.
+
+**Parameters**:
+
+- `blockValue` ++"string"++ - the block number or tag to trace. Must be a [quantity](https://ethereum.org/en/developers/docs/apis/json-rpc/#quantities-encoding){target=\_blank} string or a [default block parameter](https://ethereum.org/en/developers/docs/apis/json-rpc/#default-block){target=\_blank}
+- `options` ++"object"++ - (optional) an object containing tracer options:
+    - `tracer` ++"string"++ - the name of the tracer to use (e.g., "callTracer", "opTracer").
+    - Other tracer-specific options may be supported.
+
+**Example**:
+
+```bash title="debug_traceBlockByNumber"
+curl -X POST https://testnet-passet-hub-eth-rpc.polkadot.io \
+-H "Content-Type: application/json" \
+--data '{
+    "jsonrpc":"2.0",
+    "method":"debug_traceBlockByNumber",
+    "params":["INSERT_BLOCK_VALUE", {"tracer": "callTracer"}],
+    "id":1
+}'
+```
+
+Ensure to replace `INSERT_BLOCK_VALUE` with a proper block number if needed.
+
+---
+
+### debug_traceTransaction
+
+Traces the execution of a single transaction by its hash and returns a detailed execution trace.
+
+**Parameters**:
+
+- `transactionHash` ++"string"++ - the hash of the transaction to trace. Must be a [32 byte data](https://ethereum.org/en/developers/docs/apis/json-rpc/#unformatted-data-encoding){target=\_blank} string
+- `options` ++"object"++ - (optional) an object containing tracer options (e.g., `tracer: "callTracer"`).
+
+**Example**:
+
+```bash title="debug_traceTransaction"
+curl -X POST https://testnet-passet-hub-eth-rpc.polkadot.io \
+-H "Content-Type: application/json" \
+--data '{
+    "jsonrpc":"2.0",
+    "method":"debug_traceTransaction",
+    "params":["INSERT_TRANSACTION_HASH", {"tracer": "callTracer"}],
+    "id":1
+}'
+```
+
+Ensure to replace the `INSERT_TRANSACTION_HASH` with the proper value.
+
+---
+
+### debug_traceCall
+
+Executes a new message call and returns a detailed execution trace without creating a transaction on the blockchain.
+
+**Parameters**:
+
+- `transaction` ++"object"++ - the transaction call object, similar to `eth_call` parameters:
+    - `to` ++"string"++ - recipient address of the call. Must be a [20-byte data](https://ethereum.org/en/developers/docs/apis/json-rpc/#unformatted-data-encoding){target=\_blank} string
+    - `data` ++"string"++ - hash of the method signature and encoded parameters. Must be a [data](https://ethereum.org/en/developers/docs/apis/json-rpc/#unformatted-data-encoding){target=\_blank} string
+    - `from` ++"string"++ - (optional) sender's address for the call. Must be a [20-byte data](https://ethereum.org/en/developers/docs/apis/json-rpc/#unformatted-data-encoding){target=\_blank} string
+    - `gas` ++"string"++ - (optional) gas limit to execute the call. Must be a [quantity](https://ethereum.org/en/developers/docs/apis/json-rpc/#quantities-encoding){target=\_blank} string
+    - `gasPrice` ++"string"++ - (optional) gas price per unit of gas. Must be a [quantity](https://ethereum.org/en/developers/docs/apis/json-rpc/#quantities-encoding){target=\_blank} string
+    - `value` ++"string"++ - (optional) value in wei to send with the call. Must be a [quantity](https://ethereum.org/en/developers/docs/apis/json-rpc/#quantities-encoding){target=\_blank} string
+- `blockValue` ++"string"++ - (optional) block tag or block number to execute the call at. Must be a [quantity](https://ethereum.org/en/developers/docs/apis/json-rpc/#quantities-encoding){target=\_blank} string or a [default block parameter](https://ethereum.org/en/developers/docs/apis/json-rpc/#default-block){target=\_blank}
+- `options` ++"object"++ - (optional) an object containing tracer options (e.g., `tracer: "callTracer"`).
+
+**Example**:
+
+```bash title="debug_traceCall"
+curl -X POST https://testnet-passet-hub-eth-rpc.polkadot.io \
+-H "Content-Type: application/json" \
+--data '{
+    "jsonrpc":"2.0",
+    "method":"debug_traceCall",
+    "params":[{
+        "from": "INSERT_SENDER_ADDRESS",
+        "to": "INSERT_RECIPIENT_ADDRESS",
+        "data": "INSERT_ENCODED_CALL"
+    }, "INSERT_BLOCK_VALUE", {"tracer": "callTracer"}],
+    "id":1
+}'
+```
+
+Ensure to replace the `INSERT_SENDER_ADDRESS`, `INSERT_RECIPIENT_ADDRESS`, `INSERT_ENCODED_CALL`, and `INSERT_BLOCK_VALUE` with the proper value.
 
 ---
 

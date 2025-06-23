@@ -11,6 +11,8 @@ description: Learn how to interact with Polkadot Hub using Ethers.js, from compi
 
 This guide is intended for developers who are familiar with JavaScript and want to interact with Polkadot Hub using Ethers.js.
 
+--8<-- 'text/smart-contracts/polkaVM-warning.md'
+
 ## Prerequisites
 
 Before getting started, ensure you have the following installed:

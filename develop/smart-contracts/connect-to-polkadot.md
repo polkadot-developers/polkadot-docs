@@ -11,6 +11,8 @@ description: Explore how to connect to Polkadot Hub, configure your wallet, and 
 
 For more information about how to connect to Polkadot Hub, please check the [Wallets for Polkadot Hub](/develop/smart-contracts/wallets/){target=\_blank} guide.
 
+--8<-- 'text/smart-contracts/polkaVM-warning.md'
+
 ## Networks Details
 
 Developers can leverage smart contracts across diverse networks, from TestNets to MainNet. This section outlines the network specifications and connection details for each environment.

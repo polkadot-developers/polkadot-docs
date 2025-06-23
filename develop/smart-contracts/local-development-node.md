@@ -14,6 +14,8 @@ By the end of this guide, you'll have:
 - A running Substrate node with smart contract support
 - An ETH-RPC adapter for Ethereum-compatible tooling integration accessible at `http://localhost:8545`
 
+--8<-- 'text/smart-contracts/polkaVM-warning.md'
+
 ## Prerequisites
 
 Before getting started, ensure you have done the following:

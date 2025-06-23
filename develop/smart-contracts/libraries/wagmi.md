@@ -11,6 +11,8 @@ description: Learn how to use Wagmi React Hooks to fetch and interact with smart
 
 This guide demonstrates how to use Wagmi to interact with and deploy smart contracts to Polkadot Hub, providing a seamless frontend integration for your dApps.
 
+--8<-- 'text/smart-contracts/polkaVM-warning.md'
+
 ## Set Up the Project
 
 To start working with Wagmi, create a new React project and initialize it by running the following commands in your terminal:

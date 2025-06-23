@@ -19,6 +19,8 @@ description: Learn how to create, compile, test, and deploy smart contracts on P
 
 --8<-- 'text/smart-contracts/code-size.md'
 
+--8<-- 'text/smart-contracts/polkaVM-warning.md'
+
 ## Overview
 
 Hardhat is a robust development environment for Ethereum-compatible chains that makes smart contract development more efficient. This guide walks you through the essentials of using Hardhat to create, compile, test, and deploy smart contracts on Polkadot Hub.

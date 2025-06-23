@@ -9,6 +9,8 @@ description: Access PolkaVM explorers like Subscan, BlockScout, and Routescan to
 
 Block explorers serve as comprehensive blockchain analytics platforms that provide access to on-chain data. These web applications function as search engines for blockchain networks, allowing users to query, visualize, and analyze blockchain data in real time through intuitive interfaces.
 
+--8<-- 'text/smart-contracts/polkaVM-warning.md'
+
 ## Core Functionality
 
 These block explorers provide essential capabilities for interacting with smart contracts in Polkadot Hub:
@@ -23,8 +25,6 @@ These block explorers provide essential capabilities for interacting with smart 
 ## Available Block Explorers
 
 The following block explorers are available for PolkaVM smart contracts, providing specialized tools for monitoring and analyzing contract activity within the Polkadot ecosystem:
-
---8<-- 'text/smart-contracts/polkaVM-warning.md'
 
 <!-- ### Subscan
 

@@ -11,6 +11,8 @@ Polkadot Hub provides smart contract functionality across multiple networks to f
 
 This guide will introduce you to the current and upcoming networks available for smart contract development and explain how they fit into the development workflow.
 
+--8<-- 'text/smart-contracts/polkaVM-warning.md'
+
 ## Network Overview
 
 Smart contract development on Polkadot Hub follows a structured process to ensure rigorous testing of new contracts and upgrades before deployment on production networks. Development progresses through a well-defined path, beginning with local environments, advancing through TestNets, and ultimately reaching MainNets. The diagram below illustrates this progression:

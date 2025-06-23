@@ -18,6 +18,8 @@ Asset Hub natively uses Polkadot's 32-byte account system but provides interoper
 
 This dual-format approach enables Asset Hub to maintain compatibility with Ethereum tooling while fully integrating with the Polkadot ecosystem.
 
+--8<-- 'text/smart-contracts/polkaVM-warning.md'
+
 ## Address Types and Mappings
 
 The platform handles two distinct address formats:

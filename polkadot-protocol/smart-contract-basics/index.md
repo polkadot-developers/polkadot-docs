@@ -10,6 +10,8 @@ Gain a deep understanding of smart contracts on Polkadot, from execution environ
 
 This section covers the essential components of the ecosystem.
 
+--8<-- 'text/smart-contracts/polkaVM-warning.md'
+
 ## Key Topics
 
 Explore foundational concepts that shape smart contract functionality on Polkadot:
@@ -19,8 +21,6 @@ Explore foundational concepts that shape smart contract functionality on Polkado
 - **Accounts** – how accounts function within Polkadot’s ecosystem, including existential deposits and contract account handling
 - **Networks** – an overview of smart contract-enabled networks within the Polkadot ecosystem
 - **Blocks, transactions, and fees** – understanding transaction lifecycle, execution fees, and resource management
-
---8<-- 'text/smart-contracts/polkaVM-warning.md'
 
 ## In This Section
 

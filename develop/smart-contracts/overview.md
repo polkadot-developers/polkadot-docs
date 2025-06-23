@@ -13,13 +13,13 @@ Whether you're looking for Ethereum compatibility through EVM-based parachains l
 
 These guides explore the diverse smart contract options available in the Polkadot ecosystem, helping developers understand the unique advantages of each approach and make informed decisions about where to deploy their decentralized applications.
 
+--8<-- 'text/smart-contracts/polkaVM-warning.md'
+
 ## Native Smart Contracts
 
 ### Introduction
 
 Polkadot Hub enables smart contract deployment and execution through PolkaVM, a cutting-edge virtual machine designed specifically for the Polkadot ecosystem. This native integration allows developers to deploy smart contracts directly on Polkadot's system chain while maintaining compatibility with Ethereum development tools and workflows.
-
---8<-- 'text/smart-contracts/polkaVM-warning.md'
 
 ### Smart Contract Development
 

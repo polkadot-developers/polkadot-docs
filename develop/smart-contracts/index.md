@@ -10,13 +10,13 @@ Polkadot allows scalable execution of smart contracts, offering cross-chain comp
 
 This section provides tools, resources, and guides for building and deploying smart contracts on parachains. [Parachains](/polkadot-protocol/architecture/parachains/overview/){target=\_blank} are specialized blockchains connected to the relay chain, benefiting from shared security and interoperability. Depending on your language and environment preference, you can develop contracts using Wasm/ink! or EVM-based solutions.
 
+--8<-- 'text/smart-contracts/polkaVM-warning.md'
+
 ## Smart Contract Development Process
 
 Follow this step-by-step process to develop and deploy smart contracts in the Polkadot ecosystem:
 
 [timeline(polkadot-docs/.snippets/text/develop/smart-contracts/index/index-timeline.json)]
-
---8<-- 'text/smart-contracts/polkaVM-warning.md'
 
 ## Additional Resources
 <div class="grid cards" markdown>

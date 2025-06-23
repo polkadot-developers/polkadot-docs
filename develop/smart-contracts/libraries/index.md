@@ -10,6 +10,8 @@ Explore the key libraries for interacting with smart contracts on Polkadot-based
 
 This section provides setup instructions, usage examples, and a comparison to help you select the right tool for your project.
 
+--8<-- 'text/smart-contracts/polkaVM-warning.md'
+
 ## Library Comparison
 
 Consider the following features when choosing a library for your project:

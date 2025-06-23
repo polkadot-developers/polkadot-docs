@@ -15,6 +15,8 @@ This guide uses the Polkadot Hub TestNet endpoint:
 https://testnet-passet-hub-eth-rpc.polkadot.io
 ```
 
+--8<-- 'text/smart-contracts/polkaVM-warning.md'
+
 ## Available Methods
 
 ### eth_accounts

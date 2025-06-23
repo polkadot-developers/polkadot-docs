@@ -11,6 +11,8 @@ Precompiles offer Polkadot Hub developers access to high-performance native func
 
 This guide demonstrates how to interact with each standard precompile available in Polkadot Hub through Solidity smart contracts.
 
+--8<-- 'text/smart-contracts/polkaVM-warning.md'
+
 ## Basic Precompile Interaction Pattern
 
 All precompiles follow a similar interaction pattern:

@@ -8,6 +8,8 @@ template: index-page.html
 
 Kickstart your journey into smart contract development with this comprehensive guide. Learn how to create, deploy, and interact with contracts on Polkadot. Whether you're new to smart contracts or refining your skills, these guides provide a structured approach to launching your project.
 
+--8<-- 'text/smart-contracts/polkaVM-warning.md'
+
 Start building your first smart contract today:
 
 - **Set up your development environment** with the right tools and frameworks

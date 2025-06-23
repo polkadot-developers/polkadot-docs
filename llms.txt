@@ -31331,7 +31331,8 @@ Below are the events defined for this pallet:
 Define the events in the pallet as follows:
 
 ```rust title="lib.rs"
-pub enum Event<T: Config> {
+#[pallet::generate_deposit(pub(super) fn deposit_event)]
+    pub enum Event<T: Config> {
         /// The counter value has been set to a new value by Root.
         CounterValueSet {
             /// The new value set.
@@ -31385,7 +31386,8 @@ To add custom errors, use the `#[pallet::error]` macro to define the `Error` enu
 Add the following errors to the pallet:
 
 ```rust title="lib.rs"
-/// The counter value exceeds the maximum allowed value.
+pub enum Error<T> {
+        /// The counter value exceeds the maximum allowed value.
         CounterValueExceedsMax,
         /// The counter value cannot be decremented below zero.
         CounterValueBelowZero,
@@ -31403,7 +31405,8 @@ The `#[pallet::call]` macro defines the dispatchable functions (or calls) the pa
 The structure of the dispatchable calls in this pallet is as follows:
 
 ```rust title="lib.rs"
-/// Set the value of the counter.
+impl<T: Config> Pallet<T> {
+        /// Set the value of the counter.
         ///
         /// The dispatch origin of this call must be _Root_.
         ///
@@ -31411,29 +31414,28 @@ The structure of the dispatchable calls in this pallet is as follows:
         ///
         /// Emits `CounterValueSet` event when successful.
         #[pallet::call_index(0)]
-        #[pallet::weight(T::WeightInfo::set_counter_value())]
     #[pallet::weight(0)]
     
     
 
-    /// This function can be called by any signed account.
+    ///
+        /// This function can be called by any signed account.
         ///
         /// - `amount_to_increment`: The amount by which to increment the counter.
         ///
         /// Emits `CounterIncremented` event when successful.
         #[pallet::call_index(1)]
-        #[pallet::weight(T::WeightInfo::increment())]
     #[pallet::weight(0)]
     
     
 
-    /// This function can be called by any signed account.
+    ///
+        /// This function can be called by any signed account.
         ///
         /// - `amount_to_decrement`: The amount by which to decrement the counter.
         ///
         /// Emits `CounterDecremented` event when successful.
         #[pallet::call_index(2)]
-        #[pallet::weight(T::WeightInfo::decrement())]
     #[pallet::weight(0)]
     
     
@@ -31454,15 +31456,17 @@ Expand the following items to view the implementations of each dispatchable call
         - Emits a `CounterValueSet` event on success
 
     ```rust title="lib.rs"
-    /// The dispatch origin of this call must be _Root_.
+    ///
+        /// The dispatch origin of this call must be _Root_.
         ///
         /// - `new_value`: The new value to set for the counter.
         ///
         /// Emits `CounterValueSet` event when successful.
         #[pallet::call_index(0)]
-        #[pallet::weight(T::WeightInfo::set_counter_value())]
     #[pallet::weight(0)]
-    ensure!(
+    ensure_root(origin)?;
+
+            ensure!(
                 new_value <= T::CounterMaxValue::get(),
                 Error::<T>::CounterValueExceedsMax
             );
@@ -31491,15 +31495,17 @@ Expand the following items to view the implementations of each dispatchable call
         - Emits a `CounterIncremented` event on success
 
     ```rust title="lib.rs"
-    /// This function can be called by any signed account.
+    ///
+        /// This function can be called by any signed account.
         ///
         /// - `amount_to_increment`: The amount by which to increment the counter.
         ///
         /// Emits `CounterIncremented` event when successful.
         #[pallet::call_index(1)]
-        #[pallet::weight(T::WeightInfo::increment())]
     #[pallet::weight(0)]
-    let current_value = CounterValue::<T>::get().unwrap_or(0);
+    let who = ensure_signed(origin)?;
+
+            let current_value = CounterValue::<T>::get().unwrap_or(0);
 
             let new_value = current_value
                 .checked_add(amount_to_increment)
@@ -31546,15 +31552,17 @@ Expand the following items to view the implementations of each dispatchable call
         - Emits a `CounterDecremented` event on success
 
     ```rust title="lib.rs"
-    /// This function can be called by any signed account.
+    ///
+        /// This function can be called by any signed account.
         ///
         /// - `amount_to_decrement`: The amount by which to decrement the counter.
         ///
         /// Emits `CounterDecremented` event when successful.
         #[pallet::call_index(2)]
-        #[pallet::weight(T::WeightInfo::decrement())]
     #[pallet::weight(0)]
-    let current_value = CounterValue::<T>::get().unwrap_or(0);
+    let who = ensure_signed(origin)?;
+
+            let current_value = CounterValue::<T>::get().unwrap_or(0);
 
             let new_value = current_value
                 .checked_sub(amount_to_decrement)
@@ -31580,7 +31588,6 @@ Expand the following items to view the implementations of each dispatchable call
 
             Ok(())
         }
-    }
     ```
 
 ## Verify Compilation
@@ -31676,8 +31683,9 @@ Expand the following item to review this implementation and the complete pallet 
         ///
         /// Emits `CounterValueSet` event when successful.
         #[pallet::call_index(0)]
-        #[pallet::weight(T::WeightInfo::set_counter_value())]
             #[pallet::weight(0)]
+            ensure_root(origin)?;
+
             ensure!(
                 new_value <= T::CounterMaxValue::get(),
                 Error::<T>::CounterValueExceedsMax
@@ -31700,8 +31708,9 @@ Expand the following item to review this implementation and the complete pallet 
         ///
         /// Emits `CounterIncremented` event when successful.
         #[pallet::call_index(1)]
-        #[pallet::weight(T::WeightInfo::increment())]
             #[pallet::weight(0)]
+            let who = ensure_signed(origin)?;
+
             let current_value = CounterValue::<T>::get().unwrap_or(0);
 
             let new_value = current_value
@@ -31742,7 +31751,6 @@ Expand the following item to review this implementation and the complete pallet 
         ///
         /// Emits `CounterDecremented` event when successful.
         #[pallet::call_index(2)]
-        #[pallet::weight(T::WeightInfo::decrement())]
             #[pallet::weight(0)]
     // This file is part of 'custom-pallet'.
 

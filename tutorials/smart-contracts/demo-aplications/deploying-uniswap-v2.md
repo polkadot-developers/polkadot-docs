@@ -11,6 +11,8 @@ Decentralized exchanges (DEXs) are a cornerstone of the DeFi ecosystem, allowing
 
 This tutorial will guide you through how Uniswap V2 works so you can take advantage of it in your projects deployed to Polkadot Hub. By understanding these contracts, you'll gain hands-on experience with one of the most influential DeFi protocols and understand how it functions across blockchain ecosystems.
 
+--8<-- 'text/smart-contracts/polkaVM-warning.md'
+
 ## Prerequisites
 
 Before starting, make sure you have:
@@ -31,8 +33,6 @@ Let's start by cloning the Uniswap V2 project:
     git clone https://github.com/polkadot-developers/polkavm-hardhat-examples.git -b v0.0.6
     cd polkavm-hardhat-examples/uniswap-v2-polkadot/
     ```
-
-    --8<-- 'text/smart-contracts/polkaVM-warning.md'
 
 2. Install the required dependencies:
 

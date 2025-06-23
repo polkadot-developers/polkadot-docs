@@ -12,6 +12,8 @@ Decentralized applications (dApps) have become a cornerstone of the Web3 ecosyst
 
 In this tutorial, you'll build a complete dApp that interacts with a smart contract deployed on the Polkadot Hub TestNet. It will use [Ethers.js](/develop/smart-contracts/libraries/ethers-js){target=\_blank} to interact with the blockchain and [Next.js](https://nextjs.org/){target=\_blank} as the frontend framework. By the end of this tutorial, you'll have a functional dApp that allows users to connect their wallets, read data from the blockchain, and execute transactions.
 
+--8<-- 'text/smart-contracts/polkaVM-warning.md'
+
 ## Prerequisites
 
 Before you begin, make sure you have:
@@ -183,4 +185,3 @@ To get started right away with a working example, you can clone the repository a
 git clone https://github.com/polkadot-developers/polkavm-storage-contract-dapps.git -b v0.0.2
 cd polkavm-storage-contract-dapps/ethers-dapp
 ```
---8<-- 'text/smart-contracts/polkaVM-warning.md'

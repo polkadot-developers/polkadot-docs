@@ -10,6 +10,8 @@ Decentralized applications (dApps) are a key component of the Web3 ecosystem, en
 
 This tutorial will guide you through building a fully functional dApp that interacts with a smart contract on Polkadot Hub. You'll use [Viem](https://viem.sh/){target=\_blank} for blockchain interactions and [Next.js](https://nextjs.org/){target=\_blank} for the frontend. By the end, you'll have a dApp that lets users connect their wallets, retrieve on-chain data, and execute transactions.
 
+--8<-- 'text/smart-contracts/polkaVM-warning.md'
+
 ## Prerequisites
 
 Before getting started, ensure you have the following:
@@ -203,8 +205,6 @@ To get started right away with a working example, you can clone the repository a
 git clone https://github.com/polkadot-developers/polkavm-storage-contract-dapps.git -b v0.0.2
 cd polkavm-storage-contract-dapps/viem-dapp
 ```
-
---8<-- 'text/smart-contracts/polkaVM-warning.md'
 
 ## Where to Go Next
 

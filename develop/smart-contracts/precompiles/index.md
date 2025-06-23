@@ -11,6 +11,8 @@ Precompiles serve a dual purpose in the Polkadot ecosystem: they not only enable
 
 This article explores how Polkadot leverages precompiles within the Revive pallet to enhance efficiency and how they will extend functionality for developers in the future, including planned access to native features like Cross-Consensus Messaging (XCM).
 
+--8<-- 'text/smart-contracts/polkaVM-warning.md'
+
 ## What are Precompiles?
 
 Precompiles are special contract implementations that run directly at the runtime level rather than as on-chain PolkaVM contracts. In typical EVM environments, precompiles provide essential cryptographic and utility functionality at addresses that start with specific patterns. Revive follows this design pattern but with its own implementation optimized for PolkaVM.
@@ -36,8 +38,6 @@ flowchart LR
 
     classDef edgeLabel background:#eceff3;
 ```
-
---8<-- 'text/smart-contracts/polkaVM-warning.md'
 
 ## Standard Precompiles in Polkadot Hub
 

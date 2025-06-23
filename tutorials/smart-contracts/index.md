@@ -8,6 +8,8 @@ template: index-page.html
 
 Get started with deploying and interacting with smart contracts on Polkadot through practical, hands-on tutorials. Whether you're a beginner or an experienced developer, these guides will help you navigate the entire development lifecycle.
 
+--8<-- 'text/smart-contracts/polkaVM-warning.md'
+
 ## What to Expect from These Tutorials
 
 - **Beginner to advanced** – suitable for developers of all levels
@@ -23,8 +25,6 @@ Jump into the tutorials and learn how to:
 - Interact with deployed contracts using libraries like Ethers.js and viem
 
 Choose a tutorial below and start coding today!
-
---8<-- 'text/smart-contracts/polkaVM-warning.md'
 
 ## In This Section
 

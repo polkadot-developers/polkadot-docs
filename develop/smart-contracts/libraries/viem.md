@@ -9,6 +9,8 @@ description: This guide covers deploying and interacting with contracts on Polka
 
 [viem](https://viem.sh/){target=\_blank} is a lightweight TypeScript library designed for interacting with Ethereum-compatible blockchains. This comprehensive guide will walk you through using viem to interact with and deploy smart contracts to Polkadot Hub.
 
+--8<-- 'text/smart-contracts/polkaVM-warning.md'
+
 ## Prerequisites
 
 Before getting started, ensure you have the following installed:
@@ -52,8 +54,6 @@ npm init -y
 ## Install Dependencies
 
 Install viem along with other necessary dependencies, including [@parity/revive](https://www.npmjs.com/package/@parity/revive){target=\_blank}, which enables to compile smart contracts to [PolkaVM](/polkadot-protocol/smart-contract-basics/polkavm-design/#polkavm){target=\_blank} bytecode:
-
---8<-- 'text/smart-contracts/polkaVM-warning.md'
 
 ```bash
 # Install viem and Revive

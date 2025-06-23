@@ -14,6 +14,8 @@ Interacting with blockchains typically requires an interface between your applic
 
 This guide is intended for developers who are familiar with JavaScript and want to interact with the Polkadot Hub using Web3.js.
 
+--8<-- 'text/smart-contracts/polkaVM-warning.md'
+
 ## Prerequisites
 
 Before getting started, ensure you have the following installed:
@@ -96,8 +98,6 @@ For instance, to fetch the latest block number of the chain, you can use the fol
 --8<-- 'text/smart-contracts/code-size.md'
 
 Polkadot Hub requires contracts to be compiled to [PolkaVM](/polkadot-protocol/smart-contract-basics/polkavm-design/){target=\_blank} bytecode. This is achieved using the [`revive`](https://github.com/paritytech/revive){target=\_blank} compiler. Install the [`@parity/revive`](https://github.com/paritytech/js-revive){target=\_blank} library as a development dependency:
-
---8<-- 'text/smart-contracts/polkaVM-warning.md'
 
 ```bash
 npm install --save-dev @parity/revive

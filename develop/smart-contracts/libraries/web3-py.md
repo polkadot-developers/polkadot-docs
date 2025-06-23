@@ -11,6 +11,8 @@ Interacting with blockchains typically requires an interface between your applic
 
 This guide illustrates how to utilize Web3.py for interactions with Polkadot Hub.
 
+--8<-- 'text/smart-contracts/polkaVM-warning.md'
+
 ## Set Up the Project
 
 1. To start working with Web3.py, begin by initializing your project:
@@ -62,8 +64,6 @@ Before deploying your contracts, make sure you've compiled them and obtained two
 
 - An ABI (.json) file, which provides a JSON interface describing the contract's functions and how to interact with it
 - A bytecode (.polkavm) file, which contains the low-level machine code executable on [PolkaVM](/polkadot-protocol/smart-contract-basics/polkavm-design#polkavm){target=\_blank} that represents the compiled smart contract ready for blockchain deployment
-
---8<-- 'text/smart-contracts/polkaVM-warning.md'
 
 To follow this guide, you can use the following solidity contract as an example:
 

@@ -9,6 +9,8 @@ description: Discover PolkaVM, a high-performance smart contract VM for Polkadot
 
 The Asset Hub smart contracts solution includes multiple components to ensure Ethereum compatibility and high performance. Its architecture allows for integration with current Ethereum tools, while its innovative virtual machine design enhances performance characteristics.
 
+--8<-- 'text/smart-contracts/polkaVM-warning.md'
+
 ## PolkaVM
 
 [**PolkaVM**](https://github.com/paritytech/polkavm){target=\_blank} is a custom virtual machine optimized for performance with [RISC-V-based](https://en.wikipedia.org/wiki/RISC-V){target=\_blank} architecture, supporting Solidity and additional high-performance languages. It serves as the core execution environment, integrated directly within the runtime. It features:
@@ -19,8 +21,6 @@ The Asset Hub smart contracts solution includes multiple components to ensure Et
 - Optimized performance for short-running contract calls through the interpreter
 
 The interpreter remains particularly beneficial for contracts with minimal code execution, as it eliminates JIT compilation overhead and enables immediate code execution through lazy interpretation.
-
---8<-- 'text/smart-contracts/polkaVM-warning.md'
 
 ## Architecture
 

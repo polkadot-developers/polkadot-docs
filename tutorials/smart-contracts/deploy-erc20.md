@@ -10,9 +10,9 @@ tutorial_badge: Beginner
 
 [ERC-20](https://eips.ethereum.org/EIPS/eip-20){target=\_blank} tokens are fungible tokens commonly used for creating cryptocurrencies, governance tokens, and staking mechanisms. Polkadot Hub enables easy token deployment with Ethereum-compatible smart contracts via PolkaVM.
 
---8<-- 'text/smart-contracts/polkaVM-warning.md'
-
 This tutorial covers deploying an ERC-20 contract on the Polkadot Hub TestNet using [Polkadot Remix IDE](https://remix.polkadot.io){target=\_blank}, a web-based development tool. [OpenZeppelin's ERC-20 contracts]({{ dependencies.repositories.open_zeppelin_contracts.repository_url}}/tree/{{ dependencies.repositories.open_zeppelin_contracts.version}}/contracts/token/ERC20){target=\_blank} are used for security and compliance.
+
+--8<-- 'text/smart-contracts/polkaVM-warning.md'
 
 ## Prerequisites
 

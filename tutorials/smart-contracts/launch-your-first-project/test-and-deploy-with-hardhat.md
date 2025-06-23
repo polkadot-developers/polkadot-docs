@@ -10,6 +10,8 @@ tutorial_badge: Intermediate
 
 After creating a smart contract, the next crucial steps are testing and deployment. Proper testing ensures your contract behaves as expected, while deployment makes your contract available on the blockchain. This tutorial will guide you through using Hardhat, a popular development environment, to test and deploy the `Storage.sol` contract you created in the [Create a Smart Contract](/tutorials/smart-contracts/launch-your-first-project/create-contracts/){target=\_blank} tutorial. For more information about Hardhat usage, check the [Hardhat guide](/develop/smart-contracts/dev-environments/hardhat/){target=\_blank}.
 
+--8<-- 'text/smart-contracts/polkaVM-warning.md'
+
 ## Prerequisites
 
 Before starting, make sure you have:
@@ -70,8 +72,6 @@ Let's start by setting up Hardhat for your Storage contract project:
 
     - `localNode` - runs a PolkaVM instance on `http://127.0.0.1:8545` for local development and testing
     - `passetHub` - connects to the the Polkadot Hub TestNet network using a predefined RPC URL and a private key stored in environment variables
-
-    --8<-- 'text/smart-contracts/polkaVM-warning.md'
 
 7. Export your private key and save it in your Hardhat environment:
 

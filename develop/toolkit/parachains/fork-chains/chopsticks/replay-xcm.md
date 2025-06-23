@@ -167,14 +167,19 @@ b) **Copy the Block Hash**
    ```
 
 c) **Explore in Polkadot-JS Apps**
+
    View the block in [Polkadot-JS Apps](https://polkadot.js.org/apps) using this direct link:
+
    👉 [Explorer → Block Hash](https://polkadot.js.org/apps/?rpc=wss%3A%2F%2Fpolkadot-asset-hub-rpc.polkadot.io#/explorer/query/0xeb5a5737d47367dc1c02b978232283cdb096eb7e51d2eb22366a106a011347f6)
 
 d) **Locate and Decode the XCM Extrinsic**
+
    Once you've identified the extrinsic (e.g. index `9079592-2`), use the hex call data to decode it:
+
    👉 [Decode Extrinsic](https://polkadot.js.org/apps/?rpc=wss%3A%2F%2Fpolkadot-asset-hub-rpc.polkadot.io#/extrinsics/decode/0xad028400fc39fcf04a8071b7409823b7c82427ce67910c6ed80aa0e5093aff234624c820016a30461702adc48213e5c9ee4d15c5a481c578cb5cbc935f0bd11fe8aee489082a745ffbbe94282f91b67daa6cb44920d77c30849c1d25f5f6c3e59015a3e383440055040000011f0803010100411f0300010100fc39fcf04a8071b7409823b7c82427ce67910c6ed80aa0e5093aff234624c8200304000002043205011f0092e81d790000000000)
 
 e) **Copy the Call Data**
+
    From the decoded view, copy the **hex-encoded call data**. You will use this later with `api.txFromCallData(...)` to replay the XCM in Chopsticks.
 
 ### 4. Replay the XCM

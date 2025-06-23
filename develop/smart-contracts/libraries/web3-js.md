@@ -5,6 +5,8 @@ description: Learn how to interact with Polkadot Hub using Web3.js, deploying So
 
 # Web3.js
 
+--8<-- 'text/smart-contracts/polkaVM-warning.md'
+
 !!! warning
     Web3.js has been [sunset](https://blog.chainsafe.io/web3-js-sunset/){target=\_blank}. You can find guides on using [Ethers.js](/develop/smart-contracts/libraries/ethers-js){target=\_blank} and [viem](/develop/smart-contracts/libraries/viem){target=\_blank} in the [Libraries](/develop/smart-contracts/libraries/){target=\_blank} section. 
 

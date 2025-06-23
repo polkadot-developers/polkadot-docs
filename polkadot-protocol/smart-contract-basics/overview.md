@@ -5,6 +5,8 @@ description: Learn how developers can build smart contracts on Polkadot by lever
 
 # An Overview of the Smart Contract Landscape on Polkadot
 
+--8<-- 'text/smart-contracts/polkaVM-warning.md'
+
 ## Introduction
 
 Polkadot is designed to support an ecosystem of parachains, rather than hosting smart contracts directly. Developers aiming to build smart contract applications on Polkadot rely on parachains within the ecosystem that provide smart contract functionality.

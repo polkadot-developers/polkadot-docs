@@ -5,6 +5,8 @@ description: Find answers to common questions about smart contract development, 
 
 # Smart Contracts FAQs
 
+--8<-- 'text/smart-contracts/polkaVM-warning.md'
+
 ## General Questions
 
 ### What are the different types of smart contracts I can build on Polkadot?

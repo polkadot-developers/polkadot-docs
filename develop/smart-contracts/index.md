@@ -35,12 +35,4 @@ Follow this step-by-step process to develop and deploy smart contracts in the Po
 
     [:octicons-arrow-right-24: Reference](https://use.ink/){target=\_blank}
 
-<!-- This content is temporarily hidden and has been commented out to ensure it is preserved. -->
-<!--<div class="subsection-wrapper">
-   <div class="card">
-    <a href="https://contracts.polkadot.io/" target="_blank"> 
-      <h2 class="title">View the Official Asset Hub Contracts Documentation</h2>
-      <p class="description">Learn everything you need about developing smart contracts on Asset Hub using the PolkaVM.</p>
-    </a>
-  </div> 
-</div> -->
+</div>

@@ -33193,7 +33193,8 @@ Expand the following item to see the pallet calls to be tested.
 ???-code "Custom pallet calls"
 
     ```rust
-    /// Set the value of the counter.
+    impl<T: Config> Pallet<T> {
+        /// Set the value of the counter.
         ///
         /// The dispatch origin of this call must be _Root_.
         ///
@@ -33201,9 +33202,10 @@ Expand the following item to see the pallet calls to be tested.
         ///
         /// Emits `CounterValueSet` event when successful.
         #[pallet::call_index(0)]
-        #[pallet::weight(T::WeightInfo::set_counter_value())]
         #[pallet::weight(0)]
-        ensure!(
+        ensure_root(origin)?;
+
+            ensure!(
                 new_value <= T::CounterMaxValue::get(),
                 Error::<T>::CounterValueExceedsMax
             );
@@ -33225,9 +33227,10 @@ Expand the following item to see the pallet calls to be tested.
         ///
         /// Emits `CounterIncremented` event when successful.
         #[pallet::call_index(1)]
-        #[pallet::weight(T::WeightInfo::increment())]
         #[pallet::weight(0)]
-        let current_value = CounterValue::<T>::get().unwrap_or(0);
+        let who = ensure_signed(origin)?;
+
+            let current_value = CounterValue::<T>::get().unwrap_or(0);
 
             let new_value = current_value
                 .checked_add(amount_to_increment)
@@ -33267,9 +33270,10 @@ Expand the following item to see the pallet calls to be tested.
         ///
         /// Emits `CounterDecremented` event when successful.
         #[pallet::call_index(2)]
-        #[pallet::weight(T::WeightInfo::decrement())]
         #[pallet::weight(0)]
-    let current_value = CounterValue::<T>::get().unwrap_or(0);
+    let who = ensure_signed(origin)?;
+
+            let current_value = CounterValue::<T>::get().unwrap_or(0);
 
             let new_value = current_value
                 .checked_sub(amount_to_decrement)

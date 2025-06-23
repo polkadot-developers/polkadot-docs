@@ -6,9 +6,9 @@ template: index-page.html
 
 # Dev Environments
 
-Explore the tools and frameworks available for building and testing smart contracts on the Polkadot network. These environments streamline the development process, from writing and compiling to testing and deploying smart contracts. The guides in this section will help you evaluate each tool's strengths, making it easier to choose the best fit for your project based on complexity, team expertise, and specific requirements.
-
 --8<-- 'text/smart-contracts/polkaVM-warning.md'
+
+Explore the tools and frameworks available for building and testing smart contracts on the Polkadot network. These environments streamline the development process, from writing and compiling to testing and deploying smart contracts. The guides in this section will help you evaluate each tool's strengths, making it easier to choose the best fit for your project based on complexity, team expertise, and specific requirements.
 
 ## What to Consider
 

@@ -5,6 +5,8 @@ description: Follow this step-by-step guide to install a Substrate node and ETH-
 
 # Local Development Node
 
+--8<-- 'text/smart-contracts/polkaVM-warning.md'
+
 ## Introduction
 
 A local development node provides an isolated blockchain environment where you can deploy, test, and debug smart contracts without incurring network fees or waiting for block confirmations. This guide demonstrates how to set up a local Polkadot SDK-based node with smart contract capabilities.
@@ -13,8 +15,6 @@ By the end of this guide, you'll have:
 
 - A running Substrate node with smart contract support
 - An ETH-RPC adapter for Ethereum-compatible tooling integration accessible at `http://localhost:8545`
-
---8<-- 'text/smart-contracts/polkaVM-warning.md'
 
 ## Prerequisites
 

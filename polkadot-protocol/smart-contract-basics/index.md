@@ -6,11 +6,11 @@ template: index-page.html
 
 # Smart Contract Basics
 
+--8<-- 'text/smart-contracts/polkaVM-warning.md'
+
 Gain a deep understanding of smart contracts on Polkadot, from execution environments to transaction mechanics.
 
 This section covers the essential components of the ecosystem.
-
---8<-- 'text/smart-contracts/polkaVM-warning.md'
 
 ## Key Topics
 

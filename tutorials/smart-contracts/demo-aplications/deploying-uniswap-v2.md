@@ -5,13 +5,13 @@ description: Learn how to deploy and test Uniswap V2 on Polkadot Hub using Hardh
 
 # Deploy Uniswap V2
 
+--8<-- 'text/smart-contracts/polkaVM-warning.md'
+
 ## Introduction
 
 Decentralized exchanges (DEXs) are a cornerstone of the DeFi ecosystem, allowing for permissionless token swaps without intermediaries. [Uniswap V2](https://docs.uniswap.org/contracts/v2/overview){target=\_blank}, with its Automated Market Maker (AMM) model, revolutionized DEXs by enabling liquidity provision for any ERC-20 token pair.
 
 This tutorial will guide you through how Uniswap V2 works so you can take advantage of it in your projects deployed to Polkadot Hub. By understanding these contracts, you'll gain hands-on experience with one of the most influential DeFi protocols and understand how it functions across blockchain ecosystems.
-
---8<-- 'text/smart-contracts/polkaVM-warning.md'
 
 ## Prerequisites
 

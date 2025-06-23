@@ -6,9 +6,9 @@ template: index-page.html
 
 # Smart Contracts Tutorials
 
-Get started with deploying and interacting with smart contracts on Polkadot through practical, hands-on tutorials. Whether you're a beginner or an experienced developer, these guides will help you navigate the entire development lifecycle.
-
 --8<-- 'text/smart-contracts/polkaVM-warning.md'
+
+Get started with deploying and interacting with smart contracts on Polkadot through practical, hands-on tutorials. Whether you're a beginner or an experienced developer, these guides will help you navigate the entire development lifecycle.
 
 ## What to Expect from These Tutorials
 

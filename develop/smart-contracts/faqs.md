@@ -5,6 +5,8 @@ description: Find answers to common questions about smart contract development, 
 
 # Smart Contracts FAQs
 
+--8<-- 'text/smart-contracts/polkaVM-warning.md'
+
 ## General Questions
 
 ### What are the different types of smart contracts I can build on Polkadot?
@@ -34,8 +36,6 @@ Choose a parachain if:
 ### What's the difference between Polkadot Hub smart contracts and other EVM chains?
 
 Polkadot Hub uses [PolkaVM](/polkadot-protocol/smart-contract-basics/polkavm-design){target=\_blank} instead of traditional EVM:
-
---8<-- 'text/smart-contracts/polkaVM-warning.md'
 
 - **Performance**: RISC-V register-based architecture vs. stack-based EVM.
 - **Resource metering**: Three dimensions (`ref_time`, `proof_size`, `storage_deposit`) vs. single gas metric.

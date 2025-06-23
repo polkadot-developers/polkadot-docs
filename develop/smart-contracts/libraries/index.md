@@ -6,11 +6,11 @@ template: index-page.html
 
 # Libraries
 
+--8<-- 'text/smart-contracts/polkaVM-warning.md'
+
 Explore the key libraries for interacting with smart contracts on Polkadot-based networks. These libraries simplify contract calls, event listening, and transaction handling.
 
 This section provides setup instructions, usage examples, and a comparison to help you select the right tool for your project.
-
---8<-- 'text/smart-contracts/polkaVM-warning.md'
 
 ## Library Comparison
 

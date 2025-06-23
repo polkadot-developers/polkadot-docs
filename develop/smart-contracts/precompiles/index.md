@@ -5,13 +5,13 @@ description: Explores how Polkadot integrates precompiles to run essential funct
 
 # Advanced Functionalities via Precompiles
 
+--8<-- 'text/smart-contracts/polkaVM-warning.md'
+
 ## Introduction
 
 Precompiles serve a dual purpose in the Polkadot ecosystem: they not only enable high-performance smart contracts by providing native, optimized implementations of frequently used functions but will also eventually act as critical bridges, allowing contracts to interact with core platform capabilities.
 
 This article explores how Polkadot leverages precompiles within the Revive pallet to enhance efficiency and how they will extend functionality for developers in the future, including planned access to native features like Cross-Consensus Messaging (XCM).
-
---8<-- 'text/smart-contracts/polkaVM-warning.md'
 
 ## What are Precompiles?
 

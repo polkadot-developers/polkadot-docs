@@ -5,13 +5,13 @@ description: Learn how to use Wagmi React Hooks to fetch and interact with smart
 
 # Wagmi
 
+--8<-- 'text/smart-contracts/polkaVM-warning.md'
+
 ## Introduction
 
 [Wagmi](https://wagmi.sh/){target=\_blank} is a collection of [React Hooks](https://wagmi.sh/react/api/hooks){target=\_blank} for interacting with Ethereum-compatible blockchains, focusing on developer experience, feature richness, and reliability.
 
 This guide demonstrates how to use Wagmi to interact with and deploy smart contracts to Polkadot Hub, providing a seamless frontend integration for your dApps.
-
---8<-- 'text/smart-contracts/polkaVM-warning.md'
 
 ## Set Up the Project
 

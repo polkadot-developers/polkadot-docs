@@ -5,13 +5,13 @@ description: Learn how to interact with Polkadot Hub using Ethers.js, from compi
 
 # Ethers.js
 
+--8<-- 'text/smart-contracts/polkaVM-warning.md'
+
 ## Introduction
 
 [Ethers.js](https://docs.ethers.org/v6/){target=\_blank} is a lightweight library that enables interaction with Ethereum Virtual Machine (EVM)-compatible blockchains through JavaScript. Ethers is widely used as a toolkit to establish connections and read and write blockchain data. This article demonstrates using Ethers.js to interact and deploy smart contracts to Polkadot Hub.
 
 This guide is intended for developers who are familiar with JavaScript and want to interact with Polkadot Hub using Ethers.js.
-
---8<-- 'text/smart-contracts/polkaVM-warning.md'
 
 ## Prerequisites
 

@@ -6811,12 +6811,12 @@ description: Access PolkaVM explorers like Subscan, BlockScout, and Routescan to
 
 # Block Explorers
 
+!!! smartcontract "PolkaVM Alpha Release"
+    PolkaVM smart contracts with Ethereum compatibility are in **early-stage development and may be unstable or incomplete**.
+
 ## Introduction
 
 Block explorers serve as comprehensive blockchain analytics platforms that provide access to on-chain data. These web applications function as search engines for blockchain networks, allowing users to query, visualize, and analyze blockchain data in real time through intuitive interfaces.
-
-!!! smartcontract "PolkaVM Alpha Release"
-    PolkaVM smart contracts with Ethereum compatibility are in **early-stage development and may be unstable or incomplete**.
 
 ## Core Functionality
 
@@ -6867,14 +6867,14 @@ description: Explore how to connect to Polkadot Hub, configure your wallet, and 
 
 # Connect to Polkadot
 
+!!! smartcontract "PolkaVM Alpha Release"
+    PolkaVM smart contracts with Ethereum compatibility are in **early-stage development and may be unstable or incomplete**.
+
 <div class="button-wrapper">
     <a href="#" class="md-button connectMetaMask" value="passetHub">Connect to Polkadot Hub TestNet</a>
 </div>
 
 For more information about how to connect to Polkadot Hub, please check the [Wallets for Polkadot Hub](/develop/smart-contracts/wallets/){target=\_blank} guide.
-
-!!! smartcontract "PolkaVM Alpha Release"
-    PolkaVM smart contracts with Ethereum compatibility are in **early-stage development and may be unstable or incomplete**.
 
 ## Networks Details
 
@@ -6966,6 +6966,9 @@ description: Learn how to create, compile, test, and deploy smart contracts on P
 
 # Hardhat
 
+!!! smartcontract "PolkaVM Alpha Release"
+    PolkaVM smart contracts with Ethereum compatibility are in **early-stage development and may be unstable or incomplete**.
+
 <div class="grid cards" markdown>
 -   :octicons-code-16:{ .lg .middle } __Test and Deploy with Hardhat__
 
@@ -6982,9 +6985,6 @@ description: Learn how to create, compile, test, and deploy smart contracts on P
     The maximum contract code blob size on Polkadot Hub networks is _100 kilobytes_, significantly larger than Ethereum’s EVM limit of 24 kilobytes.
 
     For detailed comparisons and migration guidelines, see the [EVM vs. PolkaVM](/polkadot-protocol/smart-contract-basics/evm-vs-polkavm/#current-memory-limits){target=\_blank} documentation page.
-
-!!! smartcontract "PolkaVM Alpha Release"
-    PolkaVM smart contracts with Ethereum compatibility are in **early-stage development and may be unstable or incomplete**.
 
 ## Overview
 
@@ -7400,10 +7400,10 @@ template: index-page.html
 
 # Dev Environments
 
-Explore the tools and frameworks available for building and testing smart contracts on the Polkadot network. These environments streamline the development process, from writing and compiling to testing and deploying smart contracts. The guides in this section will help you evaluate each tool's strengths, making it easier to choose the best fit for your project based on complexity, team expertise, and specific requirements.
-
 !!! smartcontract "PolkaVM Alpha Release"
     PolkaVM smart contracts with Ethereum compatibility are in **early-stage development and may be unstable or incomplete**.
+
+Explore the tools and frameworks available for building and testing smart contracts on the Polkadot network. These environments streamline the development process, from writing and compiling to testing and deploying smart contracts. The guides in this section will help you evaluate each tool's strengths, making it easier to choose the best fit for your project based on complexity, team expertise, and specific requirements.
 
 ## What to Consider
 
@@ -7428,6 +7428,9 @@ description: Explore the smart contract development and deployment process on As
 
 # Remix IDE
 
+!!! smartcontract "PolkaVM Alpha Release"
+    PolkaVM smart contracts with Ethereum compatibility are in **early-stage development and may be unstable or incomplete**.
+
 <div class="grid cards" markdown>
 -   :octicons-code-16:{ .lg .middle } __Deploy NFTs Using Remix IDE__
 
@@ -7450,9 +7453,6 @@ description: Explore the smart contract development and deployment process on As
 
 !!! warning
     The Polkadot Remix IDE's contract compilation functionality is currently limited to Google Chrome. Alternative browsers are not recommended for this task.
-
-!!! smartcontract "PolkaVM Alpha Release"
-    PolkaVM smart contracts with Ethereum compatibility are in **early-stage development and may be unstable or incomplete**.
 
 ## Overview
 
@@ -7617,6 +7617,9 @@ description: Find answers to common questions about smart contract development, 
 
 # Smart Contracts FAQs
 
+!!! smartcontract "PolkaVM Alpha Release"
+    PolkaVM smart contracts with Ethereum compatibility are in **early-stage development and may be unstable or incomplete**.
+
 ## General Questions
 
 ### What are the different types of smart contracts I can build on Polkadot?
@@ -7646,9 +7649,6 @@ Choose a parachain if:
 ### What's the difference between Polkadot Hub smart contracts and other EVM chains?
 
 Polkadot Hub uses [PolkaVM](/polkadot-protocol/smart-contract-basics/polkavm-design){target=\_blank} instead of traditional EVM:
-
-!!! smartcontract "PolkaVM Alpha Release"
-    PolkaVM smart contracts with Ethereum compatibility are in **early-stage development and may be unstable or incomplete**.
 
 - **Performance**: RISC-V register-based architecture vs. stack-based EVM.
 - **Resource metering**: Three dimensions (`ref_time`, `proof_size`, `storage_deposit`) vs. single gas metric.
@@ -7771,12 +7771,12 @@ template: index-page.html
 
 # Smart Contracts
 
+!!! smartcontract "PolkaVM Alpha Release"
+    PolkaVM smart contracts with Ethereum compatibility are in **early-stage development and may be unstable or incomplete**.
+
 Polkadot allows scalable execution of smart contracts, offering cross-chain compatibility and lower fees than legacy L1 platforms. Polkadot provides developers with flexibility in building smart contracts, supporting both Solidity contracts executed by the [PolkaVM](/polkadot-protocol/smart-contract-basics/polkavm-design#polkavm){target=\_blank} (a Polkadot-native virtual machine for programming languages that can be compiled down to RISC-V) and EVM (Ethereum Virtual Machine), as well as Wasm-based contracts using ink! (written in Rust).
 
 This section provides tools, resources, and guides for building and deploying smart contracts on parachains. [Parachains](/polkadot-protocol/architecture/parachains/overview/){target=\_blank} are specialized blockchains connected to the relay chain, benefiting from shared security and interoperability. Depending on your language and environment preference, you can develop contracts using Wasm/ink! or EVM-based solutions.
-
-!!! smartcontract "PolkaVM Alpha Release"
-    PolkaVM smart contracts with Ethereum compatibility are in **early-stage development and may be unstable or incomplete**.
 
 ## Smart Contract Development Process
 
@@ -7830,6 +7830,9 @@ description: JSON-RPC APIs guide for Polkadot Hub, covering supported methods, p
 
 # JSON-RPC APIs
 
+!!! smartcontract "PolkaVM Alpha Release"
+    PolkaVM smart contracts with Ethereum compatibility are in **early-stage development and may be unstable or incomplete**.
+
 ## Introduction
 
 Polkadot Hub provides Ethereum compatibility through its JSON-RPC interface, allowing developers to interact with the chain using familiar Ethereum tooling and methods. This document outlines the supported [Ethereum JSON-RPC methods](https://ethereum.org/en/developers/docs/apis/json-rpc/#json-rpc-methods){target=\_blank} and provides examples of how to use them.
@@ -7839,9 +7842,6 @@ This guide uses the Polkadot Hub TestNet endpoint:
 ```text
 https://testnet-passet-hub-eth-rpc.polkadot.io
 ```
-
-!!! smartcontract "PolkaVM Alpha Release"
-    PolkaVM smart contracts with Ethereum compatibility are in **early-stage development and may be unstable or incomplete**.
 
 ## Available Methods
 
@@ -8701,14 +8701,14 @@ description: Learn how to interact with Polkadot Hub using Ethers.js, from compi
 
 # Ethers.js
 
+!!! smartcontract "PolkaVM Alpha Release"
+    PolkaVM smart contracts with Ethereum compatibility are in **early-stage development and may be unstable or incomplete**.
+
 ## Introduction
 
 [Ethers.js](https://docs.ethers.org/v6/){target=\_blank} is a lightweight library that enables interaction with Ethereum Virtual Machine (EVM)-compatible blockchains through JavaScript. Ethers is widely used as a toolkit to establish connections and read and write blockchain data. This article demonstrates using Ethers.js to interact and deploy smart contracts to Polkadot Hub.
 
 This guide is intended for developers who are familiar with JavaScript and want to interact with Polkadot Hub using Ethers.js.
-
-!!! smartcontract "PolkaVM Alpha Release"
-    PolkaVM smart contracts with Ethereum compatibility are in **early-stage development and may be unstable or incomplete**.
 
 ## Prerequisites
 
@@ -9297,12 +9297,12 @@ template: index-page.html
 
 # Libraries
 
+!!! smartcontract "PolkaVM Alpha Release"
+    PolkaVM smart contracts with Ethereum compatibility are in **early-stage development and may be unstable or incomplete**.
+
 Explore the key libraries for interacting with smart contracts on Polkadot-based networks. These libraries simplify contract calls, event listening, and transaction handling.
 
 This section provides setup instructions, usage examples, and a comparison to help you select the right tool for your project.
-
-!!! smartcontract "PolkaVM Alpha Release"
-    PolkaVM smart contracts with Ethereum compatibility are in **early-stage development and may be unstable or incomplete**.
 
 ## Library Comparison
 
@@ -9333,12 +9333,12 @@ description: This guide covers deploying and interacting with contracts on Polka
 
 # viem
 
+!!! smartcontract "PolkaVM Alpha Release"
+    PolkaVM smart contracts with Ethereum compatibility are in **early-stage development and may be unstable or incomplete**.
+
 ## Introduction
 
 [viem](https://viem.sh/){target=\_blank} is a lightweight TypeScript library designed for interacting with Ethereum-compatible blockchains. This comprehensive guide will walk you through using viem to interact with and deploy smart contracts to Polkadot Hub.
-
-!!! smartcontract "PolkaVM Alpha Release"
-    PolkaVM smart contracts with Ethereum compatibility are in **early-stage development and may be unstable or incomplete**.
 
 ## Prerequisites
 
@@ -9876,14 +9876,14 @@ description: Learn how to use Wagmi React Hooks to fetch and interact with smart
 
 # Wagmi
 
+!!! smartcontract "PolkaVM Alpha Release"
+    PolkaVM smart contracts with Ethereum compatibility are in **early-stage development and may be unstable or incomplete**.
+
 ## Introduction
 
 [Wagmi](https://wagmi.sh/){target=\_blank} is a collection of [React Hooks](https://wagmi.sh/react/api/hooks){target=\_blank} for interacting with Ethereum-compatible blockchains, focusing on developer experience, feature richness, and reliability.
 
 This guide demonstrates how to use Wagmi to interact with and deploy smart contracts to Polkadot Hub, providing a seamless frontend integration for your dApps.
-
-!!! smartcontract "PolkaVM Alpha Release"
-    PolkaVM smart contracts with Ethereum compatibility are in **early-stage development and may be unstable or incomplete**.
 
 ## Set Up the Project
 
@@ -10311,6 +10311,9 @@ description: Learn how to interact with Polkadot Hub using Web3.js, deploying So
 
 # Web3.js
 
+!!! smartcontract "PolkaVM Alpha Release"
+    PolkaVM smart contracts with Ethereum compatibility are in **early-stage development and may be unstable or incomplete**.
+
 !!! warning
     Web3.js has been [sunset](https://blog.chainsafe.io/web3-js-sunset/){target=\_blank}. You can find guides on using [Ethers.js](/develop/smart-contracts/libraries/ethers-js){target=\_blank} and [viem](/develop/smart-contracts/libraries/viem){target=\_blank} in the [Libraries](/develop/smart-contracts/libraries/){target=\_blank} section. 
 
@@ -10319,9 +10322,6 @@ description: Learn how to interact with Polkadot Hub using Web3.js, deploying So
 Interacting with blockchains typically requires an interface between your application and the network. [Web3.js](https://web3js.readthedocs.io/){target=\_blank} offers this interface through a comprehensive collection of libraries, facilitating seamless interaction with the nodes using HTTP or WebSocket protocols. This guide illustrates how to utilize Web3.js specifically for interactions with Polkadot Hub.
 
 This guide is intended for developers who are familiar with JavaScript and want to interact with the Polkadot Hub using Web3.js.
-
-!!! smartcontract "PolkaVM Alpha Release"
-    PolkaVM smart contracts with Ethereum compatibility are in **early-stage development and may be unstable or incomplete**.
 
 ## Prerequisites
 
@@ -10736,14 +10736,14 @@ description: Learn how to interact with Polkadot Hub using the Web3 python libra
 
 # Web3.py
 
+!!! smartcontract "PolkaVM Alpha Release"
+    PolkaVM smart contracts with Ethereum compatibility are in **early-stage development and may be unstable or incomplete**.
+
 ## Introduction
 
 Interacting with blockchains typically requires an interface between your application and the network. [Web3.py](https://web3py.readthedocs.io/en/stable/index.html){target=\_blank} offers this interface through a collection of libraries, facilitating seamless interaction with the nodes using HTTP or WebSocket protocols. 
 
 This guide illustrates how to utilize Web3.py for interactions with Polkadot Hub.
-
-!!! smartcontract "PolkaVM Alpha Release"
-    PolkaVM smart contracts with Ethereum compatibility are in **early-stage development and may be unstable or incomplete**.
 
 ## Set Up the Project
 
@@ -11072,6 +11072,9 @@ description: Follow this step-by-step guide to install a Substrate node and ETH-
 
 # Local Development Node
 
+!!! smartcontract "PolkaVM Alpha Release"
+    PolkaVM smart contracts with Ethereum compatibility are in **early-stage development and may be unstable or incomplete**.
+
 ## Introduction
 
 A local development node provides an isolated blockchain environment where you can deploy, test, and debug smart contracts without incurring network fees or waiting for block confirmations. This guide demonstrates how to set up a local Polkadot SDK-based node with smart contract capabilities.
@@ -11080,9 +11083,6 @@ By the end of this guide, you'll have:
 
 - A running Substrate node with smart contract support
 - An ETH-RPC adapter for Ethereum-compatible tooling integration accessible at `http://localhost:8545`
-
-!!! smartcontract "PolkaVM Alpha Release"
-    PolkaVM smart contracts with Ethereum compatibility are in **early-stage development and may be unstable or incomplete**.
 
 ## Prerequisites
 
@@ -11209,6 +11209,9 @@ description: Learn about smart contract development capabilities in the Polkadot
 
 # Smart Contracts on Polkadot
 
+!!! smartcontract "PolkaVM Alpha Release"
+    PolkaVM smart contracts with Ethereum compatibility are in **early-stage development and may be unstable or incomplete**.
+
 ## Introduction
 
 Polkadot offers developers multiple approaches to building and deploying smart contracts within its ecosystem. As a multi-chain network designed for interoperability, Polkadot provides various environments optimized for different developer preferences and application requirements. From native smart contract support on Polkadot Hub to specialized parachain environments, developers can choose the platform that best suits their technical needs while benefiting from Polkadot's shared security model and cross-chain messaging capabilities.
@@ -11216,9 +11219,6 @@ Polkadot offers developers multiple approaches to building and deploying smart c
 Whether you're looking for Ethereum compatibility through EVM-based parachains like [Moonbeam](https://docs.moonbeam.network/){target=\_blank}, [Astar](https://docs.astar.network/){target=\_blank}, and [Acala](https://evmdocs.acala.network/){target=\_blank} or prefer WebAssembly-based development with [ink!](https://use.ink/docs/v5/){target=\_blank}, the Polkadot ecosystem accommodates a range of diverse developers.
 
 These guides explore the diverse smart contract options available in the Polkadot ecosystem, helping developers understand the unique advantages of each approach and make informed decisions about where to deploy their decentralized applications.
-
-!!! smartcontract "PolkaVM Alpha Release"
-    PolkaVM smart contracts with Ethereum compatibility are in **early-stage development and may be unstable or incomplete**.
 
 ## Native Smart Contracts
 
@@ -11311,14 +11311,14 @@ description: Explores how Polkadot integrates precompiles to run essential funct
 
 # Advanced Functionalities via Precompiles
 
+!!! smartcontract "PolkaVM Alpha Release"
+    PolkaVM smart contracts with Ethereum compatibility are in **early-stage development and may be unstable or incomplete**.
+
 ## Introduction
 
 Precompiles serve a dual purpose in the Polkadot ecosystem: they not only enable high-performance smart contracts by providing native, optimized implementations of frequently used functions but will also eventually act as critical bridges, allowing contracts to interact with core platform capabilities.
 
 This article explores how Polkadot leverages precompiles within the Revive pallet to enhance efficiency and how they will extend functionality for developers in the future, including planned access to native features like Cross-Consensus Messaging (XCM).
-
-!!! smartcontract "PolkaVM Alpha Release"
-    PolkaVM smart contracts with Ethereum compatibility are in **early-stage development and may be unstable or incomplete**.
 
 ## What are Precompiles?
 
@@ -11378,14 +11378,14 @@ description: Learn how to interact with Polkadot Hub’s precompiles from Solidi
 
 # Interact with Precompiles
 
+!!! smartcontract "PolkaVM Alpha Release"
+    PolkaVM smart contracts with Ethereum compatibility are in **early-stage development and may be unstable or incomplete**.
+
 ## Introduction
 
 Precompiles offer Polkadot Hub developers access to high-performance native functions directly from their smart contracts. Each precompile has a specific address and accepts a particular input data format. When called correctly, they execute optimized, native implementations of commonly used functions much more efficiently than equivalent contract-based implementations.
 
 This guide demonstrates how to interact with each standard precompile available in Polkadot Hub through Solidity smart contracts.
-
-!!! smartcontract "PolkaVM Alpha Release"
-    PolkaVM smart contracts with Ethereum compatibility are in **early-stage development and may be unstable or incomplete**.
 
 ## Basic Precompile Interaction Pattern
 
@@ -11840,12 +11840,12 @@ description: Comprehensive guide to connecting and managing wallets for Polkadot
 
 # Wallets for Polkadot Hub
 
+!!! smartcontract "PolkaVM Alpha Release"
+    PolkaVM smart contracts with Ethereum compatibility are in **early-stage development and may be unstable or incomplete**.
+
 ## Introduction
 
 Connecting a compatible wallet is the first essential step for interacting with the Polkadot Hub ecosystem. This guide explores wallet options that support both Substrate and Ethereum compatible layers, enabling transactions and smart contract interactions. Whether you're a developer testing on Polkadot Hub or a user accessing the MainNet, understanding wallet configuration is crucial for accessing the full range of Polkadot Hub's capabilities.
-
-!!! smartcontract "PolkaVM Alpha Release"
-    PolkaVM smart contracts with Ethereum compatibility are in **early-stage development and may be unstable or incomplete**.
 
 ## Connect Your Wallet
 
@@ -24018,6 +24018,9 @@ description: Bridges Ethereum's 20-byte addresses with Polkadot's 32-byte accoun
 
 # Accounts on Asset Hub Smart Contracts
 
+!!! smartcontract "PolkaVM Alpha Release"
+    PolkaVM smart contracts with Ethereum compatibility are in **early-stage development and may be unstable or incomplete**.
+
 ## Introduction
 
 Asset Hub natively uses Polkadot's 32-byte account system but provides interoperability with Ethereum's 20-byte addresses through an automatic conversion system. When interacting with smart contracts:
@@ -24030,9 +24033,6 @@ Asset Hub natively uses Polkadot's 32-byte account system but provides interoper
     - 32-byte Polkadot accounts can optionally register a mapping to a 20-byte address for Ethereum compatibility
 
 This dual-format approach enables Asset Hub to maintain compatibility with Ethereum tooling while fully integrating with the Polkadot ecosystem.
-
-!!! smartcontract "PolkaVM Alpha Release"
-    PolkaVM smart contracts with Ethereum compatibility are in **early-stage development and may be unstable or incomplete**.
 
 ## Address Types and Mappings
 
@@ -24110,12 +24110,12 @@ description: Explore how Asset Hub smart contracts handle blocks, transactions, 
 
 # Blocks, Transactions, and Fees
 
+!!! smartcontract "PolkaVM Alpha Release"
+    PolkaVM smart contracts with Ethereum compatibility are in **early-stage development and may be unstable or incomplete**.
+
 ## Introduction
 
 Asset Hub smart contracts operate within the Polkadot ecosystem using the [`pallet_revive`](https://paritytech.github.io/polkadot-sdk/master/pallet_revive/){target=\_blank} implementation, which provides EVM compatibility. While many aspects of blocks and transactions are inherited from the underlying parachain architecture, there are specific considerations and mechanisms unique to smart contract operations on Asset Hub.
-
-!!! smartcontract "PolkaVM Alpha Release"
-    PolkaVM smart contracts with Ethereum compatibility are in **early-stage development and may be unstable or incomplete**.
 
 ## Smart Contract Blocks
 
@@ -24216,12 +24216,12 @@ description: Compares EVM and PolkaVM, highlighting key architectural difference
 
 # EVM vs PolkaVM
 
+!!! smartcontract "PolkaVM Alpha Release"
+    PolkaVM smart contracts with Ethereum compatibility are in **early-stage development and may be unstable or incomplete**.
+
 ## Introduction
 
 While [PolkaVM](/polkadot-protocol/smart-contract-basics/polkavm-design/){target=\_blank} strives for maximum Ethereum compatibility, several fundamental design decisions create necessary divergences from the [EVM](https://ethereum.org/en/developers/docs/evm/){target=\_blank}. These differences represent trade-offs that enhance performance and resource management while maintaining accessibility for Solidity developers.
-
-!!! smartcontract "PolkaVM Alpha Release"
-    PolkaVM smart contracts with Ethereum compatibility are in **early-stage development and may be unstable or incomplete**.
 
 ## Core Virtual Machine Architecture
 
@@ -24482,12 +24482,12 @@ template: index-page.html
 
 # Smart Contract Basics
 
+!!! smartcontract "PolkaVM Alpha Release"
+    PolkaVM smart contracts with Ethereum compatibility are in **early-stage development and may be unstable or incomplete**.
+
 Gain a deep understanding of smart contracts on Polkadot, from execution environments to transaction mechanics.
 
 This section covers the essential components of the ecosystem.
-
-!!! smartcontract "PolkaVM Alpha Release"
-    PolkaVM smart contracts with Ethereum compatibility are in **early-stage development and may be unstable or incomplete**.
 
 ## Key Topics
 
@@ -24513,14 +24513,14 @@ description: Explore the available networks for smart contract development on Po
 
 # Networks
 
+!!! smartcontract "PolkaVM Alpha Release"
+    PolkaVM smart contracts with Ethereum compatibility are in **early-stage development and may be unstable or incomplete**.
+
 ## Introduction
 
 Polkadot Hub provides smart contract functionality across multiple networks to facilitate smart contract development in the Polkadot ecosystem. Whether you're testing new contracts or deploying to production, Polkadot Hub offers several network environments tailored for each stage of development. Developers can thoroughly test, iterate, and validate their smart contracts from local testing environments to production networks like Polkadot Hub.
 
 This guide will introduce you to the current and upcoming networks available for smart contract development and explain how they fit into the development workflow.
-
-!!! smartcontract "PolkaVM Alpha Release"
-    PolkaVM smart contracts with Ethereum compatibility are in **early-stage development and may be unstable or incomplete**.
 
 ## Network Overview
 
@@ -24601,6 +24601,9 @@ description: Learn how developers can build smart contracts on Polkadot by lever
 
 # An Overview of the Smart Contract Landscape on Polkadot
 
+!!! smartcontract "PolkaVM Alpha Release"
+    PolkaVM smart contracts with Ethereum compatibility are in **early-stage development and may be unstable or incomplete**.
+
 ## Introduction
 
 Polkadot is designed to support an ecosystem of parachains, rather than hosting smart contracts directly. Developers aiming to build smart contract applications on Polkadot rely on parachains within the ecosystem that provide smart contract functionality.
@@ -24610,9 +24613,6 @@ This guide outlines the primary approaches to developing smart contracts in the 
 - **PolkaVM-compatible contracts** - which support Solidity and any language that compiles down to RISC-V while maintaining compatibility with Ethereum based tools
 - **EVM-compatible contracts** - which support languages like [Solidity](https://soliditylang.org/){target=\_blank} and [Vyper](https://vyperlang.org/){target=\_blank}, offering compatibility with popular Ethereum tools and wallets
 - **Wasm-based smart contracts** - using [ink!](https://use.ink/){target=\_blank}, a Rust-based embedded domain-specific language (eDSL), enabling developers to leverage Rust’s safety and tooling
-
-!!! smartcontract "PolkaVM Alpha Release"
-    PolkaVM smart contracts with Ethereum compatibility are in **early-stage development and may be unstable or incomplete**.
 
 You'll explore the key differences between these development paths, along with considerations for parachain developers integrating smart contract functionality.
 
@@ -24753,12 +24753,12 @@ description: Discover PolkaVM, a high-performance smart contract VM for Polkadot
 
 # PolkaVM Design
 
+!!! smartcontract "PolkaVM Alpha Release"
+    PolkaVM smart contracts with Ethereum compatibility are in **early-stage development and may be unstable or incomplete**.
+
 ## Introduction
 
 The Asset Hub smart contracts solution includes multiple components to ensure Ethereum compatibility and high performance. Its architecture allows for integration with current Ethereum tools, while its innovative virtual machine design enhances performance characteristics.
-
-!!! smartcontract "PolkaVM Alpha Release"
-    PolkaVM smart contracts with Ethereum compatibility are in **early-stage development and may be unstable or incomplete**.
 
 ## PolkaVM
 
@@ -35122,14 +35122,14 @@ description: Learn how to deploy and test Uniswap V2 on Polkadot Hub using Hardh
 
 # Deploy Uniswap V2
 
+!!! smartcontract "PolkaVM Alpha Release"
+    PolkaVM smart contracts with Ethereum compatibility are in **early-stage development and may be unstable or incomplete**.
+
 ## Introduction
 
 Decentralized exchanges (DEXs) are a cornerstone of the DeFi ecosystem, allowing for permissionless token swaps without intermediaries. [Uniswap V2](https://docs.uniswap.org/contracts/v2/overview){target=\_blank}, with its Automated Market Maker (AMM) model, revolutionized DEXs by enabling liquidity provision for any ERC-20 token pair.
 
 This tutorial will guide you through how Uniswap V2 works so you can take advantage of it in your projects deployed to Polkadot Hub. By understanding these contracts, you'll gain hands-on experience with one of the most influential DeFi protocols and understand how it functions across blockchain ecosystems.
-
-!!! smartcontract "PolkaVM Alpha Release"
-    PolkaVM smart contracts with Ethereum compatibility are in **early-stage development and may be unstable or incomplete**.
 
 ## Prerequisites
 
@@ -35375,10 +35375,10 @@ template: index-page.html
 
 # Demo Applications
 
-This section highlights demo applications that can be deployed to Polkadot Hub. These examples illustrate practical use cases and provide guidance for developers looking to launch and test applications within the Polkadot ecosystem.
-
 !!! smartcontract "PolkaVM Alpha Release"
     PolkaVM smart contracts with Ethereum compatibility are in **early-stage development and may be unstable or incomplete**.
+
+This section highlights demo applications that can be deployed to Polkadot Hub. These examples illustrate practical use cases and provide guidance for developers looking to launch and test applications within the Polkadot ecosystem.
 
 ## In This Section
 
@@ -35395,14 +35395,14 @@ tutorial_badge: Beginner
 
 # Deploy an ERC-20 to Polkadot Hub
 
+!!! smartcontract "PolkaVM Alpha Release"
+    PolkaVM smart contracts with Ethereum compatibility are in **early-stage development and may be unstable or incomplete**.
+
 ## Introduction
 
 [ERC-20](https://eips.ethereum.org/EIPS/eip-20){target=\_blank} tokens are fungible tokens commonly used for creating cryptocurrencies, governance tokens, and staking mechanisms. Polkadot Hub enables easy token deployment with Ethereum-compatible smart contracts via PolkaVM.
 
 This tutorial covers deploying an ERC-20 contract on the Polkadot Hub TestNet using [Polkadot Remix IDE](https://remix.polkadot.io){target=\_blank}, a web-based development tool. [OpenZeppelin's ERC-20 contracts]({{ dependencies.repositories.open_zeppelin_contracts.repository_url}}/tree/{{ dependencies.repositories.open_zeppelin_contracts.version}}/contracts/token/ERC20){target=\_blank} are used for security and compliance.
-
-!!! smartcontract "PolkaVM Alpha Release"
-    PolkaVM smart contracts with Ethereum compatibility are in **early-stage development and may be unstable or incomplete**.
 
 ## Prerequisites
 
@@ -35561,14 +35561,14 @@ tutorial_badge: Beginner
 
 # Deploy an NFT to Polkadot Hub
 
+!!! smartcontract "PolkaVM Alpha Release"
+    PolkaVM smart contracts with Ethereum compatibility are in **early-stage development and may be unstable or incomplete**.
+
 ## Introduction
 
 Non-Fungible Tokens (NFTs) represent unique digital assets commonly used for digital art, collectibles, gaming, and identity verification. Polkadot Hub supports Ethereum-compatible smart contracts through PolkaVM, enabling straightforward NFT deployment.
 
 This tutorial guides you through deploying an [ERC-721](https://eips.ethereum.org/EIPS/eip-721){target=\_blank} NFT contract on the Polkadot Hub TestNet using the [Polkadot Remix IDE](https://remix.polkadot.io){target=\_blank}, a web-based development environment. To ensure security and standard compliance, it uses [OpenZeppelin's NFT contracts]({{ dependencies.repositories.open_zeppelin_contracts.repository_url}}/tree/{{ dependencies.repositories.open_zeppelin_contracts.version}}){target=\_blank} implementation.
-
-!!! smartcontract "PolkaVM Alpha Release"
-    PolkaVM smart contracts with Ethereum compatibility are in **early-stage development and may be unstable or incomplete**.
 
 ## Prerequisites
 
@@ -35726,10 +35726,10 @@ template: index-page.html
 
 # Smart Contracts Tutorials
 
-Get started with deploying and interacting with smart contracts on Polkadot through practical, hands-on tutorials. Whether you're a beginner or an experienced developer, these guides will help you navigate the entire development lifecycle.
-
 !!! smartcontract "PolkaVM Alpha Release"
     PolkaVM smart contracts with Ethereum compatibility are in **early-stage development and may be unstable or incomplete**.
+
+Get started with deploying and interacting with smart contracts on Polkadot through practical, hands-on tutorials. Whether you're a beginner or an experienced developer, these guides will help you navigate the entire development lifecycle.
 
 ## What to Expect from These Tutorials
 
@@ -35762,14 +35762,14 @@ tutorial_badge: Beginner
 
 # Create a Smart Contract
 
+!!! smartcontract "PolkaVM Alpha Release"
+    PolkaVM smart contracts with Ethereum compatibility are in **early-stage development and may be unstable or incomplete**.
+
 ## Introduction
 
 Creating [smart contracts](/develop/smart-contracts/overview/){target=\_blank} is fundamental to blockchain development. While many frameworks and tools are available, understanding how to write a contract from scratch with just a text editor is essential knowledge.
 
 This tutorial will guide you through creating a basic smart contract that can be used with other tutorials for deployment and integration on Polkadot Hub. To understand how smart contracts work in Polkadot Hub, check the [Smart Contract Basics](/polkadot-protocol/smart-contract-basics/){target=\_blank} guide for more information.
-
-!!! smartcontract "PolkaVM Alpha Release"
-    PolkaVM smart contracts with Ethereum compatibility are in **early-stage development and may be unstable or incomplete**.
 
 ## Prerequisites
 
@@ -35958,14 +35958,14 @@ tutorial_badge:  Intermediate
 
 # Create a DApp With Ethers.js
 
+!!! smartcontract "PolkaVM Alpha Release"
+    PolkaVM smart contracts with Ethereum compatibility are in **early-stage development and may be unstable or incomplete**.
+
 ## Introduction
 
 Decentralized applications (dApps) have become a cornerstone of the Web3 ecosystem, allowing developers to create applications that interact directly with blockchain networks. Polkadot Hub, a blockchain that supports smart contract functionality, provides an excellent platform for deploying and interacting with dApps.
 
 In this tutorial, you'll build a complete dApp that interacts with a smart contract deployed on the Polkadot Hub TestNet. It will use [Ethers.js](/develop/smart-contracts/libraries/ethers-js){target=\_blank} to interact with the blockchain and [Next.js](https://nextjs.org/){target=\_blank} as the frontend framework. By the end of this tutorial, you'll have a functional dApp that allows users to connect their wallets, read data from the blockchain, and execute transactions.
-
-!!! smartcontract "PolkaVM Alpha Release"
-    PolkaVM smart contracts with Ethereum compatibility are in **early-stage development and may be unstable or incomplete**.
 
 ## Prerequisites
 
@@ -36599,12 +36599,12 @@ tutorial_badge:  Intermediate
 
 # Create a DApp with Viem
 
+!!! smartcontract "PolkaVM Alpha Release"
+    PolkaVM smart contracts with Ethereum compatibility are in **early-stage development and may be unstable or incomplete**.
+
 Decentralized applications (dApps) are a key component of the Web3 ecosystem, enabling developers to build applications that communicate directly with blockchain networks. Polkadot Hub, a blockchain with smart contract support, serves as a robust platform for deploying and interacting with dApps.
 
 This tutorial will guide you through building a fully functional dApp that interacts with a smart contract on Polkadot Hub. You'll use [Viem](https://viem.sh/){target=\_blank} for blockchain interactions and [Next.js](https://nextjs.org/){target=\_blank} for the frontend. By the end, you'll have a dApp that lets users connect their wallets, retrieve on-chain data, and execute transactions.
-
-!!! smartcontract "PolkaVM Alpha Release"
-    PolkaVM smart contracts with Ethereum compatibility are in **early-stage development and may be unstable or incomplete**.
 
 ## Prerequisites
 
@@ -37421,10 +37421,10 @@ template: index-page.html
 
 # Launch Your First Smart Contract Project
 
-Kickstart your journey into smart contract development with this comprehensive guide. Learn how to create, deploy, and interact with contracts on Polkadot. Whether you're new to smart contracts or refining your skills, these guides provide a structured approach to launching your project.
-
 !!! smartcontract "PolkaVM Alpha Release"
     PolkaVM smart contracts with Ethereum compatibility are in **early-stage development and may be unstable or incomplete**.
+
+Kickstart your journey into smart contract development with this comprehensive guide. Learn how to create, deploy, and interact with contracts on Polkadot. Whether you're new to smart contracts or refining your skills, these guides provide a structured approach to launching your project.
 
 Start building your first smart contract today:
 
@@ -37456,12 +37456,12 @@ tutorial_badge: Intermediate
 
 # Test and Deploy with Hardhat
 
+!!! smartcontract "PolkaVM Alpha Release"
+    PolkaVM smart contracts with Ethereum compatibility are in **early-stage development and may be unstable or incomplete**.
+
 ## Introduction
 
 After creating a smart contract, the next crucial steps are testing and deployment. Proper testing ensures your contract behaves as expected, while deployment makes your contract available on the blockchain. This tutorial will guide you through using Hardhat, a popular development environment, to test and deploy the `Storage.sol` contract you created in the [Create a Smart Contract](/tutorials/smart-contracts/launch-your-first-project/create-contracts/){target=\_blank} tutorial. For more information about Hardhat usage, check the [Hardhat guide](/develop/smart-contracts/dev-environments/hardhat/){target=\_blank}.
-
-!!! smartcontract "PolkaVM Alpha Release"
-    PolkaVM smart contracts with Ethereum compatibility are in **early-stage development and may be unstable or incomplete**.
 
 ## Prerequisites
 

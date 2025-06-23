@@ -5,6 +5,8 @@ description: Learn how to interact with Polkadot Hub using Web3.js, deploying So
 
 # Web3.js
 
+--8<-- 'text/smart-contracts/polkaVM-warning.md'
+
 !!! warning
     Web3.js has been [sunset](https://blog.chainsafe.io/web3-js-sunset/){target=\_blank}. You can find guides on using [Ethers.js](/develop/smart-contracts/libraries/ethers-js){target=\_blank} and [viem](/develop/smart-contracts/libraries/viem){target=\_blank} in the [Libraries](/develop/smart-contracts/libraries/){target=\_blank} section. 
 
@@ -13,8 +15,6 @@ description: Learn how to interact with Polkadot Hub using Web3.js, deploying So
 Interacting with blockchains typically requires an interface between your application and the network. [Web3.js](https://web3js.readthedocs.io/){target=\_blank} offers this interface through a comprehensive collection of libraries, facilitating seamless interaction with the nodes using HTTP or WebSocket protocols. This guide illustrates how to utilize Web3.js specifically for interactions with Polkadot Hub.
 
 This guide is intended for developers who are familiar with JavaScript and want to interact with the Polkadot Hub using Web3.js.
-
---8<-- 'text/smart-contracts/polkaVM-warning.md'
 
 ## Prerequisites
 

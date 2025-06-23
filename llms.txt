@@ -7783,22 +7783,15 @@ Follow this step-by-step process to develop and deploy smart contracts in the Po
 
     [:octicons-arrow-right-24: Reference](https://use.ink/){target=\_blank}
 
-<div class="subsection-wrapper">
-  <div class="card">
-    <a href="https://use.ink/" target="_blank"> 
-      <h2 class="title">View the Official ink! Documentation</h2>
-      <hr>
-      <p class="description">Learn everything you need to know about developing smart contracts with ink!.</p>
-    </a>
-  </div>
-  <!-- This content is temporarily hidden and has been commented out to ensure it is preserved. -->
-  <!-- <div class="card">
+<!-- This content is temporarily hidden and has been commented out to ensure it is preserved. -->
+<!--<div class="subsection-wrapper">
+   <div class="card">
     <a href="https://contracts.polkadot.io/" target="_blank"> 
       <h2 class="title">View the Official Asset Hub Contracts Documentation</h2>
       <p class="description">Learn everything you need about developing smart contracts on Asset Hub using the PolkaVM.</p>
     </a>
-  </div> -->
-</div>
+  </div> 
+</div> -->
 --- END CONTENT ---
 
 Doc-Content: https://docs.polkadot.com/develop/smart-contracts/json-rpc-apis/

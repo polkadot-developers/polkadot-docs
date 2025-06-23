@@ -15507,11 +15507,13 @@ npx @acala-network/chopsticks xcm \
   -p acala
 ```
 
-After starting the forked chains using your custom config, you should see log output and available RPC endpoints like this:
+This command launches the relay chain and parachains locally, with full runtime execution logging enabled. Once the chains are running, you should see output indicating that the following RPC endpoints are available:
 
 * Polkadot Asset Hub RPC on http://localhost:8000
 * Acala RPC on http://localhost:8001
 * Polkadot RPC on http://localhost:8002
+
+You’ll also see runtime logs such as:
 
 ```console
         chopsticks::executor  TRACE: [0] Calling Metadata_metadata
@@ -15536,7 +15538,7 @@ After starting the forked chains using your custom config, you should see log ou
     app: "chopsticks"
 ```
 
-This will launch the relay chain and parachains locally, with full logging enabled for runtime execution. For other chains, follow similar steps using the corresponding runtime to enable logging support.
+For other chains, follow similar steps using the corresponding runtime to enable logging support.
 
 ### 3. Replay the XCM
 

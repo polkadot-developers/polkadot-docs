@@ -5,6 +5,8 @@ description: Bridges Ethereum's 20-byte addresses with Polkadot's 32-byte accoun
 
 # Accounts on Asset Hub Smart Contracts
 
+--8<-- 'text/smart-contracts/polkaVM-warning.md'
+
 ## Introduction
 
 Asset Hub natively uses Polkadot's 32-byte account system but provides interoperability with Ethereum's 20-byte addresses through an automatic conversion system. When interacting with smart contracts:

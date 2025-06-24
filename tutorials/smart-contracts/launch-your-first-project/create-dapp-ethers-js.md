@@ -6,6 +6,8 @@ tutorial_badge:  Intermediate
 
 # Create a DApp With Ethers.js
 
+--8<-- 'text/smart-contracts/polkaVM-warning.md'
+
 ## Introduction
 
 Decentralized applications (dApps) have become a cornerstone of the Web3 ecosystem, allowing developers to create applications that interact directly with blockchain networks. Polkadot Hub, a blockchain that supports smart contract functionality, provides an excellent platform for deploying and interacting with dApps.
@@ -183,17 +185,3 @@ To get started right away with a working example, you can clone the repository a
 git clone https://github.com/polkadot-developers/polkavm-storage-contract-dapps.git -b v0.0.2
 cd polkavm-storage-contract-dapps/ethers-dapp
 ```
-
-## Where to Go Next
-
-<div class="grid cards" markdown>
-
--   <span class="badge tutorial">Tutorial</span> __Create a dApp with Wagmi__
-
-    ---
-
-    Learn how to build a decentralized application by using the Wagmi framework.
-
-    [:octicons-arrow-right-24: Get Started](/tutorials/smart-contracts/launch-your-first-project/create-dapp-wagmi/)
-
-</div>

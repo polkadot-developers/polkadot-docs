@@ -5,6 +5,8 @@ description: Learn how to create, compile, test, and deploy smart contracts on P
 
 # Hardhat
 
+--8<-- 'text/smart-contracts/polkaVM-warning.md'
+
 <div class="grid cards" markdown>
 -   :octicons-code-16:{ .lg .middle } __Test and Deploy with Hardhat__
 

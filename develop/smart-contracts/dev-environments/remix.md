@@ -5,6 +5,8 @@ description: Explore the smart contract development and deployment process on As
 
 # Remix IDE
 
+--8<-- 'text/smart-contracts/polkaVM-warning.md'
+
 <div class="grid cards" markdown>
 -   :octicons-code-16:{ .lg .middle } __Deploy NFTs Using Remix IDE__
 
@@ -27,7 +29,6 @@ description: Explore the smart contract development and deployment process on As
 
 !!! warning
     The Polkadot Remix IDE's contract compilation functionality is currently limited to Google Chrome. Alternative browsers are not recommended for this task.
-
 
 ## Overview
 

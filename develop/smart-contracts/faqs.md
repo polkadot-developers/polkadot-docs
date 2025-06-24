@@ -5,6 +5,8 @@ description: Find answers to common questions about smart contract development, 
 
 # Smart Contracts FAQs
 
+--8<-- 'text/smart-contracts/polkaVM-warning.md'
+
 ## General Questions
 
 ### What are the different types of smart contracts I can build on Polkadot?
@@ -33,7 +35,7 @@ Choose a parachain if:
 
 ### What's the difference between Polkadot Hub smart contracts and other EVM chains?
 
-Polkadot Hub uses [PolkaVM](/polkadot-protocol/smart-contract-basics/polkavm-design){target=\_blank} instead of traditional EVM:
+Polkadot Hub contracts run on [PolkaVM](/polkadot-protocol/smart-contract-basics/polkavm-design){target=\_blank} instead of EVM:
 
 - **Performance**: RISC-V register-based architecture vs. stack-based EVM.
 - **Resource metering**: Three dimensions (`ref_time`, `proof_size`, `storage_deposit`) vs. single gas metric.
@@ -89,7 +91,7 @@ PolkaVM deployment differs from EVM:
 - _Two-step process_: Upload code, then instantiate contracts.
 - _Runtime code generation_ is not supported.
 
-### What Solidity features are not supported?
+### Which Solidity features are not supported?
 
 Limited support for:
 
@@ -141,6 +143,6 @@ PolkaVM uses dynamic gas scaling:
 - Don't hardcode gas values—use flexible calculations.
 - Cross-contract calls ignore gas limits—implement proper access controls.
 
-### I deployed a contract with metamask, and got a `code size` error - why?
+### I deployed a contract with MetaMask, and got a `code size` error - why?
 
 The latest MetaMask update affects the extension’s ability to deploy large contracts. Check the [Wallets](/develop/smart-contracts/wallets){target=\_blank} page for more details.

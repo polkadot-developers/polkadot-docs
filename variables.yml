@@ -70,9 +70,9 @@ dependencies:
     hardhat_revive_node: 
       name: '@hardhat-revive-node'
       version: 0.0.6
-    revive:
-      name: '@revive'
-      version: 0.0.8
+    resolc:
+      name: '@resolc'
+      version: 0.2.0
     web3_js:
       name: '@web3js'
       version: 4.16.0

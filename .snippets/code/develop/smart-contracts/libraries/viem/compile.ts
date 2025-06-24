@@ -1,4 +1,4 @@
-import { compile } from '@parity/revive';
+import { compile } from '@parity/resolc';
 import { readFileSync, writeFileSync } from 'fs';
 import { basename, join } from 'path';
 

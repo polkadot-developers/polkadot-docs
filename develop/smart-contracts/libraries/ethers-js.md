@@ -107,13 +107,13 @@ The `revive` compiler transforms Solidity smart contracts into [PolkaVM](/develo
 
 ### Install the Revive Library
 
-The [`@parity/revive`](https://www.npmjs.com/package/@parity/revive){target=\_blank} library will compile your Solidity code for deployment on Polkadot Hub. Run the following command in your terminal to install the library:
+The [`@parity/resolc`](https://www.npmjs.com/package/@parity/resolc){target=\_blank} library will compile your Solidity code for deployment on Polkadot Hub. Run the following command in your terminal to install the library:
 
 ```bash
-npm install --save-dev @parity/revive 
+npm install --save-dev @parity/resolc 
 ```
 
-This guide uses `@parity/revive` version `{{ dependencies.javascript_packages.revive.version }}`.
+This guide uses `@parity/resolc` version `{{ dependencies.javascript_packages.resolc.version }}`.
 
 ### Sample Storage Smart Contract
 

@@ -1,4 +1,4 @@
-const { compile } = require('@parity/revive');
+const { compile } = require('@parity/resolc');
 const { readFileSync, writeFileSync } = require('fs');
 const { basename, join } = require('path');
 

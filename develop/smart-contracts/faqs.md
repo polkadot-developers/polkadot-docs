@@ -7,6 +7,9 @@ description: Find answers to common questions about smart contract development, 
 
 --8<-- 'text/smart-contracts/polkaVM-warning.md'
 
+!!! note
+    For a list of known incompatibilities, please refer to the ["Solidity and Yul IR transaltion incompatibilities"](/polkadot-protocol/smart-contract-basics/evm-vs-polkavm/#solidity-and-yul-ir-translation-incompatibilities){target=\_blank} section.
+
 ## General Questions
 
 ### What are the different types of smart contracts I can build on Polkadot?
@@ -117,6 +120,7 @@ How it's handled:
 - _New account transfers_ automatically include ED with transaction fees.
 - _Contract-to-contract transfers_ draw ED from transaction signer, not sending contract.
 
+
 ## Migration and Compatibility
 
 ### Can I migrate my existing Ethereum contracts?
@@ -146,3 +150,7 @@ PolkaVM uses dynamic gas scaling:
 ### I deployed a contract with metamask, and got a `code size` error - why?
 
 The latest MetaMask update affects the extension’s ability to deploy large contracts. Check the [Wallets](/develop/smart-contracts/wallets){target=\_blank} page for more details.
+
+### I found a bug, where can I log it?
+
+Please log any bugs in the [`contracts-issues`](https://github.com/paritytech/contract-issues/issues){target=\_blank} repository so developers are aware of them and can address them.

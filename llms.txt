@@ -7621,7 +7621,7 @@ description: Find answers to common questions about smart contract development, 
     PolkaVM smart contracts with Ethereum compatibility are in **early-stage development and may be unstable or incomplete**.
 
 !!! note
-    For a list of known incompatibilities, please refer to the ["Solidity and Yul IR transaltion incompatibilities"](/polkadot-protocol/smart-contract-basics/evm-vs-polkavm/#solidity-and-yul-ir-translation-incompatibilities){target=\_blank} section.
+    For a list of known incompatibilities, please refer to the [Solidity and Yul IR transaltion incompatibilities](/polkadot-protocol/smart-contract-basics/evm-vs-polkavm/#solidity-and-yul-ir-translation-incompatibilities){target=\_blank} section.
 
 ## General Questions
 
@@ -7732,7 +7732,6 @@ How it's handled:
 - _Balance queries_ via Ethereum RPC automatically deduct the ED.
 - _New account transfers_ automatically include ED with transaction fees.
 - _Contract-to-contract transfers_ draw ED from transaction signer, not sending contract.
-
 
 ## Migration and Compatibility
 

@@ -120,7 +120,6 @@ How it's handled:
 - _New account transfers_ automatically include ED with transaction fees.
 - _Contract-to-contract transfers_ draw ED from transaction signer, not sending contract.
 
-
 ## Migration and Compatibility
 
 ### Can I migrate my existing Ethereum contracts?

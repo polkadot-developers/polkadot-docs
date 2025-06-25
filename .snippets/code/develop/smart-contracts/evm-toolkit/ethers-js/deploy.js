@@ -1,3 +1,4 @@
+// Deploy an EVM-compatible smart contract using ethers.js
 const { writeFileSync, existsSync, readFileSync } = require('fs');
 const { join } = require('path');
 const { ethers, JsonRpcProvider } = require('ethers');

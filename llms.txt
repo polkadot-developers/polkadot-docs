@@ -8913,7 +8913,7 @@ const compileContract = async (solidityFilePath, outputDir) => {
         const bytecodePath = join(outputDir, `${name}.polkavm`);
         writeFileSync(
           bytecodePath,
-          Buffer.from(contract.evm.bytecode.object, 'hex')
+          Buffer.from(contract.evm.bytecode.object, 'hex'),
         );
         console.log(`Bytecode saved to ${bytecodePath}`);
       }
@@ -8923,8 +8923,8 @@ const compileContract = async (solidityFilePath, outputDir) => {
   }
 };
 
-const solidityFilePath = './Storage.sol';
-const outputDir = '.';
+const solidityFilePath = join(__dirname, '../contracts/Storage.sol');
+const outputDir = join(__dirname, '../contracts');
 
 compileContract(solidityFilePath, outputDir);
 ```
@@ -8951,7 +8951,8 @@ You can create a `deploy.js` script in the root of your project to achieve this.
 1. Set up the required imports and utilities:
 
     ```js title="scripts/deploy.js"
-    const { join } = require('path');
+    const { writeFileSync, existsSync, readFileSync } = require('fs');
+const { join } = require('path');
 const { ethers, JsonRpcProvider } = require('ethers');
 
 const codegenDir = join(__dirname);
@@ -8969,7 +8970,7 @@ const createProvider = (rpcUrl, chainId, chainName) => {
   return provider;
 };
     ```
- 
+r2 
 3. Set up functions to read contract artifacts:
 
     ```js title="scripts/deploy.js"
@@ -9064,7 +9065,8 @@ deployContract('Storage', mnemonic, providerConfig);
 ??? code "View complete script"
 
     ```js title="scripts/deploy.js"
-    const { writeFileSync, existsSync, readFileSync } = require('fs');
+    // Deploy an EVM-compatible smart contract using ethers.js
+const { writeFileSync, existsSync, readFileSync } = require('fs');
 const { join } = require('path');
 const { ethers, JsonRpcProvider } = require('ethers');
 

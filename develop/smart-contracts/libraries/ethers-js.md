@@ -153,31 +153,31 @@ You can create a `deploy.js` script in the root of your project to achieve this.
 1. Set up the required imports and utilities:
 
     ```js title="scripts/deploy.js"
-    --8<-- 'code/develop/smart-contracts/evm-toolkit/ethers-js/deploy.js:1:5'
+    --8<-- 'code/develop/smart-contracts/evm-toolkit/ethers-js/deploy.js:1:6'
     ```
 
 2. Create a provider to connect to Polkadot Hub:
 
     ```js title="scripts/deploy.js"
-    --8<-- 'code/develop/smart-contracts/evm-toolkit/ethers-js/deploy.js:6:14'
+    --8<-- 'code/develop/smart-contracts/evm-toolkit/ethers-js/deploy.js:7:15'
     ```
- 
+r2 
 3. Set up functions to read contract artifacts:
 
     ```js title="scripts/deploy.js"
-    --8<-- 'code/develop/smart-contracts/evm-toolkit/ethers-js/deploy.js:16:44'
+    --8<-- 'code/develop/smart-contracts/evm-toolkit/ethers-js/deploy.js:17:45'
     ```
 
 4. Create the main deployment function:
 
     ```js title="scripts/deploy.js"
-    --8<-- 'code/develop/smart-contracts/evm-toolkit/ethers-js/deploy.js:46:81'
+    --8<-- 'code/develop/smart-contracts/evm-toolkit/ethers-js/deploy.js:47:82'
     ```
 
 5. Configure and execute the deployment:
 
     ```js title="scripts/deploy.js"
-    --8<-- 'code/develop/smart-contracts/evm-toolkit/ethers-js/deploy.js:83:92'
+    --8<-- 'code/develop/smart-contracts/evm-toolkit/ethers-js/deploy.js:84:92'
     ```
 
     !!! note
@@ -188,7 +188,7 @@ You can create a `deploy.js` script in the root of your project to achieve this.
 ??? code "View complete script"
 
     ```js title="scripts/deploy.js"
-    --8<-- 'code/develop/smart-contracts/evm-toolkit/ethers-js/deploy.js'
+    --8<-- 'code/develop/smart-contracts/evm-toolkit/ethers-js/deploy.js:1'
     ```
 
 To run the script, execute the following command:

@@ -6970,7 +6970,9 @@ description: Learn to install, configure, and use foundry-polkadot for smart con
 !!! warning
     Consider that features like Anvil (Foundry's local blockchain) and `forge test` (for running Solidity tests) are not yet supported in `foundry-polkadot`.
 
-## Introduction
+## Overview
+
+Foundry is a fast, modular, and extensible toolkit for Ethereum application development, written in Rust. It provides a suite of command-line tools, such as `forge` for compiling, testing, and deploying smart contracts, and `cast` for interacting with blockchains. 
 
 [`foundry-polkadot`](https://github.com/paritytech/foundry-polkadot/){target=\_blank} is an adaptation specifically engineered for the Polkadot Hub, it's tailored for developers already familiar with Foundry who are seeking to leverage its capabilities within the Polkadot ecosystem. Additionally, this guide offers detailed information on the `forge` and `cast` commands supported within `foundry-polkadot`, complete with simple, runnable examples for quick reference.
 

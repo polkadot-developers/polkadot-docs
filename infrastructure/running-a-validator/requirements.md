@@ -28,7 +28,6 @@ Polkadot validators rely on high-performance hardware to process blocks efficien
 
     - x86-64 compatible
     - Eight physical cores @ 3.4 GHz
-        - Per [Referenda #1051](https://polkadot.subsquare.io/referenda/1051){target=\_blank}, this will be a hard requirement as of January 2025
     - Processor:
         - Intel - Ice Lake or newer (Xeon or Core series)
         - AMD - Zen3 or newer (EPYC or Ryzen)
@@ -39,7 +38,7 @@ Polkadot validators rely on high-performance hardware to process blocks efficien
 
 - **Storage**:
 
-    - NVMe SSD - at least 1 TB for blockchain data (prioritize latency rather than throughput)
+    - NVMe SSD - at least 2 TB for blockchain data recommended (prioritize latency rather than throughput)
     - Storage requirements will increase as the chain grows. For current estimates, see the [current chain snapshot](https://stakeworld.io/docs/dbsize){target=\_blank}
 
 - **Memory**:
@@ -53,6 +52,8 @@ Polkadot validators rely on high-performance hardware to process blocks efficien
 ## VPS Provider List
 
 When selecting a VPS provider for your validator node, prioritize reliability, consistent performance, and adherence to the specific hardware requirements set for Polkadot validators. The following server types have been tested and showed acceptable performance in benchmark tests. However, this is not an endorsement and actual performance may vary depending on your workload and VPS provider.
+
+Be aware that some providers may overprovision the underlying host and use shared storage such as NVMe over TCP which appears as local storage. These setups might result in poor or inconsistent performance. Benchmark your infrastructure before deploying.
 
 - [**Google Cloud Platform (GCP)**](https://cloud.google.com/){target=\_blank} - `c2` and `c2d` machine families offer high-performance configurations suitable for validators
 - [**Amazon Web Services (AWS)**](https://aws.amazon.com/){target=\_blank} - `c6id` machine family provides strong performance, particularly for I/O-intensive workloads

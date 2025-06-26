@@ -11,3 +11,5 @@ nav:
   - 'JSON-RPC APIs': json-rpc-apis.md
   - precompiles
   - 'FAQs': faqs.md
+  - 'Tutorials': '/tutorials/smart-contracts/'
+  - 'Tutorials': smart-contract-guides

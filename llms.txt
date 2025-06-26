@@ -15415,7 +15415,7 @@ You will need:
 * The block number or hash at which the XCM was sent
 * Optionally, a Chopsticks config file to simplify repeated setups
 
-If you have not forked a chain before, see the [Fork a Chain with Chopsticks guide](/tutorials/polkadot-sdk/testing/fork-live-chains/).
+If you have not forked a chain before, see the [Fork a Chain with Chopsticks guide](/tutorials/polkadot-sdk/testing/fork-live-chains/) or [Fork a Network Locally using Chopsticks](https://wiki.polkadot.network/learn/learn-guides-test-opengov-proposals/#fork-a-network-locally-using-chopsticks).
 
 ## Step-by-Step Guide
 

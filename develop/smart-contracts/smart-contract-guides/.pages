@@ -1,0 +1,12 @@
+title: Smart Contract Tutorials
+nav:
+  - index.md 
+  - 'Deploy an NFT': '/tutorials/smart-contracts/deploy-nft/'
+  - 'Deploy an ERC‑20': '/tutorials/smart-contracts/deploy-erc20/'
+  - 'Launch First Project': '/tutorials/smart-contracts/launch-your-first-project/'
+  - 'Create a Smart Contract': '/tutorials/smart-contracts/launch-your-first-project/create-contracts/'
+  - 'Deploy with Hardhat': '/tutorials/smart-contracts/launch-your-first-project/test-and-deploy-with-hardhat/'
+  - 'DApp with Viem': '/tutorials/smart-contracts/launch-your-first-project/create-dapp-viem/'
+  - 'DApp with Ethers.js': '/tutorials/smart-contracts/launch-your-first-project/create-dapp-ethers-js/'
+  - 'Demo Apps': '/tutorials/smart-contracts/demo-aplications/'
+  - 'Deploy Uniswap V2': '/tutorials/smart-contracts/demo-aplications/deploying-uniswap-v2/'

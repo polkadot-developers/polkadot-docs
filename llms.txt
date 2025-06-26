@@ -8991,23 +8991,26 @@ r2
 // Reads the compiled bytecode for a given contract
 const getByteCode = (contractName) => {
   try {
-    return `0x${readFileSync(
-      join(codegenDir, `${contractName}.polkavm`),
-    ).toString('hex')}`;
+    const bytecodePath = join(
+      codegenDir,
+      '../contracts',
+      `${contractName}.polkavm`,
+    );
+    return `0x${readFileSync(bytecodePath).toString('hex')}`;
   } catch (error) {
     console.error(
       `Could not find bytecode for contract ${contractName}:`,
       error.message,
     );
-    throw error;
-  }
-};
     ```
 
 4. Create the main deployment function:
 
     ```js title="scripts/deploy.js"
-    console.log(`Deploying ${contractName}...`);
+    };
+
+const deployContract = async (contractName, mnemonic, providerConfig) => {
+  console.log(`Deploying ${contractName}...`);
 
   try {
     // Step 1: Set up provider and wallet
@@ -9039,22 +9042,18 @@ const getByteCode = (contractName) => {
     addresses[contractName] = address;
     writeFileSync(addressesFile, JSON.stringify(addresses, null, 2), 'utf8');
   } catch (error) {
-    console.error(`Failed to deploy contract ${contractName}:`, error);
-  }
-};
     ```
 
 5. Configure and execute the deployment:
 
     ```js title="scripts/deploy.js"
-    rpc: 'https://testnet-passet-hub-eth-rpc.polkadot.io',
+    };
+
+const providerConfig = {
+  rpc: 'https://testnet-passet-hub-eth-rpc.polkadot.io',
   chainId: 420420422,
   name: 'polkadot-hub-testnet',
 };
-
-const mnemonic = 'INSERT_MNEMONIC';
-
-deployContract('Storage', mnemonic, providerConfig);
     ```
 
     !!! note
@@ -9099,9 +9098,12 @@ const getAbi = (contractName) => {
 // Reads the compiled bytecode for a given contract
 const getByteCode = (contractName) => {
   try {
-    return `0x${readFileSync(
-      join(codegenDir, `${contractName}.polkavm`),
-    ).toString('hex')}`;
+    const bytecodePath = join(
+      codegenDir,
+      '../contracts',
+      `${contractName}.polkavm`,
+    );
+    return `0x${readFileSync(bytecodePath).toString('hex')}`;
   } catch (error) {
     console.error(
       `Could not find bytecode for contract ${contractName}:`,

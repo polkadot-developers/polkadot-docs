@@ -12,4 +12,3 @@ nav:
   - precompiles
   - 'FAQs': faqs.md
   - 'Tutorials': '/tutorials/smart-contracts/'
-  - 'Tutorials': smart-contract-guides

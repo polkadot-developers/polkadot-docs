@@ -73,7 +73,7 @@ ACALA_BLOCK_NUMBER=8826385
 
 #### b) Enable Logging and Wasm Override
 
-Full execution logs only work if the runtime was compiled with logging enabled. Most live chains are built using the `production` profile, which disables logs. You need to override the Wasm with a `release` build.
+Full execution logs only work if the runtime was compiled with logging enabled. Most live chains are built using the `production` profile, which disables logs. You need to override the Wasm with a `debug` build.
 
 1. **Clone and build the Polkadot Asset Hub runtime**:
 

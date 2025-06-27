@@ -15788,6 +15788,54 @@ Executing XCM: {
 ✅ Process completed, exiting...
 ```
 
+## 5. Dry Run the XCM
+
+To simulate the XCM without actually sending it, you can use the `dry_run_call` method. This lets you check whether the XCM would succeed without modifying any state.
+
+Assuming you have the `tx` transaction from the previous step, you can perform a dry run like this:
+
+```ts
+const XCM_VERSION = 5;
+const origin = Enum("system", Enum("Signed", alice.address));
+const dryRunResult: any = await api.apis.DryRunApi.dry_run_call(origin, tx.decodedCall, XCM_VERSION);
+console.dir(dryRunResult.value, { depth: null });
+```
+
+If the dry run is successful, you will see output indicating the XCM would execute without errors:
+
+```console
+{
+  execution_result: {
+    success: true,
+    value: { ... }
+  },
+  emitted_events: [ ... ],
+  local_xcm: { ... },
+  forwarded_xcms: [ ... ]
+}
+```
+
+If it fails, you will receive detailed error information:
+
+```console
+{
+  execution_result: {
+    type: 'Incomplete',
+    value: {
+      used: { ref_time: 1690000n, proof_size: 0n },
+      error: { type: 'Barrier', value: undefined }
+    }
+  },
+  emitted_events: [],
+  forwarded_xcms: []
+}
+```
+
+More details:
+
+* [Dry Run Call](/develop/interoperability/xcm-runtime-apis/#dry-run-call) to simulate a full extrinsic
+* [Dry Run XCM](/develop/interoperability/xcm-runtime-apis/#dry-run-xcm) to simulate a raw XCM
+
 ## Conclusion
 
 Replaying XCMs with full logging provides fine-grained control and visibility into cross-chain message behaviour. Chopsticks makes this possible in a safe, local environment – empowering developers to:
@@ -15811,6 +15859,13 @@ Replaying XCMs with full logging provides fine-grained control and visibility in
       <h2 class="title">Polkadot XCM Docs</h2>
       <hr>
       <p class="description">Learn how to use XCM effectively.</p>
+    </a>
+  </div>
+  <div class="card">
+    <a href="/develop/interoperability/xcm-runtime-apis/">
+      <h2 class="title">XCM Runtime APIs</h2>
+      <hr>
+      <p class="description">Learn how to use XCM Runtime APIs.</p>
     </a>
   </div>
 </div>

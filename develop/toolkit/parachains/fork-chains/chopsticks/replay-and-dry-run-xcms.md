@@ -1,19 +1,20 @@
 ---
-title: Replay XCMs
-description: Learn how to replay and analyse XCMs using Chopsticks with full logging enabled. Diagnose issues, trace message flow, and debug complex cross-chain interactions.
+title: Replay and Dry Run XCMs
+description: Learn how to replay and dry-run XCMs using Chopsticks with full logging enabled. Diagnose issues, trace message flow, and debug complex cross-chain interactions.
 ---
 
-# Replay XCMs Using Chopsticks
+# Replay and Dry Run XCMs Using Chopsticks
 
 ## Introduction
 
 [Chopsticks](https://github.com/AcalaNetwork/chopsticks) is a tool for forking live Polkadot SDK-based chains in a local environment. If you're new to it, check out the [Get Started](../get-started/) guide.
 
-This tutorial focuses specifically on **replaying XCMs**, a powerful technique for:
+This tutorial focuses on **replaying and dry-running XCMs**, powerful techniques for:
 
 * [Debugging cross-chain message failures](/develop/interoperability/test-and-debug/)
 * Tracing execution across relay chains and parachains
 * Analysing weight usage, error types, and message flow
+* Simulating XCMs safely without committing state changes
 
 ## Prerequisites
 

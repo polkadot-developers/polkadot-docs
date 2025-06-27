@@ -82,7 +82,7 @@ Full execution logs only work if the runtime was compiled with logging enabled. 
 mkdir -p ~/projects && cd ~/projects
 git clone git@github.com:polkadot-fellows/runtimes.git
 cd runtimes
-cargo build --release -p asset-hub-polkadot-runtime
+cargo build -p asset-hub-polkadot-runtime
 ```
 
 2. **Copy the compiled Wasm to your working directory**:

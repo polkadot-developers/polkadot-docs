@@ -15450,16 +15450,16 @@ This tutorial focuses specifically on **replaying XCMs**, a powerful technique f
 
 ## Prerequisites
 
-Before replaying XCMs, ensure you have completed the [Chopsticks setup instructions](../get-started/) and can run a local fork of your target chain.
+Before replaying XCMs, ensure you've completed the [Chopsticks setup instructions](../get-started/) and can run a local fork of your target chain.
 
-You will need:
+You'll need:
 
 * A working Chopsticks installation (`npm i -g @acala-network/chopsticks`)
 * Access to the **endpoint or genesis file** of the parachain you wish to fork
 * The block number or hash at which the XCM was sent
 * Optionally, a Chopsticks config file to simplify repeated setups
 
-If you have not forked a chain before, see the [Fork a Chain with Chopsticks guide](/tutorials/polkadot-sdk/testing/fork-live-chains/) or [Fork a Network Locally using Chopsticks](https://wiki.polkadot.network/learn/learn-guides-test-opengov-proposals/#fork-a-network-locally-using-chopsticks).
+If you've not forked a chain before, see the [Fork a Chain with Chopsticks guide](/tutorials/polkadot-sdk/testing/fork-live-chains/) or [Fork a Network Locally using Chopsticks](https://wiki.polkadot.network/learn/learn-guides-test-opengov-proposals/#fork-a-network-locally-using-chopsticks).
 
 ## Step-by-Step Guide
 
@@ -15479,14 +15479,14 @@ npm i polkadot-api
 npx tsc --init
 ```
 
-This sets up a clean workspace and ensures you are using the latest version of Chopsticks.
+This sets up a clean workspace and ensures you're using the latest version of Chopsticks.
 
 ### 1. Capture the XCM to Replay
 
 To replay a specific XCM, identify:
 
 * The source and destination chains involved
-* The block number or height at which the XCM was sent
+* The block number or height where the XCM was sent
 * Optionally, the call payload (if you plan to simulate it manually via development commands)
 
 You can use [Polkadot.js Apps](/tutorials/polkadot-sdk/testing/fork-live-chains/#use-polkotdotjs-apps) or indexers such as [Subscan](https://polkadot.subscan.io/xcm_dashboard) to locate and inspect the original XCM execution.
@@ -15551,7 +15551,7 @@ npx @acala-network/chopsticks xcm \
   -p acala
 ```
 
-This command launches the relay chain and parachains locally, with full runtime execution logging enabled. Once the chains are running, you should see output indicating that the following RPC endpoints are available:
+This command starts the relay chain and parachains locally, with full runtime execution logs enabled. Once the chains are running, you should see output indicating that the following RPC endpoints are available:
 
 * Polkadot Asset Hub RPC on http://localhost:8000
 * Acala RPC on http://localhost:8001
@@ -15609,13 +15609,13 @@ View the block in [Polkadot-JS Apps](https://polkadot.js.org/apps) using this di
 
 d) **Locate and Decode the XCM Extrinsic**
 
-Once you've identified the extrinsic (e.g. index `9079592-2`), use the hex call data to decode it:
+Once you've found the extrinsic (e.g. `9079592-2`), extract and decode its call data:
 
 👉 [Decode Extrinsic](https://polkadot.js.org/apps/?rpc=wss%3A%2F%2Fpolkadot-asset-hub-rpc.polkadot.io#/extrinsics/decode/0xad028400fc39fcf04a8071b7409823b7c82427ce67910c6ed80aa0e5093aff234624c820016a30461702adc48213e5c9ee4d15c5a481c578cb5cbc935f0bd11fe8aee489082a745ffbbe94282f91b67daa6cb44920d77c30849c1d25f5f6c3e59015a3e383440055040000011f0803010100411f0300010100fc39fcf04a8071b7409823b7c82427ce67910c6ed80aa0e5093aff234624c8200304000002043205011f0092e81d790000000000)
 
 e) **Copy the Call Data**
 
-From the decoded view, copy the **hex-encoded call data**. You will use this later with `api.txFromCallData(...)` to replay the XCM in Chopsticks.
+From the decoded view, copy the **hex-encoded call data** (e.g. `0x1f08...0000`). You'll pass this into `api.txFromCallData(...)` to replay the XCM locally.
 
 ### 4. Replay the XCM
 
@@ -15693,15 +15693,14 @@ main().catch(console.error);
 
 a) **Save the Script**
 
-Create a file named `send-xcm.ts` and paste your script into it.
+Create a file named `replay-xcm.ts` and paste your script into it.
 
 b) **Install Dependencies**
 
 Install the required packages and add the Asset Hub descriptor:
 
 ```bash
-npm i @polkadot/api
-npm i polkadot-api
+npm i @polkadot/api polkadot-api
 npx papi add assetHub -w ws://localhost:8000
 ```
 
@@ -15713,7 +15712,7 @@ c) **Run the Script**
 Execute the script to replay the XCM:
 
 ```bash
-npx ts-node send-xcm.ts
+npx ts-node replay-xcm.ts
 ```
 
 d) **What to Expect**
@@ -15792,7 +15791,7 @@ Executing XCM: {
 
 To simulate the XCM without actually sending it, you can use the `dry_run_call` method. This lets you check whether the XCM would succeed without modifying any state.
 
-Assuming you have the `tx` transaction from the previous step, you can perform a dry run like this:
+Assuming you've the `tx` transaction from the previous step, you can perform a dry run like this:
 
 ```ts
 const XCM_VERSION = 5;
@@ -15801,7 +15800,7 @@ const dryRunResult: any = await api.apis.DryRunApi.dry_run_call(origin, tx.decod
 console.dir(dryRunResult.value, { depth: null });
 ```
 
-If the dry run is successful, you will see output indicating the XCM would execute without errors:
+If successful, the dry run confirms that the XCM would execute correctly:
 
 ```console
 {
@@ -15815,7 +15814,7 @@ If the dry run is successful, you will see output indicating the XCM would execu
 }
 ```
 
-If it fails, you will receive detailed error information:
+If it fails, you'll receive detailed error information:
 
 ```console
 {

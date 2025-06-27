@@ -89,7 +89,7 @@ cargo build -p asset-hub-polkadot-runtime
 
 ```bash
 mkdir -p ~/projects/replay-xcm-tests/wasms
-cp target/debug/wbuild/asset-hub-polkadot-runtime/asset_hub_polkadot_runtime.compact.compressed.wasm ~/projects/replay-xcm-tests/wasms/
+cp target/debug/wbuild/asset-hub-polkadot-runtime/asset_hub_polkadot_runtime.wasm ~/projects/replay-xcm-tests/wasms/
 ```
 
 3. **Download and modify a config file**:
@@ -104,7 +104,7 @@ Edit `configs/polkadot-asset-hub-override.yaml` to include:
 
 ```yaml
 runtime-log-level: 5
-wasm-override: wasms/asset_hub_polkadot_runtime.compact.compressed.wasm
+wasm-override: wasms/asset_hub_polkadot_runtime.wasm
 ```
 
 #### c) Launch Chopsticks

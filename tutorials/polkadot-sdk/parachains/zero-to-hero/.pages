@@ -6,5 +6,6 @@ nav:
   - 'Pallet Unit Testing': pallet-unit-testing.md
   - 'Add Pallets to the Runtime': add-pallets-to-runtime.md
   - 'Pallet Benchmarking': pallet-benchmarking.md
+  - 'Runtime Upgrade': runtime-upgrade.md
   - 'Deploy to Paseo TestNet': deploy-to-testnet.md
   - 'Obtain Coretime': obtain-coretime.md

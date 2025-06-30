@@ -33,19 +33,44 @@ If you've not forked a chain before, see the [Fork a Chain with Chopsticks guide
 
 ### Project Setup
 
-Begin by creating a dedicated directory for your replay environment and installing the required tools:
+Begin by creating a dedicated directory for your replay environment:
 
 ```bash
 mkdir -p replay-xcm-tests
 cd replay-xcm-tests
+```
+
+Initialise a new Node.js project:
+
+```bash
 npm init -y
-npm i -g @acala-network/chopsticks@latest
-npm i --save-dev typescript @types/node tsx
-npm i @polkadot/api polkadot-api
+```
+
+Install **Chopsticks globally** (run this separately to avoid interference with local installs):
+
+```bash
+npm install -g @acala-network/chopsticks@latest
+```
+
+Install **TypeScript and related tooling** for local development:
+
+```bash
+npm install --save-dev typescript @types/node tsx
+```
+
+Install the required Polkadot packages:
+
+```bash
+npm install @polkadot/api polkadot-api
+```
+
+Finally, initialise the TypeScript config:
+
+```bash
 npx tsc --init
 ```
 
-This sets up a clean workspace and ensures you're using the latest version of Chopsticks.
+This setup ensures you're using a clean, stable workspace and the latest versions of required tools.
 
 ### Capture the XCM to Replay
 

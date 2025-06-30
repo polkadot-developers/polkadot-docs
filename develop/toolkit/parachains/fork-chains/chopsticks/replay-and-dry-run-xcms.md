@@ -18,7 +18,7 @@ This tutorial focuses on **replaying and dry-running XCMs**, powerful techniques
 
 ## Prerequisites
 
-Before replaying XCMs, ensure you've completed the [Chopsticks setup instructions](../get-started/) and can run a local fork of your target chain.
+Before replaying XCMs, ensure you've completed the [Chopsticks setup instructions](/develop/toolkit/parachains/fork-chains/chopsticks/get-started/#install-chopsticks){target=\_blank} and can run a local fork of your target chain.
 
 You'll need:
 

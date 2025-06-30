@@ -36,8 +36,8 @@ If you've not forked a chain before, see the [Fork a Chain with Chopsticks guide
 Begin by creating a dedicated directory for your replay environment and installing the required tools:
 
 ```bash
-mkdir -p ~/projects/replay-xcm-tests
-cd ~/projects/replay-xcm-tests
+mkdir -p replay-xcm-tests
+cd replay-xcm-tests
 npm init -y
 npm i -g @acala-network/chopsticks@latest
 npm i --save-dev typescript @types/node tsx
@@ -75,11 +75,15 @@ ACALA_BLOCK_NUMBER=8826385
 
 Full execution logs only work if the runtime was compiled with logging enabled. Most live chains are built using the `production` profile, which disables logs. You need to override the Wasm with a `debug` build.
 
-**Clone and Build the Polkadot Asset Hub Runtime**:
+**Clone the `polkadot-fellows/runtimes` Repository**:
 
 ```bash
-mkdir -p ~/projects && cd ~/projects
 git clone git@github.com:polkadot-fellows/runtimes.git
+```
+
+**Build the Polkadot Asset Hub Runtime**:
+
+```bash
 cd runtimes
 cargo build -p asset-hub-polkadot-runtime
 ```
@@ -87,14 +91,14 @@ cargo build -p asset-hub-polkadot-runtime
 **Copy the Compiled Wasm to Your Working Directory**:
 
 ```bash
-mkdir -p ~/projects/replay-xcm-tests/wasms
-cp target/debug/wbuild/asset-hub-polkadot-runtime/asset_hub_polkadot_runtime.wasm ~/projects/replay-xcm-tests/wasms/
+mkdir -p replay-xcm-tests/wasms
+cp target/debug/wbuild/asset-hub-polkadot-runtime/asset_hub_polkadot_runtime.wasm replay-xcm-tests/wasms/
 ```
 
 **Download and Modify a Config File**:
 
 ```bash
-cd ~/projects/replay-xcm-tests
+cd replay-xcm-tests
 mkdir -p configs
 wget https://raw.githubusercontent.com/AcalaNetwork/chopsticks/master/configs/polkadot-asset-hub.yml -O configs/polkadot-asset-hub-override.yaml
 ```

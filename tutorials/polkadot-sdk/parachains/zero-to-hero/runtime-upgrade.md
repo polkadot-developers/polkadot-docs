@@ -8,21 +8,21 @@ tutorial_badge: Intermediate
 
 ## Introduction
 
-Upgrading the runtime of your Substrate-based blockchain is a core feature that enables you to add new functionality, fix bugs, or optimize performance without requiring a hard fork. Runtime upgrades are performed by submitting a special extrinsic that replaces the existing Wasm runtime code on-chain. This process is trustless, transparent, and can be executed via governance or sudo, depending on your chain's configuration.
+Upgrading the runtime of your Polkadot SDK-based blockchain is a core feature that enables you to add new functionality, fix bugs, or optimize performance without requiring a hard fork. Runtime upgrades are performed by submitting a special extrinsic that replaces the existing Wasm runtime code on-chain. This process is trustless, transparent, and can be executed via governance or sudo, depending on your chain's configuration.
 
-This tutorial will guide you through the process of preparing, submitting, and verifying a runtime upgrade for your parachain or standalone Substrate chain.
+This tutorial will guide you through the process of preparing, submitting, and verifying a runtime upgrade for your parachain or standalone Polkadot-SDK based chain.
 
 ## Prerequisites
 
 Before proceeding, ensure you have:
 
-- A working Substrate-based chain (local or testnet)
+- A working Polkadot SDK-based chain
 - The latest source code for your runtime, with desired changes implemented and tested
 - [Rust toolchain](https://www.rust-lang.org/) and [wasm32-unknown-unknown target](https://substrate.dev/docs/en/knowledgebase/getting-started/#add-the-wasm-target) installed
 - Sufficient privileges to submit a runtime upgrade (sudo or governance access)
 - [Polkadot.js Apps](https://polkadot.js.org/apps/) or another compatible tool for submitting extrinsics
 
-## Step 1: Prepare Your Runtime Upgrade
+## Prepare the Runtime Upgrade
 
 1. **Implement and Test Changes**
    - Make your desired changes to the runtime code (e.g., add a pallet, update logic, fix bugs).

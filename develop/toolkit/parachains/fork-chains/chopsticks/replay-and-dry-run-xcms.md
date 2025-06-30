@@ -156,28 +156,7 @@ This command starts the relay chain and parachains locally, with full runtime ex
 
 You’ll also see runtime logs such as:
 
-```console
-        chopsticks::executor  TRACE: [0] Calling Metadata_metadata
-        chopsticks::executor  TRACE: [1] Calling Metadata_metadata
-[09:29:14.988] INFO: Polkadot Asset Hub RPC listening on http://[::]:8000 and ws://[::]:8000
-    app: "chopsticks"
-[09:29:14.988] INFO: Loading config file https://raw.githubusercontent.com/AcalaNetwork/chopsticks/master/configs/acala.yml
-    app: "chopsticks"
-[09:29:15.984] INFO: Acala RPC listening on http://[::]:8001 and ws://[::]:8001
-    app: "chopsticks"
-[09:29:15.990] INFO (xcm): Connected parachains [1000,2000]
-    app: "chopsticks"
-[09:29:15.990] INFO: Loading config file https://raw.githubusercontent.com/AcalaNetwork/chopsticks/master/configs/polkadot.yml
-    app: "chopsticks"
-        chopsticks::executor  TRACE: [2] Calling Metadata_metadata
-        chopsticks::executor  TRACE: [2] Completed Metadata_metadata
-[09:29:16.927] INFO: Polkadot RPC listening on http://[::]:8002 and ws://[::]:8002
-    app: "chopsticks"
-[09:29:16.984] INFO (xcm): Connected relaychain 'Polkadot' with parachain 'Polkadot Asset Hub'
-    app: "chopsticks"
-[09:29:17.028] INFO (xcm): Connected relaychain 'Polkadot' with parachain 'Acala'
-    app: "chopsticks"
-```
+--8<-- 'code/develop/toolkit/parachains/fork-chains/chopsticks/replay-and-dry-run-xcms/launch-chopsticks.html'
 
 ### Identify the XCM to Replay
 
@@ -188,6 +167,7 @@ To replay an XCM, you’ll first need to identify the exact extrinsic that trigg
 **Find the Block on Subscan**
 
 Open the block in Subscan to inspect its extrinsics and events:
+
 👉 [Block #9079592](https://assethub-polkadot.subscan.io/block/9079592){target=\_blank}
 
 **Copy the Block Hash**

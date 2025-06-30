@@ -230,73 +230,7 @@ npx ts-node replay-xcm.ts
 
 If everything is working, you'll see logs like:
 
-```console
-Executing XCM: {
-  "type": "PolkadotXcm",
-  "value": {
-    "type": "limited_reserve_transfer_assets",
-    "value": {
-      "dest": { ... },
-      "beneficiary": { ... },
-      "assets": { ... },
-      "fee_asset_item": 0,
-      "weight_limit": {
-        "type": "Unlimited"
-      }
-    }
-  }
-}
-📦 Included in block #9079592: 0x227a11c64f6051ba2e090a13abd17e5f7581640a80f6c03fc2d43fac66ab7949
-📣 Event: Balances {
-  "type": "Upgraded",
-  "value": { ... }
-}
-📣 Event: Balances {
-  "type": "Withdraw",
-  "value": { ... }
-}
-📣 Event: Assets {
-  "type": "Transferred",
-  "value": { ... }
-}
-📣 Event: PolkadotXcm {
-  "type": "Attempted",
-  "value": { ... }
-}
-📣 Event: Balances {
-  "type": "Burned",
-  "value": { ... }
-}
-📣 Event: Balances {
-  "type": "Minted",
-  "value": { ... }
-}
-📣 Event: PolkadotXcm {
-  "type": "FeesPaid",
-  "value": { ... }
-}
-📣 Event: XcmpQueue {
-  "type": "XcmpMessageSent",
-  "value": { ... }
-}
-📣 Event: PolkadotXcm {
-  "type": "Sent",
-  "value": { ... }
-}
-📣 Event: Balances {
-  "type": "Deposit",
-  "value": { ... }
-}
-📣 Event: TransactionPayment {
-  "type": "TransactionFeePaid",
-  "value": { ... }
-}
-📣 Event: System {
-  "type": "ExtrinsicSuccess",
-  "value": { ... }
-}
-✅ Process completed, exiting...
-```
+--8<-- 'code/develop/toolkit/parachains/fork-chains/chopsticks/replay-and-dry-run-xcms/replay-xcm-result.html'
 
 ## Dry Run the XCM
 

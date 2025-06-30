@@ -7,11 +7,11 @@ description: Learn how to replay and dry-run XCMs using Chopsticks with full log
 
 ## Introduction
 
-[Chopsticks](https://github.com/AcalaNetwork/chopsticks) is a tool for forking live Polkadot SDK-based chains in a local environment. If you're new to it, check out the [Get Started](/develop/toolkit/parachains/fork-chains/chopsticks/get-started){target=\_blank} guide.
+[Chopsticks](https://github.com/AcalaNetwork/chopsticks){target=\_blank} is a tool for forking live Polkadot SDK-based chains in a local environment. If you're new to it, check out the [Get Started](/develop/toolkit/parachains/fork-chains/chopsticks/get-started){target=\_blank} guide.
 
 This tutorial focuses on **replaying and dry-running XCMs**, powerful techniques for:
 
-* [Debugging cross-chain message failures](/develop/interoperability/test-and-debug/)
+* [Debugging cross-chain message failures](/develop/interoperability/test-and-debug/){target=\_blank}
 * Tracing execution across relay chains and parachains
 * Analysing weight usage, error types, and message flow
 * Simulating XCMs safely without committing state changes
@@ -80,11 +80,11 @@ To replay a specific XCM, identify:
 * The block number or height where the XCM was sent
 * Optionally, the call payload (if you plan to simulate it manually via development commands)
 
-You can use [Polkadot.js Apps](/tutorials/polkadot-sdk/testing/fork-live-chains/#use-polkotdotjs-apps) or indexers such as [Subscan](https://polkadot.subscan.io/xcm_dashboard) to locate and inspect the original XCM execution.
+You can use [Polkadot.js Apps](/tutorials/polkadot-sdk/testing/fork-live-chains/#use-polkotdotjs-apps){target=\_blank} or indexers such as [Subscan](https://polkadot.subscan.io/xcm_dashboard){target=\_blank} to locate and inspect the original XCM execution.
 
 ### Fork the Relevant Chains
 
-Use Chopsticks to [fork the required chains](/tutorials/polkadot-sdk/testing/fork-live-chains/#xcm-testing) at the appropriate block heights.
+Use Chopsticks to [fork the required chains](/tutorials/polkadot-sdk/testing/fork-live-chains/#xcm-testing){target=\_blank} at the appropriate block heights.
 
 #### Set the Block Numbers
 
@@ -186,7 +186,7 @@ To replay an XCM, you’ll first need to identify the exact extrinsic that trigg
 **Find the Block on Subscan**
 
 Open the block in Subscan to inspect its extrinsics and events:
-👉 [https://assethub-polkadot.subscan.io/block/9079592](https://assethub-polkadot.subscan.io/block/9079592)
+👉 [Block #9079592](https://assethub-polkadot.subscan.io/block/9079592){target=\_blank}
 
 **Copy the Block Hash**
 
@@ -198,15 +198,15 @@ Look for the block hash at the top of the page. For Block #9079592, the hash is:
 
 **Explore in Polkadot-JS Apps**
 
-View the block in [Polkadot-JS Apps](https://polkadot.js.org/apps) using this direct link:
+View the block in [Polkadot-JS Apps](https://polkadot.js.org/apps){target=\_blank} using this direct link:
 
-👉 [Explorer → Block Hash](https://polkadot.js.org/apps/?rpc=wss%3A%2F%2Fpolkadot-asset-hub-rpc.polkadot.io#/explorer/query/0xeb5a5737d47367dc1c02b978232283cdb096eb7e51d2eb22366a106a011347f6)
+👉 [Explorer → Block Hash](https://polkadot.js.org/apps/?rpc=wss%3A%2F%2Fpolkadot-asset-hub-rpc.polkadot.io#/explorer/query/0xeb5a5737d47367dc1c02b978232283cdb096eb7e51d2eb22366a106a011347f6){target=\_blank}
 
 **Locate and Decode the XCM Extrinsic**
 
 Once you've found the extrinsic (e.g. `9079592-2`), extract and decode its call data:
 
-👉 [Decode Extrinsic](https://polkadot.js.org/apps/?rpc=wss%3A%2F%2Fpolkadot-asset-hub-rpc.polkadot.io#/extrinsics/decode/0xad028400fc39fcf04a8071b7409823b7c82427ce67910c6ed80aa0e5093aff234624c820016a30461702adc48213e5c9ee4d15c5a481c578cb5cbc935f0bd11fe8aee489082a745ffbbe94282f91b67daa6cb44920d77c30849c1d25f5f6c3e59015a3e383440055040000011f0803010100411f0300010100fc39fcf04a8071b7409823b7c82427ce67910c6ed80aa0e5093aff234624c8200304000002043205011f0092e81d790000000000)
+👉 [Decode Extrinsic](https://polkadot.js.org/apps/?rpc=wss%3A%2F%2Fpolkadot-asset-hub-rpc.polkadot.io#/extrinsics/decode/0xad028400fc39fcf04a8071b7409823b7c82427ce67910c6ed80aa0e5093aff234624c820016a30461702adc48213e5c9ee4d15c5a481c578cb5cbc935f0bd11fe8aee489082a745ffbbe94282f91b67daa6cb44920d77c30849c1d25f5f6c3e59015a3e383440055040000011f0803010100411f0300010100fc39fcf04a8071b7409823b7c82427ce67910c6ed80aa0e5093aff234624c8200304000002043205011f0092e81d790000000000){target=\_blank}
 
 **Copy the Call Data**
 
@@ -427,8 +427,8 @@ If it fails, you'll receive detailed error information:
 
 More details:
 
-* [Dry Run Call](/develop/interoperability/xcm-runtime-apis/#dry-run-call) to simulate a full extrinsic
-* [Dry Run XCM](/develop/interoperability/xcm-runtime-apis/#dry-run-xcm) to simulate a raw XCM
+* [Dry Run Call](/develop/interoperability/xcm-runtime-apis/#dry-run-call){target=\_blank} to simulate a full extrinsic
+* [Dry Run XCM](/develop/interoperability/xcm-runtime-apis/#dry-run-xcm){target=\_blank} to simulate a raw XCM
 
 ## Conclusion
 

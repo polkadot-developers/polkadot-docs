@@ -15550,7 +15550,7 @@ cargo build -p asset-hub-polkadot-runtime
 
 ```bash
 mkdir -p <Your Working Directory>/replay-xcm-tests/wasms
-cp target/debug/wbuild/asset-hub-polkadot-runtime/asset_hub_polkadot_runtime.wasm <Your Working Directory>/replay-xcm-tests/wasms/
+cp target/debug/wbuild/asset-hub-polkadot-runtime/asset_hub_polkadot_runtime.wasm <Your Working Directory>/replay-xcm-tests/wasms
 ```
 
 **Download and Modify a Config File**:

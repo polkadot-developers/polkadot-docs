@@ -15549,14 +15549,14 @@ cargo build -p asset-hub-polkadot-runtime
 **Copy the Compiled Wasm to Your Working Directory**:
 
 ```bash
-mkdir -p replay-xcm-tests/wasms
-cp target/debug/wbuild/asset-hub-polkadot-runtime/asset_hub_polkadot_runtime.wasm replay-xcm-tests/wasms/
+mkdir -p <Your Working Directory>/replay-xcm-tests/wasms
+cp target/debug/wbuild/asset-hub-polkadot-runtime/asset_hub_polkadot_runtime.wasm <Your Working Directory>/replay-xcm-tests/wasms/
 ```
 
 **Download and Modify a Config File**:
 
 ```bash
-cd replay-xcm-tests
+cd <Your Working Directory>/replay-xcm-tests
 mkdir -p configs
 wget https://raw.githubusercontent.com/AcalaNetwork/chopsticks/master/configs/polkadot-asset-hub.yml -O configs/polkadot-asset-hub-override.yaml
 ```

@@ -7,7 +7,7 @@ description: Learn how to replay and dry-run XCMs using Chopsticks with full log
 
 ## Introduction
 
-[Chopsticks](https://github.com/AcalaNetwork/chopsticks) is a tool for forking live Polkadot SDK-based chains in a local environment. If you're new to it, check out the [Get Started](../get-started/) guide.
+[Chopsticks](https://github.com/AcalaNetwork/chopsticks) is a tool for forking live Polkadot SDK-based chains in a local environment. If you're new to it, check out the [Get Started](/develop/toolkit/parachains/fork-chains/chopsticks/get-started){target=\_blank} guide.
 
 This tutorial focuses on **replaying and dry-running XCMs**, powerful techniques for:
 

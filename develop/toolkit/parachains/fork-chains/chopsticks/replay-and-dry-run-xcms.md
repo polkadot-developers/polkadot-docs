@@ -90,7 +90,7 @@ Use Chopsticks to [fork the required chains](/tutorials/polkadot-sdk/testing/for
 
 Create/edit a `.env` file with the block heights for each chain. These should be **just before** the XCM is sent to allow a full replay:
 
-```env
+```text title=".env"
 POLKADOT_BLOCK_NUMBER=26481107
 POLKADOT_ASSET_HUB_BLOCK_NUMBER=9079591
 ACALA_BLOCK_NUMBER=8826385
@@ -130,9 +130,11 @@ wget https://raw.githubusercontent.com/AcalaNetwork/chopsticks/master/configs/po
 
 Edit `configs/polkadot-asset-hub-override.yaml` to include:
 
-```yaml
+```yaml title="configs/polkadot-asset-hub-override.yaml"
+...
 runtime-log-level: 5
 wasm-override: wasms/asset_hub_polkadot_runtime.wasm
+...
 ```
 
 #### Launch Chopsticks

@@ -15785,33 +15785,40 @@ console.dir(dryRunResult.value, { depth: null });
 
 If successful, the dry run confirms that the XCM would execute correctly:
 
-```console
-{
-  execution_result: {
-    success: true,
-    value: { ... }
-  },
-  emitted_events: [ ... ],
-  local_xcm: { ... },
-  forwarded_xcms: [ ... ]
-}
-```
+<div class="termynal" data-termynal>
+  <span data-ty="input">Dry run result (success):</span>
+  <span data-ty="progress"></span>
+  <span data-ty>execution_result: {</span>
+  <span data-ty> success: true,</span>
+  <span data-ty> value: { ... }</span>
+  <span data-ty>}</span>
+  <span data-ty>emitted_events: [ ... ]</span>
+  <span data-ty>local_xcm: { ... }</span>
+  <span data-ty>forwarded_xcms: [ ... ]</span>
+</div>
 
 If it fails, you'll receive detailed error information:
 
-```console
-{
-  execution_result: {
-    type: 'Incomplete',
-    value: {
-      used: { ref_time: 1690000n, proof_size: 0n },
-      error: { type: 'Barrier', value: undefined }
-    }
-  },
-  emitted_events: [],
-  forwarded_xcms: []
-}
-```
+<div class="termynal" data-termynal>
+  <span data-ty="input">Dry run result (failure):</span>
+  <span data-ty="progress"></span>
+  <span data-ty>execution_result: {</span>
+  <span data-ty> success: false,</span>
+  <span data-ty> value: {</span>
+  <span data-ty> post_info: { ... },</span>
+  <span data-ty> error: {</span>
+  <span data-ty> type: 'Module',</span>
+  <span data-ty> value: {</span>
+  <span data-ty> type: 'PolkadotXcm',</span>
+  <span data-ty> value: { type: 'LocalExecutionIncomplete', value: undefined }</span>
+  <span data-ty> }</span>
+  <span data-ty> }</span>
+  <span data-ty> }</span>
+  <span data-ty>}</span>
+  <span data-ty>emitted_events: []</span>
+  <span data-ty>local_xcm: undefined</span>
+  <span data-ty>forwarded_xcms: []</span>
+</div>
 
 More details:
 

@@ -247,33 +247,11 @@ console.dir(dryRunResult.value, { depth: null });
 
 If successful, the dry run confirms that the XCM would execute correctly:
 
-```console
-{
-  execution_result: {
-    success: true,
-    value: { ... }
-  },
-  emitted_events: [ ... ],
-  local_xcm: { ... },
-  forwarded_xcms: [ ... ]
-}
-```
+--8<-- 'code/develop/toolkit/parachains/fork-chains/chopsticks/replay-and-dry-run-xcms/dry-run-success.html'
 
 If it fails, you'll receive detailed error information:
 
-```console
-{
-  execution_result: {
-    type: 'Incomplete',
-    value: {
-      used: { ref_time: 1690000n, proof_size: 0n },
-      error: { type: 'Barrier', value: undefined }
-    }
-  },
-  emitted_events: [],
-  forwarded_xcms: []
-}
-```
+--8<-- 'code/develop/toolkit/parachains/fork-chains/chopsticks/replay-and-dry-run-xcms/dry-run-failure.html'
 
 More details:
 

@@ -32,7 +32,7 @@ description: Explore the Asset Transfer API Reference for comprehensive details 
 
 Holds open an API connection to a specified chain within the `ApiPromise` to help construct transactions for assets and estimate fees.
 
-For a more in-depth explanation of the Asset Transfer API class structure, check the [source code](https://github.com/paritytech/asset-transfer-api/blob/{{dependencies.repositories.asset_transfer_api.version}}/src/AssetTransferApi.ts#L123){target=\_blank}.
+For a more in-depth explanation of the Asset Transfer API class structure, check the [source code](https://github.com/paritytech/asset-transfer-api/blob/{{dependencies.repositories.asset_transfer_api.version}}/src/AssetTransferApi.ts#L128){target=\_blank}.
 
 ### Methods
 
@@ -43,7 +43,7 @@ Generates an XCM transaction for transferring assets between chains. It simplifi
 After obtaining the transaction, you must handle the signing and submission process separately.
 
 ```ts
---8<-- 'https://raw.githubusercontent.com/paritytech/asset-transfer-api/refs/tags/{{dependencies.repositories.asset_transfer_api.version}}/src/AssetTransferApi.ts:186:192'
+--8<-- 'https://raw.githubusercontent.com/paritytech/asset-transfer-api/refs/tags/{{dependencies.repositories.asset_transfer_api.version}}/src/AssetTransferApi.ts:191:197'
 ```
 
 ??? interface "Request parameters"
@@ -102,7 +102,7 @@ Creates a local XCM transaction to retrieve trapped assets. This function can be
 
 
 ```ts
---8<-- 'https://raw.githubusercontent.com/paritytech/asset-transfer-api/refs/tags/{{dependencies.repositories.asset_transfer_api.version}}/src/AssetTransferApi.ts:370:375'
+--8<-- 'https://raw.githubusercontent.com/paritytech/asset-transfer-api/refs/tags/{{dependencies.repositories.asset_transfer_api.version}}/src/AssetTransferApi.ts:383:388'
 ```
 
 ??? interface "Request parameters"
@@ -153,7 +153,7 @@ Creates a local XCM transaction to retrieve trapped assets. This function can be
 Decodes the hex of an extrinsic into a string readable format.
 
 ```ts
---8<-- 'https://raw.githubusercontent.com/paritytech/asset-transfer-api/refs/tags/{{dependencies.repositories.asset_transfer_api.version}}/src/AssetTransferApi.ts:536:536'
+--8<-- 'https://raw.githubusercontent.com/paritytech/asset-transfer-api/refs/tags/{{dependencies.repositories.asset_transfer_api.version}}/src/AssetTransferApi.ts:558:558'
 ```
 
 ??? interface "Request parameters"
@@ -171,7 +171,7 @@ Decodes the hex of an extrinsic into a string readable format.
     ??? child "Type `Format`"
 
         ```ts
-        --8<-- 'https://raw.githubusercontent.com/paritytech/asset-transfer-api/refs/tags/{{dependencies.repositories.asset_transfer_api.version}}/src/types.ts:132:132'
+        --8<-- 'https://raw.githubusercontent.com/paritytech/asset-transfer-api/refs/tags/{{dependencies.repositories.asset_transfer_api.version}}/src/types.ts:130:130'
         ```
 
 ??? interface "Response parameters"
@@ -197,7 +197,7 @@ Decodes the hex of an extrinsic into a string readable format.
 Fetch estimated fee information for an extrinsic.
 
 ```ts
---8<-- 'https://raw.githubusercontent.com/paritytech/asset-transfer-api/refs/tags/{{dependencies.repositories.asset_transfer_api.version}}/src/AssetTransferApi.ts:446:449'
+--8<-- 'https://raw.githubusercontent.com/paritytech/asset-transfer-api/refs/tags/{{dependencies.repositories.asset_transfer_api.version}}/src/AssetTransferApi.ts:468:471'
 ```
 
 ??? interface "Request parameters"
@@ -209,7 +209,7 @@ Fetch estimated fee information for an extrinsic.
     ??? child "Type `ConstructedFormat<T>`"
 
         ```ts
-        --8<-- 'https://raw.githubusercontent.com/paritytech/asset-transfer-api/refs/tags/{{dependencies.repositories.asset_transfer_api.version}}/src/types.ts:137:143'
+        --8<-- 'https://raw.githubusercontent.com/paritytech/asset-transfer-api/refs/tags/{{dependencies.repositories.asset_transfer_api.version}}/src/types.ts:135:141'
         ```
 
         The `ConstructedFormat` type is a conditional type that returns a specific type based on the value of the TxResult `format` field.
@@ -227,7 +227,7 @@ Fetch estimated fee information for an extrinsic.
     ??? child "Type `Format`"
 
         ```ts
-        --8<-- 'https://raw.githubusercontent.com/paritytech/asset-transfer-api/refs/tags/{{dependencies.repositories.asset_transfer_api.version}}/src/types.ts:132:132'
+        --8<-- 'https://raw.githubusercontent.com/paritytech/asset-transfer-api/refs/tags/{{dependencies.repositories.asset_transfer_api.version}}/src/types.ts:130:130'
         ```
 
 ??? interface "Response parameters"

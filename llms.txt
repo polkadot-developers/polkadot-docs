@@ -15778,7 +15778,7 @@ Assuming you've the `tx` transaction from the previous step, you can perform a d
 
 ```ts
 const XCM_VERSION = 5;
-const origin = Enum("system", Enum("Signed", alice.address));
+const origin = Enum("system", Enum("Signed", alice.address)); // import { Enum } from "polkadot-api";
 const dryRunResult: any = await api.apis.DryRunApi.dry_run_call(origin, tx.decodedCall, XCM_VERSION);
 console.dir(dryRunResult.value, { depth: null });
 ```

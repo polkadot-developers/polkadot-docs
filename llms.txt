@@ -33344,7 +33344,7 @@ Doc-Content: https://docs.polkadot.com/tutorials/polkadot-sdk/parachains/zero-to
 --- BEGIN CONTENT ---
 ---
 title: Runtime Upgrades
-description: Learn how to safely and efficiently perform runtime upgrades for your Substrate-based blockchain, including best practices and step-by-step instructions.
+description: Learn how to safely perform runtime upgrades for your Polkadot SDK-based blockchain, including step-by-step instructions.
 tutorial_badge: Intermediate
 ---
 
@@ -33352,148 +33352,248 @@ tutorial_badge: Intermediate
 
 ## Introduction
 
-Upgrading the runtime of your Polkadot SDK-based blockchain is a core feature that enables you to add new functionality, fix bugs, or optimize performance without requiring a hard fork. Runtime upgrades are performed by submitting a special extrinsic that replaces the existing Wasm runtime code on-chain. This process is trustless, transparent, and can be executed via governance or sudo, depending on your chain's configuration.
+Upgrading the runtime of your Polkadot SDK-based blockchain is a fundamental feature that allows you to add new functionality, fix bugs, or improve performance without requiring a hard fork. Runtime upgrades are performed by submitting a special extrinsic that replaces the existing on-chain Wasm runtime code. This process is trustless, transparent, and can be executed either through governance or using sudo, depending on your chain's configuration.
 
-This tutorial will guide you through the process of preparing, submitting, and verifying a runtime upgrade for your parachain or standalone Polkadot-SDK based chain.
+This tutorial will guide you through the steps to prepare, submit, and verify a runtime upgrade for your parachain or standalone Polkadot SDK-based chain. For this example, you'll continue from the state left by the previous tutorials, where you have a custom pallet integrated into your runtime.
 
-## Prerequisites
+## Update the Runtime
 
-Before proceeding, ensure you have:
+In this section, you will add a new feature to your existing custom pallet and upgrade your runtime to include this new functionality.
 
-- A working Polkadot SDK-based chain
-- The latest source code for your runtime, with desired changes implemented and tested
-- [Rust toolchain](https://www.rust-lang.org/) and [wasm32-unknown-unknown target](https://substrate.dev/docs/en/knowledgebase/getting-started/#add-the-wasm-target) installed
-- Sufficient privileges to submit a runtime upgrade (sudo or governance access)
-- [Polkadot.js Apps](https://polkadot.js.org/apps/) or another compatible tool for submitting extrinsics
+### Start Your Chain
 
-## Prepare the Runtime Upgrade
+Before making any changes, ensure your blockchain node is running properly:
 
-1. **Implement and Test Changes**
-   - Make your desired changes to the runtime code (e.g., add a pallet, update logic, fix bugs).
-   - Thoroughly test your changes locally using unit tests and integration tests.
-   - Optionally, run your chain locally with the new runtime to ensure it works as expected.
+```bash
+polkadot-omni-node --chain ./chain_spec.json --dev
+```
 
----
+Verify your chain is operational and note the runtime version state in Polkadot JS. For more details, check the [Interact with the Node](/tutorials/polkadot-sdk/parachains/zero-to-hero/set-up-a-template/#interact-with-the-node){target=\_blank}.
 
-### Example: Making a Meaningful Runtime Upgrade (Custom Pallet)
+![](/images/tutorials/polkadot-sdk/parachains/zero-to-hero/runtime-upgrade/runtime-upgrade-01.webp)
 
-Suppose you have followed the Zero to Hero tutorials and already have a custom pallet integrated into your runtime. Here's how you could make a meaningful upgrade by extending your custom pallet and updating the runtime:
+As you can see, the runtime version is `1` since this chain has not been upgraded. Keep this chain running in the background.
 
-#### 1. Add a New Feature to the Custom Pallet
+### Add a New Feature
 
-For example, add a new dispatchable function to reset the counter to zero:
+Now, you can extend your existing custom pallet by adding a new dispatchable function to reset the counter to zero. This provides a meaningful upgrade that demonstrates new functionality. Copy and paste the following code at the end of your `lib.rs` file in your custom pallet:
 
-**In `pallets/custom-pallet/src/lib.rs`:**
-
-```rust
+```rust title="custom-pallet/src/lib.rs" hl_lines="5-17"
 #[pallet::call]
 impl<T: Config> Pallet<T> {
-    // ... existing calls ...
+    // ... existing calls like increment, decrement, etc.
 
-    /// Reset the counter to zero. Only callable by Root.
-    #[pallet::weight(T::WeightInfo::reset_counter())]
+    /// Reset the counter to zero.
+    ///
+    /// The dispatch origin of this call must be _Root_.
+    ///
+    /// Emits `CounterValueSet` event when successful.
+    #[pallet::call_index(3)]
+    #[pallet::weight(0)]
     pub fn reset_counter(origin: OriginFor<T>) -> DispatchResult {
         ensure_root(origin)?;
         <CounterValue<T>>::put(0u32);
-        Self::deposit_event(Event::CounterValueSet { new_value: 0 });
+        Self::deposit_event(Event::CounterValueSet { counter_value: 0 });
         Ok(())
     }
 }
 ```
 
-- Update your pallet's `Event` and `WeightInfo` as needed.
-- Add unit tests for the new function in `tests.rs`.
+The `reset_counter` function will be a Root-only operation that sets the counter value back to zero, regardless of its current state. This is useful for administrative purposes, such as clearing the counter after maintenance, testing, or at the start of new periods. Unlike the existing increment/decrement functions that any signed user can call, this reset function requires Root privileges, making it a controlled administrative action.
 
-#### 2. Update the Runtime to Use the New Pallet Version
+Ensure that your runtime compiles by running:
 
-- If you changed the pallet's public API, ensure the runtime's configuration is updated accordingly (e.g., in `runtime/src/lib.rs` and `runtime/src/configs/mod.rs`).
-- Re-export the updated pallet if needed.
+```bash
+cargo build --release
+```
 
-#### 3. Bump the Runtime Version
+Now, you can test this new function in `pallets/custom-pallet/src/tests.rs`
 
-- In your runtime's `Cargo.toml` and `lib.rs`, increment the `spec_version` and `impl_version` fields. For example:
+```rust title="custom-pallet/src/tests.rs" hl_lines="4-39"
+// ... existing unit tests
+...
 
-**In `runtime/src/lib.rs`:**
-```rust
-sp_version::runtime_version! {
-    pub const VERSION: RuntimeVersion = RuntimeVersion {
-        spec_name: create_runtime_str!("parachain_template_runtime"),
-        impl_name: create_runtime_str!("parachain_template_runtime"),
-        authoring_version: 1,
-        spec_version: 2, // <-- increment this
-        impl_version: 2, // <-- and this
-        // ...
-    };
+#[test]
+fn reset_counter_works() {
+    new_test_ext().execute_with(|| {
+        System::set_block_number(1);
+        // First increment the counter
+        assert_ok!(CustomPallet::increment(RuntimeOrigin::signed(1), 1));
+
+        // Ensure the event matches the decrement action
+        System::assert_last_event(
+            Event::CounterIncremented {
+                counter_value: 1,
+                who: 1,
+                incremented_amount: 1,
+            }
+            .into(),
+        );
+        
+        // Reset should work with root origin
+        assert_ok!(CustomPallet::reset_counter(RuntimeOrigin::root()));
+        
+        // Check that the event was emitted
+        System::assert_last_event(Event::CounterValueSet { counter_value: 0 }.into());
+    });
+}
+
+#[test]
+fn reset_counter_fails_without_root() {
+    new_test_ext().execute_with(|| {
+        System::set_block_number(1);
+        // Should fail with non-root origin
+        assert_noop!(
+            CustomPallet::reset_counter(RuntimeOrigin::signed(1)),
+            sp_runtime::DispatchError::BadOrigin
+        );
+    });
 }
 ```
 
-#### 4. Build and Test the New Runtime
+Ensure that your tests pass by running:
 
-- Run your tests to ensure everything works:
-  ```bash
-  cargo test --package custom-pallet
-  ```
-- Build the new Wasm runtime as described below.
+```bash
+cargo test --package custom-pallet
+```
 
----
+### Update the Runtime 
 
-2. **Build the Wasm Runtime**
-   - Navigate to your runtime directory (commonly `runtime/` or `parachain-template/runtime/`).
-   - Build the Wasm blob:
-     ```bash
-     cargo build --release --target wasm32-unknown-unknown
-     ```
-   - The compiled Wasm file is usually located at:
-     ```
-     ./target/wasm32-unknown-unknown/release/<runtime_name>.wasm
-     ```
-   - For parachain templates, you may also find the compressed Wasm at:
-     ```
-     ./target/release/wbuild/parachain-template-runtime/parachain_template_runtime.compact.compressed.wasm
-     ```
+Since you've only added new functionality without changing existing APIs, minimal runtime changes are needed. However, verify that your runtime configuration is still compatible. If you've added new configuration parameters to your pallet, update them accordingly in the `runtime/configs/mod.rs`.
 
-## Step 2: Submit the Runtime Upgrade
+### Bump the Runtime Version
 
-You can submit a runtime upgrade using the Sudo pallet (for development/testnets) or via on-chain governance (for production chains).
+This is a critical step - you must increment the runtime version numbers to signal that an upgrade has occurred. In `runtime/src/lib.rs`:
 
-### Using Sudo (Development/Testnet)
+```rust title="lib.rs" hl_lines="6"
+#[sp_version::runtime_version]
+pub const VERSION: RuntimeVersion = RuntimeVersion {
+	spec_name: alloc::borrow::Cow::Borrowed("parachain-template-runtime"),
+	impl_name: alloc::borrow::Cow::Borrowed("parachain-template-runtime"),
+	authoring_version: 1,
+    spec_version: 2, // <-- increment this (was 1)
+	impl_version: 0,
+	apis: apis::RUNTIME_API_VERSIONS,
+	transaction_version: 1,
+	system_version: 1,
+};
+```
 
-1. Open [Polkadot.js Apps](https://polkadot.js.org/apps/).
-2. Connect to your node (local or remote).
-3. Navigate to **Developer > Sudo**.
-4. In the **sudo** call dropdown, select `system > setCode`.
-5. Upload your new Wasm runtime file.
-6. Click **Submit Sudo** and sign the transaction with the sudo key.
+Also update `runtime/Cargo.toml` version:
 
-### Using Governance (Production)
+```toml title="Cargo.toml" hl_lines="4"
+[package]
+name = "parachain-template-runtime"
+description = "A parachain runtime template built with Substrate and Cumulus, part of Polkadot Sdk."
+version = "0.2.0" # <-- increment this version
+# ... rest of your Cargo.toml
+```
 
-1. Open [Polkadot.js Apps](https://polkadot.js.org/apps/).
-2. Navigate to **Democracy > Propose** (or the relevant governance module).
-3. Select the `system > setCode` call and upload the new Wasm runtime.
-4. Submit the proposal and follow the governance process (referenda, council, etc.).
+For more information about runtime versioning, check the [Runtime Upgrades](/develop/parachains/maintenance/runtime-upgrades#runtime-versioning){target=\_blank} guide.
 
-## Step 3: Verify the Upgrade
+### Build the New Runtime
 
-1. After the extrinsic is included in a block, your chain will schedule the upgrade.
-2. The runtime will be upgraded at the start of the next block.
-3. Verify the upgrade:
-   - Check the **Explorer** tab for events like `system.CodeUpdated`.
-   - Confirm the runtime version has incremented (see **Developer > Chain state > system > version**).
-   - Test new features or changes to ensure they are live.
+Navigate to your project root:
 
-## Best Practices
+```bash
+cd /path/to/your/parachain-template
+```
 
-- Always test your runtime thoroughly before upgrading a live chain.
-- Back up your chain data before performing upgrades on production networks.
-- Increment the `spec_version` and `impl_version` in your runtime's `Cargo.toml` and `lib.rs`.
-- Communicate upgrade plans with your community and validators.
-- Monitor the chain closely after the upgrade for unexpected issues.
+Build the new runtime:
 
-## Troubleshooting
+```bash
+cargo build --release
+```
 
-- **Upgrade fails to apply:** Ensure the Wasm blob is correct and compatible with your chain's state.
-- **Chain halts after upgrade:** Check for breaking changes or missing migrations in your runtime code.
-- **Extrinsic rejected:** Verify you have sufficient privileges and that the Wasm file is not too large.
+Verify that you have the proper WASM builds by executing:
+
+```
+ls -la target/release/wbuild/parachain-template-runtime/
+```
+
+If you can see the following elements, it means that you are ready to submit the runtime upgrade to your running chain:
+
+<div id="termynal" data-termynal>
+  <span data-ty="input"><span class="file-path"></span>ls -la target/release/wbuild/parachain-template-runtime/</span>
+  <br />
+  <span data-ty>parachain_template_runtime.wasm</span>
+  <span data-ty>parachain_template_runtime.compact.wasm</span>
+  <span data-ty>parachain_template_runtime.compact.compressed.wasm</span>
+</div>
+
+## Submit the Runtime Upgrade
+
+You can submit a runtime upgrade using the [Sudo pallet](https://paritytech.github.io/polkadot-sdk/master/pallet_sudo/index.html){target=\_blank} (for development chains) or via on-chain governance (for production chains).
+
+1. Open [Polkadot.js Apps](https://polkadot.js.org/apps/){target=\_blank} and connect to your node
+3. Click on the **Developer** and select the **Extrinsics** option in the dropdown
+
+    ![](/images/tutorials/polkadot-sdk/parachains/zero-to-hero/runtime-upgrade/runtime-upgrade-02.webp) 
+
+4. Prepare the **sudo** call:
+    1. Select the **sudo** pallet
+    2. Select the **sudo(call)** extrinsic from the list
+
+        ![](/images/tutorials/polkadot-sdk/parachains/zero-to-hero/runtime-upgrade/runtime-upgrade-03.webp) 
+
+5. In the **sudo** call:
+    1. Select the **system** call
+    2. Select **setCode** extrinsic from the list
+
+        ![](/images/tutorials/polkadot-sdk/parachains/zero-to-hero/runtime-upgrade/runtime-upgrade-04.webp) 
+
+6. For the `code` parameter, click **file upload** and select your Wasm runtime file:
+    - Use `parachain_template_runtime.compact.compressed.wasm` if available (smaller file)
+    - Otherwise, use `parachain_template_runtime.wasm`
+
+        ![](/images/tutorials/polkadot-sdk/parachains/zero-to-hero/runtime-upgrade/runtime-upgrade-05.webp) 
+
+7. Click **Submit Transaction** and sign the transaction with the sudo key
+
+    ![](/images/tutorials/polkadot-sdk/parachains/zero-to-hero/runtime-upgrade/runtime-upgrade-06.webp) 
+
+!!!info "Using Governance (Production)"
+    For production chains with governance enabled, you must follow the on-chain democratic process. This involves submitting a preimage of the new runtime code (using the Democracy pallet), referencing the preimage hash in a proposal, and then following your chain's governance process (such as voting and council approval) until the proposal passes and is enacted. This ensures that runtime upgrades are transparent and subject to community oversight.
+
+## Verify the Upgrade
+
+After the runtime upgrade extrinsic is included in a block, verify that the upgrade was successful.
+
+### Check Runtime Version
+
+1. In Polkadot.js Apps, navigate to the **Chain State** section
+    1. Click the **Developer** dropdown
+    2. Click the **Chain State** option
+
+        ![](/images/tutorials/polkadot-sdk/parachains/zero-to-hero/runtime-upgrade/runtime-upgrade-07.webp) 
+
+2. Query runtime spec version
+    1. Select the **System** pallet
+    2. Select the **lastRuntimeUpgrade()** query
+
+        ![](/images/tutorials/polkadot-sdk/parachains/zero-to-hero/runtime-upgrade/runtime-upgrade-08.webp) 
+
+3. Click the **+** button to query the current runtime version
+
+    ![](/images/tutorials/polkadot-sdk/parachains/zero-to-hero/runtime-upgrade/runtime-upgrade-09.webp) 
+
+4. Verify that the `specVersion` matches your new runtime (should be `2` if you followed the example)
+
+    ![](/images/tutorials/polkadot-sdk/parachains/zero-to-hero/runtime-upgrade/runtime-upgrade-10.webp) 
+
+### Test New Functionality
+
+1. Navigate to **Developer > Extrinsics**
+2. Select your custom pallet from the dropdown
+3. You should now see the new `resetCounter` function available
+
+    ![](/images/tutorials/polkadot-sdk/parachains/zero-to-hero/runtime-upgrade/runtime-upgrade-11.webp) 
+
+Now, you can test the new functionality:
+
+- First, increment the counter using your existing function
+- Then use the new reset function (note: you'll need sudo/root privileges)
+- Verify the counter value is reset to 0
 
 ## Where to Go Next
 
@@ -33506,14 +33606,6 @@ You can submit a runtime upgrade using the Sudo pallet (for development/testnets
     Deploy your Polkadot SDK blockchain on Paseo! Follow this step-by-step guide for a seamless journey to a successful TestNet deployment.
 
     [:octicons-arrow-right-24: Get Started](/tutorials/polkadot-sdk/parachains/zero-to-hero/deploy-to-testnet/)
-
--   <span class="badge tutorial">Tutorial</span> __Obtain Coretime__
-
-    ---
-
-    Get coretime for block production now! Follow this guide to explore on-demand and bulk options for seamless and efficient operations.
-
-    [:octicons-arrow-right-24: Get Started](/tutorials/polkadot-sdk/parachains/zero-to-hero/obtain-coretime/)
 
 </div>
 --- END CONTENT ---

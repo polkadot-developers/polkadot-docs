@@ -8,7 +8,7 @@ tutorial_badge: Intermediate
 
 ## Introduction
 
-Upgrading the runtime of your Polkadot SDK-based blockchain is a fundamental feature that allows you to add new functionality, fix bugs, or improve performance without requiring a hard fork. Runtime upgrades are performed by submitting a special extrinsic that replaces the existing on-chain Wasm runtime code. This process is trustless, transparent, and can be executed either through governance or using sudo, depending on your chain's configuration.
+Upgrading the runtime of your Polkadot SDK-based blockchain is a fundamental feature that allows you to add new functionality, fix bugs, or improve performance without requiring a hard fork. Runtime upgrades are performed by submitting a special extrinsic that replaces the existing on-chain WASM runtime code. This process is trustless, transparent, and can be executed either through governance or using sudo, depending on your chain's configuration.
 
 This tutorial will guide you through the steps to prepare, submit, and verify a runtime upgrade for your parachain or standalone Polkadot SDK-based chain. For this example, you'll continue from the state left by the previous tutorials, where you have a custom pallet integrated into your runtime.
 
@@ -192,7 +192,7 @@ You can submit a runtime upgrade using the [Sudo pallet](https://paritytech.gith
 
         ![](/images/tutorials/polkadot-sdk/parachains/zero-to-hero/runtime-upgrade/runtime-upgrade-04.webp) 
 
-6. For the `code` parameter, click **file upload** and select your Wasm runtime file:
+6. For the `code` parameter, click **file upload** and select your WASM runtime file:
     - Use `parachain_template_runtime.compact.compressed.wasm` if available (smaller file)
     - Otherwise, use `parachain_template_runtime.wasm`
 

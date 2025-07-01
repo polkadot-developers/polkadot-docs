@@ -70,16 +70,16 @@ Instead of adhering to Ethereum's fixed gas values, PolkaVM implements benchmark
 
 Moving beyond Ethereum's single gas metric, PolkaVM meters three distinct resources:
 
-- **`ref_time`** - equivalent to traditional gas, measuring computation time
-- **`proof_size`** - tracks state proof size for validator verification
-- **`storage_deposit`** - manages state bloat through a deposit system
+- **`ref_time`** - Equivalent to traditional gas, measuring computation time.
+- **`proof_size`** - Tracks state proof size for validator verification.
+- **`storage_deposit`** - Manages state bloat through a deposit system.
 
 All three resources can be limited at the transaction level, just like gas on Ethereum. The [Ethereum RPC proxy](https://github.com/paritytech/polkadot-sdk/tree/master/substrate/frame/revive/rpc){target=\_blank} maps all three dimensions into the single gas dimension, ensuring everything behaves as expected for users.
 
 These resources can also be limited when making cross-contract calls, which is essential for security when interacting with untrusted contracts. However, Solidity only allows specifying `gas_limit` for cross-contract calls. The `gas_limit` is most similar to Polkadots `ref_time_limit`, but the Revive compiler doesn't supply any imposed `gas_limit` for cross-contract calls for two key reasons:
 
 - **Semantic differences** - `gas_limit` and `ref_time_limit` are not semantically identical; blindly passing EVM gas as `ref_time_limit` can lead to unexpected behavior
-- **Incomplete protection** - the other two resources (`proof_size` and `storage_deposit`) would remain uncapped anyway, making it insufficient to prevent malicious callees from performing DOS attacks
+- **Incomplete protection** - The other two resources (`proof_size` and `storage_deposit`) would remain uncapped anyway, making it insufficient to prevent malicious callees from performing DOS attacks
 
 When resources are "uncapped" in cross-contract calls, they remain constrained by transaction-specified limits, preventing abuse of the transaction signer.
 

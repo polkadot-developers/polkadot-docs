@@ -63,7 +63,7 @@ dependencies:
       version: 16.1.2
     polkadot_api:
       name: polkadot-api
-      version: 1.13.1
+      version: 1.14.1
     hardhat_resolc: 
       name: '@hardhat-resolc'
       version: 0.0.7  

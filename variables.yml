@@ -53,8 +53,8 @@ dependencies:
       version: 1.1.1
     asset_transfer_api:
       name: '@substrate/asset-transfer-api'
-      version: 0.7.2
-      polkadot_js_api_version: v16.0.1 # Check changelog for pjs version bumps
+      version: 1.0.0
+      polkadot_js_api_version: v16.2.2 # Check changelog for pjs version bumps
     moonwall:
       name: '@moonwall/cli'
       version: 5.12.0

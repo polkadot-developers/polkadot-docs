@@ -33420,7 +33420,7 @@ fn reset_counter_works() {
         // First increment the counter
         assert_ok!(CustomPallet::increment(RuntimeOrigin::signed(1), 1));
 
-        // Ensure the event matches the decrement action
+        // Ensure the event matches the increment action
         System::assert_last_event(
             Event::CounterIncremented {
                 counter_value: 1,
@@ -33457,7 +33457,7 @@ Ensure that your tests pass by running:
 cargo test --package custom-pallet
 ```
 
-### Update the Runtime 
+### Update Runtime Configuration
 
 Since you've only added new functionality without changing existing APIs, minimal runtime changes are needed. However, verify that your runtime configuration is still compatible. If you've added new configuration parameters to your pallet, update them accordingly in the `runtime/configs/mod.rs`.
 
@@ -33526,29 +33526,29 @@ If you can see the following elements, it means that you are ready to submit the
 You can submit a runtime upgrade using the [Sudo pallet](https://paritytech.github.io/polkadot-sdk/master/pallet_sudo/index.html){target=\_blank} (for development chains) or via on-chain governance (for production chains).
 
 1. Open [Polkadot.js Apps](https://polkadot.js.org/apps/){target=\_blank} and connect to your node
-3. Click on the **Developer** and select the **Extrinsics** option in the dropdown
+2. Click on the **Developer** and select the **Extrinsics** option in the dropdown
 
     ![](/images/tutorials/polkadot-sdk/parachains/zero-to-hero/runtime-upgrade/runtime-upgrade-02.webp) 
 
-4. Prepare the **sudo** call:
+3. Prepare the **sudo** call:
     1. Select the **sudo** pallet
     2. Select the **sudo(call)** extrinsic from the list
 
         ![](/images/tutorials/polkadot-sdk/parachains/zero-to-hero/runtime-upgrade/runtime-upgrade-03.webp) 
 
-5. In the **sudo** call:
+4. In the **sudo** call:
     1. Select the **system** call
     2. Select **setCode** extrinsic from the list
 
         ![](/images/tutorials/polkadot-sdk/parachains/zero-to-hero/runtime-upgrade/runtime-upgrade-04.webp) 
 
-6. For the `code` parameter, click **file upload** and select your WASM runtime file:
+5. For the `code` parameter, click **file upload** and select your WASM runtime file:
     - Use `parachain_template_runtime.compact.compressed.wasm` if available (smaller file)
     - Otherwise, use `parachain_template_runtime.wasm`
 
         ![](/images/tutorials/polkadot-sdk/parachains/zero-to-hero/runtime-upgrade/runtime-upgrade-05.webp) 
 
-7. Click **Submit Transaction** and sign the transaction with the sudo key
+6. Click **Submit Transaction** and sign the transaction with the sudo key
 
     ![](/images/tutorials/polkadot-sdk/parachains/zero-to-hero/runtime-upgrade/runtime-upgrade-06.webp) 
 

@@ -145,10 +145,9 @@ This difference introduces potential compatibility challenges for Ethereum-based
 - Account balance checks through EVM opcodes reflect the ED-adjusted balance.
 - Transfers to new accounts automatically include the ED (`x + ED`), with the extra cost incorporated into transaction fees.
 - Contract-to-contract transfers handle ED requirements by:
-
-  - Drawing ED from the transaction signer instead of the sending contract.
-  - Keeping transfer amounts transparent for contract logic.
-  - Treating ED like other storage deposit costs.
+    - Drawing ED from the transaction signer instead of the sending contract.
+    - Keeping transfer amounts transparent for contract logic.
+    - Treating ED like other storage deposit costs.
 
 This approach ensures that Ethereum contracts work without modifications while maintaining Polkadot's optimized state management.
 

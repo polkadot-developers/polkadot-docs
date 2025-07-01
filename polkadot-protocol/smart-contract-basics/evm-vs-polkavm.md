@@ -78,8 +78,8 @@ All three resources can be limited at the transaction level, just like gas on Et
 
 These resources can also be limited when making cross-contract calls, which is essential for security when interacting with untrusted contracts. However, Solidity only allows specifying `gas_limit` for cross-contract calls. The `gas_limit` is most similar to Polkadots `ref_time_limit`, but the Revive compiler doesn't supply any imposed `gas_limit` for cross-contract calls for two key reasons:
 
-- **Semantic differences** - `gas_limit` and `ref_time_limit` are not semantically identical; blindly passing EVM gas as `ref_time_limit` can lead to unexpected behavior
-- **Incomplete protection** - The other two resources (`proof_size` and `storage_deposit`) would remain uncapped anyway, making it insufficient to prevent malicious callees from performing DOS attacks
+- **Semantic differences** - `gas_limit` and `ref_time_limit` are not semantically identical; blindly passing EVM gas as `ref_time_limit` can lead to unexpected behavior.
+- **Incomplete protection** - The other two resources (`proof_size` and `storage_deposit`) would remain uncapped anyway, making it insufficient to prevent malicious callees from performing DOS attacks.
 
 When resources are "uncapped" in cross-contract calls, they remain constrained by transaction-specified limits, preventing abuse of the transaction signer.
 
@@ -141,14 +141,14 @@ Ethereum and Polkadot handle account persistence differently, affecting state ma
 
 This difference introduces potential compatibility challenges for Ethereum-based contracts and tools, particularly wallets. To mitigate this, PolkaVM implements several transparent adjustments:
 
-- Balance queries via Ethereum RPC automatically deduct the ED, ensuring reported balances match spendable amounts
-- Account balance checks through EVM opcodes reflect the ED-adjusted balance
-- Transfers to new accounts automatically include the ED (`x + ED`), with the extra cost incorporated into transaction fees
+- Balance queries via Ethereum RPC automatically deduct the ED, ensuring reported balances match spendable amounts.
+- Account balance checks through EVM opcodes reflect the ED-adjusted balance.
+- Transfers to new accounts automatically include the ED (`x + ED`), with the extra cost incorporated into transaction fees.
 - Contract-to-contract transfers handle ED requirements by:
 
-  - Drawing ED from the transaction signer instead of the sending contract
-  - Keeping transfer amounts transparent for contract logic
-  - Treating ED like other storage deposit costs
+  - Drawing ED from the transaction signer instead of the sending contract.
+  - Keeping transfer amounts transparent for contract logic.
+  - Treating ED like other storage deposit costs.
 
 This approach ensures that Ethereum contracts work without modifications while maintaining Polkadot's optimized state management.
 
@@ -158,9 +158,9 @@ For most users deploying contracts (like ERC-20 tokens), contract deployment wor
 
 In the PolkaVM, contract deployment follows a fundamentally different model from EVM. The EVM allows contracts to be deployed with a single transaction, where the contract code is bundled with the deployment transaction. In contrast, PolkaVM has a different process for contract instantiation.
 
-- **Code must be pre-uploaded** - unlike EVM, where contract code is bundled within the deploying contract, PolkaVM requires all contract bytecode to be uploaded to the chain before instantiation
-- **Factory pattern limitations** - the common EVM pattern, where contracts dynamically create other contracts, will fail with a `CodeNotFound` error unless the dependent contract code was previously uploaded
-- **Separate upload and instantiation** - this creates a two-step process where developers must first upload all contract code, then instantiate relationships between contracts
+- **Code must be pre-uploaded** - Unlike EVM, where contract code is bundled within the deploying contract, PolkaVM requires all contract bytecode to be uploaded to the chain before instantiation.
+- **Factory pattern limitations** - The common EVM pattern, where contracts dynamically create other contracts, will fail with a `CodeNotFound` error unless the dependent contract code was previously uploaded.
+- **Separate upload and instantiation** - This creates a two-step process where developers must first upload all contract code, then instantiate relationships between contracts.
 
 This architecture impacts several common EVM patterns and requires developers to adapt their deployment strategies accordingly. _Factory contracts must be modified to work with pre-uploaded code rather than embedding bytecode_, and runtime code generation is not supported due to PolkaVM's RISC-V bytecode format. The specific behavior of contract creation opcodes is detailed in the [YUL IR Translation](#yul-function-translation-differences) section.
 
@@ -180,7 +180,7 @@ In the constructor code, the `codesize` instruction returns the call data size i
 
 Solidity constructs behave differently under PolkaVM:
 
-- **`address.creationCode`** - returns the bytecode keccak256 hash instead of the actual creation code, reflecting PolkaVM's hash-based code referencing system
+- **`address.creationCode`** - Returns the bytecode keccak256 hash instead of the actual creation code, reflecting PolkaVM's hash-based code referencing system.
     - If your contract relies on `address.creationCode` to verify or interact with the full raw bytecode of a newly deployed contract, this will not work as expected. You will receive a hash, not the code itself. This typically affects highly specialized factory contracts or introspection tools.
 
 ### YUL Function Translation Differences
@@ -190,34 +190,34 @@ The following YUL functions exhibit notable behavioral differences in PolkaVM:
 - **Memory Operations:**
 
     - **`mload`, `mstore`, `msize`, `mcopy`** - PolkaVM preserves memory layout but implements several constraints:
-        - EVM linear heap memory is emulated using a fixed 64KB byte buffer, limiting maximum contract memory usage
-        - Accessing memory offsets larger than the buffer size traps the contract with an `OutOfBound` error
-        - Compiler optimizations may eliminate unused memory operations, potentially causing `msize` to differ from EVM behavior
+        - EVM linear heap memory is emulated using a fixed 64KB byte buffer, limiting maximum contract memory usage.
+        - Accessing memory offsets larger than the buffer size traps the contract with an `OutOfBound` error.
+        - Compiler optimizations may eliminate unused memory operations, potentially causing `msize` to differ from EVM behavior.
 
         For Solidity developers, the compiler generally handles memory efficiently within this 64KB limit. However, if you are writing low-level YUL assembly and perform direct memory manipulations, you must respect the 64KB buffer limit. Attempting to access memory outside this range will cause your transaction to revert. Be aware that `msize` might not always reflect the exact EVM behavior if compiler optimizations occur.
 
 - **Call Data Operations:**
 
-    - **`calldataload`, `calldatacopy`** - in constructor code, the offset parameter is ignored and these functions always return `0`, diverging from EVM behavior where call data represents constructor arguments
+    - **`calldataload`, `calldatacopy`** - In constructor code, the offset parameter is ignored and these functions always return `0`, diverging from EVM behavior where call data represents constructor arguments.
         - If your constructor logic in YUL assembly attempts to read constructor arguments using `calldataload` or `calldatacopy` with specific offsets, this will not yield the expected constructor arguments. Instead, these functions will return `zeroed` values. Standard Solidity constructors are handled correctly by the compiler, but manual YUL assembly for constructor argument parsing will need adjustment.
 
 - **Code Operations:**
 
-    - **`codecopy`** - only supported within constructor code, reflecting PolkaVM's different approach to code handling and the unified code blob structure
+    - **`codecopy`** - Only supported within constructor code, reflecting PolkaVM's different approach to code handling and the unified code blob structure.
         - If your contracts use `codecopy` (e.g., for self-modifying code or inspecting other contract's runtime bytecode) outside of the constructor, this will not be supported and will likely result in a compile-time error or runtime trap. This implies that patterns like dynamically generating or modifying contract code at runtime are not directly feasible with `codecopy` on PolkaVM.
 
 - **Control Flow:**
 
-    - **`invalid`** - traps the contract execution but does not consume remaining gas, unlike EVM where it consumes all available gas
+    - **`invalid`** - Traps the contract execution but does not consume remaining gas, unlike EVM where it consumes all available gas.
         - While `invalid` still reverts the transaction, the difference in gas consumption could subtly affect very specific error handling or gas accounting patterns that rely on `invalid` to consume all remaining gas. For most error scenarios, `revert()` is the standard and recommended practice.
 
 - **Cross-Contract Calls:**
 
-    - **`call`, `delegatecall`, `staticall`** - these functions ignore supplied gas limits and forward all remaining resources due to PolkaVM's multi-dimensional resource model. This creates important security implications:
+    - **`call`, `delegatecall`, `staticall`** - These functions ignore supplied gas limits and forward all remaining resources due to PolkaVM's multi-dimensional resource model. This creates important security implications:
 
-        - Contract authors must implement reentrancy protection since gas stipends don't provide protection
-        - The compiler detects `address payable.{send,transfer}` patterns and disables call reentrancy as a protective heuristic
-        - Using `address payable.{send,transfer}` is already deprecated; PolkaVM will provide dedicated precompiles for safe balance transfers
+        - Contract authors must implement reentrancy protection since gas stipends don't provide protection.
+        - The compiler detects `address payable.{send,transfer}` patterns and disables call reentrancy as a protective heuristic.
+        - Using `address payable.{send,transfer}` is already deprecated; PolkaVM will provide dedicated precompiles for safe balance transfers.
 
         The traditional EVM pattern of limiting gas in cross-contract calls (especially with the 2300 gas stipend for send/transfer) does not provide reentrancy protection on PolkaVM. Developers must explicitly implement reentrancy guards (e.g., using a reentrancy lock mutex) in their Solidity code when making external calls to untrusted contracts. Relying on gas limits alone for reentrancy prevention is unsafe and will lead to vulnerabilities on PolkaVM.
 
@@ -226,10 +226,10 @@ The following YUL functions exhibit notable behavioral differences in PolkaVM:
 
 - **Contract Creation:**
 
-    - **`create`, `create2`** - contract instantiation works fundamentally differently in PolkaVM. Instead of supplying deploy code concatenated with constructor arguments, the runtime expects:
+    - **`create`, `create2`** - Contract instantiation works fundamentally differently in PolkaVM. Instead of supplying deploy code concatenated with constructor arguments, the runtime expects:
 
-        1. A buffer containing the code hash to deploy
-        2. The constructor arguments buffer
+        1. A buffer containing the code hash to deploy.
+        2. The constructor arguments buffer.
 
         PolkaVM translates `dataoffset` and `datasize` instructions to handle contract hashes instead of contract code, enabling seamless use of the `new` keyword in Solidity. However, this translation may fail for contracts creating other contracts within `assembly` blocks.
 
@@ -240,30 +240,30 @@ The following YUL functions exhibit notable behavioral differences in PolkaVM:
 
 - **Data Operations:**
 
-    - **`dataoffset`** - returns the contract hash instead of code offset, aligning with PolkaVM's hash-based code referencing
-    - **`datasize`** - returns the constant contract hash size (32 bytes) rather than variable code size
+    - **`dataoffset`** - Returns the contract hash instead of code offset, aligning with PolkaVM's hash-based code referencing.
+    - **`datasize`** - Returns the constant contract hash size (32 bytes) rather than variable code size.
 
     These changes are primarily relevant for low-level YUL assembly developers who are trying to inspect or manipulate contract code directly. `dataoffset` will provide a hash, not a memory offset to the code, and `datasize` will always be 32 bytes (the size of a hash). This reinforces that direct manipulation of contract bytecode at runtime, as might be done in some EVM patterns, is not supported.
 
 - **Resource Queries:**
 
-    - **`gas`, `gaslimit`** - return only the `ref_time` component of PolkaVM's multi-dimensional weight system, providing the closest analog to traditional gas measurements
+    - **`gas`, `gaslimit`** - Return only the `ref_time` component of PolkaVM's multi-dimensional weight system, providing the closest analog to traditional gas measurements.
         - While `gas` and `gaslimit` still provide a useful metric, consider that they represent `ref_time` (computation time) only. If your contract logic depends on precise knowledge of other resource costs (like `proof_size` or `storage_deposit`), you won't get that information from these opcodes. You'll need to use future precompiles for full multi-dimensional resource queries.
 
 - **Blockchain State:**
 
-    - **`prevrandao`, `difficulty`** - both translate to a constant value of `2500000000000000`, as PolkaVM doesn't implement Ethereum's difficulty adjustment or randomness mechanisms
+    - **`prevrandao`, `difficulty`** - Both translate to a constant value of `2500000000000000`, as PolkaVM doesn't implement Ethereum's difficulty adjustment or randomness mechanisms.
         - If your Solidity contract relies on `block.difficulty` (or its equivalent YUL opcode `difficulty`) for randomness generation or any logic tied to Ethereum's proof-of-work difficulty, this will not provide true randomness on PolkaVM. The value will always be constant. Developers needing on-chain randomness should utilize Polkadot's native randomness sources or dedicated VRF (Verifiable Random Function) solutions if available. 
 
 ### Unsupported Operations
 
 Several EVM operations are not supported in PolkaVM and produce compile-time errors:
 
-- **`pc`, `extcodecopy`** - these operations are EVM-specific and have no equivalent functionality in PolkaVM's RISC-V architecture
+- **`pc`, `extcodecopy`** - These operations are EVM-specific and have no equivalent functionality in PolkaVM's RISC-V architecture.
     - Any Solidity contracts that utilize inline assembly to interact with `pc` (program counter) or `extcodecopy` will fail to compile or behave unexpectedly. This means patterns involving introspection of the current execution location or copying external contract bytecode at runtime are not supported.
-- **`blobhash`, `blobbasefee`** - related to Ethereum's rollup model and blob data handling, these operations are unnecessary given Polkadot's superior rollup architecture
+- **`blobhash`, `blobbasefee`** - Related to Ethereum's rollup model and blob data handling, these operations are unnecessary given Polkadot's superior rollup architecture.
     - If you are porting contracts designed for Ethereum's EIP-4844 (proto-danksharding) and rely on these blob-related opcodes, they will not be available on PolkaVM.
-- **`extcodecopy`, `selfdestruct`** - these deprecated operations are not supported and generate compile-time errors
+- **`extcodecopy`, `selfdestruct`** - These deprecated operations are not supported and generate compile-time errors.
     - The `selfdestruct` opcode, which allowed contracts to remove themselves from the blockchain, is not supported. Contracts cannot be self-destroyed on PolkaVM. This affects contract upgradeability patterns that rely on self-destruction and redeployment. Similarly, `extcodecopy` is unsupported, impacting contracts that intend to inspect or copy the bytecode of other deployed contracts.
 
 ### Compilation Pipeline Considerations

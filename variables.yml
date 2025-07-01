@@ -50,7 +50,7 @@ dependencies:
   javascript_packages:
     chopsticks:
       name: '@acala-network/chopsticks'
-      version: 1.0.6
+      version: 1.1.1
     asset_transfer_api:
       name: '@substrate/asset-transfer-api'
       version: 0.7.2

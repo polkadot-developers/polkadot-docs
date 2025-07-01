@@ -15673,7 +15673,7 @@ async function main() {
     const callData = Binary.fromHex(
         "0x1f0803010100411f0300010100fc39fcf04a8071b7409823b7c82427ce67910c6ed80aa0e5093aff234624c8200304000002043205011f0092e81d790000000000"
     );
-    const tx = await api.txFromCallData(callData);
+    const tx: any = await api.txFromCallData(callData);
     console.log("Executing XCM:", JSON.stringify(tx.decodedCall, toHuman, 2));
 
     await new Promise<void>((resolve) => {

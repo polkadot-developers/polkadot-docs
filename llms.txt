@@ -15634,7 +15634,7 @@ Once you've found the extrinsic (e.g. `9079592-2`), extract and decode its call 
 
 **Copy the Call Data**
 
-From the decoded view, copy the **hex-encoded call data** (e.g. `0x1f08...0000`). You'll pass this into `api.txFromCallData(...)` to replay the XCM locally.
+From the decoded view, copy the **hex-encoded call** (e.g. `0x1f08...0000`). You'll pass this into `api.txFromCallData(...)` to replay the XCM locally.
 
 ### Replay the XCM
 

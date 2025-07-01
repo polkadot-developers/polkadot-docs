@@ -1,3 +1,4 @@
+// Deploy an EVM-compatible smart contract using ethers.js
 const { writeFileSync, existsSync, readFileSync } = require('fs');
 const { join } = require('path');
 const { ethers, JsonRpcProvider } = require('ethers');
@@ -31,9 +32,12 @@ const getAbi = (contractName) => {
 // Reads the compiled bytecode for a given contract
 const getByteCode = (contractName) => {
   try {
-    return `0x${readFileSync(
-      join(codegenDir, `${contractName}.polkavm`),
-    ).toString('hex')}`;
+    const bytecodePath = join(
+      codegenDir,
+      '../contracts',
+      `${contractName}.polkavm`,
+    );
+    return `0x${readFileSync(bytecodePath).toString('hex')}`;
   } catch (error) {
     console.error(
       `Could not find bytecode for contract ${contractName}:`,

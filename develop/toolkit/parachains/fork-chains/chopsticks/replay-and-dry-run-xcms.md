@@ -218,7 +218,7 @@ npx papi add assetHub -w ws://localhost:8000
 > If you're using a different port or config, update the WebSocket endpoint in the script or descriptor.
 > You can confirm the port by checking your terminal logs or see [Launch Chopsticks](#launch-chopsticks).
 
-**Create the Script**
+**Create a Replay Script**
 
 Create a file named `replay-xcm.ts` and copy the following code into it:
 
@@ -226,7 +226,7 @@ Create a file named `replay-xcm.ts` and copy the following code into it:
 --8<-- 'code/develop/toolkit/parachains/fork-chains/chopsticks/replay-and-dry-run-xcms/replay-xcm.ts'
 ```
 
-**Execute the Script**
+**Execute the Replay Script**
 
 Ensure Chopsticks is running and serving a chain that includes `pallet-xcm`, such as a Polkadot Asset Hub fork. Then run:
 
@@ -244,13 +244,18 @@ If everything is working, you'll see logs like:
 
 To simulate the XCM without actually sending it, you can use the `dry_run_call` method. This lets you check whether the XCM would succeed without modifying any state.
 
-Assuming you've the `tx` transaction from the previous step, you can perform a dry run like this:
+**Create a Dry Run Script**
 
-```ts
-const XCM_VERSION = 5;
-const origin = Enum("system", Enum("Signed", alice.address)); // import { Enum } from "polkadot-api";
-const dryRunResult: any = await api.apis.DryRunApi.dry_run_call(origin, tx.decodedCall, XCM_VERSION);
-console.dir(dryRunResult.value, { depth: null });
+Assuming you've the `tx` transaction from the previous step, you can create a new script, `dry-run-xcm.ts`, then paste in the following code:
+
+--8<-- 'code/develop/toolkit/parachains/fork-chains/chopsticks/replay-and-dry-run-xcms/dry-run-xcm.ts'
+
+> ℹ️ Make sure your local Chopsticks fork is running and the ports match those used in the script.
+
+**Execute the Dry Run Script**
+
+```bash
+npx tsx dry-run-xcm.ts
 ```
 
 If successful, the dry run confirms that the XCM would execute correctly:
@@ -261,7 +266,7 @@ If it fails, you'll receive detailed error information:
 
 --8<-- 'code/develop/toolkit/parachains/fork-chains/chopsticks/replay-and-dry-run-xcms/dry-run-failure.html'
 
-More details:
+**Learn More**
 
 * [Dry Run Call](/develop/interoperability/xcm-runtime-apis/#dry-run-call){target=\_blank} to simulate a full extrinsic
 * [Dry Run XCM](/develop/interoperability/xcm-runtime-apis/#dry-run-xcm){target=\_blank} to simulate a raw XCM

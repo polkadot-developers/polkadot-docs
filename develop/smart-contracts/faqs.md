@@ -180,5 +180,5 @@ Please log any bugs in the [`contracts-issues`](https://github.com/paritytech/co
 
 ### Compilation
 
-- **`SDIV` Opcode Crash** - Compiler crashes with 'Unsupported SDIV' assertion failure.
-    - [Issue #342](https://github.com/paritytech/revive/issues/342){target=\_blank}
+- **`SDIV` Opcode Crash** - Compiler crashes with `Unsupported SDIV` assertion failure.
+    - [Issue #342](https://github.com/paritytech/revive/issues/342){target=\_blank}.

@@ -158,7 +158,7 @@ This command starts the relay chain and parachains locally, with full runtime ex
 
 You'll also see runtime logs such as:
 
---8<-- 'code/develop/toolkit/parachains/fork-chains/chopsticks/replay-and-dry-run-xcms/launch-chopsticks.html'
+--8<-- 'code/tutorials/interoperability/replay-and-dry-run-xcms/launch-chopsticks.html'
 
 ### Identify the XCM to Replay
 
@@ -223,7 +223,7 @@ npx papi add assetHub -w ws://localhost:8000
 Create a file named `replay-xcm.ts` and copy the following code into it:
 
 ```ts
---8<-- 'code/develop/toolkit/parachains/fork-chains/chopsticks/replay-and-dry-run-xcms/replay-xcm.ts'
+--8<-- 'code/tutorials/interoperability/replay-and-dry-run-xcms/replay-xcm.ts'
 ```
 
 **Execute the Replay Script**
@@ -238,7 +238,7 @@ npx tsx replay-xcm.ts
 
 If everything is working, you'll see logs like:
 
---8<-- 'code/develop/toolkit/parachains/fork-chains/chopsticks/replay-and-dry-run-xcms/replay-xcm-result.html'
+--8<-- 'code/tutorials/interoperability/replay-and-dry-run-xcms/replay-xcm-result.html'
 
 ## Dry Run the XCM
 
@@ -248,7 +248,7 @@ To simulate the XCM without actually sending it, you can use the `dry_run_call` 
 
 Assuming you've the `tx` transaction from the previous step, you can create a new script, `dry-run-xcm.ts`, then paste in the following code:
 
---8<-- 'code/develop/toolkit/parachains/fork-chains/chopsticks/replay-and-dry-run-xcms/dry-run-xcm.ts'
+--8<-- 'code/tutorials/interoperability/replay-and-dry-run-xcms/dry-run-xcm.ts'
 
 > ℹ️ Make sure your local Chopsticks fork is running and the ports match those used in the script.
 
@@ -260,11 +260,11 @@ npx tsx dry-run-xcm.ts
 
 If successful, the dry run confirms that the XCM would execute correctly:
 
---8<-- 'code/develop/toolkit/parachains/fork-chains/chopsticks/replay-and-dry-run-xcms/dry-run-success.html'
+--8<-- 'code/tutorials/interoperability/replay-and-dry-run-xcms/dry-run-success.html'
 
 If it fails, you'll receive detailed error information:
 
---8<-- 'code/develop/toolkit/parachains/fork-chains/chopsticks/replay-and-dry-run-xcms/dry-run-failure.html'
+--8<-- 'code/tutorials/interoperability/replay-and-dry-run-xcms/dry-run-failure.html'
 
 **Learn More**
 

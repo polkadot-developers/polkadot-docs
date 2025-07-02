@@ -2,4 +2,3 @@ title: Chopsticks
 nav:
   - index.md
   - 'Get Started': get-started.md
-  - 'Replay and Dry Run XCMs': replay-and-dry-run-xcms.md

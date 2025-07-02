@@ -15589,7 +15589,7 @@ This command starts the relay chain and parachains locally, with full runtime ex
 * Acala RPC on http://localhost:8001
 * Polkadot RPC on http://localhost:8002
 
-You’ll also see runtime logs such as:
+You'll also see runtime logs such as:
 
 <div class="termynal" data-termynal>
   <span data-ty>[09:29:14.988] INFO: Polkadot Asset Hub RPC listening on http://[::]:8000 and ws://[::]:8000</span>
@@ -15604,7 +15604,7 @@ You’ll also see runtime logs such as:
 
 ### Identify the XCM to Replay
 
-To replay an XCM, you’ll first need to identify the exact extrinsic that triggered it. In this example, we’ll use **Block #9079592** on the **Polkadot Asset Hub**.
+To replay an XCM, you'll first need to identify the exact extrinsic that triggered it. In this example, we'll use **Block #9079592** on the **Polkadot Asset Hub**.
 
 #### Step-by-step:
 
@@ -15639,6 +15639,30 @@ Once you've found the extrinsic (e.g. `9079592-2`), extract and decode its call 
 From the decoded view, copy the **hex-encoded call** (e.g. `0x1f08...0000`). You'll pass this into `api.txFromCallData(...)` to replay the XCM locally.
 
 ### Replay the XCM
+
+Once your project is set up (see [Project Setup](#project-setup)), you're ready to replay the XCM locally.
+
+This is useful for:
+
+* Diagnosing execution failures or weight limits
+* Inspecting all emitted events
+* Verifying behaviour before submitting a real transaction
+
+**Add the Asset Hub Descriptor**
+
+This will let you use type-safe APIs with PAPI:
+
+```bash
+npx papi add assetHub -w ws://localhost:8000
+```
+
+> ℹ️ The script assumes the Polkadot Asset Hub is served on `ws://localhost:8000`.
+> If you're using a different port or config, update the WebSocket endpoint in the script or descriptor.
+> You can confirm the port by checking your terminal logs or see [Launch Chopsticks](#launch-chopsticks).
+
+**Create the Script**
+
+Create a file named `replay-xcm.ts` and copy the following code into it:
 
 ```ts
 import { assetHub } from "@polkadot-api/descriptors";
@@ -15710,37 +15734,15 @@ async function main() {
 main().catch(console.error);
 ```
 
-#### How to Run
+**Execute the Script**
 
-**Save the Script**
-
-Create a file named `replay-xcm.ts` and paste your script into it.
-
-**Install Dependencies**
-
-Install the required packages and add the Asset Hub descriptor:
+Ensure Chopsticks is running and serving a chain that includes `pallet-xcm`, such as a Polkadot Asset Hub fork. Then run:
 
 ```bash
-npm i @polkadot/api polkadot-api
-npx papi add assetHub -w ws://localhost:8000
+npx tsx replay-xcm.ts
 ```
 
-> ℹ️ The example script assumes Polkadot Asset Hub is available at `ws://localhost:8000`.
-> If your Chopsticks config uses a different port, update the descriptor or script accordingly.
-> You can verify the port in your terminal logs or in the [Launch Chopsticks](#launch-chopsticks) section.
-
-**Run the Script**
-
-* Ensure Chopsticks is running and serving Polkadot Asset Hub on port `8000`.
-* Make sure the chain you're connecting to includes `pallet-xcm` (e.g. a Polkadot Asset Hub fork).
-
-Execute the script to replay the XCM:
-
-```bash
-npx ts-node replay-xcm.ts
-```
-
-**What to Expect**
+**Expected Output**
 
 If everything is working, you'll see logs like:
 

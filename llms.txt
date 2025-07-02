@@ -25630,9 +25630,9 @@ If successful, the dry run confirms that the XCM would execute correctly:
   <span data-ty>execution_result: {</span>
   <span data-ty> success: true,</span>
   <span data-ty> value: { ... }</span>
-  <span data-ty>}</span>
-  <span data-ty>emitted_events: [ ... ]</span>
-  <span data-ty>local_xcm: { ... }</span>
+  <span data-ty>},</span>
+  <span data-ty>emitted_events: [ ... ],</span>
+  <span data-ty>local_xcm: { ... },</span>
   <span data-ty>forwarded_xcms: [ ... ]</span>
 </div>
 
@@ -25653,9 +25653,9 @@ If it fails, you'll receive detailed error information:
   <span data-ty> }</span>
   <span data-ty> }</span>
   <span data-ty> }</span>
-  <span data-ty>}</span>
-  <span data-ty>emitted_events: []</span>
-  <span data-ty>local_xcm: undefined</span>
+  <span data-ty>},</span>
+  <span data-ty>emitted_events: [],</span>
+  <span data-ty>local_xcm: undefined,</span>
   <span data-ty>forwarded_xcms: []</span>
 </div>
 

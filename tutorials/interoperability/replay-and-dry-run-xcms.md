@@ -248,7 +248,9 @@ To simulate the XCM without actually sending it, you can use the `dry_run_call` 
 
 Assuming you've the `tx` transaction from the previous step, you can create a new script, `dry-run-xcm.ts`, then paste in the following code:
 
+```ts
 --8<-- 'code/tutorials/interoperability/replay-and-dry-run-xcms/dry-run-xcm.ts'
+```
 
 > ℹ️ Make sure your local Chopsticks fork is running and the ports match those used in the script.
 

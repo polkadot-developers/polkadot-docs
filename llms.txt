@@ -25582,6 +25582,7 @@ To simulate the XCM without actually sending it, you can use the `dry_run_call` 
 
 Assuming you've the `tx` transaction from the previous step, you can create a new script, `dry-run-xcm.ts`, then paste in the following code:
 
+```ts
 import { assetHub } from "@polkadot-api/descriptors";
 import { Binary, createClient, Enum } from "polkadot-api";
 import { getWsProvider } from "polkadot-api/ws-provider/web";
@@ -25613,6 +25614,7 @@ async function main() {
 }
 
 main().catch(console.error);
+```
 
 > ℹ️ Make sure your local Chopsticks fork is running and the ports match those used in the script.
 

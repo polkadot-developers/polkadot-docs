@@ -15723,10 +15723,14 @@ npm i @polkadot/api polkadot-api
 npx papi add assetHub -w ws://localhost:8000
 ```
 
+> ℹ️ The example script assumes Polkadot Asset Hub is available at `ws://localhost:8000`.
+> If your Chopsticks config uses a different port, update the descriptor or script accordingly.
+> You can verify the port in your terminal logs or in the [Launch Chopsticks](#launch-chopsticks) section.
+
 **Run the Script**
 
-* Make sure Chopsticks is running with Polkadot Asset Hub on port `8000`.
-* You're connected to a chain that has `pallet-xcm` (e.g. a Polkadot Asset Hub fork)
+* Ensure Chopsticks is running and serving Polkadot Asset Hub on port `8000`.
+* Make sure the chain you're connecting to includes `pallet-xcm` (e.g. a Polkadot Asset Hub fork).
 
 Execute the script to replay the XCM:
 

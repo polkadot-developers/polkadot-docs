@@ -163,7 +163,7 @@ Please log any bugs in the [`contracts-issues`](https://github.com/paritytech/co
     - [Issue #45](https://github.com/paritytech/contract-issues/issues/45){target=\_blank}.
 - **Non-Deterministic Gas Usage** - Gas consumption varies slightly for identical transactions.
     - [Issue #49](https://github.com/paritytech/contract-issues/issues/49){target=\_blank}.
-- **Precompiles Not Recognized** - Precompile addresses return "Contract not found" error.
+- **Precompiles Not Recognized** - Precompile addresses return `Contract not found` error.
     - [Issue #111](https://github.com/paritytech/contract-issues/issues/111){target=\_blank}.
 
 ### Development Tools

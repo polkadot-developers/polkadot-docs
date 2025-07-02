@@ -98,32 +98,34 @@ ACALA_BLOCK_NUMBER=8826385
 
 #### Enable Logging and Wasm Override
 
-Full execution logs only work if the runtime was compiled with logging enabled. Most live chains are built using the `production` profile, which disables logs. You need to override the Wasm with a `debug` build.
+Full execution logs only work if the runtime was compiled with logging enabled. Most live chains are built using the `production` profile, which disables logs. To enable logging, you'll need to override the Wasm with a locally built `debug` version.
 
-**Clone the `polkadot-fellows/runtimes` Repository**:
+**Clone the `polkadot-fellows/runtimes` Repository**
 
 ```bash
 git clone git@github.com:polkadot-fellows/runtimes.git
 ```
 
-**Build the Polkadot Asset Hub Runtime**:
+**Build the Polkadot Asset Hub Runtime**
 
 ```bash
 cd runtimes
 cargo build -p asset-hub-polkadot-runtime
 ```
 
-**Copy the Compiled Wasm to Your Working Directory**:
+**Copy the Compiled Wasm to Your Working Directory**
 
 ```bash
-mkdir -p <Your Working Directory>/replay-xcm-tests/wasms
-cp target/debug/wbuild/asset-hub-polkadot-runtime/asset_hub_polkadot_runtime.wasm <Your Working Directory>/replay-xcm-tests/wasms
+# Assuming you're still in the `runtimes` directory
+mkdir -p ../wasms # or your <replay-xcm-tests>/wasms path
+cp target/debug/wbuild/asset-hub-polkadot-runtime/asset_hub_polkadot_runtime.wasm ../wasms
 ```
 
-**Download and Modify a Config File**:
+**Download and Modify a Config File**
 
 ```bash
-cd <Your Working Directory>/replay-xcm-tests
+# Still in the `runtimes` directory
+cd .. # Return to your replay-xcm-tests root
 mkdir -p configs
 wget https://raw.githubusercontent.com/AcalaNetwork/chopsticks/master/configs/polkadot-asset-hub.yml -O configs/polkadot-asset-hub-override.yaml
 ```

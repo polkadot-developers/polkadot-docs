@@ -153,3 +153,32 @@ The latest MetaMask update affects the extension’s ability to deploy large con
 ### I found a bug, where can I log it?
 
 Please log any bugs in the [`contracts-issues`](https://github.com/paritytech/contract-issues/issues){target=\_blank} repository so developers are aware of them and can address them.
+
+
+## Known Issues
+
+### Runtime Behavior
+
+- **`creationCode` Returns Hash Instead of Bytecode** - The Solidity keyword returns `keccak256` hash rather than actual creation bytecode.
+    - [Issue #45](https://github.com/paritytech/contract-issues/issues/45){target=\_blank}.
+- **Non-Deterministic Gas Usage** - Gas consumption varies slightly for identical transactions.
+    - [Issue #49](https://github.com/paritytech/contract-issues/issues/49){target=\_blank}.
+- **Precompiles Not Recognized** - Precompile addresses return "Contract not found" error.
+    - [Issue #111](https://github.com/paritytech/contract-issues/issues/111){target=\_blank}.
+
+### Development Tools
+
+- **`hardhat-polkadot` Plugin Compilation Issues** - Plugin interferes with standard `npx hardhat compile` command.
+    - [Issue #44](https://github.com/paritytech/contract-issues/issues/44){target=\_blank}.
+- **Empty Hardhat Project Compilation Failure** - New empty projects fail to compile with `hardhat-polkadot` plugin.
+    - [Issue #132](https://github.com/paritytech/hardhat-polkadot/issues/132){target=\_blank}.
+
+### Contract Patterns
+
+- **Minimal Proxy (EIP-1167) Deployment Fails** - Standard proxy contracts cannot be deployed on PolkaVM.
+    - [Issue #86](https://github.com/paritytech/contract-issues/issues/86){target=\_blank}.
+
+### Compilation
+
+- **`SDIV` Opcode Crash** - Compiler crashes with 'Unsupported SDIV' assertion failure.
+    - [Issue #342](https://github.com/paritytech/revive/issues/342){target=\_blank}

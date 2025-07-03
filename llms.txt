@@ -24600,11 +24600,18 @@ The [`AccountId32Mapper`](https://paritytech.github.io/polkadot-sdk/master/palle
 
 ### Polkadot to Ethereum Mapping
 
-The conversion from 32-byte to 20-byte addresses is handled through a stateful mapping system implemented in the [`AddressMapper`](https://paritytech.github.io/polkadot-sdk/master/pallet_revive/trait.AddressMapper.html){target=\_blank} trait. The core functionality includes:
+The conversion from 32-byte Polkadot accounts to 20-byte Ethereum addresses is more complex than the reverse direction due to the lossy nature of the conversion. The [`AccountId32Mapper`](https://paritytech.github.io/polkadot-sdk/master/pallet_revive/struct.AccountId32Mapper.html){target=\_blank} handles this through two distinct approaches:
 
-- Address conversion in both directions
-- Account registration and management
-- Mapping status verification
+- **For Ethereum-derived accounts** - The system uses the [`is_eth_derived`](https://paritytech.github.io/polkadot-sdk/master/pallet_revive/fn.is_eth_derived.html){target=\_blank} function to detect accounts that were originally Ethereum addresses (identified by the `0xEE` suffix pattern). For these accounts, the conversion simply strips the last 12 bytes to recover the original 20-byte Ethereum address.
+
+- **For native Polkadot accounts** - Since these accounts use the full 32-byte space and weren't derived from Ethereum addresses, direct truncation would lose information. Instead, the system:
+    1. Hashes the entire 32-byte account using Keccak-256
+    2. Takes the last 20 bytes of the hash to create the Ethereum address
+    3. This ensures a deterministic mapping while avoiding simple truncation
+
+The conversion process is implemented through the [`to_address`](https://paritytech.github.io/polkadot-sdk/master/pallet_revive/trait.AddressMapper.html#tymethod.to_address){target=\_blank} function, which automatically detects the account type and applies the appropriate conversion method.
+
+**Stateful Mapping for Reversibility** - Since the conversion from 32-byte to 20-byte addresses is inherently lossy, the system provides an optional stateful mapping through the [`OriginalAccount`](https://paritytech.github.io/polkadot-sdk/master/pallet_revive/type.OriginalAccount.html){target=\_blank} storage. When a Polkadot account registers a mapping (via the [`map`](https://paritytech.github.io/polkadot-sdk/master/pallet_revive/trait.AddressMapper.html#tymethod.map){target=\_blank} function), the system stores the original 32-byte account ID, enabling the [`to_account_id`](https://paritytech.github.io/polkadot-sdk/master/pallet_revive/trait.AddressMapper.html#tymethod.to_account_id){target=\_blank} function to recover the exact original account rather than falling back to a default conversion.
 
 ## Account Registration
 

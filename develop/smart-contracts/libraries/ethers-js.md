@@ -161,23 +161,23 @@ You can create a `deploy.js` script in the root of your project to achieve this.
     ```js title="scripts/deploy.js"
     --8<-- 'code/develop/smart-contracts/evm-toolkit/ethers-js/deploy.js:7:15'
     ```
-r2 
+ 
 3. Set up functions to read contract artifacts:
 
     ```js title="scripts/deploy.js"
-    --8<-- 'code/develop/smart-contracts/evm-toolkit/ethers-js/deploy.js:17:45'
+    --8<-- 'code/develop/smart-contracts/evm-toolkit/ethers-js/deploy.js:17:48'
     ```
 
 4. Create the main deployment function:
 
     ```js title="scripts/deploy.js"
-    --8<-- 'code/develop/smart-contracts/evm-toolkit/ethers-js/deploy.js:47:82'
+    --8<-- 'code/develop/smart-contracts/evm-toolkit/ethers-js/deploy.js:49:85'
     ```
 
 5. Configure and execute the deployment:
 
     ```js title="scripts/deploy.js"
-    --8<-- 'code/develop/smart-contracts/evm-toolkit/ethers-js/deploy.js:84:92'
+    --8<-- 'code/develop/smart-contracts/evm-toolkit/ethers-js/deploy.js:87:95'
     ```
 
     !!! note

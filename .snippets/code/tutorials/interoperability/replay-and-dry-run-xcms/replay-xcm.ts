@@ -1,7 +1,7 @@
 import { Binary, createClient, Transaction } from "polkadot-api";
-import { getWsProvider } from "polkadot-api/ws-provider/web";
-import { getPolkadotSigner } from "polkadot-api/signer";
 import { withPolkadotSdkCompat } from "polkadot-api/polkadot-sdk-compat";
+import { getPolkadotSigner } from "polkadot-api/signer";
+import { getWsProvider } from "polkadot-api/ws-provider/web";
 import { assetHub } from "@polkadot-api/descriptors";
 import { sr25519CreateDerive } from "@polkadot-labs/hdkd";
 import { DEV_PHRASE, entropyToMiniSecret, mnemonicToEntropy } from "@polkadot-labs/hdkd-helpers";

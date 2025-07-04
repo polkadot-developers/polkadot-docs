@@ -26016,7 +26016,7 @@ import { sr25519CreateDerive } from "@polkadot-labs/hdkd";
 import { DEV_PHRASE, entropyToMiniSecret, mnemonicToEntropy } from "@polkadot-labs/hdkd-helpers";
 
 const toHuman = (_key: any, value: any) => {
-    if (typeof value === 'bigint') {
+    if (typeof value === "bigint") {
         return Number(value);
     }
 

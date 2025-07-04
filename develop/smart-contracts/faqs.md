@@ -159,7 +159,7 @@ Please log any bugs in the [`contracts-issues`](https://github.com/paritytech/co
 
 ### Runtime Behavior
 
-- **`creationCode` Returns Hash Instead of Bytecode** - The Solidity keyword returns `keccak256` hash rather than actual creation bytecode.
+- **`creationCode` returns hash instead of bytecode**: The Solidity keyword returns a `keccak256` hash rather than the actual creation bytecode.
     - [Issue #45](https://github.com/paritytech/contract-issues/issues/45){target=\_blank}.
 - **Non-Deterministic Gas Usage** - Gas consumption varies slightly for identical transactions.
     - [Issue #49](https://github.com/paritytech/contract-issues/issues/49){target=\_blank}.

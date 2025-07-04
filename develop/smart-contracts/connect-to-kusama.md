@@ -54,13 +54,13 @@ Developers can leverage smart contracts on Kusama Hub for live production deploy
 
 ## Important Deployment Considerations
 
-While the compatibility with regular EVM codebases is still being maximized, some recommendations:
+While the compatibility with regular EVM codebases is still being maximized, some recommendations include:
     
-- **Use Hardhat** to compile, deploy, and interact with your contract.
+- **Leverage Hardhat** to compile, deploy, and interact with your contract.
 - **Use MetaMask** to interact with your dApp (note that using MetaMask can sometimes lead to `Invalid transaction` errors - this is actively being worked on and will be fixed soon).
-- **Avoid REMIX for deployment** - MetaMask enforces a 48kb size limit when using the [REMIX IDE](/develop/smart-contracts/dev-environments/remix){target=\_blank}, which is why [Hardhat Polkadot](/develop/smart-contracts/dev-environments/hardhat){target=\_blank} is recommended for deployment.
+- **Avoid REMIX** for deployment as MetaMask enforces a 48kb size limit when using the [REMIX IDE](/develop/smart-contracts/dev-environments/remix){target=\_blank}, which is why [Hardhat Polkadot](/develop/smart-contracts/dev-environments/hardhat){target=\_blank} is recommended for deployment.
 
-Kusama Hub is a live environment. Ensure your contracts are thoroughly tested before deployment, as transactions on Kusama Hub involve real KSM tokens and cannot be reversed.
+Kusama Hub is a live environment. Ensure your contracts are thoroughly tested before deployment, as transactions on Kusama Hub involve real KSM tokens and **cannot be reversed**.
 
 ## Where to Go Next
 
@@ -76,11 +76,11 @@ For your next steps, explore the various smart contract guides demonstrating how
     
     [:octicons-arrow-right-24: Build with HardHat](/develop/smart-contracts/dev-environments/hardhat/)
 
--   <span class="badge guide">Guide</span> **Interact with the blockchain with viem**
+-   <span class="badge guide">Guide</span> **Interact with the blockchain using viem**
     
     ---
     
-    Use viem for interacting with Ethereum-compatible chains, to deploy and interact with smart contracts on Kusama Hub.
+    Use viem for interacting with Ethereum-compatible chains to deploy and interact with smart contracts on Kusama Hub.
     
     [:octicons-arrow-right-24: Build with viem](/develop/smart-contracts/libraries/viem/)
 

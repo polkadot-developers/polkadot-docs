@@ -61,7 +61,7 @@ npm install --save-dev typescript @types/node tsx
 Install the required Polkadot packages:
 
 ```bash
-npm install @polkadot/api polkadot-api
+npm install polkadot-api @polkadot-labs/hdkd @polkadot-labs/hdkd-helpers
 ```
 
 Finally, initialise the TypeScript config:
@@ -246,10 +246,10 @@ To simulate the XCM without actually sending it, you can use the `dry_run_call` 
 
 **Create a Dry Run Script**
 
-Assuming you've the `tx` transaction from the previous step, you can create a new script, `dry-run-xcm.ts`, then paste in the following code:
+Assuming you've the `tx` transaction from the previous step, you can create a new script, `dry-run-call.ts`, then paste in the following code:
 
 ```ts
---8<-- 'code/tutorials/interoperability/replay-and-dry-run-xcms/dry-run-xcm.ts'
+--8<-- 'code/tutorials/interoperability/replay-and-dry-run-xcms/dry-run-call.ts'
 ```
 
 > ℹ️ Make sure your local Chopsticks fork is running and the ports match those used in the script.
@@ -257,7 +257,7 @@ Assuming you've the `tx` transaction from the previous step, you can create a ne
 **Execute the Dry Run Script**
 
 ```bash
-npx tsx dry-run-xcm.ts
+npx tsx dry-run-call.ts
 ```
 
 If successful, the dry run confirms that the XCM would execute correctly:

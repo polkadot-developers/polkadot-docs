@@ -24,6 +24,10 @@ Unlock new possibilities by tapping into Polkadot’s system chains:
 
 - **[Convert Assets](/tutorials/polkadot-sdk/system-chains/asset-hub/asset-conversion/)** - use Asset Hub's AMM functionality to swap between different assets, provide liquidity to pools, and manage LP tokens
 
+Learn how to create seamless experiences for the end user by leveraging sufficent and non-sufficient assets on Asset Hub
+
+- **[Handling Sufficient and Non-Sufficient Assets on Asset Hub](/tutorials/polkadot-sdk/system-chains/asset-hub/handling-sufficient-non-sufficient-assets/)** - construct teleports leveraging sufficient assets and non-sufficient assets
+
 ## In This Section
 
 :::INSERT_IN_THIS_SECTION:::

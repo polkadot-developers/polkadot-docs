@@ -24,6 +24,7 @@ Through these tutorials, you'll learn how to manage cross-chain assets, includin
 - Liquidity pool creation and management 
 - Asset swapping and conversion
 - Transaction parameter optimization
+- Handling sufficient and non-sufficient assets
 
 ## In This Section
 

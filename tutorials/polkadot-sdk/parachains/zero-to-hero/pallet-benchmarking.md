@@ -172,12 +172,12 @@ Your pallet is now complete with full testing and benchmarking support, ready fo
 
 <div class="grid cards" markdown>
 
--   <span class="badge tutorial">Tutorial</span> __Deploy on Paseo TestNet__
+-   <span class="badge tutorial">Tutorial</span> __Runtime Upgrade__
 
     ---
 
-    Deploy your Polkadot SDK blockchain on Paseo! Follow this step-by-step guide for a seamless journey to a successful TestNet deployment.
+    Learn how to safely perform runtime upgrades for your Polkadot SDK-based blockchain, including step-by-step instructions for preparing, submitting, and verifying upgrades.
 
-    [:octicons-arrow-right-24: Get Started](/tutorials/polkadot-sdk/parachains/zero-to-hero/deploy-to-testnet/)
+    [:octicons-arrow-right-24: Get Started](/tutorials/polkadot-sdk/parachains/zero-to-hero/runtime-upgrade/)
 
 </div>

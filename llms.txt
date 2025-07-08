@@ -32553,7 +32553,7 @@ Your pallet is now complete with full testing and benchmarking support, ready fo
 
 <div class="grid cards" markdown>
 
--   <span class="badge tutorial">Tutorial</span> __Runtime Upgrades__
+-   <span class="badge tutorial">Tutorial</span> __Runtime Upgrade__
 
     ---
 

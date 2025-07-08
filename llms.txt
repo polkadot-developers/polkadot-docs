@@ -32553,13 +32553,13 @@ Your pallet is now complete with full testing and benchmarking support, ready fo
 
 <div class="grid cards" markdown>
 
--   <span class="badge tutorial">Tutorial</span> __Deploy on Paseo TestNet__
+-   <span class="badge tutorial">Tutorial</span> __Runtime Upgrades__
 
     ---
 
-    Deploy your Polkadot SDK blockchain on Paseo! Follow this step-by-step guide for a seamless journey to a successful TestNet deployment.
+    Learn how to safely perform runtime upgrades for your Polkadot SDK-based blockchain, including step-by-step instructions for preparing, submitting, and verifying upgrades.
 
-    [:octicons-arrow-right-24: Get Started](/tutorials/polkadot-sdk/parachains/zero-to-hero/deploy-to-testnet/)
+    [:octicons-arrow-right-24: Get Started](/tutorials/polkadot-sdk/parachains/zero-to-hero/runtime-upgrade/)
 
 </div>
 --- END CONTENT ---
@@ -32752,7 +32752,7 @@ Explanation of the additions:
 
 Expand the following item to see the complete `mock.rs` implementation for the mock runtime.
 
-???-code "mock.rs"
+??? code "mock.rs"
 
     ```rust title="mock.rs"
     use frame::{prelude::*, runtime::prelude::*, testing_prelude::*};
@@ -32877,7 +32877,7 @@ Unit testing a pallet involves creating a comprehensive test suite that validate
 
 Expand the following item to see the pallet calls to be tested.
 
-???-code "Custom pallet calls"
+??? code "Custom pallet calls"
 
     ```rust
     impl<T: Config> Pallet<T> {
@@ -33102,7 +33102,7 @@ fn user_interactions_increment() {
 
 Expand the following item to see the complete `tests.rs` implementation for the custom pallet.
 
-???-code "tests.rs"
+??? code "tests.rs"
 
     ```rust title="tests.rs"
     // This file is part of 'custom-pallet'.

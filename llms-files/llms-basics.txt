@@ -1,3 +1,17 @@
+# Polkadot Developer Documentation (LLMS Format)
+
+This file contains documentation for Polkadot (https://polkadot.network). Polkadot unites the world's innovators and changemakers, building and using the most transformative apps and blockchains. Access tools, guides, and resources to quickly start building custom chains, deploying smart contracts, and creating dApps.
+It is intended for use with large language models (LLMs) to support developers working with Polkadot. The content includes selected pages from the official docs, organized by section.
+
+This file includes documentation related to the category: Basics
+
+## List of doc pages:
+Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/main/develop/smart-contracts/overview.md [type: develop]
+
+## Full content for each doc page
+
+Doc-Content: https://docs.polkadot.com/develop/smart-contracts/overview/
+--- BEGIN CONTENT ---
 ---
 title: Smart Contracts Overview
 description: Learn about smart contract development capabilities in the Polkadot ecosystem, either by leveraging Polkadot Hub or other alternatives.
@@ -6,7 +20,8 @@ categories: Basics, Smart-Contracts
 
 # Smart Contracts on Polkadot
 
---8<-- 'text/smart-contracts/polkaVM-warning.md'
+!!! smartcontract "PolkaVM Alpha Release"
+    PolkaVM smart contracts with Ethereum compatibility are in **early-stage development and may be unstable or incomplete**.
 
 ## Introduction
 
@@ -96,3 +111,4 @@ Subsequent sections of this guide provide detailed information about specific de
     [:octicons-arrow-right-24: Reference](/develop/smart-contracts/dev-environments/)
 
 </div>
+--- END CONTENT ---

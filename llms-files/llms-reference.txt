@@ -1,3 +1,17 @@
+# Polkadot Developer Documentation (LLMS Format)
+
+This file contains documentation for Polkadot (https://polkadot.network). Polkadot unites the world's innovators and changemakers, building and using the most transformative apps and blockchains. Access tools, guides, and resources to quickly start building custom chains, deploying smart contracts, and creating dApps.
+It is intended for use with large language models (LLMs) to support developers working with Polkadot. The content includes selected pages from the official docs, organized by section.
+
+This file includes documentation related to the category: Reference
+
+## List of doc pages:
+Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/main/develop/smart-contracts/json-rpc-apis.md [type: develop]
+
+## Full content for each doc page
+
+Doc-Content: https://docs.polkadot.com/develop/smart-contracts/json-rpc-apis/
+--- BEGIN CONTENT ---
 ---
 title: JSON-RPC APIs
 description: JSON-RPC APIs guide for Polkadot Hub, covering supported methods, parameters, and examples for interacting with the chain.
@@ -6,7 +20,8 @@ categories: Reference
 
 # JSON-RPC APIs
 
---8<-- 'text/smart-contracts/polkaVM-warning.md'
+!!! smartcontract "PolkaVM Alpha Release"
+    PolkaVM smart contracts with Ethereum compatibility are in **early-stage development and may be unstable or incomplete**.
 
 ## Introduction
 
@@ -865,3 +880,4 @@ If an error occurs, the response will include an error object:
     }
 }
 ```
+--- END CONTENT ---

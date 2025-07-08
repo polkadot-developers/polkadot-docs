@@ -1,3 +1,256 @@
+# Polkadot Developer Documentation (LLMS Format)
+
+This file contains documentation for Polkadot (https://polkadot.network). Polkadot unites the world's innovators and changemakers, building and using the most transformative apps and blockchains. Access tools, guides, and resources to quickly start building custom chains, deploying smart contracts, and creating dApps.
+It is intended for use with large language models (LLMs) to support developers working with Polkadot. The content includes selected pages from the official docs, organized by section.
+
+This file includes documentation related to the product: Smart-Contracts
+
+## AI Prompt Template
+
+You are an AI developer assistant for Polkadot (https://polkadot.network). Your task is to assist developers in understanding and using the product described in this file.
+- Provide accurate answers based on the included documentation.
+- Do not assume undocumented features, behaviors, or APIs.
+- If unsure, respond with “Not specified in the documentation.
+
+## List of doc pages:
+Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/main/develop/smart-contracts/overview.md [type: develop]
+
+## Full content for each doc page
+
+Doc-Content: https://docs.polkadot.com/develop/smart-contracts/overview/
+--- BEGIN CONTENT ---
+---
+title: Smart Contracts Overview
+description: Learn about smart contract development capabilities in the Polkadot ecosystem, either by leveraging Polkadot Hub or other alternatives.
+categories: Basics, Smart-Contracts
+---
+
+# Smart Contracts on Polkadot
+
+!!! smartcontract "PolkaVM Alpha Release"
+    PolkaVM smart contracts with Ethereum compatibility are in **early-stage development and may be unstable or incomplete**.
+
+## Introduction
+
+Polkadot offers developers multiple approaches to building and deploying smart contracts within its ecosystem. As a multi-chain network designed for interoperability, Polkadot provides various environments optimized for different developer preferences and application requirements. From native smart contract support on Polkadot Hub to specialized parachain environments, developers can choose the platform that best suits their technical needs while benefiting from Polkadot's shared security model and cross-chain messaging capabilities.
+
+Whether you're looking for Ethereum compatibility through EVM-based parachains like [Moonbeam](https://docs.moonbeam.network/){target=\_blank}, [Astar](https://docs.astar.network/){target=\_blank}, and [Acala](https://evmdocs.acala.network/){target=\_blank} or prefer WebAssembly-based development with [ink!](https://use.ink/docs/v5/){target=\_blank}, the Polkadot ecosystem accommodates a range of diverse developers.
+
+These guides explore the diverse smart contract options available in the Polkadot ecosystem, helping developers understand the unique advantages of each approach and make informed decisions about where to deploy their decentralized applications.
+
+## Native Smart Contracts
+
+### Introduction
+
+Polkadot Hub enables smart contract deployment and execution through PolkaVM, a cutting-edge virtual machine designed specifically for the Polkadot ecosystem. This native integration allows developers to deploy smart contracts directly on Polkadot's system chain while maintaining compatibility with Ethereum development tools and workflows.
+
+### Smart Contract Development
+
+The smart contract platform on Polkadot Hub combines _Polkadot's robust security and scalability_ with the extensive Ethereum development ecosystem. Developers can utilize familiar Ethereum libraries for contract interactions and leverage industry-standard development environments for writing and testing smart contracts.
+
+Polkadot Hub provides _full Ethereum JSON-RPC API compatibility_, ensuring seamless integration with existing development tools and services. This compatibility enables developers to maintain their preferred workflows while building on Polkadot's native infrastructure.
+
+### Technical Architecture
+
+PolkaVM, the underlying virtual machine, utilizes a RISC-V-based register architecture _optimized for the Polkadot ecosystem_. This design choice offers several advantages:
+
+- Enhanced performance for smart contract execution.
+- Improved gas efficiency for complex operations.
+- Native compatibility with Polkadot's runtime environment.
+- Optimized storage and state management.
+
+### Development Tools and Resources
+
+Polkadot Hub supports a comprehensive suite of development tools familiar to Ethereum developers. The platform integrates with popular development frameworks, testing environments, and deployment tools. Key features include:
+
+- Contract development in Solidity or Rust.
+- Support for standard Ethereum development libraries.
+- Integration with widely used development environments.
+- Access to blockchain explorers and indexing solutions.
+- Compatibility with contract monitoring and management tools.
+
+### Cross-Chain Capabilities
+
+Smart contracts deployed on Polkadot Hub can leverage Polkadot's [cross-consensus messaging (XCM) protocol](/develop/interoperability/intro-to-xcm/){target=\_blank} protocol to seamlessly _transfer tokens and call functions on other blockchain networks_ within the Polkadot ecosystem, all without complex bridging infrastructure or third-party solutions. For further references, check the [Interoperability](/develop/interoperability/){target=\_blank} section.
+
+### Use Cases
+
+Polkadot Hub's smart contract platform is suitable for a wide range of applications:
+
+- DeFi protocols leveraging _cross-chain capabilities_.
+- NFT platforms utilizing Polkadot's native token standards.
+- Governance systems integrated with Polkadot's democracy mechanisms.
+- Cross-chain bridges and asset management solutions.
+
+## Other Smart Contract Environments
+
+Beyond Polkadot Hub's native PolkaVM support, the ecosystem offers two main alternatives for smart contract development:
+
+- **EVM-compatible parachains**: Provide access to Ethereum's extensive developer ecosystem, smart contract portability, and established tooling like Hardhat, Remix, Foundry, and OpenZeppelin. The main options include Moonbeam (the first full Ethereum-compatible parachain serving as an interoperability hub), Astar (featuring dual VM support for both EVM and WebAssembly contracts), and Acala (DeFi-focused with enhanced Acala EVM+ offering advanced DeFi primitives).
+
+- **WebAssembly (ink!)**: `pallet-contracts` supports any language that compiles to WebAssembly, with ink! being the primary actively maintained Rust-based framework. It uses [`#[ink(...)]`](https://use.ink/docs/v5/macros-attributes/){target=\_blank} attribute macros to create Polkadot SDK-compatible Wasm bytecode, offering strong memory safety from Rust, an advanced type system, high-performance Wasm execution, and platform independence with sandboxed security.
+
+
+Each environment provides unique advantages based on developer preferences and application requirements.
+
+## Where to Go Next
+
+Developers can use their existing Ethereum development tools and connect to Polkadot Hub's RPC endpoints. The platform's Ethereum compatibility layer ensures a smooth transition for teams already building on Ethereum-compatible chains.
+
+Subsequent sections of this guide provide detailed information about specific development tools, advanced features, and best practices for building on Polkadot Hub.
+
+<div class="grid cards" markdown>
+
+-   <span class="badge guide">Guide</span> __Libraries__
+
+    ---
+
+    Explore essential libraries to optimize smart contract development and interaction.
+
+    [:octicons-arrow-right-24: Reference](/develop/smart-contracts/libraries/)
+
+-   <span class="badge guide">Guide</span> __Dev Environments__
+
+    ---
+
+    Set up your development environment for seamless contract deployment and testing.
+
+    [:octicons-arrow-right-24: Reference](/develop/smart-contracts/dev-environments/)
+
+</div>
+--- END CONTENT ---
+
+## Basics Concepts [shared: true]
+
+The following section contains foundational documentation shared across all Polkadot products.
+It describes the architecture and infrastructure that serve as the backbone for all integrations built with Polkadot.
+This includes developing and deploying solidity smart contracts on the Polkadot Hub, building, customizing, deploying, and maintaining a parachain, and integrating with the Polkadot ecosystem.
+This context is provided to help understand how the system works under the hood, but responses should stay focused on the specific product unless the user explicitly asks about the general architecture.
+
+---
+
+## List of shared concept pages:
+
+
+## Full content for shared concepts:
+
+Doc-Content: https://docs.polkadot.com/develop/smart-contracts/overview/
+--- BEGIN CONTENT ---
+---
+title: Smart Contracts Overview
+description: Learn about smart contract development capabilities in the Polkadot ecosystem, either by leveraging Polkadot Hub or other alternatives.
+categories: Basics, Smart-Contracts
+---
+
+# Smart Contracts on Polkadot
+
+!!! smartcontract "PolkaVM Alpha Release"
+    PolkaVM smart contracts with Ethereum compatibility are in **early-stage development and may be unstable or incomplete**.
+
+## Introduction
+
+Polkadot offers developers multiple approaches to building and deploying smart contracts within its ecosystem. As a multi-chain network designed for interoperability, Polkadot provides various environments optimized for different developer preferences and application requirements. From native smart contract support on Polkadot Hub to specialized parachain environments, developers can choose the platform that best suits their technical needs while benefiting from Polkadot's shared security model and cross-chain messaging capabilities.
+
+Whether you're looking for Ethereum compatibility through EVM-based parachains like [Moonbeam](https://docs.moonbeam.network/){target=\_blank}, [Astar](https://docs.astar.network/){target=\_blank}, and [Acala](https://evmdocs.acala.network/){target=\_blank} or prefer WebAssembly-based development with [ink!](https://use.ink/docs/v5/){target=\_blank}, the Polkadot ecosystem accommodates a range of diverse developers.
+
+These guides explore the diverse smart contract options available in the Polkadot ecosystem, helping developers understand the unique advantages of each approach and make informed decisions about where to deploy their decentralized applications.
+
+## Native Smart Contracts
+
+### Introduction
+
+Polkadot Hub enables smart contract deployment and execution through PolkaVM, a cutting-edge virtual machine designed specifically for the Polkadot ecosystem. This native integration allows developers to deploy smart contracts directly on Polkadot's system chain while maintaining compatibility with Ethereum development tools and workflows.
+
+### Smart Contract Development
+
+The smart contract platform on Polkadot Hub combines _Polkadot's robust security and scalability_ with the extensive Ethereum development ecosystem. Developers can utilize familiar Ethereum libraries for contract interactions and leverage industry-standard development environments for writing and testing smart contracts.
+
+Polkadot Hub provides _full Ethereum JSON-RPC API compatibility_, ensuring seamless integration with existing development tools and services. This compatibility enables developers to maintain their preferred workflows while building on Polkadot's native infrastructure.
+
+### Technical Architecture
+
+PolkaVM, the underlying virtual machine, utilizes a RISC-V-based register architecture _optimized for the Polkadot ecosystem_. This design choice offers several advantages:
+
+- Enhanced performance for smart contract execution.
+- Improved gas efficiency for complex operations.
+- Native compatibility with Polkadot's runtime environment.
+- Optimized storage and state management.
+
+### Development Tools and Resources
+
+Polkadot Hub supports a comprehensive suite of development tools familiar to Ethereum developers. The platform integrates with popular development frameworks, testing environments, and deployment tools. Key features include:
+
+- Contract development in Solidity or Rust.
+- Support for standard Ethereum development libraries.
+- Integration with widely used development environments.
+- Access to blockchain explorers and indexing solutions.
+- Compatibility with contract monitoring and management tools.
+
+### Cross-Chain Capabilities
+
+Smart contracts deployed on Polkadot Hub can leverage Polkadot's [cross-consensus messaging (XCM) protocol](/develop/interoperability/intro-to-xcm/){target=\_blank} protocol to seamlessly _transfer tokens and call functions on other blockchain networks_ within the Polkadot ecosystem, all without complex bridging infrastructure or third-party solutions. For further references, check the [Interoperability](/develop/interoperability/){target=\_blank} section.
+
+### Use Cases
+
+Polkadot Hub's smart contract platform is suitable for a wide range of applications:
+
+- DeFi protocols leveraging _cross-chain capabilities_.
+- NFT platforms utilizing Polkadot's native token standards.
+- Governance systems integrated with Polkadot's democracy mechanisms.
+- Cross-chain bridges and asset management solutions.
+
+## Other Smart Contract Environments
+
+Beyond Polkadot Hub's native PolkaVM support, the ecosystem offers two main alternatives for smart contract development:
+
+- **EVM-compatible parachains**: Provide access to Ethereum's extensive developer ecosystem, smart contract portability, and established tooling like Hardhat, Remix, Foundry, and OpenZeppelin. The main options include Moonbeam (the first full Ethereum-compatible parachain serving as an interoperability hub), Astar (featuring dual VM support for both EVM and WebAssembly contracts), and Acala (DeFi-focused with enhanced Acala EVM+ offering advanced DeFi primitives).
+
+- **WebAssembly (ink!)**: `pallet-contracts` supports any language that compiles to WebAssembly, with ink! being the primary actively maintained Rust-based framework. It uses [`#[ink(...)]`](https://use.ink/docs/v5/macros-attributes/){target=\_blank} attribute macros to create Polkadot SDK-compatible Wasm bytecode, offering strong memory safety from Rust, an advanced type system, high-performance Wasm execution, and platform independence with sandboxed security.
+
+
+Each environment provides unique advantages based on developer preferences and application requirements.
+
+## Where to Go Next
+
+Developers can use their existing Ethereum development tools and connect to Polkadot Hub's RPC endpoints. The platform's Ethereum compatibility layer ensures a smooth transition for teams already building on Ethereum-compatible chains.
+
+Subsequent sections of this guide provide detailed information about specific development tools, advanced features, and best practices for building on Polkadot Hub.
+
+<div class="grid cards" markdown>
+
+-   <span class="badge guide">Guide</span> __Libraries__
+
+    ---
+
+    Explore essential libraries to optimize smart contract development and interaction.
+
+    [:octicons-arrow-right-24: Reference](/develop/smart-contracts/libraries/)
+
+-   <span class="badge guide">Guide</span> __Dev Environments__
+
+    ---
+
+    Set up your development environment for seamless contract deployment and testing.
+
+    [:octicons-arrow-right-24: Reference](/develop/smart-contracts/dev-environments/)
+
+</div>
+--- END CONTENT ---
+
+## Reference Concepts [shared: true]
+
+The following section contains reference material for Polkadot.
+While it may not be required for all use cases, it offers a deeper technical layer for advanced development work.
+
+---
+
+## List of shared concept pages:
+
+
+## Full content for shared concepts:
+
+Doc-Content: https://docs.polkadot.com/develop/smart-contracts/json-rpc-apis/
+--- BEGIN CONTENT ---
 ---
 title: JSON-RPC APIs
 description: JSON-RPC APIs guide for Polkadot Hub, covering supported methods, parameters, and examples for interacting with the chain.
@@ -6,7 +259,8 @@ categories: Reference
 
 # JSON-RPC APIs
 
---8<-- 'text/smart-contracts/polkaVM-warning.md'
+!!! smartcontract "PolkaVM Alpha Release"
+    PolkaVM smart contracts with Ethereum compatibility are in **early-stage development and may be unstable or incomplete**.
 
 ## Introduction
 
@@ -865,3 +1119,4 @@ If an error occurs, the response will include an error object:
     }
 }
 ```
+--- END CONTENT ---

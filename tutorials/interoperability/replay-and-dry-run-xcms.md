@@ -98,7 +98,7 @@ ACALA_BLOCK_NUMBER=8826385
 
 #### Enable Logging and Wasm Override
 
-Full execution logs only work if the runtime was compiled with logging enabled. Most live chains are built using the `production` profile, which disables logs. To enable logging, you'll need to override the Wasm with a locally built `debug` version.
+Full execution logs only work if the runtime was compiled with logging enabled. Most live chains are built using the `production` profile, which disables logs. To enable logging, you'll need to override the Wasm with a locally built `release` or `debug` version. The `release` profile is faster to load in Chopsticks. 
 
 **Clone the `polkadot-fellows/runtimes` Repository**
 
@@ -110,15 +110,26 @@ git clone git@github.com:polkadot-fellows/runtimes.git
 
 ```bash
 cd runtimes
-cargo build -p asset-hub-polkadot-runtime
+# Build with the `debug` profile (default): 
+# cargo build -p asset-hub-polkadot-runtime
+
+# Build with the `release` profile (faster to load in Chopsticks)
+cargo build --release -p asset-hub-polkadot-runtime
 ```
 
 **Copy the Compiled Wasm to Your Working Directory**
 
 ```bash
 # Assuming you're still in the `runtimes` directory
-mkdir -p ../wasms # or your <replay-xcm-tests>/wasms path
-cp target/debug/wbuild/asset-hub-polkadot-runtime/asset_hub_polkadot_runtime.wasm ../wasms
+mkdir -p ../wasms  # or your <replay-xcm-tests>/wasms path
+
+# Copy the compiled Wasm to your working directory:
+
+# If built with the `debug` profile:
+# cp target/debug/wbuild/asset-hub-polkadot-runtime/asset_hub_polkadot_runtime.wasm ../wasms
+
+# If built with the `release` profile:
+cp target/release/wbuild/asset-hub-polkadot-runtime/asset_hub_polkadot_runtime.compact.compressed.wasm ../wasms
 ```
 
 **Download and Modify a Config File**
@@ -135,7 +146,8 @@ Edit `configs/polkadot-asset-hub-override.yaml` to include:
 ```yaml title="configs/polkadot-asset-hub-override.yaml"
 ...
 runtime-log-level: 5
-wasm-override: wasms/asset_hub_polkadot_runtime.wasm
+# wasm-override: wasms/asset_hub_polkadot_runtime.wasm                     # Uncomment if using the `debug` build
+wasm-override: wasms/asset_hub_polkadot_runtime.compact.compressed.wasm    # Use this if you built with `release`
 ...
 ```
 

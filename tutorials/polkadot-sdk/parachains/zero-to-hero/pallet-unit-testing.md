@@ -69,7 +69,7 @@ Explanation of the additions:
 
 Expand the following item to see the complete `mock.rs` implementation for the mock runtime.
 
-???-code "mock.rs"
+??? code "mock.rs"
 
     ```rust title="mock.rs"
     --8<-- 'code/tutorials/polkadot-sdk/parachains/zero-to-hero/pallets/custom-pallet/src/mock.rs:20:62'
@@ -82,7 +82,7 @@ Unit testing a pallet involves creating a comprehensive test suite that validate
 
 Expand the following item to see the pallet calls to be tested.
 
-???-code "Custom pallet calls"
+??? code "Custom pallet calls"
 
     ```rust
     --8<-- 'code/tutorials/polkadot-sdk/parachains/zero-to-hero/pallets/custom-pallet/src/lib.rs:105:114'
@@ -140,7 +140,7 @@ Test that pallet operations modify the internal state correctly and maintain exp
 
 Expand the following item to see the complete `tests.rs` implementation for the custom pallet.
 
-???-code "tests.rs"
+??? code "tests.rs"
 
     ```rust title="tests.rs"
     --8<-- 'code/tutorials/polkadot-sdk/parachains/zero-to-hero/pallets/custom-pallet/src/tests.rs:20'

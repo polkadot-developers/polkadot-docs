@@ -12,6 +12,18 @@ const supportedNetworks = {
       decimals: 18,
     },
   },
+  kusamaHub: {
+    name: 'Kusama Hub',
+    chainId: '0x190f1b42', //Hex value of "420420418"
+    chainName: 'Kusama Hub TestNet',
+    rpcUrls: ['https://kusama-asset-hub-eth-rpc.polkadot.io'],
+    blockExplorerUrls: ['https://blockscout-kusama-asset-hub.parity-chains-scw.parity.io/'],
+    nativeCurrency: {
+      name: 'Kusama Token',
+      symbol: 'KSM',
+      decimals: 18,
+    },
+  }
 };
 
 /*

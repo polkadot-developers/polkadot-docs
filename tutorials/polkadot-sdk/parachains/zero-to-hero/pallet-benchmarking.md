@@ -27,7 +27,7 @@ Follow these steps to prepare your environment for pallet benchmarking:
 1. Install the [`frame-omni-bencher`](https://crates.io/crates/frame-omni-bencher){target=\_blank} command-line tool:
     
     ```bash
-    cargo install frame-omni-bencher
+    cargo install frame-omni-bencher@0.10.0
     ```
 
 2. Update your pallet's `Cargo.toml` file in the `pallets/custom-pallet` directory by adding the `runtime-benchmarks` feature flag:
@@ -142,13 +142,13 @@ First, add the necessary module imports to your pallet. These imports make the w
 
 Next, update your pallet's `Config` trait to include weight information. Define the `WeightInfo` type:
 
-```rust hl_lines="10-11" title="lib.rs"
---8<-- 'code/tutorials/polkadot-sdk/parachains/zero-to-hero/pallets/custom-pallet/src/lib.rs:45:57'
+```rust hl_lines="9-10" title="lib.rs"
+--8<-- 'code/tutorials/polkadot-sdk/parachains/zero-to-hero/pallets/custom-pallet/src/lib.rs:45:55'
 ```
 
 Now you can assign weights to your extrinsics. Here's how to add weight calculations to the `set_counter_value` function:
 
-```rust hl_lines="2" title="lib.rs"
+```rust hl_lines="1" title="lib.rs"
 --8<-- 'code/tutorials/polkadot-sdk/parachains/zero-to-hero/pallets/custom-pallet/src/lib.rs:115:132'
 ```
 

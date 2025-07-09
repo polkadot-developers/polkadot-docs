@@ -1,4 +1,4 @@
-![Screenshot_37](https://github.com/user-attachments/assets/c48c702a-b397-4d49-a11c-545eecb00c55)---
+---
 title: Wallets for Polkadot Hub
 description: Comprehensive guide to connecting and managing wallets for Polkadot Hub, covering step-by-step instructions for interacting with the ecosystem.
 ---

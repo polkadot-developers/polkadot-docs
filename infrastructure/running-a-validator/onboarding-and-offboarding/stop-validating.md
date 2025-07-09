@@ -1,6 +1,7 @@
 ---
 title: Stop Validating
 description: Learn to safely stop validating on Polkadot, including chilling, unbonding tokens, and purging validator keys.
+categories: Infrastructure
 ---
 
 # Stop Validating

@@ -1,6 +1,7 @@
 ---
 title: Set Up a Bootnode
 description: Learn how to configure and run a bootnode for Polkadot, including P2P, WS, and secure WSS connections with network key management and proxies.
+categories: Infrastructure
 ---
 
 # Set Up a Bootnode

@@ -1,6 +1,7 @@
 ---
 title: Polkadot Omni Node
 description: Run parachain nodes easily with the polkadot-omni-node, a white-labeled binary that can run parachain nodes using a single pre-built solution.
+categories: Parachains, Tooling
 ---
 
 # Polkadot Omni Node

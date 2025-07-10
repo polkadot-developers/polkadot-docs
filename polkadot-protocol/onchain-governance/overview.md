@@ -1,6 +1,7 @@
 ---
 title: On-Chain Governance Overview
 description: Discover Polkadot’s cutting-edge OpenGov system, enabling transparent, decentralized decision-making through direct democracy and flexible governance tracks.
+categories: Basics, Polkadot Protocol
 ---
 
 # On-Chain Governance 

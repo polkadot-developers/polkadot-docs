@@ -394,6 +394,7 @@ Doc-Content: https://docs.polkadot.com/develop/interoperability/intro-to-xcm/
 ---
 title: Introduction to XCM
 description: Unlock blockchain interoperability with XCM — Polkadot's Cross-Consensus Messaging format for cross-chain interactions.
+categories: Basics, Polkadot Protocol
 ---
 
 # Introduction to XCM
@@ -517,6 +518,7 @@ Doc-Content: https://docs.polkadot.com/develop/interoperability/send-messages/
 ---
 title: Send XCM Messages
 description: Send cross-chain messages using XCM, Polkadot's Cross-Consensus Messaging format, designed to support secure communication between chains.
+categories: Basics, Polkadot Protocol
 ---
 
 # Send XCM Messages
@@ -618,6 +620,7 @@ Doc-Content: https://docs.polkadot.com/develop/interoperability/test-and-debug/
 ---
 title: Testing and Debugging
 description: Learn how to test and debug cross-chain communication via the XCM Emulator to ensure interoperability and reliable execution.
+categories: Basics, Polkadot Protocol
 ---
 
 # Testing and Debugging
@@ -768,6 +771,7 @@ Doc-Content: https://docs.polkadot.com/develop/interoperability/xcm-channels/
 ---
 title: XCM Channels
 description: Learn how Polkadot's cross-consensus messaging (XCM) channels connect parachains, facilitating communication and blockchain interaction.
+categories: Basics, Polkadot Protocol
 ---
 
 # XCM Channels
@@ -852,6 +856,7 @@ Doc-Content: https://docs.polkadot.com/develop/interoperability/xcm-config/
 ---
 title: XCM Config
 description: Learn how the XCM Executor configuration works for your custom Polkadot SDK-based runtime with detailed guidance and references.
+categories: Reference, Polkadot Protocol
 ---
 
 # XCM Config
@@ -1148,6 +1153,7 @@ Doc-Content: https://docs.polkadot.com/develop/interoperability/xcm-runtime-apis
 ---
 title: XCM Runtime APIs
 description: Learn about XCM Runtime APIs in Polkadot for cross-chain communication. Explore the APIs to simulate and test XCM messages before execution on the network.
+categories: Reference, Polkadot Protocol
 ---
 
 # XCM Runtime APIs
@@ -2630,6 +2636,7 @@ Doc-Content: https://docs.polkadot.com/develop/networks/
 title: Networks
 description: Explore the Polkadot ecosystem networks and learn the unique purposes of each, tailored for blockchain innovation, testing, and enterprise-grade solutions.
 template: root-subdirectory-page.html
+categories: Basics, Networks
 ---
 
 # Networks
@@ -2907,6 +2914,7 @@ Doc-Content: https://docs.polkadot.com/develop/parachains/customize-parachain/ad
 ---
 title: Add a Pallet to the Runtime
 description: Learn how to include and configure pallets in a Polkadot SDK-based runtime, from adding dependencies to implementing necessary traits.
+categories: Parachains
 ---
 
 # Add a Pallet to the Runtime
@@ -3151,6 +3159,7 @@ Doc-Content: https://docs.polkadot.com/develop/parachains/customize-parachain/ad
 ---
 title: Add Multiple Pallet Instances
 description: Learn how to implement multiple instances of the same pallet in your Polkadot SDK-based runtime to create and interact with modular blockchain components.
+categories: Parachains
 ---
 
 # Add Multiple Pallet Instances
@@ -3302,6 +3311,7 @@ Doc-Content: https://docs.polkadot.com/develop/parachains/customize-parachain/ad
 ---
 title: Add Smart Contract Functionality
 description: Add smart contract capabilities to your Polkadot SDK-based blockchain. Explore EVM and Wasm integration for enhanced chain functionality.
+categories: Parachains
 ---
 
 # Add Smart Contract Functionality
@@ -3416,6 +3426,7 @@ Doc-Content: https://docs.polkadot.com/develop/parachains/customize-parachain/ma
 ---
 title: Make a Custom Pallet
 description: Learn how to create custom pallets using FRAME, allowing for flexible, modular, and scalable blockchain development. Follow the step-by-step guide.
+categories: Parachains
 ---
 
 # Make a Custom Pallet
@@ -3781,6 +3792,7 @@ Doc-Content: https://docs.polkadot.com/develop/parachains/customize-parachain/ov
 ---
 title: Overview of FRAME
 description: Learn how Polkadot SDK’s FRAME framework simplifies blockchain development with modular pallets and support libraries for efficient runtime design.
+categories: Basics, Parachains
 ---
 
 # Overview
@@ -3914,6 +3926,7 @@ Doc-Content: https://docs.polkadot.com/develop/parachains/deployment/build-deter
 ---
 title: Build a deterministic runtime
 description: Explains how to use the Polkadot SDK runtime toolbox and Docker to build deterministic Wasm binaries for Polkadot SDK-based chains.
+categories: Parachains
 ---
 
 # Build a Deterministic Runtime
@@ -4081,6 +4094,7 @@ Doc-Content: https://docs.polkadot.com/develop/parachains/deployment/coretime-re
 ---
 title: Coretime Renewal
 description: Learn how to renew coretime manually or automatically to ensure uninterrupted parachain operation with predictable pricing and minimal risk.
+categories: Parachains
 ---
 
 # Coretime Renewal
@@ -4341,6 +4355,7 @@ Doc-Content: https://docs.polkadot.com/develop/parachains/deployment/generate-ch
 ---
 title: Generate Chain Specs
 description: Describes the role of the chain specification in a network, how to specify its parameters when starting a node, and how to customize and distribute it.
+categories: Parachains
 ---
 
 # Generate Chain Specs
@@ -4678,6 +4693,7 @@ Doc-Content: https://docs.polkadot.com/develop/parachains/deployment/manage-core
 ---
 title: Manage Coretime
 description: Learn to manage bulk coretime regions through transfer, partition, interlace, assign, and pool operations for optimal resource allocation.
+categories: Parachains
 ---
 
 # Manage Coretime
@@ -4782,6 +4798,7 @@ Doc-Content: https://docs.polkadot.com/develop/parachains/deployment/obtain-core
 ---
 title: Obtain Coretime
 description: Learn how to obtain and manage coretime for your Polkadot parachain. Explore bulk and on-demand options, prerequisites, and initial setup.
+categories: Parachains
 ---
 
 # Obtain Coretime
@@ -4899,6 +4916,7 @@ Doc-Content: https://docs.polkadot.com/develop/parachains/install-polkadot-sdk/
 ---
 title: Install Polkadot SDK Dependencies
 description: Install everything you need to begin working with Substrated-based blockchains and the Polkadot SDK, the framework for building blockchains.
+categories: Basics, Tooling
 ---
 
 # Install Polkadot SDK Dependencies
@@ -5239,6 +5257,7 @@ Doc-Content: https://docs.polkadot.com/develop/parachains/intro-polkadot-sdk/
 ---
 title: Introduction to Polkadot SDK
 description: Learn about the Polkadot SDK, a robust developer toolkit for building custom blockchains. Explore its components and how it powers the Polkadot protocol.
+categories: Basics, Tooling
 ---
 
 # Introduction to Polkadot SDK
@@ -5427,6 +5446,7 @@ Doc-Content: https://docs.polkadot.com/develop/parachains/maintenance/runtime-me
 ---
 title: Runtime Metrics and Monitoring
 description: Learn how to monitor and visualize node performance in Polkadot SDK-based networks using telemetry, Prometheus, and Grafana for efficient runtime monitoring.
+categories: Parachains
 ---
 
 # Runtime Metrics and Monitoring
@@ -5535,6 +5555,7 @@ Doc-Content: https://docs.polkadot.com/develop/parachains/maintenance/runtime-up
 ---
 title: Runtime Upgrades
 description: This page covers how runtime versioning and storage migration support forkless upgrades for Polkadot SDK-based networks and how they factor into chain upgrades.
+categories: Parachains
 ---
 
 # Runtime Upgrades
@@ -5633,6 +5654,7 @@ Doc-Content: https://docs.polkadot.com/develop/parachains/maintenance/storage-mi
 ---
 title: Storage Migrations
 description: Ensure smooth runtime upgrades with storage migrations, update data formats, and prevent errors. Learn when and how to implement migrations efficiently.
+categories: Parachains
 ---
 
 # Storage Migrations
@@ -5983,6 +6005,7 @@ Doc-Content: https://docs.polkadot.com/develop/parachains/maintenance/unlock-par
 ---
 title: Unlock a Parachain
 description: Learn how to unlock your parachain. This step-by-step guide covers verifying lock status, preparing calls, and executing the unlock process.
+categories: Parachains
 ---
 
 # Unlock a Parachain
@@ -6137,6 +6160,7 @@ Doc-Content: https://docs.polkadot.com/develop/parachains/testing/benchmarking/
 ---
 title: Benchmarking FRAME Pallets
 description: Learn how to use FRAME's benchmarking framework to measure extrinsic execution costs and provide accurate weights for on-chain computations.
+categories: Parachains
 ---
 
 # Benchmarking
@@ -6502,6 +6526,7 @@ Doc-Content: https://docs.polkadot.com/develop/parachains/testing/mock-runtime/
 ---
 title: Mock Runtime for Pallet Testing
 description: Learn to create a mock environment in the Polkadot SDK for testing intra-pallet functionality and inter-pallet interactions seamlessly.
+categories: Parachains
 ---
 
 # Mock Runtime
@@ -6682,6 +6707,7 @@ Doc-Content: https://docs.polkadot.com/develop/parachains/testing/pallet-testing
 ---
 title: Pallet Testing
 description: Learn how to efficiently test pallets in the Polkadot SDK, ensuring the reliability and security of your pallets operations.
+categories: Parachains
 ---
 
 # Pallet Testing
@@ -6816,6 +6842,7 @@ Doc-Content: https://docs.polkadot.com/develop/smart-contracts/block-explorers/
 ---
 title: Block Explorers
 description: Access PolkaVM explorers like Subscan, BlockScout, and Routescan to track transactions, analyze contracts, and view on-chain data from smart contracts.
+categories: Smart Contracts, Tooling
 ---
 
 # Block Explorers
@@ -6872,6 +6899,7 @@ Doc-Content: https://docs.polkadot.com/develop/smart-contracts/connect-to-polkad
 ---
 title: Connect to Polkadot
 description: Explore how to connect to Polkadot Hub, configure your wallet, and obtain test tokens for developing and testing smart contracts.
+categories: Smart Contracts
 ---
 
 # Connect to Polkadot
@@ -6971,6 +6999,7 @@ Doc-Content: https://docs.polkadot.com/develop/smart-contracts/dev-environments/
 ---
 title: Use Hardhat with Polkadot Hub
 description: Learn how to create, compile, test, and deploy smart contracts on Polkadot Hub using Hardhat, a powerful development environment for blockchain developers.
+categories: Smart Contracts, Tooling
 ---
 
 # Hardhat
@@ -7451,6 +7480,7 @@ Doc-Content: https://docs.polkadot.com/develop/smart-contracts/dev-environments/
 ---
 title: Use the Polkadot Remix IDE
 description: Explore the smart contract development and deployment process on Asset Hub using Remix IDE, a visual IDE for blockchain developers.
+categories: Smart Contracts, Tooling
 ---
 
 # Remix IDE
@@ -7640,6 +7670,7 @@ Doc-Content: https://docs.polkadot.com/develop/smart-contracts/faqs/
 ---
 title: Polkadot Hub Smart Contract FAQs
 description: Find answers to common questions about smart contract development, deployment, and compatibility in the Polkadot Hub ecosystem.
+categories: Smart Contracts
 ---
 
 # Smart Contracts FAQs
@@ -8710,6 +8741,7 @@ Doc-Content: https://docs.polkadot.com/develop/smart-contracts/libraries/ethers-
 ---
 title: Deploy Contracts to Polkadot Hub with Ethers.js
 description: Learn how to interact with Polkadot Hub using Ethers.js, from compiling and deploying Solidity contracts to interacting with deployed smart contracts.
+categories: Smart Contracts, Tooling
 ---
 
 # Ethers.js
@@ -9346,6 +9378,7 @@ Doc-Content: https://docs.polkadot.com/develop/smart-contracts/libraries/viem/
 ---
 title: viem for Polkadot Hub Smart Contracts
 description: This guide covers deploying and interacting with contracts on Polkadot Hub using viem, a TypeScript library for Ethereum-compatible chains.
+categories: Smart Contracts, Tooling
 ---
 
 # viem
@@ -9889,6 +9922,7 @@ Doc-Content: https://docs.polkadot.com/develop/smart-contracts/libraries/wagmi/
 ---
 title: Wagmi for Polkadot Hub Smart Contracts
 description: Learn how to use Wagmi React Hooks to fetch and interact with smart contracts on Polkadot Hub for seamless dApp integration.
+categories: Smart Contracts, Tooling
 ---
 
 # Wagmi
@@ -10324,6 +10358,7 @@ Doc-Content: https://docs.polkadot.com/develop/smart-contracts/libraries/web3-js
 ---
 title: Web3.js
 description: Learn how to interact with Polkadot Hub using Web3.js, deploying Solidity contracts, and interacting with deployed smart contracts.
+categories: Smart Contracts, Tooling
 ---
 
 # Web3.js
@@ -10749,6 +10784,7 @@ Doc-Content: https://docs.polkadot.com/develop/smart-contracts/libraries/web3-py
 ---
 title: Web3.py
 description: Learn how to interact with Polkadot Hub using the Web3 python library, deploying Solidity contracts, and interacting with deployed smart contracts.
+categories: Smart Contracts, Tooling
 ---
 
 # Web3.py
@@ -11086,6 +11122,7 @@ Doc-Content: https://docs.polkadot.com/develop/smart-contracts/local-development
 ---
 title: Local Development Node
 description: Follow this step-by-step guide to install a Substrate node and ETH-RPC adapter for smart contract development in a local environment.
+categories: Smart Contracts
 ---
 
 # Local Development Node
@@ -11223,7 +11260,7 @@ Doc-Content: https://docs.polkadot.com/develop/smart-contracts/overview/
 ---
 title: Smart Contracts Overview
 description: Learn about smart contract development capabilities in the Polkadot ecosystem, either by leveraging Polkadot Hub or other alternatives.
-categories: Basics, Smart-Contracts
+categories: Basics, Smart Contracts
 ---
 
 # Smart Contracts on Polkadot
@@ -11393,6 +11430,7 @@ Doc-Content: https://docs.polkadot.com/develop/smart-contracts/precompiles/inter
 ---
 title: Interact with Precompiles
 description: Learn how to interact with Polkadot Hub’s precompiles from Solidity to access native, low-level functions like hashing, pairing, EC ops, etc.
+categories: Smart Contracts
 ---
 
 # Interact with Precompiles
@@ -11855,6 +11893,7 @@ Doc-Content: https://docs.polkadot.com/develop/smart-contracts/wallets/
 ---
 title: Wallets for Polkadot Hub
 description: Comprehensive guide to connecting and managing wallets for Polkadot Hub, covering step-by-step instructions for interacting with the ecosystem.
+categories: Smart Contracts, Tooling
 ---
 
 # Wallets for Polkadot Hub
@@ -11946,6 +11985,7 @@ Doc-Content: https://docs.polkadot.com/develop/toolkit/api-libraries/dedot/
 ---
 title: Dedot
 description: Dedot is a next-gen JavaScript client for Polkadot and Polkadot SDK-based blockchains, offering lightweight, tree-shakable APIs with strong TypeScript support.
+categories: Tooling, Dapps
 ---
 
 # Dedot
@@ -12222,6 +12262,7 @@ Doc-Content: https://docs.polkadot.com/develop/toolkit/api-libraries/papi/
 ---
 title: Polkadot-API
 description: Polkadot-API (PAPI) is a modular, composable library set designed for efficient interaction with Polkadot chains, prioritizing a "light-client first" approach.
+categories: Tooling, Dapps
 ---
 
 # Polkadot-API
@@ -12442,6 +12483,7 @@ Doc-Content: https://docs.polkadot.com/develop/toolkit/api-libraries/polkadot-js
 ---
 title: Polkadot.js API
 description: Interact with Polkadot SDK-based chains easily using the Polkadot.js API. Query chain data, submit transactions, and more via JavaScript or Typescript.
+categories: Tooling, Dapps
 ---
 
 # Polkadot.js API
@@ -12589,6 +12631,7 @@ Doc-Content: https://docs.polkadot.com/develop/toolkit/api-libraries/py-substrat
 ---
 title: Python Substrate Interface
 description: Learn how to connect to Polkadot SDK-based nodes, query data, submit transactions, and manage blockchain interactions using the Python Substrate Interface.
+categories: Tooling, Dapps
 ---
 
 # Python Substrate Interface
@@ -12733,6 +12776,7 @@ Doc-Content: https://docs.polkadot.com/develop/toolkit/api-libraries/sidecar/
 ---
 title: Sidecar Rest API
 description: Learn about Substrate API Sidecar, a REST service that provides endpoints for interacting with Polkadot SDK-based chains and simplifies blockchain interactions.
+categories: Tooling, Dapps
 ---
 
 # Sidecar API
@@ -12886,6 +12930,7 @@ Doc-Content: https://docs.polkadot.com/develop/toolkit/api-libraries/subxt/
 ---
 title: Subxt Rust API
 description: Subxt is a Rust library for type-safe interaction with Polkadot SDK blockchains, enabling transactions, state queries, runtime API access, and more.
+categories: Tooling, Dapps
 ---
 
 # Subxt Rust API
@@ -13200,6 +13245,7 @@ Doc-Content: https://docs.polkadot.com/develop/toolkit/integrations/indexers/
 ---
 title: Indexers
 description: Discover blockchain indexers. Enhance data access, enable fast and complex queries, and optimize blockchain data for seamless app performance.
+categories: Tooling, Dapps
 ---
 
 # Indexers
@@ -13251,6 +13297,7 @@ Doc-Content: https://docs.polkadot.com/develop/toolkit/integrations/oracles/
 ---
 title: Oracles
 description: Learn about blockchain oracles, the essential bridges connecting blockchains with real-world data for decentralized applications in the Polkadot ecosystem.
+categories: Tooling, Dapps
 ---
 
 # Oracles
@@ -13281,6 +13328,7 @@ Doc-Content: https://docs.polkadot.com/develop/toolkit/integrations/wallets/
 ---
 title: Wallets
 description: Explore blockchain wallets. Securely manage digital assets with hot wallets for online access or cold wallets for offline, enhanced security.
+categories: Tooling, Dapps
 ---
 
 # Wallets
@@ -13396,6 +13444,7 @@ Doc-Content: https://docs.polkadot.com/develop/toolkit/interoperability/asset-tr
 ---
 title: Asset Transfer API
 description: Asset Transfer API is a library that simplifies the transfer of assets for Polkadot SDK-based chains. It provides methods for cross-chain and local transfers.
+categories: Basics, Tooling, Dapps
 ---
 
 # Asset Transfer API
@@ -13803,6 +13852,7 @@ Doc-Content: https://docs.polkadot.com/develop/toolkit/interoperability/asset-tr
 ---
 title: Asset Transfer API Reference
 description: Explore the Asset Transfer API Reference for comprehensive details on methods, data types, and functionalities. Essential for cross-chain asset transfers.
+categories: Reference, Dapps
 ---
 
 # Asset Transfer API Reference
@@ -14823,6 +14873,7 @@ Doc-Content: https://docs.polkadot.com/develop/toolkit/interoperability/xcm-tool
 ---
 title: XCM Tools
 description: Explore essential XCM tools across Polkadot, crafted to enhance cross-chain functionality and integration within the ecosystem.
+categories: Basics, Tooling, Dapps
 ---
 
 # XCM Tools
@@ -14915,6 +14966,7 @@ Doc-Content: https://docs.polkadot.com/develop/toolkit/parachains/e2e-testing/mo
 ---
 title: E2E Testing with Moonwall
 description: Enhance blockchain end-to-end testing with Moonwall's standardized environment setup, comprehensive configuration management, and simple network interactions.
+categories: Parachains, Tooling
 ---
 
 # E2E Testing with Moonwall
@@ -15202,6 +15254,7 @@ Doc-Content: https://docs.polkadot.com/develop/toolkit/parachains/fork-chains/ch
 ---
 title: Get Started
 description: Simplify Polkadot SDK development with Chopsticks. Learn essential features, how to install Chopsticks, and how to configure local blockchain forks.
+categories: Parachains, Tooling
 ---
 
 # Get Started
@@ -15597,6 +15650,7 @@ Doc-Content: https://docs.polkadot.com/develop/toolkit/parachains/light-clients/
 ---
 title: Light Clients
 description:Light clients enable secure and efficient blockchain interaction without running a full node. Learn everything you need to know about light clients on Polkadot.
+categories: Parachains, Tooling
 ---
 
 # Light Clients
@@ -15682,6 +15736,7 @@ Doc-Content: https://docs.polkadot.com/develop/toolkit/parachains/polkadot-omni-
 ---
 title: Polkadot Omni Node
 description: Run parachain nodes easily with the polkadot-omni-node, a white-labeled binary that can run parachain nodes using a single pre-built solution.
+categories: Parachains, Tooling
 ---
 
 # Polkadot Omni Node
@@ -15800,6 +15855,7 @@ Doc-Content: https://docs.polkadot.com/develop/toolkit/parachains/quickstart/pop
 ---
 title: Quickstart Parachain Development with Pop CLI
 description: Quickly bootstrap parachain projects, scaffold templates, deploy local networks, and streamline development workflows using Pop CLI.
+categories: Parachains, Tooling
 ---
 
 # Quickstart Parachain Development With Pop CLI
@@ -15942,6 +15998,7 @@ Doc-Content: https://docs.polkadot.com/develop/toolkit/parachains/spawn-chains/z
 ---
 title: Get Started 
 description: Quickly install and configure Zombienet to deploy and test Polkadot-based blockchain networks with this comprehensive getting-started guide.
+categories: Parachains, Tooling
 ---
 
 # Get Started
@@ -16986,6 +17043,7 @@ Doc-Content: https://docs.polkadot.com/develop/toolkit/parachains/spawn-chains/z
 ---
 title: Write Tests
 description: Write and execute tests for blockchain networks with Zombienet's DSL. Learn to evaluate metrics, logs, events, and more for robust validation.
+categories: Parachains, Tooling
 ---
 # Write Tests
 
@@ -17420,6 +17478,7 @@ Doc-Content: https://docs.polkadot.com/infrastructure/running-a-node/setup-bootn
 ---
 title: Set Up a Bootnode
 description: Learn how to configure and run a bootnode for Polkadot, including P2P, WS, and secure WSS connections with network key management and proxies.
+categories: Infrastructure
 ---
 
 # Set Up a Bootnode
@@ -17552,6 +17611,7 @@ Doc-Content: https://docs.polkadot.com/infrastructure/running-a-node/setup-full-
 ---
 title: Set Up a Node
 description: Learn how to install, configure, and run Polkadot nodes, including setting up different node types and connecting to the network.
+categories: Infrastructure
 ---
 
 # Set Up a Node
@@ -17894,6 +17954,7 @@ Doc-Content: https://docs.polkadot.com/infrastructure/running-a-node/setup-secur
 ---
 title: Set Up Secure WebSocket
 description: Instructions on enabling SSL for your node and setting up a secure WebSocket proxy server using nginx for remote connections.
+categories: Infrastructure
 ---
 
 # Set Up Secure WebSocket
@@ -18122,6 +18183,7 @@ Doc-Content: https://docs.polkadot.com/infrastructure/running-a-validator/onboar
 ---
 title: Validator Key Management
 description: Learn how to generate and manage validator keys, including session keys for consensus participation and node keys for maintaining a stable network identity.
+categories: Infrastructure
 ---
 
 # Key Management
@@ -18279,6 +18341,7 @@ Doc-Content: https://docs.polkadot.com/infrastructure/running-a-validator/onboar
 ---
 title: Set Up a Validator
 description: Set up a Polkadot validator node to secure the network and earn staking rewards. Follow this step-by-step guide to install, configure, and manage your node.
+categories: Infrastructure
 ---
 
 # Set Up a Validator
@@ -18494,6 +18557,7 @@ Doc-Content: https://docs.polkadot.com/infrastructure/running-a-validator/onboar
 ---
 title: Start Validating
 description: Learn how to start validating on Polkadot by choosing a network, syncing your node, bonding DOT tokens, and activating your validator.
+categories: Infrastructure
 ---
 
 # Start Validating
@@ -18749,6 +18813,7 @@ Doc-Content: https://docs.polkadot.com/infrastructure/running-a-validator/onboar
 ---
 title: Stop Validating
 description: Learn to safely stop validating on Polkadot, including chilling, unbonding tokens, and purging validator keys.
+categories: Infrastructure
 ---
 
 # Stop Validating
@@ -18796,6 +18861,7 @@ Doc-Content: https://docs.polkadot.com/infrastructure/running-a-validator/operat
 ---
 title: General Management
 description: Optimize your Polkadot validator setup with advanced configuration techniques. Learn how to boost performance, enhance security, and ensure seamless operations.
+categories: Infrastructure
 ---
 # General Management
 
@@ -19475,6 +19541,7 @@ Doc-Content: https://docs.polkadot.com/infrastructure/running-a-validator/operat
 ---
 title: Pause Validating
 description: Learn how to temporarily pause staking activity in Polkadot using the chill extrinsic, with guidance for validators and nominators.
+categories: Infrastructure
 ---
 
 # Pause Validating
@@ -19523,6 +19590,7 @@ Doc-Content: https://docs.polkadot.com/infrastructure/running-a-validator/operat
 ---
 title: Upgrade a Validator Node
 description: Guide to seamlessly upgrading your Polkadot validator node, managing session keys, and executing server maintenance while avoiding downtime and slashing risks.
+categories: Infrastructure
 ---
 
 # Upgrade a Validator Node
@@ -19600,6 +19668,7 @@ Doc-Content: https://docs.polkadot.com/infrastructure/running-a-validator/requir
 ---
 title: Validator Requirements
 description: Explore the technical and system requirements for running a Polkadot validator, including setup, hardware, staking prerequisites, and security best practices.
+categories: Infrastructure
 ---
 # Validator Requirements
 
@@ -19728,6 +19797,7 @@ Doc-Content: https://docs.polkadot.com/infrastructure/staking-mechanics/offenses
 ---
 title: Offenses and Slashes
 description: Learn about how Polkadot discourages validator misconduct via an offenses and slashing system, including details on offenses and their consequences.
+categories: Infrastructure
 ---
 
 # Offenses and Slashes
@@ -19910,6 +19980,7 @@ Doc-Content: https://docs.polkadot.com/infrastructure/staking-mechanics/rewards-
 ---
 title: Rewards Payout
 description: Learn how validator rewards work on the network, including era points, payout distribution, running multiple validators, and nominator payments.
+categories: Infrastructure
 ---
 
 # Rewards Payout
@@ -20145,6 +20216,7 @@ Doc-Content: https://docs.polkadot.com/polkadot-protocol/architecture/parachains
 ---
 title: Parachain Consensus
 description: Understand how the blocks authored by parachain collators are secured by the relay chain validators and how the parachain transactions achieve finality.
+categories: Polkadot Protocol, Parachains
 --- 
 
 # Parachain Consensus
@@ -20284,6 +20356,7 @@ Doc-Content: https://docs.polkadot.com/polkadot-protocol/architecture/parachains
 ---
 title: Overview
 description: Learn about the role, functionality, and implementation of parachains as a developer in the wider Polkadot architecture.
+categories: Basics, Polkadot Protocol, Parachains
 ---
 
 ## Introduction 
@@ -20418,6 +20491,7 @@ Doc-Content: https://docs.polkadot.com/polkadot-protocol/architecture/polkadot-c
 ---
 title: Agile Coretime
 description: Explore the efficient scheduling mechanisms to access Polkadot cores to produce blockspace continuously or on-demand.
+categories: Polkadot Protocol
 ---
 
 # Agile Coretime
@@ -20461,6 +20535,7 @@ Doc-Content: https://docs.polkadot.com/polkadot-protocol/architecture/polkadot-c
 ---
 title: Elastic Scaling
 description: Learn how elastic scaling in Polkadot boosts parachain throughput, reduces latency, and supports dynamic, cost-efficient resource allocation.
+categories: Polkadot Protocol
 ---
 
 # Elastic Scaling
@@ -20615,6 +20690,7 @@ Doc-Content: https://docs.polkadot.com/polkadot-protocol/architecture/polkadot-c
 ---
 title: Overview of the Polkadot Relay Chain
 description: Explore Polkadot's core architecture, including its multi-chain vision, shared security, and the DOT token's governance and staking roles.
+categories: Basics, Polkadot Protocol, Parachains
 ---
 
 # Overview
@@ -20761,6 +20837,7 @@ Doc-Content: https://docs.polkadot.com/polkadot-protocol/architecture/polkadot-c
 ---
 title: Proof of Stake Consensus
 description: Explore Polkadot's consensus protocols for secure, scalable, and decentralized network operation, including NPoS, BABE, GRANDPA, and BEEFY.
+categories: Polkadot Protocol
 ---
 
 # Proof of Stake Consensus
@@ -20892,6 +20969,7 @@ Doc-Content: https://docs.polkadot.com/polkadot-protocol/architecture/system-cha
 ---
 title: Asset Hub
 description: Learn about Asset Hub in Polkadot, managing on-chain assets, foreign asset integration, and using XCM for cross-chain asset transfers.
+categories: Polkadot Protocol
 ---
 
 # Asset Hub
@@ -21129,6 +21207,7 @@ Doc-Content: https://docs.polkadot.com/polkadot-protocol/architecture/system-cha
 ---
 title: Bridge Hub
 description: Learn about the Bridge Hub system parachain, a parachain that facilitates the interactions from Polkadot to the rest of Web3.
+categories: Polkadot Protocol
 ---
 
 # Bridge Hub
@@ -21180,6 +21259,7 @@ Doc-Content: https://docs.polkadot.com/polkadot-protocol/architecture/system-cha
 ---
 title: Collectives Chain
 description: Learn how the Collectives chain provides infrastructure for governance organizations, enabling decentralized network stewardship and decision-making.
+categories: Polkadot Protocol
 ---
 
 ## Introduction
@@ -21204,6 +21284,7 @@ Doc-Content: https://docs.polkadot.com/polkadot-protocol/architecture/system-cha
 ---
 title: Coretime Chain
 description: Learn about the role of the Coretime system parachain, which facilitates the sale, purchase, assignment, and mechanisms of bulk coretime.
+categories: Polkadot Protocol
 ---
 
 ## Introduction
@@ -21282,6 +21363,7 @@ Doc-Content: https://docs.polkadot.com/polkadot-protocol/architecture/system-cha
 ---
 title: Overview of Polkadot's System Chains
 description: Discover how system parachains enhance Polkadot's scalability and performance by offloading tasks like governance, asset management, and bridging from the relay chain.
+categories: Basics, Polkadot Protocol
 ---
 
 ## Introduction
@@ -21386,6 +21468,7 @@ Doc-Content: https://docs.polkadot.com/polkadot-protocol/architecture/system-cha
 ---
 title: People Chain
 description: Learn how People chain secures decentralized identity management, empowering users to control and verify digital identities without central authorities.
+categories: Polkadot Protocol
 ---
 
 # People Chain
@@ -21494,6 +21577,7 @@ Doc-Content: https://docs.polkadot.com/polkadot-protocol/glossary/
 title: Glossary
 description: Glossary of terms used within the Polkadot ecosystem, Polkadot SDK, its subsequent libraries, and other relevant Web3 terminology.
 template: root-subdirectory-page.html
+categories: Reference
 ---
 
 # Glossary
@@ -21909,6 +21993,7 @@ Doc-Content: https://docs.polkadot.com/polkadot-protocol/onchain-governance/orig
 ---
 title: Origins and Tracks
 description: Explore Polkadot's OpenGov origins and tracks system, defining privilege levels, decision processes, and tailored pathways for network proposals.
+categories: Polkadot Protocol
 ---
 
 # Origins and Tracks
@@ -21956,6 +22041,7 @@ Doc-Content: https://docs.polkadot.com/polkadot-protocol/onchain-governance/over
 ---
 title: On-Chain Governance Overview
 description: Discover Polkadot’s cutting-edge OpenGov system, enabling transparent, decentralized decision-making through direct democracy and flexible governance tracks.
+categories: Basics, Polkadot Protocol
 ---
 
 # On-Chain Governance 
@@ -22049,6 +22135,7 @@ Doc-Content: https://docs.polkadot.com/polkadot-protocol/parachain-basics/accoun
 ---
 title: Polkadot SDK Accounts
 description: Learn about account structures, balances, and address formats in the Polkadot SDK, including how to manage lifecycle, references, and balances.
+categories: Basics, Polkadot Protocol
 ---
 
 # Accounts
@@ -22443,6 +22530,7 @@ Doc-Content: https://docs.polkadot.com/polkadot-protocol/parachain-basics/blocks
 ---
 title: Blocks
 description: Understand how blocks are produced, validated, and imported in Polkadot SDK-based blockchains, covering initialization, finalization, and authoring processes.
+categories: Basics, Polkadot Protocol
 ---
 
 # Blocks
@@ -22517,6 +22605,7 @@ Doc-Content: https://docs.polkadot.com/polkadot-protocol/parachain-basics/blocks
 ---
 title: Transactions Weights and Fees
 description: Overview of transaction weights and fees in Polkadot SDK chains, detailing how fees are calculated using a defined formula and runtime specifics.
+categories: Basics, Polkadot Protocol
 ---
 
 # Transactions Weights and Fees
@@ -22880,6 +22969,7 @@ Doc-Content: https://docs.polkadot.com/polkadot-protocol/parachain-basics/blocks
 ---
 title: Transactions
 description: Learn how to construct, submit, and validate transactions in the Polkadot SDK, covering signed, unsigned, and inherent types of transactions.
+categories: Basics, Polkadot Protocol
 ---
 
 # Transactions
@@ -23142,6 +23232,7 @@ Doc-Content: https://docs.polkadot.com/polkadot-protocol/parachain-basics/chain-
 ---
 title: Chain Data
 description: Learn how to expose and utilize chain data for blockchain applications. Discover runtime metadata, RPC APIs, and tools for efficient development.
+categories: Basics, Polkadot Protocol
 ---
 
 # Chain Data
@@ -23496,6 +23587,7 @@ Doc-Content: https://docs.polkadot.com/polkadot-protocol/parachain-basics/crypto
 ---
 title: Cryptography
 description: A concise guide to cryptography in blockchain, covering hash functions, encryption types, digital signatures, and elliptic curve applications.
+categories: Basics, Polkadot Protocol
 ---
 
 # Cryptography
@@ -23615,6 +23707,7 @@ Doc-Content: https://docs.polkadot.com/polkadot-protocol/parachain-basics/data-e
 ---
 title: Data Encoding
 description: SCALE codec enables fast, efficient data encoding, ideal for resource-constrained environments like Wasm, supporting custom types and compact encoding.
+categories: Basics, Polkadot Protocol
 ---
 
 # Data Encoding
@@ -23787,6 +23880,7 @@ Doc-Content: https://docs.polkadot.com/polkadot-protocol/parachain-basics/intero
 ---
 title: Interoperability
 description: Explore the importance of interoperability in the Polkadot ecosystem, covering XCM, bridges, and cross-chain communication.
+categories: Basics, Polkadot Protocol
 ---
 
 # Interoperability
@@ -23856,6 +23950,7 @@ Doc-Content: https://docs.polkadot.com/polkadot-protocol/parachain-basics/networ
 ---
 title: Networks
 description: Explore Polkadot's testing and production networks, including Westend, Kusama, and Paseo, for efficient development, deployment, and testing.
+categories: Basics, Polkadot Protocol, Networks
 ---
 
 # Networks
@@ -23953,6 +24048,7 @@ Doc-Content: https://docs.polkadot.com/polkadot-protocol/parachain-basics/node-a
 ---
 title: Node and Runtime
 description: Learn how Polkadot SDK-based nodes function, how the client and runtime are separated, and how they communicate using SCALE-encoded data.
+categories: Basics, Polkadot Protocol
 ---
 
 # Node and Runtime
@@ -24052,6 +24148,7 @@ Doc-Content: https://docs.polkadot.com/polkadot-protocol/parachain-basics/random
 ---
 title: Randomness
 description: Explore the importance of randomness in PoS blockchains, focusing on Polkadot’s VRF-based approach to ensure fairness and security in validator selection.
+categories: Basics, Polkadot Protocol
 ---
 
 # Randomness
@@ -24139,6 +24236,7 @@ Doc-Content: https://docs.polkadot.com/polkadot-protocol/smart-contract-basics/a
 ---
 title: Accounts in Asset Hub Smart Contracts
 description: Bridges Ethereum's 20-byte addresses with Polkadot's 32-byte accounts, enabling seamless interaction while maintaining compatibility with Ethereum tooling.
+categories: Basics, Polkadot Protocol
 ---
 
 # Accounts on Asset Hub Smart Contracts
@@ -24231,6 +24329,7 @@ Doc-Content: https://docs.polkadot.com/polkadot-protocol/smart-contract-basics/b
 ---
 title: Blocks, Transactions and Fees for Asset Hub Smart Contracts
 description: Explore how Asset Hub smart contracts handle blocks, transactions, and fees with EVM compatibility, supporting various Ethereum transaction types.
+categories: Basics, Polkadot Protocol
 ---
 
 # Blocks, Transactions, and Fees
@@ -24337,6 +24436,7 @@ Doc-Content: https://docs.polkadot.com/polkadot-protocol/smart-contract-basics/e
 ---
 title: EVM vs PolkaVM
 description: Compares EVM and PolkaVM, highlighting key architectural differences, gas models, memory management, and account handling while ensuring Solidity compatibility.
+categories: Basics, Polkadot Protocol
 ---
 
 # EVM vs PolkaVM
@@ -24634,6 +24734,7 @@ Doc-Content: https://docs.polkadot.com/polkadot-protocol/smart-contract-basics/n
 ---
 title: Networks for Polkadot Hub Smart Contracts
 description: Explore the available networks for smart contract development on Polkadot Hub, including Westend Hub, Kusama Hub, and Polkadot Hub.
+categories: Basics, Polkadot Protocol
 ---
 
 # Networks
@@ -24722,6 +24823,7 @@ Doc-Content: https://docs.polkadot.com/polkadot-protocol/smart-contract-basics/o
 ---
 title: Smart Contracts Basics Overview
 description: Learn how developers can build smart contracts on Polkadot by leveraging either Wasm/ink! or EVM contracts across many parachains.
+categories: Basics, Polkadot Protocol
 ---
 
 # An Overview of the Smart Contract Landscape on Polkadot
@@ -24874,6 +24976,7 @@ Doc-Content: https://docs.polkadot.com/polkadot-protocol/smart-contract-basics/p
 ---
 title: PolkaVM Design
 description: Discover PolkaVM, a high-performance smart contract VM for Polkadot, enabling Ethereum compatibility via pallet_revive, Solidity support & optimized execution.
+categories: Basics, Polkadot Protocol
 ---
 
 # PolkaVM Design
@@ -25027,6 +25130,7 @@ Doc-Content: https://docs.polkadot.com/tutorials/dapps/remark-tutorial/
 ---
 title: PAPI Account Watcher Tutorial
 description: Build a CLI app that listens to on-chain events using the Polkadot API and responds to specific messages for a given account.
+categories: Tooling
 ---
 
 # PAPI Account Watcher 
@@ -25365,6 +25469,7 @@ Doc-Content: https://docs.polkadot.com/tutorials/interoperability/xcm-channels/p
 title: Opening HRMP Channels Between Parachains
 description: Learn how to open HRMP channels between parachains on Polkadot. Discover the step-by-step process for establishing uni- and bidirectional communication.
 tutorial_badge: Advanced
+categories: Parachains
 ---
 
 # Opening HRMP Channels Between Parachains
@@ -25551,6 +25656,7 @@ Doc-Content: https://docs.polkadot.com/tutorials/interoperability/xcm-channels/p
 title: Opening HRMP Channels with System Parachains
 description: Learn how to open HRMP channels with Polkadot system parachains. Discover the process for establishing bi-directional communication using a single XCM message.
 tutorial_badge: Advanced
+categories: Parachains
 ---
 
 # Opening HRMP Channels with System Parachains
@@ -25699,6 +25805,7 @@ Doc-Content: https://docs.polkadot.com/tutorials/interoperability/xcm-transfers/
 title: XCM Transfers from Relay Chain to Parachain
 description: Learn how to perform a reserve-backed asset transfer between a relay chain and a parachain using XCM for cross-chain interoperability.
 tutorial_badge: Intermediate
+categories: Parachains
 ---
 
 # From Relay Chain to Parachain
@@ -25995,6 +26102,7 @@ Doc-Content: https://docs.polkadot.com/tutorials/onchain-governance/fast-track-g
 title: Fast Track a Governance Proposal
 description: Learn how to fast-track governance proposals in Polkadot's OpenGov using Chopsticks. Simulate, test, and execute proposals confidently.
 tutorial_badge: Advanced
+categories: Tooling
 ---
 
 # Fast Track a Governance Proposal
@@ -30790,6 +30898,7 @@ Doc-Content: https://docs.polkadot.com/tutorials/polkadot-sdk/parachains/zero-to
 title: Add Pallets to the Runtime
 description: Add pallets to your runtime for custom functionality. Learn to configure and integrate pallets in Polkadot SDK-based blockchains.
 tutorial_badge: Beginner
+categories: Basics, Parachains
 ---
 
 # Add Pallets to the Runtime
@@ -30960,6 +31069,7 @@ Doc-Content: https://docs.polkadot.com/tutorials/polkadot-sdk/parachains/zero-to
 title: Build a Custom Pallet
 description: Learn how to build a custom pallet for Polkadot SDK-based blockchains with this step-by-step guide. Create and configure a simple counter pallet from scratch.
 tutorial_badge: Beginner
+categories: Basics, Parachains
 ---
 
 # Build a Custom Pallet
@@ -31822,6 +31932,7 @@ Doc-Content: https://docs.polkadot.com/tutorials/polkadot-sdk/parachains/zero-to
 title: Deploy on Paseo TestNet
 description: This guide walks you through the journey of deploying your Polkadot SDK blockchain on Paseo, detailing each step to a successful TestNet deployment.
 tutorial_badge: Advanced
+categories: Parachains
 ---
 
 # Deploy on Paseo TestNet
@@ -32247,6 +32358,7 @@ Doc-Content: https://docs.polkadot.com/tutorials/polkadot-sdk/parachains/zero-to
 title: Obtain Coretime
 description: Learn how to obtain coretime for block production with this guide, covering both on-demand and bulk options for smooth operations.
 tutorial_badge: Advanced
+categories: Parachains
 ---
 
 ## Introduction
@@ -32364,6 +32476,7 @@ Doc-Content: https://docs.polkadot.com/tutorials/polkadot-sdk/parachains/zero-to
 title: Pallet Benchmarking
 description: Learn how to benchmark Polkadot SDK-based pallets, assigning precise weights to extrinsics for accurate fee calculation and runtime optimization.
 tutorial_badge: Advanced
+categories: Parachains
 ---
 
 ## Introduction
@@ -32720,6 +32833,7 @@ Doc-Content: https://docs.polkadot.com/tutorials/polkadot-sdk/parachains/zero-to
 title: Pallet Unit Testing
 description: Discover how to create thorough unit tests for pallets built with the Polkadot SDK, using a custom pallet as a practical example.
 tutorial_badge: Intermediate
+categories: Parachains
 ---
 
 # Pallet Unit Testing
@@ -33510,6 +33624,7 @@ Doc-Content: https://docs.polkadot.com/tutorials/polkadot-sdk/parachains/zero-to
 title: Runtime Upgrades
 description: Learn how to safely perform runtime upgrades for your Polkadot SDK-based blockchain, including step-by-step instructions.
 tutorial_badge: Intermediate
+categories: Parachains
 ---
 
 # Runtime Upgrades
@@ -33780,6 +33895,7 @@ Doc-Content: https://docs.polkadot.com/tutorials/polkadot-sdk/parachains/zero-to
 title: Set Up a Template
 description: Learn to compile and run a local parachain node using Polkadot SDK. Launch, run, and interact with a pre-configured runtime template.
 tutorial_badge: Beginner
+categories: Basics, Parachains
 ---
 
 # Set Up a Template
@@ -33998,6 +34114,7 @@ Doc-Content: https://docs.polkadot.com/tutorials/polkadot-sdk/system-chains/asse
 title: Convert Assets on Asset Hub
 description: A guide detailing the step-by-step process of converting assets on Asset Hub, helping users efficiently navigate asset management on the platform.
 tutorial_badge: Intermediate
+categories: dApps
 ---
 
 # Convert Assets on Asset Hub
@@ -34388,6 +34505,7 @@ Doc-Content: https://docs.polkadot.com/tutorials/polkadot-sdk/system-chains/asse
 title: Register a Foreign Asset on Asset Hub
 description: An in-depth guide to registering a foreign asset on the Asset Hub parachain, providing clear, step-by-step instructions.
 tutorial_badge: Intermediate
+categories: dApps
 ---
 
 # Register a Foreign Asset on Asset Hub
@@ -34527,6 +34645,7 @@ Doc-Content: https://docs.polkadot.com/tutorials/polkadot-sdk/system-chains/asse
 title: Register a Local Asset
 description: Comprehensive guide to registering a local asset on the Asset Hub system parachain, including step-by-step instructions.
 tutorial_badge: Beginner
+categories: Basics, dApps
 ---
 
 # Register a Local Asset on Asset Hub
@@ -34660,6 +34779,7 @@ Doc-Content: https://docs.polkadot.com/tutorials/polkadot-sdk/testing/fork-live-
 title: Fork a Chain with Chopsticks
 description: Learn how to fork live Polkadot SDK chains with Chopsticks. Configure forks, replay blocks, test XCM, and interact programmatically or via UI.
 tutorial_badge: Beginner
+categories: Basics, dApps, Tooling
 ---
 
 # Fork a Chain with Chopsticks
@@ -35037,6 +35157,7 @@ Doc-Content: https://docs.polkadot.com/tutorials/polkadot-sdk/testing/spawn-basi
 title: Spawn a Basic Chain with Zombienet
 description: Learn to spawn, connect to and monitor a basic blockchain network with Zombienet, using customizable configurations for streamlined development and debugging.
 tutorial_badge: Beginner
+categories: Basics, dApps, Tooling
 ---
 
 # Spawn a Basic Chain with Zombienet
@@ -35277,6 +35398,7 @@ Doc-Content: https://docs.polkadot.com/tutorials/smart-contracts/demo-aplication
 ---
 title: Deploying Uniswap V2 on Polkadot
 description: Learn how to deploy and test Uniswap V2 on Polkadot Hub using Hardhat, bringing AMM-based token swaps to the Polkadot ecosystem.
+categories: dApps, Tooling
 ---
 
 # Deploy Uniswap V2
@@ -35550,6 +35672,7 @@ Doc-Content: https://docs.polkadot.com/tutorials/smart-contracts/deploy-erc20/
 title: Deploy an ERC-20 to Polkadot Hub
 description: Deploy an ERC-20 token on Polkadot Hub using PolkaVM. This guide covers contract creation, compilation, deployment, and interaction via Polkadot Remix IDE.
 tutorial_badge: Beginner
+categories: Basics, dApps, Smart Contracts
 ---
 
 # Deploy an ERC-20 to Polkadot Hub
@@ -35716,6 +35839,7 @@ Doc-Content: https://docs.polkadot.com/tutorials/smart-contracts/deploy-nft/
 title: Deploy an NFT to Polkadot Hub
 description: Deploy an NFT on Polkadot Hub using PolkaVM and OpenZeppelin. Learn how to compile, deploy, and interact with your contract using Polkadot Remix IDE.
 tutorial_badge: Beginner
+categories: Basics, dApps, Smart Contracts
 ---
 
 # Deploy an NFT to Polkadot Hub
@@ -35917,6 +36041,7 @@ Doc-Content: https://docs.polkadot.com/tutorials/smart-contracts/launch-your-fir
 title: Create a Smart Contract
 description: Learn how to write a basic smart contract using just a text editor. This guide covers creating and preparing a contract for deployment on Polkadot Hub.
 tutorial_badge: Beginner
+categories: Basics, Smart Contracts
 ---
 
 # Create a Smart Contract
@@ -36113,6 +36238,7 @@ Doc-Content: https://docs.polkadot.com/tutorials/smart-contracts/launch-your-fir
 title: Create a dApp With Ethers.js
 description: Learn how to build a decentralized application on Polkadot Hub using Ethers.js and Next.js by creating a simple dApp that interacts with a smart contract.
 tutorial_badge:  Intermediate
+categories: dApp, Tooling
 ---
 
 # Create a DApp With Ethers.js
@@ -36754,6 +36880,7 @@ Doc-Content: https://docs.polkadot.com/tutorials/smart-contracts/launch-your-fir
 title: Create a dApp With Viem
 description: Learn how to build a decentralized application on Polkadot Hub using Viem and Next.js by creating a simple dApp that interacts with a smart contract.
 tutorial_badge:  Intermediate
+categories: dApp, Tooling
 ---
 
 # Create a DApp with Viem
@@ -37611,6 +37738,7 @@ Doc-Content: https://docs.polkadot.com/tutorials/smart-contracts/launch-your-fir
 title: Test and Deploy with Hardhat
 description: Learn how to set up a Hardhat development environment, write comprehensive tests for Solidity smart contracts, and deploy to local and Polkadot Hub networks.
 tutorial_badge: Intermediate
+categories: dApp, Tooling
 ---
 
 # Test and Deploy with Hardhat

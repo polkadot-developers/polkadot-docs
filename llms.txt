@@ -4,6 +4,7 @@
 
 ## Docs
 
+- [AI Resources](https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/main/ai-resources/ai-resources.md): Download LLM-optimized files of the Polkadot documentation, including full content and category-specific resources for AI agents.
 - [Develop](https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/main/develop/index.md): Explore and learn how to build in the Polkadot ecosystem, from a custom parachain to smart contracts, supported by robust integrations and developer tools.
 - [Interoperability](https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/main/develop/interoperability/index.md): Learn how Polkadot enables blockchain interoperability through Cross-Consensus Messaging (XCM), powering secure cross-chain communication.
 - [Introduction to XCM](https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/main/develop/interoperability/intro-to-xcm.md): Unlock blockchain interoperability with XCM — Polkadot's Cross-Consensus Messaging format for cross-chain interactions.

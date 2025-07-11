@@ -1,3 +1,4 @@
+
 import {
   AssetTransferApi,
   constructApiPromise,
@@ -13,15 +14,12 @@ const AMOUNT_TO_SEND = 1000000; // 1 USDC
 
 const PARA_ID = 3344; // The Parachain ID where the asset will be transferred.
 
-// We create an instance of the AssetTransferApi from "@substrate/asset-transfer-api".
-// The `constructApiPromise` function also returns an `ApiPromise` object from `@polkadot/api`.
 const { api, specName, safeXcmVersion } = await constructApiPromise(
   RPC_ENDPOINT
 );
 const assetApi = new AssetTransferApi(api, specName, safeXcmVersion);
 
 // We can now  easily create an Asset Hub -> Parachain XCM transfer transaction.
-// More documentation is available here: https://github.com/paritytech/asset-transfer-api
 const xcmExtrinsic = await assetApi.createTransferTransaction(
   `${PARA_ID}`,
   SENDER_ACCOUNT,
@@ -32,6 +30,7 @@ const xcmExtrinsic = await assetApi.createTransferTransaction(
     xcmVersion: safeXcmVersion,
   }
 );
+
 // Given the `xcmExtrinsic`, we have to estimate the fees.
 const { partialFee } = await xcmExtrinsic.tx.paymentInfo(SENDER_ACCOUNT);
 
@@ -40,11 +39,9 @@ const { partialFee } = await xcmExtrinsic.tx.paymentInfo(SENDER_ACCOUNT);
 // An example of how to compute the XCM fee can be found here: https://gist.github.com/PraetorP/4bc323ff85401abe253897ba990ec29d
 
 // For now we have to add a small buffer to the fee.
-
 const fee = partialFee.toBigInt() + 300000000n; // Adding 0.03 DOT as a buffer.
 console.log(`Estimated fee: ${partialFee.toHuman()}`);
 
-// We have to create the input asset MultiLocation.
 const inputAsset = (assetId: number) =>
   api.createType("MultiLocation", {
     parents: 0,
@@ -53,7 +50,6 @@ const inputAsset = (assetId: number) =>
     },
   });
 
-// We have to create the output asset MultiLocation.
 const output = api
   .createType("MultiLocation", {
     parents: 1,
@@ -63,9 +59,6 @@ const output = api
   })
   .toU8a();
 
-// Swap any amount of `asset1` to get the exact amount of `asset2`.
-// `amount_in_max` param allows to specify the max amount of the `asset1` you're happy to provide.
-// src: https://github.com/paritytech/polkadot-sdk/blob/18ed309a37036db8429665f1e91fb24ab312e646/substrate/frame/asset-conversion/src/lib.rs#L653C1-L655C31
 const swapToken = (assetId: number, address: string) =>
   api.tx.assetConversion.swapTokensForExactTokens(
     [inputAsset(assetId).toU8a(), output], // Array containing the `asset1` and `asset2` MultiLocation.
@@ -75,7 +68,6 @@ const swapToken = (assetId: number, address: string) =>
     true
   );
 
-// We can now create a batch call with the swapToken and the XCM extrinsic.
 const batchCall = api.tx.utility.batchAll([
   swapToken(ASSET_ID, SENDER_ACCOUNT),
   xcmExtrinsic.tx,
@@ -83,12 +75,8 @@ const batchCall = api.tx.utility.batchAll([
 
 console.log(`Encoded hex: ${batchCall.toHex()}`);
 
-// On the UI you can sign and send the transaction.
-// By specifying the `assetId` as a MultiLocation, you can pay the transaction fee with the asset you're swapping.
-// In this example, we are going to pay the fee with USDC.
-
-// await batchCall.signAndSend(SENDER_ACCOUNT, {
-//   assetId: inputAsset(ASSET_ID)
-// });
+await batchCall.signAndSend(SENDER_ACCOUNT, {
+  assetId: inputAsset(ASSET_ID)
+});
 
 await api.disconnect();

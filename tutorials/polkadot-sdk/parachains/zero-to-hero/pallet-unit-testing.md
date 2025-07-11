@@ -69,7 +69,7 @@ Explanation of the additions:
 
 Expand the following item to see the complete `mock.rs` implementation for the mock runtime.
 
-???-code "mock.rs"
+??? code "mock.rs"
 
     ```rust title="mock.rs"
     --8<-- 'code/tutorials/polkadot-sdk/parachains/zero-to-hero/pallets/custom-pallet/src/mock.rs:20:62'
@@ -82,16 +82,16 @@ Unit testing a pallet involves creating a comprehensive test suite that validate
 
 Expand the following item to see the pallet calls to be tested.
 
-???-code "Custom pallet calls"
+??? code "Custom pallet calls"
 
     ```rust
-    --8<-- 'code/tutorials/polkadot-sdk/parachains/zero-to-hero/pallets/custom-pallet/src/lib.rs:106:115'
+    --8<-- 'code/tutorials/polkadot-sdk/parachains/zero-to-hero/pallets/custom-pallet/src/lib.rs:105:114'
         #[pallet::weight(0)]
-        --8<-- 'code/tutorials/polkadot-sdk/parachains/zero-to-hero/pallets/custom-pallet/src/lib.rs:117:141'
+        --8<-- 'code/tutorials/polkadot-sdk/parachains/zero-to-hero/pallets/custom-pallet/src/lib.rs:116:140'
         #[pallet::weight(0)]
-        --8<-- 'code/tutorials/polkadot-sdk/parachains/zero-to-hero/pallets/custom-pallet/src/lib.rs:143:185'
+        --8<-- 'code/tutorials/polkadot-sdk/parachains/zero-to-hero/pallets/custom-pallet/src/lib.rs:142:184'
         #[pallet::weight(0)]
-    --8<-- 'code/tutorials/polkadot-sdk/parachains/zero-to-hero/pallets/custom-pallet/src/lib.rs:187:216'
+    --8<-- 'code/tutorials/polkadot-sdk/parachains/zero-to-hero/pallets/custom-pallet/src/lib.rs:186:216'
     ```
 
 The following sub-sections outline various scenarios in which the `custom-pallet` can be tested. Feel free to add these snippets to your `tests.rs` while you read the examples.
@@ -140,7 +140,7 @@ Test that pallet operations modify the internal state correctly and maintain exp
 
 Expand the following item to see the complete `tests.rs` implementation for the custom pallet.
 
-???-code "tests.rs"
+??? code "tests.rs"
 
     ```rust title="tests.rs"
     --8<-- 'code/tutorials/polkadot-sdk/parachains/zero-to-hero/pallets/custom-pallet/src/tests.rs:20'
@@ -162,12 +162,12 @@ After running the test suite, you should see the following output in your termin
 
 <div class="grid cards" markdown>
 
--   <span class="badge tutorial">Tutorial</span> __Pallet Benchmarking__
+-   <span class="badge tutorial">Tutorial</span> __Add Pallets to the Runtime__
 
     ---
 
-    Discover how to measure extrinsic costs and assign precise weights to optimize your pallet for accurate fees and runtime performance.
+    Learn how to add and integrate custom pallets in your Polkadot SDK-based blockchain
 
-    [:octicons-arrow-right-24: Get Started](/tutorials/polkadot-sdk/parachains/zero-to-hero/pallet-benchmarking/)
+    [:octicons-arrow-right-24: Get Started](/tutorials/polkadot-sdk/parachains/zero-to-hero/add-pallets-to-runtime/)
 
 </div>

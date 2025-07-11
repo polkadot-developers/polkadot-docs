@@ -38,6 +38,7 @@ Doc-Page: https://docs.polkadot.com/develop/parachains/testing/
 Doc-Page: https://docs.polkadot.com/develop/parachains/testing/mock-runtime/
 Doc-Page: https://docs.polkadot.com/develop/parachains/testing/pallet-testing/
 Doc-Page: https://docs.polkadot.com/develop/smart-contracts/block-explorers/
+Doc-Page: https://docs.polkadot.com/develop/smart-contracts/connect-to-kusama/
 Doc-Page: https://docs.polkadot.com/develop/smart-contracts/connect-to-polkadot/
 Doc-Page: https://docs.polkadot.com/develop/smart-contracts/dev-environments/foundry/
 Doc-Page: https://docs.polkadot.com/develop/smart-contracts/dev-environments/hardhat/
@@ -169,6 +170,7 @@ Doc-Page: https://docs.polkadot.com/tutorials/polkadot-sdk/parachains/zero-to-he
 Doc-Page: https://docs.polkadot.com/tutorials/polkadot-sdk/parachains/zero-to-hero/obtain-coretime/
 Doc-Page: https://docs.polkadot.com/tutorials/polkadot-sdk/parachains/zero-to-hero/pallet-benchmarking/
 Doc-Page: https://docs.polkadot.com/tutorials/polkadot-sdk/parachains/zero-to-hero/pallet-unit-testing/
+Doc-Page: https://docs.polkadot.com/tutorials/polkadot-sdk/parachains/zero-to-hero/runtime-upgrade/
 Doc-Page: https://docs.polkadot.com/tutorials/polkadot-sdk/parachains/zero-to-hero/set-up-a-template/
 Doc-Page: https://docs.polkadot.com/tutorials/polkadot-sdk/system-chains/asset-hub/asset-conversion/
 Doc-Page: https://docs.polkadot.com/tutorials/polkadot-sdk/system-chains/asset-hub/
@@ -6861,6 +6863,98 @@ Routescan delivers multi-chain explorer capabilities with specialized support fo
 ![](/images/develop/smart-contracts/block-explorers/block-explorers-3.webp) -->
 --- END CONTENT ---
 
+Doc-Content: https://docs.polkadot.com/develop/smart-contracts/connect-to-kusama/
+--- BEGIN CONTENT ---
+---
+title: Connect to Kusama
+description: Explore how to connect to Kusama Hub for developing and testing smart contracts in a live environment with real monetary value.
+---
+
+# Connect to Kusama
+
+!!! smartcontract "PolkaVM Preview Release"
+    PolkaVM smart contracts with Ethereum compatibility are in **early-stage development and may be unstable or incomplete**.
+
+<div class="button-wrapper">
+    <a href="#" class="md-button connectMetaMask" value="kusamaHub">Connect to Kusama Hub</a>
+</div>
+
+For more information about how to connect to a Polkadot network, please check the [Wallets](/develop/smart-contracts/wallets/){target=\_blank} guide.
+
+!!! info "Production Environment"
+    Kusama Hub offers a live environment for deploying smart contracts. Please note that the most recent version of Polkadot's Ethereum-compatible stack is available on the TestNet; however, you can also deploy it to the Kusama Hub for production use.
+
+
+## Networks Details
+
+Developers can leverage smart contracts on Kusama Hub for live production deployments. This section outlines the network specifications and connection details.
+
+=== "Kusama Hub"
+
+    Network name
+    ```text
+    Kusama Hub
+    ```
+    ---
+    Currency symbol
+    ```text
+    KSM
+    ```
+    ---
+    
+    Chain ID
+    ```text
+    420420418
+    ```
+    ---
+    
+    RPC URL
+    ```text
+    https://kusama-asset-hub-eth-rpc.polkadot.io
+    ```
+    ---
+    
+    Block explorer URL
+    ```text
+    https://blockscout-kusama-asset-hub.parity-chains-scw.parity.io/
+    ```
+    ---
+
+## Important Deployment Considerations
+
+While the compatibility with regular EVM codebases is still being maximized, some recommendations include:
+    
+- **Leverage [Hardhat](/develop/smart-contracts/dev-environments/hardhat){target=\_blank}** to compile, deploy, and interact with your contract.
+- **Use MetaMask** to interact with your dApp (note that using MetaMask can sometimes lead to `Invalid transaction` errors - this is actively being worked on and will be fixed soon).
+- **Avoid Remix** for deployment as MetaMask enforces a 48kb size limit when using the [Remix IDE](/develop/smart-contracts/dev-environments/remix){target=\_blank}, which is why Hardhat Polkadot is recommended for deployment.
+
+Kusama Hub is a live environment. Ensure your contracts are thoroughly tested before deployment, as transactions on Kusama Hub involve real KSM tokens and **cannot be reversed**.
+
+## Where to Go Next
+
+For your next steps, explore the various smart contract guides demonstrating how to use and integrate different tools and development environments into your workflow.
+
+<div class="grid cards" markdown>
+
+-   <span class="badge guide">Guide</span> **Deploy your first contract with Hardhat**
+    
+    ---
+    
+    Explore the recommended smart contract development and deployment process on Kusama Hub using Hardhat.
+    
+    [:octicons-arrow-right-24: Build with HardHat](/develop/smart-contracts/dev-environments/hardhat/)
+
+-   <span class="badge guide">Guide</span> **Interact with the blockchain using viem**
+    
+    ---
+    
+    Use viem for interacting with Ethereum-compatible chains to deploy and interact with smart contracts on Kusama Hub.
+    
+    [:octicons-arrow-right-24: Build with viem](/develop/smart-contracts/libraries/viem/)
+
+</div>
+--- END CONTENT ---
+
 Doc-Content: https://docs.polkadot.com/develop/smart-contracts/connect-to-polkadot/
 --- BEGIN CONTENT ---
 ---
@@ -8278,6 +8372,33 @@ The latest MetaMask update affects the extension’s ability to deploy large con
 ### I found a bug, where can I log it?
 
 Please log any bugs in the [`contracts-issues`](https://github.com/paritytech/contract-issues/issues){target=\_blank} repository so developers are aware of them and can address them.
+
+
+## Known Issues
+
+### Runtime Behavior
+
+- **`creationCode` returns hash instead of bytecode**: The Solidity keyword returns a `keccak256` hash rather than the actual creation bytecode.
+    - [Issue #45](https://github.com/paritytech/contract-issues/issues/45){target=\_blank}
+- **Non-deterministic gas usage**: Gas consumption varies slightly for identical transactions.
+    - [Issue #49](https://github.com/paritytech/contract-issues/issues/49){target=\_blank}
+- **Precompiles not recognized**: Precompile addresses return `Contract not found` error.
+    - [Issue #111](https://github.com/paritytech/contract-issues/issues/111){target=\_blank}
+
+### Development Tools
+
+- **`hardhat-polkadot` plugin compilation issues**: Plugin interferes with standard `npx hardhat compile` command.
+    - [Issue #44](https://github.com/paritytech/contract-issues/issues/44){target=\_blank}
+
+### Contract Patterns
+
+- **Minimal proxy (EIP-1167) deployment fails**: Standard proxy contracts cannot be deployed on PolkaVM.
+    - [Issue #86](https://github.com/paritytech/contract-issues/issues/86){target=\_blank}
+
+### Compilation
+
+- **`SDIV` opcode crash**: Compiler crashes with `Unsupported SDIV` assertion failure.
+    - [Issue #342](https://github.com/paritytech/revive/issues/342){target=\_blank}
 --- END CONTENT ---
 
 Doc-Content: https://docs.polkadot.com/develop/smart-contracts/
@@ -31328,321 +31449,6 @@ Configure the pallets by implementing their `Config` trait and update the runtim
 
     ```rust title="mod.rs" hl_lines="7-25"
     ...
-    // This is free and unencumbered software released into the public domain.
-//
-// Anyone is free to copy, modify, publish, use, compile, sell, or
-// distribute this software, either in source code form or as a compiled
-// binary, for any purpose, commercial or non-commercial, and by any
-// means.
-//
-// In jurisdictions that recognize copyright laws, the author or authors
-// of this software dedicate any and all copyright interest in the
-// software to the public domain. We make this dedication for the benefit
-// of the public at large and to the detriment of our heirs and
-// successors. We intend this dedication to be an overt act of
-// relinquishment in perpetuity of all present and future rights to this
-// software under copyright law.
-//
-// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
-// EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
-// MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
-// IN NO EVENT SHALL THE AUTHORS BE LIABLE FOR ANY CLAIM, DAMAGES OR
-// OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
-// ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
-// OTHER DEALINGS IN THE SOFTWARE.
-//
-// For more information, please refer to <http://unlicense.org>
-
-mod xcm_config;
-
-use polkadot_sdk::{staging_parachain_info as parachain_info, staging_xcm as xcm, *};
-#[cfg(not(feature = "runtime-benchmarks"))]
-use polkadot_sdk::{staging_xcm_builder as xcm_builder, staging_xcm_executor as xcm_executor};
-
-// Substrate and Polkadot dependencies
-use cumulus_pallet_parachain_system::RelayNumberMonotonicallyIncreases;
-use cumulus_primitives_core::{AggregateMessageOrigin, ParaId};
-use frame_support::{
-    derive_impl,
-    dispatch::DispatchClass,
-    parameter_types,
-    traits::{
-        ConstBool, ConstU32, ConstU64, ConstU8, EitherOfDiverse, TransformOrigin, VariantCountOf,
-    },
-    weights::{ConstantMultiplier, Weight},
-    PalletId,
-};
-use frame_system::{
-    limits::{BlockLength, BlockWeights},
-    EnsureRoot,
-};
-use pallet_xcm::{EnsureXcm, IsVoiceOfBody};
-use parachains_common::message_queue::{NarrowOriginToSibling, ParaIdToSibling};
-use polkadot_runtime_common::{
-    xcm_sender::NoPriceForMessageDelivery, BlockHashCount, SlowAdjustingFeeUpdate,
-};
-use sp_consensus_aura::sr25519::AuthorityId as AuraId;
-use sp_runtime::Perbill;
-use sp_version::RuntimeVersion;
-use xcm::latest::prelude::BodyId;
-
-// Local module imports
-use super::OriginCaller;
-use super::{
-    weights::{BlockExecutionWeight, ExtrinsicBaseWeight, RocksDbWeight},
-    AccountId, Aura, Balance, Balances, Block, BlockNumber, CollatorSelection, ConsensusHook, Hash,
-    MessageQueue, Nonce, PalletInfo, ParachainSystem, Runtime, RuntimeCall, RuntimeEvent,
-    RuntimeFreezeReason, RuntimeHoldReason, RuntimeOrigin, RuntimeTask, Session, SessionKeys,
-    System, WeightToFee, XcmpQueue, AVERAGE_ON_INITIALIZE_RATIO, EXISTENTIAL_DEPOSIT, HOURS,
-    MAXIMUM_BLOCK_WEIGHT, MICRO_UNIT, NORMAL_DISPATCH_RATIO, SLOT_DURATION, VERSION,
-};
-use xcm_config::{RelayLocation, XcmOriginToTransactDispatchOrigin};
-
-parameter_types! {
-    pub const Version: RuntimeVersion = VERSION;
-
-    // This part is copied from Substrate's `bin/node/runtime/src/lib.rs`.
-    //  The `RuntimeBlockLength` and `RuntimeBlockWeights` exist here because the
-    // `DeletionWeightLimit` and `DeletionQueueDepth` depend on those to parameterize
-    // the lazy contract deletion.
-    pub RuntimeBlockLength: BlockLength =
-        BlockLength::max_with_normal_ratio(5 * 1024 * 1024, NORMAL_DISPATCH_RATIO);
-    pub RuntimeBlockWeights: BlockWeights = BlockWeights::builder()
-        .base_block(BlockExecutionWeight::get())
-        .for_class(DispatchClass::all(), |weights| {
-            weights.base_extrinsic = ExtrinsicBaseWeight::get();
-        })
-        .for_class(DispatchClass::Normal, |weights| {
-            weights.max_total = Some(NORMAL_DISPATCH_RATIO * MAXIMUM_BLOCK_WEIGHT);
-        })
-        .for_class(DispatchClass::Operational, |weights| {
-            weights.max_total = Some(MAXIMUM_BLOCK_WEIGHT);
-            // Operational transactions have some extra reserved space, so that they
-            // are included even if block reached `MAXIMUM_BLOCK_WEIGHT`.
-            weights.reserved = Some(
-                MAXIMUM_BLOCK_WEIGHT - NORMAL_DISPATCH_RATIO * MAXIMUM_BLOCK_WEIGHT
-            );
-        })
-        .avg_block_initialization(AVERAGE_ON_INITIALIZE_RATIO)
-        .build_or_panic();
-    pub const SS58Prefix: u16 = 42;
-}
-
-/// The default types are being injected by [`derive_impl`](`frame_support::derive_impl`) from
-/// [`ParaChainDefaultConfig`](`struct@frame_system::config_preludes::ParaChainDefaultConfig`),
-/// but overridden as needed.
-#[derive_impl(frame_system::config_preludes::ParaChainDefaultConfig)]
-impl frame_system::Config for Runtime {
-    /// The identifier used to distinguish between accounts.
-    type AccountId = AccountId;
-    /// The index type for storing how many extrinsics an account has signed.
-    type Nonce = Nonce;
-    /// The type for hashing blocks and tries.
-    type Hash = Hash;
-    /// The block type.
-    type Block = Block;
-    /// Maximum number of block number to block hash mappings to keep (oldest pruned first).
-    type BlockHashCount = BlockHashCount;
-    /// Runtime version.
-    type Version = Version;
-    /// The data to be stored in an account.
-    type AccountData = pallet_balances::AccountData<Balance>;
-    /// The weight of database operations that the runtime can invoke.
-    type DbWeight = RocksDbWeight;
-    /// Block & extrinsics weights: base values and limits.
-    type BlockWeights = RuntimeBlockWeights;
-    /// The maximum length of a block (in bytes).
-    type BlockLength = RuntimeBlockLength;
-    /// This is used as an identifier of the chain. 42 is the generic substrate prefix.
-    type SS58Prefix = SS58Prefix;
-    /// The action to take on a Runtime Upgrade
-    type OnSetCode = cumulus_pallet_parachain_system::ParachainSetCode<Self>;
-    type MaxConsumers = frame_support::traits::ConstU32<16>;
-}
-
-impl pallet_timestamp::Config for Runtime {
-    /// A timestamp: milliseconds since the unix epoch.
-    type Moment = u64;
-    type OnTimestampSet = Aura;
-    type MinimumPeriod = ConstU64<0>;
-    type WeightInfo = ();
-}
-
-impl pallet_authorship::Config for Runtime {
-    type FindAuthor = pallet_session::FindAccountFromAuthorIndex<Self, Aura>;
-    type EventHandler = (CollatorSelection,);
-}
-
-parameter_types! {
-    pub const ExistentialDeposit: Balance = EXISTENTIAL_DEPOSIT;
-}
-
-impl pallet_balances::Config for Runtime {
-    type MaxLocks = ConstU32<50>;
-    /// The type for recording an account's balance.
-    type Balance = Balance;
-    /// The ubiquitous event type.
-    type RuntimeEvent = RuntimeEvent;
-    type DustRemoval = ();
-    type ExistentialDeposit = ExistentialDeposit;
-    type AccountStore = System;
-    type WeightInfo = pallet_balances::weights::SubstrateWeight<Runtime>;
-    type MaxReserves = ConstU32<50>;
-    type ReserveIdentifier = [u8; 8];
-    type RuntimeHoldReason = RuntimeHoldReason;
-    type RuntimeFreezeReason = RuntimeFreezeReason;
-    type FreezeIdentifier = RuntimeFreezeReason;
-    type MaxFreezes = VariantCountOf<RuntimeFreezeReason>;
-    type DoneSlashHandler = ();
-}
-
-parameter_types! {
-    /// Relay Chain `TransactionByteFee` / 10
-    pub const TransactionByteFee: Balance = 10 * MICRO_UNIT;
-}
-
-impl pallet_transaction_payment::Config for Runtime {
-    type RuntimeEvent = RuntimeEvent;
-    type OnChargeTransaction = pallet_transaction_payment::FungibleAdapter<Balances, ()>;
-    type WeightToFee = WeightToFee;
-    type LengthToFee = ConstantMultiplier<Balance, TransactionByteFee>;
-    type FeeMultiplierUpdate = SlowAdjustingFeeUpdate<Self>;
-    type OperationalFeeMultiplier = ConstU8<5>;
-    type WeightInfo = ();
-}
-
-impl pallet_sudo::Config for Runtime {
-    type RuntimeEvent = RuntimeEvent;
-    type RuntimeCall = RuntimeCall;
-    type WeightInfo = ();
-}
-
-parameter_types! {
-    pub const ReservedXcmpWeight: Weight = MAXIMUM_BLOCK_WEIGHT.saturating_div(4);
-    pub const ReservedDmpWeight: Weight = MAXIMUM_BLOCK_WEIGHT.saturating_div(4);
-    pub const RelayOrigin: AggregateMessageOrigin = AggregateMessageOrigin::Parent;
-}
-
-impl cumulus_pallet_parachain_system::Config for Runtime {
-    type WeightInfo = ();
-    type RuntimeEvent = RuntimeEvent;
-    type OnSystemEvent = ();
-    type SelfParaId = parachain_info::Pallet<Runtime>;
-    type OutboundXcmpMessageSource = XcmpQueue;
-    type DmpQueue = frame_support::traits::EnqueueWithOrigin<MessageQueue, RelayOrigin>;
-    type ReservedDmpWeight = ReservedDmpWeight;
-    type XcmpMessageHandler = XcmpQueue;
-    type ReservedXcmpWeight = ReservedXcmpWeight;
-    type CheckAssociatedRelayNumber = RelayNumberMonotonicallyIncreases;
-    type ConsensusHook = ConsensusHook;
-    type SelectCore = cumulus_pallet_parachain_system::DefaultCoreSelector<Runtime>;
-}
-
-impl parachain_info::Config for Runtime {}
-
-parameter_types! {
-    pub MessageQueueServiceWeight: Weight = Perbill::from_percent(35) * RuntimeBlockWeights::get().max_block;
-}
-
-impl pallet_message_queue::Config for Runtime {
-    type RuntimeEvent = RuntimeEvent;
-    type WeightInfo = ();
-    #[cfg(feature = "runtime-benchmarks")]
-    type MessageProcessor = pallet_message_queue::mock_helpers::NoopMessageProcessor<
-        cumulus_primitives_core::AggregateMessageOrigin,
-    >;
-    #[cfg(not(feature = "runtime-benchmarks"))]
-    type MessageProcessor = xcm_builder::ProcessXcmMessage<
-        AggregateMessageOrigin,
-        xcm_executor::XcmExecutor<xcm_config::XcmConfig>,
-        RuntimeCall,
-    >;
-    type Size = u32;
-    // The XCMP queue pallet is only ever able to handle the `Sibling(ParaId)` origin:
-    type QueueChangeHandler = NarrowOriginToSibling<XcmpQueue>;
-    type QueuePausedQuery = NarrowOriginToSibling<XcmpQueue>;
-    type HeapSize = sp_core::ConstU32<{ 103 * 1024 }>;
-    type MaxStale = sp_core::ConstU32<8>;
-    type ServiceWeight = MessageQueueServiceWeight;
-    type IdleMaxServiceWeight = ();
-}
-
-impl cumulus_pallet_aura_ext::Config for Runtime {}
-
-impl cumulus_pallet_xcmp_queue::Config for Runtime {
-    type RuntimeEvent = RuntimeEvent;
-    type ChannelInfo = ParachainSystem;
-    type VersionWrapper = ();
-    // Enqueue XCMP messages from siblings for later processing.
-    type XcmpQueue = TransformOrigin<MessageQueue, AggregateMessageOrigin, ParaId, ParaIdToSibling>;
-    type MaxInboundSuspended = sp_core::ConstU32<1_000>;
-    type MaxActiveOutboundChannels = ConstU32<128>;
-    type MaxPageSize = ConstU32<{ 1 << 16 }>;
-    type ControllerOrigin = EnsureRoot<AccountId>;
-    type ControllerOriginConverter = XcmOriginToTransactDispatchOrigin;
-    type WeightInfo = ();
-    type PriceForSiblingDelivery = NoPriceForMessageDelivery<ParaId>;
-}
-
-parameter_types! {
-    pub const Period: u32 = 6 * HOURS;
-    pub const Offset: u32 = 0;
-}
-
-impl pallet_session::Config for Runtime {
-    type RuntimeEvent = RuntimeEvent;
-    type ValidatorId = <Self as frame_system::Config>::AccountId;
-    // we don't have stash and controller, thus we don't need the convert as well.
-    type ValidatorIdOf = pallet_collator_selection::IdentityCollator;
-    type ShouldEndSession = pallet_session::PeriodicSessions<Period, Offset>;
-    type NextSessionRotation = pallet_session::PeriodicSessions<Period, Offset>;
-    type SessionManager = CollatorSelection;
-    // Essentially just Aura, but let's be pedantic.
-    type SessionHandler = <SessionKeys as sp_runtime::traits::OpaqueKeys>::KeyTypeIdProviders;
-    type Keys = SessionKeys;
-    type WeightInfo = ();
-}
-
-#[docify::export(aura_config)]
-impl pallet_aura::Config for Runtime {
-    type AuthorityId = AuraId;
-    type DisabledValidators = ();
-    type MaxAuthorities = ConstU32<100_000>;
-    type AllowMultipleBlocksPerSlot = ConstBool<true>;
-    type SlotDuration = ConstU64<SLOT_DURATION>;
-}
-
-parameter_types! {
-    pub const PotId: PalletId = PalletId(*b"PotStake");
-    pub const SessionLength: BlockNumber = 6 * HOURS;
-    // StakingAdmin pluralistic body.
-    pub const StakingAdminBodyId: BodyId = BodyId::Defense;
-}
-
-/// We allow root and the StakingAdmin to execute privileged collator selection operations.
-pub type CollatorSelectionUpdateOrigin = EitherOfDiverse<
-    EnsureRoot<AccountId>,
-    EnsureXcm<IsVoiceOfBody<RelayLocation, StakingAdminBodyId>>,
->;
-
-impl pallet_collator_selection::Config for Runtime {
-    type RuntimeEvent = RuntimeEvent;
-    type Currency = Balances;
-    type UpdateOrigin = CollatorSelectionUpdateOrigin;
-    type PotId = PotId;
-    type MaxCandidates = ConstU32<100>;
-    type MinEligibleCollators = ConstU32<4>;
-    type MaxInvulnerables = ConstU32<20>;
-    // should be a multiple of session or things will get inconsistent
-    type KickThreshold = Period;
-    type ValidatorId = <Self as frame_system::Config>::AccountId;
-    type ValidatorIdOf = pallet_collator_selection::IdentityCollator;
-    type ValidatorRegistration = Session;
-    type WeightInfo = ();
-}
-
-/// Configure the pallet template in pallets/template.
-impl pallet_parachain_template::Config for Runtime {
     type RuntimeEvent = RuntimeEvent;
     type WeightInfo = pallet_parachain_template::weights::SubstrateWeight<Runtime>;
 }
@@ -31664,16 +31470,19 @@ parameter_types! {
 impl custom_pallet::Config for Runtime {
     type RuntimeEvent = RuntimeEvent;
     type CounterMaxValue = CounterMaxValue;
-    type WeightInfo = custom_pallet::weights::SubstrateWeight<Runtime>;
-}
+    
     ```
 
 3. Locate the `#[frame_support::runtime]` macro in the `runtime/src/lib.rs` file and add the pallets:
 
-    ```rust hl_lines="5-9" title="lib.rs"
+    ```rust hl_lines="8-12" title="lib.rs"
     #[runtime::runtime]
     #[runtime::derive(
-        ...
+            ...
+        pub struct Runtime;
+
+    pub type Utility = pallet_utility;
+
     #[runtime::pallet_index(52)]
     pub type CustomPallet = custom_pallet;
 }
@@ -31681,7 +31490,7 @@ impl custom_pallet::Config for Runtime {
 
 ## Recompile the Runtime
 
-After adding and configuring your pallets in the runtime, the next step is to ensure everything is set up correctly. To do this, recompile the runtime using the following command:
+After adding and configuring your pallets in the runtime, the next step is to ensure everything is set up correctly. To do this, recompile the runtime with the following command (make sure you're in the project's root directory):
 
 ```bash
 cargo build --release
@@ -31928,7 +31737,8 @@ Below are the events defined for this pallet:
 Define the events in the pallet as follows:
 
 ```rust title="lib.rs"
-pub enum Event<T: Config> {
+#[pallet::generate_deposit(pub(super) fn deposit_event)]
+    pub enum Event<T: Config> {
         /// The counter value has been set to a new value by Root.
         CounterValueSet {
             /// The new value set.
@@ -31982,7 +31792,8 @@ To add custom errors, use the `#[pallet::error]` macro to define the `Error` enu
 Add the following errors to the pallet:
 
 ```rust title="lib.rs"
-/// The counter value exceeds the maximum allowed value.
+pub enum Error<T> {
+        /// The counter value exceeds the maximum allowed value.
         CounterValueExceedsMax,
         /// The counter value cannot be decremented below zero.
         CounterValueBelowZero,
@@ -32000,7 +31811,8 @@ The `#[pallet::call]` macro defines the dispatchable functions (or calls) the pa
 The structure of the dispatchable calls in this pallet is as follows:
 
 ```rust title="lib.rs"
-/// Set the value of the counter.
+impl<T: Config> Pallet<T> {
+        /// Set the value of the counter.
         ///
         /// The dispatch origin of this call must be _Root_.
         ///
@@ -32008,29 +31820,28 @@ The structure of the dispatchable calls in this pallet is as follows:
         ///
         /// Emits `CounterValueSet` event when successful.
         #[pallet::call_index(0)]
-        #[pallet::weight(T::WeightInfo::set_counter_value())]
     #[pallet::weight(0)]
     
     
 
-    /// This function can be called by any signed account.
+    ///
+        /// This function can be called by any signed account.
         ///
         /// - `amount_to_increment`: The amount by which to increment the counter.
         ///
         /// Emits `CounterIncremented` event when successful.
         #[pallet::call_index(1)]
-        #[pallet::weight(T::WeightInfo::increment())]
     #[pallet::weight(0)]
     
     
 
-    /// This function can be called by any signed account.
+    ///
+        /// This function can be called by any signed account.
         ///
         /// - `amount_to_decrement`: The amount by which to decrement the counter.
         ///
         /// Emits `CounterDecremented` event when successful.
         #[pallet::call_index(2)]
-        #[pallet::weight(T::WeightInfo::decrement())]
     #[pallet::weight(0)]
     
     
@@ -32051,15 +31862,17 @@ Expand the following items to view the implementations of each dispatchable call
         - Emits a `CounterValueSet` event on success
 
     ```rust title="lib.rs"
-    /// The dispatch origin of this call must be _Root_.
+    ///
+        /// The dispatch origin of this call must be _Root_.
         ///
         /// - `new_value`: The new value to set for the counter.
         ///
         /// Emits `CounterValueSet` event when successful.
         #[pallet::call_index(0)]
-        #[pallet::weight(T::WeightInfo::set_counter_value())]
     #[pallet::weight(0)]
-    ensure!(
+    ensure_root(origin)?;
+
+            ensure!(
                 new_value <= T::CounterMaxValue::get(),
                 Error::<T>::CounterValueExceedsMax
             );
@@ -32088,15 +31901,17 @@ Expand the following items to view the implementations of each dispatchable call
         - Emits a `CounterIncremented` event on success
 
     ```rust title="lib.rs"
-    /// This function can be called by any signed account.
+    ///
+        /// This function can be called by any signed account.
         ///
         /// - `amount_to_increment`: The amount by which to increment the counter.
         ///
         /// Emits `CounterIncremented` event when successful.
         #[pallet::call_index(1)]
-        #[pallet::weight(T::WeightInfo::increment())]
     #[pallet::weight(0)]
-    let current_value = CounterValue::<T>::get().unwrap_or(0);
+    let who = ensure_signed(origin)?;
+
+            let current_value = CounterValue::<T>::get().unwrap_or(0);
 
             let new_value = current_value
                 .checked_add(amount_to_increment)
@@ -32143,15 +31958,17 @@ Expand the following items to view the implementations of each dispatchable call
         - Emits a `CounterDecremented` event on success
 
     ```rust title="lib.rs"
-    /// This function can be called by any signed account.
+    ///
+        /// This function can be called by any signed account.
         ///
         /// - `amount_to_decrement`: The amount by which to decrement the counter.
         ///
         /// Emits `CounterDecremented` event when successful.
         #[pallet::call_index(2)]
-        #[pallet::weight(T::WeightInfo::decrement())]
     #[pallet::weight(0)]
-    let current_value = CounterValue::<T>::get().unwrap_or(0);
+    let who = ensure_signed(origin)?;
+
+            let current_value = CounterValue::<T>::get().unwrap_or(0);
 
             let new_value = current_value
                 .checked_sub(amount_to_decrement)
@@ -32177,7 +31994,6 @@ Expand the following items to view the implementations of each dispatchable call
 
             Ok(())
         }
-    }
     ```
 
 ## Verify Compilation
@@ -32273,8 +32089,9 @@ Expand the following item to review this implementation and the complete pallet 
         ///
         /// Emits `CounterValueSet` event when successful.
         #[pallet::call_index(0)]
-        #[pallet::weight(T::WeightInfo::set_counter_value())]
             #[pallet::weight(0)]
+            ensure_root(origin)?;
+
             ensure!(
                 new_value <= T::CounterMaxValue::get(),
                 Error::<T>::CounterValueExceedsMax
@@ -32297,8 +32114,9 @@ Expand the following item to review this implementation and the complete pallet 
         ///
         /// Emits `CounterIncremented` event when successful.
         #[pallet::call_index(1)]
-        #[pallet::weight(T::WeightInfo::increment())]
             #[pallet::weight(0)]
+            let who = ensure_signed(origin)?;
+
             let current_value = CounterValue::<T>::get().unwrap_or(0);
 
             let new_value = current_value
@@ -32339,7 +32157,6 @@ Expand the following item to review this implementation and the complete pallet 
         ///
         /// Emits `CounterDecremented` event when successful.
         #[pallet::call_index(2)]
-        #[pallet::weight(T::WeightInfo::decrement())]
             #[pallet::weight(0)]
     // This file is part of 'custom-pallet'.
 
@@ -33147,7 +32964,7 @@ Follow these steps to prepare your environment for pallet benchmarking:
 1. Install the [`frame-omni-bencher`](https://crates.io/crates/frame-omni-bencher){target=\_blank} command-line tool:
     
     ```bash
-    cargo install frame-omni-bencher
+    cargo install frame-omni-bencher@0.10.0
     ```
 
 2. Update your pallet's `Cargo.toml` file in the `pallets/custom-pallet` directory by adding the `runtime-benchmarks` feature flag:
@@ -33392,7 +33209,7 @@ use crate::weights::WeightInfo;
 
 Next, update your pallet's `Config` trait to include weight information. Define the `WeightInfo` type:
 
-```rust hl_lines="10-11" title="lib.rs"
+```rust hl_lines="9-10" title="lib.rs"
 // Defines the event type for the pallet.
         type RuntimeEvent: From<Event<Self>> + IsType<<Self as frame_system::Config>::RuntimeEvent>;
 
@@ -33403,13 +33220,11 @@ Next, update your pallet's `Config` trait to include weight information. Define 
         /// A type representing the weights required by the dispatchables of this pallet.
         type WeightInfo: WeightInfo;
     }
-
-    #[pallet::event]
 ```
 
 Now you can assign weights to your extrinsics. Here's how to add weight calculations to the `set_counter_value` function:
 
-```rust hl_lines="2" title="lib.rs"
+```rust hl_lines="1" title="lib.rs"
 pub fn set_counter_value(origin: OriginFor<T>, new_value: u32) -> DispatchResult {
             ensure_root(origin)?;
 
@@ -33455,13 +33270,13 @@ Your pallet is now complete with full testing and benchmarking support, ready fo
 
 <div class="grid cards" markdown>
 
--   <span class="badge tutorial">Tutorial</span> __Deploy on Paseo TestNet__
+-   <span class="badge tutorial">Tutorial</span> __Runtime Upgrade__
 
     ---
 
-    Deploy your Polkadot SDK blockchain on Paseo! Follow this step-by-step guide for a seamless journey to a successful TestNet deployment.
+    Learn how to safely perform runtime upgrades for your Polkadot SDK-based blockchain, including step-by-step instructions for preparing, submitting, and verifying upgrades.
 
-    [:octicons-arrow-right-24: Get Started](/tutorials/polkadot-sdk/parachains/zero-to-hero/deploy-to-testnet/)
+    [:octicons-arrow-right-24: Get Started](/tutorials/polkadot-sdk/parachains/zero-to-hero/runtime-upgrade/)
 
 </div>
 --- END CONTENT ---
@@ -33654,7 +33469,7 @@ Explanation of the additions:
 
 Expand the following item to see the complete `mock.rs` implementation for the mock runtime.
 
-???-code "mock.rs"
+??? code "mock.rs"
 
     ```rust title="mock.rs"
     use frame::{prelude::*, runtime::prelude::*, testing_prelude::*};
@@ -33779,10 +33594,11 @@ Unit testing a pallet involves creating a comprehensive test suite that validate
 
 Expand the following item to see the pallet calls to be tested.
 
-???-code "Custom pallet calls"
+??? code "Custom pallet calls"
 
     ```rust
-    /// Set the value of the counter.
+    impl<T: Config> Pallet<T> {
+        /// Set the value of the counter.
         ///
         /// The dispatch origin of this call must be _Root_.
         ///
@@ -33790,9 +33606,10 @@ Expand the following item to see the pallet calls to be tested.
         ///
         /// Emits `CounterValueSet` event when successful.
         #[pallet::call_index(0)]
-        #[pallet::weight(T::WeightInfo::set_counter_value())]
         #[pallet::weight(0)]
-        ensure!(
+        ensure_root(origin)?;
+
+            ensure!(
                 new_value <= T::CounterMaxValue::get(),
                 Error::<T>::CounterValueExceedsMax
             );
@@ -33814,9 +33631,10 @@ Expand the following item to see the pallet calls to be tested.
         ///
         /// Emits `CounterIncremented` event when successful.
         #[pallet::call_index(1)]
-        #[pallet::weight(T::WeightInfo::increment())]
         #[pallet::weight(0)]
-        let current_value = CounterValue::<T>::get().unwrap_or(0);
+        let who = ensure_signed(origin)?;
+
+            let current_value = CounterValue::<T>::get().unwrap_or(0);
 
             let new_value = current_value
                 .checked_add(amount_to_increment)
@@ -33856,9 +33674,10 @@ Expand the following item to see the pallet calls to be tested.
         ///
         /// Emits `CounterDecremented` event when successful.
         #[pallet::call_index(2)]
-        #[pallet::weight(T::WeightInfo::decrement())]
         #[pallet::weight(0)]
-    let current_value = CounterValue::<T>::get().unwrap_or(0);
+    let who = ensure_signed(origin)?;
+
+            let current_value = CounterValue::<T>::get().unwrap_or(0);
 
             let new_value = current_value
                 .checked_sub(amount_to_decrement)
@@ -34000,7 +33819,7 @@ fn user_interactions_increment() {
 
 Expand the following item to see the complete `tests.rs` implementation for the custom pallet.
 
-???-code "tests.rs"
+??? code "tests.rs"
 
     ```rust title="tests.rs"
     // This file is part of 'custom-pallet'.
@@ -34227,13 +34046,283 @@ test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; fini
 
 <div class="grid cards" markdown>
 
--   <span class="badge tutorial">Tutorial</span> __Pallet Benchmarking__
+-   <span class="badge tutorial">Tutorial</span> __Add Pallets to the Runtime__
 
     ---
 
-    Discover how to measure extrinsic costs and assign precise weights to optimize your pallet for accurate fees and runtime performance.
+    Learn how to add and integrate custom pallets in your Polkadot SDK-based blockchain
 
-    [:octicons-arrow-right-24: Get Started](/tutorials/polkadot-sdk/parachains/zero-to-hero/pallet-benchmarking/)
+    [:octicons-arrow-right-24: Get Started](/tutorials/polkadot-sdk/parachains/zero-to-hero/add-pallets-to-runtime/)
+
+</div>
+--- END CONTENT ---
+
+Doc-Content: https://docs.polkadot.com/tutorials/polkadot-sdk/parachains/zero-to-hero/runtime-upgrade/
+--- BEGIN CONTENT ---
+---
+title: Runtime Upgrades
+description: Learn how to safely perform runtime upgrades for your Polkadot SDK-based blockchain, including step-by-step instructions.
+tutorial_badge: Intermediate
+---
+
+# Runtime Upgrades
+
+## Introduction
+
+Upgrading the runtime of your Polkadot SDK-based blockchain is a fundamental feature that allows you to add new functionality, fix bugs, or improve performance without requiring a hard fork. Runtime upgrades are performed by submitting a special extrinsic that replaces the existing on-chain WASM runtime code. This process is trustless, transparent, and can be executed either through governance or using sudo, depending on your chain's configuration.
+
+This tutorial will guide you through the steps to prepare, submit, and verify a runtime upgrade for your parachain or standalone Polkadot SDK-based chain. For this example, you'll continue from the state left by the previous tutorials, where you have a custom pallet integrated into your runtime.
+
+## Update the Runtime
+
+In this section, you will add a new feature to your existing custom pallet and upgrade your runtime to include this new functionality.
+
+### Start Your Chain
+
+Before making any changes, ensure your blockchain node is running properly:
+
+```bash
+polkadot-omni-node --chain ./chain_spec.json --dev
+```
+
+Verify your chain is operational and note the runtime version state in Polkadot JS. For more details, check the [Interact with the Node](/tutorials/polkadot-sdk/parachains/zero-to-hero/set-up-a-template/#interact-with-the-node){target=\_blank}.
+
+![](/images/tutorials/polkadot-sdk/parachains/zero-to-hero/runtime-upgrade/runtime-upgrade-01.webp)
+
+As you can see, the runtime version is `1` since this chain has not been upgraded. Keep this chain running in the background.
+
+### Add a New Feature
+
+Now, you can extend your existing custom pallet by adding a new dispatchable function to reset the counter to zero. This provides a meaningful upgrade that demonstrates new functionality. Copy and paste the following code at the end of your `lib.rs` file in your custom pallet:
+
+```rust title="custom-pallet/src/lib.rs" hl_lines="5-17"
+#[pallet::call]
+impl<T: Config> Pallet<T> {
+    // ... existing calls like increment, decrement, etc.
+
+    /// Reset the counter to zero.
+    ///
+    /// The dispatch origin of this call must be _Root_.
+    ///
+    /// Emits `CounterValueSet` event when successful.
+    #[pallet::call_index(3)]
+    #[pallet::weight(0)]
+    pub fn reset_counter(origin: OriginFor<T>) -> DispatchResult {
+        ensure_root(origin)?;
+        <CounterValue<T>>::put(0u32);
+        Self::deposit_event(Event::CounterValueSet { counter_value: 0 });
+        Ok(())
+    }
+}
+```
+
+The `reset_counter` function will be a Root-only operation that sets the counter value back to zero, regardless of its current state. This is useful for administrative purposes, such as clearing the counter after maintenance, testing, or at the start of new periods. Unlike the existing increment/decrement functions that any signed user can call, this reset function requires Root privileges, making it a controlled administrative action.
+
+Ensure that your runtime compiles by running:
+
+```bash
+cargo build --release
+```
+
+Now, you can test this new function in `pallets/custom-pallet/src/tests.rs`
+
+```rust title="custom-pallet/src/tests.rs" hl_lines="4-39"
+// ... existing unit tests
+...
+
+#[test]
+fn reset_counter_works() {
+    new_test_ext().execute_with(|| {
+        System::set_block_number(1);
+        // First increment the counter
+        assert_ok!(CustomPallet::increment(RuntimeOrigin::signed(1), 1));
+
+        // Ensure the event matches the increment action
+        System::assert_last_event(
+            Event::CounterIncremented {
+                counter_value: 1,
+                who: 1,
+                incremented_amount: 1,
+            }
+            .into(),
+        );
+        
+        // Reset should work with root origin
+        assert_ok!(CustomPallet::reset_counter(RuntimeOrigin::root()));
+        
+        // Check that the event was emitted
+        System::assert_last_event(Event::CounterValueSet { counter_value: 0 }.into());
+    });
+}
+
+#[test]
+fn reset_counter_fails_without_root() {
+    new_test_ext().execute_with(|| {
+        System::set_block_number(1);
+        // Should fail with non-root origin
+        assert_noop!(
+            CustomPallet::reset_counter(RuntimeOrigin::signed(1)),
+            sp_runtime::DispatchError::BadOrigin
+        );
+    });
+}
+```
+
+Ensure that your tests pass by running:
+
+```bash
+cargo test --package custom-pallet
+```
+
+### Update Runtime Configuration
+
+Since you've only added new functionality without changing existing APIs, minimal runtime changes are needed. However, verify that your runtime configuration is still compatible. If you've added new configuration parameters to your pallet, update them accordingly in the `runtime/configs/mod.rs`.
+
+### Bump the Runtime Version
+
+This is a critical step - you must increment the runtime version numbers to signal that an upgrade has occurred. In `runtime/src/lib.rs`:
+
+```rust title="lib.rs" hl_lines="6"
+#[sp_version::runtime_version]
+pub const VERSION: RuntimeVersion = RuntimeVersion {
+	spec_name: alloc::borrow::Cow::Borrowed("parachain-template-runtime"),
+	impl_name: alloc::borrow::Cow::Borrowed("parachain-template-runtime"),
+	authoring_version: 1,
+    spec_version: 2, // <-- increment this (was 1)
+	impl_version: 0,
+	apis: apis::RUNTIME_API_VERSIONS,
+	transaction_version: 1,
+	system_version: 1,
+};
+```
+
+Also update `runtime/Cargo.toml` version:
+
+```toml title="Cargo.toml" hl_lines="4"
+[package]
+name = "parachain-template-runtime"
+description = "A parachain runtime template built with Substrate and Cumulus, part of Polkadot Sdk."
+version = "0.2.0" # <-- increment this version
+# ... rest of your Cargo.toml
+```
+
+For more information about runtime versioning, check the [Runtime Upgrades](/develop/parachains/maintenance/runtime-upgrades#runtime-versioning){target=\_blank} guide.
+
+### Build the New Runtime
+
+Navigate to your project root:
+
+```bash
+cd /path/to/your/parachain-template
+```
+
+Build the new runtime:
+
+```bash
+cargo build --release
+```
+
+Verify that you have the proper WASM builds by executing:
+
+```
+ls -la target/release/wbuild/parachain-template-runtime/
+```
+
+If you can see the following elements, it means that you are ready to submit the runtime upgrade to your running chain:
+
+<div id="termynal" data-termynal>
+  <span data-ty="input"><span class="file-path"></span>ls -la target/release/wbuild/parachain-template-runtime/</span>
+  <br />
+  <span data-ty>parachain_template_runtime.wasm</span>
+  <span data-ty>parachain_template_runtime.compact.wasm</span>
+  <span data-ty>parachain_template_runtime.compact.compressed.wasm</span>
+</div>
+
+## Submit the Runtime Upgrade
+
+You can submit a runtime upgrade using the [Sudo pallet](https://paritytech.github.io/polkadot-sdk/master/pallet_sudo/index.html){target=\_blank} (for development chains) or via on-chain governance (for production chains).
+
+1. Open [Polkadot.js Apps](https://polkadot.js.org/apps/){target=\_blank} and connect to your node
+2. Click on the **Developer** and select the **Extrinsics** option in the dropdown
+
+    ![](/images/tutorials/polkadot-sdk/parachains/zero-to-hero/runtime-upgrade/runtime-upgrade-02.webp) 
+
+3. Prepare the **sudo** call:
+    1. Select the **sudo** pallet
+    2. Select the **sudo(call)** extrinsic from the list
+
+        ![](/images/tutorials/polkadot-sdk/parachains/zero-to-hero/runtime-upgrade/runtime-upgrade-03.webp) 
+
+4. In the **sudo** call:
+    1. Select the **system** call
+    2. Select **setCode** extrinsic from the list
+
+        ![](/images/tutorials/polkadot-sdk/parachains/zero-to-hero/runtime-upgrade/runtime-upgrade-04.webp) 
+
+5. For the `code` parameter, click **file upload** and select your WASM runtime file:
+    - Use `parachain_template_runtime.compact.compressed.wasm` if available (smaller file)
+    - Otherwise, use `parachain_template_runtime.wasm`
+
+        ![](/images/tutorials/polkadot-sdk/parachains/zero-to-hero/runtime-upgrade/runtime-upgrade-05.webp) 
+
+6. Click **Submit Transaction** and sign the transaction with the sudo key
+
+    ![](/images/tutorials/polkadot-sdk/parachains/zero-to-hero/runtime-upgrade/runtime-upgrade-06.webp) 
+
+!!!info "Using Governance (Production)"
+    For production chains with governance enabled, you must follow the on-chain democratic process. This involves submitting a preimage of the new runtime code (using the Democracy pallet), referencing the preimage hash in a proposal, and then following your chain's governance process (such as voting and council approval) until the proposal passes and is enacted. This ensures that runtime upgrades are transparent and subject to community oversight.
+
+## Verify the Upgrade
+
+After the runtime upgrade extrinsic is included in a block, verify that the upgrade was successful.
+
+### Check Runtime Version
+
+1. In Polkadot.js Apps, navigate to the **Chain State** section
+    1. Click the **Developer** dropdown
+    2. Click the **Chain State** option
+
+        ![](/images/tutorials/polkadot-sdk/parachains/zero-to-hero/runtime-upgrade/runtime-upgrade-07.webp) 
+
+2. Query runtime spec version
+    1. Select the **System** pallet
+    2. Select the **lastRuntimeUpgrade()** query
+
+        ![](/images/tutorials/polkadot-sdk/parachains/zero-to-hero/runtime-upgrade/runtime-upgrade-08.webp) 
+
+3. Click the **+** button to query the current runtime version
+
+    ![](/images/tutorials/polkadot-sdk/parachains/zero-to-hero/runtime-upgrade/runtime-upgrade-09.webp) 
+
+4. Verify that the `specVersion` matches your new runtime (should be `2` if you followed the example)
+
+    ![](/images/tutorials/polkadot-sdk/parachains/zero-to-hero/runtime-upgrade/runtime-upgrade-10.webp) 
+
+### Test New Functionality
+
+1. Navigate to **Developer > Extrinsics**
+2. Select your custom pallet from the dropdown
+3. You should now see the new `resetCounter` function available
+
+    ![](/images/tutorials/polkadot-sdk/parachains/zero-to-hero/runtime-upgrade/runtime-upgrade-11.webp) 
+
+Now, you can test the new functionality:
+
+- First, increment the counter using your existing function
+- Then use the new reset function (note: you'll need sudo/root privileges)
+- Verify the counter value is reset to 0
+
+## Where to Go Next
+
+<div class="grid cards" markdown>
+
+-   <span class="badge tutorial">Tutorial</span> __Deploy on Paseo TestNet__
+
+    ---
+
+    Deploy your Polkadot SDK blockchain on Paseo! Follow this step-by-step guide for a seamless journey to a successful TestNet deployment.
+
+    [:octicons-arrow-right-24: Get Started](/tutorials/polkadot-sdk/parachains/zero-to-hero/deploy-to-testnet/)
 
 </div>
 --- END CONTENT ---

@@ -24,6 +24,8 @@ Through these tutorials, you'll learn how to manage cross-chain assets, includin
 - Liquidity pool creation and management 
 - Asset swapping and conversion
 - Transaction parameter optimization
+- Teleport an asset from a Parachain to Asset Hub
+- Teleport an asset from Asset Hub to a Parachain
 
 ## In This Section
 

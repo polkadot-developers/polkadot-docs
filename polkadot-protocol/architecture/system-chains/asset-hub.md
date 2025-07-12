@@ -131,7 +131,7 @@ On Asset Hub, sufficient assets:
 
 - Can be natively used for the existential deposit (ED)
 - Can be natively used for [paying transaction fees](#transaction-fees)
-- Can be used for [paying XCM fees](#xcm-fees)
+- Can be natively used for [paying XCM fees](#xcm-fees)
 - Cannot be used for storage deposits (only if swapped for the native token)
 
 ### Non-Sufficient Assets

@@ -54,11 +54,11 @@ npm init -y
 
 ## Install Dependencies
 
-Install viem along with other necessary dependencies, including [@parity/revive](https://www.npmjs.com/package/@parity/revive){target=\_blank}, which enables to compile smart contracts to [PolkaVM](/polkadot-protocol/smart-contract-basics/polkavm-design/#polkavm){target=\_blank} bytecode:
+Install viem along with other necessary dependencies, including [@parity/resolc](https://www.npmjs.com/package/@parity/resolc){target=\_blank}, which enables to compile smart contracts to [PolkaVM](/polkadot-protocol/smart-contract-basics/polkavm-design/#polkavm){target=\_blank} bytecode:
 
 ```bash
-# Install viem and Revive
-npm install viem @parity/revive
+# Install viem and resolc
+npm install viem @parity/resolc
 
 # Install TypeScript and development dependencies
 npm install --save-dev typescript ts-node @types/node

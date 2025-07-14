@@ -3,6 +3,7 @@ nav:
   - index.md
   - 'Overview': overview.md
   - 'Connect to Polkadot': connect-to-polkadot.md
+  - 'Connect to Kusama': connect-to-kusama.md
   - 'Wallets': wallets.md
   - 'Local Development Node': local-development-node.md
   - dev-environments
@@ -11,3 +12,4 @@ nav:
   - 'JSON-RPC APIs': json-rpc-apis.md
   - precompiles
   - 'FAQs': faqs.md
+  - 'Tutorials': '/tutorials/smart-contracts/'

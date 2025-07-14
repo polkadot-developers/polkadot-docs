@@ -41,7 +41,9 @@ Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/re
 Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/main/develop/parachains/testing/mock-runtime.md
 Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/main/develop/parachains/testing/pallet-testing.md
 Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/main/develop/smart-contracts/block-explorers/index.md
+Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/main/develop/smart-contracts/connect-to-kusama.md
 Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/main/develop/smart-contracts/connect-to-polkadot.md
+Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/main/develop/smart-contracts/dev-environments/foundry.md
 Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/main/develop/smart-contracts/dev-environments/hardhat.md
 Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/main/develop/smart-contracts/dev-environments/index.md
 Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/main/develop/smart-contracts/dev-environments/remix.md
@@ -5630,7 +5632,7 @@ The struct provides the following parameter information to the executor:
 - **`spec_name`** - the identifier for the different runtimes
 - **`impl_name`** - the name of the implementation of the spec. Serves only to differentiate code of different implementation teams
 - **`authoring_version`** - the version of the authorship interface. An authoring node won't attempt to author blocks unless this is equal to its native runtime
-- **`spec_version`** - the version of the runtime specification. A full node won't attempt to use its native runtime in substitute for the on-chain Wasm runtime unless the `spec_name`, `spec_version`, and `authoring_version` are all the same between the Wasm and native binaries. Updates to the `spec_version` can be automated as a CI process, as is done for the [Polkadot network](https://gitlab.parity.io/parity/mirrors/polkadot/-/blob/master/scripts/ci/gitlab/check_extrinsics_ordering.sh){target=\_blank}. This parameter is typically incremented when there's an update to the `transaction_version`
+- **`spec_version`** - the version of the runtime specification. A full node won't attempt to use its native runtime in substitute for the on-chain Wasm runtime unless the `spec_name`, `spec_version`, and `authoring_version` are all the same between the Wasm and native binaries. Updates to the `spec_version` can be automated as a CI process. This parameter is typically incremented when there's an update to the `transaction_version`
 - **`impl_version`** - the version of the implementation of the specification. Nodes can ignore this. It is only used to indicate that the code is different. As long as the `authoring_version` and the `spec_version` are the same, the code might have changed, but the native and Wasm binaries do the same thing. In general, only non-logic-breaking optimizations would result in a change of the `impl_version`
 - **`transaction_version`** - the version of the interface for handling transactions. This parameter can be useful to synchronize firmware updates for hardware wallets or other signing devices to verify that runtime transactions are valid and safe to sign. This number must be incremented if there is a change in the index of the pallets in the `construct_runtime!` macro or if there are any changes to dispatchable functions, such as the number of parameters or parameter types. If `transaction_version` is updated, then the `spec_version` must also be updated
 - **`apis`** - a list of supported [runtime APIs](https://paritytech.github.io/polkadot-sdk/master/sp_api/macro.impl_runtime_apis.html){target=\_blank} along with their versions                                                    
@@ -6880,7 +6882,7 @@ categories: Smart Contracts, Tooling
 
 # Block Explorers
 
-!!! smartcontract "PolkaVM Alpha Release"
+!!! smartcontract "PolkaVM Preview Release"
     PolkaVM smart contracts with Ethereum compatibility are in **early-stage development and may be unstable or incomplete**.
 
 ## Introduction
@@ -6927,6 +6929,98 @@ Routescan delivers multi-chain explorer capabilities with specialized support fo
 ![](/images/develop/smart-contracts/block-explorers/block-explorers-3.webp) -->
 --- END CONTENT ---
 
+Doc-Content: https://docs.polkadot.com/develop/smart-contracts/connect-to-kusama/
+--- BEGIN CONTENT ---
+---
+title: Connect to Kusama
+description: Explore how to connect to Kusama Hub for developing and testing smart contracts in a live environment with real monetary value.
+---
+
+# Connect to Kusama
+
+!!! smartcontract "PolkaVM Preview Release"
+    PolkaVM smart contracts with Ethereum compatibility are in **early-stage development and may be unstable or incomplete**.
+
+<div class="button-wrapper">
+    <a href="#" class="md-button connectMetaMask" value="kusamaHub">Connect to Kusama Hub</a>
+</div>
+
+For more information about how to connect to a Polkadot network, please check the [Wallets](/develop/smart-contracts/wallets/){target=\_blank} guide.
+
+!!! info "Production Environment"
+    Kusama Hub offers a live environment for deploying smart contracts. Please note that the most recent version of Polkadot's Ethereum-compatible stack is available on the TestNet; however, you can also deploy it to the Kusama Hub for production use.
+
+
+## Networks Details
+
+Developers can leverage smart contracts on Kusama Hub for live production deployments. This section outlines the network specifications and connection details.
+
+=== "Kusama Hub"
+
+    Network name
+    ```text
+    Kusama Hub
+    ```
+    ---
+    Currency symbol
+    ```text
+    KSM
+    ```
+    ---
+    
+    Chain ID
+    ```text
+    420420418
+    ```
+    ---
+    
+    RPC URL
+    ```text
+    https://kusama-asset-hub-eth-rpc.polkadot.io
+    ```
+    ---
+    
+    Block explorer URL
+    ```text
+    https://blockscout-kusama-asset-hub.parity-chains-scw.parity.io/
+    ```
+    ---
+
+## Important Deployment Considerations
+
+While the compatibility with regular EVM codebases is still being maximized, some recommendations include:
+    
+- **Leverage [Hardhat](/develop/smart-contracts/dev-environments/hardhat){target=\_blank}** to compile, deploy, and interact with your contract.
+- **Use MetaMask** to interact with your dApp (note that using MetaMask can sometimes lead to `Invalid transaction` errors - this is actively being worked on and will be fixed soon).
+- **Avoid Remix** for deployment as MetaMask enforces a 48kb size limit when using the [Remix IDE](/develop/smart-contracts/dev-environments/remix){target=\_blank}, which is why Hardhat Polkadot is recommended for deployment.
+
+Kusama Hub is a live environment. Ensure your contracts are thoroughly tested before deployment, as transactions on Kusama Hub involve real KSM tokens and **cannot be reversed**.
+
+## Where to Go Next
+
+For your next steps, explore the various smart contract guides demonstrating how to use and integrate different tools and development environments into your workflow.
+
+<div class="grid cards" markdown>
+
+-   <span class="badge guide">Guide</span> **Deploy your first contract with Hardhat**
+    
+    ---
+    
+    Explore the recommended smart contract development and deployment process on Kusama Hub using Hardhat.
+    
+    [:octicons-arrow-right-24: Build with HardHat](/develop/smart-contracts/dev-environments/hardhat/)
+
+-   <span class="badge guide">Guide</span> **Interact with the blockchain using viem**
+    
+    ---
+    
+    Use viem for interacting with Ethereum-compatible chains to deploy and interact with smart contracts on Kusama Hub.
+    
+    [:octicons-arrow-right-24: Build with viem](/develop/smart-contracts/libraries/viem/)
+
+</div>
+--- END CONTENT ---
+
 Doc-Content: https://docs.polkadot.com/develop/smart-contracts/connect-to-polkadot/
 --- BEGIN CONTENT ---
 ---
@@ -6937,7 +7031,7 @@ categories: Smart Contracts
 
 # Connect to Polkadot
 
-!!! smartcontract "PolkaVM Alpha Release"
+!!! smartcontract "PolkaVM Preview Release"
     PolkaVM smart contracts with Ethereum compatibility are in **early-stage development and may be unstable or incomplete**.
 
 <div class="button-wrapper">
@@ -7027,6 +7121,515 @@ For your next steps, explore the various smart contract guides demonstrating how
 </div>
 --- END CONTENT ---
 
+Doc-Content: https://docs.polkadot.com/develop/smart-contracts/dev-environments/foundry/
+--- BEGIN CONTENT ---
+---
+title: Use Foundry with Polkadot Hub
+description: Learn to install, configure, and use foundry-polkadot for smart contract development on Polkadot with PolkaVM bytecode compilation.
+---
+
+# Foundry
+
+!!! warning
+    Consider that features like Anvil (Foundry's local blockchain) and `forge test` (for running Solidity tests) are not yet supported in `foundry-polkadot`.
+
+## Overview
+
+Foundry is a fast, modular, and extensible toolkit for Ethereum application development written in Rust. It provides a suite of command-line tools, including `forge` for compiling, testing, and deploying smart contracts and `cast` for interacting with blockchains.
+
+[`foundry-polkadot`](https://github.com/paritytech/foundry-polkadot/){target=\_blank} is an adaptation explicitly engineered for the Polkadot Hub, tailored for developers already familiar with Foundry who seek to leverage its capabilities within the Polkadot ecosystem. Additionally, this guide offers detailed information on the `forge` and `cast` commands supported within `foundry-polkadot`, complete with simple, runnable examples for quick reference.
+
+## Installation
+
+The installation process is tailored for the Polkadot variant:
+
+- `foundry-polkadot` is installed via `foundryup-polkadot`, its dedicated installer. To get started, open your terminal and execute:
+
+    ```bash
+    curl -L https://raw.githubusercontent.com/paritytech/foundry-polkadot/refs/heads/master/foundryup/install | bash
+    ```
+
+    This command starts the installation of `foundryup-polkadot`. After installation, run the following command to download the precompiled `foundry-polkadot` binaries:
+
+    ```bash
+    foundryup-polkadot
+    ```
+
+    This command will install the `forge` and `cast` binaries, which are explained below. Windows users must use a Unix-like terminal environment such as Git BASH or Windows Subsystem for Linux (WSL), as PowerShell and Command Prompt are not currently supported by `foundryup`.
+
+## Compiler Integration
+
+A core divergence lies in the underlying Solidity compiler.
+
+- **`foundry`** is built to interface with the `solc` compiler, which targets Ethereum's Ethereum Virtual Machine (EVM).
+- **`foundry-polkadot`**, in contrast, introduces and primarily utilizes the `resolc` compiler to compile down Solidity contracts into PolkaVM bytecode. 
+    - **Command-Line Flag**: For commands that involve compilation (e.g., `forge build`), you can use the `--resolc` flag to enable `resolc` compilation. For example:
+
+        ```bash
+        forge build --resolc
+        ```
+
+        This command instructs Forge to use `resolc` instead of `solc`, generating bytecode compatible with PolkaVM.
+
+    - **Configuration File**: Alternatively, you can configure `resolc` usage in the `foundry.toml` file by adding:
+
+        ```toml
+        [profile.default.resolc]
+        resolc_compile = true
+        ```
+
+        Setting `resolc_compile = false` reverts to using `solc`, ensuring compatibility with Ethereum projects. By default, `foundry-polkadot` uses `solc` unless `resolc` is explicitly enabled. `resolc` also exposes specific options for fine-tuning the compilation process, such as `--use-resolc <RESOLC_VERSION>` for specifying a compiler version or path, `-O, --resolc-optimizer-mode <LEVEL>` for setting optimization levels, and `--heap-size <SIZE>` and `--stack-size <SIZE>` for configuring contract memory.
+
+
+## Command-Line Interface (CLI)
+
+`foundry-polkadot` preserves the familiar `forge` and `cast` subcommand structure. However, it's crucial to note that commands which involve compilation (such as `create`, `bind`, `build`, and `inspect`) will yield different output when `resolc` is utilized, as the generated bytecode is specifically designed for PolkaVM rather than the EVM.
+
+## Unsupported or Modified Features
+
+Not all functionalities from the original Foundry are present or behave identically in `foundry-polkadot`:
+
+- **Currently Unsupported**:
+    - Compilation of Yul code is not yet supported.
+    - Support for factory contracts deployment is a known issue that is currently unresolved.
+- **Broader Feature Limitations**: Integration with `Anvil` and `Chisel` (Foundry's local blockchain and EVM toolkit, respectively) is not available. This limitation directly impacts the support for several key commands, including `forge test` for running tests, `forge snapshot` for creating blockchain state snapshots, and `forge script` for complex deployment and interaction scripts.
+- **Modified Feature**: The most notable modification is in the **compilation output**. When ``resolc`` is employed, the resulting bytecode will fundamentally differ from that generated by ``solc``, reflecting PolkaVM's distinct architectural requirements.
+
+## Set up a Project
+
+Initialize a new project using `forge init`:
+
+```bash
+forge init my-polkadot-project
+cd my-polkadot-project
+```
+
+This command creates a complete project structure with the following components:
+
+- **`src/`** - Contains the Solidity smart contracts (includes a sample `Counter.sol` contract by default)
+- **`lib/`** - Houses external dependencies and libraries (`forge-std` testing library is included)
+- **`script/`** - Stores deployment and interaction scripts (includes `Counter.s.sol` deployment script by default)
+- **`test/`** - Contains your contract tests (includes `Counter.t.sol` test file by default)
+- **`foundry.toml`** - Main configuration file for compiler settings, network configurations, and project preferences
+
+The default project includes a simple `Counter` contract that demonstrates basic state management through increment and decrement functions, along with corresponding tests and deployment scripts to help you get started quickly.
+
+## Compile a Project
+
+Compile contracts using `forge build`:
+
+```bash
+forge build --resolc
+```
+
+!!!note 
+    You can still use `forge build` for compiling to regular EVM bytecode.
+
+PolkaVM bytecode starts with `0x505` prefix. Inspect compiled artifacts with:
+
+```bash
+forge inspect Counter bytecode --resolc
+```
+
+If successful, you will see the following output:
+
+<div id="termynal" data-termynal>
+  <span data-ty="input"><span class="file-path"></span>forge inspect Counter bytecode --resolc</span>
+  <span data-ty>0x50564d00008213000000000000010700c13000c0008004808f08000000000e0000001c0000002a0000003500000040000000520000005d00000063616c6c5f646174615f636f707963616c6c5f646174615f6c6f616463616c6c5f646174615f73697a65676574...</span>
+</div>
+
+## Deploy a Contract
+
+Deploy contracts using `forge create`:
+
+```bash
+forge create Counter \
+    --rpc-url <INSERT_RPC_URL> \
+    --private-key <INSERT_PRIVATE_KEY> \
+    --resolc
+```
+
+If the operation completes successfully, you'll see the following output (for example, to deploy to the Passet Hub chain):
+
+<div id="termynal" data-termynal>
+  <span data-ty="input"><span class="file-path"></span>forge create Counter &bsol;</span>
+  <span data-ty>&nbsp;&nbsp;--rpc-url https://testnet-passet-hub-eth-rpc.polkadot.io &bsol;</span>
+  <span data-ty>&nbsp;&nbsp;--private-key &lt;INSERT_PRIVATE_KEY&gt; &bsol;</span>
+  <span data-ty>&nbsp;&nbsp;--resolc</span>
+  <br />
+  <span data-ty>[:] Compiling...</span>
+  <span data-ty>Compiler run successful!</span>
+</div>
+
+For contracts with constructor arguments:
+
+```bash
+forge create MyToken \
+    --rpc-url <INSERT_RPC_URL> \
+    --private-key <INSERT_PRIVATE_KEY> \
+    --constructor-args "MyToken" "MTK" 1000000 \
+    --resolc
+```
+
+!!! note "Network Compatibility"
+    Use the `--resolc` flag when deploying to PolkaVM-compatible networks. Omit it for Ethereum-compatible networks.
+
+## Supported `foundry-polkadot` Commands
+
+This section provides a detailed breakdown of the `forge` and `cast` commands supported in `foundry-polkadot`.
+
+### Forge Commands
+
+* **`init`**
+    * **Command**: `forge init <PROJECT_NAME>`
+    * **Description**: Initializes a new Foundry project in the current directory, setting up the basic project structure and installing standard libraries.
+
+* **`bind`**
+    * **Command**: `forge bind [--resolc]`
+    * **Description**: Generates type-safe Rust bindings for your Solidity contracts. Use `--resolc` to ensure compilation with the `resolc` compiler for PolkaVM compatibility.
+
+* **`bind-json`**
+    * **Command**: `forge bind-json [--resolc]`
+    * **Description**: Generates JSON bindings for your Solidity contracts. Use `--resolc` for `resolc`-based compilation.
+
+* **`build`**
+    * **Command**: `forge build [--resolc]`
+    * **Description**: Compiles all Solidity contracts in your project. Specify `--resolc` to compile for PolkaVM.
+
+* **`cache clean`**
+    * **Command**: `forge cache clean`
+    * **Description**: Clears the Foundry cache directory.
+
+* **`cache ls`**
+    * **Command**: `forge cache ls`
+    * **Description**: Lists the contents of the Foundry cache.
+
+* **`clean`**
+    * **Command**: `forge clean`
+    * **Description**: Removes all build artifacts from the project's `out` directory.
+
+* **`compiler resolve`**
+    * **Command**: `forge compiler resolve [--resolc]`
+    * **Description**: Resolves and displays the versions of Solidity compilers Foundry is using. Use `--resolc` to also check for `resolc`.
+
+* **`config`**
+    * **Command**: `forge config`
+    * **Description**: Displays the current Foundry project configuration, including settings from `foundry.toml`.
+
+* **`create`**
+    * **Command**: `forge create [OPTIONS] <CONTRACT>`
+    * **Required Parameters**: `<CONTRACT>` (the name of the contract to deploy)
+    * **Description**: Deploys a new contract to a specified blockchain network. The `--resolc` flag ensures it's compiled for PolkaVM. You'll typically need to provide an RPC URL, a private key for the deployer account, and potentially constructor arguments.
+
+* **`doc`**
+    * **Command**: `forge doc`
+    * **Description**: Generates documentation for your Solidity contracts.
+
+* **`flatten`**
+    * **Command**: `forge flatten [OPTIONS] <PATH>`
+    * **Required Parameters**: `<PATH>` (the path to the Solidity file)
+    * **Description**: Combines all imports of a Solidity file into a single file, useful for deployment or verification.
+
+* **`fmt`**
+    * **Command**: `forge fmt`
+    * **Description**: Formats Solidity code according to a predefined style.
+
+* **`geiger`**
+    * **Command**: `forge geiger <PATH>`
+    * **Required Parameters**: `<PATH>` (the path to the Solidity file)
+    * **Description**: Analyzes Solidity code for potential security vulnerabilities and gas inefficiencies.
+
+* **`generate test`**
+    * **Command**: `forge generate test --contract-name <CONTRACT_NAME>`
+    * **Required Parameters**: `--contract-name <CONTRACT_NAME>` (the name of the contract for which to generate a test)
+    * **Description**: Creates a new test file with boilerplate code for a specified contract.
+
+* **`generate-fig-spec`**
+    * **Command**: `forge generate-fig-spec`
+    * **Description**: Generates a Fig specification for CLI autocompletion tools.
+
+* **`inspect`**
+    * **Command**: `forge inspect <CONTRACT_NAME> <ARTIFACT> [--resolc]`
+    * **Required Parameters**: `<CONTRACT_NAME>` (the contract to inspect), `<ARTIFACT>` (e.g., `bytecode`, `abi`, `methods`, `events`)
+    * **Description**: Displays various artifacts of a compiled contract. Use `--resolc` to inspect `resolc`-compiled artifacts; the bytecode will start with `0x505`.
+
+* **`install`**
+    * **Command**: `forge install <REPOSITORY>`
+    * **Description**: Installs a Solidity library or dependency from a Git repository.
+
+* **`update`**
+    * **Command**: `forge update [<REPOSITORY>]`
+    * **Description**: Updates installed dependencies. If a repository is specified, only that one is updated.
+
+* **`remappings`**
+    * **Command**: `forge remappings`
+    * **Description**: Lists the currently configured Solidity compiler remappings.
+
+* **`remove`**
+    * **Command**: `forge remove <REPOSITORY>`
+    * **Description**: Removes an installed Solidity dependency. Use `--force` to remove without confirmation.
+
+* **`selectors upload`**
+    * **Command**: `forge selectors upload [--all]`
+    * **Description**: Uploads function selectors from compiled contracts to OpenChain. Use `--all` to upload for all contracts.
+
+* **`selectors list`**
+    * **Command**: `forge selectors list`
+    * **Description**: Lists all known function selectors for contracts in the project.
+
+* **`selectors find`**
+    * **Command**: `forge selectors find <SELECTOR>`
+    * **Description**: Searches for a function signature given its 4-byte selector.
+
+* **`selectors cache`**
+    * **Command**: `forge selectors cache`
+    * **Description**: Caches function selectors for faster lookup.
+
+* **`tree`**
+    * **Command**: `forge tree`
+    * **Description**: Displays the dependency tree of your Solidity contracts.
+
+!!!warning "Non-working Commands"
+
+    Consider that some foundry commands are not yet supported in `foundry-polkadot`:
+
+    * **`clone`**: This command is not supported in `foundry-polkadot`.
+    * **`coverage`**: Code coverage analysis is not supported.
+    * **`snapshot`**: Creating blockchain state snapshots is not supported.
+    * **`test`**: Running Solidity tests is not supported.
+
+### Cast Commands
+
+* **`4byte`**
+    * **Command**: `cast 4byte [OPTIONS] [TOPIC_0]`
+    * **Description**: Decodes a 4-byte function selector into its human-readable function signature.
+
+* **`4byte-event`**
+    * **Command**: `cast 4byte-event [OPTIONS] [TOPIC_0]`
+    * **Description**: Decodes a 4-byte event topic into its human-readable event signature.
+
+* **`abi-encode`**
+    * **Command**: `cast abi-encode <SIG> [ARGS]...`
+    * **Required Parameters**: `<SIG>` (the function signature), `[ARGS]` (arguments to encode)
+    * **Description**: ABI-encodes function arguments according to a given signature.
+
+* **`address-zero`**
+    * **Command**: `cast address-zero`
+    * **Description**: Returns the zero address (0x00...00).
+
+* **`age`**
+    * **Command**: `cast age [OPTIONS] [BLOCK]`
+    * **Description**: Converts a block number or tag (e.g., `latest`) into its timestamp.
+
+* **`balance`**
+    * **Command**: `cast balance [OPTIONS] <WHO>`
+    * **Required Parameters**: `<WHO>` (the address to check)
+    * **Description**: Retrieves the native token balance of a given address on the specified RPC network.
+
+* **`base-fee`**
+    * **Command**: `cast base-fee [OPTIONS] [BLOCK]`
+    * **Description**: Retrieves the base fee per gas for a specific block (defaults to `latest`).
+
+* **`block`**
+    * **Command**: `cast block [OPTIONS] [BLOCK]`
+    * **Description**: Retrieves comprehensive details about a specific block (defaults to `latest`).
+
+* **`block-number`**
+    * **Command**: `cast block-number [OPTIONS] [BLOCK]`
+    * **Description**: Retrieves the number of the latest or a specified block.
+
+* **`call`**
+    * **Command**: `cast call [OPTIONS] <TO> <SIG> [ARGS]...`
+    * **Description**: Executes a read-only (constant) function call on a contract. No transaction is sent to the network.
+
+* **`chain`**
+    * **Command**: `cast chain [OPTIONS]`
+    * **Description**: Displays the human-readable name of the connected blockchain.
+
+* **`chain-id`**
+    * **Command**: `cast chain-id [OPTIONS]`
+    * **Description**: Displays the chain ID of the connected blockchain.
+
+* **`client`**
+    * **Command**: `cast client [OPTIONS]`
+    * **Description**: Retrieves information about the connected RPC client (node software).
+
+* **`code`**
+    * **Command**: `cast code [OPTIONS] <WHO>`
+    * **Required Parameters**: `<WHO>` (the contract address)
+    * **Description**: Retrieves the bytecode deployed at a given contract address.
+
+* **`codesize`**
+    * **Command**: `cast codesize [OPTIONS] <WHO>`
+    * **Required Parameters**: `<WHO>` (the contract address)
+    * **Description**: Retrieves the size of the bytecode deployed at a given contract address.
+
+* **`compute-address`**
+    * **Command**: `cast compute-address [OPTIONS] <WHO>`
+    * **Required Parameters**: `<WHO>` (the deployer's address)
+    * **Description**: Computes the predicted contract address based on the deployer's address and nonce.
+
+* **`decode-abi`**
+    * **Command**: `cast decode-abi <SIG> <CALLDATA>`
+    * **Required Parameters**: `<SIG>` (the function signature), `<CALLDATA>` (the ABI-encoded data)
+    * **Description**: Decodes ABI-encoded output data from a contract call given its signature.
+
+* **`decode-calldata`**
+    * **Command**: `cast decode-calldata <SIG> <CALLDATA>`
+    * **Required Parameters**: `<SIG>` (the function signature), `<CALLDATA>` (the raw calldata)
+    * **Description**: Decodes raw calldata into human-readable arguments using a function signature.
+
+* **`decode-error`**
+    * **Command**: `cast decode-error <DATA> [--sig <SIGNATURE>]`
+    * **Required Parameters**: `<DATA>` (the error data)
+    * **Description**: Decodes a custom error message from a transaction revert. You may need to provide the error signature.
+
+* **`decode-event`**
+    * **Command**: `cast decode-event <DATA> [--sig <SIGNATURE>]`
+    * **Required Parameters**: `<DATA>` (the event data)
+    * **Description**: Decodes event data from a transaction log.
+
+* **`estimate`**
+    * **Command**: `cast estimate [OPTIONS] [TO] [SIG] [ARGS]...`
+    * **Required Parameters**: `[TO]` (the recipient address or contract), `[SIG]` (function signature), `[ARGS]` (arguments)
+    * **Description**: Estimates the gas cost for a transaction or function call.
+
+* **`find-block`**
+    * **Command**: `cast find-block [OPTIONS] <TIMESTAMP>`
+    * **Required Parameters**: `<TIMESTAMP>` (a Unix timestamp)
+    * **Description**: Finds the closest block number to a given Unix timestamp.
+
+* **`gas-price`**
+    * **Command**: `cast gas-price [OPTIONS]`
+    * **Description**: Retrieves the current average gas price on the network.
+
+* **`generate-fig-spec`**
+    * **Command**: `cast generate-fig-spec`
+    * **Description**: Generates a Fig specification for CLI autocompletion.
+
+* **`index-string`**
+    * **Command**: `cast index-string <STRING> <INDEX>`
+    * **Description**: Computes the Keccak-256 hash of a string, useful for event topics.
+
+* **`index-erc7201`**
+    * **Command**: `cast index-erc7201 <VALUE>`
+    * **Description**: Computes the hash for an ERC-7201 identifier.
+
+* **`logs`**
+    * **Command**: `cast logs [OPTIONS] [SIG_OR_TOPIC] [TOPICS_OR_ARGS]...`
+    * **Required Parameters**: `[SIG_OR_TOPIC]` (a signature or topic hash)
+    * **Description**: Filters and displays event logs from transactions.
+
+* **`max-int`**
+    * **Command**: `cast max-int`
+    * **Description**: Displays the maximum value for a signed 256-bit integer.
+
+* **`max-uint`**
+    * **Command**: `cast max-uint`
+    * **Description**: Displays the maximum value for an unsigned 256-bit integer.
+
+* **`min-int`**
+    * **Command**: `cast min-int`
+    * **Description**: Displays the minimum value for a signed 256-bit integer.
+
+* **`mktx`**
+    * **Command**: `cast mktx [OPTIONS] [TO] [SIG] [ARGS]...`
+    * **Required Parameters**: `[TO]` (the recipient address or contract)
+    * **Description**: Creates a raw, signed transaction that can be broadcast later.
+
+* **`decode-transaction`**
+    * **Command**: `cast decode-transaction [OPTIONS] [TX]`
+    * **Required Parameters**: `[TX]` (the raw transaction hex string)
+    * **Description**: Decodes a raw transaction hex string into its human-readable components.
+
+* **`namehash increment`**
+    * **Command**: `cast namehash <NAME>`
+    * **Description**: Computes the ENS (Ethereum Name Service) namehash for a given name.
+
+* **`nonce`**
+    * **Command**: `cast nonce [OPTIONS] <WHO>`
+    * **Required Parameters**: `<WHO>` (the address to check)
+    * **Description**: Retrieves the transaction count (nonce) for a given address.
+
+* **`parse-bytes32-address`**
+    * **Command**: `cast parse-bytes32-address <VALUE>`
+    * **Description**: Parses a 32-byte hex string (e.g., from `bytes32`) into an Ethereum address.
+
+* **`parse-bytes32-string`**
+    * **Command**: `cast parse-bytes32-string <VALUE>`
+    * **Description**: Parses a 32-byte hex string into a human-readable string.
+
+* **`parse-units`**
+    * **Command**: `cast parse-units <AMOUNT> [UNIT]`
+    * **Description**: Converts a human-readable amount into its smallest unit (e.g., Ether to Wei). Defaults to `ether`.
+
+* **`pretty-calldata`**
+    * **Command**: `cast pretty-calldata [OPTIONS] <DATA>`
+    * **Required Parameters**: `<DATA>` (the calldata hex string)
+    * **Description**: Attempts to pretty-print and decode a raw calldata string into possible function calls.
+
+* **`publish`**
+    * **Command**: `cast publish [OPTIONS] <RAW_TX>`
+    * **Description**: Broadcasts a raw, signed transaction to the network.
+
+* **`receipt`**
+    * **Command**: `cast receipt [OPTIONS] <TX_HASH>`
+    * **Description**: Retrieves the transaction receipt for a given transaction hash, including status, gas usage, and logs.
+
+* **`rpc`**
+    * **Command**: `cast rpc [OPTIONS] <METHOD> [PARAMS]...`
+    * **Required Parameters**: `<METHOD>` (the RPC method to call), `[PARAMS]` (parameters for the method)
+    * **Description**: Makes a direct RPC call to the connected blockchain node.
+
+* **`send`**
+    * **Command**: `cast send [OPTIONS] <TO> <SIG> [ARGS]...`
+    * **Required Parameters**: `<TO>` (the recipient address or contract)
+    * **Description**: Sends a transaction to a contract or address, executing a function or transferring value.
+
+* **`sig`**
+    * **Command**: `cast sig <FUNCTION_SIGNATURE>`
+    * **Required Parameters**: `<FUNCTION_SIGNATURE>` (the full function signature string)
+    * **Description**: Computes the 4-byte function selector for a given function signature.
+
+* **`sig-event`**
+    * **Command**: `cast sig-event <EVENT_SIGNATURE>`
+    * **Required Parameters**: `<EVENT_SIGNATURE>` (the full event signature string)
+    * **Description**: Computes the Keccak-256 hash (topic) for a given event signature.
+
+* **`storage`**
+    * **Command**: `cast storage [OPTIONS] <ADDRESS> [SLOT]`
+    * **Required Parameters**: `<ADDRESS>` (the contract address)
+    * **Description**: Retrieves the raw value stored at a specific storage slot of a contract.
+
+* **`tx`**
+    * **Command**: `cast tx [OPTIONS] <TX_HASH>`
+    * **Description**: Retrieves comprehensive details about a specific transaction.
+
+* **`upload-signature`**
+    * **Command**: `cast upload-signature [OPTIONS] <SIGNATURE_STRING>`
+    * **Required Parameters**: `<SIGNATURE_STRING>` (the function or event signature)
+    * **Description**: Uploads a function or event signature to the OpenChain registry.
+
+* **`wallet`**
+    * **Command**: `cast wallet new`
+    * **Description**: Generates a new random Ethereum keypair (private key and address).
+
+* **`wallet new-mnemonic`**
+    * **Command**: `cast wallet new-mnemonic`
+    * **Description**: Generates a new BIP-39 mnemonic phrase and derives the first account from it.
+
+* **`wallet address`**
+    * **Command**: `cast wallet address [OPTIONS]`
+    * **Description**: Derives and displays the Ethereum address from a private key or mnemonic (if provided).
+
+!!!warning "Non-working Commands"
+
+    Consider that some foundry commands are not yet supported in `foundry-polkadot`:
+
+    * **`proof`**: This command, used for generating Merkle proofs, is not supported.
+    * **`storage-root`**: This command, used for retrieving the storage root of a contract, is not supported.
+--- END CONTENT ---
+
 Doc-Content: https://docs.polkadot.com/develop/smart-contracts/dev-environments/hardhat/
 --- BEGIN CONTENT ---
 ---
@@ -7037,7 +7640,7 @@ categories: Smart Contracts, Tooling
 
 # Hardhat
 
-!!! smartcontract "PolkaVM Alpha Release"
+!!! smartcontract "PolkaVM Preview Release"
     PolkaVM smart contracts with Ethereum compatibility are in **early-stage development and may be unstable or incomplete**.
 
 <div class="grid cards" markdown>
@@ -7489,7 +8092,7 @@ template: index-page.html
 
 # Dev Environments
 
-!!! smartcontract "PolkaVM Alpha Release"
+!!! smartcontract "PolkaVM Preview Release"
     PolkaVM smart contracts with Ethereum compatibility are in **early-stage development and may be unstable or incomplete**.
 
 Explore the tools and frameworks available for building and testing smart contracts on the Polkadot network. These environments streamline the development process, from writing and compiling to testing and deploying smart contracts. The guides in this section will help you evaluate each tool's strengths, making it easier to choose the best fit for your project based on complexity, team expertise, and specific requirements.
@@ -7518,7 +8121,7 @@ categories: Smart Contracts, Tooling
 
 # Remix IDE
 
-!!! smartcontract "PolkaVM Alpha Release"
+!!! smartcontract "PolkaVM Preview Release"
     PolkaVM smart contracts with Ethereum compatibility are in **early-stage development and may be unstable or incomplete**.
 
 <div class="grid cards" markdown>
@@ -7708,8 +8311,11 @@ categories: Smart Contracts
 
 # Smart Contracts FAQs
 
-!!! smartcontract "PolkaVM Alpha Release"
+!!! smartcontract "PolkaVM Preview Release"
     PolkaVM smart contracts with Ethereum compatibility are in **early-stage development and may be unstable or incomplete**.
+
+!!! note
+    For a list of known incompatibilities, please refer to the [Solidity and Yul IR transaltion incompatibilities](/polkadot-protocol/smart-contract-basics/evm-vs-polkavm/#solidity-and-yul-ir-translation-incompatibilities){target=\_blank} section.
 
 ## General Questions
 
@@ -7850,6 +8456,37 @@ PolkaVM uses dynamic gas scaling:
 ### I deployed a contract with MetaMask, and got a `code size` error - why?
 
 The latest MetaMask update affects the extension’s ability to deploy large contracts. Check the [Wallets](/develop/smart-contracts/wallets){target=\_blank} page for more details.
+
+### I found a bug, where can I log it?
+
+Please log any bugs in the [`contracts-issues`](https://github.com/paritytech/contract-issues/issues){target=\_blank} repository so developers are aware of them and can address them.
+
+
+## Known Issues
+
+### Runtime Behavior
+
+- **`creationCode` returns hash instead of bytecode**: The Solidity keyword returns a `keccak256` hash rather than the actual creation bytecode.
+    - [Issue #45](https://github.com/paritytech/contract-issues/issues/45){target=\_blank}
+- **Non-deterministic gas usage**: Gas consumption varies slightly for identical transactions.
+    - [Issue #49](https://github.com/paritytech/contract-issues/issues/49){target=\_blank}
+- **Precompiles not recognized**: Precompile addresses return `Contract not found` error.
+    - [Issue #111](https://github.com/paritytech/contract-issues/issues/111){target=\_blank}
+
+### Development Tools
+
+- **`hardhat-polkadot` plugin compilation issues**: Plugin interferes with standard `npx hardhat compile` command.
+    - [Issue #44](https://github.com/paritytech/contract-issues/issues/44){target=\_blank}
+
+### Contract Patterns
+
+- **Minimal proxy (EIP-1167) deployment fails**: Standard proxy contracts cannot be deployed on PolkaVM.
+    - [Issue #86](https://github.com/paritytech/contract-issues/issues/86){target=\_blank}
+
+### Compilation
+
+- **`SDIV` opcode crash**: Compiler crashes with `Unsupported SDIV` assertion failure.
+    - [Issue #342](https://github.com/paritytech/revive/issues/342){target=\_blank}
 --- END CONTENT ---
 
 Doc-Content: https://docs.polkadot.com/develop/smart-contracts/
@@ -7862,12 +8499,12 @@ template: index-page.html
 
 # Smart Contracts
 
-!!! smartcontract "PolkaVM Alpha Release"
+!!! smartcontract "PolkaVM Preview Release"
     PolkaVM smart contracts with Ethereum compatibility are in **early-stage development and may be unstable or incomplete**.
 
-Polkadot allows scalable execution of smart contracts, offering cross-chain compatibility and lower fees than legacy L1 platforms. Polkadot provides developers with flexibility in building smart contracts, supporting both Solidity contracts executed by the [PolkaVM](/polkadot-protocol/smart-contract-basics/polkavm-design#polkavm){target=\_blank} (a Polkadot-native virtual machine for programming languages that can be compiled down to RISC-V) and EVM (Ethereum Virtual Machine), as well as Wasm-based contracts using ink! (written in Rust).
+Polkadot allows scalable execution of smart contracts, offering cross-chain compatibility and lower fees than legacy L1 platforms. Polkadot provides developers with flexibility in building smart contracts, supporting both Solidity contracts executed by the [PolkaVM](/polkadot-protocol/smart-contract-basics/polkavm-design#polkavm){target=\_blank} (a Polkadot-native virtual machine for programming languages that can be compiled down to RISC-V) and EVM (Ethereum Virtual Machine), as well as Rust-based contracts using ink!.
 
-This section provides tools, resources, and guides for building and deploying smart contracts on parachains. [Parachains](/polkadot-protocol/architecture/parachains/overview/){target=\_blank} are specialized blockchains connected to the relay chain, benefiting from shared security and interoperability. Depending on your language and environment preference, you can develop contracts using Wasm/ink! or EVM-based solutions.
+This section provides tools, resources, and guides for building and deploying smart contracts on parachains. [Parachains](/polkadot-protocol/architecture/parachains/overview/){target=\_blank} are specialized blockchains connected to the relay chain, benefiting from shared security and interoperability. Depending on your language and environment preference, you can develop contracts using Rust/ink! or EVM-based solutions.
 
 ## Smart Contract Development Process
 
@@ -7907,7 +8544,7 @@ categories: Reference
 
 # JSON-RPC APIs
 
-!!! smartcontract "PolkaVM Alpha Release"
+!!! smartcontract "PolkaVM Preview Release"
     PolkaVM smart contracts with Ethereum compatibility are in **early-stage development and may be unstable or incomplete**.
 
 ## Introduction
@@ -8779,7 +9416,7 @@ categories: Smart Contracts, Tooling
 
 # Ethers.js
 
-!!! smartcontract "PolkaVM Alpha Release"
+!!! smartcontract "PolkaVM Preview Release"
     PolkaVM smart contracts with Ethereum compatibility are in **early-stage development and may be unstable or incomplete**.
 
 ## Introduction
@@ -8933,13 +9570,13 @@ The `revive` compiler transforms Solidity smart contracts into [PolkaVM](/develo
 
 ### Install the Revive Library
 
-The [`@parity/revive`](https://www.npmjs.com/package/@parity/revive){target=\_blank} library will compile your Solidity code for deployment on Polkadot Hub. Run the following command in your terminal to install the library:
+The [`@parity/resolc`](https://www.npmjs.com/package/@parity/resolc){target=\_blank} library will compile your Solidity code for deployment on Polkadot Hub. Run the following command in your terminal to install the library:
 
 ```bash
-npm install --save-dev @parity/revive 
+npm install --save-dev @parity/resolc 
 ```
 
-This guide uses `@parity/revive` version `{{ dependencies.javascript_packages.revive.version }}`.
+This guide uses `@parity/resolc` version `{{ dependencies.javascript_packages.resolc.version }}`.
 
 ### Sample Storage Smart Contract
 
@@ -8974,7 +9611,7 @@ contract Storage {
 To compile this contract, use the following script:
 
 ```js title="scripts/compile.js"
-const { compile } = require('@parity/revive');
+const { compile } = require('@parity/resolc');
 const { readFileSync, writeFileSync } = require('fs');
 const { basename, join } = require('path');
 
@@ -9006,7 +9643,7 @@ const compileContract = async (solidityFilePath, outputDir) => {
         const bytecodePath = join(outputDir, `${name}.polkavm`);
         writeFileSync(
           bytecodePath,
-          Buffer.from(contract.evm.bytecode.object, 'hex')
+          Buffer.from(contract.evm.bytecode.object, 'hex'),
         );
         console.log(`Bytecode saved to ${bytecodePath}`);
       }
@@ -9016,8 +9653,8 @@ const compileContract = async (solidityFilePath, outputDir) => {
   }
 };
 
-const solidityFilePath = './Storage.sol';
-const outputDir = '.';
+const solidityFilePath = join(__dirname, '../contracts/Storage.sol');
+const outputDir = join(__dirname, '../contracts');
 
 compileContract(solidityFilePath, outputDir);
 ```
@@ -9044,7 +9681,8 @@ You can create a `deploy.js` script in the root of your project to achieve this.
 1. Set up the required imports and utilities:
 
     ```js title="scripts/deploy.js"
-    const { writeFileSync, existsSync, readFileSync } = require('fs');
+    // Deploy an EVM-compatible smart contract using ethers.js
+const { writeFileSync, existsSync, readFileSync } = require('fs');
 const { join } = require('path');
 const { ethers, JsonRpcProvider } = require('ethers');
 
@@ -9085,9 +9723,12 @@ const getAbi = (contractName) => {
 // Reads the compiled bytecode for a given contract
 const getByteCode = (contractName) => {
   try {
-    return `0x${readFileSync(
-      join(codegenDir, `${contractName}.polkavm`),
-    ).toString('hex')}`;
+    const bytecodePath = join(
+      codegenDir,
+      '../contracts',
+      `${contractName}.polkavm`,
+    );
+    return `0x${readFileSync(bytecodePath).toString('hex')}`;
   } catch (error) {
     console.error(
       `Could not find bytecode for contract ${contractName}:`,
@@ -9161,7 +9802,8 @@ deployContract('Storage', mnemonic, providerConfig);
 ??? code "View complete script"
 
     ```js title="scripts/deploy.js"
-    const { writeFileSync, existsSync, readFileSync } = require('fs');
+    // Deploy an EVM-compatible smart contract using ethers.js
+const { writeFileSync, existsSync, readFileSync } = require('fs');
 const { join } = require('path');
 const { ethers, JsonRpcProvider } = require('ethers');
 
@@ -9194,9 +9836,12 @@ const getAbi = (contractName) => {
 // Reads the compiled bytecode for a given contract
 const getByteCode = (contractName) => {
   try {
-    return `0x${readFileSync(
-      join(codegenDir, `${contractName}.polkavm`),
-    ).toString('hex')}`;
+    const bytecodePath = join(
+      codegenDir,
+      '../contracts',
+      `${contractName}.polkavm`,
+    );
+    return `0x${readFileSync(bytecodePath).toString('hex')}`;
   } catch (error) {
     console.error(
       `Could not find bytecode for contract ${contractName}:`,
@@ -9379,7 +10024,7 @@ template: index-page.html
 
 # Libraries
 
-!!! smartcontract "PolkaVM Alpha Release"
+!!! smartcontract "PolkaVM Preview Release"
     PolkaVM smart contracts with Ethereum compatibility are in **early-stage development and may be unstable or incomplete**.
 
 Explore the key libraries for interacting with smart contracts on Polkadot-based networks. These libraries simplify contract calls, event listening, and transaction handling.
@@ -9416,7 +10061,7 @@ categories: Smart Contracts, Tooling
 
 # viem
 
-!!! smartcontract "PolkaVM Alpha Release"
+!!! smartcontract "PolkaVM Preview Release"
     PolkaVM smart contracts with Ethereum compatibility are in **early-stage development and may be unstable or incomplete**.
 
 ## Introduction
@@ -9465,11 +10110,11 @@ npm init -y
 
 ## Install Dependencies
 
-Install viem along with other necessary dependencies, including [@parity/revive](https://www.npmjs.com/package/@parity/revive){target=\_blank}, which enables to compile smart contracts to [PolkaVM](/polkadot-protocol/smart-contract-basics/polkavm-design/#polkavm){target=\_blank} bytecode:
+Install viem along with other necessary dependencies, including [@parity/resolc](https://www.npmjs.com/package/@parity/resolc){target=\_blank}, which enables to compile smart contracts to [PolkaVM](/polkadot-protocol/smart-contract-basics/polkavm-design/#polkavm){target=\_blank} bytecode:
 
 ```bash
-# Install viem and Revive
-npm install viem @parity/revive
+# Install viem and resolc
+npm install viem @parity/resolc
 
 # Install TypeScript and development dependencies
 npm install --save-dev typescript ts-node @types/node
@@ -9696,7 +10341,7 @@ contract Storage {
 Create a new file at `src/compile.ts` for handling contract compilation:
 
 ```typescript title="src/compile.ts"
-import { compile } from '@parity/revive';
+import { compile } from '@parity/resolc';
 import { readFileSync, writeFileSync } from 'fs';
 import { basename, join } from 'path';
 
@@ -9960,7 +10605,7 @@ categories: Smart Contracts, Tooling
 
 # Wagmi
 
-!!! smartcontract "PolkaVM Alpha Release"
+!!! smartcontract "PolkaVM Preview Release"
     PolkaVM smart contracts with Ethereum compatibility are in **early-stage development and may be unstable or incomplete**.
 
 ## Introduction
@@ -10396,7 +11041,7 @@ categories: Smart Contracts, Tooling
 
 # Web3.js
 
-!!! smartcontract "PolkaVM Alpha Release"
+!!! smartcontract "PolkaVM Preview Release"
     PolkaVM smart contracts with Ethereum compatibility are in **early-stage development and may be unstable or incomplete**.
 
 !!! warning
@@ -10528,13 +11173,13 @@ main();
 
     For detailed comparisons and migration guidelines, see the [EVM vs. PolkaVM](/polkadot-protocol/smart-contract-basics/evm-vs-polkavm/#current-memory-limits){target=\_blank} documentation page.
 
-Polkadot Hub requires contracts to be compiled to [PolkaVM](/polkadot-protocol/smart-contract-basics/polkavm-design/){target=\_blank} bytecode. This is achieved using the [`revive`](https://github.com/paritytech/revive){target=\_blank} compiler. Install the [`@parity/revive`](https://github.com/paritytech/js-revive){target=\_blank} library as a development dependency:
+Polkadot Hub requires contracts to be compiled to [PolkaVM](/polkadot-protocol/smart-contract-basics/polkavm-design/){target=\_blank} bytecode. This is achieved using the [`revive`](https://github.com/paritytech/revive/tree/v0.2.0/js/resolc){target=\_blank} compiler. Install the [`@parity/resolc`](https://github.com/paritytech/revive){target=\_blank} library as a development dependency:
 
 ```bash
-npm install --save-dev @parity/revive
+npm install --save-dev @parity/resolc
 ```
 
-This guide uses `@parity/revive` version `{{ dependencies.javascript_packages.revive.version }}`.
+This guide uses `@parity/resolc` version `{{ dependencies.javascript_packages.resolc.version }}`.
 
 Here's a simple storage contract that you can use to follow the process:
 
@@ -10562,7 +11207,7 @@ contract Storage {
 With that, you can now create a `compile.js` snippet that transforms your solidity code into PolkaVM bytecode:
 
 ```javascript title="scripts/compile.js"
-const { compile } = require('@parity/revive');
+const { compile } = require('@parity/resolc');
 const { readFileSync, writeFileSync } = require('fs');
 const { basename, join } = require('path');
 
@@ -10594,7 +11239,7 @@ const compileContract = async (solidityFilePath, outputDir) => {
         const bytecodePath = join(outputDir, `${name}.polkavm`);
         writeFileSync(
           bytecodePath,
-          Buffer.from(contract.evm.bytecode.object, 'hex')
+          Buffer.from(contract.evm.bytecode.object, 'hex'),
         );
         console.log(`Bytecode saved to ${bytecodePath}`);
       }
@@ -10822,7 +11467,7 @@ categories: Smart Contracts, Tooling
 
 # Web3.py
 
-!!! smartcontract "PolkaVM Alpha Release"
+!!! smartcontract "PolkaVM Preview Release"
     PolkaVM smart contracts with Ethereum compatibility are in **early-stage development and may be unstable or incomplete**.
 
 ## Introduction
@@ -11160,7 +11805,7 @@ categories: Smart Contracts
 
 # Local Development Node
 
-!!! smartcontract "PolkaVM Alpha Release"
+!!! smartcontract "PolkaVM Preview Release"
     PolkaVM smart contracts with Ethereum compatibility are in **early-stage development and may be unstable or incomplete**.
 
 ## Introduction
@@ -11298,14 +11943,14 @@ categories: Basics, Smart Contracts
 
 # Smart Contracts on Polkadot
 
-!!! smartcontract "PolkaVM Alpha Release"
+!!! smartcontract "PolkaVM Preview Release"
     PolkaVM smart contracts with Ethereum compatibility are in **early-stage development and may be unstable or incomplete**.
 
 ## Introduction
 
 Polkadot offers developers multiple approaches to building and deploying smart contracts within its ecosystem. As a multi-chain network designed for interoperability, Polkadot provides various environments optimized for different developer preferences and application requirements. From native smart contract support on Polkadot Hub to specialized parachain environments, developers can choose the platform that best suits their technical needs while benefiting from Polkadot's shared security model and cross-chain messaging capabilities.
 
-Whether you're looking for Ethereum compatibility through EVM-based parachains like [Moonbeam](https://docs.moonbeam.network/){target=\_blank}, [Astar](https://docs.astar.network/){target=\_blank}, and [Acala](https://evmdocs.acala.network/){target=\_blank} or prefer WebAssembly-based development with [ink!](https://use.ink/docs/v5/){target=\_blank}, the Polkadot ecosystem accommodates a range of diverse developers.
+Whether you're looking for Ethereum compatibility through EVM-based parachains like [Moonbeam](https://docs.moonbeam.network/){target=\_blank}, [Astar](https://docs.astar.network/){target=\_blank}, and [Acala](https://evmdocs.acala.network/){target=\_blank} or prefer PolkaVM-based development with [ink!](https://use.ink/docs/v6/){target=\_blank}, the Polkadot ecosystem accommodates a range of diverse developers.
 
 These guides explore the diverse smart contract options available in the Polkadot ecosystem, helping developers understand the unique advantages of each approach and make informed decisions about where to deploy their decentralized applications.
 
@@ -11359,7 +12004,7 @@ Beyond Polkadot Hub's native PolkaVM support, the ecosystem offers two main alte
 
 - **EVM-compatible parachains**: Provide access to Ethereum's extensive developer ecosystem, smart contract portability, and established tooling like Hardhat, Remix, Foundry, and OpenZeppelin. The main options include Moonbeam (the first full Ethereum-compatible parachain serving as an interoperability hub), Astar (featuring dual VM support for both EVM and WebAssembly contracts), and Acala (DeFi-focused with enhanced Acala EVM+ offering advanced DeFi primitives).
 
-- **WebAssembly (ink!)**: `pallet-contracts` supports any language that compiles to WebAssembly, with ink! being the primary actively maintained Rust-based framework. It uses [`#[ink(...)]`](https://use.ink/docs/v5/macros-attributes/){target=\_blank} attribute macros to create Polkadot SDK-compatible Wasm bytecode, offering strong memory safety from Rust, an advanced type system, high-performance Wasm execution, and platform independence with sandboxed security.
+- **Rust (ink!)**: ink! is a Rust-based framework that can compile to PolkaVM. It uses [`#[ink(...)]`](https://use.ink/docs/v6/macros-attributes/){target=\_blank} attribute macros to create Polkadot SDK-compatible PolkaVM bytecode, offering strong memory safety from Rust, an advanced type system, high-performance PolkaVM execution, and platform independence with sandboxed security.
 
 
 Each environment provides unique advantages based on developer preferences and application requirements.
@@ -11400,7 +12045,7 @@ description: Explores how Polkadot integrates precompiles to run essential funct
 
 # Advanced Functionalities via Precompiles
 
-!!! smartcontract "PolkaVM Alpha Release"
+!!! smartcontract "PolkaVM Preview Release"
     PolkaVM smart contracts with Ethereum compatibility are in **early-stage development and may be unstable or incomplete**.
 
 ## Introduction
@@ -11468,7 +12113,7 @@ categories: Smart Contracts
 
 # Interact with Precompiles
 
-!!! smartcontract "PolkaVM Alpha Release"
+!!! smartcontract "PolkaVM Preview Release"
     PolkaVM smart contracts with Ethereum compatibility are in **early-stage development and may be unstable or incomplete**.
 
 ## Introduction
@@ -11931,7 +12576,7 @@ categories: Smart Contracts, Tooling
 
 # Wallets for Polkadot Hub
 
-!!! smartcontract "PolkaVM Alpha Release"
+!!! smartcontract "PolkaVM Preview Release"
     PolkaVM smart contracts with Ethereum compatibility are in **early-stage development and may be unstable or incomplete**.
 
 ## Introduction
@@ -13917,7 +14562,7 @@ categories: Reference, Dapps
 
 Holds open an API connection to a specified chain within the `ApiPromise` to help construct transactions for assets and estimate fees.
 
-For a more in-depth explanation of the Asset Transfer API class structure, check the [source code](https://github.com/paritytech/asset-transfer-api/blob/{{dependencies.repositories.asset_transfer_api.version}}/src/AssetTransferApi.ts#L123){target=\_blank}.
+For a more in-depth explanation of the Asset Transfer API class structure, check the [source code](https://github.com/paritytech/asset-transfer-api/blob/{{dependencies.repositories.asset_transfer_api.version}}/src/AssetTransferApi.ts#L128){target=\_blank}.
 
 ### Methods
 
@@ -19729,7 +20374,6 @@ Polkadot validators rely on high-performance hardware to process blocks efficien
 
     - x86-64 compatible
     - Eight physical cores @ 3.4 GHz
-        - Per [Referenda #1051](https://polkadot.subsquare.io/referenda/1051){target=\_blank}, this will be a hard requirement as of January 2025
     - Processor:
         - Intel - Ice Lake or newer (Xeon or Core series)
         - AMD - Zen3 or newer (EPYC or Ryzen)
@@ -19740,7 +20384,7 @@ Polkadot validators rely on high-performance hardware to process blocks efficien
 
 - **Storage**:
 
-    - NVMe SSD - at least 1 TB for blockchain data (prioritize latency rather than throughput)
+    - NVMe SSD - at least 2 TB for blockchain data recommended (prioritize latency rather than throughput)
     - Storage requirements will increase as the chain grows. For current estimates, see the [current chain snapshot](https://stakeworld.io/docs/dbsize){target=\_blank}
 
 - **Memory**:
@@ -19754,6 +20398,8 @@ Polkadot validators rely on high-performance hardware to process blocks efficien
 ## VPS Provider List
 
 When selecting a VPS provider for your validator node, prioritize reliability, consistent performance, and adherence to the specific hardware requirements set for Polkadot validators. The following server types have been tested and showed acceptable performance in benchmark tests. However, this is not an endorsement and actual performance may vary depending on your workload and VPS provider.
+
+Be aware that some providers may overprovision the underlying host and use shared storage such as NVMe over TCP, which appears as local storage. These setups might result in poor or inconsistent performance. Benchmark your infrastructure before deploying.
 
 - [**Google Cloud Platform (GCP)**](https://cloud.google.com/){target=\_blank} - `c2` and `c2d` machine families offer high-performance configurations suitable for validators
 - [**Amazon Web Services (AWS)**](https://aws.amazon.com/){target=\_blank} - `c6id` machine family provides strong performance, particularly for I/O-intensive workloads
@@ -19965,8 +20611,8 @@ Below are some examples of small equivocations that happened in the past:
 | Network  | Era  | Event Type         | Details                                                                                                                                                                                                                                                                                                                                                             | Action Taken                                                                                                                      |
 |----------|------|--------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------|
 | Polkadot | 774  | Small Equivocation | [The validator](https://matrix.to/#/!NZrbtteFeqYKCUGQtr:matrix.parity.io/$165562246360408hKCfC:matrix.org?via=matrix.parity.io&via=corepaper.org&via=matrix.org){target=\_blank} migrated servers and cloned the keystore folder. The on-chain event can be viewed on [Subscan](https://polkadot.subscan.io/extrinsic/11190109-0?event=11190109-5){target=\_blank}. | The validator didn't submit a request for the slash to be canceled.                                                               |
-| Kusama   | 3329 | Small Equivocation | The validator operated a test machine with cloned keys. The test machine was online simultaneously as the primary, which resulted in a slash. Details can be found on [Polkassembly](https://kusama.polkassembly.io/post/1343){target=\_blank}.                                                                                                                     | The validator requested a slash cancellation, but the council declined.                                                           |
-| Kusama   | 3995 | Small Equivocation | The validator noticed several errors, after which the client crashed, and a slash was applied. The validator recorded all events and opened GitHub issues to allow for technical opinions to be shared. Details can be found on [Polkassembly](https://kusama.polkassembly.io/post/1733){target=\_blank}.                                                           | The validator requested to cancel the slash. The council approved the request as they believed the error wasn't operator-related. |
+| Kusama   | 3329 | Small Equivocation | The validator operated a test machine with cloned keys. The test machine was online simultaneously as the primary, which resulted in a slash.                                                                                                                     | The validator requested a slash cancellation, but the council declined.                                                           |
+| Kusama   | 3995 | Small Equivocation | The validator noticed several errors, after which the client crashed, and a slash was applied. The validator recorded all events and opened GitHub issues to allow for technical opinions to be shared.                                                           | The validator requested to cancel the slash. The council approved the request as they believed the error wasn't operator-related. |
 
 #### Slashing Across Eras
 
@@ -24274,7 +24920,7 @@ categories: Basics, Polkadot Protocol
 
 # Accounts on Asset Hub Smart Contracts
 
-!!! smartcontract "PolkaVM Alpha Release"
+!!! smartcontract "PolkaVM Preview Release"
     PolkaVM smart contracts with Ethereum compatibility are in **early-stage development and may be unstable or incomplete**.
 
 ## Introduction
@@ -24367,7 +25013,7 @@ categories: Basics, Polkadot Protocol
 
 # Blocks, Transactions, and Fees
 
-!!! smartcontract "PolkaVM Alpha Release"
+!!! smartcontract "PolkaVM Preview Release"
     PolkaVM smart contracts with Ethereum compatibility are in **early-stage development and may be unstable or incomplete**.
 
 ## Introduction
@@ -24474,7 +25120,7 @@ categories: Basics, Polkadot Protocol
 
 # EVM vs PolkaVM
 
-!!! smartcontract "PolkaVM Alpha Release"
+!!! smartcontract "PolkaVM Preview Release"
     PolkaVM smart contracts with Ethereum compatibility are in **early-stage development and may be unstable or incomplete**.
 
 ## Introduction
@@ -24540,16 +25186,16 @@ Instead of adhering to Ethereum's fixed gas values, PolkaVM implements benchmark
 
 Moving beyond Ethereum's single gas metric, PolkaVM meters three distinct resources:
 
-- **`ref_time`** - equivalent to traditional gas, measuring computation time
-- **`proof_size`** - tracks state proof size for validator verification
-- **`storage_deposit`** - manages state bloat through a deposit system
+- **`ref_time`** - Equivalent to traditional gas, measuring computation time.
+- **`proof_size`** - Tracks state proof size for validator verification.
+- **`storage_deposit`** - Manages state bloat through a deposit system.
 
 All three resources can be limited at the transaction level, just like gas on Ethereum. The [Ethereum RPC proxy](https://github.com/paritytech/polkadot-sdk/tree/master/substrate/frame/revive/rpc){target=\_blank} maps all three dimensions into the single gas dimension, ensuring everything behaves as expected for users.
 
 These resources can also be limited when making cross-contract calls, which is essential for security when interacting with untrusted contracts. However, Solidity only allows specifying `gas_limit` for cross-contract calls. The `gas_limit` is most similar to Polkadots `ref_time_limit`, but the Revive compiler doesn't supply any imposed `gas_limit` for cross-contract calls for two key reasons:
 
-- **Semantic differences** - `gas_limit` and `ref_time_limit` are not semantically identical; blindly passing EVM gas as `ref_time_limit` can lead to unexpected behavior
-- **Incomplete protection** - the other two resources (`proof_size` and `storage_deposit`) would remain uncapped anyway, making it insufficient to prevent malicious callees from performing DOS attacks
+- **Semantic differences** - `gas_limit` and `ref_time_limit` are not semantically identical; blindly passing EVM gas as `ref_time_limit` can lead to unexpected behavior.
+- **Incomplete protection** - The other two resources (`proof_size` and `storage_deposit`) would remain uncapped anyway, making it insufficient to prevent malicious callees from performing DOS attacks.
 
 When resources are "uncapped" in cross-contract calls, they remain constrained by transaction-specified limits, preventing abuse of the transaction signer.
 
@@ -24611,14 +25257,13 @@ Ethereum and Polkadot handle account persistence differently, affecting state ma
 
 This difference introduces potential compatibility challenges for Ethereum-based contracts and tools, particularly wallets. To mitigate this, PolkaVM implements several transparent adjustments:
 
-- Balance queries via Ethereum RPC automatically deduct the ED, ensuring reported balances match spendable amounts
-- Account balance checks through EVM opcodes reflect the ED-adjusted balance
-- Transfers to new accounts automatically include the ED (`x + ED`), with the extra cost incorporated into transaction fees
+- Balance queries via Ethereum RPC automatically deduct the ED, ensuring reported balances match spendable amounts.
+- Account balance checks through EVM opcodes reflect the ED-adjusted balance.
+- Transfers to new accounts automatically include the ED (`x + ED`), with the extra cost incorporated into transaction fees.
 - Contract-to-contract transfers handle ED requirements by:
-
-  - Drawing ED from the transaction signer instead of the sending contract
-  - Keeping transfer amounts transparent for contract logic
-  - Treating ED like other storage deposit costs
+    - Drawing ED from the transaction signer instead of the sending contract.
+    - Keeping transfer amounts transparent for contract logic.
+    - Treating ED like other storage deposit costs.
 
 This approach ensures that Ethereum contracts work without modifications while maintaining Polkadot's optimized state management.
 
@@ -24628,9 +25273,9 @@ For most users deploying contracts (like ERC-20 tokens), contract deployment wor
 
 In the PolkaVM, contract deployment follows a fundamentally different model from EVM. The EVM allows contracts to be deployed with a single transaction, where the contract code is bundled with the deployment transaction. In contrast, PolkaVM has a different process for contract instantiation.
 
-- **Code must be pre-uploaded** - unlike EVM, where contract code is bundled within the deploying contract, PolkaVM requires all contract bytecode to be uploaded to the chain before instantiation
-- **Factory pattern limitations** - the common EVM pattern, where contracts dynamically create other contracts, will fail with a `CodeNotFound` error unless the dependent contract code was previously uploaded
-- **Separate upload and instantiation** - this creates a two-step process where developers must first upload all contract code, then instantiate relationships between contracts
+- **Code must be pre-uploaded** - Unlike EVM, where contract code is bundled within the deploying contract, PolkaVM requires all contract bytecode to be uploaded to the chain before instantiation.
+- **Factory pattern limitations** - The common EVM pattern, where contracts dynamically create other contracts, will fail with a `CodeNotFound` error unless the dependent contract code was previously uploaded.
+- **Separate upload and instantiation** - This creates a two-step process where developers must first upload all contract code, then instantiate relationships between contracts.
 
 This architecture impacts several common EVM patterns and requires developers to adapt their deployment strategies accordingly. _Factory contracts must be modified to work with pre-uploaded code rather than embedding bytecode_, and runtime code generation is not supported due to PolkaVM's RISC-V bytecode format. The specific behavior of contract creation opcodes is detailed in the [YUL IR Translation](#yul-function-translation-differences) section.
 
@@ -24642,15 +25287,16 @@ While PolkaVM maintains high-level compatibility with Solidity, several low-leve
 
 ### Contract Code Structure
 
-PolkaVM's contract runtime does not differentiate between runtime code and deploy (constructor) code. Instead, both are emitted into a single PolkaVM contract code blob and live on-chain. Therefore, in EVM terminology, the deploy code equals the runtime code.
+PolkaVM's contract runtime does not differentiate between runtime code and deploy (constructor) code. Instead, both are emitted into a single PolkaVM contract code blob and live on-chain. Therefore, in EVM terminology, the deploy code equals the runtime code. For most standard Solidity contracts, this is transparent. However, if you are analyzing raw bytecode or building tools that expect separate deploy and runtime sections, you'll need to adjust for this unified structure.
 
-In constructor code, the `codesize` instruction returns the call data size instead of the actual code blob size, which differs from standard EVM behavior.
+In the constructor code, the `codesize` instruction returns the call data size instead of the actual code blob size, which differs from standard EVM behavior. Developers might consider that the constructor logic uses `codesize` to inspect the deployed contract's size (e.g., for self-validation or specific deployment patterns); this will return an incorrect value on PolkaVM. Re-evaluate such logic or use alternative methods to achieve your goal.
 
 ### Solidity-Specific Differences
 
 Solidity constructs behave differently under PolkaVM:
 
-- **`address.creationCode`** - returns the bytecode keccak256 hash instead of the actual creation code, reflecting PolkaVM's hash-based code referencing system
+- **`address.creationCode`** - Returns the bytecode keccak256 hash instead of the actual creation code, reflecting PolkaVM's hash-based code referencing system.
+    - If your contract relies on `address.creationCode` to verify or interact with the full raw bytecode of a newly deployed contract, this will not work as expected. You will receive a hash, not the code itself. This typically affects highly specialized factory contracts or introspection tools.
 
 ### YUL Function Translation Differences
 
@@ -24659,73 +25305,93 @@ The following YUL functions exhibit notable behavioral differences in PolkaVM:
 - **Memory Operations:**
 
     - **`mload`, `mstore`, `msize`, `mcopy`** - PolkaVM preserves memory layout but implements several constraints:
-        - EVM linear heap memory is emulated using a fixed 64KB byte buffer, limiting maximum contract memory usage
-        - Accessing memory offsets larger than the buffer size traps the contract with an `OutOfBound` error
-        - Compiler optimizations may eliminate unused memory operations, potentially causing `msize` to differ from EVM behavior
+        - EVM linear heap memory is emulated using a fixed 64KB byte buffer, limiting maximum contract memory usage.
+        - Accessing memory offsets larger than the buffer size traps the contract with an `OutOfBound` error.
+        - Compiler optimizations may eliminate unused memory operations, potentially causing `msize` to differ from EVM behavior.
+
+        For Solidity developers, the compiler generally handles memory efficiently within this 64KB limit. However, if you are writing low-level YUL assembly and perform direct memory manipulations, you must respect the 64KB buffer limit. Attempting to access memory outside this range will cause your transaction to revert. Be aware that `msize` might not always reflect the exact EVM behavior if compiler optimizations occur.
 
 - **Call Data Operations:**
 
-    - **`calldataload`, `calldatacopy`** - in constructor code, the offset parameter is ignored and these functions always return `0`, diverging from EVM behavior where call data represents constructor arguments
+    - **`calldataload`, `calldatacopy`** - In constructor code, the offset parameter is ignored and these functions always return `0`, diverging from EVM behavior where call data represents constructor arguments.
+        - If your constructor logic in YUL assembly attempts to read constructor arguments using `calldataload` or `calldatacopy` with specific offsets, this will not yield the expected constructor arguments. Instead, these functions will return `zeroed` values. Standard Solidity constructors are handled correctly by the compiler, but manual YUL assembly for constructor argument parsing will need adjustment.
 
 - **Code Operations:**
 
-    - **`codecopy`** - only supported within constructor code, reflecting PolkaVM's different approach to code handling and the unified code blob structure
+    - **`codecopy`** - Only supported within constructor code, reflecting PolkaVM's different approach to code handling and the unified code blob structure.
+        - If your contracts use `codecopy` (e.g., for self-modifying code or inspecting other contract's runtime bytecode) outside of the constructor, this will not be supported and will likely result in a compile-time error or runtime trap. This implies that patterns like dynamically generating or modifying contract code at runtime are not directly feasible with `codecopy` on PolkaVM.
 
 - **Control Flow:**
 
-    - **`invalid`** - traps the contract execution but does not consume remaining gas, unlike EVM where it consumes all available gas
+    - **`invalid`** - Traps the contract execution but does not consume remaining gas, unlike EVM where it consumes all available gas.
+        - While `invalid` still reverts the transaction, the difference in gas consumption could subtly affect very specific error handling or gas accounting patterns that rely on `invalid` to consume all remaining gas. For most error scenarios, `revert()` is the standard and recommended practice.
 
 - **Cross-Contract Calls:**
 
-    - **`call`, `delegatecall`, `staticall`** - these functions ignore supplied gas limits and forward all remaining resources due to PolkaVM's multi-dimensional resource model. This creates important security implications:
+    - **`call`, `delegatecall`, `staticall`** - These functions ignore supplied gas limits and forward all remaining resources due to PolkaVM's multi-dimensional resource model. This creates important security implications:
 
-        - Contract authors must implement reentrancy protection since gas stipends don't provide protection
-        - The compiler detects `address payable.{send,transfer}` patterns and disables call reentrancy as a protective heuristic
-        - Using `address payable.{send,transfer}` is already deprecated; PolkaVM will provide dedicated precompiles for safe balance transfers
+        - Contract authors must implement reentrancy protection since gas stipends don't provide protection.
+        - The compiler detects `address payable.{send,transfer}` patterns and disables call reentrancy as a protective heuristic.
+        - Using `address payable.{send,transfer}` is already deprecated; PolkaVM will provide dedicated precompiles for safe balance transfers.
+
+        The traditional EVM pattern of limiting gas in cross-contract calls (especially with the 2300 gas stipend for send/transfer) does not provide reentrancy protection on PolkaVM. Developers must explicitly implement reentrancy guards (e.g., using a reentrancy lock mutex) in their Solidity code when making external calls to untrusted contracts. Relying on gas limits alone for reentrancy prevention is unsafe and will lead to vulnerabilities on PolkaVM.
 
         !!! warning
             The 2300 gas stipend that is provided by solc for address payable.{send, transfer} calls offers no reentrancy protection in PolkaVM. While the compiler attempts to detect and mitigate this pattern, developers should avoid these deprecated functions.
 
 - **Contract Creation:**
 
-    - **`create`, `create2`** - contract instantiation works fundamentally differently in PolkaVM. Instead of supplying deploy code concatenated with constructor arguments, the runtime expects:
+    - **`create`, `create2`** - Contract instantiation works fundamentally differently in PolkaVM. Instead of supplying deploy code concatenated with constructor arguments, the runtime expects:
 
-        1. A buffer containing the code hash to deploy
-        2. The constructor arguments buffer
+        1. A buffer containing the code hash to deploy.
+        2. The constructor arguments buffer.
 
         PolkaVM translates `dataoffset` and `datasize` instructions to handle contract hashes instead of contract code, enabling seamless use of the `new` keyword in Solidity. However, this translation may fail for contracts creating other contracts within `assembly` blocks.
+
+        If you use the Solidity `new` keyword to deploy contracts, the Revive compiler handles this transparently. However, if you are creating contracts manually in YUL assembly using `create` or `create2` opcodes, you must provide the code hash of the contract to be deployed, not its raw bytecode. Attempting to pass raw bytecode will fail. This fundamentally changes how manual contract creation is performed in assembly.
 
         !!! warning
             Avoid using `create` family opcodes for manual deployment crafting in `assembly` blocks. This pattern is discouraged due to translation complexity and offers no gas savings benefits in PolkaVM.
 
 - **Data Operations:**
 
-    - **`dataoffset`** - returns the contract hash instead of code offset, aligning with PolkaVM's hash-based code referencing
-    - **`datasize`** - returns the constant contract hash size (32 bytes) rather than variable code size
+    - **`dataoffset`** - Returns the contract hash instead of code offset, aligning with PolkaVM's hash-based code referencing.
+    - **`datasize`** - Returns the constant contract hash size (32 bytes) rather than variable code size.
+
+    These changes are primarily relevant for low-level YUL assembly developers who are trying to inspect or manipulate contract code directly. `dataoffset` will provide a hash, not a memory offset to the code, and `datasize` will always be 32 bytes (the size of a hash). This reinforces that direct manipulation of contract bytecode at runtime, as might be done in some EVM patterns, is not supported.
 
 - **Resource Queries:**
 
-    - **`gas`, `gaslimit`** - return only the `ref_time` component of PolkaVM's multi-dimensional weight system, providing the closest analog to traditional gas measurements
+    - **`gas`, `gaslimit`** - Return only the `ref_time` component of PolkaVM's multi-dimensional weight system, providing the closest analog to traditional gas measurements.
+        - While `gas` and `gaslimit` still provide a useful metric, consider that they represent `ref_time` (computation time) only. If your contract logic depends on precise knowledge of other resource costs (like `proof_size` or `storage_deposit`), you won't get that information from these opcodes. You'll need to use future precompiles for full multi-dimensional resource queries.
 
 - **Blockchain State:**
 
-    - **`prevrandao`, `difficulty`** - both translate to a constant value of `2500000000000000`, as PolkaVM doesn't implement Ethereum's difficulty adjustment or randomness mechanisms
+    - **`prevrandao`, `difficulty`** - Both translate to a constant value of `2500000000000000`, as PolkaVM doesn't implement Ethereum's difficulty adjustment or randomness mechanisms.
+        - If your Solidity contract relies on `block.difficulty` (or its equivalent YUL opcode `difficulty`) for randomness generation or any logic tied to Ethereum's proof-of-work difficulty, this will not provide true randomness on PolkaVM. The value will always be constant. Developers needing on-chain randomness should utilize Polkadot's native randomness sources or dedicated VRF (Verifiable Random Function) solutions if available. 
 
 ### Unsupported Operations
 
 Several EVM operations are not supported in PolkaVM and produce compile-time errors:
 
-- **`pc`, `extcodecopy`** - these operations are EVM-specific and have no equivalent functionality in PolkaVM's RISC-V architecture
-- **`blobhash`, `blobbasefee`** - related to Ethereum's rollup model and blob data handling, these operations are unnecessary given Polkadot's superior rollup architecture
-- **`extcodecopy`, `selfdestruct`** - these deprecated operations are not supported and generate compile-time errors
+- **`pc`, `extcodecopy`** - These operations are EVM-specific and have no equivalent functionality in PolkaVM's RISC-V architecture.
+    - Any Solidity contracts that utilize inline assembly to interact with `pc` (program counter) or `extcodecopy` will fail to compile or behave unexpectedly. This means patterns involving introspection of the current execution location or copying external contract bytecode at runtime are not supported.
+- **`blobhash`, `blobbasefee`** - Related to Ethereum's rollup model and blob data handling, these operations are unnecessary given Polkadot's superior rollup architecture.
+    - If you are porting contracts designed for Ethereum's EIP-4844 (proto-danksharding) and rely on these blob-related opcodes, they will not be available on PolkaVM.
+- **`extcodecopy`, `selfdestruct`** - These deprecated operations are not supported and generate compile-time errors.
+    - The `selfdestruct` opcode, which allowed contracts to remove themselves from the blockchain, is not supported. Contracts cannot be self-destroyed on PolkaVM. This affects contract upgradeability patterns that rely on self-destruction and redeployment. Similarly, `extcodecopy` is unsupported, impacting contracts that intend to inspect or copy the bytecode of other deployed contracts.
 
 ### Compilation Pipeline Considerations
 
 PolkaVM processes YUL IR exclusively, meaning all contracts exhibit behavior consistent with Solidity's `via-ir` compilation mode. Developers familiar with the legacy compilation pipeline should expect [IR-based codegen behavior](https://docs.soliditylang.org/en/latest/ir-breaking-changes.html){target=\_blank} when working with PolkaVM contracts.
 
+If you've previously worked with older Solidity compilers that did not use the `via-ir` pipeline by default, you might observe subtle differences in compiled bytecode size or gas usage. It's recommended to familiarize yourself with Solidity's IR-based codegen behavior, as this is the standard for PolkaVM.
+
 ### Memory Pointer Limitations
 
 YUL functions accepting memory buffer offset pointers or size arguments are limited by PolkaVM's 32-bit pointer size. Supplying values above `2^32-1` will trap the contract immediately. The Solidity compiler typically generates valid memory references, making this primarily a concern for low-level assembly code.
+
+For standard Solidity development, this limitation is unlikely to be hit as the compiler handles memory addresses correctly within typical contract sizes. However, if you are writing extremely large contracts using YUL assembly that manually and extensively manipulate memory addresses, ensure that your memory offsets and sizes do not exceed PolkaVM's **fixed 64KB memory limit per contract**. While the YUL functions might accept 32-bit pointers (up to 2^32-1), attempting to access memory beyond the allocated 64KB buffer will trap the contract immediately.
 
 These incompatibilities reflect the fundamental architectural differences between EVM and PolkaVM while maintaining high-level Solidity compatibility. Most developers using standard Solidity patterns will encounter no issues, but those working with assembly code or advanced contract patterns should carefully review these differences during migration.
 --- END CONTENT ---
@@ -24740,7 +25406,7 @@ template: index-page.html
 
 # Smart Contract Basics
 
-!!! smartcontract "PolkaVM Alpha Release"
+!!! smartcontract "PolkaVM Preview Release"
     PolkaVM smart contracts with Ethereum compatibility are in **early-stage development and may be unstable or incomplete**.
 
 Gain a deep understanding of smart contracts on Polkadot, from execution environments to transaction mechanics.
@@ -24772,7 +25438,7 @@ categories: Basics, Polkadot Protocol
 
 # Networks
 
-!!! smartcontract "PolkaVM Alpha Release"
+!!! smartcontract "PolkaVM Preview Release"
     PolkaVM smart contracts with Ethereum compatibility are in **early-stage development and may be unstable or incomplete**.
 
 ## Introduction
@@ -24811,7 +25477,7 @@ This progression ensures developers can thoroughly test and iterate their smart 
 
 The local development environment is crucial for smart contract development on Polkadot Hub. It provides developers a controlled space for rapid testing and iteration before moving to public networks. The local setup consists of several key components:
 
-- [**Kitchensink node**](https://paritytech.github.io/polkadot-sdk/master/pallet_revive_eth_rpc/subxt_client/src_chain/runtime_types/kitchensink_runtime/index.html){taget=\_blank} - a local node that can be run for development and testing. It includes logging capabilities for debugging contract execution and provides a pre-configured development environment with pre-funded accounts for testing purposes
+- [**Kitchensink node**](https://paritytech.github.io/polkadot-sdk/master/kitchensink_runtime/index.html){target=\_blank} - a local node that can be run for development and testing. It includes logging capabilities for debugging contract execution and provides a pre-configured development environment with pre-funded accounts for testing purposes
 - [**Ethereum RPC proxy**](https://paritytech.github.io/polkadot-sdk/master/pallet_revive_eth_rpc/index.html){target=\_blank} - bridges Ethereum-compatible tools with the Polkadot SDK-based network. It enables seamless integration with popular development tools like MetaMask and Remix IDE. The purpose of this component is to translate Ethereum RPC calls into Substrate format
 
 ## Test Networks
@@ -24861,7 +25527,7 @@ categories: Basics, Polkadot Protocol
 
 # An Overview of the Smart Contract Landscape on Polkadot
 
-!!! smartcontract "PolkaVM Alpha Release"
+!!! smartcontract "PolkaVM Preview Release"
     PolkaVM smart contracts with Ethereum compatibility are in **early-stage development and may be unstable or incomplete**.
 
 ## Introduction
@@ -25014,7 +25680,7 @@ categories: Basics, Polkadot Protocol
 
 # PolkaVM Design
 
-!!! smartcontract "PolkaVM Alpha Release"
+!!! smartcontract "PolkaVM Preview Release"
     PolkaVM smart contracts with Ethereum compatibility are in **early-stage development and may be unstable or incomplete**.
 
 ## Introduction
@@ -33640,13 +34306,13 @@ test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; fini
 
 <div class="grid cards" markdown>
 
--   <span class="badge tutorial">Tutorial</span> __Pallet Benchmarking__
+-   <span class="badge tutorial">Tutorial</span> __Add Pallets to the Runtime__
 
     ---
 
-    Discover how to measure extrinsic costs and assign precise weights to optimize your pallet for accurate fees and runtime performance.
+    Learn how to add and integrate custom pallets in your Polkadot SDK-based blockchain
 
-    [:octicons-arrow-right-24: Get Started](/tutorials/polkadot-sdk/parachains/zero-to-hero/pallet-benchmarking/)
+    [:octicons-arrow-right-24: Get Started](/tutorials/polkadot-sdk/parachains/zero-to-hero/add-pallets-to-runtime/)
 
 </div>
 --- END CONTENT ---
@@ -33658,6 +34324,272 @@ title: Runtime Upgrades
 description: Learn how to safely perform runtime upgrades for your Polkadot SDK-based blockchain, including step-by-step instructions.
 tutorial_badge: Intermediate
 categories: Parachains
+---
+
+# Runtime Upgrades
+
+## Introduction
+
+Upgrading the runtime of your Polkadot SDK-based blockchain is a fundamental feature that allows you to add new functionality, fix bugs, or improve performance without requiring a hard fork. Runtime upgrades are performed by submitting a special extrinsic that replaces the existing on-chain WASM runtime code. This process is trustless, transparent, and can be executed either through governance or using sudo, depending on your chain's configuration.
+
+This tutorial will guide you through the steps to prepare, submit, and verify a runtime upgrade for your parachain or standalone Polkadot SDK-based chain. For this example, you'll continue from the state left by the previous tutorials, where you have a custom pallet integrated into your runtime.
+
+## Update the Runtime
+
+In this section, you will add a new feature to your existing custom pallet and upgrade your runtime to include this new functionality.
+
+### Start Your Chain
+
+Before making any changes, ensure your blockchain node is running properly:
+
+```bash
+polkadot-omni-node --chain ./chain_spec.json --dev
+```
+
+Verify your chain is operational and note the runtime version state in Polkadot JS. For more details, check the [Interact with the Node](/tutorials/polkadot-sdk/parachains/zero-to-hero/set-up-a-template/#interact-with-the-node){target=\_blank}.
+
+![](/images/tutorials/polkadot-sdk/parachains/zero-to-hero/runtime-upgrade/runtime-upgrade-01.webp)
+
+As you can see, the runtime version is `1` since this chain has not been upgraded. Keep this chain running in the background.
+
+### Add a New Feature
+
+Now, you can extend your existing custom pallet by adding a new dispatchable function to reset the counter to zero. This provides a meaningful upgrade that demonstrates new functionality. Copy and paste the following code at the end of your `lib.rs` file in your custom pallet:
+
+```rust title="custom-pallet/src/lib.rs" hl_lines="5-17"
+#[pallet::call]
+impl<T: Config> Pallet<T> {
+    // ... existing calls like increment, decrement, etc.
+
+    /// Reset the counter to zero.
+    ///
+    /// The dispatch origin of this call must be _Root_.
+    ///
+    /// Emits `CounterValueSet` event when successful.
+    #[pallet::call_index(3)]
+    #[pallet::weight(0)]
+    pub fn reset_counter(origin: OriginFor<T>) -> DispatchResult {
+        ensure_root(origin)?;
+        <CounterValue<T>>::put(0u32);
+        Self::deposit_event(Event::CounterValueSet { counter_value: 0 });
+        Ok(())
+    }
+}
+```
+
+The `reset_counter` function will be a Root-only operation that sets the counter value back to zero, regardless of its current state. This is useful for administrative purposes, such as clearing the counter after maintenance, testing, or at the start of new periods. Unlike the existing increment/decrement functions that any signed user can call, this reset function requires Root privileges, making it a controlled administrative action.
+
+Ensure that your runtime compiles by running:
+
+```bash
+cargo build --release
+```
+
+Now, you can test this new function in `pallets/custom-pallet/src/tests.rs`
+
+```rust title="custom-pallet/src/tests.rs" hl_lines="4-39"
+// ... existing unit tests
+...
+
+#[test]
+fn reset_counter_works() {
+    new_test_ext().execute_with(|| {
+        System::set_block_number(1);
+        // First increment the counter
+        assert_ok!(CustomPallet::increment(RuntimeOrigin::signed(1), 1));
+
+        // Ensure the event matches the increment action
+        System::assert_last_event(
+            Event::CounterIncremented {
+                counter_value: 1,
+                who: 1,
+                incremented_amount: 1,
+            }
+            .into(),
+        );
+        
+        // Reset should work with root origin
+        assert_ok!(CustomPallet::reset_counter(RuntimeOrigin::root()));
+        
+        // Check that the event was emitted
+        System::assert_last_event(Event::CounterValueSet { counter_value: 0 }.into());
+    });
+}
+
+#[test]
+fn reset_counter_fails_without_root() {
+    new_test_ext().execute_with(|| {
+        System::set_block_number(1);
+        // Should fail with non-root origin
+        assert_noop!(
+            CustomPallet::reset_counter(RuntimeOrigin::signed(1)),
+            sp_runtime::DispatchError::BadOrigin
+        );
+    });
+}
+```
+
+Ensure that your tests pass by running:
+
+```bash
+cargo test --package custom-pallet
+```
+
+### Update Runtime Configuration
+
+Since you've only added new functionality without changing existing APIs, minimal runtime changes are needed. However, verify that your runtime configuration is still compatible. If you've added new configuration parameters to your pallet, update them accordingly in the `runtime/configs/mod.rs`.
+
+### Bump the Runtime Version
+
+This is a critical step - you must increment the runtime version numbers to signal that an upgrade has occurred. In `runtime/src/lib.rs`:
+
+```rust title="lib.rs" hl_lines="6"
+#[sp_version::runtime_version]
+pub const VERSION: RuntimeVersion = RuntimeVersion {
+	spec_name: alloc::borrow::Cow::Borrowed("parachain-template-runtime"),
+	impl_name: alloc::borrow::Cow::Borrowed("parachain-template-runtime"),
+	authoring_version: 1,
+    spec_version: 2, // <-- increment this (was 1)
+	impl_version: 0,
+	apis: apis::RUNTIME_API_VERSIONS,
+	transaction_version: 1,
+	system_version: 1,
+};
+```
+
+Also update `runtime/Cargo.toml` version:
+
+```toml title="Cargo.toml" hl_lines="4"
+[package]
+name = "parachain-template-runtime"
+description = "A parachain runtime template built with Substrate and Cumulus, part of Polkadot Sdk."
+version = "0.2.0" # <-- increment this version
+# ... rest of your Cargo.toml
+```
+
+For more information about runtime versioning, check the [Runtime Upgrades](/develop/parachains/maintenance/runtime-upgrades#runtime-versioning){target=\_blank} guide.
+
+### Build the New Runtime
+
+Navigate to your project root:
+
+```bash
+cd /path/to/your/parachain-template
+```
+
+Build the new runtime:
+
+```bash
+cargo build --release
+```
+
+Verify that you have the proper WASM builds by executing:
+
+```
+ls -la target/release/wbuild/parachain-template-runtime/
+```
+
+If you can see the following elements, it means that you are ready to submit the runtime upgrade to your running chain:
+
+<div id="termynal" data-termynal>
+  <span data-ty="input"><span class="file-path"></span>ls -la target/release/wbuild/parachain-template-runtime/</span>
+  <br />
+  <span data-ty>parachain_template_runtime.wasm</span>
+  <span data-ty>parachain_template_runtime.compact.wasm</span>
+  <span data-ty>parachain_template_runtime.compact.compressed.wasm</span>
+</div>
+
+## Submit the Runtime Upgrade
+
+You can submit a runtime upgrade using the [Sudo pallet](https://paritytech.github.io/polkadot-sdk/master/pallet_sudo/index.html){target=\_blank} (for development chains) or via on-chain governance (for production chains).
+
+1. Open [Polkadot.js Apps](https://polkadot.js.org/apps/){target=\_blank} and connect to your node
+2. Click on the **Developer** and select the **Extrinsics** option in the dropdown
+
+    ![](/images/tutorials/polkadot-sdk/parachains/zero-to-hero/runtime-upgrade/runtime-upgrade-02.webp) 
+
+3. Prepare the **sudo** call:
+    1. Select the **sudo** pallet
+    2. Select the **sudo(call)** extrinsic from the list
+
+        ![](/images/tutorials/polkadot-sdk/parachains/zero-to-hero/runtime-upgrade/runtime-upgrade-03.webp) 
+
+4. In the **sudo** call:
+    1. Select the **system** call
+    2. Select **setCode** extrinsic from the list
+
+        ![](/images/tutorials/polkadot-sdk/parachains/zero-to-hero/runtime-upgrade/runtime-upgrade-04.webp) 
+
+5. For the `code` parameter, click **file upload** and select your WASM runtime file:
+    - Use `parachain_template_runtime.compact.compressed.wasm` if available (smaller file)
+    - Otherwise, use `parachain_template_runtime.wasm`
+
+        ![](/images/tutorials/polkadot-sdk/parachains/zero-to-hero/runtime-upgrade/runtime-upgrade-05.webp) 
+
+6. Click **Submit Transaction** and sign the transaction with the sudo key
+
+    ![](/images/tutorials/polkadot-sdk/parachains/zero-to-hero/runtime-upgrade/runtime-upgrade-06.webp) 
+
+!!!info "Using Governance (Production)"
+    For production chains with governance enabled, you must follow the on-chain democratic process. This involves submitting a preimage of the new runtime code (using the Democracy pallet), referencing the preimage hash in a proposal, and then following your chain's governance process (such as voting and council approval) until the proposal passes and is enacted. This ensures that runtime upgrades are transparent and subject to community oversight.
+
+## Verify the Upgrade
+
+After the runtime upgrade extrinsic is included in a block, verify that the upgrade was successful.
+
+### Check Runtime Version
+
+1. In Polkadot.js Apps, navigate to the **Chain State** section
+    1. Click the **Developer** dropdown
+    2. Click the **Chain State** option
+
+        ![](/images/tutorials/polkadot-sdk/parachains/zero-to-hero/runtime-upgrade/runtime-upgrade-07.webp) 
+
+2. Query runtime spec version
+    1. Select the **System** pallet
+    2. Select the **lastRuntimeUpgrade()** query
+
+        ![](/images/tutorials/polkadot-sdk/parachains/zero-to-hero/runtime-upgrade/runtime-upgrade-08.webp) 
+
+3. Click the **+** button to query the current runtime version
+
+    ![](/images/tutorials/polkadot-sdk/parachains/zero-to-hero/runtime-upgrade/runtime-upgrade-09.webp) 
+
+4. Verify that the `specVersion` matches your new runtime (should be `2` if you followed the example)
+
+    ![](/images/tutorials/polkadot-sdk/parachains/zero-to-hero/runtime-upgrade/runtime-upgrade-10.webp) 
+
+### Test New Functionality
+
+1. Navigate to **Developer > Extrinsics**
+2. Select your custom pallet from the dropdown
+3. You should now see the new `resetCounter` function available
+
+    ![](/images/tutorials/polkadot-sdk/parachains/zero-to-hero/runtime-upgrade/runtime-upgrade-11.webp) 
+
+Now, you can test the new functionality:
+
+- First, increment the counter using your existing function
+- Then use the new reset function (note: you'll need sudo/root privileges)
+- Verify the counter value is reset to 0
+
+## Where to Go Next
+
+<div class="grid cards" markdown>
+
+-   <span class="badge tutorial">Tutorial</span> __Deploy on Paseo TestNet__
+
+    ---
+
+    Deploy your Polkadot SDK blockchain on Paseo! Follow this step-by-step guide for a seamless journey to a successful TestNet deployment.
+
+    [:octicons-arrow-right-24: Get Started](/tutorials/polkadot-sdk/parachains/zero-to-hero/deploy-to-testnet/)
+
+</div>
+---
+title: Runtime Upgrades
+description: Learn how to safely perform runtime upgrades for your Polkadot SDK-based blockchain, including step-by-step instructions.
+tutorial_badge: Intermediate
 ---
 
 # Runtime Upgrades
@@ -35436,7 +36368,7 @@ categories: dApps, Tooling
 
 # Deploy Uniswap V2
 
-!!! smartcontract "PolkaVM Alpha Release"
+!!! smartcontract "PolkaVM Preview Release"
     PolkaVM smart contracts with Ethereum compatibility are in **early-stage development and may be unstable or incomplete**.
 
 ## Introduction
@@ -35689,7 +36621,7 @@ template: index-page.html
 
 # Demo Applications
 
-!!! smartcontract "PolkaVM Alpha Release"
+!!! smartcontract "PolkaVM Preview Release"
     PolkaVM smart contracts with Ethereum compatibility are in **early-stage development and may be unstable or incomplete**.
 
 This section highlights demo applications that can be deployed to Polkadot Hub. These examples illustrate practical use cases and provide guidance for developers looking to launch and test applications within the Polkadot ecosystem.
@@ -35710,7 +36642,7 @@ categories: Basics, dApps, Smart Contracts
 
 # Deploy an ERC-20 to Polkadot Hub
 
-!!! smartcontract "PolkaVM Alpha Release"
+!!! smartcontract "PolkaVM Preview Release"
     PolkaVM smart contracts with Ethereum compatibility are in **early-stage development and may be unstable or incomplete**.
 
 ## Introduction
@@ -35877,7 +36809,7 @@ categories: Basics, dApps, Smart Contracts
 
 # Deploy an NFT to Polkadot Hub
 
-!!! smartcontract "PolkaVM Alpha Release"
+!!! smartcontract "PolkaVM Preview Release"
     PolkaVM smart contracts with Ethereum compatibility are in **early-stage development and may be unstable or incomplete**.
 
 ## Introduction
@@ -36042,7 +36974,7 @@ template: index-page.html
 
 # Smart Contracts Tutorials
 
-!!! smartcontract "PolkaVM Alpha Release"
+!!! smartcontract "PolkaVM Preview Release"
     PolkaVM smart contracts with Ethereum compatibility are in **early-stage development and may be unstable or incomplete**.
 
 Get started with deploying and interacting with smart contracts on Polkadot through practical, hands-on tutorials. Whether you're a beginner or an experienced developer, these guides will help you navigate the entire development lifecycle.
@@ -36079,7 +37011,7 @@ categories: Basics, Smart Contracts
 
 # Create a Smart Contract
 
-!!! smartcontract "PolkaVM Alpha Release"
+!!! smartcontract "PolkaVM Preview Release"
     PolkaVM smart contracts with Ethereum compatibility are in **early-stage development and may be unstable or incomplete**.
 
 ## Introduction
@@ -36276,7 +37208,7 @@ categories: dApp, Tooling
 
 # Create a DApp With Ethers.js
 
-!!! smartcontract "PolkaVM Alpha Release"
+!!! smartcontract "PolkaVM Preview Release"
     PolkaVM smart contracts with Ethereum compatibility are in **early-stage development and may be unstable or incomplete**.
 
 ## Introduction
@@ -36918,7 +37850,7 @@ categories: dApp, Tooling
 
 # Create a DApp with Viem
 
-!!! smartcontract "PolkaVM Alpha Release"
+!!! smartcontract "PolkaVM Preview Release"
     PolkaVM smart contracts with Ethereum compatibility are in **early-stage development and may be unstable or incomplete**.
 
 Decentralized applications (dApps) are a key component of the Web3 ecosystem, enabling developers to build applications that communicate directly with blockchain networks. Polkadot Hub, a blockchain with smart contract support, serves as a robust platform for deploying and interacting with dApps.
@@ -37740,7 +38672,7 @@ template: index-page.html
 
 # Launch Your First Smart Contract Project
 
-!!! smartcontract "PolkaVM Alpha Release"
+!!! smartcontract "PolkaVM Preview Release"
     PolkaVM smart contracts with Ethereum compatibility are in **early-stage development and may be unstable or incomplete**.
 
 Kickstart your journey into smart contract development with this comprehensive guide. Learn how to create, deploy, and interact with contracts on Polkadot. Whether you're new to smart contracts or refining your skills, these guides provide a structured approach to launching your project.
@@ -37776,7 +38708,7 @@ categories: dApp, Tooling
 
 # Test and Deploy with Hardhat
 
-!!! smartcontract "PolkaVM Alpha Release"
+!!! smartcontract "PolkaVM Preview Release"
     PolkaVM smart contracts with Ethereum compatibility are in **early-stage development and may be unstable or incomplete**.
 
 ## Introduction

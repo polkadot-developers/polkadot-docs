@@ -40,9 +40,9 @@ The [`AccountId32Mapper`](https://paritytech.github.io/polkadot-sdk/master/palle
 
 The conversion from 32-byte Polkadot accounts to 20-byte Ethereum addresses is more complex than the reverse direction due to the lossy nature of the conversion. The [`AccountId32Mapper`](https://paritytech.github.io/polkadot-sdk/master/pallet_revive/struct.AccountId32Mapper.html){target=\_blank} handles this through two distinct approaches:
 
-- **For Ethereum-derived accounts** - The system uses the [`is_eth_derived`](https://paritytech.github.io/polkadot-sdk/master/pallet_revive/fn.is_eth_derived.html){target=\_blank} function to detect accounts that were originally Ethereum addresses (identified by the `0xEE` suffix pattern). For these accounts, the conversion simply strips the last 12 bytes to recover the original 20-byte Ethereum address.
+- **For Ethereum-derived accounts** - The system uses the [`is_eth_derived`](https://paritytech.github.io/polkadot-sdk/master/pallet_revive/fn.is_eth_derived.html){target=\_blank} function to detect accounts that were originally Ethereum addresses (identified by the `0xEE` suffix pattern). For these accounts, the conversion strips the last 12 bytes to recover the original 20-byte Ethereum address.
 
-- **For native Polkadot accounts** - Since these accounts use the full 32-byte space and weren't derived from Ethereum addresses, direct truncation would lose information. Instead, the system:
+- **For native Polkadot accounts** - Since these accounts utilize the whole 32-byte space and weren't derived from Ethereum addresses, direct truncation would result in lost information. Instead, the system:
     1. Hashes the entire 32-byte account using Keccak-256
     2. Takes the last 20 bytes of the hash to create the Ethereum address
     3. This ensures a deterministic mapping while avoiding simple truncation

@@ -24,7 +24,9 @@ document.addEventListener('DOMContentLoaded', () => {
         }, 2000);
       } catch (err) {
         console.error('Failed to copy:', err);
-        copiedToClipboard.classList.remove('md-dialog--active');
+        if (copiedToClipboard) {
+          copiedToClipboard.classList.remove('md-dialog--active');
+        }
       }
     });
 });

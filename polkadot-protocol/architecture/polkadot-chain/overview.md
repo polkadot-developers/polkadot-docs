@@ -30,7 +30,7 @@ As a Layer-0 blockchain, Polkadot contributes to the multi-chain vision through 
 - **Cultivating the next generation of Web3 developers** - Polkadot supports the growth of Web3 core developers through initiatives such as:
 
     - [Polkadot Blockchain Academy](https://polkadot.com/blockchain-academy){target=\_blank}
-    - [Polkadot Alpha Program](https://polkadot.com/alpha-program){target=\_blank}
+    - [Polkadot Alpha Program](https://www.parity.io/alpha-program){target=\_blank}
     - [EdX courses](https://www.edx.org/school/web3x){target=\_blank}
     - Rust and Substrate courses (coming soon)
 

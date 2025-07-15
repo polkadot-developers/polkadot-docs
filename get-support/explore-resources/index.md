@@ -16,7 +16,7 @@ These platforms are full of useful content and experienced developers sharing in
 - Browse commonly asked technical questions.
 - Ask your own and get detailed responses from experienced devs.
 
-👉 **[Visit Polkadot Stack Exchange](https://substrate.stackexchange.com/)**
+👉 **[Visit Polkadot Stack Exchange](https://substrate.stackexchange.com/){target=\_blank}**
 
 ## 🧵 Reddit: r/Polkadot
 

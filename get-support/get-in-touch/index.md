@@ -8,7 +8,8 @@ hide:
 
 # Get in touch directly
 
-## Need help fast?  
+## Need help fast?
+  
 Use one of the channels below to get live technical support or ask questions.
 
 <div class="button-wrapper" style="display: flex; justify-content: flex-start;">

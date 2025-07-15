@@ -17870,14 +17870,14 @@ alice_trace = { traceID = "94c1501a78a0d83c498cc92deec264d9", contains = [
 Doc-Content: https://docs.polkadot.com/get-support/explore-resources/
 --- BEGIN CONTENT ---
 ---
-title: Subscribe to updates
+title: Subscribe to Updates
 description: Find Polkadot developer resources, tutorials, forums, governance proposals, and community platforms like StackExchange, Reddit, and YouTube.
 template: index-page.html
 hide:
   - footer
 ---
 
-# Ask the community and explore resources
+# Ask the Community and Explore Resources
 
 Looking for answers beyond the documentation?  
 These platforms are full of useful content and experienced developers sharing insights.
@@ -17913,7 +17913,7 @@ These platforms are full of useful content and experienced developers sharing in
 
 ---
 
-# Community-led platforms and ecosystem updates
+# Community-led Platforms and Ecosystem Updates
 
 Stay in sync with what's happening across the Polkadot ecosystem — from official announcements to community-driven insights and governance activity.
 
@@ -17950,16 +17950,16 @@ Stay in sync with what's happening across the Polkadot ecosystem — from offici
 Doc-Content: https://docs.polkadot.com/get-support/get-in-touch/
 --- BEGIN CONTENT ---
 ---
-title: Get in touch
+title: Get in Touch
 description: Developer support for Polkadot via Telegram, Matrix, and Discord. Get help with parachains, smart contracts, nodes, and ecosystem tools.
 template: index-page.html
 hide:
   - footer
 ---
 
-# Get in touch directly
+# Get in Touch Directly
 
-## Need help fast?
+## Need Help Fast?
   
 Use one of the channels below to get live technical support or ask questions.
 
@@ -18019,14 +18019,14 @@ Not sure where to start?
 Doc-Content: https://docs.polkadot.com/get-support/
 --- BEGIN CONTENT ---
 ---
-title: Get support
+title: Get Support
 description: Start here to get developer support for Polkadot. Connect with the team, find help, and explore resources beyond the documentation.
 template: index-page.html
 hide:
   - footer
 ---
 
-# Need help fast?
+# Need Help Fast?
 Use one of the channels below to get live technical support or ask questions.
 
 <div class="button-wrapper" style="display: flex; justify-content: flex-start;">
@@ -18039,7 +18039,7 @@ Use one of the channels below to get live technical support or ask questions.
 </div>
 ---
 
-## Need more than just documentation?
+## Need More than just Documentation?
 
 You're already in the docs — solid start.  
 But sometimes you need more: answers, real examples, someone to talk to.  
@@ -18047,7 +18047,7 @@ This Support Hub is here to help you move forward — faster.
 
 Whether you're building something new, integrating into the ecosystem, or running into blockers — **don't stay stuck**.
 
-## What you can do here
+## What You can do Here
 
 - 📨 [**Get In Touch**](./get-in-touch)  
   Reach out to the Polkadot support team and community via Telegram, Matrix, or Discord.  
@@ -18060,7 +18060,7 @@ Whether you're building something new, integrating into the ecosystem, or runnin
 This hub is evolving. More support tools and shortcuts are on the way —  
 including better onboarding, CLI helpers, dev environments, and live feedback channels.
 
-## Help us improve
+## Help us Improve
 
 If something’s missing, unclear, or broken — **tell us**.  
 Your feedback makes the whole ecosystem better for everyone.

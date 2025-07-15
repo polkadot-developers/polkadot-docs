@@ -122,9 +122,9 @@ This approach selectively deactivates the Spectre V2 and Spectre V4 mitigations,
 
 Monitoring your node's performance is critical for network reliability and security. Tools like the following provide valuable insights:
 
-- **[Prometheus](https://prometheus.io/){target=\_blank}** - an open-source monitoring toolkit for collecting and querying time-series data
-- **[Grafana](https://grafana.com/){target=\_blank}** - a visualization tool for real-time metrics, providing interactive dashboards
-- **[Alertmanager](https://prometheus.io/docs/alerting/latest/alertmanager/){target=\_blank}** - a tool for managing and routing alerts based on Prometheus data.
+- **[Prometheus](https://prometheus.io/){target=\_blank}**: An open-source monitoring toolkit for collecting and querying time-series data.
+- **[Grafana](https://grafana.com/){target=\_blank}**: A visualization tool for real-time metrics, providing interactive dashboards.
+- **[Alertmanager](https://prometheus.io/docs/alerting/latest/alertmanager/){target=\_blank}**: A tool for managing and routing alerts based on Prometheus data.
 
 This section covers setting up these tools and configuring alerts to notify you of potential issues.
 
@@ -339,8 +339,8 @@ To configure Grafana, take these steps:
 
 To visualize node metrics, follow these steps:
 
-1. Select the gear icon to access **Data Sources** settings
-2. Select **Add data source** to define the data source
+1. Select the gear icon to access **Data Sources** settings.
+2. Select **Add data source** to define the data source.
 
     ![Select Prometheus](/images/infrastructure/running-a-validator/operational-tasks/general-management/general-management-2.webp)
 
@@ -348,13 +348,13 @@ To visualize node metrics, follow these steps:
 
     ![Save and test](/images/infrastructure/running-a-validator/operational-tasks/general-management/general-management-3.webp)
 
-4. Enter `http://localhost:9090` in the **URL** field and click **Save & Test**. If **"Data source is working"** appears, your connection is configured correctly
+4. Enter `http://localhost:9090` in the **URL** field and click **Save & Test**. If **"Data source is working"** appears, your connection is configured correctly.
 
     ![Import dashboard](/images/infrastructure/running-a-validator/operational-tasks/general-management/general-management-4.webp)
 
-5. Select **Import** from the left menu, choose **Prometheus** from the dropdown, and click **Import**
+5. Select **Import** from the left menu, choose **Prometheus** from the dropdown, and click **Import**.
 
-6. Start your Polkadot node by running `./polkadot`. You should now be able to monitor node performance, block height, network traffic, and tasks tasks on the Grafana dashboard
+6. Start your Polkadot node by running `./polkadot`. You should now be able to monitor node performance, block height, network traffic, and tasks tasks on the Grafana dashboard.
 
     ![Live dashboard](/images/infrastructure/running-a-validator/operational-tasks/general-management/general-management-5.webp)
 
@@ -401,7 +401,7 @@ Follow these steps to install and configure Alertmanager:
     sudo chown -R prometheus:prometheus /etc/alertmanager
     ```
 
-5. Configure Alertmanager as a service by creating a systemd service file:
+4. Configure Alertmanager as a service by creating a systemd service file:
 
     ```bash
     sudo nano /etc/systemd/system/alertmanager.service
@@ -411,7 +411,7 @@ Follow these steps to install and configure Alertmanager:
     -8<-- 'code/infrastructure/running-a-validator/operational-tasks/general-management/systemd-alert-config.md'
     ```
 
-6. Reload and enable the service:
+5. Reload and enable the service:
 
     ```bash
     sudo systemctl daemon-reload
@@ -419,7 +419,7 @@ Follow these steps to install and configure Alertmanager:
     sudo systemctl start alertmanager
     ```
 
-7. Verify the service status:
+6. Verify the service status:
 
     ```bash
     sudo systemctl status alertmanager
@@ -449,10 +449,10 @@ Follow these steps to use the plugin:
 
 3. Configure Alertmanager as a data source in your Grafana dashboard (`SERVER_IP:3000`):
 
-    1. Go to **Configuration** > **Data Sources** and search for **Prometheus Alertmanager**
-    2. Enter the server URL and port for the Alertmanager service, and select **Save & Test** to verify the connection
+    1. Go to **Configuration** > **Data Sources** and search for **Prometheus Alertmanager**.
+    2. Enter the server URL and port for the Alertmanager service, and select **Save & Test** to verify the connection.
 
-4. Import the [8010](https://grafana.com/grafana/dashboards/8010-prometheus-alertmanager/){target=\_blank} dashboard for Alertmanager, selecting **Prometheus Alertmanager** in the last column, then select **Import**
+4. Import the [8010](https://grafana.com/grafana/dashboards/8010-prometheus-alertmanager/){target=\_blank} dashboard for Alertmanager, selecting **Prometheus Alertmanager** in the last column, then select **Import**.
 
 #### Integrate Alertmanager
 
@@ -518,9 +518,9 @@ Given the current limitations in high-availability setups and the risks associat
 
 There are two approaches for generating session keys:
 
-- **Generate and store in node** - using the `author.rotateKeys` RPC call. For most users, generating keys directly within the client is recommended. You must submit a session certificate from your staking proxy to register new keys. See the [How to Validate](/infrastructure/running-a-validator/onboarding-and-offboarding/set-up-validator/){target=\_blank} guide for instructions on setting keys
+- **Generate and store in node**: Using the `author.rotateKeys` RPC call. For most users, generating keys directly within the client is recommended. You must submit a session certificate from your staking proxy to register new keys. See the [How to Validate](/infrastructure/running-a-validator/onboarding-and-offboarding/set-up-validator/){target=\_blank} guide for instructions on setting keys.
 
-- **Generate outside node and insert** - using the `author.setKeys` RPC call. This flexibility accommodates advanced security setups and should only be used by experienced validator operators
+- **Generate outside node and insert**: Using the `author.setKeys` RPC call. This flexibility accommodates advanced security setups and should only be used by experienced validator operators.
 
 ### Signing Outside the Client
 
@@ -530,8 +530,8 @@ Polkadot plans to support external signing, allowing session keys to reside in s
 
 Polkadot's Secure-Validator mode offers an extra layer of protection through strict filesystem, networking, and process sandboxing. This secure mode is activated by default if the machine meets the following requirements:
 
-- **Linux (x86-64 architecture)** - usually Intel or AMD
-- **Enabled `seccomp`** - this kernel feature facilitates a more secure approach for process management on Linux. Verify by running:
+- **Linux (x86-64 architecture)**: Usually Intel or AMD.
+- **Enabled `seccomp`**: This kernel feature facilitates a more secure approach for process management on Linux. Verify by running.
 
     ```bash
     cat /boot/config-`uname -r` | grep CONFIG_SECCOMP=
@@ -550,24 +550,24 @@ Polkadot's Secure-Validator mode offers an extra layer of protection through str
 
 Follow these best practices to keep your validator secure:
 
-- Use a non-root user for all operations
-- Regularly apply OS security patches
-- Enable and configure a firewall
-- Use key-based SSH authentication; deactivate password-based login
-- Regularly back up data and harden your SSH configuration. Visit this [SSH guide](https://blog.stribik.technology/2015/01/04/secure-secure-shell.html){target=\_blank} for more details
+- Use a non-root user for all operations.
+- Regularly apply OS security patches.
+- Enable and configure a firewall.
+- Use key-based SSH authentication; deactivate password-based login.
+- Regularly back up data and harden your SSH configuration. Visit this [SSH guide](https://blog.stribik.technology/2015/01/04/secure-secure-shell.html){target=\_blank} for more details.
 
 ### Validator Best Practices
 
 Additional best practices can add an additional layer of security and operational reliability:
 
-- Only run the Polkadot binary, and only listen on the configured p2p port
-- Run on bare-metal machines, as opposed to virtual machines
-- Provisioning of the validator machine should be automated and defined in code which is kept in private version control, reviewed, audited, and tested
-- Generate and provide session keys in a secure way
-- Start Polkadot at boot and restart if stopped for any reason
-- Run Polkadot as a non-root user
-- Establish and maintain an on-call rotation for managing alerts
-- Establish and maintain a clear protocol with actions to perform for each level of each alert with an escalation policy
+- Only run the Polkadot binary, and only listen on the configured p2p port.
+- Run on bare-metal machines, as opposed to virtual machines.
+- Provisioning of the validator machine should be automated and defined in code which is kept in private version control, reviewed, audited, and tested.
+- Generate and provide session keys in a secure way.
+- Start Polkadot at boot and restart if stopped for any reason.
+- Run Polkadot as a non-root user.
+- Establish and maintain an on-call rotation for managing alerts.
+- Establish and maintain a clear protocol with actions to perform for each level of each alert with an escalation policy.
 
 ## Additional Resources
 

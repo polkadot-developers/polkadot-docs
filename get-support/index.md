@@ -29,8 +29,6 @@ Whether you're building something new, integrating into the ecosystem, or runnin
 
 ## What you can do here
 
-## What you can do here
-
 - 📨 [**Get In Touch**](./get-in-touch)  
   Reach out to the Polkadot support team and community via Telegram, Matrix, or Discord.  
   Ask technical questions, report blockers, or share feedback — and get a human response.

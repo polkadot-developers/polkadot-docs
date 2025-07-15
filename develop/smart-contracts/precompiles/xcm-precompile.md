@@ -8,7 +8,7 @@ categories: Smart Contracts
 
 ## Introduction
 
-The XCM (Cross-Consensus Message) precompile enables Polkadot Hub developers to access XCM functionality directly from their smart contracts, sending cross-chain messages, executing XCM instructions locally, and estimating execution costs—all through a standardized Solidity interface.
+The [XCM (Cross-Consensus Message)](/develop/interoperability/intro-to-xcm){target=\_blank} precompile enables Polkadot Hub developers to access XCM functionality directly from their smart contracts, sending cross-chain messages, executing XCM instructions locally, and estimating execution costs—all through a standardized Solidity interface.
 
 Located at the fixed address `0x00000000000000000000000000000000000a0000`, the XCM precompile offers three primary functions: 
 

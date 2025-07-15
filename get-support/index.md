@@ -27,7 +27,7 @@ This Support Hub is here to help you move forward — faster.
 
 Whether you're building something new, integrating into the ecosystem, or running into blockers — **don't stay stuck**.
 
-## What you can do here
+## What You can do Here
 
 - 📨 [**Get In Touch**](./get-in-touch)  
   Reach out to the Polkadot support team and community via Telegram, Matrix, or Discord.  

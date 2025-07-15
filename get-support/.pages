@@ -1,5 +1,5 @@
 title: Get Support
 nav:
   - index.md
-  - get-in-touch
-  - explore-resources
+  - 'Get In Touch Directly': get-in-touch.md
+  - 'Explore More Resources': explore-resources.md

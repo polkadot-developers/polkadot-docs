@@ -84,7 +84,7 @@ The `execute` function runs an XCM message locally using the caller's origin. Th
 Follow these steps to execute a message:
 
 1. Call `callWeighMessage` with your XCM message to get the required weight.
-2. Use the returned weight values when calling `callXcmExecute`
+2. Use the returned weight values when calling `callXcmExecute`.
 3. Pass the same XCM message bytes and the weight obtained from the previous step. For example, using the same message from the weighing example, you would call `callXcmExecute` with:
 
     - `message`: The encoded XCM message bytes.

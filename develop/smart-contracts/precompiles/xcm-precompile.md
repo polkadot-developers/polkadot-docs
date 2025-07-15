@@ -140,5 +140,6 @@ By building and executing XCM programs, developers can build cross-chain applica
 
 ## Next steps
 
-Head to the Polkadot Hub testnet and start playing around with the precompile using Hardhat or Foundry.
+Head to the Polkadot Hub TestNet and start playing around with the precompile using Hardhat or Foundry.
+
 You can use PAPI to build XCM programs and test them with chopsticks.

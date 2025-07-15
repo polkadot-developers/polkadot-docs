@@ -10,9 +10,9 @@ tutorial_badge: Beginner
 
 Chopsticks is an innovative tool that simplifies the process of forking live Polkadot SDK chains. This guide provides step-by-step instructions to configure and fork chains, enabling developers to:
 
-- Replay blocks for state analysis
-- Test cross-chain messaging (XCM)
-- Simulate blockchain environments for debugging and experimentation
+- Replay blocks for state analysis.
+- Test cross-chain messaging (XCM).
+- Simulate blockchain environments for debugging and experimentation.
 
 With support for both configuration files and CLI commands, Chopsticks offers flexibility for diverse development workflows. Whether you're testing locally or exploring complex blockchain scenarios, Chopsticks empowers developers to gain deeper insights and accelerate application development.
 
@@ -24,8 +24,8 @@ For additional support and information, please reach out through [GitHub Issues]
 
 To follow this tutorial, ensure you have completed the following:
 
-- **Installed Chopsticks** - if you still need to do so, see the [Install Chopsticks](/develop/toolkit/parachains/fork-chains/chopsticks/get-started/#install-chopsticks){target=\_blank} guide for assistance
-- **Reviewed** [**Configure Chopsticks**](/develop/toolkit/parachains/fork-chains/chopsticks/get-started/#configure-chopsticks){target=\_blank} - and understand how forked chains are configured
+- **Installed Chopsticks**: If you still need to do so, see the [Install Chopsticks](/develop/toolkit/parachains/fork-chains/chopsticks/get-started/#install-chopsticks){target=\_blank} guide for assistance.
+- **Reviewed** [Configure Chopsticks](/develop/toolkit/parachains/fork-chains/chopsticks/get-started/#configure-chopsticks){target=\_blank}: And understand how forked chains are configured.
 
 ## Configuration File 
 
@@ -84,14 +84,14 @@ You can interact with the forked chain using various [libraries](/develop/toolki
 
 To interact with Chopsticks via the hosted user interface, visit [Polkadot.js Apps](https://polkadot.js.org/apps/#/explorer){target=\_blank} and follow these steps:
 
-1. Select the network icon in the top left corner
+1. Select the network icon in the top left corner.
 
     ![](/images/tutorials/polkadot-sdk/testing/fork-live-chains/chopsticks-1.webp)
 
-2. Scroll to the bottom and select **Development**
-3. Choose **Custom**
-4. Enter `ws://localhost:8000` in the input field
-5. Select the **Switch** button
+2. Scroll to the bottom and select **Development**.
+3. Choose **Custom**.
+4. Enter `ws://localhost:8000` in the input field.
+5. Select the **Switch** button.
 
     ![](/images/tutorials/polkadot-sdk/testing/fork-live-chains/chopsticks-2.webp)
 
@@ -109,9 +109,9 @@ For programmatic interaction, you can use the Polkadot.js library. The following
 
 Chopsticks allows you to replay specific blocks from a chain, which is useful for debugging and analyzing state changes. You can use the parameters in the [Configuration](/develop/toolkit/parachains/fork-chains/chopsticks/get-started/#configure-chopsticks){target=\_blank} section to set up the chain configuration, and then use the run-block subcommand with the following additional options:
 
-- `output-path` - path to print output
-- `html` - generate HTML with storage diff
-- `open` - open generated HTML
+- **`output-path`**: Path to print output.
+- **`html`**: Generate HTML with storage diff.
+- **`open`**: Open generated HTML.
 
 For example, the command to replay block 1000 from Polkadot and save the output to a JSON file would be as follows:
 
@@ -132,8 +132,8 @@ npx @acala-network/chopsticks run-block  \
 
 To test XCM (Cross-Consensus Messaging) messages between networks, you can fork multiple parachains and a relay chain locally using Chopsticks.
 
-- `relaychain` - relay chain config file
-- `parachain` - parachain config file  
+- **`relaychain`**: Relay chain config file.
+- **`parachain`**: Parachain config file.
 
 For example, to fork Moonbeam, Astar, and Polkadot enabling XCM between them, you can use the following command:
 

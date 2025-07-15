@@ -18,8 +18,8 @@ XCM provides a secure and trustless framework that facilitates communication bet
 
 Learn to establish and use cross-chain communication channels:
 
-- **[Opening HRMP Channels Between Parachains](/tutorials/interoperability/xcm-channels/para-to-para/)** - set up uni- and bidirectional messaging channels between parachains
-- **[Opening HRMP Channels with System Parachains](/tutorials/interoperability/xcm-channels/para-to-system/)** - establish communication channels with system parachains using optimized XCM messages
+- **[Opening HRMP Channels Between Parachains](/tutorials/interoperability/xcm-channels/para-to-para/)**: Set up uni- and bidirectional messaging channels between parachains.
+- **[Opening HRMP Channels with System Parachains](/tutorials/interoperability/xcm-channels/para-to-system/)**: Establish communication channels with system parachains using optimized XCM messages.
 
 ## In This Section
 

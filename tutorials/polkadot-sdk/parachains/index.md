@@ -16,11 +16,11 @@ Dive deep into parachain development with this comprehensive tutorial series des
 
 Through these tutorials, you'll gain practical experience with:
 
-- Setting up blockchain development environments
-- Creating custom runtime logic
-- Implementing and testing pallets
-- Deploying parachains to test networks
-- Understanding Polkadot ecosystem concepts
+- Setting up blockchain development environments.
+- Creating custom runtime logic.
+- Implementing and testing pallets.
+- Deploying parachains to test networks.
+- Understanding Polkadot ecosystem concepts.
 
 Each tutorial builds upon previous concepts while providing flexibility to focus on your specific development goals.
 

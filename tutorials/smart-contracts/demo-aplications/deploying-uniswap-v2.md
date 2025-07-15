@@ -17,11 +17,11 @@ This tutorial will guide you through how Uniswap V2 works so you can take advant
 
 Before starting, make sure you have:
 
-- Node.js (v16.0.0 or later) and npm installed
-- Basic understanding of Solidity and JavaScript
-- Familiarity with [`hardhat-polkadot`](/develop/smart-contracts/dev-environments/hardhat){target=\_blank} development environment
-- Some PAS test tokens to cover transaction fees (obtained from the [Polkadot faucet](https://faucet.polkadot.io/?parachain=1111){target=\_blank})
-- Basic understanding of how AMMs and liquidity pools work
+- Node.js (v16.0.0 or later) and npm installed.
+- Basic understanding of Solidity and JavaScript.
+- Familiarity with [`hardhat-polkadot`](/develop/smart-contracts/dev-environments/hardhat){target=\_blank} development environment.
+- Some PAS test tokens to cover transaction fees (obtained from the [Polkadot faucet](https://faucet.polkadot.io/?parachain=1111){target=\_blank}).
+- Basic understanding of how AMMs and liquidity pools work.
 
 ## Set Up the Project
 
@@ -40,7 +40,7 @@ Let's start by cloning the Uniswap V2 project:
     npm install
     ```
 
-3. Update the `hardhat.config.js` file so the paths for the Substrate node and the ETH-RPC adapter match with the paths on your machine. For more info, check the [Testing your Contract](/develop/smart-contracts/dev-environments/hardhat/#testing-your-contract){target=\_blank} section in the Hardhat guide
+3. Update the `hardhat.config.js` file so the paths for the Substrate node and the ETH-RPC adapter match with the paths on your machine. For more info, check the [Testing your Contract](/develop/smart-contracts/dev-environments/hardhat/#testing-your-contract){target=\_blank} section in the Hardhat guide.
 
     ```js title="hardhat.config.js"
     hardhat: {
@@ -87,8 +87,8 @@ Before interacting with the contracts, it's essential to understand the core arc
 
 At the heart of Uniswap V2 lies a simple but powerful system composed of two major smart contracts:
 
-- **Factory Contract** - the factory acts as a registry and creator of new trading pairs. When two ERC-20 tokens are to be traded, the Factory contract is responsible for generating a new Pair contract that will manage that specific token pair’s liquidity pool. It keeps track of all deployed pairs and ensures uniqueness—no duplicate pools can exist for the same token combination
-- **Pair Contract** - each pair contract is a decentralized liquidity pool that holds reserves of two ERC-20 tokens. These contracts implement the core logic of the AMM, maintaining a constant product invariant (x \* y = k) to facilitate swaps and price determination. Users can contribute tokens to these pools in return for LP (liquidity provider) tokens, which represent their proportional share of the reserves
+- **Factory contract**: The factory acts as a registry and creator of new trading pairs. When two ERC-20 tokens are to be traded, the Factory contract is responsible for generating a new Pair contract that will manage that specific token pair’s liquidity pool. It keeps track of all deployed pairs and ensures uniqueness—no duplicate pools can exist for the same token combination.
+- **Pair contract**: Each pair contract is a decentralized liquidity pool that holds reserves of two ERC-20 tokens. These contracts implement the core logic of the AMM, maintaining a constant product invariant (x \* y = k) to facilitate swaps and price determination. Users can contribute tokens to these pools in return for LP (liquidity provider) tokens, which represent their proportional share of the reserves.
 
 This minimal architecture enables Uniswap to be highly modular, trustless, and extensible. By distributing responsibilities across these components, developers, and users can engage with the protocol in a composable and predictable manner, making it an ideal foundation for DEX functionality across ecosystems, including Polkadot Hub.
 
@@ -183,10 +183,10 @@ This tutorial guided you through deploying Uniswap V2 contracts to Polkadot Hub.
 
 By following this guide, you've gained practical experience with:
 
-- Setting up a Hardhat project for deploying to Polkadot Hub
-- Understanding the Uniswap V2 architecture
-- Testing Uniswap V2 contracts in a local environment
-- Deploying contracts to both local and testnet environments
+- Setting up a Hardhat project for deploying to Polkadot Hub.
+- Understanding the Uniswap V2 architecture.
+- Testing Uniswap V2 contracts in a local environment.
+- Deploying contracts to both local and testnet environments.
 
 To build on this foundation, you could extend this project by implementing functionality to create liquidity pools, execute token swaps, and build a user interface for interacting with your deployment.
 

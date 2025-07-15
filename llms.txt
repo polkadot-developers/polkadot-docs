@@ -12484,7 +12484,6 @@ Connecting a compatible wallet is the first essential step for interacting with 
 
 ## Connect Your Wallet
 
-
 ### MetaMask
 
 [MetaMask](https://metamask.io/){target=\_blank} is a popular wallet for interacting with Ethereum-compatible chains. It allows users to connect to test networks that support Ethereum-based smart contracts. However, it's important to emphasize that MetaMask primarily facilitates interactions with smart contracts, giving users access to various chain functionalities. 

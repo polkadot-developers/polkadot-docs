@@ -14077,57 +14077,54 @@ description: Understand how to construct, sign, and broadcast transactions in th
 
 ## Introduction
 
-This page will discuss the transaction format in Polkadot and how to create, sign, and broadcast
-transactions. Like the other pages in this guide, this page demonstrates some of the available
-tools. 
+This page will discuss the transaction format in Polkadot and how to create, sign, and broadcast transactions. Like the other pages in this guide, this page demonstrates some of the available tools. 
 
 **Always refer to each tool's documentation when integrating.**
 
-!!!note "Complementary Reading"
-    Learn about the basics of [blocks, transactions, and fees](/polkadot-protocol/parachain-basics/blocks-transactions-fees/).
+For further reading, refer to [blocks, transactions, and fees](/polkadot-protocol/parachain-basics/blocks-transactions-fees/){target=\_blank} to learn more about the basics.
 
 ## Transaction Format
 
 Polkadot has some basic transaction information that is common to all transactions.
 
-- Address: The SS58-encoded address of the sending account.
-- Block Hash: The hash of the [checkpoint](/polkadot-protocol/parachain-basics/blocks-transactions-fees/transactions/#transaction-mortality) block.
+- Address: The [SS58-encoded address](/polkadot-protocol/glossary/#ss58-address-format){target=\_blank} of the sending account.
+- Block Hash: The hash of the [checkpoint](/polkadot-protocol/parachain-basics/blocks-transactions-fees/transactions/#transaction-mortality){target=\_blank} block.
 - Block Number: The number of the checkpoint block.
 - Genesis Hash: The genesis hash of the chain.
 - Metadata: The SCALE-encoded metadata for the runtime when submitted.
-- Nonce: The nonce for this transaction.\*
+- Nonce: The nonce for this transaction.
 - Spec Version: The current spec version for the runtime.
 - Transaction Version: The current version for transaction format.
-- Tip: Optional, the [tip](https://docs.polkadot.com/polkadot-protocol/parachain-basics/blocks-transactions-fees/fees/#how-fees-are-calculated) to increase transaction priority.
+- Tip: Optional, the [tip](https://docs.polkadot.com/polkadot-protocol/parachain-basics/blocks-transactions-fees/fees/#how-fees-are-calculated){target=\_blank} to increase transaction priority.
 - Mode: The flag indicating whether to verify the metadata hash or not.
 - Era Period: Optional, the number of blocks after the checkpoint for which a transaction is valid.
-  If zero, the transaction is [immortal](/polkadot-protocol/parachain-basics/blocks-transactions-fees/transactions/#transaction-mortality)
+  If zero, the transaction is [immortal](/polkadot-protocol/parachain-basics/blocks-transactions-fees/transactions/#transaction-mortality){target=\_blank}
 - MetadataHash: Optional, the metadata hash which should match the RUNTIME_METADATA_HASH environment
   variable.
 
 !!!warning
-    There are risks to making a transaction immortal. If an account is reaped and a user re-funds the
+    There are risks to making a transaction immortal. If an account is reaped and a user re-funds the 
     account, then they could replay an immortal transaction. Always default to using a mortal extrinsic.
-
-The nonce queried from the System module does not account for pending transactions. You must track
+    
+The nonce queried from the System module does not account for pending transactions. You must track 
 and increment the nonce manually if you want to submit multiple valid transactions at the same time.
 
-Each transaction will have its own (or no) parameters to add. For example, the `transferKeepAlive`
+Each transaction will have its own (or no) parameters to add. For example, the [`transferKeepAlive`](https://paritytech.github.io/polkadot-sdk/master/pallet_balances/pallet/enum.Call.html#variant.transfer_keep_alive){target=\_blank} 
 function from the Balances pallet will take:
 
 - `dest`: Destination address
 - `#[compact] value`: Number of tokens (compact encoding)
 
-Refer to [the protocol specifications](https://spec.polkadot.network/id-extrinsics), for the
+Refer to [the protocol specifications](https://spec.polkadot.network/id-extrinsics){target=\_blank}, for the
 concrete specifications and types to build a transaction.
 
 **Mode and MetadataHash**
 
 The mode and metadataHash fields were introduced in transaction construction to support the optional
-[`CheckMetadataHash` Signed Extension](https://github.com/polkadot-fellows/RFCs/blob/main/text/0078-merkleized-metadata.md).
+[`CheckMetadataHash` Signed Extension](https://github.com/polkadot-fellows/RFCs/blob/main/text/0078-merkleized-metadata.md){target=\_blank}.
 This enables trustless metadata verification by allowing the chain to verify the correctness of the
 metadata used without the need of a trusted party. This functionality was included in
-[v1.2.5](https://github.com/polkadot-fellows/runtimes/releases/tag/v1.2.5) runtime release by the
+[v1.2.5](https://github.com/polkadot-fellows/runtimes/releases/tag/v1.2.5){target=\_blank} runtime release by the
 Fellowship. A user may opt out of this functionality by setting the mode to `0`. When the mode is 00,
 the `metadataHash` field is empty/None.
 
@@ -14138,7 +14135,7 @@ SCALE-encoded bytes. The relay chain runtimes are upgradable and therefore any i
 subject to change, the metadata allows developers to structure any extrinsics or storage entries
 accordingly. The metadata provides you with all of the information required to know how to construct
 the serialized call data specific to your transaction. You can read more about the metadata, its
-format and how to get it in the [Subxt documentation](/polkadot-protocol/parachain-basics/chain-data/#use-subxt).
+format and how to get it in the [Subxt documentation](/polkadot-protocol/parachain-basics/chain-data/#use-subxt){target=\_blank}.
 
 **Transaction Flow**
 
@@ -14154,7 +14151,7 @@ Parity provides the following tools to help perform these steps.
 
 ## Polkadot-JS Tools
 
-[Polkadot-JS Tools](https://github.com/polkadot-js/tools) contains a set of command line tools for
+[Polkadot-JS Tools](https://github.com/polkadot-js/tools){target=\_blank} contains a set of command line tools for
 interacting with a Substrate client, including one called "Signer CLI" to create, sign, and
 broadcast transactions.
 
@@ -14193,10 +14190,10 @@ signature field, and send the transaction (or just return the serialized transac
 ## TxWrapper
 
 If you do not want to use the CLI for signing operations, Parity provides an SDK called
-[TxWrapper Core](https://github.com/paritytech/txwrapper-core) to generate and sign transactions
+[TxWrapper Core](https://github.com/paritytech/txwrapper-core){target=\_blank} to generate and sign transactions
 offline. For Polkadot, Kusama, and select parachains, use the `txwrapper-polkadot` package. Other
 Substrate-based chains will have their own `txwrapper-{chain}` implementations. See the
-[examples](https://github.com/paritytech/txwrapper-core/blob/main/packages/txwrapper-examples/README.md)
+[examples](https://github.com/paritytech/txwrapper-core/blob/main/packages/txwrapper-examples/README.md){target=\_blank}
 for a guide.
 
 **Import a private key**
@@ -14297,15 +14294,15 @@ const txHash = getTxHash(signedTx);
 There are several ways to submit a signed payload:
 
 1. Signer CLI (`yarn run:signer submit --tx <signed-transaction> --ws <endpoint>`)
-1. [Substrate API Sidecar](https://docs.polkadot.com/develop/toolkit/api-libraries/sidecar/#sidecar-api)
-1. [RPC](https://docs.polkadot.com/develop/toolkit/api-libraries/) with `author_submitExtrinsic` or
+1. [Substrate API Sidecar](https://docs.polkadot.com/develop/toolkit/api-libraries/sidecar/#sidecar-api){target=\_blank}
+1. [RPC](https://docs.polkadot.com/develop/toolkit/api-libraries/){target=\_blank} with `author_submitExtrinsic` or
    `author_submitAndWatchExtrinsic`, the latter of which will subscribe you to events to be notified
    as a transaction gets validated and included in the chain.
 
 ## Example Addresses
 
 Some addresses to use in the examples. See
-[Subkey documentation](https://docs.polkadot.com/polkadot-protocol/basics/accounts/#using-subkey).
+[Subkey documentation](https://docs.polkadot.com/polkadot-protocol/basics/accounts/#using-subkey){target=\_blank}.
 
 ```bash
 $ subkey --network polkadot generate

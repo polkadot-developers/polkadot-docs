@@ -12481,7 +12481,7 @@ The [XCM (Cross-Consensus Message)](/develop/interoperability/intro-to-xcm){targ
 Located at the fixed address `0x00000000000000000000000000000000000a0000`, the XCM precompile offers three primary functions: 
 
 - **`execute`**:  for local XCM execution
--**`send`**:  for cross-chain message transmission
+- **`send`**:  for cross-chain message transmission
 - **`weighMessage`**: for cost estimation 
 
 This guide demonstrates how to interact with the XCM precompile through Solidity smart contracts using [Remix IDE](/develop/smart-contracts/dev-environments/remix.md){target=\_blank}.
@@ -12534,13 +12534,18 @@ interface IXcm {
 }
 ```
 
-The interface defines a `Weight` struct that represents the computational cost of XCM operations. Weight has two components: `refTime` (computational time on reference hardware) and `proofSize` (the size of the proof required for execution). All XCM messages must be encoded using the [SCALE codec](/polkadot-protocol/parachain-basics/data-encoding/#data-encoding){target=\_blank}, Polkadot's standard serialization format.
+The interface defines a `Weight` struct that represents the computational cost of XCM operations. Weight has two components: 
+
+- **`refTime`**: computational time on reference hardware 
+- **`proofSize`**: the size of the proof required for execution 
+
+All XCM messages must be encoded using the [SCALE codec](/polkadot-protocol/parachain-basics/data-encoding/#data-encoding){target=\_blank}, Polkadot's standard serialization format.
 
 For further information, check the [`precompiles/IXCM.sol`](https://github.com/paritytech/polkadot-sdk/blob/cb629d46ebf00aa65624013a61f9c69ebf02b0b4/polkadot/xcm/pallet-xcm/src/precompiles/IXcm.sol){target=\_blank} file present in the `pallet-xcm`.
 
 ## Interact with the XCM Precompile
 
-To interact with the XCM precompile, you can use the precompile interface directly in Remix IDE:
+To interact with the XCM precompile, you can use the precompile interface directly in [Remix IDE](/develop/smart-contracts/dev-environments/remix.md){target=\_blank}:
 
 1. Create a new file called `IXcm.sol` in Remix.
 2. Copy and paste the `IXcm` interface code into the file.
@@ -12548,15 +12553,15 @@ To interact with the XCM precompile, you can use the precompile interface direct
 
     ![](/images/develop/smart-contracts/precompiles/xcm-precompile/xcm-precompile-01.webp)
 
-4. In the Deploy & Run Transactions tab, select the `IXcm` interface from the contract dropdown.
+4. In the **Deploy & Run Transactions** tab, select the `IXcm` interface from the contract dropdown.
 5. Enter the precompile address `0x00000000000000000000000000000000000a0000` in the **At Address** input field.
-6. Click "At Address" to connect to the precompile.
+6. Select the **At Address** button to connect to the precompile.
 
     ![](/images/develop/smart-contracts/precompiles/xcm-precompile/xcm-precompile-02.webp)
 
-Once connected, you can directly interact with the XCM precompile's functions (`execute`, `send`, and `weighMessage`) through the Remix interface.
+7. Once connected, you can use the Remix interface to interact with the XCM precompile's  `execute`, `send`, and `weighMessage` functions.
 
-![](/images/develop/smart-contracts/precompiles/xcm-precompile/xcm-precompile-03.webp)
+    ![](/images/develop/smart-contracts/precompiles/xcm-precompile/xcm-precompile-03.webp)
 
 ### Weigh a Message
 
@@ -12583,7 +12588,7 @@ The function returns a `Weight` struct containing `refTime` and `proofSize` valu
 ![](/images/develop/smart-contracts/precompiles/xcm-precompile/xcm-precompile-05.webp)
 
 !!!note
-    For example, to interact with Polkadot Hub TestNet, you can check this [gist](https://gist.github.com/franciscoaguirre/a6dea0c55e81faba65bedf700033a1a2){target=\_blank}, which provides examples of how to craft XCM messages for different purposes.
+    To interact with Polkadot Hub TestNet, visit this [gist](https://gist.github.com/franciscoaguirre/a6dea0c55e81faba65bedf700033a1a2){target=\_blank}, which provides examples of how to craft XCM messages for different purposes.
 
 ### Execute a Message
 
@@ -12608,7 +12613,7 @@ Follow these steps to execute a message:
 
     ![](/images/develop/smart-contracts/precompiles/xcm-precompile/xcm-precompile-07.webp)
 
-Additionally, you can verify that the execution of this specific message was successful by checking that the beneficiary account associated with the xcm message has received the funds accordingly.
+Additionally, you can verify that the execution of this specific message was successful by checking that the beneficiary account associated with the XCM message has received the funds accordingly.
 
 ### Send a Message
 

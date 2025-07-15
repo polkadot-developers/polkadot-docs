@@ -6,7 +6,7 @@ hide:
   - footer
 ---
 
-# Ask the community and explore resources
+# Ask the Community and Explore Resources
 
 Looking for answers beyond the documentation?  
 These platforms are full of useful content and experienced developers sharing insights.

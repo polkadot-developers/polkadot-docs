@@ -1,5 +1,5 @@
 ---
-title: Get support
+title: Get Support
 description: Start here to get developer support for Polkadot. Connect with the team, find help, and explore resources beyond the documentation.
 template: index-page.html
 hide:

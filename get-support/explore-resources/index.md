@@ -23,7 +23,7 @@ These platforms are full of useful content and experienced developers sharing in
 - General Polkadot discussions and community perspectives.
 - Developer questions are welcome — just tag them appropriately.
 
-👉 **[Visit r/Polkadot](https://www.reddit.com/r/Polkadot/)**
+👉 **[Visit r/Polkadot](https://www.reddit.com/r/Polkadot/){target=\_blank}**
 
 ## 💬 Discord (Community Threads Only)
 

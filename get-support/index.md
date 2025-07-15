@@ -40,7 +40,7 @@ Whether you're building something new, integrating into the ecosystem, or runnin
 This hub is evolving. More support tools and shortcuts are on the way —  
 including better onboarding, CLI helpers, dev environments, and live feedback channels.
 
-## Help us improve
+## Help us Improve
 
 If something’s missing, unclear, or broken — **tell us**.  
 Your feedback makes the whole ecosystem better for everyone.

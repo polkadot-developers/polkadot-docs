@@ -7,9 +7,7 @@ description: Understand how to construct, sign, and broadcast transactions in th
 
 ## Introduction
 
-This page will discuss the transaction format in Polkadot and how to create, sign, and broadcast
-transactions. Like the other pages in this guide, this page demonstrates some of the available
-tools. 
+This page will discuss the transaction format in Polkadot and how to create, sign, and broadcast transactions. Like the other pages in this guide, this page demonstrates some of the available tools. 
 
 **Always refer to each tool's documentation when integrating.**
 

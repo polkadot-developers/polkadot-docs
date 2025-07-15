@@ -17887,21 +17887,21 @@ These platforms are full of useful content and experienced developers sharing in
 - Browse commonly asked technical questions.
 - Ask your own and get detailed responses from experienced devs.
 
-👉 **[Visit Polkadot Stack Exchange](https://substrate.stackexchange.com/)**
+👉 **[Visit Polkadot Stack Exchange](https://substrate.stackexchange.com/){target=\_blank}**
 
 ## 🧵 Reddit: r/Polkadot
 
 - General Polkadot discussions and community perspectives.
 - Developer questions are welcome — just tag them appropriately.
 
-👉 **[Visit r/Polkadot](https://www.reddit.com/r/Polkadot/)**
+👉 **[Visit r/Polkadot](https://www.reddit.com/r/Polkadot/){target=\_blank}**
 
 ## 💬 Discord (Community Threads Only)
 
 - Beyond the official support threads, most channels are community-driven.
 - Great place to connect with fellow builders and share insights.
 
-👉 **[Join the Polkadot Discord](https://polkadot-discord.w3f.tools/)**
+👉 **[Join the Polkadot Discord](https://polkadot-discord.w3f.tools/){target=\_blank}**
 
 ## 🎥 YouTube: @PolkadotNetwork
 
@@ -17909,7 +17909,7 @@ These platforms are full of useful content and experienced developers sharing in
 - Ecosystem interviews
 - Event recordings and walkthroughs
 
-👉 **[Watch on YouTube](https://www.youtube.com/@PolkadotNetwork)**
+👉 **[Watch on YouTube](https://www.youtube.com/@PolkadotNetwork){target=\_blank}**
 
 ---
 
@@ -17919,31 +17919,31 @@ Stay in sync with what's happening across the Polkadot ecosystem — from offici
 
 ## 🔷 X (Twitter): Official Accounts
 
-- [@PolkadotDevs](https://twitter.com/PolkadotDevs) — updates for developers
-- [@Polkadot](https://twitter.com/Polkadot) — network-wide news
-- [@Kusamanetwork](https://twitter.com/kusamanetwork) — Kusama-specific updates
-- [@Web3Foundation](https://twitter.com/web3foundation) — grants, research, and ecosystem programs
+- [@PolkadotDevs](https://twitter.com/PolkadotDevs){target=\_blank} — updates for developers
+- [@Polkadot](https://twitter.com/Polkadot){target=\_blank} — network-wide news
+- [@Kusamanetwork](https://twitter.com/kusamanetwork){target=\_blank} — Kusama-specific updates
+- [@Web3Foundation](https://twitter.com/web3foundation){target=\_blank} — grants, research, and ecosystem programs
 
 ## 🔁 X (Twitter): Community Accounts
 
-- [@PolkadotDeploy](https://twitter.com/PolkadotDeploy) — news from the deployment portal and tooling updates
+- [@PolkadotDeploy](https://twitter.com/PolkadotDeploy){target=\_blank} — news from the deployment portal and tooling updates
 
 ## 🗣️ Polkadot Forum
 
 - Join community discussions around the direction of the ecosystem.
 
-👉 **[Visit Polkadot Forum](https://forum.polkadot.network/)**
+👉 **[Visit Polkadot Forum](https://forum.polkadot.network/){target=\_blank}**
 
 ## 🧑‍⚖️ Polkassembly: OpenGov
 
 - Explore and vote on governance proposals for Polkadot and Kusama.
 - Help shape the future of the network.
 
-👉 **[Explore on Polkassembly](https://polkadot.polkassembly.io/)**
+👉 **[Explore on Polkassembly](https://polkadot.polkassembly.io/){target=\_blank}**
 
 ## 📸 Instagram
 
-- [@Polkadotnetwork](https://www.instagram.com/polkadotnetwork) — visual highlights from the ecosystem  
+- **[@Polkadotnetwork](https://www.instagram.com/polkadotnetwork){target=\_blank}** — visual highlights from the ecosystem  
   _(Note: not developer-specific)_
 --- END CONTENT ---
 
@@ -17959,7 +17959,8 @@ hide:
 
 # Get in touch directly
 
-## Need help fast?  
+## Need help fast?
+  
 Use one of the channels below to get live technical support or ask questions.
 
 <div class="button-wrapper" style="display: flex; justify-content: flex-start;">
@@ -17982,7 +17983,7 @@ The fastest way to get support.
 - **Response time:** within **2 business days (usually faster)**
 - **Topics:** any developer-related question is welcome
 
-👉 **[Join Telegram](https://t.me/substratedevs)**
+👉 **[Join Telegram](https://t.me/substratedevs){target=\_blank}**
 
 ## 🔌 Discord: Polkadot Official Server
 
@@ -17995,7 +17996,7 @@ Focused support for smart contracts and general developer chat.
 - **Response time:** within **1 business day (usually faster)**
 - **Other topics:** community-led discussion only
 
-👉 **[Join Discord](https://polkadot-discord.w3f.tools/)**
+👉 **[Join Discord](https://polkadot-discord.w3f.tools/){target=\_blank}**
 
 ## 🧬 Matrix: Polkadot Developer Support
 
@@ -18006,11 +18007,12 @@ This is the **support channel** staffed by engineers from **Parity**, **Web3 Fou
 - **Topics:** full-spectrum developer support
 - Bridged with Telegram (all messages synced)
 
-👉 **[Join Matrix](https://matrix.to/#/#substratedevs:matrix.org)**
+👉 **[Join Matrix](https://matrix.to/#/#substratedevs:matrix.org){target=\_blank}**
 
 ---
 
 Not sure where to start?  
+
 **Join Telegram above** — let us know what you need, and we’ll help you get unstuck.
 --- END CONTENT ---
 

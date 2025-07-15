@@ -48,29 +48,29 @@ Stay in sync with what's happening across the Polkadot ecosystem — from offici
 
 ## 🔷 X (Twitter): Official Accounts
 
-- [@PolkadotDevs](https://twitter.com/PolkadotDevs) — updates for developers
-- [@Polkadot](https://twitter.com/Polkadot) — network-wide news
-- [@Kusamanetwork](https://twitter.com/kusamanetwork) — Kusama-specific updates
-- [@Web3Foundation](https://twitter.com/web3foundation) — grants, research, and ecosystem programs
+- [@PolkadotDevs](https://twitter.com/PolkadotDevs){target=\_blank} — updates for developers
+- [@Polkadot](https://twitter.com/Polkadot){target=\_blank} — network-wide news
+- [@Kusamanetwork](https://twitter.com/kusamanetwork){target=\_blank} — Kusama-specific updates
+- [@Web3Foundation](https://twitter.com/web3foundation){target=\_blank} — grants, research, and ecosystem programs
 
 ## 🔁 X (Twitter): Community Accounts
 
-- [@PolkadotDeploy](https://twitter.com/PolkadotDeploy) — news from the deployment portal and tooling updates
+- [@PolkadotDeploy](https://twitter.com/PolkadotDeploy){target=\_blank} — news from the deployment portal and tooling updates
 
 ## 🗣️ Polkadot Forum
 
 - Join community discussions around the direction of the ecosystem.
 
-👉 **[Visit Polkadot Forum](https://forum.polkadot.network/)**
+👉 **[Visit Polkadot Forum](https://forum.polkadot.network/){target=\_blank}**
 
 ## 🧑‍⚖️ Polkassembly: OpenGov
 
 - Explore and vote on governance proposals for Polkadot and Kusama.
 - Help shape the future of the network.
 
-👉 **[Explore on Polkassembly](https://polkadot.polkassembly.io/)**
+👉 **[Explore on Polkassembly](https://polkadot.polkassembly.io/){target=\_blank}**
 
 ## 📸 Instagram
 
-- [@Polkadotnetwork](https://www.instagram.com/polkadotnetwork) — visual highlights from the ecosystem  
+- **[@Polkadotnetwork](https://www.instagram.com/polkadotnetwork){target=\_blank}** — visual highlights from the ecosystem  
   _(Note: not developer-specific)_

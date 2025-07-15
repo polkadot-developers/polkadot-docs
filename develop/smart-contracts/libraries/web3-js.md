@@ -20,9 +20,9 @@ This guide is intended for developers who are familiar with JavaScript and want 
 
 Before getting started, ensure you have the following installed:
 
-- **Node.js** - v22.13.1 or later, check the [Node.js installation guide](https://nodejs.org/en/download/current/){target=\_blank}
-- **npm** - v6.13.4 or later (comes bundled with Node.js)
-- **Solidity** - this guide uses Solidity `^0.8.9` for smart contract development
+- **Node.js**: v22.13.1 or later, check the [Node.js installation guide](https://nodejs.org/en/download/current/){target=\_blank}.
+- **npm**: v6.13.4 or later (comes bundled with Node.js).
+- **Solidity**: This guide uses Solidity `^0.8.9` for smart contract development.
 
 ## Project Structure
 
@@ -78,9 +78,9 @@ For example, for the Polkadot Hub TestNet, use these specific connection paramet
 
 ```js
 const PROVIDER_RPC = {
-    rpc: 'https://testnet-passet-hub-eth-rpc.polkadot.io',
-    chainId: 420420422,
-    name: 'polkadot-hub-testnet'
+  rpc: 'https://testnet-passet-hub-eth-rpc.polkadot.io',
+  chainId: 420420422,
+  name: 'polkadot-hub-testnet'
 };
 ```
 With the Web3 provider set up, you can start querying the blockchain.
@@ -159,5 +159,5 @@ node updateStorage
 
 Now that you’ve learned how to use Web3.js with Polkadot Hub, explore more advanced topics:
 
-- Utilize Web3.js utilities – learn about additional [Web3.js](https://docs.web3js.org/){target=\_blank} features such as signing transactions, managing wallets, and subscribing to events
-- Build full-stack dApps – [integrate Web3.js](https://docs.web3js.org/guides/dapps/intermediate-dapp){target=\_blank} with different libraries and frameworks to build decentralized web applications
+- **Utilize Web3.js utilities**: Learn about additional [Web3.js](https://docs.web3js.org/){target=\_blank} features such as signing transactions, managing wallets, and subscribing to events.
+- **Build full-stack dApps**: [integrate Web3.js](https://docs.web3js.org/guides/dapps/intermediate-dapp){target=\_blank} with different libraries and frameworks to build decentralized web applications.

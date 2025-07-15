@@ -23,21 +23,21 @@ The [Polkadot.js Apps](https://polkadot.js.org/apps/){target=\_blank} interface 
 
 To prepare an account, follow these steps:
 
-1. Open the [Polkadot.js Apps](https://polkadot.js.org/apps/){target=\_blank} interface and connect to the Paseo network. Alternatively use this link to connect directly to Paseo: [Polkadot.js Apps: Paseo](https://polkadot.js.org/apps/?rpc=wss://paseo.dotters.network#/explorer){target=\_blank}
+1. Open the [Polkadot.js Apps: Paseo](https://polkadot.js.org/apps/?rpc=wss://paseo.dotters.network#/explorer){target=\_blank} interface and connect to the Paseo network. Alternatively use this link to connect directly to Paseo.
 
     ![](/images/tutorials/polkadot-sdk/parachains/zero-to-hero/deploy-to-testnet/deploy-to-testnet-1.webp)
 
-2. Navigate to the **Accounts** section
-    1. Click on the **Accounts** tab in the top menu
-    2. Select the **Accounts** option from the dropdown menu
+2. Navigate to the **Accounts** section:
+    1. Click on the **Accounts** tab in the top menu.
+    2. Select the **Accounts** option from the dropdown menu.
   
     ![](/images/tutorials/polkadot-sdk/parachains/zero-to-hero/deploy-to-testnet/deploy-to-testnet-2.webp)
 
-3. Copy the address of the account you want to use for the parachain deployment
+3. Copy the address of the account you want to use for the parachain deployment.
 
     ![](/images/tutorials/polkadot-sdk/parachains/zero-to-hero/deploy-to-testnet/deploy-to-testnet-3.webp)
 
-4. Visit the [Polkadot Faucet](https://faucet.polkadot.io){target=\_blank} and paste the copied address in the input field. Ensure that the network is set to Paseo and click on the **Get some PASs** button
+4. Visit the [Polkadot Faucet](https://faucet.polkadot.io){target=\_blank} and paste the copied address in the input field. Ensure that the network is set to Paseo and click on the **Get some PASs** button.
 
     ![](/images/tutorials/polkadot-sdk/parachains/zero-to-hero/deploy-to-testnet/deploy-to-testnet-4.webp)
 
@@ -49,25 +49,25 @@ You must reserve a parachain identifier (ID) before registering your parachain o
 
 To reserve a parachain identifier, follow these steps:
 
-1. Navigate to the **Parachains** section
-    1. Click on the **Network** tab in the top menu
-    2. Select the **Parachains** option from the dropdown menu
+1. Navigate to the **Parachains** section:
+    1. Click on the **Network** tab in the top menu.
+    2. Select the **Parachains** option from the dropdown menu.
 
     ![](/images/tutorials/polkadot-sdk/parachains/zero-to-hero/deploy-to-testnet/deploy-to-testnet-5.webp)
 
-2. Register a ParaId
-    1. Select the **Parathreads** tab
-    2. Click on the **+ ParaId** button
+2. Register a ParaId:
+    1. Select the **Parathreads** tab.
+    2. Click on the **+ ParaId** button.
 
     ![](/images/tutorials/polkadot-sdk/parachains/zero-to-hero/deploy-to-testnet/deploy-to-testnet-6.webp)
 
-3. Review the transaction and click on the **+ Submit** button
+3. Review the transaction and click on the **+ Submit** button.
 
     ![](/images/tutorials/polkadot-sdk/parachains/zero-to-hero/deploy-to-testnet/deploy-to-testnet-7.webp)
 
     For this case, the next available parachain identifier is `4508`.
 
-4. After submitting the transaction, you can navigate to the **Explorer** tab and check the list of recent events for successful `registrar.Reserved`
+4. After submitting the transaction, you can navigate to the **Explorer** tab and check the list of recent events for successful `registrar.Reserved`.
 
     ![](/images/tutorials/polkadot-sdk/parachains/zero-to-hero/deploy-to-testnet/deploy-to-testnet-8.webp)
 
@@ -75,9 +75,9 @@ To reserve a parachain identifier, follow these steps:
 
 To securely deploy your parachain, it is essential to generate custom keys specifically for your collators (block producers). You should generate two sets of keys for each collator:
 
-- **Account keys** - used to interact with the network and manage funds. These should be protected carefully and should never exist on the filesystem of the collator node
+- **Account keys**: Used to interact with the network and manage funds. These should be protected carefully and should never exist on the filesystem of the collator node.
 
-- **Session keys** - used in block production to identify your node and its blocks on the network. These keys are stored in the parachain keystore and function as disposable "hot wallet" keys. If these keys are leaked, someone could impersonate your node, which could result in the slashing of your funds. To minimize these risks, rotating your session keys frequently is essential. Treat them with the same level of caution as you would a hot wallet to ensure the security of your node
+- **Session keys**: Used in block production to identify your node and its blocks on the network. These keys are stored in the parachain keystore and function as disposable "hot wallet" keys. If these keys are leaked, someone could impersonate your node, which could result in the slashing of your funds. To minimize these risks, rotating your session keys frequently is essential. Treat them with the same level of caution as you would a hot wallet to ensure the security of your node.
 
 To perform this step, you can use [subkey](https://docs.rs/crate/subkey/latest){target=\_blank}, a command-line tool for generating and managing keys:
 
@@ -95,8 +95,8 @@ Ensure that this command is executed twice to generate the keys for both the acc
 
 Polkadot SDK-based blockchains are defined by a file called the [chain specification](/develop/parachains/deployment/generate-chain-specs/){target=\_blank}, or chain spec for short. There are two types of chain spec files:
 
-- **Plain chain spec** - a human-readable JSON file that can be modified to suit your parachain's requirements. It serves as a template for initial configuration and includes human-readable keys and structures
-- **Raw chain spec** - a binary-encoded file used to start your parachain node. This file is generated from the plain chain spec and contains the encoded information necessary for the parachain node to synchronize with the blockchain network. It ensures compatibility across different runtime versions by providing data in a format directly interpretable by the node's runtime, regardless of upgrades since the chain's genesis
+- **Plain chain spec**: A human-readable JSON file that can be modified to suit your parachain's requirements. It serves as a template for initial configuration and includes human-readable keys and structures.
+- **Raw chain spec**: A binary-encoded file used to start your parachain node. This file is generated from the plain chain spec and contains the encoded information necessary for the parachain node to synchronize with the blockchain network. It ensures compatibility across different runtime versions by providing data in a format directly interpretable by the node's runtime, regardless of upgrades since the chain's genesis.
 
 The chain spec file is only required during the initial blockchain creation (genesis). You do not need to generate a new chain spec when performing runtime upgrades after your chain is already running.
 
@@ -118,11 +118,11 @@ To define your chain specification:
 
 2. Edit the `plain_chain_spec.json` file:
 
-    - Update the `name`, `id`, and `protocolId` fields to unique values for your parachain
-    - Change `para_id` and `parachainInfo.parachainId` fields to the parachain ID you obtained previously. Make sure to use a number without quotes
-    - Modify the `balances` field to specify the initial balances for your accounts in SS58 format
-    - Insert the account IDs and session keys in SS58 format generated for your collators in the `collatorSelection.invulnerables` and `session.keys` fields
-    - Modify the `sudo` value to specify the account that will have sudo access to the parachain
+    - Update the `name`, `id`, and `protocolId` fields to unique values for your parachain.
+    - Change `para_id` and `parachainInfo.parachainId` fields to the parachain ID you obtained previously. Make sure to use a number without quotes.
+    - Modify the `balances` field to specify the initial balances for your accounts in SS58 format.
+    - Insert the account IDs and session keys in SS58 format generated for your collators in the `collatorSelection.invulnerables` and `session.keys` fields.
+    - Modify the `sudo` value to specify the account that will have sudo access to the parachain.
   
     ```json
     --8<-- 'code/tutorials/polkadot-sdk/parachains/zero-to-hero/deploy-to-testnet/chain_spec_placeholder.json'
@@ -136,7 +136,7 @@ To define your chain specification:
         --8<-- 'code/tutorials/polkadot-sdk/parachains/zero-to-hero/deploy-to-testnet/plain_chain_spec.json'
         ```
 
-3. Save your changes and close the plain text chain specification file
+3. Save your changes and close the plain text chain specification file.
 
 4. Convert the modified plain chain specification file to a raw chain specification file:
 
@@ -179,7 +179,7 @@ To prepare the parachain collator to be registered on Paseo, follow these steps:
 
 Once you have the genesis state and runtime, you can now register these with your parachain ID.
 
-1. Go to the [Parachains > Parathreads](https://polkadot.js.org/apps/#/parachains/parathreads){target=\_blank} tab, and select **+ Parathread**
+1. Go to the [Parachains > Parathreads](https://polkadot.js.org/apps/#/parachains/parathreads){target=\_blank} tab, and select **+ Parathread**.
    
 2. You should see fields to place your runtime Wasm and genesis state respectively, along with the parachain ID. Select your parachain ID, and upload `para-wasm` in the **code** field and `para-state` in the **initial state** field:
 
@@ -256,8 +256,8 @@ Once your collator is synced with the Paseo relay chain, and your parathread fin
 
 With your parachain collator operational, the next step is acquiring coretime. This is essential for ensuring your parachain's security through the relay chain. [Agile Coretime](https://wiki.polkadot.network/learn/learn-agile-coretime/){target=\_blank} enhances Polkadot's resource management, offering developers greater economic adaptability. Once you have configured your parachain, you can follow two paths:
 
-- Bulk coretime is purchased via the Broker pallet on the respective coretime system parachain. You can purchase bulk coretime on the coretime chain and assign the purchased core to the registered `ParaID`
-- On-demand coretime is ordered via the `OnDemandAssignment` pallet, which is located on the respective relay chain
+- Bulk coretime is purchased via the Broker pallet on the respective coretime system parachain. You can purchase bulk coretime on the coretime chain and assign the purchased core to the registered `ParaID`.
+- On-demand coretime is ordered via the `OnDemandAssignment` pallet, which is located on the respective relay chain.
 
 Once coretime is correctly assigned to your parachain, whether bulk or on-demand, blocks should be produced (provided your collator is running).
 

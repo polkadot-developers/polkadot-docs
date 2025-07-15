@@ -34,7 +34,7 @@ Update the runtime's `Cargo.toml` file to include the utility pallet and your cu
     --8<-- 'code/tutorials/polkadot-sdk/parachains/zero-to-hero/runtime/Cargo.toml:74:76'
     ```
 
-3. Save the changes and close the `Cargo.toml` file
+3. Save the changes and close the `Cargo.toml` file.
 
 ### Update the Runtime Configuration
 

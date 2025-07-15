@@ -175,30 +175,30 @@ If you can see the following elements, it means that you are ready to submit the
 
 You can submit a runtime upgrade using the [Sudo pallet](https://paritytech.github.io/polkadot-sdk/master/pallet_sudo/index.html){target=\_blank} (for development chains) or via on-chain governance (for production chains).
 
-1. Open [Polkadot.js Apps](https://polkadot.js.org/apps/){target=\_blank} and connect to your node
-2. Click on the **Developer** and select the **Extrinsics** option in the dropdown
+1. Open [Polkadot.js Apps](https://polkadot.js.org/apps/){target=\_blank} and connect to your node.
+2. Click on the **Developer** and select the **Extrinsics** option in the dropdown.
 
     ![](/images/tutorials/polkadot-sdk/parachains/zero-to-hero/runtime-upgrade/runtime-upgrade-02.webp) 
 
 3. Prepare the **sudo** call:
-    1. Select the **sudo** pallet
-    2. Select the **sudo(call)** extrinsic from the list
+    1. Select the **sudo** pallet.
+    2. Select the **sudo(call)** extrinsic from the list.
 
         ![](/images/tutorials/polkadot-sdk/parachains/zero-to-hero/runtime-upgrade/runtime-upgrade-03.webp) 
 
 4. In the **sudo** call:
-    1. Select the **system** call
-    2. Select **setCode** extrinsic from the list
+    1. Select the **system** call.
+    2. Select **setCode** extrinsic from the list.
 
         ![](/images/tutorials/polkadot-sdk/parachains/zero-to-hero/runtime-upgrade/runtime-upgrade-04.webp) 
 
 5. For the `code` parameter, click **file upload** and select your WASM runtime file:
-    - Use `parachain_template_runtime.compact.compressed.wasm` if available (smaller file)
-    - Otherwise, use `parachain_template_runtime.wasm`
+    - Use `parachain_template_runtime.compact.compressed.wasm` if available (smaller file).
+    - Otherwise, use `parachain_template_runtime.wasm`.
 
         ![](/images/tutorials/polkadot-sdk/parachains/zero-to-hero/runtime-upgrade/runtime-upgrade-05.webp) 
 
-6. Click **Submit Transaction** and sign the transaction with the sudo key
+6. Click **Submit Transaction** and sign the transaction with the sudo key.
 
     ![](/images/tutorials/polkadot-sdk/parachains/zero-to-hero/runtime-upgrade/runtime-upgrade-06.webp) 
 
@@ -211,39 +211,39 @@ After the runtime upgrade extrinsic is included in a block, verify that the upgr
 
 ### Check Runtime Version
 
-1. In Polkadot.js Apps, navigate to the **Chain State** section
-    1. Click the **Developer** dropdown
-    2. Click the **Chain State** option
+1. In Polkadot.js Apps, navigate to the **Chain State** section:
+    1. Click the **Developer** dropdown.
+    2. Click the **Chain State** option.
 
         ![](/images/tutorials/polkadot-sdk/parachains/zero-to-hero/runtime-upgrade/runtime-upgrade-07.webp) 
 
-2. Query runtime spec version
-    1. Select the **System** pallet
-    2. Select the **lastRuntimeUpgrade()** query
+2. Query runtime spec version:
+    1. Select the **System** pallet.
+    2. Select the **lastRuntimeUpgrade()** query.
 
         ![](/images/tutorials/polkadot-sdk/parachains/zero-to-hero/runtime-upgrade/runtime-upgrade-08.webp) 
 
-3. Click the **+** button to query the current runtime version
+3. Click the **+** button to query the current runtime version.
 
     ![](/images/tutorials/polkadot-sdk/parachains/zero-to-hero/runtime-upgrade/runtime-upgrade-09.webp) 
 
-4. Verify that the `specVersion` matches your new runtime (should be `2` if you followed the example)
+4. Verify that the `specVersion` matches your new runtime (should be `2` if you followed the example).
 
     ![](/images/tutorials/polkadot-sdk/parachains/zero-to-hero/runtime-upgrade/runtime-upgrade-10.webp) 
 
 ### Test New Functionality
 
-1. Navigate to **Developer > Extrinsics**
-2. Select your custom pallet from the dropdown
-3. You should now see the new `resetCounter` function available
+1. Navigate to **Developer > Extrinsics**.
+2. Select your custom pallet from the dropdown.
+3. You should now see the new `resetCounter` function available.
 
     ![](/images/tutorials/polkadot-sdk/parachains/zero-to-hero/runtime-upgrade/runtime-upgrade-11.webp) 
 
 Now, you can test the new functionality:
 
-- First, increment the counter using your existing function
-- Then use the new reset function (note: you'll need sudo/root privileges)
-- Verify the counter value is reset to 0
+- First, increment the counter using your existing function.
+- Then use the new reset function (note: You'll need sudo/root privileges).
+- Verify the counter value is reset to 0.
 
 ## Where to Go Next
 

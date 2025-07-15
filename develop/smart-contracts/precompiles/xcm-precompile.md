@@ -47,7 +47,7 @@ Once connected, you can directly interact with the XCM precompile's functions (`
 
 The `weighMessage` function estimates the computational cost required to execute an XCM message. This is crucial for understanding the resources needed before actually executing or sending a message.
 
-To test this functionality in Remix, you can call `callWeighMessage` with a SCALE encoded XCM message. For example, for testing, you can use the following encoded XCM message:
+To test this functionality in Remix, you can call `callWeighMessage` with a SCALE-encoded XCM message. For example, for testing, you can use the following encoded XCM message:
 
 ```text title="encoded-xcm-message-example"
 0x050c000401000003008c86471301000003008c8647000d010101000000010100368e8759910dab756d344995f1d3c79374ca8f70066d3a709e48029f6bf0ee7e
@@ -61,7 +61,7 @@ This encoded message represents a sequence of XCM instructions:
 - **[Buy Execution](https://github.com/polkadot-fellows/xcm-format?tab=readme-ov-file#buyexecution){target=\_blank}**: This instruction purchases execution time on the destination chain using the withdrawn assets, ensuring the message can be processed.
 - **[Deposit Asset](https://github.com/polkadot-fellows/xcm-format?tab=readme-ov-file#depositasset){target=\_blank}**: This instruction deposits the remaining assets into a specified account on the destination chain after execution costs have been deducted.
 
-This encoded message is provided as an example. You can craft your own XCM message tailored to your specific use case as needed
+This encoded message is provided as an example. You can craft your own XCM message tailored to your specific use case as needed.
 
 The function returns a `Weight` struct containing `refTime` and `proofSize` values, which indicate the estimated computational cost of executing this message. If successful, after calling the `callWeighMessage` function, you should see the `refTime` and `proofSize` of the message:
 
@@ -83,7 +83,7 @@ To execute a message:
     - `message`: The encoded XCM message bytes.
     - `weight`: The `Weight` struct returned from `callWeighMessage`.
 
-    You can examine the full extrinsic structure for this operation [here](https://dev.papi.how/extrinsics#networkId=localhost&endpoint=wss%3A%2F%2Ftestnet-passet-hub.polkadot.io&data=0x1f03050c000401000003008c86471301000003008c8647000d010101000000010100368e8759910dab756d344995f1d3c79374ca8f70066d3a709e48029f6bf0ee7e0750c61e2901daad0600).
+    You can examine the complete extrinsic structure for this operation [here](https://dev.papi.how/extrinsics#networkId=localhost&endpoint=wss%3A%2F%2Ftestnet-passet-hub.polkadot.io&data=0x1f03050c000401000003008c86471301000003008c8647000d010101000000010100368e8759910dab756d344995f1d3c79374ca8f70066d3a709e48029f6bf0ee7e0750c61e2901daad0600){target=\_blank}.
 
 5. Click on the **Transact** button to execute the xcm message:
   
@@ -93,7 +93,7 @@ If successful, you will see the following output in the Remix terminal:
 
 ![](/images/develop/smart-contracts/precompiles/xcm-precompile/xcm-precompile-07.webp)
 
-Also, you can verify that the execution of this specific message succeeded by checking that the beneficiary account of the xcm message has received the funds accordingly.
+Additionally, you can verify that the execution of this specific message was successful by checking that the beneficiary account associated with the xcm message has received the funds accordingly.
 
 ### Send a Message
 
@@ -111,7 +111,7 @@ Unlike `execute`, the `send` function doesn't require a weight parameter since t
 
 ## Cross Contract Calls
 
-Beyond direct interaction and wrapper contracts, you can integrate XCM functionality directly into your existing smart contracts by inheriting from or importing the `IXcm` interface. This approach allows you to embed cross-chain capabilities seamlessly into your application logic.
+Beyond direct interaction and wrapper contracts, you can integrate XCM functionality directly into your existing smart contracts by inheriting from or importing the `IXcm` interface. This approach enables you to seamlessly embed cross-chain capabilities into your application logic.
 
 Whether you're building DeFi protocols, governance systems, or any application requiring cross-chain coordination, you can incorporate XCM calls directly within your contract's functions.
 

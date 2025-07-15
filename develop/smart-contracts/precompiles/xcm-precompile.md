@@ -50,7 +50,7 @@ Once connected, you can directly interact with the XCM precompile's functions (`
 
 ![](/images/develop/smart-contracts/precompiles/xcm-precompile/xcm-precompile-03.webp)
 
-### Weight a Message
+### Weigh a Message
 
 The `weighMessage` function estimates the computational cost required to execute an XCM message. This estimate is crucial for understanding the resources needed before actually executing or sending a message.
 

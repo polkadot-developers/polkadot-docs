@@ -38,7 +38,7 @@ These platforms are full of useful content and experienced developers sharing in
 - Ecosystem interviews
 - Event recordings and walkthroughs
 
-👉 **[Watch on YouTube](https://www.youtube.com/@PolkadotNetwork)**
+👉 **[Watch on YouTube](https://www.youtube.com/@PolkadotNetwork){target=\_blank}**
 
 ---
 

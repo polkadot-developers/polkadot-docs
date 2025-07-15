@@ -6,7 +6,7 @@ hide:
   - footer
 ---
 
-# Get in touch directly
+# Get in Touch Directly
 
 ## Need help fast?
   

@@ -19,7 +19,7 @@ Use one of the channels below to get live technical support or ask questions.
 </div>
 ---
 
-## Need more than just documentation?
+## Need More than just Documentation?
 
 You're already in the docs — solid start.  
 But sometimes you need more: answers, real examples, someone to talk to.  

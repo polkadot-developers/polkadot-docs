@@ -6,7 +6,7 @@ hide:
   - footer
 ---
 
-# Need help fast?
+# Need Help Fast?
 Use one of the channels below to get live technical support or ask questions.
 
 <div class="button-wrapper" style="display: flex; justify-content: flex-start;">

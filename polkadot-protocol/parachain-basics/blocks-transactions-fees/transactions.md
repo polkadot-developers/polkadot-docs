@@ -17,9 +17,9 @@ In the Polkadot SDK, transactions represent operations that modify the chain's s
 
 There are three primary types of transactions (extrinsics) in the Polkadot SDK:
 
-- **Signed transactions** - signed by the submitting account, often carrying transaction fees
-- **Unsigned transactions** - submitted without a signature, often requiring custom validation logic
-- **Inherent transactions** - typically inserted directly into blocks by block authoring nodes, without gossiping between peers
+- **Signed transactions**: Signed by the submitting account, often carrying transaction fees.
+- **Unsigned transactions**: Submitted without a signature, often requiring custom validation logic.
+- **Inherent transactions**: Typically inserted directly into blocks by block authoring nodes, without gossiping between peers.
 
 Each type serves a distinct purpose, and understanding when and how to use each is key to efficiently working with the Polkadot SDK.
 
@@ -57,19 +57,19 @@ Understanding the structure of signed and unsigned transactions is crucial for d
 
 In Polkadot SDK-based chains, extrinsics can fall into three main categories:
 
-- **Unchecked extrinsics** - typically used for signed transactions that require validation. They contain a signature and additional data, such as a nonce and information for fee calculation. Unchecked extrinsics are named as such because they require validation checks before being accepted into the transaction pool
-- **Checked extrinsics** - typically used for inherent extrinsics (unsigned transactions); these don't require signature verification. Instead, they carry information such as where the extrinsic originates and any additional data required for the block authoring process
-- **Opaque extrinsics** - used when the format of an extrinsic is not yet fully committed or finalized. They are still decodable, but their structure can be flexible depending on the context
+- **Unchecked extrinsics**: Typically used for signed transactions that require validation. They contain a signature and additional data, such as a nonce and information for fee calculation. Unchecked extrinsics are named as such because they require validation checks before being accepted into the transaction pool.
+- **Checked extrinsics**: Typically used for inherent extrinsics (unsigned transactions); these don't require signature verification. Instead, they carry information such as where the extrinsic originates and any additional data required for the block authoring process.
+- **Opaque extrinsics**: Used when the format of an extrinsic is not yet fully committed or finalized. They are still decodable, but their structure can be flexible depending on the context.
 
 ### Signed Transaction Data Structure
 
 A signed transaction typically includes the following components:
 
-- **Signature** - verifies the authenticity of the transaction sender
-- **Call** - the actual function or method call the transaction is requesting (for example, transferring funds)
-- **Nonce** - tracks the number of prior transactions sent from the account, helping to prevent replay attacks
-- **Tip** - an optional incentive to prioritize the transaction in block inclusion
-- **Additional data** - includes details such as spec version, block hash, and genesis hash to ensure the transaction is valid within the correct runtime and chain context
+- **Signature**: Verifies the authenticity of the transaction sender.
+- **Call**: The actual function or method call the transaction is requesting (for example, transferring funds).
+- **Nonce**: Tracks the number of prior transactions sent from the account, helping to prevent replay attacks.
+- **Tip**: An optional incentive to prioritize the transaction in block inclusion.
+- **Additional data**: Includes details such as spec version, block hash, and genesis hash to ensure the transaction is valid within the correct runtime and chain context.
 
 Here's a simplified breakdown of how signed transactions are typically constructed in a Polkadot SDK runtime:
 
@@ -87,15 +87,15 @@ The transaction queue regularly calls signed extensions to verify a transaction'
 
 In FRAME, a signed extension can hold any of the following types by default:
 
-- [**`AccountId`**](https://paritytech.github.io/polkadot-sdk/master/polkadot_sdk_frame/runtime/types_common/type.AccountId.html){target=\_blank} - to encode the sender's identity
-- [**`Call`**](https://paritytech.github.io/polkadot-sdk/master/polkadot_sdk_frame/traits/trait.SignedExtension.html#associatedtype.Call){target=\_blank} - to encode the pallet call to be dispatched. This data is used to calculate transaction fees
-- [**`AdditionalSigned`**](https://paritytech.github.io/polkadot-sdk/master/polkadot_sdk_frame/traits/trait.SignedExtension.html#associatedtype.AdditionalSigned){target=\_blank} - to handle any additional data to go into the signed payload allowing you to attach any custom logic prior to dispatching a transaction
-- [**`Pre`**](https://paritytech.github.io/polkadot-sdk/master/polkadot_sdk_frame/traits/trait.SignedExtension.html#associatedtype.Pre){target=\_blank} - to encode the information that can be passed from before a call is dispatched to after it gets dispatched
+- **[`AccountId`](https://paritytech.github.io/polkadot-sdk/master/polkadot_sdk_frame/runtime/types_common/type.AccountId.html){target=\_blank}**: To encode the sender's identity.
+- **[`Call`](https://paritytech.github.io/polkadot-sdk/master/polkadot_sdk_frame/traits/trait.SignedExtension.html#associatedtype.Call){target=\_blank}**: To encode the pallet call to be dispatched. This data is used to calculate transaction fees.
+- **[`AdditionalSigned`](https://paritytech.github.io/polkadot-sdk/master/polkadot_sdk_frame/traits/trait.SignedExtension.html#associatedtype.AdditionalSigned){target=\_blank}**: To handle any additional data to go into the signed payload allowing you to attach any custom logic prior to dispatching a transaction.
+- **[`Pre`](https://paritytech.github.io/polkadot-sdk/master/polkadot_sdk_frame/traits/trait.SignedExtension.html#associatedtype.Pre){target=\_blank}**: To encode the information that can be passed from before a call is dispatched to after it gets dispatched.
 
 Signed extensions can enforce checks like:
 
-- [**`CheckSpecVersion`**](https://paritytech.github.io/polkadot-sdk/master/src/frame_system/extensions/check_spec_version.rs.html){target=\_blank} - ensures the transaction is compatible with the runtime's current version
-- [**`CheckWeight`**](https://paritytech.github.io/polkadot-sdk/master/frame_system/struct.CheckWeight.html){target=\_blank} - calculates the weight (or computational cost) of the transaction, ensuring the block doesn't exceed the maximum allowed weight
+- **[`CheckSpecVersion`](https://paritytech.github.io/polkadot-sdk/master/src/frame_system/extensions/check_spec_version.rs.html){target=\_blank}**: Ensures the transaction is compatible with the runtime's current version.
+- **[`CheckWeight`](https://paritytech.github.io/polkadot-sdk/master/frame_system/struct.CheckWeight.html){target=\_blank}**: Calculates the weight (or computational cost) of the transaction, ensuring the block doesn't exceed the maximum allowed weight.
 
 These extensions are critical in the transaction lifecycle, ensuring that only valid and prioritized transactions are processed.
 
@@ -107,17 +107,17 @@ Building transactions in the Polkadot SDK involves constructing a payload that c
 
 A signed transaction in the Polkadot SDK includes various pieces of data to ensure security, prevent replay attacks, and prioritize processing. Here's an overview of how to construct one:
 
-1. **Construct the unsigned payload** - gather the necessary information for the call, including:
-    - **Pallet index** - identifies the pallet where the runtime function resides
-    - **Function index** - specifies the particular function to call in the pallet
-    - **Parameters** - any additional arguments required by the function call
-2. **Create a signing payload** - once the unsigned payload is ready, additional data must be included:
-    - **Transaction nonce** - unique identifier to prevent replay attacks
-    - **Era information** - defines how long the transaction is valid before it's dropped from the pool
-    - **Block hash** - ensures the transaction doesn't execute on the wrong chain or fork
-3. **Sign the payload** - using the sender's private key, sign the payload to ensure that the transaction can only be executed by the account holder
-4. **Serialize the signed payload** - once signed, the transaction must be serialized into a binary format, ensuring the data is compact and easy to transmit over the network
-5. **Submit the serialized transaction** - finally, submit the serialized transaction to the network, where it will enter the transaction pool and wait for processing by an authoring node
+1. **Construct the unsigned payload**: Gather the necessary information for the call, including.
+    - **Pallet index**: Identifies the pallet where the runtime function resides.
+    - **Function index**: Specifies the particular function to call in the pallet.
+    - **Parameters**: Any additional arguments required by the function call.
+2. **Create a signing payload**: Once the unsigned payload is ready, additional data must be included.
+    - **Transaction nonce**: Unique identifier to prevent replay attacks.
+    - **Era information**: Defines how long the transaction is valid before it's dropped from the pool.
+    - **Block hash**: Ensures the transaction doesn't execute on the wrong chain or fork.
+3. **Sign the payload**: Using the sender's private key, sign the payload to ensure that the transaction can only be executed by the account holder.
+4. **Serialize the signed payload**: Once signed, the transaction must be serialized into a binary format, ensuring the data is compact and easy to transmit over the network.
+5. **Submit the serialized transaction**: Finally, submit the serialized transaction to the network, where it will enter the transaction pool and wait for processing by an authoring node.
 
 The following is an example of how a signed transaction might look:
 
@@ -129,10 +129,10 @@ The following is an example of how a signed transaction might look:
 
 Before a transaction is sent to the network, it is serialized and encoded using a structured encoding process that ensures consistency and prevents tampering:
 
-- `[1]` - compact encoded length in bytes of the entire transaction
-- `[2]` - a u8 containing 1 byte to indicate whether the transaction is signed or unsigned (1 bit) and the encoded transaction version ID (7 bits)
-- `[3]` - if signed, this field contains an account ID, an SR25519 signature, and some extra data
-- `[4]` - encoded call data, including pallet and function indices and any required arguments
+- **`[1]`**: Compact encoded length in bytes of the entire transaction.
+- **`[2]`**: A u8 containing 1 byte to indicate whether the transaction is signed or unsigned (1 bit) and the encoded transaction version ID (7 bits).
+- **`[3]`**: If signed, this field contains an account ID, an SR25519 signature, and some extra data.
+- **`[4]`**: Encoded call data, including pallet and function indices and any required arguments.
 
 This encoded format ensures consistency and efficiency in processing transactions across the network. By adhering to this format, applications can construct valid transactions and pass them to the network for execution.
 
@@ -142,8 +142,8 @@ To learn more about how compact encoding works using SCALE, see the [SCALE Code
 
 Although the basic steps for constructing transactions are consistent across Polkadot SDK-based chains, developers can customize transaction formats and validation rules. For example:
 
-- **Custom pallets** - you can define new pallets with custom function calls, each with its own parameters and validation logic
-- **Signed extensions** - developers can implement custom extensions that modify how transactions are prioritized, validated, or included in blocks
+- **Custom pallets**: You can define new pallets with custom function calls, each with its own parameters and validation logic.
+- **Signed extensions**: Developers can implement custom extensions that modify how transactions are prioritized, validated, or included in blocks.
 
 By leveraging Polkadot SDK's modular design, developers can create highly specialized transaction logic tailored to their chain's needs.
 
@@ -155,9 +155,9 @@ In the Polkadot SDK, transactions are often referred to as extrinsics because th
 
 The Polkadot SDK runtime defines key transaction properties, such as:
 
-- **Transaction validity** - ensures the transaction meets all runtime requirements
-- **Signed or unsigned** - identifies whether a transaction needs to be signed by an account
-- **State changes** - determines how the transaction modifies the state of the chain
+- **Transaction validity**: Ensures the transaction meets all runtime requirements.
+- **Signed or unsigned**: Identifies whether a transaction needs to be signed by an account.
+- **State changes**: Determines how the transaction modifies the state of the chain.
 
 Pallets, which compose the runtime's logic, define the specific transactions that your chain supports. When a user submits a transaction, such as a token transfer, it becomes a signed transaction, verified by the user's account signature. If the account has enough funds to cover fees, the transaction is executed, and the chain's state is updated accordingly.
 
@@ -171,9 +171,9 @@ In Polkadot SDK-based networks, some nodes are authorized to author blocks. Thes
 
 Once a transaction reaches an authoring node, it undergoes an initial validation process to ensure it meets specific conditions defined in the runtime. This validation includes checks for:
 
-- **Correct nonce** - ensures the transaction is sequentially valid for the account
-- **Sufficient funds** - confirms the account can cover any associated transaction fees
-- **Signature validity** - verifies that the sender's signature matches the transaction data
+- **Correct nonce**: Ensures the transaction is sequentially valid for the account.
+- **Sufficient funds**: Confirms the account can cover any associated transaction fees.
+- **Signature validity**: Verifies that the sender's signature matches the transaction data.
 
 After these checks, valid transactions are placed in the transaction pool, where they are queued for inclusion in a block. The transaction pool regularly re-validates queued transactions to ensure they remain valid before being processed. To reach consensus, two-thirds of the nodes must agree on the order of the transactions executed and the resulting state change. Transactions are validated and queued on the local node in a transaction pool to prepare for consensus.
 
@@ -183,8 +183,8 @@ The transaction pool is responsible for managing valid transactions. It ensures 
 
 The transaction pool organizes transactions into two queues:
 
-- **Ready queue** - transactions that are valid and ready to be included in a block
-- **Future queue** - transactions that are not yet valid but could be in the future, such as transactions with a nonce too high for the current state
+- **Ready queue**: Transactions that are valid and ready to be included in a block.
+- **Future queue**: Transactions that are not yet valid but could be in the future, such as transactions with a nonce too high for the current state.
 
 Details on how the transaction pool validates transactions, including fee and signature handling, can be found in the [`validate_transaction`](https://paritytech.github.io/polkadot-sdk/master/sp_transaction_pool/runtime_api/trait.TaggedTransactionQueue.html#method.validate_transaction){target=\_blank} method.
 
@@ -192,17 +192,17 @@ Details on how the transaction pool validates transactions, including fee and si
 
 If a transaction is invalid, for example, due to an invalid signature or insufficient funds, it is rejected and won't be added to the block. Invalid transactions might be rejected for reasons such as:
 
-- The transaction has already been included in a block
-- The transaction's signature does not match the sender
-- The transaction is too large to fit in the current block
+- The transaction has already been included in a block.
+- The transaction's signature does not match the sender.
+- The transaction is too large to fit in the current block.
 
 ### Transaction Ordering and Priority
 
 When a node is selected as the next block author, it prioritizes transactions based on weight, length, and tip amount. The goal is to fill the block with high-priority transactions without exceeding its maximum size or computational limits. Transactions are ordered as follows:
 
-- **Inherents first** - inherent transactions, such as block timestamp updates, are always placed first
-- **Nonce-based ordering** - transactions from the same account are ordered by their nonce
-- **Fee-based ordering** - among transactions with the same nonce or priority level, those with higher fees are prioritized
+- **Inherents first**: Inherent transactions, such as block timestamp updates, are always placed first.
+- **Nonce-based ordering**: Transactions from the same account are ordered by their nonce.
+- **Fee-based ordering**: Among transactions with the same nonce or priority level, those with higher fees are prioritized.
 
 ### Transaction Execution
 
@@ -216,9 +216,9 @@ Transactions in the network can be configured as either mortal (with expiration)
 
 When a transaction is submitted, the network validates it against these parameters. If the transaction is not included in a block within the specified validity window, it is automatically removed from the transaction queue.
 
-- **Mortal transactions**: have a finite lifespan and will expire after a specified number of blocks. For example, a transaction with a block checkpoint of 1000 and a validity period of 64 blocks will be valid from blocks 1000 to 1064.
+- **Mortal transactions**: Have a finite lifespan and will expire after a specified number of blocks. For example, a transaction with a block checkpoint of 1000 and a validity period of 64 blocks will be valid from blocks 1000 to 1064.
 
-- **Immortal transactions**: never expire and remain valid indefinitely. To create an immortal transaction, set the block checkpoint to 0 (genesis block), use the genesis hash as a reference, and set the validity period to 0.
+- **Immortal transactions**: Never expire and remain valid indefinitely. To create an immortal transaction, set the block checkpoint to 0 (genesis block), use the genesis hash as a reference, and set the validity period to 0.
 
 However, immortal transactions pose significant security risks through replay attacks. If an account is reaped (balance drops to zero, account removed) and later re-funded, malicious actors can replay old immortal transactions.
 
@@ -230,9 +230,9 @@ Transaction hashes are **not unique identifiers** in Polkadot SDK-based chains.
 
 Key differences from traditional blockchains:
 
-- Transaction hashes serve only as fingerprints of transaction information
-- Multiple valid transactions can share the same hash
-- Hash uniqueness assumptions lead to serious issues
+- Transaction hashes serve only as fingerprints of transaction information.
+- Multiple valid transactions can share the same hash.
+- Hash uniqueness assumptions lead to serious issues.
 
 For example, when an account is reaped (removed due to insufficient balance) and later recreated, it resets to nonce 0, allowing identical transactions to be valid at different points:
 

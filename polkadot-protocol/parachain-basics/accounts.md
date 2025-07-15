@@ -29,13 +29,13 @@ The preceding code block defines a storage map named `Account`. The `StorageMap`
 
 The `StorageMap` consists of the following parameters:
 
-- **`_`** - used in macro expansion and acts as a placeholder for the storage prefix type. Tells the macro to insert the default prefix during expansion
-- **`Blake2_128Concat`** - the hashing function applied to keys in the storage map
-- **`T::AccountId`** - represents the key type, which corresponds to the account’s unique ID
-- **`AccountInfo<T::Nonce, T::AccountData>`** - the value type stored in the map. For each account ID, the map stores an `AccountInfo` struct containing:
-    - **`T::Nonce`** - a nonce for the account, which is incremented with each transaction to ensure transaction uniqueness
-    - **`T::AccountData`** - custom account data defined by the runtime configuration, which could include balances, locked funds, or other relevant information
-- **`ValueQuery`** - defines how queries to the storage map behave when no value is found; returns a default value instead of `None`
+- **`_`**: Used in macro expansion and acts as a placeholder for the storage prefix type. Tells the macro to insert the default prefix during expansion.
+- **`Blake2_128Concat`**: The hashing function applied to keys in the storage map.
+- **`T: :AccountId`**: Represents the key type, which corresponds to the account’s unique ID.
+- **`AccountInfo<T: :Nonce, T::AccountData>`**: The value type stored in the map. For each account ID, the map stores an `AccountInfo` struct containing:.
+    - **`T: :Nonce`**: A nonce for the account, which is incremented with each transaction to ensure transaction uniqueness.
+    - **`T: :AccountData`**: Custom account data defined by the runtime configuration, which could include balances, locked funds, or other relevant information.
+- **`ValueQuery`**: Defines how queries to the storage map behave when no value is found; returns a default value instead of `None`.
 
 For a detailed explanation of storage maps, see the [`StorageMap`](https://paritytech.github.io/polkadot-sdk/master/frame_support/storage/types/struct.StorageMap.html){target=\_blank} entry in the Rust docs.
 
@@ -49,11 +49,11 @@ The `AccountInfo` structure is another key element within the [System pallet](ht
 
 The `AccountInfo` structure includes the following components:
 
-- **`nonce`** - tracks the number of transactions initiated by the account, which ensures transaction uniqueness and prevents replay attacks
-- **`consumers`** - counts how many other modules or pallets rely on this account’s existence. The account cannot be removed from the chain (reaped) until this count reaches zero
-- **`providers`** - tracks how many modules permit this account’s existence. An account can only be reaped once both `providers` and `sufficients` are zero
-- **`sufficients`** - represents the number of modules that allow the account to exist for internal purposes, independent of any other modules
-- **`AccountData`** - a flexible data structure that can be customized in the runtime configuration, usually containing balances or other user-specific data
+- **`nonce`**: Tracks the number of transactions initiated by the account, which ensures transaction uniqueness and prevents replay attacks.
+- **`consumers`**: Counts how many other modules or pallets rely on this account’s existence. The account cannot be removed from the chain (reaped) until this count reaches zero.
+- **`providers`**: Tracks how many modules permit this account’s existence. An account can only be reaped once both `providers` and `sufficients` are zero.
+- **`sufficients`**: Represents the number of modules that allow the account to exist for internal purposes, independent of any other modules.
+- **`AccountData`**: A flexible data structure that can be customized in the runtime configuration, usually containing balances or other user-specific data.
 
 This structure helps manage an account's state and prevents its premature removal while it is still referenced by other on-chain data or modules. The [`AccountInfo`](https://paritytech.github.io/polkadot-sdk/master/frame_system/struct.AccountInfo.html){target=\_blank} structure can vary as long as it satisfies the trait bounds defined by the `AccountData` associated type in the [`frame-system::pallet::Config`](https://paritytech.github.io/polkadot-sdk/master/frame_system/pallet/trait.Config.html){target=\_blank} trait.
 
@@ -63,9 +63,9 @@ Polkadot SDK uses reference counters to track an account’s dependencies across
 
 The reference counters include:
 
-- **`consumers`** - prevents account removal while other pallets still rely on the account
-- **`providers`** - ensures an account is active before other pallets store data related to it
-- **`sufficients`** - indicates the account’s independence, ensuring it can exist even without a native token balance, such as when holding sufficient alternative assets
+- **`consumers`**: Prevents account removal while other pallets still rely on the account.
+- **`providers`**: Ensures an account is active before other pallets store data related to it.
+- **`sufficients`**: Indicates the account’s independence, ensuring it can exist even without a native token balance, such as when holding sufficient alternative assets.
 
 #### Providers Reference Counters
 
@@ -99,20 +99,20 @@ The Polkadot SDK provides runtime developers with various methods to manage acco
 
 The following helper functions manage these counters:
 
-- **`inc_consumers()`** - increments the `consumer` reference counter for an account, signaling that another pallet depends on it
-- **`dec_consumers()`** - decrements the `consumer` reference counter, signaling that a pallet no longer relies on the account
-- **`inc_providers()`** - increments the `provider` reference counter, ensuring the account remains active
-- **`dec_providers()`** - decrements the `provider` reference counter, allowing for account deactivation when no longer in use
-- **`inc_sufficients()`** - increments the `sufficient` reference counter for accounts that hold sufficient assets
-- **`dec_sufficients()`** - decrements the `sufficient` reference counter
+- **`inc_consumers()`**: Increments the `consumer` reference counter for an account, signaling that another pallet depends on it.
+- **`dec_consumers()`**: Decrements the `consumer` reference counter, signaling that a pallet no longer relies on the account.
+- **`inc_providers()`**: Increments the `provider` reference counter, ensuring the account remains active.
+- **`dec_providers()`**: Decrements the `provider` reference counter, allowing for account deactivation when no longer in use.
+- **`inc_sufficients()`**: Increments the `sufficient` reference counter for accounts that hold sufficient assets.
+- **`dec_sufficients()`**: Decrements the `sufficient` reference counter.
 
 To ensure proper account cleanup and lifecycle management, a corresponding decrement should be made for each increment action.
 
 The `System` pallet offers three query functions to assist developers in tracking account states:
 
-- [**`can_inc_consumer()`**](https://paritytech.github.io/polkadot-sdk/master/frame_system/pallet/struct.Pallet.html#method.can_inc_consumer){target=\_blank} - checks if the account can safely increment the consumer reference
-- [**`can_dec_provider()`**](https://paritytech.github.io/polkadot-sdk/master/frame_system/pallet/struct.Pallet.html#method.can_dec_provider){target=\_blank} - ensures that no consumers exist before allowing the decrement of the provider counter
-- [**`is_provider_required()`**](https://paritytech.github.io/polkadot-sdk/master/frame_system/pallet/struct.Pallet.html#method.is_provider_required){target=\_blank} - verifies whether the account still has any active consumer references
+- **[`can_inc_consumer()`](https://paritytech.github.io/polkadot-sdk/master/frame_system/pallet/struct.Pallet.html#method.can_inc_consumer){target=\_blank}**: Checks if the account can safely increment the consumer reference.
+- **[`can_dec_provider()`](https://paritytech.github.io/polkadot-sdk/master/frame_system/pallet/struct.Pallet.html#method.can_dec_provider){target=\_blank}**: Ensures that no consumers exist before allowing the decrement of the provider counter.
+- **[`is_provider_required()`](https://paritytech.github.io/polkadot-sdk/master/frame_system/pallet/struct.Pallet.html#method.is_provider_required){target=\_blank}**: Verifies whether the account still has any active consumer references.
 
 This modular and flexible system of reference counters tightly controls the lifecycle of accounts in Polkadot SDK-based blockchains, preventing the accidental removal or retention of unneeded accounts. You can refer to the [System pallet Rust docs](https://paritytech.github.io/polkadot-sdk/master/frame_system/pallet/struct.Pallet.html){target=\_blank} for more details.
     
@@ -140,11 +140,11 @@ In the Polkadot ecosystem, account balances are categorized into different types
 
 The five main balance types are:
 
-- **Free balance** - represents the total tokens available to the account for any on-chain activity, including staking, governance, and voting. However, it may not be fully spendable or transferrable if portions of it are locked or reserved
-- **Locked balance** - portions of the free balance that cannot be spent or transferred because they are tied up in specific activities like [staking](https://wiki.polkadot.network/learn/learn-staking/#nominating-validators){target=\_blank}, [vesting](https://wiki.polkadot.network/learn/learn-guides-transfers/#vested-transfers-with-the-polkadot-js-ui){target=\_blank}, or participating in [governance](https://wiki.polkadot.network/learn/learn-polkadot-opengov/#voting-on-a-referendum){target=\_blank}. While the tokens remain part of the free balance, they are non-transferable for the duration of the lock
-- **Reserved balance** - funds locked by specific system actions, such as setting up an [identity](https://wiki.polkadot.network/learn/learn-identity/){target=\_blank}, creating [proxies](https://wiki.polkadot.network/learn/learn-proxies/){target=\_blank}, or submitting [deposits for governance proposals](https://wiki.polkadot.network/learn/learn-guides-polkadot-opengov/#claiming-opengov-deposits){target=\_blank}. These tokens are not part of the free balance and cannot be spent unless they are unreserved
-- **Spendable balance** - the portion of the free balance that is available for immediate spending or transfers. It is calculated by subtracting the maximum of locked or reserved amounts from the free balance, ensuring that existential deposit limits are met
-- **Untouchable balance** - funds that cannot be directly spent or transferred but may still be utilized for on-chain activities, such as governance participation or staking. These tokens are typically tied to certain actions or locked for a specific period
+- **Free balance**: Represents the total tokens available to the account for any on-chain activity, including staking, governance, and voting. However, it may not be fully spendable or transferrable if portions of it are locked or reserved.
+- **Locked balance**: Portions of the free balance that cannot be spent or transferred because they are tied up in specific activities like [staking](https://wiki.polkadot.network/learn/learn-staking/#nominating-validators){target=\_blank}, [vesting](https://wiki.polkadot.network/learn/learn-guides-transfers/#vested-transfers-with-the-polkadot-js-ui){target=\_blank}, or participating in [governance](https://wiki.polkadot.network/learn/learn-polkadot-opengov/#voting-on-a-referendum){target=\_blank}. While the tokens remain part of the free balance, they are non-transferable for the duration of the lock.
+- **Reserved balance**: Funds locked by specific system actions, such as setting up an [identity](https://wiki.polkadot.network/learn/learn-identity/){target=\_blank}, creating [proxies](https://wiki.polkadot.network/learn/learn-proxies/){target=\_blank}, or submitting [deposits for governance proposals](https://wiki.polkadot.network/learn/learn-guides-polkadot-opengov/#claiming-opengov-deposits){target=\_blank}. These tokens are not part of the free balance and cannot be spent unless they are unreserved.
+- **Spendable balance**: The portion of the free balance that is available for immediate spending or transfers. It is calculated by subtracting the maximum of locked or reserved amounts from the free balance, ensuring that existential deposit limits are met.
+- **Untouchable balance**: Funds that cannot be directly spent or transferred but may still be utilized for on-chain activities, such as governance participation or staking. These tokens are typically tied to certain actions or locked for a specific period.
 
 The spendable balance is calculated as follows:
 
@@ -160,16 +160,16 @@ Locks are applied to an account's free balance, preventing that portion from bei
 
 Locks follow these basic rules:
 
-- If different locks apply to varying amounts, the largest lock amount takes precedence
-- If multiple locks apply to the same amount, the lock with the longest duration governs when the balance can be unlocked
+- If different locks apply to varying amounts, the largest lock amount takes precedence.
+- If multiple locks apply to the same amount, the lock with the longest duration governs when the balance can be unlocked.
 
 #### Locks Example
 
 Consider an example where an account has 80 DOT locked for both staking and governance purposes like so:
 
-- 80 DOT is staked with a 28-day lock period
-- 24 DOT is locked for governance with a 1x conviction and a 7-day lock period
-- 4 DOT is locked for governance with a 6x conviction and a 224-day lock period
+- 80 DOT is staked with a 28-day lock period.
+- 24 DOT is locked for governance with a 1x conviction and a 7-day lock period.
+- 4 DOT is locked for governance with a 6x conviction and a 224-day lock period.
 
 In this case, the total locked amount is 80 DOT because only the largest lock (80 DOT from staking) governs the locked balance. These 80 DOT will be released at different times based on the lock durations. In this example, the 24 DOT locked for governance will be released first since the shortest lock period is seven days. The 80 DOT stake with a 28-day lock period is released next. Now, all that remains locked is the 4 DOT for governance. After 224 days, all 80 DOT (minus the existential deposit) will be free and transferrable.
 
@@ -187,21 +187,21 @@ Polkadot.js provides a user-friendly interface for managing and visualizing vari
 
 The most common balance types displayed on Polkadot.js are:
 
-- **Total balance** - the total number of tokens available in the account. This includes all tokens, whether they are transferable, locked, reserved, or vested. However, the total balance does not always reflect what can be spent immediately. In this example, the total balance is 0.6274 KSM
+- **Total balance**: The total number of tokens available in the account. This includes all tokens, whether they are transferable, locked, reserved, or vested. However, the total balance does not always reflect what can be spent immediately. In this example, the total balance is 0.6274 KSM.
 
-- **Transferrable balance** - shows how many tokens are immediately available for transfer. It is calculated by subtracting the locked and reserved balances from the total balance. For example, if an account has a total balance of 0.6274 KSM and a transferrable balance of 0.0106 KSM, only the latter amount can be sent or spent freely
+- **Transferrable balance**: Shows how many tokens are immediately available for transfer. It is calculated by subtracting the locked and reserved balances from the total balance. For example, if an account has a total balance of 0.6274 KSM and a transferrable balance of 0.0106 KSM, only the latter amount can be sent or spent freely.
 
-- **Vested balance** - tokens that allocated to the account but released according to a specific schedule. Vested tokens remain locked and cannot be transferred until fully vested. For example, an account with a vested balance of 0.2500 KSM means that this amount is owned but not yet transferable
+- **Vested balance**: Tokens that allocated to the account but released according to a specific schedule. Vested tokens remain locked and cannot be transferred until fully vested. For example, an account with a vested balance of 0.2500 KSM means that this amount is owned but not yet transferable.
 
-- **Locked balance** - tokens that are temporarily restricted from being transferred or spent. These locks typically result from participating in staking, governance, or vested transfers. In Polkadot.js, locked balances do not stack—only the largest lock is applied. For instance, if an account has 0.5500 KSM locked for governance and staking, the locked balance would display 0.5500 KSM, not the sum of all locked amounts
+- **Locked balance**: Tokens that are temporarily restricted from being transferred or spent. These locks typically result from participating in staking, governance, or vested transfers. In Polkadot.js, locked balances do not stack—only the largest lock is applied. For instance, if an account has 0.5500 KSM locked for governance and staking, the locked balance would display 0.5500 KSM, not the sum of all locked amounts.
 
-- **Reserved balance** - refers to tokens locked for specific on-chain actions, such as setting an identity, creating a proxy, or making governance deposits. Reserved tokens are not part of the free balance, but can be freed by performing certain actions. For example, removing an identity would unreserve those funds
+- **Reserved balance**: Refers to tokens locked for specific on-chain actions, such as setting an identity, creating a proxy, or making governance deposits. Reserved tokens are not part of the free balance, but can be freed by performing certain actions. For example, removing an identity would unreserve those funds.
 
-- **Bonded balance** - the tokens locked for staking purposes. Bonded tokens are not transferrable until they are unbonded after the unbonding period
+- **Bonded balance**: The tokens locked for staking purposes. Bonded tokens are not transferrable until they are unbonded after the unbonding period.
 
-- **Redeemable balance** - the number of tokens that have completed the unbonding period and are ready to be unlocked and transferred again. For example, if an account has a redeemable balance of 0.1000 KSM, those tokens are now available for spending
+- **Redeemable balance**: The number of tokens that have completed the unbonding period and are ready to be unlocked and transferred again. For example, if an account has a redeemable balance of 0.1000 KSM, those tokens are now available for spending.
 
-- **Democracy balance** - reflects the number of tokens locked for governance activities, such as voting on referenda. These tokens are locked for the duration of the governance action and are only released after the lock period ends
+- **Democracy balance**: Reflects the number of tokens locked for governance activities, such as voting on referenda. These tokens are locked for the duration of the governance action and are only released after the lock period ends.
 
 By understanding these balance types and their implications, developers and users can better manage their funds and engage with on-chain activities more effectively.
 
@@ -217,9 +217,9 @@ SS58 addresses consist of three main components:
 base58encode(concat(<address-type>, <address>, <checksum>))
 ```
 
-- **Address type** - a byte or set of bytes that define the network (or chain) for which the address is intended. This ensures that addresses are unique across different Polkadot SDK-based chains
-- **Address** - the public key of the account encoded as bytes
-- **Checksum** - a hash-based checksum which ensures that addresses are valid and unaltered. The checksum is derived from the concatenated address type and address components, ensuring integrity
+- **Address type**: A byte or set of bytes that define the network (or chain) for which the address is intended. This ensures that addresses are unique across different Polkadot SDK-based chains.
+- **Address**: The public key of the account encoded as bytes.
+- **Checksum**: A hash-based checksum which ensures that addresses are valid and unaltered. The checksum is derived from the concatenated address type and address components, ensuring integrity.
 
 The encoding process transforms the concatenated components into a Base58 string, providing a compact and human-readable format that avoids easily confused characters (e.g., zero '0', capital 'O', lowercase 'l'). This encoding function ([`encode`](https://docs.rs/bs58/latest/bs58/fn.encode.html){target=\_blank}) is implemented exactly as defined in Bitcoin and IPFS specifications, using the same alphabet as both implementations.
 
@@ -229,9 +229,9 @@ For more details about the SS58 address format implementation, see the [`Ss58Cod
 
 The address type defines how an address is interpreted and to which network it belongs. Polkadot SDK uses different prefixes to distinguish between various chains and address formats:
 
-- **Address types `0-63`** - simple addresses, commonly used for network identifiers
-- **Address types `64-127`** - full addresses that support a wider range of network identifiers
-- **Address types `128-255`** - reserved for future address format extensions
+- **Address types `0-63`**: Simple addresses, commonly used for network identifiers.
+- **Address types `64-127`**: Full addresses that support a wider range of network identifiers.
+- **Address types `128-255`**: Reserved for future address format extensions.
 
 For example, Polkadot’s main network uses an address type of 0, while Kusama uses 2. This ensures that addresses can be used without confusion between networks.
 
@@ -322,7 +322,7 @@ If the function returns `true`, the specified address is a valid address.
 
 Support for encoding and decoding Polkadot SDK SS58 addresses has been implemented in several other languages and libraries.
 
-- **Crystal** - [`wyhaines/base58.cr`](https://github.com/wyhaines/base58.cr){target=\_blank}
-- **Go** - [`itering/subscan-plugin`](https://github.com/itering/subscan-plugin){target=\_blank}
-- **Python** - [`polkascan/py-scale-codec`](https://github.com/polkascan/py-scale-codec){target=\_blank}
-- **TypeScript** - [`subsquid/squid-sdk`](https://github.com/subsquid/squid-sdk){target=\_blank}
+- **Crystal**: [`wyhaines/base58.cr`](https://github.com/wyhaines/base58.cr){target=\_blank}
+- **Go**: [`itering/subscan-plugin`](https://github.com/itering/subscan-plugin){target=\_blank}
+- **Python**: [`polkascan/py-scale-codec`](https://github.com/polkascan/py-scale-codec){target=\_blank}
+- **TypeScript**: [`subsquid/squid-sdk`](https://github.com/subsquid/squid-sdk){target=\_blank}

@@ -13,8 +13,8 @@ Polkadot's Proof of Stake consensus model leverages a unique hybrid approach by 
 
 Polkadot uses Nominated Proof of Stake (NPoS) to select the validator set and secure the network. This model is designed to maximize decentralization and security by balancing the roles of [validators](https://wiki.polkadot.network/learn/learn-validator/){target=\_blank} and [nominators](https://wiki.polkadot.network/learn/learn-nominator/){target=\_blank}.
 
-- **Validators** - play a key role in maintaining the network's integrity. They produce new blocks, validate parachain blocks, and ensure the finality of transactions across the relay chain
-- **Nominators** - support the network by selecting validators to back with their stake. This mechanism allows users who don't want to run a validator node to still participate in securing the network and earn rewards based on the validators they support
+- **Validators**: Play a key role in maintaining the network's integrity. They produce new blocks, validate parachain blocks, and ensure the finality of transactions across the relay chain.
+- **Nominators**: Support the network by selecting validators to back with their stake. This mechanism allows users who don't want to run a validator node to still participate in securing the network and earn rewards based on the validators they support.
 
 In Polkadot's NPoS system, nominators can delegate their tokens to trusted validators, giving them voting power in selecting validators while spreading security responsibilities across the network.
 
@@ -24,9 +24,9 @@ Polkadot employs a hybrid consensus model that combines two key protocols: a fin
 
 The hybrid consensus model has some key advantages:
 
-- **Probabilistic finality** - with BABE constantly producing new blocks, Polkadot ensures that the network continues to make progress, even when a final decision has not yet been reached on which chain is the true canonical chain
+- **Probabilistic finality**: With BABE constantly producing new blocks, Polkadot ensures that the network continues to make progress, even when a final decision has not yet been reached on which chain is the true canonical chain.
 
-- **Provable finality** - GRANDPA guarantees that once a block is finalized, it can never be reverted, ensuring that all network participants agree on the finalized chain
+- **Provable finality**: GRANDPA guarantees that once a block is finalized, it can never be reverted, ensuring that all network participants agree on the finalized chain.
 
 By using separate protocols for block production and finality, Polkadot can achieve rapid block creation and strong guarantees of finality while avoiding the typical trade-offs seen in traditional consensus mechanisms.
 
@@ -36,13 +36,13 @@ Blind Assignment for Blockchain Extension (BABE) is Polkadot's block production 
 
 Key features of BABE include:
 
-- **Epochs and slots** - BABE operates in phases called epochs, each of which is divided into slots (around 6 seconds per slot). Validators are assigned slots at the beginning of each epoch based on stake and randomness
+- **Epochs and slots**: BABE operates in phases called epochs, each of which is divided into slots (around 6 seconds per slot). Validators are assigned slots at the beginning of each epoch based on stake and randomness.
 
-- **Randomized block production** - validators enter a lottery to determine which will produce a block in a specific slot. This randomness is sourced from the relay chain's [randomness cycle](/polkadot-protocol/parachain-basics/randomness/){target=\_blank}
+- **Randomized block production**: Validators enter a lottery to determine which will produce a block in a specific slot. This randomness is sourced from the relay chain's [randomness cycle](/polkadot-protocol/parachain-basics/randomness/){target=\_blank}.
 
-- **Multiple block producers per slot** - in some cases, more than one validator might win the lottery for the same slot, resulting in multiple blocks being produced. These blocks are broadcasted, and the network's fork choice rule helps decide which chain to follow
+- **Multiple block producers per slot**: In some cases, more than one validator might win the lottery for the same slot, resulting in multiple blocks being produced. These blocks are broadcasted, and the network's fork choice rule helps decide which chain to follow.
 
-- **Handling empty slots** - if no validators win the lottery for a slot, a secondary selection algorithm ensures that a block is still produced. Validators selected through this method always produce a block, ensuring no slots are skipped
+- **Handling empty slots**: If no validators win the lottery for a slot, a secondary selection algorithm ensures that a block is still produced. Validators selected through this method always produce a block, ensuring no slots are skipped.
 
 BABE's combination of randomness and slot allocation creates a secure, decentralized system for consistent block production while also allowing for fork resolution when multiple validators produce blocks for the same slot.
 
@@ -52,9 +52,9 @@ In BABE, validators participate in a lottery for every slot to determine whether
 
 There are two lottery outcomes for any given slot that initiate additional processes:
 
-- **Multiple validators in a slot** - due to the randomness, multiple validators can be selected to produce a block for the same slot. When this happens, each validator produces a block and broadcasts it to the network resulting in a race condition. The network's topology and latency then determine which block reaches the majority of nodes first. BABE allows both chains to continue building until the finalization process resolves which one becomes canonical. The [Fork Choice](#fork-choice) rule is then used to decide which chain the network should follow
+- **Multiple validators in a slot**: Due to the randomness, multiple validators can be selected to produce a block for the same slot. When this happens, each validator produces a block and broadcasts it to the network resulting in a race condition. The network's topology and latency then determine which block reaches the majority of nodes first. BABE allows both chains to continue building until the finalization process resolves which one becomes canonical. The [Fork Choice](#fork-choice) rule is then used to decide which chain the network should follow.
 
-- **No validators in a slot** - on occasions when no validator is selected by the lottery, a [secondary validator selection algorithm](https://spec.polkadot.network/sect-block-production#defn-babe-secondary-slots){target=\_blank} steps in. This backup ensures that a block is still produced, preventing skipped slots. However, if the primary block produced by a verifiable random function [(VRF)-selected](/polkadot-protocol/parachain-basics/randomness/#vrf){target=\_blank} validator exists for that slot, the secondary block will be ignored. As a result, every slot will have either a primary or a secondary block
+- **No validators in a slot**: On occasions when no validator is selected by the lottery, a [secondary validator selection algorithm](https://spec.polkadot.network/sect-block-production#defn-babe-secondary-slots){target=\_blank} steps in. This backup ensures that a block is still produced, preventing skipped slots. However, if the primary block produced by a verifiable random function [(VRF)-selected](/polkadot-protocol/parachain-basics/randomness/#vrf){target=\_blank} validator exists for that slot, the secondary block will be ignored. As a result, every slot will have either a primary or a secondary block.
 
 This design ensures continuous block production, even in cases of multiple competing validators or an absence of selected validators.
 
@@ -70,11 +70,11 @@ GRANDPA (GHOST-based Recursive ANcestor Deriving Prefix Agreement) serves as the
 
 Key features of GRANDPA include:
 
-- **Independent finality service** – GRANDPA runs separately from the block production process, operating in parallel to ensure seamless finalization
-- **Chain-based finalization** – instead of finalizing one block at a time, GRANDPA finalizes entire chains, speeding up the process significantly
-- **Batch finalization** – can finalize multiple blocks in a single round, enhancing efficiency and minimizing delays in the network
-- **Partial synchrony tolerance** – GRANDPA works effectively in a partially synchronous network environment, managing both asynchronous and synchronous conditions
-- **Byzantine fault tolerance** – can handle up to 1/5 Byzantine (malicious) nodes, ensuring the system remains secure even when faced with adversarial behavior
+- **Independent finality service**: GRANDPA runs separately from the block production process, operating in parallel to ensure seamless finalization.
+- **Chain-based finalization**: Instead of finalizing one block at a time, GRANDPA finalizes entire chains, speeding up the process significantly.
+- **Batch finalization**: Can finalize multiple blocks in a single round, enhancing efficiency and minimizing delays in the network.
+- **Partial synchrony tolerance**: GRANDPA works effectively in a partially synchronous network environment, managing both asynchronous and synchronous conditions.
+- **Byzantine fault tolerance**: Can handle up to 1/5 Byzantine (malicious) nodes, ensuring the system remains secure even when faced with adversarial behavior.
 
 ??? note "What is GHOST?"
     [GHOST (Greedy Heaviest-Observed Subtree)](https://eprint.iacr.org/2018/104.pdf){target=\blank} is a consensus protocol used in blockchain networks to select the heaviest branch in a block tree. Unlike traditional longest-chain rules, GHOST can more efficiently handle high block production rates by considering the weight of subtrees rather than just the chain length.
@@ -98,8 +98,8 @@ For a deeper look at the code behind GRANDPA, see the following GitHub repositor
 
 The fork choice of the relay chain combines BABE and GRANDPA:
 
-1. BABE must always build on the chain that GRANDPA has finalized
-2. When there are forks after the finalized head, BABE builds on the chain with the most primary blocks to provide probabilistic finality 
+1. BABE must always build on the chain that GRANDPA has finalized.
+2. When there are forks after the finalized head, BABE builds on the chain with the most primary blocks to provide probabilistic finality .
 
 ![Fork choice diagram](/images/polkadot-protocol/architecture/polkadot-chain/pos-consensus/consensus-protocols-1.webp)
 
@@ -117,10 +117,10 @@ Bridge Efficiency Enabling Finality Yielder (BEEFY) is a specialized protocol th
 
 Key features of BEEFY include:
 
-- **Efficient finality proof verification** - BEEFY enables external networks to easily verify Polkadot finality proofs, ensuring seamless communication between chains
-- **Merkle Mountain Ranges (MMR)** - this data structure is used to efficiently store and transmit proofs between chains, optimizing data storage and reducing transmission overhead
-- **ECDSA signature schemes** - BEEFY uses ECDSA signatures, which are widely supported on Ethereum and other EVM-based chains, making integration with these ecosystems smoother
-- **Light client optimization** - BEEFY reduces the computational burden on light clients by allowing them to check for a super-majority of validator votes rather than needing to process all validator signatures, improving performance
+- **Efficient finality proof verification**: BEEFY enables external networks to easily verify Polkadot finality proofs, ensuring seamless communication between chains.
+- **Merkle Mountain Ranges (MMR)**: This data structure is used to efficiently store and transmit proofs between chains, optimizing data storage and reducing transmission overhead.
+- **ECDSA signature schemes**: BEEFY uses ECDSA signatures, which are widely supported on Ethereum and other EVM-based chains, making integration with these ecosystems smoother.
+- **Light client optimization**: BEEFY reduces the computational burden on light clients by allowing them to check for a super-majority of validator votes rather than needing to process all validator signatures, improving performance.
 
 ### Additional Resources
 

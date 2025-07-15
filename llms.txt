@@ -12487,7 +12487,7 @@ Located at the fixed address `0x00000000000000000000000000000000000a0000`, the X
 - **`send`**:  for cross-chain message transmission
 - **`weighMessage`**: for cost estimation 
 
-This guide demonstrates how to interact with the XCM precompile through Solidity smart contracts using [Remix IDE](/develop/smart-contracts/dev-environments/remix.md){target=\_blank}.
+This guide demonstrates how to interact with the XCM precompile through Solidity smart contracts using [Remix IDE](/develop/smart-contracts/dev-environments/remix){target=\_blank}.
 
 !!!note
     The XCM precompile provides the barebones XCM functionality. While it provides a lot of flexibility, it doesn't provide abstractions to hide away XCM details. These have to be built on top.

@@ -58,6 +58,7 @@ Doc-Page: https://docs.polkadot.com/develop/smart-contracts/overview/
 Doc-Page: https://docs.polkadot.com/develop/smart-contracts/precompiles/
 Doc-Page: https://docs.polkadot.com/develop/smart-contracts/precompiles/interact-with-precompiles/
 Doc-Page: https://docs.polkadot.com/develop/smart-contracts/precompiles/xcm-precompile/
+Doc-Page: https://docs.polkadot.com/develop/smart-contracts/precompiles/xcm-precompiles/
 Doc-Page: https://docs.polkadot.com/develop/smart-contracts/wallets/
 Doc-Page: https://docs.polkadot.com/develop/toolkit/api-libraries/dedot/
 Doc-Page: https://docs.polkadot.com/develop/toolkit/api-libraries/
@@ -12531,87 +12532,52 @@ The interface defines a `Weight` struct that represents the computational cost o
 
 For further information, check the [`precompiles/IXCM.sol`](https://github.com/paritytech/polkadot-sdk/blob/cb629d46ebf00aa65624013a61f9c69ebf02b0b4/polkadot/xcm/pallet-xcm/src/precompiles/IXcm.sol){target=\_blank} file present in the `pallet-xcm`.
 
-## XCM Caller Contract
+## Interact with the XCM Precompile
 
-The `XcmCaller` contract provides a convenient wrapper around the XCM precompile, handling the low-level interactions and providing a more user-friendly interface:
+To interact with the XCM precompile, you can use the precompile interface directly in Remix IDE:
 
-```solidity title="XcmCaller.sol"
-// SPDX-License-Identifier: MIT
-pragma solidity ^0.8.20;
+1. Create a new file called `IXcm.sol` in Remix
+2. Copy and paste the `IXcm` interface code into the file
+3. Compile the interface
 
-/**
- * @title XcmCaller
- * @dev A contract to interact with the IXcm precompile at a fixed address.
- */
-contract XcmCaller {
-    // The address of the IXcm precompiled contract.
-    address private immutable XCM_PRECOMPILE_ADDRESS = 0x00000000000000000000000000000000000a0000;
+    ![](/images/develop/smart-contracts/precompiles/xcm-precompile/xcm-precompile-01.webp)
 
-    /**
-     * @notice Forwards the xcmExecute call to the precompiled IXcm contract.
-     * @param message The Versioned XCM message to send.
-     * @param weight The maximum amount of weight to be used to execute the message.
-     */
-    function callXcmExecute(bytes calldata message, IXcm.Weight calldata weight) external {
-        IXcm(XCM_PRECOMPILE_ADDRESS).execute(message, weight);
-    }
+4. In the Deploy & Run Transactions tab, select the `IXcm` interface from the contract dropdown
+5. Enter the precompile address `0x00000000000000000000000000000000000a0000` in the **At Address** input field
+6. Click "At Address" to connect to the precompile
 
-    /**
-     * @notice Forwards the xcmSend call to the precompiled IXcm contract.
-     * @param destination The destination location, encoded according to the XCM format.
-     * @param message The Versioned XCM message to send.
-     */
-    function callXcmSend(bytes calldata destination, bytes calldata message) external {
-        IXcm(XCM_PRECOMPILE_ADDRESS).send(destination, message);
-    }
+    ![](/images/develop/smart-contracts/precompiles/xcm-precompile/xcm-precompile-02.webp)
 
-    /**
-     * @notice Forwards the weighMessage call to the precompiled IXcm contract.
-     * @param message The XCM message to send.
-     * @return weight The estimated weight cost.
-     */
-    function callWeighMessage(bytes calldata message) external view returns (IXcm.Weight memory) {
-        return IXcm(XCM_PRECOMPILE_ADDRESS).weighMessage(message);
-    }
+Once connected, you can directly interact with the XCM precompile's functions (`execute`, `send`, and `weighMessage`) through the Remix interface.
 
-    receive() external payable {}
-}
-```
-
-The contract utilizes an immutable address that points to the XCM precompile and provides three wrapper functions corresponding to the precompile's interface methods. The `receive()` function enables the contract to accept tokens, which may be required for specific XCM operations.
+![](/images/develop/smart-contracts/precompiles/xcm-precompile/xcm-precompile-03.webp)
 
 ### Weight a Message
 
 The `weighMessage` function estimates the computational cost required to execute an XCM message. This is crucial for understanding the resources needed before actually executing or sending a message.
 
-To test this functionality in Remix:
+To test this functionality in Remix, you can call `callWeighMessage` with a SCALE encoded XCM message. For example, for testing, you can use the following encoded XCM message:
 
-1. Copy and paste the `IXCM` interface and the `XCMCaller` contract into a Solidity file
-2. Compile the contract
+```text title="encoded-xcm-message-example"
+0x050c000401000003008c86471301000003008c8647000d010101000000010100368e8759910dab756d344995f1d3c79374ca8f70066d3a709e48029f6bf0ee7e
+```
 
-    ![](/images/develop/smart-contracts/precompiles/xcm-precompile/xcm-precompile-01.webp)
+![](/images/develop/smart-contracts/precompiles/xcm-precompile/xcm-precompile-04.webp)
 
-3. Deploy the `XcmCaller` contract
+This encoded message represents a sequence of XCM instructions:
 
-    ![](/images/develop/smart-contracts/precompiles/xcm-precompile/xcm-precompile-02.webp)
+- **[Withdraw Asset](https://github.com/polkadot-fellows/xcm-format?tab=readme-ov-file#withdrawasset){target=\_blank}**: This instruction removes assets from the local chain's sovereign account or the caller's account, making them available for use in subsequent XCM instructions.
+- **[Buy Execution](https://github.com/polkadot-fellows/xcm-format?tab=readme-ov-file#buyexecution){target=\_blank}**: This instruction purchases execution time on the destination chain using the withdrawn assets, ensuring the message can be processed.
+- **[Deposit Asset](https://github.com/polkadot-fellows/xcm-format?tab=readme-ov-file#depositasset){target=\_blank}**: This instruction deposits the remaining assets into a specified account on the destination chain after execution costs have been deducted.
 
-4. Call `callWeighMessage` with a SCALE encoded XCM message. For example, for testing, you can use the following encoded XCM message:
-
-    ```text title="encoded-xcm-message-example"
-    0x050c000401000003008c86471301000003008c8647000d010101000000010100368e8759910dab756d344995f1d3c79374ca8f70066d3a709e48029f6bf0ee7e
-    ```
-
-    This encoded message represents a sequence of XCM instructions:
-
-    - **[Withdraw Asset](https://github.com/polkadot-fellows/xcm-format?tab=readme-ov-file#withdrawasset){target=\_blank}**: This instruction removes assets from the local chain's sovereign account or the caller's account, making them available for use in subsequent XCM instructions.
-    - **[Buy Execution](https://github.com/polkadot-fellows/xcm-format?tab=readme-ov-file#buyexecution){target=\_blank}**: This instruction purchases execution time on the destination chain using the withdrawn assets, ensuring the message can be processed.
-    - **[Deposit Asset](https://github.com/polkadot-fellows/xcm-format?tab=readme-ov-file#depositasset){target=\_blank}**: This instruction deposits the remaining assets into a specified account on the destination chain after execution costs have been deducted.
-
-    This encoded message is provided as an example. You can craft your own XCM message tailored to your specific use case as needed
+This encoded message is provided as an example. You can craft your own XCM message tailored to your specific use case as needed
 
 The function returns a `Weight` struct containing `refTime` and `proofSize` values, which indicate the estimated computational cost of executing this message. If successful, after calling the `callWeighMessage` function, you should see the `refTime` and `proofSize` of the message:
 
-![](/images/develop/smart-contracts/precompiles/xcm-precompile/xcm-precompile-03.webp)
+![](/images/develop/smart-contracts/precompiles/xcm-precompile/xcm-precompile-05.webp)
+
+!!!note
+    For example, to interact with Polkadot Hub TestNet, you can check this [gist](https://gist.github.com/franciscoaguirre/a6dea0c55e81faba65bedf700033a1a2){target=\_blank}, which provides examples of how to craft XCM messages for different purposes.
 
 ### Execute a Message
 
@@ -12619,10 +12585,9 @@ The `execute` function runs an XCM message locally using the caller's origin. Th
 
 To execute a message:
 
-1. First, ensure that your contract has enough funds to cover the execution costs of calling the XCM message. Check the [Test Token](/develop/smart-contracts/connect-to-polkadot#test-tokens){target=\_blank} section for more information
-2. Call `callWeighMessage` with your XCM message to get the required weight
-3. Use the returned weight values when calling `callXcmExecute`
-4. Pass the same XCM message bytes and the weight obtained from the previous step. For example, using the same message from the weighing example, you would call `callXcmExecute` with:
+1. Call `callWeighMessage` with your XCM message to get the required weight
+2. Use the returned weight values when calling `callXcmExecute`
+3. Pass the same XCM message bytes and the weight obtained from the previous step. For example, using the same message from the weighing example, you would call `callXcmExecute` with:
 
     - `message`: The encoded XCM message bytes.
     - `weight`: The `Weight` struct returned from `callWeighMessage`.
@@ -12631,11 +12596,11 @@ To execute a message:
 
 5. Click on the **Transact** button to execute the xcm message:
   
-    ![](/images/develop/smart-contracts/precompiles/xcm-precompile/xcm-precompile-04.webp)
+    ![](/images/develop/smart-contracts/precompiles/xcm-precompile/xcm-precompile-06.webp)
 
 If successful, you will see the following output in the Remix terminal:
 
-![](/images/develop/smart-contracts/precompiles/xcm-precompile/xcm-precompile-05.webp)
+![](/images/develop/smart-contracts/precompiles/xcm-precompile/xcm-precompile-07.webp)
 
 Also, you can verify that the execution of this specific message succeeded by checking that the beneficiary account of the xcm message has received the funds accordingly.
 
@@ -12653,11 +12618,28 @@ The destination parameter must be encoded according to XCM's location format, sp
 
 Unlike `execute`, the `send` function doesn't require a weight parameter since the destination chain will handle execution costs according to its own fee structure.
 
+## Cross Contract Calls
+
+Beyond direct interaction and wrapper contracts, you can integrate XCM functionality directly into your existing smart contracts by inheriting from or importing the `IXcm` interface. This approach allows you to embed cross-chain capabilities seamlessly into your application logic.
+
+Whether you're building DeFi protocols, governance systems, or any application requiring cross-chain coordination, you can incorporate XCM calls directly within your contract's functions.
+
 ## Conclusion
 
 The XCM precompile provides a powerful interface for cross-chain interactions within the Polkadot ecosystem. By understanding how to properly encode messages, estimate weights, and execute or send XCM instructions, developers can build sophisticated cross-chain applications that leverage the full potential of Polkadot's interoperability features.
+--- END CONTENT ---
 
-<!-- The examples in this guide demonstrate the basic patterns for interacting with the XCM precompile through Remix IDE. For more comprehensive examples and testing scenarios, check out the [XCM Hardhat example](https://github.com/polkadot-developers/polkavm-hardhat-examples){target=\_blank} which provides additional tools and test cases for working with XCM precompiles in a development environment. -->
+Doc-Content: https://docs.polkadot.com/develop/smart-contracts/precompiles/xcm-precompiles/
+--- BEGIN CONTENT ---
+## Interact with the XCM Precompile
+
+To interact with the XCM precompile using Remix IDE:
+
+1. **Copy the IXcm Interface**: Grab the IXcm interface definition (provided above) and paste it into a new Solidity file named `IXcm.sol` in Remix.
+2. **Set the Precompile Address**: In Remix, go to the "Deploy & Run Transactions" plugin, and in the "At Address" field, enter the precompile address: `0x00000000000000000000000000000000000a0000`.
+3. **Interact with the Precompile**: Click the "At Address" button. Remix will now allow you to interact directly with the XCM precompile contract using the functions defined in the IXcm interface.
+
+You can now call the `execute`, `send`, and `weighMessage` functions on the XCM precompile from Remix, using properly encoded parameters as described in this guide.
 --- END CONTENT ---
 
 Doc-Content: https://docs.polkadot.com/develop/smart-contracts/wallets/

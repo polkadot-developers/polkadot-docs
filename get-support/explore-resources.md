@@ -1,5 +1,5 @@
 ---
-title: Subscribe to updates
+title: Subscribe to Updates
 description: Find Polkadot developer resources, tutorials, forums, governance proposals, and community platforms like StackExchange, Reddit, and YouTube.
 template: index-page.html
 hide:

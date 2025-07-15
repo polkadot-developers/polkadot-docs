@@ -12479,15 +12479,18 @@ categories: Smart Contracts
 
 ## Introduction
 
-The [XCM (Cross-Consensus Message)](/develop/interoperability/intro-to-xcm){target=\_blank} precompile enables Polkadot Hub developers to access XCM functionality directly from their smart contracts, sending cross-chain messages, executing XCM instructions locally, and estimating execution costs—all through a standardized Solidity interface.
+The [XCM (Cross-Consensus Message)](/develop/interoperability/intro-to-xcm){target=\_blank} precompile enables Polkadot Hub developers to access XCM functionality directly from their smart contracts using a Solidity interface.
 
-Located at the fixed address `0x00000000000000000000000000000000000a0000`, the XCM precompile offers three primary functions: 
+Located at the fixed address `0x00000000000000000000000000000000000a0000`, the XCM precompile offers three primary functions:
 
 - **`execute`**:  for local XCM execution
 - **`send`**:  for cross-chain message transmission
 - **`weighMessage`**: for cost estimation 
 
 This guide demonstrates how to interact with the XCM precompile through Solidity smart contracts using [Remix IDE](/develop/smart-contracts/dev-environments/remix.md){target=\_blank}.
+
+!!!note
+    The XCM precompile is very barebones. It's the most flexible but as such, doesn't provide abstractions to hide away XCM details. These have to be built on top.
 
 ## Precompile Interface
 
@@ -12591,24 +12594,25 @@ The function returns a `Weight` struct containing `refTime` and `proofSize` valu
 ![](/images/develop/smart-contracts/precompiles/xcm-precompile/xcm-precompile-05.webp)
 
 !!!note
-    To interact with Polkadot Hub TestNet, visit this [gist](https://gist.github.com/franciscoaguirre/a6dea0c55e81faba65bedf700033a1a2){target=\_blank}, which provides examples of how to craft XCM messages for different purposes.
+    You can find many more examples of XCMs in this [gist](https://gist.github.com/franciscoaguirre/a6dea0c55e81faba65bedf700033a1a2){target=\_blank} which connects to the Polkadot Hub testnet.
 
 ### Execute a Message
 
-The `execute` function runs an XCM message locally using the caller's origin. This function helps execute XCM instructions that don't require cross-chain communication.
+The `execute` function runs an XCM message locally using the caller's origin.
+This function is the main entrypoint to cross-chain interactions.
 
 Follow these steps to execute a message:
 
-1. Call `callWeighMessage` with your XCM message to get the required weight.
-2. Use the returned weight values when calling `callXcmExecute`.
-3. Pass the same XCM message bytes and the weight obtained from the previous step. For example, using the same message from the weighing example, you would call `callXcmExecute` with:
+1. Call `weighMessage` with your message to get the required weight.
+2. Pass the same message bytes and the weight obtained from the previous step to `execute`.
+For example, using the same message from the weighing example, you would call `execute` with:
 
     - `message`: The encoded XCM message bytes.
-    - `weight`: The `Weight` struct returned from `callWeighMessage`.
+    - `weight`: The `Weight` struct returned from `weighMessage`.
 
     You can use the [papi console](https://dev.papi.how/extrinsics#networkId=localhost&endpoint=wss%3A%2F%2Ftestnet-passet-hub.polkadot.io&data=0x1f03050c000401000003008c86471301000003008c8647000d010101000000010100368e8759910dab756d344995f1d3c79374ca8f70066d3a709e48029f6bf0ee7e0750c61e2901daad0600){target=\_blank} to examine the complete extrinsic structure for this operation.
 
-5. Click on the **Transact** button to execute the xcm message:
+3. On Remix, click on the **Transact** button to execute the xcm message:
   
     ![](/images/develop/smart-contracts/precompiles/xcm-precompile/xcm-precompile-06.webp)
 
@@ -12620,13 +12624,13 @@ Additionally, you can verify that the execution of this specific message was suc
 
 ### Send a Message
 
-The `send` function is responsible for transmitting an XCM message to a destination chain, enabling essential cross-chain communication.
+While most cross-chain operations can be done via `execute`, sometimes `send` is needed, for example, when opening HRMP channels.
 
 To send a message:
 
 1. Prepare your destination location encoded in XCM format.
 2. Prepare your XCM message (similar to the execute example).
-3. Call `callXcmSend` with both parameters.
+3. Call `send` with both parameters.
 
 The destination parameter must be encoded according to XCM's location format, specifying the target parachain or consensus system. The message parameter contains the XCM instructions to be executed on the destination chain.
 

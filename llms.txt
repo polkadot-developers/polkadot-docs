@@ -12490,7 +12490,7 @@ Located at the fixed address `0x00000000000000000000000000000000000a0000`, the X
 This guide demonstrates how to interact with the XCM precompile through Solidity smart contracts using [Remix IDE](/develop/smart-contracts/dev-environments/remix.md){target=\_blank}.
 
 !!!note
-    The XCM precompile is very barebones. It's the most flexible but as such, doesn't provide abstractions to hide away XCM details. These have to be built on top.
+    The XCM precompile provides the barebones XCM functionality. While it provides a lot of flexibility, it doesn't provide abstractions to hide away XCM details. These have to be built on top.
 
 ## Precompile Interface
 
@@ -12547,7 +12547,7 @@ The interface defines a `Weight` struct that represents the computational cost o
 
 All XCM messages must be encoded using the [SCALE codec](/polkadot-protocol/parachain-basics/data-encoding/#data-encoding){target=\_blank}, Polkadot's standard serialization format.
 
-For further information, check the [`precompiles/IXCM.sol`](https://github.com/paritytech/polkadot-sdk/blob/cb629d46ebf00aa65624013a61f9c69ebf02b0b4/polkadot/xcm/pallet-xcm/src/precompiles/IXcm.sol){target=\_blank} file present in the `pallet-xcm`.
+For further information, check the [`precompiles/IXCM.sol`](https://github.com/paritytech/polkadot-sdk/blob/cb629d46ebf00aa65624013a61f9c69ebf02b0b4/polkadot/xcm/pallet-xcm/src/precompiles/IXcm.sol){target=\_blank} file present in `pallet-xcm`.
 
 ## Interact with the XCM Precompile
 
@@ -12646,7 +12646,13 @@ Whether you're building DeFi protocols, governance systems, or any application r
 
 ## Conclusion
 
-The XCM precompile provides a powerful interface for cross-chain interactions within the Polkadot ecosystem. By understanding how to properly encode messages, estimate weights, and execute or send XCM instructions, developers can build sophisticated cross-chain applications that leverage the full potential of Polkadot's interoperability features.
+The XCM precompile provides a simple yet powerful interface for cross-chain interactions within the Polkadot ecosystem and beyond.
+By building and executing XCM programs, developers can build cross-chain applications that leverage the full potential of Polkadot's interoperability features.
+
+## Next steps
+
+Head to the Polkadot Hub testnet and start playing around with the precompile using Hardhat or Foundry.
+You can use PAPI to build XCM programs and test them with chopsticks.
 --- END CONTENT ---
 
 Doc-Content: https://docs.polkadot.com/develop/smart-contracts/wallets/

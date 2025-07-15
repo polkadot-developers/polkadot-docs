@@ -42,7 +42,7 @@ These platforms are full of useful content and experienced developers sharing in
 
 ---
 
-# Community-led platforms and ecosystem updates
+# Community-led Platforms and Ecosystem Updates
 
 Stay in sync with what's happening across the Polkadot ecosystem — from official announcements to community-driven insights and governance activity.
 

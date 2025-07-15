@@ -96,9 +96,9 @@ Follow these steps to execute a message:
   
     ![](/images/develop/smart-contracts/precompiles/xcm-precompile/xcm-precompile-06.webp)
 
-If successful, you will see the following output in the Remix terminal:
+    If successful, you will see the following output in the Remix terminal:
 
-![](/images/develop/smart-contracts/precompiles/xcm-precompile/xcm-precompile-07.webp)
+    ![](/images/develop/smart-contracts/precompiles/xcm-precompile/xcm-precompile-07.webp)
 
 Additionally, you can verify that the execution of this specific message was successful by checking that the beneficiary account associated with the xcm message has received the funds accordingly.
 

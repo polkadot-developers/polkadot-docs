@@ -15,10 +15,10 @@ This solution empowers users to create, control, and verify their digital identi
 
 People chain provides a comprehensive identity framework allowing users to:
 
-- Establish verifiable on-chain identities
-- Control disclosure of personal information
-- Receive verification from trusted registrars
-- Link multiple accounts under a unified identity
+- Establish verifiable on-chain identities.
+- Control disclosure of personal information.
+- Receive verification from trusted registrars.
+- Link multiple accounts under a unified identity.
 
 Users must reserve funds in a bond to store their information on chain. These funds are locked, not spent, and returned when the identity is cleared.
 
@@ -26,9 +26,9 @@ Users must reserve funds in a bond to store their information on chain. These fu
 
 The platform supports hierarchical identity structures through sub-accounts:
 
-- Primary accounts can establish up to 100 linked sub-accounts
-- Each sub-account maintains its own distinct identity
-- All sub-accounts require a separate bond deposit
+- Primary accounts can establish up to 100 linked sub-accounts.
+- Each sub-account maintains its own distinct identity.
+- All sub-accounts require a separate bond deposit.
 
 ## Verification Process
 
@@ -36,20 +36,20 @@ The platform supports hierarchical identity structures through sub-accounts:
 
 After establishing an on-chain identity, users can request verification from [registrars](#registrars):
 
-1. Users specify the maximum fee they're willing to pay for judgment
-2. Only registrars whose fees fall below this threshold can provide verification
-3. Registrars assess the provided information and issue a judgment
+1. Users specify the maximum fee they're willing to pay for judgment.
+2. Only registrars whose fees fall below this threshold can provide verification.
+3. Registrars assess the provided information and issue a judgment.
 
 ### Judgment Classifications
 
 Registrars can assign the following confidence levels to identity information:
 
-- **Unknown** - default status; no judgment rendered yet
-- **Reasonable** - data appears valid but without formal verification (standard for most verified identities)
-- **Known good** - information certified correct through formal verification (requires documentation; limited to registrars)
-- **Out of date** - previously verified information that requires updating
-- **Low quality** - imprecise information requiring correction
-- **Erroneous** - incorrect information, potentially indicating fraudulent intent
+- **Unknown**: Default status; no judgment rendered yet.
+- **Reasonable**: Data appears valid but without formal verification (standard for most verified identities).
+- **Known good**: Information certified correct through formal verification (requires documentation; limited to registrars).
+- **Out of date**: Previously verified information that requires updating.
+- **Low quality**: Imprecise information requiring correction.
+- **Erroneous**: Incorrect information, potentially indicating fraudulent intent.
 
 A temporary "Fee Paid" status indicates judgment in progress. Both "Fee Paid" and "Erroneous" statuses lock identity information from modification until resolved.
 
@@ -57,18 +57,18 @@ A temporary "Fee Paid" status indicates judgment in progress. Both "Fee Paid" an
 
 Registrars serve as trusted verification authorities within the People chain ecosystem. These entities validate user identities and provide attestations that build trust in the network.
 
-- Registrars set specific fees for their verification services
-- They can specialize in verifying particular identity fields
-- Verification costs vary based on complexity and thoroughness
+- Registrars set specific fees for their verification services.
+- They can specialize in verifying particular identity fields.
+- Verification costs vary based on complexity and thoroughness.
 
 When requesting verification, users specify their maximum acceptable fee. Only registrars whose fees fall below this threshold can provide judgment. Upon completing the verification process, the user pays the registrar's fee, and the registrar issues an appropriate confidence level classification based on their assessment.
 
 Multiple registrars operate across the Polkadot and People chain ecosystems, each with unique specializations and fee structures. To request verification:
 
-1. Research available registrars and their verification requirements
-2. Contact your chosen registrar directly through their specified channels
-3. Submit required documentation according to their verification process
-4. Pay the associated verification fee
+1. Research available registrars and their verification requirements.
+2. Contact your chosen registrar directly through their specified channels.
+3. Submit required documentation according to their verification process.
+4. Pay the associated verification fee.
 
 You must contact specific registrars individually to request judgment. Each registrar maintains its own verification procedures and communication channels.
 

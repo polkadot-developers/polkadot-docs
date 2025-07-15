@@ -19,14 +19,14 @@ Elastic scaling enables parachains to process multiple blocks in parallel by uti
 
 Consider a parachain that needs to process four consecutive parablocks. With traditional single-core allocation, the validation process follows a strictly sequential pattern. Each parablock undergoes a two-phase process on the relay chain:
 
-1. **Backing phase** - validators create and distribute validity statements
-2. **Inclusion phase** - the parablock is included in the relay chain after availability verification
+1. **Backing phase**: Validators create and distribute validity statements.
+2. **Inclusion phase**: The parablock is included in the relay chain after availability verification.
 
 Throughout the following diagrams, specific notation is used to represent different components of the system:
 
-- R1, R2, ... - relay chain blocks (produced at ~6-second intervals)
-- P1, P2, ... - parachain blocks that need validation and inclusion
-- C1, C2, ... - cores on the relay chain
+- **R1, R2, ...**: Relay chain blocks (produced at ~6-second intervals).
+- **P1, P2, ...**: Parachain blocks that need validation and inclusion.
+- **C1, C2, ...**: Cores on the relay chain.
 
 In the single-core scenario (assuming a 6-second relay chain block time), processing four parablocks requires approximately 30 seconds:
 
@@ -84,33 +84,33 @@ sequenceDiagram
 
 To help interpret the sequence diagrams above, note the following key elements:
 
-- The horizontal axis represents time progression through relay chain blocks (R1-R5)
-- Each colored rectangle shows processing on a specific core (C1 or C2)
-- In the single-core scenario, all blocks must be processed sequentially on one core
-- In the multi-core scenario, blocks are processed in parallel across multiple cores, reducing total time
+- The horizontal axis represents time progression through relay chain blocks (R1-R5).
+- Each colored rectangle shows processing on a specific core (C1 or C2).
+- In the single-core scenario, all blocks must be processed sequentially on one core.
+- In the multi-core scenario, blocks are processed in parallel across multiple cores, reducing total time.
 
 The relay chain processes these multiple parablocks as independent validation units during the backing, availability, and approval phases. However, during inclusion, it verifies that their state roots align properly to maintain chain consistency.
 
 From an implementation perspective:
 
-- **Parachain side** - collators must increase their block production rate to utilize multiple cores fully
-- **Validation process** - each core operates independently, but with coordinated state verification
-- **Resource management** - cores are dynamically allocated based on parachain requirements
-- **State consistency** - while backed and processed in parallel, the parablocks maintain sequential state transitions
+- **Parachain side**: Collators must increase their block production rate to utilize multiple cores fully.
+- **Validation process**: Each core operates independently, but with coordinated state verification.
+- **Resource management**: Cores are dynamically allocated based on parachain requirements.
+- **State consistency**: While backed and processed in parallel, the parablocks maintain sequential state transitions.
 
 ## Benefits of Elastic Scaling
 
-- **Increased throughput** - multiple concurrent cores enable parachains to process transactions at multiples of their previous capacity. By allowing multiple parachain blocks to be validated within each relay chain block cycle, applications can achieve significantly higher transaction volumes
+- **Increased throughput**: Multiple concurrent cores enable parachains to process transactions at multiples of their previous capacity. By allowing multiple parachain blocks to be validated within each relay chain block cycle, applications can achieve significantly higher transaction volumes.
 
-- **Lower latency** - transaction finality improves substantially with multi-core processing. Parachains currently achieve 2-second latency with three cores, with projected improvements to 500ms using 12 cores, enabling near-real-time application responsiveness
+- **Lower latency**: Transaction finality improves substantially with multi-core processing. Parachains currently achieve 2-second latency with three cores, with projected improvements to 500ms using 12 cores, enabling near-real-time application responsiveness.
 
-- **Resource efficiency** - applications acquire computational resources precisely matched to their needs, eliminating wasteful over-provisioning. Coretime can be purchased at granular intervals (blocks, hours, days), creating cost-effective operations, particularly for applications with variable transaction patterns
+- **Resource efficiency**: Applications acquire computational resources precisely matched to their needs, eliminating wasteful over-provisioning. Coretime can be purchased at granular intervals (blocks, hours, days), creating cost-effective operations, particularly for applications with variable transaction patterns.
 
-- **Scalable growth** - new applications can launch with minimal initial resource commitment and scale dynamically as adoption increases. This eliminates the traditional paradox of either over-allocating resources (increasing costs) or under-allocating (degrading performance) during growth phases
+- **Scalable growth**: New applications can launch with minimal initial resource commitment and scale dynamically as adoption increases. This eliminates the traditional paradox of either over-allocating resources (increasing costs) or under-allocating (degrading performance) during growth phases.
 
-- **Workload distribution** - parachains intelligently distribute workloads across cores during peak demand periods and release resources when traffic subsides. Paired with secondary coretime markets, this ensures maximum resource utilization across the entire network ecosystem
+- **Workload distribution**: Parachains intelligently distribute workloads across cores during peak demand periods and release resources when traffic subsides. Paired with secondary coretime markets, this ensures maximum resource utilization across the entire network ecosystem.
 
-- **Reliable performance** - end-users experience reliable application performance regardless of network congestion levels. Applications maintain responsiveness even during traffic spikes, eliminating performance degradation that commonly impacts blockchain applications during high-demand periods
+- **Reliable performance**: End-users experience reliable application performance regardless of network congestion levels. Applications maintain responsiveness even during traffic spikes, eliminating performance degradation that commonly impacts blockchain applications during high-demand periods.
 
 ## Use Cases
 

@@ -30,7 +30,7 @@ These platforms are full of useful content and experienced developers sharing in
 - Beyond the official support threads, most channels are community-driven.
 - Great place to connect with fellow builders and share insights.
 
-👉 **[Join the Polkadot Discord](https://polkadot-discord.w3f.tools/)**
+👉 **[Join the Polkadot Discord](https://polkadot-discord.w3f.tools/){target=\_blank}**
 
 ## 🎥 YouTube: @PolkadotNetwork
 

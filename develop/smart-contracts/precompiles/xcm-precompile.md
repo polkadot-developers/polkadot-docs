@@ -58,6 +58,8 @@ To interact with the XCM precompile, you can use the precompile interface direct
 
     ![](/images/develop/smart-contracts/precompiles/xcm-precompile/xcm-precompile-03.webp)
 
+The main entrypoint of the precompile is the `execute` function. However, it's necessary to first call `weighMessage` to fill in the required parameters.
+
 ### Weigh a Message
 
 The `weighMessage` function estimates the computational cost required to execute an XCM message. This estimate is crucial for understanding the resources needed before actually executing or sending a message.

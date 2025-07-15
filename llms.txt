@@ -12596,7 +12596,7 @@ The function returns a `Weight` struct containing `refTime` and `proofSize` valu
 ![](/images/develop/smart-contracts/precompiles/xcm-precompile/xcm-precompile-05.webp)
 
 !!!note
-    You can find many more examples of XCMs in this [gist](https://gist.github.com/franciscoaguirre/a6dea0c55e81faba65bedf700033a1a2){target=\_blank} which connects to the Polkadot Hub testnet.
+    You can find many more examples of XCMs in this [gist](https://gist.github.com/franciscoaguirre/a6dea0c55e81faba65bedf700033a1a2){target=\_blank} which connects to the Polkadot Hub TestNet.
 
 ### Execute a Message
 
@@ -12651,7 +12651,8 @@ By building and executing XCM programs, developers can build cross-chain applica
 
 ## Next steps
 
-Head to the Polkadot Hub testnet and start playing around with the precompile using Hardhat or Foundry.
+Head to the Polkadot Hub TestNet and start playing around with the precompile using Hardhat or Foundry.
+
 You can use PAPI to build XCM programs and test them with chopsticks.
 --- END CONTENT ---
 

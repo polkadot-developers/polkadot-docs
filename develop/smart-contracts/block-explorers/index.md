@@ -15,12 +15,12 @@ Block explorers serve as comprehensive blockchain analytics platforms that provi
 
 These block explorers provide essential capabilities for interacting with smart contracts in Polkadot Hub:
 
-- **Transaction tracking** - monitor transaction status, confirmations, fees, and metadata
-- **Address analysis** - view account balances, transaction history, and associated contracts
-- **Block information** - examine block contents
-- **Smart contract interaction** - review contract code, verification status, and interaction history
-- **Token tracking** - monitor ERC-20, ERC-721, and other token standards with transfer history and holder analytics
-- **Network statistics** - access metrics on transaction volume, gas usage, and other network parameters
+- **Transaction tracking**: Monitor transaction status, confirmations, fees, and metadata.
+- **Address analysis**: View account balances, transaction history, and associated contracts.
+- **Block information**: Examine block contents.
+- **Smart contract interaction**: Review contract code, verification status, and interaction history.
+- **Token tracking**: Monitor ERC-20, ERC-721, and other token standards with transfer history and holder analytics.
+- **Network statistics**: Access metrics on transaction volume, gas usage, and other network parameters.
 
 ## Available Block Explorers
 

@@ -16,30 +16,34 @@ This guide illustrates how to utilize Web3.py for interactions with Polkadot Hub
 ## Set Up the Project
 
 1. To start working with Web3.py, begin by initializing your project:
-```
-mkdir web3py-project
-cd web3py-project
-```
+
+    ```
+    mkdir web3py-project
+    cd web3py-project
+    ```
 
 2. Create and activate a virtual environment for your project:
-```
-python -m venv venv
-source venv/bin/activate
-```
+
+    ```
+    python -m venv venv
+    source venv/bin/activate
+    ```
 
 3. Next, install the Web3.py library:
-```
-pip install web3
-```
+
+    ```
+    pip install web3
+    ```
 
 ## Set Up the Web3 Provider
 
 The [provider](https://web3py.readthedocs.io/en/stable/providers.html){target=\_blank} configuration is the foundation of any Web3.py application. The following example establishes a connection to Polkadot Hub. Follow these steps to use the provider configuration:
 
 1. Replace `INSERT_RPC_URL` with the appropriate value. For instance, to connect to Polkadot Hub TestNet, use the following parameter:
-```python
-PROVIDER_RPC = 'https://testnet-passet-hub-eth-rpc.polkadot.io'
-```
+
+    ```python
+    PROVIDER_RPC = 'https://testnet-passet-hub-eth-rpc.polkadot.io'
+    ```
 
     The provider connection script should look something like this:
 
@@ -48,22 +52,23 @@ PROVIDER_RPC = 'https://testnet-passet-hub-eth-rpc.polkadot.io'
     ```
 
 1. With the Web3 provider set up, start querying the blockchain. For instance, you can use the following code snippet to fetch the latest block number of the chain:
-```python title="fetch_last_block.py"
---8<-- "code/develop/smart-contracts/libraries/web3-py/fetch_last_block.py:9:18"
-```
-
-??? code "View complete script"
 
     ```python title="fetch_last_block.py"
-    --8<-- "code/develop/smart-contracts/libraries/web3-py/fetch_last_block.py"
+    --8<-- "code/develop/smart-contracts/libraries/web3-py/fetch_last_block.py:9:18"
     ```
+
+    ??? code "View complete script"
+
+        ```python title="fetch_last_block.py"
+        --8<-- "code/develop/smart-contracts/libraries/web3-py/fetch_last_block.py"
+        ```
 
 ## Contract Deployment
 
 Before deploying your contracts, make sure you've compiled them and obtained two key files:
 
-- An ABI (.json) file, which provides a JSON interface describing the contract's functions and how to interact with it
-- A bytecode (.polkavm) file, which contains the low-level machine code executable on [PolkaVM](/polkadot-protocol/smart-contract-basics/polkavm-design#polkavm){target=\_blank} that represents the compiled smart contract ready for blockchain deployment
+- An ABI (.json) file, which provides a JSON interface describing the contract's functions and how to interact with it.
+- A bytecode (.polkavm) file, which contains the low-level machine code executable on [PolkaVM](/polkadot-protocol/smart-contract-basics/polkavm-design#polkavm){target=\_blank} that represents the compiled smart contract ready for blockchain deployment.
 
 To follow this guide, you can use the following solidity contract as an example:
 

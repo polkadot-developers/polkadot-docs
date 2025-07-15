@@ -11,9 +11,9 @@ Moonwall is an end-to-end testing framework designed explicitly for Polkadot SDK
 
 Moonwall consolidates this complexity by providing the following:
 
-- A centralized configuration management system that explicitly defines all network parameters
-- A standardized approach to environment setup across different Substrate-based chains
-- Built-in utilities for common testing scenarios and network interactions
+- A centralized configuration management system that explicitly defines all network parameters.
+- A standardized approach to environment setup across different Substrate-based chains.
+- Built-in utilities for common testing scenarios and network interactions.
 
 Developers can focus on writing meaningful tests rather than managing infrastructure complexities or searching through documentation for configuration options.
 
@@ -21,8 +21,8 @@ Developers can focus on writing meaningful tests rather than managing infrastruc
 
 Before you begin, ensure you have the following installed:
 
-- [Node.js](https://nodejs.org/en/){target=\_blank} (version 20.10 or higher)
-- A package manager such as [npm](https://www.npmjs.com/){target=\_blank}, [yarn](https://yarnpkg.com/){target=\_blank}, or [pnpm](https://pnpm.io/){target=\_blank}
+- [Node.js](https://nodejs.org/en/){target=\_blank} (version 20.10 or higher).
+- A package manager such as [npm](https://www.npmjs.com/){target=\_blank}, [yarn](https://yarnpkg.com/){target=\_blank}, or [pnpm](https://pnpm.io/){target=\_blank}.
 
 ## Install Moonwall
 
@@ -95,11 +95,11 @@ moonwall init
 
 During setup, you will see prompts for the following parameters:
 
-- **`label`** - identifies your test configuration
-- **`global timeout`** - maximum time (ms) for test execution
-- **`environment name`** - name for your testing environment
-- **`network foundation`** - type of blockchain environment to use
-- **`tests directory`** - location of your test files
+- **`label`**: Identifies your test configuration.
+- **`global timeout`**: Maximum time (ms) for test execution.
+- **`environment name`**: Name for your testing environment.
+- **`network foundation`**: Type of blockchain environment to use.
+- **`tests directory`**: Location of your test files.
 
 Select `Enter` to accept defaults or input custom values. You should see something like this:
 
@@ -113,11 +113,11 @@ The wizard generates a `moonwall.config` file:
 
 The default configuration requires specific details about your blockchain node and test requirements:
 
-- The `foundation` object defines how your test blockchain node will be launched and managed. The dev foundation, which runs a local node binary, is used for local development
+- The `foundation` object defines how your test blockchain node will be launched and managed. The dev foundation, which runs a local node binary, is used for local development.
     
 For more information about available options, check the [Foundations](https://moonsong-labs.github.io/moonwall/guide/intro/foundations.html){target=\_blank} section.
 
-- The `connections` array specifies how your tests will interact with the blockchain node. This typically includes provider configuration and endpoint details
+- The `connections` array specifies how your tests will interact with the blockchain node. This typically includes provider configuration and endpoint details.
     
 A provider is a tool that allows you or your application to connect to a blockchain network and simplifies the low-level details of the process. A provider handles submitting transactions, reading state, and more. For more information on available providers, check the [Providers supported](https://moonsong-labs.github.io/moonwall/guide/intro/providers.html#providers-supported){target=\_blank} page in the Moonwall documentation.
 
@@ -131,10 +131,10 @@ Here's a complete configuration example for testing a local node using Polkadot.
 
 Moonwall uses the [`describeSuite`](https://github.com/Moonsong-Labs/moonwall/blob/7568048c52e9f7844f38fb4796ae9e1b9205fdaa/packages/cli/src/lib/runnerContext.ts#L65){target=\_blank} function to define test suites, like using [Mocha](https://mochajs.org/){target=\_blank}. Each test suite requires the following:
 
-- **`id`** - unique identifier for the suite
-- **`title`** - descriptive name for the suite
-- **`foundationMethods`** - specifies the testing environment (e.g., `dev` for local node testing)
-- **`testCases`** - a callback function that houses the individual test cases of this suite
+- **`id`**: Unique identifier for the suite.
+- **`title`**: Descriptive name for the suite.
+- **`foundationMethods`**: Specifies the testing environment (e.g., `dev` for local node testing).
+- **`testCases`**: A callback function that houses the individual test cases of this suite.
 
 The following example shows how to test a balance transfer between two accounts:
 
@@ -144,11 +144,11 @@ The following example shows how to test a balance transfer between two accounts:
 
 This test demonstrates several key concepts:
 
-- Initializing the Polkadot.js API through Moonwall's context and setting up test accounts
-- Querying on-chain state
-- Executing transactions
-- Waiting for block inclusion
-- Verifying results using assertions
+- Initializing the Polkadot.js API through Moonwall's context and setting up test accounts.
+- Querying on-chain state.
+- Executing transactions.
+- Waiting for block inclusion.
+- Verifying results using assertions.
 
 ## Running the Tests
 
@@ -160,10 +160,10 @@ moonwall test default_env -c moonwall.config
 
 The test runner will output detailed results showing:
 
-- Test suite execution status
-- Individual test case results
-- Execution time
-- Detailed logs and error messages (if any)
+- Test suite execution status.
+- Individual test case results.
+- Execution time.
+- Detailed logs and error messages (if any).
 
 Example output:
 --8<-- 'code/develop/toolkit/parachains/e2e-testing/moonwall/output.html'

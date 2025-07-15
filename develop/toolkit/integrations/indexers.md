@@ -9,19 +9,19 @@ description: Discover blockchain indexers. Enhance data access, enable fast and 
 
 Blockchain data is inherently sequential and distributed, with information stored chronologically across numerous blocks. While retrieving data from a single block through JSON-RPC API calls is straightforward, more complex queries that span multiple blocks present significant challenges:
 
-- Data is scattered and unorganized across the blockchain
-- Retrieving large datasets can take days or weeks to sync
-- Complex operations (like aggregations, averages, or cross-chain queries) require additional processing
-- Direct blockchain queries can impact dApp performance and responsiveness
+- Data is scattered and unorganized across the blockchain.
+- Retrieving large datasets can take days or weeks to sync.
+- Complex operations (like aggregations, averages, or cross-chain queries) require additional processing.
+- Direct blockchain queries can impact dApp performance and responsiveness.
 
 ## What is a Blockchain Indexer?
 
 A blockchain indexer is a specialized infrastructure tool that processes, organizes, and stores blockchain data in an optimized format for efficient querying. Think of it as a search engine for blockchain data that:
 
-- Continuously monitors the blockchain for new blocks and transactions
-- Processes and categorizes this data according to predefined schemas
-- Stores the processed data in an easily queryable database
-- Provides efficient APIs (typically [GraphQL](https://graphql.org/){target=\_blank}) for data retrieval
+- Continuously monitors the blockchain for new blocks and transactions.
+- Processes and categorizes this data according to predefined schemas.
+- Stores the processed data in an easily queryable database.
+- Provides efficient APIs (typically [GraphQL](https://graphql.org/){target=\_blank}) for data retrieval.
 
 ## Indexer Implementations
 

@@ -78,13 +78,13 @@ Now that you have set up the client, you can interact with the chain by reading 
 
 The `TypedApi` provides a streamlined way to read blockchain data through three main interfaces, each designed for specific data access patterns:
 
-- **Constants** - access fixed values or configurations on the blockchain using the `constants` interface:
+- **Constants**: Access fixed values or configurations on the blockchain using the `constants` interface.
 
     ```typescript
     const version = await typedApi.constants.System.Version();
     ```
 
-- **Storage queries** - retrieve stored values by querying the blockchain’s storage via the `query` interface:
+- **Storage queries**: Retrieve stored values by querying the blockchain’s storage via the `query` interface.
 
     ```typescript
     const asset = await api.query.ForeignAssets.Asset.getValue(
@@ -93,7 +93,7 @@ The `TypedApi` provides a streamlined way to read blockchain data through three 
     );
     ```
 
-- **Runtime APIs** - interact directly with runtime APIs using the `apis` interface:
+- **Runtime APIs**: Interact directly with runtime APIs using the `apis` interface.
 
     ```typescript
     const metadata = await typedApi.apis.Metadata.metadata();

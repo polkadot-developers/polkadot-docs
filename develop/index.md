@@ -11,14 +11,14 @@ template: index-page.html
 This guide is a starting point for developers who wish to build in the Polkadot ecosystem. To get the most from this section:
 
 1. Identify your development pathway:
-    - [**Parachain developers**](#parachain-developers) - build, deploy, and maintain custom parachains with the Polkadot SDK
-    - [**Smart contract developers**](#smart-contract-developers) - leverage smart contracts and execute custom logic over existing chains to streamline your development process
-    - [**Application developers**](#application-developers) - leverage Polkadot's underlying protocol features to create solutions for your users to interact with the ecosystem
+    - **[Parachain developers](#parachain-developers)**: Build, deploy, and maintain custom parachains with the Polkadot SDK.
+    - **[Smart contract developers](#smart-contract-developers)**: Leverage smart contracts and execute custom logic over existing chains to streamline your development process.
+    - **[Application developers](#application-developers)**: Leverage Polkadot's underlying protocol features to create solutions for your users to interact with the ecosystem.
 2. Use the sections under your pathway as follows:
-    - **Learn** - content to deepen your knowledge and understanding
-    - **Build** - connect to goal-oriented guides and step-by-step tutorials
-    - **Tools** - tools commonly used in your pathway
-    - **Resources** - resources for your pathway, including references, code repositories, and outside documentation
+    - **Learn**: Content to deepen your knowledge and understanding.
+    - **Build**: Connect to goal-oriented guides and step-by-step tutorials.
+    - **Tools**: Tools commonly used in your pathway.
+    - **Resources**: Resources for your pathway, including references, code repositories, and outside documentation.
 
 ## Development Pathways
 
@@ -36,9 +36,9 @@ graph TD
 
 All three pathways can leverage Cross-Consensus Messaging (XCM) to create innovative cross-chain workflows and applications. To get started with XCM, see these resources:
 
-- [**Introduction to XCM**](/develop/interoperability/intro-to-xcm/){target=\_blank} - introduces key concepts, core function definitions, and code examples
-- [**XCM Tools**](/develop/toolkit/interoperability/xcm-tools/){target=\_blank} - provides an overview of popular XCM tools
-- [**Tutorials for Managing XCM Channels**](/tutorials/interoperability/xcm-channels/){target=\_blank} - guides for using [Polkadot.js Apps](https://polkadot.js.org/apps/#/explorer){target=\_blank} UI to establish cross-chain messaging channels 
+- **[Introduction to XCM](/develop/interoperability/intro-to-xcm/){target=\_blank}**: Introduces key concepts, core function definitions, and code examples.
+- **[XCM Tools](/develop/toolkit/interoperability/xcm-tools/){target=\_blank}**: Provides an overview of popular XCM tools.
+- **[Tutorials for Managing XCM Channels](/tutorials/interoperability/xcm-channels/){target=\_blank}**: Guides for using [Polkadot.js Apps](https://polkadot.js.org/apps/#/explorer){target=\_blank} UI to establish cross-chain messaging channels.
 
 ### Parachain Developers
 

@@ -11,19 +11,19 @@ description: Dedot is a next-gen JavaScript client for Polkadot and Polkadot SDK
 
 ### Key Features
 
-- **Lightweight and tree-shakable** – no more bn.js or WebAssembly blobs, optimized for dapps bundle size
+- **Lightweight and tree-shakable**: No more bn.js or WebAssembly blobs, optimized for dapps bundle size.
 
-- **Fully typed API** – comprehensive TypeScript support for seamless on-chain interaction and ink! smart contract integration
+- **Fully typed API**: Comprehensive TypeScript support for seamless on-chain interaction and ink! smart contract integration.
 
-- **Multi-version JSON-RPC support** – compatible with both [legacy](https://github.com/w3f/PSPs/blob/master/PSPs/drafts/psp-6.md){target=\_blank} and [new](https://paritytech.github.io/json-rpc-interface-spec/introduction.html){target=\_blank} JSON-RPC APIs for broad ecosystem interoperability
+- **Multi-version JSON-RPC support**: Compatible with both [legacy](https://github.com/w3f/PSPs/blob/master/PSPs/drafts/psp-6.md){target=\_blank} and [new](https://paritytech.github.io/json-rpc-interface-spec/introduction.html){target=\_blank} JSON-RPC APIs for broad ecosystem interoperability.
 
-- **Light client support** – designed to work with light clients such as [Smoldot](https://github.com/smol-dot/smoldot){target=\_blank}
+- **Light client support**: Designed to work with light clients such as [Smoldot](https://github.com/smol-dot/smoldot){target=\_blank}.
 
-- **Native TypeScript for scale codec** – implements scale codec parsing directly in TypeScript without relying on custom wrappers
+- **Native TypeScript for scale codec**: Implements scale codec parsing directly in TypeScript without relying on custom wrappers.
 
-- **Wallet integration** – works out-of-the-box with [@polkadot/extension-based](https://github.com/polkadot-js/extension?tab=readme-ov-file#api-interface){target=\_blank} wallets
+- **Wallet integration**: Works out-of-the-box with [@polkadot/extension-based](https://github.com/polkadot-js/extension?tab=readme-ov-file#api-interface){target=\_blank} wallets.
 
-- **Familiar API design** – similar API style to Polkadot.js for easy and fast migration
+- **Familiar API design**: Similar API style to Polkadot.js for easy and fast migration.
 
 ## Installation
 
@@ -67,8 +67,8 @@ To enable auto-completion/IntelliSense for individual chains, install the [`@ded
 
 To connect to and interact with different networks, Dedot provides two client options depending on your needs:
 
-- **[`DedotClient`](https://docs.dedot.dev/clients-and-providers/clients#dedotclient){target=\_blank}** - interacts with chains via the [new JSON-RPC APIs](https://paritytech.github.io/json-rpc-interface-spec/introduction.html){target=\_blank}
-- **[`LegacyClient`](https://docs.dedot.dev/clients-and-providers/clients#legacyclient){target=\_blank}** - interacts with chains via the [legacy JSON-RPC APIs](https://github.com/w3f/PSPs/blob/master/PSPs/drafts/psp-6.md){target=\_blank}
+- **[`DedotClient`](https://docs.dedot.dev/clients-and-providers/clients#dedotclient){target=\_blank}**: Interacts with chains via the [new JSON-RPC APIs](https://paritytech.github.io/json-rpc-interface-spec/introduction.html){target=\_blank}.
+- **[`LegacyClient`](https://docs.dedot.dev/clients-and-providers/clients#legacyclient){target=\_blank}**: Interacts with chains via the [legacy JSON-RPC APIs](https://github.com/w3f/PSPs/blob/master/PSPs/drafts/psp-6.md){target=\_blank}.
 
 Use the following snippets to connect to Polkadot using `DedotClient`:
 
@@ -111,13 +111,13 @@ Or open a pull request to add your favorite network to the [`@dedot/chaintypes`]
 
 Dedot provides several ways to read data from the chain:
 
-- **Access runtime constants** - use the syntax `client.consts.<pallet>.<constantName>` to inspect runtime constants (parameter types):
+- **Access runtime constants**: Use the syntax `client.consts.<pallet>.<constantName>` to inspect runtime constants (parameter types).
 
     ```typescript
     --8<-- "code/develop/toolkit/api-libraries/dedot/runtime-constants.ts"
     ```
 
-- **Storage queries** - use the syntax `client.query.<pallet>.<storgeEntry>` to query on-chain storage:
+- **Storage queries**: Use the syntax `client.query.<pallet>.<storgeEntry>` to query on-chain storage.
 
     ```typescript
     --8<-- "code/develop/toolkit/api-libraries/dedot/storage-queries.ts"
@@ -129,13 +129,13 @@ Dedot provides several ways to read data from the chain:
     --8<-- "code/develop/toolkit/api-libraries/dedot/subscribe-storage-changes.ts"
     ```
 
-- **Call Runtime APIs** - use the syntax `client.call.<runtimeApi>.<methodName>` to execute Runtime APIs:
+- **Call Runtime APIs**: Use the syntax `client.call.<runtimeApi>.<methodName>` to execute Runtime APIs.
 
     ```typescript
     --8<-- "code/develop/toolkit/api-libraries/dedot/call-runtime-apis.ts"
     ```
 
-- **Watch on-chain events** - use the syntax `client.events.<pallet>.<eventName>` to access pallet events:
+- **Watch on-chain events**: Use the syntax `client.events.<pallet>.<eventName>` to access pallet events.
     
     ```typescript
     --8<-- "code/develop/toolkit/api-libraries/dedot/watch-on-chain-events.ts"

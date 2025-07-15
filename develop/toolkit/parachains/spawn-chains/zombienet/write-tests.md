@@ -2,6 +2,7 @@
 title: Write Tests
 description: Write and execute tests for blockchain networks with Zombienet's DSL. Learn to evaluate metrics, logs, events, and more for robust validation.
 ---
+
 # Write Tests
 
 ## Introduction
@@ -14,14 +15,14 @@ This guide provides an in-depth look at how to create and execute test scenarios
 
 Zombienet provides a Domain Specific Language (DSL) for writing tests. The DSL is designed to be human-readable and allows you to write tests using natural language expressions. You can define assertions and tests against the spawned network using this DSL. This way, users can evaluate different metrics, such as:
 
-- **On-chain storage** - the storage of each of the chains running via Zombienet
-- **Metrics** - the metrics provided by the nodes
-- **Histograms** - visual representations of metrics data
-- **Logs** - detailed records of system activities and events
-- **System events** - notifications of significant occurrences within the network
-- **Tracing** - detailed analysis of execution paths and operations
-- **Custom API calls (through Polkadot.js)** - personalized interfaces for interacting with the network
-- **Commands** - instructions or directives executed by the network
+- **On-chain storage**: The storage of each of the chains running via Zombienet.
+- **Metrics**: The metrics provided by the nodes.
+- **Histograms**: Visual representations of metrics data.
+- **Logs**: Detailed records of system activities and events.
+- **System events**: Notifications of significant occurrences within the network.
+- **Tracing**: Detailed analysis of execution paths and operations.
+- **Custom API calls (through Polkadot.js)**: Personalized interfaces for interacting with the network.
+- **Commands**: Instructions or directives executed by the network.
 
 These abstractions are expressed by sentences defined in a natural language style. Therefore, each test line will be mapped to a test to run. Also, the test file (`*.zndsl`) includes pre-defined header fields used to define information about the suite, such as network configuration and credentials location.
 
@@ -33,9 +34,9 @@ The test file is a text file with the extension `.zndsl`. It is divided into two
 
 The header is defined by the following fields:
 
-- **`description`** ++"string"++ - long description of the test suite (optional)
-- **`network`** ++"string"++ - path to the network definition file, supported in both `.json` and `.toml` formats
-- **`creds`** ++"string"++ - credentials filename or path to use (available only with Kubernetes provider). Looks in the current directory or `$HOME/.kube/` if a filename is passed
+- **`description`** ++"string"++: Long description of the test suite (optional).
+- **`network`** ++"string"++: Path to the network definition file, supported in both `.json` and `.toml` formats.
+- **`creds`** ++"string"++: Credentials filename or path to use (available only with Kubernetes provider). Looks in the current directory or `$HOME/.kube/` if a filename is passed.
 
 The body contains the tests to run. Each test is defined by a sentence in the DSL, which is mapped to a test to run. Each test line defines an assertion or a command to be executed against the spawned network.
 
@@ -47,7 +48,7 @@ The test name in Zombienet is derived from the filename by removing any leading 
 
 Assertions are defined by sentences in the DSL that evaluate different metrics, such as on-chain storage, metrics, histograms, logs, system events, tracing, and custom API calls. Each assertion is defined by a sentence in the DSL, which is mapped to a test to run.
 
-- **`Well known functions`** - already mapped test function
+- **`Well known functions`**: Already mapped test function.
 
     === "Syntax"
 
@@ -56,14 +57,13 @@ Assertions are defined by sentences in the DSL that evaluate different metrics, 
     === "Examples"
 
         ```bash
-
         alice: is up
         alice: parachain 100 is registered within 225 seconds
         alice: parachain 100 block height is at least 10 within 250 seconds
         
         ```
 
-- **`Histogram`** - get metrics from Prometheus, calculate the histogram, and assert on the target value
+- **`Histogram`**: Get metrics from Prometheus, calculate the histogram, and assert on the target value.
 
     === "Syntax"
 
@@ -72,12 +72,11 @@ Assertions are defined by sentences in the DSL that evaluate different metrics, 
     === "Example"
 
         ```bash
-
         alice: reports histogram polkadot_pvf_execution_time has at least 2 samples in buckets ["0.1", "0.25", "0.5", "+Inf"] within 100 seconds
         
         ```
 
-- **`Metric`** - get metric from Prometheus and assert on the target value
+- **`Metric`**: Get metric from Prometheus and assert on the target value.
 
     === "Syntax"
 
@@ -86,13 +85,12 @@ Assertions are defined by sentences in the DSL that evaluate different metrics, 
     === "Examples"
 
         ```bash
-
         alice: reports node_roles is 4
         alice: reports sub_libp2p_is_major_syncing is 0
         
         ```
 
-- **`Log line`** - get logs from nodes and assert on the matching pattern
+- **`Log line`**: Get logs from nodes and assert on the matching pattern.
 
     === "Syntax"
 
@@ -101,12 +99,11 @@ Assertions are defined by sentences in the DSL that evaluate different metrics, 
     === "Example"
 
         ```bash
-
         alice: log line matches glob "rted #1" within 10 seconds
         
         ```
 
-- **`Count of log lines`** - get logs from nodes and assert on the number of lines matching pattern
+- **`Count of log lines`**: Get logs from nodes and assert on the number of lines matching pattern.
 
     === "Syntax"
 
@@ -118,7 +115,7 @@ Assertions are defined by sentences in the DSL that evaluate different metrics, 
         alice: count of log lines matching glob "rted #1" within 10 seconds
         ```
 
-- **`System events`** - find a system event from subscription by matching a pattern
+- **`System events`**: Find a system event from subscription by matching a pattern.
 
     === "Syntax"
 
@@ -130,7 +127,7 @@ Assertions are defined by sentences in the DSL that evaluate different metrics, 
         alice: system event matches ""paraId":[0-9]+" within 10 seconds
         ```
 
-- **`Tracing`** - match an array of span names from the supplied `traceID`
+- **`Tracing`**: Match an array of span names from the supplied `traceID`.
 
     === "Syntax"
 
@@ -142,7 +139,7 @@ Assertions are defined by sentences in the DSL that evaluate different metrics, 
         alice: trace with traceID 94c1501a78a0d83c498cc92deec264d9 contains ["answer-chunk-request", "answer-chunk-request"]
         ```
 
-- **`Custom JS scripts`** - run a custom JavaScript script and assert on the return value
+- **`Custom JS scripts`**: Run a custom JavaScript script and assert on the return value.
 
     === "Syntax"
 
@@ -154,7 +151,7 @@ Assertions are defined by sentences in the DSL that evaluate different metrics, 
         alice: js-script ./0008-custom.js return is greater than 1 within 200 seconds
         ```
 
-- **`Custom TS scripts`** - run a custom TypeScript script and assert on the return value
+- **`Custom TS scripts`**: Run a custom TypeScript script and assert on the return value.
 
     === "Syntax"
 
@@ -166,7 +163,7 @@ Assertions are defined by sentences in the DSL that evaluate different metrics, 
         alice: ts-script ./0008-custom-ts.ts return is greater than 1 within 200 seconds
         ```
 
-- **`Backchannel`** - wait for a value and register to use
+- **`Backchannel`**: Wait for a value and register to use.
 
     === "Syntax"
 
@@ -182,34 +179,36 @@ Assertions are defined by sentences in the DSL that evaluate different metrics, 
 
 Commands allow interaction with the nodes and can run pre-defined commands or an arbitrary command in the node. Commonly used commands are as follows:
 
-- **`restart`** - stop the process and start again after the `X` amount of seconds or immediately
+- **`restart`**: Stop the process and start again after the `X` amount of seconds or immediately.
 
-- **`pause`** - pause (SIGSTOP) the process
+- **`pause`**: Pause (SIGSTOP) the process.
 
-- **`resume`** - resume (SIGCONT) the process
+- **`resume`**: Resume (SIGCONT) the process.
 
-- **`sleep`** - sleep the test-runner for `x` amount of seconds
+- **`sleep`**: Sleep the test-runner for `x` amount of seconds.
 
 ## Running a Test
 
 To run a test against the spawned network, you can use the [Zombienet DSL](#testing-dsl) to define the test scenario. Follow these steps to create an example test:
 
-1. Create a file named `spawn-a-basic-network-test.zndsl` 
-```bash
-touch spawn-a-basic-network-test.zndsl
-```
+1. Create a file named `spawn-a-basic-network-test.zndsl`.
+
+    ```bash
+    touch spawn-a-basic-network-test.zndsl
+    ```
 
 2. Add the following code to the file you just created.
-```toml title="spawn-a-basic-network-test.zndsl"
---8<-- 'code/develop/toolkit/parachains/spawn-chains/zombienet/write-tests/spawn-a-basic-chain-test.toml'
-```
+
+    ```toml title="spawn-a-basic-network-test.zndsl"
+    --8<-- 'code/develop/toolkit/parachains/spawn-chains/zombienet/write-tests/spawn-a-basic-chain-test.toml'
+    ```
 
 This test scenario checks to verify the following:
 
-- Nodes are running
-- The parachain with ID 100 is registered within a certain timeframe (255 seconds in this example)
-- Parachain block height is at least a certain number within a timeframe (in this case, 10 within 255 seconds)
-- Nodes are reporting metrics 
+- Nodes are running.
+- The parachain with ID 100 is registered within a certain timeframe (255 seconds in this example).
+- Parachain block height is at least a certain number within a timeframe (in this case, 10 within 255 seconds).
+- Nodes are reporting metrics.
 
 You can define any test scenario you need following the Zombienet DSL syntax.
 

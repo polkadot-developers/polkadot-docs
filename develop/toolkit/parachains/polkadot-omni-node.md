@@ -17,7 +17,7 @@ This guide provides step-by-step instructions for installing the `polkadot-omni-
 
 Before getting started, ensure you have the following prerequisites:
 
-- **[Rust](https://www.rust-lang.org/tools/install){target=\_blank}** - required to build and install the `polkadot-omni-node` binary
+- **[Rust](https://www.rust-lang.org/tools/install){target=\_blank}**: Required to build and install the `polkadot-omni-node` binary.
 
 Ensure Rust's `cargo` command is available in your terminal by running:
 
@@ -51,13 +51,13 @@ The most common source for official chain specifications is the [`paritytech/cha
 
 To obtain a chain specification:
 
-1. Visit the [Chainspec Collection](https://paritytech.github.io/chainspecs/){target=\_blank} website
+1. Visit the [Chainspec Collection](https://paritytech.github.io/chainspecs/){target=\_blank} website.
 
-2. Find the parachain you want to run
+2. Find the parachain you want to run.
 
-3. Click the chain spec to open it
+3. Click the chain spec to open it.
 
-4. Copy the JSON content and save it locally as a `.json` file, e.g., `chain_spec.json`
+4. Copy the JSON content and save it locally as a `.json` file, e.g., `chain_spec.json`.
 
 ## Run a Parachain Full Node
 
@@ -73,19 +73,19 @@ To launch the node, run the following command, replacing `./INSERT_PARACHAIN_CHA
 
 This command will:
 
-- Load the chain specification
+- Load the chain specification.
 
-- Initialize the node using the provided network configuration
+- Initialize the node using the provided network configuration.
 
-- Begin syncing with the parachain network
+- Begin syncing with the parachain network.
 
 ```bash
 polkadot-omni-node --chain ./INSERT_PARACHAIN_CHAIN_SPEC.json --sync warp
 ```
 
-- The `--chain` flag tells the `polkadot-omni-node` which parachain to run by pointing to its chain specification file
+- The `--chain` flag tells the `polkadot-omni-node` which parachain to run by pointing to its chain specification file.
 
-- The `--sync warp` flag enables warp sync, allowing the node to quickly catch up to the latest finalized state. Historical blocks are fetched in the background as the node continues operating
+- The `--sync warp` flag enables warp sync, allowing the node to quickly catch up to the latest finalized state. Historical blocks are fetched in the background as the node continues operating.
 
 Once started, the node will begin connecting to peers and syncing with the network. You’ll see logs in your terminal reflecting its progress.
 
@@ -93,7 +93,7 @@ Once started, the node will begin connecting to peers and syncing with the netwo
 
 By default, `polkadot-omni-node` exposes a WebSocket endpoint at `ws://localhost:9944`,  which you can use to interact with the running node. You can connect using:
 
-- [Polkadot.js Apps](https://polkadot.js.org/apps/#/explorer){target=\_blank} — a web-based interface for exploring and interacting with Polkadot SDK-based chains
-- Custom scripts using compatible [libraries](/develop/toolkit/api-libraries/){target=\_blank}
+- **[Polkadot.js Apps](https://polkadot.js.org/apps/#/explorer){target=\_blank}**: A web-based interface for exploring and interacting with Polkadot SDK-based chains.
+- Custom scripts using compatible [libraries](/develop/toolkit/api-libraries/){target=\_blank}.
 
 Once connected, you can review blocks, call extrinsics, inspect storage, and interact with the runtime.

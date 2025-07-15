@@ -18,8 +18,8 @@ Options for customizing the claim assets transaction. These options allow you to
     
     The Asset ID to pay fees on the current common good parachain. The defaults are as follows:
 
-    - Polkadot Asset Hub - `'DOT'`
-    - Kusama Asset Hub - `'KSM'`
+    - **Polkadot Asset Hub**: `'DOT'`
+    - **Kusama Asset Hub**: `'KSM'`
 
     ---
 

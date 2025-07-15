@@ -16,26 +16,26 @@ The [Polkadot.js API](https://github.com/polkadot-js/api){target=\_blank} uses J
 
 Unlike traditional static APIs, the Polkadot.js API generates its interfaces automatically when connecting to a node. Here's what happens when you connect:
 
-1. The API connects to your node
-2. It retrieves the chain's metadata
-3. Based on this metadata, it creates specific endpoints in this format: `api.<type>.<module>.<section>`
+1. The API connects to your node.
+2. It retrieves the chain's metadata.
+3. Based on this metadata, it creates specific endpoints in this format: `api.<type>.<module>.<section>`.
 
 ### Available API Categories
 
 You can access three main categories of chain interactions:
 
-- **[Runtime constants](https://polkadot.js.org/docs/api/start/api.consts){target=\_blank}** (`api.consts`)
-    - Access runtime constants directly
-    - Returns values immediately without function calls
-    - Example - `api.consts.balances.existentialDeposit`
+- **[Runtime constants](https://polkadot.js.org/docs/api/start/api.consts){target=\_blank}** (`api.consts`).
+    - Access runtime constants directly.
+    - Returns values immediately without function calls.
+    - **Example**: `api.consts.balances.existentialDeposit`
 
-- **[State queries](https://polkadot.js.org/docs/api/start/api.query/){target=\_blank}** (`api.query`)
-    - Read chain state
-    - Example - `api.query.system.account(accountId)`
+- **[State queries](https://polkadot.js.org/docs/api/start/api.query/){target=\_blank}** (`api.query`).
+    - Read chain state.
+    - **Example**: `api.query.system.account(accountId)`
 
-- **[Transactions](https://polkadot.js.org/docs/api/start/api.tx/){target=\_blank}** (`api.tx`)
-    - Submit extrinsics (transactions)
-    - Example - `api.tx.balances.transfer(accountId, value)`
+- **[Transactions](https://polkadot.js.org/docs/api/start/api.tx/){target=\_blank}** (`api.tx`).
+    - Submit extrinsics (transactions).
+    - **Example**: `api.tx.balances.transfer(accountId, value)`
 
 The available methods and interfaces will automatically reflect what's possible on your connected chain.
 
@@ -79,13 +79,13 @@ To create an API connection:
 
 The API provides several ways to read data from the chain. You can access:
 
-- **Constants** - values that are fixed in the runtime and don't change without a runtime upgrade
+- **Constants**: Values that are fixed in the runtime and don't change without a runtime upgrade.
 
     ```js
     --8<-- 'code/develop/toolkit/api-libraries/polkadot-js-sdk/read-constants.js'
     ```
 
-- **State** - current chain state that updates with each block
+- **State**: Current chain state that updates with each block.
 
     ```js
     --8<-- 'code/develop/toolkit/api-libraries/polkadot-js-sdk/read-state.js'
@@ -95,8 +95,8 @@ The API provides several ways to read data from the chain. You can access:
 
 Transactions (also called extrinsics) modify the chain state. Before sending a transaction, you need:
 
-- A funded account with sufficient balance to pay transaction fees
-- The account's keypair for signing
+- A funded account with sufficient balance to pay transaction fees.
+- The account's keypair for signing.
 
 To make a transfer:
 

@@ -11,11 +11,11 @@ description: Quickly bootstrap parachain projects, scaffold templates, deploy lo
 
 Pop CLI simplifies parachain development with features like:
 
-- Quick initialization of parachain development environments
+- Quick initialization of parachain development environments.
 
-- Project scaffolding from predefined parachain templates
+- Project scaffolding from predefined parachain templates.
 
-- Easy deployment and management of local development networks
+- Easy deployment and management of local development networks.
 
 Developers can quickly begin coding and testing, significantly reducing setup overhead.
 

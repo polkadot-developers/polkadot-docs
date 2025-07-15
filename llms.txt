@@ -4,6 +4,7 @@
 Documentation: https://docs.polkadot.com/
 
 # List of doc pages:
+Doc-Page: https://docs.polkadot.com/.venv/lib/python3.13/site-packages/idna-3.10.dist-info/LICENSE/
 Doc-Page: https://docs.polkadot.com/develop/
 Doc-Page: https://docs.polkadot.com/develop/interoperability/
 Doc-Page: https://docs.polkadot.com/develop/interoperability/intro-to-xcm/
@@ -89,6 +90,9 @@ Doc-Page: https://docs.polkadot.com/develop/toolkit/parachains/spawn-chains/
 Doc-Page: https://docs.polkadot.com/develop/toolkit/parachains/spawn-chains/zombienet/get-started/
 Doc-Page: https://docs.polkadot.com/develop/toolkit/parachains/spawn-chains/zombienet/
 Doc-Page: https://docs.polkadot.com/develop/toolkit/parachains/spawn-chains/zombienet/write-tests/
+Doc-Page: https://docs.polkadot.com/get-support/explore-resources/
+Doc-Page: https://docs.polkadot.com/get-support/get-in-touch/
+Doc-Page: https://docs.polkadot.com/get-support/
 Doc-Page: https://docs.polkadot.com/images/README/
 Doc-Page: https://docs.polkadot.com/infrastructure/
 Doc-Page: https://docs.polkadot.com/infrastructure/running-a-node/
@@ -192,6 +196,41 @@ Doc-Page: https://docs.polkadot.com/tutorials/smart-contracts/launch-your-first-
 Doc-Page: https://docs.polkadot.com/tutorials/smart-contracts/launch-your-first-project/test-and-deploy-with-hardhat/
 
 # Full content for each doc page
+
+Doc-Content: https://docs.polkadot.com/.venv/lib/python3.13/site-packages/idna-3.10.dist-info/LICENSE/
+--- BEGIN CONTENT ---
+BSD 3-Clause License
+
+Copyright (c) 2013-2024, Kim Davies and contributors.
+All rights reserved.
+
+Redistribution and use in source and binary forms, with or without
+modification, are permitted provided that the following conditions are
+met:
+
+1. Redistributions of source code must retain the above copyright
+   notice, this list of conditions and the following disclaimer.
+
+2. Redistributions in binary form must reproduce the above copyright
+   notice, this list of conditions and the following disclaimer in the
+   documentation and/or other materials provided with the distribution.
+
+3. Neither the name of the copyright holder nor the names of its
+   contributors may be used to endorse or promote products derived from
+   this software without specific prior written permission.
+
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+"AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
+A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT
+HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED
+TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
+PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+--- END CONTENT ---
 
 Doc-Content: https://docs.polkadot.com/develop/
 --- BEGIN CONTENT ---
@@ -17862,6 +17901,207 @@ alice_trace = { traceID = "94c1501a78a0d83c498cc92deec264d9", contains = [
   "answer-chunk-request",
 ] }
 ```
+--- END CONTENT ---
+
+Doc-Content: https://docs.polkadot.com/get-support/explore-resources/
+--- BEGIN CONTENT ---
+---
+title: Subscribe to updates
+description: Find Polkadot developer resources, tutorials, forums, governance proposals, and community platforms like StackExchange, Reddit, and YouTube.
+template: index-page.html
+hide:
+  - footer
+---
+
+# Ask the community and explore resources
+
+Looking for answers beyond the documentation?  
+These platforms are full of useful content and experienced developers sharing insights.
+
+## 🧠 Stack Exchange
+
+- Browse commonly asked technical questions.
+- Ask your own and get detailed responses from experienced devs.
+
+👉 **[Visit Polkadot Stack Exchange](https://substrate.stackexchange.com/)**
+
+## 🧵 Reddit: r/Polkadot
+
+- General Polkadot discussions and community perspectives.
+- Developer questions are welcome — just tag them appropriately.
+
+👉 **[Visit r/Polkadot](https://www.reddit.com/r/Polkadot/)**
+
+## 💬 Discord (Community Threads Only)
+
+- Beyond the official support threads, most channels are community-driven.
+- Great place to connect with fellow builders and share insights.
+
+👉 **[Join the Polkadot Discord](https://polkadot-discord.w3f.tools/)**
+
+## 🎥 YouTube: @PolkadotNetwork
+
+- Developer tutorials
+- Ecosystem interviews
+- Event recordings and walkthroughs
+
+👉 **[Watch on YouTube](https://www.youtube.com/@PolkadotNetwork)**
+
+---
+
+# Community-led platforms and ecosystem updates
+
+Stay in sync with what's happening across the Polkadot ecosystem — from official announcements to community-driven insights and governance activity.
+
+## 🔷 X (Twitter): Official Accounts
+
+- [@PolkadotDevs](https://twitter.com/PolkadotDevs) — updates for developers
+- [@Polkadot](https://twitter.com/Polkadot) — network-wide news
+- [@Kusamanetwork](https://twitter.com/kusamanetwork) — Kusama-specific updates
+- [@Web3Foundation](https://twitter.com/web3foundation) — grants, research, and ecosystem programs
+
+## 🔁 X (Twitter): Community Accounts
+
+- [@PolkadotDeploy](https://twitter.com/PolkadotDeploy) — news from the deployment portal and tooling updates
+
+## 🗣️ Polkadot Forum
+
+- Join community discussions around the direction of the ecosystem.
+
+👉 **[Visit Polkadot Forum](https://forum.polkadot.network/)**
+
+## 🧑‍⚖️ Polkassembly: OpenGov
+
+- Explore and vote on governance proposals for Polkadot and Kusama.
+- Help shape the future of the network.
+
+👉 **[Explore on Polkassembly](https://polkadot.polkassembly.io/)**
+
+## 📸 Instagram
+
+- [@Polkadotnetwork](https://www.instagram.com/polkadotnetwork) — visual highlights from the ecosystem  
+  _(Note: not developer-specific)_
+--- END CONTENT ---
+
+Doc-Content: https://docs.polkadot.com/get-support/get-in-touch/
+--- BEGIN CONTENT ---
+---
+title: Get in touch
+description: Developer support for Polkadot via Telegram, Matrix, and Discord. Get help with parachains, smart contracts, nodes, and ecosystem tools.
+template: index-page.html
+hide:
+  - footer
+---
+
+# Get in touch directly
+
+## Need help fast?  
+Use one of the channels below to get live technical support or ask questions.
+
+<div class="button-wrapper" style="display: flex; justify-content: flex-start;">
+  <a href="https://t.me/substratedevs" class="md-button" style="margin-right: 1rem; text-decoration: none;">
+    Connect to Telegram
+  </a>
+  <a href="https://polkadot-discord.w3f.tools/" class="md-button" style="text-decoration: none;">
+    Connect to Discord
+  </a>
+</div>
+---
+
+Prefer to see all available channels? Here are your options:
+
+## 📱 Telegram: Polkadot Developer Support
+
+The fastest way to get support.
+
+- **Who’s there:** DevRel team and active developer community
+- **Response time:** within **2 business days (usually faster)**
+- **Topics:** any developer-related question is welcome
+
+👉 **[Join Telegram](https://t.me/substratedevs)**
+
+## 🔌 Discord: Polkadot Official Server
+
+Focused support for smart contracts and general developer chat.
+
+- **Smart contracts:**  
+  Ask in `#solidity-smart-contracts` and `#ink_smart-contracts`  
+- **General developer support:**  
+  Ask in `#solidity-smart-contracts`  
+- **Response time:** within **1 business day (usually faster)**
+- **Other topics:** community-led discussion only
+
+👉 **[Join Discord](https://polkadot-discord.w3f.tools/)**
+
+## 🧬 Matrix: Polkadot Developer Support
+
+This is the **support channel** staffed by engineers from **Parity**, **Web3 Foundation**, and **Polkadot DevRel**.
+
+- **Who’s there:** Parity, W3F, DevRel, and community contributors
+- **Response time:** within **1 business day (usually faster)**
+- **Topics:** full-spectrum developer support
+- Bridged with Telegram (all messages synced)
+
+👉 **[Join Matrix](https://matrix.to/#/#substratedevs:matrix.org)**
+
+---
+
+Not sure where to start?  
+**Join Telegram above** — let us know what you need, and we’ll help you get unstuck.
+--- END CONTENT ---
+
+Doc-Content: https://docs.polkadot.com/get-support/
+--- BEGIN CONTENT ---
+---
+title: Get support
+description: Start here to get developer support for Polkadot. Connect with the team, find help, and explore resources beyond the documentation.
+template: index-page.html
+hide:
+  - footer
+---
+
+# Need help fast?
+Use one of the channels below to get live technical support or ask questions.
+
+<div class="button-wrapper" style="display: flex; justify-content: flex-start;">
+  <a href="https://t.me/substratedevs" class="md-button" style="margin-right: 1rem; text-decoration: none;">
+    Connect to Telegram
+  </a>
+  <a href="https://polkadot-discord.w3f.tools/" class="md-button" style="text-decoration: none;">
+    Connect to Discord
+  </a>
+</div>
+---
+
+## Need more than just documentation?
+
+You're already in the docs — solid start.  
+But sometimes you need more: answers, real examples, someone to talk to.  
+This Support Hub is here to help you move forward — faster.
+
+Whether you're building something new, integrating into the ecosystem, or running into blockers — **don't stay stuck**.
+
+## What you can do here
+
+## What you can do here
+
+- 📨 [**Get In Touch**](./get-in-touch)  
+  Reach out to the Polkadot support team and community via Telegram, Matrix, or Discord.  
+  Ask technical questions, report blockers, or share feedback — and get a human response.
+
+- 🧠 [**Explore Available Resources**](./explore-resources)  
+  Find answers beyond the documentation: developer forums, Stack Exchange, Reddit, YouTube, governance hubs, and more.
+---
+
+This hub is evolving. More support tools and shortcuts are on the way —  
+including better onboarding, CLI helpers, dev environments, and live feedback channels.
+
+## Help us improve
+
+If something’s missing, unclear, or broken — **tell us**.  
+Your feedback makes the whole ecosystem better for everyone.
+
+👉 [**Get In Touch**](./get-in-touch) and help shape the future of developer support.
 --- END CONTENT ---
 
 Doc-Content: https://docs.polkadot.com/images/README/

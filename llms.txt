@@ -4,7 +4,6 @@
 Documentation: https://docs.polkadot.com/
 
 # List of doc pages:
-Doc-Page: https://docs.polkadot.com/.venv/lib/python3.13/site-packages/idna-3.10.dist-info/LICENSE/
 Doc-Page: https://docs.polkadot.com/develop/
 Doc-Page: https://docs.polkadot.com/develop/interoperability/
 Doc-Page: https://docs.polkadot.com/develop/interoperability/intro-to-xcm/

@@ -21,7 +21,7 @@ Polkadot has some basic transaction information that is common to all transactio
 - Block Hash: The hash of the [checkpoint](/polkadot-protocol/parachain-basics/blocks-transactions-fees/transactions/#transaction-mortality){target=\_blank} block.
 - Block Number: The number of the checkpoint block.
 - Genesis Hash: The genesis hash of the chain.
-- Metadata: The SCALE-encoded metadata for the runtime when submitted.
+- Metadata: The [SCALE-encoded metadata](polkadot-protocol/parachain-basics/data-encoding/){target=\_blank} for the runtime when submitted.
 - Nonce: The nonce for this transaction.
 - Spec Version: The current spec version for the runtime.
 - Transaction Version: The current version for transaction format.

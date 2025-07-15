@@ -61,4 +61,5 @@ This is the **support channel** staffed by engineers from **Parity**, **Web3 Fou
 ---
 
 Not sure where to start?  
+
 **Join Telegram above** — let us know what you need, and we’ll help you get unstuck.

@@ -54,7 +54,7 @@ To connect to Polkadot Hub using SubWallet, follow these steps:
 
     ![](/images/develop/smart-contracts/wallets/subwallet-02.webp){: .browser-extension}
 
-4. Click the **+** button at the top right corner to add the network
+4. Click the **+** button at the top right corner to add the network.
 
     ![](/images/develop/smart-contracts/wallets/subwallet-03.webp){: .browser-extension}
 

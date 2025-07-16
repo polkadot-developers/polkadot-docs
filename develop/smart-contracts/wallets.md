@@ -46,7 +46,7 @@ To connect to Polkadot Hub using SubWallet, follow these steps:
 
 1. Install the [SubWallet browser extension](https://chromewebstore.google.com/detail/subwallet-polkadot-wallet/onhogfjeacnfoofkfgppdlbmlmnplgbn?hl=en){target=\_blank} and set up your wallet by following the on-screen instructions, or refer to the step-by-step [guide](https://docs.subwallet.app/main/extension-user-guide/getting-started/install-subwallet){target=\_blank} for assistance.
 
-2. After setting up your wallet, click the List icon at the top left corner of the extension window to open **Settings**
+2. After setting up your wallet, click the list icon at the top left corner of the extension window to open **Settings**.
 
     ![](/images/develop/smart-contracts/wallets/subwallet-01.webp){: .browser-extension}
 

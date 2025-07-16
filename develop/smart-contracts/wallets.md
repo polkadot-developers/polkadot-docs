@@ -40,7 +40,8 @@ For example, to connect to the Polkadot Hub TestNet via MetaMask, you need to fo
 The steps in the preceding section can be used to connect to any chain by modifying the network specification and endpoint parameters.
 
 ### SubWallet
-[SubWallet](https://www.subwallet.app/){target=\_blank} is a popular non-custodial wallet solution for Polkadot, Substrate & Ethereum ecosystems. It offers seamless integration with Polkadot-based networks while maintaining Ethereum compatibility, making the wallet an ideal choice for users & developers to interact with Polkadot Hub.
+
+[SubWallet](https://www.subwallet.app/){target=\_blank} is a popular non-custodial wallet solution for Polkadot, Substrate and Ethereum ecosystems. It offers seamless integration with Polkadot-based networks while maintaining Ethereum compatibility, making the wallet an ideal choice for users and developers to interact with Polkadot Hub.
 
 To connect to Polkadot Hub using SubWallet, follow these steps:
 

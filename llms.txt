@@ -16647,7 +16647,7 @@ This guide covers:
 - How to make RPC calls using `curl` or similar tools
 - The most useful and commonly used RPC methods
 
-RPC endpoints are available on every node and can be accessed via HTTP and WebSocket. Most developer tools, dashboards, and libraries (like Polkadot.js, Subxt, and others) utilize these endpoints internally.
+RPC endpoints are available on every node and can be accessed via HTTP and WebSocket. Most developer tools, dashboards, and libraries (like [Polkadot.js](/develop/toolkit/api-libraries/polkadot-js-api){target=\_blank}, [Subxt](/develop/toolkit/api-libraries/subxt){target=\_blank}, and others) utilize these endpoints internally.
 
 ## How Do RPC Calls Work?
 

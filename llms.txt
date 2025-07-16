@@ -37339,6 +37339,9 @@ This component handles connecting to the wallet, switching networks if necessary
 To integrate this component to your dApp, you need to overwrite the existing boilerplate in `app/page.js` with the following code:
 
 ```javascript title="app/page.js"
+'use client';
+import { useState } from 'react';
+
 import WalletConnect from './components/WalletConnect';
 export default function Home() {
   const [account, setAccount] = useState(null);
@@ -37438,6 +37441,10 @@ This component reads the `storedNumber` value from the contract and displays it 
 To see this change in your dApp, you need to integrate this component into the `app/page.js` file:
 
 ```javascript title="app/page.js"
+'use client';
+import { useState } from 'react';
+
+import WalletConnect from './components/WalletConnect';
 import ReadContract from './components/ReadContract';
 export default function Home() {
   const [account, setAccount] = useState(null);
@@ -38019,6 +38026,8 @@ This component handles connecting to the wallet, switching networks if necessary
 To use this component in your dApp, replace the existing boilerplate in `app/page.tsx` with the following code:
 
 ```typescript title="page.tsx"
+"use client";
+import { useState } from "react";
 import WalletConnect from "./components/WalletConnect";
 export default function Home() {
   const [account, setAccount] = useState<string | null>(null);
@@ -38124,6 +38133,9 @@ This component reads the `storedNumber` value from the contract and displays it 
 To reflect this change in your dApp, incorporate this component into the `app/page.tsx` file.
 
 ```typescript title="page.tsx"
+"use client";
+import { useState } from "react";
+import WalletConnect from "./components/WalletConnect";
 import ReadContract from "./components/ReadContract";
 export default function Home() {
   const [account, setAccount] = useState<string | null>(null);
@@ -38672,7 +38684,25 @@ Testing is a critical part of smart contract development. Hardhat makes it easy 
 1. Create a folder for testing called `test`. Inside that directory, create a file named `Storage.js` and add the following code:
 
     ```javascript title="Storage.js" 
-    
+    const { expect } = require('chai');
+const { ethers } = require('hardhat');
+
+describe('Storage', function () {
+  let storage;
+  let owner;
+  let addr1;
+
+  beforeEach(async function () {
+    // Get signers
+    [owner, addr1] = await ethers.getSigners();
+
+    // Deploy the Storage contract
+    const Storage = await ethers.getContractFactory('Storage');
+    storage = await Storage.deploy();
+    await storage.waitForDeployment();
+  });
+
+  describe('Basic functionality', function () {
         // Add your logic here
     });
 });

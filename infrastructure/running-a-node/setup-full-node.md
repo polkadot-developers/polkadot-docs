@@ -21,7 +21,7 @@ Now that you're familiar with the different types of nodes, this section will wa
 
 Before getting started, ensure the following prerequisites are met:
 
-- Ensure [Rust](https://www.rust-lang.org/tools/install){target=\_blank} is installed on your operating system
+- Ensure [Rust](https://www.rust-lang.org/tools/install){target=\_blank} is installed on your operating system.
 - [Install the necessary dependencies for the Polkadot SDK](/develop/parachains/install-polkadot-sdk/){target=\_blank}
 
 !!! warning
@@ -73,8 +73,8 @@ This section will walk you through installing and building the Polkadot binary f
 
     Once installed, you have a couple options for installing the Polkadot binary:
 
-    - If Rust is installed, then `cargo` can be used similar to the macOS instructions
-    - Or, the instructions in the Linux section can be used
+    - If Rust is installed, then `cargo` can be used similar to the macOS instructions.
+    - Or, the instructions in the Linux section can be used.
 
 ??? interface "Linux (pre-built binary)"
 
@@ -255,9 +255,9 @@ Once you've fully configured your start-up command, you can execute it in your t
 
 The node startup settings allow you to choose what to expose, how many connections to expose, and which systems should be granted access through the RPC server.
 
-- You can limit the methods to use with `--rpc-methods`; an easy way to set this to a safe mode is `--rpc-methods safe`
-- You can set your maximum connections through `--rpc-max-connections`, for example, `--rpc-max-connections 200`
-- By default, localhost and Polkadot.js can access the RPC server. You can change this by setting `--rpc-cors`. To allow access from everywhere, you can use `--rpc-cors all`
+- You can limit the methods to use with `--rpc-methods`; an easy way to set this to a safe mode is `--rpc-methods safe`.
+- You can set your maximum connections through `--rpc-max-connections`, for example, `--rpc-max-connections 200`.
+- By default, localhost and Polkadot.js can access the RPC server. You can change this by setting `--rpc-cors`. To allow access from everywhere, you can use `--rpc-cors all`.
 
 For a list of important flags when running RPC nodes, refer to the Parity DevOps documentation: [Important Flags for Running an RPC Node](https://paritytech.github.io/devops-guide/guides/rpc_index.html?#important-flags-for-running-an-rpc-node){target=\_blank}.
 

@@ -82,7 +82,7 @@ Apache2 can run in various modes, including `prefork`, `worker`, and `event`. In
 
 ## Connect to the Node
 
-1. Open [Polkadot.js Apps interface](https://polkadot.js.org/apps){target=\_blank} and click the logo in the top left to switch the node
+1. Open [Polkadot.js Apps interface](https://polkadot.js.org/apps){target=\_blank} and click the logo in the top left to switch the node.
 2. Activate the **Development** toggle and input either your node's domain or IP address. Remember to prefix with `wss://` and, if you're using the 443 port, append `:443` as follows:
 
     ```bash

@@ -13,15 +13,15 @@ After configuring your node keys as shown in the [Key Management](/infrastructur
 
 Running your validator on a test network like Westend or Kusama is a smart way to familiarize yourself with the process and identify any setup issues in a lower-stakes environment before joining the Polkadot MainNet.
 
-- **Westend** - Polkadot's primary TestNet is open to anyone for testing purposes. Validator slots are intentionally limited to keep the network stable for the Polkadot release process, so it may not support as many validators at any given time
-- **Kusama** - often called Polkadot's "canary network," Kusama has real economic value but operates with a faster and more experimental approach. Running a validator here provides an experience closer to MainNet with the benefit of more frequent validation opportunities with an era time of 6 hours vs 24 hours for Polkadot
-- **Polkadot** - the main network, where validators secure the Polkadot relay chain. It has a slower era time of 24 hours and requires a higher minimum bond amount to participate
+- **Westend**: Polkadot's primary TestNet is open to anyone for testing purposes. Validator slots are intentionally limited to keep the network stable for the Polkadot release process, so it may not support as many validators at any given time.
+- **Kusama**: Often called Polkadot's "canary network," Kusama has real economic value but operates with a faster and more experimental approach. Running a validator here provides an experience closer to MainNet with the benefit of more frequent validation opportunities with an era time of 6 hours vs 24 hours for Polkadot.
+- **Polkadot**: The main network, where validators secure the Polkadot relay chain. It has a slower era time of 24 hours and requires a higher minimum bond amount to participate.
 
 ## Synchronize Chain Data
 
 The next step is to sync your node with the chosen blockchain network. Synchronization is necessary to download and validate the blockchain data, ensuring your node is ready to participate as a validator. Follow these steps to sync your node:
 
-1. **Start syncing** - you can run a full or warp sync
+1. **Start syncing**: You can run a full or warp sync.
 
     === "Full sync"
 
@@ -49,7 +49,7 @@ The next step is to sync your node with the chosen blockchain network. Synchroni
     polkadot --chain=kusama
     ```
 
-2. **Monitor sync progress** - once the sync starts, you will see a stream of logs providing information about the node's status and progress. Here's an example of what the output might look like:
+2. **Monitor sync progress**: Once the sync starts, you will see a stream of logs providing information about the node's status and progress. Here's an example of what the output might look like.
 
     --8<-- 'code/infrastructure/running-a-validator/onboarding-and-offboarding/start-validating/terminal-output-01.html'
 
@@ -82,9 +82,9 @@ Once you're ready to bond your DOT, head over to the [Polkadot.js Apps](https://
 
 To get started with the bond submission, click on the **Accounts** tab, then the **+ Stash** button, and then enter the following information:
 
-1. **Stash account** - select your stash account (which is the account with the DOT/KSM balance)
-2. **Value bonded** - enter how much DOT from the stash account you want to bond/stake. You are not required to bond all of the DOT in that account and you may bond more DOT at a later time. Be aware, withdrawing any bonded amount requires waiting for the unbonding period. The unbonding period is seven days for Kusama and 28 days for Polkadot
-3. **Payment destination** - add the recipient account for validator rewards. If you'd like to redirect payments to an account that is not the stash account, you can do it by entering the address here. Note that it is extremely unsafe to set an exchange address as the recipient of the staking rewards
+1. **Stash account**: Select your stash account (which is the account with the DOT/KSM balance).
+2. **Value bonded**: Enter how much DOT from the stash account you want to bond/stake. You are not required to bond all of the DOT in that account and you may bond more DOT at a later time. Be aware, withdrawing any bonded amount requires waiting for the unbonding period. The unbonding period is seven days for Kusama and 28 days for Polkadot.
+3. **Payment destination**: Add the recipient account for validator rewards. If you'd like to redirect payments to an account that is not the stash account, you can do it by entering the address here. Note that it is extremely unsafe to set an exchange address as the recipient of the staking rewards.
 
 Once everything is filled in properly, select **Bond** and sign the transaction with your stash account. If successful, you should see an `ExtrinsicSuccess` message.
 
@@ -110,15 +110,15 @@ Follow these steps to use Polkadot.js Apps to activate your validator:
 
     ![](/images/infrastructure/running-a-validator/onboarding-and-offboarding/start-validating/start-validating-02.webp)
 
-2. Set a reward commission percentage if desired. You can set a percentage of the rewards to pay to your validator and the remainder pays to your nominators. A 100% commission rate indicates the validator intends to keep all rewards and is seen as a signal the validator is not seeking nominators
+2. Set a reward commission percentage if desired. You can set a percentage of the rewards to pay to your validator and the remainder pays to your nominators. A 100% commission rate indicates the validator intends to keep all rewards and is seen as a signal the validator is not seeking nominators.
 
-3. Toggle the **allows new nominations** option if your validator is open to more nominations from DOT holders
+3. Toggle the **allows new nominations** option if your validator is open to more nominations from DOT holders.
 
-4. Once everything is configured, select **Bond & Validate** to activate your validator status
+4. Once everything is configured, select **Bond & Validate** to activate your validator status.
 
     ![](/images/infrastructure/running-a-validator/onboarding-and-offboarding/start-validating/start-validating-03.webp)
 
-5. Edit the **commission** and the **blocked** option via `staking.validate` extrinsic. By default, the blocked option is set to FALSE (i.e., the validator accepts nominations)
+5. Edit the **commission** and the **blocked** option via `staking.validate` extrinsic. By default, the blocked option is set to FALSE (i.e., the validator accepts nominations).
 
     ![](/images/infrastructure/running-a-validator/onboarding-and-offboarding/start-validating/start-validating-04.webp)
 
@@ -138,9 +138,9 @@ This following sections will walk you through creating and managing a systemd se
 
 Ensure the following requirements are met before proceeding with the systemd setup:
 
-- Confirm your system meets the [requirements](/infrastructure/running-a-validator/requirements/){target=\_blank} for running a validator
-- Ensure you meet the [minimum bond requirements](https://wiki.polkadot.network/general/chain-state-values/#minimum-validator-bond){target=\_blank} for validating
-- Verify the Polkadot binary is [installed](#install-the-polkadot-binaries)
+- Confirm your system meets the [requirements](/infrastructure/running-a-validator/requirements/){target=\_blank} for running a validator.
+- Ensure you meet the [minimum bond requirements](https://wiki.polkadot.network/general/chain-state-values/#minimum-validator-bond){target=\_blank} for validating.
+- Verify the Polkadot binary is [installed](#install-the-polkadot-binaries).
 
 ### Create the Systemd Service File
 

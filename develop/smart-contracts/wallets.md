@@ -71,7 +71,7 @@ To connect to Polkadot Hub using SubWallet, follow these steps:
     ![](/images/develop/smart-contracts/wallets/subwallet-06.webp){: .browser-extension}
 
 !!!info
-    SubWallet fully supports PAssetHub's smart contract module. You can easily view and manage your PAS tokens across both Substrate and EVM-compatible networks in one place.
+    SubWallet fully supports Polkadot Hub's smart contract module. You can easily view and manage your PAS tokens across both Substrate and EVM-compatible networks in one place.
 
     ![](https://github.com/user-attachments/assets/c9cd44d2-9536-4a25-a97b-938fdf74183a)
 

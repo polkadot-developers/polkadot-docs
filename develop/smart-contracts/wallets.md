@@ -62,7 +62,7 @@ To connect to Polkadot Hub using SubWallet, follow these steps:
 
     ![](/images/develop/smart-contracts/wallets/subwallet-04.webp){: .browser-extension}
 
-6. After that, enter the network’s block explorer, then click **Save** to successfully import the network
+6. After that, enter the network’s block explorer, then click **Save** to successfully import the network.
 
     ![](/images/develop/smart-contracts/wallets/subwallet-05.webp){: .browser-extension}
 

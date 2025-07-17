@@ -9,6 +9,14 @@ Doc-Page: https://docs.polkadot.com/develop/interoperability/
 Doc-Page: https://docs.polkadot.com/develop/interoperability/intro-to-xcm/
 Doc-Page: https://docs.polkadot.com/develop/interoperability/send-messages/
 Doc-Page: https://docs.polkadot.com/develop/interoperability/test-and-debug/
+Doc-Page: https://docs.polkadot.com/develop/interoperability/versions/
+Doc-Page: https://docs.polkadot.com/develop/interoperability/versions/v5/claiming-trapped-assets/
+Doc-Page: https://docs.polkadot.com/develop/interoperability/versions/v5/crafting-raw-xcms/
+Doc-Page: https://docs.polkadot.com/develop/interoperability/versions/v5/fees/
+Doc-Page: https://docs.polkadot.com/develop/interoperability/versions/v5/
+Doc-Page: https://docs.polkadot.com/develop/interoperability/versions/v5/migration-guide/
+Doc-Page: https://docs.polkadot.com/develop/interoperability/versions/v5/transact/
+Doc-Page: https://docs.polkadot.com/develop/interoperability/versions/v5/transfers/
 Doc-Page: https://docs.polkadot.com/develop/interoperability/xcm-channels/
 Doc-Page: https://docs.polkadot.com/develop/interoperability/xcm-config/
 Doc-Page: https://docs.polkadot.com/develop/interoperability/xcm-runtime-apis/
@@ -763,6 +771,1127 @@ By leveraging these macros, developers can customize their testing networks by d
 This framework enables thorough testing of runtime and cross-chain interactions, enabling developers to effectively design, test, and optimize cross-chain functionality.
 
 To see a complete example of implementing and executing tests, refer to the [integration tests](https://github.com/paritytech/polkadot-sdk/tree/{{dependencies.repositories.polkadot_sdk.version}}/cumulus/parachains/integration-tests/emulated){target=\_blank} in the Polkadot SDK repository.
+--- END CONTENT ---
+
+Doc-Content: https://docs.polkadot.com/develop/interoperability/versions/
+--- BEGIN CONTENT ---
+# Versions
+--- END CONTENT ---
+
+Doc-Content: https://docs.polkadot.com/develop/interoperability/versions/v5/claiming-trapped-assets/
+--- BEGIN CONTENT ---
+---
+title: Claiming trapped assets
+description: How to set an asset claimer and claim assets.
+---
+
+# Claiming trapped assets
+
+XCMv5 and features like the `DryRunApi` aim to reduce the chance of cross-chain transfers failing.
+However, sometimes a transfer might fail, mainly because of the XCM execution failing on the destination.
+In this case, assets are not lost, they are **trapped**.
+
+## Making sure trapped assets are easily claimable.
+
+### Origin preservation
+
+When the origin is preserved, the trapped assets are stored alongside the original origin,
+which makes them easy to be claimed by a new XCM.
+
+### AssetClaimer hint
+
+If origin preservation can't be used, or if you want to give another account permission to claim
+the trapped assets, the `AssetClaimer` hint can be used.
+
+This hint must be put at the start of the XCM like so:
+
+```typescript
+const xcm = [
+  XcmV5Instruction.SetHints({ hints: [Enum('AssetClaimer', someLocation)] }),
+  ...
+];
+```
+
+You'd usually add it as the first instruction of the remote xcm when doing a cross-chain transfer.
+
+This is very useful for setting a local account on the destination chain as the claimer for the
+transferred assets.
+That way, the assets can be claimed without the need for another cross-chain transfer from the original
+origin or anyone else on the source chain.
+--- END CONTENT ---
+
+Doc-Content: https://docs.polkadot.com/develop/interoperability/versions/v5/crafting-raw-xcms/
+--- BEGIN CONTENT ---
+---
+title: Raw XCMs
+description: Learn how to craft raw XCMs and why that's the recommended way with XCMv5.
+---
+
+# Crafting raw XCMs
+
+Before XCMv5, the recommended way of interacting with XCM was via dedicated extrinsics, either in [pallet-xcm](https://github.com/paritytech/polkadot-sdk/blob/35e6befc5dd61deb154ff0eb7c180a038e626d66/polkadot/xcm/pallet-xcm/src/lib.rs#L17) or [xtokens](https://github.com/open-web3-stack/open-runtime-module-library/blob/0b0bbadb8d0539bbd855eb7eeebcc95397a2a013/xtokens/README.md).
+This includes extrinsics for doing teleports, reserve asset transfers, claiming trapped assets, among others.
+
+With XCMv5 we are moving towards crafting raw XCMs and executing them directly via something like `pallet_xcm::execute()`.
+In the last section we had an example XCM that when executed resulted in a teleport between two parachains.
+Below we see how we can execute this XCM.
+
+```typescript
+// `PolkadotXcm` is the name given to `pallet_xcm` in system parachains.
+const tx = api.tx.PolkadotXcm.execute({
+  message: xcm, // From last section.
+  max_weight: weight, // Some weight.
+})
+```
+
+NOTE: We can calculate the weight with the [query_xcm_weight runtime API](/develop/interoperability/xcm-runtime-apis/#query-xcm-weight).
+
+This move to raw XCMs and then `execute()` directly was motivated by the flexibility offered by XCM.
+You have so much more control when you craft the XCM directly.
+Only using dedicated extrinsics was very limiting, leading to more and more scenarios which required their own extrinsic.
+This is seen in the [large number of extrinsics that had to be added to pallet-xcm](https://paritytech.github.io/polkadot-sdk/master/pallet_xcm/pallet/enum.Call.html#variants).
+
+This extrinsics will still be supported for a long while, however, the recommended way of interacting with XCM from version 5 onwards is via crafting raw XCMs.
+--- END CONTENT ---
+
+Doc-Content: https://docs.polkadot.com/develop/interoperability/versions/v5/fees/
+--- BEGIN CONTENT ---
+---
+title: Fees
+description: How to handle fees in XCMv5.
+---
+
+# Fees
+
+In blockchain systems, fees are crucial.
+They prevent malicious actors from exhausting the results of the network, making such attacks expensive.
+The XCM subsystem has its own way of dealing with fees, flexible enough to allow feeless execution in situations that warrant it.
+There are two main types of fees in XCM: **execution** and **delivery**.
+
+## Execution
+
+All XCMs have a weight associated to them.
+Each XCM instruction is benchmarked for a particular system (blockchain), which assigns them a weight.
+The weight of an XCM is the sum of the weight of all instructions.
+It's important to correctly benchmark this with the worst case so that your system is safe from Denial-of-Service attacks.
+
+This generated weight represents how much time, and space, is needed for executing the XCM.
+It directly translates to **execution fees**.
+
+## Delivery
+
+XCMs, although capable of performing tasks locally, are meant to be sent to other consensus systems, i.e. blockchains.
+**Delivery fees** are charged when a message is sent to a destination.
+The delivery fee amount depends on the size of the message, in bytes, and the destination.
+
+## PayFees
+
+In order to keep things simpler, these two fees are dealt in the same way.
+The user is asked to input the maximum amount they want to dedicate for fees.
+This amount is used **only** for fees.
+
+The amount is specified using the `PayFees` instruction:
+
+```typescript
+XcmV5Instruction.PayFees({
+  asset: {
+    id: // Asset id.
+    fun: // Fungibility. You specify the amount if it's fungible or the instance if it's an NFT.
+  },
+})
+```
+
+This mechanism is simple and flexible.
+The user requires no knowledge of the different types of fees.
+New fees might arise in the future and they'll be taken using this same mechanism, without the need for any modification.
+
+## Estimations
+
+The entirety of the asset passed to `PayFees` will be taken from the effective assets and used only for fees.
+This means if you overestimate the fees required, you'll be losing efficiency.
+
+It's necessary to have a mechanism to accurately estimate the fee needed so it can be put into `PayFees`.
+This is more complicated than it sounds since we're dealing with execution and delivery fees, potentially in multiple hops.
+
+Imagine a scenario where parachain A sends a message to B which forwards another message to C.
+
+``` mermaid
+flowchart LR
+  A(A) --> B(B)
+  B --> C(C)
+```
+
+Execution fees need to be paid on A.
+Delivery fees from A to B.
+Execution on B.
+Delivery from B to C.
+Finally, execution on C.
+
+An XCM that does this might look like so.
+
+```typescript
+const xcm = XcmVersionedXcm.V5([
+  XcmV5Instruction.WithdrawAsset(/* some assets */),
+  XcmV5Instruction.PayFees(/* execution + delivery on A */),
+  XcmV5Instruction.InitiateTransfer({
+    // ...
+    remote_fees: /* execution + delivery on B */,
+    remote_xcm: [
+      XcmV5Instruction.InitiateTransfer({
+        // ...
+        remote_fees: /* execution on C */,
+        // ...
+      }),
+    ],
+    // ...
+  }),
+])
+```
+
+NOTE: paying fees on a remote system is so common that the `InitiateTransfer` instruction doesn't
+require putting the instruction in `remote_xcm`, you only need to put them in `remote_fees`.
+
+<!-- TODO: Fee estimation tutorial? -->
+The solution is to use the [runtime APIs](/develop/interoperability/xcm-runtime-apis/) as shown in [the fee estimation tutorial]().
+--- END CONTENT ---
+
+Doc-Content: https://docs.polkadot.com/develop/interoperability/versions/v5/
+--- BEGIN CONTENT ---
+---
+title: XCMv5
+description: Learn about XCM version 5.
+---
+
+# XCMv5
+
+The latest iteration of XCM is version 5.
+Changes to the standard are managed by the [Polkadot Technical Fellowship RFCs](https://github.com/polkadot-fellows/RFCs/).
+The main RFCs defining the changes in version 5 are the following:
+
+- [Legacy #37 - SetAssetClaimer](https://github.com/polkadot-fellows/xcm-format/blob/master/proposals/0037-custom-asset-claimer.md)
+
+- [Legacy #38 - ExecuteWithOrigin](https://github.com/polkadot-fellows/xcm-format/blob/master/proposals/0038-execute-with-origin.md)
+
+- [#100 - InitiateTransfer instruction](https://github.com/polkadot-fellows/RFCs/pull/100)
+
+- [#101 - Remove weight from Transact](https://github.com/polkadot-fellows/RFCs/pull/101)
+
+- [#105 - Improved fee mechanism](https://github.com/polkadot-fellows/RFCs/pull/105)
+
+- [#107 - Execution hints](https://github.com/polkadot-fellows/RFCs/pull/107)
+
+- [#108 - Remove testnet network ids](https://github.com/polkadot-fellows/RFCs/pull/108)
+
+- [#122 - InitiateTransfer origin preservation](https://github.com/polkadot-fellows/RFCs/pull/122)
+
+??? note "What are legacy RFCs?"
+
+    The first two RFCs are legacy ones from when XCM RFCs were separate from the Polkadot Technical Fellowship RFCs.
+    As part of the XCMv5 specification, these two were combined since the Polkadot Technical Fellowship Manifesto
+    specifies XCM as part of its mandate.
+
+## Why?
+
+Version 5 addresses key pain points that developers faced in previous versions:
+
+### Before
+
+- Cross-chain transfers were limited to only one transfer type, requiring multiple XCMs
+- Fee management across multiple hops was extremely complicated to get right, particularly because of delivery fees
+- Cross-chain transfers cleared the origin, making it impossible to `Transact`
+- Claiming trapped assets when transfers failed was troublesome, requiring governance to intervene most of the time
+- Having to specify the weight for `Transact` was really brittle
+
+### After
+
+- A unified cross-chain transfer instruction handles all possible transfer types and allows multiple ones in the same XCM
+- The fee payment mechanism has been standardized to handle multiple types of fees, making fees much more predictable
+- It's now possible to preserve the origin during a cross-chain transfer, enabling the use of `Transact`
+- A custom asset claimer can be set, reducing the need for governance to intervene for claiming trapped assets
+- `Transact` no longer needs to specify the weight of the call
+
+This section aims to give you all the changes in this new version you need to make the most of the latest
+and greatest in cross-chain interactions.
+
+We'll be using [Polkadot-API (PAPI)](/develop/toolkit/api-libraries/papi) throughout these docs to write XCMs.
+This is a low-level library that can interact with Polkadot SDK chains via the JSON-RPC protocol and read its
+metadata to provide a type-safe API for developers.
+--- END CONTENT ---
+
+Doc-Content: https://docs.polkadot.com/develop/interoperability/versions/v5/migration-guide/
+--- BEGIN CONTENT ---
+---
+title: v4 to v5 migration guide
+description: A guide on how to migrate from XCMv4 to XCMv5
+---
+
+# Migration guide (v4 -> v5)
+
+This guide helps you migrate existing code that uses XCM from v4 to v5.
+Most v4 code continues to work, but v5 introduces powerful new patterns that improve flexibility and developer experience.
+
+??? note "About the usage of PAPI"
+
+    We will use PAPI for the code snippets, but this guide applies also to XCM being used with the Polkadot SDK.
+
+## When to migrate
+
+Migrating to v5 provides a lot of benefits, so we recommend migrating as soon as you can.
+Whether you can or can't migrate depends mainly on if the chain(s) you connect to have already upgraded to v5 or not.
+To know whether a chain supports v5, you can:
+- Read the changelog
+- Explore the metadata with PAPI's descriptors
+- Explore the metadata with a tool like [subwasm](https://github.com/chevdor/subwasm)
+
+For example, say we generate PAPI descriptors for a chain:
+
+```bash
+npx papi add myChain -w <rpc-web-socket-endpoint>
+```
+
+Then we can check if the `XcmVersionedXcm` known type has the V5 variant.
+
+We can also go to https://dev.papi.how/explorer, connect to the chain and under extrinsics choose `PolkadotXcm -> execute` and check for the V5 variant:
+
+![](/images/develop/interoperability/checking-for-v5.webp)
+
+## Changes
+
+### From Dedicated Extrinsics to Raw XCMs
+
+**Before (v4 approach)**:
+
+```typescript
+// Multiple extrinsics for different scenarios
+api.tx.xcmPallet.teleportAssets(...)
+api.tx.xcmPallet.limitedReserveTransferAssets(...)
+api.tx.xcmPallet.limitedTeleportAssets(...)
+```
+
+**After (v5 approach)**:
+
+```typescript
+// Single pattern: craft XCM + execute
+const xcm = XcmVersionedXcm.V5([
+  XcmV5Instruction.WithdrawAsset([...]),
+  XcmV5Instruction.PayFees({...}),
+  XcmV5Instruction.InitiateTransfer({...}),
+]);
+const weight = api.apis.XcmPaymentApi.query_xcm_weight(xcm);
+
+api.tx.PolkadotXcm.execute({
+  message: xcm,
+  max_weight: weight.value,
+});
+```
+
+Migration Impact:
+
+- More verbose but significantly more flexible
+- Need to calculate weights using runtime APIs
+- Better control over execution flow
+
+??? note "Is this `execute` new?"
+
+    The XCM pallet has always had it, however, in previous versions of XCM (2 and below) it wasn't safe
+    to have it enabled for anyone to use. That's why some chains might have it disabled. If that's the
+    case, reach out! We're moving towards this pattern now that it's safe since it offers a lot more control.
+
+This approach adds more flexbility but clearly requires the developer to know how to
+build XCMs.
+Don't worry if you don't know how to build XCMs, by using this approach, other developers can build SDKs that handle
+all these things for you.
+For example, the Paraspell SDK allows you to continue doing cross-chain transfers (and much more!) with a very simple API:
+
+```typescript
+import { Builder } from '@paraspell/sdk';
+
+const tx = await Builder()
+    .from('AssetHubPolkadot')
+    .to('Hydration')
+    .currency({ symbol: 'DOT', amount: '10000000000' })
+    .address(beneficiary)
+    .build();
+const result = await tx.signAndSubmit(signer);
+```
+
+Make sure to check out their [docs](https://paraspell.github.io/docs/sdk/getting-started.html).
+
+??? note "Are the extrinsics going away?"
+
+    No! The extrinsics will continue to be supported in the XCM pallet for an undefined period of time.
+    Although we do expect that as more and more chains support v5 and more dapp developers use `execute`,
+    they'll reap the benefits and not require the extrinsics anymore.
+
+### Unified Transfer Instructions
+
+**Before (v4)**:
+
+```typescript
+// Different instructions for different transfer types
+XcmV4Instruction.InitiateTeleport({
+  assets,
+  dest: destination,
+  xcm: remoteXcm,
+})
+
+XcmV4Instruction.InitiateReserveWithdraw({
+  assets,
+  reserve: reserveLocation,
+  xcm: remoteXcm,
+})
+```
+
+**After (v5)**:
+
+```typescript
+// Single instruction with transfer type specified per asset.
+XcmV5Instruction.InitiateTransfer({
+  destination: destination,
+  remote_fees: Enum('Teleport', feeAssets),
+  assets: [
+    Enum('Teleport', teleportAssets),
+    Enum('ReserveWithdraw', reserveAssets),
+  ],
+  remote_xcm: remoteXcm,
+  preserve_origin: false,
+})
+```
+
+Migration Benefits:
+
+- Mix different transfer types in single operation
+- Clearer fee handling
+- Origin preservation option
+
+### Predictable fee payment
+
+**Before (v4)**:
+
+```typescript
+// Fees embedded in transfer instructions.
+// Limited control over fee allocation.
+api.tx.xcmPallet.limitedTeleportAssets({
+  dest: destination,
+  beneficiary: beneficiary,
+  assets: assets,
+  fee_asset_item: 0, // Index-based fee selection.
+  weight_limit: weightLimit,
+})
+```
+
+**After (v5)**:
+```typescript
+// Explicit fee management.
+XcmV5Instruction.PayFees({
+  asset: {
+    id: feeAssetId,
+    fun: XcmV3MultiassetFungibility.Fungible(feeAmount),
+  },
+}),
+// Remote fees handled in InitiateTransfer
+XcmV5Instruction.InitiateTransfer({
+  ...,
+  remote_fees: Enum('Teleport', remoteFeeAssets),
+  ...,
+});
+```
+
+Migration Benefits:
+
+- Precise fee control
+- Multi-hop fee planning
+- Better fee estimation support
+
+The old `BuyExecution` instruction looks like this:
+
+```typescript
+XcmV4Instruction.BuyExecution({
+    fees: {
+        id: feeAssetId,
+        fun: XcmV3MultiassetFungibility.Fungible(feeAmount),
+    },
+    weight_limit: XcmV3WeightLimit.Unlimited(),
+});
+```
+
+The new `PayFees` instruction just has the asset for fee payment.
+The `weight_limit` parameter has historically mostly been set to `Unlimited` because of the difficulty to estimate
+weight and the fees being sufficient for limiting the max execution that you're willing to pay for.
+
+There is another key difference between `PayFees` and `BuyExecution`.
+With `BuyExecution`, if too much was supplied for fees, the leftover after paying for execution would be returned
+to the holding register to be used in the rest of the XCM.
+With `PayFees`, the full amount put into `assets` is stored in the fees register, nothing is returned to the holding
+register.
+This means you have to put the amount you plan to dedicate entirely for fee payment.
+This makes it much more predictable.
+If you withdraw 11 DOT, 1 DOT you put in `PayFees` and the rest you send, you know you've sent exactly 10.
+
+The reason for this is the introduction of **delivery fees**, which are charged in addition to **execution fees**.
+Delivery fees are charged the moment an instruction is encountered which results in sending a new XCM.
+That's why we can't return fees to the holding register as before, we need to keep them in the new fees register.
+
+??? note "Is BuyExecution going away?"
+
+    No! As with many things in v5, we are keeping the old instruction for backwards compatibility.
+    However, we do plan to remove it in future versions, once enough time has passed.
+
+## Migration Examples
+
+### Simple Teleport
+
+**v4 Code**:
+```typescript
+const tx = api.tx.xcmPallet.limitedTeleportAssets({
+  dest: XcmVersionedLocation.V4({ parents: 1, interior: XcmV3Junctions.X1(XcmV3Junction.Parachain(1000))}),
+  beneficiary: XcmVersionedLocation.V4({
+    parents: 0,
+    interior: XcmV3Junctions.X1(XcmV3Junction.AccountId32({ id: beneficiaryId, network: undefined })),
+  }),
+  assets: XcmVersionedAssets.V4([{ 
+    id: { parents: 1, interior: XcmV3Junctions.Here() },
+    fun: XcmV3MultiassetFungibility.Fungible(amount),
+  ]),
+  fee_asset_item: 0,
+  weight_limit: XcmV3WeightLimit.Unlimited(),
+});
+```
+
+**v5 Equivalent**:
+```typescript
+const xcm = XcmVersionedXcm.V5([
+  XcmV5Instruction.WithdrawAsset([{
+    id: { parents: 1, interior: XcmV3Junctions.Here() },
+    fun: XcmV3MultiassetFungibility.Fungible(amount),
+  }]),
+  XcmV5Instruction.PayFees({
+    asset: {
+      id: { parents: 1, interior: XcmV3Junctions.Here() },
+      fun: XcmV3MultiassetFungibility.Fungible(feeAmount),
+    },
+  }),
+  XcmV5Instruction.InitiateTransfer({
+    destination: { parents: 1, interior: XcmV3Junctions.X1(XcmV3Junction.Parachain(1000)) },
+    remote_fees: Enum('Teleport', XcmV5AssetFilter.Definite([{
+      id: { parents: 1, interior: XcmV3Junctions.Here() },
+      fun: XcmV3MultiassetFungibility.Fungible(remoteFeeAmount),
+    }])),
+    preserve_origin: false,
+    assets: [Enum('Teleport', XcmV5AssetFilter.Wild(XcmV5WildAsset.AllCounted(1)))],
+    remote_xcm: [
+      XcmV5Instruction.DepositAsset({
+        assets: XcmV5AssetFilter.Wild(XcmV5WildAsset.AllCounted(1)),
+        beneficiary: {
+          parents: 0,
+          interior: XcmV3Junctions.X1(XcmV3Junction.AccountId32({
+            id: beneficiaryId,
+            network: undefined,
+          })),
+        },
+      }),
+    ],
+  }),
+]);
+
+const tx = api.tx.PolkadotXcm.execute({
+  message: xcm,
+  max_weight: calculatedWeight,
+});
+```
+
+### Example 2: Multi-Asset Transfer and a Transact
+
+**New in v5 - No v4 equivalent**:
+```typescript
+// This pattern wasn't possible in v4
+XcmV5Instruction.InitiateTransfer({
+  destination: destination,
+  remote_fees: Enum('ReserveDeposit', ethFees), // Fee with different transfer type
+  assets: [
+    Enum('Teleport', dotAssets),           // Teleport DOT
+    Enum('ReserveDeposit', usdtAssets),    // Reserve transfer USDT
+    Enum('ReserveDeposit', usdcAssets),    // Reserve transfer USDC
+  ],
+  preserve_origin: true, // Enable cross-chain calls
+  remote_xcm: [
+    // Can now call functions on destination!
+    XcmV5Instruction.Transact({
+      origin_kind: XcmV2OriginKind.SovereignAccount(),
+      call: encodedCall,
+      fallback_max_weight: ...,
+    }),
+  ],
+})
+```
+
+## 🚨 Breaking changes to watch out for
+
+### `fallback_max_weight` in `Transact`
+
+The `Transact` instruction looked like this in v4:
+
+**v4:**
+
+```typescript
+XcmV4Instruction.Transact({
+  call: encodedCall,
+  origin_kind: XcmV2OriginKind.SovereignAccount(),
+  require_weight_at_most: { ref_time: 1_000_000_000, proof_size: 100_000 }, // Required.
+});
+```
+
+**v5:**
+
+```typescript
+XcmV5Instruction.Transact({
+    call: encodedCall,
+    origin_kind: XcmV2OriginKind.SovereignAccount(),
+    fallback_max_weight: { ref_time: 1_000_000_000, proof_size: 100_000 }, // Optional.
+});
+```
+
+The old `require_weight_at_most` parameter caused frequent failures:
+- Runtime upgrades broke XCMs: When destination chains updated their runtime weights, existing XCMs would fail
+- Hard to estimate correctly: Developers had to guess call weights for remote chains
+- Maintenance burden: Weight values needed constant updates across chain upgrades
+
+New behavior:
+- Automatic weight calculation: XCMv5-compatible chains calculate call weights automatically when decoding the message
+- Fallback compatibility: The optional `fallback_max_weight` is only used when the destination chain hasn't upgraded to v5 yet
+- Fail-safe design: If weight calculation fails, the fallback value is used
+
+This change makes Transact more reliable and reduces the maintenance burden of keeping weight values current across runtime upgrades.
+
+### Network IDs cleanup
+
+The network IDs, used in the `GlobalConsensus` junction, for `Rococo` and `Westend` were removed.
+Instead, the generic `ByGenesis` network ID should be used for referencing testnets.
+This change was made because testnets come and go, as was shown by the [removal of Rococo](https://forum.polkadot.network/t/rococo-to-be-deprecated-in-october/8702) and [appearance of Paseo](https://forum.polkadot.network/t/the-new-polkadot-community-testnet/4956).
+From now on, only mainnets will have an explicit network ID, testnets should always be referenced with `ByGenesis`.
+
+If you were storing these network IDs, make sure to migrate them to `ByGenesis`.
+These are the genesis hashes for the migration:
+- Westend: 0xe143f23803ac50e8f6f8e62695d1ce9e4e1d68aa36c1cd2cfd15340213f3423e
+- Rococo: 0x6408de7737c59c238890533af25896a2c20608d8b380bb01029acb392781063e
+
+## Getting help
+
+- Technical questions: https://substrate.stackexchange.com/
+- Bug reports: https://github.com/paritytech/polkadot-sdk/issues
+- Real time help: https://discord.gg/polkadot
+
+## Next steps
+
+Once migrated, you can enjoy unique XCMv5 features:
+- Origin preservation
+- Transferring multiple assets
+- Better asset claiming
+--- END CONTENT ---
+
+Doc-Content: https://docs.polkadot.com/develop/interoperability/versions/v5/transact/
+--- BEGIN CONTENT ---
+
+--- END CONTENT ---
+
+Doc-Content: https://docs.polkadot.com/develop/interoperability/versions/v5/transfers/
+--- BEGIN CONTENT ---
+---
+title: Transfers
+description: How to do transfers in XCMv5.
+---
+
+# Transfers
+
+As we've seen already, the `InitiateTransfer` instruction is the star of the show when it comes to cross-chain transfers.
+In previous versions of XCM, we had instructions like `InitiateTeleport` and `InitiateReserveWithdraw` for different types of transfers.
+`InitiateTransfer` unifies all of the transfer types and brings some extra functionalities not possible with previous versions.
+
+??? note "On backwards compatibility"
+
+    In previous versions, we had `InitiateTransfer`, `InitiateReserveWithdraw` and `DepositReserveAsset`.
+    All of these instructions are still available in V5 for backwards compatibility, although they are deprecated.
+    If you want to learn how to use them, head to the docs for V4.
+
+```typescript
+XcmV5Instruction.InitiateTransfer({
+  destination: /* location of recipient */,
+  remote_fees: /* fees for recipient */,
+  preserve_origin: /* whether or not the original origin should be preserved */,
+  assets: /* the assets being transferred and the type of transfer */,
+  remote_xcm: /* xcm to be executed in the recipient after transferring the assets */,
+})
+```
+
+## Transfer types
+
+The `remote_fees` parameter only takes one asset, `assets` takes a list of many.
+Both need to specify which transfer type they're using.
+The developer to specify whether or not those assets are transferred via a `Teleport`, a `ReserveWithdraw` or a `ReserveDeposit`.
+These correspond to the types of cross-chain transfers, as seen in [TODO: Section about cross-chain transfers generally](TODO).
+
+For example, say we wanted to transfer 50 DOT, via a teleport, we would need to specify the fact that it's a teleport.
+We also need to use an [asset filter](TODO:send-to-section-on-asset-filters).
+
+Instead of this:
+```typescript
+const assets = [
+  XcmV5AssetFilter.Definite([
+    {
+      id: DOT,
+      fun: XcmV3MultiassetFungibility.Fungible(50n * DOT_UNITS),
+    },
+  ]),
+];
+```
+
+We need to write this:
+```typescript
+const assets = [
+  Enum(
+    'Teleport',
+    XcmV5AssetFilter.Definite([
+      {
+        id: DOT,
+        fun: XcmV3MultiassetFungibility.Fungible(50n * DOT_UNITS),
+      },
+    ]),
+  ),
+];
+```
+
+This lets us specify multiple assets with multiple different transfer types.
+It also lets us send the remote fees with a different transfer type.
+
+For example:
+```typescript
+const remoteFees = Enum(
+  'ReserveDeposit',
+  XcmV5AssetFilter.Definite([
+    {
+      id: ETH,
+      fun: ...,
+    },
+  ]),
+);
+const assets = [
+  Enum(
+    'Teleport',
+    XcmV5AssetFilter.Definite([
+      {
+        id: DOT,
+        fun: XcmV3MultiassetFungibility.Fungible(50n * DOT_UNITS),
+      },
+    ]),
+  ),
+  Enum(
+    'ReserveDeposit',
+    XcmV5AssetFilter.Definite([
+      {
+        id: USDT,
+        fun: ...,
+      },
+      {
+        id: USDC,
+        fun: ...,
+      },
+    ]),
+  ),
+];
+```
+
+Note that `remoteFees` takes only one asset.
+
+## Remote Fees
+
+Paying fees on the remote chain is such a common operation that `InitiateTransfer` has a parameter for it.
+Just by specifying the assets that go here, the XCM on the destination will include a `PayFees` instruction.
+As mentioned before, you need to specify the transfer type.
+
+??? note "Do I have to specify remote fees all the time?"
+
+    Yes. Fees are important for decentralized systems to prevent spam.
+    Although it is possible to not specify remote fees, this is most likely not what you want when developing
+    applications.
+    Omitting the remote fees will append an `UnpaidExecution` instruction to the remote XCM.
+    This instruction is meant to signal to the destination system that there's a reason you're allowed to execute
+    a message without paying for fees.
+    This usually means you're a priviledged origin, like `Root` or the `Fellowship` origin.
+    It's mostly used from the runtime of Polkadot SDK chains instead of from applications.
+
+??? code "Teleport example"
+
+    In this example, we create an XCM program that teleports some DOT from Asset Hub to People.
+    This code was kickstarted from the getting started guide in [https://papi.how/getting-started].
+    The setup for this script is installing papi and generating descriptors for Asset Hub:
+    `bun papi add ahp -n polkadot_asset_hub`
+
+    ```typescript
+    // `ahp` is the name we gave to `npx papi add`
+import {
+  ahp,
+  XcmV3Junction,
+  XcmV3Junctions,
+  XcmV3MultiassetFungibility,
+  XcmV5AssetFilter,
+  XcmV5Instruction,
+  XcmV5Junction,
+  XcmV5Junctions,
+  XcmV5WildAsset,
+  XcmVersionedXcm,
+} from "@polkadot-api/descriptors";
+import { createClient, Enum, FixedSizeBinary } from "polkadot-api";
+// import from "polkadot-api/ws-provider/node"
+// if you are running in a NodeJS environment
+import { getWsProvider } from "polkadot-api/ws-provider/web";
+import { withPolkadotSdkCompat } from "polkadot-api/polkadot-sdk-compat";
+import { sr25519CreateDerive } from "@polkadot-labs/hdkd";
+import {
+  DEV_PHRASE,
+  entropyToMiniSecret,
+  mnemonicToEntropy,
+} from "@polkadot-labs/hdkd-helpers";
+import { getPolkadotSigner } from "polkadot-api/signer";
+
+const entropy = mnemonicToEntropy(DEV_PHRASE);
+const miniSecret = entropyToMiniSecret(entropy);
+const derive = sr25519CreateDerive(miniSecret);
+const keyPair = derive("//Alice");
+
+const polkadotSigner = getPolkadotSigner(
+  keyPair.publicKey,
+  "Sr25519",
+  keyPair.sign,
+);
+
+// Connect to Polkadot Asset Hub.
+// Pointing to localhost since we're using chopsticks in this example.
+const client = createClient(
+  withPolkadotSdkCompat(getWsProvider("ws://localhost:8000")),
+);
+
+// We get the typed api, a typesafe API for interacting with the chain.
+const ahpApi = client.getTypedApi(ahp);
+
+const PEOPLE_PARA_ID = 1004;
+// The identifier for DOT is the location of the Polkadot Relay Chain,
+// which is 1 up relative to any parachain.
+const DOT = {
+  parents: 1,
+  interior: XcmV3Junctions.Here(),
+};
+// DOT has 10 decimals.
+const DOT_UNITS = 10_000_000_000n;
+
+// This is the DOT we withdraw to both pay for fees and send.
+const dotToWithdraw = {
+  id: DOT,
+  fun: XcmV3MultiassetFungibility.Fungible(10n * DOT_UNITS),
+};
+// This is the DOT we use to pay for fees locally.
+const dotToPayFees = {
+  id: DOT,
+  fun: XcmV3MultiassetFungibility.Fungible(1n * DOT_UNITS),
+};
+// The location of the People Chain from Asset Hub.
+const destination = {
+  parents: 1,
+  interior: XcmV3Junctions.X1(XcmV3Junction.Parachain(PEOPLE_PARA_ID)),
+};
+// We'll pay for fees in the People Chain with teleported DOT.
+// This is specified independently of the transferred assets since they're used
+// exclusively for fees. Also because we can decide to pay fees in a different
+// asset from all that we're transferring.
+const remoteFees = Enum(
+  "Teleport",
+  XcmV5AssetFilter.Definite([
+    {
+      id: DOT,
+      fun: XcmV3MultiassetFungibility.Fungible(1n * DOT_UNITS),
+    },
+  ]),
+);
+// No need to preserve origin for this example.
+const preserveOrigin = false;
+// The assets we want to transfer are whatever's left in the
+// holding register at the time of executing the `InitiateTransfer`
+// instruction. DOT in this case. We teleport it.
+const assets = [
+  Enum("Teleport", XcmV5AssetFilter.Wild(XcmV5WildAsset.AllCounted(1))),
+];
+// The beneficiary is the same account but on the People Chain.
+// This is a very common pattern for one public/private key pair
+// to hold assets on multiple chains.
+const beneficiary = FixedSizeBinary.fromBytes(keyPair.publicKey);
+// The XCM to be executed on the destination chain.
+// It's basically depositing everything to the beneficiary.
+const remoteXcm = [
+  XcmV5Instruction.DepositAsset({
+    assets: XcmV5AssetFilter.Wild(XcmV5WildAsset.AllCounted(1)),
+    beneficiary: {
+      parents: 0,
+      interior: XcmV5Junctions.X1(
+        XcmV5Junction.AccountId32({
+          id: beneficiary,
+          network: undefined,
+        }),
+      ),
+    },
+  }),
+];
+
+// The message is just assembling all of these parameters we've defined before.
+const xcm = XcmVersionedXcm.V5([
+  XcmV5Instruction.WithdrawAsset([dotToWithdraw]),
+  XcmV5Instruction.PayFees({ asset: dotToPayFees }),
+  XcmV5Instruction.InitiateTransfer({
+    destination,
+    remote_fees: remoteFees,
+    preserve_origin: preserveOrigin,
+    assets,
+    remote_xcm: remoteXcm,
+  }),
+]);
+
+// We need to know the weight of the XCM to set the `max_weight` parameter
+// on the actual `PolkadotXcm.execute()` call.
+const weightResult = await ahpApi.apis.XcmPaymentApi.query_xcm_weight(xcm);
+
+if (weightResult.success) {
+  const weight = weightResult.success
+    ? weightResult.value
+    : { ref_time: 0n, proof_size: 0n };
+
+  console.dir(weight);
+
+  // The actual transaction we will submit.
+  // This tells Asset Hub to execute the XCM.
+  const tx = ahpApi.tx.PolkadotXcm.execute({
+    message: xcm,
+    max_weight: weight,
+  });
+
+  // We sign it and propagate it to the network.
+  const result = await tx.signAndSubmit(polkadotSigner);
+  console.log(stringify(result));
+}
+
+client.destroy();
+
+// A helper function to print numbers inside of the result.
+function stringify(obj: any) {
+  return JSON.stringify(
+    obj,
+    (_, v) => (typeof v === "bigint" ? v.toString() : v),
+    2,
+  );
+}
+    ```
+
+## Origin Preservation
+
+In previous versions of XCM, doing cross-chain transfers meant losing the origin.
+The XCM on the destination chain would have access to the transferred assets, but not to the origin.
+This means any instruction which uses assets but not the origin could be executed, that's enough to
+call `DepositAsset` for example and complete the transfer, but not to call `Transact` and execute a call.
+
+In XCMv5, `InitiateTransfer` allows **preserving the origin**, enabling more use-cases such as executing a
+call on the destination chain via `Transact`.
+To enable this feature, the `preserve_origin` parameter must be set to `true`.
+
+??? note "Why isn't preserving the origin the default?"
+
+    Preserving the origin requires a specific configuration on the underlying chain executing the XCM.
+    Some chains have the right configuration, for example all system chains, but not every chain has it.
+    If you make a transfer with `preserve_origin: true` to a chain configured incorrectly, the transfer
+    will fail.
+    However, if you set `preserve_origin: false` then there is no problem.
+    Because of this, origin preservation is not the default, and likely never will be.
+
+??? code "Teleport and transact example"
+
+    In this example, we create an XCM program that teleports some DOT from Asset Hub to People and executes a call there.
+    The whole script is almost the same as the one for a simple teleport above, most changes are in the `remoteXcm` variable.
+    The setup for this script is installing papi and generating descriptors for both Asset Hub and People:
+    `bun papi add ahp -n polkadot_asset_hub && bun papi add people -n polkadot_people`
+
+    ```typescript
+    // `ahp` is the name we gave to `npx papi add`
+import {
+  ahp,
+  people,
+  XcmV2OriginKind,
+  XcmV3Junction,
+  XcmV3Junctions,
+  XcmV3MultiassetFungibility,
+  XcmV5AssetFilter,
+  XcmV5Instruction,
+  XcmV5Junction,
+  XcmV5Junctions,
+  XcmV5WildAsset,
+  XcmVersionedXcm,
+} from "@polkadot-api/descriptors";
+import { Binary, createClient, Enum, FixedSizeBinary } from "polkadot-api";
+// import from "polkadot-api/ws-provider/node"
+// if you are running in a NodeJS environment
+import { getWsProvider } from "polkadot-api/ws-provider/web";
+import { withPolkadotSdkCompat } from "polkadot-api/polkadot-sdk-compat";
+import { sr25519CreateDerive } from "@polkadot-labs/hdkd";
+import {
+  DEV_PHRASE,
+  entropyToMiniSecret,
+  mnemonicToEntropy,
+  ss58Address,
+} from "@polkadot-labs/hdkd-helpers";
+import { getPolkadotSigner } from "polkadot-api/signer";
+
+const entropy = mnemonicToEntropy(DEV_PHRASE);
+const miniSecret = entropyToMiniSecret(entropy);
+const derive = sr25519CreateDerive(miniSecret);
+const keyPair = derive("//Alice");
+
+const polkadotSigner = getPolkadotSigner(
+  keyPair.publicKey,
+  "Sr25519",
+  keyPair.sign,
+);
+
+// Connect to Polkadot Asset Hub.
+// Pointing to localhost since we're using chopsticks in this example.
+const client = createClient(
+  withPolkadotSdkCompat(getWsProvider("ws://localhost:8000")),
+);
+
+// We get the typed api, a typesafe API for interacting with the chain.
+const ahpApi = client.getTypedApi(ahp);
+
+const PEOPLE_PARA_ID = 1004;
+// The identifier for DOT is the location of the Polkadot Relay Chain,
+// which is 1 up relative to any parachain.
+const DOT = {
+  parents: 1,
+  interior: XcmV3Junctions.Here(),
+};
+// DOT has 10 decimals.
+const DOT_UNITS = 10_000_000_000n;
+
+// This is the DOT we withdraw to both pay for fees and send.
+const dotToWithdraw = {
+  id: DOT,
+  fun: XcmV3MultiassetFungibility.Fungible(10n * DOT_UNITS),
+};
+// This is the DOT we use to pay for fees locally.
+const dotToPayFees = {
+  id: DOT,
+  fun: XcmV3MultiassetFungibility.Fungible(1n * DOT_UNITS),
+};
+// The location of the People Chain from Asset Hub.
+const destination = {
+  parents: 1,
+  interior: XcmV3Junctions.X1(XcmV3Junction.Parachain(PEOPLE_PARA_ID)),
+};
+// We'll pay for fees in the People Chain with teleported DOT.
+// This is specified independently of the transferred assets since they're used
+// exclusively for fees. Also because we can decide to pay fees in a different
+// asset from all that we're transferring.
+const remoteFees = Enum(
+  "Teleport",
+  XcmV5AssetFilter.Definite([
+    {
+      id: DOT,
+      fun: XcmV3MultiassetFungibility.Fungible(1n * DOT_UNITS),
+    },
+  ]),
+);
+// No need to preserve origin for this example.
+const preserveOrigin = false;
+// The assets we want to transfer are whatever's left in the
+// holding register at the time of executing the `InitiateTransfer`
+// instruction. DOT in this case. We teleport it.
+const assets = [
+  Enum("Teleport", XcmV5AssetFilter.Wild(XcmV5WildAsset.AllCounted(1))),
+];
+// The beneficiary is the same account but on the People Chain.
+// This is a very common pattern for one public/private key pair
+// to hold assets on multiple chains.
+const beneficiary = FixedSizeBinary.fromBytes(keyPair.publicKey);
+// The call to be executed on the destination chain.
+// It's a simple remark with an event.
+// We create the call on Asset Hub since the system pallet is present in
+// every runtime, but if using any other pallet, you should connect to
+// the destination chain and create the call there.
+const remark = Binary.fromText("Hello, cross-chain!");
+const call = await ahpApi.tx.System.remark_with_event({ remark }).getEncodedData();
+// The XCM to be executed on the destination chain.
+// It's basically depositing everything to the beneficiary.
+const remoteXcm = [
+  XcmV5Instruction.Transact({
+    origin_kind: XcmV2OriginKind.SovereignAccount(),
+    fallback_max_weight: undefined,
+    call,
+  }),
+  XcmV5Instruction.RefundSurplus(),
+  XcmV5Instruction.DepositAsset({
+    assets: XcmV5AssetFilter.Wild(XcmV5WildAsset.AllCounted(1)),
+    beneficiary: {
+      parents: 0,
+      interior: XcmV5Junctions.X1(
+        XcmV5Junction.AccountId32({
+          id: beneficiary,
+          network: undefined,
+        }),
+      ),
+    },
+  }),
+];
+
+// The message is just assembling all of these parameters we've defined before.
+const xcm = XcmVersionedXcm.V5([
+  XcmV5Instruction.WithdrawAsset([dotToWithdraw]),
+  XcmV5Instruction.PayFees({ asset: dotToPayFees }),
+  XcmV5Instruction.InitiateTransfer({
+    destination,
+    remote_fees: remoteFees,
+    preserve_origin: preserveOrigin,
+    assets,
+    remote_xcm: remoteXcm,
+  }),
+]);
+
+// We need to know the weight of the XCM to set the `max_weight` parameter
+// on the actual `PolkadotXcm.execute()` call.
+const weightResult = await ahpApi.apis.XcmPaymentApi.query_xcm_weight(xcm);
+
+if (weightResult.success) {
+  const weight = weightResult.success
+    ? weightResult.value
+    : { ref_time: 0n, proof_size: 0n };
+
+  console.dir(weight);
+
+  // The actual transaction we will submit.
+  // This tells Asset Hub to execute the XCM.
+  const tx = ahpApi.tx.PolkadotXcm.execute({
+    message: xcm,
+    max_weight: weight,
+  });
+
+  // We sign it and propagate it to the network.
+  const result = await tx.signAndSubmit(polkadotSigner);
+  console.log(stringify(result));
+}
+
+client.destroy();
+
+// A helper function to print numbers inside of the result.
+function stringify(obj: any) {
+  return JSON.stringify(
+    obj,
+    (_, v) => (typeof v === "bigint" ? v.toString() : v),
+    2,
+  );
+}
+    ```
 --- END CONTENT ---
 
 Doc-Content: https://docs.polkadot.com/develop/interoperability/xcm-channels/

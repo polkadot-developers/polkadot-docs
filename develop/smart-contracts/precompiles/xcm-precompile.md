@@ -85,7 +85,7 @@ The function returns a `Weight` struct containing `refTime` and `proofSize` valu
 ![](/images/develop/smart-contracts/precompiles/xcm-precompile/xcm-precompile-05.webp)
 
 !!!note
-    You can find many more examples of XCMs in this [gist](https://gist.github.com/franciscoaguirre/a6dea0c55e81faba65bedf700033a1a2){target=\_blank} which connects to the Polkadot Hub TestNet.
+    You can find many more examples of XCMs in this [gist](https://gist.github.com/franciscoaguirre/a6dea0c55e81faba65bedf700033a1a2){target=\_blank}, which connects to the Polkadot Hub TestNet.
 
 ### Execute a Message
 
@@ -103,7 +103,7 @@ For example, using the same message from the weighing example, you would call `e
 
     You can use the [papi console](https://dev.papi.how/extrinsics#networkId=localhost&endpoint=wss%3A%2F%2Ftestnet-passet-hub.polkadot.io&data=0x1f03050c000401000003008c86471301000003008c8647000d010101000000010100368e8759910dab756d344995f1d3c79374ca8f70066d3a709e48029f6bf0ee7e0750c61e2901daad0600){target=\_blank} to examine the complete extrinsic structure for this operation.
 
-3. On Remix, click on the **Transact** button to execute the xcm message:
+3. On Remix, click on the **Transact** button to execute the XCM message:
   
     ![](/images/develop/smart-contracts/precompiles/xcm-precompile/xcm-precompile-06.webp)
 
@@ -115,7 +115,7 @@ Additionally, you can verify that the execution of this specific message was suc
 
 ### Send a Message
 
-While most cross-chain operations can be done via `execute`, sometimes `send` is needed, for example, when opening HRMP channels.
+While most cross-chain operations can be performed via `execute`, `send` is sometimes necessary, for example, when opening HRMP channels.
 
 To send a message:
 
@@ -142,4 +142,4 @@ By building and executing XCM programs, developers can build cross-chain applica
 
 Head to the Polkadot Hub TestNet and start playing around with the precompile using Hardhat or Foundry.
 
-You can use PAPI to build XCM programs and test them with chopsticks.
+You can use PAPI to build XCM programs and test them with Chopsticks.

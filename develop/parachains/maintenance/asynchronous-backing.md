@@ -130,7 +130,7 @@ async backing system.
 
     - Add the dependency `cumulus-primitives-aura` to the `runtime/Cargo.toml` file for your runtime
 
-    ```rust
+    ```rust title="Cargo.toml"
     ..
     cumulus-primitives-aura = { path = "../../../../primitives/aura", default-features = false }
     ..

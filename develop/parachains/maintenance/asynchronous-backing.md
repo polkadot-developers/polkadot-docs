@@ -17,9 +17,7 @@ This guide is relevant for Cumulus-based parachain projects started in 2023 or b
 
 ## Prerequisite
 
-The relay chain needs to have async backing enabled so double-check that the relay chain
-configuration contains the following three parameters (especially when testing locally e.g. with
-zombienet):
+The relay chain needs to have async backing enabled so double-check that the relay chain configuration contains the following three parameters (especially when testing locally e.g. with zombienet):
 
 ```json
 "async_backing_params": {
@@ -30,17 +28,14 @@ zombienet):
 ```
 
 !!! warning 
-    `scheduling_lookahead` must be set to 2, otherwise parachain
-    block times will degrade to worse than with sync backing!
+    `scheduling_lookahead` must be set to 2, otherwise parachain block times will degrade to worse than with sync backing!
 
 ## Phase 1 - Update Parachain Runtime
 
-This phase involves configuring your parachain's runtime `/runtime/src/lib.rs` to make use of
-async backing system.
+This phase involves configuring your parachain's runtime `/runtime/src/lib.rs` to make use of async backing system.
 
 1. Establish and ensure that constants for capacity (`UNINCLUDED_SEGMENT_CAPACITY`) and velocity (`BLOCK_PROCESSING_VELOCITY`) are both set to `1` in the runtime.
-2. Establish and ensure the constant relay chain slot duration measured in milliseconds equal to
-   `6000` in the runtime.
+2. Establish and ensure the constant relay chain slot duration measured in milliseconds equal to `6000` in the runtime.
 
     ```rust title="lib.rs"
     // Maximum number of blocks simultaneously accepted by the runtime, not yet included into the
@@ -147,11 +142,7 @@ async backing system.
     ```
 
     !!!note
-        With a capacity of 1 we have an effective velocity of ½ even when velocity is
-        configured to some larger value. This is because capacity will be filled after a single block is
-        produced and will only be freed up after that block is included on the relay chain, which takes
-        2 relay blocks to accomplish. Thus with capacity 1 and velocity 1 we get the customary 12 second
-        parachain block time.
+        With a capacity of 1 we have an effective velocity of ½ even when velocity is configured to some larger value. This is because capacity will be filled after a single block is produced and will only be freed up after that block is included on the relay chain, which takes 2 relay blocks to accomplish. Thus with capacity 1 and velocity 1 we get the customary 12 second parachain block time.
 
 8. If your `runtime/src/lib.rs` provides a `CheckInherents` type to `register_validate_block`, remove it. `FixedVelocityConsensusHook` makes it unnecessary. The following example shows how `register_validate_block` should look after removing `CheckInherents`.
 
@@ -175,8 +166,7 @@ This phase consists of plugging in the new lookahead collator node.
     };
     ```
 
-2. In `node/src/service.rs`, modify `sc_service::spawn_tasks` to use a clone of `Backend` rather
-   than the original
+2. In `node/src/service.rs`, modify `sc_service::spawn_tasks` to use a clone of `Backend` rather than the original
 
     ```rust
     sc_service::spawn_tasks(sc_service::SpawnTasksParams {
@@ -235,9 +225,7 @@ This phase consists of plugging in the new lookahead collator node.
     ```
 
     !!!note
-        Set `authoring_duration` to whatever you want, taking your own hardware into account.
-        But if the backer, who should be slower than you due to reading from disk, times out at two
-        seconds your candidates will be rejected.
+        Set `authoring_duration` to whatever you want, taking your own hardware into account. But if the backer, who should be slower than you due to reading from disk, times out at two seconds your candidates will be rejected.
 
 6. In `start_consensus()` replace `basic_aura::run` with `aura::run`
 
@@ -284,9 +272,7 @@ This phase consists of changes to your parachain's runtime that activate async b
 3. Decrease `MILLISECS_PER_BLOCK` to 6000.
 
     !!!note
-        For a parachain which measures time in terms of its own block number rather than by relay block 
-        number it may be preferable to increase velocity. Changing block time may cause complications, 
-        requiring additional changes. See the section "Timing by Block Number".
+        For a parachain which measures time in terms of its own block number rather than by relay block number it may be preferable to increase velocity. Changing block time may cause complications, requiring additional changes. See the section "Timing by Block Number".
 
     ```rust
     mod block_times {
@@ -328,12 +314,7 @@ This phase consists of changes to your parachain's runtime that activate async b
 
 ## Timing by Block Number
 
-With asynchronous backing it will be possible for parachains to opt for a block time of 6
-seconds rather than 12 seconds. But modifying block duration isn't so simple for a parachain
-which was measuring time in terms of its own block number. It could result in expected and
-actual time not matching up, stalling the parachain.
+With asynchronous backing it will be possible for parachains to opt for a block time of 6 seconds rather than 12 seconds. But modifying block duration isn't so simple for a parachain which was measuring time in terms of its own block number. It could result in expected and actual time not matching up, stalling the parachain.
 
-One strategy to deal with this issue is to instead rely on relay chain block numbers for timing.
-Relay block number is kept track of by each parachain in `pallet-parachain-system` with the
-storage value `LastRelaychainBlockNumber`. This value can be obtained and used wherever timing
-based on block number is needed.
+One strategy to deal with this issue is to instead rely on relay chain block numbers for timing. Relay block number is kept track of by each parachain in `pallet-parachain-system` with the
+storage value `LastRelaychainBlockNumber`. This value can be obtained and used wherever timing based on block number is needed.

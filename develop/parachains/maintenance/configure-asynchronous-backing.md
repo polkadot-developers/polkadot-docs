@@ -1,9 +1,9 @@
 ---
-title: Asynchronous Backing
-description: Learn how to increase the efficiency and throughput of your parachain by upgrading it to leverage asynchronous backing.
+title: Configure Asynchronous Backing
+description: Learn how to increase the efficiency and throughput of your parachain by configuring it to leverage asynchronous backing.
 ---
 
-# Upgrade Parachain for Asynchronous Backing Compatibility
+# Configure Parachain for Asynchronous Backing Compatibility
 
 ## Introduction
 
@@ -92,6 +92,8 @@ This phase involves configuring your parachain's runtime `/runtime/src/lib.rs` t
     ```
 
 5. Configure [`pallet_aura`](https://paritytech.github.io/polkadot-sdk/master/pallet_aura/index.html){target=\_blank} in the runtime.
+
+    [`pallet_aura`]((https://paritytech.github.io/polkadot-sdk/master/pallet_aura/index.html){target=\_blank}) implements Authority Round (Aura) - a deterministic [consensus](https://docs.polkadot.com/polkadot-protocol/glossary/#consensus){target=\_blank} protocol where block production is limited to a rotating list of authorities that take turns creating blocks. [`pallet_aura`](https://paritytech.github.io/polkadot-sdk/master/pallet_aura/index.html){target=\_blank} uses [`pallet_timestamp`](https://paritytech.github.io/polkadot-sdk/master/pallet_timestamp/index.html){target=\_blank} to track consensus rounds (via [`slots`](https://paritytech.github.io/polkadot-sdk/master/pallet_aura/pallet/trait.Config.html#associatedtype.SlotDuration){target=\_blank}).
 
     - Set [`AllowMultipleBlocksPerSlot`](https://paritytech.github.io/polkadot-sdk/master/pallet_aura/pallet/trait.Config.html#associatedtype.AllowMultipleBlocksPerSlot){target=\_blank} to `false` 
         - We will set it to `true` when we activate async backing in phase 3

@@ -6,4 +6,4 @@ nav:
   # - 'Debug Production Issues': debug-prod-issues.md
   - 'Runtime Metrics and Monitoring': runtime-metrics-monitoring.md
   - 'Unlock Parachain': unlock-parachain.md
-  - 'Asynchronous Backing': asynchronous-backing.md
+  - 'Configure Asynchronous Backing': configure-asynchronous-backing.md

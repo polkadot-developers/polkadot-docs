@@ -39,44 +39,6 @@ For example, to connect to the Polkadot Hub TestNet via MetaMask, you need to fo
 
 The steps in the preceding section can be used to connect to any chain by modifying the network specification and endpoint parameters.
 
-### SubWallet
-
-[SubWallet](https://www.subwallet.app/){target=\_blank} is a popular non-custodial wallet solution for Polkadot, Substrate and Ethereum ecosystems. It offers seamless integration with Polkadot-based networks while maintaining Ethereum compatibility, making the wallet an ideal choice for users and developers to interact with Polkadot Hub.
-
-To connect to Polkadot Hub using SubWallet, follow these steps:
-
-1. Install the [SubWallet browser extension](https://chromewebstore.google.com/detail/subwallet-polkadot-wallet/onhogfjeacnfoofkfgppdlbmlmnplgbn?hl=en){target=\_blank} and set up your wallet by following the on-screen instructions, or refer to the step-by-step [guide](https://docs.subwallet.app/main/extension-user-guide/getting-started/install-subwallet){target=\_blank} for assistance.
-
-2. After setting up your wallet, click the list icon at the top left corner of the extension window to open **Settings**.
-
-    ![](/images/develop/smart-contracts/wallets/subwallet-001.webp){: .browser-extension}
-
-3. Scroll down and select **Manage networks**.
-
-    ![](/images/develop/smart-contracts/wallets/subwallet-002.webp){: .browser-extension}
-
-4. Click the **+** button at the top right corner to add the network.
-
-    ![](/images/develop/smart-contracts/wallets/subwallet-003.webp){: .browser-extension}
-
-5. On the **Import network** screen, enter the provider URL of the network. Once done, SubWallet will automatically detect the network name, token name (symbol), and network type.
-
-    ![](/images/develop/smart-contracts/wallets/subwallet-004.webp){: .browser-extension}
-
-6. After that, enter the network’s block explorer, then click **Save** to successfully import the network.
-
-    ![](/images/develop/smart-contracts/wallets/subwallet-005.webp){: .browser-extension}
-
-7. Make sure the Polkadot Hub network is toggled on.
-
-    ![](/images/develop/smart-contracts/wallets/subwallet-006.webp){: .browser-extension}
-
-You are now ready to use SubWallet to interact with [Polkadot Hub TestNet](/develop/smart-contracts/connect-to-polkadot/#networks-details){target=\_blank} seamlessly
-
-> SubWallet fully supports Polkadot Hub's smart contract module. You can easily view and manage your PAS tokens across both Substrate and EVM-compatible networks in one place.
-
-![](/images/develop/smart-contracts/wallets/subwallet-007.webp){: .browser-extension}
-
 ### Talisman
 
 [Talisman](https://talisman.xyz/){target=\_blank} is a specialized wallet for the Polkadot ecosystem that supports both Substrate and EVM accounts, making it an excellent choice for Polkadot Hub interactions. Talisman offers a more integrated experience for Polkadot-based chains while still providing Ethereum compatibility.

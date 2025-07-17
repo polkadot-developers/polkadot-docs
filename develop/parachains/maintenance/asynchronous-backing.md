@@ -7,7 +7,7 @@ description: Learn how to increase the efficiency and throughput of your paracha
 
 ## Introduction
 
-This guide is relevant for Cumulus based parachain projects started in 2023 or before, whose
+This guide is relevant for Cumulus-based parachain projects started in 2023 or before, whose
 backing process is synchronous where parablocks can only be built on the latest relay chain
 block. Async backing allows collators to build parablocks on older relay chain blocks and create
 pipelines of multiple pending parablocks. This parallel block generation increases efficiency

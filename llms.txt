@@ -12008,11 +12008,11 @@ Understanding and utilizing precompiles can unlock advanced functionality and pe
 Doc-Content: https://docs.polkadot.com/develop/smart-contracts/precompiles/interact-with-precompiles/
 --- BEGIN CONTENT ---
 ---
-title: Interact With Precompiles
+title: Interact with Precompiles
 description: Learn how to interact with Polkadot Hub’s precompiles from Solidity to access native, low-level functions like hashing, pairing, EC ops, etc.
 ---
 
-# Interact With Precompiles
+# Interact with Precompiles
 
 !!! smartcontract "PolkaVM Preview Release"
     PolkaVM smart contracts with Ethereum compatibility are in **early-stage development and may be unstable or incomplete**.
@@ -12470,7 +12470,7 @@ The examples provided in this guide demonstrate the basic patterns for interacti
 Doc-Content: https://docs.polkadot.com/develop/smart-contracts/precompiles/xcm-precompile/
 --- BEGIN CONTENT ---
 ---
-title: Interact With the XCM Precompile
+title: Interact with the XCM Precompile
 description: Learn how to use the XCM precompile to send cross-chain messages, execute XCM instructions, and estimate costs from your smart contracts.
 categories: Smart Contracts
 ---

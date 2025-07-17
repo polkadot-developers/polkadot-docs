@@ -1,9 +1,9 @@
 ---
-title: Interact With Precompiles
+title: Interact with Precompiles
 description: Learn how to interact with Polkadot Hub’s precompiles from Solidity to access native, low-level functions like hashing, pairing, EC ops, etc.
 ---
 
-# Interact With Precompiles
+# Interact with Precompiles
 
 --8<-- 'text/smart-contracts/polkaVM-warning.md'
 

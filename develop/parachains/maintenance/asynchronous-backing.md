@@ -42,7 +42,7 @@ zombienet):
 This phase involves configuring your parachain's runtime `/runtime/src/lib.rs` to make use of
 async backing system.
 
-1. Establish and ensure constants for `capacity` and `velocity` are both set to `1` in the runtime.
+1. Establish and ensure that constants for capacity (`UNINCLUDED_SEGMENT_CAPACITY`) and velocity (`BLOCK_PROCESSING_VELOCITY`) are both set to `1` in the runtime.
 2. Establish and ensure the constant relay chain slot duration measured in milliseconds equal to
    `6000` in the runtime.
 

@@ -1,5 +1,5 @@
 title: Precompiles
 nav:
   - index.md
-  - 'Interact With Precompiles': interact-with-precompiles.md
+  - 'Interact with Precompiles': interact-with-precompiles.md
   - 'XCM Precompile': xcm-precompile.md

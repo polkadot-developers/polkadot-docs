@@ -71,7 +71,7 @@ async backing system.
 4. Configure `cumulus_pallet_parachain_system` in the runtime.
 
     - Define a `FixedVelocityConsensusHook` using our capacity, velocity, and relay slot duration constants. 
-    - Use this to set the parachain system `ConsensusHook` property.
+    - Use this to set the parachain system [`ConsensusHook`](https://paritytech.github.io/polkadot-sdk/master/cumulus_pallet_parachain_system/pallet/trait.Config.html#associatedtype.ConsensusHook){target=\_blank} property.
 
     ```rust
     type ConsensusHook = cumulus_pallet_aura_ext::FixedVelocityConsensusHook<

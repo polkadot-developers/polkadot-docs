@@ -18062,15 +18062,13 @@ Doc-Content: https://docs.polkadot.com/get-support/explore-resources/
 ---
 title: Subscribe to Updates
 description: Find Polkadot developer resources, tutorials, forums, governance proposals, and community platforms like StackExchange, Reddit, and YouTube.
-template: index-page.html
 hide:
   - footer
 ---
 
 # Ask the Community and Explore Resources
 
-Looking for answers beyond the documentation?  
-These platforms are full of useful content and experienced developers sharing insights.
+Looking for answers beyond the documentation? These platforms are full of useful content and experienced developers sharing insights.
 
 ## 🧠 Stack Exchange
 
@@ -18101,39 +18099,37 @@ These platforms are full of useful content and experienced developers sharing in
 
 👉 **[Watch on YouTube](https://www.youtube.com/@PolkadotNetwork){target=\_blank}**
 
----
-
-# Community-led Platforms and Ecosystem Updates
+## Community-Led Platforms and Ecosystem Updates
 
 Stay in sync with what's happening across the Polkadot ecosystem — from official announcements to community-driven insights and governance activity.
 
-## 🔷 X (Twitter): Official Accounts
+### 🔷 X (Twitter): Official Accounts
 
-- [@PolkadotDevs](https://twitter.com/PolkadotDevs){target=\_blank} — updates for developers
-- [@Polkadot](https://twitter.com/Polkadot){target=\_blank} — network-wide news
-- [@Kusamanetwork](https://twitter.com/kusamanetwork){target=\_blank} — Kusama-specific updates
-- [@Web3Foundation](https://twitter.com/web3foundation){target=\_blank} — grants, research, and ecosystem programs
+- [@PolkadotDevs](https://twitter.com/PolkadotDevs){target=\_blank}: Updates for developers
+- [@Polkadot](https://twitter.com/Polkadot){target=\_blank}: Network-wide news
+- [@Kusamanetwork](https://twitter.com/kusamanetwork){target=\_blank}: Kusama-specific updates
+- [@Web3Foundation](https://twitter.com/web3foundation){target=\_blank}: Grants, research, and ecosystem programs
 
-## 🔁 X (Twitter): Community Accounts
+### 🔁 X (Twitter): Community Accounts
 
-- [@PolkadotDeploy](https://twitter.com/PolkadotDeploy){target=\_blank} — news from the deployment portal and tooling updates
+- [@PolkadotDeploy](https://twitter.com/PolkadotDeploy){target=\_blank}: News from the deployment portal and tooling updates
 
-## 🗣️ Polkadot Forum
+### 🗣️ Polkadot Forum
 
 - Join community discussions around the direction of the ecosystem.
 
-👉 **[Visit Polkadot Forum](https://forum.polkadot.network/){target=\_blank}**
+👉 **[Visit the Polkadot Forum](https://forum.polkadot.network/){target=\_blank}**
 
-## 🧑‍⚖️ Polkassembly: OpenGov
+### 🧑‍⚖️ Polkassembly: OpenGov
 
 - Explore and vote on governance proposals for Polkadot and Kusama.
 - Help shape the future of the network.
 
 👉 **[Explore on Polkassembly](https://polkadot.polkassembly.io/){target=\_blank}**
 
-## 📸 Instagram
+### 📸 Instagram
 
-- **[@Polkadotnetwork](https://www.instagram.com/polkadotnetwork){target=\_blank}** — visual highlights from the ecosystem  
+- **[@Polkadotnetwork](https://www.instagram.com/polkadotnetwork){target=\_blank}**: Visual highlights from the ecosystem
   _(Note: not developer-specific)_
 --- END CONTENT ---
 
@@ -18142,7 +18138,6 @@ Doc-Content: https://docs.polkadot.com/get-support/get-in-touch/
 ---
 title: Get in Touch
 description: Developer support for Polkadot via Telegram, Matrix, and Discord. Get help with parachains, smart contracts, nodes, and ecosystem tools.
-template: index-page.html
 hide:
   - footer
 ---
@@ -18162,15 +18157,15 @@ Use one of the channels below to get live technical support or ask questions.
   </a>
 </div>
 
-Prefer to see all available channels? Here are your options:
+Prefer to see all available channels? Below are your options.
 
 ## 📱 Telegram: Polkadot Developer Support
 
 The fastest way to get support.
 
-- **Who’s there:** DevRel team and active developer community
-- **Response time:** within **2 business days (usually faster)**
-- **Topics:** any developer-related question is welcome
+- **Who’s there:** DevRel team and active developer community.
+- **Response time:** Within **2 business days (usually faster)**.
+- **Topics:** Any developer-related question is welcome.
 
 👉 **[Join Telegram](https://t.me/substratedevs){target=\_blank}**
 
@@ -18178,12 +18173,10 @@ The fastest way to get support.
 
 Focused support for smart contracts and general developer chat.
 
-- **Smart contracts:**  
-  Ask in `#solidity-smart-contracts` and `#ink_smart-contracts`  
-- **General developer support:**  
-  Ask in `#solidity-smart-contracts`  
-- **Response time:** within **1 business day (usually faster)**
-- **Other topics:** community-led discussion only
+- **Smart contracts:** Ask in `#solidity-smart-contracts` and `#ink_smart-contracts`.
+- **General developer support:** Ask in `#solidity-smart-contracts`.
+- **Response time:** Within **1 business day (usually faster)**.
+- **Other topics:** Community-led discussion only.
 
 👉 **[Join Discord](https://polkadot-discord.w3f.tools/){target=\_blank}**
 
@@ -18191,10 +18184,10 @@ Focused support for smart contracts and general developer chat.
 
 This is the **support channel** staffed by engineers from **Parity**, **Web3 Foundation**, and **Polkadot DevRel**.
 
-- **Who’s there:** Parity, W3F, DevRel, and community contributors
-- **Response time:** within **1 business day (usually faster)**
-- **Topics:** full-spectrum developer support
-- Bridged with Telegram (all messages synced)
+- **Who’s there:** Parity, W3F, DevRel, and community contributors.
+- **Response time:** Within **1 business day (usually faster)**.
+- **Topics:** Full-spectrum developer support.
+- Bridged with Telegram (all messages synced).
 
 👉 **[Join Matrix](https://matrix.to/#/#substratedevs:matrix.org){target=\_blank}**
 
@@ -18202,7 +18195,7 @@ This is the **support channel** staffed by engineers from **Parity**, **Web3 Fou
 
 Not sure where to start?  
 
-**Join Telegram above** — let us know what you need, and we’ll help you get unstuck.
+**Join [Telegram](#telegram-polkadot-developer-support)**: Let us know what you need, and we’ll help you get unstuck.
 --- END CONTENT ---
 
 Doc-Content: https://docs.polkadot.com/get-support/
@@ -18216,6 +18209,7 @@ hide:
 ---
 
 # Need Help Fast?
+
 Use one of the channels below to get live technical support or ask questions.
 
 <div class="button-wrapper" style="display: flex; justify-content: flex-start;">
@@ -18226,35 +18220,33 @@ Use one of the channels below to get live technical support or ask questions.
     Connect to Discord
   </a>
 </div>
----
 
-## Need More than just Documentation?
+
+## Need More than Just Documentation?
 
 You're already in the docs — solid start.  
 But sometimes you need more: answers, real examples, someone to talk to.  
-This Support Hub is here to help you move forward — faster.
+This support hub is here to help you move forward — faster.
 
 Whether you're building something new, integrating into the ecosystem, or running into blockers — **don't stay stuck**.
 
-## What You can do Here
+## What You Can Do Here
 
-- 📨 [**Get In Touch**](./get-in-touch)  
+- 📨 [**Get In Touch**](/get-support/get-in-touch/)  
   Reach out to the Polkadot support team and community via Telegram, Matrix, or Discord.  
   Ask technical questions, report blockers, or share feedback — and get a human response.
 
-- 🧠 [**Explore Available Resources**](./explore-resources)  
+- 🧠 [**Explore Available Resources**](/get-support/explore-resources/)  
   Find answers beyond the documentation: developer forums, Stack Exchange, Reddit, YouTube, governance hubs, and more.
----
 
-This hub is evolving. More support tools and shortcuts are on the way —  
-including better onboarding, CLI helpers, dev environments, and live feedback channels.
+This hub is evolving. More support tools and shortcuts are on the way, including enhanced onboarding, CLI helpers, development environments, and live feedback channels.
 
-## Help us Improve
+## Help Us Improve
 
 If something’s missing, unclear, or broken — **tell us**.  
 Your feedback makes the whole ecosystem better for everyone.
 
-👉 [**Get In Touch**](./get-in-touch) and help shape the future of developer support.
+👉 [**Get In Touch**](/get-support/get-in-touch/) and help shape the future of developer support.
 --- END CONTENT ---
 
 Doc-Content: https://docs.polkadot.com/images/README/

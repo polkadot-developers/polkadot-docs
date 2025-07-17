@@ -11,9 +11,9 @@ description: Learn how to interact with Polkadot SDK-based chains using RPC call
 
 This guide covers:
 
-- What RPC calls are and how they work in the Polkadot SDK
-- How to make RPC calls using `curl` or similar tools
-- The most useful and commonly used RPC methods
+- What RPC calls are and how they work in the Polkadot SDK.
+- How to make RPC calls using `curl` or similar tools.
+- The most useful and commonly used RPC methods.
 
 RPC endpoints are available on every node and can be accessed via HTTP and WebSocket. Most developer tools, dashboards, and libraries (like [Polkadot.js](/develop/toolkit/api-libraries/polkadot-js-api){target=\_blank}, [Subxt](/develop/toolkit/api-libraries/subxt){target=\_blank}, and others) utilize these endpoints internally.
 
@@ -44,11 +44,11 @@ curl -H "Content-Type: application/json" \
   NODE_ENDPOINT
 ```
 
-- `method`: The RPC method you want to call (e.g., `system_health`).
-- `params`: Parameters for the method (if any).
-- `NODE_ENDPOINT`: The HTTP endpoint of your node (e.g., `http://localhost:9933` or a public endpoint).
+- **`method`**: The RPC method you want to call (e.g., `system_health`).
+- **`params`**: Parameters for the method (if any).
+- **`NODE_ENDPOINT`**: The HTTP endpoint of your node (e.g., `http://localhost:9933` or a public endpoint).
 
-Here's a simple example to get the latest block number of the Polkadot Relay chain; you can use the following node endpoint:
+Here's a simple example to get the latest block number of the Polkadot relay chain; you can use the following node endpoint:
 
 ```bash
 curl -H "Content-Type: application/json" \
@@ -121,19 +121,19 @@ You can replace `https://rpc.polkadot.io` with the node endpoint you need to que
 
 ### Using Polkadot.js Apps
 
-1. Go to the [Polkadot.js Apps UI](https://polkadot.js.org/apps){target=\_blank} and navigate to the RPC calls section
+1. Go to the [Polkadot.js Apps UI](https://polkadot.js.org/apps){target=\_blank} and navigate to the RPC calls section.
 
     ![](/images/develop/toolkit/parachains/rpc-calls/rpc-calls-01.webp)
 
-2. Select `rpc` from the dropdown menu
+2. Select **`rpc`** from the dropdown menu.
 
     ![](/images/develop/toolkit/parachains/rpc-calls/rpc-calls-02.webp)
 
-3. Choose the `methods` method
+3. Choose the **`methods`** method.
 
     ![](/images/develop/toolkit/parachains/rpc-calls/rpc-calls-03.webp)
 
-4. Submit the call to get a list of all available RPC methods
+4. Submit the call to get a list of all available RPC methods.
 
     ![](/images/develop/toolkit/parachains/rpc-calls/rpc-calls-04.webp)
 
@@ -141,7 +141,7 @@ This will return a JSON response containing all the RPC methods supported by you
 
 ![](/images/develop/toolkit/parachains/rpc-calls/rpc-calls-05.webp)
 
-From this interface, you can also query the RPC methods directly, as you would do with `curl`.
+From this interface, you can also query the RPC methods directly, as you would do with curl.
 
 ## Resources
 

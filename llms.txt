@@ -16643,9 +16643,9 @@ description: Learn how to interact with Polkadot SDK-based chains using RPC call
 
 This guide covers:
 
-- What RPC calls are and how they work in the Polkadot SDK
-- How to make RPC calls using `curl` or similar tools
-- The most useful and commonly used RPC methods
+- What RPC calls are and how they work in the Polkadot SDK.
+- How to make RPC calls using `curl` or similar tools.
+- The most useful and commonly used RPC methods.
 
 RPC endpoints are available on every node and can be accessed via HTTP and WebSocket. Most developer tools, dashboards, and libraries (like [Polkadot.js](/develop/toolkit/api-libraries/polkadot-js-api){target=\_blank}, [Subxt](/develop/toolkit/api-libraries/subxt){target=\_blank}, and others) utilize these endpoints internally.
 
@@ -16676,11 +16676,11 @@ curl -H "Content-Type: application/json" \
   NODE_ENDPOINT
 ```
 
-- `method`: The RPC method you want to call (e.g., `system_health`).
-- `params`: Parameters for the method (if any).
-- `NODE_ENDPOINT`: The HTTP endpoint of your node (e.g., `http://localhost:9933` or a public endpoint).
+- **`method`**: The RPC method you want to call (e.g., `system_health`).
+- **`params`**: Parameters for the method (if any).
+- **`NODE_ENDPOINT`**: The HTTP endpoint of your node (e.g., `http://localhost:9933` or a public endpoint).
 
-Here's a simple example to get the latest block number of the Polkadot Relay chain; you can use the following node endpoint:
+Here's a simple example to get the latest block number of the Polkadot relay chain; you can use the following node endpoint:
 
 ```bash
 curl -H "Content-Type: application/json" \
@@ -16690,48 +16690,99 @@ curl -H "Content-Type: application/json" \
 
 ## Essential RPC Methods
 
-Here are some of the most useful and commonly used RPC methods for Polkadot SDK-based chains:
+Below are some of the most useful and commonly used RPC methods for Polkadot SDK-based chains. Each method includes a description, parameters, and an example request.
 
-- `system_health`
-    - Check the health of your node.
-    - Example:
-        ```bash
-        curl -H "Content-Type: application/json" \
-            -d '{"id":1, "jsonrpc":"2.0", "method": "system_health", "params":[]}' \
-            http://localhost:9933
-        ```
-- `chain_getBlock`
-    - Get the latest block (or a specific block by hash):
-    - Example:
-        ```bash
-        curl -H "Content-Type: application/json" \
-            -d '{"id":1, "jsonrpc":"2.0", "method": "chain_getBlock", "params":[]}' \
-            http://localhost:9933
-        ```
-- `state_getStorage`
-    - Query on-chain storage by key (requires [SCALE-encoded](/polkadot-protocol/parachain-basics/data-encoding){target=\_blank} storage key):
-    - Example:
-        ```bash
-        curl -H "Content-Type: application/json" \
-            -d '{"id":1, "jsonrpc":"2.0", "method": "state_getStorage", "params":["0x..."]}' \
-            http://localhost:9933
-        ```
-- `author_submitExtrinsic`
-    - Submit a signed extrinsic (transaction):
-    - Example:
-        ```bash
-        curl -H "Content-Type: application/json" \
-            -d '{"id":1, "jsonrpc":"2.0", "method": "author_submitExtrinsic", "params":["0x..."]}' \
-            http://localhost:9933
-        ```
-- `state_getMetadata`
-    - Fetch the runtime metadata (needed for decoding storage and extrinsics):
-    - Example:
-        ```bash
-        curl -H "Content-Type: application/json" \
-            -d '{"id":1, "jsonrpc":"2.0", "method": "state_getMetadata", "params":[]}' \
-            http://localhost:9933
-        ```
+---
+
+### system_health
+
+Checks the health of your node.
+
+**Parameters:**
+
+None
+
+**Example:**
+
+```bash title="system_health"
+curl -H "Content-Type: application/json" \
+    -d '{"id":1, "jsonrpc":"2.0", "method": "system_health", "params":[]}' \
+    http://localhost:9933
+```
+
+---
+
+### chain_getBlock
+
+Returns the latest block or a specific block by hash.
+
+**Parameters:**
+
+- `blockHash` *(optional, string)* – The hash of the block to retrieve. If omitted, returns the latest block.
+
+**Example:**
+
+```bash title="chain_getBlock"
+curl -H "Content-Type: application/json" \
+    -d '{"id":1, "jsonrpc":"2.0", "method": "chain_getBlock", "params":[]}' \
+    http://localhost:9933
+```
+
+---
+
+### state_getStorage
+
+Queries on-chain storage by key (requires [SCALE-encoded](/polkadot-protocol/parachain-basics/data-encoding){target=_blank} storage key).
+
+**Parameters:**
+
+- `storageKey` *(string)* – The SCALE-encoded storage key to query.
+
+**Example:**
+
+```bash title="state_getStorage"
+curl -H "Content-Type: application/json" \
+    -d '{"id":1, "jsonrpc":"2.0", "method": "state_getStorage", "params":["0x..."]}' \
+    http://localhost:9933
+```
+
+---
+
+### author_submitExtrinsic
+
+Submits a signed extrinsic (transaction) to the node.
+
+**Parameters:**
+
+- `extrinsic` *(string)* – The SCALE-encoded, signed extrinsic (transaction).
+
+**Example:**
+
+```bash title="author_submitExtrinsic"
+curl -H "Content-Type: application/json" \
+    -d '{"id":1, "jsonrpc":"2.0", "method": "author_submitExtrinsic", "params":["0x..."]}' \
+    http://localhost:9933
+```
+
+---
+
+### state_getMetadata
+
+Fetches the runtime metadata (needed for decoding storage and extrinsics).
+
+**Parameters:**
+
+None
+
+**Example:**
+
+```bash title="state_getMetadata"
+curl -H "Content-Type: application/json" \
+    -d '{"id":1, "jsonrpc":"2.0", "method": "state_getMetadata", "params":[]}' \
+    http://localhost:9933
+```
+
+---
 
 ## Check Available RPC Calls
 
@@ -16753,19 +16804,19 @@ You can replace `https://rpc.polkadot.io` with the node endpoint you need to que
 
 ### Using Polkadot.js Apps
 
-1. Go to the [Polkadot.js Apps UI](https://polkadot.js.org/apps){target=\_blank} and navigate to the RPC calls section
+1. Go to the [Polkadot.js Apps UI](https://polkadot.js.org/apps){target=\_blank} and navigate to the RPC calls section.
 
     ![](/images/develop/toolkit/parachains/rpc-calls/rpc-calls-01.webp)
 
-2. Select `rpc` from the dropdown menu
+2. Select **`rpc`** from the dropdown menu.
 
     ![](/images/develop/toolkit/parachains/rpc-calls/rpc-calls-02.webp)
 
-3. Choose the `methods` method
+3. Choose the **`methods`** method.
 
     ![](/images/develop/toolkit/parachains/rpc-calls/rpc-calls-03.webp)
 
-4. Submit the call to get a list of all available RPC methods
+4. Submit the call to get a list of all available RPC methods.
 
     ![](/images/develop/toolkit/parachains/rpc-calls/rpc-calls-04.webp)
 
@@ -16773,7 +16824,7 @@ This will return a JSON response containing all the RPC methods supported by you
 
 ![](/images/develop/toolkit/parachains/rpc-calls/rpc-calls-05.webp)
 
-From this interface, you can also query the RPC methods directly, as you would do with `curl`.
+From this interface, you can also query the RPC methods directly, as you would do with curl.
 
 ## Resources
 

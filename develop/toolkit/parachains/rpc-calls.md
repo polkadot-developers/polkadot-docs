@@ -58,48 +58,99 @@ curl -H "Content-Type: application/json" \
 
 ## Essential RPC Methods
 
-Here are some of the most useful and commonly used RPC methods for Polkadot SDK-based chains:
+Below are some of the most useful and commonly used RPC methods for Polkadot SDK-based chains. Each method includes a description, parameters, and an example request.
 
-- `system_health`
-    - Check the health of your node.
-    - Example:
-        ```bash
-        curl -H "Content-Type: application/json" \
-            -d '{"id":1, "jsonrpc":"2.0", "method": "system_health", "params":[]}' \
-            http://localhost:9933
-        ```
-- `chain_getBlock`
-    - Get the latest block (or a specific block by hash):
-    - Example:
-        ```bash
-        curl -H "Content-Type: application/json" \
-            -d '{"id":1, "jsonrpc":"2.0", "method": "chain_getBlock", "params":[]}' \
-            http://localhost:9933
-        ```
-- `state_getStorage`
-    - Query on-chain storage by key (requires [SCALE-encoded](/polkadot-protocol/parachain-basics/data-encoding){target=\_blank} storage key):
-    - Example:
-        ```bash
-        curl -H "Content-Type: application/json" \
-            -d '{"id":1, "jsonrpc":"2.0", "method": "state_getStorage", "params":["0x..."]}' \
-            http://localhost:9933
-        ```
-- `author_submitExtrinsic`
-    - Submit a signed extrinsic (transaction):
-    - Example:
-        ```bash
-        curl -H "Content-Type: application/json" \
-            -d '{"id":1, "jsonrpc":"2.0", "method": "author_submitExtrinsic", "params":["0x..."]}' \
-            http://localhost:9933
-        ```
-- `state_getMetadata`
-    - Fetch the runtime metadata (needed for decoding storage and extrinsics):
-    - Example:
-        ```bash
-        curl -H "Content-Type: application/json" \
-            -d '{"id":1, "jsonrpc":"2.0", "method": "state_getMetadata", "params":[]}' \
-            http://localhost:9933
-        ```
+---
+
+### system_health
+
+Checks the health of your node.
+
+**Parameters:**
+
+None
+
+**Example:**
+
+```bash title="system_health"
+curl -H "Content-Type: application/json" \
+    -d '{"id":1, "jsonrpc":"2.0", "method": "system_health", "params":[]}' \
+    http://localhost:9933
+```
+
+---
+
+### chain_getBlock
+
+Returns the latest block or a specific block by hash.
+
+**Parameters:**
+
+- `blockHash` *(optional, string)* – The hash of the block to retrieve. If omitted, returns the latest block.
+
+**Example:**
+
+```bash title="chain_getBlock"
+curl -H "Content-Type: application/json" \
+    -d '{"id":1, "jsonrpc":"2.0", "method": "chain_getBlock", "params":[]}' \
+    http://localhost:9933
+```
+
+---
+
+### state_getStorage
+
+Queries on-chain storage by key (requires [SCALE-encoded](/polkadot-protocol/parachain-basics/data-encoding){target=_blank} storage key).
+
+**Parameters:**
+
+- `storageKey` *(string)* – The SCALE-encoded storage key to query.
+
+**Example:**
+
+```bash title="state_getStorage"
+curl -H "Content-Type: application/json" \
+    -d '{"id":1, "jsonrpc":"2.0", "method": "state_getStorage", "params":["0x..."]}' \
+    http://localhost:9933
+```
+
+---
+
+### author_submitExtrinsic
+
+Submits a signed extrinsic (transaction) to the node.
+
+**Parameters:**
+
+- `extrinsic` *(string)* – The SCALE-encoded, signed extrinsic (transaction).
+
+**Example:**
+
+```bash title="author_submitExtrinsic"
+curl -H "Content-Type: application/json" \
+    -d '{"id":1, "jsonrpc":"2.0", "method": "author_submitExtrinsic", "params":["0x..."]}' \
+    http://localhost:9933
+```
+
+---
+
+### state_getMetadata
+
+Fetches the runtime metadata (needed for decoding storage and extrinsics).
+
+**Parameters:**
+
+None
+
+**Example:**
+
+```bash title="state_getMetadata"
+curl -H "Content-Type: application/json" \
+    -d '{"id":1, "jsonrpc":"2.0", "method": "state_getMetadata", "params":[]}' \
+    http://localhost:9933
+```
+
+---
 
 ## Check Available RPC Calls
 

@@ -46,7 +46,7 @@ async backing system.
 2. Establish and ensure the constant relay chain slot duration measured in milliseconds equal to
    `6000` in the runtime.
 
-    ```rust
+    ```rust title="lib.rs"
     // Maximum number of blocks simultaneously accepted by the runtime, not yet included into the
     // relay chain.
     pub const UNINCLUDED_SEGMENT_CAPACITY: u32 = 1;

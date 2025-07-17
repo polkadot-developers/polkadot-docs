@@ -16786,9 +16786,7 @@ curl -H "Content-Type: application/json" \
 
 ## Check Available RPC Calls
 
-To check all the RPC methods exposed by your node, you can use the `rpc_methods` call to get a comprehensive list of available methods. This is particularly useful when working with different chain implementations or custom runtimes that may have additional RPC endpoints.
-
-You can do this in two ways:
+To check all the RPC methods exposed by your node, you can use the `rpc_methods` call to get a comprehensive list of available methods. This is particularly useful when working with different chain implementations or custom runtimes that may have additional RPC endpoints. You can do this via [`curl`](#using-curl) or the [Polkadot.Js Apps](#using-polkadotjs-apps).
 
 ### Using curl
 

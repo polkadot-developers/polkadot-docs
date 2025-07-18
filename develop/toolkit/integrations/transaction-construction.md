@@ -116,7 +116,7 @@ Let's say you want to send 1 WND from `5F4c8mNz6schf2WMXQZiz1eyR1GGxrMf2coXpAn8m
 First fund the sending account. You can use the [Westend Faucet](https://faucet.polkadot.io/westend) for that.
 Request some tokens for `5F4c8mNz6schf2WMXQZiz1eyR1GGxrMf2coXpAn8mNjxyzp2`.
 
-Next call submit to create the transaction and which will give you the payload to sign.
+Next, call `submit` to create the transaction, which will give you the payload to sign.
 
 ```bash
 polkadot-js-signer submit --account 5F4c8mNz6schf2WMXQZiz1eyR1GGxrMf2coXpAn8mNjxyzp2 --ws wss://asset-hub-westend-rpc.n.dwellir.com balances.transferKeepAlive 5FnudgwK8xJvmujsXXP35pF2xwskhHQzBSRM8KZhXjnEz5gD 1000000000000

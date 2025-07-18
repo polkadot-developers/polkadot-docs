@@ -20,10 +20,12 @@ This guide is relevant for Cumulus-based parachain projects started in 2023 or b
 The relay chain needs to have async backing enabled so double-check that the relay chain configuration contains the following three parameters (especially when testing locally e.g. with [Zombienet](/develop/toolkit/parachains/spawn-chains/zombienet/get-started/){target=\_blank}):
 
 ```rust title="runtimes/relay/polkadot/src/genesis_config_presets.rs"
+...
 "async_backing_params": {
     "max_candidate_depth": 3,
     "allowed_ancestry_len": 2
 },
+...
 ```
 This can be found in the relay chain's runtime. You can see the Polkadot [`async_backing_params`](https://github.com/polkadot-fellows/runtimes/blob/d49a9f33d0ea85ce51c26c84a70b61624ec06901/relay/polkadot/src/genesis_config_presets.rs#L131-L134){target=\_blank} as an example. You also want to make sure that the `lookahead` in [`schedulerParams`](https://paritytech.github.io/polkadot-sdk/master/cumulus_primitives_core/relay_chain/struct.SchedulerParams.html){target=\_blank} is set to `3`. This can be found by found by querying the [`scheduler_params`](https://paritytech.github.io/polkadot-sdk/master/polkadot_runtime_parachains/configuration/struct.HostConfiguration.html#structfield.scheduler_params){target=\_blank} using the [`configuration.activeConfig()`](https://polkadot.js.org/apps/?rpc=wss%3A%2F%2Frpc-polkadot.helixstreet.io#/chainstate) query in PolkadotJS.
 

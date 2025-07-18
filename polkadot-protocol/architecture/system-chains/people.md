@@ -1,6 +1,7 @@
 ---
 title: People Chain
 description: Learn how People chain secures decentralized identity management, empowering users to control and verify digital identities without central authorities.
+categories: Polkadot Protocol
 ---
 
 # People Chain

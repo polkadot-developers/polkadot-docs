@@ -1,6 +1,7 @@
 ---
 title: Set Up Secure WebSocket
 description: Instructions on enabling SSL for your node and setting up a secure WebSocket proxy server using nginx for remote connections.
+categories: Infrastructure
 ---
 
 # Set Up Secure WebSocket

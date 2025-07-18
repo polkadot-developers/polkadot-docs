@@ -1,6 +1,7 @@
 ---
 title: Add Smart Contract Functionality
 description: Add smart contract capabilities to your Polkadot SDK-based blockchain. Explore EVM and Wasm integration for enhanced chain functionality.
+categories: Parachains
 ---
 
 # Add Smart Contract Functionality

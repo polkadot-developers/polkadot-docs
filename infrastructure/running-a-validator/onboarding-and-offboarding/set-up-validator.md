@@ -1,6 +1,7 @@
 ---
 title: Set Up a Validator
 description: Set up a Polkadot validator node to secure the network and earn staking rewards. Follow this step-by-step guide to install, configure, and manage your node.
+categories: Infrastructure
 ---
 
 # Set Up a Validator

@@ -2,6 +2,7 @@
 title: Networks
 description: Explore the Polkadot ecosystem networks and learn the unique purposes of each, tailored for blockchain innovation, testing, and enterprise-grade solutions.
 template: root-subdirectory-page.html
+categories: Basics, Networks
 ---
 
 # Networks

@@ -1,6 +1,7 @@
 ---
 title: Dedot
 description: Dedot is a next-gen JavaScript client for Polkadot and Polkadot SDK-based blockchains, offering lightweight, tree-shakable APIs with strong TypeScript support.
+categories: Tooling, Dapps
 ---
 
 # Dedot

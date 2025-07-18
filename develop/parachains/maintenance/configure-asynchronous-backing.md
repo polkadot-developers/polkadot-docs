@@ -17,7 +17,7 @@ This guide is relevant for Cumulus-based parachain projects started in 2023 or b
 
 ## Prerequisite
 
-The relay chain needs to have async backing enabled so double-check that the relay chain configuration contains the following three parameters (especially when testing locally e.g. with zombienet):
+The relay chain needs to have async backing enabled so double-check that the relay chain configuration contains the following three parameters (especially when testing locally e.g. with [Zombienet](/develop/toolkit/parachains/spawn-chains/zombienet/get-started/){target=\_blank}):
 
 ```rust title="runtimes/relay/polkadot/src/genesis_config_presets.rs"
 "async_backing_params": {

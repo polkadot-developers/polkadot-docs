@@ -23,32 +23,32 @@ Polkadot has some basic transaction information that is common to all transactio
 - **Genesis hash**: The genesis hash of the chain.
 - **Metadata**: The [SCALE-encoded](/polkadot-protocol/parachain-basics/data-encoding/){target=\_blank} metadata for the runtime when submitted.
 - **Nonce**: The nonce for this transaction.
-- **Spec Version**: The current spec version for the runtime.
-- **Transaction Version**: The current version for transaction format.
-- **Tip**: Optional, the [tip](/polkadot-protocol/parachain-basics/blocks-transactions-fees/fees/#how-fees-are-calculated){target=\_blank} to increase transaction priority.
+- **Spec version**: The current spec version for the runtime.
+- **Transaction version**: The current version of the transaction format.
+- **Tip**: The [tip](/polkadot-protocol/parachain-basics/blocks-transactions-fees/fees/#how-fees-are-calculated){target=\_blank} to increase transaction priority. This is optional when constructing the transaction.
 - **Mode**: The flag indicating whether to verify the metadata hash or not.
-- **Era Period**: Optional, the number of blocks after the checkpoint for which a transaction is valid. If zero, the transaction is [immortal](/polkadot-protocol/parachain-basics/blocks-transactions-fees/transactions/#transaction-mortality){target=\_blank}
-- **MetadataHash**: Optional, the metadata hash which should match the [`RUNTIME_METADATA_HASH`](https://paritytech.github.io/polkadot-sdk/master/frame_metadata_hash_extension/struct.CheckMetadataHash.html){target=\_blank} environment variable.
+- **Era period**: The number of blocks after the checkpoint for which a transaction is valid. If zero, the transaction is [immortal](/polkadot-protocol/parachain-basics/blocks-transactions-fees/transactions/#transaction-mortality){target=\_blank}. This is optional when constructing the transaction.
+- **Metadata hash**: The metadata hash which should match the [`RUNTIME_METADATA_HASH`](https://paritytech.github.io/polkadot-sdk/master/frame_metadata_hash_extension/struct.CheckMetadataHash.html){target=\_blank} environment variable. This is optional when constructing the transaction.
 
 !!!warning
-    There are risks to making a transaction immortal. If an account is reaped and a user re-funds the account, then they could replay an immortal transaction. Always default to using a mortal extrinsic.
+    There are risks to making a transaction immortal. If an account is reaped and a user refunds the account, then they could replay an immortal transaction. Always default to using a mortal extrinsic.
     
-The nonce queried from the System module does not account for pending transactions. You must track and increment the nonce manually if you want to submit multiple valid transactions at the same time.
+The nonce queried from the System module does not account for pending transactions. You must manually track and increment the nonce if you want to submit multiple valid transactions simultaneously.
 
-Each transaction will have its own (or no) parameters to add. For example, the [`transferKeepAlive`](https://paritytech.github.io/polkadot-sdk/master/pallet_balances/pallet/enum.Call.html#variant.transfer_keep_alive){target=\_blank}  function from the [Balances pallet](https://paritytech.github.io/polkadot-sdk/master/pallet_balances/index.html){target=\_blank} will take:
+Each transaction will have its own parameters, or it may have none to add. For example, the [`transferKeepAlive`](https://paritytech.github.io/polkadot-sdk/master/pallet_balances/pallet/enum.Call.html#variant.transfer_keep_alive){target=\_blank}  function from the [Balances pallet](https://paritytech.github.io/polkadot-sdk/master/pallet_balances/index.html){target=\_blank} will take:
 
 - `dest`: Destination address
 - `#[compact] value`: Number of tokens (compact encoding)
 
-Refer to [the protocol specifications](https://spec.polkadot.network/id-extrinsics){target=\_blank}, for the concrete specifications and types to build a transaction.
+Refer to [the protocol specifications](https://spec.polkadot.network/id-extrinsics){target=\_blank}, for the concrete specifications and types required to build a transaction.
 
-**Mode and MetadataHash**
+**Mode and Metadata Hash**
 
-The [`mode`](https://paritytech.github.io/polkadot-sdk/master/polkadot_sdk_docs/guides/enable_metadata_hash/index.html){target=\_blank} and [`metadataHash`](https://paritytech.github.io/polkadot-sdk/master/polkadot_sdk_docs/guides/enable_metadata_hash/index.html){target=\_blank} fields were introduced in transaction construction to support the optional [`CheckMetadataHash` Signed Extension](https://github.com/polkadot-fellows/RFCs/blob/main/text/0078-merkleized-metadata.md){target=\_blank}. This enables trustless metadata verification by allowing the chain to verify the correctness of the metadata used without the need of a trusted party. This functionality was included in [v1.2.5](https://github.com/polkadot-fellows/runtimes/releases/tag/v1.2.5){target=\_blank} runtime release by the [Fellowship](https://github.com/polkadot-fellows/manifesto){target=\_blank}. A user may opt out of this functionality by setting the `mode` to `0`. When the mode is 00, the [`metadataHash`](https://paritytech.github.io/polkadot-sdk/master/polkadot_sdk_docs/guides/enable_metadata_hash/index.html){target=\_blank} field is empty/`None`.
+The [`mode`](https://paritytech.github.io/polkadot-sdk/master/polkadot_sdk_docs/guides/enable_metadata_hash/index.html){target=\_blank} and [`metadata hash`](https://paritytech.github.io/polkadot-sdk/master/polkadot_sdk_docs/guides/enable_metadata_hash/index.html){target=\_blank} fields were introduced in transaction construction to support the optional [`CheckMetadataHash` Signed Extension](https://github.com/polkadot-fellows/RFCs/blob/main/text/0078-merkleized-metadata.md){target=\_blank}. This enables trustless metadata verification by allowing the chain to verify the correctness of the metadata used without the need of a trusted party. This functionality was included in [v1.2.5](https://github.com/polkadot-fellows/runtimes/releases/tag/v1.2.5){target=\_blank} runtime release by the [Fellowship](https://github.com/polkadot-fellows/manifesto){target=\_blank}. A user may opt out of this functionality by setting the `mode` to `0`. When the mode is `0`, the [`metadata hash`](https://paritytech.github.io/polkadot-sdk/master/frame_metadata_hash_extension/struct.CheckMetadataHash.html){target=\_blank} field is empty/`None`.
 
 **Serialized transactions and metadata**
 
-Before being submitted, transactions are serialized. Serialized transactions are hex encoded SCALE-encoded bytes. The relay chain runtimes are upgradable and therefore any interfaces are subject to change, the metadata allows developers to structure any extrinsics or storage entries accordingly. The metadata provides you with all of the information required to know how to construct the serialized call data specific to your transaction. You can read more about the metadata, its format and how to get it in the [Subxt documentation](/polkadot-protocol/parachain-basics/chain-data/#use-subxt){target=\_blank}.
+Before being submitted, transactions are serialized. Serialized transactions are hex encoded SCALE-encoded bytes. The relay chain runtimes are upgradable and therefore any interfaces are subject to change, the metadata allows developers to structure any extrinsics or storage entries accordingly. The metadata provides you with all of the information required to construct the serialized call data specific to your transaction. You can read more about the metadata, its format and how to get it in the [Subxt documentation](/polkadot-protocol/parachain-basics/chain-data/#use-subxt){target=\_blank}.
 
 **Transaction Flow**
 
@@ -64,9 +64,9 @@ There are several tools to help perform these steps.
 
 ## Polkadot-JS Tools
 
-[Polkadot-JS Tools](https://github.com/polkadot-js/tools){target=\_blank} contains a set of command line tools for interacting with a Polkadot SDK client, including one called "Signer CLI" to create, sign, and broadcast transactions.
+[Polkadot-JS Tools](https://www.npmjs.com/package/@polkadot/signer-cli){target=\_blank} contains a set of command-line tools for interacting with a Polkadot SDK client, including one called "Signer CLI" to create, sign, and broadcast transactions.
 
-This example will use the `signer submit` command, which will create and submit the transaction. The `signer sendOffline` command has the exact same API, but will not broadcast the transaction. The `submit` and `sendOffline` must be connected to a node to fetch the current metadata and construct a valid transaction.
+This example will use the `signer submit` command, which creates and submits the transaction. The `signer sendOffline` command has the same API, but will not broadcast the transaction. The `submit` and `sendOffline` must be connected to a node to fetch the current metadata and construct a valid transaction.
 
 Start by installing the Signer CLI.
 
@@ -91,6 +91,7 @@ polkadot-js-signer sign --account <from-account-ss58> --seed <seed> --type <sr25
 ### Creating a Transaction, Signing, and Submitting
 
 For the sake of this example, create two accounts using the [Subkey](/polkadot-protocol/basics/accounts/#using-subkey){target=\_blank} CLI tool.
+
 ```bash
 $ subkey generate
 Secret phrase:    south ladder exile ... grape rival settle coil
@@ -114,7 +115,7 @@ Secret phrase:    car blood garden ... bomb armed potato
 
 Let's say you want to send 1 WND from `5F4c8mNz6schf2WMXQZiz1eyR1GGxrMf2coXpAn8mNjxyzp2` to `5FnudgwK8xJvmujsXXP35pF2xwskhHQzBSRM8KZhXjnEz5gD` on [Westend's Asset Hub](https://polkadot.js.org/apps/?rpc=wss%3A%2F%2Fasset-hub-westend-rpc.n.dwellir.com#/accounts){target=\_blank} using `polkadot-js-signer`.
 
-First fund the sending account. You can use the [Westend Faucet](https://faucet.polkadot.io/westend) for that.
+First, fund the sending account. You can use the [Westend Faucet](https://faucet.polkadot.io/westend){target=\_blank} to do so.
 Request some tokens for `5F4c8mNz6schf2WMXQZiz1eyR1GGxrMf2coXpAn8mNjxyzp2`.
 
 Next, call `submit` to create the transaction, which will give you the payload to sign.
@@ -144,6 +145,7 @@ Signature: 0xe6facf194a8e...413ce3155c2d1240b
 Paste this signature into the `submit` signature field, and send the transaction (or just return the serialized transaction if using `sendOffline`).
 
 By default, submit will create a mortal extrinsic with a lifetime of 50 blocks. 
+
 Assuming a six-second block time, you will have five minutes to go offline, sign the transaction, paste the signature, and submit the signed transaction.
 
 You will get useful output in the terminal with details like the events that were fired off as well as the block in which the extrinsic is in. 

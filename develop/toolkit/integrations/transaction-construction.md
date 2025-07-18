@@ -129,7 +129,7 @@ Payload: 0x040300ff4a83f1...a8239139ff3ff7c3f6
 Signature>
 ```
 
-Take this payload and use your normal signing environment (e.g. air gapped machine, VM, etc.). In a separate tab in your terminal, sign the payload.
+Take this payload and use your normal signing environment (e.g., air-gapped machine, VM, etc.). In a separate tab of your terminal, sign the payload.
 
 ```bash
 polkadot-js-signer sign --account 5F4c8mNz6schf2WMXQZiz1eyR1GGxrMf2coXpAn8mNjxyzp2 --seed "south ladder exile ... grape rival settle coil" --type sr25519 0x040300ff4a83f1...a8239139ff3ff7c3f6

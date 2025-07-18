@@ -75,6 +75,7 @@ npm install -g @polkadot/signer-cli
 ```
 
 To create a transaction, you need to connect to a chain, enabling the creation of a transaction using the chain's metadata. 
+
 Here is the format for `submit` or `sendOffline`.
 
 ```bash

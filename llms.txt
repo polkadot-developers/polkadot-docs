@@ -14430,32 +14430,67 @@ yarn run build
 yarn run polkadot
 ```
 
-You will get output like the following:
+<div id="termynal" data-termynal>
+    <span data-ty="input"><span class="file-path"></span>yarn run polkadot</span>
 
-```
-Alice's SS58-Encoded Address: 5GrwvaEF5zXb26Fz9rcQpDWS57CtERHpNehXCPcNoHGKutQY
+    <div class="section">
+        <span class="label">Alice's SS58-Encoded Address:</span> <span
+            class="value">5GrwvaEF5zXb26Fz9rcQpDWS57CtERHpNehXCPcNoHGKutQY</span>
+    </div>
 
-Decoded Transaction
-  To: 14E5nqKAp3oAJcmzgZhUD2RcptBeUBScxKHgJKU4HPNcKVf3
-  Amount: "10000000000"
+    <div class="section">
+        <div class="label">Decoded Transaction</div>
+        <div class="indent">
+            <div><span class="label">To:</span> <span
+                    class="value">14E5nqKAp3oAJcmzgZhUD2RcptBeUBScxKHgJKU4HPNcKVf3</span></div>
+            <div><span class="label">Amount:</span> <span class="value">"10000000000"</span></div>
+        </div>
+    </div>
 
-Payload to Sign: 0xa40503008eaf04151687736326c9fea17e25fc5287613693c912909cb226aa4794f26a480700e40b54028500000000b1590f001a00000091b171bb158e2d3848fa23a9f1c25182fb8e20313b2c1eb49219da7a70ce90c3843125cd049613a7edf44b55a01efbabffcd1b962068a82070cff82314b67bbc00
+    <div class="section">
+        <div><span class="label">Payload to Sign:</span> <span
+                class="value">0xa40503008eaf04151687736326c9fea17e25fc5287613693c912909cb226aa4794f26a480700e40b54028500000000b1590f001a00000091b171bb158e2d3848fa23a9f1c25182fb8e20313b2c1eb49219da7a70ce90c3843125cd049613a7edf44b55a01efbabffcd1b962068a82070cff82314b67bbc00</span>
+        </div>
+    </div>
 
-Decoded Transaction
-  To: 14E5nqKAp3oAJcmzgZhUD2RcptBeUBScxKHgJKU4HPNcKVf3
-  Amount: "10000000000"
+    <div class="section">
+        <div class="label">Decoded Transaction</div>
+        <div class="indent">
+            <div><span class="label">To:</span> <span
+                    class="value">14E5nqKAp3oAJcmzgZhUD2RcptBeUBScxKHgJKU4HPNcKVf3</span></div>
+            <div><span class="label">Amount:</span> <span class="value">"10000000000"</span></div>
+        </div>
+    </div>
 
-Signature: 0x01ae703e667b3b444e3613a5f06d16bedf2460a18e52075b47c6442ebc1d316917c6d12e3aa7bbd2f8db76cc859b43134cecb4495613d8d504901de776d0642b82
+    <div class="section">
+        <div><span class="label">Signature:</span> <span
+                class="value">0x01ae703e667b3b444e3613a5f06d16bedf2460a18e52075b47c6442ebc1d316917c6d12e3aa7bbd2f8db76cc859b43134cecb4495613d8d504901de776d0642b82</span>
+        </div>
+    </div>
 
-Transaction to Submit: 0x45028400d43593c715fdd31c61141abd04a99fd6822c8558854ccde39a5684e7a56da27d01ae703e667b3b444e3613a5f06d16bedf2460a18e52075b47c6442ebc1d316917c6d12e3aa7bbd2f8db76cc859b43134cecb4495613d8d504901de776d0642b8285000000000503008eaf04151687736326c9fea17e25fc5287613693c912909cb226aa4794f26a480700e40b5402
+    <div class="section">
+        <div><span class="label">Transaction to Submit:</span> <span
+                class="value">0x45028400d43593c715fdd31c61141abd04a99fd6822c8558854ccde39a5684e7a56da27d01ae703e667b3b444e3613a5f06d16bedf2460a18e52075b47c6442ebc1d316917c6d12e3aa7bbd2f8db76cc859b43134cecb4495613d8d504901de776d0642b8285000000000503008eaf04151687736326c9fea17e25fc5287613693c912909cb226aa4794f26a480700e40b5402</span>
+        </div>
+    </div>
 
-Expected Tx Hash: 0xa12126a095b38f0c70331be78743329a851e33839f9b2f93a7ecc34541507891
-Actual Tx Hash: 0xa12126a095b38f0c70331be78743329a851e33839f9b2f93a7ecc34541507891
+    <div class="section">
+        <div><span class="label">Expected Tx Hash:</span> <span
+                class="value">0xa12126a095b38f0c70331be78743329a851e33839f9b2f93a7ecc34541507891</span></div>
+        <div><span class="label">Actual Tx Hash:</span> <span
+                class="value">0xa12126a095b38f0c70331be78743329a851e33839f9b2f93a7ecc34541507891</span></div>
+    </div>
 
-Decoded Transaction
-  To: 14E5nqKAp3oAJcmzgZhUD2RcptBeUBScxKHgJKU4HPNcKVf3
-  Amount: "10000000000"
-```
+    <div class="section">
+        <div class="label">Decoded Transaction</div>
+        <div class="indent">
+            <div><span class="label">To:</span> <span
+                    class="value">14E5nqKAp3oAJcmzgZhUD2RcptBeUBScxKHgJKU4HPNcKVf3</span></div>
+            <div><span class="label">Amount:</span> <span class="value">"10000000000"</span></div>
+        </div>
+    </div>
+
+</div>
 
 The [`txwrapper example script`](https://github.com/paritytech/txwrapper-core/blob/main/packages/txwrapper-examples/polkadot/src/polkadot.ts){target=\_blank} includes several reference examples.
 

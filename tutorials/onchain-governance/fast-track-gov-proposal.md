@@ -232,14 +232,14 @@ Implement the functionality through the following steps:
     ???+ child "Utility Function"
         This section utilizes a `moveScheduledCallTo` utility function to move a scheduled call matching specific criteria to a designated future block. Include this function in the same file:
 
-        ??? code "`moveScheduledCallTo` code"
+        ??? code "`moveScheduledCallTo`"
             ```typescript
             --8<-- 'code/tutorials/onchain-governance/fast-track-gov-proposal/test-proposal.ts:moveScheduledCallTo'
             ```
 
 After implementing the complete logic, your function will resemble:
 
-??? code "`forceProposalExecution` code"
+??? code "`forceProposalExecution`"
     ```typescript
     --8<-- 'code/tutorials/onchain-governance/fast-track-gov-proposal/test-proposal.ts:forceProposalExecution'
     ```

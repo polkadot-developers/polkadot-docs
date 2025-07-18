@@ -46,7 +46,6 @@ Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/re
 Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/main/tutorials/polkadot-sdk/parachains/zero-to-hero/obtain-coretime.md [type: tutorials]
 Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/main/tutorials/polkadot-sdk/parachains/zero-to-hero/pallet-benchmarking.md [type: tutorials]
 Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/main/tutorials/polkadot-sdk/parachains/zero-to-hero/pallet-unit-testing.md [type: tutorials]
-Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/main/tutorials/polkadot-sdk/parachains/zero-to-hero/runtime-upgrade.md [type: tutorials]
 Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/main/tutorials/polkadot-sdk/parachains/zero-to-hero/set-up-a-template.md [type: tutorials]
 Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/main/polkadot-protocol/architecture/parachains/consensus.md [type: other]
 Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/main/polkadot-protocol/architecture/parachains/overview.md [type: other]
@@ -7388,6 +7387,15 @@ To define your chain specification:
 
     You should now see your chain specification containing SCALE-encoded hex values versus plain text.
 
+
+!!!note "Deprecation of `para_id` in Chain Specs"
+
+    The `para_id` field in JSON chain specifications, added through the [`chain-spec-builder`](https://paritytech.github.io/polkadot-sdk/master/staging_chain_spec_builder/index.html){target=\_blank} command, is currently used by nodes for configuration purposes. However, beginning with Polkadot SDK release `stable2509`, the `para_id` field will no longer be required in chain specifications. Instead, runtimes need to be updated to implement the [`cumulus_primitives_core::GetParachainInfo`](https://paritytech.github.io/polkadot-sdk/master/cumulus_primitives_core/trait.GetParachainInfo.html){target=\_blank} trait to successfully operate with nodes using chain specs that omit the `para_id` field.
+
+    With the upcoming `stable2512` release, the `para_id` field will be completely removed from chain specifications in favor of the new runtime API. New nodes will be unable to start with chain specs containing the `para_id` field unless the runtime implements the `GetParachainInfo` trait. Ensure your runtime is updated to maintain compatibility with future node versions.
+
+    For guidance on performing runtime upgrades to implement this new trait, refer to the [runtime upgrade tutorial](/tutorials/polkadot-sdk/parachains/zero-to-hero/runtime-upgrade/){target=\_blank}.
+
 ## Export Required Files
 
 To prepare the parachain collator to be registered on Paseo, follow these steps:
@@ -7573,10 +7581,7 @@ With each successful on-demand extrinsic, the parachain will produce a new block
 
 ## Purchase Bulk Coretime
 
-Purchasing bulk coretime involves purchasing a core from the [Coretime Chain](/polkadot-protocol/architecture/system-chains/coretime/){target=\_blank}, which has an instance of [`pallet_broker`](https://paritytech.github.io/polkadot-sdk/master/pallet_broker/index.html){target=\_blank} (the Broker pallet). Although this can be done via sending extrinsics through a tool like Polkadot.js Apps, there are user interfaces for purchasing and managing bulk coretime:
-
-- [RegionX Coretime Marketplace (includes Paseo support)](https://app.regionx.tech){target=\_blank}
-- [Lastic Coretime Marketplace](https://www.lastic.xyz/polkadot/bulkcore1){target=\_blank}
+Purchasing bulk coretime involves purchasing a core from the [Coretime Chain](/polkadot-protocol/architecture/system-chains/coretime/){target=\_blank}, which has an instance of [`pallet_broker`](https://paritytech.github.io/polkadot-sdk/master/pallet_broker/index.html){target=\_blank} (the Broker pallet). Although this can be done via sending extrinsics through a tool like Polkadot.js Apps, the [RegionX Coretime Marketplace](https://app.regionx.tech){target=\_blank} (includes Paseo support) also provides a user interface for purchasing and managing bulk coretime.
   
 !!!tip
     Obtaining a core for bulk coretime on Paseo follows a different process from Polkadot or Kusama. To apply for a core on Paseo, visit their guide for doing so: [PAS-10 Onboard Paras Coretime](https://github.com/paseo-network/paseo-action-submission/blob/main/pas/PAS-10-Onboard-paras-coretime.md#summary){target=\_blank}. 
@@ -8776,543 +8781,6 @@ test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; fini
     Learn how to add and integrate custom pallets in your Polkadot SDK-based blockchain
 
     [:octicons-arrow-right-24: Get Started](/tutorials/polkadot-sdk/parachains/zero-to-hero/add-pallets-to-runtime/)
-
-</div>
---- END CONTENT ---
-
-Doc-Content: https://docs.polkadot.com/tutorials/polkadot-sdk/parachains/zero-to-hero/runtime-upgrade/
---- BEGIN CONTENT ---
----
-title: Runtime Upgrades
-description: Learn how to safely perform runtime upgrades for your Polkadot SDK-based blockchain, including step-by-step instructions.
-tutorial_badge: Intermediate
-categories: Parachains
----
-
-# Runtime Upgrades
-
-## Introduction
-
-Upgrading the runtime of your Polkadot SDK-based blockchain is a fundamental feature that allows you to add new functionality, fix bugs, or improve performance without requiring a hard fork. Runtime upgrades are performed by submitting a special extrinsic that replaces the existing on-chain WASM runtime code. This process is trustless, transparent, and can be executed either through governance or using sudo, depending on your chain's configuration.
-
-This tutorial will guide you through the steps to prepare, submit, and verify a runtime upgrade for your parachain or standalone Polkadot SDK-based chain. For this example, you'll continue from the state left by the previous tutorials, where you have a custom pallet integrated into your runtime.
-
-## Update the Runtime
-
-In this section, you will add a new feature to your existing custom pallet and upgrade your runtime to include this new functionality.
-
-### Start Your Chain
-
-Before making any changes, ensure your blockchain node is running properly:
-
-```bash
-polkadot-omni-node --chain ./chain_spec.json --dev
-```
-
-Verify your chain is operational and note the runtime version state in Polkadot JS. For more details, check the [Interact with the Node](/tutorials/polkadot-sdk/parachains/zero-to-hero/set-up-a-template/#interact-with-the-node){target=\_blank}.
-
-![](/images/tutorials/polkadot-sdk/parachains/zero-to-hero/runtime-upgrade/runtime-upgrade-01.webp)
-
-As you can see, the runtime version is `1` since this chain has not been upgraded. Keep this chain running in the background.
-
-### Add a New Feature
-
-Now, you can extend your existing custom pallet by adding a new dispatchable function to reset the counter to zero. This provides a meaningful upgrade that demonstrates new functionality. Copy and paste the following code at the end of your `lib.rs` file in your custom pallet:
-
-```rust title="custom-pallet/src/lib.rs" hl_lines="5-17"
-#[pallet::call]
-impl<T: Config> Pallet<T> {
-    // ... existing calls like increment, decrement, etc.
-
-    /// Reset the counter to zero.
-    ///
-    /// The dispatch origin of this call must be _Root_.
-    ///
-    /// Emits `CounterValueSet` event when successful.
-    #[pallet::call_index(3)]
-    #[pallet::weight(0)]
-    pub fn reset_counter(origin: OriginFor<T>) -> DispatchResult {
-        ensure_root(origin)?;
-        <CounterValue<T>>::put(0u32);
-        Self::deposit_event(Event::CounterValueSet { counter_value: 0 });
-        Ok(())
-    }
-}
-```
-
-The `reset_counter` function will be a Root-only operation that sets the counter value back to zero, regardless of its current state. This is useful for administrative purposes, such as clearing the counter after maintenance, testing, or at the start of new periods. Unlike the existing increment/decrement functions that any signed user can call, this reset function requires Root privileges, making it a controlled administrative action.
-
-Ensure that your runtime compiles by running:
-
-```bash
-cargo build --release
-```
-
-Now, you can test this new function in `pallets/custom-pallet/src/tests.rs`
-
-```rust title="custom-pallet/src/tests.rs" hl_lines="4-39"
-// ... existing unit tests
-...
-
-#[test]
-fn reset_counter_works() {
-    new_test_ext().execute_with(|| {
-        System::set_block_number(1);
-        // First increment the counter
-        assert_ok!(CustomPallet::increment(RuntimeOrigin::signed(1), 1));
-
-        // Ensure the event matches the increment action
-        System::assert_last_event(
-            Event::CounterIncremented {
-                counter_value: 1,
-                who: 1,
-                incremented_amount: 1,
-            }
-            .into(),
-        );
-        
-        // Reset should work with root origin
-        assert_ok!(CustomPallet::reset_counter(RuntimeOrigin::root()));
-        
-        // Check that the event was emitted
-        System::assert_last_event(Event::CounterValueSet { counter_value: 0 }.into());
-    });
-}
-
-#[test]
-fn reset_counter_fails_without_root() {
-    new_test_ext().execute_with(|| {
-        System::set_block_number(1);
-        // Should fail with non-root origin
-        assert_noop!(
-            CustomPallet::reset_counter(RuntimeOrigin::signed(1)),
-            sp_runtime::DispatchError::BadOrigin
-        );
-    });
-}
-```
-
-Ensure that your tests pass by running:
-
-```bash
-cargo test --package custom-pallet
-```
-
-### Update Runtime Configuration
-
-Since you've only added new functionality without changing existing APIs, minimal runtime changes are needed. However, verify that your runtime configuration is still compatible. If you've added new configuration parameters to your pallet, update them accordingly in the `runtime/configs/mod.rs`.
-
-### Bump the Runtime Version
-
-This is a critical step - you must increment the runtime version numbers to signal that an upgrade has occurred. In `runtime/src/lib.rs`:
-
-```rust title="lib.rs" hl_lines="6"
-#[sp_version::runtime_version]
-pub const VERSION: RuntimeVersion = RuntimeVersion {
-	spec_name: alloc::borrow::Cow::Borrowed("parachain-template-runtime"),
-	impl_name: alloc::borrow::Cow::Borrowed("parachain-template-runtime"),
-	authoring_version: 1,
-    spec_version: 2, // <-- increment this (was 1)
-	impl_version: 0,
-	apis: apis::RUNTIME_API_VERSIONS,
-	transaction_version: 1,
-	system_version: 1,
-};
-```
-
-Also update `runtime/Cargo.toml` version:
-
-```toml title="Cargo.toml" hl_lines="4"
-[package]
-name = "parachain-template-runtime"
-description = "A parachain runtime template built with Substrate and Cumulus, part of Polkadot Sdk."
-version = "0.2.0" # <-- increment this version
-# ... rest of your Cargo.toml
-```
-
-For more information about runtime versioning, check the [Runtime Upgrades](/develop/parachains/maintenance/runtime-upgrades#runtime-versioning){target=\_blank} guide.
-
-### Build the New Runtime
-
-Navigate to your project root:
-
-```bash
-cd /path/to/your/parachain-template
-```
-
-Build the new runtime:
-
-```bash
-cargo build --release
-```
-
-Verify that you have the proper WASM builds by executing:
-
-```
-ls -la target/release/wbuild/parachain-template-runtime/
-```
-
-If you can see the following elements, it means that you are ready to submit the runtime upgrade to your running chain:
-
-<div id="termynal" data-termynal>
-  <span data-ty="input"><span class="file-path"></span>ls -la target/release/wbuild/parachain-template-runtime/</span>
-  <br />
-  <span data-ty>parachain_template_runtime.wasm</span>
-  <span data-ty>parachain_template_runtime.compact.wasm</span>
-  <span data-ty>parachain_template_runtime.compact.compressed.wasm</span>
-</div>
-
-## Submit the Runtime Upgrade
-
-You can submit a runtime upgrade using the [Sudo pallet](https://paritytech.github.io/polkadot-sdk/master/pallet_sudo/index.html){target=\_blank} (for development chains) or via on-chain governance (for production chains).
-
-1. Open [Polkadot.js Apps](https://polkadot.js.org/apps/){target=\_blank} and connect to your node
-2. Click on the **Developer** and select the **Extrinsics** option in the dropdown
-
-    ![](/images/tutorials/polkadot-sdk/parachains/zero-to-hero/runtime-upgrade/runtime-upgrade-02.webp) 
-
-3. Prepare the **sudo** call:
-    1. Select the **sudo** pallet
-    2. Select the **sudo(call)** extrinsic from the list
-
-        ![](/images/tutorials/polkadot-sdk/parachains/zero-to-hero/runtime-upgrade/runtime-upgrade-03.webp) 
-
-4. In the **sudo** call:
-    1. Select the **system** call
-    2. Select **setCode** extrinsic from the list
-
-        ![](/images/tutorials/polkadot-sdk/parachains/zero-to-hero/runtime-upgrade/runtime-upgrade-04.webp) 
-
-5. For the `code` parameter, click **file upload** and select your WASM runtime file:
-    - Use `parachain_template_runtime.compact.compressed.wasm` if available (smaller file)
-    - Otherwise, use `parachain_template_runtime.wasm`
-
-        ![](/images/tutorials/polkadot-sdk/parachains/zero-to-hero/runtime-upgrade/runtime-upgrade-05.webp) 
-
-6. Click **Submit Transaction** and sign the transaction with the sudo key
-
-    ![](/images/tutorials/polkadot-sdk/parachains/zero-to-hero/runtime-upgrade/runtime-upgrade-06.webp) 
-
-!!!info "Using Governance (Production)"
-    For production chains with governance enabled, you must follow the on-chain democratic process. This involves submitting a preimage of the new runtime code (using the Democracy pallet), referencing the preimage hash in a proposal, and then following your chain's governance process (such as voting and council approval) until the proposal passes and is enacted. This ensures that runtime upgrades are transparent and subject to community oversight.
-
-## Verify the Upgrade
-
-After the runtime upgrade extrinsic is included in a block, verify that the upgrade was successful.
-
-### Check Runtime Version
-
-1. In Polkadot.js Apps, navigate to the **Chain State** section
-    1. Click the **Developer** dropdown
-    2. Click the **Chain State** option
-
-        ![](/images/tutorials/polkadot-sdk/parachains/zero-to-hero/runtime-upgrade/runtime-upgrade-07.webp) 
-
-2. Query runtime spec version
-    1. Select the **System** pallet
-    2. Select the **lastRuntimeUpgrade()** query
-
-        ![](/images/tutorials/polkadot-sdk/parachains/zero-to-hero/runtime-upgrade/runtime-upgrade-08.webp) 
-
-3. Click the **+** button to query the current runtime version
-
-    ![](/images/tutorials/polkadot-sdk/parachains/zero-to-hero/runtime-upgrade/runtime-upgrade-09.webp) 
-
-4. Verify that the `specVersion` matches your new runtime (should be `2` if you followed the example)
-
-    ![](/images/tutorials/polkadot-sdk/parachains/zero-to-hero/runtime-upgrade/runtime-upgrade-10.webp) 
-
-### Test New Functionality
-
-1. Navigate to **Developer > Extrinsics**
-2. Select your custom pallet from the dropdown
-3. You should now see the new `resetCounter` function available
-
-    ![](/images/tutorials/polkadot-sdk/parachains/zero-to-hero/runtime-upgrade/runtime-upgrade-11.webp) 
-
-Now, you can test the new functionality:
-
-- First, increment the counter using your existing function
-- Then use the new reset function (note: you'll need sudo/root privileges)
-- Verify the counter value is reset to 0
-
-## Where to Go Next
-
-<div class="grid cards" markdown>
-
--   <span class="badge tutorial">Tutorial</span> __Deploy on Paseo TestNet__
-
-    ---
-
-    Deploy your Polkadot SDK blockchain on Paseo! Follow this step-by-step guide for a seamless journey to a successful TestNet deployment.
-
-    [:octicons-arrow-right-24: Get Started](/tutorials/polkadot-sdk/parachains/zero-to-hero/deploy-to-testnet/)
-
-</div>
----
-title: Runtime Upgrades
-description: Learn how to safely perform runtime upgrades for your Polkadot SDK-based blockchain, including step-by-step instructions.
-tutorial_badge: Intermediate
----
-
-# Runtime Upgrades
-
-## Introduction
-
-Upgrading the runtime of your Polkadot SDK-based blockchain is a fundamental feature that allows you to add new functionality, fix bugs, or improve performance without requiring a hard fork. Runtime upgrades are performed by submitting a special extrinsic that replaces the existing on-chain WASM runtime code. This process is trustless, transparent, and can be executed either through governance or using sudo, depending on your chain's configuration.
-
-This tutorial will guide you through the steps to prepare, submit, and verify a runtime upgrade for your parachain or standalone Polkadot SDK-based chain. For this example, you'll continue from the state left by the previous tutorials, where you have a custom pallet integrated into your runtime.
-
-## Update the Runtime
-
-In this section, you will add a new feature to your existing custom pallet and upgrade your runtime to include this new functionality.
-
-### Start Your Chain
-
-Before making any changes, ensure your blockchain node is running properly:
-
-```bash
-polkadot-omni-node --chain ./chain_spec.json --dev
-```
-
-Verify your chain is operational and note the runtime version state in Polkadot JS. For more details, check the [Interact with the Node](/tutorials/polkadot-sdk/parachains/zero-to-hero/set-up-a-template/#interact-with-the-node){target=\_blank}.
-
-![](/images/tutorials/polkadot-sdk/parachains/zero-to-hero/runtime-upgrade/runtime-upgrade-01.webp)
-
-As you can see, the runtime version is `1` since this chain has not been upgraded. Keep this chain running in the background.
-
-### Add a New Feature
-
-Now, you can extend your existing custom pallet by adding a new dispatchable function to reset the counter to zero. This provides a meaningful upgrade that demonstrates new functionality. Copy and paste the following code at the end of your `lib.rs` file in your custom pallet:
-
-```rust title="custom-pallet/src/lib.rs" hl_lines="5-17"
-#[pallet::call]
-impl<T: Config> Pallet<T> {
-    // ... existing calls like increment, decrement, etc.
-
-    /// Reset the counter to zero.
-    ///
-    /// The dispatch origin of this call must be _Root_.
-    ///
-    /// Emits `CounterValueSet` event when successful.
-    #[pallet::call_index(3)]
-    #[pallet::weight(0)]
-    pub fn reset_counter(origin: OriginFor<T>) -> DispatchResult {
-        ensure_root(origin)?;
-        <CounterValue<T>>::put(0u32);
-        Self::deposit_event(Event::CounterValueSet { counter_value: 0 });
-        Ok(())
-    }
-}
-```
-
-The `reset_counter` function will be a Root-only operation that sets the counter value back to zero, regardless of its current state. This is useful for administrative purposes, such as clearing the counter after maintenance, testing, or at the start of new periods. Unlike the existing increment/decrement functions that any signed user can call, this reset function requires Root privileges, making it a controlled administrative action.
-
-Ensure that your runtime compiles by running:
-
-```bash
-cargo build --release
-```
-
-Now, you can test this new function in `pallets/custom-pallet/src/tests.rs`
-
-```rust title="custom-pallet/src/tests.rs" hl_lines="4-39"
-// ... existing unit tests
-...
-
-#[test]
-fn reset_counter_works() {
-    new_test_ext().execute_with(|| {
-        System::set_block_number(1);
-        // First increment the counter
-        assert_ok!(CustomPallet::increment(RuntimeOrigin::signed(1), 1));
-
-        // Ensure the event matches the increment action
-        System::assert_last_event(
-            Event::CounterIncremented {
-                counter_value: 1,
-                who: 1,
-                incremented_amount: 1,
-            }
-            .into(),
-        );
-        
-        // Reset should work with root origin
-        assert_ok!(CustomPallet::reset_counter(RuntimeOrigin::root()));
-        
-        // Check that the event was emitted
-        System::assert_last_event(Event::CounterValueSet { counter_value: 0 }.into());
-    });
-}
-
-#[test]
-fn reset_counter_fails_without_root() {
-    new_test_ext().execute_with(|| {
-        System::set_block_number(1);
-        // Should fail with non-root origin
-        assert_noop!(
-            CustomPallet::reset_counter(RuntimeOrigin::signed(1)),
-            sp_runtime::DispatchError::BadOrigin
-        );
-    });
-}
-```
-
-Ensure that your tests pass by running:
-
-```bash
-cargo test --package custom-pallet
-```
-
-### Update Runtime Configuration
-
-Since you've only added new functionality without changing existing APIs, minimal runtime changes are needed. However, verify that your runtime configuration is still compatible. If you've added new configuration parameters to your pallet, update them accordingly in the `runtime/configs/mod.rs`.
-
-### Bump the Runtime Version
-
-This is a critical step - you must increment the runtime version numbers to signal that an upgrade has occurred. In `runtime/src/lib.rs`:
-
-```rust title="lib.rs" hl_lines="6"
-#[sp_version::runtime_version]
-pub const VERSION: RuntimeVersion = RuntimeVersion {
-	spec_name: alloc::borrow::Cow::Borrowed("parachain-template-runtime"),
-	impl_name: alloc::borrow::Cow::Borrowed("parachain-template-runtime"),
-	authoring_version: 1,
-    spec_version: 2, // <-- increment this (was 1)
-	impl_version: 0,
-	apis: apis::RUNTIME_API_VERSIONS,
-	transaction_version: 1,
-	system_version: 1,
-};
-```
-
-Also update `runtime/Cargo.toml` version:
-
-```toml title="Cargo.toml" hl_lines="4"
-[package]
-name = "parachain-template-runtime"
-description = "A parachain runtime template built with Substrate and Cumulus, part of Polkadot Sdk."
-version = "0.2.0" # <-- increment this version
-# ... rest of your Cargo.toml
-```
-
-For more information about runtime versioning, check the [Runtime Upgrades](/develop/parachains/maintenance/runtime-upgrades#runtime-versioning){target=\_blank} guide.
-
-### Build the New Runtime
-
-Navigate to your project root:
-
-```bash
-cd /path/to/your/parachain-template
-```
-
-Build the new runtime:
-
-```bash
-cargo build --release
-```
-
-Verify that you have the proper WASM builds by executing:
-
-```
-ls -la target/release/wbuild/parachain-template-runtime/
-```
-
-If you can see the following elements, it means that you are ready to submit the runtime upgrade to your running chain:
-
-<div id="termynal" data-termynal>
-  <span data-ty="input"><span class="file-path"></span>ls -la target/release/wbuild/parachain-template-runtime/</span>
-  <br />
-  <span data-ty>parachain_template_runtime.wasm</span>
-  <span data-ty>parachain_template_runtime.compact.wasm</span>
-  <span data-ty>parachain_template_runtime.compact.compressed.wasm</span>
-</div>
-
-## Submit the Runtime Upgrade
-
-You can submit a runtime upgrade using the [Sudo pallet](https://paritytech.github.io/polkadot-sdk/master/pallet_sudo/index.html){target=\_blank} (for development chains) or via on-chain governance (for production chains).
-
-1. Open [Polkadot.js Apps](https://polkadot.js.org/apps/){target=\_blank} and connect to your node
-2. Click on the **Developer** and select the **Extrinsics** option in the dropdown
-
-    ![](/images/tutorials/polkadot-sdk/parachains/zero-to-hero/runtime-upgrade/runtime-upgrade-02.webp) 
-
-3. Prepare the **sudo** call:
-    1. Select the **sudo** pallet
-    2. Select the **sudo(call)** extrinsic from the list
-
-        ![](/images/tutorials/polkadot-sdk/parachains/zero-to-hero/runtime-upgrade/runtime-upgrade-03.webp) 
-
-4. In the **sudo** call:
-    1. Select the **system** call
-    2. Select **setCode** extrinsic from the list
-
-        ![](/images/tutorials/polkadot-sdk/parachains/zero-to-hero/runtime-upgrade/runtime-upgrade-04.webp) 
-
-5. For the `code` parameter, click **file upload** and select your WASM runtime file:
-    - Use `parachain_template_runtime.compact.compressed.wasm` if available (smaller file)
-    - Otherwise, use `parachain_template_runtime.wasm`
-
-        ![](/images/tutorials/polkadot-sdk/parachains/zero-to-hero/runtime-upgrade/runtime-upgrade-05.webp) 
-
-6. Click **Submit Transaction** and sign the transaction with the sudo key
-
-    ![](/images/tutorials/polkadot-sdk/parachains/zero-to-hero/runtime-upgrade/runtime-upgrade-06.webp) 
-
-!!!info "Using Governance (Production)"
-    For production chains with governance enabled, you must follow the on-chain democratic process. This involves submitting a preimage of the new runtime code (using the Democracy pallet), referencing the preimage hash in a proposal, and then following your chain's governance process (such as voting and council approval) until the proposal passes and is enacted. This ensures that runtime upgrades are transparent and subject to community oversight.
-
-## Verify the Upgrade
-
-After the runtime upgrade extrinsic is included in a block, verify that the upgrade was successful.
-
-### Check Runtime Version
-
-1. In Polkadot.js Apps, navigate to the **Chain State** section
-    1. Click the **Developer** dropdown
-    2. Click the **Chain State** option
-
-        ![](/images/tutorials/polkadot-sdk/parachains/zero-to-hero/runtime-upgrade/runtime-upgrade-07.webp) 
-
-2. Query runtime spec version
-    1. Select the **System** pallet
-    2. Select the **lastRuntimeUpgrade()** query
-
-        ![](/images/tutorials/polkadot-sdk/parachains/zero-to-hero/runtime-upgrade/runtime-upgrade-08.webp) 
-
-3. Click the **+** button to query the current runtime version
-
-    ![](/images/tutorials/polkadot-sdk/parachains/zero-to-hero/runtime-upgrade/runtime-upgrade-09.webp) 
-
-4. Verify that the `specVersion` matches your new runtime (should be `2` if you followed the example)
-
-    ![](/images/tutorials/polkadot-sdk/parachains/zero-to-hero/runtime-upgrade/runtime-upgrade-10.webp) 
-
-### Test New Functionality
-
-1. Navigate to **Developer > Extrinsics**
-2. Select your custom pallet from the dropdown
-3. You should now see the new `resetCounter` function available
-
-    ![](/images/tutorials/polkadot-sdk/parachains/zero-to-hero/runtime-upgrade/runtime-upgrade-11.webp) 
-
-Now, you can test the new functionality:
-
-- First, increment the counter using your existing function
-- Then use the new reset function (note: you'll need sudo/root privileges)
-- Verify the counter value is reset to 0
-
-## Where to Go Next
-
-<div class="grid cards" markdown>
-
--   <span class="badge tutorial">Tutorial</span> __Deploy on Paseo TestNet__
-
-    ---
-
-    Deploy your Polkadot SDK blockchain on Paseo! Follow this step-by-step guide for a seamless journey to a successful TestNet deployment.
-
-    [:octicons-arrow-right-24: Get Started](/tutorials/polkadot-sdk/parachains/zero-to-hero/deploy-to-testnet/)
 
 </div>
 --- END CONTENT ---
@@ -16945,14 +16413,14 @@ categories: Basics, Polkadot Protocol
 
 ## Introduction
 
-Asset Hub natively uses Polkadot's 32-byte account system but provides interoperability with Ethereum's 20-byte addresses through an automatic conversion system. When interacting with smart contracts:
+Asset Hub natively utilizes Polkadot's 32-byte account system while providing interoperability with Ethereum's 20-byte addresses through an automatic conversion system. When interacting with smart contracts:
 
-- Ethereum-compatible wallets (like MetaMask) can use their familiar 20-byte addresses
-- Polkadot accounts continue using their native 32-byte format
+- Ethereum-compatible wallets (like MetaMask) can use their familiar 20-byte addresses.
+- Polkadot accounts continue using their native 32-byte format.
 - The Asset Hub chain automatically handles conversion between the two formats behind the scenes:
 
-    - 20-byte Ethereum addresses are padded with `0xEE` bytes to create valid 32-byte Polkadot accounts
-    - 32-byte Polkadot accounts can optionally register a mapping to a 20-byte address for Ethereum compatibility
+    - 20-byte Ethereum addresses are padded with `0xEE` bytes to create valid 32-byte Polkadot accounts.
+    - 32-byte Polkadot accounts can optionally register a mapping to a 20-byte address for Ethereum compatibility.
 
 This dual-format approach enables Asset Hub to maintain compatibility with Ethereum tooling while fully integrating with the Polkadot ecosystem.
 
@@ -16967,35 +16435,42 @@ The platform handles two distinct address formats:
 
 The [`AccountId32Mapper`](https://paritytech.github.io/polkadot-sdk/master/pallet_revive/struct.AccountId32Mapper.html){target=\_blank} implementation in [`pallet_revive`](https://paritytech.github.io/polkadot-sdk/master/pallet_revive/index.html){target=\_blank} handles the core address conversion logic. For converting a 20-byte Ethereum address to a 32-byte Polkadot address, the pallet uses a simple concatenation approach:
 
-- [**Core mechanism**](https://paritytech.github.io/polkadot-sdk/master/pallet_revive/trait.AddressMapper.html#tymethod.to_fallback_account_id){target=\_blank} - takes a 20-byte Ethereum address and extends it to 32 bytes by adding twelve `0xEE` bytes at the end. The key benefits of this approach are:
-    - Able to fully revert, allowing a smooth transition back to the Ethereum format
-    - Provides clear identification of Ethereum-controlled accounts through the `0xEE` suffix pattern
-    - Maintains cryptographic security with a `2^96` difficulty for pattern reproduction
+- [**Core mechanism**](https://paritytech.github.io/polkadot-sdk/master/pallet_revive/trait.AddressMapper.html#tymethod.to_fallback_account_id){target=\_blank} : takes a 20-byte Ethereum address and extends it to 32 bytes by adding twelve `0xEE` bytes at the end. The key benefits of this approach are:
+    - Able to fully revert, allowing a smooth transition back to the Ethereum format.
+    - Provides clear identification of Ethereum-controlled accounts through the `0xEE` suffix pattern.
+    - Maintains cryptographic security with a `2^96` difficulty for pattern reproduction.
 
 ### Polkadot to Ethereum Mapping
 
-The conversion from 32-byte to 20-byte addresses is handled through a stateful mapping system implemented in the [`AddressMapper`](https://paritytech.github.io/polkadot-sdk/master/pallet_revive/trait.AddressMapper.html){target=\_blank} trait. The core functionality includes:
+The conversion from 32-byte Polkadot accounts to 20-byte Ethereum addresses is more complex than the reverse direction due to the lossy nature of the conversion. The [`AccountId32Mapper`](https://paritytech.github.io/polkadot-sdk/master/pallet_revive/struct.AccountId32Mapper.html){target=\_blank} handles this through two distinct approaches:
 
-- Address conversion in both directions
-- Account registration and management
-- Mapping status verification
+- **For Ethereum-derived accounts** : The system uses the [`is_eth_derived`](https://paritytech.github.io/polkadot-sdk/master/pallet_revive/fn.is_eth_derived.html){target=\_blank} function to detect accounts that were originally Ethereum addresses (identified by the `0xEE` suffix pattern). For these accounts, the conversion strips the last 12 bytes to recover the original 20-byte Ethereum address.
+
+- **For native Polkadot accounts** : Since these accounts utilize the whole 32-byte space and weren't derived from Ethereum addresses, direct truncation would result in lost information. Instead, the system:
+    1. Hashes the entire 32-byte account using Keccak-256.
+    2. Takes the last 20 bytes of the hash to create the Ethereum address.
+    3. This ensures a deterministic mapping while avoiding simple truncation.
+
+The conversion process is implemented through the [`to_address`](https://paritytech.github.io/polkadot-sdk/master/pallet_revive/trait.AddressMapper.html#tymethod.to_address){target=\_blank} function, which automatically detects the account type and applies the appropriate conversion method.
+
+**Stateful Mapping for Reversibility** : Since the conversion from 32-byte to 20-byte addresses is inherently lossy, the system provides an optional stateful mapping through the [`OriginalAccount`](https://paritytech.github.io/polkadot-sdk/master/pallet_revive/type.OriginalAccount.html){target=\_blank} storage. When a Polkadot account registers a mapping (via the [`map`](https://paritytech.github.io/polkadot-sdk/master/pallet_revive/trait.AddressMapper.html#tymethod.map){target=\_blank} function), the system stores the original 32-byte account ID, enabling the [`to_account_id`](https://paritytech.github.io/polkadot-sdk/master/pallet_revive/trait.AddressMapper.html#tymethod.to_account_id){target=\_blank} function to recover the exact original account rather than falling back to a default conversion.
 
 ## Account Registration
 
 The registration process is implemented through the [`map`](https://paritytech.github.io/polkadot-sdk/master/pallet_revive/trait.AddressMapper.html#tymethod.map){target=\_blank} function. This process involves:
 
-- Checking if the account is already mapped
-- Calculating and collecting required deposits based on data size
-- Storing the address suffix for future reference
-- Managing the currency holds for security
+- Checking if the account is already mapped.
+- Calculating and collecting required deposits based on data size.
+- Storing the address suffix for future reference.
+- Managing the currency holds for security.
 
 ## Fallback Accounts
 
 The fallback mechanism is integrated into the [`to_account_id`](https://paritytech.github.io/polkadot-sdk/master/pallet_revive/trait.AddressMapper.html#tymethod.to_account_id){target=\_blank} function. It provides a safety net for address conversion by:
 
-- First, attempting to retrieve stored mapping data
-- Falling back to the default conversion method if no mapping exists
-- Maintaining consistency in address representation
+- First, attempting to retrieve stored mapping data.
+- Falling back to the default conversion method if no mapping exists.
+- Maintaining consistency in address representation.
 
 ## Contract Address Generation
 
@@ -17003,22 +16478,22 @@ The system supports two methods for generating contract addresses:
 
 - [**CREATE1 method**](https://paritytech.github.io/polkadot-sdk/master/pallet_revive/fn.create1.html){target=\_blank}:
 
-    - Uses the deployer address and nonce
-    - Generates deterministic addresses for standard contract deployment
+    - Uses the deployer address and nonce.
+    - Generates deterministic addresses for standard contract deployment.
 
 - [**CREATE2 method**](https://paritytech.github.io/polkadot-sdk/master/pallet_revive/fn.create2.html){target=\_blank}:
 
-    - Uses the deployer address, initialization code, input data, and salt
-    - Enables predictable address generation for advanced use cases
+    - Uses the deployer address, initialization code, input data, and salt.
+    - Enables predictable address generation for advanced use cases.
 
 ## Security Considerations
 
 The address mapping system maintains security through several design choices evident in the implementation:
 
-- The stateless mapping requires no privileged operations, as shown in the [`to_fallback_account_id`](https://paritytech.github.io/polkadot-sdk/master/pallet_revive/trait.AddressMapper.html#tymethod.to_fallback_account_id){target=\_blank} implementation
-- The stateful mapping requires a deposit managed through the [`Currency`](https://paritytech.github.io/polkadot-sdk/master/pallet_revive/pallet/trait.Config.html#associatedtype.Currency){target=\_blank} trait
-- Mapping operations are protected against common errors through explicit checks
-- The system prevents double-mapping through the [`ensure!(!Self::is_mapped(account_id))`](https://github.com/paritytech/polkadot-sdk/blob/stable2412/substrate/frame/revive/src/address.rs#L125){target=\_blank} check
+- The stateless mapping requires no privileged operations, as shown in the [`to_fallback_account_id`](https://paritytech.github.io/polkadot-sdk/master/pallet_revive/trait.AddressMapper.html#tymethod.to_fallback_account_id){target=\_blank} implementation.
+- The stateful mapping requires a deposit managed through the [`Currency`](https://paritytech.github.io/polkadot-sdk/master/pallet_revive/pallet/trait.Config.html#associatedtype.Currency){target=\_blank} trait.
+- Mapping operations are protected against common errors through explicit checks.
+- The system prevents double-mapping through the [`ensure!(!Self::is_mapped(account_id))`](https://github.com/paritytech/polkadot-sdk/blob/stable2412/substrate/frame/revive/src/address.rs#L125){target=\_blank} check.
 
 All source code references are from the [`address.rs`](https://github.com/paritytech/polkadot-sdk/blob/stable2412/substrate/frame/revive/src/address.rs){target=\_blank} file in the Revive pallet of the Polkadot SDK repository.
 --- END CONTENT ---

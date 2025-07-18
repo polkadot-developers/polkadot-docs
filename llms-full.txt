@@ -60,6 +60,7 @@ Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/re
 Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/main/develop/smart-contracts/overview.md
 Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/main/develop/smart-contracts/precompiles/index.md
 Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/main/develop/smart-contracts/precompiles/interact-with-precompiles.md
+Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/main/develop/smart-contracts/precompiles/xcm-precompile.md
 Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/main/develop/smart-contracts/wallets.md
 Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/main/develop/toolkit/api-libraries/dedot.md
 Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/main/develop/toolkit/api-libraries/index.md
@@ -92,6 +93,9 @@ Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/re
 Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/main/develop/toolkit/parachains/spawn-chains/zombienet/get-started.md
 Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/main/develop/toolkit/parachains/spawn-chains/zombienet/index.md
 Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/main/develop/toolkit/parachains/spawn-chains/zombienet/write-tests.md
+Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/main/get-support/explore-resources.md
+Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/main/get-support/get-in-touch.md
+Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/main/get-support/index.md
 Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/main/images/README.md
 Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/main/infrastructure/index.md
 Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/main/infrastructure/running-a-node/index.md
@@ -12567,6 +12571,195 @@ Precompiles in Polkadot Hub provide efficient, native implementations of cryptog
 The examples provided in this guide demonstrate the basic patterns for interacting with each precompile. Developers can adapt these patterns to their specific use cases, leveraging the performance benefits of native implementations while maintaining the flexibility of smart contract development.
 --- END CONTENT ---
 
+Doc-Content: https://docs.polkadot.com/develop/smart-contracts/precompiles/xcm-precompile/
+--- BEGIN CONTENT ---
+---
+title: Interact with the XCM Precompile
+description: Learn how to use the XCM precompile to send cross-chain messages, execute XCM instructions, and estimate costs from your smart contracts.
+categories: Smart Contracts
+---
+
+# XCM Precompile
+
+## Introduction
+
+The [XCM (Cross-Consensus Message)](/develop/interoperability/intro-to-xcm){target=\_blank} precompile enables Polkadot Hub developers to access XCM functionality directly from their smart contracts using a Solidity interface.
+
+Located at the fixed address `0x00000000000000000000000000000000000a0000`, the XCM precompile offers three primary functions:
+
+- **`execute`**:  for local XCM execution
+- **`send`**:  for cross-chain message transmission
+- **`weighMessage`**: for cost estimation 
+
+This guide demonstrates how to interact with the XCM precompile through Solidity smart contracts using [Remix IDE](/develop/smart-contracts/dev-environments/remix){target=\_blank}.
+
+!!!note
+    The XCM precompile provides the barebones XCM functionality. While it provides a lot of flexibility, it doesn't provide abstractions to hide away XCM details. These have to be built on top.
+
+## Precompile Interface
+
+The XCM precompile implements the `IXcm` interface, which defines the structure for interacting with XCM functionality. The source code for the interface is as follows:
+
+```solidity title="IXcm.sol"
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.20;
+
+/// @dev The on-chain address of the XCM (Cross-Consensus Messaging) precompile.
+address constant XCM_PRECOMPILE_ADDRESS = address(0xA0000);
+
+/// @title XCM Precompile Interface
+/// @notice A low-level interface for interacting with `pallet_xcm`.
+/// It forwards calls directly to the corresponding dispatchable functions,
+/// providing access to XCM execution and message passing.
+/// @dev Documentation:
+/// @dev - XCM: https://docs.polkadot.com/develop/interoperability
+/// @dev - SCALE codec: https://docs.polkadot.com/polkadot-protocol/parachain-basics/data-encoding
+/// @dev - Weights: https://docs.polkadot.com/polkadot-protocol/parachain-basics/blocks-transactions-fees/fees/#transactions-weights-and-fees
+interface IXcm {
+    /// @notice Weight v2 used for measurement for an XCM execution
+    struct Weight {
+        /// @custom:property The computational time used to execute some logic based on reference hardware.
+        uint64 refTime;
+        /// @custom:property The size of the proof needed to execute some logic.
+        uint64 proofSize;
+    }
+
+    /// @notice Executes an XCM message locally on the current chain with the caller's origin.
+    /// @dev Internally calls `pallet_xcm::execute`.
+    /// @param message A SCALE-encoded Versioned XCM message.
+    /// @param weight The maximum allowed `Weight` for execution.
+    /// @dev Call @custom:function weighMessage(message) to ensure sufficient weight allocation.
+    function execute(bytes calldata message, Weight calldata weight) external;
+
+    /// @notice Sends an XCM message to another parachain or consensus system.
+    /// @dev Internally calls `pallet_xcm::send`.
+    /// @param destination SCALE-encoded destination MultiLocation.
+    /// @param message SCALE-encoded Versioned XCM message.
+    function send(bytes calldata destination, bytes calldata message) external;
+
+    /// @notice Estimates the `Weight` required to execute a given XCM message.
+    /// @param message SCALE-encoded Versioned XCM message to analyze.
+    /// @return weight Struct containing estimated `refTime` and `proofSize`.
+    function weighMessage(bytes calldata message) external view returns (Weight memory weight);
+}
+```
+
+The interface defines a `Weight` struct that represents the computational cost of XCM operations. Weight has two components: 
+
+- **`refTime`**: computational time on reference hardware 
+- **`proofSize`**: the size of the proof required for execution 
+
+All XCM messages must be encoded using the [SCALE codec](/polkadot-protocol/parachain-basics/data-encoding/#data-encoding){target=\_blank}, Polkadot's standard serialization format.
+
+For further information, check the [`precompiles/IXCM.sol`](https://github.com/paritytech/polkadot-sdk/blob/cb629d46ebf00aa65624013a61f9c69ebf02b0b4/polkadot/xcm/pallet-xcm/src/precompiles/IXcm.sol){target=\_blank} file present in `pallet-xcm`.
+
+## Interact with the XCM Precompile
+
+To interact with the XCM precompile, you can use the precompile interface directly in [Remix IDE](/develop/smart-contracts/dev-environments/remix.md){target=\_blank}:
+
+1. Create a new file called `IXcm.sol` in Remix.
+2. Copy and paste the `IXcm` interface code into the file.
+3. Compile the interface by selecting the button or using **Ctrl +S** keys:
+
+    ![](/images/develop/smart-contracts/precompiles/xcm-precompile/xcm-precompile-01.webp)
+
+4. In the **Deploy & Run Transactions** tab, select the `IXcm` interface from the contract dropdown.
+5. Enter the precompile address `0x00000000000000000000000000000000000a0000` in the **At Address** input field.
+6. Select the **At Address** button to connect to the precompile.
+
+    ![](/images/develop/smart-contracts/precompiles/xcm-precompile/xcm-precompile-02.webp)
+
+7. Once connected, you can use the Remix interface to interact with the XCM precompile's  `execute`, `send`, and `weighMessage` functions.
+
+    ![](/images/develop/smart-contracts/precompiles/xcm-precompile/xcm-precompile-03.webp)
+
+The main entrypoint of the precompile is the `execute` function. However, it's necessary to first call `weighMessage` to fill in the required parameters.
+
+### Weigh a Message
+
+The `weighMessage` function estimates the computational cost required to execute an XCM message. This estimate is crucial for understanding the resources needed before actually executing or sending a message.
+
+To test this functionality in Remix, you can call `callWeighMessage` with a SCALE-encoded XCM message. For example, for testing, you can use the following encoded XCM message:
+
+```text title="encoded-xcm-message-example"
+0x050c000401000003008c86471301000003008c8647000d010101000000010100368e8759910dab756d344995f1d3c79374ca8f70066d3a709e48029f6bf0ee7e
+```
+
+![](/images/develop/smart-contracts/precompiles/xcm-precompile/xcm-precompile-04.webp)
+
+This encoded message represents a sequence of XCM instructions:
+
+- **[Withdraw Asset](https://github.com/polkadot-fellows/xcm-format?tab=readme-ov-file#withdrawasset){target=\_blank}**: This instruction removes assets from the local chain's sovereign account or the caller's account, making them available for use in subsequent XCM instructions.
+- **[Buy Execution](https://github.com/polkadot-fellows/xcm-format?tab=readme-ov-file#buyexecution){target=\_blank}**: This instruction purchases execution time on the destination chain using the withdrawn assets, ensuring the message can be processed.
+- **[Deposit Asset](https://github.com/polkadot-fellows/xcm-format?tab=readme-ov-file#depositasset){target=\_blank}**: This instruction deposits the remaining assets into a specified account on the destination chain after execution costs have been deducted.
+
+This encoded message is provided as an example. You can craft your own XCM message tailored to your specific use case as needed.
+
+The function returns a `Weight` struct containing `refTime` and `proofSize` values, which indicate the estimated computational cost of executing this message. If successful, after calling the `callWeighMessage` function, you should see the `refTime` and `proofSize` of the message:
+
+![](/images/develop/smart-contracts/precompiles/xcm-precompile/xcm-precompile-05.webp)
+
+!!!note
+    You can find many more examples of XCMs in this [gist](https://gist.github.com/franciscoaguirre/a6dea0c55e81faba65bedf700033a1a2){target=\_blank}, which connects to the Polkadot Hub TestNet.
+
+### Execute a Message
+
+The `execute` function runs an XCM message locally using the caller's origin.
+This function is the main entrypoint to cross-chain interactions.
+
+Follow these steps to execute a message:
+
+1. Call `weighMessage` with your message to get the required weight.
+2. Pass the same message bytes and the weight obtained from the previous step to `execute`.
+For example, using the same message from the weighing example, you would call `execute` with:
+
+    - `message`: The encoded XCM message bytes.
+    - `weight`: The `Weight` struct returned from `weighMessage`.
+
+    You can use the [papi console](https://dev.papi.how/extrinsics#networkId=localhost&endpoint=wss%3A%2F%2Ftestnet-passet-hub.polkadot.io&data=0x1f03050c000401000003008c86471301000003008c8647000d010101000000010100368e8759910dab756d344995f1d3c79374ca8f70066d3a709e48029f6bf0ee7e0750c61e2901daad0600){target=\_blank} to examine the complete extrinsic structure for this operation.
+
+3. On Remix, click on the **Transact** button to execute the XCM message:
+  
+    ![](/images/develop/smart-contracts/precompiles/xcm-precompile/xcm-precompile-06.webp)
+
+    If successful, you will see the following output in the Remix terminal:
+
+    ![](/images/develop/smart-contracts/precompiles/xcm-precompile/xcm-precompile-07.webp)
+
+Additionally, you can verify that the execution of this specific message was successful by checking that the beneficiary account associated with the XCM message has received the funds accordingly.
+
+### Send a Message
+
+While most cross-chain operations can be performed via `execute`, `send` is sometimes necessary, for example, when opening HRMP channels.
+
+To send a message:
+
+1. Prepare your destination location encoded in XCM format.
+2. Prepare your XCM message (similar to the execute example).
+3. Call `send` with both parameters.
+
+The destination parameter must be encoded according to XCM's location format, specifying the target parachain or consensus system. The message parameter contains the XCM instructions to be executed on the destination chain.
+
+Unlike `execute`, the `send` function doesn't require a weight parameter since the destination chain will handle execution costs according to its fee structure.
+
+## Cross Contract Calls
+
+Beyond direct interaction and wrapper contracts, you can integrate XCM functionality directly into your existing smart contracts by inheriting from or importing the `IXcm` interface. This approach enables you to embed cross-chain capabilities into your application logic seamlessly.
+
+Whether you're building DeFi protocols, governance systems, or any application requiring cross-chain coordination, you can incorporate XCM calls directly within your contract's functions.
+
+## Conclusion
+
+The XCM precompile provides a simple yet powerful interface for cross-chain interactions within the Polkadot ecosystem and beyond.
+By building and executing XCM programs, developers can build cross-chain applications that leverage the full potential of Polkadot's interoperability features.
+
+## Next steps
+
+Head to the Polkadot Hub TestNet and start playing around with the precompile using Hardhat or Foundry.
+
+You can use PAPI to build XCM programs and test them with Chopsticks.
+--- END CONTENT ---
+
 Doc-Content: https://docs.polkadot.com/develop/smart-contracts/wallets/
 --- BEGIN CONTENT ---
 ---
@@ -18050,6 +18243,206 @@ alice_trace = { traceID = "94c1501a78a0d83c498cc92deec264d9", contains = [
   "answer-chunk-request",
 ] }
 ```
+--- END CONTENT ---
+
+Doc-Content: https://docs.polkadot.com/get-support/explore-resources/
+--- BEGIN CONTENT ---
+---
+title: Subscribe to Updates
+description: Find Polkadot developer resources, tutorials, forums, governance proposals, and community platforms like StackExchange, Reddit, and YouTube.
+template: index-page.html
+hide:
+  - footer
+---
+
+# Ask the Community and Explore Resources
+
+Looking for answers beyond the documentation?  
+These platforms are full of useful content and experienced developers sharing insights.
+
+## 🧠 Stack Exchange
+
+- Browse commonly asked technical questions.
+- Ask your own and get detailed responses from experienced devs.
+
+👉 **[Visit Polkadot Stack Exchange](https://substrate.stackexchange.com/){target=\_blank}**
+
+## 🧵 Reddit: r/Polkadot
+
+- General Polkadot discussions and community perspectives.
+- Developer questions are welcome — just tag them appropriately.
+
+👉 **[Visit r/Polkadot](https://www.reddit.com/r/Polkadot/){target=\_blank}**
+
+## 💬 Discord (Community Threads Only)
+
+- Beyond the official support threads, most channels are community-driven.
+- Great place to connect with fellow builders and share insights.
+
+👉 **[Join the Polkadot Discord](https://polkadot-discord.w3f.tools/){target=\_blank}**
+
+## 🎥 YouTube: @PolkadotNetwork
+
+- Developer tutorials
+- Ecosystem interviews
+- Event recordings and walkthroughs
+
+👉 **[Watch on YouTube](https://www.youtube.com/@PolkadotNetwork){target=\_blank}**
+
+---
+
+# Community-led Platforms and Ecosystem Updates
+
+Stay in sync with what's happening across the Polkadot ecosystem — from official announcements to community-driven insights and governance activity.
+
+## 🔷 X (Twitter): Official Accounts
+
+- [@PolkadotDevs](https://twitter.com/PolkadotDevs){target=\_blank} — updates for developers
+- [@Polkadot](https://twitter.com/Polkadot){target=\_blank} — network-wide news
+- [@Kusamanetwork](https://twitter.com/kusamanetwork){target=\_blank} — Kusama-specific updates
+- [@Web3Foundation](https://twitter.com/web3foundation){target=\_blank} — grants, research, and ecosystem programs
+
+## 🔁 X (Twitter): Community Accounts
+
+- [@PolkadotDeploy](https://twitter.com/PolkadotDeploy){target=\_blank} — news from the deployment portal and tooling updates
+
+## 🗣️ Polkadot Forum
+
+- Join community discussions around the direction of the ecosystem.
+
+👉 **[Visit Polkadot Forum](https://forum.polkadot.network/){target=\_blank}**
+
+## 🧑‍⚖️ Polkassembly: OpenGov
+
+- Explore and vote on governance proposals for Polkadot and Kusama.
+- Help shape the future of the network.
+
+👉 **[Explore on Polkassembly](https://polkadot.polkassembly.io/){target=\_blank}**
+
+## 📸 Instagram
+
+- **[@Polkadotnetwork](https://www.instagram.com/polkadotnetwork){target=\_blank}** — visual highlights from the ecosystem  
+  _(Note: not developer-specific)_
+--- END CONTENT ---
+
+Doc-Content: https://docs.polkadot.com/get-support/get-in-touch/
+--- BEGIN CONTENT ---
+---
+title: Get in Touch
+description: Developer support for Polkadot via Telegram, Matrix, and Discord. Get help with parachains, smart contracts, nodes, and ecosystem tools.
+template: index-page.html
+hide:
+  - footer
+---
+
+# Get in Touch Directly
+
+## Need Help Fast?
+  
+Use one of the channels below to get live technical support or ask questions.
+
+<div class="button-wrapper" style="display: flex; justify-content: flex-start;">
+  <a href="https://t.me/substratedevs" class="md-button" style="margin-right: 1rem; text-decoration: none;">
+    Connect to Telegram
+  </a>
+  <a href="https://polkadot-discord.w3f.tools/" class="md-button" style="text-decoration: none;">
+    Connect to Discord
+  </a>
+</div>
+
+Prefer to see all available channels? Here are your options:
+
+## 📱 Telegram: Polkadot Developer Support
+
+The fastest way to get support.
+
+- **Who’s there:** DevRel team and active developer community
+- **Response time:** within **2 business days (usually faster)**
+- **Topics:** any developer-related question is welcome
+
+👉 **[Join Telegram](https://t.me/substratedevs){target=\_blank}**
+
+## 🔌 Discord: Polkadot Official Server
+
+Focused support for smart contracts and general developer chat.
+
+- **Smart contracts:**  
+  Ask in `#solidity-smart-contracts` and `#ink_smart-contracts`  
+- **General developer support:**  
+  Ask in `#solidity-smart-contracts`  
+- **Response time:** within **1 business day (usually faster)**
+- **Other topics:** community-led discussion only
+
+👉 **[Join Discord](https://polkadot-discord.w3f.tools/){target=\_blank}**
+
+## 🧬 Matrix: Polkadot Developer Support
+
+This is the **support channel** staffed by engineers from **Parity**, **Web3 Foundation**, and **Polkadot DevRel**.
+
+- **Who’s there:** Parity, W3F, DevRel, and community contributors
+- **Response time:** within **1 business day (usually faster)**
+- **Topics:** full-spectrum developer support
+- Bridged with Telegram (all messages synced)
+
+👉 **[Join Matrix](https://matrix.to/#/#substratedevs:matrix.org){target=\_blank}**
+
+---
+
+Not sure where to start?  
+
+**Join Telegram above** — let us know what you need, and we’ll help you get unstuck.
+--- END CONTENT ---
+
+Doc-Content: https://docs.polkadot.com/get-support/
+--- BEGIN CONTENT ---
+---
+title: Get Support
+description: Start here to get developer support for Polkadot. Connect with the team, find help, and explore resources beyond the documentation.
+template: index-page.html
+hide:
+  - footer
+---
+
+# Need Help Fast?
+Use one of the channels below to get live technical support or ask questions.
+
+<div class="button-wrapper" style="display: flex; justify-content: flex-start;">
+  <a href="https://t.me/substratedevs" class="md-button" style="margin-right: 1rem; text-decoration: none;">
+    Connect to Telegram
+  </a>
+  <a href="https://polkadot-discord.w3f.tools/" class="md-button" style="text-decoration: none;">
+    Connect to Discord
+  </a>
+</div>
+---
+
+## Need More than just Documentation?
+
+You're already in the docs — solid start.  
+But sometimes you need more: answers, real examples, someone to talk to.  
+This Support Hub is here to help you move forward — faster.
+
+Whether you're building something new, integrating into the ecosystem, or running into blockers — **don't stay stuck**.
+
+## What You can do Here
+
+- 📨 [**Get In Touch**](./get-in-touch)  
+  Reach out to the Polkadot support team and community via Telegram, Matrix, or Discord.  
+  Ask technical questions, report blockers, or share feedback — and get a human response.
+
+- 🧠 [**Explore Available Resources**](./explore-resources)  
+  Find answers beyond the documentation: developer forums, Stack Exchange, Reddit, YouTube, governance hubs, and more.
+---
+
+This hub is evolving. More support tools and shortcuts are on the way —  
+including better onboarding, CLI helpers, dev environments, and live feedback channels.
+
+## Help us Improve
+
+If something’s missing, unclear, or broken — **tell us**.  
+Your feedback makes the whole ecosystem better for everyone.
+
+👉 [**Get In Touch**](./get-in-touch) and help shape the future of developer support.
 --- END CONTENT ---
 
 Doc-Content: https://docs.polkadot.com/images/README/
@@ -24926,14 +25319,14 @@ categories: Basics, Polkadot Protocol
 
 ## Introduction
 
-Asset Hub natively uses Polkadot's 32-byte account system but provides interoperability with Ethereum's 20-byte addresses through an automatic conversion system. When interacting with smart contracts:
+Asset Hub natively utilizes Polkadot's 32-byte account system while providing interoperability with Ethereum's 20-byte addresses through an automatic conversion system. When interacting with smart contracts:
 
-- Ethereum-compatible wallets (like MetaMask) can use their familiar 20-byte addresses
-- Polkadot accounts continue using their native 32-byte format
+- Ethereum-compatible wallets (like MetaMask) can use their familiar 20-byte addresses.
+- Polkadot accounts continue using their native 32-byte format.
 - The Asset Hub chain automatically handles conversion between the two formats behind the scenes:
 
-    - 20-byte Ethereum addresses are padded with `0xEE` bytes to create valid 32-byte Polkadot accounts
-    - 32-byte Polkadot accounts can optionally register a mapping to a 20-byte address for Ethereum compatibility
+    - 20-byte Ethereum addresses are padded with `0xEE` bytes to create valid 32-byte Polkadot accounts.
+    - 32-byte Polkadot accounts can optionally register a mapping to a 20-byte address for Ethereum compatibility.
 
 This dual-format approach enables Asset Hub to maintain compatibility with Ethereum tooling while fully integrating with the Polkadot ecosystem.
 
@@ -24948,35 +25341,42 @@ The platform handles two distinct address formats:
 
 The [`AccountId32Mapper`](https://paritytech.github.io/polkadot-sdk/master/pallet_revive/struct.AccountId32Mapper.html){target=\_blank} implementation in [`pallet_revive`](https://paritytech.github.io/polkadot-sdk/master/pallet_revive/index.html){target=\_blank} handles the core address conversion logic. For converting a 20-byte Ethereum address to a 32-byte Polkadot address, the pallet uses a simple concatenation approach:
 
-- [**Core mechanism**](https://paritytech.github.io/polkadot-sdk/master/pallet_revive/trait.AddressMapper.html#tymethod.to_fallback_account_id){target=\_blank} - takes a 20-byte Ethereum address and extends it to 32 bytes by adding twelve `0xEE` bytes at the end. The key benefits of this approach are:
-    - Able to fully revert, allowing a smooth transition back to the Ethereum format
-    - Provides clear identification of Ethereum-controlled accounts through the `0xEE` suffix pattern
-    - Maintains cryptographic security with a `2^96` difficulty for pattern reproduction
+- [**Core mechanism**](https://paritytech.github.io/polkadot-sdk/master/pallet_revive/trait.AddressMapper.html#tymethod.to_fallback_account_id){target=\_blank} : takes a 20-byte Ethereum address and extends it to 32 bytes by adding twelve `0xEE` bytes at the end. The key benefits of this approach are:
+    - Able to fully revert, allowing a smooth transition back to the Ethereum format.
+    - Provides clear identification of Ethereum-controlled accounts through the `0xEE` suffix pattern.
+    - Maintains cryptographic security with a `2^96` difficulty for pattern reproduction.
 
 ### Polkadot to Ethereum Mapping
 
-The conversion from 32-byte to 20-byte addresses is handled through a stateful mapping system implemented in the [`AddressMapper`](https://paritytech.github.io/polkadot-sdk/master/pallet_revive/trait.AddressMapper.html){target=\_blank} trait. The core functionality includes:
+The conversion from 32-byte Polkadot accounts to 20-byte Ethereum addresses is more complex than the reverse direction due to the lossy nature of the conversion. The [`AccountId32Mapper`](https://paritytech.github.io/polkadot-sdk/master/pallet_revive/struct.AccountId32Mapper.html){target=\_blank} handles this through two distinct approaches:
 
-- Address conversion in both directions
-- Account registration and management
-- Mapping status verification
+- **For Ethereum-derived accounts** : The system uses the [`is_eth_derived`](https://paritytech.github.io/polkadot-sdk/master/pallet_revive/fn.is_eth_derived.html){target=\_blank} function to detect accounts that were originally Ethereum addresses (identified by the `0xEE` suffix pattern). For these accounts, the conversion strips the last 12 bytes to recover the original 20-byte Ethereum address.
+
+- **For native Polkadot accounts** : Since these accounts utilize the whole 32-byte space and weren't derived from Ethereum addresses, direct truncation would result in lost information. Instead, the system:
+    1. Hashes the entire 32-byte account using Keccak-256.
+    2. Takes the last 20 bytes of the hash to create the Ethereum address.
+    3. This ensures a deterministic mapping while avoiding simple truncation.
+
+The conversion process is implemented through the [`to_address`](https://paritytech.github.io/polkadot-sdk/master/pallet_revive/trait.AddressMapper.html#tymethod.to_address){target=\_blank} function, which automatically detects the account type and applies the appropriate conversion method.
+
+**Stateful Mapping for Reversibility** : Since the conversion from 32-byte to 20-byte addresses is inherently lossy, the system provides an optional stateful mapping through the [`OriginalAccount`](https://paritytech.github.io/polkadot-sdk/master/pallet_revive/type.OriginalAccount.html){target=\_blank} storage. When a Polkadot account registers a mapping (via the [`map`](https://paritytech.github.io/polkadot-sdk/master/pallet_revive/trait.AddressMapper.html#tymethod.map){target=\_blank} function), the system stores the original 32-byte account ID, enabling the [`to_account_id`](https://paritytech.github.io/polkadot-sdk/master/pallet_revive/trait.AddressMapper.html#tymethod.to_account_id){target=\_blank} function to recover the exact original account rather than falling back to a default conversion.
 
 ## Account Registration
 
 The registration process is implemented through the [`map`](https://paritytech.github.io/polkadot-sdk/master/pallet_revive/trait.AddressMapper.html#tymethod.map){target=\_blank} function. This process involves:
 
-- Checking if the account is already mapped
-- Calculating and collecting required deposits based on data size
-- Storing the address suffix for future reference
-- Managing the currency holds for security
+- Checking if the account is already mapped.
+- Calculating and collecting required deposits based on data size.
+- Storing the address suffix for future reference.
+- Managing the currency holds for security.
 
 ## Fallback Accounts
 
 The fallback mechanism is integrated into the [`to_account_id`](https://paritytech.github.io/polkadot-sdk/master/pallet_revive/trait.AddressMapper.html#tymethod.to_account_id){target=\_blank} function. It provides a safety net for address conversion by:
 
-- First, attempting to retrieve stored mapping data
-- Falling back to the default conversion method if no mapping exists
-- Maintaining consistency in address representation
+- First, attempting to retrieve stored mapping data.
+- Falling back to the default conversion method if no mapping exists.
+- Maintaining consistency in address representation.
 
 ## Contract Address Generation
 
@@ -24984,22 +25384,22 @@ The system supports two methods for generating contract addresses:
 
 - [**CREATE1 method**](https://paritytech.github.io/polkadot-sdk/master/pallet_revive/fn.create1.html){target=\_blank}:
 
-    - Uses the deployer address and nonce
-    - Generates deterministic addresses for standard contract deployment
+    - Uses the deployer address and nonce.
+    - Generates deterministic addresses for standard contract deployment.
 
 - [**CREATE2 method**](https://paritytech.github.io/polkadot-sdk/master/pallet_revive/fn.create2.html){target=\_blank}:
 
-    - Uses the deployer address, initialization code, input data, and salt
-    - Enables predictable address generation for advanced use cases
+    - Uses the deployer address, initialization code, input data, and salt.
+    - Enables predictable address generation for advanced use cases.
 
 ## Security Considerations
 
 The address mapping system maintains security through several design choices evident in the implementation:
 
-- The stateless mapping requires no privileged operations, as shown in the [`to_fallback_account_id`](https://paritytech.github.io/polkadot-sdk/master/pallet_revive/trait.AddressMapper.html#tymethod.to_fallback_account_id){target=\_blank} implementation
-- The stateful mapping requires a deposit managed through the [`Currency`](https://paritytech.github.io/polkadot-sdk/master/pallet_revive/pallet/trait.Config.html#associatedtype.Currency){target=\_blank} trait
-- Mapping operations are protected against common errors through explicit checks
-- The system prevents double-mapping through the [`ensure!(!Self::is_mapped(account_id))`](https://github.com/paritytech/polkadot-sdk/blob/stable2412/substrate/frame/revive/src/address.rs#L125){target=\_blank} check
+- The stateless mapping requires no privileged operations, as shown in the [`to_fallback_account_id`](https://paritytech.github.io/polkadot-sdk/master/pallet_revive/trait.AddressMapper.html#tymethod.to_fallback_account_id){target=\_blank} implementation.
+- The stateful mapping requires a deposit managed through the [`Currency`](https://paritytech.github.io/polkadot-sdk/master/pallet_revive/pallet/trait.Config.html#associatedtype.Currency){target=\_blank} trait.
+- Mapping operations are protected against common errors through explicit checks.
+- The system prevents double-mapping through the [`ensure!(!Self::is_mapped(account_id))`](https://github.com/paritytech/polkadot-sdk/blob/stable2412/substrate/frame/revive/src/address.rs#L125){target=\_blank} check.
 
 All source code references are from the [`address.rs`](https://github.com/paritytech/polkadot-sdk/blob/stable2412/substrate/frame/revive/src/address.rs){target=\_blank} file in the Revive pallet of the Polkadot SDK repository.
 --- END CONTENT ---
@@ -32907,6 +33307,15 @@ To define your chain specification:
 
     You should now see your chain specification containing SCALE-encoded hex values versus plain text.
 
+
+!!!note "Deprecation of `para_id` in Chain Specs"
+
+    The `para_id` field in JSON chain specifications, added through the [`chain-spec-builder`](https://paritytech.github.io/polkadot-sdk/master/staging_chain_spec_builder/index.html){target=\_blank} command, is currently used by nodes for configuration purposes. However, beginning with Polkadot SDK release `stable2509`, the `para_id` field will no longer be required in chain specifications. Instead, runtimes need to be updated to implement the [`cumulus_primitives_core::GetParachainInfo`](https://paritytech.github.io/polkadot-sdk/master/cumulus_primitives_core/trait.GetParachainInfo.html){target=\_blank} trait to successfully operate with nodes using chain specs that omit the `para_id` field.
+
+    With the upcoming `stable2512` release, the `para_id` field will be completely removed from chain specifications in favor of the new runtime API. New nodes will be unable to start with chain specs containing the `para_id` field unless the runtime implements the `GetParachainInfo` trait. Ensure your runtime is updated to maintain compatibility with future node versions.
+
+    For guidance on performing runtime upgrades to implement this new trait, refer to the [runtime upgrade tutorial](/tutorials/polkadot-sdk/parachains/zero-to-hero/runtime-upgrade/){target=\_blank}.
+
 ## Export Required Files
 
 To prepare the parachain collator to be registered on Paseo, follow these steps:
@@ -33111,10 +33520,7 @@ With each successful on-demand extrinsic, the parachain will produce a new block
 
 ## Purchase Bulk Coretime
 
-Purchasing bulk coretime involves purchasing a core from the [Coretime Chain](/polkadot-protocol/architecture/system-chains/coretime/){target=\_blank}, which has an instance of [`pallet_broker`](https://paritytech.github.io/polkadot-sdk/master/pallet_broker/index.html){target=\_blank} (the Broker pallet). Although this can be done via sending extrinsics through a tool like Polkadot.js Apps, there are user interfaces for purchasing and managing bulk coretime:
-
-- [RegionX Coretime Marketplace (includes Paseo support)](https://app.regionx.tech){target=\_blank}
-- [Lastic Coretime Marketplace](https://www.lastic.xyz/polkadot/bulkcore1){target=\_blank}
+Purchasing bulk coretime involves purchasing a core from the [Coretime Chain](/polkadot-protocol/architecture/system-chains/coretime/){target=\_blank}, which has an instance of [`pallet_broker`](https://paritytech.github.io/polkadot-sdk/master/pallet_broker/index.html){target=\_blank} (the Broker pallet). Although this can be done via sending extrinsics through a tool like Polkadot.js Apps, the [RegionX Coretime Marketplace](https://app.regionx.tech){target=\_blank} (includes Paseo support) also provides a user interface for purchasing and managing bulk coretime.
   
 !!!tip
     Obtaining a core for bulk coretime on Paseo follows a different process from Polkadot or Kusama. To apply for a core on Paseo, visit their guide for doing so: [PAS-10 Onboard Paras Coretime](https://github.com/paseo-network/paseo-action-submission/blob/main/pas/PAS-10-Onboard-paras-coretime.md#summary){target=\_blank}. 
@@ -34320,273 +34726,6 @@ test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; fini
 
 Doc-Content: https://docs.polkadot.com/tutorials/polkadot-sdk/parachains/zero-to-hero/runtime-upgrade/
 --- BEGIN CONTENT ---
----
-title: Runtime Upgrades
-description: Learn how to safely perform runtime upgrades for your Polkadot SDK-based blockchain, including step-by-step instructions.
-tutorial_badge: Intermediate
-categories: Parachains
----
-
-# Runtime Upgrades
-
-## Introduction
-
-Upgrading the runtime of your Polkadot SDK-based blockchain is a fundamental feature that allows you to add new functionality, fix bugs, or improve performance without requiring a hard fork. Runtime upgrades are performed by submitting a special extrinsic that replaces the existing on-chain WASM runtime code. This process is trustless, transparent, and can be executed either through governance or using sudo, depending on your chain's configuration.
-
-This tutorial will guide you through the steps to prepare, submit, and verify a runtime upgrade for your parachain or standalone Polkadot SDK-based chain. For this example, you'll continue from the state left by the previous tutorials, where you have a custom pallet integrated into your runtime.
-
-## Update the Runtime
-
-In this section, you will add a new feature to your existing custom pallet and upgrade your runtime to include this new functionality.
-
-### Start Your Chain
-
-Before making any changes, ensure your blockchain node is running properly:
-
-```bash
-polkadot-omni-node --chain ./chain_spec.json --dev
-```
-
-Verify your chain is operational and note the runtime version state in Polkadot JS. For more details, check the [Interact with the Node](/tutorials/polkadot-sdk/parachains/zero-to-hero/set-up-a-template/#interact-with-the-node){target=\_blank}.
-
-![](/images/tutorials/polkadot-sdk/parachains/zero-to-hero/runtime-upgrade/runtime-upgrade-01.webp)
-
-As you can see, the runtime version is `1` since this chain has not been upgraded. Keep this chain running in the background.
-
-### Add a New Feature
-
-Now, you can extend your existing custom pallet by adding a new dispatchable function to reset the counter to zero. This provides a meaningful upgrade that demonstrates new functionality. Copy and paste the following code at the end of your `lib.rs` file in your custom pallet:
-
-```rust title="custom-pallet/src/lib.rs" hl_lines="5-17"
-#[pallet::call]
-impl<T: Config> Pallet<T> {
-    // ... existing calls like increment, decrement, etc.
-
-    /// Reset the counter to zero.
-    ///
-    /// The dispatch origin of this call must be _Root_.
-    ///
-    /// Emits `CounterValueSet` event when successful.
-    #[pallet::call_index(3)]
-    #[pallet::weight(0)]
-    pub fn reset_counter(origin: OriginFor<T>) -> DispatchResult {
-        ensure_root(origin)?;
-        <CounterValue<T>>::put(0u32);
-        Self::deposit_event(Event::CounterValueSet { counter_value: 0 });
-        Ok(())
-    }
-}
-```
-
-The `reset_counter` function will be a Root-only operation that sets the counter value back to zero, regardless of its current state. This is useful for administrative purposes, such as clearing the counter after maintenance, testing, or at the start of new periods. Unlike the existing increment/decrement functions that any signed user can call, this reset function requires Root privileges, making it a controlled administrative action.
-
-Ensure that your runtime compiles by running:
-
-```bash
-cargo build --release
-```
-
-Now, you can test this new function in `pallets/custom-pallet/src/tests.rs`
-
-```rust title="custom-pallet/src/tests.rs" hl_lines="4-39"
-// ... existing unit tests
-...
-
-#[test]
-fn reset_counter_works() {
-    new_test_ext().execute_with(|| {
-        System::set_block_number(1);
-        // First increment the counter
-        assert_ok!(CustomPallet::increment(RuntimeOrigin::signed(1), 1));
-
-        // Ensure the event matches the increment action
-        System::assert_last_event(
-            Event::CounterIncremented {
-                counter_value: 1,
-                who: 1,
-                incremented_amount: 1,
-            }
-            .into(),
-        );
-        
-        // Reset should work with root origin
-        assert_ok!(CustomPallet::reset_counter(RuntimeOrigin::root()));
-        
-        // Check that the event was emitted
-        System::assert_last_event(Event::CounterValueSet { counter_value: 0 }.into());
-    });
-}
-
-#[test]
-fn reset_counter_fails_without_root() {
-    new_test_ext().execute_with(|| {
-        System::set_block_number(1);
-        // Should fail with non-root origin
-        assert_noop!(
-            CustomPallet::reset_counter(RuntimeOrigin::signed(1)),
-            sp_runtime::DispatchError::BadOrigin
-        );
-    });
-}
-```
-
-Ensure that your tests pass by running:
-
-```bash
-cargo test --package custom-pallet
-```
-
-### Update Runtime Configuration
-
-Since you've only added new functionality without changing existing APIs, minimal runtime changes are needed. However, verify that your runtime configuration is still compatible. If you've added new configuration parameters to your pallet, update them accordingly in the `runtime/configs/mod.rs`.
-
-### Bump the Runtime Version
-
-This is a critical step - you must increment the runtime version numbers to signal that an upgrade has occurred. In `runtime/src/lib.rs`:
-
-```rust title="lib.rs" hl_lines="6"
-#[sp_version::runtime_version]
-pub const VERSION: RuntimeVersion = RuntimeVersion {
-	spec_name: alloc::borrow::Cow::Borrowed("parachain-template-runtime"),
-	impl_name: alloc::borrow::Cow::Borrowed("parachain-template-runtime"),
-	authoring_version: 1,
-    spec_version: 2, // <-- increment this (was 1)
-	impl_version: 0,
-	apis: apis::RUNTIME_API_VERSIONS,
-	transaction_version: 1,
-	system_version: 1,
-};
-```
-
-Also update `runtime/Cargo.toml` version:
-
-```toml title="Cargo.toml" hl_lines="4"
-[package]
-name = "parachain-template-runtime"
-description = "A parachain runtime template built with Substrate and Cumulus, part of Polkadot Sdk."
-version = "0.2.0" # <-- increment this version
-# ... rest of your Cargo.toml
-```
-
-For more information about runtime versioning, check the [Runtime Upgrades](/develop/parachains/maintenance/runtime-upgrades#runtime-versioning){target=\_blank} guide.
-
-### Build the New Runtime
-
-Navigate to your project root:
-
-```bash
-cd /path/to/your/parachain-template
-```
-
-Build the new runtime:
-
-```bash
-cargo build --release
-```
-
-Verify that you have the proper WASM builds by executing:
-
-```
-ls -la target/release/wbuild/parachain-template-runtime/
-```
-
-If you can see the following elements, it means that you are ready to submit the runtime upgrade to your running chain:
-
-<div id="termynal" data-termynal>
-  <span data-ty="input"><span class="file-path"></span>ls -la target/release/wbuild/parachain-template-runtime/</span>
-  <br />
-  <span data-ty>parachain_template_runtime.wasm</span>
-  <span data-ty>parachain_template_runtime.compact.wasm</span>
-  <span data-ty>parachain_template_runtime.compact.compressed.wasm</span>
-</div>
-
-## Submit the Runtime Upgrade
-
-You can submit a runtime upgrade using the [Sudo pallet](https://paritytech.github.io/polkadot-sdk/master/pallet_sudo/index.html){target=\_blank} (for development chains) or via on-chain governance (for production chains).
-
-1. Open [Polkadot.js Apps](https://polkadot.js.org/apps/){target=\_blank} and connect to your node
-2. Click on the **Developer** and select the **Extrinsics** option in the dropdown
-
-    ![](/images/tutorials/polkadot-sdk/parachains/zero-to-hero/runtime-upgrade/runtime-upgrade-02.webp) 
-
-3. Prepare the **sudo** call:
-    1. Select the **sudo** pallet
-    2. Select the **sudo(call)** extrinsic from the list
-
-        ![](/images/tutorials/polkadot-sdk/parachains/zero-to-hero/runtime-upgrade/runtime-upgrade-03.webp) 
-
-4. In the **sudo** call:
-    1. Select the **system** call
-    2. Select **setCode** extrinsic from the list
-
-        ![](/images/tutorials/polkadot-sdk/parachains/zero-to-hero/runtime-upgrade/runtime-upgrade-04.webp) 
-
-5. For the `code` parameter, click **file upload** and select your WASM runtime file:
-    - Use `parachain_template_runtime.compact.compressed.wasm` if available (smaller file)
-    - Otherwise, use `parachain_template_runtime.wasm`
-
-        ![](/images/tutorials/polkadot-sdk/parachains/zero-to-hero/runtime-upgrade/runtime-upgrade-05.webp) 
-
-6. Click **Submit Transaction** and sign the transaction with the sudo key
-
-    ![](/images/tutorials/polkadot-sdk/parachains/zero-to-hero/runtime-upgrade/runtime-upgrade-06.webp) 
-
-!!!info "Using Governance (Production)"
-    For production chains with governance enabled, you must follow the on-chain democratic process. This involves submitting a preimage of the new runtime code (using the Democracy pallet), referencing the preimage hash in a proposal, and then following your chain's governance process (such as voting and council approval) until the proposal passes and is enacted. This ensures that runtime upgrades are transparent and subject to community oversight.
-
-## Verify the Upgrade
-
-After the runtime upgrade extrinsic is included in a block, verify that the upgrade was successful.
-
-### Check Runtime Version
-
-1. In Polkadot.js Apps, navigate to the **Chain State** section
-    1. Click the **Developer** dropdown
-    2. Click the **Chain State** option
-
-        ![](/images/tutorials/polkadot-sdk/parachains/zero-to-hero/runtime-upgrade/runtime-upgrade-07.webp) 
-
-2. Query runtime spec version
-    1. Select the **System** pallet
-    2. Select the **lastRuntimeUpgrade()** query
-
-        ![](/images/tutorials/polkadot-sdk/parachains/zero-to-hero/runtime-upgrade/runtime-upgrade-08.webp) 
-
-3. Click the **+** button to query the current runtime version
-
-    ![](/images/tutorials/polkadot-sdk/parachains/zero-to-hero/runtime-upgrade/runtime-upgrade-09.webp) 
-
-4. Verify that the `specVersion` matches your new runtime (should be `2` if you followed the example)
-
-    ![](/images/tutorials/polkadot-sdk/parachains/zero-to-hero/runtime-upgrade/runtime-upgrade-10.webp) 
-
-### Test New Functionality
-
-1. Navigate to **Developer > Extrinsics**
-2. Select your custom pallet from the dropdown
-3. You should now see the new `resetCounter` function available
-
-    ![](/images/tutorials/polkadot-sdk/parachains/zero-to-hero/runtime-upgrade/runtime-upgrade-11.webp) 
-
-Now, you can test the new functionality:
-
-- First, increment the counter using your existing function
-- Then use the new reset function (note: you'll need sudo/root privileges)
-- Verify the counter value is reset to 0
-
-## Where to Go Next
-
-<div class="grid cards" markdown>
-
--   <span class="badge tutorial">Tutorial</span> __Deploy on Paseo TestNet__
-
-    ---
-
-    Deploy your Polkadot SDK blockchain on Paseo! Follow this step-by-step guide for a seamless journey to a successful TestNet deployment.
-
-    [:octicons-arrow-right-24: Get Started](/tutorials/polkadot-sdk/parachains/zero-to-hero/deploy-to-testnet/)
-
-</div>
 ---
 title: Runtime Upgrades
 description: Learn how to safely perform runtime upgrades for your Polkadot SDK-based blockchain, including step-by-step instructions.
@@ -37542,6 +37681,9 @@ This component handles connecting to the wallet, switching networks if necessary
 To integrate this component to your dApp, you need to overwrite the existing boilerplate in `app/page.js` with the following code:
 
 ```javascript title="app/page.js"
+'use client';
+import { useState } from 'react';
+
 import WalletConnect from './components/WalletConnect';
 export default function Home() {
   const [account, setAccount] = useState(null);
@@ -37641,6 +37783,10 @@ This component reads the `storedNumber` value from the contract and displays it 
 To see this change in your dApp, you need to integrate this component into the `app/page.js` file:
 
 ```javascript title="app/page.js"
+'use client';
+import { useState } from 'react';
+
+import WalletConnect from './components/WalletConnect';
 import ReadContract from './components/ReadContract';
 export default function Home() {
   const [account, setAccount] = useState(null);
@@ -38223,6 +38369,8 @@ This component handles connecting to the wallet, switching networks if necessary
 To use this component in your dApp, replace the existing boilerplate in `app/page.tsx` with the following code:
 
 ```typescript title="page.tsx"
+"use client";
+import { useState } from "react";
 import WalletConnect from "./components/WalletConnect";
 export default function Home() {
   const [account, setAccount] = useState<string | null>(null);
@@ -38328,6 +38476,9 @@ This component reads the `storedNumber` value from the contract and displays it 
 To reflect this change in your dApp, incorporate this component into the `app/page.tsx` file.
 
 ```typescript title="page.tsx"
+"use client";
+import { useState } from "react";
+import WalletConnect from "./components/WalletConnect";
 import ReadContract from "./components/ReadContract";
 export default function Home() {
   const [account, setAccount] = useState<string | null>(null);
@@ -38877,7 +39028,25 @@ Testing is a critical part of smart contract development. Hardhat makes it easy 
 1. Create a folder for testing called `test`. Inside that directory, create a file named `Storage.js` and add the following code:
 
     ```javascript title="Storage.js" 
-    
+    const { expect } = require('chai');
+const { ethers } = require('hardhat');
+
+describe('Storage', function () {
+  let storage;
+  let owner;
+  let addr1;
+
+  beforeEach(async function () {
+    // Get signers
+    [owner, addr1] = await ethers.getSigners();
+
+    // Deploy the Storage contract
+    const Storage = await ethers.getContractFactory('Storage');
+    storage = await Storage.deploy();
+    await storage.waitForDeployment();
+  });
+
+  describe('Basic functionality', function () {
         // Add your logic here
     });
 });

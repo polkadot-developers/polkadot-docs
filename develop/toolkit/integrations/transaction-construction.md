@@ -342,7 +342,7 @@ npx @acala-network/chopsticks --config=polkadot -p 9944
 ```
 You should get a Polkadot network running on port 9944.
 
-Next we will use the [`txwrapper example script`](https://github.com/paritytech/txwrapper-core/blob/main/packages/txwrapper-examples/polkadot/src/polkadot.ts){target=\_blank} to create and sign transactions.
+The [txwrapper example script](https://github.com/paritytech/txwrapper-core/blob/main/packages/txwrapper-examples/polkadot/src/polkadot.ts){target=_blank} will then be used to create and sign transactions.
 
 For this you will need the [`txwrapper`](https://github.com/paritytech/txwrapper-core){target=\_blank} library. Let's clone [`txwrapper`](https://github.com/paritytech/txwrapper-core){target=\_blank}:
 

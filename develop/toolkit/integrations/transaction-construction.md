@@ -25,7 +25,7 @@ Polkadot has some basic transaction information that is common to all transactio
 - **Nonce**: The nonce for this transaction.
 - **Spec Version**: The current spec version for the runtime.
 - **Transaction Version**: The current version for transaction format.
-- **Tip**: Optional, the [tip](https://docs.polkadot.com/polkadot-protocol/parachain-basics/blocks-transactions-fees/fees/#how-fees-are-calculated){target=\_blank} to increase transaction priority.
+- **Tip**: Optional, the [tip](/polkadot-protocol/parachain-basics/blocks-transactions-fees/fees/#how-fees-are-calculated){target=\_blank} to increase transaction priority.
 - **Mode**: The flag indicating whether to verify the metadata hash or not.
 - **Era Period**: Optional, the number of blocks after the checkpoint for which a transaction is valid. If zero, the transaction is [immortal](/polkadot-protocol/parachain-basics/blocks-transactions-fees/transactions/#transaction-mortality){target=\_blank}
 - **MetadataHash**: Optional, the metadata hash which should match the [`RUNTIME_METADATA_HASH`](https://paritytech.github.io/polkadot-sdk/master/frame_metadata_hash_extension/struct.CheckMetadataHash.html){target=\_blank} environment variable.

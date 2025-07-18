@@ -92,25 +92,7 @@ polkadot-js-signer sign --account <from-account-ss58> --seed <seed> --type <sr25
 
 For the sake of this example, create two accounts using the [Subkey](/polkadot-protocol/basics/accounts/#using-subkey){target=\_blank} CLI tool.
 
-```bash
-$ subkey generate
-Secret phrase:    south ladder exile ... grape rival settle coil
-  Network ID:     substrate
-  Secret seed:    0x60b875ea64f33b23093b8f8af542d5360ea121dd017d3053957c64cb73097def
-  Public key:     0x84a16fd4762cb944569d5b0a0deb4897fcb9d0a7bc153602f7b908c1b994222a
-  Account ID:     0x84a16fd4762cb944569d5b0a0deb4897fcb9d0a7bc153602f7b908c1b994222a
-  Public key (SS58): 5F4c8mNz6schf2WMXQZiz1eyR1GGxrMf2coXpAn8mNjxyzp2
-  SS58 Address:   5F4c8mNz6schf2WMXQZiz1eyR1GGxrMf2coXpAn8mNjxyzp2
-
-$ subkey generate
-Secret phrase:    car blood garden ... bomb armed potato
-  Network ID:     substrate
-  Secret seed:    0xced7bd306e992e7fce7efb3e4e1f6b196c402173d23c55ece35f1ca685d8e4eb
-  Public key:     0xa4e4a64dcabae6f6f95de52a81d42361926443e26efede9c7cd9d6034e43c761
-  Account ID:     0xa4e4a64dcabae6f6f95de52a81d42361926443e26efede9c7cd9d6034e43c761
-  Public key (SS58): 5FnudgwK8xJvmujsXXP35pF2xwskhHQzBSRM8KZhXjnEz5gD
-  SS58 Address:   5FnudgwK8xJvmujsXXP35pF2xwskhHQzBSRM8KZhXjnEz5gD
-```
+--8<-- 'code/develop/toolkit/integrations/subkey-generate-output.html'
 
 
 Let's say you want to send 1 WND from `5F4c8mNz6schf2WMXQZiz1eyR1GGxrMf2coXpAn8mNjxyzp2` to `5FnudgwK8xJvmujsXXP35pF2xwskhHQzBSRM8KZhXjnEz5gD` on [Westend's Asset Hub](https://polkadot.js.org/apps/?rpc=wss%3A%2F%2Fasset-hub-westend-rpc.n.dwellir.com#/accounts){target=\_blank} using `polkadot-js-signer`.
@@ -126,10 +108,7 @@ polkadot-js-signer submit --account 5F4c8mNz6schf2WMXQZiz1eyR1GGxrMf2coXpAn8mNjx
 
 This will return a payload to sign and an input waiting for a signature.
 
-```
-Payload: 0x040300ff4a83f1...a8239139ff3ff7c3f6
-Signature>
-```
+--8<-- 'code/develop/toolkit/integrations/signer-cli-submit-output.html'
 
 Take this payload and use your normal signing environment (e.g., air-gapped machine, VM, etc.). In a separate tab of your terminal, sign the payload.
 
@@ -138,9 +117,8 @@ polkadot-js-signer sign --account 5F4c8mNz6schf2WMXQZiz1eyR1GGxrMf2coXpAn8mNjxyz
 ```
 
 This will output the transaction's signature. 
-```
-Signature: 0xe6facf194a8e...413ce3155c2d1240b
-```
+
+--8<-- 'code/develop/toolkit/integrations/signer-cli-sign-output.html'
 
 Paste this signature into the `submit` signature field, and send the transaction (or just return the serialized transaction if using `sendOffline`).
 
@@ -151,183 +129,11 @@ Assuming a six-second block time, you will have five minutes to go offline, sign
 You will get useful output in the terminal with details like the events that were fired off as well as the block in which the extrinsic is in. 
 
 ??? code "Full example output"
-    ```
-    $ polkadot-js-signer submit --account 5F4c8mNz6schf2WMXQZiz1eyR1GGxrMf2coXpAn8mNjxyzp2 --ws wss://westend-asset-hub-rpc.polkadot.io balances.transferKeepAlive 5FnudgwK8xJvmujsXXP35pF2xwskhHQzBSRM8KZhXjnEz5gD 1000000000000
-    2025-07-16 16:00:12        REGISTRY: Unknown signed extensions AuthorizeCall, StorageWeightReclaim found, treating them as no-effect
-    2025-07-16 16:00:12        API/INIT: RPC methods not decorated: archive_v1_body, archive_v1_call, archive_v1_finalizedHeight, archive_v1_genesisHash, archive_v1_hashByHeight, archive_v1_header, archive_v1_stopStorage, archive_v1_storage, archive_v1_storageDiff, archive_v1_storageDiff_stopStorageDiff, chainHead_v1_body, chainHead_v1_call, chainHead_v1_continue, chainHead_v1_follow, chainHead_v1_header, chainHead_v1_stopOperation, chainHead_v1_storage, chainHead_v1_unfollow, chainHead_v1_unpin, chainSpec_v1_chainName, chainSpec_v1_genesisHash, chainSpec_v1_properties, transactionWatch_v1_submitAndWatch, transactionWatch_v1_unwatch, transaction_v1_broadcast, transaction_v1_stop
-    Payload: 0x0a0300a4e4a64dcabae6f6f95de52a81d42361926443e26efede9c7cd9d6034e43c761070010a5d4e8f503000000009d880f001000000067f9723393ef76214df0118c34bbbd3dbebc8ed46a10973a8c969d48fe7598c949f8bd6deece0f1717c444d4323c255962b627b615b18de8316c5a47d960402c00
-    Signature> 0x01960389b87612cda987189e21143e83907cad9bba0a0990b377df915b9e3df561dbe953cf2f20f11a5e8ad80c0d0da2dcc6bc5bc85967116c9f3ecd9f613a5e82
-    {
-      "events": [],
-      "status": "Ready"
-    }
-    {
-      "events": [],
-      "status": {
-        "Broadcast": [
-          "12D3KooWDoq4PVdWm5nzRSvEz3DSSKjVgRhWVUaKyi5JMKwJKYbk",
-          "12D3KooWRZBHqijn91FMnihg3oN487oXLFoumr6SoN886Dxdu3yU",
-          "12D3KooWSQvp4JByYRdieqhqoDEZ6NL2g2wttivrRuQH2KPGCWfh",
-          "12D3KooWSKSHBXBAs7QvUKwDkFheuyL22KpHPS26q371iZ3WFQuF",
-          "12D3KooWDkgKu9ibY92EfC2YBhVWSmnTuwE5d4M7AoSphZ7YbkSP",
-          "12D3KooWLHHS5UtH6QCdWdDu92915k5Ka8H9uJW4SpCEuT7wJycg",
-          "12D3KooWG4YUe7AfSxVwyLQBRRMU99krssmGAUghqUFoVY1iPkQs",
-          "12D3KooWJaAfPyiye7ZQBuHengTJJoMrcaz7Jj1UzHiKdNxA1Nkd",
-          "12D3KooWGD9caunL5KZuqMuHHFR6xv7gLqJH8cLrb9Q23yDy9JG1",
-          "12D3KooWN7MjtEfEnS9FZHgRdfZcxQ9RPppeDqBLKQ4VQ1QWPtSC",
-          "12D3KooWDfepM7kqUHMXdGqJw3ZmtvAcE2CjPcnYjT2tTfAw3ZBd",
-          "12D3KooWCUYurDvauYyjLQH81LSj9hCdkcKtYYMEJWfLsJWZENs2",
-          "12D3KooWJbrCd1v9i21bY7hbtnUkhmkHct62331kxRTdZDPF2U8D",
-          "12D3KooWSVSxmf8BNTqwb9gZDVWJGho7Sy84QiAcArQUeTgkePyV",
-          "12D3KooWLjaXWhNTSiRVFbTJCKLRWt9XXHLGVnAFtxvnExKkVPqn",
-          "12D3KooWPPVazRmxrWK4AGYFuwNdJXzZshiLU73tw9ikpv8VhsP7",
-          "12D3KooWE4UDXqgtTcMCyUQ8S4uvaT8VMzzTBA6NWmKuYwTacWuN",
-          "12D3KooWJwsogNonEiY9PJUX9Gk564KJ1NfHAiTDPtL7rh7djf3A",
-          "12D3KooWDUPyF2q8b6fVFEuwxBbRV3coAy1kzuCPU3D9TRiLnUfE",
-          "12D3KooWFLR2UN6PMAUwNAjiWBAiEDoYcWRrtjDrUfRkdUssge4v",
-          "12D3KooWHpoHiCNYJAcfwe8uiqybx5wX25a2YAPr9A5nq5Htg223",
-          "12D3KooWLgfaWf4uBJkGv3MRq2x7zxgBwQ6yHVCerF3dU8FncWkX",
-          "12D3KooWK13Bi57EgkxxiJV2RsPCWoaEWRyq6kuAPwMq39Y4WLQj",
-          "12D3KooWFGswsMTKSrbPyRRTjcjjCVJVANKu1aLSZzxH5gSk4xhs",
-          "12D3KooWE7C5Tebbccm76xzJY61LhqGhp9CLHyTtfDetLAURHpDJ",
-          "12D3KooWLG4V41JQw12GXqXXmKe6w68LvyzEYcAhUmeZTf67Cs6P",
-          "12D3KooWQKMXaeDjgWyvkBECeYF6Zz2r8YrtuvYeQ4ir9KazpqXP",
-          "12D3KooWHU4qqSyqKdbXdrCTMXUJxxueaZjqpqSaQqYiFPw6XqEx"
-        ]
-      }
-    }
-    {
-      "dispatchInfo": {
-        "weight": {
-          "refTime": "383,866,000",
-          "proofSize": "4,261"
-        },
-        "class": "Normal",
-        "paysFee": "Yes"
-      },
-      "events": [
-        {
-          "phase": {
-            "ApplyExtrinsic": "2"
-          },
-          "event": {
-            "method": "Withdraw",
-            "section": "balances",
-            "index": "0x0a08",
-            "data": {
-              "who": "5F4c8mNz6schf2WMXQZiz1eyR1GGxrMf2coXpAn8mNjxyzp2",
-              "amount": "2,933,772,732"
-            }
-          },
-          "topics": []
-        },
-        {
-          "phase": {
-            "ApplyExtrinsic": "2"
-          },
-          "event": {
-            "method": "NewAccount",
-            "section": "system",
-            "index": "0x0003",
-            "data": {
-              "account": "5FnudgwK8xJvmujsXXP35pF2xwskhHQzBSRM8KZhXjnEz5gD"
-            }
-          },
-          "topics": []
-        },
-        {
-          "phase": {
-            "ApplyExtrinsic": "2"
-          },
-          "event": {
-            "method": "Endowed",
-            "section": "balances",
-            "index": "0x0a00",
-            "data": {
-              "account": "5FnudgwK8xJvmujsXXP35pF2xwskhHQzBSRM8KZhXjnEz5gD",
-              "freeBalance": "1,000,000,000,000"
-            }
-          },
-          "topics": []
-        },
-        {
-          "phase": {
-            "ApplyExtrinsic": "2"
-          },
-          "event": {
-            "method": "Transfer",
-            "section": "balances",
-            "index": "0x0a02",
-            "data": {
-              "from": "5F4c8mNz6schf2WMXQZiz1eyR1GGxrMf2coXpAn8mNjxyzp2",
-              "to": "5FnudgwK8xJvmujsXXP35pF2xwskhHQzBSRM8KZhXjnEz5gD",
-              "amount": "1,000,000,000,000"
-            }
-          },
-          "topics": []
-        },
-        {
-          "phase": {
-            "ApplyExtrinsic": "2"
-          },
-          "event": {
-            "method": "Deposit",
-            "section": "balances",
-            "index": "0x0a07",
-            "data": {
-              "who": "5EYCAe5cKPAoFh2HnQQvpKqRYZGqBpaA87u4Zzw89qPE58is",
-              "amount": "2,933,772,732"
-            }
-          },
-          "topics": []
-        },
-        {
-          "phase": {
-            "ApplyExtrinsic": "2"
-          },
-          "event": {
-            "method": "TransactionFeePaid",
-            "section": "transactionPayment",
-            "index": "0x0b00",
-            "data": {
-              "who": "5F4c8mNz6schf2WMXQZiz1eyR1GGxrMf2coXpAn8mNjxyzp2",
-              "actualFee": "2,933,772,732",
-              "tip": "0"
-            }
-          },
-          "topics": []
-        },
-        {
-          "phase": {
-            "ApplyExtrinsic": "2"
-          },
-          "event": {
-            "method": "ExtrinsicSuccess",
-            "section": "system",
-            "index": "0x0000",
-            "data": {
-              "dispatchInfo": {
-                "weight": {
-                  "refTime": "383,866,000",
-                  "proofSize": "4,261"
-                },
-                "class": "Normal",
-                "paysFee": "Yes"
-              }
-            }
-          },
-          "topics": []
-        }
-      ],
-      "status": {
-        "InBlock": "0x08cc8737961b31d7e9e8877e289bad780c08ac92ac09037871688e6761a8e793"
-      }
-    }
-    ```
+    --8<-- 'code/develop/toolkit/integrations/signer-cli-submit-full-output.html'
 
 !!!note "Submitting Pre-Signed Transaction"
     You can also submit pre-signed transactions, e.g. generated using the `sendOffline` command.
-    ```
+    ```bash
     polkadot-js-signer submit --tx <signedTransaction> --ws <endpoint>
     ```
 
@@ -340,7 +146,7 @@ If you do not want to use the CLI for signing operations, Parity provides an SDK
 You will need a network to run test the transaction on. 
 Let's use [chopsticks](/tutorials/polkadot-sdk/testing/fork-live-chains/){target=\_blank} for this:
 
-```
+```bash
 npx @acala-network/chopsticks --config=polkadot -p 9944
 ```
 
@@ -350,7 +156,7 @@ The [txwrapper example script](https://github.com/paritytech/txwrapper-core/blob
 
 For this you will need the [`txwrapper`](https://github.com/paritytech/txwrapper-core){target=\_blank} library. Let's clone [`txwrapper`](https://github.com/paritytech/txwrapper-core){target=\_blank}:
 
-```
+```bash
 git clone https://github.com/paritytech/txwrapper-core
 cd txwrapper-core
 yarn install && yarn build
@@ -358,7 +164,8 @@ cd packages/txwrapper-examples
 ```
 
 Build and run the [`txwrapper Polkadot example script`](https://github.com/paritytech/txwrapper-core/blob/main/packages/txwrapper-examples/polkadot/src/polkadot.ts){target=\_blank}:
-```
+
+```bash
 yarn run build
 yarn run polkadot
 ```

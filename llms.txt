@@ -14077,9 +14077,9 @@ description: Understand how to construct, sign, and broadcast transactions in th
 
 ## Introduction
 
-This page will discuss the transaction format in Polkadot and how to create, sign, and broadcast transactions as well as highlight some of commands and tools available for integrators.
+This page will discuss the transaction format in Polkadot and how to create, sign, and broadcast transactions, as well as highlight some of the commands and tools available for integrators.
 
-**Always refer to each tool's documentation when integrating.**
+Always refer to each tool's documentation when integrating.
 
 For further reading, refer to [blocks, transactions, and fees](/polkadot-protocol/parachain-basics/blocks-transactions-fees/){target=\_blank} to learn more about the basics.
 
@@ -14088,14 +14088,14 @@ For further reading, refer to [blocks, transactions, and fees](/polkadot-protoco
 Polkadot has some basic transaction information that is common to all transactions.
 
 - **Address**: The [SS58-encoded address](/polkadot-protocol/glossary/#ss58-address-format){target=\_blank} of the sending account.
-- **Block Hash**: The hash of the [checkpoint](/polkadot-protocol/parachain-basics/blocks-transactions-fees/transactions/#transaction-mortality){target=\_blank} block.
-- **Block Number**: The number of the checkpoint block.
-- **Genesis Hash**: The genesis hash of the chain.
-- **Metadata**: The [SCALE-encoded metadata](polkadot-protocol/parachain-basics/data-encoding/){target=\_blank} for the runtime when submitted.
+- **Block hash**: The hash of the [checkpoint](/polkadot-protocol/parachain-basics/blocks-transactions-fees/transactions/#transaction-mortality){target=\_blank} block.
+- **Block number**: The number of the checkpoint block.
+- **Genesis hash**: The genesis hash of the chain.
+- **Metadata**: The [SCALE-encoded](/polkadot-protocol/parachain-basics/data-encoding/){target=\_blank} metadata for the runtime when submitted.
 - **Nonce**: The nonce for this transaction.
 - **Spec Version**: The current spec version for the runtime.
 - **Transaction Version**: The current version for transaction format.
-- **Tip**: Optional, the [tip](https://docs.polkadot.com/polkadot-protocol/parachain-basics/blocks-transactions-fees/fees/#how-fees-are-calculated){target=\_blank} to increase transaction priority.
+- **Tip**: Optional, the [tip](/polkadot-protocol/parachain-basics/blocks-transactions-fees/fees/#how-fees-are-calculated){target=\_blank} to increase transaction priority.
 - **Mode**: The flag indicating whether to verify the metadata hash or not.
 - **Era Period**: Optional, the number of blocks after the checkpoint for which a transaction is valid. If zero, the transaction is [immortal](/polkadot-protocol/parachain-basics/blocks-transactions-fees/transactions/#transaction-mortality){target=\_blank}
 - **MetadataHash**: Optional, the metadata hash which should match the [`RUNTIME_METADATA_HASH`](https://paritytech.github.io/polkadot-sdk/master/frame_metadata_hash_extension/struct.CheckMetadataHash.html){target=\_blank} environment variable.
@@ -14130,7 +14130,7 @@ The typical transaction workflow is as follows:
 4. Serialize the signed payload into a transaction.
 5. Submit the serialized transaction.
 
-Parity provides several tools to help perform these steps.
+There are several tools to help perform these steps.
 
 ## Polkadot-JS Tools
 
@@ -14186,7 +14186,7 @@ Let's say you want to send 1 WND from `5F4c8mNz6schf2WMXQZiz1eyR1GGxrMf2coXpAn8m
 First fund the sending account. You can use the [Westend Faucet](https://faucet.polkadot.io/westend) for that.
 Request some tokens for `5F4c8mNz6schf2WMXQZiz1eyR1GGxrMf2coXpAn8mNjxyzp2`.
 
-Next call submit to create the transaction and which will give you the payload to sign.
+Next, call `submit` to create the transaction, which will give you the payload to sign.
 
 ```bash
 polkadot-js-signer submit --account 5F4c8mNz6schf2WMXQZiz1eyR1GGxrMf2coXpAn8mNjxyzp2 --ws wss://asset-hub-westend-rpc.n.dwellir.com balances.transferKeepAlive 5FnudgwK8xJvmujsXXP35pF2xwskhHQzBSRM8KZhXjnEz5gD 1000000000000
@@ -14199,18 +14199,18 @@ Payload: 0x040300ff4a83f1...a8239139ff3ff7c3f6
 Signature>
 ```
 
-Take this payload and use your normal signing environment (e.g. air gapped machine, VM, etc.). In a separate tab in your terminal, sign the payload.
+Take this payload and use your normal signing environment (e.g., air-gapped machine, VM, etc.). In a separate tab of your terminal, sign the payload.
 
 ```bash
 polkadot-js-signer sign --account 5F4c8mNz6schf2WMXQZiz1eyR1GGxrMf2coXpAn8mNjxyzp2 --seed "south ladder exile ... grape rival settle coil" --type sr25519 0x040300ff4a83f1...a8239139ff3ff7c3f6
 ```
 
-This will output the signature of the transaction.
+This will output the transaction's signature. 
 ```
 Signature: 0xe6facf194a8e...413ce3155c2d1240b
 ```
 
-Paste this signature into the `submit`'s signature field, and send the transaction (or just return the serialized transaction if using `sendOffline`).
+Paste this signature into the `submit` signature field, and send the transaction (or just return the serialized transaction if using `sendOffline`).
 
 By default, submit will create a mortal extrinsic with a lifetime of 50 blocks. 
 Assuming a six-second block time, you will have five minutes to go offline, sign the transaction, paste the signature, and submit the signed transaction.
@@ -14400,7 +14400,7 @@ You will get useful output in the terminal with details like the events that wer
 
 ## Txwrapper
 
-If you do not want to use the CLI for signing operations, Parity provides an SDK called [txwrapper-core](https://github.com/paritytech/txwrapper-core){target=\_blank} to generate and sign transactions offline. For Polkadot, Kusama, and select parachains, use the `txwrapper-polkadot` package. Other Substrate-based chains will have their own `txwrapper-{chain}` implementations. See the [examples](https://github.com/paritytech/txwrapper-core/blob/main/packages/txwrapper-examples/README.md){target=\_blank} for a guide.
+If you do not want to use the CLI for signing operations, Parity provides an SDK called [txwrapper-core](https://github.com/paritytech/txwrapper-core){target=\_blank} to generate and sign transactions offline. For Polkadot, Kusama, and select parachains, use the `txwrapper-polkadot` package. Other Polkadot SDK-based chains will have their own `txwrapper-{chain}` implementations. See the [examples](https://github.com/paritytech/txwrapper-core/blob/main/packages/txwrapper-examples/README.md){target=\_blank} for a guide.
 
 ### Creating a Transaction, Signing, and Submitting
 
@@ -14410,9 +14410,10 @@ Let's use [chopsticks](/tutorials/polkadot-sdk/testing/fork-live-chains/){target
 ```
 npx @acala-network/chopsticks --config=polkadot -p 9944
 ```
+
 You should get a Polkadot network running on port 9944.
 
-Next we will use the [`txwrapper example script`](https://github.com/paritytech/txwrapper-core/blob/main/packages/txwrapper-examples/polkadot/src/polkadot.ts){target=\_blank} to create and sign transactions.
+The [txwrapper example script](https://github.com/paritytech/txwrapper-core/blob/main/packages/txwrapper-examples/polkadot/src/polkadot.ts){target=_blank} will then be used to create and sign transactions.
 
 For this you will need the [`txwrapper`](https://github.com/paritytech/txwrapper-core){target=\_blank} library. Let's clone [`txwrapper`](https://github.com/paritytech/txwrapper-core){target=\_blank}:
 
@@ -14430,6 +14431,7 @@ yarn run polkadot
 ```
 
 You will get output like the following:
+
 ```
 Alice's SS58-Encoded Address: 5GrwvaEF5zXb26Fz9rcQpDWS57CtERHpNehXCPcNoHGKutQY
 
@@ -14459,7 +14461,7 @@ The [`txwrapper example script`](https://github.com/paritytech/txwrapper-core/bl
 
 ## Additional Libraries for Submitting a Transaction
 
-Other than Polkadot JS Tools and txwrapper, there are several other libraries that can also be used to submit a signed payload such as the [Sidecar API](/develop/toolkit/api-libraries/sidecar/#sidecar-api){target=\_blank} or using RPC calls with [`author_submitExtrinsic`](https://paritytech.github.io/polkadot-sdk/master/sc_rpc/author/trait.AuthorApiServer.html#tymethod.submit_extrinsic){target=\_blank} or [`author_submitAndWatchExtrinsic`](https://github.com/paritytech/polkadot-sdk/blob/0ae5c5bbd96a600aed81358339be2f16bade4a81/substrate/client/rpc-api/src/author/mod.rs#L69-L78){target=\_blank}, the latter of which will subscribe you to events to be notified as a transaction gets validated and included in the chain. You can see all the available libraries in the [API Libraries](/develop/toolkit/api-libraries/) section of the Polkadot Docs.
+Other than Polkadot JS Tools and txwrapper, there are several other libraries that can also be used to submit a signed payload such as the [Sidecar API](/develop/toolkit/api-libraries/sidecar/#sidecar-api){target=\_blank} or using RPC calls with [`author_submitExtrinsic`](https://paritytech.github.io/polkadot-sdk/master/sc_rpc/author/trait.AuthorApiServer.html#tymethod.submit_extrinsic){target=\_blank} or [`author_submitAndWatchExtrinsic`](https://github.com/paritytech/polkadot-sdk/blob/0ae5c5bbd96a600aed81358339be2f16bade4a81/substrate/client/rpc-api/src/author/mod.rs#L69-L78){target=\_blank}, the latter of which will subscribe you to events to be notified as a transaction gets validated and included in the chain. You can see all the available libraries in the [API Libraries](/develop/toolkit/api-libraries/){target=\_blank} section of the Polkadot Docs.
 --- END CONTENT ---
 
 Doc-Content: https://docs.polkadot.com/develop/toolkit/integrations/wallets/

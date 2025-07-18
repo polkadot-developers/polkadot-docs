@@ -9,7 +9,7 @@ description: Understand how to construct, sign, and broadcast transactions in th
 
 This page will discuss the transaction format in Polkadot and how to create, sign, and broadcast transactions, as well as highlight some of the commands and tools available for integrators.
 
-**Always refer to each tool's documentation when integrating.**
+Always refer to each tool's documentation when integrating.
 
 For further reading, refer to [blocks, transactions, and fees](/polkadot-protocol/parachain-basics/blocks-transactions-fees/){target=\_blank} to learn more about the basics.
 
@@ -21,7 +21,7 @@ Polkadot has some basic transaction information that is common to all transactio
 - **Block hash**: The hash of the [checkpoint](/polkadot-protocol/parachain-basics/blocks-transactions-fees/transactions/#transaction-mortality){target=\_blank} block.
 - **Block number**: The number of the checkpoint block.
 - **Genesis hash**: The genesis hash of the chain.
-- **Metadata**: The [SCALE-encoded metadata](polkadot-protocol/parachain-basics/data-encoding/){target=\_blank} for the runtime when submitted.
+- **Metadata**: The [SCALE-encoded](/polkadot-protocol/parachain-basics/data-encoding/){target=\_blank} metadata for the runtime when submitted.
 - **Nonce**: The nonce for this transaction.
 - **Spec Version**: The current spec version for the runtime.
 - **Transaction Version**: The current version for transaction format.
@@ -60,7 +60,7 @@ The typical transaction workflow is as follows:
 4. Serialize the signed payload into a transaction.
 5. Submit the serialized transaction.
 
-Parity provides several tools to help perform these steps.
+There are several tools to help perform these steps.
 
 ## Polkadot-JS Tools
 

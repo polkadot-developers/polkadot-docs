@@ -4,3 +4,4 @@ nav:
   - 'Wallets': wallets.md
   - 'Indexers': indexers.md
   - 'Oracles': oracles.md
+  - 'Transaction Construction': transaction-construction.md

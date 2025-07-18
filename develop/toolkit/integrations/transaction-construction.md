@@ -330,7 +330,7 @@ You will get useful output in the terminal with details like the events that wer
 
 ## Txwrapper
 
-If you do not want to use the CLI for signing operations, Parity provides an SDK called [txwrapper-core](https://github.com/paritytech/txwrapper-core){target=\_blank} to generate and sign transactions offline. For Polkadot, Kusama, and select parachains, use the `txwrapper-polkadot` package. Other Substrate-based chains will have their own `txwrapper-{chain}` implementations. See the [examples](https://github.com/paritytech/txwrapper-core/blob/main/packages/txwrapper-examples/README.md){target=\_blank} for a guide.
+If you do not want to use the CLI for signing operations, Parity provides an SDK called [txwrapper-core](https://github.com/paritytech/txwrapper-core){target=\_blank} to generate and sign transactions offline. For Polkadot, Kusama, and select parachains, use the `txwrapper-polkadot` package. Other Polkadot SDK-based chains will have their own `txwrapper-{chain}` implementations. See the [examples](https://github.com/paritytech/txwrapper-core/blob/main/packages/txwrapper-examples/README.md){target=\_blank} for a guide.
 
 ### Creating a Transaction, Signing, and Submitting
 

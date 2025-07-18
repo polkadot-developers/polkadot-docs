@@ -18,7 +18,7 @@ For further reading, refer to [blocks, transactions, and fees](/polkadot-protoco
 Polkadot has some basic transaction information that is common to all transactions.
 
 - **Address**: The [SS58-encoded address](/polkadot-protocol/glossary/#ss58-address-format){target=\_blank} of the sending account.
-- **Block Hash**: The hash of the [checkpoint](/polkadot-protocol/parachain-basics/blocks-transactions-fees/transactions/#transaction-mortality){target=\_blank} block.
+- **Block hash**: The hash of the [checkpoint](/polkadot-protocol/parachain-basics/blocks-transactions-fees/transactions/#transaction-mortality){target=\_blank} block.
 - **Block Number**: The number of the checkpoint block.
 - **Genesis Hash**: The genesis hash of the chain.
 - **Metadata**: The [SCALE-encoded metadata](polkadot-protocol/parachain-basics/data-encoding/){target=\_blank} for the runtime when submitted.

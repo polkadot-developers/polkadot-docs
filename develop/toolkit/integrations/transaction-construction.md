@@ -135,7 +135,7 @@ Take this payload and use your normal signing environment (e.g., air-gapped mach
 polkadot-js-signer sign --account 5F4c8mNz6schf2WMXQZiz1eyR1GGxrMf2coXpAn8mNjxyzp2 --seed "south ladder exile ... grape rival settle coil" --type sr25519 0x040300ff4a83f1...a8239139ff3ff7c3f6
 ```
 
-This will output the signature of the transaction.
+This will output the transaction's signature. 
 ```
 Signature: 0xe6facf194a8e...413ce3155c2d1240b
 ```

@@ -140,7 +140,7 @@ This will output the transaction's signature.
 Signature: 0xe6facf194a8e...413ce3155c2d1240b
 ```
 
-Paste this signature into the `submit`'s signature field, and send the transaction (or just return the serialized transaction if using `sendOffline`).
+Paste this signature into the `submit` signature field, and send the transaction (or just return the serialized transaction if using `sendOffline`).
 
 By default, submit will create a mortal extrinsic with a lifetime of 50 blocks. 
 Assuming a six-second block time, you will have five minutes to go offline, sign the transaction, paste the signature, and submit the signed transaction.

@@ -66,7 +66,7 @@ There are several tools to help perform these steps.
 
 [Polkadot-JS Tools](https://github.com/polkadot-js/tools){target=\_blank} contains a set of command line tools for interacting with a Polkadot SDK client, including one called "Signer CLI" to create, sign, and broadcast transactions.
 
-This example will use the `signer submit` command, which will create and submit the transaction. The `signer sendOffline` command has the exact same API, but will not broadcast the transaction. `submit` and `sendOffline` must be connected to a node to fetch the current metadata and construct a valid transaction.
+This example will use the `signer submit` command, which will create and submit the transaction. The `signer sendOffline` command has the exact same API, but will not broadcast the transaction. The `submit` and `sendOffline` must be connected to a node to fetch the current metadata and construct a valid transaction.
 
 Start by installing the Signer CLI.
 

@@ -34,7 +34,7 @@ You must also ensure the `lookahead` in [`schedulerParams`](https://paritytech.g
 
 ## Phase 1 - Update Parachain Runtime
 
-This phase involves configuring your parachain's runtime `/runtime/src/lib.rs` to make use of async backing system.
+This phase involves configuring your parachain's runtime `/runtime/src/lib.rs` to utilize an async backing system.
 
 1. Establish and ensure that constants for capacity ([`UNINCLUDED_SEGMENT_CAPACITY`](https://github.com/polkadot-fellows/runtimes/blob/d49a9f33d0ea85ce51c26c84a70b61624ec06901/system-parachains/constants/src/polkadot.rs#L42-L44){target=\_blank}) and velocity ([`BLOCK_PROCESSING_VELOCITY`](https://github.com/polkadot-fellows/runtimes/blob/d49a9f33d0ea85ce51c26c84a70b61624ec06901/system-parachains/constants/src/polkadot.rs#L45-L47){target=\_blank}) are both set to `1` in the runtime.
 

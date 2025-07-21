@@ -33,7 +33,7 @@ Polkadot has some basic transaction information that is common to all transactio
 !!!warning
     There are risks to making a transaction immortal. If an account is reaped and a user refunds the account, then they could replay an immortal transaction. Always default to using a mortal extrinsic.
     
-The nonce queried from the System module does not account for pending transactions. You must manually track and increment the nonce if you want to submit multiple valid transactions simultaneously.
+The nonce queried from the [System module](https://paritytech.github.io/polkadot-sdk/master/frame_system/pallet/index.html){target=\_blank} does not account for pending transactions. You must manually track and increment the nonce if you want to submit multiple valid transactions simultaneously.
 
 Each transaction will have its own parameters, or it may have none to add. For example, the [`transferKeepAlive`](https://paritytech.github.io/polkadot-sdk/master/pallet_balances/pallet/enum.Call.html#variant.transfer_keep_alive){target=\_blank}  function from the [Balances pallet](https://paritytech.github.io/polkadot-sdk/master/pallet_balances/index.html){target=\_blank} will take:
 
@@ -42,15 +42,15 @@ Each transaction will have its own parameters, or it may have none to add. For e
 
 Refer to [the protocol specifications](https://spec.polkadot.network/id-extrinsics){target=\_blank}, for the concrete specifications and types required to build a transaction.
 
-**Mode and Metadata Hash**
+### Mode and Metadata Hash
 
 The [`mode`](https://paritytech.github.io/polkadot-sdk/master/polkadot_sdk_docs/guides/enable_metadata_hash/index.html){target=\_blank} and [`metadata hash`](https://paritytech.github.io/polkadot-sdk/master/polkadot_sdk_docs/guides/enable_metadata_hash/index.html){target=\_blank} fields were introduced in transaction construction to support the optional [`CheckMetadataHash` Signed Extension](https://github.com/polkadot-fellows/RFCs/blob/main/text/0078-merkleized-metadata.md){target=\_blank}. This enables trustless metadata verification by allowing the chain to verify the correctness of the metadata used without the need of a trusted party. This functionality was included in [v1.2.5](https://github.com/polkadot-fellows/runtimes/releases/tag/v1.2.5){target=\_blank} runtime release by the [Fellowship](https://github.com/polkadot-fellows/manifesto){target=\_blank}. A user may opt out of this functionality by setting the `mode` to `0`. When the mode is `0`, the [`metadata hash`](https://paritytech.github.io/polkadot-sdk/master/frame_metadata_hash_extension/struct.CheckMetadataHash.html){target=\_blank} field is empty/`None`.
 
-**Serialized transactions and metadata**
+### Serialized Transactions and Metadata
 
 Before being submitted, transactions are serialized. Serialized transactions are hex encoded SCALE-encoded bytes. The relay chain runtimes are upgradable and therefore any interfaces are subject to change, the metadata allows developers to structure any extrinsics or storage entries accordingly. The metadata provides you with all of the information required to construct the serialized call data specific to your transaction. You can read more about the metadata, its format and how to get it in the [Subxt documentation](/polkadot-protocol/parachain-basics/chain-data/#use-subxt){target=\_blank}.
 
-**Transaction Flow**
+### Transaction Flow
 
 The typical transaction workflow is as follows:
 

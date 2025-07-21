@@ -5397,7 +5397,7 @@ description: Learn how to increase the efficiency and throughput of your paracha
 This guide is relevant for Cumulus-based parachain projects started in 2023 or before, whose backing process is synchronous where parablocks can only be built on the latest relay chain block. Async backing allows collators to build parablocks on older relay chain blocks and create pipelines of multiple pending parablocks. This parallel block generation increases efficiency and throughput.
 
 !!!note
-    If starting a new parachain project, please use an async backing compatible template such as the [parachain template](https://github.com/paritytech/polkadot-sdk-parachain-template){target=\_blank}. The rollout process for async backing has three phases. Phases 1 and 2 below put new infrastructure in place. Then we can simply turn on async backing in phase 3.
+    If starting a new parachain project, please use an async backing compatible template such as the [parachain template](https://github.com/paritytech/polkadot-sdk-parachain-template){target=\_blank}. The rollout process for async backing has three phases. Phases 1 and 2 below put new infrastructure in place. Then async backing is simply enabled in phase 3.
 
 ## Prerequisite
 
@@ -5412,7 +5412,7 @@ The relay chain needs to have async backing enabled so double-check that the rel
 ...
 ```
 
-This can be found in the relay chain's runtime. You can see the Polkadot [`async_backing_params`](https://github.com/polkadot-fellows/runtimes/blob/d49a9f33d0ea85ce51c26c84a70b61624ec06901/relay/polkadot/src/genesis_config_presets.rs#L131-L134){target=\_blank} as an example. You also want to make sure that the `lookahead` in [`schedulerParams`](https://paritytech.github.io/polkadot-sdk/master/cumulus_primitives_core/relay_chain/struct.SchedulerParams.html){target=\_blank} is set to `3`. This can be found by found by querying the [`scheduler_params`](https://paritytech.github.io/polkadot-sdk/master/polkadot_runtime_parachains/configuration/struct.HostConfiguration.html#structfield.scheduler_params){target=\_blank} using the [`configuration.activeConfig()`](https://polkadot.js.org/apps/?rpc=wss%3A%2F%2Frpc-polkadot.helixstreet.io#/chainstate) query in Polkadot JS.
+This can be found in the relay chain's runtime. You can see the Polkadot [`async_backing_params`](https://github.com/polkadot-fellows/runtimes/blob/d49a9f33d0ea85ce51c26c84a70b61624ec06901/relay/polkadot/src/genesis_config_presets.rs#L131-L134){target=\_blank} as an example. You also want to make sure that the `lookahead` in [`schedulerParams`](https://paritytech.github.io/polkadot-sdk/master/cumulus_primitives_core/relay_chain/struct.SchedulerParams.html){target=\_blank} is set to `3`. This can be found by querying the [`scheduler_params`](https://paritytech.github.io/polkadot-sdk/master/polkadot_runtime_parachains/configuration/struct.HostConfiguration.html#structfield.scheduler_params){target=\_blank} using the [`configuration.activeConfig()`](https://polkadot.js.org/apps/?rpc=wss%3A%2F%2Frpc-polkadot.helixstreet.io#/chainstate) query in Polkadot JS.
 
 !!! warning 
     The `lookahead` field must be set to 3; otherwise, parachain block times will degrade to worse than with sync backing!
@@ -5438,7 +5438,7 @@ This phase involves configuring your parachain's runtime `/runtime/src/lib.rs` t
 
 3. Establish constants [`MILLISECS_PER_BLOCK`](https://paritytech.github.io/polkadot-sdk/master/parachains_common/constant.MILLISECS_PER_BLOCK.html){target=\_blank} and [`SLOT_DURATION`](https://github.com/polkadot-fellows/runtimes/blob/d49a9f33d0ea85ce51c26c84a70b61624ec06901/system-parachains/constants/src/lib.rs#L38-L40){target=\_blank} if not already present in the runtime.
 
-    ```rust
+    ```rust title="lib.rs"
     // `SLOT_DURATION` is picked up by `pallet_timestamp` which is in turn picked
     // up by `pallet_aura` to implement `fn slot_duration()`.
     //
@@ -5482,7 +5482,7 @@ This phase involves configuring your parachain's runtime `/runtime/src/lib.rs` t
     [`pallet_aura`]((https://paritytech.github.io/polkadot-sdk/master/pallet_aura/index.html){target=\_blank}) implements Authority Round (Aura) - a deterministic [consensus](/polkadot-protocol/glossary/#consensus){target=\_blank} protocol where block production is limited to a rotating list of authorities that take turns creating blocks. [`pallet_aura`](https://paritytech.github.io/polkadot-sdk/master/pallet_aura/index.html){target=\_blank} uses [`pallet_timestamp`](https://paritytech.github.io/polkadot-sdk/master/pallet_timestamp/index.html){target=\_blank} to track consensus rounds (via [`slots`](https://paritytech.github.io/polkadot-sdk/master/pallet_aura/pallet/trait.Config.html#associatedtype.SlotDuration){target=\_blank}).
 
     - Set [`AllowMultipleBlocksPerSlot`](https://paritytech.github.io/polkadot-sdk/master/pallet_aura/pallet/trait.Config.html#associatedtype.AllowMultipleBlocksPerSlot){target=\_blank} to `false` 
-        - This will be set to `true` when we activate async backing in phase 3
+        - This will be set to `true` when you activate async backing in phase 3
 
     - Define [`pallet_aura::SlotDuration`](https://paritytech.github.io/polkadot-sdk/master/pallet_aura/pallet/trait.Config.html#associatedtype.SlotDuration){target=\_blank} using our constant [`SLOT_DURATION`](https://github.com/polkadot-fellows/runtimes/blob/d49a9f33d0ea85ce51c26c84a70b61624ec06901/system-parachains/constants/src/lib.rs#L38-L40){target=\_blank}
     ```rust title="lib.rs"

@@ -51,7 +51,7 @@ This phase involves configuring your parachain's runtime `/runtime/src/lib.rs` t
 
 3. Establish constants [`MILLISECS_PER_BLOCK`](https://paritytech.github.io/polkadot-sdk/master/parachains_common/constant.MILLISECS_PER_BLOCK.html){target=\_blank} and [`SLOT_DURATION`](https://github.com/polkadot-fellows/runtimes/blob/d49a9f33d0ea85ce51c26c84a70b61624ec06901/system-parachains/constants/src/lib.rs#L38-L40){target=\_blank} if not already present in the runtime.
 
-    ```rust
+    ```rust title="lib.rs"
     // `SLOT_DURATION` is picked up by `pallet_timestamp` which is in turn picked
     // up by `pallet_aura` to implement `fn slot_duration()`.
     //
@@ -95,7 +95,7 @@ This phase involves configuring your parachain's runtime `/runtime/src/lib.rs` t
     [`pallet_aura`]((https://paritytech.github.io/polkadot-sdk/master/pallet_aura/index.html){target=\_blank}) implements Authority Round (Aura) - a deterministic [consensus](/polkadot-protocol/glossary/#consensus){target=\_blank} protocol where block production is limited to a rotating list of authorities that take turns creating blocks. [`pallet_aura`](https://paritytech.github.io/polkadot-sdk/master/pallet_aura/index.html){target=\_blank} uses [`pallet_timestamp`](https://paritytech.github.io/polkadot-sdk/master/pallet_timestamp/index.html){target=\_blank} to track consensus rounds (via [`slots`](https://paritytech.github.io/polkadot-sdk/master/pallet_aura/pallet/trait.Config.html#associatedtype.SlotDuration){target=\_blank}).
 
     - Set [`AllowMultipleBlocksPerSlot`](https://paritytech.github.io/polkadot-sdk/master/pallet_aura/pallet/trait.Config.html#associatedtype.AllowMultipleBlocksPerSlot){target=\_blank} to `false` 
-        - This will be set to `true` when we activate async backing in phase 3
+        - This will be set to `true` when you activate async backing in phase 3
 
     - Define [`pallet_aura::SlotDuration`](https://paritytech.github.io/polkadot-sdk/master/pallet_aura/pallet/trait.Config.html#associatedtype.SlotDuration){target=\_blank} using our constant [`SLOT_DURATION`](https://github.com/polkadot-fellows/runtimes/blob/d49a9f33d0ea85ce51c26c84a70b61624ec06901/system-parachains/constants/src/lib.rs#L38-L40){target=\_blank}
     ```rust title="lib.rs"

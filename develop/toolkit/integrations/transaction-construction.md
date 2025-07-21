@@ -94,7 +94,6 @@ For the sake of this example, create two accounts using the [Subkey](/polkadot-p
 
 --8<-- 'code/develop/toolkit/integrations/subkey-generate-output.html'
 
-
 Let's say you want to send 1 WND from `5F4c8mNz6schf2WMXQZiz1eyR1GGxrMf2coXpAn8mNjxyzp2` to `5FnudgwK8xJvmujsXXP35pF2xwskhHQzBSRM8KZhXjnEz5gD` on [Westend's Asset Hub](https://polkadot.js.org/apps/?rpc=wss%3A%2F%2Fasset-hub-westend-rpc.n.dwellir.com#/accounts){target=\_blank} using `polkadot-js-signer`.
 
 First, fund the sending account. You can use the [Westend Faucet](https://faucet.polkadot.io/westend){target=\_blank} to do so.

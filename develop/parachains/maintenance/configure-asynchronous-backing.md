@@ -10,7 +10,7 @@ description: Learn how to increase the efficiency and throughput of your paracha
 This guide applies to parachain projects based on Cumulus that started in 2023 or earlier, where the backing process is synchronous, allowing parablocks to be built only on the latest relay chain block. In contrast, async backing allows collators to build parablocks on older relay chain blocks and create pipelines of multiple pending parablocks. This parallel block generation increases efficiency and throughput.
 
 !!!note
-    If starting a new parachain project, please use an async backing compatible template such as the [parachain template](https://github.com/paritytech/polkadot-sdk-parachain-template){target=\_blank}. The rollout process for async backing has three phases. Phases 1 and 2 below put new infrastructure in place. Then async backing is simply enabled in phase 3.
+    When starting a new parachain project, please use an async backing-compatible template, such as the [parachain template](https://github.com/paritytech/polkadot-sdk-parachain-template){target=\_blank}. The rollout process for async backing has three phases. Phases 1 and 2 below put new infrastructure in place. Then async backing is enabled in phase 3.
 
 ## Prerequisite
 

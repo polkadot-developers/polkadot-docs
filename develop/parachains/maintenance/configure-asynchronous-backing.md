@@ -30,7 +30,7 @@ You can see GitHub for an example of the Polkadot [`async_backing_params`](https
 You must also ensure the `lookahead` in [`schedulerParams`](https://paritytech.github.io/polkadot-sdk/master/cumulus_primitives_core/relay_chain/struct.SchedulerParams.html){target=\_blank} is set to `3`. You can verify the setting by querying the [`scheduler_params`](https://paritytech.github.io/polkadot-sdk/master/polkadot_runtime_parachains/configuration/struct.HostConfiguration.html#structfield.scheduler_params){target=\_blank} using the [`configuration.activeConfig()`](https://polkadot.js.org/apps/?rpc=wss%3A%2F%2Frpc-polkadot.helixstreet.io#/chainstate) query in Polkadot JS.
 
 !!! warning 
-    The `lookahead` field must be set to 3; otherwise, parachain block times will degrade to worse than with sync backing!
+    If the `lookahead` field is not set to 3, parachain block times will degrade, resulting in worse performance than using synchronous backing.
 
 ## Phase 1 - Update Parachain Runtime
 

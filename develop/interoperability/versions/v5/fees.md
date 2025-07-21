@@ -1,97 +1,100 @@
 ---
-title: Fees
-description: How to handle fees in XCMv5.
+title: Fees in XCMv5
+description: Key differences in fee handling between XCMv4 and XCMv5.
 ---
 
-# Fees
+# Fees in XCMv5
 
-In blockchain systems, fees are crucial.
-They prevent malicious actors from exhausting the results of the network, making such attacks expensive.
-The XCM subsystem has its own way of dealing with fees, flexible enough to allow feeless execution in situations that warrant it.
-There are two main types of fees in XCM: **execution** and **delivery**.
+XCMv5 introduces a new fee payment mechanism that simplifies and unifies how fees are handled across different types of XCM operations.
 
-## Execution
+## Key changes from v4
 
-All XCMs have a weight associated to them.
-Each XCM instruction is benchmarked for a particular system (blockchain), which assigns them a weight.
-The weight of an XCM is the sum of the weight of all instructions.
-It's important to correctly benchmark this with the worst case so that your system is safe from Denial-of-Service attacks.
+### BuyExecution vs PayFees
 
-This generated weight represents how much time, and space, is needed for executing the XCM.
-It directly translates to **execution fees**.
+**XCMv4 approach:**
+- Used `BuyExecution` instruction that handles only execution fees
+- Leftover assets after buying execution are returned to holding
+- Required explicit specification of execution weight limits
+- Delivery fees might not be found and error out
 
-## Delivery
+**XCMv5 approach:**
+- Introduces `PayFees` instruction for unified fee handling
+- All assets passed to `PayFees` are kept in a special `fees` register, they are NOT returned to holding
+- No need to specify weights, only assets
+- More predictable
 
-XCMs, although capable of performing tasks locally, are meant to be sent to other consensus systems, i.e. blockchains.
-**Delivery fees** are charged when a message is sent to a destination.
-The delivery fee amount depends on the size of the message, in bytes, and the destination.
+### PayFees instruction
 
-## PayFees
-
-In order to keep things simpler, these two fees are dealt in the same way.
-The user is asked to input the maximum amount they want to dedicate for fees.
-This amount is used **only** for fees.
-
-The amount is specified using the `PayFees` instruction:
+The new `PayFees` instruction provides a cleaner interface:
 
 ```typescript
+// XCMv5 - New PayFees instruction
 XcmV5Instruction.PayFees({
   asset: {
-    id: // Asset id.
-    fun: // Fungibility. You specify the amount if it's fungible or the instance if it's an NFT.
+    id: // Asset id for fee payment
+    fun: // Amount to dedicate for fees (both execution + delivery)
   },
 })
 ```
 
-This mechanism is simple and flexible.
-The user requires no knowledge of the different types of fees.
-New fees might arise in the future and they'll be taken using this same mechanism, without the need for any modification.
-
-## Estimations
-
-The entirety of the asset passed to `PayFees` will be taken from the effective assets and used only for fees.
-This means if you overestimate the fees required, you'll be losing efficiency.
-
-It's necessary to have a mechanism to accurately estimate the fee needed so it can be put into `PayFees`.
-This is more complicated than it sounds since we're dealing with execution and delivery fees, potentially in multiple hops.
-
-Imagine a scenario where parachain A sends a message to B which forwards another message to C.
-
-``` mermaid
-flowchart LR
-  A(A) --> B(B)
-  B --> C(C)
-```
-
-Execution fees need to be paid on A.
-Delivery fees from A to B.
-Execution on B.
-Delivery from B to C.
-Finally, execution on C.
-
-An XCM that does this might look like so.
+This replaces the more complex `BuyExecution` pattern:
 
 ```typescript
-const xcm = XcmVersionedXcm.V5([
-  XcmV5Instruction.WithdrawAsset(/* some assets */),
-  XcmV5Instruction.PayFees(/* execution + delivery on A */),
-  XcmV5Instruction.InitiateTransfer({
-    // ...
-    remote_fees: /* execution + delivery on B */,
-    remote_xcm: [
-      XcmV5Instruction.InitiateTransfer({
-        // ...
-        remote_fees: /* execution on C */,
-        // ...
-      }),
-    ],
-    // ...
-  }),
-])
+// XCMv4 - BuyExecution instruction
+XcmV4Instruction.BuyExecution({
+  fees: {
+    id: // Asset id
+    fun: // Fee amount (only execution will be charged, rest is returned to holding)
+  },
+  weight_limit: // Explicit weight limit
+})
 ```
 
-NOTE: paying fees on a remote system is so common that the `InitiateTransfer` instruction doesn't
-require putting the instruction in `remote_xcm`, you only need to put them in `remote_fees`.
+## Backward compatibility
 
-<!-- TODO: Fee estimation tutorial? -->
-The solution is to use the [runtime APIs](/develop/interoperability/xcm-runtime-apis/) as shown in [the fee estimation tutorial]().
+XCMv5 maintains backward compatibility with `BuyExecution` for existing implementations. Both instructions are supported, allowing gradual migration:
+
+- **BuyExecution**: Still supported for compatibility with existing XCM programs
+- **PayFees**: Recommended for new development and simplified fee management
+
+## Migration considerations
+
+When migrating from v4 to v5:
+
+- `BuyExecution` can remain in existing programs
+- New programs should use `PayFees` for better maintainability
+- Fee estimation becomes more straightforward with the new approach
+- No breaking changes to existing functionality
+
+When using `PayFees`, keep in mind that **ALL** assets passed to the instruction will be entirely dedicated to fees, not returned to holding.
+That's why it's more important than before to [properly estimate XCM fees](/develop/interoperability/xcm-runtime-apis/).
+
+## RefundSurplus
+
+You can use `RefundSurplus` to put the leftover fees back into holding.
+This is useful when you've overestimated the fees needed for your XCM program.
+You can then deposit them to some account with `DepositAsset`.
+
+```typescript
+// After all instructions that send messages.
+XcmV5Instruction.RefundSurplus(),
+XcmV5Instruction.DepositAsset({
+  assets: XcmV5AssetFilter.Wild(XcmV5WildAsset.All()),
+  beneficiary: {
+    parents: 0,
+    interior: XcmV5Junctions.X1(
+      XcmV5Junction.AccountId32({
+        id: ACCOUNT,
+        network: undefined,
+      }),
+    ),
+  }
+})
+```
+
+The `RefundSurplus` instruction:
+- Takes any unused fees from the fees register
+- Moves them back to the holding register
+- Allows you to use or return the surplus assets with `DepositAsset`
+
+This is especially important with `PayFees` since all assets passed to it are dedicated to fees, unlike `BuyExecution` which automatically returned unused assets to holding.

@@ -12,8 +12,7 @@ In previous versions of XCM, we had instructions like `InitiateTeleport` and `In
 ??? note "On backwards compatibility"
 
     In previous versions, we had `InitiateTransfer`, `InitiateReserveWithdraw` and `DepositReserveAsset`.
-    All of these instructions are still available in V5 for backwards compatibility, although they are deprecated.
-    If you want to learn how to use them, head to the docs for V4.
+    All of these instructions are still available in V5 for backwards compatibility.
 
 ```typescript
 XcmV5Instruction.InitiateTransfer({

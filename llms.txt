@@ -5,6 +5,7 @@ Documentation: https://docs.polkadot.com/
 
 # List of doc pages:
 Doc-Page: https://docs.polkadot.com/develop/
+Doc-Page: https://docs.polkadot.com/develop/interoperability/fundamentals/fees/
 Doc-Page: https://docs.polkadot.com/develop/interoperability/
 Doc-Page: https://docs.polkadot.com/develop/interoperability/intro-to-xcm/
 Doc-Page: https://docs.polkadot.com/develop/interoperability/send-messages/
@@ -293,6 +294,107 @@ Integrate with the Polkadot blockchain's underlying protocol features to create 
 ## In This Section
 
 :::INSERT_IN_THIS_SECTION:::
+--- END CONTENT ---
+
+Doc-Content: https://docs.polkadot.com/develop/interoperability/fundamentals/fees/
+--- BEGIN CONTENT ---
+---
+title: Fees
+description: How to handle fees in XCM.
+---
+
+# Fees
+
+In blockchain systems, fees are crucial.
+They prevent malicious actors from exhausting the results of the network, making such attacks expensive.
+The XCM subsystem has its own way of dealing with fees, flexible enough to allow feeless execution in situations that warrant it.
+There are two main types of fees in XCM: **execution** and **delivery**.
+
+## Execution
+
+All XCMs have a weight associated to them.
+Each XCM instruction is benchmarked for a particular system (blockchain), which assigns them a weight.
+The weight of an XCM is the sum of the weight of all instructions.
+It's important to correctly benchmark this with the worst case so that your system is safe from Denial-of-Service attacks.
+
+This generated weight represents how much time, and space, is needed for executing the XCM.
+It directly translates to **execution fees**.
+
+## Delivery
+
+XCMs, although capable of performing tasks locally, are meant to be sent to other consensus systems, i.e. blockchains.
+**Delivery fees** are charged when a message is sent to a destination.
+The delivery fee amount depends on the size of the message, in bytes, and the destination.
+
+## PayFees
+
+In order to keep things simpler, these two fees are dealt in the same way.
+The user is asked to input the maximum amount they want to dedicate for fees.
+This amount is used **only** for fees.
+
+The amount is specified using the `PayFees` instruction:
+
+```typescript
+XcmV5Instruction.PayFees({
+  asset: {
+    id: // Asset id.
+    fun: // Fungibility. You specify the amount if it's fungible or the instance if it's an NFT.
+  },
+})
+```
+
+This mechanism is simple and flexible.
+The user requires no knowledge of the different types of fees.
+New fees might arise in the future and they'll be taken using this same mechanism, without the need for any modification.
+
+## Estimations
+
+The entirety of the asset passed to `PayFees` will be taken from the effective assets and used only for fees.
+This means if you overestimate the fees required, you'll be losing efficiency.
+
+It's necessary to have a mechanism to accurately estimate the fee needed so it can be put into `PayFees`.
+This is more complicated than it sounds since we're dealing with execution and delivery fees, potentially in multiple hops.
+
+Imagine a scenario where parachain A sends a message to B which forwards another message to C.
+
+``` mermaid
+flowchart LR
+  A(A) --> B(B)
+  B --> C(C)
+```
+
+Execution fees need to be paid on A.
+Delivery fees from A to B.
+Execution on B.
+Delivery from B to C.
+Finally, execution on C.
+
+An XCM that does this might look like so.
+
+```typescript
+const xcm = XcmVersionedXcm.V5([
+  XcmV5Instruction.WithdrawAsset(/* some assets */),
+  XcmV5Instruction.PayFees(/* execution + delivery on A */),
+  XcmV5Instruction.InitiateTransfer({
+    // ...
+    remote_fees: /* execution + delivery on B */,
+    remote_xcm: [
+      XcmV5Instruction.InitiateTransfer({
+        // ...
+        remote_fees: /* execution on C */,
+        // ...
+      }),
+    ],
+    // ...
+  }),
+])
+```
+
+NOTE: paying fees on a remote system is so common that the `InitiateTransfer` instruction doesn't
+require putting the instruction in `remote_xcm`, you only need to put them in `remote_fees`.
+
+<!-- TODO: Fee estimation tutorial? -->
+The solution is to use the [runtime APIs](/develop/interoperability/xcm-runtime-apis/) as shown in [the fee estimation tutorial]().
 --- END CONTENT ---
 
 Doc-Content: https://docs.polkadot.com/develop/interoperability/
@@ -719,6 +821,23 @@ To see a complete example of implementing and executing tests, refer to the [int
 Doc-Content: https://docs.polkadot.com/develop/interoperability/versions/
 --- BEGIN CONTENT ---
 # Versions
+
+XCM is a versioned language that evolves to meet the growing needs of cross-chain communication in the Polkadot ecosystem.
+Understanding XCM versioning is essential for developers building interoperable applications to keep up with the latest improvements.
+
+New versions are defined via [Polkadot Fellowship RFCs](https://github.com/polkadot-fellows/rfcs), ensuring each iteration is thoroughly reviewed.
+The whole of this documentation uses **XCMv5** as the primary reference, which is the current stable version.
+
+Each new version introduces new functionality while maintaining backward compatibility where possible.
+By understanding version differences, you can make informed decisions about which features to use and how to future-proof your applications.
+
+## In This Section
+
+- **Version differences** - Key changes and improvements between XCM versions
+- **Migration guides** - Step-by-step instructions for upgrading from older versions
+- **Compatibility notes** - Important considerations when working with mixed-version environments
+
+Understanding XCM versioning is crucial for maintaining interoperability as the ecosystem evolves.
 --- END CONTENT ---
 
 Doc-Content: https://docs.polkadot.com/develop/interoperability/versions/v5/claiming-trapped-assets/
@@ -766,136 +885,168 @@ origin or anyone else on the source chain.
 Doc-Content: https://docs.polkadot.com/develop/interoperability/versions/v5/crafting-raw-xcms/
 --- BEGIN CONTENT ---
 ---
-title: Raw XCMs
-description: Learn how to craft raw XCMs and why that's the recommended way with XCMv5.
+title: Executing XCM programs in v5
+description: Changes in XCM program execution approach in v5.
 ---
 
-# Crafting raw XCMs
+# Executing XCM programs in v5
 
-Before XCMv5, the recommended way of interacting with XCM was via dedicated extrinsics, either in [pallet-xcm](https://github.com/paritytech/polkadot-sdk/blob/35e6befc5dd61deb154ff0eb7c180a038e626d66/polkadot/xcm/pallet-xcm/src/lib.rs#L17) or [xtokens](https://github.com/open-web3-stack/open-runtime-module-library/blob/0b0bbadb8d0539bbd855eb7eeebcc95397a2a013/xtokens/README.md).
-This includes extrinsics for doing teleports, reserve asset transfers, claiming trapped assets, among others.
+XCMv5 shifts the recommended approach from using dedicated extrinsics to executing raw XCM programs directly.
 
-With XCMv5 we are moving towards crafting raw XCMs and executing them directly via something like `pallet_xcm::execute()`.
-In the last section we had an example XCM that when executed resulted in a teleport between two parachains.
-Below we see how we can execute this XCM.
+## The paradigm shift
+
+### Previous approach
+- Used specialized extrinsics in `pallet-xcm` and `xtokens`
+- Separate functions for different operations:
+  - `limited_teleport_assets`
+  - `limited_reserve_transfer_assets`
+  - `claim_assets`
+- Each new use case required a new extrinsic
+
+### XCMv5 recommendation
+- Craft raw XCM programs directly
+- Use `pallet_xcm::execute()` for execution
+- Compose instructions within programs
+- No new extrinsics needed for custom use cases
+
+## Execution approach
+
+XCMv5 promotes using `execute()` directly:
 
 ```typescript
-// `PolkadotXcm` is the name given to `pallet_xcm` in system parachains.
+// XCMv5 recommended approach
 const tx = api.tx.PolkadotXcm.execute({
-  message: xcm, // From last section.
-  max_weight: weight, // Some weight.
+  message: xcm, // Your XCM program
+  max_weight: weight, // Weight limit for execution
 })
 ```
 
-NOTE: We can calculate the weight with the [query_xcm_weight runtime API](/develop/interoperability/xcm-runtime-apis/#query-xcm-weight).
+This provides more flexibility than calling specialized extrinsics:
 
-This move to raw XCMs and then `execute()` directly was motivated by the flexibility offered by XCM.
-You have so much more control when you craft the XCM directly.
-Only using dedicated extrinsics was very limiting, leading to more and more scenarios which required their own extrinsic.
-This is seen in the [large number of extrinsics that had to be added to pallet-xcm](https://paritytech.github.io/polkadot-sdk/master/pallet_xcm/pallet/enum.Call.html#variants).
+```typescript
+// Previous approach - specialized extrinsics
+api.tx.PolkadotXcm.limitedTeleportAssets(...)
+api.tx.PolkadotXcm.limitedReserveTransferAssets(...)
+api.tx.PolkadotXcm.claimAssets(...)
+```
 
-This extrinsics will still be supported for a long while, however, the recommended way of interacting with XCM from version 5 onwards is via crafting raw XCMs.
+## Benefits of direct execution
+
+1. **Flexibility**: Full control over XCM instruction sequences
+2. **Composability**: Combine multiple operations in a single program
+3. **Extensibility**: Custom use cases without new extrinsics
+4. **Maintainability**: Fewer specialized functions to maintain
+
+## Migration considerations
+
+- Existing dedicated extrinsics continue to work
+- No breaking changes to existing programs
+- New development should prefer `execute()` for better flexibility
+- Gradual migration path available for existing applications
 --- END CONTENT ---
 
 Doc-Content: https://docs.polkadot.com/develop/interoperability/versions/v5/fees/
 --- BEGIN CONTENT ---
 ---
-title: Fees
-description: How to handle fees in XCMv5.
+title: Fees in XCMv5
+description: Key differences in fee handling between XCMv4 and XCMv5.
 ---
 
-# Fees
+# Fees in XCMv5
 
-In blockchain systems, fees are crucial.
-They prevent malicious actors from exhausting the results of the network, making such attacks expensive.
-The XCM subsystem has its own way of dealing with fees, flexible enough to allow feeless execution in situations that warrant it.
-There are two main types of fees in XCM: **execution** and **delivery**.
+XCMv5 introduces a new fee payment mechanism that simplifies and unifies how fees are handled across different types of XCM operations.
 
-## Execution
+## Key changes from v4
 
-All XCMs have a weight associated to them.
-Each XCM instruction is benchmarked for a particular system (blockchain), which assigns them a weight.
-The weight of an XCM is the sum of the weight of all instructions.
-It's important to correctly benchmark this with the worst case so that your system is safe from Denial-of-Service attacks.
+### BuyExecution vs PayFees
 
-This generated weight represents how much time, and space, is needed for executing the XCM.
-It directly translates to **execution fees**.
+**XCMv4 approach:**
+- Used `BuyExecution` instruction that handles only execution fees
+- Leftover assets after buying execution are returned to holding
+- Required explicit specification of execution weight limits
+- Delivery fees might not be found and error out
 
-## Delivery
+**XCMv5 approach:**
+- Introduces `PayFees` instruction for unified fee handling
+- All assets passed to `PayFees` are kept in a special `fees` register, they are NOT returned to holding
+- No need to specify weights, only assets
+- More predictable
 
-XCMs, although capable of performing tasks locally, are meant to be sent to other consensus systems, i.e. blockchains.
-**Delivery fees** are charged when a message is sent to a destination.
-The delivery fee amount depends on the size of the message, in bytes, and the destination.
+### PayFees instruction
 
-## PayFees
-
-In order to keep things simpler, these two fees are dealt in the same way.
-The user is asked to input the maximum amount they want to dedicate for fees.
-This amount is used **only** for fees.
-
-The amount is specified using the `PayFees` instruction:
+The new `PayFees` instruction provides a cleaner interface:
 
 ```typescript
+// XCMv5 - New PayFees instruction
 XcmV5Instruction.PayFees({
   asset: {
-    id: // Asset id.
-    fun: // Fungibility. You specify the amount if it's fungible or the instance if it's an NFT.
+    id: // Asset id for fee payment
+    fun: // Amount to dedicate for fees (both execution + delivery)
   },
 })
 ```
 
-This mechanism is simple and flexible.
-The user requires no knowledge of the different types of fees.
-New fees might arise in the future and they'll be taken using this same mechanism, without the need for any modification.
-
-## Estimations
-
-The entirety of the asset passed to `PayFees` will be taken from the effective assets and used only for fees.
-This means if you overestimate the fees required, you'll be losing efficiency.
-
-It's necessary to have a mechanism to accurately estimate the fee needed so it can be put into `PayFees`.
-This is more complicated than it sounds since we're dealing with execution and delivery fees, potentially in multiple hops.
-
-Imagine a scenario where parachain A sends a message to B which forwards another message to C.
-
-``` mermaid
-flowchart LR
-  A(A) --> B(B)
-  B --> C(C)
-```
-
-Execution fees need to be paid on A.
-Delivery fees from A to B.
-Execution on B.
-Delivery from B to C.
-Finally, execution on C.
-
-An XCM that does this might look like so.
+This replaces the more complex `BuyExecution` pattern:
 
 ```typescript
-const xcm = XcmVersionedXcm.V5([
-  XcmV5Instruction.WithdrawAsset(/* some assets */),
-  XcmV5Instruction.PayFees(/* execution + delivery on A */),
-  XcmV5Instruction.InitiateTransfer({
-    // ...
-    remote_fees: /* execution + delivery on B */,
-    remote_xcm: [
-      XcmV5Instruction.InitiateTransfer({
-        // ...
-        remote_fees: /* execution on C */,
-        // ...
-      }),
-    ],
-    // ...
-  }),
-])
+// XCMv4 - BuyExecution instruction
+XcmV4Instruction.BuyExecution({
+  fees: {
+    id: // Asset id
+    fun: // Fee amount (only execution will be charged, rest is returned to holding)
+  },
+  weight_limit: // Explicit weight limit
+})
 ```
 
-NOTE: paying fees on a remote system is so common that the `InitiateTransfer` instruction doesn't
-require putting the instruction in `remote_xcm`, you only need to put them in `remote_fees`.
+## Backward compatibility
 
-<!-- TODO: Fee estimation tutorial? -->
-The solution is to use the [runtime APIs](/develop/interoperability/xcm-runtime-apis/) as shown in [the fee estimation tutorial]().
+XCMv5 maintains backward compatibility with `BuyExecution` for existing implementations. Both instructions are supported, allowing gradual migration:
+
+- **BuyExecution**: Still supported for compatibility with existing XCM programs
+- **PayFees**: Recommended for new development and simplified fee management
+
+## Migration considerations
+
+When migrating from v4 to v5:
+
+- `BuyExecution` can remain in existing programs
+- New programs should use `PayFees` for better maintainability
+- Fee estimation becomes more straightforward with the new approach
+- No breaking changes to existing functionality
+
+When using `PayFees`, keep in mind that **ALL** assets passed to the instruction will be entirely dedicated to fees, not returned to holding.
+That's why it's more important than before to [properly estimate XCM fees](/develop/interoperability/xcm-runtime-apis/).
+
+## RefundSurplus
+
+You can use `RefundSurplus` to put the leftover fees back into holding.
+This is useful when you've overestimated the fees needed for your XCM program.
+You can then deposit them to some account with `DepositAsset`.
+
+```typescript
+// After all instructions that send messages.
+XcmV5Instruction.RefundSurplus(),
+XcmV5Instruction.DepositAsset({
+  assets: XcmV5AssetFilter.Wild(XcmV5WildAsset.All()),
+  beneficiary: {
+    parents: 0,
+    interior: XcmV5Junctions.X1(
+      XcmV5Junction.AccountId32({
+        id: ACCOUNT,
+        network: undefined,
+      }),
+    ),
+  }
+})
+```
+
+The `RefundSurplus` instruction:
+- Takes any unused fees from the fees register
+- Moves them back to the holding register
+- Allows you to use or return the surplus assets with `DepositAsset`
+
+This is especially important with `PayFees` since all assets passed to it are dedicated to fees, unlike `BuyExecution` which automatically returned unused assets to holding.
 --- END CONTENT ---
 
 Doc-Content: https://docs.polkadot.com/develop/interoperability/versions/v5/
@@ -908,7 +1059,6 @@ description: Learn about XCM version 5.
 # XCMv5
 
 The latest iteration of XCM is version 5.
-Changes to the standard are managed by the [Polkadot Technical Fellowship RFCs](https://github.com/polkadot-fellows/RFCs/).
 The main RFCs defining the changes in version 5 are the following:
 
 - [Legacy #37 - SetAssetClaimer](https://github.com/polkadot-fellows/xcm-format/blob/master/proposals/0037-custom-asset-claimer.md)
@@ -939,19 +1089,19 @@ Version 5 addresses key pain points that developers faced in previous versions:
 
 ### Before
 
-- Cross-chain transfers were limited to only one transfer type, requiring multiple XCMs
+- Cross-chain transfers were limited to only one transfer type, requiring multiple different XCMs to send the entirety of the tokens
 - Fee management across multiple hops was extremely complicated to get right, particularly because of delivery fees
-- Cross-chain transfers cleared the origin, making it impossible to `Transact`
-- Claiming trapped assets when transfers failed was troublesome, requiring governance to intervene most of the time
+- Cross-chain transfers cleared the origin, making it impossible to `Transact` in the same XCM as a transfer
+- Claiming trapped assets when transfers failed was troublesome, most of the time requiring governance to intervene
 - Having to specify the weight for `Transact` was really brittle
 
 ### After
 
 - A unified cross-chain transfer instruction handles all possible transfer types and allows multiple ones in the same XCM
 - The fee payment mechanism has been standardized to handle multiple types of fees, making fees much more predictable
-- It's now possible to preserve the origin during a cross-chain transfer, enabling the use of `Transact`
+- It's now possible to preserve the origin during a cross-chain transfer, enabling the use of `Transact` in the same XCM as the transfer
 - A custom asset claimer can be set, reducing the need for governance to intervene for claiming trapped assets
-- `Transact` no longer needs to specify the weight of the call
+- `Transact` no longer needs to specify the weight of the call, reducing the errors in cross-chain interactions
 
 This section aims to give you all the changes in this new version you need to make the most of the latest
 and greatest in cross-chain interactions.
@@ -1353,8 +1503,7 @@ In previous versions of XCM, we had instructions like `InitiateTeleport` and `In
 ??? note "On backwards compatibility"
 
     In previous versions, we had `InitiateTransfer`, `InitiateReserveWithdraw` and `DepositReserveAsset`.
-    All of these instructions are still available in V5 for backwards compatibility, although they are deprecated.
-    If you want to learn how to use them, head to the docs for V4.
+    All of these instructions are still available in V5 for backwards compatibility.
 
 ```typescript
 XcmV5Instruction.InitiateTransfer({

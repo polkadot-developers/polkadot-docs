@@ -52,7 +52,7 @@ The `xcm-emulator` provides macros for defining a mocked testing environment. Ch
     --8<-- 'https://raw.githubusercontent.com/paritytech/polkadot-sdk/refs/tags/polkadot-stable2412/cumulus/parachains/integration-tests/emulated/chains/relays/westend/src/lib.rs:26:47'
     ```
 
-- [**`decl_test_parachains`**](https://github.com/paritytech/polkadot-sdk/blob/{{dependencies.repositories.polkadot_sdk.version}}/cumulus/xcm/xcm-emulator/src/lib.rs#L596){target=\_blank} - defines runtime and configuration for the parachains. Example:
+- [**`decl_test_parachains`**](https://github.com/paritytech/polkadot-sdk/blob/{{dependencies.repositories.polkadot_sdk.version}}/cumulus/xcm/xcm-emulator/src/lib.rs#L597){target=\_blank} - defines runtime and configuration for the parachains. Example:
 
     ```rust
     --8<-- 'https://raw.githubusercontent.com/paritytech/polkadot-sdk/refs/tags/polkadot-stable2412/cumulus/parachains/integration-tests/emulated/chains/parachains/assets/asset-hub-westend/src/lib.rs:32:55'

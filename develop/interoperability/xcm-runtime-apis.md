@@ -36,7 +36,7 @@ This API can be used independently for dry-running, double-checking, or testing.
 This API allows a dry-run of any extrinsic and obtaining the outcome if it fails or succeeds, as well as the local xcm and remote xcm messages sent to other chains.
 
 ```rust
---8<-- 'https://raw.githubusercontent.com/paritytech/polkadot-sdk/refs/tags/{{dependencies.repositories.polkadot_sdk.version}}/polkadot/xcm/xcm-runtime-apis/src/dry_run.rs:67:67'
+--8<-- 'https://raw.githubusercontent.com/paritytech/polkadot-sdk/refs/tags/{{dependencies.repositories.polkadot_sdk.version}}/polkadot/xcm/xcm-runtime-apis/src/dry_run.rs:68:68'
 ```
 
 ??? interface "Input parameters"
@@ -117,7 +117,7 @@ This API allows a dry-run of any extrinsic and obtaining the outcome if it fails
 This API allows the direct dry-run of an xcm message instead of an extrinsic one, checks if it will execute successfully, and determines what other xcm messages will be forwarded to other chains.
 
 ```rust
---8<-- 'https://raw.githubusercontent.com/paritytech/polkadot-sdk/refs/tags/{{dependencies.repositories.polkadot_sdk.version}}/polkadot/xcm/xcm-runtime-apis/src/dry_run.rs:70:70'
+--8<-- 'https://raw.githubusercontent.com/paritytech/polkadot-sdk/refs/tags/{{dependencies.repositories.polkadot_sdk.version}}/polkadot/xcm/xcm-runtime-apis/src/dry_run.rs:72:72'
 ```
 
 ??? interface "Input parameters"

@@ -40,7 +40,7 @@ Each transaction will have its own parameters, or it may have none to add. For e
 - `dest`: Destination address
 - `#[compact] value`: Number of tokens (compact encoding)
 
-Refer to [the protocol specifications](https://spec.polkadot.network/id-extrinsics){target=\_blank}, for the concrete specifications and types required to build a transaction.
+Refer to [the protocol specifications](https://spec.polkadot.network/id-extrinsics){target=\_blank} for the concrete specifications and types required to build a transaction.
 
 ### Mode and Metadata Hash
 

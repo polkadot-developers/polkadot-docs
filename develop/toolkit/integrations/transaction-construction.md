@@ -131,7 +131,7 @@ You will get useful output in the terminal with details like the events that wer
     --8<-- 'code/develop/toolkit/integrations/signer-cli-submit-full-output.html'
 
 !!!note "Submitting Pre-Signed Transaction"
-    You can also submit pre-signed transactions, e.g. generated using the `sendOffline` command.
+    You can also submit pre-signed transactions, e.g., generated using the `sendOffline` command.
     ```bash
     polkadot-js-signer submit --tx <signedTransaction> --ws <endpoint>
     ```

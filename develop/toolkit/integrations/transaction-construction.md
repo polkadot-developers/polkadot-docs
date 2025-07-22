@@ -48,7 +48,7 @@ The [`mode`](https://paritytech.github.io/polkadot-sdk/master/polkadot_sdk_docs/
 
 ### Serialized Transactions and Metadata
 
-Before being submitted, transactions are serialized. Serialized transactions are hex encoded SCALE-encoded bytes. The relay chain runtimes are upgradable and therefore any interfaces are subject to change, the metadata allows developers to structure any extrinsics or storage entries accordingly. The metadata provides you with all of the information required to construct the serialized call data specific to your transaction. You can read more about the metadata, its format and how to get it in the [Subxt documentation](/polkadot-protocol/parachain-basics/chain-data/#use-subxt){target=\_blank}.
+Before being submitted, transactions are serialized. Serialized transactions are hex encoded SCALE-encoded bytes. The relay chain runtimes are upgradable, and therefore, any interfaces are subject to change. The metadata allows developers to structure any extrinsics or storage entries accordingly and provides you with all of the information required to construct the serialized call data specific to your transaction. You can read more about the metadata, its format and how to get it in the [Subxt documentation](/polkadot-protocol/parachain-basics/chain-data/#use-subxt){target=\_blank}.
 
 ### Transaction Flow
 

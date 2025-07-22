@@ -14110,7 +14110,7 @@ Each transaction will have its own parameters, or it may have none to add. For e
 - `dest`: Destination address
 - `#[compact] value`: Number of tokens (compact encoding)
 
-Refer to [the protocol specifications](https://spec.polkadot.network/id-extrinsics){target=\_blank}, for the concrete specifications and types required to build a transaction.
+Refer to [the protocol specifications](https://spec.polkadot.network/id-extrinsics){target=\_blank} for the concrete specifications and types required to build a transaction.
 
 ### Mode and Metadata Hash
 
@@ -14118,7 +14118,7 @@ The [`mode`](https://paritytech.github.io/polkadot-sdk/master/polkadot_sdk_docs/
 
 ### Serialized Transactions and Metadata
 
-Before being submitted, transactions are serialized. Serialized transactions are hex encoded SCALE-encoded bytes. The relay chain runtimes are upgradable and therefore any interfaces are subject to change, the metadata allows developers to structure any extrinsics or storage entries accordingly. The metadata provides you with all of the information required to construct the serialized call data specific to your transaction. You can read more about the metadata, its format and how to get it in the [Subxt documentation](/polkadot-protocol/parachain-basics/chain-data/#use-subxt){target=\_blank}.
+Before being submitted, transactions are serialized. Serialized transactions are hex encoded SCALE-encoded bytes. The relay chain runtimes are upgradable, and therefore, any interfaces are subject to change. The metadata allows developers to structure any extrinsics or storage entries accordingly and provides you with all of the information required to construct the serialized call data specific to your transaction. You can read more about the metadata, its format and how to get it in the [Subxt documentation](/polkadot-protocol/parachain-basics/chain-data/#use-subxt){target=\_blank}.
 
 ### Transaction Flow
 
@@ -14146,7 +14146,7 @@ npm install -g @polkadot/signer-cli
 
 To create a transaction, you need to connect to a chain, enabling the creation of a transaction using the chain's metadata. 
 
-Here is the format for `submit` or `sendOffline`.
+Here is the format for `submit` or `sendOffline`:
 
 ```bash
 polkadot-js-signer <submit|sendOffline> --account <from-account-ss58> --ws <endpoint> <module.method> [param1] [...] [paramX]
@@ -14220,7 +14220,7 @@ By default, submit will create a mortal extrinsic with a lifetime of 50 blocks.
 
 Assuming a six-second block time, you will have five minutes to go offline, sign the transaction, paste the signature, and submit the signed transaction.
 
-You will get useful output in the terminal with details like the events that were fired off as well as the block in which the extrinsic is in. 
+You will get useful output in the terminal with details like the events that were fired off, as well as the block in which the extrinsic is in. 
 
 ??? code "Full example output"
     <div id="termynal" data-termynal>
@@ -14398,7 +14398,7 @@ You will get useful output in the terminal with details like the events that wer
 </div>
 
 !!!note "Submitting Pre-Signed Transaction"
-    You can also submit pre-signed transactions, e.g. generated using the `sendOffline` command.
+    You can also submit pre-signed transactions, e.g., generated using the `sendOffline` command.
     ```bash
     polkadot-js-signer submit --tx <signedTransaction> --ws <endpoint>
     ```
@@ -14418,9 +14418,9 @@ npx @acala-network/chopsticks --config=polkadot -p 9944
 
 You should get a Polkadot network running on port 9944.
 
-The [txwrapper example script](https://github.com/paritytech/txwrapper-core/blob/main/packages/txwrapper-examples/polkadot/src/polkadot.ts){target=\_blank} will then be used to create and sign transactions.
+The [`txwrapper` example script](https://github.com/paritytech/txwrapper-core/blob/main/packages/txwrapper-examples/polkadot/src/polkadot.ts){target=\_blank} will then be used to create and sign transactions.
 
-For this you will need the [`txwrapper`](https://github.com/paritytech/txwrapper-core){target=\_blank} library. Let's clone [`txwrapper`](https://github.com/paritytech/txwrapper-core){target=\_blank}:
+For this, you will need the [`txwrapper`](https://github.com/paritytech/txwrapper-core){target=\_blank} library. Let's clone [`txwrapper`](https://github.com/paritytech/txwrapper-core){target=\_blank}:
 
 ```bash
 git clone https://github.com/paritytech/txwrapper-core
@@ -14429,7 +14429,7 @@ yarn install && yarn build
 cd packages/txwrapper-examples
 ```
 
-Build and run the [`txwrapper Polkadot example script`](https://github.com/paritytech/txwrapper-core/blob/main/packages/txwrapper-examples/polkadot/src/polkadot.ts){target=\_blank}:
+Build and run the [Polkadot `txwrapper` example script](https://github.com/paritytech/txwrapper-core/blob/main/packages/txwrapper-examples/polkadot/src/polkadot.ts){target=\_blank}:
 
 ```bash
 yarn run build
@@ -14462,11 +14462,11 @@ yarn run polkadot
     <span data-ty>  Amount: "10000000000"</span>
 </div>
 
-The [`txwrapper example script`](https://github.com/paritytech/txwrapper-core/blob/main/packages/txwrapper-examples/polkadot/src/polkadot.ts){target=\_blank} includes several reference examples.
+The [`txwrapper` example script](https://github.com/paritytech/txwrapper-core/blob/main/packages/txwrapper-examples/polkadot/src/polkadot.ts){target=\_blank} includes several reference examples.
 
 ## Additional Libraries for Submitting a Transaction
 
-Other than Polkadot JS Tools and txwrapper, there are several other libraries that can also be used to submit a signed payload such as the [Sidecar API](/develop/toolkit/api-libraries/sidecar/#sidecar-api){target=\_blank} or using RPC calls with [`author_submitExtrinsic`](https://paritytech.github.io/polkadot-sdk/master/sc_rpc/author/trait.AuthorApiServer.html#tymethod.submit_extrinsic){target=\_blank} or [`author_submitAndWatchExtrinsic`](https://github.com/paritytech/polkadot-sdk/blob/0ae5c5bbd96a600aed81358339be2f16bade4a81/substrate/client/rpc-api/src/author/mod.rs#L69-L78){target=\_blank}, the latter of which will subscribe you to events to be notified as a transaction gets validated and included in the chain. You can see all the available libraries in the [API Libraries](/develop/toolkit/api-libraries/){target=\_blank} section of the Polkadot Docs.
+Other than Polkadot JS Tools and txwrapper, there are several other libraries that can also be used to submit a signed payload, such as the [Sidecar API](/develop/toolkit/api-libraries/sidecar/#sidecar-api){target=\_blank} or using RPC calls with [`author_submitExtrinsic`](https://paritytech.github.io/polkadot-sdk/master/sc_rpc/author/trait.AuthorApiServer.html#tymethod.submit_extrinsic){target=\_blank} or [`author_submitAndWatchExtrinsic`](https://github.com/paritytech/polkadot-sdk/blob/0ae5c5bbd96a600aed81358339be2f16bade4a81/substrate/client/rpc-api/src/author/mod.rs#L69-L78){target=\_blank}, the latter of which will subscribe you to events to be notified as a transaction gets validated and included in the chain. You can see all the available libraries in the [API Libraries](/develop/toolkit/api-libraries/){target=\_blank} section of the Polkadot Docs.
 --- END CONTENT ---
 
 Doc-Content: https://docs.polkadot.com/develop/toolkit/integrations/wallets/

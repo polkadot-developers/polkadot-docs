@@ -162,7 +162,7 @@ yarn install && yarn build
 cd packages/txwrapper-examples
 ```
 
-Build and run the [`txwrapper Polkadot example script`](https://github.com/paritytech/txwrapper-core/blob/main/packages/txwrapper-examples/polkadot/src/polkadot.ts){target=\_blank}:
+Build and run the [Polkadot `txwrapper` example script](https://github.com/paritytech/txwrapper-core/blob/main/packages/txwrapper-examples/polkadot/src/polkadot.ts){target=\_blank}:
 
 ```bash
 yarn run build

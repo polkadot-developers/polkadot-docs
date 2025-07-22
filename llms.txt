@@ -12682,19 +12682,19 @@ To get started with MetaMask, you need to install the [MetaMask extension](https
 
 For example, to connect to the Polkadot Hub TestNet via MetaMask, you need to follow these steps:
 
-1. Open the MetaMask extension and click on the network icon to switch to the Polkadot Hub TestNet
+1. Open the MetaMask extension and click on the network icon to switch to the Polkadot Hub TestNet.
 
     ![](/images/develop/smart-contracts/wallets/wallets-1.webp){: .browser-extension}
 
-2. Click on the **Add a custom network** button
+2. Click on the **Add a custom network** button.
 
     ![](/images/develop/smart-contracts/wallets/wallets-2.webp){: .browser-extension}
 
-3. Complete the necessary fields, then click the **Save** button (refer to the [Networks](/develop/smart-contracts/connect-to-polkadot#networks-details){target=\_blank} section for copy and paste parameters)
+3. Complete the necessary fields, then click the **Save** button (refer to the [Networks](/develop/smart-contracts/connect-to-polkadot#networks-details){target=\_blank} section for copy and paste parameters).
 
     ![](/images/develop/smart-contracts/wallets/wallets-3.webp){: .browser-extension}
 
-4. Click on **Polkadot Hub TestNet** to switch the network
+4. Click on **Polkadot Hub TestNet** to switch the network.
 
     ![](/images/develop/smart-contracts/wallets/wallets-4.webp){: .browser-extension}
 
@@ -12741,33 +12741,33 @@ To connect to Polkadot Hub TestNet using SubWallet, follow these steps:
 
 To use Talisman with Polkadot Hub TestNet:
 
-1. Install the [Talisman extension](https://talisman.xyz/download){target=\_blank} and set up your wallet by following the on-screen instructions
+1. Install the [Talisman extension](https://talisman.xyz/download){target=\_blank} and set up your wallet by following the on-screen instructions.
 
 2. Once installed, click on the Talisman icon in your browser extensions and click on the **Settings** button:
 
     ![](/images/develop/smart-contracts/wallets/wallets-5.webp){: .browser-extension}
 
-3. Click the button **All settings**:
+3. Click the button **All settings**.
 
     ![](/images/develop/smart-contracts/wallets/wallets-6.webp){: .browser-extension}
 
-4. Go to the **Networks & Tokens** section:
+4. Go to the **Networks & Tokens** section.
 
     ![](/images/develop/smart-contracts/wallets/wallets-7.webp)
 
-5. Click the **Manage networks** button:
+5. Click the **Manage networks** button.
 
     ![](/images/develop/smart-contracts/wallets/wallets-8.webp)
 
-6. Click the **+ Add network** button:
+6. Click the **+ Add network** button.
 
     ![](/images/develop/smart-contracts/wallets/wallets-9.webp)
 
-7. Fill in the form with the required parameters and click the **Add network** button:
+7. Fill in the form with the required parameters and click the **Add network** button.
 
     ![](/images/develop/smart-contracts/wallets/wallets-10.webp)
 
-8. After that, you can switch to the Polkadot Hub TestNet by clicking on the network icon and selecting **Polkadot Hub TestNet**:
+8. After that, you can switch to the Polkadot Hub TestNet by clicking on the network icon and selecting **Polkadot Hub TestNet**.
 
     ![](/images/develop/smart-contracts/wallets/wallets-11.webp)
 

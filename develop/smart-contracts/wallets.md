@@ -49,9 +49,10 @@ You can easily view and manage your Paseo native token (PAS) using the Ethereum 
 
 ??? code "Polkadot Hub TestNet"
     You can see support here for Polkadot Hub's TestNet. The **Passet Hub EVM** network uses an ETH RPC endpoint, and the **passet-hub** uses a Substrate endpoint.
+    The ETH RPC endpoint will let you send transactions that follow an ETH format, while the Substrate endpoint will follow a Substrate transaction format.
     Note the PAS token, which is the native token of the Polkadot Hub TestNet.
 
-    <img height="756" alt="" src="/images/develop/smart-contracts/wallets/subwallet-PAS.webp" />
+    ![](/images/develop/smart-contracts/wallets/subwallet-PAS.webp){: .browser-extension}
 
 To connect to Polkadot Hub TestNet using SubWallet, follow these steps:
 
@@ -59,19 +60,19 @@ To connect to Polkadot Hub TestNet using SubWallet, follow these steps:
 
 2. After setting up your wallet, click the List icon at the top left corner of the extension window to open **Settings**.
 
-    ![](/images/develop/smart-contracts/wallets/subwallet-001.webp){: .browser-extension}
+    ![](/images/develop/smart-contracts/wallets/subwallet-01.webp){: .browser-extension}
 
 3. Scroll down and select **Manage networks**.
 
-    ![](/images/develop/smart-contracts/wallets/subwallet-002.webp){: .browser-extension}
+    ![](/images/develop/smart-contracts/wallets/subwallet-02.webp){: .browser-extension}
 
 4. In the Manage network screen, either scroll down or type in the search bar to find the networks. Once done, enable the toggle next to the network name.
 
-    ![](/images/develop/smart-contracts/wallets/subwallet-003.webp){: .browser-extension}
+    ![](/images/develop/smart-contracts/wallets/subwallet-03.webp){: .browser-extension}
 
    You are now ready to use SubWallet to interact with [Polkadot Hub TestNet](/develop/smart-contracts/connect-to-polkadot/#networks-details){target=\_blank} seamlessly!
 
-![](/images/develop/smart-contracts/wallets/subwallet-004.webp){: .browser-extension}
+![](/images/develop/smart-contracts/wallets/subwallet-04.webp){: .browser-extension}
 
 ### Talisman
 

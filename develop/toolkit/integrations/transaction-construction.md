@@ -171,7 +171,7 @@ yarn run polkadot
 
 --8<-- 'code/develop/toolkit/integrations/txwrapper-output.html'
 
-The [`txwrapper example script`](https://github.com/paritytech/txwrapper-core/blob/main/packages/txwrapper-examples/polkadot/src/polkadot.ts){target=\_blank} includes several reference examples.
+The [`txwrapper` example script](https://github.com/paritytech/txwrapper-core/blob/main/packages/txwrapper-examples/polkadot/src/polkadot.ts){target=\_blank} includes several reference examples.
 
 ## Additional Libraries for Submitting a Transaction
 

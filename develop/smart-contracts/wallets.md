@@ -46,9 +46,9 @@ The steps in the preceding section can be used to connect to any chain by modify
 SubWallet now fully supports the [Polkadot Hub TestNet](/polkadot-protocol/smart-contract-basics/networks/#test-networks){target=\_blank} where developers can deploy and interact with Ethereum-compatible, PolkaVM Solidity smart contracts.
 You can easily view and manage your Paseo native token (PAS) using the Ethereum RPC endpoint (Passet Hub EVM) or the Substrate node RPC endpoint (passet-hub).
 
-??? code "Polkadot Hub Testnet"
-    You can see support here for Polkadot Hub's Testnet. Passet Hub EVM is the ETH RPC endpoint and passet-hub is the Substrate endpoint.
-    Note the PAS token which is the native token of the Polkadot Hub TestNet.
+??? code "Polkadot Hub TestNet"
+    You can see support here for Polkadot Hub's TestNet. The **Passet Hub EVM** network uses an ETH RPC endpoint, and the **passet-hub** uses a Substrate endpoint.
+    Note the PAS token, which is the native token of the Polkadot Hub TestNet.
 
     <img height="756" alt="" src="/images/develop/smart-contracts/wallets/subwallet-PAS.webp" />
 

@@ -125,7 +125,7 @@ By default, submit will create a mortal extrinsic with a lifetime of 50 blocks.
 
 Assuming a six-second block time, you will have five minutes to go offline, sign the transaction, paste the signature, and submit the signed transaction.
 
-You will get useful output in the terminal with details like the events that were fired off as well as the block in which the extrinsic is in. 
+You will get useful output in the terminal with details like the events that were fired off, as well as the block in which the extrinsic is in. 
 
 ??? code "Full example output"
     --8<-- 'code/develop/toolkit/integrations/signer-cli-submit-full-output.html'

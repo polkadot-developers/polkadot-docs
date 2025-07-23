@@ -100,7 +100,7 @@ Once connected, you can review blocks, call extrinsics, inspect storage, and int
 
 ## Parachain Compatibility
 
-The `polkadot-omni-node` is designed to work with most parachains out of the box, but your parachain's runtime must meet certain requirements and follow specific conventions to be compatible. This section outlines what your runtime needs to implement and configure to work seamlessly with the `polkadot-omni-node`:
+The `polkadot-omni-node` is designed to work with most parachains out of the box; however, your parachain's runtime must meet specific requirements and follow certain conventions to be compatible. This section outlines what your runtime needs to implement and configure to work seamlessly with the `polkadot-omni-node`:
 
 - Your runtime must implement the required runtime APIs (see below).
 - Your runtime must include and configure the required pallets.
@@ -188,4 +188,4 @@ Your runtime must include and properly configure the following pallets:
     pub type ParachainInfo = parachain_info::Pallet<Runtime>;
     ```
 
-If you're migrating an existing parachain to use the `polkadot-omni-node`, you may need to perform runtime upgrades to add the required runtime APIs and pallets. Follow the standard parachain [runtime upgrade](/develop/parachains/maintenance/runtime-upgrades){target=\_blank} procedures to implement these changes on your live network.
+If you're migrating an existing parachain to use the `polkadot-omni-node`, you may need to perform runtime upgrades to add the required runtime APIs and pallets. Follow the standard parachain [runtime upgrade](/develop/parachains/maintenance/runtime-upgrades/){target=\_blank} procedures to implement these changes on your live network.

@@ -12,16 +12,6 @@ Cross-chain asset transfers in the Polkadot ecosystem require careful planning a
 
 This comprehensive guide outlines essential best practices for teleporting assets using XCM, from pre-flight checks to transaction execution. You'll learn how to avoid common pitfalls, implement proper validation, and ensure your cross-chain transfers succeed reliably.
 
-## What You'll Learn
-
-By the end of this guide, you'll understand:
-
-- ✅ How to validate account existence and existential deposits
-- ✅ Proper fee estimation and coverage verification
-- ✅ The differences between [sufficient and non-sufficient assets](/polkadot-protocol/architecture/system-chains/asset-hub/#sufficient-and-non-sufficient-assets){target=_blank}
-- ✅ How to implement comprehensive dry-run testing
-- ✅ Common errors and how to prevent them
-- ✅ Production-ready validation patterns
 
 ## Prerequisites
 
@@ -89,9 +79,7 @@ Here is an example flow of teleporting an asset from a parachain to Asset Hub.
         style W fill:#fff3e0
     ```
 
-## Account Validation
-
-### Account Existence Verification
+## Account Existence Verification
 
 Always verify that the destination account exists or can be created before initiating transfers. Account queries should check:
 
@@ -144,7 +132,7 @@ Existential deposits vary by network and must be maintained to keep accounts act
 - **Kusama**: 0.0033 KSM (3.3 * 10^10 planck)  
 - **Asset Hub**: 0.1 DOT (10^9 planck)
 
-For non-sufficient assets, ensure the destination account has sufficient native tokens to maintain the ED, or include asset conversion instructions in the XCM.
+For non-sufficient assets, ensure the destination account has sufficient native token or sufficient asset to maintain the ED, or include asset conversion instructions in the XCM.
 
 ## Fee Estimation and Coverage
 
@@ -231,7 +219,6 @@ Non-sufficient assets require:
 
 - Existing destination accounts with ED
 - Alternative fee payment mechanisms
-- Additional validation steps as referenced throughout this article
 
 **Best Practices:**
 
@@ -240,23 +227,10 @@ Non-sufficient assets require:
 - Plan for fee payment using sufficient assets
 - Test with realistic scenarios including account creation
 
-## Dry Run Testing Requirements
+## Comprehensive Dry Run Testing
 
-### Local Dry Run Validation
-
-Execute dry runs on the source chain to validate:
-
-- Transaction construction correctness
-- Sufficient balance for transfer and fees
-- Proper XCM message generation
-
-### Remote Dry Run Validation
-
-Execute dry runs on the destination chain to verify:
-
-- XCM message execution success
-- Asset reception and processing
-- Account creation or balance updates
+Dry run testing represents the most critical step in preventing asset loss during teleportation. Execute dry runs on both the source and destination chains to validate every aspect of the transfer before committing to the actual transaction. Local dry runs on the source chain validate transaction construction correctness, sufficient balance for transfer and fees, and proper XCM message generation.
+Remote dry runs on the destination chain verify that the XCM message will execute successfully, including asset reception and processing, account creation or balance updates, and proper fee deduction. This two-phase validation approach catches the majority of potential issues before they can cause problems in production.
 
 ### Example Dry Run Implementation
 
@@ -268,79 +242,44 @@ Execute dry runs on the destination chain to verify:
 
 ## Common Errors and Prevention
 
+Asset teleportation failures can occur for various reasons, each with specific causes and prevention strategies. Understanding these common error patterns helps you implement proper validation and avoid the most frequent pitfalls that lead to failed transfers or trapped assets. Each error type requires different diagnostic approaches and preventive measures to ensure reliable cross-chain operations.
+
 ### Common Account and Balance Issues
 
-**FailedToTransactAsset Errors:**
-
-- Missing destination accounts
-- Insufficient existential deposits
-- Asset not found on destination
-
-**Prevention:**
-
-- Verify account existence before transfer
-- Ensure ED requirements are met
-- Validate asset registration on destination chain
+| **FailedToTransactAsset Errors** | **Prevention** |
+|-----------------------------------|----------------|
+| • Missing destination accounts<br>• Insufficient existential deposits<br>• Asset not found on destination | • Verify account existence before transfer<br>• Ensure ED requirements are met<br>• Validate asset registration on destination chain |
 
 ### Fee Payment Failures
 
-**TooExpensive Errors:**
-
-- Insufficient funds for fees
-- Fee payment asset not accepted
-- High network congestion costs
-
-**Prevention:**
-
-- Implement proper fee estimation
-- Include buffer for fee fluctuations
-- Use asset conversion when necessary
+| **TooExpensive Errors** | **Prevention** |
+|-------------------------|----------------|
+| • Insufficient funds for fees<br>• Fee payment asset not accepted<br>• High network congestion costs | • Implement proper fee estimation<br>• Include buffer for fee fluctuations<br>• Use asset conversion when necessary |
 
 ### Asset Compatibility Issues
 
-**AssetNotFound/Unsupported Errors:**
+| **AssetNotFound/Unsupported Errors** | **Prevention** |
+|--------------------------------------|----------------|
+| • Asset not registered on destination<br>• Incorrect asset ID or format<br>• Asset not enabled for XCM | • Verify asset registration before transfer<br>• Use correct asset identifiers<br>• Check XCM configuration for asset support |
 
-- Asset not registered on destination
-- Incorrect asset ID or format
-- Asset not enabled for XCM
+### XCM Configuration Issues
 
-**Prevention:**
+| **Barrier Errors** | **Prevention** |
+|:-------------------|:---------------|
+| • XCM message blocked by safety barriers<br>• Origin not authorized for operation<br>• Asset transfer limits exceeded<br>• Unsupported XCM version or instruction | • Verify XCM barrier configuration on destination<br>• Ensure origin has proper permissions<br>• Check asset transfer limits and restrictions<br>• Use supported XCM version and instructions |
 
-- Verify asset registration before transfer
-- Use correct asset identifiers
-- Check XCM configuration for asset support
 
 ## Network-Specific Considerations
 
 ### Testnet vs Mainnet Configuration
 
-**Testnet (Westend) Characteristics:**
+Different networks within the Polkadot ecosystem have varying characteristics that affect teleportation implementation. Testnet environments like Paseo use different decimal precision (12 for PAS vs 10 for DOT), can have different existential deposit amounts, and require test-specific RPC endpoints. Always use appropriate configuration for the target environment and avoid mixing testnet and mainnet configurations.
 
-- Different decimal precision (12 vs 10 for DOT)
-- Separate asset registrations
-- Different existential deposit amounts
-- Test-specific RPC endpoints required
-
-**Mainnet Production Considerations:**
-
-- Higher existential deposits
-- Real economic value at risk
-- Network congestion affects fees
-- Stricter validation requirements
+Mainnet production environments require higher existential deposits, involve real economic value at risk, experience network congestion that affects fees, and have stricter validation requirements. Plan for these production realities by implementing robust error handling, fee buffers, and comprehensive monitoring systems.
 
 ### Parachain Compatibility
 
-Different parachains have varying:
-
-- XCM version support (V2, V3, V4, V5)
-- Sufficient Assets
-- Non-Sufficient Assets
-- Asset registration requirements
-- Fee payment mechanisms
-- Barrier configurations
-- Asset conversion capability
-
-Always verify compatibility before implementing cross-chain transfers to new destinations.
+Parachain compatibility varies significantly across the ecosystem. Different parachains support different XCM versions (V2, V3, V4, V5), have unique lists of sufficient and non-sufficient assets, varying asset registration requirements, different fee payment mechanisms, distinct barrier configurations, and different asset conversion capabilities. Always verify compatibility thoroughly before implementing cross-chain transfers to new destinations.
 
 ## Error Handling Strategies
 
@@ -369,26 +308,22 @@ function handleXcmError(error) {
 }
 ```
 
-### Recovery Mechanisms
+### Recovering Trapped Assets
 
-For trapped assets:
-
-- Monitor execution events for partial failures
-- Implement asset recovery procedures
-- Use governance mechanisms when available
+XCM has the [`ClaimAsset`](https://paritytech.github.io/polkadot-sdk/master/cumulus_primitives_core/enum.Instruction.html#variant.ClaimAsset){target=\_blank} instruction which can be utilized to recover trapped assets. Typically on a live chain this would have to go through a governance proposal.
 
 ## Production Deployment Checklist
 
 Before deploying asset teleportation features:
 
-- [ ] Comprehensive dry run testing implemented
-- [ ] Account existence validation in place
-- [ ] Proper fee estimation using runtime APIs
-- [ ] Asset compatibility verified across target networks
-- [ ] Error handling and recovery procedures documented
-- [ ] Monitoring and alerting systems configured
-- [ ] Incident response procedures established
-- [ ] User education materials prepared
+- Comprehensive dry run testing implemented
+- Account existence validation in place
+- Proper fee estimation using runtime APIs
+- Asset compatibility verified across target networks
+- Error handling and recovery procedures documented
+- Monitoring and alerting systems configured
+- Incident response procedures established
+- User education materials prepared
 
 ## Conclusion
 

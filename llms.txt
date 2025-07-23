@@ -5,6 +5,7 @@ Documentation: https://docs.polkadot.com/
 
 # List of doc pages:
 Doc-Page: https://docs.polkadot.com/develop/
+Doc-Page: https://docs.polkadot.com/develop/interoperability/best-practices-for-teleporting-assets/
 Doc-Page: https://docs.polkadot.com/develop/interoperability/
 Doc-Page: https://docs.polkadot.com/develop/interoperability/intro-to-xcm/
 Doc-Page: https://docs.polkadot.com/develop/interoperability/send-messages/
@@ -176,11 +177,10 @@ Doc-Page: https://docs.polkadot.com/tutorials/polkadot-sdk/parachains/zero-to-he
 Doc-Page: https://docs.polkadot.com/tutorials/polkadot-sdk/parachains/zero-to-hero/runtime-upgrade/
 Doc-Page: https://docs.polkadot.com/tutorials/polkadot-sdk/parachains/zero-to-hero/set-up-a-template/
 Doc-Page: https://docs.polkadot.com/tutorials/polkadot-sdk/system-chains/asset-hub/asset-conversion/
+Doc-Page: https://docs.polkadot.com/tutorials/polkadot-sdk/system-chains/asset-hub/batch-teleport/
 Doc-Page: https://docs.polkadot.com/tutorials/polkadot-sdk/system-chains/asset-hub/
 Doc-Page: https://docs.polkadot.com/tutorials/polkadot-sdk/system-chains/asset-hub/register-foreign-asset/
 Doc-Page: https://docs.polkadot.com/tutorials/polkadot-sdk/system-chains/asset-hub/register-local-asset/
-Doc-Page: https://docs.polkadot.com/tutorials/polkadot-sdk/system-chains/asset-hub/teleport-an-asset-from-asset-hub/
-Doc-Page: https://docs.polkadot.com/tutorials/polkadot-sdk/system-chains/asset-hub/teleport-an-asset-to-asset-hub/
 Doc-Page: https://docs.polkadot.com/tutorials/polkadot-sdk/system-chains/
 Doc-Page: https://docs.polkadot.com/tutorials/polkadot-sdk/testing/fork-live-chains/
 Doc-Page: https://docs.polkadot.com/tutorials/polkadot-sdk/testing/
@@ -339,6 +339,586 @@ Integrate with the Polkadot blockchain's underlying protocol features to create 
 ## In This Section
 
 :::INSERT_IN_THIS_SECTION:::
+--- END CONTENT ---
+
+Doc-Content: https://docs.polkadot.com/develop/interoperability/best-practices-for-teleporting-assets/
+--- BEGIN CONTENT ---
+---
+title: Best Practices for Teleporting Assets
+description: An in-depth guide on best practices for teleporting assets using XCM
+tutorial_badge: Intermediate
+---
+
+# Best Practices for Teleporting Assets
+
+## Introduction
+
+Cross-chain asset transfers in the Polkadot ecosystem require careful planning and validation to ensure successful execution. Unlike simple blockchain transactions that either succeed or fail cleanly, XCM operations can result in trapped or lost assets if not properly constructed.
+
+This comprehensive guide outlines essential best practices for teleporting assets using XCM, from pre-flight checks to transaction execution. You'll learn how to avoid common pitfalls, implement proper validation, and ensure your cross-chain transfers succeed reliably.
+
+## What You'll Learn
+
+By the end of this guide, you'll understand:
+
+- ✅ How to validate account existence and existential deposits
+- ✅ Proper fee estimation and coverage verification
+- ✅ The differences between [sufficient and non-sufficient assets](/polkadot-protocol/architecture/system-chains/asset-hub/#sufficient-and-non-sufficient-assets){target=_blank}
+- ✅ How to implement comprehensive dry-run testing
+- ✅ Common errors and how to prevent them
+- ✅ Production-ready validation patterns
+
+## Prerequisites
+
+Before implementing asset teleports, ensure you have:
+
+- Strong knowledge of [XCM (Cross-Consensus Messaging)](/develop/interoperability/intro-to-xcm/){target=_blank}
+- Firm understanding of [sufficient and non-sufficient assets](/polkadot-protocol/architecture/system-chains/asset-hub/#sufficient-and-non-sufficient-assets){target=_blank}
+- Familiarity with Polkadot runtime APIs
+- Understanding of existential deposits and the Substrate account model
+
+## Teleporting an Asset
+
+Asset teleportation requires comprehensive pre-flight validation to prevent failures and asset loss. 
+
+Here is an example flow of teleporting an asset from a parachain to Asset Hub.
+
+???- example "Teleporting a Non-Sufficient Asset from a Parachain to Asset Hub"
+
+    ```mermaid
+    flowchart TD
+        A[Teleporting a <br/>Non-Sufficient Asset<br/>from a Parachain to <br/>Asset Hub] --> B[Check account existence<br/>on Asset Hub]
+        B --> C{Account exists?}
+        C -->|No| D[Account needs to be <br/>created with sufficient <br/>asset for ED]
+        C -->|Yes| E[Check existential deposit<br/>on Asset Hub]
+        
+        D --> F[Ensure sufficient asset<br/>available for ED]
+        F --> E
+        
+        E --> G{Has existential deposit?}
+        G -->|No| H[Need sufficient asset<br/>for ED requirement]
+        G -->|Yes| I[Check fee coverage]
+        
+        H --> J[Swap non-sufficient asset<br/>for sufficient asset via<br/>Asset Conversion]
+        J --> I
+        
+        I --> K{Enough funds for fees?}
+        K -->|No| L[Estimate fees<br/>using Transaction Payment <br/>API and XCM Payment API]
+        K -->|Yes| M[Dry-run cross-chain <br/>transaction]
+        
+        L --> N[Estimate fee in <br/>non-sufficient asset<br/>using Asset Conversion API]
+        N --> O[Ensure sufficient balance<br/>for fees + transfer amount]
+        O --> M
+        
+        M --> P[Local dry-run on <br/>source chain]
+        P --> Q{Local dry-run success?}
+        Q -->|No| R[Fix local issues<br/>- Insufficient balance<br/>- Invalid XCM construction]
+        Q -->|Yes| S[Remote dry-run on <br/>Asset Hub]
+        
+        R --> P
+        
+        S --> T{Remote dry-run success?}
+        T -->|No| U[Common Issues:<br/>- Missing ED<br/>- Invalid account<br/>- Fee payment failure]
+        T -->|Yes| V[Execute cross-chain <br/>transaction]
+        
+        U --> W[Modify XCM e.g. include<br/>ExchangeAsset instruction<br/>to swap for ED]
+        W --> S
+        
+        V --> X[Transaction complete<br/>asset transferred <br/>successfully]
+        
+        style A fill:#e1f5fe
+        style X fill:#e8f5e8
+        style R fill:#ffebee
+        style U fill:#ffebee
+        style J fill:#fff3e0
+        style W fill:#fff3e0
+    ```
+
+## Account Validation
+
+### Account Existence Verification
+
+Always verify that the destination account exists or can be created before initiating transfers. Account queries should check:
+
+- Account existence on the destination chain
+- Current balance and nonce information  
+- Whether the account meets existential deposit requirements
+
+???- example "Account Existence Check Examples"
+
+    **Using PolkadotJS API:**
+    ```javascript
+    async function checkAccountExistence(api, address) {
+      const accountInfo = await api.query.system.account(address);
+      const balance = accountInfo.data.free.toBigInt();
+      const existentialDeposit = api.consts.balances.existentialDeposit.toBigInt();
+      
+      return {
+        exists: !accountInfo.isEmpty,
+        balance,
+        hasExistentialDeposit: balance >= existentialDeposit
+      };
+    }
+    ```
+
+    **Using Polkadot API (PAPI):**
+    ```typescript
+    import { dot } from "@polkadot-api/descriptors";
+    import { createClient } from "polkadot-api";
+    import { getWsProvider } from "polkadot-api/ws-provider/web";
+
+    async function queryAccountBalance(address: string) {
+      const client = createClient(getWsProvider("wss://rpc.polkadot.io"));
+      const api = client.getTypedApi(dot);
+      
+      const accountInfo = await api.query.System.Account.getValue(address);
+      const existentialDeposit = await api.constants.Balances.ExistentialDeposit();
+      
+      return {
+        balance: accountInfo?.data.free ?? 0n,
+        hasED: (accountInfo?.data.free ?? 0n) >= existentialDeposit
+      };
+    }
+    ```
+
+### Existential Deposit Considerations
+
+Existential deposits vary by network and must be maintained to keep accounts active:
+
+- **Polkadot**: 1 DOT (10^10 planck)
+- **Kusama**: 0.0033 KSM (3.3 * 10^10 planck)  
+- **Asset Hub**: 0.1 DOT (10^9 planck)
+
+For non-sufficient assets, ensure the destination account has sufficient native tokens to maintain the ED, or include asset conversion instructions in the XCM.
+
+## Fee Estimation and Coverage
+
+### Runtime API Integration
+
+Use proper runtime APIs for accurate fee estimation rather than hardcoded values:
+
+**Transaction Payment API** for local fees:
+```typescript
+import { dot } from "@polkadot-api/descriptors";
+import { createClient } from "polkadot-api";
+import { getWsProvider } from "polkadot-api/ws-provider/web";
+
+const client = createClient(getWsProvider("wss://rpc.polkadot.io"));
+const api = client.getTypedApi(dot);
+
+const feeDetails = await api.apis.TransactionPaymentApi.query_fee_details(
+  call.toHex(),
+  call.encodedLength
+);
+```
+
+**XCM Payment API** for cross-chain delivery fees:
+```typescript
+import { dot } from "@polkadot-api/descriptors";
+import { createClient } from "polkadot-api";
+import { getWsProvider } from "polkadot-api/ws-provider/web";
+
+const client = createClient(getWsProvider("wss://rpc.polkadot.io"));
+const api = client.getTypedApi(dot);
+
+const deliveryFees = await api.apis.XcmPaymentApi.query_delivery_fees(
+  destination,
+  message
+);
+```
+
+**Asset Conversion API** (available on Asset Hub) for fee conversion:
+```typescript
+import { ah } from "@polkadot-api/descriptors";
+import { createClient } from "polkadot-api";
+import { getWsProvider } from "polkadot-api/ws-provider/web";
+
+const client = createClient(getWsProvider("wss://rpc.polkadot.io"));
+const api = client.getTypedApi(ah);
+
+const feeInAsset = await api.apis.AssetConversionApi.quote_price_exact_tokens_for_tokens(
+  assetIn,
+  assetOut,
+  amountIn
+);
+```
+
+### Multi-Asset Fee Handling
+
+For non-sufficient assets, implement fee payment strategies:
+
+1. **Asset Conversion**: Convert part of the transfer amount to pay fees
+2. **Separate Fee Payment**: Use a different sufficient asset for fees
+3. **Fee Sponsorship**: Have another account pay fees on behalf of the user
+
+## Asset Type Considerations
+
+### Sufficient Assets
+
+!!!note Sufficient Assets
+    Always check the chain to see what assets are considered sufficient assets.
+    This may vary from chain to chain.
+
+Sufficient assets can:
+
+- Pay for transaction fees directly
+- Meet existential deposit requirements and can suffice for creating new accounts
+
+**Best Practices:**
+
+- Verify minimum transfer amounts meet destination requirements
+- Account for both transaction and existential deposit costs
+- Handle automatic account creation scenarios
+
+### Non-Sufficient Assets
+
+Non-sufficient assets require:
+
+- Existing destination accounts with ED
+- Alternative fee payment mechanisms
+- Additional validation steps as referenced throughout this article
+
+**Best Practices:**
+
+- Always verify recipient account status
+- Include asset conversion for ED if needed
+- Plan for fee payment using sufficient assets
+- Test with realistic scenarios including account creation
+
+## Dry Run Testing Requirements
+
+### Local Dry Run Validation
+
+Execute dry runs on the source chain to validate:
+
+- Transaction construction correctness
+- Sufficient balance for transfer and fees
+- Proper XCM message generation
+
+### Remote Dry Run Validation
+
+Execute dry runs on the destination chain to verify:
+
+- XCM message execution success
+- Asset reception and processing
+- Account creation or balance updates
+
+### Example Dry Run Implementation
+
+???- example "Comprehensive Dry Run Example"
+
+    ```typescript title="dry-run-example.ts"
+    import {
+  ah,
+  myth,
+  XcmV3Junction,
+  XcmV3Junctions,
+  XcmV3MultiassetFungibility,
+  XcmV3WeightLimit,
+  XcmV4AssetAssetFilter,
+  XcmV4AssetWildAsset,
+  XcmV4Instruction,
+  XcmVersionedAssets,
+  XcmVersionedLocation,
+  XcmVersionedXcm
+} from "@polkadot-api/descriptors";
+import { createClient, Enum, FixedSizeBinary, type Transaction } from "polkadot-api";
+import { getWsProvider } from "polkadot-api/ws-provider/web";
+import { withPolkadotSdkCompat } from "polkadot-api/polkadot-sdk-compat";
+
+// Some constants.
+// For Asset Hub.
+const ASSET_HUB_WS_URL = "ws://localhost:8000";
+const ASSET_HUB_PARA_ID = 1000;
+const ASSET_HUB_ACCOUNT = "15oF4uVJwmo4TdGW7VfQxNLavjCXviqxT9S1MgbjMNHr6Sp5";
+const DOT_UNITS = 10_000_000_000n; // 10 decimals.
+const DOT_CENTS = DOT_UNITS / 100n;
+
+// For Mythos.
+const MYTHOS_WS_URL = "ws://localhost:8001";
+const MYTHOS_PARA_ID = 3369;
+const MYTHOS_ACCOUNT = "0x69CF15A9393A0869A7fE535eCFe2C3CbaC127A40";
+const MYTH_UNITS = 1_000_000_000_000_000_000n; // 18 decimals.
+ 
+// Connect to Mythos.
+const mythosClient = createClient(
+  withPolkadotSdkCompat(
+    getWsProvider(MYTHOS_WS_URL)
+  )
+);
+
+// Get the typed API which lets us use descriptors.
+const mythApi = mythosClient.getTypedApi(myth);
+
+// Build the teleport transaction.
+const tx = mythApi.tx.PolkadotXcm.limited_teleport_assets({
+  dest: XcmVersionedLocation.V4({
+    parents: 1,
+    interior: XcmV3Junctions.X1(XcmV3Junction.Parachain(ASSET_HUB_PARA_ID)),
+  }),
+  beneficiary: XcmVersionedLocation.V4({
+    parents: 0,
+    interior: XcmV3Junctions.X1(XcmV3Junction.AccountId32({
+      id: FixedSizeBinary.fromAccountId32(ASSET_HUB_ACCOUNT),
+      network: undefined,
+    })),
+  }),
+  assets: XcmVersionedAssets.V4([
+    {
+      id: { parents: 0, interior: XcmV3Junctions.Here() },
+      fun: XcmV3MultiassetFungibility.Fungible(1n * MYTH_UNITS)
+    },
+  ]),
+  fee_asset_item: 0,
+  weight_limit: XcmV3WeightLimit.Unlimited(),
+});
+
+await dryRun(tx.decodedCall);
+
+async function dryRun(call: Transaction<any, any, any, any>['decodedCall']) {
+  // Dry run the teleport locally so we know we can for example withdraw
+  // the necessary funds and pay for delivery fees.
+  console.log('Dry running teleport on Mythos...')
+  const localDryRunResult = await mythApi.apis.DryRunApi.dry_run_call(
+    Enum('system', Enum('Signed', MYTHOS_ACCOUNT)),
+    call,
+  );
+
+  // Only continue if the local dry run works.
+  // The first condition is whether or not the runtime API was successful,
+  // the second is whether or not the underlying dry-run was successful.
+  if (localDryRunResult.success && localDryRunResult.value.execution_result.success) {
+    // We are interested in the message to Asset Hub that results from our call.
+    // We filter for it here.
+    const [_, messages] =
+      localDryRunResult.value.forwarded_xcms.find(
+        ([location, _]) =>
+          // We happen to know the latest version in Mythos is V5 because of the descriptors.
+          location.type === 'V5' &&
+            location.value.parents === 1 &&
+            location.value.interior.type === 'X1' &&
+            location.value.interior.value.type === 'Parachain' &&
+            location.value.interior.value.value === ASSET_HUB_PARA_ID
+        )!;
+    // There could be multiple messages to Asset Hub, we know it's only one
+    // so we take the first one.
+    const messageToAh = messages[0];
+
+    // We connect to Asset Hub to dry run this message there.
+    const assetHubClient = createClient(getWsProvider(ASSET_HUB_WS_URL));
+    const ahApi = assetHubClient.getTypedApi(ah);
+
+    // We need to make sure it's V4 because V5 is not supported by asset hub.
+    // We get the supported versions directly from the descriptors.
+    if (messageToAh.type === 'V4') {
+      console.log('Dry running on Asset Hub...');
+      const remoteDryRunResult =
+        await ahApi.apis.DryRunApi.dry_run_xcm(
+          XcmVersionedLocation.V4({
+            parents: 1,
+            interior: XcmV3Junctions.X1(XcmV3Junction.Parachain(MYTHOS_PARA_ID))
+          }),
+          messageToAh
+        );
+
+      if (remoteDryRunResult.success && remoteDryRunResult.value.execution_result.type === 'Complete') {
+        // Success! Let's go ahead with the teleport.
+        console.log('Success!');
+      } else {
+        // It probably failed because our account doesn't exist on Asset Hub and
+        // we don't have DOT for the existential deposit.
+        // We should solve that problem and try again.
+        // We will later improve errors so that we know exactly what went wrong and can act accordingly.
+        // See https://github.com/paritytech/polkadot-sdk/issues/6119.
+        console.log('Failure :( Going to try again.');
+
+        // We're manually building an XCM here since we want to use the `ExchangeAsset` instruction
+        // to swap some of the MYTH for DOT to cover the existential deposit.
+        // This is executed via `PolkadotXcm.execute()` on Mythos and will send a message to Asset Hub.
+        const xcm = XcmVersionedXcm.V4([
+          // We withdraw some MYTH from our account on Mythos.
+          XcmV4Instruction.WithdrawAsset([
+            { id: { parents: 0, interior: XcmV3Junctions.Here() }, fun: XcmV3MultiassetFungibility.Fungible(100n * MYTH_UNITS) },
+          ]),
+          // Use them to pay fees.
+          XcmV4Instruction.BuyExecution({
+            fees: { id: { parents: 0, interior: XcmV3Junctions.Here() }, fun: XcmV3MultiassetFungibility.Fungible(100n * MYTH_UNITS) },
+            weight_limit: XcmV3WeightLimit.Unlimited(),
+          }),
+          // Teleport the MYTH to Asset Hub.
+          XcmV4Instruction.InitiateTeleport({
+            assets: XcmV4AssetAssetFilter.Wild(XcmV4AssetWildAsset.AllCounted(1)),
+            dest: { parents: 1, interior: XcmV3Junctions.X1(XcmV3Junction.Parachain(ASSET_HUB_PARA_ID)) },
+            xcm: [
+              // We pay fees with MYTH on Asset Hub.
+              // This is possible because Asset Hub allows paying fees with any asset that has a liquidity pool.
+              XcmV4Instruction.BuyExecution({
+                fees: { id: { parents: 1, interior: XcmV3Junctions.X1(XcmV3Junction.Parachain(MYTHOS_PARA_ID)) }, fun: XcmV3MultiassetFungibility.Fungible(50n * MYTH_UNITS) },
+                weight_limit: XcmV3WeightLimit.Unlimited(),
+              }),
+              // We explicitly swap our MYTH for 0.01 DOT to cover ED.
+              XcmV4Instruction.ExchangeAsset({
+                give: XcmV4AssetAssetFilter.Wild(XcmV4AssetWildAsset.AllCounted(1)),
+                want: [{ id: { parents: 1, interior: XcmV3Junctions.Here() }, fun: XcmV3MultiassetFungibility.Fungible(1n * DOT_CENTS) }],
+                maximal: false,
+              }),
+              // We deposit all our MYTH and our 0.01 DOT into the beneficiary account.
+              XcmV4Instruction.DepositAsset({
+                assets: XcmV4AssetAssetFilter.Wild(XcmV4AssetWildAsset.AllCounted(2)),
+                beneficiary: {
+                  parents: 0,
+                  interior: XcmV3Junctions.X1(XcmV3Junction.AccountId32({
+                    id: FixedSizeBinary.fromAccountId32(ASSET_HUB_ACCOUNT),
+                    network: undefined,
+                  })),
+                },
+              }),
+            ],
+          }),
+        ]);
+
+        const tx = mythApi.tx.PolkadotXcm.execute({
+          message: xcm,
+          max_weight: { ref_time: 4_000_000_000n, proof_size: 300_000n }
+        });
+
+        // We try the dry run again.
+        dryRun(tx.decodedCall);
+      }
+    }
+  }
+}
+    ```
+
+## Common Errors and Prevention
+
+### Common Account and Balance Issues
+
+**FailedToTransactAsset Errors:**
+
+- Missing destination accounts
+- Insufficient existential deposits
+- Asset not found on destination
+
+**Prevention:**
+
+- Verify account existence before transfer
+- Ensure ED requirements are met
+- Validate asset registration on destination chain
+
+### Fee Payment Failures
+
+**TooExpensive Errors:**
+
+- Insufficient funds for fees
+- Fee payment asset not accepted
+- High network congestion costs
+
+**Prevention:**
+
+- Implement proper fee estimation
+- Include buffer for fee fluctuations
+- Use asset conversion when necessary
+
+### Asset Compatibility Issues
+
+**AssetNotFound/Unsupported Errors:**
+
+- Asset not registered on destination
+- Incorrect asset ID or format
+- Asset not enabled for XCM
+
+**Prevention:**
+
+- Verify asset registration before transfer
+- Use correct asset identifiers
+- Check XCM configuration for asset support
+
+## Network-Specific Considerations
+
+### Testnet vs Mainnet Configuration
+
+**Testnet (Westend) Characteristics:**
+
+- Different decimal precision (12 vs 10 for DOT)
+- Separate asset registrations
+- Different existential deposit amounts
+- Test-specific RPC endpoints required
+
+**Mainnet Production Considerations:**
+
+- Higher existential deposits
+- Real economic value at risk
+- Network congestion affects fees
+- Stricter validation requirements
+
+### Parachain Compatibility
+
+Different parachains have varying:
+
+- XCM version support (V2, V3, V4, V5)
+- Sufficient Assets
+- Non-Sufficient Assets
+- Asset registration requirements
+- Fee payment mechanisms
+- Barrier configurations
+- Asset conversion capability
+
+Always verify compatibility before implementing cross-chain transfers to new destinations.
+
+## Error Handling Strategies
+
+### Graceful Degradation
+
+Implement fallback mechanisms for common failures:
+
+```typescript
+function handleXcmError(error) {
+  if (error.includes('FailedToTransactAsset')) {
+    // Try with asset conversion or ED funding
+    return retryWithConversion();
+  }
+  
+  if (error.includes('TooExpensive')) {
+    // Wait for lower network congestion or increase fee
+    return retryWithHigherFee();
+  }
+  
+  if (error.includes('Barrier')) {
+    // Check asset permissions and XCM configuration
+    return validateAssetPermissions();
+  }
+  
+  throw new Error(`Unhandled XCM error: ${error}`);
+}
+```
+
+### Recovery Mechanisms
+
+For trapped assets:
+
+- Monitor execution events for partial failures
+- Implement asset recovery procedures
+- Use governance mechanisms when available
+
+## Production Deployment Checklist
+
+Before deploying asset teleportation features:
+
+- [ ] Comprehensive dry run testing implemented
+- [ ] Account existence validation in place
+- [ ] Proper fee estimation using runtime APIs
+- [ ] Asset compatibility verified across target networks
+- [ ] Error handling and recovery procedures documented
+- [ ] Monitoring and alerting systems configured
+- [ ] Incident response procedures established
+- [ ] User education materials prepared
+
+## Conclusion
+
+Successful asset teleportation requires meticulous validation, proper error handling, and comprehensive testing. Always prioritize safety over convenience, implement thorough dry run testing, and maintain robust monitoring systems to ensure reliable cross-chain asset transfers.
+
+The key to preventing asset loss is comprehensive pre-flight validation combined with proper XCM construction and execution monitoring. When in doubt, always dry run transactions on both source and destination chains before execution.
 --- END CONTENT ---
 
 Doc-Content: https://docs.polkadot.com/develop/interoperability/
@@ -21776,7 +22356,7 @@ On Asset Hub, sufficient assets:
 
 - Can be natively used for the existential deposit (ED)
 - Can be natively used for [paying transaction fees](#transaction-fees)
-- Can be used for [paying XCM fees](#xcm-fees)
+- Can be natively used for [paying XCM fees](#xcm-fees)
 - Cannot be used for storage deposits (only if swapped for the native token)
 
 ### Non-Sufficient Assets
@@ -21808,9 +22388,20 @@ For non-sufficient assets, this can be done by calling [asset conversion's swap]
 !!!note "UIs, Wallets, and Tools Interacting with Asset Hub"
     When developing cross-chain applications to interact with Asset Hub it is important to consider the UI/UX and the trade-offs it may have. 
 
-    For example, if you want to send 100 USDT to a new Asset Hub account, does the amount swapped for existential deposit (ED) get debited from the sending amount (e.g. receiver gets 0.01 DOT and 99.95 USDT) or does the sender pay a little more (e.g. receiver gets the full 100 USDT) to cover for the ED, transaction fees, and any associated XCM fees.
+    Example Scenario: Sending 100 USDT to a new Asset Hub account
+    Option 1 - Deduct from sending amount:
 
-    Depending on the design decision made, the underlying XCM and transaction will be crafted differently.
+    Receiver gets: 100 USDT - 0.01 DOT (for ED) - transaction and XCM fees
+    Sender pays exactly 100 USDT total
+    Simpler for sender, but receiver gets less than expected
+
+    Option 2 - Additional sender cost:
+
+    Receiver gets: full 100 USDT + 0.01 DOT (for ED)
+    Sender pays: 100 USDT + 0.01 DOT (for ED) + transaction and XCM fees
+    More expensive for sender, but receiver gets full amount
+
+    Each approach requires different XCM program construction and affects the overall user experience.
 
 ## Integration
 
@@ -35101,6 +35692,372 @@ This command initiates a lazy fork of Polkadot Asset Hub, including the most rec
 You now have a local Asset Hub instance up and running, ready for you to test various asset conversion procedures. The process here mirrors what you'd do on MainNet. After completing a transaction on TestNet, you can apply the same steps to convert assets on MainNet.
 --- END CONTENT ---
 
+Doc-Content: https://docs.polkadot.com/tutorials/polkadot-sdk/system-chains/asset-hub/batch-teleport/
+--- BEGIN CONTENT ---
+# Batch Teleport
+
+Cross-chain asset transfers are a fundamental feature of the Polkadot ecosystem, enabling seamless movement of tokens between different parachains. The ParaSpell SDK simplifies this process by providing powerful tools for executing both single and batch teleport operations.
+
+This tutorial will guide you through creating batch teleport transactions using the [ParaSpell SDK](https://paraspell.github.io/docs/){target=_blank}. You'll learn how to bundle multiple cross-chain transfers into a single transaction, making your operations more efficient and cost-effective. By the end, you'll be able to execute batch teleports between Polkadot Hub chains and understand the underlying mechanisms.
+
+## Prerequisites
+
+Before getting started, ensure you have the following:
+
+- [Bun](https://bun.sh/){target=_blank} v1.0 or later installed on your system
+- A Polkadot wallet with sufficient test tokens for transaction fees
+- Basic understanding of TypeScript/JavaScript
+- Familiarity with Polkadot ecosystem concepts (parachains, XCM, teleports)
+- Some knowledge of [XCM (Cross-Consensus Messaging)](/develop/interoperability/intro-to-xcm/){target=_blank}
+
+## Project Overview
+
+This tutorial demonstrates how to create batch teleport transactions that can transfer tokens from one parachain to multiple destinations on the Polkadot relay chain in a single operation. You'll work with:
+
+- Asset Hub as the source chain
+- Multiple destination addresses
+- DOT/WND tokens as the transferred assets
+- Batch transaction construction and execution
+
+Below is a high-level overview of what you'll be building:
+
+```mermaid
+graph LR
+    subgraph "Source Chain"
+        AH[Asset Hub Polkadot]
+    end
+    
+    subgraph "Batch Transaction"
+        BT[Single Batch TX]
+    end
+    
+    subgraph "Destination Chain"
+        PC[Polkadot Relay Chain]
+    end
+    
+    subgraph "Recipients"
+        R1[5H1QSbC...7jg<br/>1 DOT]
+        R2[14E5nqK...Vf3<br/>1 DOT]
+    end
+    
+    AH --> BT
+    BT --> PC
+    PC --> R1
+    PC --> R2
+    
+    style AH fill:#e3f2fd
+    style BT fill:#fff3e0
+    style PC fill:#e8f5e8
+    style R1 fill:#f3e5f5
+    style R2 fill:#f3e5f5
+```
+
+Your project directory will be organized as follows:
+
+```bash
+batch-teleport-tutorial
+├── index.ts
+├── package.json
+└── README.md
+```
+
+## Set Up the Project
+
+Create a new Bun project:
+
+```bash
+mkdir batch-teleport-tutorial
+cd batch-teleport-tutorial
+bun init -y
+```
+
+## Install Dependencies
+
+Install the ParaSpell SDK:
+
+```bash
+bun add @paraspell/sdk
+```
+
+## Create the Implementation
+
+Create an `index.ts` file with the complete batch teleport implementation.
+> For testing purposes, you will be using Westend (a Polkadot TestNet).
+
+```typescript
+import { Builder, Version, BatchMode } from '@paraspell/sdk';
+
+// DOT has 10 decimals, we use this to simplify.
+const DOT_UNITS = 10_000_000_000n;
+// If using Westend, you should use these decimals.
+const WND_UNITS = 1_000_000_000_000n;
+// The RPC endpoints to connect to Westend.
+// Not needed if using Polkadot.
+const WESTEND_AH_RPC = 'wss://westend-asset-hub-rpc.polkadot.io';
+
+teleport();
+
+async function teleport() {
+  const builder = Builder([WESTEND_AH_RPC])
+    .from('AssetHubPolkadot')
+    .to('Polkadot')
+    .currency({ symbol: 'DOT', amount: 1n * WND_UNITS })
+    .address('5H1QSbCJbCMAwbRp5uxJmbRTcn17x7TxMTb3bNRMqcrTa7jg')
+    .xcmVersion(Version.V5)
+    .addToBatch()
+
+    .from('AssetHubPolkadot')
+    .to('Polkadot')
+    .currency({ symbol: 'DOT', amount: 1n * WND_UNITS })
+    .address('14E5nqKAp3oAJcmzgZhUD2RcptBeUBScxKHgJKU4HPNcKVf3')
+    .xcmVersion(Version.V5)
+    .addToBatch();
+  const tx = await builder.buildBatch({
+    // This settings object is optional and batch all is the default option
+    mode: BatchMode.BATCH_ALL //or BatchMode.BATCH
+  })
+  const callData = await tx.getEncodedData();
+
+  // This generates a link the polkadot developer console.
+  // Once there, it's easy to submit.
+  console.log(`Send via PAPI console:
+    https://dev.papi.how/extrinsics#networkId=westend_asset_hub&endpoint=light-client&data=${callData.asHex()}
+  `);
+}
+```
+
+Update your `package.json` to include the necessary scripts:
+
+```json
+{
+  "name": "batch-teleport-tutorial",
+  "version": "1.0.0",
+  "description": "Tutorial for creating batch teleport transactions with ParaSpell SDK using Bun",
+  "main": "index.ts",
+  "type": "module",
+  "scripts": {
+    "start": "bun run index.ts",
+    "dev": "bun run index.ts"
+  },
+  "dependencies": {
+    "@paraspell/sdk": "^10.10.5"
+  }
+}
+```
+
+## Configure Destination Addresses
+
+For testing purposes, you can also modify the destination addresses in the batch operations:
+- `'5H1QSbCJbCMAwbRp5uxJmbRTcn17x7TxMTb3bNRMqcrTa7jg'`
+- `'14E5nqKAp3oAJcmzgZhUD2RcptBeUBScxKHgJKU4HPNcKVf3'`
+
+## Run Your Batch Teleport
+
+Execute the batch teleport from your project directory:
+
+```bash
+bun run dev
+```
+
+You should see output similar to:
+
+```
+Send via PAPI console:
+    https://dev.papi.how/extrinsics#networkId=westend_asset_hub&endpoint=light-client&data=0x1c041c...
+```
+
+## How It Works
+
+Let's examine the key components of this batch teleport implementation:
+
+### 1. **Network Configuration**
+```typescript
+const WESTEND_AH_RPC = 'wss://westend-asset-hub-rpc.polkadot.io';
+```
+The RPC endpoint connects to the Westend Asset Hub, which serves as our source chain for the batch operations.
+
+### 2. **Token Decimals**
+```typescript
+const DOT_UNITS = 10_000_000_000n;
+const WND_UNITS = 1_000_000_000_000n;
+```
+Different networks use different decimal precision:
+- DOT uses 10 decimals on Polkadot
+- WND uses 12 decimals on Westend
+
+### 3. **Builder Pattern Chain**
+```typescript
+const builder = Builder([WESTEND_AH_RPC])
+  .from('AssetHubPolkadot')
+  .to('Polkadot')
+  .currency({ symbol: 'DOT', amount: 1n * WND_UNITS })
+  .address('5H1QSbCJbCMAwbRp5uxJmbRTcn17x7TxMTb3bNRMqcrTa7jg')
+  .xcmVersion(Version.V5)
+  .addToBatch()
+```
+
+Each chain in the builder:
+- **`.from()`**: Specifies the source parachain
+- **`.to()`**: Specifies the destination parachain
+- **`.currency()`**: Defines the token and amount to transfer
+- **`.address()`**: Sets the recipient address
+- **`.xcmVersion()`**: Uses XCM Version 5 for the transfer
+- **`.addToBatch()`**: Adds this operation to the batch queue
+
+### 4. **Batch Construction**
+```typescript
+const tx = await builder.buildBatch({
+  mode: BatchMode.BATCH_ALL
+});
+```
+
+The batch is built with `BatchMode.BATCH_ALL`, meaning all operations must succeed or the entire batch fails.
+
+### 5. **Transaction Encoding**
+```typescript
+const callData = await tx.getEncodedData();
+```
+
+The transaction is encoded into call data that can be submitted to the blockchain.
+
+### 6. **Console Integration**
+```typescript
+console.log(`Send via PAPI console:
+  https://dev.papi.how/extrinsics#networkId=westend_asset_hub&endpoint=light-client&data=${callData.asHex()}
+`);
+```
+
+The encoded data is formatted into a PAPI console link for easy submission through a web interface.
+
+![](/images/tutorials/polkadot-sdk/system-chains/asset-hub/batch-teleport/papi-console-01.webp)
+
+Make sure your Polkadot wallet is funded with some test tokens by using the [Polkadot faucet](https://faucet.polkadot.io/westend) and submit the transaction.
+
+## Understanding Batch Modes
+
+The ParaSpell SDK supports two batch modes:
+
+### BatchMode.BATCH_ALL
+- **Behavior**: All operations must succeed, or the entire batch fails
+- **Use Case**: When all transfers are critical and interdependent
+- **Gas Efficiency**: More efficient as it's a single atomic operation
+
+### BatchMode.BATCH
+- **Behavior**: Individual operations can fail independently
+- **Use Case**: When some transfers can fail without affecting others
+- **Resilience**: More resilient but with slightly higher gas overhead
+
+## Submitting the Transaction
+
+After running the script:
+
+1. **Copy the generated link** from the console output
+2. **Open the link** in your web browser
+3. **Connect your wallet** (such as Polkadot.js extension)
+4. **Review the transaction details** in the PAPI console
+5. **Submit the transaction** and confirm with your wallet
+
+The PAPI console will show:
+
+- The encoded call data
+- Transaction details and parameters
+- Estimated fees
+- Submission interface
+
+## Network Considerations
+
+### Testnet vs Mainnet
+The example uses Westend testnet configuration:
+
+- Uses `WESTEND_AH_RPC` endpoint
+- Transfers use `WND_UNITS` (12 decimals)
+- Safe for testing without real value
+
+For mainnet operations:
+
+- Remove the RPC endpoint parameter: `Builder([])`
+- Use `DOT_UNITS` for proper decimal handling
+- Ensure sufficient balance for real transfers
+
+### XCM Version
+The code uses `Version.V5`, which is the latest XCM version offering:
+
+- Improved error handling
+- Enhanced fee management
+- Better cross-chain communication reliability
+
+## Common Use Cases
+
+This batch teleport pattern is useful for:
+
+### 1. **Multi-recipient Airdrops**
+Send tokens to multiple addresses in a single transaction:
+
+```typescript
+// Each .addToBatch() creates a separate transfer
+.address('recipient1').addToBatch()
+.address('recipient2').addToBatch()
+.address('recipient3').addToBatch()
+```
+
+### 2. **Portfolio Rebalancing**
+Move assets across multiple parachains efficiently:
+
+```typescript
+// Different destination chains in the same batch
+.to('Polkadot').addToBatch()
+.to('Acala').addToBatch()
+.to('Moonbeam').addToBatch()
+```
+
+### 3. **Cost Optimization**
+Reduce transaction fees by batching multiple operations that would otherwise require separate transactions.
+
+## Error Handling
+
+If the batch fails, common issues include:
+
+- **Insufficient balance** on the source chain
+- **Invalid addresses** in the destination fields
+- **Network connectivity** issues with RPC endpoints
+- **XCM execution failures** on the destination chain
+
+Check the console output and blockchain explorer for detailed error messages.
+
+## Conclusion
+
+Congratulations! You've successfully implemented batch teleport functionality using the ParaSpell SDK. This single-file implementation demonstrates how to:
+
+- Bundle multiple cross-chain transfers into efficient batch operations
+- Configure network settings for different environments
+- Generate ready-to-submit transaction data
+- Use the PAPI console for transaction submission
+
+The batch teleport feature significantly improves efficiency when performing multiple cross-chain transfers, reducing both time and transaction costs in the Polkadot ecosystem.
+
+## Where to Go Next
+
+<div class="grid cards" markdown>
+
+-   <span class="badge guide">Guide</span> __Best Practices for Teleporting Assets__
+
+    ---
+
+    An in-depth guide on best practices for teleporting assets using XCM
+
+    [:octicons-arrow-right-24: Best Practices for Teleporting Assets](develop/interoperability/best-practices-for-teleporting-assets/)
+
+-   <span class="badge tutorial">Tutorial</span> __ParaSpell SDK Deep Dive__
+
+    ---
+
+    Explore more advanced features of the ParaSpell SDK for cross-chain development.
+
+    [:octicons-arrow-right-24: SDK Documentation](https://paraspell.github.io/docs/)
+
+</div>
+--- END CONTENT ---
+
 Doc-Content: https://docs.polkadot.com/tutorials/polkadot-sdk/system-chains/asset-hub/
 --- BEGIN CONTENT ---
 ---
@@ -35130,7 +36087,6 @@ Through these tutorials, you'll learn how to manage cross-chain assets, includin
 - Asset swapping and conversion
 - Transaction parameter optimization
 - Teleport an asset from a Parachain to Asset Hub
-- Teleport an asset from Asset Hub to a Parachain
 
 ## In This Section
 
@@ -35386,627 +36342,6 @@ npx @acala-network/chopsticks \
 The above command will spawn a lazy fork of Polkadot Asset Hub with the latest block data from the network. If you need to test Kusama Asset Hub, replace `polkadot-asset-hub.yml` with `kusama-asset-hub.yml` in the command.
 
 An Asset Hub instance is now running locally, and you can proceed with the asset registration process. Note that the local registration process does not differ from the live network process. Once you have a successful TestNet transaction, you can use the same steps to register the asset on MainNet.
---- END CONTENT ---
-
-Doc-Content: https://docs.polkadot.com/tutorials/polkadot-sdk/system-chains/asset-hub/teleport-an-asset-from-asset-hub/
---- BEGIN CONTENT ---
----
-title: Teleport an Asset from a Parachain to Asset Hub
-description: An in-depth guide on how to teleport a sufficient asset from Asset Hub to a Parachain
-tutorial_badge: Intermediate
----
-
-# Teleport an Asset from Asset Hub to a Parachain
-
-## Prerequisites
-
-Before you begin, make sure you have the following:
-
-- Strong knowledge of [XCM (Cross-Consensus Messaging)](/develop/interoperability/intro-to-xcm/)
-- Firm understanding of [sufficient and non-sufficient assets](/polkadot-protocol/architecture/system-chains/asset-hub/#sufficient-and-non-sufficient-assets)
-
-## Introduction
-
-Say you have the following scenario:
-
-1. You want to send a [sufficient asset](/polkadot-protocol/architecture/system-chains/asset-hub/#sufficient-and-non-sufficient-assets) (USDC) from Asset Hub to a Parachain.
-2. You don't have DOT to pay for the transaction fee.
-3. You want to pay the transaction fee with the asset that you're sending.
-4. The asset can be swapped for DOT on Asset Hub to cover for the XCM transfer transaction fee.
-
-For the sake of this example, we will use the [Asset Transfer API](/develop/toolkit/interoperability/asset-transfer-api){target=\_blank} for this solution.
-
-## Setup the Client
-
-First, let's create an instance of the `AssetTansferApi` client along with some variables.
-
-```typescript
-import {
-  AssetTransferApi,
-  constructApiPromise,
-} from "@substrate/asset-transfer-api";
-
-const RPC_ENDPOINT = "wss://sys.ibp.network/statemint";
-
-const SENDER_ACCOUNT = "59YxC8huTjcqE53K3itUWcuVKXrnz48DhwUdH1UKzU8ZpKto";
-
-const ASSET_ID = 1337; // In this example we are going to use USDC.
-
-const AMOUNT_TO_SEND = 1000000; // 1 USDC
-
-const PARA_ID = 3344; // The Parachain ID where the asset will be transferred.
-
-const { api, specName, safeXcmVersion } = await constructApiPromise(
-  RPC_ENDPOINT
-);
-```
-
-## Create the XCM Transfer
-
-Next, we will add the XCM transfer from Asset Hub to the destination parachain.
-
-```typescript
-`${PARA_ID}`,
-  SENDER_ACCOUNT,
-  [`${ASSET_ID}`],
-  [`${AMOUNT_TO_SEND}`],
-  {
-    format: "submittable", // Since we are going to use it in a batch call.
-    xcmVersion: safeXcmVersion,
-  }
-);
-```
-
-## Estimate the Transaction Fee
-
-Now that we have constructed the transaction, we can take the transaction and estimate the fee for the transaction.
-
-```typescript
-
-```
-
-## Cover for the XCM Fee
-
-We also need to include a small amount to cover for the XCM fee.
-
-```typescript
-
-```
-
-## Swap USDC for DOT
-
-We will now construct a swap using the assets' `MultiLocation`. This will swap the suffcient asset (USDC) for the native asset (DOT) once executed.
-
-```typescript
-api.createType("MultiLocation", {
-    parents: 0,
-    interior: {
-      x2: [{ palletInstance: 50 }, { generalIndex: assetId }], // On Polkadot Asset Hub, the palletInstance is 50, the generalIndex is the assetId.
-    },
-  });
-
-const output = api
-  .createType("MultiLocation", {
-    parents: 1,
-    interior: {
-      here: true, // DOT
-    },
-  })
-  .toU8a();
-
-const swapToken = (assetId: number, address: string) =>
-  api.tx.assetConversion.swapTokensForExactTokens(
-    [inputAsset(assetId).toU8a(), output], // Array containing the `asset1` and `asset2` MultiLocation.
-    fee.toString(), // The exact amount of `asset2` you want to get.
-    1000000, // The max amount of `asset1` you're ok to provide.
-    address, // The address that will receive the `asset2`.
-    true
-  );
-```
-
-## Create a Batch Transaction
-
-Next we will create a `batch` transaction so that we can send the swap and teleport transactions all in one transaction.
-
-```typescript
-swapToken(ASSET_ID, SENDER_ACCOUNT),
-  xcmExtrinsic.tx,
-]);
-```
-
-## Sign and Send the Transaction
-
-And finally, we will execute the transaction and pay for the fee in our sufficient asset (USDC).
-
-```typescript
-assetId: inputAsset(ASSET_ID)
-});
-```
-
-Expand the following item to view the full source code.
-
-???- code "Full Code"
-
-    ```javascript
-    import {
-  AssetTransferApi,
-  constructApiPromise,
-} from "@substrate/asset-transfer-api";
-
-const RPC_ENDPOINT = "wss://sys.ibp.network/statemint";
-
-const SENDER_ACCOUNT = "59YxC8huTjcqE53K3itUWcuVKXrnz48DhwUdH1UKzU8ZpKto";
-
-const ASSET_ID = 1337; // In this example we are going to use USDC.
-
-const AMOUNT_TO_SEND = 1000000; // 1 USDC
-
-const PARA_ID = 3344; // The Parachain ID where the asset will be transferred.
-
-const { api, specName, safeXcmVersion } = await constructApiPromise(
-  RPC_ENDPOINT
-);
-const assetApi = new AssetTransferApi(api, specName, safeXcmVersion);
-
-// We can now  easily create an Asset Hub -> Parachain XCM transfer transaction.
-const xcmExtrinsic = await assetApi.createTransferTransaction(
-  `${PARA_ID}`,
-  SENDER_ACCOUNT,
-  [`${ASSET_ID}`],
-  [`${AMOUNT_TO_SEND}`],
-  {
-    format: "submittable", // Since we are going to use it in a batch call.
-    xcmVersion: safeXcmVersion,
-  }
-);
-
-// Given the `xcmExtrinsic`, we have to estimate the fees.
-const { partialFee } = await xcmExtrinsic.tx.paymentInfo(SENDER_ACCOUNT);
-
-// We have also to compute the XCM fee. This will be possible once https://github.com/polkadot-fellows/runtimes/pull/359 is merged and deployed on Polkadot Asset Hub.
-// More information on this can be found here: https://github.com/paritytech/polkadot-sdk/pull/3607
-// An example of how to compute the XCM fee can be found here: https://gist.github.com/PraetorP/4bc323ff85401abe253897ba990ec29d
-
-// For now we have to add a small buffer to the fee.
-const fee = partialFee.toBigInt() + 300000000n; // Adding 0.03 DOT as a buffer.
-console.log(`Estimated fee: ${partialFee.toHuman()}`);
-
-const inputAsset = (assetId: number) =>
-  api.createType("MultiLocation", {
-    parents: 0,
-    interior: {
-      x2: [{ palletInstance: 50 }, { generalIndex: assetId }], // On Polkadot Asset Hub, the palletInstance is 50, the generalIndex is the assetId.
-    },
-  });
-
-const output = api
-  .createType("MultiLocation", {
-    parents: 1,
-    interior: {
-      here: true, // DOT
-    },
-  })
-  .toU8a();
-
-const swapToken = (assetId: number, address: string) =>
-  api.tx.assetConversion.swapTokensForExactTokens(
-    [inputAsset(assetId).toU8a(), output], // Array containing the `asset1` and `asset2` MultiLocation.
-    fee.toString(), // The exact amount of `asset2` you want to get.
-    1000000, // The max amount of `asset1` you're ok to provide.
-    address, // The address that will receive the `asset2`.
-    true
-  );
-
-const batchCall = api.tx.utility.batchAll([
-  swapToken(ASSET_ID, SENDER_ACCOUNT),
-  xcmExtrinsic.tx,
-]);
-
-console.log(`Encoded hex: ${batchCall.toHex()}`);
-
-await batchCall.signAndSend(SENDER_ACCOUNT, {
-  assetId: inputAsset(ASSET_ID)
-});
-    ```
-
-Source: [https://github.com/lrazovic/xcm-batch-example/blob/main/index.ts](https://github.com/lrazovic/xcm-batch-example/blob/main/index.ts)
-
-Demo transaction: [https://assethub-polkadot.subscan.io/extrinsic/6657108-3](https://assethub-polkadot.subscan.io/extrinsic/6657108-3)
---- END CONTENT ---
-
-Doc-Content: https://docs.polkadot.com/tutorials/polkadot-sdk/system-chains/asset-hub/teleport-an-asset-to-asset-hub/
---- BEGIN CONTENT ---
----
-title: Teleport an Asset from a Parachain to Asset Hub
-description: An in-depth guide on how to teleport a non-sufficient asset to Asset Hub
-tutorial_badge: Intermediate
----
-
-# Teleport an Asset to Asset Hub
-
-## Prerequisites
-
-Before you begin, make sure you have the following:
-
-- Strong knowledge of [XCM (Cross-Consensus Messaging)](/develop/interoperability/intro-to-xcm/)
-- Firm understanding of [sufficient and non-sufficient assets](/polkadot-protocol/architecture/system-chains/asset-hub/#sufficient-and-non-sufficient-assets)
-
-## Introduction
-
-When teleporting an asset from a parachain to Asset Hub there are a few things to consider to make sure the cross-chain transaction is set up for success.
-
-1. [Check for account existence on the destination chain (Asset Hub)](#check-for-account-existence-and-existential-deposit)
-2. [Check that the account has an existential deposit (ED)](#check-for-account-existence-and-existential-deposit)
-3. [Make sure the account has enough funds to cover for transaction fees and XCM fees](#make-sure-the-account-has-enough-funds-to-cover-for-fees)
-4. For [sufficient assets](https://wiki.polkadot.network/learn/learn-assets/#sufficient-assets), depending on the operation, [make sure the sufficient asset is compatible on both chains](#parachain-compatibility)
-5. For [non-sufficient assets](http://localhost:8000/polkadot-protocol/architecture/system-chains/asset-hub/#sufficient-and-non-sufficient-assets), depending on the operation, [make sure that the XCM has an instruction to swap for a native or sufficient asset](#dry-run-a-cross-chain-transaction)
-6. Above all, always [dry-run the cross-chain transaction](#dry-run-a-cross-chain-transaction)
-
-### Teleporting a Non-Sufficient Asset from a Parachain to Asset Hub
-```mermaid
-flowchart TD
-    A[Teleporting a <br/>Non-Sufficient Asset<br/>from a Parachain to <br/>Asset Hub] --> B[Check account existence<br/>on Asset Hub]
-    B --> C{Account exists?}
-    C -->|No| D[Account needs to be <br/>created with sufficient <br/>asset for ED]
-    C -->|Yes| E[Check existential deposit<br/>on Asset Hub]
-    
-    D --> F[Ensure sufficient asset<br/>available for ED]
-    F --> E
-    
-    E --> G{Has existential deposit?}
-    G -->|No| H[Need sufficient asset<br/>for ED requirement]
-    G -->|Yes| I[Check fee coverage]
-    
-    H --> J[Swap non-sufficient asset<br/>for sufficient asset via<br/>Asset Conversion]
-    J --> I
-    
-    I --> K{Enough funds for fees?}
-    K -->|No| L[Estimate fees<br/>using Transaction Payment <br/>API and XCM Payment API]
-    K -->|Yes| M[Dry-run cross-chain <br/>transaction]
-    
-    L --> N[Estimate fee in <br/>non-sufficient asset<br/>using Asset Conversion API]
-    N --> O[Ensure sufficient balance<br/>for fees + transfer amount]
-    O --> M
-    
-    M --> P[Local dry-run on <br/>source chain]
-    P --> Q{Local dry-run success?}
-    Q -->|No| R[Fix local issues<br/>- Insufficient balance<br/>- Invalid XCM construction]
-    Q -->|Yes| S[Remote dry-run on <br/>Asset Hub]
-    
-    R --> P
-    
-    S --> T{Remote dry-run success?}
-    T -->|No| U[Common Issues:<br/>- Missing ED<br/>- Invalid account<br/>- Fee payment failure]
-    T -->|Yes| V[Execute cross-chain <br/>transaction]
-    
-    U --> W[Modify XCM e.g. include<br/>ExchangeAsset instruction<br/>to swap for ED]
-    W --> S
-    
-    V --> X[Transaction complete<br/>asset transferred <br/>successfully]
-    
-    style A fill:#e1f5fe
-    style X fill:#e8f5e8
-    style R fill:#ffebee
-    style U fill:#ffebee
-    style J fill:#fff3e0
-    style W fill:#fff3e0
-```
-
-### Check for Account Existence and Existential Deposit
-
-Making sure that an account exists on Asset Hub and that it has an existential deposit before sending assets to it can be done with a simple check. Here is an example PolkadotJS snippet that checks if an account exists on Polkadot and if it has an existential deposit.
-
-```javascript title="check-account-existence.js"
-const { ApiPromise, WsProvider } = require('@polkadot/api');
-
-async function checkExistentialDeposit(accountAddress) {
-  try {
-    // Connect to Polkadot mainnet
-    const provider = new WsProvider('wss://rpc.polkadot.io');
-    const api = await ApiPromise.create({ provider });
-
-    // Get account info
-    const accountInfo = await api.query.system.account(accountAddress);
-    
-    // Get existential deposit from runtime constants
-    const existentialDeposit = api.consts.balances.existentialDeposit.toBigInt();
-    
-    // Get account balance
-    const accountBalance = accountInfo.data.free.toBigInt();
-    
-    // Convert to DOT (divide by 10^10 planck units)
-    const balanceInDOT = Number(accountBalance) / Math.pow(10, 10);
-    const existentialDepositInDOT = Number(existentialDeposit) / Math.pow(10, 10);
-    
-    console.log(`Account: ${accountAddress}`);
-    console.log(`Balance: ${balanceInDOT} DOT`);
-    console.log(`Existential Deposit: ${existentialDepositInDOT} DOT`);
-    console.log(`Has Existential Deposit: ${accountBalance >= existentialDeposit}`);
-    
-    if (accountBalance >= existentialDeposit) {
-      console.log('✅ Account has sufficient balance and meets existential deposit requirement');
-    } else if (accountBalance === 0n) {
-      console.log("⚠️ Account has zero balance (account doesn't exist or was reaped)");
-    } else {
-      console.log('❌ Account balance is below existential deposit - account will be reaped!');
-    }
-    
-    await api.disconnect();
-    return {
-      balance: balanceInDOT,
-      existentialDeposit: existentialDepositInDOT,
-      hasExistentialDeposit: accountBalance >= existentialDeposit,
-      accountExists: accountBalance > 0n
-    };
-    
-  } catch (error) {
-    console.error('Error checking existential deposit:', error);
-    throw error;
-  }
-}
-
-// Example usage
-async function main() {
-
-    const accountAddress = '15rPBCv19mXZej6DVeyM37KQeRMz1r7X3JkWt4ZYsws8kAgC'
-  
-  try {
-    const result = await checkExistentialDeposit(accountAddress);
-    console.log('Result:', result);
-  } catch (error) {
-    console.error('Failed to check existential deposit:', error);
-  }
-}
-
-// Alternative function to check multiple accounts
-async function checkMultipleAccounts(addresses) {
-  const provider = new WsProvider('wss://rpc.polkadot.io');
-  const api = await ApiPromise.create({ provider });
-  
-  const existentialDeposit = api.consts.balances.existentialDeposit.toBigInt();
-  
-  console.log('Checking multiple accounts...\n');
-  
-  for (const address of addresses) {
-    try {
-      const accountInfo = await api.query.system.account(address);
-      const balance = accountInfo.data.free.toBigInt();
-      const hasED = balance >= existentialDeposit;
-      
-      console.log(`${address}: ${Number(balance) / Math.pow(10, 10)} DOT - ${hasED ? '✅' : '❌'}`);
-    } catch (error) {
-      console.log(`${address}: Error - ${error.message}`);
-    }
-  }
-  
-  await api.disconnect();
-}
-
-// Run the check
-main();
-```
-
-### Make Sure the Account Has Enough Funds to Cover Fees
-
-If that account will be paying fees then you will also want to make sure it has enough funds to cover for those fees. You can obtain an estimate of the transaction fees by using the [Transaction Payment API](https://paritytech.github.io/polkadot-sdk/master/pallet_transaction_payment/pallet/struct.Pallet.html#method.query_fee_details) and an estimate on XCM fees by using the [XCM Payment API](https://paritytech.github.io/polkadot-sdk/master/xcm_runtime_apis/fees/trait.XcmPaymentApi.html#method.query_delivery_fees). You can then estimate the fee in the non-sufficient asset by using the [Asset Conversion Runtime API](https://paritytech.github.io/polkadot-sdk/master/pallet_asset_conversion/trait.AssetConversionApi.html#method.quote_price_exact_tokens_for_tokens).
-
-And finally, you will want to dry run the transaction.
-
-### Dry Run a Cross-Chain Transaction
-
-```typescript title="teleport-non-sufficient.ts"
-import {
-  ah,
-  myth,
-  XcmV3Junction,
-  XcmV3Junctions,
-  XcmV3MultiassetFungibility,
-  XcmV3WeightLimit,
-  XcmV4AssetAssetFilter,
-  XcmV4AssetWildAsset,
-  XcmV4Instruction,
-  XcmVersionedAssets,
-  XcmVersionedLocation,
-  XcmVersionedXcm
-} from "@polkadot-api/descriptors";
-import { createClient, Enum, FixedSizeBinary, type Transaction } from "polkadot-api";
-import { getWsProvider } from "polkadot-api/ws-provider/web";
-import { withPolkadotSdkCompat } from "polkadot-api/polkadot-sdk-compat";
-
-// Some constants.
-// For Asset Hub.
-const ASSET_HUB_WS_URL = "ws://localhost:8000";
-const ASSET_HUB_PARA_ID = 1000;
-const ASSET_HUB_ACCOUNT = "15oF4uVJwmo4TdGW7VfQxNLavjCXviqxT9S1MgbjMNHr6Sp5";
-const DOT_UNITS = 10_000_000_000n; // 10 decimals.
-const DOT_CENTS = DOT_UNITS / 100n;
-
-// For Mythos.
-const MYTHOS_WS_URL = "ws://localhost:8001";
-const MYTHOS_PARA_ID = 3369;
-const MYTHOS_ACCOUNT = "0x69CF15A9393A0869A7fE535eCFe2C3CbaC127A40";
-const MYTH_UNITS = 1_000_000_000_000_000_000n; // 18 decimals.
- 
-// Connect to Mythos.
-const mythosClient = createClient(
-  withPolkadotSdkCompat(
-    getWsProvider(MYTHOS_WS_URL)
-  )
-);
-
-// Get the typed API which lets us use descriptors.
-const mythApi = mythosClient.getTypedApi(myth);
-
-// Build the teleport transaction.
-const tx = mythApi.tx.PolkadotXcm.limited_teleport_assets({
-  dest: XcmVersionedLocation.V4({
-    parents: 1,
-    interior: XcmV3Junctions.X1(XcmV3Junction.Parachain(ASSET_HUB_PARA_ID)),
-  }),
-  beneficiary: XcmVersionedLocation.V4({
-    parents: 0,
-    interior: XcmV3Junctions.X1(XcmV3Junction.AccountId32({
-      id: FixedSizeBinary.fromAccountId32(ASSET_HUB_ACCOUNT),
-      network: undefined,
-    })),
-  }),
-  assets: XcmVersionedAssets.V4([
-    {
-      id: { parents: 0, interior: XcmV3Junctions.Here() },
-      fun: XcmV3MultiassetFungibility.Fungible(1n * MYTH_UNITS)
-    },
-  ]),
-  fee_asset_item: 0,
-  weight_limit: XcmV3WeightLimit.Unlimited(),
-});
-
-await dryRun(tx.decodedCall);
-
-async function dryRun(call: Transaction<any, any, any, any>['decodedCall']) {
-  // Dry run the teleport locally so we know we can for example withdraw
-  // the necessary funds and pay for delivery fees.
-  console.log('Dry running teleport on Mythos...')
-  const localDryRunResult = await mythApi.apis.DryRunApi.dry_run_call(
-    Enum('system', Enum('Signed', MYTHOS_ACCOUNT)),
-    call,
-  );
-
-  // Only continue if the local dry run works.
-  // The first condition is whether or not the runtime API was successful,
-  // the second is whether or not the underlying dry-run was successful.
-  if (localDryRunResult.success && localDryRunResult.value.execution_result.success) {
-    // We are interested in the message to Asset Hub that results from our call.
-    // We filter for it here.
-    const [_, messages] =
-      localDryRunResult.value.forwarded_xcms.find(
-        ([location, _]) =>
-          // We happen to know the latest version in Mythos is V5 because of the descriptors.
-          location.type === 'V5' &&
-            location.value.parents === 1 &&
-            location.value.interior.type === 'X1' &&
-            location.value.interior.value.type === 'Parachain' &&
-            location.value.interior.value.value === ASSET_HUB_PARA_ID
-        )!;
-    // There could be multiple messages to Asset Hub, we know it's only one
-    // so we take the first one.
-    const messageToAh = messages[0];
-
-    // We connect to Asset Hub to dry run this message there.
-    const assetHubClient = createClient(getWsProvider(ASSET_HUB_WS_URL));
-    const ahApi = assetHubClient.getTypedApi(ah);
-
-    // We need to make sure it's V4 because V5 is not supported by asset hub.
-    // We get the supported versions directly from the descriptors.
-    if (messageToAh.type === 'V4') {
-      console.log('Dry running on Asset Hub...');
-      const remoteDryRunResult =
-        await ahApi.apis.DryRunApi.dry_run_xcm(
-          XcmVersionedLocation.V4({
-            parents: 1,
-            interior: XcmV3Junctions.X1(XcmV3Junction.Parachain(MYTHOS_PARA_ID))
-          }),
-          messageToAh
-        );
-
-      if (remoteDryRunResult.success && remoteDryRunResult.value.execution_result.type === 'Complete') {
-        // Success! Let's go ahead with the teleport.
-        console.log('Success!');
-      } else {
-        // It probably failed because our account doesn't exist on Asset Hub and
-        // we don't have DOT for the existential deposit.
-        // We should solve that problem and try again.
-        // We will later improve errors so that we know exactly what went wrong and can act accordingly.
-        // See https://github.com/paritytech/polkadot-sdk/issues/6119.
-        console.log('Failure :( Going to try again.');
-
-        // We're manually building an XCM here since we want to use the `ExchangeAsset` instruction
-        // to swap some of the MYTH for DOT to cover the existential deposit.
-        // This is executed via `PolkadotXcm.execute()` on Mythos and will send a message to Asset Hub.
-        const xcm = XcmVersionedXcm.V4([
-          // We withdraw some MYTH from our account on Mythos.
-          XcmV4Instruction.WithdrawAsset([
-            { id: { parents: 0, interior: XcmV3Junctions.Here() }, fun: XcmV3MultiassetFungibility.Fungible(100n * MYTH_UNITS) },
-          ]),
-          // Use them to pay fees.
-          XcmV4Instruction.BuyExecution({
-            fees: { id: { parents: 0, interior: XcmV3Junctions.Here() }, fun: XcmV3MultiassetFungibility.Fungible(100n * MYTH_UNITS) },
-            weight_limit: XcmV3WeightLimit.Unlimited(),
-          }),
-          // Teleport the MYTH to Asset Hub.
-          XcmV4Instruction.InitiateTeleport({
-            assets: XcmV4AssetAssetFilter.Wild(XcmV4AssetWildAsset.AllCounted(1)),
-            dest: { parents: 1, interior: XcmV3Junctions.X1(XcmV3Junction.Parachain(ASSET_HUB_PARA_ID)) },
-            xcm: [
-              // We pay fees with MYTH on Asset Hub.
-              // This is possible because Asset Hub allows paying fees with any asset that has a liquidity pool.
-              XcmV4Instruction.BuyExecution({
-                fees: { id: { parents: 1, interior: XcmV3Junctions.X1(XcmV3Junction.Parachain(MYTHOS_PARA_ID)) }, fun: XcmV3MultiassetFungibility.Fungible(50n * MYTH_UNITS) },
-                weight_limit: XcmV3WeightLimit.Unlimited(),
-              }),
-              // We explicitly swap our MYTH for 0.01 DOT to cover ED.
-              XcmV4Instruction.ExchangeAsset({
-                give: XcmV4AssetAssetFilter.Wild(XcmV4AssetWildAsset.AllCounted(1)),
-                want: [{ id: { parents: 1, interior: XcmV3Junctions.Here() }, fun: XcmV3MultiassetFungibility.Fungible(1n * DOT_CENTS) }],
-                maximal: false,
-              }),
-              // We deposit all our MYTH and our 0.01 DOT into the beneficiary account.
-              XcmV4Instruction.DepositAsset({
-                assets: XcmV4AssetAssetFilter.Wild(XcmV4AssetWildAsset.AllCounted(2)),
-                beneficiary: {
-                  parents: 0,
-                  interior: XcmV3Junctions.X1(XcmV3Junction.AccountId32({
-                    id: FixedSizeBinary.fromAccountId32(ASSET_HUB_ACCOUNT),
-                    network: undefined,
-                  })),
-                },
-              }),
-            ],
-          }),
-        ]);
-
-        const tx = mythApi.tx.PolkadotXcm.execute({
-          message: xcm,
-          max_weight: { ref_time: 4_000_000_000n, proof_size: 300_000n }
-        });
-
-        // We try the dry run again.
-        dryRun(tx.decodedCall);
-      }
-    }
-  }
-}
-```
-
-The above snippet is an example of teleporting MYTH from the Mythos parachain to Asset Hub. Instead of just submitting a `limited_teleport_assets` call, the code does a dry run first.
-
-First you need to create the transaction that will do the cross-chain transfer. You want to dry run it locally to know that it'll work when executed on the source chain, Mythos.
-
-If the local dry-run is successful, you get the message that will be sent to Asset Hub. You can then dry-run this message on Asset Hub to see if it's successful.
-
-If the remote dry-run fails, it might be because of different reasons. It may be because the Existential Deposit (ED) was not met, so you can change the XCM to include an explicit swap of MYTH to enough DOT to cover the ED. After this, you dry-run again to check if it works.
-
-The teleport dry-run example above uses Polkadot API (PAPI) but PJS/Dedot would be similar.
-
-#### Dry Run API
-
-Dry running a cross-chain transaction prevents situations where assets can become trapped and/or dropped due to a mal-constructed XCM transaction as opposed to local transactions where the transaction will simply fail. Dry running a transaction is possible with the `DryRunAPI`.
-
-The `DryRunApi` is a runtime API that is integrated in all the system parachains as well as some of the most popular parachains.
-
-This API can be used to dry-run any call and find out if it's successful or not. It especially shines when used with XCM.
-
-When you dry-run a call that executes an XCM, like `limited_teleport_assets`, with `DryRunApi::dry_run_call`, then you'll receive an object called `DryRunCallEffects` listing a couple of effects resulting from the execution:
-
-- Result
-- Events
-- Local XCM
-- Forwarded XCMs
-
-This dry run result tells you if the operation is successful or not.
-
-You can dry run any cross-chain transfer locally as well as remotely.
-
-It's crucial to also dry run the remote XCM so you are sure the cross-chain transfer will work when it reaches the other chain.
 --- END CONTENT ---
 
 Doc-Content: https://docs.polkadot.com/tutorials/polkadot-sdk/system-chains/

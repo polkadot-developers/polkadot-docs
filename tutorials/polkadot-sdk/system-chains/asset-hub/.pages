@@ -4,5 +4,4 @@ nav:
   - 'Register a Local Asset': register-local-asset.md
   - 'Register a Foreign Asset': register-foreign-asset.md
   - 'Convert Assets': 'asset-conversion.md'
-  - 'Teleport an Asset to Asset Hub': 'teleport-an-asset-to-asset-hub.md'
-  - 'Teleport an Asset from Asset Hub to a Parachain': 'teleport-an-asset-from-asset-hub.md'
+  - 'Batch Teleport': batch-teleport.md

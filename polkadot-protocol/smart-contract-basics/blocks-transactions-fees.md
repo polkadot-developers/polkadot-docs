@@ -1,5 +1,5 @@
 ---
-title: Blocks, Transactions and Fees for Asset Hub Smart Contracts
+title: Transactions and Fees on Asset Hub
 description: Explore how Asset Hub smart contracts handle blocks, transactions, and fees with EVM compatibility, supporting various Ethereum transaction types.
 ---
 

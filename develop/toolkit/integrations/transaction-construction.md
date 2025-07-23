@@ -142,7 +142,7 @@ If you do not want to use the CLI for signing operations, Parity provides an SDK
 
 ### Creating a Transaction, Signing, and Submitting
 
-You will need a network to run test the transaction on. 
+You will need a network to test the transaction.
 Let's use [chopsticks](/tutorials/polkadot-sdk/testing/fork-live-chains/){target=\_blank} for this:
 
 ```bash

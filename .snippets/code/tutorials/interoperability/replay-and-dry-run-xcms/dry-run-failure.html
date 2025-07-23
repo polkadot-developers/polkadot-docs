@@ -1,20 +1,20 @@
 <div class="termynal" data-termynal>
-  <span data-ty="input">Dry run result (failure):</span>
-  <span data-ty="progress"></span>
-  <span data-ty>execution_result: {</span>
-  <span data-ty> success: false,</span>
-  <span data-ty> value: {</span>
-  <span data-ty> post_info: { ... },</span>
-  <span data-ty> error: {</span>
-  <span data-ty> type: 'Module',</span>
-  <span data-ty> value: {</span>
-  <span data-ty> type: 'PolkadotXcm',</span>
-  <span data-ty> value: { type: 'LocalExecutionIncomplete', value: undefined }</span>
-  <span data-ty> }</span>
-  <span data-ty> }</span>
-  <span data-ty> }</span>
-  <span data-ty>},</span>
-  <span data-ty>emitted_events: [],</span>
-  <span data-ty>local_xcm: undefined,</span>
-  <span data-ty>forwarded_xcms: []</span>
+  <span data-ty="input">npx tsx dry-run-call.ts</span>
+  <pre data-ty>
+execution_result: {
+  "success": false,
+  "value": {
+    "post_info": { "actual_weight": 123456, "pays_fee": "Yes" },
+    "error": {
+      "type": "Module",
+      "value": {
+        "type": "PolkadotXcm",
+        "value": { "type": "LocalExecutionIncomplete", "value": null }
+      }
+    }
+  }
+}
+  </pre>
+  <span data-ty>❌ Dry run failed: LocalExecutionIncomplete</span>
+  <span data-ty>✅ Process completed, exiting...</span>
 </div>

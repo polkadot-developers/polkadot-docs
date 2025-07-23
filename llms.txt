@@ -26534,88 +26534,84 @@ description: Learn how to replay and dry-run XCMs using Chopsticks with full log
 
 ## Introduction
 
-[Chopsticks](https://github.com/AcalaNetwork/chopsticks){target=\_blank} is a tool for forking live Polkadot SDK-based chains in a local environment. If you're new to it, check out the [Get Started](/develop/toolkit/parachains/fork-chains/chopsticks/get-started){target=\_blank} guide.
+In this tutorial, you'll learn how to replay and dry-run XCMs using [Chopsticks](/develop/toolkit/parachains/fork-chains/chopsticks/get-started/){target=\_blank}, a powerful tool for forking live Polkadot SDK-based chains in your local environment. These techniques are essential for:
 
-This tutorial focuses on **replaying and dry-running XCMs**, powerful techniques for:
+- Debugging cross-chain message failures
+- Tracing execution across relay chains and parachains
+- Analyzing weight usage, error types, and message flow
+- Safely simulating XCMs without committing state changes
 
-* [Debugging cross-chain message failures](/develop/interoperability/test-and-debug/){target=\_blank}
-* Tracing execution across relay chains and parachains
-* Analysing weight usage, error types, and message flow
-* Simulating XCMs safely without committing state changes
+By the end of this guide, you'll be able to set up a local fork, capture and replay real XCMs, and use dry-run features to diagnose and resolve complex cross-chain issues.
 
 ## Prerequisites
 
-Before replaying XCMs, ensure you've completed the [Chopsticks setup instructions](/develop/toolkit/parachains/fork-chains/chopsticks/get-started/#install-chopsticks){target=\_blank} and can run a local fork of your target chain.
+Before you begin, make sure you have:
 
-You'll need:
+- [Chopsticks](/develop/toolkit/parachains/fork-chains/chopsticks/get-started/){target=\_blank} installed (`npm i -g @acala-network/chopsticks`)
+- Access to the endpoint or genesis file of the parachain you want to fork
+- The block number or hash where the XCM was sent
+- (Optional) A Chopsticks config file for repeated setups
 
-* A working Chopsticks installation (`npm i -g @acala-network/chopsticks`)
-* Access to the **endpoint or genesis file** of the parachain you wish to fork
-* The block number or hash at which the XCM was sent
-* Optionally, a Chopsticks config file to simplify repeated setups
+If you haven't forked a chain before, see the [Fork a Chain with Chopsticks guide](/tutorials/polkadot-sdk/testing/fork-live-chains/){target=\_blank} or [Fork a Network Locally using Chopsticks](https://wiki.polkadot.network/learn/learn-guides-test-opengov-proposals/#fork-a-network-locally-using-chopsticks){target=\_blank} for step-by-step instructions.
 
-If you've not forked a chain before, see the [Fork a Chain with Chopsticks guide](/tutorials/polkadot-sdk/testing/fork-live-chains/){target=\_blank} or [Fork a Network Locally using Chopsticks](https://wiki.polkadot.network/learn/learn-guides-test-opengov-proposals/#fork-a-network-locally-using-chopsticks){target=\_blank}.
+## Step 1: Set Up Your Project
 
-## Step-by-Step Guide
+Let's start by creating a dedicated workspace for your XCM replay and dry-run experiments.
 
-### Project Setup
+1. Create a new directory and navigate into it:
 
-Begin by creating a dedicated directory for your replay environment:
+    ```bash
+    mkdir -p replay-xcm-tests
+    cd replay-xcm-tests
+    ```
 
-```bash
-mkdir -p replay-xcm-tests
-cd replay-xcm-tests
-```
+2. Initialize a new Node project:
 
-Initialise a new Node.js project:
+    ```bash
+    npm init -y
+    ```
 
-```bash
-npm init -y
-```
+3. Install Chopsticks globally (recommended to avoid conflicts with local installs):
 
-Install **Chopsticks globally** (run this separately to avoid interference with local installs):
+    ```bash
+    npm install -g @acala-network/chopsticks@latest
+    ```
 
-```bash
-npm install -g @acala-network/chopsticks@latest
-```
+4. Install TypeScript and related tooling for local development:
 
-Install **TypeScript and related tooling** for local development:
+    ```bash
+    npm install --save-dev typescript @types/node tsx
+    ```
 
-```bash
-npm install --save-dev typescript @types/node tsx
-```
+5. Install the required Polkadot packages:
 
-Install the required Polkadot packages:
+    ```bash
+    npm install polkadot-api @polkadot-labs/hdkd @polkadot-labs/hdkd-helpers
+    ```
 
-```bash
-npm install polkadot-api @polkadot-labs/hdkd @polkadot-labs/hdkd-helpers
-```
+6. Initialize the TypeScript config:
 
-Finally, initialise the TypeScript config:
+    ```bash
+    npx tsc --init
+    ```
 
-```bash
-npx tsc --init
-```
-
-This setup ensures you're using a clean, stable workspace and the latest versions of required tools.
-
-### Capture the XCM to Replay
+## Step 2: Capture the XCM to Replay
 
 To replay a specific XCM, identify:
 
-* The source and destination chains involved
-* The block number or height where the XCM was sent
-* Optionally, the call payload (if you plan to simulate it manually via development commands)
+- The source and destination chains involved
+- The block number or height where the XCM was sent
+- Optionally, the call payload (if you plan to simulate it manually via development commands)
 
-You can use [Polkadot.js Apps](/tutorials/polkadot-sdk/testing/fork-live-chains/#use-polkadotjs-apps){target=\_blank}, [papi console](https://dev.papi.how/){target=\_blank}, or indexers such as [Subscan](https://polkadot.subscan.io/xcm_dashboard){target=\_blank} to locate and inspect the original XCM execution.
+You can use [Polkadot.Js Apps](/tutorials/polkadot-sdk/testing/fork-live-chains/#use-polkadotjs-apps){target=\_blank}, [papi console](https://dev.papi.how/){target=\_blank}, or indexers such as [Subscan](https://polkadot.subscan.io/xcm_dashboard){target=\_blank} to locate and inspect the original XCM execution.
 
-### Fork the Relevant Chains
+## Step 3: Fork the Relevant Chains
 
 Use Chopsticks to [fork the required chains](/tutorials/polkadot-sdk/testing/fork-live-chains/#xcm-testing){target=\_blank} at the appropriate block heights.
 
-#### Set the Block Numbers
+### Set the Block Numbers
 
-Create/edit a `.env` file with the block heights for each chain. These should be **just before** the XCM is sent to allow a full replay:
+Create/edit a `.env` file with the block heights for each chain. These should be just before the XCM is sent to allow a full replay:
 
 ```text title=".env"
 POLKADOT_BLOCK_NUMBER=26481107
@@ -26623,81 +26619,80 @@ POLKADOT_ASSET_HUB_BLOCK_NUMBER=9079591
 ACALA_BLOCK_NUMBER=8826385
 ```
 
-#### Enable Logging and Wasm Override
+### Enable Logging and Wasm Override
 
 Full execution logs only work if the runtime was compiled with logging enabled. Most live chains are built using the `production` profile, which disables logs. To enable logging, you'll need to override the Wasm with a locally built `release` or `debug` version. The `release` profile is faster to load in Chopsticks. 
 
-**Clone the `polkadot-fellows/runtimes` Repository**
+1. Clone the `polkadot-fellows/runtimes` repository
 
-```bash
-git clone git@github.com:polkadot-fellows/runtimes.git
-```
+    ```bash
+    git clone git@github.com:polkadot-fellows/runtimes.git
+    ```
 
-**Build the Polkadot Asset Hub Runtime**
+2. Build the Polkadot Asset Hub runtime
 
-```bash
-cd runtimes
-# Build with the `debug` profile (default): 
-# cargo build -p asset-hub-polkadot-runtime
+    ```bash
+    cd runtimes
+    # Build with the `debug` profile (default): 
+    # cargo build -p asset-hub-polkadot-runtime
 
-# Build with the `release` profile (faster to load in Chopsticks)
-cargo build --release -p asset-hub-polkadot-runtime
-```
+    # Build with the `release` profile (faster to load in Chopsticks)
+    cargo build --release -p asset-hub-polkadot-runtime
+    ```
 
-**Copy the Compiled Wasm to Your Working Directory**
+3. Copy the compiled Wasm to your working directory
 
-```bash
-# Assuming you're still in the `runtimes` directory
-mkdir -p ../wasms  # or your <replay-xcm-tests>/wasms path
+    ```bash
+    # Assuming you're still in the `runtimes` directory
+    mkdir -p ../wasms  # or your <replay-xcm-tests>/wasms path
 
-# Copy the compiled Wasm to your working directory:
+    # Copy the compiled Wasm to your working directory:
 
-# If built with the `debug` profile:
-# cp target/debug/wbuild/asset-hub-polkadot-runtime/asset_hub_polkadot_runtime.wasm ../wasms
+    # If built with the `debug` profile:
+    # cp target/debug/wbuild/asset-hub-polkadot-runtime/asset_hub_polkadot_runtime.wasm ../wasms
 
-# If built with the `release` profile:
-cp target/release/wbuild/asset-hub-polkadot-runtime/asset_hub_polkadot_runtime.compact.compressed.wasm ../wasms
-```
+    # If built with the `release` profile:
+    cp target/release/wbuild/asset-hub-polkadot-runtime/asset_hub_polkadot_runtime.compact.compressed.wasm ../wasms
+    ```
 
-**Download and Modify a Config File**
+4. Download and modify a config file
 
-```bash
-# Still in the `runtimes` directory
-cd .. # Return to your replay-xcm-tests root
-mkdir -p configs
-wget https://raw.githubusercontent.com/AcalaNetwork/chopsticks/master/configs/polkadot-asset-hub.yml -O configs/polkadot-asset-hub-override.yaml
-```
+    ```bash
+    # Still in the `runtimes` directory
+    cd .. # Return to your replay-xcm-tests root
+    mkdir -p configs
+    wget https://raw.githubusercontent.com/AcalaNetwork/chopsticks/master/configs/polkadot-asset-hub.yml -O configs/polkadot-asset-hub-override.yaml
+    ```
 
-Edit `configs/polkadot-asset-hub-override.yaml` to include:
+5. Edit `configs/polkadot-asset-hub-override.yaml` to include:
 
-```yaml title="configs/polkadot-asset-hub-override.yaml"
-...
-runtime-log-level: 5
-# wasm-override: wasms/asset_hub_polkadot_runtime.wasm                     # Uncomment if using the `debug` build
-wasm-override: wasms/asset_hub_polkadot_runtime.compact.compressed.wasm    # Use this if you built with `release`
-...
-```
+    ```yaml title="configs/polkadot-asset-hub-override.yaml"
+    ...
+    runtime-log-level: 5
+    # wasm-override: wasms/asset_hub_polkadot_runtime.wasm                     # Uncomment if using the `debug` build
+    wasm-override: wasms/asset_hub_polkadot_runtime.compact.compressed.wasm    # Use this if you built with `release`
+    ...
+    ```
 
-#### Launch Chopsticks
+6. Start the forked chains using your custom config:
 
-Start the forked chains using your custom config:
+    ```bash
+    npx @acala-network/chopsticks xcm \
+    -r polkadot \
+    -p configs/polkadot-asset-hub-override.yaml \
+    -p acala
+    ```
 
-```bash
-npx @acala-network/chopsticks xcm \
-  -r polkadot \
-  -p configs/polkadot-asset-hub-override.yaml \
-  -p acala
-```
+    This command starts the relay chain and parachains locally, with full runtime execution logs enabled. Once the chains are running, you should see output indicating that the following RPC endpoints are available:
 
-This command starts the relay chain and parachains locally, with full runtime execution logs enabled. Once the chains are running, you should see output indicating that the following RPC endpoints are available:
+    - Polkadot Asset Hub RPC on `http://localhost:8000`
+    - Acala RPC on `http://localhost:8001`
+    - Polkadot RPC on `http://localhost:8002`
 
-* Polkadot Asset Hub RPC on http://localhost:8000
-* Acala RPC on http://localhost:8001
-* Polkadot RPC on http://localhost:8002
+    You'll also see runtime logs such as:
 
-You'll also see runtime logs such as:
-
-<div class="termynal" data-termynal>
+    <div class="termynal" data-termynal>
+  <span data-ty="input">npx @acala-network/chopsticks xcm \ -r polkadot \ -p configs/polkadot-asset-hub-override.yaml \ -p acala</span>
   <span data-ty>[09:29:14.988] INFO: Polkadot Asset Hub RPC listening on http://[::]:8000 and ws://[::]:8000</span>
   <span data-ty>[09:29:14.988] INFO: Loading config file https://raw.githubusercontent.com/AcalaNetwork/chopsticks/master/configs/acala.yml</span>
   <span data-ty>[09:29:15.984] INFO: Acala RPC listening on http://[::]:8001 and ws://[::]:8001</span>
@@ -26708,53 +26703,39 @@ You'll also see runtime logs such as:
   <span data-ty>[09:29:17.028] INFO (xcm): Connected relaychain 'Polkadot' with parachain 'Acala'</span>
 </div>
 
-### Identify the XCM to Replay
+## Step 4: Identify and Extract the XCM
 
-To replay an XCM, you'll first need to identify the exact extrinsic that triggered it. In this example, we'll use **Block #9079592** on the **Polkadot Asset Hub**.
+To replay an XCM, you'll first need to identify the exact extrinsic that triggered it. In this example, we'll use block `#9079592` on the Polkadot Asset Hub.
 
-#### Step-by-step:
+1. Find the block on Subscan, open the block in Subscan to inspect its extrinsics and events. In this case, the block is [`#9079592`](https://assethub-polkadot.subscan.io/block/9079592){target=\_blank}.
 
-**Find the Block on Subscan**
+2. Copy the black hash. Look for the block hash at the top of the page. For block `#9079592`, the hash is:
 
-Open the block in Subscan to inspect its extrinsics and events:
+    ```bash title="Block Hash"
+    0xeb5a5737d47367dc1c02b978232283cdb096eb7e51d2eb22366a106a011347f6
+    ```
 
-👉 [Block #9079592](https://assethub-polkadot.subscan.io/block/9079592){target=\_blank}
+3. Explore and view the block in [Polkadot.Js Apps](https://polkadot.js.org/apps){target=\_blank} using this direct link: [Block Hash Explorer](https://polkadot.js.org/apps/?rpc=wss%3A%2F%2Fpolkadot-asset-hub-rpc.polkadot.io#/explorer/query/0xeb5a5737d47367dc1c02b978232283cdb096eb7e51d2eb22366a106a011347f6){target=\_blank}.
 
-**Copy the Block Hash**
+4. Locate and Decode the XCM Extrinsic. Once you've found the extrinsic (e.g. `9079592-2`), extract and decode its call data. For example, the call data is:
+   
+    ```bash title="Call Data"
+    0xad028400fc39fcf04a8071b7409823b7c82427ce67910c6ed80aa0e5093aff234624c820016a30461702adc48213e5c9ee4d15c5a481c578cb5cbc935f0bd11fe8aee489082a745ffbbe94282f91b67daa6cb44920d77c30849c1d25f5f6c3e59015a3e383440055040000011f0803010100411f0300010100fc39fcf04a8071b7409823b7c82427ce67910c6ed80aa0e5093aff234624c8200304000002043205011f0092e81d790000000000
+    ```
 
-Look for the block hash at the top of the page. For Block #9079592, the hash is:
+5. Copy the call data. From the decoded view, copy the **hex-encoded call** (e.g. `0x1f08...0000`). You'll pass this into `api.txFromCallData(...)` to replay the XCM locally.
 
-```text
-0xeb5a5737d47367dc1c02b978232283cdb096eb7e51d2eb22366a106a011347f6
-```
+## Step 5: Replay the XCM
 
-**Explore in Polkadot-JS Apps**
-
-View the block in [Polkadot-JS Apps](https://polkadot.js.org/apps){target=\_blank} using this direct link:
-
-👉 [Explorer → Block Hash](https://polkadot.js.org/apps/?rpc=wss%3A%2F%2Fpolkadot-asset-hub-rpc.polkadot.io#/explorer/query/0xeb5a5737d47367dc1c02b978232283cdb096eb7e51d2eb22366a106a011347f6){target=\_blank}
-
-**Locate and Decode the XCM Extrinsic**
-
-Once you've found the extrinsic (e.g. `9079592-2`), extract and decode its call data:
-
-👉 [Decode Extrinsic](https://polkadot.js.org/apps/?rpc=wss%3A%2F%2Fpolkadot-asset-hub-rpc.polkadot.io#/extrinsics/decode/0xad028400fc39fcf04a8071b7409823b7c82427ce67910c6ed80aa0e5093aff234624c820016a30461702adc48213e5c9ee4d15c5a481c578cb5cbc935f0bd11fe8aee489082a745ffbbe94282f91b67daa6cb44920d77c30849c1d25f5f6c3e59015a3e383440055040000011f0803010100411f0300010100fc39fcf04a8071b7409823b7c82427ce67910c6ed80aa0e5093aff234624c8200304000002043205011f0092e81d790000000000){target=\_blank}
-
-**Copy the Call Data**
-
-From the decoded view, copy the **hex-encoded call** (e.g. `0x1f08...0000`). You'll pass this into `api.txFromCallData(...)` to replay the XCM locally.
-
-### Replay the XCM
-
-Once your project is set up (see [Project Setup](#project-setup)), you're ready to replay the XCM locally.
+Once your project is set up, you're ready to replay the XCM locally.
 
 This is useful for:
 
-* Diagnosing execution failures or weight limits
-* Inspecting all emitted events
-* Verifying behaviour before submitting a real transaction
+- Diagnosing execution failures or weight limits
+- Inspecting all emitted events
+- Verifying behaviour before submitting a real transaction
 
-**Add the Asset Hub Descriptor**
+### Add the Asset Hub Descriptor
 
 This will let you use type-safe APIs with PAPI:
 
@@ -26762,11 +26743,9 @@ This will let you use type-safe APIs with PAPI:
 npx papi add assetHub -w ws://localhost:8000
 ```
 
-> ℹ️ The script assumes the Polkadot Asset Hub is served on `ws://localhost:8000`.
-> If you're using a different port or config, update the WebSocket endpoint in the script or descriptor.
-> You can confirm the port by checking your terminal logs or see [Launch Chopsticks](#launch-chopsticks).
+The script assumes the Polkadot Asset Hub is served on `ws://localhost:8000`. If you're using a different port or config, update the WebSocket endpoint in the script or descriptor. You can confirm the port by checking your terminal logs or see [Launch Chopsticks](#launch-chopsticks).
 
-**Create a Replay Script**
+### Create a Replay Script
 
 Create a file named `replay-xcm.ts` and copy the following code into it:
 
@@ -26844,7 +26823,7 @@ async function main() {
 main().catch(console.error);
 ```
 
-**Execute the Replay Script**
+### Execute the Replay Script
 
 Ensure Chopsticks is running and serving a chain that includes `pallet-xcm`, such as a Polkadot Asset Hub fork. Then run:
 
@@ -26852,26 +26831,27 @@ Ensure Chopsticks is running and serving a chain that includes `pallet-xcm`, suc
 npx tsx replay-xcm.ts
 ```
 
-**Expected Output**
+### Expected Output
 
 If everything is working, you'll see logs like:
 
 <div class="termynal" data-termynal>
-  <span data-ty>Executing XCM: {</span>
-  <span data-ty> "type": "PolkadotXcm",</span>
-  <span data-ty> "value": {</span>
-  <span data-ty> "type": "limited_reserve_transfer_assets",</span>
-  <span data-ty> "value": {</span>
-  <span data-ty> "dest": { ... },</span>
-  <span data-ty> "beneficiary": { ... },</span>
-  <span data-ty> "assets": { ... },</span>
-  <span data-ty> "fee_asset_item": 0,</span>
-  <span data-ty> "weight_limit": {</span>
-  <span data-ty> "type": "Unlimited"</span>
-  <span data-ty> }</span>
-  <span data-ty> }</span>
-  <span data-ty> }</span>
-  <span data-ty>}</span>
+  <span data-ty="input">npx tsx replay-xcm.ts</span>
+  <pre data-ty>
+executing xcm: {
+  "type": "polkadotxcm",
+  "value": {
+    "type": "limited_reserve_transfer_assets",
+    "value": {
+      "dest": { "parents": 0, "interior": { "X1": [{ "Parachain": 2006 }] } },
+      "beneficiary": { "parents": 0, "interior": { "X1": [{ "AccountId32": { "network": null, "id": "0x..." } }] } },
+      "assets": [{ "id": { "Concrete": { "parents": 0, "interior": "Here" } }, "fun": { "Fungible": 120000000000 } }],
+      "fee_asset_item": 0,
+      "weight_limit": { "type": "Unlimited" }
+    }
+  }
+}
+  </pre>
   <span data-ty>📦 Included in block #9079592: 0x227a11c64f6051ba2e090a13abd17e5f7581640a80f6c03fc2d43fac66ab7949</span>
   <span data-ty>📣 Event: Balances { "type": "Upgraded", "value": { ... } }</span>
   <span data-ty>📣 Event: Balances { "type": "Withdraw", "value": { ... } }</span>
@@ -26888,11 +26868,11 @@ If everything is working, you'll see logs like:
   <span data-ty>✅ Process completed, exiting...</span>
 </div>
 
-## Dry Run the XCM
+## Step 6: Dry Run the XCM
 
 To simulate the XCM without actually sending it, you can use the `dry_run_call` method. This lets you check whether the XCM would succeed without modifying any state.
 
-**Create a Dry Run Script**
+### Create a Dry Run Script
 
 Assuming you've the `tx` transaction from the previous step, you can create a new script, `dry-run-call.ts`, then paste in the following code:
 
@@ -26931,9 +26911,9 @@ async function main() {
 main().catch(console.error);
 ```
 
-> ℹ️ Make sure your local Chopsticks fork is running and the ports match those used in the script.
+Ensure your local Chopsticks fork is running and the ports match those used in the script.
 
-**Execute the Dry Run Script**
+### Execute the Dry Run Script
 
 ```bash
 npx tsx dry-run-call.ts
@@ -26942,77 +26922,87 @@ npx tsx dry-run-call.ts
 If successful, the dry run confirms that the XCM would execute correctly:
 
 <div class="termynal" data-termynal>
-  <span data-ty="input">Dry run result (success):</span>
-  <span data-ty="progress"></span>
-  <span data-ty>execution_result: {</span>
-  <span data-ty> success: true,</span>
-  <span data-ty> value: { ... }</span>
-  <span data-ty>},</span>
-  <span data-ty>emitted_events: [ ... ],</span>
-  <span data-ty>local_xcm: { ... },</span>
-  <span data-ty>forwarded_xcms: [ ... ]</span>
+  <span data-ty="input">npx tsx dry-run-call.ts</span>
+  <pre data-ty>
+execution_result: {
+  "success": true,
+  "value": {
+    "post_info": { "actual_weight": 123456, "pays_fee": "Yes" },
+    "result": "Ok"
+  }
+}
+emitted_events: [ { "section": "Balances", "method": "Transfer", "data": { "from": "0x...", "to": "0x...", "amount": 1000000000 } } ]
+local_xcm: { "type": "SomeType", "value": { ... } }
+forwarded_xcms: []
+  </pre>
+  <span data-ty>✅ Dry run succeeded</span>
+  <span data-ty>✅ Process completed, exiting...</span>
 </div>
 
 If it fails, you'll receive detailed error information:
 
 <div class="termynal" data-termynal>
-  <span data-ty="input">Dry run result (failure):</span>
-  <span data-ty="progress"></span>
-  <span data-ty>execution_result: {</span>
-  <span data-ty> success: false,</span>
-  <span data-ty> value: {</span>
-  <span data-ty> post_info: { ... },</span>
-  <span data-ty> error: {</span>
-  <span data-ty> type: 'Module',</span>
-  <span data-ty> value: {</span>
-  <span data-ty> type: 'PolkadotXcm',</span>
-  <span data-ty> value: { type: 'LocalExecutionIncomplete', value: undefined }</span>
-  <span data-ty> }</span>
-  <span data-ty> }</span>
-  <span data-ty> }</span>
-  <span data-ty>},</span>
-  <span data-ty>emitted_events: [],</span>
-  <span data-ty>local_xcm: undefined,</span>
-  <span data-ty>forwarded_xcms: []</span>
+  <span data-ty="input">npx tsx dry-run-call.ts</span>
+  <pre data-ty>
+execution_result: {
+  "success": false,
+  "value": {
+    "post_info": { "actual_weight": 123456, "pays_fee": "Yes" },
+    "error": {
+      "type": "Module",
+      "value": {
+        "type": "PolkadotXcm",
+        "value": { "type": "LocalExecutionIncomplete", "value": null }
+      }
+    }
+  }
+}
+  </pre>
+  <span data-ty>❌ Dry run failed: LocalExecutionIncomplete</span>
+  <span data-ty>✅ Process completed, exiting...</span>
 </div>
 
-**Learn More**
+For more information, see:
 
-* [Dry Run Call](/develop/interoperability/xcm-runtime-apis/#dry-run-call){target=\_blank} to simulate a full extrinsic
-* [Dry Run XCM](/develop/interoperability/xcm-runtime-apis/#dry-run-xcm){target=\_blank} to simulate a raw XCM
+- [Dry Run Call](/develop/interoperability/xcm-runtime-apis/#dry-run-call){target=\_blank} to simulate a full extrinsic
+- [Dry Run XCM](/develop/interoperability/xcm-runtime-apis/#dry-run-xcm){target=\_blank} to simulate a raw XCM
 
-## Conclusion
+## Step 7: Review and Debug
 
 Replaying XCMs with full logging provides fine-grained control and visibility into cross-chain message behaviour. Chopsticks makes this possible in a safe, local environment – empowering developers to:
 
-* Debug complex message flows
-* Identify root causes of XCM failures
-* Improve observability for future integrations
+- Debug complex message flows
+- Identify root causes of XCM failures
+- Improve observability for future integrations
 
-## Additional Resources
+## Where to Go Next
 
-<div class="subsection-wrapper">
-  <div class="card">
-    <a href="https://github.com/AcalaNetwork/chopsticks/" target="_blank">
-      <h2 class="title">Chopsticks Repository</h2>
-      <hr>
-      <p class="description">View the official Chopsticks GitHub repository.</p>
-    </a>
-  </div>
-  <div class="card">
-    <a href="/develop/interoperability/intro-to-xcm/">
-      <h2 class="title">Polkadot XCM Docs</h2>
-      <hr>
-      <p class="description">Learn how to use XCM effectively.</p>
-    </a>
-  </div>
-  <div class="card">
-    <a href="/develop/interoperability/xcm-runtime-apis/">
-      <h2 class="title">XCM Runtime APIs</h2>
-      <hr>
-      <p class="description">Learn how to use XCM Runtime APIs.</p>
-    </a>
-  </div>
+<div class="grid cards" markdown>
+
+-   <span class="badge external">External</span> __Chopsticks Repository__
+
+    ---
+
+    View the official Chopsticks GitHub repository.
+
+    [:octicons-arrow-right-24: Get Started](https://github.com/AcalaNetwork/chopsticks/)
+
+-   <span class="badge guide">Guide</span> __Polkadot XCM Docs__
+
+    ---
+
+    Learn how to use XCM effectively.
+
+    [:octicons-arrow-right-24: Get Started](/develop/interoperability/intro-to-xcm/)
+
+-   <span class="badge tutorial">Tutorial</span> __XCM Runtime APIs__
+
+    ---
+
+    Learn how to use XCM Runtime APIs.
+
+    [:octicons-arrow-right-24: Get Started](/develop/interoperability/xcm-runtime-apis/)
+
 </div>
 --- END CONTENT ---
 

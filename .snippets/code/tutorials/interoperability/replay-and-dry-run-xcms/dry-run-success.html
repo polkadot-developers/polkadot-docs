@@ -1,11 +1,17 @@
 <div class="termynal" data-termynal>
-  <span data-ty="input">Dry run result (success):</span>
-  <span data-ty="progress"></span>
-  <span data-ty>execution_result: {</span>
-  <span data-ty> success: true,</span>
-  <span data-ty> value: { ... }</span>
-  <span data-ty>},</span>
-  <span data-ty>emitted_events: [ ... ],</span>
-  <span data-ty>local_xcm: { ... },</span>
-  <span data-ty>forwarded_xcms: [ ... ]</span>
+  <span data-ty="input">npx tsx dry-run-call.ts</span>
+  <pre data-ty>
+execution_result: {
+  "success": true,
+  "value": {
+    "post_info": { "actual_weight": 123456, "pays_fee": "Yes" },
+    "result": "Ok"
+  }
+}
+emitted_events: [ { "section": "Balances", "method": "Transfer", "data": { "from": "0x...", "to": "0x...", "amount": 1000000000 } } ]
+local_xcm: { "type": "SomeType", "value": { ... } }
+forwarded_xcms: []
+  </pre>
+  <span data-ty>✅ Dry run succeeded</span>
+  <span data-ty>✅ Process completed, exiting...</span>
 </div>

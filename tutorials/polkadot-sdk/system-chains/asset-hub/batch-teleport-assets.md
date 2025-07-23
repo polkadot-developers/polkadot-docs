@@ -1,6 +1,14 @@
-# Batch Teleport
+---
+title: Batch Teleport Assets
+description: A tutorial detailing the step-by-step process of batch teleporting assets
+tutorial_badge: Intermediate
+---
 
-Cross-chain asset transfers are a fundamental feature of the Polkadot ecosystem, enabling seamless movement of tokens between different parachains. The ParaSpell SDK simplifies this process by providing powerful tools for executing both single and batch teleport operations.
+# Batch Teleport Assets
+
+## Introduction
+
+Cross-chain asset transfers are a fundamental feature of the Polkadot ecosystem, enabling seamless movement of tokens between different parachains. The [ParaSpell SDK](https://paraspell.github.io/docs/){target=_blank} simplifies this process by providing powerful tools for executing both single and batch teleport operations.
 
 This tutorial will guide you through creating batch teleport transactions using the [ParaSpell SDK](https://paraspell.github.io/docs/){target=_blank}. You'll learn how to bundle multiple cross-chain transfers into a single transaction, making your operations more efficient and cost-effective. By the end, you'll be able to execute batch teleports between Polkadot Hub chains and understand the underlying mechanisms.
 
@@ -11,16 +19,16 @@ Before getting started, ensure you have the following:
 - [Bun](https://bun.sh/){target=_blank} v1.0 or later installed on your system
 - A Polkadot wallet with sufficient test tokens for transaction fees
 - Basic understanding of TypeScript/JavaScript
-- Familiarity with Polkadot ecosystem concepts (parachains, XCM, teleports)
+- General understanding of the [Polkadot protocol](/polkadot-protocol/parachain-basics/){target=_blank}
 - Some knowledge of [XCM (Cross-Consensus Messaging)](/develop/interoperability/intro-to-xcm/){target=_blank}
 
 ## Project Overview
 
 This tutorial demonstrates how to create batch teleport transactions that can transfer tokens from one parachain to multiple destinations on the Polkadot relay chain in a single operation. You'll work with:
 
-- Asset Hub as the source chain
+- [Asset Hub](/polkadot-protocol/architecture/system-chains/asset-hub/){target=_blank} as the source chain
 - Multiple destination addresses
-- DOT/WND tokens as the transferred assets
+- DOT/PAS tokens as the transferred assets
 - Batch transaction construction and execution
 
 Below is a high-level overview of what you'll be building:
@@ -40,7 +48,7 @@ graph LR
     end
     
     subgraph "Recipients"
-        R1[5H1QSbC...7jg<br/>1 DOT]
+        R1[15whavT...g7s<br/>1 DOT]
         R2[14E5nqK...Vf3<br/>1 DOT]
     end
     
@@ -86,13 +94,13 @@ bun add @paraspell/sdk
 ## Create the Implementation
 
 Create an `index.ts` file with the complete batch teleport implementation.
-> For testing purposes, you will be using Westend (a Polkadot TestNet).
+> For testing purposes, you will be using [Paseo Asset Hub](/develop/networks/#paseo){target=_blank} (a Polkadot community-driven TestNet).
 
 ```typescript
 import { Builder, Version, BatchMode } from '@paraspell/sdk';
 
-// Paseo has 12 decimals, we use this to simplify.
-const PAS_UNITS = 1_000_000_000_000n;
+// Paseo has 10 decimals, we use this to simplify.
+const PAS_UNITS = 10_000_000_000;
 // The RPC endpoints to connect to Paseo.
 // Not needed if using Polkadot.
 const PASEO_AH_RPC = 'wss://asset-hub-paseo.dotters.network';
@@ -100,17 +108,17 @@ const PASEO_AH_RPC = 'wss://asset-hub-paseo.dotters.network';
 teleport();
 
 async function teleport() {
-  const builder = Builder([WESTEND_AH_RPC])
+  const builder = Builder([PASEO_AH_RPC])
     .from('AssetHubPolkadot')
     .to('Polkadot')
-    .currency({ symbol: 'DOT', amount: 1n * WND_UNITS })
-    .address('5H1QSbCJbCMAwbRp5uxJmbRTcn17x7TxMTb3bNRMqcrTa7jg')
+    .currency({ symbol: 'DOT', amount: 1 * PAS_UNITS })
+    .address('15whavTNSyceP8SL3Z1JukFcUPzmeR26RxKXkfQiPhsykg7s')
     .xcmVersion(Version.V5)
     .addToBatch()
 
     .from('AssetHubPolkadot')
     .to('Polkadot')
-    .currency({ symbol: 'DOT', amount: 1n * WND_UNITS })
+    .currency({ symbol: 'DOT', amount: 1 * PAS_UNITS })
     .address('14E5nqKAp3oAJcmzgZhUD2RcptBeUBScxKHgJKU4HPNcKVf3')
     .xcmVersion(Version.V5)
     .addToBatch();
@@ -163,7 +171,8 @@ Update your `package.json` to include the necessary scripts:
 ## Configure Destination Addresses
 
 For testing purposes, you can also modify the destination addresses in the batch operations:
-- `'5H1QSbCJbCMAwbRp5uxJmbRTcn17x7TxMTb3bNRMqcrTa7jg'`
+
+- `'15whavTNSyceP8SL3Z1JukFcUPzmeR26RxKXkfQiPhsykg7s'`
 - `'14E5nqKAp3oAJcmzgZhUD2RcptBeUBScxKHgJKU4HPNcKVf3'`
 
 ## Run Your Batch Teleport
@@ -183,7 +192,7 @@ Send via PAPI console:
 
 The encoded data is formatted into a PAPI console link for easy submission through a web interface.
 
-Make sure your Polkadot wallet is funded with some test tokens by using the [Polkadot faucet](https://faucet.polkadot.io/westend) and submit the transaction.
+Make sure your Polkadot wallet is funded with some test tokens by using the [Polkadot faucet](https://faucet.polkadot.io/?parachain=1000) and submit the transaction.
 
 ## Submitting the Transaction
 
@@ -203,6 +212,16 @@ The PAPI console will show:
 - Transaction details and parameters
 - Estimated fees
 - Submission interface
+
+## Dry Run your Transactions
+
+It is best practice to conduct dry run tests before execution of a cross-chain transfer to prevent failures. XCM operations can trap or permanently lose assets if improperly constructed. The dry run functionality in this code helps identify potential issues before committing real assets to the cross-chain transfer.
+
+??? code "Batch Teleport with Dry Run"
+
+    ```typescript
+    --8<-- 'code/tutorials/polkadot-sdk/system-chains/asset-hub/batch-teleport-with-dry-run.ts'
+    ```
 
 ## Conclusion
 
@@ -225,14 +244,14 @@ The batch teleport feature significantly improves efficiency when performing mul
 
     An in-depth guide on best practices for teleporting assets using XCM
 
-    [:octicons-arrow-right-24: Best Practices for Teleporting Assets](develop/interoperability/best-practices-for-teleporting-assets/)
+    [:octicons-arrow-right-24: Best Practices for Teleporting Assets](/develop/interoperability/best-practices-for-teleporting-assets/){target=\_blank}
 
--   <span class="badge tutorial">Tutorial</span> __ParaSpell SDK Deep Dive__
+-   <span class="badge tutorial">ParaSpell SDK Docs</span> __ParaSpell SDK Deep Dive__
 
     ---
 
     Explore more advanced features of the ParaSpell SDK for cross-chain development.
 
-    [:octicons-arrow-right-24: SDK Documentation](https://paraspell.github.io/docs/)
+    [:octicons-arrow-right-24: SDK Documentation](https://paraspell.github.io/docs/){target=\_blank}
 
 </div>

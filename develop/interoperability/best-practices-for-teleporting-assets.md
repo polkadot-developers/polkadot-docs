@@ -19,8 +19,7 @@ Before implementing asset teleports, ensure you have:
 
 - Strong knowledge of [XCM (Cross-Consensus Messaging)](/develop/interoperability/intro-to-xcm/){target=_blank}
 - Firm understanding of [sufficient and non-sufficient assets](/polkadot-protocol/architecture/system-chains/asset-hub/#sufficient-and-non-sufficient-assets){target=_blank}
-- Familiarity with Polkadot runtime APIs
-- Understanding of existential deposits and the Substrate account model
+- Understanding of [existential deposits](/polkadot-protocol/glossary/#existential-deposit){target=_blank} and the [Substrate account model](/polkadot-protocol/parachain-basics/accounts/){target=_blank}
 
 ## Teleporting an Asset
 
@@ -140,7 +139,7 @@ For non-sufficient assets, ensure the destination account has sufficient native 
 
 Use proper runtime APIs for accurate fee estimation rather than hardcoded values:
 
-**Transaction Payment API** for local fees:
+[Transaction Payment API](https://paritytech.github.io/polkadot-sdk/master/pallet_transaction_payment_rpc/trait.TransactionPaymentRuntimeApi.html){target=\_blank} for local fees:
 ```typescript
 import { dot } from "@polkadot-api/descriptors";
 import { createClient } from "polkadot-api";
@@ -155,7 +154,7 @@ const feeDetails = await api.apis.TransactionPaymentApi.query_fee_details(
 );
 ```
 
-**XCM Payment API** for cross-chain delivery fees:
+[XCM Payment API](https://paritytech.github.io/polkadot-sdk/master/xcm_runtime_apis/fees/trait.XcmPaymentApi.html){target=\_blank} for cross-chain delivery fees:
 ```typescript
 import { dot } from "@polkadot-api/descriptors";
 import { createClient } from "polkadot-api";
@@ -170,7 +169,7 @@ const deliveryFees = await api.apis.XcmPaymentApi.query_delivery_fees(
 );
 ```
 
-**Asset Conversion API** (available on Asset Hub) for fee conversion:
+[Asset Conversion API](https://paritytech.github.io/polkadot-sdk/master/pallet_asset_conversion/trait.AssetConversionApi.html){target=\_blank} (available on Asset Hub) for fee conversion:
 ```typescript
 import { ah } from "@polkadot-api/descriptors";
 import { createClient } from "polkadot-api";
@@ -190,7 +189,7 @@ const feeInAsset = await api.apis.AssetConversionApi.quote_price_exact_tokens_fo
 
 For non-sufficient assets, implement fee payment strategies:
 
-1. **Asset Conversion**: Convert part of the transfer amount to pay fees
+1. **[Asset Conversion](/polkadot-protocol/architecture/system-chains/asset-hub/#non-sufficient-assets){target=\_blank}**: Convert part of the transfer amount to pay fees
 2. **Separate Fee Payment**: Use a different sufficient asset for fees
 3. **Fee Sponsorship**: Have another account pay fees on behalf of the user
 
@@ -202,7 +201,7 @@ For non-sufficient assets, implement fee payment strategies:
     Always check the chain to see what assets are considered sufficient assets.
     This may vary from chain to chain.
 
-Sufficient assets can:
+[Sufficient assets](/polkadot-protocol/architecture/system-chains/asset-hub/#sufficient-assets){target=\_blank} can:
 
 - Pay for transaction fees directly
 - Meet existential deposit requirements and can suffice for creating new accounts
@@ -215,7 +214,7 @@ Sufficient assets can:
 
 ### Non-Sufficient Assets
 
-Non-sufficient assets require:
+[Non-sufficient assets](/polkadot-protocol/architecture/system-chains/asset-hub/#non-sufficient-assets){target=\_blank} require:
 
 - Existing destination accounts with ED
 - Alternative fee payment mechanisms
@@ -229,8 +228,7 @@ Non-sufficient assets require:
 
 ## Comprehensive Dry Run Testing
 
-Dry run testing represents the most critical step in preventing asset loss during teleportation. Execute dry runs on both the source and destination chains to validate every aspect of the transfer before committing to the actual transaction. Local dry runs on the source chain validate transaction construction correctness, sufficient balance for transfer and fees, and proper XCM message generation.
-Remote dry runs on the destination chain verify that the XCM message will execute successfully, including asset reception and processing, account creation or balance updates, and proper fee deduction. This two-phase validation approach catches the majority of potential issues before they can cause problems in production.
+Dry run testing represents the most critical step in preventing asset loss during teleportation. Execute dry runs on both the source and destination chains to validate every aspect of the transfer before committing to the actual transaction. Local dry runs on the source chain validate transaction construction correctness, sufficient balance for transfer and fees, and proper XCM message generation. Remote dry runs on the destination chain verify that the XCM message will execute successfully, including asset reception and processing, account creation or balance updates, and proper fee deduction. This two-phase validation approach catches the majority of potential issues before they can cause problems in production.
 
 ### Example Dry Run Implementation
 
@@ -246,28 +244,29 @@ Asset teleportation failures can occur for various reasons, each with specific c
 
 ### Common Account and Balance Issues
 
-| **FailedToTransactAsset Errors** | **Prevention** |
+| **[FailedToTransactAsset](https://paritytech.github.io/polkadot-sdk/master/cumulus_primitives_core/enum.XcmError.html#variant.FailedToTransactAsset){target=\_blank} Errors** | **Prevention** |
 |-----------------------------------|----------------|
 | • Missing destination accounts<br>• Insufficient existential deposits<br>• Asset not found on destination | • Verify account existence before transfer<br>• Ensure ED requirements are met<br>• Validate asset registration on destination chain |
 
 ### Fee Payment Failures
 
-| **TooExpensive Errors** | **Prevention** |
+| **[TooExpensive](https://paritytech.github.io/polkadot-sdk/master/cumulus_primitives_core/enum.XcmError.html#variant.TooExpensive){target=\_blank} Errors** | **Prevention** |
 |-------------------------|----------------|
 | • Insufficient funds for fees<br>• Fee payment asset not accepted<br>• High network congestion costs | • Implement proper fee estimation<br>• Include buffer for fee fluctuations<br>• Use asset conversion when necessary |
 
 ### Asset Compatibility Issues
 
-| **AssetNotFound/Unsupported Errors** | **Prevention** |
+| **[AssetNotFound](https://paritytech.github.io/polkadot-sdk/master/cumulus_primitives_core/enum.XcmError.html#variant.AssetNotFound){target=\_blank} Errors** | **Prevention** |
 |--------------------------------------|----------------|
 | • Asset not registered on destination<br>• Incorrect asset ID or format<br>• Asset not enabled for XCM | • Verify asset registration before transfer<br>• Use correct asset identifiers<br>• Check XCM configuration for asset support |
 
 ### XCM Configuration Issues
 
-| **Barrier Errors** | **Prevention** |
+| **[Barrier](https://paritytech.github.io/polkadot-sdk/master/cumulus_primitives_core/enum.XcmError.html#variant.Barrier){target=\_blank} Errors** | **Prevention** |
 |:-------------------|:---------------|
 | • XCM message blocked by safety barriers<br>• Origin not authorized for operation<br>• Asset transfer limits exceeded<br>• Unsupported XCM version or instruction | • Verify XCM barrier configuration on destination<br>• Ensure origin has proper permissions<br>• Check asset transfer limits and restrictions<br>• Use supported XCM version and instructions |
 
+You can find a full list of XCM errors in the [Polkadot Rust Docs](https://paritytech.github.io/polkadot-sdk/master/cumulus_primitives_core/enum.XcmError.html){target=\_blank}.
 
 ## Network-Specific Considerations
 
@@ -330,3 +329,16 @@ Before deploying asset teleportation features:
 Successful asset teleportation requires meticulous validation, proper error handling, and comprehensive testing. Always prioritize safety over convenience, implement thorough dry run testing, and maintain robust monitoring systems to ensure reliable cross-chain asset transfers.
 
 The key to preventing asset loss is comprehensive pre-flight validation combined with proper XCM construction and execution monitoring. When in doubt, always dry run transactions on both source and destination chains before execution.
+
+## Where to Go Next
+
+<div class="grid cards" markdown>
+
+-   <span class="badge guide">Tutorial</span> __Batch Teleport__
+
+    ---
+
+    A tutorial detailing the step-by-step process of batch teleporting assets using the ParaSpell SDK.
+
+    [:octicons-arrow-right-24: Batch Teleport](/tutorials/polkadot-sdk/system-chains/asset-hub/batch-teleport-assets){target=\_blank}
+</div>

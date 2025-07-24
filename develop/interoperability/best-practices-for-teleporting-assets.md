@@ -18,7 +18,7 @@ Before implementing asset teleports, ensure you have:
 
 - Strong knowledge of [XCM (Cross-Consensus Messaging)](/develop/interoperability/intro-to-xcm/){target=\_blank}
 - Firm understanding of [sufficient and non-sufficient assets](/polkadot-protocol/architecture/system-chains/asset-hub/#sufficient-and-non-sufficient-assets){target=\_blank}
-- Understanding of [existential deposits](/polkadot-protocol/glossary/#existential-deposit){target=_blank} and the [Substrate account model](/polkadot-protocol/parachain-basics/accounts/){target=_blank}
+- Understanding the concept of [existential deposits](/polkadot-protocol/glossary/#existential-deposit){target=\_blank} and the [Polkadot SDK account model](/polkadot-protocol/parachain-basics/accounts/){target=\_blank}
 
 ## Teleporting an Asset
 

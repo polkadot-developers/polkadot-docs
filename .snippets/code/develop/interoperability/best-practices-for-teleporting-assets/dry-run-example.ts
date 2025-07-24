@@ -23,7 +23,7 @@ const ASSET_HUB_ACCOUNT = "15oF4uVJwmo4TdGW7VfQxNLavjCXviqxT9S1MgbjMNHr6Sp5";
 const DOT_UNITS = 10_000_000_000n; // 10 decimals.
 const DOT_CENTS = DOT_UNITS / 100n;
 
-// For Mythos.
+// Mythos constants.
 const MYTHOS_WS_URL = "ws://localhost:8001";
 const MYTHOS_PARA_ID = 3369;
 const MYTHOS_ACCOUNT = "0x69CF15A9393A0869A7fE535eCFe2C3CbaC127A40";

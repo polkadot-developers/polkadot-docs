@@ -139,6 +139,7 @@ For non-sufficient assets, make sure the destination account has enough native t
 Use proper runtime APIs for accurate fee estimation rather than hardcoded values:
 
 [Transaction Payment API](https://paritytech.github.io/polkadot-sdk/master/pallet_transaction_payment_rpc/trait.TransactionPaymentRuntimeApi.html){target=\_blank} for local fees:
+
 ```typescript
 import { dot } from "@polkadot-api/descriptors";
 import { createClient } from "polkadot-api";

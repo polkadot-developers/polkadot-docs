@@ -45,7 +45,7 @@ async function teleport() {
 
       console.log('Dry run result 2:', dryRunResult2);
 
-      // Check if both dry runs were successful before proceeding
+      // Log if both dry runs were successful before proceeding
       console.log('Dry run results:');
       console.log('Transaction 1:');
       console.dir(dryRunResult1, { depth: null });

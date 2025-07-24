@@ -1,4 +1,4 @@
-name: 'PR Docs Link Check'
+name: 'Check PR Labels'
 
 on:
   pull_request:

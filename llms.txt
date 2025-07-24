@@ -73,9 +73,6 @@ Docs: Infrastructure
 - [Validator Key Management](https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/infrastructure/running-a-validator/onboarding-and-offboarding/key-management.md): Learn how to generate and manage validator keys, including session keys for consensus participation and node keys for maintaining a stable network identity.
 - [Start Validating](https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/infrastructure/running-a-validator/onboarding-and-offboarding/start-validating.md): Learn how to start validating on Polkadot by choosing a network, syncing your node, bonding DOT tokens, and activating your validator.
 
-Docs: Tutorials
-- [Runtime Upgrades](https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/tutorials/polkadot-sdk/parachains/zero-to-hero/runtime-upgrade.md): Learn how to safely perform runtime upgrades for your Polkadot SDK-based blockchain, including step-by-step instructions.
-
 Docs: Reference
 - [Glossary](https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/polkadot-protocol/glossary.md): Glossary of terms used within the Polkadot ecosystem, Polkadot SDK, its subsequent libraries, and other relevant Web3 terminology.
 - [JSON-RPC APIs](https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/develop/smart-contracts/json-rpc-apis.md): JSON-RPC APIs guide for Polkadot Hub, covering supported methods, parameters, and examples for interacting with the chain.
@@ -202,6 +199,9 @@ Docs: Tooling, Smart Contracts
 Docs: Tooling, Tutorials
 - [PAPI Account Watcher Tutorial](https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/tutorials/dapps/remark-tutorial.md): Build a CLI app that listens to on-chain events using the Polkadot API and responds to specific messages for a given account.
 - [Fast Track a Governance Proposal](https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/tutorials/onchain-governance/fast-track-gov-proposal.md): Learn how to fast-track governance proposals in Polkadot's OpenGov using Chopsticks. Simulate, test, and execute proposals confidently.
+
+Docs: Tutorials
+- [Runtime Upgrades](https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/tutorials/polkadot-sdk/parachains/zero-to-hero/runtime-upgrade.md): Learn how to safely perform runtime upgrades for your Polkadot SDK-based blockchain, including step-by-step instructions.
 
 Docs: Uncategorized
 - [Terms of Use](https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/terms-of-use.md): Discover the terms and conditions governing your use of our website, outlining your rights, responsibilities, and important legal details.

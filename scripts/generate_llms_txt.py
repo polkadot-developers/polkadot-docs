@@ -162,6 +162,7 @@ def generate_llms_txt(config_path: str):
         f"- Understand project architecture and follow builder guides (see Docs)",
         f"- Access source code (see Source Code Repos)",
         f"- Explore optional resources (see Optional)",
+        f"- Find tutorials for real-world use cases (see Tutorials)",
         "",
         format_metadata_section(pages, config),
         format_docs_section(pages, base_url, category_order),

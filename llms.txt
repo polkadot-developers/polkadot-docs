@@ -7671,7 +7671,7 @@ To compile your project, follow these instructions:
 
     === "npm Configuration"
 
-        ```javascript title="hardhat.config.js" hl_lines="8-10 13"
+        ```javascript title="hardhat.config.js" hl_lines="9-11 14"
         require('@nomicfoundation/hardhat-toolbox');
 
 require('@parity/hardhat-polkadot');
@@ -7691,7 +7691,7 @@ module.exports = {
 
     === "Binary Configuration"
 
-        ```javascript title="hardhat.config.js" hl_lines="8-13 16"
+        ```javascript title="hardhat.config.js" hl_lines="9-14 17"
         require('@nomicfoundation/hardhat-toolbox');
 
 require('@parity/hardhat-polkadot');
@@ -7756,7 +7756,7 @@ For complete isolation and control over the testing environment, you can configu
 
 Configure a local node setup by adding the node binary path along with the ETH-RPC adapter path:
 
-```javascript title="hardhat.config.js" hl_lines="11-19"
+```javascript title="hardhat.config.js" hl_lines="12-20"
 require('@nomicfoundation/hardhat-toolbox');
 
 require('@parity/hardhat-polkadot');
@@ -7831,7 +7831,7 @@ Before deploying to a live network, you can deploy your contract to a local node
 
 1. Update the Hardhat configuration file to add the local network as a target for local deployment:
 
-    ```javascript title="hardhat.config.js" hl_lines="12-15"
+    ```javascript title="hardhat.config.js" hl_lines="13-16"
     require('@nomicfoundation/hardhat-toolbox');
 
 require('@parity/hardhat-polkadot');
@@ -7887,7 +7887,7 @@ After testing your contract locally, you can deploy it to a live network. This g
 
 4. Update your Hardhat configuration file with network settings for the Polkadot network you want to target:
 
-    ```javascript title="hardhat.config.js" hl_lines="17-21"
+    ```javascript title="hardhat.config.js" hl_lines="18-22"
     require('@nomicfoundation/hardhat-toolbox');
 
 require('@parity/hardhat-polkadot');
@@ -29266,7 +29266,7 @@ Implement the functionality through the following steps:
     ???+ child "Utility Function"
         This section utilizes a `moveScheduledCallTo` utility function to move a scheduled call matching specific criteria to a designated future block. Include this function in the same file:
 
-        ??? code "`moveScheduledCallTo` code"
+        ??? code "`moveScheduledCallTo`"
             ```typescript
             // --8<-- [start:imports]
 import '@polkadot/api-augment/polkadot';
@@ -29575,7 +29575,7 @@ try {
 
 After implementing the complete logic, your function will resemble:
 
-??? code "`forceProposalExecution` code"
+??? code "`forceProposalExecution`"
     ```typescript
     // --8<-- [start:imports]
 import '@polkadot/api-augment/polkadot';

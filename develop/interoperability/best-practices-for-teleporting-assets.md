@@ -189,7 +189,7 @@ const feeInAsset = await api.apis.AssetConversionApi.quote_price_exact_tokens_fo
 
 ### Multi-Asset Fee Handling
 
-For non-sufficient assets, implement fee payment strategies:
+For dealing with non-sufficient assets and fees, there are different fee payment strategies you can implement:
 
 1. **[Asset Conversion](/polkadot-protocol/architecture/system-chains/asset-hub/#non-sufficient-assets){target=\_blank}**: Convert part of the transfer amount to pay fees
 2. **Separate Fee Payment**: Use a different sufficient asset for fees

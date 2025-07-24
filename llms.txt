@@ -26527,7 +26527,7 @@ Doc-Content: https://docs.polkadot.com/tutorials/interoperability/replay-and-dry
 --- BEGIN CONTENT ---
 ---
 title: Replay and Dry Run XCMs
-description: Learn how to replay and dry-run XCMs using Chopsticks with full logging enabled. Diagnose issues, trace message flow, and debug complex cross-chain interactions.
+description: Replay and dry-run XCMs using Chopsticks with full logging enabled. Diagnose issues, trace message flow, and debug complex cross-chain interactions.
 ---
 
 # Replay and Dry Run XCMs Using Chopsticks
@@ -26554,7 +26554,7 @@ Before you begin, make sure you have:
 
 If you haven't forked a chain before, see the [Fork a Chain with Chopsticks guide](/tutorials/polkadot-sdk/testing/fork-live-chains/){target=\_blank} or [Fork a Network Locally using Chopsticks](https://wiki.polkadot.network/learn/learn-guides-test-opengov-proposals/#fork-a-network-locally-using-chopsticks){target=\_blank} for step-by-step instructions.
 
-## Step 1: Set Up Your Project
+## Set Up Your Project
 
 Let's start by creating a dedicated workspace for your XCM replay and dry-run experiments.
 
@@ -26595,7 +26595,7 @@ Let's start by creating a dedicated workspace for your XCM replay and dry-run ex
     npx tsc --init
     ```
 
-## Step 2: Capture the XCM to Replay
+## Capture the XCM to Replay
 
 To replay a specific XCM, identify:
 
@@ -26603,9 +26603,9 @@ To replay a specific XCM, identify:
 - The block number or height where the XCM was sent
 - Optionally, the call payload (if you plan to simulate it manually via development commands)
 
-You can use [Polkadot.Js Apps](/tutorials/polkadot-sdk/testing/fork-live-chains/#use-polkadotjs-apps){target=\_blank}, [papi console](https://dev.papi.how/){target=\_blank}, or indexers such as [Subscan](https://polkadot.subscan.io/xcm_dashboard){target=\_blank} to locate and inspect the original XCM execution.
+You can use [Polkadot.js Apps](/tutorials/polkadot-sdk/testing/fork-live-chains/#use-polkadotjs-apps){target=\_blank}, [papi console](https://dev.papi.how/){target=\_blank}, or indexers such as [Subscan](https://polkadot.subscan.io/xcm_dashboard){target=\_blank} to locate and inspect the original XCM execution.
 
-## Step 3: Fork the Relevant Chains
+## Fork the Relevant Chains
 
 Use Chopsticks to [fork the required chains](/tutorials/polkadot-sdk/testing/fork-live-chains/#xcm-testing){target=\_blank} at the appropriate block heights.
 
@@ -26623,13 +26623,13 @@ ACALA_BLOCK_NUMBER=8826385
 
 Full execution logs only work if the runtime was compiled with logging enabled. Most live chains are built using the `production` profile, which disables logs. To enable logging, you'll need to override the Wasm with a locally built `release` or `debug` version. The `release` profile is faster to load in Chopsticks. 
 
-1. Clone the `polkadot-fellows/runtimes` repository
+1. Clone the `polkadot-fellows/runtimes` repository:
 
     ```bash
     git clone git@github.com:polkadot-fellows/runtimes.git
     ```
 
-2. Build the Polkadot Asset Hub runtime
+2. Build the Polkadot Asset Hub runtime:
 
     ```bash
     cd runtimes
@@ -26640,7 +26640,7 @@ Full execution logs only work if the runtime was compiled with logging enabled. 
     cargo build --release -p asset-hub-polkadot-runtime
     ```
 
-3. Copy the compiled Wasm to your working directory
+3. Copy the compiled Wasm to your working directory:
 
     ```bash
     # Assuming you're still in the `runtimes` directory
@@ -26655,7 +26655,7 @@ Full execution logs only work if the runtime was compiled with logging enabled. 
     cp target/release/wbuild/asset-hub-polkadot-runtime/asset_hub_polkadot_runtime.compact.compressed.wasm ../wasms
     ```
 
-4. Download and modify a config file
+4. Download and modify a config file:
 
     ```bash
     # Still in the `runtimes` directory
@@ -26703,13 +26703,13 @@ Full execution logs only work if the runtime was compiled with logging enabled. 
   <span data-ty>[09:29:17.028] INFO (xcm): Connected relaychain 'Polkadot' with parachain 'Acala'</span>
 </div>
 
-## Step 4: Identify and Extract the XCM
+## Identify and Extract the XCM
 
-To replay an XCM, you'll first need to identify the exact extrinsic that triggered it. In this example, we'll use block `#9079592` on the Polkadot Asset Hub.
+To replay an XCM, you'll first need to identify the exact extrinsic that triggered it. In this example, we'll use block 9079592 on the Polkadot Asset Hub.
 
-1. Find the block on Subscan, open the block in Subscan to inspect its extrinsics and events. In this case, the block is [`#9079592`](https://assethub-polkadot.subscan.io/block/9079592){target=\_blank}.
+1. Find and open the block on Subscan to inspect its extrinsics and events. In this case, the block is [9079592](https://assethub-polkadot.subscan.io/block/9079592){target=\_blank}.
 
-2. Copy the black hash. Look for the block hash at the top of the page. For block `#9079592`, the hash is:
+2. Copy the black hash. Look for the block hash at the top of the page. For block 9079592, the hash is:
 
     ```bash title="Block Hash"
     0xeb5a5737d47367dc1c02b978232283cdb096eb7e51d2eb22366a106a011347f6
@@ -26717,15 +26717,15 @@ To replay an XCM, you'll first need to identify the exact extrinsic that trigger
 
 3. Explore and view the block in [Polkadot.Js Apps](https://polkadot.js.org/apps){target=\_blank} using this direct link: [Block Hash Explorer](https://polkadot.js.org/apps/?rpc=wss%3A%2F%2Fpolkadot-asset-hub-rpc.polkadot.io#/explorer/query/0xeb5a5737d47367dc1c02b978232283cdb096eb7e51d2eb22366a106a011347f6){target=\_blank}.
 
-4. Locate and Decode the XCM Extrinsic. Once you've found the extrinsic (e.g. `9079592-2`), extract and decode its call data. For example, the call data is:
+4. Locate and decode the XCM extrinsic. Once you've found the extrinsic (e.g., 9079592-2), extract and decode its call data. For example, the call data is:
    
     ```bash title="Call Data"
     0xad028400fc39fcf04a8071b7409823b7c82427ce67910c6ed80aa0e5093aff234624c820016a30461702adc48213e5c9ee4d15c5a481c578cb5cbc935f0bd11fe8aee489082a745ffbbe94282f91b67daa6cb44920d77c30849c1d25f5f6c3e59015a3e383440055040000011f0803010100411f0300010100fc39fcf04a8071b7409823b7c82427ce67910c6ed80aa0e5093aff234624c8200304000002043205011f0092e81d790000000000
     ```
 
-5. Copy the call data. From the decoded view, copy the **hex-encoded call** (e.g. `0x1f08...0000`). You'll pass this into `api.txFromCallData(...)` to replay the XCM locally.
+5. From the decoded view, copy the **hex-encoded call** (e.g. `0x1f08...0000`). You'll pass this into `api.txFromCallData(...)` to replay the XCM locally.
 
-## Step 5: Replay the XCM
+## Replay the XCM
 
 Once your project is set up, you're ready to replay the XCM locally.
 
@@ -26743,7 +26743,7 @@ This will let you use type-safe APIs with PAPI:
 npx papi add assetHub -w ws://localhost:8000
 ```
 
-The script assumes the Polkadot Asset Hub is served on `ws://localhost:8000`. If you're using a different port or config, update the WebSocket endpoint in the script or descriptor. You can confirm the port by checking your terminal logs or see [Launch Chopsticks](#launch-chopsticks).
+The script assumes the Polkadot Asset Hub is served on `ws://localhost:8000`. If you're using a different port or config, update the WebSocket endpoint in the script or descriptor. You can confirm the port by checking your terminal logs or by seeing [Launch Chopsticks](#launch-chopsticks).
 
 ### Create a Replay Script
 
@@ -26868,7 +26868,7 @@ executing xcm: {
   <span data-ty>✅ Process completed, exiting...</span>
 </div>
 
-## Step 6: Dry Run the XCM
+## Dry Run the XCM
 
 To simulate the XCM without actually sending it, you can use the `dry_run_call` method. This lets you check whether the XCM would succeed without modifying any state.
 
@@ -26967,7 +26967,7 @@ For more information, see:
 - [Dry Run Call](/develop/interoperability/xcm-runtime-apis/#dry-run-call){target=\_blank} to simulate a full extrinsic
 - [Dry Run XCM](/develop/interoperability/xcm-runtime-apis/#dry-run-xcm){target=\_blank} to simulate a raw XCM
 
-## Step 7: Review and Debug
+## Review and Debug
 
 Replaying XCMs with full logging provides fine-grained control and visibility into cross-chain message behaviour. Chopsticks makes this possible in a safe, local environment – empowering developers to:
 

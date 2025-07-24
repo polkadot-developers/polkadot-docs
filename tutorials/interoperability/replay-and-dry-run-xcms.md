@@ -206,7 +206,7 @@ This will let you use type-safe APIs with PAPI:
 npx papi add assetHub -w ws://localhost:8000
 ```
 
-The script assumes the Polkadot Asset Hub is served on `ws://localhost:8000`. If you're using a different port or config, update the WebSocket endpoint in the script or descriptor. You can confirm the port by checking your terminal logs or see [Launch Chopsticks](#launch-chopsticks).
+The script assumes the Polkadot Asset Hub is served on `ws://localhost:8000`. If you're using a different port or config, update the WebSocket endpoint in the script or descriptor. You can confirm the port by checking your terminal logs or by seeing [Launch Chopsticks](#launch-chopsticks).
 
 ### Create a Replay Script
 

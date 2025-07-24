@@ -357,14 +357,13 @@ Cross-chain asset transfers in the Polkadot ecosystem require careful planning a
 
 This comprehensive guide outlines essential best practices for teleporting assets using XCM, from pre-flight checks to transaction execution. You'll learn how to avoid common pitfalls, implement proper validation, and ensure your cross-chain transfers succeed reliably.
 
-
 ## Prerequisites
 
 Before implementing asset teleports, ensure you have:
 
-- Strong knowledge of [XCM (Cross-Consensus Messaging)](/develop/interoperability/intro-to-xcm/){target=_blank}
-- Firm understanding of [sufficient and non-sufficient assets](/polkadot-protocol/architecture/system-chains/asset-hub/#sufficient-and-non-sufficient-assets){target=_blank}
-- Understanding of [existential deposits](/polkadot-protocol/glossary/#existential-deposit){target=_blank} and the [Substrate account model](/polkadot-protocol/parachain-basics/accounts/){target=_blank}
+- Strong knowledge of [XCM (Cross-Consensus Messaging)](/develop/interoperability/intro-to-xcm/){target=\_blank}
+- Firm understanding of [sufficient and non-sufficient assets](/polkadot-protocol/architecture/system-chains/asset-hub/#sufficient-and-non-sufficient-assets){target=\_blank}
+- Understanding the concept of [existential deposits](/polkadot-protocol/glossary/#existential-deposit){target=\_blank} and the [Polkadot SDK account model](/polkadot-protocol/parachain-basics/accounts/){target=\_blank}
 
 ## Teleporting an Asset
 
@@ -401,7 +400,7 @@ Here is an example flow of teleporting an asset from a parachain to Asset Hub.
         
         M --> P[Local dry-run on <br/>source chain]
         P --> Q{Local dry-run success?}
-        Q -->|No| R[Fix local issues<br/>- Insufficient balance<br/>- Invalid XCM construction]
+        Q -->|No| R[Fix local issues, e.g.:<br/>- Insufficient balance<br/>- Invalid XCM construction]
         Q -->|Yes| S[Remote dry-run on <br/>Asset Hub]
         
         R --> P
@@ -476,7 +475,7 @@ Existential deposits vary by network and must be maintained to keep accounts act
 - **Kusama**: 0.0033 KSM (3.3 * 10^10 planck)  
 - **Asset Hub**: 0.1 DOT (10^9 planck)
 
-For non-sufficient assets, ensure the destination account has sufficient native token or sufficient asset to maintain the ED, or include asset conversion instructions in the XCM.
+For non-sufficient assets, make sure the destination account has enough native tokens or assets to maintain the ED; otherwise, include asset conversion instructions in the XCM.
 
 ## Fee Estimation and Coverage
 
@@ -485,6 +484,7 @@ For non-sufficient assets, ensure the destination account has sufficient native 
 Use proper runtime APIs for accurate fee estimation rather than hardcoded values:
 
 [Transaction Payment API](https://paritytech.github.io/polkadot-sdk/master/pallet_transaction_payment_rpc/trait.TransactionPaymentRuntimeApi.html){target=\_blank} for local fees:
+
 ```typescript
 import { dot } from "@polkadot-api/descriptors";
 import { createClient } from "polkadot-api";
@@ -500,6 +500,7 @@ const feeDetails = await api.apis.TransactionPaymentApi.query_fee_details(
 ```
 
 [XCM Payment API](https://paritytech.github.io/polkadot-sdk/master/xcm_runtime_apis/fees/trait.XcmPaymentApi.html){target=\_blank} for cross-chain delivery fees:
+
 ```typescript
 import { dot } from "@polkadot-api/descriptors";
 import { createClient } from "polkadot-api";
@@ -515,6 +516,7 @@ const deliveryFees = await api.apis.XcmPaymentApi.query_delivery_fees(
 ```
 
 [Asset Conversion API](https://paritytech.github.io/polkadot-sdk/master/pallet_asset_conversion/trait.AssetConversionApi.html){target=\_blank} (available on Asset Hub) for fee conversion:
+
 ```typescript
 import { ah } from "@polkadot-api/descriptors";
 import { createClient } from "polkadot-api";
@@ -532,7 +534,7 @@ const feeInAsset = await api.apis.AssetConversionApi.quote_price_exact_tokens_fo
 
 ### Multi-Asset Fee Handling
 
-For non-sufficient assets, implement fee payment strategies:
+For dealing with non-sufficient assets and fees, there are different fee payment strategies you can implement:
 
 1. **[Asset Conversion](/polkadot-protocol/architecture/system-chains/asset-hub/#non-sufficient-assets){target=\_blank}**: Convert part of the transfer amount to pay fees
 2. **Separate Fee Payment**: Use a different sufficient asset for fees
@@ -573,7 +575,12 @@ For non-sufficient assets, implement fee payment strategies:
 
 ## Comprehensive Dry Run Testing
 
-Dry run testing represents the most critical step in preventing asset loss during teleportation. Execute dry runs on both the source and destination chains to validate every aspect of the transfer before committing to the actual transaction. Local dry runs on the source chain validate transaction construction correctness, sufficient balance for transfer and fees, and proper XCM message generation. Remote dry runs on the destination chain verify that the XCM message will execute successfully, including asset reception and processing, account creation or balance updates, and proper fee deduction. This two-phase validation approach catches the majority of potential issues before they can cause problems in production.
+Dry run testing represents the most critical step in preventing asset loss during teleportation. Execute dry runs on both the source and destination chains to validate every aspect of the transfer before committing to the actual transaction. You can perform local dry runs or remote dry runs:
+
+- Local dry runs on the source chain validate transaction construction correctness, sufficient balance for transfer and fees, and proper XCM message generation. 
+- Remote dry runs on the destination chain verify that the XCM message will execute successfully, including asset reception and processing, account creation or balance updates, and proper fee deduction.
+
+This two-phase validation approach catches the majority of potential issues before they can cause problems in production.
 
 ### Example Dry Run Implementation
 
@@ -598,15 +605,14 @@ import { createClient, Enum, FixedSizeBinary, type Transaction } from "polkadot-
 import { getWsProvider } from "polkadot-api/ws-provider/web";
 import { withPolkadotSdkCompat } from "polkadot-api/polkadot-sdk-compat";
 
-// Some constants.
-// For Asset Hub.
+// Asset Hub constants.
 const ASSET_HUB_WS_URL = "ws://localhost:8000";
 const ASSET_HUB_PARA_ID = 1000;
 const ASSET_HUB_ACCOUNT = "15oF4uVJwmo4TdGW7VfQxNLavjCXviqxT9S1MgbjMNHr6Sp5";
 const DOT_UNITS = 10_000_000_000n; // 10 decimals.
 const DOT_CENTS = DOT_UNITS / 100n;
 
-// For Mythos.
+// Mythos constants.
 const MYTHOS_WS_URL = "ws://localhost:8001";
 const MYTHOS_PARA_ID = 3369;
 const MYTHOS_ACCOUNT = "0x69CF15A9393A0869A7fE535eCFe2C3CbaC127A40";
@@ -680,7 +686,7 @@ async function dryRun(call: Transaction<any, any, any, any>['decodedCall']) {
     const assetHubClient = createClient(getWsProvider(ASSET_HUB_WS_URL));
     const ahApi = assetHubClient.getTypedApi(ah);
 
-    // We need to make sure it's V4 because V5 is not supported by asset hub.
+    // We need to ensure it's V4 because V5 is not supported by Asset Hub at the time of writing.
     // We get the supported versions directly from the descriptors.
     if (messageToAh.type === 'V4') {
       console.log('Dry running on Asset Hub...');
@@ -35867,7 +35873,7 @@ It is best practice to conduct dry run tests before execution of a cross-chain t
 
 // Paseo has 10 decimals, we use this to simplify.
 const PAS_UNITS = 10_000_000_000;
-// The RPC endpoints to connect to Paseo.
+// The RPC endpoints to connect to Paseo Asset Hub.
 // Not needed if using Polkadot.
 const PASEO_AH_RPC = 'wss://asset-hub-paseo.dotters.network';
 
@@ -35877,7 +35883,7 @@ async function teleport() {
   const senderAddress = '15whavTNSyceP8SL3Z1JukFcUPzmeR26RxKXkfQiPhsykg7s';
   const recipientAddress = '14E5nqKAp3oAJcmzgZhUD2RcptBeUBScxKHgJKU4HPNcKVf3';
 
-  // Check if dry run is supported on AssetHubPolkadot
+  // Check if dry run is supported on Polkadot Asset Hub
   const supportsDryRun = hasDryRunSupport('AssetHubPolkadot');
   console.log(`AssetHubPolkadot supports dry run: ${supportsDryRun}`);
 
@@ -35910,7 +35916,7 @@ async function teleport() {
 
       console.log('Dry run result 2:', dryRunResult2);
 
-      // Check if both dry runs were successful before proceeding
+      // Log if both dry runs were successful before proceeding
       console.log('Dry run results:');
       console.log('Transaction 1:');
       console.dir(dryRunResult1, { depth: null });
@@ -36305,7 +36311,7 @@ Unlock new possibilities by tapping into Polkadot’s system chains:
 
 - **[Convert Assets](/tutorials/polkadot-sdk/system-chains/asset-hub/asset-conversion/)** - use Asset Hub's AMM functionality to swap between different assets, provide liquidity to pools, and manage LP tokens
 
-Learn how to leverage sufficent and non-sufficient assets to create a seamless experience for end users
+Learn how to leverage sufficient and non-sufficient assets to create a seamless experience for end users
 
 - **[Teleport an Asset to Asset Hub](/tutorials/polkadot-sdk/system-chains/asset-hub/teleport-an-asset-to-asset-hub/)** - construct a teleport to send a non-sufficient asset from a Parachain to Asset Hub
 - **[Teleport an Asset from Asset Hub to a Parachain](/tutorials/polkadot-sdk/system-chains/asset-hub/teleport-an-asset-from-asset-hub/)** - construct a teleport to send a sufficient asset from Asset Hub to a Parachain.

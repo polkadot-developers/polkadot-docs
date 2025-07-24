@@ -1,9 +1,9 @@
 ---
-title: AI Resources
+title: AI Ready Docs
 description: Download LLM-optimized files of the Polkadot documentation, including full content and category-specific resources for AI agents.
 ---
 
-# AI Resources
+# AI Ready Docs
 
 Polkadot provides `.txt` files containing the documentation content and navigation structure, optimized for use with large language models (LLMs) and AI tools. These resources help build AI assistants, power code search, or enable custom tooling trained on Polkadot’s documentation.
 

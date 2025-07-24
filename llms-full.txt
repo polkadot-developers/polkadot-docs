@@ -6,7 +6,6 @@ Polkadot. Polkadot unites the world's innovators and changemakers, building and 
 Documentation: https://docs.polkadot.com/
 
 ## List of doc pages:
-Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/main/ai-resources/ai-resources.md
 Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/main/develop/index.md
 Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/main/develop/interoperability/index.md
 Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/main/develop/interoperability/intro-to-xcm.md
@@ -93,9 +92,6 @@ Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/re
 Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/main/develop/toolkit/parachains/spawn-chains/zombienet/get-started.md
 Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/main/develop/toolkit/parachains/spawn-chains/zombienet/index.md
 Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/main/develop/toolkit/parachains/spawn-chains/zombienet/write-tests.md
-Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/main/get-support/explore-resources.md
-Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/main/get-support/get-in-touch.md
-Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/main/get-support/index.md
 Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/main/images/README.md
 Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/main/infrastructure/index.md
 Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/main/infrastructure/running-a-node/index.md
@@ -157,6 +153,10 @@ Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/re
 Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/main/polkadot-protocol/smart-contract-basics/networks.md
 Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/main/polkadot-protocol/smart-contract-basics/overview.md
 Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/main/polkadot-protocol/smart-contract-basics/polkavm-design.md
+Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/main/support/ai-ready-docs.md
+Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/main/support/explore-resources.md
+Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/main/support/get-in-touch.md
+Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/main/support/index.md
 Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/main/tutorials/dapps/index.md
 Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/main/tutorials/dapps/remark-tutorial.md
 Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/main/tutorials/index.md
@@ -199,39 +199,6 @@ Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/re
 Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/main/tutorials/smart-contracts/launch-your-first-project/test-and-deploy-with-hardhat.md
 
 ## Full content for each doc page
-
-Doc-Content: https://docs.polkadot.com/ai-resources/ai-resources/
---- BEGIN CONTENT ---
----
-title: AI Resources
-description: Download LLM-optimized files of the Polkadot documentation, including full content and category-specific resources for AI agents.
----
-
-# AI Resources
-
-Polkadot provides `.txt` files containing the documentation content and navigation structure, optimized for use with large language models (LLMs) and AI tools. These resources help build AI assistants, power code search, or enable custom tooling trained on Polkadot’s documentation.
-
-Each category file includes foundational content from the **Basics** and **Reference** categories to ensure LLMs have the necessary context.
-
-## Download LLM Files
-
-| Category           | Description                                                                                                                                        | File                         | Actions                                                                                                                                                                                              |
-|--------------------|----------------------------------------------------------------------------------------------------------------------------------------------------|------------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| Index              | Navigation index of all Polkadot documentation pages                                                                                               | `llms.txt`                   | [:octicons-copy-16:](){ .llms data-action="copy" data-value="llms.txt" } [:octicons-download-16:](/llms.txt){ download="llms.txt" }                                                                  |
-| Full Documentation | Full content of all documentation pages                                                                                                            | `llms-full.txt`              | [:octicons-copy-16:](){ .llms data-action="copy" data-value="llms-full.txt" } [:octicons-download-16:](/llms-full.txt){ download="llms-full.txt" }                                                   |
-| Basics             | Polkadot general knowledge base to provide context around overview and beginner level content                                                      | `llms-basics.txt`            | [:octicons-copy-16:](){ .llms data-action="copy" data-value="llms-basics.txt" } [:octicons-download-16:](/llms-files/llms-basics.txt){ download="llms-basics.txt" }                                  |
-| Reference          | Reference material including key functions and glossary                                                                                            | `llms-reference.txt`         | [:octicons-copy-16:](){ .llms data-action="copy" data-value="llms-reference.txt"} [:octicons-download-16:](/llms-files/llms-reference.txt){ download="llms-reference.txt" }                          |
-| Smart Contracts    | How to develop and deploy Solidity smart contracts on the Polkadot Hub                                                                             | `llms-smart-contracts.txt`   | [:octicons-copy-16:](){ .llms data-action="copy" data-value="llms-smart-contracts.txt" } [:octicons-download-16:](/llms-files/llms-smart-contracts.txt){ download="llms-smart-contracts.txt" }       |
-| Parachains         | How to guides related to building, customizing, deploying, and maintaining a parachain                                                             | `llms-parachains.txt`        | [:octicons-copy-16:](){ .llms data-action="copy" data-value="llms-parachains.txt" } [:octicons-download-16:](/llms-files/llms-parachains.txt){ download="llms-parachains.txt" }                      |
-| DApps              | Information and tutorials for application developers                                                                                               | `llms-dapps.txt`             | [:octicons-copy-16:](){ .llms data-action="copy" data-value="llms-dapps.txt" } [:octicons-download-16:](/llms-files/llms-dapps.txt){ download="llms-dapps.txt" }                                     |
-| Networks           | Information about the various Polkadot networks (Polkadot, Kusama, Westend, Paseo), their purposes, and how they fit into the development workflow | `llms-networks.txt`          | [:octicons-copy-16:](){ .llms data-action="copy" data-value="llms-networks.txt" } [:octicons-download-16:](/llms-files/llms-networks.txt){ download="llms-networks.txt" }                            |
-| Polkadot Protocol  | Polkadot's core architecture, including the Relay Chain, Parachains, System Chains, Interoperability, and Main Actors.                             | `llms-polkadot-protocol.txt` | [:octicons-copy-16:](){ .llms data-action="copy" data-value="llms-polkadot-protocol.txt" } [:octicons-download-16:](/llms-files/llms-polkadot-protocol.txt){ download="llms-polkadot-protocol.txt" } |
-| Infrastructure     | Operational aspects of supporting the Polkadot network including how to run a node or validator and staking mechanics                              | `llms-infrastructure.txt`    | [:octicons-copy-16:](){ .llms data-action="copy" data-value="llms-infrastructure.txt" } [:octicons-download-16:](/llms-files/llms-infrastructure.txt){ download="llms-infrastructure.txt" }          |
-| Tooling            | An overview of various development tools available for Polkadot development                                                                        | `llms-tooling.txt`           | [:octicons-copy-16:](){ .llms data-action="copy" data-value="llms-tooling.txt" } [:octicons-download-16:](/llms-files/llms-tooling.txt){ download="llms-tooling.txt" }                               |
-
-!!! note
-    The `llms-full.txt` file may exceed the input limits of some language models due to its size. If you encounter limitations, consider using the files by category.
---- END CONTENT ---
 
 Doc-Content: https://docs.polkadot.com/develop/
 --- BEGIN CONTENT ---
@@ -18245,206 +18212,6 @@ alice_trace = { traceID = "94c1501a78a0d83c498cc92deec264d9", contains = [
 ```
 --- END CONTENT ---
 
-Doc-Content: https://docs.polkadot.com/get-support/explore-resources/
---- BEGIN CONTENT ---
----
-title: Subscribe to Updates
-description: Find Polkadot developer resources, tutorials, forums, governance proposals, and community platforms like StackExchange, Reddit, and YouTube.
-template: index-page.html
-hide:
-  - footer
----
-
-# Ask the Community and Explore Resources
-
-Looking for answers beyond the documentation?  
-These platforms are full of useful content and experienced developers sharing insights.
-
-## 🧠 Stack Exchange
-
-- Browse commonly asked technical questions.
-- Ask your own and get detailed responses from experienced devs.
-
-👉 **[Visit Polkadot Stack Exchange](https://substrate.stackexchange.com/){target=\_blank}**
-
-## 🧵 Reddit: r/Polkadot
-
-- General Polkadot discussions and community perspectives.
-- Developer questions are welcome — just tag them appropriately.
-
-👉 **[Visit r/Polkadot](https://www.reddit.com/r/Polkadot/){target=\_blank}**
-
-## 💬 Discord (Community Threads Only)
-
-- Beyond the official support threads, most channels are community-driven.
-- Great place to connect with fellow builders and share insights.
-
-👉 **[Join the Polkadot Discord](https://polkadot-discord.w3f.tools/){target=\_blank}**
-
-## 🎥 YouTube: @PolkadotNetwork
-
-- Developer tutorials
-- Ecosystem interviews
-- Event recordings and walkthroughs
-
-👉 **[Watch on YouTube](https://www.youtube.com/@PolkadotNetwork){target=\_blank}**
-
----
-
-# Community-led Platforms and Ecosystem Updates
-
-Stay in sync with what's happening across the Polkadot ecosystem — from official announcements to community-driven insights and governance activity.
-
-## 🔷 X (Twitter): Official Accounts
-
-- [@PolkadotDevs](https://twitter.com/PolkadotDevs){target=\_blank} — updates for developers
-- [@Polkadot](https://twitter.com/Polkadot){target=\_blank} — network-wide news
-- [@Kusamanetwork](https://twitter.com/kusamanetwork){target=\_blank} — Kusama-specific updates
-- [@Web3Foundation](https://twitter.com/web3foundation){target=\_blank} — grants, research, and ecosystem programs
-
-## 🔁 X (Twitter): Community Accounts
-
-- [@PolkadotDeploy](https://twitter.com/PolkadotDeploy){target=\_blank} — news from the deployment portal and tooling updates
-
-## 🗣️ Polkadot Forum
-
-- Join community discussions around the direction of the ecosystem.
-
-👉 **[Visit Polkadot Forum](https://forum.polkadot.network/){target=\_blank}**
-
-## 🧑‍⚖️ Polkassembly: OpenGov
-
-- Explore and vote on governance proposals for Polkadot and Kusama.
-- Help shape the future of the network.
-
-👉 **[Explore on Polkassembly](https://polkadot.polkassembly.io/){target=\_blank}**
-
-## 📸 Instagram
-
-- **[@Polkadotnetwork](https://www.instagram.com/polkadotnetwork){target=\_blank}** — visual highlights from the ecosystem  
-  _(Note: not developer-specific)_
---- END CONTENT ---
-
-Doc-Content: https://docs.polkadot.com/get-support/get-in-touch/
---- BEGIN CONTENT ---
----
-title: Get in Touch
-description: Developer support for Polkadot via Telegram, Matrix, and Discord. Get help with parachains, smart contracts, nodes, and ecosystem tools.
-template: index-page.html
-hide:
-  - footer
----
-
-# Get in Touch Directly
-
-## Need Help Fast?
-  
-Use one of the channels below to get live technical support or ask questions.
-
-<div class="button-wrapper" style="display: flex; justify-content: flex-start;">
-  <a href="https://t.me/substratedevs" class="md-button" style="margin-right: 1rem; text-decoration: none;">
-    Connect to Telegram
-  </a>
-  <a href="https://polkadot-discord.w3f.tools/" class="md-button" style="text-decoration: none;">
-    Connect to Discord
-  </a>
-</div>
-
-Prefer to see all available channels? Here are your options:
-
-## 📱 Telegram: Polkadot Developer Support
-
-The fastest way to get support.
-
-- **Who’s there:** DevRel team and active developer community
-- **Response time:** within **2 business days (usually faster)**
-- **Topics:** any developer-related question is welcome
-
-👉 **[Join Telegram](https://t.me/substratedevs){target=\_blank}**
-
-## 🔌 Discord: Polkadot Official Server
-
-Focused support for smart contracts and general developer chat.
-
-- **Smart contracts:**  
-  Ask in `#solidity-smart-contracts` and `#ink_smart-contracts`  
-- **General developer support:**  
-  Ask in `#solidity-smart-contracts`  
-- **Response time:** within **1 business day (usually faster)**
-- **Other topics:** community-led discussion only
-
-👉 **[Join Discord](https://polkadot-discord.w3f.tools/){target=\_blank}**
-
-## 🧬 Matrix: Polkadot Developer Support
-
-This is the **support channel** staffed by engineers from **Parity**, **Web3 Foundation**, and **Polkadot DevRel**.
-
-- **Who’s there:** Parity, W3F, DevRel, and community contributors
-- **Response time:** within **1 business day (usually faster)**
-- **Topics:** full-spectrum developer support
-- Bridged with Telegram (all messages synced)
-
-👉 **[Join Matrix](https://matrix.to/#/#substratedevs:matrix.org){target=\_blank}**
-
----
-
-Not sure where to start?  
-
-**Join Telegram above** — let us know what you need, and we’ll help you get unstuck.
---- END CONTENT ---
-
-Doc-Content: https://docs.polkadot.com/get-support/
---- BEGIN CONTENT ---
----
-title: Get Support
-description: Start here to get developer support for Polkadot. Connect with the team, find help, and explore resources beyond the documentation.
-template: index-page.html
-hide:
-  - footer
----
-
-# Need Help Fast?
-Use one of the channels below to get live technical support or ask questions.
-
-<div class="button-wrapper" style="display: flex; justify-content: flex-start;">
-  <a href="https://t.me/substratedevs" class="md-button" style="margin-right: 1rem; text-decoration: none;">
-    Connect to Telegram
-  </a>
-  <a href="https://polkadot-discord.w3f.tools/" class="md-button" style="text-decoration: none;">
-    Connect to Discord
-  </a>
-</div>
----
-
-## Need More than just Documentation?
-
-You're already in the docs — solid start.  
-But sometimes you need more: answers, real examples, someone to talk to.  
-This Support Hub is here to help you move forward — faster.
-
-Whether you're building something new, integrating into the ecosystem, or running into blockers — **don't stay stuck**.
-
-## What You can do Here
-
-- 📨 [**Get In Touch**](./get-in-touch)  
-  Reach out to the Polkadot support team and community via Telegram, Matrix, or Discord.  
-  Ask technical questions, report blockers, or share feedback — and get a human response.
-
-- 🧠 [**Explore Available Resources**](./explore-resources)  
-  Find answers beyond the documentation: developer forums, Stack Exchange, Reddit, YouTube, governance hubs, and more.
----
-
-This hub is evolving. More support tools and shortcuts are on the way —  
-including better onboarding, CLI helpers, dev environments, and live feedback channels.
-
-## Help us Improve
-
-If something’s missing, unclear, or broken — **tell us**.  
-Your feedback makes the whole ecosystem better for everyone.
-
-👉 [**Get In Touch**](./get-in-touch) and help shape the future of developer support.
---- END CONTENT ---
-
 Doc-Content: https://docs.polkadot.com/images/README/
 --- BEGIN CONTENT ---
 # Images
@@ -26185,6 +25952,239 @@ The compilation process integrates several specialized components:
 2. **Revive Compiler** - takes YUL IR and transforms it to [LLVM IR](https://llvm.org/){target=\_blank}
 3. **LLVM** - a compiler infrastructure that optimizes the code and generates RISC-V ELF objects
 4. **PVM linker** - links the RISC-V ELF object into a final PolkaVM blob with metadata
+--- END CONTENT ---
+
+Doc-Content: https://docs.polkadot.com/support/ai-ready-docs/
+--- BEGIN CONTENT ---
+---
+title: AI Ready Docs
+description: Download LLM-optimized files of the Polkadot documentation, including full content and category-specific resources for AI agents.
+---
+
+# AI Ready Docs
+
+Polkadot provides `.txt` files containing the documentation content and navigation structure, optimized for use with large language models (LLMs) and AI tools. These resources help build AI assistants, power code search, or enable custom tooling trained on Polkadot’s documentation.
+
+Each category file includes foundational content from the **Basics** and **Reference** categories to ensure LLMs have the necessary context.
+
+## Download LLM Files
+
+| Category           | Description                                                                                                                                        | File                         | Actions                                                                                                                                                                                              |
+|--------------------|----------------------------------------------------------------------------------------------------------------------------------------------------|------------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Index              | Navigation index of all Polkadot documentation pages                                                                                               | `llms.txt`                   | [:octicons-copy-16:](){ .llms data-action="copy" data-value="llms.txt" } [:octicons-download-16:](/llms.txt){ download="llms.txt" }                                                                  |
+| Full Documentation | Full content of all documentation pages                                                                                                            | `llms-full.txt`              | [:octicons-copy-16:](){ .llms data-action="copy" data-value="llms-full.txt" } [:octicons-download-16:](/llms-full.txt){ download="llms-full.txt" }                                                   |
+| Basics             | Polkadot general knowledge base to provide context around overview and beginner level content                                                      | `llms-basics.txt`            | [:octicons-copy-16:](){ .llms data-action="copy" data-value="llms-basics.txt" } [:octicons-download-16:](/llms-files/llms-basics.txt){ download="llms-basics.txt" }                                  |
+| Reference          | Reference material including key functions and glossary                                                                                            | `llms-reference.txt`         | [:octicons-copy-16:](){ .llms data-action="copy" data-value="llms-reference.txt"} [:octicons-download-16:](/llms-files/llms-reference.txt){ download="llms-reference.txt" }                          |
+| Smart Contracts    | How to develop and deploy Solidity smart contracts on the Polkadot Hub                                                                             | `llms-smart-contracts.txt`   | [:octicons-copy-16:](){ .llms data-action="copy" data-value="llms-smart-contracts.txt" } [:octicons-download-16:](/llms-files/llms-smart-contracts.txt){ download="llms-smart-contracts.txt" }       |
+| Parachains         | How to guides related to building, customizing, deploying, and maintaining a parachain                                                             | `llms-parachains.txt`        | [:octicons-copy-16:](){ .llms data-action="copy" data-value="llms-parachains.txt" } [:octicons-download-16:](/llms-files/llms-parachains.txt){ download="llms-parachains.txt" }                      |
+| DApps              | Information and tutorials for application developers                                                                                               | `llms-dapps.txt`             | [:octicons-copy-16:](){ .llms data-action="copy" data-value="llms-dapps.txt" } [:octicons-download-16:](/llms-files/llms-dapps.txt){ download="llms-dapps.txt" }                                     |
+| Networks           | Information about the various Polkadot networks (Polkadot, Kusama, Westend, Paseo), their purposes, and how they fit into the development workflow | `llms-networks.txt`          | [:octicons-copy-16:](){ .llms data-action="copy" data-value="llms-networks.txt" } [:octicons-download-16:](/llms-files/llms-networks.txt){ download="llms-networks.txt" }                            |
+| Polkadot Protocol  | Polkadot's core architecture, including the Relay Chain, Parachains, System Chains, Interoperability, and Main Actors.                             | `llms-polkadot-protocol.txt` | [:octicons-copy-16:](){ .llms data-action="copy" data-value="llms-polkadot-protocol.txt" } [:octicons-download-16:](/llms-files/llms-polkadot-protocol.txt){ download="llms-polkadot-protocol.txt" } |
+| Infrastructure     | Operational aspects of supporting the Polkadot network including how to run a node or validator and staking mechanics                              | `llms-infrastructure.txt`    | [:octicons-copy-16:](){ .llms data-action="copy" data-value="llms-infrastructure.txt" } [:octicons-download-16:](/llms-files/llms-infrastructure.txt){ download="llms-infrastructure.txt" }          |
+| Tooling            | An overview of various development tools available for Polkadot development                                                                        | `llms-tooling.txt`           | [:octicons-copy-16:](){ .llms data-action="copy" data-value="llms-tooling.txt" } [:octicons-download-16:](/llms-files/llms-tooling.txt){ download="llms-tooling.txt" }                               |
+
+!!! note
+    The `llms-full.txt` file may exceed the input limits of some language models due to its size. If you encounter limitations, consider using the files by category.
+--- END CONTENT ---
+
+Doc-Content: https://docs.polkadot.com/support/explore-resources/
+--- BEGIN CONTENT ---
+---
+title: Subscribe to Updates
+description: Find Polkadot developer resources, tutorials, forums, governance proposals, and community platforms like StackExchange, Reddit, and YouTube.
+template: index-page.html
+hide:
+  - footer
+---
+
+# Ask the Community and Explore Resources
+
+Looking for answers beyond the documentation?  
+These platforms are full of useful content and experienced developers sharing insights.
+
+## 🧠 Stack Exchange
+
+- Browse commonly asked technical questions.
+- Ask your own and get detailed responses from experienced devs.
+
+👉 **[Visit Polkadot Stack Exchange](https://substrate.stackexchange.com/){target=\_blank}**
+
+## 🧵 Reddit: r/Polkadot
+
+- General Polkadot discussions and community perspectives.
+- Developer questions are welcome — just tag them appropriately.
+
+👉 **[Visit r/Polkadot](https://www.reddit.com/r/Polkadot/){target=\_blank}**
+
+## 💬 Discord (Community Threads Only)
+
+- Beyond the official support threads, most channels are community-driven.
+- Great place to connect with fellow builders and share insights.
+
+👉 **[Join the Polkadot Discord](https://polkadot-discord.w3f.tools/){target=\_blank}**
+
+## 🎥 YouTube: @PolkadotNetwork
+
+- Developer tutorials
+- Ecosystem interviews
+- Event recordings and walkthroughs
+
+👉 **[Watch on YouTube](https://www.youtube.com/@PolkadotNetwork){target=\_blank}**
+
+---
+
+# Community-led Platforms and Ecosystem Updates
+
+Stay in sync with what's happening across the Polkadot ecosystem — from official announcements to community-driven insights and governance activity.
+
+## 🔷 X (Twitter): Official Accounts
+
+- [@PolkadotDevs](https://twitter.com/PolkadotDevs){target=\_blank} — updates for developers
+- [@Polkadot](https://twitter.com/Polkadot){target=\_blank} — network-wide news
+- [@Kusamanetwork](https://twitter.com/kusamanetwork){target=\_blank} — Kusama-specific updates
+- [@Web3Foundation](https://twitter.com/web3foundation){target=\_blank} — grants, research, and ecosystem programs
+
+## 🔁 X (Twitter): Community Accounts
+
+- [@PolkadotDeploy](https://twitter.com/PolkadotDeploy){target=\_blank} — news from the deployment portal and tooling updates
+
+## 🗣️ Polkadot Forum
+
+- Join community discussions around the direction of the ecosystem.
+
+👉 **[Visit Polkadot Forum](https://forum.polkadot.network/){target=\_blank}**
+
+## 🧑‍⚖️ Polkassembly: OpenGov
+
+- Explore and vote on governance proposals for Polkadot and Kusama.
+- Help shape the future of the network.
+
+👉 **[Explore on Polkassembly](https://polkadot.polkassembly.io/){target=\_blank}**
+
+## 📸 Instagram
+
+- **[@Polkadotnetwork](https://www.instagram.com/polkadotnetwork){target=\_blank}** — visual highlights from the ecosystem  
+  _(Note: not developer-specific)_
+--- END CONTENT ---
+
+Doc-Content: https://docs.polkadot.com/support/get-in-touch/
+--- BEGIN CONTENT ---
+---
+title: Get in Touch
+description: Developer support for Polkadot via Telegram, Matrix, and Discord. Get help with parachains, smart contracts, nodes, and ecosystem tools.
+template: index-page.html
+hide:
+  - footer
+---
+
+# Get in Touch Directly
+
+## Need Help Fast?
+  
+Use one of the channels below to get live technical support or ask questions.
+
+<div class="button-wrapper" style="display: flex; justify-content: flex-start;">
+  <a href="https://t.me/substratedevs" class="md-button" style="margin-right: 1rem; text-decoration: none;">
+    Connect to Telegram
+  </a>
+  <a href="https://polkadot-discord.w3f.tools/" class="md-button" style="text-decoration: none;">
+    Connect to Discord
+  </a>
+</div>
+
+Prefer to see all available channels? Here are your options:
+
+## 📱 Telegram: Polkadot Developer Support
+
+The fastest way to get support.
+
+- **Who’s there:** DevRel team and active developer community
+- **Response time:** within **2 business days (usually faster)**
+- **Topics:** any developer-related question is welcome
+
+👉 **[Join Telegram](https://t.me/substratedevs){target=\_blank}**
+
+## 🔌 Discord: Polkadot Official Server
+
+Focused support for smart contracts and general developer chat.
+
+- **Smart contracts:**  
+  Ask in `#solidity-smart-contracts` and `#ink_smart-contracts`  
+- **General developer support:**  
+  Ask in `#solidity-smart-contracts`  
+- **Response time:** within **1 business day (usually faster)**
+- **Other topics:** community-led discussion only
+
+👉 **[Join Discord](https://polkadot-discord.w3f.tools/){target=\_blank}**
+
+## 🧬 Matrix: Polkadot Developer Support
+
+This is the **support channel** staffed by engineers from **Parity**, **Web3 Foundation**, and **Polkadot DevRel**.
+
+- **Who’s there:** Parity, W3F, DevRel, and community contributors
+- **Response time:** within **1 business day (usually faster)**
+- **Topics:** full-spectrum developer support
+- Bridged with Telegram (all messages synced)
+
+👉 **[Join Matrix](https://matrix.to/#/#substratedevs:matrix.org){target=\_blank}**
+
+---
+
+Not sure where to start?  
+
+**Join Telegram above** — let us know what you need, and we’ll help you get unstuck.
+--- END CONTENT ---
+
+Doc-Content: https://docs.polkadot.com/support/
+--- BEGIN CONTENT ---
+---
+title: Support
+description: Start here to get developer support for Polkadot. Connect with the team, find help, and explore resources beyond the documentation.
+template: index-page.html
+hide:
+  - footer
+---
+
+# Need Help Fast?
+Use one of the channels below to get live technical support or ask questions.
+
+<div class="button-wrapper" style="display: flex; justify-content: flex-start;">
+  <a href="https://t.me/substratedevs" class="md-button" style="margin-right: 1rem; text-decoration: none;">
+    Connect to Telegram
+  </a>
+  <a href="https://polkadot-discord.w3f.tools/" class="md-button" style="text-decoration: none;">
+    Connect to Discord
+  </a>
+</div>
+---
+
+## Need More than just Documentation?
+
+You're already in the docs — solid start.  
+But sometimes you need more: answers, real examples, someone to talk to.  
+This Support Hub is here to help you move forward — faster.
+
+Whether you're building something new, integrating into the ecosystem, or running into blockers — **don't stay stuck**.
+
+## What You can do Here
+
+- 📨 [**Get In Touch**](./get-in-touch)  
+  Reach out to the Polkadot support team and community via Telegram, Matrix, or Discord.  
+  Ask technical questions, report blockers, or share feedback — and get a human response.
+
+- 🧠 [**Explore Available Resources**](./explore-resources)  
+  Find answers beyond the documentation: developer forums, Stack Exchange, Reddit, YouTube, governance hubs, and more.
+---
+
+This hub is evolving. More support tools and shortcuts are on the way —  
+including better onboarding, CLI helpers, dev environments, and live feedback channels.
+
+## Help us Improve
+
+If something’s missing, unclear, or broken — **tell us**.  
+Your feedback makes the whole ecosystem better for everyone.
+
+👉 [**Get In Touch**](./get-in-touch) and help shape the future of developer support.
 --- END CONTENT ---
 
 Doc-Content: https://docs.polkadot.com/tutorials/dapps/

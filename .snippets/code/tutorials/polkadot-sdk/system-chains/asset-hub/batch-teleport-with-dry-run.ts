@@ -12,7 +12,7 @@ async function teleport() {
   const senderAddress = '15whavTNSyceP8SL3Z1JukFcUPzmeR26RxKXkfQiPhsykg7s';
   const recipientAddress = '14E5nqKAp3oAJcmzgZhUD2RcptBeUBScxKHgJKU4HPNcKVf3';
 
-  // Check if dry run is supported on AssetHubPolkadot
+  // Check if dry run is supported on Polkadot Asset Hub
   const supportsDryRun = hasDryRunSupport('AssetHubPolkadot');
   console.log(`AssetHubPolkadot supports dry run: ${supportsDryRun}`);
 

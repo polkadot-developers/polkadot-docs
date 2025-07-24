@@ -1,6 +1,7 @@
 ---
 title: Generate Chain Specs
 description: Describes the role of the chain specification in a network, how to specify its parameters when starting a node, and how to customize and distribute it.
+categories: Parachains
 ---
 
 # Generate Chain Specs

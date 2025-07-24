@@ -1,6 +1,7 @@
 ---
 title: Validator Key Management
 description: Learn how to generate and manage validator keys, including session keys for consensus participation and node keys for maintaining a stable network identity.
+categories: Infrastructure
 ---
 
 # Key Management

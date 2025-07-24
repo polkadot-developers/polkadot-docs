@@ -1,6 +1,7 @@
 ---
 title: Origins and Tracks
 description: Explore Polkadot's OpenGov origins and tracks system, defining privilege levels, decision processes, and tailored pathways for network proposals.
+categories: Polkadot Protocol
 ---
 
 # Origins and Tracks

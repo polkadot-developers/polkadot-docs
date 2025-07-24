@@ -130,7 +130,7 @@ Existential deposits vary by network and must be maintained to keep accounts act
 - **Kusama**: 0.0033 KSM (3.3 * 10^10 planck)  
 - **Asset Hub**: 0.1 DOT (10^9 planck)
 
-For non-sufficient assets, ensure the destination account has sufficient native token or sufficient asset to maintain the ED, or include asset conversion instructions in the XCM.
+For non-sufficient assets, make sure the destination account has enough native tokens or assets to maintain the ED; otherwise, include asset conversion instructions in the XCM.
 
 ## Fee Estimation and Coverage
 

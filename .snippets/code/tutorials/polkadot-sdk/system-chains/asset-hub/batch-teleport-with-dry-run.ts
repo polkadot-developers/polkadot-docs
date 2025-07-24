@@ -2,7 +2,7 @@ import { Builder, Version, BatchMode, hasDryRunSupport } from '@paraspell/sdk';
 
 // Paseo has 10 decimals, we use this to simplify.
 const PAS_UNITS = 10_000_000_000;
-// The RPC endpoints to connect to Paseo.
+// The RPC endpoints to connect to Paseo Asset Hub.
 // Not needed if using Polkadot.
 const PASEO_AH_RPC = 'wss://asset-hub-paseo.dotters.network';
 

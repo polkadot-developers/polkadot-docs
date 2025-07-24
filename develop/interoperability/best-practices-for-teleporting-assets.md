@@ -12,7 +12,6 @@ Cross-chain asset transfers in the Polkadot ecosystem require careful planning a
 
 This comprehensive guide outlines essential best practices for teleporting assets using XCM, from pre-flight checks to transaction execution. You'll learn how to avoid common pitfalls, implement proper validation, and ensure your cross-chain transfers succeed reliably.
 
-
 ## Prerequisites
 
 Before implementing asset teleports, ensure you have:

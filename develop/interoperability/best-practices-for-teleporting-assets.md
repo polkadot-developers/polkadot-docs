@@ -55,7 +55,7 @@ Here is an example flow of teleporting an asset from a parachain to Asset Hub.
         
         M --> P[Local dry-run on <br/>source chain]
         P --> Q{Local dry-run success?}
-        Q -->|No| R[Fix local issues<br/>- Insufficient balance<br/>- Invalid XCM construction]
+        Q -->|No| R[Fix local issues, e.g.:<br/>- Insufficient balance<br/>- Invalid XCM construction]
         Q -->|Yes| S[Remote dry-run on <br/>Asset Hub]
         
         R --> P

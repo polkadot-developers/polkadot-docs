@@ -97,7 +97,7 @@ async function dryRun(call: Transaction<any, any, any, any>['decodedCall']) {
     const assetHubClient = createClient(getWsProvider(ASSET_HUB_WS_URL));
     const ahApi = assetHubClient.getTypedApi(ah);
 
-    // We need to make sure it's V4 because V5 is not supported by asset hub.
+    // We need to ensure it's V4 because V5 is not supported by Asset Hub at the time of writing.
     // We get the supported versions directly from the descriptors.
     if (messageToAh.type === 'V4') {
       console.log('Dry running on Asset Hub...');

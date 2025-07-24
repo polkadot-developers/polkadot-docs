@@ -1,20 +1,21 @@
 # Polkadot Developer Documentation (LLMS Format)
 
-This file contains documentation for Polkadot (https://polkadot.network). Polkadot unites the world's innovators and changemakers, building and using the most transformative apps and blockchains. Access tools, guides, and resources to quickly start building custom chains, deploying smart contracts, and creating dApps.
-It is intended for use with large language models (LLMs) to support developers working with Polkadot. The content includes selected pages from the official docs, organized by section.
+This file contains documentation for Polkadot (https://polkadot.network/). Polkadot unites the world's innovators and changemakers, building and using the most transformative apps and blockchains. Access tools, guides, and resources to quickly start building custom chains, deploying smart contracts, and creating dApps.
+It is intended for use with large language models (LLMs) to support developers working with this product.
 
-This file includes documentation related to the category: Reference
+## Included Categories
+- Reference
 
 ## List of doc pages:
-Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/main/develop/interoperability/xcm-config.md [type: develop]
-Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/main/develop/interoperability/xcm-runtime-apis.md [type: develop]
-Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/main/develop/smart-contracts/json-rpc-apis.md [type: develop]
-Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/main/develop/toolkit/interoperability/asset-transfer-api/reference.md [type: develop]
-Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/main/polkadot-protocol/glossary.md [type: other]
+[XCM Config](https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/https://polkadot.network/develop/interoperability/xcm-config.md): Learn how the XCM Executor configuration works for your custom Polkadot SDK-based runtime with detailed guidance and references.
+[XCM Runtime APIs](https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/https://polkadot.network/develop/interoperability/xcm-runtime-apis.md): Learn about XCM Runtime APIs in Polkadot for cross-chain communication. Explore the APIs to simulate and test XCM messages before execution on the network.
+[JSON-RPC APIs](https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/https://polkadot.network/develop/smart-contracts/json-rpc-apis.md): JSON-RPC APIs guide for Polkadot Hub, covering supported methods, parameters, and examples for interacting with the chain.
+[Asset Transfer API Reference](https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/https://polkadot.network/develop/toolkit/interoperability/asset-transfer-api/referenc.md): Explore the Asset Transfer API Reference for comprehensive details on methods, data types, and functionalities. Essential for cross-chain asset transfers.
+[Glossary](https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/https://polkadot.network/polkadot-protocol/glossary.md): Glossary of terms used within the Polkadot ecosystem, Polkadot SDK, its subsequent libraries, and other relevant Web3 terminology.
 
 ## Full content for each doc page
 
-Doc-Content: https://docs.polkadot.com/develop/interoperability/xcm-config/
+Doc-Content: https://polkadot.network/develop/interoperability/xcm-config/
 --- BEGIN CONTENT ---
 ---
 title: XCM Config
@@ -34,12 +35,12 @@ The executor is highly configurable, with the [XCM builder](https://paritytech.g
 
 ## XCM Executor Configuration
 
-The `Config` trait defines the XCM executor’s configuration, which requires several associated types. Each type has specific trait bounds that the concrete implementation must fulfill. Some types, such as `RuntimeCall`, come with a default implementation in most cases, while others use the unit type `()` as the default. For many of these types, selecting the appropriate implementation carefully is crucial. Predefined solutions and building blocks can be adapted to your specific needs. These solutions can be found in the [`xcm-builder`](https://github.com/paritytech/polkadot-sdk/tree/{{dependencies.repositories.polkadot_sdk.version}}/polkadot/xcm/xcm-builder){target=\_blank} folder.
+The `Config` trait defines the XCM executor’s configuration, which requires several associated types. Each type has specific trait bounds that the concrete implementation must fulfill. Some types, such as `RuntimeCall`, come with a default implementation in most cases, while others use the unit type `()` as the default. For many of these types, selecting the appropriate implementation carefully is crucial. Predefined solutions and building blocks can be adapted to your specific needs. These solutions can be found in the [`xcm-builder`](https://github.com/paritytech/polkadot-sdk/tree/polkadot-stable2412/polkadot/xcm/xcm-builder){target=\_blank} folder.
 
 Each type is explained below, along with an overview of some of its implementations:
 
 ```rust
-pub trait Config {
+-pub trait Config {
     type RuntimeCall: Parameter + Dispatchable<PostInfo = PostDispatchInfo> + GetDispatchInfo;
     type XcmSender: SendXcm;
     type AssetTransactor: TransactAsset;
@@ -174,7 +175,7 @@ Each configuration item is explained below, detailing the associated type’s pu
     ```rust
     type PalletInstancesInfo: PalletsInfoAccess;
     ```
- <!-- I think `Holding Register` should be linked to https://wiki.polkadot.network/docs/learn/xcm/reference-glossary#holding-register, but since we will have our own glossary, I’m putting this as a TODO -->
+ 
 - [**`MaxAssetsIntoHolding`**](https://paritytech.github.io/polkadot-sdk/master/staging_xcm_executor/trait.Config.html#associatedtype.MaxAssetsIntoHolding){target=\_blank} - limits the number of assets in the [Holding register](https://wiki.polkadot.network/learn/learn-xcm/#holding-register){target=\_blank}. At most, twice this limit can be held under worst-case conditions
     ```rust
     type MaxAssetsIntoHolding: Get<u32>;
@@ -295,7 +296,7 @@ Some associated types in the `Config` trait are highly configurable and may have
 In the following example, the system will first check the `TakeWeightCredit` type when evaluating the barrier. If it fails, it will check `AllowTopLevelPaidExecutionFrom`, and so on, until one of them returns a positive result. If all checks fail, a Barrier error will be triggered.
 
 ```rust
-pub type Barrier = (
+-pub type Barrier = (
     TakeWeightCredit,
     AllowTopLevelPaidExecutionFrom<Everything>,
     AllowKnownQueryResponses<XcmPallet>,
@@ -311,7 +312,7 @@ impl xcm_executor::Config for XcmConfig {
 ```
 --- END CONTENT ---
 
-Doc-Content: https://docs.polkadot.com/develop/interoperability/xcm-runtime-apis/
+Doc-Content: https://polkadot.network/develop/interoperability/xcm-runtime-apis/
 --- BEGIN CONTENT ---
 ---
 title: XCM Runtime APIs
@@ -352,7 +353,7 @@ This API can be used independently for dry-running, double-checking, or testing.
 This API allows a dry-run of any extrinsic and obtaining the outcome if it fails or succeeds, as well as the local xcm and remote xcm messages sent to other chains.
 
 ```rust
-fn dry_run_call(origin: OriginCaller, call: Call) -> Result<CallDryRunEffects<Event>, Error>;
+-fn dry_run_call(origin: OriginCaller, call: Call) -> Result<CallDryRunEffects<Event>, Error>;
 ```
 
 ??? interface "Input parameters"
@@ -417,7 +418,7 @@ fn dry_run_call(origin: OriginCaller, call: Call) -> Result<CallDryRunEffects<Ev
     ***Usage with PAPI***
 
     ```js
-    import { paseo } from '@polkadot-api/descriptors';
+    -import { paseo } from '@polkadot-api/descriptors';
 import { createClient } from 'polkadot-api';
 import { getWsProvider } from 'polkadot-api/ws-provider/web';
 import { withPolkadotSdkCompat } from 'polkadot-api/polkadot-sdk-compat';
@@ -522,11 +523,12 @@ const resultObject = {
 console.dir(resultObject, { depth: null });
 
 client.destroy();
+
     ```
 
     ***Output***
 
-    <div id="termynal" data-termynal>
+    -<div id="termynal" data-termynal>
   <pre>
     {
       execution_result: {
@@ -798,8 +800,9 @@ client.destroy();
     }      
   </pre>
 </div>
+
                 ...
-    <div id="termynal" data-termynal>
+    -<div id="termynal" data-termynal>
   <pre>
     {
       execution_result: {
@@ -1071,6 +1074,7 @@ client.destroy();
     }      
   </pre>
 </div>
+
 
     ---
 
@@ -1079,7 +1083,7 @@ client.destroy();
 This API allows the direct dry-run of an xcm message instead of an extrinsic one, checks if it will execute successfully, and determines what other xcm messages will be forwarded to other chains.
 
 ```rust
-fn dry_run_xcm(origin_location: VersionedLocation, xcm: VersionedXcm<Call>) -> Result<XcmDryRunEffects<Event>, Error>;
+-fn dry_run_xcm(origin_location: VersionedLocation, xcm: VersionedXcm<Call>) -> Result<XcmDryRunEffects<Event>, Error>;
 ```
 
 ??? interface "Input parameters"
@@ -1138,7 +1142,7 @@ fn dry_run_xcm(origin_location: VersionedLocation, xcm: VersionedXcm<Call>) -> R
      ***Usage with PAPI***
 
     ```js
-    import { createClient } from 'polkadot-api';
+    -import { createClient } from 'polkadot-api';
 import { getWsProvider } from 'polkadot-api/ws-provider/web';
 import { withPolkadotSdkCompat } from 'polkadot-api/polkadot-sdk-compat';
 import {
@@ -1222,11 +1226,12 @@ const dryRunResult = await paseoAssetHubApi.apis.DryRunApi.dry_run_xcm(
 console.dir(dryRunResult.value, { depth: null });
 
 client.destroy();
+
     ```
 
     ***Output***
 
-    <div id="termynal" data-termynal>
+    -<div id="termynal" data-termynal>
   <pre>
     {
       execution_result: {
@@ -1289,6 +1294,7 @@ client.destroy();
   </pre>
 </div>
 
+
     ---
 
 ## XCM Payment API
@@ -1309,7 +1315,7 @@ To use the API effectively, the client must already know the XCM program to be e
 Retrieves the list of assets that are acceptable for paying fees when using a specific XCM version
 
 ```rust
-fn query_acceptable_payment_assets(xcm_version: Version) -> Result<Vec<VersionedAssetId>, Error>;
+-fn query_acceptable_payment_assets(xcm_version: Version) -> Result<Vec<VersionedAssetId>, Error>;
 ```
 
 ??? interface "Input parameters"
@@ -1346,7 +1352,7 @@ fn query_acceptable_payment_assets(xcm_version: Version) -> Result<Vec<Versioned
     ***Usage with PAPI***
 
     ```js
-    import { paseoAssetHub } from '@polkadot-api/descriptors';
+    -import { paseoAssetHub } from '@polkadot-api/descriptors';
 import { createClient } from 'polkadot-api';
 import { getWsProvider } from 'polkadot-api/ws-provider/web';
 import { withPolkadotSdkCompat } from 'polkadot-api/polkadot-sdk-compat';
@@ -1371,11 +1377,12 @@ const result =
 console.dir(result.value, { depth: null });
 
 client.destroy();
+
     ```
 
     ***Output***
 
-    <div id="termynal" data-termynal>
+    -<div id="termynal" data-termynal>
   <pre>
     [
       {
@@ -1389,6 +1396,7 @@ client.destroy();
   </pre>
 </div>
 
+
     ---
 
 ### Query XCM Weight
@@ -1396,7 +1404,7 @@ client.destroy();
 Calculates the weight required to execute a given XCM message. It is useful for estimating the execution cost of a cross-chain message in the destination chain before sending it.
 
 ```rust
-fn query_xcm_weight(message: VersionedXcm<()>) -> Result<Weight, Error>;
+-fn query_xcm_weight(message: VersionedXcm<()>) -> Result<Weight, Error>;
 ```
 
 ??? interface "Input parameters"
@@ -1449,7 +1457,7 @@ fn query_xcm_weight(message: VersionedXcm<()>) -> Result<Weight, Error>;
     ***Usage with PAPI***
 
     ```js
-    import { createClient } from 'polkadot-api';
+    -import { createClient } from 'polkadot-api';
 import { getWsProvider } from 'polkadot-api/ws-provider/web';
 import { withPolkadotSdkCompat } from 'polkadot-api/polkadot-sdk-compat';
 import {
@@ -1523,13 +1531,15 @@ const result = await paseoAssetHubApi.apis.XcmPaymentApi.query_xcm_weight(xcm);
 console.dir(result.value, { depth: null });
 
 client.destroy();
+
     ```
 
     ***Output***
 
-    <div id="termynal" data-termynal>
+    -<div id="termynal" data-termynal>
   <span data-ty>{ ref_time: 15574200000n, proof_size: 359300n }</span>
 </div>
+
 
     ---
 
@@ -1538,7 +1548,7 @@ client.destroy();
 Converts a given weight into the corresponding fee for a specified `AssetId`. It allows clients to determine the cost of execution in terms of the desired asset.
 
 ```rust
-fn query_weight_to_asset_fee(weight: Weight, asset: VersionedAssetId) -> Result<u128, Error>;
+-fn query_weight_to_asset_fee(weight: Weight, asset: VersionedAssetId) -> Result<u128, Error>;
 ```
 
 ??? interface "Input parameters"
@@ -1595,7 +1605,7 @@ fn query_weight_to_asset_fee(weight: Weight, asset: VersionedAssetId) -> Result<
     ***Usage with PAPI***
 
     ```js
-    import { paseoAssetHub } from '@polkadot-api/descriptors';
+    -import { paseoAssetHub } from '@polkadot-api/descriptors';
 import { createClient } from 'polkadot-api';
 import { getWsProvider } from 'polkadot-api/ws-provider/web';
 import { withPolkadotSdkCompat } from 'polkadot-api/polkadot-sdk-compat';
@@ -1627,13 +1637,15 @@ const result =
 console.dir(result.value, { depth: null });
 
 client.destroy();
+
     ```
 
     ***Output***
 
-    <div id="termynal" data-termynal>
+    -<div id="termynal" data-termynal>
   <span data-ty>1796500000n</span>
 </div>
+
     ---
 
 ### Query Delivery Fees
@@ -1641,7 +1653,7 @@ client.destroy();
 Retrieves the delivery fees for sending a specific XCM message to a designated destination. The fees are always returned in a specific asset defined by the destination chain.
 
 ```rust
-fn query_delivery_fees(destination: VersionedLocation, message: VersionedXcm<()>) -> Result<VersionedAssets, Error>;
+-fn query_delivery_fees(destination: VersionedLocation, message: VersionedXcm<()>) -> Result<VersionedAssets, Error>;
 ```
 
 ??? interface "Input parameters"
@@ -1686,7 +1698,7 @@ fn query_delivery_fees(destination: VersionedLocation, message: VersionedXcm<()>
     ***Usage with PAPI***
 
     ```js
-    import { createClient } from 'polkadot-api';
+    -import { createClient } from 'polkadot-api';
 import { getWsProvider } from 'polkadot-api/ws-provider/web';
 import { withPolkadotSdkCompat } from 'polkadot-api/polkadot-sdk-compat';
 import {
@@ -1770,11 +1782,12 @@ const result = await paseoApi.apis.XcmPaymentApi.query_delivery_fees(
 console.dir(result.value, { depth: null });
 
 client.destroy();
+
     ```
 
     ***Output***
 
-    <div id="termynal" data-termynal>
+    -<div id="termynal" data-termynal>
   <pre>
     {
       type: 'V3',
@@ -1790,10 +1803,11 @@ client.destroy();
     }
   </pre>
 </div>
+
     ---
 --- END CONTENT ---
 
-Doc-Content: https://docs.polkadot.com/develop/smart-contracts/json-rpc-apis/
+Doc-Content: https://polkadot.network/develop/smart-contracts/json-rpc-apis/
 --- BEGIN CONTENT ---
 ---
 title: JSON-RPC APIs
@@ -1803,7 +1817,7 @@ categories: Reference
 
 # JSON-RPC APIs
 
-!!! smartcontract "PolkaVM Preview Release"
+-!!! smartcontract "PolkaVM Preview Release"
     PolkaVM smart contracts with Ethereum compatibility are in **early-stage development and may be unstable or incomplete**.
 
 ## Introduction
@@ -2665,7 +2679,7 @@ If an error occurs, the response will include an error object:
 ```
 --- END CONTENT ---
 
-Doc-Content: https://docs.polkadot.com/develop/toolkit/interoperability/asset-transfer-api/reference/
+Doc-Content: https://polkadot.network/develop/toolkit/interoperability/asset-transfer-api/referenc/
 --- BEGIN CONTENT ---
 ---
 title: Asset Transfer API Reference
@@ -2702,7 +2716,7 @@ categories: Reference, Dapps
 
 Holds open an API connection to a specified chain within the `ApiPromise` to help construct transactions for assets and estimate fees.
 
-For a more in-depth explanation of the Asset Transfer API class structure, check the [source code](https://github.com/paritytech/asset-transfer-api/blob/{{dependencies.repositories.asset_transfer_api.version}}/src/AssetTransferApi.ts#L128){target=\_blank}.
+For a more in-depth explanation of the Asset Transfer API class structure, check the [source code](https://github.com/paritytech/asset-transfer-api/blob/v1.0.0/src/AssetTransferApi.ts#L128){target=\_blank}.
 
 ### Methods
 
@@ -2713,7 +2727,7 @@ Generates an XCM transaction for transferring assets between chains. It simplifi
 After obtaining the transaction, you must handle the signing and submission process separately.
 
 ```ts
-public async createTransferTransaction<T extends Format>(
+-public async createTransferTransaction<T extends Format>(
 		destChainId: string,
 		destAddr: string,
 		assetIds: string[],
@@ -2752,7 +2766,7 @@ public async createTransferTransaction<T extends Format>(
 
     `opts` ++"TransferArgsOpts<T>"++
 
-    Options for customizing the claim assets transaction. These options allow you to specify the transaction format, fee payment details, weight limits, XCM versions, and more.
+    -Options for customizing the claim assets transaction. These options allow you to specify the transaction format, fee payment details, weight limits, XCM versions, and more.
 
 ??? child "Show more"
 
@@ -2763,7 +2777,7 @@ public async createTransferTransaction<T extends Format>(
     ??? child "Type `Format`"
 
         ```ts
-        export type Format = 'payload' | 'call' | 'submittable';
+        -export type Format = 'payload' | 'call' | 'submittable';
         ```
 
     ---
@@ -2814,7 +2828,7 @@ public async createTransferTransaction<T extends Format>(
     ??? child "Type `AssetTransferType`"
 
         ```ts
-        export type AssetTransferType = LocalReserve | DestinationReserve | Teleport | RemoteReserve;
+        -export type AssetTransferType = LocalReserve | DestinationReserve | Teleport | RemoteReserve;
         ```
         
         !!! note
@@ -2836,7 +2850,7 @@ public async createTransferTransaction<T extends Format>(
     ??? child "Type `AssetTransferType`"
 
         ```ts
-        export type AssetTransferType = LocalReserve | DestinationReserve | Teleport | RemoteReserve;
+        -export type AssetTransferType = LocalReserve | DestinationReserve | Teleport | RemoteReserve;
         ```
         
         !!! note
@@ -2858,11 +2872,12 @@ public async createTransferTransaction<T extends Format>(
     Xcm(vec![DepositAsset { assets: Wild(AllCounted(assets.len())), beneficiary }])
     ```
 
+
 ??? interface "Response parameters"
 
     ++"Promise<TxResult<T>"++
 
-    A promise containing the result of constructing the transaction.
+    -A promise containing the result of constructing the transaction.
 
 ??? child "Show more"
 
@@ -2885,7 +2900,7 @@ public async createTransferTransaction<T extends Format>(
     ??? child "Type `Format`"
 
         ```ts
-        export type Format = 'payload' | 'call' | 'submittable';
+        -export type Format = 'payload' | 'call' | 'submittable';
         ```
 
     ---
@@ -2973,7 +2988,7 @@ public async createTransferTransaction<T extends Format>(
     ??? child "Type `Methods`"
 
         ```ts
-        export type Methods =
+        -export type Methods =
 	| LocalTransferTypes
 	| 'transferAssets'
 	| 'transferAssetsUsingTypeAndThen'
@@ -2989,7 +3004,7 @@ public async createTransferTransaction<T extends Format>(
 
 
             ```ts
-            export type LocalTransferTypes =
+            -export type LocalTransferTypes =
 	| 'assets::transfer'
 	| 'assets::transferKeepAlive'
 	| 'assets::transferAll'
@@ -3016,7 +3031,7 @@ public async createTransferTransaction<T extends Format>(
     ??? child "Type `ConstructedFormat<T>`"
 
         ```ts
-        export type ConstructedFormat<T> = T extends 'payload'
+        -export type ConstructedFormat<T> = T extends 'payload'
 	? GenericExtrinsicPayload
 	: T extends 'call'
 		? `0x${string}`
@@ -3031,12 +3046,13 @@ public async createTransferTransaction<T extends Format>(
         - **Call format** - if the format field is set to `'call'`, the `ConstructedFormat` type will return a hexadecimal string (`0x${string}`). This is the encoded representation of the extrinsic call
         - **Submittable format** - if the format field is set to `'submittable'`, the `ConstructedFormat` type will return a [`SubmittableExtrinsic`](https://github.com/polkadot-js/api/blob/v15.8.1/packages/api-base/src/types/submittable.ts#L56){target=\_blank}. This is a Polkadot.js type that represents a transaction that can be submitted to the blockchain
 
+
 ??? interface "Example"
 
     ***Request***
 
     ```ts
-    import {
+    -import {
   AssetTransferApi,
   constructApiPromise,
 } from '@substrate/asset-transfer-api';
@@ -3070,11 +3086,12 @@ async function main() {
 main()
   .catch((err) => console.error(err))
   .finally(() => process.exit());
+
     ```
 
     ***Response***
 
-    <div id="termynal" data-termynal>
+    -<div id="termynal" data-termynal>
     <span data-ty>Call data:</span>
     <span data-ty>{</span>
     <span data-ty>    "origin": "moonbeam",</span>
@@ -3093,7 +3110,7 @@ Creates a local XCM transaction to retrieve trapped assets. This function can be
 
 
 ```ts
-public async claimAssets<T extends Format>(
+-public async claimAssets<T extends Format>(
 		assetIds: string[],
 		amounts: string[],
 		beneficiary: string,
@@ -3123,7 +3140,7 @@ public async claimAssets<T extends Format>(
 
     `opts` ++"TransferArgsOpts<T>"++
 
-    Options for customizing the claim assets transaction. These options allow you to specify the transaction format, fee payment details, weight limits, XCM versions, and more.
+    -Options for customizing the claim assets transaction. These options allow you to specify the transaction format, fee payment details, weight limits, XCM versions, and more.
 
 ??? child "Show more"
 
@@ -3134,7 +3151,7 @@ public async claimAssets<T extends Format>(
     ??? child "Type `Format`"
 
         ```ts
-        export type Format = 'payload' | 'call' | 'submittable';
+        -export type Format = 'payload' | 'call' | 'submittable';
         ```
 
     ---
@@ -3185,7 +3202,7 @@ public async claimAssets<T extends Format>(
     ??? child "Type `AssetTransferType`"
 
         ```ts
-        export type AssetTransferType = LocalReserve | DestinationReserve | Teleport | RemoteReserve;
+        -export type AssetTransferType = LocalReserve | DestinationReserve | Teleport | RemoteReserve;
         ```
         
         !!! note
@@ -3207,7 +3224,7 @@ public async claimAssets<T extends Format>(
     ??? child "Type `AssetTransferType`"
 
         ```ts
-        export type AssetTransferType = LocalReserve | DestinationReserve | Teleport | RemoteReserve;
+        -export type AssetTransferType = LocalReserve | DestinationReserve | Teleport | RemoteReserve;
         ```
         
         !!! note
@@ -3229,11 +3246,12 @@ public async claimAssets<T extends Format>(
     Xcm(vec![DepositAsset { assets: Wild(AllCounted(assets.len())), beneficiary }])
     ```
 
+
 ??? interface "Response parameters"
 
     ++"Promise<TxResult<T>>"++
 
-    A promise containing the result of constructing the transaction.
+    -A promise containing the result of constructing the transaction.
 
 ??? child "Show more"
 
@@ -3256,7 +3274,7 @@ public async claimAssets<T extends Format>(
     ??? child "Type `Format`"
 
         ```ts
-        export type Format = 'payload' | 'call' | 'submittable';
+        -export type Format = 'payload' | 'call' | 'submittable';
         ```
 
     ---
@@ -3344,7 +3362,7 @@ public async claimAssets<T extends Format>(
     ??? child "Type `Methods`"
 
         ```ts
-        export type Methods =
+        -export type Methods =
 	| LocalTransferTypes
 	| 'transferAssets'
 	| 'transferAssetsUsingTypeAndThen'
@@ -3360,7 +3378,7 @@ public async claimAssets<T extends Format>(
 
 
             ```ts
-            export type LocalTransferTypes =
+            -export type LocalTransferTypes =
 	| 'assets::transfer'
 	| 'assets::transferKeepAlive'
 	| 'assets::transferAll'
@@ -3387,7 +3405,7 @@ public async claimAssets<T extends Format>(
     ??? child "Type `ConstructedFormat<T>`"
 
         ```ts
-        export type ConstructedFormat<T> = T extends 'payload'
+        -export type ConstructedFormat<T> = T extends 'payload'
 	? GenericExtrinsicPayload
 	: T extends 'call'
 		? `0x${string}`
@@ -3402,12 +3420,13 @@ public async claimAssets<T extends Format>(
         - **Call format** - if the format field is set to `'call'`, the `ConstructedFormat` type will return a hexadecimal string (`0x${string}`). This is the encoded representation of the extrinsic call
         - **Submittable format** - if the format field is set to `'submittable'`, the `ConstructedFormat` type will return a [`SubmittableExtrinsic`](https://github.com/polkadot-js/api/blob/v15.8.1/packages/api-base/src/types/submittable.ts#L56){target=\_blank}. This is a Polkadot.js type that represents a transaction that can be submitted to the blockchain
 
+
 ??? interface "Example"
 
     ***Request***
 
     ```ts
-    import {
+    -import {
   AssetTransferApi,
   constructApiPromise,
 } from '@substrate/asset-transfer-api';
@@ -3442,11 +3461,12 @@ async function main() {
 main()
   .catch((err) => console.error(err))
   .finally(() => process.exit());
+
     ```
 
     ***Response***
 
-    <div id="termynal" data-termynal>
+    -<div id="termynal" data-termynal>
     <span data-ty>Call data:</span>
     <span data-ty>{</span>
     <span data-ty>    "origin": "0",</span>
@@ -3465,7 +3485,7 @@ main()
 Decodes the hex of an extrinsic into a string readable format.
 
 ```ts
-public decodeExtrinsic<T extends Format>(encodedTransaction: string, format: T): string {
+-public decodeExtrinsic<T extends Format>(encodedTransaction: string, format: T): string {
 ```
 
 ??? interface "Request parameters"
@@ -3483,7 +3503,7 @@ public decodeExtrinsic<T extends Format>(encodedTransaction: string, format: T):
     ??? child "Type `Format`"
 
         ```ts
-        export type Format = 'payload' | 'call' | 'submittable';
+        -export type Format = 'payload' | 'call' | 'submittable';
         ```
 
 ??? interface "Response parameters"
@@ -3497,7 +3517,7 @@ public decodeExtrinsic<T extends Format>(encodedTransaction: string, format: T):
     ***Request***
 
     ```ts
-    import {
+    -import {
   AssetTransferApi,
   constructApiPromise,
 } from '@substrate/asset-transfer-api';
@@ -3524,11 +3544,12 @@ async function main() {
 main()
   .catch((err) => console.error(err))
   .finally(() => process.exit());
+
     ```
 
     ***Response***
 
-    <div id='termynal' data-termynal>
+    -<div id='termynal' data-termynal>
 	<span data-ty>Decoded tx:</span>
 	<span data-ty> {</span>
 	<span data-ty>    "args": {</span>
@@ -3545,7 +3566,7 @@ main()
 Fetch estimated fee information for an extrinsic.
 
 ```ts
-public async fetchFeeInfo<T extends Format>(
+-public async fetchFeeInfo<T extends Format>(
 		tx: ConstructedFormat<T>,
 		format: T,
 	): Promise<RuntimeDispatchInfo | RuntimeDispatchInfoV1 | null> {
@@ -3560,7 +3581,7 @@ public async fetchFeeInfo<T extends Format>(
     ??? child "Type `ConstructedFormat<T>`"
 
         ```ts
-        export type ConstructedFormat<T> = T extends 'payload'
+        -export type ConstructedFormat<T> = T extends 'payload'
 	? GenericExtrinsicPayload
 	: T extends 'call'
 		? `0x${string}`
@@ -3571,9 +3592,9 @@ public async fetchFeeInfo<T extends Format>(
 
         The `ConstructedFormat` type is a conditional type that returns a specific type based on the value of the TxResult `format` field.
 
-        - **Payload format** - if the format field is set to `'payload'`, the `ConstructedFormat` type will return a [`GenericExtrinsicPayload`](https://github.com/polkadot-js/api/blob/{{ dependencies.javascript_packages.asset_transfer_api.polkadot_js_api_version}}/packages/types/src/extrinsic/ExtrinsicPayload.ts#L87){target=\_blank}
+        - **Payload format** - if the format field is set to `'payload'`, the `ConstructedFormat` type will return a [`GenericExtrinsicPayload`](https://github.com/polkadot-js/api/blob/v16.2.2/packages/types/src/extrinsic/ExtrinsicPayload.ts#L87){target=\_blank}
         - Call format - if the format field is set to `'call'`, the `ConstructedFormat` type will return a hexadecimal string (`0x${string}`). This is the encoded representation of the extrinsic call
-        - **Submittable format** - if the format field is set to `'submittable'`, the `ConstructedFormat` type will return a [`SubmittableExtrinsic`](https://github.com/polkadot-js/api/blob/{{dependencies.javascript_packages.asset_transfer_api.polkadot_js_api_version}}/packages/api-base/src/types/submittable.ts#L56){target=\_blank}. This is a Polkadot.js type that represents a transaction that can be submitted to the blockchain
+        - **Submittable format** - if the format field is set to `'submittable'`, the `ConstructedFormat` type will return a [`SubmittableExtrinsic`](https://github.com/polkadot-js/api/blob/v16.2.2/packages/api-base/src/types/submittable.ts#L56){target=\_blank}. This is a Polkadot.js type that represents a transaction that can be submitted to the blockchain
 
     ---
 
@@ -3584,7 +3605,7 @@ public async fetchFeeInfo<T extends Format>(
     ??? child "Type `Format`"
 
         ```ts
-        export type Format = 'payload' | 'call' | 'submittable';
+        -export type Format = 'payload' | 'call' | 'submittable';
         ```
 
 ??? interface "Response parameters"
@@ -3603,7 +3624,7 @@ public async fetchFeeInfo<T extends Format>(
         }
         ```
 
-        For more information on the underlying types and fields of `RuntimeDispatchInfo`, check the [`RuntimeDispatchInfo`](https://github.com/polkadot-js/api/blob/{{ dependencies.javascript_packages.asset_transfer_api.polkadot_js_api_version}}/packages/types/src/interfaces/payment/types.ts#L21){target=\_blank} source code.
+        For more information on the underlying types and fields of `RuntimeDispatchInfo`, check the [`RuntimeDispatchInfo`](https://github.com/polkadot-js/api/blob/v16.2.2/packages/types/src/interfaces/payment/types.ts#L21){target=\_blank} source code.
 
 
     ??? child "Type `RuntimeDispatchInfoV1`"
@@ -3616,14 +3637,14 @@ public async fetchFeeInfo<T extends Format>(
         }
         ```
 
-        For more information on the underlying types and fields of `RuntimeDispatchInfoV1`, check the [`RuntimeDispatchInfoV1`](https://github.com/polkadot-js/api/blob/{{dependencies.javascript_packages.asset_transfer_api.polkadot_js_api_version}}/packages/types/src/interfaces/payment/types.ts#L28){target=\_blank} source code.
+        For more information on the underlying types and fields of `RuntimeDispatchInfoV1`, check the [`RuntimeDispatchInfoV1`](https://github.com/polkadot-js/api/blob/v16.2.2/packages/types/src/interfaces/payment/types.ts#L28){target=\_blank} source code.
 
 ??? interface "Example"
 
     ***Request***
 
     ```ts
-    import {
+    -import {
   AssetTransferApi,
   constructApiPromise,
 } from '@substrate/asset-transfer-api';
@@ -3648,11 +3669,12 @@ async function main() {
 main()
   .catch((err) => console.error(err))
   .finally(() => process.exit());
+
     ```
 
     ***Response***
 
-    <div id='termynal' data-termynal>
+    -<div id='termynal' data-termynal>
     <span data-ty>Fee info:</span>
     <span data-ty>{</span>
     <span data-ty>    "weight": {</span>
@@ -3665,7 +3687,7 @@ main()
 </div>
 --- END CONTENT ---
 
-Doc-Content: https://docs.polkadot.com/polkadot-protocol/glossary/
+Doc-Content: https://polkadot.network/polkadot-protocol/glossary/
 --- BEGIN CONTENT ---
 ---
 title: Glossary
@@ -3786,7 +3808,7 @@ Well-known development accounts, such as Alice, Bob, Charlie, Dave, Eve, and Fer
 bottom drive obey lake curtain smoke basket hold race lonely fit walk
 ```
 
-Many tools in the Polkadot SDK ecosystem, such as [`subkey`](https://github.com/paritytech/polkadot-sdk/tree/{{dependencies.repositories.polkadot_sdk.version}}/substrate/bin/utils/subkey){target=\_blank}, allow you to implicitly specify an account using a derivation path such as `//Alice`.
+Many tools in the Polkadot SDK ecosystem, such as [`subkey`](https://github.com/paritytech/polkadot-sdk/tree/polkadot-stable2412/substrate/bin/utils/subkey){target=\_blank}, allow you to implicitly specify an account using a derivation path such as `//Alice`.
 
 ## Digest
 

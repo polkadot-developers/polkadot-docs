@@ -1,6 +1,7 @@
 ---
 title: Connect to Kusama
 description: Explore how to connect to Kusama Hub for developing and testing smart contracts in a live environment with real monetary value.
+categories: Networks
 ---
 
 # Connect to Kusama

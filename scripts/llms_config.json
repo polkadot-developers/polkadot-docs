@@ -1,10 +1,73 @@
 {
-  "projectName": "Polkadot",
-  "projectUrl": "https://polkadot.network",
-  "projectDescription": "Polkadot unites the world's innovators and changemakers, building and using the most transformative apps and blockchains. Access tools, guides, and resources to quickly start building custom chains, deploying smart contracts, and creating dApps.",
-  "sectionPriority": ["develop", "tutorials", "protocol"],
-  "categories": ["Smart Contracts", "Parachains", "dApps", "Networks", "Polkadot Protocol", "Infrastructure", "Tooling"],
-  "aiPromptTemplate": "## AI Prompt Template\n\nYou are an AI developer assistant for {PROJECT_NAME} ({PROJECT_URL}). Your task is to assist developers in understanding and using the product described in this file.\n- Provide accurate answers based on the included documentation.\n- Do not assume undocumented features, behaviors, or APIs.\n- If unsure, respond with “Not specified in the documentation.\n\n",
-  "coreContextDescription": "The following section contains foundational documentation shared across all {PROJECT_NAME} products.\nIt describes the architecture and infrastructure that serve as the backbone for all integrations built with {PROJECT_NAME}.\nThis includes developing and deploying solidity smart contracts on the Polkadot Hub, building, customizing, deploying, and maintaining a parachain, and integrating with the Polkadot ecosystem.\nThis context is provided to help understand how the system works under the hood, but responses should stay focused on the specific product unless the user explicitly asks about the general architecture.\n",
-  "referenceContextDescription": "The following section contains reference material for {PROJECT_NAME}.\nWhile it may not be required for all use cases, it offers a deeper technical layer for advanced development work.\n"
+  "project_name": "Polkadot",
+  "project_url": "https://polkadot.network/",
+  "summary": "Polkadot unites the world's innovators and changemakers, building and using the most transformative apps and blockchains. Access tools, guides, and resources to quickly start building custom chains, deploying smart contracts, and creating dApps.",
+  "github": {
+    "org": "polkadot-developers",
+    "repo": "polkadot-docs",
+    "branch": "master",
+    "docs_path": "."
+  },
+  "base_context_categories": ["Basics", "Reference"],
+  "categories_order": [
+    "Basics",
+    "Smart Contracts", 
+    "Parachains", 
+    "dApps", 
+    "Networks", 
+    "Polkadot Protocol", 
+    "Infrastructure", 
+    "Tooling",
+    "Tutorials",
+    "Reference"
+  ],
+  "source_repos": [
+    {
+      "name": "Polkadot SDK",
+      "url": "https://github.com/polkadot-developers/polkadot-sdk",
+      "description": "The core SDK for interacting with Polkadot."
+    },
+    {
+      "name": "Polkadot Runtimes",
+      "url": "https://github.com/polkadot-fellows/runtimes",
+      "description": "Runtimes for Polkadot and its system chains managed by the fellowship. Often referenced to see how the specific chain was configured."
+    },
+    {
+      "name": "Polkadot Parachain Template",
+      "url": "https://github.com/paritytech/polkadot-sdk-parachain-template",
+      "description": "Template for building a Polkadot parachain. It includes the necessary configurations and dependencies to get started quickly."
+    },
+    {
+      "name": "Polkadot API Library",
+      "url": "https://github.com/polkadot-api/polkadot-api",
+      "description": "Typescript library that is used often to interact with Polkadot."
+    }
+  ],
+  "optional_resources": [
+    {
+      "title": "Support: Get In Touch Directly",
+      "url": "https://docs.polkadot.com/get-support/get-in-touch/",
+      "description": "This page provides multiple options to get live technical support or ask questions."
+    },
+    {
+      "title": "Support: Ask the Community and Explore Resources",
+      "url": "https://docs.polkadot.com/get-support/explore-resources/",
+      "description": "This page provides multiple options to connect with the Polkadot community and find additional information via resources like Stack Exchange or Reddit."
+    }
+  ],
+  "skip_basenames": [
+    "README.md",
+    "index.md",
+    ".CONTRIBUTING.md",
+    "pull-request-template.md",
+    "cookie-policy.md",
+    "LICENSE.md"
+  ],
+  "skip_parts": [
+    ".snippets",
+    ".github",
+    "node_modules",
+    "venv"
+  ]
 }
+

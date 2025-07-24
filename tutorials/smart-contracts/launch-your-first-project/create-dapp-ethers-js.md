@@ -2,7 +2,7 @@
 title: Create a dApp With Ethers.js
 description: Learn how to build a decentralized application on Polkadot Hub using Ethers.js and Next.js by creating a simple dApp that interacts with a smart contract.
 tutorial_badge:  Intermediate
-categories: dApp, Tooling
+categories: dApp, Tooling, Tutorials
 ---
 
 # Create a DApp With Ethers.js

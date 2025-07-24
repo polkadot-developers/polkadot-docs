@@ -16,8 +16,7 @@ import { createClient, Enum, FixedSizeBinary, type Transaction } from "polkadot-
 import { getWsProvider } from "polkadot-api/ws-provider/web";
 import { withPolkadotSdkCompat } from "polkadot-api/polkadot-sdk-compat";
 
-// Some constants.
-// For Asset Hub.
+// Asset Hub constants.
 const ASSET_HUB_WS_URL = "ws://localhost:8000";
 const ASSET_HUB_PARA_ID = 1000;
 const ASSET_HUB_ACCOUNT = "15oF4uVJwmo4TdGW7VfQxNLavjCXviqxT9S1MgbjMNHr6Sp5";

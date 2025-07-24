@@ -155,6 +155,7 @@ const feeDetails = await api.apis.TransactionPaymentApi.query_fee_details(
 ```
 
 [XCM Payment API](https://paritytech.github.io/polkadot-sdk/master/xcm_runtime_apis/fees/trait.XcmPaymentApi.html){target=\_blank} for cross-chain delivery fees:
+
 ```typescript
 import { dot } from "@polkadot-api/descriptors";
 import { createClient } from "polkadot-api";

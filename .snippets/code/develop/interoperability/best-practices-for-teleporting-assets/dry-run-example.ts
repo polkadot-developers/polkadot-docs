@@ -65,7 +65,7 @@ const tx = mythApi.tx.PolkadotXcm.limited_teleport_assets({
 await dryRun(tx.decodedCall);
 
 async function dryRun(call: Transaction<any, any, any, any>['decodedCall']) {
-  // Dry run the teleport locally so we know we can for example withdraw
+  // Dry run the teleport locally so you know you can for example withdraw
   // the necessary funds and pay for delivery fees.
   console.log('Dry running teleport on Mythos...')
   const localDryRunResult = await mythApi.apis.DryRunApi.dry_run_call(
@@ -77,28 +77,28 @@ async function dryRun(call: Transaction<any, any, any, any>['decodedCall']) {
   // The first condition is whether or not the runtime API was successful,
   // the second is whether or not the underlying dry-run was successful.
   if (localDryRunResult.success && localDryRunResult.value.execution_result.success) {
-    // We are interested in the message to Asset Hub that results from our call.
-    // We filter for it here.
+    // You are interested in the message to Asset Hub that results from your call.
+    // You filter for it here.
     const [_, messages] =
       localDryRunResult.value.forwarded_xcms.find(
         ([location, _]) =>
-          // We happen to know the latest version in Mythos is V5 because of the descriptors.
+          // You happen to know the latest version in Mythos is V5 because of the descriptors.
           location.type === 'V5' &&
             location.value.parents === 1 &&
             location.value.interior.type === 'X1' &&
             location.value.interior.value.type === 'Parachain' &&
             location.value.interior.value.value === ASSET_HUB_PARA_ID
         )!;
-    // There could be multiple messages to Asset Hub, we know it's only one
-    // so we take the first one.
+    // There could be multiple messages to Asset Hub, you know it's only one
+    // so you take the first one.
     const messageToAh = messages[0];
 
-    // We connect to Asset Hub to dry run this message there.
+    // You connect to Asset Hub to dry run this message there.
     const assetHubClient = createClient(getWsProvider(ASSET_HUB_WS_URL));
     const ahApi = assetHubClient.getTypedApi(ah);
 
-    // We need to ensure it's V4 because V5 is not supported by Asset Hub at the time of writing.
-    // We get the supported versions directly from the descriptors.
+    // You need to ensure it's V4 because V5 is not supported by Asset Hub at the time of writing.
+    // You get the supported versions directly from the descriptors.
     if (messageToAh.type === 'V4') {
       console.log('Dry running on Asset Hub...');
       const remoteDryRunResult =
@@ -114,18 +114,18 @@ async function dryRun(call: Transaction<any, any, any, any>['decodedCall']) {
         // Success! Let's go ahead with the teleport.
         console.log('Success!');
       } else {
-        // It probably failed because our account doesn't exist on Asset Hub and
-        // we don't have DOT for the existential deposit.
-        // We should solve that problem and try again.
-        // We will later improve errors so that we know exactly what went wrong and can act accordingly.
+        // It probably failed because your account doesn't exist on Asset Hub and
+        // You don't have DOT for the existential deposit.
+        // You should solve that problem and try again.
+        // You will later improve errors so that you know exactly what went wrong and can act accordingly.
         // See https://github.com/paritytech/polkadot-sdk/issues/6119.
         console.log('Failure :( Going to try again.');
 
-        // We're manually building an XCM here since we want to use the `ExchangeAsset` instruction
+        // You're manually building an XCM here since you want to use the `ExchangeAsset` instruction
         // to swap some of the MYTH for DOT to cover the existential deposit.
         // This is executed via `PolkadotXcm.execute()` on Mythos and will send a message to Asset Hub.
         const xcm = XcmVersionedXcm.V4([
-          // We withdraw some MYTH from our account on Mythos.
+          // You withdraw some MYTH from your account on Mythos.
           XcmV4Instruction.WithdrawAsset([
             { id: { parents: 0, interior: XcmV3Junctions.Here() }, fun: XcmV3MultiassetFungibility.Fungible(100n * MYTH_UNITS) },
           ]),
@@ -139,19 +139,19 @@ async function dryRun(call: Transaction<any, any, any, any>['decodedCall']) {
             assets: XcmV4AssetAssetFilter.Wild(XcmV4AssetWildAsset.AllCounted(1)),
             dest: { parents: 1, interior: XcmV3Junctions.X1(XcmV3Junction.Parachain(ASSET_HUB_PARA_ID)) },
             xcm: [
-              // We pay fees with MYTH on Asset Hub.
+              // You pay fees with MYTH on Asset Hub.
               // This is possible because Asset Hub allows paying fees with any asset that has a liquidity pool.
               XcmV4Instruction.BuyExecution({
                 fees: { id: { parents: 1, interior: XcmV3Junctions.X1(XcmV3Junction.Parachain(MYTHOS_PARA_ID)) }, fun: XcmV3MultiassetFungibility.Fungible(50n * MYTH_UNITS) },
                 weight_limit: XcmV3WeightLimit.Unlimited(),
               }),
-              // We explicitly swap our MYTH for 0.01 DOT to cover ED.
+              // You explicitly swap your MYTH for 0.01 DOT to cover ED.
               XcmV4Instruction.ExchangeAsset({
                 give: XcmV4AssetAssetFilter.Wild(XcmV4AssetWildAsset.AllCounted(1)),
                 want: [{ id: { parents: 1, interior: XcmV3Junctions.Here() }, fun: XcmV3MultiassetFungibility.Fungible(1n * DOT_CENTS) }],
                 maximal: false,
               }),
-              // We deposit all our MYTH and our 0.01 DOT into the beneficiary account.
+              // You deposit all your MYTH and your 0.01 DOT into the beneficiary account.
               XcmV4Instruction.DepositAsset({
                 assets: XcmV4AssetAssetFilter.Wild(XcmV4AssetWildAsset.AllCounted(2)),
                 beneficiary: {
@@ -171,7 +171,7 @@ async function dryRun(call: Transaction<any, any, any, any>['decodedCall']) {
           max_weight: { ref_time: 4_000_000_000n, proof_size: 300_000n }
         });
 
-        // We try the dry run again.
+        // You try the dry run again.
         dryRun(tx.decodedCall);
       }
     }

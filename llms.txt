@@ -21055,7 +21055,7 @@ The disabling mechanism is triggered when validators commit serious infractions,
 
 Off-chain disabling is always a lower priority than on-chain disabling. Off-chain disabling prioritizes disabling first backers and then approval checkers.
 
-The material in this guide reflects the changes introduced in Stage 2. For more details, see the [State of Disabling issue](https://github.com/paritytech/polkadot-sdk/issues/4359){target=\_blank} on GitHub.
+The material in this guide reflects the changes introduced in Stage 4. For more details, see the [State of Disabling issue](https://github.com/paritytech/polkadot-sdk/issues/4359){target=\_blank} on GitHub.
 
 
 ### Reputation Changes
@@ -21068,10 +21068,10 @@ Below, you can find a summary of penalties for specific offenses:
 
 |               Offense                | [Slash (%)](#slashing) | [On-Chain Disabling](#disabling) | [Off-Chain Disabling](#disabling) | [Reputational Changes](#reputation-changes) |
 |:------------------------------------:|:----------------------:|:--------------------------------------:|:------------------------------------:|:-------------------------------------------:|
-|           Backing Invalid            |          100%          |                  Yes                   |         Yes (High Priority)          |                     No                      |
-|           ForInvalid Vote            |           -            |                   No                   |          Yes (Mid Priority)          |                     No                      |
-|          AgainstValid Vote           |           -            |                   No                   |          Yes (Low Priority)          |                     No                      |
-| GRANDPA / BABE / BEEFY Equivocations |       0.01-100%        |                  Yes                   |                  No                  |                     No                      |
+|           Backing Invalid            |          100%          |                  Yes (High Priority)   |         Yes (High Priority)          |                     No                      |
+|           ForInvalid Vote            |           2%           |                  Yes (Mid Priority)    |          Yes (Mid Priority)          |                     No                      |
+|          AgainstValid Vote           |           0%           |                  Yes (Low Priority)    |          Yes (Low Priority)          |                     No                      |
+| GRANDPA / BABE / BEEFY Equivocations |       0.01-100%        |                  Yes (Varying Priority)|                  No                  |                     No                      |
 |    Seconded + Valid Equivocation     |           -            |                   No                   |                  No                  |                     No                      |
 |     Double Seconded Equivocation     |           -            |                   No                   |                  No                  |                     Yes                     |
 --- END CONTENT ---

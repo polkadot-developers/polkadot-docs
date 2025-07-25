@@ -82,4 +82,7 @@ dependencies:
     ethersjs:
       name: '@ethersjs'
       version: 6.13.5
+    paraspell_sdk:
+      name: '@paraspell/sdk'
+      version: 10.10.11
 #   python_packages:

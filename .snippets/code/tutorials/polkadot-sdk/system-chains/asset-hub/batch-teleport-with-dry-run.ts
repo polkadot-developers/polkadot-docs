@@ -6,20 +6,18 @@ const PAS_UNITS = 10_000_000_000;
 // Not needed if using Polkadot.
 const PASEO_AH_RPC = 'wss://asset-hub-paseo.dotters.network';
 
-teleport();
-
-async function teleport() {
+async function batchTeleport() {
   const senderAddress = '15whavTNSyceP8SL3Z1JukFcUPzmeR26RxKXkfQiPhsykg7s';
   const recipientAddress = '14E5nqKAp3oAJcmzgZhUD2RcptBeUBScxKHgJKU4HPNcKVf3';
 
-  // Check if dry run is supported on Polkadot Asset Hub
+  // Check if dry run is supported on Polkadot Asset Hub.
   const supportsDryRun = hasDryRunSupport('AssetHubPolkadot');
   console.log(`AssetHubPolkadot supports dry run: ${supportsDryRun}`);
 
   if (supportsDryRun) {
     console.log('Running dry run for first transaction...');
 
-    // Dry run the first transaction
+    // Dry run the first transaction.
     try {
       const dryRunResult1 = await Builder([PASEO_AH_RPC])
         .from('AssetHubPolkadot')
@@ -32,7 +30,7 @@ async function teleport() {
 
       console.log('Dry run result 1:', dryRunResult1);
 
-      // Dry run the second transaction
+      // Dry run the second transaction.
       console.log('Running dry run for second transaction...');
       const dryRunResult2 = await Builder([PASEO_AH_RPC])
         .from('AssetHubPolkadot')
@@ -45,7 +43,7 @@ async function teleport() {
 
       console.log('Dry run result 2:', dryRunResult2);
 
-      // Log if both dry runs were successful before proceeding
+      // Log if both dry runs were successful before proceeding.
       console.log('Dry run results:');
       console.log('Transaction 1:');
       console.dir(dryRunResult1, { depth: null });
@@ -55,13 +53,13 @@ async function teleport() {
 
     } catch (error) {
       console.error('Dry run failed:', error);
-      return; // Exit early if dry run throws an error
+      return; // Exit early if dry run throws an error.
     }
   } else {
     console.log('Dry run not supported, proceeding directly to batch transaction...');
   }
 
-  // Original batch transaction code
+  // Original batch transaction code.
   const builder = Builder([PASEO_AH_RPC])
     .from('AssetHubPolkadot')
     .to('Polkadot')
@@ -78,7 +76,7 @@ async function teleport() {
     .addToBatch();
 
   const tx = await builder.buildBatch({
-    // This settings object is optional and batch all is the default option
+    // This settings object is optional and batch all is the default option.
     mode: BatchMode.BATCH_ALL //or BatchMode.BATCH
   });
 
@@ -90,3 +88,5 @@ async function teleport() {
     https://dev.papi.how/extrinsics#networkId=paseo_asset_hub&endpoint=light-client&data=${callData.asHex()}
   `);
 }
+
+batchTeleport();

@@ -1,6 +1,6 @@
 ---
 title: Best Practices for Teleporting Assets
-description: An in-depth guide on best practices for teleporting assets using XCM
+description: An in-depth guide on best practices for teleporting assets using XCM including pre-flight validation, fee estimation, dry-run testing, and error prevention.
 tutorial_badge: Intermediate
 ---
 
@@ -26,11 +26,11 @@ Asset teleportation requires comprehensive pre-flight validation to prevent fail
 
 Here is an example flow of teleporting an asset from a parachain to Asset Hub.
 
-???- example "Teleporting a Non-Sufficient Asset from a Parachain to Asset Hub"
+??? code "Teleporting a Non-Sufficient Asset from a Parachain to Asset Hub"
 
     ```mermaid
     flowchart TD
-        A[Teleporting a <br/>Non-Sufficient Asset<br/>from a Parachain to <br/>Asset Hub] --> B[Check account existence<br/>on Asset Hub]
+        A[Teleporting a <br/>Non-Sufficient Asset<br/>from a Parachain to <br/>Asset Hub] --> B[Check account existence<br/>on Asset Hub.]
         B --> C{Account exists?}
         C -->|No| D[Account needs to be <br/>created with sufficient <br/>asset for ED]
         C -->|Yes| E[Check existential deposit<br/>on Asset Hub]
@@ -85,50 +85,51 @@ Always verify that the destination account exists or can be created before initi
 - Current balance and nonce information  
 - Whether the account meets existential deposit requirements
 
-???- example "Account Existence Check Examples"
+You can refer to the following snippets to check for the Existential Deposit (ED) of a specific account:
 
-    **Using PolkadotJS API:**
-    ```javascript
-    async function checkAccountExistence(api, address) {
-      const accountInfo = await api.query.system.account(address);
-      const balance = accountInfo.data.free.toBigInt();
-      const existentialDeposit = api.consts.balances.existentialDeposit.toBigInt();
-      
-      return {
-        exists: !accountInfo.isEmpty,
-        balance,
-        hasExistentialDeposit: balance >= existentialDeposit
-      };
-    }
-    ```
+??? code "Account Existence Examples"
 
-    **Using Polkadot API (PAPI):**
-    ```typescript
-    import { dot } from "@polkadot-api/descriptors";
-    import { createClient } from "polkadot-api";
-    import { getWsProvider } from "polkadot-api/ws-provider/web";
+    === "PolkadotJS API"
+        ```javascript
+        async function checkAccountExistence(api, address) {
+          const accountInfo = await api.query.system.account(address);
+          const balance = accountInfo.data.free.toBigInt();
+          const existentialDeposit = api.consts.balances.existentialDeposit.toBigInt();
+          
+          return {
+            exists: !accountInfo.isEmpty,
+            balance,
+            hasExistentialDeposit: balance >= existentialDeposit
+          };
+        }
+        ```
 
-    async function queryAccountBalance(address: string) {
-      const client = createClient(getWsProvider("wss://rpc.polkadot.io"));
-      const api = client.getTypedApi(dot);
-      
-      const accountInfo = await api.query.System.Account.getValue(address);
-      const existentialDeposit = await api.constants.Balances.ExistentialDeposit();
-      
-      return {
-        balance: accountInfo?.data.free ?? 0n,
-        hasED: (accountInfo?.data.free ?? 0n) >= existentialDeposit
-      };
-    }
-    ```
+    === "Polkadot API (PAPI)"
+        ```typescript
+        import { dot } from "@polkadot-api/descriptors";
+        import { createClient } from "polkadot-api";
+        import { getWsProvider } from "polkadot-api/ws-provider/web";
 
-### Existential Deposit Considerations
+        async function queryAccountBalance(address: string) {
+          const client = createClient(getWsProvider("wss://rpc.polkadot.io"));
+          const api = client.getTypedApi(dot);
+          
+          const accountInfo = await api.query.System.Account.getValue(address);
+          const existentialDeposit = await api.constants.Balances.ExistentialDeposit();
+          
+          return {
+            balance: accountInfo?.data.free ?? 0n,
+            hasED: (accountInfo?.data.free ?? 0n) >= existentialDeposit
+          };
+        }
+        ```
 
-Existential deposits vary by network and must be maintained to keep accounts active:
+!!!note "Existential Deposit Considerations"
+    Existential deposits vary by network and must be maintained to keep accounts active:
 
-- **Polkadot**: 1 DOT (10^10 planck)
-- **Kusama**: 0.0033 KSM (3.3 * 10^10 planck)  
-- **Asset Hub**: 0.1 DOT (10^9 planck)
+    - **Polkadot**: 1 DOT (10^10 planck)
+    - **Kusama**: 0.0033 KSM (3.3 * 10^10 planck)  
+    - **Asset Hub**: 0.1 DOT (10^9 planck)
 
 For non-sufficient assets, make sure the destination account has enough native tokens or assets to maintain the ED; otherwise, include asset conversion instructions in the XCM.
 
@@ -138,54 +139,51 @@ For non-sufficient assets, make sure the destination account has enough native t
 
 Use proper runtime APIs for accurate fee estimation rather than hardcoded values:
 
-[Transaction Payment API](https://paritytech.github.io/polkadot-sdk/master/pallet_transaction_payment_rpc/trait.TransactionPaymentRuntimeApi.html){target=\_blank} for local fees:
+- [Transaction Payment API](https://paritytech.github.io/polkadot-sdk/master/pallet_transaction_payment_rpc/trait.TransactionPaymentRuntimeApi.html){target=\_blank} for local fees:
+  ```typescript
+  import { dot } from "@polkadot-api/descriptors";
+  import { createClient } from "polkadot-api";
+  import { getWsProvider } from "polkadot-api/ws-provider/web";
 
-```typescript
-import { dot } from "@polkadot-api/descriptors";
-import { createClient } from "polkadot-api";
-import { getWsProvider } from "polkadot-api/ws-provider/web";
+  const client = createClient(getWsProvider("wss://rpc.polkadot.io"));
+  const api = client.getTypedApi(dot);
 
-const client = createClient(getWsProvider("wss://rpc.polkadot.io"));
-const api = client.getTypedApi(dot);
+  const feeDetails = await api.apis.TransactionPaymentApi.query_fee_details(
+    call.toHex(),
+    call.encodedLength
+  );
+  ```
 
-const feeDetails = await api.apis.TransactionPaymentApi.query_fee_details(
-  call.toHex(),
-  call.encodedLength
-);
-```
+- [XCM Payment API](https://paritytech.github.io/polkadot-sdk/master/xcm_runtime_apis/fees/trait.XcmPaymentApi.html){target=\_blank} for cross-chain delivery fees:
+  ```typescript
+  import { dot } from "@polkadot-api/descriptors";
+  import { createClient } from "polkadot-api";
+  import { getWsProvider } from "polkadot-api/ws-provider/web";
 
-[XCM Payment API](https://paritytech.github.io/polkadot-sdk/master/xcm_runtime_apis/fees/trait.XcmPaymentApi.html){target=\_blank} for cross-chain delivery fees:
+  const client = createClient(getWsProvider("wss://rpc.polkadot.io"));
+  const api = client.getTypedApi(dot);
 
-```typescript
-import { dot } from "@polkadot-api/descriptors";
-import { createClient } from "polkadot-api";
-import { getWsProvider } from "polkadot-api/ws-provider/web";
+  const deliveryFees = await api.apis.XcmPaymentApi.query_delivery_fees(
+    destination,
+    message
+  );
+  ```
 
-const client = createClient(getWsProvider("wss://rpc.polkadot.io"));
-const api = client.getTypedApi(dot);
+- [Asset Conversion API](https://paritytech.github.io/polkadot-sdk/master/pallet_asset_conversion/trait.AssetConversionApi.html){target=\_blank} (available on Asset Hub) for fee conversion:
+  ```typescript
+  import { ah } from "@polkadot-api/descriptors";
+  import { createClient } from "polkadot-api";
+  import { getWsProvider } from "polkadot-api/ws-provider/web";
 
-const deliveryFees = await api.apis.XcmPaymentApi.query_delivery_fees(
-  destination,
-  message
-);
-```
+  const client = createClient(getWsProvider("wss://rpc.polkadot.io"));
+  const api = client.getTypedApi(ah);
 
-[Asset Conversion API](https://paritytech.github.io/polkadot-sdk/master/pallet_asset_conversion/trait.AssetConversionApi.html){target=\_blank} (available on Asset Hub) for fee conversion:
-
-```typescript
-import { ah } from "@polkadot-api/descriptors";
-import { createClient } from "polkadot-api";
-import { getWsProvider } from "polkadot-api/ws-provider/web";
-
-const client = createClient(getWsProvider("wss://rpc.polkadot.io"));
-const api = client.getTypedApi(ah);
-
-const feeInAsset = await api.apis.AssetConversionApi.quote_price_exact_tokens_for_tokens(
-  assetIn,
-  assetOut,
-  amountIn
-);
-```
+  const feeInAsset = await api.apis.AssetConversionApi.quote_price_exact_tokens_for_tokens(
+    assetIn,
+    assetOut,
+    amountIn
+  );
+  ```
 
 ### Multi-Asset Fee Handling
 
@@ -197,36 +195,21 @@ For dealing with non-sufficient assets and fees, there are different fee payment
 
 ## Asset Type Considerations
 
-### Sufficient Assets
+| **Sufficient Assets**                                       | **Non-Sufficient Assets**                                      |
+|-------------------------------------------------------------|-----------------------------------------------------------------|
+| **Capabilities:**                                            | **Requirements:**                                              |
+| • Pay for transaction fees directly                          | • Existing destination accounts with ED                        |
+| • Meet existential deposit requirements                      | • Alternative fee payment mechanisms                           |
+| • Can suffice for creating new accounts                      |                                                                 |
+|                                                             |                                                                 |
+| **Best Practices:**                                          | **Best Practices:**                                            |
+| • Verify minimum transfer amounts meet destination requirements | • Always verify recipient account status                    |
+| • Account for both transaction and existential deposit costs | • Include asset conversion for ED if needed                    |
+| • Handle automatic account creation scenarios                | • Plan for fee payment using sufficient assets                 |
 
 !!!note Sufficient Assets
     Always check the chain to see what assets are considered sufficient assets.
     This may vary from chain to chain.
-
-[Sufficient assets](/polkadot-protocol/architecture/system-chains/asset-hub/#sufficient-assets){target=\_blank} can:
-
-- Pay for transaction fees directly
-- Meet existential deposit requirements and can suffice for creating new accounts
-
-**Best Practices:**
-
-- Verify minimum transfer amounts meet destination requirements
-- Account for both transaction and existential deposit costs
-- Handle automatic account creation scenarios
-
-### Non-Sufficient Assets
-
-[Non-sufficient assets](/polkadot-protocol/architecture/system-chains/asset-hub/#non-sufficient-assets){target=\_blank} require:
-
-- Existing destination accounts with ED
-- Alternative fee payment mechanisms
-
-**Best Practices:**
-
-- Always verify recipient account status
-- Include asset conversion for ED if needed
-- Plan for fee payment using sufficient assets
-- Test with realistic scenarios including account creation
 
 ## Comprehensive Dry Run Testing
 
@@ -237,12 +220,12 @@ Dry run testing represents the most critical step in preventing asset loss durin
 
 This two-phase validation approach catches the majority of potential issues before they can cause problems in production.
 
-### Example Dry Run Implementation
+Here is an example of a dry run implementation using PAPI:
 
-???- example "Comprehensive Dry Run Example"
+??? code "Comprehensive Dry Run Example"
 
     ```typescript title="dry-run-example.ts"
-    --8<-- 'code/develop/interoperability/best-practices-for-teleporting-assets/dry-run-example.ts:0:180'
+    --8<-- 'code/develop/interoperability/best-practices-for-teleporting-assets/dry-run-example.ts'
     ```
 
 ## Common Errors and Prevention
@@ -251,33 +234,73 @@ Asset teleportation failures can occur for various reasons, each with specific c
 
 ### Common Account and Balance Issues
 
-| **[FailedToTransactAsset](https://paritytech.github.io/polkadot-sdk/master/cumulus_primitives_core/enum.XcmError.html#variant.FailedToTransactAsset){target=\_blank} Errors** | **Prevention** |
-|-----------------------------------|----------------|
-| • Missing destination accounts<br>• Insufficient existential deposits<br>• Asset not found on destination | • Verify account existence before transfer<br>• Ensure ED requirements are met<br>• Validate asset registration on destination chain |
+**[FailedToTransactAsset](https://paritytech.github.io/polkadot-sdk/master/cumulus_primitives_core/enum.XcmError.html#variant.FailedToTransactAsset) Errors**
+
+- **Common Causes:**
+  - Missing destination accounts  
+  - Insufficient existential deposits  
+  - Asset not found on destination  
+
+- **Prevention:**
+  - Verify account existence before transfer  
+  - Ensure existential deposit (ED) requirements are met  
+  - Validate asset registration on the destination chain  
+
+---
 
 ### Fee Payment Failures
 
-| **[TooExpensive](https://paritytech.github.io/polkadot-sdk/master/cumulus_primitives_core/enum.XcmError.html#variant.TooExpensive){target=\_blank} Errors** | **Prevention** |
-|-------------------------|----------------|
-| • Insufficient funds for fees<br>• Fee payment asset not accepted<br>• High network congestion costs | • Implement proper fee estimation<br>• Include buffer for fee fluctuations<br>• Use asset conversion when necessary |
+**[TooExpensive](https://paritytech.github.io/polkadot-sdk/master/cumulus_primitives_core/enum.XcmError.html#variant.TooExpensive) Errors**
+
+- **Common Causes:**
+  - Insufficient funds for fees  
+  - Fee payment asset not accepted  
+  - High network congestion costs  
+
+- **Prevention:**
+  - Implement proper fee estimation  
+  - Include a buffer for fee fluctuations  
+  - Use asset conversion when necessary  
+
+---
 
 ### Asset Compatibility Issues
 
-| **[AssetNotFound](https://paritytech.github.io/polkadot-sdk/master/cumulus_primitives_core/enum.XcmError.html#variant.AssetNotFound){target=\_blank} Errors** | **Prevention** |
-|--------------------------------------|----------------|
-| • Asset not registered on destination<br>• Incorrect asset ID or format<br>• Asset not enabled for XCM | • Verify asset registration before transfer<br>• Use correct asset identifiers<br>• Check XCM configuration for asset support |
+**[AssetNotFound](https://paritytech.github.io/polkadot-sdk/master/cumulus_primitives_core/enum.XcmError.html#variant.AssetNotFound) Errors**
+
+- **Common Causes:**
+  - Asset not registered on the destination  
+  - Incorrect asset ID or format  
+  - Asset not enabled for XCM  
+
+- **Prevention:**
+  - Verify asset registration before transfer  
+  - Use correct asset identifiers  
+  - Check XCM configuration for asset support  
+
+---
 
 ### XCM Configuration Issues
 
-| **[Barrier](https://paritytech.github.io/polkadot-sdk/master/cumulus_primitives_core/enum.XcmError.html#variant.Barrier){target=\_blank} Errors** | **Prevention** |
-|:-------------------|:---------------|
-| • XCM message blocked by safety barriers<br>• Origin not authorized for operation<br>• Asset transfer limits exceeded<br>• Unsupported XCM version or instruction | • Verify XCM barrier configuration on destination<br>• Ensure origin has proper permissions<br>• Check asset transfer limits and restrictions<br>• Use supported XCM version and instructions |
+**[Barrier](https://paritytech.github.io/polkadot-sdk/master/cumulus_primitives_core/enum.XcmError.html#variant.Barrier) Errors**
+
+- **Common Causes:**
+  - XCM message blocked by safety barriers  
+  - Origin not authorized for operation  
+  - Asset transfer limits exceeded  
+  - Unsupported XCM version or instruction  
+
+- **Prevention:**
+  - Verify XCM barrier configuration on the destination  
+  - Ensure origin has proper permissions  
+  - Check asset transfer limits and restrictions  
+  - Use supported XCM version and instructions  
 
 You can find a full list of XCM errors in the [Polkadot Rust Docs](https://paritytech.github.io/polkadot-sdk/master/cumulus_primitives_core/enum.XcmError.html){target=\_blank}.
 
 ## Network-Specific Considerations
 
-### Testnet vs Mainnet Configuration
+### TestNet vs MainNet Configuration
 
 Different networks within the Polkadot ecosystem have varying characteristics that affect teleportation implementation. Testnet environments like Paseo use different decimal precision (12 for PAS vs 10 for DOT), can have different existential deposit amounts, and require test-specific RPC endpoints. Always use appropriate configuration for the target environment and avoid mixing testnet and mainnet configurations.
 
@@ -287,49 +310,9 @@ Mainnet production environments require higher existential deposits, involve rea
 
 Parachain compatibility varies significantly across the ecosystem. Different parachains support different XCM versions (V2, V3, V4, V5), have unique lists of sufficient and non-sufficient assets, varying asset registration requirements, different fee payment mechanisms, distinct barrier configurations, and different asset conversion capabilities. Always verify compatibility thoroughly before implementing cross-chain transfers to new destinations.
 
-## Error Handling Strategies
-
-### Graceful Degradation
-
-Implement fallback mechanisms for common failures:
-
-```typescript
-function handleXcmError(error) {
-  if (error.includes('FailedToTransactAsset')) {
-    // Try with asset conversion or ED funding
-    return retryWithConversion();
-  }
-  
-  if (error.includes('TooExpensive')) {
-    // Wait for lower network congestion or increase fee
-    return retryWithHigherFee();
-  }
-  
-  if (error.includes('Barrier')) {
-    // Check asset permissions and XCM configuration
-    return validateAssetPermissions();
-  }
-  
-  throw new Error(`Unhandled XCM error: ${error}`);
-}
-```
-
 ### Recovering Trapped Assets
 
 XCM has the [`ClaimAsset`](https://paritytech.github.io/polkadot-sdk/master/cumulus_primitives_core/enum.Instruction.html#variant.ClaimAsset){target=\_blank} instruction which can be utilized to recover trapped assets. Typically on a live chain this would have to go through a governance proposal.
-
-## Production Deployment Checklist
-
-Before deploying asset teleportation features:
-
-- Comprehensive dry run testing implemented
-- Account existence validation in place
-- Proper fee estimation using runtime APIs
-- Asset compatibility verified across target networks
-- Error handling and recovery procedures documented
-- Monitoring and alerting systems configured
-- Incident response procedures established
-- User education materials prepared
 
 ## Conclusion
 

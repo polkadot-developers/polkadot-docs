@@ -99,7 +99,7 @@ Create an `index.ts` file with the complete batch teleport implementation.
 ```typescript
 import { Builder, Version, BatchMode } from '@paraspell/sdk';
 
-// Paseo has 10 decimals, we use this to simplify.
+// Paseo has 10 decimals, use this to simplify.
 const PAS_UNITS = 10_000_000_000;
 // The RPC endpoints to connect to Paseo.
 // Not needed if using Polkadot.

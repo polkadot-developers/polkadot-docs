@@ -94,4 +94,4 @@ NOTE: paying fees on a remote system is so common that the `InitiateTransfer` in
 require putting the instruction in `remote_xcm`, you only need to put them in `remote_fees`.
 
 <!-- TODO: Fee estimation tutorial? -->
-The solution is to use the [runtime APIs](/develop/interoperability/xcm-runtime-apis/) to estimate fees.
+The solution is to use the [runtime APIs](/develop/interoperability/xcm-runtime-apis/) as shown in [the fee estimation tutorial]().

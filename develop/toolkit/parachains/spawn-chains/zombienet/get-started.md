@@ -124,7 +124,7 @@ It's important to note that each provider has specific requirements and associat
 Kubernetes is a portable, extensible, open-source platform for managing containerized workloads and services. Zombienet is designed to be compatible with a variety of Kubernetes clusters, including: 
 
 - [Google Kubernetes Engine (GKE)](https://cloud.google.com/kubernetes-engine){target=\_blank}
-- [Docker Desktop](https://docs.docker.com/desktop/kubernetes/){target=\_blank}
+- [Docker Desktop](https://docs.docker.com/desktop/features/kubernetes/){target=\_blank}
 - [kind](https://kind.sigs.k8s.io/){target=\_blank}
 
 #### Requirements
@@ -174,9 +174,6 @@ zombienet setup polkadot polkadot-parachain
 ```
 
 This command will download and prepare the necessary binaries for Zombienet's use.
-
-!!! warning
-    The `polkadot` and `polkadot-parachain` binaries releases aren't compatible with macOS. As a result, macOS users will need to clone the [Polkadot repository](https://github.com/paritytech/polkadot-sdk){target=\_blank}, build the Polkadot binary, and manually add it to their PATH for `polkadot` and `polkadot-parachain` to work.
 
 If you need to use a custom binary, ensure the binary is available in your PATH. You can also specify the binary path in the network configuration file. The following example uses the custom [OpenZeppelin template](https://github.com/OpenZeppelin/polkadot-runtime-templates){target=\_blank}:
 
@@ -243,9 +240,6 @@ The following sections will guide you through the primary usage of the Zombienet
 #### CLI Commands
 
 - **`spawn <networkConfig>`** - spawn the network defined in the [configuration file](#configuration-files)
-
-    !!! warning
-        The Polkadot binary is currently not compatible with macOS. For the `spawn` command to work on macOS, users will need to clone the [Polkadot repository](https://github.com/paritytech/polkadot-sdk){target=\_blank}, build the Polkadot binary, and manually add it to their PATH.
 
 - **`test <testFile>`** - run tests on the spawned network using the assertions and tests defined in the [test file](/develop/toolkit/parachains/spawn-chains/zombienet/write-tests/#the-test-file){target=\_blank}
 

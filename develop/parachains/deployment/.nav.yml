@@ -1,0 +1,8 @@
+title: Deployment
+nav:
+  - index.md
+  - 'Build a Deterministic Runtime': build-deterministic-runtime.md
+  - 'Generate Chain Specs': generate-chain-specs.md
+  - 'Obtain Coretime': obtain-coretime.md
+  - 'Coretime Renewal': coretime-renewal.md
+  - 'Manage Coretime': manage-coretime.md

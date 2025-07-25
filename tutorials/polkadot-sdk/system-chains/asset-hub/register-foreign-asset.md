@@ -1,6 +1,7 @@
 ---
 title: Register a Foreign Asset on Asset Hub
 description: An in-depth guide to registering a foreign asset on the Asset Hub parachain, providing clear, step-by-step instructions.
+tutorial_badge: Intermediate
 ---
 
 # Register a Foreign Asset on Asset Hub
@@ -9,7 +10,7 @@ description: An in-depth guide to registering a foreign asset on the Asset Hub p
 
 As outlined in the [Asset Hub Overview](/polkadot-protocol/architecture/system-chains/asset-hub){target=\_blank}, Asset Hub supports two categories of assets: local and foreign. Local assets are created on the Asset Hub system parachain and are identified by integer IDs. On the other hand, foreign assets, which originate outside of Asset Hub, are recognized by [Multilocations](https://wiki.polkadot.network/docs/learn/xcm/fundamentals/multilocation-summary){target=\_blank}.
 
-When registering a foreign asset on Asset Hub, it's essential to notice that the process involves communication between two parachains. The Asset Hub parachain will be the destination of the foreign asset, while the source parachain will be the origin of the asset. The communication between the two parachains is facilitated by the [Cross-Chain Message Passing (XCMP)](https://wiki.polkadot.network/docs/learn-xcm){target=\_blank} protocol.
+When registering a foreign asset on Asset Hub, it's essential to notice that the process involves communication between two parachains. The Asset Hub parachain will be the destination of the foreign asset, while the source parachain will be the origin of the asset. The communication between the two parachains is facilitated by the [Cross-Chain Message Passing (XCMP)](/develop/interoperability/intro-to-xcm/){target=\_blank} protocol.
 
 This guide will take you through the process of registering a foreign asset on the Asset Hub parachain.
 

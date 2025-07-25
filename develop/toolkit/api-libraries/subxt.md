@@ -7,7 +7,7 @@ description: Subxt is a Rust library for type-safe interaction with Polkadot SDK
 
 ## Introduction
 
-subxt is a Rust library designed to interact with Polkadot SDK-based blockchains. It provides a type-safe interface for submitting transactions, querying on-chain state, and performing other blockchain interactions. By leveraging Rust's strong type system, subxt ensures that your code is validated at compile time, reducing runtime errors and improving reliability.
+Subxt is a Rust library designed to interact with Polkadot SDK-based blockchains. It provides a type-safe interface for submitting transactions, querying on-chain state, and performing other blockchain interactions. By leveraging Rust's strong type system, subxt ensures that your code is validated at compile time, reducing runtime errors and improving reliability.
 
 ## Prerequisites
 
@@ -26,7 +26,7 @@ To use subxt in your project, you must install the necessary dependencies. Each 
 1. **Install the subxt CLI** - [`subxt-cli`](https://crates.io/crates/subxt-cli){target=\_blank} is a command-line tool that provides utilities for working with Polkadot SDK metadata. In the context of subxt, it is essential to download chain metadata, which is required to generate type-safe Rust interfaces for interacting with the blockchain. Install it using:
 
     ```bash
-    cargo install subxt-cli
+    cargo install subxt-cli@{{dependencies.crates.subxt_cli.version}}
     ```
 
 2. **Add core dependencies** - these dependencies are essential for interacting with the blockchain:
@@ -34,19 +34,19 @@ To use subxt in your project, you must install the necessary dependencies. Each 
     - **[subxt](https://crates.io/crates/subxt){target=\_blank}** - the main library for communicating with Polkadot SDK nodes. It handles RPC requests, encoding/decoding, and type generation
 
         ```bash
-        cargo add subxt
+        cargo add subxt@{{dependencies.crates.subxt.version}}
         ```
 
     - **[subxt-signer](https://crates.io/crates/subxt-signer){target=\_blank}** - provides cryptographic functionality for signing transactions. Without this, you can only read data but cannot submit transactions
 
         ```bash
-        cargo add subxt-signer
+        cargo add subxt-signer@{{dependencies.crates.subxt_signer.version}}
         ```
 
     - **[tokio](https://crates.io/crates/tokio){target=\_blank}** - an asynchronous runtime for Rust. Since blockchain operations are async, Tokio enables the efficient handling of network requests. The `rt` feature enables Tokio's runtime, including the current-thread single-threaded scheduler, which is necessary for async execution. The `macros` feature provides procedural macros like `#[tokio::main]` to simplify runtime setup
 
         ```bash
-        cargo add tokio --features rt,macros
+        cargo add tokio@{{dependencies.crates.tokio.version}} --features rt,macros
         ```
 
     After adding the dependencies, your `Cargo.toml` should look like this:
@@ -86,7 +86,7 @@ Once subxt interfaces are generated, you can interact with your node in the foll
 - **[Custom values](https://docs.rs/subxt/latest/subxt/book/usage/custom_values/index.html){target=\_blank}** - accesses "custom values" contained within metadata
 - **[Raw RPC calls](https://docs.rs/subxt/latest/subxt/book/usage/rpc/index.html){target=\_blank}** - facilitates raw RPC requests to compatible nodes
 
-### Initialize the Subxt client
+### Initialize the Subxt Client
 
 To interact with a blockchain node using subxt, create an asynchronous main function and initialize the client. Replace `INSERT_NODE_URL` with the URL of your target node:
 

@@ -452,7 +452,7 @@ Follow these steps to use the plugin:
     1. Go to **Configuration** > **Data Sources** and search for **Prometheus Alertmanager**
     2. Enter the server URL and port for the Alertmanager service, and select **Save & Test** to verify the connection
 
-4. Import the [8010](https://grafana.com/dashboards/8010){target=\_blank} dashboard for Alertmanager, selecting **Prometheus Alertmanager** in the last column, then select **Import**
+4. Import the [8010](https://grafana.com/grafana/dashboards/8010-prometheus-alertmanager/){target=\_blank} dashboard for Alertmanager, selecting **Prometheus Alertmanager** in the last column, then select **Import**
 
 #### Integrate Alertmanager
 
@@ -484,7 +484,7 @@ Complete the integration by following these steps to enable communication betwee
     -8<-- 'code/infrastructure/running-a-validator/operational-tasks/general-management/instance-down.yml'
     ```
 
-    If any of the conditions defined in the rules file are met, an alert will be triggered. For more on alert rules, refer to [Alerting Rules](https://prometheus.io/docs/prometheus/latest/configuration/alerting_rules/){target=\_blank} and [additional alerts](https://awesome-prometheus-alerts.grep.to/rules.html){target=\_blank}.
+    If any of the conditions defined in the rules file are met, an alert will be triggered. For more on alert rules, refer to [Alerting Rules](https://prometheus.io/docs/prometheus/latest/configuration/alerting_rules/){target=\_blank} and [additional alerts](https://samber.github.io/awesome-prometheus-alerts/rules.html){target=\_blank}.
 
 3. Update the file ownership to `prometheus`:
 
@@ -554,7 +554,7 @@ Follow these best practices to keep your validator secure:
 - Regularly apply OS security patches
 - Enable and configure a firewall
 - Use key-based SSH authentication; deactivate password-based login
-- Regularly back up data and harden your SSH configuration. Visit this [SSH guide](https://stribika.github.io/2015/01/04/secure-secure-shell.html){target=\_blank} for more details
+- Regularly back up data and harden your SSH configuration. Visit this [SSH guide](https://blog.stribik.technology/2015/01/04/secure-secure-shell.html){target=\_blank} for more details
 
 ### Validator Best Practices
 

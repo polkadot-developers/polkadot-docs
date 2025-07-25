@@ -1,6 +1,7 @@
 ---
 title: Register a Local Asset
 description: Comprehensive guide to registering a local asset on the Asset Hub system parachain, including step-by-step instructions.
+tutorial_badge: Beginner
 ---
 
 # Register a Local Asset on Asset Hub
@@ -77,7 +78,7 @@ After completing these steps, the asset will be successfully registered. You can
 
 In this way, you have successfully registered a local asset on the Asset Hub parachain.
 
-For an in-depth explanation about Asset Hub and its features, see the [Asset Hub](https://wiki.polkadot.network/docs/learn-asset-conversion-assethub){target=\_blank} entry in the Polkadot Wiki.
+For an in-depth explanation about Asset Hub and its features, see the [Asset Hub](/tutorials/polkadot-sdk/system-chains/asset-hub/asset-conversion/){target=\_blank} entry in the Polkadot Wiki.
 
 ## Test Setup Environment
 

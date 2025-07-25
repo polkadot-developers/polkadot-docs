@@ -33,7 +33,7 @@ A blockchain indexer is a specialized infrastructure tool that processes, organi
 
     Subsquid is a data network that allows rapid and cost-efficient retrieval of blockchain data from 100+ chains using Subsquid's decentralized data lake and open-source SDK. In simple terms, Subsquid can be considered an ETL (extract, transform, and load) tool with a GraphQL server included. It enables comprehensive filtering, pagination, and even full-text search capabilities. Subsquid has native and full support for EVM and Substrate data, even within the same project.
 
-    [:octicons-arrow-right-24: Reference](https://www.sqd.dev/){target=\_blank}
+    [:octicons-arrow-right-24: Reference](https://www.sqd.ai/){target=\_blank}
 
 -   __Subquery__
 

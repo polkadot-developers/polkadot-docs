@@ -1,0 +1,12 @@
+title: Parachain Basics
+nav:
+  - index.md
+  - 'Networks': networks.md
+  - 'Accounts': accounts.md
+  - blocks-transactions-fees
+  - 'Node and Runtime': node-and-runtime.md
+  - 'Interoperability': interoperability.md
+  - 'Randomness': randomness.md
+  - 'Cryptography': cryptography.md
+  - 'Data Encoding': data-encoding.md
+  - 'Chain Data': chain-data.md

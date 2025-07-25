@@ -1,0 +1,10 @@
+title: Parachains
+nav:
+  - index.md
+  - quickstart
+  - spawn-chains
+  - fork-chains
+  - e2e-testing
+  - 'Light Clients': light-clients.md
+  - 'RPC Calls': rpc-calls.md
+  - 'Polkadot Omni Node': polkadot-omni-node.md

@@ -28,6 +28,7 @@ Follow these key milestones to guide you through parachain development. Each ste
   <div class="card">
     <a href="https://github.com/paritytech/polkadot-sdk" target="_blank">
       <h2 class="title">View the Polkadot SDK Source Code</h2>
+      <hr>
       <p class="description">Check out the Polkadot SDK repository on GitHub to explore the source code and stay updated on the latest releases.</p>
     </a>
   </div>

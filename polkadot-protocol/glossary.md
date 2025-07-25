@@ -10,7 +10,7 @@ Key definitions, concepts, and terminology specific to the Polkadot ecosystem ar
 
 Additional glossaries from around the ecosystem you might find helpful:
 
-- [Polkadot Wiki Glossary](https://wiki.polkadot.network/docs/glossary){target=\_blank}
+- [Polkadot Wiki Glossary](https://wiki.polkadot.network/general/glossary/){target=\_blank}
 - [Polkadot SDK Glossary](https://paritytech.github.io/polkadot-sdk/master/polkadot_sdk_docs/reference_docs/glossary/index.html){target=\_blank}
 
 ## Authority
@@ -69,7 +69,7 @@ A chain specification file defines the properties required to run a node in an a
 An [author](#block-author) of a [parachain](#parachain) network.
 They aren't [authorities](#authority) in themselves, as they require a [relay chain](#relay-chain) to coordinate [consensus](#consensus).
 
-More details are found on the [Polkadot Collator Wiki](https://wiki.polkadot.network/docs/learn-collator){target=\_blank}.
+More details are found on the [Polkadot Collator Wiki](https://wiki.polkadot.network/learn/learn-collator/){target=\_blank}.
 
 ## Collective
 
@@ -94,7 +94,7 @@ Consensus algorithms are generally concerned with ensuring two properties:
 
 The node subsystem responsible for consensus tasks.
 
-For detailed information about the consensus strategies of the [Polkadot](#polkadot) network, see the [Polkadot Consensus](https://wiki.polkadot.network/docs/learn-consensus){target=\_blank} blog series.
+For detailed information about the consensus strategies of the [Polkadot](#polkadot) network, see the [Polkadot Consensus](/polkadot-protocol/architecture/polkadot-chain/pos-consensus/){target=\_blank} blog series.
 
 See also [hybrid consensus](#hybrid-consensus).
 
@@ -215,7 +215,7 @@ A subsystem for managing keys for the purpose of producing new blocks.
 
 [Kusama](https://kusama.network/){target=\_blank} is a Polkadot SDK-based blockchain that implements a design similar to the [Polkadot](#polkadot) network.
 
-Kusama is a [canary](https://en.wiktionary.org/wiki/canary_in_a_coal_mine){target=\_blank} network and is referred to as [Polkadot's "wild cousin."](https://wiki.polkadot.network/docs/learn-comparisons-kusama){target=\_blank}
+Kusama is a [canary](https://en.wiktionary.org/wiki/canary_in_a_coal_mine){target=\_blank} network and is referred to as [Polkadot's "wild cousin."](https://wiki.polkadot.network/learn/learn-comparisons-kusama/){target=\_blank}
 
 As a canary network, Kusama is expected to be more stable than a test network like [Westend](#westend) but less stable than a production network like [Polkadot](#polkadot). Kusama is controlled by its network participants and is intended to be stable enough to encourage meaningful experimentation.
 
@@ -260,11 +260,23 @@ You can learn more about parachains on the [Polkadot Wiki](https://wiki.polkadot
 
 ## Paseo
 
-Paseo TestNet provisions testing on Polkadot's "production" runtime, which means less chance of feature or code mismatch when developing parachain apps. Specifically, after the [Polkadot Technical fellowship](https://wiki.polkadot.network/docs/learn-polkadot-technical-fellowship){target=\_blank} proposes a runtime upgrade for Polkadot, this TestNet is updated, giving a period where the TestNet will be ahead of Polkadot to allow for testing.
+Paseo TestNet provisions testing on Polkadot's "production" runtime, which means less chance of feature or code mismatch when developing parachain apps. Specifically, after the [Polkadot Technical fellowship](https://wiki.polkadot.network/learn/learn-polkadot-technical-fellowship/){target=\_blank} proposes a runtime upgrade for Polkadot, this TestNet is updated, giving a period where the TestNet will be ahead of Polkadot to allow for testing.
 
 ## Polkadot
 
-The [Polkadot network](https://polkadot.network/){target=\_blank} is a blockchain that serves as the central hub of a heterogeneous blockchain network. It serves the role of the [relay chain](#relay-chain) and provides shared infrastructure and security to support [parachains](#parachain).
+The [Polkadot network](https://polkadot.com/){target=\_blank} is a blockchain that serves as the central hub of a heterogeneous blockchain network. It serves the role of the [relay chain](#relay-chain) and provides shared infrastructure and security to support [parachains](#parachain).
+
+## Polkadot Cloud
+
+Polkadot Cloud is a platform for deploying resilient, customizable and scalable Web3 applications through Polkadot's functionality. It encompasses the wider Polkadot network infrastructure and security layer where parachains operate. The platform enables users to launch Ethereum-compatible chains, build specialized blockchains, and flexibly manage computing resources through on-demand or bulk coretime purchases. Initially launched with basic parachain functionality, Polkadot Cloud has evolved to offer enhanced flexibility with features like coretime, elastic scaling, and async backing for improved performance.
+
+## Polkadot Hub
+
+Polkadot Hub is a Layer 1 platform that serves as the primary entry point to the Polkadot ecosystem, providing essential functionality without requiring parachain deployment. It offers core services including smart contracts, identity management, staking, governance, and interoperability with other ecosystems, making it simple and fast for both builders and users to get started in Web3.
+
+## PolkaVM
+
+PolkaVM is a custom virtual machine optimized for performance, leveraging a RISC-V-based architecture to support Solidity and any language that compiles to RISC-V. It is specifically designed for the Polkadot ecosystem, enabling smart contract deployment and execution.
 
 ## Relay Chain
 
@@ -332,7 +344,7 @@ An execution architecture that allows for the efficient, platform-neutral expres
 deterministic, machine-executable logic.
 
 [Wasm](https://webassembly.org/){target=\_blank} can be compiled from many languages, including
-the [Rust](http://rust-lang.org/){target=\_blank} programming language. Polkadot SDK-based chains use a Wasm binary to provide portable [runtimes](#runtime) that can be included as part of the chain's state.
+the [Rust](https://www.rust-lang.org/){target=\_blank} programming language. Polkadot SDK-based chains use a Wasm binary to provide portable [runtimes](#runtime) that can be included as part of the chain's state.
 
 ## Weight
 

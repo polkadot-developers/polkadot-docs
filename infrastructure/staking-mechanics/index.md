@@ -12,24 +12,27 @@ Gain a deep understanding of the staking mechanics in Polkadot, with a focus on 
 
 :::INSERT_IN_THIS_SECTION:::
 
-## Additional Resourcs
+## Additional Resources
 
 <div class="subsection-wrapper">
   <div class="card">
-    <a href="https://education.web3.foundation/docs/Polkadot/Module3/npos" target="_blank">
+    <a href="https://research.web3.foundation/Polkadot/protocols/NPoS/Overview" target="_blank">
       <h2 class="title">Learn About Nominated Proof of Staking</h2>
+      <hr>
       <p class="description">Take a deeper dive into the fundamentals of Polkadot's Nominated Proof of Stake (NPoS) consensus mechanism.</p>
     </a>
   </div>
     <div class="card">
     <a href="https://research.web3.foundation/Polkadot/security/slashing/amounts" target="_blank">
       <h2 class="title">Dive Deep into Slashing Mechanisms</h2>
+      <hr>
       <p class="description">Read the Web3 Foundation's research article on slashing mechanisms for a comprehensive understanding of slashing, along with an in-depth examination of the offenses involved.</p>
     </a>
   </div>
   <div class="card">
     <a href="https://dune.com/substrate/polkadot-staking-validators#polkadot-staking-rewards" target="_blank">
       <h2 class="title">Review Validator Rewards Metrics</h2>
+      <hr>
       <p class="description">Check out Dune's Polkadot Staking Rewards dashboard for a detailed look at validator-specific metrics over time, such as daily staking rewards, nominators count, reward points, and more.</p>
     </a>
   </div>

@@ -95,7 +95,7 @@ Validators on Polkadot need a static network key (also known as the node key) to
 
 Starting with Polkadot version 1.11, validators without a stable network key may encounter the following error on startup:
 
---8<-- 'code/infrastructure/running-a-validator/onboarding-and-offboarding/set-up-a-validator/node-key-error-01.html'
+--8<-- 'code/infrastructure/running-a-validator/onboarding-and-offboarding/key-management/node-key-error-01.html'
 
 ### Generate the Node Key
 

@@ -1,6 +1,0 @@
-title: Smart Contracts
-nav:
-  - index.md
-  - 'Overview': overview.md
-  - 'Wasm (ink!)': wasm-ink.md
-  - evm

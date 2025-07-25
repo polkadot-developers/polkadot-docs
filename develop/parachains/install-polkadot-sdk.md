@@ -95,19 +95,12 @@ To install `openssl` and the Rust toolchain on macOS:
     rustup default stable
     rustup update
     rustup target add wasm32-unknown-unknown
+    rustup component add rust-src
     ```
 
-8. Add the `nightly` release and the `nightly` Wasm targets to your development
-   environment by running the following commands:
+8. [Verify your installation](#verifying-installation)
 
-    ```bash
-    rustup update nightly
-    rustup target add wasm32-unknown-unknown --toolchain nightly
-    ```
-
-9. [Verify your installation](#verifying-installation)
-
-10. Install `cmake` using the following command:
+9. Install `cmake` using the following command:
 
     ```bash
     brew install cmake
@@ -201,16 +194,11 @@ To install the Rust toolchain on Linux:
     ```bash
     rustup default stable
     rustup update
+    rustup target add wasm32-unknown-unknown
+    rustup component add rust-src
     ```
 
-9. Add the `nightly` release and the `nightly` Wasm targets to your development environment by running the following commands:
-
-    ```bash
-    rustup update nightly
-    rustup target add wasm32-unknown-unknown --toolchain nightly
-    ```
-
-10. [Verify your installation](#verifying-installation)
+9.  [Verify your installation](#verifying-installation)
 
 ## Windows (WSL)
 
@@ -237,7 +225,7 @@ To prepare a development environment using WSL:
 
     If you have Microsoft Windows 10, version 2004 (Build 19041 and higher), or Microsoft Windows 11, WSL is available by default and you can continue to the next step.
 
-    If you have an older version of Microsoft Windows installed, see the [WSL manual installation steps for older versions](https://docs.microsoft.com/en-us/windows/wsl/install-manual){target=\_blank}. If you are installing on an older version of Microsoft Windows, you can download and install WLS 2 if your computer has Windows 10, version 1903 or higher
+    If you have an older version of Microsoft Windows installed, see the [WSL manual installation steps for older versions](https://learn.microsoft.com/en-us/windows/wsl/install-manual){target=\_blank}. If you are installing on an older version of Microsoft Windows, you can download and install WLS 2 if your computer has Windows 10, version 1903 or higher
 
 2. Select **Windows PowerShell** or **Command Prompt** from the **Start** menu, right-click, then **Run as administrator**
 
@@ -262,7 +250,7 @@ To prepare a development environment using WSL:
 
     Restarting the computer is required to start the installation of the Linux distribution. It can take a few minutes for the installation to complete after you restart.
 
-    For more information about setting up WSL as a development environment, see the [Set up a WSL development environment](https://docs.microsoft.com/en-us/windows/wsl/setup/environment){target=\_blank} docs
+    For more information about setting up WSL as a development environment, see the [Set up a WSL development environment](https://learn.microsoft.com/en-us/windows/wsl/setup/environment){target=\_blank} docs
 
 ### Install Required Packages and Rust {: #install-required-packages-and-rust-windows }
 
@@ -311,16 +299,11 @@ To install the Rust toolchain on WSL:
     ```bash
     rustup default stable
     rustup update
+    rustup target add wasm32-unknown-unknown
+    rustup component add rust-src
     ```
 
-11. Add the `nightly` version of the toolchain and the `nightly` Wasm target to your development environment by running the following commands:
-
-    ```bash
-    rustup update nightly
-    rustup target add wasm32-unknown-unknown --toolchain nightly
-    ```
-
-12. [Verify your installation](#verifying-installation)
+11. [Verify your installation](#verifying-installation)
 
 ## Verifying Installation
 
@@ -328,7 +311,6 @@ Verify the configuration of your development environment by running the followin
 
 ```bash
 rustup show
-rustup +nightly show
 ```
 
 The command displays output similar to the following:

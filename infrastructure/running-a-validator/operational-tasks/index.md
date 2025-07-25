@@ -18,12 +18,14 @@ Running a Polkadot validator node involves several key operational tasks to ensu
   <div class="card">
     <a href="https://telemetry.polkadot.io/" target="_blank">
       <h2 class="title">Access Real-Time Validator Metrics</h2>
+      <hr>
       <p class="description">Check the Polkadot Telemetry dashboard for real-time insights into node performance, including validator status, connectivity, block production, and software version to identify potential issues.</p>
     </a>
   </div>
     <div class="card">
-    <a href="https://wiki.polkadot.network/docs/learn-runtime-upgrades#monitoring-runtime-changes" target="_blank">
+    <a href="/develop/parachains/maintenance/runtime-upgrades/#monitoring-runtime-changes" target="_blank">
       <h2 class="title">Stay Up to Date with Runtime Upgrades</h2>
+      <hr>
       <p class="description">Learn how to monitor the Polkadot network for upcoming upgrades, so you can prepare your validator node for any required updates or modifications.</p>
     </a>
   </div>

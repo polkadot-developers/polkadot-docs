@@ -1,0 +1,9 @@
+title: System Chains
+nav:
+  - index.md
+  - 'Overview': overview.md
+  - 'Asset Hub': asset-hub.md
+  - 'Bridge Hub': bridge-hub.md
+  - 'Coretime Chain': coretime.md
+  - 'People Chain': people.md
+  - 'Collectives Chain': collectives.md

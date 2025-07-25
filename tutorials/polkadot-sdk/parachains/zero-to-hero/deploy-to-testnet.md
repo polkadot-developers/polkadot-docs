@@ -1,6 +1,7 @@
 ---
 title: Deploy on Paseo TestNet
 description: This guide walks you through the journey of deploying your Polkadot SDK blockchain on Paseo, detailing each step to a successful TestNet deployment.
+tutorial_badge: Advanced
 ---
 
 # Deploy on Paseo TestNet
@@ -13,7 +14,7 @@ This tutorial guides you through deploying a parachain on the Paseo network, a p
 
 ## Get Started with an Account and Tokens
 
-To perform any action on Paseo, you need PAS tokens, which can be requested from the [Polkadot Faucet](https://faucet.polkadot.io/){target=\_blank}. To store the tokens, you must have access to a Substrate-compatible wallet. Go to the [Wallets and Extensions](https://wiki.polkadot.network/docs/wallets-and-extensions){target=\_blank} page on the Polkadot Wiki to view different options for a wallet, or use the [Polkadot.js browser extension](https://polkadot.js.org/extension/){target=\_blank}, which is suitable for development purposes.
+To perform any action on Paseo, you need PAS tokens, which can be requested from the [Polkadot Faucet](https://faucet.polkadot.io/){target=\_blank}. To store the tokens, you must have access to a Substrate-compatible wallet. Go to the [Polkadot Wallets](https://polkadot.com/get-started/wallets/){target=\_blank} page on the Polkadot Wiki to view different options for a wallet, or use the [Polkadot.js browser extension](https://polkadot.js.org/extension/){target=\_blank}, which is suitable for development purposes.
 
 !!!warning 
     Development keys and accounts should never hold assets of actual value and should not be used for production.
@@ -97,6 +98,8 @@ Polkadot SDK-based blockchains are defined by a file called the [chain specifica
 - **Plain chain spec** - a human-readable JSON file that can be modified to suit your parachain's requirements. It serves as a template for initial configuration and includes human-readable keys and structures
 - **Raw chain spec** - a binary-encoded file used to start your parachain node. This file is generated from the plain chain spec and contains the encoded information necessary for the parachain node to synchronize with the blockchain network. It ensures compatibility across different runtime versions by providing data in a format directly interpretable by the node's runtime, regardless of upgrades since the chain's genesis
 
+The chain spec file is only required during the initial blockchain creation (genesis). You do not need to generate a new chain spec when performing runtime upgrades after your chain is already running.
+
 The files required to register a parachain must specify the correct relay chain to connect to and the parachain identifier you have been assigned. To make these changes, you must build and modify the chain specification file for your parachain. In this tutorial, the relay chain is `paseo`, and the parachain identifier is `4508`.
 
 To define your chain specification:
@@ -145,6 +148,15 @@ To define your chain specification:
 
     You should now see your chain specification containing SCALE-encoded hex values versus plain text.
 
+
+!!!note "Deprecation of `para_id` in Chain Specs"
+
+    The `para_id` field in JSON chain specifications, added through the [`chain-spec-builder`](https://paritytech.github.io/polkadot-sdk/master/staging_chain_spec_builder/index.html){target=\_blank} command, is currently used by nodes for configuration purposes. However, beginning with Polkadot SDK release `stable2509`, the `para_id` field will no longer be required in chain specifications. Instead, runtimes need to be updated to implement the [`cumulus_primitives_core::GetParachainInfo`](https://paritytech.github.io/polkadot-sdk/master/cumulus_primitives_core/trait.GetParachainInfo.html){target=\_blank} trait to successfully operate with nodes using chain specs that omit the `para_id` field.
+
+    With the upcoming `stable2512` release, the `para_id` field will be completely removed from chain specifications in favor of the new runtime API. New nodes will be unable to start with chain specs containing the `para_id` field unless the runtime implements the `GetParachainInfo` trait. Ensure your runtime is updated to maintain compatibility with future node versions.
+
+    For guidance on performing runtime upgrades to implement this new trait, refer to the [runtime upgrade tutorial](/tutorials/polkadot-sdk/parachains/zero-to-hero/runtime-upgrade/){target=\_blank}.
+
 ## Export Required Files
 
 To prepare the parachain collator to be registered on Paseo, follow these steps:
@@ -159,7 +171,7 @@ To prepare the parachain collator to be registered on Paseo, follow these steps:
 2. Export the genesis state for the parachain by running the following command:
 
     ```bash
-    polkadot-omni-node export-genesis-state \
+    polkadot-omni-node export-genesis-head \
     --chain raw_chain_spec.json para-state
     ```
 
@@ -178,6 +190,9 @@ Once you have the genesis state and runtime, you can now register these with you
     ![](/images/tutorials/polkadot-sdk/parachains/zero-to-hero/deploy-to-testnet/deploy-to-testnet-10.webp)
 
 Your parachain's runtime logic and genesis are now part of the relay chain. The next step is to ensure you are able to run a collator to produce blocks for your parachain.
+
+!!!note 
+    You may need to wait several hours for your parachain to onboard. Until it has onboarded, you will be unable to purchase coretime, and therefore will not be able to perform transactions on your network.
 
 ## Start the Collator Node
 
@@ -239,7 +254,7 @@ Once your collator is synced with the Paseo relay chain, and your parathread fin
 
 ## Producing Blocks
 
-With your parachain collator operational, the next step is acquiring coretime. This is essential for ensuring your parachain's security through the relay chain. [Agile Coretime](https://wiki.polkadot.network/docs/learn-agile-coretime){target=\_blank} enhances Polkadot's resource management, offering developers greater economic adaptability. Once you have configured your parachain, you can follow two paths:
+With your parachain collator operational, the next step is acquiring coretime. This is essential for ensuring your parachain's security through the relay chain. [Agile Coretime](https://wiki.polkadot.network/learn/learn-agile-coretime/){target=\_blank} enhances Polkadot's resource management, offering developers greater economic adaptability. Once you have configured your parachain, you can follow two paths:
 
 - Bulk coretime is purchased via the Broker pallet on the respective coretime system parachain. You can purchase bulk coretime on the coretime chain and assign the purchased core to the registered `ParaID`
 - On-demand coretime is ordered via the `OnDemandAssignment` pallet, which is located on the respective relay chain

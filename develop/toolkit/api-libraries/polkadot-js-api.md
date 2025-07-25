@@ -5,6 +5,9 @@ description: Interact with Polkadot SDK-based chains easily using the Polkadot.j
 
 # Polkadot.js API
 
+!!! warning "Maintenance Mode Only"
+    The Polkadot.js API is now in maintenance mode and is no longer actively developed. New projects should use [Dedot](/develop/toolkit/api-libraries/dedot){target=\_blank} (TypeScript-first API) or [Polkadot API](/develop/toolkit/api-libraries/papi){target=\_blank} (modern, type-safe API) as actively maintained alternatives.
+
 ## Introduction
 
 The [Polkadot.js API](https://github.com/polkadot-js/api){target=\_blank} uses JavaScript/TypeScript to interact with Polkadot SDK-based chains. It allows you to query nodes, read chain state, and submit transactions through a dynamic, auto-generated API interface.
@@ -38,21 +41,21 @@ The available methods and interfaces will automatically reflect what's possible 
 
 ## Installation
 
-To add the Polkadot.js API to your project, use the following command to install the latest stable release which supports any Polkadot SDK-based chain:
+To add the Polkadot.js API to your project, use the following command to install the version `{{ dependencies.javascript_packages.polkadot_js_api.version }}` which supports any Polkadot SDK-based chain:
 
 === "npm"
     ```bash
-    npm i @polkadot/api
+    npm i @polkadot/api@{{ dependencies.javascript_packages.polkadot_js_api.version }}
     ```
 
 === "pnpm"
     ```bash
-    pnpm add @polkadot/api
+    pnpm add @polkadot/api@{{ dependencies.javascript_packages.polkadot_js_api.version }}
     ```
 
 === "yarn"
     ```bash
-    yarn add @polkadot/api
+    yarn add @polkadot/api@{{ dependencies.javascript_packages.polkadot_js_api.version }}
     ```
 
 For more detailed information about installation, see the [Installation](https://polkadot.js.org/docs/api/start/install/){target=\_blank} section in the official Polkadot.js API documentation.

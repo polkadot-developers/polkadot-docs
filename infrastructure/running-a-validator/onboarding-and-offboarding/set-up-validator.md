@@ -135,44 +135,28 @@ Signature verification cryptographically ensures the downloaded binaries are aut
 
 ### Install with Package Managers
 
-Users running Debian-based distributions like Ubuntu, or RPM-based distributions such as Fedora or CentOS can install the binaries via package managers.
+Users running Debian-based distributions like Ubuntu can install the binaries using the [APT](https://wiki.debian.org/Apt){target=\_blank} package manager.
 
-??? interface "Debian-based (Debian, Ubuntu)"
+Execute the following commands as root to add the official repository and install the binaries:
 
-    Run the following commands as the root user to add the necessary repository and install the binaries:
+```bash
+# Import the security@parity.io GPG key
+gpg --recv-keys --keyserver hkps://keys.mailvelope.com 9D4B2B6EB8F97156D19669A9FF0812D491B96798
+gpg --export 9D4B2B6EB8F97156D19669A9FF0812D491B96798 > /usr/share/keyrings/parity.gpg
 
-    ```ssh
-    # Import the security@parity.io GPG key
-    gpg --recv-keys --keyserver hkps://keys.mailvelope.com 9D4B2B6EB8F97156D19669A9FF0812D491B96798
-    gpg --export 9D4B2B6EB8F97156D19669A9FF0812D491B96798 > /usr/share/keyrings/parity.gpg
-    # Add the Parity repository and update the package index
-    echo 'deb [signed-by=/usr/share/keyrings/parity.gpg] https://releases.parity.io/deb release main' > /etc/apt/sources.list.d/parity.list
-    apt update
-    # Install the `parity-keyring` package - This will ensure the GPG key
-    # used by APT remains up-to-date
-    apt install parity-keyring
-    # Install polkadot
-    apt install polkadot
-    ```
-    
-    After installation, ensure the binaries are properly installed by [verifying the installation](#verify-installation).
+# Add the Parity repository and update the package index
+echo 'deb [signed-by=/usr/share/keyrings/parity.gpg] https://releases.parity.io/deb release main' > /etc/apt/sources.list.d/parity.list
+apt update
 
-??? interface "RPM-based (Fedora, CentOS)""
+# Install the `parity-keyring` package - This will ensure the GPG key
+# used by APT remains up-to-date
+apt install parity-keyring
 
-    Run the following commands as the root user to install the binaries on an RPM-based system:
+# Install polkadot
+apt install polkadot
+```
 
-    ```bash
-    # Install dnf-plugins-core (This might already be installed)
-    dnf install dnf-plugins-core
-    # Add the repository and activate it
-    dnf config-manager --add-repo https://releases.parity.io/rpm/polkadot.repo
-    dnf config-manager --set-enabled polkadot
-    # Install polkadot (You may have to confirm the import of the GPG key, which
-    # should have the following fingerprint: 9D4B2B6EB8F97156D19669A9FF0812D491B96798)
-    dnf install polkadot
-    ```
-
-    After installation, ensure the binaries are properly installed by [verifying the installation](#verify-installation).
+Once installation completes, verify the binaries are correctly installed by following the steps in the [verify installation](#verify-installation) section.
 
 ### Install with Ansible
 
@@ -206,7 +190,7 @@ Once the Polkadot binaries are installed, it's essential to verify that everythi
 
     The output should show the version numbers for each of the binaries. Ensure that the versions match and are consistent, similar to the following example (the specific version may vary):
 
-    --8<-- 'code/infrastructure/running-a-validator/onboarding-and-offboarding/set-up-a-validator/terminal-output-01.html'
+    --8<-- 'code/infrastructure/running-a-validator/onboarding-and-offboarding/set-up-validator/terminal-output-01.html'
 
     If the versions do not match or if there is an error, double-check that all the binaries were correctly installed and are accessible within your `$PATH`.
 

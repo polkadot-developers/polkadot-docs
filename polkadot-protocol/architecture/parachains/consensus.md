@@ -19,7 +19,7 @@ Collators are responsible for sequencing end-user transactions into blocks and m
 
 Key responsibilities include:
 
-- **Transaction sequencing** - organizing transactions into [Proof of Validity (PoV)](https://wiki.polkadot.network/docs/glossary#proof-of-validity){target=\_blank} blocks
+- **Transaction sequencing** - organizing transactions into [Proof of Validity (PoV)](https://wiki.polkadot.network/general/glossary/){target=\_blank} blocks
 - **State management** - maintaining parachain states without burdening the relay chain validators
 - **Consensus participation** - sending PoV blocks to relay chain validators for approval
 
@@ -113,4 +113,4 @@ It is important to understand that relay chain blocks do not store full parachai
 
 For more technical details, refer to the:
 
-- [Parachain Wiki](https://wiki.polkadot.network/docs/learn-parachains){target=\_blank} page
+- [Parachain Wiki](https://wiki.polkadot.network/learn/learn-parachains/){target=\_blank} page

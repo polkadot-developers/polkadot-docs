@@ -18,12 +18,14 @@ Learn how to maintain Polkadot SDK-based networks, focusing on runtime monitorin
   <div class="card">
     <a href="https://paritytech.github.io/polkadot-sdk/master/pallet_example_single_block_migrations/index.html" target="_blank">
       <h2 class="title">Single Block Migration Example</h2>
+      <hr>
       <p class="description">Check out an example pallet demonstrating best practices for writing single-block migrations while upgrading pallet storage.</p>
     </a>
   </div>
   <div class="card">
     <a href="https://paritytech.github.io/polkadot-sdk/master/pallet_example_single_block_migrations/index.html" target="_blank">
       <h2 class="title">Client Telemetry Crate</h2>
+      <hr>
       <p class="description">Check out the docs on Substrate's client telemetry, a part of Substrate that allows ingesting telemetry data with, for example, Polkadot telemetry.</p>
     </a>
   </div>

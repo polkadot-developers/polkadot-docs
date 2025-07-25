@@ -1,6 +1,7 @@
 ---
 title: Obtain Coretime
 description: Learn how to obtain coretime for block production with this guide, covering both on-demand and bulk options for smooth operations.
+tutorial_badge: Advanced
 ---
 
 ## Introduction
@@ -34,7 +35,7 @@ Once the above is complete, obtaining coretime is the last step to enable your p
 
 There are two extrinsics which allow you to place orders for on-demand coretime:
 
-- [**`onDemand.placeOrderAllowDeath`**](https://paritytech.github.io/polkadot-sdk/master/polkadot_runtime_parachains/on_demand/pallet/dispatchables/fn.place_order_allow_death.html){target=\_blank} - will [reap](https://wiki.polkadot.network/docs/learn-accounts#existential-deposit-and-reaping){target=\_blank} the account once the provided funds run out
+- [**`onDemand.placeOrderAllowDeath`**](https://paritytech.github.io/polkadot-sdk/master/polkadot_runtime_parachains/on_demand/pallet/dispatchables/fn.place_order_allow_death.html){target=\_blank} - will [reap](https://wiki.polkadot.network/learn/learn-accounts/#existential-deposit-and-reaping){target=\_blank} the account once the provided funds run out
 - [**`onDemand.placeOrderKeepAlive`**](https://paritytech.github.io/polkadot-sdk/master/polkadot_runtime_parachains/on_demand/pallet/dispatchables/fn.place_order_keep_alive.html){target=\_blank} - includes a check that will **not** reap the account if the provided funds run out, ensuring the account is kept alive
 
 To produce a block in your parachain, navigate to Polkadot.js Apps and ensure you're connected to the Paseo relay chain. Then, access the [**Developer > Extrinsics**](https://polkadot.js.org/apps/#/extrinsics){target=\_blank} tab and execute the `onDemand.placeOrderAllowDeath` extrinsic from the account that registered the `ParaID`. For this example, `maxAmount` is set to `1000000000000` (this value may vary depending on the network conditions), and `paraId` is set to `4518`:
@@ -47,10 +48,7 @@ With each successful on-demand extrinsic, the parachain will produce a new block
 
 ## Purchase Bulk Coretime
 
-Purchasing bulk coretime involves purchasing a core from the [Coretime Chain](/polkadot-protocol/architecture/system-chains/coretime/){target=\_blank}, which has an instance of [`pallet_broker`](https://paritytech.github.io/polkadot-sdk/master/pallet_broker/index.html){target=\_blank} (the Broker pallet). Although this can be done via sending extrinsics through a tool like Polkadot.js Apps, there are user interfaces for purchasing and managing bulk coretime:
-
-- [RegionX Coretime Marketplace (includes Paseo support)](https://app.regionx.tech){target=\_blank}
-- [Lastic Coretime Marketplace](https://www.lastic.xyz/polkadot/bulkcore1){target=\_blank}
+Purchasing bulk coretime involves purchasing a core from the [Coretime Chain](/polkadot-protocol/architecture/system-chains/coretime/){target=\_blank}, which has an instance of [`pallet_broker`](https://paritytech.github.io/polkadot-sdk/master/pallet_broker/index.html){target=\_blank} (the Broker pallet). Although this can be done via sending extrinsics through a tool like Polkadot.js Apps, the [RegionX Coretime Marketplace](https://app.regionx.tech){target=\_blank} (includes Paseo support) also provides a user interface for purchasing and managing bulk coretime.
   
 !!!tip
     Obtaining a core for bulk coretime on Paseo follows a different process from Polkadot or Kusama. To apply for a core on Paseo, visit their guide for doing so: [PAS-10 Onboard Paras Coretime](https://github.com/paseo-network/paseo-action-submission/blob/main/pas/PAS-10-Onboard-paras-coretime.md#summary){target=\_blank}. 

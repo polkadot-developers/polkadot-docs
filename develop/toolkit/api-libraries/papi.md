@@ -19,17 +19,17 @@ To instantiate the API, you can install the package by using the following comma
 
 === "npm"
     ```bash
-    npm i polkadot-api
+    npm i polkadot-api@{{dependencies.javascript_packages.polkadot_api.version}}
     ```
 
 === "pnpm"
     ```bash
-    pnpm add polkadot-api
+    pnpm add polkadot-api@{{dependencies.javascript_packages.polkadot_api.version}}
     ```
 
 === "yarn"
     ```bash
-    yarn add polkadot-api
+    yarn add polkadot-api@{{dependencies.javascript_packages.polkadot_api.version}}
     ```
 
 Then, obtain the latest metadata from the target chain and generate the necessary types:

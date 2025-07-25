@@ -1,6 +1,7 @@
 ---
 title: Set Up a Template
 description: Learn to compile and run a local parachain node using Polkadot SDK. Launch, run, and interact with a pre-configured runtime template.
+tutorial_badge: Beginner
 ---
 
 # Set Up a Template
@@ -29,6 +30,16 @@ Before getting started, ensure you have done the following:
 
 - Completed the [Install Polkadot SDK Dependencies](/develop/parachains/install-polkadot-sdk/){target=\_blank} guide and successfully installed [Rust](https://www.rust-lang.org/){target=\_blank} and the required packages to set up your development environment
 
+For this tutorial series, you need to use Rust `1.86`. Newer versions of the compiler may not work with this parachain template version.
+
+Run the following commands to set up the correct Rust version:
+
+```bash
+rustup default 1.86
+rustup target add wasm32-unknown-unknown --toolchain 1.86-aarch64-apple-darwin
+rustup component add rust-src --toolchain 1.86-aarch64-apple-darwin
+```
+
 ## Utility Tools
 
 This tutorial requires two essential tools:
@@ -38,7 +49,7 @@ This tutorial requires two essential tools:
     Install it by executing the following command:
     
     ```bash
-    cargo install staging-chain-spec-builder@{{dependencies.crates.chain_spec_builder.version}}
+    cargo install --locked staging-chain-spec-builder@{{dependencies.crates.chain_spec_builder.version}}
     ```
 
     This installs the `chain-spec-builder` binary.
@@ -48,7 +59,7 @@ This tutorial requires two essential tools:
     To install it, run the following command:
 
     ```bash
-    cargo install polkadot-omni-node@{{dependencies.crates.polkadot_omni_node.version}}
+    cargo install --locked polkadot-omni-node@{{dependencies.crates.polkadot_omni_node.version}}
     ```
 
     This installs the `polkadot-omni-node` binary.
@@ -59,21 +70,23 @@ The [Polkadot SDK Parachain Template](https://github.com/paritytech/polkadot-sdk
 
 1. Clone the template repository:
     ```bash
-    git clone https://github.com/paritytech/polkadot-sdk-parachain-template.git parachain-template
+    git clone -b stable2412 https://github.com/paritytech/polkadot-sdk-parachain-template.git parachain-template
     ```
 
-2. Navigate to the root of the template directory:
+2. Navigate into the project directory:
     ```bash
     cd parachain-template
     ```
 
 3. Compile the runtime:
     ```bash
-    cargo build --release
+    cargo build --release --locked
     ```
 
     !!!tip
-        Initial compilation may take several minutes, depending on your machine specifications. Always use the `--release` flag to build optimized, production-ready artifacts.
+        Initial compilation may take several minutes, depending on your machine specifications. Use the `--release` flag for improved runtime performance compared to the default `--debug` build. If you need to troubleshoot issues, the `--debug` build provides better diagnostics.
+        
+        For production deployments, consider using a dedicated [`--profile production`](https://github.com/paritytech/polkadot-sdk-parachain-template/blob/v0.0.4/Cargo.toml#L42-L45){target=\_blank} flag - this can provide an additional 15-30% performance improvement over the standard `--release` profile.
 
 4. Upon successful compilation, you should see output similar to:
     --8<-- 'code/tutorials/polkadot-sdk/parachains/zero-to-hero/set-up-a-template/compilation-output.html'
@@ -135,7 +148,7 @@ When running the template node, it's accessible by default at `ws://localhost:99
     
     ![](/images/tutorials/polkadot-sdk/parachains/zero-to-hero/set-up-a-template/set-up-a-template-3.webp)
 
-You are now connected to your local node and can now interact with it through the Polkadot.js Apps interface. This tool enables you to explore blocks, execute transactions, and interact with your blockchain's features. For in-depth guidance on using the interface effectively, refer to the [Polkadot.js Guides](https://wiki.polkadot.network/docs/learn-polkadot-js-guides){target=\_blank} available on the Polkadot Wiki.
+You are now connected to your local node and can now interact with it through the Polkadot.js Apps interface. This tool enables you to explore blocks, execute transactions, and interact with your blockchain's features. For in-depth guidance on using the interface effectively, refer to the [Polkadot.js Guides](https://wiki.polkadot.network/general/polkadotjs/){target=\_blank} available on the Polkadot Wiki.
 
 ## Stop the Node
 

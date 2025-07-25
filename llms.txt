@@ -5397,7 +5397,7 @@ description: Learn how to increase the efficiency and throughput of your paracha
 This guide applies to parachain projects based on Cumulus that started in 2023 or earlier, where the backing process was synchronous, allowing parablocks to be built only on the latest relay chain block. In contrast, async backing will enable collators to build parablocks on older relay chain blocks and create pipelines of multiple pending parablocks. This parallel block generation increases efficiency and throughput.
 
 !!!note
-    When starting a new parachain project, please use an async backing-compatible template, such as the [parachain template](https://github.com/paritytech/polkadot-sdk-parachain-template){target=\_blank}. The rollout process for async backing has three phases. Phases 1 and 2 below involve the installation of new infrastructure. Then async backing is enabled in phase 3.
+    When starting a new parachain project, please use an async backing-compatible template, such as the [parachain template](https://github.com/paritytech/polkadot-sdk-parachain-template){target=\_blank}. The rollout process for async backing has three phases. Phases 1 and 2 below involve the installation of new infrastructure. Then, async backing is enabled in phase 3.
 
 ## Prerequisite
 
@@ -5533,7 +5533,7 @@ cumulus-primitives-aura = { path = "../../../../primitives/aura", default-featur
     ```
 
     !!!note
-        With a capacity of 1, you have an effective velocity of ½, even when velocity is configured to a larger value. This is because capacity will be filled after a single block is produced and will only be freed up after that block is included on the relay chain, which takes two relay blocks to accomplish. Thus, with a capacity of 1 and a velocity of 1, you achieve the customary 12-second parachain block time.
+        With a capacity of 1, you have an effective velocity of ½, even when velocity is configured to a larger value. Capacity will be filled after a single block is produced and will only be freed up after that block is included on the relay chain, which takes two relay blocks to accomplish. Thus, with a capacity of 1 and a velocity of 1, you achieve the customary 12-second parachain block time.
 
 8. If your `runtime/src/lib.rs` provides a [`CheckInherents`](https://paritytech.github.io/polkadot-sdk/master/cumulus_pallet_parachain_system/macro.register_validate_block.html){target=\_blank} type to [`register_validate_block`](https://paritytech.github.io/polkadot-sdk/master/cumulus_pallet_parachain_system/macro.register_validate_block.html), remove it. [`FixedVelocityConsensusHook`](https://paritytech.github.io/polkadot-sdk/master/cumulus_pallet_aura_ext/consensus_hook/struct.FixedVelocityConsensusHook.html){target=\_blank} makes it unnecessary. The following example shows how `register_validate_block` should look after removing `CheckInherents`.
 
@@ -5603,7 +5603,7 @@ This phase consists of plugging in the new lookahead collator node.
     d. Provide a [`code_hash_provider`](https://github.com/paritytech/polkadot-sdk/blob/6b17df5ae96f7970109ec3934c7d288f05baa23b/templates/parachain/node/src/service.rs#L206-L225){target=\_blank} closure like that shown below.
 
     e. Increase [`authoring_duration`](https://github.com/paritytech/polkadot-sdk/blob/6b17df5ae96f7970109ec3934c7d288f05baa23b/templates/parachain/node/src/service.rs#L206-L225){target=\_blank} from 500 milliseconds to 2000.
-    
+
     ```rust title="node/src/service.rs"
     let params = AuraParams {
     ...
@@ -5665,7 +5665,7 @@ This phase involves changes to your parachain's runtime that activate the asynch
 3. Decrease [`MILLI_SECS_PER_BLOCK`](https://github.com/paritytech/polkadot-sdk/blob/6b17df5ae96f7970109ec3934c7d288f05baa23b/templates/parachain/runtime/src/lib.rs#L182-L194){target=\_blank} to 6000.
 
     !!!note
-        For a parachain that measures time in terms of its own block number rather than by relay block number, it may be preferable to increase velocity. Changing block time may cause complications, requiring additional changes. See the section [Timing by Block Number](#timing-by-block-number){target=\_blank}.
+        For a parachain that measures time in terms of its own block number, rather than by relay block number, it may be preferable to increase velocity. Changing block time may cause complications, requiring additional changes. See the section [Timing by Block Number](#timing-by-block-number){target=\_blank}.
 
     ```rust title="runtime/src/lib.rs"
     mod block_times {
@@ -5704,7 +5704,7 @@ This phase involves changes to your parachain's runtime that activate the asynch
 
 ## Timing by Block Number
 
-With asynchronous backing, it will be possible for parachains to opt for a block time of 6 seconds rather than 12 seconds. However modifying block duration isn't so simple for a parachain that measures time in terms of its own block number. This could result in the expected and actual time not matching up, stalling the parachain.
+With asynchronous backing, it will be possible for parachains to opt for a block time of 6 seconds rather than 12 seconds. However, modifying block duration isn't so simple for a parachain that measures time in terms of its own block number, which could result in the expected and actual time not matching up, stalling the parachain.
 
 One strategy to address this issue is to rely on relay chain block numbers for timing instead. Relay block number is kept track of by each parachain in [`pallet-parachain-system`](https://paritytech.github.io/polkadot-sdk/master/cumulus_pallet_parachain_system/index.html){target=\_blank} with the storage value [`LastRelaychainBlockNumber`](https://paritytech.github.io/polkadot-sdk/master/cumulus_pallet_parachain_system/pallet/type.LastRelayChainBlockNumber.html){target=\_blank}. This value can be obtained and used wherever timing based on block number is needed.
 --- END CONTENT ---

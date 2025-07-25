@@ -6,8 +6,5 @@ on:
 jobs:
   check-docs-links:
     uses: papermoonio/workflows/.github/workflows/pr-blocked-label.yml@main
-    with:
-      mkdocs_repo: papermoonio/polkadot-mkdocs
-      docs_repo: polkadot-developers/polkadot-docs
-      docs_checkout: polkadot-docs
-      url: https://docs.polkadot.com
+    with: 
+      blocking_labels: "B2 - Blocked"

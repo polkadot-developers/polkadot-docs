@@ -1,0 +1,10 @@
+name: 'Check PR Labels'
+
+on:
+  pull_request:
+
+jobs:
+  check-docs-links:
+    uses: papermoonio/workflows/.github/workflows/pr-blocked-label.yml@main
+    with: 
+      whitelist_labels: "B1 - Ready to Merge"

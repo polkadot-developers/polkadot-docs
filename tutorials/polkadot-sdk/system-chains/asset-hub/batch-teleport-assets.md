@@ -1,6 +1,6 @@
 ---
 title: Batch Teleport Assets
-description: A tutorial detailing the step-by-step process of batch teleporting assets
+description: A comprehensive tutorial detailing the step-by-step process of batch teleporting assets across Polkadot parachains using ParaSpell SDK
 tutorial_badge: Intermediate
 ---
 
@@ -8,25 +8,25 @@ tutorial_badge: Intermediate
 
 ## Introduction
 
-Cross-chain asset transfers are a fundamental feature of the Polkadot ecosystem, enabling seamless movement of tokens between different parachains. The [ParaSpell SDK](https://paraspell.github.io/docs/){target=_blank} simplifies this process by providing powerful tools for executing both single and batch teleport operations.
+Cross-chain asset transfers are a fundamental feature of the Polkadot ecosystem, enabling seamless movement of tokens between different parachains. The [ParaSpell SDK](https://paraspell.github.io/docs/){target=\_blank} simplifies this process by providing powerful tools for executing both single and batch teleport operations.
 
-This tutorial will guide you through creating batch teleport transactions using the [ParaSpell SDK](https://paraspell.github.io/docs/){target=_blank}. You'll learn how to bundle multiple cross-chain transfers into a single transaction, making your operations more efficient and cost-effective. By the end, you'll be able to execute batch teleports between Polkadot Hub chains and understand the underlying mechanisms.
+This tutorial will guide you through creating batch teleport transactions using the [ParaSpell SDK](https://paraspell.github.io/docs/){target=\_blank}. You'll learn how to bundle multiple cross-chain transfers into a single transaction, making your operations more efficient and cost-effective. By the end, you'll be able to execute batch teleports between Polkadot Hub chains and understand the underlying mechanisms.
 
 ## Prerequisites
 
 Before getting started, ensure you have the following:
 
-- [Bun](https://bun.sh/){target=_blank} v1.0 or later installed on your system
+- [Bun](https://bun.sh/){target=\_blank} v1.0 or later installed on your system
 - A Polkadot wallet with sufficient test tokens for transaction fees
 - Basic understanding of TypeScript/JavaScript
-- General understanding of the [Polkadot protocol](/polkadot-protocol/parachain-basics/){target=_blank}
-- Some knowledge of [XCM (Cross-Consensus Messaging)](/develop/interoperability/intro-to-xcm/){target=_blank}
+- General understanding of the [Polkadot protocol](/polkadot-protocol/parachain-basics/){target=\_blank}
+- Some knowledge of [XCM (Cross-Consensus Messaging)](/develop/interoperability/intro-to-xcm/){target=\_blank}
 
 ## Project Overview
 
 This tutorial demonstrates how to create batch teleport transactions that can transfer tokens from one parachain to multiple destinations on the Polkadot relay chain in a single operation. You'll work with:
 
-- [Asset Hub](/polkadot-protocol/architecture/system-chains/asset-hub/){target=_blank} as the source chain
+- [Asset Hub](/polkadot-protocol/architecture/system-chains/asset-hub/){target=\_blank} as the source chain
 - Multiple destination addresses
 - DOT/PAS tokens as the transferred assets
 - Batch transaction construction and execution
@@ -93,61 +93,24 @@ bun add @paraspell/sdk@{{dependencies.javascript_packages.paraspell_sdk.version}
 
 ## Create the Implementation
 
-Create an `index.ts` file with the complete batch teleport implementation.
-> For testing purposes, you will be using [Paseo Asset Hub](/develop/networks/#paseo){target=_blank} (a Polkadot community-driven TestNet).
+Create an `index.ts` file with the complete batch teleport implementation. For testing purposes, you will be using [Paseo Asset Hub](/develop/networks/#paseo){target=\_blank} (a Polkadot community-driven TestNet).
 
-```typescript
-import { Builder, Version, BatchMode } from '@paraspell/sdk';
-
-// Paseo has 10 decimals, use this to simplify.
-const PAS_UNITS = 10_000_000_000;
-// The RPC endpoints to connect to Paseo.
-// Not needed if using Polkadot.
-const PASEO_AH_RPC = 'wss://asset-hub-paseo.dotters.network';
-
-teleport();
-
-async function teleport() {
-  const builder = Builder([PASEO_AH_RPC])
-    .from('AssetHubPolkadot')
-    .to('Polkadot')
-    .currency({ symbol: 'DOT', amount: 1 * PAS_UNITS })
-    .address('15whavTNSyceP8SL3Z1JukFcUPzmeR26RxKXkfQiPhsykg7s')
-    .xcmVersion(Version.V5)
-    .addToBatch()
-
-    .from('AssetHubPolkadot')
-    .to('Polkadot')
-    .currency({ symbol: 'DOT', amount: 1 * PAS_UNITS })
-    .address('14E5nqKAp3oAJcmzgZhUD2RcptBeUBScxKHgJKU4HPNcKVf3')
-    .xcmVersion(Version.V5)
-    .addToBatch();
-  const tx = await builder.buildBatch({
-    // This settings object is optional and batch all is the default option
-    mode: BatchMode.BATCH_ALL //or BatchMode.BATCH
-  })
-  const callData = await tx.getEncodedData();
-
-  // This generates a link the polkadot developer console.
-  // Once there, it's easy to submit.
-  console.log(`Send via PAPI console:
-    https://dev.papi.how/extrinsics#networkId=paseo_asset_hub&endpoint=light-client&data=${callData.asHex()}
-  `);
-}
+```typescript title="index.ts"
+--8<-- 'code/tutorials/polkadot-sdk/system-chains/asset-hub/index.ts'
 ```
 
 !!!note "Understanding Batch Modes"
     The ParaSpell SDK supports two batch modes:
 
-    ### BatchMode.BATCH_ALL
-    - **Behavior**: All operations must succeed, or the entire batch fails
-    - **Use Case**: When all transfers are critical and interdependent
-    - **Gas Efficiency**: More efficient as it's a single atomic operation
+    - BatchMode.BATCH_ALL
+        - **Behavior**: All operations must succeed, or the entire batch fails
+        - **Use Case**: When all transfers are critical and interdependent
+        - **Gas Efficiency**: More efficient as it's a single atomic operation
 
-    ### BatchMode.BATCH
-    - **Behavior**: Individual operations can fail independently
-    - **Use Case**: When some transfers can fail without affecting others
-    - **Resilience**: More resilient but with slightly higher gas overhead
+    - BatchMode.BATCH
+        - **Behavior**: Individual operations can fail independently
+        - **Use Case**: When some transfers can fail without affecting others
+        - **Resilience**: More resilient but with slightly higher gas overhead
 
 Update your `package.json` to include the necessary scripts:
 
@@ -160,7 +123,8 @@ Update your `package.json` to include the necessary scripts:
   "type": "module",
   "scripts": {
     "start": "bun run index.ts",
-    "dev": "bun run index.ts"
+    "dev": "bun run --watch index.ts" // --watch automatically restarts the script when files change
+ },
   },
   "dependencies": {
     "@paraspell/sdk": "^{{dependencies.javascript_packages.paraspell_sdk.version}}"

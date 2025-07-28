@@ -312,7 +312,7 @@ You can find a full list of XCM errors in the [Polkadot Rust Docs](https://parit
 
 ### TestNet vs MainNet Configuration
 
-Different networks within the Polkadot ecosystem have varying characteristics that affect teleportation implementation. TestNet environments like Paseo use different decimal precision (12 for PAS vs 10 for DOT), can have different existential deposit amounts, and require test-specific RPC endpoints. Always use appropriate configuration for the target environment and avoid mixing TestNet and MainNet configurations.
+Different networks within the Polkadot ecosystem have varying characteristics that affect teleportation implementation. TestNet environments like [Paseo](/develop/networks/#paseo){target=\_blank} use different decimal precision (12 for PAS vs 10 for DOT), can have different existential deposit amounts, and require test-specific RPC endpoints. Always use appropriate configuration for the target environment and avoid mixing TestNet and MainNet configurations.
 
 MainNet production environments require higher existential deposits, involve real economic value at risk, experience network congestion that affects fees, and have stricter validation requirements. Plan for these production realities by implementing robust error handling, fee buffers, and comprehensive monitoring systems.
 

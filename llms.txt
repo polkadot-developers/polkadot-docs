@@ -837,7 +837,7 @@ You can find a full list of XCM errors in the [Polkadot Rust Docs](https://parit
 
 ### TestNet vs MainNet Configuration
 
-Different networks within the Polkadot ecosystem have varying characteristics that affect teleportation implementation. TestNet environments like Paseo use different decimal precision (12 for PAS vs 10 for DOT), can have different existential deposit amounts, and require test-specific RPC endpoints. Always use appropriate configuration for the target environment and avoid mixing TestNet and MainNet configurations.
+Different networks within the Polkadot ecosystem have varying characteristics that affect teleportation implementation. TestNet environments like [Paseo](/develop/networks/#paseo){target=\_blank} use different decimal precision (12 for PAS vs 10 for DOT), can have different existential deposit amounts, and require test-specific RPC endpoints. Always use appropriate configuration for the target environment and avoid mixing TestNet and MainNet configurations.
 
 MainNet production environments require higher existential deposits, involve real economic value at risk, experience network congestion that affects fees, and have stricter validation requirements. Plan for these production realities by implementing robust error handling, fee buffers, and comprehensive monitoring systems.
 
@@ -22711,9 +22711,9 @@ The Foreign Assets pallet, an instance of the Assets pallet, manages these asset
 
 ## Sufficient and Non-Sufficient Assets
 
-[Sufficient assets](https://wiki.polkadot.network/learn/learn-assets/#sufficient-assets) are assets that have been voted upon and approved by governance that can suffice for account existence. This means that sufficient assets can be used for an account's [existential deposit](https://wiki.polkadot.network/learn/learn-accounts/#existential-deposit-and-reaping) on Asset Hub. 
+[Sufficient assets](https://wiki.polkadot.network/learn/learn-assets/#sufficient-assets){target=\_blank} are assets that have been voted upon and approved by governance that can suffice for account existence. This means that sufficient assets can be used for an account's [existential deposit](https://wiki.polkadot.network/learn/learn-accounts/#existential-deposit-and-reaping){target=\_blank} on Asset Hub. 
 
-Non-sufficient assets, on the other hand, **cannot** suffice on their own for account existence. Non-sufficient assets rely on a sufficient asset for the existential deposit. However, through the use of [asset conversion](https://wiki.polkadot.network/learn/learn-asset-conversion-assethub/), non-sufficient assets can be treated as first-class citizens on Asset Hub with similar functionality to sufficient assets, creating a seamless experience for end users.
+Non-sufficient assets, on the other hand, **cannot** suffice on their own for account existence. Non-sufficient assets rely on a sufficient asset for the existential deposit. However, through the use of [asset conversion](https://wiki.polkadot.network/learn/learn-asset-conversion-assethub/){target=\_blank}, non-sufficient assets can be treated as first-class citizens on Asset Hub with similar functionality to sufficient assets, creating a seamless experience for end users.
 
 ### Sufficient Assets
 
@@ -22726,9 +22726,9 @@ On Asset Hub, sufficient assets:
 
 ### Non-Sufficient Assets
 
-Through the use of [asset conversion](https://wiki.polkadot.network/learn/learn-asset-conversion-assethub), Asset Hub provides an abstraction layer and mechanism that can convert any asset regardless of asset type (sufficient or non-sufficient) to the parachain's native asset which in turn allows for non-sufficient assets to be swapped for the native asset to pay for the existential deposit, the transaction fee, the XCM fee, and the storage deposit.
+Through the use of [asset conversion](https://wiki.polkadot.network/learn/learn-asset-conversion-assethub){target=\_blank}, Asset Hub provides an abstraction layer and mechanism that can convert any asset regardless of asset type (sufficient or non-sufficient) to the parachain's native asset which in turn allows for non-sufficient assets to be swapped for the native asset to pay for the existential deposit, the transaction fee, the XCM fee, and the storage deposit.
 
-This allows developers to create a seamless experience for end users by allowing end users to use any asset as long as the asset has a [liquidity pool set up](https://wiki.polkadot.network/learn/learn-guides-asset-conversion/#create-a-liquidity-pool) against the native asset (e.g. DOT) on Asset Hub and has healthy liquidity in the pool to prevent getting burned on swaps.
+This allows developers to create a seamless experience for end users by allowing end users to use any asset as long as the asset has a [liquidity pool set up](https://wiki.polkadot.network/learn/learn-guides-asset-conversion/#create-a-liquidity-pool){target=\_blank} against the native asset (e.g. DOT) on Asset Hub and has healthy liquidity in the pool to prevent getting burned on swaps.
 
 !!!note "Parachain Compatibility"
     It is important to note that the functionality covered on this page is configured for Asset Hub. Depending on the use case, the destination parachain or sending parachain may also need to be configured in a similar manner (e.g. supporting sufficient assets, support ED in any sufficient asset, paying fees in any sufficient asset, swapping a non-sufficient asset for a native asset) to allow for the features covered on this page to also exist on that chain.
@@ -22739,7 +22739,7 @@ This allows developers to create a seamless experience for end users by allowing
 
 ### Transaction Fees
 
-On Asset Hub, both sufficient and non-sufficient assets can be used for paying transaction fees. For sufficient assets, Asset Hub natively converts the native asset (e.g. DOT) amount required to an asset balance and the signer actually pays that asset to a collator. And for non-sufficient assets on Asset Hub developers can leverage [asset conversion](https://wiki.polkadot.network/learn/learn-asset-conversion-assethub) via a [swap](/tutorials/polkadot-sdk/system-chains/asset-hub/asset-conversion/) or an XCM `ExchangeAsset` instruction to swap the non-sufficient asset for the native asset. For this to work, non-sufficient assets need to have a [liquidity pool set up](https://wiki.polkadot.network/learn/learn-guides-asset-conversion/#create-a-liquidity-pool) against the native asset (e.g. DOT).
+On Asset Hub, both sufficient and non-sufficient assets can be used for paying transaction fees. For sufficient assets, Asset Hub natively converts the native asset (e.g. DOT) amount required to an asset balance and the signer actually pays that asset to a collator. And for non-sufficient assets on Asset Hub developers can leverage [asset conversion](https://wiki.polkadot.network/learn/learn-asset-conversion-assethub){target=\_blank} via a [swap](/tutorials/polkadot-sdk/system-chains/asset-hub/asset-conversion/) or an XCM `ExchangeAsset` instruction to swap the non-sufficient asset for the native asset. For this to work, non-sufficient assets need to have a [liquidity pool set up](https://wiki.polkadot.network/learn/learn-guides-asset-conversion/#create-a-liquidity-pool){target=\_blank} against the native asset (e.g. DOT).
 
 !!!note 
     UI's, wallets, and tools may have limitations because of design decisions and/or contraints it places e.g. constructing the XCM call in a specific manner and therefore limiting the end user when in reality Asset Hub encompasses more functionality such as the ability to pay transaction fees and XCM fees in any asset.
@@ -22748,7 +22748,7 @@ On Asset Hub, both sufficient and non-sufficient assets can be used for paying t
 
 Both sufficient assets and non-sufficient assets can be used to pay for XCM fees on Asset Hub. However, it is important to note that the XCM program needs to explicitly reference the asset to pay the XCM fee in.
 
-For non-sufficient assets, this can be done by calling [asset conversion's swap](https://paritytech.github.io/polkadot-sdk/master/pallet_asset_conversion/pallet/dispatchables/fn.swap_tokens_for_exact_tokens.html) or including an [`ExchangeAsset`](https://paritytech.github.io/polkadot-sdk/master/cumulus_primitives_core/enum.Instruction.html#variant.ExchangeAsset) instruction in the XCM program to swap the non-sufficient asset for the native asset to pay for the XCM fee.
+For non-sufficient assets, this can be done by calling [asset conversion's swap](https://paritytech.github.io/polkadot-sdk/master/pallet_asset_conversion/pallet/dispatchables/fn.swap_tokens_for_exact_tokens.html){target=\_blank} or including an [`ExchangeAsset`](https://paritytech.github.io/polkadot-sdk/master/cumulus_primitives_core/enum.Instruction.html#variant.ExchangeAsset){target=\_blank} instruction in the XCM program to swap the non-sufficient asset for the native asset to pay for the XCM fee.
 
 !!!note "UIs, Wallets, and Tools Interacting with Asset Hub"
     When developing cross-chain applications to interact with Asset Hub it is important to consider the UI/UX and the trade-offs it may have. 
@@ -22756,15 +22756,15 @@ For non-sufficient assets, this can be done by calling [asset conversion's swap]
     Example Scenario: Sending 100 USDT to a new Asset Hub account
     Option 1 - Deduct from sending amount:
 
-    Receiver gets: 100 USDT - 0.01 DOT (for ED) - transaction and XCM fees
-    Sender pays exactly 100 USDT total
-    Simpler for sender, but receiver gets less than expected
+    - Receiver gets: 100 USDT - 0.01 DOT (for ED) - transaction and XCM fees
+    - Sender pays exactly 100 USDT total
+    - Simpler for sender, but receiver gets less than expected
 
     Option 2 - Additional sender cost:
 
-    Receiver gets: full 100 USDT + 0.01 DOT (for ED)
-    Sender pays: 100 USDT + 0.01 DOT (for ED) + transaction and XCM fees
-    More expensive for sender, but receiver gets full amount
+    - Receiver gets: full 100 USDT + 0.01 DOT (for ED)
+    - Sender pays: 100 USDT + 0.01 DOT (for ED) + transaction and XCM fees
+    - More expensive for sender, but receiver gets full amount
 
     Each approach requires different XCM program construction and affects the overall user experience.
 
@@ -36065,7 +36065,7 @@ Doc-Content: https://docs.polkadot.com/tutorials/polkadot-sdk/system-chains/asse
 --- BEGIN CONTENT ---
 ---
 title: Batch Teleport Assets
-description: A tutorial detailing the step-by-step process of batch teleporting assets
+description: A comprehensive tutorial detailing the step-by-step process of batch teleporting assets across Polkadot parachains using ParaSpell SDK
 tutorial_badge: Intermediate
 ---
 
@@ -36073,25 +36073,25 @@ tutorial_badge: Intermediate
 
 ## Introduction
 
-Cross-chain asset transfers are a fundamental feature of the Polkadot ecosystem, enabling seamless movement of tokens between different parachains. The [ParaSpell SDK](https://paraspell.github.io/docs/){target=_blank} simplifies this process by providing powerful tools for executing both single and batch teleport operations.
+Cross-chain asset transfers are a fundamental feature of the Polkadot ecosystem, enabling seamless movement of tokens between different parachains. The [ParaSpell SDK](https://paraspell.github.io/docs/){target=\_blank} simplifies this process by providing powerful tools for executing both single and batch teleport operations.
 
-This tutorial will guide you through creating batch teleport transactions using the [ParaSpell SDK](https://paraspell.github.io/docs/){target=_blank}. You'll learn how to bundle multiple cross-chain transfers into a single transaction, making your operations more efficient and cost-effective. By the end, you'll be able to execute batch teleports between Polkadot Hub chains and understand the underlying mechanisms.
+This tutorial will guide you through creating batch teleport transactions using the [ParaSpell SDK](https://paraspell.github.io/docs/){target=\_blank}. You'll learn how to bundle multiple cross-chain transfers into a single transaction, making your operations more efficient and cost-effective. By the end, you'll be able to execute batch teleports between Polkadot Hub chains and understand the underlying mechanisms.
 
 ## Prerequisites
 
 Before getting started, ensure you have the following:
 
-- [Bun](https://bun.sh/){target=_blank} v1.0 or later installed on your system
+- [Bun](https://bun.sh/){target=\_blank} v1.0 or later installed on your system
 - A Polkadot wallet with sufficient test tokens for transaction fees
 - Basic understanding of TypeScript/JavaScript
-- General understanding of the [Polkadot protocol](/polkadot-protocol/parachain-basics/){target=_blank}
-- Some knowledge of [XCM (Cross-Consensus Messaging)](/develop/interoperability/intro-to-xcm/){target=_blank}
+- General understanding of the [Polkadot protocol](/polkadot-protocol/parachain-basics/){target=\_blank}
+- Some knowledge of [XCM (Cross-Consensus Messaging)](/develop/interoperability/intro-to-xcm/){target=\_blank}
 
 ## Project Overview
 
 This tutorial demonstrates how to create batch teleport transactions that can transfer tokens from one parachain to multiple destinations on the Polkadot relay chain in a single operation. You'll work with:
 
-- [Asset Hub](/polkadot-protocol/architecture/system-chains/asset-hub/){target=_blank} as the source chain
+- [Asset Hub](/polkadot-protocol/architecture/system-chains/asset-hub/){target=\_blank} as the source chain
 - Multiple destination addresses
 - DOT/PAS tokens as the transferred assets
 - Batch transaction construction and execution
@@ -36158,10 +36158,9 @@ bun add @paraspell/sdk@{{dependencies.javascript_packages.paraspell_sdk.version}
 
 ## Create the Implementation
 
-Create an `index.ts` file with the complete batch teleport implementation.
-> For testing purposes, you will be using [Paseo Asset Hub](/develop/networks/#paseo){target=_blank} (a Polkadot community-driven TestNet).
+Create an `index.ts` file with the complete batch teleport implementation. For testing purposes, you will be using [Paseo Asset Hub](/develop/networks/#paseo){target=\_blank} (a Polkadot community-driven TestNet).
 
-```typescript
+```typescript title="index.ts"
 import { Builder, Version, BatchMode } from '@paraspell/sdk';
 
 // Paseo has 10 decimals, use this to simplify.
@@ -36170,9 +36169,7 @@ const PAS_UNITS = 10_000_000_000;
 // Not needed if using Polkadot.
 const PASEO_AH_RPC = 'wss://asset-hub-paseo.dotters.network';
 
-teleport();
-
-async function teleport() {
+async function batchTeleport() {
   const builder = Builder([PASEO_AH_RPC])
     .from('AssetHubPolkadot')
     .to('Polkadot')
@@ -36199,20 +36196,22 @@ async function teleport() {
     https://dev.papi.how/extrinsics#networkId=paseo_asset_hub&endpoint=light-client&data=${callData.asHex()}
   `);
 }
+
+batchTeleport();
 ```
 
 !!!note "Understanding Batch Modes"
     The ParaSpell SDK supports two batch modes:
 
-    ### BatchMode.BATCH_ALL
-    - **Behavior**: All operations must succeed, or the entire batch fails
-    - **Use Case**: When all transfers are critical and interdependent
-    - **Gas Efficiency**: More efficient as it's a single atomic operation
+    - BatchMode.BATCH_ALL
+        - **Behavior**: All operations must succeed, or the entire batch fails
+        - **Use Case**: When all transfers are critical and interdependent
+        - **Gas Efficiency**: More efficient as it's a single atomic operation
 
-    ### BatchMode.BATCH
-    - **Behavior**: Individual operations can fail independently
-    - **Use Case**: When some transfers can fail without affecting others
-    - **Resilience**: More resilient but with slightly higher gas overhead
+    - BatchMode.BATCH
+        - **Behavior**: Individual operations can fail independently
+        - **Use Case**: When some transfers can fail without affecting others
+        - **Resilience**: More resilient but with slightly higher gas overhead
 
 Update your `package.json` to include the necessary scripts:
 
@@ -36225,7 +36224,8 @@ Update your `package.json` to include the necessary scripts:
   "type": "module",
   "scripts": {
     "start": "bun run index.ts",
-    "dev": "bun run index.ts"
+    "dev": "bun run --watch index.ts" // --watch automatically restarts the script when files change
+ },
   },
   "dependencies": {
     "@paraspell/sdk": "^{{dependencies.javascript_packages.paraspell_sdk.version}}"

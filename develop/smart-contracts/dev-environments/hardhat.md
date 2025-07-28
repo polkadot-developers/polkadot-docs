@@ -97,14 +97,14 @@ To compile your project, follow these instructions:
 
     === "npm Configuration"
 
-        ```javascript title="hardhat.config.js" hl_lines="8-10 13"
+        ```javascript title="hardhat.config.js" hl_lines="9-11 14"
         --8<-- 'code/develop/smart-contracts/dev-environments/hardhat/hardhat.config.js:1:14'
         --8<-- 'code/develop/smart-contracts/dev-environments/hardhat/hardhat.config.js:33:35'
         ```
 
     === "Binary Configuration"
 
-        ```javascript title="hardhat.config.js" hl_lines="8-13 16"
+        ```javascript title="hardhat.config.js" hl_lines="9-14 17"
         --8<-- 'code/develop/smart-contracts/dev-environments/hardhat/binary-hardhat.config.js:1:17'
         --8<-- 'code/develop/smart-contracts/dev-environments/hardhat/binary-hardhat.config.js:36:38'
         ```
@@ -153,7 +153,7 @@ For complete isolation and control over the testing environment, you can configu
 
 Configure a local node setup by adding the node binary path along with the ETH-RPC adapter path:
 
-```javascript title="hardhat.config.js" hl_lines="11-19"
+```javascript title="hardhat.config.js" hl_lines="12-20"
 --8<-- 'code/develop/smart-contracts/dev-environments/hardhat/hardhat.config.js:1:4'
 
 --8<-- 'code/develop/smart-contracts/dev-environments/hardhat/hardhat.config.js:6:7'
@@ -196,7 +196,7 @@ Before deploying to a live network, you can deploy your contract to a local node
 
 1. Update the Hardhat configuration file to add the local network as a target for local deployment:
 
-    ```javascript title="hardhat.config.js" hl_lines="12-15"
+    ```javascript title="hardhat.config.js" hl_lines="13-16"
     --8<-- 'code/develop/smart-contracts/dev-environments/hardhat/hardhat.config.js:1:4'
 
     --8<-- 'code/develop/smart-contracts/dev-environments/hardhat/hardhat.config.js:6:7'
@@ -246,7 +246,7 @@ After testing your contract locally, you can deploy it to a live network. This g
 
 4. Update your Hardhat configuration file with network settings for the Polkadot network you want to target:
 
-    ```javascript title="hardhat.config.js" hl_lines="17-21"
+    ```javascript title="hardhat.config.js" hl_lines="18-22"
     --8<-- 'code/develop/smart-contracts/dev-environments/hardhat/hardhat.config.js:1:4'
 
     const { vars } = require('hardhat/config');

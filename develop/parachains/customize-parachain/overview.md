@@ -102,8 +102,6 @@ Parachain templates are specifically designed for chains that will connect to an
     - The [`generic-runtime-template`](https://github.com/OpenZeppelin/polkadot-runtime-templates/tree/main/generic-template){target=\_blank} provides a minimal setup with essential pallets and secure defaults, creating a reliable foundation for custom blockchain development
     - The [`evm-runtime-template`](https://github.com/OpenZeppelin/polkadot-runtime-templates/tree/main/evm-template){target=\_blank} enables EVM compatibility, allowing developers to migrate Solidity contracts and EVM-based dApps. This template is ideal for Ethereum developers looking to leverage Substrate's capabilities
 
-- [**`Pop Network`**](https://learn.onpop.io/appchains/pop-cli/new#templates){target=\_blank} - designed with user-friendliness in mind, Pop Network offers an approachable starting point for new developers, with a simple CLI interface for creating appchains 
-
 Choosing a suitable template depends on your project’s unique requirements, level of customization, and integration needs. Starting from a template speeds up development and lets you focus on implementing your chain’s unique features rather than the foundational blockchain setup.
 
 ## Where to Go Next

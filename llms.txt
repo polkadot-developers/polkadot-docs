@@ -36215,7 +36215,7 @@ batchTeleport();
 
 Update your `package.json` to include the necessary scripts:
 
-```json
+```json title="package.json"
 {
   "name": "batch-teleport-tutorial",
   "version": "1.0.0",
@@ -36730,7 +36730,6 @@ Unlock new possibilities by tapping into Polkadot’s system chains:
 Learn how to batch teleport an asset from Asset Hub to the Polkadot Relay chain:
 
 - **[Batch Teleport an Asset to Asset Hub](/tutorials/polkadot-sdk/system-chains/asset-hub/batch-teleport-assets/){target=\_blank}** - construct multiple teleports in one batch transaction.
-
 
 ## In This Section
 

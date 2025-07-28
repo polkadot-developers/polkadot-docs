@@ -1,7 +1,6 @@
 ---
 title: Get in Touch
 description: Developer support for Polkadot via Telegram, Matrix, and Discord. Get help with parachains, smart contracts, nodes, and ecosystem tools.
-template: index-page.html
 hide:
   - footer
 ---
@@ -21,15 +20,15 @@ Use one of the channels below to get live technical support or ask questions.
   </a>
 </div>
 
-Prefer to see all available channels? Here are your options:
+Prefer to see all available channels? Below are your options.
 
 ## 📱 Telegram: Polkadot Developer Support
 
 The fastest way to get support.
 
-- **Who’s there:** DevRel team and active developer community
-- **Response time:** within **2 business days (usually faster)**
-- **Topics:** any developer-related question is welcome
+- **Who’s there:** DevRel team and active developer community.
+- **Response time:** Within **2 business days (usually faster)**.
+- **Topics:** Any developer-related question is welcome.
 
 👉 **[Join Telegram](https://t.me/substratedevs){target=\_blank}**
 
@@ -37,12 +36,10 @@ The fastest way to get support.
 
 Focused support for smart contracts and general developer chat.
 
-- **Smart contracts:**  
-  Ask in `#solidity-smart-contracts` and `#ink_smart-contracts`  
-- **General developer support:**  
-  Ask in `#solidity-smart-contracts`  
-- **Response time:** within **1 business day (usually faster)**
-- **Other topics:** community-led discussion only
+- **Smart contracts:** Ask in `#solidity-smart-contracts` and `#ink_smart-contracts`.
+- **General developer support:** Ask in `#solidity-smart-contracts`.
+- **Response time:** Within **1 business day (usually faster)**.
+- **Other topics:** Community-led discussion only.
 
 👉 **[Join Discord](https://polkadot-discord.w3f.tools/){target=\_blank}**
 
@@ -50,10 +47,10 @@ Focused support for smart contracts and general developer chat.
 
 This is the **support channel** staffed by engineers from **Parity**, **Web3 Foundation**, and **Polkadot DevRel**.
 
-- **Who’s there:** Parity, W3F, DevRel, and community contributors
-- **Response time:** within **1 business day (usually faster)**
-- **Topics:** full-spectrum developer support
-- Bridged with Telegram (all messages synced)
+- **Who’s there:** Parity, W3F, DevRel, and community contributors.
+- **Response time:** Within **1 business day (usually faster)**.
+- **Topics:** Full-spectrum developer support.
+- Bridged with Telegram (all messages synced).
 
 👉 **[Join Matrix](https://matrix.to/#/#substratedevs:matrix.org){target=\_blank}**
 
@@ -61,4 +58,4 @@ This is the **support channel** staffed by engineers from **Parity**, **Web3 Fou
 
 Not sure where to start?  
 
-**Join Telegram above** — let us know what you need, and we’ll help you get unstuck.
+**Join [Telegram](#telegram-polkadot-developer-support)**: Let us know what you need, and we’ll help you get unstuck.

@@ -100,7 +100,7 @@ curl -H "Content-Type: application/json" \
 
 ### state_getStorage
 
-Queries on-chain storage by key (requires [SCALE-encoded](/polkadot-protocol/parachain-basics/data-encoding){target=_blank} storage key).
+Queries on-chain storage by key (requires [SCALE-encoded](/polkadot-protocol/parachain-basics/data-encoding) storage key).
 
 **Parameters:**
 

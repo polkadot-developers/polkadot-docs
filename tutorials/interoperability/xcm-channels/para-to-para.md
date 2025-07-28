@@ -32,7 +32,7 @@ This example will demonstrate how to open a channel between parachain 2500 and p
 
 ### Fund Sender Sovereign Account
 <!-- This content will be moved to a new page because it is used in multiple places -->
-The [sovereign account](https://github.com/polkadot-fellows/xcm-format/blob/10726875bd3016c5e528c85ed6e82415e4b847d7/README.md?plain=1#L50){target=_blank} for parachain 2500 on the relay chain must be funded so it can take care of any XCM transact fees.
+The [sovereign account](https://github.com/polkadot-fellows/xcm-format/blob/10726875bd3016c5e528c85ed6e82415e4b847d7/README.md?plain=1#L50) for parachain 2500 on the relay chain must be funded so it can take care of any XCM transact fees.
 
 Use [Polkadot.js Apps](https://polkadot.js.org/apps/#/explorer) UI to connect to the relay chain and transfer funds from your account to the parachain 2500 sovereign account.
 ![](/images/tutorials/interoperability/xcm-channels/hrmp-channels-2.webp)
@@ -54,7 +54,7 @@ Use [Polkadot.js Apps](https://polkadot.js.org/apps/#/explorer) UI to connect to
         The sovereign account of parachain 2500 in relay chain will be `0x70617261c4090000000000000000000000000000000000000000000000000000`
         and the SS58 format of this address is `5Ec4AhPSY2GEE4VoHUVheqv5wwq2C1HMKa7c9fVJ1WKivX1Y`
     
-    To perform this conversion, you can also use the **"Para ID" to Address** section in [Substrate Utilities](https://www.shawntabrizi.com/substrate-js-utilities/){target=_blank}.
+    To perform this conversion, you can also use the **"Para ID" to Address** section in [Substrate Utilities](https://www.shawntabrizi.com/substrate-js-utilities/).
 
 ### Create Channel Opening Extrinsic
 
@@ -89,7 +89,7 @@ The XCM message should contain the following instructions:
 - **`DepositAsset`** - subtracts assets from the Holding Register and deposits equivalent on-chain assets under the specified beneficiary's ownership
 
 !!!note 
-    For more detailed information about XCM's functionality, complexities, and instruction set, refer to the [xcm-format](https://github.com/polkadot-fellows/xcm-format){target=_blank} documentation.
+    For more detailed information about XCM's functionality, complexities, and instruction set, refer to the [xcm-format](https://github.com/polkadot-fellows/xcm-format) documentation.
 
 In essence, this process withdraws funds from the parachain's sovereign account to the XCVM Holding Register, then uses these funds to purchase execution time for the XCM `Transact` instruction, executes `Transact`, refunds any unused execution time and deposits any remaining funds into a specified account.
 

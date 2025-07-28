@@ -79,7 +79,7 @@ To interact with the Polkadot Hub, you need to set up an [Ethers.js Provider](/d
 --8<-- "https://raw.githubusercontent.com/polkadot-developers/polkavm-storage-contract-dapps/refs/tags/v0.0.2/ethers-dapp/app/utils/ethers.js"
 ```
 
-This file establishes a connection to the Polkadot Hub TestNet and provides helper functions for obtaining a [Provider](https://docs.ethers.org/v5/api/providers/provider/){target=_blank} and [Signer](https://docs.ethers.org/v5/api/signer/){target=_blank}. The provider allows you to read data from the blockchain, while the signer enables users to send transactions and modify the blockchain state.
+This file establishes a connection to the Polkadot Hub TestNet and provides helper functions for obtaining a [Provider](https://docs.ethers.org/v5/api/providers/provider/) and [Signer](https://docs.ethers.org/v5/api/signer/). The provider allows you to read data from the blockchain, while the signer enables users to send transactions and modify the blockchain state.
 
 ## Set Up the Smart Contract Interface
 

@@ -4366,7 +4366,7 @@ For the node, the chain specification controls information such as:
 
 The chain specification can be customized to include additional information. For example, you can configure the node to connect to specific blocks at specific heights to prevent long-range attacks when syncing a new node from genesis.
 
-Note that you can customize node settings after genesis. However, nodes only add peers that use the same [`protocolId`](https://paritytech.github.io/polkadot-sdk/master/sc_service/struct.GenericChainSpec.html#method.protocol_id){target=_blank}.
+Note that you can customize node settings after genesis. However, nodes only add peers that use the same [`protocolId`](https://paritytech.github.io/polkadot-sdk/master/sc_service/struct.GenericChainSpec.html#method.protocol_id).
 
 ## Genesis Configuration Customization
 
@@ -4377,13 +4377,13 @@ All nodes in the network must agree on the genesis state before they can agree o
 - The account that controls the `sudo` key
 - Any other genesis state for a pallet
 
-Nodes also require the compiled Wasm to execute the runtime logic on the chain, so the initial runtime must also be supplied in the chain specification. For a more detailed look at customizing the genesis chain specification, be sure to check out the [Polkadot SDK Docs](https://paritytech.github.io/polkadot-sdk/master/polkadot_sdk_docs/reference_docs/chain_spec_genesis/index.html){target=_blank}.
+Nodes also require the compiled Wasm to execute the runtime logic on the chain, so the initial runtime must also be supplied in the chain specification. For a more detailed look at customizing the genesis chain specification, be sure to check out the [Polkadot SDK Docs](https://paritytech.github.io/polkadot-sdk/master/polkadot_sdk_docs/reference_docs/chain_spec_genesis/index.html).
 
 ## Declaring Storage Items for a Runtime
 
 A runtime usually requires some storage items to be configured at genesis. This includes the initial state for pallets, for example, how much balance specific accounts have, or which account will have sudo permissions.
 
-These storage values are configured in the genesis portion of the chain specification. You can create a [patch](https://paritytech.github.io/polkadot-sdk/master/sc_chain_spec/index.html#chain-spec-formats){target=_blank} file and ingest it using the [`chain-spec-builder`](https://paritytech.github.io/polkadot-sdk/master/staging_chain_spec_builder/index.html){target=_blank} utility, that is explained in the [Creating a Custom Chain Specification](#creating-a-custom-chain-specification) section.
+These storage values are configured in the genesis portion of the chain specification. You can create a [patch](https://paritytech.github.io/polkadot-sdk/master/sc_chain_spec/index.html#chain-spec-formats) file and ingest it using the [`chain-spec-builder`](https://paritytech.github.io/polkadot-sdk/master/staging_chain_spec_builder/index.html) utility, that is explained in the [Creating a Custom Chain Specification](#creating-a-custom-chain-specification) section.
 
 ## Chain Specification JSON Format
 
@@ -6124,7 +6124,7 @@ Here's how to submit this XCM using Astar (Parachain 2006) as an example:
 
     If the amount withdrawn in the first instruction is exactly the amount needed to pay the transaction fees, instructions 4 and 5 can be omitted.
 
-    To validate your XCM, examine the following reference [extrinsic](https://polkadot.js.org/apps/?rpc=wss%3A%2F%2Fastar.public.curie.radiumblock.co%2Fws#/extrinsics/decode/0x63003300040100041400040000000700e40b5402130000000700e40b540200060042d3c91800184604d6070000140d0100000100591f){target=_blank} showing the proper instruction sequence and parameter formatting. Following this structure will help ensure successful execution of your message.
+    To validate your XCM, examine the following reference [extrinsic](https://polkadot.js.org/apps/?rpc=wss%3A%2F%2Fastar.public.curie.radiumblock.co%2Fws#/extrinsics/decode/0x63003300040100041400040000000700e40b5402130000000700e40b540200060042d3c91800184604d6070000140d0100000100591f) showing the proper instruction sequence and parameter formatting. Following this structure will help ensure successful execution of your message.
 
 After submitting the transaction, wait for it to be finalized and then verify that your parachain has been successfully unlocked by following the steps described in the [Check if the Parachain is Locked](#check-if-the-parachain-is-locked) section. If the parachain shows as unlocked, your operation has been successful. If it still appears locked, verify that your XCM transaction was processed correctly and consider troubleshooting the XCM built.
 
@@ -6447,8 +6447,8 @@ impl pallet_parachain_template::Config for Runtime {
 
 ## Where to Go Next
 
-- View the Rust Docs for a more comprehensive, low-level view of the [FRAME V2 Benchmarking Suite](https://paritytech.github.io/polkadot-sdk/master/frame_benchmarking/v2/index.html){target=_blank}
-- Read the [FRAME Benchmarking and Weights](https://paritytech.github.io/polkadot-sdk/master/polkadot_sdk_docs/reference_docs/frame_benchmarking_weight/index.html){target=_blank} reference document, a concise guide which details how weights and benchmarking work
+- View the Rust Docs for a more comprehensive, low-level view of the [FRAME V2 Benchmarking Suite](https://paritytech.github.io/polkadot-sdk/master/frame_benchmarking/v2/index.html)
+- Read the [FRAME Benchmarking and Weights](https://paritytech.github.io/polkadot-sdk/master/polkadot_sdk_docs/reference_docs/frame_benchmarking_weight/index.html) reference document, a concise guide which details how weights and benchmarking work
 --- END CONTENT ---
 
 Doc-Content: https://docs.polkadot.com/develop/parachains/testing/
@@ -6505,7 +6505,7 @@ description: Learn to create a mock environment in the Polkadot SDK for testing 
 
 ## Introduction
 
-Testing is essential in Polkadot SDK development to ensure your blockchain operates as intended and effectively handles various potential scenarios. This guide walks you through setting up an environment to test pallets within the [runtime](/polkadot-protocol/glossary#runtime){target=_blank}, allowing you to evaluate how different pallets, their configurations, and system components interact to ensure reliable blockchain functionality.
+Testing is essential in Polkadot SDK development to ensure your blockchain operates as intended and effectively handles various potential scenarios. This guide walks you through setting up an environment to test pallets within the [runtime](/polkadot-protocol/glossary#runtime), allowing you to evaluate how different pallets, their configurations, and system components interact to ensure reliable blockchain functionality.
 
 ## Configuring a Mock Runtime
 
@@ -6793,7 +6793,7 @@ Some key considerations are:
 
 ## Where to Go Next
 
-- Dive into the full implementation of the [`mock.rs`](https://github.com/paritytech/polkadot-sdk/blob/master/templates/solochain/pallets/template/src/mock.rs) and [`test.rs`](https://github.com/paritytech/polkadot-sdk/blob/master/templates/solochain/pallets/template/src/tests.rs) files in the [Solochain Template](https://github.com/paritytech/polkadot-sdk/tree/master/templates/solochain){target=_blank}
+- Dive into the full implementation of the [`mock.rs`](https://github.com/paritytech/polkadot-sdk/blob/master/templates/solochain/pallets/template/src/mock.rs) and [`test.rs`](https://github.com/paritytech/polkadot-sdk/blob/master/templates/solochain/pallets/template/src/tests.rs) files in the [Solochain Template](https://github.com/paritytech/polkadot-sdk/tree/master/templates/solochain)
 
 <div class="grid cards" markdown>
 
@@ -15988,10 +15988,10 @@ description: Simplify Polkadot SDK development with Chopsticks. Learn essential 
 
 This guide walks you through installing Chopsticks and provides information on configuring a local blockchain fork. By streamlining testing and experimentation, Chopsticks empowers developers to innovate and accelerate their blockchain projects within the Polkadot ecosystem.
 
-For additional support and information, please reach out through [GitHub Issues](https://github.com/AcalaNetwork/chopsticks/issues){target=_blank}.
+For additional support and information, please reach out through [GitHub Issues](https://github.com/AcalaNetwork/chopsticks/issues).
 
 !!! warning
-    Chopsticks uses [Smoldot](https://github.com/smol-dot/smoldot){target=_blank} light client, which only supports the native Polkadot SDK API. Consequently, a Chopsticks-based fork doesn't support Ethereum JSON-RPC calls, meaning you cannot use it to fork your chain and connect Metamask.
+    Chopsticks uses [Smoldot](https://github.com/smol-dot/smoldot) light client, which only supports the native Polkadot SDK API. Consequently, a Chopsticks-based fork doesn't support Ethereum JSON-RPC calls, meaning you cannot use it to fork your chain and connect Metamask.
 
 ## Prerequisites
 
@@ -16778,7 +16778,7 @@ curl -H "Content-Type: application/json" \
 
 ### state_getStorage
 
-Queries on-chain storage by key (requires [SCALE-encoded](/polkadot-protocol/parachain-basics/data-encoding){target=_blank} storage key).
+Queries on-chain storage by key (requires [SCALE-encoded](/polkadot-protocol/parachain-basics/data-encoding) storage key).
 
 **Parameters:**
 
@@ -19012,7 +19012,7 @@ For a list of important flags when running RPC nodes, refer to the Parity DevOps
 
 ## Sync Your Node
 
-The syncing process will take a while, depending on your capacity, processing power, disk speed, and RAM. The process may be completed on a $10 DigitalOcean droplet in about ~36 hours. While syncing, your node name should be visible in gray on Polkadot Telemetry, and once it is fully synced, your node name will appear in white on [Polkadot Telemetry](https://telemetry.polkadot.io/#list/Polkadot){target=_blank}.
+The syncing process will take a while, depending on your capacity, processing power, disk speed, and RAM. The process may be completed on a $10 DigitalOcean droplet in about ~36 hours. While syncing, your node name should be visible in gray on Polkadot Telemetry, and once it is fully synced, your node name will appear in white on [Polkadot Telemetry](https://telemetry.polkadot.io/#list/Polkadot).
 
 A healthy node syncing blocks will output logs like the following:
 
@@ -21563,7 +21563,7 @@ Validators are incentivized through staking and penalized for malicious or erron
 
 ## Interoperability
 
-Polkadot's interoperability framework allows parachains to communicate with each other, fostering a diverse ecosystem of interconnected blockchains. Through [Cross-Consensus Messaging (XCM)](/develop/interoperability/intro-to-xcm/){target=_blank}, parachains can transfer assets, share data, and invoke functionalities on other chains securely. This standardized messaging protocol ensures that parachains can interact with the relay chain and each other, supporting efficient cross-chain operations.
+Polkadot's interoperability framework allows parachains to communicate with each other, fostering a diverse ecosystem of interconnected blockchains. Through [Cross-Consensus Messaging (XCM)](/develop/interoperability/intro-to-xcm/), parachains can transfer assets, share data, and invoke functionalities on other chains securely. This standardized messaging protocol ensures that parachains can interact with the relay chain and each other, supporting efficient cross-chain operations.
 
 The XCM protocol mitigates common interoperability challenges in isolated blockchain networks, such as fragmented ecosystems and limited collaboration. By enabling decentralized applications to leverage resources and functionality across parachains, Polkadot promotes a scalable, cooperative blockchain environment that benefits all participants.
 
@@ -26593,7 +26593,7 @@ This example will demonstrate how to open a channel between parachain 2500 and p
 
 ### Fund Sender Sovereign Account
 <!-- This content will be moved to a new page because it is used in multiple places -->
-The [sovereign account](https://github.com/polkadot-fellows/xcm-format/blob/10726875bd3016c5e528c85ed6e82415e4b847d7/README.md?plain=1#L50){target=_blank} for parachain 2500 on the relay chain must be funded so it can take care of any XCM transact fees.
+The [sovereign account](https://github.com/polkadot-fellows/xcm-format/blob/10726875bd3016c5e528c85ed6e82415e4b847d7/README.md?plain=1#L50) for parachain 2500 on the relay chain must be funded so it can take care of any XCM transact fees.
 
 Use [Polkadot.js Apps](https://polkadot.js.org/apps/#/explorer) UI to connect to the relay chain and transfer funds from your account to the parachain 2500 sovereign account.
 ![](/images/tutorials/interoperability/xcm-channels/hrmp-channels-2.webp)
@@ -26615,7 +26615,7 @@ Use [Polkadot.js Apps](https://polkadot.js.org/apps/#/explorer) UI to connect to
         The sovereign account of parachain 2500 in relay chain will be `0x70617261c4090000000000000000000000000000000000000000000000000000`
         and the SS58 format of this address is `5Ec4AhPSY2GEE4VoHUVheqv5wwq2C1HMKa7c9fVJ1WKivX1Y`
     
-    To perform this conversion, you can also use the **"Para ID" to Address** section in [Substrate Utilities](https://www.shawntabrizi.com/substrate-js-utilities/){target=_blank}.
+    To perform this conversion, you can also use the **"Para ID" to Address** section in [Substrate Utilities](https://www.shawntabrizi.com/substrate-js-utilities/).
 
 ### Create Channel Opening Extrinsic
 
@@ -26650,7 +26650,7 @@ The XCM message should contain the following instructions:
 - **`DepositAsset`** - subtracts assets from the Holding Register and deposits equivalent on-chain assets under the specified beneficiary's ownership
 
 !!!note 
-    For more detailed information about XCM's functionality, complexities, and instruction set, refer to the [xcm-format](https://github.com/polkadot-fellows/xcm-format){target=_blank} documentation.
+    For more detailed information about XCM's functionality, complexities, and instruction set, refer to the [xcm-format](https://github.com/polkadot-fellows/xcm-format) documentation.
 
 In essence, this process withdraws funds from the parachain's sovereign account to the XCVM Holding Register, then uses these funds to purchase execution time for the XCM `Transact` instruction, executes `Transact`, refunds any unused execution time and deposits any remaining funds into a specified account.
 
@@ -26777,7 +26777,7 @@ This guide demonstrates opening an HRMP channel between parachain 2500 and syste
 
 ### Fund Parachain Sovereign Account
 <!-- This content will be moved to a new page because it is used in multiple places -->
-The [sovereign account](https://github.com/polkadot-fellows/xcm-format/blob/10726875bd3016c5e528c85ed6e82415e4b847d7/README.md?plain=1#L50){target=_blank} for parachain 2500 on the relay chain must be funded so it can take care of any XCM transact fees.
+The [sovereign account](https://github.com/polkadot-fellows/xcm-format/blob/10726875bd3016c5e528c85ed6e82415e4b847d7/README.md?plain=1#L50) for parachain 2500 on the relay chain must be funded so it can take care of any XCM transact fees.
 
 Use [Polkadot.js Apps](https://polkadot.js.org/apps/#/explorer) UI to connect to the relay chain and transfer funds from your account to the parachain 2500 sovereign account.
 
@@ -37353,7 +37353,7 @@ export const getSigner = async (provider) => {
 };
 ```
 
-This file establishes a connection to the Polkadot Hub TestNet and provides helper functions for obtaining a [Provider](https://docs.ethers.org/v5/api/providers/provider/){target=_blank} and [Signer](https://docs.ethers.org/v5/api/signer/){target=_blank}. The provider allows you to read data from the blockchain, while the signer enables users to send transactions and modify the blockchain state.
+This file establishes a connection to the Polkadot Hub TestNet and provides helper functions for obtaining a [Provider](https://docs.ethers.org/v5/api/providers/provider/) and [Signer](https://docs.ethers.org/v5/api/signer/). The provider allows you to read data from the blockchain, while the signer enables users to send transactions and modify the blockchain state.
 
 ## Set Up the Smart Contract Interface
 

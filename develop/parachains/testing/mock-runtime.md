@@ -7,7 +7,7 @@ description: Learn to create a mock environment in the Polkadot SDK for testing 
 
 ## Introduction
 
-Testing is essential in Polkadot SDK development to ensure your blockchain operates as intended and effectively handles various potential scenarios. This guide walks you through setting up an environment to test pallets within the [runtime](/polkadot-protocol/glossary#runtime){target=_blank}, allowing you to evaluate how different pallets, their configurations, and system components interact to ensure reliable blockchain functionality.
+Testing is essential in Polkadot SDK development to ensure your blockchain operates as intended and effectively handles various potential scenarios. This guide walks you through setting up an environment to test pallets within the [runtime](/polkadot-protocol/glossary#runtime), allowing you to evaluate how different pallets, their configurations, and system components interact to ensure reliable blockchain functionality.
 
 ## Configuring a Mock Runtime
 

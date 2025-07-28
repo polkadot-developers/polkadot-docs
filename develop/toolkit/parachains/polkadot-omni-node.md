@@ -7,7 +7,7 @@ description: Run parachain nodes easily with the polkadot-omni-node, a white-lab
 
 ## Introduction
 
-The [`polkadot-omni-node`](https://crates.io/crates/polkadot-omni-node/{{dependencies.crates.polkadot_omni_node.version}}){target=\_blank} crate is a versatile, pre-built binary designed to simplify running parachains in the Polkadot ecosystem. Unlike traditional node binaries that are tightly coupled to specific runtime code, the `polkadot-omni-node` operates using an external [chain specification](/polkadot-protocol/glossary#chain-specification){target=\_blank} file, allowing it to adapt dynamically to different parachains.
+The [`polkadot-omni-node`](https://crates.io/crates/polkadot-omni-node/{{dependencies.crates.polkadot_omni_node.version}}) crate is a versatile, pre-built binary designed to simplify running parachains in the Polkadot ecosystem. Unlike traditional node binaries that are tightly coupled to specific runtime code, the `polkadot-omni-node` operates using an external [chain specification](/polkadot-protocol/glossary#chain-specification) file, allowing it to adapt dynamically to different parachains.
 
 This approach enables it to act as a white-labeled node binary, capable of running most parachains that do not require custom node-level logic or extensions. Developers can leverage this flexibility to test, deploy, or operate parachain nodes without maintaining a dedicated codebase for each network.
 
@@ -17,7 +17,7 @@ This guide provides step-by-step instructions for installing the `polkadot-omni-
 
 Before getting started, ensure you have the following prerequisites:
 
-- **[Rust](https://www.rust-lang.org/tools/install){target=\_blank}** - required to build and install the `polkadot-omni-node` binary
+- **[Rust](https://www.rust-lang.org/tools/install)** - required to build and install the `polkadot-omni-node` binary
 
 Ensure Rust's `cargo` command is available in your terminal by running:
 
@@ -47,11 +47,11 @@ You should see the installed version number printed to the terminal, confirming 
 
 The `polkadot-omni-node` binary uses a chain specification file to configure and launch a parachain node. This file defines the parachain's genesis state and network settings.
 
-The most common source for official chain specifications is the [`paritytech/chainspecs`](https://github.com/paritytech/chainspecs){target=\_blank} repository. These specifications are also browsable in a user-friendly format via the [Chainspec Collection](https://paritytech.github.io/chainspecs/){target=\_blank} website.
+The most common source for official chain specifications is the [`paritytech/chainspecs`](https://github.com/paritytech/chainspecs) repository. These specifications are also browsable in a user-friendly format via the [Chainspec Collection](https://paritytech.github.io/chainspecs/) website.
 
 To obtain a chain specification:
 
-1. Visit the [Chainspec Collection](https://paritytech.github.io/chainspecs/){target=\_blank} website
+1. Visit the [Chainspec Collection](https://paritytech.github.io/chainspecs/) website
 
 2. Find the parachain you want to run
 
@@ -93,7 +93,7 @@ Once started, the node will begin connecting to peers and syncing with the netwo
 
 By default, `polkadot-omni-node` exposes a WebSocket endpoint at `ws://localhost:9944`,  which you can use to interact with the running node. You can connect using:
 
-- [Polkadot.js Apps](https://polkadot.js.org/apps/#/explorer){target=\_blank} — a web-based interface for exploring and interacting with Polkadot SDK-based chains
-- Custom scripts using compatible [libraries](/develop/toolkit/api-libraries/){target=\_blank}
+- [Polkadot.js Apps](https://polkadot.js.org/apps/#/explorer) — a web-based interface for exploring and interacting with Polkadot SDK-based chains
+- Custom scripts using compatible [libraries](/develop/toolkit/api-libraries/)
 
 Once connected, you can review blocks, call extrinsics, inspect storage, and interact with the runtime.

@@ -25,7 +25,7 @@ Consider the following features when choosing a library for your project:
 | Web3.py    | Python                   | Python typing support        | Standard Python performance           | Python-based blockchain applications           |
 
 !!! warning
-    Web3.js has been [sunset](https://blog.chainsafe.io/web3-js-sunset/){target=\_blank}. You can find guides on using [Ethers.js](/develop/smart-contracts/libraries/ethers-js){target=\_blank} and [viem](/develop/smart-contracts/libraries/viem){target=\_blank} in the [Libraries](/develop/smart-contracts/libraries/){target=\_blank} section.
+    Web3.js has been [sunset](https://blog.chainsafe.io/web3-js-sunset/). You can find guides on using [Ethers.js](/develop/smart-contracts/libraries/ethers-js) and [viem](/develop/smart-contracts/libraries/viem) in the [Libraries](/develop/smart-contracts/libraries/) section.
 
 ## In This Section
 

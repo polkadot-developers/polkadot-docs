@@ -92,7 +92,7 @@ If you successfully deactivated NUMA balancing, the preceding command should ret
 
 ### Spectre and Meltdown Mitigations
 
-[Spectre](https://en.wikipedia.org/wiki/Spectre_(security_vulnerability)){target=\_blank} and [Meltdown](https://en.wikipedia.org/wiki/Meltdown_(security_vulnerability)){target=\_blank} are well-known CPU vulnerabilities that exploit speculative execution to access sensitive data. These vulnerabilities have been patched in recent Linux kernels, but the mitigations can slightly impact performance, especially in high-throughput or containerized environments.
+[Spectre](https://en.wikipedia.org/wiki/Spectre_(security_vulnerability)) and [Meltdown](https://en.wikipedia.org/wiki/Meltdown_(security_vulnerability)) are well-known CPU vulnerabilities that exploit speculative execution to access sensitive data. These vulnerabilities have been patched in recent Linux kernels, but the mitigations can slightly impact performance, especially in high-throughput or containerized environments.
 
 If your security requirements allow it, you can deactivate specific mitigations, such as Spectre V2 and Speculative Store Bypass Disable (SSBD), to improve performance.
 
@@ -122,9 +122,9 @@ This approach selectively deactivates the Spectre V2 and Spectre V4 mitigations,
 
 Monitoring your node's performance is critical for network reliability and security. Tools like the following provide valuable insights:
 
-- **[Prometheus](https://prometheus.io/){target=\_blank}** - an open-source monitoring toolkit for collecting and querying time-series data
-- **[Grafana](https://grafana.com/){target=\_blank}** - a visualization tool for real-time metrics, providing interactive dashboards
-- **[Alertmanager](https://prometheus.io/docs/alerting/latest/alertmanager/){target=\_blank}** - a tool for managing and routing alerts based on Prometheus data.
+- **[Prometheus](https://prometheus.io/)** - an open-source monitoring toolkit for collecting and querying time-series data
+- **[Grafana](https://grafana.com/)** - a visualization tool for real-time metrics, providing interactive dashboards
+- **[Alertmanager](https://prometheus.io/docs/alerting/latest/alertmanager/)** - a tool for managing and routing alerts based on Prometheus data.
 
 This section covers setting up these tools and configuring alerts to notify you of potential issues.
 
@@ -158,7 +158,7 @@ Follow these steps:
 
 After setting up the environment, install and configure the latest version of Prometheus as follows:
 
-1. Download Prometheus for your system architecture from the [releases page](https://github.com/prometheus/prometheus/releases/){target=\_blank}. Replace `INSERT_RELEASE_DOWNLOAD` with the release binary URL (e.g., `https://github.com/prometheus/prometheus/releases/download/v3.0.0/prometheus-3.0.0.linux-amd64.tar.gz`):
+1. Download Prometheus for your system architecture from the [releases page](https://github.com/prometheus/prometheus/releases/). Replace `INSERT_RELEASE_DOWNLOAD` with the release binary URL (e.g., `https://github.com/prometheus/prometheus/releases/download/v3.0.0/prometheus-3.0.0.linux-amd64.tar.gz`):
 
     ```bash
     sudo apt-get update && sudo apt-get upgrade
@@ -263,7 +263,7 @@ After setting up the environment, install and configure the latest version of Pr
 
 ### Install and Configure Grafana
 
-This guide follows [Grafana's canonical installation instructions](https://grafana.com/docs/grafana/latest/setup-grafana/installation/debian/#install-from-apt-repository){target=\_blank}.
+This guide follows [Grafana's canonical installation instructions](https://grafana.com/docs/grafana/latest/setup-grafana/installation/debian/#install-from-apt-repository).
 
 To install and configure Grafana, follow these steps:
 
@@ -273,7 +273,7 @@ To install and configure Grafana, follow these steps:
     sudo apt-get install -y apt-transport-https software-properties-common wget    
     ```
 
-2. Import the [GPG key](https://gnupg.org/){target=\_blank}:
+2. Import the [GPG key](https://gnupg.org/):
 
     ```bash
     sudo mkdir -p /etc/apt/keyrings/
@@ -358,15 +358,15 @@ To visualize node metrics, follow these steps:
 
     ![Live dashboard](/images/infrastructure/running-a-validator/operational-tasks/general-management/general-management-5.webp)
 
-The [Grafana dashboards](https://grafana.com/grafana/dashboards){target=\_blank} page features user created dashboards made available for public use. For an example, see the [Substrate Node Metrics](https://grafana.com/grafana/dashboards/21715-substrate-node-metrics/){target=\_blank} dashboard.
+The [Grafana dashboards](https://grafana.com/grafana/dashboards) page features user created dashboards made available for public use. For an example, see the [Substrate Node Metrics](https://grafana.com/grafana/dashboards/21715-substrate-node-metrics/) dashboard.
 
 ### Install and Configure Alertmanager
 
-[Alertmanager](https://prometheus.io/docs/alerting/latest/alertmanager/){target=\_blank} is an optional component that complements Prometheus by managing alerts and notifying users about potential issues.
+[Alertmanager](https://prometheus.io/docs/alerting/latest/alertmanager/) is an optional component that complements Prometheus by managing alerts and notifying users about potential issues.
 
 Follow these steps to install and configure Alertmanager:
 
-1. Download Alertmanager for your system architecture from the [releases page](https://github.com/prometheus/alertmanager/releases){target=\_blank}. Replace `INSERT_RELEASE_DOWNLOAD` with the release binary URL (e.g., `https://github.com/prometheus/alertmanager/releases/download/v0.28.0-rc.0/alertmanager-0.28.0-rc.0.linux-amd64.tar.gz`):
+1. Download Alertmanager for your system architecture from the [releases page](https://github.com/prometheus/alertmanager/releases). Replace `INSERT_RELEASE_DOWNLOAD` with the release binary URL (e.g., `https://github.com/prometheus/alertmanager/releases/download/v0.28.0-rc.0/alertmanager-0.28.0-rc.0.linux-amd64.tar.gz`):
 
     ```bash
     wget INSERT_RELEASE_DOWNLOAD_LINK
@@ -390,7 +390,7 @@ Follow these steps to install and configure Alertmanager:
     sudo nano /etc/alertmanager/alertmanager.yml
     ```
 
-    Generate an [app password in your Google account](https://support.google.com/accounts/answer/185833?hl=en){target=\_blank} to enable email notifications from Alertmanager. Then, add the following code to the configuration file to define email notifications using your  email and app password: 
+    Generate an [app password in your Google account](https://support.google.com/accounts/answer/185833?hl=en) to enable email notifications from Alertmanager. Then, add the following code to the configuration file to define email notifications using your  email and app password: 
 
     ```yml title="alertmanager.yml"
     -8<-- 'code/infrastructure/running-a-validator/operational-tasks/general-management/alertmanager.yml'
@@ -431,7 +431,7 @@ Follow these steps to install and configure Alertmanager:
 
 #### Grafana Plugin
 
-There is an [Alertmanager plugin in Grafana](https://grafana.com/grafana/plugins/alertmanager/){target=\_blank} that can help you monitor alert information.
+There is an [Alertmanager plugin in Grafana](https://grafana.com/grafana/plugins/alertmanager/) that can help you monitor alert information.
 
 Follow these steps to use the plugin:
 
@@ -452,7 +452,7 @@ Follow these steps to use the plugin:
     1. Go to **Configuration** > **Data Sources** and search for **Prometheus Alertmanager**
     2. Enter the server URL and port for the Alertmanager service, and select **Save & Test** to verify the connection
 
-4. Import the [8010](https://grafana.com/grafana/dashboards/8010-prometheus-alertmanager/){target=\_blank} dashboard for Alertmanager, selecting **Prometheus Alertmanager** in the last column, then select **Import**
+4. Import the [8010](https://grafana.com/grafana/dashboards/8010-prometheus-alertmanager/) dashboard for Alertmanager, selecting **Prometheus Alertmanager** in the last column, then select **Import**
 
 #### Integrate Alertmanager
 
@@ -484,7 +484,7 @@ Complete the integration by following these steps to enable communication betwee
     -8<-- 'code/infrastructure/running-a-validator/operational-tasks/general-management/instance-down.yml'
     ```
 
-    If any of the conditions defined in the rules file are met, an alert will be triggered. For more on alert rules, refer to [Alerting Rules](https://prometheus.io/docs/prometheus/latest/configuration/alerting_rules/){target=\_blank} and [additional alerts](https://samber.github.io/awesome-prometheus-alerts/rules.html){target=\_blank}.
+    If any of the conditions defined in the rules file are met, an alert will be triggered. For more on alert rules, refer to [Alerting Rules](https://prometheus.io/docs/prometheus/latest/configuration/alerting_rules/) and [additional alerts](https://samber.github.io/awesome-prometheus-alerts/rules.html).
 
 3. Update the file ownership to `prometheus`:
 
@@ -512,13 +512,13 @@ Validators in Polkadot's Proof of Stake (PoS) network play a critical role in ma
 
 ### Key Management
 
-Though they don't transfer funds, session keys are essential for validators as they sign messages related to consensus and parachains. Securing session keys is crucial as allowing them to be exploited or used across multiple nodes can lead to a loss of staked funds via [slashing](/infrastructure/staking-mechanics/offenses-and-slashes/){target=\_blank}.
+Though they don't transfer funds, session keys are essential for validators as they sign messages related to consensus and parachains. Securing session keys is crucial as allowing them to be exploited or used across multiple nodes can lead to a loss of staked funds via [slashing](/infrastructure/staking-mechanics/offenses-and-slashes/).
 
 Given the current limitations in high-availability setups and the risks associated with double-signing, it’s recommended to run only a single validator instance. Keys should be securely managed, and processes automated to minimize human error.
 
 There are two approaches for generating session keys:
 
-- **Generate and store in node** - using the `author.rotateKeys` RPC call. For most users, generating keys directly within the client is recommended. You must submit a session certificate from your staking proxy to register new keys. See the [How to Validate](/infrastructure/running-a-validator/onboarding-and-offboarding/set-up-validator/){target=\_blank} guide for instructions on setting keys
+- **Generate and store in node** - using the `author.rotateKeys` RPC call. For most users, generating keys directly within the client is recommended. You must submit a session certificate from your staking proxy to register new keys. See the [How to Validate](/infrastructure/running-a-validator/onboarding-and-offboarding/set-up-validator/) guide for instructions on setting keys
 
 - **Generate outside node and insert** - using the `author.setKeys` RPC call. This flexibility accommodates advanced security setups and should only be used by experienced validator operators
 
@@ -554,7 +554,7 @@ Follow these best practices to keep your validator secure:
 - Regularly apply OS security patches
 - Enable and configure a firewall
 - Use key-based SSH authentication; deactivate password-based login
-- Regularly back up data and harden your SSH configuration. Visit this [SSH guide](https://blog.stribik.technology/2015/01/04/secure-secure-shell.html){target=\_blank} for more details
+- Regularly back up data and harden your SSH configuration. Visit this [SSH guide](https://blog.stribik.technology/2015/01/04/secure-secure-shell.html) for more details
 
 ### Validator Best Practices
 
@@ -571,9 +571,9 @@ Additional best practices can add an additional layer of security and operationa
 
 ## Additional Resources
 
-- [Certus One's Knowledge Base](https://knowledgebase.certus.com/FAQ/){target=\_blank}
-- [EOS Block Producer Security List](https://github.com/slowmist/eos-bp-nodes-security-checklist){target=\_blank}
-- [HSM Policies and the Importance of Validator Security](https://medium.com/loom-network/hsm-policies-and-the-importance-of-validator-security-ec8a4cc1b6f){target=\_blank}
+- [Certus One's Knowledge Base](https://knowledgebase.certus.com/FAQ/)
+- [EOS Block Producer Security List](https://github.com/slowmist/eos-bp-nodes-security-checklist)
+- [HSM Policies and the Importance of Validator Security](https://medium.com/loom-network/hsm-policies-and-the-importance-of-validator-security-ec8a4cc1b6f)
 
-For additional guidance, connect with other validators and the Polkadot engineering team in the [Polkadot Validator Lounge](https://matrix.to/#/#polkadotvalidatorlounge:web3.foundation){target=\_blank} on Element.
+For additional guidance, connect with other validators and the Polkadot engineering team in the [Polkadot Validator Lounge](https://matrix.to/#/#polkadotvalidatorlounge:web3.foundation) on Element.
 

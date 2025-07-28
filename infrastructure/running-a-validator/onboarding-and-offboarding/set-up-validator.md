@@ -15,10 +15,10 @@ Running a validator requires a commitment to maintaining a stable, secure infras
 
 To get the most from this guide, ensure you've done the following before going forward:
 
-- Read [Validator Requirements](/infrastructure/running-a-validator/requirements/){target=\_blank} and understand the recommended minimum skill level and hardware needs
-- Read [General Management](/infrastructure/running-a-validator/operational-tasks/general-management){target=\_blank}, [Upgrade Your Node](/infrastructure/running-a-validator/operational-tasks/upgrade-your-node/){target=\_blank}, and [Pause Validating](/infrastructure/running-a-validator/onboarding-and-offboarding/stop-validating/){target=\_blank} and understand the tasks required to keep your validator operational
-- Read [Rewards Payout](/infrastructure/staking-mechanics/rewards-payout/){target=\_blank} and understand how validator rewards are determined and paid out
-- Read [Offenses and Slashes](/infrastructure/staking-mechanics/offenses-and-slashes/){target=\_blank} and understand how validator performance and security can affect tokens staked by you or your nominators
+- Read [Validator Requirements](/infrastructure/running-a-validator/requirements/) and understand the recommended minimum skill level and hardware needs
+- Read [General Management](/infrastructure/running-a-validator/operational-tasks/general-management), [Upgrade Your Node](/infrastructure/running-a-validator/operational-tasks/upgrade-your-node/), and [Pause Validating](/infrastructure/running-a-validator/onboarding-and-offboarding/stop-validating/) and understand the tasks required to keep your validator operational
+- Read [Rewards Payout](/infrastructure/staking-mechanics/rewards-payout/) and understand how validator rewards are determined and paid out
+- Read [Offenses and Slashes](/infrastructure/staking-mechanics/offenses-and-slashes/) and understand how validator performance and security can affect tokens staked by you or your nominators
 
 ## Initial Setup
 
@@ -28,7 +28,7 @@ You must use a Linux-based operating system with Kernel 5.16 or later. Configura
 
 ### Install Network Time Protocol Client
 
-Accurate timekeeping is critical to ensure your validator is synchronized with the network. Validators need local clocks in sync with the blockchain to avoid missing block authorship opportunities. Using [Network Time Protocol (NTP)](https://en.wikipedia.org/wiki/Network_Time_Protocol){target=\_blank} is the standard solution to keep your system's clock accurate.
+Accurate timekeeping is critical to ensure your validator is synchronized with the network. Validators need local clocks in sync with the blockchain to avoid missing block authorship opportunities. Using [Network Time Protocol (NTP)](https://en.wikipedia.org/wiki/Network_Time_Protocol) is the standard solution to keep your system's clock accurate.
 
 If you are using Ubuntu version 18.04 or newer, the NTP Client should be installed by default. You can check whether you have the NTP client by running:
 
@@ -58,7 +58,7 @@ This command will return a message with the status of the NTP synchronization. S
 
 ### Verify Landlock is Activated
 
-[Landlock](https://docs.kernel.org/userspace-api/landlock.html){target=\_blank} is an important security feature integrated into Linux kernels starting with version 5.13. It allows processes, even those without special privileges, to limit their access to the system to reduce the machine's attack surface. This feature is crucial for validators, as it helps ensure the security and stability of the node by preventing unauthorized access or malicious behavior.
+[Landlock](https://docs.kernel.org/userspace-api/landlock.html) is an important security feature integrated into Linux kernels starting with version 5.13. It allows processes, even those without special privileges, to limit their access to the system to reduce the machine's attack surface. This feature is crucial for validators, as it helps ensure the security and stability of the node by preventing unauthorized access or malicious behavior.
 
 To use Landlock, ensure you use the reference kernel or newer versions. Most Linux distributions should already have Landlock activated. You can check if Landlock is activated on your machine by running the following command as root:
 
@@ -66,7 +66,7 @@ To use Landlock, ensure you use the reference kernel or newer versions. Most Lin
 dmesg | grep landlock || journalctl -kg landlock
 ```
 
-If Landlock is not activated, your system logs won't show any related output. In this case, you will need to activate it manually or ensure that your Linux distribution supports it. Most modern distributions with the required kernel version should have Landlock activated by default. However, if your system lacks support, you may need to build the kernel with Landlock activated. For more information on doing so, refer to the [official kernel documentation](https://docs.kernel.org/userspace-api/landlock.html#kernel-support){target=\_blank}.
+If Landlock is not activated, your system logs won't show any related output. In this case, you will need to activate it manually or ensure that your Linux distribution supports it. Most modern distributions with the required kernel version should have Landlock activated by default. However, if your system lacks support, you may need to build the kernel with Landlock activated. For more information on doing so, refer to the [official kernel documentation](https://docs.kernel.org/userspace-api/landlock.html#kernel-support).
 
 Implementing Landlock ensures your node operates in a restricted, self-imposed sandbox, limiting potential damage from security breaches or bugs. While not a mandatory requirement, enabling this feature greatly improves the security of your validator setup.
 
@@ -78,7 +78,7 @@ Depending on your preference and operating system setup, there are multiple meth
 
 ### Install from Official Releases
 
-The preferred, most straightforward method to install the required binaries is downloading the latest versions from the official releases. You can visit the [Github Releases](https://github.com/paritytech/polkadot-sdk/releases){target=\_blank} page for the most current versions of the `polkadot`, `polkadot-prepare-worker`, and `polkadot-execute-worker` binaries.
+The preferred, most straightforward method to install the required binaries is downloading the latest versions from the official releases. You can visit the [Github Releases](https://github.com/paritytech/polkadot-sdk/releases) page for the most current versions of the `polkadot`, `polkadot-prepare-worker`, and `polkadot-execute-worker` binaries.
 
 You can also download the binaries by using the following direct links:
 
@@ -127,15 +127,15 @@ You can also download the binaries by using the following direct links:
 
 Signature verification cryptographically ensures the downloaded binaries are authentic and have not been tampered with by using GPG signing keys. Polkadot releases use two different signing keys:
 
-- ParityReleases (release-team@parity.io) with key [`90BD75EBBB8E95CB3DA6078F94A4029AB4B35DAE`](https://keyserver.ubuntu.com/pks/lookup?search=9D4B2B6EB8F97156D19669A9FF0812D491B96798&fingerprint=on&op=index){target=\_blank} for current and new releases
-- Parity Security Team (security@parity.io) with key [`9D4B2B6EB8F97156D19669A9FF0812D491B96798`](https://keyserver.ubuntu.com/pks/lookup?search=90BD75EBBB8E95CB3DA6078F94A4029AB4B35DAE&fingerprint=on&op=index){target=\_blank} for old releases
+- ParityReleases (release-team@parity.io) with key [`90BD75EBBB8E95CB3DA6078F94A4029AB4B35DAE`](https://keyserver.ubuntu.com/pks/lookup?search=9D4B2B6EB8F97156D19669A9FF0812D491B96798&fingerprint=on&op=index) for current and new releases
+- Parity Security Team (security@parity.io) with key [`9D4B2B6EB8F97156D19669A9FF0812D491B96798`](https://keyserver.ubuntu.com/pks/lookup?search=90BD75EBBB8E95CB3DA6078F94A4029AB4B35DAE&fingerprint=on&op=index) for old releases
 
     !!!warning
         When verifying a signature, a "Good signature" message indicates successful verification, while any other output signals a potential security risk.
 
 ### Install with Package Managers
 
-Users running Debian-based distributions like Ubuntu can install the binaries using the [APT](https://wiki.debian.org/Apt){target=\_blank} package manager.
+Users running Debian-based distributions like Ubuntu can install the binaries using the [APT](https://wiki.debian.org/Apt) package manager.
 
 Execute the following commands as root to add the official repository and install the binaries:
 
@@ -160,7 +160,7 @@ Once installation completes, verify the binaries are correctly installed by foll
 
 ### Install with Ansible
 
-You can also manage Polkadot installations using Ansible. This approach can be beneficial for users managing multiple validator nodes or requiring automated deployment. The [Parity chain operations Ansible collection](https://github.com/paritytech/ansible-galaxy/){target=\_blank} provides a Substrate node role for this purpose.
+You can also manage Polkadot installations using Ansible. This approach can be beneficial for users managing multiple validator nodes or requiring automated deployment. The [Parity chain operations Ansible collection](https://github.com/paritytech/ansible-galaxy/) provides a Substrate node role for this purpose.
 
 ### Install with Docker
 
@@ -174,7 +174,7 @@ docker pull parity/polkadot:{{ dependencies.repositories.polkadot_sdk.docker_ima
 
 ### Build from Sources
 
-You may build the binaries from source by following the instructions on the [Polkadot SDK repository](https://github.com/paritytech/polkadot-sdk/tree/{{dependencies.repositories.polkadot_sdk.version}}/polkadot#building){target=\_blank}.
+You may build the binaries from source by following the instructions on the [Polkadot SDK repository](https://github.com/paritytech/polkadot-sdk/tree/{{dependencies.repositories.polkadot_sdk.version}}/polkadot#building).
 
 ## Verify Installation
 

@@ -46,23 +46,23 @@ Development and testing are crucial to building robust dApps and parachains and 
 
 Kusama is the experimental version of Polkadot, designed for developers who want to move quickly and test their applications in a real-world environment with economic incentives. Kusama serves as a production-grade testing ground where developers can deploy features and upgrades with the pressure of game theory and economics in mind. It mirrors Polkadot but operates as a more flexible space for innovation.
 
-The native token for Kusama is KSM. For more information about KSM, visit the [Native Assets](https://wiki.polkadot.network/learn/learn-dot/#kusama){target=\_blank} page.
+The native token for Kusama is KSM. For more information about KSM, visit the [Native Assets](https://wiki.polkadot.network/learn/learn-dot/#kusama) page.
 
 ## Test Networks
 
-The following test networks provide controlled environments for testing upgrades and new features. TestNet tokens are available from the [Polkadot faucet](https://faucet.polkadot.io/){target=\_blank}.
+The following test networks provide controlled environments for testing upgrades and new features. TestNet tokens are available from the [Polkadot faucet](https://faucet.polkadot.io/).
 
 ### Westend
 
 Westend is Polkadot's primary permanent TestNet. Unlike temporary test networks, Westend is not reset to the genesis block, making it an ongoing environment for testing Polkadot core features. Managed by Parity Technologies, Westend ensures that developers can test features in a real-world simulation without using actual tokens.
 
-The native token for Westend is WND. More details about WND can be found on the [Native Assets](https://wiki.polkadot.network/learn/learn-dot/#getting-tokens-on-the-westend-testnet){target=\_blank} page.
+The native token for Westend is WND. More details about WND can be found on the [Native Assets](https://wiki.polkadot.network/learn/learn-dot/#getting-tokens-on-the-westend-testnet) page.
 
 ### Paseo
 
-[Paseo](https://github.com/paseo-network){target=\_blank} is a community-managed TestNet designed for parachain and dApp developers. It mirrors Polkadot's runtime and is maintained by Polkadot community members. Paseo provides a dedicated space for parachain developers to test their applications in a Polkadot-like environment without the risks associated with live networks.
+[Paseo](https://github.com/paseo-network) is a community-managed TestNet designed for parachain and dApp developers. It mirrors Polkadot's runtime and is maintained by Polkadot community members. Paseo provides a dedicated space for parachain developers to test their applications in a Polkadot-like environment without the risks associated with live networks.
 
-The native token for Paseo is PAS. Additional information on PAS is available on the [Native Assets](https://wiki.polkadot.network/learn/learn-dot/#getting-tokens-on-the-paseo-testnet){target=\_blank} page.
+The native token for Paseo is PAS. Additional information on PAS is available on the [Native Assets](https://wiki.polkadot.network/learn/learn-dot/#getting-tokens-on-the-paseo-testnet) page.
 
 ## Local Test Networks
 
@@ -70,7 +70,7 @@ Local test networks are an essential part of the development cycle for blockchai
 
 ### Zombienet
 
-[Zombienet](https://github.com/paritytech/zombienet){target=\_blank} is a flexible testing framework for Polkadot SDK-based blockchains. It enables developers to create and manage ephemeral, short-lived networks. This feature makes Zombienet particularly useful for quick iterations, as it allows you to run multiple local networks concurrently, mimicking different runtime conditions. Whether you're developing a parachain or testing your custom blockchain logic, Zombienet gives you the tools to automate local testing.
+[Zombienet](https://github.com/paritytech/zombienet) is a flexible testing framework for Polkadot SDK-based blockchains. It enables developers to create and manage ephemeral, short-lived networks. This feature makes Zombienet particularly useful for quick iterations, as it allows you to run multiple local networks concurrently, mimicking different runtime conditions. Whether you're developing a parachain or testing your custom blockchain logic, Zombienet gives you the tools to automate local testing.
 
 Key features of Zombienet include:
 
@@ -82,7 +82,7 @@ Zombienet is ideal for developers looking to test quickly and thoroughly before 
 
 ### Chopsticks
 
-[Chopsticks](https://github.com/AcalaNetwork/chopsticks){target=\_blank} is a tool designed to create forks of Polkadot SDK-based blockchains, allowing developers to interact with network forks as part of their testing process. This capability makes Chopsticks a powerful option for testing upgrades, runtime changes, or cross-chain applications in a forked network environment.
+[Chopsticks](https://github.com/AcalaNetwork/chopsticks) is a tool designed to create forks of Polkadot SDK-based blockchains, allowing developers to interact with network forks as part of their testing process. This capability makes Chopsticks a powerful option for testing upgrades, runtime changes, or cross-chain applications in a forked network environment.
 
 Key features of Chopsticks include:
 

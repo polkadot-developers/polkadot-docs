@@ -7,7 +7,7 @@ description: Learn how to start validating on Polkadot by choosing a network, sy
 
 ## Introduction
 
-After configuring your node keys as shown in the [Key Management](/infrastructure/running-a-validator/onboarding-and-offboarding/key-management){target=\_blank} section and ensuring your system is set up, you're ready to begin the validator setup process. This guide will walk you through choosing a network, synchronizing your node with the blockchain, bonding your DOT tokens, and starting your validator.
+After configuring your node keys as shown in the [Key Management](/infrastructure/running-a-validator/onboarding-and-offboarding/key-management) section and ensuring your system is set up, you're ready to begin the validator setup process. This guide will walk you through choosing a network, synchronizing your node with the blockchain, bonding your DOT tokens, and starting your validator.
 
 ## Choose a Network
 
@@ -53,15 +53,15 @@ The next step is to sync your node with the chosen blockchain network. Synchroni
 
     --8<-- 'code/infrastructure/running-a-validator/onboarding-and-offboarding/start-validating/terminal-output-01.html'
 
-    The output logs provide information such as the current block number, node name, and network connections. Monitor the sync progress and any errors that might occur during the process. Look for information about the latest processed block and compare it with the current highest block using tools like [Telemetry](https://telemetry.polkadot.io/#list/Polkadot%20CC1){target=\_blank} or [Polkadot.js Apps Explorer](https://polkadot.js.org/apps/#/explorer){target=\_blank}.
+    The output logs provide information such as the current block number, node name, and network connections. Monitor the sync progress and any errors that might occur during the process. Look for information about the latest processed block and compare it with the current highest block using tools like [Telemetry](https://telemetry.polkadot.io/#list/Polkadot%20CC1) or [Polkadot.js Apps Explorer](https://polkadot.js.org/apps/#/explorer).
 
 ### Database Snapshot Services
 
 If you'd like to speed up the process further, you can use a database snapshot. Snapshots are compressed backups of the blockchain's database directory and can significantly reduce the time required to sync a new node. Here are a few public snapshot providers:
 
-- [Stakeworld](https://stakeworld.io/snapshot){target=\_blank}
-- [Polkachu](https://polkachu.com/substrate_snapshots){target=\_blank}
-- [Polkashots](https://polkashots.io/){target=\_blank}
+- [Stakeworld](https://stakeworld.io/snapshot)
+- [Polkachu](https://polkachu.com/substrate_snapshots)
+- [Polkashots](https://polkashots.io/)
 
 !!!warning
     Although snapshots are convenient, syncing from scratch is recommended for security purposes. If snapshots become corrupted and most nodes rely on them, the network could inadvertently run on a non-canonical chain.
@@ -78,7 +78,7 @@ The following sections will guide you through bonding DOT for your validator.
 
 ### Bonding DOT on Polkadot.js Apps
 
-Once you're ready to bond your DOT, head over to the [Polkadot.js Apps](https://polkadot.js.org/apps/){target=\_blank} staking page by clicking the **Network** dropdown at the top of the page and selecting [**Staking**](https://polkadot.js.org/apps/#/staking/actions){target=\_blank}.
+Once you're ready to bond your DOT, head over to the [Polkadot.js Apps](https://polkadot.js.org/apps/) staking page by clicking the **Network** dropdown at the top of the page and selecting [**Staking**](https://polkadot.js.org/apps/#/staking/actions).
 
 To get started with the bond submission, click on the **Accounts** tab, then the **+ Stash** button, and then enter the following information:
 
@@ -96,7 +96,7 @@ Once your validator node is fully synced and ready, the next step is to ensure i
 
 ### Verify Sync via Telemetry
 
-To confirm that your validator is live and synchronized with the Polkadot network, visit the [Telemetry](https://telemetry.polkadot.io/#list/Polkadot%20CC1){target=\_blank} page. Telemetry provides real-time information on node performance and can help you check if your validator is connected properly. Search for your node by name. You can search all nodes currently active on the network, which is why you should use a unique name for easy recognition. Now, confirm that your node is fully synced by comparing the block height of your node with the network's latest block. Nodes that are fully synced will appear white in the list, while nodes that are not yet fully synced will appear gray.
+To confirm that your validator is live and synchronized with the Polkadot network, visit the [Telemetry](https://telemetry.polkadot.io/#list/Polkadot%20CC1) page. Telemetry provides real-time information on node performance and can help you check if your validator is connected properly. Search for your node by name. You can search all nodes currently active on the network, which is why you should use a unique name for easy recognition. Now, confirm that your node is fully synced by comparing the block height of your node with the network's latest block. Nodes that are fully synced will appear white in the list, while nodes that are not yet fully synced will appear gray.
 
 In the following example, a node named `techedtest` is successfully located and synchronized, ensuring it's prepared to participate in the network:
 
@@ -124,7 +124,7 @@ Follow these steps to use Polkadot.js Apps to activate your validator:
 
 ### Monitor Validation Status and Slots
 
-On the [**Staking**](https://polkadot.js.org/apps/#/staking){target=\_blank} tab in Polkadot.js Apps, you can see your validator's status, the number of available validator slots, and the nodes that have signaled their intent to validate. Your node may initially appear in the waiting queue, especially if the validator slots are full. The following is an example view of the **Staking** tab:
+On the [**Staking**](https://polkadot.js.org/apps/#/staking) tab in Polkadot.js Apps, you can see your validator's status, the number of available validator slots, and the nodes that have signaled their intent to validate. Your node may initially appear in the waiting queue, especially if the validator slots are full. The following is an example view of the **Staking** tab:
 
 ![staking queue](/images/infrastructure/running-a-validator/onboarding-and-offboarding/start-validating/start-validating-05.webp)
 
@@ -132,14 +132,14 @@ The validator set refreshes each era. If there's an available slot in the next e
 
 ## Run a Validator Using Systemd
 
-Running your Polkadot validator as a [systemd](https://en.wikipedia.org/wiki/Systemd){target=\_blank} service is an effective way to ensure its high uptime and reliability. Using systemd allows your validator to automatically restart after server reboots or unexpected crashes, significantly reducing the risk of slashing due to downtime.
+Running your Polkadot validator as a [systemd](https://en.wikipedia.org/wiki/Systemd) service is an effective way to ensure its high uptime and reliability. Using systemd allows your validator to automatically restart after server reboots or unexpected crashes, significantly reducing the risk of slashing due to downtime.
 
 This following sections will walk you through creating and managing a systemd service for your validator, allowing you to seamlessly monitor and control it as part of your Linux system. 
 
 Ensure the following requirements are met before proceeding with the systemd setup:
 
-- Confirm your system meets the [requirements](/infrastructure/running-a-validator/requirements/){target=\_blank} for running a validator
-- Ensure you meet the [minimum bond requirements](https://wiki.polkadot.network/general/chain-state-values/#minimum-validator-bond){target=\_blank} for validating
+- Confirm your system meets the [requirements](/infrastructure/running-a-validator/requirements/) for running a validator
+- Ensure you meet the [minimum bond requirements](https://wiki.polkadot.network/general/chain-state-values/#minimum-validator-bond) for validating
 - Verify the Polkadot binary is [installed](#install-the-polkadot-binaries)
 
 ### Create the Systemd Service File
@@ -179,7 +179,7 @@ Check the service's status to confirm it is running:
 systemctl status polkadot-validator.service
 ```
 
-To view the logs in real-time, use [journalctl](https://www.freedesktop.org/software/systemd/man/latest/journalctl.html){target=\_blank} like so:
+To view the logs in real-time, use [journalctl](https://www.freedesktop.org/software/systemd/man/latest/journalctl.html) like so:
 
 ```bash
 journalctl -f -u polkadot-validator
@@ -187,5 +187,5 @@ journalctl -f -u polkadot-validator
 
 With these steps, you can effectively manage and monitor your validator as a systemd service.
 
-Once your validator is active, it's officially part of Polkadot's security infrastructure. For questions or further support, you can reach out to the [Polkadot Validator chat](https://matrix.to/#/!NZrbtteFeqYKCUGQtr:matrix.parity.io?via=matrix.parity.io&via=matrix.org&via=web3.foundation){target=\_blank} for tips and troubleshooting.
+Once your validator is active, it's officially part of Polkadot's security infrastructure. For questions or further support, you can reach out to the [Polkadot Validator chat](https://matrix.to/#/!NZrbtteFeqYKCUGQtr:matrix.parity.io?via=matrix.parity.io&via=matrix.org&via=web3.foundation) for tips and troubleshooting.
 

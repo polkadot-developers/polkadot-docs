@@ -11,8 +11,8 @@ Running multiple instances of the same pallet within a runtime is a powerful tec
 
 ## Understanding Instantiable Pallets
 
-Unlike standard pallets that exist as a single instance in a runtime, instantiable pallets require special configuration through an additional [generic parameter](https://doc.rust-lang.org/reference/items/generics.html){target=\_blank} `I`.
-This generic `I` creates a unique [lifetime](https://doc.rust-lang.org/rust-by-example/scope/lifetime.html){target=\_blank} for each pallet instance, affecting the pallet's generic types and its configuration trait `T`.
+Unlike standard pallets that exist as a single instance in a runtime, instantiable pallets require special configuration through an additional [generic parameter](https://doc.rust-lang.org/reference/items/generics.html) `I`.
+This generic `I` creates a unique [lifetime](https://doc.rust-lang.org/rust-by-example/scope/lifetime.html) for each pallet instance, affecting the pallet's generic types and its configuration trait `T`.
 
 You can identify an instantiable pallet by examining its `Pallet` struct definition, which will include both the standard generic `T` and the instantiation generic `I`:
 
@@ -25,7 +25,7 @@ The instantiation generic also appears throughout the pallet's components, inclu
 
 ## Adding Instantiable Pallets to Your Runtime
 
-The process resembles adding a standard pallet with some key differences. In this example you will see how adding two instances of the [pallet-collective](https://github.com/paritytech/polkadot-sdk/tree/{{dependencies.repositories.polkadot_sdk.version}}/substrate/frame/collective){target=\_blank} is implemented.
+The process resembles adding a standard pallet with some key differences. In this example you will see how adding two instances of the [pallet-collective](https://github.com/paritytech/polkadot-sdk/tree/{{dependencies.repositories.polkadot_sdk.version}}/substrate/frame/collective) is implemented.
 
 ### Define Pallet Parameters
 

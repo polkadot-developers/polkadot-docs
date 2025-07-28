@@ -30,7 +30,7 @@ The fastest way to get support.
 - **Response time:** Within **2 business days (usually faster)**.
 - **Topics:** Any developer-related question is welcome.
 
-👉 **[Join Telegram](https://t.me/substratedevs){target=\_blank}**
+👉 **[Join Telegram](https://t.me/substratedevs)**
 
 ## 🔌 Discord: Polkadot Official Server
 
@@ -41,7 +41,7 @@ Focused support for smart contracts and general developer chat.
 - **Response time:** Within **1 business day (usually faster)**.
 - **Other topics:** Community-led discussion only.
 
-👉 **[Join Discord](https://polkadot-discord.w3f.tools/){target=\_blank}**
+👉 **[Join Discord](https://polkadot-discord.w3f.tools/)**
 
 ## 🧬 Matrix: Polkadot Developer Support
 
@@ -52,7 +52,7 @@ This is the **support channel** staffed by engineers from **Parity**, **Web3 Fou
 - **Topics:** Full-spectrum developer support.
 - Bridged with Telegram (all messages synced).
 
-👉 **[Join Matrix](https://matrix.to/#/#substratedevs:matrix.org){target=\_blank}**
+👉 **[Join Matrix](https://matrix.to/#/#substratedevs:matrix.org)**
 
 ---
 

@@ -8,7 +8,7 @@ categories: Smart Contracts
 
 ## Introduction
 
-The [XCM (Cross-Consensus Message)](/develop/interoperability/intro-to-xcm){target=\_blank} precompile enables Polkadot Hub developers to access XCM functionality directly from their smart contracts using a Solidity interface.
+The [XCM (Cross-Consensus Message)](/develop/interoperability/intro-to-xcm) precompile enables Polkadot Hub developers to access XCM functionality directly from their smart contracts using a Solidity interface.
 
 Located at the fixed address `0x00000000000000000000000000000000000a0000`, the XCM precompile offers three primary functions:
 
@@ -16,7 +16,7 @@ Located at the fixed address `0x00000000000000000000000000000000000a0000`, the X
 - **`send`**:  for cross-chain message transmission
 - **`weighMessage`**: for cost estimation 
 
-This guide demonstrates how to interact with the XCM precompile through Solidity smart contracts using [Remix IDE](/develop/smart-contracts/dev-environments/remix){target=\_blank}.
+This guide demonstrates how to interact with the XCM precompile through Solidity smart contracts using [Remix IDE](/develop/smart-contracts/dev-environments/remix).
 
 !!!note
     The XCM precompile provides the barebones XCM functionality. While it provides a lot of flexibility, it doesn't provide abstractions to hide away XCM details. These have to be built on top.
@@ -34,13 +34,13 @@ The interface defines a `Weight` struct that represents the computational cost o
 - **`refTime`**: computational time on reference hardware 
 - **`proofSize`**: the size of the proof required for execution 
 
-All XCM messages must be encoded using the [SCALE codec](/polkadot-protocol/parachain-basics/data-encoding/#data-encoding){target=\_blank}, Polkadot's standard serialization format.
+All XCM messages must be encoded using the [SCALE codec](/polkadot-protocol/parachain-basics/data-encoding/#data-encoding), Polkadot's standard serialization format.
 
-For further information, check the [`precompiles/IXCM.sol`](https://github.com/paritytech/polkadot-sdk/blob/cb629d46ebf00aa65624013a61f9c69ebf02b0b4/polkadot/xcm/pallet-xcm/src/precompiles/IXcm.sol){target=\_blank} file present in `pallet-xcm`.
+For further information, check the [`precompiles/IXCM.sol`](https://github.com/paritytech/polkadot-sdk/blob/cb629d46ebf00aa65624013a61f9c69ebf02b0b4/polkadot/xcm/pallet-xcm/src/precompiles/IXcm.sol) file present in `pallet-xcm`.
 
 ## Interact with the XCM Precompile
 
-To interact with the XCM precompile, you can use the precompile interface directly in [Remix IDE](/develop/smart-contracts/dev-environments/remix/){target=\_blank}:
+To interact with the XCM precompile, you can use the precompile interface directly in [Remix IDE](/develop/smart-contracts/dev-environments/remix/):
 
 1. Create a new file called `IXcm.sol` in Remix.
 2. Copy and paste the `IXcm` interface code into the file.
@@ -74,9 +74,9 @@ To test this functionality in Remix, you can call `callWeighMessage` with a SCAL
 
 This encoded message represents a sequence of XCM instructions:
 
-- **[Withdraw Asset](https://github.com/polkadot-fellows/xcm-format?tab=readme-ov-file#withdrawasset){target=\_blank}**: This instruction removes assets from the local chain's sovereign account or the caller's account, making them available for use in subsequent XCM instructions.
-- **[Buy Execution](https://github.com/polkadot-fellows/xcm-format?tab=readme-ov-file#buyexecution){target=\_blank}**: This instruction purchases execution time on the destination chain using the withdrawn assets, ensuring the message can be processed.
-- **[Deposit Asset](https://github.com/polkadot-fellows/xcm-format?tab=readme-ov-file#depositasset){target=\_blank}**: This instruction deposits the remaining assets into a specified account on the destination chain after execution costs have been deducted.
+- **[Withdraw Asset](https://github.com/polkadot-fellows/xcm-format?tab=readme-ov-file#withdrawasset)**: This instruction removes assets from the local chain's sovereign account or the caller's account, making them available for use in subsequent XCM instructions.
+- **[Buy Execution](https://github.com/polkadot-fellows/xcm-format?tab=readme-ov-file#buyexecution)**: This instruction purchases execution time on the destination chain using the withdrawn assets, ensuring the message can be processed.
+- **[Deposit Asset](https://github.com/polkadot-fellows/xcm-format?tab=readme-ov-file#depositasset)**: This instruction deposits the remaining assets into a specified account on the destination chain after execution costs have been deducted.
 
 This encoded message is provided as an example. You can craft your own XCM message tailored to your specific use case as needed.
 
@@ -85,7 +85,7 @@ The function returns a `Weight` struct containing `refTime` and `proofSize` valu
 ![](/images/develop/smart-contracts/precompiles/xcm-precompile/xcm-precompile-05.webp)
 
 !!!note
-    You can find many more examples of XCMs in this [gist](https://gist.github.com/franciscoaguirre/a6dea0c55e81faba65bedf700033a1a2){target=\_blank}, which connects to the Polkadot Hub TestNet.
+    You can find many more examples of XCMs in this [gist](https://gist.github.com/franciscoaguirre/a6dea0c55e81faba65bedf700033a1a2), which connects to the Polkadot Hub TestNet.
 
 ### Execute a Message
 
@@ -101,7 +101,7 @@ For example, using the same message from the weighing example, you would call `e
     - `message`: The encoded XCM message bytes.
     - `weight`: The `Weight` struct returned from `weighMessage`.
 
-    You can use the [papi console](https://dev.papi.how/extrinsics#networkId=localhost&endpoint=wss%3A%2F%2Ftestnet-passet-hub.polkadot.io&data=0x1f03050c000401000003008c86471301000003008c8647000d010101000000010100368e8759910dab756d344995f1d3c79374ca8f70066d3a709e48029f6bf0ee7e0750c61e2901daad0600){target=\_blank} to examine the complete extrinsic structure for this operation.
+    You can use the [papi console](https://dev.papi.how/extrinsics#networkId=localhost&endpoint=wss%3A%2F%2Ftestnet-passet-hub.polkadot.io&data=0x1f03050c000401000003008c86471301000003008c8647000d010101000000010100368e8759910dab756d344995f1d3c79374ca8f70066d3a709e48029f6bf0ee7e0750c61e2901daad0600) to examine the complete extrinsic structure for this operation.
 
 3. On Remix, click on the **Transact** button to execute the XCM message:
   

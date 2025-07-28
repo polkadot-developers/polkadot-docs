@@ -21,6 +21,6 @@ While simple oracle implementations may rely on a single trusted provider, more 
 
     Acurast is a decentralized, serverless cloud platform that uses a distributed network of mobile devices for oracle services, addressing centralized trust and data ownership issues. In the Polkadot ecosystem, it allows developers to define off-chain data and computation needs, which are processed by these devices acting as decentralized oracle nodes, delivering results to Substrate (Wasm) and EVM environments.
 
-    [:octicons-arrow-right-24: Reference](https://acurast.com/){target=\_blank}
+    [:octicons-arrow-right-24: Reference](https://acurast.com/)
 
 </div>

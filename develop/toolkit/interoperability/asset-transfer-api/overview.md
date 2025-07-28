@@ -7,21 +7,21 @@ description: Asset Transfer API is a library that simplifies the transfer of ass
 
 ## Introduction
 
-[Asset Transfer API](https://github.com/paritytech/asset-transfer-api){target=\_blank}, a tool developed and maintained by [Parity](https://www.parity.io/){target=\_blank}, is a specialized library designed to streamline asset transfers for Polkadot SDK-based blockchains. This API provides a simplified set of methods for users to:
+[Asset Transfer API](https://github.com/paritytech/asset-transfer-api), a tool developed and maintained by [Parity](https://www.parity.io/), is a specialized library designed to streamline asset transfers for Polkadot SDK-based blockchains. This API provides a simplified set of methods for users to:
 
 - Execute asset transfers to other parachains or locally within the same chain
 - Facilitate transactions involving system parachains like Asset Hub (Polkadot and Kusama)
 
 Using this API, developers can manage asset transfers more efficiently, reducing the complexity of cross-chain transactions and enabling smoother operations within the ecosystem.
 
-For additional support and information, please reach out through [GitHub Issues](https://github.com/paritytech/asset-transfer-api/issues){target=\_blank}.
+For additional support and information, please reach out through [GitHub Issues](https://github.com/paritytech/asset-transfer-api/issues).
 
 ## Prerequisites
 
 Before you begin, ensure you have the following installed:
 
-- [Node.js](https://nodejs.org/en/){target=\_blank} (recommended version 21 or greater)
-- Package manager - [npm](https://www.npmjs.com/){target=\_blank} should be installed with Node.js by default. Alternatively, you can use other package managers like [Yarn](https://yarnpkg.com/){target=\_blank}
+- [Node.js](https://nodejs.org/en/) (recommended version 21 or greater)
+- Package manager - [npm](https://www.npmjs.com/) should be installed with Node.js by default. Alternatively, you can use other package managers like [Yarn](https://yarnpkg.com/)
 
 This documentation covers version `{{dependencies.javascript_packages.asset_transfer_api.version}}` of Asset Transfer API. 
 
@@ -71,7 +71,7 @@ Leverage the `constructApiPromise` helper function provided by the library for t
 
 ## Asset Transfer API Reference
 
-For detailed information on the Asset Transfer API, including available methods, data types, and functionalities, refer to the [Asset Transfer API Reference](/develop/toolkit/interoperability/asset-transfer-api/reference){target=\_blank} section. This resource provides in-depth explanations and technical specifications to help you integrate and utilize the API effectively.
+For detailed information on the Asset Transfer API, including available methods, data types, and functionalities, refer to the [Asset Transfer API Reference](/develop/toolkit/interoperability/asset-transfer-api/reference) section. This resource provides in-depth explanations and technical specifications to help you integrate and utilize the API effectively.
 
 ## Examples
 

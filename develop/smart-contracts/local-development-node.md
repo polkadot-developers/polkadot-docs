@@ -20,11 +20,11 @@ By the end of this guide, you'll have:
 
 Before getting started, ensure you have done the following:
 
-- Completed the [Install Polkadot SDK Dependencies](/develop/parachains/install-polkadot-sdk/){target=\_blank} guide and successfully installed [Rust](https://www.rust-lang.org/){target=\_blank} and the required packages to set up your development environment
+- Completed the [Install Polkadot SDK Dependencies](/develop/parachains/install-polkadot-sdk/) guide and successfully installed [Rust](https://www.rust-lang.org/) and the required packages to set up your development environment
 
 ## Install the Substrate Node and ETH-RPC Adapter
 
-The Polkadot SDK repository contains both the [Substrate node](https://github.com/paritytech/polkadot-sdk/tree/master/substrate/bin/node){target=\_blank} implementation and the [ETH-RPC adapter](https://github.com/paritytech/polkadot-sdk/tree/master/substrate/frame/revive/rpc){target=\_blank} required for Ethereum compatibility. Start by cloning the repository and navigating to the project directory:
+The Polkadot SDK repository contains both the [Substrate node](https://github.com/paritytech/polkadot-sdk/tree/master/substrate/bin/node) implementation and the [ETH-RPC adapter](https://github.com/paritytech/polkadot-sdk/tree/master/substrate/frame/revive/rpc) required for Ethereum compatibility. Start by cloning the repository and navigating to the project directory:
 
 ```bash
 git clone -b {{dependencies.repositories.polkadot_sdk_contracts_node.version}} https://github.com/paritytech/polkadot-sdk.git

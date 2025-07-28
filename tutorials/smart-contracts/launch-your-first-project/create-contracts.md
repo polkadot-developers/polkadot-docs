@@ -10,23 +10,23 @@ tutorial_badge: Beginner
 
 ## Introduction
 
-Creating [smart contracts](/develop/smart-contracts/overview/){target=\_blank} is fundamental to blockchain development. While many frameworks and tools are available, understanding how to write a contract from scratch with just a text editor is essential knowledge.
+Creating [smart contracts](/develop/smart-contracts/overview/) is fundamental to blockchain development. While many frameworks and tools are available, understanding how to write a contract from scratch with just a text editor is essential knowledge.
 
-This tutorial will guide you through creating a basic smart contract that can be used with other tutorials for deployment and integration on Polkadot Hub. To understand how smart contracts work in Polkadot Hub, check the [Smart Contract Basics](/polkadot-protocol/smart-contract-basics/){target=\_blank} guide for more information.
+This tutorial will guide you through creating a basic smart contract that can be used with other tutorials for deployment and integration on Polkadot Hub. To understand how smart contracts work in Polkadot Hub, check the [Smart Contract Basics](/polkadot-protocol/smart-contract-basics/) guide for more information.
 
 ## Prerequisites
 
 Before starting, make sure you have:
 
-- A text editor of your choice ([VS Code](https://code.visualstudio.com/){target=\_blank}, [Sublime Text](https://www.sublimetext.com/){target=\_blank}, etc.)
+- A text editor of your choice ([VS Code](https://code.visualstudio.com/), [Sublime Text](https://www.sublimetext.com/), etc.)
 - Basic understanding of programming concepts
-- Familiarity with the Solidity programming language syntax. For further references, check the official [Solidity documentation](https://docs.soliditylang.org/en/latest/){target=\_blank}
+- Familiarity with the Solidity programming language syntax. For further references, check the official [Solidity documentation](https://docs.soliditylang.org/en/latest/)
 
 ## Understanding Smart Contract Structure
 
 Let's explore these components before building the contract:
 
-- [**SPDX license identifier**](https://docs.soliditylang.org/en/v0.6.8/layout-of-source-files.html){target=\_blank} - a standardized way to declare the license under which your code is released. This helps with legal compliance and is required by the Solidity compiler to avoid warnings
+- [**SPDX license identifier**](https://docs.soliditylang.org/en/v0.6.8/layout-of-source-files.html) - a standardized way to declare the license under which your code is released. This helps with legal compliance and is required by the Solidity compiler to avoid warnings
 - **Pragma directive** - specifies which version of Solidity compiler should be used for your contract
 - **Contract declaration** - similar to a class in object-oriented programming, it defines the boundaries of your smart contract
 - **State variables** - data stored directly in the contract that persists between function calls. These represent the contract's "state" on the blockchain
@@ -53,7 +53,7 @@ To build the smart contract, follow the steps below:
     // SPDX-License-Identifier: MIT
     ```
 
-    This line tells users and tools which license governs your code. The [MIT license](https://opensource.org/license/mit){target=\_blank} is commonly used for open-source projects. The Solidity compiler requires this line to avoid licensing-related warnings.
+    This line tells users and tools which license governs your code. The [MIT license](https://opensource.org/license/mit) is commonly used for open-source projects. The Solidity compiler requires this line to avoid licensing-related warnings.
 
 3. Specify the Solidity version:
 
@@ -133,7 +133,7 @@ Let's break down the key components of the contract:
 
 This basic contract serves as a foundation for learning smart contract development. Real-world contracts often require additional security considerations, more complex logic, and thorough testing before deployment.
 
-For more detailed information about Solidity types, functions, and best practices, refer to the [Solidity documentation](https://docs.soliditylang.org/en/latest/){target=\_blank} or this [beginner's guide to Solidity](https://www.tutorialspoint.com/solidity/index.htm){target=\_blank}.
+For more detailed information about Solidity types, functions, and best practices, refer to the [Solidity documentation](https://docs.soliditylang.org/en/latest/) or this [beginner's guide to Solidity](https://www.tutorialspoint.com/solidity/index.htm).
 
 ## Where to Go Next
 

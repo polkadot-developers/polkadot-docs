@@ -11,7 +11,7 @@ description: Explore how to connect to Polkadot Hub, configure your wallet, and 
     <a href="#" class="md-button connectMetaMask" value="passetHub">Connect to Polkadot Hub TestNet</a>
 </div>
 
-For more information about how to connect to Polkadot Hub, please check the [Wallets for Polkadot Hub](/develop/smart-contracts/wallets/){target=\_blank} guide.
+For more information about how to connect to Polkadot Hub, please check the [Wallets for Polkadot Hub](/develop/smart-contracts/wallets/) guide.
 
 ## Networks Details
 
@@ -57,7 +57,7 @@ Developers can leverage smart contracts across diverse networks, from TestNets t
 
 You will need testnet tokens to perform transactions and engage with smart contracts on any chain. Here's how to obtain Paseo (PAS) tokens for testing purposes:
 
-1. Navigate to the [Polkadot Faucet](https://faucet.polkadot.io/?parachain=1111){target=\_blank}. If the desired network is not already selected, choose it from the Network drop-down
+1. Navigate to the [Polkadot Faucet](https://faucet.polkadot.io/?parachain=1111). If the desired network is not already selected, choose it from the Network drop-down
 
 2. Copy your address linked to the TestNet and paste it into the designated field
 

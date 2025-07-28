@@ -11,24 +11,24 @@ Cryptography forms the backbone of blockchain technology, providing the mathemat
 
 ## Hash Functions
 
-Hash functions are fundamental to blockchain technology, creating a unique digital fingerprint for any piece of data, including simple text, images, or any other form of file. They map input data of any size to a fixed-size output (typically 32 bytes) using complex mathematical operations. Hashing is used to verify data integrity, create digital signatures, and provide a secure way to store passwords. This form of mapping is known as the ["pigeonhole principle,"](https://en.wikipedia.org/wiki/Pigeonhole_principle){target=\_blank} it is primarily implemented to efficiently and verifiably identify data from large sets.
+Hash functions are fundamental to blockchain technology, creating a unique digital fingerprint for any piece of data, including simple text, images, or any other form of file. They map input data of any size to a fixed-size output (typically 32 bytes) using complex mathematical operations. Hashing is used to verify data integrity, create digital signatures, and provide a secure way to store passwords. This form of mapping is known as the ["pigeonhole principle,"](https://en.wikipedia.org/wiki/Pigeonhole_principle) it is primarily implemented to efficiently and verifiably identify data from large sets.
 
 ### Key Properties of Hash Functions
 
 - **Deterministic** - the same input always produces the same output
 - **Quick computation** - it's easy to calculate the hash value for any given input
 - **Pre-image resistance** - it's infeasible to generate the input data from its hash
-- **Small changes in input yield large changes in output** - known as the ["avalanche effect"](https://en.wikipedia.org/wiki/Avalanche_effect){target=\_blank}
+- **Small changes in input yield large changes in output** - known as the ["avalanche effect"](https://en.wikipedia.org/wiki/Avalanche_effect)
 - **Collision resistance** - the probabilities are extremely low to find two different inputs with the same hash
 
 ### Blake2
 
 The Polkadot SDK utilizes Blake2, a state-of-the-art hashing method that offers:
 
-- Equal or greater security compared to [SHA-2](https://en.wikipedia.org/wiki/SHA-2){target=\_blank}
+- Equal or greater security compared to [SHA-2](https://en.wikipedia.org/wiki/SHA-2)
 - Significantly faster performance than other algorithms
 
-These properties make Blake2 ideal for blockchain systems, reducing sync times for new nodes and lowering the resources required for validation. For detailed technical specifications about Blake2, see the [official Blake2 paper](https://www.blake2.net/blake2.pdf){target=\_blank}.
+These properties make Blake2 ideal for blockchain systems, reducing sync times for new nodes and lowering the resources required for validation. For detailed technical specifications about Blake2, see the [official Blake2 paper](https://www.blake2.net/blake2.pdf).
 
 ## Types of Cryptography
 
@@ -80,7 +80,7 @@ Signing digital signatures only requires a low-level understanding of mathematic
 
 Unlike pen-and-paper signatures, knowledge of a digital signature cannot be used to create other signatures. Digital signatures are often used in bureaucratic processes, as they are more secure than simply scanning in a signature and pasting it onto a document.
 
-Polkadot SDK provides multiple different cryptographic schemes and is generic so that it can support anything that implements the [`Pair` trait](https://paritytech.github.io/polkadot-sdk/master/sp_core/crypto/trait.Pair.html){target=\_blank}.
+Polkadot SDK provides multiple different cryptographic schemes and is generic so that it can support anything that implements the [`Pair` trait](https://paritytech.github.io/polkadot-sdk/master/sp_core/crypto/trait.Pair.html).
 
 ### Example of Creating a Digital Signature
 
@@ -101,15 +101,15 @@ Blockchain technology requires the ability to have multiple keys creating a sign
 Schnorr signatures bring some noticeable features over the ECDSA/EdDSA schemes:
 
 - It is better for hierarchical deterministic key derivations
-- It allows for native multi-signature through [signature aggregation](https://bitcoincore.org/en/2017/03/23/schnorr-signature-aggregation/){target=\_blank}
+- It allows for native multi-signature through [signature aggregation](https://bitcoincore.org/en/2017/03/23/schnorr-signature-aggregation/)
 - It is generally more resistant to misuse
 
 One sacrifice that is made when using Schnorr signatures over ECDSA is that both require 64 bytes, but only ECDSA signatures communicate their public key.
 
 ### Various Implementations
 
-- [ECDSA](https://en.wikipedia.org/wiki/Elliptic_Curve_Digital_Signature_Algorithm){target=\_blank} - Polkadot SDK provides an ECDSA signature scheme using the [secp256k1](https://en.bitcoin.it/wiki/Secp256k1){target=\_blank} curve. This is the same cryptographic algorithm used to secure [Bitcoin](https://en.wikipedia.org/wiki/Bitcoin){target=\_blank} and [Ethereum](https://en.wikipedia.org/wiki/Ethereum){target=\_blank}
+- [ECDSA](https://en.wikipedia.org/wiki/Elliptic_Curve_Digital_Signature_Algorithm) - Polkadot SDK provides an ECDSA signature scheme using the [secp256k1](https://en.bitcoin.it/wiki/Secp256k1) curve. This is the same cryptographic algorithm used to secure [Bitcoin](https://en.wikipedia.org/wiki/Bitcoin) and [Ethereum](https://en.wikipedia.org/wiki/Ethereum)
 
-- [Ed25519](https://en.wikipedia.org/wiki/EdDSA#Ed25519){target=\_blank} - is an EdDSA signature scheme using [Curve25519](https://en.wikipedia.org/wiki/Curve25519){target=\_blank}. It is carefully engineered at several levels of design and implementation to achieve very high speeds without compromising security
+- [Ed25519](https://en.wikipedia.org/wiki/EdDSA#Ed25519) - is an EdDSA signature scheme using [Curve25519](https://en.wikipedia.org/wiki/Curve25519). It is carefully engineered at several levels of design and implementation to achieve very high speeds without compromising security
 
-- [SR25519](https://research.web3.foundation/Polkadot/security/keys/accounts-more){target=\_blank} - is based on the same underlying curve as Ed25519. However, it uses Schnorr signatures instead of the EdDSA scheme
+- [SR25519](https://research.web3.foundation/Polkadot/security/keys/accounts-more) - is based on the same underlying curve as Ed25519. However, it uses Schnorr signatures instead of the EdDSA scheme

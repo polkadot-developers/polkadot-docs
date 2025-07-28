@@ -11,10 +11,10 @@ description: Explore the Asset Transfer API Reference for comprehensive details 
 
     ---
 
-    Learn how to install [`asset-transfer-api`](https://github.com/paritytech/asset-transfer-api){target=\_blank} into a new or existing project.
+    Learn how to install [`asset-transfer-api`](https://github.com/paritytech/asset-transfer-api) into a new or existing project.
 
     <br>
-    [:octicons-arrow-right-24: Get started](/develop/toolkit/interoperability/asset-transfer-api/overview/#install-asset-transfer-api){target=\_blank}
+    [:octicons-arrow-right-24: Get started](/develop/toolkit/interoperability/asset-transfer-api/overview/#install-asset-transfer-api)
 
 -   :octicons-code-16:{ .lg .middle } __Dive in with a tutorial__
 
@@ -32,7 +32,7 @@ description: Explore the Asset Transfer API Reference for comprehensive details 
 
 Holds open an API connection to a specified chain within the `ApiPromise` to help construct transactions for assets and estimate fees.
 
-For a more in-depth explanation of the Asset Transfer API class structure, check the [source code](https://github.com/paritytech/asset-transfer-api/blob/{{dependencies.repositories.asset_transfer_api.version}}/src/AssetTransferApi.ts#L128){target=\_blank}.
+For a more in-depth explanation of the Asset Transfer API class structure, check the [source code](https://github.com/paritytech/asset-transfer-api/blob/{{dependencies.repositories.asset_transfer_api.version}}/src/AssetTransferApi.ts#L128).
 
 ### Methods
 
@@ -214,9 +214,9 @@ Fetch estimated fee information for an extrinsic.
 
         The `ConstructedFormat` type is a conditional type that returns a specific type based on the value of the TxResult `format` field.
 
-        - **Payload format** - if the format field is set to `'payload'`, the `ConstructedFormat` type will return a [`GenericExtrinsicPayload`](https://github.com/polkadot-js/api/blob/{{ dependencies.javascript_packages.asset_transfer_api.polkadot_js_api_version}}/packages/types/src/extrinsic/ExtrinsicPayload.ts#L87){target=\_blank}
+        - **Payload format** - if the format field is set to `'payload'`, the `ConstructedFormat` type will return a [`GenericExtrinsicPayload`](https://github.com/polkadot-js/api/blob/{{ dependencies.javascript_packages.asset_transfer_api.polkadot_js_api_version}}/packages/types/src/extrinsic/ExtrinsicPayload.ts#L87)
         - Call format - if the format field is set to `'call'`, the `ConstructedFormat` type will return a hexadecimal string (`0x${string}`). This is the encoded representation of the extrinsic call
-        - **Submittable format** - if the format field is set to `'submittable'`, the `ConstructedFormat` type will return a [`SubmittableExtrinsic`](https://github.com/polkadot-js/api/blob/{{dependencies.javascript_packages.asset_transfer_api.polkadot_js_api_version}}/packages/api-base/src/types/submittable.ts#L56){target=\_blank}. This is a Polkadot.js type that represents a transaction that can be submitted to the blockchain
+        - **Submittable format** - if the format field is set to `'submittable'`, the `ConstructedFormat` type will return a [`SubmittableExtrinsic`](https://github.com/polkadot-js/api/blob/{{dependencies.javascript_packages.asset_transfer_api.polkadot_js_api_version}}/packages/api-base/src/types/submittable.ts#L56). This is a Polkadot.js type that represents a transaction that can be submitted to the blockchain
 
     ---
 
@@ -246,7 +246,7 @@ Fetch estimated fee information for an extrinsic.
         }
         ```
 
-        For more information on the underlying types and fields of `RuntimeDispatchInfo`, check the [`RuntimeDispatchInfo`](https://github.com/polkadot-js/api/blob/{{ dependencies.javascript_packages.asset_transfer_api.polkadot_js_api_version}}/packages/types/src/interfaces/payment/types.ts#L21){target=\_blank} source code.
+        For more information on the underlying types and fields of `RuntimeDispatchInfo`, check the [`RuntimeDispatchInfo`](https://github.com/polkadot-js/api/blob/{{ dependencies.javascript_packages.asset_transfer_api.polkadot_js_api_version}}/packages/types/src/interfaces/payment/types.ts#L21) source code.
 
 
     ??? child "Type `RuntimeDispatchInfoV1`"
@@ -259,7 +259,7 @@ Fetch estimated fee information for an extrinsic.
         }
         ```
 
-        For more information on the underlying types and fields of `RuntimeDispatchInfoV1`, check the [`RuntimeDispatchInfoV1`](https://github.com/polkadot-js/api/blob/{{dependencies.javascript_packages.asset_transfer_api.polkadot_js_api_version}}/packages/types/src/interfaces/payment/types.ts#L28){target=\_blank} source code.
+        For more information on the underlying types and fields of `RuntimeDispatchInfoV1`, check the [`RuntimeDispatchInfoV1`](https://github.com/polkadot-js/api/blob/{{dependencies.javascript_packages.asset_transfer_api.polkadot_js_api_version}}/packages/types/src/interfaces/payment/types.ts#L28) source code.
 
 ??? interface "Example"
 

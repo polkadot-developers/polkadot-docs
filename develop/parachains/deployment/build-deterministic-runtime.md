@@ -13,24 +13,24 @@ Working with builds that aren't guaranteed to be deterministically reproducible 
 
 ## Prerequisites
 
-Before you begin, ensure you have [Docker](https://www.docker.com/get-started/){target=\_blank} installed.
+Before you begin, ensure you have [Docker](https://www.docker.com/get-started/) installed.
 
 ## Tooling for Wasm Runtime
 
-To compile the Wasm runtime deterministically, the same tooling that produces the runtime for Polkadot, Kusama, and other Polkadot SDK-based chains can be used. This tooling, referred to collectively as the Substrate Runtime Toolbox or [`srtool`](https://github.com/paritytech/srtool){target=\_blank}, ensures that the same source code consistently compiles to an identical Wasm blob.
+To compile the Wasm runtime deterministically, the same tooling that produces the runtime for Polkadot, Kusama, and other Polkadot SDK-based chains can be used. This tooling, referred to collectively as the Substrate Runtime Toolbox or [`srtool`](https://github.com/paritytech/srtool), ensures that the same source code consistently compiles to an identical Wasm blob.
 
 The core component of `srtool` is a Docker container executed as part of a Docker image. The name of the `srtool` Docker image specifies the version of the Rust compiler used to compile the code included in the image. For example, the image `{{dependencies.repositories.srtool.docker_image_name}}:{{dependencies.repositories.srtool.docker_image_version}}` indicates that the code in the image was compiled with version `{{dependencies.repositories.srtool.docker_image_version}}` of the `rustc` compiler.
 
 ## Working with the Docker Container
 
-The [`srtool-cli`](https://github.com/chevdor/srtool-cli){target=\_blank} package is a command-line utility written in Rust that installs an executable program called `srtool`. This program simplifies the interactions with the `srtool` Docker container.
+The [`srtool-cli`](https://github.com/chevdor/srtool-cli) package is a command-line utility written in Rust that installs an executable program called `srtool`. This program simplifies the interactions with the `srtool` Docker container.
 
 Over time, the tooling around the `srtool` Docker image has expanded to include the following tools and helper programs:
 
-- [**`srtool-cli`**](https://github.com/chevdor/srtool-cli){target=\_blank} - provides a command-line interface to pull the srtool Docker image, get information about the image and tooling used to interact with it, and build the runtime using the `srtool` Docker container
-- [**`subwasm`**](https://github.com/chevdor/subwasm){target=\_blank} - provides command-line options for working with the metadata and Wasm runtime built using srtool. The `subwasm` program is also used internally to perform tasks in the `srtool` image
-- [**`srtool-actions`**](https://github.com/chevdor/srtool-actions){target=\_blank} - provides GitHub actions to integrate builds produced using the `srtool` image with your GitHub CI/CD pipelines
-- [**`srtool-app`**](https://gitlab.com/chevdor/srtool-app){target=\_blank} - provides a simple graphical user interface for building the runtime using the `srtool` Docker image
+- [**`srtool-cli`**](https://github.com/chevdor/srtool-cli) - provides a command-line interface to pull the srtool Docker image, get information about the image and tooling used to interact with it, and build the runtime using the `srtool` Docker container
+- [**`subwasm`**](https://github.com/chevdor/subwasm) - provides command-line options for working with the metadata and Wasm runtime built using srtool. The `subwasm` program is also used internally to perform tasks in the `srtool` image
+- [**`srtool-actions`**](https://github.com/chevdor/srtool-actions) - provides GitHub actions to integrate builds produced using the `srtool` image with your GitHub CI/CD pipelines
+- [**`srtool-app`**](https://gitlab.com/chevdor/srtool-app) - provides a simple graphical user interface for building the runtime using the `srtool` Docker image
 
 ## Prepare the Environment
 
@@ -96,7 +96,7 @@ To add a GitHub workflow for building the runtime:
 
 1. Create a `.github/workflows` directory in the chain's directory
 2. In the `.github/workflows` directory, click **Add file**, then select **Create new file**
-3. Copy the sample GitHub action from `basic.yml` example in the [`srtools-actions`](https://github.com/chevdor/srtool-actions){target=\_blank} repository and paste it into the file you created in the previous step
+3. Copy the sample GitHub action from `basic.yml` example in the [`srtools-actions`](https://github.com/chevdor/srtool-actions) repository and paste it into the file you created in the previous step
 
     ??? interface "`basic.yml`"
 
@@ -116,7 +116,7 @@ To add a GitHub workflow for building the runtime:
 
 ## Use the srtool Image via Docker Hub
 
-If utilizing [`srtool-cli`](https://github.com/chevdor/srtool-cli){target=\_blank} or [`srtool-app`](https://gitlab.com/chevdor/srtool-app){target=\_blank} isn't an option, the `paritytech/srtool` container image can be used directly via Docker Hub.
+If utilizing [`srtool-cli`](https://github.com/chevdor/srtool-cli) or [`srtool-app`](https://gitlab.com/chevdor/srtool-app) isn't an option, the `paritytech/srtool` container image can be used directly via Docker Hub.
 
 To pull the image from Docker Hub:
 

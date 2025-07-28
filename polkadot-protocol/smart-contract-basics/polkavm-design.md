@@ -13,7 +13,7 @@ The Asset Hub smart contracts solution includes multiple components to ensure Et
 
 ## PolkaVM
 
-[**PolkaVM**](https://github.com/paritytech/polkavm){target=\_blank} is a custom virtual machine optimized for performance with [RISC-V-based](https://en.wikipedia.org/wiki/RISC-V){target=\_blank} architecture, supporting Solidity and additional high-performance languages. It serves as the core execution environment, integrated directly within the runtime. It features:
+[**PolkaVM**](https://github.com/paritytech/polkavm) is a custom virtual machine optimized for performance with [RISC-V-based](https://en.wikipedia.org/wiki/RISC-V) architecture, supporting Solidity and additional high-performance languages. It serves as the core execution environment, integrated directly within the runtime. It features:
 
 - An efficient interpreter for immediate code execution
 - A planned JIT compiler for optimized performance
@@ -28,7 +28,7 @@ The smart contract solution consists of the following key components that work t
 
 ### Pallet Revive
 
-[**`pallet_revive`**](https://paritytech.github.io/polkadot-sdk/master/pallet_revive/index.html){target=\_blank} is a runtime module that executes smart contracts by adding extrinsics, runtime APIs, and logic to convert Ethereum-style transactions into formats compatible with Polkadot SDK-based blockchains. It processes Ethereum-style transactions through the following workflow:
+[**`pallet_revive`**](https://paritytech.github.io/polkadot-sdk/master/pallet_revive/index.html) is a runtime module that executes smart contracts by adding extrinsics, runtime APIs, and logic to convert Ethereum-style transactions into formats compatible with Polkadot SDK-based blockchains. It processes Ethereum-style transactions through the following workflow:
 
 ```mermaid
 sequenceDiagram
@@ -104,7 +104,7 @@ flowchart LR
 
 The compilation process integrates several specialized components:
 
-1. **Solc** - the standard Ethereum Solidity compiler that translates Solidity source code to [YUL IR](https://docs.soliditylang.org/en/latest/yul.html){target=\_blank}
-2. **Revive Compiler** - takes YUL IR and transforms it to [LLVM IR](https://llvm.org/){target=\_blank}
+1. **Solc** - the standard Ethereum Solidity compiler that translates Solidity source code to [YUL IR](https://docs.soliditylang.org/en/latest/yul.html)
+2. **Revive Compiler** - takes YUL IR and transforms it to [LLVM IR](https://llvm.org/)
 3. **LLVM** - a compiler infrastructure that optimizes the code and generates RISC-V ELF objects
 4. **PVM linker** - links the RISC-V ELF object into a final PolkaVM blob with metadata

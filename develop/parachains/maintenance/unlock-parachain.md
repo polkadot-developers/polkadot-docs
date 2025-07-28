@@ -21,13 +21,13 @@ Similarly, unlocking a parachain follows controlled procedures:
 - Relay chain governance retains the authority to unlock any parachain
 - A parachain can unlock its own lock
 
-This document guides you through checking a parachain's lock status and safely executing the unlock procedure from a parachain using [XCM (Cross-Consensus Messaging)](/develop/interoperability/intro-to-xcm/){target=\_blank}.
+This document guides you through checking a parachain's lock status and safely executing the unlock procedure from a parachain using [XCM (Cross-Consensus Messaging)](/develop/interoperability/intro-to-xcm/).
 
 ## Check If the Parachain Is Locked
 
 Before unlocking a parachain, you should verify its current lock status. This can be done through the Polkadot.js interface:
 
-1. In [Polkadot.js Apps](https://polkadot.js.org/apps/#/explorer){target=\_blank}, connect to the relay chain, navigate to the **Developer** dropdown and select the **Chain State** option
+1. In [Polkadot.js Apps](https://polkadot.js.org/apps/#/explorer), connect to the relay chain, navigate to the **Developer** dropdown and select the **Chain State** option
 
 2. Query the parachain locked status:
     1. Select **`registrar`**
@@ -53,7 +53,7 @@ This guide demonstrates the unlocking process using a parachain with the sudo pa
 
 Before sending the XCM, you need to construct the relay chain call that will be executed. Follow these steps to prepare the `registrar.removeLock` extrinsic:
 
-1. In [Polkadot.js Apps](https://polkadot.js.org/apps/#/explorer){target=\_blank}, connect to the relay chain, navigate to the **Developer** dropdown and select the **Extrinsics** option
+1. In [Polkadot.js Apps](https://polkadot.js.org/apps/#/explorer), connect to the relay chain, navigate to the **Developer** dropdown and select the **Extrinsics** option
 
 2. Build the `registrar.removeLock` extrinsic
     1. Select the **registrar** pallet
@@ -63,7 +63,7 @@ Before sending the XCM, you need to construct the relay chain call that will be 
 
     ![](/images/develop/parachains/maintenance/unlock-parachain/unlock-parachain-2.webp)
 
-    To ensure your encoded call data is correct, check this [example](https://polkadot.js.org/apps/?rpc=wss%3A%2F%2Fdot-rpc.stakeworld.io#/extrinsics/decode/0x4604d6070000){target=\_blank} of a decoded `removeLock` call for parachain 2006. Your encoded data should follow the same pattern.
+    To ensure your encoded call data is correct, check this [example](https://polkadot.js.org/apps/?rpc=wss%3A%2F%2Fdot-rpc.stakeworld.io#/extrinsics/decode/0x4604d6070000) of a decoded `removeLock` call for parachain 2006. Your encoded data should follow the same pattern.
 
 3. Determine the transaction weight required for executing the call. You can estimate this by executing the `transactionPaymentCallApi.queryCallInfo` runtime call with the encoded call data previously obtained:
 
@@ -73,7 +73,7 @@ Before sending the XCM, you need to construct the relay chain call that will be 
 
 ### Fund the Sovereign Account
 
-For a successful XCM execution, the [sovereign account](https://github.com/polkadot-fellows/xcm-format/blob/10726875bd3016c5e528c85ed6e82415e4b847d7/README.md?plain=1#L50){target=\_blank} of your parachain on the relay chain must have sufficient funds to cover transaction fees. The sovereign account is a deterministic address derived from your parachain ID.
+For a successful XCM execution, the [sovereign account](https://github.com/polkadot-fellows/xcm-format/blob/10726875bd3016c5e528c85ed6e82415e4b847d7/README.md?plain=1#L50) of your parachain on the relay chain must have sufficient funds to cover transaction fees. The sovereign account is a deterministic address derived from your parachain ID.
 
 You can identify your parachain's sovereign account using either of these methods:
 
@@ -85,14 +85,14 @@ You can identify your parachain's sovereign account using either of these method
 
 === "Substrate Utilities"
 
-    Use the **"Para ID" to Address** section in [Substrate Utilities](https://www.shawntabrizi.com/substrate-js-utilities/){target=\_blank} with the **Child** option selected.
+    Use the **"Para ID" to Address** section in [Substrate Utilities](https://www.shawntabrizi.com/substrate-js-utilities/) with the **Child** option selected.
 
 === "Manual Calculation"
     1. Identify the appropriate prefix:
 
         - For parent/child chains use the prefix `0x70617261` (which decodes to `b"para"`)
          
-    2. Encode your parachain ID as a u32 [SCALE](/polkadot-protocol/parachain-basics/data-encoding#data-types){target=\_blank} value:
+    2. Encode your parachain ID as a u32 [SCALE](/polkadot-protocol/parachain-basics/data-encoding#data-types) value:
 
         - For parachain 2006, this would be `d6070000`
 
@@ -101,7 +101,7 @@ You can identify your parachain's sovereign account using either of these method
         - **Hex** - `0x70617261d6070000000000000000000000000000000000000000000000000000`
         - **SS58 format** - `5Ec4AhPW97z4ZyYkd3mYkJrSeZWcwVv4wiANES2QrJi1x17F`
 
-You can transfer funds to this account from any account on the relay chain using a standard transfer. To calculate the amount needed, refer to the [XCM Payment API](/develop/interoperability/xcm-runtime-apis/#xcm-payment-api){target=\_blank}. The calculation will depend on the XCM built in the next step.
+You can transfer funds to this account from any account on the relay chain using a standard transfer. To calculate the amount needed, refer to the [XCM Payment API](/develop/interoperability/xcm-runtime-apis/#xcm-payment-api). The calculation will depend on the XCM built in the next step.
 
 ### Craft and Submit the XCM
 
@@ -114,7 +114,7 @@ With the call data prepared and the sovereign account funded, you can now constr
 
 Here's how to submit this XCM using Astar (Parachain 2006) as an example:
 
-1. In [Polkadot.js Apps](https://polkadot.js.org/apps/#/explorer){target=\_blank}, connect to the parachain, navigate to the **Developer** dropdown and select the **Extrinsics** option
+1. In [Polkadot.js Apps](https://polkadot.js.org/apps/#/explorer), connect to the parachain, navigate to the **Developer** dropdown and select the **Extrinsics** option
 
 2. Create a `sudo.sudo` extrinsic that executes `polkadotXcm.send`:
     1. Use the `sudo.sudo` extrinsic to execute the following call as Root

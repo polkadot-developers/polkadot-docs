@@ -16,7 +16,7 @@ This guide will walk you through setting up a Polkadot bootnode, configuring P2P
 Before you start, you need to have the following prerequisites:
 
 - Verify a working Polkadot (`polkadot`) binary is available on your machine
-- Ensure you have nginx installed. Please refer to the [Installation Guide](https://nginx.org/en/docs/install.html){target=\_blank} for help with installation if needed
+- Ensure you have nginx installed. Please refer to the [Installation Guide](https://nginx.org/en/docs/install.html) for help with installation if needed
 - A VPS or other dedicated server setup
 
 ## Accessing the Bootnode

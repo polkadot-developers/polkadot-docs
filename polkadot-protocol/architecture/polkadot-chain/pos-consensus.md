@@ -7,11 +7,11 @@ description: Explore Polkadot's consensus protocols for secure, scalable, and de
 
 ## Introduction
 
-Polkadot's Proof of Stake consensus model leverages a unique hybrid approach by design to promote decentralized and secure network operations. In traditional Proof of Stake (PoS) systems, a node's ability to validate transactions is tied to its token holdings, which can lead to centralization risks and limited validator participation. Polkadot addresses these concerns through its [Nominated Proof of Stake (NPoS)](/polkadot-protocol/glossary/#nominated-proof-of-stake-npos){target=\_blank} model and a combination of advanced consensus mechanisms to ensure efficient block production and strong finality guarantees. This combination enables the Polkadot network to scale while maintaining security and decentralization.
+Polkadot's Proof of Stake consensus model leverages a unique hybrid approach by design to promote decentralized and secure network operations. In traditional Proof of Stake (PoS) systems, a node's ability to validate transactions is tied to its token holdings, which can lead to centralization risks and limited validator participation. Polkadot addresses these concerns through its [Nominated Proof of Stake (NPoS)](/polkadot-protocol/glossary/#nominated-proof-of-stake-npos) model and a combination of advanced consensus mechanisms to ensure efficient block production and strong finality guarantees. This combination enables the Polkadot network to scale while maintaining security and decentralization.
 
 ## Nominated Proof of Stake
 
-Polkadot uses Nominated Proof of Stake (NPoS) to select the validator set and secure the network. This model is designed to maximize decentralization and security by balancing the roles of [validators](https://wiki.polkadot.network/learn/learn-validator/){target=\_blank} and [nominators](https://wiki.polkadot.network/learn/learn-nominator/){target=\_blank}.
+Polkadot uses Nominated Proof of Stake (NPoS) to select the validator set and secure the network. This model is designed to maximize decentralization and security by balancing the roles of [validators](https://wiki.polkadot.network/learn/learn-validator/) and [nominators](https://wiki.polkadot.network/learn/learn-nominator/).
 
 - **Validators** - play a key role in maintaining the network's integrity. They produce new blocks, validate parachain blocks, and ensure the finality of transactions across the relay chain
 - **Nominators** - support the network by selecting validators to back with their stake. This mechanism allows users who don't want to run a validator node to still participate in securing the network and earn rewards based on the validators they support
@@ -32,13 +32,13 @@ By using separate protocols for block production and finality, Polkadot can achi
 
 ## Block Production - BABE
 
-Blind Assignment for Blockchain Extension (BABE) is Polkadot's block production mechanism, working with GRANDPA to ensure blocks are produced consistently across the network. As validators participate in BABE, they are assigned block production slots through a randomness-based lottery system. This helps determine which validator is responsible for producing a block at a given time. BABE shares similarities with [Ouroboros Praos](https://eprint.iacr.org/2017/573.pdf){target=\_blank} but differs in key aspects like chain selection rules and slot timing.
+Blind Assignment for Blockchain Extension (BABE) is Polkadot's block production mechanism, working with GRANDPA to ensure blocks are produced consistently across the network. As validators participate in BABE, they are assigned block production slots through a randomness-based lottery system. This helps determine which validator is responsible for producing a block at a given time. BABE shares similarities with [Ouroboros Praos](https://eprint.iacr.org/2017/573.pdf) but differs in key aspects like chain selection rules and slot timing.
 
 Key features of BABE include:
 
 - **Epochs and slots** - BABE operates in phases called epochs, each of which is divided into slots (around 6 seconds per slot). Validators are assigned slots at the beginning of each epoch based on stake and randomness
 
-- **Randomized block production** - validators enter a lottery to determine which will produce a block in a specific slot. This randomness is sourced from the relay chain's [randomness cycle](/polkadot-protocol/parachain-basics/randomness/){target=\_blank}
+- **Randomized block production** - validators enter a lottery to determine which will produce a block in a specific slot. This randomness is sourced from the relay chain's [randomness cycle](/polkadot-protocol/parachain-basics/randomness/)
 
 - **Multiple block producers per slot** - in some cases, more than one validator might win the lottery for the same slot, resulting in multiple blocks being produced. These blocks are broadcasted, and the network's fork choice rule helps decide which chain to follow
 
@@ -54,15 +54,15 @@ There are two lottery outcomes for any given slot that initiate additional proce
 
 - **Multiple validators in a slot** - due to the randomness, multiple validators can be selected to produce a block for the same slot. When this happens, each validator produces a block and broadcasts it to the network resulting in a race condition. The network's topology and latency then determine which block reaches the majority of nodes first. BABE allows both chains to continue building until the finalization process resolves which one becomes canonical. The [Fork Choice](#fork-choice) rule is then used to decide which chain the network should follow
 
-- **No validators in a slot** - on occasions when no validator is selected by the lottery, a [secondary validator selection algorithm](https://spec.polkadot.network/sect-block-production#defn-babe-secondary-slots){target=\_blank} steps in. This backup ensures that a block is still produced, preventing skipped slots. However, if the primary block produced by a verifiable random function [(VRF)-selected](/polkadot-protocol/parachain-basics/randomness/#vrf){target=\_blank} validator exists for that slot, the secondary block will be ignored. As a result, every slot will have either a primary or a secondary block
+- **No validators in a slot** - on occasions when no validator is selected by the lottery, a [secondary validator selection algorithm](https://spec.polkadot.network/sect-block-production#defn-babe-secondary-slots) steps in. This backup ensures that a block is still produced, preventing skipped slots. However, if the primary block produced by a verifiable random function [(VRF)-selected](/polkadot-protocol/parachain-basics/randomness/#vrf) validator exists for that slot, the secondary block will be ignored. As a result, every slot will have either a primary or a secondary block
 
 This design ensures continuous block production, even in cases of multiple competing validators or an absence of selected validators.
 
 ### Additional Resources
 
-For further technical insights about BABE, including cryptographic details and formal proofs, see the [BABE paper](https://research.web3.foundation/Polkadot/protocols/block-production/Babe){target=\_blank} from Web3 Foundation.
+For further technical insights about BABE, including cryptographic details and formal proofs, see the [BABE paper](https://research.web3.foundation/Polkadot/protocols/block-production/Babe) from Web3 Foundation.
 
-For BABE technical definitions, constants, and formulas, see the [Block Production Lottery](https://spec.polkadot.network/sect-block-production#sect-block-production-lottery){target=\_blank} section of the Polkadot Protocol Specification.
+For BABE technical definitions, constants, and formulas, see the [Block Production Lottery](https://spec.polkadot.network/sect-block-production#sect-block-production-lottery) section of the Polkadot Protocol Specification.
 
 ## Finality Gadget - GRANDPA
 
@@ -87,12 +87,12 @@ Conversely, GRANDPA provides provable finality, which means that once a block is
 
 ### Additional Resources
 
-For technical insights, including formal proofs and detailed algorithms, see the [GRANDPA paper](https://github.com/w3f/consensus/blob/master/pdf/grandpa.pdf){target=\_blank} from Web3 Foundation.
+For technical insights, including formal proofs and detailed algorithms, see the [GRANDPA paper](https://github.com/w3f/consensus/blob/master/pdf/grandpa.pdf) from Web3 Foundation.
 
 For a deeper look at the code behind GRANDPA, see the following GitHub repositories:
 
-- [GRANDPA Rust implementation](https://github.com/paritytech/finality-grandpa){target=\_blank}
-- [GRANDPA Pallet](https://github.com/paritytech/polkadot-sdk/blob/{{dependencies.repositories.polkadot_sdk.version}}/substrate/frame/grandpa/src/lib.rs){target=\_blank}
+- [GRANDPA Rust implementation](https://github.com/paritytech/finality-grandpa)
+- [GRANDPA Pallet](https://github.com/paritytech/polkadot-sdk/blob/{{dependencies.repositories.polkadot_sdk.version}}/substrate/frame/grandpa/src/lib.rs)
 
 ## Fork Choice
 
@@ -107,9 +107,9 @@ In the preceding diagram, finalized blocks are black, and non-finalized blocks a
 
 ### Additional Resources
 
-To learn more about how BABE and GRANDPA work together to produce and finalize blocks on Kusama, see this [Block Production and Finalization in Polkadot](https://youtu.be/FiEAnVECa8c){target=\_blank} talk from Web3 Foundation's Bill Laboon. 
+To learn more about how BABE and GRANDPA work together to produce and finalize blocks on Kusama, see this [Block Production and Finalization in Polkadot](https://youtu.be/FiEAnVECa8c) talk from Web3 Foundation's Bill Laboon. 
 
-For an in-depth academic discussion about Polkadot's hybrid consensus model, see this [Block Production and Finalization in Polkadot: Understanding the BABE and GRANDPA Protocols](https://www.youtube.com/watch?v=1CuTSluL7v4&t=4s){target=\_blank} MIT Cryptoeconomic Systems 2020 talk by Web3 Foundation's Bill Laboon.
+For an in-depth academic discussion about Polkadot's hybrid consensus model, see this [Block Production and Finalization in Polkadot: Understanding the BABE and GRANDPA Protocols](https://www.youtube.com/watch?v=1CuTSluL7v4&t=4s) MIT Cryptoeconomic Systems 2020 talk by Web3 Foundation's Bill Laboon.
 
 ## Bridging - BEEFY
 
@@ -124,7 +124,7 @@ Key features of BEEFY include:
 
 ### Additional Resources
 
-For BEEFY technical definitions, constants, and formulas, see the [Bridge design (BEEFY)](https://spec.polkadot.network/sect-finality#sect-grandpa-beefy){target=\_blank} section of the Polkadot Protocol Specification.
+For BEEFY technical definitions, constants, and formulas, see the [Bridge design (BEEFY)](https://spec.polkadot.network/sect-finality#sect-grandpa-beefy) section of the Polkadot Protocol Specification.
  
 
 

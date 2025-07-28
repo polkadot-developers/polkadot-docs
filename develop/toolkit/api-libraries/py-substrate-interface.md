@@ -7,7 +7,7 @@ description: Learn how to connect to Polkadot SDK-based nodes, query data, submi
 
 ## Introduction
 
-The [Python Substrate Interface](https://github.com/polkascan/py-substrate-interface){target=\_blank} is a powerful library that enables interaction with Polkadot SDK-based chains. It provides essential functionality for:
+The [Python Substrate Interface](https://github.com/polkascan/py-substrate-interface) is a powerful library that enables interaction with Polkadot SDK-based chains. It provides essential functionality for:
 
 - Querying on-chain storage
 - Composing and submitting extrinsics
@@ -23,7 +23,7 @@ Install the library using `pip`:
 pip install substrate-interface
 ```
 
-For more installation details, see the [Installation](https://jamdottech.github.io/py-polkadot-sdk/getting-started/installation/){target=\_blank} section in the official Python Substrate Interface documentation.
+For more installation details, see the [Installation](https://jamdottech.github.io/py-polkadot-sdk/getting-started/installation/) section in the official Python Substrate Interface documentation.
 
 ## Get Started
 
@@ -64,7 +64,7 @@ Here's how to create and submit a balance transfer:
 --8<-- 'code/develop/toolkit/api-libraries/py-substrate-interface/send_tx.py'
 ```
 
-The `keypair` object is essential for signing transactions. See the [Keypair](https://jamdottech.github.io/py-polkadot-sdk/reference/keypair/){target=\_blank} documentation for more details.
+The `keypair` object is essential for signing transactions. See the [Keypair](https://jamdottech.github.io/py-polkadot-sdk/reference/keypair/) documentation for more details.
 
 ## Where to Go Next
 
@@ -74,4 +74,4 @@ Now that you understand the basics, you can:
 - Learn about batch transactions and utility functions
 - Discover how to work with custom pallets and types
 
-For comprehensive reference materials and advanced features, see the [Python Substrate Interface](https://jamdottech.github.io/py-polkadot-sdk/){target=\_blank} documentation.
+For comprehensive reference materials and advanced features, see the [Python Substrate Interface](https://jamdottech.github.io/py-polkadot-sdk/) documentation.

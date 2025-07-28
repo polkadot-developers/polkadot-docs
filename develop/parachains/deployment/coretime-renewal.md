@@ -17,7 +17,7 @@ The bulk sale process consists of three distinct phases:
 2. **Lead-in phase** - following the interlude phase, a new `start_price` is set, and a Dutch auction begins, lasting for `leadin_length` blocks. During this phase, prices experience downward pressure as the system aims to find market equilibrium. The final price at the end of this phase becomes the `regular_price`, which will be used in the subsequent fixed price phase
 3. **Fixed price phase** - the final phase where remaining cores are sold at the `regular_price` established during the lead-in phase. This provides a stable and predictable pricing environment for participants who did not purchase during the price discovery period
 
-For more comprehensive information about the coretime sales process, refer to the [Coretime Sales](https://wiki.polkadot.network/learn/learn-agile-coretime/#coretime-sales){target=\_blank} section in the Polkadot Wiki.
+For more comprehensive information about the coretime sales process, refer to the [Coretime Sales](https://wiki.polkadot.network/learn/learn-agile-coretime/#coretime-sales) section in the Polkadot Wiki.
 
 ## Renewal Timing
 
@@ -28,11 +28,11 @@ Your renewal must be completed during bulk sale #2, ideally during its interlude
 
 ## Manual Renewal
 
-Cores can be renewed by issuing the [`broker.renew(core)`](https://paritytech.github.io/polkadot-sdk/master/pallet_broker/pallet/struct.Pallet.html#method.renew){target=\_blank} extrinsic during the coretime sale period. While this process is straightforward, it requires manual action that must not be overlooked. Failure to complete this renewal step before all available cores are sold could result in your parachain being unable to secure a core for the next operational period.
+Cores can be renewed by issuing the [`broker.renew(core)`](https://paritytech.github.io/polkadot-sdk/master/pallet_broker/pallet/struct.Pallet.html#method.renew) extrinsic during the coretime sale period. While this process is straightforward, it requires manual action that must not be overlooked. Failure to complete this renewal step before all available cores are sold could result in your parachain being unable to secure a core for the next operational period.
 
 To manually renew a core:
 
-1. In [Polkadot.js Apps](https://polkadot.js.org/apps/#/explorer){target=\_blank}, connect to the Coretime chain, navigate to the **Developer** dropdown, and select the **Extrinsics** option
+1. In [Polkadot.js Apps](https://polkadot.js.org/apps/#/explorer), connect to the Coretime chain, navigate to the **Developer** dropdown, and select the **Extrinsics** option
 
     ![](/images/develop/parachains/deployment/coretime-renewal/coretime-renewal-1.webp)
 
@@ -53,7 +53,7 @@ The coretime auto-renewal feature simplifies maintaining continuous coretime all
 When auto-renewal is enabled, the system follows this process at the start of each sale:
 
 1. The system scans all registered auto-renewal records
-2. For each record, it attempts to process renewal payments from the task's [sovereign account](/polkadot-protocol/glossary/#sovereign-account){target=\_blank} (which is the sibling account on the Coretime chain derived from the parachain ID)
+2. For each record, it attempts to process renewal payments from the task's [sovereign account](/polkadot-protocol/glossary/#sovereign-account) (which is the sibling account on the Coretime chain derived from the parachain ID)
 3. Upon successful payment, the system emits a `Renewed` event and secures the core for the next period
 4. If payment fails due to insufficient funds or other issues, the system emits an `AutoRenewalFailed` event
 
@@ -65,15 +65,15 @@ To enable auto-renewal for your parachain, you must configure several components
 
 A Horizontal Relay-routed Message Passing (HRMP) channel must be opened between your parachain and the Coretime system chain before configuring auto-renewal. 
 
-For instructions on establishing this connection, consult the [Opening HRMP Channels with System Parachains](/tutorials/interoperability/xcm-channels/para-to-system/){target=\_blank} guide.
+For instructions on establishing this connection, consult the [Opening HRMP Channels with System Parachains](/tutorials/interoperability/xcm-channels/para-to-system/) guide.
 
 ### Fund Sovereign Account
 
-The [sovereign account](https://github.com/polkadot-fellows/xcm-format/blob/10726875bd3016c5e528c85ed6e82415e4b847d7/README.md?plain=1#L50){target=\_blank} of your parachain on the Coretime chain needs adequate funding to cover both XCM transaction fees and the recurring coretime renewal payments.
+The [sovereign account](https://github.com/polkadot-fellows/xcm-format/blob/10726875bd3016c5e528c85ed6e82415e4b847d7/README.md?plain=1#L50) of your parachain on the Coretime chain needs adequate funding to cover both XCM transaction fees and the recurring coretime renewal payments.
 
 To determine your parachain's sovereign account address, you can:
 
-- Use the **"Para ID" to Address** section in [Substrate Utilities](https://www.shawntabrizi.com/substrate-js-utilities/){target=\_blank} with the **Sibling** option selected
+- Use the **"Para ID" to Address** section in [Substrate Utilities](https://www.shawntabrizi.com/substrate-js-utilities/) with the **Sibling** option selected
 
 - Calculate it manually:
 
@@ -81,7 +81,7 @@ To determine your parachain's sovereign account address, you can:
 
         - For sibling chains - `0x7369626c` (decodes to `b"sibl"`)
          
-    2. Encode your parachain ID as a u32 [SCALE](/polkadot-protocol/parachain-basics/data-encoding#data-types){target=\_blank} value:
+    2. Encode your parachain ID as a u32 [SCALE](/polkadot-protocol/parachain-basics/data-encoding#data-types) value:
 
         - For parachain 2000, this would be `d0070000`
 
@@ -94,7 +94,7 @@ To determine your parachain's sovereign account address, you can:
 
 The Coretime chain provides two primary extrinsics for managing the auto-renewal functionality:
 
-- [**`enable_auto_renew(core, task, workload_end_hint)`**](https://paritytech.github.io/polkadot-sdk/master/pallet_broker/pallet/struct.Pallet.html#method.enable_auto_renew){target=\_blank} - use this extrinsic to activate automatic renewals for a specific core. This transaction must originate from the sovereign account of the parachain task
+- [**`enable_auto_renew(core, task, workload_end_hint)`**](https://paritytech.github.io/polkadot-sdk/master/pallet_broker/pallet/struct.Pallet.html#method.enable_auto_renew) - use this extrinsic to activate automatic renewals for a specific core. This transaction must originate from the sovereign account of the parachain task
 
     **Parameters:**
 
@@ -108,7 +108,7 @@ The Coretime chain provides two primary extrinsics for managing the auto-renewal
 
         - If a lease is active, use the timeslice when the lease ends
 
-- [**`disable_auto_renew(core, task)`**](https://paritytech.github.io/polkadot-sdk/master/pallet_broker/pallet/struct.Pallet.html#method.disable_auto_renew){target=\_blank} - use this extrinsic to stop automatic renewals. This extrinsic also requires that the origin is the sovereign account of the parachain task
+- [**`disable_auto_renew(core, task)`**](https://paritytech.github.io/polkadot-sdk/master/pallet_broker/pallet/struct.Pallet.html#method.disable_auto_renew) - use this extrinsic to stop automatic renewals. This extrinsic also requires that the origin is the sovereign account of the parachain task
 
      **Parameters:**
 
@@ -190,7 +190,7 @@ To configure auto-renewal, you'll need to gather specific information for the `e
 
 Once you have these values, construct the extrinsic:
 
-1. In [Polkadot.js Apps](https://polkadot.js.org/apps/#/explorer){target=\_blank}, connect to the Coretime chain, navigate to the **Developer** dropdown, and select the **Extrinsics** option
+1. In [Polkadot.js Apps](https://polkadot.js.org/apps/#/explorer), connect to the Coretime chain, navigate to the **Developer** dropdown, and select the **Extrinsics** option
 
     ![](/images/develop/parachains/deployment/coretime-renewal/coretime-renewal-1.webp)
 
@@ -221,7 +221,7 @@ The XCM needs to execute these operations:
 
 Here's how to submit this XCM using Acala (Parachain 2000) as an example:
 
-1. In [Polkadot.js Apps](https://polkadot.js.org/apps/#/explorer){target=\_blank}, connect to your parachain, navigate to the **Developer** dropdown and select the **Extrinsics** option
+1. In [Polkadot.js Apps](https://polkadot.js.org/apps/#/explorer), connect to your parachain, navigate to the **Developer** dropdown and select the **Extrinsics** option
 
 2. Create a `sudo.sudo` extrinsic that executes `polkadotXcm.send`:
     1. Use the `sudo.sudo` extrinsic to execute the following call as Root

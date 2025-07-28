@@ -10,16 +10,16 @@ tutorial_badge: Intermediate
 
 ## Introduction
 
-After creating a smart contract, the next crucial steps are testing and deployment. Proper testing ensures your contract behaves as expected, while deployment makes your contract available on the blockchain. This tutorial will guide you through using Hardhat, a popular development environment, to test and deploy the `Storage.sol` contract you created in the [Create a Smart Contract](/tutorials/smart-contracts/launch-your-first-project/create-contracts/){target=\_blank} tutorial. For more information about Hardhat usage, check the [Hardhat guide](/develop/smart-contracts/dev-environments/hardhat/){target=\_blank}.
+After creating a smart contract, the next crucial steps are testing and deployment. Proper testing ensures your contract behaves as expected, while deployment makes your contract available on the blockchain. This tutorial will guide you through using Hardhat, a popular development environment, to test and deploy the `Storage.sol` contract you created in the [Create a Smart Contract](/tutorials/smart-contracts/launch-your-first-project/create-contracts/) tutorial. For more information about Hardhat usage, check the [Hardhat guide](/develop/smart-contracts/dev-environments/hardhat/).
 
 ## Prerequisites
 
 Before starting, make sure you have:
 
-- The [`Storage.sol` contract](/tutorials/smart-contracts/launch-your-first-project/create-contracts/#create-the-smart-contract){target=\_blank} created in the previous tutorial
-- [Node.js](https://nodejs.org/){target=\_blank} (v16.0.0 or later) and npm installed
+- The [`Storage.sol` contract](/tutorials/smart-contracts/launch-your-first-project/create-contracts/#create-the-smart-contract) created in the previous tutorial
+- [Node.js](https://nodejs.org/) (v16.0.0 or later) and npm installed
 - Basic understanding of JavaScript for writing tests
-- Some PAS test tokens to cover transaction fees (obtained from the [Polkadot faucet](https://faucet.polkadot.io/?parachain=1111){target=\_blank})
+- Some PAS test tokens to cover transaction fees (obtained from the [Polkadot faucet](https://faucet.polkadot.io/?parachain=1111))
 
 ## Setting Up the Development Environment
 
@@ -66,7 +66,7 @@ Let's start by setting up Hardhat for your Storage contract project:
 
     Ensure that `INSERT_PATH_TO_SUBSTRATE_NODE` and `INSERT_PATH_TO_ETH_RPC_ADAPTER` are replaced with the proper paths to the compiled binaries. 
 
-    If you need to build these binaries, follow the [Installation](/develop/smart-contracts/local-development-node#install-the-substrate-node-and-eth-rpc-adapter){target=\_blank} section on the Local Development Node page.
+    If you need to build these binaries, follow the [Installation](/develop/smart-contracts/local-development-node#install-the-substrate-node-and-eth-rpc-adapter) section on the Local Development Node page.
 
     The configuration also defines two network settings: 
 
@@ -81,7 +81,7 @@ Let's start by setting up Hardhat for your Storage contract project:
 
     Replace `INSERT_PRIVATE_KEY` with your actual private key. 
     
-    For further details on private key exportation, refer to the article [How to export an account's private key](https://support.metamask.io/configure/accounts/how-to-export-an-accounts-private-key/){target=\_blank}.
+    For further details on private key exportation, refer to the article [How to export an account's private key](https://support.metamask.io/configure/accounts/how-to-export-an-accounts-private-key/).
 
     !!! warning
         Keep your private key safe, and never share it with anyone. If it is compromised, your funds can be stolen.
@@ -108,7 +108,7 @@ After compilation, the `artifacts-pvm` and `cache-pvm` folders, containing the m
 
 ## Writing Tests
 
-Testing is a critical part of smart contract development. Hardhat makes it easy to write tests in JavaScript using frameworks like [Mocha](https://mochajs.org/){target=\_blank} and [Chai](https://www.chaijs.com/){target=\_blank}.
+Testing is a critical part of smart contract development. Hardhat makes it easy to write tests in JavaScript using frameworks like [Mocha](https://mochajs.org/) and [Chai](https://www.chaijs.com/).
 
 1. Create a folder for testing called `test`. Inside that directory, create a file named `Storage.js` and add the following code:
 
@@ -189,7 +189,7 @@ Testing is a critical part of smart contract development. Hardhat makes it easy 
 
 ## Deploying with Ignition
 
-[Hardhat's Ignition](https://hardhat.org/ignition/docs/getting-started#overview){target=\_blank} is a deployment system designed to make deployments predictable and manageable. Let's create a deployment script:
+[Hardhat's Ignition](https://hardhat.org/ignition/docs/getting-started#overview) is a deployment system designed to make deployments predictable and manageable. Let's create a deployment script:
 
 1. Create a new folder called`ignition/modules`. Add a new file named `StorageModule.js` with the following logic:
 

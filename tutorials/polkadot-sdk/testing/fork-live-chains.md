@@ -16,16 +16,16 @@ Chopsticks is an innovative tool that simplifies the process of forking live Pol
 
 With support for both configuration files and CLI commands, Chopsticks offers flexibility for diverse development workflows. Whether you're testing locally or exploring complex blockchain scenarios, Chopsticks empowers developers to gain deeper insights and accelerate application development.
 
-Chopsticks uses the [Smoldot](https://github.com/smol-dot/smoldot){target=\_blank} light client, which does not support calls made through the Ethereum JSON-RPC. As a result, you can't fork your chain using Chopsticks and then interact with it using tools like MetaMask.
+Chopsticks uses the [Smoldot](https://github.com/smol-dot/smoldot) light client, which does not support calls made through the Ethereum JSON-RPC. As a result, you can't fork your chain using Chopsticks and then interact with it using tools like MetaMask.
 
-For additional support and information, please reach out through [GitHub Issues](https://github.com/AcalaNetwork/chopsticks/issues){target=\_blank}.
+For additional support and information, please reach out through [GitHub Issues](https://github.com/AcalaNetwork/chopsticks/issues).
 
 ## Prerequisites
 
 To follow this tutorial, ensure you have completed the following:
 
-- **Installed Chopsticks** - if you still need to do so, see the [Install Chopsticks](/develop/toolkit/parachains/fork-chains/chopsticks/get-started/#install-chopsticks){target=\_blank} guide for assistance
-- **Reviewed** [**Configure Chopsticks**](/develop/toolkit/parachains/fork-chains/chopsticks/get-started/#configure-chopsticks){target=\_blank} - and understand how forked chains are configured
+- **Installed Chopsticks** - if you still need to do so, see the [Install Chopsticks](/develop/toolkit/parachains/fork-chains/chopsticks/get-started/#install-chopsticks) guide for assistance
+- **Reviewed** [**Configure Chopsticks**](/develop/toolkit/parachains/fork-chains/chopsticks/get-started/#configure-chopsticks) - and understand how forked chains are configured
 
 ## Configuration File 
 
@@ -54,7 +54,7 @@ Regardless of which method you choose from the preceding examples, you'll see an
 
 --8<-- 'code/tutorials/polkadot-sdk/testing/fork-live-chains/run-chopsticks-01.html'
 
-If using a file path, make sure you've downloaded the [Polkadot configuration file](https://github.com/AcalaNetwork/chopsticks/blob/master/configs/polkadot.yml){target=\_blank}, or have created your own.
+If using a file path, make sure you've downloaded the [Polkadot configuration file](https://github.com/AcalaNetwork/chopsticks/blob/master/configs/polkadot.yml), or have created your own.
 
 ## Create a Fork
 
@@ -78,11 +78,11 @@ ws://localhost:8000
 
 ## Interact with a Fork
 
-You can interact with the forked chain using various [libraries](/develop/toolkit/#libraries){target=\_blank} such as [Polkadot.js](https://polkadot.js.org/docs/){target=\_blank} and its user interface, [Polkadot.js Apps](https://polkadot.js.org/apps/#/explorer){target=\_blank}.
+You can interact with the forked chain using various [libraries](/develop/toolkit/#libraries) such as [Polkadot.js](https://polkadot.js.org/docs/) and its user interface, [Polkadot.js Apps](https://polkadot.js.org/apps/#/explorer).
 
 ### Use Polkadot.js Apps
 
-To interact with Chopsticks via the hosted user interface, visit [Polkadot.js Apps](https://polkadot.js.org/apps/#/explorer){target=\_blank} and follow these steps:
+To interact with Chopsticks via the hosted user interface, visit [Polkadot.js Apps](https://polkadot.js.org/apps/#/explorer) and follow these steps:
 
 1. Select the network icon in the top left corner
 
@@ -107,7 +107,7 @@ For programmatic interaction, you can use the Polkadot.js library. The following
 
 ## Replay Blocks
 
-Chopsticks allows you to replay specific blocks from a chain, which is useful for debugging and analyzing state changes. You can use the parameters in the [Configuration](/develop/toolkit/parachains/fork-chains/chopsticks/get-started/#configure-chopsticks){target=\_blank} section to set up the chain configuration, and then use the run-block subcommand with the following additional options:
+Chopsticks allows you to replay specific blocks from a chain, which is useful for debugging and analyzing state changes. You can use the parameters in the [Configuration](/develop/toolkit/parachains/fork-chains/chopsticks/get-started/#configure-chopsticks) section to set up the chain configuration, and then use the run-block subcommand with the following additional options:
 
 - `output-path` - path to print output
 - `html` - generate HTML with storage diff

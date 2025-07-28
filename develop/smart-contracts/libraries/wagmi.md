@@ -9,7 +9,7 @@ description: Learn how to use Wagmi React Hooks to fetch and interact with smart
 
 ## Introduction
 
-[Wagmi](https://wagmi.sh/){target=\_blank} is a collection of [React Hooks](https://wagmi.sh/react/api/hooks){target=\_blank} for interacting with Ethereum-compatible blockchains, focusing on developer experience, feature richness, and reliability.
+[Wagmi](https://wagmi.sh/) is a collection of [React Hooks](https://wagmi.sh/react/api/hooks) for interacting with Ethereum-compatible blockchains, focusing on developer experience, feature richness, and reliability.
 
 This guide demonstrates how to use Wagmi to interact with and deploy smart contracts to Polkadot Hub, providing a seamless frontend integration for your dApps.
 
@@ -48,7 +48,7 @@ Create a configuration file to initialize Wagmi with Polkadot Hub. In your proje
 
 ## Set Up the Wagmi Provider
 
-To enable Wagmi in your React application, you need to wrap your app with the [`WagmiProvider`](https://wagmi.sh/react/api/WagmiProvider#wagmiprovider){target=\_blank}. Update your `app/layout.tsx` file (for Next.js app router) with the following code:
+To enable Wagmi in your React application, you need to wrap your app with the [`WagmiProvider`](https://wagmi.sh/react/api/WagmiProvider#wagmiprovider). Update your `app/layout.tsx` file (for Next.js app router) with the following code:
 
 ```typescript title="app/layout.tsx"
 --8<-- 'code/develop/smart-contracts/libraries/wagmi/layout.tsx'
@@ -67,9 +67,9 @@ Create a component to connect wallets to your dApp. Create a file named `app/com
 
 This component uses the following React hooks:
 
-- [**`useConnect`**](https://wagmi.sh/react/api/hooks/useConnect#useconnect){target=\_blank} - provides functions and state for connecting the user's wallet to your dApp. The `connect` function initiates the connection flow with the specified connector
-- [**`useDisconnect`**](https://wagmi.sh/react/api/hooks/useDisconnect#usedisconnect){target=\_blank} - provides a function to disconnect the currently connected wallet
-- [**`useAccount`**](https://wagmi.sh/react/api/hooks/useAccount#useaccount){target=\_blank} - returns data about the connected account, including the address and connection status
+- [**`useConnect`**](https://wagmi.sh/react/api/hooks/useConnect#useconnect) - provides functions and state for connecting the user's wallet to your dApp. The `connect` function initiates the connection flow with the specified connector
+- [**`useDisconnect`**](https://wagmi.sh/react/api/hooks/useDisconnect#usedisconnect) - provides a function to disconnect the currently connected wallet
+- [**`useAccount`**](https://wagmi.sh/react/api/hooks/useAccount#useaccount) - returns data about the connected account, including the address and connection status
 
 ## Fetch Blockchain Data
 
@@ -81,8 +81,8 @@ Wagmi provides various hooks to fetch blockchain data. Here's an example compone
 
 This component uses the following React hooks:
 
-- [**`useBlockNumber`**](https://wagmi.sh/react/api/hooks/useBlockNumber#useBlockNumber){target=\_blank} - fetches the current block number of the connected chain. The `watch` parameter enables real-time updates when new blocks are mined
-- [**`useBalance`**](https://wagmi.sh/react/api/hooks/useBalance#useBalance){target=\_blank} - retrieves the native token balance for a specified address, including value, symbol, and decimals information
+- [**`useBlockNumber`**](https://wagmi.sh/react/api/hooks/useBlockNumber#useBlockNumber) - fetches the current block number of the connected chain. The `watch` parameter enables real-time updates when new blocks are mined
+- [**`useBalance`**](https://wagmi.sh/react/api/hooks/useBalance#useBalance) - retrieves the native token balance for a specified address, including value, symbol, and decimals information
 
 ## Interact with Deployed Contract
 
@@ -102,9 +102,9 @@ Create a component to interact with your deployed contract. Create a file named 
 
 This component demonstrates how to interact with a smart contract using Wagmi's hooks:
 
-- [**`useReadContract`**](https://wagmi.sh/react/api/hooks/useReadContract#useReadContract){target=\_blank} - calls a read-only function on your smart contract to retrieve data without modifying the blockchain state
-- [**`useWriteContract`**](https://wagmi.sh/react/api/hooks/useWriteContract#useWriteContract){target=\_blank} - calls a state-modifying function on your smart contract, which requires a transaction to be signed and sent
-- [**`useWaitForTransactionReceipt`**](https://wagmi.sh/react/api/hooks/useWaitForTransactionReceipt#useWaitForTransactionReceipt){target=\_blank} - tracks the status of a transaction after it's been submitted, allowing you to know when it's been confirmed
+- [**`useReadContract`**](https://wagmi.sh/react/api/hooks/useReadContract#useReadContract) - calls a read-only function on your smart contract to retrieve data without modifying the blockchain state
+- [**`useWriteContract`**](https://wagmi.sh/react/api/hooks/useWriteContract#useWriteContract) - calls a state-modifying function on your smart contract, which requires a transaction to be signed and sent
+- [**`useWaitForTransactionReceipt`**](https://wagmi.sh/react/api/hooks/useWaitForTransactionReceipt#useWaitForTransactionReceipt) - tracks the status of a transaction after it's been submitted, allowing you to know when it's been confirmed
 
 The component also includes proper state handling to:
 
@@ -135,9 +135,9 @@ Now that you have the foundational knowledge to use Wagmi with Polkadot Hub, con
     Explore Wagmi's advanced features:
 
     <ul class="card-list">
-    <li>[:octicons-arrow-right-24: Watch Contract Events](https://wagmi.sh/core/api/actions/watchContractEvent#eventname){target=\_blank}</li>
-    <li>[:octicons-arrow-right-24: Different Transports](https://wagmi.sh/react/api/transports){target=\_blank}</li>
-    <li>[:octicons-arrow-right-24: Actions](https://wagmi.sh/react/api/actions){target=\_blank}</li>
+    <li>[:octicons-arrow-right-24: Watch Contract Events](https://wagmi.sh/core/api/actions/watchContractEvent#eventname)</li>
+    <li>[:octicons-arrow-right-24: Different Transports](https://wagmi.sh/react/api/transports)</li>
+    <li>[:octicons-arrow-right-24: Actions](https://wagmi.sh/react/api/actions)</li>
     </ul>
 
 -   <span class="badge external">External</span> __Wallet Integration__
@@ -147,9 +147,9 @@ Now that you have the foundational knowledge to use Wagmi with Polkadot Hub, con
     Connect your dApp with popular wallet providers:
 
     <ul class="card-list">
-    <li>[:octicons-arrow-right-24: MetaMask](https://wagmi.sh/core/api/connectors/metaMask){target=\_blank}</li>
-    <li>[:octicons-arrow-right-24: WalletConnect](https://wagmi.sh/core/api/connectors/walletConnect){target=\_blank}</li>
-    <li>[:octicons-arrow-right-24: Coinbase Wallet](https://wagmi.sh/core/api/connectors/coinbaseWallet){target=\_blank}</li>
+    <li>[:octicons-arrow-right-24: MetaMask](https://wagmi.sh/core/api/connectors/metaMask)</li>
+    <li>[:octicons-arrow-right-24: WalletConnect](https://wagmi.sh/core/api/connectors/walletConnect)</li>
+    <li>[:octicons-arrow-right-24: Coinbase Wallet](https://wagmi.sh/core/api/connectors/coinbaseWallet)</li>
     </ul>
 
 -   <span class="badge external">External</span> __Testing & Development__
@@ -159,7 +159,7 @@ Now that you have the foundational knowledge to use Wagmi with Polkadot Hub, con
     Enhance your development workflow:
 
     <ul class="card-list">
-    <li>[:octicons-arrow-right-24: Test Suite](https://wagmi.sh/dev/contributing#_6-running-the-test-suite){target=\_blank}</li>
-    <li>[:octicons-arrow-right-24: Dev Playground](https://wagmi.sh/dev/contributing#_5-running-the-dev-playgrounds){target=\_blank}</li>
+    <li>[:octicons-arrow-right-24: Test Suite](https://wagmi.sh/dev/contributing#_6-running-the-test-suite)</li>
+    <li>[:octicons-arrow-right-24: Dev Playground](https://wagmi.sh/dev/contributing#_5-running-the-dev-playgrounds)</li>
     </ul>
 </div>

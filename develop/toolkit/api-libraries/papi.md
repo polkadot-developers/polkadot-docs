@@ -7,7 +7,7 @@ description: Polkadot-API (PAPI) is a modular, composable library set designed f
 
 ## Introduction
 
-[Polkadot-API](https://github.com/polkadot-api/polkadot-api){target=\_blank} (PAPI) is a set of libraries built to be modular, composable, and grounded in a “light-client first” approach. Its primary aim is to equip dApp developers with an extensive toolkit for building fully decentralized applications.
+[Polkadot-API](https://github.com/polkadot-api/polkadot-api) (PAPI) is a set of libraries built to be modular, composable, and grounded in a “light-client first” approach. Its primary aim is to equip dApp developers with an extensive toolkit for building fully decentralized applications.
 
 PAPI is optimized for light-client functionality, using the new JSON-RPC spec to support decentralized interactions fully. It provides strong TypeScript support with types and documentation generated directly from on-chain metadata, and it offers seamless access to storage reads, constants, transactions, events, and runtime calls. Developers can connect to multiple chains simultaneously and prepare for runtime updates through multi-descriptor generation and compatibility checks. PAPI is lightweight and performant, leveraging native BigInt, dynamic imports, and modular subpaths to avoid bundling unnecessary assets. It supports promise-based and observable-based APIs, integrates easily with Polkadot.js extensions, and offers signing options through browser extensions or private keys.
 
@@ -46,7 +46,7 @@ The `papi add` command initializes the library by generating the corresponding t
 npx papi
 ```
 
-You can now set up a [`PolkadotClient`](https://github.com/polkadot-api/polkadot-api/blob/main/packages/client/src/types.ts#L153){target=\_blank} with your chosen provider to begin interacting with the API. Choose from Smoldot via WebWorker, Node.js, or direct usage, or connect through the WSS provider. The examples below show how to configure each option for your setup.
+You can now set up a [`PolkadotClient`](https://github.com/polkadot-api/polkadot-api/blob/main/packages/client/src/types.ts#L153) with your chosen provider to begin interacting with the API. Choose from Smoldot via WebWorker, Node.js, or direct usage, or connect through the WSS provider. The examples below show how to configure each option for your setup.
 
 === "Smoldot (WebWorker)"
 
@@ -99,7 +99,7 @@ The `TypedApi` provides a streamlined way to read blockchain data through three 
     const metadata = await typedApi.apis.Metadata.metadata();
     ```
 
-To learn more about the different actions you can perform with the `TypedApi`, refer to the [TypedApi reference](https://papi.how/typed){target=\_blank}.
+To learn more about the different actions you can perform with the `TypedApi`, refer to the [TypedApi reference](https://papi.how/typed).
 
 ### Sending Transactions
 
@@ -133,8 +133,8 @@ In PAPI, the `TypedApi` provides the `tx` and `txFromCallData` methods to send t
     const tx: Transaction = typedApi.txFromCallData(callData);
     ```
 
-For more information about sending transactions, refer to the [Transactions](https://papi.how/typed/tx#transactions){target=\_blank} page.
+For more information about sending transactions, refer to the [Transactions](https://papi.how/typed/tx#transactions) page.
 
 ## Where to Go Next
 
-For an in-depth guide on how to use PAPI, refer to the official [PAPI](https://papi.how/){target=\_blank} documentation.
+For an in-depth guide on how to use PAPI, refer to the official [PAPI](https://papi.how/) documentation.

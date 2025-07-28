@@ -15,9 +15,9 @@ Connecting a compatible wallet is the first essential step for interacting with 
 
 ### MetaMask
 
-[MetaMask](https://metamask.io/){target=\_blank} is a popular wallet for interacting with Ethereum-compatible chains. It allows users to connect to test networks that support Ethereum-based smart contracts. However, it's important to emphasize that MetaMask primarily facilitates interactions with smart contracts, giving users access to various chain functionalities. 
+[MetaMask](https://metamask.io/) is a popular wallet for interacting with Ethereum-compatible chains. It allows users to connect to test networks that support Ethereum-based smart contracts. However, it's important to emphasize that MetaMask primarily facilitates interactions with smart contracts, giving users access to various chain functionalities. 
 
-To get started with MetaMask, you need to install the [MetaMask extension](https://metamask.io/download/){target=\_blank} and add it to the browser. Once you install MetaMask, you can set up a new wallet and securely store your seed phrase. This phrase is crucial for recovery in case you lose access.
+To get started with MetaMask, you need to install the [MetaMask extension](https://metamask.io/download/) and add it to the browser. Once you install MetaMask, you can set up a new wallet and securely store your seed phrase. This phrase is crucial for recovery in case you lose access.
 
 For example, to connect to the Polkadot Hub TestNet via MetaMask, you need to follow these steps:
 
@@ -29,7 +29,7 @@ For example, to connect to the Polkadot Hub TestNet via MetaMask, you need to fo
 
     ![](/images/develop/smart-contracts/wallets/wallets-2.webp){: .browser-extension}
 
-3. Complete the necessary fields, then click the **Save** button (refer to the [Networks](/develop/smart-contracts/connect-to-polkadot#networks-details){target=\_blank} section for copy and paste parameters).
+3. Complete the necessary fields, then click the **Save** button (refer to the [Networks](/develop/smart-contracts/connect-to-polkadot#networks-details) section for copy and paste parameters).
 
     ![](/images/develop/smart-contracts/wallets/wallets-3.webp){: .browser-extension}
 
@@ -41,9 +41,9 @@ The steps in the preceding section can be used to connect to any chain by modify
 
 ### SubWallet
 
-[SubWallet](https://www.subwallet.app/){target=\_blank} is a popular non-custodial wallet solution for Polkadot and Ethereum ecosystems. It offers seamless integration with Polkadot SDK-based networks while maintaining Ethereum compatibility, making the wallet an ideal choice for users and developers to interact with Polkadot Hub.
+[SubWallet](https://www.subwallet.app/) is a popular non-custodial wallet solution for Polkadot and Ethereum ecosystems. It offers seamless integration with Polkadot SDK-based networks while maintaining Ethereum compatibility, making the wallet an ideal choice for users and developers to interact with Polkadot Hub.
 
-SubWallet now fully supports the [Polkadot Hub TestNet](/polkadot-protocol/smart-contract-basics/networks/#test-networks){target=\_blank} where developers can deploy and interact with Ethereum-compatible, Solidity smart contracts.
+SubWallet now fully supports the [Polkadot Hub TestNet](/polkadot-protocol/smart-contract-basics/networks/#test-networks) where developers can deploy and interact with Ethereum-compatible, Solidity smart contracts.
 
 You can easily view and manage your Paseo native token (PAS) using the Ethereum RPC endpoint (Passet Hub EVM) or the Substrate node RPC endpoint (passet-hub).
 
@@ -56,7 +56,7 @@ You can easily view and manage your Paseo native token (PAS) using the Ethereum 
 
 To connect to Polkadot Hub TestNet using SubWallet, follow these steps:
 
-1. Install the [SubWallet browser extension](https://chromewebstore.google.com/detail/subwallet-polkadot-wallet/onhogfjeacnfoofkfgppdlbmlmnplgbn?hl=en){target=\_blank} and set up your wallet by following the on-screen instructions, or refer to our [step-by-step guide](https://docs.subwallet.app/main/extension-user-guide/getting-started/install-subwallet){target=\_blank} for assistance.
+1. Install the [SubWallet browser extension](https://chromewebstore.google.com/detail/subwallet-polkadot-wallet/onhogfjeacnfoofkfgppdlbmlmnplgbn?hl=en) and set up your wallet by following the on-screen instructions, or refer to our [step-by-step guide](https://docs.subwallet.app/main/extension-user-guide/getting-started/install-subwallet) for assistance.
 
 2. After setting up your wallet, click the List icon at the top left corner of the extension window to open **Settings**.
 
@@ -70,17 +70,17 @@ To connect to Polkadot Hub TestNet using SubWallet, follow these steps:
 
     ![](/images/develop/smart-contracts/wallets/subwallet-03.webp){: .browser-extension}
 
-   You are now ready to use SubWallet to interact with [Polkadot Hub TestNet](/develop/smart-contracts/connect-to-polkadot/#networks-details){target=\_blank} seamlessly!
+   You are now ready to use SubWallet to interact with [Polkadot Hub TestNet](/develop/smart-contracts/connect-to-polkadot/#networks-details) seamlessly!
 
 ![](/images/develop/smart-contracts/wallets/subwallet-04.webp){: .browser-extension}
 
 ### Talisman
 
-[Talisman](https://talisman.xyz/){target=\_blank} is a specialized wallet for the Polkadot ecosystem that supports both Substrate and EVM accounts, making it an excellent choice for Polkadot Hub interactions. Talisman offers a more integrated experience for Polkadot-based chains while still providing Ethereum compatibility.
+[Talisman](https://talisman.xyz/) is a specialized wallet for the Polkadot ecosystem that supports both Substrate and EVM accounts, making it an excellent choice for Polkadot Hub interactions. Talisman offers a more integrated experience for Polkadot-based chains while still providing Ethereum compatibility.
 
 To use Talisman with Polkadot Hub TestNet:
 
-1. Install the [Talisman extension](https://talisman.xyz/download){target=\_blank} and set up your wallet by following the on-screen instructions.
+1. Install the [Talisman extension](https://talisman.xyz/download) and set up your wallet by following the on-screen instructions.
 
 2. Once installed, click on the Talisman icon in your browser extensions and click on the **Settings** button:
 

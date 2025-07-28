@@ -8,11 +8,11 @@ description: Learn how to interact with Polkadot Hub using Web3.js, deploying So
 --8<-- 'text/smart-contracts/polkaVM-warning.md'
 
 !!! warning
-    Web3.js has been [sunset](https://blog.chainsafe.io/web3-js-sunset/){target=\_blank}. You can find guides on using [Ethers.js](/develop/smart-contracts/libraries/ethers-js){target=\_blank} and [viem](/develop/smart-contracts/libraries/viem){target=\_blank} in the [Libraries](/develop/smart-contracts/libraries/){target=\_blank} section. 
+    Web3.js has been [sunset](https://blog.chainsafe.io/web3-js-sunset/). You can find guides on using [Ethers.js](/develop/smart-contracts/libraries/ethers-js) and [viem](/develop/smart-contracts/libraries/viem) in the [Libraries](/develop/smart-contracts/libraries/) section. 
 
 ## Introduction
 
-Interacting with blockchains typically requires an interface between your application and the network. [Web3.js](https://web3js.readthedocs.io/){target=\_blank} offers this interface through a comprehensive collection of libraries, facilitating seamless interaction with the nodes using HTTP or WebSocket protocols. This guide illustrates how to utilize Web3.js specifically for interactions with Polkadot Hub.
+Interacting with blockchains typically requires an interface between your application and the network. [Web3.js](https://web3js.readthedocs.io/) offers this interface through a comprehensive collection of libraries, facilitating seamless interaction with the nodes using HTTP or WebSocket protocols. This guide illustrates how to utilize Web3.js specifically for interactions with Polkadot Hub.
 
 This guide is intended for developers who are familiar with JavaScript and want to interact with the Polkadot Hub using Web3.js.
 
@@ -20,7 +20,7 @@ This guide is intended for developers who are familiar with JavaScript and want 
 
 Before getting started, ensure you have the following installed:
 
-- **Node.js** - v22.13.1 or later, check the [Node.js installation guide](https://nodejs.org/en/download/current/){target=\_blank}
+- **Node.js** - v22.13.1 or later, check the [Node.js installation guide](https://nodejs.org/en/download/current/)
 - **npm** - v6.13.4 or later (comes bundled with Node.js)
 - **Solidity** - this guide uses Solidity `^0.8.9` for smart contract development
 
@@ -97,7 +97,7 @@ For instance, to fetch the latest block number of the chain, you can use the fol
 
 --8<-- 'text/smart-contracts/code-size.md'
 
-Polkadot Hub requires contracts to be compiled to [PolkaVM](/polkadot-protocol/smart-contract-basics/polkavm-design/){target=\_blank} bytecode. This is achieved using the [`revive`](https://github.com/paritytech/revive/tree/v0.2.0/js/resolc){target=\_blank} compiler. Install the [`@parity/resolc`](https://github.com/paritytech/revive){target=\_blank} library as a development dependency:
+Polkadot Hub requires contracts to be compiled to [PolkaVM](/polkadot-protocol/smart-contract-basics/polkavm-design/) bytecode. This is achieved using the [`revive`](https://github.com/paritytech/revive/tree/v0.2.0/js/resolc) compiler. Install the [`@parity/resolc`](https://github.com/paritytech/revive) library as a development dependency:
 
 ```bash
 npm install --save-dev @parity/resolc
@@ -133,7 +133,7 @@ To deploy your compiled contract to Polkadot Hub using Web3.js, you'll need an a
 --8<-- 'code/develop/smart-contracts/evm-toolkit/libraries/web3-js/deploy.js'
 ```
 
-For further details on private key exportation, refer to the article [How to export an account's private key](https://support.metamask.io/configure/accounts/how-to-export-an-accounts-private-key/){target=\_blank}.
+For further details on private key exportation, refer to the article [How to export an account's private key](https://support.metamask.io/configure/accounts/how-to-export-an-accounts-private-key/).
 
 To deploy your contract, run the following command:
 
@@ -159,5 +159,5 @@ node updateStorage
 
 Now that you’ve learned how to use Web3.js with Polkadot Hub, explore more advanced topics:
 
-- Utilize Web3.js utilities – learn about additional [Web3.js](https://docs.web3js.org/){target=\_blank} features such as signing transactions, managing wallets, and subscribing to events
-- Build full-stack dApps – [integrate Web3.js](https://docs.web3js.org/guides/dapps/intermediate-dapp){target=\_blank} with different libraries and frameworks to build decentralized web applications
+- Utilize Web3.js utilities – learn about additional [Web3.js](https://docs.web3js.org/) features such as signing transactions, managing wallets, and subscribing to events
+- Build full-stack dApps – [integrate Web3.js](https://docs.web3js.org/guides/dapps/intermediate-dapp) with different libraries and frameworks to build decentralized web applications

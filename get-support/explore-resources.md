@@ -14,21 +14,21 @@ Looking for answers beyond the documentation? These platforms are full of useful
 - Browse commonly asked technical questions.
 - Ask your own and get detailed responses from experienced devs.
 
-👉 **[Visit Polkadot Stack Exchange](https://substrate.stackexchange.com/){target=\_blank}**
+👉 **[Visit Polkadot Stack Exchange](https://substrate.stackexchange.com/)**
 
 ## 🧵 Reddit: r/Polkadot
 
 - General Polkadot discussions and community perspectives.
 - Developer questions are welcome — just tag them appropriately.
 
-👉 **[Visit r/Polkadot](https://www.reddit.com/r/Polkadot/){target=\_blank}**
+👉 **[Visit r/Polkadot](https://www.reddit.com/r/Polkadot/)**
 
 ## 💬 Discord (Community Threads Only)
 
 - Beyond the official support threads, most channels are community-driven.
 - Great place to connect with fellow builders and share insights.
 
-👉 **[Join the Polkadot Discord](https://polkadot-discord.w3f.tools/){target=\_blank}**
+👉 **[Join the Polkadot Discord](https://polkadot-discord.w3f.tools/)**
 
 ## 🎥 YouTube: @PolkadotNetwork
 
@@ -36,7 +36,7 @@ Looking for answers beyond the documentation? These platforms are full of useful
 - Ecosystem interviews
 - Event recordings and walkthroughs
 
-👉 **[Watch on YouTube](https://www.youtube.com/@PolkadotNetwork){target=\_blank}**
+👉 **[Watch on YouTube](https://www.youtube.com/@PolkadotNetwork)**
 
 ## Community-Led Platforms and Ecosystem Updates
 
@@ -44,29 +44,29 @@ Stay in sync with what's happening across the Polkadot ecosystem — from offici
 
 ### 🔷 X (Twitter): Official Accounts
 
-- [@PolkadotDevs](https://twitter.com/PolkadotDevs){target=\_blank}: Updates for developers
-- [@Polkadot](https://twitter.com/Polkadot){target=\_blank}: Network-wide news
-- [@Kusamanetwork](https://twitter.com/kusamanetwork){target=\_blank}: Kusama-specific updates
-- [@Web3Foundation](https://twitter.com/web3foundation){target=\_blank}: Grants, research, and ecosystem programs
+- [@PolkadotDevs](https://twitter.com/PolkadotDevs): Updates for developers
+- [@Polkadot](https://twitter.com/Polkadot): Network-wide news
+- [@Kusamanetwork](https://twitter.com/kusamanetwork): Kusama-specific updates
+- [@Web3Foundation](https://twitter.com/web3foundation): Grants, research, and ecosystem programs
 
 ### 🔁 X (Twitter): Community Accounts
 
-- [@PolkadotDeploy](https://twitter.com/PolkadotDeploy){target=\_blank}: News from the deployment portal and tooling updates
+- [@PolkadotDeploy](https://twitter.com/PolkadotDeploy): News from the deployment portal and tooling updates
 
 ### 🗣️ Polkadot Forum
 
 - Join community discussions around the direction of the ecosystem.
 
-👉 **[Visit the Polkadot Forum](https://forum.polkadot.network/){target=\_blank}**
+👉 **[Visit the Polkadot Forum](https://forum.polkadot.network/)**
 
 ### 🧑‍⚖️ Polkassembly: OpenGov
 
 - Explore and vote on governance proposals for Polkadot and Kusama.
 - Help shape the future of the network.
 
-👉 **[Explore on Polkassembly](https://polkadot.polkassembly.io/){target=\_blank}**
+👉 **[Explore on Polkassembly](https://polkadot.polkassembly.io/)**
 
 ### 📸 Instagram
 
-- **[@Polkadotnetwork](https://www.instagram.com/polkadotnetwork){target=\_blank}**: Visual highlights from the ecosystem
+- **[@Polkadotnetwork](https://www.instagram.com/polkadotnetwork)**: Visual highlights from the ecosystem
   _(Note: not developer-specific)_

@@ -33,11 +33,11 @@ Before obtaining coretime, ensure you have:
 1. Reserve a unique identifier, `ParaID`, for your parachain:
 
     1. Connect to the relay chain
-    2. Submit the [`registrar.reserve`](https://paritytech.github.io/polkadot-sdk/master/polkadot_runtime_common/paras_registrar/pallet/dispatchables/fn.reserve.html){target=\_blank} extrinsic
+    2. Submit the [`registrar.reserve`](https://paritytech.github.io/polkadot-sdk/master/polkadot_runtime_common/paras_registrar/pallet/dispatchables/fn.reserve.html) extrinsic
 
     Upon success, you'll receive a registered `ParaID`
 
-2. Register your parachain's essential information by submitting the [`registrar.register`](https://paritytech.github.io/polkadot-sdk/master/polkadot_runtime_common/paras_registrar/pallet/dispatchables/fn.register.html){target=\_blank} extrinsic with the following parameters:
+2. Register your parachain's essential information by submitting the [`registrar.register`](https://paritytech.github.io/polkadot-sdk/master/polkadot_runtime_common/paras_registrar/pallet/dispatchables/fn.register.html) extrinsic with the following parameters:
 
     - **`id`** - your reserved `ParaID`
     - **`genesisHead`** - your exported genesis state
@@ -52,7 +52,7 @@ Before obtaining coretime, ensure you have:
 Bulk coretime provides several advantages:
 
 - Monthly allocation of resources
-- Guaranteed block production slots (every 12 seconds, or 6 seconds with [Asynchronous Backing](https://wiki.polkadot.network/learn/learn-async-backing/#asynchronous-backing){target=\_blank})
+- Guaranteed block production slots (every 12 seconds, or 6 seconds with [Asynchronous Backing](https://wiki.polkadot.network/learn/learn-async-backing/#asynchronous-backing))
 - Priority renewal rights
 - Protection against price fluctuations
 - Ability to split and resell unused coretime
@@ -66,7 +66,7 @@ To purchase bulk coretime:
 
 After successfully obtaining coretime, your parachain will automatically start producing blocks at regular intervals.
 
-For current marketplaces and pricing, consult the [Coretime Marketplaces](https://wiki.polkadot.network/learn/learn-guides-coretime-marketplaces/){target=\_blank} page on the Polkadot Wiki.
+For current marketplaces and pricing, consult the [Coretime Marketplaces](https://wiki.polkadot.network/learn/learn-guides-coretime-marketplaces/) page on the Polkadot Wiki.
 
 ### On-demand Coretime
 

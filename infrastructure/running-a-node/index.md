@@ -28,7 +28,7 @@ The three main types of nodes are as follows:
 Each node type can be configured to provide remote access to blockchain data via RPC endpoints, allowing external clients, like dApps or developers, to submit transactions, query data, and interact with the blockchain remotely.
 
 !!!tip
-    On [Stakeworld](https://stakeworld.io/docs/dbsize){target=\_blank}, you can find a list of the database sizes of Polkadot and Kusama nodes.
+    On [Stakeworld](https://stakeworld.io/docs/dbsize), you can find a list of the database sizes of Polkadot and Kusama nodes.
 
 ### State vs. Block Pruning
 

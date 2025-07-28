@@ -21,7 +21,7 @@ A blockchain indexer is a specialized infrastructure tool that processes, organi
 - Continuously monitors the blockchain for new blocks and transactions
 - Processes and categorizes this data according to predefined schemas
 - Stores the processed data in an easily queryable database
-- Provides efficient APIs (typically [GraphQL](https://graphql.org/){target=\_blank}) for data retrieval
+- Provides efficient APIs (typically [GraphQL](https://graphql.org/)) for data retrieval
 
 ## Indexer Implementations
 
@@ -33,7 +33,7 @@ A blockchain indexer is a specialized infrastructure tool that processes, organi
 
     Subsquid is a data network that allows rapid and cost-efficient retrieval of blockchain data from 100+ chains using Subsquid's decentralized data lake and open-source SDK. In simple terms, Subsquid can be considered an ETL (extract, transform, and load) tool with a GraphQL server included. It enables comprehensive filtering, pagination, and even full-text search capabilities. Subsquid has native and full support for EVM and Substrate data, even within the same project.
 
-    [:octicons-arrow-right-24: Reference](https://www.sqd.ai/){target=\_blank}
+    [:octicons-arrow-right-24: Reference](https://www.sqd.ai/)
 
 -   __Subquery__
 
@@ -42,6 +42,6 @@ A blockchain indexer is a specialized infrastructure tool that processes, organi
     SubQuery is a fast, flexible, and reliable open-source data decentralised infrastructure network that provides both RPC and indexed data to consumers worldwide.
     It provides custom APIs for your web3 project across multiple supported chains.
 
-    [:octicons-arrow-right-24: Reference](https://subquery.network/){target=\_blank}
+    [:octicons-arrow-right-24: Reference](https://subquery.network/)
 
 </div>

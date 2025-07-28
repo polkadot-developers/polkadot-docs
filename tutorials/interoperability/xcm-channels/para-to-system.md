@@ -32,7 +32,7 @@ This guide demonstrates opening an HRMP channel between parachain 2500 and syste
 <!-- This content will be moved to a new page because it is used in multiple places -->
 The [sovereign account](https://github.com/polkadot-fellows/xcm-format/blob/10726875bd3016c5e528c85ed6e82415e4b847d7/README.md?plain=1#L50){target=_blank} for parachain 2500 on the relay chain must be funded so it can take care of any XCM transact fees.
 
-Use [Polkadot.js Apps](https://polkadot.js.org/apps/#/explorer){target=\_blank} UI to connect to the relay chain and transfer funds from your account to the parachain 2500 sovereign account.
+Use [Polkadot.js Apps](https://polkadot.js.org/apps/#/explorer) UI to connect to the relay chain and transfer funds from your account to the parachain 2500 sovereign account.
 
 ![](/images/tutorials/interoperability/xcm-channels/hrmp-channels-2.webp)
 
@@ -53,7 +53,7 @@ Use [Polkadot.js Apps](https://polkadot.js.org/apps/#/explorer){target=\_blank} 
         The sovereign account of parachain 2500 in relay chain will be `0x70617261c4090000000000000000000000000000000000000000000000000000`
         and the SS58 format of this address is `5Ec4AhPSY2GEE4VoHUVheqv5wwq2C1HMKa7c9fVJ1WKivX1Y`
     
-    To perform this conversion, you can also use the **"Para ID" to Address** section in [Substrate Utilities](https://www.shawntabrizi.com/substrate-js-utilities/){target=\_blank}.
+    To perform this conversion, you can also use the **"Para ID" to Address** section in [Substrate Utilities](https://www.shawntabrizi.com/substrate-js-utilities/).
 
 ### Create Establish Channel with System Extrinsic
 

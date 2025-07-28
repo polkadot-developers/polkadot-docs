@@ -8,11 +8,11 @@ tutorial_badge: Advanced
 
 ## Introduction
 
-Polkadot's [OpenGov](/polkadot-protocol/onchain-governance/overview){target=\_blank} is a sophisticated governance mechanism designed to allow the network to evolve gracefully over time, guided by its stakeholders. This system features multiple [tracks](https://wiki.polkadot.network/learn/learn-polkadot-opengov-origins/#origins-and-tracks-info){target=\_blank} for different types of proposals, each with parameters for approval, support, and confirmation period. While this flexibility is powerful, it also introduces complexity that can lead to failed proposals or unexpected outcomes.
+Polkadot's [OpenGov](/polkadot-protocol/onchain-governance/overview) is a sophisticated governance mechanism designed to allow the network to evolve gracefully over time, guided by its stakeholders. This system features multiple [tracks](https://wiki.polkadot.network/learn/learn-polkadot-opengov-origins/#origins-and-tracks-info) for different types of proposals, each with parameters for approval, support, and confirmation period. While this flexibility is powerful, it also introduces complexity that can lead to failed proposals or unexpected outcomes.
 
 Testing governance proposals before submission is crucial for the ecosystem. This process enhances efficiency by reducing the need for repeated submissions, improves security by identifying potential risks, and allows proposal optimization based on simulated outcomes. It also serves as an educational tool, providing stakeholders with a safe environment to understand the impacts of different voting scenarios. 
 
-By leveraging simulation tools like [Chopsticks](/develop/toolkit/parachains/fork-chains/chopsticks){target=\_blank}, developers can:
+By leveraging simulation tools like [Chopsticks](/develop/toolkit/parachains/fork-chains/chopsticks), developers can:
 
 - Simulate the entire lifecycle of a proposal
 - Test the voting outcomes by varying the support and approval levels
@@ -25,10 +25,10 @@ This tutorial will guide you through using Chopsticks to test OpenGov proposals 
 
 Before proceeding, ensure the following prerequisites are met:
 
-- **Chopsticks installation** - if you have not installed Chopsticks yet, refer to the [Install Chopsticks](/develop/toolkit/parachains/fork-chains/chopsticks/get-started/#install-chopsticks){target=\_blank} guide for detailed instructions
+- **Chopsticks installation** - if you have not installed Chopsticks yet, refer to the [Install Chopsticks](/develop/toolkit/parachains/fork-chains/chopsticks/get-started/#install-chopsticks) guide for detailed instructions
 - **Familiarity with key concepts** - you should have a basic understanding of the following:
-    - [Polkadot.js](/develop/toolkit/api-libraries/polkadot-js-api){target=\_blank} 
-    - [OpenGov](/polkadot-protocol/onchain-governance/overview){target=\_blank}
+    - [Polkadot.js](/develop/toolkit/api-libraries/polkadot-js-api) 
+    - [OpenGov](/polkadot-protocol/onchain-governance/overview)
 
 ## Set Up the Project
 
@@ -69,7 +69,7 @@ Follow these steps to set up your project:
 
 ## Submit and Execute a Proposal Using Chopsticks
 
-You should identify the right track and origin for your proposal. For example, select the appropriate treasury track based on the spending limits if you're requesting funds from the treasury. For more detailed information, refer to [Polkadot OpenGov Origins](https://wiki.polkadot.network/learn/learn-polkadot-opengov-origins/){target=\_blank}.
+You should identify the right track and origin for your proposal. For example, select the appropriate treasury track based on the spending limits if you're requesting funds from the treasury. For more detailed information, refer to [Polkadot OpenGov Origins](https://wiki.polkadot.network/learn/learn-polkadot-opengov-origins/).
 
 !!!note
     This tutorial will focus on the main steps and core logic within the main function. For clarity and conciseness, the implementation details of individual functions will be available in expandable tabs below each section. You'll find the complete code for reference at the end of the tutorial.
@@ -148,7 +148,7 @@ Now, you need to implement the following logic:
     ```
 
 3. Execute a batch transaction that comprises the following three operations:
-    1. **`preimage.notePreimage`** - registers a [preimage](/polkadot-protocol/glossary#preimage){target=\_blank} using the selected call
+    1. **`preimage.notePreimage`** - registers a [preimage](/polkadot-protocol/glossary#preimage) using the selected call
 
         !!!note
             The preimage hash is simply the hash of the proposal to be enacted. The on-chain proposals do not require the entire image of extrinsics and data (for instance, the Wasm code, in case of upgrades) to be submitted but would need that image's hash. That preimage can be submitted and stored on-chain against the hash later upon the proposal's dispatch.
@@ -183,7 +183,7 @@ Then, within the `main` function, define the specific call you want to execute a
 ```
 
 !!!note
-    The [`setCodeWithoutChecks`](https://paritytech.github.io/polkadot-sdk/master/frame_system/pallet/struct.Pallet.html#method.set_code_without_checks){target=\_blank} extrinsic used in this example is for demonstration purposes only. Replace it with the specific extrinsic that matches your governance proposal's intended functionality. Ensure the call matches your target Polkadot SDK-based network's runtime requirements and governance process.
+    The [`setCodeWithoutChecks`](https://paritytech.github.io/polkadot-sdk/master/frame_system/pallet/struct.Pallet.html#method.set_code_without_checks) extrinsic used in this example is for demonstration purposes only. Replace it with the specific extrinsic that matches your governance proposal's intended functionality. Ensure the call matches your target Polkadot SDK-based network's runtime requirements and governance process.
 
 ### Force Proposal Execution
 

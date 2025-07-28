@@ -21,11 +21,11 @@ Now that you're familiar with the different types of nodes, this section will wa
 
 Before getting started, ensure the following prerequisites are met:
 
-- Ensure [Rust](https://www.rust-lang.org/tools/install){target=\_blank} is installed on your operating system
-- [Install the necessary dependencies for the Polkadot SDK](/develop/parachains/install-polkadot-sdk/){target=\_blank}
+- Ensure [Rust](https://www.rust-lang.org/tools/install) is installed on your operating system
+- [Install the necessary dependencies for the Polkadot SDK](/develop/parachains/install-polkadot-sdk/)
 
 !!! warning
-    This setup is not recommended for validators. If you plan to run a validator, refer to the [Running a Validator](/infrastructure/running-a-validator/){target=\_blank} guide for proper instructions.
+    This setup is not recommended for validators. If you plan to run a validator, refer to the [Running a Validator](/infrastructure/running-a-validator/) guide for proper instructions.
 
 ### Install and Build the Polkadot Binary
 
@@ -69,7 +69,7 @@ This section will walk you through installing and building the Polkadot binary f
 
 ??? interface "Windows"
 
-    To get started, make sure that you have [WSL and Ubuntu](https://learn.microsoft.com/en-us/windows/wsl/install){target=\_blank} installed on your Windows machine.
+    To get started, make sure that you have [WSL and Ubuntu](https://learn.microsoft.com/en-us/windows/wsl/install) installed on your Windows machine.
 
     Once installed, you have a couple options for installing the Polkadot binary:
 
@@ -78,7 +78,7 @@ This section will walk you through installing and building the Polkadot binary f
 
 ??? interface "Linux (pre-built binary)"
 
-    To grab the [latest release of the Polkadot binary](https://github.com/paritytech/polkadot-sdk/releases){target=\_blank}, you can use `wget`:
+    To grab the [latest release of the Polkadot binary](https://github.com/paritytech/polkadot-sdk/releases), you can use `wget`:
 
     ```bash
     wget https://github.com/paritytech/polkadot-sdk/releases/download/polkadot-INSERT_VERSION/polkadot
@@ -137,7 +137,7 @@ This section will walk you through installing and building the Polkadot binary f
 
 ??? interface "Linux (snap package)"
 
-    Polkadot can be installed as a [snap package](https://snapcraft.io/polkadot){target=\_blank}. If you don't already have Snap installed, take the following steps to install it:
+    Polkadot can be installed as a [snap package](https://snapcraft.io/polkadot). If you don't already have Snap installed, take the following steps to install it:
 
     ```bash
     sudo apt update
@@ -184,7 +184,7 @@ This section will walk you through installing and building the Polkadot binary f
 
 ### Use Docker
 
-As an additional option, you can use Docker to run your node in a container. Doing this is more advanced, so it's best left up to those already familiar with Docker or who have completed the other set-up instructions in this guide. You can review the latest versions on [DockerHub](https://hub.docker.com/r/parity/polkadot/tags){target=\_blank}.
+As an additional option, you can use Docker to run your node in a container. Doing this is more advanced, so it's best left up to those already familiar with Docker or who have completed the other set-up instructions in this guide. You can review the latest versions on [DockerHub](https://hub.docker.com/r/parity/polkadot/tags).
 
 Be aware that when you run Polkadot in Docker, the process only listens on `localhost` by default. If you would like to connect to your node's services (RPC and Prometheus) you need to ensure that you run the node with the `--rpc-external`, and `--prometheus-external` commands.
 
@@ -204,7 +204,7 @@ Now that you've installed and built the Polkadot binary, the next step is to con
 
 Also, note that you can use the same binary for Polkadot as you would for Kusama or any other relay chain. You'll need to use the `--chain` flag to differentiate between chains.
 
-If you aren't sure which type of node to run, see the [Types of Full Nodes](/infrastructure/running-a-node/#types-of-nodes){target=\_blank} section.
+If you aren't sure which type of node to run, see the [Types of Full Nodes](/infrastructure/running-a-node/#types-of-nodes) section.
 
 The base commands for running a Polkadot node are as follows:
 
@@ -259,7 +259,7 @@ The node startup settings allow you to choose what to expose, how many connectio
 - You can set your maximum connections through `--rpc-max-connections`, for example, `--rpc-max-connections 200`
 - By default, localhost and Polkadot.js can access the RPC server. You can change this by setting `--rpc-cors`. To allow access from everywhere, you can use `--rpc-cors all`
 
-For a list of important flags when running RPC nodes, refer to the Parity DevOps documentation: [Important Flags for Running an RPC Node](https://paritytech.github.io/devops-guide/guides/rpc_index.html?#important-flags-for-running-an-rpc-node){target=\_blank}.
+For a list of important flags when running RPC nodes, refer to the Parity DevOps documentation: [Important Flags for Running an RPC Node](https://paritytech.github.io/devops-guide/guides/rpc_index.html?#important-flags-for-running-an-rpc-node).
 
 ## Sync Your Node
 
@@ -273,7 +273,7 @@ Congratulations, you're now syncing a Polkadot full node! Remember that the proc
 
 ### Connect to Your Node
 
-Open [Polkadot.js Apps](https://polkadot.js.org/apps/?rpc=ws%3A%2F%2F127.0.0.1%3A9944#/explorer){target=\_blank} and click the logo in the top left to switch the node. Activate the **Development** toggle and input your node's domain or IP address. The default WSS endpoint for a local node is:
+Open [Polkadot.js Apps](https://polkadot.js.org/apps/?rpc=ws%3A%2F%2F127.0.0.1%3A9944#/explorer) and click the logo in the top left to switch the node. Activate the **Development** toggle and input your node's domain or IP address. The default WSS endpoint for a local node is:
 
 ```bash
 ws://127.0.0.1:9944

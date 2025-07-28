@@ -7,7 +7,7 @@ description: Learn how to generate and manage validator keys, including session 
 
 ## Introduction
 
-After setting up your node environment as shown in the [Setup](/infrastructure/running-a-validator/onboarding-and-offboarding/set-up-validator){target=\_blank} section, you'll need to configure multiple keys for your validator to operate properly. This includes setting up session keys, which are essential for participating in the consensus process, and configuring a node key that maintains a stable network identity. This guide walks you through the key management process, showing you how to generate, store, and register these keys.
+After setting up your node environment as shown in the [Setup](/infrastructure/running-a-validator/onboarding-and-offboarding/set-up-validator) section, you'll need to configure multiple keys for your validator to operate properly. This includes setting up session keys, which are essential for participating in the consensus process, and configuring a node key that maintains a stable network identity. This guide walks you through the key management process, showing you how to generate, store, and register these keys.
 
 ## Set Session Keys
 
@@ -15,7 +15,7 @@ Setting up your validator's session keys is essential to associate your node wit
 
 ### Generate Session Keys
 
-There are multiple ways to create the session keys. It can be done by interacting with the [Polkadot.js Apps UI](https://polkadot.js.org/apps/#/explorer){target=\_blank}, using the curl command or by using [Subkey](https://paritytech.github.io/polkadot-sdk/master/subkey/index.html){target=\_blank}.
+There are multiple ways to create the session keys. It can be done by interacting with the [Polkadot.js Apps UI](https://polkadot.js.org/apps/#/explorer), using the curl command or by using [Subkey](https://paritytech.github.io/polkadot-sdk/master/subkey/index.html).
 
 === "Polkadot.js Apps UI"
 
@@ -87,7 +87,7 @@ To verify that your session keys are properly set, you can use one of two RPC ca
 - **`hasKey`** - checks if the node has a specific key by public key and key type
 - **`hasSessionKeys`** - verifies if your node has the full session key string associated with the validator
 
-For example, you can [check session keys on the Polkadot.js Apps](https://polkadot.js.org/apps/#/rpc){target=\_blank} interface or by running an RPC query against your node. Once this is done, your validator node is ready for its role.
+For example, you can [check session keys on the Polkadot.js Apps](https://polkadot.js.org/apps/#/rpc) interface or by running an RPC query against your node. Once this is done, your validator node is ready for its role.
 
 ## Set the Node Key
 
@@ -127,4 +127,4 @@ After generating the node key, configure your node to use it by specifying the p
 polkadot --node-key-file INSERT_PATH_TO_NODE_KEY
 ```
 
-Following these steps ensures that your node retains its identity, making it discoverable by peers without the risk of conflicting identities across sessions. For further technical background, see Polkadot SDK [Pull Request #3852](https://github.com/paritytech/polkadot-sdk/pull/3852){target=\_blank} for the rationale behind requiring static keys.
+Following these steps ensures that your node retains its identity, making it discoverable by peers without the risk of conflicting identities across sessions. For further technical background, see Polkadot SDK [Pull Request #3852](https://github.com/paritytech/polkadot-sdk/pull/3852) for the rationale behind requiring static keys.

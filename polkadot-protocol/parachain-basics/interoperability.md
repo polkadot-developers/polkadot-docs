@@ -38,7 +38,7 @@ Through XCM, decentralized applications can:
 - Enable seamless user experiences where underlying blockchain differences are invisible
 - XCM exemplifies Polkadot’s commitment to creating a robust and interoperable ecosystem
 
-For further information about XCM, check the [Introduction to XCM](/develop/interoperability/intro-to-xcm/){target=\_blank} article.
+For further information about XCM, check the [Introduction to XCM](/develop/interoperability/intro-to-xcm/) article.
 
 ### Bridges: Connecting External Networks
 
@@ -50,7 +50,7 @@ With bridges, developers and users gain the ability to:
 - Combine the strengths of Polkadot’s scalability with the liquidity of other networks
 - Facilitate accurate multi-chain applications that transcend ecosystem boundaries
 
-For more information about bridges in the Polkadot ecosystem, see the [Bridge Hub](/polkadot-protocol/architecture/system-chains/bridge-hub/){target=\_blank} guide.
+For more information about bridges in the Polkadot ecosystem, see the [Bridge Hub](/polkadot-protocol/architecture/system-chains/bridge-hub/) guide.
 
 ## The Polkadot Advantage
 

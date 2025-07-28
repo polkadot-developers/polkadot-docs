@@ -24,7 +24,7 @@ Before making any changes, ensure your blockchain node is running properly:
 polkadot-omni-node --chain ./chain_spec.json --dev
 ```
 
-Verify your chain is operational and note the runtime version state in Polkadot JS. For more details, check the [Interact with the Node](/tutorials/polkadot-sdk/parachains/zero-to-hero/set-up-a-template/#interact-with-the-node){target=\_blank}.
+Verify your chain is operational and note the runtime version state in Polkadot JS. For more details, check the [Interact with the Node](/tutorials/polkadot-sdk/parachains/zero-to-hero/set-up-a-template/#interact-with-the-node).
 
 ![](/images/tutorials/polkadot-sdk/parachains/zero-to-hero/runtime-upgrade/runtime-upgrade-01.webp)
 
@@ -145,7 +145,7 @@ version = "0.2.0" # <-- increment this version
 # ... rest of your Cargo.toml
 ```
 
-For more information about runtime versioning, check the [Runtime Upgrades](/develop/parachains/maintenance/runtime-upgrades#runtime-versioning){target=\_blank} guide.
+For more information about runtime versioning, check the [Runtime Upgrades](/develop/parachains/maintenance/runtime-upgrades#runtime-versioning) guide.
 
 ### Build the New Runtime
 
@@ -173,9 +173,9 @@ If you can see the following elements, it means that you are ready to submit the
 
 ## Submit the Runtime Upgrade
 
-You can submit a runtime upgrade using the [Sudo pallet](https://paritytech.github.io/polkadot-sdk/master/pallet_sudo/index.html){target=\_blank} (for development chains) or via on-chain governance (for production chains).
+You can submit a runtime upgrade using the [Sudo pallet](https://paritytech.github.io/polkadot-sdk/master/pallet_sudo/index.html) (for development chains) or via on-chain governance (for production chains).
 
-1. Open [Polkadot.js Apps](https://polkadot.js.org/apps/){target=\_blank} and connect to your node
+1. Open [Polkadot.js Apps](https://polkadot.js.org/apps/) and connect to your node
 2. Click on the **Developer** and select the **Extrinsics** option in the dropdown
 
     ![](/images/tutorials/polkadot-sdk/parachains/zero-to-hero/runtime-upgrade/runtime-upgrade-02.webp) 

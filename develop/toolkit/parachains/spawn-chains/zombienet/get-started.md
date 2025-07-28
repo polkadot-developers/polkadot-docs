@@ -15,14 +15,14 @@ By following this guide, Zombienet will be up and running quickly, ready to stre
 
 ## Install Zombienet
 
-Zombienet releases are available on the [Zombienet repository](https://github.com/paritytech/zombienet){target=\_blank}.
+Zombienet releases are available on the [Zombienet repository](https://github.com/paritytech/zombienet).
 
 Multiple options are available for installing Zombienet, depending on the user's preferences and the environment where it will be used. The following section will guide you through the installation process for each option.
 
 === "Use the executable"
-    Install Zombienet using executables by visiting the [latest release](https://github.com/paritytech/zombienet/releases){target=\_blank} page and selecting the appropriate asset for your operating system. You can download the executable and move it to a directory in your PATH. 
+    Install Zombienet using executables by visiting the [latest release](https://github.com/paritytech/zombienet/releases) page and selecting the appropriate asset for your operating system. You can download the executable and move it to a directory in your PATH. 
 
-    Each release includes executables for Linux and macOS. Executables are generated using [pkg](https://github.com/vercel/pkg){target=\_blank}, which allows the Zombienet CLI to operate without requiring Node.js to be installed. 
+    Each release includes executables for Linux and macOS. Executables are generated using [pkg](https://github.com/vercel/pkg), which allows the Zombienet CLI to operate without requiring Node.js to be installed. 
 
     Then, ensure the downloaded file is executable:
 
@@ -49,7 +49,7 @@ Multiple options are available for installing Zombienet, depending on the user's
     ```
 
 === "Use Nix"
-    For Nix users, the Zombienet repository provides a [`flake.nix`](https://github.com/paritytech/zombienet/blob/main/flake.nix){target=\_blank} file to install Zombienet making it easy to incorporate Zombienet into Nix-based projects.
+    For Nix users, the Zombienet repository provides a [`flake.nix`](https://github.com/paritytech/zombienet/blob/main/flake.nix) file to install Zombienet making it easy to incorporate Zombienet into Nix-based projects.
     
     To install Zombienet utilizing Nix, users can run the following command, triggering the fetching of the flake and subsequently installing the Zombienet package:
 
@@ -60,7 +60,7 @@ Multiple options are available for installing Zombienet, depending on the user's
 
     Replace the `INSERT_ZOMBIENET_VERSION` with the desired version of Zombienet and the `INSERT_ZOMBIENET_CONFIG_FILE_NAME` with the name of the configuration file you want to use.
 
-    To run the command above, you need to have [Flakes](https://nixos.wiki/wiki/Flakes#Enable_flakes){target=\_blank} enabled.
+    To run the command above, you need to have [Flakes](https://nixos.wiki/wiki/Flakes#Enable_flakes) enabled.
 
     Alternatively, you can also include the Zombienet binary in the PATH for the current shell using the following command:
     
@@ -101,7 +101,7 @@ Multiple options are available for installing Zombienet, depending on the user's
 
 ## Providers
 
-Zombienet supports different backend providers for running the nodes. At this moment, [Kubernetes](https://kubernetes.io/){target=\_blank}, [Podman](https://podman.io/){target=\_blank}, and local providers are supported, which can be declared as `kubernetes`, `podman`, or `native`, respectively.
+Zombienet supports different backend providers for running the nodes. At this moment, [Kubernetes](https://kubernetes.io/), [Podman](https://podman.io/), and local providers are supported, which can be declared as `kubernetes`, `podman`, or `native`, respectively.
 
 To use a particular provider, you can specify it in the network file or use the `--provider` flag in the CLI:
 
@@ -123,13 +123,13 @@ It's important to note that each provider has specific requirements and associat
 
 Kubernetes is a portable, extensible, open-source platform for managing containerized workloads and services. Zombienet is designed to be compatible with a variety of Kubernetes clusters, including: 
 
-- [Google Kubernetes Engine (GKE)](https://cloud.google.com/kubernetes-engine){target=\_blank}
-- [Docker Desktop](https://docs.docker.com/desktop/features/kubernetes/){target=\_blank}
-- [kind](https://kind.sigs.k8s.io/){target=\_blank}
+- [Google Kubernetes Engine (GKE)](https://cloud.google.com/kubernetes-engine)
+- [Docker Desktop](https://docs.docker.com/desktop/features/kubernetes/)
+- [kind](https://kind.sigs.k8s.io/)
 
 #### Requirements
     
-To effectively interact with your cluster, you'll need to ensure that [`kubectl`](https://kubernetes.io/docs/reference/kubectl/){target=\_blank} is installed on your system. This Kubernetes command-line tool allows you to run commands against Kubernetes clusters. If you don't have `kubectl` installed, you can follow the instructions provided in the [Kubernetes documentation](https://kubernetes.io/docs/tasks/tools/#kubectl){target=\_blank}.
+To effectively interact with your cluster, you'll need to ensure that [`kubectl`](https://kubernetes.io/docs/reference/kubectl/) is installed on your system. This Kubernetes command-line tool allows you to run commands against Kubernetes clusters. If you don't have `kubectl` installed, you can follow the instructions provided in the [Kubernetes documentation](https://kubernetes.io/docs/tasks/tools/#kubectl).
 
 To create resources such as namespaces, pods, and CronJobs within the target cluster, you must grant your user or service account the appropriate permissions. These permissions are essential for managing and deploying applications effectively within Kubernetes.
 
@@ -143,11 +143,11 @@ Podman is a daemonless container engine for developing, managing, and running Op
 
 #### Requirements
      
-To use Podman as a provider, you need to have Podman installed on your system. You can install Podman by following the instructions provided on the [Podman website](https://podman.io/getting-started/installation){target=\_blank}.
+To use Podman as a provider, you need to have Podman installed on your system. You can install Podman by following the instructions provided on the [Podman website](https://podman.io/getting-started/installation).
 
 #### Features
     
-Using Podman, Zombienet deploys additional pods to enhance the monitoring and visibility of the active network. Specifically, pods for [Prometheus](https://prometheus.io/){target=\_blank}, [Tempo](https://grafana.com/docs/tempo/latest/operations/monitor/){target=\_blank}, and [Grafana](https://grafana.com/){target=\_blank} are included in the deployment. Grafana is configured with Prometheus and Tempo as data sources.
+Using Podman, Zombienet deploys additional pods to enhance the monitoring and visibility of the active network. Specifically, pods for [Prometheus](https://prometheus.io/), [Tempo](https://grafana.com/docs/tempo/latest/operations/monitor/), and [Grafana](https://grafana.com/) are included in the deployment. Grafana is configured with Prometheus and Tempo as data sources.
 
 Upon launching Zombienet, access to these monitoring services is facilitated through specific URLs provided in the output:
 
@@ -175,7 +175,7 @@ zombienet setup polkadot polkadot-parachain
 
 This command will download and prepare the necessary binaries for Zombienet's use.
 
-If you need to use a custom binary, ensure the binary is available in your PATH. You can also specify the binary path in the network configuration file. The following example uses the custom [OpenZeppelin template](https://github.com/OpenZeppelin/polkadot-runtime-templates){target=\_blank}:
+If you need to use a custom binary, ensure the binary is available in your PATH. You can also specify the binary path in the network configuration file. The following example uses the custom [OpenZeppelin template](https://github.com/OpenZeppelin/polkadot-runtime-templates):
 
 First, clone the OpenZeppelin template repository using the following command:
 
@@ -223,7 +223,7 @@ The following sections will explore the structure and usage of Zombienet configu
 
 ### Configuration Files
 
-The network configuration file can be either JSON or TOML format. The Zombienet repository also provides a collection of [example configuration files](https://github.com/paritytech/zombienet/tree/main/examples){target=\_blank} that can be used as a reference.
+The network configuration file can be either JSON or TOML format. The Zombienet repository also provides a collection of [example configuration files](https://github.com/paritytech/zombienet/tree/main/examples) that can be used as a reference.
 
 Each section may include provider-specific keys that aren't recognized by other providers. For example, if you use the local provider, any references to images for nodes will be disregarded.
 
@@ -241,12 +241,12 @@ The following sections will guide you through the primary usage of the Zombienet
 
 - **`spawn <networkConfig>`** - spawn the network defined in the [configuration file](#configuration-files)
 
-- **`test <testFile>`** - run tests on the spawned network using the assertions and tests defined in the [test file](/develop/toolkit/parachains/spawn-chains/zombienet/write-tests/#the-test-file){target=\_blank}
+- **`test <testFile>`** - run tests on the spawned network using the assertions and tests defined in the [test file](/develop/toolkit/parachains/spawn-chains/zombienet/write-tests/#the-test-file)
 
 
 - **`setup <binaries>`** - set up the Zombienet development environment to download and use the `polkadot` or `polkadot-parachain` executable
 
-- **`convert <filePath>`** - transforms a [polkadot-launch](https://github.com/paritytech/polkadot-launch){target=\_blank} configuration file with a `.js` or `.json` extension into a Zombienet configuration file
+- **`convert <filePath>`** - transforms a [polkadot-launch](https://github.com/paritytech/polkadot-launch) configuration file with a `.js` or `.json` extension into a Zombienet configuration file
 
 - **`version`** - prints Zombienet version
 
@@ -827,13 +827,13 @@ You can use the `hrmp_channels` keyword to define further parameters for the XCM
 
     ---
 
-    [Parity Technologies](https://www.parity.io/){target=\_blank} has designed and developed this framework, now maintained by the Zombienet team. 
+    [Parity Technologies](https://www.parity.io/) has designed and developed this framework, now maintained by the Zombienet team. 
 
     For further support and information, refer to the following contact points:
 
-    [:octicons-arrow-right-24: Zombienet repository](https://github.com/paritytech/zombienet){target=\_blank}
+    [:octicons-arrow-right-24: Zombienet repository](https://github.com/paritytech/zombienet)
 
-    [:octicons-arrow-right-24: Element public channel](https://matrix.to/#/!FWyuEyNvIFygLnWNMh:parity.io?via=parity.io&via=matrix.org&via=web3.foundation){target=\_blank}
+    [:octicons-arrow-right-24: Element public channel](https://matrix.to/#/!FWyuEyNvIFygLnWNMh:parity.io?via=parity.io&via=matrix.org&via=web3.foundation)
 
 
 -   <span class="badge tutorial">Tutorial</span> __Spawn a Basic Chain with Zombienet__

@@ -10,11 +10,11 @@ This section provides a complete guide to working with the Polkadot SDK, from ge
 
 ## Building Parachains with the Polkadot SDK
 
-With the [Polkadot relay chain](/polkadot-protocol/architecture/polkadot-chain/){target=\_blank} handling security and consensus, parachain developers are free to focus on features such as asset management, governance, and cross-chain communication. The Polkadot SDK equips developers with the tools to build, deploy, and maintain efficient, scalable parachains.
+With the [Polkadot relay chain](/polkadot-protocol/architecture/polkadot-chain/) handling security and consensus, parachain developers are free to focus on features such as asset management, governance, and cross-chain communication. The Polkadot SDK equips developers with the tools to build, deploy, and maintain efficient, scalable parachains.
 
 Polkadot SDK’s FRAME framework provides developers with the tools to do the following:
 
-- **Customize parachain runtimes** - [runtimes](/polkadot-protocol/glossary/#runtime){target=\_blank} are the core building blocks that define the logic and functionality of Polkadot SDK-based parachains and let developers customize the parameters, rules, and behaviors that shape their blockchain network
+- **Customize parachain runtimes** - [runtimes](/polkadot-protocol/glossary/#runtime) are the core building blocks that define the logic and functionality of Polkadot SDK-based parachains and let developers customize the parameters, rules, and behaviors that shape their blockchain network
 - **Develop new pallets** - create custom modular pallets to define runtime behavior and acheive desired blockchain functionality
 - **Add smart contract functionality** - use specialized pallets to deploy and execute smart contracts, enhancing your chain's functionality and programmability
 - **Test your build for a confident deployment** - create a test environment that can simulate runtime and mock transaction execution

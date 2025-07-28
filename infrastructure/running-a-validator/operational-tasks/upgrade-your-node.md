@@ -15,18 +15,18 @@ This guide will allow validators to seamlessly substitute an active validator se
 
 Before beginning the upgrade process for your validator node, ensure the following:
 
-- You have a fully functional validator setup with all required binaries installed. See [Set Up a Validator](/infrastructure/running-a-validator/onboarding-and-offboarding/set-up-validator/){target=\_blank} and [Validator Requirements](/infrastructure/running-a-validator/requirements/){target=\_blank} for additional guidance
+- You have a fully functional validator setup with all required binaries installed. See [Set Up a Validator](/infrastructure/running-a-validator/onboarding-and-offboarding/set-up-validator/) and [Validator Requirements](/infrastructure/running-a-validator/requirements/) for additional guidance
 - Your VPS infrastructure has enough capacity to run a secondary validator instance temporarily for the upgrade process
 
 ## Session Keys
 
 Session keys are used to sign validator operations and establish a connection between your validator node and your staking proxy account. These keys are stored in the client, and any change to them requires a waiting period. Specifically, if you modify your session keys, the change will take effect only after the current session is completed and two additional sessions have passed.
 
-Remembering this delayed effect when planning upgrades is crucial to ensure that your validator continues to function correctly and avoids interruptions. To learn more about session keys and their importance, visit the [Keys section](https://wiki.polkadot.network/learn/learn-cryptography/#keys){target=\_blank}.
+Remembering this delayed effect when planning upgrades is crucial to ensure that your validator continues to function correctly and avoids interruptions. To learn more about session keys and their importance, visit the [Keys section](https://wiki.polkadot.network/learn/learn-cryptography/#keys).
 
 ## Keystore
 
-Your validator server's `keystore` folder holds the private keys needed for signing network-level transactions. It is important not to duplicate or transfer this folder between validator instances. Doing so could result in multiple validators signing with the duplicate keys, leading to severe consequences such as [equivocation slashing](/infrastructure/staking-mechanics/offenses-and-slashes/#equivocation-slash){target=\_blank}. Instead, always generate new session keys for each validator instance.
+Your validator server's `keystore` folder holds the private keys needed for signing network-level transactions. It is important not to duplicate or transfer this folder between validator instances. Doing so could result in multiple validators signing with the duplicate keys, leading to severe consequences such as [equivocation slashing](/infrastructure/staking-mechanics/offenses-and-slashes/#equivocation-slash). Instead, always generate new session keys for each validator instance.
 
 The default path to the `keystore` is as follows:
 

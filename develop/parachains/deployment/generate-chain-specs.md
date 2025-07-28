@@ -9,7 +9,7 @@ description: Describes the role of the chain specification in a network, how to 
 
 A chain specification collects information that describes a Polkadot SDK-based network. A chain specification is a crucial parameter when starting a node, providing the genesis configurations, bootnodes, and other parameters relating to that particular network. It identifies the network a blockchain node connects to, the other nodes it initially communicates with, and the initial state that nodes must agree on to produce blocks.
 
-The chain specification is defined using the [`ChainSpec`](https://paritytech.github.io/polkadot-sdk/master/sc_chain_spec/struct.GenericChainSpec.html){target=\_blank} struct. This struct separates the information required for a chain into two parts:
+The chain specification is defined using the [`ChainSpec`](https://paritytech.github.io/polkadot-sdk/master/sc_chain_spec/struct.GenericChainSpec.html) struct. This struct separates the information required for a chain into two parts:
 
 - **Client specification** - contains information the _node_ uses to communicate with network participants and send data to telemetry endpoints. Many of these chain specification settings can be overridden by command-line options when starting a node or can be changed after the blockchain has started
 
@@ -46,11 +46,11 @@ These storage values are configured in the genesis portion of the chain specific
 
 ## Chain Specification JSON Format
 
-Users generally work with the JSON format of the chain specification. Internally, the chain specification is embedded in the [`GenericChainSpec`](https://paritytech.github.io/polkadot-sdk/master/sc_chain_spec/struct.GenericChainSpec.html){target=\_blank} struct, with specific properties accessible through the [`ChainSpec`](https://paritytech.github.io/polkadot-sdk/master/sc_chain_spec/trait.ChainSpec.html){target=\_blank} struct. The chain specification includes the following keys:
+Users generally work with the JSON format of the chain specification. Internally, the chain specification is embedded in the [`GenericChainSpec`](https://paritytech.github.io/polkadot-sdk/master/sc_chain_spec/struct.GenericChainSpec.html) struct, with specific properties accessible through the [`ChainSpec`](https://paritytech.github.io/polkadot-sdk/master/sc_chain_spec/trait.ChainSpec.html) struct. The chain specification includes the following keys:
 
 - **`name`** - the human-readable name for the network
 - **`id`** - the machine-readable identifier for the network
-- **`chainType`** - the type of chain to start (refer to [`ChainType`](https://paritytech.github.io/polkadot-sdk/master/sc_chain_spec/enum.ChainType.html){target=\_blank} for more details)
+- **`chainType`** - the type of chain to start (refer to [`ChainType`](https://paritytech.github.io/polkadot-sdk/master/sc_chain_spec/enum.ChainType.html) for more details)
 - **`bootNodes`** - a list of multiaddresses belonging to the chain's boot nodes
 - **`telemetryEndpoints`** - an optional list of multiaddresses for telemetry endpoints with verbosity levels ranging from 0 to 9 (0 being the lowest verbosity)
 - **`protocolId`** - the optional protocol identifier for the network
@@ -67,7 +67,7 @@ For example, the following JSON shows a basic chain specification file:
 
 ## Creating a Custom Chain Specification
 
-To create a custom chain specification, you can use the [`chain-spec-builder`](https://paritytech.github.io/polkadot-sdk/master/staging_chain_spec_builder/index.html){target=\_blank} tool. This is a CLI tool that is used to generate chain specifications from the runtime of a node. To install the tool, run the following command:
+To create a custom chain specification, you can use the [`chain-spec-builder`](https://paritytech.github.io/polkadot-sdk/master/staging_chain_spec_builder/index.html) tool. This is a CLI tool that is used to generate chain specifications from the runtime of a node. To install the tool, run the following command:
 
 ```bash
 cargo install --git https://github.com/paritytech/polkadot-sdk --force staging-chain-spec-builder
@@ -91,8 +91,8 @@ Replace `INSERT_RUNTIME_WASM_PATH` with the path to the runtime Wasm file and `I
 
 The available commands are:
 
-- **`patch`** - overwrites the runtime's default genesis config with the provided patch. You can check the following [patch file](https://github.com/paritytech/polkadot-sdk/blob/{{dependencies.repositories.polkadot_sdk.version}}/substrate/bin/utils/chain-spec-builder/tests/input/patch.json){target=\_blank} as a reference
-- **`full`** - build the genesis config for runtime using the JSON file. No defaults will be used. As a reference, you can check the following [full file](https://github.com/paritytech/polkadot-sdk/blob/{{dependencies.repositories.polkadot_sdk.version}}/substrate/bin/utils/chain-spec-builder/tests/input/full.json){target=\_blank}
+- **`patch`** - overwrites the runtime's default genesis config with the provided patch. You can check the following [patch file](https://github.com/paritytech/polkadot-sdk/blob/{{dependencies.repositories.polkadot_sdk.version}}/substrate/bin/utils/chain-spec-builder/tests/input/patch.json) as a reference
+- **`full`** - build the genesis config for runtime using the JSON file. No defaults will be used. As a reference, you can check the following [full file](https://github.com/paritytech/polkadot-sdk/blob/{{dependencies.repositories.polkadot_sdk.version}}/substrate/bin/utils/chain-spec-builder/tests/input/full.json)
 - **`default`** - gets the default genesis config for the runtime and uses it in `ChainSpec`. Please note that the default genesis config may not be valid. For some runtimes, initial values should be added there (e.g., session keys, BABE epoch)
 - **`named-preset`** - uses named preset provided by the runtime to build the chain spec
 
@@ -132,7 +132,7 @@ To securely deploy your parachain, you must generate custom cryptographic keys f
 
 - **Session keys**: Handle block production operations to identify your node and sign blocks on the network. These keys are stored in the parachain keystore and function as operational "hot wallet" keys. If compromised, an attacker could impersonate your node, potentially resulting in slashing of your funds. To minimize these risks, implement regular session key rotation and treat them with the same caution as hot wallet keys.
 
-To perform this step, you can use [Subkey](https://docs.rs/crate/subkey/latest){target=\_blank}, a command-line tool for generating and managing keys:
+To perform this step, you can use [Subkey](https://docs.rs/crate/subkey/latest), a command-line tool for generating and managing keys:
 
 ```bash
 docker run -it parity/subkey:latest generate --scheme sr25519

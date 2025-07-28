@@ -7,7 +7,7 @@ description: Learn how to interact with Polkadot SDK-based chains using RPC call
 
 ## Introduction
 
-[Remote Procedure Call](https://en.wikipedia.org/wiki/Remote_procedure_call){target=\_blank} (RPC) interfaces are the primary way to interact programmatically with Polkadot SDK-based parachains and relay chains. RPC calls allow you to query chain state, submit transactions, and monitor network health from external applications or scripts.
+[Remote Procedure Call](https://en.wikipedia.org/wiki/Remote_procedure_call) (RPC) interfaces are the primary way to interact programmatically with Polkadot SDK-based parachains and relay chains. RPC calls allow you to query chain state, submit transactions, and monitor network health from external applications or scripts.
 
 This guide covers:
 
@@ -15,11 +15,11 @@ This guide covers:
 - How to make RPC calls using `curl` or similar tools.
 - The most useful and commonly used RPC methods.
 
-RPC endpoints are available on every node and can be accessed via HTTP and WebSocket. Most developer tools, dashboards, and libraries (like [Polkadot.js](/develop/toolkit/api-libraries/polkadot-js-api){target=\_blank}, [Subxt](/develop/toolkit/api-libraries/subxt){target=\_blank}, and others) utilize these endpoints internally.
+RPC endpoints are available on every node and can be accessed via HTTP and WebSocket. Most developer tools, dashboards, and libraries (like [Polkadot.js](/develop/toolkit/api-libraries/polkadot-js-api), [Subxt](/develop/toolkit/api-libraries/subxt), and others) utilize these endpoints internally.
 
 ## How Do RPC Calls Work?
 
-RPC (Remote Procedure Call) is a protocol that allows you to invoke functions on a remote server (in this case, a blockchain node) as if they were local. Polkadot SDK nodes implement the [JSON-RPC 2.0](https://www.jsonrpc.org/specification){target=\_blank} standard, making it easy to interact with them using standard HTTP requests.
+RPC (Remote Procedure Call) is a protocol that allows you to invoke functions on a remote server (in this case, a blockchain node) as if they were local. Polkadot SDK nodes implement the [JSON-RPC 2.0](https://www.jsonrpc.org/specification) standard, making it easy to interact with them using standard HTTP requests.
 
 ```mermaid
 flowchart LR
@@ -36,7 +36,7 @@ RPC calls are stateless and can be used to:
 
 ## Making RPC Calls with Curl
 
-You can make RPC calls to a node using [`curl`](https://curl.se/){target=\_blank} or any HTTP client. The general format that the RPC calls stick to is the following:
+You can make RPC calls to a node using [`curl`](https://curl.se/) or any HTTP client. The general format that the RPC calls stick to is the following:
 
 ```bash
 curl -H "Content-Type: application/json" \
@@ -170,7 +170,7 @@ You can replace `https://rpc.polkadot.io` with the node endpoint you need to que
 
 ### Using Polkadot.js Apps
 
-1. Go to the [Polkadot.js Apps UI](https://polkadot.js.org/apps){target=\_blank} and navigate to the RPC calls section.
+1. Go to the [Polkadot.js Apps UI](https://polkadot.js.org/apps) and navigate to the RPC calls section.
 
     ![](/images/develop/toolkit/parachains/rpc-calls/rpc-calls-01.webp)
 
@@ -194,6 +194,6 @@ From this interface, you can also query the RPC methods directly, as you would d
 
 ## Resources
 
-- [Polkadot JSON-RPC API Reference](https://polkadot.js.org/docs/substrate/rpc/){target=\_blank}
-- [Parity DevOps: Important Flags for Running an RPC Node](https://paritytech.github.io/devops-guide/guides/rpc_index.html?#important-flags-for-running-an-rpc-node){target=\_blank}
-- [Polkadot.js Apps RPC Explorer](https://polkadot.js.org/apps/#/rpc){target=\_blank}
+- [Polkadot JSON-RPC API Reference](https://polkadot.js.org/docs/substrate/rpc/)
+- [Parity DevOps: Important Flags for Running an RPC Node](https://paritytech.github.io/devops-guide/guides/rpc_index.html?#important-flags-for-running-an-rpc-node)
+- [Polkadot.js Apps RPC Explorer](https://polkadot.js.org/apps/#/rpc)

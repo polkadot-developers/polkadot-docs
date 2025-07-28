@@ -15,7 +15,7 @@ description: Explore the smart contract development and deployment process on As
     Mint your NFT on Polkadot's Asset Hub. Use PolkaVM and OpenZeppelin to bring your digital asset to life with Polkadot Remix IDE.
 
     <br>
-    [:octicons-arrow-right-24: Get Started](/tutorials/smart-contracts/deploy-nft){target=\_blank}
+    [:octicons-arrow-right-24: Get Started](/tutorials/smart-contracts/deploy-nft)
 
 -   :octicons-code-16:{ .lg .middle } __Deploy ERC20s Using Remix IDE__
 
@@ -24,7 +24,7 @@ description: Explore the smart contract development and deployment process on As
     Mint your custom ERC-20 token on Polkadot's Asset Hub. Leverage PolkaVM and Polkadot Remix IDE to bring your blockchain project to life.
 
     <br>
-    [:octicons-arrow-right-24: Get Started](/tutorials/smart-contracts/deploy-erc20){target=\_blank}
+    [:octicons-arrow-right-24: Get Started](/tutorials/smart-contracts/deploy-erc20)
 </div>
 
 !!! warning
@@ -32,19 +32,19 @@ description: Explore the smart contract development and deployment process on As
 
 ## Overview
 
-Remix IDE is a robust browser-based development environment for smart contracts. This guide will walk you through the essentials of the [Polkadot Remix IDE](https://remix.polkadot.io/){target=\_blank} to understand the processes of compiling, developing, and deploying smart contracts on Asset Hub.
+Remix IDE is a robust browser-based development environment for smart contracts. This guide will walk you through the essentials of the [Polkadot Remix IDE](https://remix.polkadot.io/) to understand the processes of compiling, developing, and deploying smart contracts on Asset Hub.
 
 ## Prerequisites
 
 Before getting started, ensure you have:
 
-- A web browser with [Talisman](https://talisman.xyz/){target=\_blank} extension installed
+- A web browser with [Talisman](https://talisman.xyz/) extension installed
 - Basic understanding of Solidity programming
-- Some WND test tokens to cover transaction fees (easily obtainable from the [Polkadot faucet](https://faucet.polkadot.io/westend?parachain=1000){target=\_blank})
+- Some WND test tokens to cover transaction fees (easily obtainable from the [Polkadot faucet](https://faucet.polkadot.io/westend?parachain=1000))
 
 ## Accessing Remix IDE
 
-Navigate to [https://remix.polkadot.io/](https://remix.polkadot.io/){target=\_blank}. The interface will load with a default workspace containing sample contracts.
+Navigate to [https://remix.polkadot.io/](https://remix.polkadot.io/). The interface will load with a default workspace containing sample contracts.
 
 ![](/images/develop/smart-contracts/evm-toolkit/dev-environments/remix/remix-1.webp)
 
@@ -162,6 +162,6 @@ Explore more about smart contracts through these resources:
 
     Test your skills by deploying a simple contracts with prebuilt templates.
 
-    [:octicons-arrow-right-24: Get Started](https://www.openzeppelin.com/solidity-contracts){target=\_blank}
+    [:octicons-arrow-right-24: Get Started](https://www.openzeppelin.com/solidity-contracts)
 
 </div>

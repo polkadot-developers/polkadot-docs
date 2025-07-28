@@ -28,7 +28,7 @@ Polkadot is the primary production blockchain network for high-stakes, enterpris
 
     ---
 
-    **Block explorer** - [Polkadot Subscan](https://polkadot.subscan.io/){target=\_blank}
+    **Block explorer** - [Polkadot Subscan](https://polkadot.subscan.io/)
 
 === "RPC Endpoints"
     Blockops
@@ -105,7 +105,7 @@ Kusama is a network built as a risk-taking, fast-moving "canary in the coal mine
 
     ---
     
-    **Block explorer** - [Kusama Subscan](https://kusama.subscan.io/){target=\_blank}
+    **Block explorer** - [Kusama Subscan](https://kusama.subscan.io/)
 
 === "RPC Endpoints"
     Dwellir
@@ -174,11 +174,11 @@ Westend is the primary test network that mirrors Polkadot's functionality for pr
 
     ---
     
-    **Block explorer** - [Westend Subscan](https://westend.subscan.io/){target=\_blank}
+    **Block explorer** - [Westend Subscan](https://westend.subscan.io/)
 
     ---
 
-    **Faucet** - [Official Westend faucet](https://faucet.polkadot.io/westend){target=\_blank}
+    **Faucet** - [Official Westend faucet](https://faucet.polkadot.io/westend)
 
 
 === "RPC Endpoints"
@@ -237,11 +237,11 @@ Paseo is a decentralised, community run, stable testnet for parachain and dapp d
 
     ---
     
-    **Block explorer** - [Paseo Subscan](https://paseo.subscan.io/){target=\_blank}
+    **Block explorer** - [Paseo Subscan](https://paseo.subscan.io/)
 
     ---
 
-    **Faucet** - [Official Paseo faucet](https://faucet.polkadot.io/){target=\_blank}
+    **Faucet** - [Official Paseo faucet](https://faucet.polkadot.io/)
 
 === "RPC Endpoints"
     Amforc
@@ -271,4 +271,4 @@ Paseo is a decentralised, community run, stable testnet for parachain and dapp d
 
 ## Additional Resources
 
-- [**Polkadot Fellowship runtimes repository**](https://github.com/polkadot-fellows/runtimes){target=\_blank} - find a collection of runtimes for Polkadot, Kusama, and their system-parachains as maintained by the community via the [Polkadot Technical Fellowship](https://wiki.polkadot.network/learn/learn-polkadot-technical-fellowship/){target=\_blank}
+- [**Polkadot Fellowship runtimes repository**](https://github.com/polkadot-fellows/runtimes) - find a collection of runtimes for Polkadot, Kusama, and their system-parachains as maintained by the community via the [Polkadot Technical Fellowship](https://wiki.polkadot.network/learn/learn-polkadot-technical-fellowship/)

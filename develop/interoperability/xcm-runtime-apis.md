@@ -22,7 +22,7 @@ This section will teach you about specific runtime APIs that support XCM process
 
 ## Dry Run API
 
-The [Dry-run API](https://paritytech.github.io/polkadot-sdk/master/xcm_runtime_apis/dry_run/trait.DryRunApi.html){target=\_blank}, given an extrinsic, or an XCM program, returns its effects:
+The [Dry-run API](https://paritytech.github.io/polkadot-sdk/master/xcm_runtime_apis/dry_run/trait.DryRunApi.html), given an extrinsic, or an XCM program, returns its effects:
 
 - Execution result
 - Local XCM (in the case of an extrinsic)
@@ -94,7 +94,7 @@ This API allows a dry-run of any extrinsic and obtaining the outcome if it fails
 
 ??? interface "Example"
 
-    This example demonstrates how to simulate a cross-chain asset transfer from the Paseo network to the Pop Network using a [reserve transfer](https://wiki.polkadot.network/docs/learn/xcm/journey/transfers-reserve){target=\_blank} mechanism. Instead of executing the actual transfer, the code shows how to test and verify the transaction's behavior through a dry run before performing it on the live network.
+    This example demonstrates how to simulate a cross-chain asset transfer from the Paseo network to the Pop Network using a [reserve transfer](https://wiki.polkadot.network/docs/learn/xcm/journey/transfers-reserve) mechanism. Instead of executing the actual transfer, the code shows how to test and verify the transaction's behavior through a dry run before performing it on the live network.
 
     Replace `INSERT_USER_ADDRESS` with your SS58 address before running the script.
 
@@ -169,7 +169,7 @@ This API allows the direct dry-run of an xcm message instead of an extrinsic one
 
 ??? interface "Example"
 
-    This example demonstrates how to simulate a [teleport asset transfer](https://wiki.polkadot.network/docs/learn/xcm/journey/transfers-teleport){target=\_blank} from the Paseo network to the Paseo Asset Hub parachain. The code shows how to test and verify the received XCM message's behavior in the destination chain through a dry run on the live network.
+    This example demonstrates how to simulate a [teleport asset transfer](https://wiki.polkadot.network/docs/learn/xcm/journey/transfers-teleport) from the Paseo network to the Paseo Asset Hub parachain. The code shows how to test and verify the received XCM message's behavior in the destination chain through a dry run on the live network.
 
     Replace `INSERT_USER_ADDRESS` with your SS58 address before running the script.
 
@@ -187,7 +187,7 @@ This API allows the direct dry-run of an xcm message instead of an extrinsic one
 
 ## XCM Payment API
 
-The [XCM Payment API](https://paritytech.github.io/polkadot-sdk/master/xcm_runtime_apis/fees/trait.XcmPaymentApi.html){target=\_blank} provides a standardized way to determine the costs and payment options for executing XCM messages. Specifically, it enables clients to:
+The [XCM Payment API](https://paritytech.github.io/polkadot-sdk/master/xcm_runtime_apis/fees/trait.XcmPaymentApi.html) provides a standardized way to determine the costs and payment options for executing XCM messages. Specifically, it enables clients to:
 
 - Retrieve the [weight](/polkadot-protocol/glossary/#weight) required to execute an XCM message
 - Obtain a list of acceptable `AssetIds` for paying execution fees
@@ -300,7 +300,7 @@ Calculates the weight required to execute a given XCM message. It is useful for 
 
 ??? interface "Example"
 
-    This example demonstrates how to calculate the weight needed to execute a [teleport transfer](https://wiki.polkadot.network/docs/learn/xcm/journey/transfers-teleport){target=\_blank} from the Paseo network to the Paseo Asset Hub parachain using the XCM Payment API. The result shows the required weight in terms of reference time and proof size needed in the destination chain.
+    This example demonstrates how to calculate the weight needed to execute a [teleport transfer](https://wiki.polkadot.network/docs/learn/xcm/journey/transfers-teleport) from the Paseo network to the Paseo Asset Hub parachain using the XCM Payment API. The result shows the required weight in terms of reference time and proof size needed in the destination chain.
 
     Replace `INSERT_USER_ADDRESS` with your SS58 address before running the script.
 

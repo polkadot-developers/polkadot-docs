@@ -6,9 +6,9 @@ tutorial_badge: Advanced
 
 ## Introduction
 
-After validating your pallet through testing and integrating it into your runtime, the next crucial step is benchmarking. Testing procedures were detailed in the [Pallet Unit Testing](/tutorials/polkadot-sdk/parachains/zero-to-hero/pallet-unit-testing/){target=\_blank} tutorial, while runtime integration was covered in the [Add Pallets to the Runtime](/tutorials/polkadot-sdk/parachains/zero-to-hero/add-pallets-to-runtime/){target=\_blank} guide.
+After validating your pallet through testing and integrating it into your runtime, the next crucial step is benchmarking. Testing procedures were detailed in the [Pallet Unit Testing](/tutorials/polkadot-sdk/parachains/zero-to-hero/pallet-unit-testing/) tutorial, while runtime integration was covered in the [Add Pallets to the Runtime](/tutorials/polkadot-sdk/parachains/zero-to-hero/add-pallets-to-runtime/) guide.
 
-Benchmarking assigns precise [weight](/polkadot-protocol/glossary/#weight){target=\_blank} to each extrinsic, 
+Benchmarking assigns precise [weight](/polkadot-protocol/glossary/#weight) to each extrinsic, 
 measuring their computational and storage costs. These derived weights enable accurate fee calculation and resource 
 allocation within the runtime.
 
@@ -18,13 +18,13 @@ This tutorial demonstrates how to:
 - Create and implement benchmark tests for your extrinsics
 - Apply benchmark results to your pallet's extrinsics
 
-For comprehensive information about benchmarking concepts, refer to the [Benchmarking](/develop/parachains/testing/benchmarking/){target=\_blank} guide.
+For comprehensive information about benchmarking concepts, refer to the [Benchmarking](/develop/parachains/testing/benchmarking/) guide.
 
 ## Environment Setup
 
 Follow these steps to prepare your environment for pallet benchmarking:
 
-1. Install the [`frame-omni-bencher`](https://crates.io/crates/frame-omni-bencher){target=\_blank} command-line tool:
+1. Install the [`frame-omni-bencher`](https://crates.io/crates/frame-omni-bencher) command-line tool:
     
     ```bash
     cargo install frame-omni-bencher@0.10.0
@@ -66,7 +66,7 @@ When writing benchmarking tests for your pallet, you'll create specialized test 
 Every benchmark test must follow a three-step pattern:
 
 1. **Setup** - perform any necessary setup before calling the extrinsic. This might include creating accounts, setting initial states, or preparing test data
-2. **Execute the extrinsic** - execute the actual extrinsic using the [`#[extrinsic_call]`](https://paritytech.github.io/polkadot-sdk/master/frame_benchmarking/v2/attr.extrinsic_call.html){target=\_blank} macro. This must be a single line that calls your extrinsic function with the origin as its first argument
+2. **Execute the extrinsic** - execute the actual extrinsic using the [`#[extrinsic_call]`](https://paritytech.github.io/polkadot-sdk/master/frame_benchmarking/v2/attr.extrinsic_call.html) macro. This must be a single line that calls your extrinsic function with the origin as its first argument
 3. **Verification** - check that the extrinsic worked correctly within the benchmark context by checking the expected state changes
 
 Check the following example on how to benchmark the `increment` extrinsic:
@@ -89,7 +89,7 @@ Now, implement the complete set of benchmark tests. Copy the following content i
 --8<-- 'code/tutorials/polkadot-sdk/parachains/zero-to-hero/pallets/custom-pallet/src/benchmarking.rs:20'
 ```
 
-The [`#[benchmark]`](https://paritytech.github.io/polkadot-sdk/master/frame_benchmarking/v2/attr.benchmark.html){target=\_blank} macro marks these functions as benchmark tests, while the `#[extrinsic_call]` macro specifically identifies which line contains the extrinsic being measured. For more information, see the [frame_benchmarking](https://paritytech.github.io/polkadot-sdk/master/frame_benchmarking/v2/index.html){target=\_blank} Rust docs.
+The [`#[benchmark]`](https://paritytech.github.io/polkadot-sdk/master/frame_benchmarking/v2/attr.benchmark.html) macro marks these functions as benchmark tests, while the `#[extrinsic_call]` macro specifically identifies which line contains the extrinsic being measured. For more information, see the [frame_benchmarking](https://paritytech.github.io/polkadot-sdk/master/frame_benchmarking/v2/index.html) Rust docs.
 
 ## Execute the Benchmarking
 

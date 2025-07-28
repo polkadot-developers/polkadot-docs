@@ -7,7 +7,7 @@ description: Understand how blocks are produced, validated, and imported in Polk
 
 ## Introduction
 
-In the Polkadot SDK, blocks are fundamental to the functioning of the blockchain, serving as containers for [transactions](/polkadot-protocol/parachain-basics/blocks-transactions-fees/transactions/){target=\_blank} and changes to the chain's state. Blocks consist of headers and an array of transactions, ensuring the integrity and validity of operations on the network. This guide explores the essential components of a block, the process of block production, and how blocks are validated and imported across the network. By understanding these concepts, developers can better grasp how blockchains maintain security, consistency, and performance within the Polkadot ecosystem.
+In the Polkadot SDK, blocks are fundamental to the functioning of the blockchain, serving as containers for [transactions](/polkadot-protocol/parachain-basics/blocks-transactions-fees/transactions/) and changes to the chain's state. Blocks consist of headers and an array of transactions, ensuring the integrity and validity of operations on the network. This guide explores the essential components of a block, the process of block production, and how blocks are validated and imported across the network. By understanding these concepts, developers can better grasp how blockchains maintain security, consistency, and performance within the Polkadot ecosystem.
 
 ## What is a Block?
 
@@ -29,17 +29,17 @@ When an authoring node is authorized to create a new block, it selects transacti
 
 The block initialization process begins with a series of function calls that prepare the block for transaction execution:
 
-1. **Call `on_initialize`** - the executive module calls the [`on_initialize`](https://paritytech.github.io/polkadot-sdk/master/frame_support/traits/trait.Hooks.html#method.on_initialize){target=\_blank} hook from the system pallet and other runtime pallets to prepare for the block's transactions
+1. **Call `on_initialize`** - the executive module calls the [`on_initialize`](https://paritytech.github.io/polkadot-sdk/master/frame_support/traits/trait.Hooks.html#method.on_initialize) hook from the system pallet and other runtime pallets to prepare for the block's transactions
 2. **Coordinate runtime calls** - coordinates function calls in the order defined by the transaction queue
-3. **Verify information** - once [`on_initialize`](https://paritytech.github.io/polkadot-sdk/master/frame_support/traits/trait.Hooks.html#method.on_initialize){target=\_blank} functions are executed, the executive module checks the parent hash in the block header and the trie root to verify information is consistent
+3. **Verify information** - once [`on_initialize`](https://paritytech.github.io/polkadot-sdk/master/frame_support/traits/trait.Hooks.html#method.on_initialize) functions are executed, the executive module checks the parent hash in the block header and the trie root to verify information is consistent
 
 ### Finalize Block
 
 Once transactions are processed, the block must be finalized before being broadcast to the network. The finalization steps are as follows:
 
-1. -**Call `on_finalize`** - the executive module calls the [`on_finalize`](https://paritytech.github.io/polkadot-sdk/master/frame_support/traits/trait.Hooks.html#method.on_finalize){target=\_blank} hooks in each pallet to ensure any remaining state updates or checks are completed before the block is sealed and published 
+1. -**Call `on_finalize`** - the executive module calls the [`on_finalize`](https://paritytech.github.io/polkadot-sdk/master/frame_support/traits/trait.Hooks.html#method.on_finalize) hooks in each pallet to ensure any remaining state updates or checks are completed before the block is sealed and published 
 2. -**Verify information** - the block's digest and storage root in the header are checked against the initialized block to ensure consistency
-3. -**Call `on_idle`** - the [`on_idle`](https://paritytech.github.io/polkadot-sdk/master/frame_support/traits/trait.Hooks.html#method.on_idle){target=\_blank} hook is triggered to process any remaining tasks using the leftover weight from the block
+3. -**Call `on_idle`** - the [`on_idle`](https://paritytech.github.io/polkadot-sdk/master/frame_support/traits/trait.Hooks.html#method.on_idle) hook is triggered to process any remaining tasks using the leftover weight from the block
 
 ## Block Authoring and Import
 
@@ -57,14 +57,14 @@ After a block is published, other nodes on the network can import it into their 
 
 In most cases, you don't need to know details about how transactions are gossiped or how other nodes on the network import blocks. The following traits are relevant, however, if you plan to write any custom consensus logic or want a deeper dive into the block import queue:
 
-- [**`ImportQueue`**](https://paritytech.github.io/polkadot-sdk/master/sc_consensus/import_queue/trait.ImportQueue.html){target=\_blank} - the trait that defines the block import queue
-- [**`Link`**](https://paritytech.github.io/polkadot-sdk/master/sc_consensus/import_queue/trait.Link.html){target=\_blank} - the trait that defines the link between the block import queue and the network
-- [**`BasicQueue`**](https://paritytech.github.io/polkadot-sdk/master/sc_consensus/import_queue/struct.BasicQueue.html){target=\_blank} - a basic implementation of the block import queue
-- [**`Verifier`**](https://paritytech.github.io/polkadot-sdk/master/sc_consensus/import_queue/trait.Verifier.html){target=\_blank} - the trait that defines the block verifier
-- [**`BlockImport`**](https://paritytech.github.io/polkadot-sdk/master/sc_consensus/block_import/trait.BlockImport.html){target=\_blank} - the trait that defines the block import process
+- [**`ImportQueue`**](https://paritytech.github.io/polkadot-sdk/master/sc_consensus/import_queue/trait.ImportQueue.html) - the trait that defines the block import queue
+- [**`Link`**](https://paritytech.github.io/polkadot-sdk/master/sc_consensus/import_queue/trait.Link.html) - the trait that defines the link between the block import queue and the network
+- [**`BasicQueue`**](https://paritytech.github.io/polkadot-sdk/master/sc_consensus/import_queue/struct.BasicQueue.html) - a basic implementation of the block import queue
+- [**`Verifier`**](https://paritytech.github.io/polkadot-sdk/master/sc_consensus/import_queue/trait.Verifier.html) - the trait that defines the block verifier
+- [**`BlockImport`**](https://paritytech.github.io/polkadot-sdk/master/sc_consensus/block_import/trait.BlockImport.html) - the trait that defines the block import process
 
 These traits govern how blocks are validated and imported across the network, ensuring consistency and security.
 
 ## Additional Resources
 
-To learn more about the block structure in the Polkadot SDK runtime, see the [`Block` reference](https://paritytech.github.io/polkadot-sdk/master/sp_runtime/traits/trait.Block.html){target=\_blank} entry in the Rust Docs.
+To learn more about the block structure in the Polkadot SDK runtime, see the [`Block` reference](https://paritytech.github.io/polkadot-sdk/master/sp_runtime/traits/trait.Block.html) entry in the Rust Docs.

@@ -36,7 +36,7 @@ Some assets can be regarded as sufficient to maintain an account's existence, me
 
 The Polkadot SDK's Assets pallet is a powerful module designated for creating and managing fungible asset classes with a fixed supply. It offers a secure and flexible way to issue, transfer, freeze, and destroy assets. The pallet supports various operations and includes permissioned and non-permissioned functions to cater to simple and advanced use cases.
 
-Visit the [Assets Pallet Rust docs](https://paritytech.github.io/polkadot-sdk/master/pallet_assets/index.html){target=\_blank} for more in-depth information.
+Visit the [Assets Pallet Rust docs](https://paritytech.github.io/polkadot-sdk/master/pallet_assets/index.html) for more in-depth information.
 
 ### Key Features
 
@@ -59,7 +59,7 @@ The Assets pallet provides a broad interface for managing fungible assets. Some 
 - **`destroy()`** - destroy an entire asset class, removing it permanently from the chain
 - **`freeze()` and `thaw()`** - administrators or privileged users can lock or unlock assets from being transferred
 
-For a full list of dispatchable and privileged functions, see the [dispatchables Rust docs](https://docs.rs/pallet-assets/latest/pallet_assets/pallet/enum.Call.html){target=\_blank}.
+For a full list of dispatchable and privileged functions, see the [dispatchables Rust docs](https://docs.rs/pallet-assets/latest/pallet_assets/pallet/enum.Call.html).
 
 ### Querying Functions
 
@@ -69,7 +69,7 @@ The Assets pallet exposes several key querying functions that developers can int
 
 - **`total_supply(asset_id)`** - returns the total supply of the asset identified by `asset_id`. Allows users to verify how much of the asset exists on-chain
 
-In addition to these basic functions, other utility functions are available for querying asset metadata and performing asset transfers. You can view the complete list of querying functions in the [Struct Pallet Rust docs](https://docs.rs/pallet-assets/latest/pallet_assets/pallet/struct.Pallet.html){target=\_blank}.
+In addition to these basic functions, other utility functions are available for querying asset metadata and performing asset transfers. You can view the complete list of querying functions in the [Struct Pallet Rust docs](https://docs.rs/pallet-assets/latest/pallet_assets/pallet/struct.Pallet.html).
 
 ### Permission Models and Roles
 
@@ -127,21 +127,21 @@ Developers can integrate Asset Hub into their projects using these core tools:
 
 ### API Sidecar
 
-[API Sidecar](https://github.com/paritytech/substrate-api-sidecar){target=\_blank} is a RESTful service that can be deployed alongside Polkadot and Kusama nodes. It provides endpoints to retrieve real-time blockchain data, including asset information. When used with Asset Hub, Sidecar allows querying:
+[API Sidecar](https://github.com/paritytech/substrate-api-sidecar) is a RESTful service that can be deployed alongside Polkadot and Kusama nodes. It provides endpoints to retrieve real-time blockchain data, including asset information. When used with Asset Hub, Sidecar allows querying:
 
 - **Asset look-ups** - retrieve specific assets using `AssetId`
 - **Asset balances** - view the balance of a particular asset on Asset Hub
 
 Public instances of API Sidecar connected to Asset Hub are available, such as:
 
-- [Polkadot Asset Hub Sidecar](https://polkadot-asset-hub-public-sidecar.parity-chains.parity.io/){target=\_blank}
-- [Kusama Asset Hub Sidecar](https://kusama-asset-hub-public-sidecar.parity-chains.parity.io/){target=\_blank}
+- [Polkadot Asset Hub Sidecar](https://polkadot-asset-hub-public-sidecar.parity-chains.parity.io/)
+- [Kusama Asset Hub Sidecar](https://kusama-asset-hub-public-sidecar.parity-chains.parity.io/)
 
 These public instances are primarily for ad-hoc testing and quick checks.
 
 ### TxWrapper
 
-[`TxWrapper`](https://github.com/paritytech/txwrapper-core){target=\_blank} is a library that simplifies constructing and signing transactions for Polkadot SDK-based chains, including Polkadot and Kusama. This tool includes support for working with Asset Hub, enabling developers to:
+[`TxWrapper`](https://github.com/paritytech/txwrapper-core) is a library that simplifies constructing and signing transactions for Polkadot SDK-based chains, including Polkadot and Kusama. This tool includes support for working with Asset Hub, enabling developers to:
 
 - Construct offline transactions
 - Leverage asset-specific functions such as minting, burning, and transferring assets
@@ -150,7 +150,7 @@ These public instances are primarily for ad-hoc testing and quick checks.
 
 ### Asset Transfer API
 
-[Asset Transfer API](https://github.com/paritytech/asset-transfer-api){target=\_blank} is a library focused on simplifying the construction of asset transfers for Polkadot SDK-based chains that involve system parachains like Asset Hub. It exposes a reduced set of methods that facilitate users sending transfers to other parachains or locally. Refer to the [cross-chain support table](https://github.com/paritytech/asset-transfer-api/tree/main#current-cross-chain-support){target=\_blank} for the current status of cross-chain support development.
+[Asset Transfer API](https://github.com/paritytech/asset-transfer-api) is a library focused on simplifying the construction of asset transfers for Polkadot SDK-based chains that involve system parachains like Asset Hub. It exposes a reduced set of methods that facilitate users sending transfers to other parachains or locally. Refer to the [cross-chain support table](https://github.com/paritytech/asset-transfer-api/tree/main#current-cross-chain-support) for the current status of cross-chain support development.
 
 Key features include:
 
@@ -161,7 +161,7 @@ The API supports various asset operations, such as paying transaction fees with 
 
 ### Parachain Node
 
-To fully leverage the Asset Hub's functionality, developers will need to run a system parachain node. Setting up an Asset Hub node allows users to interact with the parachain in real time, syncing data and participating in the broader Polkadot ecosystem. Guidelines for setting up an [Asset Hub node](https://github.com/paritytech/polkadot-sdk/tree/{{dependencies.repositories.polkadot_sdk.version}}/cumulus#asset-hub-){target=\_blank} are available in the Parity documentation.
+To fully leverage the Asset Hub's functionality, developers will need to run a system parachain node. Setting up an Asset Hub node allows users to interact with the parachain in real time, syncing data and participating in the broader Polkadot ecosystem. Guidelines for setting up an [Asset Hub node](https://github.com/paritytech/polkadot-sdk/tree/{{dependencies.repositories.polkadot_sdk.version}}/cumulus#asset-hub-) are available in the Parity documentation.
 
 Using these integration tools, developers can manage assets seamlessly and integrate Asset Hub functionality into their applications, leveraging Polkadot's powerful infrastructure.
 
@@ -200,7 +200,7 @@ Sometimes, XCM transfers may fail due to liquidity or other errors. Failed trans
 - **Relay chain to system parachain** - look for the `dmpqueue(ExecutedDownward)` event on the parachain with an `Incomplete` outcome and an error type such as `UntrustedReserveLocation`
 - **Parachain to parachain** - monitor for `xcmpqueue(Fail)` on the destination parachain with error types like `TooExpensive`
 
-For detailed error management in XCM, see Gavin Wood's blog post on [XCM Execution and Error Management](https://polkadot.com/blog/xcm-part-three-execution-and-error-management/){target=\_blank}.
+For detailed error management in XCM, see Gavin Wood's blog post on [XCM Execution and Error Management](https://polkadot.com/blog/xcm-part-three-execution-and-error-management/).
 
 ## Where to Go Next
 

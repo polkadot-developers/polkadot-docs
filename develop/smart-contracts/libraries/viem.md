@@ -9,13 +9,13 @@ description: This guide covers deploying and interacting with contracts on Polka
 
 ## Introduction
 
-[viem](https://viem.sh/){target=\_blank} is a lightweight TypeScript library designed for interacting with Ethereum-compatible blockchains. This comprehensive guide will walk you through using viem to interact with and deploy smart contracts to Polkadot Hub.
+[viem](https://viem.sh/) is a lightweight TypeScript library designed for interacting with Ethereum-compatible blockchains. This comprehensive guide will walk you through using viem to interact with and deploy smart contracts to Polkadot Hub.
 
 ## Prerequisites
 
 Before getting started, ensure you have the following installed:
 
-- **Node.js** - v22.13.1 or later, check the [Node.js installation guide](https://nodejs.org/en/download/current/){target=\_blank}
+- **Node.js** - v22.13.1 or later, check the [Node.js installation guide](https://nodejs.org/en/download/current/)
 - **npm** - v6.13.4 or later (comes bundled with Node.js)
 - **Solidity** - this guide uses Solidity `^0.8.9` for smart contract development
 
@@ -53,7 +53,7 @@ npm init -y
 
 ## Install Dependencies
 
-Install viem along with other necessary dependencies, including [@parity/resolc](https://www.npmjs.com/package/@parity/resolc){target=\_blank}, which enables to compile smart contracts to [PolkaVM](/polkadot-protocol/smart-contract-basics/polkavm-design/#polkavm){target=\_blank} bytecode:
+Install viem along with other necessary dependencies, including [@parity/resolc](https://www.npmjs.com/package/@parity/resolc), which enables to compile smart contracts to [PolkaVM](/polkadot-protocol/smart-contract-basics/polkavm-design/#polkavm) bytecode:
 
 ```bash
 # Install viem and resolc
@@ -98,7 +98,7 @@ The first step is to set up the chain configuration. Create a new file at `src/c
 --8<-- 'code/develop/smart-contracts/libraries/viem/chainConfig.ts'
 ```
 
-Ensure to replace `INSERT_RPC_URL`, `INSERT_CHAIN_ID`, `INSERT_CHAIN_NAME`, `INSERT_NETWORK_NAME`, `INSERT_CHAIN_DECIMALS`, `INSERT_CURRENCY_NAME`, and `INSERT_CURRENCY_SYMBOL` with the proper values. Check the [Connect to Polkadot](/develop/smart-contracts/connect-to-polkadot){target=\_blank} page for more information on the possible values.
+Ensure to replace `INSERT_RPC_URL`, `INSERT_CHAIN_ID`, `INSERT_CHAIN_NAME`, `INSERT_NETWORK_NAME`, `INSERT_CHAIN_DECIMALS`, `INSERT_CURRENCY_NAME`, and `INSERT_CURRENCY_SYMBOL` with the proper values. Check the [Connect to Polkadot](/develop/smart-contracts/connect-to-polkadot) page for more information on the possible values.
 
 ## Set Up the viem Client
 
@@ -108,7 +108,7 @@ To interact with the chain, you need to create a client that is used solely for 
 --8<-- 'code/develop/smart-contracts/libraries/viem/createClient.ts'
 ```
 
-After setting up the [Public Client](https://viem.sh/docs/clients/public#public-client){target=\_blank}, you can begin querying the blockchain. Here's an example of fetching the latest block number:
+After setting up the [Public Client](https://viem.sh/docs/clients/public#public-client), you can begin querying the blockchain. Here's an example of fetching the latest block number:
 
 ??? code "Fetch Last Block code"
 
@@ -118,7 +118,7 @@ After setting up the [Public Client](https://viem.sh/docs/clients/public#public-
 
 ## Set Up a Wallet
 
-In case you need to sign transactions, you will need to instantiate a [Wallet Client](https://viem.sh/docs/clients/wallet#wallet-client){target=\_blank} object within your project. To do so, create `src/createWallet.ts`:
+In case you need to sign transactions, you will need to instantiate a [Wallet Client](https://viem.sh/docs/clients/wallet#wallet-client) object within your project. To do so, create `src/createWallet.ts`:
 
 ```typescript title="src/createWallet.ts"
 --8<-- 'code/develop/smart-contracts/libraries/viem/createWallet.ts'
@@ -167,7 +167,7 @@ Create a new file at `src/deploy.ts` for handling contract deployment:
 --8<-- 'code/develop/smart-contracts/libraries/viem/deploy.ts'
 ```
 
-Ensure to replace `INSERT_PRIVATE_KEY` with the proper value. For further details on private key exportation, refer to the article [How to export an account's private key](https://support.metamask.io/configure/accounts/how-to-export-an-accounts-private-key/){target=\_blank}.
+Ensure to replace `INSERT_PRIVATE_KEY` with the proper value. For further details on private key exportation, refer to the article [How to export an account's private key](https://support.metamask.io/configure/accounts/how-to-export-an-accounts-private-key/).
 
 !!! warning
     Never commit or share your private key. Exposed keys can lead to immediate theft of all associated funds. Use environment variables instead.
@@ -209,11 +209,11 @@ Now that you have the foundation for using viem with Polkadot Hub, consider expl
     ---
     Explore viem's documentation:
     <ul class="card-list">
-    <li>[:octicons-arrow-right-24: Multi call](https://viem.sh/docs/contract/multicall#multicall){target=\_blank}</li>
+    <li>[:octicons-arrow-right-24: Multi call](https://viem.sh/docs/contract/multicall#multicall)</li>
 
-    <li>[:octicons-arrow-right-24: Batch transactions](https://viem.sh/docs/clients/transports/http#batch-json-rpc){target=\_blank}</li>
+    <li>[:octicons-arrow-right-24: Batch transactions](https://viem.sh/docs/clients/transports/http#batch-json-rpc)</li>
 
-    <li>[:octicons-arrow-right-24: Custom actions](https://viem.sh/docs/clients/custom#extending-with-actions-or-configuration){target=\_blank}</li>
+    <li>[:octicons-arrow-right-24: Custom actions](https://viem.sh/docs/clients/custom#extending-with-actions-or-configuration)</li>
     </ul>
 
 -   <span class="badge external">External</span> __Test Frameworks__
@@ -222,9 +222,9 @@ Now that you have the foundation for using viem with Polkadot Hub, consider expl
 
     Integrate viem with the following frameworks for comprehensive testing:
     <ul class="card-list">
-    <li>[:octicons-arrow-right-24: Hardhat](https://hardhat.org/){target=\_blank}</li>
+    <li>[:octicons-arrow-right-24: Hardhat](https://hardhat.org/)</li>
 
-    <li>[:octicons-arrow-right-24: Foundry](https://book.getfoundry.sh/){target=\_blank}</li>
+    <li>[:octicons-arrow-right-24: Foundry](https://book.getfoundry.sh/)</li>
     </ul>
 
 -   <span class="badge external">External</span> __Event Handling__
@@ -233,7 +233,7 @@ Now that you have the foundation for using viem with Polkadot Hub, consider expl
 
     Learn how to subscribe to and process contract events:
     <ul class="card-list">
-    <li>[:octicons-arrow-right-24: Event subscription](https://viem.sh/docs/actions/public/watchEvent#watchevent){target=\_blank}</li>
+    <li>[:octicons-arrow-right-24: Event subscription](https://viem.sh/docs/actions/public/watchEvent#watchevent)</li>
     </ul>
 
 -   <span class="badge external">External</span> __Building dApps__
@@ -242,9 +242,9 @@ Now that you have the foundation for using viem with Polkadot Hub, consider expl
 
     Combine viem the following technologies to create full-stack applications:
     <ul class="card-list">
-    <li>[:octicons-arrow-right-24: Next.js](https://nextjs.org/docs){target=\_blank}</li>
+    <li>[:octicons-arrow-right-24: Next.js](https://nextjs.org/docs)</li>
 
-    <li>[:octicons-arrow-right-24: Node.js](https://nodejs.org/en){target=\_blank}</li>
+    <li>[:octicons-arrow-right-24: Node.js](https://nodejs.org/en)</li>
     </ul>
 
 </div>

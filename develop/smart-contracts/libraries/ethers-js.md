@@ -9,7 +9,7 @@ description: Learn how to interact with Polkadot Hub using Ethers.js, from compi
 
 ## Introduction
 
-[Ethers.js](https://docs.ethers.org/v6/){target=\_blank} is a lightweight library that enables interaction with Ethereum Virtual Machine (EVM)-compatible blockchains through JavaScript. Ethers is widely used as a toolkit to establish connections and read and write blockchain data. This article demonstrates using Ethers.js to interact and deploy smart contracts to Polkadot Hub.
+[Ethers.js](https://docs.ethers.org/v6/) is a lightweight library that enables interaction with Ethereum Virtual Machine (EVM)-compatible blockchains through JavaScript. Ethers is widely used as a toolkit to establish connections and read and write blockchain data. This article demonstrates using Ethers.js to interact and deploy smart contracts to Polkadot Hub.
 
 This guide is intended for developers who are familiar with JavaScript and want to interact with Polkadot Hub using Ethers.js.
 
@@ -17,7 +17,7 @@ This guide is intended for developers who are familiar with JavaScript and want 
 
 Before getting started, ensure you have the following installed:
 
-- **Node.js** - v22.13.1 or later, check the [Node.js installation guide](https://nodejs.org/en/download/current/){target=\_blank}
+- **Node.js** - v22.13.1 or later, check the [Node.js installation guide](https://nodejs.org/en/download/current/)
 - **npm** - v6.13.4 or later (comes bundled with Node.js)
 - **Solidity** - this guide uses Solidity `^0.8.9` for smart contract development
 
@@ -66,7 +66,7 @@ npm install ethers
 
 ## Set Up the Ethers.js Provider
 
-A [`Provider`](https://docs.ethers.org/v6/api/providers/#Provider){target=\_blank} is an abstraction of a connection to the Ethereum network, allowing you to query blockchain data and send transactions. It serves as a bridge between your application and the blockchain.
+A [`Provider`](https://docs.ethers.org/v6/api/providers/#Provider) is an abstraction of a connection to the Ethereum network, allowing you to query blockchain data and send transactions. It serves as a bridge between your application and the blockchain.
 
 To interact with Polkadot Hub, you must set up an Ethers.js provider. This provider connects to a blockchain node, allowing you to query blockchain data and interact with smart contracts. In the root of your project, create a file named `connectToProvider.js` and add the following code:
 
@@ -103,11 +103,11 @@ With the provider set up, you can start querying the blockchain. For instance, t
 
 --8<-- 'text/smart-contracts/code-size.md'
 
-The `revive` compiler transforms Solidity smart contracts into [PolkaVM](/develop/smart-contracts/overview#native-smart-contracts){target=\_blank} bytecode for deployment on Polkadot Hub. Revive's Ethereum RPC interface allows you to use familiar tools like Ethers.js and MetaMask to interact with contracts.
+The `revive` compiler transforms Solidity smart contracts into [PolkaVM](/develop/smart-contracts/overview#native-smart-contracts) bytecode for deployment on Polkadot Hub. Revive's Ethereum RPC interface allows you to use familiar tools like Ethers.js and MetaMask to interact with contracts.
 
 ### Install the Revive Library
 
-The [`@parity/resolc`](https://www.npmjs.com/package/@parity/resolc){target=\_blank} library will compile your Solidity code for deployment on Polkadot Hub. Run the following command in your terminal to install the library:
+The [`@parity/resolc`](https://www.npmjs.com/package/@parity/resolc) library will compile your Solidity code for deployment on Polkadot Hub. Run the following command in your terminal to install the library:
 
 ```bash
 npm install --save-dev @parity/resolc 
@@ -221,4 +221,4 @@ Now that you have the foundational knowledge to use Ethers.js with Polkadot Hub,
 
 - **Dive into Ethers.js utilities** - discover additional Ethers.js features, such as wallet management, signing messages, etc
 - **Implement batch transactions** - use Ethers.js to execute batch transactions for efficient multi-step contract interactions
-- **Build scalable applications** - combine Ethers.js with frameworks like [`Next.js`](https://nextjs.org/docs){target=\_blank} or [`Node.js`](https://nodejs.org/en){target=\_blank} to create full-stack decentralized applications (dApps)
+- **Build scalable applications** - combine Ethers.js with frameworks like [`Next.js`](https://nextjs.org/docs) or [`Node.js`](https://nodejs.org/en) to create full-stack decentralized applications (dApps)

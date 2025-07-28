@@ -7,7 +7,7 @@ description: Simplify Polkadot SDK development with Chopsticks. Learn essential 
 
 ## Introduction
 
-[Chopsticks](https://github.com/AcalaNetwork/chopsticks/){target=\_blank}, developed by the [Acala Foundation](https://github.com/AcalaNetwork){target=\_blank}, is a versatile tool tailored for developers working on Polkadot SDK-based blockchains. With Chopsticks, you can fork live chains locally, replay blocks to analyze extrinsics, and simulate complex scenarios like XCM interactions all without deploying to a live network.
+[Chopsticks](https://github.com/AcalaNetwork/chopsticks/), developed by the [Acala Foundation](https://github.com/AcalaNetwork), is a versatile tool tailored for developers working on Polkadot SDK-based blockchains. With Chopsticks, you can fork live chains locally, replay blocks to analyze extrinsics, and simulate complex scenarios like XCM interactions all without deploying to a live network.
 
 This guide walks you through installing Chopsticks and provides information on configuring a local blockchain fork. By streamlining testing and experimentation, Chopsticks empowers developers to innovate and accelerate their blockchain projects within the Polkadot ecosystem.
 
@@ -20,8 +20,8 @@ For additional support and information, please reach out through [GitHub Issues]
 
 Before you begin, ensure you have the following installed:
 
-- [Node.js](https://nodejs.org/en/){target=\_blank}
-- A package manager such as [npm](https://www.npmjs.com/){target=\_blank}, which should be installed with Node.js by default, or [Yarn](https://yarnpkg.com/){target=\_blank}
+- [Node.js](https://nodejs.org/en/)
+- A package manager such as [npm](https://www.npmjs.com/), which should be installed with Node.js by default, or [Yarn](https://yarnpkg.com/)
 
 ## Install Chopsticks
 
@@ -79,7 +79,7 @@ To run Chopsticks, you need to configure some parameters. This can be set either
 
 ### Configuration File
 
-The Chopsticks source repository includes a collection of [YAML](https://yaml.org/){target=\_blank} files that can be used to set up various Polkadot SDK chains locally. You can download these configuration files from the [repository's `configs` folder](https://github.com/AcalaNetwork/chopsticks/tree/master/configs){target=\_blank}.
+The Chopsticks source repository includes a collection of [YAML](https://yaml.org/) files that can be used to set up various Polkadot SDK chains locally. You can download these configuration files from the [repository's `configs` folder](https://github.com/AcalaNetwork/chopsticks/tree/master/configs).
 
 An example of a configuration file for Polkadot is as follows:
 

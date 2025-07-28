@@ -21,8 +21,8 @@ Developers can focus on writing meaningful tests rather than managing infrastruc
 
 Before you begin, ensure you have the following installed:
 
-- [Node.js](https://nodejs.org/en/){target=\_blank} (version 20.10 or higher)
-- A package manager such as [npm](https://www.npmjs.com/){target=\_blank}, [yarn](https://yarnpkg.com/){target=\_blank}, or [pnpm](https://pnpm.io/){target=\_blank}
+- [Node.js](https://nodejs.org/en/) (version 20.10 or higher)
+- A package manager such as [npm](https://www.npmjs.com/), [yarn](https://yarnpkg.com/), or [pnpm](https://pnpm.io/)
 
 ## Install Moonwall
 
@@ -115,11 +115,11 @@ The default configuration requires specific details about your blockchain node a
 
 - The `foundation` object defines how your test blockchain node will be launched and managed. The dev foundation, which runs a local node binary, is used for local development
     
-For more information about available options, check the [Foundations](https://moonsong-labs.github.io/moonwall/guide/intro/foundations.html){target=\_blank} section.
+For more information about available options, check the [Foundations](https://moonsong-labs.github.io/moonwall/guide/intro/foundations.html) section.
 
 - The `connections` array specifies how your tests will interact with the blockchain node. This typically includes provider configuration and endpoint details
     
-A provider is a tool that allows you or your application to connect to a blockchain network and simplifies the low-level details of the process. A provider handles submitting transactions, reading state, and more. For more information on available providers, check the [Providers supported](https://moonsong-labs.github.io/moonwall/guide/intro/providers.html#providers-supported){target=\_blank} page in the Moonwall documentation.
+A provider is a tool that allows you or your application to connect to a blockchain network and simplifies the low-level details of the process. A provider handles submitting transactions, reading state, and more. For more information on available providers, check the [Providers supported](https://moonsong-labs.github.io/moonwall/guide/intro/providers.html#providers-supported) page in the Moonwall documentation.
 
 Here's a complete configuration example for testing a local node using Polkadot.js as a provider:
 
@@ -129,7 +129,7 @@ Here's a complete configuration example for testing a local node using Polkadot.
 
 ## Writing Tests
 
-Moonwall uses the [`describeSuite`](https://github.com/Moonsong-Labs/moonwall/blob/7568048c52e9f7844f38fb4796ae9e1b9205fdaa/packages/cli/src/lib/runnerContext.ts#L65){target=\_blank} function to define test suites, like using [Mocha](https://mochajs.org/){target=\_blank}. Each test suite requires the following:
+Moonwall uses the [`describeSuite`](https://github.com/Moonsong-Labs/moonwall/blob/7568048c52e9f7844f38fb4796ae9e1b9205fdaa/packages/cli/src/lib/runnerContext.ts#L65) function to define test suites, like using [Mocha](https://mochajs.org/). Each test suite requires the following:
 
 - **`id`** - unique identifier for the suite
 - **`title`** - descriptive name for the suite
@@ -170,4 +170,4 @@ Example output:
 
 ## Where to Go Next
 
-For a comprehensive guide to Moonwall's full capabilities, available configurations, and advanced usage, see the official [Moonwall](https://moonsong-labs.github.io/moonwall/){target=\_blank} documentation.
+For a comprehensive guide to Moonwall's full capabilities, available configurations, and advanced usage, see the official [Moonwall](https://moonsong-labs.github.io/moonwall/) documentation.

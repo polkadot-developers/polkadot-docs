@@ -6,11 +6,11 @@ description: Interact with Polkadot SDK-based chains easily using the Polkadot.j
 # Polkadot.js API
 
 !!! warning "Maintenance Mode Only"
-    The Polkadot.js API is now in maintenance mode and is no longer actively developed. New projects should use [Dedot](/develop/toolkit/api-libraries/dedot){target=\_blank} (TypeScript-first API) or [Polkadot API](/develop/toolkit/api-libraries/papi){target=\_blank} (modern, type-safe API) as actively maintained alternatives.
+    The Polkadot.js API is now in maintenance mode and is no longer actively developed. New projects should use [Dedot](/develop/toolkit/api-libraries/dedot) (TypeScript-first API) or [Polkadot API](/develop/toolkit/api-libraries/papi) (modern, type-safe API) as actively maintained alternatives.
 
 ## Introduction
 
-The [Polkadot.js API](https://github.com/polkadot-js/api){target=\_blank} uses JavaScript/TypeScript to interact with Polkadot SDK-based chains. It allows you to query nodes, read chain state, and submit transactions through a dynamic, auto-generated API interface.
+The [Polkadot.js API](https://github.com/polkadot-js/api) uses JavaScript/TypeScript to interact with Polkadot SDK-based chains. It allows you to query nodes, read chain state, and submit transactions through a dynamic, auto-generated API interface.
 
 ### Dynamic API Generation
 
@@ -24,16 +24,16 @@ Unlike traditional static APIs, the Polkadot.js API generates its interfaces aut
 
 You can access three main categories of chain interactions:
 
-- **[Runtime constants](https://polkadot.js.org/docs/api/start/api.consts){target=\_blank}** (`api.consts`)
+- **[Runtime constants](https://polkadot.js.org/docs/api/start/api.consts)** (`api.consts`)
     - Access runtime constants directly
     - Returns values immediately without function calls
     - Example - `api.consts.balances.existentialDeposit`
 
-- **[State queries](https://polkadot.js.org/docs/api/start/api.query/){target=\_blank}** (`api.query`)
+- **[State queries](https://polkadot.js.org/docs/api/start/api.query/)** (`api.query`)
     - Read chain state
     - Example - `api.query.system.account(accountId)`
 
-- **[Transactions](https://polkadot.js.org/docs/api/start/api.tx/){target=\_blank}** (`api.tx`)
+- **[Transactions](https://polkadot.js.org/docs/api/start/api.tx/)** (`api.tx`)
     - Submit extrinsics (transactions)
     - Example - `api.tx.balances.transfer(accountId, value)`
 
@@ -58,7 +58,7 @@ To add the Polkadot.js API to your project, use the following command to install
     yarn add @polkadot/api@{{ dependencies.javascript_packages.polkadot_js_api.version }}
     ```
 
-For more detailed information about installation, see the [Installation](https://polkadot.js.org/docs/api/start/install/){target=\_blank} section in the official Polkadot.js API documentation.
+For more detailed information about installation, see the [Installation](https://polkadot.js.org/docs/api/start/install/) section in the official Polkadot.js API documentation.
 
 ## Get Started
 
@@ -104,8 +104,8 @@ To make a transfer:
 --8<-- 'code/develop/toolkit/api-libraries/polkadot-js-sdk/send-txs.js'
 ```
 
-The `alice` keypair in the example comes from a `Keyring` object. For more details about managing keypairs, see the [Keyring documentation](https://polkadot.js.org/docs/keyring){target=\_blank}.
+The `alice` keypair in the example comes from a `Keyring` object. For more details about managing keypairs, see the [Keyring documentation](https://polkadot.js.org/docs/keyring).
 
 ## Where to Go Next
 
-For more detailed information about the Polkadot.js API, check the [official documentation](https://polkadot.js.org/docs/){target=\_blank}.
+For more detailed information about the Polkadot.js API, check the [official documentation](https://polkadot.js.org/docs/).

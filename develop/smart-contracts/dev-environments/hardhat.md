@@ -15,7 +15,7 @@ description: Learn how to create, compile, test, and deploy smart contracts on P
     Master Solidity smart contract development with Hardhat. Learn testing, deployment, and network interaction in one comprehensive tutorial.
 
     <br>
-    [:octicons-arrow-right-24: Get Started](/tutorials/smart-contracts/launch-your-first-project/test-and-deploy-with-hardhat){target=\_blank}
+    [:octicons-arrow-right-24: Get Started](/tutorials/smart-contracts/launch-your-first-project/test-and-deploy-with-hardhat)
 
 </div>
 
@@ -29,9 +29,9 @@ Hardhat is a robust development environment for Ethereum-compatible chains that 
 
 Before getting started, ensure you have:
 
-- [Node.js](https://nodejs.org/){target=\_blank} (v16.0.0 or later) and npm installed
+- [Node.js](https://nodejs.org/) (v16.0.0 or later) and npm installed
 - Basic understanding of Solidity programming
-- Some PAS test tokens to cover transaction fees (easily obtainable from the [Polkadot faucet](https://faucet.polkadot.io/?parachain=1111){target=\_blank}). To learn how to get test tokens, check out the [Test Tokens](/develop/smart-contracts/connect-to-polkadot#test-tokens){target=\_blank} section
+- Some PAS test tokens to cover transaction fees (easily obtainable from the [Polkadot faucet](https://faucet.polkadot.io/?parachain=1111)). To learn how to get test tokens, check out the [Test Tokens](/develop/smart-contracts/connect-to-polkadot#test-tokens) section
 
 ## Set Up Hardhat
 
@@ -87,7 +87,7 @@ Before getting started, ensure you have:
 
 The plugin will compile your Solidity contracts for Solidity versions `0.8.0` and higher to be PolkaVM compatible. When compiling your contract, there are two ways to configure your compilation process:
 
-- **npm compiler** - uses library [@parity/resolc](https://www.npmjs.com/package/@parity/resolc){target=\_blank} for simplicity and ease of use
+- **npm compiler** - uses library [@parity/resolc](https://www.npmjs.com/package/@parity/resolc) for simplicity and ease of use
 - **Binary compiler** - uses your local `resolc` binary directly for more control and configuration options
 
 To compile your project, follow these instructions:
@@ -108,9 +108,9 @@ To compile your project, follow these instructions:
         --8<-- 'code/develop/smart-contracts/dev-environments/hardhat/binary-hardhat.config.js:36:38'
         ```
 
-    For the binary configuration, replace `INSERT_PATH_TO_RESOLC_COMPILER` with the proper path to the binary. To obtain the binary, check the [releases](https://github.com/paritytech/revive/releases){target=\_blank} section of the `resolc` compiler, and download the latest version.
+    For the binary configuration, replace `INSERT_PATH_TO_RESOLC_COMPILER` with the proper path to the binary. To obtain the binary, check the [releases](https://github.com/paritytech/revive/releases) section of the `resolc` compiler, and download the latest version.
 
-    The default settings used can be found in the [`constants.ts`](https://github.com/paritytech/hardhat-polkadot/blob/v0.1.5/packages/hardhat-polkadot-resolc/src/constants.ts#L8-L23){target=\_blank} file of the `hardhat-polkadot` source code. You can change them according to your project needs. Generally, the recommended settings for optimized outputs are the following:
+    The default settings used can be found in the [`constants.ts`](https://github.com/paritytech/hardhat-polkadot/blob/v0.1.5/packages/hardhat-polkadot-resolc/src/constants.ts#L8-L23) file of the `hardhat-polkadot` source code. You can change them according to your project needs. Generally, the recommended settings for optimized outputs are the following:
 
     ```javascript title="hardhat.config.js" hl_lines="4-10"
     resolc: {
@@ -128,7 +128,7 @@ To compile your project, follow these instructions:
     }
     ```
 
-    You can check the [`ResolcConfig`](https://github.com/paritytech/hardhat-polkadot/blob/v0.1.5/packages/hardhat-polkadot-resolc/src/types.ts#L26){target=\_blank} for more information about compilation settings.
+    You can check the [`ResolcConfig`](https://github.com/paritytech/hardhat-polkadot/blob/v0.1.5/packages/hardhat-polkadot-resolc/src/types.ts#L26) for more information about compilation settings.
 
 2. Compile the contract with Hardhat:
 
@@ -161,7 +161,7 @@ Configure a local node setup by adding the node binary path along with the ETH-R
 --8<-- 'code/develop/smart-contracts/dev-environments/hardhat/hardhat.config.js:34:35'
 ```
 
-Replace `INSERT_PATH_TO_SUBSTRATE_NODE` and `INSERT_PATH_TO_ETH_RPC_ADAPTER` with the actual paths to your compiled binaries. The `dev: true` flag configures both the node and adapter for development mode. To obtain these binaries, check the [Installation](/develop/smart-contracts/local-development-node#install-the-substrate-node-and-eth-rpc-adapter){target=\_blank} section on the Local Development Node page.
+Replace `INSERT_PATH_TO_SUBSTRATE_NODE` and `INSERT_PATH_TO_ETH_RPC_ADAPTER` with the actual paths to your compiled binaries. The `dev: true` flag configures both the node and adapter for development mode. To obtain these binaries, check the [Installation](/develop/smart-contracts/local-development-node#install-the-substrate-node-and-eth-rpc-adapter) section on the Local Development Node page.
 
 Once configured, start your chosen testing environment with:
 
@@ -177,7 +177,7 @@ The output will be something like this:
 
 ## Test Your Contract
 
-When testing your contract, be aware that [`@nomicfoundation/hardhat-toolbox/network-helpers`](https://hardhat.org/hardhat-network-helpers/docs/overview){target=\_blank} is not fully compatible with Polkadot Hub's available RPCs. Specifically, Hardhat-only helpers like `time` and `loadFixture` may not work due to missing RPC calls in the node. For more details, refer to the [Compatibility](https://github.com/paritytech/hardhat-polkadot/tree/main/packages/hardhat-polkadot-node#compatibility){target=\_blank} section in the `hardhat-revive` docs. You should avoid using helpers like `time` and `loadFixture` when writing tests.
+When testing your contract, be aware that [`@nomicfoundation/hardhat-toolbox/network-helpers`](https://hardhat.org/hardhat-network-helpers/docs/overview) is not fully compatible with Polkadot Hub's available RPCs. Specifically, Hardhat-only helpers like `time` and `loadFixture` may not work due to missing RPC calls in the node. For more details, refer to the [Compatibility](https://github.com/paritytech/hardhat-polkadot/tree/main/packages/hardhat-polkadot-node#compatibility) section in the `hardhat-revive` docs. You should avoid using helpers like `time` and `loadFixture` when writing tests.
 
 To run your test:
 
@@ -191,7 +191,7 @@ To run your test:
 
 ## Deploy to a Local Node
 
-Before deploying to a live network, you can deploy your contract to a local node using [Ignition](https://hardhat.org/ignition/docs/getting-started#overview){target=\_blank} modules:
+Before deploying to a live network, you can deploy your contract to a local node using [Ignition](https://hardhat.org/ignition/docs/getting-started#overview) modules:
 
 1. Update the Hardhat configuration file to add the local network as a target for local deployment:
 
@@ -224,7 +224,7 @@ Before deploying to a live network, you can deploy your contract to a local node
 
 After testing your contract locally, you can deploy it to a live network. This guide will use the Polkadot Hub TestNet as the target network. Here's how to configure and deploy:
 
-1. Fund your deployment account with enough tokens to cover gas fees. In this case, the needed tokens are PAS (on Polkadot Hub TestNet). You can use the [Polkadot faucet](https://faucet.polkadot.io/?parachain=1111){target=\_blank} to obtain testing tokens.
+1. Fund your deployment account with enough tokens to cover gas fees. In this case, the needed tokens are PAS (on Polkadot Hub TestNet). You can use the [Polkadot faucet](https://faucet.polkadot.io/?parachain=1111) to obtain testing tokens.
 
 2. Export your private key and save it in your Hardhat environment:
 
@@ -232,7 +232,7 @@ After testing your contract locally, you can deploy it to a live network. This g
     npx hardhat vars set PRIVATE_KEY "INSERT_PRIVATE_KEY"
     ```
 
-    Replace `INSERT_PRIVATE_KEY` with your actual private key. For further details on private key exportation, refer to the article [How to export an account's private key](https://support.metamask.io/configure/accounts/how-to-export-an-accounts-private-key/){target=\_blank}.
+    Replace `INSERT_PRIVATE_KEY` with your actual private key. For further details on private key exportation, refer to the article [How to export an account's private key](https://support.metamask.io/configure/accounts/how-to-export-an-accounts-private-key/).
 
     !!! warning
         Never reveal your private key, otherwise anyone with access to it can control your wallet and steal your funds. Store it securely and never share it publicly or commit it to version control systems.
@@ -305,7 +305,7 @@ Explore more about smart contracts through these resources:
 
     Learn more about Hardhat's advanced features and best practices.
 
-    [:octicons-arrow-right-24: Get Started](https://hardhat.org/docs){target=\_blank}
+    [:octicons-arrow-right-24: Get Started](https://hardhat.org/docs)
 
 -   <span class="badge external">External</span> __OpenZeppelin Contracts__
 
@@ -313,6 +313,6 @@ Explore more about smart contracts through these resources:
 
     Test your skills by deploying contracts with prebuilt templates.
 
-    [:octicons-arrow-right-24: Get Started](https://www.openzeppelin.com/solidity-contracts){target=\_blank}
+    [:octicons-arrow-right-24: Get Started](https://www.openzeppelin.com/solidity-contracts)
 
 </div>

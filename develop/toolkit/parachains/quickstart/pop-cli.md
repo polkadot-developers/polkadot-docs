@@ -7,7 +7,7 @@ description: Quickly bootstrap parachain projects, scaffold templates, deploy lo
 
 ## Introduction
 
-[Pop CLI](https://onpop.io/cli/){target=\_blank} is a powerful command-line tool designed explicitly for rapid parachain development within the Polkadot ecosystem. It addresses essential developer needs by providing streamlined commands to set up development environments, scaffold parachain templates, and manage local blockchain networks.
+[Pop CLI](https://onpop.io/cli/) is a powerful command-line tool designed explicitly for rapid parachain development within the Polkadot ecosystem. It addresses essential developer needs by providing streamlined commands to set up development environments, scaffold parachain templates, and manage local blockchain networks.
 
 Pop CLI simplifies parachain development with features like:
 
@@ -35,7 +35,7 @@ pop --help
 
 ### Set Up Your Development Environment
 
-To develop and build Polkadot SDK-based chains, preparing your local environment with the necessary tools and dependencies is essential. The [Install Polkadot SDK Dependencies](/develop/parachains/install-polkadot-sdk/){target=\_blank} guide walks you through this setup step-by-step.
+To develop and build Polkadot SDK-based chains, preparing your local environment with the necessary tools and dependencies is essential. The [Install Polkadot SDK Dependencies](/develop/parachains/install-polkadot-sdk/) guide walks you through this setup step-by-step.
 
 However, you can automate this entire process by running:
 
@@ -63,9 +63,9 @@ pop build --release
 ```
 
 !!! note
-    Under the hood, `pop build --release` runs `cargo build --release`, but `pop build` adds functionality specific to Polkadot SDK projects, such as [deterministic runtime builds](/develop/parachains/deployment/build-deterministic-runtime/){target=\_blank} and automatic management of feature flags like `benchmark` or `try-runtime`.
+    Under the hood, `pop build --release` runs `cargo build --release`, but `pop build` adds functionality specific to Polkadot SDK projects, such as [deterministic runtime builds](/develop/parachains/deployment/build-deterministic-runtime/) and automatic management of feature flags like `benchmark` or `try-runtime`.
 
-Pop CLI integrates the [Zombienet SDK](https://github.com/paritytech/zombienet-sdk){target=\_blank} allowing you to easily launch ephemeral local networks for development and testing. To start a network, simply run the following:
+Pop CLI integrates the [Zombienet SDK](https://github.com/paritytech/zombienet-sdk) allowing you to easily launch ephemeral local networks for development and testing. To start a network, simply run the following:
 
 ```bash
 pop up network -f ./network.toml

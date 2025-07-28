@@ -19,7 +19,7 @@ Collators are responsible for sequencing end-user transactions into blocks and m
 
 Key responsibilities include:
 
-- **Transaction sequencing** - organizing transactions into [Proof of Validity (PoV)](https://wiki.polkadot.network/general/glossary/){target=\_blank} blocks
+- **Transaction sequencing** - organizing transactions into [Proof of Validity (PoV)](https://wiki.polkadot.network/general/glossary/) blocks
 - **State management** - maintaining parachain states without burdening the relay chain validators
 - **Consensus participation** - sending PoV blocks to relay chain validators for approval
 
@@ -36,7 +36,7 @@ The following sections describe the actions taking place during each stage of th
 
 ### Path of a Parachain Block
 
-Polkadot achieves scalability through execution sharding, where each parachain operates as an independent shard with its own blockchain and state. Shared security for all parachains is provided by the relay chain, powered by [Nominated Proof of Staking (NPoS)](/polkadot-protocol/glossary/#nominated-proof-of-stake-npos){target=\_blank}. This framework allows parachains to focus on transaction processing and state management, while the relay chain ensures validation and finality.
+Polkadot achieves scalability through execution sharding, where each parachain operates as an independent shard with its own blockchain and state. Shared security for all parachains is provided by the relay chain, powered by [Nominated Proof of Staking (NPoS)](/polkadot-protocol/glossary/#nominated-proof-of-stake-npos). This framework allows parachains to focus on transaction processing and state management, while the relay chain ensures validation and finality.
 
 The journey parachain transactions follow to reach consensus and finality can be described as follows:
 
@@ -113,4 +113,4 @@ It is important to understand that relay chain blocks do not store full parachai
 
 For more technical details, refer to the:
 
-- [Parachain Wiki](https://wiki.polkadot.network/learn/learn-parachains/){target=\_blank} page
+- [Parachain Wiki](https://wiki.polkadot.network/learn/learn-parachains/) page

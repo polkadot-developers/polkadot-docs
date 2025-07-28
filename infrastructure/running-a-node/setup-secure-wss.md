@@ -13,14 +13,14 @@ By the end of this guide, you'll be able to secure your node's WebSocket port, e
 
 ## Secure a WebSocket Port
 
-You can convert a non-secured WebSocket port to a secure WSS port by placing it behind an SSL-enabled proxy. This approach can be used to secure a bootnode or RPC server. The SSL-enabled apache2/nginx/other proxy server redirects requests to the internal WebSocket and converts it to a secure (WSS) connection. You can use a service like [LetsEncrypt](https://letsencrypt.org/){target=\_blank} to obtain an SSL certificate.
+You can convert a non-secured WebSocket port to a secure WSS port by placing it behind an SSL-enabled proxy. This approach can be used to secure a bootnode or RPC server. The SSL-enabled apache2/nginx/other proxy server redirects requests to the internal WebSocket and converts it to a secure (WSS) connection. You can use a service like [LetsEncrypt](https://letsencrypt.org/) to obtain an SSL certificate.
 
 ### Obtain an SSL Certificate
 
-LetsEncrypt suggests using the [Certbot ACME client](https://letsencrypt.org/getting-started/#with-shell-access/){target=\_blank} for your respective web server implementation to get a free SSL certificate:
+LetsEncrypt suggests using the [Certbot ACME client](https://letsencrypt.org/getting-started/#with-shell-access/) for your respective web server implementation to get a free SSL certificate:
 
-- [nginx](https://certbot.eff.org/instructions?ws=nginx&os=ubuntufocal){target=\_blank}
-- [apache2](https://certbot.eff.org/instructions?ws=apache&os=ubuntufocal){target=\_blank}
+- [nginx](https://certbot.eff.org/instructions?ws=nginx&os=ubuntufocal)
+- [apache2](https://certbot.eff.org/instructions?ws=apache&os=ubuntufocal)
  
 LetsEncrypt will auto-generate an SSL certificate and include it in your configuration.
 
@@ -32,7 +32,7 @@ Use the following command to generate a self-signed certificate using OpenSSL:
 
 ## Install a Proxy Server
 
-There are a lot of different implementations of a WebSocket proxy; some of the more widely used are [nginx](https://www.f5.com/go/product/welcome-to-nginx){target=\_blank} and [apache2](https://httpd.apache.org/){target=\_blank}, both of which are commonly used web server implementations. See the following section for configuration examples for both implementations.
+There are a lot of different implementations of a WebSocket proxy; some of the more widely used are [nginx](https://www.f5.com/go/product/welcome-to-nginx) and [apache2](https://httpd.apache.org/), both of which are commonly used web server implementations. See the following section for configuration examples for both implementations.
 
 ### Use nginx
 
@@ -49,12 +49,12 @@ There are a lot of different implementations of a WebSocket proxy; some of the m
 
 ### Use Apache2
 
-Apache2 can run in various modes, including `prefork`, `worker`, and `event`. In this example, the [`event`](https://httpd.apache.org/docs/2.4/mod/event.html){target=\_blank} mode is recommended for handling higher traffic loads, as it is optimized for performance in such environments. However, depending on the specific requirements of your setup, other modes like `prefork` or `worker` may also be appropriate.
+Apache2 can run in various modes, including `prefork`, `worker`, and `event`. In this example, the [`event`](https://httpd.apache.org/docs/2.4/mod/event.html) mode is recommended for handling higher traffic loads, as it is optimized for performance in such environments. However, depending on the specific requirements of your setup, other modes like `prefork` or `worker` may also be appropriate.
 
 1. Install the `apache2` web server:
     --8<-- 'code/infrastructure/running-a-node/setup-secure-wss/install-apache2.md'
 
-2. The [`mod_proxy_wstunnel`](https://httpd.apache.org/docs/2.4/mod/mod_proxy_wstunnel.html){target=\_blank} provides support for the tunneling of WebSocket connections to a backend WebSocket server. The connection is automatically upgraded to a WebSocket connection. In an SSL-enabled virtual host add:
+2. The [`mod_proxy_wstunnel`](https://httpd.apache.org/docs/2.4/mod/mod_proxy_wstunnel.html) provides support for the tunneling of WebSocket connections to a backend WebSocket server. The connection is automatically upgraded to a WebSocket connection. In an SSL-enabled virtual host add:
     --8<-- 'code/infrastructure/running-a-node/setup-secure-wss/apache2-config.md'
 
     !!!warning 
@@ -82,7 +82,7 @@ Apache2 can run in various modes, including `prefork`, `worker`, and `event`. In
 
 ## Connect to the Node
 
-1. Open [Polkadot.js Apps interface](https://polkadot.js.org/apps){target=\_blank} and click the logo in the top left to switch the node
+1. Open [Polkadot.js Apps interface](https://polkadot.js.org/apps) and click the logo in the top left to switch the node
 2. Activate the **Development** toggle and input either your node's domain or IP address. Remember to prefix with `wss://` and, if you're using the 443 port, append `:443` as follows:
 
     ```bash

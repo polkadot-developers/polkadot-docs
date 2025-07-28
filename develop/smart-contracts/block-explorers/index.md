@@ -30,7 +30,7 @@ The following block explorers are available for PolkaVM smart contracts, providi
 
 Subscan is the flagship Polkadot ecosystem block explorer with comprehensive support for PolkaVM smart contracts. It provides robust transaction indexing, account analysis, and monitoring tools specifically optimized for Polkadot SDK-based networks.
 
-- [Westend Hub Subscan](https://assethub-westend.subscan.io/){target=\_blank}
+- [Westend Hub Subscan](https://assethub-westend.subscan.io/)
 
 ![](/images/develop/smart-contracts/block-explorers/block-explorers-1.webp) -->
 
@@ -38,7 +38,7 @@ Subscan is the flagship Polkadot ecosystem block explorer with comprehensive sup
 
 BlockScout is an open-source explorer platform with a user-friendly interface adapted for PolkaVM contracts. It excels at detailed contract analytics and provides developers with comprehensive API access.
 
-- [Polkadot Hub TestNet BlockScout](https://blockscout-passet-hub.parity-testnet.parity.io/){target=\_blank}
+- [Polkadot Hub TestNet BlockScout](https://blockscout-passet-hub.parity-testnet.parity.io/)
 
 ![](/images/develop/smart-contracts/block-explorers/block-explorers-2.webp)
 
@@ -46,6 +46,6 @@ BlockScout is an open-source explorer platform with a user-friendly interface ad
 
 Routescan delivers multi-chain explorer capabilities with specialized support for PolkaVM environments.
 
-- [Westend Hub Routescan](https://420420421.testnet.routescan.io/){target=\_blank}
+- [Westend Hub Routescan](https://420420421.testnet.routescan.io/)
 
 ![](/images/develop/smart-contracts/block-explorers/block-explorers-3.webp) -->

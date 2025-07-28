@@ -8,7 +8,7 @@ description: Find answers to common questions about smart contract development, 
 --8<-- 'text/smart-contracts/polkaVM-warning.md'
 
 !!! note
-    For a list of known incompatibilities, please refer to the [Solidity and Yul IR transaltion incompatibilities](/polkadot-protocol/smart-contract-basics/evm-vs-polkavm/#solidity-and-yul-ir-translation-incompatibilities){target=\_blank} section.
+    For a list of known incompatibilities, please refer to the [Solidity and Yul IR transaltion incompatibilities](/polkadot-protocol/smart-contract-basics/evm-vs-polkavm/#solidity-and-yul-ir-translation-incompatibilities) section.
 
 ## General Questions
 
@@ -38,7 +38,7 @@ Choose a parachain if:
 
 ### What's the difference between Polkadot Hub smart contracts and other EVM chains?
 
-Polkadot Hub contracts run on [PolkaVM](/polkadot-protocol/smart-contract-basics/polkavm-design){target=\_blank} instead of EVM:
+Polkadot Hub contracts run on [PolkaVM](/polkadot-protocol/smart-contract-basics/polkavm-design) instead of EVM:
 
 - **Performance**: RISC-V register-based architecture vs. stack-based EVM.
 - **Resource metering**: Three dimensions (`ref_time`, `proof_size`, `storage_deposit`) vs. single gas metric.
@@ -49,11 +49,11 @@ Polkadot Hub contracts run on [PolkaVM](/polkadot-protocol/smart-contract-basics
 
 ### Can I use my existing Ethereum development tools?
 
-Yes, check out the [Wallets](/develop/smart-contracts/wallets){target=\_blank} page, the [Development Environments](/develop/smart-contracts/dev-environments/){target=\_blank}, and the [Libraries](/develop/smart-contracts/libraries/){target=\_blank} sections for more information.
+Yes, check out the [Wallets](/develop/smart-contracts/wallets) page, the [Development Environments](/develop/smart-contracts/dev-environments/), and the [Libraries](/develop/smart-contracts/libraries/) sections for more information.
 
 ### How do I set up local development?
 
-Check the [Local Development Node](/develop/smart-contracts/local-development-node){target=\_blank} for further instructions.
+Check the [Local Development Node](/develop/smart-contracts/local-development-node) for further instructions.
 
 ### What networks are available for testing and deployment?
 
@@ -64,7 +64,7 @@ Check the [Local Development Node](/develop/smart-contracts/local-development-no
 
 ### How do Ethereum addresses work on Polkadot?
 
-Polkadot uses a [dual-address system](/polkadot-protocol/smart-contract-basics/evm-vs-polkavm#account-management-comparison){target=\_blank}:
+Polkadot uses a [dual-address system](/polkadot-protocol/smart-contract-basics/evm-vs-polkavm#account-management-comparison):
 
 - _20-byte Ethereum addresses_ are padded with `0xEE` bytes to create 32-byte Polkadot accounts.
 - _32-byte Polkadot accounts_ can register mappings to 20-byte addresses.
@@ -148,11 +148,11 @@ PolkaVM uses dynamic gas scaling:
 
 ### I deployed a contract with MetaMask, and got a `code size` error - why?
 
-The latest MetaMask update affects the extension’s ability to deploy large contracts. Check the [Wallets](/develop/smart-contracts/wallets){target=\_blank} page for more details.
+The latest MetaMask update affects the extension’s ability to deploy large contracts. Check the [Wallets](/develop/smart-contracts/wallets) page for more details.
 
 ### I found a bug, where can I log it?
 
-Please log any bugs in the [`contracts-issues`](https://github.com/paritytech/contract-issues/issues){target=\_blank} repository so developers are aware of them and can address them.
+Please log any bugs in the [`contracts-issues`](https://github.com/paritytech/contract-issues/issues) repository so developers are aware of them and can address them.
 
 
 ## Known Issues
@@ -160,23 +160,23 @@ Please log any bugs in the [`contracts-issues`](https://github.com/paritytech/co
 ### Runtime Behavior
 
 - **`creationCode` returns hash instead of bytecode**: The Solidity keyword returns a `keccak256` hash rather than the actual creation bytecode.
-    - [Issue #45](https://github.com/paritytech/contract-issues/issues/45){target=\_blank}
+    - [Issue #45](https://github.com/paritytech/contract-issues/issues/45)
 - **Non-deterministic gas usage**: Gas consumption varies slightly for identical transactions.
-    - [Issue #49](https://github.com/paritytech/contract-issues/issues/49){target=\_blank}
+    - [Issue #49](https://github.com/paritytech/contract-issues/issues/49)
 - **Precompiles not recognized**: Precompile addresses return `Contract not found` error.
-    - [Issue #111](https://github.com/paritytech/contract-issues/issues/111){target=\_blank}
+    - [Issue #111](https://github.com/paritytech/contract-issues/issues/111)
 
 ### Development Tools
 
 - **`hardhat-polkadot` plugin compilation issues**: Plugin interferes with standard `npx hardhat compile` command.
-    - [Issue #44](https://github.com/paritytech/contract-issues/issues/44){target=\_blank}
+    - [Issue #44](https://github.com/paritytech/contract-issues/issues/44)
 
 ### Contract Patterns
 
 - **Minimal proxy (EIP-1167) deployment fails**: Standard proxy contracts cannot be deployed on PolkaVM.
-    - [Issue #86](https://github.com/paritytech/contract-issues/issues/86){target=\_blank}
+    - [Issue #86](https://github.com/paritytech/contract-issues/issues/86)
 
 ### Compilation
 
 - **`SDIV` opcode crash**: Compiler crashes with `Unsupported SDIV` assertion failure.
-    - [Issue #342](https://github.com/paritytech/revive/issues/342){target=\_blank}
+    - [Issue #342](https://github.com/paritytech/revive/issues/342)

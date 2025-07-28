@@ -11,7 +11,7 @@ Polkadot's architecture delivers scalability and security through its shared sec
 
 Elastic scaling enhances this architecture by allowing parachains to utilize multiple computational cores simultaneously, breaking the previous 1:1 relationship between parachain and relay chain blocks.
 
-This technical advancement enables parachains to process multiple blocks within a single relay chain block, significantly increasing throughput capabilities. By leveraging [Agile Coretime](/polkadot-protocol/architecture/polkadot-chain/agile-coretime){target=\_blank}, parachains can dynamically adjust their processing capacity based on demand, creating an efficient and responsive infrastructure for high-throughput applications.
+This technical advancement enables parachains to process multiple blocks within a single relay chain block, significantly increasing throughput capabilities. By leveraging [Agile Coretime](/polkadot-protocol/architecture/polkadot-chain/agile-coretime), parachains can dynamically adjust their processing capacity based on demand, creating an efficient and responsive infrastructure for high-throughput applications.
 
 ## How Elastic Scaling Works
 

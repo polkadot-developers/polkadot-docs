@@ -296,7 +296,7 @@ To compile your project, follow these instructions:
 
     === "npm Configuration"
 
-        ```javascript title="hardhat.config.js" hl_lines="8-10 13"
+        ```javascript title="hardhat.config.js" hl_lines="9-11 14"
         // hardhat.config.js
 require('@nomicfoundation/hardhat-toolbox');
 
@@ -318,7 +318,7 @@ module.exports = {
 
     === "Binary Configuration"
 
-        ```javascript title="hardhat.config.js" hl_lines="8-13 16"
+        ```javascript title="hardhat.config.js" hl_lines="9-14 17"
         // hardhat.config.js
 require('@nomicfoundation/hardhat-toolbox');
 
@@ -385,7 +385,7 @@ For complete isolation and control over the testing environment, you can configu
 
 Configure a local node setup by adding the node binary path along with the ETH-RPC adapter path:
 
-```javascript title="hardhat.config.js" hl_lines="11-19"
+```javascript title="hardhat.config.js" hl_lines="12-20"
 // hardhat.config.js
 require('@nomicfoundation/hardhat-toolbox');
 
@@ -464,7 +464,7 @@ Before deploying to a live network, you can deploy your contract to a local node
 
 1. Update the Hardhat configuration file to add the local network as a target for local deployment:
 
-    ```javascript title="hardhat.config.js" hl_lines="12-15"
+    ```javascript title="hardhat.config.js" hl_lines="13-16"
     // hardhat.config.js
 require('@nomicfoundation/hardhat-toolbox');
 
@@ -525,7 +525,7 @@ After testing your contract locally, you can deploy it to a live network. This g
 
 4. Update your Hardhat configuration file with network settings for the Polkadot network you want to target:
 
-    ```javascript title="hardhat.config.js" hl_lines="17-21"
+    ```javascript title="hardhat.config.js" hl_lines="18-22"
     // hardhat.config.js
 require('@nomicfoundation/hardhat-toolbox');
 
@@ -4161,7 +4161,7 @@ For further information, check the [`precompiles/IXCM.sol`](https://github.com/p
 
 ## Interact with the XCM Precompile
 
-To interact with the XCM precompile, you can use the precompile interface directly in [Remix IDE](/develop/smart-contracts/dev-environments/remix.md){target=\_blank}:
+To interact with the XCM precompile, you can use the precompile interface directly in [Remix IDE](/develop/smart-contracts/dev-environments/remix/){target=\_blank}:
 
 1. Create a new file called `IXcm.sol` in Remix.
 2. Copy and paste the `IXcm` interface code into the file.
@@ -5799,8 +5799,6 @@ Parachain templates are specifically designed for chains that will connect to an
 - [**`OpenZeppelin`**](https://github.com/OpenZeppelin/polkadot-runtime-templates/tree/main){target=\_blank} - offers two flexible starting points:
     - The [`generic-runtime-template`](https://github.com/OpenZeppelin/polkadot-runtime-templates/tree/main/generic-template){target=\_blank} provides a minimal setup with essential pallets and secure defaults, creating a reliable foundation for custom blockchain development
     - The [`evm-runtime-template`](https://github.com/OpenZeppelin/polkadot-runtime-templates/tree/main/evm-template){target=\_blank} enables EVM compatibility, allowing developers to migrate Solidity contracts and EVM-based dApps. This template is ideal for Ethereum developers looking to leverage Substrate's capabilities
-
-- [**`Pop Network`**](https://learn.onpop.io/appchains/pop-cli/new#templates){target=\_blank} - designed with user-friendliness in mind, Pop Network offers an approachable starting point for new developers, with a simple CLI interface for creating appchains 
 
 Choosing a suitable template depends on your project’s unique requirements, level of customization, and integration needs. Starting from a template speeds up development and lets you focus on implementing your chain’s unique features rather than the foundational blockchain setup.
 
@@ -11969,7 +11967,7 @@ The conversion from 32-byte Polkadot accounts to 20-byte Ethereum addresses is m
 
 The conversion process is implemented through the [`to_address`](https://paritytech.github.io/polkadot-sdk/master/pallet_revive/trait.AddressMapper.html#tymethod.to_address){target=\_blank} function, which automatically detects the account type and applies the appropriate conversion method.
 
-**Stateful Mapping for Reversibility** : Since the conversion from 32-byte to 20-byte addresses is inherently lossy, the system provides an optional stateful mapping through the [`OriginalAccount`](https://paritytech.github.io/polkadot-sdk/master/pallet_revive/type.OriginalAccount.html){target=\_blank} storage. When a Polkadot account registers a mapping (via the [`map`](https://paritytech.github.io/polkadot-sdk/master/pallet_revive/trait.AddressMapper.html#tymethod.map){target=\_blank} function), the system stores the original 32-byte account ID, enabling the [`to_account_id`](https://paritytech.github.io/polkadot-sdk/master/pallet_revive/trait.AddressMapper.html#tymethod.to_account_id){target=\_blank} function to recover the exact original account rather than falling back to a default conversion.
+**Stateful Mapping for Reversibility** : Since the conversion from 32-byte to 20-byte addresses is inherently lossy, the system provides an optional stateful mapping through the [`OriginalAccount`](https://paritytech.github.io/polkadot-sdk/master/pallet_revive/pallet/storage_types/struct.OriginalAccount.html){target=\_blank} storage. When a Polkadot account registers a mapping (via the [`map`](https://paritytech.github.io/polkadot-sdk/master/pallet_revive/trait.AddressMapper.html#tymethod.map){target=\_blank} function), the system stores the original 32-byte account ID, enabling the [`to_account_id`](https://paritytech.github.io/polkadot-sdk/master/pallet_revive/trait.AddressMapper.html#tymethod.to_account_id){target=\_blank} function to recover the exact original account rather than falling back to a default conversion.
 
 ## Account Registration
 

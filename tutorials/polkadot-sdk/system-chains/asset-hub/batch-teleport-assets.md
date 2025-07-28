@@ -114,7 +114,7 @@ Create an `index.ts` file with the complete batch teleport implementation. For t
 
 Update your `package.json` to include the necessary scripts:
 
-```json
+```json title="package.json"
 {
   "name": "batch-teleport-tutorial",
   "version": "1.0.0",

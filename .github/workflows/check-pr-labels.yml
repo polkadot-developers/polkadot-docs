@@ -7,4 +7,4 @@ jobs:
   check-docs-links:
     uses: papermoonio/workflows/.github/workflows/pr-blocked-label.yml@main
     with: 
-      blocking_labels: "B2 - Blocked"
+      blocking_labels: "B1 - Ready to Merge"

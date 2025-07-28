@@ -28,7 +28,6 @@ Learn how to batch teleport an asset from Asset Hub to the Polkadot Relay chain:
 
 - **[Batch Teleport an Asset to Asset Hub](/tutorials/polkadot-sdk/system-chains/asset-hub/batch-teleport-assets/){target=\_blank}** - construct multiple teleports in one batch transaction.
 
-
 ## In This Section
 
 :::INSERT_IN_THIS_SECTION:::

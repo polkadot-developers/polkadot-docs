@@ -24,10 +24,9 @@ Unlock new possibilities by tapping into Polkadot’s system chains:
 
 - **[Convert Assets](/tutorials/polkadot-sdk/system-chains/asset-hub/asset-conversion/)** - use Asset Hub's AMM functionality to swap between different assets, provide liquidity to pools, and manage LP tokens
 
-Learn how to leverage sufficient and non-sufficient assets to create a seamless experience for end users
+Learn how to batch teleport an asset from Asset Hub to the Polkadot Relay chain:
 
-- **[Teleport an Asset to Asset Hub](/tutorials/polkadot-sdk/system-chains/asset-hub/teleport-an-asset-to-asset-hub/)** - construct a teleport to send a non-sufficient asset from a Parachain to Asset Hub
-- **[Teleport an Asset from Asset Hub to a Parachain](/tutorials/polkadot-sdk/system-chains/asset-hub/teleport-an-asset-from-asset-hub/)** - construct a teleport to send a sufficient asset from Asset Hub to a Parachain.
+- **[Batch Teleport an Asset to Asset Hub](/tutorials/polkadot-sdk/system-chains/asset-hub/batch-teleport-assets/){target=\_blank}** - construct multiple teleports in one batch transaction.
 
 
 ## In This Section

@@ -91,6 +91,10 @@ You can refer to the following snippets to check for the Existential Deposit (ED
 
     === "PolkadotJS API"
         ```javascript
+        const { ApiPromise, WsProvider } = require('@polkadot/api');
+        const provider = new WsProvider('wss://rpc.polkadot.io');
+        const api = await ApiPromise.create({ provider });
+
         async function checkAccountExistence(api, address) {
           const accountInfo = await api.query.system.account(address);
           const balance = accountInfo.data.free.toBigInt();
@@ -140,6 +144,7 @@ For non-sufficient assets, make sure the destination account has enough native t
 Use proper runtime APIs for accurate fee estimation rather than hardcoded values:
 
 - [Transaction Payment API](https://paritytech.github.io/polkadot-sdk/master/pallet_transaction_payment_rpc/trait.TransactionPaymentRuntimeApi.html){target=\_blank} for local fees:
+
   ```typescript
   import { dot } from "@polkadot-api/descriptors";
   import { createClient } from "polkadot-api";
@@ -153,8 +158,10 @@ Use proper runtime APIs for accurate fee estimation rather than hardcoded values
     call.encodedLength
   );
   ```
+  This code establishes a connection to the Polkadot network and queries detailed fee information for a specific transaction call, including base fees, length fees, and tip calculations.
 
 - [XCM Payment API](https://paritytech.github.io/polkadot-sdk/master/xcm_runtime_apis/fees/trait.XcmPaymentApi.html){target=\_blank} for cross-chain delivery fees:
+
   ```typescript
   import { dot } from "@polkadot-api/descriptors";
   import { createClient } from "polkadot-api";
@@ -168,14 +175,16 @@ Use proper runtime APIs for accurate fee estimation rather than hardcoded values
     message
   );
   ```
+  This code calculates the delivery fees required to send an XCM message to a specific destination parachain, helping estimate cross-chain transaction costs.
 
 - [Asset Conversion API](https://paritytech.github.io/polkadot-sdk/master/pallet_asset_conversion/trait.AssetConversionApi.html){target=\_blank} (available on Asset Hub) for fee conversion:
+
   ```typescript
   import { ah } from "@polkadot-api/descriptors";
   import { createClient } from "polkadot-api";
   import { getWsProvider } from "polkadot-api/ws-provider/web";
 
-  const client = createClient(getWsProvider("wss://rpc.polkadot.io"));
+  const client = createClient(getWsProvider("wss://asset-hub-paseo.dotters.network"));
   const api = client.getTypedApi(ah);
 
   const feeInAsset = await api.apis.AssetConversionApi.quote_price_exact_tokens_for_tokens(
@@ -184,6 +193,7 @@ Use proper runtime APIs for accurate fee estimation rather than hardcoded values
     amountIn
   );
   ```
+  This code connects to Asset Hub's `AssetConversionApi` and calculates the exchange rate between different assets, allowing users to determine how much of one token they need to pay fees in another token.
 
 ### Multi-Asset Fee Handling
 
@@ -195,17 +205,17 @@ For dealing with non-sufficient assets and fees, there are different fee payment
 
 ## Asset Type Considerations
 
-| **Sufficient Assets**                                       | **Non-Sufficient Assets**                                      |
-|-------------------------------------------------------------|-----------------------------------------------------------------|
-| **Capabilities:**                                            | **Requirements:**                                              |
-| • Pay for transaction fees directly                          | • Existing destination accounts with ED                        |
-| • Meet existential deposit requirements                      | • Alternative fee payment mechanisms                           |
-| • Can suffice for creating new accounts                      |                                                                 |
-|                                                             |                                                                 |
-| **Best Practices:**                                          | **Best Practices:**                                            |
-| • Verify minimum transfer amounts meet destination requirements | • Always verify recipient account status                    |
-| • Account for both transaction and existential deposit costs | • Include asset conversion for ED if needed                    |
-| • Handle automatic account creation scenarios                | • Plan for fee payment using sufficient assets                 |
+|                            **Sufficient Assets**                            |                           **Non-Sufficient Assets**                             |
+| :-------------------------------------------------------------------------: | :-----------------------------------------------------------------------------: |
+|                               **Capabilities**                              |                              **Requirements**                                   |
+|                         Pay for transaction fees directly                   |                       Existing destination accounts with ED                     |
+|                     Meet existential deposit requirements                   |                        Alternative fee payment mechanisms                       |
+|                       Can suffice for creating new accounts                 |                                                                                 |
+|                                                                             |                                                                                 |
+|                              **Best Practices**                             |                              **Best Practices**                                 |
+|   Verify minimum transfer amounts meet destination requirements             |                        Always verify recipient account status                   |
+|           Account for both transaction and existential deposit costs        |                       Include asset conversion for ED if needed                 |
+|                  Handle automatic account creation scenarios                |                      Plan for fee payment using sufficient assets               |
 
 !!!note Sufficient Assets
     Always check the chain to see what assets are considered sufficient assets.
@@ -237,14 +247,14 @@ Asset teleportation failures can occur for various reasons, each with specific c
 **[FailedToTransactAsset](https://paritytech.github.io/polkadot-sdk/master/cumulus_primitives_core/enum.XcmError.html#variant.FailedToTransactAsset) Errors**
 
 - **Common Causes:**
-  - Missing destination accounts  
-  - Insufficient existential deposits  
-  - Asset not found on destination  
+    - Missing destination accounts  
+    - Insufficient existential deposits  
+    - Asset not found on destination  
 
 - **Prevention:**
-  - Verify account existence before transfer  
-  - Ensure existential deposit (ED) requirements are met  
-  - Validate asset registration on the destination chain  
+    - Verify account existence before transfer  
+    - Ensure existential deposit (ED) requirements are met  
+    - Validate asset registration on the destination chain  
 
 ---
 
@@ -253,14 +263,14 @@ Asset teleportation failures can occur for various reasons, each with specific c
 **[TooExpensive](https://paritytech.github.io/polkadot-sdk/master/cumulus_primitives_core/enum.XcmError.html#variant.TooExpensive) Errors**
 
 - **Common Causes:**
-  - Insufficient funds for fees  
-  - Fee payment asset not accepted  
-  - High network congestion costs  
+    - Insufficient funds for fees  
+    - Fee payment asset not accepted  
+    - High network congestion costs  
 
 - **Prevention:**
-  - Implement proper fee estimation  
-  - Include a buffer for fee fluctuations  
-  - Use asset conversion when necessary  
+    - Implement proper fee estimation  
+    - Include a buffer for fee fluctuations  
+    - Use asset conversion when necessary  
 
 ---
 
@@ -269,14 +279,14 @@ Asset teleportation failures can occur for various reasons, each with specific c
 **[AssetNotFound](https://paritytech.github.io/polkadot-sdk/master/cumulus_primitives_core/enum.XcmError.html#variant.AssetNotFound) Errors**
 
 - **Common Causes:**
-  - Asset not registered on the destination  
-  - Incorrect asset ID or format  
-  - Asset not enabled for XCM  
+    - Asset not registered on the destination  
+    - Incorrect asset ID or format  
+    - Asset not enabled for XCM  
 
 - **Prevention:**
-  - Verify asset registration before transfer  
-  - Use correct asset identifiers  
-  - Check XCM configuration for asset support  
+    - Verify asset registration before transfer  
+    - Use correct asset identifiers  
+    - Check XCM configuration for asset support  
 
 ---
 
@@ -285,16 +295,16 @@ Asset teleportation failures can occur for various reasons, each with specific c
 **[Barrier](https://paritytech.github.io/polkadot-sdk/master/cumulus_primitives_core/enum.XcmError.html#variant.Barrier) Errors**
 
 - **Common Causes:**
-  - XCM message blocked by safety barriers  
-  - Origin not authorized for operation  
-  - Asset transfer limits exceeded  
-  - Unsupported XCM version or instruction  
+    - XCM message blocked by safety barriers  
+    - Origin not authorized for operation  
+    - Asset transfer limits exceeded  
+    - Unsupported XCM version or instruction  
 
 - **Prevention:**
-  - Verify XCM barrier configuration on the destination  
-  - Ensure origin has proper permissions  
-  - Check asset transfer limits and restrictions  
-  - Use supported XCM version and instructions  
+    - Verify XCM barrier configuration on the destination  
+    - Ensure origin has proper permissions  
+    - Check asset transfer limits and restrictions  
+    - Use supported XCM version and instructions  
 
 You can find a full list of XCM errors in the [Polkadot Rust Docs](https://paritytech.github.io/polkadot-sdk/master/cumulus_primitives_core/enum.XcmError.html){target=\_blank}.
 

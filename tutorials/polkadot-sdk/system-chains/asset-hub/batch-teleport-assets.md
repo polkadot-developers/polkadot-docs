@@ -88,7 +88,7 @@ bun init -y
 Install the ParaSpell SDK:
 
 ```bash
-bun add @paraspell/sdk
+bun add @paraspell/sdk@{{dependencies.javascript_packages.paraspell_sdk.version}}
 ```
 
 ## Create the Implementation
@@ -163,7 +163,7 @@ Update your `package.json` to include the necessary scripts:
     "dev": "bun run index.ts"
   },
   "dependencies": {
-    "@paraspell/sdk": "^10.10.5"
+    "@paraspell/sdk": "^{{dependencies.javascript_packages.paraspell_sdk.version}}"
   }
 }
 ```
@@ -185,14 +185,11 @@ bun run dev
 
 You should see output similar to:
 
-```
-Send via PAPI console:
-    https://dev.papi.how/extrinsics#networkId=paseo_asset_hub&endpoint=light-client&data=0x1c041c...
-```
+--8<-- 'code/tutorials/polkadot-sdk/system-chains/asset-hub/papi-console-output.html'
 
 The encoded data is formatted into a PAPI console link for easy submission through a web interface.
 
-Make sure your Polkadot wallet is funded with some test tokens by using the [Polkadot faucet](https://faucet.polkadot.io/?parachain=1000) and submit the transaction.
+Make sure your Polkadot wallet is funded with some test tokens by using the [Polkadot faucet](https://faucet.polkadot.io/?parachain=1000){target=\_blank}  and submit the transaction.
 
 ## Submitting the Transaction
 
@@ -204,7 +201,7 @@ After running the script:
 4. **Review the transaction details** in the PAPI console
 5. **Submit the transaction** and confirm with your wallet
 
-![](/images/tutorials/polkadot-sdk/system-chains/asset-hub/batch-teleport/papi-console-01.webp)
+    ![](/images/tutorials/polkadot-sdk/system-chains/asset-hub/batch-teleport/papi-console-01.webp)
 
 The PAPI console will show:
 
@@ -219,7 +216,7 @@ It is best practice to conduct dry run tests before execution of a cross-chain t
 
 ??? code "Batch Teleport with Dry Run"
 
-    ```typescript
+    ```typescript title="batch-teleport-with-dry-run.ts"
     --8<-- 'code/tutorials/polkadot-sdk/system-chains/asset-hub/batch-teleport-with-dry-run.ts'
     ```
 

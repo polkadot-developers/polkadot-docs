@@ -7,7 +7,7 @@ description: Learn how Polkadot's cross-consensus messaging (XCM) channels conne
 
 ## Introduction
 
-Polkadot is designed to enable interoperability between its connected parachains. At the core of this interoperability is the [Cross-Consensus Message Format (XCM)](/develop/interoperability/intro-to-xcm/), a standard language that allows parachains to communicate and interact with each other.
+Polkadot is designed to enable interoperability between its connected parachains. At the core of this interoperability is the [Cross-Consensus Message Format (XCM)](/develop/interoperability/intro-to-xcm), a standard language that allows parachains to communicate and interact with each other.
 
 The network-layer protocol responsible for delivering XCM-formatted messages between parachains is the Cross-Chain Message Passing (XCMP) protocol. XCMP maintains messaging queues on the relay chain, serving as a bridge to facilitate cross-chain interactions.
 
@@ -67,7 +67,7 @@ Explore the following tutorials for detailed, step-by-step guidance on setting u
 
     Learn how to open HRMP channels between parachains on Polkadot. Discover the step-by-step process for establishing uni- and bidirectional communication.
 
-    [:octicons-arrow-right-24: Reference](/tutorials/interoperability/xcm-channels/para-to-para/)
+    [:octicons-arrow-right-24: Reference](/tutorials/interoperability/xcm-channels/para-to-para)
 
 -   <span class="badge tutorial">Tutorial</span> __Opening HRMP Channels with System Parachains__
 
@@ -75,6 +75,6 @@ Explore the following tutorials for detailed, step-by-step guidance on setting u
 
     Learn how to open HRMP channels with Polkadot system parachains. Discover the process for establishing bi-directional communication using a single XCM message.
 
-    [:octicons-arrow-right-24: Reference](/tutorials/interoperability/xcm-channels/para-to-system/)
+    [:octicons-arrow-right-24: Reference](/tutorials/interoperability/xcm-channels/para-to-system)
 
 </div>

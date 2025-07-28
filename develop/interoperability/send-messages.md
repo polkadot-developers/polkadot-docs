@@ -15,7 +15,7 @@ This page provides a detailed overview of the XCM pallet's key features, its pri
 
 The [`pallet-xcm`](https://paritytech.github.io/polkadot-sdk/master/pallet_xcm/pallet/index.html) provides a set of pre-defined, commonly used [XCVM programs](https://github.com/polkadot-fellows/xcm-format?tab=readme-ov-file#12-the-xcvm) in the form of a [set of extrinsics](https://paritytech.github.io/polkadot-sdk/master/pallet_xcm/pallet/dispatchables/index.html){target=\blank}. This pallet provides some [default implementations](https://paritytech.github.io/polkadot-sdk/master/pallet_xcm/pallet/struct.Pallet.html#implementations) for traits required by [`XcmConfig`](https://paritytech.github.io/polkadot-sdk/master/pallet_xcm_benchmarks/trait.Config.html#associatedtype.XcmConfig). The [XCM executor](https://paritytech.github.io/polkadot-sdk/master/staging_xcm_executor/struct.XcmExecutor.html) is also included as an associated type within the pallet's configuration. 
 
-For further details about the XCM configuration, see the [XCM Configuration](/develop/interoperability/xcm-config/) page.
+For further details about the XCM configuration, see the [XCM Configuration](/develop/interoperability/xcm-config) page.
 
 Where the [XCM format](https://github.com/polkadot-fellows/xcm-format) defines a set of instructions used to construct XCVM programs, `pallet-xcm` defines a set of extrinsics that can be utilized to build XCVM programs, either to target the local or external chains. The `pallet-xcm` functionality is divided into three categories:
 
@@ -92,4 +92,4 @@ For instance, the Kusama network employs the [`ChildParachainRouter`](https://pa
 --8<-- 'https://raw.githubusercontent.com/polkadot-fellows/runtimes/refs/heads/main/relay/kusama/src/xcm_config.rs:122:125'
 ```
 
-For more details about XCM transport protocols, see the [XCM Channels](/develop/interoperability/xcm-channels/) page.
+For more details about XCM transport protocols, see the [XCM Channels](/develop/interoperability/xcm-channels) page.

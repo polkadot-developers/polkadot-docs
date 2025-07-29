@@ -176,15 +176,19 @@ After that, you will see:
 Let's examine how the dApp interacts with the blockchain:
 
 1. Wallet connection: 
+
     - The `WalletConnect` component uses the browser's Ethereum provider (MetaMask) to connect to the user's wallet.
     - It handles network switching to ensure the user is connected to the Polkadot Hub TestNet.
     - Once connected, it provides the user's account address to the parent component.
+
 2. Reading data:
+
     - The `ReadContract` component uses viem's `readContract` function to call the `storedNumber` view function.
     - It periodically polls for updates to keep the UI in sync with the blockchain state.
     - The component displays a loading indicator while fetching data and handles error states.
 
 3. Writing data:
+
     - The `WriteContract` component uses viem's `writeContract` function to send a transaction to the `setNumber` function.
     - It ensures the wallet is connected before allowing a transaction.
     - The component shows detailed feedback during transaction submission and confirmation.

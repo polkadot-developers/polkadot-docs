@@ -31,7 +31,7 @@ To create the ERC-20 contract, you can follow the steps below:
 
     ![](/images/tutorials/smart-contracts/deploy-erc20/deploy-erc20-1.webp)
 
-3. Now, paste the following ERC-20 contract code into the editor.
+3. Now, paste the following ERC-20 contract code into the editor:
 
     ```solidity title="MyToken.sol"
     --8<-- 'https://raw.githubusercontent.com/polkadot-developers/polkavm-hardhat-examples/refs/tags/v0.0.4/erc20-hardhat/contracts/MyToken.sol'
@@ -96,7 +96,8 @@ Deployment is the process of publishing your compiled smart contract to the bloc
 
     ![](/images/tutorials/smart-contracts/deploy-erc20/deploy-erc20-7.webp)
 
-3. Configure the contract parameters.
+3. Configure the contract parameters:
+
     1. Enter the address that will own the deployed token contract.
     2. Click the **Deploy** button to initiate the deployment.
 
@@ -119,6 +120,7 @@ Once deployed, you can interact with your contract through Remix:
     ![](/images/tutorials/smart-contracts/deploy-erc20/deploy-erc20-11.webp)
 
 2. To mint new tokens:
+
     1. Click in the contract to expand its associated methods.
     2. Expand the **mint** function.
     3. Enter:
@@ -143,4 +145,3 @@ Other common functions you can use:
 - **`approve(address spender, uint256 amount)`**: Allow another address to spend your tokens.
 
 Feel free to explore and interact with the contract's other functions using the same approach - selecting the method, providing any required parameters, and confirming the transaction through Talisman when needed.
-s

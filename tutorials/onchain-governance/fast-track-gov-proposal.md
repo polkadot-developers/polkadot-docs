@@ -132,7 +132,7 @@ Create a `generateProposal` function that will be responsible for preparing and 
 
 Now, you need to implement the following logic:
 
-1. Set up the keyring and use the Alice development account.
+1. Set up the keyring and use the Alice development account:
 
     ```typescript
     --8<-- 'code/tutorials/onchain-governance/fast-track-gov-proposal/test-proposal.ts:40:44'
@@ -141,13 +141,14 @@ Now, you need to implement the following logic:
     !!!note
         When using Chopsticks, this development account is pre-funded to execute all necessary actions.
 
-2. Retrieve the proposal index.
+2. Retrieve the proposal index:
 
     ```typescript
     --8<-- 'code/tutorials/onchain-governance/fast-track-gov-proposal/test-proposal.ts:46:49'
     ```
 
 3. Execute a batch transaction that comprises the following three operations:
+
     1. **`preimage.notePreimage`**: Registers a [preimage](/polkadot-protocol/glossary#preimage){target=\_blank} using the selected call.
 
         !!!note

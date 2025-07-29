@@ -31,6 +31,7 @@ Before proceeding, ensure you meet the following requirements:
 This example will demonstrate how to open a channel between parachain 2500 and parachain 2600, using Rococo Local as the relay chain.
 
 ### Fund Sender Sovereign Account
+
 <!-- This content will be moved to a new page because it is used in multiple places -->
 The [sovereign account](https://github.com/polkadot-fellows/xcm-format/blob/10726875bd3016c5e528c85ed6e82415e4b847d7/README.md?plain=1#L50){target=_blank} for parachain 2500 on the relay chain must be funded so it can take care of any XCM transact fees.
 
@@ -43,16 +44,16 @@ Use [Polkadot.js Apps](https://polkadot.js.org/apps/#/explorer){target=\_blank} 
     1. Determine if the parachain is an "up/down" chain (parent or child) or a "sibling" chain:
 
         - Up/down chains use the prefix `0x70617261` (which decodes to `b"para"`).
-
         - Sibling chains use the prefix `0x7369626c` (which decodes to `b"sibl"`).
 
     2. Calculate the u32 scale encoded value of the parachain ID:
+
         - Parachain 2500 would be encoded as `c4090000`.
 
     3. Combine the prefix and parachain ID encoding to form the full sovereign account address:
 
         The sovereign account of parachain 2500 in relay chain will be `0x70617261c4090000000000000000000000000000000000000000000000000000`
-        and the SS58 format of this address is `5Ec4AhPSY2GEE4VoHUVheqv5wwq2C1HMKa7c9fVJ1WKivX1Y`
+        and the SS58 format of this address is `5Ec4AhPSY2GEE4VoHUVheqv5wwq2C1HMKa7c9fVJ1WKivX1Y`.
     
     To perform this conversion, you can also use the **"Para ID" to Address** section in [Substrate Utilities](https://www.shawntabrizi.com/substrate-js-utilities/){target=_blank}.
 
@@ -62,7 +63,7 @@ Use [Polkadot.js Apps](https://polkadot.js.org/apps/#/explorer){target=\_blank} 
 
     ![](/images/tutorials/interoperability/xcm-channels/para-to-para/hrmp-para-to-para-1.webp)
 
-2. Construct an `hrmpInitOpenChannel` extrinsic call.
+2. Construct an `hrmpInitOpenChannel` extrinsic call:
 
     1. Select the **`hrmp`** pallet.
     2. Choose the **`hrmpInitOpenChannel`** extrinsic.
@@ -71,7 +72,9 @@ Use [Polkadot.js Apps](https://polkadot.js.org/apps/#/explorer){target=\_blank} 
         - **`proposedMaxCapacity`**: Max number of messages that can be pending in the channel at once.
         - **`proposedMaxMessageSize`**: Max message size that could be put into the channel.
     4. Copy the encoded call data.
+
     ![](/images/tutorials/interoperability/xcm-channels/para-to-para/hrmp-para-to-para-2.webp)
+
     The encoded call data for opening a channel with parachain 2600 is `0x3c00280a00000800000000001000`.
 
 ### Craft and Submit the XCM Message from the Sender
@@ -110,7 +113,8 @@ After submitting the XCM message to initiate the HRMP channel opening, you shoul
 
     ![](/images/tutorials/interoperability/xcm-channels/hrmp-channels-1.webp)
 
-2. Query the HRMP open channel requests.
+2. Query the HRMP open channel requests:
+
     1. Select **`hrmp`**.
     2. Choose the **`hrmpOpenChannelRequests`** call.
     3. Click the **+** button to execute the query.
@@ -142,14 +146,16 @@ To fund the account, follow the same process described in the previous section, 
     3. Fill in the parameters:
         - **`sender`**: Parachain ID of the requesting chain (in this case, 2500).
     4. Copy the encoded call data.
+
     ![](/images/tutorials/interoperability/xcm-channels/para-to-para/hrmp-para-to-para-5.webp)
-    The encoded call data for accepting a channel with parachain 2500 should be `0x3c01c4090000`
+    
+    The encoded call data for accepting a channel with parachain 2500 should be `0x3c01c4090000`.
 
 ### Craft and Submit the XCM Message from the Receiver
 
 To accept the HRMP channel opening, you need to create and submit an XCM message that includes the encoded `hrmpAcceptOpenChannel` call data from the previous step. This process is similar to the one described in the previous section, [Craft and Submit the XCM Message](#craft-and-submit-the-xcm-message-from-the-sender), with a few key differences:
 
-- Use the encoded call data for `hrmpAcceptOpenChannel` obtained in Step 2 of this section.
+- Use the encoded call data for `hrmpAcceptOpenChannel` obtained in step 2 of this section.
 - In the last XCM instruction (DepositAsset), set the beneficiary to parachain 2600's sovereign account to receive any surplus funds.
 
 To send the XCM message to the relay chain, connect to parachain 2600 in Polkadot.js Apps. Fill in the required parameters as shown in the image below, ensuring that you:
@@ -167,6 +173,7 @@ After submitting the XCM message to accept the HRMP channel opening, verify that
     ![](/images/tutorials/interoperability/xcm-channels/hrmp-channels-1.webp)
 
 2. Query the HRMP channels:
+
     1. Select **`hrmp`**.
     2. Choose the **`hrmpChannels`** call.
     3. Click the **+** button to execute the query.

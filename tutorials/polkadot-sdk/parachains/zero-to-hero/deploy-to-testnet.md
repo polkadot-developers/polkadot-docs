@@ -28,6 +28,7 @@ To prepare an account, follow these steps:
     ![](/images/tutorials/polkadot-sdk/parachains/zero-to-hero/deploy-to-testnet/deploy-to-testnet-1.webp)
 
 2. Navigate to the **Accounts** section:
+
     1. Click on the **Accounts** tab in the top menu.
     2. Select the **Accounts** option from the dropdown menu.
   
@@ -50,12 +51,14 @@ You must reserve a parachain identifier (ID) before registering your parachain o
 To reserve a parachain identifier, follow these steps:
 
 1. Navigate to the **Parachains** section:
+
     1. Click on the **Network** tab in the top menu.
     2. Select the **Parachains** option from the dropdown menu.
 
     ![](/images/tutorials/polkadot-sdk/parachains/zero-to-hero/deploy-to-testnet/deploy-to-testnet-5.webp)
 
 2. Register a ParaId:
+
     1. Select the **Parathreads** tab.
     2. Click on the **+ ParaId** button.
 
@@ -181,11 +184,11 @@ Once you have the genesis state and runtime, you can now register these with you
 
 1. Go to the [Parachains > Parathreads](https://polkadot.js.org/apps/#/parachains/parathreads){target=\_blank} tab, and select **+ Parathread**.
    
-2. You should see fields to place your runtime Wasm and genesis state respectively, along with the parachain ID. Select your parachain ID, and upload `para-wasm` in the **code** field and `para-state` in the **initial state** field:
+2. You should see fields to place your runtime Wasm and genesis state respectively, along with the parachain ID. Select your parachain ID, and upload `para-wasm` in the **code** field and `para-state` in the **initial state** field.
 
     ![](/images/tutorials/polkadot-sdk/parachains/zero-to-hero/deploy-to-testnet/deploy-to-testnet-9.webp)
    
-3. Confirm your details and **+ Submit** button, where there should be a new Parathread with your parachain ID and an active **Deregister** button:
+3. Confirm your details and **+ Submit** button, where there should be a new Parathread with your parachain ID and an active **Deregister** button.
 
     ![](/images/tutorials/polkadot-sdk/parachains/zero-to-hero/deploy-to-testnet/deploy-to-testnet-10.webp)
 

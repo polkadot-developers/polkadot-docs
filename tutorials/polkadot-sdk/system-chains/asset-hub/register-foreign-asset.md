@@ -43,12 +43,14 @@ This guide will use Polkadot, its local Asset Hub instance, and the [Astar](http
       - For live network operations, connect to the Asset Hub parachain. You can choose either Polkadot or Kusama Asset Hub from the dropdown menu, selecting your preferred RPC provider.
 
 2. Navigate to the **Extrinsics** page:
+
       1. Click on the **Developer** tab from the top navigation bar.
       2. Select **Extrinsics** from the dropdown.
 
     ![Access to Developer Extrinsics section](/images/tutorials/polkadot-sdk/system-chains/asset-hub/register-foreign-assets/register-a-foreign-asset-1.webp)
 
 3. Select the Foreign Assets pallet:
+
       3. Select the **`foreignAssets`** pallet from the dropdown list.
       4. Choose the **`create`** extrinsic.
 
@@ -81,11 +83,11 @@ This guide will use Polkadot, its local Asset Hub instance, and the [Astar](http
         0x3500010100591f007369626cd6070000000000000000000000000000000000000000000000000000a0860100000000000000000000000000
         ```
 
-
 ### Source Parachain
 
 1. Navigate to the **Developer > Extrinsics** section.
-2. Create the extrinsic to register the foreign asset through XCM.
+2. Create the extrinsic to register the foreign asset through XCM:
+
       1. Paste the **encoded call data** copied in the previous step.
       2. Click the **Submit Transaction** button.
 
@@ -97,7 +99,8 @@ This guide will use Polkadot, its local Asset Hub instance, and the [Astar](http
         Note that the sovereign account on the Asset Hub parachain must have a sufficient balance to cover the XCM `BuyExecution` instruction. If the account does not have enough balance, the transaction will fail.
 
     If you want to have the whole XCM call ready to be copied, go to the **Developer > Extrinsics > Decode** section and paste the following hex-encoded call data:
-    ```
+
+    ```text
     0x6300330003010100a10f030c000400010000070010a5d4e81300010000070010a5d4e80006030700b4f13501419ce03500010100591f007369626cd607000000000000000000000000000000000000000000000000000000000000000000000000000000000000
     ```
 

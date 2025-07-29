@@ -31,28 +31,35 @@ Follow these steps to prepare your environment for pallet benchmarking:
     ```
 
 2. Update your pallet's `Cargo.toml` file in the `pallets/custom-pallet` directory by adding the `runtime-benchmarks` feature flag:
+
     ```toml hl_lines="4" title="Cargo.toml"
     --8<-- 'code/tutorials/polkadot-sdk/parachains/zero-to-hero/pallets/custom-pallet/Cargo.toml:15'
     ```
 
 3. Add your pallet to the runtime's benchmark configuration:
+
     1.  Register your pallet in `runtime/src/benchmarks.rs`:
+
         ```rust hl_lines="11" title="benchmarks.rs"
         --8<-- 'code/tutorials/polkadot-sdk/parachains/zero-to-hero/runtime/src/benchmarks.rs:26:37'
         ```
 
     2. Enable runtime benchmarking for your pallet in `runtime/Cargo.toml`:
+
         ```toml hl_lines="6" title="Cargo.toml"
         --8<-- 'code/tutorials/polkadot-sdk/parachains/zero-to-hero/runtime/Cargo.toml:78:84'
         ```
 
 4. Set up the benchmarking module in your pallet:
+
     1. Create a new `benchmarking.rs` file in your pallet directory:
+    
         ```bash
         touch benchmarking.rs
         ```
 
     2. Add the benchmarking module to your pallet. In the pallet `lib.rs` file add the following:
+
         ```rust hl_lines="9-10" title="lib.rs"
         --8<-- 'code/tutorials/polkadot-sdk/parachains/zero-to-hero/pallets/custom-pallet/src/lib.rs:21:32'
         ```

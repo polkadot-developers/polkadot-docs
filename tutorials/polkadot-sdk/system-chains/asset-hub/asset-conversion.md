@@ -52,18 +52,21 @@ The `PalletInstance` value of `50` represents the Assets pallet on Asset Hub. Th
 To create the liquidity pool, you can follow these steps:
 
 1. Navigate to the **Extrinsics** section on the Polkadot.js Apps interface:
+
     1. Select **Developer** from the top menu.
     2. Click on **Extrinsics** from the dropdown menu.
 
     ![Extrinsics Section](/images/tutorials/polkadot-sdk/system-chains/asset-hub/asset-conversion/asset-conversion-1.webp)
 
 2. Select extrinsic to create the pool:
+
     1. Select the **`AssetConversion`** pallet.
     2. Choose the **`createPool`** extrinsic from the list of available extrinsics.
 
     ![Create Pool Extrinsic](/images/tutorials/polkadot-sdk/system-chains/asset-hub/asset-conversion/asset-conversion-2.webp)
 
 3. Fill in the required fields:
+
     1. **`asset1`**: The Multilocation of the first asset in the pool. In this case, it is the DOT token, which the following Multilocation represents.
 
         ```javascript
@@ -101,18 +104,21 @@ The `addLiquidity` extrinsic allows users to provide liquidity to a pool of two 
 To add liquidity to a pool, follow these steps:
 
 1. Navigate to the **Extrinsics** section on the Polkadot.js Apps interface:
+
     1. Select **Developer** from the top menu.
     2. Click on **Extrinsics** from the dropdown menu.
 
     ![Extrinsics Section](/images/tutorials/polkadot-sdk/system-chains/asset-hub/asset-conversion/asset-conversion-1.webp)
 
 2. Select extrinsic to add liqudity:
+
     1. Select the **`assetConversion`** pallet.
     2. Choose the **`addLiquidity`** extrinsic from the list of available extrinsics.
 
     ![Add Liquidity Extrinsic](/images/tutorials/polkadot-sdk/system-chains/asset-hub/asset-conversion/asset-conversion-5.webp)
 
 3. Fill in the required fields:
+
     1. **`asset1`**: The Multilocation of the first asset in the pool. In this case, it is the DOT token, which the following Multilocation represents.
 
         ```javascript
@@ -160,19 +166,22 @@ The asset conversion pallet enables users to exchange a specific quantity of one
 To swap assets for an exact amount of tokens, follow these steps:
 
 1. Navigate to the **Extrinsics** section on the Polkadot.js Apps interface:
+
     1. Select **Developer** from the top menu.
     2. Click on **Extrinsics** from the dropdown menu.
 
     ![Extrinsics Section](/images/tutorials/polkadot-sdk/system-chains/asset-hub/asset-conversion/asset-conversion-1.webp)
 
 2. Select extrinsic to swap assets:
+
     1. Select the **`AssetConversion`** pallet.
     2. Choose the **`swapExactTokensForTokens`** extrinsic from the list of available extrinsics.
 
     ![Swap From Exact Tokens Extrinsic](/images/tutorials/polkadot-sdk/system-chains/asset-hub/asset-conversion/asset-conversion-8.webp)
 
 3. Fill in the required fields:
-    1. **`path: Vec<StagingXcmV3MultiLocation>`**: an array of Multilocations representing the path of the swap. The first and last elements of the array are the input and output assets, respectively. In this case, the path consists of two elements:
+
+    1. **`path: Vec<StagingXcmV3MultiLocation>`**: An array of Multilocations representing the path of the swap. The first and last elements of the array are the input and output assets, respectively. In this case, the path consists of two elements:
 
         - **`0: StagingXcmV3MultiLocation`**: The Multilocation of the first asset in the pool. In this case, it is the DOT token, which the following Multilocation represents.
 
@@ -218,19 +227,22 @@ Conversely, the Asset Conversion pallet comes with a function that allows users 
 To swap assets for an exact amount of tokens, follow these steps:
 
 1. Navigate to the **Extrinsics** section on the Polkadot.js Apps interface:
+
     1. Select **Developer** from the top menu.
     2. Click on **Extrinsics** from the dropdown menu.
 
     ![Extrinsics Section](/images/tutorials/polkadot-sdk/system-chains/asset-hub/asset-conversion/asset-conversion-1.webp)
 
 2. Select extrinsic to swap tokens:
+
     1. Select the **`AssetConversion`** pallet.
     2. Choose the **`swapTokensForExactTokens`** extrinsic from the list of available extrinsics.
 
     ![Swap Tokens For Exact Tokens Extrinsic](/images/tutorials/polkadot-sdk/system-chains/asset-hub/asset-conversion/asset-conversion-11.webp)
 
 3. Fill in the required fields:
-    1. **`path: Vec<StagingXcmV3MultiLocation\>`**: an array of Multilocations representing the path of the swap. The first and last elements of the array are the input and output assets, respectively. In this case, the path consists of two elements:
+
+    1. **`path: Vec<StagingXcmV3MultiLocation\>`**: An array of Multilocations representing the path of the swap. The first and last elements of the array are the input and output assets, respectively. In this case, the path consists of two elements:
         - **`0: StagingXcmV3MultiLocation`**: The Multilocation of the first asset in the pool. In this case, it is the PPM token, which the following Multilocation represents.
 
             ```javascript
@@ -275,18 +287,21 @@ The Asset Conversion pallet provides the `removeLiquidity` extrinsic to remove l
 To withdraw liquidity from a pool, follow these steps:
 
 1. Navigate to the **Extrinsics** section on the Polkadot.js Apps interface:
+
     1. Select **Developer** from the top menu.
     2. Click on **Extrinsics** from the dropdown menu.
 
     ![Extrinsics Section](/images/tutorials/polkadot-sdk/system-chains/asset-hub/asset-conversion/asset-conversion-1.webp)
 
 2. Select extrinsic to withdraw liqudity from a pool:
+
     1. Select the **`AssetConversion`** pallet.
     2. Choose the **`removeLiquidity`** extrinsic from the list of available extrinsics.
 
     ![Remove Liquidity Extrinsic](/images/tutorials/polkadot-sdk/system-chains/asset-hub/asset-conversion/asset-conversion-14.webp)
 
 3. Fill in the required fields:
+
     1. **`asset1`**: The Multilocation of the first asset in the pool. In this case, it is the DOT token, which the following Multilocation represents.
 
         ```javascript

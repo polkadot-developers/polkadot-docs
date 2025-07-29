@@ -149,23 +149,23 @@ For more information about runtime versioning, check the [Runtime Upgrades](/dev
 
 ### Build the New Runtime
 
-Navigate to your project root:
+1. Navigate to your project root:
 
-```bash
-cd /path/to/your/parachain-template
-```
+    ```bash
+    cd /path/to/your/parachain-template
+    ```
 
-Build the new runtime:
+2. Build the new runtime:
 
-```bash
-cargo build --release
-```
+    ```bash
+    cargo build --release
+    ```
 
-Verify that you have the proper WASM builds by executing:
+3. Verify that you have the proper WASM builds by executing:
 
-```
-ls -la target/release/wbuild/parachain-template-runtime/
-```
+    ```
+    ls -la target/release/wbuild/parachain-template-runtime/
+    ```
 
 If you can see the following elements, it means that you are ready to submit the runtime upgrade to your running chain:
 
@@ -181,18 +181,21 @@ You can submit a runtime upgrade using the [Sudo pallet](https://paritytech.gith
     ![](/images/tutorials/polkadot-sdk/parachains/zero-to-hero/runtime-upgrade/runtime-upgrade-02.webp) 
 
 3. Prepare the **sudo** call:
+
     1. Select the **sudo** pallet.
     2. Select the **sudo(call)** extrinsic from the list.
 
         ![](/images/tutorials/polkadot-sdk/parachains/zero-to-hero/runtime-upgrade/runtime-upgrade-03.webp) 
 
 4. In the **sudo** call:
+
     1. Select the **system** call.
     2. Select **setCode** extrinsic from the list.
 
         ![](/images/tutorials/polkadot-sdk/parachains/zero-to-hero/runtime-upgrade/runtime-upgrade-04.webp) 
 
 5. For the `code` parameter, click **file upload** and select your WASM runtime file:
+
     - Use `parachain_template_runtime.compact.compressed.wasm` if available (smaller file).
     - Otherwise, use `parachain_template_runtime.wasm`.
 
@@ -212,12 +215,14 @@ After the runtime upgrade extrinsic is included in a block, verify that the upgr
 ### Check Runtime Version
 
 1. In Polkadot.js Apps, navigate to the **Chain State** section:
+
     1. Click the **Developer** dropdown.
     2. Click the **Chain State** option.
 
         ![](/images/tutorials/polkadot-sdk/parachains/zero-to-hero/runtime-upgrade/runtime-upgrade-07.webp) 
 
 2. Query runtime spec version:
+
     1. Select the **System** pallet.
     2. Select the **lastRuntimeUpgrade()** query.
 
@@ -237,7 +242,7 @@ After the runtime upgrade extrinsic is included in a block, verify that the upgr
 2. Select your custom pallet from the dropdown.
 3. You should now see the new `resetCounter` function available.
 
-    ![](/images/tutorials/polkadot-sdk/parachains/zero-to-hero/runtime-upgrade/runtime-upgrade-11.webp) 
+![](/images/tutorials/polkadot-sdk/parachains/zero-to-hero/runtime-upgrade/runtime-upgrade-11.webp) 
 
 Now, you can test the new functionality:
 

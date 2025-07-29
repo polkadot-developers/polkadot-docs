@@ -54,6 +54,7 @@ The following steps outline how to execute a reserve-backed transfer from the Po
 ### From the Relay Chain Perspective
 
 1. Navigate to the Extrinsics page:
+
     1. Click on the **Developer** tab from the top navigation bar.
     2. Select **Extrinsics** from the dropdown.
 
@@ -68,14 +69,14 @@ The following steps outline how to execute a reserve-backed transfer from the Po
     ![](/images/tutorials/interoperability/xcm-transfers/from-relaychain-to-parachain/from-relaychain-to-parachain-04.webp)
 
 4. Fill out the required fields:
-    1. **dest**: Specifies the destination context for the assets. Commonly set to `[Parent, Parachain(..)]` for parachain-to-parachain transfers or `[Parachain(..)]` for relay chain-to-parachain transfers. In this case, since the transfer is from a relay chain to a parachain, the destination ([`Location`](https://paritytech.github.io/xcm-docs/fundamentals/multilocation/index.html){target=\_blank}) is the following.
+
+    1. **dest**: Specifies the destination context for the assets. Commonly set to `[Parent, Parachain(..)]` for parachain-to-parachain transfers or `[Parachain(..)]` for relay chain-to-parachain transfers. In this case, since the transfer is from a relay chain to a parachain, the destination ([`Location`](https://paritytech.github.io/xcm-docs/fundamentals/multilocation/index.html){target=\_blank}) is the following:
 
         ```bash
         { parents: 0, interior: { X1: [{ Parachain: 2006 }] } }
         ```
 
-    2. **beneficiary**: Defines the recipient of the assets within the destination context, typically represented as an `AccountId32` value. This example uses the following account present in the destination chain.
-
+    2. **beneficiary**: Defines the recipient of the assets within the destination context, typically represented as an `AccountId32` value. This example uses the following account present in the destination chain:
 
         ```bash
         X2mE9hCGX771c3zzV6tPa8U2cDz4U4zkqUdmBrQn83M3cm7
@@ -127,7 +128,7 @@ To programmatically execute the reserve-backed asset transfer between the relay 
         - `dot` and `astar` are arbitrary names you assign to the chains, allowing you to access their metadata information.
         - The first command uses the well-known Polkadot chain, while the second connects to the Astar chain using its WebSocket endpoint.
 
-4. Create a `index.js` file and insert the following code to configure the clients and handle the asset transfer.
+4. Create a `index.js` file and insert the following code to configure the clients and handle the asset transfer:
 
     ```js
     --8<-- 'code/tutorials/interoperability/xcm-transfers/from-relaychain-to-parachain/reserve-backed-transfer.js'
@@ -136,7 +137,7 @@ To programmatically execute the reserve-backed asset transfer between the relay 
     !!! note
         To use this script with real-world blockchains, you'll need to update the WebSocket endpoint to the appropriate one, replace the Alice account with a valid account, and ensure the account has sufficient funds to cover transaction fees.
 
-4. Execute the script.
+4. Execute the script:
 
     ```bash 
     node index.js

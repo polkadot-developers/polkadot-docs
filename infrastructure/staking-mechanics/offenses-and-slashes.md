@@ -170,9 +170,9 @@ Below, you can find a summary of penalties for specific offenses:
 
 |               Offense                | [Slash (%)](#slashing) | [On-Chain Disabling](#disabling) | [Off-Chain Disabling](#disabling) | [Reputational Changes](#reputation-changes) |
 |:------------------------------------:|:----------------------:|:--------------------------------------:|:------------------------------------:|:-------------------------------------------:|
-|           Backing Invalid            |          100%          |                  Yes                   |         Yes (High Priority)          |                     No                      |
-|           ForInvalid Vote            |           -            |                   No                   |          Yes (Mid Priority)          |                     No                      |
-|          AgainstValid Vote           |           -            |                   No                   |          Yes (Low Priority)          |                     No                      |
-| GRANDPA / BABE / BEEFY Equivocations |       0.01-100%        |                  Yes                   |                  No                  |                     No                      |
-|    Seconded + Valid Equivocation     |           -            |                   No                   |                  No                  |                     No                      |
-|     Double Seconded Equivocation     |           -            |                   No                   |                  No                  |                     Yes                     |
+|           Backing Invalid            |          100%          |               Yes (High Priority)                | Yes (High Priority) |                     No                      |
+|           ForInvalid Vote            |           2%            |                Yes (Mid Priority)                | Yes (Mid Priority)  |                     No                      |
+|          AgainstValid Vote           |           0%            |                Yes (Low Priority)                | Yes (Low Priority)  |                     No                      |
+| GRANDPA / BABE / BEEFY Equivocations |       0.01-100%        |               Yes (Varying Priority)                |         No          |                     No                      |
+|    Seconded + Valid Equivocation     |           -            |                No                |         No          |                     No                      |
+|     Double Seconded Equivocation     |           -            |                No                |         No          |                     Yes                     |

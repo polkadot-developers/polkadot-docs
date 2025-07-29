@@ -78,7 +78,7 @@ The following scenarios demonstrate how this formula means slash percentages can
     flowchart LR
     N["Total Validators = 100"]
     X["Offenders = 1"]
-    F["min(3 * 1 / 100)^2, 1) = 0.0009"]
+    F["min((3 * 1 / 100)^2, 1) = 0.0009"]
     G["0.09% slash of stake"]
 
     N --> F
@@ -135,8 +135,8 @@ Below are some examples of small equivocations that happened in the past:
 | Network  | Era  | Event Type         | Details                                                                                                                                                                                                                                                                                                                                                             | Action Taken                                                                                                                      |
 |----------|------|--------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------|
 | Polkadot | 774  | Small Equivocation | [The validator](https://matrix.to/#/!NZrbtteFeqYKCUGQtr:matrix.parity.io/$165562246360408hKCfC:matrix.org?via=matrix.parity.io&via=corepaper.org&via=matrix.org){target=\_blank} migrated servers and cloned the keystore folder. The on-chain event can be viewed on [Subscan](https://polkadot.subscan.io/extrinsic/11190109-0?event=11190109-5){target=\_blank}. | The validator didn't submit a request for the slash to be canceled.                                                               |
-| Kusama   | 3329 | Small Equivocation | The validator operated a test machine with cloned keys. The test machine was online simultaneously as the primary, which resulted in a slash.                                                                                                                     | The validator requested a slash cancellation, but the council declined.                                                           |
-| Kusama   | 3995 | Small Equivocation | The validator noticed several errors, after which the client crashed, and a slash was applied. The validator recorded all events and opened GitHub issues to allow for technical opinions to be shared.                                                           | The validator requested to cancel the slash. The council approved the request as they believed the error wasn't operator-related. |
+| Kusama   | 3329 | Small Equivocation | The validator operated a test machine with cloned keys. The test machine was online simultaneously as the primary, which resulted in a slash.                                                                                                                                                                                                                       | The validator requested a slash cancellation, but the council declined.                                                           |
+| Kusama   | 3995 | Small Equivocation | The validator noticed several errors, after which the client crashed, and a slash was applied. The validator recorded all events and opened GitHub issues to allow for technical opinions to be shared.                                                                                                                                                             | The validator requested to cancel the slash. The council approved the request as they believed the error wasn't operator-related. |
 
 #### Slashing Across Eras
 
@@ -169,10 +169,10 @@ Some minor offenses, such as spamming, are only punished by networking reputatio
 Below, you can find a summary of penalties for specific offenses:
 
 |               Offense                | [Slash (%)](#slashing) | [On-Chain Disabling](#disabling) | [Off-Chain Disabling](#disabling) | [Reputational Changes](#reputation-changes) |
-|:------------------------------------:|:----------------------:|:--------------------------------------:|:------------------------------------:|:-------------------------------------------:|
-|           Backing Invalid            |          100%          |                  Yes                   |         Yes (High Priority)          |                     No                      |
-|           ForInvalid Vote            |           -            |                   No                   |          Yes (Mid Priority)          |                     No                      |
-|          AgainstValid Vote           |           -            |                   No                   |          Yes (Low Priority)          |                     No                      |
-| GRANDPA / BABE / BEEFY Equivocations |       0.01-100%        |                  Yes                   |                  No                  |                     No                      |
-|    Seconded + Valid Equivocation     |           -            |                   No                   |                  No                  |                     No                      |
-|     Double Seconded Equivocation     |           -            |                   No                   |                  No                  |                     Yes                     |
+|:------------------------------------:|:----------------------:|:--------------------------------:|:---------------------------------:|:-------------------------------------------:|
+|           Backing Invalid            |          100%          |               Yes                |        Yes (High Priority)        |                     No                      |
+|           ForInvalid Vote            |           -            |                No                |        Yes (Mid Priority)         |                     No                      |
+|          AgainstValid Vote           |           -            |                No                |        Yes (Low Priority)         |                     No                      |
+| GRANDPA / BABE / BEEFY Equivocations |       0.01-100%        |               Yes                |                No                 |                     No                      |
+|    Seconded + Valid Equivocation     |           -            |                No                |                No                 |                     No                      |
+|     Double Seconded Equivocation     |           -            |                No                |                No                 |                     Yes                     |

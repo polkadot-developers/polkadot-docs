@@ -18505,33 +18505,33 @@ template: index-page.html
 
 Running infrastructure on Polkadot is essential to supporting the network’s performance and security. Operators must focus on reliability, ensure proper configuration, and meet the necessary hardware requirements to contribute effectively to the decentralized ecosystem.
 
-- Not sure where to start? Visit the [Choosing the Right Role](#choosing-the-right-role) section for guidance
-- Ready to get started? Jump to [In This Section](#in-this-section) to get started
+- Not sure where to start? Visit the [Choosing the Right Role](#choosing-the-right-role) section for guidance.
+- Ready to get started? Jump to [In This Section](#in-this-section) to get started.
 
 ## Choosing the Right Role
 
 Selecting your role within the Polkadot ecosystem depends on your goals, resources, and expertise. Below are detailed considerations for each role:
 
 - **Running a node**:
-    - **Purpose** - a node provides access to network data and supports API queries. It is commonly used for:
-        - **Development and testing** - offers a local instance to simulate network conditions and test applications
-        - **Production use** - acts as a data source for dApps, clients, and other applications needing reliable access to the blockchain
-    - **Requirements** - moderate hardware resources to handle blockchain data efficiently
-    - **Responsibilities** - a node’s responsibilities vary based on its purpose:
-        - **Development and testing** - enables developers to test features, debug code, and simulate network interactions in a controlled environment
-        - **Production use** - provides consistent and reliable data access for dApps and other applications, ensuring minimal downtime
+    - **Purpose**: A node provides access to network data and supports API queries. It is commonly used for.
+        - **Development and testing**: Offers a local instance to simulate network conditions and test applications.
+        - **Production use**: Acts as a data source for dApps, clients, and other applications needing reliable access to the blockchain.
+    - **Requirements**: Moderate hardware resources to handle blockchain data efficiently.
+    - **Responsibilities**: A node’s responsibilities vary based on its purpose.
+        - **Development and testing**: Enables developers to test features, debug code, and simulate network interactions in a controlled environment.
+        - **Production use**: Provides consistent and reliable data access for dApps and other applications, ensuring minimal downtime.
 
 - **Running a validator**:
-    - **Purpose** - validators play a critical role in securing the Polkadot relay chain. They validate parachain block submissions, participate in consensus, and help maintain the network's overall integrity
-    - **Requirements** - becoming a validator requires:
-        - **Staking** - a variable amount of DOT tokens to secure the network and demonstrate commitment
-        - **Hardware** - high-performing hardware resources capable of supporting intensive blockchain operations
-        - **Technical expertise** - proficiency in setting up and maintaining nodes, managing updates, and understanding Polkadot's consensus mechanisms
-        - **Community involvement** - building trust and rapport within the community to attract nominators willing to stake with your validator
-    - **Responsibilities** - validators have critical responsibilities to ensure network health:
-        - **Uptime** - maintain near-constant availability to avoid slashing penalties for downtime or unresponsiveness
-        - **Network security** - participate in consensus and verify parachain transactions to uphold the network's security and integrity
-        - **Availability** - monitor the network for events and respond to issues promptly, such as misbehavior reports or protocol updates
+    - **Purpose**: Validators play a critical role in securing the Polkadot relay chain. They validate parachain block submissions, participate in consensus, and help maintain the network's overall integrity.
+    - **Requirements**: Becoming a validator requires.
+        - **Staking**: A variable amount of DOT tokens to secure the network and demonstrate commitment.
+        - **Hardware**: High-performing hardware resources capable of supporting intensive blockchain operations.
+        - **Technical expertise**: Proficiency in setting up and maintaining nodes, managing updates, and understanding Polkadot's consensus mechanisms.
+        - **Community involvement**: Building trust and rapport within the community to attract nominators willing to stake with your validator.
+    - **Responsibilities**: Validators have critical responsibilities to ensure network health.
+        - **Uptime**: Maintain near-constant availability to avoid slashing penalties for downtime or unresponsiveness.
+        - **Network security**: Participate in consensus and verify parachain transactions to uphold the network's security and integrity.
+        - **Availability**: Monitor the network for events and respond to issues promptly, such as misbehavior reports or protocol updates.
 
 ## In This Section
 
@@ -18554,8 +18554,8 @@ Running a node on the Polkadot network enables you to access blockchain data, in
 
 Full nodes and bootnodes serve different roles within the network, each contributing in unique ways to connectivity and data access:
 
-- **Full node** - stores blockchain data, validates transactions, and can serve as a source for querying data
-- **Bootnode** - assists new nodes in discovering peers and connecting to the network, but doesn’t store blockchain data
+- **Full node**: Stores blockchain data, validates transactions, and can serve as a source for querying data.
+- **Bootnode**: Assists new nodes in discovering peers and connecting to the network, but doesn’t store blockchain data.
 
 The following sections describe the different types of full nodes—pruned, archive, and light nodes—and the unique features of each for various use cases.
 
@@ -18563,9 +18563,9 @@ The following sections describe the different types of full nodes—pruned, arch
 
 The three main types of nodes are as follows:
 
-- **Pruned node** - prunes historical states of all finalized block states older than a specified number except for the genesis block's state
-- **Archive node** - preserves all the past blocks and their states, making it convenient to query the past state of the chain at any given time. Archive nodes use a lot of disk space, which means they should be limited to use cases that require easy access to past on-chain data, such as block explorers
-- **Light node** - has only the runtime and the current state but doesn't store past blocks, making them useful for resource-restricted devices
+- **Pruned node**: Prunes historical states of all finalized block states older than a specified number except for the genesis block's state.
+- **Archive node**: Preserves all the past blocks and their states, making it convenient to query the past state of the chain at any given time. Archive nodes use a lot of disk space, which means they should be limited to use cases that require easy access to past on-chain data, such as block explorers.
+- **Light node**: Has only the runtime and the current state but doesn't store past blocks, making them useful for resource-restricted devices.
 
 Each node type can be configured to provide remote access to blockchain data via RPC endpoints, allowing external clients, like dApps or developers, to submit transactions, query data, and interact with the blockchain remotely.
 
@@ -18576,8 +18576,8 @@ Each node type can be configured to provide remote access to blockchain data via
 
 A pruned node retains only a subset of finalized blocks, discarding older data. The two main types of pruning are:
 
-- **State pruning** - removes the states of old blocks while retaining block headers
-- **Block pruning** - removes both the full content of old blocks and their associated states, but keeps the block headers
+- **State pruning**: Removes the states of old blocks while retaining block headers.
+- **Block pruning**: Removes both the full content of old blocks and their associated states, but keeps the block headers.
 
 Despite these deletions, pruned nodes are still capable of performing many essential functions, such as displaying account balances, making transfers, setting up session keys, and participating in staking.
 
@@ -18605,15 +18605,15 @@ This guide will walk you through setting up a Polkadot bootnode, configuring P2P
 
 Before you start, you need to have the following prerequisites:
 
-- Verify a working Polkadot (`polkadot`) binary is available on your machine
-- Ensure you have nginx installed. Please refer to the [Installation Guide](https://nginx.org/en/docs/install.html){target=\_blank} for help with installation if needed
-- A VPS or other dedicated server setup
+- Verify a working Polkadot (`polkadot`) binary is available on your machine.
+- Ensure you have nginx installed. Please refer to the [Installation Guide](https://nginx.org/en/docs/install.html){target=\_blank} for help with installation if needed.
+- A VPS or other dedicated server setup.
 
 ## Accessing the Bootnode
 
 Bootnodes must be accessible through three key channels to connect with other nodes in the network:
 
-- **P2P** - a direct peer-to-peer connection, set by:
+- **P2P**: A direct peer-to-peer connection, set by.
 
     ```bash
 
@@ -18623,8 +18623,8 @@ Bootnodes must be accessible through three key channels to connect with other no
     
     This is not enabled by default on non-validator nodes like archive RPC nodes.
 
-- **P2P/WS** - a WebSocket (WS) connection, also configured via `--listen-addr`
-- **P2P/WSS** - a secure WebSocket (WSS) connection using SSL, often required for light clients. An SSL proxy is needed, as the node itself cannot handle certificates
+- **P2P/WS**: A WebSocket (WS) connection, also configured via `--listen-addr`.
+- **P2P/WSS**: A secure WebSocket (WSS) connection using SSL, often required for light clients. An SSL proxy is needed, as the node itself cannot handle certificates.
 
 ## Node Key
 
@@ -18743,8 +18743,8 @@ Now that you're familiar with the different types of nodes, this section will wa
 
 Before getting started, ensure the following prerequisites are met:
 
-- Ensure [Rust](https://www.rust-lang.org/tools/install){target=\_blank} is installed on your operating system
-- [Install the necessary dependencies for the Polkadot SDK](/develop/parachains/install-polkadot-sdk/){target=\_blank}
+- Ensure [Rust](https://www.rust-lang.org/tools/install){target=\_blank} is installed on your operating system.
+- [Install the necessary dependencies for the Polkadot SDK](/develop/parachains/install-polkadot-sdk/){target=\_blank}.
 
 !!! warning
     This setup is not recommended for validators. If you plan to run a validator, refer to the [Running a Validator](/infrastructure/running-a-validator/){target=\_blank} guide for proper instructions.
@@ -18812,8 +18812,8 @@ This section will walk you through installing and building the Polkadot binary f
 
     Once installed, you have a couple options for installing the Polkadot binary:
 
-    - If Rust is installed, then `cargo` can be used similar to the macOS instructions
-    - Or, the instructions in the Linux section can be used
+    - If Rust is installed, then `cargo` can be used similar to the macOS instructions.
+    - Or, the instructions in the Linux section can be used.
 
 ??? interface "Linux (pre-built binary)"
 
@@ -19004,9 +19004,9 @@ Once you've fully configured your start-up command, you can execute it in your t
 
 The node startup settings allow you to choose what to expose, how many connections to expose, and which systems should be granted access through the RPC server.
 
-- You can limit the methods to use with `--rpc-methods`; an easy way to set this to a safe mode is `--rpc-methods safe`
-- You can set your maximum connections through `--rpc-max-connections`, for example, `--rpc-max-connections 200`
-- By default, localhost and Polkadot.js can access the RPC server. You can change this by setting `--rpc-cors`. To allow access from everywhere, you can use `--rpc-cors all`
+- You can limit the methods to use with `--rpc-methods`; an easy way to set this to a safe mode is `--rpc-methods safe`.
+- You can set your maximum connections through `--rpc-max-connections`, for example, `--rpc-max-connections 200`.
+- By default, localhost and Polkadot.js can access the RPC server. You can change this by setting `--rpc-cors`. To allow access from everywhere, you can use `--rpc-cors all`.
 
 For a list of important flags when running RPC nodes, refer to the Parity DevOps documentation: [Important Flags for Running an RPC Node](https://paritytech.github.io/devops-guide/guides/rpc_index.html?#important-flags-for-running-an-rpc-node){target=\_blank}.
 
@@ -19148,6 +19148,7 @@ a2enmod mpm_event proxy proxy_html proxy_http proxy_wstunnel rewrite ssl
 ```
 
 2. The [`mod_proxy_wstunnel`](https://httpd.apache.org/docs/2.4/mod/mod_proxy_wstunnel.html){target=\_blank} provides support for the tunneling of WebSocket connections to a backend WebSocket server. The connection is automatically upgraded to a WebSocket connection. In an SSL-enabled virtual host add:
+
     ```apacheconf
 # (...)
 SSLProxyEngine on
@@ -19181,7 +19182,7 @@ ProxyPassReverse / ws://localhost:9944
 
 ## Connect to the Node
 
-1. Open [Polkadot.js Apps interface](https://polkadot.js.org/apps){target=\_blank} and click the logo in the top left to switch the node
+1. Open [Polkadot.js Apps interface](https://polkadot.js.org/apps){target=\_blank} and click the logo in the top left to switch the node.
 2. Activate the **Development** toggle and input either your node's domain or IP address. Remember to prefix with `wss://` and, if you're using the 443 port, append `:443` as follows:
 
     ```bash
@@ -19311,14 +19312,14 @@ There are multiple ways to create the session keys. It can be done by interactin
 
 === "Polkadot.js Apps UI"
 
-    1. In Polkadot.js Apps, connect to your local node, navigate to the **Developer** dropdown, and select the **RPC Calls** option
+    1. In Polkadot.js Apps, connect to your local node, navigate to the **Developer** dropdown, and select the **RPC Calls** option.
 
-    2. Construct an `author_rotateKeys` RPC call and execute it
+    2. Construct an `author_rotateKeys` RPC call and execute it:
 
-        1. Select the **author** endpoint
-        2. Choose the **rotateKeys()** call
-        3. Click the **Submit RPC Call** button
-        4. Copy the hex-encoded public key from the response
+        1. Select the **author** endpoint.
+        2. Choose the **rotateKeys()** call.
+        3. Click the **Submit RPC Call** button.
+        4. Copy the hex-encoded public key from the response.
 
         ![](/images/infrastructure/running-a-validator/onboarding-and-offboarding/key-management/key-management-1.webp)
 
@@ -19375,9 +19376,9 @@ Secret phrase:       twist buffalo mixture excess device drastic vague mammal fi
 
 Now that you have generated your session keys, you must submit them to the chain. Follow these steps:
 
-1. Go to the **Network > Staking > Accounts** section on Polkadot.js Apps
-2. Select **Set Session Key** on the bonding account you generated earlier
-3. Paste the hex-encoded session key string you generated (from either the UI or CLI) into the input field and submit the transaction
+1. Go to the **Network > Staking > Accounts** section on Polkadot.js Apps.
+2. Select **Set Session Key** on the bonding account you generated earlier.
+3. Paste the hex-encoded session key string you generated (from either the UI or CLI) into the input field and submit the transaction.
 
 ![](/images/infrastructure/running-a-validator/onboarding-and-offboarding/key-management/key-management-2.webp)
 
@@ -19387,8 +19388,8 @@ Once the transaction is signed and submitted, your session keys will be register
 
 To verify that your session keys are properly set, you can use one of two RPC calls:
 
-- **`hasKey`** - checks if the node has a specific key by public key and key type
-- **`hasSessionKeys`** - verifies if your node has the full session key string associated with the validator
+- **`hasKey`**: Checks if the node has a specific key by public key and key type.
+- **`hasSessionKeys`**: Verifies if your node has the full session key string associated with the validator.
 
 For example, you can [check session keys on the Polkadot.js Apps](https://polkadot.js.org/apps/#/rpc){target=\_blank} interface or by running an RPC query against your node. Once this is done, your validator node is ready for its role.
 
@@ -19464,10 +19465,10 @@ Running a validator requires a commitment to maintaining a stable, secure infras
 
 To get the most from this guide, ensure you've done the following before going forward:
 
-- Read [Validator Requirements](/infrastructure/running-a-validator/requirements/){target=\_blank} and understand the recommended minimum skill level and hardware needs
-- Read [General Management](/infrastructure/running-a-validator/operational-tasks/general-management){target=\_blank}, [Upgrade Your Node](/infrastructure/running-a-validator/operational-tasks/upgrade-your-node/){target=\_blank}, and [Pause Validating](/infrastructure/running-a-validator/onboarding-and-offboarding/stop-validating/){target=\_blank} and understand the tasks required to keep your validator operational
-- Read [Rewards Payout](/infrastructure/staking-mechanics/rewards-payout/){target=\_blank} and understand how validator rewards are determined and paid out
-- Read [Offenses and Slashes](/infrastructure/staking-mechanics/offenses-and-slashes/){target=\_blank} and understand how validator performance and security can affect tokens staked by you or your nominators
+- Read [Validator Requirements](/infrastructure/running-a-validator/requirements/){target=\_blank} and understand the recommended minimum skill level and hardware needs.
+- Read [General Management](/infrastructure/running-a-validator/operational-tasks/general-management){target=\_blank}, [Upgrade Your Node](/infrastructure/running-a-validator/operational-tasks/upgrade-your-node/){target=\_blank}, and [Pause Validating](/infrastructure/running-a-validator/onboarding-and-offboarding/stop-validating/){target=\_blank} and understand the tasks required to keep your validator operational.
+- Read [Rewards Payout](/infrastructure/staking-mechanics/rewards-payout/){target=\_blank} and understand how validator rewards are determined and paid out.
+- Read [Offenses and Slashes](/infrastructure/staking-mechanics/offenses-and-slashes/){target=\_blank} and understand how validator performance and security can affect tokens staked by you or your nominators.
 
 ## Initial Setup
 
@@ -19576,8 +19577,8 @@ You can also download the binaries by using the following direct links:
 
 Signature verification cryptographically ensures the downloaded binaries are authentic and have not been tampered with by using GPG signing keys. Polkadot releases use two different signing keys:
 
-- ParityReleases (release-team@parity.io) with key [`90BD75EBBB8E95CB3DA6078F94A4029AB4B35DAE`](https://keyserver.ubuntu.com/pks/lookup?search=9D4B2B6EB8F97156D19669A9FF0812D491B96798&fingerprint=on&op=index){target=\_blank} for current and new releases
-- Parity Security Team (security@parity.io) with key [`9D4B2B6EB8F97156D19669A9FF0812D491B96798`](https://keyserver.ubuntu.com/pks/lookup?search=90BD75EBBB8E95CB3DA6078F94A4029AB4B35DAE&fingerprint=on&op=index){target=\_blank} for old releases
+- ParityReleases (release-team@parity.io) with key [`90BD75EBBB8E95CB3DA6078F94A4029AB4B35DAE`](https://keyserver.ubuntu.com/pks/lookup?search=9D4B2B6EB8F97156D19669A9FF0812D491B96798&fingerprint=on&op=index){target=\_blank} for current and new releases.
+- Parity Security Team (security@parity.io) with key [`9D4B2B6EB8F97156D19669A9FF0812D491B96798`](https://keyserver.ubuntu.com/pks/lookup?search=90BD75EBBB8E95CB3DA6078F94A4029AB4B35DAE&fingerprint=on&op=index){target=\_blank} for old releases.
 
     !!!warning
         When verifying a signature, a "Good signature" message indicates successful verification, while any other output signals a potential security risk.
@@ -19629,7 +19630,7 @@ You may build the binaries from source by following the instructions on the [Pol
 
 Once the Polkadot binaries are installed, it's essential to verify that everything is set up correctly and that all the necessary components are in place. Follow these steps to ensure the binaries are installed and functioning as expected.
 
-1. **Check the versions** - run the following commands to verify the versions of the installed binaries:
+1. **Check the versions**: Run the following commands to verify the versions of the installed binaries.
 
     ```bash
     polkadot --version
@@ -19649,7 +19650,7 @@ Once the Polkadot binaries are installed, it's essential to verify that everythi
 
     If the versions do not match or if there is an error, double-check that all the binaries were correctly installed and are accessible within your `$PATH`.
 
-2. **Ensure all binaries are in the same directory** - all the binaries must be in the same directory for the Polkadot validator node to function properly. If the binaries are not in the same location, move them to a unified directory and ensure this directory is added to your system's `$PATH`
+2. **Ensure all binaries are in the same directory**: All the binaries must be in the same directory for the Polkadot validator node to function properly. If the binaries are not in the same location, move them to a unified directory and ensure this directory is added to your system's `$PATH`.
 
     To verify the `$PATH`, run the following command:
 
@@ -19677,15 +19678,15 @@ After configuring your node keys as shown in the [Key Management](/infrastructur
 
 Running your validator on a test network like Westend or Kusama is a smart way to familiarize yourself with the process and identify any setup issues in a lower-stakes environment before joining the Polkadot MainNet.
 
-- **Westend** - Polkadot's primary TestNet is open to anyone for testing purposes. Validator slots are intentionally limited to keep the network stable for the Polkadot release process, so it may not support as many validators at any given time
-- **Kusama** - often called Polkadot's "canary network," Kusama has real economic value but operates with a faster and more experimental approach. Running a validator here provides an experience closer to MainNet with the benefit of more frequent validation opportunities with an era time of 6 hours vs 24 hours for Polkadot
-- **Polkadot** - the main network, where validators secure the Polkadot relay chain. It has a slower era time of 24 hours and requires a higher minimum bond amount to participate
+- **Westend**: Polkadot's primary TestNet is open to anyone for testing purposes. Validator slots are intentionally limited to keep the network stable for the Polkadot release process, so it may not support as many validators at any given time.
+- **Kusama**: Often called Polkadot's "canary network," Kusama has real economic value but operates with a faster and more experimental approach. Running a validator here provides an experience closer to MainNet with the benefit of more frequent validation opportunities with an era time of 6 hours vs 24 hours for Polkadot.
+- **Polkadot**: The main network, where validators secure the Polkadot relay chain. It has a slower era time of 24 hours and requires a higher minimum bond amount to participate.
 
 ## Synchronize Chain Data
 
 The next step is to sync your node with the chosen blockchain network. Synchronization is necessary to download and validate the blockchain data, ensuring your node is ready to participate as a validator. Follow these steps to sync your node:
 
-1. **Start syncing** - you can run a full or warp sync
+1. **Start syncing**: You can run a full or warp sync.
 
     === "Full sync"
 
@@ -19713,7 +19714,7 @@ The next step is to sync your node with the chosen blockchain network. Synchroni
     polkadot --chain=kusama
     ```
 
-2. **Monitor sync progress** - once the sync starts, you will see a stream of logs providing information about the node's status and progress. Here's an example of what the output might look like:
+2. **Monitor sync progress**: Once the sync starts, you will see a stream of logs providing information about the node's status and progress. Here's an example of what the output might look like:
 
     <div id="termynal" data-termynal>
   <span data-ty="input"><span class="file-path"></span>polkadot</span>
@@ -19770,9 +19771,9 @@ Once you're ready to bond your DOT, head over to the [Polkadot.js Apps](https://
 
 To get started with the bond submission, click on the **Accounts** tab, then the **+ Stash** button, and then enter the following information:
 
-1. **Stash account** - select your stash account (which is the account with the DOT/KSM balance)
-2. **Value bonded** - enter how much DOT from the stash account you want to bond/stake. You are not required to bond all of the DOT in that account and you may bond more DOT at a later time. Be aware, withdrawing any bonded amount requires waiting for the unbonding period. The unbonding period is seven days for Kusama and 28 days for Polkadot
-3. **Payment destination** - add the recipient account for validator rewards. If you'd like to redirect payments to an account that is not the stash account, you can do it by entering the address here. Note that it is extremely unsafe to set an exchange address as the recipient of the staking rewards
+1. **Stash account**: Select your stash account (which is the account with the DOT/KSM balance).
+2. **Value bonded**: Enter how much DOT from the stash account you want to bond/stake. You are not required to bond all of the DOT in that account and you may bond more DOT at a later time. Be aware, withdrawing any bonded amount requires waiting for the unbonding period. The unbonding period is seven days for Kusama and 28 days for Polkadot.
+3. **Payment destination**: Add the recipient account for validator rewards. If you'd like to redirect payments to an account that is not the stash account, you can do it by entering the address here. Note that it is extremely unsafe to set an exchange address as the recipient of the staking rewards.
 
 Once everything is filled in properly, select **Bond** and sign the transaction with your stash account. If successful, you should see an `ExtrinsicSuccess` message.
 
@@ -19798,15 +19799,15 @@ Follow these steps to use Polkadot.js Apps to activate your validator:
 
     ![](/images/infrastructure/running-a-validator/onboarding-and-offboarding/start-validating/start-validating-02.webp)
 
-2. Set a reward commission percentage if desired. You can set a percentage of the rewards to pay to your validator and the remainder pays to your nominators. A 100% commission rate indicates the validator intends to keep all rewards and is seen as a signal the validator is not seeking nominators
+2. Set a reward commission percentage if desired. You can set a percentage of the rewards to pay to your validator and the remainder pays to your nominators. A 100% commission rate indicates the validator intends to keep all rewards and is seen as a signal the validator is not seeking nominators.
 
-3. Toggle the **allows new nominations** option if your validator is open to more nominations from DOT holders
+3. Toggle the **allows new nominations** option if your validator is open to more nominations from DOT holders.
 
-4. Once everything is configured, select **Bond & Validate** to activate your validator status
+4. Once everything is configured, select **Bond & Validate** to activate your validator status.
 
     ![](/images/infrastructure/running-a-validator/onboarding-and-offboarding/start-validating/start-validating-03.webp)
 
-5. Edit the **commission** and the **blocked** option via `staking.validate` extrinsic. By default, the blocked option is set to FALSE (i.e., the validator accepts nominations)
+5. Edit the **commission** and the **blocked** option via `staking.validate` extrinsic. By default, the blocked option is set to FALSE (i.e., the validator accepts nominations).
 
     ![](/images/infrastructure/running-a-validator/onboarding-and-offboarding/start-validating/start-validating-04.webp)
 
@@ -19826,9 +19827,9 @@ This following sections will walk you through creating and managing a systemd se
 
 Ensure the following requirements are met before proceeding with the systemd setup:
 
-- Confirm your system meets the [requirements](/infrastructure/running-a-validator/requirements/){target=\_blank} for running a validator
-- Ensure you meet the [minimum bond requirements](https://wiki.polkadot.network/general/chain-state-values/#minimum-validator-bond){target=\_blank} for validating
-- Verify the Polkadot binary is [installed](#install-the-polkadot-binaries)
+- Confirm your system meets the [requirements](/infrastructure/running-a-validator/requirements/){target=\_blank} for running a validator.
+- Ensure you meet the [minimum bond requirements](https://wiki.polkadot.network/general/chain-state-values/#minimum-validator-bond){target=\_blank} for validating.
+- Verify the Polkadot binary is [installed](#install-the-polkadot-binaries).
 
 ### Create the Systemd Service File
 
@@ -19934,9 +19935,9 @@ If you wish to remain a validator or nominator (for example, stopping for planne
 
 The following are steps to ensure a smooth stop to validation:
 
-- Chill the validator
-- Purge validator session keys
-- Unbond your tokens
+- Chill the validator.
+- Purge validator session keys.
+- Unbond your tokens.
 
 ## Chill Validator
 
@@ -19950,8 +19951,8 @@ Purging validator session keys is a critical step in removing the association be
 
 Here are a couple of important things to know about purging keys:
 
-- **Account used to purge keys** - always use the same account to purge keys you originally used to set them, usually your stash or staking proxy account. Using a different account may leave an unremovable reference to the session keys on the original account, preventing its reaping
-- **Account reaping issue** - failing to purge keys will prevent you from reaping (fully deleting) your stash account. If you attempt to transfer tokens without purging, you'll need to rebond, purge the session keys, unbond again, and wait through the unbonding period before any transfer
+- **Account used to purge keys**: Always use the same account to purge keys you originally used to set them, usually your stash or staking proxy account. Using a different account may leave an unremovable reference to the session keys on the original account, preventing its reaping.
+- **Account reaping issue**: Failing to purge keys will prevent you from reaping (fully deleting) your stash account. If you attempt to transfer tokens without purging, you'll need to rebond, purge the session keys, unbond again, and wait through the unbonding period before any transfer.
 
 ## Unbond Your Tokens
 
@@ -20077,10 +20078,10 @@ To selectively deactivate the Spectre mitigations, take these steps:
 
 2. Update GRUB to apply changes and then reboot:
 
-```bash
-sudo update-grub
-sudo reboot
-```
+    ```bash
+    sudo update-grub
+    sudo reboot
+    ```
 
 This approach selectively deactivates the Spectre V2 and Spectre V4 mitigations, leaving other protections intact. For full security, keep mitigations activated unless there's a significant performance need, as disabling them could expose the system to potential attacks on affected CPUs.
 
@@ -20088,9 +20089,9 @@ This approach selectively deactivates the Spectre V2 and Spectre V4 mitigations,
 
 Monitoring your node's performance is critical for network reliability and security. Tools like the following provide valuable insights:
 
-- **[Prometheus](https://prometheus.io/){target=\_blank}** - an open-source monitoring toolkit for collecting and querying time-series data
-- **[Grafana](https://grafana.com/){target=\_blank}** - a visualization tool for real-time metrics, providing interactive dashboards
-- **[Alertmanager](https://prometheus.io/docs/alerting/latest/alertmanager/){target=\_blank}** - a tool for managing and routing alerts based on Prometheus data.
+- **[Prometheus](https://prometheus.io/){target=\_blank}**: An open-source monitoring toolkit for collecting and querying time-series data.
+- **[Grafana](https://grafana.com/){target=\_blank}**: A visualization tool for real-time metrics, providing interactive dashboards.
+- **[Alertmanager](https://prometheus.io/docs/alerting/latest/alertmanager/){target=\_blank}**: A tool for managing and routing alerts based on Prometheus data.
 
 This section covers setting up these tools and configuring alerts to notify you of potential issues.
 
@@ -20338,22 +20339,22 @@ To configure Grafana, take these steps:
 
 To visualize node metrics, follow these steps:
 
-1. Select the gear icon to access **Data Sources** settings
-2. Select **Add data source** to define the data source
+1. Select the gear icon to access **Data Sources** settings.
+2. Select **Add data source** to define the data source.
 
     ![Select Prometheus](/images/infrastructure/running-a-validator/operational-tasks/general-management/general-management-2.webp)
 
-3. Select **Prometheus**
+3. Select **Prometheus**.
 
     ![Save and test](/images/infrastructure/running-a-validator/operational-tasks/general-management/general-management-3.webp)
 
-4. Enter `http://localhost:9090` in the **URL** field and click **Save & Test**. If **"Data source is working"** appears, your connection is configured correctly
+4. Enter `http://localhost:9090` in the **URL** field and click **Save & Test**. If **"Data source is working"** appears, your connection is configured correctly.
 
     ![Import dashboard](/images/infrastructure/running-a-validator/operational-tasks/general-management/general-management-4.webp)
 
-5. Select **Import** from the left menu, choose **Prometheus** from the dropdown, and click **Import**
+5. Select **Import** from the left menu, choose **Prometheus** from the dropdown, and click **Import**.
 
-6. Start your Polkadot node by running `./polkadot`. You should now be able to monitor node performance, block height, network traffic, and tasks tasks on the Grafana dashboard
+6. Start your Polkadot node by running `./polkadot`. You should now be able to monitor node performance, block height, network traffic, and tasks tasks on the Grafana dashboard.
 
     ![Live dashboard](/images/infrastructure/running-a-validator/operational-tasks/general-management/general-management-5.webp)
 
@@ -20400,7 +20401,7 @@ Follow these steps to install and configure Alertmanager:
     sudo chown -R prometheus:prometheus /etc/alertmanager
     ```
 
-5. Configure Alertmanager as a service by creating a systemd service file:
+4. Configure Alertmanager as a service by creating a systemd service file:
 
     ```bash
     sudo nano /etc/systemd/system/alertmanager.service
@@ -20410,7 +20411,7 @@ Follow these steps to install and configure Alertmanager:
     -8<-- 'code/infrastructure/running-a-validator/operational-tasks/general-management/systemd-alert-config.md'
     ```
 
-6. Reload and enable the service:
+5. Reload and enable the service:
 
     ```bash
     sudo systemctl daemon-reload
@@ -20418,7 +20419,7 @@ Follow these steps to install and configure Alertmanager:
     sudo systemctl start alertmanager
     ```
 
-7. Verify the service status:
+6. Verify the service status:
 
     ```bash
     sudo systemctl status alertmanager
@@ -20448,10 +20449,10 @@ Follow these steps to use the plugin:
 
 3. Configure Alertmanager as a data source in your Grafana dashboard (`SERVER_IP:3000`):
 
-    1. Go to **Configuration** > **Data Sources** and search for **Prometheus Alertmanager**
-    2. Enter the server URL and port for the Alertmanager service, and select **Save & Test** to verify the connection
+    1. Go to **Configuration** > **Data Sources** and search for **Prometheus Alertmanager**.
+    2. Enter the server URL and port for the Alertmanager service, and select **Save & Test** to verify the connection.
 
-4. Import the [8010](https://grafana.com/grafana/dashboards/8010-prometheus-alertmanager/){target=\_blank} dashboard for Alertmanager, selecting **Prometheus Alertmanager** in the last column, then select **Import**
+4. Import the [8010](https://grafana.com/grafana/dashboards/8010-prometheus-alertmanager/){target=\_blank} dashboard for Alertmanager, selecting **Prometheus Alertmanager** in the last column, then select **Import**.
 
 #### Integrate Alertmanager
 
@@ -20544,9 +20545,9 @@ Given the current limitations in high-availability setups and the risks associat
 
 There are two approaches for generating session keys:
 
-- **Generate and store in node** - using the `author.rotateKeys` RPC call. For most users, generating keys directly within the client is recommended. You must submit a session certificate from your staking proxy to register new keys. See the [How to Validate](/infrastructure/running-a-validator/onboarding-and-offboarding/set-up-validator/){target=\_blank} guide for instructions on setting keys
+- **Generate and store in node**: Using the `author.rotateKeys` RPC call. For most users, generating keys directly within the client is recommended. You must submit a session certificate from your staking proxy to register new keys. See the [How to Validate](/infrastructure/running-a-validator/onboarding-and-offboarding/set-up-validator/){target=\_blank} guide for instructions on setting keys.
 
-- **Generate outside node and insert** - using the `author.setKeys` RPC call. This flexibility accommodates advanced security setups and should only be used by experienced validator operators
+- **Generate outside node and insert**: Using the `author.setKeys` RPC call. This flexibility accommodates advanced security setups and should only be used by experienced validator operators.
 
 ### Signing Outside the Client
 
@@ -20556,8 +20557,8 @@ Polkadot plans to support external signing, allowing session keys to reside in s
 
 Polkadot's Secure-Validator mode offers an extra layer of protection through strict filesystem, networking, and process sandboxing. This secure mode is activated by default if the machine meets the following requirements:
 
-- **Linux (x86-64 architecture)** - usually Intel or AMD
-- **Enabled `seccomp`** - this kernel feature facilitates a more secure approach for process management on Linux. Verify by running:
+- **Linux (x86-64 architecture)**: Usually Intel or AMD.
+- **Enabled `seccomp`**: This kernel feature facilitates a more secure approach for process management on Linux. Verify by running.
 
     ```bash
     cat /boot/config-`uname -r` | grep CONFIG_SECCOMP=
@@ -20576,24 +20577,24 @@ Polkadot's Secure-Validator mode offers an extra layer of protection through str
 
 Follow these best practices to keep your validator secure:
 
-- Use a non-root user for all operations
-- Regularly apply OS security patches
-- Enable and configure a firewall
-- Use key-based SSH authentication; deactivate password-based login
-- Regularly back up data and harden your SSH configuration. Visit this [SSH guide](https://blog.stribik.technology/2015/01/04/secure-secure-shell.html){target=\_blank} for more details
+- Use a non-root user for all operations.
+- Regularly apply OS security patches.
+- Enable and configure a firewall.
+- Use key-based SSH authentication; deactivate password-based login.
+- Regularly back up data and harden your SSH configuration. Visit this [SSH guide](https://blog.stribik.technology/2015/01/04/secure-secure-shell.html){target=\_blank} for more details.
 
 ### Validator Best Practices
 
 Additional best practices can add an additional layer of security and operational reliability:
 
-- Only run the Polkadot binary, and only listen on the configured p2p port
-- Run on bare-metal machines, as opposed to virtual machines
-- Provisioning of the validator machine should be automated and defined in code which is kept in private version control, reviewed, audited, and tested
-- Generate and provide session keys in a secure way
-- Start Polkadot at boot and restart if stopped for any reason
-- Run Polkadot as a non-root user
-- Establish and maintain an on-call rotation for managing alerts
-- Establish and maintain a clear protocol with actions to perform for each level of each alert with an escalation policy
+- Only run the Polkadot binary, and only listen on the configured p2p port.
+- Run on bare-metal machines, as opposed to virtual machines.
+- Provisioning of the validator machine should be automated and defined in code which is kept in private version control, reviewed, audited, and tested.
+- Generate and provide session keys in a secure way.
+- Start Polkadot at boot and restart if stopped for any reason.
+- Run Polkadot as a non-root user.
+- Establish and maintain an on-call rotation for managing alerts.
+- Establish and maintain a clear protocol with actions to perform for each level of each alert with an escalation policy.
 
 ## Additional Resources
 
@@ -20665,9 +20666,9 @@ To chill your account, go to the **Network > Staking > Account Actions** page on
 
 When a node actively participates in staking but then chills, it will continue contributing for the remainder of the current era. However, its eligibility for the next election depends on the chill status at the start of the new era:
 
-- **Chilled during previous era** - will not participate in the current era election and will remain inactive until reactivated
--**Chilled during current era** - will not be selected for the next era's election
--**Chilled after current era** - may be selected if it was active during the previous era and is now chilled
+- **Chilled during previous era**: Will not participate in the current era election and will remain inactive until reactivated.
+-**Chilled during current era**: Will not be selected for the next era's election.
+-**Chilled after current era**: May be selected if it was active during the previous era and is now chilled.
 
 ## Chilling as a Nominator
 
@@ -20707,8 +20708,8 @@ This guide will allow validators to seamlessly substitute an active validator se
 
 Before beginning the upgrade process for your validator node, ensure the following:
 
-- You have a fully functional validator setup with all required binaries installed. See [Set Up a Validator](/infrastructure/running-a-validator/onboarding-and-offboarding/set-up-validator/){target=\_blank} and [Validator Requirements](/infrastructure/running-a-validator/requirements/){target=\_blank} for additional guidance
-- Your VPS infrastructure has enough capacity to run a secondary validator instance temporarily for the upgrade process
+- You have a fully functional validator setup with all required binaries installed. See [Set Up a Validator](/infrastructure/running-a-validator/onboarding-and-offboarding/set-up-validator/){target=\_blank} and [Validator Requirements](/infrastructure/running-a-validator/requirements/){target=\_blank} for additional guidance.
+- Your VPS infrastructure has enough capacity to run a secondary validator instance temporarily for the upgrade process.
 
 ## Session Keys
 
@@ -20734,11 +20735,11 @@ The following instructions outline how to temporarily switch between two validat
 
 ### Session `N`
 
-1. **Start Validator B** - launch a secondary node and wait until it is fully synced with the network. Once synced, start it with the `--validator` flag. This node will now act as Validator B
-2. **Generate session keys** - create new session keys specifically for Validator B
-3. **Submit the `set_key` extrinsic** - use your staking proxy account to submit a `set_key` extrinsic, linking the session keys for Validator B to your staking setup
-4. **Record the session** - make a note of the session in which you executed this extrinsic
-5. **Wait for session changes** - allow the current session to end and then wait for two additional full sessions for the new keys to take effect
+1. **Start Validator B**: Launch a secondary node and wait until it is fully synced with the network. Once synced, start it with the `--validator` flag. This node will now act as Validator B.
+2. **Generate session keys**: Create new session keys specifically for Validator B.
+3. **Submit the `set_key` extrinsic**: Use your staking proxy account to submit a `set_key` extrinsic, linking the session keys for Validator B to your staking setup.
+4. **Record the session**: Make a note of the session in which you executed this extrinsic.
+5. **Wait for session changes**: Allow the current session to end and then wait for two additional full sessions for the new keys to take effect.
 
 !!! warning "Keep Validator A running"
 
@@ -20750,10 +20751,10 @@ At this stage, Validator B becomes your active validator. You can now safely per
 
 Complete the following steps when you are ready to bring Validator A back online:
 
-1. **Start Validator A** - launch Validator A, sync the blockchain database, and ensure it is running with the `--validator` flag
-2. **Generate new session keys for Validator A** - create fresh session keys for Validator A
-3. **Submit the `set_key` extrinsic** - using your staking proxy account, submit a `set_key` extrinsic with the new Validator A session keys
-4. **Record the session** - again, make a note of the session in which you executed this extrinsic
+1. **Start Validator A**: Launch Validator A, sync the blockchain database, and ensure it is running with the `--validator` flag.
+2. **Generate new session keys for Validator A**: Create fresh session keys for Validator A.
+3. **Submit the `set_key` extrinsic**: Using your staking proxy account, submit a `set_key` extrinsic with the new Validator A session keys.
+4. **Record the session**: Again, make a note of the session in which you executed this extrinsic.
 
 Keep Validator B active until the session during which you executed the `set-key` extrinsic completes plus two additional full sessions have passed. Once Validator A has successfully taken over, you can safely stop Validator B. This process helps ensure a smooth handoff between nodes and minimizes the risk of downtime or penalties. Verify the transition by checking for finalized blocks in the new session. The logs should indicate the successful change, similar to the example below:
 
@@ -20771,6 +20772,7 @@ Doc-Content: https://docs.polkadot.com/infrastructure/running-a-validator/requir
 title: Validator Requirements
 description: Explore the technical and system requirements for running a Polkadot validator, including setup, hardware, staking prerequisites, and security best practices.
 ---
+
 # Validator Requirements
 
 ## Introduction
@@ -20783,40 +20785,40 @@ This guide covers everything you need to know about becoming a validator, includ
 
 Running a validator requires solid system administration skills and a secure, well-maintained infrastructure. Below are the primary requirements you need to be aware of before getting started:
 
-- **System administration expertise** - handling technical anomalies and maintaining node infrastructure is critical. Validators must be able to troubleshoot and optimize their setup
-- **Security** - ensure your setup follows best practices for securing your node. Refer to the [Secure Your Validator](/infrastructure/running-a-validator/operational-tasks/general-management/#secure-your-validator){target=\_blank} section to learn about important security measures
-- **Network choice** - start with [Kusama](/infrastructure/running-a-validator/onboarding-and-offboarding/set-up-validator/#run-a-kusama-validator){target=\_blank} to gain experience. Look for "Adjustments for Kusama" throughout these guides for tips on adapting the provided instructions for the Kusama network
-- **Staking requirements** - a minimum amount of native token (KSM or DOT) is required to be elected into the validator set. The required stake can come from your own holdings or from nominators
-- **Risk of slashing** - any DOT you stake is at risk if your setup fails or your validator misbehaves. If you’re unsure of your ability to maintain a reliable validator, consider nominating your DOT to a trusted validator
+- **System administration expertise**: Handling technical anomalies and maintaining node infrastructure is critical. Validators must be able to troubleshoot and optimize their setup.
+- **Security**: Ensure your setup follows best practices for securing your node. Refer to the [Secure Your Validator](/infrastructure/running-a-validator/operational-tasks/general-management/#secure-your-validator){target=\_blank} section to learn about important security measures.
+- **Network choice**: Start with [Kusama](/infrastructure/running-a-validator/onboarding-and-offboarding/set-up-validator/#run-a-kusama-validator){target=\_blank} to gain experience. Look for "Adjustments for Kusama" throughout these guides for tips on adapting the provided instructions for the Kusama network.
+- **Staking requirements**: A minimum amount of native token (KSM or DOT) is required to be elected into the validator set. The required stake can come from your own holdings or from nominators.
+- **Risk of slashing**: Any DOT you stake is at risk if your setup fails or your validator misbehaves. If you’re unsure of your ability to maintain a reliable validator, consider nominating your DOT to a trusted validator.
 
 ## Minimum Hardware Requirements
 
 Polkadot validators rely on high-performance hardware to process blocks efficiently. The recommended minimum hardware requirements to ensure a fully functional and performant validator are as follows:
 
-- **CPU**:
+- CPU:
 
-    - x86-64 compatible
-    - Eight physical cores @ 3.4 GHz
+    - x86-64 compatible.
+    - Eight physical cores @ 3.4 GHz.
     - Processor:
-        - Intel - Ice Lake or newer (Xeon or Core series)
-        - AMD - Zen3 or newer (EPYC or Ryzen)
+        - **Intel**: Ice Lake or newer (Xeon or Core series)
+        - **AMD**: Zen3 or newer (EPYC or Ryzen)
     - Simultaneous multithreading disabled:
-        - Intel - Hyper-Threading
-        - AMD - SMT
-    - [Single-threaded performance](https://www.cpubenchmark.net/singleThread.html){target=\_blank} is prioritized over higher cores count
+        - **Intel**: Hyper-Threading
+        - **AMD**: SMT
+    - [Single-threaded performance](https://www.cpubenchmark.net/singleThread.html){target=\_blank} is prioritized over higher cores count.
 
-- **Storage**:
+- Storage:
 
-    - NVMe SSD - at least 2 TB for blockchain data recommended (prioritize latency rather than throughput)
-    - Storage requirements will increase as the chain grows. For current estimates, see the [current chain snapshot](https://stakeworld.io/docs/dbsize){target=\_blank}
+    - **NVMe SSD**: At least 2 TB for blockchain data recommended (prioritize latency rather than throughput).
+    - Storage requirements will increase as the chain grows. For current estimates, see the [current chain snapshot](https://stakeworld.io/docs/dbsize){target=\_blank}.
 
-- **Memory**:
+- Memory:
 
     - 32 GB DDR4 ECC
 
-- **Network**:
+- Network:
 
-    - Symmetric networking speed of 500 Mbit/s is required to handle large numbers of parachains and ensure congestion control during peak times
+    - Symmetric networking speed of 500 Mbit/s is required to handle large numbers of parachains and ensure congestion control during peak times.
 
 ## VPS Provider List
 
@@ -20824,14 +20826,14 @@ When selecting a VPS provider for your validator node, prioritize reliability, c
 
 Be aware that some providers may overprovision the underlying host and use shared storage such as NVMe over TCP, which appears as local storage. These setups might result in poor or inconsistent performance. Benchmark your infrastructure before deploying.
 
-- [**Google Cloud Platform (GCP)**](https://cloud.google.com/){target=\_blank} - `c2` and `c2d` machine families offer high-performance configurations suitable for validators
-- [**Amazon Web Services (AWS)**](https://aws.amazon.com/){target=\_blank} - `c6id` machine family provides strong performance, particularly for I/O-intensive workloads
-- [**OVH**](https://www.ovhcloud.com/en-au/){target=\_blank} - can be a budget-friendly solution if it meets your minimum hardware specifications
-- [**Digital Ocean**](https://www.digitalocean.com/){target=\_blank} - popular among developers, Digital Ocean's premium droplets offer configurations suitable for medium to high-intensity workloads
-- [**Vultr**](https://www.vultr.com/){target=\_blank} - offers flexibility with plans that may meet validator requirements, especially for high-bandwidth needs
-- [**Linode**](https://www.linode.com/){target=\_blank} - provides detailed documentation, which can be helpful for setup
-- [**Scaleway**](https://www.scaleway.com/en/){target=\_blank} - offers high-performance cloud instances that can be suitable for validator nodes
-- [**OnFinality**](https://onfinality.io/){target=\_blank} - specialized in blockchain infrastructure, OnFinality provides validator-specific support and configurations
+- **[Google Cloud Platform (GCP)](https://cloud.google.com/){target=\_blank}**: `c2` and `c2d` machine families offer high-performance configurations suitable for validators.
+- **[Amazon Web Services (AWS)](https://aws.amazon.com/){target=\_blank}**: `c6id` machine family provides strong performance, particularly for I/O-intensive workloads.
+- **[OVH](https://www.ovhcloud.com/en-au/){target=\_blank}**: Can be a budget-friendly solution if it meets your minimum hardware specifications.
+- **[Digital Ocean](https://www.digitalocean.com/){target=\_blank}**: Popular among developers, Digital Ocean's premium droplets offer configurations suitable for medium to high-intensity workloads.
+- **[Vultr](https://www.vultr.com/){target=\_blank}**: Offers flexibility with plans that may meet validator requirements, especially for high-bandwidth needs.
+- **[Linode](https://www.linode.com/){target=\_blank}**: Provides detailed documentation, which can be helpful for setup.
+- **[Scaleway](https://www.scaleway.com/en/){target=\_blank}**: Offers high-performance cloud instances that can be suitable for validator nodes.
+- **[OnFinality](https://onfinality.io/){target=\_blank}**: Specialized in blockchain infrastructure, OnFinality provides validator-specific support and configurations.
 
 !!! warning "Acceptable use policies"
     Different VPS providers have varying acceptable use policies, and not all allow cryptocurrency-related activities. 
@@ -20846,9 +20848,9 @@ Before bonding DOT, ensure you meet the minimum bond requirement to start a vali
 
 For example, on November 19, 2024, the minimum stake backing a validator in Polkadot's era 1632 was 1,159,434.248 DOT. You can check the current minimum stake required using these tools:
 
-- [**Chain State Values**](https://wiki.polkadot.network/general/chain-state-values/){target=\_blank}
-- [**Subscan**](https://polkadot.subscan.io/validator_list?status=validator){target=\_blank}
-- [**Staking Dashboard**](https://staking.polkadot.cloud/#/overview){target=\_blank}
+- [Chain State Values](https://wiki.polkadot.network/general/chain-state-values/){target=\_blank}
+- [Subscan](https://polkadot.subscan.io/validator_list?status=validator){target=\_blank}
+- [Staking Dashboard](https://staking.polkadot.cloud/#/overview){target=\_blank}
 --- END CONTENT ---
 
 Doc-Content: https://docs.polkadot.com/infrastructure/staking-mechanics/
@@ -20917,19 +20919,19 @@ Polkadot is a public permissionless network. As such, it has a mechanism to disi
 
 A validator will be penalized for inappropriate voting activity during the block inclusion and approval processes. The invalid voting related offenses are as follows:
 
-- **Backing an invalid block** - a para-validator backs an invalid block for inclusion in a fork of the relay chain
-- **`ForInvalid` vote** - when acting as a secondary checker, the validator votes in favor of an invalid block
-- **`AgainstValid` vote** - when acting as a secondary checker, the validator votes against a valid block. This type of vote wastes network resources required to resolve the disparate votes and resulting dispute
+- **Backing an invalid block**: A para-validator backs an invalid block for inclusion in a fork of the relay chain.
+- **`ForInvalid` vote**: When acting as a secondary checker, the validator votes in favor of an invalid block.
+- **`AgainstValid` vote**: When acting as a secondary checker, the validator votes against a valid block. This type of vote wastes network resources required to resolve the disparate votes and resulting dispute.
 
 ### Equivocations
 
 Equivocation occurs when a validator produces statements that conflict with each other when producing blocks or voting. Unintentional equivocations usually occur when duplicate signing keys reside on the validator host. If keys are never duplicated, the probability of an honest equivocation slash decreases to near zero. The equivocation related offenses are as follows:
 
-- **Equivocation** - the validator produces two or more of the same block or vote
-    - **GRANDPA and BEEFY equivocation** - the validator signs two or more votes in the same round on different chains
-    - **BABE equivocation** - the validator produces two or more blocks on the relay chain in the same time slot
-- **Double seconded equivocation** - the validator attempts to second, or back, more than one block in the same round
-- **Seconded and valid equivocation** - the validator seconds, or backs, a block and then attempts to hide their role as the responsible backer by later placing a standard validation vote
+- **Equivocation**: The validator produces two or more of the same block or vote.
+    - **GRANDPA and BEEFY equivocation**: The validator signs two or more votes in the same round on different chains.
+    - **BABE equivocation**: The validator produces two or more blocks on the relay chain in the same time slot.
+- **Double seconded equivocation**: The validator attempts to second, or back, more than one block in the same round.
+- **Seconded and valid equivocation**: The validator seconds, or backs, a block and then attempts to hide their role as the responsible backer by later placing a standard validation vote.
 
 ## Penalties
 
@@ -20949,14 +20951,14 @@ A validator slash creates an `unapplied` state transition. You can view pending 
 
 The Web3 Foundation's [Slashing mechanisms](https://research.web3.foundation/Polkadot/security/slashing/amounts){target=\_blank} page provides guidelines for evaluating the security threat level of different offenses and determining penalties proportionate to the threat level of the offense. Offenses requiring coordination between validators or extensive computational costs to the system will typically call for harsher penalties than those more likely to be unintentional than malicious. A description of potential offenses for each threat level and the corresponding penalties is as follows:
 
-- **Level 1** - honest misconduct such as isolated cases of unresponsiveness
-    - **Penalty** - validator can be kicked out or slashed up to 0.1% of stake in the validator slot
-- **Level 2** - misconduct that can occur honestly but is a sign of bad practices. Examples include repeated cases of unresponsiveness and isolated cases of equivocation
-    - **Penalty** - slash of up to 1% of stake in the validator slot
-- **Level 3** - misconduct that is likely intentional but of limited effect on the performance or security of the network. This level will typically include signs of coordination between validators. Examples include repeated cases of equivocation or isolated cases of unjustified voting on GRANDPA
-    - **Penalty** - reduction in networking reputation metrics, slash of up to 10% of stake in the validator slot
-- **Level 4** - misconduct that poses severe security or monetary risk to the system or mass collusion. Examples include signs of extensive coordination, creating a serious security risk to the system, or forcing the system to use extensive resources to counter the misconduct
-    - **Penalty** - slash of up to 100% of stake in the validator slot
+- **Level 1**: Honest misconduct such as isolated cases of unresponsiveness.
+    - **Penalty**: Validator can be kicked out or slashed up to 0.1% of stake in the validator slot.
+- **Level 2**: Misconduct that can occur honestly but is a sign of bad practices. Examples include repeated cases of unresponsiveness and isolated cases of equivocation.
+    - **Penalty**: Slash of up to 1% of stake in the validator slot.
+- **Level 3**: Misconduct that is likely intentional but of limited effect on the performance or security of the network. This level will typically include signs of coordination between validators. Examples include repeated cases of equivocation or isolated cases of unjustified voting on GRANDPA.
+    - **Penalty**: Reduction in networking reputation metrics, slash of up to 10% of stake in the validator slot.
+- **Level 4**: Misconduct that poses severe security or monetary risk to the system or mass collusion. Examples include signs of extensive coordination, creating a serious security risk to the system, or forcing the system to use extensive resources to counter the misconduct.
+    - **Penalty**: Slash of up to 100% of stake in the validator slot.
 
 See the next section to understand how slash amounts for equivocations are calculated. If you want to know more details about slashing, please look at the research page on [Slashing mechanisms](https://research.web3.foundation/Polkadot/security/slashing/amounts){target=\_blank}.
 
@@ -20970,13 +20972,13 @@ min((3 * x / n )^2, 1)
 
 The following scenarios demonstrate how this formula means slash percentages can increase exponentially based on the number of offenders involved compared to the size of the validator pool:
 
-- **Minor offense** - assume 1 validator out of a 100 validator active set equivocates in a slot. A single validator committing an isolated offense is most likely a mistake rather than malicious attack on the network. This offense results in a 0.09% slash to the stake in the validator slot
+- **Minor offense**: Assume 1 validator out of a 100 validator active set equivocates in a slot. A single validator committing an isolated offense is most likely a mistake rather than malicious attack on the network. This offense results in a 0.09% slash to the stake in the validator slot.
 
     ``` mermaid
     flowchart LR
     N["Total Validators = 100"]
     X["Offenders = 1"]
-    F["min(3 * 1 / 100)^2, 1) = 0.0009"]
+    F["min((3 * 1 / 100)^2, 1) = 0.0009"]
     G["0.09% slash of stake"]
 
     N --> F
@@ -20984,7 +20986,7 @@ The following scenarios demonstrate how this formula means slash percentages can
     F --> G
     ```
 
-- **Moderate offense** - assume 5 validators out a 100 validator active set equivocate in a slot. This is a slightly more serious event as there may be some element of coordination involved. This offense results in a 2.25% slash to the stake in the validator slot
+- **Moderate offense**: Assume 5 validators out a 100 validator active set equivocate in a slot. This is a slightly more serious event as there may be some element of coordination involved. This offense results in a 2.25% slash to the stake in the validator slot.
 
     ``` mermaid
     flowchart LR
@@ -20998,7 +21000,7 @@ The following scenarios demonstrate how this formula means slash percentages can
     F --> G
     ```
 
-- **Major offense** - assume 20 validators out a 100 validator active set equivocate in a slot. This is a major security threat as it possible represents a coordinated attack on the network. This offense results in a 36% slash and all slashed validators will also be chilled
+- **Major offense**: Assume 20 validators out a 100 validator active set equivocate in a slot. This is a major security threat as it possible represents a coordinated attack on the network. This offense results in a 36% slash and all slashed validators will also be chilled.
     ``` mermaid
     flowchart LR
     N["Total Validators = 100"]
@@ -21019,14 +21021,14 @@ Validators may run their nodes on multiple machines to ensure they can still per
 
 The following are advised to node operators to ensure that they obtain pristine binaries or source code and to ensure the security of their node:
 
-- Always download either source files or binaries from the official Parity repository
-- Verify the hash of downloaded files
-- Use the W3F secure validator setup or adhere to its principles
-- Ensure essential security items are checked, use a firewall, manage user access, use SSH certificates
-- Avoid using your server as a general-purpose system. Hosting a validator on your workstation or one that hosts other services increases the risk of maleficence
-- Avoid cloning servers (copying all contents) when migrating to new hardware. If an image is needed, create it before generating keys
-- High Availability (HA) systems are generally not recommended as equivocation may occur if concurrent operations happen—such as when a failed server restarts or two servers are falsely online simultaneously
-- Copying the keystore folder when moving a database between instances can cause equivocation. Even brief use of duplicated keystores can result in slashing
+- Always download either source files or binaries from the official Parity repository.
+- Verify the hash of downloaded files.
+- Use the W3F secure validator setup or adhere to its principles.
+- Ensure essential security items are checked, use a firewall, manage user access, use SSH certificates.
+- Avoid using your server as a general-purpose system. Hosting a validator on your workstation or one that hosts other services increases the risk of maleficence.
+- Avoid cloning servers (copying all contents) when migrating to new hardware. If an image is needed, create it before generating keys.
+- High Availability (HA) systems are generally not recommended as equivocation may occur if concurrent operations happen—such as when a failed server restarts or two servers are falsely online simultaneously.
+- Copying the keystore folder when moving a database between instances can cause equivocation. Even brief use of duplicated keystores can result in slashing.
 
 Below are some examples of small equivocations that happened in the past:
 
@@ -21040,9 +21042,9 @@ Below are some examples of small equivocations that happened in the past:
 
 There are three main difficulties to account for with slashing in NPoS:
 
-- A nominator can nominate multiple validators and be slashed as a result of actions taken by any of them
-- Until slashed, the stake is reused from era to era
-- Slashable offenses can be found after the fact and out of order
+- A nominator can nominate multiple validators and be slashed as a result of actions taken by any of them.
+- Until slashed, the stake is reused from era to era.
+- Slashable offenses can be found after the fact and out of order.
 
 To balance this, the system applies only the maximum slash a participant can receive in a given time period rather than the sum. This ensures protection from excessive slashing.
 
@@ -21050,8 +21052,8 @@ To balance this, the system applies only the maximum slash a participant can rec
 
 The disabling mechanism is triggered when validators commit serious infractions, such as backing invalid blocks or engaging in equivocations. Disabling stops validators from performing specific actions after they have committed an offense. Disabling is further divided into:
 
-- **On-chain disabling** - lasts for a whole era and stops validators from authoring blocks, backing, and initiating a dispute
-- **Off-chain disabling** - lasts for a session, is caused by losing a dispute, and stops validators from initiating a dispute
+- **On-chain disabling**: Lasts for a whole era and stops validators from authoring blocks, backing, and initiating a dispute.
+- **Off-chain disabling**: Lasts for a session, is caused by losing a dispute, and stops validators from initiating a dispute.
 
 Off-chain disabling is always a lower priority than on-chain disabling. Off-chain disabling prioritizes disabling first backers and then approval checkers.
 
@@ -21095,10 +21097,10 @@ This guide explains the payout scheme, factors influencing rewards, and how mult
 
 The Polkadot ecosystem measures its reward cycles in a unit called an era. Kusama eras are approximately 6 hours long, and Polkadot eras are 24 hours long. At the end of each era, validators are paid proportionally to the amount of [era points](/infrastructure/staking-mechanics/rewards-payout/#era-points){target=\_blank} they have collected. Era points are reward points earned for payable actions like:
 
-- Issuing validity statements for [parachain blocks](/polkadot-protocol/parachain-basics/blocks-transactions-fees/blocks/){target=\_blank}
-- Producing a non-uncle block in the relay chain
-- Producing a reference to a previously unreferenced uncle block
-- Producing a referenced uncle block
+- Issuing validity statements for [parachain blocks](/polkadot-protocol/parachain-basics/blocks-transactions-fees/blocks/){target=\_blank}.
+- Producing a non-uncle block in the relay chain.
+- Producing a reference to a previously unreferenced uncle block.
+- Producing a referenced uncle block.
 
 An uncle block is a relay chain block that is valid in every regard but has failed to become canonical. This can happen when two or more validators are block producers in a single slot, and the block produced by one validator reaches the next block producer before the others. The lagging blocks are called uncle blocks.
 
@@ -21108,9 +21110,9 @@ Rewards in Polkadot and Kusama staking systems can fluctuate due to differences 
 
 To illustrate this relationship:
 
-- Para-validator era points tend to have a higher impact on the expected value of staking rewards compared to non-para-validator points
-- The variance in staking rewards increases as the total number of validators grows relative to the number of para-validators
-- In simpler terms, when more validators are added to the active set without increasing the para-validator pool, the disparity in rewards between validators becomes more pronounced
+- Para-validator era points tend to have a higher impact on the expected value of staking rewards compared to non-para-validator points.
+- The variance in staking rewards increases as the total number of validators grows relative to the number of para-validators.
+- In simpler terms, when more validators are added to the active set without increasing the para-validator pool, the disparity in rewards between validators becomes more pronounced.
 
 However, despite this increased variance, rewards tend to even out over time due to the continuous rotation of para-validators across eras. The network's design ensures that over multiple eras, each validator has an equal opportunity to participate in para-validation, eventually leading to a balanced distribution of rewards.
 

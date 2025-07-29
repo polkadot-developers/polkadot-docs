@@ -55,6 +55,7 @@ Apache2 can run in various modes, including `prefork`, `worker`, and `event`. In
     --8<-- 'code/infrastructure/running-a-node/setup-secure-wss/install-apache2.md'
 
 2. The [`mod_proxy_wstunnel`](https://httpd.apache.org/docs/2.4/mod/mod_proxy_wstunnel.html){target=\_blank} provides support for the tunneling of WebSocket connections to a backend WebSocket server. The connection is automatically upgraded to a WebSocket connection. In an SSL-enabled virtual host add:
+
     --8<-- 'code/infrastructure/running-a-node/setup-secure-wss/apache2-config.md'
 
     !!!warning 

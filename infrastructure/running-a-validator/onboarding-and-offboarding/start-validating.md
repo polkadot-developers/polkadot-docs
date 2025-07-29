@@ -49,7 +49,7 @@ The next step is to sync your node with the chosen blockchain network. Synchroni
     polkadot --chain=kusama
     ```
 
-2. **Monitor sync progress**: Once the sync starts, you will see a stream of logs providing information about the node's status and progress. Here's an example of what the output might look like.
+2. **Monitor sync progress**: Once the sync starts, you will see a stream of logs providing information about the node's status and progress. Here's an example of what the output might look like:
 
     --8<-- 'code/infrastructure/running-a-validator/onboarding-and-offboarding/start-validating/terminal-output-01.html'
 

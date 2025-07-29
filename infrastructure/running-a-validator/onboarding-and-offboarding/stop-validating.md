@@ -15,9 +15,9 @@ If you wish to remain a validator or nominator (for example, stopping for planne
 
 The following are steps to ensure a smooth stop to validation:
 
-- Chill the validator
-- Purge validator session keys
-- Unbond your tokens
+- Chill the validator.
+- Purge validator session keys.
+- Unbond your tokens.
 
 ## Chill Validator
 

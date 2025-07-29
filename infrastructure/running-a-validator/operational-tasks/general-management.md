@@ -111,10 +111,10 @@ To selectively deactivate the Spectre mitigations, take these steps:
 
 2. Update GRUB to apply changes and then reboot:
 
-```bash
-sudo update-grub
-sudo reboot
-```
+    ```bash
+    sudo update-grub
+    sudo reboot
+    ```
 
 This approach selectively deactivates the Spectre V2 and Spectre V4 mitigations, leaving other protections intact. For full security, keep mitigations activated unless there's a significant performance need, as disabling them could expose the system to potential attacks on affected CPUs.
 
@@ -344,7 +344,7 @@ To visualize node metrics, follow these steps:
 
     ![Select Prometheus](/images/infrastructure/running-a-validator/operational-tasks/general-management/general-management-2.webp)
 
-3. Select **Prometheus**
+3. Select **Prometheus**.
 
     ![Save and test](/images/infrastructure/running-a-validator/operational-tasks/general-management/general-management-3.webp)
 

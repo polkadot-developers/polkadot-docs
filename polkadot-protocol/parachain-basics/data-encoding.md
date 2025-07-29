@@ -56,7 +56,7 @@ The [`Decode`](https://docs.rs/parity-scale-codec/latest/parity_scale_codec/trai
 
 The [`CompactAs`](https://docs.rs/parity-scale-codec/latest/parity_scale_codec/trait.CompactAs.html){target=\_blank} trait wraps custom types for compact encoding:
 
-- **`encode_as(&self) -> &Self: :As`**: Encodes the type as a compact type.
+- **`encode_as(&self) -> &Self::As`**: Encodes the type as a compact type.
 - **`decode_from(_: Self::As) -> Result<Self, Error>`**: decodes from a compact encoded type.
 
 ### HasCompact

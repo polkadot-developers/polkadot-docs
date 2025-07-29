@@ -24,17 +24,17 @@ flowchart LR
 
 This progression ensures developers can thoroughly test and iterate their smart contracts without risking real tokens or affecting production networks. A typical development journey consists of three main stages:
 
-1. Local development
+1. Local development:
 
     - Developers start in a local environment to create, test, and iterate on smart contracts.
     - Provides rapid experimentation in an isolated setup without external dependencies.
 
-2. TestNet development
+2. TestNet development:
 
     - Contracts move to TestNets like Westend Hub and Passet Hub.
     - Enables testing in simulated real-world conditions without using real tokens.
 
-3. Production deployment
+3. Production deployment:
 
     - Final deployment to MainNets like Kusama Hub and Polkadot Hub.
     - Represents the live environment where contracts interact with real economic value.

@@ -24,7 +24,7 @@ The interpreter remains particularly beneficial for contracts with minimal code 
 
 ## Architecture
 
-The smart contract solution consists of the following key components that work together to enable Ethereum compatibility on Polkadot-based chains:
+The smart contract solution consists of the following key components that work together to enable Ethereum compatibility on Polkadot-based chains.
 
 ### Pallet Revive
 
@@ -66,7 +66,7 @@ flowchart TB
     end
 ```
 
-- **Register-based design**: PolkaVM utilizes a RISC-V register-based approach. This design.
+- **Register-based design**: PolkaVM utilizes a RISC-V register-based approach. This design:
 
     - Employs a finite set of registers for argument passing instead of an infinite stack.
     - Facilitates efficient translation to underlying hardware architectures.
@@ -75,7 +75,7 @@ flowchart TB
     - Reduces compilation complexity through strategic register limitation.
     - Improves overall execution performance through hardware-aligned design.
 
-- **64-bit word size**: PolkaVM operates with a 64-bit word size as follows.
+- **64-bit word size**: PolkaVM operates with a 64-bit word size. This design:
 
     - Enables direct hardware-supported arithmetic operations.
     - Maintains compatibility with Solidity's 256-bit operations through YUL translation.

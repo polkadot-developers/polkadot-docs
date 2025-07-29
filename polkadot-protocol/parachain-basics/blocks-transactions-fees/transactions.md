@@ -107,14 +107,18 @@ Building transactions in the Polkadot SDK involves constructing a payload that c
 
 A signed transaction in the Polkadot SDK includes various pieces of data to ensure security, prevent replay attacks, and prioritize processing. Here's an overview of how to construct one:
 
-1. **Construct the unsigned payload**: Gather the necessary information for the call, including.
+1. **Construct the unsigned payload**: Gather the necessary information for the call, including:
+
     - **Pallet index**: Identifies the pallet where the runtime function resides.
     - **Function index**: Specifies the particular function to call in the pallet.
     - **Parameters**: Any additional arguments required by the function call.
-2. **Create a signing payload**: Once the unsigned payload is ready, additional data must be included.
+
+2. **Create a signing payload**: Once the unsigned payload is ready, additional data must be included:
+
     - **Transaction nonce**: Unique identifier to prevent replay attacks.
     - **Era information**: Defines how long the transaction is valid before it's dropped from the pool.
     - **Block hash**: Ensures the transaction doesn't execute on the wrong chain or fork.
+
 3. **Sign the payload**: Using the sender's private key, sign the payload to ensure that the transaction can only be executed by the account holder.
 4. **Serialize the signed payload**: Once signed, the transaction must be serialized into a binary format, ensuring the data is compact and easy to transmit over the network.
 5. **Submit the serialized transaction**: Finally, submit the serialized transaction to the network, where it will enter the transaction pool and wait for processing by an authoring node.

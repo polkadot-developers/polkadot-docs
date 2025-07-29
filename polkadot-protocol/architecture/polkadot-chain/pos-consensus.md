@@ -99,7 +99,7 @@ For a deeper look at the code behind GRANDPA, see the following GitHub repositor
 The fork choice of the relay chain combines BABE and GRANDPA:
 
 1. BABE must always build on the chain that GRANDPA has finalized.
-2. When there are forks after the finalized head, BABE builds on the chain with the most primary blocks to provide probabilistic finality .
+2. When there are forks after the finalized head, BABE builds on the chain with the most primary blocks to provide probabilistic finality.
 
 ![Fork choice diagram](/images/polkadot-protocol/architecture/polkadot-chain/pos-consensus/consensus-protocols-1.webp)
 

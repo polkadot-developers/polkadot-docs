@@ -13,8 +13,8 @@ Polkadot is designed to support an ecosystem of parachains, rather than hosting 
 
 This guide outlines the primary approaches to developing smart contracts in the Polkadot ecosystem:
 
-- **PolkaVM-compatible contracts**: Which support Solidity and any language that compiles down to RISC-V while maintaining compatibility with Ethereum based tools.
-- **EVM-compatible contracts**: Which support languages like [Solidity](https://soliditylang.org/){target=\_blank} and [Vyper](https://vyperlang.org/){target=\_blank}, offering compatibility with popular Ethereum tools and wallets.
+- **PolkaVM-compatible contracts**: Support Solidity and any language that compiles down to RISC-V while maintaining compatibility with Ethereum based tools.
+- **EVM-compatible contracts**: Support languages like [Solidity](https://soliditylang.org/){target=\_blank} and [Vyper](https://vyperlang.org/){target=\_blank}, offering compatibility with popular Ethereum tools and wallets.
 - **Wasm-based smart contracts**: Using [ink!](https://use.ink/){target=\_blank}, a Rust-based embedded domain-specific language (eDSL), enabling developers to leverage Rust’s safety and tooling.
 
 You'll explore the key differences between these development paths, along with considerations for parachain developers integrating smart contract functionality.

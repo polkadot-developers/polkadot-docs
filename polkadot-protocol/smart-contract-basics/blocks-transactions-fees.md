@@ -41,7 +41,8 @@ Asset Hub implements a sophisticated resource management system that combines pa
 
 Gas serves as the fundamental unit for measuring computational costs, with each network operation consuming a specified amount. This implementation maintains compatibility with Ethereum's approach while adding parachain-specific optimizations.
 
-- **Dynamic gas scaling**: Asset Hub implements a dynamic pricing mechanism that reflects actual execution performance. This results in.
+- **Dynamic gas scaling**: Asset Hub implements a dynamic pricing mechanism that reflects actual execution performance. This results in:
+
     - More efficient pricing for computational instructions relative to I/O operations.
     - Better correlation between gas costs and actual resource consumption.
     - Need for developers to implement flexible gas calculation rather than hardcoding values.

@@ -32,9 +32,11 @@ The `StorageMap` consists of the following parameters:
 - **`_`**: Used in macro expansion and acts as a placeholder for the storage prefix type. Tells the macro to insert the default prefix during expansion.
 - **`Blake2_128Concat`**: The hashing function applied to keys in the storage map.
 - **`T: :AccountId`**: Represents the key type, which corresponds to the account’s unique ID.
-- **`AccountInfo<T: :Nonce, T::AccountData>`**: The value type stored in the map. For each account ID, the map stores an `AccountInfo` struct containing:.
+- **`AccountInfo<T: :Nonce, T::AccountData>`**: The value type stored in the map. For each account ID, the map stores an `AccountInfo` struct containing:
+
     - **`T: :Nonce`**: A nonce for the account, which is incremented with each transaction to ensure transaction uniqueness.
     - **`T: :AccountData`**: Custom account data defined by the runtime configuration, which could include balances, locked funds, or other relevant information.
+    
 - **`ValueQuery`**: Defines how queries to the storage map behave when no value is found; returns a default value instead of `None`.
 
 For a detailed explanation of storage maps, see the [`StorageMap`](https://paritytech.github.io/polkadot-sdk/master/frame_support/storage/types/struct.StorageMap.html){target=\_blank} entry in the Rust docs.

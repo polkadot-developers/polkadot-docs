@@ -22640,7 +22640,7 @@ The `StorageMap` consists of the following parameters:
 - **`T: :AccountId`**: Represents the key type, which corresponds to the account’s unique ID.
 - **`AccountInfo<T: :Nonce, T::AccountData>`**: The value type stored in the map. For each account ID, the map stores an `AccountInfo` struct containing:
 
-    - **`T: :Nonce`**: A nonce for the account, which is incremented with each transaction to ensure transaction uniqueness.
+    - **`T::Nonce`**: A nonce for the account, which is incremented with each transaction to ensure transaction uniqueness.
     - **`T: :AccountData`**: Custom account data defined by the runtime configuration, which could include balances, locked funds, or other relevant information.
     
 - **`ValueQuery`**: Defines how queries to the storage map behave when no value is found; returns a default value instead of `None`.
@@ -24225,7 +24225,7 @@ The [`Decode`](https://docs.rs/parity-scale-codec/latest/parity_scale_codec/trai
 
 The [`CompactAs`](https://docs.rs/parity-scale-codec/latest/parity_scale_codec/trait.CompactAs.html){target=\_blank} trait wraps custom types for compact encoding:
 
-- **`encode_as(&self) -> &Self: :As`**: Encodes the type as a compact type.
+- **`encode_as(&self) -> &Self::As`**: Encodes the type as a compact type.
 - **`decode_from(_: Self::As) -> Result<Self, Error>`**: decodes from a compact encoded type.
 
 ### HasCompact
@@ -25533,7 +25533,7 @@ flowchart TB
     - Employs a finite set of registers for argument passing instead of an infinite stack.
     - Facilitates efficient translation to underlying hardware architectures.
     - Optimizes register allocation through careful register count selection.
-    - **Enables simple 1**: 1 mapping to x86-64 instruction sets.
+    - Enables simple 1:1 mapping to x86-64 instruction sets.
     - Reduces compilation complexity through strategic register limitation.
     - Improves overall execution performance through hardware-aligned design.
 

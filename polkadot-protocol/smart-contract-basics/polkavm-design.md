@@ -71,7 +71,7 @@ flowchart TB
     - Employs a finite set of registers for argument passing instead of an infinite stack.
     - Facilitates efficient translation to underlying hardware architectures.
     - Optimizes register allocation through careful register count selection.
-    - **Enables simple 1**: 1 mapping to x86-64 instruction sets.
+    - Enables simple 1:1 mapping to x86-64 instruction sets.
     - Reduces compilation complexity through strategic register limitation.
     - Improves overall execution performance through hardware-aligned design.
 

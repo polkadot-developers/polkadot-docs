@@ -27,6 +27,12 @@ dependencies:
       repository_url: https://github.com/paritytech/polkadot-sdk
       version: polkadot-stable2503-6
       ignore_updates: true
+    polkadot_sdk_parachain_template:
+      repository_url: https://github.com/paritytech/polkadot-sdk-parachain-template
+      version: v0.0.4
+      polkadot_omni_node_version: 0.5.0
+      chain_spec_builder_version: 10.0.0
+      frame_omni_bencher_version: 0.13.0
   crates:
     subxt:
       name: subxt
@@ -47,6 +53,9 @@ dependencies:
     polkadot_omni_node:
       name: polkadot-omni-node
       version: 0.5.0
+    frame-omni-bencher:
+      name: frame-omni-bencher
+      version: 0.13.0
   javascript_packages:
     chopsticks:
       name: '@acala-network/chopsticks'

@@ -27,7 +27,7 @@ Follow these steps to prepare your environment for pallet benchmarking:
 1. Install the [`frame-omni-bencher`](https://crates.io/crates/frame-omni-bencher){target=\_blank} command-line tool:
     
     ```bash
-    cargo install frame-omni-bencher@0.10.0
+    cargo install --locked frame-omni-bencher@{{dependencies.repositories.polkadot_sdk_parachain_template.frame_omni_bencher_version}}
     ```
 
 2. Update your pallet's `Cargo.toml` file in the `pallets/custom-pallet` directory by adding the `runtime-benchmarks` feature flag:
@@ -38,12 +38,12 @@ Follow these steps to prepare your environment for pallet benchmarking:
 3. Add your pallet to the runtime's benchmark configuration:
     1.  Register your pallet in `runtime/src/benchmarks.rs`:
         ```rust hl_lines="11" title="benchmarks.rs"
-        --8<-- 'code/tutorials/polkadot-sdk/parachains/zero-to-hero/runtime/src/benchmarks.rs:26:37'
+        --8<-- 'code/tutorials/polkadot-sdk/parachains/zero-to-hero/parachain-template/runtime/src/benchmarks.rs:26:37'
         ```
 
     2. Enable runtime benchmarking for your pallet in `runtime/Cargo.toml`:
         ```toml hl_lines="6" title="Cargo.toml"
-        --8<-- 'code/tutorials/polkadot-sdk/parachains/zero-to-hero/runtime/Cargo.toml:78:84'
+        --8<-- 'code/tutorials/polkadot-sdk/parachains/zero-to-hero/parachain-template/runtime/Cargo.toml:78:84'
         ```
 
 4. Set up the benchmarking module in your pallet:
@@ -163,7 +163,7 @@ For testing purposes, you must implement the weight calculations in your mock ru
 Finally, configure the actual weight values in your production runtime. In `runtime/src/config/mod.rs`, add:
 
 ```rust hl_lines="5" title="mod.rs"
---8<-- 'code/tutorials/polkadot-sdk/parachains/zero-to-hero/runtime/src/configs/mod.rs:333:338'
+--8<-- 'code/tutorials/polkadot-sdk/parachains/zero-to-hero/parachain-template/runtime/src/configs/mod.rs:333:338'
 ```
 
 Your pallet is now complete with full testing and benchmarking support, ready for production use.

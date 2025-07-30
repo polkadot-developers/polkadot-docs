@@ -16,25 +16,58 @@ This tutorial will guide you through adding two pallets to your runtime: the cus
 
 First, you'll update the runtime's `Cargo.toml` file to include the Utility pallet and your custom pallets as dependencies for the runtime. Follow these steps:
 
-Update the runtime's `Cargo.toml` file to include the utility pallet and your custom pallets as dependencies. Follow these steps:
+1. Open the `runtime/Cargo.toml` file and locate the `[dependencies]` section. Add pallet-utility as one of the features for the `polkadot-sdk` dependency with the following line:
 
-1. Open the `runtime/Cargo.toml` file and locate the `[dependencies]` section. Add the pallets with the following lines:
-
-    ```toml hl_lines="3-4" title="Cargo.toml"
-    --8<-- 'code/tutorials/polkadot-sdk/parachains/zero-to-hero/runtime/Cargo.toml:19:19'
+    ```toml hl_lines="4" title="Cargo.toml"
+    --8<-- 'code/tutorials/polkadot-sdk/parachains/zero-to-hero/parachain-template/runtime/Cargo.toml:19:19'
     ...
-    --8<-- 'code/tutorials/polkadot-sdk/parachains/zero-to-hero/runtime/Cargo.toml:60:61'
+    --8<-- 'code/tutorials/polkadot-sdk/parachains/zero-to-hero/parachain-template/runtime/Cargo.toml:26:27'
+    ...
+    --8<-- 'code/tutorials/polkadot-sdk/parachains/zero-to-hero/parachain-template/runtime/Cargo.toml:55:55'
     ```
 
-2. In the `[features]` section, add the pallets to the `std` feature list:
+2. In the same `[dependencies]` section, add the custom pallet that you built from scratch with the following line:
 
-    ```toml hl_lines="5-6" title="Cargo.toml"
-    --8<-- 'code/tutorials/polkadot-sdk/parachains/zero-to-hero/runtime/Cargo.toml:63:65'
-        ...
-    --8<-- 'code/tutorials/polkadot-sdk/parachains/zero-to-hero/runtime/Cargo.toml:74:76'
+    ```toml hl_lines="3" title="Cargo.toml"
+    --8<-- 'code/tutorials/polkadot-sdk/parachains/zero-to-hero/parachain-template/runtime/Cargo.toml:19:19'
+    ...
+    --8<-- 'code/tutorials/polkadot-sdk/parachains/zero-to-hero/parachain-template/runtime/Cargo.toml:60:60'
+    ```
+
+3. In the `[features]` section, add the custom pallet to the `std` feature list:
+
+    ```toml hl_lines="5" title="Cargo.toml"
+    --8<-- 'code/tutorials/polkadot-sdk/parachains/zero-to-hero/parachain-template/runtime/Cargo.toml:62:64'
+    ...
+    --8<-- 'code/tutorials/polkadot-sdk/parachains/zero-to-hero/parachain-template/runtime/Cargo.toml:73:74'
     ```
 
 3. Save the changes and close the `Cargo.toml` file
+
+???- code "runtime/Cargo.toml"
+
+    ```rust title="runtime/Cargo.toml"
+    --8<-- 'code/tutorials/polkadot-sdk/parachains/zero-to-hero/parachain-template/runtime/Cargo.toml'
+    ```
+
+Update your root parachain template's `Cargo.toml` file to include you custom pallet as dependency. Follow these steps:
+
+1. Open the `./Cargo.toml` file and locate the `[workspace]` section. Add the custom-pallet as a member of the workspace:
+
+    ```toml hl_lines="6" title="Cargo.toml"
+     --8<-- 'code/tutorials/polkadot-sdk/parachains/zero-to-hero/parachain-template/Cargo.toml:8:15'
+    ```
+2. In the `[workspace.dependencies]` section. Add the custom-pallet with the following line:
+
+    ```toml hl_lines="4" title="Cargo.toml"
+    --8<-- 'code/tutorials/polkadot-sdk/parachains/zero-to-hero/parachain-template/Cargo.toml:18:21'
+    ```
+???- code "./Cargo.toml"
+
+    ```rust title="./Cargo.toml"
+    --8<-- 'code/tutorials/polkadot-sdk/parachains/zero-to-hero/parachain-template/Cargo.toml'
+    ```
+
 
 ### Update the Runtime Configuration
 
@@ -43,7 +76,7 @@ Configure the pallets by implementing their `Config` trait and update the runtim
 1. Add the `OriginCaller` import:
 
     ```rust title="mod.rs" hl_lines="2"
-    --8<-- 'code/tutorials/polkadot-sdk/parachains/zero-to-hero/runtime/src/configs/mod.rs:59:60'
+    --8<-- 'code/tutorials/polkadot-sdk/parachains/zero-to-hero/parachain-template/runtime/src/configs/mod.rs:59:60'
     ...
     ```
 
@@ -51,18 +84,18 @@ Configure the pallets by implementing their `Config` trait and update the runtim
 
     ```rust title="mod.rs" hl_lines="7-25"
     ...
-    --8<-- 'code/tutorials/polkadot-sdk/parachains/zero-to-hero/runtime/src/configs/mod.rs:315:336'
-    --8<-- 'code/tutorials/polkadot-sdk/parachains/zero-to-hero/runtime/src/configs/mod.rs:338:338'
+    --8<-- 'code/tutorials/polkadot-sdk/parachains/zero-to-hero/parachain-template/runtime/src/configs/mod.rs:315:336'
+    --8<-- 'code/tutorials/polkadot-sdk/parachains/zero-to-hero/parachain-template/runtime/src/configs/mod.rs:338:338'
     ```
 
 3. Locate the `#[frame_support::runtime]` macro in the `runtime/src/lib.rs` file and add the pallets:
 
     ```rust hl_lines="8-12" title="lib.rs"
-    --8<-- 'code/tutorials/polkadot-sdk/parachains/zero-to-hero/runtime/src/lib.rs:253:255'
+    --8<-- 'code/tutorials/polkadot-sdk/parachains/zero-to-hero/parachain-template/runtime/src/lib.rs:253:255'
             ...
-        --8<-- 'code/tutorials/polkadot-sdk/parachains/zero-to-hero/runtime/src/lib.rs:265:266'
+        --8<-- 'code/tutorials/polkadot-sdk/parachains/zero-to-hero/parachain-template/runtime/src/lib.rs:265:266'
 
-    --8<-- 'code/tutorials/polkadot-sdk/parachains/zero-to-hero/runtime/src/lib.rs:313:318'
+    --8<-- 'code/tutorials/polkadot-sdk/parachains/zero-to-hero/parachain-template/runtime/src/lib.rs:313:318'
     ```
 
 ## Recompile the Runtime
@@ -101,12 +134,12 @@ Launch your parachain locally and start producing blocks:
 3. Verify you can interact with the new pallets using the [Polkadot.js Apps](https://polkadot.js.org/apps/?rpc=ws%3A%2F%2F127.0.0.1%3A9944#/extrinsics){target=\_blank} interface. Navigate to the **Extrinsics** tab and check that you can see both pallets:
     - Utility pallet
 
-        ![](/images/tutorials/polkadot-sdk/parachains/zero-to-hero/add-pallets-to-runtime/add-pallets-to-runtime-1.webp)
+        ![](/images/tutorials/polkadot-sdk/parachains/zero-to-hero/parachain-template/parachain-template-1.webp)
     
 
     - Custom pallet
 
-        ![](/images/tutorials/polkadot-sdk/parachains/zero-to-hero/add-pallets-to-runtime/add-pallets-to-runtime-2.webp)
+        ![](/images/tutorials/polkadot-sdk/parachains/zero-to-hero/parachain-template/parachain-template-2.webp)
 
 ## Where to Go Next
 

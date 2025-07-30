@@ -49,7 +49,7 @@ This tutorial requires two essential tools:
     Install it by executing the following command:
     
     ```bash
-    cargo install --locked staging-chain-spec-builder@{{dependencies.crates.chain_spec_builder.version}}
+    cargo install --locked staging-chain-spec-builder@{{dependencies.repositories.polkadot_sdk_parachain_template.chain_spec_builder_version}}
     ```
 
     This installs the `chain-spec-builder` binary.
@@ -59,7 +59,7 @@ This tutorial requires two essential tools:
     To install it, run the following command:
 
     ```bash
-    cargo install --locked polkadot-omni-node@{{dependencies.crates.polkadot_omni_node.version}}
+    cargo install --locked polkadot-omni-node@{{dependencies.repositories.polkadot_sdk_parachain_template.polkadot_omni_node_version}}
     ```
 
     This installs the `polkadot-omni-node` binary.

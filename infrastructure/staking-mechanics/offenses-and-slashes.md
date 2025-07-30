@@ -157,7 +157,7 @@ The disabling mechanism is triggered when validators commit serious infractions,
 
 Off-chain disabling is always a lower priority than on-chain disabling. Off-chain disabling prioritizes disabling first backers and then approval checkers.
 
-The material in this guide reflects the changes introduced in Stage 2. For more details, see the [State of Disabling issue](https://github.com/paritytech/polkadot-sdk/issues/4359){target=\_blank} on GitHub.
+The material in this guide reflects the changes introduced in Stage 4. For more details, see the [State of Disabling issue](https://github.com/paritytech/polkadot-sdk/issues/4359){target=\_blank} on GitHub.
 
 
 ### Reputation Changes

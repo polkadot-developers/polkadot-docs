@@ -16882,6 +16882,98 @@ By default, `polkadot-omni-node` exposes a WebSocket endpoint at `ws://localhost
 - Custom scripts using compatible [libraries](/develop/toolkit/api-libraries/){target=\_blank}
 
 Once connected, you can review blocks, call extrinsics, inspect storage, and interact with the runtime.
+
+## Parachain Compatibility
+
+The `polkadot-omni-node` is designed to work with most parachains out of the box; however, your parachain's runtime must meet specific requirements and follow certain conventions to be compatible. This section outlines what your runtime needs to implement and configure to work seamlessly with the `polkadot-omni-node`:
+
+- Your runtime must implement the required runtime APIs (see below).
+- Your runtime must include and configure the required pallets.
+
+The [`parachain-template`](https://github.com/paritytech/polkadot-sdk-parachain-template/tree/v0.0.4){target=_blank} provides a complete reference implementation that is fully compatible with the `polkadot-omni-node`. You can use it as a starting point or reference for ensuring your runtime meets all compatibility requirements.
+
+### Required Runtime APIs
+
+Your parachain runtime must implement the following runtime APIs for the `polkadot-omni-node` to function properly:
+
+- **GetParachainInfo Runtime API**: The omni-node requires the [`GetParachainInfo`](https://paritytech.github.io/polkadot-sdk/master/cumulus_primitives_core/trait.GetParachainInfo.html){target=\_blank} runtime API to identify and configure the parachain correctly. This API provides the parachain ID to the node.
+
+    ```rust title="runtime/src/apis.rs"
+    impl cumulus_primitives_core::GetParachainInfo<Block> for Runtime {
+        fn parachain_id() -> cumulus_primitives_core::ParaId {
+            // Return your parachain ID
+            ParachainInfo::parachain_id()
+        }
+    }
+    ```
+
+- **Aura Runtime API**: For consensus, the `polkadot-omni-node` expects the [Aura runtime API](https://paritytech.github.io/polkadot-sdk/master/polkadot_sdk_frame/runtime/apis/trait.AuraApi.html){target=\_blank} to be implemented:
+
+    ```rust title="runtime/src/apis.rs"
+    impl sp_consensus_aura::AuraApi<Block, AuraId> for Runtime {
+        fn slot_duration() -> sp_consensus_aura::SlotDuration {
+            sp_consensus_aura::SlotDuration::from_millis(SLOT_DURATION)
+        }
+
+        fn authorities() -> Vec<AuraId> {
+            Aura::authorities().into_inner()
+        }
+    }
+    ```
+
+### Required Pallets
+
+Your runtime must include and properly configure the following pallets:
+
+- **System Pallet**: The System pallet ([`frame-system`](https://paritytech.github.io/polkadot-sdk/master/polkadot_sdk_frame/prelude/frame_system/index.html){target=\_blank}) is fundamental and must be configured with appropriate types:
+
+    ```rust title="runtime/src/lib.rs"
+    #[frame_support::runtime]
+    impl frame_system::Config for Runtime {
+        type Block = Block;
+        type BlockNumber = BlockNumber;
+        // ... other configurations
+    }
+
+    // Must be named "System" for omni-node compatibility
+    pub type System = frame_system::Pallet<Runtime>;
+    ```
+
+- **ParachainSystem Pallet**: This pallet ([`cumulus-pallet-parachain-system`](https://paritytech.github.io/polkadot-sdk/master/cumulus_pallet_parachain_system/index.html){target=\_blank}) enables parachain functionality and handles low-level details of being a parachain:
+
+    ```rust title="runtime/src/lib.rs"
+    impl cumulus_pallet_parachain_system::Config for Runtime {
+        type RuntimeEvent = RuntimeEvent;
+        type OnSystemEvent = ();
+        // ... other configurations
+    }
+
+    // Must be named "ParachainSystem" for omni-node compatibility  
+    pub type ParachainSystem = cumulus_pallet_parachain_system::Pallet<Runtime>;
+    ```
+
+- **Aura Pallet**: For block authoring consensus ([`pallet-aura`](https://paritytech.github.io/polkadot-sdk/master/pallet_aura/index.html){target=\_blank}):
+
+    ```rust title="runtime/src/lib.rs"
+    impl pallet_aura::Config for Runtime {
+        type AuthorityId = AuraId;
+        type DisabledValidators = ();
+        type MaxAuthorities = MaxAuthorities;
+        type AllowMultipleBlocksPerSlot = ConstBool<false>;
+    }
+
+    pub type Aura = pallet_aura::Pallet<Runtime>;
+    ```
+
+- **ParachainInfo Pallet**: Provides parachain metadata ([`parachain-info`](https://paritytech.github.io/polkadot-sdk/master/staging_parachain_info/index.html){target=\_blank}):
+
+    ```rust title="runtime/src/lib.rs"
+    impl parachain_info::Config for Runtime {}
+
+    pub type ParachainInfo = parachain_info::Pallet<Runtime>;
+    ```
+
+If you're migrating an existing parachain to use the `polkadot-omni-node`, you may need to perform runtime upgrades to add the required runtime APIs and pallets. Follow the standard parachain [runtime upgrade](/develop/parachains/maintenance/runtime-upgrades/){target=\_blank} procedures to implement these changes on your live network.
 --- END CONTENT ---
 
 Doc-Content: https://docs.polkadot.com/develop/toolkit/parachains/quickstart/

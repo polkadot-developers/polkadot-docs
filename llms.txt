@@ -668,11 +668,10 @@ The XCM Emulator provides both advantages and limitations when testing cross-cha
 
 The `xcm-emulator` provides macros for defining a mocked testing environment. Check all the existing macros and functionality in the [XCM Emulator source code](https://github.com/paritytech/polkadot-sdk/blob/{{dependencies.repositories.polkadot_sdk.version}}/cumulus/xcm/xcm-emulator/src/lib.rs){target=\_blank}. The most important macros are:
 
-- [**`decl_test_relay_chains`**](https://github.com/paritytech/polkadot-sdk/blob/{{dependencies.repositories.polkadot_sdk.version}}/cumulus/xcm/xcm-emulator/src/lib.rs#L355){target=\_blank} - defines runtime and configuration for the relay chains. Example:
+- [**`decl_test_relay_chains`**](https://github.com/paritytech/polkadot-sdk/blob/{{dependencies.repositories.polkadot_sdk.version}}/cumulus/xcm/xcm-emulator/src/lib.rs#L361){target=\_blank} - defines runtime and configuration for the relay chains. Example:
 
     ```rust
-    // Westend declaration
-decl_test_relay_chains! {
+    decl_test_relay_chains! {
 	#[api_version(11)]
 	pub struct Westend {
 		genesis = genesis::genesis(),
@@ -695,11 +694,10 @@ decl_test_relay_chains! {
 }
     ```
 
-- [**`decl_test_parachains`**](https://github.com/paritytech/polkadot-sdk/blob/{{dependencies.repositories.polkadot_sdk.version}}/cumulus/xcm/xcm-emulator/src/lib.rs#L590){target=\_blank} - defines runtime and configuration for the parachains. Example:
+- [**`decl_test_parachains`**](https://github.com/paritytech/polkadot-sdk/blob/{{dependencies.repositories.polkadot_sdk.version}}/cumulus/xcm/xcm-emulator/src/lib.rs#L596){target=\_blank} - defines runtime and configuration for the parachains. Example:
 
     ```rust
-    // AssetHubWestend Parachain declaration
-decl_test_parachains! {
+    decl_test_parachains! {
 	pub struct AssetHubWestend {
 		genesis = genesis::genesis(),
 		on_init = {
@@ -724,7 +722,7 @@ decl_test_parachains! {
 }
     ```
 
-- [**`decl_test_bridges`**](https://github.com/paritytech/polkadot-sdk/blob/{{dependencies.repositories.polkadot_sdk.version}}/cumulus/xcm/xcm-emulator/src/lib.rs#L1178){target=\_blank} - creates bridges between chains, specifying the source, target, and message handler. Example:
+- [**`decl_test_bridges`**](https://github.com/paritytech/polkadot-sdk/blob/{{dependencies.repositories.polkadot_sdk.version}}/cumulus/xcm/xcm-emulator/src/lib.rs#L1221){target=\_blank} - creates bridges between chains, specifying the source, target, and message handler. Example:
 
     ```rust
     decl_test_bridges! {
@@ -741,7 +739,7 @@ decl_test_parachains! {
 }
     ```
 
-- [**`decl_test_networks`**](https://github.com/paritytech/polkadot-sdk/blob/{{dependencies.repositories.polkadot_sdk.version}}/cumulus/xcm/xcm-emulator/src/lib.rs#L916){target=\_blank} - defines a testing network with relay chains, parachains, and bridges, implementing message transport and processing logic. Example:
+- [**`decl_test_networks`**](https://github.com/paritytech/polkadot-sdk/blob/{{dependencies.repositories.polkadot_sdk.version}}/cumulus/xcm/xcm-emulator/src/lib.rs#L958){target=\_blank} - defines a testing network with relay chains, parachains, and bridges, implementing message transport and processing logic. Example:
 
     ```rust
     decl_test_networks! {
@@ -1188,7 +1186,7 @@ This API can be used independently for dry-running, double-checking, or testing.
 This API allows a dry-run of any extrinsic and obtaining the outcome if it fails or succeeds, as well as the local xcm and remote xcm messages sent to other chains.
 
 ```rust
-fn dry_run_call(origin: OriginCaller, call: Call) -> Result<CallDryRunEffects<Event>, Error>;
+fn dry_run_call(origin: OriginCaller, call: Call, result_xcms_version: XcmVersion) -> Result<CallDryRunEffects<Event>, Error>;
 ```
 
 ??? interface "Input parameters"

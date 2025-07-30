@@ -61,9 +61,9 @@ The Asset Hub also supports non-fungible assets (NFTs) via the [Uniques pallet](
 
 ### Collectives
 
-The Polkadot Collectives parachain was added in [Referendum 81](https://polkadot.polkassembly.io/referendum/81){target=\_blank} and exists on Polkadot but not on Kusama. The Collectives chain hosts on-chain collectives that serve the Polkadot network, including the following:
+The Polkadot Collectives parachain was added in [Referendum 81](https://polkadot-old.polkassembly.io/referendum/81){target=\_blank} and exists on Polkadot but not on Kusama. The Collectives chain hosts on-chain collectives that serve the Polkadot network, including the following:
 
-- [**Polkadot Alliance**](https://polkadot.polkassembly.io/referendum/94){target=\_blank} - provides a set of ethics and standards for the community to follow. Includes an on-chain means to call out bad actors
+- [**Polkadot Alliance**](https://polkadot-old.polkassembly.io/referendum/94){target=\_blank} - provides a set of ethics and standards for the community to follow. Includes an on-chain means to call out bad actors
 - [**Polkadot Technical Fellowship**](https://wiki.polkadot.network/learn/learn-polkadot-technical-fellowship/){target=\_blank} - a rules-based social organization to support and incentivize highly-skilled developers to contribute to the technical stability, security, and progress of the network
 
 These on-chain collectives will play essential roles in the future of network stewardship and decentralized governance. Networks can use a bridge hub to help them act as collectives and express their legislative voices as single opinions within other networks.
@@ -92,10 +92,4 @@ Visit [Introduction to Agile Coretime](https://wiki.polkadot.network/learn/learn
 
 Participants are requested to attend physical key-signing ceremonies with small groups of random people at randomized locations. These local meetings are part of one global signing ceremony occurring at the same time. Participants use the Encointer wallet app to participate in these ceremonies and manage local community currencies. 
 
-Referendums marking key Encointer adoption milestones include: 
-
-- [**Referendum 158 - Register Encointer As a Common Good Chain**](https://kusama.polkassembly.io/referendum/158){target=\_blank} - registered Encointer as the second system parachain on Kusama's network
-- [**Referendum 187 - Encointer Runtime Upgrade to Full Functionality**](https://kusama.polkassembly.io/referendum/187){target=\_blank} - introduced a runtime upgrade bringing governance and full functionality for communities to use the protocol
-
 To learn more about Encointer, see the official [Encointer book](https://book.encointer.org/introduction.html){target=\_blank} or watch an [Encointer ceremony](https://www.youtube.com/watch?v=tcgpCCYBqko){target=\_blank} in action.
-

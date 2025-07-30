@@ -134,12 +134,12 @@ Launch your parachain locally and start producing blocks:
 3. Verify you can interact with the new pallets using the [Polkadot.js Apps](https://polkadot.js.org/apps/?rpc=ws%3A%2F%2F127.0.0.1%3A9944#/extrinsics){target=\_blank} interface. Navigate to the **Extrinsics** tab and check that you can see both pallets:
     - Utility pallet
 
-        ![](/images/tutorials/polkadot-sdk/parachains/zero-to-hero/parachain-template/parachain-template-1.webp)
+        ![](/images/tutorials/polkadot-sdk/parachains/zero-to-hero/add-pallets-to-runtime/add-pallets-to-runtime-1.webp)
     
 
     - Custom pallet
 
-        ![](/images/tutorials/polkadot-sdk/parachains/zero-to-hero/parachain-template/parachain-template-2.webp)
+        ![](/images/tutorials/polkadot-sdk/parachains/zero-to-hero/add-pallets-to-runtime/add-pallets-to-runtime-2.webp)
 
 ## Where to Go Next
 

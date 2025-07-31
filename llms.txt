@@ -32917,8 +32917,8 @@ First, you'll update the runtime's `Cargo.toml` file to include the Utility pall
 
 1. Open the `runtime/Cargo.toml` file and locate the `[dependencies]` section. Add pallet-utility as one of the features for the `polkadot-sdk` dependency with the following line:
 
-    ```toml hl_lines="4" title="Cargo.toml"
-    
+    ```toml hl_lines="4" title="runtime/Cargo.toml"
+    [dependencies]
     ...
     "pallet-utility",
     ...
@@ -32928,18 +32928,19 @@ First, you'll update the runtime's `Cargo.toml` file to include the Utility pall
 2. In the same `[dependencies]` section, add the custom pallet that you built from scratch with the following line:
 
     ```toml hl_lines="3" title="Cargo.toml"
-    
+    [dependencies]
     ...
-    
+    custom-pallet = { path = "../pallets/custom-pallet", default-features = false }
     ```
 
 3. In the `[features]` section, add the custom pallet to the `std` feature list:
 
     ```toml hl_lines="5" title="Cargo.toml"
-    default = ["std"]
+    [features]
+default = ["std"]
 std = [
     ...
-    ]
+    "custom-pallet/std",
     ```
 
 3. Save the changes and close the `Cargo.toml` file
@@ -33051,24 +33052,18 @@ on-chain-release-build = ["metadata-hash"]
 
 Update your root parachain template's `Cargo.toml` file to include you custom pallet as dependency. Follow these steps:
 
-1. Open the `./Cargo.toml` file and locate the `[workspace]` section. Add the custom-pallet as a member of the workspace:
+1. Open the `./Cargo.toml` file and locate the `[workspace]` section. Make sure the custom-pallet is a member of the workspace:
 
-    ```toml hl_lines="6" title="Cargo.toml"
-     default-members = ["pallets/template", "runtime"]
+    ```toml hl_lines="4" title="Cargo.toml"
+     [workspace]
+default-members = ["pallets/template", "runtime"]
 members = [
-    "node",
+    "node", "pallets/custom-pallet",
     "pallets/template",
-    "pallets/custom-pallet",
     "runtime",
 ]
     ```
-2. In the `[workspace.dependencies]` section. Add the custom-pallet with the following line:
 
-    ```toml hl_lines="4" title="Cargo.toml"
-    parachain-template-runtime = { path = "./runtime", default-features = false }
-pallet-parachain-template = { path = "./pallets/template", default-features = false }
-custom-pallet = { path = "./pallets/custom-pallet", default-features = false }
-    ```
 ???- code "./Cargo.toml"
 
     ```rust title="./Cargo.toml"
@@ -33082,9 +33077,8 @@ edition = "2021"
 [workspace]
 default-members = ["pallets/template", "runtime"]
 members = [
-    "node",
+    "node", "pallets/custom-pallet",
     "pallets/template",
-    "pallets/custom-pallet",
     "runtime",
 ]
 resolver = "2"
@@ -33092,8 +33086,6 @@ resolver = "2"
 [workspace.dependencies]
 parachain-template-runtime = { path = "./runtime", default-features = false }
 pallet-parachain-template = { path = "./pallets/template", default-features = false }
-custom-pallet = { path = "./pallets/custom-pallet", default-features = false }
-
 clap = { version = "4.5.13" }
 color-print = { version = "0.3.4" }
 docify = { version = "0.2.9" }
@@ -33129,7 +33121,7 @@ Configure the pallets by implementing their `Config` trait and update the runtim
 
 1. Add the `OriginCaller` import:
 
-    ```rust title="mod.rs" hl_lines="2"
+    ```rust title="mod.rs" hl_lines="8"
     use super::OriginCaller;
     ...
     ```
@@ -34656,7 +34648,7 @@ For comprehensive information about benchmarking concepts, refer to the [Benchma
 
 Follow these steps to prepare your environment for pallet benchmarking:
 
-1. Install the [`frame-omni-bencher`](https://crates.io/crates/frame-omni-bencher){target=\_blank} command-line tool:
+1. Install the [`frame-omni-bencher`](https://crates.io/crates/frame-omni-bencher/{{dependencies.repositories.polkadot_sdk_parachain_template.frame_omni_bencher_version}}){target=\_blank} command-line tool:
     
     ```bash
     cargo install --locked frame-omni-bencher@{{dependencies.repositories.polkadot_sdk_parachain_template.frame_omni_bencher_version}}
@@ -34702,16 +34694,17 @@ runtime-benchmarks = ["frame/runtime-benchmarks"]
 
     2. Enable runtime benchmarking for your pallet in `runtime/Cargo.toml`:
         ```toml hl_lines="6" title="Cargo.toml"
-        "pallet-parachain-template/runtime-benchmarks",
+        runtime-benchmarks = [
+	"cumulus-pallet-parachain-system/runtime-benchmarks",
+	"hex-literal",
+	"pallet-parachain-template/runtime-benchmarks",
 	"polkadot-sdk/runtime-benchmarks",
+	"custom-pallet/runtime-benchmarks",
 ]
-
-try-runtime = [
-	"cumulus-pallet-parachain-system/try-runtime",
         ```
 
 4. Set up the benchmarking module in your pallet:
-    1. Create a new `benchmarking.rs` file in your pallet directory:
+    1. Create a benchmarking.rs file in your pallet's src/ directory:
         ```bash
         touch benchmarking.rs
         ```
@@ -36070,7 +36063,7 @@ rustup component add rust-src --toolchain 1.86-aarch64-apple-darwin
 
 This tutorial requires two essential tools:
 
-- [**Chain spec builder**](https://crates.io/crates/staging-chain-spec-builder/{{dependencies.crates.chain_spec_builder.version}}){target=\_blank} - is a Polkadot SDK utility for generating chain specifications. Refer to the [Generate Chain Specs](/develop/parachains/deployment/generate-chain-specs/){target=\_blank} documentation for detailed usage.
+- [**Chain spec builder**](https://crates.io/crates/staging-chain-spec-builder/{{dependencies.repositories.polkadot_sdk_parachain_template.chain_spec_builder_version}}){target=\_blank} - is a Polkadot SDK utility for generating chain specifications. Refer to the [Generate Chain Specs](/develop/parachains/deployment/generate-chain-specs/){target=\_blank} documentation for detailed usage.
     
     Install it by executing the following command:
     

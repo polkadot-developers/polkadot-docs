@@ -1,7 +1,8 @@
 [toolchain]
-channel = "1.81.0"
-components = ["rustfmt", "clippy"]
+channel = "1.86"
+components = ["rustfmt", "clippy", "rust-src"]
+targets = ["wasm32-unknown-unknown"]
 
 [toolchain.nightly]
-channel = "1.85.0-nightly"
+channel = "1.86.0-nightly"
 components = ["rustfmt", "clippy"]

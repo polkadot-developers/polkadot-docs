@@ -57,6 +57,23 @@ def get_latest_pypi_version(package_name):
         print(f"Error fetching PyPI package version for {package_name}: {e}")
     return None, None
 
+def check_sub_dependencies(name, info, outdated_dependencies):
+    """Check sub-dependencies (crate versions) within a repository entry"""
+    for key, current_version in info.items():
+        if key.endswith("_version") and not key.startswith("docker_"):
+            # Extract crate name from the key (remove _version suffix)
+            crate_name = key.replace("_version", "").replace("_", "-")
+            latest_version, latest_url = get_latest_crate_version(crate_name)
+            
+            if latest_version and latest_version != current_version:
+                outdated_dependencies.append({
+                    "name": f"{name}.{crate_name}",
+                    "category": "sub-dependency",
+                    "current_version": current_version,
+                    "latest_version": latest_version,
+                    "latest_release_url": latest_url,
+                })
+
 def check_releases(releases_source_file):
     try:
         with open(releases_source_file, "r") as file:
@@ -88,6 +105,10 @@ def check_releases(releases_source_file):
                     "latest_version": latest_version,
                     "latest_release_url": latest_url,
                 })
+            
+            # Check sub-dependencies for repositories
+            if category == "repositories":
+                check_sub_dependencies(name, info, outdated_dependencies)
     
     return outdated_dependencies
 

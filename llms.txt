@@ -33131,13 +33131,13 @@ Configure the pallets by implementing their `Config` trait and update the runtim
     ```rust title="mod.rs" hl_lines="7-25"
     ...
     type ValidatorRegistration = Session;
-	type WeightInfo = ();
+    type WeightInfo = ();
 }
 
 /// Configure the pallet template in pallets/template.
 impl pallet_parachain_template::Config for Runtime {
-	type RuntimeEvent = RuntimeEvent;
-	type WeightInfo = pallet_parachain_template::weights::SubstrateWeight<Runtime>;
+    type RuntimeEvent = RuntimeEvent;
+    type WeightInfo = pallet_parachain_template::weights::SubstrateWeight<Runtime>;
 }
 
 // Configure utility pallet.
@@ -33157,16 +33157,15 @@ parameter_types! {
 3. Locate the `#[frame_support::runtime]` macro in the `runtime/src/lib.rs` file and add the pallets:
 
     ```rust hl_lines="8-12" title="lib.rs"
-    mod runtime {
-	#[runtime::runtime]
+    // Create the runtime by composing the FRAME pallets that were previously configured.
             ...
-        RuntimeViewFunction
+        RuntimeSlashReason,
 
+    pub type MessageQueue = pallet_message_queue;
+
+    // Template
     #[runtime::pallet_index(50)]
-	pub type TemplatePallet = pallet_parachain_template;
-
-	#[runtime::pallet_index(51)]
-    pub type Utility = pallet_utility;
+    pub type TemplatePallet = pallet_parachain_template;
     ```
 
 ## Recompile the Runtime

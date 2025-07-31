@@ -57,7 +57,7 @@ scale-info = { features = ["derive"], workspace = true }
 serde_json = { workspace = true, default-features = false, features = ["alloc"] }
 smallvec = { workspace = true, default-features = true }
 
-custom-pallet = { workspace = true }
+custom-pallet = { path = "../pallets/custom-pallet", default-features = false }
 
 [features]
 default = ["std"]

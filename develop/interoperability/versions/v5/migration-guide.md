@@ -10,26 +10,28 @@ Most v4 code continues to work, but v5 introduces powerful new patterns that imp
 
 ??? note "About the usage of PAPI"
 
-    We will use PAPI for the code snippets, but this guide applies also to XCM being used with the Polkadot SDK.
+    This guide uses PAPI for the code snippets, but also applies to XCM being used with the Polkadot SDK.
 
 ## When to migrate
 
-Migrating to v5 provides a lot of benefits, so we recommend migrating as soon as you can.
+Migrating to v5 provides significant benefits, so migration is recommended as soon as possible.
+
 Whether you can or can't migrate depends mainly on if the chain(s) you connect to have already upgraded to v5 or not.
+
 To know whether a chain supports v5, you can:
 - Read the changelog
 - Explore the metadata with PAPI's descriptors
 - Explore the metadata with a tool like [subwasm](https://github.com/chevdor/subwasm)
 
-For example, say we generate PAPI descriptors for a chain:
+For example, when generating PAPI descriptors for a chain:
 
 ```bash
 npx papi add myChain -w <rpc-web-socket-endpoint>
 ```
 
-Then we can check if the `XcmVersionedXcm` known type has the V5 variant.
+Then check if the `XcmVersionedXcm` known type has the V5 variant.
 
-We can also go to https://dev.papi.how/explorer, connect to the chain and under extrinsics choose `PolkadotXcm -> execute` and check for the V5 variant:
+Go to [the PAPI developer console](https://dev.papi.how/explorer){target=\_blank}, connect to the chain and under extrinsics choose `PolkadotXcm -> execute` and check for the V5 variant:
 
 ![](/images/develop/interoperability/checking-for-v5.webp)
 
@@ -73,13 +75,12 @@ Migration Impact:
 
     The XCM pallet has always had it, however, in previous versions of XCM (2 and below) it wasn't safe
     to have it enabled for anyone to use. That's why some chains might have it disabled. If that's the
-    case, reach out! We're moving towards this pattern now that it's safe since it offers a lot more control.
+    case, reach out! The ecosystem is moving towards this pattern now that it's safe since it offers much more control.
 
-This approach adds more flexbility but clearly requires the developer to know how to
-build XCMs.
-Don't worry if you don't know how to build XCMs, by using this approach, other developers can build SDKs that handle
-all these things for you.
-For example, the Paraspell SDK allows you to continue doing cross-chain transfers (and much more!) with a very simple API:
+This approach adds more flexbility but clearly requires the developer to know how to build XCMs.
+If XCM construction is unfamiliar, this approach enables other developers to build SDKs that handle these complexities.
+For example, the Paraspell SDK allows you to continue doing cross-chain transfers (and much more!) with a very simple API.
+The following example transfers 10 DOT from Asset Hub Polkadot to Hydration chain using the ParaSpell SDK's builder pattern.
 
 ```typescript
 import { Builder } from '@paraspell/sdk';
@@ -93,15 +94,17 @@ const tx = await Builder()
 const result = await tx.signAndSubmit(signer);
 ```
 
-Make sure to check out their [docs](https://paraspell.github.io/docs/sdk/getting-started.html).
+Make sure to check out their [docs](https://paraspell.github.io/docs/sdk/getting-started.html){target=\_blank}.
 
 ??? note "Are the extrinsics going away?"
 
     No! The extrinsics will continue to be supported in the XCM pallet for an undefined period of time.
-    Although we do expect that as more and more chains support v5 and more dapp developers use `execute`,
+    Although it is expected that as more chains support v5 and more dApp developers use [execute](https://paritytech.github.io/polkadot-sdk/master/pallet_xcm/pallet/struct.Pallet.html#method.execute){target=\_blank},
     they'll reap the benefits and not require the extrinsics anymore.
 
 ### Unified Transfer Instructions
+
+Beyond the shift to direct XCM execution, XCMv5 also consolidates transfer operations into a single, more powerful instruction.
 
 **Before (v4)**:
 
@@ -199,7 +202,7 @@ weight and the fees being sufficient for limiting the max execution that you're 
 
 There is another key difference between `PayFees` and `BuyExecution`.
 With `BuyExecution`, if too much was supplied for fees, the leftover after paying for execution would be returned
-to the holding register to be used in the rest of the XCM.
+to the [holding register](https://paritytech.github.io/polkadot-sdk/master/staging_xcm_executor/struct.XcmExecutor.html#method.holding) to be used in the rest of the XCM.
 With `PayFees`, the full amount put into `assets` is stored in the fees register, nothing is returned to the holding
 register.
 This means you have to put the amount you plan to dedicate entirely for fee payment.
@@ -208,16 +211,20 @@ If you withdraw 11 DOT, 1 DOT you put in `PayFees` and the rest you send, you kn
 
 The reason for this is the introduction of **delivery fees**, which are charged in addition to **execution fees**.
 Delivery fees are charged the moment an instruction is encountered which results in sending a new XCM.
-That's why we can't return fees to the holding register as before, we need to keep them in the new fees register.
+That's why fees can't be returned to the holding register as before; they need to be kept in the new fees register.
 
 ??? note "Is BuyExecution going away?"
 
-    No! As with many things in v5, we are keeping the old instruction for backwards compatibility.
-    However, we do plan to remove it in future versions, once enough time has passed.
+    No! As with many things in v5, the old instruction is kept for backwards compatibility.
+    However, it is planned for removal in future versions, once enough time has passed.
 
 ## Migration Examples
 
+These practical examples demonstrate how to convert existing v4 code to the new v5 patterns.
+
 ### Simple Teleport
+
+This example shows the basic migration from v4's `limitedTeleportAssets` extrinsic to v5's manual XCM construction using `PayFees` and `InitiateTransfer`.
 
 **v4 Code**:
 ```typescript
@@ -280,6 +287,8 @@ const tx = api.tx.PolkadotXcm.execute({
 
 ### Example 2: Multi-Asset Transfer and a Transact
 
+This example shows how XCMv5 enables combining multiple asset transfers with different transfer types while executing calls on the destination chain.
+
 **New in v5 - No v4 equivalent**:
 ```typescript
 // This pattern wasn't possible in v4
@@ -306,6 +315,8 @@ XcmV5Instruction.InitiateTransfer({
 ## 🚨 Breaking changes to watch out for
 
 ### `fallback_max_weight` in `Transact`
+
+The `Transact` instruction has changed in v5 to reduce chances of bugs when executing calls on remote chains.
 
 The `Transact` instruction looked like this in v4:
 
@@ -343,6 +354,8 @@ This change makes Transact more reliable and reduces the maintenance burden of k
 
 ### Network IDs cleanup
 
+This change affects how testnet networks are referenced in XCM.
+
 The network IDs, used in the `GlobalConsensus` junction, for `Rococo` and `Westend` were removed.
 Instead, the generic `ByGenesis` network ID should be used for referencing testnets.
 This change was made because testnets come and go, as was shown by the [removal of Rococo](https://forum.polkadot.network/t/rococo-to-be-deprecated-in-october/8702) and [appearance of Paseo](https://forum.polkadot.network/t/the-new-polkadot-community-testnet/4956).
@@ -355,9 +368,8 @@ These are the genesis hashes for the migration:
 
 ## Getting help
 
-- Technical questions: https://substrate.stackexchange.com/
-- Bug reports: https://github.com/paritytech/polkadot-sdk/issues
-- Real time help: https://discord.gg/polkadot
+- Technical questions: [Substrate Stack Exchange](https://substrate.stackexchange.com/){target=\_blank}
+- Bug reports: [Polkadot SDK Issues](https://github.com/paritytech/polkadot-sdk/issues){target=\_blank}
 
 ## Next steps
 

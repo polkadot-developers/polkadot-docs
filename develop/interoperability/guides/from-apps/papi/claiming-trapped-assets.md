@@ -15,18 +15,18 @@ Assets become trapped whenever execution halts and there are leftover assets.
 This can happen for example if:
 
 - An XCM execution throws an error in any instruction when assets are in holding
-  - `DepositAsset` can't deposit because the account doesn't exist
-  - `Transact` can't execute the call because it doesn't exist
-  - `PayFees` not enough funds or not paying enough for execution
-  - or others...
+    - `DepositAsset` can't deposit because the account doesn't exist
+    - `Transact` can't execute the call because it doesn't exist
+    - `PayFees` not enough funds or not paying enough for execution
+    - and others...
 - XCM execution finishes successfully but not all assets were deposited
-  - Funds were withdrawn but some were not deposited
-  - `Transact` overestimated the weight and `RefundSurplus` got some funds into holding that were never deposited
-  - Fees in `PayFees` were overestimated and some were kept there until the end
+    - Funds were withdrawn but some were not deposited
+    - `Transact` overestimated the weight and `RefundSurplus` got some funds into holding that were never deposited
+    - Fees in `PayFees` were overestimated and some were kept there until the end
 
 ## The ClaimAsset instruction
 
-The `ClaimAsset` instruction allows retriving assets trapped on a chain:
+The [`ClaimAsset`](https://paritytech.github.io/polkadot-sdk/master/xcm/v5/instruction/enum.Instruction.html#variant.ClaimAsset){target=\_blank} instruction allows retrieving assets trapped on a chain:
 
 ```typescript
 XcmV5Instruction.ClaimAsset({
@@ -48,7 +48,7 @@ in the `AssetsTrapped` event.
 
 When assets are trapped you'll see the `AssetsTrapped` event:
 
-![AssetsTrapped event on Subscan](../../../images/develop/interoperability/assets-trapped-event.png)
+![AssetsTrapped event on Subscan](/images/develop/interoperability/assets-trapped-event.png)
 
 To claim these assets, a message like the following needs to be sent from the origin:
 
@@ -74,6 +74,8 @@ const claimAssetsXcm = XcmVersionedXcm.V5([
   XcmV5Instruction.DepositAsset(/* Deposit everything to an account */),
 ]);
 ```
+
+Note that this example uses the claimed USDC assets to pay for the execution fees of the claiming message. If the trapped asset cannot be used for fee payment on the destination chain, you need a different approach: first `WithdrawAsset` (with fee-eligible assets), then `PayFees`, then `ClaimAsset`, and finally `DepositAsset`.
 
 In this case, the origin is a local account so the `execute()` transaction needs to be submitted by that same account.
 The origin could be another chain, in which case the governance of that chain would need to get involved, or an account on another chain,
@@ -131,7 +133,7 @@ const failingXcm = XcmVersionedXcm.V5([
       fun: XcmV3MultiassetFungibility.Fungible(1_000_000_000n),
     },
   }),
-  // Explicitly trap. We could also not do anything and the assets would still get trapped.
+  // Explicitly trap. Alternatively, doing nothing would still result in the assets getting trapped.
   XcmV5Instruction.Trap(0n),
 ]);
 ```

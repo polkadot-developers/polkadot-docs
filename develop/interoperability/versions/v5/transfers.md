@@ -1,11 +1,11 @@
 ---
-title: Transfers in XCMv5
+title: Transfers
 description: Key differences in transfer handling between XCMv4 and XCMv5.
 ---
 
-# Transfers in XCMv5
+# Transfers
 
-XCMv5 introduces the unified `InitiateTransfer` instruction that consolidates and enhances cross-chain transfer capabilities.
+XCMv5 introduces the unified [`InitiateTransfer`](https://paritytech.github.io/polkadot-sdk/master/xcm/v5/instruction/enum.Instruction.html#variant.InitiateTransfer){target=\_blank} instruction that consolidates and enhances cross-chain transfer capabilities.
 
 ## Changes from v4
 

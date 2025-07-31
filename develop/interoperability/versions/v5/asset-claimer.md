@@ -1,9 +1,9 @@
 ---
-title: Asset claimer in XCMv5
+title: Asset claimer
 description: How the AssetClaimer hint improves trapped asset recovery in XCMv5.
 ---
 
-# Asset claimer in XCMv5
+# Asset claimer
 
 XCMv5 introduces the `AssetClaimer` execution hint through `SetHints`, which significantly simplifies the process of recovering trapped assets when XCM execution fails.
 

@@ -1,4 +1,4 @@
-// `ahp` is the name we gave to `npx papi add`
+// `ahp` is the name given to `npx papi add`
 import {
   ahp,
   people,
@@ -15,7 +15,7 @@ import {
 } from "@polkadot-api/descriptors";
 import { Binary, createClient, Enum, FixedSizeBinary } from "polkadot-api";
 // import from "polkadot-api/ws-provider/node"
-// if you are running in a NodeJS environment
+// if running in a NodeJS environment
 import { getWsProvider } from "polkadot-api/ws-provider/web";
 import { withPolkadotSdkCompat } from "polkadot-api/polkadot-sdk-compat";
 import { sr25519CreateDerive } from "@polkadot-labs/hdkd";
@@ -39,12 +39,12 @@ const polkadotSigner = getPolkadotSigner(
 );
 
 // Connect to Polkadot Asset Hub.
-// Pointing to localhost since we're using chopsticks in this example.
+// Pointing to localhost since this example uses chopsticks.
 const client = createClient(
   withPolkadotSdkCompat(getWsProvider("ws://localhost:8000")),
 );
 
-// We get the typed api, a typesafe API for interacting with the chain.
+// Get the typed API, a typesafe API for interacting with the chain.
 const ahpApi = client.getTypedApi(ahp);
 
 const PEOPLE_PARA_ID = 1004;
@@ -57,12 +57,12 @@ const DOT = {
 // DOT has 10 decimals.
 const DOT_UNITS = 10_000_000_000n;
 
-// This is the DOT we withdraw to both pay for fees and send.
+// The DOT to withdraw for both fees and transfer.
 const dotToWithdraw = {
   id: DOT,
   fun: XcmV3MultiassetFungibility.Fungible(10n * DOT_UNITS),
 };
-// This is the DOT we use to pay for fees locally.
+// The DOT to use for local fee payment.
 const dotToPayFees = {
   id: DOT,
   fun: XcmV3MultiassetFungibility.Fungible(1n * DOT_UNITS),
@@ -72,10 +72,10 @@ const destination = {
   parents: 1,
   interior: XcmV3Junctions.X1(XcmV3Junction.Parachain(PEOPLE_PARA_ID)),
 };
-// We'll pay for fees in the People Chain with teleported DOT.
+// Pay for fees on the People Chain with teleported DOT.
 // This is specified independently of the transferred assets since they're used
-// exclusively for fees. Also because we can decide to pay fees in a different
-// asset from all that we're transferring.
+// exclusively for fees. Also because fees can be paid in a different
+// asset from the transferred assets.
 const remoteFees = Enum(
   "Teleport",
   XcmV5AssetFilter.Definite([
@@ -87,9 +87,9 @@ const remoteFees = Enum(
 );
 // No need to preserve origin for this example.
 const preserveOrigin = false;
-// The assets we want to transfer are whatever's left in the
+// The assets to transfer are whatever remains in the
 // holding register at the time of executing the `InitiateTransfer`
-// instruction. DOT in this case. We teleport it.
+// instruction. DOT in this case, teleported.
 const assets = [
   Enum("Teleport", XcmV5AssetFilter.Wild(XcmV5WildAsset.AllCounted(1))),
 ];
@@ -99,8 +99,8 @@ const assets = [
 const beneficiary = FixedSizeBinary.fromBytes(keyPair.publicKey);
 // The call to be executed on the destination chain.
 // It's a simple remark with an event.
-// We create the call on Asset Hub since the system pallet is present in
-// every runtime, but if using any other pallet, you should connect to
+// Create the call on Asset Hub since the system pallet is present in
+// every runtime, but if using any other pallet, connect to
 // the destination chain and create the call there.
 const remark = Binary.fromText("Hello, cross-chain!");
 const call = await ahpApi.tx.System.remark_with_event({ remark }).getEncodedData();
@@ -127,7 +127,7 @@ const remoteXcm = [
   }),
 ];
 
-// The message is just assembling all of these parameters we've defined before.
+// The message assembles all the previously defined parameters.
 const xcm = XcmVersionedXcm.V5([
   XcmV5Instruction.WithdrawAsset([dotToWithdraw]),
   XcmV5Instruction.PayFees({ asset: dotToPayFees }),
@@ -138,9 +138,25 @@ const xcm = XcmVersionedXcm.V5([
     assets,
     remote_xcm: remoteXcm,
   }),
+  // Return any leftover fees from the fees register back to holding.
+  XcmV5Instruction.RefundSurplus(),
+  // Deposit remaining assets (refunded fees) to the originating account.
+  // Using AllCounted(1) since only one asset type (DOT) remains - a minor optimization.
+  XcmV5Instruction.DepositAsset({
+    assets: XcmV5AssetFilter.Wild(XcmV5WildAsset.AllCounted(1)),
+    beneficiary: {
+      parents: 0,
+      interior: XcmV5Junctions.X1(
+        XcmV5Junction.AccountId32({
+          id: beneficiary, // The originating account.
+          network: undefined,
+        }),
+      ),
+    },
+  }),
 ]);
 
-// We need to know the weight of the XCM to set the `max_weight` parameter
+// The XCM weight is needed to set the `max_weight` parameter
 // on the actual `PolkadotXcm.execute()` call.
 const weightResult = await ahpApi.apis.XcmPaymentApi.query_xcm_weight(xcm);
 
@@ -151,14 +167,14 @@ if (weightResult.success) {
 
   console.dir(weight);
 
-  // The actual transaction we will submit.
+  // The actual transaction to submit.
   // This tells Asset Hub to execute the XCM.
   const tx = ahpApi.tx.PolkadotXcm.execute({
     message: xcm,
     max_weight: weight,
   });
 
-  // We sign it and propagate it to the network.
+  // Sign and propagate to the network.
   const result = await tx.signAndSubmit(polkadotSigner);
   console.log(stringify(result));
 }

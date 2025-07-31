@@ -1,9 +1,9 @@
 ---
-title: Executing XCM programs in v5
+title: Writing XCM Programs
 description: Changes in XCM program execution approach in v5.
 ---
 
-# Executing XCM programs in v5
+# Writing XCM Programs
 
 XCMv5 shifts the recommended approach from using dedicated extrinsics to executing raw XCM programs directly.
 
@@ -30,7 +30,7 @@ XCMv5 promotes using `execute()` directly:
 ```typescript
 // XCMv5 recommended approach
 const tx = api.tx.PolkadotXcm.execute({
-  message: xcm, // Your XCM program
+  message: xcm, // The XCM program
   max_weight: weight, // Weight limit for execution
 })
 ```

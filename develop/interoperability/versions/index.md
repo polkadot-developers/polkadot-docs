@@ -3,7 +3,7 @@
 XCM is a versioned language that evolves to meet the growing needs of cross-chain communication in the Polkadot ecosystem.
 Understanding XCM versioning is essential for developers building interoperable applications to keep up with the latest improvements.
 
-New versions are defined via [Polkadot Fellowship RFCs](https://github.com/polkadot-fellows/rfcs), ensuring each iteration is thoroughly reviewed.
+New versions are defined via [Polkadot Fellowship RFCs](https://github.com/polkadot-fellows/rfcs){target=\_blank}, ensuring each iteration is thoroughly reviewed.
 The whole of this documentation uses **XCMv5** as the primary reference, which is the current stable version.
 
 Each new version introduces new functionality while maintaining backward compatibility where possible.

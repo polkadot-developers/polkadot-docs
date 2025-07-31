@@ -1,13 +1,15 @@
 ---
-title: Fees in XCMv5
+title: Fees
 description: Key differences in fee handling between XCMv4 and XCMv5.
 ---
 
-# Fees in XCMv5
+# Fees
 
 XCMv5 introduces a new fee payment mechanism that simplifies and unifies how fees are handled across different types of XCM operations.
 
 ## Key changes from v4
+
+XCMv5 replaces the `BuyExecution` instruction with a more predictable `PayFees` approach that handles both execution and delivery fees.
 
 ### BuyExecution vs PayFees
 
@@ -70,6 +72,8 @@ When using `PayFees`, keep in mind that **ALL** assets passed to the instruction
 That's why it's more important than before to [properly estimate XCM fees](/develop/interoperability/xcm-runtime-apis/).
 
 ## RefundSurplus
+
+When you overestimate fees with `PayFees`, you can recover unused funds using the `RefundSurplus` instruction.
 
 You can use `RefundSurplus` to put the leftover fees back into holding.
 This is useful when you've overestimated the fees needed for your XCM program.

@@ -21,11 +21,11 @@ XcmV5Instruction.InitiateTransfer({
 
 The `remote_fees` parameter only takes one asset, `assets` takes a list of many.
 Both need to specify which transfer type they're using.
-The developer to specify whether or not those assets are transferred via a `Teleport`, a `ReserveWithdraw` or a `ReserveDeposit`.
+The developer needs to specify whether or not those assets are transferred via a `Teleport`, a `ReserveWithdraw` or a `ReserveDeposit`.
 These correspond to the types of cross-chain transfers, as seen in [TODO: Section about cross-chain transfers generally](TODO).
 
-For example, say we wanted to transfer 50 DOT, via a teleport, we would need to specify the fact that it's a teleport.
-We also need to use an [asset filter](TODO:send-to-section-on-asset-filters).
+For example, to transfer 50 DOT via a teleport, the transfer type must be specified as a teleport.
+This also requires using an [asset filter](TODO:send-to-section-on-asset-filters).
 
 Instead of this:
 ```typescript
@@ -39,7 +39,7 @@ const assets = [
 ];
 ```
 
-We need to write this:
+The correct approach is:
 ```typescript
 const assets = [
   Enum(
@@ -54,8 +54,8 @@ const assets = [
 ];
 ```
 
-This lets us specify multiple assets with multiple different transfer types.
-It also lets us send the remote fees with a different transfer type.
+This allows specifying multiple assets with multiple different transfer types.
+It also allows sending the remote fees with a different transfer type.
 
 For example:
 ```typescript
@@ -108,15 +108,15 @@ As mentioned before, you need to specify the transfer type.
     Although it is possible to not specify remote fees, this is most likely not what you want when developing
     applications.
     Omitting the remote fees will append an `UnpaidExecution` instruction to the remote XCM.
-    This instruction is meant to signal to the destination system that there's a reason you're allowed to execute
+    This instruction signals to the destination system that there is a reason execution is allowed
     a message without paying for fees.
     This usually means you're a priviledged origin, like `Root` or the `Fellowship` origin.
     It's mostly used from the runtime of Polkadot SDK chains instead of from applications.
 
 ??? code "Teleport example"
 
-    In this example, we create an XCM program that teleports some DOT from Asset Hub to People.
-    This code was kickstarted from the getting started guide in [https://papi.how/getting-started].
+    This example creates an XCM program that teleports DOT from Asset Hub to People.
+    This code was kickstarted from the [PAPI getting started guide](https://papi.how/getting-started){target=\_blank}.
     The setup for this script is installing papi and generating descriptors for Asset Hub:
     `bun papi add ahp -n polkadot_asset_hub`
 
@@ -146,7 +146,7 @@ To enable this feature, the `preserve_origin` parameter must be set to `true`.
 
 ??? code "Teleport and transact example"
 
-    In this example, we create an XCM program that teleports some DOT from Asset Hub to People and executes a call there.
+    This example creates an XCM program that teleports DOT from Asset Hub to People and executes a call there.
     The whole script is almost the same as the one for a simple teleport above, most changes are in the `remoteXcm` variable.
     The setup for this script is installing papi and generating descriptors for both Asset Hub and People:
     `bun papi add ahp -n polkadot_asset_hub && bun papi add people -n polkadot_people`

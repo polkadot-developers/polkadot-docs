@@ -25,9 +25,9 @@ XcmV5Instruction.Transact({
 
 - **`origin_kind`**: Specifies how the origin should be interpreted on the destination chain:
 
-  - `SovereignAccount`: Execute as the sovereign account of the origin
-  - `Superuser`: Execute with root privileges (requires special configuration)
-  - `Xcm`: Execute as a generic XCM origin
+  - [`SovereignAccount`](https://paritytech.github.io/polkadot-sdk/master/xcm/v2/enum.OriginKind.html#variant.SovereignAccount){target=\_blank}: Execute as the sovereign account of the origin
+  - [`Superuser`](https://paritytech.github.io/polkadot-sdk/master/xcm/v2/enum.OriginKind.html#variant.Superuser){target=\_blank}: Execute with root privileges (requires special configuration)
+  - [`Xcm`](https://paritytech.github.io/polkadot-sdk/master/xcm/v2/enum.OriginKind.html#variant.Xcm){target=\_blank}: Execute as a generic XCM origin
 
 - **`fallback_max_weight`**: Optional weight limit for execution:
 
@@ -38,7 +38,7 @@ XcmV5Instruction.Transact({
 
 Unlike other XCM instructions like `DepositAsset` or `WithdrawAsset` which are generic, `Transact` requires detailed knowledge of the destination chain:
 
-### What you need to know
+### Required Knowledge
 
 1. **Runtime metadata**: The specific pallets, calls, and their parameters available on the destination chain
 2. **Call encoding**: How to properly encode the call data for the destination runtime

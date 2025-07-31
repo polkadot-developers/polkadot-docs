@@ -8,6 +8,9 @@ description: How to handle fees in XCM.
 In blockchain systems, fees are crucial.
 They prevent malicious actors from exhausting the results of the network, making such attacks expensive.
 The XCM subsystem has its own way of dealing with fees, flexible enough to allow feeless execution in situations that warrant it.
+
+It's important to distinguish between **transaction fees** and **XCM fees**. Transaction fees are paid when submitting extrinsics to a blockchain. XCM fees, on the other hand, are charged for processing XCM instructions and consist of execution fees (computational costs) and delivery fees (message transport costs). While a transaction can include XCM fees, as happens with `palletXcm.execute()`, they are separate fee systems. When a chain receives and processes an XCM message, it charges XCM fees but no transaction fees, since no extrinsic is being submitted.
+
 There are two main types of fees in XCM: **execution** and **delivery**.
 
 ## Execution
@@ -38,7 +41,7 @@ The amount is specified using the `PayFees` instruction:
 XcmV5Instruction.PayFees({
   asset: {
     id: // Asset id.
-    fun: // Fungibility. You specify the amount if it's fungible or the instance if it's an NFT.
+    fun: // Fungibility. Specify the amount if fungible or the instance if NFT.
   },
 })
 ```
@@ -47,13 +50,19 @@ This mechanism is simple and flexible.
 The user requires no knowledge of the different types of fees.
 New fees might arise in the future and they'll be taken using this same mechanism, without the need for any modification.
 
+Which assets can be used for fee payment depends on the destination chain's configuration. For example, on Asset Hub, fees can be paid with any asset that has a liquidity pool with DOT, allowing the chain to automatically convert the fee asset to DOT for actual fee payment. Other chains may have different fee payment policies, so it's important to understand the specific requirements of the destination chain before selecting fee assets.
+
+??? note "Sufficient assets vs fee payment assets"
+
+    It's important to distinguish between "sufficient" assets and assets eligible for fee payment. Sufficient assets can be used to satisfy the Existential Deposit requirement for account creation and maintenance, but this doesn't automatically make them eligible for fee payment. While sufficient assets are generally also usable for fee payment, this isn't guaranteed and depends on the chain's specific configuration. The terms are related but serve different purposes in system.
+
 ## Estimations
 
 The entirety of the asset passed to `PayFees` will be taken from the effective assets and used only for fees.
 This means if you overestimate the fees required, you'll be losing efficiency.
 
 It's necessary to have a mechanism to accurately estimate the fee needed so it can be put into `PayFees`.
-This is more complicated than it sounds since we're dealing with execution and delivery fees, potentially in multiple hops.
+This is more complicated than it sounds since the process involves execution and delivery fees, potentially in multiple hops.
 
 Imagine a scenario where parachain A sends a message to B which forwards another message to C.
 
@@ -90,8 +99,7 @@ const xcm = XcmVersionedXcm.V5([
 ])
 ```
 
-NOTE: paying fees on a remote system is so common that the `InitiateTransfer` instruction doesn't
-require putting the instruction in `remote_xcm`, you only need to put them in `remote_fees`.
+Paying fees on a remote system is so common that the `InitiateTransfer` instruction provides the `remote_fees` parameter for this purpose. When `remote_fees` is specified, it automatically generates a `PayFees` instruction on the destination chain using the specified fees, eliminating the need to manually add `PayFees` to the `remote_xcm` parameter.
 
 <!-- TODO: Fee estimation tutorial? -->
 The solution is to use the [runtime APIs](/develop/interoperability/xcm-runtime-apis/) as shown in [the fee estimation tutorial]().

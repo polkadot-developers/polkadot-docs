@@ -24,7 +24,7 @@ For comprehensive information about benchmarking concepts, refer to the [Benchma
 
 Follow these steps to prepare your environment for pallet benchmarking:
 
-1. Install the [`frame-omni-bencher`](https://crates.io/crates/frame-omni-bencher){target=\_blank} command-line tool:
+1. Install the [`frame-omni-bencher`](https://crates.io/crates/frame-omni-bencher/{{dependencies.repositories.polkadot_sdk_parachain_template.frame_omni_bencher_version}}){target=\_blank} command-line tool:
     
     ```bash
     cargo install --locked frame-omni-bencher@{{dependencies.repositories.polkadot_sdk_parachain_template.frame_omni_bencher_version}}
@@ -38,16 +38,16 @@ Follow these steps to prepare your environment for pallet benchmarking:
 3. Add your pallet to the runtime's benchmark configuration:
     1.  Register your pallet in `runtime/src/benchmarks.rs`:
         ```rust hl_lines="11" title="benchmarks.rs"
-        --8<-- 'code/tutorials/polkadot-sdk/parachains/zero-to-hero/parachain-template/runtime/src/benchmarks.rs:26:37'
+        --8<-- 'code/tutorials/polkadot-sdk/parachains/zero-to-hero/runtime/src/benchmarks.rs:26:37'
         ```
 
     2. Enable runtime benchmarking for your pallet in `runtime/Cargo.toml`:
         ```toml hl_lines="6" title="Cargo.toml"
-        --8<-- 'code/tutorials/polkadot-sdk/parachains/zero-to-hero/parachain-template/runtime/Cargo.toml:78:84'
+        --8<-- 'https://raw.githubusercontent.com/papermoonio/zero-to-hero-tutorial/refs/heads/v0.0.4-complete-tutorial/runtime/Cargo.toml:46:52'
         ```
 
 4. Set up the benchmarking module in your pallet:
-    1. Create a new `benchmarking.rs` file in your pallet directory:
+    1. Create a benchmarking.rs file in your pallet's src/ directory:
         ```bash
         touch benchmarking.rs
         ```
@@ -163,7 +163,7 @@ For testing purposes, you must implement the weight calculations in your mock ru
 Finally, configure the actual weight values in your production runtime. In `runtime/src/config/mod.rs`, add:
 
 ```rust hl_lines="5" title="mod.rs"
---8<-- 'code/tutorials/polkadot-sdk/parachains/zero-to-hero/parachain-template/runtime/src/configs/mod.rs:333:338'
+--8<-- 'code/tutorials/polkadot-sdk/parachains/zero-to-hero/runtime/src/configs/mod.rs:333:338'
 ```
 
 Your pallet is now complete with full testing and benchmarking support, ready for production use.

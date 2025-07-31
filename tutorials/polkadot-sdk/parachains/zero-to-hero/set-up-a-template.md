@@ -44,7 +44,7 @@ rustup component add rust-src --toolchain 1.86-aarch64-apple-darwin
 
 This tutorial requires two essential tools:
 
-- [**Chain spec builder**](https://crates.io/crates/staging-chain-spec-builder/{{dependencies.crates.chain_spec_builder.version}}){target=\_blank} - is a Polkadot SDK utility for generating chain specifications. Refer to the [Generate Chain Specs](/develop/parachains/deployment/generate-chain-specs/){target=\_blank} documentation for detailed usage.
+- [**Chain spec builder**](https://crates.io/crates/staging-chain-spec-builder/{{dependencies.repositories.polkadot_sdk_parachain_template.chain_spec_builder_version}}){target=\_blank} - is a Polkadot SDK utility for generating chain specifications. Refer to the [Generate Chain Specs](/develop/parachains/deployment/generate-chain-specs/){target=\_blank} documentation for detailed usage.
     
     Install it by executing the following command:
     

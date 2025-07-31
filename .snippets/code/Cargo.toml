@@ -10,25 +10,24 @@ repository = "https://github.com/paritytech/polkadot-sdk-parachain-template.git"
 edition = "2021"
 
 [workspace]
-members = ["tutorials/polkadot-sdk/parachains/zero-to-hero/parachain-template"]
+members = ["tutorials/polkadot-sdk/parachains/zero-to-hero/runtime"]
 resolver = "2"
 
 [workspace.dependencies]
 clap = { version = "4.5.13" }
-codec = { version = "3.6.12", default-features = false, package = "parity-scale-codec" }
 color-print = { version = "0.3.4" }
 docify = { version = "0.2.9" }
 futures = { version = "0.3.31" }
 jsonrpsee = { version = "0.24.3" }
 log = { version = "0.4.22", default-features = false }
-polkadot-sdk = { version = "0.12.2", default-features = false }
-prometheus-endpoint = { version = "0.17.1", default-features = false, package = "substrate-prometheus-endpoint" }
-sc-tracing = { version = "38.0.0", default-features = false }
+polkadot-sdk = { version = "2503.0.1", default-features = false }
+prometheus-endpoint = { version = "0.17.2", default-features = false, package = "substrate-prometheus-endpoint" }
 serde = { version = "1.0.214", default-features = false }
-serde_json = { version = "1.0.132", default-features = false }
-cumulus-pallet-parachain-system = { version = "0.18.1", default-features = false }
+codec = { version = "3.7.4", default-features = false, package = "parity-scale-codec" }
+cumulus-pallet-parachain-system = { version = "0.20.0", default-features = false }
 hex-literal = { version = "0.4.1", default-features = false }
-scale-info = { version = "2.11.1", default-features = false }
+scale-info = { version = "2.11.6", default-features = false }
+serde_json = { version = "1.0.132", default-features = false }
 smallvec = { version = "1.11.0", default-features = false }
-substrate-wasm-builder = { version = "25.0.0", default-features = false }
-frame = { version = "0.8.1", default-features = false, package = "polkadot-sdk-frame" }
+substrate-wasm-builder = { version = "26.0.1", default-features = false }
+frame = { version = "0.9.1", default-features = false, package = "polkadot-sdk-frame" }

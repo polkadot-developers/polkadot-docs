@@ -13,6 +13,9 @@ description: Explore how to connect to Polkadot Hub, configure your wallet, and 
 
 For more information about how to connect to Polkadot Hub, please check the [Wallets for Polkadot Hub](/develop/smart-contracts/wallets/){target=\_blank} guide.
 
+!!! warning "Account Mapping"
+    If you are using a native Polkadot account (32-byte format) that was created with a Polkadot/Substrate keypair (Ed25519/Sr25519) rather than an Ethereum-compatible keypair (secp256k1), you'll need to map your account to enable Ethereum compatibility. See the [Account Mapping](/polkadot-protocol/smart-contract-basics/accounts#account-mapping-for-native-polkadot-accounts){target=\_blank} section for more details.
+
 ## Networks Details
 
 Developers can leverage smart contracts across diverse networks, from TestNets to MainNet. This section outlines the network specifications and connection details for each environment.

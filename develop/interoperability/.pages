@@ -3,9 +3,9 @@ nav:
   - index.md
   - 'Introduction to XCM': intro-to-xcm.md
   - guides
-  - 'XCM Channels': xcm-channels.md
-  - 'XCM Configuration': xcm-config.md
+  - 'Channels': xcm-channels.md
+  - 'Runtime Configuration': xcm-config.md
   - 'Send Messages': send-messages.md
-  - 'XCM Runtime APIs': xcm-runtime-apis.md
+  - 'Runtime APIs': xcm-runtime-apis.md
   - 'Test and Debug': test-and-debug.md
   - versions

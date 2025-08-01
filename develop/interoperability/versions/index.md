@@ -1,3 +1,8 @@
+---
+title: Versions
+description: XCM is a versioned language. Descriptions of the different versions and migration guides can be found here.
+---
+
 # Versions
 
 XCM is a versioned language that evolves to meet the growing needs of cross-chain communication in the Polkadot ecosystem.

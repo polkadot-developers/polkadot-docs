@@ -1,5 +1,5 @@
 ---
-title: v4 to v5 migration guide
+title: Migration guide
 description: A guide on how to migrate from XCMv4 to XCMv5
 ---
 
@@ -38,6 +38,8 @@ Go to [the PAPI developer console](https://dev.papi.how/explorer){target=\_blank
 ## Changes
 
 ### From Dedicated Extrinsics to Raw XCMs
+
+With v5, the ecosystem is shifting toward writing XCM programs directly instead of relying on an ever-increasing number of custom extrinsics.
 
 **Before (v4 approach)**:
 

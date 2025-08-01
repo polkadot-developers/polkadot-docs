@@ -359,6 +359,11 @@ Integrate with the Polkadot blockchain's underlying protocol features to create 
 
 Doc-Content: https://docs.polkadot.com/develop/interoperability/fundamentals/
 --- BEGIN CONTENT ---
+---
+title: Fundamentals
+description: Learn the fundamentals and building blocks of XCM. Concepts you'll need whenever dealing with cross-chain interactions.
+---
+
 # Fundamentals
 
 This section covers the fundamentals of XCM.
@@ -1319,9 +1324,14 @@ function stringify(obj: any) {
 
 Doc-Content: https://docs.polkadot.com/develop/interoperability/guides/
 --- BEGIN CONTENT ---
+---
+title: Guides
+description: Comprehensive guides for implementing XCM functionality in applications and understanding cross-chain interactions.
+---
+
 # Guides
 
-This section covers guides for using XCM.
+This section provides comprehensive guides for implementing XCM functionality, including application development patterns, fee management, asset transfers, and cross-chain transaction handling.
 --- END CONTENT ---
 
 Doc-Content: https://docs.polkadot.com/develop/interoperability/
@@ -1752,6 +1762,11 @@ To see a complete example of implementing and executing tests, refer to the [int
 
 Doc-Content: https://docs.polkadot.com/develop/interoperability/versions/
 --- BEGIN CONTENT ---
+---
+title: Versions
+description: XCM is a versioned language. Descriptions of the different versions and migration guides can be found here.
+---
+
 # Versions
 
 XCM is a versioned language that evolves to meet the growing needs of cross-chain communication in the Polkadot ecosystem.
@@ -2060,7 +2075,7 @@ This is a low-level library that can interact with Polkadot SDK chains via the J
 Doc-Content: https://docs.polkadot.com/develop/interoperability/versions/v5/migration-guide/
 --- BEGIN CONTENT ---
 ---
-title: v4 to v5 migration guide
+title: Migration guide
 description: A guide on how to migrate from XCMv4 to XCMv5
 ---
 
@@ -2099,6 +2114,8 @@ Go to [the PAPI developer console](https://dev.papi.how/explorer){target=\_blank
 ## Changes
 
 ### From Dedicated Extrinsics to Raw XCMs
+
+With v5, the ecosystem is shifting toward writing XCM programs directly instead of relying on an ever-increasing number of custom extrinsics.
 
 **Before (v4 approach)**:
 

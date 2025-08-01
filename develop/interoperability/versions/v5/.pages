@@ -1,6 +1,7 @@
 title: XCMv5
 nav:
   - index.md
+  - migration-guide.md
   - writing-xcm-programs.md
   - fees.md
   - transfers.md

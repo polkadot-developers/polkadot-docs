@@ -5,7 +5,7 @@ description: A guide on how to migrate from XCMv4 to XCMv5
 
 # Migration guide (v4 -> v5)
 
-This guide helps you migrate existing code that uses XCM from v4 to v5.
+This guide helps migrate existing code that uses XCM from v4 to v5.
 Most v4 code continues to work, but v5 introduces powerful new patterns that improve flexibility and developer experience.
 
 ??? note "About the usage of PAPI"
@@ -16,9 +16,9 @@ Most v4 code continues to work, but v5 introduces powerful new patterns that imp
 
 Migrating to v5 provides significant benefits, so migration is recommended as soon as possible.
 
-Whether you can or can't migrate depends mainly on if the chain(s) you connect to have already upgraded to v5 or not.
+Whether migration is possible depends mainly on if the target chains have already upgraded to v5 or not.
 
-To know whether a chain supports v5, you can:
+To determine whether a chain supports v5:
 - Read the changelog
 - Explore the metadata with PAPI's descriptors
 - Explore the metadata with a tool like [subwasm](https://github.com/chevdor/subwasm)
@@ -79,7 +79,7 @@ Migration Impact:
 
 This approach adds more flexbility but clearly requires the developer to know how to build XCMs.
 If XCM construction is unfamiliar, this approach enables other developers to build SDKs that handle these complexities.
-For example, the Paraspell SDK allows you to continue doing cross-chain transfers (and much more!) with a very simple API.
+For example, the Paraspell SDK enables cross-chain transfers (and much more!) with a very simple API.
 The following example transfers 10 DOT from Asset Hub Polkadot to Hydration chain using the ParaSpell SDK's builder pattern.
 
 ```typescript
@@ -198,16 +198,16 @@ XcmV4Instruction.BuyExecution({
 
 The new `PayFees` instruction just has the asset for fee payment.
 The `weight_limit` parameter has historically mostly been set to `Unlimited` because of the difficulty to estimate
-weight and the fees being sufficient for limiting the max execution that you're willing to pay for.
+weight and the fees being sufficient for limiting the max execution cost.
 
 There is another key difference between `PayFees` and `BuyExecution`.
 With `BuyExecution`, if too much was supplied for fees, the leftover after paying for execution would be returned
 to the [holding register](https://paritytech.github.io/polkadot-sdk/master/staging_xcm_executor/struct.XcmExecutor.html#method.holding) to be used in the rest of the XCM.
 With `PayFees`, the full amount put into `assets` is stored in the fees register, nothing is returned to the holding
 register.
-This means you have to put the amount you plan to dedicate entirely for fee payment.
-This makes it much more predictable.
-If you withdraw 11 DOT, 1 DOT you put in `PayFees` and the rest you send, you know you've sent exactly 10.
+This means the full amount intended for fee payment must be specified.
+It makes it much more predictable.
+For example, withdrawing 11 DOT with 1 DOT in `PayFees` ensures exactly 10 DOT is sent.
 
 The reason for this is the introduction of **delivery fees**, which are charged in addition to **execution fees**.
 Delivery fees are charged the moment an instruction is encountered which results in sending a new XCM.
@@ -361,7 +361,7 @@ Instead, the generic `ByGenesis` network ID should be used for referencing testn
 This change was made because testnets come and go, as was shown by the [removal of Rococo](https://forum.polkadot.network/t/rococo-to-be-deprecated-in-october/8702) and [appearance of Paseo](https://forum.polkadot.network/t/the-new-polkadot-community-testnet/4956).
 From now on, only mainnets will have an explicit network ID, testnets should always be referenced with `ByGenesis`.
 
-If you were storing these network IDs, make sure to migrate them to `ByGenesis`.
+If storing these network IDs, they must be migrated to `ByGenesis`.
 These are the genesis hashes for the migration:
 - Westend: 0xe143f23803ac50e8f6f8e62695d1ce9e4e1d68aa36c1cd2cfd15340213f3423e
 - Rococo: 0x6408de7737c59c238890533af25896a2c20608d8b380bb01029acb392781063e
@@ -373,7 +373,7 @@ These are the genesis hashes for the migration:
 
 ## Next steps
 
-Once migrated, you can enjoy unique XCMv5 features:
+Once migrated, unique XCMv5 features become available:
 - Origin preservation
 - Transferring multiple assets
 - Better asset claiming

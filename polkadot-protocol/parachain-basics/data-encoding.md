@@ -1,6 +1,7 @@
 ---
 title: Data Encoding
 description: SCALE codec enables fast, efficient data encoding, ideal for resource-constrained environments like Wasm, supporting custom types and compact encoding.
+categories: Basics, Polkadot Protocol
 ---
 
 # Data Encoding

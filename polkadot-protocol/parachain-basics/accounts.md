@@ -1,6 +1,7 @@
 ---
 title: Polkadot SDK Accounts
 description: Learn about account structures, balances, and address formats in the Polkadot SDK, including how to manage lifecycle, references, and balances.
+categories: Basics, Polkadot Protocol
 ---
 
 # Accounts

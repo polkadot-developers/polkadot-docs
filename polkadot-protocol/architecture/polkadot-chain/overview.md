@@ -1,6 +1,7 @@
 ---
 title: Overview of the Polkadot Relay Chain
 description: Explore Polkadot's core architecture, including its multi-chain vision, shared security, and the DOT token's governance and staking roles.
+categories: Basics, Polkadot Protocol, Parachains
 ---
 
 # Overview

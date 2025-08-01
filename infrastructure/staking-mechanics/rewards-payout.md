@@ -1,6 +1,7 @@
 ---
 title: Rewards Payout
 description: Learn how validator rewards work on the network, including era points, payout distribution, running multiple validators, and nominator payments.
+categories: Infrastructure
 ---
 
 # Rewards Payout

@@ -1,6 +1,7 @@
 ---
 title: Manage Coretime
 description: Learn to manage bulk coretime regions through transfer, partition, interlace, assign, and pool operations for optimal resource allocation.
+categories: Parachains
 ---
 
 # Manage Coretime

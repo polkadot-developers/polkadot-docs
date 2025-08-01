@@ -1,6 +1,7 @@
 ---
 title: Transactions Weights and Fees
 description: Overview of transaction weights and fees in Polkadot SDK chains, detailing how fees are calculated using a defined formula and runtime specifics.
+categories: Basics, Polkadot Protocol
 ---
 
 # Transactions Weights and Fees

@@ -2,6 +2,7 @@
 title: Register a Foreign Asset on Asset Hub
 description: An in-depth guide to registering a foreign asset on the Asset Hub parachain, providing clear, step-by-step instructions.
 tutorial_badge: Intermediate
+categories: dApps
 ---
 
 # Register a Foreign Asset on Asset Hub

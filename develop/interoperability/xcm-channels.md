@@ -31,7 +31,7 @@ When a parachain wants to open a new channel, it must consider these parameter v
 
 To view the current values of these parameters in the Polkadot network:
 
-1. Visit [Polkadot.js Apps](https://polkadot.js.org/apps/?rpc=wss%3A%2F%2Fpolkadot.api.onfinality.io%2Fpublic-ws#/explorer), navigate to the **Developer** dropdown and select the **Chain state** option
+1. Visit [Polkadot.js Apps](https://polkadot.js.org/apps/?rpc=wss%3A%2F%2Fpolkadot.api.onfinality.io%2Fpublic-ws#/explorer){target=\_blank}, navigate to the **Developer** dropdown and select the **Chain state** option
 
     ![](/images/develop/interoperability/xcm-channels/xcm-channels-1.webp)
 

@@ -225,7 +225,7 @@ Now that you have the foundation for using viem with Polkadot Hub, consider expl
     <ul class="card-list">
     <li>[:octicons-arrow-right-24: Hardhat](https://hardhat.org/){target=\_blank}</li>
 
-    <li>[:octicons-arrow-right-24: Foundry](https://book.getfoundry.sh/){target=\_blank}</li>
+    <li>[:octicons-arrow-right-24: Foundry](https://getfoundry.sh/){target=\_blank}</li>
     </ul>
 
 -   <span class="badge external">External</span> __Event Handling__

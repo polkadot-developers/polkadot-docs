@@ -3213,7 +3213,7 @@ categories: dApps
 
 ## Introduction
 
-As outlined in the [Asset Hub Overview](/polkadot-protocol/architecture/system-chains/asset-hub){target=\_blank}, Asset Hub supports two categories of assets: local and foreign. Local assets are created on the Asset Hub system parachain and are identified by integer IDs. On the other hand, foreign assets, which originate outside of Asset Hub, are recognized by [Multilocations](https://wiki.polkadot.network/docs/learn/xcm/fundamentals/multilocation-summary){target=\_blank}.
+As outlined in the [Asset Hub Overview](/polkadot-protocol/architecture/system-chains/asset-hub){target=\_blank}, Asset Hub supports two categories of assets: local and foreign. Local assets are created on the Asset Hub system parachain and are identified by integer IDs. On the other hand, foreign assets, which originate outside of Asset Hub, are recognized by [Multilocations](https://github.com/polkadot-fellows/xcm-format?tab=readme-ov-file#7-universal-consensus-location-identifiers){target=\_blank}.
 
 When registering a foreign asset on Asset Hub, it's essential to notice that the process involves communication between two parachains. The Asset Hub parachain will be the destination of the foreign asset, while the source parachain will be the origin of the asset. The communication between the two parachains is facilitated by the [Cross-Chain Message Passing (XCMP)](/develop/interoperability/intro-to-xcm/){target=\_blank} protocol.
 
@@ -4850,7 +4850,8 @@ The [`XcmRouter`](https://paritytech.github.io/polkadot-sdk/master/pallet_xcm/pa
 For instance, the Kusama network employs the [`ChildParachainRouter`](https://paritytech.github.io/polkadot-sdk/master/polkadot_runtime_common/xcm_sender/struct.ChildParachainRouter.html){target=\_blank}, which restricts routing to [Downward Message Passing (DMP)](https://wiki.polkadot.network/learn/learn-xcm-transport/#dmp-downward-message-passing){target=\_blank} from the relay chain to parachains, ensuring secure and controlled communication.
 
 ```rust
-// Only one router so far - use DMP to communicate with child parachains.
+pub type XcmRouter = WithUniqueTopic<(
+	// Only one router so far - use DMP to communicate with child parachains.
 	ChildParachainRouter<Runtime, XcmPallet, PriceForChildParachainDelivery>,
 )>;
 ```
@@ -4909,11 +4910,10 @@ The XCM Emulator provides both advantages and limitations when testing cross-cha
 
 The `xcm-emulator` provides macros for defining a mocked testing environment. Check all the existing macros and functionality in the [XCM Emulator source code](https://github.com/paritytech/polkadot-sdk/blob/{{dependencies.repositories.polkadot_sdk.version}}/cumulus/xcm/xcm-emulator/src/lib.rs){target=\_blank}. The most important macros are:
 
-- [**`decl_test_relay_chains`**](https://github.com/paritytech/polkadot-sdk/blob/{{dependencies.repositories.polkadot_sdk.version}}/cumulus/xcm/xcm-emulator/src/lib.rs#L355){target=\_blank} - defines runtime and configuration for the relay chains. Example:
+- [**`decl_test_relay_chains`**](https://github.com/paritytech/polkadot-sdk/blob/{{dependencies.repositories.polkadot_sdk.version}}/cumulus/xcm/xcm-emulator/src/lib.rs#L361){target=\_blank} - defines runtime and configuration for the relay chains. Example:
 
     ```rust
-    // Westend declaration
-decl_test_relay_chains! {
+    decl_test_relay_chains! {
 	#[api_version(11)]
 	pub struct Westend {
 		genesis = genesis::genesis(),
@@ -4936,11 +4936,10 @@ decl_test_relay_chains! {
 }
     ```
 
-- [**`decl_test_parachains`**](https://github.com/paritytech/polkadot-sdk/blob/{{dependencies.repositories.polkadot_sdk.version}}/cumulus/xcm/xcm-emulator/src/lib.rs#L590){target=\_blank} - defines runtime and configuration for the parachains. Example:
+- [**`decl_test_parachains`**](https://github.com/paritytech/polkadot-sdk/blob/{{dependencies.repositories.polkadot_sdk.version}}/cumulus/xcm/xcm-emulator/src/lib.rs#L596){target=\_blank} - defines runtime and configuration for the parachains. Example:
 
     ```rust
-    // AssetHubWestend Parachain declaration
-decl_test_parachains! {
+    decl_test_parachains! {
 	pub struct AssetHubWestend {
 		genesis = genesis::genesis(),
 		on_init = {
@@ -4965,7 +4964,7 @@ decl_test_parachains! {
 }
     ```
 
-- [**`decl_test_bridges`**](https://github.com/paritytech/polkadot-sdk/blob/{{dependencies.repositories.polkadot_sdk.version}}/cumulus/xcm/xcm-emulator/src/lib.rs#L1178){target=\_blank} - creates bridges between chains, specifying the source, target, and message handler. Example:
+- [**`decl_test_bridges`**](https://github.com/paritytech/polkadot-sdk/blob/{{dependencies.repositories.polkadot_sdk.version}}/cumulus/xcm/xcm-emulator/src/lib.rs#L1221){target=\_blank} - creates bridges between chains, specifying the source, target, and message handler. Example:
 
     ```rust
     decl_test_bridges! {
@@ -4982,7 +4981,7 @@ decl_test_parachains! {
 }
     ```
 
-- [**`decl_test_networks`**](https://github.com/paritytech/polkadot-sdk/blob/{{dependencies.repositories.polkadot_sdk.version}}/cumulus/xcm/xcm-emulator/src/lib.rs#L916){target=\_blank} - defines a testing network with relay chains, parachains, and bridges, implementing message transport and processing logic. Example:
+- [**`decl_test_networks`**](https://github.com/paritytech/polkadot-sdk/blob/{{dependencies.repositories.polkadot_sdk.version}}/cumulus/xcm/xcm-emulator/src/lib.rs#L958){target=\_blank} - defines a testing network with relay chains, parachains, and bridges, implementing message transport and processing logic. Example:
 
     ```rust
     decl_test_networks! {
@@ -9233,7 +9232,6 @@ As a Layer-0 blockchain, Polkadot contributes to the multi-chain vision through 
 - **Cultivating the next generation of Web3 developers** - Polkadot supports the growth of Web3 core developers through initiatives such as:
 
     - [Polkadot Blockchain Academy](https://polkadot.com/blockchain-academy){target=\_blank}
-    - [Polkadot Alpha Program](https://polkadot.com/alpha-program){target=\_blank}
     - [EdX courses](https://www.edx.org/school/web3x){target=\_blank}
     - Rust and Substrate courses (coming soon)
 
@@ -9257,7 +9255,7 @@ In order to interact with chains that want to use their own finalization process
 
 Historically, obtaining core slots on Polkadot chain relied upon crowdloans and auctions. Chain cores were leased through auctions for three-month periods, up to a maximum of two years. Crowdloans enabled users to securely lend funds to teams for lease deposits in exchange for pre-sale tokens, which is the only way to access slots on Polkadot 1.0. Auctions are now deprecated in favor of [coretime](/polkadot-protocol/architecture/system-chains/coretime/){target=\_blank}.
 
-Additionally, the chain handles [staking](https://wiki.polkadot.network/learn/learn-staking/){target=\_blank}, [accounts](/polkadot-protocol/basics/accounts/){target=\_blank}, balances, and [governance](/polkadot-protocol/onchain-governance/){target=\_blank}.
+Additionally, the chain handles [staking](https://wiki.polkadot.network/learn/learn-staking/){target=\_blank}, [accounts](/polkadot-protocol/parachain-basics/accounts/){target=\_blank}, balances, and [governance](/polkadot-protocol/onchain-governance/){target=\_blank}.
 
 #### Agile Coretime
 
@@ -9411,9 +9409,9 @@ The Asset Hub also supports non-fungible assets (NFTs) via the [Uniques pallet](
 
 ### Collectives
 
-The Polkadot Collectives parachain was added in [Referendum 81](https://polkadot.polkassembly.io/referendum/81){target=\_blank} and exists on Polkadot but not on Kusama. The Collectives chain hosts on-chain collectives that serve the Polkadot network, including the following:
+The Polkadot Collectives parachain was added in [Referendum 81](https://polkadot-old.polkassembly.io/referendum/81){target=\_blank} and exists on Polkadot but not on Kusama. The Collectives chain hosts on-chain collectives that serve the Polkadot network, including the following:
 
-- [**Polkadot Alliance**](https://polkadot.polkassembly.io/referendum/94){target=\_blank} - provides a set of ethics and standards for the community to follow. Includes an on-chain means to call out bad actors
+- [**Polkadot Alliance**](https://polkadot-old.polkassembly.io/referendum/94){target=\_blank} - provides a set of ethics and standards for the community to follow. Includes an on-chain means to call out bad actors
 - [**Polkadot Technical Fellowship**](https://wiki.polkadot.network/learn/learn-polkadot-technical-fellowship/){target=\_blank} - a rules-based social organization to support and incentivize highly-skilled developers to contribute to the technical stability, security, and progress of the network
 
 These on-chain collectives will play essential roles in the future of network stewardship and decentralized governance. Networks can use a bridge hub to help them act as collectives and express their legislative voices as single opinions within other networks.
@@ -9441,11 +9439,6 @@ Visit [Introduction to Agile Coretime](https://wiki.polkadot.network/learn/learn
 [Encointer](https://encointer.org/encointer-for-web3/){target=\_blank} is a blockchain platform for self-sovereign ID and a global [universal basic income (UBI)](https://book.encointer.org/economics-ubi.html){target=\_blank}. The Encointer protocol uses a novel Proof of Personhood (PoP) system to create unique identities and resist Sybil attacks. PoP is based on the notion that a person can only be in one place at any given time. Encointer offers a framework that allows for any group of real people to create, distribute, and use their own digital community tokens.
 
 Participants are requested to attend physical key-signing ceremonies with small groups of random people at randomized locations. These local meetings are part of one global signing ceremony occurring at the same time. Participants use the Encointer wallet app to participate in these ceremonies and manage local community currencies. 
-
-Referendums marking key Encointer adoption milestones include: 
-
-- [**Referendum 158 - Register Encointer As a Common Good Chain**](https://kusama.polkassembly.io/referendum/158){target=\_blank} - registered Encointer as the second system parachain on Kusama's network
-- [**Referendum 187 - Encointer Runtime Upgrade to Full Functionality**](https://kusama.polkassembly.io/referendum/187){target=\_blank} - introduced a runtime upgrade bringing governance and full functionality for communities to use the protocol
 
 To learn more about Encointer, see the official [Encointer book](https://book.encointer.org/introduction.html){target=\_blank} or watch an [Encointer ceremony](https://www.youtube.com/watch?v=tcgpCCYBqko){target=\_blank} in action.
 --- END CONTENT ---
@@ -10040,7 +10033,7 @@ The Polkadot SDK provides block authors with several ways to manage access to re
 
 Some of the weight allowed for a block is consumed as part of the block's initialization and finalization. The weight might also be used to execute mandatory inherent extrinsic calls. To help ensure blocks don’t consume too much execution time and prevent malicious users from overloading the system with unnecessary calls, weights are combined with transaction fees.
 
-[Transaction fees](/polkadot-protocol/basics/blocks-transactions-fees/transactions/#transaction-fees){target=\_blank} provide an economic incentive to limit execution time, computation, and the number of calls required to perform operations. Transaction fees are also used to make the blockchain economically sustainable because they are typically applied to transactions initiated by users and deducted before a transaction request is executed.
+[Transaction fees](/polkadot-protocol/parachain-basics/blocks-transactions-fees/transactions/#transaction-fees){target=\_blank} provide an economic incentive to limit execution time, computation, and the number of calls required to perform operations. Transaction fees are also used to make the blockchain economically sustainable because they are typically applied to transactions initiated by users and deducted before a transaction request is executed.
 
 ## How Fees are Calculated
 
@@ -10644,7 +10637,7 @@ For your custom chain to be useful to others, you'll need to provide a client ap
 
 ## Understand Metadata
 
-Polkadot SDK-based blockchain networks are designed to expose their runtime information, allowing developers to learn granular details regarding pallets, RPC calls, and runtime APIs. The metadata also exposes their related documentation. The chain's metadata is [SCALE-encoded](/polkadot-protocol/basics/data-encoding/){target=\_blank}, allowing for the development of browser-based, mobile, or desktop applications to support the chain's runtime upgrades seamlessly. It is also possible to develop applications compatible with multiple Polkadot SDK-based chains simultaneously.
+Polkadot SDK-based blockchain networks are designed to expose their runtime information, allowing developers to learn granular details regarding pallets, RPC calls, and runtime APIs. The metadata also exposes their related documentation. The chain's metadata is [SCALE-encoded](/polkadot-protocol/parachain-basics/data-encoding/){target=\_blank}, allowing for the development of browser-based, mobile, or desktop applications to support the chain's runtime upgrades seamlessly. It is also possible to develop applications compatible with multiple Polkadot SDK-based chains simultaneously.
 
 ## Expose Runtime Information as Metadata
 
@@ -11638,7 +11631,7 @@ This dual-format approach enables Asset Hub to maintain compatibility with Ether
 The platform handles two distinct address formats:
 
 - [Ethereum-style addresses (20 bytes)](https://ethereum.org/en/developers/docs/accounts/#account-creation){target=\_blank}
-- [Polkadot native account IDs (32 bytes)](https://wiki.polkadot.network/docs/build-protocol-info#addresses){target=\_blank}
+- [Polkadot native account IDs (32 bytes)](/polkadot-protocol/parachain-basics/accounts/){target=\_blank}
 
 ### Ethereum to Polkadot Mapping
 
@@ -11710,7 +11703,7 @@ All source code references are from the [`address.rs`](https://github.com/parity
 Doc-Content: https://docs.polkadot.com/polkadot-protocol/smart-contract-basics/blocks-transactions-fees/
 --- BEGIN CONTENT ---
 ---
-title: Blocks, Transactions and Fees for Asset Hub Smart Contracts
+title: Transactions and Fees on Asset Hub
 description: Explore how Asset Hub smart contracts handle blocks, transactions, and fees with EVM compatibility, supporting various Ethereum transaction types.
 categories: Basics, Polkadot Protocol
 ---
@@ -12808,7 +12801,7 @@ This API can be used independently for dry-running, double-checking, or testing.
 This API allows a dry-run of any extrinsic and obtaining the outcome if it fails or succeeds, as well as the local xcm and remote xcm messages sent to other chains.
 
 ```rust
-fn dry_run_call(origin: OriginCaller, call: Call) -> Result<CallDryRunEffects<Event>, Error>;
+fn dry_run_call(origin: OriginCaller, call: Call, result_xcms_version: XcmVersion) -> Result<CallDryRunEffects<Event>, Error>;
 ```
 
 ??? interface "Input parameters"
@@ -16382,7 +16375,7 @@ Pallets bundle domain-specific logic with runtime primitives like [events](#even
 ## Parachain
 
 A parachain is a blockchain that derives shared infrastructure and security from a _[relay chain](#relay-chain)_.
-You can learn more about parachains on the [Polkadot Wiki](https://wiki.polkadot.network/docs/en/learn-parachains){target=\_blank}.
+You can learn more about parachains on the [Polkadot Wiki](https://wiki.polkadot.network/learn/learn-parachains/){target=\_blank}.
 
 ## Paseo
 

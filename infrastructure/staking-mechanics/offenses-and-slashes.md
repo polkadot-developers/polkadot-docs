@@ -166,4 +166,4 @@ Some minor offenses, such as spamming, are only punished by networking reputatio
 
 ### Penalties by Offense
 
-Refer to the Polkadot Wiki's [offences page](https://wiki.polkadot.com/learn/learn-offenses/){target=\_blank} for a summary of penalties for specific offenses.
+Refer to the Polkadot Wiki's [offenses page](https://wiki.polkadot.com/learn/learn-offenses/){target=\_blank} for a summary of penalties for specific offenses.

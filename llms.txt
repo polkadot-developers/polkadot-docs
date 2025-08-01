@@ -610,7 +610,8 @@ The [`XcmRouter`](https://paritytech.github.io/polkadot-sdk/master/pallet_xcm/pa
 For instance, the Kusama network employs the [`ChildParachainRouter`](https://paritytech.github.io/polkadot-sdk/master/polkadot_runtime_common/xcm_sender/struct.ChildParachainRouter.html){target=\_blank}, which restricts routing to [Downward Message Passing (DMP)](https://wiki.polkadot.network/learn/learn-xcm-transport/#dmp-downward-message-passing){target=\_blank} from the relay chain to parachains, ensuring secure and controlled communication.
 
 ```rust
-// Only one router so far - use DMP to communicate with child parachains.
+pub type XcmRouter = WithUniqueTopic<(
+	// Only one router so far - use DMP to communicate with child parachains.
 	ChildParachainRouter<Runtime, XcmPallet, PriceForChildParachainDelivery>,
 )>;
 ```
@@ -21482,16 +21483,7 @@ Some minor offenses, such as spamming, are only punished by networking reputatio
 
 ### Penalties by Offense
 
-Below, you can find a summary of penalties for specific offenses:
-
-|               Offense                | [Slash (%)](#slashing) | [On-Chain Disabling](#disabling) | [Off-Chain Disabling](#disabling) | [Reputational Changes](#reputation-changes) |
-|:------------------------------------:|:----------------------:|:--------------------------------------:|:------------------------------------:|:-------------------------------------------:|
-|           Backing Invalid            |          100%          |                  Yes (High Priority)   |         Yes (High Priority)          |                     No                      |
-|           ForInvalid Vote            |           2%           |                  Yes (Mid Priority)    |          Yes (Mid Priority)          |                     No                      |
-|          AgainstValid Vote           |           0%           |                  Yes (Low Priority)    |          Yes (Low Priority)          |                     No                      |
-| GRANDPA / BABE / BEEFY Equivocations |       0.01-100%        |                  Yes (Varying Priority)|                  No                  |                     No                      |
-|    Seconded + Valid Equivocation     |           -            |                   No                   |                  No                  |                     No                      |
-|     Double Seconded Equivocation     |           -            |                   No                   |                  No                  |                     Yes                     |
+Refer to the Polkadot Wiki's [offences page](https://wiki.polkadot.com/learn/learn-offenses/){target=\_blank} for a summary of penalties for specific offenses.
 --- END CONTENT ---
 
 Doc-Content: https://docs.polkadot.com/infrastructure/staking-mechanics/rewards-payout/

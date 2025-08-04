@@ -608,7 +608,8 @@ The [`XcmRouter`](https://paritytech.github.io/polkadot-sdk/master/pallet_xcm/pa
 For instance, the Kusama network employs the [`ChildParachainRouter`](https://paritytech.github.io/polkadot-sdk/master/polkadot_runtime_common/xcm_sender/struct.ChildParachainRouter.html){target=\_blank}, which restricts routing to [Downward Message Passing (DMP)](https://wiki.polkadot.network/learn/learn-xcm-transport/#dmp-downward-message-passing){target=\_blank} from the relay chain to parachains, ensuring secure and controlled communication.
 
 ```rust
-// Only one router so far - use DMP to communicate with child parachains.
+pub type XcmRouter = WithUniqueTopic<(
+	// Only one router so far - use DMP to communicate with child parachains.
 	ChildParachainRouter<Runtime, XcmPallet, PriceForChildParachainDelivery>,
 )>;
 ```
@@ -26947,11 +26948,11 @@ You can perform the reserve-backed transfer using either the [Polkadot.js Apps i
 
 ## Use Polkadot.js Apps
 
-Open two browser tabs and can connect these endpoints using the [Polkadot.js Apps](https://polkadot.js.org/apps/){target=\_blank} interface:
+Use the [Polkadot.js Apps](https://polkadot.js.org/apps/){target=\_blank} interface to connect to each chain. Open two browser tabs—one for each chain—and follow these steps:
 
-a. Add the custom endpoint for each chain
+a. Add the custom endpoint for each chain, as defined above.
 
-b. Click **Switch** to connect to the respective network
+b. Click **Switch** to connect to the respective network.
 
 ![](/images/tutorials/interoperability/xcm-transfers/from-relaychain-to-parachain/from-relaychain-to-parachain-01.webp)
 
@@ -36854,7 +36855,7 @@ Deployment is the process of publishing your compiled smart contract to the bloc
     ![](/images/tutorials/smart-contracts/deploy-erc20/deploy-erc20-6.webp)
 
 2. Configure the deployment settings.
-    1. **From the **ENVIRONMENT** dropdown, select **Injected Provider**: Talisman** (check the [Deploying Contracts](/develop/smart-contracts/dev-environments/remix/#deploying-contracts){target=\_blank} section of the Remix IDE guide for more details).
+    1. From the **ENVIRONMENT** dropdown, select **Injected Provider: Talisman** (check the [Deploying Contracts](/develop/smart-contracts/dev-environments/remix/#deploying-contracts){target=\_blank} section of the Remix IDE guide for more details).
     2. From the **ACCOUNT** dropdown, select the account you want to use for the deploy.
 
     ![](/images/tutorials/smart-contracts/deploy-erc20/deploy-erc20-7.webp)
@@ -37027,7 +37028,7 @@ Deployment is the process of uploading your compiled smart contract to the block
 
 2. Configure the deployment settings:
 
-    1. **From the **ENVIRONMENT** dropdown, select **Injected Provider**: Talisman** (check the [Deploying Contracts](/develop/smart-contracts/dev-environments/remix/#deploying-contracts){target=\_blank} section of the Remix IDE guide for more details).
+    1. From the **ENVIRONMENT** dropdown, select **Injected Provider: Talisman** (check the [Deploying Contracts](/develop/smart-contracts/dev-environments/remix/#deploying-contracts){target=\_blank} section of the Remix IDE guide for more details).
     2. From the **ACCOUNT** dropdown, select the account you want to use for the deploy.
 
     ![](/images/tutorials/smart-contracts/deploy-nft/deploy-nft-7.webp)

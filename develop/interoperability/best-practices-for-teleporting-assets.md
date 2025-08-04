@@ -199,9 +199,9 @@ Use proper runtime APIs for accurate fee estimation rather than hardcoded values
 
 For dealing with non-sufficient assets and fees, there are different fee payment strategies you can implement:
 
-1. **[Asset Conversion](/polkadot-protocol/architecture/system-chains/asset-hub/#non-sufficient-assets){target=\_blank}**: Convert part of the transfer amount to pay fees
-2. **Separate Fee Payment**: Use a different sufficient asset for fees
-3. **Fee Sponsorship**: Have another account pay fees on behalf of the user
+1. **[Asset Conversion](/polkadot-protocol/architecture/system-chains/asset-hub/#non-sufficient-assets){target=\_blank}**: Convert part of the transfer amount to pay fees.
+2. **Separate Fee Payment**: Use a different sufficient asset for fees.
+3. **Fee Sponsorship**: Have another account pay fees on behalf of the user.
 
 ## Asset Type Considerations
 

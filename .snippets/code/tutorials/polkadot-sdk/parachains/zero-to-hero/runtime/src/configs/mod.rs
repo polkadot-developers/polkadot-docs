@@ -130,7 +130,7 @@ impl frame_system::Config for Runtime {
     type MaxConsumers = frame_support::traits::ConstU32<16>;
 }
 
-/// Configure the palelt weight reclaim tx.
+/// Configure the pallet weight reclaim tx.
 impl cumulus_pallet_weight_reclaim::Config for Runtime {
     type WeightInfo = ();
 }

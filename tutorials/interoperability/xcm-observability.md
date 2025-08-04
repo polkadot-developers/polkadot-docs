@@ -19,8 +19,6 @@ You will learn how to:
 
 To demonstrate these techniques, the guide introduces a complete example scenario involving a multi-chain XCM transfer. This scenario will serve as the foundation for explaining message lifecycle, event tracking and failure debugging in context.
 
-Here is a revised **Prerequisites** section that matches your requirements, using British English, avoiding dash-separated clauses, and aligning with the tone and structure of your updated guide:
-
 ## Prerequisites
 
 Before you begin, make sure you have:
@@ -138,7 +136,23 @@ Each sample includes inline comments and tracking info relevant to its use case.
 
 ## Where to Go Next
 
-* [Replay and Dry Run XCMs Guide](https://docs.polkadot.com/tutorials/interoperability/replay-and-dry-run-xcms/)
-* [XCM Runtime APIs](https://docs.polkadot.com/develop/interoperability/xcm-runtime-apis/)
-* [Intro to XCM](https://docs.polkadot.com/develop/interoperability/intro-to-xcm/)
-* [Chopsticks GitHub](https://github.com/AcalaNetwork/chopsticks)
+<div class="grid cards" markdown>
+
+-   <span class="badge guide">Guide</span> __Polkadot XCM Docs__
+
+    ---
+
+    Learn how to use XCM effectively.
+
+    [:octicons-arrow-right-24: Get Started](/develop/interoperability/intro-to-xcm/)
+
+-   <span class="badge tutorial">Tutorial</span> __Replay and Dry Run XCMs__
+
+    ---
+
+    Learn how to replay and dry run XCMs.
+
+    [:octicons-arrow-right-24: Get Started](/tutorials/interoperability/replay-and-dry-run-xcms/)
+
+
+</div>

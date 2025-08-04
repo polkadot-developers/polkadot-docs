@@ -1,6 +1,6 @@
 # Polkadot Developer Documentation (LLMS Format)
 
-This file contains documentation for Polkadot (https://polkadot.network). Polkadot unites the world's innovators and changemakers, building and using the most transformative apps and blockchains. Access tools, guides, and resources to quickly start building custom chains, deploying smart contracts, and creating dApps.
+This file contains documentation for Polkadot (https://polkadot.network). Polkadot is an open-source, multichain network protocol that facilitates the secure communication and interoperability of various blockchains. It offers a scalable, sharded architecture that enables the creation of purpose-built chains and provides the necessary tooling for building decentralized applications (dApps) and smart contracts.
 It is intended for use with large language models (LLMs) to support developers working with Polkadot. The content includes selected pages from the official docs, organized by section.
 
 This file includes documentation related to the product: Networks

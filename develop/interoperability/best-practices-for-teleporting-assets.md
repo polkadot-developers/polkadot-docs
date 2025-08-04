@@ -230,7 +230,7 @@ Dry run testing represents the most critical step in preventing asset loss durin
 
 This two-phase validation approach catches the majority of potential issues before they can cause problems in production.
 
-Here is an example of a dry run implementation using PAPI:
+Below is an example of a dry run implementation using PAPI.
 
 ??? code "Comprehensive Dry Run Example"
 

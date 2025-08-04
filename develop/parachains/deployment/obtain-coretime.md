@@ -35,7 +35,7 @@ Before obtaining coretime, ensure you have:
     1. Connect to the relay chain.
     2. Submit the [`registrar.reserve`](https://paritytech.github.io/polkadot-sdk/master/polkadot_runtime_common/paras_registrar/pallet/dispatchables/fn.reserve.html){target=\_blank} extrinsic.
 
-    Upon success, you'll receive a registered `ParaID`
+    Upon success, you'll receive a registered `ParaID`.
 
 2. Register your parachain's essential information by submitting the [`registrar.register`](https://paritytech.github.io/polkadot-sdk/master/polkadot_runtime_common/paras_registrar/pallet/dispatchables/fn.register.html){target=\_blank} extrinsic with the following parameters:
 

@@ -90,8 +90,6 @@ This API allows a dry-run of any extrinsic and obtaining the outcome if it fails
         - **`Unimplemented`**: An API part is unsupported.
         - **`VersionedConversionFailed`**: Converting a versioned data structure from one version to another failed.
 
-    ---
-
 ??? interface "Example"
 
     This example demonstrates how to simulate a cross-chain asset transfer from the Paseo network to the Pop Network using a [reserve transfer](https://wiki.polkadot.network/docs/learn/xcm/journey/transfers-reserve){target=\_blank} mechanism. Instead of executing the actual transfer, the code shows how to test and verify the transaction's behavior through a dry run before performing it on the live network.

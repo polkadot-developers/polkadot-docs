@@ -155,9 +155,7 @@ In the `collatorSelection.invulnerables` array, add the SS58 addresses (account 
 ```
 
 - **`candidacyBond`**: Minimum stake required for collator candidates (in Planck units).
-
 - **`desiredCandidates`**: Number of candidates beyond invulnerables (set to 0 for invulnerables-only).
-
 - **`invulnerables`**: Use the SS58 addresses from your generated account keys as collators.
 
 ### Add Session Keys

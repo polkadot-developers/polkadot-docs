@@ -24,16 +24,18 @@ Unlike traditional static APIs, the Polkadot.js API generates its interfaces aut
 
 You can access three main categories of chain interactions:
 
-- **[Runtime constants](https://polkadot.js.org/docs/api/start/api.consts){target=\_blank}** (`api.consts`).
+- **[Runtime constants](https://polkadot.js.org/docs/api/start/api.consts){target=\_blank}** (`api.consts`):
+
     - Access runtime constants directly.
     - Returns values immediately without function calls.
     - **Example**: `api.consts.balances.existentialDeposit`
 
-- **[State queries](https://polkadot.js.org/docs/api/start/api.query/){target=\_blank}** (`api.query`).
+- **[State queries](https://polkadot.js.org/docs/api/start/api.query/){target=\_blank}** (`api.query`):
+
     - Read chain state.
     - **Example**: `api.query.system.account(accountId)`
 
-- **[Transactions](https://polkadot.js.org/docs/api/start/api.tx/){target=\_blank}** (`api.tx`).
+- **[Transactions](https://polkadot.js.org/docs/api/start/api.tx/){target=\_blank}** (`api.tx`):
     - Submit extrinsics (transactions).
     - **Example**: `api.tx.balances.transfer(accountId, value)`
 

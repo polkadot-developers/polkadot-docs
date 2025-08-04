@@ -18,16 +18,19 @@ PAPI is optimized for light-client functionality, using the new JSON-RPC spec to
 To instantiate the API, you can install the package by using the following command:
 
 === "npm"
+
     ```bash
     npm i polkadot-api@{{dependencies.javascript_packages.polkadot_api.version}}
     ```
 
 === "pnpm"
+
     ```bash
     pnpm add polkadot-api@{{dependencies.javascript_packages.polkadot_api.version}}
     ```
 
 === "yarn"
+
     ```bash
     yarn add polkadot-api@{{dependencies.javascript_packages.polkadot_api.version}}
     ```

@@ -83,6 +83,7 @@ const PROVIDER_RPC = {
   name: 'polkadot-hub-testnet'
 };
 ```
+
 With the Web3 provider set up, you can start querying the blockchain.
 
 For instance, to fetch the latest block number of the chain, you can use the following code snippet:

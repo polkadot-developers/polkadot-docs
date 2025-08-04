@@ -55,26 +55,30 @@ The following is a simplified XCM message demonstrating a token transfer from Al
 The message consists of three instructions described as follows:
 
 - **[WithdrawAsset](https://github.com/polkadot-fellows/xcm-format?tab=readme-ov-file#withdrawasset){target=\_blank}**: Transfers a specified number of tokens from Alice's account to a holding register.
-```rust
---8<-- 'code/develop/interoperability/intro-to-xcm/XCM-first-look.rs:2:2'
-```
+
+    ```rust
+    --8<-- 'code/develop/interoperability/intro-to-xcm/XCM-first-look.rs:2:2'
+    ```
+
     - **`Here`**: The native parachain token.
     - **`amount`**: The number of tokens that are transferred.
 
     The first instruction takes as an input the MultiAsset that should be withdrawn. The MultiAsset describes the native parachain token with the `Here` keyword. The `amount` parameter is the number of tokens that are transferred. The withdrawal account depends on the origin of the message. In this example the origin of the message is Alice. The `WithdrawAsset` instruction moves `amount` number of native tokens from Alice's account into the holding register.
 
 - **[BuyExecution](https://github.com/polkadot-fellows/xcm-format?tab=readme-ov-file#buyexecution){target=\_blank}**: Allocates fees to cover the execution [weight](/polkadot-protocol/glossary/#weight){target=\_blank} of the XCM instructions.
-```rust
---8<-- 'code/develop/interoperability/intro-to-xcm/XCM-first-look.rs:3:6'
-```
+
+    ```rust
+    --8<-- 'code/develop/interoperability/intro-to-xcm/XCM-first-look.rs:3:6'
+    ```
 
     - **`fees`**: Describes the asset in the holding register that should be used to pay for the weight.
     - **`weight_limit`**: Defines the maximum fees that can be used to buy weight.
 
 - **[DepositAsset](https://github.com/polkadot-fellows/xcm-format?tab=readme-ov-file#depositasset){target=\_blank}**: Moves the remaining tokens from the holding register to Bob’s account.
-```rust
---8<-- 'code/develop/interoperability/intro-to-xcm/XCM-first-look.rs:7:16'
-```
+
+    ```rust
+    --8<-- 'code/develop/interoperability/intro-to-xcm/XCM-first-look.rs:7:16'
+    ```
 
     - **`All`**: The wildcard for the asset(s) to be deposited. In this case, all assets in the holding register should be deposited.
     

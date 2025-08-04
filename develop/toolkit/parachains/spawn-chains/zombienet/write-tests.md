@@ -180,11 +180,8 @@ Assertions are defined by sentences in the DSL that evaluate different metrics, 
 Commands allow interaction with the nodes and can run pre-defined commands or an arbitrary command in the node. Commonly used commands are as follows:
 
 - **`restart`**: Stop the process and start again after the `X` amount of seconds or immediately.
-
 - **`pause`**: Pause (SIGSTOP) the process.
-
 - **`resume`**: Resume (SIGCONT) the process.
-
 - **`sleep`**: Sleep the test-runner for `x` amount of seconds.
 
 ## Running a Test

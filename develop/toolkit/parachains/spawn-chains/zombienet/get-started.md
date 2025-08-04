@@ -20,6 +20,7 @@ Zombienet releases are available on the [Zombienet repository](https://github.co
 Multiple options are available for installing Zombienet, depending on the user's preferences and the environment where it will be used. The following section will guide you through the installation process for each option.
 
 === "Use the executable"
+
     Install Zombienet using executables by visiting the [latest release](https://github.com/paritytech/zombienet/releases){target=\_blank} page and selecting the appropriate asset for your operating system. You can download the executable and move it to a directory in your PATH. 
 
     Each release includes executables for Linux and macOS. Executables are generated using [pkg](https://github.com/vercel/pkg){target=\_blank}, which allows the Zombienet CLI to operate without requiring Node.js to be installed. 
@@ -49,6 +50,7 @@ Multiple options are available for installing Zombienet, depending on the user's
     ```
 
 === "Use Nix"
+
     For Nix users, the Zombienet repository provides a [`flake.nix`](https://github.com/paritytech/zombienet/blob/main/flake.nix){target=\_blank} file to install Zombienet making it easy to incorporate Zombienet into Nix-based projects.
     
     To install Zombienet utilizing Nix, users can run the following command, triggering the fetching of the flake and subsequently installing the Zombienet package:
@@ -69,6 +71,7 @@ Multiple options are available for installing Zombienet, depending on the user's
     ```
 
 === "Use Docker"
+
     Zombienet can also be run using Docker. The Zombienet repository provides a Docker image that can be used to run the Zombienet CLI. To run Zombienet using Docker, you can use the following command:
 
     ```bash
@@ -94,7 +97,7 @@ Multiple options are available for installing Zombienet, depending on the user's
     Finally, you can run the Zombienet CLI commands. For example, to spawn a network using a specific configuration file, you can run the following command:
 
     ```bash
-    pm run zombie -- -p native spawn host-current-files/minimal.toml
+    npm run zombie -- -p native spawn host-current-files/minimal.toml
     ```
 
     The command above mounts the current directory to the `/workspace` directory inside the Docker container, allowing Zombienet to access the configuration file and other files in the current directory. If you want to mount a different directory, replace `$(pwd)` with the desired directory path.
@@ -240,15 +243,10 @@ The following sections will guide you through the primary usage of the Zombienet
 #### CLI Commands
 
 - **`spawn <networkConfig>`**: Spawn the network defined in the [configuration file](#configuration-files).
-
 - **`test <testFile>`**: Run tests on the spawned network using the assertions and tests defined in the [test file](/develop/toolkit/parachains/spawn-chains/zombienet/write-tests/#the-test-file){target=\_blank}.
-
 - **`setup <binaries>`**: Set up the Zombienet development environment to download and use the `polkadot` or `polkadot-parachain` executable.
-
 - **`convert <filePath>`**: Transforms a [polkadot-launch](https://github.com/paritytech/polkadot-launch){target=\_blank} configuration file with a `.js` or `.json` extension into a Zombienet configuration file.
-
 - **`version`**: Prints Zombienet version.
-
 - **`help`**: Prints help information.
 
 #### CLI Flags
@@ -256,17 +254,11 @@ The following sections will guide you through the primary usage of the Zombienet
 You can use the following flags to customize the behavior of the CLI:
 
 - **`-p`, `--provider`**: Override the [provider](#providers) to use.
-
 - **`-d`, `--dir`**: Specify a directory path for placing the network files instead of using the default temporary path.
-
 - **`-f`, `--force`**: Force override all prompt commands.
-
 - **`-l`, `--logType`**: Type of logging on the console. Defaults to `table`.
-
 - **`-m`, `--monitor`**: Start as monitor and don't auto clean up network.
-
 - **`-c`, `--spawn-concurrency`**: Number of concurrent spawning processes to launch. Defaults to `1`.
-
 - **`-h`, `--help`**: Display help for command.
 
 ### Settings

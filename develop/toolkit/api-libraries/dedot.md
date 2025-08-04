@@ -12,17 +12,11 @@ description: Dedot is a next-gen JavaScript client for Polkadot and Polkadot SDK
 ### Key Features
 
 - **Lightweight and tree-shakable**: No more bn.js or WebAssembly blobs, optimized for dapps bundle size.
-
 - **Fully typed API**: Comprehensive TypeScript support for seamless on-chain interaction and ink! smart contract integration.
-
 - **Multi-version JSON-RPC support**: Compatible with both [legacy](https://github.com/w3f/PSPs/blob/master/PSPs/drafts/psp-6.md){target=\_blank} and [new](https://paritytech.github.io/json-rpc-interface-spec/introduction.html){target=\_blank} JSON-RPC APIs for broad ecosystem interoperability.
-
 - **Light client support**: Designed to work with light clients such as [Smoldot](https://github.com/smol-dot/smoldot){target=\_blank}.
-
 - **Native TypeScript for scale codec**: Implements scale codec parsing directly in TypeScript without relying on custom wrappers.
-
 - **Wallet integration**: Works out-of-the-box with [@polkadot/extension-based](https://github.com/polkadot-js/extension?tab=readme-ov-file#api-interface){target=\_blank} wallets.
-
 - **Familiar API design**: Similar API style to Polkadot.js for easy and fast migration.
 
 ## Installation
@@ -30,16 +24,19 @@ description: Dedot is a next-gen JavaScript client for Polkadot and Polkadot SDK
 To add Dedot to your project, use the following command:
 
 === "npm"
+
     ```bash
     npm i dedot
     ```
 
 === "pnpm"
+
     ```bash
     pnpm add dedot
     ```
 
 === "yarn"
+
     ```bash
     yarn add dedot
     ```
@@ -47,16 +44,19 @@ To add Dedot to your project, use the following command:
 To enable auto-completion/IntelliSense for individual chains, install the [`@dedot/chaintypes`](https://www.npmjs.com/package/@dedot/chaintypes){target=\_blank} package as a development dependency:
 
 === "npm"
+
     ```bash
     npm i -D @dedot/chaintypes
     ```
 
 === "pnpm"
+
     ```bash
     pnpm add -D @dedot/chaintypes
     ```
 
 === "yarn"
+
     ```bash
     yarn add -D @dedot/chaintypes
     ```

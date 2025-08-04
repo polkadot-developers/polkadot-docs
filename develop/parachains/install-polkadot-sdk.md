@@ -28,7 +28,6 @@ In most cases, you should use Homebrew to install and manage packages on macOS c
 To install Homebrew:
 
 1. Open the Terminal application.
-
 2. Download and install Homebrew by running the following command:
 
     ```bash
@@ -60,7 +59,6 @@ Because the blockchain requires standard cryptography to support the generation 
 To install `openssl` and the Rust toolchain on macOS:
 
 1. Open the Terminal application.
-
 2. Ensure you have an updated version of Homebrew by running the following command:
 
     ```bash
@@ -80,7 +78,6 @@ To install `openssl` and the Rust toolchain on macOS:
     ```
 
 5. Follow the prompts displayed to proceed with a default installation.
-
 6. Update your current shell to include Cargo by running the following command:
 
     ```bash
@@ -97,7 +94,6 @@ To install `openssl` and the Rust toolchain on macOS:
     ```
 
 8. [Verify your installation](#verifying-installation).
-
 9. Install `cmake` using the following command:
 
     ```bash
@@ -129,9 +125,7 @@ Because the blockchain requires standard cryptography to support the generation 
 To install the Rust toolchain on Linux:
 
 1. Open a terminal shell.
-
 2. Check the packages you have installed on the local computer by running an appropriate package management command for your Linux distribution.
-
 3. Add any package dependencies you are missing to your local development environment by running the appropriate package management command for your Linux distribution:
 
     === "Ubuntu"
@@ -174,7 +168,6 @@ To install the Rust toolchain on Linux:
     ```
 
 5. Follow the prompts displayed to proceed with a default installation.
-
 6. Update your current shell to include Cargo by running the following command:
 
     ```bash
@@ -223,7 +216,7 @@ To prepare a development environment using WSL:
 
     If you have Microsoft Windows 10, version 2004 (Build 19041 and higher), or Microsoft Windows 11, WSL is available by default and you can continue to the next step.
 
-    If you have an older version of Microsoft Windows installed, see the [WSL manual installation steps for older versions](https://learn.microsoft.com/en-us/windows/wsl/install-manual){target=\_blank}. If you are installing on an older version of Microsoft Windows, you can download and install WLS 2 if your computer has Windows 10, version 1903 or higher
+    If you have an older version of Microsoft Windows installed, see the [WSL manual installation steps for older versions](https://learn.microsoft.com/en-us/windows/wsl/install-manual){target=\_blank}. If you are installing on an older version of Microsoft Windows, you can download and install WLS 2 if your computer has Windows 10, version 1903 or higher.
 
 2. Select **Windows PowerShell** or **Command Prompt** from the **Start** menu, right-click, then **Run as administrator**.
 
@@ -247,18 +240,15 @@ To prepare a development environment using WSL:
 
     Restarting the computer is required to start the installation of the Linux distribution. It can take a few minutes for the installation to complete after you restart.
 
-    For more information about setting up WSL as a development environment, see the [Set up a WSL development environment](https://learn.microsoft.com/en-us/windows/wsl/setup/environment){target=\_blank} docs
+    For more information about setting up WSL as a development environment, see the [Set up a WSL development environment](https://learn.microsoft.com/en-us/windows/wsl/setup/environment){target=\_blank} docs.
 
 ### Install Required Packages and Rust {: #install-required-packages-and-rust-windows }
 
 To install the Rust toolchain on WSL:
 
 1. Click the **Start** menu, then select **Ubuntu**.
-
 2. Type a UNIX user name to create user account.
-
 3. Type a password for your UNIX user, then retype the password to confirm it.
-
 4. Download the latest updates for the Ubuntu distribution using the Ubuntu Advanced Packaging Tool (`apt`) by running the following command:
 
     ```bash

@@ -25,7 +25,7 @@ Returns a list of addresses owned by the client. [Reference](https://ethereum.or
 
 **Parameters**:
 
-None
+None.
 
 **Example**:
 
@@ -48,7 +48,7 @@ Returns the number of the most recent block. [Reference](https://ethereum.org/en
 
 **Parameters**:
 
-None
+None.
 
 **Example**:
 
@@ -106,7 +106,7 @@ Returns the chain ID used for signing transactions. [Reference](https://ethereum
 
 **Parameters**:
 
-None
+None.
 
 **Example**:
 
@@ -164,7 +164,7 @@ Returns the current gas price in Wei. [Reference](https://ethereum.org/en/develo
 
 **Parameters**:
 
-None
+None.
 
 **Example**:
 
@@ -527,7 +527,7 @@ Returns an estimate of the current priority fee per gas, in Wei, to be included 
 
 **Parameters**:
 
-None
+None.
 
 **Example**:
 
@@ -615,7 +615,7 @@ Returns an object with syncing data or `false` if not syncing. [Reference](https
 
 **Parameters**:
 
-None
+None.
 
 **Example**:
 
@@ -638,7 +638,7 @@ Returns `true` if the client is currently listening for network connections, oth
 
 **Parameters**:
 
-None
+None.
 
 **Example**:
 
@@ -661,7 +661,7 @@ Returns the number of peers currently connected to the client.
 
 **Parameters**:
 
-None
+None.
 
 **Example**:
 
@@ -684,7 +684,7 @@ Returns the current network ID as a string. [Reference](https://ethereum.org/en/
 
 **Parameters**:
 
-None
+None.
 
 **Example**:
 
@@ -707,7 +707,7 @@ Returns information about the health of the system.
 
 **Parameters**:
 
-None
+None.
 
 **Example**:
 
@@ -730,7 +730,7 @@ Returns the current client version. [Reference](https://ethereum.org/en/develope
 
 **Parameters**:
 
-None
+None.
 
 **Example**:
 

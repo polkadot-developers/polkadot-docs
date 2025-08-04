@@ -20,6 +20,7 @@ Developers can leverage smart contracts across diverse networks, from TestNets t
 === "Polkadot Hub TestNet"
 
     Network name
+
     ```text
     Polkadot Hub TestNet
     ```
@@ -27,6 +28,7 @@ Developers can leverage smart contracts across diverse networks, from TestNets t
     ---
 
     Currency symbol
+    
     ```text
     PAS
     ```
@@ -34,6 +36,7 @@ Developers can leverage smart contracts across diverse networks, from TestNets t
     ---
     
     Chain ID
+    
     ```text
     420420422
     ```
@@ -41,6 +44,7 @@ Developers can leverage smart contracts across diverse networks, from TestNets t
     ---
     
     RPC URL
+    
     ```text
     https://testnet-passet-hub-eth-rpc.polkadot.io
     ```
@@ -48,6 +52,7 @@ Developers can leverage smart contracts across diverse networks, from TestNets t
     ---
     
     Block explorer URL
+    
     ```text
     https://blockscout-passet-hub.parity-testnet.parity.io/
     ```

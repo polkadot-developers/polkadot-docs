@@ -63,11 +63,14 @@ For more information about the Sidecar API installation, see the [installation a
 To use the Sidecar API, you have two options:
 
 - **Local node**: Run a node locally, which Sidecar will connect to by default, requiring no additional configuration. To start, run the following:
-    ```
+
+    ```bash
     substrate-api-sidecar
     ```
+
 - **Remote node**: Connect Sidecar to a remote node by specifying the RPC endpoint for that chain. For example, to gain access to the Polkadot Asset Hub associated endpoints.
-    ```
+
+    ```bash
     SAS_SUBSTRATE_URL=wss://polkadot-asset-hub-rpc.polkadot.io substrate-api-sidecar
     ```
 

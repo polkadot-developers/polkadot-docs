@@ -55,7 +55,8 @@ Before sending the XCM, you need to construct the relay chain call that will be 
 
 1. In [Polkadot.js Apps](https://polkadot.js.org/apps/#/explorer){target=\_blank}, connect to the relay chain, navigate to the **Developer** dropdown and select the **Extrinsics** option.
 
-2. Build the `registrar.removeLock` extrinsic.
+2. Build the `registrar.removeLock` extrinsic:
+
     1. Select the **registrar** pallet.
     2. Choose the **removeLock** extrinsic.
     3. Fill in the parachain ID parameter (e.g., `2006`).
@@ -88,6 +89,7 @@ You can identify your parachain's sovereign account using either of these method
     Use the **"Para ID" to Address** section in [Substrate Utilities](https://www.shawntabrizi.com/substrate-js-utilities/){target=\_blank} with the **Child** option selected.
 
 === "Manual Calculation"
+
     1. Identify the appropriate prefix:
 
         - For parent/child chains use the prefix `0x70617261` (which decodes to `b"para"`).
@@ -117,6 +119,7 @@ Here's how to submit this XCM using Astar (Parachain 2006) as an example:
 1. In [Polkadot.js Apps](https://polkadot.js.org/apps/#/explorer){target=\_blank}, connect to the parachain, navigate to the **Developer** dropdown and select the **Extrinsics** option.
 
 2. Create a `sudo.sudo` extrinsic that executes `polkadotXcm.send`:
+
     1. Use the `sudo.sudo` extrinsic to execute the following call as Root.
     2. Select the **polkadotXcm** pallet.
     3. Choose the **send** extrinsic.
@@ -125,6 +128,7 @@ Here's how to submit this XCM using Astar (Parachain 2006) as an example:
     ![](/images/develop/parachains/maintenance/unlock-parachain/unlock-parachain-4.webp)
 
 3. Construct the XCM and submit it:
+
     1. Add a **WithdrawAsset** instruction.
     2. Add a **BuyExecution** instruction.
         - **fees**.

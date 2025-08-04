@@ -21,10 +21,10 @@ Benchmarking also ensures predictable transaction fees. Weights derived from ben
 
 In Polkadot SDK-based chains, weight quantifies the computational effort needed to process transactions. This weight includes factors such as:
 
-- Computational complexity
-- Storage complexity (proof size)
-- Database reads and writes
-- Hardware specifications
+- Computational complexity.
+- Storage complexity (proof size).
+- Database reads and writes.
+- Hardware specifications.
 
 Benchmarking uses real-world testing to simulate worst-case scenarios for extrinsics. The framework generates a linear model for weight calculation by running multiple iterations with varied parameters. These worst-case weights ensure blocks remain within execution limits, enabling the runtime to maintain throughput under varying loads. Excess fees can be refunded if a call uses fewer resources than expected, offering users a fair cost model.
   
@@ -112,6 +112,7 @@ mod benchmarking;
 Before running the benchmarking tool, you must integrate benchmarks with your runtime as follows:
 
 1. Navigate to your `runtime/src` directory and check if a `benchmarks.rs` file exists. If not, create one. This file will contain the macro that registers all pallets for benchmarking along with their respective configurations:
+
     ```rust title="benchmarks.rs"
     --8<-- 'code/develop/parachains/testing/benchmarking/frame-benchmark-macro.rs'
     ```
@@ -135,6 +136,7 @@ Before running the benchmarking tool, you must integrate benchmarks with your ru
     The `runtime-benchmarks` feature gate ensures benchmark tests are isolated from production runtime code.
 
 3. Enable runtime benchmarking for your pallet in `runtime/Cargo.toml`:
+
     ```toml
     --8<-- 'code/develop/parachains/testing/benchmarking/runtime-cargo.toml'
     ```
@@ -150,15 +152,17 @@ You can now compile your runtime with the `runtime-benchmarks` feature flag. Thi
     ```
 
 2. Create a `weights.rs` file in your pallet's `src/` directory. This file will store the auto-generated weight calculations:
-```bash
-touch weights.rs
-```
+
+    ```bash
+    touch weights.rs
+    ```
 
 3. Before running the benchmarking tool, you'll need a template file that defines how weight information should be formatted. Download the official template from the Polkadot SDK repository and save it in your project folders for future use:
-```bash
-curl https://raw.githubusercontent.com/paritytech/polkadot-sdk/refs/tags/polkadot-stable2412/substrate/.maintain/frame-weight-template.hbs \
---output ./pallets/benchmarking/frame-weight-template.hbs
-```
+
+    ```bash
+    curl https://raw.githubusercontent.com/paritytech/polkadot-sdk/refs/tags/polkadot-stable2412/substrate/.maintain/frame-weight-template.hbs \
+    --output ./pallets/benchmarking/frame-weight-template.hbs
+    ```
 
 4. Run the benchmarking tool to measure extrinsic weights:
 
@@ -188,21 +192,21 @@ Once the `weights.rs` is generated, you must integrate it with your pallet.
 
 1. To begin the integration, import the `weights` module and the `WeightInfo` trait, then add both to your pallet's `Config` trait. Complete the following steps to set up the configuration:
 
-```rust title="lib.rs"
---8<-- 'code/develop/parachains/testing/benchmarking/weight-config.rs'
-```
+    ```rust title="lib.rs"
+    --8<-- 'code/develop/parachains/testing/benchmarking/weight-config.rs'
+    ```
 
 2. Next, you must add this to the `#[pallet::weight]` annotation in all the extrinsics via the `Config` as follows:
 
-```rust hl_lines="2" title="lib.rs"
---8<-- 'code/develop/parachains/testing/benchmarking/dispatchable-pallet-weight.rs'
-```
+    ```rust hl_lines="2" title="lib.rs"
+    --8<-- 'code/develop/parachains/testing/benchmarking/dispatchable-pallet-weight.rs'
+    ```
 
 3. Finally, configure the actual weight values in your runtime. In `runtime/src/config/mod.rs`, add the following code:
 
-```rust title="mod.rs"
---8<-- 'code/develop/parachains/testing/benchmarking/runtime-pallet-config.rs'
-```
+    ```rust title="mod.rs"
+    --8<-- 'code/develop/parachains/testing/benchmarking/runtime-pallet-config.rs'
+    ```
 
 ## Where to Go Next
 

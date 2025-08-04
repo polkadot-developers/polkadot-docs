@@ -52,11 +52,8 @@ The most common source for official chain specifications is the [`paritytech/cha
 To obtain a chain specification:
 
 1. Visit the [Chainspec Collection](https://paritytech.github.io/chainspecs/){target=\_blank} website.
-
 2. Find the parachain you want to run.
-
 3. Click the chain spec to open it.
-
 4. Copy the JSON content and save it locally as a `.json` file, e.g., `chain_spec.json`.
 
 ## Run a Parachain Full Node
@@ -74,9 +71,7 @@ To launch the node, run the following command, replacing `./INSERT_PARACHAIN_CHA
 This command will:
 
 - Load the chain specification.
-
 - Initialize the node using the provided network configuration.
-
 - Begin syncing with the parachain network.
 
 ```bash
@@ -84,7 +79,6 @@ polkadot-omni-node --chain ./INSERT_PARACHAIN_CHAIN_SPEC.json --sync warp
 ```
 
 - The `--chain` flag tells the `polkadot-omni-node` which parachain to run by pointing to its chain specification file.
-
 - The `--sync warp` flag enables warp sync, allowing the node to quickly catch up to the latest finalized state. Historical blocks are fetched in the background as the node continues operating.
 
 Once started, the node will begin connecting to peers and syncing with the network. You’ll see logs in your terminal reflecting its progress.
@@ -122,7 +116,7 @@ Your parachain runtime must implement the following runtime APIs for the `polkad
     }
     ```
 
-- **Aura Runtime API**: For consensus, the `polkadot-omni-node` expects the [Aura runtime API](https://paritytech.github.io/polkadot-sdk/master/polkadot_sdk_frame/runtime/apis/trait.AuraApi.html){target=\_blank} to be implemented:
+- **Aura Runtime API**: For consensus, the `polkadot-omni-node` expects the [Aura runtime API](https://paritytech.github.io/polkadot-sdk/master/polkadot_sdk_frame/runtime/apis/trait.AuraApi.html){target=\_blank} to be implemented.
 
     ```rust title="runtime/src/apis.rs"
     impl sp_consensus_aura::AuraApi<Block, AuraId> for Runtime {
@@ -140,7 +134,7 @@ Your parachain runtime must implement the following runtime APIs for the `polkad
 
 Your runtime must include and properly configure the following pallets:
 
-- **System Pallet**: The System pallet ([`frame-system`](https://paritytech.github.io/polkadot-sdk/master/polkadot_sdk_frame/prelude/frame_system/index.html){target=\_blank}) is fundamental and must be configured with appropriate types:
+- **System Pallet**: The System pallet ([`frame-system`](https://paritytech.github.io/polkadot-sdk/master/polkadot_sdk_frame/prelude/frame_system/index.html){target=\_blank}) is fundamental and must be configured with appropriate types.
 
     ```rust title="runtime/src/lib.rs"
     #[frame_support::runtime]
@@ -154,7 +148,7 @@ Your runtime must include and properly configure the following pallets:
     pub type System = frame_system::Pallet<Runtime>;
     ```
 
-- **ParachainSystem Pallet**: This pallet ([`cumulus-pallet-parachain-system`](https://paritytech.github.io/polkadot-sdk/master/cumulus_pallet_parachain_system/index.html){target=\_blank}) enables parachain functionality and handles low-level details of being a parachain:
+- **ParachainSystem Pallet**: This pallet ([`cumulus-pallet-parachain-system`](https://paritytech.github.io/polkadot-sdk/master/cumulus_pallet_parachain_system/index.html){target=\_blank}) enables parachain functionality and handles low-level details of being a parachain.
 
     ```rust title="runtime/src/lib.rs"
     impl cumulus_pallet_parachain_system::Config for Runtime {
@@ -167,7 +161,7 @@ Your runtime must include and properly configure the following pallets:
     pub type ParachainSystem = cumulus_pallet_parachain_system::Pallet<Runtime>;
     ```
 
-- **Aura Pallet**: For block authoring consensus ([`pallet-aura`](https://paritytech.github.io/polkadot-sdk/master/pallet_aura/index.html){target=\_blank}):
+- **Aura Pallet**: For block authoring consensus ([`pallet-aura`](https://paritytech.github.io/polkadot-sdk/master/pallet_aura/index.html){target=\_blank}).
 
     ```rust title="runtime/src/lib.rs"
     impl pallet_aura::Config for Runtime {
@@ -180,7 +174,7 @@ Your runtime must include and properly configure the following pallets:
     pub type Aura = pallet_aura::Pallet<Runtime>;
     ```
 
-- **ParachainInfo Pallet**: Provides parachain metadata ([`parachain-info`](https://paritytech.github.io/polkadot-sdk/master/staging_parachain_info/index.html){target=\_blank}):
+- **ParachainInfo Pallet**: Provides parachain metadata ([`parachain-info`](https://paritytech.github.io/polkadot-sdk/master/staging_parachain_info/index.html){target=\_blank}).
 
     ```rust title="runtime/src/lib.rs"
     impl parachain_info::Config for Runtime {}

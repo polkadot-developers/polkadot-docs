@@ -112,22 +112,25 @@ The recommended approach is to implement [`UncheckedOnRuntimeUpgrade`](https://p
 Examine the following migration example that transforms a simple `StorageValue` storing a `u32` into a more complex structure that tracks both current and previous values using the `CurrentAndPreviousValue` struct:
 
 - Old `StorageValue` format:
-```rust
-#[pallet::storage]
-pub type Value<T: Config> = StorageValue<_, u32>;
-```
+
+    ```rust
+    #[pallet::storage]
+    pub type Value<T: Config> = StorageValue<_, u32>;
+    ```
 
 - New `StorageValue` format:
-```rust
---8<-- 'https://raw.githubusercontent.com/paritytech/polkadot-sdk/refs/tags/polkadot-stable2409-1/substrate/frame/examples/single-block-migrations/src/lib.rs:166:177'
 
---8<-- 'https://raw.githubusercontent.com/paritytech/polkadot-sdk/refs/tags/polkadot-stable2409-1/substrate/frame/examples/single-block-migrations/src/lib.rs:200:201'
-```
+    ```rust
+    --8<-- 'https://raw.githubusercontent.com/paritytech/polkadot-sdk/refs/tags/polkadot-stable2409-1/substrate/frame/examples/single-block-migrations/src/lib.rs:166:177'
+
+    --8<-- 'https://raw.githubusercontent.com/paritytech/polkadot-sdk/refs/tags/polkadot-stable2409-1/substrate/frame/examples/single-block-migrations/src/lib.rs:200:201'
+    ```
 
 - Migration:
-```rust
---8<-- 'https://raw.githubusercontent.com/paritytech/polkadot-sdk/refs/tags/polkadot-stable2409-1/substrate/frame/examples/single-block-migrations/src/migrations/v1.rs:18:122'
-```
+
+    ```rust
+    --8<-- 'https://raw.githubusercontent.com/paritytech/polkadot-sdk/refs/tags/polkadot-stable2409-1/substrate/frame/examples/single-block-migrations/src/migrations/v1.rs:18:122'
+    ```
 
 ### Migration Organization
 

@@ -36,6 +36,7 @@ To view the current values of these parameters in the Polkadot network:
     ![](/images/develop/interoperability/xcm-channels/xcm-channels-1.webp)
 
 2. Query the chain configuration parameters. The result will display the current settings for all the Polkadot network parameters, including the HRMP channel settings.
+
     1. Select **`configuration`**.
     2. Choose the **`activeConfig()`** call.
     3. Click the **+** button to execute the query.

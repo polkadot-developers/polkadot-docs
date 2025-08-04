@@ -12,9 +12,7 @@ description: Quickly bootstrap parachain projects, scaffold templates, deploy lo
 Pop CLI simplifies parachain development with features like:
 
 - Quick initialization of parachain development environments.
-
 - Project scaffolding from predefined parachain templates.
-
 - Easy deployment and management of local development networks.
 
 Developers can quickly begin coding and testing, significantly reducing setup overhead.
@@ -79,6 +77,7 @@ You can also interact with your local network using Pop CLI's `pop call chain` c
 
 ## Where to Go Next
 
-For a comprehensive guide to all Pop CLI features and advanced usage, see the official [Pop CLI](https://learn.onpop.io/appchains) documentation. 
+For a comprehensive guide to all Pop CLI features and advanced usage, see the official [Pop CLI](https://learn.onpop.io/appchains) documentation.
+
 !!! tip
     Pop CLI also offers powerful solutions for smart contract developers. If you're interested in that path, check out the [Pop CLI Smart Contracts](https://learn.onpop.io/contracts) documentation.

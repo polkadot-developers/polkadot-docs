@@ -20,7 +20,7 @@ For additional support and information, please reach out through [GitHub Issues]
 
 Before you begin, ensure you have the following installed:
 
-- [Node.js](https://nodejs.org/en/){target=\_blank}
+- [Node.js](https://nodejs.org/en/){target=\_blank}.
 - A package manager such as [npm](https://www.npmjs.com/){target=\_blank}, which should be installed with Node.js by default, or [Yarn](https://yarnpkg.com/){target=\_blank}.
 
 ## Install Chopsticks
@@ -104,6 +104,7 @@ These are the methods that can be invoked and their parameters:
     === "Parameters"
 
         - **`newBlockParams` ++"NewBlockParams"++**: The parameters to build the new block with. Where the `NewBlockParams` interface includes the following properties.
+
             - **`count` ++"number"++**: The number of blocks to build.
             - **`dmp` ++"{ msg**: String, sentAt: number }[]"++: the downward messages to include in the block.
             - `hrmp` ++"Record<string | number, { data: string, sentAt: number }[]>"++ - the horizontal messages to include in the block.
@@ -122,7 +123,8 @@ These are the methods that can be invoked and their parameters:
 
     === "Parameter"
     
-        - **`buildBlockMode` ++"BuildBlockMode"++**: The build mode. Can be any of the following modes.
+        - **`buildBlockMode` ++"BuildBlockMode"++**: The build mode. Can be any of the following modes:
+
             ```ts
             export enum BuildBlockMode {
               Batch = 'Batch', /** One block per batch (default) */

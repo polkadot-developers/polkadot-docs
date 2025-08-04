@@ -471,27 +471,31 @@ let message = Xcm(vec![
 The message consists of three instructions described as follows:
 
 - **[WithdrawAsset](https://github.com/polkadot-fellows/xcm-format?tab=readme-ov-file#withdrawasset){target=\_blank}**: Transfers a specified number of tokens from Alice's account to a holding register.
-```rust
 
-```
+    ```rust
+    
+    ```
+
     - **`Here`**: The native parachain token.
     - **`amount`**: The number of tokens that are transferred.
 
     The first instruction takes as an input the MultiAsset that should be withdrawn. The MultiAsset describes the native parachain token with the `Here` keyword. The `amount` parameter is the number of tokens that are transferred. The withdrawal account depends on the origin of the message. In this example the origin of the message is Alice. The `WithdrawAsset` instruction moves `amount` number of native tokens from Alice's account into the holding register.
 
 - **[BuyExecution](https://github.com/polkadot-fellows/xcm-format?tab=readme-ov-file#buyexecution){target=\_blank}**: Allocates fees to cover the execution [weight](/polkadot-protocol/glossary/#weight){target=\_blank} of the XCM instructions.
-```rust
-fees: (Here, amount).into(), 
+
+    ```rust
+    fees: (Here, amount).into(), 
         weight_limit: WeightLimit::Unlimited 
     },
-```
+    ```
 
     - **`fees`**: Describes the asset in the holding register that should be used to pay for the weight.
     - **`weight_limit`**: Defines the maximum fees that can be used to buy weight.
 
 - **[DepositAsset](https://github.com/polkadot-fellows/xcm-format?tab=readme-ov-file#depositasset){target=\_blank}**: Moves the remaining tokens from the holding register to Bob’s account.
-```rust
-assets: All.into(),
+
+    ```rust
+    assets: All.into(),
         beneficiary: MultiLocation {
             parents: 0,
             interior: Junction::AccountId32 {
@@ -500,7 +504,7 @@ assets: All.into(),
             }.into(),
         }.into()
     }
-```
+    ```
 
     - **`All`**: The wildcard for the asset(s) to be deposited. In this case, all assets in the holding register should be deposited.
     
@@ -541,9 +545,7 @@ For further details about the XCM configuration, see the [XCM Configuration](/de
 Where the [XCM format](https://github.com/polkadot-fellows/xcm-format){target=\_blank} defines a set of instructions used to construct XCVM programs, `pallet-xcm` defines a set of extrinsics that can be utilized to build XCVM programs, either to target the local or external chains. The `pallet-xcm` functionality is divided into three categories:
 
 - **Primitive**: Dispatchable functions to execute XCM locally.
-
 - **High-level**: Functions for asset transfers between chains.
-
 - **Version negotiation-specific**: Functions for managing XCM version compability.
 
 ### Key Roles of the XCM Pallet
@@ -551,15 +553,10 @@ Where the [XCM format](https://github.com/polkadot-fellows/xcm-format){target=\_
 The XCM pallet plays a central role in managing cross-chain messages, with its primary responsibilities including:
 
 - **Execute XCM messages**: Interacts with the XCM executor to validate and execute messages, adhering to predefined security and filter criteria.
-
 - **Send messages across chains**: Allows authorized origins to send XCM messages, enabling controlled cross-chain communication.
-
 - **Reserve-based transfers and teleports**: Supports asset movement between chains, governed by filters that restrict operations to authorized origins.
-
 - **XCM version negotiation**: Ensures compatibility by selecting the appropriate XCM version for inter-chain communication.
-
 - **Asset trapping and recovery**: Manages trapped assets, enabling safe reallocation or recovery when issues occur during cross-chain transfers.
-
 - **Support for XCVM operations**: Oversees state and configuration requirements necessary for executing cross-consensus programs within the XCVM framework.
 
 ## Primary Extrinsics of the XCM Pallet
@@ -807,6 +804,7 @@ To view the current values of these parameters in the Polkadot network:
     ![](/images/develop/interoperability/xcm-channels/xcm-channels-1.webp)
 
 2. Query the chain configuration parameters. The result will display the current settings for all the Polkadot network parameters, including the HRMP channel settings.
+
     1. Select **`configuration`**.
     2. Choose the **`activeConfig()`** call.
     3. Click the **+** button to execute the query.
@@ -913,6 +911,7 @@ pub trait Config {
 Each configuration item is explained below, detailing the associated type’s purpose and role in the XCM executor. Many of these types have predefined solutions available in the `xcm-builder`. Therefore, the available configuration items are:
 
 - **[`RuntimeCall`](https://paritytech.github.io/polkadot-sdk/master/staging_xcm_executor/trait.Config.html#associatedtype.RuntimeCall){target=\_blank}**: Defines the runtime's callable functions, created via the [`frame::runtime`](https://paritytech.github.io/polkadot-sdk/master/frame_support/attr.runtime.html){target=\_blank} macro. It represents an enum listing the callable functions of all implemented pallets.
+
     ```rust
     type RuntimeCall: Parameter + Dispatchable<PostInfo = PostDispatchInfo> + GetDispatchInfo
     ```
@@ -923,35 +922,43 @@ Each configuration item is explained below, detailing the associated type’s pu
     - **`GetDispatchInfo`**: Provides weight details, determining how long execution takes.
 
 - **[`XcmSender`](https://paritytech.github.io/polkadot-sdk/master/staging_xcm_executor/trait.Config.html#associatedtype.XcmSender){target=\_blank}**: Implements the [`SendXcm`](https://paritytech.github.io/polkadot-sdk/master/staging_xcm/v4/trait.SendXcm.html){target=\_blank} trait, specifying how the executor sends XCMs using transport layers (e.g., UMP for relay chains or XCMP for sibling chains). If a runtime lacks certain transport layers, such as [HRMP](https://wiki.polkadot.network/learn/learn-xcm-transport/#hrmp-xcmp-lite){target=\_blank} (or [XCMP](https://wiki.polkadot.network/learn/learn-xcm-transport/#xcmp-cross-consensus-message-passing-design-summary){target=\_blank}).
+
     ```rust
     type XcmSender: SendXcm;
     ```
+
 - **[`AssetTransactor`](https://paritytech.github.io/polkadot-sdk/master/staging_xcm_executor/trait.Config.html#associatedtype.AssetTransactor){target=\_blank}**: Implements the [`TransactAsset`](https://paritytech.github.io/polkadot-sdk/master/staging_xcm_executor/traits/trait.TransactAsset.html){target=\_blank} trait, handling the conversion and transfer of MultiAssets between accounts or registers. It can be configured to support native tokens, fungibles, and non-fungibles or multiple tokens using pre-defined adapters like [`FungibleAdapter`](https://paritytech.github.io/polkadot-sdk/master/staging_xcm_builder/struct.FungibleAdapter.html){target=\_blank} or custom solutions.
+
     ```rust
     type AssetTransactor: TransactAsset;
     ```
 
 - **[`OriginConverter`](https://paritytech.github.io/polkadot-sdk/master/staging_xcm_executor/trait.Config.html#associatedtype.OriginConverter){target=\_blank}**: Implements the [`ConvertOrigin`](https://paritytech.github.io/polkadot-sdk/master/staging_xcm_executor/traits/trait.ConvertOrigin.html){target=\_blank} trait to map `MultiLocation` origins to `RuntimeOrigin`. Multiple implementations can be combined, and [`OriginKind`](https://paritytech.github.io/polkadot-sdk/master/staging_xcm_builder/test_utils/enum.OriginKind.html){target=\_blank} is used to resolve conflicts. Pre-defined converters like [`SovereignSignedViaLocation`](https://paritytech.github.io/polkadot-sdk/master/staging_xcm_builder/struct.SovereignSignedViaLocation.html){target=\_blank} and [`SignedAccountId32AsNative`](https://paritytech.github.io/polkadot-sdk/master/staging_xcm_builder/struct.SignedAccountId32AsNative.html){target=\_blank} handle sovereign and local accounts respectively.
+
     ```rust
     type OriginConverter: ConvertOrigin<<Self::RuntimeCall as Dispatchable>::RuntimeOrigin>;
     ```
 
 - **[`IsReserve`](https://paritytech.github.io/polkadot-sdk/master/staging_xcm_executor/trait.Config.html#associatedtype.IsReserve){target=\_blank}**: Specifies trusted `<MultiAsset, MultiLocation>` pairs for depositing reserve assets. Using the unit type `()` blocks reserve deposits. The [`NativeAsset`](https://paritytech.github.io/polkadot-sdk/master/staging_xcm_builder/struct.NativeAsset.html){target=\_blank} struct is an example of a reserve implementation.
+
     ```rust
     type IsReserve: ContainsPair<MultiAsset, MultiLocation>;
     ```
 
 - **[`IsTeleporter`](https://paritytech.github.io/polkadot-sdk/master/staging_xcm_executor/trait.Config.html#associatedtype.IsTeleporter){target=\_blank}**: Defines trusted `<MultiAsset, MultiLocation>` pairs for teleporting assets to the chain. Using `()` blocks the [`ReceiveTeleportedAssets`](https://paritytech.github.io/polkadot-sdk/master/staging_xcm_builder/test_utils/enum.Instruction.html#variant.ReceiveTeleportedAsset){target=\_blank} instruction. The [`NativeAsset`](https://paritytech.github.io/polkadot-sdk/master/staging_xcm_builder/struct.NativeAsset.html){target=\_blank} struct can act as an implementation.
+
     ```rust
     type IsTeleporter: ContainsPair<MultiAsset, MultiLocation>;
     ```
 
 - **[`Aliasers`](https://paritytech.github.io/polkadot-sdk/master/staging_xcm_executor/trait.Config.html#associatedtype.Aliasers){target=\_blank}**: A list of `(Origin, Target)` pairs enabling each `Origin` to be replaced with its corresponding `Target`.
+
     ```rust
     type Aliasers: ContainsPair<Location, Location>;
     ```
 
 - **[`UniversalLocation`](https://paritytech.github.io/polkadot-sdk/master/staging_xcm_executor/trait.Config.html#associatedtype.UniversalLocation){target=\_blank}**: Specifies the runtime's location in the consensus universe.
+
     ```rust
     type UniversalLocation: Get<InteriorMultiLocation>;
     ```
@@ -962,104 +969,128 @@ Each configuration item is explained below, detailing the associated type’s pu
         - **`X2(GlobalConsensus(NetworkId**: :Polkadot), Parachain(1000))` for Statemint
 
 - **[`Barrier`](https://paritytech.github.io/polkadot-sdk/master/staging_xcm_executor/trait.Config.html#associatedtype.Barrier){target=\_blank}**: Implements the [`ShouldExecute`](https://paritytech.github.io/polkadot-sdk/master/staging_xcm_executor/traits/trait.ShouldExecute.html){target=\_blank} trait, functioning as a firewall for XCM execution. Multiple barriers can be combined in a tuple, where execution halts if one succeeds.
+
     ```rust
     type Barrier: ShouldExecute;
     ```
 
 - **[`Weigher`](https://paritytech.github.io/polkadot-sdk/master/staging_xcm_executor/trait.Config.html#associatedtype.Weigher){target=\_blank}**: Calculates the weight of XCMs and instructions, enforcing limits and refunding unused weight. Common solutions include [`FixedWeightBounds`](https://paritytech.github.io/polkadot-sdk/master/staging_xcm_builder/struct.FixedWeightBounds.html){target=\_blank}, which uses a base weight and limits on instructions.
+
     ```rust
     type Weigher: WeightBounds<Self::RuntimeCall>;
     ```
 
 - **[`Trader`](https://paritytech.github.io/polkadot-sdk/master/staging_xcm_executor/trait.Config.html#associatedtype.Trader){target=\_blank}**: Manages asset-based weight purchases and refunds for `BuyExecution` instructions. The [`UsingComponents`](https://paritytech.github.io/polkadot-sdk/master/staging_xcm_builder/struct.UsingComponents.html){target=\_blank} trader is a common implementation.
+
     ```rust
     type Trader: WeightTrader;
     ```
 
 - **[`ResponseHandler`](https://paritytech.github.io/polkadot-sdk/master/staging_xcm_executor/trait.Config.html#associatedtype.ResponseHandler){target=\_blank}**: Handles `QueryResponse` instructions, implementing the [`OnResponse`](https://paritytech.github.io/polkadot-sdk/master/staging_xcm_executor/traits/trait.OnResponse.html){target=\_blank} trait. FRAME systems typically use the pallet-xcm implementation.
+
     ```rust
     type ResponseHandler: OnResponse;
     ```
 
 - **[`AssetTrap`](https://paritytech.github.io/polkadot-sdk/master/staging_xcm_executor/trait.Config.html#associatedtype.AssetTrap){target=\_blank}**: Handles leftover assets in the holding register after XCM execution, allowing them to be claimed via `ClaimAsset`. If unsupported, assets are burned.
+
     ```rust
     type AssetTrap: DropAssets;
     ```
 
 - **[`AssetClaims`](https://paritytech.github.io/polkadot-sdk/master/staging_xcm_executor/trait.Config.html#associatedtype.AssetClaims){target=\_blank}**: Facilitates the claiming of trapped assets during the execution of the `ClaimAsset` instruction. Commonly implemented via pallet-xcm.
+
     ```rust
     type AssetClaims: ClaimAssets;
     ```
 
 - **[`AssetLocker`](https://paritytech.github.io/polkadot-sdk/master/staging_xcm_executor/trait.Config.html#associatedtype.AssetLocker){target=\_blank}**: Handles the locking and unlocking of assets. Can be omitted using `()` if asset locking is unnecessary.
+
     ```rust
     type AssetLocker: AssetLock;
     ```
 
 - **[`AssetExchanger`](https://paritytech.github.io/polkadot-sdk/master/staging_xcm_executor/trait.Config.html#associatedtype.AssetExchanger){target=\_blank}**: Implements the [`AssetExchange`](https://paritytech.github.io/polkadot-sdk/master/staging_xcm_executor/traits/trait.AssetExchange.html){target=\_blank} trait to manage asset exchanges during the `ExchangeAsset` instruction. The unit type `()` disables this functionality.
+
     ```rust
     type AssetExchanger: AssetExchange;
     ```
 
 - **[`SubscriptionService`](https://paritytech.github.io/polkadot-sdk/master/staging_xcm_executor/trait.Config.html#associatedtype.SubscriptionService){target=\_blank}**: Manages `(Un)SubscribeVersion` instructions and returns the XCM version via `QueryResponse`. Typically implemented by pallet-xcm.
+
     ```rust
     type SubscriptionService: VersionChangeNotifier;
     ```
 
 - **[`PalletInstancesInfo`](https://paritytech.github.io/polkadot-sdk/master/staging_xcm_executor/trait.Config.html#associatedtype.PalletInstancesInfo){target=\_blank}**: Provides runtime pallet information for `QueryPallet` and `ExpectPallet` instructions. FRAME-specific systems often use this, or it can be disabled with `()`.
+
     ```rust
     type PalletInstancesInfo: PalletsInfoAccess;
     ```
+
  <!-- I think `Holding Register` should be linked to https://wiki.polkadot.network/docs/learn/xcm/reference-glossary#holding-register, but since we will have our own glossary, I’m putting this as a TODO -->
 - **[`MaxAssetsIntoHolding`](https://paritytech.github.io/polkadot-sdk/master/staging_xcm_executor/trait.Config.html#associatedtype.MaxAssetsIntoHolding){target=\_blank}**: Limits the number of assets in the [Holding register](https://wiki.polkadot.network/learn/learn-xcm/#holding-register){target=\_blank}. At most, twice this limit can be held under worst-case conditions.
+
     ```rust
     type MaxAssetsIntoHolding: Get<u32>;
     ```
 
 - **[`FeeManager`](https://paritytech.github.io/polkadot-sdk/master/staging_xcm_executor/trait.Config.html#associatedtype.FeeManager){target=\_blank}**: Manages fees for XCM instructions, determining whether fees should be paid, waived, or handled in specific ways. Fees can be waived entirely using `()`.
+
     ```rust
     type FeeManager: FeeManager;
     ```
 
 - **[`MessageExporter`](https://paritytech.github.io/polkadot-sdk/master/staging_xcm_executor/trait.Config.html#associatedtype.MessageExporter){target=\_blank}**: Implements the [`ExportXcm`](https://paritytech.github.io/polkadot-sdk/master/staging_xcm_executor/traits/trait.ExportXcm.html){target=\_blank} trait, enabling XCMs export to other consensus systems. It can spoof origins for use in bridges. Use `()` to disable exporting.
+
     ```rust
     type MessageExporter: ExportXcm;
     ```
 
 - **[`UniversalAliases`](https://paritytech.github.io/polkadot-sdk/master/staging_xcm_executor/trait.Config.html#associatedtype.UniversalAliases){target=\_blank}**: Lists origin locations and universal junctions allowed to elevate themselves in the `UniversalOrigin` instruction. Using `Nothing` prevents origin aliasing.
+
     ```rust
     type UniversalAliases: Contains<(MultiLocation, Junction)>;
     ```
 
 - **[`CallDispatcher`](https://paritytech.github.io/polkadot-sdk/master/staging_xcm_executor/trait.Config.html#associatedtype.CallDispatcher){target=\_blank}**: Dispatches calls from the `Transact` instruction, adapting the origin or modifying the call as needed. Can default to `RuntimeCall`.
+
     ```rust
     type CallDispatcher: CallDispatcher<Self::RuntimeCall>;
     ```
 
 - **[`SafeCallFilter`](https://paritytech.github.io/polkadot-sdk/master/staging_xcm_executor/trait.Config.html#associatedtype.SafeCallFilter){target=\_blank}**: Whitelists calls permitted in the `Transact` instruction. Using `Everything` allows all calls, though this is temporary until proof size weights are accounted for.
+
     ```rust
     type SafeCallFilter: Contains<Self::RuntimeCall>;
     ```
 
 - **[`TransactionalProcessor`](https://paritytech.github.io/polkadot-sdk/master/staging_xcm_executor/trait.Config.html#associatedtype.TransactionalProcessor){target=\_blank}**: Implements the [`ProccessTransaction`](https://paritytech.github.io/polkadot-sdk/master/staging_xcm_executor/traits/trait.ProcessTransaction.html){target=\_blank} trait. It ensures that XCM instructions are executed atomically, meaning they either fully succeed or fully fail without any partial effects. This type allows for non-transactional XCM instruction processing by setting the `()` type.
+
     ```rust
     type TransactionalProcessor: ProcessTransaction;
     ```
 
 - **[`HrmpNewChannelOpenRequestHandler`](https://paritytech.github.io/polkadot-sdk/master/staging_xcm_executor/trait.Config.html#associatedtype.HrmpNewChannelOpenRequestHandler){target=\_blank}**: Enables optional logic execution in response to the `HrmpNewChannelOpenRequest` XCM notification.
+
     ```rust
     type HrmpNewChannelOpenRequestHandler: HandleHrmpNewChannelOpenRequest;
     ```
 
 - **[`HrmpChannelAcceptedHandler`](https://paritytech.github.io/polkadot-sdk/master/staging_xcm_executor/trait.Config.html#associatedtype.HrmpChannelAcceptedHandler){target=\_blank}**: Enables optional logic execution in response to the `HrmpChannelAccepted` XCM notification.
+
     ```rust
     type HrmpChannelAcceptedHandler: HandleHrmpChannelAccepted;
     ```
+
 - **[`HrmpChannelClosingHandler`](https://paritytech.github.io/polkadot-sdk/master/staging_xcm_executor/trait.Config.html#associatedtype.HrmpChannelClosingHandler){target=\_blank}**: Enables optional logic execution in response to the `HrmpChannelClosing` XCM notification.
+
     ```rust
     type HrmpChannelClosingHandler: HandleHrmpChannelClosing;
     ```
+
 - **[`XcmRecorder`](https://paritytech.github.io/polkadot-sdk/master/staging_xcm_executor/trait.Config.html#associatedtype.XcmRecorder){target=\_blank}**: Allows tracking of the most recently executed XCM, primarily for use with dry-run runtime APIs.
+
     ```rust
     type XcmRecorder: RecordXcm;
     ```
@@ -1240,8 +1271,6 @@ fn dry_run_call(origin: OriginCaller, call: Call, result_xcms_version: XcmVersio
 
         - **`Unimplemented`**: An API part is unsupported.
         - **`VersionedConversionFailed`**: Converting a versioned data structure from one version to another failed.
-
-    ---
 
 ??? interface "Example"
 
@@ -2652,73 +2681,108 @@ Polkadot is the primary production blockchain network for high-stakes, enterpris
 
 === "Network Details"
 
-    **Currency symbol** - `DOT`
+    **Currency symbol**: `DOT`
 
     ---
     
-    **Currency decimals** - 10
+    **Currency decimals**: 10
 
     ---
 
-    **Block explorer** - [Polkadot Subscan](https://polkadot.subscan.io/){target=\_blank}
+    **Block explorer**: [Polkadot Subscan](https://polkadot.subscan.io/){target=\_blank}
 
 === "RPC Endpoints"
+
     Blockops
+
     ```
     wss://polkadot-public-rpc.blockops.network/ws
     ```
+
     ---
+
     Dwellir
+
     ```
     wss://polkadot-rpc.dwellir.com
     ```
+
     ---
+
     Dwellir Tunisia
+
     ```
     wss://polkadot-rpc-tn.dwellir.com
     ```
+
     ---
+
     IBP1
+
     ```
     wss://rpc.ibp.network/polkadot
     ```
+
     ---
+
     IBP2
+
     ```
     wss://polkadot.dotters.network
     ```
+
     ---
+
     LuckyFriday
+
     ```
     wss://rpc-polkadot.luckyfriday.io
     ```
+
     ---
+
     OnFinality
+
     ```
     wss://polkadot.api.onfinality.io/public-ws
     ```
+
     ---
+
     RadiumBlock
+
     ```
     wss://polkadot.public.curie.radiumblock.co/ws
     ```
+
     ---
+
     RockX
+
     ```
     wss://rockx-dot.w3node.com/polka-public-dot/ws
     ```
+
     ---
+
     Stakeworld
+
     ```
     wss://dot-rpc.stakeworld.io
     ```
+
     ---
+
     SubQuery
+
     ```
     wss://polkadot.rpc.subquery.network/public/ws
     ```
+
     ---
+
     Light client
+
     ```
     light://substrate-connect/polkadot
     ```
@@ -2729,63 +2793,92 @@ Kusama is a network built as a risk-taking, fast-moving "canary in the coal mine
 
 === "Network Details"
 
-    **Currency symbol** - `KSM`
+    **Currency symbol**: `KSM`
 
     ---
 
-    **Currency decimals** - 12
+    **Currency decimals**: 12
 
     ---
     
-    **Block explorer** - [Kusama Subscan](https://kusama.subscan.io/){target=\_blank}
+    **Block explorer**: [Kusama Subscan](https://kusama.subscan.io/){target=\_blank}
 
 === "RPC Endpoints"
+
     Dwellir
+
     ```
     wss://kusama-rpc.dwellir.com
     ```
+
     ---
+
     Dwellir Tunisia
+
     ```
     wss://kusama-rpc-tn.dwellir.com
     ```
+
     ---
+
     IBP1
+
     ```
     wss://rpc.ibp.network/kusama
     ```
+
     ---
+
     IBP2
+
     ```
     wss://kusama.dotters.network
     ```
+
     ---
+
     LuckyFriday
+
     ```
     wss://rpc-kusama.luckyfriday.io
     ```
+
     ---
+
     OnFinality
+
     ```
     wss://kusama.api.onfinality.io/public-ws
     ```
+
     ---
+
     RadiumBlock
+
     ```
     wss://kusama.public.curie.radiumblock.co/ws
     ```
+
     ---
+
     RockX
+
     ```
     wss://rockx-ksm.w3node.com/polka-public-ksm/ws
     ```
+
     ---
+
     Stakeworld
+
     ```
     wss://rockx-ksm.w3node.com/polka-public-ksm/ws
     ```
+
     ---
+
     Light client
+
     ```
     light://substrate-connect/kusama
     ```
@@ -2798,53 +2891,73 @@ Westend is the primary test network that mirrors Polkadot's functionality for pr
 
 === "Network Information"
 
-    **Currency symbol** - `WND`
+    **Currency symbol**: `WND`
 
     ---
 
-    **Currency decimals** - 12
+    **Currency decimals**: 12
 
     ---
     
-    **Block explorer** - [Westend Subscan](https://westend.subscan.io/){target=\_blank}
+    **Block explorer**: [Westend Subscan](https://westend.subscan.io/){target=\_blank}
 
     ---
 
-    **Faucet** - [Official Westend faucet](https://faucet.polkadot.io/westend){target=\_blank}
+    **Faucet**: [Official Westend faucet](https://faucet.polkadot.io/westend){target=\_blank}
 
 
 === "RPC Endpoints"
+
     Dwellir
+
     ```
     wss://westend-rpc.dwellir.com
     ```
+
     ---
+
     Dwellir Tunisia
+
     ```
     wss://westend-rpc-tn.dwellir.com
     ```
+
     ---
+
     IBP1
+
     ```
     wss://rpc.ibp.network/westend
     ```
+
     ---
+
     IBP2
+
     ```
     wss://westend.dotters.network
     ```
+
     ---
+
     OnFinality
+
     ```
     wss://westend.api.onfinality.io/public-ws
     ```
+
     ---
+
     Parity
+
     ```
     wss://westend-rpc.polkadot.io
     ```
+
     ---
+
     Light client
+
     ```
     light://substrate-connect/westend
     ```
@@ -2854,49 +2967,57 @@ Westend is the primary test network that mirrors Polkadot's functionality for pr
 Paseo is a decentralised, community run, stable testnet for parachain and dapp developers to build and test their applications. Unlike Westend, Paseo is not intended for protocol-level testing. As a true TestNet, the PAS native token intentionally does not have any economic value. Use the faucet information in the following section to obtain PAS tokens.
 
 === "Network Information"
-    **RPC URL**
-    ```
-    wss://paseo.rpc.amforc.com
-    ```
+
+    **Currency symbol**: `PAS`
 
     ---
 
-    **Currency symbol** - `PAS`
-
-    ---
-
-    **Currency decimals** - 10
+    **Currency decimals**: 10
 
     ---
     
-    **Block explorer** - [Paseo Subscan](https://paseo.subscan.io/){target=\_blank}
+    **Block explorer**: [Paseo Subscan](https://paseo.subscan.io/){target=\_blank}
 
     ---
 
-    **Faucet** - [Official Paseo faucet](https://faucet.polkadot.io/){target=\_blank}
+    **Faucet**: [Official Paseo faucet](https://faucet.polkadot.io/){target=\_blank}
 
 === "RPC Endpoints"
+
     Amforc
+    
     ```
     wss://paseo.rpc.amforc.com
     ```
+    
     ---
+    
     Dwellir
+    
     ```
     wss://paseo-rpc.dwellir.com
     ```
+    
     ---
+    
     IBP1
+    
     ```
     wss://rpc.ibp.network/paseo
     ```
+    
     ---
+    
     IBP2
+    
     ```
     wss://paseo.dotters.network
     ```
+    
     ---
+    
     StakeWorld
+    
     ```
     wss://pas-rpc.stakeworld.io
     ```
@@ -3498,6 +3619,7 @@ std = [
 
             - Define the actual versions in the root `Cargo.toml` file.
             - Use workspace inheritance in your pallet's `Cargo.toml` to maintain consistency across your project.
+
         - Regularly check for updates to FRAME and Polkadot SDK dependencies to benefit from the latest features, performance improvements, and security patches.
 
     For detailed information about workspace inheritance and how to properly integrate your pallet with the runtime, see the [Add an Existing Pallet to the Runtime](/develop/parachains/customize-parachain/add-existing-pallets/){target=\_blank} page.
@@ -4119,6 +4241,7 @@ To manually renew a core:
     ![](/images/develop/parachains/deployment/coretime-renewal/coretime-renewal-1.webp)
 
 2. Submit the `broker.renew` extrinsic:
+
     1. Select the **broker** pallet.
     2. Choose the **renew** extrinsic.
     3. Fill in the **core** parameter.
@@ -4207,7 +4330,8 @@ To configure auto-renewal, you'll need to gather specific information for the `e
 
     **Example for parachain `2000`:**
     
-    - Current assignment (workload).
+    - Current assignment (workload):
+
         ```txt
         [
           [50]
@@ -4218,7 +4342,8 @@ To configure auto-renewal, you'll need to gather specific information for the `e
         ]
         ```
 
-    - Future assignment (workplan).
+    - Future assignment (workplan):
+
         ```txt
         [
           [[322,845, 48]]
@@ -4229,7 +4354,7 @@ To configure auto-renewal, you'll need to gather specific information for the `e
         ]
         ```
 
-    **Note:** use the core from workplan (`48` in this example) if your task appears there. Only use the core from workload if it's not listed in workplan.
+    **Note:** Use the core from workplan (`48` in this example) if your task appears there. Only use the core from workload if it's not listed in workplan.
 
 - **`task`**: Use your parachain ID, which can be verified by connecting to your parachain and querying `parachainInfo.parachainId()`.
 
@@ -4277,6 +4402,7 @@ Once you have these values, construct the extrinsic:
     ![](/images/develop/parachains/deployment/coretime-renewal/coretime-renewal-1.webp)
 
 2. Create the `broker.enable_auto_renew` extrinsic:
+
     1. Select the **broker** pallet.
     2. Choose the **enableAutoRenew** extrinsic.
     3. Fill in the parameters.
@@ -4284,7 +4410,7 @@ Once you have these values, construct the extrinsic:
 
     ![](/images/develop/parachains/deployment/coretime-renewal/coretime-renewal-3.webp)
 
-    For parachain `2000` on core `48` with `workload_end_hint` `327885`, the **encoded call data** is:`0x32153000d007000001cd000500`
+    For parachain `2000` on core `48` with `workload_end_hint` `327885`, the **encoded call data** is:`0x32153000d007000001cd000500`.
 
 3. Check the transaction weight for executing the call. You can estimate this by executing the `transactionPaymentCallApi.queryCallInfo` runtime call with the encoded call data previously obtained.
 
@@ -4319,9 +4445,11 @@ Here's how to submit this XCM using Acala (Parachain 2000) as an example:
     1. Add a **WithdrawAsset** instruction.
     2. Add a **BuyExecution** instruction.
     3. Add a **Transact** instruction with the following parameters:
+
         - **originKind**: Use `SovereignAccount`.
         - **requireWeightAtMost**: Use the weight calculated previously.
         - **call**: Use the encoded call data generated before.
+
     4. Add a **RefundSurplus** instruction.
     5. Add a **DepositAsset** instruction to send the remaining funds to the parachain sovereign account.
     6. Click the **Submit Transaction** button.
@@ -4519,9 +4647,7 @@ In the `collatorSelection.invulnerables` array, add the SS58 addresses (account 
 ```
 
 - **`candidacyBond`**: Minimum stake required for collator candidates (in Planck units).
-
 - **`desiredCandidates`**: Number of candidates beyond invulnerables (set to 0 for invulnerables-only).
-
 - **`invulnerables`**: Use the SS58 addresses from your generated account keys as collators.
 
 ### Add Session Keys
@@ -4650,7 +4776,7 @@ flowchart TD
 
 - **Acquire coretime**: To build on top of the Polkadot network, users need to acquire coretime (either on-demand or in bulk) to access the computational resources of the relay chain. This allows for the secure validation of parachain blocks through a randomized selection of relay chain validators.
 
-If you’re building a standalone blockchain (solochain) that won’t connect to Polkadot as a parachain, you can skip the preceding step, as there’s no need to acquire coretime or implement [Cumulus](/develop/parachains/#cumulus){target=\_blank}.
+    If you’re building a standalone blockchain (solochain) that won’t connect to Polkadot as a parachain, you can skip the preceding step, as there’s no need to acquire coretime or implement [Cumulus](/develop/parachains/#cumulus){target=\_blank}.
 
 - **Launch and monitor**: Once everything is configured, you can launch the blockchain, initiating the network with your chain spec and Wasm runtime. Validators or collators will begin producing blocks, and the network will go live. Post-launch, monitoring is vital to ensuring network health—tracking block production, node performance, and overall security.
 
@@ -4816,7 +4942,7 @@ Before obtaining coretime, ensure you have:
     1. Connect to the relay chain.
     2. Submit the [`registrar.reserve`](https://paritytech.github.io/polkadot-sdk/master/polkadot_runtime_common/paras_registrar/pallet/dispatchables/fn.reserve.html){target=\_blank} extrinsic.
 
-    Upon success, you'll receive a registered `ParaID`
+    Upon success, you'll receive a registered `ParaID`.
 
 2. Register your parachain's essential information by submitting the [`registrar.register`](https://paritytech.github.io/polkadot-sdk/master/polkadot_runtime_common/paras_registrar/pallet/dispatchables/fn.register.html){target=\_blank} extrinsic with the following parameters:
 
@@ -4926,7 +5052,6 @@ In most cases, you should use Homebrew to install and manage packages on macOS c
 To install Homebrew:
 
 1. Open the Terminal application.
-
 2. Download and install Homebrew by running the following command:
 
     ```bash
@@ -4961,7 +5086,6 @@ Because the blockchain requires standard cryptography to support the generation 
 To install `openssl` and the Rust toolchain on macOS:
 
 1. Open the Terminal application.
-
 2. Ensure you have an updated version of Homebrew by running the following command:
 
     ```bash
@@ -4981,7 +5105,6 @@ To install `openssl` and the Rust toolchain on macOS:
     ```
 
 5. Follow the prompts displayed to proceed with a default installation.
-
 6. Update your current shell to include Cargo by running the following command:
 
     ```bash
@@ -4998,7 +5121,6 @@ To install `openssl` and the Rust toolchain on macOS:
     ```
 
 8. [Verify your installation](#verifying-installation).
-
 9. Install `cmake` using the following command:
 
     ```bash
@@ -5030,9 +5152,7 @@ Because the blockchain requires standard cryptography to support the generation 
 To install the Rust toolchain on Linux:
 
 1. Open a terminal shell.
-
 2. Check the packages you have installed on the local computer by running an appropriate package management command for your Linux distribution.
-
 3. Add any package dependencies you are missing to your local development environment by running the appropriate package management command for your Linux distribution:
 
     === "Ubuntu"
@@ -5075,7 +5195,6 @@ To install the Rust toolchain on Linux:
     ```
 
 5. Follow the prompts displayed to proceed with a default installation.
-
 6. Update your current shell to include Cargo by running the following command:
 
     ```bash
@@ -5124,7 +5243,7 @@ To prepare a development environment using WSL:
 
     If you have Microsoft Windows 10, version 2004 (Build 19041 and higher), or Microsoft Windows 11, WSL is available by default and you can continue to the next step.
 
-    If you have an older version of Microsoft Windows installed, see the [WSL manual installation steps for older versions](https://learn.microsoft.com/en-us/windows/wsl/install-manual){target=\_blank}. If you are installing on an older version of Microsoft Windows, you can download and install WLS 2 if your computer has Windows 10, version 1903 or higher
+    If you have an older version of Microsoft Windows installed, see the [WSL manual installation steps for older versions](https://learn.microsoft.com/en-us/windows/wsl/install-manual){target=\_blank}. If you are installing on an older version of Microsoft Windows, you can download and install WLS 2 if your computer has Windows 10, version 1903 or higher.
 
 2. Select **Windows PowerShell** or **Command Prompt** from the **Start** menu, right-click, then **Run as administrator**.
 
@@ -5148,18 +5267,15 @@ To prepare a development environment using WSL:
 
     Restarting the computer is required to start the installation of the Linux distribution. It can take a few minutes for the installation to complete after you restart.
 
-    For more information about setting up WSL as a development environment, see the [Set up a WSL development environment](https://learn.microsoft.com/en-us/windows/wsl/setup/environment){target=\_blank} docs
+    For more information about setting up WSL as a development environment, see the [Set up a WSL development environment](https://learn.microsoft.com/en-us/windows/wsl/setup/environment){target=\_blank} docs.
 
 ### Install Required Packages and Rust {: #install-required-packages-and-rust-windows }
 
 To install the Rust toolchain on WSL:
 
 1. Click the **Start** menu, then select **Ubuntu**.
-
 2. Type a UNIX user name to create user account.
-
 3. Type a password for your UNIX user, then retype the password to confirm it.
-
 4. Download the latest updates for the Ubuntu distribution using the Ubuntu Advanced Packaging Tool (`apt`) by running the following command:
 
     ```bash
@@ -5274,11 +5390,14 @@ Substrate is a Software Development Kit (SDK) that uses Rust-based libraries and
 Every blockchain platform relies on a decentralized network of computers—called nodes—that communicate with each other about transactions and blocks. In general, a node in this context is the software running on the connected devices rather than the physical or virtual machine in the network. As software, Substrate-based nodes consist of two main parts with separate responsibilities:
 
 - **Client**: Services to handle network and blockchain infrastructure activity.
+
     - Native binary.
     - Executes the Wasm runtime.
     - Manages components like database, networking, mempool, consensus, and others.
     - Also known as "Host".
+
 - **Runtime**: Business logic for state transitions.
+
     - Application logic.
     - Compiled to [Wasm](https://webassembly.org/){target=\_blank}.
     - Stored as a part of the chain state.
@@ -5424,6 +5543,7 @@ You must also ensure the `lookahead` in [`schedulerParams`](https://paritytech.g
 This phase involves configuring your parachain's runtime `/runtime/src/lib.rs` to utilize an async backing system.
 
 1. Verify the constants for capacity ([`UNINCLUDED_SEGMENT_CAPACITY`](https://github.com/paritytech/polkadot-sdk/blob/b4b019e4db0ef47b0952638388eba4958e1c4004/templates/parachain/runtime/src/lib.rs#L229){target=\_blank}) and velocity ([`BLOCK_PROCESSING_VELOCITY`](https://github.com/paritytech/polkadot-sdk/blob/b4b019e4db0ef47b0952638388eba4958e1c4004/templates/parachain/runtime/src/lib.rs#L232){target=\_blank}) are both set to `1` in the runtime.
+
     - `UNINCLUDED_SEGMENT_CAPACITY` will be increased to `3` later in this guide.
 
 2. Verify the constant relay chain slot duration measured in milliseconds is equal to `6000` in the runtime.
@@ -5440,6 +5560,7 @@ pub const RELAY_chain_SLOT_DURATION_MILLIS: u32 = 6000;
     ```
 
 3. Verify the constants [`MILLISECS_PER_BLOCK`](https://github.com/paritytech/polkadot-sdk/blob/b4b019e4db0ef47b0952638388eba4958e1c4004/templates/parachain/runtime/src/lib.rs#L189){target=\_blank} and [`SLOT_DURATION`](https://github.com/paritytech/polkadot-sdk/blob/b4b019e4db0ef47b0952638388eba4958e1c4004/templates/parachain/runtime/src/lib.rs#L193){target=\_blank} are present in the runtime.
+
     - `MILLISECS_PER_BLOCK` will be decreased to `6000` later in this guide.
 
     ```rust title="lib.rs"
@@ -5453,49 +5574,54 @@ pub const SLOT_DURATION: u64 = MILLISECS_PER_BLOCK;
 
 4. Configure [`cumulus_pallet_parachain_system`](https://paritytech.github.io/polkadot-sdk/master/cumulus_pallet_parachain_system/index.html){target=\_blank} in the runtime using the following steps:
 
-    a. Define a [`FixedVelocityConsensusHook`](https://paritytech.github.io/polkadot-sdk/master/cumulus_pallet_aura_ext/consensus_hook/struct.FixedVelocityConsensusHook.html){target=\_blank} using our capacity, velocity, and relay slot duration constants. 
-    ```rust title="lib.rs"
-    type ConsensusHook = cumulus_pallet_aura_ext::FixedVelocityConsensusHook<
+    a. Define a [`FixedVelocityConsensusHook`](https://paritytech.github.io/polkadot-sdk/master/cumulus_pallet_aura_ext/consensus_hook/struct.FixedVelocityConsensusHook.html){target=\_blank} using our capacity, velocity, and relay slot duration constants.
+
+        ```rust title="lib.rs"
+        type ConsensusHook = cumulus_pallet_aura_ext::FixedVelocityConsensusHook<
     Runtime,
     RELAY_CHAIN_SLOT_DURATION_MILLIS,
     BLOCK_PROCESSING_VELOCITY,
     UNINCLUDED_SEGMENT_CAPACITY,
 >;
-    ```
+        ```
 
     b. Use this to set the parachain system [`ConsensusHook`](https://paritytech.github.io/polkadot-sdk/master/cumulus_pallet_parachain_system/pallet/trait.Config.html#associatedtype.ConsensusHook){target=\_blank} property.
-    ```rust title="lib.rs"
-    impl cumulus_pallet_parachain_system::Config for Runtime {
+
+        ```rust title="lib.rs"
+        impl cumulus_pallet_parachain_system::Config for Runtime {
     ...
     type ConsensusHook = ConsensusHook;
     ...
 }
-    ```
+        ```
 
     c. Set the parachain system property [`CheckAssociatedRelayNumber`](https://paritytech.github.io/polkadot-sdk/master/cumulus_pallet_parachain_system/pallet/trait.Config.html#associatedtype.CheckAssociatedRelayNumber){target=\_blank} to [`RelayNumberMonotonicallyIncreases`](https://paritytech.github.io/polkadot-sdk/master/cumulus_pallet_parachain_system/struct.RelayNumberMonotonicallyIncreases.html){target=\_blank}.
-    ```rust title="lib.rs"
-    impl cumulus_pallet_parachain_system::Config for Runtime {
+
+        ```rust title="lib.rs"
+        impl cumulus_pallet_parachain_system::Config for Runtime {
     ...
     type CheckAssociatedRelayNumber = RelayNumberMonotonicallyIncreases;
     ...
 }
-    ```
+        ```
 
 5. Configure [`pallet_aura`](https://paritytech.github.io/polkadot-sdk/master/pallet_aura/index.html){target=\_blank} in the runtime to implement Authority Round (Aura) as follows:
 
     a. Set [`AllowMultipleBlocksPerSlot`](https://paritytech.github.io/polkadot-sdk/master/pallet_aura/pallet/trait.Config.html#associatedtype.AllowMultipleBlocksPerSlot){target=\_blank} to `false`.
+
         - This will be set to `true` when you activate async backing in phase 3.
 
     b. Define [`pallet_aura::SlotDuration`](https://paritytech.github.io/polkadot-sdk/master/pallet_aura/pallet/trait.Config.html#associatedtype.SlotDuration){target=\_blank} using our constant [`SLOT_DURATION`](https://github.com/polkadot-fellows/runtimes/blob/d49a9f33d0ea85ce51c26c84a70b61624ec06901/system-parachains/constants/src/lib.rs#L38-L40){target=\_blank}.
-    ```rust title="lib.rs"
-    impl pallet_aura::Config for Runtime {
+
+        ```rust title="lib.rs"
+        impl pallet_aura::Config for Runtime {
     ...
     type AllowMultipleBlocksPerSlot = ConstBool<false>;
     #[cfg(feature = "experimental")]
     type SlotDuration = ConstU64<SLOT_DURATION>;
     ...
 }
-    ```
+        ```
 
     !!! note
         Aura is a deterministic [consensus](/polkadot-protocol/glossary/#consensus){target=\_blank} protocol where block production is limited to a rotating list of authorities that take turns creating blocks and [`pallet_timestamp`](https://paritytech.github.io/polkadot-sdk/master/pallet_timestamp/index.html){target=\_blank} is used to track consensus rounds (via [`slots`](https://paritytech.github.io/polkadot-sdk/master/pallet_aura/pallet/trait.Config.html#associatedtype.SlotDuration){target=\_blank}).
@@ -5511,18 +5637,20 @@ pub const SLOT_DURATION: u64 = MILLISECS_PER_BLOCK;
 
 7. Implement the [`AuraUnincludedSegmentApi`](https://paritytech.github.io/polkadot-sdk/master/cumulus_primitives_aura/trait.AuraUnincludedSegmentApi.html){target=\_blank}, which allows the collator client to query its runtime to determine whether it should author a block using these steps:
 
-    a. Add the dependency [`cumulus-primitives-aura`](https://paritytech.github.io/polkadot-sdk/master/cumulus_primitives_aura/index.html){target=\_blank} to the `runtime/Cargo.toml` file for your runtime
-    ```rust title="Cargo.toml"
-    ...
+    a. Add the dependency [`cumulus-primitives-aura`](https://paritytech.github.io/polkadot-sdk/master/cumulus_primitives_aura/index.html){target=\_blank} to the `runtime/Cargo.toml` file for your runtime.
+
+        ```rust title="Cargo.toml"
+        ...
 cumulus-primitives-aura = { path = "../../../../primitives/aura", default-features = false }
 ...
-    ```
+        ```
 
     b. In the same file, add `"cumulus-primitives-aura/std",` to the `std` feature.
 
     c. Inside the [`impl_runtime_apis!`](https://github.com/paritytech/polkadot-sdk/blob/6b17df5ae96f7970109ec3934c7d288f05baa23b/templates/parachain/runtime/src/apis.rs#L87-L91){target=\_blank} block for your runtime, implement the [`cumulus_primitives_aura::AuraUnincludedSegmentApi`](https://paritytech.github.io/polkadot-sdk/master/cumulus_primitives_aura/trait.AuraUnincludedSegmentApi.html){target=\_blank} as shown below.
-    ```rust title="apis.rs"
-	impl cumulus_primitives_aura::AuraUnincludedSegmentApi<Block> for Runtime {
+        
+        ```rust title="apis.rs"
+        impl cumulus_primitives_aura::AuraUnincludedSegmentApi<Block> for Runtime {
     fn can_build_upon(
         included_hash: <Block as BlockT>::Hash,
         slot: cumulus_primitives_aura::Slot,
@@ -5530,7 +5658,7 @@ cumulus-primitives-aura = { path = "../../../../primitives/aura", default-featur
         Runtime::impl_can_build_upon(included_hash, slot)
     }
 }
-    ```
+        ```
 
     !!!note
         With a capacity of 1, you have an effective velocity of ½, even when velocity is configured to a larger value. Capacity will be filled after a single block is produced and will only be freed up after that block is included on the relay chain, which takes two relay blocks to accomplish. Thus, with a capacity of 1 and a velocity of 1, you achieve the customary 12-second parachain block time.
@@ -6095,14 +6223,16 @@ The recommended approach is to implement [`UncheckedOnRuntimeUpgrade`](https://p
 Examine the following migration example that transforms a simple `StorageValue` storing a `u32` into a more complex structure that tracks both current and previous values using the `CurrentAndPreviousValue` struct:
 
 - Old `StorageValue` format:
-```rust
-#[pallet::storage]
-pub type Value<T: Config> = StorageValue<_, u32>;
-```
+
+    ```rust
+    #[pallet::storage]
+    pub type Value<T: Config> = StorageValue<_, u32>;
+    ```
 
 - New `StorageValue` format:
-```rust
-/// Example struct holding the most recently set [`u32`] and the
+
+    ```rust
+    /// Example struct holding the most recently set [`u32`] and the
 /// second most recently set [`u32`] (if one existed).
 #[docify::export]
 #[derive(
@@ -6115,13 +6245,14 @@ pub struct CurrentAndPreviousValue {
 	pub previous: Option<u32>,
 }
 
-#[pallet::storage]
+    #[pallet::storage]
 	pub type Value<T: Config> = StorageValue<_, CurrentAndPreviousValue>;
-```
+    ```
 
 - Migration:
-```rust
-use frame_support::{
+
+    ```rust
+    use frame_support::{
 	storage_alias,
 	traits::{Get, UncheckedOnRuntimeUpgrade},
 };
@@ -6226,7 +6357,7 @@ pub type MigrateV0ToV1<T> = frame_support::migrations::VersionedMigration<
 	crate::pallet::Pallet<T>,
 	<T as frame_system::Config>::DbWeight,
 >;
-```
+    ```
 
 ### Migration Organization
 
@@ -6360,7 +6491,8 @@ Before sending the XCM, you need to construct the relay chain call that will be 
 
 1. In [Polkadot.js Apps](https://polkadot.js.org/apps/#/explorer){target=\_blank}, connect to the relay chain, navigate to the **Developer** dropdown and select the **Extrinsics** option.
 
-2. Build the `registrar.removeLock` extrinsic.
+2. Build the `registrar.removeLock` extrinsic:
+
     1. Select the **registrar** pallet.
     2. Choose the **removeLock** extrinsic.
     3. Fill in the parachain ID parameter (e.g., `2006`).
@@ -6393,6 +6525,7 @@ You can identify your parachain's sovereign account using either of these method
     Use the **"Para ID" to Address** section in [Substrate Utilities](https://www.shawntabrizi.com/substrate-js-utilities/){target=\_blank} with the **Child** option selected.
 
 === "Manual Calculation"
+
     1. Identify the appropriate prefix:
 
         - For parent/child chains use the prefix `0x70617261` (which decodes to `b"para"`).
@@ -6422,6 +6555,7 @@ Here's how to submit this XCM using Astar (Parachain 2006) as an example:
 1. In [Polkadot.js Apps](https://polkadot.js.org/apps/#/explorer){target=\_blank}, connect to the parachain, navigate to the **Developer** dropdown and select the **Extrinsics** option.
 
 2. Create a `sudo.sudo` extrinsic that executes `polkadotXcm.send`:
+
     1. Use the `sudo.sudo` extrinsic to execute the following call as Root.
     2. Select the **polkadotXcm** pallet.
     3. Choose the **send** extrinsic.
@@ -6430,6 +6564,7 @@ Here's how to submit this XCM using Astar (Parachain 2006) as an example:
     ![](/images/develop/parachains/maintenance/unlock-parachain/unlock-parachain-4.webp)
 
 3. Construct the XCM and submit it:
+
     1. Add a **WithdrawAsset** instruction.
     2. Add a **BuyExecution** instruction.
         - **fees**.
@@ -6480,10 +6615,10 @@ Benchmarking also ensures predictable transaction fees. Weights derived from ben
 
 In Polkadot SDK-based chains, weight quantifies the computational effort needed to process transactions. This weight includes factors such as:
 
-- Computational complexity
-- Storage complexity (proof size)
-- Database reads and writes
-- Hardware specifications
+- Computational complexity.
+- Storage complexity (proof size).
+- Database reads and writes.
+- Hardware specifications.
 
 Benchmarking uses real-world testing to simulate worst-case scenarios for extrinsics. The framework generates a linear model for weight calculation by running multiple iterations with varied parameters. These worst-case weights ensure blocks remain within execution limits, enabling the runtime to maintain throughput under varying loads. Excess fees can be refunded if a call uses fewer resources than expected, offering users a fair cost model.
   
@@ -6624,6 +6759,7 @@ mod benchmarking;
 Before running the benchmarking tool, you must integrate benchmarks with your runtime as follows:
 
 1. Navigate to your `runtime/src` directory and check if a `benchmarks.rs` file exists. If not, create one. This file will contain the macro that registers all pallets for benchmarking along with their respective configurations:
+
     ```rust title="benchmarks.rs"
     frame_benchmarking::define_benchmarks!(
     [frame_system, SystemBench::<Runtime>]
@@ -6669,6 +6805,7 @@ Before running the benchmarking tool, you must integrate benchmarks with your ru
     The `runtime-benchmarks` feature gate ensures benchmark tests are isolated from production runtime code.
 
 3. Enable runtime benchmarking for your pallet in `runtime/Cargo.toml`:
+
     ```toml
     runtime-benchmarks = [
   # ...
@@ -6687,15 +6824,17 @@ You can now compile your runtime with the `runtime-benchmarks` feature flag. Thi
     ```
 
 2. Create a `weights.rs` file in your pallet's `src/` directory. This file will store the auto-generated weight calculations:
-```bash
-touch weights.rs
-```
+
+    ```bash
+    touch weights.rs
+    ```
 
 3. Before running the benchmarking tool, you'll need a template file that defines how weight information should be formatted. Download the official template from the Polkadot SDK repository and save it in your project folders for future use:
-```bash
-curl https://raw.githubusercontent.com/paritytech/polkadot-sdk/refs/tags/polkadot-stable2412/substrate/.maintain/frame-weight-template.hbs \
---output ./pallets/benchmarking/frame-weight-template.hbs
-```
+
+    ```bash
+    curl https://raw.githubusercontent.com/paritytech/polkadot-sdk/refs/tags/polkadot-stable2412/substrate/.maintain/frame-weight-template.hbs \
+    --output ./pallets/benchmarking/frame-weight-template.hbs
+    ```
 
 4. Run the benchmarking tool to measure extrinsic weights:
 
@@ -6738,8 +6877,8 @@ Once the `weights.rs` is generated, you must integrate it with your pallet.
 
 1. To begin the integration, import the `weights` module and the `WeightInfo` trait, then add both to your pallet's `Config` trait. Complete the following steps to set up the configuration:
 
-```rust title="lib.rs"
-pub mod weights;
+    ```rust title="lib.rs"
+    pub mod weights;
 use crate::weights::WeightInfo;
 
 /// Configure the pallet by specifying the parameters and types on which it depends.
@@ -6749,25 +6888,25 @@ pub trait Config: frame_system::Config {
     /// A type representing the weights required by the dispatchables of this pallet.
     type WeightInfo: WeightInfo;
 }
-```
+    ```
 
 2. Next, you must add this to the `#[pallet::weight]` annotation in all the extrinsics via the `Config` as follows:
 
-```rust hl_lines="2" title="lib.rs"
-#[pallet::call_index(0)]
+    ```rust hl_lines="2" title="lib.rs"
+    #[pallet::call_index(0)]
 #[pallet::weight(T::WeightInfo::do_something())]
 pub fn do_something(origin: OriginFor<T>) -> DispatchResultWithPostInfo { Ok(()) }
-```
+    ```
 
 3. Finally, configure the actual weight values in your runtime. In `runtime/src/config/mod.rs`, add the following code:
 
-```rust title="mod.rs"
-// Configure pallet.
+    ```rust title="mod.rs"
+    // Configure pallet.
 impl pallet_parachain_template::Config for Runtime {
     // ...
     type WeightInfo = pallet_parachain_template::weights::SubstrateWeight<Runtime>;
 }
-```
+    ```
 
 ## Where to Go Next
 
@@ -6836,7 +6975,6 @@ Testing is essential in Polkadot SDK development to ensure your blockchain opera
 ### Testing Module
 
 The mock runtime includes all the necessary pallets and configurations needed for testing. To ensure proper testing, you must create a module that integrates all components, enabling assessment of interactions between pallets and system elements.
-
 
 Here's a simple example of how to create a testing module that simulates these interactions:
 
@@ -7217,29 +7355,38 @@ Developers can leverage smart contracts on Kusama Hub for live production deploy
 === "Kusama Hub"
 
     Network name
+
     ```text
     Kusama Hub
     ```
+
     ---
+    
     Currency symbol
+    
     ```text
     KSM
     ```
+    
     ---
     
     Chain ID
+    
     ```text
     420420418
     ```
+    
     ---
     
     RPC URL
+    
     ```text
     https://kusama-asset-hub-eth-rpc.polkadot.io
     ```
     ---
     
     Block explorer URL
+    
     ```text
     https://blockscout-kusama-asset-hub.parity-chains-scw.parity.io/
     ```
@@ -7249,9 +7396,9 @@ Developers can leverage smart contracts on Kusama Hub for live production deploy
 
 While the compatibility with regular EVM codebases is still being maximized, some recommendations include:
     
-- **Leverage [Hardhat](/develop/smart-contracts/dev-environments/hardhat){target=\_blank}** to compile, deploy, and interact with your contract.
-- **Use MetaMask** to interact with your dApp (note that using MetaMask can sometimes lead to `Invalid transaction` errors. This is actively being worked on and will be fixed soon).
-- **Avoid Remix** for deployment as MetaMask enforces a 48kb size limit when using the [Remix IDE](/develop/smart-contracts/dev-environments/remix){target=\_blank}, which is why Hardhat Polkadot is recommended for deployment.
+- Leverage [Hardhat](/develop/smart-contracts/dev-environments/hardhat){target=\_blank} to compile, deploy, and interact with your contract.
+- Use MetaMask to interact with your dApp (note that using MetaMask can sometimes lead to `Invalid transaction` errors. This is actively being worked on and will be fixed soon).
+- Avoid Remix for deployment as MetaMask enforces a 48kb size limit when using the [Remix IDE](/develop/smart-contracts/dev-environments/remix){target=\_blank}, which is why Hardhat Polkadot is recommended for deployment.
 
 Kusama Hub is a live environment. Ensure your contracts are thoroughly tested before deployment, as transactions on Kusama Hub involve real KSM tokens and **cannot be reversed**.
 
@@ -7305,6 +7452,7 @@ Developers can leverage smart contracts across diverse networks, from TestNets t
 === "Polkadot Hub TestNet"
 
     Network name
+
     ```text
     Polkadot Hub TestNet
     ```
@@ -7312,6 +7460,7 @@ Developers can leverage smart contracts across diverse networks, from TestNets t
     ---
 
     Currency symbol
+    
     ```text
     PAS
     ```
@@ -7319,6 +7468,7 @@ Developers can leverage smart contracts across diverse networks, from TestNets t
     ---
     
     Chain ID
+    
     ```text
     420420422
     ```
@@ -7326,6 +7476,7 @@ Developers can leverage smart contracts across diverse networks, from TestNets t
     ---
     
     RPC URL
+    
     ```text
     https://testnet-passet-hub-eth-rpc.polkadot.io
     ```
@@ -7333,6 +7484,7 @@ Developers can leverage smart contracts across diverse networks, from TestNets t
     ---
     
     Block explorer URL
+    
     ```text
     https://blockscout-passet-hub.parity-testnet.parity.io/
     ```
@@ -7419,9 +7571,10 @@ The installation process is tailored for the Polkadot variant:
 
 A core divergence lies in the underlying Solidity compiler.
 
-- **`foundry`** is built to interface with the `solc` compiler, which targets Ethereum's Ethereum Virtual Machine (EVM).
-- **`foundry-polkadot`**, in contrast, introduces and primarily utilizes the `resolc` compiler to compile down Solidity contracts into PolkaVM bytecode. 
-    - **Command-Line Flag**: For commands that involve compilation (e.g., `forge build`), you can use the `--resolc` flag to enable `resolc` compilation. For example.
+- `foundry` is built to interface with the `solc` compiler, which targets Ethereum's Ethereum Virtual Machine (EVM).
+- `foundry-polkadot`, in contrast, introduces and primarily utilizes the `resolc` compiler to compile down Solidity contracts into PolkaVM bytecode. 
+
+    - **Command-Line Flag**: For commands that involve compilation (e.g., `forge build`), you can use the `--resolc` flag to enable `resolc` compilation. For example:
 
         ```bash
         forge build --resolc
@@ -7429,7 +7582,7 @@ A core divergence lies in the underlying Solidity compiler.
 
         This command instructs Forge to use `resolc` instead of `solc`, generating bytecode compatible with PolkaVM.
 
-    - **Configuration File**: Alternatively, you can configure `resolc` usage in the `foundry.toml` file by adding.
+    - **Configuration File**: Alternatively, you can configure `resolc` usage in the `foundry.toml` file. Add the following:
 
         ```toml
         [profile.default.resolc]
@@ -7437,7 +7590,6 @@ A core divergence lies in the underlying Solidity compiler.
         ```
 
         Setting `resolc_compile = false` reverts to using `solc`, ensuring compatibility with Ethereum projects. By default, `foundry-polkadot` uses `solc` unless `resolc` is explicitly enabled. `resolc` also exposes specific options for fine-tuning the compilation process, such as `--use-resolc <RESOLC_VERSION>` for specifying a compiler version or path, `-O, --resolc-optimizer-mode <LEVEL>` for setting optimization levels, and `--heap-size <SIZE>` and `--stack-size <SIZE>` for configuring contract memory.
-
 
 ## Command-Line Interface (CLI)
 
@@ -7447,11 +7599,11 @@ A core divergence lies in the underlying Solidity compiler.
 
 Not all functionalities from the original Foundry are present or behave identically in `foundry-polkadot`:
 
-- **Currently Unsupported**:
+- **Currently unsupported**:
     - Compilation of Yul code is not yet supported.
     - Support for factory contracts deployment is a known issue that is currently unresolved.
-- **Broader Feature Limitations**: Integration with `Anvil` and `Chisel` (Foundry's local blockchain and EVM toolkit, respectively) is not available. This limitation directly impacts the support for several key commands, including `forge test` for running tests, `forge snapshot` for creating blockchain state snapshots, and `forge script` for complex deployment and interaction scripts.
-- **Modified Feature**: The most notable modification is in the **compilation output**. When ``resolc`` is employed, the resulting bytecode will fundamentally differ from that generated by ``solc``, reflecting PolkaVM's distinct architectural requirements.
+- **Broader feature limitations**: Integration with `Anvil` and `Chisel` (Foundry's local blockchain and EVM toolkit, respectively) is not available. This limitation directly impacts the support for several key commands, including `forge test` for running tests, `forge snapshot` for creating blockchain state snapshots, and `forge script` for complex deployment and interaction scripts.
+- **Modified feature**: The most notable modification is in the **compilation output**. When ``resolc`` is employed, the resulting bytecode will fundamentally differ from that generated by ``solc``, reflecting PolkaVM's distinct architectural requirements.
 
 ## Set up a Project
 
@@ -8470,7 +8622,7 @@ contract Counter {
 1. To deploy your contract, you need to:
 
     1. Navigate to the **Deploy & Run Transactions** tab (fourth icon in the left sidebar).
-    2. Click the **Enviroment** dropdown .
+    2. Click the **Enviroment** dropdown.
     3. Select **Customize this list**.
 
         ![](/images/develop/smart-contracts/evm-toolkit/dev-environments/remix/remix-7.webp)
@@ -8698,7 +8850,6 @@ The latest MetaMask update affects the extension’s ability to deploy large con
 
 Please log any bugs in the [`contracts-issues`](https://github.com/paritytech/contract-issues/issues){target=\_blank} repository so developers are aware of them and can address them.
 
-
 ## Known Issues
 
 ### Runtime Behavior
@@ -8801,7 +8952,7 @@ Returns a list of addresses owned by the client. [Reference](https://ethereum.or
 
 **Parameters**:
 
-None
+None.
 
 **Example**:
 
@@ -8824,7 +8975,7 @@ Returns the number of the most recent block. [Reference](https://ethereum.org/en
 
 **Parameters**:
 
-None
+None.
 
 **Example**:
 
@@ -8882,7 +9033,7 @@ Returns the chain ID used for signing transactions. [Reference](https://ethereum
 
 **Parameters**:
 
-None
+None.
 
 **Example**:
 
@@ -8940,7 +9091,7 @@ Returns the current gas price in Wei. [Reference](https://ethereum.org/en/develo
 
 **Parameters**:
 
-None
+None.
 
 **Example**:
 
@@ -9303,7 +9454,7 @@ Returns an estimate of the current priority fee per gas, in Wei, to be included 
 
 **Parameters**:
 
-None
+None.
 
 **Example**:
 
@@ -9391,7 +9542,7 @@ Returns an object with syncing data or `false` if not syncing. [Reference](https
 
 **Parameters**:
 
-None
+None.
 
 **Example**:
 
@@ -9414,7 +9565,7 @@ Returns `true` if the client is currently listening for network connections, oth
 
 **Parameters**:
 
-None
+None.
 
 **Example**:
 
@@ -9437,7 +9588,7 @@ Returns the number of peers currently connected to the client.
 
 **Parameters**:
 
-None
+None.
 
 **Example**:
 
@@ -9460,7 +9611,7 @@ Returns the current network ID as a string. [Reference](https://ethereum.org/en/
 
 **Parameters**:
 
-None
+None.
 
 **Example**:
 
@@ -9483,7 +9634,7 @@ Returns information about the health of the system.
 
 **Parameters**:
 
-None
+None.
 
 **Example**:
 
@@ -9506,7 +9657,7 @@ Returns the current client version. [Reference](https://ethereum.org/en/develope
 
 **Parameters**:
 
-None
+None.
 
 **Example**:
 
@@ -9664,8 +9815,8 @@ This guide is intended for developers who are familiar with JavaScript and want 
 
 Before getting started, ensure you have the following installed:
 
-- **Node.js**: V22.13.1 or later, check the [Node.js installation guide](https://nodejs.org/en/download/current/){target=\_blank}.
-- **npm**: V6.13.4 or later (comes bundled with Node.js).
+- **Node.js**: v22.13.1 or later, check the [Node.js installation guide](https://nodejs.org/en/download/current/){target=\_blank}.
+- **npm**: v6.13.4 or later (comes bundled with Node.js).
 - **Solidity**: This guide uses Solidity `^0.8.9` for smart contract development.
 
 ## Project Structure
@@ -11362,6 +11513,7 @@ const PROVIDER_RPC = {
   name: 'polkadot-hub-testnet'
 };
 ```
+
 With the Web3 provider set up, you can start querying the blockchain.
 
 For instance, to fetch the latest block number of the chain, you can use the following code snippet:
@@ -11708,21 +11860,21 @@ This guide illustrates how to utilize Web3.py for interactions with Polkadot Hub
 
 1. To start working with Web3.py, begin by initializing your project:
 
-    ```
+    ```bash
     mkdir web3py-project
     cd web3py-project
     ```
 
 2. Create and activate a virtual environment for your project:
 
-    ```
+    ```bash
     python -m venv venv
     source venv/bin/activate
     ```
 
 3. Next, install the Web3.py library:
 
-    ```
+    ```bash
     pip install web3
     ```
 
@@ -12373,7 +12525,7 @@ function callPrecompile(address precompileAddress, bytes memory input)
 
 Feel free to check the [`precompiles-hardhat`](https://github.com/polkadot-developers/polkavm-hardhat-examples/tree/v0.0.3/precompiles-hardhat){target=\_blank} repository to check all the precompiles examples. The repository contains a set of example contracts and test files demonstrating how to interact with each precompile in Polkadot Hub.
 
-Now, let's explore how to use each precompile available in Polkadot Hub.
+Now, you'll explore how to use each precompile available in Polkadot Hub.
 
 ## ECRecover (0x01)
 
@@ -12444,7 +12596,6 @@ contract SHA256Example {
 ```
 
 To use it, you can deploy the `SHA256Example` contract in [Remix](/develop/smart-contracts/dev-environments/remix){target=\_blank} or any Solidity-compatible environment and call callH256 with arbitrary bytes. Check out this [test file](https://github.com/polkadot-developers/polkavm-hardhat-examples/blob/v0.0.3/precompiles-hardhat/test/SHA256.js){target=\_blank} shows how to pass a UTF-8 string, hash it using the precompile, and compare it with the expected hash from Node.js's [crypto](https://www.npmjs.com/package/crypto-js){target=\_blank} module.
-
 
 ## RIPEMD-160 (0x03)
 
@@ -12811,9 +12962,9 @@ The [XCM (Cross-Consensus Message)](/develop/interoperability/intro-to-xcm){targ
 
 Located at the fixed address `0x00000000000000000000000000000000000a0000`, the XCM precompile offers three primary functions:
 
-- **`execute`**:  for local XCM execution
-- **`send`**:  for cross-chain message transmission
-- **`weighMessage`**: for cost estimation 
+- **`execute`**: For local XCM execution.
+- **`send`**: For cross-chain message transmission.
+- **`weighMessage`**: For cost estimation.
 
 This guide demonstrates how to interact with the XCM precompile through Solidity smart contracts using [Remix IDE](/develop/smart-contracts/dev-environments/remix){target=\_blank}.
 
@@ -12870,8 +13021,8 @@ interface IXcm {
 
 The interface defines a `Weight` struct that represents the computational cost of XCM operations. Weight has two components: 
 
-- **`refTime`**: computational time on reference hardware 
-- **`proofSize`**: the size of the proof required for execution 
+- **`refTime`**: Computational time on reference hardware.
+- **`proofSize`**: The size of the proof required for execution.
 
 All XCM messages must be encoded using the [SCALE codec](/polkadot-protocol/parachain-basics/data-encoding/#data-encoding){target=\_blank}, Polkadot's standard serialization format.
 
@@ -12937,8 +13088,8 @@ Follow these steps to execute a message:
 2. Pass the same message bytes and the weight obtained from the previous step to `execute`.
 For example, using the same message from the weighing example, you would call `execute` with:
 
-    - `message`: The encoded XCM message bytes.
-    - `weight`: The `Weight` struct returned from `weighMessage`.
+    - **`message`**: The encoded XCM message bytes.
+    - **`weight`**: The `Weight` struct returned from `weighMessage`.
 
     You can use the [papi console](https://dev.papi.how/extrinsics#networkId=localhost&endpoint=wss%3A%2F%2Ftestnet-passet-hub.polkadot.io&data=0x1f03050c000401000003008c86471301000003008c8647000d010101000000010100368e8759910dab756d344995f1d3c79374ca8f70066d3a709e48029f6bf0ee7e0750c61e2901daad0600){target=\_blank} to examine the complete extrinsic structure for this operation.
 
@@ -13126,17 +13277,11 @@ description: Dedot is a next-gen JavaScript client for Polkadot and Polkadot SDK
 ### Key Features
 
 - **Lightweight and tree-shakable**: No more bn.js or WebAssembly blobs, optimized for dapps bundle size.
-
 - **Fully typed API**: Comprehensive TypeScript support for seamless on-chain interaction and ink! smart contract integration.
-
 - **Multi-version JSON-RPC support**: Compatible with both [legacy](https://github.com/w3f/PSPs/blob/master/PSPs/drafts/psp-6.md){target=\_blank} and [new](https://paritytech.github.io/json-rpc-interface-spec/introduction.html){target=\_blank} JSON-RPC APIs for broad ecosystem interoperability.
-
 - **Light client support**: Designed to work with light clients such as [Smoldot](https://github.com/smol-dot/smoldot){target=\_blank}.
-
 - **Native TypeScript for scale codec**: Implements scale codec parsing directly in TypeScript without relying on custom wrappers.
-
 - **Wallet integration**: Works out-of-the-box with [@polkadot/extension-based](https://github.com/polkadot-js/extension?tab=readme-ov-file#api-interface){target=\_blank} wallets.
-
 - **Familiar API design**: Similar API style to Polkadot.js for easy and fast migration.
 
 ## Installation
@@ -13144,16 +13289,19 @@ description: Dedot is a next-gen JavaScript client for Polkadot and Polkadot SDK
 To add Dedot to your project, use the following command:
 
 === "npm"
+
     ```bash
     npm i dedot
     ```
 
 === "pnpm"
+
     ```bash
     pnpm add dedot
     ```
 
 === "yarn"
+
     ```bash
     yarn add dedot
     ```
@@ -13161,16 +13309,19 @@ To add Dedot to your project, use the following command:
 To enable auto-completion/IntelliSense for individual chains, install the [`@dedot/chaintypes`](https://www.npmjs.com/package/@dedot/chaintypes){target=\_blank} package as a development dependency:
 
 === "npm"
+
     ```bash
     npm i -D @dedot/chaintypes
     ```
 
 === "pnpm"
+
     ```bash
     pnpm add -D @dedot/chaintypes
     ```
 
 === "yarn"
+
     ```bash
     yarn add -D @dedot/chaintypes
     ```
@@ -13408,16 +13559,19 @@ PAPI is optimized for light-client functionality, using the new JSON-RPC spec to
 To instantiate the API, you can install the package by using the following command:
 
 === "npm"
+
     ```bash
     npm i polkadot-api@{{dependencies.javascript_packages.polkadot_api.version}}
     ```
 
 === "pnpm"
+
     ```bash
     pnpm add polkadot-api@{{dependencies.javascript_packages.polkadot_api.version}}
     ```
 
 === "yarn"
+
     ```bash
     yarn add polkadot-api@{{dependencies.javascript_packages.polkadot_api.version}}
     ```
@@ -13634,16 +13788,18 @@ Unlike traditional static APIs, the Polkadot.js API generates its interfaces aut
 
 You can access three main categories of chain interactions:
 
-- **[Runtime constants](https://polkadot.js.org/docs/api/start/api.consts){target=\_blank}** (`api.consts`).
+- **[Runtime constants](https://polkadot.js.org/docs/api/start/api.consts){target=\_blank}** (`api.consts`):
+
     - Access runtime constants directly.
     - Returns values immediately without function calls.
     - **Example**: `api.consts.balances.existentialDeposit`
 
-- **[State queries](https://polkadot.js.org/docs/api/start/api.query/){target=\_blank}** (`api.query`).
+- **[State queries](https://polkadot.js.org/docs/api/start/api.query/){target=\_blank}** (`api.query`):
+
     - Read chain state.
     - **Example**: `api.query.system.account(accountId)`
 
-- **[Transactions](https://polkadot.js.org/docs/api/start/api.tx/){target=\_blank}** (`api.tx`).
+- **[Transactions](https://polkadot.js.org/docs/api/start/api.tx/){target=\_blank}** (`api.tx`):
     - Submit extrinsics (transactions).
     - **Example**: `api.tx.balances.transfer(accountId, value)`
 
@@ -13964,11 +14120,14 @@ For more information about the Sidecar API installation, see the [installation a
 To use the Sidecar API, you have two options:
 
 - **Local node**: Run a node locally, which Sidecar will connect to by default, requiring no additional configuration. To start, run the following:
-    ```
+
+    ```bash
     substrate-api-sidecar
     ```
+
 - **Remote node**: Connect Sidecar to a remote node by specifying the RPC endpoint for that chain. For example, to gain access to the Polkadot Asset Hub associated endpoints.
-    ```
+
+    ```bash
     SAS_SUBSTRATE_URL=wss://polkadot-asset-hub-rpc.polkadot.io substrate-api-sidecar
     ```
 
@@ -15808,9 +15967,9 @@ public async fetchFeeInfo<T extends Format>(
 
         The `ConstructedFormat` type is a conditional type that returns a specific type based on the value of the TxResult `format` field.
 
-        - **Payload format** - if the format field is set to `'payload'`, the `ConstructedFormat` type will return a [`GenericExtrinsicPayload`](https://github.com/polkadot-js/api/blob/{{ dependencies.javascript_packages.asset_transfer_api.polkadot_js_api_version}}/packages/types/src/extrinsic/ExtrinsicPayload.ts#L87){target=\_blank}
-        - Call format - if the format field is set to `'call'`, the `ConstructedFormat` type will return a hexadecimal string (`0x${string}`). This is the encoded representation of the extrinsic call
-        - **Submittable format** - if the format field is set to `'submittable'`, the `ConstructedFormat` type will return a [`SubmittableExtrinsic`](https://github.com/polkadot-js/api/blob/{{dependencies.javascript_packages.asset_transfer_api.polkadot_js_api_version}}/packages/api-base/src/types/submittable.ts#L56){target=\_blank}. This is a Polkadot.js type that represents a transaction that can be submitted to the blockchain
+        - **Payload format**: If the format field is set to `'payload'`, the `ConstructedFormat` type will return a [`GenericExtrinsicPayload`](https://github.com/polkadot-js/api/blob/{{ dependencies.javascript_packages.asset_transfer_api.polkadot_js_api_version}}/packages/types/src/extrinsic/ExtrinsicPayload.ts#L87){target=\_blank}.
+        - **Call format**: If the format field is set to `'call'`, the `ConstructedFormat` type will return a hexadecimal string (`0x${string}`). This is the encoded representation of the extrinsic call.
+        - **Submittable format**: If the format field is set to `'submittable'`, the `ConstructedFormat` type will return a [`SubmittableExtrinsic`](https://github.com/polkadot-js/api/blob/{{dependencies.javascript_packages.asset_transfer_api.polkadot_js_api_version}}/packages/api-base/src/types/submittable.ts#L56){target=\_blank}. This is a Polkadot.js type that represents a transaction that can be submitted to the blockchain.
 
     ---
 
@@ -15841,7 +16000,6 @@ public async fetchFeeInfo<T extends Format>(
         ```
 
         For more information on the underlying types and fields of `RuntimeDispatchInfo`, check the [`RuntimeDispatchInfo`](https://github.com/polkadot-js/api/blob/{{ dependencies.javascript_packages.asset_transfer_api.polkadot_js_api_version}}/packages/types/src/interfaces/payment/types.ts#L21){target=\_blank} source code.
-
 
     ??? child "Type `RuntimeDispatchInfoV1`"
 
@@ -16153,12 +16311,12 @@ The wizard generates a `moonwall.config` file:
 The default configuration requires specific details about your blockchain node and test requirements:
 
 - The `foundation` object defines how your test blockchain node will be launched and managed. The dev foundation, which runs a local node binary, is used for local development.
-    
-For more information about available options, check the [Foundations](https://moonsong-labs.github.io/moonwall/guide/intro/foundations.html){target=\_blank} section.
+
+    For more information about available options, check the [Foundations](https://moonsong-labs.github.io/moonwall/guide/intro/foundations.html){target=\_blank} section.
 
 - The `connections` array specifies how your tests will interact with the blockchain node. This typically includes provider configuration and endpoint details.
-    
-A provider is a tool that allows you or your application to connect to a blockchain network and simplifies the low-level details of the process. A provider handles submitting transactions, reading state, and more. For more information on available providers, check the [Providers supported](https://moonsong-labs.github.io/moonwall/guide/intro/providers.html#providers-supported){target=\_blank} page in the Moonwall documentation.
+
+    A provider is a tool that allows you or your application to connect to a blockchain network and simplifies the low-level details of the process. A provider handles submitting transactions, reading state, and more. For more information on available providers, check the [Providers supported](https://moonsong-labs.github.io/moonwall/guide/intro/providers.html#providers-supported){target=\_blank} page in the Moonwall documentation.
 
 Here's a complete configuration example for testing a local node using Polkadot.js as a provider:
 
@@ -16326,7 +16484,7 @@ For additional support and information, please reach out through [GitHub Issues]
 
 Before you begin, ensure you have the following installed:
 
-- [Node.js](https://nodejs.org/en/){target=\_blank}
+- [Node.js](https://nodejs.org/en/){target=\_blank}.
 - A package manager such as [npm](https://www.npmjs.com/){target=\_blank}, which should be installed with Node.js by default, or [Yarn](https://yarnpkg.com/){target=\_blank}.
 
 ## Install Chopsticks
@@ -16426,6 +16584,7 @@ These are the methods that can be invoked and their parameters:
     === "Parameters"
 
         - **`newBlockParams` ++"NewBlockParams"++**: The parameters to build the new block with. Where the `NewBlockParams` interface includes the following properties.
+
             - **`count` ++"number"++**: The number of blocks to build.
             - **`dmp` ++"{ msg**: String, sentAt: number }[]"++: the downward messages to include in the block.
             - `hrmp` ++"Record<string | number, { data: string, sentAt: number }[]>"++ - the horizontal messages to include in the block.
@@ -16453,7 +16612,8 @@ main();
 
     === "Parameter"
     
-        - **`buildBlockMode` ++"BuildBlockMode"++**: The build mode. Can be any of the following modes.
+        - **`buildBlockMode` ++"BuildBlockMode"++**: The build mode. Can be any of the following modes:
+
             ```ts
             export enum BuildBlockMode {
               Batch = 'Batch', /** One block per batch (default) */
@@ -16838,11 +16998,8 @@ The most common source for official chain specifications is the [`paritytech/cha
 To obtain a chain specification:
 
 1. Visit the [Chainspec Collection](https://paritytech.github.io/chainspecs/){target=\_blank} website.
-
 2. Find the parachain you want to run.
-
 3. Click the chain spec to open it.
-
 4. Copy the JSON content and save it locally as a `.json` file, e.g., `chain_spec.json`.
 
 ## Run a Parachain Full Node
@@ -16860,9 +17017,7 @@ To launch the node, run the following command, replacing `./INSERT_PARACHAIN_CHA
 This command will:
 
 - Load the chain specification.
-
 - Initialize the node using the provided network configuration.
-
 - Begin syncing with the parachain network.
 
 ```bash
@@ -16870,7 +17025,6 @@ polkadot-omni-node --chain ./INSERT_PARACHAIN_CHAIN_SPEC.json --sync warp
 ```
 
 - The `--chain` flag tells the `polkadot-omni-node` which parachain to run by pointing to its chain specification file.
-
 - The `--sync warp` flag enables warp sync, allowing the node to quickly catch up to the latest finalized state. Historical blocks are fetched in the background as the node continues operating.
 
 Once started, the node will begin connecting to peers and syncing with the network. You’ll see logs in your terminal reflecting its progress.
@@ -16908,7 +17062,7 @@ Your parachain runtime must implement the following runtime APIs for the `polkad
     }
     ```
 
-- **Aura Runtime API**: For consensus, the `polkadot-omni-node` expects the [Aura runtime API](https://paritytech.github.io/polkadot-sdk/master/polkadot_sdk_frame/runtime/apis/trait.AuraApi.html){target=\_blank} to be implemented:
+- **Aura Runtime API**: For consensus, the `polkadot-omni-node` expects the [Aura runtime API](https://paritytech.github.io/polkadot-sdk/master/polkadot_sdk_frame/runtime/apis/trait.AuraApi.html){target=\_blank} to be implemented.
 
     ```rust title="runtime/src/apis.rs"
     impl sp_consensus_aura::AuraApi<Block, AuraId> for Runtime {
@@ -16926,7 +17080,7 @@ Your parachain runtime must implement the following runtime APIs for the `polkad
 
 Your runtime must include and properly configure the following pallets:
 
-- **System Pallet**: The System pallet ([`frame-system`](https://paritytech.github.io/polkadot-sdk/master/polkadot_sdk_frame/prelude/frame_system/index.html){target=\_blank}) is fundamental and must be configured with appropriate types:
+- **System Pallet**: The System pallet ([`frame-system`](https://paritytech.github.io/polkadot-sdk/master/polkadot_sdk_frame/prelude/frame_system/index.html){target=\_blank}) is fundamental and must be configured with appropriate types.
 
     ```rust title="runtime/src/lib.rs"
     #[frame_support::runtime]
@@ -16940,7 +17094,7 @@ Your runtime must include and properly configure the following pallets:
     pub type System = frame_system::Pallet<Runtime>;
     ```
 
-- **ParachainSystem Pallet**: This pallet ([`cumulus-pallet-parachain-system`](https://paritytech.github.io/polkadot-sdk/master/cumulus_pallet_parachain_system/index.html){target=\_blank}) enables parachain functionality and handles low-level details of being a parachain:
+- **ParachainSystem Pallet**: This pallet ([`cumulus-pallet-parachain-system`](https://paritytech.github.io/polkadot-sdk/master/cumulus_pallet_parachain_system/index.html){target=\_blank}) enables parachain functionality and handles low-level details of being a parachain.
 
     ```rust title="runtime/src/lib.rs"
     impl cumulus_pallet_parachain_system::Config for Runtime {
@@ -16953,7 +17107,7 @@ Your runtime must include and properly configure the following pallets:
     pub type ParachainSystem = cumulus_pallet_parachain_system::Pallet<Runtime>;
     ```
 
-- **Aura Pallet**: For block authoring consensus ([`pallet-aura`](https://paritytech.github.io/polkadot-sdk/master/pallet_aura/index.html){target=\_blank}):
+- **Aura Pallet**: For block authoring consensus ([`pallet-aura`](https://paritytech.github.io/polkadot-sdk/master/pallet_aura/index.html){target=\_blank}).
 
     ```rust title="runtime/src/lib.rs"
     impl pallet_aura::Config for Runtime {
@@ -16966,7 +17120,7 @@ Your runtime must include and properly configure the following pallets:
     pub type Aura = pallet_aura::Pallet<Runtime>;
     ```
 
-- **ParachainInfo Pallet**: Provides parachain metadata ([`parachain-info`](https://paritytech.github.io/polkadot-sdk/master/staging_parachain_info/index.html){target=\_blank}):
+- **ParachainInfo Pallet**: Provides parachain metadata ([`parachain-info`](https://paritytech.github.io/polkadot-sdk/master/staging_parachain_info/index.html){target=\_blank}).
 
     ```rust title="runtime/src/lib.rs"
     impl parachain_info::Config for Runtime {}
@@ -17008,9 +17162,7 @@ description: Quickly bootstrap parachain projects, scaffold templates, deploy lo
 Pop CLI simplifies parachain development with features like:
 
 - Quick initialization of parachain development environments.
-
 - Project scaffolding from predefined parachain templates.
-
 - Easy deployment and management of local development networks.
 
 Developers can quickly begin coding and testing, significantly reducing setup overhead.
@@ -17090,7 +17242,8 @@ You can also interact with your local network using Pop CLI's `pop call chain` c
 
 ## Where to Go Next
 
-For a comprehensive guide to all Pop CLI features and advanced usage, see the official [Pop CLI](https://learn.onpop.io/appchains) documentation. 
+For a comprehensive guide to all Pop CLI features and advanced usage, see the official [Pop CLI](https://learn.onpop.io/appchains) documentation.
+
 !!! tip
     Pop CLI also offers powerful solutions for smart contract developers. If you're interested in that path, check out the [Pop CLI Smart Contracts](https://learn.onpop.io/contracts) documentation.
 --- END CONTENT ---
@@ -17128,10 +17281,10 @@ NODE -- JSON Response --> CLIENT
 
 RPC calls are stateless and can be used to:
 
-- Query chain state (e.g., block number, storage values)
-- Submit extrinsics (transactions)
-- Monitor node and network health
-- Retrieve metadata and runtime information
+- Query chain state (e.g., block number, storage values).
+- Submit extrinsics (transactions).
+- Monitor node and network health.
+- Retrieve metadata and runtime information.
 
 ## Making RPC Calls with Curl
 
@@ -17167,7 +17320,7 @@ Checks the health of your node.
 
 **Parameters:**
 
-None
+None.
 
 **Example:**
 
@@ -17239,7 +17392,7 @@ Fetches the runtime metadata (needed for decoding storage and extrinsics).
 
 **Parameters:**
 
-None
+None.
 
 **Example:**
 
@@ -17361,6 +17514,7 @@ Zombienet releases are available on the [Zombienet repository](https://github.co
 Multiple options are available for installing Zombienet, depending on the user's preferences and the environment where it will be used. The following section will guide you through the installation process for each option.
 
 === "Use the executable"
+
     Install Zombienet using executables by visiting the [latest release](https://github.com/paritytech/zombienet/releases){target=\_blank} page and selecting the appropriate asset for your operating system. You can download the executable and move it to a directory in your PATH. 
 
     Each release includes executables for Linux and macOS. Executables are generated using [pkg](https://github.com/vercel/pkg){target=\_blank}, which allows the Zombienet CLI to operate without requiring Node.js to be installed. 
@@ -17390,6 +17544,7 @@ Multiple options are available for installing Zombienet, depending on the user's
     ```
 
 === "Use Nix"
+
     For Nix users, the Zombienet repository provides a [`flake.nix`](https://github.com/paritytech/zombienet/blob/main/flake.nix){target=\_blank} file to install Zombienet making it easy to incorporate Zombienet into Nix-based projects.
     
     To install Zombienet utilizing Nix, users can run the following command, triggering the fetching of the flake and subsequently installing the Zombienet package:
@@ -17410,6 +17565,7 @@ Multiple options are available for installing Zombienet, depending on the user's
     ```
 
 === "Use Docker"
+
     Zombienet can also be run using Docker. The Zombienet repository provides a Docker image that can be used to run the Zombienet CLI. To run Zombienet using Docker, you can use the following command:
 
     ```bash
@@ -17435,7 +17591,7 @@ Multiple options are available for installing Zombienet, depending on the user's
     Finally, you can run the Zombienet CLI commands. For example, to spawn a network using a specific configuration file, you can run the following command:
 
     ```bash
-    pm run zombie -- -p native spawn host-current-files/minimal.toml
+    npm run zombie -- -p native spawn host-current-files/minimal.toml
     ```
 
     The command above mounts the current directory to the `/workspace` directory inside the Docker container, allowing Zombienet to access the configuration file and other files in the current directory. If you want to mount a different directory, replace `$(pwd)` with the desired directory path.
@@ -17581,15 +17737,10 @@ The following sections will guide you through the primary usage of the Zombienet
 #### CLI Commands
 
 - **`spawn <networkConfig>`**: Spawn the network defined in the [configuration file](#configuration-files).
-
 - **`test <testFile>`**: Run tests on the spawned network using the assertions and tests defined in the [test file](/develop/toolkit/parachains/spawn-chains/zombienet/write-tests/#the-test-file){target=\_blank}.
-
 - **`setup <binaries>`**: Set up the Zombienet development environment to download and use the `polkadot` or `polkadot-parachain` executable.
-
 - **`convert <filePath>`**: Transforms a [polkadot-launch](https://github.com/paritytech/polkadot-launch){target=\_blank} configuration file with a `.js` or `.json` extension into a Zombienet configuration file.
-
 - **`version`**: Prints Zombienet version.
-
 - **`help`**: Prints help information.
 
 #### CLI Flags
@@ -17597,17 +17748,11 @@ The following sections will guide you through the primary usage of the Zombienet
 You can use the following flags to customize the behavior of the CLI:
 
 - **`-p`, `--provider`**: Override the [provider](#providers) to use.
-
 - **`-d`, `--dir`**: Specify a directory path for placing the network files instead of using the default temporary path.
-
 - **`-f`, `--force`**: Force override all prompt commands.
-
 - **`-l`, `--logType`**: Type of logging on the console. Defaults to `table`.
-
 - **`-m`, `--monitor`**: Start as monitor and don't auto clean up network.
-
 - **`-c`, `--spawn-concurrency`**: Number of concurrent spawning processes to launch. Defaults to `1`.
-
 - **`-h`, `--help`**: Display help for command.
 
 ### Settings
@@ -18564,11 +18709,8 @@ Assertions are defined by sentences in the DSL that evaluate different metrics, 
 Commands allow interaction with the nodes and can run pre-defined commands or an arbitrary command in the node. Commonly used commands are as follows:
 
 - **`restart`**: Stop the process and start again after the `X` amount of seconds or immediately.
-
 - **`pause`**: Pause (SIGSTOP) the process.
-
 - **`resume`**: Resume (SIGCONT) the process.
-
 - **`sleep`**: Sleep the test-runner for `x` amount of seconds.
 
 ## Running a Test

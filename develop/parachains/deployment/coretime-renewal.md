@@ -37,6 +37,7 @@ To manually renew a core:
     ![](/images/develop/parachains/deployment/coretime-renewal/coretime-renewal-1.webp)
 
 2. Submit the `broker.renew` extrinsic:
+
     1. Select the **broker** pallet.
     2. Choose the **renew** extrinsic.
     3. Fill in the **core** parameter.
@@ -125,7 +126,8 @@ To configure auto-renewal, you'll need to gather specific information for the `e
 
     **Example for parachain `2000`:**
     
-    - Current assignment (workload).
+    - Current assignment (workload):
+
         ```txt
         [
           [50]
@@ -136,7 +138,8 @@ To configure auto-renewal, you'll need to gather specific information for the `e
         ]
         ```
 
-    - Future assignment (workplan).
+    - Future assignment (workplan):
+
         ```txt
         [
           [[322,845, 48]]
@@ -147,7 +150,7 @@ To configure auto-renewal, you'll need to gather specific information for the `e
         ]
         ```
 
-    **Note:** use the core from workplan (`48` in this example) if your task appears there. Only use the core from workload if it's not listed in workplan.
+    **Note:** Use the core from workplan (`48` in this example) if your task appears there. Only use the core from workload if it's not listed in workplan.
 
 - **`task`**: Use your parachain ID, which can be verified by connecting to your parachain and querying `parachainInfo.parachainId()`.
 
@@ -195,6 +198,7 @@ Once you have these values, construct the extrinsic:
     ![](/images/develop/parachains/deployment/coretime-renewal/coretime-renewal-1.webp)
 
 2. Create the `broker.enable_auto_renew` extrinsic:
+
     1. Select the **broker** pallet.
     2. Choose the **enableAutoRenew** extrinsic.
     3. Fill in the parameters.
@@ -202,7 +206,7 @@ Once you have these values, construct the extrinsic:
 
     ![](/images/develop/parachains/deployment/coretime-renewal/coretime-renewal-3.webp)
 
-    For parachain `2000` on core `48` with `workload_end_hint` `327885`, the **encoded call data** is:`0x32153000d007000001cd000500`
+    For parachain `2000` on core `48` with `workload_end_hint` `327885`, the **encoded call data** is:`0x32153000d007000001cd000500`.
 
 3. Check the transaction weight for executing the call. You can estimate this by executing the `transactionPaymentCallApi.queryCallInfo` runtime call with the encoded call data previously obtained.
 
@@ -237,9 +241,11 @@ Here's how to submit this XCM using Acala (Parachain 2000) as an example:
     1. Add a **WithdrawAsset** instruction.
     2. Add a **BuyExecution** instruction.
     3. Add a **Transact** instruction with the following parameters:
+
         - **originKind**: Use `SovereignAccount`.
         - **requireWeightAtMost**: Use the weight calculated previously.
         - **call**: Use the encoded call data generated before.
+
     4. Add a **RefundSurplus** instruction.
     5. Add a **DepositAsset** instruction to send the remaining funds to the parachain sovereign account.
     6. Click the **Submit Transaction** button.

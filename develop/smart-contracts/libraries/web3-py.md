@@ -17,21 +17,21 @@ This guide illustrates how to utilize Web3.py for interactions with Polkadot Hub
 
 1. To start working with Web3.py, begin by initializing your project:
 
-    ```
+    ```bash
     mkdir web3py-project
     cd web3py-project
     ```
 
 2. Create and activate a virtual environment for your project:
 
-    ```
+    ```bash
     python -m venv venv
     source venv/bin/activate
     ```
 
 3. Next, install the Web3.py library:
 
-    ```
+    ```bash
     pip install web3
     ```
 

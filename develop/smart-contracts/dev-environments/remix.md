@@ -98,7 +98,7 @@ To create a new contract using the Polkadot Remix IDE, you can follow these step
 1. To deploy your contract, you need to:
 
     1. Navigate to the **Deploy & Run Transactions** tab (fourth icon in the left sidebar).
-    2. Click the **Enviroment** dropdown .
+    2. Click the **Enviroment** dropdown.
     3. Select **Customize this list**.
 
         ![](/images/develop/smart-contracts/evm-toolkit/dev-environments/remix/remix-7.webp)

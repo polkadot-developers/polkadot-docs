@@ -20,9 +20,7 @@ For further details about the XCM configuration, see the [XCM Configuration](/de
 Where the [XCM format](https://github.com/polkadot-fellows/xcm-format){target=\_blank} defines a set of instructions used to construct XCVM programs, `pallet-xcm` defines a set of extrinsics that can be utilized to build XCVM programs, either to target the local or external chains. The `pallet-xcm` functionality is divided into three categories:
 
 - **Primitive**: Dispatchable functions to execute XCM locally.
-
 - **High-level**: Functions for asset transfers between chains.
-
 - **Version negotiation-specific**: Functions for managing XCM version compability.
 
 ### Key Roles of the XCM Pallet
@@ -30,15 +28,10 @@ Where the [XCM format](https://github.com/polkadot-fellows/xcm-format){target=\_
 The XCM pallet plays a central role in managing cross-chain messages, with its primary responsibilities including:
 
 - **Execute XCM messages**: Interacts with the XCM executor to validate and execute messages, adhering to predefined security and filter criteria.
-
 - **Send messages across chains**: Allows authorized origins to send XCM messages, enabling controlled cross-chain communication.
-
 - **Reserve-based transfers and teleports**: Supports asset movement between chains, governed by filters that restrict operations to authorized origins.
-
 - **XCM version negotiation**: Ensures compatibility by selecting the appropriate XCM version for inter-chain communication.
-
 - **Asset trapping and recovery**: Manages trapped assets, enabling safe reallocation or recovery when issues occur during cross-chain transfers.
-
 - **Support for XCVM operations**: Oversees state and configuration requirements necessary for executing cross-consensus programs within the XCVM framework.
 
 ## Primary Extrinsics of the XCM Pallet

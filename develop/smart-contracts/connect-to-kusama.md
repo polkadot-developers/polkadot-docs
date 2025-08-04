@@ -24,29 +24,38 @@ Developers can leverage smart contracts on Kusama Hub for live production deploy
 === "Kusama Hub"
 
     Network name
+
     ```text
     Kusama Hub
     ```
+
     ---
+    
     Currency symbol
+    
     ```text
     KSM
     ```
+    
     ---
     
     Chain ID
+    
     ```text
     420420418
     ```
+    
     ---
     
     RPC URL
+    
     ```text
     https://kusama-asset-hub-eth-rpc.polkadot.io
     ```
     ---
     
     Block explorer URL
+    
     ```text
     https://blockscout-kusama-asset-hub.parity-chains-scw.parity.io/
     ```
@@ -56,9 +65,9 @@ Developers can leverage smart contracts on Kusama Hub for live production deploy
 
 While the compatibility with regular EVM codebases is still being maximized, some recommendations include:
     
-- **Leverage [Hardhat](/develop/smart-contracts/dev-environments/hardhat){target=\_blank}** to compile, deploy, and interact with your contract.
-- **Use MetaMask** to interact with your dApp (note that using MetaMask can sometimes lead to `Invalid transaction` errors. This is actively being worked on and will be fixed soon).
-- **Avoid Remix** for deployment as MetaMask enforces a 48kb size limit when using the [Remix IDE](/develop/smart-contracts/dev-environments/remix){target=\_blank}, which is why Hardhat Polkadot is recommended for deployment.
+- Leverage [Hardhat](/develop/smart-contracts/dev-environments/hardhat){target=\_blank} to compile, deploy, and interact with your contract.
+- Use MetaMask to interact with your dApp (note that using MetaMask can sometimes lead to `Invalid transaction` errors. This is actively being worked on and will be fixed soon).
+- Avoid Remix for deployment as MetaMask enforces a 48kb size limit when using the [Remix IDE](/develop/smart-contracts/dev-environments/remix){target=\_blank}, which is why Hardhat Polkadot is recommended for deployment.
 
 Kusama Hub is a live environment. Ensure your contracts are thoroughly tested before deployment, as transactions on Kusama Hub involve real KSM tokens and **cannot be reversed**.
 

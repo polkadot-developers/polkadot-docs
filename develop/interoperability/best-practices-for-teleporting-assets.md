@@ -83,7 +83,7 @@ Always verify that the destination account exists or can be created before initi
 
 - Account existence on the destination chain.
 - Current balance and nonce information.
-- Whether the account meets existential deposit requirements
+- Whether the account meets existential deposit requirements.
 
 You can refer to the following snippets to check for the Existential Deposit (ED) of a specific account:
 

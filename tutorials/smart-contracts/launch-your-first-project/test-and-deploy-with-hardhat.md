@@ -79,7 +79,7 @@ Let's start by setting up Hardhat for your Storage contract project:
     - `localNode` - runs a PolkaVM instance on `http://127.0.0.1:8545` for local development and testing
     - `passetHub` - connects to the the Polkadot Hub TestNet network using a predefined RPC URL and a private key stored in environment variables
 
-8. Export your private key and save it in your Hardhat environment:
+7. Export your private key and save it in your Hardhat environment:
 
     ```bash
     npx hardhat vars set PRIVATE_KEY "INSERT_PRIVATE_KEY"

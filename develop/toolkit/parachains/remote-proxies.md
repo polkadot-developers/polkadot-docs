@@ -3,7 +3,6 @@ title: Remote Proxies
 description: Remote proxies enable cross-chain proxy functionality within the Polkadot ecosystem, allowing proxy accounts defined on one chain to execute transactions on different chains through cryptographic storage proofs.
 ---
 
-
 # Remote Proxies
 
 !!!warning "Kusama Implementation Only"
@@ -80,88 +79,27 @@ Before implementing remote proxies, ensure you have:
 
 ### Installation and Setup
 
-```bash
-# Install required dependencies
-yarn add @polkadot/api
+To implement remote proxies, you need to install the [`@polkadot/api`](/develop/toolkit/api-libraries/polkadot-js-api/){target=\_blank} package and create a script to execute the remote proxy transaction:
 
-# Create your implementation script
+```bash
+pnpm add @polkadot/api
+```
+
+Create your implementation script:
+
+```bash
 touch remote-proxy-example.js
 ```
 
-### Complete Implementation Example
+### Implementation Example
 
-```javascript
-import { ApiPromise, WsProvider } from '@polkadot/api';
+Here is a complete implementation example of a remote proxy transaction:
 
-// Account configuration - replace with your addresses
-const RECIPIENT_ACCOUNT = '5EjdajLJp5CKhGVaWV21wiyGxUw42rhCqGN32LuVH4wrqXTN';
-const PROXIED_ACCOUNT = 'D9o7gYB92kXgr1UTjYWLDwXK5BeJdxR2irjwaoDEhJnNCfp';
-
-async function executeRemoteProxyTransaction() {
-  try {
-    // Establish connections to both chains
-    console.log('Connecting to Kusama relay chain...');
-    const kusamaProvider = new WsProvider('wss://kusama.public.curie.radiumblock.co/ws');
-    const kusamaApi = await ApiPromise.create({ provider: kusamaProvider });
-
-    console.log('Connecting to Kusama Asset Hub...');
-    const assetHubProvider = new WsProvider('wss://kusama-asset-hub-rpc.polkadot.io');
-    const assetHubApi = await ApiPromise.create({ provider: assetHubProvider });
-
-    // Step 1: Generate storage key for proxy definition
-    const proxyStorageKey = kusamaApi.query.proxy.proxies.key(PROXIED_ACCOUNT);
-    console.log(`Proxy storage key: ${proxyStorageKey}`);
-
-    // Step 2: Identify latest recognized block
-    const blockToRootMapping = JSON.parse(
-      await assetHubApi.query.remoteProxyRelayChain.blockToRoot()
-    );
-    const latestRecognizedBlock = blockToRootMapping[blockToRootMapping.length - 1][0];
-    const blockHash = await kusamaApi.rpc.chain.getBlockHash(latestRecognizedBlock);
-    
-    console.log(`Generating proof for block ${latestRecognizedBlock}`);
-
-    // Step 3: Create storage proof
-    const storageProof = JSON.parse(
-      await kusamaApi.rpc.state.getReadProof([proxyStorageKey], blockHash)
-    );
-
-    // Step 4: Define target transaction
-    const targetTransaction = assetHubApi.tx.balances.transferAll(RECIPIENT_ACCOUNT, false);
-
-    // Step 5: Construct remote proxy call
-    const remoteProxyCall = assetHubApi.tx.remoteProxyRelayChain.remoteProxy(
-      PROXIED_ACCOUNT,
-      null, // Proxy type filter (null accepts any compatible type)
-      targetTransaction.method,
-      { 
-        RelayChain: { 
-          proof: storageProof.proof, 
-          block: latestRecognizedBlock 
-        }
-      }
-    );
-
-    console.log('\n✅ Remote proxy transaction constructed successfully!');
-    console.log('\n📋 Next steps:');
-    console.log('1. Copy the URL below');
-    console.log('2. Open in Polkadot.js Apps');
-    console.log('3. Submit the transaction within 1 minute');
-    console.log('\n🔗 Polkadot.js Apps URL:');
-    console.log(`https://polkadot.js.org/apps/?rpc=wss%3A%2F%2Fkusama-asset-hub-rpc.polkadot.io#/extrinsics/decode/${remoteProxyCall.method.toHex()}`);
-
-    // Cleanup connections
-    await kusamaApi.disconnect();
-    await assetHubApi.disconnect();
-
-  } catch (error) {
-    console.error('❌ Remote proxy execution failed:', error.message);
-  }
-}
-
-// Execute the remote proxy workflow
-executeRemoteProxyTransaction();
+```javascript title="remote-proxy-example.js"
+--8<-- "code/develop/toolkit/parachains/remote-proxies/remote-proxy-example.js"
 ```
+
+Ensure to replace the `RECIPIENT_ACCOUNT` and `PROXIED_ACCOUNT` with your own accounts. For a concrete example, check out the [Sending a remote proxy transaction via Polkadot-JS](https://blog.kchr.de/polkadot/guides/remote-proxies-for-the-braves/#sending-a-remote-proxy-transaction-via-polkadot-js){target=\_blank} section in the Remote Proxies article.
 
 The code snippet above is a complete implementation example of a remote proxy transaction. It demonstrates how to:
 
@@ -172,7 +110,7 @@ The code snippet above is a complete implementation example of a remote proxy tr
 
 ## Resources
 
-- [Traditional Proxies Guide](https://wiki.polkadot.com/learn/learn-proxies/){target=\_blank}
-- [Polkadot.js API Documentation](https://polkadot.js.org/docs/){target=\_blank}
-- [Kusama Asset Hub Information](https://wiki.polkadot.com/docs/learn-assets){target=\_blank}
-- [Cross-Chain Message Passing (XCM)](/polkadot-protocol/xcm){target=\_blank}
+- **[Remote Proxies for Braves](https://blog.kchr.de/polkadot/guides/remote-proxies-for-the-braves){target=\_blank}**
+- **[Ecosystem Proxy](https://blog.kchr.de/ecosystem-proxy/){target=\_blank}**
+- **[RFC: Pure Proxy Replication](https://github.com/polkadot-fellows/RFCs/pull/111){target=\_blank}**
+- **[Learn Proxies](https://wiki.polkadot.com/learn/learn-proxies/){target=\_blank}**

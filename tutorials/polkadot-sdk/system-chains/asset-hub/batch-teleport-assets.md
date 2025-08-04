@@ -188,10 +188,10 @@ It is best practice to conduct dry run tests before execution of a cross-chain t
 
 Congratulations! You've successfully implemented batch teleport functionality using the ParaSpell SDK. This single-file implementation demonstrates how to:
 
-- Bundle multiple cross-chain transfers into efficient batch operations
-- Configure network settings for different environments
-- Generate ready-to-submit transaction data
-- Use the PAPI console for transaction submission
+- Bundle multiple cross-chain transfers into efficient batch operations.
+- Configure network settings for different environments.
+- Generate ready-to-submit transaction data.
+- Use the PAPI console for transaction submission.
 
 The batch teleport feature significantly improves efficiency when performing multiple cross-chain transfers, reducing both time and transaction costs in the Polkadot ecosystem.
 

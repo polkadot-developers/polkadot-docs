@@ -3,3 +3,4 @@ nav:
   - index.md
   - xcm-channels
   - xcm-transfers
+  - 'Replay and Dry Run XCMs': replay-and-dry-run-xcms.md

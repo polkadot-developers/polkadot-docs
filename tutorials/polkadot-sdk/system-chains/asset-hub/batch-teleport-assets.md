@@ -159,11 +159,11 @@ Make sure your Polkadot wallet is funded with some test tokens by using the [Pol
 
 After running the script:
 
-1. **Copy the generated link** from the console output
-2. **Open the link** in your web browser
-3. **Connect your wallet** (such as Polkadot.js extension)
-4. **Review the transaction details** in the PAPI console
-5. **Submit the transaction** and confirm with your wallet
+1. Copy the generated link from the console output.
+2. Open the link in your web browser.
+3. Connect your wallet (such as Polkadot.js extension).
+4. Review the transaction details in the PAPI console.
+5. Submit the transaction and confirm with your wallet.
 
     ![](/images/tutorials/polkadot-sdk/system-chains/asset-hub/batch-teleport/papi-console-01.webp)
 

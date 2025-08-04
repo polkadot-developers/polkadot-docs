@@ -27820,36 +27820,37 @@ Doc-Content: https://docs.polkadot.com/tutorials/interoperability/xcm-observabil
 --- BEGIN CONTENT ---
 ---
 title: XCM Observability
-description: This guide explains how to trace, correlate and debug cross-chain XCMs using observability features introduced in the Polkadot SDK.
+description: This guide explains how to trace, correlate and debug cross-chain XCMs using observability features enhanced in the Polkadot SDK.
 ---
 
 # XCM Observability
 
 ## Introduction
 
-This guide explains how to **trace, correlate and debug cross-chain XCMs** using observability features introduced in the Polkadot SDK.
+This guide explains how to **trace, correlate and debug cross-chain XCMs** using observability features enhanced in the Polkadot SDK.
 
 You will learn how to:
 
-* Use `SetTopic` and `message_id` to track XCMs across multiple chains
-* Match `PolkadotXcm.Sent` and `MessageQueue.Processed` events to understand message flow
-* Interpret and handle failed or incomplete messages
-* Apply manual topic tagging for reliable tracking across hops
-* Use the workaround for older runtimes that emit derived message identifiers
+- Use `SetTopic` and `message_id` to track XCMs across multiple chains
+- Match `PolkadotXcm.Sent` and `MessageQueue.Processed` events to understand message flow
+- Interpret and handle failed or incomplete messages
+- Apply manual topic tagging for reliable tracking across hops
+- Use the workaround for older runtimes that emit derived message identifiers
 
 To demonstrate these techniques, the guide introduces a complete example scenario involving a multi-chain XCM transfer. This scenario will serve as the foundation for explaining message lifecycle, event tracking and failure debugging in context.
 
+Here is a revised **Prerequisites** section that matches your requirements, using British English, avoiding dash-separated clauses, and aligning with the tone and structure of your updated guide:
+
 ## Prerequisites
 
-To follow this tutorial, you should have:
+Before you begin, make sure you have:
 
-* Basic knowledge of Polkadot SDK and XCM
-* [Chopsticks](https://github.com/AcalaNetwork/chopsticks) installed (`npm i -g @acala-network/chopsticks`)
-* A working local development environment (NodeJS, TypeScript)
-* [Polkadot API (PAPI)](https://github.com/polkadot-js/api) installed
-* Access to the Wasm runtimes of the relevant parachains (e.g., Asset Hub, Acala)
+- [Chopsticks](/develop/toolkit/parachains/fork-chains/chopsticks/get-started/){target=\_blank} installed (`npm i -g @acala-network/chopsticks`)
+- Access to the endpoint or genesis file of the parachain you want to fork
+- The block number or hash where the XCM was sent
+- (Optional) A Chopsticks config file for repeated setups
 
-You should also be familiar with forking chains using Chopsticks. If not, see [Fork a Chain with Chopsticks](https://docs.polkadot.com/tutorials/polkadot-sdk/testing/fork-live-chains/).
+If you haven't replayed or dry-run XCMs before, see the [Replay and Dry Run XCMs Using Chopsticks](/tutorials/interoperability/replay-and-dry-run-xcms/){target=\_blank} tutorial for step-by-step guidance.
 
 ## Define a Scenario: DOT to Acala Transfer with Tracing
 

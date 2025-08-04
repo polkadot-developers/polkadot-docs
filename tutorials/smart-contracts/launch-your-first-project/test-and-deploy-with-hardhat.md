@@ -66,14 +66,20 @@ Let's start by setting up Hardhat for your Storage contract project:
 
     Ensure that `INSERT_PATH_TO_SUBSTRATE_NODE` and `INSERT_PATH_TO_ETH_RPC_ADAPTER` are replaced with the proper paths to the compiled binaries. 
 
-    If you need to build these binaries, follow the [Installation](/develop/smart-contracts/local-development-node#install-the-substrate-node-and-eth-rpc-adapter){target=\_blank} section on the Local Development Node page.
+    Easiest way to get the binaries compiled:
+
+      1. Make sure you have rust installed (Check `rustc --version` and compare with "Rust compiler versions" in [polkadot-sdk/releases/latest](https://github.com/paritytech/polkadot-sdk/releases/tag/polkadot-stable2503-8))
+      2. `cargo install polkadot`, then `which polkadot` and insert into **INSERT_PATH_TO_SUBSTRATE_NODE**
+      3. `cargo install pallet-revive-eth-rpc`, then `which eth-rpc` and insert into **INSERT_PATH_TO_ETH_RPC_ADAPTER**
+   
+    If you need to build these binaries from polkadot-sdk, follow the [Installation](/develop/smart-contracts/local-development-node#install-the-substrate-node-and-eth-rpc-adapter){target=\_blank} section on the Local Development Node page.
 
     The configuration also defines two network settings: 
 
     - `localNode` - runs a PolkaVM instance on `http://127.0.0.1:8545` for local development and testing
     - `passetHub` - connects to the the Polkadot Hub TestNet network using a predefined RPC URL and a private key stored in environment variables
 
-7. Export your private key and save it in your Hardhat environment:
+8. Export your private key and save it in your Hardhat environment:
 
     ```bash
     npx hardhat vars set PRIVATE_KEY "INSERT_PRIVATE_KEY"

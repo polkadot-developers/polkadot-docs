@@ -164,6 +164,7 @@ Doc-Page: https://docs.polkadot.com/tutorials/interoperability/replay-and-dry-ru
 Doc-Page: https://docs.polkadot.com/tutorials/interoperability/xcm-channels/
 Doc-Page: https://docs.polkadot.com/tutorials/interoperability/xcm-channels/para-to-para/
 Doc-Page: https://docs.polkadot.com/tutorials/interoperability/xcm-channels/para-to-system/
+Doc-Page: https://docs.polkadot.com/tutorials/interoperability/xcm-observability/
 Doc-Page: https://docs.polkadot.com/tutorials/interoperability/xcm-transfers/from-relaychain-to-parachain/
 Doc-Page: https://docs.polkadot.com/tutorials/interoperability/xcm-transfers/
 Doc-Page: https://docs.polkadot.com/tutorials/onchain-governance/fast-track-gov-proposal/
@@ -610,9 +611,7 @@ The [`XcmRouter`](https://paritytech.github.io/polkadot-sdk/master/pallet_xcm/pa
 For instance, the Kusama network employs the [`ChildParachainRouter`](https://paritytech.github.io/polkadot-sdk/master/polkadot_runtime_common/xcm_sender/struct.ChildParachainRouter.html){target=\_blank}, which restricts routing to [Downward Message Passing (DMP)](https://wiki.polkadot.network/learn/learn-xcm-transport/#dmp-downward-message-passing){target=\_blank} from the relay chain to parachains, ensuring secure and controlled communication.
 
 ```rust
-// Only one router so far - use DMP to communicate with child parachains.
-	ChildParachainRouter<Runtime, XcmPallet, PriceForChildParachainDelivery>,
-)>;
+Error fetching snippet from https://raw.githubusercontent.com/polkadot-fellows/runtimes/refs/heads/main/relay/kusama/src/xcm_config.rs
 ```
 
 For more details about XCM transport protocols, see the [XCM Channels](/develop/interoperability/xcm-channels/){target=\_blank} page.
@@ -671,92 +670,25 @@ The `xcm-emulator` provides macros for defining a mocked testing environment. Ch
 - [**`decl_test_relay_chains`**](https://github.com/paritytech/polkadot-sdk/blob/{{dependencies.repositories.polkadot_sdk.version}}/cumulus/xcm/xcm-emulator/src/lib.rs#L361){target=\_blank} - defines runtime and configuration for the relay chains. Example:
 
     ```rust
-    decl_test_relay_chains! {
-	#[api_version(11)]
-	pub struct Westend {
-		genesis = genesis::genesis(),
-		on_init = (),
-		runtime = westend_runtime,
-		core = {
-			SovereignAccountOf: westend_runtime::xcm_config::LocationConverter,
-		},
-		pallets = {
-			XcmPallet: westend_runtime::XcmPallet,
-			Sudo: westend_runtime::Sudo,
-			Balances: westend_runtime::Balances,
-			Treasury: westend_runtime::Treasury,
-			AssetRate: westend_runtime::AssetRate,
-			Hrmp: westend_runtime::Hrmp,
-			Identity: westend_runtime::Identity,
-			IdentityMigrator: westend_runtime::IdentityMigrator,
-		}
-	},
-}
+    Error fetching snippet from https://raw.githubusercontent.com/paritytech/polkadot-sdk/refs/tags/polkadot-stable2412/cumulus/parachains/integration-tests/emulated/chains/relays/westend/src/lib.rs
     ```
 
 - [**`decl_test_parachains`**](https://github.com/paritytech/polkadot-sdk/blob/{{dependencies.repositories.polkadot_sdk.version}}/cumulus/xcm/xcm-emulator/src/lib.rs#L596){target=\_blank} - defines runtime and configuration for the parachains. Example:
 
     ```rust
-    decl_test_parachains! {
-	pub struct AssetHubWestend {
-		genesis = genesis::genesis(),
-		on_init = {
-			asset_hub_westend_runtime::AuraExt::on_initialize(1);
-		},
-		runtime = asset_hub_westend_runtime,
-		core = {
-			XcmpMessageHandler: asset_hub_westend_runtime::XcmpQueue,
-			LocationToAccountId: asset_hub_westend_runtime::xcm_config::LocationToAccountId,
-			ParachainInfo: asset_hub_westend_runtime::ParachainInfo,
-			MessageOrigin: cumulus_primitives_core::AggregateMessageOrigin,
-		},
-		pallets = {
-			PolkadotXcm: asset_hub_westend_runtime::PolkadotXcm,
-			Balances: asset_hub_westend_runtime::Balances,
-			Assets: asset_hub_westend_runtime::Assets,
-			ForeignAssets: asset_hub_westend_runtime::ForeignAssets,
-			PoolAssets: asset_hub_westend_runtime::PoolAssets,
-			AssetConversion: asset_hub_westend_runtime::AssetConversion,
-		}
-	},
-}
+    Error fetching snippet from https://raw.githubusercontent.com/paritytech/polkadot-sdk/refs/tags/polkadot-stable2412/cumulus/parachains/integration-tests/emulated/chains/parachains/assets/asset-hub-westend/src/lib.rs
     ```
 
 - [**`decl_test_bridges`**](https://github.com/paritytech/polkadot-sdk/blob/{{dependencies.repositories.polkadot_sdk.version}}/cumulus/xcm/xcm-emulator/src/lib.rs#L1221){target=\_blank} - creates bridges between chains, specifying the source, target, and message handler. Example:
 
     ```rust
-    decl_test_bridges! {
-	pub struct RococoWestendMockBridge {
-		source = BridgeHubRococoPara,
-		target = BridgeHubWestendPara,
-		handler = RococoWestendMessageHandler
-	},
-	pub struct WestendRococoMockBridge {
-		source = BridgeHubWestendPara,
-		target = BridgeHubRococoPara,
-		handler = WestendRococoMessageHandler
-	}
-}
+    Error fetching snippet from https://raw.githubusercontent.com/paritytech/polkadot-sdk/refs/tags/polkadot-stable2412/cumulus/parachains/integration-tests/emulated/networks/rococo-westend-system/src/lib.rs
     ```
 
 - [**`decl_test_networks`**](https://github.com/paritytech/polkadot-sdk/blob/{{dependencies.repositories.polkadot_sdk.version}}/cumulus/xcm/xcm-emulator/src/lib.rs#L958){target=\_blank} - defines a testing network with relay chains, parachains, and bridges, implementing message transport and processing logic. Example:
 
     ```rust
-    decl_test_networks! {
-	pub struct WestendMockNet {
-		relay_chain = Westend,
-		parachains = vec![
-			AssetHubWestend,
-			BridgeHubWestend,
-			CollectivesWestend,
-			CoretimeWestend,
-			PeopleWestend,
-			PenpalA,
-			PenpalB,
-		],
-		bridge = ()
-	},
-}
+    Error fetching snippet from https://raw.githubusercontent.com/paritytech/polkadot-sdk/refs/tags/polkadot-stable2412/cumulus/parachains/integration-tests/emulated/networks/westend-system/src/lib.rs
     ```
 
 By leveraging these macros, developers can customize their testing networks by defining relay chains and parachains tailored to their needs. For guidance on implementing a mock runtime for a Polkadot SDK-based chain, refer to the [Pallet Testing](/develop/parachains/testing/pallet-testing/){target=\_blank} article. 
@@ -1186,7 +1118,7 @@ This API can be used independently for dry-running, double-checking, or testing.
 This API allows a dry-run of any extrinsic and obtaining the outcome if it fails or succeeds, as well as the local xcm and remote xcm messages sent to other chains.
 
 ```rust
-fn dry_run_call(origin: OriginCaller, call: Call, result_xcms_version: XcmVersion) -> Result<CallDryRunEffects<Event>, Error>;
+Error fetching snippet from https://raw.githubusercontent.com/paritytech/polkadot-sdk/refs/tags/polkadot-stable2503-7/polkadot/xcm/xcm-runtime-apis/src/dry_run.rs
 ```
 
 ??? interface "Input parameters"
@@ -1913,7 +1845,7 @@ client.destroy();
 This API allows the direct dry-run of an xcm message instead of an extrinsic one, checks if it will execute successfully, and determines what other xcm messages will be forwarded to other chains.
 
 ```rust
-fn dry_run_xcm(origin_location: VersionedLocation, xcm: VersionedXcm<Call>) -> Result<XcmDryRunEffects<Event>, Error>;
+Error fetching snippet from https://raw.githubusercontent.com/paritytech/polkadot-sdk/refs/tags/polkadot-stable2503-7/polkadot/xcm/xcm-runtime-apis/src/dry_run.rs
 ```
 
 ??? interface "Input parameters"
@@ -2143,7 +2075,7 @@ To use the API effectively, the client must already know the XCM program to be e
 Retrieves the list of assets that are acceptable for paying fees when using a specific XCM version
 
 ```rust
-fn query_acceptable_payment_assets(xcm_version: Version) -> Result<Vec<VersionedAssetId>, Error>;
+Error fetching snippet from https://raw.githubusercontent.com/paritytech/polkadot-sdk/refs/tags/polkadot-stable2503-7/polkadot/xcm/xcm-runtime-apis/src/fees.rs
 ```
 
 ??? interface "Input parameters"
@@ -2230,7 +2162,7 @@ client.destroy();
 Calculates the weight required to execute a given XCM message. It is useful for estimating the execution cost of a cross-chain message in the destination chain before sending it.
 
 ```rust
-fn query_xcm_weight(message: VersionedXcm<()>) -> Result<Weight, Error>;
+Error fetching snippet from https://raw.githubusercontent.com/paritytech/polkadot-sdk/refs/tags/polkadot-stable2503-7/polkadot/xcm/xcm-runtime-apis/src/fees.rs
 ```
 
 ??? interface "Input parameters"
@@ -2372,7 +2304,7 @@ client.destroy();
 Converts a given weight into the corresponding fee for a specified `AssetId`. It allows clients to determine the cost of execution in terms of the desired asset.
 
 ```rust
-fn query_weight_to_asset_fee(weight: Weight, asset: VersionedAssetId) -> Result<u128, Error>;
+Error fetching snippet from https://raw.githubusercontent.com/paritytech/polkadot-sdk/refs/tags/polkadot-stable2503-7/polkadot/xcm/xcm-runtime-apis/src/fees.rs
 ```
 
 ??? interface "Input parameters"
@@ -2475,7 +2407,7 @@ client.destroy();
 Retrieves the delivery fees for sending a specific XCM message to a designated destination. The fees are always returned in a specific asset defined by the destination chain.
 
 ```rust
-fn query_delivery_fees(destination: VersionedLocation, message: VersionedXcm<()>) -> Result<VersionedAssets, Error>;
+Error fetching snippet from https://raw.githubusercontent.com/paritytech/polkadot-sdk/refs/tags/polkadot-stable2503-7/polkadot/xcm/xcm-runtime-apis/src/fees.rs
 ```
 
 ??? interface "Input parameters"
@@ -4018,29 +3950,7 @@ To add a GitHub workflow for building the runtime:
     ??? interface "`basic.yml`"
 
         ```yml
-        name: Srtool build
-
-on: push
-
-jobs:
-  srtool:
-    runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        chain: ["asset-hub-kusama", "asset-hub-westend"]
-    steps:
-      - uses: actions/checkout@v3
-      - name: Srtool build
-        id: srtool_build
-        uses: chevdor/srtool-actions@v0.8.0
-        with:
-          chain: ${{ matrix.chain }}
-          runtime_dir: polkadot-parachains/${{ matrix.chain }}-runtime
-      - name: Summary
-        run: |
-          echo '${{ steps.srtool_build.outputs.json }}' | jq . > ${{ matrix.chain }}-srtool-digest.json
-          cat ${{ matrix.chain }}-srtool-digest.json
-          echo "Runtime location: ${{ steps.srtool_build.outputs.wasm }}"
+        Error fetching snippet from https://raw.githubusercontent.com/chevdor/srtool-actions/refs/heads/master/examples/01_basic.yml
         ```
 
 4. Modify the settings in the sample action
@@ -6104,130 +6014,14 @@ pub type Value<T: Config> = StorageValue<_, u32>;
 
 - New `StorageValue` format:
 ```rust
-/// Example struct holding the most recently set [`u32`] and the
-/// second most recently set [`u32`] (if one existed).
-#[docify::export]
-#[derive(
-	Clone, Eq, PartialEq, Encode, Decode, RuntimeDebug, scale_info::TypeInfo, MaxEncodedLen,
-)]
-pub struct CurrentAndPreviousValue {
-	/// The most recently set value.
-	pub current: u32,
-	/// The previous value, if one existed.
-	pub previous: Option<u32>,
-}
+Error fetching snippet from https://raw.githubusercontent.com/paritytech/polkadot-sdk/refs/tags/polkadot-stable2409-1/substrate/frame/examples/single-block-migrations/src/lib.rs
 
-#[pallet::storage]
-	pub type Value<T: Config> = StorageValue<_, CurrentAndPreviousValue>;
+Error fetching snippet from https://raw.githubusercontent.com/paritytech/polkadot-sdk/refs/tags/polkadot-stable2409-1/substrate/frame/examples/single-block-migrations/src/lib.rs
 ```
 
 - Migration:
 ```rust
-use frame_support::{
-	storage_alias,
-	traits::{Get, UncheckedOnRuntimeUpgrade},
-};
-
-#[cfg(feature = "try-runtime")]
-use alloc::vec::Vec;
-
-/// Collection of storage item formats from the previous storage version.
-///
-/// Required so we can read values in the v0 storage format during the migration.
-mod v0 {
-	use super::*;
-
-	/// V0 type for [`crate::Value`].
-	#[storage_alias]
-	pub type Value<T: crate::Config> = StorageValue<crate::Pallet<T>, u32>;
-}
-
-/// Implements [`UncheckedOnRuntimeUpgrade`], migrating the state of this pallet from V0 to V1.
-///
-/// In V0 of the template [`crate::Value`] is just a `u32`. In V1, it has been upgraded to
-/// contain the struct [`crate::CurrentAndPreviousValue`].
-///
-/// In this migration, update the on-chain storage for the pallet to reflect the new storage
-/// layout.
-pub struct InnerMigrateV0ToV1<T: crate::Config>(core::marker::PhantomData<T>);
-
-impl<T: crate::Config> UncheckedOnRuntimeUpgrade for InnerMigrateV0ToV1<T> {
-	/// Return the existing [`crate::Value`] so we can check that it was correctly set in
-	/// `InnerMigrateV0ToV1::post_upgrade`.
-	#[cfg(feature = "try-runtime")]
-	fn pre_upgrade() -> Result<Vec<u8>, sp_runtime::TryRuntimeError> {
-		use codec::Encode;
-
-		// Access the old value using the `storage_alias` type
-		let old_value = v0::Value::<T>::get();
-		// Return it as an encoded `Vec<u8>`
-		Ok(old_value.encode())
-	}
-
-	/// Migrate the storage from V0 to V1.
-	///
-	/// - If the value doesn't exist, there is nothing to do.
-	/// - If the value exists, it is read and then written back to storage inside a
-	/// [`crate::CurrentAndPreviousValue`].
-	fn on_runtime_upgrade() -> frame_support::weights::Weight {
-		// Read the old value from storage
-		if let Some(old_value) = v0::Value::<T>::take() {
-			// Write the new value to storage
-			let new = crate::CurrentAndPreviousValue { current: old_value, previous: None };
-			crate::Value::<T>::put(new);
-			// One read + write for taking the old value, and one write for setting the new value
-			T::DbWeight::get().reads_writes(1, 2)
-		} else {
-			// No writes since there was no old value, just one read for checking
-			T::DbWeight::get().reads(1)
-		}
-	}
-
-	/// Verifies the storage was migrated correctly.
-	///
-	/// - If there was no old value, the new value should not be set.
-	/// - If there was an old value, the new value should be a [`crate::CurrentAndPreviousValue`].
-	#[cfg(feature = "try-runtime")]
-	fn post_upgrade(state: Vec<u8>) -> Result<(), sp_runtime::TryRuntimeError> {
-		use codec::Decode;
-		use frame_support::ensure;
-
-		let maybe_old_value = Option::<u32>::decode(&mut &state[..]).map_err(|_| {
-			sp_runtime::TryRuntimeError::Other("Failed to decode old value from storage")
-		})?;
-
-		match maybe_old_value {
-			Some(old_value) => {
-				let expected_new_value =
-					crate::CurrentAndPreviousValue { current: old_value, previous: None };
-				let actual_new_value = crate::Value::<T>::get();
-
-				ensure!(actual_new_value.is_some(), "New value not set");
-				ensure!(
-					actual_new_value == Some(expected_new_value),
-					"New value not set correctly"
-				);
-			},
-			None => {
-				ensure!(crate::Value::<T>::get().is_none(), "New value unexpectedly set");
-			},
-		};
-		Ok(())
-	}
-}
-
-/// [`UncheckedOnRuntimeUpgrade`] implementation [`InnerMigrateV0ToV1`] wrapped in a
-/// [`VersionedMigration`](frame_support::migrations::VersionedMigration), which ensures that:
-/// - The migration only runs once when the on-chain storage version is 0
-/// - The on-chain storage version is updated to `1` after the migration executes
-/// - Reads/Writes from checking/settings the on-chain storage version are accounted for
-pub type MigrateV0ToV1<T> = frame_support::migrations::VersionedMigration<
-	0, // The migration will only execute when the on-chain storage version is 0
-	1, // The on-chain storage version will be set to 1 after the migration is complete
-	InnerMigrateV0ToV1<T>,
-	crate::pallet::Pallet<T>,
-	<T as frame_system::Config>::DbWeight,
->;
+Error fetching snippet from https://raw.githubusercontent.com/paritytech/polkadot-sdk/refs/tags/polkadot-stable2409-1/substrate/frame/examples/single-block-migrations/src/migrations/v1.rs
 ```
 
 ### Migration Organization
@@ -6572,40 +6366,7 @@ my-pallet/
 With the directory structure set, you can use the [`polkadot-sdk-parachain-template`](https://github.com/paritytech/polkadot-sdk-parachain-template/tree/master/pallets){target=\_blank} to get started as follows:
 
 ```rust title="benchmarking.rs (starter template)"
-//! Benchmarking setup for pallet-template
-#![cfg(feature = "runtime-benchmarks")]
-
-use super::*;
-use frame_benchmarking::v2::*;
-
-#[benchmarks]
-mod benchmarks {
-	use super::*;
-	#[cfg(test)]
-	use crate::pallet::Pallet as Template;
-	use frame_system::RawOrigin;
-
-	#[benchmark]
-	fn do_something() {
-		let caller: T::AccountId = whitelisted_caller();
-		#[extrinsic_call]
-		do_something(RawOrigin::Signed(caller), 100);
-
-		assert_eq!(Something::<T>::get().map(|v| v.block_number), Some(100u32.into()));
-	}
-
-	#[benchmark]
-	fn cause_error() {
-		Something::<T>::put(CompositeStruct { block_number: 100u32.into() });
-		let caller: T::AccountId = whitelisted_caller();
-		#[extrinsic_call]
-		cause_error(RawOrigin::Signed(caller));
-
-		assert_eq!(Something::<T>::get().map(|v| v.block_number), Some(101u32.into()));
-	}
-
-	impl_benchmark_test_suite!(Template, crate::mock::new_test_ext(), crate::mock::Test);
-}
+Error fetching snippet from https://raw.githubusercontent.com/paritytech/polkadot-sdk-parachain-template/refs/tags/v0.0.2/pallets/template/src/benchmarking.rs
 ```
 
 In your benchmarking tests, employ these best practices:
@@ -12377,34 +12138,7 @@ Now, let's explore how to use each precompile available in Polkadot Hub.
 ECRecover recovers an Ethereum address associated with the public key used to sign a message.
 
 ```solidity title="ECRecover.sol"
-// SPDX-License-Identifier: MIT
-pragma solidity ^0.8.0;
-
-contract ECRecoverExample {
-    event ECRecovered(bytes result);
-
-    // Address of the ECRecover precompile
-    address constant EC_RECOVER_ADDRESS = address(0x01);
-    bytes public result;
-
-    function callECRecover(bytes calldata input) public {
-        bool success;
-        bytes memory resultInMemory;
-
-        (success, resultInMemory) = EC_RECOVER_ADDRESS.call{value: 0}(input);
-
-        if (success) {
-            emit ECRecovered(resultInMemory);
-        }
-
-        result = resultInMemory;
-    }
-
-    function getRecoveredAddress() public view returns (address) {
-        require(result.length == 32, "Invalid result length");
-        return address(uint160(uint256(bytes32(result))));
-    }
-}
+Error fetching snippet from https://raw.githubusercontent.com/polkadot-developers/polkavm-hardhat-examples/refs/tags/v0.0.4/precompiles-hardhat/contracts/ECRecover.sol
 ```
 
 To interact with the ECRecover precompile, you can deploy the `ECRecoverExample` contract in [Remix](/develop/smart-contracts/dev-environments/remix){target=\_blank} or any Solidity-compatible environment. The `callECRecover` function takes a 128-byte input combining the message `hash`, `v`, `r`, and `s` signature values. Check this [test file](https://github.com/polkadot-developers/polkavm-hardhat-examples/blob/v0.0.3/precompiles-hardhat/test/ECRecover.js){target=\_blank} that shows how to format this input and verify that the recovered address matches the expected result.
@@ -12414,30 +12148,7 @@ To interact with the ECRecover precompile, you can deploy the `ECRecoverExample`
 The SHA-256 precompile computes the SHA-256 hash of the input data.
 
 ```solidity title="SHA256.sol"
-// SPDX-License-Identifier: MIT
-pragma solidity ^0.8.0;
-
-contract SHA256Example {
-    event SHA256Called(bytes result);
-
-    // Address of the SHA256 precompile
-    address constant SHA256_PRECOMPILE = address(0x02);
-
-    bytes public result;
-
-    function callH256(bytes calldata input) public {
-        bool success;
-        bytes memory resultInMemory;
-
-        (success, resultInMemory) = SHA256_PRECOMPILE.call{value: 0}(input);
-
-        if (success) {
-            emit SHA256Called(resultInMemory);
-        }
-
-        result = resultInMemory;
-    }
-}
+Error fetching snippet from https://raw.githubusercontent.com/polkadot-developers/polkavm-hardhat-examples/refs/tags/v0.0.4/precompiles-hardhat/contracts/SHA256.sol
 ```
 
 To use it, you can deploy the `SHA256Example` contract in [Remix](/develop/smart-contracts/dev-environments/remix){target=\_blank} or any Solidity-compatible environment and call callH256 with arbitrary bytes. Check out this [test file](https://github.com/polkadot-developers/polkavm-hardhat-examples/blob/v0.0.3/precompiles-hardhat/test/SHA256.js){target=\_blank} shows how to pass a UTF-8 string, hash it using the precompile, and compare it with the expected hash from Node.js's [crypto](https://www.npmjs.com/package/crypto-js){target=\_blank} module.
@@ -12448,32 +12159,7 @@ To use it, you can deploy the `SHA256Example` contract in [Remix](/develop/smart
 The RIPEMD-160 precompile computes the RIPEMD-160 hash of the input data.
 
 ```solidity title="RIPEMD160.sol"
-// SPDX-License-Identifier: MIT
-pragma solidity ^0.8.0;
-
-contract RIPEMD160Example {
-    // RIPEMD-160 precompile address
-    address constant RIPEMD160_PRECOMPILE = address(0x03);
-
-    bytes32 public result;
-
-    event RIPEMD160Called(bytes32 result);
-
-    function calculateRIPEMD160(bytes calldata input) public returns (bytes32) {
-        (bool success, bytes memory returnData) = RIPEMD160_PRECOMPILE.call(
-            input
-        );
-        require(success, "RIPEMD-160 precompile call failed");
-        // return full 32 bytes, no assembly extraction
-        bytes32 fullHash;
-        assembly {
-            fullHash := mload(add(returnData, 32))
-        }
-        result = fullHash;
-        emit RIPEMD160Called(fullHash);
-        return fullHash;
-    }
-}
+Error fetching snippet from https://raw.githubusercontent.com/polkadot-developers/polkavm-hardhat-examples/refs/tags/v0.0.4/precompiles-hardhat/contracts/RIPEMD160.sol
 ```
 
 To use it, you can deploy the `RIPEMD160Example` contract in [Remix](/develop/smart-contracts/dev-environments/remix){target=\_blank} or any Solidity-compatible environment and call `calculateRIPEMD160` with arbitrary bytes. This [test file](https://github.com/polkadot-developers/polkavm-hardhat-examples/blob/v0.0.3/precompiles-hardhat/test/RIPEMD160.js){target=\_blank} shows how to hash a UTF-8 string, pad the 20-byte result to 32 bytes, and verify it against the expected output.
@@ -12483,30 +12169,7 @@ To use it, you can deploy the `RIPEMD160Example` contract in [Remix](/develop/sm
 The Identity precompile simply returns the input data as output. While seemingly trivial, it can be useful for testing and certain specialized scenarios.
 
 ```solidity title="Identity.sol"
-// SPDX-License-Identifier: MIT
-pragma solidity ^0.8.0;
-
-contract IdentityExample {
-    event IdentityCalled(bytes result);
-
-    // Address of the Identity precompile
-    address constant IDENTITY_PRECOMPILE = address(0x04);
-
-    bytes public result;
-
-    function callIdentity(bytes calldata input) public {
-        bool success;
-        bytes memory resultInMemory;
-
-        (success, resultInMemory) = IDENTITY_PRECOMPILE.call(input);
-
-        if (success) {
-            emit IdentityCalled(resultInMemory);
-        }
-
-        result = resultInMemory;
-    }
-}
+Error fetching snippet from https://raw.githubusercontent.com/polkadot-developers/polkavm-hardhat-examples/refs/tags/v0.0.4/precompiles-hardhat/contracts/Identity.sol
 ```
 
 To use it, you can deploy the `IdentityExample` contract in [Remix](/develop/smart-contracts/dev-environments/remix){target=\_blank} or any Solidity-compatible environment and call `callIdentity` with arbitrary bytes. This [test file](https://github.com/polkadot-developers/polkavm-hardhat-examples/blob/v0.0.3/precompiles-hardhat/test/Identity.js){target=\_blank} shows how to pass input data and verify that the precompile returns it unchanged.
@@ -12516,36 +12179,7 @@ To use it, you can deploy the `IdentityExample` contract in [Remix](/develop/sma
 The ModExp precompile performs modular exponentiation, which is an operation commonly needed in cryptographic algorithms.
 
 ```solidity title="ModExp.sol"
-// SPDX-License-Identifier: MIT
-pragma solidity ^0.8.0;
-
-contract ModExpExample {
-    address constant MODEXP_ADDRESS = address(0x05);
-
-    function modularExponentiation(
-        bytes memory base,
-        bytes memory exponent,
-        bytes memory modulus
-    ) public view returns (bytes memory) {
-        bytes memory input = abi.encodePacked(
-            toBytes32(base.length),
-            toBytes32(exponent.length),
-            toBytes32(modulus.length),
-            base,
-            exponent,
-            modulus
-        );
-
-        (bool success, bytes memory result) = MODEXP_ADDRESS.staticcall(input);
-        require(success, "ModExp precompile call failed");
-
-        return result;
-    }
-
-    function toBytes32(uint256 value) internal pure returns (bytes32) {
-        return bytes32(value);
-    }
-}
+Error fetching snippet from https://raw.githubusercontent.com/polkadot-developers/polkavm-hardhat-examples/refs/tags/v0.0.4/precompiles-hardhat/contracts/ModExp.sol
 ```
 
 To use it, you can deploy the `ModExpExample` contract in [Remix](/develop/smart-contracts/dev-environments/remix){target=\_blank} or any Solidity-compatible environment and call `modularExponentiation` with encoded `base`, `exponent`, and `modulus` bytes. This [test file](https://github.com/polkadot-developers/polkavm-hardhat-examples/blob/v0.0.3/precompiles-hardhat/test/ModExp.js){target=\_blank} shows how to test modular exponentiation like (4 ** 13) % 497 = 445.
@@ -12555,38 +12189,7 @@ To use it, you can deploy the `ModExpExample` contract in [Remix](/develop/smart
 The BN128Add precompile performs addition on the alt_bn128 elliptic curve, which is essential for zk-SNARK operations.
 
 ```solidity title="BN128Add.sol"
-// SPDX-License-Identifier: MIT
-pragma solidity ^0.8.20;
-
-contract BN128AddExample {
-    address constant BN128_ADD_PRECOMPILE = address(0x06);
-
-    event BN128Added(uint256 x3, uint256 y3);
-
-    uint256 public resultX;
-    uint256 public resultY;
-
-    function callBN128Add(uint256 x1, uint256 y1, uint256 x2, uint256 y2) public {
-        bytes memory input = abi.encodePacked(
-            bytes32(x1), bytes32(y1), bytes32(x2), bytes32(y2)
-        );
-
-        bool success;
-        bytes memory output;
-
-        (success, output) = BN128_ADD_PRECOMPILE.call{value: 0}(input);
-
-        require(success, "BN128Add precompile call failed");
-        require(output.length == 64, "Invalid output length");
-
-        (uint256 x3, uint256 y3) = abi.decode(output, (uint256, uint256));
-
-        resultX = x3;
-        resultY = y3;
-
-        emit BN128Added(x3, y3);
-    }
-}
+Error fetching snippet from https://raw.githubusercontent.com/polkadot-developers/polkavm-hardhat-examples/refs/tags/v0.0.4/precompiles-hardhat/contracts/BN128Add.sol
 ```
 
 To use it, you can deploy the `BN128AddExample` contract in [Remix](/develop/smart-contracts/dev-environments/remix){target=\_blank} or any Solidity-compatible environment and call `callBN128Add` with valid `alt_bn128` points. This [test file](https://github.com/polkadot-developers/polkavm-hardhat-examples/blob/v0.0.3/precompiles-hardhat/test/BN128Add.js){target=\_blank} demonstrates a valid curve addition and checks the result against known expected values.
@@ -12596,42 +12199,7 @@ To use it, you can deploy the `BN128AddExample` contract in [Remix](/develop/sma
 The BN128Mul precompile performs scalar multiplication on the alt_bn128 curve.
 
 ```solidity title="BN128Mul.sol"
-// SPDX-License-Identifier: MIT
-pragma solidity ^0.8.0;
-
-contract BN128MulExample {
-    // Precompile address for BN128Mul
-    address constant BN128_MUL_ADDRESS = address(0x07);
-
-    bytes public result;
-
-    // Performs scalar multiplication of a point on the alt_bn128 curve
-    function bn128ScalarMul(uint256 x1, uint256 y1, uint256 scalar) public {
-        // Format: [x, y, scalar] - each 32 bytes
-        bytes memory input = abi.encodePacked(
-            bytes32(x1),
-            bytes32(y1),
-            bytes32(scalar)
-        );
-
-        (bool success, bytes memory resultInMemory) = BN128_MUL_ADDRESS.call{
-            value: 0
-        }(input);
-        require(success, "BN128Mul precompile call failed");
-
-        result = resultInMemory;
-    }
-
-    // Helper to decode result from `result` storage
-    function getResult() public view returns (uint256 x2, uint256 y2) {
-        bytes memory tempResult = result;
-        require(tempResult.length >= 64, "Invalid result length");
-        assembly {
-            x2 := mload(add(tempResult, 32))
-            y2 := mload(add(tempResult, 64))
-        }
-    }
-}
+Error fetching snippet from https://raw.githubusercontent.com/polkadot-developers/polkavm-hardhat-examples/refs/tags/v0.0.4/precompiles-hardhat/contracts/BN128Mul.sol
 ```
 
 To use it, deploy `BN128MulExample` in [Remix](/develop/smart-contracts/dev-environments/remix){target=\_blank} or any Solidity-compatible environment and call `bn128ScalarMul` with a valid point and scalar. This [test file](https://github.com/polkadot-developers/polkavm-hardhat-examples/blob/v0.0.3/precompiles-hardhat/test/BN128Mul.js){target=\_blank} shows how to test the operation and verify the expected scalar multiplication result on `alt_bn128`.
@@ -12641,38 +12209,7 @@ To use it, deploy `BN128MulExample` in [Remix](/develop/smart-contracts/dev-envi
 The BN128Pairing precompile verifies a pairing equation on the alt_bn128 curve, which is critical for zk-SNARK verification.
 
 ```solidity title="BN128Pairing.sol"
-// SPDX-License-Identifier: MIT
-pragma solidity ^0.8.0;
-
-contract BN128PairingExample {
-    // Precompile address for BN128Pairing
-    address constant BN128_PAIRING_ADDRESS = address(0x08);
-
-    bytes public result;
-
-    // Performs a pairing check on the alt_bn128 curve
-    function bn128Pairing(bytes memory input) public {
-        // Call the precompile
-        (bool success, bytes memory resultInMemory) = BN128_PAIRING_ADDRESS
-            .call{value: 0}(input);
-        require(success, "BN128Pairing precompile call failed");
-
-        result = resultInMemory;
-    }
-
-    // Helper function to decode the result from `result` storage
-    function getResult() public view returns (bool isValid) {
-        bytes memory tempResult = result;
-        require(tempResult.length == 32, "Invalid result length");
-
-        uint256 output;
-        assembly {
-            output := mload(add(tempResult, 32))
-        }
-
-        isValid = (output == 1);
-    }
-}
+Error fetching snippet from https://raw.githubusercontent.com/polkadot-developers/polkavm-hardhat-examples/refs/tags/v0.0.4/precompiles-hardhat/contracts/BN128Pairing.sol
 ```
 
 You can deploy `BN128PairingExample` in [Remix](/develop/smart-contracts/dev-environments/remix){target=\_blank} or your preferred environment. Check out this [test file](https://github.com/polkadot-developers/polkavm-hardhat-examples/blob/v0.0.3/precompiles-hardhat/test/BN128Pairing.js){target=\_blank} contains these tests with working examples.
@@ -12682,105 +12219,7 @@ You can deploy `BN128PairingExample` in [Remix](/develop/smart-contracts/dev-env
 The Blake2F precompile performs the Blake2 compression function F, which is the core of the Blake2 hash function.
 
 ```solidity title="Blake2F.sol"
-// SPDX-License-Identifier: MIT
-pragma solidity ^0.8.0;
-
-contract Blake2FExample {
-    // Precompile address for Blake2F
-    address constant BLAKE2F_ADDRESS = address(0x09);
-
-    bytes public result;
-
-    function blake2F(bytes memory input) public {
-        // Input must be exactly 213 bytes
-        require(input.length == 213, "Invalid input length - must be 213 bytes");
-
-        // Call the precompile
-        (bool success, bytes memory resultInMemory) = BLAKE2F_ADDRESS.call{
-            value: 0
-        }(input);
-        require(success, "Blake2F precompile call failed");
-
-        result = resultInMemory;
-    }
-
-    // Helper function to decode the result from `result` storage
-    function getResult() public view returns (bytes32[8] memory output) {
-        bytes memory tempResult = result;
-        require(tempResult.length == 64, "Invalid result length");
-
-        for (uint i = 0; i < 8; i++) {
-            assembly {
-                mstore(add(output, mul(32, i)), mload(add(add(tempResult, 32), mul(32, i))))
-            }
-        }
-    }
-
-
-    // Helper function to create Blake2F input from parameters
-    function createBlake2FInput(
-        uint32 rounds,
-        bytes32[8] memory h,
-        bytes32[16] memory m,
-        bytes8[2] memory t,
-        bool f
-    ) public pure returns (bytes memory) {
-        // Start with rounds (4 bytes, big-endian)
-        bytes memory input = abi.encodePacked(rounds);
-
-        // Add state vector h (8 * 32 = 256 bytes)
-        for (uint i = 0; i < 8; i++) {
-            input = abi.encodePacked(input, h[i]);
-        }
-
-        // Add message block m (16 * 32 = 512 bytes, but we need to convert to 16 * 8 = 128 bytes)
-        // Blake2F expects 64-bit words in little-endian format
-        for (uint i = 0; i < 16; i++) {
-            // Take only the first 8 bytes of each bytes32 and reverse for little-endian
-            bytes8 word = bytes8(m[i]);
-            input = abi.encodePacked(input, word);
-        }
-
-        // Add offset counters t (2 * 8 = 16 bytes)
-        input = abi.encodePacked(input, t[0], t[1]);
-
-        // Add final block flag (1 byte)
-        input = abi.encodePacked(input, f ? bytes1(0x01) : bytes1(0x00));
-
-        return input;
-    }
-
-    // Simplified function that works with raw hex input
-    function blake2FFromHex(string memory hexInput) public {
-        bytes memory input = hexStringToBytes(hexInput);
-        blake2F(input);
-    }
-
-    // Helper function to convert hex string to bytes
-    function hexStringToBytes(string memory hexString) public pure returns (bytes memory) {
-        bytes memory hexBytes = bytes(hexString);
-        require(hexBytes.length % 2 == 0, "Invalid hex string length");
-        
-        bytes memory result = new bytes(hexBytes.length / 2);
-        
-        for (uint i = 0; i < hexBytes.length / 2; i++) {
-            result[i] = bytes1(
-                (hexCharToByte(hexBytes[2 * i]) << 4) | 
-                hexCharToByte(hexBytes[2 * i + 1])
-            );
-        }
-        
-        return result;
-    }
-
-    function hexCharToByte(bytes1 char) internal pure returns (uint8) {
-        uint8 c = uint8(char);
-        if (c >= 48 && c <= 57) return c - 48;      // 0-9
-        if (c >= 65 && c <= 70) return c - 55;      // A-F
-        if (c >= 97 && c <= 102) return c - 87;     // a-f
-        revert("Invalid hex character");
-    }
-}
+Error fetching snippet from https://raw.githubusercontent.com/polkadot-developers/polkavm-hardhat-examples/refs/tags/v0.0.4/precompiles-hardhat/contracts/Blake2Example.sol
 ```
 
 To use it, deploy `Blake2FExample` in [Remix](/develop/smart-contracts/dev-environments/remix){target=\_blank} or any Solidity-compatible environment and call `callBlake2F` with the properly formatted input parameters for rounds, state vector, message block, offset counters, and final block flag. This [test file](https://github.com/polkadot-developers/polkavm-hardhat-examples/blob/v0.0.3/precompiles-hardhat/test/Blake2.js){target=\_blank} demonstrates how to perform Blake2 compression with different rounds and verify the correctness of the output against known test vectors.
@@ -12822,47 +12261,7 @@ This guide demonstrates how to interact with the XCM precompile through Solidity
 The XCM precompile implements the `IXcm` interface, which defines the structure for interacting with XCM functionality. The source code for the interface is as follows:
 
 ```solidity title="IXcm.sol"
-// SPDX-License-Identifier: MIT
-pragma solidity ^0.8.20;
-
-/// @dev The on-chain address of the XCM (Cross-Consensus Messaging) precompile.
-address constant XCM_PRECOMPILE_ADDRESS = address(0xA0000);
-
-/// @title XCM Precompile Interface
-/// @notice A low-level interface for interacting with `pallet_xcm`.
-/// It forwards calls directly to the corresponding dispatchable functions,
-/// providing access to XCM execution and message passing.
-/// @dev Documentation:
-/// @dev - XCM: https://docs.polkadot.com/develop/interoperability
-/// @dev - SCALE codec: https://docs.polkadot.com/polkadot-protocol/parachain-basics/data-encoding
-/// @dev - Weights: https://docs.polkadot.com/polkadot-protocol/parachain-basics/blocks-transactions-fees/fees/#transactions-weights-and-fees
-interface IXcm {
-    /// @notice Weight v2 used for measurement for an XCM execution
-    struct Weight {
-        /// @custom:property The computational time used to execute some logic based on reference hardware.
-        uint64 refTime;
-        /// @custom:property The size of the proof needed to execute some logic.
-        uint64 proofSize;
-    }
-
-    /// @notice Executes an XCM message locally on the current chain with the caller's origin.
-    /// @dev Internally calls `pallet_xcm::execute`.
-    /// @param message A SCALE-encoded Versioned XCM message.
-    /// @param weight The maximum allowed `Weight` for execution.
-    /// @dev Call @custom:function weighMessage(message) to ensure sufficient weight allocation.
-    function execute(bytes calldata message, Weight calldata weight) external;
-
-    /// @notice Sends an XCM message to another parachain or consensus system.
-    /// @dev Internally calls `pallet_xcm::send`.
-    /// @param destination SCALE-encoded destination MultiLocation.
-    /// @param message SCALE-encoded Versioned XCM message.
-    function send(bytes calldata destination, bytes calldata message) external;
-
-    /// @notice Estimates the `Weight` required to execute a given XCM message.
-    /// @param message SCALE-encoded Versioned XCM message to analyze.
-    /// @return weight Struct containing estimated `refTime` and `proofSize`.
-    function weighMessage(bytes calldata message) external view returns (Weight memory weight);
-}
+Error fetching snippet from https://raw.githubusercontent.com/paritytech/polkadot-sdk/cb629d46ebf00aa65624013a61f9c69ebf02b0b4/polkadot/xcm/pallet-xcm/src/precompiles/IXcm.sol
 ```
 
 The interface defines a `Weight` struct that represents the computational cost of XCM operations. Weight has two components: 
@@ -15007,13 +14406,7 @@ Generates an XCM transaction for transferring assets between chains. It simplifi
 After obtaining the transaction, you must handle the signing and submission process separately.
 
 ```ts
-public async createTransferTransaction<T extends Format>(
-		destChainId: string,
-		destAddr: string,
-		assetIds: string[],
-		amounts: string[],
-		opts: TransferArgsOpts<T> = {},
-	): Promise<TxResult<T>> {
+Error fetching snippet from https://raw.githubusercontent.com/paritytech/asset-transfer-api/refs/tags/v1.0.0/src/AssetTransferApi.ts
 ```
 
 ??? interface "Request parameters"
@@ -15357,12 +14750,7 @@ Creates a local XCM transaction to retrieve trapped assets. This function can be
 
 
 ```ts
-public async claimAssets<T extends Format>(
-		assetIds: string[],
-		amounts: string[],
-		beneficiary: string,
-		opts: TransferArgsOpts<T>,
-	): Promise<TxResult<T>> {
+Error fetching snippet from https://raw.githubusercontent.com/paritytech/asset-transfer-api/refs/tags/v1.0.0/src/AssetTransferApi.ts
 ```
 
 ??? interface "Request parameters"
@@ -15699,7 +15087,7 @@ main()
 Decodes the hex of an extrinsic into a string readable format.
 
 ```ts
-public decodeExtrinsic<T extends Format>(encodedTransaction: string, format: T): string {
+Error fetching snippet from https://raw.githubusercontent.com/paritytech/asset-transfer-api/refs/tags/v1.0.0/src/AssetTransferApi.ts
 ```
 
 ??? interface "Request parameters"
@@ -15717,7 +15105,7 @@ public decodeExtrinsic<T extends Format>(encodedTransaction: string, format: T):
     ??? child "Type `Format`"
 
         ```ts
-        export type Format = 'payload' | 'call' | 'submittable';
+        Error fetching snippet from https://raw.githubusercontent.com/paritytech/asset-transfer-api/refs/tags/v1.0.0/src/types.ts
         ```
 
 ??? interface "Response parameters"
@@ -15779,10 +15167,7 @@ main()
 Fetch estimated fee information for an extrinsic.
 
 ```ts
-public async fetchFeeInfo<T extends Format>(
-		tx: ConstructedFormat<T>,
-		format: T,
-	): Promise<RuntimeDispatchInfo | RuntimeDispatchInfoV1 | null> {
+Error fetching snippet from https://raw.githubusercontent.com/paritytech/asset-transfer-api/refs/tags/v1.0.0/src/AssetTransferApi.ts
 ```
 
 ??? interface "Request parameters"
@@ -15794,13 +15179,7 @@ public async fetchFeeInfo<T extends Format>(
     ??? child "Type `ConstructedFormat<T>`"
 
         ```ts
-        export type ConstructedFormat<T> = T extends 'payload'
-	? GenericExtrinsicPayload
-	: T extends 'call'
-		? `0x${string}`
-		: T extends 'submittable'
-			? SubmittableExtrinsic<'promise', ISubmittableResult>
-			: never;
+        Error fetching snippet from https://raw.githubusercontent.com/paritytech/asset-transfer-api/refs/tags/v1.0.0/src/types.ts
         ```
 
         The `ConstructedFormat` type is a conditional type that returns a specific type based on the value of the TxResult `format` field.
@@ -15818,7 +15197,7 @@ public async fetchFeeInfo<T extends Format>(
     ??? child "Type `Format`"
 
         ```ts
-        export type Format = 'payload' | 'call' | 'submittable';
+        Error fetching snippet from https://raw.githubusercontent.com/paritytech/asset-transfer-api/refs/tags/v1.0.0/src/types.ts
         ```
 
 ??? interface "Response parameters"
@@ -20259,44 +19638,7 @@ touch /etc/systemd/system/polkadot-validator.service
 In this unit file, you will write the commands that you want to run on server boot/restart:
 
 ```systemd title="/etc/systemd/system/polkadot-validator.service"
-[Unit]
-Description=Polkadot Node
-After=network.target
-Documentation=https://github.com/paritytech/polkadot-sdk
-
-[Service]
-EnvironmentFile=-/etc/default/polkadot
-ExecStart=/usr/bin/polkadot $POLKADOT_CLI_ARGS
-User=polkadot
-Group=polkadot
-Restart=always
-RestartSec=120
-CapabilityBoundingSet=
-LockPersonality=true
-NoNewPrivileges=true
-PrivateDevices=true
-PrivateMounts=true
-PrivateTmp=true
-PrivateUsers=true
-ProtectClock=true
-ProtectControlGroups=true
-ProtectHostname=true
-ProtectKernelModules=true
-ProtectKernelTunables=true
-ProtectSystem=strict
-RemoveIPC=true
-RestrictAddressFamilies=AF_INET AF_INET6 AF_NETLINK AF_UNIX
-RestrictNamespaces=false
-RestrictSUIDSGID=true
-SystemCallArchitectures=native
-SystemCallFilter=@system-service
-SystemCallFilter=landlock_add_rule landlock_create_ruleset landlock_restrict_self seccomp mount umount2
-SystemCallFilter=~@clock @module @reboot @swap @privileged
-SystemCallFilter=pivot_root
-UMask=0027
-
-[Install]
-WantedBy=multi-user.target
+Error fetching snippet from https://raw.githubusercontent.com/paritytech/polkadot-sdk/refs/heads/master/polkadot/scripts/packaging/polkadot.service
 ```
 
 !!! warning "Restart delay and equivocation risk"
@@ -23653,16 +22995,7 @@ The [`Account` data type](https://paritytech.github.io/polkadot-sdk/master/frame
 The code snippet below shows how accounts are defined:
 
 ```rs
- /// The full account information for a particular account ID.
-	#[pallet::storage]
-	#[pallet::getter(fn account)]
-	pub type Account<T: Config> = StorageMap<
-		_,
-		Blake2_128Concat,
-		T::AccountId,
-		AccountInfo<T::Nonce, T::AccountData>,
-		ValueQuery,
-	>;
+ Error fetching snippet from https://raw.githubusercontent.com/paritytech/polkadot-sdk/refs/tags/v1.16.2-rc1/substrate/frame/system/src/lib.rs
 ```
 
 The preceding code block defines a storage map named `Account`. The `StorageMap` is a type of on-chain storage that maps keys to values. In the `Account` map, the key is an account ID, and the value is the account's information. Here, `T` represents the generic parameter for the runtime configuration, which is defined by the pallet's configuration trait (`Config`).
@@ -23684,24 +23017,7 @@ For a detailed explanation of storage maps, see the [`StorageMap`](https://parit
 The `AccountInfo` structure is another key element within the [System pallet](https://paritytech.github.io/polkadot-sdk/master/src/frame_system/lib.rs.html){target=\_blank}, providing more granular details about each account's state. This structure tracks vital data, such as the number of transactions and the account’s relationships with other modules.
 
 ```rs
-/// Information of an account.
-#[derive(Clone, Eq, PartialEq, Default, RuntimeDebug, Encode, Decode, TypeInfo, MaxEncodedLen)]
-pub struct AccountInfo<Nonce, AccountData> {
-	/// The number of transactions this account has sent.
-	pub nonce: Nonce,
-	/// The number of other modules that currently depend on this account's existence. The account
-	/// cannot be reaped until this is zero.
-	pub consumers: RefCount,
-	/// The number of other modules that allow this account to exist. The account may not be reaped
-	/// until this and `sufficients` are both zero.
-	pub providers: RefCount,
-	/// The number of modules that allow this account to exist for their own purposes only. The
-	/// account may not be reaped until this and `providers` are both zero.
-	pub sufficients: RefCount,
-	/// The additional data that belongs to this account. Used to store the balance(s) in a lot of
-	/// chains.
-	pub data: AccountData,
-}
+Error fetching snippet from https://raw.githubusercontent.com/paritytech/polkadot-sdk/refs/tags/v1.16.2-rc1/substrate/frame/system/src/lib.rs
 ```
 
 The `AccountInfo` structure includes the following components:
@@ -27812,6 +27128,233 @@ The output confirms the successful establishment of two HRMP channels:
 - From chain 2500 (parachain) to chain 1000 (system chain)
 
 This bidirectional channel enables direct communication between the system chain and the parachain, allowing for cross-chain message passing.
+--- END CONTENT ---
+
+Doc-Content: https://docs.polkadot.com/tutorials/interoperability/xcm-observability/
+--- BEGIN CONTENT ---
+# 🔭 XCM Observability
+
+When sending XCMs using `limited_reserve_transfer_assets` or other calls from the  `PolkadotXcm` pallet, two observability features help trace and correlate messages across chains:
+
+* [`SetTopic([u8; 32])`](https://paritytech.github.io/polkadot-sdk/master/staging_xcm/v5/opaque/type.Instruction.html#variant.SetTopic) - An XCM instruction that sets the Topic Register. This 32-byte array is used as the `message_id`, which appears in both `Sent` and `Processed` events. The topic enables logical grouping or filtering of related XCMs across multiple hops.
+  > ⚠️ **Note**: The topic is **not guaranteed to be unique**. If uniqueness is required (e.g. for deduplication or tracing), it must be enforced by the message creator.
+* **`message_id`** - A hash emitted in both the[`PolkadotXcm.Sent`](https://paritytech.github.io/polkadot-sdk/master/pallet_xcm/pallet/enum.Event.html#variant.Sent) event (on the origin chain) and the [`MessageQueue.Processed`](https://paritytech.github.io/polkadot-sdk/master/pallet_message_queue/pallet/enum.Event.html#variant.Processed) event (on the destination chain). While this ID is not globally unique, it **suffices to correlate a `Sent` message with its matching `Processed` result**.
+
+## 🔄 Message Lifecycle
+
+### ▶️ Execute Sample Script
+
+Assuming you're familiar with how to replay a forked chain using [Chopsticks](https://docs.polkadot.com/develop/toolkit/parachains/fork-chains/chopsticks/get-started/). If not, refer to the [guide](../README.md) for setup instructions.
+
+* [`hydration-sample1.ts`](../src/hydration-sample1.ts)
+* [`limited-reserve-transfer-assets.ts`](../src/limited-reserve-transfer-assets.ts)
+* [`multiple-hops-sample-01.ts`](../src/multiple-hops-sample-01.ts)
+* [`multiple-hops-sample-02.ts`](../src/multiple-hops-sample-02.ts)
+
+```bash
+npx ts-node src/limited-reserve-transfer-assets.ts
+```
+
+### ✅ Local XCM (on origin chain - e.g., Polkadot Asset Hub)
+
+```json
+{
+  "type": "TransferAsset",
+  "value": {
+    "assets": [...],
+    "beneficiary": {...}
+  }
+}
+```
+
+### 🚀 Forwarded XCM (to destination - e.g., Acala)
+
+The runtime automatically appends a `SetTopic`:
+
+```json
+[
+  {
+    "type": "ReserveAssetDeposited",
+    "value": [...]
+  },
+  {
+    "type": "ClearOrigin"
+  },
+  {
+    "type": "BuyExecution",
+    "value": {...}
+  },
+  {
+    "type": "DepositAsset",
+    "value": {...}
+  },
+  {
+    "type": "SetTopic",
+    "value": "0xb4b8d2c87622cbad983d8f2c92bfe28e12d587e13d15ea4fdabe8f771bf86bce"
+  }
+]
+```
+
+This forwarded message lands on the destination chain (Acala) and is processed accordingly.
+
+Here’s an updated version of your section to reflect the current state of XCM message tracking across chains more clearly and accurately:
+
+### 🔍 Event Correlation Flow
+
+| Chain                               | Event                    | Field        | Description                                                                |
+| ----------------------------------- | ------------------------ | ------------ | -------------------------------------------------------------------------- |
+| Origin (e.g. Asset Hub)             | `PolkadotXcm.Sent`       | `message_id` | Message ID from `SetTopic`. Appended automatically if missing.             |
+| Destination (e.g. Acala, Hydration) | `MessageQueue.Processed` | `id`         | Matches `message_id` from the origin chain, enabling reliable correlation. |
+
+✅ **These two fields now match** on new runtimes (`stable2503-5` or later).
+
+> ⚠️ Do **not** rely on [`XcmpQueue.XcmpMessageSent`](https://paritytech.github.io/polkadot-sdk/master/cumulus_pallet_xcmp_queue/pallet/enum.Event.html#variant.XcmpMessageSent). Its `message_hash` is **not correlated** with `message_id` and is **not suitable** for cross-chain tracking.
+
+### 🛠 Example: Message Trace Output
+
+```console
+✅ Local dry run successful.
+📦 Finalised on Polkadot Asset Hub in block #9079592: 0x6de0cd268f07ec040a69dbbcb81f86c6fc4954dfa7fc914edd5dae1e3f235083
+📣 Last message Sent on Polkadot Asset Hub: 0xb4b8d2c87622cbad983d8f2c92bfe28e12d587e13d15ea4fdabe8f771bf86bce
+📦 Finalised on Acala in block #8826386: 0xfda51e7e411ee59c569fc051ef51431b04edebcc5d45d7b1d1bdfcce9627638a
+📣 Last message Processed on Acala: 0xb4b8d2c87622cbad983d8f2c92bfe28e12d587e13d15ea4fdabe8f771bf86bce
+✅ Message ID matched.
+```
+
+### 🚨 Failure Event Handling
+
+**Important:** When an XCM transaction fails, it is **rolled back**, meaning **no failure events are emitted on-chain**. However, failure details are still observable through other methods.
+
+#### 📦 Indexer View: Nested Error Only
+
+Most indexers will display **nested error information**, such as `LocalExecutionIncompleteWithError`. This can be helpful for high-level diagnosis, and is **usually sufficient** to understand what went wrong.
+
+#### 🧪 Deeper Insight: Use Chopsticks for Full Detail
+
+For **in-depth debugging**, especially when the nested error is vague, use [`Chopsticks`](https://github.com/AcalaNetwork/chopsticks):
+
+* Run a replay with full logging to see **which instruction failed**, and why.
+* View inner `FailedToTransactAsset`, `AssetNotFound` or nested error.
+* Supports debugging multi-hop XCMs and complex failure scenarios.
+
+Example:
+
+```json
+"error": {
+  "type": "Module",
+  "value": {
+    "type": "PolkadotXcm",
+    "value": {
+      "type": "LocalExecutionIncompleteWithError",
+      "value": {
+        "index": 0,
+        "error": {
+          "type": "FailedToTransactAsset"
+        }
+      }
+    }
+  }
+}
+```
+
+#### 🛠 Recommended Debugging Workflow
+
+1. **Look at the indexer first** to see if the nested error gives enough context.
+2. If not, **run a replay in Chopsticks** with logging enabled.
+3. Check node logs to correlate where and why execution failed.
+4. Analyse inner errors (e.g., weight too low, asset mismatch, missing buy execution).
+
+➡️ For full logging setup, see [this guide](https://docs.polkadot.com/tutorials/interoperability/replay-and-dry-run-xcms/).
+
+## 🧠 Notes
+
+* `SetTopic` is always **appended as the final instruction** by the runtime [if not already present](https://paritytech.github.io/polkadot-sdk/master/staging_xcm_builder/struct.WithUniqueTopic.html).
+* When using high-level extrinsics like `limited_reserve_transfer_assets`, you do **not** need to add `SetTopic` manually. The runtime ensures it's included.
+* If you manually construct XCM using `execute`, you **can include your own `SetTopic([u8; 32])`** to explicitly tag or group a message.
+  * If `SetTopic` is already present, it will **not be overridden**.
+  * Best practice: **Place `SetTopic` at the end** of your instruction list to align with runtime expectations.
+* On **newer runtimes**, the same topic is **preserved end-to-end** across all chains involved in a multi-hop transfer. This ensures consistent `message_id` correlation between `Sent` and `Processed` events.
+
+### 🏷️ Manually Setting `SetTopic` for Cross-Chain Tracking
+
+In multi-hop XCM flows, you may wish to **manually assign a `SetTopic` ID** to **correlate the same message across all involved chains**, especially when you want to track or trace it later.
+
+This is optional. If `SetTopic` is not included, a topic ID will be generated automatically based on the message contents. However, this auto-generated ID is **not guaranteed to be unique**. If uniqueness is important (e.g. for deduplication or traceability), it must be enforced by the message creator.
+
+💡 This pattern is demonstrated in [`multiple-hops-sample-02.ts`](../src/multiple-hops-sample-02.ts), which sends DOT from Asset Hub, swaps it on Hydration, and returns the result, all under a known `message_id`.
+
+✍️ Example: Multi-Hop XCM with Fixed `SetTopic`
+
+```ts
+const message = XcmVersionedXcm.V5([
+  // Local instructions...
+
+  // Remote hop to Hydration
+  XcmV5Instruction.DepositReserveAsset({
+    assets: XcmV5AssetFilter.Wild(XcmV5WildAsset.All()),
+    dest: { interior: XcmV5Junctions.X1(XcmV5Junction.Parachain(2034)), parents: 1, },
+    xcm: [
+      // remote instructions...
+    ]
+  }),
+
+  // Optional: explicitly set topic ID for tracing
+  XcmV5Instruction.SetTopic(
+    Binary.fromHex("0x836c6039763718fd3db4e22484fc4bacd7ddf1c74b6067d15b297ea72d8ecf89")
+  ),
+]);
+```
+
+📦 Example log output:
+
+```console
+📦 Finalised on Polkadot Asset Hub in block #9294993: 0xa4e15ad6eae7fcd837f7a7c02a1925165bd97597fbe1ceb74adc17d3cbcf34bd
+📣 Last message Sent on Polkadot Asset Hub: 0x836c6039763718fd3db4e22484fc4bacd7ddf1c74b6067d15b297ea72d8ecf89
+✅ Sent message ID matched.
+📦 Finalised on Hydration in block #8377216: 0x6bb6e7d69c2d574f8646f3c739d872ab832850a44659ea9401249dbe11a4c447
+📣 Last message Processed on Hydration: 0x836c6039763718fd3db4e22484fc4bacd7ddf1c74b6067d15b297ea72d8ecf89
+✅ Processed Message ID matched.
+```
+
+### 🧩 Workaround for Older Runtimes
+
+* On **older runtimes** (prior to [fix #759](https://github.com/polkadot-fellows/runtimes/pull/759) in `stable2503-5`), the `message_id` seen in downstream `Processed` events is **not the original topic hash**, but rather a **derived `forwarded_id`**.
+* This `forwarded_id` is computed as:
+
+```rust
+use sp_core::H256;
+use std::str::FromStr;
+
+fn forward_id_for(original_id: &XcmHash) -> XcmHash {
+  (b"forward_id_for", original_id).using_encoded(sp_io::hashing::blake2_256)
+}
+```
+
+* To reliably trace messages across **mixed-version chains**, indexers and tools should **check for both `original_id` and its forwarded form**.
+* Reference: [`forward-id-for.ts`](../src/forward-id-for.ts) contains a helper function to compute this.
+
+```ts
+// Create prefixed input: b"forward_id_for" + original_id
+const prefix = stringToU8a("forward_id_for");
+const input = u8aConcat(prefix, messageIdBytes);
+
+// Hash it using blake2_256
+const forwardedIdBytes = blake2AsU8a(input);
+```
+
+* ✅ **New runtimes**:
+  `message_id == original_id`
+
+* ⚠️ **Old runtimes**:
+  `message_id == blake2_256("forward_id_for" + original_id)`
+
+## 📚 References
+
+* [polkadot-sdk#6119 - [XCM] Observability & Debuggability](https://github.com/paritytech/polkadot-sdk/issues/6119)
+* [polkadot-sdk#7234 - Add EventEmitter to XCM Executor](https://github.com/paritytech/polkadot-sdk/pull/7234)
+* [polkadot-sdk#7730 - Nest Errors in `pallet-xcm`](https://github.com/paritytech/polkadot-sdk/pull/7730)
+* [polkadot-sdk#7691 - Ensure Consistent Topic IDs for Traceable Cross-Chain XCM](https://github.com/paritytech/polkadot-sdk/pull/7691)
+* [Replay and Dry Run XCMs Using Chopsticks](https://docs.polkadot.com/tutorials/interoperability/replay-and-dry-run-xcms/)
 --- END CONTENT ---
 
 Doc-Content: https://docs.polkadot.com/tutorials/interoperability/xcm-transfers/from-relaychain-to-parachain/
@@ -37644,23 +37187,7 @@ To create the ERC-20 contract, you can follow the steps below:
 3. Now, paste the following ERC-20 contract code into the editor
 
     ```solidity title="MyToken.sol"
-    // SPDX-License-Identifier: MIT
-// Compatible with OpenZeppelin Contracts ^5.0.0
-pragma solidity ^0.8.22;
-
-import {ERC20} from "@openzeppelin/contracts/token/ERC20/ERC20.sol";
-import {Ownable} from "@openzeppelin/contracts/access/Ownable.sol";
-
-contract MyToken is ERC20, Ownable {
-    constructor(address initialOwner)
-        ERC20("MyToken", "MTK")
-        Ownable(initialOwner)
-    {}
-
-    function mint(address to, uint256 amount) public onlyOwner {
-        _mint(to, amount);
-    }
-}
+    Error fetching snippet from https://raw.githubusercontent.com/polkadot-developers/polkavm-hardhat-examples/refs/tags/v0.0.4/erc20-hardhat/contracts/MyToken.sol
     ```
 
     The key components of the code above are:
@@ -37810,26 +37337,7 @@ To create the NFT contract, you can follow the steps below:
 3. Now, paste the following NFT contract code into the editor
 
     ```solidity title="MyNFT.sol"
-    // SPDX-License-Identifier: MIT
-// Compatible with OpenZeppelin Contracts ^5.0.0
-pragma solidity ^0.8.22;
-
-import {ERC721} from "@openzeppelin/contracts/token/ERC721/ERC721.sol";
-import {Ownable} from "@openzeppelin/contracts/access/Ownable.sol";
-
-contract MyToken is ERC721, Ownable {
-    uint256 private _nextTokenId;
-
-    constructor(address initialOwner)
-        ERC721("MyToken", "MTK")
-        Ownable(initialOwner)
-    {}
-
-    function safeMint(address to) public onlyOwner {
-        uint256 tokenId = _nextTokenId++;
-        _safeMint(to, tokenId);
-    }
-}
+    Error fetching snippet from https://raw.githubusercontent.com/polkadot-developers/polkavm-hardhat-examples/refs/tags/v0.0.4/erc721-hardhat/contracts/MyNFT.sol
     ```
 
     The key components of the code above are:
@@ -38070,53 +37578,13 @@ To build the smart contract, follow the steps below:
 6. Add the getter and setter functions:
 
     ```solidity
-    // SPDX-License-Identifier: MIT
-pragma solidity ^0.8.28;
-
-contract Storage {
-    // State variable to store our number
-    uint256 private number;
-
-    // Event to notify when the number changes
-    event NumberChanged(uint256 newNumber);
-
-    // Function to store a new number
-    function store(uint256 newNumber) public {
-        number = newNumber;
-        emit NumberChanged(newNumber);
-    }
-
-    // Function to retrieve the stored number
-    function retrieve() public view returns (uint256) {
-        return number;
-    }
-}
+    Error fetching snippet from https://raw.githubusercontent.com/polkadot-developers/polkavm-hardhat-examples/refs/tags/v0.0.4/storage-hardhat/contracts/Storage.sol
     ```
 
 ??? code "Complete Storage.sol contract"
 
     ```solidity title="Storage.sol"
-    // SPDX-License-Identifier: MIT
-pragma solidity ^0.8.28;
-
-contract Storage {
-    // State variable to store our number
-    uint256 private number;
-
-    // Event to notify when the number changes
-    event NumberChanged(uint256 newNumber);
-
-    // Function to store a new number
-    function store(uint256 newNumber) public {
-        number = newNumber;
-        emit NumberChanged(newNumber);
-    }
-
-    // Function to retrieve the stored number
-    function retrieve() public view returns (uint256) {
-        return number;
-    }
-}
+    Error fetching snippet from https://raw.githubusercontent.com/polkadot-developers/polkavm-hardhat-examples/refs/tags/v0.0.4/storage-hardhat/contracts/Storage.sol
     ```
 
 ## Understanding the Code
@@ -38249,31 +37717,7 @@ npm install ethers@{{ dependencies.javascript_packages.ethersjs.version }}
 To interact with the Polkadot Hub, you need to set up an [Ethers.js Provider](/develop/smart-contracts/libraries/ethers-js/#set-up-the-ethersjs-provider){target=\_blank} that connects to the blockchain. In this example, you will interact with the Polkadot Hub TestNet, so you can experiment safely. Start by creating a new file called `utils/ethers.js` and add the following code:
 
 ```javascript title="app/utils/ethers.js"
-import { JsonRpcProvider } from 'ethers';
-
-export const PASSET_HUB_CONFIG = {
-  name: 'Passet Hub',
-  rpc: 'https://testnet-passet-hub-eth-rpc.polkadot.io/', // Passet Hub testnet RPC
-  chainId: 420420422, // Passet Hub testnet chainId
-  blockExplorer: 'https://blockscout-passet-hub.parity-testnet.parity.io/',
-};
-
-export const getProvider = () => {
-  return new JsonRpcProvider(PASSET_HUB_CONFIG.rpc, {
-    chainId: PASSET_HUB_CONFIG.chainId,
-    name: PASSET_HUB_CONFIG.name,
-  });
-};
-
-// Helper to get a signer from a provider
-export const getSigner = async (provider) => {
-  if (window.ethereum) {
-    await window.ethereum.request({ method: 'eth_requestAccounts' });
-    const ethersProvider = new ethers.BrowserProvider(window.ethereum);
-    return ethersProvider.getSigner();
-  }
-  throw new Error('No Ethereum browser provider detected');
-};
+Error fetching snippet from https://raw.githubusercontent.com/polkadot-developers/polkavm-storage-contract-dapps/refs/tags/v0.0.2/ethers-dapp/app/utils/ethers.js
 ```
 
 This file establishes a connection to the Polkadot Hub TestNet and provides helper functions for obtaining a [Provider](https://docs.ethers.org/v5/api/providers/provider/){target=_blank} and [Signer](https://docs.ethers.org/v5/api/signer/){target=_blank}. The provider allows you to read data from the blockchain, while the signer enables users to send transactions and modify the blockchain state.
@@ -38285,55 +37729,13 @@ For this dApp, you'll use a simple Storage contract already deployed. So, you ne
 ???+ code "Storage.sol ABI"
 
     ```json title="abis/Storage.json"
-    [
-    {
-        "inputs": [
-            {
-                "internalType": "uint256",
-                "name": "_newNumber",
-                "type": "uint256"
-            }
-        ],
-        "name": "setNumber",
-        "outputs": [],
-        "stateMutability": "nonpayable",
-        "type": "function"
-    },
-    {
-        "inputs": [],
-        "name": "storedNumber",
-        "outputs": [
-            {
-                "internalType": "uint256",
-                "name": "",
-                "type": "uint256"
-            }
-        ],
-        "stateMutability": "view",
-        "type": "function"
-    }
-]
+    Error fetching snippet from https://raw.githubusercontent.com/polkadot-developers/polkavm-storage-contract-dapps/refs/tags/v0.0.2/ethers-dapp/abis/Storage.json
     ```
 
 Now, create a file called `app/utils/contract.js`:
 
 ```javascript title="app/utils/contract.js"
-import { Contract } from 'ethers';
-import { getProvider } from './ethers';
-import StorageABI from '../../abis/Storage.json';
-
-export const CONTRACT_ADDRESS = '0x58053f0e8ede1a47a1af53e43368cd04ddcaf66f';
-
-export const CONTRACT_ABI = StorageABI;
-
-export const getContract = () => {
-  const provider = getProvider();
-  return new Contract(CONTRACT_ADDRESS, CONTRACT_ABI, provider);
-};
-
-export const getSignedContract = async (signer) => {
-  return new Contract(CONTRACT_ADDRESS, CONTRACT_ABI, signer);
-};
+Error fetching snippet from https://raw.githubusercontent.com/polkadot-developers/polkavm-storage-contract-dapps/refs/tags/v0.0.2/ethers-dapp/app/utils/contract.js
 ```
 
 This file defines the contract address, ABI, and functions to create instances of the contract for reading and writing.
@@ -38343,167 +37745,7 @@ This file defines the contract address, ABI, and functions to create instances o
 Next, let's create a component to handle wallet connections. Create a new file called `app/components/WalletConnect.js`:
 
 ```javascript title="app/components/WalletConnect.js"
-'use client';
-
-import React, { useState, useEffect } from 'react';
-import { PASSET_HUB_CONFIG } from '../utils/ethers';
-
-const WalletConnect = ({ onConnect }) => {
-  const [account, setAccount] = useState(null);
-  const [chainId, setChainId] = useState(null);
-  const [error, setError] = useState(null);
-
-  useEffect(() => {
-    // Check if user already has an authorized wallet connection
-    const checkConnection = async () => {
-      if (window.ethereum) {
-        try {
-          // eth_accounts doesn't trigger the wallet popup
-          const accounts = await window.ethereum.request({
-            method: 'eth_accounts',
-          });
-          if (accounts.length > 0) {
-            setAccount(accounts[0]);
-            const chainIdHex = await window.ethereum.request({
-              method: 'eth_chainId',
-            });
-            setChainId(parseInt(chainIdHex, 16));
-          }
-        } catch (err) {
-          console.error('Error checking connection:', err);
-          setError('Failed to check wallet connection');
-        }
-      }
-    };
-
-    checkConnection();
-
-    if (window.ethereum) {
-      // Setup wallet event listeners
-      window.ethereum.on('accountsChanged', (accounts) => {
-        setAccount(accounts[0] || null);
-        if (accounts[0] && onConnect) onConnect(accounts[0]);
-      });
-
-      window.ethereum.on('chainChanged', (chainIdHex) => {
-        setChainId(parseInt(chainIdHex, 16));
-      });
-    }
-
-    return () => {
-      // Cleanup event listeners
-      if (window.ethereum) {
-        window.ethereum.removeListener('accountsChanged', () => {});
-        window.ethereum.removeListener('chainChanged', () => {});
-      }
-    };
-  }, [onConnect]);
-
-  const connectWallet = async () => {
-    if (!window.ethereum) {
-      setError(
-        'MetaMask not detected! Please install MetaMask to use this dApp.'
-      );
-      return;
-    }
-
-    try {
-      // eth_requestAccounts triggers the wallet popup
-      const accounts = await window.ethereum.request({
-        method: 'eth_requestAccounts',
-      });
-      setAccount(accounts[0]);
-
-      const chainIdHex = await window.ethereum.request({
-        method: 'eth_chainId',
-      });
-      const currentChainId = parseInt(chainIdHex, 16);
-      setChainId(currentChainId);
-
-      // Prompt user to switch networks if needed
-      if (currentChainId !== PASSET_HUB_CONFIG.chainId) {
-        await switchNetwork();
-      }
-
-      if (onConnect) onConnect(accounts[0]);
-    } catch (err) {
-      console.error('Error connecting to wallet:', err);
-      setError('Failed to connect wallet');
-    }
-  };
-
-  const switchNetwork = async () => {
-    try {
-      await window.ethereum.request({
-        method: 'wallet_switchEthereumChain',
-        params: [{ chainId: `0x${PASSET_HUB_CONFIG.chainId.toString(16)}` }],
-      });
-    } catch (switchError) {
-      // Error 4902 means the chain hasn't been added to MetaMask
-      if (switchError.code === 4902) {
-        try {
-          await window.ethereum.request({
-            method: 'wallet_addEthereumChain',
-            params: [
-              {
-                chainId: `0x${PASSET_HUB_CONFIG.chainId.toString(16)}`,
-                chainName: PASSET_HUB_CONFIG.name,
-                rpcUrls: [PASSET_HUB_CONFIG.rpc],
-                blockExplorerUrls: [PASSET_HUB_CONFIG.blockExplorer],
-              },
-            ],
-          });
-        } catch (addError) {
-          setError('Failed to add network to wallet');
-        }
-      } else {
-        setError('Failed to switch network');
-      }
-    }
-  };
-
-  // UI-only disconnection - MetaMask doesn't support programmatic disconnection
-  const disconnectWallet = () => {
-    setAccount(null);
-  };
-
-  return (
-    <div className="border border-pink-500 rounded-lg p-4 shadow-md bg-white text-pink-500 max-w-sm mx-auto">
-      {error && <p className="text-red-500 text-sm mb-2">{error}</p>}
-
-      {!account ? (
-        <button
-          onClick={connectWallet}
-          className="w-full bg-pink-500 hover:bg-pink-600 text-white font-bold py-2 px-4 rounded-lg transition"
-        >
-          Connect Wallet
-        </button>
-      ) : (
-        <div className="flex flex-col items-center">
-          <span className="text-sm font-mono bg-pink-100 px-2 py-1 rounded-md text-pink-700">
-            {`${account.substring(0, 6)}...${account.substring(38)}`}
-          </span>
-          <button
-            onClick={disconnectWallet}
-            className="mt-3 w-full bg-gray-200 hover:bg-gray-300 text-pink-500 py-2 px-4 rounded-lg transition"
-          >
-            Disconnect
-          </button>
-          {chainId !== PASSET_HUB_CONFIG.chainId && (
-            <button
-              onClick={switchNetwork}
-              className="mt-3 w-full bg-yellow-500 hover:bg-yellow-600 text-white font-bold py-2 px-4 rounded-lg transition"
-            >
-              Switch to Passet Hub
-            </button>
-          )}
-        </div>
-      )}
-    </div>
-  );
-};
-
-export default WalletConnect;
+Error fetching snippet from https://raw.githubusercontent.com/polkadot-developers/polkavm-storage-contract-dapps/refs/tags/v0.0.2/ethers-dapp/app/components/WalletConnect.js
 ```
 
 This component handles connecting to the wallet, switching networks if necessary, and keeping track of the connected account. 
@@ -38511,26 +37753,10 @@ This component handles connecting to the wallet, switching networks if necessary
 To integrate this component to your dApp, you need to overwrite the existing boilerplate in `app/page.js` with the following code:
 
 ```javascript title="app/page.js"
-'use client';
-import { useState } from 'react';
-
-import WalletConnect from './components/WalletConnect';
-export default function Home() {
-  const [account, setAccount] = useState(null);
-
-  const handleConnect = (connectedAccount) => {
-    setAccount(connectedAccount);
-  };
-
-  return (
-    <section className="min-h-screen bg-white text-black flex flex-col justify-center items-center gap-4 py-10">
-      <h1 className="text-2xl font-semibold text-center">
-        Ethers.js dApp - Passet Hub Smart Contracts
-      </h1>
-      <WalletConnect onConnect={handleConnect} />
-</section>
-  );
-}
+Error fetching snippet from https://raw.githubusercontent.com/polkadot-developers/polkavm-storage-contract-dapps/refs/tags/v0.0.2/ethers-dapp/app/page.js
+Error fetching snippet from https://raw.githubusercontent.com/polkadot-developers/polkavm-storage-contract-dapps/refs/tags/v0.0.2/ethers-dapp/app/page.js
+Error fetching snippet from https://raw.githubusercontent.com/polkadot-developers/polkavm-storage-contract-dapps/refs/tags/v0.0.2/ethers-dapp/app/page.js
+Error fetching snippet from https://raw.githubusercontent.com/polkadot-developers/polkavm-storage-contract-dapps/refs/tags/v0.0.2/ethers-dapp/app/page.js
 ```
 
 In your terminal, you can launch your project by running:
@@ -38548,64 +37774,7 @@ And you will see the following:
 Now, let's create a component to read data from the contract. Create a file called `app/components/ReadContract.js`:
 
 ```javascript title="app/components/ReadContract.js"
-'use client';
-
-import React, { useState, useEffect } from 'react';
-import { getContract } from '../utils/contract';
-
-const ReadContract = () => {
-  const [storedNumber, setStoredNumber] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
-
-  useEffect(() => {
-    // Function to read data from the blockchain
-    const fetchData = async () => {
-      try {
-        setLoading(true);
-        const contract = getContract();
-        // Call the smart contract's storedNumber function
-        const number = await contract.storedNumber();
-        setStoredNumber(number.toString());
-        setError(null);
-      } catch (err) {
-        console.error('Error fetching stored number:', err);
-        setError('Failed to fetch data from the contract');
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchData();
-
-    // Poll for updates every 10 seconds to keep UI in sync with blockchain
-    const interval = setInterval(fetchData, 10000);
-
-    // Clean up interval on component unmount
-    return () => clearInterval(interval);
-  }, []);
-
-  return (
-    <div className="border border-pink-500 rounded-lg p-4 shadow-md bg-white text-pink-500 max-w-sm mx-auto">
-      <h2 className="text-lg font-bold text-center mb-4">Contract Data</h2>
-      {loading ? (
-        <div className="flex justify-center my-4">
-          <div className="w-6 h-6 border-4 border-pink-500 border-t-transparent rounded-full animate-spin"></div>
-        </div>
-      ) : error ? (
-        <p className="text-red-500 text-center">{error}</p>
-      ) : (
-        <div className="text-center">
-          <p className="text-sm font-mono bg-pink-100 px-2 py-1 rounded-md text-pink-700">
-            <strong>Stored Number:</strong> {storedNumber}
-          </p>
-        </div>
-      )}
-    </div>
-  );
-};
-
-export default ReadContract;
+Error fetching snippet from https://raw.githubusercontent.com/polkadot-developers/polkavm-storage-contract-dapps/refs/tags/v0.0.2/ethers-dapp/app/components/ReadContract.js
 ```
 
 This component reads the `storedNumber` value from the contract and displays it to the user. It also sets up a polling interval to refresh the data periodically.
@@ -38613,28 +37782,10 @@ This component reads the `storedNumber` value from the contract and displays it 
 To see this change in your dApp, you need to integrate this component into the `app/page.js` file:
 
 ```javascript title="app/page.js"
-'use client';
-import { useState } from 'react';
-
-import WalletConnect from './components/WalletConnect';
-import ReadContract from './components/ReadContract';
-export default function Home() {
-  const [account, setAccount] = useState(null);
-
-  const handleConnect = (connectedAccount) => {
-    setAccount(connectedAccount);
-  };
-
-  return (
-    <section className="min-h-screen bg-white text-black flex flex-col justify-center items-center gap-4 py-10">
-      <h1 className="text-2xl font-semibold text-center">
-        Ethers.js dApp - Passet Hub Smart Contracts
-      </h1>
-      <WalletConnect onConnect={handleConnect} />
-      <ReadContract />
-</section>
-  );
-}
+Error fetching snippet from https://raw.githubusercontent.com/polkadot-developers/polkavm-storage-contract-dapps/refs/tags/v0.0.2/ethers-dapp/app/page.js
+Error fetching snippet from https://raw.githubusercontent.com/polkadot-developers/polkavm-storage-contract-dapps/refs/tags/v0.0.2/ethers-dapp/app/page.js
+Error fetching snippet from https://raw.githubusercontent.com/polkadot-developers/polkavm-storage-contract-dapps/refs/tags/v0.0.2/ethers-dapp/app/page.js
+Error fetching snippet from https://raw.githubusercontent.com/polkadot-developers/polkavm-storage-contract-dapps/refs/tags/v0.0.2/ethers-dapp/app/page.js
 ```
 
 Your dApp will automatically be updated to the following:
@@ -38646,119 +37797,7 @@ Your dApp will automatically be updated to the following:
 Finally, let's create a component that allows users to update the stored number. Create a file called `app/components/WriteContract.js`:
 
 ```javascript title="app/components/WriteContract.js"
-'use client';
-
-import { useState } from 'react';
-import { getSignedContract } from '../utils/contract';
-import { ethers } from 'ethers';
-
-const WriteContract = ({ account }) => {
-  const [newNumber, setNewNumber] = useState('');
-  const [status, setStatus] = useState({ type: null, message: '' });
-  const [isSubmitting, setIsSubmitting] = useState(false);
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-
-    // Validation checks
-    if (!account) {
-      setStatus({ type: 'error', message: 'Please connect your wallet first' });
-      return;
-    }
-
-    if (!newNumber || isNaN(Number(newNumber))) {
-      setStatus({ type: 'error', message: 'Please enter a valid number' });
-      return;
-    }
-
-    try {
-      setIsSubmitting(true);
-      setStatus({ type: 'info', message: 'Initiating transaction...' });
-
-      // Get a signer from the connected wallet
-      const provider = new ethers.BrowserProvider(window.ethereum);
-      const signer = await provider.getSigner();
-      const contract = await getSignedContract(signer);
-
-      // Send transaction to blockchain and wait for user confirmation in wallet
-      setStatus({
-        type: 'info',
-        message: 'Please confirm the transaction in your wallet...',
-      });
-
-      // Call the contract's setNumber function
-      const tx = await contract.setNumber(newNumber);
-
-      // Wait for transaction to be mined
-      setStatus({
-        type: 'info',
-        message: 'Transaction submitted. Waiting for confirmation...',
-      });
-      const receipt = await tx.wait();
-
-      setStatus({
-        type: 'success',
-        message: `Transaction confirmed! Transaction hash: ${receipt.hash}`,
-      });
-      setNewNumber('');
-    } catch (err) {
-      console.error('Error updating number:', err);
-
-      // Error code 4001 is MetaMask's code for user rejection
-      if (err.code === 4001) {
-        setStatus({ type: 'error', message: 'Transaction rejected by user.' });
-      } else {
-        setStatus({
-          type: 'error',
-          message: `Error: ${err.message || 'Failed to send transaction'}`,
-        });
-      }
-    } finally {
-      setIsSubmitting(false);
-    }
-  };
-
-  return (
-    <div className="border border-pink-500 rounded-lg p-4 shadow-md bg-white text-pink-500 max-w-sm mx-auto space-y-4">
-      <h2 className="text-lg font-bold">Update Stored Number</h2>
-      {status.message && (
-        <div
-          className={`p-2 rounded-md break-words h-fit text-sm ${
-            status.type === 'error'
-              ? 'bg-red-100 text-red-500'
-              : 'bg-green-100 text-green-700'
-          }`}
-        >
-          {status.message}
-        </div>
-      )}
-      <form onSubmit={handleSubmit} className="space-y-4">
-        <input
-          type="number"
-          placeholder="New Number"
-          value={newNumber}
-          onChange={(e) => setNewNumber(e.target.value)}
-          disabled={isSubmitting || !account}
-          className="w-full p-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-pink-400"
-        />
-        <button
-          type="submit"
-          disabled={isSubmitting || !account}
-          className="w-full bg-pink-500 hover:bg-pink-600 text-white font-bold py-2 px-4 rounded-lg transition disabled:bg-gray-300"
-        >
-          {isSubmitting ? 'Updating...' : 'Update'}
-        </button>
-      </form>
-      {!account && (
-        <p className="text-sm text-gray-500">
-          Connect your wallet to update the stored number.
-        </p>
-      )}
-    </div>
-  );
-};
-
-export default WriteContract;
+Error fetching snippet from https://raw.githubusercontent.com/polkadot-developers/polkavm-storage-contract-dapps/refs/tags/v0.0.2/ethers-dapp/app/components/WriteContract.js
 ```
 
 This component allows users to input a new number and send a transaction to update the value stored in the contract. When the transaction is successful, users will see the stored value update in the `ReadContract` component after the transaction is confirmed.
@@ -38766,32 +37805,7 @@ This component allows users to input a new number and send a transaction to upda
 Update the `app/page.js` file to integrate all components:
 
 ```javascript title="app/page.js"
-'use client';
-
-import { useState } from 'react';
-
-import WalletConnect from './components/WalletConnect';
-import ReadContract from './components/ReadContract';
-import WriteContract from './components/WriteContract';
-
-export default function Home() {
-  const [account, setAccount] = useState(null);
-
-  const handleConnect = (connectedAccount) => {
-    setAccount(connectedAccount);
-  };
-
-  return (
-    <section className="min-h-screen bg-white text-black flex flex-col justify-center items-center gap-4 py-10">
-      <h1 className="text-2xl font-semibold text-center">
-        Ethers.js dApp - Passet Hub Smart Contracts
-      </h1>
-      <WalletConnect onConnect={handleConnect} />
-      <ReadContract />
-      <WriteContract account={account} />
-    </section>
-  );
-}
+Error fetching snippet from https://raw.githubusercontent.com/polkadot-developers/polkavm-storage-contract-dapps/refs/tags/v0.0.2/ethers-dapp/app/page.js
 ```
 
 The completed UI will display:
@@ -38897,47 +37911,7 @@ npm install --save-dev typescript @types/node
 To interact with Polkadot Hub, you need to set up a [Public Client](https://viem.sh/docs/clients/public#public-client){target=\_blank} that connects to the blockchain. In this example, you will interact with the Polkadot Hub TestNet, so you can experiment safely. Start by creating a new file called `utils/viem.ts` and add the following code:
 
 ```typescript title="viem.ts"
-import { createPublicClient, http, createWalletClient, custom } from 'viem'
-import 'viem/window';
-
-
-const transport = http('https://testnet-passet-hub-eth-rpc.polkadot.io')
-
-// Configure the Passet Hub chain
-export const passetHub = {
-  id: 420420422,
-  name: 'Passet Hub',
-  network: 'passet-hub',
-  nativeCurrency: {
-    decimals: 18,
-    name: 'PAS',
-    symbol: 'PAS',
-  },
-  rpcUrls: {
-    default: {
-      http: ['https://testnet-passet-hub-eth-rpc.polkadot.io'],
-    },
-  },
-} as const
-
-// Create a public client for reading data
-export const publicClient = createPublicClient({
-  chain: passetHub,
-  transport
-})
-
-// Create a wallet client for signing transactions
-export const getWalletClient = async () => {
-  if (typeof window !== 'undefined' && window.ethereum) {
-    const [account] = await window.ethereum.request({ method: 'eth_requestAccounts' });
-    return createWalletClient({
-      chain: passetHub,
-      transport: custom(window.ethereum),
-      account,
-    });
-  }
-  throw new Error('No Ethereum browser provider detected');
-};
+Error fetching snippet from https://raw.githubusercontent.com/polkadot-developers/polkavm-storage-contract-dapps/refs/tags/v0.0.2/viem-dapp/app/utils/viem.ts
 ```
 
 This file initializes a viem client, providing helper functions for obtaining a Public Client and a [Wallet Client](https://viem.sh/docs/clients/wallet#wallet-client){target=\_blank}. The Public Client enables reading blockchain data, while the Wallet Client allows users to sign and send transactions. Also, note that by importing `'viem/window'` the global `window.ethereum` will be typed as an `EIP1193Provider`, check the [`window` Polyfill](https://viem.sh/docs/typescript#window-polyfill){target=\_blank} reference for more information.
@@ -38950,64 +37924,13 @@ Create a folder called `abis` at the root of your project, then create a file na
 
 ??? code "Storage.sol ABI"
     ```json title="Storage.json"
-    [
-    {
-        "inputs": [
-            {
-                "internalType": "uint256",
-                "name": "_newNumber",
-                "type": "uint256"
-            }
-        ],
-        "name": "setNumber",
-        "outputs": [],
-        "stateMutability": "nonpayable",
-        "type": "function"
-    },
-    {
-        "inputs": [],
-        "name": "storedNumber",
-        "outputs": [
-            {
-                "internalType": "uint256",
-                "name": "",
-                "type": "uint256"
-            }
-        ],
-        "stateMutability": "view",
-        "type": "function"
-    }
-]
+    Error fetching snippet from https://raw.githubusercontent.com/polkadot-developers/polkavm-storage-contract-dapps/refs/tags/v0.0.2/viem-dapp/abis/Storage.json
     ```
 
 Next, create a file called `utils/contract.ts`:
 
 ```typescript title="contract.ts"
-import { getContract } from 'viem';
-import { publicClient, getWalletClient } from './viem';
-import StorageABI from '../../abis/Storage.json';
-
-export const CONTRACT_ADDRESS = '0x58053f0e8ede1a47a1af53e43368cd04ddcaf66f';
-export const CONTRACT_ABI = StorageABI;
-
-// Create a function to get a contract instance for reading
-export const getContractInstance = () => {
-  return getContract({
-    address: CONTRACT_ADDRESS,
-    abi: CONTRACT_ABI,
-    client: publicClient,
-  });
-};
-
-// Create a function to get a contract instance with a signer for writing
-export const getSignedContract = async () => {
-  const walletClient = await getWalletClient();
-  return getContract({
-    address: CONTRACT_ADDRESS,
-    abi: CONTRACT_ABI,
-    client: walletClient,
-  });
-};
+Error fetching snippet from https://raw.githubusercontent.com/polkadot-developers/polkavm-storage-contract-dapps/refs/tags/v0.0.2/viem-dapp/app/utils/contract.ts
 ```
 
 This file defines the contract address, ABI, and functions to create a viem [contract instance](https://viem.sh/docs/contract/getContract#contract-instances){target=\_blank} for reading and writing operations. viem's contract utilities ensure a more efficient and type-safe interaction with smart contracts.
@@ -39017,180 +37940,7 @@ This file defines the contract address, ABI, and functions to create a viem [con
 Now, let's create a component to handle wallet connections. Create a new file called `components/WalletConnect.tsx`:
 
 ```typescript title="WalletConnect.tsx"
-"use client";
-
-import React, { useState, useEffect } from "react";
-import { passetHub } from "../utils/viem";
-
-interface WalletConnectProps {
-  onConnect: (account: string) => void;
-}
-
-const WalletConnect: React.FC<WalletConnectProps> = ({ onConnect }) => {
-  const [account, setAccount] = useState<string | null>(null);
-  const [chainId, setChainId] = useState<number | null>(null);
-  const [error, setError] = useState<string | null>(null);
-
-  useEffect(() => {
-    // Check if user already has an authorized wallet connection
-    const checkConnection = async () => {
-      if (typeof window !== 'undefined' && window.ethereum) {
-        try {
-          // eth_accounts doesn't trigger the wallet popup
-          const accounts = await window.ethereum.request({
-            method: 'eth_accounts',
-          }) as string[];
-          
-          if (accounts.length > 0) {
-            setAccount(accounts[0]);
-            const chainIdHex = await window.ethereum.request({
-              method: 'eth_chainId',
-            }) as string;
-            setChainId(parseInt(chainIdHex, 16));
-            onConnect(accounts[0]);
-          }
-        } catch (err) {
-          console.error('Error checking connection:', err);
-          setError('Failed to check wallet connection');
-        }
-      }
-    };
-
-    checkConnection();
-
-    if (typeof window !== 'undefined' && window.ethereum) {
-      // Setup wallet event listeners
-      window.ethereum.on('accountsChanged', (accounts: string[]) => {
-        setAccount(accounts[0] || null);
-        if (accounts[0]) onConnect(accounts[0]);
-      });
-
-      window.ethereum.on('chainChanged', (chainIdHex: string) => {
-        setChainId(parseInt(chainIdHex, 16));
-      });
-    }
-
-    return () => {
-      // Cleanup event listeners
-      if (typeof window !== 'undefined' && window.ethereum) {
-        window.ethereum.removeListener('accountsChanged', () => {});
-        window.ethereum.removeListener('chainChanged', () => {});
-      }
-    };
-  }, [onConnect]);
-
-  const connectWallet = async () => {
-    if (typeof window === 'undefined' || !window.ethereum) {
-      setError(
-        'MetaMask not detected! Please install MetaMask to use this dApp.'
-      );
-      return;
-    }
-
-    try {
-      // eth_requestAccounts triggers the wallet popup
-      const accounts = await window.ethereum.request({
-        method: 'eth_requestAccounts',
-      }) as string[];
-      
-      setAccount(accounts[0]);
-
-      const chainIdHex = await window.ethereum.request({
-        method: 'eth_chainId',
-      }) as string;
-      
-      const currentChainId = parseInt(chainIdHex, 16);
-      setChainId(currentChainId);
-
-      // Prompt user to switch networks if needed
-      if (currentChainId !== passetHub.id) {
-        await switchNetwork();
-      }
-
-      onConnect(accounts[0]);
-    } catch (err) {
-      console.error('Error connecting to wallet:', err);
-      setError('Failed to connect wallet');
-    }
-  };
-
-  const switchNetwork = async () => {
-    console.log('Switch network')
-    try {
-      await window.ethereum.request({
-        method: 'wallet_switchEthereumChain',
-        params: [{ chainId: `0x${passetHub.id.toString(16)}` }],
-      });
-    } catch (switchError: any) {
-      // Error 4902 means the chain hasn't been added to MetaMask
-      if (switchError.code === 4902) {
-        try {
-          await window.ethereum.request({
-            method: 'wallet_addEthereumChain',
-            params: [
-              {
-                chainId: `0x${passetHub.id.toString(16)}`,
-                chainName: passetHub.name,
-                rpcUrls: [passetHub.rpcUrls.default.http[0]],
-                nativeCurrency: {
-                  name: passetHub.nativeCurrency.name,
-                  symbol: passetHub.nativeCurrency.symbol,
-                  decimals: passetHub.nativeCurrency.decimals,
-                },
-              },
-            ],
-          });
-        } catch (addError) {
-          setError('Failed to add network to wallet');
-        }
-      } else {
-        setError('Failed to switch network');
-      }
-    }
-  };
-
-  // UI-only disconnection - MetaMask doesn't support programmatic disconnection
-  const disconnectWallet = () => {
-    setAccount(null);
-  };
-
-  return (
-    <div className="border border-pink-500 rounded-lg p-4 shadow-md bg-white text-pink-500 max-w-sm mx-auto">
-      {error && <p className="text-red-500 text-sm mb-2">{error}</p>}
-
-      {!account ? (
-        <button
-          onClick={connectWallet}
-          className="w-full bg-pink-500 hover:bg-pink-600 text-white font-bold py-2 px-4 rounded-lg transition"
-        >
-          Connect Wallet
-        </button>
-      ) : (
-        <div className="flex flex-col items-center">
-          <span className="text-sm font-mono bg-pink-100 px-2 py-1 rounded-md text-pink-700">
-            {`${account.substring(0, 6)}...${account.substring(38)}`}
-          </span>
-          <button
-            onClick={disconnectWallet}
-            className="mt-3 w-full bg-gray-200 hover:bg-gray-300 text-pink-500 py-2 px-4 rounded-lg transition"
-          >
-            Disconnect
-          </button>
-          {chainId !== passetHub.id && (
-            <button
-              onClick={switchNetwork}
-              className="mt-3 w-full bg-yellow-500 hover:bg-yellow-600 text-white font-bold py-2 px-4 rounded-lg transition"
-            >
-              Switch to Passet Hub
-            </button>
-          )}
-        </div>
-      )}
-    </div>
-  );
-};
-
-export default WalletConnect;
+Error fetching snippet from https://raw.githubusercontent.com/polkadot-developers/polkavm-storage-contract-dapps/refs/tags/v0.0.2/viem-dapp/app/components/WalletConnect.tsx
 ```
 
 This component handles connecting to the wallet, switching networks if necessary, and keeping track of the connected account. It provides a button for users to connect their wallet and displays the connected account address once connected.
@@ -39198,25 +37948,10 @@ This component handles connecting to the wallet, switching networks if necessary
 To use this component in your dApp, replace the existing boilerplate in `app/page.tsx` with the following code:
 
 ```typescript title="page.tsx"
-"use client";
-import { useState } from "react";
-import WalletConnect from "./components/WalletConnect";
-export default function Home() {
-  const [account, setAccount] = useState<string | null>(null);
-
-  const handleConnect = (connectedAccount: string) => {
-    setAccount(connectedAccount);
-  };
-
-  return (
-    <section className="min-h-screen bg-white text-black flex flex-col justify-center items-center gap-4 py-10">
-      <h1 className="text-2xl font-semibold text-center">
-        Viem dApp - Passet Hub Smart Contracts
-      </h1>
-      <WalletConnect onConnect={handleConnect} />
-</section>
-  );
-}
+Error fetching snippet from https://raw.githubusercontent.com/polkadot-developers/polkavm-storage-contract-dapps/refs/tags/v0.0.2/viem-dapp/app/page.tsx
+Error fetching snippet from https://raw.githubusercontent.com/polkadot-developers/polkavm-storage-contract-dapps/refs/tags/v0.0.2/viem-dapp/app/page.tsx
+Error fetching snippet from https://raw.githubusercontent.com/polkadot-developers/polkavm-storage-contract-dapps/refs/tags/v0.0.2/viem-dapp/app/page.tsx
+Error fetching snippet from https://raw.githubusercontent.com/polkadot-developers/polkavm-storage-contract-dapps/refs/tags/v0.0.2/viem-dapp/app/page.tsx
 ```
 
 Now you're ready to run your dApp. From your project directory, execute:
@@ -39234,70 +37969,7 @@ Navigate to `http://localhost:3000` in your browser, and you should see your dAp
 Now, let's create a component to read data from the contract. Create a file called `components/ReadContract.tsx`:
 
 ```typescript title="ReadContract.tsx"
-'use client';
-
-import React, { useState, useEffect } from 'react';
-import { publicClient } from '../utils/viem';
-import { CONTRACT_ADDRESS, CONTRACT_ABI } from '../utils/contract';
-
-const ReadContract: React.FC = () => {
-  const [storedNumber, setStoredNumber] = useState<string | null>(null);
-  const [loading, setLoading] = useState<boolean>(true);
-  const [error, setError] = useState<string | null>(null);
-
-  useEffect(() => {
-    // Function to read data from the blockchain
-    const fetchData = async () => {
-      try {
-        setLoading(true);
-        // Call the smart contract's storedNumber function
-        const number = await publicClient.readContract({
-            address: CONTRACT_ADDRESS,
-            abi: CONTRACT_ABI,
-            functionName: 'storedNumber',
-            args: [],
-          }) as bigint;
-
-        setStoredNumber(number.toString());
-        setError(null);
-      } catch (err) {
-        console.error('Error fetching stored number:', err);
-        setError('Failed to fetch data from the contract');
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchData();
-
-    // Poll for updates every 10 seconds to keep UI in sync with blockchain
-    const interval = setInterval(fetchData, 10000);
-
-    // Clean up interval on component unmount
-    return () => clearInterval(interval);
-  }, []);
-
-  return (
-    <div className="border border-pink-500 rounded-lg p-4 shadow-md bg-white text-pink-500 max-w-sm mx-auto">
-      <h2 className="text-lg font-bold text-center mb-4">Contract Data</h2>
-      {loading ? (
-        <div className="flex justify-center my-4">
-          <div className="w-6 h-6 border-4 border-pink-500 border-t-transparent rounded-full animate-spin"></div>
-        </div>
-      ) : error ? (
-        <p className="text-red-500 text-center">{error}</p>
-      ) : (
-        <div className="text-center">
-          <p className="text-sm font-mono bg-pink-100 px-2 py-1 rounded-md text-pink-700">
-            <strong>Stored Number:</strong> {storedNumber}
-          </p>
-        </div>
-      )}
-    </div>
-  );
-};
-
-export default ReadContract;
+Error fetching snippet from https://raw.githubusercontent.com/polkadot-developers/polkavm-storage-contract-dapps/refs/tags/v0.0.2/viem-dapp/app/components/ReadContract.tsx
 ```
 
 This component reads the `storedNumber` value from the contract and displays it to the user. It also sets up a polling interval to refresh the data periodically, ensuring that the UI stays in sync with the blockchain state.
@@ -39305,27 +37977,10 @@ This component reads the `storedNumber` value from the contract and displays it 
 To reflect this change in your dApp, incorporate this component into the `app/page.tsx` file.
 
 ```typescript title="page.tsx"
-"use client";
-import { useState } from "react";
-import WalletConnect from "./components/WalletConnect";
-import ReadContract from "./components/ReadContract";
-export default function Home() {
-  const [account, setAccount] = useState<string | null>(null);
-
-  const handleConnect = (connectedAccount: string) => {
-    setAccount(connectedAccount);
-  };
-
-  return (
-    <section className="min-h-screen bg-white text-black flex flex-col justify-center items-center gap-4 py-10">
-      <h1 className="text-2xl font-semibold text-center">
-        Viem dApp - Passet Hub Smart Contracts
-      </h1>
-      <WalletConnect onConnect={handleConnect} />
-      <ReadContract />
-</section>
-  );
-}
+Error fetching snippet from https://raw.githubusercontent.com/polkadot-developers/polkavm-storage-contract-dapps/refs/tags/v0.0.2/viem-dapp/app/page.tsx
+Error fetching snippet from https://raw.githubusercontent.com/polkadot-developers/polkavm-storage-contract-dapps/refs/tags/v0.0.2/viem-dapp/app/page.tsx
+Error fetching snippet from https://raw.githubusercontent.com/polkadot-developers/polkavm-storage-contract-dapps/refs/tags/v0.0.2/viem-dapp/app/page.tsx
+Error fetching snippet from https://raw.githubusercontent.com/polkadot-developers/polkavm-storage-contract-dapps/refs/tags/v0.0.2/viem-dapp/app/page.tsx
 ```
 
 And you will see in your browser:
@@ -39337,223 +37992,7 @@ And you will see in your browser:
 Finally, let's create a component that allows users to update the stored number. Create a file called `components/WriteContract.tsx`:
 
 ```typescript title="WriteContract.tsx"
-"use client";
-
-import React, { useState, useEffect } from "react";
-import { publicClient, getWalletClient } from "../utils/viem";
-import { CONTRACT_ADDRESS, CONTRACT_ABI } from "../utils/contract";
-
-interface WriteContractProps {
-  account: string | null;
-}
-
-const WriteContract: React.FC<WriteContractProps> = ({ account }) => {
-  const [newNumber, setNewNumber] = useState<string>("");
-  const [status, setStatus] = useState<{
-    type: string | null;
-    message: string;
-  }>({
-    type: null,
-    message: "",
-  });
-  const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
-  const [isCorrectNetwork, setIsCorrectNetwork] = useState<boolean>(true);
-
-  // Check if the account is on the correct network
-  useEffect(() => {
-    const checkNetwork = async () => {
-      if (!account) return;
-
-      try {
-        // Get the chainId from the public client
-        const chainId = await publicClient.getChainId();
-
-        // Get the user's current chainId from their wallet
-        const walletClient = await getWalletClient();
-        if (!walletClient) return;
-
-        const walletChainId = await walletClient.getChainId();
-
-        // Check if they match
-        setIsCorrectNetwork(chainId === walletChainId);
-      } catch (err) {
-        console.error("Error checking network:", err);
-        setIsCorrectNetwork(false);
-      }
-    };
-
-    checkNetwork();
-  }, [account]);
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-
-    // Validation checks
-    if (!account) {
-      setStatus({ type: "error", message: "Please connect your wallet first" });
-      return;
-    }
-
-    if (!isCorrectNetwork) {
-      setStatus({
-        type: "error",
-        message: "Please switch to the correct network in your wallet",
-      });
-      return;
-    }
-
-    if (!newNumber || isNaN(Number(newNumber))) {
-      setStatus({ type: "error", message: "Please enter a valid number" });
-      return;
-    }
-
-    try {
-      setIsSubmitting(true);
-      setStatus({ type: "info", message: "Initiating transaction..." });
-
-      // Get wallet client for transaction signing
-      const walletClient = await getWalletClient();
-
-      if (!walletClient) {
-        setStatus({ type: "error", message: "Wallet client not available" });
-        return;
-      }
-
-      // Check if account matches
-      if (
-        walletClient.account?.address.toLowerCase() !== account.toLowerCase()
-      ) {
-        setStatus({
-          type: "error",
-          message:
-            "Connected wallet account doesn't match the selected account",
-        });
-        return;
-      }
-
-      // Prepare transaction and wait for user confirmation in wallet
-      setStatus({
-        type: "info",
-        message: "Please confirm the transaction in your wallet...",
-      });
-
-      // Simulate the contract call first
-      console.log('newNumber', newNumber);
-      const { request } = await publicClient.simulateContract({
-        address: CONTRACT_ADDRESS,
-        abi: CONTRACT_ABI,
-        functionName: "setNumber",
-        args: [BigInt(newNumber)],
-        account: walletClient.account,
-      });
-
-      // Send the transaction with wallet client
-      const hash = await walletClient.writeContract(request);
-
-      // Wait for transaction to be mined
-      setStatus({
-        type: "info",
-        message: "Transaction submitted. Waiting for confirmation...",
-      });
-
-      const receipt = await publicClient.waitForTransactionReceipt({
-        hash,
-      });
-
-      setStatus({
-        type: "success",
-        message: `Transaction confirmed! Transaction hash: ${receipt.transactionHash}`,
-      });
-
-      setNewNumber("");
-    } catch (err: any) {
-      console.error("Error updating number:", err);
-
-      // Handle specific errors
-      if (err.code === 4001) {
-        // User rejected transaction
-        setStatus({ type: "error", message: "Transaction rejected by user." });
-      } else if (err.message?.includes("Account not found")) {
-        // Account not found on the network
-        setStatus({
-          type: "error",
-          message:
-            "Account not found on current network. Please check your wallet is connected to the correct network.",
-        });
-      } else if (err.message?.includes("JSON is not a valid request object")) {
-        // JSON error - specific to your current issue
-        setStatus({
-          type: "error",
-          message:
-            "Invalid request format. Please try again or contact support.",
-        });
-      } else {
-        // Other errors
-        setStatus({
-          type: "error",
-          message: `Error: ${err.message || "Failed to send transaction"}`,
-        });
-      }
-    } finally {
-      setIsSubmitting(false);
-    }
-  };
-
-  return (
-    <div className="border border-pink-500 rounded-lg p-4 shadow-md bg-white text-pink-500 max-w-sm mx-auto space-y-4">
-      <h2 className="text-lg font-bold">Update Stored Number</h2>
-
-      {!isCorrectNetwork && account && (
-        <div className="p-2 rounded-md bg-yellow-100 text-yellow-700 text-sm">
-          ⚠️ You are not connected to the correct network. Please switch
-          networks in your wallet.
-        </div>
-      )}
-
-      {status.message && (
-        <div
-          className={`p-2 rounded-md break-words h-fit text-sm ${
-            status.type === "error"
-              ? "bg-red-100 text-red-500"
-              : status.type === "success"
-              ? "bg-green-100 text-green-700"
-              : "bg-blue-100 text-blue-700"
-          }`}
-        >
-          {status.message}
-        </div>
-      )}
-
-      <form onSubmit={handleSubmit} className="space-y-4">
-        <input
-          type="number"
-          placeholder="New Number"
-          value={newNumber}
-          onChange={(e) => setNewNumber(e.target.value)}
-          disabled={isSubmitting || !account}
-          className="w-full p-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-pink-400"
-        />
-        <button
-          type="submit"
-          disabled={
-            isSubmitting || !account || (!isCorrectNetwork && !!account)
-          }
-          className="w-full bg-pink-500 hover:bg-pink-600 text-white font-bold py-2 px-4 rounded-lg transition disabled:bg-gray-300"
-        >
-          {isSubmitting ? "Updating..." : "Update"}
-        </button>
-      </form>
-
-      {!account && (
-        <p className="text-sm text-gray-500">
-          Connect your wallet to update the stored number.
-        </p>
-      )}
-    </div>
-  );
-};
-
-export default WriteContract;
+Error fetching snippet from https://raw.githubusercontent.com/polkadot-developers/polkavm-storage-contract-dapps/refs/tags/v0.0.2/viem-dapp/app/components/WriteContract.tsx
 ```
 
 This component allows users to input a new number and send a transaction to update the value stored in the contract. It provides appropriate feedback during each step of the transaction process and handles error scenarios.
@@ -39561,31 +38000,7 @@ This component allows users to input a new number and send a transaction to upda
 Update the `app/page.tsx` file to integrate all components:
 
 ```typescript title="page.tsx"
-"use client";
-
-import { useState } from "react";
-import WalletConnect from "./components/WalletConnect";
-import ReadContract from "./components/ReadContract";
-import WriteContract from "./components/WriteContract";
-
-export default function Home() {
-  const [account, setAccount] = useState<string | null>(null);
-
-  const handleConnect = (connectedAccount: string) => {
-    setAccount(connectedAccount);
-  };
-
-  return (
-    <section className="min-h-screen bg-white text-black flex flex-col justify-center items-center gap-4 py-10">
-      <h1 className="text-2xl font-semibold text-center">
-        Viem dApp - Passet Hub Smart Contracts
-      </h1>
-      <WalletConnect onConnect={handleConnect} />
-      <ReadContract />
-      <WriteContract account={account} />
-    </section>
-  );
-}
+Error fetching snippet from https://raw.githubusercontent.com/polkadot-developers/polkavm-storage-contract-dapps/refs/tags/v0.0.2/viem-dapp/app/page.tsx
 ```
 After that, you will see:
 
@@ -39744,43 +38159,7 @@ Let's start by setting up Hardhat for your Storage contract project:
 6. Configure Hardhat by updating the `hardhat.config.js` file:
 
     ```javascript title="hardhat.config.js"
-    require("@nomicfoundation/hardhat-toolbox");
-
-require("@parity/hardhat-polkadot");
-
-const { vars } = require("hardhat/config");
-
-/** @type import('hardhat/config').HardhatUserConfig */
-module.exports = {
-  solidity: "0.8.28",
-  resolc: {
-    version: "1.5.2",
-    compilerSource: "npm",
-  },
-  networks: {
-    hardhat: {
-      polkavm: true,
-      nodeConfig: {
-        nodeBinaryPath: 'INSERT_PATH_TO_SUBSTRATE_NODE',
-        rpcPort: 8000,
-        dev: true,
-      },
-      adapterConfig: {
-        adapterBinaryPath: 'INSERT_PATH_TO_ETH_RPC_ADAPTER',
-        dev: true,
-      },
-    },
-    localNode: {
-      polkavm: true,
-      url: `http://127.0.0.1:8545`,
-    },
-    passetHub: {
-      polkavm: true,
-      url: 'https://testnet-passet-hub-eth-rpc.polkadot.io',
-      accounts: [vars.get("PRIVATE_KEY")],
-    },
-  },
-};
+    Error fetching snippet from https://raw.githubusercontent.com/polkadot-developers/polkavm-hardhat-examples/refs/tags/v0.0.7/storage-hardhat/hardhat.config.js
     ```
 
     Ensure that `INSERT_PATH_TO_SUBSTRATE_NODE` and `INSERT_PATH_TO_ETH_RPC_ADAPTER` are replaced with the proper paths to the compiled binaries. 
@@ -39810,27 +38189,7 @@ module.exports = {
 1. Create a new folder called `contracts` and create a `Storage.sol` file. Add the contract code from the previous tutorial:
 
     ```solidity title="Storage.sol"
-    // SPDX-License-Identifier: MIT
-pragma solidity ^0.8.28;
-
-contract Storage {
-    // State variable to store our number
-    uint256 private number;
-
-    // Event to notify when the number changes
-    event NumberChanged(uint256 newNumber);
-
-    // Function to store a new number
-    function store(uint256 newNumber) public {
-        number = newNumber;
-        emit NumberChanged(newNumber);
-    }
-
-    // Function to retrieve the stored number
-    function retrieve() public view returns (uint256) {
-        return number;
-    }
-}
+    Error fetching snippet from https://raw.githubusercontent.com/polkadot-developers/polkavm-hardhat-examples/refs/tags/v0.0.7/storage-hardhat/contracts/Storage.sol
     ```
 
 2. Compile the contract:
@@ -39856,28 +38215,9 @@ Testing is a critical part of smart contract development. Hardhat makes it easy 
 1. Create a folder for testing called `test`. Inside that directory, create a file named `Storage.js` and add the following code:
 
     ```javascript title="Storage.js" 
-    const { expect } = require('chai');
-const { ethers } = require('hardhat');
-
-describe('Storage', function () {
-  let storage;
-  let owner;
-  let addr1;
-
-  beforeEach(async function () {
-    // Get signers
-    [owner, addr1] = await ethers.getSigners();
-
-    // Deploy the Storage contract
-    const Storage = await ethers.getContractFactory('Storage');
-    storage = await Storage.deploy();
-    await storage.waitForDeployment();
-  });
-
-  describe('Basic functionality', function () {
+    Error fetching snippet from https://raw.githubusercontent.com/polkadot-developers/polkavm-hardhat-examples/refs/tags/v0.0.7/storage-hardhat/test/Storage.js
         // Add your logic here
-    });
-});
+    Error fetching snippet from https://raw.githubusercontent.com/polkadot-developers/polkavm-hardhat-examples/refs/tags/v0.0.7/storage-hardhat/test/Storage.js
     ```
 
     The `beforeEach` hook ensures stateless contract execution by redeploying a fresh instance of the Storage contract before each test case. This approach guarantees that each test starts with a clean and independent contract state by using `ethers.getSigners()` to obtain test accounts and `ethers.getContractFactory('Storage').deploy()` to create a new contract instance.
@@ -39887,9 +38227,7 @@ describe('Storage', function () {
     a. **Initial state verification** - ensures that the contract starts with a default value of zero, which is a fundamental expectation for the `Storage.sol` contract
 
     ```javascript title="Storage.js"
-    it('Should return 0 initially', async function () {
-      expect(await storage.retrieve()).to.equal(0);
-    });
+    Error fetching snippet from https://raw.githubusercontent.com/polkadot-developers/polkavm-hardhat-examples/refs/tags/v0.0.7/storage-hardhat/test/Storage.js
     ```
 
     Explanation:
@@ -39901,13 +38239,7 @@ describe('Storage', function () {
     b. **Value storage test** - validate the core functionality of storing and retrieving a value in the contract
 
     ```javascript title="Storage.js"
-    it('Should update when store is called', async function () {
-      const testValue = 42;
-      // Store a value
-      await storage.store(testValue);
-      // Check if the value was updated
-      expect(await storage.retrieve()).to.equal(testValue);
-    });
+    Error fetching snippet from https://raw.githubusercontent.com/polkadot-developers/polkavm-hardhat-examples/refs/tags/v0.0.7/storage-hardhat/test/Storage.js
     ```
 
     Explanation:
@@ -39919,13 +38251,7 @@ describe('Storage', function () {
     c. **Event emission verification** - confirm that the contract emits the correct event when storing a value, which is crucial for off-chain tracking
 
     ```javascript title="Storage.js"
-    it('Should emit an event when storing a value', async function () {
-      const testValue = 100;
-      // Check if the NumberChanged event is emitted with the correct value
-      await expect(storage.store(testValue))
-        .to.emit(storage, 'NumberChanged')
-        .withArgs(testValue);
-    });
+    Error fetching snippet from https://raw.githubusercontent.com/polkadot-developers/polkavm-hardhat-examples/refs/tags/v0.0.7/storage-hardhat/test/Storage.js
     ```
 
     Explanation:
@@ -39937,14 +38263,7 @@ describe('Storage', function () {
     d. **Sequential value storage test** - check the contract's ability to store multiple values sequentially and maintain the most recent value
 
     ```javascript title="Storage.js"
-    it('Should allow storing sequentially increasing values', async function () {
-      const values = [10, 20, 30, 40];
-
-      for (const value of values) {
-        await storage.store(value);
-        expect(await storage.retrieve()).to.equal(value);
-      }
-    });
+    Error fetching snippet from https://raw.githubusercontent.com/polkadot-developers/polkavm-hardhat-examples/refs/tags/v0.0.7/storage-hardhat/test/Storage.js
     ```
 
     Explanation:
@@ -39957,55 +38276,7 @@ describe('Storage', function () {
 
     ???--- code "View complete script"
         ```javascript title="Storage.js"
-        const { expect } = require('chai');
-const { ethers } = require('hardhat');
-
-describe('Storage', function () {
-  let storage;
-  let owner;
-  let addr1;
-
-  beforeEach(async function () {
-    // Get signers
-    [owner, addr1] = await ethers.getSigners();
-
-    // Deploy the Storage contract
-    const Storage = await ethers.getContractFactory('Storage');
-    storage = await Storage.deploy();
-    await storage.waitForDeployment();
-  });
-
-  describe('Basic functionality', function () {
-    it('Should return 0 initially', async function () {
-      expect(await storage.retrieve()).to.equal(0);
-    });
-
-    it('Should update when store is called', async function () {
-      const testValue = 42;
-      // Store a value
-      await storage.store(testValue);
-      // Check if the value was updated
-      expect(await storage.retrieve()).to.equal(testValue);
-    });
-
-    it('Should emit an event when storing a value', async function () {
-      const testValue = 100;
-      // Check if the NumberChanged event is emitted with the correct value
-      await expect(storage.store(testValue))
-        .to.emit(storage, 'NumberChanged')
-        .withArgs(testValue);
-    });
-
-    it('Should allow storing sequentially increasing values', async function () {
-      const values = [10, 20, 30, 40];
-
-      for (const value of values) {
-        await storage.store(value);
-        expect(await storage.retrieve()).to.equal(value);
-      }
-    });
-  });
-});
+        Error fetching snippet from https://raw.githubusercontent.com/polkadot-developers/polkavm-hardhat-examples/refs/tags/v0.0.7/storage-hardhat/test/Storage.js
         ```
 
 2. Run the tests:
@@ -40034,13 +38305,7 @@ describe('Storage', function () {
 1. Create a new folder called`ignition/modules`. Add a new file named `StorageModule.js` with the following logic:
 
     ```javascript title="StorageModule.js"
-    const { buildModule } = require('@nomicfoundation/hardhat-ignition/modules');
-
-module.exports = buildModule('StorageModule', (m) => {
-  const storage = m.contract('Storage');
-
-  return { storage };
-});
+    Error fetching snippet from https://raw.githubusercontent.com/polkadot-developers/polkavm-hardhat-examples/refs/tags/v0.0.7/storage-hardhat/ignition/modules/StorageModule.js
     ```
 
 2. Deploy to the local network:
@@ -40112,40 +38377,7 @@ To interact with your deployed contract:
 1. Create a new folder named `scripts` and add the `interact.js` with the following content:
 
     ```javascript title="interact.js"
-    const hre = require('hardhat');
-
-async function main() {
-  // Replace with your deployed contract address
-  const contractAddress = 'INSERT_DEPLOYED_CONTRACT_ADDRESS';
-
-  // Get the contract instance
-  const Storage = await hre.ethers.getContractFactory('Storage');
-  const storage = await Storage.attach(contractAddress);
-
-  // Get current value
-  const currentValue = await storage.retrieve();
-  console.log('Current stored value:', currentValue.toString());
-
-  // Store a new value
-  const newValue = 42;
-  console.log(`Storing new value: ${newValue}...`);
-  const tx = await storage.store(newValue);
-
-  // Wait for transaction to be mined
-  await tx.wait();
-  console.log('Transaction confirmed');
-
-  // Get updated value
-  const updatedValue = await storage.retrieve();
-  console.log('Updated stored value:', updatedValue.toString());
-}
-
-main()
-  .then(() => process.exit(0))
-  .catch((error) => {
-    console.error(error);
-    process.exit(1);
-  });
+    Error fetching snippet from https://raw.githubusercontent.com/polkadot-developers/polkavm-hardhat-examples/refs/tags/v0.0.7/storage-hardhat/scripts/interact.js
     ```
 
     Ensure that `INSERT_DEPLOYED_CONTRACT_ADDRESS` is replaced with the value obtained in the previous step.

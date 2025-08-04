@@ -32921,7 +32921,7 @@ First, you'll update the runtime's `Cargo.toml` file to include the Utility pall
     [dependencies]
     ...
     "pallet-utility",
-    ...
+        ...
     
     ```
 
@@ -32939,16 +32939,20 @@ First, you'll update the runtime's `Cargo.toml` file to include the Utility pall
     [features]
 default = ["std"]
 std = [
-    ...
-    "custom-pallet/std",
+      ...
+      "custom-pallet/std",
+      ...
+    ]
     ```
 
 3. Save the changes and close the `Cargo.toml` file
 
-???- code "runtime/Cargo.toml"
+    Once you have saved your file, it should look like the following:
 
-    ```rust title="runtime/Cargo.toml"
-    [package]
+    ???- code "runtime/Cargo.toml"
+        
+        ```rust title="runtime/Cargo.toml"
+        [package]
 name = "parachain-template-runtime"
 description = "A parachain runtime template built with Substrate and Cumulus, part of Polkadot Sdk."
 version = "0.1.0"
@@ -33048,11 +33052,13 @@ metadata-hash = ["substrate-wasm-builder/metadata-hash"]
 # A convenience feature for enabling things when doing a build
 # for an on-chain release.
 on-chain-release-build = ["metadata-hash"]
-    ```
+        ```
 
 Update your root parachain template's `Cargo.toml` file to include you custom pallet as dependency. Follow these steps:
 
-1. Open the `./Cargo.toml` file and locate the `[workspace]` section. Make sure the custom-pallet is a member of the workspace:
+1. Open the `./Cargo.toml` file and locate the `[workspace]` section. 
+    
+    Make sure the custom-pallet is a member of the workspace:
 
     ```toml hl_lines="4" title="Cargo.toml"
      [workspace]
@@ -33128,14 +33134,9 @@ Configure the pallets by implementing their `Config` trait and update the runtim
 
 2. Implement the [`Config`](https://paritytech.github.io/polkadot-sdk/master/pallet_utility/pallet/trait.Config.html){target=\_blank} trait for both pallets at the end of the `runtime/src/config/mod.rs` file:
 
-    ```rust title="mod.rs" hl_lines="7-25"
+    ```rust title="mod.rs" hl_lines="8-25"
     ...
-    type ValidatorRegistration = Session;
-    type WeightInfo = ();
-}
-
-/// Configure the pallet template in pallets/template.
-impl pallet_parachain_template::Config for Runtime {
+    impl pallet_parachain_template::Config for Runtime {
     type RuntimeEvent = RuntimeEvent;
     type WeightInfo = pallet_parachain_template::weights::SubstrateWeight<Runtime>;
 }
@@ -33147,25 +33148,31 @@ impl pallet_utility::Config for Runtime {
     type PalletsOrigin = OriginCaller;
     type WeightInfo = pallet_utility::weights::SubstrateWeight<Runtime>;
 }
-
-// Define counter max value runtime constant.
-parameter_types! {
+    parameter_types! {
     pub const CounterMaxValue: u32 = 500;
-    
+}
+
+// Configure custom pallet.
+impl custom_pallet::Config for Runtime {
+    type RuntimeEvent = RuntimeEvent;
+    type CounterMaxValue = CounterMaxValue;
+    }
     ```
 
 3. Locate the `#[frame_support::runtime]` macro in the `runtime/src/lib.rs` file and add the pallets:
 
-    ```rust hl_lines="8-12" title="lib.rs"
-    // Create the runtime by composing the FRAME pallets that were previously configured.
+    ```rust hl_lines="9-14" title="lib.rs"
+    mod runtime {
+    #[runtime::runtime]
+    #[runtime::derive(
             ...
-        RuntimeSlashReason,
+        pub struct Runtime;
 
-    pub type MessageQueue = pallet_message_queue;
+    pub type Utility = pallet_utility;
 
-    // Template
-    #[runtime::pallet_index(50)]
-    pub type TemplatePallet = pallet_parachain_template;
+    #[runtime::pallet_index(52)]
+    pub type CustomPallet = custom_pallet;
+    }
     ```
 
 ## Recompile the Runtime

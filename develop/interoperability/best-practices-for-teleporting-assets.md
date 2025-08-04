@@ -247,14 +247,14 @@ Asset teleportation failures can occur for various reasons, each with specific c
 **[FailedToTransactAsset](https://paritytech.github.io/polkadot-sdk/master/cumulus_primitives_core/enum.XcmError.html#variant.FailedToTransactAsset) Errors**
 
 - **Common Causes:**
-    - Missing destination accounts  
-    - Insufficient existential deposits  
-    - Asset not found on destination  
+    - Missing destination accounts.  
+    - Insufficient existential deposits.
+    - Asset not found on destination.
 
 - **Prevention:**
-    - Verify account existence before transfer  
-    - Ensure existential deposit (ED) requirements are met  
-    - Validate asset registration on the destination chain  
+    - Verify account existence before transfer.
+    - Ensure existential deposit (ED) requirements are met.
+    - Validate asset registration on the destination chain.
 
 ---
 

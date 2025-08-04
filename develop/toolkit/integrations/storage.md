@@ -52,7 +52,6 @@ While IPFS is a standalone protocol, it can be integrated into your Polkadot dAp
 -   **Frontend Hosting:** Host your dApp's frontend on IPFS to ensure that it remains accessible and censorship-resistant.
 -   **Integration with Storage Networks:** Use services like Crust Network or other pinning services to ensure your IPFS data is always available and replicated across multiple nodes.
 
----
 
 ## Other Solutions
 

@@ -11,7 +11,7 @@ Polkadot offers developers a range of decentralized storage solutions to manage 
 
 By leveraging decentralized storage, you can enhance the security, reliability, and censorship resistance of your dApps. Polkadot's ecosystem offers several options, allowing you to choose the best fit for your specific needs.
 
-### In This Section
+Some of the storage solutions available for Polkadot dApp builders are:
 
 - **[Crust Network](#crust-network):** A decentralized storage network that provides an incentive layer for IPFS.
 - **[IPFS](#ipfs):** A foundational peer-to-peer protocol for decentralized file storage.
@@ -40,8 +40,6 @@ By leveraging decentralized storage, you can enhance the security, reliability, 
 
 The [InterPlanetary File System (IPFS)](https://ipfs.tech/){target=\_blank} is a peer-to-peer hypermedia protocol designed to make the web faster, safer, and more open. It is a foundational technology for the decentralized web, and many storage solutions, including Crust, are built upon it.
 
-### How IPFS Works
-
 IPFS uses **content-addressing** instead of location-addressing. When you add a file to IPFS, it is given a unique cryptographic hash called a Content Identifier (CID). This means that the content itself determines its address, making it verifiable and permanent.
 
 ### Using IPFS with Polkadot
@@ -51,8 +49,9 @@ While IPFS is a standalone protocol, it can be integrated into your Polkadot dAp
 -   **Off-Chain Data Storage:** Store large files, such as images, videos, and documents, off-chain on IPFS to reduce on-chain storage costs and improve performance.
 -   **Frontend Hosting:** Host your dApp's frontend on IPFS to ensure that it remains accessible and censorship-resistant.
 -   **Integration with Storage Networks:** Use services like Crust Network or other pinning services to ensure your IPFS data is always available and replicated across multiple nodes.
+-   **Run your own IPFS Node:** Since IPFS is a P2P Network, you can optionally run your own IPFS node and have complete control over your data
 
 
 ## Other Solutions
 
-In addition to Crust and IPFS, the Polkadot ecosystem is home to other emerging storage solutions. Projects like **Aleph.im** and **Chainsafe's Files** also offer decentralized storage services that can be integrated with your Polkadot dApp. As the ecosystem continues to grow, more storage options will become available, providing developers with a wide range of choices to meet their needs.
+In addition to Crust and IPFS, the Polkadot ecosystem is home to other emerging storage solutions. Projects like **[Aleph Cloud](https://aleph.cloud){target=\_blank}** and **[Chainsafe's Files](https://files.chainsafe.io){target=\_blank}** also offer decentralized storage services that can be integrated with your Polkadot dApp. As the ecosystem continues to grow, more storage options will become available, providing developers with a wide range of choices to meet their needs.

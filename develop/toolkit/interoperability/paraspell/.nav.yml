@@ -1,0 +1,5 @@
+title: ParaSpell SDK
+hide: false
+nav:
+  - index.md
+  - 'ParaSpell XCM SDK': 'paraspell-xcm-sdk.md'

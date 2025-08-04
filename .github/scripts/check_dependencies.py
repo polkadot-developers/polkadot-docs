@@ -58,9 +58,15 @@ def get_latest_pypi_version(package_name):
     return None, None
 
 def check_sub_dependencies(name, info, outdated_dependencies):
-    """Check sub-dependencies (crate versions) within a repository entry"""
-    for key, current_version in info.items():
-        if key.endswith("_version") and not key.startswith("docker_"):
+    """Check sub-dependencies within a repository entry"""
+    # Check if there's a subdependencies section
+    subdependencies = info.get("subdependencies", {})
+    
+    if not subdependencies:
+        return
+    
+    for key, current_version in subdependencies.items():
+        if key.endswith("_version"):
             # Extract crate name from the key (remove _version suffix)
             crate_name = key.replace("_version", "").replace("_", "-")
             latest_version, latest_url = get_latest_crate_version(crate_name)

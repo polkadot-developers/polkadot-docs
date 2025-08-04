@@ -5,7 +5,7 @@ description: Explore decentralized storage solutions for your Polkadot dApp. Lea
 
 # Storage Integrations
 
-Polkadot provides developers with a variety of decentralized storage solutions to manage dApp data, host frontends, and store large files in a censorship-resistant and resilient manner. These integrations are essential for building fully decentralized applications, ensuring that all components of your dApp, from the front-end to the data, are not reliant on centralized servers.
+Polkadot offers developers a range of decentralized storage solutions to manage dApp data, host frontends, and store large files in a censorship-resistant and resilient manner. These integrations are essential for building fully decentralized applications, ensuring that all components of your dApp, from the front-end to the data, are not reliant on centralized servers.
 
 ## Key Storage Solutions
 

@@ -89,7 +89,7 @@ You can refer to the following snippets to check for the Existential Deposit (ED
 
 ??? code "Account Existence Examples"
 
-    === "PolkadotJS API"
+    === "Polkadot.js API"
         ```javascript
         const { ApiPromise, WsProvider } = require('@polkadot/api');
         const provider = new WsProvider('wss://rpc.polkadot.io');

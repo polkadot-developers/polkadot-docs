@@ -27850,6 +27850,20 @@ Before you begin, make sure you have:
 
 If you haven't replayed or dry-run XCMs before, see the [Replay and Dry Run XCMs Using Chopsticks](/tutorials/interoperability/replay-and-dry-run-xcms/){target=\_blank} tutorial for step-by-step guidance.
 
+## Understanding the Basics
+
+When sending XCMs using `limited_reserve_transfer_assets` or other extrinsics from the `PolkadotXcm` pallet, two key observability features enable you to trace and correlate messages across chains:
+
+- [`SetTopic([u8; 32])`](https://github.com/polkadot-fellows/xcm-format?#settopic)
+  An XCM instruction that sets the Topic Register. This 32-byte array becomes the `message_id`, which is recorded in both the `PolkadotXcm.Sent` and `MessageQueue.Processed` events. It allows logical grouping or filtering of related messages across multiple hops.
+
+  > ⚠️ **Note**: The topic is **not guaranteed to be unique**. If uniqueness is required (for example, for deduplication or traceability), it must be enforced by the message creator.
+
+- **`message_id`**
+  A hash emitted in both the [`PolkadotXcm.Sent`](https://paritytech.github.io/polkadot-sdk/master/pallet_xcm/pallet/enum.Event.html#variant.Sent) event on the origin chain and the [`MessageQueue.Processed`](https://paritytech.github.io/polkadot-sdk/master/pallet_message_queue/pallet/enum.Event.html#variant.Processed) event on the destination chain. While this identifier is not globally unique, it is sufficient to match a `Sent` message with its corresponding `Processed` result.
+
+These observability features are available in runtimes built from **`stable2503-5` or later**.
+
 ## Define a Scenario: DOT to Acala Transfer with Tracing
 
 We will explore the full lifecycle of a cross-chain message from Polkadot Asset Hub to Acala, using the `limited_reserve_transfer_assets` extrinsic.

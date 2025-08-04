@@ -964,9 +964,9 @@ Each configuration item is explained below, detailing the associated type’s pu
     ```
 
     - Some examples are:
-        - **`X1(GlobalConsensus(NetworkId**: :Polkadot))` for Polkadot
-        - **`X1(GlobalConsensus(NetworkId**: :Kusama))` for Kusama
-        - **`X2(GlobalConsensus(NetworkId**: :Polkadot), Parachain(1000))` for Statemint
+        - `X1(GlobalConsensus(NetworkId::Polkadot))` for Polkadot
+        - `X1(GlobalConsensus(NetworkId::Kusama))` for Kusama
+        - `X2(GlobalConsensus(NetworkId::Polkadot), Parachain(1000))` for Statemint
 
 - **[`Barrier`](https://paritytech.github.io/polkadot-sdk/master/staging_xcm_executor/trait.Config.html#associatedtype.Barrier){target=\_blank}**: Implements the [`ShouldExecute`](https://paritytech.github.io/polkadot-sdk/master/staging_xcm_executor/traits/trait.ShouldExecute.html){target=\_blank} trait, functioning as a firewall for XCM execution. Multiple barriers can be combined in a tuple, where execution halts if one succeeds.
 
@@ -6567,7 +6567,7 @@ Here's how to submit this XCM using Astar (Parachain 2006) as an example:
 
     1. Add a **WithdrawAsset** instruction.
     2. Add a **BuyExecution** instruction.
-        - **fees**.
+        - **fees**:
             - **id**: The asset location to use for the fee payment. In this example, the relay chain native asset is used.
             - **fun**: Select `Fungible` and use the same amount you withdrew from the sovereign account in the previous step.
         - **weightLimit**: Use `Unlimited`.
@@ -16587,7 +16587,7 @@ These are the methods that can be invoked and their parameters:
 
             - **`count` ++"number"++**: The number of blocks to build.
             - **`dmp` ++"{ msg: string, sentAt: number }[]"++**: the downward messages to include in the block.
-            - `hrmp` ++"Record<string | number, { data: string, sentAt: number }[]>"++ - the horizontal messages to include in the block.
+            - **`hrmp` ++"Record<string | number, { data: string, sentAt: number }[]>"++**: The horizontal messages to include in the block.
             - **`to` ++"number"++**: The block number to build to.
             - **`transactions` ++"string[]"++**: The transactions to include in the block.
             - **`ump` ++"Record<number, string[]>"++**: The upward messages to include in the block.

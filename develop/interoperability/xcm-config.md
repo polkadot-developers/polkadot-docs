@@ -81,9 +81,9 @@ Each configuration item is explained below, detailing the associated type’s pu
     ```
 
     - Some examples are:
-        - **`X1(GlobalConsensus(NetworkId**: :Polkadot))` for Polkadot
-        - **`X1(GlobalConsensus(NetworkId**: :Kusama))` for Kusama
-        - **`X2(GlobalConsensus(NetworkId**: :Polkadot), Parachain(1000))` for Statemint
+        - `X1(GlobalConsensus(NetworkId::Polkadot))` for Polkadot
+        - `X1(GlobalConsensus(NetworkId::Kusama))` for Kusama
+        - `X2(GlobalConsensus(NetworkId::Polkadot), Parachain(1000))` for Statemint
 
 - **[`Barrier`](https://paritytech.github.io/polkadot-sdk/master/staging_xcm_executor/trait.Config.html#associatedtype.Barrier){target=\_blank}**: Implements the [`ShouldExecute`](https://paritytech.github.io/polkadot-sdk/master/staging_xcm_executor/traits/trait.ShouldExecute.html){target=\_blank} trait, functioning as a firewall for XCM execution. Multiple barriers can be combined in a tuple, where execution halts if one succeeds.
 

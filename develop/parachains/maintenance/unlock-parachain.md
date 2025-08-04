@@ -131,7 +131,7 @@ Here's how to submit this XCM using Astar (Parachain 2006) as an example:
 
     1. Add a **WithdrawAsset** instruction.
     2. Add a **BuyExecution** instruction.
-        - **fees**.
+        - **fees**:
             - **id**: The asset location to use for the fee payment. In this example, the relay chain native asset is used.
             - **fun**: Select `Fungible` and use the same amount you withdrew from the sovereign account in the previous step.
         - **weightLimit**: Use `Unlimited`.

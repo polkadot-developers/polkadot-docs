@@ -129,10 +129,10 @@ Non-sufficient assets, on the other hand, **cannot** suffice on their own for ac
 
 On Asset Hub, sufficient assets:
 
-- Can be natively used for the existential deposit (ED)
-- Can be natively used for [paying transaction fees](#transaction-fees)
-- Can be natively used for [paying XCM fees](#xcm-fees)
-- Cannot be used for storage deposits (only if swapped for the native token)
+- Can be natively used for the existential deposit (ED).
+- Can be natively used for [paying transaction fees](#transaction-fees).
+- Can be natively used for [paying XCM fees](#xcm-fees).
+- Cannot be used for storage deposits (only if swapped for the native token).
 
 ### Non-Sufficient Assets
 
@@ -163,18 +163,19 @@ For non-sufficient assets, this can be done by calling [asset conversion's swap]
 !!!note "UIs, Wallets, and Tools Interacting with Asset Hub"
     When developing cross-chain applications to interact with Asset Hub it is important to consider the UI/UX and the trade-offs it may have. 
 
-    Example Scenario: Sending 100 USDT to a new Asset Hub account
-    Option 1 - Deduct from sending amount:
+    **Example scenario**: Sending 100 USDT to a new Asset Hub account.
+    
+    - Option 1 - Deduct from sending amount:
 
-    - Receiver gets: 100 USDT - 0.01 DOT (for ED) - transaction and XCM fees
-    - Sender pays exactly 100 USDT total
-    - Simpler for sender, but receiver gets less than expected
+        - **Receiver gets**: 100 USDT - 0.01 DOT (for ED) - transaction and XCM fees.
+        - **Sender pays**: Exactly 100 USDT total.
+        - Simpler for sender, but receiver gets less than expected.
 
-    Option 2 - Additional sender cost:
+    - Option 2 - Additional sender cost:
 
-    - Receiver gets: full 100 USDT + 0.01 DOT (for ED)
-    - Sender pays: 100 USDT + 0.01 DOT (for ED) + transaction and XCM fees
-    - More expensive for sender, but receiver gets full amount
+        - Receiver gets: full 100 USDT + 0.01 DOT (for ED).
+        - Sender pays: 100 USDT + 0.01 DOT (for ED) + transaction and XCM fees.
+        - More expensive for sender, but receiver gets full amount.
 
     Each approach requires different XCM program construction and affects the overall user experience.
 

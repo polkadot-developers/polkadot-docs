@@ -102,15 +102,15 @@ Create an `index.ts` file with the complete batch teleport implementation. For t
 !!!note "Understanding Batch Modes"
     The ParaSpell SDK supports two batch modes:
 
-    - BatchMode.BATCH_ALL
-        - **Behavior**: All operations must succeed, or the entire batch fails
-        - **Use Case**: When all transfers are critical and interdependent
-        - **Gas Efficiency**: More efficient as it's a single atomic operation
+    - **`BatchMode.BATCH_ALL`**:
+        - **Behavior**: All operations must succeed, or the entire batch fails.
+        - **Use case**: When all transfers are critical and interdependent.
+        - **Gas efficiency**: More efficient as it's a single atomic operation.
 
-    - BatchMode.BATCH
-        - **Behavior**: Individual operations can fail independently
-        - **Use Case**: When some transfers can fail without affecting others
-        - **Resilience**: More resilient but with slightly higher gas overhead
+    - **`BatchMode.BATCH`**:
+        - **Behavior**: Individual operations can fail independently.
+        - **Use case**: When some transfers can fail without affecting others.
+        - **Resilience**: More resilient but with slightly higher gas overhead.
 
 Update your `package.json` to include the necessary scripts:
 
@@ -159,11 +159,11 @@ Make sure your Polkadot wallet is funded with some test tokens by using the [Pol
 
 After running the script:
 
-1. **Copy the generated link** from the console output
-2. **Open the link** in your web browser
-3. **Connect your wallet** (such as Polkadot.js extension)
-4. **Review the transaction details** in the PAPI console
-5. **Submit the transaction** and confirm with your wallet
+1. Copy the generated link from the console output.
+2. Open the link in your web browser.
+3. Connect your wallet (such as Polkadot.js extension).
+4. Review the transaction details in the PAPI console.
+5. Submit the transaction and confirm with your wallet.
 
     ![](/images/tutorials/polkadot-sdk/system-chains/asset-hub/batch-teleport/papi-console-01.webp)
 

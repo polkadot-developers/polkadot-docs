@@ -83,13 +83,13 @@ Always verify that the destination account exists or can be created before initi
 
 - Account existence on the destination chain.
 - Current balance and nonce information.
-- Whether the account meets existential deposit requirements
+- Whether the account meets existential deposit requirements.
 
 You can refer to the following snippets to check for the Existential Deposit (ED) of a specific account:
 
 ??? code "Account Existence Examples"
 
-    === "PolkadotJS API"
+    === "Polkadot.js API"
         ```javascript
         const { ApiPromise, WsProvider } = require('@polkadot/api');
         const provider = new WsProvider('wss://rpc.polkadot.io');
@@ -199,9 +199,9 @@ Use proper runtime APIs for accurate fee estimation rather than hardcoded values
 
 For dealing with non-sufficient assets and fees, there are different fee payment strategies you can implement:
 
-1. **[Asset Conversion](/polkadot-protocol/architecture/system-chains/asset-hub/#non-sufficient-assets){target=\_blank}**: Convert part of the transfer amount to pay fees
-2. **Separate Fee Payment**: Use a different sufficient asset for fees
-3. **Fee Sponsorship**: Have another account pay fees on behalf of the user
+1. **[Asset Conversion](/polkadot-protocol/architecture/system-chains/asset-hub/#non-sufficient-assets){target=\_blank}**: Convert part of the transfer amount to pay fees.
+2. **Separate Fee Payment**: Use a different sufficient asset for fees.
+3. **Fee Sponsorship**: Have another account pay fees on behalf of the user.
 
 ## Asset Type Considerations
 
@@ -230,7 +230,7 @@ Dry run testing represents the most critical step in preventing asset loss durin
 
 This two-phase validation approach catches the majority of potential issues before they can cause problems in production.
 
-Here is an example of a dry run implementation using PAPI:
+Below is an example of a dry run implementation using PAPI.
 
 ??? code "Comprehensive Dry Run Example"
 
@@ -247,14 +247,14 @@ Asset teleportation failures can occur for various reasons, each with specific c
 **[FailedToTransactAsset](https://paritytech.github.io/polkadot-sdk/master/cumulus_primitives_core/enum.XcmError.html#variant.FailedToTransactAsset) Errors**
 
 - **Common Causes:**
-    - Missing destination accounts  
-    - Insufficient existential deposits  
-    - Asset not found on destination  
+    - Missing destination accounts.  
+    - Insufficient existential deposits.
+    - Asset not found on destination.
 
 - **Prevention:**
-    - Verify account existence before transfer  
-    - Ensure existential deposit (ED) requirements are met  
-    - Validate asset registration on the destination chain  
+    - Verify account existence before transfer.
+    - Ensure existential deposit (ED) requirements are met.
+    - Validate asset registration on the destination chain.
 
 ---
 

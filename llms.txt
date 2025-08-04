@@ -27820,23 +27820,24 @@ Doc-Content: https://docs.polkadot.com/tutorials/interoperability/xcm-observabil
 --- BEGIN CONTENT ---
 ---
 title: XCM Observability
-description: This guide explains how to trace, correlate, and debug cross-chain XCMs using observability features introduced in the Polkadot SDK.
+description: This guide explains how to trace, correlate and debug cross-chain XCMs using observability features introduced in the Polkadot SDK.
 ---
 
 # XCM Observability
 
 ## Introduction
 
-This guide explains how to **trace, correlate, and debug cross-chain XCMs** using observability features introduced in the Polkadot SDK.
+This guide explains how to **trace, correlate and debug cross-chain XCMs** using observability features introduced in the Polkadot SDK.
 
 You will learn how to:
 
-* Understand and use `SetTopic` and `message_id` for tracking
-* Replay and dry-run XCMs across parachains
-* Match `Sent` and `Processed` events across chains
-* Debug failed or incomplete messages using Chopsticks logs
+* Use `SetTopic` and `message_id` to track XCMs across multiple chains
+* Match `PolkadotXcm.Sent` and `MessageQueue.Processed` events to understand message flow
+* Interpret and handle failed or incomplete messages
+* Apply manual topic tagging for reliable tracking across hops
+* Use the workaround for older runtimes that emit derived message identifiers
 
-This tutorial is essential for developers working on multi-hop XCMs, custom integrations, or bridges where traceability and debuggability are critical.
+To demonstrate these techniques, the guide introduces a complete example scenario involving a multi-chain XCM transfer. This scenario will serve as the foundation for explaining message lifecycle, event tracking and failure debugging in context.
 
 ## Prerequisites
 
@@ -27850,8 +27851,6 @@ To follow this tutorial, you should have:
 
 You should also be familiar with forking chains using Chopsticks. If not, see [Fork a Chain with Chopsticks](https://docs.polkadot.com/tutorials/polkadot-sdk/testing/fork-live-chains/).
 
----
-
 ## Define a Scenario: DOT to Acala Transfer with Tracing
 
 We will explore the full lifecycle of a cross-chain message from Polkadot Asset Hub to Acala, using the `limited_reserve_transfer_assets` extrinsic.
@@ -27863,8 +27862,6 @@ We will explore the full lifecycle of a cross-chain message from Polkadot Asset 
 
 This scenario will demonstrate how `SetTopic` is added (or generated), how to find matching `Sent` and `Processed` events, and how to debug execution failures if they occur.
 
----
-
 ## Step 1: Launch a Fork with Logging Enabled
 
 To view full logs and track `SetTopic`, override the runtime with a locally built Wasm.
@@ -27874,8 +27871,6 @@ To view full logs and track `SetTopic`, override the runtime with a locally buil
 * Use a custom Chopsticks config to load your Wasm
 
 → See the detailed steps in [Replay and Dry Run XCMs Guide](https://docs.polkadot.com/tutorials/interoperability/replay-and-dry-run-xcms/).
-
----
 
 ## Step 2: Execute the Transfer with `SetTopic`
 
@@ -27890,8 +27885,6 @@ You can run this script with:
 ```bash
 npx tsx limited-reserve-transfer-assets.ts
 ```
-
----
 
 ## Step 3: Track the Message Across Chains
 
@@ -27912,8 +27905,6 @@ After submission, you can match events using the `message_id`:
 
 → Matching confirms that the message was received and executed on the destination chain.
 
----
-
 ## Step 4: Debug Failures
 
 If your XCM fails, you can debug using one of the following:
@@ -27932,8 +27923,6 @@ With logging enabled, Chopsticks will show:
 
 → Useful for understanding weight failures, malformed assets, or execution mismatches.
 
----
-
 ## Step 5: Handle Older Runtimes
 
 Older runtimes use a **derived `forwarded_id`** in `Processed` events instead of the original topic hash.
@@ -27945,8 +27934,6 @@ const forwardedId = blake2AsU8a(input);
 ```
 
 → Tools must check both the `original_id` and `forwarded_id` when indexing older chains.
-
----
 
 ## Additional Samples
 
@@ -27967,8 +27954,6 @@ Simulates a swap using DOT on Hydration, then returns funds back to the origin.
 → Run each script using `npx tsx <script>.ts`
 
 Each sample includes inline comments and tracking info relevant to its use case.
-
----
 
 ## Where to Go Next
 

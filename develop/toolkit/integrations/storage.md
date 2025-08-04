@@ -17,7 +17,6 @@ By leveraging decentralized storage, you can enhance the security, reliability, 
 - **[IPFS](#ipfs):** A foundational peer-to-peer protocol for decentralized file storage.
 - **[Other Solutions](#other-solutions):** A brief overview of other storage options in the ecosystem.
 
----
 
 ## Crust Network
 

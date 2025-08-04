@@ -81,8 +81,8 @@ Here is an example flow of teleporting an asset from a parachain to Asset Hub.
 
 Always verify that the destination account exists or can be created before initiating transfers. Account queries should check:
 
-- Account existence on the destination chain
-- Current balance and nonce information  
+- Account existence on the destination chain.
+- Current balance and nonce information.
 - Whether the account meets existential deposit requirements
 
 You can refer to the following snippets to check for the Existential Deposit (ED) of a specific account:

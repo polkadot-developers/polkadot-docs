@@ -103,14 +103,14 @@ Create an `index.ts` file with the complete batch teleport implementation. For t
     The ParaSpell SDK supports two batch modes:
 
     - **`BatchMode.BATCH_ALL`**:
-        - **Behavior**: All operations must succeed, or the entire batch fails
-        - **Use Case**: When all transfers are critical and interdependent
-        - **Gas Efficiency**: More efficient as it's a single atomic operation
+        - **Behavior**: All operations must succeed, or the entire batch fails.
+        - **Use case**: When all transfers are critical and interdependent.
+        - **Gas efficiency**: More efficient as it's a single atomic operation.
 
-    - BatchMode.BATCH
-        - **Behavior**: Individual operations can fail independently
-        - **Use Case**: When some transfers can fail without affecting others
-        - **Resilience**: More resilient but with slightly higher gas overhead
+    - **`BatchMode.BATCH`**:
+        - **Behavior**: Individual operations can fail independently.
+        - **Use case**: When some transfers can fail without affecting others.
+        - **Resilience**: More resilient but with slightly higher gas overhead.
 
 Update your `package.json` to include the necessary scripts:
 

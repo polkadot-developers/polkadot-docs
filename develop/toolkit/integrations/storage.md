@@ -35,7 +35,6 @@ By leveraging decentralized storage, you can enhance the security, reliability, 
 -   **NFT Storage:** Store NFT metadata and assets in a persistent and decentralized manner.
 -   **File Storage and Sharing:** Build decentralized applications for file storage and sharing, similar to traditional cloud storage services.
 
----
 
 ## IPFS
 

@@ -207,7 +207,7 @@ The batch teleport feature significantly improves efficiency when performing mul
 
     [:octicons-arrow-right-24: Best Practices for Teleporting Assets](/develop/interoperability/best-practices-for-teleporting-assets/){target=\_blank}
 
--   <span class="badge tutorial">ParaSpell SDK Docs</span> __ParaSpell SDK Deep Dive__
+-   <span class="badge external">External</span> __ParaSpell SDK Deep Dive__
 
     ---
 

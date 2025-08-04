@@ -16586,7 +16586,7 @@ These are the methods that can be invoked and their parameters:
         - **`newBlockParams` ++"NewBlockParams"++**: The parameters to build the new block with. Where the `NewBlockParams` interface includes the following properties.
 
             - **`count` ++"number"++**: The number of blocks to build.
-            - **`dmp` ++"{ msg: string, sentAt: number }[]"++**: the downward messages to include in the block.
+            - **`dmp` ++"{ msg: string, sentAt: number }[]"++**: The downward messages to include in the block.
             - **`hrmp` ++"Record<string | number, { data: string, sentAt: number }[]>"++**: The horizontal messages to include in the block.
             - **`to` ++"number"++**: The block number to build to.
             - **`transactions` ++"string[]"++**: The transactions to include in the block.

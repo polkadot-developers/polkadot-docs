@@ -39,11 +39,11 @@ You can perform the reserve-backed transfer using either the [Polkadot.js Apps i
 
 ## Use Polkadot.js Apps
 
-Open two browser tabs and can connect these endpoints using the [Polkadot.js Apps](https://polkadot.js.org/apps/){target=\_blank} interface:
+Use the [Polkadot.js Apps](https://polkadot.js.org/apps/){target=\_blank} interface to connect to each chain. Open two browser tabs—one for each chain—and follow these steps:
 
-a. Add the custom endpoint for each chain
+a. Add the custom endpoint for each chain, as defined above.
 
-b. Click **Switch** to connect to the respective network
+b. Click **Switch** to connect to the respective network.
 
 ![](/images/tutorials/interoperability/xcm-transfers/from-relaychain-to-parachain/from-relaychain-to-parachain-01.webp)
 

@@ -58,7 +58,7 @@ Update your root parachain template's `Cargo.toml` file to include your custom p
 
 1. Open the `./Cargo.toml` file and locate the `[workspace]` section. 
     
-    Make sure the custom-pallet is a member of the workspace:
+    Make sure the `custom-pallet` is a member of the workspace:
 
     ```toml hl_lines="4" title="Cargo.toml"
      --8<-- 'https://raw.githubusercontent.com/papermoonio/zero-to-hero-tutorial/refs/heads/v0.0.4-complete-tutorial/Cargo.toml:8:14'

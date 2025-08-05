@@ -24,10 +24,10 @@ For comprehensive information about benchmarking concepts, refer to the [Benchma
 
 Follow these steps to prepare your environment for pallet benchmarking:
 
-1. Install the [`frame-omni-bencher`](https://crates.io/crates/frame-omni-bencher/{{dependencies.repositories.polkadot_sdk_parachain_template.frame_omni_bencher_version}}){target=\_blank} command-line tool:
+1. Install the [`frame-omni-bencher`](https://crates.io/crates/frame-omni-bencher/{{dependencies.repositories.polkadot_sdk_parachain_template.subdependencies.frame_omni_bencher_version}}){target=\_blank} command-line tool:
     
     ```bash
-    cargo install --locked frame-omni-bencher@{{dependencies.repositories.polkadot_sdk_parachain_template.frame_omni_bencher_version}}
+    cargo install --locked frame-omni-bencher@{{dependencies.repositories.polkadot_sdk_parachain_template.subdependencies.frame_omni_bencher_version}}
     ```
 
 2. Update your pallet's `Cargo.toml` file in the `pallets/custom-pallet` directory by adding the `runtime-benchmarks` feature flag:
@@ -47,7 +47,7 @@ Follow these steps to prepare your environment for pallet benchmarking:
         ```
 
 4. Set up the benchmarking module in your pallet:
-    1. Create a benchmarking.rs file in your pallet's src/ directory:
+    1. Create a `benchmarking.rs` file in your pallet's `src/` directory:
         ```bash
         touch benchmarking.rs
         ```

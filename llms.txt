@@ -33054,11 +33054,11 @@ metadata-hash = ["substrate-wasm-builder/metadata-hash"]
 on-chain-release-build = ["metadata-hash"]
         ```
 
-Update your root parachain template's `Cargo.toml` file to include you custom pallet as dependency. Follow these steps:
+Update your root parachain template's `Cargo.toml` file to include your custom pallet as a dependency. Follow these steps:
 
 1. Open the `./Cargo.toml` file and locate the `[workspace]` section. 
     
-    Make sure the custom-pallet is a member of the workspace:
+    Make sure the `custom-pallet` is a member of the workspace:
 
     ```toml hl_lines="4" title="Cargo.toml"
      [workspace]
@@ -34654,10 +34654,10 @@ For comprehensive information about benchmarking concepts, refer to the [Benchma
 
 Follow these steps to prepare your environment for pallet benchmarking:
 
-1. Install the [`frame-omni-bencher`](https://crates.io/crates/frame-omni-bencher/{{dependencies.repositories.polkadot_sdk_parachain_template.frame_omni_bencher_version}}){target=\_blank} command-line tool:
+1. Install the [`frame-omni-bencher`](https://crates.io/crates/frame-omni-bencher/{{dependencies.repositories.polkadot_sdk_parachain_template.subdependencies.frame_omni_bencher_version}}){target=\_blank} command-line tool:
     
     ```bash
-    cargo install --locked frame-omni-bencher@{{dependencies.repositories.polkadot_sdk_parachain_template.frame_omni_bencher_version}}
+    cargo install --locked frame-omni-bencher@{{dependencies.repositories.polkadot_sdk_parachain_template.subdependencies.frame_omni_bencher_version}}
     ```
 
 2. Update your pallet's `Cargo.toml` file in the `pallets/custom-pallet` directory by adding the `runtime-benchmarks` feature flag:
@@ -34710,7 +34710,7 @@ runtime-benchmarks = ["frame/runtime-benchmarks"]
         ```
 
 4. Set up the benchmarking module in your pallet:
-    1. Create a benchmarking.rs file in your pallet's src/ directory:
+    1. Create a `benchmarking.rs` file in your pallet's `src/` directory:
         ```bash
         touch benchmarking.rs
         ```
@@ -36068,22 +36068,22 @@ rustup component add rust-src --toolchain 1.86-aarch64-apple-darwin
 
 This tutorial requires two essential tools:
 
-- [**Chain spec builder**](https://crates.io/crates/staging-chain-spec-builder/{{dependencies.repositories.polkadot_sdk_parachain_template.chain_spec_builder_version}}){target=\_blank} - is a Polkadot SDK utility for generating chain specifications. Refer to the [Generate Chain Specs](/develop/parachains/deployment/generate-chain-specs/){target=\_blank} documentation for detailed usage.
+- [**Chain spec builder**](https://crates.io/crates/staging-chain-spec-builder/{{dependencies.repositories.polkadot_sdk_parachain_template.subdependencies.chain_spec_builder_version}}){target=\_blank} - is a Polkadot SDK utility for generating chain specifications. Refer to the [Generate Chain Specs](/develop/parachains/deployment/generate-chain-specs/){target=\_blank} documentation for detailed usage.
     
     Install it by executing the following command:
     
     ```bash
-    cargo install --locked staging-chain-spec-builder@{{dependencies.repositories.polkadot_sdk_parachain_template.chain_spec_builder_version}}
+    cargo install --locked staging-chain-spec-builder@{{dependencies.repositories.polkadot_sdk_parachain_template.subdependencies.chain_spec_builder_version}}
     ```
 
     This installs the `chain-spec-builder` binary.
 
-- [**Polkadot Omni Node**](https://crates.io/crates/polkadot-omni-node/{{dependencies.crates.polkadot_omni_node.version}}){target=\_blank} - is a white-labeled binary, released as a part of Polkadot SDK that can act as the collator of a parachain in production, with all the related auxiliary functionalities that a normal collator node has: RPC server, archiving state, etc. Moreover, it can also run the wasm blob of the parachain locally for testing and development.
+- [**Polkadot Omni Node**](https://crates.io/crates/polkadot-omni-node/{{dependencies.repositories.polkadot_sdk_parachain_template.subdependencies.polkadot_omni_node_version}}){target=\_blank} - is a white-labeled binary, released as a part of Polkadot SDK that can act as the collator of a parachain in production, with all the related auxiliary functionalities that a normal collator node has: RPC server, archiving state, etc. Moreover, it can also run the wasm blob of the parachain locally for testing and development.
 
     To install it, run the following command:
 
     ```bash
-    cargo install --locked polkadot-omni-node@{{dependencies.repositories.polkadot_sdk_parachain_template.polkadot_omni_node_version}}
+    cargo install --locked polkadot-omni-node@{{dependencies.repositories.polkadot_sdk_parachain_template.subdependencies.polkadot_omni_node_version}}
     ```
 
     This installs the `polkadot-omni-node` binary.

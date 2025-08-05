@@ -56,12 +56,6 @@ graph LR
     BT --> PC
     PC --> R1
     PC --> R2
-    
-    style AH fill:#e3f2fd
-    style BT fill:#fff3e0
-    style PC fill:#e8f5e8
-    style R1 fill:#f3e5f5
-    style R2 fill:#f3e5f5
 ```
 
 Your project directory will be organized as follows:
@@ -85,7 +79,7 @@ bun init -y
 
 ## Install Dependencies
 
-Install the ParaSpell SDK:
+Install the [ParaSpell SDK](https://paraspell.github.io/docs/){target=\_blank}:
 
 ```bash
 bun add @paraspell/sdk@{{dependencies.javascript_packages.paraspell_sdk.version}}
@@ -115,21 +109,7 @@ Create an `index.ts` file with the complete batch teleport implementation. For t
 Update your `package.json` to include the necessary scripts:
 
 ```json title="package.json"
-{
-  "name": "batch-teleport-tutorial",
-  "version": "1.0.0",
-  "description": "Tutorial for creating batch teleport transactions with ParaSpell SDK using Bun",
-  "main": "index.ts",
-  "type": "module",
-  "scripts": {
-    "start": "bun run index.ts",
-    "dev": "bun run --watch index.ts" // --watch automatically restarts the script when files change
- },
-  },
-  "dependencies": {
-    "@paraspell/sdk": "^{{dependencies.javascript_packages.paraspell_sdk.version}}"
-  }
-}
+--8<-- 'code/tutorials/polkadot-sdk/system-chains/asset-hub/package.json'
 ```
 
 ## Configure Destination Addresses
@@ -205,7 +185,7 @@ The batch teleport feature significantly improves efficiency when performing mul
 
     An in-depth guide on best practices for teleporting assets using XCM
 
-    [:octicons-arrow-right-24: Best Practices for Teleporting Assets](/develop/interoperability/best-practices-for-teleporting-assets/){target=\_blank}
+    [:octicons-arrow-right-24: Best Practices for Teleporting Assets](/develop/interoperability/best-practices-for-teleporting-assets/)
 
 -   <span class="badge external">External</span> __ParaSpell SDK Deep Dive__
 

@@ -54,7 +54,7 @@ First, you'll update the runtime's `Cargo.toml` file to include the Utility pall
         --8<-- 'code/tutorials/polkadot-sdk/parachains/zero-to-hero/runtime/Cargo.toml'
         ```
 
-Update your root parachain template's `Cargo.toml` file to include you custom pallet as dependency. Follow these steps:
+Update your root parachain template's `Cargo.toml` file to include your custom pallet as a dependency. Follow these steps:
 
 1. Open the `./Cargo.toml` file and locate the `[workspace]` section. 
     

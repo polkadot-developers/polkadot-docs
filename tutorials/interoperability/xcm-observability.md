@@ -212,7 +212,7 @@ To reliably trace messages across **mixed-version chains**, indexers and tools s
 
     ---
 
-    Learn how to replay and dry run XCMs.
+    Learn how to replay and dry run XCMs using Chopsticks.
 
     [:octicons-arrow-right-24: Get Started](/tutorials/interoperability/replay-and-dry-run-xcms/)
 

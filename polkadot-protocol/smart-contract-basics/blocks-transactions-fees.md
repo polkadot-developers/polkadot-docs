@@ -23,13 +23,13 @@ Asset Hub implements a sophisticated transaction system that supports various tr
 
 The system provides a fundamental [`eth_transact`](https://paritytech.github.io/polkadot-sdk/master/pallet_revive/pallet/dispatchables/fn.eth_transact.html){target=\_blank} interface for processing raw EVM transactions dispatched through [Ethereum JSON-RPC APIs](/develop/smart-contracts/json-rpc-apis/){target=\_blank}. This interface acts as a wrapper for Ethereum transactions, requiring an encoded signed transaction payload, though it cannot be dispatched directly. Building upon this foundation, the system supports multiple transaction formats to accommodate different use cases and optimization needs:
 
-- [**Legacy transactions**](https://paritytech.github.io/polkadot-sdk/master/pallet_revive/evm/struct.TransactionLegacyUnsigned.html){target=\_blank} - the original Ethereum transaction format, providing basic transfer and contract interaction capabilities. These transactions use a simple pricing mechanism and are supported for backward compatibility
+- **[Legacy transactions](https://paritytech.github.io/polkadot-sdk/master/pallet_revive/evm/struct.TransactionLegacyUnsigned.html){target=\_blank}**: The original Ethereum transaction format, providing basic transfer and contract interaction capabilities. These transactions use a simple pricing mechanism and are supported for backward compatibility.
 
-- [**EIP-1559 transactions**](https://paritytech.github.io/polkadot-sdk/master/pallet_revive/evm/struct.Transaction1559Unsigned.html){target=\_blank} - an improved transaction format that introduces a more predictable fee mechanism with base fee and priority fee components. This format helps optimize gas fee estimation and network congestion management
+- **[EIP-1559 transactions](https://paritytech.github.io/polkadot-sdk/master/pallet_revive/evm/struct.Transaction1559Unsigned.html){target=\_blank}**: An improved transaction format that introduces a more predictable fee mechanism with base fee and priority fee components. This format helps optimize gas fee estimation and network congestion management.
 
-- [**EIP-2930 transactions**](https://paritytech.github.io/polkadot-sdk/master/pallet_revive/evm/struct.Transaction2930Unsigned.html){target=\_blank} - introduces access lists to optimize gas costs for contract interactions by pre-declaring accessed addresses and storage slots
+- **[EIP-2930 transactions](https://paritytech.github.io/polkadot-sdk/master/pallet_revive/evm/struct.Transaction2930Unsigned.html){target=\_blank}**: Introduces access lists to optimize gas costs for contract interactions by pre-declaring accessed addresses and storage slots.
 
-- [**EIP-4844 transactions**](https://paritytech.github.io/polkadot-sdk/master/pallet_revive/evm/struct.Transaction4844Unsigned.html){target=\_blank} - implements blob-carrying transactions, designed to optimize Layer 2 scaling solutions by providing dedicated space for roll-up data
+- **[EIP-4844 transactions](https://paritytech.github.io/polkadot-sdk/master/pallet_revive/evm/struct.Transaction4844Unsigned.html){target=\_blank}**: Implements blob-carrying transactions, designed to optimize Layer 2 scaling solutions by providing dedicated space for roll-up data.
 
 Each transaction type can exist in both signed and unsigned states, with appropriate validation and processing mechanisms for each.
 
@@ -41,61 +41,62 @@ Asset Hub implements a sophisticated resource management system that combines pa
 
 Gas serves as the fundamental unit for measuring computational costs, with each network operation consuming a specified amount. This implementation maintains compatibility with Ethereum's approach while adding parachain-specific optimizations.
 
-- **Dynamic gas scaling** - Asset Hub implements a dynamic pricing mechanism that reflects actual execution performance. This results in:
-    - More efficient pricing for computational instructions relative to I/O operations
-    - Better correlation between gas costs and actual resource consumption
-    - Need for developers to implement flexible gas calculation rather than hardcoding values
+- **Dynamic gas scaling**: Asset Hub implements a dynamic pricing mechanism that reflects actual execution performance. This results in:
 
-- **Multi-dimensional resource metering** -  Asset Hub extends beyond the traditional single-metric gas model to track three distinct resources:
+    - More efficient pricing for computational instructions relative to I/O operations.
+    - Better correlation between gas costs and actual resource consumption.
+    - Need for developers to implement flexible gas calculation rather than hardcoding values.
 
-    - `ref_time` (computation time)
+- **Multi-dimensional resource metering**: Asset Hub extends beyond the traditional single-metric gas model to track three distinct resources.
 
-        - Functions as traditional gas equivalent
-        - Measures actual computational resource usage
-        - Primary metric for basic operation costs
+    - `ref_time` (computation time):
 
-
-    - `proof_size` (verification overhead)
-
-        - Tracks state proof size required for validator verification
-        - Helps manage consensus-related resource consumption
-        - Important for cross-chain operations
+        - Functions as traditional gas equivalent.
+        - Measures actual computational resource usage.
+        - Primary metric for basic operation costs.
 
 
-    - `storage_deposit` (state management)
+    - `proof_size` (verification overhead):
 
-        - Manages blockchain state growth
-        - Implements a deposit-based system for long-term storage
-        - Refundable when storage is freed
+        - Tracks state proof size required for validator verification.
+        - Helps manage consensus-related resource consumption.
+        - Important for cross-chain operations.
+
+
+    - `storage_deposit` (state management):
+
+        - Manages blockchain state growth.
+        - Implements a deposit-based system for long-term storage.
+        - Refundable when storage is freed.
 
 These resources can be limited at both transaction and contract levels, similar to Ethereum's gas limits. For more information, check the [Gas Model](/polkadot-protocol/smart-contract-basics/evm-vs-polkavm#gas-model){target=\_blank} section in the [EVM vs PolkaVM](/polkadot-protocol/smart-contract-basics/evm-vs-polkavm/){target=\_blank} article.
 
 ### Fee Components
 
-- **Base fees**
+- Base fees:
 
-    - Storage deposit for contract deployment
-    - Minimum transaction fee for network access
-    - Network maintenance costs
+    - Storage deposit for contract deployment.
+    - Minimum transaction fee for network access.
+    - Network maintenance costs.
 
-- **Execution fees**
+- Execution fees:
 
-    - Computed based on gas consumption
-    - Converted to native currency using network-defined rates
-    - Reflects actual computational resource usage
+    - Computed based on gas consumption.
+    - Converted to native currency using network-defined rates.
+    - Reflects actual computational resource usage.
 
-- **Storage fees**
+- Storage fees:
 
-    - Deposit for long-term storage usage
-    - Refundable when storage is freed
-    - Helps prevent state bloat
+    - Deposit for long-term storage usage.
+    - Refundable when storage is freed.
+    - Helps prevent state bloat.
 
 ### Gas Calculation and Conversion
 
 The system maintains precise conversion mechanisms between:
 
-- Substrate weights and EVM gas units
-- Native currency and gas costs
-- Different resource metrics within the multi-dimensional model
+- Substrate weights and EVM gas units.
+- Native currency and gas costs.
+- Different resource metrics within the multi-dimensional model.
 
 This ensures accurate fee calculation while maintaining compatibility with existing Ethereum tools and workflows.

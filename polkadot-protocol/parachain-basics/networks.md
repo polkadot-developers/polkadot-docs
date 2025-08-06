@@ -23,17 +23,17 @@ This flow ensures developers can thoroughly test and iterate without risking rea
 
 A typical journey through the Polkadot core protocol development process might look like this:
 
-1. **Local development node** - development starts in a local environment, where developers can create, test, and iterate on upgrades or new features using a local development node. This stage allows rapid experimentation in an isolated setup without any external dependencies
+1. **Local development node**: Development starts in a local environment, where developers can create, test, and iterate on upgrades or new features using a local development node. This stage allows rapid experimentation in an isolated setup without any external dependencies.
 
-2. **Westend** - after testing locally, upgrades are deployed to [Westend](#westend), Polkadot's primary TestNet. Westend simulates real-world conditions without using real tokens, making it the ideal place for rigorous feature testing before moving on to production networks
+2. **Westend**: After testing locally, upgrades are deployed to [Westend](#westend), Polkadot's primary TestNet. Westend simulates real-world conditions without using real tokens, making it the ideal place for rigorous feature testing before moving on to production networks.
 
-3. **Kusama** - once features have passed extensive testing on Westend, they move to Kusama, Polkadot's experimental and fast-moving "canary" network. Kusama operates as a high-fidelity testing ground with actual economic incentives, giving developers insights into how their features will perform in a real-world environment
+3. **Kusama**: Once features have passed extensive testing on Westend, they move to Kusama, Polkadot's experimental and fast-moving "canary" network. Kusama operates as a high-fidelity testing ground with actual economic incentives, giving developers insights into how their features will perform in a real-world environment.
 
-4. **Polkadot** - after passing tests on Westend and Kusama, features are considered ready for deployment to Polkadot, the live production network
+4. **Polkadot**: After passing tests on Westend and Kusama, features are considered ready for deployment to Polkadot, the live production network.
 
-In addition, parachain developers can leverage local TestNets like [Zombienet](#zombienet) and deploy upgrades on parachain TestNets.
+    In addition, parachain developers can leverage local TestNets like [Zombienet](#zombienet) and deploy upgrades on parachain TestNets.
 
-5. **Paseo** - For parachain and dApp developers, Paseo serves as a community-run TestNet that mirrors Polkadot's runtime. Like Westend for core protocol development, Paseo provides a testing ground for parachain development without affecting live networks
+5. **Paseo**: For parachain and dApp developers, Paseo serves as a community-run TestNet that mirrors Polkadot's runtime. Like Westend for core protocol development, Paseo provides a testing ground for parachain development without affecting live networks.
 
 !!!note
     The Rococo TestNet deprecation date was October 14, 2024. Teams should use Westend for Polkadot protocol and feature testing and Paseo for chain development-related testing.
@@ -74,9 +74,9 @@ Local test networks are an essential part of the development cycle for blockchai
 
 Key features of Zombienet include:
 
-- Creating dynamic, local networks with different configurations
-- Running parachains and relay chains in a simulated environment
-- Efficient testing of network components like cross-chain messaging and governance
+- Creating dynamic, local networks with different configurations.
+- Running parachains and relay chains in a simulated environment.
+- Efficient testing of network components like cross-chain messaging and governance.
 
 Zombienet is ideal for developers looking to test quickly and thoroughly before moving to more resource-intensive public TestNets.
 
@@ -86,8 +86,8 @@ Zombienet is ideal for developers looking to test quickly and thoroughly before 
 
 Key features of Chopsticks include:
 
-- Forking live Polkadot SDK-based blockchains for isolated testing
-- Simulating cross-chain messages in a private, controlled setup
-- Debugging network behavior by interacting with the fork in real-time
+- Forking live Polkadot SDK-based blockchains for isolated testing.
+- Simulating cross-chain messages in a private, controlled setup.
+- Debugging network behavior by interacting with the fork in real-time.
 
 Chopsticks provides a controlled environment for developers to safely explore the effects of runtime changes. It ensures that network behavior is tested and verified before upgrades are deployed to live networks.

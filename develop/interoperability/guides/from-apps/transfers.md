@@ -1,6 +1,6 @@
 ---
 title: Transfers
-description: How to do transfers in XCM.
+description: Learn how to perform cross-chain asset transfers using XCM, including teleport, reserve transfers, and handling different asset types across parachains.
 ---
 
 # Transfers

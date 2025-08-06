@@ -780,7 +780,7 @@ Doc-Content: https://docs.polkadot.com/develop/interoperability/guides/from-apps
 --- BEGIN CONTENT ---
 ---
 title: Transfers
-description: How to do transfers in XCM.
+description: Learn how to perform cross-chain asset transfers using XCM, including teleport, reserve transfers, and handling different asset types across parachains.
 ---
 
 # Transfers

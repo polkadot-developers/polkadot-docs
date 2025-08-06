@@ -24,10 +24,10 @@ For comprehensive information about benchmarking concepts, refer to the [Benchma
 
 Follow these steps to prepare your environment for pallet benchmarking:
 
-1. Install the [`frame-omni-bencher`](https://crates.io/crates/frame-omni-bencher){target=\_blank} command-line tool:
+1. Install the [`frame-omni-bencher`](https://crates.io/crates/frame-omni-bencher/{{dependencies.repositories.polkadot_sdk_parachain_template.subdependencies.frame_omni_bencher_version}}){target=\_blank} command-line tool:
     
     ```bash
-    cargo install frame-omni-bencher@0.10.0
+    cargo install --locked frame-omni-bencher@{{dependencies.repositories.polkadot_sdk_parachain_template.subdependencies.frame_omni_bencher_version}}
     ```
 
 2. Update your pallet's `Cargo.toml` file in the `pallets/custom-pallet` directory by adding the `runtime-benchmarks` feature flag:
@@ -43,11 +43,11 @@ Follow these steps to prepare your environment for pallet benchmarking:
 
     2. Enable runtime benchmarking for your pallet in `runtime/Cargo.toml`:
         ```toml hl_lines="6" title="Cargo.toml"
-        --8<-- 'code/tutorials/polkadot-sdk/parachains/zero-to-hero/runtime/Cargo.toml:78:84'
+        --8<-- 'https://raw.githubusercontent.com/papermoonio/zero-to-hero-tutorial/refs/heads/v0.0.4-complete-tutorial/runtime/Cargo.toml:46:52'
         ```
 
 4. Set up the benchmarking module in your pallet:
-    1. Create a new `benchmarking.rs` file in your pallet directory:
+    1. Create a `benchmarking.rs` file in your pallet's `src/` directory:
         ```bash
         touch benchmarking.rs
         ```

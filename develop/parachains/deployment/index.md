@@ -19,20 +19,20 @@ flowchart TD
     %% Group 1: Pre-Deployment
     subgraph group1 [Pre-Deployment]
         direction LR
-        A("Local \nDevelopment \nand Testing") --> B("Runtime \nCompilation")
-        B --> C("Generate \nChain \nSpecifications")
-        C --> D("Prepare \nDeployment \nEnvironment")
-        D --> E("Acquire \nCoretime")
+        A("Local <br>Development <br>and Testing") --> B("Runtime <br>Compilation")
+        B --> C("Generate <br>Chain <br>Specifications")
+        C --> D("Prepare <br>Deployment <br>Environment")
+        D --> E("Acquire <br>Coretime")
     end
     
     %% Group 2: Deployment
     subgraph group2 [Deployment]
-        F("Launch \nand \nMonitor")
+        F("Launch <br>and <br>Monitor")
     end
 
     %% Group 3: Post-Deployment
     subgraph group3 [Post-Deployment]
-        G("Maintenance \nand \nUpgrades")
+        G("Maintenance <br>and <br>Upgrades")
     end
 
     %% Connections Between Groups

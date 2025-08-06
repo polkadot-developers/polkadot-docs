@@ -85,26 +85,26 @@ flowchart
         subgraph InitialValidation["Initial Validation"]
             direction LR
             PValidators[ParaValidators]
-            Backing[Backing\nProcess]
-            Header[Submit Para-header\non Relay Chain]
+            Backing[Backing<br>Process]
+            Header[Submit Para-header<br>on Relay Chain]
         end
         subgraph Secondary["Secondary Validation"]
-            Approval[Approval\nProcess]
-            Dispute[Dispute\nResolution]
-            Slashing[Slashing\nMechanism]
+            Approval[Approval<br>Process]
+            Dispute[Dispute<br>Resolution]
+            Slashing[Slashing<br>Mechanism]
         end
         
     end
 
 
     %% Validation Process
-    PValidators -->|Download\nWasm\nValidate Block| Backing
-    Backing -->|If Valid\nSignatures| Header
-    InitialValidation -->|Additional\nVerification| Secondary
+    PValidators -->|Download<br>Wasm<br>Validate Block| Backing
+    Backing -->|If Valid<br>Signatures| Header
+    InitialValidation -->|Additional<br>Verification| Secondary
     
     %% Dispute Flow
-    Approval -->|If Invalid\nDetected| Dispute
-    Dispute -->|Penalize\nDishonest\nValidators| Slashing
+    Approval -->|If Invalid<br>Detected| Dispute
+    Dispute -->|Penalize<br>Dishonest<br>Validators| Slashing
 ```
 
 It is important to understand that relay chain blocks do not store full parachain blocks (parablocks). Instead, they include para-headers, which serve as summaries of the backed parablocks. The complete parablock remains within the parachain network, maintaining its autonomy while relying on the relay chain for validation and finality.

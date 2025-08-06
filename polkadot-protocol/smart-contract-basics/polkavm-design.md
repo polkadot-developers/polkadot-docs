@@ -90,16 +90,16 @@ When compiling a Solidity smart contract, the code passes through the following 
 
 ```mermaid
 flowchart LR
-    Dev[Developer] --> |Solidity\nSource\nCode| Solc
+    Dev[Developer] --> |Solidity<br>Source<br>Code| Solc
     
     subgraph "Compilation Process"
         direction LR
-        Solc[solc] --> |YUL\nIR| Revive
-        Revive[Revive Compiler] --> |LLVM\nIR| LLVM
-        LLVM[LLVM\nOptimizer] --> |RISC-V ELF\nShared Object| PVMLinker
+        Solc[solc] --> |YUL<br>IR| Revive
+        Revive[Revive Compiler] --> |LLVM<br>IR| LLVM
+        LLVM[LLVM<br>Optimizer] --> |RISC-V ELF<br>Shared Object| PVMLinker
     end
     
-    PVMLinker[PVM Linker] --> PVM[PVM Blob\nwith Metadata]
+    PVMLinker[PVM Linker] --> PVM[PVM Blob<br>with Metadata]
 ```
 
 The compilation process integrates several specialized components:

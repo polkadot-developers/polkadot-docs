@@ -116,7 +116,7 @@ graph LR
     end
     subgraph AP["<b style='font-size:18px;'>FRAME Pallets</b>"]
         direction LR
-        A1[Aura]~~~A2[BABE]~~~A3[GRANDPA]~~~A4[Transaction\nPayment]
+        A1[Aura]~~~A2[BABE]~~~A3[GRANDPA]~~~A4[Transaction<br>Payment]
         B1[Identity]~~~B2[Balances]~~~B3[Sudo]~~~B4[EVM]
         C1[Timestamp]~~~C2[Assets]~~~C3[Contracts]~~~C4[and more...]
     end

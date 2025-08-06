@@ -26,9 +26,9 @@ flowchart LR
     Runtime["PolkaVM"]
 
     User --> DApp
-    DApp -->|"Call\nfunction"| PolkaEVM
-    PolkaEVM -->|"Detect\nprecompile\naddress"| Precompiles
-    Precompiles -->|"Execute\noptimized\nnative code"| Runtime
+    DApp -->|"Call<br>function"| PolkaEVM
+    PolkaEVM -->|"Detect<br>precompile<br>address"| Precompiles
+    Precompiles -->|"Execute<br>optimized<br>native code"| Runtime
 
     subgraph "Polkadot Hub"
         PolkaEVM

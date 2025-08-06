@@ -5,13 +5,11 @@ Documentation: https://docs.polkadot.com/
 
 # List of doc pages:
 Doc-Page: https://docs.polkadot.com/develop/
-Doc-Page: https://docs.polkadot.com/develop/interoperability/fundamentals/
+Doc-Page: https://docs.polkadot.com/develop/interoperability/guides/from-apps/claiming-trapped-assets/
+Doc-Page: https://docs.polkadot.com/develop/interoperability/guides/from-apps/fees/
 Doc-Page: https://docs.polkadot.com/develop/interoperability/guides/from-apps/
-Doc-Page: https://docs.polkadot.com/develop/interoperability/guides/from-apps/papi/claiming-trapped-assets/
-Doc-Page: https://docs.polkadot.com/develop/interoperability/guides/from-apps/papi/fees/
-Doc-Page: https://docs.polkadot.com/develop/interoperability/guides/from-apps/papi/
-Doc-Page: https://docs.polkadot.com/develop/interoperability/guides/from-apps/papi/transact/
-Doc-Page: https://docs.polkadot.com/develop/interoperability/guides/from-apps/papi/transfers/
+Doc-Page: https://docs.polkadot.com/develop/interoperability/guides/from-apps/transact/
+Doc-Page: https://docs.polkadot.com/develop/interoperability/guides/from-apps/transfers/
 Doc-Page: https://docs.polkadot.com/develop/interoperability/guides/
 Doc-Page: https://docs.polkadot.com/develop/interoperability/
 Doc-Page: https://docs.polkadot.com/develop/interoperability/intro-to-xcm/
@@ -360,78 +358,66 @@ Integrate with the Polkadot blockchain's underlying protocol features to create 
 :::INSERT_IN_THIS_SECTION:::
 --- END CONTENT ---
 
-Doc-Content: https://docs.polkadot.com/develop/interoperability/fundamentals/
+Doc-Content: https://docs.polkadot.com/develop/interoperability/guides/from-apps/claiming-trapped-assets/
 --- BEGIN CONTENT ---
 ---
-title: Fundamentals
-description: Learn the fundamentals and building blocks of XCM. Concepts you'll need whenever dealing with cross-chain interactions.
+title: Claiming Trapped Assets
+description: How to claim digital assets that become trapped on-chain due to an XCM execution failure. This guide details the process and required steps.
 ---
 
-# Fundamentals
+# Claiming Trapped Assets
 
-This section covers the fundamentals of XCM.
---- END CONTENT ---
+## Introduction
 
-Doc-Content: https://docs.polkadot.com/develop/interoperability/guides/from-apps/
---- BEGIN CONTENT ---
-# From apps
+When XCM execution fails or succeeds, leftover assets become "trapped" on the destination chain. These assets are held by the system but not accessible through normal means. XCM provides mechanisms to claim these trapped assets and recover them.
+This guide details the process and required steps to claim trapped assets.
 
-This section shows how to interact with XCM from apps.
---- END CONTENT ---
+## Trapped Assets Causes
 
-Doc-Content: https://docs.polkadot.com/develop/interoperability/guides/from-apps/papi/claiming-trapped-assets/
---- BEGIN CONTENT ---
----
-title: Claiming trapped assets
-description: How to claim assets that become trapped during failed XCM execution.
----
+Assets become trapped whenever execution halts and there are leftover assets. This can happen for example if:
 
-# Claiming trapped assets
+- An XCM execution throws an error in any instruction when assets are in holding:
+    - `DepositAsset` can't deposit because the account doesn't exist.   
+    - `Transact` can't execute the call because it doesn't exist.
+    - `PayFees` not enough funds or not paying enough for execution.
+    - and others.
 
-When XCM execution fails or succeeds, leftover assets become "trapped" on the destination chain.
-These assets are held by the system but not accessible through normal means.
-XCM provides mechanisms to claim these trapped assets and recover them.
-
-## What causes trapped assets
-
-Assets become trapped whenever execution halts and there are leftover assets.
-This can happen for example if:
-
-- An XCM execution throws an error in any instruction when assets are in holding
-    - `DepositAsset` can't deposit because the account doesn't exist
-    - `Transact` can't execute the call because it doesn't exist
-    - `PayFees` not enough funds or not paying enough for execution
-    - and others...
-- XCM execution finishes successfully but not all assets were deposited
-    - Funds were withdrawn but some were not deposited
+- XCM execution finishes successfully but not all assets were deposited:
+    - Funds were withdrawn but some were not deposited.
     - `Transact` overestimated the weight and `RefundSurplus` got some funds into holding that were never deposited
     - Fees in `PayFees` were overestimated and some were kept there until the end
 
-## The ClaimAsset instruction
+## The `ClaimAsset` Instruction
 
-The [`ClaimAsset`](https://paritytech.github.io/polkadot-sdk/master/xcm/v5/instruction/enum.Instruction.html#variant.ClaimAsset){target=\_blank} instruction allows retrieving assets trapped on a chain:
+The [`ClaimAsset`](https://paritytech.github.io/polkadot-sdk/master/staging_xcm/v5/opaque/type.Instruction.html#variant.ClaimAsset){target=\_blank} instruction allows retrieving assets trapped on a chain:
 
 ```typescript
 XcmV5Instruction.ClaimAsset({
-  assets: /* Exact assets to claim, these must match those in the `AssetsTrapped` event */,
-  ticket: /* Additional information about the trapped assets, e.g. the XCM version that was in use at the time */
+    assets: /* Exact assets to claim, these must match those in the `AssetsTrapped` event */,
+    ticket: /* Additional information about the trapped assets, e.g. the XCM version that was in use at the time */
 });
 ```
 
 ### Parameters
 
 - **`assets`**: The trapped assets that want to be claimed. These must be exactly the same as the ones that appear
-in the `AssetsTrapped` event.
+in the [`AssetsTrapped`](https://paritytech.github.io/polkadot-sdk/master/pallet_xcm/pallet/enum.Event.html#variant.AssetsTrapped){target=\_blank} event.
 
-- **`ticket`**: Additional information about the trapped assets.
-  - Currently only specifies the XCM version used when the assets got trapped.
-    Must be of the form `{ parents: 0, interior: XcmV5Junctions.X1(XcmV5Junction.GeneralIndex(<xcm-version-here>)) }`.
+- **`ticket`**: Additional information about the trapped assets. Currently only specifies the XCM version used when the assets got trapped. Must be of the form:
+    ```typescript
+    { 
+        parents: 0, 
+        interior: XcmV5Junctions.X1(XcmV5Junction.GeneralIndex(INSERT_XCM_VERSION_HERE))
+    }
+    ```
 
-### Basic claiming process
+    Ensure to replace the `INSERT_XCM_VERSION_HERE` with the actual XCM version used when the assets got trapped.
+
+### Basic Claiming Process
 
 When assets are trapped you'll see the `AssetsTrapped` event:
 
-![AssetsTrapped event on Subscan](/images/develop/interoperability/assets-trapped-event.png)
+![](/images/develop/interoperability/guides/from-apps/claiming-trapped-assets/assets-trapped-event.webp)
 
 To claim these assets, a message like the following needs to be sent from the origin:
 
@@ -460,9 +446,7 @@ const claimAssetsXcm = XcmVersionedXcm.V5([
 
 Note that this example uses the claimed USDC assets to pay for the execution fees of the claiming message. If the trapped asset cannot be used for fee payment on the destination chain, you need a different approach: first `WithdrawAsset` (with fee-eligible assets), then `PayFees`, then `ClaimAsset`, and finally `DepositAsset`.
 
-In this case, the origin is a local account so the `execute()` transaction needs to be submitted by that same account.
-The origin could be another chain, in which case the governance of that chain would need to get involved, or an account on another chain,
-in which case the `execute()` transaction would need to be submitted on that other chain and a message sent to the chain with trapped funds.
+In this case, the origin is a local account so the `execute()` transaction needs to be submitted by that same account. The origin could be another chain, in which case the governance of that chain would need to get involved, or an account on another chain, in which case the `execute()` transaction would need to be submitted on that other chain and a message sent to the chain with trapped funds.
 
 Multiple assets can be claimed with the same message. This is useful when governance needs to get involved.
 
@@ -478,10 +462,9 @@ const claimAssetsXcm = XcmVersionedXcm.V5([
 ]);
 ```
 
-## The AssetClaimer hint
+## The `AssetClaimer` Hint
 
-The `AssetClaimer` execution hint allows setting a specific location that can claim trapped assets, making the claiming process easier.
-This is set after withdrawing assets and before anything else.
+The [`AssetClaimer`](https://paritytech.github.io/polkadot-sdk/master/cumulus_primitives_core/enum.Hint.html#variant.AssetClaimer){target=\_blank} execution hint allows setting a specific location that can claim trapped assets, making the claiming process easier. This is set after withdrawing assets and before anything else:
 
 ```typescript
 const failingXcm = XcmVersionedXcm.V5([
@@ -521,8 +504,7 @@ const failingXcm = XcmVersionedXcm.V5([
 ]);
 ```
 
-This allows this other `SS58_ACCOUNT` to claim the trapped assets.
-This could also be done before a transfer.
+This allows this other `SS58_ACCOUNT` to claim the trapped assets. This could also be done before a transfer.
 
 ??? code "Teleport with custom asset claimer example"
 
@@ -605,7 +587,7 @@ This could also be done before a transfer.
 Setting a custom asset claimer is a good practice for recovering trapped assets without the need for governance intervention.
 --- END CONTENT ---
 
-Doc-Content: https://docs.polkadot.com/develop/interoperability/guides/from-apps/papi/fees/
+Doc-Content: https://docs.polkadot.com/develop/interoperability/guides/from-apps/fees/
 --- BEGIN CONTENT ---
 ---
 title: Fees
@@ -714,15 +696,26 @@ Paying fees on a remote system is so common that the `InitiateTransfer` instruct
 The solution is to use the [runtime APIs](/develop/interoperability/xcm-runtime-apis/) as shown in [the fee estimation tutorial]().
 --- END CONTENT ---
 
-Doc-Content: https://docs.polkadot.com/develop/interoperability/guides/from-apps/papi/
+Doc-Content: https://docs.polkadot.com/develop/interoperability/guides/from-apps/
 --- BEGIN CONTENT ---
-# PAPI
+---
+title: From Apps
+description: Learn how to implement XCM functionality in your applications, including asset transfers, fee management, and cross-chain transactions.
+template: index-page.html
+---
 
-PAPI is a type-safe typescript library for interacting with Polkadot SDK chains.
-This section shows how to use it specifically for doing cross-chain operations.
+# From Apps
+
+This section shows how to interact with XCM from applications, providing practical guidance for implementing cross-chain functionality in your dApps and services.
+
+Whether you're building a DeFi application that needs to transfer assets between chains, a cross-chain governance system, or any application requiring interoperability, these guides cover the essential patterns and best practices for working with XCM from an application perspective.
+
+## In This Section
+
+:::INSERT_IN_THIS_SECTION:::
 --- END CONTENT ---
 
-Doc-Content: https://docs.polkadot.com/develop/interoperability/guides/from-apps/papi/transact/
+Doc-Content: https://docs.polkadot.com/develop/interoperability/guides/from-apps/transact/
 --- BEGIN CONTENT ---
 ---
 title: Transact
@@ -801,7 +794,7 @@ The choice of `origin_kind` significantly affects what operations are permitted:
 The `Transact` instruction is powerful but requires careful consideration of the trade-offs between flexibility and maintainability.
 --- END CONTENT ---
 
-Doc-Content: https://docs.polkadot.com/develop/interoperability/guides/from-apps/papi/transfers/
+Doc-Content: https://docs.polkadot.com/develop/interoperability/guides/from-apps/transfers/
 --- BEGIN CONTENT ---
 ---
 title: Transfers
@@ -1330,11 +1323,51 @@ Doc-Content: https://docs.polkadot.com/develop/interoperability/guides/
 ---
 title: Guides
 description: Comprehensive guides for implementing XCM functionality in applications and understanding cross-chain interactions.
+template: index-page.html
 ---
 
 # Guides
 
 This section provides comprehensive guides for implementing XCM functionality, including application development patterns, fee management, asset transfers, and cross-chain transaction handling.
+
+Whether you're building applications that need to interact with multiple chains, managing cross-chain fees, or handling complex asset transfers, these guides offer practical solutions and best practices for implementing XCM functionality in your projects.
+
+## In This Section
+
+:::INSERT_IN_THIS_SECTION:::
+
+## Additional Resources
+
+<div class="subsection-wrapper">
+  <div class="card">
+    <a href="/develop/interoperability/send-messages/">
+      <h2 class="title">Send XCM Messages</h2>
+      <hr>
+      <p class="description">Learn the fundamentals of sending cross-chain messages using XCM, including message structure, routing, and execution patterns.</p>
+    </a>
+  </div>
+  <div class="card">
+    <a href="/develop/interoperability/xcm-config/">
+      <h2 class="title">XCM Configuration</h2>
+      <hr>
+      <p class="description">Learn how to configure XCM for your chain.</p>
+    </a>
+  </div>
+  <div class="card">
+    <a href="/develop/interoperability/test-and-debug/">
+      <h2 class="title">Test and Debug</h2>
+      <hr>
+      <p class="description">Learn how to test and debug cross-chain communication via the XCM Emulator to ensure interoperability and reliable execution.</p>
+    </a>
+  </div>
+  <div class="card">
+    <a href="/develop/interoperability/xcm-channels/">
+      <h2 class="title">XCM Channels</h2>
+      <hr>
+      <p class="description">Learn how to configure XCM channels for your chain.</p>
+    </a>
+  </div>
+</div>
 --- END CONTENT ---
 
 Doc-Content: https://docs.polkadot.com/develop/interoperability/

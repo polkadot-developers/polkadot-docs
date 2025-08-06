@@ -1,6 +1,7 @@
 ---
 title: Start Validating
 description: Learn how to start validating on Polkadot by choosing a network, syncing your node, bonding DOT tokens, and activating your validator.
+categories: Infrastructure
 ---
 
 # Start Validating

@@ -1,6 +1,7 @@
 ---
 title: Chain Data
 description: Learn how to expose and utilize chain data for blockchain applications. Discover runtime metadata, RPC APIs, and tools for efficient development.
+categories: Basics, Polkadot Protocol
 ---
 
 # Chain Data

@@ -1,6 +1,7 @@
 ---
 title: Web3.js
 description: Learn how to interact with Polkadot Hub using Web3.js, deploying Solidity contracts, and interacting with deployed smart contracts.
+categories: Smart Contracts, Tooling
 ---
 
 # Web3.js

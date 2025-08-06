@@ -1,6 +1,7 @@
 ---
 title: Asset Transfer API
 description: Asset Transfer API is a library that simplifies the transfer of assets for Polkadot SDK-based chains. It provides methods for cross-chain and local transfers.
+categories: Basics, Tooling, Dapps
 ---
 
 # Asset Transfer API

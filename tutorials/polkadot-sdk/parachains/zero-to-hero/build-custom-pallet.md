@@ -2,6 +2,7 @@
 title: Build a Custom Pallet
 description: Learn how to build a custom pallet for Polkadot SDK-based blockchains with this step-by-step guide. Create and configure a simple counter pallet from scratch.
 tutorial_badge: Beginner
+categories: Basics, Parachains
 ---
 
 # Build a Custom Pallet

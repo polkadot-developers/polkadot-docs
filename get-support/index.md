@@ -1,5 +1,5 @@
 ---
-title: Get Support
+title: Support
 description: Start here to get developer support for Polkadot. Connect with the team, find help, and explore resources beyond the documentation.
 template: index-page.html
 hide:
@@ -30,11 +30,11 @@ Whether you're building something new, integrating into the ecosystem, or runnin
 
 ## What You Can Do Here
 
-- 📨 [**Get In Touch**](/get-support/get-in-touch/)  
+- 📨 [**Get In Touch**](/support/get-in-touch/)  
   Reach out to the Polkadot support team and community via Telegram, Matrix, or Discord.  
   Ask technical questions, report blockers, or share feedback — and get a human response.
 
-- 🧠 [**Explore Available Resources**](/get-support/explore-resources/)  
+- 🧠 [**Explore Available Resources**](/support/explore-resources/)  
   Find answers beyond the documentation: developer forums, Stack Exchange, Reddit, YouTube, governance hubs, and more.
 
 This hub is evolving. More support tools and shortcuts are on the way, including enhanced onboarding, CLI helpers, development environments, and live feedback channels.
@@ -44,4 +44,4 @@ This hub is evolving. More support tools and shortcuts are on the way, including
 If something’s missing, unclear, or broken — **tell us**.  
 Your feedback makes the whole ecosystem better for everyone.
 
-👉 [**Get In Touch**](/get-support/get-in-touch/) and help shape the future of developer support.
+👉 [**Get In Touch**](/support/get-in-touch/) and help shape the future of developer support.

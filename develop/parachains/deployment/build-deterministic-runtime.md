@@ -1,6 +1,7 @@
 ---
 title: Build a deterministic runtime
 description: Explains how to use the Polkadot SDK runtime toolbox and Docker to build deterministic Wasm binaries for Polkadot SDK-based chains.
+categories: Parachains
 ---
 
 # Build a Deterministic Runtime

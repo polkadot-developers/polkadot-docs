@@ -32,26 +32,37 @@ If you haven't replayed or dry-run XCMs before, see the [Replay and Dry Run XCMs
 
 ## Understanding the Basics
 
-When sending XCMs using `limited_reserve_transfer_assets` or other extrinsics from the `PolkadotXcm` pallet, two key observability features enable you to trace and correlate messages across chains:
+When sending XCMs using `limited_reserve_transfer_assets` or other extrinsics from the `PolkadotXcm` pallet, two key observability features enable developers to trace and correlate messages across chains:
 
-- [`SetTopic([u8; 32])`](https://github.com/polkadot-fellows/xcm-format?#settopic)
-  An XCM instruction that sets the Topic Register. This 32-byte array becomes the `message_id`, which is recorded in both the `PolkadotXcm.Sent` and `MessageQueue.Processed` events. It allows logical grouping or filtering of related messages across multiple hops.
+- [`SetTopic([u8; 32])`](https://github.com/polkadot-fellows/xcm-format#settopic){target=\_blank}: An XCM instruction that sets the **Topic Register**. This 32-byte value becomes the `message_id`, which appears in both the `PolkadotXcm.Sent` and `MessageQueue.Processed` events. It allows logical grouping and filtering of related messages across one or more hops.
 
-  > ⚠️ **Note**: The topic is **not guaranteed to be unique**. If uniqueness is required (for example, for deduplication or traceability), it must be enforced by the message creator.
+  > ⚠️ **Note**: The topic is **not guaranteed to be unique**. If uniqueness is required (e.g. for deduplication or message tracking), it must be enforced by the message creator.
 
-- **`message_id`**
-  A hash emitted in both the [`PolkadotXcm.Sent`](https://paritytech.github.io/polkadot-sdk/master/pallet_xcm/pallet/enum.Event.html#variant.Sent){target=\_blank} event on the origin chain and the [`MessageQueue.Processed`](https://paritytech.github.io/polkadot-sdk/master/pallet_message_queue/pallet/enum.Event.html#variant.Processed){target=\_blank} event on the destination chain. While this identifier is not globally unique, it is sufficient to match a `Sent` message with its corresponding `Processed` result.
+- `message_id`: A hash emitted in both the [`PolkadotXcm.Sent`](https://paritytech.github.io/polkadot-sdk/master/pallet_xcm/pallet/enum.Event.html#variant.Sent){target=\_blank} event (on the origin chain) and the [`MessageQueue.Processed`](https://paritytech.github.io/polkadot-sdk/master/pallet_message_queue/pallet/enum.Event.html#variant.Processed){target=\_blank} event (on the destination chain). While not globally unique, it is sufficient to match a `Sent` message with its corresponding `Processed` result.
 
-These observability features are available in runtimes built from **`stable2503-5` or later**.
+These features are available in runtimes built from **`stable2503-5` or later**.
+
+### Key Behaviours
+
+- The runtime **automatically appends** a `SetTopic` instruction at the end of the XCM, if it is not already included. See: [`WithUniqueTopic`](https://paritytech.github.io/polkadot-sdk/master/staging_xcm_builder/struct.WithUniqueTopic.html){target=\_blank}
+
+- When using high-level extrinsics such as `limited_reserve_transfer_assets`, you do **not** need to include `SetTopic` manually. The runtime will insert it for you.
+
+- If you are constructing an XCM manually using the `execute` call, you **can provide your own** `SetTopic([u8; 32])`:
+
+    - If a topic is already set, the runtime will **not override** it.
+    - `SetTopic` **must be the final instruction** in the list. Placing it elsewhere will result in it being ignored during execution.
+
+- On newer runtimes, the same topic is preserved throughout a multi-hop transfer. This ensures consistent correlation of the `message_id` between origin and destination, even across multiple chains.
 
 ## Define a Scenario: DOT to Acala Transfer
 
 We will examine the full lifecycle of a cross-chain message from Polkadot Asset Hub to Acala, using the `limited_reserve_transfer_assets` extrinsic.
 
-* **Origin chain**: Polkadot Asset Hub
-* **Destination chain**: Acala
-* **Extrinsic**: `limited_reserve_transfer_assets`
-* **Goal**: Transfer DOT and trace the XCM using its emitted `message_id`
+- **Origin chain**: Polkadot Asset Hub
+- **Destination chain**: Acala
+- **Extrinsic**: `limited_reserve_transfer_assets`
+- **Goal**: Transfer DOT and trace the XCM using its emitted `message_id`
 
 This scenario demonstrates how a `SetTopic` is included or generated, how to identify matching `Sent` and `Processed` events, and how to interpret failures using runtime logs.
 
@@ -119,7 +130,7 @@ The runtime automatically inserts a `SetTopic` instruction (if not manually prov
 | Origin (e.g. Asset Hub)             | `PolkadotXcm.Sent`       | `message_id` | Message ID from `SetTopic`. Appended automatically if missing.             |
 | Destination (e.g. Acala, Hydration) | `MessageQueue.Processed` | `id`         | Matches `message_id` from the origin chain, enabling reliable correlation. |
 
-**These two fields now match** on new runtimes (`stable2503-5` or later).
+These two fields now match on new runtimes (`stable2503-5` or later).
 
 > ⚠️ Do not rely on [`XcmpQueue.XcmpMessageSent`](https://paritytech.github.io/polkadot-sdk/master/cumulus_pallet_xcmp_queue/pallet/enum.Event.html#variant.XcmpMessageSent){target=\_blank}. Its `message_hash` is not derived from `SetTopic` and is not suitable for cross-chain tracking.
 
@@ -143,15 +154,15 @@ This output is available on runtimes from **`stable2506` or later**, and is ofte
 
 For deeper analysis:
 
-* Use Chopsticks to **replay the message with logging enabled**
-* See exactly **which instruction failed**, and why
-* View full error chains like `FailedToTransactAsset`, or `AssetNotFound`
+- Use Chopsticks to **replay the message with logging enabled**
+- See exactly **which instruction failed**, and why
+- View full error chains like `FailedToTransactAsset`, or `AssetNotFound`
 
 This is especially useful when dealing with:
 
-* Multi-hop XCMs
-* Custom asset locations
-* Execution mismatches or weight issues
+- Multi-hop XCMs
+- Custom asset locations
+- Execution mismatches or weight issues
 
 → For replay setup, see [Replay and Dry Run XCMs Using Chopsticks](/tutorials/interoperability/replay-and-dry-run-xcms/){target=\_blank}.
 
@@ -162,17 +173,31 @@ This is especially useful when dealing with:
 3. **Inspect logs** to pinpoint the failing instruction and error.
 4. Adjust asset location, weight, or execution logic accordingly.
 
-## Step 5: Handle Older Runtimes
+## Workaround for Older Runtimes
 
-Older runtimes use a **derived `forwarded_id`** in `Processed` events instead of the original topic hash.
+* On **older runtimes** (prior to `stable2503-5`), the `message_id` seen in downstream `Processed` events is **not the original topic hash**, but rather a **derived `forwarded_id`**.
+* This `forwarded_id` is computed as:
 
-```ts
-// Calculate forwarded ID for legacy chains
-const input = u8aConcat(stringToU8a("forward_id_for"), messageIdBytes);
-const forwardedId = blake2AsU8a(input);
+```rust
+use sp_core::H256;
+use std::str::FromStr;
+
+fn forward_id_for(original_id: &XcmHash) -> XcmHash {
+  (b"forward_id_for", original_id).using_encoded(sp_io::hashing::blake2_256)
+}
 ```
 
-→ Tools must check both the `original_id` and `forwarded_id` when indexing older chains.
+To reliably trace messages across **mixed-version chains**, indexers and tools should **check for both `original_id` and its forwarded form**.
+
+```ts
+--8<-- 'code/tutorials/interoperability/xcm-observability/forward-id-for.ts'
+```
+
+* ✅ **New runtimes**:
+  `message_id == original_id`
+
+* ⚠️ **Old runtimes**:
+  `message_id == blake2_256("forward_id_for" + original_id)`
 
 ## Additional Samples
 

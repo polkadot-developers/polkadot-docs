@@ -940,9 +940,9 @@ Users running Debian-based distributions like Ubuntu can install the binaries us
 Execute the following commands as root to add the official repository and install the binaries:
 
 ```bash
-# Import the security@parity.io GPG key
-gpg --recv-keys --keyserver hkps://keys.mailvelope.com 9D4B2B6EB8F97156D19669A9FF0812D491B96798
-gpg --export 9D4B2B6EB8F97156D19669A9FF0812D491B96798 > /usr/share/keyrings/parity.gpg
+# Import the release-team@parity.io GPG key
+gpg --keyserver hkps://keyserver.ubuntu.com --receive-keys 90BD75EBBB8E95CB3DA6078F94A4029AB4B35DAE
+gpg --export 90BD75EBBB8E95CB3DA6078F94A4029AB4B35DAE > /usr/share/keyrings/parity.gpg
 
 # Add the Parity repository and update the package index
 echo 'deb [signed-by=/usr/share/keyrings/parity.gpg] https://releases.parity.io/deb release main' > /etc/apt/sources.list.d/parity.list
@@ -2344,16 +2344,7 @@ Some minor offenses, such as spamming, are only punished by networking reputatio
 
 ### Penalties by Offense
 
-Below, you can find a summary of penalties for specific offenses:
-
-|               Offense                | [Slash (%)](#slashing) | [On-Chain Disabling](#disabling) | [Off-Chain Disabling](#disabling) | [Reputational Changes](#reputation-changes) |
-|:------------------------------------:|:----------------------:|:--------------------------------------:|:------------------------------------:|:-------------------------------------------:|
-|           Backing Invalid            |          100%          |                  Yes (High Priority)   |         Yes (High Priority)          |                     No                      |
-|           ForInvalid Vote            |           2%           |                  Yes (Mid Priority)    |          Yes (Mid Priority)          |                     No                      |
-|          AgainstValid Vote           |           0%           |                  Yes (Low Priority)    |          Yes (Low Priority)          |                     No                      |
-| GRANDPA / BABE / BEEFY Equivocations |       0.01-100%        |                  Yes (Varying Priority)|                  No                  |                     No                      |
-|    Seconded + Valid Equivocation     |           -            |                   No                   |                  No                  |                     No                      |
-|     Double Seconded Equivocation     |           -            |                   No                   |                  No                  |                     Yes                     |
+Refer to the Polkadot Wiki's [offenses page](https://wiki.polkadot.com/learn/learn-offenses/){target=\_blank} for a summary of penalties for specific offenses.
 --- END CONTENT ---
 
 Doc-Content: https://docs.polkadot.com/infrastructure/staking-mechanics/rewards-payout/
@@ -9601,6 +9592,22 @@ The conversion from 32-byte Polkadot accounts to 20-byte Ethereum addresses is m
 The conversion process is implemented through the [`to_address`](https://paritytech.github.io/polkadot-sdk/master/pallet_revive/trait.AddressMapper.html#tymethod.to_address){target=\_blank} function, which automatically detects the account type and applies the appropriate conversion method.
 
 **Stateful Mapping for Reversibility** : Since the conversion from 32-byte to 20-byte addresses is inherently lossy, the system provides an optional stateful mapping through the [`OriginalAccount`](https://paritytech.github.io/polkadot-sdk/master/pallet_revive/pallet/storage_types/struct.OriginalAccount.html){target=\_blank} storage. When a Polkadot account registers a mapping (via the [`map`](https://paritytech.github.io/polkadot-sdk/master/pallet_revive/trait.AddressMapper.html#tymethod.map){target=\_blank} function), the system stores the original 32-byte account ID, enabling the [`to_account_id`](https://paritytech.github.io/polkadot-sdk/master/pallet_revive/trait.AddressMapper.html#tymethod.to_account_id){target=\_blank} function to recover the exact original account rather than falling back to a default conversion.
+
+
+### Account Mapping for Native Polkadot Accounts
+
+If you have a native Polkadot account (32-byte format) that was created with a Polkadot/Substrate keypair (Ed25519/Sr25519) rather than an Ethereum-compatible keypair (secp256k1), you'll need to map your account to enable Ethereum compatibility.
+
+To map your account, call the [`map_account`](https://paritytech.github.io/polkadot-sdk/master/pallet_revive/pallet/dispatchables/fn.map_account.html){target=\_blank} extrinsic of the [`pallet_revive`](https://paritytech.github.io/polkadot-sdk/master/pallet_revive/index.html){target=\_blank} pallet using your original Substrate account. This creates a stateful mapping that allows your 32-byte account to interact with the Ethereum-compatible smart contract system.
+
+Once mapped, you'll be able to:
+
+- Transfer funds between 20-byte format addresses.
+- Interact with smart contracts using Ethereum-compatible tools like MetaMask.
+- Maintain full reversibility to your original 32-byte account format.
+
+!!! warning "Mapping Requirement"
+    Without this mapping, native Polkadot accounts cannot transfer funds or interact with the Ethereum-compatible layer on the Hub.
 
 ## Account Registration
 

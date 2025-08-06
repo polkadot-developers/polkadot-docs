@@ -179,11 +179,8 @@ This is especially useful when dealing with:
 * This `forwarded_id` is computed as:
 
 ```rust
-use sp_core::H256;
-use std::str::FromStr;
-
-fn forward_id_for(original_id: &XcmHash) -> XcmHash {
-  (b"forward_id_for", original_id).using_encoded(sp_io::hashing::blake2_256)
+fn forward_id_for(original_id: &XcmHash) -> XcmHash { 
+    (b"forward_id_for", original_id).using_encoded(sp_io::hashing::blake2_256)
 }
 ```
 
@@ -198,26 +195,6 @@ To reliably trace messages across **mixed-version chains**, indexers and tools s
 
 * ⚠️ **Old runtimes**:
   `message_id == blake2_256("forward_id_for" + original_id)`
-
-## Additional Samples
-
-After learning the concepts above, you can explore other scenarios:
-
-### `multiple-hops-sample-01.ts`
-
-Transfers assets across multiple chains with auto-generated `SetTopic`.
-
-### `multiple-hops-sample-02.ts`
-
-Transfers assets and explicitly sets a known `SetTopic` for full tracking across multiple hops.
-
-### `hydration-sample1.ts`
-
-Simulates a swap using DOT on Hydration, then returns funds back to the origin.
-
-→ Run each script using `npx tsx <script>.ts`
-
-Each sample includes inline comments and tracking info relevant to its use case.
 
 ## Where to Go Next
 

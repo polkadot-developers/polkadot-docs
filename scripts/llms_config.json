@@ -1,6 +1,6 @@
 {
   "projectName": "Polkadot",
-  "projectUrl": "https://polkadot.network",
+  "projectUrl": "https://docs.polkadot.com",
   "projectDescription": "Polkadot is an open-source, multichain network protocol that facilitates the secure communication and interoperability of various blockchains. It offers a scalable, sharded architecture that enables the creation of purpose-built chains and provides the necessary tooling for building decentralized applications (dApps) and smart contracts.",
   "sectionPriority": ["develop", "tutorials", "protocol"],
   "categories": ["Smart Contracts", "Parachains", "dApps", "Networks", "Polkadot Protocol", "Infrastructure", "Tooling"],

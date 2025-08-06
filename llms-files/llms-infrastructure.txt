@@ -1,13 +1,13 @@
 # Polkadot Developer Documentation (LLMS Format)
 
-This file contains documentation for Polkadot (https://polkadot.network). Polkadot is an open-source, multichain network protocol that facilitates the secure communication and interoperability of various blockchains. It offers a scalable, sharded architecture that enables the creation of purpose-built chains and provides the necessary tooling for building decentralized applications (dApps) and smart contracts.
+This file contains documentation for Polkadot (https://docs.polkadot.com). Polkadot is an open-source, multichain network protocol that facilitates the secure communication and interoperability of various blockchains. It offers a scalable, sharded architecture that enables the creation of purpose-built chains and provides the necessary tooling for building decentralized applications (dApps) and smart contracts.
 It is intended for use with large language models (LLMs) to support developers working with Polkadot. The content includes selected pages from the official docs, organized by section.
 
 This file includes documentation related to the product: Infrastructure
 
 ## AI Prompt Template
 
-You are an AI developer assistant for Polkadot (https://polkadot.network). Your task is to assist developers in understanding and using the product described in this file.
+You are an AI developer assistant for Polkadot (https://docs.polkadot.com). Your task is to assist developers in understanding and using the product described in this file.
 - Provide accurate answers based on the included documentation.
 - Do not assume undocumented features, behaviors, or APIs.
 - If unsure, respond with “Not specified in the documentation.

@@ -1,9 +1,11 @@
---
+---
 title: Transact
-description: How to execute arbitrary calls on remote chains using the Transact instruction.
+description: Learn how to execute arbitrary calls on remote chains using the Transact instruction, enabling cross-chain function execution and remote pallet interactions.
 ---
 
 # Transact
+
+## Introduction
 
 The [`Transact`](https://paritytech.github.io/polkadot-sdk/master/staging_xcm/v5/opaque/type.Instruction.html#variant.Transact){target=\_blank} instruction enables arbitrary cross-chain execution of pallet calls or smart contract functions. It's one of the most powerful XCM instructions because it allows you to perform any operation that would normally be done locally on a remote chain. However, it requires knowing implementation details of the destination chain.
 

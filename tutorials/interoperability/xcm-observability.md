@@ -40,63 +40,124 @@ When sending XCMs using `limited_reserve_transfer_assets` or other extrinsics fr
   > ⚠️ **Note**: The topic is **not guaranteed to be unique**. If uniqueness is required (for example, for deduplication or traceability), it must be enforced by the message creator.
 
 - **`message_id`**
-  A hash emitted in both the [`PolkadotXcm.Sent`](https://paritytech.github.io/polkadot-sdk/master/pallet_xcm/pallet/enum.Event.html#variant.Sent) event on the origin chain and the [`MessageQueue.Processed`](https://paritytech.github.io/polkadot-sdk/master/pallet_message_queue/pallet/enum.Event.html#variant.Processed) event on the destination chain. While this identifier is not globally unique, it is sufficient to match a `Sent` message with its corresponding `Processed` result.
+  A hash emitted in both the [`PolkadotXcm.Sent`](https://paritytech.github.io/polkadot-sdk/master/pallet_xcm/pallet/enum.Event.html#variant.Sent){target=\_blank} event on the origin chain and the [`MessageQueue.Processed`](https://paritytech.github.io/polkadot-sdk/master/pallet_message_queue/pallet/enum.Event.html#variant.Processed){target=\_blank} event on the destination chain. While this identifier is not globally unique, it is sufficient to match a `Sent` message with its corresponding `Processed` result.
 
 These observability features are available in runtimes built from **`stable2503-5` or later**.
 
-## Define a Scenario: DOT to Acala Transfer with Tracing
+## Define a Scenario: DOT to Acala Transfer
 
-We will explore the full lifecycle of a cross-chain message from Polkadot Asset Hub to Acala, using the `limited_reserve_transfer_assets` extrinsic.
+We will examine the full lifecycle of a cross-chain message from Polkadot Asset Hub to Acala, using the `limited_reserve_transfer_assets` extrinsic.
 
-* **Origin Chain**: Polkadot Asset Hub
-* **Destination Chain**: Acala
+* **Origin chain**: Polkadot Asset Hub
+* **Destination chain**: Acala
 * **Extrinsic**: `limited_reserve_transfer_assets`
-* **Goal**: Transfer DOT and trace the XCM message using the emitted `message_id`
+* **Goal**: Transfer DOT and trace the XCM using its emitted `message_id`
 
-This scenario will demonstrate how `SetTopic` is added (or generated), how to find matching `Sent` and `Processed` events, and how to debug execution failures if they occur.
+This scenario demonstrates how a `SetTopic` is included or generated, how to identify matching `Sent` and `Processed` events, and how to interpret failures using runtime logs.
 
-## Step 1: Launch a Fork with Logging Enabled
+### Launch a Fork for Local Testing
 
-To view full logs and track `SetTopic`, override the runtime with a locally built Wasm.
+To illustrate the tracing of XCM, fork the relevant chains locally using Chopsticks.
 
-* Fork Polkadot Asset Hub and Acala at the relevant block heights
-* Override the Wasm to enable logging
-* Use a custom Chopsticks config to load your Wasm
+* No runtime override or logging configuration is needed
+* You may use a Chopsticks config file if desired
 
-→ See the detailed steps in [Replay and Dry Run XCMs Guide](https://docs.polkadot.com/tutorials/interoperability/replay-and-dry-run-xcms/).
+→ See the [Fork a Chain with Chopsticks guide](/tutorials/polkadot-sdk/testing/fork-live-chains/){target=\_blank} for step-by-step instructions.
 
-## Step 2: Execute the Transfer with `SetTopic`
+Start the local environment:
 
-We execute a script that sends DOT to Acala with an optional manually defined `SetTopic`.
-
-```ts
---8<-- 'code/develop/toolkit/parachains/fork-chains/chopsticks/replay-and-dry-run-xcms/limited-reserve-transfer-assets.ts'
+```bash
+npx @acala-network/chopsticks xcm \
+    -r polkadot \
+    -p polkadot-asset-hub \
+    -p acala
 ```
 
-You can run this script with:
+### Execute the Transfer
+
+This example uses the `PolkadotXcm.limited_reserve_transfer_assets` extrinsic to initiate a DOT transfer from Polkadot Asset Hub to Acala.
+
+The runtime automatically appends a `SetTopic` instruction to the forwarded XCM. This topic becomes the `message_id` used in both `Sent` and `Processed` events, enabling traceability without manual intervention.
+
+Before running the script, add the Asset Hub descriptor:
+
+```bash
+npx papi add assetHub -w ws://localhost:8000
+```
+
+Then execute the TypeScript script:
+
+```ts
+--8<-- 'code/tutorials/interoperability/xcm-observability/limited-reserve-transfer-assets.ts'
+```
+
+Run it locally:
 
 ```bash
 npx tsx limited-reserve-transfer-assets.ts
 ```
 
+#### Local XCM (origin chain: Polkadot Asset Hub)
+
+The submitted extrinsic constructs an XCM like the following:
+
+--8<-- 'code/tutorials/interoperability/xcm-observability/local-xcm.html'
+
+#### Forwarded XCM (destination chain: Acala)
+
+During execution, the runtime adds a `SetTopic` instruction automatically. This topic is carried through to the destination chain and becomes the basis for event correlation:
+
+--8<-- 'code/tutorials/interoperability/xcm-observability/forwarded-xcm.html'
+
+This forwarded message is then processed on Acala, where the `message_id` is emitted in the `MessageQueue.Processed` event.
+
 ## Step 3: Track the Message Across Chains
 
-After submission, you can match events using the `message_id`:
+Once submitted, use the `message_id` to match the `Sent` event on the origin chain with the `Processed` event on the destination chain.
 
-| Chain              | Event                    | Field        | Notes                                  |
-| ------------------ | ------------------------ | ------------ | -------------------------------------- |
-| Polkadot Asset Hub | `PolkadotXcm.Sent`       | `message_id` | Emitted automatically or from SetTopic |
-| Acala              | `MessageQueue.Processed` | `id`         | Matches message ID from origin chain   |
+| Chain              | Event                    | Field        | Description                                           |
+| ------------------ | ------------------------ | ------------ | ----------------------------------------------------- |
+| Polkadot Asset Hub | `PolkadotXcm.Sent`       | `message_id` | Generated automatically or derived from `SetTopic`    |
+| Acala              | `MessageQueue.Processed` | `id`         | Should match the original `message_id` from Asset Hub |
 
 ### Example Log Output
 
 ```bash
 📣 Sent: 0xb4b8d2c8...
 📣 Processed: 0xb4b8d2c8...
-✅ Message ID matched
+✅ Message ID matched.
 ```
 
-→ Matching confirms that the message was received and executed on the destination chain.
+Matching confirms the XCM was executed on the destination chain.
+
+---
+
+## Understand the Message Flow
+
+
+## 🔍 Event Correlation Flow
+
+| Chain                    | Event                    | Field        | Description                                             |
+| ------------------------ | ------------------------ | ------------ | ------------------------------------------------------- |
+| Origin (e.g. Asset Hub)  | `PolkadotXcm.Sent`       | `message_id` | Set from `SetTopic`, automatically added if not present |
+| Destination (e.g. Acala) | `MessageQueue.Processed` | `id`         | Matches the `message_id` from the origin chain          |
+
+✅ These fields are consistent on newer runtimes (`stable2503-5` or later).
+
+> ⚠️ **Avoid relying on [`XcmpQueue.XcmpMessageSent`](https://paritytech.github.io/polkadot-sdk/master/cumulus_pallet_xcmp_queue/pallet/enum.Event.html#variant.XcmpMessageSent)**. Its `message_hash` is not linked to `message_id` and cannot be used for cross-chain tracing.
+
+---
+
+## 🛠 Example: Message Trace Output
+
+```console
+✅ Local dry run successful.
+📦 Finalised on Polkadot Asset Hub in block #9079592: 0x6de0cd...
+📣 Last message Sent on Polkadot Asset Hub: 0xb4b8d2c87622cbad983d8f2c92bfe28e12d587e13d15ea4fdabe8f771bf86bce
+📦 Finalised on Acala in block #8826386: 0xfda51e...
+📣 Last message Processed on Acala: 0xb4b8d2c87622cbad983d8f2c92bfe28e12d587e13d15ea4fdabe8f771bf86bce
+✅ Message ID matched.
+```
 
 ## Step 4: Debug Failures
 

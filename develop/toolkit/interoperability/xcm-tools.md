@@ -88,17 +88,5 @@ Key features include:
 - **Developer-friendly API** - provides intuitive interfaces for cross-chain functionality
 - **Comprehensive documentation** - includes usage guides and API references for both packages
 
-To get started with the XCM SDK:
-
-```bash
-npm install @moonbeam-foundation/xcm-sdk
-```
-
-For cross-ecosystem transfers with the MRL SDK:
-
-```bash
-npm install @moonbeam-foundation/mrl
-```
-
 For detailed usage examples and API documentation, visit the [official Moonbeam XCM SDK documentation](https://moonbeam-foundation.github.io/xcm-sdk/latest/){target=\_blank}.
 

@@ -57,10 +57,7 @@ This scenario demonstrates how a `SetTopic` is included or generated, how to ide
 
 ### Launch a Fork for Local Testing
 
-To illustrate the tracing of XCM, fork the relevant chains locally using Chopsticks.
-
-* No runtime override or logging configuration is needed
-* You may use a Chopsticks config file if desired
+To see XCM tracing in action, fork the relevant chains locally using Chopsticks.
 
 → See the [Fork a Chain with Chopsticks guide](/tutorials/polkadot-sdk/testing/fork-live-chains/){target=\_blank} for step-by-step instructions.
 
@@ -97,13 +94,13 @@ Run it locally:
 npx tsx limited-reserve-transfer-assets.ts
 ```
 
-#### Local XCM (origin chain: Polkadot Asset Hub)
+#### Local XCM (Origin Chain: Polkadot Asset Hub)
 
 The submitted extrinsic constructs an XCM like the following:
 
 --8<-- 'code/tutorials/interoperability/xcm-observability/local-xcm.html'
 
-#### Forwarded XCM (destination chain: Acala)
+#### Forwarded XCM (Destination Chain: Acala)
 
 During execution, the runtime adds a `SetTopic` instruction automatically. This topic is carried through to the destination chain and becomes the basis for event correlation:
 
@@ -132,21 +129,38 @@ The runtime automatically inserts a `SetTopic` instruction (if not manually prov
 
 ### Failure Event Handling
 
-If your XCM fails, you can debug using one of the following:
+When an XCM fails, the entire execution is **rolled back**, so no failure events are emitted on-chain. However, you can still observe and debug the failure using two main approaches:
 
-### View Nested Errors
+#### View Nested Errors from Indexers
 
-Most indexers show the outermost error (e.g., `LocalExecutionIncompleteWithError`), which is often enough to understand basic failures.
+Most indexers (and API responses) will show **nested dispatch errors** such as:
 
-### Use Chopsticks for Full Logs
+--8<-- 'code/tutorials/interoperability/xcm-observability/execution-with-error.html'
 
-With logging enabled, Chopsticks will show:
+This output is available on runtimes from **`stable2506` or later**, and is often sufficient for identifying common issues like missing assets or execution limits.
 
-* Which instruction failed
-* Full error chain (e.g., `FailedToTransactAsset`, `AssetNotFound`)
-* Precise reason for rollback or halt
+#### Use Chopsticks for Full Error Logs
 
-→ Useful for understanding weight failures, malformed assets, or execution mismatches.
+For deeper analysis:
+
+* Use Chopsticks to **replay the message with logging enabled**
+* See exactly **which instruction failed**, and why
+* View full error chains like `FailedToTransactAsset`, or `AssetNotFound`
+
+This is especially useful when dealing with:
+
+* Multi-hop XCMs
+* Custom asset locations
+* Execution mismatches or weight issues
+
+→ For replay setup, see [Replay and Dry Run XCMs Using Chopsticks](/tutorials/interoperability/replay-and-dry-run-xcms/){target=\_blank}.
+
+#### Recommended Debugging Workflow
+
+1. **Start with indexer or API output** to inspect dispatch errors.
+2. If unclear, **replay using Chopsticks** to trace message steps.
+3. **Inspect logs** to pinpoint the failing instruction and error.
+4. Adjust asset location, weight, or execution logic accordingly.
 
 ## Step 5: Handle Older Runtimes
 

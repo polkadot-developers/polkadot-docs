@@ -25,7 +25,7 @@ Before you begin, make sure you have:
 
 - [Chopsticks](/develop/toolkit/parachains/fork-chains/chopsticks/get-started/){target=\_blank} installed (`npm i -g @acala-network/chopsticks`)
 - Access to the endpoint or genesis file of the parachain you want to fork
-- The block number or hash where the XCM was sent
+- (Optional) The block number or hash where the XCM was sent
 - (Optional) A Chopsticks config file for repeated setups
 
 If you haven't replayed or dry-run XCMs before, see the [Replay and Dry Run XCMs Using Chopsticks](/tutorials/interoperability/replay-and-dry-run-xcms/){target=\_blank} tutorial for step-by-step guidance.

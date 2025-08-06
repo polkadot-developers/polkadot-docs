@@ -111,55 +111,26 @@ During execution, the runtime adds a `SetTopic` instruction automatically. This 
 
 This forwarded message is then processed on Acala, where the `message_id` is emitted in the `MessageQueue.Processed` event.
 
-## Step 3: Track the Message Across Chains
+### Track the Message Across Chains
 
-Once submitted, use the `message_id` to match the `Sent` event on the origin chain with the `Processed` event on the destination chain.
+After submitting the transfer, use the `message_id` to correlate the origin and destination events.
 
-| Chain              | Event                    | Field        | Description                                           |
-| ------------------ | ------------------------ | ------------ | ----------------------------------------------------- |
-| Polkadot Asset Hub | `PolkadotXcm.Sent`       | `message_id` | Generated automatically or derived from `SetTopic`    |
-| Acala              | `MessageQueue.Processed` | `id`         | Should match the original `message_id` from Asset Hub |
+The runtime automatically inserts a `SetTopic` instruction (if not manually provided), and the resulting topic is emitted as `message_id` in:
 
-### Example Log Output
+| Chain                               | Event                    | Field        | Description                                                                |
+|-------------------------------------|--------------------------|--------------|----------------------------------------------------------------------------|
+| Origin (e.g. Asset Hub)             | `PolkadotXcm.Sent`       | `message_id` | Message ID from `SetTopic`. Appended automatically if missing.             |
+| Destination (e.g. Acala, Hydration) | `MessageQueue.Processed` | `id`         | Matches `message_id` from the origin chain, enabling reliable correlation. |
 
-```bash
-📣 Sent: 0xb4b8d2c8...
-📣 Processed: 0xb4b8d2c8...
-✅ Message ID matched.
-```
+**These two fields now match** on new runtimes (`stable2503-5` or later).
 
-Matching confirms the XCM was executed on the destination chain.
+> ⚠️ Do not rely on [`XcmpQueue.XcmpMessageSent`](https://paritytech.github.io/polkadot-sdk/master/cumulus_pallet_xcmp_queue/pallet/enum.Event.html#variant.XcmpMessageSent){target=\_blank}. Its `message_hash` is not derived from `SetTopic` and is not suitable for cross-chain tracking.
 
----
+#### Example: Message Trace Output
 
-## Understand the Message Flow
+--8<-- 'code/tutorials/interoperability/xcm-observability/limited-reserve-transfer-assets-result.html'
 
-
-## 🔍 Event Correlation Flow
-
-| Chain                    | Event                    | Field        | Description                                             |
-| ------------------------ | ------------------------ | ------------ | ------------------------------------------------------- |
-| Origin (e.g. Asset Hub)  | `PolkadotXcm.Sent`       | `message_id` | Set from `SetTopic`, automatically added if not present |
-| Destination (e.g. Acala) | `MessageQueue.Processed` | `id`         | Matches the `message_id` from the origin chain          |
-
-✅ These fields are consistent on newer runtimes (`stable2503-5` or later).
-
-> ⚠️ **Avoid relying on [`XcmpQueue.XcmpMessageSent`](https://paritytech.github.io/polkadot-sdk/master/cumulus_pallet_xcmp_queue/pallet/enum.Event.html#variant.XcmpMessageSent)**. Its `message_hash` is not linked to `message_id` and cannot be used for cross-chain tracing.
-
----
-
-## 🛠 Example: Message Trace Output
-
-```console
-✅ Local dry run successful.
-📦 Finalised on Polkadot Asset Hub in block #9079592: 0x6de0cd...
-📣 Last message Sent on Polkadot Asset Hub: 0xb4b8d2c87622cbad983d8f2c92bfe28e12d587e13d15ea4fdabe8f771bf86bce
-📦 Finalised on Acala in block #8826386: 0xfda51e...
-📣 Last message Processed on Acala: 0xb4b8d2c87622cbad983d8f2c92bfe28e12d587e13d15ea4fdabe8f771bf86bce
-✅ Message ID matched.
-```
-
-## Step 4: Debug Failures
+### Failure Event Handling
 
 If your XCM fails, you can debug using one of the following:
 

@@ -79,7 +79,7 @@ The [Moonbeam XCM SDK](https://github.com/moonbeam-foundation/xcm-sdk){target=\_
 The SDK consists of two main packages:
 
 - **[XCM SDK](https://github.com/moonbeam-foundation/xcm-sdk/tree/main/packages/sdk){target=\_blank}** - core SDK for executing XCM transfers between chains in the Polkadot/Kusama ecosystem
-- **MRL SDK** - extension of the XCM SDK for transferring liquidity into and across the Polkadot ecosystem from other ecosystems like Ethereum
+- **[MRL SDK](https://github.com/moonbeam-foundation/xcm-sdk/tree/main/packages/mrl){target=\_blank}** - extension of the XCM SDK for transferring liquidity into and across the Polkadot ecosystem from other ecosystems like Ethereum
 
 Key features include:
 

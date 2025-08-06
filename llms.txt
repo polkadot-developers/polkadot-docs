@@ -728,16 +728,14 @@ The parameters are as follows:
 
 - **`call`**: The encoded runtime call to execute on the destination chain.
 - **`origin_kind`**: Specifies how the origin should be interpreted on the destination chain:
-    - [`SovereignAccount`](https://paritytech.github.io/polkadot-sdk/master/staging_xcm/v3/enum.OriginKind.html#variant.SovereignAccount
-    - 
-    - https://paritytech.github.io/polkadot-sdk/master/xcm/v2/enum.OriginKind.html#variant.SovereignAccount){target=\_blank}: Execute as the sovereign account of the origin.
-    - [`Superuser`](){target=\_blank}: Execute with root privileges (requires special configuration).
-    - [`Xcm`](https://paritytech.github.io/polkadot-sdk/master/xcm/v2/enum.OriginKind.html#variant.Xcm){target=\_blank}: Execute as a generic XCM origin.
+    - [`SovereignAccount`](https://paritytech.github.io/polkadot-sdk/master/staging_xcm/v3/enum.OriginKind.html#variant.SovereignAccount){target=\_blank}: Execute as the sovereign account of the origin.
+    - [`Superuser`](https://paritytech.github.io/polkadot-sdk/master/staging_xcm/v3/enum.OriginKind.html#variant.Superuser){target=\_blank}: Execute with root privileges (requires special configuration).
+    - [`Xcm`](https://paritytech.github.io/polkadot-sdk/master/staging_xcm/v3/enum.OriginKind.html#variant.Xcm){target=\_blank}: Execute as a generic XCM origin.
 - **`fallback_max_weight`**: Optional weight limit for execution:
     - `None`: Let the destination chain calculate weight automatically (requires XCMv5 support).
     - `Some(weight)`: Specify maximum weight for backward compatibility with pre-v5 chains.
 
-## Chain-specific knowledge required
+## Chain-Specific Knowledge Required
 
 Unlike other XCM instructions like [`DepositAsset`](https://paritytech.github.io/polkadot-sdk/master/staging_xcm/v5/opaque/type.Instruction.html#variant.DepositAsset){target=\_blank} or [`WithdrawAsset`](https://paritytech.github.io/polkadot-sdk/master/staging_xcm/v5/opaque/type.Instruction.html#variant.WithdrawAsset){target=\_blank} which are generic, [`Transact`](https://paritytech.github.io/polkadot-sdk/master/staging_xcm/v5/opaque/type.Instruction.html#variant.Transact){target=\_blank} requires detailed knowledge of the destination chain:
 

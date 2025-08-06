@@ -10,35 +10,35 @@ import {
   XcmV5Junctions,
   XcmV5WildAsset,
   XcmVersionedXcm,
-} from "@polkadot-api/descriptors";
-import { createClient, Enum, FixedSizeBinary } from "polkadot-api";
+} from '@polkadot-api/descriptors';
+import { createClient, Enum, FixedSizeBinary } from 'polkadot-api';
 // import from "polkadot-api/ws-provider/node"
 // if running in a NodeJS environment
-import { getWsProvider } from "polkadot-api/ws-provider/web";
-import { withPolkadotSdkCompat } from "polkadot-api/polkadot-sdk-compat";
-import { sr25519CreateDerive } from "@polkadot-labs/hdkd";
+import { getWsProvider } from 'polkadot-api/ws-provider/web';
+import { withPolkadotSdkCompat } from 'polkadot-api/polkadot-sdk-compat';
+import { sr25519CreateDerive } from '@polkadot-labs/hdkd';
 import {
   DEV_PHRASE,
   entropyToMiniSecret,
   mnemonicToEntropy,
-} from "@polkadot-labs/hdkd-helpers";
-import { getPolkadotSigner } from "polkadot-api/signer";
+} from '@polkadot-labs/hdkd-helpers';
+import { getPolkadotSigner } from 'polkadot-api/signer';
 
 const entropy = mnemonicToEntropy(DEV_PHRASE);
 const miniSecret = entropyToMiniSecret(entropy);
 const derive = sr25519CreateDerive(miniSecret);
-const keyPair = derive("//Alice");
+const keyPair = derive('//Alice');
 
 const polkadotSigner = getPolkadotSigner(
   keyPair.publicKey,
-  "Sr25519",
-  keyPair.sign,
+  'Sr25519',
+  keyPair.sign
 );
 
 // Connect to Polkadot Asset Hub.
 // Pointing to localhost since this example uses chopsticks.
 const client = createClient(
-  withPolkadotSdkCompat(getWsProvider("ws://localhost:8000")),
+  withPolkadotSdkCompat(getWsProvider('ws://localhost:8000'))
 );
 
 // Get the typed API, a typesafe API for interacting with the chain.
@@ -74,13 +74,13 @@ const destination = {
 // exclusively for fees. Also because fees can be paid in a different
 // asset from the transferred assets.
 const remoteFees = Enum(
-  "Teleport",
+  'Teleport',
   XcmV5AssetFilter.Definite([
     {
       id: DOT,
       fun: XcmV3MultiassetFungibility.Fungible(1n * DOT_UNITS),
     },
-  ]),
+  ])
 );
 // No need to preserve origin for this example.
 const preserveOrigin = false;
@@ -88,7 +88,7 @@ const preserveOrigin = false;
 // holding register at the time of executing the `InitiateTransfer`
 // instruction. DOT in this case, teleported.
 const assets = [
-  Enum("Teleport", XcmV5AssetFilter.Wild(XcmV5WildAsset.AllCounted(1))),
+  Enum('Teleport', XcmV5AssetFilter.Wild(XcmV5WildAsset.AllCounted(1))),
 ];
 // The beneficiary is the same account but on the People Chain.
 // This is a very common pattern for one public/private key pair
@@ -105,7 +105,7 @@ const remoteXcm = [
         XcmV5Junction.AccountId32({
           id: beneficiary,
           network: undefined,
-        }),
+        })
       ),
     },
   }),
@@ -134,7 +134,7 @@ const xcm = XcmVersionedXcm.V5([
         XcmV5Junction.AccountId32({
           id: beneficiary, // The originating account.
           network: undefined,
-        }),
+        })
       ),
     },
   }),
@@ -169,7 +169,7 @@ client.destroy();
 function stringify(obj: any) {
   return JSON.stringify(
     obj,
-    (_, v) => (typeof v === "bigint" ? v.toString() : v),
-    2,
+    (_, v) => (typeof v === 'bigint' ? v.toString() : v),
+    2
   );
 }

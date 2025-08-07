@@ -32,9 +32,9 @@ XCM V5 improves weight handling by making weight specification optional to reduc
     ```typescript
     // Optional weight specification with fallback
     XcmV5Instruction.Transact({
-    origin_kind: XcmV2OriginKind.SovereignAccount(),
-    fallback_max_weight: undefined, // or weight object for compatibility
-    call: encodedCall
+        origin_kind: XcmV2OriginKind.SovereignAccount(),
+        fallback_max_weight: undefined, // or weight object for compatibility
+        call: encodedCall
     })
     ```
 
@@ -48,14 +48,14 @@ Use `fallback_max_weight: undefined` when:
 - You want automatic weight calculation.
 - You prefer simplified, more reliable execution.
 
-```typescript
-// Preferred approach for v5-compatible destinations
-XcmV5Instruction.Transact({
-  origin_kind: XcmV2OriginKind.SovereignAccount(),
-  fallback_max_weight: undefined,
-  call: encodedCall
-})
-```
+    ```typescript
+    // Preferred approach for v5-compatible destinations
+    XcmV5Instruction.Transact({
+        origin_kind: XcmV2OriginKind.SovereignAccount(),
+        fallback_max_weight: undefined,
+        call: encodedCall
+    })
+    ```
 
 ### When to Specify Weight
 
@@ -65,17 +65,17 @@ Use `fallback_max_weight: { ref_time: ..., proof_size: ... }` when:
 - You need backward compatibility.
 - You want explicit weight control.
 
-```typescript
-// Backward compatibility approach
-XcmV5Instruction.Transact({
-  origin_kind: XcmV2OriginKind.SovereignAccount(), 
-  fallback_max_weight: {
-    ref_time: 1000000000n,
-    proof_size: 100000n
-  },
-  call: encodedCall
-})
-```
+    ```typescript
+    // Backward compatibility approach
+    XcmV5Instruction.Transact({
+        origin_kind: XcmV2OriginKind.SovereignAccount(), 
+        fallback_max_weight: {
+            ref_time: 1000000000n,
+            proof_size: 100000n
+        },
+        call: encodedCall
+    })
+    ```
 
 ## Benefits of the New Approach
 
@@ -102,7 +102,7 @@ When migrating from XCM V4 to XCM V5:
 - **For mixed environments**: Keep weight specification for non-v5 chains.
 - **Gradual transition**: Start with explicit weights and move to `undefined` as chains upgrade.
 
-## Fee implications
+## Fee Implications
 
 Fees are still required for `Transact` execution:
 

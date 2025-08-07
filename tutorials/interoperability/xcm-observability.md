@@ -53,7 +53,7 @@ These features are available in runtimes built from **`stable2503-5` or later**.
 
 - On newer runtimes, the same topic is preserved throughout a multi-hop transfer. This ensures consistent correlation of the `message_id` between origin and destination, even across multiple chains.
 
-## Define a Scenario: DOT to Hydration Transfer
+## Define a Scenario: XCM Flow with Implicit `SetTopic`
 
 We will examine the full lifecycle of a cross-chain message from Polkadot Asset Hub to Hydration, using the `limited_reserve_transfer_assets` extrinsic.
 
@@ -115,7 +115,9 @@ During execution, the runtime adds a `SetTopic` instruction automatically. This 
 
 --8<-- 'code/tutorials/interoperability/xcm-observability/forwarded-xcm.html'
 
-This forwarded message is then processed on Hydration, where the `message_id` is emitted in the `MessageQueue.Processed` event.
+This forwarded message is then processed on Hydration, where the `id` is emitted in the `MessageQueue.Processed` event. 
+
+> Note: The value of `SetTopic` generated during a dry-run may differ from the one in the actual execution.
 
 ### Track the Message Across Chains
 
@@ -135,6 +137,52 @@ These two fields now match on new runtimes (`stable2503-5` or later).
 #### Example: Message Trace Output
 
 --8<-- 'code/tutorials/interoperability/xcm-observability/limited-reserve-transfer-assets-result.html'
+
+## Define a Scenario: Multi-Hop XCM with Manual `SetTopic`
+
+In complex XCM flows, such as multi-hop transfers that span multiple parachains, you may want to use `SetTopic` to **consistently trace the message across all involved chains**.
+
+* **Origin chain**: Polkadot Asset Hub
+* **Destination chain**: Hydration
+* **Topic assignment**: Manually set via `SetTopic` instruction
+* **Goal**: Transfer DOT and trace the XCM using the manually assigned `message_id`
+
+Setting a `SetTopic` is optional. If you don't explicitly define one, the runtime will automatically generate a topic ID based on the message content (see [XCM Flow with Implicit `SetTopic`](#define-a-scenario-xcm-flow-with-implicit-settopic)). If you require custom end-to-end traceability, you may use `SetTopic` to assign `message_id`.
+
+This pattern is demonstrated in [`multi-hop-with-set-topic.ts`](../src/multi-hop-with-set-topic.ts), where DOT is sent from Asset Hub, swapped on Hydration, and returned—**all using the same manually assigned `message_id`** for complete traceability.
+
+Example: Multi-Hop XCM with Explicit `SetTopic`
+
+```ts
+const message = XcmVersionedXcm.V5([
+  // Local instructions...
+
+  // Remote hop to Hydration
+  XcmV5Instruction.DepositReserveAsset({
+    assets: XcmV5AssetFilter.Wild(XcmV5WildAsset.All()),
+    dest: { interior: XcmV5Junctions.X1(XcmV5Junction.Parachain(2034)), parents: 1 },
+    xcm: [
+      // remote instructions...
+    ]
+  }),
+
+  // Optional: explicitly set topic ID for tracing
+  XcmV5Instruction.SetTopic(
+    Binary.fromHex("0x836c6039763718fd3db4e22484fc4bacd7ddf1c74b6067d15b297ea72d8ecf89")
+  ),
+]);
+```
+
+#### Example: Message Trace Output
+
+```console
+📦 Finalised on Polkadot Asset Hub in block #9294993: 0xa4e15ad6eae7fcd837f7a7c02a1925165bd97597fbe1ceb74adc17d3cbcf34bd
+📣 Last message Sent on Polkadot Asset Hub: 0x836c6039763718fd3db4e22484fc4bacd7ddf1c74b6067d15b297ea72d8ecf89
+✅ Sent message ID matched.
+📦 Finalised on Hydration in block #8377216: 0x6bb6e7d69c2d574f8646f3c739d872ab832850a44659ea9401249dbe11a4c447
+📣 Last message Processed on Hydration: 0x836c6039763718fd3db4e22484fc4bacd7ddf1c74b6067d15b297ea72d8ecf89
+✅ Processed Message ID matched.
+```
 
 ## Workaround for Older Runtimes
 

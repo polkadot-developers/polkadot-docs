@@ -30,63 +30,58 @@ XcmV5Instruction.SetHints({
 
 ## How it Improves the Situation
 
-### Before XCM V5
+The `AssetClaimer` hint transforms the recovery process by allowing proactive designation of claimers, eliminating the need for governance intervention in most cases.
 
-```typescript
-// If this XCM fails, assets become trapped
-const riskyXcm = [
-  XcmInstruction.WithdrawAsset([assets]),
-  XcmInstruction.BuyExecution({ fees, weight_limit }),
-  XcmInstruction.Transact({ /* risky call */ }),
-  XcmInstruction.DepositAsset({ assets, beneficiary })
-]
+- **Before XCM V5:**
 
-// Recovery required governance intervention
-```
+    ```typescript
+    // If this XCM fails, assets become trapped
+    const riskyXcm = [
+        XcmInstruction.WithdrawAsset([assets]),
+        XcmInstruction.BuyExecution({ fees, weight_limit }),
+        XcmInstruction.Transact({ /* risky call */ }),
+        XcmInstruction.DepositAsset({ assets, beneficiary })
+    ]
 
-### With XCM V5
+    // Recovery required governance intervention
+    ```
 
-```typescript
-// Proactive asset claimer setup
-const saferXcm = [
-  // Anyone can now claim if execution fails
-  XcmV5Instruction.SetHints({ 
-    hints: [Enum('AssetClaimer', claimerLocation)] 
-  }),
-  XcmV5Instruction.WithdrawAsset([assets]),
-  XcmV5Instruction.PayFees({ asset }),
-  XcmV5Instruction.Transact({ /* risky call */ }),
-  XcmV5Instruction.DepositAsset({ assets, beneficiary })
-]
+- **With XCM V5:**
 
-// Recovery can be done immediately by the claimer
-```
+    ```typescript
+    // Proactive asset claimer setup
+    const saferXcm = [
+        // Anyone can now claim if execution fails
+        XcmV5Instruction.SetHints({ 
+            hints: [Enum('AssetClaimer', claimerLocation)] 
+        }),
+        XcmV5Instruction.WithdrawAsset([assets]),
+        XcmV5Instruction.PayFees({ asset }),
+        XcmV5Instruction.Transact({ /* risky call */ }),
+        XcmV5Instruction.DepositAsset({ assets, beneficiary })
+    ]
+
+    // Recovery can be done immediately by the claimer
+    ```
 
 ## Key Improvements
 
-### Immediate Recovery
+The `AssetClaimer` hint addresses several critical pain points in trapped asset recovery, transforming the process from governance-dependent to user-controlled.
 
-- **Before**: Wait for governance process (weeks/months).
-- **After**: Designated claimer can act immediately.
-
-### Reduced Governance Burden
-
-- **Before**: Every trapped asset required a governance proposal.
-- **After**: Only complex cases need governance intervention.
-
-### Predictable Recovery
-
-- **Before**: Uncertain if governance would approve recovery
-- **After**: Predetermined claimer provides certainty
-
-### Lower Barriers
-
-- **Before**: Small amounts often not worth governance overhead.
-- **After**: Any amount can be efficiently recovered.
+| Feature | Before XCM V5 | After XCM V5 |
+| :-----: | :-----------: | :----------: |
+| **Recovery Speed** | Wait for governance process (weeks/months) | Designated claimer can act immediately |
+| **Governance Burden** | Every trapped asset required a governance proposal | Only complex cases need governance intervention |
+| **Recovery Predictability** | Uncertain if governance would approve recovery | Predetermined claimer provides certainty |
+| **Accessibility** | Small amounts often not worth governance overhead | Any amount can be efficiently recovered |
 
 ## Best Practices
 
+Following these best practices ensures effective use of the `AssetClaimer` hint and maximizes the benefits of automated asset recovery.
+
 ### Set Hint Early
+
+Always set the asset claimer hint before any operations that might fail, ensuring trapped assets can be recovered immediately without governance intervention.
 
 ```typescript
 // Set claimer hint before any risky operations
@@ -116,6 +111,8 @@ const remoteXcm = [
 When origin preservation is available, trapped assets are automatically associated with the original origin, making claiming easier without additional hints.
 
 ## Migration Impact
+
+The introduction of the `AssetClaimer` hint represents a significant improvement in XCM's fault tolerance and user experience, making cross-chain operations safer and more predictable.
 
 This change makes XCM programs more resilient and user-friendly:
 

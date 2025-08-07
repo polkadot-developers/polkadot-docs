@@ -3,7 +3,7 @@ title: Transact
 description: Key changes to the Transact instruction in XCMv5.
 ---
 
-# Transact
+# Transact (XCM V4 → XCM V5)
 
 XCMv5 improves the [`Transact`](https://paritytech.github.io/polkadot-sdk/master/xcm/v5/instruction/enum.Instruction.html#variant.Transact){target=\_blank} instruction by introducing optional weight specification through the `fallback_max_weight` parameter, making cross-chain calls more flexible and reliable.
 

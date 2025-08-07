@@ -3,7 +3,7 @@ title: Writing XCM Programs
 description: Learn how to write XCM programs in version 5, including new execution patterns, instruction syntax, and best practices for cross-chain communication.
 ---
 
-# Writing XCM Programs
+# Writing XCM Programs (XCM V4 → XCM V5)
 
 XCM V5 shifts the recommended approach from using dedicated extrinsics to executing raw XCM programs directly.
 

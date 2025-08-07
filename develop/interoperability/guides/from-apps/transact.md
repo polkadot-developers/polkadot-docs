@@ -23,6 +23,7 @@ The parameters are as follows:
 
 - **`call`**: The encoded runtime call to execute on the destination chain.
 - **`origin_kind`**: Specifies how the origin should be interpreted on the destination chain:
+    - [`Native`](https://paritytech.github.io/polkadot-sdk/master/staging_xcm/v3/enum.OriginKind.html#variant.Native){target=\_blank}: Execute as the native account of the origin.
     - [`SovereignAccount`](https://paritytech.github.io/polkadot-sdk/master/staging_xcm/v3/enum.OriginKind.html#variant.SovereignAccount){target=\_blank}: Execute as the sovereign account of the origin.
     - [`Superuser`](https://paritytech.github.io/polkadot-sdk/master/staging_xcm/v3/enum.OriginKind.html#variant.Superuser){target=\_blank}: Execute with root privileges (requires special configuration).
     - [`Xcm`](https://paritytech.github.io/polkadot-sdk/master/staging_xcm/v3/enum.OriginKind.html#variant.Xcm){target=\_blank}: Execute as a generic XCM origin.

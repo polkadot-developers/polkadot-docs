@@ -85,10 +85,11 @@ This example uses the `PolkadotXcm.limited_reserve_transfer_assets` extrinsic to
 
 The runtime automatically appends a `SetTopic` instruction to the forwarded XCM. This topic becomes the `message_id` used in both `Sent` and `Processed` events, enabling traceability without manual intervention.
 
-Before running the script, add the Asset Hub descriptor:
+Before running the script, add the descriptors:
 
 ```bash
 npx papi add assetHub -w ws://localhost:8000
+npx papi add hydration -w ws://localhost:8001
 ```
 
 Then execute the TypeScript script:
@@ -149,28 +150,23 @@ In complex XCM flows, such as multi-hop transfers that span multiple parachains,
 
 Setting a `SetTopic` is optional. If you don't explicitly define one, the runtime will automatically generate a topic ID based on the message content (see [XCM Flow with Implicit `SetTopic`](#define-a-scenario-xcm-flow-with-implicit-settopic)). If you require custom end-to-end traceability, you may use `SetTopic` to assign `message_id`.
 
-This pattern is demonstrated in [`multi-hop-with-set-topic.ts`](../src/multi-hop-with-set-topic.ts), where DOT is sent from Asset Hub, swapped on Hydration, and returned—**all using the same manually assigned `message_id`** for complete traceability.
+Before running the script, add the descriptors:
 
-Example: Multi-Hop XCM with Explicit `SetTopic`
+```bash
+npx papi add assetHub -w ws://localhost:8000
+npx papi add hydration -w ws://localhost:8001
+```
+
+Then execute the TypeScript script:
 
 ```ts
-const message = XcmVersionedXcm.V5([
-  // Local instructions...
+--8<-- 'code/tutorials/interoperability/xcm-observability/multi-hop-with-set-topic.ts'
+```
 
-  // Remote hop to Hydration
-  XcmV5Instruction.DepositReserveAsset({
-    assets: XcmV5AssetFilter.Wild(XcmV5WildAsset.All()),
-    dest: { interior: XcmV5Junctions.X1(XcmV5Junction.Parachain(2034)), parents: 1 },
-    xcm: [
-      // remote instructions...
-    ]
-  }),
+Run it locally:
 
-  // Optional: explicitly set topic ID for tracing
-  XcmV5Instruction.SetTopic(
-    Binary.fromHex("0x836c6039763718fd3db4e22484fc4bacd7ddf1c74b6067d15b297ea72d8ecf89")
-  ),
-]);
+```bash
+npx tsx multi-hop-with-set-topic.ts
 ```
 
 #### Example: Message Trace Output

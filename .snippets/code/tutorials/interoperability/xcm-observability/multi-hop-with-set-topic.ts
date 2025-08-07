@@ -1,4 +1,4 @@
-import {Binary, createClient, Enum, Transaction} from "polkadot-api";
+import {Binary, createClient, Enum} from "polkadot-api";
 import {withPolkadotSdkCompat} from "polkadot-api/polkadot-sdk-compat";
 import {getPolkadotSigner} from "polkadot-api/signer";
 import {getWsProvider} from "polkadot-api/ws-provider/web";
@@ -125,11 +125,10 @@ async function main() {
         return;
     }
 
-    const tx: Transaction<any, string, string, any> =
-        para1Api.tx.PolkadotXcm.execute({
-            message,
-            max_weight: weight.value,
-        });
+    const tx: any = para1Api.tx.PolkadotXcm.execute({
+        message,
+        max_weight: weight.value,
+    });
     const decodedCall = tx.decodedCall as any;
     console.log("👀 Executing XCM:", JSON.stringify(decodedCall, toHuman, 2));
 

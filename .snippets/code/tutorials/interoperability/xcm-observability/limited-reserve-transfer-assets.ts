@@ -1,4 +1,4 @@
-import {Binary, createClient, Enum, Transaction} from "polkadot-api";
+import {Binary, createClient, Enum} from "polkadot-api";
 import {withPolkadotSdkCompat} from "polkadot-api/polkadot-sdk-compat";
 import {getPolkadotSigner} from "polkadot-api/signer";
 import {getWsProvider} from "polkadot-api/ws-provider/web";
@@ -56,37 +56,36 @@ async function main() {
     const aliceAddress = ss58Address(alicePublicKey);
 
     const origin = Enum("system", Enum("Signed", aliceAddress));
-    const tx: Transaction<any, string, string, any> =
-        para1Api.tx.PolkadotXcm.limited_reserve_transfer_assets({
-            dest: XcmVersionedLocation.V5({
-                parents: 1,
-                interior: XcmV5Junctions.X1(XcmV5Junction.Parachain(2034)),
-            }),
-            beneficiary: XcmVersionedLocation.V5({
-                parents: 0,
-                interior: XcmV5Junctions.X1(
-                    XcmV5Junction.AccountId32({
-                        id: Binary.fromHex(
-                            "0x9818ff3c27d256631065ecabf0c50e02551e5c5342b8669486c1e566fcbf847f",
-                        ),
-                    }),
-                ),
-            }),
-            assets: XcmVersionedAssets.V5([
-                {
-                    id: {
-                        parents: 0,
-                        interior: XcmV5Junctions.X2([
-                            XcmV5Junction.PalletInstance(50),
-                            XcmV5Junction.GeneralIndex(1984n),
-                        ]),
-                    },
-                    fun: XcmV3MultiassetFungibility.Fungible(500_000_000n),
+    const tx: any = para1Api.tx.PolkadotXcm.limited_reserve_transfer_assets({
+        dest: XcmVersionedLocation.V5({
+            parents: 1,
+            interior: XcmV5Junctions.X1(XcmV5Junction.Parachain(2034)),
+        }),
+        beneficiary: XcmVersionedLocation.V5({
+            parents: 0,
+            interior: XcmV5Junctions.X1(
+                XcmV5Junction.AccountId32({
+                    id: Binary.fromHex(
+                        "0x9818ff3c27d256631065ecabf0c50e02551e5c5342b8669486c1e566fcbf847f",
+                    ),
+                }),
+            ),
+        }),
+        assets: XcmVersionedAssets.V5([
+            {
+                id: {
+                    parents: 0,
+                    interior: XcmV5Junctions.X2([
+                        XcmV5Junction.PalletInstance(50),
+                        XcmV5Junction.GeneralIndex(1984n),
+                    ]),
                 },
-            ]),
-            fee_asset_item: 0,
-            weight_limit: XcmV3WeightLimit.Unlimited(),
-        });
+                fun: XcmV3MultiassetFungibility.Fungible(500_000_000n),
+            },
+        ]),
+        fee_asset_item: 0,
+        weight_limit: XcmV3WeightLimit.Unlimited(),
+    });
     const decodedCall = tx.decodedCall as any;
     console.log("👀 Executing XCM:", JSON.stringify(decodedCall, toHuman, 2));
 

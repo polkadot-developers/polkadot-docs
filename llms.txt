@@ -28182,59 +28182,6 @@ These two fields now match on new runtimes (`stable2503-5` or later).
   <span data-ty>✅ Message ID matched.</span>
 </div>
 
-### Failure Event Handling
-
-When an XCM fails, the entire execution is **rolled back**, so no failure events are emitted on-chain. However, you can still observe and debug the failure using two main approaches:
-
-#### View Nested Errors from Indexers
-
-Most indexers (and API responses) will show **nested dispatch errors** such as:
-
-<div class="termynal" data-termynal>
-  <pre data-ty>
-"error": {
-  "type": "Module",
-  "value": {
-    "type": "PolkadotXcm",
-    "value": {
-      "type": "LocalExecutionIncompleteWithError",
-      "value": {
-        "index": 0,
-        "error": {
-          "type": "FailedToTransactAsset"
-        }
-      }
-    }
-  }
-}
-  </pre>
-</div>
-
-This output is available on runtimes from **`stable2506` or later**, and is often sufficient for identifying common issues like missing assets or execution limits.
-
-#### Use Chopsticks for Full Error Logs
-
-For deeper analysis:
-
-- Use Chopsticks to **replay the message with logging enabled**
-- See exactly **which instruction failed**, and why
-- View full error chains like `FailedToTransactAsset`, or `AssetNotFound`
-
-This is especially useful when dealing with:
-
-- Multi-hop XCMs
-- Custom asset locations
-- Execution mismatches or weight issues
-
-→ For replay setup, see [Replay and Dry Run XCMs Using Chopsticks](/tutorials/interoperability/replay-and-dry-run-xcms/){target=\_blank}.
-
-#### Recommended Debugging Workflow
-
-1. **Start with indexer or API output** to inspect dispatch errors.
-2. If unclear, **replay using Chopsticks** to trace message steps.
-3. **Inspect logs** to pinpoint the failing instruction and error.
-4. Adjust asset location, weight, or execution logic accordingly.
-
 ## Workaround for Older Runtimes
 
 * On **older runtimes** (prior to `stable2503-5`), the `message_id` seen in downstream `Processed` events is **not the original topic hash**, but rather a **derived `forwarded_id`**.
@@ -28287,7 +28234,60 @@ if (forwardedIdHex === expectedForwardedId) {
   `message_id == original_id`
 
 * ⚠️ **Old runtimes**:
-  `message_id == blake2_256("forward_id_for" + original_id)`
+  `message_id == blake2_256("forward_id_for" + original_id)` reb
+
+### Failure Event Handling
+
+When an XCM fails, the entire execution is **rolled back**, so no failure events are emitted on-chain. However, you can still observe and debug the failure using two main approaches:
+
+#### View Nested Errors from Indexers
+
+Most indexers (and API responses) will show **nested dispatch errors** such as:
+
+<div class="termynal" data-termynal>
+  <pre data-ty>
+"error": {
+  "type": "Module",
+  "value": {
+    "type": "PolkadotXcm",
+    "value": {
+      "type": "LocalExecutionIncompleteWithError",
+      "value": {
+        "index": 0,
+        "error": {
+          "type": "FailedToTransactAsset"
+        }
+      }
+    }
+  }
+}
+  </pre>
+</div>
+
+This output is available on runtimes from **`stable2506` or later**, and is often sufficient for identifying common issues like missing assets or execution limits.
+
+#### Use Chopsticks for Full Error Logs
+
+For deeper analysis:
+
+- Use Chopsticks to **replay the message with logging enabled**
+- See exactly **which instruction failed**, and why
+- View full error chains like `FailedToTransactAsset`, or `AssetNotFound`
+
+This is especially useful when dealing with:
+
+- Multi-hop XCMs
+- Custom asset locations
+- Execution mismatches or weight issues
+
+→ For replay setup, see [Replay and Dry Run XCMs Using Chopsticks](/tutorials/interoperability/replay-and-dry-run-xcms/){target=\_blank}.
+
+#### Recommended Debugging Workflow
+
+1. **Start with indexer or API output** to inspect dispatch errors.
+2. If unclear, **replay using Chopsticks** to trace message steps.
+3. **Inspect logs** to pinpoint the failing instruction and error.
+4. Adjust asset location, weight, or execution logic accordingly.
 --- END CONTENT ---
 
 Doc-Content: https://docs.polkadot.com/tutorials/interoperability/xcm-transfers/from-relaychain-to-parachain/

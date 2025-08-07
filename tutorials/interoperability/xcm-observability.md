@@ -136,6 +136,29 @@ These two fields now match on new runtimes (`stable2503-5` or later).
 
 --8<-- 'code/tutorials/interoperability/xcm-observability/limited-reserve-transfer-assets-result.html'
 
+## Workaround for Older Runtimes
+
+* On **older runtimes** (prior to `stable2503-5`), the `message_id` seen in downstream `Processed` events is **not the original topic hash**, but rather a **derived `forwarded_id`**.
+* This `forwarded_id` is computed as:
+
+```rust
+fn forward_id_for(original_id: &XcmHash) -> XcmHash { 
+    (b"forward_id_for", original_id).using_encoded(sp_io::hashing::blake2_256)
+}
+```
+
+To reliably trace messages across **mixed-version chains**, indexers and tools should **check for both `original_id` and its forwarded form**.
+
+```ts
+--8<-- 'code/tutorials/interoperability/xcm-observability/forward-id-for.ts'
+```
+
+* ✅ **New runtimes**:
+  `message_id == original_id`
+
+* ⚠️ **Old runtimes**:
+  `message_id == blake2_256("forward_id_for" + original_id)`
+
 ### Failure Event Handling
 
 When an XCM fails, the entire execution is **rolled back**, so no failure events are emitted on-chain. However, you can still observe and debug the failure using two main approaches:
@@ -170,26 +193,3 @@ This is especially useful when dealing with:
 2. If unclear, **replay using Chopsticks** to trace message steps.
 3. **Inspect logs** to pinpoint the failing instruction and error.
 4. Adjust asset location, weight, or execution logic accordingly.
-
-## Workaround for Older Runtimes
-
-* On **older runtimes** (prior to `stable2503-5`), the `message_id` seen in downstream `Processed` events is **not the original topic hash**, but rather a **derived `forwarded_id`**.
-* This `forwarded_id` is computed as:
-
-```rust
-fn forward_id_for(original_id: &XcmHash) -> XcmHash { 
-    (b"forward_id_for", original_id).using_encoded(sp_io::hashing::blake2_256)
-}
-```
-
-To reliably trace messages across **mixed-version chains**, indexers and tools should **check for both `original_id` and its forwarded form**.
-
-```ts
---8<-- 'code/tutorials/interoperability/xcm-observability/forward-id-for.ts'
-```
-
-* ✅ **New runtimes**:
-  `message_id == original_id`
-
-* ⚠️ **Old runtimes**:
-  `message_id == blake2_256("forward_id_for" + original_id)`

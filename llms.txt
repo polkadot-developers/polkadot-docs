@@ -1921,7 +1921,7 @@ XCM V5 introduces a new fee payment mechanism that simplifies and unifies how fe
 
 ## Key Changes from V4
 
-XCM V5 replaces the `BuyExecution` instruction with a more predictable `PayFees` approach that handles both execution and delivery fees.
+XCM V5 replaces the [`BuyExecution`](https://paritytech.github.io/polkadot-sdk/master/staging_xcm/v5/enum.Instruction.html#variant.BuyExecution){target=\_blank} instruction with a more predictable [`PayFees`](https://paritytech.github.io/polkadot-sdk/master/staging_xcm/v5/enum.Instruction.html#variant.PayFees){target=\_blank} approach that handles both execution and delivery fees.
 
 ### BuyExecution vs. PayFees
 
@@ -1987,9 +1987,9 @@ That's why it's more important than before to [properly estimate XCM fees](/deve
 
 ## `RefundSurplus` Instruction
 
-When you overestimate fees with `PayFees`, you can recover unused funds using the `RefundSurplus` instruction.
+When you overestimate fees with [`PayFees`](https://paritytech.github.io/polkadot-sdk/master/staging_xcm/v5/enum.Instruction.html#variant.PayFees){target=\_blank}, you can recover unused funds using the [`RefundSurplus`](https://paritytech.github.io/polkadot-sdk/master/staging_xcm/v5/enum.Instruction.html#variant.RefundSurplus){target=\_blank} instruction.
 
-You can use `RefundSurplus` to put the leftover fees back into holding. This is useful when you've overestimated the fees needed for your XCM program. You can then deposit them to some account with `DepositAsset`.
+You can use `RefundSurplus` to put the leftover fees back into holding. This is useful when you've overestimated the fees needed for your XCM program. You can then deposit them to some account with [`DepositAsset`](https://paritytech.github.io/polkadot-sdk/master/staging_xcm/v5/enum.Instruction.html#variant.DepositAsset){target=\_blank}.
 
 ```typescript
 // After all instructions that send messages.

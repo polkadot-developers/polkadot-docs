@@ -27833,9 +27833,9 @@ You will learn how to:
 
 - Use `SetTopic` and `message_id` to track XCMs across multiple chains
 - Match `PolkadotXcm.Sent` and `MessageQueue.Processed` events to understand message flow
-- Interpret and handle failed or incomplete messages
 - Apply manual topic tagging for reliable tracking across hops
 - Use the workaround for older runtimes that emit derived message identifiers
+- Interpret and handle failed or incomplete messages
 
 To demonstrate these techniques, the guide introduces a complete example scenario involving a multi-chain XCM transfer. This scenario will serve as the foundation for explaining message lifecycle, event tracking and failure debugging in context.
 

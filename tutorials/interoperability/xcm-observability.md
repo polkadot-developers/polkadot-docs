@@ -104,12 +104,6 @@ Run it locally:
 npx tsx limited-reserve-transfer-assets.ts
 ```
 
-#### Local XCM (Origin Chain: Polkadot Asset Hub)
-
-The submitted extrinsic constructs an XCM like the following:
-
---8<-- 'code/tutorials/interoperability/xcm-observability/local-xcm.html'
-
 #### Forwarded XCM (Destination Chain: Hydration)
 
 During execution, the runtime adds a `SetTopic` instruction automatically. This topic is carried through to the destination chain and becomes the basis for event correlation:
@@ -169,16 +163,15 @@ Run it locally:
 npx tsx multi-hop-with-set-topic.ts
 ```
 
+#### Forwarded XCM (Destination Chain: Hydration)
+
+During execution, the runtime adds a `SetTopic` instruction with the customised topic, which is carried across the chains:
+
+--8<-- 'code/tutorials/interoperability/xcm-observability/forwarded-xcm-custom.html'
+
 #### Example: Message Trace Output
 
-```console
-📦 Finalised on Polkadot Asset Hub in block #9294993: 0xa4e15ad6eae7fcd837f7a7c02a1925165bd97597fbe1ceb74adc17d3cbcf34bd
-📣 Last message Sent on Polkadot Asset Hub: 0x836c6039763718fd3db4e22484fc4bacd7ddf1c74b6067d15b297ea72d8ecf89
-✅ Sent message ID matched.
-📦 Finalised on Hydration in block #8377216: 0x6bb6e7d69c2d574f8646f3c739d872ab832850a44659ea9401249dbe11a4c447
-📣 Last message Processed on Hydration: 0x836c6039763718fd3db4e22484fc4bacd7ddf1c74b6067d15b297ea72d8ecf89
-✅ Processed Message ID matched.
-```
+--8<-- 'code/tutorials/interoperability/xcm-observability/multi-hop-with-set-topic-result.html'
 
 ## Workaround for Older Runtimes
 

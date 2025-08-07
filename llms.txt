@@ -28101,22 +28101,6 @@ Run it locally:
 npx tsx limited-reserve-transfer-assets.ts
 ```
 
-#### Local XCM (Origin Chain: Polkadot Asset Hub)
-
-The submitted extrinsic constructs an XCM like the following:
-
-<div class="termynal" data-termynal>
-  <pre data-ty>
-{
-  "type": "TransferAsset",
-  "value": {
-    "assets": [...],
-    "beneficiary": {...}
-  }
-}
-  </pre>
-</div>
-
 #### Forwarded XCM (Destination Chain: Hydration)
 
 During execution, the runtime adds a `SetTopic` instruction automatically. This topic is carried through to the destination chain and becomes the basis for event correlation:
@@ -28433,16 +28417,24 @@ Run it locally:
 npx tsx multi-hop-with-set-topic.ts
 ```
 
+#### Forwarded XCM (Destination Chain: Hydration)
+
+During execution, the runtime adds a `SetTopic` instruction with the customised topic, which is carried across the chains:
+
+code/tutorials/interoperability/xcm-observability/forwarded-xcm-custom.html
+
 #### Example: Message Trace Output
 
-```console
-📦 Finalised on Polkadot Asset Hub in block #9294993: 0xa4e15ad6eae7fcd837f7a7c02a1925165bd97597fbe1ceb74adc17d3cbcf34bd
-📣 Last message Sent on Polkadot Asset Hub: 0x836c6039763718fd3db4e22484fc4bacd7ddf1c74b6067d15b297ea72d8ecf89
-✅ Sent message ID matched.
-📦 Finalised on Hydration in block #8377216: 0x6bb6e7d69c2d574f8646f3c739d872ab832850a44659ea9401249dbe11a4c447
-📣 Last message Processed on Hydration: 0x836c6039763718fd3db4e22484fc4bacd7ddf1c74b6067d15b297ea72d8ecf89
-✅ Processed Message ID matched.
-```
+<div class="termynal" data-termynal>
+  <span data-ty="input">npx tsx limited-reserve-transfer-assets.ts</span>
+  <span data-ty>✅ Local dry run successful.</span>
+  <span data-ty>📦 Finalised on Polkadot Asset Hub in block #9437981: 0xf3c33536a2687f20947fb25cf2b3d70c4917ff84e7a8f205f5a58a188bda7a3d</span>
+  <span data-ty>📣 Last message Sent on Polkadot Asset Hub: 0xd60225f721599cb7c6e23cdf4fab26f205e30cd7eb6b5ccf6637cdc80b2339b2</span>
+  <span data-ty>✅ Sent message ID matched.</span>
+  <span data-ty>📦 Finalised on Hydration in block #8676869: 0x55e3e0eeec7396d00ad776d85ea60f935d6e90a99cfde97b25a550845e084f92</span>
+  <span data-ty>📣 Last message Processed on Hydration: 0xd60225f721599cb7c6e23cdf4fab26f205e30cd7eb6b5ccf6637cdc80b2339b2</span>
+  <span data-ty>✅ Processed Message ID matched.</span>
+</div>
 
 ## Workaround for Older Runtimes
 

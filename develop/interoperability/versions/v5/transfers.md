@@ -1,86 +1,100 @@
 ---
 title: Transfers
-description: Key differences in transfer handling between XCMv4 and XCMv5.
+description: Explore the key differences in transfer handling between XCM V4 and V5, including unified transfer instructions, multiple asset types, and improved cross-chain transfer capabilities.
 ---
 
-# Transfers
+# Transfers (XCM V4 → XCM V5)
 
-XCMv5 introduces the unified [`InitiateTransfer`](https://paritytech.github.io/polkadot-sdk/master/xcm/v5/instruction/enum.Instruction.html#variant.InitiateTransfer){target=\_blank} instruction that consolidates and enhances cross-chain transfer capabilities.
+XCM V5 introduces the unified [`InitiateTransfer`](https://paritytech.github.io/polkadot-sdk/master/staging_xcm/v5/enum.Instruction.html#variant.InitiateTransfer){target=\_blank} instruction that consolidates and enhances cross-chain transfer capabilities.
 
 ## Changes from v4
 
-### Instruction consolidation
+### Instruction Consolidation
 
-**Previous versions:**
-- `InitiateTeleport` - For teleport transfers
-- `InitiateReserveWithdraw` - For reserve withdrawals  
-- `DepositReserveAsset` - For reserve deposits
-- Separate instructions for different transfer types
+- **Previous versions:**
 
-**XCMv5:**
-- Single `InitiateTransfer` instruction for all transfer types
-- Transfer type specified within the instruction parameters
-- Unified interface with enhanced capabilities
+    - `InitiateTeleport`: For teleport transfers.
+    - `InitiateReserveWithdraw`: For reserve withdrawals.  
+    - `DepositReserveAsset`: For reserve deposits.
+    - Separate instructions for different transfer types.
 
-### Enhanced transfer specification
+- **XCM V5:**
 
-**Previous approach:**
-```typescript
-// Separate instructions for different transfer types
-XcmV4Instruction.InitiateTeleport({ /* teleport params */ })
-XcmV4Instruction.InitiateReserveWithdraw({ /* reserve params */ })
-```
+    - Single `InitiateTransfer` instruction for all transfer types.
+    - Transfer type specified within the instruction parameters.
+    - Unified interface with enhanced capabilities.
 
-**XCMv5 approach:**
-```typescript
-// Unified instruction with transfer type specification
-XcmV5Instruction.InitiateTransfer({
-  destination: /* location */,
-  remote_fees: Enum('ReserveDeposit', /* fee asset */),
-  preserve_origin: false,
-  assets: [
-    Enum('Teleport', /* teleport assets */),
-    Enum('ReserveDeposit', /* reserve assets */)
-  ],
-  remote_xcm: /* remote execution */
-})
-```
+### Enhanced Transfer Specification
 
-## Key enhancements
+- **Previous approach:**
 
-### 1. Mixed transfer types
-XCMv5 allows mixing different transfer types in a single transaction:
-- Teleport some assets while reserve-transferring others
-- Use different transfer types for fees vs. main assets
-- More flexible asset handling in complex scenarios
+    ```typescript
+    // Separate instructions for different transfer types
+    XcmV4Instruction.InitiateTeleport({ /* teleport params */ })
+    XcmV4Instruction.InitiateReserveWithdraw({ /* reserve params */ })
+    ```
 
-### 2. Origin preservation
-New `preserve_origin` parameter enables:
-- Maintaining the original sender's identity on destination chains
-- Executing transactions (`Transact`) on behalf of the origin
-- More sophisticated cross-chain operations
+- **XCM V5 approach:**
 
-**Important**: Origin preservation requires specific configuration on the destination chain.
-If the destination chain doesn't support it, transfers with `preserve_origin: true` will fail.
-Setting `preserve_origin: false` will work as before, regardless of destination chain configuration.
+    ```typescript
+    // Unified instruction with transfer type specification
+    XcmV5Instruction.InitiateTransfer({
+    destination: /* location */,
+    remote_fees: Enum('ReserveDeposit', /* fee asset */),
+    preserve_origin: false,
+    assets: [
+        Enum('Teleport', /* teleport assets */),
+        Enum('ReserveDeposit', /* reserve assets */)
+    ],
+    remote_xcm: /* remote execution */
+    })
+    ```
 
-### 3. Integrated fee handling
+## Key Enhancements
+
+### Mixed Transfer Types
+
+XCM V5 allows mixing different transfer types in a single transaction:
+
+- Teleport some assets while reserve-transferring others.
+- Use different transfer types for fees vs. main assets.
+- More flexible asset handling in complex scenarios.
+
+### Origin Preservation
+
+The new `preserve_origin` parameter enables:
+
+- Maintaining the original sender's identity on destination chains.
+- Executing transactions (`Transact`) on behalf of the origin.
+- More sophisticated cross-chain operations.
+
+!!! note "Important"
+
+    Origin preservation requires specific configuration on the destination chain.
+    If the destination chain doesn't support it, transfers with `preserve_origin: true` will fail.
+    Setting `preserve_origin: false` will work as before, regardless of destination chain configuration.
+
+### Integrated Fee Handling
+
 Built-in `remote_fees` parameter:
-- Automatic `PayFees` instruction insertion on destination
-- Cleaner fee specification with transfer type
-- Better fee management across chains
 
-## Backward compatibility
+- Automatic `PayFees` instruction insertion on destination.
+- Cleaner fee specification with transfer type.
+- Better fee management across chains.
 
-XCMv5 maintains full backward compatibility:
-- Previous transfer instructions (`InitiateTeleport`, `InitiateReserveWithdraw`, `DepositReserveAsset`) remain available
-- Existing XCM programs continue to work without modification
-- Gradual migration path to the new unified approach
+## Backward Compatibility
 
-## Migration benefits
+XCM V5 maintains full backward compatibility:
+
+- Previous transfer instructions `InitiateTeleport`, `InitiateReserveWithdraw`, `DepositReserveAsset` remain available.
+- Existing XCM programs continue to work without modification.
+- Gradual migration path to the new unified approach.
+
+## Migration Benefits
 
 Moving to `InitiateTransfer` provides:
-- **Simplified development**: Single instruction for all transfer scenarios
-- **Enhanced flexibility**: Mix transfer types and preserve origins  
-- **Better maintainability**: Fewer instruction types to manage
-- **Future-proofing**: Foundation for additional transfer enhancements
+
+- **Simplified development**: Single instruction for all transfer scenarios.
+- **Enhanced flexibility**: Mix transfer types and preserve origins.
+- **Better maintainability**: Fewer instruction types to manage.
+- **Future-proofing**: Foundation for additional transfer enhancements.

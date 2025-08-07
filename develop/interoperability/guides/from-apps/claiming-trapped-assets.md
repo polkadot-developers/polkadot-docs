@@ -15,7 +15,7 @@ This guide details the process and required steps to claim trapped assets.
 Assets become trapped whenever execution halts and there are leftover assets. This can happen for example if:
 
 - An XCM execution throws an error in any instruction when assets are in holding:
-    - `DepositAsset` can't deposit because the account doesn't exist.   
+    - `DepositAsset` can't deposit because the account doesn't exist.
     - `Transact` can't execute the call because it doesn't exist.
     - `PayFees` not enough funds or not paying enough for execution.
     - and others.

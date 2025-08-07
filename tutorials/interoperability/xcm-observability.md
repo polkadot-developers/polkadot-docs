@@ -25,6 +25,7 @@ Before you begin, ensure you've:
 
 - [Chopsticks](/develop/toolkit/parachains/fork-chains/chopsticks/get-started/){target=\_blank} installed (`npm i -g @acala-network/chopsticks`)
 - Access to the endpoint or genesis file of the parachain you wish to fork
+- Set up your TypeScript project with the essential tools
 
 If you haven't replayed or dry-run XCMs before, see the [Replay and Dry Run XCMs Using Chopsticks](/tutorials/interoperability/replay-and-dry-run-xcms/){target=\_blank} tutorial for step-by-step guidance.
 
@@ -41,14 +42,14 @@ npx @acala-network/chopsticks xcm \
     -p hydradx
 ```
 
+→ See the [Fork a Chain with Chopsticks guide](/tutorials/polkadot-sdk/testing/fork-live-chains/){target=\_blank} for detailed instructions.
+
 Before running the script, add the descriptors:
 
 ```bash
 npx papi add assetHub -w ws://localhost:8000
 npx papi add hydration -w ws://localhost:8001
 ```
-
-→ See the [Fork a Chain with Chopsticks guide](/tutorials/polkadot-sdk/testing/fork-live-chains/){target=\_blank} for detailed instructions.
 
 ## Understanding the Basics
 
@@ -91,6 +92,8 @@ This scenario demonstrates how a `SetTopic` is generated automatically, how to i
 This example uses the `PolkadotXcm.limited_reserve_transfer_assets` extrinsic to initiate a DOT transfer from Polkadot Asset Hub to Hydration.
 
 The runtime automatically appends a `SetTopic` instruction to the forwarded XCM. This topic becomes the `message_id` used in both `Sent` and `Processed` events, enabling traceability without manual intervention.
+
+Create a new script, `limited-reserve-transfer-assets.ts`
 
 ```ts
 --8<-- 'code/tutorials/interoperability/xcm-observability/limited-reserve-transfer-assets.ts'
@@ -135,6 +138,8 @@ In complex XCM flows, such as multi-hop transfers that span multiple parachains,
 - **Destination chain**: Hydration
 - **Topic assignment**: Manually set via `SetTopic` instruction
 - **Goal**: Transfer DOT and trace the XCM using the manually assigned `message_id`
+
+Create a new script, `multi-hop-with-set-topic.ts`
 
 ```ts
 --8<-- 'code/tutorials/interoperability/xcm-observability/multi-hop-with-set-topic.ts'

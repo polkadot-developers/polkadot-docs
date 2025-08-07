@@ -53,12 +53,12 @@ These features are available in runtimes built from **`stable2503-5` or later**.
 
 - On newer runtimes, the same topic is preserved throughout a multi-hop transfer. This ensures consistent correlation of the `message_id` between origin and destination, even across multiple chains.
 
-## Define a Scenario: DOT to Acala Transfer
+## Define a Scenario: DOT to Hydration Transfer
 
-We will examine the full lifecycle of a cross-chain message from Polkadot Asset Hub to Acala, using the `limited_reserve_transfer_assets` extrinsic.
+We will examine the full lifecycle of a cross-chain message from Polkadot Asset Hub to Hydration, using the `limited_reserve_transfer_assets` extrinsic.
 
 - **Origin chain**: Polkadot Asset Hub
-- **Destination chain**: Acala
+- **Destination chain**: Hydration
 - **Extrinsic**: `limited_reserve_transfer_assets`
 - **Goal**: Transfer DOT and trace the XCM using its emitted `message_id`
 
@@ -76,12 +76,12 @@ Start the local environment:
 npx @acala-network/chopsticks xcm \
     -r polkadot \
     -p polkadot-asset-hub \
-    -p acala
+    -p hydradx
 ```
 
 ### Execute the Transfer
 
-This example uses the `PolkadotXcm.limited_reserve_transfer_assets` extrinsic to initiate a DOT transfer from Polkadot Asset Hub to Acala.
+This example uses the `PolkadotXcm.limited_reserve_transfer_assets` extrinsic to initiate a DOT transfer from Polkadot Asset Hub to Hydration.
 
 The runtime automatically appends a `SetTopic` instruction to the forwarded XCM. This topic becomes the `message_id` used in both `Sent` and `Processed` events, enabling traceability without manual intervention.
 
@@ -109,13 +109,13 @@ The submitted extrinsic constructs an XCM like the following:
 
 --8<-- 'code/tutorials/interoperability/xcm-observability/local-xcm.html'
 
-#### Forwarded XCM (Destination Chain: Acala)
+#### Forwarded XCM (Destination Chain: Hydration)
 
 During execution, the runtime adds a `SetTopic` instruction automatically. This topic is carried through to the destination chain and becomes the basis for event correlation:
 
 --8<-- 'code/tutorials/interoperability/xcm-observability/forwarded-xcm.html'
 
-This forwarded message is then processed on Acala, where the `message_id` is emitted in the `MessageQueue.Processed` event.
+This forwarded message is then processed on Hydration, where the `message_id` is emitted in the `MessageQueue.Processed` event.
 
 ### Track the Message Across Chains
 

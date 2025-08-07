@@ -3,8 +3,8 @@ import {withPolkadotSdkCompat} from "polkadot-api/polkadot-sdk-compat";
 import {getPolkadotSigner} from "polkadot-api/signer";
 import {getWsProvider} from "polkadot-api/ws-provider/web";
 import {
-    acala,
     assetHub,
+    hydration,
     XcmV3MultiassetFungibility,
     XcmV3WeightLimit,
     XcmV5Junction,
@@ -35,16 +35,17 @@ const toHuman = (_key: any, value: any) => {
 };
 
 async function main() {
-    const assetHubClient = createClient(
+    const para1Name = "Polkadot Asset Hub";
+    const para1Client = createClient(
         withPolkadotSdkCompat(getWsProvider("ws://localhost:8000")),
     );
-    const assetHubApi = assetHubClient.getTypedApi(assetHub);
+    const para1Api = para1Client.getTypedApi(assetHub);
 
-    const parachainName = "Acala";
-    const parachainClient = createClient(
+    const para2Name = "Hydration";
+    const para2Client = createClient(
         withPolkadotSdkCompat(getWsProvider("ws://localhost:8001")),
     );
-    const parachainApi = parachainClient.getTypedApi(acala);
+    const para2Api = para2Client.getTypedApi(hydration);
 
     const entropy = mnemonicToEntropy(DEV_PHRASE);
     const miniSecret = entropyToMiniSecret(entropy);
@@ -56,10 +57,10 @@ async function main() {
 
     const origin = Enum("system", Enum("Signed", aliceAddress));
     const tx: Transaction<any, string, string, any> =
-        assetHubApi.tx.PolkadotXcm.limited_reserve_transfer_assets({
+        para1Api.tx.PolkadotXcm.limited_reserve_transfer_assets({
             dest: XcmVersionedLocation.V5({
                 parents: 1,
-                interior: XcmV5Junctions.X1(XcmV5Junction.Parachain(2000)),
+                interior: XcmV5Junctions.X1(XcmV5Junction.Parachain(2034)),
             }),
             beneficiary: XcmVersionedLocation.V5({
                 parents: 0,
@@ -90,7 +91,7 @@ async function main() {
     console.log("👀 Executing XCM:", JSON.stringify(decodedCall, toHuman, 2));
 
     try {
-        const dryRunResult: any = await assetHubApi.apis.DryRunApi.dry_run_call(
+        const dryRunResult: any = await para1Api.apis.DryRunApi.dry_run_call(
             origin,
             decodedCall,
             XCM_VERSION,
@@ -106,79 +107,70 @@ async function main() {
         } else {
             console.log("✅ Local dry run successful.");
 
-            const parachainBlockBefore = await parachainClient.getFinalizedBlock();
+            let parachainBlockBefore = await para2Client.getFinalizedBlock();
             const extrinsic = await tx.signAndSubmit(aliceSigner);
             const block = extrinsic.block;
-            console.log(
-                `📦 Finalised on Polkadot Asset Hub in block #${block.number}: ${block.hash}`,
-            );
+            console.log(`📦 Finalised on ${para1Name} in block #${block.number}: ${block.hash}`);
 
             if (!extrinsic.ok) {
                 const dispatchError = extrinsic.dispatchError;
                 if (dispatchError.type === "Module") {
                     const modErr: any = dispatchError.value;
-                    console.error(
-                        `❌ Dispatch error in module: ${modErr.type} → ${modErr.value?.type}`,
-                    );
+                    console.error(`❌ Dispatch error in module: ${modErr.type} → ${modErr.value?.type}`);
                 } else {
-                    console.error(
-                        "❌ Dispatch error:",
-                        JSON.stringify(dispatchError, toHuman, 2),
-                    );
+                    console.error("❌ Dispatch error:", JSON.stringify(dispatchError, toHuman, 2));
                 }
             }
 
-            const sentEvents = await assetHubApi.event.PolkadotXcm.Sent.pull();
+            const sentEvents = await para1Api.event.PolkadotXcm.Sent.pull();
             if (sentEvents.length > 0) {
                 const sentMessageId = sentEvents[0].payload.message_id.asHex();
-                console.log(
-                    `📣 Last message Sent on Polkadot Asset Hub: ${sentMessageId}`,
-                );
+                console.log(`📣 Last message Sent on ${para1Name}: ${sentMessageId}`);
 
                 let processedMessageId = undefined;
                 const maxRetries = 8;
                 for (let i = 0; i < maxRetries; i++) {
-                    const parachainBlockAfter = await parachainClient.getFinalizedBlock();
+                    const parachainBlockAfter = await para2Client.getFinalizedBlock();
                     if (parachainBlockAfter.number == parachainBlockBefore.number) {
                         const waiting = 1_000 * (i + 1);
                         console.log(
-                            `⏳ Waiting ${waiting}ms for ${parachainName} block to be finalised (${i + 1}/${maxRetries})...`,
+                            `⏳ Waiting ${waiting}ms for ${para2Name} block to be finalised (${i + 1}/${maxRetries})...`,
                         );
                         await new Promise((resolve) => setTimeout(resolve, waiting));
                         continue;
                     }
 
                     console.log(
-                        `📦 Finalised on ${parachainName} in block #${parachainBlockAfter.number}: ${parachainBlockAfter.hash}`,
+                        `📦 Finalised on ${para2Name} in block #${parachainBlockAfter.number}: ${parachainBlockAfter.hash}`,
                     );
-                    const processedEvents =
-                        await parachainApi.event.MessageQueue.Processed.pull();
+                    const processedEvents = await para2Api.event.MessageQueue.Processed.pull();
+                    const processingFailedEvents = await para2Api.event.MessageQueue.ProcessingFailed.pull();
                     if (processedEvents.length > 0) {
                         processedMessageId = processedEvents[0].payload.id.asHex();
-                        console.log(
-                            `📣 Last message Processed on ${parachainName}: ${processedMessageId}`,
-                        );
+                        console.log(`📣 Last message Processed on ${para2Name}: ${processedMessageId}`);
+                        break;
+                    } else if (processingFailedEvents.length > 0) {
+                        processedMessageId = processingFailedEvents[0].payload.id.asHex();
+                        console.log(`📣 Last message ProcessingFailed on ${para2Name}: ${processedMessageId}`);
+                        break;
                     } else {
-                        console.log(`📣 No Processed events on ${parachainName} found.`);
+                        console.log(`📣 No Processed events on ${para2Name} found.`);
+                        parachainBlockBefore = parachainBlockAfter; // Update the block before to the latest one
                     }
-
-                    break;
                 }
 
                 if (processedMessageId === sentMessageId) {
-                    console.log("✅ Message ID matched.");
+                    console.log("✅ Processed Message ID matched.");
                 } else {
-                    console.error(
-                        "❌ Processed message ID does not match sent message ID.",
-                    );
+                    console.error("❌ Processed Message ID does not match Sent Message ID.");
                 }
             } else {
-                console.log("📣 No Sent events on Polkadot Asset Hub found.");
+                console.log(`📣 No Sent events on ${para1Name} found.`);
             }
         }
     } finally {
-        assetHubClient.destroy();
-        parachainClient.destroy();
+        para1Client.destroy();
+        para2Client.destroy();
     }
 }
 

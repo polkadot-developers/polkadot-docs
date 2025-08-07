@@ -1,0 +1,141 @@
+name: Trigger n8n Webhook with Complete PR Info
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  gather-and-send:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Generate Run UUID
+        id: uuid
+        run: echo "run_token=$(uuidgen)" >> $GITHUB_OUTPUT
+
+      - name: Fetch PR metadata
+        id: pr
+        uses: octokit/request-action@v2.x
+        with:
+          route: GET /repos/${{ github.repository }}/pulls/${{ github.event.pull_request.number }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Fetch PR files (diffs/patches)
+        id: files
+        uses: octokit/request-action@v2.x
+        with:
+          route: GET /repos/${{ github.repository }}/pulls/${{ github.event.pull_request.number }}/files
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Fetch PR commits
+        id: commits
+        uses: octokit/request-action@v2.x
+        with:
+          route: GET /repos/${{ github.repository }}/pulls/${{ github.event.pull_request.number }}/commits
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Fetch PR diff (patch)
+        id: diff
+        run: |
+          curl -L \
+            -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
+            -H "Accept: application/vnd.github.v3.diff" \
+            "https://api.github.com/repos/${{ github.repository }}/pulls/${{ github.event.pull_request.number }}" \
+            > pr.diff
+          DIFF_B64=$(base64 -w 0 pr.diff)
+          echo "diff_b64=$DIFF_B64" >> $GITHUB_OUTPUT
+
+      - name: Combine and send to n8n webhook and capture response
+        id: n8n
+        env:
+          PR_DATA: ${{ steps.pr.outputs.data }}
+          FILES_DATA: ${{ steps.files.outputs.data }}
+          COMMITS_DATA: ${{ steps.commits.outputs.data }}
+          DIFF_B64: ${{ steps.diff.outputs.diff_b64 }}
+          RUN_TOKEN: ${{ steps.uuid.outputs.run_token }}
+          N8N_WEBHOOK_URL: ${{ secrets.N8N_WEBHOOK_URL }}
+        run: |
+          set -e
+
+          # Build payload.json using jq to avoid invalid JSON formatting
+          jq -n \
+            --argjson pr "$PR_DATA" \
+            --argjson files "$FILES_DATA" \
+            --argjson commits "$COMMITS_DATA" \
+            --arg diff_base64 "$DIFF_B64" \
+            --arg token "$RUN_TOKEN" \
+            '{
+              pr: $pr,
+              files: $files,
+              commits: $commits,
+              diff_base64: $diff_base64,
+              token: $token
+            }' > payload.json
+
+          # Post to n8n and capture response
+          RESPONSE=$(curl -s -w "\n%{http_code}" -X POST \
+            -H "Content-Type: application/json" \
+            --data @payload.json \
+            "$N8N_WEBHOOK_URL")
+
+          HTTP_BODY=$(echo "$RESPONSE" | sed '$d')
+          HTTP_STATUS=$(echo "$RESPONSE" | tail -n1)
+
+          echo "n8n responded with status: $HTTP_STATUS"
+          echo "n8n response body: $HTTP_BODY"
+
+          echo "$HTTP_BODY" > response_body.json
+
+          STATUS=$(echo "$HTTP_BODY" | jq -r ".status" | tr -d '"')
+          if [ $? -ne 0 ]; then
+            echo "Failed to parse .status from n8n response (invalid JSON?)"
+            exit 1
+          fi
+          MATCHED=$(echo "$HTTP_BODY" | jq -r ".token" | tr -d '"')
+          if [ $? -ne 0 ]; then
+            echo "Failed to parse .token from n8n response (invalid JSON?)"
+            exit 1
+          fi
+
+          if [ "$MATCHED" != "$RUN_TOKEN" ] || [ "$STATUS" != "completed" ]; then
+            echo "n8n workflow did not complete correctly or token mismatch"
+            exit 1
+          fi
+
+          if [ "$HTTP_STATUS" -lt 200 ] || [ "$HTTP_STATUS" -ge 300 ]; then
+            echo "n8n workflow failed or did not complete successfully"
+            exit 1
+          fi
+        
+      - name: Parse verification claims into structured schema
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          RESPONSE_BODY=$(cat response_body.json)
+
+          PR_NUMBER=$(echo "$RESPONSE_BODY" | jq -r ".pr_number")
+          COMMENTS_JSON=$(echo "$RESPONSE_BODY" | jq -r ".comment")
+
+          if [ -z "$COMMENTS_JSON" ] || [ "$COMMENTS_JSON" == "null" ]; then
+            echo "No comments to post."
+            exit 0
+          fi
+
+          # COMMENTS_JSON is a JSON string representing an array, parse it properly
+          # Use jq to parse the string as JSON, iterate over each object and get formattedReview
+          echo "$COMMENTS_JSON" | jq -c '.' | jq -c '.[]' | while read -r item; do
+            FORMATTED_REVIEW=$(echo "$item" | jq -r '.formattedReview')
+            if [ -n "$FORMATTED_REVIEW" ] && [ "$FORMATTED_REVIEW" != "null" ]; then
+              echo "Posting feedback to PR #$PR_NUMBER..."
+              gh pr comment "$PR_NUMBER" --body "$FORMATTED_REVIEW"
+            fi
+          done

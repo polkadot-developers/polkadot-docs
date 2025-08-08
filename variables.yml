@@ -13,16 +13,16 @@ dependencies:
       version: v0.0.2
     srtool:
       repository_url: https://github.com/paritytech/srtool
-      version: v0.18.2
+      version: v0.18.3
       docker_image_name: paritytech/srtool
-      docker_image_version: 1.84.1
+      docker_image_version: 1.88.0
     polkadot_sdk:
       repository_url: https://github.com/paritytech/polkadot-sdk
-      version: polkadot-stable2503-7
-      docker_image_version: stable2503-7
+      version: polkadot-stable2506
+      docker_image_version: stable2506
     open_zeppelin_contracts:
       repository_url: https://github.com/OpenZeppelin/openzeppelin-contracts
-      version: v5.3.0
+      version: v5.4.0
     polkadot_sdk_contracts_node:
       repository_url: https://github.com/paritytech/polkadot-sdk
       version: polkadot-stable2503-6
@@ -57,13 +57,13 @@ dependencies:
       polkadot_js_api_version: v16.2.2 # Check changelog for pjs version bumps
     moonwall:
       name: '@moonwall/cli'
-      version: 5.13.1
+      version: 5.13.5
     polkadot_js_api:
       name: '@polkadot/api'
-      version: 16.4.2
+      version: 16.4.3
     polkadot_api:
       name: polkadot-api
-      version: 1.15.0
+      version: 1.15.2
     hardhat_resolc: 
       name: '@hardhat-resolc'
       version: 0.0.7  
@@ -84,5 +84,5 @@ dependencies:
       version: 6.13.5
     paraspell_sdk:
       name: '@paraspell/sdk'
-      version: 10.10.11
+      version: 10.11.5
 #   python_packages:

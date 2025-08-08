@@ -171,9 +171,9 @@ After submitting the transfer, use the `message_id` to correlate origin and dest
 
 --8<-- 'code/tutorials/interoperability/xcm-observability/limited-reserve-transfer-assets-result.html'
 
-## Define a Scenario: Multi-Hop XCM with Manual `SetTopic`
+## Define a Scenario: XCM Transfer with Manual `SetTopic`
 
-In complex XCM flows, such as multi-hop transfers that span multiple parachains, you may want to use `SetTopic` to **consistently trace the message across all involved chains**.
+In complex XCM flows, such as transfers that span multiple parachains, you may want to use `SetTopic` to **consistently trace the message across all involved chains**.
 
 - **Origin chain**: Polkadot Asset Hub
 - **Destination chain**: Hydration

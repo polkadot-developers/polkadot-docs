@@ -1,6 +1,6 @@
 ---
 title: Fees
-description: How to handle fees in XCM.
+description: Learn how XCM fees work. Execution and delivery fees, how to estimate and pay them across chains, and which assets can be used for fee payment.
 ---
 
 # Fees

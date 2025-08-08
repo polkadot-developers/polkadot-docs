@@ -29,7 +29,7 @@ Account queries should check:
     - The correct address and address format is used.
     - Whether the account meets existential deposit requirements.
 - Balance of the sending account has:
-    - Enough to pay for fees (transaction fees, delivery fees, and/or swap fees).
+    - Enough to pay for fees (transaction fees, XCM execution and delivery fees, and/or swap fees).
     - Enough to cover the existential deposit before and after the transfer.
 - Balance of the recipient account has:
     - Enough to cover for the existential deposit.
@@ -57,11 +57,11 @@ You can refer to the following snippet as an example of checking for the Existen
     - **Kusama**: 0.0033 KSM (3.3 * 10^10 planck)  
     - **Asset Hub**: 0.01 DOT (10^8 planck)
 
-For non-sufficient assets, make sure the destination account has enough native tokens or assets to maintain the ED; otherwise, include asset conversion instructions in the XCM.
+For non-sufficient assets, make sure the destination account has a sufficient amount in the form of a native or sufficient asset to cover for the ED; otherwise, include asset conversion instructions in the XCM to swap for a sufficient asset or native token.
 
 ## Fee Estimation and Coverage
 
-When it comes to transaction fees, XCM delivery fees, and asset conversion swapping fees, you can use associated runtime APIs to obtain an accurate estimate of the fee rather than hardcoded values.
+When it comes to transaction fees, XCM execution and delivery fees, and asset conversion swapping fees, you can use associated runtime APIs to obtain an accurate estimate of the fee rather than hardcoded values.
 
 ### Runtime API Integration
 
@@ -72,12 +72,22 @@ When it comes to transaction fees, XCM delivery fees, and asset conversion swapp
     ```
   This code establishes a connection to the Polkadot network and queries detailed fee information for a specific transaction call, including base fees, length fees, and tip calculations.
 
+
+- [XCM Payment API](https://paritytech.github.io/polkadot-sdk/master/xcm_runtime_apis/fees/trait.XcmPaymentApi.html){target=\_blank} for local XCM execution fees:
+
+    ```typescript
+    --8<-- 'code/develop/interoperability/best-practices-for-teleporting-assets/xcm-execution-fees.ts'
+    ```
+  This code calculates the local XCM execution fees required to execute an XCM message on the parachain.
+
+
 - [XCM Payment API](https://paritytech.github.io/polkadot-sdk/master/xcm_runtime_apis/fees/trait.XcmPaymentApi.html){target=\_blank} for cross-chain delivery fees:
 
     ```typescript
-    --8<-- 'code/develop/interoperability/best-practices-for-teleporting-assets/xcm-payment-api.ts'
+    --8<-- 'code/develop/interoperability/best-practices-for-teleporting-assets/xcm-delivery-fees.ts'
     ```
   This code calculates the delivery fees required to send an XCM message to a specific destination parachain, helping estimate cross-chain transaction costs.
+
 
 - [Asset Conversion API](https://paritytech.github.io/polkadot-sdk/master/pallet_asset_conversion/trait.AssetConversionApi.html){target=\_blank} (available on Asset Hub) for fee conversion:
 
@@ -100,8 +110,8 @@ For dealing with non-sufficient assets and fees, there are different fee payment
 
 Sufficient assets can:
 
-- Pay for transaction and XCM delivery fees directly.
 - Suffice for account existence by meeting the existential deposit requirements.
+- Pay for transaction and, if the chain configuration allows, sufficient assets can also be used for XCM execution and delivery fees.
 
 !!!note Sufficient Assets
     Always check the chain to see what assets are considered sufficient assets.
@@ -111,8 +121,8 @@ Sufficient assets can:
 
 Non-sufficient assets can:
 
-- Pay for transaction and XCM delivery fees by swapping for a sufficent asset.
-- Be used to create a new account by swapping for an exact amount of a sufficient asset to cover for the existential deposit of the new account.
+- Pay for transaction and XCM execution/delivery fees by swapping for a sufficent asset.
+- Be used to create new accounts by swapping for an exact amount of a sufficient asset to cover for the existential deposit of the new account.
 
 !!!note Swapping Non-Sufficient Assets
     Swapping non-sufficient assets for a sufficient asset can be done with the help of [asset conversion](https://wiki.polkadot.network/learn/learn-asset-conversion-assethub){target=\_blank} which is live on Asset Hub. Always make sure there is an associated liquidity pool with healthy liquidity for the pair that you intend to swap.

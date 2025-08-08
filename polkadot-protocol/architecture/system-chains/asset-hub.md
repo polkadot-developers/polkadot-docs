@@ -129,9 +129,9 @@ Non-sufficient assets, on the other hand, **cannot** suffice on their own for ac
 
 On Asset Hub, sufficient assets:
 
-- Can be natively used for the existential deposit (ED).
-- Can be natively used for [paying transaction fees](#transaction-fees).
-- Can be natively used for [paying XCM delivery fees](#xcm-fees).
+- Can be used for the existential deposit (ED).
+- Can be used for [paying transaction fees](#transaction-fees).
+- Can be used for [paying XCM execution and delivery fees](#xcm-fees).
 - Cannot be used for storage deposits (only if swapped for the native token).
 
 ### Non-Sufficient Assets
@@ -149,14 +149,14 @@ This allows developers to create a seamless experience for end users by allowing
 
 ### Transaction Fees
 
-On Asset Hub, both sufficient and non-sufficient assets can be used for paying transaction fees. For sufficient assets, Asset Hub natively converts the native asset (e.g. DOT) amount required to an asset balance and the signer actually pays that asset to a collator. And for non-sufficient assets on Asset Hub developers can leverage [asset conversion](https://wiki.polkadot.network/learn/learn-asset-conversion-assethub){target=\_blank} via a [swap](/tutorials/polkadot-sdk/system-chains/asset-hub/asset-conversion/) or an XCM `ExchangeAsset` instruction to swap the non-sufficient asset for the native asset. For this to work, non-sufficient assets need to have a [liquidity pool set up](https://wiki.polkadot.network/learn/learn-guides-asset-conversion/#create-a-liquidity-pool){target=\_blank} against the native asset (e.g. DOT).
+On Asset Hub, both sufficient and non-sufficient assets can be used for paying transaction fees. For sufficient assets, Asset Hub natively converts the native asset (e.g. DOT) amount required to an asset balance and the signer actually pays that asset to a collator. And for non-sufficient assets on Asset Hub developers can leverage [asset conversion](https://wiki.polkadot.network/learn/learn-asset-conversion-assethub){target=\_blank} via a [swap](/tutorials/polkadot-sdk/system-chains/asset-hub/asset-conversion/) or an XCM `ExchangeAsset` instruction to swap the non-sufficient asset for any asset that has a [liquidity pool set up](https://wiki.polkadot.network/learn/learn-guides-asset-conversion/#create-a-liquidity-pool){target=\_blank} against the native asset or sufficient asset and use those tokens to cover for transaction fees.
 
 !!!note 
     Existing UI's, wallets, and tools may have limitations because of design decisions and/or contraints it places e.g. constructing the XCM call in a specific manner and therefore limiting the end user when in reality the Asset Hub system parachain encompasses more functionality than exposed in the third-party UI, such as the ability to pay transaction fees and XCM delivery fees in any asset.
 
-### XCM Delivery Fees
+### XCM Execution and Delivery Fees
 
-Both sufficient assets and non-sufficient assets can be used to pay for XCM delivery fees on Asset Hub. However, it is important to note that the XCM program needs to explicitly reference the asset to pay the XCM fee in.
+Both sufficient assets and non-sufficient assets can be used to pay for XCM local execution fees and delivery fees on Asset Hub. However, it is important to note that the XCM program needs to explicitly reference the asset to pay the XCM fee in.
 
 For non-sufficient assets, this can be done by calling [asset conversion's swap](https://paritytech.github.io/polkadot-sdk/master/pallet_asset_conversion/pallet/dispatchables/fn.swap_tokens_for_exact_tokens.html){target=\_blank} or including an [`ExchangeAsset`](https://paritytech.github.io/polkadot-sdk/master/cumulus_primitives_core/enum.Instruction.html#variant.ExchangeAsset){target=\_blank} instruction in the XCM program to swap the non-sufficient asset for the native asset to pay for the XCM delivery fee.
 

@@ -180,16 +180,16 @@ In complex XCM flows, such as multi-hop transfers that span multiple parachains,
 - **Topic assignment**: Manually set via `SetTopic` instruction
 - **Goal**: Transfer DOT and trace the XCM using the manually assigned `message_id`
 
-Create a new script, `multi-hop-with-set-topic.ts`
+Create a new script, `deposit-reserve-asset-with-set-topic.ts`
 
 ```ts
---8<-- 'code/tutorials/interoperability/xcm-observability/multi-hop-with-set-topic.ts'
+--8<-- 'code/tutorials/interoperability/xcm-observability/deposit-reserve-asset-with-set-topic.ts'
 ```
 
 Run it locally:
 
 ```bash
-npx tsx multi-hop-with-set-topic.ts
+npx tsx deposit-reserve-asset-with-set-topic.ts
 ```
 
 #### Forwarded XCM (Destination Chain: Hydration)
@@ -200,7 +200,7 @@ During execution, the runtime includes a `SetTopic` instruction with the customi
 
 #### Example: Message Trace Output
 
---8<-- 'code/tutorials/interoperability/xcm-observability/multi-hop-with-set-topic-result.html'
+--8<-- 'code/tutorials/interoperability/xcm-observability/deposit-reserve-asset-with-set-topic-result.html'
 
 ## Workaround for Older Runtimes
 

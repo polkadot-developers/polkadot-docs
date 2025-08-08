@@ -4,7 +4,7 @@ description: Explore the different versions of XCM, understand version-specific 
 template: index-page.html
 ---
 
-# Versions
+# XCM Versions
 
 XCM is a versioned language that evolves to meet the growing needs of cross-chain communication in the Polkadot ecosystem. Understanding XCM versioning is essential for developers building interoperable applications to keep up with the latest improvements.
 

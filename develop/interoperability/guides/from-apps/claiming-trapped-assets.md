@@ -1,13 +1,13 @@
 ---
 title: Claiming Trapped Assets
-description: How to claim digital assets that become trapped on-chain due to an XCM execution failure. This guide details the process and required steps.
+description: How to claim assets that become trapped on-chain due to an XCM execution failure. This guide details the process and required steps.
 ---
 
 # Claiming Trapped Assets
 
 ## Introduction
 
-When XCM execution fails or succeeds, leftover assets become "trapped" on the destination chain. These assets are held by the system but not accessible through normal means. XCM provides mechanisms to claim these trapped assets and recover them.
+When XCM execution fails or succeeds, leftover assets can become "trapped" on the destination chain. These assets are held by the system but not accessible through normal means. XCM provides mechanisms to claim these trapped assets and recover them.
 This guide details the process and required steps to claim trapped assets.
 
 ## Trapped Assets Causes

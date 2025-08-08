@@ -28269,15 +28269,20 @@ async function main() {
     const aliceAddress = ss58Address(alicePublicKey);
 
     const origin = Enum("system", Enum("Signed", aliceAddress));
-
+    const beneficiary = {
+        parents: 0,
+        interior: XcmV5Junctions.X1(XcmV5Junction.AccountId32({
+            id: Binary.fromHex("0x9818ff3c27d256631065ecabf0c50e02551e5c5342b8669486c1e566fcbf847f")
+        })),
+    }
     const expectedMessageId = "0xd60225f721599cb7c6e23cdf4fab26f205e30cd7eb6b5ccf6637cdc80b2339b2";
 
     const message = XcmVersionedXcm.V5([
         XcmV5Instruction.WithdrawAsset([
             {
                 id: {
-                    interior: XcmV5Junctions.Here(),
                     parents: 1,
+                    interior: XcmV5Junctions.Here(),
                 },
                 fun: XcmV3MultiassetFungibility.Fungible(1_000_000_000n),
             },
@@ -28286,8 +28291,8 @@ async function main() {
         XcmV5Instruction.BuyExecution({
             fees: {
                 id: {
-                    interior: XcmV5Junctions.Here(),
                     parents: 1,
+                    interior: XcmV5Junctions.Here(),
                 },
                 fun: XcmV3MultiassetFungibility.Fungible(500_000_000n),
             },
@@ -28296,15 +28301,15 @@ async function main() {
         XcmV5Instruction.DepositReserveAsset({
             assets: XcmV5AssetFilter.Wild(XcmV5WildAsset.All()),
             dest: {
-                interior: XcmV5Junctions.X1(XcmV5Junction.Parachain(2034)),
                 parents: 1,
+                interior: XcmV5Junctions.X1(XcmV5Junction.Parachain(2034)),
             },
             xcm: [
                 XcmV5Instruction.BuyExecution({
                     fees: {
                         id: {
-                            interior: XcmV5Junctions.Here(),
                             parents: 1,
+                            interior: XcmV5Junctions.Here(),
                         },
                         fun: XcmV3MultiassetFungibility.Fungible(500_000_000n),
                     },
@@ -28312,16 +28317,7 @@ async function main() {
                 }),
                 XcmV5Instruction.DepositAsset({
                     assets: XcmV5AssetFilter.Wild(XcmV5WildAsset.All()),
-                    beneficiary: {
-                        interior: XcmV5Junctions.X1(
-                            XcmV5Junction.AccountId32({
-                                id: Binary.fromHex(
-                                    "0x9818ff3c27d256631065ecabf0c50e02551e5c5342b8669486c1e566fcbf847f",
-                                ),
-                            }),
-                        ),
-                        parents: 0,
-                    },
+                    beneficiary,
                 }),
             ],
         }),

@@ -23,13 +23,54 @@ To demonstrate these techniques, the guide introduces a complete example scenari
 
 Before you begin, ensure you've:
 
-- [Chopsticks](/develop/toolkit/parachains/fork-chains/chopsticks/get-started/){target=\_blank} installed (`npm i -g @acala-network/chopsticks`)
+- [Chopsticks](/develop/toolkit/parachains/fork-chains/chopsticks/get-started/){target=\_blank} installed
 - Access to the endpoint or genesis file of the parachain you wish to fork
 - Set up your TypeScript project with the essential tools
 
 If you haven't replayed or dry-run XCMs before, see the [Replay and Dry Run XCMs Using Chopsticks](/tutorials/interoperability/replay-and-dry-run-xcms/){target=\_blank} tutorial for step-by-step guidance.
 
-### Launch a Fork for Local Testing
+### Set Up Your Project
+
+Let's start by creating a dedicated workspace for your XCM observability demo.
+
+1. Create a new directory and navigate into it:
+
+    ```bash
+    mkdir -p xcm-obs-demo
+    cd xcm-obs-demo
+    ```
+
+2. Initialise a new Node project:
+
+    ```bash
+    npm init -y
+    ```
+
+3. Install Chopsticks globally (recommended to avoid conflicts with local installs):
+
+    ```bash
+    npm install -g @acala-network/chopsticks@latest
+    ```
+
+4. Install TypeScript and related tooling for local development:
+
+    ```bash
+    npm install --save-dev typescript @types/node tsx
+    ```
+
+5. Install the required Polkadot packages:
+
+    ```bash
+    npm install polkadot-api @polkadot-labs/hdkd @polkadot-labs/hdkd-helpers
+    ```
+
+6. Initialise the TypeScript config:
+
+    ```bash
+    npx tsc --init
+    ```
+
+### Launch a Fork for XCM Observability Demo
 
 To observe XCM tracing in action, fork the relevant chains locally using Chopsticks.
 

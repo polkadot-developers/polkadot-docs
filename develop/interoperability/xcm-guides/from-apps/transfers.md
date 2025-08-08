@@ -114,7 +114,7 @@ As mentioned before, you need to specify the transfer type.
     `bun papi add ahp -n polkadot_asset_hub`
 
     ```typescript title="teleport-example.ts"
-    --8<-- 'code/develop/interoperability/guides/from-apps/teleport-example.ts'
+    --8<-- 'code/develop/interoperability/xcm-guides/from-apps/teleport-example.ts'
     ```
 
 ## Origin Preservation
@@ -138,5 +138,5 @@ To enable this feature, the [`preserve_origin`](https://paritytech.github.io/pol
     `bun papi add ahp -n polkadot_asset_hub && bun papi add people -n polkadot_people`
 
     ```typescript title="teleport-and-transact.ts"
-    --8<-- 'code/develop/interoperability/guides/from-apps/teleport-and-transact.ts'
+    --8<-- 'code/develop/interoperability/xcm-guides/from-apps/teleport-and-transact.ts'
     ```

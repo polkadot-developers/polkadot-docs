@@ -1,10 +1,10 @@
 ---
-title: Guides
+title: XCM Guides
 description: Comprehensive guides for implementing XCM functionality in applications and understanding cross-chain interactions.
 template: index-page.html
 ---
 
-# Guides
+# XCM Guides
 
 This section provides comprehensive guides for implementing XCM functionality, including application development patterns, fee management, asset transfers, and cross-chain transaction handling.
 

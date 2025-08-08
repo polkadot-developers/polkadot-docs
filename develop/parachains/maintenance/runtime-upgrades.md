@@ -51,4 +51,4 @@ The runtime metadata should only change when the chain's [runtime `spec_version`
 
 Some runtime upgrades require updating how data is stored to match new formats or layouts. This process is called a Storage Migration. It ensures the runtime can interpret existing state correctly after an upgrade.
 
-For detailed guidance, scenarios, and implementation patterns, see [Storage Migrations](/develop/parachains/maintenance/storage-migrations/){target=\_blank} page.
+For detailed guidance, scenarios, and implementation patterns, see the [Storage Migrations](/develop/parachains/maintenance/storage-migrations/){target=\_blank} page.

@@ -21,7 +21,13 @@ XcmV5Instruction.InitiateTransfer({
 
 ## Transfer Types
 
-The `remote_fees` parameter only takes one asset. The `assets` parameter takes a list of many. Both need to specify which transfer type they're using. The developer needs to specify whether or not those assets are transferred via a [`Teleport`](https://paritytech.github.io/polkadot-sdk/master/staging_xcm/v5/enum.AssetTransferFilter.html#variant.Teleport){target=\_blank}, a [`ReserveWithdraw`](https://paritytech.github.io/polkadot-sdk/master/staging_xcm/v5/enum.AssetTransferFilter.html#variant.ReserveWithdraw){target=\_blank} or a [`ReserveDeposit`](https://paritytech.github.io/polkadot-sdk/master/staging_xcm/v5/enum.AssetTransferFilter.html#variant.ReserveDeposit){target=\_blank}. These correspond to the types of cross-chain transfers.
+The `remote_fees` parameter only takes one asset, while `assets` can list multiple. Both must specify a **transfer type** — either:
+
+- [**Teleport**](https://paritytech.github.io/polkadot-sdk/master/staging_xcm/v5/enum.AssetTransferFilter.html#variant.Teleport){target=\_blank} – Moves assets by effectively "destroying" them on the source chain and "creating" them on the destination. Useful when both chains trust each other for that asset.
+- [**Reserve Deposit**](https://paritytech.github.io/polkadot-sdk/master/staging_xcm/v5/enum.AssetTransferFilter.html#variant.ReserveDeposit){target=\_blank} – A reserve transfer where _your chain is the reserve_ for the asset. The asset stays locked on your chain, and a representation is minted on the destination.
+- [**Reserve Withdraw**](https://paritytech.github.io/polkadot-sdk/master/staging_xcm/v5/enum.AssetTransferFilter.html#variant.ReserveWithdraw){target=\_blank} – A reserve transfer where _the destination chain is the reserve_. Assets are withdrawn from their reserve location and credited to the recipient.
+
+These types come from the [`AssetTransferFilter`](https://paritytech.github.io/polkadot-sdk/master/staging_xcm/v5/enum.AssetTransferFilter.html){target=\_blank} enum in XCM.
 
 For example, to transfer 50 DOT via a teleport, the transfer type must be specified as a teleport. This also requires using an [Asset Filter](https://paritytech.github.io/polkadot-sdk/master/staging_xcm/v5/enum.AssetFilter.html){target=\_blank}.
 

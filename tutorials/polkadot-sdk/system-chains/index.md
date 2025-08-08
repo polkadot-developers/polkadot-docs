@@ -24,6 +24,8 @@ Unlock new possibilities by tapping into Polkadot’s system chains:
 
 - **[Convert Assets](/tutorials/polkadot-sdk/system-chains/asset-hub/asset-conversion/)** - use Asset Hub's AMM functionality to swap between different assets, provide liquidity to pools, and manage LP tokens
 
+- **[Batch Teleport an Asset to Asset Hub](/tutorials/polkadot-sdk/system-chains/asset-hub/batch-teleport-assets/){target=\_blank}** - construct multiple teleports in one batch transaction.
+
 ## In This Section
 
 :::INSERT_IN_THIS_SECTION:::

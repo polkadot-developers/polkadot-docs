@@ -1,0 +1,15 @@
+{
+  "name": "batch-teleport-tutorial",
+  "version": "1.0.0",
+  "description": "Tutorial for creating batch teleport transactions with ParaSpell SDK using Bun",
+  "main": "index.ts",
+  "type": "module",
+  "scripts": {
+    "start": "bun run index.ts",
+    "dev": "bun run --watch index.ts" // --watch automatically restarts the script when files change
+ },
+  },
+  "dependencies": {
+    "@paraspell/sdk": "^{{dependencies.javascript_packages.paraspell_sdk.version}}"
+  }
+}

@@ -56,21 +56,19 @@ async function main() {
     const aliceAddress = ss58Address(alicePublicKey);
 
     const origin = Enum("system", Enum("Signed", aliceAddress));
+    const beneficiary = {
+        parents: 0,
+        interior: XcmV5Junctions.X1(XcmV5Junction.AccountId32({
+            id: Binary.fromHex("0x9818ff3c27d256631065ecabf0c50e02551e5c5342b8669486c1e566fcbf847f")
+        })),
+    }
+
     const tx: any = para1Api.tx.PolkadotXcm.limited_reserve_transfer_assets({
         dest: XcmVersionedLocation.V5({
             parents: 1,
             interior: XcmV5Junctions.X1(XcmV5Junction.Parachain(2034)),
         }),
-        beneficiary: XcmVersionedLocation.V5({
-            parents: 0,
-            interior: XcmV5Junctions.X1(
-                XcmV5Junction.AccountId32({
-                    id: Binary.fromHex(
-                        "0x9818ff3c27d256631065ecabf0c50e02551e5c5342b8669486c1e566fcbf847f",
-                    ),
-                }),
-            ),
-        }),
+        beneficiary: XcmVersionedLocation.V5(beneficiary),
         assets: XcmVersionedAssets.V5([
             {
                 id: {

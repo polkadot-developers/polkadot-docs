@@ -29,10 +29,10 @@ NODE -- JSON Response --> CLIENT
 
 RPC calls are stateless and can be used to:
 
-- Query chain state (e.g., block number, storage values)
-- Submit extrinsics (transactions)
-- Monitor node and network health
-- Retrieve metadata and runtime information
+- Query chain state (e.g., block number, storage values).
+- Submit extrinsics (transactions).
+- Monitor node and network health.
+- Retrieve metadata and runtime information.
 
 ## Making RPC Calls with Curl
 
@@ -68,7 +68,7 @@ Checks the health of your node.
 
 **Parameters:**
 
-None
+None.
 
 **Example:**
 
@@ -140,7 +140,7 @@ Fetches the runtime metadata (needed for decoding storage and extrinsics).
 
 **Parameters:**
 
-None
+None.
 
 **Example:**
 

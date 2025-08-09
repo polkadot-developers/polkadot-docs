@@ -9,11 +9,11 @@ description: Learn how to connect to Polkadot SDK-based nodes, query data, submi
 
 The [Python Substrate Interface](https://github.com/polkascan/py-substrate-interface){target=\_blank} is a powerful library that enables interaction with Polkadot SDK-based chains. It provides essential functionality for:
 
-- Querying on-chain storage
-- Composing and submitting extrinsics
-- SCALE encoding/decoding
-- Interacting with Substrate runtime metadata
-- Managing blockchain interactions through convenient utility methods
+- Querying on-chain storage.
+- Composing and submitting extrinsics.
+- SCALE encoding/decoding.
+- Interacting with Substrate runtime metadata.
+- Managing blockchain interactions through convenient utility methods.
 
 ## Installation
 
@@ -41,9 +41,9 @@ The first step is to establish a connection to a Polkadot SDK-based node. You ca
 
 You can query various on-chain storage items. To retrieve data, you need to specify three key pieces of information:
 
-- **Pallet name** - module or pallet that contains the storage item you want to access
-- **Storage item** - specific storage entry you want to query within the pallet
-- **Required parameters** - any parameters needed to retrieve the desired data
+- **Pallet name**: Module or pallet that contains the storage item you want to access.
+- **Storage item**: Specific storage entry you want to query within the pallet.
+- **Required parameters**: Any parameters needed to retrieve the desired data.
 
 Here's an example of how to check an account's balance and other details:
 
@@ -55,8 +55,8 @@ Here's an example of how to check an account's balance and other details:
 
 To modify the chain state, you need to submit transactions (extrinsics). Before proceeding, ensure you have:
 
-- A funded account with sufficient balance to pay transaction fees
-- Access to the account's keypair
+- A funded account with sufficient balance to pay transaction fees.
+- Access to the account's keypair.
 
 Here's how to create and submit a balance transfer:
 
@@ -70,8 +70,8 @@ The `keypair` object is essential for signing transactions. See the [Keypair](ht
 
 Now that you understand the basics, you can:
 
-- Explore more complex queries and transactions
-- Learn about batch transactions and utility functions
-- Discover how to work with custom pallets and types
+- Explore more complex queries and transactions.
+- Learn about batch transactions and utility functions.
+- Discover how to work with custom pallets and types.
 
 For comprehensive reference materials and advanced features, see the [Python Substrate Interface](https://jamdottech.github.io/py-polkadot-sdk/){target=\_blank} documentation.

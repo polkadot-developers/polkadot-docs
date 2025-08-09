@@ -15,9 +15,9 @@ description: This guide covers deploying and interacting with contracts on Polka
 
 Before getting started, ensure you have the following installed:
 
-- **Node.js** - v22.13.1 or later, check the [Node.js installation guide](https://nodejs.org/en/download/current/){target=\_blank}
-- **npm** - v6.13.4 or later (comes bundled with Node.js)
-- **Solidity** - this guide uses Solidity `^0.8.9` for smart contract development
+- **Node.js**: v22.13.1 or later, check the [Node.js installation guide](https://nodejs.org/en/download/current/){target=\_blank}.
+- **npm**: v6.13.4 or later (comes bundled with Node.js).
+- **Solidity**: This guide uses Solidity `^0.8.9` for smart contract development.
 
 ## Project Structure
 

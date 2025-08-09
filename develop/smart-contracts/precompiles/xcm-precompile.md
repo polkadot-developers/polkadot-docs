@@ -12,9 +12,9 @@ The [XCM (Cross-Consensus Message)](/develop/interoperability/intro-to-xcm){targ
 
 Located at the fixed address `0x00000000000000000000000000000000000a0000`, the XCM precompile offers three primary functions:
 
-- **`execute`**:  for local XCM execution
-- **`send`**:  for cross-chain message transmission
-- **`weighMessage`**: for cost estimation 
+- **`execute`**: For local XCM execution.
+- **`send`**: For cross-chain message transmission.
+- **`weighMessage`**: For cost estimation.
 
 This guide demonstrates how to interact with the XCM precompile through Solidity smart contracts using [Remix IDE](/develop/smart-contracts/dev-environments/remix){target=\_blank}.
 
@@ -31,8 +31,8 @@ The XCM precompile implements the `IXcm` interface, which defines the structure 
 
 The interface defines a `Weight` struct that represents the computational cost of XCM operations. Weight has two components: 
 
-- **`refTime`**: computational time on reference hardware 
-- **`proofSize`**: the size of the proof required for execution 
+- **`refTime`**: Computational time on reference hardware.
+- **`proofSize`**: The size of the proof required for execution.
 
 All XCM messages must be encoded using the [SCALE codec](/polkadot-protocol/parachain-basics/data-encoding/#data-encoding){target=\_blank}, Polkadot's standard serialization format.
 
@@ -98,8 +98,8 @@ Follow these steps to execute a message:
 2. Pass the same message bytes and the weight obtained from the previous step to `execute`.
 For example, using the same message from the weighing example, you would call `execute` with:
 
-    - `message`: The encoded XCM message bytes.
-    - `weight`: The `Weight` struct returned from `weighMessage`.
+    - **`message`**: The encoded XCM message bytes.
+    - **`weight`**: The `Weight` struct returned from `weighMessage`.
 
     You can use the [papi console](https://dev.papi.how/extrinsics#networkId=localhost&endpoint=wss%3A%2F%2Ftestnet-passet-hub.polkadot.io&data=0x1f03050c000401000003008c86471301000003008c8647000d010101000000010100368e8759910dab756d344995f1d3c79374ca8f70066d3a709e48029f6bf0ee7e0750c61e2901daad0600){target=\_blank} to examine the complete extrinsic structure for this operation.
 

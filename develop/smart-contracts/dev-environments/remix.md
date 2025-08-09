@@ -38,9 +38,9 @@ Remix IDE is a robust browser-based development environment for smart contracts.
 
 Before getting started, ensure you have:
 
-- A web browser with [Talisman](https://talisman.xyz/){target=\_blank} extension installed
-- Basic understanding of Solidity programming
-- Some WND test tokens to cover transaction fees (easily obtainable from the [Polkadot faucet](https://faucet.polkadot.io/westend?parachain=1000){target=\_blank})
+- A web browser with [Talisman](https://talisman.xyz/){target=\_blank} extension installed.
+- Basic understanding of Solidity programming.
+- Some WND test tokens to cover transaction fees (easily obtainable from the [Polkadot faucet](https://faucet.polkadot.io/westend?parachain=1000){target=\_blank}).
 
 ## Accessing Remix IDE
 
@@ -54,15 +54,15 @@ In this interface, you can access a file explorer, edit your code, interact with
 
 To create a new contract using the Polkadot Remix IDE, you can follow these steps:
 
-1. Select the **Create a new file** button in the `contracts` folder
+1. Select the **Create a new file** button in the `contracts` folder.
 
     ![](/images/develop/smart-contracts/evm-toolkit/dev-environments/remix/remix-2.webp)
 
-2. Name your file with a `.sol` extension, in this case, `Counter.sol`
+2. Name your file with a `.sol` extension, in this case, `Counter.sol`.
 
     ![](/images/develop/smart-contracts/evm-toolkit/dev-environments/remix/remix-3.webp)
 
-3. Write your Solidity code in the editor
+3. Write your Solidity code in the editor.
 
     You can use the following code as an example:
 
@@ -79,8 +79,8 @@ To create a new contract using the Polkadot Remix IDE, you can follow these step
 
 1. To compile your contract, you need to:
 
-    1. Navigate to the **Solidity Compiler** tab (third icon in the left sidebar)
-    2. Select **Compile** or use `Ctrl+S`
+    1. Navigate to the **Solidity Compiler** tab (third icon in the left sidebar).
+    2. Select **Compile** or use `Ctrl+S`.
 
         ![](/images/develop/smart-contracts/evm-toolkit/dev-environments/remix/remix-5.webp)
     
@@ -88,8 +88,8 @@ To create a new contract using the Polkadot Remix IDE, you can follow these step
             Compilation errors and warnings appear in the terminal panel at the bottom of the screen.
 
 1. After compiling your contract, you can navigate to the **File Explorer** tab (first icon in the left sidebar) and check that:
-    1. The `artifact` folder is present
-    2. The `Counter_metadata.json` and the `Counter.json` files have been generated
+    1. The `artifact` folder is present.
+    2. The `Counter_metadata.json` and the `Counter.json` files have been generated.
 
         ![](/images/develop/smart-contracts/evm-toolkit/dev-environments/remix/remix-6.webp)
 
@@ -97,21 +97,21 @@ To create a new contract using the Polkadot Remix IDE, you can follow these step
 
 1. To deploy your contract, you need to:
 
-    1. Navigate to the **Deploy & Run Transactions** tab (fourth icon in the left sidebar)
-    2. Click the **Enviroment** dropdown 
-    3. Select **Customize this list**
+    1. Navigate to the **Deploy & Run Transactions** tab (fourth icon in the left sidebar).
+    2. Click the **Enviroment** dropdown.
+    3. Select **Customize this list**.
 
         ![](/images/develop/smart-contracts/evm-toolkit/dev-environments/remix/remix-7.webp)
 
-2. Enable the **Injected Provider - Talisman** option
+2. Enable the **Injected Provider - Talisman** option.
 
     ![](/images/develop/smart-contracts/evm-toolkit/dev-environments/remix/remix-8.webp)
 
-4. Click again the **Enviroment** dropdown and select **Injected Provider - Talisman**
+4. Click again the **Enviroment** dropdown and select **Injected Provider - Talisman**.
 
     ![](/images/develop/smart-contracts/evm-toolkit/dev-environments/remix/remix-9.webp)
 
-4. Click the **Deploy** button and then click **Approve** in the Talisman wallet popup
+4. Click the **Deploy** button and then click **Approve** in the Talisman wallet popup.
 
     ![](/images/develop/smart-contracts/evm-toolkit/dev-environments/remix/remix-10.webp)
 
@@ -123,22 +123,22 @@ To create a new contract using the Polkadot Remix IDE, you can follow these step
 
 Once deployed, your contract appears in the **Deployed/Unpinned Contracts** section:
 
-1. Expand the contract to view available methods
+1. Expand the contract to view available methods.
 
     ![](/images/develop/smart-contracts/evm-toolkit/dev-environments/remix/remix-12.webp)
 
     !!! tip
         Pin your frequently used contracts to the **Pinned Contracts** section for easy access.
 
-2. To interact with the contract, you can select any of the exposed methods
+2. To interact with the contract, you can select any of the exposed methods.
 
     ![](/images/develop/smart-contracts/evm-toolkit/dev-environments/remix/remix-13.webp)
 
     In this way, you can interact with your deployed contract by reading its state or writing to it. The button color indicates the type of interaction available:
 
-    - **Red** - modifies state and is payable
-    - **Orange** - modifies state only
-    - **Blue** - reads state
+    - **Red**: Modifies state and is payable.
+    - **Orange**: Modifies state only.
+    - **Blue**: Reads state.
 
 ## Where to Go Next
 

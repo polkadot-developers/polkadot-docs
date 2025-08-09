@@ -10,10 +10,10 @@ Explore comprehensive testing strategies for Polkadot SDK-based blockchains, fro
 
 Through these guides, you'll learn to:
 
-- Create effective test environments
-- Validate pallet interactions
-- Simulate blockchain conditions
-- Verify runtime behavior
+- Create effective test environments.
+- Validate pallet interactions.
+- Simulate blockchain conditions.
+- Verify runtime behavior.
 
 ## In This Section
 

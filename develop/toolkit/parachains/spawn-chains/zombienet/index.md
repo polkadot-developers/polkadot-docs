@@ -10,10 +10,10 @@ Zombienet is a testing framework that lets you quickly spin up ephemeral blockch
 
 ## What Can I Do with Zombienet?
 
-- Deploy test networks with multiple nodes
-- Validate network behavior and performance  
-- Monitor metrics and system events
-- Execute custom test scenarios
+- Deploy test networks with multiple nodes.
+- Validate network behavior and performance.
+- Monitor metrics and system events.
+- Execute custom test scenarios.
 
 Whether you're building a new parachain or testing runtime upgrades, Zombienet provides the tools needed to ensure your blockchain functions correctly before deployment to production.
 

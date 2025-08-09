@@ -82,7 +82,7 @@ You must contact specific registrars individually to request judgment. Each regi
 
     Step-by-step instructions for managing identities through the Polkadot.js interface, with practical examples and visual guides.
 
-    [:octicons-arrow-right-24: Reference](https://wiki.polkadot.network/learn/learn-guides-identity/)
+    [:octicons-arrow-right-24: Reference](https://wiki.polkadot.com/learn/learn-guides-identity/)
 
 -   <span class="badge external">External</span> __How to Set and Clear an Identity__
 

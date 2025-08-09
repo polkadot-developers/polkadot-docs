@@ -52,7 +52,7 @@ Before obtaining coretime, ensure you have:
 Bulk coretime provides several advantages:
 
 - Monthly allocation of resources
-- Guaranteed block production slots (every 12 seconds, or 6 seconds with [Asynchronous Backing](https://wiki.polkadot.com/learn/learn-async-backing/#asynchronous-backing#asynchronous-backing){target=\_blank})
+- Guaranteed block production slots (every 12 seconds, or 6 seconds with [Asynchronous Backing](https://wiki.polkadot.com/learn/learn-async-backing/#asynchronous-backing){target=\_blank})
 - Priority renewal rights
 - Protection against price fluctuations
 - Ability to split and resell unused coretime

@@ -16,17 +16,17 @@ This tutorial will guide you through building a fully functional dApp that inter
 
 Before getting started, ensure you have the following:
 
-- [Node.js](https://nodejs.org/en){target=\_blank} v16 or later installed on your system
-- A crypto wallet (such as MetaMask) funded with test tokens. Refer to the [Connect to Polkadot](/develop/smart-contracts/connect-to-polkadot){target=\_blank} guide for more details
-- A basic understanding of React and JavaScript
-- Some familiarity with blockchain fundamentals and Solidity (useful but not required)
+- [Node.js](https://nodejs.org/en){target=\_blank} v16 or later installed on your system.
+- A crypto wallet (such as MetaMask) funded with test tokens. Refer to the [Connect to Polkadot](/develop/smart-contracts/connect-to-polkadot){target=\_blank} guide for more details.
+- A basic understanding of React and JavaScript.
+- Some familiarity with blockchain fundamentals and Solidity (useful but not required).
 
 ## Project Overview
 
 This dApp will interact with a basic Storage contract. Refer to the [Create Contracts](/tutorials/smart-contracts/launch-your-first-project/create-contracts){target=\_blank} tutorial for a step-by-step guide on creating this contract. The contract allows:
 
-- Retrieving a stored number from the blockchain
-- Updating the stored number with a new value
+- Retrieving a stored number from the blockchain.
+- Updating the stored number with a new value.
 
 
 Below is a high-level overview of what you'll be building:
@@ -175,29 +175,32 @@ After that, you will see:
 
 Let's examine how the dApp interacts with the blockchain:
 
-1. **Wallet Connection**: 
-    - The `WalletConnect` component uses the browser's Ethereum provider (MetaMask) to connect to the user's wallet
-    - It handles network switching to ensure the user is connected to the Polkadot Hub TestNet
-    - Once connected, it provides the user's account address to the parent component
+1. Wallet connection: 
 
-2. **Reading Data**:
-    - The `ReadContract` component uses viem's `readContract` function to call the `storedNumber` view function
-    - It periodically polls for updates to keep the UI in sync with the blockchain state
-    - The component displays a loading indicator while fetching data and handles error states
+    - The `WalletConnect` component uses the browser's Ethereum provider (MetaMask) to connect to the user's wallet.
+    - It handles network switching to ensure the user is connected to the Polkadot Hub TestNet.
+    - Once connected, it provides the user's account address to the parent component.
 
-3. **Writing Data**:
-    - The `WriteContract` component uses viem's `writeContract` function to send a transaction to the `setNumber` function
-    - It ensures the wallet is connected before allowing a transaction
-    - The component shows detailed feedback during transaction submission and confirmation
-    - After a successful transaction, the value displayed in the `ReadContract` component will update on the next poll
+2. Reading data:
+
+    - The `ReadContract` component uses viem's `readContract` function to call the `storedNumber` view function.
+    - It periodically polls for updates to keep the UI in sync with the blockchain state.
+    - The component displays a loading indicator while fetching data and handles error states.
+
+3. Writing data:
+
+    - The `WriteContract` component uses viem's `writeContract` function to send a transaction to the `setNumber` function.
+    - It ensures the wallet is connected before allowing a transaction.
+    - The component shows detailed feedback during transaction submission and confirmation.
+    - After a successful transaction, the value displayed in the `ReadContract` component will update on the next poll.
 
 ## Conclusion
 
 Congratulations! You've successfully built a fully functional dApp that interacts with a smart contract on Polkadot Hub using viem and Next.js. Your application can now:
 
-- Connect to a user's wallet and handle network switching
-- Read data from a smart contract and keep it updated
-- Write data to the blockchain through transactions
+- Connect to a user's wallet and handle network switching.
+- Read data from a smart contract and keep it updated.
+- Write data to the blockchain through transactions.
 
 These fundamental skills provide the foundation for building more complex dApps on Polkadot Hub. With this knowledge, you can extend your application to interact with more sophisticated smart contracts and create advanced user interfaces.
 

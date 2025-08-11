@@ -156,7 +156,7 @@ The PAPI console will show:
 
 ## Dry Run your Transactions
 
-It is best practice to conduct dry run tests before execution of a cross-chain transfer to prevent failures. XCM operations can trap or permanently lose assets if improperly constructed. The dry run functionality in this code helps identify potential issues before committing real assets to the cross-chain transfer.
+It is best practice to conduct dry run tests before executing a cross-chain transfer to prevent failures. XCM operations can trap or permanently lose assets if improperly constructed. The dry run functionality in this code helps identify potential issues before committing real assets to the cross-chain transfer.
 
 ??? code "Batch Teleport with Dry Run"
 

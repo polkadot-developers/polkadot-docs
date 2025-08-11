@@ -26,13 +26,13 @@ Always verify that the destination account exists or can be created before initi
 Account queries should check:
 
 - Account creation and existence on the destination chain.
-    - The correct address and address format is used.
-    - Whether the account meets existential deposit requirements.
-- Balance of the sending account has:
+    - The correct address and address format are used.
+    - Whether the account meets the existential deposit requirements.
+- Balance of the sending account is:
     - Enough to pay for fees (transaction fees, XCM execution and delivery fees, and/or swap fees).
     - Enough to cover the existential deposit before and after the transfer.
-- Balance of the recipient account has:
-    - Enough to cover for the existential deposit.
+- Balance of the recipient account is:
+    - Enough to cover the existential deposit.
     - The total amount expected to be received.
 
 
@@ -57,21 +57,13 @@ You can refer to the following snippet as an example of checking for the Existen
     - **Kusama**: 0.0033 KSM (3.3 * 10^10 planck)  
     - **Asset Hub**: 0.01 DOT (10^8 planck)
 
-For non-sufficient assets, make sure the destination account has a sufficient amount in the form of a native or sufficient asset to cover for the ED; otherwise, include asset conversion instructions in the XCM to swap for a sufficient asset or native token.
+For non-sufficient assets, ensure the destination account has a sufficient amount in the form of a native or sufficient asset to cover the ED; otherwise, include asset conversion instructions in the XCM to swap for a sufficient asset or native token.
 
 ## Fee Estimation and Coverage
 
 When it comes to transaction fees, XCM execution and delivery fees, and asset conversion swapping fees, you can use associated runtime APIs to obtain an accurate estimate of the fee rather than hardcoded values.
 
 ### Runtime API Integration
-
-- [Transaction Payment API](https://paritytech.github.io/polkadot-sdk/master/pallet_transaction_payment_rpc/trait.TransactionPaymentRuntimeApi.html){target=\_blank} for local fees:
-
-    ```typescript
-    --8<-- 'code/develop/interoperability/best-practices-for-teleporting-assets/tx-payment-api.ts'
-    ```
-  This code establishes a connection to the Polkadot network and queries detailed fee information for a specific transaction call, including base fees, length fees, and tip calculations.
-
 
 - [XCM Payment API](https://paritytech.github.io/polkadot-sdk/master/xcm_runtime_apis/fees/trait.XcmPaymentApi.html){target=\_blank} for local XCM execution fees:
 
@@ -94,7 +86,7 @@ When it comes to transaction fees, XCM execution and delivery fees, and asset co
     ```typescript
     --8<-- 'code/develop/interoperability/best-practices-for-teleporting-assets/asset-conversion-api.ts'
     ```
-  This code connects to Asset Hub's `AssetConversionApi` and calculates the exchange rate between different assets, allowing users to determine how much of one token they need to pay fees in another token.
+  This code connects to Asset Hub's `AssetConversionApi`. It calculates the exchange rate between different assets, enabling users to determine the amount of one token required to pay fees in another token.
 
 ### Multi-Asset Fee Handling
 
@@ -111,25 +103,25 @@ For dealing with non-sufficient assets and fees, there are different fee payment
 Sufficient assets can:
 
 - Suffice for account existence by meeting the existential deposit requirements.
-- Pay for transaction and, if the chain configuration allows, sufficient assets can also be used for XCM execution and delivery fees.
+- Pay for transaction fee, and, if the chain configuration allows, sufficient assets can also be used for XCM execution and delivery fees.
 
 !!!note Sufficient Assets
-    Always check the chain to see what assets are considered sufficient assets.
+    Always check the chain to determine what assets are considered sufficient.
     This may vary from chain to chain.
 
 ### Non-Sufficient Assets
 
 Non-sufficient assets can:
 
-- Pay for transaction and XCM execution/delivery fees by swapping for a sufficent asset.
-- Be used to create new accounts by swapping for an exact amount of a sufficient asset to cover for the existential deposit of the new account.
+- Pay for transaction and XCM execution/delivery fees by swapping for a sufficient asset.
+- Be used to create new accounts by swapping for an exact amount of a sufficient asset to cover the existential deposit of the new account.
 
 !!!note Swapping Non-Sufficient Assets
-    Swapping non-sufficient assets for a sufficient asset can be done with the help of [asset conversion](https://wiki.polkadot.network/learn/learn-asset-conversion-assethub){target=\_blank} which is live on Asset Hub. Always make sure there is an associated liquidity pool with healthy liquidity for the pair that you intend to swap.
+    Swapping non-sufficient assets for a sufficient asset can be done with the help of [asset conversion](https://wiki.polkadot.network/learn/learn-asset-conversion-assethub){target=\_blank}, which is live on Asset Hub. Always ensure that there is an associated liquidity pool with healthy liquidity for the pair that you intend to swap.
 
-Always verify that the amount expected to be recieved in the recipient account is the amount expected after all fees are deducted (transaction fees, XCM fees, and/or swapping fees).
+Always verify that the amount expected to be received in the recipient account is the amount expected after all fees are deducted (transaction fees, XCM fees, and/or swapping fees).
 
-From a UX perspective, when designing cross-chain applications, consider **who** will be paying for the fees.
+From a UX perspective, when designing cross-chain applications, consider who will be paying for the fees.
 
 **Example scenario**: Sending 100 USDT to a new Asset Hub account.
 
@@ -137,13 +129,13 @@ From a UX perspective, when designing cross-chain applications, consider **who**
 
     - **Receiver gets**: 100 USDT - 0.01 DOT (for ED) - transaction and XCM fees.
     - **Sender pays**: Exactly 100 USDT total.
-    - Simpler for sender, but receiver gets less than expected.
+    - Simpler for the sender, but the receiver gets less than expected.
 
 - Option 2 - Additional sender cost:
 
-    - Receiver gets: full 100 USDT + 0.01 DOT (for ED).
-    - Sender pays: 100 USDT + 0.01 DOT (for ED) + transaction and XCM fees.
-    - More expensive for sender, but receiver gets full amount.
+    - **Receiver gets**: full 100 USDT + 0.01 DOT (for ED).
+    - **Sender pays**: 100 USDT + 0.01 DOT (for ED) + transaction and XCM fees.
+    - More expensive for the sender, but the receiver gets full amount.
 
 ## Comprehensive Dry Run Testing
 
@@ -162,76 +154,6 @@ Below is an example of a dry run implementation using PAPI.
     --8<-- 'code/develop/interoperability/best-practices-for-teleporting-assets/dry-run-example.ts'
     ```
 
-## Common Errors and Prevention
-
-Asset teleportation failures can occur for various reasons, each with specific causes and prevention strategies. Understanding these common error patterns helps you implement proper validation and avoid the most frequent pitfalls that lead to failed transfers or trapped assets. Each error type requires different diagnostic approaches and preventive measures to ensure reliable cross-chain operations.
-
-### Common Account and Balance Issues
-
-**[FailedToTransactAsset](https://paritytech.github.io/polkadot-sdk/master/cumulus_primitives_core/enum.XcmError.html#variant.FailedToTransactAsset) Errors**
-
-- **Common Causes:**
-    - Missing destination accounts.  
-    - Insufficient existential deposits.
-    - Asset not found on destination.
-
-- **Prevention:**
-    - Verify account existence before transfer.
-    - Ensure existential deposit (ED) requirements are met.
-    - Validate asset registration on the destination chain.
-
----
-
-### Fee Payment Failures
-
-**[TooExpensive](https://paritytech.github.io/polkadot-sdk/master/cumulus_primitives_core/enum.XcmError.html#variant.TooExpensive) Errors**
-
-- **Common Causes:**
-    - Insufficient funds for fees  
-    - Fee payment asset not accepted  
-    - High network congestion costs  
-
-- **Prevention:**
-    - Implement proper fee estimation  
-    - Include a buffer for fee fluctuations  
-    - Use asset conversion when necessary  
-
----
-
-### Asset Compatibility Issues
-
-**[AssetNotFound](https://paritytech.github.io/polkadot-sdk/master/cumulus_primitives_core/enum.XcmError.html#variant.AssetNotFound) Errors**
-
-- **Common Causes:**
-    - Asset not registered on the destination  
-    - Incorrect asset ID or format  
-    - Asset not enabled for XCM  
-
-- **Prevention:**
-    - Verify asset registration before transfer  
-    - Use correct asset identifiers  
-    - Check XCM configuration for asset support  
-
----
-
-### XCM Configuration Issues
-
-**[Barrier](https://paritytech.github.io/polkadot-sdk/master/cumulus_primitives_core/enum.XcmError.html#variant.Barrier) Errors**
-
-- **Common Causes:**
-    - XCM message blocked by safety barriers  
-    - Origin not authorized for operation  
-    - Asset transfer limits exceeded  
-    - Unsupported XCM version or instruction  
-
-- **Prevention:**
-    - Verify XCM barrier configuration on the destination  
-    - Ensure origin has proper permissions  
-    - Check asset transfer limits and restrictions  
-    - Use supported XCM version and instructions  
-
-You can find a full list of XCM errors in the [Polkadot Rust Docs](https://paritytech.github.io/polkadot-sdk/master/cumulus_primitives_core/enum.XcmError.html){target=\_blank}.
-
 ## Network-Specific Considerations
 
 ### TestNet vs MainNet Configuration
@@ -246,13 +168,13 @@ Parachain compatibility varies significantly across the ecosystem. Different par
 
 ### Recovering Trapped Assets
 
-XCM has the [`ClaimAsset`](https://paritytech.github.io/polkadot-sdk/master/cumulus_primitives_core/enum.Instruction.html#variant.ClaimAsset){target=\_blank} instruction which can be utilized to recover trapped assets. Typically on a live chain this would have to go through a governance proposal. However if you construct your XCM's using the [`AssetClaimer`](https://paritytech.github.io/polkadot-sdk/master/cumulus_primitives_core/enum.Hint.html#variant.AssetClaimer) hint, you can designate which account has permissions to claim the trapped asset and therefore not need to go through governance for a privileged call.
+XCM has the [`ClaimAsset`](https://paritytech.github.io/polkadot-sdk/master/cumulus_primitives_core/enum.Instruction.html#variant.ClaimAsset){target=\_blank} instruction, which can be utilized to recover trapped assets. Typically, on a live chain, this would require a governance proposal. However, if you construct your XCMs using the [`AssetClaimer`](https://paritytech.github.io/polkadot-sdk/master/cumulus_primitives_core/enum.Hint.html#variant.AssetClaimer) hint, you can designate which account has permissions to claim the trapped asset and therefore not need to go through governance for a privileged call.
 
 ## Conclusion
 
 Successful asset teleportation requires meticulous validation, proper error handling, and comprehensive testing. Always prioritize safety over convenience, implement thorough dry run testing, and maintain robust monitoring systems to ensure reliable cross-chain asset transfers.
 
-The key to preventing asset loss is comprehensive pre-flight validation combined with proper XCM construction and execution monitoring. When in doubt, always dry run transactions on both source and destination chains before execution.
+The key to preventing asset loss is comprehensive pre-flight validation combined with proper XCM construction and execution monitoring. When in doubt, always dry-run transactions on both source and destination chains before execution.
 
 ## Where to Go Next
 

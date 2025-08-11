@@ -264,5 +264,5 @@ The key to preventing asset loss is comprehensive pre-flight validation combined
 
     A tutorial detailing the step-by-step process of batch teleporting assets using the ParaSpell SDK.
 
-    [:octicons-arrow-right-24: Batch Teleport](/tutorials/polkadot-sdk/system-chains/asset-hub/batch-teleport-assets){target=\_blank}
+    [:octicons-arrow-right-24: Batch Teleport](/tutorials/polkadot-sdk/system-chains/asset-hub/batch-teleport-assets/){target=\_blank}
 </div>

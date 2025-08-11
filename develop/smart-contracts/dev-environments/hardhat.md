@@ -284,6 +284,23 @@ Run your interaction script:
 npx hardhat run scripts/interact.js --network polkadotHubTestnet
 ```
 
+## Upgrading the Plugin
+
+If you already have a Hardhat Polkadot project and want to upgrade to a newer version of the plugin, to avoid errors (for example, `Cannot find module 'run-container'`), you can clean your dependencies by running the following commands:
+
+```bash
+rm -rf node_modules package-lock.json
+```
+
+After that, you can upgrade the plugin to the latest version by running the following commands:
+
+```bash
+npm install --save-dev @parity/hardhat-polkadot@latest
+npm install
+```
+
+Consider using [Node.js](https://nodejs.org/){target=\_blank} 22.18+ and [npm](https://www.npmjs.com/){target=\_blank} version 10.9.0+ to avoid issues with the plugin.
+
 ## Where to Go Next
 
 Hardhat provides a powerful environment for developing, testing, and deploying smart contracts on Polkadot Hub. Its plugin architecture allows seamless integration with PolkaVM through the `hardhat-resolc` and `hardhat-revive-node` plugins.

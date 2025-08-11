@@ -9,7 +9,7 @@ Polkadot offers developers a range of decentralized storage solutions to manage 
 
 ## Key Storage Solutions
 
-By leveraging decentralized storage, you can enhance the security, reliability, and censorship resistance of your dApps. Polkadot's ecosystem offers several options, allowing you to choose the best fit for your specific needs.
+By leveraging decentralized storage, you can enhance the security, reliability, and censorship resistance of your dApps. Polkadot's ecosystem provides several options, enabling you to select the best fit for your specific needs.
 
 Some of the storage solutions available for Polkadot dApp builders are:
 

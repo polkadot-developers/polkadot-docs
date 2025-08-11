@@ -25,7 +25,7 @@ Some of the storage solutions available for Polkadot dApp builders are:
 ### Key Features of Crust
 
 -   **Decentralized and Immutable:** Crust leverages a global network of nodes to provide a truly decentralized storage layer, ensuring data immutability and high availability.
--   **IPFS-based:** Crust is built on top of IPFS, providing a robust and widely-used foundation for file storage. It enhances IPFS with an incentive layer, guaranteeing data persistence and replication.
+-   **IPFS-based:** Crust is built on top of IPFS, providing a robust and widely used foundation for file storage. It enhances IPFS with an incentive layer, guaranteeing data persistence and replication.
 -   **Cross-Chain Interoperability:** Through Polkadot's XCM, Crust can offer storage services to other parachains, and it also supports EVM-compatible chains, enabling seamless integration with a wide range of dApps.
 -   **Developer-Friendly:** Crust offers a suite of tools, including an S3-compatible gateway, a GitHub-like application for decentralized code repositories, and various SDKs to simplify the integration process.
 

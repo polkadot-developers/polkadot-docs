@@ -4615,20 +4615,20 @@ flowchart TD
     %% Group 1: Pre-Deployment
     subgraph group1 [Pre-Deployment]
         direction LR
-        A("Local \nDevelopment \nand Testing") --> B("Runtime \nCompilation")
-        B --> C("Generate \nChain \nSpecifications")
-        C --> D("Prepare \nDeployment \nEnvironment")
-        D --> E("Acquire \nCoretime")
+        A("Local <br>Development <br>and Testing") --> B("Runtime <br>Compilation")
+        B --> C("Generate <br>Chain <br>Specifications")
+        C --> D("Prepare <br>Deployment <br>Environment")
+        D --> E("Acquire <br>Coretime")
     end
     
     %% Group 2: Deployment
     subgraph group2 [Deployment]
-        F("Launch \nand \nMonitor")
+        F("Launch <br>and <br>Monitor")
     end
 
     %% Group 3: Post-Deployment
     subgraph group3 [Post-Deployment]
-        G("Maintenance \nand \nUpgrades")
+        G("Maintenance <br>and <br>Upgrades")
     end
 
     %% Connections Between Groups
@@ -5355,7 +5355,7 @@ graph LR
     end
     subgraph AP["<b style='font-size:18px;'>FRAME Pallets</b>"]
         direction LR
-        A1[Aura]~~~A2[BABE]~~~A3[GRANDPA]~~~A4[Transaction\nPayment]
+        A1[Aura]~~~A2[BABE]~~~A3[GRANDPA]~~~A4[Transaction<br>Payment]
         B1[Identity]~~~B2[Balances]~~~B3[Sudo]~~~B4[EVM]
         C1[Timestamp]~~~C2[Assets]~~~C3[Contracts]~~~C4[and more...]
     end
@@ -12301,9 +12301,9 @@ flowchart LR
     Runtime["PolkaVM"]
 
     User --> DApp
-    DApp -->|"Call\nfunction"| PolkaEVM
-    PolkaEVM -->|"Detect\nprecompile\naddress"| Precompiles
-    Precompiles -->|"Execute\noptimized\nnative code"| Runtime
+    DApp -->|"Call<br>function"| PolkaEVM
+    PolkaEVM -->|"Detect<br>precompile<br>address"| Precompiles
+    Precompiles -->|"Execute<br>optimized<br>native code"| Runtime
 
     subgraph "Polkadot Hub"
         PolkaEVM
@@ -22219,26 +22219,26 @@ flowchart
         subgraph InitialValidation["Initial Validation"]
             direction LR
             PValidators[ParaValidators]
-            Backing[Backing\nProcess]
-            Header[Submit Para-header\non Relay Chain]
+            Backing[Backing<br>Process]
+            Header[Submit Para-header<br>on Relay Chain]
         end
         subgraph Secondary["Secondary Validation"]
-            Approval[Approval\nProcess]
-            Dispute[Dispute\nResolution]
-            Slashing[Slashing\nMechanism]
+            Approval[Approval<br>Process]
+            Dispute[Dispute<br>Resolution]
+            Slashing[Slashing<br>Mechanism]
         end
         
     end
 
 
     %% Validation Process
-    PValidators -->|Download\nWasm\nValidate Block| Backing
-    Backing -->|If Valid\nSignatures| Header
-    InitialValidation -->|Additional\nVerification| Secondary
+    PValidators -->|Download<br>Wasm<br>Validate Block| Backing
+    Backing -->|If Valid<br>Signatures| Header
+    InitialValidation -->|Additional<br>Verification| Secondary
     
     %% Dispute Flow
-    Approval -->|If Invalid\nDetected| Dispute
-    Dispute -->|Penalize\nDishonest\nValidators| Slashing
+    Approval -->|If Invalid<br>Detected| Dispute
+    Dispute -->|Penalize<br>Dishonest<br>Validators| Slashing
 ```
 
 It is important to understand that relay chain blocks do not store full parachain blocks (parablocks). Instead, they include para-headers, which serve as summaries of the backed parablocks. The complete parablock remains within the parachain network, maintaining its autonomy while relying on the relay chain for validation and finality.
@@ -22297,9 +22297,9 @@ flowchart TB
     RC -->|Validate State| PB
     RC -->|Validate State| PC
 
-    State -->|Represents Collective\nParachain State| RC
+    State -->|Represents Collective<br>Parachain State| RC
 
-    note["ELVES Protocol:\n- Crypto-economic security\n- Assumes worst-case scenario\n- High probability validation"]
+    note["ELVES Protocol:<br>- Crypto-economic security<br>- Assumes worst-case scenario<br>- High probability validation"]
 ```
 
 ## Coherent Systems
@@ -22319,15 +22319,15 @@ The diagram below highlights the flexibility of the Polkadot ecosystem, where ea
 ```mermaid
 flowchart TB
     subgraph "Polkadot Relay Chain"
-        RC[Relay Chain\nCross-Consensus\nRouting]
+        RC[Relay Chain<br>Cross-Consensus<br>Routing]
     end
 
     subgraph "Parachain Ecosystem"
         direction TB
-        DeFi[DeFi Parachain\nFinancial Services]
-        GameFi[GameFi Parachain\nGaming Ecosystem]
-        NFT[NFT Parachain\nDigital Collectibles]
-        Identity[Identity Parachain\nUser Verification]
+        DeFi[DeFi Parachain<br>Financial Services]
+        GameFi[GameFi Parachain<br>Gaming Ecosystem]
+        NFT[NFT Parachain<br>Digital Collectibles]
+        Identity[Identity Parachain<br>User Verification]
     end
 
     DeFi <-->|XCM: Asset Transfer| GameFi
@@ -22339,7 +22339,7 @@ flowchart TB
     RC -->|Validate & Route XCM| NFT
     RC -->|Validate & Route XCM| Identity
 
-    note["XCM Features:\n- Standardized Messaging\n- Cross-Chain Interactions\n- Secure Asset/Data Transfer"]
+    note["XCM Features:<br>- Standardized Messaging<br>- Cross-Chain Interactions<br>- Secure Asset/Data Transfer"]
 ```
 
 Most parachains are built using the Polkadot SDK, which provides all the tools to create a fully functioning parachain. However, it is possible to construct a parachain that can inherit the security of the relay chain as long as it implements the correct mechanisms expected by the relay chain.
@@ -26991,16 +26991,16 @@ When compiling a Solidity smart contract, the code passes through the following 
 
 ```mermaid
 flowchart LR
-    Dev[Developer] --> |Solidity\nSource\nCode| Solc
+    Dev[Developer] --> |Solidity<br>Source<br>Code| Solc
     
     subgraph "Compilation Process"
         direction LR
-        Solc[solc] --> |YUL\nIR| Revive
-        Revive[Revive Compiler] --> |LLVM\nIR| LLVM
-        LLVM[LLVM\nOptimizer] --> |RISC-V ELF\nShared Object| PVMLinker
+        Solc[solc] --> |YUL<br>IR| Revive
+        Revive[Revive Compiler] --> |LLVM<br>IR| LLVM
+        LLVM[LLVM<br>Optimizer] --> |RISC-V ELF<br>Shared Object| PVMLinker
     end
     
-    PVMLinker[PVM Linker] --> PVM[PVM Blob\nwith Metadata]
+    PVMLinker[PVM Linker] --> PVM[PVM Blob<br>with Metadata]
 ```
 
 The compilation process integrates several specialized components:

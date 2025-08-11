@@ -1,11 +1,11 @@
 ---
 title: Storage
-description: Explore decentralized storage solutions for your Polkadot dApp. Learn about key integrations like Crust and IPFS for robust, censorship-resistant data.
+description: Explore decentralized storage solutions for your Polkadot dApp. Discover key integrations, such as Crust and IPFS, for robust, censorship-resistant data storage.
 ---
 
 # Storage Integrations
 
-Polkadot offers developers a range of decentralized storage solutions to manage dApp data, host frontends, and store large files in a censorship-resistant and resilient manner. These integrations are essential for building fully decentralized applications, ensuring that all components of your dApp, from the front-end to the data, are not reliant on centralized servers.
+Polkadot offers developers a range of decentralized storage solutions to manage dApp data, host front ends, and store large files in a censorship-resistant and resilient manner. These integrations are essential for building fully decentralized applications, ensuring that all components of your dApp, from the front end to the data, are not reliant on centralized servers.
 
 ## Key Storage Solutions
 
@@ -20,7 +20,7 @@ Some of the storage solutions available for Polkadot dApp builders are:
 
 ## Crust Network
 
-[Crust Network](https://crust.network/){target=\_blank} is a decentralized storage protocol built using the Polkadot SDK that serves as an incentive layer for IPFS. As a parachain in the Polkadot ecosystem, Crust provides a comprehensive set of tools and services for decentralized storage.
+[Crust Network](https://crust.network/){target=\_blank} is a decentralized storage protocol built using the Polkadot SDK serving as an incentive layer for IPFS. As a parachain in the Polkadot ecosystem, Crust provides a comprehensive set of tools and services for decentralized storage.
 
 ### Key Features of Crust
 
@@ -31,7 +31,7 @@ Some of the storage solutions available for Polkadot dApp builders are:
 
 ### Use Cases
 
--   **dApp Hosting:** Deploy your dApp's frontend on Crust for a fully decentralized solution.
+-   **dApp Hosting:** Deploy your dApp's front end on Crust for a fully decentralized solution.
 -   **NFT Storage:** Store NFT metadata and assets in a persistent and decentralized manner.
 -   **File Storage and Sharing:** Build decentralized applications for file storage and sharing, similar to traditional cloud storage services.
 
@@ -47,7 +47,7 @@ IPFS uses content-based rather than location-based addresses. When you add a fil
 While IPFS is a standalone protocol, it can be integrated into your Polkadot dApp in several ways:
 
 -   **Off-Chain Data Storage:** Store large files, such as images, videos, and documents, off-chain on IPFS to reduce on-chain storage costs and improve performance.
--   **Frontend Hosting:** Host your dApp's frontend on IPFS to ensure that it remains accessible and censorship-resistant.
+-   **Front-end Hosting:** Host your dApp's front end on IPFS to ensure that it remains accessible and censorship-resistant.
 -   **Integration with Storage Networks:** Use services like Crust Network or other pinning services to ensure your IPFS data is always available and replicated across multiple nodes.
 -   **Run your own IPFS Node:** Since IPFS is a P2P Network, you can optionally run your own IPFS node and have complete control over your data
 

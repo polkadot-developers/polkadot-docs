@@ -5,3 +5,4 @@ nav:
   - 'Indexers': indexers.md
   - 'Oracles': oracles.md
   - 'Storage': storage.md
+  - 'Transaction Construction': transaction-construction.md

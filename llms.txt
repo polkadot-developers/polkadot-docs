@@ -8301,7 +8301,7 @@ npx hardhat run scripts/interact.js --network polkadotHubTestnet
 If you already have a Hardhat Polkadot project and want to upgrade to a newer version of the plugin, to avoid errors (for example, `Cannot find module 'run-container'`), you can clean your dependencies by running the following commands:
 
 ```bash
-rm -rf node_modules package-lock.json
+rm -rf node_modules
 ```
 
 After that, you can upgrade the plugin to the latest version by running the following commands:

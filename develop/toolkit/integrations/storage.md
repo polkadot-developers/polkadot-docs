@@ -40,7 +40,7 @@ Some of the storage solutions available for Polkadot dApp builders are:
 
 The [InterPlanetary File System (IPFS)](https://ipfs.tech/){target=\_blank} is a peer-to-peer hypermedia protocol designed to make the web faster, safer, and more open. It is a foundational technology for the decentralized web, and many storage solutions, including Crust, are built upon it.
 
-IPFS uses **content-addressing** instead of location-addressing. When you add a file to IPFS, it is given a unique cryptographic hash called a Content Identifier (CID). This means that the content itself determines its address, making it verifiable and permanent.
+IPFS uses content-based rather than location-based addresses. When you add a file to IPFS, it is assigned a unique cryptographic hash, known as a Content Identifier (CID). This hashing process means that the content itself determines its address, making it verifiable and permanent.
 
 ### Using IPFS with Polkadot
 

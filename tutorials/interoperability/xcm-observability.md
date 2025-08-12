@@ -17,7 +17,7 @@ You will learn how to:
 - Use a workaround for older runtimes that emit derived message identifiers
 - Interpret and handle failed or incomplete messages
 
-To demonstrate these techniques, the guide introduces a complete example scenario involving a multi-chain XCM transfer. This scenario will serve as the foundation for explaining the message lifecycle, event tracking, and failure debugging in context.
+To demonstrate these techniques, the guide introduces a complete example scenario involving a multichain XCM transfer. This scenario will serve as the foundation for explaining the message lifecycle, event tracking, and failure debugging in context.
 
 ## Prerequisites
 
@@ -134,7 +134,7 @@ This example uses the `PolkadotXcm.limited_reserve_transfer_assets` extrinsic to
 
 The runtime automatically appends a `SetTopic` instruction to the forwarded XCM. This topic becomes the `message_id` used in both `Sent` and `Processed` events, enabling traceability without manual intervention.
 
-Create a new script, `limited-reserve-transfer-assets.ts`
+Create a new script named `limited-reserve-transfer-assets.ts`
 
 ```ts
 --8<-- 'code/tutorials/interoperability/xcm-observability/limited-reserve-transfer-assets.ts'
@@ -173,14 +173,14 @@ After submitting the transfer, use the `message_id` to correlate origin and dest
 
 ### Define a Scenario: XCM Transfer with Manual `SetTopic`
 
-In multi-chain XCM flows, such as transferring assets between two chains, you may want to include a `SetTopic` instruction to **reliably trace the message across all involved chains**.
+In multichain XCM flows, such as transferring assets between two chains, you may want to include a `SetTopic` instruction to **reliably trace the message across all involved chains**.
 
 - **Origin chain**: Polkadot Asset Hub
 - **Destination chain**: Hydration
 - **Topic**: Manually assigned via `SetTopic` instruction
 - **Goal**: Transfer DOT and trace the XCM using the assigned `message_id`
 
-Create a new script, `deposit-reserve-asset-with-set-topic.ts`
+Create a new script named `deposit-reserve-asset-with-set-topic.ts`
 
 ```ts
 --8<-- 'code/tutorials/interoperability/xcm-observability/deposit-reserve-asset-with-set-topic.ts'
@@ -202,7 +202,42 @@ During execution, the runtime processes the `SetTopic` instruction you provided,
 
 --8<-- 'code/tutorials/interoperability/xcm-observability/deposit-reserve-asset-with-set-topic-result.html'
 
+### Define a Scenario: Multi-hop XCM Transfer with Manual `SetTopic`
 
+In multichain XCM flows—such as sending assets from one chain to another and then back, you can include a `SetTopic` instruction to **consistently trace the message across all hops**.
+
+- **Origin chain**: Polkadot Asset Hub
+- **Destination chain**: Hydration
+- **Topic**: Manually assigned via `SetTopic` instructions
+- **Goal**: Transfer DOT and track the XCM using the assigned `message_id` across both chains
+
+Create a new script named `initiate-reserve-withdraw-with-set-topic.ts`:
+
+```ts
+--8<-- 'code/tutorials/interoperability/xcm-observability/initiate-reserve-withdraw-with-set-topic.ts'
+```
+
+Run it locally:
+
+```bash
+npx tsx initiate-reserve-withdraw-with-set-topic.ts
+```
+
+#### Forwarded XCM (Destination Chain: Hydration)
+
+During execution, the runtime applies your `SetTopic` instruction, ensuring the same topic is preserved throughout the cross-chain flow:
+
+```html
+--8<-- 'code/tutorials/interoperability/xcm-observability/forwarded-xcm-remote.html'
+```
+
+#### Example: Message Trace Output
+
+Below is the actual end-to-end trace, showing the same `message_id` at each step across all involved chains:
+
+```html
+--8<-- 'code/tutorials/interoperability/xcm-observability/initiate-reserve-withdraw-with-set-topic-result.html'
+```
 
 ## Workaround for Older Runtimes
 

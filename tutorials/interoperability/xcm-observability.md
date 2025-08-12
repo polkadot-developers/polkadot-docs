@@ -83,15 +83,16 @@ If you are new to XCM dry-run or replay, see the [Replay and Dry Run XCMs Using 
 
 ### What is `SetTopic`?
 
-When sending XCMs using `limited_reserve_transfer_assets` or other extrinsics from the `PolkadotXcm` pallet, two key observability features allow developers to trace and correlate messages across chains:
+When sending XCMs using `limited_reserve_transfer_assets` or other extrinsics from the `PolkadotXcm` pallet, two key observability features enable developers to trace and correlate messages across chains:
 
+- The addition of a new **[`PolkadotXcm.Sent`](https://paritytech.github.io/polkadot-sdk/master/pallet_xcm/pallet/enum.Event.html#variant.Sent){target=\_blank} event**, emitted on the origin chain when an XCM message is sent.
+- The guarantee that the **`message_id` in the `PolkadotXcm.Sent` event matches the `id` in the [`MessageQueue.Processed`](https://paritytech.github.io/polkadot-sdk/master/pallet_message_queue/pallet/enum.Event.html#variant.Processed){target=\_blank} event** on the destination chain, enabling reliable cross-chain correlation.
 - [`SetTopic([u8; 32])`](https://github.com/polkadot-fellows/xcm-format#settopic){target=\_blank} is an XCM instruction that **sets a 32-byte topic register** inside the message.
-- This topic acts as a **logical identifier** (`message_id`) for the XCM, enabling you to group and trace related messages across chains.
-- It appears as a hash in both [`PolkadotXcm.Sent`](https://paritytech.github.io/polkadot-sdk/master/pallet_xcm/pallet/enum.Event.html#variant.Sent){target=\_blank} and [`MessageQueue.Processed`](https://paritytech.github.io/polkadot-sdk/master/pallet_message_queue/pallet/enum.Event.html#variant.Processed){target=\_blank} events.
+- This topic acts as a **logical identifier** (`message_id`) for the XCM, allowing you to group and trace related messages across chains.
 
-> ⚠️ **Note:** The topic is **not guaranteed to be unique**. Uniqueness must be enforced by the message creator if required.
+> ⚠️ **Note:** The topic is **not guaranteed to be unique**. If uniqueness is required (e.g. for deduplication), it must be enforced by the message creator.
 
-These features are available in runtimes built from **`stable2503-5` or later**.
+These features are available on runtimes built from **`stable2503-5` or later**.
 
 ### Understanding `message_id`
 
@@ -274,7 +275,7 @@ When XCMs fail, the entire transaction **rolls back** and **no failure events ar
 
    --8<-- 'code/tutorials/interoperability/xcm-observability/execution-with-error.html'
 
-   Common errors include missing assets, execution limit exceeded, or bad asset location. This output is available on runtimes from **`stable2506` or later**, and is often sufficient for identifying common issues such as missing assets or execution limits.
+   Common errors include missing assets, exceeded execution limits, or invalid asset locations. This nested error reporting, introduced in runtimes from **`stable2506` onward**, usually suffices to diagnose typical issues.
 
 2. **Replay Using Chopsticks for Full Logs**
 
@@ -293,7 +294,7 @@ When XCMs fail, the entire transaction **rolls back** and **no failure events ar
 3. Inspect logs for the failing XCM instruction and reason
 4. Adjust weight limits, asset locations, or message construction as needed
 
-See [Replay and Dry Run XCMs Using Chopsticks](/tutorials/interoperability/replay-and-dry-run-xcms/) for replay instructions.
+→ See [Replay and Dry Run XCMs Using Chopsticks](/tutorials/interoperability/replay-and-dry-run-xcms/){target=\_blank} for replay instructions.
 
 ## Best Practices
 

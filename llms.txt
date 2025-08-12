@@ -28199,12 +28199,12 @@ After submitting the transfer, use the `message_id` to correlate origin and dest
 
 ## Define a Scenario: XCM Transfer with Manual `SetTopic`
 
-In complex XCM flows, such as transfers from one chain to another, you may want to use `SetTopic` to **consistently trace the message across all involved chains**.
+In multi-chain XCM flows, such as transferring assets between two chains, you may want to include a `SetTopic` instruction to **reliably trace the message across all involved chains**.
 
 - **Origin chain**: Polkadot Asset Hub
 - **Destination chain**: Hydration
-- **Topic assignment**: Manually set via `SetTopic` instruction
-- **Goal**: Transfer DOT and trace the XCM using the manually assigned `message_id`
+- **Topic**: Manually assigned via `SetTopic` instruction
+- **Goal**: Transfer DOT and trace the XCM using the assigned `message_id`
 
 Create a new script, `deposit-reserve-asset-with-set-topic.ts`
 
@@ -28452,7 +28452,7 @@ npx tsx deposit-reserve-asset-with-set-topic.ts
 
 #### Forwarded XCM (Destination Chain: Hydration)
 
-During execution, the runtime includes a `SetTopic` instruction with the customised topic, which is preserved across chains:
+During execution, the runtime processes the `SetTopic` instruction you provided, preserving the topic across all chains:
 
 code/tutorials/interoperability/xcm-observability/forwarded-xcm-custom.html
 

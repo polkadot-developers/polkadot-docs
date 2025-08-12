@@ -125,12 +125,16 @@ Here is a high-level overview of an XCM lifecycle with observability events:
 ```mermaid
 flowchart LR
     A[User submits extrinsic] --> B[Origin Chain Runtime constructs XCM]
-    B --> C["Runtime appends SetTopic instruction if missing"]
+    B --> C[Runtime appends SetTopic instruction if missing]
     C --> D[PolkadotXcm.Sent event emitted with message_id]
     D --> E[XCM forwarded to Destination Chains]
     E --> F[Destination Chain executes XCM]
     F --> G[MessageQueue.Processed event emitted with matching id]
     G --> H[Success or failure logged; further hops if any]
+
+    G -->|correlates to| F
+    F -->|correlates to| E
+    E -->|correlates to| D
 ```
 
 * The `SetTopic` ensures a consistent `message_id` is passed and visible in these events.

@@ -19,7 +19,7 @@ You will learn how to:
 - Use workarounds for older runtimes with derived message IDs  
 - Debug failed or incomplete XCMs using indexers and Chopsticks replay  
 
-The guide revolves around a **single, concrete scenario** of a cross-chain DOT transfer between two parachains, with multiple example scripts and detailed outputs.
+The guide revolves around a **single, concrete scenario** of a cross-chain asset transfer/swap between two parachains, with multiple example scripts and detailed outputs.
 
 ## Prerequisites
 
@@ -85,9 +85,9 @@ If you are new to XCM dry-run or replay, see the [Replay and Dry Run XCMs Using 
 
 When sending XCMs using `limited_reserve_transfer_assets` or other extrinsics from the `PolkadotXcm` pallet, two key observability features enable developers to trace and correlate messages across chains:
 
-- The addition of a new **[`PolkadotXcm.Sent`](https://paritytech.github.io/polkadot-sdk/master/pallet_xcm/pallet/enum.Event.html#variant.Sent){target=\_blank} event**, emitted on the origin chain when an XCM message is sent.
+- The addition of a new **[`PolkadotXcm.Sent`](https://paritytech.github.io/polkadot-sdk/master/pallet_xcm/pallet/enum.Event.html#variant.Sent){target=\_blank} event**, emitted on the origin chain when an XCM is sent.
 - The guarantee that the **`message_id` in the `PolkadotXcm.Sent` event matches the `id` in the [`MessageQueue.Processed`](https://paritytech.github.io/polkadot-sdk/master/pallet_message_queue/pallet/enum.Event.html#variant.Processed){target=\_blank} event** on the destination chain, enabling reliable cross-chain correlation.
-- [`SetTopic([u8; 32])`](https://github.com/polkadot-fellows/xcm-format#settopic){target=\_blank} is an XCM instruction that **sets a 32-byte topic register** inside the message.
+- **[`SetTopic([u8; 32])`](https://github.com/polkadot-fellows/xcm-format#settopic){target=\_blank}** is an XCM instruction that sets a 32-byte topic register inside the message.
 - This topic acts as a **logical identifier** (`message_id`) for the XCM, allowing you to group and trace related messages across chains.
 
 > ⚠️ **Note:** The topic is **not guaranteed to be unique**. If uniqueness is required (e.g. for deduplication), it must be enforced by the message creator.
@@ -125,7 +125,7 @@ Here is a high-level overview of an XCM lifecycle with observability events:
 ```mermaid
 flowchart LR
     A[User submits extrinsic] --> B[Origin Chain Runtime constructs XCM]
-    B --> C[Runtime appends SetTopic instruction (if missing)]
+    B --> C["Runtime appends SetTopic instruction (if missing)"]
     C --> D[PolkadotXcm.Sent event emitted with message_id]
     D --> E[XCM forwarded to Destination Chain(s)]
     E --> F[Destination Chain executes XCM]

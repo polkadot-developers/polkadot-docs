@@ -27943,22 +27943,20 @@ These features are available on runtimes built from **`stable2503-5` or later**.
 Here is a high-level overview of an XCM lifecycle with observability events:
 
 ```mermaid
-flowchart LR
-    subgraph Line1
-        A[User submits extrinsic] --> B[Origin Chain Runtime constructs XCM]
-        B --> C[Runtime appends SetTopic instruction if missing]
-        C --> D[PolkadotXcm.Sent event emitted with message_id]
+flowchart TD
+    subgraph Origin["Origin Chain"] direction LR
+        A["User submits extrinsic"] --> B["Runtime constructs XCM"]
+        B --> C["Appends `SetTopic` if missing"]
+        C --> D["`PolkadotXcm.Sent` emitted with `message_id`"]
     end
 
-    subgraph Line2
-        E[XCM forwarded to Destination Chains]
-        F[Destination Chain executes XCM]
-        G[MessageQueue.Processed event emitted with matching id]
-        H[Success or failure logged; further hops if any]
+    subgraph Destination["Destination Chain"] direction LR
+        E["XCM forwarded to destination"] --> F["Executes XCM"]
+        F --> G["`MessageQueue.Processed` emitted with matching `id`"]
+        G --> H["Success/failure logged; further hops if any"]
     end
 
     D --> E
-    E --> F --> G --> H
 ```
 
 * The `SetTopic` ensures a consistent `message_id` is passed and visible in these events.

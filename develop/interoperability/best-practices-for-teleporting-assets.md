@@ -133,7 +133,7 @@ From a UX perspective, when designing cross-chain applications, consider who wil
 
 - Option 2 - Additional sender cost:
 
-    - **Receiver gets**: full 100 USDT + 0.01 DOT (for ED).
+    - **Receiver gets**: Full 100 USDT + 0.01 DOT (for ED).
     - **Sender pays**: 100 USDT + 0.01 DOT (for ED) + transaction and XCM fees.
     - More expensive for the sender, but the receiver gets full amount.
 

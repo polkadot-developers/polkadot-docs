@@ -28199,7 +28199,7 @@ After submitting the transfer, use the `message_id` to correlate origin and dest
 
 ## Define a Scenario: XCM Transfer with Manual `SetTopic`
 
-In complex XCM flows, such as transfers that span multiple parachains, you may want to use `SetTopic` to **consistently trace the message across all involved chains**.
+In complex XCM flows, such as transfers from one chain to another, you may want to use `SetTopic` to **consistently trace the message across all involved chains**.
 
 - **Origin chain**: Polkadot Asset Hub
 - **Destination chain**: Hydration

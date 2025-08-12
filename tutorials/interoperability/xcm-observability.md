@@ -171,7 +171,7 @@ After submitting the transfer, use the `message_id` to correlate origin and dest
 
 --8<-- 'code/tutorials/interoperability/xcm-observability/limited-reserve-transfer-assets-result.html'
 
-## Define a Scenario: XCM Transfer with Manual `SetTopic`
+### Define a Scenario: XCM Transfer with Manual `SetTopic`
 
 In multi-chain XCM flows, such as transferring assets between two chains, you may want to include a `SetTopic` instruction to **reliably trace the message across all involved chains**.
 
@@ -201,6 +201,8 @@ During execution, the runtime processes the `SetTopic` instruction you provided,
 #### Example: Message Trace Output
 
 --8<-- 'code/tutorials/interoperability/xcm-observability/deposit-reserve-asset-with-set-topic-result.html'
+
+
 
 ## Workaround for Older Runtimes
 

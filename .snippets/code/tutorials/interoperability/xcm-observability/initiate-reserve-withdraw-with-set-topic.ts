@@ -54,7 +54,7 @@ async function getProcessedMessageId(client: PolkadotClient, api: TypedApi<any>,
         const processingFailedEvents = await api.event.MessageQueue.ProcessingFailed.pull();
         if (processedEvents.length > 0) {
             processedMessageId = processedEvents[0].payload.id.asHex();
-            console.log(`📣 Last message Processed on ${name}: ${processedMessageId}`);
+            console.log(`📣 Last message processed on ${name}: ${processedMessageId}`);
             break;
         } else if (processingFailedEvents.length > 0) {
             processedMessageId = processingFailedEvents[0].payload.id.asHex();
@@ -257,7 +257,7 @@ async function main() {
                 const sentEvents = await para1Api.event.PolkadotXcm.Sent.pull();
                 if (sentEvents.length > 0) {
                     const sentMessageId = sentEvents[0].payload.message_id.asHex();
-                    console.log(`📣 Last message Sent on ${para1Name}: ${sentMessageId}`);
+                    console.log(`📣 Last message sent on ${para1Name}: ${sentMessageId}`);
                     if (sentMessageId === expectedMessageId) {
                         console.log(`✅ Sent Message ID on ${para1Name} matched.`);
                     } else {

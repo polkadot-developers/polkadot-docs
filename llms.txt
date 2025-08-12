@@ -28085,7 +28085,7 @@ async function main() {
                 const sentEvents = await para1Api.event.PolkadotXcm.Sent.pull();
                 if (sentEvents.length > 0) {
                     const sentMessageId = sentEvents[0].payload.message_id.asHex();
-                    console.log(`📣 Last message Sent on ${para1Name}: ${sentMessageId}`);
+                    console.log(`📣 Last message sent on ${para1Name}: ${sentMessageId}`);
 
                     let processedMessageId = undefined;
                     const maxRetries = 8;
@@ -28103,7 +28103,7 @@ async function main() {
                         const processingFailedEvents = await para2Api.event.MessageQueue.ProcessingFailed.pull();
                         if (processedEvents.length > 0) {
                             processedMessageId = processedEvents[0].payload.id.asHex();
-                            console.log(`📣 Last message Processed on ${para2Name}: ${processedMessageId}`);
+                            console.log(`📣 Last message processed on ${para2Name}: ${processedMessageId}`);
                             break;
                         } else if (processingFailedEvents.length > 0) {
                             processedMessageId = processingFailedEvents[0].payload.id.asHex();
@@ -28191,13 +28191,13 @@ After submitting the transfer, use the `message_id` to correlate origin and dest
   <span data-ty="input">npx tsx limited-reserve-transfer-assets.ts</span>
   <span data-ty>✅ Local dry run successful.</span>
   <span data-ty>📦 Finalised on Polkadot Asset Hub in block #9437493: 0xa47d5749011efdb78da86f492a5a3ac7eef7c74fbeacb6d8d545dee4e36bf20b</span>
-  <span data-ty>📣 Last message Sent on Polkadot Asset Hub: 0xbc19a72ee865c04abd3d2517de92db20ce402d1197b88f640462606bc784cd85</span>
+  <span data-ty>📣 Last message sent on Polkadot Asset Hub: 0xbc19a72ee865c04abd3d2517de92db20ce402d1197b88f640462606bc784cd85</span>
   <span data-ty>📦 Finalised on Hydration in block #8675854: 0xd21cd7b01fa3cd57e74893536135cdd8f0e60ee5570ad7dcf5bbf0b35ab44fc7</span>
-  <span data-ty>📣 Last message Processed on Hydration: 0xbc19a72ee865c04abd3d2517de92db20ce402d1197b88f640462606bc784cd85</span>
+  <span data-ty>📣 Last message processed on Hydration: 0xbc19a72ee865c04abd3d2517de92db20ce402d1197b88f640462606bc784cd85</span>
   <span data-ty>✅ Processed Message ID matched.</span>
 </div>
 
-## Define a Scenario: XCM Transfer with Manual `SetTopic`
+### Define a Scenario: XCM Transfer with Manual `SetTopic`
 
 In multi-chain XCM flows, such as transferring assets between two chains, you may want to include a `SetTopic` instruction to **reliably trace the message across all involved chains**.
 
@@ -28264,7 +28264,7 @@ async function getProcessedMessageId(client: PolkadotClient, api: TypedApi<any>,
         const processingFailedEvents = await api.event.MessageQueue.ProcessingFailed.pull();
         if (processedEvents.length > 0) {
             processedMessageId = processedEvents[0].payload.id.asHex();
-            console.log(`📣 Last message Processed on ${name}: ${processedMessageId}`);
+            console.log(`📣 Last message processed on ${name}: ${processedMessageId}`);
             break;
         } else if (processingFailedEvents.length > 0) {
             processedMessageId = processingFailedEvents[0].payload.id.asHex();
@@ -28417,7 +28417,7 @@ async function main() {
                 const sentEvents = await para1Api.event.PolkadotXcm.Sent.pull();
                 if (sentEvents.length > 0) {
                     const sentMessageId = sentEvents[0].payload.message_id.asHex();
-                    console.log(`📣 Last message Sent on ${para1Name}: ${sentMessageId}`);
+                    console.log(`📣 Last message sent on ${para1Name}: ${sentMessageId}`);
                     if (sentMessageId === expectedMessageId) {
                         console.log(`✅ Sent Message ID on ${para1Name} matched.`);
                     } else {
@@ -28462,12 +28462,14 @@ code/tutorials/interoperability/xcm-observability/forwarded-xcm-custom.html
   <span data-ty="input">npx tsx limited-reserve-transfer-assets.ts</span>
   <span data-ty>✅ Local dry run successful.</span>
   <span data-ty>📦 Finalised on Polkadot Asset Hub in block #9471830: 0x98bd858739b3b5dd558def60cbd85d5e7fb2f4e33b0c00e1895e316541d727d9</span>
-  <span data-ty>📣 Last message Sent on Polkadot Asset Hub: 0xd60225f721599cb7c6e23cdf4fab26f205e30cd7eb6b5ccf6637cdc80b2339b2</span>
+  <span data-ty>📣 Last message sent on Polkadot Asset Hub: 0xd60225f721599cb7c6e23cdf4fab26f205e30cd7eb6b5ccf6637cdc80b2339b2</span>
   <span data-ty>✅ Sent Message ID on Polkadot Asset Hub matched.</span>
   <span data-ty>📦 Finalised on Hydration in block #8749233: 0xe1413c5126698d7189d6f55a38e62d07ea4915078c2b1f3914d70f670e79e162</span>
-  <span data-ty>📣 Last message Processed on Hydration: 0xd60225f721599cb7c6e23cdf4fab26f205e30cd7eb6b5ccf6637cdc80b2339b2</span>
+  <span data-ty>📣 Last message processed on Hydration: 0xd60225f721599cb7c6e23cdf4fab26f205e30cd7eb6b5ccf6637cdc80b2339b2</span>
   <span data-ty>✅ Processed Message ID on Hydration matched.</span>
 </div>
+
+
 
 ## Workaround for Older Runtimes
 

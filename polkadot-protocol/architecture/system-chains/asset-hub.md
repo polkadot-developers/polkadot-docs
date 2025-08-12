@@ -158,25 +158,6 @@ Both sufficient assets and non-sufficient assets can be used to pay for XCM loca
 
 For non-sufficient assets, this can be done by calling [asset conversion's swap](https://paritytech.github.io/polkadot-sdk/master/pallet_asset_conversion/pallet/dispatchables/fn.swap_tokens_for_exact_tokens.html){target=\_blank} or including an [`ExchangeAsset`](https://paritytech.github.io/polkadot-sdk/master/cumulus_primitives_core/enum.Instruction.html#variant.ExchangeAsset){target=\_blank} instruction in the XCM program to swap the non-sufficient asset for the native asset to pay for the XCM delivery fee.
 
-!!!note "UIs, Wallets, and Tools Interacting with Asset Hub"
-    When developing cross-chain applications to interact with the Asset Hub, it is essential to consider the UI/UX and the trade-offs it may entail. 
-
-    **Example scenario**: Sending 100 USDT to a new Asset Hub account.
-    
-    - Option 1 - Deduct from sending amount:
-
-        - **Receiver gets**: 100 USDT - 0.01 DOT (for ED) - transaction and XCM fees.
-        - **Sender pays**: Exactly 100 USDT total.
-        - Simpler for the sender, but the receiver gets less than expected.
-
-    - Option 2 - Additional sender cost:
-
-        - **Receiver gets**: Full 100 USDT + 0.01 DOT (for ED).
-        - **Sender pays**: 100 USDT + 0.01 DOT (for ED) + transaction and XCM fees.
-        - More expensive for the sender, but the receiver gets the full amount.
-
-    Each approach requires a different XCM program construction and affects the overall user experience.
-
 ## Integration
 
 Asset Hub supports a variety of integration tools that make it easy for developers to manage assets and interact with the blockchain in their applications. The tools and libraries provided by Parity Technologies enable streamlined operations, such as querying asset information, building transactions, and monitoring cross-chain asset transfers.

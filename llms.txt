@@ -76,6 +76,8 @@ Doc-Page: https://docs.polkadot.com/develop/toolkit/interoperability/asset-trans
 Doc-Page: https://docs.polkadot.com/develop/toolkit/interoperability/asset-transfer-api/overview/
 Doc-Page: https://docs.polkadot.com/develop/toolkit/interoperability/asset-transfer-api/reference/
 Doc-Page: https://docs.polkadot.com/develop/toolkit/interoperability/
+Doc-Page: https://docs.polkadot.com/develop/toolkit/interoperability/paraspell/
+Doc-Page: https://docs.polkadot.com/develop/toolkit/interoperability/paraspell/paraspell-xcm-sdk/
 Doc-Page: https://docs.polkadot.com/develop/toolkit/interoperability/xcm-tools/
 Doc-Page: https://docs.polkadot.com/develop/toolkit/parachains/e2e-testing/
 Doc-Page: https://docs.polkadot.com/develop/toolkit/parachains/e2e-testing/moonwall/
@@ -610,7 +612,8 @@ The [`XcmRouter`](https://paritytech.github.io/polkadot-sdk/master/pallet_xcm/pa
 For instance, the Kusama network employs the [`ChildParachainRouter`](https://paritytech.github.io/polkadot-sdk/master/polkadot_runtime_common/xcm_sender/struct.ChildParachainRouter.html){target=\_blank}, which restricts routing to [Downward Message Passing (DMP)](https://wiki.polkadot.network/learn/learn-xcm-transport/#dmp-downward-message-passing){target=\_blank} from the relay chain to parachains, ensuring secure and controlled communication.
 
 ```rust
-// Only one router so far - use DMP to communicate with child parachains.
+pub type XcmRouter = WithUniqueTopic<(
+	// Only one router so far - use DMP to communicate with child parachains.
 	ChildParachainRouter<Runtime, XcmPallet, PriceForChildParachainDelivery>,
 )>;
 ```
@@ -15918,6 +15921,766 @@ Whether you're a blockchain pioneer or an emerging builder, Polkadot's tools pro
 ## In This Section
 
 :::INSERT_IN_THIS_SECTION:::
+--- END CONTENT ---
+
+Doc-Content: https://docs.polkadot.com/develop/toolkit/interoperability/paraspell/
+--- BEGIN CONTENT ---
+---
+title: ParaSpell XCM SDK
+description: A powerful open-source library that simplifies XCM integration, enabling developers to easily build interoperable dApps on Polkadot.
+template: index-page.html
+---
+
+# ParaSpell XCM SDK
+
+## Introduction
+
+[ParaSpell](https://paraspell.github.io/docs/){target=\_blank} is a comprehensive suite of open-source tools designed to simplify cross-chain interactions within the Polkadot ecosystem. At its core, ParaSpell is dedicated to enhancing the functionality of the Cross-Consensus Messaging (XCM) protocol by providing developers with a unified and streamlined experience for building interoperable decentralized applications (dApps).
+
+The primary goal of ParaSpell is to abstract away the complexities of the XCM protocol. While XCM is a powerful feature of the Polkadot network, its implementation can vary significantly between different parachains. ParaSpell addresses this challenge by offering a standardized set of tools that allow developers to integrate cross-chain functionality into their applications with ease, saving valuable time and effort. ParaSpell is a "common good" software, meaning it is free, open-source, and dedicated to the growth of the Polkadot ecosystem.
+
+The ParaSpell suite includes:
+
+**[XCM SDK](https://paraspell.github.io/docs/sdk/getting-started.html){target=\_blank}**: A powerful library for integrating XCM interoperability into dApps.
+
+**[XCM API](https://paraspell.github.io/docs/api/g-started.html){target=\_blank}**: A lightweight alternative to the SDK for package-less integration.
+
+**[XCM Router](https://paraspell.github.io/docs/router/getting-strtd.html){target=\_blank}**: A tool for enabling cross-chain swaps of different assets in a single transaction.
+
+**[XCM Analyser](https://paraspell.github.io/docs/analyser/getng-strtd.html){target=\_blank}**: A utility for decoding and translating complex XCM data into a human-readable format.
+
+**[XCM Visualizator](https://paraspell.github.io/docs/visualizator/getting-start.html){target=\_blank}**: A tool for visualizing XCM activity across the Polkadot ecosystem.
+
+**[XCM Playground](https://paraspell.github.io/docs/tools/playground.html){target=\_blank}**: A tool for testing different XCM scenarios.
+
+### ParaSpell XCM SDK
+
+The [ParaSpell XCM SDK](https://paraspell.github.io/docs/sdk/getting-started.html){target=\_blank} is a core component of the ParaSpell toolset and a foundational library for developers looking to leverage XCM in their applications. It is the first and only XCM SDK in the ecosystem to support both PolkadotJS and Polkadot API, providing developers with flexibility and choice.
+
+The SDK simplifies the process of creating and sending XCM messages by providing a user-friendly builder pattern. This allows developers to construct complex XCM calls with just a few lines of code, reducing the likelihood of errors and ensuring that messages are constructed correctly.
+
+By using the ParaSpell XCM SDK, developers can significantly accelerate their development workflow and build powerful, interoperable dApps that take full advantage of the Polkadot network's cross-chain capabilities.
+
+## In This Section
+
+:::INSERT_IN_THIS_SECTION:::
+--- END CONTENT ---
+
+Doc-Content: https://docs.polkadot.com/develop/toolkit/interoperability/paraspell/paraspell-xcm-sdk/
+--- BEGIN CONTENT ---
+---
+title: ParaSpell XCM SDK – Teleport Tokens from Asset Hub to Relay Chain
+description: A step-by-step guide to building, verifying, and executing a teleport from Asset Hub to Relay chain using the ParaSpell XCM SDK.
+---
+
+# Teleport Tokens from Asset Hub to Relay Chain
+
+## Introduction
+
+This guide will walk you through teleporting tokens from Asset Hub to the Relay chain using the [ParaSpell XCM SDK](https://paraspell.github.io/docs/){target=_blank}.
+For development purposes, this guide will use the [Paseo TestNet](/develop/networks/#paseo){target=_blank}, so the teleport will be from Paseo's Asset Hub to the Paseo Relay chain.
+
+You’ll learn how to:
+
+- Build a teleport transaction
+- Perform a dry run to validate it
+- Verify the [Existential Deposit (ED)](/polkadot-protocol/glossary/#existential-deposit){target=_blank} requirement on the destination chain
+- Retrieve information regarding the transfer, along with fee estimates
+- Submit the transaction
+
+[ParaSpell](https://paraspell.github.io/docs/){target=_blank} is an open-source toolkit for simplifying cross-chain transactions in the Polkadot ecosystem. The [ParaSpell XCM SDK](https://paraspell.github.io/docs/){target=_blank} offers a builder pattern for constructing XCM messages, eliminating the need to handle parachain-specific differences.
+
+### Prerequisites
+
+- Basic familiarity with JavaScript/TypeScript
+- Knowledge of the [fundamentals of Polkadot](/polkadot-protocol/parachain-basics/){target=_blank}
+
+## Initialize Your Project
+
+Create a new directory, initialize it, and install the dependencies:
+
+```bash
+mkdir paraspell-teleport
+cd paraspell-teleport
+bun init -y
+bun add @paraspell/sdk polkadot-api @polkadot-labs/hdkd-helpers @polkadot-labs/hdkd
+```
+
+Add the following setup code to `index.ts`:
+
+```ts
+import {
+  entropyToMiniSecret,
+  mnemonicToEntropy,
+  ss58Address,
+} from '@polkadot-labs/hdkd-helpers';
+import { getPolkadotSigner } from 'polkadot-api/signer';
+import { sr25519CreateDerive } from '@polkadot-labs/hdkd';
+import { inspect } from 'util'; // Used for debugging
+
+// DOT/PAS has 10 decimals
+const PAS_UNITS = 10_000_000_000n;
+
+// Replace with your own mnemonic
+const SEED_PHRASE =
+  'depart thank scorpion shed dutch code above pledge insect recycle giraffe salt';
+
+// Create Sr25519 signer from mnemonic
+function getSigner() {
+  const entropy = mnemonicToEntropy(SEED_PHRASE);
+  const miniSecret = entropyToMiniSecret(entropy);
+  const derive = sr25519CreateDerive(miniSecret);
+  const keyPair = derive('');
+  return getPolkadotSigner(keyPair.publicKey, 'Sr25519', keyPair.sign);
+}
+
+const RECIPIENT_ADDRESS = ss58Address(getSigner().publicKey);
+const SENDER_ADDRESS = ss58Address(getSigner().publicKey);
+```
+Replace the `SEED_PHRASE` with the `SEED_PHRASE` from your Polkadot development account.
+Be sure to fund this account with some PAS tokens on Passeo's Asset Hub using the [Polkadot Faucet](https://faucet.polkadot.io/?parachain=1000){target=_blank}.
+
+!!!note "Security Warning"
+    Never commit your mnemonic phrase in production code. Use environment variables or secure key management systems.
+
+## Build a Teleport Transaction
+
+The next step is to build the transaction that you intend to execute.
+
+In this example, you will teleport 10 PAS tokens from Asset Hub Paseo to the Paseo Relay chain:
+
+Add the ParaSpell transaction code to your `index.ts` file:
+
+```ts
+const signer = getSigner();
+
+  const tx = await Builder()
+    .from('AssetHubPaseo')
+    .to('Paseo')
+    .currency({
+      symbol: 'PAS',
+      amount: 10n * PAS_UNITS, // 10 PAS
+    })
+    .address(RECIPIENT_ADDRESS)
+    .build();
+
+  console.log('Built transaction:', inspect(tx, { colors: true, depth: null }));
+
+  const result = await tx.signAndSubmit(signer);
+  console.log(inspect(result, { colors: true, depth: null }));
+}
+```
+Do not execute it just yet. You will perform a dry run of this transaction first to ensure it works as expected.
+
+## Perform a Dry Run
+
+Dry runs simulate the transaction without broadcasting it, allowing you to confirm success in advance.
+
+Add the following dry run code to your `index.ts` script:
+
+```ts
+if (!hasDryRunSupport('AssetHubPaseo')) {
+    console.log('Dry run is not supported on AssetHubPaseo.');
+    return;
+  }
+
+  const tx = await Builder()
+    .from('AssetHubPaseo')
+    .to('Paseo')
+    .currency({
+      symbol: 'PAS',
+      amount: 10n * PAS_UNITS,
+    })
+    .address(RECIPIENT_ADDRESS)
+    .senderAddress(SENDER_ADDRESS)
+    .dryRun();
+
+  console.log(inspect(tx, { colors: true, depth: null }));
+}
+
+dryRunTeleport();
+```
+Go ahead and run the script.
+
+```bash
+bun run index.ts
+```
+
+The result of the dry run will be similar to this:
+
+<div id="termynal" data-termynal>
+  <span data-ty="input"><span class="file-path"></span>bun run index.ts</span>
+  <span data-ty>{
+  failureReason: undefined,
+  failureChain: undefined,
+  origin: {
+    success: true,
+    fee: 17965000n,
+    weight: undefined,
+    forwardedXcms: [
+      {
+        type: 'V3',
+        value: { parents: 1, interior: { type: 'Here', value: undefined } }
+      },
+      [
+        {
+          type: 'V3',
+          value: [
+            {
+              type: 'ReceiveTeleportedAsset',
+              value: [
+                {
+                  id: {
+                    type: 'Concrete',
+                    value: {
+                      parents: 0,
+                      interior: { type: 'Here', value: undefined }
+                    }
+                  },
+                  fun: { type: 'Fungible', value: 100000000000n }
+                }
+              ]
+            },
+            { type: 'ClearOrigin', value: undefined },
+            {
+              type: 'BuyExecution',
+              value: {
+                fees: {
+                  id: {
+                    type: 'Concrete',
+                    value: {
+                      parents: 0,
+                      interior: { type: 'Here', value: undefined }
+                    }
+                  },
+                  fun: { type: 'Fungible', value: 100000000000n }
+                },
+                weight_limit: { type: 'Unlimited', value: undefined }
+              }
+            },
+            {
+              type: 'DepositAsset',
+              value: {
+                assets: {
+                  type: 'Wild',
+                  value: { type: 'AllCounted', value: 1 }
+                },
+                beneficiary: {
+                  parents: 0,
+                  interior: {
+                    type: 'X1',
+                    value: {
+                      type: 'AccountId32',
+                      value: {
+                        network: undefined,
+                        id: FixedSizeBinary {
+                          asText: [Function (anonymous)],
+                          asHex: [Function (anonymous)],
+                          asOpaqueHex: [Function (anonymous)],
+                          asBytes: [Function (anonymous)],
+                          asOpaqueBytes: [Function (anonymous)]
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            {
+              type: 'SetTopic',
+              value: FixedSizeBinary {
+                asText: [Function (anonymous)],
+                asHex: [Function (anonymous)],
+                asOpaqueHex: [Function (anonymous)],
+                asBytes: [Function (anonymous)],
+                asOpaqueBytes: [Function (anonymous)]
+              }
+            }
+          ]
+        }
+      ]
+    ],
+    destParaId: 0,
+    currency: 'PAS'
+  },
+  assetHub: undefined,
+  bridgeHub: undefined,
+  destination: {
+    success: true,
+    fee: 22511801n,
+    weight: { refTime: 283750000n, proofSize: 7186n },
+    forwardedXcms: [],
+    destParaId: undefined,
+    currency: 'PAS'
+  },
+  hops: []
+}</span>
+</div>
+
+## Verify the Existential Deposit
+
+Check if the recipient account meets the [Existential Deposit (ED)](/polkadot-protocol/glossary/#existential-deposit){target=_blank} requirement before sending:
+
+```ts
+const isValid = await Builder()
+    .from('AssetHubPaseo')
+    .to('Paseo')
+    .currency({
+      symbol: 'PAS',
+      amount: 10n * PAS_UNITS,
+    })
+    .address(RECIPIENT_ADDRESS)
+    .senderAddress(SENDER_ADDRESS)
+    .verifyEdOnDestination();
+
+  console.log(`ED verification ${isValid ? 'successful' : 'failed'}.`);
+}
+
+verifyED();
+```
+Execute the code.
+
+```bash
+bun run index.ts
+```
+
+You should get output confirming the ED:
+
+<div id="termynal" data-termynal>
+  <span data-ty="input"><span class="file-path"></span>bun run index.ts</span>
+  <span data-ty>...</span>
+  <span data-ty>ED verification successful.</span>
+</div>
+
+## Get Transfer Info and Fee Estimates
+
+Before sending an XCM transaction, it is helpful to estimate the fees associated with executing and delivering the cross-chain message.
+
+ParaSpell has a helpful function for this: `getTransferInfo()`. This function returns an estimate of the associated XCM fees, along with the account's balance before and after the fees are paid.
+
+```ts
+const info = await Builder()
+    .from('AssetHubPaseo')
+    .to('Paseo')
+    .currency({
+      symbol: 'PAS',
+      amount: 10n * PAS_UNITS,
+    })
+    .address(RECIPIENT_ADDRESS)
+    .senderAddress(SENDER_ADDRESS)
+    .getTransferInfo();
+
+  console.log('Transfer Info:', info);
+}
+
+XcmTransferInfo();
+```
+Go ahead and execute the script.
+
+```bash
+bun run index.ts
+```
+You should be able to see all the information for your transfer:
+
+<div id="termynal" data-termynal>
+  <span data-ty="input"><span class="file-path"></span>bun run index.ts</span>
+  <span data-ty>...</span>
+  <span data-ty>Transfer Info: {
+  chain: {
+    origin: "AssetHubPaseo",
+    destination: "Paseo",
+    ecosystem: "PAS",
+  },
+  origin: {
+    selectedCurrency: {
+      sufficient: true,
+      balance: 48999660164636n,
+      balanceAfter: 48899660164636n,
+      currencySymbol: "PAS",
+      existentialDeposit: 100000000n,
+    },
+    xcmFee: {
+      sufficient: true,
+      fee: 17965000n,
+      balance: 48999660164636n,
+      balanceAfter: 48999642199636n,
+      currencySymbol: "PAS",
+    },
+  },
+  assetHub: undefined,
+  bridgeHub: undefined,
+  hops: [],
+  destination: {
+    receivedCurrency: {
+      sufficient: true,
+      receivedAmount: 99977488199n,
+      balance: 519349192592n,
+      balanceAfter: 619326680791n,
+      currencySymbol: "PAS",
+      existentialDeposit: 10000000000n,
+    },
+    xcmFee: {
+      fee: 22511801n,
+      balance: 519349192592n,
+      balanceAfter: 619326680791n,
+      currencySymbol: "PAS",
+    },
+  },
+}</span>
+</div>
+
+Now that you have:
+
+- completed a successful dry run of the transaction
+- verified the existential deposit on the recipient account
+- obtained an estimate of the associated XCM fees
+You can execute the teleport transaction with confidence.
+
+Add the following code:
+
+```typescript
+
+```
+And execute your teleport:
+```bash
+bun run index.ts
+```
+Your ParaSpell `teleport()` function will submit the transaction, and you will get the following output:
+
+<div id="termynal" data-termynal>
+  <span data-ty="input"><span class="file-path"></span>bun run index.ts</span>
+  <span data-ty>...</span>
+  <span data-ty>Built transaction: {
+  getPaymentInfo: [AsyncFunction: getPaymentInfo],
+  getEstimatedFees: [AsyncFunction: getEstimatedFees],
+  decodedCall: {
+    type: 'PolkadotXcm',
+    value: {
+      type: 'limited_teleport_assets',
+      value: {
+        dest: {
+          type: 'V5',
+          value: { parents: 1, interior: { type: 'Here' } }
+        },
+        beneficiary: {
+          type: 'V5',
+          value: {
+            parents: 0,
+            interior: {
+              type: 'X1',
+              value: {
+                type: 'AccountId32',
+                value: {
+                  network: undefined,
+                  id: FixedSizeBinary {
+                    asText: [Function (anonymous)],
+                    asHex: [Function (anonymous)],
+                    asOpaqueHex: [Function (anonymous)],
+                    asBytes: [Function (anonymous)],
+                    asOpaqueBytes: [Function (anonymous)]
+                  }
+                }
+              }
+            }
+          }
+        },
+        assets: {
+          type: 'V5',
+          value: [
+            {
+              id: { parents: 1, interior: { type: 'Here' } },
+              fun: { type: 'Fungible', value: 100000000000n }
+            }
+          ]
+        },
+        fee_asset_item: 0,
+        weight_limit: { type: 'Unlimited' }
+      }
+    }
+  },
+  getEncodedData: [Function: getEncodedData],
+  sign: [Function: sign],
+  signSubmitAndWatch: [Function: signSubmitAndWatch],
+  signAndSubmit: [Function: signAndSubmit]
+}</span>
+</div>
+
+Once the transaction is successfully included in a block, you will see the recipient's account balance updated, and you will get output similar to below.
+
+???- code "Successful Transaction Submission"
+    This output will be returned once the transaction has successfully been included in a block.
+
+    <div id="termynal" data-termynal>
+  <span data-ty>...</span>
+  <span data-ty>{
+  txHash: '0x8ca2c97a1bc570a3697f033d30164e6fc2b13ef3e3ba4ec3c989f49107adc7da',
+  block: {
+    index: 2,
+    number: 2484912,
+    hash: '0xff331de1b5a99e91fb70423989a1b5c31b0494b2bee59851baff2020a0cc1111'
+  },
+  ok: true,
+  events: [
+    {
+      type: 'Balances',
+      value: {
+        type: 'Withdraw',
+        value: {
+          who: '15DMtB5BDCJqw4uZtByTWXGqViAVx7XjRsxWbTH5tfrHLe8j',
+          amount: 15518864n
+        }
+      },
+      topics: []
+    },
+    {
+      type: 'Balances',
+      value: {
+        type: 'Burned',
+        value: {
+          who: '15DMtB5BDCJqw4uZtByTWXGqViAVx7XjRsxWbTH5tfrHLe8j',
+          amount: 100000000000n
+        }
+      },
+      topics: []
+    },
+    {
+      type: 'PolkadotXcm',
+      value: {
+        type: 'Attempted',
+        value: {
+          outcome: {
+            type: 'Complete',
+            value: { used: { ref_time: 190990000n, proof_size: 3593n } }
+          }
+        }
+      },
+      topics: []
+    },
+    {
+      type: 'Balances',
+      value: {
+        type: 'Burned',
+        value: {
+          who: '15DMtB5BDCJqw4uZtByTWXGqViAVx7XjRsxWbTH5tfrHLe8j',
+          amount: 304850000n
+        }
+      },
+      topics: []
+    },
+    {
+      type: 'Balances',
+      value: {
+        type: 'Minted',
+        value: {
+          who: '14xmwinmCEz6oRrFdczHKqHgWNMiCysE2KrA4jXXAAM1Eogk',
+          amount: 304850000n
+        }
+      },
+      topics: []
+    },
+    {
+      type: 'PolkadotXcm',
+      value: {
+        type: 'FeesPaid',
+        value: {
+          paying: {
+            parents: 0,
+            interior: {
+              type: 'X1',
+              value: {
+                type: 'AccountId32',
+                value: {
+                  network: { type: 'Polkadot', value: undefined },
+                  id: FixedSizeBinary {
+                    asText: [Function (anonymous)],
+                    asHex: [Function (anonymous)],
+                    asOpaqueHex: [Function (anonymous)],
+                    asBytes: [Function (anonymous)],
+                    asOpaqueBytes: [Function (anonymous)]
+                  }
+                }
+              }
+            }
+          },
+          fees: [
+            {
+              id: {
+                parents: 1,
+                interior: { type: 'Here', value: undefined }
+              },
+              fun: { type: 'Fungible', value: 304850000n }
+            }
+          ]
+        }
+      },
+      topics: []
+    },
+    {
+      type: 'ParachainSystem',
+      value: {
+        type: 'UpwardMessageSent',
+        value: {
+          message_hash: FixedSizeBinary {
+            asText: [Function (anonymous)],
+            asHex: [Function (anonymous)],
+            asOpaqueHex: [Function (anonymous)],
+            asBytes: [Function (anonymous)],
+            asOpaqueBytes: [Function (anonymous)]
+          }
+        }
+      },
+      topics: []
+    },
+    {
+      type: 'PolkadotXcm',
+      value: {
+        type: 'Sent',
+        value: {
+          origin: {
+            parents: 0,
+            interior: {
+              type: 'X1',
+              value: {
+                type: 'AccountId32',
+                value: {
+                  network: { type: 'Polkadot', value: undefined },
+                  id: FixedSizeBinary {
+                    asText: [Function (anonymous)],
+                    asHex: [Function (anonymous)],
+                    asOpaqueHex: [Function (anonymous)],
+                    asBytes: [Function (anonymous)],
+                    asOpaqueBytes: [Function (anonymous)]
+                  }
+                }
+              }
+            }
+          },
+          destination: { parents: 1, interior: { type: 'Here', value: undefined } },
+          message: [
+            {
+              type: 'ReceiveTeleportedAsset',
+              value: [
+                {
+                  id: {
+                    parents: 0,
+                    interior: { type: 'Here', value: undefined }
+                  },
+                  fun: { type: 'Fungible', value: 100000000000n }
+                }
+              ]
+            },
+            { type: 'ClearOrigin', value: undefined },
+            {
+              type: 'BuyExecution',
+              value: {
+                fees: {
+                  id: {
+                    parents: 0,
+                    interior: { type: 'Here', value: undefined }
+                  },
+                  fun: { type: 'Fungible', value: 100000000000n }
+                },
+                weight_limit: { type: 'Unlimited', value: undefined }
+              }
+            },
+            {
+              type: 'DepositAsset',
+              value: {
+                assets: {
+                  type: 'Wild',
+                  value: { type: 'AllCounted', value: 1 }
+                },
+                beneficiary: {
+                  parents: 0,
+                  interior: {
+                    type: 'X1',
+                    value: {
+                      type: 'AccountId32',
+                      value: {
+                        network: undefined,
+                        id: FixedSizeBinary {
+                          asText: [Function (anonymous)],
+                          asHex: [Function (anonymous)],
+                          asOpaqueHex: [Function (anonymous)],
+                          asBytes: [Function (anonymous)],
+                          asOpaqueBytes: [Function (anonymous)]
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          ],
+          message_id: FixedSizeBinary {
+            asText: [Function (anonymous)],
+            asHex: [Function (anonymous)],
+            asOpaqueHex: [Function (anonymous)],
+            asBytes: [Function (anonymous)],
+            asOpaqueBytes: [Function (anonymous)]
+          }
+        }
+      },
+      topics: []
+    },
+    {
+      type: 'Balances',
+      value: {
+        type: 'Deposit',
+        value: {
+          who: '13UVJyLgBASGhE2ok3TvxUfaQBGUt88JCcdYjHvUhvQkFTTx',
+          amount: 15518864n
+        }
+      },
+      topics: []
+    },
+    {
+      type: 'TransactionPayment',
+      value: {
+        type: 'TransactionFeePaid',
+        value: {
+          who: '15DMtB5BDCJqw4uZtByTWXGqViAVx7XjRsxWbTH5tfrHLe8j',
+          actual_fee: 15518864n,
+          tip: 0n
+        }
+      },
+      topics: []
+    },
+    {
+      type: 'System',
+      value: {
+        type: 'ExtrinsicSuccess',
+        value: {
+          dispatch_info: {
+            weight: { ref_time: 952851000n, proof_size: 13382n },
+            class: { type: 'Normal', value: undefined },
+            pays_fee: { type: 'Yes', value: undefined }
+          }
+        }
+      },
+      topics: []
+    }
+  ]
+}</span>
+</div>
+
+After executing the teleport, check the account balance on [Polkadot.js Apps](https://polkadot.js.org/apps/?rpc=wss%3A%2F%2Fsys.turboflakes.io%2Fasset-hub-paseo#/accounts). 
+
+You should see:
+
+- The recipient account now has 10 more PAS tokens.
+- The sender account has the transfer amount (10 PAS) + the fees amount debited from their account balance.
+
+You have now successfully created and sent a cross-chain transfer using the ParaSpell XCM SDK!
+
+## Next Steps
+
+- Explore other transfers: 
+    - Try a parachain-to-parachain transfer or a transfer from a parachain back to the Relay chain.
+
+- Read the Docs: Dive deeper into the features of the [ParaSpell XCM SDK](https://paraspell.github.io/docs/sdk/getting-started.html){target=\_blank} documentation.
+
+- Learn about XCM: Understand the underlying protocol by visiting the [Introduction to XCM page](/develop/interoperability/intro-to-xcm/) in the Polkadot Docs.
 --- END CONTENT ---
 
 Doc-Content: https://docs.polkadot.com/develop/toolkit/interoperability/xcm-tools/

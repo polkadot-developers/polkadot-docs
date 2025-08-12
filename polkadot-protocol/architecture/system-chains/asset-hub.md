@@ -171,7 +171,7 @@ For non-sufficient assets, this can be done by calling [asset conversion's swap]
 
     - Option 2 - Additional sender cost:
 
-        - **Receiver gets**: full 100 USDT + 0.01 DOT (for ED).
+        - **Receiver gets**: Full 100 USDT + 0.01 DOT (for ED).
         - **Sender pays**: 100 USDT + 0.01 DOT (for ED) + transaction and XCM fees.
         - More expensive for the sender, but the receiver gets the full amount.
 

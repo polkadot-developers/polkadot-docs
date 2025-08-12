@@ -559,7 +559,7 @@ From a UX perspective, when designing cross-chain applications, consider who wil
 
 - Option 2 - Additional sender cost:
 
-    - **Receiver gets**: full 100 USDT + 0.01 DOT (for ED).
+    - **Receiver gets**: Full 100 USDT + 0.01 DOT (for ED).
     - **Sender pays**: 100 USDT + 0.01 DOT (for ED) + transaction and XCM fees.
     - More expensive for the sender, but the receiver gets full amount.
 
@@ -22704,7 +22704,7 @@ Through the use of [asset conversion](https://wiki.polkadot.network/learn/learn-
 
 ### Transaction Fees
 
-On Asset Hub, both sufficient and non-sufficient assets can be used for paying transaction fees. For sufficient assets, Asset Hub natively converts the native asset (e.g., DOT) amount required to an asset balance, and the signer pays that asset to a collator. And for non-sufficient assets on Asset Hub, developers can leverage [asset conversion](https://wiki.polkadot.network/learn/learn-asset-conversion-assethub){target=\_blank} via a [swap](/tutorials/polkadot-sdk/system-chains/asset-hub/asset-conversion/) or an XCM `ExchangeAsset` instruction to swap the non-sufficient asset for any asset that has a [liquidity pool set up](https://wiki.polkadot.network/learn/learn-guides-asset-conversion/#create-a-liquidity-pool){target=\_blank} against the native asset or sufficient asset and use those tokens to cover for transaction fees.
+On Asset Hub, both sufficient and non-sufficient assets can be used for paying transaction fees. For sufficient assets, Asset Hub natively converts the native asset (e.g. DOT) amount required to an asset balance, and the signer pays that asset to a collator. And for non-sufficient assets on Asset Hub, developers can leverage [asset conversion](https://wiki.polkadot.network/learn/learn-asset-conversion-assethub){target=\_blank} via a [swap](/tutorials/polkadot-sdk/system-chains/asset-hub/asset-conversion/) or an XCM `ExchangeAsset` instruction to swap the non-sufficient asset for any asset that has a [liquidity pool set up](https://wiki.polkadot.network/learn/learn-guides-asset-conversion/#create-a-liquidity-pool){target=\_blank} against the native asset or sufficient asset and use those tokens to cover for transaction fees.
 
 !!!note 
     Existing UI's, wallets, and tools may have limitations because of design decisions and/or constraints it places e.g. constructing the XCM call in a specific manner and therefore limiting the end user when in reality the Asset Hub system parachain encompasses more functionality than exposed in the third-party UI, such as the ability to pay transaction fees and XCM delivery fees in any asset.
@@ -22728,7 +22728,7 @@ For non-sufficient assets, this can be done by calling [asset conversion's swap]
 
     - Option 2 - Additional sender cost:
 
-        - **Receiver gets**: full 100 USDT + 0.01 DOT (for ED).
+        - **Receiver gets**: Full 100 USDT + 0.01 DOT (for ED).
         - **Sender pays**: 100 USDT + 0.01 DOT (for ED) + transaction and XCM fees.
         - More expensive for the sender, but the receiver gets the full amount.
 

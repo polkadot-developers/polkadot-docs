@@ -27827,134 +27827,146 @@ description: Learn how to trace, correlate, and debug cross-chain XCMs using obs
 
 ## Introduction
 
-This guide explains how to **trace, correlate, and debug cross-chain XCMs** using the observability features enhanced in the Polkadot SDK.
+Cross-Consensus Messaging (XCM) enables powerful interoperability in the Polkadot ecosystem, but debugging and tracing XCM flows across multiple chains can be challenging.
+
+This guide explains how to **trace, correlate, and debug XCMs** reliably using observability features built into modern Polkadot runtimes and the Polkadot SDK.
 
 You will learn how to:
 
-- Use `SetTopic` and `message_id` to track XCMs across multiple chains
-- Match `PolkadotXcm.Sent` and `MessageQueue.Processed` events to understand message flow
-- Apply manual topic tagging for reliable tracking across hops
-- Use a workaround for older runtimes that emit derived message identifiers
-- Interpret and handle failed or incomplete messages
+- Use the `SetTopic` instruction and `message_id` to track XCMs across chains  
+- Understand the relationship between `PolkadotXcm.Sent` and `MessageQueue.Processed` events for message correlation  
+- Apply manual topic tagging for multi-hop tracing when needed  
+- Use workarounds for older runtimes with derived message IDs  
+- Debug failed or incomplete XCMs using indexers and Chopsticks replay  
 
-To demonstrate these techniques, the guide introduces a complete example scenario involving a multichain XCM transfer. This scenario will serve as the foundation for explaining the message lifecycle, event tracking, and failure debugging in context.
+The guide revolves around a **single, concrete scenario** of a cross-chain DOT transfer between two parachains, with multiple example scripts and detailed outputs.
 
 ## Prerequisites
 
-Before you begin, ensure you've:
+Before you begin:
 
-- [Chopsticks](/develop/toolkit/parachains/fork-chains/chopsticks/get-started/){target=\_blank} installed
-- Access to the endpoint or genesis file of the parachain you wish to fork
-- Set up your TypeScript project with the essential tools
+- Install [Chopsticks](/develop/toolkit/parachains/fork-chains/chopsticks/get-started/){target=\_blank}
+- Access to local or remote parachain endpoints or genesis files to fork chains  
+- A TypeScript development environment with essential tools  
 
-If you haven't replayed or dry-run XCMs before, see the [Replay and Dry Run XCMs Using Chopsticks](/tutorials/interoperability/replay-and-dry-run-xcms/){target=\_blank} tutorial for step-by-step guidance.
+If you are new to XCM dry-run or replay, see the [Replay and Dry Run XCMs Using Chopsticks](/tutorials/interoperability/replay-and-dry-run-xcms/){target=\_blank}.
 
-### Set Up Your Project
+## Setting Up Your Workspace
 
-Let's start by creating a dedicated workspace for your XCM observability demo.
-
-1. Create a new directory and navigate into it:
+1. Create a project directory:
 
     ```bash
-    mkdir -p xcm-obs-demo
-    cd xcm-obs-demo
+    mkdir -p xcm-obs-demo && cd xcm-obs-demo
     ```
 
-2. Initialise a new Node project:
+2. Initialise Node project:
 
     ```bash
     npm init -y
     ```
 
-3. Install Chopsticks globally (recommended to avoid conflicts with local installs):
+3. Install Chopsticks globally:
 
     ```bash
     npm install -g @acala-network/chopsticks@latest
     ```
 
-4. Install TypeScript and related tooling for local development:
+4. Install TypeScript and Polkadot dependencies:
 
     ```bash
     npm install --save-dev typescript @types/node tsx
-    ```
-
-5. Install the required Polkadot packages:
-
-    ```bash
     npm install polkadot-api @polkadot-labs/hdkd @polkadot-labs/hdkd-helpers
     ```
 
-6. Initialise the TypeScript config:
+5. Initialise TypeScript:
 
     ```bash
     npx tsc --init
     ```
 
-### Launch a Fork for XCM Observability Demo
+6. Fork the relevant chains locally using Chopsticks:
 
-To observe XCM tracing in action, fork the relevant chains locally using Chopsticks.
+    ```bash
+    npx @acala-network/chopsticks xcm -r polkadot -p polkadot-asset-hub -p hydradx
+    ```
 
-Start the local environment:
+   → See the [Fork a Chain with Chopsticks guide](/tutorials/polkadot-sdk/testing/fork-live-chains/){target=\_blank} for detailed instructions.
 
-```bash
-npx @acala-network/chopsticks xcm \
-    -r polkadot \
-    -p polkadot-asset-hub \
-    -p hydradx
-```
+7. Add descriptors:
 
-→ See the [Fork a Chain with Chopsticks guide](/tutorials/polkadot-sdk/testing/fork-live-chains/){target=\_blank} for detailed instructions.
+    ```bash
+    npx papi add assetHub -w ws://localhost:8000
+    npx papi add hydration -w ws://localhost:8001
+    ```
 
-Before running the script, add the descriptors:
+## Core Concepts
 
-```bash
-npx papi add assetHub -w ws://localhost:8000
-npx papi add hydration -w ws://localhost:8001
-```
-
-## Understanding the Basics
+### What is `SetTopic`?
 
 When sending XCMs using `limited_reserve_transfer_assets` or other extrinsics from the `PolkadotXcm` pallet, two key observability features allow developers to trace and correlate messages across chains:
 
-- [`SetTopic([u8; 32])`](https://github.com/polkadot-fellows/xcm-format#settopic){target=\_blank}: An XCM instruction that sets the **Topic Register**. This 32-byte value becomes the `message_id`, which appears in both the `PolkadotXcm.Sent` and `MessageQueue.Processed` events. It enables logical grouping and filtering of related messages across one or more hops.
+- [`SetTopic([u8; 32])`](https://github.com/polkadot-fellows/xcm-format#settopic){target=\_blank} is an XCM instruction that **sets a 32-byte topic register** inside the message.
+- This topic acts as a **logical identifier** (`message_id`) for the XCM, enabling you to group and trace related messages across chains.
+- It appears as a hash in both [`PolkadotXcm.Sent`](https://paritytech.github.io/polkadot-sdk/master/pallet_xcm/pallet/enum.Event.html#variant.Sent){target=\_blank} and [`MessageQueue.Processed`](https://paritytech.github.io/polkadot-sdk/master/pallet_message_queue/pallet/enum.Event.html#variant.Processed){target=\_blank} events.
 
-  > ⚠️ **Note**: The topic is **not guaranteed to be unique**. If uniqueness is required (e.g. for deduplication or message tracking), it must be enforced by the message creator.
-
-- `message_id`: A hash emitted in both the [`PolkadotXcm.Sent`](https://paritytech.github.io/polkadot-sdk/master/pallet_xcm/pallet/enum.Event.html#variant.Sent){target=\_blank} event (on the origin chain) and the [`MessageQueue.Processed`](https://paritytech.github.io/polkadot-sdk/master/pallet_message_queue/pallet/enum.Event.html#variant.Processed){target=\_blank} event (on the destination chain). While not globally unique, it is sufficient to match a `Sent` message with its corresponding `Processed` result.
+> ⚠️ **Note:** The topic is **not guaranteed to be unique**. Uniqueness must be enforced by the message creator if required.
 
 These features are available in runtimes built from **`stable2503-5` or later**.
 
-### Key Behaviours
+### Understanding `message_id`
 
-- The runtime **automatically appends** a `SetTopic` instruction at the end of the XCM if it is not already included. See: [`WithUniqueTopic`](https://paritytech.github.io/polkadot-sdk/master/staging_xcm_builder/struct.WithUniqueTopic.html){target=\_blank}
+- The `message_id` is a hash derived from the `SetTopic` topic.
+- It is emitted in:
 
-- When using high-level extrinsics such as `limited_reserve_transfer_assets`, you do **not** need to include `SetTopic` manually. The runtime will insert it for you.
+  | Chain Role        | Event                    | Field        | Purpose                            |
+  |-------------------|--------------------------|--------------|------------------------------------|
+  | Origin chain      | `PolkadotXcm.Sent`       | `message_id` | Identifies the sent XCM            |
+  | Destination chain | `MessageQueue.Processed` | `id`         | Confirms processing of the message |
 
-- If constructing an XCM manually using the `execute` call, you **can provide your own** `SetTopic([u8; 32])`:
+- Matching these IDs lets you **correlate** an origin message with its destination processing.
 
-  - If a topic is already set, the runtime will **not override** it.
-  - `SetTopic` **must be the final instruction** in the list. Placing it elsewhere will result in it being ignored during execution.
+### Why Not `XcmpQueue.XcmpMessageSent`?
 
-- On newer runtimes, the same topic is preserved throughout a multi-hop transfer. This ensures consistent correlation of the `message_id` between origin and destination, even across multiple chains.
+- The event [`XcmpQueue.XcmpMessageSent`](https://paritytech.github.io/polkadot-sdk/master/cumulus_pallet_xcmp_queue/pallet/enum.Event.html#variant.XcmpMessageSent){target=\_blank} contains a `message_hash` unrelated to `SetTopic`.
+- It is **not reliable for cross-chain tracing** and should be avoided for observability purposes.
 
-## Define a Scenario: XCM Flow with Implicit `SetTopic`
+### Automatic vs Manual `SetTopic`
 
-We will examine the full lifecycle of a cross-chain message from Polkadot Asset Hub to Hydration, using the `limited_reserve_transfer_assets` extrinsic.
+- Automatically **append a `SetTopic` instruction** if it is missing.
+- When using high-level extrinsics such as `limited_reserve_transfer_assets`, **you don't need to set a topic manually**.
+- If manually crafting an XCM via `execute` (or `send`), you **can supply your own `SetTopic`**, but it **must be the last instruction** to be respected.
+- In multi-hop flows, manually setting the topic can guarantee consistent tracing across all hops.
 
-- **Origin chain**: Polkadot Asset Hub
-- **Destination chain**: Hydration
-- **Extrinsic**: `limited_reserve_transfer_assets`
-- **Goal**: Transfer DOT and trace the XCM using its emitted `message_id`
+## Message Lifecycle
 
-This scenario demonstrates how a `SetTopic` is generated automatically, how to identify matching `Sent` and `Processed` events, and how to interpret failures using runtime logs.
+Here is a high-level overview of an XCM lifecycle with observability events:
 
-### Execute the Transfer
+```mermaid
+flowchart LR
+    A[User submits extrinsic] --> B[Origin Chain Runtime constructs XCM]
+    B --> C[Runtime appends SetTopic instruction (if missing)]
+    C --> D[PolkadotXcm.Sent event emitted with message_id]
+    D --> E[XCM forwarded to Destination Chain(s)]
+    E --> F[Destination Chain executes XCM]
+    F --> G[MessageQueue.Processed event emitted with matching id]
+    G --> H[Success or failure logged, further hops if any]
+```
 
-This example uses the `PolkadotXcm.limited_reserve_transfer_assets` extrinsic to initiate a DOT transfer from Polkadot Asset Hub to Hydration.
+* The `SetTopic` ensures a consistent `message_id` is passed and visible in these events.
+* For multi-hop flows, the same `message_id` travels through all chains.
 
-The runtime automatically appends a `SetTopic` instruction to the forwarded XCM. This topic becomes the `message_id` used in both `Sent` and `Processed` events, enabling traceability without manual intervention.
+## Scenario 1: XCM Flow with Implicit `SetTopic`
 
-Create a new script named `limited-reserve-transfer-assets.ts`
+### Overview
+
+- **Origin:** Polkadot Asset Hub
+- **Destination:** Hydration
+- **Extrinsic:** `limited_reserve_transfer_assets` (high-level)
+- **Topic:** Automatically set by runtime
+
+### Run the Script
+
+Create and run `limited-reserve-transfer-assets.ts`:
 
 ```ts
 import {Binary, createClient, Enum} from "polkadot-api";
@@ -28134,15 +28146,13 @@ async function main() {
 main().catch(console.error);
 ```
 
-Run it locally:
-
 ```bash
 npx tsx limited-reserve-transfer-assets.ts
 ```
 
-#### Forwarded XCM (Destination Chain: Hydration)
+### Forwarded XCM Example
 
-During execution, the runtime adds a `SetTopic` instruction automatically. This topic is carried through to the destination chain and becomes the basis for event correlation:
+The runtime adds a `SetTopic` to the forwarded XCM automatically:
 
 <div class="termynal" data-termynal>
   <pre data-ty>
@@ -28170,22 +28180,16 @@ During execution, the runtime adds a `SetTopic` instruction automatically. This 
   </pre>
 </div>
 
-The forwarded message is then processed on Hydration, where the `id` is emitted in the `MessageQueue.Processed` event.
+### Trace Events
 
-> ⚠️ Please note that the `SetTopic` value generated during a dry-run may differ from the one used in actual execution.
+| Chain     | Event                    | Field        | Notes                                  |
+|-----------|--------------------------|--------------|----------------------------------------|
+| Asset Hub | `PolkadotXcm.Sent`       | `message_id` | Matches the topic in the forwarded XCM |
+| Hydration | `MessageQueue.Processed` | `id`         | Matches origin's `message_id`          |
 
-### Track the Message Across Chains
+> ⚠️ Dry run generated topics may differ from actual execution.
 
-After submitting the transfer, use the `message_id` to correlate origin and destination events.
-
-| Chain                               | Event                    | Field        | Description                                                                |
-|-------------------------------------|--------------------------|--------------|----------------------------------------------------------------------------|
-| Origin (e.g. Asset Hub)             | `PolkadotXcm.Sent`       | `message_id` | Message ID from `SetTopic`. Appended automatically if missing.             |
-| Destination (e.g. Acala, Hydration) | `MessageQueue.Processed` | `id`         | Matches `message_id` from the origin chain, enabling reliable correlation. |
-
-> ⚠️ Avoid relying on [`XcmpQueue.XcmpMessageSent`](https://paritytech.github.io/polkadot-sdk/master/cumulus_pallet_xcmp_queue/pallet/enum.Event.html#variant.XcmpMessageSent){target=\_blank}. Its `message_hash` is not derived from `SetTopic` and is not suitable for cross-chain tracking.
-
-#### Example: Message Trace Output
+### Message Trace Output
 
 <div class="termynal" data-termynal>
   <span data-ty="input">npx tsx limited-reserve-transfer-assets.ts</span>
@@ -28197,16 +28201,18 @@ After submitting the transfer, use the `message_id` to correlate origin and dest
   <span data-ty>✅ Processed Message ID matched.</span>
 </div>
 
-### Define a Scenario: XCM Transfer with Manual `SetTopic`
+## Scenario 2: XCM Transfer with Manual `SetTopic`
 
-In multichain XCM flows, such as transferring assets between two chains, you may want to include a `SetTopic` instruction to **reliably trace the message across all involved chains**.
+### Overview
 
-- **Origin chain**: Polkadot Asset Hub
-- **Destination chain**: Hydration
-- **Topic**: Manually assigned via `SetTopic` instruction
-- **Goal**: Transfer DOT and trace the XCM using the assigned `message_id`
+- **Origin:** Polkadot Asset Hub
+- **Destination:** Hydration
+- **Topic:** Manually assigned
+- **Goal:** Guarantee traceability in custom multi-hop flows
 
-Create a new script named `deposit-reserve-asset-with-set-topic.ts`
+### Run the Script
+
+Create and run `deposit-reserve-asset-with-set-topic.ts`:
 
 ```ts
 import {Binary, BlockInfo, createClient, Enum, PolkadotClient, TypedApi} from "polkadot-api";
@@ -28444,19 +28450,17 @@ async function main() {
 main().catch(console.error);
 ```
 
-Run it locally:
-
 ```bash
 npx tsx deposit-reserve-asset-with-set-topic.ts
 ```
 
-#### Forwarded XCM (Destination Chain: Hydration)
+### Forwarded XCM Example
 
-During execution, the runtime processes the `SetTopic` instruction you provided, preserving the topic across all chains:
+Your manual `SetTopic` is preserved by the runtime:
 
 code/tutorials/interoperability/xcm-observability/forwarded-xcm-custom.html
 
-#### Example: Message Trace Output
+### Message Trace Output
 
 <div class="termynal" data-termynal>
   <span data-ty="input">npx tsx limited-reserve-transfer-assets.ts</span>
@@ -28469,16 +28473,18 @@ code/tutorials/interoperability/xcm-observability/forwarded-xcm-custom.html
   <span data-ty>✅ Processed Message ID on Hydration matched.</span>
 </div>
 
-### Define a Scenario: Multi-hop XCM Transfer with Manual `SetTopic`
+## Scenario 3: Multi-hop XCM Transfer with Manual `SetTopic`
 
-In multichain XCM flows—such as sending assets from one chain to another and then back, you can include a `SetTopic` instruction to **consistently trace the message across all hops**.
+### Overview
 
-- **Origin chain**: Polkadot Asset Hub
-- **Destination chain**: Hydration
-- **Topic**: Manually assigned via `SetTopic` instructions
-- **Goal**: Transfer DOT and track the XCM using the assigned `message_id` across both chains
+- **Origin:** Polkadot Asset Hub
+- **Destination:** Hydration
+- **Topic:** Manually assigned and preserved over multiple hops
+- **Goal:** Trace entire multi-hop XCM chain consistently
 
-Create a new script named `initiate-reserve-withdraw-with-set-topic.ts`:
+### Run the Script
+
+Create and run `initiate-reserve-withdraw-with-set-topic.ts`:
 
 ```ts
 import {Binary, BlockInfo, createClient, Enum, PolkadotClient, TypedApi} from "polkadot-api";
@@ -28774,25 +28780,20 @@ async function main() {
 main().catch(console.error);
 ```
 
-Run it locally:
-
 ```bash
 npx tsx initiate-reserve-withdraw-with-set-topic.ts
 ```
 
-#### Forwarded XCM (Destination Chain: Hydration)
+### Forwarded XCM Example (Hydration)
 
-During execution, the runtime applies your `SetTopic` instruction, ensuring the same topic is preserved throughout the cross-chain flow:
+The runtime preserves your `SetTopic` throughout the multi-hop flow:
 
-```html
 code/tutorials/interoperability/xcm-observability/forwarded-xcm-remote.html
-```
 
-#### Example: Message Trace Output
+### End-to-End Message Trace Output
 
-Below is the actual end-to-end trace, showing the same `message_id` at each step across all involved chains:
+The same `message_id` is present in all relevant events across chains:
 
-```html
 <div class="termynal" data-termynal>
   <span data-ty="input">npx tsx initiate-reserve-withdraw-with-set-topic.ts</span>
   <span data-ty>✅ Local dry run successful.</span>
@@ -28806,12 +28807,11 @@ Below is the actual end-to-end trace, showing the same `message_id` at each step
   <span data-ty>📣 Last message processed on Polkadot Asset Hub: 0xd60225f721599cb7c6e23cdf4fab26f205e30cd7eb6b5ccf6637cdc80b2339b2</span>
   <span data-ty>✅ Processed Message ID on Polkadot Asset Hub matched.</span>
 </div>
-```
 
 ## Workaround for Older Runtimes
 
-- On **older runtimes** (prior to `stable2503-5`), the `message_id` seen in downstream `Processed` events is **not the original topic hash**, but rather a **derived `forwarded_id`**.
-- This `forwarded_id` is computed as:
+* Runtimes prior to **`stable2503-5`** emit a **derived `forwarded_id`** instead of the original topic in downstream `Processed` events.
+* The forwarded ID is calculated as:
 
 ```rust
 fn forward_id_for(original_id: &XcmHash) -> XcmHash { 
@@ -28819,7 +28819,13 @@ fn forward_id_for(original_id: &XcmHash) -> XcmHash {
 }
 ```
 
-To reliably trace messages across **mixed-version chains**, indexers and tools should check for both the `original_id` and its forwarded form.
+### Example
+
+| Original `message_id` | Forwarded `message_id`                                        |
+|-----------------------|---------------------------------------------------------------|
+| `0x5c082b47...`       | `0xb3ae32fd...` == blake2_256("forward_id_for" + original_id) |
+
+Tools and indexers tracing messages across mixed runtime versions should check **both** the original and forwarded IDs.
 
 ```ts
 import {blake2AsU8a} from "@polkadot/util-crypto";
@@ -28856,21 +28862,17 @@ if (forwardedIdHex === expectedForwardedId) {
 }
 ```
 
-- ✅ **New runtimes**:
-  `message_id == original_id`
-
-- ⚠️ **Old runtimes**:
-  `message_id == blake2_256("forward_id_for" + original_id)`
-
 ## Failure Event Handling
 
-When an XCM fails, the entire execution is **rolled back**, so no failure events are emitted on-chain. However, you can still observe and debug the failure using two main approaches:
+When XCMs fail, the entire transaction **rolls back** and **no failure events are emitted on-chain**.
 
-### View Nested Errors from Indexers
+### How to Detect Failures
 
-Most indexers (and API responses) will show **nested dispatch errors**, such as:
+1. **View Nested Dispatch Errors via Indexers**
 
-<div class="termynal" data-termynal>
+   Most indexers display nested errors indicating why an XCM failed, e.g.:
+
+   <div class="termynal" data-termynal>
   <pre data-ty>
 "error": {
   "type": "Module",
@@ -28890,30 +28892,45 @@ Most indexers (and API responses) will show **nested dispatch errors**, such as:
   </pre>
 </div>
 
-This output is available on runtimes from **`stable2506` or later**, and is often sufficient for identifying common issues such as missing assets or execution limits.
+   Common errors include missing assets, execution limit exceeded, or bad asset location. This output is available on runtimes from **`stable2506` or later**, and is often sufficient for identifying common issues such as missing assets or execution limits.
 
-### Use Chopsticks for Full Error Logs
+2. **Replay Using Chopsticks for Full Logs**
 
-For deeper analysis:
+   For detailed troubleshooting:
 
-- Use Chopsticks to **replay the message with logging enabled**
-- See exactly **which instruction failed**, and why
-- View full error chains such as `FailedToTransactAsset`, or `AssetNotFound`
+    - Replay the failing extrinsic with logging enabled
+    - See exactly which instruction failed and why
+    - View complete error chains like `FailedToTransactAsset` or `AssetNotFound`
 
-This is especially useful when dealing with:
-
-- Multi-hop XCMs
-- Custom asset locations
-- Execution mismatches or weight issues
-
-→ For replay setup, see [Replay and Dry Run XCMs Using Chopsticks](/tutorials/interoperability/replay-and-dry-run-xcms/){target=\_blank}.
+   This approach is invaluable for multi-hop flows and complex custom XCMs.
 
 ### Recommended Debugging Workflow
 
-1. **Start with indexer or API output** to inspect dispatch errors.
-2. If unclear, **replay using Chopsticks** to trace message steps.
-3. **Inspect logs** to pinpoint the failing instruction and error.
-4. Adjust asset location, weight, or execution logic accordingly.
+1. Start with indexer or API error output
+2. If unclear, use Chopsticks to replay the exact transaction
+3. Inspect logs for the failing XCM instruction and reason
+4. Adjust weight limits, asset locations, or message construction as needed
+
+See [Replay and Dry Run XCMs Using Chopsticks](/tutorials/interoperability/replay-and-dry-run-xcms/) for replay instructions.
+
+## Best Practices
+
+- When manually setting `SetTopic`, **always place it as the final instruction** in your XCM to ensure it is respected by the runtime.
+- Use **automatic topic insertion** via high-level extrinsics whenever possible for simplicity.
+- If your use case involves multi-hop or custom XCMs, **manually set `SetTopic`** to guarantee consistent tracing.
+- Ensure your `message_id` values are unique **if** you require deduplication or strict correlation.
+- When supporting legacy runtimes, be aware of the `forwarded_id` pattern.
+
+## Summary
+
+This guide demonstrated:
+
+- How `SetTopic` and `message_id` enable tracing and correlating XCMs across chains
+- How to interpret and debug XCM failure cases
+- How to manually and automatically manage topics for multi-hop flows
+- The legacy workaround for older runtimes with derived IDs
+
+By following the example scenarios and debugging steps, you can confidently develop, trace, and troubleshoot XCM-based cross-chain workflows.
 --- END CONTENT ---
 
 Doc-Content: https://docs.polkadot.com/tutorials/interoperability/xcm-transfers/from-relaychain-to-parachain/

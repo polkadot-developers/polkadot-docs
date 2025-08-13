@@ -1,7 +1,7 @@
-import {Binary, BlockInfo, createClient, Enum, PolkadotClient, TypedApi} from "polkadot-api";
-import {withPolkadotSdkCompat} from "polkadot-api/polkadot-sdk-compat";
-import {getPolkadotSigner} from "polkadot-api/signer";
-import {getWsProvider} from "polkadot-api/ws-provider/web";
+import { Binary, BlockInfo, createClient, Enum, PolkadotClient, TypedApi } from "polkadot-api";
+import { withPolkadotSdkCompat } from "polkadot-api/polkadot-sdk-compat";
+import { getPolkadotSigner } from "polkadot-api/signer";
+import { getWsProvider } from "polkadot-api/ws-provider/web";
 import {
     assetHub,
     hydration,
@@ -12,7 +12,7 @@ import {
     XcmVersionedAssets,
     XcmVersionedLocation,
 } from "@polkadot-api/descriptors";
-import {sr25519CreateDerive} from "@polkadot-labs/hdkd";
+import { sr25519CreateDerive } from "@polkadot-labs/hdkd";
 import {
     DEV_PHRASE,
     entropyToMiniSecret,
@@ -21,6 +21,7 @@ import {
 } from "@polkadot-labs/hdkd-helpers";
 
 const XCM_VERSION = 5;
+const MAX_RETRIES = 4;
 
 const toHuman = (_key: any, value: any) => {
     if (typeof value === "bigint") {
@@ -42,12 +43,11 @@ async function assertProcessedMessageId(
     expectedMessageId: String,
 ) {
     let processedMessageId = undefined;
-    const maxRetries = 8;
-    for (let i = 0; i < maxRetries; i++) {
+    for (let i = 0; i < MAX_RETRIES; i++) {
         const blockAfter = await client.getFinalizedBlock();
         if (blockAfter.number == blockBefore.number) {
             const waiting = 1_000 * (2 ** i);
-            console.log(`⏳ Waiting ${waiting / 1_000}s for ${name} block to be finalised (${i + 1}/${maxRetries})...`);
+            console.log(`⏳ Waiting ${waiting / 1_000}s for ${name} block to be finalised (${i + 1}/${MAX_RETRIES})...`);
             await new Promise((resolve) => setTimeout(resolve, waiting));
             continue;
         }

@@ -23,6 +23,7 @@ import {
 } from "@polkadot-labs/hdkd-helpers";
 
 const XCM_VERSION = 5;
+const MAX_RETRIES = 4;
 
 const toHuman = (_key: any, value: any) => {
     if (typeof value === "bigint") {
@@ -44,12 +45,11 @@ async function assertProcessedMessageId(
     expectedMessageId: String,
 ) {
     let processedMessageId = undefined;
-    const maxRetries = 8;
-    for (let i = 0; i < maxRetries; i++) {
+    for (let i = 0; i < MAX_RETRIES; i++) {
         const blockAfter = await client.getFinalizedBlock();
         if (blockAfter.number == blockBefore.number) {
             const waiting = 1_000 * (2 ** i);
-            console.log(`⏳ Waiting ${waiting / 1_000}s for ${name} block to be finalised (${i + 1}/${maxRetries})...`);
+            console.log(`⏳ Waiting ${waiting / 1_000}s for ${name} block to be finalised (${i + 1}/${MAX_RETRIES})...`);
             await new Promise((resolve) => setTimeout(resolve, waiting));
             continue;
         }
@@ -154,8 +154,6 @@ async function main() {
                     assets: XcmV5AssetFilter.Wild(XcmV5WildAsset.All()),
                     beneficiary,
                 }),
-
-                XcmV5Instruction.SetTopic(Binary.fromHex(expectedMessageId)),
             ],
         }),
 

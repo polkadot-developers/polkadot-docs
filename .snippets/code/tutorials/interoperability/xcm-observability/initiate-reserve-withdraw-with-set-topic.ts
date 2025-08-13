@@ -1,7 +1,7 @@
-import {Binary, BlockInfo, createClient, Enum, PolkadotClient, TypedApi} from "polkadot-api";
-import {withPolkadotSdkCompat} from "polkadot-api/polkadot-sdk-compat";
-import {getPolkadotSigner} from "polkadot-api/signer";
-import {getWsProvider} from "polkadot-api/ws-provider/web";
+import { Binary, BlockInfo, createClient, Enum, PolkadotClient, TypedApi } from "polkadot-api";
+import { withPolkadotSdkCompat } from "polkadot-api/polkadot-sdk-compat";
+import { getPolkadotSigner } from "polkadot-api/signer";
+import { getWsProvider } from "polkadot-api/ws-provider/web";
 import {
     assetHub,
     hydration,
@@ -15,7 +15,7 @@ import {
     XcmV5WildAsset,
     XcmVersionedXcm,
 } from "@polkadot-api/descriptors";
-import {sr25519CreateDerive} from "@polkadot-labs/hdkd";
+import { sr25519CreateDerive } from "@polkadot-labs/hdkd";
 import {
     DEV_PHRASE,
     entropyToMiniSecret,
@@ -24,6 +24,7 @@ import {
 } from "@polkadot-labs/hdkd-helpers";
 
 const XCM_VERSION = 5;
+const MAX_RETRIES = 4;
 
 const toHuman = (_key: any, value: any) => {
     if (typeof value === "bigint") {
@@ -45,12 +46,11 @@ async function assertProcessedMessageId(
     expectedMessageId: String,
 ) {
     let processedMessageId = undefined;
-    const maxRetries = 8;
-    for (let i = 0; i < maxRetries; i++) {
+    for (let i = 0; i < MAX_RETRIES; i++) {
         const blockAfter = await client.getFinalizedBlock();
         if (blockAfter.number == blockBefore.number) {
             const waiting = 1_000 * (2 ** i);
-            console.log(`⏳ Waiting ${waiting / 1_000}s for ${name} block to be finalised (${i + 1}/${maxRetries})...`);
+            console.log(`⏳ Waiting ${waiting / 1_000}s for ${name} block to be finalised (${i + 1}/${MAX_RETRIES})...`);
             await new Promise((resolve) => setTimeout(resolve, waiting));
             continue;
         }
@@ -131,7 +131,7 @@ async function main() {
         parents: 1,
         interior: XcmV5Junctions.Here(),
     };
-    const wantFun = XcmV3MultiassetFungibility.Fungible(3_552_961_212n);
+    const wantFun = XcmV3MultiassetFungibility.Fungible(3_000_000_000n);
     const expectedMessageId = "0xd60225f721599cb7c6e23cdf4fab26f205e30cd7eb6b5ccf6637cdc80b2339b2";
 
     const message = XcmVersionedXcm.V5([
@@ -140,12 +140,7 @@ async function main() {
             fun: giveFun,
         }]),
 
-        XcmV5Instruction.PayFees({
-            asset: {
-                id: assetId,
-                fun: giveFun,
-            }
-        }),
+        XcmV5Instruction.SetFeesMode({ jit_withdraw: true }),
 
         XcmV5Instruction.DepositReserveAsset({
             assets: XcmV5AssetFilter.Wild(

@@ -221,7 +221,7 @@ Your manual `SetTopic` is preserved by the runtime:
 
 - **Origin:** Polkadot Asset Hub
 - **Destination:** Hydration
-- **Topic:** Manually assigned and preserved over multiple hops
+- **Topic:** Manually assigned and preserved over multiple hops (including remote XCMs)
 - **Goal:** Trace entire multi-hop XCM chain consistently
 
 ### Run the Script
@@ -308,7 +308,7 @@ When XCMs fail, the entire transaction **rolls back** and **no failure events ar
 
 - When manually setting `SetTopic`, **always place it as the final instruction** in your XCM to ensure it is respected by the runtime.
 - Use **automatic topic insertion** via high-level extrinsics whenever possible for simplicity.
-- If your use case involves multi-hop or custom XCMs, **manually set `SetTopic`** to guarantee consistent tracing.
+- If your use case involves multi-hop or custom XCMs, **manually set `SetTopic`** (including remote XCM calls) to guarantee consistent tracing.
 - Ensure your `message_id` values are unique **if** you require deduplication or strict correlation.
 - When supporting legacy runtimes, be aware of the `forwarded_id` pattern.
 

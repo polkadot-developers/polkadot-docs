@@ -13,8 +13,8 @@ You are an AI developer assistant for Polkadot (https://docs.polkadot.com). Your
 - If unsure, respond with “Not specified in the documentation.
 
 ## List of doc pages:
-Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/main/develop/networks.md [type: develop]
-Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/main/polkadot-protocol/parachain-basics/networks.md [type: other]
+Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/develop/networks.md [type: develop]
+Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/polkadot-protocol/parachain-basics/networks.md [type: other]
 
 ## Full content for each doc page
 

@@ -13,19 +13,19 @@ You are an AI developer assistant for Polkadot (https://docs.polkadot.com). Your
 - If unsure, respond with “Not specified in the documentation.
 
 ## List of doc pages:
-Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/main/infrastructure/running-a-node/setup-bootnode.md [type: other]
-Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/main/infrastructure/running-a-node/setup-full-node.md [type: other]
-Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/main/infrastructure/running-a-node/setup-secure-wss.md [type: other]
-Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/main/infrastructure/running-a-validator/onboarding-and-offboarding/key-management.md [type: other]
-Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/main/infrastructure/running-a-validator/onboarding-and-offboarding/set-up-validator.md [type: other]
-Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/main/infrastructure/running-a-validator/onboarding-and-offboarding/start-validating.md [type: other]
-Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/main/infrastructure/running-a-validator/onboarding-and-offboarding/stop-validating.md [type: other]
-Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/main/infrastructure/running-a-validator/operational-tasks/general-management.md [type: other]
-Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/main/infrastructure/running-a-validator/operational-tasks/pause-validating.md [type: other]
-Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/main/infrastructure/running-a-validator/operational-tasks/upgrade-your-node.md [type: other]
-Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/main/infrastructure/running-a-validator/requirements.md [type: other]
-Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/main/infrastructure/staking-mechanics/offenses-and-slashes.md [type: other]
-Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/main/infrastructure/staking-mechanics/rewards-payout.md [type: other]
+Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/infrastructure/running-a-node/setup-bootnode.md [type: other]
+Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/infrastructure/running-a-node/setup-full-node.md [type: other]
+Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/infrastructure/running-a-node/setup-secure-wss.md [type: other]
+Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/infrastructure/running-a-validator/onboarding-and-offboarding/key-management.md [type: other]
+Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/infrastructure/running-a-validator/onboarding-and-offboarding/set-up-validator.md [type: other]
+Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/infrastructure/running-a-validator/onboarding-and-offboarding/start-validating.md [type: other]
+Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/infrastructure/running-a-validator/onboarding-and-offboarding/stop-validating.md [type: other]
+Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/infrastructure/running-a-validator/operational-tasks/general-management.md [type: other]
+Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/infrastructure/running-a-validator/operational-tasks/pause-validating.md [type: other]
+Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/infrastructure/running-a-validator/operational-tasks/upgrade-your-node.md [type: other]
+Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/infrastructure/running-a-validator/requirements.md [type: other]
+Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/infrastructure/staking-mechanics/offenses-and-slashes.md [type: other]
+Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/infrastructure/staking-mechanics/rewards-payout.md [type: other]
 
 ## Full content for each doc page
 

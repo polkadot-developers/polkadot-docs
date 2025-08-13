@@ -6,11 +6,11 @@ It is intended for use with large language models (LLMs) to support developers w
 This file includes documentation related to the category: Reference
 
 ## List of doc pages:
-Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/main/develop/interoperability/xcm-config.md [type: develop]
-Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/main/develop/interoperability/xcm-runtime-apis.md [type: develop]
-Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/main/develop/smart-contracts/json-rpc-apis.md [type: develop]
-Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/main/develop/toolkit/interoperability/asset-transfer-api/reference.md [type: develop]
-Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/main/polkadot-protocol/glossary.md [type: other]
+Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/develop/interoperability/xcm-config.md [type: develop]
+Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/develop/interoperability/xcm-runtime-apis.md [type: develop]
+Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/develop/smart-contracts/json-rpc-apis.md [type: develop]
+Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/develop/toolkit/interoperability/asset-transfer-api/reference.md [type: develop]
+Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/polkadot-protocol/glossary.md [type: other]
 
 ## Full content for each doc page
 

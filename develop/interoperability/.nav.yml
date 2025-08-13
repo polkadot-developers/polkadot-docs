@@ -7,5 +7,6 @@ nav:
   - 'Send Messages': send-messages.md
   - 'XCM Runtime APIs': xcm-runtime-apis.md
   - 'Test and Debug': test-and-debug.md
+  - 'Best Practices for Teleporting Assets': best-practices-for-teleporting-assets.md
   - xcm-guides
   - versions

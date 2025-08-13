@@ -119,6 +119,45 @@ The Foreign Assets pallet, an instance of the Assets pallet, manages these asset
 
 - **Transfers** - once registered in the Asset Hub, foreign assets can be transferred between accounts, just like native assets. Users can also send these assets back to their originating blockchain if supported by the relevant cross-chain messaging mechanisms
 
+## Sufficient and Non-Sufficient Assets
+
+[Sufficient assets](https://wiki.polkadot.network/learn/learn-assets/#sufficient-assets){target=\_blank} can be used for an account's [existential deposit](https://wiki.polkadot.network/learn/learn-accounts/#existential-deposit-and-reaping){target=\_blank}, which is the minimum balance required for the account to exist on-chain.
+
+Non-sufficient assets, on the other hand, **cannot** suffice on their own for account existence. Non-sufficient assets rely on a sufficient asset for the existential deposit. However, through the use of [asset conversion](https://wiki.polkadot.network/learn/learn-asset-conversion-assethub/){target=\_blank}, non-sufficient assets can be treated as first-class citizens on Asset Hub, with similar functionality to sufficient assets, creating a seamless experience for end-users.
+
+### Sufficient Assets
+
+On Asset Hub, sufficient assets:
+
+- Can be used for the existential deposit (ED).
+- Can be used for [paying transaction fees](#transaction-fees).
+- Can be used for [paying XCM execution and delivery fees](#xcm-fees).
+- Cannot be used for storage deposits (only if swapped for the native token).
+
+### Non-Sufficient Assets
+
+Through the use of [asset conversion](https://wiki.polkadot.network/learn/learn-asset-conversion-assethub){target=\_blank}, Asset Hub provides an abstraction layer and mechanism that can convert any asset regardless of asset type (sufficient or non-sufficient) to the parachain's native asset which in turn allows for non-sufficient assets to be swapped for the native asset to pay for the existential deposit, the transaction fee, the XCM delivery fee, and the storage deposit. This allows developers to create a seamless experience for end users by enabling end-users to use any asset as long as the asset has a [liquidity pool set up](https://wiki.polkadot.network/learn/learn-guides-asset-conversion/#create-a-liquidity-pool){target=\_blank} against the native asset (e.g. DOT) on Asset Hub and has healthy liquidity in the pool to prevent getting burned on swaps.
+
+!!!note "Parachain Compatibility"
+    Please note that the functionality covered on this page is specifically configured for Asset Hub. Depending on the use case, the destination parachain or sending parachain may also need to be configured similarly (e.g. supporting sufficient assets, support ED in any sufficient asset, paying fees in any sufficient asset, swapping a non-sufficient asset for a native asset) to allow for the features covered on this page to also exist on that chain.
+
+    When it comes to parachains interacting with Asset Hub, it means they can use Asset Hub's native asset (e.g., DOT), their parachain's native asset (e.g., ABC), or the user’s asset (e.g., USDT/C) for fee payment, thereby avoiding additional complexity for the user. When it comes to two parachains (excluding Asset Hub) interacting, the two parachains must agree on a compatible fee asset that is shared on both chains.
+
+    If you are sending an asset from Asset Hub to a Polkadot parachain, the destination parachain must have Asset Hub configured as a reserve chain to enable a direct teleport from Asset Hub to the parachain without an intermediary step. Always refer to the parachain's documentation and perform a dry run of your cross-chain transactions before executing them with live funds.
+
+### Transaction Fees
+
+On Asset Hub, both sufficient and non-sufficient assets can be used for paying transaction fees. For sufficient assets, Asset Hub natively converts the native asset (e.g. DOT) amount required to an asset balance, and the signer pays that asset to a collator. And for non-sufficient assets on Asset Hub, developers can leverage [asset conversion](https://wiki.polkadot.network/learn/learn-asset-conversion-assethub){target=\_blank} via a [swap](/tutorials/polkadot-sdk/system-chains/asset-hub/asset-conversion/) or an XCM `ExchangeAsset` instruction to swap the non-sufficient asset for any asset that has a [liquidity pool set up](https://wiki.polkadot.network/learn/learn-guides-asset-conversion/#create-a-liquidity-pool){target=\_blank} against the native asset or sufficient asset and use those tokens to cover for transaction fees.
+
+!!!note 
+    Existing UI's, wallets, and tools may have limitations because of design decisions and/or constraints it places e.g. constructing the XCM call in a specific manner and therefore limiting the end user when in reality the Asset Hub system parachain encompasses more functionality than exposed in the third-party UI, such as the ability to pay transaction fees and XCM delivery fees in any asset.
+
+### XCM Execution and Delivery Fees
+
+Both sufficient assets and non-sufficient assets can be used to pay for XCM local execution fees and delivery fees on Asset Hub. However, it is essential to note that the XCM program must explicitly reference the asset to pay the XCM fee.
+
+For non-sufficient assets, this can be done by calling [asset conversion's swap](https://paritytech.github.io/polkadot-sdk/master/pallet_asset_conversion/pallet/dispatchables/fn.swap_tokens_for_exact_tokens.html){target=\_blank} or including an [`ExchangeAsset`](https://paritytech.github.io/polkadot-sdk/master/cumulus_primitives_core/enum.Instruction.html#variant.ExchangeAsset){target=\_blank} instruction in the XCM program to swap the non-sufficient asset for the native asset to pay for the XCM delivery fee.
+
 ## Integration
 
 Asset Hub supports a variety of integration tools that make it easy for developers to manage assets and interact with the blockchain in their applications. The tools and libraries provided by Parity Technologies enable streamlined operations, such as querying asset information, building transactions, and monitoring cross-chain asset transfers.

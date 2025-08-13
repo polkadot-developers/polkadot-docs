@@ -1,7 +1,7 @@
-import { Binary, BlockInfo, createClient, Enum, PolkadotClient, TypedApi } from "polkadot-api";
-import { withPolkadotSdkCompat } from "polkadot-api/polkadot-sdk-compat";
-import { getPolkadotSigner } from "polkadot-api/signer";
-import { getWsProvider } from "polkadot-api/ws-provider/web";
+import {Binary, BlockInfo, createClient, Enum, PolkadotClient, TypedApi} from "polkadot-api";
+import {withPolkadotSdkCompat} from "polkadot-api/polkadot-sdk-compat";
+import {getPolkadotSigner} from "polkadot-api/signer";
+import {getWsProvider} from "polkadot-api/ws-provider/web";
 import {
     assetHub,
     hydration,
@@ -15,7 +15,7 @@ import {
     XcmV5WildAsset,
     XcmVersionedXcm,
 } from "@polkadot-api/descriptors";
-import { sr25519CreateDerive } from "@polkadot-labs/hdkd";
+import {sr25519CreateDerive} from "@polkadot-labs/hdkd";
 import {
     DEV_PHRASE,
     entropyToMiniSecret,
@@ -140,7 +140,7 @@ async function main() {
             fun: giveFun,
         }]),
 
-        XcmV5Instruction.SetFeesMode({ jit_withdraw: true }),
+        XcmV5Instruction.SetFeesMode({jit_withdraw: true}),
 
         XcmV5Instruction.DepositReserveAsset({
             assets: XcmV5AssetFilter.Wild(

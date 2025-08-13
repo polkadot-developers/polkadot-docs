@@ -51,7 +51,7 @@ Before getting started, ensure you have:
 3. To interact with Polkadot, Hardhat requires the following plugin to compile contracts to PolkaVM bytecode and to spawn a local node compatible with PolkaVM:
 
     ```bash
-    npm install --save-dev @parity/hardhat-polkadot@0.1.8
+    npm install --save-dev @parity/hardhat-polkadot@0.1.9
     ```
 
 4. Create a Hardhat project:
@@ -66,11 +66,9 @@ Before getting started, ensure you have:
     - **`test`**: Contains your test files that validate contract functionality.
     - **`ignition`**: Deployment modules for safely deploying your contracts to various networks.
 
-5. Add the following folders to the `.gitignore` file if they are not already there:
+5. Add the following folder to the `.gitignore` file if it is not already there:
 
     ```bash
-    echo '/artifacts-pvm' >> .gitignore
-    echo '/cache-pvm' >> .gitignore
     echo '/ignition/deployments/' >> .gitignore
     ```
 
@@ -162,6 +160,9 @@ Configure a local node setup by adding the node binary path along with the ETH-R
 ```
 
 Replace `INSERT_PATH_TO_SUBSTRATE_NODE` and `INSERT_PATH_TO_ETH_RPC_ADAPTER` with the actual paths to your compiled binaries. The `dev: true` flag configures both the node and adapter for development mode. To obtain these binaries, check the [Installation](/develop/smart-contracts/local-development-node#install-the-substrate-node-and-eth-rpc-adapter){target=\_blank} section on the Local Development Node page.
+
+!!! warning
+    If you're using the default `hardhat.config.js` created by the `hardhat-polkadot` plugin, it includes a `forking` section pointing to the Polkadot Hub TestNet. When you run `npx hardhat node`, Hardhat will start a fork of that network. To use your local node instead, comment out the `forking` section; otherwise, `npx hardhat node` will continue to use the forked network even if a local node is defined in the configuration.
 
 Once configured, start your chosen testing environment with:
 
@@ -282,6 +283,23 @@ Run your interaction script:
 ```bash
 npx hardhat run scripts/interact.js --network polkadotHubTestnet
 ```
+
+## Upgrading the Plugin
+
+If you already have a Hardhat Polkadot project and want to upgrade to a newer version of the plugin, to avoid errors (for example, `Cannot find module 'run-container'`), you can clean your dependencies by running the following commands:
+
+```bash
+rm -rf node_modules package-lock.json
+```
+
+After that, you can upgrade the plugin to the latest version by running the following commands:
+
+```bash
+npm install --save-dev @parity/hardhat-polkadot@latest
+npm install
+```
+
+Consider using [Node.js](https://nodejs.org/){target=\_blank} 22.18+ and [npm](https://www.npmjs.com/){target=\_blank} version 10.9.0+ to avoid issues with the plugin.
 
 ## Where to Go Next
 

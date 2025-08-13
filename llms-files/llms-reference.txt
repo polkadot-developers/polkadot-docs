@@ -3687,8 +3687,8 @@ Additional glossaries from around the ecosystem you might find helpful:
 
 The role in a blockchain that can participate in consensus mechanisms. 
 
-- [GRANDPA](#grandpa) - the authorities vote on chains they consider final 
-- [Blind Assignment of Blockchain Extension](#blind-assignment-of-blockchain-extension-babe) (BABE) - the authorities are also [block authors](#block-author) 
+- **[GRANDPA](#grandpa)**: The authorities vote on chains they consider final.
+- **[Blind Assignment of Blockchain Extension](#blind-assignment-of-blockchain-extension-babe) (BABE)**: The authorities are also [block authors](#block-author).
 
 Authority sets can be used as a basis for consensus mechanisms such as the [Nominated Proof of Stake (NPoS)](#nominated-proof-of-stake-npos) protocol.
 
@@ -3757,8 +3757,8 @@ Ensures a set of [actors](#authority)â€”who don't necessarily trust each otherâ€
 
 Consensus algorithms are generally concerned with ensuring two properties:
 
-- **Safety** - indicating that all honest nodes eventually agreed on the state of the chain
-- **Liveness** - indicating the ability of the chain to keep progressing
+- **Safety**: Indicating that all honest nodes eventually agreed on the state of the chain.
+- **Liveness**: Indicating the ability of the chain to keep progressing.
 
 ## Consensus Engine
 
@@ -3792,9 +3792,9 @@ Many tools in the Polkadot SDK ecosystem, such as [`subkey`](https://github.com/
 
 An extensible field of the [block header](#header) that encodes information needed by several actors in a blockchain network, including:
 
-- [Light clients](#light-client) for chain synchronization
-- Consensus engines for block verification
-- The runtime itself, in the case of pre-runtime digests
+- [Light clients](#light-client) for chain synchronization.
+- Consensus engines for block verification.
+- The runtime itself, in the case of pre-runtime digests.
 
 ## Dispatchable
 
@@ -3811,9 +3811,9 @@ In the context of [FRAME](#frame-framework-for-runtime-aggregation-of-modularize
 A means of executing a function call in a given [runtime](#runtime) with a set of dependencies.
 There are two orchestration engines in Polkadot SDK, _WebAssembly_ and _native_.
 
-- The _native executor_ uses a natively compiled runtime embedded in the node to execute calls. This is a performance optimization available to up-to-date nodes
+- The _native executor_ uses a natively compiled runtime embedded in the node to execute calls. This is a performance optimization available to up-to-date nodes.
 
-- The _WebAssembly executor_ uses a [Wasm](#webassembly-wasm) binary and a Wasm interpreter to execute calls. The binary is guaranteed to be up-to-date regardless of the version of the blockchain node because it is persisted in the [state](#state) of the Polkadot SDK-based chain
+- The _WebAssembly executor_ uses a [Wasm](#webassembly-wasm) binary and a Wasm interpreter to execute calls. The binary is guaranteed to be up-to-date regardless of the version of the blockchain node because it is persisted in the [state](#state) of the Polkadot SDK-based chain.
 
 ## Existential Deposit
 

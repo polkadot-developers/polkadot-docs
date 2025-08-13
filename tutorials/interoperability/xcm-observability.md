@@ -85,16 +85,19 @@ If you are new to XCM replay or dry-run, see [Replay and Dry Run XCMs Using Chop
 
 ### What is `SetTopic`?
 
-When sending XCMs using `limited_reserve_transfer_assets` or other extrinsics from the `PolkadotXcm` pallet, two key observability features enable developers to trace and correlate messages across chains:
+When sending XCMs using `limited_reserve_transfer_assets` or other extrinsics from the `PolkadotXcm` pallet, a `SetTopic` instruction is automatically appended to the end of the message if one is not already present.
 
-- **[`PolkadotXcm.Sent`](https://paritytech.github.io/polkadot-sdk/master/pallet_xcm/pallet/enum.Event.html#variant.Sent){target=\_blank} event** emitted on the origin chain when an XCM is sent.
-- The guarantee that the **`message_id` in the `PolkadotXcm.Sent` event matches the `id` in the [`MessageQueue.Processed`](https://paritytech.github.io/polkadot-sdk/master/pallet_message_queue/pallet/enum.Event.html#variant.Processed){target=\_blank} event** on the destination chain, enabling reliable cross-chain correlation.
 - **[`SetTopic([u8; 32])`](https://github.com/polkadot-fellows/xcm-format#settopic){target=\_blank}** is an XCM instruction that sets a 32-byte topic register inside the message.
-- This topic acts as a **logical identifier** (`message_id`) for the XCM, allowing you to group and trace related messages across chains.
+- The topic acts as a **logical identifier** (`message_id`) for the XCM, allowing you to group and trace related messages across chains.
 
 > ⚠️ **Note:** The topic is **not guaranteed to be unique**. If uniqueness is required (e.g. for deduplication), it must be enforced by the message creator.
 
-These features are available on runtimes built from **`stable2503-5` or later**.
+### Observability Features
+
+Runtimes built from **`stable2503-5` or later** provide two key observability features for tracing and correlating XCMs across chains:
+
+- **[`PolkadotXcm.Sent`](https://paritytech.github.io/polkadot-sdk/master/pallet_xcm/pallet/enum.Event.html#variant.Sent){target=\_blank}** emitted on the origin chain when an XCM is sent.
+- The **`message_id` in the `PolkadotXcm.Sent` event matches the `id` in the [`MessageQueue.Processed`](https://paritytech.github.io/polkadot-sdk/master/pallet_message_queue/pallet/enum.Event.html#variant.Processed){target=\_blank}** event on the destination chain, enabling reliable cross-chain correlation.
 
 ### Understanding `message_id`
 

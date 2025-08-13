@@ -94,22 +94,18 @@ When executing XCMs using `limited_reserve_transfer_assets`, other extrinsics, o
 
 ### Observability Features
 
-Runtimes built from **`stable2503-5` or later** provide two key observability features for tracing and correlating XCMs across chains:
+Runtimes built from **`stable2503-5` or later** provide key observability features for tracing and correlating XCMs across chains:
 
 - **[`PolkadotXcm.Sent`](https://paritytech.github.io/polkadot-sdk/master/pallet_xcm/pallet/enum.Event.html#variant.Sent){target=\_blank}** emitted on the origin chain when an XCM is sent.
-- The **`message_id` in the `PolkadotXcm.Sent` event matches the `id` in the [`MessageQueue.Processed`](https://paritytech.github.io/polkadot-sdk/master/pallet_message_queue/pallet/enum.Event.html#variant.Processed){target=\_blank}** event on the destination chain, enabling reliable cross-chain correlation.
+- **[`MessageQueue.Processed`](https://paritytech.github.io/polkadot-sdk/master/pallet_message_queue/pallet/enum.Event.html#variant.Processed){target=\_blank}** emitted on the destination chain when the XCM is processed.
+- The **`message_id` in the `Sent` event matches the `id` in the `Processed` event**, enabling reliable cross-chain correlation. This `message_id` is derived from the `SetTopic` instruction.
 
-### Understanding `message_id`
+| Chain Role        | Event                    | Field        | Purpose                            |
+|-------------------|--------------------------|--------------|------------------------------------|
+| Origin chain      | `PolkadotXcm.Sent`       | `message_id` | Identifies the sent XCM            |
+| Destination chain | `MessageQueue.Processed` | `id`         | Confirms processing of the message |
 
-- The `message_id` is a hash derived from the `SetTopic` topic.
-- It is emitted in:
-
-  | Chain Role        | Event                    | Field        | Purpose                            |
-  |-------------------|--------------------------|--------------|------------------------------------|
-  | Origin chain      | `PolkadotXcm.Sent`       | `message_id` | Identifies the sent XCM            |
-  | Destination chain | `MessageQueue.Processed` | `id`         | Confirms processing of the message |
-
-- Matching these IDs lets you **correlate** an origin message with its destination processing.
+Matching these IDs lets you **correlate** an origin message with its destination processing.
 
 ### Why Not `XcmpQueue.XcmpMessageSent`?
 

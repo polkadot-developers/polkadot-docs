@@ -1,4 +1,4 @@
-import {Binary, createClient, Enum} from "polkadot-api";
+import {Binary, BlockInfo, createClient, Enum, PolkadotClient, TypedApi} from "polkadot-api";
 import {withPolkadotSdkCompat} from "polkadot-api/polkadot-sdk-compat";
 import {getPolkadotSigner} from "polkadot-api/signer";
 import {getWsProvider} from "polkadot-api/ws-provider/web";
@@ -33,6 +33,38 @@ const toHuman = (_key: any, value: any) => {
 
     return value;
 };
+
+async function getProcessedMessageId(client: PolkadotClient, api: TypedApi<any>, name: String, blockBefore: BlockInfo): Promise<String> {
+    let processedMessageId = undefined;
+    const maxRetries = 8;
+    for (let i = 0; i < maxRetries; i++) {
+        const blockAfter = await client.getFinalizedBlock();
+        if (blockAfter.number == blockBefore.number) {
+            const waiting = 1_000 * (2 ** i);
+            console.log(`⏳ Waiting ${waiting / 1_000}s for ${name} block to be finalised (${i + 1}/${maxRetries})...`);
+            await new Promise((resolve) => setTimeout(resolve, waiting));
+            continue;
+        }
+
+        console.log(`📦 Finalised on ${name} in block #${blockAfter.number}: ${blockAfter.hash}`);
+        const processedEvents = await api.event.MessageQueue.Processed.pull();
+        const processingFailedEvents = await api.event.MessageQueue.ProcessingFailed.pull();
+        if (processedEvents.length > 0) {
+            processedMessageId = processedEvents[0].payload.id.asHex();
+            console.log(`📣 Last message processed on ${name}: ${processedMessageId}`);
+            break;
+        } else if (processingFailedEvents.length > 0) {
+            processedMessageId = processingFailedEvents[0].payload.id.asHex();
+            console.log(`📣 Last message ProcessingFailed on ${name}: ${processedMessageId}`);
+            break;
+        } else {
+            console.log(`📣 No Processed events on ${name} found.`);
+            blockBefore = blockAfter; // Update the block before to the latest one
+        }
+    }
+
+    return processedMessageId;
+}
 
 async function main() {
     const para1Name = "Polkadot Asset Hub";
@@ -108,10 +140,10 @@ async function main() {
             if (polkadotXcmSentEvent === undefined) {
                 console.log(`⚠️ PolkadotXcm.Sent is available in runtimes built from stable2503-5 or later.`);
             } else {
-                let parachainBlockBefore = await para2Client.getFinalizedBlock();
+                let para2BlockBefore = await para2Client.getFinalizedBlock();
                 const extrinsic = await tx.signAndSubmit(aliceSigner);
-                const block = extrinsic.block;
-                console.log(`📦 Finalised on ${para1Name} in block #${block.number}: ${block.hash}`);
+                const para1Block = extrinsic.block;
+                console.log(`📦 Finalised on ${para1Name} in block #${para1Block.number}: ${para1Block.hash}`);
 
                 if (!extrinsic.ok) {
                     const dispatchError = extrinsic.dispatchError;
@@ -128,38 +160,11 @@ async function main() {
                     const sentMessageId = sentEvents[0].payload.message_id.asHex();
                     console.log(`📣 Last message sent on ${para1Name}: ${sentMessageId}`);
 
-                    let processedMessageId = undefined;
-                    const maxRetries = 8;
-                    for (let i = 0; i < maxRetries; i++) {
-                        const parachainBlockAfter = await para2Client.getFinalizedBlock();
-                        if (parachainBlockAfter.number == parachainBlockBefore.number) {
-                            const waiting = 1_000 * (2 ** i);
-                            console.log(`⏳ Waiting ${waiting}ms for ${para2Name} block to be finalised (${i + 1}/${maxRetries})...`);
-                            await new Promise((resolve) => setTimeout(resolve, waiting));
-                            continue;
-                        }
-
-                        console.log(`📦 Finalised on ${para2Name} in block #${parachainBlockAfter.number}: ${parachainBlockAfter.hash}`);
-                        const processedEvents = await para2Api.event.MessageQueue.Processed.pull();
-                        const processingFailedEvents = await para2Api.event.MessageQueue.ProcessingFailed.pull();
-                        if (processedEvents.length > 0) {
-                            processedMessageId = processedEvents[0].payload.id.asHex();
-                            console.log(`📣 Last message processed on ${para2Name}: ${processedMessageId}`);
-                            break;
-                        } else if (processingFailedEvents.length > 0) {
-                            processedMessageId = processingFailedEvents[0].payload.id.asHex();
-                            console.log(`📣 Last message ProcessingFailed on ${para2Name}: ${processedMessageId}`);
-                            break;
-                        } else {
-                            console.log(`📣 No Processed events on ${para2Name} found.`);
-                            parachainBlockBefore = parachainBlockAfter; // Update the block before to the latest one
-                        }
-                    }
-
+                    let processedMessageId = await getProcessedMessageId(para2Client, para2Api, para2Name, para2BlockBefore);
                     if (processedMessageId === sentMessageId) {
-                        console.log("✅ Processed Message ID matched.");
+                        console.log(`✅ Processed Message ID on ${para2Name} matched.`);
                     } else {
-                        console.error("❌ Processed Message ID does not match Sent Message ID.");
+                        console.error(`❌ Processed Message ID [${processedMessageId}] on ${para2Name} doesn't match Sent Message ID [${sentMessageId}].`);
                     }
                 } else {
                     console.log(`📣 No Sent events on ${para1Name} found.`);

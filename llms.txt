@@ -673,7 +673,8 @@ The `xcm-emulator` provides macros for defining a mocked testing environment. Ch
 - [**`decl_test_relay_chains`**](https://github.com/paritytech/polkadot-sdk/blob/{{dependencies.repositories.polkadot_sdk.version}}/cumulus/xcm/xcm-emulator/src/lib.rs#L360){target=\_blank} - defines runtime and configuration for the relay chains. Example:
 
     ```rust
-    #[api_version(13)]
+    decl_test_relay_chains! {
+	#[api_version(13)]
 	pub struct Westend {
 		genesis = genesis::genesis(),
 		on_init = (),
@@ -698,7 +699,8 @@ The `xcm-emulator` provides macros for defining a mocked testing environment. Ch
 - [**`decl_test_parachains`**](https://github.com/paritytech/polkadot-sdk/blob/{{dependencies.repositories.polkadot_sdk.version}}/cumulus/xcm/xcm-emulator/src/lib.rs#L595){target=\_blank} - defines runtime and configuration for the parachains. Example:
 
     ```rust
-    pub struct AssetHubWestend {
+    decl_test_parachains! {
+	pub struct AssetHubWestend {
 		genesis = genesis::genesis(),
 		on_init = {
 			asset_hub_westend_runtime::AuraExt::on_initialize(1);

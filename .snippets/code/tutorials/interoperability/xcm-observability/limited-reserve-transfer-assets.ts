@@ -34,7 +34,13 @@ const toHuman = (_key: any, value: any) => {
     return value;
 };
 
-async function getProcessedMessageId(client: PolkadotClient, api: TypedApi<any>, name: String, blockBefore: BlockInfo): Promise<String> {
+async function assertProcessedMessageId(
+    client: PolkadotClient,
+    api: TypedApi<any>,
+    name: String,
+    blockBefore: BlockInfo,
+    expectedMessageId: String,
+) {
     let processedMessageId = undefined;
     const maxRetries = 8;
     for (let i = 0; i < maxRetries; i++) {
@@ -63,7 +69,11 @@ async function getProcessedMessageId(client: PolkadotClient, api: TypedApi<any>,
         }
     }
 
-    return processedMessageId;
+    if (processedMessageId === expectedMessageId) {
+        console.log(`✅ Processed Message ID on ${name} matched.`);
+    } else {
+        console.error(`❌ Processed Message ID [${processedMessageId}] on ${name} doesn't match expected Message ID [${expectedMessageId}].`);
+    }
 }
 
 async function main() {
@@ -159,13 +169,7 @@ async function main() {
                 if (sentEvents.length > 0) {
                     const sentMessageId = sentEvents[0].payload.message_id.asHex();
                     console.log(`📣 Last message sent on ${para1Name}: ${sentMessageId}`);
-
-                    let processedMessageId = await getProcessedMessageId(para2Client, para2Api, para2Name, para2BlockBefore);
-                    if (processedMessageId === sentMessageId) {
-                        console.log(`✅ Processed Message ID on ${para2Name} matched.`);
-                    } else {
-                        console.error(`❌ Processed Message ID [${processedMessageId}] on ${para2Name} doesn't match Sent Message ID [${sentMessageId}].`);
-                    }
+                    await assertProcessedMessageId(para2Client, para2Api, para2Name, para2BlockBefore, sentMessageId);
                 } else {
                     console.log(`📣 No Sent events on ${para1Name} found.`);
                 }

@@ -83,7 +83,9 @@ Connect to parachain 2500 using Polkadot.js Apps to send the XCM message to the 
 !!! note
     The exact process and parameters for submitting this XCM message may vary depending on your specific parachain and relay chain configurations. Always refer to the most current documentation for your particular network setup.
 
-After successfully submitting the XCM message to the relay chain, two HRMP channels should be created, establishing bidirectional communication between parachain 2500 and system chain 1000. To verify this, follow these steps:
+After successfully submitting the XCM message to the relay chain, two `HrmpSystemChannelOpened` events are emitted which show that the channels are in storage in `hrmp_open_channel_requests`, but the channels are not actually set up until the start of the next session, establishing bidirectional communication between parachain 2500 and system chain 1000.
+
+To verify this, wait for the next session and then follow these steps:
 
 1. Using Polkadot.js Apps, connect to the relay chain and navigate to the **Developer** dropdown, then select **Chain state**
     ![](/images/tutorials/interoperability/xcm-channels/hrmp-channels-1.webp)

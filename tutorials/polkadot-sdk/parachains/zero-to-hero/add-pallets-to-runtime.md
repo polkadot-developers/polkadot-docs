@@ -16,25 +16,60 @@ This tutorial will guide you through adding two pallets to your runtime: the cus
 
 First, you'll update the runtime's `Cargo.toml` file to include the Utility pallet and your custom pallets as dependencies for the runtime. Follow these steps:
 
-Update the runtime's `Cargo.toml` file to include the utility pallet and your custom pallets as dependencies. Follow these steps:
+1. Open the `runtime/Cargo.toml` file and locate the `[dependencies]` section. Add pallet-utility as one of the features for the `polkadot-sdk` dependency with the following line:
 
-1. Open the `runtime/Cargo.toml` file and locate the `[dependencies]` section. Add the pallets with the following lines:
-
-    ```toml hl_lines="3-4" title="Cargo.toml"
-    --8<-- 'code/tutorials/polkadot-sdk/parachains/zero-to-hero/runtime/Cargo.toml:19:19'
+    ```toml hl_lines="4" title="runtime/Cargo.toml"
+    --8<-- 'https://raw.githubusercontent.com/papermoonio/zero-to-hero-tutorial/refs/heads/v0.0.4-complete-tutorial/runtime/Cargo.toml:19:19'
     ...
-    --8<-- 'code/tutorials/polkadot-sdk/parachains/zero-to-hero/runtime/Cargo.toml:60:61'
+    --8<-- 'code/tutorials/polkadot-sdk/parachains/zero-to-hero/runtime/Cargo.toml:26:27'
+        ...
+    --8<-- 'code/tutorials/polkadot-sdk/parachains/zero-to-hero/runtime/Cargo.toml:55:55'
     ```
 
-2. In the `[features]` section, add the pallets to the `std` feature list:
+2. In the same `[dependencies]` section, add the custom pallet that you built from scratch with the following line:
 
-    ```toml hl_lines="5-6" title="Cargo.toml"
-    --8<-- 'code/tutorials/polkadot-sdk/parachains/zero-to-hero/runtime/Cargo.toml:63:65'
-        ...
-    --8<-- 'code/tutorials/polkadot-sdk/parachains/zero-to-hero/runtime/Cargo.toml:74:76'
+    ```toml hl_lines="3" title="Cargo.toml"
+    --8<-- 'https://raw.githubusercontent.com/papermoonio/zero-to-hero-tutorial/refs/heads/v0.0.4-complete-tutorial/runtime/Cargo.toml:19:19'
+    ...
+    --8<-- 'https://raw.githubusercontent.com/papermoonio/zero-to-hero-tutorial/refs/heads/v0.0.4-complete-tutorial/runtime/Cargo.toml:30:30'
+    ```
+
+3. In the `[features]` section, add the custom pallet to the `std` feature list:
+
+    ```toml hl_lines="5" title="Cargo.toml"
+    --8<-- 'https://raw.githubusercontent.com/papermoonio/zero-to-hero-tutorial/refs/heads/v0.0.4-complete-tutorial/runtime/Cargo.toml:32:34'
+      ...
+      --8<-- 'https://raw.githubusercontent.com/papermoonio/zero-to-hero-tutorial/refs/heads/v0.0.4-complete-tutorial/runtime/Cargo.toml:43:43'
+      ...
+    ]
     ```
 
 3. Save the changes and close the `Cargo.toml` file.
+
+    Once you have saved your file, it should look like the following:
+
+    ???- code "runtime/Cargo.toml"
+        
+        ```rust title="runtime/Cargo.toml"
+        --8<-- 'code/tutorials/polkadot-sdk/parachains/zero-to-hero/runtime/Cargo.toml'
+        ```
+
+Update your root parachain template's `Cargo.toml` file to include your custom pallet as a dependency. Follow these steps:
+
+1. Open the `./Cargo.toml` file and locate the `[workspace]` section. 
+    
+    Make sure the `custom-pallet` is a member of the workspace:
+
+    ```toml hl_lines="4" title="Cargo.toml"
+     --8<-- 'https://raw.githubusercontent.com/papermoonio/zero-to-hero-tutorial/refs/heads/v0.0.4-complete-tutorial/Cargo.toml:8:14'
+    ```
+
+???- code "./Cargo.toml"
+
+    ```rust title="./Cargo.toml"
+    --8<-- 'https://raw.githubusercontent.com/papermoonio/zero-to-hero-tutorial/refs/heads/v0.0.4-complete-tutorial/Cargo.toml'
+    ```
+
 
 ### Update the Runtime Configuration
 
@@ -42,27 +77,29 @@ Configure the pallets by implementing their `Config` trait and update the runtim
 
 1. Add the `OriginCaller` import:
 
-    ```rust title="mod.rs" hl_lines="2"
+    ```rust title="mod.rs" hl_lines="8"
     --8<-- 'code/tutorials/polkadot-sdk/parachains/zero-to-hero/runtime/src/configs/mod.rs:59:60'
     ...
     ```
 
 2. Implement the [`Config`](https://paritytech.github.io/polkadot-sdk/master/pallet_utility/pallet/trait.Config.html){target=\_blank} trait for both pallets at the end of the `runtime/src/config/mod.rs` file:
 
-    ```rust title="mod.rs" hl_lines="7-25"
+    ```rust title="mod.rs" hl_lines="8-25"
     ...
-    --8<-- 'code/tutorials/polkadot-sdk/parachains/zero-to-hero/runtime/src/configs/mod.rs:315:336'
-    --8<-- 'code/tutorials/polkadot-sdk/parachains/zero-to-hero/runtime/src/configs/mod.rs:338:338'
+    --8<-- 'code/tutorials/polkadot-sdk/parachains/zero-to-hero/runtime/src/configs/mod.rs:320:332'
+    --8<-- 'code/tutorials/polkadot-sdk/parachains/zero-to-hero/runtime/src/configs/mod.rs:334:342'
+    }
     ```
 
 3. Locate the `#[frame_support::runtime]` macro in the `runtime/src/lib.rs` file and add the pallets:
 
-    ```rust hl_lines="8-12" title="lib.rs"
-    --8<-- 'code/tutorials/polkadot-sdk/parachains/zero-to-hero/runtime/src/lib.rs:253:255'
+    ```rust hl_lines="9-14" title="lib.rs"
+    --8<-- 'code/tutorials/polkadot-sdk/parachains/zero-to-hero/runtime/src/lib.rs:256:259'
             ...
-        --8<-- 'code/tutorials/polkadot-sdk/parachains/zero-to-hero/runtime/src/lib.rs:265:266'
+        --8<-- 'code/tutorials/polkadot-sdk/parachains/zero-to-hero/runtime/src/lib.rs:270:271'
 
-    --8<-- 'code/tutorials/polkadot-sdk/parachains/zero-to-hero/runtime/src/lib.rs:313:318'
+    --8<-- 'code/tutorials/polkadot-sdk/parachains/zero-to-hero/runtime/src/lib.rs:320:324'
+    }
     ```
 
 ## Recompile the Runtime

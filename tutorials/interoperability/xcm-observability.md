@@ -85,7 +85,7 @@ If you are new to XCM replay or dry-run, see [Replay and Dry Run XCMs Using Chop
 
 ### What is `SetTopic`?
 
-When sending XCMs using `limited_reserve_transfer_assets` or other extrinsics from the `PolkadotXcm` pallet, a `SetTopic` instruction is automatically appended to the end of the message if one is not already present.
+When executing XCMs using `limited_reserve_transfer_assets`, other extrinsics, or raw XCM calls from the `PolkadotXcm` pallet, a `SetTopic` instruction is automatically appended to the end of the message if it is not already present.
 
 - **[`SetTopic([u8; 32])`](https://github.com/polkadot-fellows/xcm-format#settopic){target=\_blank}** is an XCM instruction that sets a 32-byte topic register inside the message.
 - The topic acts as a **logical identifier** (`message_id`) for the XCM, allowing you to group and trace related messages across chains.

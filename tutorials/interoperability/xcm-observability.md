@@ -114,10 +114,10 @@ Matching these IDs lets you **correlate** an origin message with its destination
 
 ### Automatic vs Manual `SetTopic`
 
-- Automatically **append a `SetTopic` instruction** if it is missing.
-- When using high-level extrinsics such as `limited_reserve_transfer_assets`, **you don't need to set a topic manually**.
-- If manually crafting an XCM via `execute` (or `send`), you **can supply your own `SetTopic`**, but it **must be the last instruction** to be respected.
-- In multi-hop flows, manually setting the topic can guarantee consistent tracing across all hops.
+- The runtime **automatically appends a `SetTopic` instruction** if one is missing at the end of an XCM.
+- When using high-level extrinsics such as `limited_reserve_transfer_assets`, **you do not need to set a topic manually**; the runtime handles it for you.
+- If you **manually craft an XCM** (e.g., via `execute` or `send`), you **can supply your own `SetTopic`**, but it **must be the final instruction** to be respected.
+- In **multi-hop XCM flows**, manually setting the topic ensures **consistent tracing across all hops**. Any **remote XCM calls** embedded inside the XCM must also include a `SetTopic` at the end to preserve the same `message_id` throughout the cross-chain flow.
 
 ## Message Lifecycle
 

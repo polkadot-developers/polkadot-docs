@@ -13,23 +13,25 @@ This guide explains how to **trace, correlate, and debug XCMs** reliably using o
 
 You will learn how to:
 
-- Use the `SetTopic` instruction and `message_id` to track XCMs across chains  
+- Use the `SetTopic` instruction and `message_id` to track XCMs across chains
 - Understand the relationship between `PolkadotXcm.Sent` and `MessageQueue.Processed` events for message correlation  
-- Apply manual topic tagging for multi-hop tracing when needed  
-- Use workarounds for older runtimes with derived message IDs  
-- Debug failed or incomplete XCMs using indexers and Chopsticks replay  
+- Apply manual topic tagging for multi-hop tracing when needed
+- Use workarounds for older runtimes with derived message IDs
+- Debug failed or incomplete XCMs using indexers and Chopsticks replay
 
 The guide revolves around a **single, concrete scenario** of a cross-chain asset transfer/swap between two parachains, with multiple example scripts and detailed outputs.
 
 ## Prerequisites
 
-Before you begin:
+Before you begin, make sure you have:
 
-- Install [Chopsticks](/develop/toolkit/parachains/fork-chains/chopsticks/get-started/){target=\_blank}
-- Access to local or remote parachain endpoints or genesis files to fork chains  
-- A TypeScript development environment with essential tools  
+- [Chopsticks](/develop/toolkit/parachains/fork-chains/chopsticks/get-started/){target=\_blank} installed
+- Access to local or remote parachain endpoints
+- The origin parachain running runtime **`stable2503-5`** or later
+- A TypeScript development environment with essential tools
+- Familiarity with replaying or dry-running XCMs
 
-If you are new to XCM dry-run or replay, see the [Replay and Dry Run XCMs Using Chopsticks](/tutorials/interoperability/replay-and-dry-run-xcms/){target=\_blank}.
+If you are new to XCM replay or dry-run, see [Replay and Dry Run XCMs Using Chopsticks](/tutorials/interoperability/replay-and-dry-run-xcms/){target=\_blank}.
 
 ## Setting Up Your Workspace
 

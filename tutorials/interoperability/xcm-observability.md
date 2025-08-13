@@ -311,7 +311,7 @@ When XCMs fail, the entire transaction **rolls back** and **no failure events ar
 - Use **automatic topic insertion** via high-level extrinsics whenever possible for simplicity.
 - If your use case involves multi-hop or custom XCMs, **manually set `SetTopic`** (including remote XCM calls) to guarantee consistent tracing.
 - Ensure your `message_id` values are unique **if** you require deduplication or strict correlation.
-- When supporting legacy runtimes, be aware of the `forwarded_id` pattern.
+- When supporting legacy runtimes, be aware of the `forward_id_for` pattern.
 
 ## Summary
 
@@ -322,4 +322,4 @@ This guide demonstrated:
 - How to manually and automatically manage topics for multi-hop flows
 - The legacy workaround for older runtimes with derived IDs
 
-By following the example scenarios and debugging steps, you can confidently develop, trace, and troubleshoot XCM-based cross-chain workflows.
+By following the example scenarios and debugging steps, you can confidently develop, trace, and troubleshoot XCM workflows.

@@ -17,8 +17,8 @@ Origins and tracks are vital in streamlining the governance workflow and maintai
 
 Origins are the foundation of Polkadot's OpenGov governance system. They categorize proposals by privilege and define their decision-making rules. Each origin corresponds to a specific level of importance and risk, guiding how referendums progress through the governance process.
 
-- High-privilege origins like Root Origin govern critical network changes, such as core software upgrades
-- Lower-privilege origins like Small Spender handle minor requests, such as community project funding under 10,000 DOT
+- High-privilege origins like Root Origin govern critical network changes, such as core software upgrades.
+- Lower-privilege origins like Small Spender handle minor requests, such as community project funding under 10,000 DOT.
 
 Proposers select an origin based on the nature of their referendum. Origins determine parameters like approval thresholds, required deposits, and timeframes for voting and confirmation. Each origin is paired with a track, which acts as a roadmap for the proposal's lifecycle, including preparation, voting, and enactment.
 
@@ -28,11 +28,11 @@ For a detailed list of origins and their associated parameters, see the [Polkado
 
 Tracks define a referendum's journey from submission to enactment, tailoring governance parameters to the impact of proposed changes. Each track operates independently and includes several key stages:
 
-- **Preparation** - time for community discussion before voting begins
-- **Voting** - period for token holders to cast their votes
-- **Decision** - finalization of results and determination of the proposal's outcome
-- **Confirmation** - period to verify sustained community support before enactment
-- **Enactment** - final waiting period before the proposal takes effect
+- **Preparation**: Time for community discussion before voting begins.
+- **Voting**: Period for token holders to cast their votes.
+- **Decision**: Finalization of results and determination of the proposal's outcome.
+- **Confirmation**: Period to verify sustained community support before enactment.
+- **Enactment**: Final waiting period before the proposal takes effect.
 
 Tracks customize these stages with parameters like decision deposit requirements, voting durations, and approval thresholds, ensuring proposals from each origin receive the required scrutiny and process. For example, a runtime upgrade in the Root Origin track will have longer timeframes and stricter thresholds than a treasury request in the Small Spender track.
 

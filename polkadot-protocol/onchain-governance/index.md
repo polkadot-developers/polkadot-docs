@@ -14,9 +14,9 @@ At the core of Polkadot’s governance system are three key pallets: Preimage, R
 
 To develop solutions related to Polkadot's governance system, it’s essential to understand three key pallets:
 
-- [**Preimage**](https://paritytech.github.io/polkadot-sdk/master/pallet_preimage/index.html){target=\_blank} - stores and manages the content or the detailed information of a referendum proposal before it is voted on
-- [**Referenda**](https://paritytech.github.io/polkadot-sdk/master/pallet_referenda/index.html){target=\_blank} - manages the lifecycle of a referendum, including proposal submission, voting, and execution. Once a referendum is proposed and voted on, it can be enacted if it passes the required threshold
-- [**Conviction Voting**](https://paritytech.github.io/polkadot-sdk/master/pallet_conviction_voting/index.html){target=\_blank} - manages the voting power based on the "conviction" or commitment of voters, providing a more flexible and nuanced voting mechanism
+- **[Preimage](https://paritytech.github.io/polkadot-sdk/master/pallet_preimage/index.html){target=\_blank}**: Stores and manages the content or the detailed information of a referendum proposal before it is voted on.
+- **[Referenda](https://paritytech.github.io/polkadot-sdk/master/pallet_referenda/index.html){target=\_blank}**: Manages the lifecycle of a referendum, including proposal submission, voting, and execution. Once a referendum is proposed and voted on, it can be enacted if it passes the required threshold.
+- **[Conviction Voting](https://paritytech.github.io/polkadot-sdk/master/pallet_conviction_voting/index.html){target=\_blank}**: Manages the voting power based on the "conviction" or commitment of voters, providing a more flexible and nuanced voting mechanism.
 
 ## In This Section
 

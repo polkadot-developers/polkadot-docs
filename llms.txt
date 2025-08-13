@@ -28478,7 +28478,31 @@ npx tsx deposit-reserve-asset-with-set-topic.ts
 
 Your manual `SetTopic` is preserved by the runtime:
 
-code/tutorials/interoperability/xcm-observability/forwarded-xcm-custom.html
+<div class="termynal" data-termynal>
+  <pre data-ty>
+[
+  {
+    "type": "ReserveAssetDeposited",
+    "value": [...]
+  },
+  {
+    "type": "ClearOrigin"
+  },
+  {
+    "type": "BuyExecution",
+    "value": {...}
+  },
+  {
+    "type": "DepositAsset",
+    "value": {...}
+  },
+  {
+    "type": "SetTopic",
+    "value": "0xd60225f721599cb7c6e23cdf4fab26f205e30cd7eb6b5ccf6637cdc80b2339b2"
+  }
+]
+  </pre>
+</div>
 
 ### Message Trace Output
 
@@ -28806,7 +28830,52 @@ npx tsx initiate-reserve-withdraw-with-set-topic.ts
 
 The runtime preserves your `SetTopic` throughout the multi-hop flow:
 
-code/tutorials/interoperability/xcm-observability/forwarded-xcm-remote.html
+<div class="termynal" data-termynal>
+  <pre data-ty>
+[
+  {
+    "type": "ReserveAssetDeposited",
+    "value": [...]
+  },
+  {
+    "type": "ClearOrigin"
+  },
+  {
+    "type": "BuyExecution",
+    "value": {...}
+  },
+  {
+    "type": "ExchangeAsset",
+    "value": {...}
+  },
+  {
+    "type": "InitiateReserveWithdraw",
+    "value": {
+      "assets": {...},
+      "reserve": {...},
+      "xcm": [
+        {
+          "type": "BuyExecution",
+          "value": {...}
+        },
+        {
+          "type": "DepositAsset",
+          "value": {...}
+        },
+        {
+          "type": "SetTopic",
+          "value": "0xd60225f721599cb7c6e23cdf4fab26f205e30cd7eb6b5ccf6637cdc80b2339b2"
+        }
+      ]
+    }
+  },
+  {
+    "type": "SetTopic",
+    "value": "0xd60225f721599cb7c6e23cdf4fab26f205e30cd7eb6b5ccf6637cdc80b2339b2"
+  }
+]
+  </pre>
+</div>
 
 ### End-to-End Message Trace Output
 

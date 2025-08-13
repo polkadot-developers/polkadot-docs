@@ -210,7 +210,7 @@ npx tsx deposit-reserve-asset-with-set-topic.ts
 
 Your manual `SetTopic` is preserved by the runtime:
 
---8<-- 'code/tutorials/interoperability/xcm-observability/forwarded-xcm-custom.html'
+--8<-- 'code/tutorials/interoperability/xcm-observability/forwarded-xcm-custom-topic.html'
 
 ### Message Trace Output
 
@@ -241,7 +241,7 @@ npx tsx initiate-reserve-withdraw-with-set-topic.ts
 
 The runtime preserves your `SetTopic` throughout the multi-hop flow:
 
---8<-- 'code/tutorials/interoperability/xcm-observability/forwarded-xcm-remote.html'
+--8<-- 'code/tutorials/interoperability/xcm-observability/forwarded-xcm-remote-topic.html'
 
 ### End-to-End Message Trace Output
 

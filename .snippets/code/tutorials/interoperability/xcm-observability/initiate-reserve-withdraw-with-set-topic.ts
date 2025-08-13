@@ -37,7 +37,13 @@ const toHuman = (_key: any, value: any) => {
     return value;
 };
 
-async function getProcessedMessageId(client: PolkadotClient, api: TypedApi<any>, name: String, blockBefore: BlockInfo): Promise<String> {
+async function assertProcessedMessageId(
+    client: PolkadotClient,
+    api: TypedApi<any>,
+    name: String,
+    blockBefore: BlockInfo,
+    expectedMessageId: String,
+) {
     let processedMessageId = undefined;
     const maxRetries = 8;
     for (let i = 0; i < maxRetries; i++) {
@@ -66,7 +72,11 @@ async function getProcessedMessageId(client: PolkadotClient, api: TypedApi<any>,
         }
     }
 
-    return processedMessageId;
+    if (processedMessageId === expectedMessageId) {
+        console.log(`✅ Processed Message ID on ${name} matched.`);
+    } else {
+        console.error(`❌ Processed Message ID [${processedMessageId}] on ${name} doesn't match expected Message ID [${expectedMessageId}].`);
+    }
 }
 
 async function main() {
@@ -130,7 +140,12 @@ async function main() {
             fun: giveFun,
         }]),
 
-        XcmV5Instruction.SetFeesMode({jit_withdraw: true}),
+        XcmV5Instruction.PayFees({
+            asset: {
+                id: assetId,
+                fun: giveFun,
+            }
+        }),
 
         XcmV5Instruction.DepositReserveAsset({
             assets: XcmV5AssetFilter.Wild(
@@ -241,8 +256,8 @@ async function main() {
             } else {
                 let para2BlockBefore = await para2Client.getFinalizedBlock();
                 const extrinsic = await tx.signAndSubmit(aliceSigner);
-                const para1BlockBefore = extrinsic.block;
-                console.log(`📦 Finalised on ${para1Name} in block #${para1BlockBefore.number}: ${para1BlockBefore.hash}`);
+                const para1Block = extrinsic.block;
+                console.log(`📦 Finalised on ${para1Name} in block #${para1Block.number}: ${para1Block.hash}`);
 
                 if (!extrinsic.ok) {
                     const dispatchError = extrinsic.dispatchError;
@@ -263,20 +278,8 @@ async function main() {
                     } else {
                         console.error(`❌ Sent Message ID [${sentMessageId}] on ${para1Name} doesn't match expexted Message ID [${expectedMessageId}].`);
                     }
-
-                    let processedMessageId = await getProcessedMessageId(para2Client, para2Api, para2Name, para2BlockBefore);
-                    if (processedMessageId === expectedMessageId) {
-                        console.log(`✅ Processed Message ID on ${para2Name} matched.`);
-                    } else {
-                        console.error(`❌ Processed Message ID [${processedMessageId}] on ${para2Name} doesn't match expected Message ID [${expectedMessageId}].`);
-                    }
-
-                    let processedMessageIdOnPara1 = await getProcessedMessageId(para1Client, para1Api, para1Name, para1BlockBefore);
-                    if (processedMessageIdOnPara1 === expectedMessageId) {
-                        console.log(`✅ Processed Message ID on ${para1Name} matched.`);
-                    } else {
-                        console.error(`❌ Processed Message ID [${processedMessageIdOnPara1}] on ${para1Name} doesn't match expected Message ID [${expectedMessageId}].`);
-                    }
+                    await assertProcessedMessageId(para2Client, para2Api, para2Name, para2BlockBefore, expectedMessageId);
+                    await assertProcessedMessageId(para1Client, para1Api, para1Name, para1Block, expectedMessageId);
                 } else {
                     console.log(`📣 No Sent events on ${para1Name} found.`);
                 }

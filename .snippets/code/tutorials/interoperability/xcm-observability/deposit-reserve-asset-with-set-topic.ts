@@ -160,8 +160,7 @@ async function main() {
         XcmV5Instruction.SetTopic(Binary.fromHex(expectedMessageId)),
     ]);
 
-    const weight: any =
-        await para1Api.apis.XcmPaymentApi.query_xcm_weight(message);
+    const weight: any = await para1Api.apis.XcmPaymentApi.query_xcm_weight(message);
     if (weight.success !== true) {
         console.error("❌ Failed to query XCM weight:", weight.error);
         para1Client.destroy();
@@ -172,7 +171,7 @@ async function main() {
         message,
         max_weight: weight.value,
     });
-    const decodedCall = tx.decodedCall as any;
+    const decodedCall: any = tx.decodedCall;
     console.log("👀 Executing XCM:", JSON.stringify(decodedCall, toHuman, 2));
 
     try {

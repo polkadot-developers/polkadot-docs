@@ -126,7 +126,7 @@ async function main() {
         fee_asset_item: 0,
         weight_limit: XcmV3WeightLimit.Unlimited(),
     });
-    const decodedCall = tx.decodedCall as any;
+    const decodedCall: any = tx.decodedCall;
     console.log("👀 Executing XCM:", JSON.stringify(decodedCall, toHuman, 2));
 
     try {

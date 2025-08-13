@@ -28656,7 +28656,7 @@ async function main() {
             tokenId,
         ]),
     };
-    const giveFun = XcmV3MultiassetFungibility.Fungible(1_500_000n);
+    const giveFun = XcmV3MultiassetFungibility.Fungible(1_000_000n);
     const dest = {
         parents: 1,
         interior: XcmV5Junctions.X1(XcmV5Junction.Parachain(2034)),
@@ -28665,7 +28665,7 @@ async function main() {
         parents: 1,
         interior: XcmV5Junctions.Here(),
     };
-    const wantFun = XcmV3MultiassetFungibility.Fungible(3_000_000_000n); // Adjust the exchange rate if xcm_error is NoDeal
+    const wantFun = XcmV3MultiassetFungibility.Fungible(2_000_000_000n); // Adjust the exchange rate if xcm_error is NoDeal
     const expectedMessageId = "0xd60225f721599cb7c6e23cdf4fab26f205e30cd7eb6b5ccf6637cdc80b2339b2";
 
     const message = XcmVersionedXcm.V5([

@@ -24,7 +24,7 @@ import {
 } from "@polkadot-labs/hdkd-helpers";
 
 const XCM_VERSION = 5;
-const MAX_RETRIES = 5;
+const MAX_RETRIES = 6;
 
 const toHuman = (_key: any, value: any) => {
     if (typeof value === "bigint") {
@@ -111,7 +111,7 @@ async function main() {
         parents: 0,
         interior: XcmV5Junctions.X2([
             XcmV5Junction.PalletInstance(50),
-            XcmV5Junction.GeneralIndex(1984n),
+            XcmV5Junction.GeneralIndex(1337n),
         ]),
     };
     const giveId = {
@@ -119,7 +119,7 @@ async function main() {
         interior: XcmV5Junctions.X3([
             XcmV5Junction.Parachain(1000),
             XcmV5Junction.PalletInstance(50),
-            XcmV5Junction.GeneralIndex(1984n),
+            XcmV5Junction.GeneralIndex(1337n),
         ]),
     };
     const giveFun = XcmV3MultiassetFungibility.Fungible(1_500_000n);

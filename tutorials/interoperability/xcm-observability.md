@@ -27,7 +27,7 @@ Before you begin, make sure you have:
 
 - [Chopsticks](/develop/toolkit/parachains/fork-chains/chopsticks/get-started/){target=\_blank} installed
 - Access to local or remote parachain endpoints
-- The origin parachain running runtime **`stable2503-5`** or later
+- The origin chain running runtime **`stable2503-5`** or later
 - A TypeScript development environment with essential tools
 - Familiarity with replaying or dry-running XCMs
 
@@ -87,7 +87,7 @@ If you are new to XCM replay or dry-run, see [Replay and Dry Run XCMs Using Chop
 
 When sending XCMs using `limited_reserve_transfer_assets` or other extrinsics from the `PolkadotXcm` pallet, two key observability features enable developers to trace and correlate messages across chains:
 
-- The addition of a new **[`PolkadotXcm.Sent`](https://paritytech.github.io/polkadot-sdk/master/pallet_xcm/pallet/enum.Event.html#variant.Sent){target=\_blank} event**, emitted on the origin chain when an XCM is sent.
+- **[`PolkadotXcm.Sent`](https://paritytech.github.io/polkadot-sdk/master/pallet_xcm/pallet/enum.Event.html#variant.Sent){target=\_blank} event** emitted on the origin chain when an XCM is sent.
 - The guarantee that the **`message_id` in the `PolkadotXcm.Sent` event matches the `id` in the [`MessageQueue.Processed`](https://paritytech.github.io/polkadot-sdk/master/pallet_message_queue/pallet/enum.Event.html#variant.Processed){target=\_blank} event** on the destination chain, enabling reliable cross-chain correlation.
 - **[`SetTopic([u8; 32])`](https://github.com/polkadot-fellows/xcm-format#settopic){target=\_blank}** is an XCM instruction that sets a 32-byte topic register inside the message.
 - This topic acts as a **logical identifier** (`message_id`) for the XCM, allowing you to group and trace related messages across chains.
@@ -150,7 +150,7 @@ flowchart TD
 
 ### Overview
 
-- **Origin:** Polkadot Asset Hub
+- **Origin:** Polkadot Hub
 - **Destination:** Hydration
 - **Extrinsic:** `limited_reserve_transfer_assets` (high-level)
 - **Topic:** Automatically set by runtime
@@ -175,10 +175,10 @@ The runtime adds a `SetTopic` to the forwarded XCM automatically:
 
 ### Trace Events
 
-| Chain     | Event                    | Field        | Notes                                  |
-|-----------|--------------------------|--------------|----------------------------------------|
-| Asset Hub | `PolkadotXcm.Sent`       | `message_id` | Matches the topic in the forwarded XCM |
-| Hydration | `MessageQueue.Processed` | `id`         | Matches origin's `message_id`          |
+| Chain        | Event                    | Field        | Notes                                  |
+|--------------|--------------------------|--------------|----------------------------------------|
+| Polkadot Hub | `PolkadotXcm.Sent`       | `message_id` | Matches the topic in the forwarded XCM |
+| Hydration    | `MessageQueue.Processed` | `id`         | Matches origin's `message_id`          |
 
 > ⚠️ Dry run generated topics may differ from actual execution.
 
@@ -190,7 +190,7 @@ The runtime adds a `SetTopic` to the forwarded XCM automatically:
 
 ### Overview
 
-- **Origin:** Polkadot Asset Hub
+- **Origin:** Polkadot Hub
 - **Destination:** Hydration
 - **Topic:** Manually assigned
 - **Goal:** Guarantee traceability in custom multi-hop flows
@@ -221,7 +221,7 @@ Your manual `SetTopic` is preserved by the runtime:
 
 ### Overview
 
-- **Origin:** Polkadot Asset Hub
+- **Origin:** Polkadot Hub
 - **Destination:** Hydration
 - **Topic:** Manually assigned and preserved over multiple hops (including remote XCMs)
 - **Goal:** Trace entire multi-hop XCM chain consistently

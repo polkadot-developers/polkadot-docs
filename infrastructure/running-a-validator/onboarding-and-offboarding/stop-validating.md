@@ -16,9 +16,9 @@ If you wish to remain a validator or nominator (for example, stopping for planne
 
 The following are steps to ensure a smooth stop to validation:
 
-- Chill the validator
-- Purge validator session keys
-- Unbond your tokens
+- Chill the validator.
+- Purge validator session keys.
+- Unbond your tokens.
 
 ## Chill Validator
 
@@ -32,8 +32,8 @@ Purging validator session keys is a critical step in removing the association be
 
 Here are a couple of important things to know about purging keys:
 
-- **Account used to purge keys** - always use the same account to purge keys you originally used to set them, usually your stash or staking proxy account. Using a different account may leave an unremovable reference to the session keys on the original account, preventing its reaping
-- **Account reaping issue** - failing to purge keys will prevent you from reaping (fully deleting) your stash account. If you attempt to transfer tokens without purging, you'll need to rebond, purge the session keys, unbond again, and wait through the unbonding period before any transfer
+- **Account used to purge keys**: Always use the same account to purge keys you originally used to set them, usually your stash or staking proxy account. Using a different account may leave an unremovable reference to the session keys on the original account, preventing its reaping.
+- **Account reaping issue**: Failing to purge keys will prevent you from reaping (fully deleting) your stash account. If you attempt to transfer tokens without purging, you'll need to rebond, purge the session keys, unbond again, and wait through the unbonding period before any transfer.
 
 ## Unbond Your Tokens
 

@@ -2,8 +2,7 @@ name: Validate llms-full.txt
 
 on:
   pull_request:
-    branches:
-      - master
+    branches: [master]
 
 jobs:
   check-llms:

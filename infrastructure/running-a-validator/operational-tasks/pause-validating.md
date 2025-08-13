@@ -22,9 +22,9 @@ To chill your account, go to the **Network > Staking > Account Actions** page on
 
 When a node actively participates in staking but then chills, it will continue contributing for the remainder of the current era. However, its eligibility for the next election depends on the chill status at the start of the new era:
 
-- **Chilled during previous era** - will not participate in the current era election and will remain inactive until reactivated
--**Chilled during current era** - will not be selected for the next era's election
--**Chilled after current era** - may be selected if it was active during the previous era and is now chilled
+- **Chilled during previous era**: Will not participate in the current era election and will remain inactive until reactivated.
+-**Chilled during current era**: Will not be selected for the next era's election.
+-**Chilled after current era**: May be selected if it was active during the previous era and is now chilled.
 
 ## Chilling as a Nominator
 

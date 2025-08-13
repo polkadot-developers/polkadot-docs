@@ -50,38 +50,6 @@ The runtime metadata should only change when the chain's [runtime `spec_version`
 
 ## Storage Migrations
 
-[Storage migrations](https://paritytech.github.io/polkadot-sdk/master/polkadot_sdk_docs/reference_docs/frame_runtime_upgrades_and_migrations/index.html#migrations){target=\_blank} are custom, one-time functions that allow you to update storage to adapt to changes in the runtime.
+Some runtime upgrades require updating how data is stored to match new formats or layouts. This process is called a Storage Migration. It ensures the runtime can interpret existing state correctly after an upgrade.
 
-For example, if a runtime upgrade changes the data type used to represent user balances from an unsigned integer to a signed integer, the storage migration would read the existing value as an unsigned integer and write back an updated value that has been converted to a signed integer.
-
-If you don't make changes to how data is stored when needed, the runtime can't properly interpret the storage values to include in the runtime state and is likely to lead to undefined behavior.
-
-### Storage Migrations with FRAME
-
-FRAME storage migrations are implemented using the [`OnRuntimeUpgrade`](https://paritytech.github.io/polkadot-sdk/master/frame_support/traits/trait.OnRuntimeUpgrade.html){target=\_blank} trait. The `OnRuntimeUpgrade` trait specifies a single function, `on_runtime_upgrade`, that allows you to specify logic to run immediately after a runtime upgrade but before any `on_initialize` functions or transactions are executed.
-
-For further details about this process, see the [Storage Migrations](/develop/parachains/maintenance/storage-migrations/){target=\_blank} page.
-
-### Ordering Migrations
-
-By default, FRAME orders the execution of `on_runtime_upgrade` functions based on the order in which the pallets appear in the `construct_runtime!` macro. The functions run in reverse order for upgrades, starting with the last pallet executed first. You can impose a custom order if needed.
-
-FRAME storage migrations run in this order:
-
-1. Custom `on_runtime_upgrade` functions if using a custom order
-2. System `frame_system::on_runtime_upgrade` functions
-3. All `on_runtime_upgrade` functions defined in the runtime starting with the last pallet in the `construct_runtime!` macro
-
-<!-- ## Where to Go Next
-
-<div class="grid cards" markdown>
-
--   <span class="badge tutorial">Tutorial</span> __Add Pallets to the Runtime__
-
-    ---
-
-    TODO!
-
-    [:octicons-arrow-right-24: Get started](/tutorials/polkadot-sdk/parachains/zero-to-hero/add-pallets-to-runtime/)
-
-</div> -->
+For detailed guidance, scenarios, and implementation patterns, see the [Storage Migrations](/develop/parachains/maintenance/storage-migrations/){target=\_blank} page.

@@ -51,26 +51,32 @@ Every blockchain platform relies on a decentralized network of computers—calle
     - Also known as State Transition Function (STF)
 
 ```mermaid
-%%{init: {'flowchart': {'padding': 25, 'nodeSpacing': 10, 'rankSpacing': 50}}}%%
+%%{init: {'flowchart': {'padding': 5, 'nodeSpacing': 50, 'rankSpacing': 10}}}%%
 graph TB
-    %% Define comprehensive styles
-    classDef titleStyle font-size:30px,font-weight:bold,stroke-width:2px,padding:20px
-    
-    subgraph sg1[Substrate Node]
-        %% Add invisible spacer with increased height
-        spacer[ ]
-        style spacer height:2px,opacity:0
-        
-        B[Wasm Runtime - STF]
+    classDef title font-size:20px,font-weight:bold,stroke-width:0px
+    classDef clientStyle font-size:16px,font-weight:bold
+    classDef clientSubNodeStyle margin-top:10px
+    classDef runtimeCallExecutorStyle padding-top:10px
+
+    subgraph sg1[Substrate<br /> Node]
+        direction TB
+
         I[RuntimeCall Executor]
+        B[Wasm Runtime - STF]
+
         subgraph sg2[Client]
             direction TB
             C[Network and Blockchain<br/>Infrastructure Services]
         end
-        I -.-> B
+
+        I --> B
     end
-    %% Apply comprehensive styles
-    class sg1 titleStyle
+
+    class sg1 title
+    class sg2 clientStyle
+    class C clientSubNodeStyle
+    class I runtimeCallExecutorStyle
+
 ```
 
 ### FRAME
@@ -117,7 +123,7 @@ graph LR
     end
     subgraph AP["<b style='font-size:18px;'>FRAME Pallets</b>"]
         direction LR
-        A1[Aura]~~~A2[BABE]~~~A3[GRANDPA]~~~A4[Transaction\nPayment]
+        A1[Aura]~~~A2[BABE]~~~A3[GRANDPA]~~~A4[Transaction<br>Payment]
         B1[Identity]~~~B2[Balances]~~~B3[Sudo]~~~B4[EVM]
         C1[Timestamp]~~~C2[Assets]~~~C3[Contracts]~~~C4[and more...]
     end

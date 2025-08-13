@@ -25,9 +25,9 @@ flowchart TB
     RC -->|Validate State| PB
     RC -->|Validate State| PC
 
-    State -->|Represents Collective\nParachain State| RC
+    State -->|Represents Collective<br>Parachain State| RC
 
-    note["ELVES Protocol:\n- Crypto-economic security\n- Assumes worst-case scenario\n- High probability validation"]
+    note["ELVES Protocol:<br>- Crypto-economic security<br>- Assumes worst-case scenario<br>- High probability validation"]
 ```
 
 ## Coherent Systems
@@ -47,15 +47,15 @@ The diagram below highlights the flexibility of the Polkadot ecosystem, where ea
 ```mermaid
 flowchart TB
     subgraph "Polkadot Relay Chain"
-        RC[Relay Chain\nCross-Consensus\nRouting]
+        RC[Relay Chain<br>Cross-Consensus<br>Routing]
     end
 
     subgraph "Parachain Ecosystem"
         direction TB
-        DeFi[DeFi Parachain\nFinancial Services]
-        GameFi[GameFi Parachain\nGaming Ecosystem]
-        NFT[NFT Parachain\nDigital Collectibles]
-        Identity[Identity Parachain\nUser Verification]
+        DeFi[DeFi Parachain<br>Financial Services]
+        GameFi[GameFi Parachain<br>Gaming Ecosystem]
+        NFT[NFT Parachain<br>Digital Collectibles]
+        Identity[Identity Parachain<br>User Verification]
     end
 
     DeFi <-->|XCM: Asset Transfer| GameFi
@@ -67,7 +67,7 @@ flowchart TB
     RC -->|Validate & Route XCM| NFT
     RC -->|Validate & Route XCM| Identity
 
-    note["XCM Features:\n- Standardized Messaging\n- Cross-Chain Interactions\n- Secure Asset/Data Transfer"]
+    note["XCM Features:<br>- Standardized Messaging<br>- Cross-Chain Interactions<br>- Secure Asset/Data Transfer"]
 ```
 
 Most parachains are built using the Polkadot SDK, which provides all the tools to create a fully functioning parachain. However, it is possible to construct a parachain that can inherit the security of the relay chain as long as it implements the correct mechanisms expected by the relay chain.

@@ -18,9 +18,9 @@ The blockchain ecosystem is inherently fragmented. Different blockchains excel i
 
 Interoperability solves this problem by enabling blockchains to:
 
-- **Collaborate across networks** - chains can interact to share assets, functionality, and data, creating synergies that amplify their individual strengths
-- **Achieve greater scalability** - specialized chains can offload tasks to others, optimizing performance and resource utilization
-- **Expand use-case potential** - cross-chain applications can leverage features from multiple blockchains, unlocking novel user experiences and solutions
+- **Collaborate across networks**: Chains can interact to share assets, functionality, and data, creating synergies that amplify their individual strengths.
+- **Achieve greater scalability**: Specialized chains can offload tasks to others, optimizing performance and resource utilization.
+- **Expand use-case potential**: Cross-chain applications can leverage features from multiple blockchains, unlocking novel user experiences and solutions.
 
 In the Polkadot ecosystem, interoperability transforms a collection of isolated chains into a cohesive, efficient network, pushing the boundaries of what blockchains can achieve together.
 
@@ -34,10 +34,10 @@ Polkadot's Cross-Consensus Messaging (XCM) is the standard framework for interac
 
 Through XCM, decentralized applications can:
 
-- Transfer tokens and other assets across chains
-- Coordinate complex workflows that span multiple blockchains
-- Enable seamless user experiences where underlying blockchain differences are invisible
-- XCM exemplifies Polkadot’s commitment to creating a robust and interoperable ecosystem
+- Transfer tokens and other assets across chains.
+- Coordinate complex workflows that span multiple blockchains.
+- Enable seamless user experiences where underlying blockchain differences are invisible.
+- XCM exemplifies Polkadot’s commitment to creating a robust and interoperable ecosystem.
 
 For further information about XCM, check the [Introduction to XCM](/develop/interoperability/intro-to-xcm/){target=\_blank} article.
 
@@ -47,9 +47,9 @@ While XCM enables interoperability within the Polkadot ecosystem, bridges extend
 
 With bridges, developers and users gain the ability to:
 
-- Integrate external assets into Polkadot-based applications
-- Combine the strengths of Polkadot’s scalability with the liquidity of other networks
-- Facilitate accurate multi-chain applications that transcend ecosystem boundaries
+- Integrate external assets into Polkadot-based applications.
+- Combine the strengths of Polkadot’s scalability with the liquidity of other networks.
+- Facilitate accurate multi-chain applications that transcend ecosystem boundaries.
 
 For more information about bridges in the Polkadot ecosystem, see the [Bridge Hub](/polkadot-protocol/architecture/system-chains/bridge-hub/){target=\_blank} guide.
 
@@ -57,9 +57,9 @@ For more information about bridges in the Polkadot ecosystem, see the [Bridge Hu
 
 Polkadot was purpose-built for interoperability. Unlike networks that add interoperability as an afterthought, Polkadot integrates it as a fundamental design principle. This approach offers several distinct advantages:
 
-- **Developer empowerment** - polkadot’s interoperability tools allow developers to build applications that leverage multiple chains’ capabilities without added complexity
-- **Enhanced ecosystem collaboration** - chains in Polkadot can focus on their unique strengths while contributing to the ecosystem’s overall growth
-- **Future-proofing blockchain** - by enabling seamless communication, Polkadot ensures its ecosystem can adapt to evolving demands and technologies
+- **Developer empowerment**: Polkadot’s interoperability tools allow developers to build applications that leverage multiple chains’ capabilities without added complexity.
+- **Enhanced ecosystem collaboration**: Chains in Polkadot can focus on their unique strengths while contributing to the ecosystem’s overall growth.
+- **Future-proofing blockchain**: By enabling seamless communication, Polkadot ensures its ecosystem can adapt to evolving demands and technologies.
 
 ## Looking Ahead
 

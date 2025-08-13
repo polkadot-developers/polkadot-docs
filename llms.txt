@@ -28059,7 +28059,7 @@ async function assertProcessedMessageId(
 }
 
 async function main() {
-    const para1Name = "Polkadot Asset Hub";
+    const para1Name = "Polkadot Hub";
     const para1Client = createClient(
         withPolkadotSdkCompat(getWsProvider("ws://localhost:8000")),
     );
@@ -28214,8 +28214,8 @@ The runtime adds a `SetTopic` to the forwarded XCM automatically:
 <div class="termynal" data-termynal>
   <span data-ty="input">npx tsx limited-reserve-transfer-assets.ts</span>
   <span data-ty>✅ Local dry run successful.</span>
-  <span data-ty>📦 Finalised on Polkadot Asset Hub in block #9477291: 0xf54cecc017762c714bbdf3e82d72ed90886257ca17d32ec6dc8ea20e28110af8</span>
-  <span data-ty>📣 Last message sent on Polkadot Asset Hub: 0x20432393771dc049cea4900565a936d169b8ebdd64efa351890766df918615a4</span>
+  <span data-ty>📦 Finalised on Polkadot Hub in block #9477291: 0xf54cecc017762c714bbdf3e82d72ed90886257ca17d32ec6dc8ea20e28110af8</span>
+  <span data-ty>📣 Last message sent on Polkadot Hub: 0x20432393771dc049cea4900565a936d169b8ebdd64efa351890766df918615a4</span>
   <span data-ty>📦 Finalised on Hydration in block #8761211: 0xa4c493ba9328f38174aa7a9ade0779654839e9d3c83b2bafc60d4e5b7de6a00f</span>
   <span data-ty>📣 Last message processed on Hydration: 0x20432393771dc049cea4900565a936d169b8ebdd64efa351890766df918615a4</span>
   <span data-ty>✅ Processed Message ID on Hydration matched.</span>
@@ -28316,7 +28316,7 @@ async function assertProcessedMessageId(
 }
 
 async function main() {
-    const para1Name = "Polkadot Asset Hub";
+    const para1Name = "Polkadot Hub";
     const para1Client = createClient(
         withPolkadotSdkCompat(getWsProvider("ws://localhost:8000")),
     );
@@ -28486,9 +28486,9 @@ code/tutorials/interoperability/xcm-observability/forwarded-xcm-custom.html
 <div class="termynal" data-termynal>
   <span data-ty="input">npx tsx limited-reserve-transfer-assets.ts</span>
   <span data-ty>✅ Local dry run successful.</span>
-  <span data-ty>📦 Finalised on Polkadot Asset Hub in block #9471830: 0x98bd858739b3b5dd558def60cbd85d5e7fb2f4e33b0c00e1895e316541d727d9</span>
-  <span data-ty>📣 Last message sent on Polkadot Asset Hub: 0xd60225f721599cb7c6e23cdf4fab26f205e30cd7eb6b5ccf6637cdc80b2339b2</span>
-  <span data-ty>✅ Sent Message ID on Polkadot Asset Hub matched.</span>
+  <span data-ty>📦 Finalised on Polkadot Hub in block #9471830: 0x98bd858739b3b5dd558def60cbd85d5e7fb2f4e33b0c00e1895e316541d727d9</span>
+  <span data-ty>📣 Last message sent on Polkadot Hub: 0xd60225f721599cb7c6e23cdf4fab26f205e30cd7eb6b5ccf6637cdc80b2339b2</span>
+  <span data-ty>✅ Sent Message ID on Polkadot Hub matched.</span>
   <span data-ty>📦 Finalised on Hydration in block #8749233: 0xe1413c5126698d7189d6f55a38e62d07ea4915078c2b1f3914d70f670e79e162</span>
   <span data-ty>📣 Last message processed on Hydration: 0xd60225f721599cb7c6e23cdf4fab26f205e30cd7eb6b5ccf6637cdc80b2339b2</span>
   <span data-ty>✅ Processed Message ID on Hydration matched.</span>
@@ -28590,7 +28590,7 @@ async function assertProcessedMessageId(
 }
 
 async function main() {
-    const para1Name = "Polkadot Asset Hub";
+    const para1Name = "Polkadot Hub";
     const para1Client = createClient(
         withPolkadotSdkCompat(getWsProvider("ws://localhost:8000")),
     );
@@ -28617,11 +28617,12 @@ async function main() {
             id: Binary.fromHex("0x9818ff3c27d256631065ecabf0c50e02551e5c5342b8669486c1e566fcbf847f")
         })),
     }
+    const tokenId = XcmV5Junction.GeneralIndex(1337n); // Change to another token if FailedToTransactAsset("Funds are unavailable")
     const assetId = {
         parents: 0,
         interior: XcmV5Junctions.X2([
             XcmV5Junction.PalletInstance(50),
-            XcmV5Junction.GeneralIndex(1337n),
+            tokenId,
         ]),
     };
     const giveId = {
@@ -28629,7 +28630,7 @@ async function main() {
         interior: XcmV5Junctions.X3([
             XcmV5Junction.Parachain(1000),
             XcmV5Junction.PalletInstance(50),
-            XcmV5Junction.GeneralIndex(1337n),
+            tokenId,
         ]),
     };
     const giveFun = XcmV3MultiassetFungibility.Fungible(1_500_000n);
@@ -28641,7 +28642,7 @@ async function main() {
         parents: 1,
         interior: XcmV5Junctions.Here(),
     };
-    const wantFun = XcmV3MultiassetFungibility.Fungible(3_000_000_000n);
+    const wantFun = XcmV3MultiassetFungibility.Fungible(3_000_000_000n); // Adjust the exchange rate if xcm_error is NoDeal
     const expectedMessageId = "0xd60225f721599cb7c6e23cdf4fab26f205e30cd7eb6b5ccf6637cdc80b2339b2";
 
     const message = XcmVersionedXcm.V5([
@@ -28714,7 +28715,7 @@ async function main() {
                             beneficiary,
                         }),
 
-                        XcmV5Instruction.SetTopic(Binary.fromHex(expectedMessageId)),
+                        XcmV5Instruction.SetTopic(Binary.fromHex(expectedMessageId)), // Ensure the same topic is also set on remote XCM calls
                     ],
                 }),
             ],
@@ -28815,15 +28816,15 @@ The same `message_id` is present in all relevant events across chains:
 <div class="termynal" data-termynal>
   <span data-ty="input">npx tsx initiate-reserve-withdraw-with-set-topic.ts</span>
   <span data-ty>✅ Local dry run successful.</span>
-  <span data-ty>📦 Finalised on Polkadot Asset Hub in block #9471831: 0x2620f7e29765fc953263b7835711011616702c9d82ef5306fe3ef4196cb75cab</span>
-  <span data-ty>📣 Last message sent on Polkadot Asset Hub: 0xd60225f721599cb7c6e23cdf4fab26f205e30cd7eb6b5ccf6637cdc80b2339b2</span>
-  <span data-ty>✅ Sent Message ID on Polkadot Asset Hub matched.</span>
+  <span data-ty>📦 Finalised on Polkadot Hub in block #9471831: 0x2620f7e29765fc953263b7835711011616702c9d82ef5306fe3ef4196cb75cab</span>
+  <span data-ty>📣 Last message sent on Polkadot Hub: 0xd60225f721599cb7c6e23cdf4fab26f205e30cd7eb6b5ccf6637cdc80b2339b2</span>
+  <span data-ty>✅ Sent Message ID on Polkadot Hub matched.</span>
   <span data-ty>📦 Finalised on Hydration in block #8749235: 0xafe7f6149b1773a8d3d229040cda414aafd64baaeffa37fb4a5b2a542308b2d6</span>
   <span data-ty>📣 Last message processed on Hydration: 0xd60225f721599cb7c6e23cdf4fab26f205e30cd7eb6b5ccf6637cdc80b2339b2</span>
   <span data-ty>✅ Processed Message ID on Hydration matched.</span>
-  <span data-ty>📦 Finalised on Polkadot Asset Hub in block #9471832: 0x7c150b69e3562694f0573e4fee73dfb86f3ab71b808679a1777586ff24643e9a</span>
-  <span data-ty>📣 Last message processed on Polkadot Asset Hub: 0xd60225f721599cb7c6e23cdf4fab26f205e30cd7eb6b5ccf6637cdc80b2339b2</span>
-  <span data-ty>✅ Processed Message ID on Polkadot Asset Hub matched.</span>
+  <span data-ty>📦 Finalised on Polkadot Hub in block #9471832: 0x7c150b69e3562694f0573e4fee73dfb86f3ab71b808679a1777586ff24643e9a</span>
+  <span data-ty>📣 Last message processed on Polkadot Hub: 0xd60225f721599cb7c6e23cdf4fab26f205e30cd7eb6b5ccf6637cdc80b2339b2</span>
+  <span data-ty>✅ Processed Message ID on Polkadot Hub matched.</span>
 </div>
 
 ## Workaround for Older Runtimes

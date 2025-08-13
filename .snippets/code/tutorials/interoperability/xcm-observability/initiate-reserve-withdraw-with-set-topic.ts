@@ -80,7 +80,7 @@ async function assertProcessedMessageId(
 }
 
 async function main() {
-    const para1Name = "Polkadot Asset Hub";
+    const para1Name = "Polkadot Hub";
     const para1Client = createClient(
         withPolkadotSdkCompat(getWsProvider("ws://localhost:8000")),
     );
@@ -107,11 +107,12 @@ async function main() {
             id: Binary.fromHex("0x9818ff3c27d256631065ecabf0c50e02551e5c5342b8669486c1e566fcbf847f")
         })),
     }
+    const tokenId = XcmV5Junction.GeneralIndex(1337n); // Change to another token if FailedToTransactAsset("Funds are unavailable")
     const assetId = {
         parents: 0,
         interior: XcmV5Junctions.X2([
             XcmV5Junction.PalletInstance(50),
-            XcmV5Junction.GeneralIndex(1337n),
+            tokenId,
         ]),
     };
     const giveId = {
@@ -119,7 +120,7 @@ async function main() {
         interior: XcmV5Junctions.X3([
             XcmV5Junction.Parachain(1000),
             XcmV5Junction.PalletInstance(50),
-            XcmV5Junction.GeneralIndex(1337n),
+            tokenId,
         ]),
     };
     const giveFun = XcmV3MultiassetFungibility.Fungible(1_500_000n);
@@ -131,7 +132,7 @@ async function main() {
         parents: 1,
         interior: XcmV5Junctions.Here(),
     };
-    const wantFun = XcmV3MultiassetFungibility.Fungible(3_000_000_000n);
+    const wantFun = XcmV3MultiassetFungibility.Fungible(3_000_000_000n); // Adjust the exchange rate if xcm_error is NoDeal
     const expectedMessageId = "0xd60225f721599cb7c6e23cdf4fab26f205e30cd7eb6b5ccf6637cdc80b2339b2";
 
     const message = XcmVersionedXcm.V5([
@@ -204,7 +205,7 @@ async function main() {
                             beneficiary,
                         }),
 
-                        XcmV5Instruction.SetTopic(Binary.fromHex(expectedMessageId)),
+                        XcmV5Instruction.SetTopic(Binary.fromHex(expectedMessageId)), // Ensure the same topic is also set on remote XCM calls
                     ],
                 }),
             ],

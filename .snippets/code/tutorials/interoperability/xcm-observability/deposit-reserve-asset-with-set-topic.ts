@@ -79,7 +79,7 @@ async function assertProcessedMessageId(
 }
 
 async function main() {
-    const para1Name = "Polkadot Asset Hub";
+    const para1Name = "Polkadot Hub";
     const para1Client = createClient(
         withPolkadotSdkCompat(getWsProvider("ws://localhost:8000")),
     );

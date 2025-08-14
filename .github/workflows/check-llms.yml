@@ -1,4 +1,4 @@
-name: Validate llms.txt
+name: Validate llms-full.txt
 
 on:
   pull_request:

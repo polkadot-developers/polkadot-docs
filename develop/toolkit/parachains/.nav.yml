@@ -6,5 +6,6 @@ nav:
   - fork-chains
   - e2e-testing
   - 'Light Clients': light-clients.md
+  - 'Remote Proxies': remote-proxies.md
   - 'RPC Calls': rpc-calls.md
   - 'Polkadot Omni Node': polkadot-omni-node.md

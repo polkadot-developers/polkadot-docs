@@ -17,9 +17,9 @@ This guide is intended for developers who are familiar with JavaScript and want 
 
 Before getting started, ensure you have the following installed:
 
-- **Node.js** - v22.13.1 or later, check the [Node.js installation guide](https://nodejs.org/en/download/current/){target=\_blank}
-- **npm** - v6.13.4 or later (comes bundled with Node.js)
-- **Solidity** - this guide uses Solidity `^0.8.9` for smart contract development
+- **Node.js**: v22.13.1 or later, check the [Node.js installation guide](https://nodejs.org/en/download/current/){target=\_blank}.
+- **npm**: v6.13.4 or later (comes bundled with Node.js).
+- **Solidity**: This guide uses Solidity `^0.8.9` for smart contract development.
 
 ## Project Structure
 
@@ -219,6 +219,6 @@ node checkStorage
 
 Now that you have the foundational knowledge to use Ethers.js with Polkadot Hub, you can:
 
-- **Dive into Ethers.js utilities** - discover additional Ethers.js features, such as wallet management, signing messages, etc
-- **Implement batch transactions** - use Ethers.js to execute batch transactions for efficient multi-step contract interactions
-- **Build scalable applications** - combine Ethers.js with frameworks like [`Next.js`](https://nextjs.org/docs){target=\_blank} or [`Node.js`](https://nodejs.org/en){target=\_blank} to create full-stack decentralized applications (dApps)
+- **Dive into Ethers.js utilities**: Discover additional Ethers.js features, such as wallet management, signing messages, etc.
+- **Implement batch transactions**: Use Ethers.js to execute batch transactions for efficient multi-step contract interactions.
+- **Build scalable applications**: Combine Ethers.js with frameworks like [`Next.js`](https://nextjs.org/docs){target=\_blank} or [`Node.js`](https://nodejs.org/en){target=\_blank} to create full-stack decentralized applications (dApps).

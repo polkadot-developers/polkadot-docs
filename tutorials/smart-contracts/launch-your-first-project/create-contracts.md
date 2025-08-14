@@ -18,20 +18,20 @@ This tutorial will guide you through creating a basic smart contract that can be
 
 Before starting, make sure you have:
 
-- A text editor of your choice ([VS Code](https://code.visualstudio.com/){target=\_blank}, [Sublime Text](https://www.sublimetext.com/){target=\_blank}, etc.)
-- Basic understanding of programming concepts
-- Familiarity with the Solidity programming language syntax. For further references, check the official [Solidity documentation](https://docs.soliditylang.org/en/latest/){target=\_blank}
+- A text editor of your choice ([VS Code](https://code.visualstudio.com/){target=\_blank}, [Sublime Text](https://www.sublimetext.com/){target=\_blank}, etc.).
+- Basic understanding of programming concepts.
+- Familiarity with the Solidity programming language syntax. For further references, check the official [Solidity documentation](https://docs.soliditylang.org/en/latest/){target=\_blank}.
 
 ## Understanding Smart Contract Structure
 
 Let's explore these components before building the contract:
 
-- [**SPDX license identifier**](https://docs.soliditylang.org/en/v0.6.8/layout-of-source-files.html){target=\_blank} - a standardized way to declare the license under which your code is released. This helps with legal compliance and is required by the Solidity compiler to avoid warnings
-- **Pragma directive** - specifies which version of Solidity compiler should be used for your contract
-- **Contract declaration** - similar to a class in object-oriented programming, it defines the boundaries of your smart contract
-- **State variables** - data stored directly in the contract that persists between function calls. These represent the contract's "state" on the blockchain
-- **Functions** - executable code that can read or modify the contract's state variables
-- **Events** - notification mechanisms that applications can subscribe to in order to track blockchain changes
+- **[SPDX license identifier](https://docs.soliditylang.org/en/v0.6.8/layout-of-source-files.html){target=\_blank}**: A standardized way to declare the license under which your code is released. This helps with legal compliance and is required by the Solidity compiler to avoid warnings.
+- **Pragma directive**: Specifies which version of Solidity compiler should be used for your contract.
+- **Contract declaration**: Similar to a class in object-oriented programming, it defines the boundaries of your smart contract.
+- **State variables**: Data stored directly in the contract that persists between function calls. These represent the contract's "state" on the blockchain.
+- **Functions**: Executable code that can read or modify the contract's state variables.
+- **Events**: Notification mechanisms that applications can subscribe to in order to track blockchain changes.
 
 ## Create the Smart Contract
 
@@ -39,13 +39,13 @@ In this section, you'll build a simple storage contract step by step. This basic
 
 This contract will:
 
-- Store a number
-- Allow updating the stored number
-- Emit an event when the number changes
+- Store a number.
+- Allow updating the stored number.
+- Emit an event when the number changes.
 
 To build the smart contract, follow the steps below:
 
-1. Create a new file named `Storage.sol`
+1. Create a new file named `Storage.sol`.
 
 2. Add the SPDX license identifier at the top of the file:
 
@@ -87,8 +87,8 @@ To build the smart contract, follow the steps below:
 
     Here, you're defining:
 
-    - A state variable named `number` of type `uint256` (unsigned integer with 256 bits), which is marked as `private` so it can only be accessed via functions within this contract
-    - An event named `NumberChanged` that will be triggered whenever the number changes. The event includes the new value as data
+    - A state variable named `number` of type `uint256` (unsigned integer with 256 bits), which is marked as `private` so it can only be accessed via functions within this contract.
+    - An event named `NumberChanged` that will be triggered whenever the number changes. The event includes the new value as data.
 
 6. Add the getter and setter functions:
 
@@ -108,26 +108,26 @@ Let's break down the key components of the contract:
 
 - **State Variable**
 
-    - `uint256 private number` - a private variable that can only be accessed through the contract's functions
-    - The `private` keyword prevents direct access from other contracts, but it's important to note that while other contracts cannot read this variable directly, the data itself is still visible on the blockchain and can be read by external tools or applications that interact with the blockchain. "Private" in Solidity doesn't mean the data is encrypted or truly hidden
-    - State variables in Solidity are permanent storage on the blockchain, making them different from variables in traditional programming. Every change to a state variable requires a transaction and costs gas (the fee paid for blockchain operations)
+    - **`uint256 private number`**: A private variable that can only be accessed through the contract's functions.
+    - The `private` keyword prevents direct access from other contracts, but it's important to note that while other contracts cannot read this variable directly, the data itself is still visible on the blockchain and can be read by external tools or applications that interact with the blockchain. "Private" in Solidity doesn't mean the data is encrypted or truly hidden.
+    - State variables in Solidity are permanent storage on the blockchain, making them different from variables in traditional programming. Every change to a state variable requires a transaction and costs gas (the fee paid for blockchain operations).
 
 - **Event**
 
-    - `event NumberChanged(uint256 newNumber)` - emitted when the stored number changes
-    - When triggered, events write data to the blockchain's log, which can be efficiently queried by applications
-    - Unlike state variables, events cannot be read by smart contracts, only by external applications
-    - Events are much more gas-efficient than storing data when you only need to notify external systems of changes
+    - **`event NumberChanged(uint256 newNumber)`**: Emitted when the stored number changes.
+    - When triggered, events write data to the blockchain's log, which can be efficiently queried by applications.
+    - Unlike state variables, events cannot be read by smart contracts, only by external applications.
+    - Events are much more gas-efficient than storing data when you only need to notify external systems of changes.
 
 - **Functions**
 
-    - `store(uint256 newNumber)` - updates the stored number and emits an event
-        - This function changes the state of the contract and requires a transaction to execute
-        - The `emit` keyword is used to trigger the defined event
+    - **`store(uint256 newNumber)`**: Updates the stored number and emits an event.
+        - This function changes the state of the contract and requires a transaction to execute.
+        - The `emit` keyword is used to trigger the defined event.
 
-    - `retrieve()` - returns the current stored number
-        - The `view` keyword indicates that this function only reads data and doesn't modify the contract's state
-        - View functions don't require a transaction and don't cost gas when called externally
+    - **`retrieve()`**: Returns the current stored number.
+        - The `view` keyword indicates that this function only reads data and doesn't modify the contract's state.
+        - View functions don't require a transaction and don't cost gas when called externally.
 
     For those new to Solidity, this naming pattern (getter/setter functions) is a common design pattern. Instead of directly accessing state variables, the convention is to use functions to control access and add additional logic if needed.
 

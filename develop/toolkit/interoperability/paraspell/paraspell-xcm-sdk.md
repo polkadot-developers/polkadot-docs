@@ -106,7 +106,8 @@ ParaSpell has a helpful function for this: `getTransferInfo()`. This function re
 ```ts
 --8<-- 'code/develop/toolkit/interoperability/paraspell/index.ts:88:103'
 ```
-Go ahead and execute the script.
+
+Go ahead and execute the script:
 
 ```bash
 bun run index.ts

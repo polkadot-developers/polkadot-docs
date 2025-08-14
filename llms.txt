@@ -76,8 +76,8 @@ Doc-Page: https://docs.polkadot.com/develop/toolkit/interoperability/asset-trans
 Doc-Page: https://docs.polkadot.com/develop/toolkit/interoperability/asset-transfer-api/overview/
 Doc-Page: https://docs.polkadot.com/develop/toolkit/interoperability/asset-transfer-api/reference/
 Doc-Page: https://docs.polkadot.com/develop/toolkit/interoperability/
-Doc-Page: https://docs.polkadot.com/develop/toolkit/interoperability/paraspell/
-Doc-Page: https://docs.polkadot.com/develop/toolkit/interoperability/paraspell/paraspell-xcm-sdk/
+Doc-Page: https://docs.polkadot.com/develop/toolkit/interoperability/paraspell-xcm-sdk/
+Doc-Page: https://docs.polkadot.com/develop/toolkit/interoperability/paraspell-xcm-sdk/teleport-from-asset-hub-to-relay-chain/
 Doc-Page: https://docs.polkadot.com/develop/toolkit/interoperability/xcm-tools/
 Doc-Page: https://docs.polkadot.com/develop/toolkit/parachains/e2e-testing/
 Doc-Page: https://docs.polkadot.com/develop/toolkit/parachains/e2e-testing/moonwall/
@@ -15923,7 +15923,7 @@ Whether you're a blockchain pioneer or an emerging builder, Polkadot's tools pro
 :::INSERT_IN_THIS_SECTION:::
 --- END CONTENT ---
 
-Doc-Content: https://docs.polkadot.com/develop/toolkit/interoperability/paraspell/
+Doc-Content: https://docs.polkadot.com/develop/toolkit/interoperability/paraspell-xcm-sdk/
 --- BEGIN CONTENT ---
 ---
 title: ParaSpell XCM SDK
@@ -15941,17 +15941,12 @@ The primary goal of ParaSpell is to abstract away the complexities of the XCM pr
 
 The ParaSpell suite includes:
 
-**[XCM SDK](https://paraspell.github.io/docs/sdk/getting-started.html){target=\_blank}**: A powerful library for integrating XCM interoperability into dApps.
-
-**[XCM API](https://paraspell.github.io/docs/api/g-started.html){target=\_blank}**: A lightweight alternative to the SDK for package-less integration.
-
-**[XCM Router](https://paraspell.github.io/docs/router/getting-strtd.html){target=\_blank}**: A tool for enabling cross-chain swaps of different assets in a single transaction.
-
-**[XCM Analyser](https://paraspell.github.io/docs/analyser/getng-strtd.html){target=\_blank}**: A utility for decoding and translating complex XCM data into a human-readable format.
-
-**[XCM Visualizator](https://paraspell.github.io/docs/visualizator/getting-start.html){target=\_blank}**: A tool for visualizing XCM activity across the Polkadot ecosystem.
-
-**[XCM Playground](https://paraspell.github.io/docs/tools/playground.html){target=\_blank}**: A tool for testing different XCM scenarios.
+- **[XCM SDK](https://paraspell.github.io/docs/sdk/getting-started.html){target=\_blank}**: A powerful library for integrating XCM interoperability into dApps.
+- **[XCM API](https://paraspell.github.io/docs/api/g-started.html){target=\_blank}**: A lightweight alternative to the SDK for package-less integration.
+- **[XCM Router](https://paraspell.github.io/docs/router/getting-strtd.html){target=\_blank}**: A tool for enabling cross-chain swaps of different assets in a single transaction.
+- **[XCM Analyser](https://paraspell.github.io/docs/analyser/getng-strtd.html){target=\_blank}**: A utility for decoding and translating complex XCM data into a human-readable format.
+- **[XCM Visualizator](https://paraspell.github.io/docs/visualizator/getting-start.html){target=\_blank}**: A tool for visualizing XCM activity across the Polkadot ecosystem.
+- **[XCM Playground](https://paraspell.github.io/docs/tools/playground.html){target=\_blank}**: A tool for testing different XCM scenarios.
 
 ### ParaSpell XCM SDK
 
@@ -15966,10 +15961,10 @@ By using the ParaSpell XCM SDK, developers can significantly accelerate their de
 :::INSERT_IN_THIS_SECTION:::
 --- END CONTENT ---
 
-Doc-Content: https://docs.polkadot.com/develop/toolkit/interoperability/paraspell/paraspell-xcm-sdk/
+Doc-Content: https://docs.polkadot.com/develop/toolkit/interoperability/paraspell-xcm-sdk/teleport-from-asset-hub-to-relay-chain/
 --- BEGIN CONTENT ---
 ---
-title: ParaSpell XCM SDK – Teleport Tokens from Asset Hub to Relay Chain
+title: Teleport Tokens from Asset Hub to Relay Chain
 description: A step-by-step guide to building, verifying, and executing a teleport from Asset Hub to Relay chain using the ParaSpell XCM SDK.
 ---
 
@@ -15977,38 +15972,47 @@ description: A step-by-step guide to building, verifying, and executing a telepo
 
 ## Introduction
 
-This guide will walk you through teleporting tokens from Asset Hub to the Relay chain using the [ParaSpell XCM SDK](https://paraspell.github.io/docs/){target=_blank}.
-For development purposes, this guide will use the [Paseo TestNet](/develop/networks/#paseo){target=_blank}, so the teleport will be from Paseo's Asset Hub to the Paseo Relay chain.
+This guide will walk you through teleporting tokens from Asset Hub to the Relay chain using the [ParaSpell XCM SDK](https://paraspell.github.io/docs/){target=\_blank}.
+
+For development purposes, this guide will use the [Paseo TestNet](/develop/networks/#paseo){target=\_blank}, so the teleport will be from Paseo's Asset Hub to the Paseo Relay chain.
 
 You’ll learn how to:
 
-- Build a teleport transaction
-- Perform a dry run to validate it
-- Verify the [Existential Deposit (ED)](/polkadot-protocol/glossary/#existential-deposit){target=_blank} requirement on the destination chain
-- Retrieve information regarding the transfer, along with fee estimates
-- Submit the transaction
-
-[ParaSpell](https://paraspell.github.io/docs/){target=_blank} is an open-source toolkit for simplifying cross-chain transactions in the Polkadot ecosystem. The [ParaSpell XCM SDK](https://paraspell.github.io/docs/){target=_blank} offers a builder pattern for constructing XCM messages, eliminating the need to handle parachain-specific differences.
+- Build a teleport transaction.
+- Perform a dry run to validate it.
+- Verify the [Existential Deposit (ED)](/polkadot-protocol/glossary/#existential-deposit){target=\_blank} requirement on the destination chain.
+- Retrieve information regarding the transfer, along with fee estimates.
+- Submit the transaction.
 
 ### Prerequisites
 
 - Basic familiarity with JavaScript/TypeScript
-- Knowledge of the [fundamentals of Polkadot](/polkadot-protocol/parachain-basics/){target=_blank}
+- Knowledge of the [fundamentals of Polkadot](/polkadot-protocol/parachain-basics/){target=\_blank}
 
 ## Initialize Your Project
 
-Create a new directory, initialize it, and install the dependencies:
+Create the project folder:
 
 ```bash
 mkdir paraspell-teleport
 cd paraspell-teleport
+```
+
+Initialize the JavaScript project:
+
+```bash
 bun init -y
+```
+
+Install the required dependencies:
+
+```bash
 bun add @paraspell/sdk polkadot-api @polkadot-labs/hdkd-helpers @polkadot-labs/hdkd
 ```
 
-Add the following setup code to `index.ts`:
+Now add the following setup code to `index.ts`:
 
-```ts
+```ts title="index.ts"
 import {
   entropyToMiniSecret,
   mnemonicToEntropy,
@@ -16016,14 +16020,13 @@ import {
 } from '@polkadot-labs/hdkd-helpers';
 import { getPolkadotSigner } from 'polkadot-api/signer';
 import { sr25519CreateDerive } from '@polkadot-labs/hdkd';
-import { inspect } from 'util'; // Used for debugging
+import { inspect } from 'util';
 
 // DOT/PAS has 10 decimals
 const PAS_UNITS = 10_000_000_000n;
 
-// Replace with your own mnemonic
 const SEED_PHRASE =
-  'depart thank scorpion shed dutch code above pledge insect recycle giraffe salt';
+  'INSERT_YOUR_SEED_PHRASE';
 
 // Create Sr25519 signer from mnemonic
 function getSigner() {
@@ -16037,8 +16040,10 @@ function getSigner() {
 const RECIPIENT_ADDRESS = ss58Address(getSigner().publicKey);
 const SENDER_ADDRESS = ss58Address(getSigner().publicKey);
 ```
+
 Replace the `SEED_PHRASE` with the `SEED_PHRASE` from your Polkadot development account.
-Be sure to fund this account with some PAS tokens on Passeo's Asset Hub using the [Polkadot Faucet](https://faucet.polkadot.io/?parachain=1000){target=_blank}.
+
+Be sure to fund this account with some PAS tokens on Passeo's Asset Hub using the [Polkadot Faucet](https://faucet.polkadot.io/?parachain=1000){target=\_blank}.
 
 !!!note "Security Warning"
     Never commit your mnemonic phrase in production code. Use environment variables or secure key management systems.
@@ -16051,10 +16056,8 @@ In this example, you will teleport 10 PAS tokens from Asset Hub Paseo to the Pas
 
 Add the ParaSpell transaction code to your `index.ts` file:
 
-```ts
-const signer = getSigner();
-
-  const tx = await Builder()
+```ts title="index.ts"
+const tx = await Builder()
     .from('AssetHubPaseo')
     .to('Paseo')
     .currency({
@@ -16070,6 +16073,7 @@ const signer = getSigner();
   console.log(inspect(result, { colors: true, depth: null }));
 }
 ```
+
 Do not execute it just yet. You will perform a dry run of this transaction first to ensure it works as expected.
 
 ## Perform a Dry Run
@@ -16078,9 +16082,8 @@ Dry runs simulate the transaction without broadcasting it, allowing you to confi
 
 Add the following dry run code to your `index.ts` script:
 
-```ts
-if (!hasDryRunSupport('AssetHubPaseo')) {
-    console.log('Dry run is not supported on AssetHubPaseo.');
+```ts title="index.ts"
+console.log('Dry run is not supported on AssetHubPaseo.');
     return;
   }
 
@@ -16219,11 +16222,10 @@ The result of the dry run will be similar to this:
 
 ## Verify the Existential Deposit
 
-Check if the recipient account meets the [Existential Deposit (ED)](/polkadot-protocol/glossary/#existential-deposit){target=_blank} requirement before sending:
+Check if the recipient account meets the [Existential Deposit (ED)](/polkadot-protocol/glossary/#existential-deposit){target=\_blank} requirement before sending:
 
-```ts
-const isValid = await Builder()
-    .from('AssetHubPaseo')
+```ts title="index.ts"
+.from('AssetHubPaseo')
     .to('Paseo')
     .currency({
       symbol: 'PAS',
@@ -16238,13 +16240,13 @@ const isValid = await Builder()
 
 verifyED();
 ```
-Execute the code.
+Execute the code by running:
 
 ```bash
 bun run index.ts
 ```
 
-You should get output confirming the ED:
+After that, you will get output confirming the ED:
 
 <div id="termynal" data-termynal>
   <span data-ty="input"><span class="file-path"></span>bun run index.ts</span>
@@ -16256,11 +16258,10 @@ You should get output confirming the ED:
 
 Before sending an XCM transaction, it is helpful to estimate the fees associated with executing and delivering the cross-chain message.
 
-ParaSpell has a helpful function for this: `getTransferInfo()`. This function returns an estimate of the associated XCM fees, along with the account's balance before and after the fees are paid.
+ParaSpell has a helpful function for this: [`getTransferInfo()`](https://paraspell.github.io/docs/sdk/xcmUtils.html#xcm-transfer-info){target=\_blank}. This function returns an estimate of the associated XCM fees, along with the account's balance before and after the fees are paid.
 
-```ts
-const info = await Builder()
-    .from('AssetHubPaseo')
+```ts title="index.ts"
+.from('AssetHubPaseo')
     .to('Paseo')
     .currency({
       symbol: 'PAS',
@@ -16275,11 +16276,13 @@ const info = await Builder()
 
 XcmTransferInfo();
 ```
-Go ahead and execute the script.
+
+Go ahead and execute the script:
 
 ```bash
 bun run index.ts
 ```
+
 You should be able to see all the information for your transfer:
 
 <div id="termynal" data-termynal>
@@ -16331,21 +16334,25 @@ You should be able to see all the information for your transfer:
 
 Now that you have:
 
-- completed a successful dry run of the transaction
-- verified the existential deposit on the recipient account
-- obtained an estimate of the associated XCM fees
+- Completed a successful dry run of the transaction
+- Verified the existential deposit on the recipient account
+- Obtained an estimate of the associated XCM fees
+
 You can execute the teleport transaction with confidence.
 
 Add the following code:
 
-```typescript
+```typescript title="index.ts"
 
 ```
+
 And execute your teleport:
+
 ```bash
 bun run index.ts
 ```
-Your ParaSpell `teleport()` function will submit the transaction, and you will get the following output:
+
+Your `teleport` function will submit the transaction, and you will get the following output:
 
 <div id="termynal" data-termynal>
   <span data-ty="input"><span class="file-path"></span>bun run index.ts</span>
@@ -16405,10 +16412,10 @@ Your ParaSpell `teleport()` function will submit the transaction, and you will g
 }</span>
 </div>
 
-Once the transaction is successfully included in a block, you will see the recipient's account balance updated, and you will get output similar to below.
+Once the transaction is successfully included in a block, you will see the recipient's account balance updated, and you will receive output similar the one below.
 
 ???- code "Successful Transaction Submission"
-    This output will be returned once the transaction has successfully been included in a block.
+    This output will be returned once the transaction has been successfully included in a block.
 
     <div id="termynal" data-termynal>
   <span data-ty>...</span>

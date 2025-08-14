@@ -6,14 +6,13 @@ import {
 } from '@polkadot-labs/hdkd-helpers';
 import { getPolkadotSigner } from 'polkadot-api/signer';
 import { sr25519CreateDerive } from '@polkadot-labs/hdkd';
-import { inspect } from 'util'; // Used for debugging
+import { inspect } from 'util';
 
 // DOT/PAS has 10 decimals
 const PAS_UNITS = 10_000_000_000n;
 
-// Replace with your own mnemonic
 const SEED_PHRASE =
-  'depart thank scorpion shed dutch code above pledge insect recycle giraffe salt';
+  'INSERT_YOUR_SEED_PHRASE';
 
 // Create Sr25519 signer from mnemonic
 function getSigner() {

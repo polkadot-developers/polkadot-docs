@@ -15,36 +15,45 @@ You’ll learn how to:
 
 - Build a teleport transaction.
 - Perform a dry run to validate it.
-- Verify the [Existential Deposit (ED)](/polkadot-protocol/glossary/#existential-deposit){target=_blank} requirement on the destination chain.
+- Verify the [Existential Deposit (ED)](/polkadot-protocol/glossary/#existential-deposit){target=\_blank} requirement on the destination chain.
 - Retrieve information regarding the transfer, along with fee estimates.
 - Submit the transaction.
-
-[ParaSpell](https://paraspell.github.io/docs/){target=_blank} is an open-source toolkit for simplifying cross-chain transactions in the Polkadot ecosystem. The [ParaSpell XCM SDK](https://paraspell.github.io/docs/){target=_blank} offers a builder pattern for constructing XCM messages, eliminating the need to handle parachain-specific differences.
 
 ### Prerequisites
 
 - Basic familiarity with JavaScript/TypeScript
-- Knowledge of the [fundamentals of Polkadot](/polkadot-protocol/parachain-basics/){target=_blank}
+- Knowledge of the [fundamentals of Polkadot](/polkadot-protocol/parachain-basics/){target=\_blank}
 
 ## Initialize Your Project
 
-Create a new directory, initialize it, and install the dependencies:
+Create the project folder:
 
 ```bash
 mkdir paraspell-teleport
 cd paraspell-teleport
+```
+
+Initialize the JavaScript project:
+
+```bash
 bun init -y
+```
+
+Install the required dependencies:
+
+```bash
 bun add @paraspell/sdk polkadot-api @polkadot-labs/hdkd-helpers @polkadot-labs/hdkd
 ```
 
-Add the following setup code to `index.ts`:
+Now add the following setup code to `index.ts`:
 
-```ts
+```ts title="index.ts"
 --8<-- 'code/develop/toolkit/interoperability/paraspell/index.ts:1:28'
 ```
 
 Replace the `SEED_PHRASE` with the `SEED_PHRASE` from your Polkadot development account.
-Be sure to fund this account with some PAS tokens on Passeo's Asset Hub using the [Polkadot Faucet](https://faucet.polkadot.io/?parachain=1000){target=_blank}.
+
+Be sure to fund this account with some PAS tokens on Passeo's Asset Hub using the [Polkadot Faucet](https://faucet.polkadot.io/?parachain=1000){target=\_blank}.
 
 !!!note "Security Warning"
     Never commit your mnemonic phrase in production code. Use environment variables or secure key management systems.
@@ -57,7 +66,7 @@ In this example, you will teleport 10 PAS tokens from Asset Hub Paseo to the Pas
 
 Add the ParaSpell transaction code to your `index.ts` file:
 
-```ts
+```ts title="index.ts"
 --8<-- 'code/develop/toolkit/interoperability/paraspell/index.ts:30:47'
 ```
 
@@ -69,7 +78,7 @@ Dry runs simulate the transaction without broadcasting it, allowing you to confi
 
 Add the following dry run code to your `index.ts` script:
 
-```ts
+```ts title="index.ts"
 --8<-- 'code/develop/toolkit/interoperability/paraspell/index.ts:49:69'
 ```
 Go ahead and run the script.
@@ -84,18 +93,18 @@ The result of the dry run will be similar to this:
 
 ## Verify the Existential Deposit
 
-Check if the recipient account meets the [Existential Deposit (ED)](/polkadot-protocol/glossary/#existential-deposit){target=_blank} requirement before sending:
+Check if the recipient account meets the [Existential Deposit (ED)](/polkadot-protocol/glossary/#existential-deposit){target=\_blank} requirement before sending:
 
-```ts
+```ts title="index.ts"
 --8<-- 'code/develop/toolkit/interoperability/paraspell/index.ts:71:86'
 ```
-Execute the code.
+Execute the code by running:
 
 ```bash
 bun run index.ts
 ```
 
-You should get output confirming the ED:
+After that, you will get output confirming the ED:
 
 --8<-- 'code/develop/toolkit/interoperability/paraspell/ed-verification-output.html'
 
@@ -103,9 +112,9 @@ You should get output confirming the ED:
 
 Before sending an XCM transaction, it is helpful to estimate the fees associated with executing and delivering the cross-chain message.
 
-ParaSpell has a helpful function for this: `getTransferInfo()`. This function returns an estimate of the associated XCM fees, along with the account's balance before and after the fees are paid.
+ParaSpell has a helpful function for this: [`getTransferInfo()`](https://paraspell.github.io/docs/sdk/xcmUtils.html#xcm-transfer-info){target=\_blank}. This function returns an estimate of the associated XCM fees, along with the account's balance before and after the fees are paid.
 
-```ts
+```ts title="index.ts"
 --8<-- 'code/develop/toolkit/interoperability/paraspell/index.ts:88:103'
 ```
 
@@ -129,7 +138,7 @@ You can execute the teleport transaction with confidence.
 
 Add the following code:
 
-```typescript
+```typescript title="index.ts"
 --8<-- 'code/develop/toolkit/interoperability/paraspell/index.ts:105:105'
 ```
 
@@ -143,10 +152,10 @@ Your `teleport` function will submit the transaction, and you will get the follo
 
 --8<-- 'code/develop/toolkit/interoperability/paraspell/teleport-output.html'
 
-Once the transaction is successfully included in a block, you will see the recipient's account balance updated, and you will get output similar to below.
+Once the transaction is successfully included in a block, you will see the recipient's account balance updated, and you will receive output similar the one below.
 
 ???- code "Successful Transaction Submission"
-    This output will be returned once the transaction has successfully been included in a block.
+    This output will be returned once the transaction has been successfully included in a block.
 
     --8<-- 'code/develop/toolkit/interoperability/paraspell/teleport-callback-output.html'
 

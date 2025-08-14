@@ -36,7 +36,7 @@ function callPrecompile(address precompileAddress, bytes memory input)
 
 Feel free to check the [`precompiles-hardhat`](https://github.com/polkadot-developers/polkavm-hardhat-examples/tree/v0.0.3/precompiles-hardhat){target=\_blank} repository to check all the precompiles examples. The repository contains a set of example contracts and test files demonstrating how to interact with each precompile in Polkadot Hub.
 
-Now, let's explore how to use each precompile available in Polkadot Hub.
+Now, you'll explore how to use each precompile available in Polkadot Hub.
 
 ## ECRecover (0x01)
 
@@ -57,7 +57,6 @@ The SHA-256 precompile computes the SHA-256 hash of the input data.
 ```
 
 To use it, you can deploy the `SHA256Example` contract in [Remix](/develop/smart-contracts/dev-environments/remix){target=\_blank} or any Solidity-compatible environment and call callH256 with arbitrary bytes. Check out this [test file](https://github.com/polkadot-developers/polkavm-hardhat-examples/blob/v0.0.3/precompiles-hardhat/test/SHA256.js){target=\_blank} shows how to pass a UTF-8 string, hash it using the precompile, and compare it with the expected hash from Node.js's [crypto](https://www.npmjs.com/package/crypto-js){target=\_blank} module.
-
 
 ## RIPEMD-160 (0x03)
 

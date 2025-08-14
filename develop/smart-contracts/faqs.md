@@ -155,7 +155,6 @@ The latest MetaMask update affects the extension’s ability to deploy large con
 
 Please log any bugs in the [`contracts-issues`](https://github.com/paritytech/contract-issues/issues){target=\_blank} repository so developers are aware of them and can address them.
 
-
 ## Known Issues
 
 ### Runtime Behavior

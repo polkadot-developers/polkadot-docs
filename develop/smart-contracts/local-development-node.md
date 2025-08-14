@@ -14,14 +14,14 @@ A local development node provides an isolated blockchain environment where you c
 
 By the end of this guide, you'll have:
 
-- A running Substrate node with smart contract support
-- An ETH-RPC adapter for Ethereum-compatible tooling integration accessible at `http://localhost:8545`
+- A running Substrate node with smart contract support.
+- An ETH-RPC adapter for Ethereum-compatible tooling integration accessible at `http://localhost:8545`.
 
 ## Prerequisites
 
 Before getting started, ensure you have done the following:
 
-- Completed the [Install Polkadot SDK Dependencies](/develop/parachains/install-polkadot-sdk/){target=\_blank} guide and successfully installed [Rust](https://www.rust-lang.org/){target=\_blank} and the required packages to set up your development environment
+- Completed the [Install Polkadot SDK Dependencies](/develop/parachains/install-polkadot-sdk/){target=\_blank} guide and successfully installed [Rust](https://www.rust-lang.org/){target=\_blank} and the required packages to set up your development environment.
 
 ## Install the Substrate Node and ETH-RPC Adapter
 
@@ -41,8 +41,8 @@ cargo build -p pallet-revive-eth-rpc --bin eth-rpc --release
 
 The compilation process may take some time depending on your system specifications, potentially up to 30 minutes. Release builds are optimized for performance but take longer to compile than debug builds. After successful compilation, you can verify the binaries are available in the `target/release` directory:
 
-- **Substrate node path** - `polkadot-sdk/target/release/substrate-node`
-- **ETH-RPC adapter path** - `polkadot-sdk/target/release/eth-rpc`
+- **Substrate node path**: `polkadot-sdk/target/release/substrate-node`
+- **ETH-RPC adapter path**: `polkadot-sdk/target/release/eth-rpc`
 
 ## Run the Local Node
 

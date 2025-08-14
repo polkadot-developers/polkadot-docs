@@ -21,8 +21,8 @@ For additional support and information, please reach out through [GitHub Issues]
 
 Before you begin, ensure you have the following installed:
 
-- [Node.js](https://nodejs.org/en/){target=\_blank}
-- A package manager such as [npm](https://www.npmjs.com/){target=\_blank}, which should be installed with Node.js by default, or [Yarn](https://yarnpkg.com/){target=\_blank}
+- [Node.js](https://nodejs.org/en/){target=\_blank}.
+- A package manager such as [npm](https://www.npmjs.com/){target=\_blank}, which should be installed with Node.js by default, or [Yarn](https://yarnpkg.com/){target=\_blank}.
 
 ## Install Chopsticks
 
@@ -64,19 +64,19 @@ npx @acala-network/chopsticks --help
 
 To run Chopsticks, you need to configure some parameters. This can be set either through using a configuration file or the command line interface (CLI). The parameters that can be configured are as follows:
 
-- `genesis` - the link to a parachain's raw genesis file to build the fork from, instead of an endpoint
-- `timestamp` - timestamp of the block to fork from
-- `endpoint` - the endpoint of the parachain to fork
-- `block` - use to specify at which block hash or number to replay the fork
-- `wasm-override` - path of the Wasm to use as the parachain runtime, instead of an endpoint's runtime
-- `db` - path to the name of the file that stores or will store the parachain's database
-- `config` - path or URL of the config file
-- `port` - the port to expose an endpoint on
-- `build-block-mode` - how blocks should be built in the fork: batch, manual, instant
-- `import-storage` - a pre-defined JSON/YAML storage path to override in the parachain's storage
-- `allow-unresolved-imports` - whether to allow Wasm unresolved imports when using a Wasm to build the parachain
-- `html` - include to generate storage diff preview between blocks
-- `mock-signature-host` - mock signature host so that any signature starts with `0xdeadbeef` and filled by `0xcd` is considered valid
+- **`genesis`**: The link to a parachain's raw genesis file to build the fork from, instead of an endpoint.
+- **`timestamp`**: Timestamp of the block to fork from.
+- **`endpoint`**: The endpoint of the parachain to fork.
+- **`block`**: Use to specify at which block hash or number to replay the fork.
+- **`wasm-override`**: Path of the Wasm to use as the parachain runtime, instead of an endpoint's runtime.
+- **`db`**: Path to the name of the file that stores or will store the parachain's database.
+- **`config`**: Path or URL of the config file.
+- **`port`**: The port to expose an endpoint on.
+- **`build-block-mode`**: How blocks should be built in the fork: batch, manual, instant.
+- **`import-storage`**: A pre-defined JSON/YAML storage path to override in the parachain's storage.
+- **`allow-unresolved-imports`**: Whether to allow Wasm unresolved imports when using a Wasm to build the parachain.
+- **`html`**: Include to generate storage diff preview between blocks.
+- **`mock-signature-host`**: Mock signature host so that any signature starts with `0xdeadbeef` and filled by `0xcd` is considered valid.
 
 ### Configuration File
 
@@ -100,18 +100,19 @@ Chopstick's internal WebSocket server has special endpoints that allow the manip
 
 These are the methods that can be invoked and their parameters:
 
-- **dev_newBlock** (newBlockParams) — generates one or more new blocks
+- **dev_newBlock** (newBlockParams): Generates one or more new blocks.
 
     === "Parameters"
 
-        - `newBlockParams` ++"NewBlockParams"++  - the parameters to build the new block with. Where the `NewBlockParams` interface includes the following properties:
-            - `count` ++"number"++ - the number of blocks to build
-            - `dmp` ++"{ msg: string, sentAt: number }[]"++ - the downward messages to include in the block
-            - `hrmp` ++"Record<string | number, { data: string, sentAt: number }[]>"++ - the horizontal messages to include in the block
-            - `to` ++"number"++ - the block number to build to
-            - `transactions` ++"string[]"++ - the transactions to include in the block
-            - `ump` ++"Record<number, string[]>"++ - the upward messages to include in the block
-            - `unsafeBlockHeight` ++"number"++ - build block using a specific block height (unsafe)
+        - **`newBlockParams` ++"NewBlockParams"++**: The parameters to build the new block with. Where the `NewBlockParams` interface includes the following properties.
+
+            - **`count` ++"number"++**: The number of blocks to build.
+            - **`dmp` ++"{ msg: string, sentAt: number }[]"++**: The downward messages to include in the block.
+            - **`hrmp` ++"Record<string | number, { data: string, sentAt: number }[]>"++**: The horizontal messages to include in the block.
+            - **`to` ++"number"++**: The block number to build to.
+            - **`transactions` ++"string[]"++**: The transactions to include in the block.
+            - **`ump` ++"Record<number, string[]>"++**: The upward messages to include in the block.
+            - **`unsafeBlockHeight` ++"number"++**: Build block using a specific block height (unsafe).
 
     === "Example"
 
@@ -119,11 +120,12 @@ These are the methods that can be invoked and their parameters:
         --8<-- 'code/develop/toolkit/parachains/fork-chains/chopsticks/get-started/dev-newblock-example.js'
         ```
 
-- **dev_setBlockBuildMode** (buildBlockMode) — sets block build mode
+- **dev_setBlockBuildMode** (buildBlockMode): Sets block build mode.
 
     === "Parameter"
     
-        - `buildBlockMode` ++"BuildBlockMode"++ - the build mode. Can be any of the following modes:
+        - **`buildBlockMode` ++"BuildBlockMode"++**: The build mode. Can be any of the following modes:
+
             ```ts
             export enum BuildBlockMode {
               Batch = 'Batch', /** One block per batch (default) */
@@ -138,11 +140,11 @@ These are the methods that can be invoked and their parameters:
         --8<-- 'code/develop/toolkit/parachains/fork-chains/chopsticks/get-started/dev-setBlockBuildMode-example.js'
         ```
 
-- **dev_setHead** (hashOrNumber) — sets the head of the blockchain to a specific hash or number
+- **dev_setHead** (hashOrNumber): Sets the head of the blockchain to a specific hash or number.
 
     === "Parameter"
 
-        - `hashOrNumber` ++"string | number"++ - the block hash or number to set as head
+        - **`hashOrNumber` ++"string | number"++**: The block hash or number to set as head.
 
     === "Example"
 
@@ -150,11 +152,11 @@ These are the methods that can be invoked and their parameters:
         --8<-- 'code/develop/toolkit/parachains/fork-chains/chopsticks/get-started/dev-setHead-example.js'
         ```
 
-- **dev_setRuntimeLogLevel** (runtimeLogLevel) — sets the runtime log level
+- **dev_setRuntimeLogLevel** (runtimeLogLevel): Sets the runtime log level.
 
     === "Parameter"
 
-        - `runtimeLogLevel` ++"number"++ - the runtime log level to set
+        - **`runtimeLogLevel` ++"number"++**: The runtime log level to set.
 
     === "Example"
 
@@ -162,12 +164,12 @@ These are the methods that can be invoked and their parameters:
         --8<-- 'code/develop/toolkit/parachains/fork-chains/chopsticks/get-started/dev-setRuntimeLogLevel-example.js'
         ```
 
-- **dev_setStorage** (values, blockHash) — creates or overwrites the value of any storage
+- **dev_setStorage** (values, blockHash): Creates or overwrites the value of any storage.
 
     === "Parameters"
 
-        - `values` ++"object"++ - JSON object resembling the path to a storage value
-        - `blockHash` ++"string"++ - the block hash to set the storage value
+        - **`values` ++"object"++**: JSON object resembling the path to a storage value.
+        - **`blockHash` ++"string"++**: The block hash to set the storage value.
 
     === "Example"
 
@@ -175,11 +177,11 @@ These are the methods that can be invoked and their parameters:
         --8<-- 'code/develop/toolkit/parachains/fork-chains/chopsticks/get-started/dev-setStorage-example.js'
         ```
 
-- **dev_timeTravel** (date) — sets the timestamp of the block to a specific date"
+- **dev_timeTravel** (date): Sets the timestamp of the block to a specific date".
 
     === "Parameter"
 
-        - `date` ++"string"++ - timestamp or date string to set. All future blocks will be sequentially created after this point in time
+        - **`date` ++"string"++**: Timestamp or date string to set. All future blocks will be sequentially created after this point in time.
 
     === "Example"
 

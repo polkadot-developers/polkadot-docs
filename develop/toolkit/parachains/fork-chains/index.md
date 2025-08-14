@@ -14,10 +14,10 @@ Ready to get started? Jump straight to the [Chopsticks getting started](/develop
 
 Forking a live chain creates a controlled environment that mirrors live network conditions. This approach enables you to:
 
-- Test features safely before deployment
-- Debug complex interactions
-- Validate runtime changes
-- Experiment with network modifications
+- Test features safely before deployment.
+- Debug complex interactions.
+- Validate runtime changes.
+- Experiment with network modifications.
 
 ## In This Section
 

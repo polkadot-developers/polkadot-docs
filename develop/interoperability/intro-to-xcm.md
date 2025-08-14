@@ -22,10 +22,10 @@ XCM messages are intent-driven, outlining desired actions for the receiving bloc
 
 XCM adheres to four guiding principles that ensure robust and reliable communication across consensus systems:
 
-- **Asynchronous** - XCM messages operate independently of sender acknowledgment, avoiding delays due to blocked processes
-- **Absolute** - XCM messages are guaranteed to be delivered and interpreted accurately, in order, and timely. Once a message is sent, one can be sure it will be processed as intended
-- **Asymmetric** - XCM messages follow the 'fire and forget' paradigm meaning no automatic feedback is provided to the sender. Any results must be communicated separately to the sender with an additional message back to the origin
-- **Agnostic** - XCM operates independently of the specific consensus mechanisms, making it compatible across diverse systems
+- **Asynchronous**: XCM messages operate independently of sender acknowledgment, avoiding delays due to blocked processes.
+- **Absolute**: XCM messages are guaranteed to be delivered and interpreted accurately, in order, and timely. Once a message is sent, one can be sure it will be processed as intended.
+- **Asymmetric**: XCM messages follow the 'fire and forget' paradigm meaning no automatic feedback is provided to the sender. Any results must be communicated separately to the sender with an additional message back to the origin.
+- **Agnostic**: XCM operates independently of the specific consensus mechanisms, making it compatible across diverse systems.
 
 These principles guarantee that XCM provides a reliable framework for cross-chain communication, even in complex environments.
 
@@ -39,9 +39,9 @@ The XCM tech stack is designed to facilitate seamless interoperable communicatio
 
 XCM enhances cross-consensus communication by introducing several powerful features:
 
-- **Programmability** - supports dynamic message handling, allowing for more comprehensive use cases. Includes branching logic, safe dispatches for version checks, and asset operations like NFT management
-- **Functional Multichain Decomposition** - enables mechanisms such as remote asset locking, asset namespacing, and inter-chain state referencing, with contextual message identification 
-- **Bridging** - establishes a universal reference framework for multi-hop setups, connecting disparate systems like Ethereum and Bitcoin with the Polkadot relay chain acting as a universal location
+- **Programmability**: Supports dynamic message handling, allowing for more comprehensive use cases. Includes branching logic, safe dispatches for version checks, and asset operations like NFT management.
+- **Functional Multichain Decomposition**: Enables mechanisms such as remote asset locking, asset namespacing, and inter-chain state referencing, with contextual message identification.
+- **Bridging**: Establishes a universal reference framework for multi-hop setups, connecting disparate systems like Ethereum and Bitcoin with the Polkadot relay chain acting as a universal location.
 
 The standardized format for messages allows parachains to handle tasks like user balances, governance, and staking, freeing the Polkadot relay chain to focus on shared security. These features make XCM indispensable for implementing scalable and interoperable blockchain applications. 
 
@@ -55,29 +55,33 @@ The following is a simplified XCM message demonstrating a token transfer from Al
 
 The message consists of three instructions described as follows:
 
-- [**WithdrawAsset**](https://github.com/polkadot-fellows/xcm-format?tab=readme-ov-file#withdrawasset){target=\_blank} - transfers a specified number of tokens from Alice's account to a holding register
-```rust
---8<-- 'code/develop/interoperability/intro-to-xcm/XCM-first-look.rs:2:2'
-```
-    - `Here` - the native parachain token
-    - `amount` - the number of tokens that are transferred
+- **[WithdrawAsset](https://github.com/polkadot-fellows/xcm-format?tab=readme-ov-file#withdrawasset){target=\_blank}**: Transfers a specified number of tokens from Alice's account to a holding register.
+
+    ```rust
+    --8<-- 'code/develop/interoperability/intro-to-xcm/XCM-first-look.rs:2:2'
+    ```
+
+    - **`Here`**: The native parachain token.
+    - **`amount`**: The number of tokens that are transferred.
 
     The first instruction takes as an input the MultiAsset that should be withdrawn. The MultiAsset describes the native parachain token with the `Here` keyword. The `amount` parameter is the number of tokens that are transferred. The withdrawal account depends on the origin of the message. In this example the origin of the message is Alice. The `WithdrawAsset` instruction moves `amount` number of native tokens from Alice's account into the holding register.
 
-- [**BuyExecution**](https://github.com/polkadot-fellows/xcm-format?tab=readme-ov-file#buyexecution){target=\_blank} - allocates fees to cover the execution [weight](/polkadot-protocol/glossary/#weight){target=\_blank} of the XCM instructions
-```rust
---8<-- 'code/develop/interoperability/intro-to-xcm/XCM-first-look.rs:3:6'
-```
+- **[BuyExecution](https://github.com/polkadot-fellows/xcm-format?tab=readme-ov-file#buyexecution){target=\_blank}**: Allocates fees to cover the execution [weight](/polkadot-protocol/glossary/#weight){target=\_blank} of the XCM instructions.
 
-    - `fees` - describes the asset in the holding register that should be used to pay for the weight 
-    - `weight_limit` - defines the maximum fees that can be used to buy weight
+    ```rust
+    --8<-- 'code/develop/interoperability/intro-to-xcm/XCM-first-look.rs:3:6'
+    ```
 
-- [**DepositAsset**](https://github.com/polkadot-fellows/xcm-format?tab=readme-ov-file#depositasset){target=\_blank} - moves the remaining tokens from the holding register to Bob’s account
-```rust
---8<-- 'code/develop/interoperability/intro-to-xcm/XCM-first-look.rs:7:16'
-```
+    - **`fees`**: Describes the asset in the holding register that should be used to pay for the weight.
+    - **`weight_limit`**: Defines the maximum fees that can be used to buy weight.
 
-    - `All` - the wildcard for the asset(s) to be deposited. In this case, all assets in the holding register should be deposited
+- **[DepositAsset](https://github.com/polkadot-fellows/xcm-format?tab=readme-ov-file#depositasset){target=\_blank}**: Moves the remaining tokens from the holding register to Bob’s account.
+
+    ```rust
+    --8<-- 'code/develop/interoperability/intro-to-xcm/XCM-first-look.rs:7:16'
+    ```
+
+    - **`All`**: The wildcard for the asset(s) to be deposited. In this case, all assets in the holding register should be deposited.
     
 This step-by-step process showcases how XCM enables precise state changes within a blockchain system. You can find a complete XCM message example in the [XCM repository](https://github.com/paritytech/xcm-docs/blob/main/examples/src/0_first_look/mod.rs){target=\_blank}.
 
@@ -85,8 +89,8 @@ This step-by-step process showcases how XCM enables precise state changes within
 
 XCM revolutionizes cross-chain communication by enabling use cases such as:
 
-- Token transfers between blockchains
-- Asset locking for cross-chain smart contract interactions
-- Remote execution of functions on other blockchains
+- Token transfers between blockchains.
+- Asset locking for cross-chain smart contract interactions.
+- Remote execution of functions on other blockchains.
 
 These functionalities empower developers to build innovative, multi-chain applications, leveraging the strengths of various blockchain networks. To stay updated on XCM’s evolving format or contribute, visit the [XCM repository](https://github.com/paritytech/xcm-docs/blob/main/examples/src/0_first_look/mod.rs){target=\_blank}.

@@ -14,10 +14,10 @@ Ready to get started? Jump straight to the [Zombienet getting started](/develop/
 
 Spawning a network provides a controlled environment to test and validate various aspects of your blockchain. Use these tools to:
 
-- Validate network configurations
-- Test cross-chain messaging
-- Verify runtime upgrades
-- Debug complex interactions
+- Validate network configurations.
+- Test cross-chain messaging.
+- Verify runtime upgrades.
+- Debug complex interactions.
 
 ## In This Section
 

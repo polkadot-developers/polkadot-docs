@@ -12,17 +12,17 @@ A chain specification collects information that describes a Polkadot SDK-based n
 
 The chain specification is defined using the [`ChainSpec`](https://paritytech.github.io/polkadot-sdk/master/sc_chain_spec/struct.GenericChainSpec.html){target=\_blank} struct. This struct separates the information required for a chain into two parts:
 
-- **Client specification** - contains information the _node_ uses to communicate with network participants and send data to telemetry endpoints. Many of these chain specification settings can be overridden by command-line options when starting a node or can be changed after the blockchain has started
+- **Client specification**: Contains information the _node_ uses to communicate with network participants and send data to telemetry endpoints. Many of these chain specification settings can be overridden by command-line options when starting a node or can be changed after the blockchain has started.
 
-- **Initial genesis state** - agreed upon by all nodes in the network. It must be set when the blockchain is first started and cannot be changed after that without starting a whole new blockchain
+- **Initial genesis state**: Agreed upon by all nodes in the network. It must be set when the blockchain is first started and cannot be changed after that without starting a whole new blockchain.
 
 ## Node Settings Customization
 
 For the node, the chain specification controls information such as:
 
-- The bootnodes the node will communicate with
-- The server endpoints for the node to send telemetry data to
-- The human and machine-readable names for the network the node will connect to
+- The bootnodes the node will communicate with.
+- The server endpoints for the node to send telemetry data to.
+- The human and machine-readable names for the network the node will connect to.
 
 The chain specification can be customized to include additional information. For example, you can configure the node to connect to specific blocks at specific heights to prevent long-range attacks when syncing a new node from genesis.
 
@@ -32,10 +32,10 @@ Note that you can customize node settings after genesis. However, nodes only add
 
 All nodes in the network must agree on the genesis state before they can agree on any subsequent blocks. The information configured in the genesis portion of a chain specification is used to create a genesis block. When you start the first node, it takes effect and cannot be overridden with command-line options. However, you can configure some information in the genesis section of a chain specification. For example, you can customize it to include information such as:
 
-- Initial account balances
-- Accounts that are initially part of a governance council
-- The account that controls the `sudo` key
-- Any other genesis state for a pallet
+- Initial account balances.
+- Accounts that are initially part of a governance council.
+- The account that controls the `sudo` key.
+- Any other genesis state for a pallet.
 
 Nodes also require the compiled Wasm to execute the runtime logic on the chain, so the initial runtime must also be supplied in the chain specification. For a more detailed look at customizing the genesis chain specification, be sure to check out the [Polkadot SDK Docs](https://paritytech.github.io/polkadot-sdk/master/polkadot_sdk_docs/reference_docs/chain_spec_genesis/index.html){target=_blank}.
 
@@ -49,16 +49,16 @@ These storage values are configured in the genesis portion of the chain specific
 
 Users generally work with the JSON format of the chain specification. Internally, the chain specification is embedded in the [`GenericChainSpec`](https://paritytech.github.io/polkadot-sdk/master/sc_chain_spec/struct.GenericChainSpec.html){target=\_blank} struct, with specific properties accessible through the [`ChainSpec`](https://paritytech.github.io/polkadot-sdk/master/sc_chain_spec/trait.ChainSpec.html){target=\_blank} struct. The chain specification includes the following keys:
 
-- **`name`** - the human-readable name for the network
-- **`id`** - the machine-readable identifier for the network
-- **`chainType`** - the type of chain to start (refer to [`ChainType`](https://paritytech.github.io/polkadot-sdk/master/sc_chain_spec/enum.ChainType.html){target=\_blank} for more details)
-- **`bootNodes`** - a list of multiaddresses belonging to the chain's boot nodes
-- **`telemetryEndpoints`** - an optional list of multiaddresses for telemetry endpoints with verbosity levels ranging from 0 to 9 (0 being the lowest verbosity)
-- **`protocolId`** - the optional protocol identifier for the network
-- **`forkId`** - an optional fork ID that should typically be left empty; it can be used to signal a fork at the network level when two chains share the same genesis hash
-- **`properties`** - custom properties provided as a key-value JSON object
-- **`codeSubstitutes`** - an optional mapping of block numbers to Wasm code
-- **`genesis`** - the genesis configuration for the chain
+- **`name`**: The human-readable name for the network.
+- **`id`**: The machine-readable identifier for the network.
+- **`chainType`**: The type of chain to start (refer to [`ChainType`](https://paritytech.github.io/polkadot-sdk/master/sc_chain_spec/enum.ChainType.html){target=\_blank} for more details).
+- **`bootNodes`**: A list of multiaddresses belonging to the chain's boot nodes.
+- **`telemetryEndpoints`**: An optional list of multiaddresses for telemetry endpoints with verbosity levels ranging from 0 to 9 (0 being the lowest verbosity).
+- **`protocolId`**: The optional protocol identifier for the network.
+- **`forkId`**: An optional fork ID that should typically be left empty; it can be used to signal a fork at the network level when two chains share the same genesis hash.
+- **`properties`**: Custom properties provided as a key-value JSON object.
+- **`codeSubstitutes`**: An optional mapping of block numbers to Wasm code.
+- **`genesis`**: The genesis configuration for the chain.
 
 For example, the following JSON shows a basic chain specification file:
 
@@ -92,10 +92,10 @@ Replace `INSERT_RUNTIME_WASM_PATH` with the path to the runtime Wasm file and `I
 
 The available commands are:
 
-- **`patch`** - overwrites the runtime's default genesis config with the provided patch. You can check the following [patch file](https://github.com/paritytech/polkadot-sdk/blob/{{dependencies.repositories.polkadot_sdk.version}}/substrate/bin/utils/chain-spec-builder/tests/input/patch.json){target=\_blank} as a reference
-- **`full`** - build the genesis config for runtime using the JSON file. No defaults will be used. As a reference, you can check the following [full file](https://github.com/paritytech/polkadot-sdk/blob/{{dependencies.repositories.polkadot_sdk.version}}/substrate/bin/utils/chain-spec-builder/tests/input/full.json){target=\_blank}
-- **`default`** - gets the default genesis config for the runtime and uses it in `ChainSpec`. Please note that the default genesis config may not be valid. For some runtimes, initial values should be added there (e.g., session keys, BABE epoch)
-- **`named-preset`** - uses named preset provided by the runtime to build the chain spec
+- **`patch`**: Overwrites the runtime's default genesis config with the provided patch. You can check the following [patch file](https://github.com/paritytech/polkadot-sdk/blob/{{dependencies.repositories.polkadot_sdk.version}}/substrate/bin/utils/chain-spec-builder/tests/input/patch.json){target=\_blank} as a reference.
+- **`full`**: Build the genesis config for runtime using the JSON file. No defaults will be used. As a reference, you can check the following [full file](https://github.com/paritytech/polkadot-sdk/blob/{{dependencies.repositories.polkadot_sdk.version}}/substrate/bin/utils/chain-spec-builder/tests/input/full.json){target=\_blank}.
+- **`default`**: Gets the default genesis config for the runtime and uses it in `ChainSpec`. Please note that the default genesis config may not be valid. For some runtimes, initial values should be added there (e.g., session keys, BABE epoch).
+- **`named-preset`**: Uses named preset provided by the runtime to build the chain spec.
 
 ### Raw Chain Specifications
 
@@ -156,9 +156,7 @@ In the `collatorSelection.invulnerables` array, add the SS58 addresses (account 
 ```
 
 - **`candidacyBond`**: Minimum stake required for collator candidates (in Planck units).
-
 - **`desiredCandidates`**: Number of candidates beyond invulnerables (set to 0 for invulnerables-only).
-
 - **`invulnerables`**: Use the SS58 addresses from your generated account keys as collators.
 
 ### Add Session Keys

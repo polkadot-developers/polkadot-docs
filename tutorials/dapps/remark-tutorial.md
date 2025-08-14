@@ -18,10 +18,10 @@ When the application detects a remark addressed to the specified account, it pla
 
 Before starting, ensure the following tools and dependencies are installed:
 
-- Node.js (version 18 or higher)
-- A package manager (npm or yarn)
-- [Polkadot.js browser extension (wallet)](https://polkadot.js.org/extension/){target=\_blank}
-- An account with [Westend tokens](https://faucet.polkadot.io/westend){target=\_blank}
+- Node.js (version 18 or higher).
+- A package manager (npm or yarn).
+- [Polkadot.js browser extension (wallet)](https://polkadot.js.org/extension/){target=\_blank}.
+- An account with [Westend tokens](https://faucet.polkadot.io/westend){target=\_blank}.
 
 ## Clone the Repository
 

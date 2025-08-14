@@ -19,17 +19,17 @@ In this tutorial, you'll build a complete dApp that interacts with a smart contr
 
 Before you begin, make sure you have:
 
-- [Node.js](https://nodejs.org/en){target=\_blank} v16 or newer installed on your machine
-- A crypto wallet (like MetaMask) with some test tokens. For further information, check the [Connect to Polkadot](/develop/smart-contracts/connect-to-polkadot){target=\_blank} guide
-- Basic understanding of React and JavaScript
-- Familiarity with blockchain concepts and Solidity (helpful but not mandatory)
+- [Node.js](https://nodejs.org/en){target=\_blank} v16 or newer installed on your machine.
+- A crypto wallet (like MetaMask) with some test tokens. For further information, check the [Connect to Polkadot](/develop/smart-contracts/connect-to-polkadot){target=\_blank} guide.
+- Basic understanding of React and JavaScript.
+- Familiarity with blockchain concepts and Solidity (helpful but not mandatory).
 
 ## Project Overview
 
 The dApp will interact with a simple Storage contract. For a step-by-step guide on creating it, refer to the [Create Contracts](/tutorials/smart-contracts/launch-your-first-project/create-contracts){target=\_blank} tutorial. This contract allows:
 
-- Reading a stored number from the blockchain
-- Updating the stored number with a new value
+- Reading a stored number from the blockchain.
+- Updating the stored number with a new value.
 
 The contract has already been deployed to the Polkadot Hub TestNet for testing purposes: `0x58053f0e8ede1a47a1af53e43368cd04ddcaf66f`. If you want to deploy your own, follow the [Deploying Contracts](/develop/smart-contracts/dev-environments/remix/#deploying-contracts){target=\_blank} section.
 
@@ -176,9 +176,9 @@ The completed UI will display:
 
 Congratulations! You've built a complete dApp that interacts with a smart contract on the Polkadot Hub TestNet using Ethers.js and Next.js. Your application can now:
 
-- Connect to a user's wallet
-- Read data from a smart contract
-- Send transactions to update the contract state
+- Connect to a user's wallet.
+- Read data from a smart contract.
+- Send transactions to update the contract state.
 
 These fundamental skills provide the foundation for building more complex dApps on Polkadot Hub. With these building blocks, you can extend your application to interact with more sophisticated smart contracts and create more advanced user interfaces.
 

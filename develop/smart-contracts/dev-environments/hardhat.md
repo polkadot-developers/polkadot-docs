@@ -30,9 +30,9 @@ Hardhat is a robust development environment for Ethereum-compatible chains that 
 
 Before getting started, ensure you have:
 
-- [Node.js](https://nodejs.org/){target=\_blank} (v16.0.0 or later) and npm installed
-- Basic understanding of Solidity programming
-- Some PAS test tokens to cover transaction fees (easily obtainable from the [Polkadot faucet](https://faucet.polkadot.io/?parachain=1111){target=\_blank}). To learn how to get test tokens, check out the [Test Tokens](/develop/smart-contracts/connect-to-polkadot#test-tokens){target=\_blank} section
+- [Node.js](https://nodejs.org/){target=\_blank} (v16.0.0 or later) and npm installed.
+- Basic understanding of Solidity programming.
+- Some PAS test tokens to cover transaction fees (easily obtainable from the [Polkadot faucet](https://faucet.polkadot.io/?parachain=1111){target=\_blank}). To learn how to get test tokens, check out the [Test Tokens](/develop/smart-contracts/connect-to-polkadot#test-tokens){target=\_blank} section.
 
 ## Set Up Hardhat
 
@@ -63,9 +63,9 @@ Before getting started, ensure you have:
 
     Select **Create a JavaScript project** when prompted and follow the instructions. After that, your project will be created with three main folders:
 
-    - **`contracts`** - where your Solidity smart contracts live
-    - **`test`** - contains your test files that validate contract functionality
-    - **`ignition`** - deployment modules for safely deploying your contracts to various networks
+    - **`contracts`**: Where your Solidity smart contracts live.
+    - **`test`**: Contains your test files that validate contract functionality.
+    - **`ignition`**: Deployment modules for safely deploying your contracts to various networks.
 
 5. Add the following folder to the `.gitignore` file if it is not already there:
 
@@ -86,8 +86,8 @@ Before getting started, ensure you have:
 
 The plugin will compile your Solidity contracts for Solidity versions `0.8.0` and higher to be PolkaVM compatible. When compiling your contract, there are two ways to configure your compilation process:
 
-- **npm compiler** - uses library [@parity/resolc](https://www.npmjs.com/package/@parity/resolc){target=\_blank} for simplicity and ease of use
-- **Binary compiler** - uses your local `resolc` binary directly for more control and configuration options
+- **npm compiler**: Uses library [@parity/resolc](https://www.npmjs.com/package/@parity/resolc){target=\_blank} for simplicity and ease of use.
+- **Binary compiler**: Uses your local `resolc` binary directly for more control and configuration options.
 
 To compile your project, follow these instructions:
 
@@ -183,7 +183,7 @@ When testing your contract, be aware that [`@nomicfoundation/hardhat-toolbox/net
 
 To run your test:
 
-1. Update the `hardhat.config.js` file accordingly to the [Set Up a Testing Environment](#set-up-a-testing-environment) section
+1. Update the `hardhat.config.js` file accordingly to the [Set Up a Testing Environment](#set-up-a-testing-environment) section.
 
 2. Execute the following command to run your tests:
 

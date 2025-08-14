@@ -10,10 +10,10 @@ template: index-page.html
 
 Polkadot SDK-based relay chains focus on security and consensus, leaving asset management to an external component, such as a [system chain](/polkadot-protocol/architecture/system-chains/){target=\_blank}. The [Asset Hub](/polkadot-protocol/architecture/system-chains/asset-hub/){target=\_blank} is one example of a system chain and is vital to managing tokens which aren't native to the Polkadot ecosystem. Developers opting to integrate with Asset Hub can expect the following benefits:
 
-- **Support for non-native on-chain assets** - create and manage your own tokens or NFTs with Polkadot ecosystem compatibility available out of the box
-- **Lower transaction fees** - approximately 1/10th of the cost of using the relay chain
-- **Reduced deposit requirements** - approximately 1/100th of the deposit required for the relay chain
-- **Payment of fees with non-native assets** - no need to buy native tokens for gas, increasing flexibility for developers and users
+- **Support for non-native on-chain assets**: Create and manage your own tokens or NFTs with Polkadot ecosystem compatibility available out of the box.
+- **Lower transaction fees**: Approximately 1/10th of the cost of using the relay chain.
+- **Reduced deposit requirements**: Approximately 1/100th of the deposit required for the relay chain.
+- **Payment of fees with non-native assets**: No need to buy native tokens for gas, increasing flexibility for developers and users.
 
 ## Get Started
 
@@ -24,7 +24,6 @@ Through these tutorials, you'll learn how to manage cross-chain assets, includin
 - Liquidity pool creation and management 
 - Asset swapping and conversion
 - Transaction parameter optimization
-- Teleport an asset from a parachain to Asset Hub
 
 ## In This Section
 

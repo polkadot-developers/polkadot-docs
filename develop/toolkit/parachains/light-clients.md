@@ -12,10 +12,10 @@ Light clients enable secure and efficient blockchain interaction without running
 
 This guide covers:
 
-- What light clients are and how they work
-- Their advantages compared to full nodes and JSON-RPC
-- Available implementations in the Polkadot ecosystem
-- How to use light clients in your applications
+- What light clients are and how they work.
+- Their advantages compared to full nodes and JSON-RPC.
+- Available implementations in the Polkadot ecosystem.
+- How to use light clients in your applications.
 
 Light clients are particularly valuable for resource-constrained environments and applications requiring secure, decentralized blockchain access without the overhead of maintaining full nodes.
 
@@ -45,10 +45,10 @@ Light clients can quickly verify the blockchain's state, including [GRANDPA fina
 
 Another common method of communication between a user interface (UI) and a node is through the JSON-RPC protocol. Generally, the UI retrieves information from the node, fetches network or [pallet](/polkadot-protocol/glossary#pallet){target=\_blank} data, and interacts with the blockchain. This is typically done in one of two ways:
 
-- **User-controlled nodes** - the UI connects to a node client installed on the user's machine
-    - These nodes are secure, but installation and maintenance can be inconvenient
-- **Publicly accessible nodes** - the UI connects to a third-party-owned publicly accessible node client
-    - These nodes are convenient but centralized and less secure. Applications must maintain a list of backup nodes in case the primary node becomes unavailable
+- **User-controlled nodes**: The UI connects to a node client installed on the user's machine.
+    - These nodes are secure, but installation and maintenance can be inconvenient.
+- **Publicly accessible nodes**: The UI connects to a third-party-owned publicly accessible node client.
+    - These nodes are convenient but centralized and less secure. Applications must maintain a list of backup nodes in case the primary node becomes unavailable.
 
 While light clients still communicate with [full nodes](/polkadot-protocol/glossary#full-node), they offer significant advantages for applications requiring a secure alternative to running a full node:
 

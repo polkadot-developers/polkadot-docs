@@ -15,16 +15,16 @@ The Asset Hub smart contracts solution includes multiple components to ensure Et
 
 [**PolkaVM**](https://github.com/paritytech/polkavm){target=\_blank} is a custom virtual machine optimized for performance with [RISC-V-based](https://en.wikipedia.org/wiki/RISC-V){target=\_blank} architecture, supporting Solidity and additional high-performance languages. It serves as the core execution environment, integrated directly within the runtime. It features:
 
-- An efficient interpreter for immediate code execution
-- A planned JIT compiler for optimized performance
-- Dual-mode execution capability, allowing selection of the most appropriate backend for specific workloads
-- Optimized performance for short-running contract calls through the interpreter
+- An efficient interpreter for immediate code execution.
+- A planned JIT compiler for optimized performance.
+- Dual-mode execution capability, allowing selection of the most appropriate backend for specific workloads.
+- Optimized performance for short-running contract calls through the interpreter.
 
 The interpreter remains particularly beneficial for contracts with minimal code execution, as it eliminates JIT compilation overhead and enables immediate code execution through lazy interpretation.
 
 ## Architecture
 
-The smart contract solution consists of the following key components that work together to enable Ethereum compatibility on Polkadot-based chains:
+The smart contract solution consists of the following key components that work together to enable Ethereum compatibility on Polkadot-based chains.
 
 ### Pallet Revive
 
@@ -66,23 +66,23 @@ flowchart TB
     end
 ```
 
-- **Register-based design** - PolkaVM utilizes a RISC-V register-based approach. This design:
+- **Register-based design**: PolkaVM utilizes a RISC-V register-based approach. This design:
 
-    - Employs a finite set of registers for argument passing instead of an infinite stack
-    - Facilitates efficient translation to underlying hardware architectures
-    - Optimizes register allocation through careful register count selection
-    - Enables simple 1:1 mapping to x86-64 instruction sets
-    - Reduces compilation complexity through strategic register limitation
-    - Improves overall execution performance through hardware-aligned design
+    - Employs a finite set of registers for argument passing instead of an infinite stack.
+    - Facilitates efficient translation to underlying hardware architectures.
+    - Optimizes register allocation through careful register count selection.
+    - Enables simple 1:1 mapping to x86-64 instruction sets.
+    - Reduces compilation complexity through strategic register limitation.
+    - Improves overall execution performance through hardware-aligned design.
 
-- **64-bit word size**  - PolkaVM operates with a 64-bit word size as follows:
+- **64-bit word size**: PolkaVM operates with a 64-bit word size. This design:
 
-    - Enables direct hardware-supported arithmetic operations
-    - Maintains compatibility with Solidity's 256-bit operations through YUL translation
-    - Allows integration of performance-critical components written in lower-level languages
-    - Optimizes computation-intensive operations through native word size alignment
-    - Reduces overhead for operations not requiring extended precision
-    - Facilitates efficient integration with modern CPU architectures
+    - Enables direct hardware-supported arithmetic operations.
+    - Maintains compatibility with Solidity's 256-bit operations through YUL translation.
+    - Allows integration of performance-critical components written in lower-level languages.
+    - Optimizes computation-intensive operations through native word size alignment.
+    - Reduces overhead for operations not requiring extended precision.
+    - Facilitates efficient integration with modern CPU architectures.
 
 ## Compilation Process
 
@@ -90,21 +90,21 @@ When compiling a Solidity smart contract, the code passes through the following 
 
 ```mermaid
 flowchart LR
-    Dev[Developer] --> |Solidity\nSource\nCode| Solc
+    Dev[Developer] --> |Solidity<br>Source<br>Code| Solc
     
     subgraph "Compilation Process"
         direction LR
-        Solc[solc] --> |YUL\nIR| Revive
-        Revive[Revive Compiler] --> |LLVM\nIR| LLVM
-        LLVM[LLVM\nOptimizer] --> |RISC-V ELF\nShared Object| PVMLinker
+        Solc[solc] --> |YUL<br>IR| Revive
+        Revive[Revive Compiler] --> |LLVM<br>IR| LLVM
+        LLVM[LLVM<br>Optimizer] --> |RISC-V ELF<br>Shared Object| PVMLinker
     end
     
-    PVMLinker[PVM Linker] --> PVM[PVM Blob\nwith Metadata]
+    PVMLinker[PVM Linker] --> PVM[PVM Blob<br>with Metadata]
 ```
 
 The compilation process integrates several specialized components:
 
-1. **Solc** - the standard Ethereum Solidity compiler that translates Solidity source code to [YUL IR](https://docs.soliditylang.org/en/latest/yul.html){target=\_blank}
-2. **Revive Compiler** - takes YUL IR and transforms it to [LLVM IR](https://llvm.org/){target=\_blank}
-3. **LLVM** - a compiler infrastructure that optimizes the code and generates RISC-V ELF objects
-4. **PVM linker** - links the RISC-V ELF object into a final PolkaVM blob with metadata
+1. **Solc**: The standard Ethereum Solidity compiler that translates Solidity source code to [YUL IR](https://docs.soliditylang.org/en/latest/yul.html){target=\_blank}.
+2. **Revive Compiler**: Takes YUL IR and transforms it to [LLVM IR](https://llvm.org/){target=\_blank}.
+3. **LLVM**: A compiler infrastructure that optimizes the code and generates RISC-V ELF objects.
+4. **PVM linker**: Links the RISC-V ELF object into a final PolkaVM blob with metadata.

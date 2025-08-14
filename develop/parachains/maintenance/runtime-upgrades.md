@@ -31,13 +31,13 @@ The runtime includes a [runtime version struct](https://paritytech.github.io/pol
 
 The struct provides the following parameter information to the executor:
 
-- **`spec_name`** - the identifier for the different runtimes
-- **`impl_name`** - the name of the implementation of the spec. Serves only to differentiate code of different implementation teams
-- **`authoring_version`** - the version of the authorship interface. An authoring node won't attempt to author blocks unless this is equal to its native runtime
-- **`spec_version`** - the version of the runtime specification. A full node won't attempt to use its native runtime in substitute for the on-chain Wasm runtime unless the `spec_name`, `spec_version`, and `authoring_version` are all the same between the Wasm and native binaries. Updates to the `spec_version` can be automated as a CI process. This parameter is typically incremented when there's an update to the `transaction_version`
-- **`impl_version`** - the version of the implementation of the specification. Nodes can ignore this. It is only used to indicate that the code is different. As long as the `authoring_version` and the `spec_version` are the same, the code might have changed, but the native and Wasm binaries do the same thing. In general, only non-logic-breaking optimizations would result in a change of the `impl_version`
-- **`transaction_version`** - the version of the interface for handling transactions. This parameter can be useful to synchronize firmware updates for hardware wallets or other signing devices to verify that runtime transactions are valid and safe to sign. This number must be incremented if there is a change in the index of the pallets in the `construct_runtime!` macro or if there are any changes to dispatchable functions, such as the number of parameters or parameter types. If `transaction_version` is updated, then the `spec_version` must also be updated
-- **`apis`** - a list of supported [runtime APIs](https://paritytech.github.io/polkadot-sdk/master/sp_api/macro.impl_runtime_apis.html){target=\_blank} along with their versions                                                    
+- **`spec_name`**: The identifier for the different runtimes.
+- **`impl_name`**: The name of the implementation of the spec. Serves only to differentiate code of different implementation teams.
+- **`authoring_version`**: The version of the authorship interface. An authoring node won't attempt to author blocks unless this is equal to its native runtime.
+- **`spec_version`**: The version of the runtime specification. A full node won't attempt to use its native runtime in substitute for the on-chain Wasm runtime unless the `spec_name`, `spec_version`, and `authoring_version` are all the same between the Wasm and native binaries. Updates to the `spec_version` can be automated as a CI process. This parameter is typically incremented when there's an update to the `transaction_version`.
+- **`impl_version`**: The version of the implementation of the specification. Nodes can ignore this. It is only used to indicate that the code is different. As long as the `authoring_version` and the `spec_version` are the same, the code might have changed, but the native and Wasm binaries do the same thing. In general, only non-logic-breaking optimizations would result in a change of the `impl_version`.
+- **`transaction_version`**: The version of the interface for handling transactions. This parameter can be useful to synchronize firmware updates for hardware wallets or other signing devices to verify that runtime transactions are valid and safe to sign. This number must be incremented if there is a change in the index of the pallets in the `construct_runtime!` macro or if there are any changes to dispatchable functions, such as the number of parameters or parameter types. If `transaction_version` is updated, then the `spec_version` must also be updated.
+- **`apis`**: A list of supported [runtime APIs](https://paritytech.github.io/polkadot-sdk/master/sp_api/macro.impl_runtime_apis.html){target=\_blank} along with their versions.
 
 The executor follows the same consensus-driven logic for both the native runtime and the Wasm runtime before deciding which to execute. Because runtime versioning is a manual process, there is a risk that the executor could make incorrect decisions if the runtime version is misrepresented or incorrectly defined.
 
@@ -49,38 +49,6 @@ The runtime metadata should only change when the chain's [runtime `spec_version`
 
 ## Storage Migrations
 
-[Storage migrations](https://paritytech.github.io/polkadot-sdk/master/polkadot_sdk_docs/reference_docs/frame_runtime_upgrades_and_migrations/index.html#migrations){target=\_blank} are custom, one-time functions that allow you to update storage to adapt to changes in the runtime.
+Some runtime upgrades require updating how data is stored to match new formats or layouts. This process is called a Storage Migration. It ensures the runtime can interpret existing state correctly after an upgrade.
 
-For example, if a runtime upgrade changes the data type used to represent user balances from an unsigned integer to a signed integer, the storage migration would read the existing value as an unsigned integer and write back an updated value that has been converted to a signed integer.
-
-If you don't make changes to how data is stored when needed, the runtime can't properly interpret the storage values to include in the runtime state and is likely to lead to undefined behavior.
-
-### Storage Migrations with FRAME
-
-FRAME storage migrations are implemented using the [`OnRuntimeUpgrade`](https://paritytech.github.io/polkadot-sdk/master/frame_support/traits/trait.OnRuntimeUpgrade.html){target=\_blank} trait. The `OnRuntimeUpgrade` trait specifies a single function, `on_runtime_upgrade`, that allows you to specify logic to run immediately after a runtime upgrade but before any `on_initialize` functions or transactions are executed.
-
-For further details about this process, see the [Storage Migrations](/develop/parachains/maintenance/storage-migrations/){target=\_blank} page.
-
-### Ordering Migrations
-
-By default, FRAME orders the execution of `on_runtime_upgrade` functions based on the order in which the pallets appear in the `construct_runtime!` macro. The functions run in reverse order for upgrades, starting with the last pallet executed first. You can impose a custom order if needed.
-
-FRAME storage migrations run in this order:
-
-1. Custom `on_runtime_upgrade` functions if using a custom order
-2. System `frame_system::on_runtime_upgrade` functions
-3. All `on_runtime_upgrade` functions defined in the runtime starting with the last pallet in the `construct_runtime!` macro
-
-<!-- ## Where to Go Next
-
-<div class="grid cards" markdown>
-
--   <span class="badge tutorial">Tutorial</span> __Add Pallets to the Runtime__
-
-    ---
-
-    TODO!
-
-    [:octicons-arrow-right-24: Get started](/tutorials/polkadot-sdk/parachains/zero-to-hero/add-pallets-to-runtime/)
-
-</div> -->
+For detailed guidance, scenarios, and implementation patterns, see the [Storage Migrations](/develop/parachains/maintenance/storage-migrations/){target=\_blank} page.

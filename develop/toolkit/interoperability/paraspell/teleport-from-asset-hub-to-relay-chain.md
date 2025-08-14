@@ -1,5 +1,5 @@
 ---
-title: ParaSpell XCM SDK – Teleport Tokens from Asset Hub to Relay Chain
+title: Teleport Tokens from Asset Hub to Relay Chain
 description: A step-by-step guide to building, verifying, and executing a teleport from Asset Hub to Relay chain using the ParaSpell XCM SDK.
 ---
 
@@ -13,11 +13,11 @@ For development purposes, this guide will use the [Paseo TestNet](/develop/netwo
 
 You’ll learn how to:
 
-- Build a teleport transaction
-- Perform a dry run to validate it
-- Verify the [Existential Deposit (ED)](/polkadot-protocol/glossary/#existential-deposit){target=_blank} requirement on the destination chain
-- Retrieve information regarding the transfer, along with fee estimates
-- Submit the transaction
+- Build a teleport transaction.
+- Perform a dry run to validate it.
+- Verify the [Existential Deposit (ED)](/polkadot-protocol/glossary/#existential-deposit){target=_blank} requirement on the destination chain.
+- Retrieve information regarding the transfer, along with fee estimates.
+- Submit the transaction.
 
 [ParaSpell](https://paraspell.github.io/docs/){target=_blank} is an open-source toolkit for simplifying cross-chain transactions in the Polkadot ecosystem. The [ParaSpell XCM SDK](https://paraspell.github.io/docs/){target=_blank} offers a builder pattern for constructing XCM messages, eliminating the need to handle parachain-specific differences.
 
@@ -42,6 +42,7 @@ Add the following setup code to `index.ts`:
 ```ts
 --8<-- 'code/develop/toolkit/interoperability/paraspell/index.ts:1:28'
 ```
+
 Replace the `SEED_PHRASE` with the `SEED_PHRASE` from your Polkadot development account.
 Be sure to fund this account with some PAS tokens on Passeo's Asset Hub using the [Polkadot Faucet](https://faucet.polkadot.io/?parachain=1000){target=_blank}.
 
@@ -59,6 +60,7 @@ Add the ParaSpell transaction code to your `index.ts` file:
 ```ts
 --8<-- 'code/develop/toolkit/interoperability/paraspell/index.ts:30:47'
 ```
+
 Do not execute it just yet. You will perform a dry run of this transaction first to ensure it works as expected.
 
 ## Perform a Dry Run
@@ -130,11 +132,14 @@ Add the following code:
 ```typescript
 --8<-- 'code/develop/toolkit/interoperability/paraspell/index.ts:105:105'
 ```
+
 And execute your teleport:
+
 ```bash
 bun run index.ts
 ```
-Your ParaSpell `teleport()` function will submit the transaction, and you will get the following output:
+
+Your `teleport` function will submit the transaction, and you will get the following output:
 
 --8<-- 'code/develop/toolkit/interoperability/paraspell/teleport-output.html'
 

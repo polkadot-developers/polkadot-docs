@@ -2,4 +2,4 @@ title: ParaSpell SDK
 hide: false
 nav:
   - index.md
-  - 'ParaSpell XCM SDK': 'paraspell-xcm-sdk.md'
+  - 'Teleport Tokens from Asset Hub to Relay Chain': teleport-from-asset-hub-to-relay-chain.md

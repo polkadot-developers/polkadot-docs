@@ -25,9 +25,9 @@ Pallets are modular components within the FRAME ecosystem that encapsulate speci
 
 Developers have the flexibility to implement any desired behavior in the core logic of the blockchain, such as:
 
-- Exposing new transactions
-- Storing information
-- Enforcing business rules
+- Exposing new transactions.
+- Storing information.
+- Enforcing business rules.
 
 Pallets also include necessary wiring code to ensure proper integration and functionality within the runtime. FRAME provides a range of [pre-built pallets](https://github.com/paritytech/polkadot-sdk/tree/{{dependencies.repositories.polkadot_sdk.version}}/substrate/frame){target=\_blank} for standard and common blockchain functionalities, including consensus algorithms, staking mechanisms, governance systems, and more. These pre-existing pallets serve as building blocks or templates, which developers can use as-is, modify, or reference when creating custom functionalities. 
 
@@ -43,13 +43,13 @@ A typical pallet skeleton looks like this:
 
 All pallets, including custom ones, can implement these attribute macros:
 
-- **`#[frame_support::pallet]`** - marks the module as usable in the runtime
-- **`#[pallet::pallet]`** - applied to a structure used to retrieve module information easily
-- **`#[pallet::config]`** - defines the configuration for the pallets's data types
-- **`#[pallet::event]`** - defines events to provide additional information to users
-- **`#[pallet::error]`** - lists possible errors in an enum to be returned upon unsuccessful execution
-- **`#[pallet::storage]`** - defines elements to be persisted in storage
-- **`#[pallet::call]`** - defines functions exposed as transactions, allowing dispatch to the runtime
+- **`#[frame_support::pallet]`**: Marks the module as usable in the runtime.
+- **`#[pallet::pallet]`**: Applied to a structure used to retrieve module information easily.
+- **`#[pallet::config]`**: Defines the configuration for the pallets's data types.
+- **`#[pallet::event]`**: Defines events to provide additional information to users.
+- **`#[pallet::error]`**: Lists possible errors in an enum to be returned upon unsuccessful execution.
+- **`#[pallet::storage]`**: Defines elements to be persisted in storage.
+- **`#[pallet::call]`**: Defines functions exposed as transactions, allowing dispatch to the runtime.
 
 These macros are applied as attributes to Rust modules, functions, structures, enums, and types and serve as the core components of a pallet. They enable the pallet to be built and added to the runtime, exposing the custom logic to the outer world.
 
@@ -59,10 +59,10 @@ For a comprehensive guide on these and additional macros, see the [`pallet_macro
 
 In addition to purpose-specific pallets, FRAME offers services and core libraries that facilitate composing and interacting with the runtime:
 
-- [**`frame_system` pallet**](https://paritytech.github.io/polkadot-sdk/master/frame_system/index.html){target=\_blank} - provides low-level types, storage, and functions for the runtime
-- [**`frame_executive` pallet**](https://paritytech.github.io/polkadot-sdk/master/frame_executive/index.html){target=\_blank} - orchestrates the execution of incoming function calls to the respective pallets in the runtime
-- [**`frame_support` crate**](https://paritytech.github.io/polkadot-sdk/master/frame_support/index.html){target=\_blank} - is a collection of Rust macros, types, traits, and modules that simplify the development of Substrate pallets
-- [**`frame_benchmarking` crate**](https://paritytech.github.io/polkadot-sdk/master/frame_benchmarking/trait.Benchmark.html){target=\_blank} - contains common runtime patterns for benchmarking and testing purposes
+- **[`frame_system` pallet](https://paritytech.github.io/polkadot-sdk/master/frame_system/index.html){target=\_blank}**: Provides low-level types, storage, and functions for the runtime.
+- **[`frame_executive` pallet](https://paritytech.github.io/polkadot-sdk/master/frame_executive/index.html){target=\_blank}**: Orchestrates the execution of incoming function calls to the respective pallets in the runtime.
+- **[`frame_support` crate](https://paritytech.github.io/polkadot-sdk/master/frame_support/index.html){target=\_blank}**: Is a collection of Rust macros, types, traits, and modules that simplify the development of Substrate pallets.
+- **[`frame_benchmarking` crate](https://paritytech.github.io/polkadot-sdk/master/frame_benchmarking/trait.Benchmark.html){target=\_blank}**: Contains common runtime patterns for benchmarking and testing purposes.
 
 ## Compose a Runtime with Pallets
 
@@ -74,10 +74,10 @@ The following diagram illustrates the process of selecting and combining FRAME p
 
 This modular design allows developers to:
 
-- Rapidly prototype blockchain systems
-- Easily add or remove features by including or excluding pallets
-- Customize blockchain behavior without rebuilding core components
-- Leverage tested and optimized code from built-in pallets
+- Rapidly prototype blockchain systems.
+- Easily add or remove features by including or excluding pallets.
+- Customize blockchain behavior without rebuilding core components.
+- Leverage tested and optimized code from built-in pallets.
 
 ## Starting from Templates
 
@@ -87,19 +87,19 @@ Using pre-built templates is an efficient way to begin building a custom blockch
 
 Solochain templates are designed for developers who want to create standalone blockchains that operate independently without connecting to a relay chain:
 
-- [**`minimal-template`**](https://github.com/paritytech/polkadot-sdk/tree/master/templates/minimal){target=\_blank} - includes only the essential components necessary for a functioning blockchain. It’s ideal for developers who want to gain familiarity with blockchain basics and test simple customizations before scaling up
+- **[`minimal-template`](https://github.com/paritytech/polkadot-sdk/tree/master/templates/minimal){target=\_blank}**: Includes only the essential components necessary for a functioning blockchain. It’s ideal for developers who want to gain familiarity with blockchain basics and test simple customizations before scaling up.
 
-- [**`solochain-template`**](https://github.com/paritytech/polkadot-sdk/tree/master/templates/solochain){target=\_blank} - provides a foundation for creating standalone blockchains with moderate features, including a simple consensus mechanism and several core FRAME pallets. It’s a solid starting point for developers who want a fully functional chain that doesn’t depend on a relay chain
+- **[`solochain-template`](https://github.com/paritytech/polkadot-sdk/tree/master/templates/solochain){target=\_blank}**: Provides a foundation for creating standalone blockchains with moderate features, including a simple consensus mechanism and several core FRAME pallets. It’s a solid starting point for developers who want a fully functional chain that doesn’t depend on a relay chain.
 
 ### Parachain Templates
 
 Parachain templates are specifically designed for chains that will connect to and interact with relay chains in the Polkadot ecosystem:
 
-- [**`parachain-template`**](https://github.com/paritytech/polkadot-sdk/tree/master/templates/parachain){target=\_blank} - designed for connecting to relay chains like Polkadot, Kusama, or Paseo, this template enables a chain to operate as a parachain. For projects aiming to integrate with Polkadot’s ecosystem, this template offers a great starting point
+- **[`parachain-template`](https://github.com/paritytech/polkadot-sdk/tree/master/templates/parachain){target=\_blank}**: Designed for connecting to relay chains like Polkadot, Kusama, or Paseo, this template enables a chain to operate as a parachain. For projects aiming to integrate with Polkadot’s ecosystem, this template offers a great starting point.
 
-- [**`OpenZeppelin`**](https://github.com/OpenZeppelin/polkadot-runtime-templates/tree/main){target=\_blank} - offers two flexible starting points:
-    - The [`generic-runtime-template`](https://github.com/OpenZeppelin/polkadot-runtime-templates/tree/main/generic-template){target=\_blank} provides a minimal setup with essential pallets and secure defaults, creating a reliable foundation for custom blockchain development
-    - The [`evm-runtime-template`](https://github.com/OpenZeppelin/polkadot-runtime-templates/tree/main/evm-template){target=\_blank} enables EVM compatibility, allowing developers to migrate Solidity contracts and EVM-based dApps. This template is ideal for Ethereum developers looking to leverage Substrate's capabilities
+- **[`OpenZeppelin`](https://github.com/OpenZeppelin/polkadot-runtime-templates/tree/main){target=\_blank}**: Offers two flexible starting points.
+    - The [`generic-runtime-template`](https://github.com/OpenZeppelin/polkadot-runtime-templates/tree/main/generic-template){target=\_blank} provides a minimal setup with essential pallets and secure defaults, creating a reliable foundation for custom blockchain development.
+    - The [`evm-runtime-template`](https://github.com/OpenZeppelin/polkadot-runtime-templates/tree/main/evm-template){target=\_blank} enables EVM compatibility, allowing developers to migrate Solidity contracts and EVM-based dApps. This template is ideal for Ethereum developers looking to leverage Substrate's capabilities.
 
 Choosing a suitable template depends on your project’s unique requirements, level of customization, and integration needs. Starting from a template speeds up development and lets you focus on implementing your chain’s unique features rather than the foundational blockchain setup.
 

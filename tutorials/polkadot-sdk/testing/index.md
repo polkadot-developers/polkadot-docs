@@ -12,11 +12,11 @@ Polkadot offers specialized tools that make it simple to create realistic testin
 
 Through these tutorials, you'll learn important testing techniques including:
 
-- Setting up local test environments
-- Spawning ephemeral testing networks
-- Forking live chains for testing
-- Simulating cross-chain interactions
-- Debugging blockchain behavior
+- Setting up local test environments.
+- Spawning ephemeral testing networks.
+- Forking live chains for testing.
+- Simulating cross-chain interactions.
+- Debugging blockchain behavior.
 
 Each tutorial provides step-by-step guidance for using these tools effectively in your development workflow.
 

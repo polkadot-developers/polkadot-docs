@@ -31,15 +31,16 @@ When a parachain wants to open a new channel, it must consider these parameter v
 
 To view the current values of these parameters in the Polkadot network:
 
-1. Visit [Polkadot.js Apps](https://polkadot.js.org/apps/?rpc=wss%3A%2F%2Fpolkadot.api.onfinality.io%2Fpublic-ws#/explorer), navigate to the **Developer** dropdown and select the **Chain state** option
+1. Visit [Polkadot.js Apps](https://polkadot.js.org/apps/?rpc=wss%3A%2F%2Fpolkadot.api.onfinality.io%2Fpublic-ws#/explorer), navigate to the **Developer** dropdown and select the **Chain state** option.
 
     ![](/images/develop/interoperability/xcm-channels/xcm-channels-1.webp)
 
-2. Query the chain configuration parameters. The result will display the current settings for all the Polkadot network parameters, including the HRMP channel settings
-    1. Select **`configuration`**
-    2. Choose the **`activeConfig()`** call
-    3. Click the **+** button to execute the query
-    4. Check the chain configuration
+2. Query the chain configuration parameters. The result will display the current settings for all the Polkadot network parameters, including the HRMP channel settings.
+
+    1. Select **`configuration`**.
+    2. Choose the **`activeConfig()`** call.
+    3. Click the **+** button to execute the query.
+    4. Check the chain configuration.
 
     ![](/images/develop/interoperability/xcm-channels/xcm-channels-2.webp)
 
@@ -51,9 +52,9 @@ The most straightforward approach is to implement the channel opening logic off-
 
 Parachain developers have a few options for triggering the required extrinsic calls from their parachain's origin, depending on the configuration and access controls defined:
 
-- **Sudo** - if the parachain has a `sudo` pallet configured, the sudo key holder can use the sudo extrinsic to dispatch the necessary channel opening calls
-- **Governance** - the parachain's governance system, such as a council or OpenGov, can be used to authorize the channel opening calls
-- **Privileged accounts** - the parachain may have other designated privileged accounts that are allowed to dispatch the HRMP channel opening extrinsics
+- **Sudo**: If the parachain has a `sudo` pallet configured, the sudo key holder can use the sudo extrinsic to dispatch the necessary channel opening calls.
+- **Governance**: The parachain's governance system, such as a council or OpenGov, can be used to authorize the channel opening calls.
+- **Privileged accounts**: The parachain may have other designated privileged accounts that are allowed to dispatch the HRMP channel opening extrinsics.
 
 ## Where to Go Next
 

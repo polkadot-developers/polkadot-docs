@@ -14,9 +14,9 @@ allocation within the runtime.
 
 This tutorial demonstrates how to:
 
-- Configure your development environment for benchmarking
-- Create and implement benchmark tests for your extrinsics
-- Apply benchmark results to your pallet's extrinsics
+- Configure your development environment for benchmarking.
+- Create and implement benchmark tests for your extrinsics.
+- Apply benchmark results to your pallet's extrinsics.
 
 For comprehensive information about benchmarking concepts, refer to the [Benchmarking](/develop/parachains/testing/benchmarking/){target=\_blank} guide.
 
@@ -31,28 +31,34 @@ Follow these steps to prepare your environment for pallet benchmarking:
     ```
 
 2. Update your pallet's `Cargo.toml` file in the `pallets/custom-pallet` directory by adding the `runtime-benchmarks` feature flag:
+
     ```toml hl_lines="4" title="Cargo.toml"
     --8<-- 'code/tutorials/polkadot-sdk/parachains/zero-to-hero/pallets/custom-pallet/Cargo.toml:15'
     ```
 
 3. Add your pallet to the runtime's benchmark configuration:
+
     1.  Register your pallet in `runtime/src/benchmarks.rs`:
+
         ```rust hl_lines="11" title="benchmarks.rs"
         --8<-- 'code/tutorials/polkadot-sdk/parachains/zero-to-hero/runtime/src/benchmarks.rs:26:37'
         ```
 
     2. Enable runtime benchmarking for your pallet in `runtime/Cargo.toml`:
+
         ```toml hl_lines="6" title="Cargo.toml"
         --8<-- 'https://raw.githubusercontent.com/papermoonio/zero-to-hero-tutorial/refs/heads/v0.0.4-complete-tutorial/runtime/Cargo.toml:46:52'
         ```
 
 4. Set up the benchmarking module in your pallet:
     1. Create a `benchmarking.rs` file in your pallet's `src/` directory:
+    
         ```bash
         touch benchmarking.rs
         ```
 
     2. Add the benchmarking module to your pallet. In the pallet `lib.rs` file add the following:
+
         ```rust hl_lines="9-10" title="lib.rs"
         --8<-- 'code/tutorials/polkadot-sdk/parachains/zero-to-hero/pallets/custom-pallet/src/lib.rs:21:32'
         ```
@@ -65,9 +71,9 @@ When writing benchmarking tests for your pallet, you'll create specialized test 
 
 Every benchmark test must follow a three-step pattern:
 
-1. **Setup** - perform any necessary setup before calling the extrinsic. This might include creating accounts, setting initial states, or preparing test data
-2. **Execute the extrinsic** - execute the actual extrinsic using the [`#[extrinsic_call]`](https://paritytech.github.io/polkadot-sdk/master/frame_benchmarking/v2/attr.extrinsic_call.html){target=\_blank} macro. This must be a single line that calls your extrinsic function with the origin as its first argument
-3. **Verification** - check that the extrinsic worked correctly within the benchmark context by checking the expected state changes
+1. **Setup**: Perform any necessary setup before calling the extrinsic. This might include creating accounts, setting initial states, or preparing test data.
+2. **Execute the extrinsic**: Execute the actual extrinsic using the [`#[extrinsic_call]`](https://paritytech.github.io/polkadot-sdk/master/frame_benchmarking/v2/attr.extrinsic_call.html){target=\_blank} macro. This must be a single line that calls your extrinsic function with the origin as its first argument.
+3. **Verification**: Check that the extrinsic worked correctly within the benchmark context by checking the expected state changes.
 
 Check the following example on how to benchmark the `increment` extrinsic:
 
@@ -77,9 +83,9 @@ Check the following example on how to benchmark the `increment` extrinsic:
 
 This benchmark test:
 
-1. Creates a whitelisted caller and sets an initial counter value of 5
-2. Calls the increment extrinsic to increase the counter by 1
-3. Verifies that the counter was properly incremented to 6 and that the user's interaction was recorded in storage
+1. Creates a whitelisted caller and sets an initial counter value of 5.
+2. Calls the increment extrinsic to increase the counter by 1.
+3. Verifies that the counter was properly incremented to 6 and that the user's interaction was recorded in storage.
 
 This example demonstrates how to properly set up state, execute an extrinsic, and verify its effects during benchmarking.
 

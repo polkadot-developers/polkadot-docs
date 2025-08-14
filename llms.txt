@@ -27817,10 +27817,10 @@ When the application detects a remark addressed to the specified account, it pla
 
 Before starting, ensure the following tools and dependencies are installed:
 
-- Node.js (version 18 or higher)
-- A package manager (npm or yarn)
-- [Polkadot.js browser extension (wallet)](https://polkadot.js.org/extension/){target=\_blank}
-- An account with [Westend tokens](https://faucet.polkadot.io/westend){target=\_blank}
+- Node.js (version 18 or higher).
+- A package manager (npm or yarn).
+- [Polkadot.js browser extension (wallet)](https://polkadot.js.org/extension/){target=\_blank}.
+- An account with [Westend tokens](https://faucet.polkadot.io/westend){target=\_blank}.
 
 ## Clone the Repository
 
@@ -28069,8 +28069,8 @@ XCM provides a secure and trustless framework that facilitates communication bet
 
 Learn to establish and use cross-chain communication channels:
 
-- **[Opening HRMP Channels Between Parachains](/tutorials/interoperability/xcm-channels/para-to-para/)** - set up uni- and bidirectional messaging channels between parachains
-- **[Opening HRMP Channels with System Parachains](/tutorials/interoperability/xcm-channels/para-to-system/)** - establish communication channels with system parachains using optimized XCM messages
+- **[Opening HRMP Channels Between Parachains](/tutorials/interoperability/xcm-channels/para-to-para/)**: Set up uni- and bidirectional messaging channels between parachains.
+- **[Opening HRMP Channels with System Parachains](/tutorials/interoperability/xcm-channels/para-to-system/)**: Establish communication channels with system parachains using optimized XCM messages.
 
 ## In This Section
 
@@ -28109,10 +28109,10 @@ description: Replay and dry-run XCMs using Chopsticks with full logging enabled.
 
 In this tutorial, you'll learn how to replay and dry-run XCMs using [Chopsticks](/develop/toolkit/parachains/fork-chains/chopsticks/get-started/){target=\_blank}, a powerful tool for forking live Polkadot SDK-based chains in your local environment. These techniques are essential for:
 
-- Debugging cross-chain message failures
-- Tracing execution across relay chains and parachains
-- Analyzing weight usage, error types, and message flow
-- Safely simulating XCMs without committing state changes
+- Debugging cross-chain message failures.
+- Tracing execution across relay chains and parachains.
+- Analyzing weight usage, error types, and message flow.
+- Safely simulating XCMs without committing state changes.
 
 By the end of this guide, you'll be able to set up a local fork, capture and replay real XCMs, and use dry-run features to diagnose and resolve complex cross-chain issues.
 
@@ -28120,10 +28120,10 @@ By the end of this guide, you'll be able to set up a local fork, capture and rep
 
 Before you begin, make sure you have:
 
-- [Chopsticks](/develop/toolkit/parachains/fork-chains/chopsticks/get-started/){target=\_blank} installed (`npm i -g @acala-network/chopsticks`)
-- Access to the endpoint or genesis file of the parachain you want to fork
-- The block number or hash where the XCM was sent
-- (Optional) A Chopsticks config file for repeated setups
+- [Chopsticks](/develop/toolkit/parachains/fork-chains/chopsticks/get-started/){target=\_blank} installed (`npm i -g @acala-network/chopsticks`).
+- Access to the endpoint or genesis file of the parachain you want to fork.
+- The block number or hash where the XCM was sent.
+- (Optional) A Chopsticks config file for repeated setups.
 
 If you haven't forked a chain before, see the [Fork a Chain with Chopsticks guide](/tutorials/polkadot-sdk/testing/fork-live-chains/){target=\_blank} or [Fork a Network Locally using Chopsticks](https://wiki.polkadot.network/learn/learn-guides-test-opengov-proposals/#fork-a-network-locally-using-chopsticks){target=\_blank} for step-by-step instructions.
 
@@ -28172,9 +28172,9 @@ Let's start by creating a dedicated workspace for your XCM replay and dry-run ex
 
 To replay a specific XCM, identify:
 
-- The source and destination chains involved
-- The block number or height where the XCM was sent
-- Optionally, the call payload (if you plan to simulate it manually via development commands)
+- The source and destination chains involved.
+- The block number or height where the XCM was sent.
+- Optionally, the call payload (if you plan to simulate it manually via development commands).
 
 You can use [Polkadot.js Apps](/tutorials/polkadot-sdk/testing/fork-live-chains/#use-polkadotjs-apps){target=\_blank}, [papi console](https://dev.papi.how/){target=\_blank}, or indexers such as [Subscan](https://polkadot.subscan.io/xcm_dashboard){target=\_blank} to locate and inspect the original XCM execution.
 
@@ -28304,9 +28304,9 @@ Once your project is set up, you're ready to replay the XCM locally.
 
 This is useful for:
 
-- Diagnosing execution failures or weight limits
-- Inspecting all emitted events
-- Verifying behaviour before submitting a real transaction
+- Diagnosing execution failures or weight limits.
+- Inspecting all emitted events.
+- Verifying behaviour before submitting a real transaction.
 
 ### Add the Asset Hub Descriptor
 
@@ -28572,9 +28572,9 @@ For more information, see:
 
 Replaying XCMs with full logging provides fine-grained control and visibility into cross-chain message behaviour. Chopsticks makes this possible in a safe, local environment – empowering developers to:
 
-- Debug complex message flows
-- Identify root causes of XCM failures
-- Improve observability for future integrations
+- Debug complex message flows.
+- Identify root causes of XCM failures.
+- Improve observability for future integrations.
 
 ## Where to Go Next
 
@@ -28658,8 +28658,8 @@ tutorial_badge: Advanced
 
 For establishing communication channels between parachains on the Polkadot network using the Horizontal Relay-routed Message Passing (HRMP) protocol, the following steps are required:
 
-1. **Channel request** - the parachain that wants to open an HRMP channel must make a request to the parachain it wishes to have an open channel with
-2. **Channel acceptance** - the other parachain must then accept this request to complete the channel establishment
+1. **Channel request**: The parachain that wants to open an HRMP channel must make a request to the parachain it wishes to have an open channel with.
+2. **Channel acceptance**: The other parachain must then accept this request to complete the channel establishment.
 
 This process results in a unidirectional HRMP channel, where messages can flow in only one direction between the two parachains.
 
@@ -28671,14 +28671,15 @@ Once both unidirectional channels are established, the parachains can send messa
 
 Before proceeding, ensure you meet the following requirements:
 
-- Blockchain network with a relay chain and at least two connected parachains
-- Wallet with sufficient funds to execute transactions on the participant chains
+- Blockchain network with a relay chain and at least two connected parachains.
+- Wallet with sufficient funds to execute transactions on the participant chains.
 
 ## Procedure to Initiate an HRMP Channel
 
 This example will demonstrate how to open a channel between parachain 2500 and parachain 2600, using Rococo Local as the relay chain.
 
 ### Fund Sender Sovereign Account
+
 <!-- This content will be moved to a new page because it is used in multiple places -->
 The [sovereign account](https://github.com/polkadot-fellows/xcm-format/blob/10726875bd3016c5e528c85ed6e82415e4b847d7/README.md?plain=1#L50){target=_blank} for parachain 2500 on the relay chain must be funded so it can take care of any XCM transact fees.
 
@@ -28690,36 +28691,38 @@ Use [Polkadot.js Apps](https://polkadot.js.org/apps/#/explorer){target=\_blank} 
 
     1. Determine if the parachain is an "up/down" chain (parent or child) or a "sibling" chain:
 
-        - Up/down chains use the prefix `0x70617261` (which decodes to `b"para"`)
-
-        - Sibling chains use the prefix `0x7369626c` (which decodes to `b"sibl"`)
+        - Up/down chains use the prefix `0x70617261` (which decodes to `b"para"`).
+        - Sibling chains use the prefix `0x7369626c` (which decodes to `b"sibl"`).
 
     2. Calculate the u32 scale encoded value of the parachain ID:
-        - Parachain 2500 would be encoded as `c4090000`
+
+        - Parachain 2500 would be encoded as `c4090000`.
 
     3. Combine the prefix and parachain ID encoding to form the full sovereign account address:
 
         The sovereign account of parachain 2500 in relay chain will be `0x70617261c4090000000000000000000000000000000000000000000000000000`
-        and the SS58 format of this address is `5Ec4AhPSY2GEE4VoHUVheqv5wwq2C1HMKa7c9fVJ1WKivX1Y`
+        and the SS58 format of this address is `5Ec4AhPSY2GEE4VoHUVheqv5wwq2C1HMKa7c9fVJ1WKivX1Y`.
     
     To perform this conversion, you can also use the **"Para ID" to Address** section in [Substrate Utilities](https://www.shawntabrizi.com/substrate-js-utilities/){target=_blank}.
 
 ### Create Channel Opening Extrinsic
 
-1. In Polkadot.js Apps, connect to the relay chain, navigate to the **Developer** dropdown and select the **Extrinsics** option
+1. In Polkadot.js Apps, connect to the relay chain, navigate to the **Developer** dropdown and select the **Extrinsics** option.
 
     ![](/images/tutorials/interoperability/xcm-channels/para-to-para/hrmp-para-to-para-1.webp)
 
-2. Construct an `hrmpInitOpenChannel` extrinsic call
+2. Construct an `hrmpInitOpenChannel` extrinsic call:
 
-    1. Select the **`hrmp`** pallet
-    2. Choose the **`hrmpInitOpenChannel`** extrinsic
-    3. Fill in the parameters
-        - **`recipient`** - parachain ID of the target chain (in this case, 2600)
-        - **`proposedMaxCapacity`** - max number of messages that can be pending in the channel at once
-        - **`proposedMaxMessageSize`** - max message size that could be put into the channel
-    4. Copy the encoded call data
+    1. Select the **`hrmp`** pallet.
+    2. Choose the **`hrmpInitOpenChannel`** extrinsic.
+    3. Fill in the parameters:
+        - **`recipient`**: Parachain ID of the target chain (in this case, 2600).
+        - **`proposedMaxCapacity`**: Max number of messages that can be pending in the channel at once.
+        - **`proposedMaxMessageSize`**: Max message size that could be put into the channel.
+    4. Copy the encoded call data.
+
     ![](/images/tutorials/interoperability/xcm-channels/para-to-para/hrmp-para-to-para-2.webp)
+
     The encoded call data for opening a channel with parachain 2600 is `0x3c00280a00000800000000001000`.
 
 ### Craft and Submit the XCM Message from the Sender
@@ -28730,11 +28733,11 @@ This example uses the `sudo` pallet to dispatch the extrinsic. Verify the XCM co
 
 The XCM message should contain the following instructions:
 
-- **`WithdrawAsset`** - withdraws assets from the origin's ownership and places them in the Holding Register
-- **`BuyExecution`** - pays for the execution of the current message using the assets in the Holding Register
-- **`Transact`** - execute the encoded transaction call
-- **`RefundSurplus`** - increases the Refunded Weight Register to the value of the Surplus Weight Register, attempting to reclaim any excess fees paid via BuyExecution
-- **`DepositAsset`** - subtracts assets from the Holding Register and deposits equivalent on-chain assets under the specified beneficiary's ownership
+- **`WithdrawAsset`**: Withdraws assets from the origin's ownership and places them in the Holding Register.
+- **`BuyExecution`**: Pays for the execution of the current message using the assets in the Holding Register.
+- **`Transact`**: Execute the encoded transaction call.
+- **`RefundSurplus`**: Increases the Refunded Weight Register to the value of the Surplus Weight Register, attempting to reclaim any excess fees paid via BuyExecution.
+- **`DepositAsset`**: Subtracts assets from the Holding Register and deposits equivalent on-chain assets under the specified beneficiary's ownership.
 
 !!!note 
     For more detailed information about XCM's functionality, complexities, and instruction set, refer to the [xcm-format](https://github.com/polkadot-fellows/xcm-format){target=_blank} documentation.
@@ -28743,9 +28746,9 @@ In essence, this process withdraws funds from the parachain's sovereign account 
 
 To send the XCM message to the relay chain, connect to parachain 2500 in Polkadot.js Apps. Fill in the required parameters as shown in the image below, ensuring that you:
 
-1. Replace the **`call`** field with your encoded `hrmpInitOpenChannel` call data from the previous step
-2. Use the correct beneficiary information
-3. Click the **Submit Transaction** button to dispatch the XCM message to the relay chain
+1. Replace the **`call`** field with your encoded `hrmpInitOpenChannel` call data from the previous step.
+2. Use the correct beneficiary information.
+3. Click the **Submit Transaction** button to dispatch the XCM message to the relay chain.
 
 ![](/images/tutorials/interoperability/xcm-channels/para-to-para/hrmp-para-to-para-3.webp)
 
@@ -28754,15 +28757,16 @@ To send the XCM message to the relay chain, connect to parachain 2500 in Polkado
 
 After submitting the XCM message to initiate the HRMP channel opening, you should verify that the request was successful. Follow these steps to check the status of your channel request:
 
-1. Using Polkadot.js Apps, connect to the relay chain and navigate to the **Developer** dropdown, then select the **Chain state** option
+1. Using Polkadot.js Apps, connect to the relay chain and navigate to the **Developer** dropdown, then select the **Chain state** option.
 
     ![](/images/tutorials/interoperability/xcm-channels/hrmp-channels-1.webp)
 
-2. Query the HRMP open channel requests
-    1. Select **`hrmp`**
-    2. Choose the **`hrmpOpenChannelRequests`** call
-    3. Click the **+** button to execute the query
-    4. Check the status of all pending channel requests
+2. Query the HRMP open channel requests:
+
+    1. Select **`hrmp`**.
+    2. Choose the **`hrmpOpenChannelRequests`** call.
+    3. Click the **+** button to execute the query.
+    4. Check the status of all pending channel requests.
 
     ![](/images/tutorials/interoperability/xcm-channels/para-to-para/hrmp-para-to-para-4.webp)
 
@@ -28779,46 +28783,49 @@ To fund the account, follow the same process described in the previous section, 
 
 ### Create Channel Accepting Extrinsic
 
-1. In Polkadot.js Apps, connect to the relay chain, navigate to the **Developer** dropdown and select the **Extrinsics** option
+1. In Polkadot.js Apps, connect to the relay chain, navigate to the **Developer** dropdown and select the **Extrinsics** option.
 
     ![](/images/tutorials/interoperability/xcm-channels/para-to-para/hrmp-para-to-para-1.webp)
 
-2. Construct an `hrmpAcceptOpenChannel` extrinsic call
+2. Construct an `hrmpAcceptOpenChannel` extrinsic call:
 
-    1. Select the **`hrmp`** pallet
-    2. Choose the **`hrmpAcceptOpenChannel`** extrinsic
+    1. Select the **`hrmp`** pallet.
+    2. Choose the **`hrmpAcceptOpenChannel`** extrinsic.
     3. Fill in the parameters:
-        - **`sender`** - parachain ID of the requesting chain (in this case, 2500)
-    4. Copy the encoded call data
+        - **`sender`**: Parachain ID of the requesting chain (in this case, 2500).
+    4. Copy the encoded call data.
+
     ![](/images/tutorials/interoperability/xcm-channels/para-to-para/hrmp-para-to-para-5.webp)
-    The encoded call data for accepting a channel with parachain 2500 should be `0x3c01c4090000`
+    
+    The encoded call data for accepting a channel with parachain 2500 should be `0x3c01c4090000`.
 
 ### Craft and Submit the XCM Message from the Receiver
 
 To accept the HRMP channel opening, you need to create and submit an XCM message that includes the encoded `hrmpAcceptOpenChannel` call data from the previous step. This process is similar to the one described in the previous section, [Craft and Submit the XCM Message](#craft-and-submit-the-xcm-message-from-the-sender), with a few key differences:
 
-- Use the encoded call data for `hrmpAcceptOpenChannel` obtained in Step 2 of this section
-- In the last XCM instruction (DepositAsset), set the beneficiary to parachain 2600's sovereign account to receive any surplus funds
+- Use the encoded call data for `hrmpAcceptOpenChannel` obtained in step 2 of this section.
+- In the last XCM instruction (DepositAsset), set the beneficiary to parachain 2600's sovereign account to receive any surplus funds.
 
 To send the XCM message to the relay chain, connect to parachain 2600 in Polkadot.js Apps. Fill in the required parameters as shown in the image below, ensuring that you:
 
-1. Replace the **`call`** field with your encoded `hrmpAcceptOpenChannel` call data from the previous step
-2. Use the correct beneficiary information
-3. Click the **Submit Transaction** button to dispatch the XCM message to the relay chain
+1. Replace the **`call`** field with your encoded `hrmpAcceptOpenChannel` call data from the previous step.
+2. Use the correct beneficiary information.
+3. Click the **Submit Transaction** button to dispatch the XCM message to the relay chain.
 
 ![](/images/tutorials/interoperability/xcm-channels/para-to-para/hrmp-para-to-para-6.webp)
 
 After submitting the XCM message to accept the HRMP channel opening, verify that the channel has been set up correctly.
 
-1. Using Polkadot.js Apps, connect to the relay chain and navigate to the **Developer** dropdown, then select the **Chain state** option
+1. Using Polkadot.js Apps, connect to the relay chain and navigate to the **Developer** dropdown, then select the **Chain state** option.
 
     ![](/images/tutorials/interoperability/xcm-channels/hrmp-channels-1.webp)
 
-2. Query the HRMP channels
-    1. Select **`hrmp`**
-    2. Choose the **`hrmpChannels`** call
-    3. Click the **+** button to execute the query
-    4. Check the status of the opened channel
+2. Query the HRMP channels:
+
+    1. Select **`hrmp`**.
+    2. Choose the **`hrmpChannels`** call.
+    3. Click the **+** button to execute the query.
+    4. Check the status of the opened channel.
 
     ![](/images/tutorials/interoperability/xcm-channels/para-to-para/hrmp-para-to-para-7.webp)
 
@@ -28856,7 +28863,7 @@ To successfully complete this process, you'll need to have the following in plac
     - A relay chain
     - A parachain
     - An Asset Hub system chain
-- A wallet containing enough funds to cover transaction fees on each of the participating chains
+- A wallet containing enough funds to cover transaction fees on each of the participating chains.
 
 ## Procedure to Establish an HRMP Channel
 
@@ -28875,43 +28882,45 @@ Use [Polkadot.js Apps](https://polkadot.js.org/apps/#/explorer){target=\_blank} 
 
     1. Determine if the parachain is an "up/down" chain (parent or child) or a "sibling" chain:
 
-        - Up/down chains use the prefix `0x70617261` (which decodes to `b"para"`)
-
-        - Sibling chains use the prefix `0x7369626c` (which decodes to `b"sibl"`)
+        - Up/down chains use the prefix `0x70617261` (which decodes to `b"para"`).
+        - Sibling chains use the prefix `0x7369626c` (which decodes to `b"sibl"`).
 
     2. Calculate the u32 scale encoded value of the parachain ID:
-        - Parachain 2500 would be encoded as `c4090000`
+
+        - Parachain 2500 would be encoded as `c4090000`.
 
     3. Combine the prefix and parachain ID encoding to form the full sovereign account address:
 
         The sovereign account of parachain 2500 in relay chain will be `0x70617261c4090000000000000000000000000000000000000000000000000000`
-        and the SS58 format of this address is `5Ec4AhPSY2GEE4VoHUVheqv5wwq2C1HMKa7c9fVJ1WKivX1Y`
+        and the SS58 format of this address is `5Ec4AhPSY2GEE4VoHUVheqv5wwq2C1HMKa7c9fVJ1WKivX1Y`.
     
     To perform this conversion, you can also use the **"Para ID" to Address** section in [Substrate Utilities](https://www.shawntabrizi.com/substrate-js-utilities/){target=\_blank}.
 
 ### Create Establish Channel with System Extrinsic
 
-1. In Polkadot.js Apps, connect to the relay chain, navigate to the **Developer** dropdown and select the **Extrinsics** option
+1. In Polkadot.js Apps, connect to the relay chain, navigate to the **Developer** dropdown and select the **Extrinsics** option.
 
     ![](/images/tutorials/interoperability/xcm-channels/para-to-para/hrmp-para-to-para-1.webp)
 
-2. Construct an `establish_channel_with_system` extrinsic call
+2. Construct an `establish_channel_with_system` extrinsic call:
 
-    1. Select the **`hrmp`** pallet
-    2. Choose the **`establish_channel_with_system`** extrinsic
+    1. Select the **`hrmp`** pallet.
+    2. Choose the **`establish_channel_with_system`** extrinsic.
     3. Fill in the parameters:
-        - **`target_system_chain`** - parachain ID of the target system chain (in this case, 1000)
-    4. Copy the encoded call data
+        - **`target_system_chain`**: Parachain ID of the target system chain (in this case, 1000).
+    4. Copy the encoded call data.
     ![](/images/tutorials/interoperability/xcm-channels/para-to-system/hrmp-para-to-system-1.webp)
-    The encoded call data for establishing a channel with system parachain 1000 should be `0x3c0ae8030000`
+
+    The encoded call data for establishing a channel with system parachain 1000 should be `0x3c0ae8030000`.
 
 ### Craft and Submit the XCM Message
 
 Connect to parachain 2500 using Polkadot.js Apps to send the XCM message to the relay chain. Input the necessary parameters as illustrated in the image below. Make sure to:
 
-1. Insert your previously encoded `establish_channel_with_system` call data into the **`call`** field
-2. Provide beneficiary details
-3. Dispatch the XCM message to the relay chain by clicking the **Submit Transaction** button
+1. Insert your previously encoded `establish_channel_with_system` call data into the **`call`** field.
+2. Provide beneficiary details.
+3. Dispatch the XCM message to the relay chain by clicking the **Submit Transaction** button.
+
 ![](/images/tutorials/interoperability/xcm-channels/para-to-system/hrmp-para-to-system-2.webp)
 
 !!! note
@@ -28919,16 +28928,20 @@ Connect to parachain 2500 using Polkadot.js Apps to send the XCM message to the 
 
 After successfully submitting the XCM message to the relay chain, two HRMP channels should be created, establishing bidirectional communication between parachain 2500 and system chain 1000. To verify this, follow these steps:
 
-1. Using Polkadot.js Apps, connect to the relay chain and navigate to the **Developer** dropdown, then select **Chain state**
+1. Using Polkadot.js Apps, connect to the relay chain and navigate to the **Developer** dropdown, then select **Chain state**.
+
     ![](/images/tutorials/interoperability/xcm-channels/hrmp-channels-1.webp)
 
-2. Query the HRMP channels
-    1. Select **`hrmp`** from the options
-    2. Choose the **`hrmpChannels`** call
-    3. Click the **+** button to execute the query
+2. Query the HRMP channels:
+
+    1. Select **`hrmp`** from the options.
+    2. Choose the **`hrmpChannels`** call.
+    3. Click the **+** button to execute the query.
+
     ![](/images/tutorials/interoperability/xcm-channels/para-to-system/hrmp-para-to-system-3.webp)
     
 3. Examine the query results. You should see output similar to the following:
+
     ```json
     [
     [
@@ -28972,8 +28985,8 @@ After successfully submitting the XCM message to the relay chain, two HRMP chann
 
 The output confirms the successful establishment of two HRMP channels:
 
-- From chain 1000 (system chain) to chain 2500 (parachain)
-- From chain 2500 (parachain) to chain 1000 (system chain)
+- From chain 1000 (system chain) to chain 2500 (parachain).
+- From chain 2500 (parachain) to chain 1000 (system chain).
 
 This bidirectional channel enables direct communication between the system chain and the parachain, allowing for cross-chain message passing.
 --- END CONTENT ---
@@ -28992,8 +29005,8 @@ tutorial_badge: Intermediate
 
 [Cross-Consensus Messaging (XCM)](/develop/interoperability/intro-to-xcm/){target=\_blank} facilitates asset transfers both within the same consensus system and between different ones, such as between a relay chain and its parachains. For cross-system transfers, two main methods are available:
 
-- [**Asset teleportation**](https://paritytech.github.io/xcm-docs/journey/transfers/teleports.html){target=\_blank} - a simple and efficient method involving only the source and destination chains, ideal for systems with a high level of trust
-- [**Reserve-backed transfers**](https://paritytech.github.io/xcm-docs/journey/transfers/reserve.html){target=\_blank} - involves a trusted reserve holding real assets and mints derivative tokens to track ownership. This method is suited for systems with lower trust levels
+- **[Asset teleportation](https://paritytech.github.io/xcm-docs/journey/transfers/teleports.html){target=\_blank}**: A simple and efficient method involving only the source and destination chains, ideal for systems with a high level of trust.
+- **[Reserve-backed transfers](https://paritytech.github.io/xcm-docs/journey/transfers/reserve.html){target=\_blank}**: Involves a trusted reserve holding real assets and mints derivative tokens to track ownership. This method is suited for systems with lower trust levels.
 
 In this tutorial, you will learn how to perform a reserve-backed transfer of DOT between a relay chain (Polkadot) and a parachain (Astar).
 
@@ -29021,11 +29034,11 @@ You can perform the reserve-backed transfer using either the [Polkadot.js Apps i
 
 ## Use Polkadot.js Apps
 
-Open two browser tabs and can connect these endpoints using the [Polkadot.js Apps](https://polkadot.js.org/apps/){target=\_blank} interface:
+Use the [Polkadot.js Apps](https://polkadot.js.org/apps/){target=\_blank} interface to connect to each chain. Open two browser tabs—one for each chain—and follow these steps:
 
-a. Add the custom endpoint for each chain
+a. Add the custom endpoint for each chain, as defined above.
 
-b. Click **Switch** to connect to the respective network
+b. Click **Switch** to connect to the respective network.
 
 ![](/images/tutorials/interoperability/xcm-transfers/from-relaychain-to-parachain/from-relaychain-to-parachain-01.webp)
 
@@ -29035,38 +29048,39 @@ The following steps outline how to execute a reserve-backed transfer from the Po
 
 ### From the Relay Chain Perspective
 
-1. Navigate to the Extrinsics page
-    1. Click on the **Developer** tab from the top navigation bar
-    2. Select **Extrinsics** from the dropdown
+1. Navigate to the Extrinsics page:
+
+    1. Click on the **Developer** tab from the top navigation bar.
+    2. Select **Extrinsics** from the dropdown.
 
     ![](/images/tutorials/interoperability/xcm-transfers/from-relaychain-to-parachain/from-relaychain-to-parachain-02.webp)
 
-2. Select **xcmPallet**
+2. Select **xcmPallet**.
 
     ![](/images/tutorials/interoperability/xcm-transfers/from-relaychain-to-parachain/from-relaychain-to-parachain-03.webp)
 
-3. Select the **limitedReservedAssetTransfer** extrinsic from the dropdown list
+3. Select the **limitedReservedAssetTransfer** extrinsic from the dropdown list.
 
     ![](/images/tutorials/interoperability/xcm-transfers/from-relaychain-to-parachain/from-relaychain-to-parachain-04.webp)
 
 4. Fill out the required fields:
-    1. **dest** - specifies the destination context for the assets. Commonly set to `[Parent, Parachain(..)]` for parachain-to-parachain transfers or `[Parachain(..)]` for relay chain-to-parachain transfers. In this case, since the transfer is from a relay chain to a parachain, the destination ([`Location`](https://paritytech.github.io/xcm-docs/fundamentals/multilocation/index.html){target=\_blank}) is the following:
+
+    1. **dest**: Specifies the destination context for the assets. Commonly set to `[Parent, Parachain(..)]` for parachain-to-parachain transfers or `[Parachain(..)]` for relay chain-to-parachain transfers. In this case, since the transfer is from a relay chain to a parachain, the destination ([`Location`](https://paritytech.github.io/xcm-docs/fundamentals/multilocation/index.html){target=\_blank}) is the following:
 
         ```bash
         { parents: 0, interior: { X1: [{ Parachain: 2006 }] } }
         ```
 
-    3. **beneficiary** - defines the recipient of the assets within the destination context, typically represented as an `AccountId32` value. This example uses the following account present in the destination chain:
-
+    2. **beneficiary**: Defines the recipient of the assets within the destination context, typically represented as an `AccountId32` value. This example uses the following account present in the destination chain:
 
         ```bash
         X2mE9hCGX771c3zzV6tPa8U2cDz4U4zkqUdmBrQn83M3cm7
         ```
 
-    4. **assets** - lists the assets to be withdrawn, including those designated for fee payment on the destination chain
-    5. **feeAssetItem** - indicates the index of the asset within the assets list to be used for paying fees
-    6. **weightLimit** - specifies the weight limit, if applicable, for the fee payment on the remote chain
-    7. Click on the **Submit Transaction** button to send the transaction
+    3. **assets**: Lists the assets to be withdrawn, including those designated for fee payment on the destination chain.
+    4. **feeAssetItem**: Indicates the index of the asset within the assets list to be used for paying fees.
+    5. **weightLimit**: Specifies the weight limit, if applicable, for the fee payment on the remote chain.
+    6. Click on the **Submit Transaction** button to send the transaction.
 
         ![](/images/tutorials/interoperability/xcm-transfers/from-relaychain-to-parachain/from-relaychain-to-parachain-05.webp)
 
@@ -29106,10 +29120,10 @@ To programmatically execute the reserve-backed asset transfer between the relay 
     ```
 
     !!! note 
-        - `dot` and `astar` are arbitrary names you assign to the chains, allowing you to access their metadata information
-        - The first command uses the well-known Polkadot chain, while the second connects to the Astar chain using its WebSocket endpoint
+        - `dot` and `astar` are arbitrary names you assign to the chains, allowing you to access their metadata information.
+        - The first command uses the well-known Polkadot chain, while the second connects to the Astar chain using its WebSocket endpoint.
 
-4. Create a `index.js` file and insert the following code to configure the clients and handle the asset transfer
+4. Create a `index.js` file and insert the following code to configure the clients and handle the asset transfer:
 
     ```js
     // Import necessary modules from Polkadot API and helpers
@@ -29235,7 +29249,7 @@ process.exit(0);
     !!! note
         To use this script with real-world blockchains, you'll need to update the WebSocket endpoint to the appropriate one, replace the Alice account with a valid account, and ensure the account has sufficient funds to cover transaction fees.
 
-4. Execute the script 
+4. Execute the script:
 
     ```bash 
     node index.js
@@ -29292,10 +29306,10 @@ Testing governance proposals before submission is crucial for the ecosystem. Thi
 
 By leveraging simulation tools like [Chopsticks](/develop/toolkit/parachains/fork-chains/chopsticks){target=\_blank}, developers can:
 
-- Simulate the entire lifecycle of a proposal
-- Test the voting outcomes by varying the support and approval levels
-- Analyze the effects of a successfully executed proposal on the network's state
-- Identify and troubleshoot potential issues or unexpected consequences before submitting the proposals
+- Simulate the entire lifecycle of a proposal.
+- Test the voting outcomes by varying the support and approval levels.
+- Analyze the effects of a successfully executed proposal on the network's state.
+- Identify and troubleshoot potential issues or unexpected consequences before submitting the proposals.
 
 This tutorial will guide you through using Chopsticks to test OpenGov proposals thoroughly. This ensures that when you submit a proposal to the live network, you can do so with confidence in its effects and viability.
 
@@ -29303,9 +29317,9 @@ This tutorial will guide you through using Chopsticks to test OpenGov proposals 
 
 Before proceeding, ensure the following prerequisites are met:
 
-- **Chopsticks installation** - if you have not installed Chopsticks yet, refer to the [Install Chopsticks](/develop/toolkit/parachains/fork-chains/chopsticks/get-started/#install-chopsticks){target=\_blank} guide for detailed instructions
-- **Familiarity with key concepts** - you should have a basic understanding of the following:
-    - [Polkadot.js](/develop/toolkit/api-libraries/polkadot-js-api){target=\_blank} 
+- **Chopsticks installation**: If you have not installed Chopsticks yet, refer to the [Install Chopsticks](/develop/toolkit/parachains/fork-chains/chopsticks/get-started/#install-chopsticks){target=\_blank} guide for detailed instructions.
+- **Familiarity with key concepts**:
+    - [Polkadot.js](/develop/toolkit/api-libraries/polkadot-js-api){target=\_blank}
     - [OpenGov](/polkadot-protocol/onchain-governance/overview){target=\_blank}
 
 ## Set Up the Project
@@ -30332,7 +30346,7 @@ api: ApiPromise,
 
 Now, you need to implement the following logic:
 
-1. Set up the keyring and use the Alice development account
+1. Set up the keyring and use the Alice development account:
 
     ```typescript
     const keyring = new Keyring({ type: 'sr25519' });
@@ -30344,7 +30358,7 @@ Now, you need to implement the following logic:
     !!!note
         When using Chopsticks, this development account is pre-funded to execute all necessary actions.
 
-2. Retrieve the proposal index
+2. Retrieve the proposal index:
 
     ```typescript
     const proposalIndex = (
@@ -30353,14 +30367,15 @@ Now, you need to implement the following logic:
     ```
 
 3. Execute a batch transaction that comprises the following three operations:
-    1. **`preimage.notePreimage`** - registers a [preimage](/polkadot-protocol/glossary#preimage){target=\_blank} using the selected call
+
+    1. **`preimage.notePreimage`**: Registers a [preimage](/polkadot-protocol/glossary#preimage){target=\_blank} using the selected call.
 
         !!!note
             The preimage hash is simply the hash of the proposal to be enacted. The on-chain proposals do not require the entire image of extrinsics and data (for instance, the Wasm code, in case of upgrades) to be submitted but would need that image's hash. That preimage can be submitted and stored on-chain against the hash later upon the proposal's dispatch.
 
-    2. **`referenda.submit`** - submits the proposal to the referenda system. It uses the preimage hash extracted from the call as part of the proposal submission process. The proposal is submitted with the selected origin
+    2. **`referenda.submit`**: Submits the proposal to the referenda system. It uses the preimage hash extracted from the call as part of the proposal submission process. The proposal is submitted with the selected origin.
 
-    3. **`referenda.placeDecisionDeposit`** - places the required decision deposit for the referendum. This deposit is required to move the referendum from the preparing phase to the deciding phase
+    3. **`referenda.placeDecisionDeposit`**: Places the required decision deposit for the referendum. This deposit is required to move the referendum from the preparing phase to the deciding phase.
 
     ```typescript
     await new Promise<void>(async (resolve) => {
@@ -30743,8 +30758,8 @@ Create a new function called `forceProposalExecution`:
 
 This function will accomplish two primary objectives:
 
-- Modify the chain storage to set the proposal's approvals and support artificially, ensuring its passage
-- Override the scheduler to execute the proposal immediately in the subsequent blocks, circumventing standard waiting periods
+- Modify the chain storage to set the proposal's approvals and support artificially, ensuring its passage.
+- Override the scheduler to execute the proposal immediately in the subsequent blocks, circumventing standard waiting periods.
 
 Implement the functionality through the following steps:
 
@@ -31801,21 +31816,21 @@ npx ts-node test-proposal.ts
 
 When executing the script, you should expect the following key actions and outputs:
 
-- **Chain forking** - the script connects to a forked version of the Polkadot network, allowing safe manipulation of the chain state without affecting the live network.
+- **Chain forking**: The script connects to a forked version of the Polkadot network, allowing safe manipulation of the chain state without affecting the live network.
 
-- **Proposal generation** - a new governance proposal is created using the specified extrinsic (in this example, `setCodeWithoutChecks`)
+- **Proposal generation**: A new governance proposal is created using the specified extrinsic (in this example, `setCodeWithoutChecks`).
 
-- **State manipulation** - the referendum's storage is modified to simulate immediate approval by adjusting tally and support values to force proposal passing. Scheduled calls are then redirected to ensure immediate execution
+- **State manipulation**: The referendum's storage is modified to simulate immediate approval by adjusting tally and support values to force proposal passing. Scheduled calls are then redirected to ensure immediate execution.
 
-- **Execution** - the script advances the chain to trigger the scheduled call execution. The specified call (e.g., `setCodeWithoutChecks`) is processed
+- **Execution**: The script advances the chain to trigger the scheduled call execution. The specified call (e.g., `setCodeWithoutChecks`) is processed.
 
 ## Summary
 
 In this tutorial, you've learned how to use Chopsticks to test OpenGov proposals on a local fork of the Polkadot network. You've set up a TypeScript project, connected to a local fork, submitted a proposal, and forced its execution for testing purposes. This process allows you to:
 
-- Safely experiment with different types of proposals
-- Test the effects of proposals without affecting the live network
-- Rapidly iterate and debug your governance ideas
+- Safely experiment with different types of proposals.
+- Test the effects of proposals without affecting the live network.
+- Rapidly iterate and debug your governance ideas.
 
 Using these techniques, you can develop and refine your proposals before submitting them to the Polkadot network, ensuring they're well-tested and likely to achieve their intended effects.
 
@@ -34004,9 +34019,9 @@ Ready to create a parachain from the ground up? Start with the tutorials highlig
 
 Follow these key milestones to guide you through parachain development. Each step links to detailed tutorials for a deeper dive into each stage:
 
-- [**Install the Polkadot SDK**](/develop/parachains/install-polkadot-sdk/) - set up the necessary tools to begin building on Polkadot. This step will get your environment ready for parachain development
+- **[Install the Polkadot SDK](/develop/parachains/install-polkadot-sdk/)**: Set up the necessary tools to begin building on Polkadot. This step will get your environment ready for parachain development.
 
-- [**Parachains Zero to Hero**](/tutorials/polkadot-sdk/parachains/zero-to-hero/) - a series of step-by-step guides to building, testing, and deploying custom pallets and runtimes using the Polkadot SDK
+- **[Parachains Zero to Hero](/tutorials/polkadot-sdk/parachains/zero-to-hero/)**: A series of step-by-step guides to building, testing, and deploying custom pallets and runtimes using the Polkadot SDK.
 
 ## In This Section
 
@@ -34045,11 +34060,11 @@ Dive deep into parachain development with this comprehensive tutorial series des
 
 Through these tutorials, you'll gain practical experience with:
 
-- Setting up blockchain development environments
-- Creating custom runtime logic
-- Implementing and testing pallets
-- Deploying parachains to test networks
-- Understanding Polkadot ecosystem concepts
+- Setting up blockchain development environments.
+- Creating custom runtime logic.
+- Implementing and testing pallets.
+- Deploying parachains to test networks.
+- Understanding Polkadot ecosystem concepts.
 
 Each tutorial builds upon previous concepts while providing flexibility to focus on your specific development goals.
 
@@ -34108,7 +34123,7 @@ std = [
     ]
     ```
 
-3. Save the changes and close the `Cargo.toml` file
+3. Save the changes and close the `Cargo.toml` file.
 
     Once you have saved your file, it should look like the following:
 
@@ -34372,6 +34387,7 @@ Launch your parachain locally and start producing blocks:
     ```
 
 3. Verify you can interact with the new pallets using the [Polkadot.js Apps](https://polkadot.js.org/apps/?rpc=ws%3A%2F%2F127.0.0.1%3A9944#/extrinsics){target=\_blank} interface. Navigate to the **Extrinsics** tab and check that you can see both pallets:
+
     - Utility pallet
 
         ![](/images/tutorials/polkadot-sdk/parachains/zero-to-hero/add-pallets-to-runtime/add-pallets-to-runtime-1.webp)
@@ -34421,8 +34437,8 @@ A pallet encapsulates a specific set of blockchain functionalities, such as mana
 
 In this tutorial, you'll learn how to create a custom pallet from scratch. You will develop a simple counter pallet with the following features:
 
-- Users can increment and decrement a counter
-- Only a [root origin](https://paritytech.github.io/polkadot-sdk/master/frame_system/pallet/type.Origin.html#variant.Root){target=\_blank} can set an arbitrary counter value
+- Users can increment and decrement a counter.
+- Only a [root origin](https://paritytech.github.io/polkadot-sdk/master/frame_system/pallet/type.Origin.html#variant.Root){target=\_blank} can set an arbitrary counter value.
 
 ## Prerequisites
 
@@ -34465,7 +34481,7 @@ In this tutorial, you'll build a custom pallet from scratch to demonstrate the c
 
 To build and integrate your custom pallet into a Polkadot SDK-based runtime, you must add specific dependencies to the `Cargo.toml` file of your pallet's project. These dependencies provide essential modules and features required for pallet development. Since your custom pallet is part of a workspace that includes other components, such as the runtime, the configuration must align with the workspace structure. Follow the steps below to set up your `Cargo.toml` file properly:
 
-1. Open your `Cargo.toml` file
+1. Open your `Cargo.toml` file.
 
 2. Add the required dependencies in the `[dependencies]` section:
 
@@ -34515,7 +34531,7 @@ In this section, you will construct the core structure of your custom pallet, st
 
 You now have the bare minimum of package dependencies that your pallet requires specified in the `Cargo.toml` file. The next step is to prepare the scaffolding for your new pallet.
 
-1. Open `src/lib.rs` in a text editor and delete all the content
+1. Open `src/lib.rs` in a text editor and delete all the content.
    
 2. Prepare the scaffolding for the pallet by adding the following:
 
@@ -34547,9 +34563,9 @@ Implementing the `#[pallet::config]` macro is mandatory and sets the module's de
 
 In this step, you will configure two essential components that are critical for the pallet's functionality:
 
-- **`RuntimeEvent`** - since this pallet emits events, the [`RuntimeEvent`](https://paritytech.github.io/polkadot-sdk/master/frame_system/pallet/trait.Config.html#associatedtype.RuntimeEvent){target=\_blank} type is required to handle them. This ensures that events generated by the pallet can be correctly processed and interpreted by the runtime
+- **`RuntimeEvent`**: Since this pallet emits events, the [`RuntimeEvent`](https://paritytech.github.io/polkadot-sdk/master/frame_system/pallet/trait.Config.html#associatedtype.RuntimeEvent){target=\_blank} type is required to handle them. This ensures that events generated by the pallet can be correctly processed and interpreted by the runtime.
 
-- **`CounterMaxValue`** - a constant that sets an upper limit on the value of the counter, ensuring that the counter remains within a predefined range
+- **`CounterMaxValue`**: A constant that sets an upper limit on the value of the counter, ensuring that the counter remains within a predefined range.
 
 Add the following `Config` trait definition to your pallet:
 
@@ -34570,19 +34586,19 @@ Events allow the pallet to communicate with the outside world by emitting signal
 
 Below are the events defined for this pallet:
 
-- **`CounterValueSet`** - is emitted when the counter is explicitly set to a new value. This event includes the counter's updated value
+- **`CounterValueSet`**: Is emitted when the counter is explicitly set to a new value. This event includes the counter's updated value.
 
-- **`CounterIncremented`** - is emitted after a successful increment operation. It includes:
+- **`CounterIncremented`**: Is emitted after a successful increment operation. It includes.
 
-    - The new counter value
-    - The account responsible for the increment
-    - The amount by which the counter was incremented
+    - The new counter value.
+    - The account responsible for the increment.
+    - The amount by which the counter was incremented.
 
-- **`CounterDecremented`** - is emitted after a successful decrement operation. It includes:
+- **`CounterDecremented`**: Is emitted after a successful decrement operation. It includes.
 
-    - The new counter value
-    - The account responsible for the decrement
-    - The amount by which the counter was decremented
+    - The new counter value.
+    - The account responsible for the decrement.
+    - The amount by which the counter was decremented.
 
 Define the events in the pallet as follows:
 
@@ -34619,9 +34635,9 @@ Define the events in the pallet as follows:
 
 Storage items are used to manage the pallet's state. This pallet defines two items to handle the counter's state and user interactions:
 
-- **`CounterValue`** - a single storage value that keeps track of the current value of the counter. This value is the core state variable manipulated by the pallet's functions
+- **`CounterValue`**: A single storage value that keeps track of the current value of the counter. This value is the core state variable manipulated by the pallet's functions.
 
-- **`UserInteractions`** - a storage map that tracks the number of times each account interacts with the counter
+- **`UserInteractions`**: A storage map that tracks the number of times each account interacts with the counter.
   
 Define the storage items as follows:
 
@@ -34703,13 +34719,13 @@ Expand the following items to view the implementations of each dispatchable call
 ???- code "set_counter_value(origin: OriginFor<T>, new_value: u32) -> DispatchResult"
     This call sets the counter to a specific value. It is restricted to the Root origin, meaning it can only be invoked by privileged users or entities.
 
-    - **Parameters**:
-        - `new_value` - the value to set the counter to
-    - **Validations**:
-        - The new value must not exceed the maximum allowed counter value (`CounterMaxValue`)
-    - **Behavior**:
-        - Updates the `CounterValue` storage item
-        - Emits a `CounterValueSet` event on success
+    - Parameters:
+        - **`new_value`**: The value to set the counter to.
+    - Validations:
+        - The new value must not exceed the maximum allowed counter value (`CounterMaxValue`).
+    - Behavior:
+        - Updates the `CounterValue` storage item.
+        - Emits a `CounterValueSet` event on success.
 
     ```rust title="lib.rs"
     ///
@@ -34740,15 +34756,15 @@ Expand the following items to view the implementations of each dispatchable call
 ???- code "increment(origin: OriginFor<T>, amount_to_increment: u32) -> DispatchResult"
     This call increments the counter by a specified amount. It is accessible to any signed account.
 
-    - **Parameters**:
-        - `amount_to_increment` - the amount to add to the counter
-    - **Validations**:
-        - Prevents overflow during the addition
-        - Ensures the resulting counter value does not exceed `CounterMaxValue`
-    - **Behavior**:
-        - Updates the `CounterValue` storage item
-        - Tracks the number of interactions by the user in the `UserInteractions` storage map
-        - Emits a `CounterIncremented` event on success
+    - Parameters:
+        - **`amount_to_increment`**: The amount to add to the counter.
+    - Validations:
+        - Prevents overflow during the addition.
+        - Ensures the resulting counter value does not exceed `CounterMaxValue`.
+    - Behavior:
+        - Updates the `CounterValue` storage item.
+        - Tracks the number of interactions by the user in the `UserInteractions` storage map.
+        - Emits a `CounterIncremented` event on success.
 
     ```rust title="lib.rs"
     ///
@@ -34797,15 +34813,15 @@ Expand the following items to view the implementations of each dispatchable call
 ???- code "decrement(origin: OriginFor<T>, amount_to_decrement: u32) -> DispatchResult"
     This call decrements the counter by a specified amount. It is accessible to any signed account.
 
-    - **Parameters**:
-        - `amount_to_decrement` - the amount to subtract from the counter
-    - **Validations**:
-        - Prevents underflow during the subtraction
-        - Ensures the counter does not drop below zero
-    - **Behavior**:
-        - Updates the `CounterValue` storage item
-        - Tracks the number of interactions by the user in the `UserInteractions` storage map
-        - Emits a `CounterDecremented` event on success
+    - Parameters:
+        - **`amount_to_decrement`**: The amount to subtract from the counter.
+    - Validations:
+        - Prevents underflow during the subtraction.
+        - Ensures the counter does not drop below zero.
+    - Behavior:
+        - Updates the `CounterValue` storage item.
+        - Tracks the number of interactions by the user in the `UserInteractions` storage map.
+        - Emits a `CounterDecremented` event on success.
 
     ```rust title="lib.rs"
     ///
@@ -35268,21 +35284,22 @@ The [Polkadot.js Apps](https://polkadot.js.org/apps/){target=\_blank} interface 
 
 To prepare an account, follow these steps:
 
-1. Open the [Polkadot.js Apps](https://polkadot.js.org/apps/){target=\_blank} interface and connect to the Paseo network. Alternatively use this link to connect directly to Paseo: [Polkadot.js Apps: Paseo](https://polkadot.js.org/apps/?rpc=wss://paseo.dotters.network#/explorer){target=\_blank}
+1. Open the [Polkadot.js Apps: Paseo](https://polkadot.js.org/apps/?rpc=wss://paseo.dotters.network#/explorer){target=\_blank} interface and connect to the Paseo network. Alternatively use this link to connect directly to Paseo.
 
     ![](/images/tutorials/polkadot-sdk/parachains/zero-to-hero/deploy-to-testnet/deploy-to-testnet-1.webp)
 
-2. Navigate to the **Accounts** section
-    1. Click on the **Accounts** tab in the top menu
-    2. Select the **Accounts** option from the dropdown menu
+2. Navigate to the **Accounts** section:
+
+    1. Click on the **Accounts** tab in the top menu.
+    2. Select the **Accounts** option from the dropdown menu.
   
     ![](/images/tutorials/polkadot-sdk/parachains/zero-to-hero/deploy-to-testnet/deploy-to-testnet-2.webp)
 
-3. Copy the address of the account you want to use for the parachain deployment
+3. Copy the address of the account you want to use for the parachain deployment.
 
     ![](/images/tutorials/polkadot-sdk/parachains/zero-to-hero/deploy-to-testnet/deploy-to-testnet-3.webp)
 
-4. Visit the [Polkadot Faucet](https://faucet.polkadot.io){target=\_blank} and paste the copied address in the input field. Ensure that the network is set to Paseo and click on the **Get some PASs** button
+4. Visit the [Polkadot Faucet](https://faucet.polkadot.io){target=\_blank} and paste the copied address in the input field. Ensure that the network is set to Paseo and click on the **Get some PASs** button.
 
     ![](/images/tutorials/polkadot-sdk/parachains/zero-to-hero/deploy-to-testnet/deploy-to-testnet-4.webp)
 
@@ -35294,25 +35311,27 @@ You must reserve a parachain identifier (ID) before registering your parachain o
 
 To reserve a parachain identifier, follow these steps:
 
-1. Navigate to the **Parachains** section
-    1. Click on the **Network** tab in the top menu
-    2. Select the **Parachains** option from the dropdown menu
+1. Navigate to the **Parachains** section:
+
+    1. Click on the **Network** tab in the top menu.
+    2. Select the **Parachains** option from the dropdown menu.
 
     ![](/images/tutorials/polkadot-sdk/parachains/zero-to-hero/deploy-to-testnet/deploy-to-testnet-5.webp)
 
-2. Register a ParaId
-    1. Select the **Parathreads** tab
-    2. Click on the **+ ParaId** button
+2. Register a ParaId:
+
+    1. Select the **Parathreads** tab.
+    2. Click on the **+ ParaId** button.
 
     ![](/images/tutorials/polkadot-sdk/parachains/zero-to-hero/deploy-to-testnet/deploy-to-testnet-6.webp)
 
-3. Review the transaction and click on the **+ Submit** button
+3. Review the transaction and click on the **+ Submit** button.
 
     ![](/images/tutorials/polkadot-sdk/parachains/zero-to-hero/deploy-to-testnet/deploy-to-testnet-7.webp)
 
     For this case, the next available parachain identifier is `4508`.
 
-4. After submitting the transaction, you can navigate to the **Explorer** tab and check the list of recent events for successful `registrar.Reserved`
+4. After submitting the transaction, you can navigate to the **Explorer** tab and check the list of recent events for successful `registrar.Reserved`.
 
     ![](/images/tutorials/polkadot-sdk/parachains/zero-to-hero/deploy-to-testnet/deploy-to-testnet-8.webp)
 
@@ -35320,9 +35339,9 @@ To reserve a parachain identifier, follow these steps:
 
 To securely deploy your parachain, it is essential to generate custom keys specifically for your collators (block producers). You should generate two sets of keys for each collator:
 
-- **Account keys** - used to interact with the network and manage funds. These should be protected carefully and should never exist on the filesystem of the collator node
+- **Account keys**: Used to interact with the network and manage funds. These should be protected carefully and should never exist on the filesystem of the collator node.
 
-- **Session keys** - used in block production to identify your node and its blocks on the network. These keys are stored in the parachain keystore and function as disposable "hot wallet" keys. If these keys are leaked, someone could impersonate your node, which could result in the slashing of your funds. To minimize these risks, rotating your session keys frequently is essential. Treat them with the same level of caution as you would a hot wallet to ensure the security of your node
+- **Session keys**: Used in block production to identify your node and its blocks on the network. These keys are stored in the parachain keystore and function as disposable "hot wallet" keys. If these keys are leaked, someone could impersonate your node, which could result in the slashing of your funds. To minimize these risks, rotating your session keys frequently is essential. Treat them with the same level of caution as you would a hot wallet to ensure the security of your node.
 
 To perform this step, you can use [subkey](https://docs.rs/crate/subkey/latest){target=\_blank}, a command-line tool for generating and managing keys:
 
@@ -35343,8 +35362,8 @@ Ensure that this command is executed twice to generate the keys for both the acc
 
 Polkadot SDK-based blockchains are defined by a file called the [chain specification](/develop/parachains/deployment/generate-chain-specs/){target=\_blank}, or chain spec for short. There are two types of chain spec files:
 
-- **Plain chain spec** - a human-readable JSON file that can be modified to suit your parachain's requirements. It serves as a template for initial configuration and includes human-readable keys and structures
-- **Raw chain spec** - a binary-encoded file used to start your parachain node. This file is generated from the plain chain spec and contains the encoded information necessary for the parachain node to synchronize with the blockchain network. It ensures compatibility across different runtime versions by providing data in a format directly interpretable by the node's runtime, regardless of upgrades since the chain's genesis
+- **Plain chain spec**: A human-readable JSON file that can be modified to suit your parachain's requirements. It serves as a template for initial configuration and includes human-readable keys and structures.
+- **Raw chain spec**: A binary-encoded file used to start your parachain node. This file is generated from the plain chain spec and contains the encoded information necessary for the parachain node to synchronize with the blockchain network. It ensures compatibility across different runtime versions by providing data in a format directly interpretable by the node's runtime, regardless of upgrades since the chain's genesis.
 
 The chain spec file is only required during the initial blockchain creation (genesis). You do not need to generate a new chain spec when performing runtime upgrades after your chain is already running.
 
@@ -35366,11 +35385,11 @@ To define your chain specification:
 
 2. Edit the `plain_chain_spec.json` file:
 
-    - Update the `name`, `id`, and `protocolId` fields to unique values for your parachain
-    - Change `para_id` and `parachainInfo.parachainId` fields to the parachain ID you obtained previously. Make sure to use a number without quotes
-    - Modify the `balances` field to specify the initial balances for your accounts in SS58 format
-    - Insert the account IDs and session keys in SS58 format generated for your collators in the `collatorSelection.invulnerables` and `session.keys` fields
-    - Modify the `sudo` value to specify the account that will have sudo access to the parachain
+    - Update the `name`, `id`, and `protocolId` fields to unique values for your parachain.
+    - Change `para_id` and `parachainInfo.parachainId` fields to the parachain ID you obtained previously. Make sure to use a number without quotes.
+    - Modify the `balances` field to specify the initial balances for your accounts in SS58 format.
+    - Insert the account IDs and session keys in SS58 format generated for your collators in the `collatorSelection.invulnerables` and `session.keys` fields.
+    - Modify the `sudo` value to specify the account that will have sudo access to the parachain.
   
     ```json
     {
@@ -35509,7 +35528,7 @@ To define your chain specification:
 }
         ```
 
-3. Save your changes and close the plain text chain specification file
+3. Save your changes and close the plain text chain specification file.
 
 4. Convert the modified plain chain specification file to a raw chain specification file:
 
@@ -35552,13 +35571,13 @@ To prepare the parachain collator to be registered on Paseo, follow these steps:
 
 Once you have the genesis state and runtime, you can now register these with your parachain ID.
 
-1. Go to the [Parachains > Parathreads](https://polkadot.js.org/apps/#/parachains/parathreads){target=\_blank} tab, and select **+ Parathread**
+1. Go to the [Parachains > Parathreads](https://polkadot.js.org/apps/#/parachains/parathreads){target=\_blank} tab, and select **+ Parathread**.
    
-2. You should see fields to place your runtime Wasm and genesis state respectively, along with the parachain ID. Select your parachain ID, and upload `para-wasm` in the **code** field and `para-state` in the **initial state** field:
+2. You should see fields to place your runtime Wasm and genesis state respectively, along with the parachain ID. Select your parachain ID, and upload `para-wasm` in the **code** field and `para-state` in the **initial state** field.
 
     ![](/images/tutorials/polkadot-sdk/parachains/zero-to-hero/deploy-to-testnet/deploy-to-testnet-9.webp)
    
-3. Confirm your details and **+ Submit** button, where there should be a new Parathread with your parachain ID and an active **Deregister** button:
+3. Confirm your details and **+ Submit** button, where there should be a new Parathread with your parachain ID and an active **Deregister** button.
 
     ![](/images/tutorials/polkadot-sdk/parachains/zero-to-hero/deploy-to-testnet/deploy-to-testnet-10.webp)
 
@@ -35634,8 +35653,8 @@ Once your collator is synced with the Paseo relay chain, and your parathread fin
 
 With your parachain collator operational, the next step is acquiring coretime. This is essential for ensuring your parachain's security through the relay chain. [Agile Coretime](https://wiki.polkadot.network/learn/learn-agile-coretime/){target=\_blank} enhances Polkadot's resource management, offering developers greater economic adaptability. Once you have configured your parachain, you can follow two paths:
 
-- Bulk coretime is purchased via the Broker pallet on the respective coretime system parachain. You can purchase bulk coretime on the coretime chain and assign the purchased core to the registered `ParaID`
-- On-demand coretime is ordered via the `OnDemandAssignment` pallet, which is located on the respective relay chain
+- Bulk coretime is purchased via the Broker pallet on the respective coretime system parachain. You can purchase bulk coretime on the coretime chain and assign the purchased core to the registered `ParaID`.
+- On-demand coretime is ordered via the `OnDemandAssignment` pallet, which is located on the respective relay chain.
 
 Once coretime is correctly assigned to your parachain, whether bulk or on-demand, blocks should be produced (provided your collator is running).
 
@@ -35689,24 +35708,24 @@ After deploying a parachain to the Paseo TestNet in the [Deploy to TestNet](/tut
 
 There are two ways to obtain coretime:
 
-- **[On-demand coretime](#order-on-demand-coretime)** - on-demand coretime allows you to buy coretime on a block-by-block basis
-- **[Bulk coretime](#purchase-bulk-coretime)** - bulk coretime allows you to obtain a core or part of a core. It is purchased for some time, up to 28 days. It must be renewed once the lease finishes
+- **[On-demand coretime](#order-on-demand-coretime)**: On-demand coretime allows you to buy coretime on a block-by-block basis.
+- **[Bulk coretime](#purchase-bulk-coretime)**: Bulk coretime allows you to obtain a core or part of a core. It is purchased for some time, up to 28 days. It must be renewed once the lease finishes.
 
 In this tutorial, you will:
 
-- Learn about the different coretime interfaces available
-- Learn how to purchase a core via bulk coretime
-- Assign a task / parachain to the core for block production
-- Alternatively, use on-demand coretime to produce blocks as required
+- Learn about the different coretime interfaces available.
+- Learn how to purchase a core via bulk coretime.
+- Assign a task / parachain to the core for block production.
+- Alternatively, use on-demand coretime to produce blocks as required.
 
 ## Prerequisites 
 
 Before proceeding, you should have the following items:
 
-- A parachain ID
-- A chain specification
-- A registered parathread with the correct genesis, runtime, and parachain ID that matches the chain specification
-- A properly configured and synced (with the relay chain) collator
+- A parachain ID.
+- A chain specification.
+- A registered parathread with the correct genesis, runtime, and parachain ID that matches the chain specification.
+- A properly configured and synced (with the relay chain) collator.
 
 Once the above is complete, obtaining coretime is the last step to enable your parachain to start producing and finalizing blocks using the relay chain's validator set. If you don't, refer to the previous tutorial: [Deploy on Paseo TestNet](/tutorials/polkadot-sdk/parachains/zero-to-hero/deploy-to-testnet/){target=\_blank}.
 
@@ -35714,8 +35733,8 @@ Once the above is complete, obtaining coretime is the last step to enable your p
 
 There are two extrinsics which allow you to place orders for on-demand coretime:
 
-- [**`onDemand.placeOrderAllowDeath`**](https://paritytech.github.io/polkadot-sdk/master/polkadot_runtime_parachains/on_demand/pallet/dispatchables/fn.place_order_allow_death.html){target=\_blank} - will [reap](https://wiki.polkadot.network/learn/learn-accounts/#existential-deposit-and-reaping){target=\_blank} the account once the provided funds run out
-- [**`onDemand.placeOrderKeepAlive`**](https://paritytech.github.io/polkadot-sdk/master/polkadot_runtime_parachains/on_demand/pallet/dispatchables/fn.place_order_keep_alive.html){target=\_blank} - includes a check that will **not** reap the account if the provided funds run out, ensuring the account is kept alive
+- **[`onDemand.placeOrderAllowDeath`](https://paritytech.github.io/polkadot-sdk/master/polkadot_runtime_parachains/on_demand/pallet/dispatchables/fn.place_order_allow_death.html){target=\_blank}**: Will [reap](https://wiki.polkadot.network/learn/learn-accounts/#existential-deposit-and-reaping){target=\_blank} the account once the provided funds run out.
+- **[`onDemand.placeOrderKeepAlive`](https://paritytech.github.io/polkadot-sdk/master/polkadot_runtime_parachains/on_demand/pallet/dispatchables/fn.place_order_keep_alive.html){target=\_blank}**: Includes a check that will **not** reap the account if the provided funds run out, ensuring the account is kept alive.
 
 To produce a block in your parachain, navigate to Polkadot.js Apps and ensure you're connected to the Paseo relay chain. Then, access the [**Developer > Extrinsics**](https://polkadot.js.org/apps/#/extrinsics){target=\_blank} tab and execute the `onDemand.placeOrderAllowDeath` extrinsic from the account that registered the `ParaID`. For this example, `maxAmount` is set to `1000000000000` (this value may vary depending on the network conditions), and `paraId` is set to `4518`:
 
@@ -35807,9 +35826,9 @@ allocation within the runtime.
 
 This tutorial demonstrates how to:
 
-- Configure your development environment for benchmarking
-- Create and implement benchmark tests for your extrinsics
-- Apply benchmark results to your pallet's extrinsics
+- Configure your development environment for benchmarking.
+- Create and implement benchmark tests for your extrinsics.
+- Apply benchmark results to your pallet's extrinsics.
 
 For comprehensive information about benchmarking concepts, refer to the [Benchmarking](/develop/parachains/testing/benchmarking/){target=\_blank} guide.
 
@@ -35824,6 +35843,7 @@ Follow these steps to prepare your environment for pallet benchmarking:
     ```
 
 2. Update your pallet's `Cargo.toml` file in the `pallets/custom-pallet` directory by adding the `runtime-benchmarks` feature flag:
+
     ```toml hl_lines="4" title="Cargo.toml"
     [package]
 name = "custom-pallet"
@@ -35846,7 +35866,9 @@ runtime-benchmarks = ["frame/runtime-benchmarks"]
     ```
 
 3. Add your pallet to the runtime's benchmark configuration:
+
     1.  Register your pallet in `runtime/src/benchmarks.rs`:
+
         ```rust hl_lines="11" title="benchmarks.rs"
         [frame_system, SystemBench::<Runtime>]
     [pallet_balances, Balances]
@@ -35862,6 +35884,7 @@ runtime-benchmarks = ["frame/runtime-benchmarks"]
         ```
 
     2. Enable runtime benchmarking for your pallet in `runtime/Cargo.toml`:
+
         ```toml hl_lines="6" title="Cargo.toml"
         runtime-benchmarks = [
 	"cumulus-pallet-parachain-system/runtime-benchmarks",
@@ -35874,11 +35897,13 @@ runtime-benchmarks = ["frame/runtime-benchmarks"]
 
 4. Set up the benchmarking module in your pallet:
     1. Create a `benchmarking.rs` file in your pallet's `src/` directory:
+    
         ```bash
         touch benchmarking.rs
         ```
 
     2. Add the benchmarking module to your pallet. In the pallet `lib.rs` file add the following:
+
         ```rust hl_lines="9-10" title="lib.rs"
         pub use pallet::*;
 
@@ -35900,9 +35925,9 @@ When writing benchmarking tests for your pallet, you'll create specialized test 
 
 Every benchmark test must follow a three-step pattern:
 
-1. **Setup** - perform any necessary setup before calling the extrinsic. This might include creating accounts, setting initial states, or preparing test data
-2. **Execute the extrinsic** - execute the actual extrinsic using the [`#[extrinsic_call]`](https://paritytech.github.io/polkadot-sdk/master/frame_benchmarking/v2/attr.extrinsic_call.html){target=\_blank} macro. This must be a single line that calls your extrinsic function with the origin as its first argument
-3. **Verification** - check that the extrinsic worked correctly within the benchmark context by checking the expected state changes
+1. **Setup**: Perform any necessary setup before calling the extrinsic. This might include creating accounts, setting initial states, or preparing test data.
+2. **Execute the extrinsic**: Execute the actual extrinsic using the [`#[extrinsic_call]`](https://paritytech.github.io/polkadot-sdk/master/frame_benchmarking/v2/attr.extrinsic_call.html){target=\_blank} macro. This must be a single line that calls your extrinsic function with the origin as its first argument.
+3. **Verification**: Check that the extrinsic worked correctly within the benchmark context by checking the expected state changes.
 
 Check the following example on how to benchmark the `increment` extrinsic:
 
@@ -35925,9 +35950,9 @@ fn increment() {
 
 This benchmark test:
 
-1. Creates a whitelisted caller and sets an initial counter value of 5
-2. Calls the increment extrinsic to increase the counter by 1
-3. Verifies that the counter was properly incremented to 6 and that the user's interaction was recorded in storage
+1. Creates a whitelisted caller and sets an initial counter value of 5.
+2. Calls the increment extrinsic to increase the counter by 1.
+3. Verifies that the counter was properly incremented to 6 and that the user's interaction was recorded in storage.
 
 This example demonstrates how to properly set up state, execute an extrinsic, and verify its effects during benchmarking.
 
@@ -36157,16 +36182,16 @@ This tutorial will guide you through creating a unit testing suite for a custom 
 
 To set up your testing environment for Polkadot SDK pallets, you'll need:
 
-- [Polkadot SDK dependencies](/develop/parachains/install-polkadot-sdk/){target=\_blank} installed
-- Basic understanding of Substrate/Polkadot SDK concepts
-- A custom pallet implementation, check the [Build a Custom Pallet](/tutorials/polkadot-sdk/parachains/zero-to-hero/build-custom-pallet/){target=\_blank} tutorial
-- Familiarity with [Rust testing frameworks](https://doc.rust-lang.org/book/ch11-01-writing-tests.html){target=\_blank}
+- [Polkadot SDK dependencies](/develop/parachains/install-polkadot-sdk/){target=\_blank} installed.
+- Basic understanding of Substrate/Polkadot SDK concepts.
+- A custom pallet implementation, check the [Build a Custom Pallet](/tutorials/polkadot-sdk/parachains/zero-to-hero/build-custom-pallet/){target=\_blank} tutorial.
+- Familiarity with [Rust testing frameworks](https://doc.rust-lang.org/book/ch11-01-writing-tests.html){target=\_blank}.
 
 ## Set Up the Testing Environment
 
 To effectively create the test environment for your pallet, you'll need to follow these steps:
 
-1. Move to the project directory
+1. Move to the project directory:
 
     ```bash
     cd custom-pallet
@@ -36317,9 +36342,9 @@ pub fn new_test_ext() -> TestExternalities {
 
 Explanation of the additions:
 
-- **System pallet configuration** - implements the `frame_system::Config` trait for the mock runtime, setting up the basic system functionality and specifying the block type
-- **Custom pallet configuration** - defines the `Config` trait for the `custom-pallet`, including a constant (`CounterMaxValue`) to set the maximum allowed counter value. In this case, that value is set to 10 for testing purposes
-- **Test externalities initialization** - the `new_test_ext()` function initializes the mock runtime with default configurations, creating a controlled environment for testing
+- **System pallet configuration**: Implements the `frame_system::Config` trait for the mock runtime, setting up the basic system functionality and specifying the block type.
+- **Custom pallet configuration**: Defines the `Config` trait for the `custom-pallet`, including a constant (`CounterMaxValue`) to set the maximum allowed counter value. In this case, that value is set to 10 for testing purposes.
+- **Test externalities initialization**: The `new_test_ext()` function initializes the mock runtime with default configurations, creating a controlled environment for testing.
 
 ### Full Mocked Runtime
 
@@ -37066,23 +37091,23 @@ For more information about runtime versioning, check the [Runtime Upgrades](/dev
 
 ### Build the New Runtime
 
-Navigate to your project root:
+1. Navigate to your project root:
 
-```bash
-cd /path/to/your/parachain-template
-```
+    ```bash
+    cd /path/to/your/parachain-template
+    ```
 
-Build the new runtime:
+2. Build the new runtime:
 
-```bash
-cargo build --release
-```
+    ```bash
+    cargo build --release
+    ```
 
-Verify that you have the proper WASM builds by executing:
+3. Verify that you have the proper WASM builds by executing:
 
-```
-ls -la target/release/wbuild/parachain-template-runtime/
-```
+    ```
+    ls -la target/release/wbuild/parachain-template-runtime/
+    ```
 
 If you can see the following elements, it means that you are ready to submit the runtime upgrade to your running chain:
 
@@ -37098,30 +37123,33 @@ If you can see the following elements, it means that you are ready to submit the
 
 You can submit a runtime upgrade using the [Sudo pallet](https://paritytech.github.io/polkadot-sdk/master/pallet_sudo/index.html){target=\_blank} (for development chains) or via on-chain governance (for production chains).
 
-1. Open [Polkadot.js Apps](https://polkadot.js.org/apps/){target=\_blank} and connect to your node
-2. Click on the **Developer** and select the **Extrinsics** option in the dropdown
+1. Open [Polkadot.js Apps](https://polkadot.js.org/apps/){target=\_blank} and connect to your node.
+2. Click on the **Developer** and select the **Extrinsics** option in the dropdown.
 
     ![](/images/tutorials/polkadot-sdk/parachains/zero-to-hero/runtime-upgrade/runtime-upgrade-02.webp) 
 
 3. Prepare the **sudo** call:
-    1. Select the **sudo** pallet
-    2. Select the **sudo(call)** extrinsic from the list
+
+    1. Select the **sudo** pallet.
+    2. Select the **sudo(call)** extrinsic from the list.
 
         ![](/images/tutorials/polkadot-sdk/parachains/zero-to-hero/runtime-upgrade/runtime-upgrade-03.webp) 
 
 4. In the **sudo** call:
-    1. Select the **system** call
-    2. Select **setCode** extrinsic from the list
+
+    1. Select the **system** call.
+    2. Select **setCode** extrinsic from the list.
 
         ![](/images/tutorials/polkadot-sdk/parachains/zero-to-hero/runtime-upgrade/runtime-upgrade-04.webp) 
 
 5. For the `code` parameter, click **file upload** and select your WASM runtime file:
-    - Use `parachain_template_runtime.compact.compressed.wasm` if available (smaller file)
-    - Otherwise, use `parachain_template_runtime.wasm`
+
+    - Use `parachain_template_runtime.compact.compressed.wasm` if available (smaller file).
+    - Otherwise, use `parachain_template_runtime.wasm`.
 
         ![](/images/tutorials/polkadot-sdk/parachains/zero-to-hero/runtime-upgrade/runtime-upgrade-05.webp) 
 
-6. Click **Submit Transaction** and sign the transaction with the sudo key
+6. Click **Submit Transaction** and sign the transaction with the sudo key.
 
     ![](/images/tutorials/polkadot-sdk/parachains/zero-to-hero/runtime-upgrade/runtime-upgrade-06.webp) 
 
@@ -37134,39 +37162,41 @@ After the runtime upgrade extrinsic is included in a block, verify that the upgr
 
 ### Check Runtime Version
 
-1. In Polkadot.js Apps, navigate to the **Chain State** section
-    1. Click the **Developer** dropdown
-    2. Click the **Chain State** option
+1. In Polkadot.js Apps, navigate to the **Chain State** section:
+
+    1. Click the **Developer** dropdown.
+    2. Click the **Chain State** option.
 
         ![](/images/tutorials/polkadot-sdk/parachains/zero-to-hero/runtime-upgrade/runtime-upgrade-07.webp) 
 
-2. Query runtime spec version
-    1. Select the **System** pallet
-    2. Select the **lastRuntimeUpgrade()** query
+2. Query runtime spec version:
+
+    1. Select the **System** pallet.
+    2. Select the **lastRuntimeUpgrade()** query.
 
         ![](/images/tutorials/polkadot-sdk/parachains/zero-to-hero/runtime-upgrade/runtime-upgrade-08.webp) 
 
-3. Click the **+** button to query the current runtime version
+3. Click the **+** button to query the current runtime version.
 
     ![](/images/tutorials/polkadot-sdk/parachains/zero-to-hero/runtime-upgrade/runtime-upgrade-09.webp) 
 
-4. Verify that the `specVersion` matches your new runtime (should be `2` if you followed the example)
+4. Verify that the `specVersion` matches your new runtime (should be `2` if you followed the example).
 
     ![](/images/tutorials/polkadot-sdk/parachains/zero-to-hero/runtime-upgrade/runtime-upgrade-10.webp) 
 
 ### Test New Functionality
 
-1. Navigate to **Developer > Extrinsics**
-2. Select your custom pallet from the dropdown
-3. You should now see the new `resetCounter` function available
+1. Navigate to **Developer > Extrinsics**.
+2. Select your custom pallet from the dropdown.
+3. You should now see the new `resetCounter` function available.
 
-    ![](/images/tutorials/polkadot-sdk/parachains/zero-to-hero/runtime-upgrade/runtime-upgrade-11.webp) 
+![](/images/tutorials/polkadot-sdk/parachains/zero-to-hero/runtime-upgrade/runtime-upgrade-11.webp) 
 
 Now, you can test the new functionality:
 
-- First, increment the counter using your existing function
-- Then use the new reset function (note: you'll need sudo/root privileges)
-- Verify the counter value is reset to 0
+- First, increment the counter using your existing function.
+- Then use the new reset function (note: You'll need sudo/root privileges).
+- Verify the counter value is reset to 0.
 
 ## Where to Go Next
 
@@ -37204,10 +37234,10 @@ The parachain template provides a pre-configured, functional runtime you can use
 These predefined elements allow you to experiment with common blockchain operations without requiring initial template modifications.
 In this tutorial, you will:
 
-- Build and start a local parachain node using the node template
+- Build and start a local parachain node using the node template.
 - Explore how to use a front-end interface to:
-    - View information about blockchain activity
-    - Submit a transaction
+    - View information about blockchain activity.
+    - Submit a transaction.
 
 By the end of this tutorial, you'll have a working local parachain and understand how to interact with it, setting the foundation for further customization and development.
 
@@ -37215,7 +37245,7 @@ By the end of this tutorial, you'll have a working local parachain and understan
 
 Before getting started, ensure you have done the following:
 
-- Completed the [Install Polkadot SDK Dependencies](/develop/parachains/install-polkadot-sdk/){target=\_blank} guide and successfully installed [Rust](https://www.rust-lang.org/){target=\_blank} and the required packages to set up your development environment
+- Completed the [Install Polkadot SDK Dependencies](/develop/parachains/install-polkadot-sdk/){target=\_blank} guide and successfully installed [Rust](https://www.rust-lang.org/){target=\_blank} and the required packages to set up your development environment.
 
 For this tutorial series, you need to use Rust `1.86`. Newer versions of the compiler may not work with this parachain template version.
 
@@ -37231,7 +37261,7 @@ rustup component add rust-src --toolchain 1.86-aarch64-apple-darwin
 
 This tutorial requires two essential tools:
 
-- [**Chain spec builder**](https://crates.io/crates/staging-chain-spec-builder/{{dependencies.repositories.polkadot_sdk_parachain_template.subdependencies.chain_spec_builder_version}}){target=\_blank} - is a Polkadot SDK utility for generating chain specifications. Refer to the [Generate Chain Specs](/develop/parachains/deployment/generate-chain-specs/){target=\_blank} documentation for detailed usage.
+- [**Chain spec builder**](https://crates.io/crates/staging-chain-spec-builder/{{dependencies.repositories.polkadot_sdk_parachain_template.subdependencies.chain_spec_builder_version}}){target=\_blank}: A Polkadot SDK utility for generating chain specifications. Refer to the [Generate Chain Specs](/develop/parachains/deployment/generate-chain-specs/){target=\_blank} documentation for detailed usage.
     
     Install it by executing the following command:
     
@@ -37241,7 +37271,7 @@ This tutorial requires two essential tools:
 
     This installs the `chain-spec-builder` binary.
 
-- [**Polkadot Omni Node**](https://crates.io/crates/polkadot-omni-node/{{dependencies.repositories.polkadot_sdk_parachain_template.subdependencies.polkadot_omni_node_version}}){target=\_blank} - is a white-labeled binary, released as a part of Polkadot SDK that can act as the collator of a parachain in production, with all the related auxiliary functionalities that a normal collator node has: RPC server, archiving state, etc. Moreover, it can also run the wasm blob of the parachain locally for testing and development.
+- [**Polkadot Omni Node**](https://crates.io/crates/polkadot-omni-node/{{dependencies.repositories.polkadot_sdk_parachain_template.subdependencies.polkadot_omni_node_version}}){target=\_blank}: A white-labeled binary, released as a part of Polkadot SDK that can act as the collator of a parachain in production, with all the related auxiliary functionalities that a normal collator node has: RPC server, archiving state, etc. Moreover, it can also run the wasm blob of the parachain locally for testing and development.
 
     To install it, run the following command:
 
@@ -37256,16 +37286,19 @@ This tutorial requires two essential tools:
 The [Polkadot SDK Parachain Template](https://github.com/paritytech/polkadot-sdk/tree/master/templates/parachain){target=\_blank} provides a ready-to-use development environment for building using the [Polkadot SDK](https://github.com/paritytech/polkadot-sdk){target=\_blank}. Follow these steps to compile the runtime:
 
 1. Clone the template repository:
+
     ```bash
     git clone -b v0.0.4 https://github.com/paritytech/polkadot-sdk-parachain-template.git parachain-template
     ```
 
 2. Navigate into the project directory:
+
     ```bash
     cd parachain-template
     ```
 
 3. Compile the runtime:
+
     ```bash
     cargo build --release --locked
     ```
@@ -37276,6 +37309,7 @@ The [Polkadot SDK Parachain Template](https://github.com/paritytech/polkadot-sdk
         For production deployments, consider using a dedicated [`--profile production`](https://github.com/paritytech/polkadot-sdk-parachain-template/blob/v0.0.4/Cargo.toml#L42-L45){target=\_blank} flag - this can provide an additional 15-30% performance improvement over the standard `--release` profile.
 
 4. Upon successful compilation, you should see output similar to:
+
     <div id="termynal" data-termynal>
   <span data-ty="input"><span class="file-path"></span>cargo build --release --locked</span>
   <span data-ty>...</span>
@@ -37307,10 +37341,11 @@ Follow these steps to launch your node in development mode:
 
     The `--dev` option does the following:
 
-    - Deletes all active data (keys, blockchain database, networking information) when stopped
-    - Ensures a clean working state each time you restart the node
+    - Deletes all active data (keys, blockchain database, networking information) when stopped.
+    - Ensures a clean working state each time you restart the node.
 
 3. Verify that your node is running by reviewing the terminal output. You should see something similar to:
+
     <div id="termynal" data-termynal>
   <span data-ty="input"><span class="file-path"></span>polkadot-omni-node --chain ./chain_spec.json --dev</span>
   <br />
@@ -37339,7 +37374,8 @@ Follow these steps to launch your node in development mode:
   <span data-ty>...</span>
 </div>
 
-4. Confirm that your blockchain is producing new blocks by checking if the number after `finalized` is increasing
+4. Confirm that your blockchain is producing new blocks by checking if the number after `finalized` is increasing.
+
     <div id="termynal" data-termynal>
   <span data-ty>...</span>
   <span data-ty>2024-12-12 12:49:20 [Parachain] 💤 Idle (0 peers), best: #1 (0x6fbe…e34b), finalized #1 (0x6fbe…e34b), ⬇ 0 ⬆ 0</span>
@@ -37361,16 +37397,18 @@ When running the template node, it's accessible by default at `ws://localhost:99
     ![](/images/tutorials/polkadot-sdk/parachains/zero-to-hero/set-up-a-template/set-up-a-template-1.webp)
 
 2. Connect to your local node:
-    1. Scroll to the bottom and select **Development**
-    2. Choose **Custom**
-    3. Enter `ws://localhost:9944` in the input field
-    4. Click the **Switch** button
+
+    1. Scroll to the bottom and select **Development**.
+    2. Choose **Custom**.
+    3. **Enter `ws**: //localhost:9944` in the input field.
+    4. Click the **Switch** button.
     
     ![](/images/tutorials/polkadot-sdk/parachains/zero-to-hero/set-up-a-template/set-up-a-template-2.webp)
 
 3. Verify connection:
-    - Once connected, you should see **parachain-template-runtime** in the top left corner
-    - The interface will display information about your local blockchain
+
+    - Once connected, you should see **parachain-template-runtime** in the top left corner.
+    - The interface will display information about your local blockchain.
     
     ![](/images/tutorials/polkadot-sdk/parachains/zero-to-hero/set-up-a-template/set-up-a-template-3.webp)
 
@@ -37382,9 +37420,9 @@ When you're done exploring your local node, you can stop it to remove any state 
 
 To stop the local node:
 
-1. Return to the terminal window where the node output is displayed
-2. Press `Control-C` to stop the running process
-3. Verify that your terminal returns to the prompt in the `parachain-template` directory
+1. Return to the terminal window where the node output is displayed.
+2. Press `Control-C` to stop the running process.
+3. Verify that your terminal returns to the prompt in the `parachain-template` directory.
 
 ## Where to Go Next
 
@@ -37417,17 +37455,17 @@ Asset Conversion is an Automated Market Maker (AMM) utilizing [Uniswap V2](https
 
 This guide will provide detailed information about the key functionalities offered by the [Asset Conversion](https://github.com/paritytech/polkadot-sdk/tree/{{dependencies.repositories.polkadot_sdk.version}}/substrate/frame/asset-conversion){target=\_blank} pallet on Asset Hub, including:
 
-- Creating a liquidity pool
-- Adding liquidity to a pool
-- Swapping assets
-- Withdrawing liquidity from a pool
+- Creating a liquidity pool.
+- Adding liquidity to a pool.
+- Swapping assets.
+- Withdrawing liquidity from a pool.
 
 ## Prerequisites
 
 Before converting assets on Asset Hub, you must ensure you have:
 
-- Access to the [Polkadot.js Apps](https://polkadot.js.org/apps){target=\_blank} interface and a connection with the intended blockchain
-- A funded wallet containing the assets you wish to convert and enough available funds to cover the transaction fees
+- Access to the [Polkadot.js Apps](https://polkadot.js.org/apps){target=\_blank} interface and a connection with the intended blockchain.
+- A funded wallet containing the assets you wish to convert and enough available funds to cover the transaction fees.
 - An asset registered on Asset Hub that you want to convert. If you haven't created an asset on Asset Hub yet, refer to the [Register a Local Asset](/tutorials/polkadot-sdk/system-chains/asset-hub/register-local-asset/){target=\_blank} or [Register a Foreign Asset](/tutorials/polkadot-sdk/system-chains/asset-hub/register-foreign-asset/){target=\_blank} documentation to create an asset.
 
 ## Create a Liquidity Pool
@@ -37456,20 +37494,23 @@ The `PalletInstance` value of `50` represents the Assets pallet on Asset Hub. Th
 
 To create the liquidity pool, you can follow these steps:
 
-1. Navigate to the **Extrinsics** section on the Polkadot.js Apps interface
-    1. Select **Developer** from the top menu
-    2. Click on **Extrinsics** from the dropdown menu
+1. Navigate to the **Extrinsics** section on the Polkadot.js Apps interface:
+
+    1. Select **Developer** from the top menu.
+    2. Click on **Extrinsics** from the dropdown menu.
 
     ![Extrinsics Section](/images/tutorials/polkadot-sdk/system-chains/asset-hub/asset-conversion/asset-conversion-1.webp)
 
-2. Choose the **`AssetConversion`** pallet and click on the **`createPool`** extrinsic
-    1. Select the **`AssetConversion`** pallet
-    2. Choose the **`createPool`** extrinsic from the list of available extrinsics
+2. Select extrinsic to create the pool:
+
+    1. Select the **`AssetConversion`** pallet.
+    2. Choose the **`createPool`** extrinsic from the list of available extrinsics.
 
     ![Create Pool Extrinsic](/images/tutorials/polkadot-sdk/system-chains/asset-hub/asset-conversion/asset-conversion-2.webp)
 
 3. Fill in the required fields:
-    1. **`asset1`** - the Multilocation of the first asset in the pool. In this case, it is the DOT token, which the following Multilocation represents:
+
+    1. **`asset1`**: The Multilocation of the first asset in the pool. In this case, it is the DOT token, which the following Multilocation represents.
 
         ```javascript
         {
@@ -37478,7 +37519,7 @@ To create the liquidity pool, you can follow these steps:
         }
         ```
 
-    2. **`asset2`** - the second asset's Multilocation within the pool. This refers to the PPM token, which the following Multilocation identifies:  
+    2. **`asset2`**: The second asset's Multilocation within the pool. This refers to the PPM token, which the following Multilocation identifies.
 
         ```javascript
         {
@@ -37489,7 +37530,7 @@ To create the liquidity pool, you can follow these steps:
         }
         ```
 
-    3. Click on **Submit Transaction** to create the liquidity pool
+    3. Click on **Submit Transaction** to create the liquidity pool.
 
     ![Create Pool Fields](/images/tutorials/polkadot-sdk/system-chains/asset-hub/asset-conversion/asset-conversion-3.webp)
 
@@ -37505,20 +37546,23 @@ The `addLiquidity` extrinsic allows users to provide liquidity to a pool of two 
 
 To add liquidity to a pool, follow these steps:
 
-1. Navigate to the **Extrinsics** section on the Polkadot.js Apps interface
-    1. Select **Developer** from the top menu
-    2. Click on **Extrinsics** from the dropdown menu
+1. Navigate to the **Extrinsics** section on the Polkadot.js Apps interface:
+
+    1. Select **Developer** from the top menu.
+    2. Click on **Extrinsics** from the dropdown menu.
 
     ![Extrinsics Section](/images/tutorials/polkadot-sdk/system-chains/asset-hub/asset-conversion/asset-conversion-1.webp)
 
-2. Choose the **`assetConversion`** pallet and click on the **`addLiquidity`** extrinsic
-    1. Select the **`assetConversion`** pallet
-    2. Choose the **`addLiquidity`** extrinsic from the list of available extrinsics
+2. Select extrinsic to add liqudity:
+
+    1. Select the **`assetConversion`** pallet.
+    2. Choose the **`addLiquidity`** extrinsic from the list of available extrinsics.
 
     ![Add Liquidity Extrinsic](/images/tutorials/polkadot-sdk/system-chains/asset-hub/asset-conversion/asset-conversion-5.webp)
 
 3. Fill in the required fields:
-    1. **`asset1`** - the Multilocation of the first asset in the pool. In this case, it is the DOT token, which the following Multilocation represents:
+
+    1. **`asset1`**: The Multilocation of the first asset in the pool. In this case, it is the DOT token, which the following Multilocation represents.
 
         ```javascript
         {
@@ -37527,7 +37571,7 @@ To add liquidity to a pool, follow these steps:
         }
         ```
 
-    2. **`asset2`** - the second asset's Multilocation within the pool. This refers to the PPM token, which the following Multilocation identifies:
+    2. **`asset2`**: The second asset's Multilocation within the pool. This refers to the PPM token, which the following Multilocation identifies.
 
         ```javascript
         {
@@ -37538,12 +37582,12 @@ To add liquidity to a pool, follow these steps:
         }
         ```
 
-    3. **`amount1Desired`** - the amount of the first asset that will be contributed to the pool
-    4. **`amount2Desired`** - the quantity of the second asset intended for pool contribution
-    5. **`amount1Min`** - the minimum amount of the first asset that will be contributed
-    6. **`amount2Min`** - the lowest acceptable quantity of the second asset for contribution
-    7. **`mintTo`** - the account to which the liquidity tokens will be minted
-    8. Click on **Submit Transaction** to add liquidity to the pool
+    3. **`amount1Desired`**: The amount of the first asset that will be contributed to the pool.
+    4. **`amount2Desired`**: The quantity of the second asset intended for pool contribution.
+    5. **`amount1Min`**: The minimum amount of the first asset that will be contributed.
+    6. **`amount2Min`**: The lowest acceptable quantity of the second asset for contribution.
+    7. **`mintTo`**: The account to which the liquidity tokens will be minted.
+    8. Click on **Submit Transaction** to add liquidity to the pool.
 
     ![Add Liquidity Fields](/images/tutorials/polkadot-sdk/system-chains/asset-hub/asset-conversion/asset-conversion-6.webp)
 
@@ -37564,22 +37608,25 @@ The asset conversion pallet enables users to exchange a specific quantity of one
 
 To swap assets for an exact amount of tokens, follow these steps:
 
-1. Navigate to the **Extrinsics** section on the Polkadot.js Apps interface
-    1. Select **Developer** from the top menu
-    2. Click on **Extrinsics** from the dropdown menu
+1. Navigate to the **Extrinsics** section on the Polkadot.js Apps interface:
+
+    1. Select **Developer** from the top menu.
+    2. Click on **Extrinsics** from the dropdown menu.
 
     ![Extrinsics Section](/images/tutorials/polkadot-sdk/system-chains/asset-hub/asset-conversion/asset-conversion-1.webp)
 
-2. Choose the **`AssetConversion`** pallet and click on the **`swapExactTokensForTokens`** extrinsic
-    1. Select the **`AssetConversion`** pallet
-    2. Choose the **`swapExactTokensForTokens`** extrinsic from the list of available extrinsics
+2. Select extrinsic to swap assets:
+
+    1. Select the **`AssetConversion`** pallet.
+    2. Choose the **`swapExactTokensForTokens`** extrinsic from the list of available extrinsics.
 
     ![Swap From Exact Tokens Extrinsic](/images/tutorials/polkadot-sdk/system-chains/asset-hub/asset-conversion/asset-conversion-8.webp)
 
 3. Fill in the required fields:
-    1. **`path:Vec<StagingXcmV3MultiLocation>`** - an array of Multilocations representing the path of the swap. The first and last elements of the array are the input and output assets, respectively. In this case, the path consists of two elements:
 
-        - **`0: StagingXcmV3MultiLocation`** - the Multilocation of the first asset in the pool. In this case, it is the DOT token, which the following Multilocation represents:
+    1. **`path: Vec<StagingXcmV3MultiLocation>`**: An array of Multilocations representing the path of the swap. The first and last elements of the array are the input and output assets, respectively. In this case, the path consists of two elements:
+
+        - **`0: StagingXcmV3MultiLocation`**: The Multilocation of the first asset in the pool. In this case, it is the DOT token, which the following Multilocation represents.
 
             ```javascript
             {
@@ -37588,7 +37635,7 @@ To swap assets for an exact amount of tokens, follow these steps:
             }
             ```
 
-        - **`1: StagingXcmV3MultiLocation`** - the second asset's Multilocation within the pool. This refers to the PPM token, which the following Multilocation identifies:
+        - **`1: StagingXcmV3MultiLocation`**: The second asset's Multilocation within the pool. This refers to the PPM token, which the following Multilocation identifies.
 
             ```javascript
             {
@@ -37599,11 +37646,11 @@ To swap assets for an exact amount of tokens, follow these steps:
             }
             ```
 
-    2. **`amountOut`** - the exact amount of the second asset that the user wants to receive
-    3. **`amountInMax`** - the maximum amount of the first asset that the user is willing to swap
-    4. **`sendTo`** - the account to which the swapped assets will be sent
-    5. **`keepAlive`** - a boolean value that determines whether the pool should be kept alive after the swap
-    6. Click on **Submit Transaction** to swap assets for an exact amount of tokens
+    2. **`amountOut`**: The exact amount of the second asset that the user wants to receive.
+    3. **`amountInMax`**: The maximum amount of the first asset that the user is willing to swap.
+    4. **`sendTo`**: The account to which the swapped assets will be sent.
+    5. **`keepAlive`**: A boolean value that determines whether the pool should be kept alive after the swap.
+    6. Click on **Submit Transaction** to swap assets for an exact amount of tokens.
 
     ![Swap For Exact Tokens Fields](/images/tutorials/polkadot-sdk/system-chains/asset-hub/asset-conversion/asset-conversion-9.webp)
 
@@ -37622,21 +37669,24 @@ Conversely, the Asset Conversion pallet comes with a function that allows users 
 
 To swap assets for an exact amount of tokens, follow these steps:
 
-1. Navigate to the **Extrinsics** section on the Polkadot.js Apps interface
-    1. Select **Developer** from the top menu
-    2. Click on **Extrinsics** from the dropdown menu
+1. Navigate to the **Extrinsics** section on the Polkadot.js Apps interface:
+
+    1. Select **Developer** from the top menu.
+    2. Click on **Extrinsics** from the dropdown menu.
 
     ![Extrinsics Section](/images/tutorials/polkadot-sdk/system-chains/asset-hub/asset-conversion/asset-conversion-1.webp)
 
-2. Choose the **`AssetConversion`** pallet and click on the **`swapTokensForExactTokens`** extrinsic:
-    1. Select the **`AssetConversion`** pallet
-    2. Choose the **`swapTokensForExactTokens`** extrinsic from the list of available extrinsics
+2. Select extrinsic to swap tokens:
+
+    1. Select the **`AssetConversion`** pallet.
+    2. Choose the **`swapTokensForExactTokens`** extrinsic from the list of available extrinsics.
 
     ![Swap Tokens For Exact Tokens Extrinsic](/images/tutorials/polkadot-sdk/system-chains/asset-hub/asset-conversion/asset-conversion-11.webp)
 
 3. Fill in the required fields:
-    1. **`path:Vec<StagingXcmV3MultiLocation\>`** - an array of Multilocations representing the path of the swap. The first and last elements of the array are the input and output assets, respectively. In this case, the path consists of two elements:
-        - **`0: StagingXcmV3MultiLocation`** - the Multilocation of the first asset in the pool. In this case, it is the PPM token, which the following Multilocation represents:
+
+    1. **`path: Vec<StagingXcmV3MultiLocation\>`**: An array of Multilocations representing the path of the swap. The first and last elements of the array are the input and output assets, respectively. In this case, the path consists of two elements:
+        - **`0: StagingXcmV3MultiLocation`**: The Multilocation of the first asset in the pool. In this case, it is the PPM token, which the following Multilocation represents.
 
             ```javascript
             {
@@ -37647,7 +37697,7 @@ To swap assets for an exact amount of tokens, follow these steps:
             }
             ```
 
-        - **`1: StagingXcmV3MultiLocation`** - the second asset's Multilocation within the pool. This refers to the DOT token, which the following Multilocation identifies:
+        - **`1: StagingXcmV3MultiLocation`**: The second asset's Multilocation within the pool. This refers to the DOT token, which the following Multilocation identifies.
 
             ```javascript
             {
@@ -37656,11 +37706,11 @@ To swap assets for an exact amount of tokens, follow these steps:
             }
             ```
 
-    2. **`amountOut`** - the exact amount of the second asset that the user wants to receive
-    3. **`amountInMax`** - the maximum amount of the first asset that the user is willing to swap
-    4. **`sendTo`** - the account to which the swapped assets will be sent
-    5. **`keepAlive`** - a boolean value that determines whether the pool should be kept alive after the swap
-    6. Click on **Submit Transaction** to swap assets for an exact amount of tokens
+    2. **`amountOut`**: The exact amount of the second asset that the user wants to receive.
+    3. **`amountInMax`**: The maximum amount of the first asset that the user is willing to swap.
+    4. **`sendTo`**: The account to which the swapped assets will be sent.
+    5. **`keepAlive`**: A boolean value that determines whether the pool should be kept alive after the swap.
+    6. Click on **Submit Transaction** to swap assets for an exact amount of tokens.
 
     ![Swap Tokens For Exact Tokens Fields](/images/tutorials/polkadot-sdk/system-chains/asset-hub/asset-conversion/asset-conversion-12.webp)
 
@@ -37679,20 +37729,23 @@ The Asset Conversion pallet provides the `removeLiquidity` extrinsic to remove l
 
 To withdraw liquidity from a pool, follow these steps:
 
-1. Navigate to the **Extrinsics** section on the Polkadot.js Apps interface
-    1. Select **Developer** from the top menu
-    2. Click on **Extrinsics** from the dropdown menu
+1. Navigate to the **Extrinsics** section on the Polkadot.js Apps interface:
+
+    1. Select **Developer** from the top menu.
+    2. Click on **Extrinsics** from the dropdown menu.
 
     ![Extrinsics Section](/images/tutorials/polkadot-sdk/system-chains/asset-hub/asset-conversion/asset-conversion-1.webp)
 
-2. Choose the **`AssetConversion`** pallet and click on the **`remove_liquidity`** extrinsic
-    1. Select the **`AssetConversion`** pallet
-    2. Choose the **`removeLiquidity`** extrinsic from the list of available extrinsics
+2. Select extrinsic to withdraw liqudity from a pool:
+
+    1. Select the **`AssetConversion`** pallet.
+    2. Choose the **`removeLiquidity`** extrinsic from the list of available extrinsics.
 
     ![Remove Liquidity Extrinsic](/images/tutorials/polkadot-sdk/system-chains/asset-hub/asset-conversion/asset-conversion-14.webp)
 
 3. Fill in the required fields:
-    1. **`asset1`** - the Multilocation of the first asset in the pool. In this case, it is the DOT token, which the following Multilocation represents:
+
+    1. **`asset1`**: The Multilocation of the first asset in the pool. In this case, it is the DOT token, which the following Multilocation represents.
 
         ```javascript
         {
@@ -37701,7 +37754,7 @@ To withdraw liquidity from a pool, follow these steps:
         }
         ```
 
-    2. **`asset2`** - the second asset's Multilocation within the pool. This refers to the PPM token, which the following Multilocation identifies:
+    2. **`asset2`**: The second asset's Multilocation within the pool. This refers to the PPM token, which the following Multilocation identifies.
 
         ```javascript
         {
@@ -37712,11 +37765,11 @@ To withdraw liquidity from a pool, follow these steps:
         }
         ```
 
-    3. **`lpTokenBurn`** - the number of liquidity tokens to burn
-    4. **`amount1MinReceived`** - the minimum amount of the first asset that the user expects to receive
-    5. **`amount2MinReceived`** - the minimum quantity of the second asset the user expects to receive
-    6. **`withdrawTo`** - the account to which the withdrawn assets will be sent
-    7. Click on **Submit Transaction** to withdraw liquidity from the pool
+    3. **`lpTokenBurn`**: The number of liquidity tokens to burn.
+    4. **`amount1MinReceived`**: The minimum amount of the first asset that the user expects to receive.
+    5. **`amount2MinReceived`**: The minimum quantity of the second asset the user expects to receive.
+    6. **`withdrawTo`**: The account to which the withdrawn assets will be sent.
+    7. Click on **Submit Transaction** to withdraw liquidity from the pool.
 
     ![Remove Liquidity Fields](/images/tutorials/polkadot-sdk/system-chains/asset-hub/asset-conversion/asset-conversion-15.webp)
 
@@ -38103,21 +38156,21 @@ template: index-page.html
 
 Polkadot SDK-based relay chains focus on security and consensus, leaving asset management to an external component, such as a [system chain](/polkadot-protocol/architecture/system-chains/){target=\_blank}. The [Asset Hub](/polkadot-protocol/architecture/system-chains/asset-hub/){target=\_blank} is one example of a system chain and is vital to managing tokens which aren't native to the Polkadot ecosystem. Developers opting to integrate with Asset Hub can expect the following benefits:
 
-- **Support for non-native on-chain assets** - create and manage your own tokens or NFTs with Polkadot ecosystem compatibility available out of the box
-- **Lower transaction fees** - approximately 1/10th of the cost of using the relay chain
-- **Reduced deposit requirements** - approximately 1/100th of the deposit required for the relay chain
-- **Payment of fees with non-native assets** - no need to buy native tokens for gas, increasing flexibility for developers and users
+- **Support for non-native on-chain assets**: Create and manage your own tokens or NFTs with Polkadot ecosystem compatibility available out of the box.
+- **Lower transaction fees**: Approximately 1/10th of the cost of using the relay chain.
+- **Reduced deposit requirements**: Approximately 1/100th of the deposit required for the relay chain.
+- **Payment of fees with non-native assets**: No need to buy native tokens for gas, increasing flexibility for developers and users.
 
 ## Get Started
 
 Through these tutorials, you'll learn how to manage cross-chain assets, including:
 
-- Asset registration and configuration
-- Cross-chain asset representation
-- Liquidity pool creation and management 
-- Asset swapping and conversion
-- Transaction parameter optimization
-- Teleport an asset from a parachain to Asset Hub
+- Asset registration and configuration.
+- Cross-chain asset representation.
+- Liquidity pool creation and management.
+- Asset swapping and conversion.
+- Transaction parameter optimization.
+- Teleport an asset from a parachain to Asset Hub.
 
 ## In This Section
 
@@ -38167,9 +38220,9 @@ For testing purposes, you can also interact with the Asset Hub instance on the f
 
 Before you start, ensure that you have: 
 
-- Access to the Polkadot.js Apps interface, and you are connected to the desired chain
-- A parachain that supports the XCMP protocol to interact with the Asset Hub parachain
-- A funded wallet to pay for the transaction fees and subsequent registration of the foreign asset
+- Access to the Polkadot.js Apps interface, and you are connected to the desired chain.
+- A parachain that supports the XCMP protocol to interact with the Asset Hub parachain.
+- A funded wallet to pay for the transaction fees and subsequent registration of the foreign asset.
 
 This guide will use Polkadot, its local Asset Hub instance, and the [Astar](https://astar.network/){target=\_blank} parachain (`ID` 2006), as stated in the [Test Environment Setup](#test-environment-setup) section. However, the process is the same for other relay chains and their respective Asset Hub parachain, regardless of the network you are using and the parachain owner of the foreign asset.
 
@@ -38177,32 +38230,34 @@ This guide will use Polkadot, its local Asset Hub instance, and the [Astar](http
 
 ### Asset Hub
 
-1. Open the [Polkadot.js Apps](https://polkadot.js.org/apps/){target=\_blank} interface and connect to the Asset Hub parachain using the network selector in the top left corner 
+1. Open the [Polkadot.js Apps](https://polkadot.js.org/apps/){target=\_blank} interface and connect to the Asset Hub parachain using the network selector in the top left corner.
 
-      - Testing foreign asset registration is recommended on TestNet before proceeding to MainNet. If you haven't set up a local testing environment yet, consult the [Environment setup](#test-environment-setup) guide. After setting up, connect to the Local Node (Chopsticks) at `ws://127.0.0.1:8000`
-      - For live network operations, connect to the Asset Hub parachain. You can choose either Polkadot or Kusama Asset Hub from the dropdown menu, selecting your preferred RPC provider
+      - Testing foreign asset registration is recommended on TestNet before proceeding to MainNet. If you haven't set up a local testing environment yet, consult the [Environment setup](#test-environment-setup) guide. After setting up, connect to the Local Node (Chopsticks) at `ws://127.0.0.1:8000`.
+      - For live network operations, connect to the Asset Hub parachain. You can choose either Polkadot or Kusama Asset Hub from the dropdown menu, selecting your preferred RPC provider.
 
-2. Navigate to the **Extrinsics** page
-      1. Click on the **Developer** tab from the top navigation bar
-      2. Select **Extrinsics** from the dropdown
+2. Navigate to the **Extrinsics** page:
+
+      1. Click on the **Developer** tab from the top navigation bar.
+      2. Select **Extrinsics** from the dropdown.
 
     ![Access to Developer Extrinsics section](/images/tutorials/polkadot-sdk/system-chains/asset-hub/register-foreign-assets/register-a-foreign-asset-1.webp)
 
-3. Select the Foreign Assets pallet
-      3. Select the **`foreignAssets`** pallet from the dropdown list
-      4. Choose the **`create`** extrinsic
+3. Select the Foreign Assets pallet:
+
+      3. Select the **`foreignAssets`** pallet from the dropdown list.
+      4. Choose the **`create`** extrinsic.
 
     ![Select the Foreign Asset pallet](/images/tutorials/polkadot-sdk/system-chains/asset-hub/register-foreign-assets/register-a-foreign-asset-2.webp)
 
 3. Fill out the required fields and click on the copy icon to copy the **encoded call data** to your clipboard. The fields to be filled are:
 
-    - **id** - as this is a foreign asset, the ID will be represented by a Multilocation that reflects its origin. For this case, the Multilocation of the asset will be from the source parachain perspective:
+    - **id**: As this is a foreign asset, the ID will be represented by a Multilocation that reflects its origin. For this case, the Multilocation of the asset will be from the source parachain perspective.
   
         ```javascript
         { parents: 1, interior: { X1: [{ Parachain: 2006 }] } }
         ```
 
-    - **admin** - refers to the account that will be the admin of this asset. This account will be able to manage the asset, including updating its metadata. As the registered asset corresponds to a native asset of the source parachain, the admin account should be the sovereign account of the source parachain
+    - **admin**: Refers to the account that will be the admin of this asset. This account will be able to manage the asset, including updating its metadata. As the registered asset corresponds to a native asset of the source parachain, the admin account should be the sovereign account of the source parachain.
       
         The sovereign account can be obtained through [Substrate Utilities](https://www.shawntabrizi.com/substrate-js-utilities/){target=\_blank}.
 
@@ -38211,7 +38266,7 @@ This guide will use Polkadot, its local Asset Hub instance, and the [Astar](http
         ![Get parachain sovereign account](/images/tutorials/polkadot-sdk/system-chains/asset-hub/register-foreign-assets/register-a-foreign-asset-3.webp)
 
 
-    - **`minBalance`** - the minimum balance required to hold this asset
+    - **`minBalance`**: The minimum balance required to hold this asset.
 
     ![Fill out the required fields](/images/tutorials/polkadot-sdk/system-chains/asset-hub/register-foreign-assets/register-a-foreign-asset-4.webp)
 
@@ -38221,13 +38276,13 @@ This guide will use Polkadot, its local Asset Hub instance, and the [Astar](http
         0x3500010100591f007369626cd6070000000000000000000000000000000000000000000000000000a0860100000000000000000000000000
         ```
 
-
 ### Source Parachain
 
-1. Navigate to the **Developer > Extrinsics** section
-2. Create the extrinsic to register the foreign asset through XCM
-      1. Paste the **encoded call data** copied in the previous step
-      2. Click the **Submit Transaction** button
+1. Navigate to the **Developer > Extrinsics** section.
+2. Create the extrinsic to register the foreign asset through XCM:
+
+      1. Paste the **encoded call data** copied in the previous step.
+      2. Click the **Submit Transaction** button.
 
     ![Register foreign asset through XCM](/images/tutorials/polkadot-sdk/system-chains/asset-hub/register-foreign-assets/register-a-foreign-asset-5.webp)
 
@@ -38237,7 +38292,8 @@ This guide will use Polkadot, its local Asset Hub instance, and the [Astar](http
         Note that the sovereign account on the Asset Hub parachain must have a sufficient balance to cover the XCM `BuyExecution` instruction. If the account does not have enough balance, the transaction will fail.
 
     If you want to have the whole XCM call ready to be copied, go to the **Developer > Extrinsics > Decode** section and paste the following hex-encoded call data:
-    ```
+
+    ```text
     0x6300330003010100a10f030c000400010000070010a5d4e81300010000070010a5d4e80006030700b4f13501419ce03500010100591f007369626cd607000000000000000000000000000000000000000000000000000000000000000000000000000000000000
     ```
 
@@ -38295,8 +38351,8 @@ This guide will take you through the steps of registering a local asset on the A
 
 Before you begin, ensure you have access to the [Polkadot.js Apps](https://polkadot.js.org/apps/){target=\_blank} interface and a funded wallet with DOT or KSM.
 
-- For Polkadot Asset Hub, you would need a deposit of 10 DOT and around 0.201 DOT for the metadata
-- For Kusama Asset Hub, the deposit is 0.1 KSM and around 0.000669 KSM for the metadata
+- For Polkadot Asset Hub, you would need a deposit of 10 DOT and around 0.201 DOT for the metadata.
+- For Kusama Asset Hub, the deposit is 0.1 KSM and around 0.000669 KSM for the metadata.
 
 You need to ensure that your Asset Hub account balance is a bit more than the sum of those two deposits, which should seamlessly account for the required deposits and transaction fees.
 
@@ -38304,45 +38360,45 @@ You need to ensure that your Asset Hub account balance is a bit more than the su
 
 To register a local asset on the Asset Hub parachain, follow these steps:
 
-1. Open the [Polkadot.js Apps](https://polkadot.js.org/apps/){target=\_blank} interface and connect to the Asset Hub parachain using the network selector in the top left corner 
+1. Open the [Polkadot.js Apps](https://polkadot.js.org/apps/){target=\_blank} interface and connect to the Asset Hub parachain using the network selector in the top left corner.
 
-      - You may prefer to test local asset registration on TestNet before registering the asset on a MainNet hub. If you still need to set up a local testing environment, review the [Environment setup](#test-setup-environment) section for instructions. Once the local environment is set up, connect to the Local Node (Chopsticks) available on `ws://127.0.0.1:8000`
-      - For the live network, connect to the **Asset Hub** parachain. Either Polkadot or Kusama Asset Hub can be selected from the dropdown list, choosing the desired RPC provider
+      - You may prefer to test local asset registration on TestNet before registering the asset on a MainNet hub. If you still need to set up a local testing environment, review the [Environment setup](#test-setup-environment) section for instructions. Once the local environment is set up, connect to the Local Node (Chopsticks) available on `ws://127.0.0.1:8000`.
+      - For the live network, connect to the **Asset Hub** parachain. Either Polkadot or Kusama Asset Hub can be selected from the dropdown list, choosing the desired RPC provider.
 
-2. Click on the **Network** tab on the top navigation bar and select **Assets** from the dropdown list
+2. Click on the **Network** tab on the top navigation bar and select **Assets** from the dropdown list.
 
       ![Access to Asset Hub through Polkadot.JS](/images/tutorials/polkadot-sdk/system-chains/asset-hub/register-local-assets/register-a-local-asset-1.webp)
 
-3. Now, you need to examine all the registered asset IDs. This step is crucial to ensure that the asset ID you are about to register is unique. Asset IDs are displayed in the **assets** column
+3. Now, you need to examine all the registered asset IDs. This step is crucial to ensure that the asset ID you are about to register is unique. Asset IDs are displayed in the **assets** column.
 
       ![Asset IDs on Asset Hub](/images/tutorials/polkadot-sdk/system-chains/asset-hub/register-local-assets/register-a-local-asset-2.webp)
 
-4. Once you have confirmed that the asset ID is unique, click on the **Create** button on the top right corner of the page
+4. Once you have confirmed that the asset ID is unique, click on the **Create** button on the top right corner of the page.
 
       ![Create a new asset](/images/tutorials/polkadot-sdk/system-chains/asset-hub/register-local-assets/register-a-local-asset-3.webp)
 
 5. Fill in the required fields in the **Create Asset** form:
 
-    1. **creator account** - the account to be used for creating this asset and setting up the initial metadata
-    2. **asset name** - the descriptive name of the asset you are registering
-    3. **asset symbol** - the symbol that will be used to represent the asset
-    4. **asset decimals** - the number of decimal places for this token, with a maximum of 20 allowed through the user interface
-    5. **minimum balance** - the minimum balance for the asset. This is specified in the units and decimals as requested
-    6. **asset ID** - the selected id for the asset. This should not match an already-existing asset id
-    7. Click on the **Next** button
+    1. **creator account**: The account to be used for creating this asset and setting up the initial metadata.
+    2. **asset name**: The descriptive name of the asset you are registering.
+    3. **asset symbol**: The symbol that will be used to represent the asset.
+    4. **asset decimals**: The number of decimal places for this token, with a maximum of 20 allowed through the user interface.
+    5. **minimum balance**: The minimum balance for the asset. This is specified in the units and decimals as requested.
+    6. **asset ID**: The selected id for the asset. This should not match an already-existing asset id.
+    7. Click on the **Next** button.
  
     ![Create Asset Form](/images/tutorials/polkadot-sdk/system-chains/asset-hub/register-local-assets/register-a-local-asset-4.webp)
 
 6. Choose the accounts for the roles listed below:
 
-    1. **admin account** - the account designated for continuous administration of the token      
-    2. **issuer account** - the account that will be used for issuing this token
-    3. **freezer account** - the account that will be used for performing token freezing operations
-    4. Click on the **Create** button
+    1. **admin account**: The account designated for continuous administration of the token.
+    2. **issuer account**: The account that will be used for issuing this token.
+    3. **freezer account**: The account that will be used for performing token freezing operations.
+    4. Click on the **Create** button.
 
     ![Admin, Issuer, Freezer accounts](/images/tutorials/polkadot-sdk/system-chains/asset-hub/register-local-assets/register-a-local-asset-5.webp)
 
-7. Click on the **Sign and Submit** button to complete the asset registration process
+7. Click on the **Sign and Submit** button to complete the asset registration process.
 
     ![Sign and Submit](/images/tutorials/polkadot-sdk/system-chains/asset-hub/register-local-assets/register-a-local-asset-6.webp)
 
@@ -38393,15 +38449,15 @@ Through these tutorials, you'll learn how to leverage these system chains to enh
 
 Enhance cross-chain interoperability and expand your parachain’s functionality:
 
-- **[Register your parachain's asset on Asset Hub](/tutorials/polkadot-sdk/system-chains/asset-hub/register-foreign-asset/)** - connect your parachain’s assets to Asset Hub as a foreign asset using XCM, enabling seamless cross-chain transfers and integration
+- **[Register your parachain's asset on Asset Hub](/tutorials/polkadot-sdk/system-chains/asset-hub/register-foreign-asset/)**: Connect your parachain’s assets to Asset Hub as a foreign asset using XCM, enabling seamless cross-chain transfers and integration.
 
 ## For Developers Leveraging System Chains
 
 Unlock new possibilities by tapping into Polkadot’s system chains:
 
-- **[Register a new asset on Asset Hub](/tutorials/polkadot-sdk/system-chains/asset-hub/register-local-asset/)** - create and customize assets directly on Asset Hub (local assets) with parameters like metadata, minimum balances, and more
+- **[Register a new asset on Asset Hub](/tutorials/polkadot-sdk/system-chains/asset-hub/register-local-asset/)**: Create and customize assets directly on Asset Hub (local assets) with parameters like metadata, minimum balances, and more.
 
-- **[Convert Assets](/tutorials/polkadot-sdk/system-chains/asset-hub/asset-conversion/)** - use Asset Hub's AMM functionality to swap between different assets, provide liquidity to pools, and manage LP tokens
+- **[Convert Assets](/tutorials/polkadot-sdk/system-chains/asset-hub/asset-conversion/)**: Use Asset Hub's AMM functionality to swap between different assets, provide liquidity to pools, and manage LP tokens.
 
 - **[Batch Teleport an Asset to Asset Hub](/tutorials/polkadot-sdk/system-chains/asset-hub/batch-teleport-assets/){target=\_blank}** - construct multiple teleports in one batch transaction.
 
@@ -38424,9 +38480,9 @@ tutorial_badge: Beginner
 
 Chopsticks is an innovative tool that simplifies the process of forking live Polkadot SDK chains. This guide provides step-by-step instructions to configure and fork chains, enabling developers to:
 
-- Replay blocks for state analysis
-- Test cross-chain messaging (XCM)
-- Simulate blockchain environments for debugging and experimentation
+- Replay blocks for state analysis.
+- Test cross-chain messaging (XCM).
+- Simulate blockchain environments for debugging and experimentation.
 
 With support for both configuration files and CLI commands, Chopsticks offers flexibility for diverse development workflows. Whether you're testing locally or exploring complex blockchain scenarios, Chopsticks empowers developers to gain deeper insights and accelerate application development.
 
@@ -38438,8 +38494,8 @@ For additional support and information, please reach out through [GitHub Issues]
 
 To follow this tutorial, ensure you have completed the following:
 
-- **Installed Chopsticks** - if you still need to do so, see the [Install Chopsticks](/develop/toolkit/parachains/fork-chains/chopsticks/get-started/#install-chopsticks){target=\_blank} guide for assistance
-- **Reviewed** [**Configure Chopsticks**](/develop/toolkit/parachains/fork-chains/chopsticks/get-started/#configure-chopsticks){target=\_blank} - and understand how forked chains are configured
+- **Installed Chopsticks**: If you still need to do so, see the [Install Chopsticks](/develop/toolkit/parachains/fork-chains/chopsticks/get-started/#install-chopsticks){target=\_blank} guide for assistance.
+- **Reviewed** [Configure Chopsticks](/develop/toolkit/parachains/fork-chains/chopsticks/get-started/#configure-chopsticks){target=\_blank}: And understand how forked chains are configured.
 
 ## Configuration File 
 
@@ -38507,14 +38563,14 @@ You can interact with the forked chain using various [libraries](/develop/toolki
 
 To interact with Chopsticks via the hosted user interface, visit [Polkadot.js Apps](https://polkadot.js.org/apps/#/explorer){target=\_blank} and follow these steps:
 
-1. Select the network icon in the top left corner
+1. Select the network icon in the top left corner.
 
     ![](/images/tutorials/polkadot-sdk/testing/fork-live-chains/chopsticks-1.webp)
 
-2. Scroll to the bottom and select **Development**
-3. Choose **Custom**
-4. Enter `ws://localhost:8000` in the input field
-5. Select the **Switch** button
+2. Scroll to the bottom and select **Development**.
+3. Choose **Custom**.
+4. Enter `ws://localhost:8000` in the input field.
+5. Select the **Switch** button.
 
     ![](/images/tutorials/polkadot-sdk/testing/fork-live-chains/chopsticks-2.webp)
 
@@ -38543,9 +38599,9 @@ connectToFork();
 
 Chopsticks allows you to replay specific blocks from a chain, which is useful for debugging and analyzing state changes. You can use the parameters in the [Configuration](/develop/toolkit/parachains/fork-chains/chopsticks/get-started/#configure-chopsticks){target=\_blank} section to set up the chain configuration, and then use the run-block subcommand with the following additional options:
 
-- `output-path` - path to print output
-- `html` - generate HTML with storage diff
-- `open` - open generated HTML
+- **`output-path`**: Path to print output.
+- **`html`**: Generate HTML with storage diff.
+- **`open`**: Open generated HTML.
 
 For example, the command to replay block 1000 from Polkadot and save the output to a JSON file would be as follows:
 
@@ -38711,8 +38767,8 @@ npx @acala-network/chopsticks run-block  \
 
 To test XCM (Cross-Consensus Messaging) messages between networks, you can fork multiple parachains and a relay chain locally using Chopsticks.
 
-- `relaychain` - relay chain config file
-- `parachain` - parachain config file  
+- **`relaychain`**: Relay chain config file.
+- **`parachain`**: Parachain config file.
 
 For example, to fork Moonbeam, Astar, and Polkadot enabling XCM between them, you can use the following command:
 
@@ -38774,11 +38830,11 @@ Polkadot offers specialized tools that make it simple to create realistic testin
 
 Through these tutorials, you'll learn important testing techniques including:
 
-- Setting up local test environments
-- Spawning ephemeral testing networks
-- Forking live chains for testing
-- Simulating cross-chain interactions
-- Debugging blockchain behavior
+- Setting up local test environments.
+- Spawning ephemeral testing networks.
+- Forking live chains for testing.
+- Simulating cross-chain interactions.
+- Debugging blockchain behavior.
 
 Each tutorial provides step-by-step guidance for using these tools effectively in your development workflow.
 
@@ -38810,7 +38866,7 @@ By the end of this tutorial, you'll be equipped to deploy and test your own bloc
 To successfully complete this tutorial, you must ensure you've first:
 
 - [Installed Zombienet](/develop/toolkit/parachains/spawn-chains/zombienet/get-started/#install-zombienet){target=\_blank}. This tutorial requires Zombienet version `{{ dependencies.repositories.zombienet.version }}`. Verify that you're using the specified version to ensure compatibility with the instructions.
-- Reviewed the information in [Configure Zombienet](/develop/toolkit/parachains/spawn-chains/zombienet/get-started/#configure-zombienet){target=\_blank} and understand how to customize a spawned network
+- Reviewed the information in [Configure Zombienet](/develop/toolkit/parachains/spawn-chains/zombienet/get-started/#configure-zombienet){target=\_blank} and understand how to customize a spawned network.
 
 ## Set Up Local Provider
 
@@ -38843,13 +38899,16 @@ sudo mv ./polkadot ./polkadot-execute-worker ./polkadot-parachain ./polkadot-pre
 
 Zombienet uses a [configuration file](/develop/toolkit/parachains/spawn-chains/zombienet/get-started/#configuration-files){target=\_blank} to define the ephemeral network that will be spawned. Follow these steps to create and define the configuration file:
 
-1. Create a file named `spawn-a-basic-network.toml`
-```bash
-touch spawn-a-basic-network.toml
-```
+1. Create a file named `spawn-a-basic-network.toml`:
+
+    ```bash
+    touch spawn-a-basic-network.toml
+    ```
+
 2. Add the following code to the file you just created:
-```toml title="spawn-a-basic-network.toml"
-[settings]
+
+    ```toml title="spawn-a-basic-network.toml"
+    [settings]
 timeout = 120
 
 [relaychain]
@@ -38867,12 +38926,12 @@ id = 100
 
 [parachains.collator]
 name = "collator01"
-```
+    ```
 
 This configuration file defines a network with the following chains:
 
-- **relaychain** - with two nodes named `alice` and `bob` 
-- **parachain** - with a collator named `collator01` 
+- **relaychain**: With two nodes named `alice` and `bob`.
+- **parachain**: With a collator named `collator01`.
 
 Settings also defines a timeout of 120 seconds for the network to be ready.
 
@@ -39050,11 +39109,11 @@ This tutorial will guide you through how Uniswap V2 works so you can take advant
 
 Before starting, make sure you have:
 
-- Node.js (v16.0.0 or later) and npm installed
-- Basic understanding of Solidity and JavaScript
-- Familiarity with [`hardhat-polkadot`](/develop/smart-contracts/dev-environments/hardhat){target=\_blank} development environment
-- Some PAS test tokens to cover transaction fees (obtained from the [Polkadot faucet](https://faucet.polkadot.io/?parachain=1111){target=\_blank})
-- Basic understanding of how AMMs and liquidity pools work
+- Node.js (v16.0.0 or later) and npm installed.
+- Basic understanding of Solidity and JavaScript.
+- Familiarity with [`hardhat-polkadot`](/develop/smart-contracts/dev-environments/hardhat){target=\_blank} development environment.
+- Some PAS test tokens to cover transaction fees (obtained from the [Polkadot faucet](https://faucet.polkadot.io/?parachain=1111){target=\_blank}).
+- Basic understanding of how AMMs and liquidity pools work.
 
 ## Set Up the Project
 
@@ -39073,7 +39132,7 @@ Let's start by cloning the Uniswap V2 project:
     npm install
     ```
 
-3. Update the `hardhat.config.js` file so the paths for the Substrate node and the ETH-RPC adapter match with the paths on your machine. For more info, check the [Testing your Contract](/develop/smart-contracts/dev-environments/hardhat/#testing-your-contract){target=\_blank} section in the Hardhat guide
+3. Update the `hardhat.config.js` file so the paths for the Substrate node and the ETH-RPC adapter match with the paths on your machine. For more info, check the [Testing your Contract](/develop/smart-contracts/dev-environments/hardhat/#testing-your-contract){target=\_blank} section in the Hardhat guide.
 
     ```js title="hardhat.config.js"
     hardhat: {
@@ -39124,8 +39183,8 @@ Before interacting with the contracts, it's essential to understand the core arc
 
 At the heart of Uniswap V2 lies a simple but powerful system composed of two major smart contracts:
 
-- **Factory Contract** - the factory acts as a registry and creator of new trading pairs. When two ERC-20 tokens are to be traded, the Factory contract is responsible for generating a new Pair contract that will manage that specific token pair’s liquidity pool. It keeps track of all deployed pairs and ensures uniqueness—no duplicate pools can exist for the same token combination
-- **Pair Contract** - each pair contract is a decentralized liquidity pool that holds reserves of two ERC-20 tokens. These contracts implement the core logic of the AMM, maintaining a constant product invariant (x \* y = k) to facilitate swaps and price determination. Users can contribute tokens to these pools in return for LP (liquidity provider) tokens, which represent their proportional share of the reserves
+- **Factory contract**: The factory acts as a registry and creator of new trading pairs. When two ERC-20 tokens are to be traded, the Factory contract is responsible for generating a new Pair contract that will manage that specific token pair’s liquidity pool. It keeps track of all deployed pairs and ensures uniqueness—no duplicate pools can exist for the same token combination.
+- **Pair contract**: Each pair contract is a decentralized liquidity pool that holds reserves of two ERC-20 tokens. These contracts implement the core logic of the AMM, maintaining a constant product invariant (x \* y = k) to facilitate swaps and price determination. Users can contribute tokens to these pools in return for LP (liquidity provider) tokens, which represent their proportional share of the reserves.
 
 This minimal architecture enables Uniswap to be highly modular, trustless, and extensible. By distributing responsibilities across these components, developers, and users can engage with the protocol in a composable and predictable manner, making it an ideal foundation for DEX functionality across ecosystems, including Polkadot Hub.
 
@@ -39270,10 +39329,10 @@ This tutorial guided you through deploying Uniswap V2 contracts to Polkadot Hub.
 
 By following this guide, you've gained practical experience with:
 
-- Setting up a Hardhat project for deploying to Polkadot Hub
-- Understanding the Uniswap V2 architecture
-- Testing Uniswap V2 contracts in a local environment
-- Deploying contracts to both local and testnet environments
+- Setting up a Hardhat project for deploying to Polkadot Hub.
+- Understanding the Uniswap V2 architecture.
+- Testing Uniswap V2 contracts in a local environment.
+- Deploying contracts to both local and testnet environments.
 
 To build on this foundation, you could extend this project by implementing functionality to create liquidity pools, execute token swaps, and build a user interface for interacting with your deployment.
 
@@ -39323,20 +39382,20 @@ This tutorial covers deploying an ERC-20 contract on the Polkadot Hub TestNet us
 
 Before starting, make sure you have:
 
-- [MetaMask](https://metamask.io/){target=\_blank} installed and connected to Polkadot Hub. For detailed instructions, see the [Connect Your Wallet](/develop/smart-contracts/wallets){target=\_blank} section
-- A funded account with some PAS tokens (you can get them from the [Polkadot Faucet](https://faucet.polkadot.io/?parachain=1111){target=\_blank}). To learn how to get test tokens, check out the [Test Tokens](/develop/smart-contracts/connect-to-polkadot#test-tokens){target=\_blank} section
-- Basic understanding of Solidity and fungible tokens
+- [MetaMask](https://metamask.io/){target=\_blank} installed and connected to Polkadot Hub. For detailed instructions, see the [Connect Your Wallet](/develop/smart-contracts/wallets){target=\_blank} section.
+- A funded account with some PAS tokens (you can get them from the [Polkadot Faucet](https://faucet.polkadot.io/?parachain=1111){target=\_blank}). To learn how to get test tokens, check out the [Test Tokens](/develop/smart-contracts/connect-to-polkadot#test-tokens){target=\_blank} section.
+- Basic understanding of Solidity and fungible tokens.
 
 ## Create the ERC-20 Contract
 
 To create the ERC-20 contract, you can follow the steps below:
 
-1. Navigate to the [Polkadot Remix IDE](https://remix.polkadot.io){target=\_blank}
-2. Click in the **Create new file** button under the **contracts** folder, and name your contract as `MyToken.sol`
+1. Navigate to the [Polkadot Remix IDE](https://remix.polkadot.io){target=\_blank}.
+2. Click in the **Create new file** button under the **contracts** folder, and name your contract as `MyToken.sol`.
 
     ![](/images/tutorials/smart-contracts/deploy-erc20/deploy-erc20-1.webp)
 
-3. Now, paste the following ERC-20 contract code into the editor
+3. Now, paste the following ERC-20 contract code into the editor:
 
     ```solidity title="MyToken.sol"
     // SPDX-License-Identifier: MIT
@@ -39360,26 +39419,26 @@ contract MyToken is ERC20, Ownable {
 
     The key components of the code above are:
 
-    - Contract imports
+    - Contract imports:
 
-        - [**`ERC20.sol`**]({{ dependencies.repositories.open_zeppelin_contracts.repository_url}}/tree/{{ dependencies.repositories.open_zeppelin_contracts.version}}/contracts/token/ERC20/ERC20.sol){target=\_blank} - the base contract for fungible tokens, implementing core functionality like transfers, approvals, and balance tracking
-        - [**`Ownable.sol`**]({{ dependencies.repositories.open_zeppelin_contracts.repository_url}}/tree/{{ dependencies.repositories.open_zeppelin_contracts.version}}/contracts/access/Ownable.sol){target=\_blank} - provides basic authorization control, ensuring only the contract owner can mint new tokens
+        - **[`ERC20.sol`]({{ dependencies.repositories.open_zeppelin_contracts.repository_url}}/tree/{{ dependencies.repositories.open_zeppelin_contracts.version}}/contracts/token/ERC20/ERC20.sol){target=\_blank}**: The base contract for fungible tokens, implementing core functionality like transfers, approvals, and balance tracking.
+        - **[`Ownable.sol`]({{ dependencies.repositories.open_zeppelin_contracts.repository_url}}/tree/{{ dependencies.repositories.open_zeppelin_contracts.version}}/contracts/access/Ownable.sol){target=\_blank}**: Provides basic authorization control, ensuring only the contract owner can mint new tokens.
     
-    - Constructor parameters
+    - Constructor parameters:
 
-        - **`initialOwner`** - sets the address that will have administrative rights over the contract
-        - **`"MyToken"`** - the full name of your token
-        - **`"MTK"`** - the symbol representing your token in wallets and exchanges
+        - **`initialOwner`**: Sets the address that will have administrative rights over the contract.
+        - **`"MyToken"`**: The full name of your token.
+        - **`"MTK"`**: The symbol representing your token in wallets and exchanges.
 
-    - Key functions
+    - Key functions:
 
-        - **`mint(address to, uint256 amount)`** - allows the contract owner to create new tokens for any address. The amount should include 18 decimals (e.g., 1 token = 1000000000000000000)
+        - **`mint(address to, uint256 amount)`**: Allows the contract owner to create new tokens for any address. The amount should include 18 decimals (e.g., 1 token = 1000000000000000000).
         - Inherited [Standard ERC-20](https://ethereum.org/en/developers/docs/standards/tokens/erc-20/){target=\_blank} functions:
-            - **`transfer(address recipient, uint256 amount)`** - sends a specified amount of tokens to another address
-            - **`approve(address spender, uint256 amount)`** - grants permission for another address to spend a specific number of tokens on behalf of the token owner
-            - **`transferFrom(address sender, address recipient, uint256 amount)`** - transfers tokens from one address to another, if previously approved
-            - **`balanceOf(address account)`** - returns the token balance of a specific address
-            - **`allowance(address owner, address spender)`** - checks how many tokens an address is allowed to spend on behalf of another address
+            - **`transfer(address recipient, uint256 amount)`**: Sends a specified amount of tokens to another address.
+            - **`approve(address spender, uint256 amount)`**: Grants permission for another address to spend a specific number of tokens on behalf of the token owner.
+            - **`transferFrom(address sender, address recipient, uint256 amount)`**: Transfers tokens from one address to another, if previously approved.
+            - **`balanceOf(address account)`**: Returns the token balance of a specific address.
+            - **`allowance(address owner, address spender)`**: Checks how many tokens an address is allowed to spend on behalf of another address.
 
     !!! tip
         Use the [OpenZeppelin Contracts Wizard](https://wizard.openzeppelin.com/){target=\_blank} to quickly generate customized smart contracts. Simply configure your contract, copy the generated code, and paste it into Polkadot Remix IDE for deployment. Below is an example of an ERC-20 token contract created with it:
@@ -39391,15 +39450,15 @@ contract MyToken is ERC20, Ownable {
 
 The compilation transforms your Solidity source code into bytecode that can be deployed on the blockchain. During this process, the compiler checks your contract for syntax errors, ensures type safety, and generates the machine-readable instructions needed for blockchain execution. To compile your contract, follow the instructions below:
 
-1. Select the **Solidity Compiler** plugin from the left panel
+1. Select the **Solidity Compiler** plugin from the left panel.
 
     ![](/images/tutorials/smart-contracts/deploy-erc20/deploy-erc20-3.webp)
 
-2. Click the **Compile MyToken.sol** button
+2. Click the **Compile MyToken.sol** button.
 
     ![](/images/tutorials/smart-contracts/deploy-erc20/deploy-erc20-4.webp)
 
-3. If the compilation succeeded, you'll see a green checkmark indicating success in the **Solidity Compiler** icon
+3. If the compilation succeeded, you'll see a green checkmark indicating success in the **Solidity Compiler** icon.
 
     ![](/images/tutorials/smart-contracts/deploy-erc20/deploy-erc20-5.webp)
 
@@ -39407,23 +39466,24 @@ The compilation transforms your Solidity source code into bytecode that can be d
 
 Deployment is the process of publishing your compiled smart contract to the blockchain, making it permanently available for interaction. During deployment, you'll create a new instance of your contract on the blockchain, which involves:
 
-1. Select the **Deploy & Run Transactions** plugin from the left panel
+1. Select the **Deploy & Run Transactions** plugin from the left panel.
 
     ![](/images/tutorials/smart-contracts/deploy-erc20/deploy-erc20-6.webp)
 
-2. Configure the deployment settings
-    1. From the **ENVIRONMENT** dropdown, select **Injected Provider - Talisman** (check the [Deploying Contracts](/develop/smart-contracts/dev-environments/remix/#deploying-contracts){target=\_blank} section of the Remix IDE guide for more details)
-    2. From the **ACCOUNT** dropdown, select the account you want to use for the deploy
+2. Configure the deployment settings.
+    1. From the **ENVIRONMENT** dropdown, select **Injected Provider - Talisman** (check the [Deploying Contracts](/develop/smart-contracts/dev-environments/remix/#deploying-contracts){target=\_blank} section of the Remix IDE guide for more details).
+    2. From the **ACCOUNT** dropdown, select the account you want to use for the deploy.
 
     ![](/images/tutorials/smart-contracts/deploy-erc20/deploy-erc20-7.webp)
 
-3. Configure the contract parameters
-    1. Enter the address that will own the deployed token contract
-    2. Click the **Deploy** button to initiate the deployment
+3. Configure the contract parameters:
+
+    1. Enter the address that will own the deployed token contract.
+    2. Click the **Deploy** button to initiate the deployment.
 
     ![](/images/tutorials/smart-contracts/deploy-erc20/deploy-erc20-8.webp)
 
-4. Talisman will pop up - review the transaction details. Click **Approve** to deploy your contract
+4. **Talisman will pop up**: Review the transaction details. Click **Approve** to deploy your contract.
 
      ![](/images/tutorials/smart-contracts/deploy-erc20/deploy-erc20-9.webp){: .browser-extension}
 
@@ -39435,21 +39495,22 @@ Deployment is the process of publishing your compiled smart contract to the bloc
 
 Once deployed, you can interact with your contract through Remix:
 
-1. Find your contract under **Deployed/Unpinned Contracts**, and click it to expand the available methods
+1. Find your contract under **Deployed/Unpinned Contracts**, and click it to expand the available methods.
 
     ![](/images/tutorials/smart-contracts/deploy-erc20/deploy-erc20-11.webp)
 
 2. To mint new tokens:
-    1. Click in the contract to expand its associated methods
-    2. Expand the **mint** function
+
+    1. Click in the contract to expand its associated methods.
+    2. Expand the **mint** function.
     3. Enter:
-        - The recipient address
-        - The amount (remember to add 18 zeros for 1 whole token)
-    4. Click **Transact**
+        - The recipient address.
+        - The amount (remember to add 18 zeros for 1 whole token).
+    4. Click **Transact**.
 
     ![](/images/tutorials/smart-contracts/deploy-erc20/deploy-erc20-12.webp)
 
-3. Click **Approve** to confirm the transaction in the Talisman popup
+3. Click **Approve** to confirm the transaction in the Talisman popup.
 
     ![](/images/tutorials/smart-contracts/deploy-erc20/deploy-erc20-13.webp){: .browser-extension}
 
@@ -39459,9 +39520,9 @@ Once deployed, you can interact with your contract through Remix:
 
 Other common functions you can use:
 
-- **`balanceOf(address)`** - check token balance of any address
-- **`transfer(address to, uint256 amount)`** - send tokens to another address
-- **`approve(address spender, uint256 amount)`** - allow another address to spend your tokens
+- **`balanceOf(address)`**: Check token balance of any address.
+- **`transfer(address to, uint256 amount)`**: Send tokens to another address.
+- **`approve(address spender, uint256 amount)`**: Allow another address to spend your tokens.
 
 Feel free to explore and interact with the contract's other functions using the same approach - selecting the method, providing any required parameters, and confirming the transaction through Talisman when needed.
 --- END CONTENT ---
@@ -39489,20 +39550,20 @@ This tutorial guides you through deploying an [ERC-721](https://eips.ethereum.or
 
 Before starting, make sure you have:
 
-- [Talisman](https://talisman.xyz/){target=\_blank} installed and connected to the Polkadot Hub TestNet. Check the [Connect to Polkadot](/develop/smart-contracts/connect-to-polkadot/){target=\_blank} guide for more information
-- A funded account with some PAS tokens (you can get them from the [Faucet](https://faucet.polkadot.io/?parachain=1111){target=\_blank}, noting that the faucet imposes a daily token limit, which may require multiple requests to obtain sufficient funds for testing)
-- Basic understanding of Solidity and NFTs, see the [Solidity Basics](https://soliditylang.org/){target=\_blank} and the [NFT Overview](https://ethereum.org/en/nft/){target=\_blank} guides for more details
+- [Talisman](https://talisman.xyz/){target=\_blank} installed and connected to the Polkadot Hub TestNet. Check the [Connect to Polkadot](/develop/smart-contracts/connect-to-polkadot/){target=\_blank} guide for more information.
+- A funded account with some PAS tokens (you can get them from the [Faucet](https://faucet.polkadot.io/?parachain=1111){target=\_blank}, noting that the faucet imposes a daily token limit, which may require multiple requests to obtain sufficient funds for testing).
+- Basic understanding of Solidity and NFTs, see the [Solidity Basics](https://soliditylang.org/){target=\_blank} and the [NFT Overview](https://ethereum.org/en/nft/){target=\_blank} guides for more details.
 
 ## Create the NFT Contract
 
 To create the NFT contract, you can follow the steps below:
 
-1. Navigate to the [Polkadot Remix IDE](https://remix.polkadot.io/){target=\_blank}
-2. Click in the **Create new file** button under the **contracts** folder, and name your contract as `MyNFT.sol`
+1. Navigate to the [Polkadot Remix IDE](https://remix.polkadot.io/){target=\_blank}.
+2. Click in the **Create new file** button under the **contracts** folder, and name your contract as `MyNFT.sol`.
 
     ![](/images/tutorials/smart-contracts/deploy-nft/deploy-nft-1.webp)
 
-3. Now, paste the following NFT contract code into the editor
+3. Now, paste the following NFT contract code into the editor.
 
     ```solidity title="MyNFT.sol"
     // SPDX-License-Identifier: MIT
@@ -39529,27 +39590,27 @@ contract MyToken is ERC721, Ownable {
 
     The key components of the code above are:
 
-    - Contract imports
+    - Contract imports:
 
-        - [**`ERC721.sol`**]({{ dependencies.repositories.open_zeppelin_contracts.repository_url }}/blob/{{ dependencies.repositories.open_zeppelin_contracts.version }}/contracts/token/ERC721/ERC721.sol){target=\_blank} - the base contract for non-fungible tokens, implementing core NFT functionality like transfers and approvals
-        - [**`Ownable.sol`**]({{ dependencies.repositories.open_zeppelin_contracts.repository_url }}/blob/{{ dependencies.repositories.open_zeppelin_contracts.version }}/contracts/access/Ownable.sol){target=\_blank} - provides basic authorization control, ensuring only the contract owner can mint new tokens
+        - **[`ERC721.sol`]({{ dependencies.repositories.open_zeppelin_contracts.repository_url }}/blob/{{ dependencies.repositories.open_zeppelin_contracts.version }}/contracts/token/ERC721/ERC721.sol){target=\_blank}**: The base contract for non-fungible tokens, implementing core NFT functionality like transfers and approvals.
+        - **[`Ownable.sol`]({{ dependencies.repositories.open_zeppelin_contracts.repository_url }}/blob/{{ dependencies.repositories.open_zeppelin_contracts.version }}/contracts/access/Ownable.sol){target=\_blank}**: Provides basic authorization control, ensuring only the contract owner can mint new tokens.
     
-    - Constructor parameters
+    - Constructor parameters:
 
-        - **`initialOwner`** - sets the address that will have administrative rights over the contract
-        - **`"MyToken"`** - the full name of your NFT collection
-        - **`"MTK"`** - the symbol representing your token in wallets and marketplaces
+        - **`initialOwner`**: Sets the address that will have administrative rights over the contract.
+        - **`"MyToken"`**: The full name of your NFT collection.
+        - **`"MTK"`**: The symbol representing your token in wallets and marketplaces.
 
-    - Key functions
+    - Key functions:
 
-        - [**`_safeMint(to, tokenId)`**]({{ dependencies.repositories.open_zeppelin_contracts.repository_url }}/blob/{{ dependencies.repositories.open_zeppelin_contracts.version }}/contracts/token/ERC721/ERC721.sol#L304){target=\_blank} - an internal function from `ERC721` that safely mints new tokens. It includes checks to ensure the recipient can handle `ERC721` tokens, with the `_nextTokenId` mechanism automatically generating unique sequential token IDs and the `onlyOwner` modifier restricting minting rights to the contract owner
+        - **[`_safeMint(to, tokenId)`]({{ dependencies.repositories.open_zeppelin_contracts.repository_url }}/blob/{{ dependencies.repositories.open_zeppelin_contracts.version }}/contracts/token/ERC721/ERC721.sol#L304){target=\_blank}**: An internal function from `ERC721` that safely mints new tokens. It includes checks to ensure the recipient can handle `ERC721` tokens, with the `_nextTokenId` mechanism automatically generating unique sequential token IDs and the `onlyOwner` modifier restricting minting rights to the contract owner.
         - Inherited [Standard ERC721](https://ethereum.org/en/developers/docs/standards/tokens/erc-721/){target=\_blank} functions provide a standardized set of methods that enable interoperability across different platforms, wallets, and marketplaces, ensuring that your NFT can be easily transferred, traded, and managed by any system that supports the `ERC721` standard:
-            - **`transferFrom(address from, address to, uint256 tokenId)`** - transfers a specific NFT from one address to another
-            - **`safeTransferFrom(address from, address to, uint256 tokenId)`** - safely transfers an NFT, including additional checks to prevent loss
-            - **`approve(address to, uint256 tokenId)`** - grants permission for another address to transfer a specific NFT
-            - **`setApprovalForAll(address operator, bool approved)`** - allows an address to manage all of the owner's NFTs
-            - **`balanceOf(address owner)`** - returns the number of NFTs owned by a specific address
-            - **`ownerOf(uint256 tokenId)`** - returns the current owner of a specific NFT
+            - **`transferFrom(address from, address to, uint256 tokenId)`**: Transfers a specific NFT from one address to another.
+            - **`safeTransferFrom(address from, address to, uint256 tokenId)`**: Safely transfers an NFT, including additional checks to prevent loss.
+            - **`approve(address to, uint256 tokenId)`**: Grants permission for another address to transfer a specific NFT.
+            - **`setApprovalForAll(address operator, bool approved)`**: Allows an address to manage all of the owner's NFTs.
+            - **`balanceOf(address owner)`**: Returns the number of NFTs owned by a specific address.
+            - **`ownerOf(uint256 tokenId)`**: Returns the current owner of a specific NFT.
 
     !!! tip
         Use the [OpenZeppelin Contracts Wizard](https://wizard.openzeppelin.com/){target=\_blank} to generate customized smart contracts quickly. Simply configure your contract, copy the generated code, and paste it into Polkadot Remix IDE for deployment. Below is an example of an ERC-721 token contract created with it:
@@ -39561,15 +39622,15 @@ contract MyToken is ERC721, Ownable {
 
 Compilation is a stage that converts your Solidity source code into bytecode suitable for deployment on the blockchain. Throughout this process, the compiler examines your contract for syntax errors, verifies type safety, and produces machine-readable instructions for execution on the blockchain.
 
-1. Select the **Solidity Compiler** plugin from the left panel
+1. Select the **Solidity Compiler** plugin from the left panel.
 
     ![](/images/tutorials/smart-contracts/deploy-nft/deploy-nft-3.webp)
 
-2. Click in the **Compile MyNFT.sol** button
+2. Click in the **Compile MyNFT.sol** button.
 
     ![](/images/tutorials/smart-contracts/deploy-nft/deploy-nft-4.webp)
 
-3. If the compilation succeeded, you can see a green checkmark indicating success in the **Solidity Compiler** icon
+3. If the compilation succeeded, you can see a green checkmark indicating success in the **Solidity Compiler** icon.
 
     ![](/images/tutorials/smart-contracts/deploy-nft/deploy-nft-5.webp)
 
@@ -39577,23 +39638,25 @@ Compilation is a stage that converts your Solidity source code into bytecode sui
 
 Deployment is the process of uploading your compiled smart contract to the blockchain, allowing for interaction. During deployment, you will instantiate your contract on the blockchain, which involves:
 
-1. Select the **Deploy & Run Transactions** plugin from the left panel
+1. Select the **Deploy & Run Transactions** plugin from the left panel.
 
     ![](/images/tutorials/smart-contracts/deploy-nft/deploy-nft-6.webp)
 
-2. Configure the deployment settings
-    1. From the **ENVIRONMENT** dropdown, select **Injected Provider - Talisman** (check the [Deploying Contracts](/develop/smart-contracts/dev-environments/remix/#deploying-contracts){target=\_blank} section of the Remix IDE guide for more details)
-    2. From the **ACCOUNT** dropdown, select the account you want to use for the deploy
+2. Configure the deployment settings:
+
+    1. From the **ENVIRONMENT** dropdown, select **Injected Provider - Talisman** (check the [Deploying Contracts](/develop/smart-contracts/dev-environments/remix/#deploying-contracts){target=\_blank} section of the Remix IDE guide for more details).
+    2. From the **ACCOUNT** dropdown, select the account you want to use for the deploy.
 
     ![](/images/tutorials/smart-contracts/deploy-nft/deploy-nft-7.webp)
 
-3. Configure the contract parameters
+3. Configure the contract parameters:
+
     1. Enter the address that will own the deployed NFT.
-    2. Click the **Deploy** button to initiate the deployment
+    2. Click the **Deploy** button to initiate the deployment.
 
     ![](/images/tutorials/smart-contracts/deploy-nft/deploy-nft-8.webp)
 
-4. Talisman will pop up - review the transaction details. Click **Approve** to deploy your contract
+4. **Talisman will pop up**: Review the transaction details. Click **Approve** to deploy your contract.
 
     ![](/images/tutorials/smart-contracts/deploy-nft/deploy-nft-9.webp){: .browser-extension}
 
@@ -39607,20 +39670,20 @@ Deployment is the process of uploading your compiled smart contract to the block
 
 Once deployed, you can interact with your contract through Remix:
 
-1. Find your contract under **Deployed/Unpinned Contracts**, and click it to expand the available methods for the contract
+1. Find your contract under **Deployed/Unpinned Contracts**, and click it to expand the available methods for the contract.
 
     ![](/images/tutorials/smart-contracts/deploy-nft/deploy-nft-11.webp)
 
-2. To mint an NFT
+2. To mint an NFT:
 
-    1. Click on the contract to expand its associated methods
-    2. Expand the **safeMint** function
-    3. Enter the recipient address
-    4. Click **Transact**
+    1. Click on the contract to expand its associated methods.
+    2. Expand the **safeMint** function.
+    3. Enter the recipient address.
+    4. Click **Transact**.
 
     ![](/images/tutorials/smart-contracts/deploy-nft/deploy-nft-12.webp)
 
-3. Click **Approve** to confirm the transaction in the Talisman popup
+3. Click **Approve** to confirm the transaction in the Talisman popup.
 
     ![](/images/tutorials/smart-contracts/deploy-nft/deploy-nft-13.webp){: .browser-extension}
 
@@ -39648,17 +39711,17 @@ Get started with deploying and interacting with smart contracts on Polkadot thro
 
 ## What to Expect from These Tutorials
 
-- **Beginner to advanced** – suitable for developers of all levels
-- **Complete workflows** – covers the entire process from writing code to on-chain deployment
-- **Interactive examples** – follow along with real, working code that you can modify and expand
+- **Beginner to advanced**: Suitable for developers of all levels.
+- **Complete workflows**: Covers the entire process from writing code to on-chain deployment.
+- **Interactive examples**: Follow along with real, working code that you can modify and expand.
 
 ## Start Building
 
 Jump into the tutorials and learn how to:
 
-- Write and compile smart contracts
-- Deploy contracts to the Polkadot network
-- Interact with deployed contracts using libraries like Ethers.js and viem
+- Write and compile smart contracts.
+- Deploy contracts to the Polkadot network.
+- Interact with deployed contracts using libraries like Ethers.js and viem.
 
 Choose a tutorial below and start coding today!
 
@@ -39690,20 +39753,20 @@ This tutorial will guide you through creating a basic smart contract that can be
 
 Before starting, make sure you have:
 
-- A text editor of your choice ([VS Code](https://code.visualstudio.com/){target=\_blank}, [Sublime Text](https://www.sublimetext.com/){target=\_blank}, etc.)
-- Basic understanding of programming concepts
-- Familiarity with the Solidity programming language syntax. For further references, check the official [Solidity documentation](https://docs.soliditylang.org/en/latest/){target=\_blank}
+- A text editor of your choice ([VS Code](https://code.visualstudio.com/){target=\_blank}, [Sublime Text](https://www.sublimetext.com/){target=\_blank}, etc.).
+- Basic understanding of programming concepts.
+- Familiarity with the Solidity programming language syntax. For further references, check the official [Solidity documentation](https://docs.soliditylang.org/en/latest/){target=\_blank}.
 
 ## Understanding Smart Contract Structure
 
 Let's explore these components before building the contract:
 
-- [**SPDX license identifier**](https://docs.soliditylang.org/en/v0.6.8/layout-of-source-files.html){target=\_blank} - a standardized way to declare the license under which your code is released. This helps with legal compliance and is required by the Solidity compiler to avoid warnings
-- **Pragma directive** - specifies which version of Solidity compiler should be used for your contract
-- **Contract declaration** - similar to a class in object-oriented programming, it defines the boundaries of your smart contract
-- **State variables** - data stored directly in the contract that persists between function calls. These represent the contract's "state" on the blockchain
-- **Functions** - executable code that can read or modify the contract's state variables
-- **Events** - notification mechanisms that applications can subscribe to in order to track blockchain changes
+- **[SPDX license identifier](https://docs.soliditylang.org/en/v0.6.8/layout-of-source-files.html){target=\_blank}**: A standardized way to declare the license under which your code is released. This helps with legal compliance and is required by the Solidity compiler to avoid warnings.
+- **Pragma directive**: Specifies which version of Solidity compiler should be used for your contract.
+- **Contract declaration**: Similar to a class in object-oriented programming, it defines the boundaries of your smart contract.
+- **State variables**: Data stored directly in the contract that persists between function calls. These represent the contract's "state" on the blockchain.
+- **Functions**: Executable code that can read or modify the contract's state variables.
+- **Events**: Notification mechanisms that applications can subscribe to in order to track blockchain changes.
 
 ## Create the Smart Contract
 
@@ -39711,13 +39774,13 @@ In this section, you'll build a simple storage contract step by step. This basic
 
 This contract will:
 
-- Store a number
-- Allow updating the stored number
-- Emit an event when the number changes
+- Store a number.
+- Allow updating the stored number.
+- Emit an event when the number changes.
 
 To build the smart contract, follow the steps below:
 
-1. Create a new file named `Storage.sol`
+1. Create a new file named `Storage.sol`.
 
 2. Add the SPDX license identifier at the top of the file:
 
@@ -39759,8 +39822,8 @@ To build the smart contract, follow the steps below:
 
     Here, you're defining:
 
-    - A state variable named `number` of type `uint256` (unsigned integer with 256 bits), which is marked as `private` so it can only be accessed via functions within this contract
-    - An event named `NumberChanged` that will be triggered whenever the number changes. The event includes the new value as data
+    - A state variable named `number` of type `uint256` (unsigned integer with 256 bits), which is marked as `private` so it can only be accessed via functions within this contract.
+    - An event named `NumberChanged` that will be triggered whenever the number changes. The event includes the new value as data.
 
 6. Add the getter and setter functions:
 
@@ -39820,26 +39883,26 @@ Let's break down the key components of the contract:
 
 - **State Variable**
 
-    - `uint256 private number` - a private variable that can only be accessed through the contract's functions
-    - The `private` keyword prevents direct access from other contracts, but it's important to note that while other contracts cannot read this variable directly, the data itself is still visible on the blockchain and can be read by external tools or applications that interact with the blockchain. "Private" in Solidity doesn't mean the data is encrypted or truly hidden
-    - State variables in Solidity are permanent storage on the blockchain, making them different from variables in traditional programming. Every change to a state variable requires a transaction and costs gas (the fee paid for blockchain operations)
+    - **`uint256 private number`**: A private variable that can only be accessed through the contract's functions.
+    - The `private` keyword prevents direct access from other contracts, but it's important to note that while other contracts cannot read this variable directly, the data itself is still visible on the blockchain and can be read by external tools or applications that interact with the blockchain. "Private" in Solidity doesn't mean the data is encrypted or truly hidden.
+    - State variables in Solidity are permanent storage on the blockchain, making them different from variables in traditional programming. Every change to a state variable requires a transaction and costs gas (the fee paid for blockchain operations).
 
 - **Event**
 
-    - `event NumberChanged(uint256 newNumber)` - emitted when the stored number changes
-    - When triggered, events write data to the blockchain's log, which can be efficiently queried by applications
-    - Unlike state variables, events cannot be read by smart contracts, only by external applications
-    - Events are much more gas-efficient than storing data when you only need to notify external systems of changes
+    - **`event NumberChanged(uint256 newNumber)`**: Emitted when the stored number changes.
+    - When triggered, events write data to the blockchain's log, which can be efficiently queried by applications.
+    - Unlike state variables, events cannot be read by smart contracts, only by external applications.
+    - Events are much more gas-efficient than storing data when you only need to notify external systems of changes.
 
 - **Functions**
 
-    - `store(uint256 newNumber)` - updates the stored number and emits an event
-        - This function changes the state of the contract and requires a transaction to execute
-        - The `emit` keyword is used to trigger the defined event
+    - **`store(uint256 newNumber)`**: Updates the stored number and emits an event.
+        - This function changes the state of the contract and requires a transaction to execute.
+        - The `emit` keyword is used to trigger the defined event.
 
-    - `retrieve()` - returns the current stored number
-        - The `view` keyword indicates that this function only reads data and doesn't modify the contract's state
-        - View functions don't require a transaction and don't cost gas when called externally
+    - **`retrieve()`**: Returns the current stored number.
+        - The `view` keyword indicates that this function only reads data and doesn't modify the contract's state.
+        - View functions don't require a transaction and don't cost gas when called externally.
 
     For those new to Solidity, this naming pattern (getter/setter functions) is a common design pattern. Instead of directly accessing state variables, the convention is to use functions to control access and add additional logic if needed.
 
@@ -39886,17 +39949,17 @@ In this tutorial, you'll build a complete dApp that interacts with a smart contr
 
 Before you begin, make sure you have:
 
-- [Node.js](https://nodejs.org/en){target=\_blank} v16 or newer installed on your machine
-- A crypto wallet (like MetaMask) with some test tokens. For further information, check the [Connect to Polkadot](/develop/smart-contracts/connect-to-polkadot){target=\_blank} guide
-- Basic understanding of React and JavaScript
-- Familiarity with blockchain concepts and Solidity (helpful but not mandatory)
+- [Node.js](https://nodejs.org/en){target=\_blank} v16 or newer installed on your machine.
+- A crypto wallet (like MetaMask) with some test tokens. For further information, check the [Connect to Polkadot](/develop/smart-contracts/connect-to-polkadot){target=\_blank} guide.
+- Basic understanding of React and JavaScript.
+- Familiarity with blockchain concepts and Solidity (helpful but not mandatory).
 
 ## Project Overview
 
 The dApp will interact with a simple Storage contract. For a step-by-step guide on creating it, refer to the [Create Contracts](/tutorials/smart-contracts/launch-your-first-project/create-contracts){target=\_blank} tutorial. This contract allows:
 
-- Reading a stored number from the blockchain
-- Updating the stored number with a new value
+- Reading a stored number from the blockchain.
+- Updating the stored number with a new value.
 
 The contract has already been deployed to the Polkadot Hub TestNet for testing purposes: `0x58053f0e8ede1a47a1af53e43368cd04ddcaf66f`. If you want to deploy your own, follow the [Deploying Contracts](/develop/smart-contracts/dev-environments/remix/#deploying-contracts){target=\_blank} section.
 
@@ -40497,9 +40560,9 @@ The completed UI will display:
 
 Congratulations! You've built a complete dApp that interacts with a smart contract on the Polkadot Hub TestNet using Ethers.js and Next.js. Your application can now:
 
-- Connect to a user's wallet
-- Read data from a smart contract
-- Send transactions to update the contract state
+- Connect to a user's wallet.
+- Read data from a smart contract.
+- Send transactions to update the contract state.
 
 These fundamental skills provide the foundation for building more complex dApps on Polkadot Hub. With these building blocks, you can extend your application to interact with more sophisticated smart contracts and create more advanced user interfaces.
 
@@ -40532,17 +40595,17 @@ This tutorial will guide you through building a fully functional dApp that inter
 
 Before getting started, ensure you have the following:
 
-- [Node.js](https://nodejs.org/en){target=\_blank} v16 or later installed on your system
-- A crypto wallet (such as MetaMask) funded with test tokens. Refer to the [Connect to Polkadot](/develop/smart-contracts/connect-to-polkadot){target=\_blank} guide for more details
-- A basic understanding of React and JavaScript
-- Some familiarity with blockchain fundamentals and Solidity (useful but not required)
+- [Node.js](https://nodejs.org/en){target=\_blank} v16 or later installed on your system.
+- A crypto wallet (such as MetaMask) funded with test tokens. Refer to the [Connect to Polkadot](/develop/smart-contracts/connect-to-polkadot){target=\_blank} guide for more details.
+- A basic understanding of React and JavaScript.
+- Some familiarity with blockchain fundamentals and Solidity (useful but not required).
 
 ## Project Overview
 
 This dApp will interact with a basic Storage contract. Refer to the [Create Contracts](/tutorials/smart-contracts/launch-your-first-project/create-contracts){target=\_blank} tutorial for a step-by-step guide on creating this contract. The contract allows:
 
-- Retrieving a stored number from the blockchain
-- Updating the stored number with a new value
+- Retrieving a stored number from the blockchain.
+- Updating the stored number with a new value.
 
 
 Below is a high-level overview of what you'll be building:
@@ -41290,29 +41353,32 @@ After that, you will see:
 
 Let's examine how the dApp interacts with the blockchain:
 
-1. **Wallet Connection**: 
-    - The `WalletConnect` component uses the browser's Ethereum provider (MetaMask) to connect to the user's wallet
-    - It handles network switching to ensure the user is connected to the Polkadot Hub TestNet
-    - Once connected, it provides the user's account address to the parent component
+1. Wallet connection: 
 
-2. **Reading Data**:
-    - The `ReadContract` component uses viem's `readContract` function to call the `storedNumber` view function
-    - It periodically polls for updates to keep the UI in sync with the blockchain state
-    - The component displays a loading indicator while fetching data and handles error states
+    - The `WalletConnect` component uses the browser's Ethereum provider (MetaMask) to connect to the user's wallet.
+    - It handles network switching to ensure the user is connected to the Polkadot Hub TestNet.
+    - Once connected, it provides the user's account address to the parent component.
 
-3. **Writing Data**:
-    - The `WriteContract` component uses viem's `writeContract` function to send a transaction to the `setNumber` function
-    - It ensures the wallet is connected before allowing a transaction
-    - The component shows detailed feedback during transaction submission and confirmation
-    - After a successful transaction, the value displayed in the `ReadContract` component will update on the next poll
+2. Reading data:
+
+    - The `ReadContract` component uses viem's `readContract` function to call the `storedNumber` view function.
+    - It periodically polls for updates to keep the UI in sync with the blockchain state.
+    - The component displays a loading indicator while fetching data and handles error states.
+
+3. Writing data:
+
+    - The `WriteContract` component uses viem's `writeContract` function to send a transaction to the `setNumber` function.
+    - It ensures the wallet is connected before allowing a transaction.
+    - The component shows detailed feedback during transaction submission and confirmation.
+    - After a successful transaction, the value displayed in the `ReadContract` component will update on the next poll.
 
 ## Conclusion
 
 Congratulations! You've successfully built a fully functional dApp that interacts with a smart contract on Polkadot Hub using viem and Next.js. Your application can now:
 
-- Connect to a user's wallet and handle network switching
-- Read data from a smart contract and keep it updated
-- Write data to the blockchain through transactions
+- Connect to a user's wallet and handle network switching.
+- Read data from a smart contract and keep it updated.
+- Write data to the blockchain through transactions.
 
 These fundamental skills provide the foundation for building more complex dApps on Polkadot Hub. With this knowledge, you can extend your application to interact with more sophisticated smart contracts and create advanced user interfaces.
 
@@ -41355,18 +41421,18 @@ Kickstart your journey into smart contract development with this comprehensive g
 
 Start building your first smart contract today:
 
-- **Set up your development environment** with the right tools and frameworks
-- **Write and compile** your first smart contract
-- **Deploy and interact** with your contract on Polkadot
-- **Test and optimize** your code for production readiness
+- **Set up your development environment** with the right tools and frameworks.
+- **Write and compile** your first smart contract.
+- **Deploy and interact** with your contract on Polkadot.
+- **Test and optimize** your code for production readiness.
 
 Follow the step-by-step tutorials to confidently launch your project.
 
 ## Development Pathway
 
-- **Beginner-friendly** – step-by-step instructions suitable for newcomers to smart contract development
-- **Hands-on learning** – practical exercises that build real-world skills
-- **Production-ready** – progress from basic concepts to deployment-ready contracts
+- **Beginner-friendly**: Step-by-step instructions suitable for newcomers to smart contract development.
+- **Hands-on learning**: Practical exercises that build real-world skills.
+- **Production-ready**: Progress from basic concepts to deployment-ready contracts.
 
 ## In This Section
 
@@ -41394,10 +41460,10 @@ After creating a smart contract, the next crucial steps are testing and deployme
 
 Before starting, make sure you have:
 
-- The [`Storage.sol` contract](/tutorials/smart-contracts/launch-your-first-project/create-contracts/#create-the-smart-contract){target=\_blank} created in the previous tutorial
-- [Node.js](https://nodejs.org/){target=\_blank} (v16.0.0 or later) and npm installed
-- Basic understanding of JavaScript for writing tests
-- Some PAS test tokens to cover transaction fees (obtained from the [Polkadot faucet](https://faucet.polkadot.io/?parachain=1111){target=\_blank})
+- The [`Storage.sol` contract](/tutorials/smart-contracts/launch-your-first-project/create-contracts/#create-the-smart-contract){target=\_blank} created in the previous tutorial.
+- [Node.js](https://nodejs.org/){target=\_blank} (v16.0.0 or later) and npm installed.
+- Basic understanding of JavaScript for writing tests.
+- Some PAS test tokens to cover transaction fees (obtained from the [Polkadot faucet](https://faucet.polkadot.io/?parachain=1111){target=\_blank}).
 
 ## Setting Up the Development Environment
 
@@ -41483,8 +41549,8 @@ module.exports = {
 
     The configuration also defines two network settings: 
 
-    - `localNode` - runs a PolkaVM instance on `http://127.0.0.1:8545` for local development and testing
-    - `passetHub` - connects to the the Polkadot Hub TestNet network using a predefined RPC URL and a private key stored in environment variables
+    - **`localNode`**: Runs a PolkaVM instance on `http://127.0.0.1:8545` for local development and testing.
+    - **`passetHub`**: Connects to the the Polkadot Hub TestNet network using a predefined RPC URL and a private key stored in environment variables.
 
 7. Export your private key and save it in your Hardhat environment:
 
@@ -41578,60 +41644,60 @@ describe('Storage', function () {
 
     Now, you can add custom unit tests to check your contract functionality. Some example tests are available below:
 
-    a. **Initial state verification** - ensures that the contract starts with a default value of zero, which is a fundamental expectation for the `Storage.sol` contract
+    1. **Initial state verification**: Ensures that the contract starts with a default value of zero, which is a fundamental expectation for the `Storage.sol` contract.
 
-    ```javascript title="Storage.js"
-    it('Should return 0 initially', async function () {
+        ```javascript title="Storage.js"
+        it('Should return 0 initially', async function () {
       expect(await storage.retrieve()).to.equal(0);
     });
-    ```
+        ```
 
-    Explanation:
+        Explanation:
 
-    - Checks the initial state of the contract
-    - Verifies that a newly deployed contract has a default value of 0
-    - Confirms the `retrieve()` method works correctly for a new contract
+        - Checks the initial state of the contract.
+        - Verifies that a newly deployed contract has a default value of 0.
+        - Confirms the `retrieve()` method works correctly for a new contract.
 
-    b. **Value storage test** - validate the core functionality of storing and retrieving a value in the contract
+    2. **Value storage test**: Validate the core functionality of storing and retrieving a value in the contract.
 
-    ```javascript title="Storage.js"
-    it('Should update when store is called', async function () {
+        ```javascript title="Storage.js"
+        it('Should update when store is called', async function () {
       const testValue = 42;
       // Store a value
       await storage.store(testValue);
       // Check if the value was updated
       expect(await storage.retrieve()).to.equal(testValue);
     });
-    ```
+        ```
 
-    Explanation:
+        Explanation:
 
-    - Demonstrates the ability to store a specific value
-    - Checks that the stored value can be retrieved correctly
-    - Verifies the basic write and read functionality of the contract
+        - Demonstrates the ability to store a specific value.
+        - Checks that the stored value can be retrieved correctly.
+        - Verifies the basic write and read functionality of the contract.
 
-    c. **Event emission verification** - confirm that the contract emits the correct event when storing a value, which is crucial for off-chain tracking
+    3. **Event emission verification**: Confirm that the contract emits the correct event when storing a value, which is crucial for off-chain tracking.
 
-    ```javascript title="Storage.js"
-    it('Should emit an event when storing a value', async function () {
+        ```javascript title="Storage.js"
+        it('Should emit an event when storing a value', async function () {
       const testValue = 100;
       // Check if the NumberChanged event is emitted with the correct value
       await expect(storage.store(testValue))
         .to.emit(storage, 'NumberChanged')
         .withArgs(testValue);
     });
-    ```
+        ```
 
-    Explanation:
+        Explanation:
 
-    - Ensures the `NumberChanged` event is emitted during storage
-    - Verifies that the event contains the correct stored value
-    - Validates the contract's event logging mechanism
+        - Ensures the `NumberChanged` event is emitted during storage.
+        - Verifies that the event contains the correct stored value.
+        - Validates the contract's event logging mechanism.
 
-    d. **Sequential value storage test** - check the contract's ability to store multiple values sequentially and maintain the most recent value
+    4. **Sequential value storage test**: Check the contract's ability to store multiple values sequentially and maintain the most recent value.
 
-    ```javascript title="Storage.js"
-    it('Should allow storing sequentially increasing values', async function () {
+        ```javascript title="Storage.js"
+        it('Should allow storing sequentially increasing values', async function () {
       const values = [10, 20, 30, 40];
 
       for (const value of values) {
@@ -41639,13 +41705,13 @@ describe('Storage', function () {
         expect(await storage.retrieve()).to.equal(value);
       }
     });
-    ```
+        ```
 
-    Explanation:
+        Explanation:
 
-    - Verifies that multiple values can be stored in sequence
-    - Confirms that each new store operation updates the contract's state
-    - Demonstrates the contract's ability always to reflect the most recently stored value
+        - Verifies that multiple values can be stored in sequence.
+        - Confirms that each new store operation updates the contract's state.
+        - Demonstrates the contract's ability always to reflect the most recently stored value.
 
     The complete `test/Storage.js` should look like this:
 
@@ -41739,21 +41805,21 @@ module.exports = buildModule('StorageModule', (m) => {
 
 2. Deploy to the local network:
 
-    a. First, start a local node:
+    1. First, start a local node:
 
-    ```bash
-    npx hardhat node
-    ```
+        ```bash
+        npx hardhat node
+        ```
 
-    b. Then, in a new terminal window, deploy the contract:
+    2. Then, in a new terminal window, deploy the contract:
 
-    ```bash
-    npx hardhat ignition deploy ./ignition/modules/StorageModule.js --network localNode
-    ```
+        ```bash
+        npx hardhat ignition deploy ./ignition/modules/StorageModule.js --network localNode
+        ```
 
-    c. If successful, output similar to the following will display in your terminal:
+    3. If successful, output similar to the following will display in your terminal:
 
-    <div id="termynal" data-termynal>
+        <div id="termynal" data-termynal>
   <span data-ty="input"><span class="file-path"></span>npx hardhat ignition deploy ./ignition/modules/Storage.js --network localNode</span>
   <span data-ty>✔ Confirm deploy to network localNode (420420422)? … yes</span>
   <span data-ty></span>
@@ -41773,15 +41839,15 @@ module.exports = buildModule('StorageModule', (m) => {
 
 3. Deploy to the Polkadot Hub TestNet:
 
-    a. Make sure your account has enough PAS tokens for gas fees, then run:
+    1. Make sure your account has enough PAS tokens for gas fees, then run:
 
-    ```bash
-    npx hardhat ignition deploy ./ignition/modules/StorageModule.js --network passetHub
-    ```
+        ```bash
+        npx hardhat ignition deploy ./ignition/modules/StorageModule.js --network passetHub
+        ```
 
-    b. After deployment, you'll see the contract address in the console output. Save this address for future interactions.
+    2. After deployment, you'll see the contract address in the console output. Save this address for future interactions.
 
-    <div id="termynal" data-termynal>
+        <div id="termynal" data-termynal>
   <span data-ty="input"><span class="file-path"></span>npx hardhat ignition deploy ./ignition/modules/Storage.js --network passetHub</span>
   <span data-ty>✔ Confirm deploy to network localNode (420420422)? … yes</span>
   <span data-ty></span>

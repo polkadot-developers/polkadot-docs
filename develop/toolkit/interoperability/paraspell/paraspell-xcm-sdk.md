@@ -112,6 +112,7 @@ Go ahead and execute the script:
 ```bash
 bun run index.ts
 ```
+
 You should be able to see all the information for your transfer:
 
 --8<-- 'code/develop/toolkit/interoperability/paraspell/transfer-info-output.html'

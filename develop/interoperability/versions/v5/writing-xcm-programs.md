@@ -61,4 +61,4 @@ api.tx.PolkadotXcm.claimAssets(...)
 - Existing dedicated extrinsics continue to work.
 - No breaking changes to existing programs.
 - New development should prefer `execute()` for better flexibility.
-- Gradual migration path available for existing applications.
+- A gradual migration path is available for existing applications.

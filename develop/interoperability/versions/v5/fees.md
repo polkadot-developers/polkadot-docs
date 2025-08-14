@@ -5,7 +5,7 @@ description: Explore the key differences in fee handling between XCM V4 and V5, 
 
 # Fees (XCM V4 → XCM V5)
 
-XCM V5 introduces a new fee payment mechanism that simplifies and unifies how fees are handled across different types of XCM operations.
+XCM V5 introduces a new fee payment mechanism that simplifies and unifies the handling of fees across various XCM operations.
 
 ## Key Changes from V4
 
@@ -18,12 +18,12 @@ XCM V5 replaces the [`BuyExecution`](https://paritytech.github.io/polkadot-sdk/m
     - Used `BuyExecution` instruction that handles only execution fees.
     - Leftover assets after buying execution are returned to holding.
     - Required explicit specification of execution weight limits.
-    - Delivery fees might not be found and error out.
+    - Delivery fees may not be found, and an error may occur.
 
 - **XCM V5 Approach:**
 
     - Introduces `PayFees` instruction for unified fee handling.
-    - All assets passed to `PayFees` are kept in a special `fees` register, they are _NOT_ returned to holding.
+    - All assets passed to `PayFees` are kept in a special `fees` register; they are _NOT_ returned to holding.
     - No need to specify weights, only assets.
     - More predictable.
 
@@ -58,8 +58,8 @@ XcmV4Instruction.BuyExecution({
 
 XCM V5 maintains backward compatibility with `BuyExecution` for existing implementations. Both instructions are supported, allowing gradual migration:
 
-- **BuyExecution**: Still supported for compatibility with existing XCM programs
-- **PayFees**: Recommended for new development and simplified fee management
+- **BuyExecution**: Still supported for compatibility with existing XCM programs.
+- **PayFees**: Recommended for new development and simplified fee management.
 
 ## Migration Considerations
 
@@ -71,13 +71,13 @@ When migrating from XCM V4 to XCM V5:
 - No breaking changes to existing functionality.
 
 When using `PayFees`, keep in mind that _ALL_ assets passed to the instruction will be entirely dedicated to fees, not returned to holding.
-That's why it's more important than before to [properly estimate XCM fees](/develop/interoperability/xcm-runtime-apis/){target=\_blank}.
+That's why it's more important than before to [to estimate XCM fees properly](/develop/interoperability/xcm-runtime-apis/){target=\_blank}.
 
 ## `RefundSurplus` Instruction
 
 When you overestimate fees with [`PayFees`](https://paritytech.github.io/polkadot-sdk/master/staging_xcm/v5/enum.Instruction.html#variant.PayFees){target=\_blank}, you can recover unused funds using the [`RefundSurplus`](https://paritytech.github.io/polkadot-sdk/master/staging_xcm/v5/enum.Instruction.html#variant.RefundSurplus){target=\_blank} instruction.
 
-You can use `RefundSurplus` to put the leftover fees back into holding. This is useful when you've overestimated the fees needed for your XCM program. You can then deposit them to some account with [`DepositAsset`](https://paritytech.github.io/polkadot-sdk/master/staging_xcm/v5/enum.Instruction.html#variant.DepositAsset){target=\_blank}.
+You can use `RefundSurplus` to put the leftover fees back into holding. This is useful when you've overestimated the fees needed for your XCM program. You can then deposit them into some account with [`DepositAsset`](https://paritytech.github.io/polkadot-sdk/master/staging_xcm/v5/enum.Instruction.html#variant.DepositAsset){target=\_blank}.
 
 ```typescript
 // After all instructions that send messages.

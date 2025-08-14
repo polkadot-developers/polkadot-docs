@@ -84,7 +84,7 @@ Use `fallback_max_weight: { ref_time: ..., proof_size: ... }` when:
 The previous mandatory weight specification created:
 
 - **Brittle implementations**: Weight requirements changed with runtime upgrades.
-- **Over/under-estimation**: Incorrect weight estimates led to failures or waste.
+- **Over/under-estimation**: Incorrect weight estimates that led to failures or waste.
 - **Maintenance overhead**: Constant monitoring and updates required.
 
 ### XCM V5 Improvements

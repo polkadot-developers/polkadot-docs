@@ -11,7 +11,7 @@ XCMv5 introduces the [`AssetClaimer`](https://paritytech.github.io/polkadot-sdk/
 
 When XCM execution failed and assets became trapped:
 
-- **Governance dependency**: Most trapped asset recovery required governance proposals.
+- **Governance dependency**: Most trapped asset recovery requires governance proposals.
 - **Complex procedures**: Manual intervention through referendum processes.
 - **Long delays**: Recovery could take weeks or months through governance.
 - **Risk of loss**: Assets could remain permanently trapped if governance didn't act.
@@ -71,9 +71,9 @@ The `AssetClaimer` hint addresses several critical pain points in trapped asset 
 | Feature | Before XCM V5 | After XCM V5 |
 | :-----: | :-----------: | :----------: |
 | **Recovery Speed** | Wait for governance process (weeks/months) | Designated claimer can act immediately |
-| **Governance Burden** | Every trapped asset required a governance proposal | Only complex cases need governance intervention |
+| **Governance Burden** | Every trapped asset requires a governance proposal | Only complex cases need governance intervention |
 | **Recovery Predictability** | Uncertain if governance would approve recovery | Predetermined claimer provides certainty |
-| **Accessibility** | Small amounts often not worth governance overhead | Any amount can be efficiently recovered |
+| **Accessibility** | Small amounts are often not worth governance overhead | Any amount can be efficiently recovered |
 
 ## Best Practices
 
@@ -81,7 +81,7 @@ Following these best practices ensures effective use of the `AssetClaimer` hint 
 
 ### Set Hint Early
 
-Always set the asset claimer hint before any operations that might fail, ensuring trapped assets can be recovered immediately without governance intervention.
+Always set the `AssetClaimer` hint before any operations that might fail, ensuring trapped assets can be recovered immediately without governance intervention.
 
 ```typescript
 // Set claimer hint before any risky operations

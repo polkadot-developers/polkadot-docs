@@ -7,7 +7,7 @@ description: Learn how to execute arbitrary calls on remote chains using the Tra
 
 ## Introduction
 
-The [`Transact`](https://paritytech.github.io/polkadot-sdk/master/staging_xcm/v5/opaque/type.Instruction.html#variant.Transact){target=\_blank} instruction enables arbitrary cross-chain execution of pallet calls or smart contract functions. It's one of the most powerful XCM instructions because it allows you to perform any operation that would normally be done locally on a remote chain. However, it requires knowing implementation details of the destination chain.
+The [`Transact`](https://paritytech.github.io/polkadot-sdk/master/staging_xcm/v5/opaque/type.Instruction.html#variant.Transact){target=\_blank} instruction enables arbitrary cross-chain execution of pallet calls or smart contract functions. It's one of the most powerful XCM instructions because it allows you to perform any operation that would normally be done locally on a remote chain. However, it requires knowing the implementation details of the destination chain.
 
 The basic structure of the [`Transact`](https://paritytech.github.io/polkadot-sdk/master/staging_xcm/v5/opaque/type.Instruction.html#variant.Transact){target=\_blank} instruction is as follows:
 
@@ -33,7 +33,7 @@ The parameters are as follows:
 
 ## Chain-Specific Knowledge Required
 
-Unlike other XCM instructions like [`DepositAsset`](https://paritytech.github.io/polkadot-sdk/master/staging_xcm/v5/opaque/type.Instruction.html#variant.DepositAsset){target=\_blank} or [`WithdrawAsset`](https://paritytech.github.io/polkadot-sdk/master/staging_xcm/v5/opaque/type.Instruction.html#variant.WithdrawAsset){target=\_blank} which are generic, [`Transact`](https://paritytech.github.io/polkadot-sdk/master/staging_xcm/v5/opaque/type.Instruction.html#variant.Transact){target=\_blank} requires detailed knowledge of the destination chain:
+Unlike other XCM instructions like [`DepositAsset`](https://paritytech.github.io/polkadot-sdk/master/staging_xcm/v5/opaque/type.Instruction.html#variant.DepositAsset){target=\_blank} or [`WithdrawAsset`](https://paritytech.github.io/polkadot-sdk/master/staging_xcm/v5/opaque/type.Instruction.html#variant.WithdrawAsset){target=\_blank}, which are generic, [`Transact`](https://paritytech.github.io/polkadot-sdk/master/staging_xcm/v5/opaque/type.Instruction.html#variant.Transact){target=\_blank} requires detailed knowledge of the destination chain:
 
 ### Required Knowledge
 

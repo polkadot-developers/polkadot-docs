@@ -7,18 +7,17 @@ description: How to claim assets that become trapped on-chain due to an XCM exec
 
 ## Introduction
 
-When XCM execution fails or succeeds, leftover assets can become "trapped" on the destination chain. These assets are held by the system but not accessible through normal means. XCM provides mechanisms to claim these trapped assets and recover them.
+When XCM execution fails or succeeds, leftover assets can become "trapped" on the destination chain. These assets are held by the system but are not accessible through normal means. XCM provides mechanisms to claim these trapped assets and recover them.
 This guide details the process and required steps to claim trapped assets.
 
 ## Trapped Assets Causes
 
 Assets become trapped whenever execution halts and there are leftover assets. This can happen for example if:
 
-- An XCM execution throws an error in any instruction when assets are in holding:
+- An XCM execution throws an error in any instruction when assets are in holding such as:
     - `DepositAsset` can't deposit because the account doesn't exist.
     - `Transact` can't execute the call because it doesn't exist.
     - `PayFees` not enough funds or not paying enough for execution.
-    - and others.
 
 - XCM execution finishes successfully but not all assets were deposited:
     - Funds were withdrawn but some were not deposited.
@@ -216,10 +215,10 @@ This allows this other `SS58_ACCOUNT` to claim the trapped assets. This could al
 
 ## Best practices
 
-1. **Always set a claimer**: Include `SetAssetClaimer` in XCMs with valuable assets
-2. **Use accessible locations**: Ensure the claimer location is controlled by someone who can act
-3. **Monitor for failures**: Track XCM execution to detect when claiming is needed
-4. **Test claiming flows**: Verify your claiming logic works in test environments
-5. **Document recovery procedures**: Maintain clear instructions for asset recovery
+1. **Always set a claimer**: Include `SetAssetClaimer` in XCMs with valuable assets.
+2. **Use accessible locations**: Ensure the claimer location is controlled by someone who can act.
+3. **Monitor for failures**: Track XCM execution to detect when claiming is needed.
+4. **Test claiming flows**: Verify your claiming logic works in test environments.
+5. **Document recovery procedures**: Maintain clear instructions for asset recovery.
 
 Setting a custom asset claimer is a good practice for recovering trapped assets without the need for governance intervention.

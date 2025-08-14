@@ -70,9 +70,9 @@ The new `preserve_origin` parameter enables:
 
 !!! note "Important"
 
-    Origin preservation requires specific configuration on the destination chain.
+    Origin preservation requires a specific configuration on the destination chain.
     If the destination chain doesn't support it, transfers with `preserve_origin: true` will fail.
-    Setting `preserve_origin: false` will work as before, regardless of destination chain configuration.
+    Setting `preserve_origin: false` will continue to work as before, regardless of the destination chain configuration.
 
 ### Integrated Fee Handling
 

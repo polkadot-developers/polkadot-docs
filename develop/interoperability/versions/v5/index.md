@@ -26,9 +26,9 @@ Version 5 addresses key pain points that developers faced in previous versions:
 - **Before XCM V5**
     - Cross-chain transfers were limited to only one transfer type, requiring multiple different XCMs to send the entirety of the tokens.
     - Fee management across multiple hops was extremely complicated to get right, particularly because of delivery fees.
-    - Cross-chain transfers cleared the origin, making it impossible to [`Transact`](https://paritytech.github.io/polkadot-sdk/master/staging_xcm/v4/enum.Instruction.html#variant.Transact) in the same XCM as a transfer.
+    - Cross-chain transfers cleared the origin, making it impossible to [`Transact`](https://paritytech.github.io/polkadot-sdk/master/staging_xcm/v4/enum.Instruction.html#variant.Transact){target=\_blank} in the same XCM as a transfer.
     - Claiming trapped assets when transfers failed was troublesome, most of the time requiring governance to intervene.
-    - Having to specify the weight for `Transact` was really brittle.
+    - Having to specify the weight for `Transact` was brittle.
 - **After XCM V5**
     - A unified cross-chain transfer instruction handles all possible transfer types and allows multiple ones in the same XCM.
     - The fee payment mechanism has been standardized to handle multiple types of fees, making fees much more predictable.

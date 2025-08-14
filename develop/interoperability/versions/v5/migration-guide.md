@@ -15,9 +15,9 @@ Whether migration is possible depends mainly on if the target chains have alread
 
 To determine whether a chain supports XCM V5:
 
-- Read the changelog
-- Explore the metadata with PAPI's descriptors
-- Explore the metadata with a tool like [subwasm](https://github.com/chevdor/subwasm){target=\_blank}
+- Read the changelog.
+- Explore the metadata with PAPI's descriptors.
+- Explore the metadata with a tool like [subwasm](https://github.com/chevdor/subwasm){target=\_blank}.
 
 For example, when generating PAPI descriptors for a chain, you can check if the `XcmVersionedXcm` known type has the V5 variant.
 
@@ -27,7 +27,7 @@ npx papi add myChain -w <INSERT_RPC_WEB_SOCKET_ENDPOINT>
 
 Ensure to replace the `<INSERT_RPC_WEB_SOCKET_ENDPOINT>` with the actual RPC web socket endpoint of the chain.
 
-Alternatively, you can navigate to the [PAPI developer console](https://dev.papi.how/extrinsics){target=\_blank}, connect to the chain and under extrinsics choose `PolkadotXcm -> execute` and check for the V5 variant:
+Alternatively, you can navigate to the [PAPI developer console](https://dev.papi.how/extrinsics){target=\_blank}, connect to the chain, and under extrinsics choose `PolkadotXcm -> execute` and check for the V5 variant:
 
 ![](/images/develop/interoperability/versions/v5/migration-guide/check-xcm-version.webp)
 
@@ -65,9 +65,9 @@ With XCM V5, the ecosystem is shifting toward writing XCM programs directly inst
 
 Migration Impact:
 
-- More verbose but significantly more flexible
-- Need to calculate weights using runtime APIs
-- Better control over execution flow
+- More verbose but significantly more flexible.
+- Need to calculate weights using runtime APIs.
+- Better control over execution flow.
 
 !!! note "Is this `execute` new?"
 
@@ -93,8 +93,8 @@ const result = await tx.signAndSubmit(signer);
 
 !!! note "Are the extrinsics going away?"
 
-    No! The extrinsics will continue to be supported in the XCM pallet for an undefined period of time. Although, it is expected that as more chains support XCM V5 and more dApp developers use [execute](https://paritytech.github.io/polkadot-sdk/master/pallet_xcm/pallet/struct.Pallet.html#method.execute){target=\_blank},
-    they'll reap the benefits and not require the extrinsics anymore.
+    No! The extrinsics will continue to be supported in the XCM pallet for an undefined period of time. Although it is expected that as more chains support XCM V5 and more dApp developers use [execute](https://paritytech.github.io/polkadot-sdk/master/pallet_xcm/pallet/struct.Pallet.html#method.execute){target=\_blank},
+    they'll reap the benefits and no longer require extrinsics.
 
 ### Unified Transfer Instructions
 
@@ -135,7 +135,7 @@ Beyond the shift to direct XCM execution, XCM V5 also consolidates transfer oper
 
 Migration Benefits:
 
-- Mix different transfer types in single operation
+- Different transfer types in single operation
 - Clearer fee handling
 - Origin preservation option
 
@@ -191,16 +191,16 @@ XcmV4Instruction.BuyExecution({
 });
 ```
 
-The new `PayFees` instruction just has the asset for fee payment. The `weight_limit` parameter has historically mostly been set to `Unlimited` because of the difficulty to estimate weight and the fees being sufficient for limiting the max execution cost.
+The new `PayFees` instruction just has the asset for fee payment. The `weight_limit` parameter has historically been set to `Unlimited` due to the difficulty in estimating weight and the fees being sufficient to limit the maximum execution cost.
 
 There is another key difference between `PayFees` and `BuyExecution`:
 
 - With `BuyExecution`, if too much was supplied for fees, the leftover after paying for execution would be returned to the [holding register](https://paritytech.github.io/polkadot-sdk/master/staging_xcm_executor/struct.XcmExecutor.html#method.holding) to be used in the rest of the XCM.
-- With `PayFees`, the full amount put into `assets` is stored in the fees register, nothing is returned to the holding register.
+- With `PayFees`, the full amount put into `assets` is stored in the fees register; nothing is returned to the holding register.
 
 This means the full amount intended for fee payment must be specified. It makes it much more predictable. For example, withdrawing 11 DOT with 1 DOT in `PayFees` ensures exactly 10 DOT is sent.
 
-The reason for this is the introduction of **delivery fees**, which are charged in addition to **execution fees**. Delivery fees are charged the moment an instruction is encountered which results in sending a new XCM. That's why fees can't be returned to the holding register as before; they need to be kept in the new fees register.
+The reason for this is the introduction of **delivery fees**, which are charged in addition to **execution fees**. Delivery fees are charged the moment an instruction is encountered that results in sending a new XCM. That's why fees can't be returned to the holding register as before; they need to be kept in the new fees register.
 
 !!! note "Is BuyExecution going away?"
 
@@ -307,7 +307,7 @@ This example shows how XCM V5 enables combining multiple asset transfers with di
 
 ### `fallback_max_weight` in `Transact`
 
-The `Transact` instruction has changed in XCM V5 to reduce chances of bugs when executing calls on remote chains.
+The `Transact` instruction has been updated in XCM V5 to reduce the likelihood of bugs when executing calls on remote chains.
 
 The `Transact` instruction looked like this in XCM V4:
 
@@ -349,7 +349,7 @@ This change makes `Transact` more reliable and reduces the maintenance burden of
 
 This change affects how testnet networks are referenced in XCM.
 
-The network IDs, used in the `GlobalConsensus` junction, for `Rococo` and `Westend` were removed. Instead, the generic `ByGenesis` network ID should be used for referencing testnets. This change was made because testnets come and go, as was shown by the [removal of Rococo](https://forum.polkadot.network/t/rococo-to-be-deprecated-in-october/8702) and [appearance of Paseo](https://forum.polkadot.network/t/the-new-polkadot-community-testnet/4956). From now on, only mainnets will have an explicit network ID, testnets should always be referenced with `ByGenesis`.
+The network IDs, used in the `GlobalConsensus` junction, for `Rococo` and `Westend` were removed. Instead, the generic `ByGenesis` network ID should be used for referencing testnets. This change was made because testnets come and go, as was shown by the [removal of Rococo](https://forum.polkadot.network/t/rococo-to-be-deprecated-in-october/8702) and [appearance of Paseo](https://forum.polkadot.network/t/the-new-polkadot-community-testnet/4956). From now on, only mainnets will have an explicit network ID; testnets should always be referenced with `ByGenesis`.
 
 If storing these network IDs, they must be migrated to `ByGenesis`. These are the genesis hashes for the migration:
 

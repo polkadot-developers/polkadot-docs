@@ -15,7 +15,7 @@ There are two main types of fees in XCM: [execution](#execution) and [delivery](
 
 ## Execution
 
-All XCMs have a weight associated to them. Each XCM instruction is benchmarked for a particular system (blockchain), which assigns them a weight. The weight of an XCM is the sum of the weight of all instructions. It's important to correctly benchmark this with the worst case so that your system is safe from [Denial-of-Service (DoS)](https://en.wikipedia.org/wiki/Denial-of-service_attack){target=\_blank} attacks.
+All XCMs have a weight associated with them. Each XCM instruction is benchmarked for a particular system (blockchain), which assigns them a weight. The weight of an XCM is the sum of the weight of all instructions. It's important to correctly benchmark this with the worst case so that your system is safe from [Denial-of-Service (DoS)](https://en.wikipedia.org/wiki/Denial-of-service_attack){target=\_blank} attacks.
 
 This generated weight represents how much time, and space, is needed for executing the XCM. It directly translates to _execution fees_.
 
@@ -62,10 +62,10 @@ flowchart LR
 ```
 
 - Execution fees need to be paid on A.
-- Delivery fees from A to B.
-- Execution on B.
+- Delivery fees need to be paid from A to B.
+- Execution occurs on B.
 - Delivery from B to C.
-- Finally, execution on C.
+- Execution occurs on C.
 
 An XCM that does this might look like so:
 

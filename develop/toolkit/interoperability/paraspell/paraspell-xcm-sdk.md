@@ -119,9 +119,10 @@ You should be able to see all the information for your transfer:
 
 Now that you have:
 
-- completed a successful dry run of the transaction
-- verified the existential deposit on the recipient account
-- obtained an estimate of the associated XCM fees
+- Completed a successful dry run of the transaction
+- Verified the existential deposit on the recipient account
+- Obtained an estimate of the associated XCM fees
+
 You can execute the teleport transaction with confidence.
 
 Add the following code:

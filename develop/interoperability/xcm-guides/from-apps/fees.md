@@ -61,11 +61,11 @@ flowchart LR
   B --forwards message--> C(Parachain C)
 ```
 
-- Execution fees need to be paid on A.
-- Delivery fees need to be paid from A to B.
-- Execution occurs on B.
-- Delivery from B to C.
-- Execution occurs on C.
+1. Execution fees need to be paid on A.
+2. Delivery fees need to be paid from A to B.
+3. Execution occurs on B.
+4. Delivery from B to C.
+5. Execution occurs on C.
 
 An XCM that does this might look like so:
 

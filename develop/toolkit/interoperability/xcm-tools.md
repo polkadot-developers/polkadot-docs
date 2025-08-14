@@ -71,3 +71,22 @@ For more details on using Astar xcm-tools, consult the [official documentation](
 ### Chopsticks
 
 The Chopsticks library provides XCM functionality for testing XCM messages across networks, enabling you to fork multiple parachains along with a relay chain. For further details, see the [Chopsticks documentation](/tutorials/polkadot-sdk/testing/fork-live-chains/){target=\_blank} about XCM.
+
+### Moonbeam XCM SDK
+
+The [Moonbeam XCM SDK](https://github.com/moonbeam-foundation/xcm-sdk){target=\_blank} enables developers to easily transfer assets between chains, either between parachains or between a parachain and the relay chain, within the Polkadot/Kusama ecosystem. With the SDK, you don't need to worry about determining the [Multilocation](https://github.com/polkadot-fellows/xcm-format?tab=readme-ov-file#7-universal-consensus-location-identifiers){target=\_blank} of the origin or destination assets or which extrinsics are used on which networks.
+
+The SDK consists of two main packages:
+
+- **[XCM SDK](https://github.com/moonbeam-foundation/xcm-sdk/tree/main/packages/sdk){target=\_blank}** - core SDK for executing XCM transfers between chains in the Polkadot/Kusama ecosystem
+- **[MRL SDK](https://github.com/moonbeam-foundation/xcm-sdk/tree/main/packages/mrl){target=\_blank}** - extension of the XCM SDK for transferring liquidity into and across the Polkadot ecosystem from other ecosystems like Ethereum
+
+Key features include:
+
+- **Simplified asset transfers** - abstracts away complex multilocation determinations and extrinsic selection
+- **Cross-ecosystem support** - enables transfers between Polkadot/Kusama chains and external ecosystems
+- **Developer-friendly API** - provides intuitive interfaces for cross-chain functionality
+- **Comprehensive documentation** - includes usage guides and API references for both packages
+
+For detailed usage examples and API documentation, visit the [official Moonbeam XCM SDK documentation](https://moonbeam-foundation.github.io/xcm-sdk/latest/){target=\_blank}.
+

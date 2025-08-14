@@ -1,0 +1,253 @@
+<div id="termynal" data-termynal>
+  <span data-ty>...</span>
+  <span data-ty>{
+  txHash: '0x8ca2c97a1bc570a3697f033d30164e6fc2b13ef3e3ba4ec3c989f49107adc7da',
+  block: {
+    index: 2,
+    number: 2484912,
+    hash: '0xff331de1b5a99e91fb70423989a1b5c31b0494b2bee59851baff2020a0cc1111'
+  },
+  ok: true,
+  events: [
+    {
+      type: 'Balances',
+      value: {
+        type: 'Withdraw',
+        value: {
+          who: '15DMtB5BDCJqw4uZtByTWXGqViAVx7XjRsxWbTH5tfrHLe8j',
+          amount: 15518864n
+        }
+      },
+      topics: []
+    },
+    {
+      type: 'Balances',
+      value: {
+        type: 'Burned',
+        value: {
+          who: '15DMtB5BDCJqw4uZtByTWXGqViAVx7XjRsxWbTH5tfrHLe8j',
+          amount: 100000000000n
+        }
+      },
+      topics: []
+    },
+    {
+      type: 'PolkadotXcm',
+      value: {
+        type: 'Attempted',
+        value: {
+          outcome: {
+            type: 'Complete',
+            value: { used: { ref_time: 190990000n, proof_size: 3593n } }
+          }
+        }
+      },
+      topics: []
+    },
+    {
+      type: 'Balances',
+      value: {
+        type: 'Burned',
+        value: {
+          who: '15DMtB5BDCJqw4uZtByTWXGqViAVx7XjRsxWbTH5tfrHLe8j',
+          amount: 304850000n
+        }
+      },
+      topics: []
+    },
+    {
+      type: 'Balances',
+      value: {
+        type: 'Minted',
+        value: {
+          who: '14xmwinmCEz6oRrFdczHKqHgWNMiCysE2KrA4jXXAAM1Eogk',
+          amount: 304850000n
+        }
+      },
+      topics: []
+    },
+    {
+      type: 'PolkadotXcm',
+      value: {
+        type: 'FeesPaid',
+        value: {
+          paying: {
+            parents: 0,
+            interior: {
+              type: 'X1',
+              value: {
+                type: 'AccountId32',
+                value: {
+                  network: { type: 'Polkadot', value: undefined },
+                  id: FixedSizeBinary {
+                    asText: [Function (anonymous)],
+                    asHex: [Function (anonymous)],
+                    asOpaqueHex: [Function (anonymous)],
+                    asBytes: [Function (anonymous)],
+                    asOpaqueBytes: [Function (anonymous)]
+                  }
+                }
+              }
+            }
+          },
+          fees: [
+            {
+              id: {
+                parents: 1,
+                interior: { type: 'Here', value: undefined }
+              },
+              fun: { type: 'Fungible', value: 304850000n }
+            }
+          ]
+        }
+      },
+      topics: []
+    },
+    {
+      type: 'ParachainSystem',
+      value: {
+        type: 'UpwardMessageSent',
+        value: {
+          message_hash: FixedSizeBinary {
+            asText: [Function (anonymous)],
+            asHex: [Function (anonymous)],
+            asOpaqueHex: [Function (anonymous)],
+            asBytes: [Function (anonymous)],
+            asOpaqueBytes: [Function (anonymous)]
+          }
+        }
+      },
+      topics: []
+    },
+    {
+      type: 'PolkadotXcm',
+      value: {
+        type: 'Sent',
+        value: {
+          origin: {
+            parents: 0,
+            interior: {
+              type: 'X1',
+              value: {
+                type: 'AccountId32',
+                value: {
+                  network: { type: 'Polkadot', value: undefined },
+                  id: FixedSizeBinary {
+                    asText: [Function (anonymous)],
+                    asHex: [Function (anonymous)],
+                    asOpaqueHex: [Function (anonymous)],
+                    asBytes: [Function (anonymous)],
+                    asOpaqueBytes: [Function (anonymous)]
+                  }
+                }
+              }
+            }
+          },
+          destination: { parents: 1, interior: { type: 'Here', value: undefined } },
+          message: [
+            {
+              type: 'ReceiveTeleportedAsset',
+              value: [
+                {
+                  id: {
+                    parents: 0,
+                    interior: { type: 'Here', value: undefined }
+                  },
+                  fun: { type: 'Fungible', value: 100000000000n }
+                }
+              ]
+            },
+            { type: 'ClearOrigin', value: undefined },
+            {
+              type: 'BuyExecution',
+              value: {
+                fees: {
+                  id: {
+                    parents: 0,
+                    interior: { type: 'Here', value: undefined }
+                  },
+                  fun: { type: 'Fungible', value: 100000000000n }
+                },
+                weight_limit: { type: 'Unlimited', value: undefined }
+              }
+            },
+            {
+              type: 'DepositAsset',
+              value: {
+                assets: {
+                  type: 'Wild',
+                  value: { type: 'AllCounted', value: 1 }
+                },
+                beneficiary: {
+                  parents: 0,
+                  interior: {
+                    type: 'X1',
+                    value: {
+                      type: 'AccountId32',
+                      value: {
+                        network: undefined,
+                        id: FixedSizeBinary {
+                          asText: [Function (anonymous)],
+                          asHex: [Function (anonymous)],
+                          asOpaqueHex: [Function (anonymous)],
+                          asBytes: [Function (anonymous)],
+                          asOpaqueBytes: [Function (anonymous)]
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          ],
+          message_id: FixedSizeBinary {
+            asText: [Function (anonymous)],
+            asHex: [Function (anonymous)],
+            asOpaqueHex: [Function (anonymous)],
+            asBytes: [Function (anonymous)],
+            asOpaqueBytes: [Function (anonymous)]
+          }
+        }
+      },
+      topics: []
+    },
+    {
+      type: 'Balances',
+      value: {
+        type: 'Deposit',
+        value: {
+          who: '13UVJyLgBASGhE2ok3TvxUfaQBGUt88JCcdYjHvUhvQkFTTx',
+          amount: 15518864n
+        }
+      },
+      topics: []
+    },
+    {
+      type: 'TransactionPayment',
+      value: {
+        type: 'TransactionFeePaid',
+        value: {
+          who: '15DMtB5BDCJqw4uZtByTWXGqViAVx7XjRsxWbTH5tfrHLe8j',
+          actual_fee: 15518864n,
+          tip: 0n
+        }
+      },
+      topics: []
+    },
+    {
+      type: 'System',
+      value: {
+        type: 'ExtrinsicSuccess',
+        value: {
+          dispatch_info: {
+            weight: { ref_time: 952851000n, proof_size: 13382n },
+            class: { type: 'Normal', value: undefined },
+            pays_fee: { type: 'Yes', value: undefined }
+          }
+        }
+      },
+      topics: []
+    }
+  ]
+}</span>
+</div>

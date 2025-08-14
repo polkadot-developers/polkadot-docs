@@ -3,8 +3,5 @@ nav:
   - index.md
   - xcm-channels
   - xcm-transfers
-<<<<<<< HEAD:tutorials/interoperability/.nav.yml
   - 'Replay and Dry Run XCMs': replay-and-dry-run-xcms.md
-=======
   - 'XCM Fee Estimation': xcm-fee-estimation.md
->>>>>>> 0xlucca/xcm-runtime-apis-tutorial:tutorials/interoperability/.pages

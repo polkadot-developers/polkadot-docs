@@ -76,10 +76,10 @@ XCM messages are intent-driven, outlining desired actions for the receiving bloc
 
 XCM adheres to four guiding principles that ensure robust and reliable communication across consensus systems:
 
-- **Asynchronous** - XCM messages operate independently of sender acknowledgment, avoiding delays due to blocked processes
-- **Absolute** - XCM messages are guaranteed to be delivered and interpreted accurately, in order, and timely. Once a message is sent, one can be sure it will be processed as intended
-- **Asymmetric** - XCM messages follow the 'fire and forget' paradigm meaning no automatic feedback is provided to the sender. Any results must be communicated separately to the sender with an additional message back to the origin
-- **Agnostic** - XCM operates independently of the specific consensus mechanisms, making it compatible across diverse systems
+- **Asynchronous**: XCM messages operate independently of sender acknowledgment, avoiding delays due to blocked processes.
+- **Absolute**: XCM messages are guaranteed to be delivered and interpreted accurately, in order, and timely. Once a message is sent, one can be sure it will be processed as intended.
+- **Asymmetric**: XCM messages follow the 'fire and forget' paradigm meaning no automatic feedback is provided to the sender. Any results must be communicated separately to the sender with an additional message back to the origin.
+- **Agnostic**: XCM operates independently of the specific consensus mechanisms, making it compatible across diverse systems.
 
 These principles guarantee that XCM provides a reliable framework for cross-chain communication, even in complex environments.
 
@@ -93,9 +93,9 @@ The XCM tech stack is designed to facilitate seamless interoperable communicatio
 
 XCM enhances cross-consensus communication by introducing several powerful features:
 
-- **Programmability** - supports dynamic message handling, allowing for more comprehensive use cases. Includes branching logic, safe dispatches for version checks, and asset operations like NFT management
-- **Functional Multichain Decomposition** - enables mechanisms such as remote asset locking, asset namespacing, and inter-chain state referencing, with contextual message identification 
-- **Bridging** - establishes a universal reference framework for multi-hop setups, connecting disparate systems like Ethereum and Bitcoin with the Polkadot relay chain acting as a universal location
+- **Programmability**: Supports dynamic message handling, allowing for more comprehensive use cases. Includes branching logic, safe dispatches for version checks, and asset operations like NFT management.
+- **Functional Multichain Decomposition**: Enables mechanisms such as remote asset locking, asset namespacing, and inter-chain state referencing, with contextual message identification.
+- **Bridging**: Establishes a universal reference framework for multi-hop setups, connecting disparate systems like Ethereum and Bitcoin with the Polkadot relay chain acting as a universal location.
 
 The standardized format for messages allows parachains to handle tasks like user balances, governance, and staking, freeing the Polkadot relay chain to focus on shared security. These features make XCM indispensable for implementing scalable and interoperable blockchain applications. 
 
@@ -125,29 +125,33 @@ let message = Xcm(vec![
 
 The message consists of three instructions described as follows:
 
-- [**WithdrawAsset**](https://github.com/polkadot-fellows/xcm-format?tab=readme-ov-file#withdrawasset){target=\_blank} - transfers a specified number of tokens from Alice's account to a holding register
-```rust
-WithdrawAsset((Here, amount).into()),
-```
-    - `Here` - the native parachain token
-    - `amount` - the number of tokens that are transferred
+- **[WithdrawAsset](https://github.com/polkadot-fellows/xcm-format?tab=readme-ov-file#withdrawasset){target=\_blank}**: Transfers a specified number of tokens from Alice's account to a holding register.
+
+    ```rust
+    WithdrawAsset((Here, amount).into()),
+    ```
+
+    - **`Here`**: The native parachain token.
+    - **`amount`**: The number of tokens that are transferred.
 
     The first instruction takes as an input the MultiAsset that should be withdrawn. The MultiAsset describes the native parachain token with the `Here` keyword. The `amount` parameter is the number of tokens that are transferred. The withdrawal account depends on the origin of the message. In this example the origin of the message is Alice. The `WithdrawAsset` instruction moves `amount` number of native tokens from Alice's account into the holding register.
 
-- [**BuyExecution**](https://github.com/polkadot-fellows/xcm-format?tab=readme-ov-file#buyexecution){target=\_blank} - allocates fees to cover the execution [weight](/polkadot-protocol/glossary/#weight){target=\_blank} of the XCM instructions
-```rust
-BuyExecution { 
+- **[BuyExecution](https://github.com/polkadot-fellows/xcm-format?tab=readme-ov-file#buyexecution){target=\_blank}**: Allocates fees to cover the execution [weight](/polkadot-protocol/glossary/#weight){target=\_blank} of the XCM instructions.
+
+    ```rust
+    BuyExecution { 
         fees: (Here, amount).into(), 
         weight_limit: WeightLimit::Unlimited 
     },
-```
+    ```
 
-    - `fees` - describes the asset in the holding register that should be used to pay for the weight 
-    - `weight_limit` - defines the maximum fees that can be used to buy weight
+    - **`fees`**: Describes the asset in the holding register that should be used to pay for the weight.
+    - **`weight_limit`**: Defines the maximum fees that can be used to buy weight.
 
-- [**DepositAsset**](https://github.com/polkadot-fellows/xcm-format?tab=readme-ov-file#depositasset){target=\_blank} - moves the remaining tokens from the holding register to Bob’s account
-```rust
-DepositAsset {
+- **[DepositAsset](https://github.com/polkadot-fellows/xcm-format?tab=readme-ov-file#depositasset){target=\_blank}**: Moves the remaining tokens from the holding register to Bob’s account.
+
+    ```rust
+    DepositAsset {
         assets: All.into(),
         beneficiary: MultiLocation {
             parents: 0,
@@ -157,9 +161,9 @@ DepositAsset {
             }.into(),
         }.into()
     }
-```
+    ```
 
-    - `All` - the wildcard for the asset(s) to be deposited. In this case, all assets in the holding register should be deposited
+    - **`All`**: The wildcard for the asset(s) to be deposited. In this case, all assets in the holding register should be deposited.
     
 This step-by-step process showcases how XCM enables precise state changes within a blockchain system. You can find a complete XCM message example in the [XCM repository](https://github.com/paritytech/xcm-docs/blob/main/examples/src/0_first_look/mod.rs){target=\_blank}.
 
@@ -167,9 +171,9 @@ This step-by-step process showcases how XCM enables precise state changes within
 
 XCM revolutionizes cross-chain communication by enabling use cases such as:
 
-- Token transfers between blockchains
-- Asset locking for cross-chain smart contract interactions
-- Remote execution of functions on other blockchains
+- Token transfers between blockchains.
+- Asset locking for cross-chain smart contract interactions.
+- Remote execution of functions on other blockchains.
 
 These functionalities empower developers to build innovative, multi-chain applications, leveraging the strengths of various blockchain networks. To stay updated on XCM’s evolving format or contribute, visit the [XCM repository](https://github.com/paritytech/xcm-docs/blob/main/examples/src/0_first_look/mod.rs){target=\_blank}.
 --- END CONTENT ---
@@ -198,27 +202,20 @@ For further details about the XCM configuration, see the [XCM Configuration](/de
 
 Where the [XCM format](https://github.com/polkadot-fellows/xcm-format){target=\_blank} defines a set of instructions used to construct XCVM programs, `pallet-xcm` defines a set of extrinsics that can be utilized to build XCVM programs, either to target the local or external chains. The `pallet-xcm` functionality is divided into three categories:
 
-- **Primitive** - dispatchable functions to execute XCM locally
-
-- **High-level** - functions for asset transfers between chains
-
-- **Version negotiation-specific** - functions for managing XCM version compability
+- **Primitive**: Dispatchable functions to execute XCM locally.
+- **High-level**: Functions for asset transfers between chains.
+- **Version negotiation-specific**: Functions for managing XCM version compability.
 
 ### Key Roles of the XCM Pallet
 
 The XCM pallet plays a central role in managing cross-chain messages, with its primary responsibilities including:
 
-- **Execute XCM messages** - interacts with the XCM executor to validate and execute messages, adhering to predefined security and filter criteria
-
-- **Send messages across chains** - allows authorized origins to send XCM messages, enabling controlled cross-chain communication
-
-- **Reserve-based transfers and teleports** - supports asset movement between chains, governed by filters that restrict operations to authorized origins
-
-- **XCM version negotiation** - ensures compatibility by selecting the appropriate XCM version for inter-chain communication
-
-- **Asset trapping and recovery** - manages trapped assets, enabling safe reallocation or recovery when issues occur during cross-chain transfers
-
-- **Support for XCVM operations** - oversees state and configuration requirements necessary for executing cross-consensus programs within the XCVM framework
+- **Execute XCM messages**: Interacts with the XCM executor to validate and execute messages, adhering to predefined security and filter criteria.
+- **Send messages across chains**: Allows authorized origins to send XCM messages, enabling controlled cross-chain communication.
+- **Reserve-based transfers and teleports**: Supports asset movement between chains, governed by filters that restrict operations to authorized origins.
+- **XCM version negotiation**: Ensures compatibility by selecting the appropriate XCM version for inter-chain communication.
+- **Asset trapping and recovery**: Manages trapped assets, enabling safe reallocation or recovery when issues occur during cross-chain transfers.
+- **Support for XCVM operations**: Oversees state and configuration requirements necessary for executing cross-consensus programs within the XCVM framework.
 
 ## Primary Extrinsics of the XCM Pallet
 
@@ -293,9 +290,9 @@ Cross-Consensus Messaging (XCM) is a core feature of the Polkadot ecosystem, ena
 
 This guide covers the XCM Emulator, a tool designed to facilitate onboarding and testing for developers. Use the emulator if:
 
-- A live runtime is not yet available
-- Extensive configuration adjustments are needed, as emulated chains differ from live networks
-- Rust-based tests are preferred for automation and integration
+- A live runtime is not yet available.
+- Extensive configuration adjustments are needed, as emulated chains differ from live networks.
+- Rust-based tests are preferred for automation and integration.
 
 For scenarios where real blockchain state is required, [Chopsticks](/tutorials/polkadot-sdk/testing/fork-live-chains/#xcm-testing){target=\_blank} allows testing with any client compatible with Polkadot SDK-based chains.
 
@@ -314,25 +311,25 @@ The `xcm-emulator` relies on transport layer pallets. However, the messages do n
 The XCM Emulator provides both advantages and limitations when testing cross-chain communication in simulated environments.
 
 - **Advantages**:
-    - **Interactive debugging** - offers tracing capabilities similar to EVM, enabling detailed analysis of issues
-    - **Runtime composability** - facilitates testing and integration of multiple runtime components
-    - **Immediate feedback** - supports Test-Driven Development (TDD) by providing rapid test results
-    - **Seamless integration testing** - simplifies the process of testing new runtime versions in an isolated environment
+    - **Interactive debugging**: Offers tracing capabilities similar to EVM, enabling detailed analysis of issues.
+    - **Runtime composability**: Facilitates testing and integration of multiple runtime components.
+    - **Immediate feedback**: Supports Test-Driven Development (TDD) by providing rapid test results.
+    - **Seamless integration testing**: Simplifies the process of testing new runtime versions in an isolated environment.
 
 - **Limitations**:
-    - **Simplified emulation** - always assumes message delivery, which may not mimic real-world network behavior
-    - **Dependency challenges** - requires careful management of dependency versions and patching. Refer to the [Cargo dependency documentation](https://doc.rust-lang.org/cargo/reference/overriding-dependencies.html){target=\_blank}
-    - **Compilation overhead** - testing environments can be resource-intensive, requiring frequent compilation updates
+    - **Simplified emulation**: Always assumes message delivery, which may not mimic real-world network behavior.
+    - **Dependency challenges**: Requires careful management of dependency versions and patching. Refer to the [Cargo dependency documentation](https://doc.rust-lang.org/cargo/reference/overriding-dependencies.html){target=\_blank}.
+    - **Compilation overhead**: Testing environments can be resource-intensive, requiring frequent compilation updates.
 
 ### How Does It Work?
 
 The `xcm-emulator` provides macros for defining a mocked testing environment. Check all the existing macros and functionality in the [XCM Emulator source code](https://github.com/paritytech/polkadot-sdk/blob/{{dependencies.repositories.polkadot_sdk.version}}/cumulus/xcm/xcm-emulator/src/lib.rs){target=\_blank}. The most important macros are:
 
-- [**`decl_test_relay_chains`**](https://github.com/paritytech/polkadot-sdk/blob/{{dependencies.repositories.polkadot_sdk.version}}/cumulus/xcm/xcm-emulator/src/lib.rs#L361){target=\_blank} - defines runtime and configuration for the relay chains. Example:
+- **[`decl_test_relay_chains`](https://github.com/paritytech/polkadot-sdk/blob/{{dependencies.repositories.polkadot_sdk.version}}/cumulus/xcm/xcm-emulator/src/lib.rs#L361){target=\_blank}**: Defines runtime and configuration for the relay chains. Example:
 
     ```rust
     decl_test_relay_chains! {
-	#[api_version(11)]
+	#[api_version(13)]
 	pub struct Westend {
 		genesis = genesis::genesis(),
 		on_init = (),
@@ -354,7 +351,7 @@ The `xcm-emulator` provides macros for defining a mocked testing environment. Ch
 }
     ```
 
-- [**`decl_test_parachains`**](https://github.com/paritytech/polkadot-sdk/blob/{{dependencies.repositories.polkadot_sdk.version}}/cumulus/xcm/xcm-emulator/src/lib.rs#L596){target=\_blank} - defines runtime and configuration for the parachains. Example:
+- **[`decl_test_parachains`](https://github.com/paritytech/polkadot-sdk/blob/{{dependencies.repositories.polkadot_sdk.version}}/cumulus/xcm/xcm-emulator/src/lib.rs#L596){target=\_blank}**: Defines runtime and configuration for parachains. Example:
 
     ```rust
     decl_test_parachains! {
@@ -369,6 +366,7 @@ The `xcm-emulator` provides macros for defining a mocked testing environment. Ch
 			LocationToAccountId: asset_hub_westend_runtime::xcm_config::LocationToAccountId,
 			ParachainInfo: asset_hub_westend_runtime::ParachainInfo,
 			MessageOrigin: cumulus_primitives_core::AggregateMessageOrigin,
+			DigestProvider: (),
 		},
 		pallets = {
 			PolkadotXcm: asset_hub_westend_runtime::PolkadotXcm,
@@ -377,12 +375,14 @@ The `xcm-emulator` provides macros for defining a mocked testing environment. Ch
 			ForeignAssets: asset_hub_westend_runtime::ForeignAssets,
 			PoolAssets: asset_hub_westend_runtime::PoolAssets,
 			AssetConversion: asset_hub_westend_runtime::AssetConversion,
+			SnowbridgeSystemFrontend: asset_hub_westend_runtime::SnowbridgeSystemFrontend,
+			Revive: asset_hub_westend_runtime::Revive,
 		}
 	},
 }
     ```
 
-- [**`decl_test_bridges`**](https://github.com/paritytech/polkadot-sdk/blob/{{dependencies.repositories.polkadot_sdk.version}}/cumulus/xcm/xcm-emulator/src/lib.rs#L1221){target=\_blank} - creates bridges between chains, specifying the source, target, and message handler. Example:
+- **[`decl_test_bridges`](https://github.com/paritytech/polkadot-sdk/blob/{{dependencies.repositories.polkadot_sdk.version}}/cumulus/xcm/xcm-emulator/src/lib.rs#L1221){target=\_blank}**: Creates bridges between chains, specifying the source, target, and message handler. Example:
 
     ```rust
     decl_test_bridges! {
@@ -399,7 +399,7 @@ The `xcm-emulator` provides macros for defining a mocked testing environment. Ch
 }
     ```
 
-- [**`decl_test_networks`**](https://github.com/paritytech/polkadot-sdk/blob/{{dependencies.repositories.polkadot_sdk.version}}/cumulus/xcm/xcm-emulator/src/lib.rs#L958){target=\_blank} - defines a testing network with relay chains, parachains, and bridges, implementing message transport and processing logic. Example:
+- **[`decl_test_networks`](https://github.com/paritytech/polkadot-sdk/blob/{{dependencies.repositories.polkadot_sdk.version}}/cumulus/xcm/xcm-emulator/src/lib.rs#L958){target=\_blank}**: Defines a testing network with relay chains, parachains, and bridges, implementing message transport and processing logic. Example:
 
     ```rust
     decl_test_networks! {
@@ -440,9 +440,9 @@ categories: Basics, Polkadot Protocol
 
 Polkadot is designed to enable interoperability between its connected parachains. At the core of this interoperability is the [Cross-Consensus Message Format (XCM)](/develop/interoperability/intro-to-xcm/){target=\_blank}, a standard language that allows parachains to communicate and interact with each other.
 
-The network-layer protocol responsible for delivering XCM-formatted messages between parachains is the Cross-Chain Message Passing (XCMP) protocol. XCMP maintains messaging queues on the relay chain, serving as a bridge to facilitate cross-chain interactions.
+The network-layer protocol responsible for delivering XCM-formatted messages between parachains is the [Cross-Chain Message Passing (XCMP)](https://wiki.polkadot.com/learn/learn-xcm-transport/#xcmp-cross-chain-message-passing){target=\_blank} protocol. XCMP maintains messaging queues on the relay chain, serving as a bridge to facilitate cross-chain interactions.
 
-As XCMP is still under development, Polkadot has implemented a temporary alternative called Horizontal Relay-routed Message Passing (HRMP). HRMP offers the same interface and functionality as the planned XCMP but it has a crucial difference, it stores all messages directly in the relay chain’s storage, which is more resource-intensive.
+As XCMP is still under development, Polkadot has implemented a temporary alternative called [Horizontal Relay-routed Message Passing (HRMP)](https://wiki.polkadot.com/learn/learn-xcm-transport/#hrmp-xcmp-lite){target=\_blank}. HRMP offers the same interface and functionality as the planned XCMP but it has a crucial difference, it stores all messages directly in the relay chain's storage, which is more resource-intensive.
 
 Once XCMP is fully implemented, HRMP will be deprecated in favor of the native XCMP protocol. XCMP will offer a more efficient and scalable solution for cross-chain message passing, as it will not require the relay chain to store all the messages.
 
@@ -456,35 +456,36 @@ Opening an HRMP channel requires the parachains involved to make a deposit on th
 
 ### Relay Chain Parameters
 
-Each Polkadot relay chain has a set of configurable parameters that control the behavior of the message channels between parachains. These parameters include `hrmpSenderDeposit`, `hrmpRecipientDeposit`, `hrmpChannelMaxMessageSize`, `hrmpChannelMaxCapacity`, and more.
+Each Polkadot relay chain has a set of configurable parameters that control the behavior of the message channels between parachains. These parameters include [`hrmpSenderDeposit`](https://paritytech.github.io/polkadot-sdk/master/polkadot_runtime_parachains/configuration/struct.HostConfiguration.html#structfield.hrmp_sender_deposit){target=\_blank}, [`hrmpRecipientDeposit`](https://paritytech.github.io/polkadot-sdk/master/polkadot_runtime_parachains/configuration/struct.HostConfiguration.html#structfield.hrmp_recipient_deposit){target=\_blank}, [`hrmpChannelMaxMessageSize`](https://paritytech.github.io/polkadot-sdk/master/polkadot_runtime_parachains/configuration/struct.HostConfiguration.html#structfield.hrmp_channel_max_message_size){target=\_blank}, [`hrmpChannelMaxCapacity`](https://paritytech.github.io/polkadot-sdk/master/polkadot_runtime_parachains/configuration/struct.HostConfiguration.html#structfield.hrmp_channel_max_capacity){target=\_blank}, and more.
 
 When a parachain wants to open a new channel, it must consider these parameter values to ensure the channel is configured correctly.
 
 To view the current values of these parameters in the Polkadot network:
 
-1. Visit [Polkadot.js Apps](https://polkadot.js.org/apps/?rpc=wss%3A%2F%2Fpolkadot.api.onfinality.io%2Fpublic-ws#/explorer), navigate to the **Developer** dropdown and select the **Chain state** option
+1. Visit [Polkadot.js Apps](https://polkadot.js.org/apps/?rpc=wss%3A%2F%2Fpolkadot.api.onfinality.io%2Fpublic-ws#/explorer), navigate to the **Developer** dropdown and select the **Chain state** option.
 
     ![](/images/develop/interoperability/xcm-channels/xcm-channels-1.webp)
 
-2. Query the chain configuration parameters. The result will display the current settings for all the Polkadot network parameters, including the HRMP channel settings
-    1. Select **`configuration`**
-    2. Choose the **`activeConfig()`** call
-    3. Click the **+** button to execute the query
-    4. Check the chain configuration
+2. Query the chain configuration parameters. The result will display the current settings for all the Polkadot network parameters, including the HRMP channel settings.
 
-    ![](/images/develop/interoperability/xcm-channels/xcm-channels-2.webp)
+    1. Select **`configuration`**.
+    2. Choose the **`activeConfig()`** call.
+    3. Click the **+** button to execute the query.
+    4. Check the chain configuration.
+
+        ![](/images/develop/interoperability/xcm-channels/xcm-channels-2.webp)
 
 ### Dispatching Extrinsics
 
-Establishing new HRMP channels between parachains requires dispatching specific extrinsic calls on the Polkadot relay chain from the parachain's origin.
+Establishing new HRMP channels between parachains requires dispatching specific extrinsic calls on the Polkadot Relay Chain from the parachain's origin.
 
-The most straightforward approach is to implement the channel opening logic off-chain, then use the XCM pallet's `send` extrinsic to submit the necessary instructions to the relay chain. However, the ability to send arbitrary programs through the `Transact` instruction in XCM is typically restricted to privileged origins, such as the `sudo` pallet or governance mechanisms.
+The most straightforward approach is to implement the channel opening logic off-chain, then use the XCM pallet's [`send`](https://paritytech.github.io/polkadot-sdk/master/pallet_xcm/pallet/dispatchables/fn.send.html){target=\_blank} extrinsic to submit the necessary instructions to the relay chain. However, the ability to send arbitrary programs through the [`Transact`](https://github.com/polkadot-fellows/xcm-format?tab=readme-ov-file#transact){target=\_blank} instruction in XCM is typically restricted to privileged origins, such as the [`sudo`](https://paritytech.github.io/polkadot-sdk/master/pallet_sudo/pallet/dispatchables/fn.sudo.html){target=\_blank} pallet or governance mechanisms.
 
 Parachain developers have a few options for triggering the required extrinsic calls from their parachain's origin, depending on the configuration and access controls defined:
 
-- **Sudo** - if the parachain has a `sudo` pallet configured, the sudo key holder can use the sudo extrinsic to dispatch the necessary channel opening calls
-- **Governance** - the parachain's governance system, such as a council or OpenGov, can be used to authorize the channel opening calls
-- **Privileged accounts** - the parachain may have other designated privileged accounts that are allowed to dispatch the HRMP channel opening extrinsics
+- **Sudo**: If the parachain has a `sudo` pallet configured, the sudo key holder can use the sudo extrinsic to dispatch the necessary channel opening calls.
+- **Governance**: The parachain's governance system, such as a council or OpenGov, can be used to authorize the channel opening calls.
+- **Privileged accounts**: The parachain may have other designated privileged accounts that are allowed to dispatch the HRMP channel opening extrinsics.
 
 ## Where to Go Next
 
@@ -536,73 +537,108 @@ Polkadot is the primary production blockchain network for high-stakes, enterpris
 
 === "Network Details"
 
-    **Currency symbol** - `DOT`
+    **Currency symbol**: `DOT`
 
     ---
     
-    **Currency decimals** - 10
+    **Currency decimals**: 10
 
     ---
 
-    **Block explorer** - [Polkadot Subscan](https://polkadot.subscan.io/){target=\_blank}
+    **Block explorer**: [Polkadot Subscan](https://polkadot.subscan.io/){target=\_blank}
 
 === "RPC Endpoints"
+
     Blockops
+
     ```
     wss://polkadot-public-rpc.blockops.network/ws
     ```
+
     ---
+
     Dwellir
+
     ```
     wss://polkadot-rpc.dwellir.com
     ```
+
     ---
+
     Dwellir Tunisia
+
     ```
     wss://polkadot-rpc-tn.dwellir.com
     ```
+
     ---
+
     IBP1
+
     ```
     wss://rpc.ibp.network/polkadot
     ```
+
     ---
+
     IBP2
+
     ```
     wss://polkadot.dotters.network
     ```
+
     ---
+
     LuckyFriday
+
     ```
     wss://rpc-polkadot.luckyfriday.io
     ```
+
     ---
+
     OnFinality
+
     ```
     wss://polkadot.api.onfinality.io/public-ws
     ```
+
     ---
+
     RadiumBlock
+
     ```
     wss://polkadot.public.curie.radiumblock.co/ws
     ```
+
     ---
+
     RockX
+
     ```
     wss://rockx-dot.w3node.com/polka-public-dot/ws
     ```
+
     ---
+
     Stakeworld
+
     ```
     wss://dot-rpc.stakeworld.io
     ```
+
     ---
+
     SubQuery
+
     ```
     wss://polkadot.rpc.subquery.network/public/ws
     ```
+
     ---
+
     Light client
+
     ```
     light://substrate-connect/polkadot
     ```
@@ -613,63 +649,92 @@ Kusama is a network built as a risk-taking, fast-moving "canary in the coal mine
 
 === "Network Details"
 
-    **Currency symbol** - `KSM`
+    **Currency symbol**: `KSM`
 
     ---
 
-    **Currency decimals** - 12
+    **Currency decimals**: 12
 
     ---
     
-    **Block explorer** - [Kusama Subscan](https://kusama.subscan.io/){target=\_blank}
+    **Block explorer**: [Kusama Subscan](https://kusama.subscan.io/){target=\_blank}
 
 === "RPC Endpoints"
+
     Dwellir
+
     ```
     wss://kusama-rpc.dwellir.com
     ```
+
     ---
+
     Dwellir Tunisia
+
     ```
     wss://kusama-rpc-tn.dwellir.com
     ```
+
     ---
+
     IBP1
+
     ```
     wss://rpc.ibp.network/kusama
     ```
+
     ---
+
     IBP2
+
     ```
     wss://kusama.dotters.network
     ```
+
     ---
+
     LuckyFriday
+
     ```
     wss://rpc-kusama.luckyfriday.io
     ```
+
     ---
+
     OnFinality
+
     ```
     wss://kusama.api.onfinality.io/public-ws
     ```
+
     ---
+
     RadiumBlock
+
     ```
     wss://kusama.public.curie.radiumblock.co/ws
     ```
+
     ---
+
     RockX
+
     ```
     wss://rockx-ksm.w3node.com/polka-public-ksm/ws
     ```
+
     ---
+
     Stakeworld
+
     ```
     wss://rockx-ksm.w3node.com/polka-public-ksm/ws
     ```
+
     ---
+
     Light client
+
     ```
     light://substrate-connect/kusama
     ```
@@ -682,53 +747,73 @@ Westend is the primary test network that mirrors Polkadot's functionality for pr
 
 === "Network Information"
 
-    **Currency symbol** - `WND`
+    **Currency symbol**: `WND`
 
     ---
 
-    **Currency decimals** - 12
+    **Currency decimals**: 12
 
     ---
     
-    **Block explorer** - [Westend Subscan](https://westend.subscan.io/){target=\_blank}
+    **Block explorer**: [Westend Subscan](https://westend.subscan.io/){target=\_blank}
 
     ---
 
-    **Faucet** - [Official Westend faucet](https://faucet.polkadot.io/westend){target=\_blank}
+    **Faucet**: [Official Westend faucet](https://faucet.polkadot.io/westend){target=\_blank}
 
 
 === "RPC Endpoints"
+
     Dwellir
+
     ```
     wss://westend-rpc.dwellir.com
     ```
+
     ---
+
     Dwellir Tunisia
+
     ```
     wss://westend-rpc-tn.dwellir.com
     ```
+
     ---
+
     IBP1
+
     ```
     wss://rpc.ibp.network/westend
     ```
+
     ---
+
     IBP2
+
     ```
     wss://westend.dotters.network
     ```
+
     ---
+
     OnFinality
+
     ```
     wss://westend.api.onfinality.io/public-ws
     ```
+
     ---
+
     Parity
+
     ```
     wss://westend-rpc.polkadot.io
     ```
+
     ---
+
     Light client
+
     ```
     light://substrate-connect/westend
     ```
@@ -738,56 +823,64 @@ Westend is the primary test network that mirrors Polkadot's functionality for pr
 Paseo is a decentralised, community run, stable testnet for parachain and dapp developers to build and test their applications. Unlike Westend, Paseo is not intended for protocol-level testing. As a true TestNet, the PAS native token intentionally does not have any economic value. Use the faucet information in the following section to obtain PAS tokens.
 
 === "Network Information"
-    **RPC URL**
-    ```
-    wss://paseo.rpc.amforc.com
-    ```
+
+    **Currency symbol**: `PAS`
 
     ---
 
-    **Currency symbol** - `PAS`
-
-    ---
-
-    **Currency decimals** - 10
+    **Currency decimals**: 10
 
     ---
     
-    **Block explorer** - [Paseo Subscan](https://paseo.subscan.io/){target=\_blank}
+    **Block explorer**: [Paseo Subscan](https://paseo.subscan.io/){target=\_blank}
 
     ---
 
-    **Faucet** - [Official Paseo faucet](https://faucet.polkadot.io/){target=\_blank}
+    **Faucet**: [Official Paseo faucet](https://faucet.polkadot.io/){target=\_blank}
 
 === "RPC Endpoints"
+
     Amforc
+    
     ```
     wss://paseo.rpc.amforc.com
     ```
+    
     ---
+    
     Dwellir
+    
     ```
     wss://paseo-rpc.dwellir.com
     ```
+    
     ---
+    
     IBP1
+    
     ```
     wss://rpc.ibp.network/paseo
     ```
+    
     ---
+    
     IBP2
+    
     ```
     wss://paseo.dotters.network
     ```
+    
     ---
+    
     StakeWorld
+    
     ```
     wss://pas-rpc.stakeworld.io
     ```
 
 ## Additional Resources
 
-- [**Polkadot Fellowship runtimes repository**](https://github.com/polkadot-fellows/runtimes){target=\_blank} - find a collection of runtimes for Polkadot, Kusama, and their system-parachains as maintained by the community via the [Polkadot Technical Fellowship](https://wiki.polkadot.network/learn/learn-polkadot-technical-fellowship/){target=\_blank}
+- **[Polkadot Fellowship runtimes repository](https://github.com/polkadot-fellows/runtimes){target=\_blank}**: Find a collection of runtimes for Polkadot, Kusama, and their system-parachains as maintained by the community via the [Polkadot Technical Fellowship](https://wiki.polkadot.network/learn/learn-polkadot-technical-fellowship/){target=\_blank}.
 --- END CONTENT ---
 
 Doc-Content: https://docs.polkadot.com/develop/parachains/customize-parachain/overview/
@@ -820,9 +913,9 @@ Pallets are modular components within the FRAME ecosystem that encapsulate speci
 
 Developers have the flexibility to implement any desired behavior in the core logic of the blockchain, such as:
 
-- Exposing new transactions
-- Storing information
-- Enforcing business rules
+- Exposing new transactions.
+- Storing information.
+- Enforcing business rules.
 
 Pallets also include necessary wiring code to ensure proper integration and functionality within the runtime. FRAME provides a range of [pre-built pallets](https://github.com/paritytech/polkadot-sdk/tree/{{dependencies.repositories.polkadot_sdk.version}}/substrate/frame){target=\_blank} for standard and common blockchain functionalities, including consensus algorithms, staking mechanisms, governance systems, and more. These pre-existing pallets serve as building blocks or templates, which developers can use as-is, modify, or reference when creating custom functionalities. 
 
@@ -854,13 +947,13 @@ pub mod pallet {
 
 All pallets, including custom ones, can implement these attribute macros:
 
-- **`#[frame_support::pallet]`** - marks the module as usable in the runtime
-- **`#[pallet::pallet]`** - applied to a structure used to retrieve module information easily
-- **`#[pallet::config]`** - defines the configuration for the pallets's data types
-- **`#[pallet::event]`** - defines events to provide additional information to users
-- **`#[pallet::error]`** - lists possible errors in an enum to be returned upon unsuccessful execution
-- **`#[pallet::storage]`** - defines elements to be persisted in storage
-- **`#[pallet::call]`** - defines functions exposed as transactions, allowing dispatch to the runtime
+- **`#[frame_support::pallet]`**: Marks the module as usable in the runtime.
+- **`#[pallet::pallet]`**: Applied to a structure used to retrieve module information easily.
+- **`#[pallet::config]`**: Defines the configuration for the pallets's data types.
+- **`#[pallet::event]`**: Defines events to provide additional information to users.
+- **`#[pallet::error]`**: Lists possible errors in an enum to be returned upon unsuccessful execution.
+- **`#[pallet::storage]`**: Defines elements to be persisted in storage.
+- **`#[pallet::call]`**: Defines functions exposed as transactions, allowing dispatch to the runtime.
 
 These macros are applied as attributes to Rust modules, functions, structures, enums, and types and serve as the core components of a pallet. They enable the pallet to be built and added to the runtime, exposing the custom logic to the outer world.
 
@@ -870,10 +963,10 @@ For a comprehensive guide on these and additional macros, see the [`pallet_macro
 
 In addition to purpose-specific pallets, FRAME offers services and core libraries that facilitate composing and interacting with the runtime:
 
-- [**`frame_system` pallet**](https://paritytech.github.io/polkadot-sdk/master/frame_system/index.html){target=\_blank} - provides low-level types, storage, and functions for the runtime
-- [**`frame_executive` pallet**](https://paritytech.github.io/polkadot-sdk/master/frame_executive/index.html){target=\_blank} - orchestrates the execution of incoming function calls to the respective pallets in the runtime
-- [**`frame_support` crate**](https://paritytech.github.io/polkadot-sdk/master/frame_support/index.html){target=\_blank} - is a collection of Rust macros, types, traits, and modules that simplify the development of Substrate pallets
-- [**`frame_benchmarking` crate**](https://paritytech.github.io/polkadot-sdk/master/frame_benchmarking/trait.Benchmark.html){target=\_blank} - contains common runtime patterns for benchmarking and testing purposes
+- **[`frame_system` pallet](https://paritytech.github.io/polkadot-sdk/master/frame_system/index.html){target=\_blank}**: Provides low-level types, storage, and functions for the runtime.
+- **[`frame_executive` pallet](https://paritytech.github.io/polkadot-sdk/master/frame_executive/index.html){target=\_blank}**: Orchestrates the execution of incoming function calls to the respective pallets in the runtime.
+- **[`frame_support` crate](https://paritytech.github.io/polkadot-sdk/master/frame_support/index.html){target=\_blank}**: Is a collection of Rust macros, types, traits, and modules that simplify the development of Substrate pallets.
+- **[`frame_benchmarking` crate](https://paritytech.github.io/polkadot-sdk/master/frame_benchmarking/trait.Benchmark.html){target=\_blank}**: Contains common runtime patterns for benchmarking and testing purposes.
 
 ## Compose a Runtime with Pallets
 
@@ -885,10 +978,10 @@ The following diagram illustrates the process of selecting and combining FRAME p
 
 This modular design allows developers to:
 
-- Rapidly prototype blockchain systems
-- Easily add or remove features by including or excluding pallets
-- Customize blockchain behavior without rebuilding core components
-- Leverage tested and optimized code from built-in pallets
+- Rapidly prototype blockchain systems.
+- Easily add or remove features by including or excluding pallets.
+- Customize blockchain behavior without rebuilding core components.
+- Leverage tested and optimized code from built-in pallets.
 
 ## Starting from Templates
 
@@ -898,19 +991,19 @@ Using pre-built templates is an efficient way to begin building a custom blockch
 
 Solochain templates are designed for developers who want to create standalone blockchains that operate independently without connecting to a relay chain:
 
-- [**`minimal-template`**](https://github.com/paritytech/polkadot-sdk/tree/master/templates/minimal){target=\_blank} - includes only the essential components necessary for a functioning blockchain. It’s ideal for developers who want to gain familiarity with blockchain basics and test simple customizations before scaling up
+- **[`minimal-template`](https://github.com/paritytech/polkadot-sdk/tree/master/templates/minimal){target=\_blank}**: Includes only the essential components necessary for a functioning blockchain. It’s ideal for developers who want to gain familiarity with blockchain basics and test simple customizations before scaling up.
 
-- [**`solochain-template`**](https://github.com/paritytech/polkadot-sdk/tree/master/templates/solochain){target=\_blank} - provides a foundation for creating standalone blockchains with moderate features, including a simple consensus mechanism and several core FRAME pallets. It’s a solid starting point for developers who want a fully functional chain that doesn’t depend on a relay chain
+- **[`solochain-template`](https://github.com/paritytech/polkadot-sdk/tree/master/templates/solochain){target=\_blank}**: Provides a foundation for creating standalone blockchains with moderate features, including a simple consensus mechanism and several core FRAME pallets. It’s a solid starting point for developers who want a fully functional chain that doesn’t depend on a relay chain.
 
 ### Parachain Templates
 
 Parachain templates are specifically designed for chains that will connect to and interact with relay chains in the Polkadot ecosystem:
 
-- [**`parachain-template`**](https://github.com/paritytech/polkadot-sdk/tree/master/templates/parachain){target=\_blank} - designed for connecting to relay chains like Polkadot, Kusama, or Paseo, this template enables a chain to operate as a parachain. For projects aiming to integrate with Polkadot’s ecosystem, this template offers a great starting point
+- **[`parachain-template`](https://github.com/paritytech/polkadot-sdk/tree/master/templates/parachain){target=\_blank}**: Designed for connecting to relay chains like Polkadot, Kusama, or Paseo, this template enables a chain to operate as a parachain. For projects aiming to integrate with Polkadot’s ecosystem, this template offers a great starting point.
 
-- [**`OpenZeppelin`**](https://github.com/OpenZeppelin/polkadot-runtime-templates/tree/main){target=\_blank} - offers two flexible starting points:
-    - The [`generic-runtime-template`](https://github.com/OpenZeppelin/polkadot-runtime-templates/tree/main/generic-template){target=\_blank} provides a minimal setup with essential pallets and secure defaults, creating a reliable foundation for custom blockchain development
-    - The [`evm-runtime-template`](https://github.com/OpenZeppelin/polkadot-runtime-templates/tree/main/evm-template){target=\_blank} enables EVM compatibility, allowing developers to migrate Solidity contracts and EVM-based dApps. This template is ideal for Ethereum developers looking to leverage Substrate's capabilities
+- **[`OpenZeppelin`](https://github.com/OpenZeppelin/polkadot-runtime-templates/tree/main){target=\_blank}**: Offers two flexible starting points.
+    - The [`generic-runtime-template`](https://github.com/OpenZeppelin/polkadot-runtime-templates/tree/main/generic-template){target=\_blank} provides a minimal setup with essential pallets and secure defaults, creating a reliable foundation for custom blockchain development.
+    - The [`evm-runtime-template`](https://github.com/OpenZeppelin/polkadot-runtime-templates/tree/main/evm-template){target=\_blank} enables EVM compatibility, allowing developers to migrate Solidity contracts and EVM-based dApps. This template is ideal for Ethereum developers looking to leverage Substrate's capabilities.
 
 Choosing a suitable template depends on your project’s unique requirements, level of customization, and integration needs. Starting from a template speeds up development and lets you focus on implementing your chain’s unique features rather than the foundational blockchain setup.
 
@@ -942,11 +1035,11 @@ You can install Rust and set up a Substrate development environment on Apple mac
 
 Before you install Rust and set up your development environment on macOS, verify that your computer meets the following basic requirements:
 
-- Operating system version is 10.7 Lion or later
-- Processor speed of at least 2 GHz. Note that 3 GHz is recommended
-- Memory of at least 8 GB RAM. Note that 16 GB is recommended
-- Storage of at least 10 GB of available space
-- Broadband Internet connection
+- Operating system version is 10.7 Lion or later.
+- Processor speed of at least 2 GHz. Note that 3 GHz is recommended.
+- Memory of at least 8 GB RAM. Note that 16 GB is recommended.
+- Storage of at least 10 GB of available space.
+- Broadband Internet connection.
 
 #### Install Homebrew
 
@@ -954,8 +1047,7 @@ In most cases, you should use Homebrew to install and manage packages on macOS c
 
 To install Homebrew:
 
-1. Open the Terminal application
-
+1. Open the Terminal application.
 2. Download and install Homebrew by running the following command:
 
     ```bash
@@ -989,8 +1081,7 @@ Because the blockchain requires standard cryptography to support the generation 
 
 To install `openssl` and the Rust toolchain on macOS:
 
-1. Open the Terminal application
-
+1. Open the Terminal application.
 2. Ensure you have an updated version of Homebrew by running the following command:
 
     ```bash
@@ -1003,23 +1094,20 @@ To install `openssl` and the Rust toolchain on macOS:
     brew install openssl
     ```
 
-4. Download the `rustup` installation program and use it to install Rust by running the following
-   command:
+4. Download the `rustup` installation program and use it to install Rust by running the following command:
 
     ```bash
     curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
     ```
 
-5. Follow the prompts displayed to proceed with a default installation
-
+5. Follow the prompts displayed to proceed with a default installation.
 6. Update your current shell to include Cargo by running the following command:
 
     ```bash
     source ~/.cargo/env
     ```
 
-7. Configure the Rust toolchain to default to the latest stable version by running the following
-   commands:
+7. Configure the Rust toolchain to default to the latest stable version by running the following commands:
 
     ```bash
     rustup default stable
@@ -1028,8 +1116,7 @@ To install `openssl` and the Rust toolchain on macOS:
     rustup component add rust-src
     ```
 
-8. [Verify your installation](#verifying-installation)
-
+8. [Verify your installation](#verifying-installation).
 9. Install `cmake` using the following command:
 
     ```bash
@@ -1060,10 +1147,8 @@ Because the blockchain requires standard cryptography to support the generation 
 
 To install the Rust toolchain on Linux:
 
-1. Open a terminal shell
-
-2. Check the packages you have installed on the local computer by running an appropriate package management command for your Linux distribution
-
+1. Open a terminal shell.
+2. Check the packages you have installed on the local computer by running an appropriate package management command for your Linux distribution.
 3. Add any package dependencies you are missing to your local development environment by running the appropriate package management command for your Linux distribution:
 
     === "Ubuntu"
@@ -1105,8 +1190,7 @@ To install the Rust toolchain on Linux:
     curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
     ```
 
-5. Follow the prompts displayed to proceed with a default installation
-
+5. Follow the prompts displayed to proceed with a default installation.
 6. Update your current shell to include Cargo by running the following command:
 
     ```bash
@@ -1128,7 +1212,7 @@ To install the Rust toolchain on Linux:
     rustup component add rust-src
     ```
 
-9.  [Verify your installation](#verifying-installation)
+9. [Verify your installation](#verifying-installation).
 
 ## Windows (WSL)
 
@@ -1141,9 +1225,9 @@ However, suppose your local computer uses Microsoft Windows instead of a UNIX-ba
 Before installing on Microsoft Windows, verify the following basic requirements:
 
 - You have a computer running a supported Microsoft Windows operating system:
-    - **For Windows desktop** - you must be running Microsoft Windows 10, version 2004 or later, or Microsoft Windows 11 to install WSL
-    - **For Windows server** - you must be running Microsoft Windows Server 2019, or later, to install WSL on a server operating system
-- You have good internet connection and access to a shell terminal on your local computer
+    - **For Windows desktop**: You must be running Microsoft Windows 10, version 2004 or later, or Microsoft Windows 11 to install WSL.
+    - **For Windows server**: You must be running Microsoft Windows Server 2019, or later, to install WSL on a server operating system.
+- You have good internet connection and access to a shell terminal on your local computer.
 
 ### Set Up Windows Subsystem for Linux
 
@@ -1155,9 +1239,9 @@ To prepare a development environment using WSL:
 
     If you have Microsoft Windows 10, version 2004 (Build 19041 and higher), or Microsoft Windows 11, WSL is available by default and you can continue to the next step.
 
-    If you have an older version of Microsoft Windows installed, see the [WSL manual installation steps for older versions](https://learn.microsoft.com/en-us/windows/wsl/install-manual){target=\_blank}. If you are installing on an older version of Microsoft Windows, you can download and install WLS 2 if your computer has Windows 10, version 1903 or higher
+    If you have an older version of Microsoft Windows installed, see the [WSL manual installation steps for older versions](https://learn.microsoft.com/en-us/windows/wsl/install-manual){target=\_blank}. If you are installing on an older version of Microsoft Windows, you can download and install WLS 2 if your computer has Windows 10, version 1903 or higher.
 
-2. Select **Windows PowerShell** or **Command Prompt** from the **Start** menu, right-click, then **Run as administrator**
+2. Select **Windows PowerShell** or **Command Prompt** from the **Start** menu, right-click, then **Run as administrator**.
 
 3. In the PowerShell or Command Prompt terminal, run the following command:
 
@@ -1173,25 +1257,21 @@ To prepare a development environment using WSL:
     wsl --list --online
     ```
 
-4. After the distribution is downloaded, close the terminal
+4. After the distribution is downloaded, close the terminal.
 
-5. Click the **Start** menu, select **Shut down or sign out**, then click **Restart** to restart the
-   computer.
+5. Click the **Start** menu, select **Shut down or sign out**, then click **Restart** to restart the computer.
 
     Restarting the computer is required to start the installation of the Linux distribution. It can take a few minutes for the installation to complete after you restart.
 
-    For more information about setting up WSL as a development environment, see the [Set up a WSL development environment](https://learn.microsoft.com/en-us/windows/wsl/setup/environment){target=\_blank} docs
+    For more information about setting up WSL as a development environment, see the [Set up a WSL development environment](https://learn.microsoft.com/en-us/windows/wsl/setup/environment){target=\_blank} docs.
 
 ### Install Required Packages and Rust {: #install-required-packages-and-rust-windows }
 
 To install the Rust toolchain on WSL:
 
-1. Click the **Start** menu, then select **Ubuntu**
-
-2. Type a UNIX user name to create user account
-
-3. Type a password for your UNIX user, then retype the password to confirm it
-
+1. Click the **Start** menu, then select **Ubuntu**.
+2. Type a UNIX user name to create user account.
+3. Type a password for your UNIX user, then retype the password to confirm it.
 4. Download the latest updates for the Ubuntu distribution using the Ubuntu Advanced Packaging Tool (`apt`) by running the following command:
 
     ```bash
@@ -1210,7 +1290,7 @@ To install the Rust toolchain on WSL:
     curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
     ```
 
-7. Follow the prompts displayed to proceed with a default installation
+7. Follow the prompts displayed to proceed with a default installation.
 
 8. Update your current shell to include Cargo by running the following command:
 
@@ -1233,7 +1313,7 @@ To install the Rust toolchain on WSL:
     rustup component add rust-src
     ```
 
-11. [Verify your installation](#verifying-installation)
+11. [Verify your installation](#verifying-installation).
 
 ## Verifying Installation
 
@@ -1260,7 +1340,7 @@ The command displays output similar to the following:
 
 ## Where to Go Next
 
-- [Parachain Zero to Hero Tutorials](/tutorials/polkadot-sdk/parachains/zero-to-hero/){target=\_blank} - a series of step-by-step guides to building, testing, and deploying custom pallets and runtimes using the Polkadot SDK
+- **[Parachain Zero to Hero Tutorials](/tutorials/polkadot-sdk/parachains/zero-to-hero/){target=\_blank}**: A series of step-by-step guides to building, testing, and deploying custom pallets and runtimes using the Polkadot SDK.
 --- END CONTENT ---
 
 Doc-Content: https://docs.polkadot.com/develop/parachains/intro-polkadot-sdk/
@@ -1279,12 +1359,12 @@ The [Polkadot SDK](https://github.com/paritytech/polkadot-sdk/tree/{{dependencie
 
 Whether you're building a standalone chain or deploying a parachain on Polkadot, this SDK equips developers with the libraries and tools needed to manage runtime logic, compile the codebase, and utilize core features like staking, governance, and Cross-Consensus Messaging (XCM). It also provides a means for building generalized peer-to-peer systems beyond blockchains. The Polkadot SDK houses the following overall functionality:
 
-- Networking and peer-to-peer communication (powered by [Libp2p](/polkadot-protocol/glossary#libp2p){target=\_blank})
-- Consensus protocols, such as [BABE](/polkadot-protocol/glossary#blind-assignment-of-blockchain-extension-babe){target=\_blank}, [GRANDPA](/polkadot-protocol/glossary#grandpa){target=\_blank}, or [Aura](/polkadot-protocol/glossary#authority-round-aura){target=\_blank}
-- Cryptography
-- The ability to create portable Wasm runtimes
-- A selection of pre-built modules, called [pallets](/polkadot-protocol/glossary#pallet){target=\_blank}
-- Benchmarking and testing suites
+- Networking and peer-to-peer communication (powered by [Libp2p](/polkadot-protocol/glossary#libp2p){target=\_blank}).
+- Consensus protocols, such as [BABE](/polkadot-protocol/glossary#blind-assignment-of-blockchain-extension-babe){target=\_blank}, [GRANDPA](/polkadot-protocol/glossary#grandpa){target=\_blank}, or [Aura](/polkadot-protocol/glossary#authority-round-aura){target=\_blank}.
+- Cryptography.
+- The ability to create portable Wasm runtimes.
+- A selection of pre-built modules, called [pallets](/polkadot-protocol/glossary#pallet){target=\_blank}.
+- Benchmarking and testing suites.
 
 For an in-depth look at the monorepo, see the [Polkadot SDK Rust documentation](https://paritytech.github.io/polkadot-sdk/master/polkadot_sdk_docs/polkadot_sdk/index.html){target=\_blank}.
 
@@ -1294,11 +1374,11 @@ The Polkadot SDK is composed of five major components:
 
 ![](/images/develop/parachains/intro-polkadot-sdk/intro-polkadot-sdk-1.webp)
 
-- [**Substrate**](https://paritytech.github.io/polkadot-sdk/master/polkadot_sdk_docs/polkadot_sdk/substrate/index.html){target=\_blank} - a set of libraries and primitives for building blockchains
-- [**FRAME**](https://paritytech.github.io/polkadot-sdk/master/polkadot_sdk_docs/polkadot_sdk/frame_runtime/index.html){target=\_blank} - a blockchain development framework built on top of Substrate
-- [**Cumulus**](https://paritytech.github.io/polkadot-sdk/master/polkadot_sdk_docs/polkadot_sdk/cumulus/index.html){target=\_blank} - a set of libraries and pallets to add parachain capabilities to a Substrate/FRAME runtime
-- [**XCM (Cross Consensus Messaging)**](https://paritytech.github.io/polkadot-sdk/master/polkadot_sdk_docs/polkadot_sdk/xcm/index.html){target=\_blank} - the primary format for conveying messages between parachains
-- [**Polkadot**](https://paritytech.github.io/polkadot-sdk/master/polkadot_sdk_docs/polkadot_sdk/polkadot/index.html){target=\_blank} - the node implementation for the Polkadot protocol
+- **[Substrate](https://paritytech.github.io/polkadot-sdk/master/polkadot_sdk_docs/polkadot_sdk/substrate/index.html){target=\_blank}**: A set of libraries and primitives for building blockchains.
+- **[FRAME](https://paritytech.github.io/polkadot-sdk/master/polkadot_sdk_docs/polkadot_sdk/frame_runtime/index.html){target=\_blank}**: A blockchain development framework built on top of Substrate.
+- **[Cumulus](https://paritytech.github.io/polkadot-sdk/master/polkadot_sdk_docs/polkadot_sdk/cumulus/index.html){target=\_blank}**: A set of libraries and pallets to add parachain capabilities to a Substrate/FRAME runtime.
+- **[XCM (Cross Consensus Messaging)](https://paritytech.github.io/polkadot-sdk/master/polkadot_sdk_docs/polkadot_sdk/xcm/index.html){target=\_blank}**: The primary format for conveying messages between parachains.
+- **[Polkadot](https://paritytech.github.io/polkadot-sdk/master/polkadot_sdk_docs/polkadot_sdk/polkadot/index.html){target=\_blank}**: The node implementation for the Polkadot protocol.
 
 ### Substrate
 
@@ -1306,16 +1386,19 @@ Substrate is a Software Development Kit (SDK) that uses Rust-based libraries and
 
 Every blockchain platform relies on a decentralized network of computers—called nodes—that communicate with each other about transactions and blocks. In general, a node in this context is the software running on the connected devices rather than the physical or virtual machine in the network. As software, Substrate-based nodes consist of two main parts with separate responsibilities:
 
-- **Client** - services to handle network and blockchain infrastructure activity
-    - Native binary
-    - Executes the Wasm runtime
-    - Manages components like database, networking, mempool, consensus, and others
-    - Also known as "Host"
-- **Runtime** - business logic for state transitions
-    - Application logic
-    - Compiled to [Wasm](https://webassembly.org/){target=\_blank}
-    - Stored as a part of the chain state
-    - Also known as State Transition Function (STF)
+- **Client**: Services to handle network and blockchain infrastructure activity.
+
+    - Native binary.
+    - Executes the Wasm runtime.
+    - Manages components like database, networking, mempool, consensus, and others.
+    - Also known as "Host".
+
+- **Runtime**: Business logic for state transitions.
+
+    - Application logic.
+    - Compiled to [Wasm](https://webassembly.org/){target=\_blank}.
+    - Stored as a part of the chain state.
+    - Also known as State Transition Function (STF).
 
 ```mermaid
 %%{init: {'flowchart': {'padding': 5, 'nodeSpacing': 50, 'rankSpacing': 10}}}%%
@@ -1415,9 +1498,9 @@ graph LR
     B --> C[Deploy the Chain]
 ```
 
-1. [**Install the Polkadot SDK**](/develop/parachains/install-polkadot-sdk/) - set up your development environment with all necessary dependencies and tools
-2. [**Build the chain**](/develop/parachains/customize-parachain) - learn how to create and customize your blockchain's runtime, configure pallets, and implement your chain's unique features
-3. [**Deploy the chain**](/develop/parachains/deployment) - follow the steps to launch your blockchain, whether as a standalone network or as a parachain on Polkadot
+1. **[Install the Polkadot SDK](/develop/parachains/install-polkadot-sdk/)**: Set up your development environment with all necessary dependencies and tools.
+2. **[Build the chain](/develop/parachains/customize-parachain)**: Learn how to create and customize your blockchain's runtime, configure pallets, and implement your chain's unique features.
+3. **[Deploy the chain](/develop/parachains/deployment)**: Follow the steps to launch your blockchain, whether as a standalone network or as a parachain on Polkadot.
 
 Each stage is covered in detail in its respective guide, walking you through the process from initial setup to final deployment.
 --- END CONTENT ---
@@ -1539,8 +1622,8 @@ categories: Basics, Tooling, Dapps
 
 [Asset Transfer API](https://github.com/paritytech/asset-transfer-api){target=\_blank}, a tool developed and maintained by [Parity](https://www.parity.io/){target=\_blank}, is a specialized library designed to streamline asset transfers for Polkadot SDK-based blockchains. This API provides a simplified set of methods for users to:
 
-- Execute asset transfers to other parachains or locally within the same chain
-- Facilitate transactions involving system parachains like Asset Hub (Polkadot and Kusama)
+- Execute asset transfers to other parachains or locally within the same chain.
+- Facilitate transactions involving system parachains like Asset Hub (Polkadot and Kusama).
 
 Using this API, developers can manage asset transfers more efficiently, reducing the complexity of cross-chain transactions and enabling smoother operations within the ecosystem.
 
@@ -1550,8 +1633,8 @@ For additional support and information, please reach out through [GitHub Issues]
 
 Before you begin, ensure you have the following installed:
 
-- [Node.js](https://nodejs.org/en/){target=\_blank} (recommended version 21 or greater)
-- Package manager - [npm](https://www.npmjs.com/){target=\_blank} should be installed with Node.js by default. Alternatively, you can use other package managers like [Yarn](https://yarnpkg.com/){target=\_blank}
+- [Node.js](https://nodejs.org/en/){target=\_blank} (recommended version 21 or greater).
+- A package manager like [npm](https://www.npmjs.com/){target=\_blank} should be installed with Node.js by default. Alternatively, you can use other package managers like [Yarn](https://yarnpkg.com/){target=\_blank}.
 
 This documentation covers version `{{dependencies.javascript_packages.asset_transfer_api.version}}` of Asset Transfer API. 
 
@@ -1955,11 +2038,11 @@ As XCM is central to enabling communication between blockchains, developers need
 
 [Moonsong Labs XCM Tools](https://github.com/Moonsong-Labs/xcm-tools){target=\_blank} provides a collection of scripts for managing and testing XCM operations between Polkadot SDK-based runtimes. These tools allow performing tasks like asset registration, channel setup, and XCM initialization. Key features include:
 
-- **Asset registration** - registers assets, setting units per second (up-front fees), and configuring error (revert) codes
-- **XCM initializer** - initializes XCM, sets default XCM versions, and configures revert codes for XCM-related precompiles
-- **HRMP manipulator** - manages HRMP channel actions, including opening, accepting, or closing channels
-- **XCM-Transactor-Info-Setter** - configures transactor information, including extra weight and fee settings
-- **Decode XCM** - decodes XCM messages on the relay chain or parachains to help interpret cross-chain communication
+- **Asset registration**: Registers assets, setting units per second (up-front fees), and configuring error (revert) codes.
+- **XCM initializer**: Initializes XCM, sets default XCM versions, and configures revert codes for XCM-related precompiles.
+- **HRMP manipulator**: Manages HRMP channel actions, including opening, accepting, or closing channels.
+- **XCM-Transactor-Info-Setter**: Configures transactor information, including extra weight and fee settings.
+- **Decode XCM**: Decodes XCM messages on the relay chain or parachains to help interpret cross-chain communication.
 
 To get started, clone the repository and install the required dependencies:
 
@@ -1975,11 +2058,11 @@ For a full overview of each script, visit the [scripts](https://github.com/Moons
 
 [ParaSpell](https://paraspell.xyz/){target=\_blank} is a collection of open-source XCM tools designed to streamline cross-chain asset transfers and interactions within the Polkadot and Kusama ecosystems. It equips developers with an intuitive interface to manage and optimize XCM-based functionalities. Some key points included by ParaSpell are:
 
-- [**XCM SDK**](https://paraspell.xyz/#xcm-sdk){target=\_blank} - provides a unified layer to incorporate XCM into decentralized applications, simplifying complex cross-chain interactions
-- [**XCM API**](https://paraspell.xyz/#xcm-api){target=\_blank} - offers an efficient, package-free approach to integrating XCM functionality while offloading heavy computing tasks, minimizing costs and improving application performance
-- [**XCM router**](https://paraspell.xyz/#xcm-router){target=\_blank} - enables cross-chain asset swaps in a single command, allowing developers to send one asset type (such as DOT on Polkadot) and receive a different asset on another chain (like ASTR on Astar)
-- [**XCM analyser**](https://paraspell.xyz/#xcm-analyser){target=\_blank} - decodes and translates complex XCM multilocation data into readable information, supporting easier troubleshooting and debugging
-- [**XCM visualizator**](https://paraspell.xyz/#xcm-visualizator){target=\_blank} - a tool designed to give developers a clear, interactive view of XCM activity across the Polkadot ecosystem, providing insights into cross-chain communication flow
+- **[XCM SDK](https://paraspell.xyz/#xcm-sdk){target=\_blank}**: Provides a unified layer to incorporate XCM into decentralized applications, simplifying complex cross-chain interactions.
+- **[XCM API](https://paraspell.xyz/#xcm-api){target=\_blank}**: Offers an efficient, package-free approach to integrating XCM functionality while offloading heavy computing tasks, minimizing costs and improving application performance.
+- **[XCM router](https://paraspell.xyz/#xcm-router){target=\_blank}**: Enables cross-chain asset swaps in a single command, allowing developers to send one asset type (such as DOT on Polkadot) and receive a different asset on another chain (like ASTR on Astar).
+- **[XCM analyser](https://paraspell.xyz/#xcm-analyser){target=\_blank}**: Decodes and translates complex XCM multilocation data into readable information, supporting easier troubleshooting and debugging.
+- **[XCM visualizator](https://paraspell.xyz/#xcm-visualizator){target=\_blank}**: A tool designed to give developers a clear, interactive view of XCM activity across the Polkadot ecosystem, providing insights into cross-chain communication flow.
 
 ParaSpell's tools make it simple for developers to build, test, and deploy cross-chain solutions without needing extensive knowledge of the XCM protocol. With features like message composition, decoding, and practical utility functions for parachain interactions, ParaSpell is especially useful for debugging and optimizing cross-chain communications.
 
@@ -1987,9 +2070,9 @@ ParaSpell's tools make it simple for developers to build, test, and deploy cross
 
 The [Astar parachain](https://github.com/AstarNetwork/Astar/tree/master){target=\_blank} offers a crate with a set of utilities for interacting with the XCM protocol. The [xcm-tools](https://github.com/AstarNetwork/Astar/tree/master/bin/xcm-tools){target=\_blank} crate provides a straightforward method for users to locate a sovereign account or calculate an XC20 asset ID. Some commands included by the xcm-tools crate allow users to perform the following tasks:
 
-- **Sovereign accounts** - obtain the sovereign account address for any parachain, either on the Relay Chain or for sibling parachains, using a simple command
-- **XC20 EVM addresses** - generate XC20-compatible Ethereum addresses for assets by entering the asset ID, making it easy to integrate assets across Ethereum-compatible environments
-- **Remote accounts** - retrieve remote account addresses needed for multi-location compatibility, using flexible options to specify account types and parachain IDs
+- **Sovereign accounts**: Obtain the sovereign account address for any parachain, either on the Relay Chain or for sibling parachains, using a simple command.
+- **XC20 EVM addresses**: Generate XC20-compatible Ethereum addresses for assets by entering the asset ID, making it easy to integrate assets across Ethereum-compatible environments.
+- **Remote accounts**: Retrieve remote account addresses needed for multi-location compatibility, using flexible options to specify account types and parachain IDs.
 
 To start using these tools, clone the [Astar repository](https://github.com/AstarNetwork/Astar){target=\_blank} and compile the xcm-tools package:
 
@@ -2063,7 +2146,7 @@ std = [
     ]
     ```
 
-3. Save the changes and close the `Cargo.toml` file
+3. Save the changes and close the `Cargo.toml` file.
 
     Once you have saved your file, it should look like the following:
 
@@ -2333,6 +2416,7 @@ Launch your parachain locally and start producing blocks:
     ```
 
 3. Verify you can interact with the new pallets using the [Polkadot.js Apps](https://polkadot.js.org/apps/?rpc=ws%3A%2F%2F127.0.0.1%3A9944#/extrinsics){target=\_blank} interface. Navigate to the **Extrinsics** tab and check that you can see both pallets:
+
     - Utility pallet
 
         ![](/images/tutorials/polkadot-sdk/parachains/zero-to-hero/add-pallets-to-runtime/add-pallets-to-runtime-1.webp)
@@ -2383,8 +2467,8 @@ A pallet encapsulates a specific set of blockchain functionalities, such as mana
 
 In this tutorial, you'll learn how to create a custom pallet from scratch. You will develop a simple counter pallet with the following features:
 
-- Users can increment and decrement a counter
-- Only a [root origin](https://paritytech.github.io/polkadot-sdk/master/frame_system/pallet/type.Origin.html#variant.Root){target=\_blank} can set an arbitrary counter value
+- Users can increment and decrement a counter.
+- Only a [root origin](https://paritytech.github.io/polkadot-sdk/master/frame_system/pallet/type.Origin.html#variant.Root){target=\_blank} can set an arbitrary counter value.
 
 ## Prerequisites
 
@@ -2427,7 +2511,7 @@ In this tutorial, you'll build a custom pallet from scratch to demonstrate the c
 
 To build and integrate your custom pallet into a Polkadot SDK-based runtime, you must add specific dependencies to the `Cargo.toml` file of your pallet's project. These dependencies provide essential modules and features required for pallet development. Since your custom pallet is part of a workspace that includes other components, such as the runtime, the configuration must align with the workspace structure. Follow the steps below to set up your `Cargo.toml` file properly:
 
-1. Open your `Cargo.toml` file
+1. Open your `Cargo.toml` file.
 
 2. Add the required dependencies in the `[dependencies]` section:
 
@@ -2479,7 +2563,7 @@ In this section, you will construct the core structure of your custom pallet, st
 
 You now have the bare minimum of package dependencies that your pallet requires specified in the `Cargo.toml` file. The next step is to prepare the scaffolding for your new pallet.
 
-1. Open `src/lib.rs` in a text editor and delete all the content
+1. Open `src/lib.rs` in a text editor and delete all the content.
    
 2. Prepare the scaffolding for the pallet by adding the following:
 
@@ -2514,9 +2598,9 @@ Implementing the `#[pallet::config]` macro is mandatory and sets the module's de
 
 In this step, you will configure two essential components that are critical for the pallet's functionality:
 
-- **`RuntimeEvent`** - since this pallet emits events, the [`RuntimeEvent`](https://paritytech.github.io/polkadot-sdk/master/frame_system/pallet/trait.Config.html#associatedtype.RuntimeEvent){target=\_blank} type is required to handle them. This ensures that events generated by the pallet can be correctly processed and interpreted by the runtime
+- **`RuntimeEvent`**: Since this pallet emits events, the [`RuntimeEvent`](https://paritytech.github.io/polkadot-sdk/master/frame_system/pallet/trait.Config.html#associatedtype.RuntimeEvent){target=\_blank} type is required to handle them. This ensures that events generated by the pallet can be correctly processed and interpreted by the runtime.
 
-- **`CounterMaxValue`** - a constant that sets an upper limit on the value of the counter, ensuring that the counter remains within a predefined range
+- **`CounterMaxValue`**: A constant that sets an upper limit on the value of the counter, ensuring that the counter remains within a predefined range.
 
 Add the following `Config` trait definition to your pallet:
 
@@ -2538,19 +2622,19 @@ Events allow the pallet to communicate with the outside world by emitting signal
 
 Below are the events defined for this pallet:
 
-- **`CounterValueSet`** - is emitted when the counter is explicitly set to a new value. This event includes the counter's updated value
+- **`CounterValueSet`**: Is emitted when the counter is explicitly set to a new value. This event includes the counter's updated value.
 
-- **`CounterIncremented`** - is emitted after a successful increment operation. It includes:
+- **`CounterIncremented`**: Is emitted after a successful increment operation. It includes.
 
-    - The new counter value
-    - The account responsible for the increment
-    - The amount by which the counter was incremented
+    - The new counter value.
+    - The account responsible for the increment.
+    - The amount by which the counter was incremented.
 
-- **`CounterDecremented`** - is emitted after a successful decrement operation. It includes:
+- **`CounterDecremented`**: Is emitted after a successful decrement operation. It includes.
 
-    - The new counter value
-    - The account responsible for the decrement
-    - The amount by which the counter was decremented
+    - The new counter value.
+    - The account responsible for the decrement.
+    - The amount by which the counter was decremented.
 
 Define the events in the pallet as follows:
 
@@ -2588,9 +2672,9 @@ Define the events in the pallet as follows:
 
 Storage items are used to manage the pallet's state. This pallet defines two items to handle the counter's state and user interactions:
 
-- **`CounterValue`** - a single storage value that keeps track of the current value of the counter. This value is the core state variable manipulated by the pallet's functions
+- **`CounterValue`**: A single storage value that keeps track of the current value of the counter. This value is the core state variable manipulated by the pallet's functions.
 
-- **`UserInteractions`** - a storage map that tracks the number of times each account interacts with the counter
+- **`UserInteractions`**: A storage map that tracks the number of times each account interacts with the counter.
   
 Define the storage items as follows:
 
@@ -2677,13 +2761,13 @@ Expand the following items to view the implementations of each dispatchable call
 ???- code "set_counter_value(origin: OriginFor<T>, new_value: u32) -> DispatchResult"
     This call sets the counter to a specific value. It is restricted to the Root origin, meaning it can only be invoked by privileged users or entities.
 
-    - **Parameters**:
-        - `new_value` - the value to set the counter to
-    - **Validations**:
-        - The new value must not exceed the maximum allowed counter value (`CounterMaxValue`)
-    - **Behavior**:
-        - Updates the `CounterValue` storage item
-        - Emits a `CounterValueSet` event on success
+    - Parameters:
+        - **`new_value`**: The value to set the counter to.
+    - Validations:
+        - The new value must not exceed the maximum allowed counter value (`CounterMaxValue`).
+    - Behavior:
+        - Updates the `CounterValue` storage item.
+        - Emits a `CounterValueSet` event on success.
 
     ```rust title="lib.rs"
     /// Set the value of the counter.
@@ -2716,15 +2800,15 @@ Expand the following items to view the implementations of each dispatchable call
 ???- code "increment(origin: OriginFor<T>, amount_to_increment: u32) -> DispatchResult"
     This call increments the counter by a specified amount. It is accessible to any signed account.
 
-    - **Parameters**:
-        - `amount_to_increment` - the amount to add to the counter
-    - **Validations**:
-        - Prevents overflow during the addition
-        - Ensures the resulting counter value does not exceed `CounterMaxValue`
-    - **Behavior**:
-        - Updates the `CounterValue` storage item
-        - Tracks the number of interactions by the user in the `UserInteractions` storage map
-        - Emits a `CounterIncremented` event on success
+    - Parameters:
+        - **`amount_to_increment`**: The amount to add to the counter.
+    - Validations:
+        - Prevents overflow during the addition.
+        - Ensures the resulting counter value does not exceed `CounterMaxValue`.
+    - Behavior:
+        - Updates the `CounterValue` storage item.
+        - Tracks the number of interactions by the user in the `UserInteractions` storage map.
+        - Emits a `CounterIncremented` event on success.
 
     ```rust title="lib.rs"
     /// Increment the counter by a specified amount.
@@ -2775,15 +2859,15 @@ Expand the following items to view the implementations of each dispatchable call
 ???- code "decrement(origin: OriginFor<T>, amount_to_decrement: u32) -> DispatchResult"
     This call decrements the counter by a specified amount. It is accessible to any signed account.
 
-    - **Parameters**:
-        - `amount_to_decrement` - the amount to subtract from the counter
-    - **Validations**:
-        - Prevents underflow during the subtraction
-        - Ensures the counter does not drop below zero
-    - **Behavior**:
-        - Updates the `CounterValue` storage item
-        - Tracks the number of interactions by the user in the `UserInteractions` storage map
-        - Emits a `CounterDecremented` event on success
+    - Parameters:
+        - **`amount_to_decrement`**: The amount to subtract from the counter.
+    - Validations:
+        - Prevents underflow during the subtraction.
+        - Ensures the counter does not drop below zero.
+    - Behavior:
+        - Updates the `CounterValue` storage item.
+        - Tracks the number of interactions by the user in the `UserInteractions` storage map.
+        - Emits a `CounterDecremented` event on success.
 
     ```rust title="lib.rs"
     /// Decrement the counter by a specified amount.
@@ -3250,10 +3334,10 @@ The parachain template provides a pre-configured, functional runtime you can use
 These predefined elements allow you to experiment with common blockchain operations without requiring initial template modifications.
 In this tutorial, you will:
 
-- Build and start a local parachain node using the node template
+- Build and start a local parachain node using the node template.
 - Explore how to use a front-end interface to:
-    - View information about blockchain activity
-    - Submit a transaction
+    - View information about blockchain activity.
+    - Submit a transaction.
 
 By the end of this tutorial, you'll have a working local parachain and understand how to interact with it, setting the foundation for further customization and development.
 
@@ -3261,7 +3345,7 @@ By the end of this tutorial, you'll have a working local parachain and understan
 
 Before getting started, ensure you have done the following:
 
-- Completed the [Install Polkadot SDK Dependencies](/develop/parachains/install-polkadot-sdk/){target=\_blank} guide and successfully installed [Rust](https://www.rust-lang.org/){target=\_blank} and the required packages to set up your development environment
+- Completed the [Install Polkadot SDK Dependencies](/develop/parachains/install-polkadot-sdk/){target=\_blank} guide and successfully installed [Rust](https://www.rust-lang.org/){target=\_blank} and the required packages to set up your development environment.
 
 For this tutorial series, you need to use Rust `1.86`. Newer versions of the compiler may not work with this parachain template version.
 
@@ -3277,7 +3361,7 @@ rustup component add rust-src --toolchain 1.86-aarch64-apple-darwin
 
 This tutorial requires two essential tools:
 
-- [**Chain spec builder**](https://crates.io/crates/staging-chain-spec-builder/{{dependencies.repositories.polkadot_sdk_parachain_template.subdependencies.chain_spec_builder_version}}){target=\_blank} - is a Polkadot SDK utility for generating chain specifications. Refer to the [Generate Chain Specs](/develop/parachains/deployment/generate-chain-specs/){target=\_blank} documentation for detailed usage.
+- [**Chain spec builder**](https://crates.io/crates/staging-chain-spec-builder/{{dependencies.repositories.polkadot_sdk_parachain_template.subdependencies.chain_spec_builder_version}}){target=\_blank}: A Polkadot SDK utility for generating chain specifications. Refer to the [Generate Chain Specs](/develop/parachains/deployment/generate-chain-specs/){target=\_blank} documentation for detailed usage.
     
     Install it by executing the following command:
     
@@ -3287,7 +3371,7 @@ This tutorial requires two essential tools:
 
     This installs the `chain-spec-builder` binary.
 
-- [**Polkadot Omni Node**](https://crates.io/crates/polkadot-omni-node/{{dependencies.repositories.polkadot_sdk_parachain_template.subdependencies.polkadot_omni_node_version}}){target=\_blank} - is a white-labeled binary, released as a part of Polkadot SDK that can act as the collator of a parachain in production, with all the related auxiliary functionalities that a normal collator node has: RPC server, archiving state, etc. Moreover, it can also run the wasm blob of the parachain locally for testing and development.
+- [**Polkadot Omni Node**](https://crates.io/crates/polkadot-omni-node/{{dependencies.repositories.polkadot_sdk_parachain_template.subdependencies.polkadot_omni_node_version}}){target=\_blank}: A white-labeled binary, released as a part of Polkadot SDK that can act as the collator of a parachain in production, with all the related auxiliary functionalities that a normal collator node has: RPC server, archiving state, etc. Moreover, it can also run the wasm blob of the parachain locally for testing and development.
 
     To install it, run the following command:
 
@@ -3302,16 +3386,19 @@ This tutorial requires two essential tools:
 The [Polkadot SDK Parachain Template](https://github.com/paritytech/polkadot-sdk/tree/master/templates/parachain){target=\_blank} provides a ready-to-use development environment for building using the [Polkadot SDK](https://github.com/paritytech/polkadot-sdk){target=\_blank}. Follow these steps to compile the runtime:
 
 1. Clone the template repository:
+
     ```bash
     git clone -b v0.0.4 https://github.com/paritytech/polkadot-sdk-parachain-template.git parachain-template
     ```
 
 2. Navigate into the project directory:
+
     ```bash
     cd parachain-template
     ```
 
 3. Compile the runtime:
+
     ```bash
     cargo build --release --locked
     ```
@@ -3322,6 +3409,7 @@ The [Polkadot SDK Parachain Template](https://github.com/paritytech/polkadot-sdk
         For production deployments, consider using a dedicated [`--profile production`](https://github.com/paritytech/polkadot-sdk-parachain-template/blob/v0.0.4/Cargo.toml#L42-L45){target=\_blank} flag - this can provide an additional 15-30% performance improvement over the standard `--release` profile.
 
 4. Upon successful compilation, you should see output similar to:
+
     <div id="termynal" data-termynal>
   <span data-ty="input"><span class="file-path"></span>cargo build --release --locked</span>
   <span data-ty>...</span>
@@ -3353,10 +3441,11 @@ Follow these steps to launch your node in development mode:
 
     The `--dev` option does the following:
 
-    - Deletes all active data (keys, blockchain database, networking information) when stopped
-    - Ensures a clean working state each time you restart the node
+    - Deletes all active data (keys, blockchain database, networking information) when stopped.
+    - Ensures a clean working state each time you restart the node.
 
 3. Verify that your node is running by reviewing the terminal output. You should see something similar to:
+
     <div id="termynal" data-termynal>
   <span data-ty="input"><span class="file-path"></span>polkadot-omni-node --chain ./chain_spec.json --dev</span>
   <br />
@@ -3385,7 +3474,8 @@ Follow these steps to launch your node in development mode:
   <span data-ty>...</span>
 </div>
 
-4. Confirm that your blockchain is producing new blocks by checking if the number after `finalized` is increasing
+4. Confirm that your blockchain is producing new blocks by checking if the number after `finalized` is increasing.
+
     <div id="termynal" data-termynal>
   <span data-ty>...</span>
   <span data-ty>2024-12-12 12:49:20 [Parachain] 💤 Idle (0 peers), best: #1 (0x6fbe…e34b), finalized #1 (0x6fbe…e34b), ⬇ 0 ⬆ 0</span>
@@ -3407,16 +3497,18 @@ When running the template node, it's accessible by default at `ws://localhost:99
     ![](/images/tutorials/polkadot-sdk/parachains/zero-to-hero/set-up-a-template/set-up-a-template-1.webp)
 
 2. Connect to your local node:
-    1. Scroll to the bottom and select **Development**
-    2. Choose **Custom**
-    3. Enter `ws://localhost:9944` in the input field
-    4. Click the **Switch** button
+
+    1. Scroll to the bottom and select **Development**.
+    2. Choose **Custom**.
+    3. **Enter `ws**: //localhost:9944` in the input field.
+    4. Click the **Switch** button.
     
     ![](/images/tutorials/polkadot-sdk/parachains/zero-to-hero/set-up-a-template/set-up-a-template-2.webp)
 
 3. Verify connection:
-    - Once connected, you should see **parachain-template-runtime** in the top left corner
-    - The interface will display information about your local blockchain
+
+    - Once connected, you should see **parachain-template-runtime** in the top left corner.
+    - The interface will display information about your local blockchain.
     
     ![](/images/tutorials/polkadot-sdk/parachains/zero-to-hero/set-up-a-template/set-up-a-template-3.webp)
 
@@ -3428,9 +3520,9 @@ When you're done exploring your local node, you can stop it to remove any state 
 
 To stop the local node:
 
-1. Return to the terminal window where the node output is displayed
-2. Press `Control-C` to stop the running process
-3. Verify that your terminal returns to the prompt in the `parachain-template` directory
+1. Return to the terminal window where the node output is displayed.
+2. Press `Control-C` to stop the running process.
+3. Verify that your terminal returns to the prompt in the `parachain-template` directory.
 
 ## Where to Go Next
 
@@ -3468,8 +3560,8 @@ This guide will take you through the steps of registering a local asset on the A
 
 Before you begin, ensure you have access to the [Polkadot.js Apps](https://polkadot.js.org/apps/){target=\_blank} interface and a funded wallet with DOT or KSM.
 
-- For Polkadot Asset Hub, you would need a deposit of 10 DOT and around 0.201 DOT for the metadata
-- For Kusama Asset Hub, the deposit is 0.1 KSM and around 0.000669 KSM for the metadata
+- For Polkadot Asset Hub, you would need a deposit of 10 DOT and around 0.201 DOT for the metadata.
+- For Kusama Asset Hub, the deposit is 0.1 KSM and around 0.000669 KSM for the metadata.
 
 You need to ensure that your Asset Hub account balance is a bit more than the sum of those two deposits, which should seamlessly account for the required deposits and transaction fees.
 
@@ -3477,45 +3569,45 @@ You need to ensure that your Asset Hub account balance is a bit more than the su
 
 To register a local asset on the Asset Hub parachain, follow these steps:
 
-1. Open the [Polkadot.js Apps](https://polkadot.js.org/apps/){target=\_blank} interface and connect to the Asset Hub parachain using the network selector in the top left corner 
+1. Open the [Polkadot.js Apps](https://polkadot.js.org/apps/){target=\_blank} interface and connect to the Asset Hub parachain using the network selector in the top left corner.
 
-      - You may prefer to test local asset registration on TestNet before registering the asset on a MainNet hub. If you still need to set up a local testing environment, review the [Environment setup](#test-setup-environment) section for instructions. Once the local environment is set up, connect to the Local Node (Chopsticks) available on `ws://127.0.0.1:8000`
-      - For the live network, connect to the **Asset Hub** parachain. Either Polkadot or Kusama Asset Hub can be selected from the dropdown list, choosing the desired RPC provider
+      - You may prefer to test local asset registration on TestNet before registering the asset on a MainNet hub. If you still need to set up a local testing environment, review the [Environment setup](#test-setup-environment) section for instructions. Once the local environment is set up, connect to the Local Node (Chopsticks) available on `ws://127.0.0.1:8000`.
+      - For the live network, connect to the **Asset Hub** parachain. Either Polkadot or Kusama Asset Hub can be selected from the dropdown list, choosing the desired RPC provider.
 
-2. Click on the **Network** tab on the top navigation bar and select **Assets** from the dropdown list
+2. Click on the **Network** tab on the top navigation bar and select **Assets** from the dropdown list.
 
       ![Access to Asset Hub through Polkadot.JS](/images/tutorials/polkadot-sdk/system-chains/asset-hub/register-local-assets/register-a-local-asset-1.webp)
 
-3. Now, you need to examine all the registered asset IDs. This step is crucial to ensure that the asset ID you are about to register is unique. Asset IDs are displayed in the **assets** column
+3. Now, you need to examine all the registered asset IDs. This step is crucial to ensure that the asset ID you are about to register is unique. Asset IDs are displayed in the **assets** column.
 
       ![Asset IDs on Asset Hub](/images/tutorials/polkadot-sdk/system-chains/asset-hub/register-local-assets/register-a-local-asset-2.webp)
 
-4. Once you have confirmed that the asset ID is unique, click on the **Create** button on the top right corner of the page
+4. Once you have confirmed that the asset ID is unique, click on the **Create** button on the top right corner of the page.
 
       ![Create a new asset](/images/tutorials/polkadot-sdk/system-chains/asset-hub/register-local-assets/register-a-local-asset-3.webp)
 
 5. Fill in the required fields in the **Create Asset** form:
 
-    1. **creator account** - the account to be used for creating this asset and setting up the initial metadata
-    2. **asset name** - the descriptive name of the asset you are registering
-    3. **asset symbol** - the symbol that will be used to represent the asset
-    4. **asset decimals** - the number of decimal places for this token, with a maximum of 20 allowed through the user interface
-    5. **minimum balance** - the minimum balance for the asset. This is specified in the units and decimals as requested
-    6. **asset ID** - the selected id for the asset. This should not match an already-existing asset id
-    7. Click on the **Next** button
+    1. **creator account**: The account to be used for creating this asset and setting up the initial metadata.
+    2. **asset name**: The descriptive name of the asset you are registering.
+    3. **asset symbol**: The symbol that will be used to represent the asset.
+    4. **asset decimals**: The number of decimal places for this token, with a maximum of 20 allowed through the user interface.
+    5. **minimum balance**: The minimum balance for the asset. This is specified in the units and decimals as requested.
+    6. **asset ID**: The selected id for the asset. This should not match an already-existing asset id.
+    7. Click on the **Next** button.
  
     ![Create Asset Form](/images/tutorials/polkadot-sdk/system-chains/asset-hub/register-local-assets/register-a-local-asset-4.webp)
 
 6. Choose the accounts for the roles listed below:
 
-    1. **admin account** - the account designated for continuous administration of the token      
-    2. **issuer account** - the account that will be used for issuing this token
-    3. **freezer account** - the account that will be used for performing token freezing operations
-    4. Click on the **Create** button
+    1. **admin account**: The account designated for continuous administration of the token.
+    2. **issuer account**: The account that will be used for issuing this token.
+    3. **freezer account**: The account that will be used for performing token freezing operations.
+    4. Click on the **Create** button.
 
     ![Admin, Issuer, Freezer accounts](/images/tutorials/polkadot-sdk/system-chains/asset-hub/register-local-assets/register-a-local-asset-5.webp)
 
-7. Click on the **Sign and Submit** button to complete the asset registration process
+7. Click on the **Sign and Submit** button to complete the asset registration process.
 
     ![Sign and Submit](/images/tutorials/polkadot-sdk/system-chains/asset-hub/register-local-assets/register-a-local-asset-6.webp)
 
@@ -3563,9 +3655,9 @@ categories: Basics, dApps, Tooling
 
 Chopsticks is an innovative tool that simplifies the process of forking live Polkadot SDK chains. This guide provides step-by-step instructions to configure and fork chains, enabling developers to:
 
-- Replay blocks for state analysis
-- Test cross-chain messaging (XCM)
-- Simulate blockchain environments for debugging and experimentation
+- Replay blocks for state analysis.
+- Test cross-chain messaging (XCM).
+- Simulate blockchain environments for debugging and experimentation.
 
 With support for both configuration files and CLI commands, Chopsticks offers flexibility for diverse development workflows. Whether you're testing locally or exploring complex blockchain scenarios, Chopsticks empowers developers to gain deeper insights and accelerate application development.
 
@@ -3577,8 +3669,8 @@ For additional support and information, please reach out through [GitHub Issues]
 
 To follow this tutorial, ensure you have completed the following:
 
-- **Installed Chopsticks** - if you still need to do so, see the [Install Chopsticks](/develop/toolkit/parachains/fork-chains/chopsticks/get-started/#install-chopsticks){target=\_blank} guide for assistance
-- **Reviewed** [**Configure Chopsticks**](/develop/toolkit/parachains/fork-chains/chopsticks/get-started/#configure-chopsticks){target=\_blank} - and understand how forked chains are configured
+- **Installed Chopsticks**: If you still need to do so, see the [Install Chopsticks](/develop/toolkit/parachains/fork-chains/chopsticks/get-started/#install-chopsticks){target=\_blank} guide for assistance.
+- **Reviewed** [Configure Chopsticks](/develop/toolkit/parachains/fork-chains/chopsticks/get-started/#configure-chopsticks){target=\_blank}: And understand how forked chains are configured.
 
 ## Configuration File 
 
@@ -3646,14 +3738,14 @@ You can interact with the forked chain using various [libraries](/develop/toolki
 
 To interact with Chopsticks via the hosted user interface, visit [Polkadot.js Apps](https://polkadot.js.org/apps/#/explorer){target=\_blank} and follow these steps:
 
-1. Select the network icon in the top left corner
+1. Select the network icon in the top left corner.
 
     ![](/images/tutorials/polkadot-sdk/testing/fork-live-chains/chopsticks-1.webp)
 
-2. Scroll to the bottom and select **Development**
-3. Choose **Custom**
-4. Enter `ws://localhost:8000` in the input field
-5. Select the **Switch** button
+2. Scroll to the bottom and select **Development**.
+3. Choose **Custom**.
+4. Enter `ws://localhost:8000` in the input field.
+5. Select the **Switch** button.
 
     ![](/images/tutorials/polkadot-sdk/testing/fork-live-chains/chopsticks-2.webp)
 
@@ -3682,9 +3774,9 @@ connectToFork();
 
 Chopsticks allows you to replay specific blocks from a chain, which is useful for debugging and analyzing state changes. You can use the parameters in the [Configuration](/develop/toolkit/parachains/fork-chains/chopsticks/get-started/#configure-chopsticks){target=\_blank} section to set up the chain configuration, and then use the run-block subcommand with the following additional options:
 
-- `output-path` - path to print output
-- `html` - generate HTML with storage diff
-- `open` - open generated HTML
+- **`output-path`**: Path to print output.
+- **`html`**: Generate HTML with storage diff.
+- **`open`**: Open generated HTML.
 
 For example, the command to replay block 1000 from Polkadot and save the output to a JSON file would be as follows:
 
@@ -3850,8 +3942,8 @@ npx @acala-network/chopsticks run-block  \
 
 To test XCM (Cross-Consensus Messaging) messages between networks, you can fork multiple parachains and a relay chain locally using Chopsticks.
 
-- `relaychain` - relay chain config file
-- `parachain` - parachain config file  
+- **`relaychain`**: Relay chain config file.
+- **`parachain`**: Parachain config file.
 
 For example, to fork Moonbeam, Astar, and Polkadot enabling XCM between them, you can use the following command:
 
@@ -3921,7 +4013,7 @@ By the end of this tutorial, you'll be equipped to deploy and test your own bloc
 To successfully complete this tutorial, you must ensure you've first:
 
 - [Installed Zombienet](/develop/toolkit/parachains/spawn-chains/zombienet/get-started/#install-zombienet){target=\_blank}. This tutorial requires Zombienet version `{{ dependencies.repositories.zombienet.version }}`. Verify that you're using the specified version to ensure compatibility with the instructions.
-- Reviewed the information in [Configure Zombienet](/develop/toolkit/parachains/spawn-chains/zombienet/get-started/#configure-zombienet){target=\_blank} and understand how to customize a spawned network
+- Reviewed the information in [Configure Zombienet](/develop/toolkit/parachains/spawn-chains/zombienet/get-started/#configure-zombienet){target=\_blank} and understand how to customize a spawned network.
 
 ## Set Up Local Provider
 
@@ -3954,13 +4046,16 @@ sudo mv ./polkadot ./polkadot-execute-worker ./polkadot-parachain ./polkadot-pre
 
 Zombienet uses a [configuration file](/develop/toolkit/parachains/spawn-chains/zombienet/get-started/#configuration-files){target=\_blank} to define the ephemeral network that will be spawned. Follow these steps to create and define the configuration file:
 
-1. Create a file named `spawn-a-basic-network.toml`
-```bash
-touch spawn-a-basic-network.toml
-```
+1. Create a file named `spawn-a-basic-network.toml`:
+
+    ```bash
+    touch spawn-a-basic-network.toml
+    ```
+
 2. Add the following code to the file you just created:
-```toml title="spawn-a-basic-network.toml"
-[settings]
+
+    ```toml title="spawn-a-basic-network.toml"
+    [settings]
 timeout = 120
 
 [relaychain]
@@ -3978,12 +4073,12 @@ id = 100
 
 [parachains.collator]
 name = "collator01"
-```
+    ```
 
 This configuration file defines a network with the following chains:
 
-- **relaychain** - with two nodes named `alice` and `bob` 
-- **parachain** - with a collator named `collator01` 
+- **relaychain**: With two nodes named `alice` and `bob`.
+- **parachain**: With a collator named `collator01`.
 
 Settings also defines a timeout of 120 seconds for the network to be ready.
 
@@ -4163,20 +4258,20 @@ This tutorial covers deploying an ERC-20 contract on the Polkadot Hub TestNet us
 
 Before starting, make sure you have:
 
-- [MetaMask](https://metamask.io/){target=\_blank} installed and connected to Polkadot Hub. For detailed instructions, see the [Connect Your Wallet](/develop/smart-contracts/wallets){target=\_blank} section
-- A funded account with some PAS tokens (you can get them from the [Polkadot Faucet](https://faucet.polkadot.io/?parachain=1111){target=\_blank}). To learn how to get test tokens, check out the [Test Tokens](/develop/smart-contracts/connect-to-polkadot#test-tokens){target=\_blank} section
-- Basic understanding of Solidity and fungible tokens
+- [MetaMask](https://metamask.io/){target=\_blank} installed and connected to Polkadot Hub. For detailed instructions, see the [Connect Your Wallet](/develop/smart-contracts/wallets){target=\_blank} section.
+- A funded account with some PAS tokens (you can get them from the [Polkadot Faucet](https://faucet.polkadot.io/?parachain=1111){target=\_blank}). To learn how to get test tokens, check out the [Test Tokens](/develop/smart-contracts/connect-to-polkadot#test-tokens){target=\_blank} section.
+- Basic understanding of Solidity and fungible tokens.
 
 ## Create the ERC-20 Contract
 
 To create the ERC-20 contract, you can follow the steps below:
 
-1. Navigate to the [Polkadot Remix IDE](https://remix.polkadot.io){target=\_blank}
-2. Click in the **Create new file** button under the **contracts** folder, and name your contract as `MyToken.sol`
+1. Navigate to the [Polkadot Remix IDE](https://remix.polkadot.io){target=\_blank}.
+2. Click in the **Create new file** button under the **contracts** folder, and name your contract as `MyToken.sol`.
 
     ![](/images/tutorials/smart-contracts/deploy-erc20/deploy-erc20-1.webp)
 
-3. Now, paste the following ERC-20 contract code into the editor
+3. Now, paste the following ERC-20 contract code into the editor:
 
     ```solidity title="MyToken.sol"
     // SPDX-License-Identifier: MIT
@@ -4200,26 +4295,26 @@ contract MyToken is ERC20, Ownable {
 
     The key components of the code above are:
 
-    - Contract imports
+    - Contract imports:
 
-        - [**`ERC20.sol`**]({{ dependencies.repositories.open_zeppelin_contracts.repository_url}}/tree/{{ dependencies.repositories.open_zeppelin_contracts.version}}/contracts/token/ERC20/ERC20.sol){target=\_blank} - the base contract for fungible tokens, implementing core functionality like transfers, approvals, and balance tracking
-        - [**`Ownable.sol`**]({{ dependencies.repositories.open_zeppelin_contracts.repository_url}}/tree/{{ dependencies.repositories.open_zeppelin_contracts.version}}/contracts/access/Ownable.sol){target=\_blank} - provides basic authorization control, ensuring only the contract owner can mint new tokens
+        - **[`ERC20.sol`]({{ dependencies.repositories.open_zeppelin_contracts.repository_url}}/tree/{{ dependencies.repositories.open_zeppelin_contracts.version}}/contracts/token/ERC20/ERC20.sol){target=\_blank}**: The base contract for fungible tokens, implementing core functionality like transfers, approvals, and balance tracking.
+        - **[`Ownable.sol`]({{ dependencies.repositories.open_zeppelin_contracts.repository_url}}/tree/{{ dependencies.repositories.open_zeppelin_contracts.version}}/contracts/access/Ownable.sol){target=\_blank}**: Provides basic authorization control, ensuring only the contract owner can mint new tokens.
     
-    - Constructor parameters
+    - Constructor parameters:
 
-        - **`initialOwner`** - sets the address that will have administrative rights over the contract
-        - **`"MyToken"`** - the full name of your token
-        - **`"MTK"`** - the symbol representing your token in wallets and exchanges
+        - **`initialOwner`**: Sets the address that will have administrative rights over the contract.
+        - **`"MyToken"`**: The full name of your token.
+        - **`"MTK"`**: The symbol representing your token in wallets and exchanges.
 
-    - Key functions
+    - Key functions:
 
-        - **`mint(address to, uint256 amount)`** - allows the contract owner to create new tokens for any address. The amount should include 18 decimals (e.g., 1 token = 1000000000000000000)
+        - **`mint(address to, uint256 amount)`**: Allows the contract owner to create new tokens for any address. The amount should include 18 decimals (e.g., 1 token = 1000000000000000000).
         - Inherited [Standard ERC-20](https://ethereum.org/en/developers/docs/standards/tokens/erc-20/){target=\_blank} functions:
-            - **`transfer(address recipient, uint256 amount)`** - sends a specified amount of tokens to another address
-            - **`approve(address spender, uint256 amount)`** - grants permission for another address to spend a specific number of tokens on behalf of the token owner
-            - **`transferFrom(address sender, address recipient, uint256 amount)`** - transfers tokens from one address to another, if previously approved
-            - **`balanceOf(address account)`** - returns the token balance of a specific address
-            - **`allowance(address owner, address spender)`** - checks how many tokens an address is allowed to spend on behalf of another address
+            - **`transfer(address recipient, uint256 amount)`**: Sends a specified amount of tokens to another address.
+            - **`approve(address spender, uint256 amount)`**: Grants permission for another address to spend a specific number of tokens on behalf of the token owner.
+            - **`transferFrom(address sender, address recipient, uint256 amount)`**: Transfers tokens from one address to another, if previously approved.
+            - **`balanceOf(address account)`**: Returns the token balance of a specific address.
+            - **`allowance(address owner, address spender)`**: Checks how many tokens an address is allowed to spend on behalf of another address.
 
     !!! tip
         Use the [OpenZeppelin Contracts Wizard](https://wizard.openzeppelin.com/){target=\_blank} to quickly generate customized smart contracts. Simply configure your contract, copy the generated code, and paste it into Polkadot Remix IDE for deployment. Below is an example of an ERC-20 token contract created with it:
@@ -4231,15 +4326,15 @@ contract MyToken is ERC20, Ownable {
 
 The compilation transforms your Solidity source code into bytecode that can be deployed on the blockchain. During this process, the compiler checks your contract for syntax errors, ensures type safety, and generates the machine-readable instructions needed for blockchain execution. To compile your contract, follow the instructions below:
 
-1. Select the **Solidity Compiler** plugin from the left panel
+1. Select the **Solidity Compiler** plugin from the left panel.
 
     ![](/images/tutorials/smart-contracts/deploy-erc20/deploy-erc20-3.webp)
 
-2. Click the **Compile MyToken.sol** button
+2. Click the **Compile MyToken.sol** button.
 
     ![](/images/tutorials/smart-contracts/deploy-erc20/deploy-erc20-4.webp)
 
-3. If the compilation succeeded, you'll see a green checkmark indicating success in the **Solidity Compiler** icon
+3. If the compilation succeeded, you'll see a green checkmark indicating success in the **Solidity Compiler** icon.
 
     ![](/images/tutorials/smart-contracts/deploy-erc20/deploy-erc20-5.webp)
 
@@ -4247,23 +4342,24 @@ The compilation transforms your Solidity source code into bytecode that can be d
 
 Deployment is the process of publishing your compiled smart contract to the blockchain, making it permanently available for interaction. During deployment, you'll create a new instance of your contract on the blockchain, which involves:
 
-1. Select the **Deploy & Run Transactions** plugin from the left panel
+1. Select the **Deploy & Run Transactions** plugin from the left panel.
 
     ![](/images/tutorials/smart-contracts/deploy-erc20/deploy-erc20-6.webp)
 
-2. Configure the deployment settings
-    1. From the **ENVIRONMENT** dropdown, select **Injected Provider - Talisman** (check the [Deploying Contracts](/develop/smart-contracts/dev-environments/remix/#deploying-contracts){target=\_blank} section of the Remix IDE guide for more details)
-    2. From the **ACCOUNT** dropdown, select the account you want to use for the deploy
+2. Configure the deployment settings.
+    1. From the **ENVIRONMENT** dropdown, select **Injected Provider - Talisman** (check the [Deploying Contracts](/develop/smart-contracts/dev-environments/remix/#deploying-contracts){target=\_blank} section of the Remix IDE guide for more details).
+    2. From the **ACCOUNT** dropdown, select the account you want to use for the deploy.
 
     ![](/images/tutorials/smart-contracts/deploy-erc20/deploy-erc20-7.webp)
 
-3. Configure the contract parameters
-    1. Enter the address that will own the deployed token contract
-    2. Click the **Deploy** button to initiate the deployment
+3. Configure the contract parameters:
+
+    1. Enter the address that will own the deployed token contract.
+    2. Click the **Deploy** button to initiate the deployment.
 
     ![](/images/tutorials/smart-contracts/deploy-erc20/deploy-erc20-8.webp)
 
-4. Talisman will pop up - review the transaction details. Click **Approve** to deploy your contract
+4. **Talisman will pop up**: Review the transaction details. Click **Approve** to deploy your contract.
 
      ![](/images/tutorials/smart-contracts/deploy-erc20/deploy-erc20-9.webp){: .browser-extension}
 
@@ -4275,21 +4371,22 @@ Deployment is the process of publishing your compiled smart contract to the bloc
 
 Once deployed, you can interact with your contract through Remix:
 
-1. Find your contract under **Deployed/Unpinned Contracts**, and click it to expand the available methods
+1. Find your contract under **Deployed/Unpinned Contracts**, and click it to expand the available methods.
 
     ![](/images/tutorials/smart-contracts/deploy-erc20/deploy-erc20-11.webp)
 
 2. To mint new tokens:
-    1. Click in the contract to expand its associated methods
-    2. Expand the **mint** function
+
+    1. Click in the contract to expand its associated methods.
+    2. Expand the **mint** function.
     3. Enter:
-        - The recipient address
-        - The amount (remember to add 18 zeros for 1 whole token)
-    4. Click **Transact**
+        - The recipient address.
+        - The amount (remember to add 18 zeros for 1 whole token).
+    4. Click **Transact**.
 
     ![](/images/tutorials/smart-contracts/deploy-erc20/deploy-erc20-12.webp)
 
-3. Click **Approve** to confirm the transaction in the Talisman popup
+3. Click **Approve** to confirm the transaction in the Talisman popup.
 
     ![](/images/tutorials/smart-contracts/deploy-erc20/deploy-erc20-13.webp){: .browser-extension}
 
@@ -4299,9 +4396,9 @@ Once deployed, you can interact with your contract through Remix:
 
 Other common functions you can use:
 
-- **`balanceOf(address)`** - check token balance of any address
-- **`transfer(address to, uint256 amount)`** - send tokens to another address
-- **`approve(address spender, uint256 amount)`** - allow another address to spend your tokens
+- **`balanceOf(address)`**: Check token balance of any address.
+- **`transfer(address to, uint256 amount)`**: Send tokens to another address.
+- **`approve(address spender, uint256 amount)`**: Allow another address to spend your tokens.
 
 Feel free to explore and interact with the contract's other functions using the same approach - selecting the method, providing any required parameters, and confirming the transaction through Talisman when needed.
 --- END CONTENT ---
@@ -4330,20 +4427,20 @@ This tutorial guides you through deploying an [ERC-721](https://eips.ethereum.or
 
 Before starting, make sure you have:
 
-- [Talisman](https://talisman.xyz/){target=\_blank} installed and connected to the Polkadot Hub TestNet. Check the [Connect to Polkadot](/develop/smart-contracts/connect-to-polkadot/){target=\_blank} guide for more information
-- A funded account with some PAS tokens (you can get them from the [Faucet](https://faucet.polkadot.io/?parachain=1111){target=\_blank}, noting that the faucet imposes a daily token limit, which may require multiple requests to obtain sufficient funds for testing)
-- Basic understanding of Solidity and NFTs, see the [Solidity Basics](https://soliditylang.org/){target=\_blank} and the [NFT Overview](https://ethereum.org/en/nft/){target=\_blank} guides for more details
+- [Talisman](https://talisman.xyz/){target=\_blank} installed and connected to the Polkadot Hub TestNet. Check the [Connect to Polkadot](/develop/smart-contracts/connect-to-polkadot/){target=\_blank} guide for more information.
+- A funded account with some PAS tokens (you can get them from the [Faucet](https://faucet.polkadot.io/?parachain=1111){target=\_blank}, noting that the faucet imposes a daily token limit, which may require multiple requests to obtain sufficient funds for testing).
+- Basic understanding of Solidity and NFTs, see the [Solidity Basics](https://soliditylang.org/){target=\_blank} and the [NFT Overview](https://ethereum.org/en/nft/){target=\_blank} guides for more details.
 
 ## Create the NFT Contract
 
 To create the NFT contract, you can follow the steps below:
 
-1. Navigate to the [Polkadot Remix IDE](https://remix.polkadot.io/){target=\_blank}
-2. Click in the **Create new file** button under the **contracts** folder, and name your contract as `MyNFT.sol`
+1. Navigate to the [Polkadot Remix IDE](https://remix.polkadot.io/){target=\_blank}.
+2. Click in the **Create new file** button under the **contracts** folder, and name your contract as `MyNFT.sol`.
 
     ![](/images/tutorials/smart-contracts/deploy-nft/deploy-nft-1.webp)
 
-3. Now, paste the following NFT contract code into the editor
+3. Now, paste the following NFT contract code into the editor.
 
     ```solidity title="MyNFT.sol"
     // SPDX-License-Identifier: MIT
@@ -4370,27 +4467,27 @@ contract MyToken is ERC721, Ownable {
 
     The key components of the code above are:
 
-    - Contract imports
+    - Contract imports:
 
-        - [**`ERC721.sol`**]({{ dependencies.repositories.open_zeppelin_contracts.repository_url }}/blob/{{ dependencies.repositories.open_zeppelin_contracts.version }}/contracts/token/ERC721/ERC721.sol){target=\_blank} - the base contract for non-fungible tokens, implementing core NFT functionality like transfers and approvals
-        - [**`Ownable.sol`**]({{ dependencies.repositories.open_zeppelin_contracts.repository_url }}/blob/{{ dependencies.repositories.open_zeppelin_contracts.version }}/contracts/access/Ownable.sol){target=\_blank} - provides basic authorization control, ensuring only the contract owner can mint new tokens
+        - **[`ERC721.sol`]({{ dependencies.repositories.open_zeppelin_contracts.repository_url }}/blob/{{ dependencies.repositories.open_zeppelin_contracts.version }}/contracts/token/ERC721/ERC721.sol){target=\_blank}**: The base contract for non-fungible tokens, implementing core NFT functionality like transfers and approvals.
+        - **[`Ownable.sol`]({{ dependencies.repositories.open_zeppelin_contracts.repository_url }}/blob/{{ dependencies.repositories.open_zeppelin_contracts.version }}/contracts/access/Ownable.sol){target=\_blank}**: Provides basic authorization control, ensuring only the contract owner can mint new tokens.
     
-    - Constructor parameters
+    - Constructor parameters:
 
-        - **`initialOwner`** - sets the address that will have administrative rights over the contract
-        - **`"MyToken"`** - the full name of your NFT collection
-        - **`"MTK"`** - the symbol representing your token in wallets and marketplaces
+        - **`initialOwner`**: Sets the address that will have administrative rights over the contract.
+        - **`"MyToken"`**: The full name of your NFT collection.
+        - **`"MTK"`**: The symbol representing your token in wallets and marketplaces.
 
-    - Key functions
+    - Key functions:
 
-        - [**`_safeMint(to, tokenId)`**]({{ dependencies.repositories.open_zeppelin_contracts.repository_url }}/blob/{{ dependencies.repositories.open_zeppelin_contracts.version }}/contracts/token/ERC721/ERC721.sol#L304){target=\_blank} - an internal function from `ERC721` that safely mints new tokens. It includes checks to ensure the recipient can handle `ERC721` tokens, with the `_nextTokenId` mechanism automatically generating unique sequential token IDs and the `onlyOwner` modifier restricting minting rights to the contract owner
+        - **[`_safeMint(to, tokenId)`]({{ dependencies.repositories.open_zeppelin_contracts.repository_url }}/blob/{{ dependencies.repositories.open_zeppelin_contracts.version }}/contracts/token/ERC721/ERC721.sol#L304){target=\_blank}**: An internal function from `ERC721` that safely mints new tokens. It includes checks to ensure the recipient can handle `ERC721` tokens, with the `_nextTokenId` mechanism automatically generating unique sequential token IDs and the `onlyOwner` modifier restricting minting rights to the contract owner.
         - Inherited [Standard ERC721](https://ethereum.org/en/developers/docs/standards/tokens/erc-721/){target=\_blank} functions provide a standardized set of methods that enable interoperability across different platforms, wallets, and marketplaces, ensuring that your NFT can be easily transferred, traded, and managed by any system that supports the `ERC721` standard:
-            - **`transferFrom(address from, address to, uint256 tokenId)`** - transfers a specific NFT from one address to another
-            - **`safeTransferFrom(address from, address to, uint256 tokenId)`** - safely transfers an NFT, including additional checks to prevent loss
-            - **`approve(address to, uint256 tokenId)`** - grants permission for another address to transfer a specific NFT
-            - **`setApprovalForAll(address operator, bool approved)`** - allows an address to manage all of the owner's NFTs
-            - **`balanceOf(address owner)`** - returns the number of NFTs owned by a specific address
-            - **`ownerOf(uint256 tokenId)`** - returns the current owner of a specific NFT
+            - **`transferFrom(address from, address to, uint256 tokenId)`**: Transfers a specific NFT from one address to another.
+            - **`safeTransferFrom(address from, address to, uint256 tokenId)`**: Safely transfers an NFT, including additional checks to prevent loss.
+            - **`approve(address to, uint256 tokenId)`**: Grants permission for another address to transfer a specific NFT.
+            - **`setApprovalForAll(address operator, bool approved)`**: Allows an address to manage all of the owner's NFTs.
+            - **`balanceOf(address owner)`**: Returns the number of NFTs owned by a specific address.
+            - **`ownerOf(uint256 tokenId)`**: Returns the current owner of a specific NFT.
 
     !!! tip
         Use the [OpenZeppelin Contracts Wizard](https://wizard.openzeppelin.com/){target=\_blank} to generate customized smart contracts quickly. Simply configure your contract, copy the generated code, and paste it into Polkadot Remix IDE for deployment. Below is an example of an ERC-721 token contract created with it:
@@ -4402,15 +4499,15 @@ contract MyToken is ERC721, Ownable {
 
 Compilation is a stage that converts your Solidity source code into bytecode suitable for deployment on the blockchain. Throughout this process, the compiler examines your contract for syntax errors, verifies type safety, and produces machine-readable instructions for execution on the blockchain.
 
-1. Select the **Solidity Compiler** plugin from the left panel
+1. Select the **Solidity Compiler** plugin from the left panel.
 
     ![](/images/tutorials/smart-contracts/deploy-nft/deploy-nft-3.webp)
 
-2. Click in the **Compile MyNFT.sol** button
+2. Click in the **Compile MyNFT.sol** button.
 
     ![](/images/tutorials/smart-contracts/deploy-nft/deploy-nft-4.webp)
 
-3. If the compilation succeeded, you can see a green checkmark indicating success in the **Solidity Compiler** icon
+3. If the compilation succeeded, you can see a green checkmark indicating success in the **Solidity Compiler** icon.
 
     ![](/images/tutorials/smart-contracts/deploy-nft/deploy-nft-5.webp)
 
@@ -4418,23 +4515,25 @@ Compilation is a stage that converts your Solidity source code into bytecode sui
 
 Deployment is the process of uploading your compiled smart contract to the blockchain, allowing for interaction. During deployment, you will instantiate your contract on the blockchain, which involves:
 
-1. Select the **Deploy & Run Transactions** plugin from the left panel
+1. Select the **Deploy & Run Transactions** plugin from the left panel.
 
     ![](/images/tutorials/smart-contracts/deploy-nft/deploy-nft-6.webp)
 
-2. Configure the deployment settings
-    1. From the **ENVIRONMENT** dropdown, select **Injected Provider - Talisman** (check the [Deploying Contracts](/develop/smart-contracts/dev-environments/remix/#deploying-contracts){target=\_blank} section of the Remix IDE guide for more details)
-    2. From the **ACCOUNT** dropdown, select the account you want to use for the deploy
+2. Configure the deployment settings:
+
+    1. From the **ENVIRONMENT** dropdown, select **Injected Provider - Talisman** (check the [Deploying Contracts](/develop/smart-contracts/dev-environments/remix/#deploying-contracts){target=\_blank} section of the Remix IDE guide for more details).
+    2. From the **ACCOUNT** dropdown, select the account you want to use for the deploy.
 
     ![](/images/tutorials/smart-contracts/deploy-nft/deploy-nft-7.webp)
 
-3. Configure the contract parameters
+3. Configure the contract parameters:
+
     1. Enter the address that will own the deployed NFT.
-    2. Click the **Deploy** button to initiate the deployment
+    2. Click the **Deploy** button to initiate the deployment.
 
     ![](/images/tutorials/smart-contracts/deploy-nft/deploy-nft-8.webp)
 
-4. Talisman will pop up - review the transaction details. Click **Approve** to deploy your contract
+4. **Talisman will pop up**: Review the transaction details. Click **Approve** to deploy your contract.
 
     ![](/images/tutorials/smart-contracts/deploy-nft/deploy-nft-9.webp){: .browser-extension}
 
@@ -4448,20 +4547,20 @@ Deployment is the process of uploading your compiled smart contract to the block
 
 Once deployed, you can interact with your contract through Remix:
 
-1. Find your contract under **Deployed/Unpinned Contracts**, and click it to expand the available methods for the contract
+1. Find your contract under **Deployed/Unpinned Contracts**, and click it to expand the available methods for the contract.
 
     ![](/images/tutorials/smart-contracts/deploy-nft/deploy-nft-11.webp)
 
-2. To mint an NFT
+2. To mint an NFT:
 
-    1. Click on the contract to expand its associated methods
-    2. Expand the **safeMint** function
-    3. Enter the recipient address
-    4. Click **Transact**
+    1. Click on the contract to expand its associated methods.
+    2. Expand the **safeMint** function.
+    3. Enter the recipient address.
+    4. Click **Transact**.
 
     ![](/images/tutorials/smart-contracts/deploy-nft/deploy-nft-12.webp)
 
-3. Click **Approve** to confirm the transaction in the Talisman popup
+3. Click **Approve** to confirm the transaction in the Talisman popup.
 
     ![](/images/tutorials/smart-contracts/deploy-nft/deploy-nft-13.webp){: .browser-extension}
 
@@ -4496,20 +4595,20 @@ This tutorial will guide you through creating a basic smart contract that can be
 
 Before starting, make sure you have:
 
-- A text editor of your choice ([VS Code](https://code.visualstudio.com/){target=\_blank}, [Sublime Text](https://www.sublimetext.com/){target=\_blank}, etc.)
-- Basic understanding of programming concepts
-- Familiarity with the Solidity programming language syntax. For further references, check the official [Solidity documentation](https://docs.soliditylang.org/en/latest/){target=\_blank}
+- A text editor of your choice ([VS Code](https://code.visualstudio.com/){target=\_blank}, [Sublime Text](https://www.sublimetext.com/){target=\_blank}, etc.).
+- Basic understanding of programming concepts.
+- Familiarity with the Solidity programming language syntax. For further references, check the official [Solidity documentation](https://docs.soliditylang.org/en/latest/){target=\_blank}.
 
 ## Understanding Smart Contract Structure
 
 Let's explore these components before building the contract:
 
-- [**SPDX license identifier**](https://docs.soliditylang.org/en/v0.6.8/layout-of-source-files.html){target=\_blank} - a standardized way to declare the license under which your code is released. This helps with legal compliance and is required by the Solidity compiler to avoid warnings
-- **Pragma directive** - specifies which version of Solidity compiler should be used for your contract
-- **Contract declaration** - similar to a class in object-oriented programming, it defines the boundaries of your smart contract
-- **State variables** - data stored directly in the contract that persists between function calls. These represent the contract's "state" on the blockchain
-- **Functions** - executable code that can read or modify the contract's state variables
-- **Events** - notification mechanisms that applications can subscribe to in order to track blockchain changes
+- **[SPDX license identifier](https://docs.soliditylang.org/en/v0.6.8/layout-of-source-files.html){target=\_blank}**: A standardized way to declare the license under which your code is released. This helps with legal compliance and is required by the Solidity compiler to avoid warnings.
+- **Pragma directive**: Specifies which version of Solidity compiler should be used for your contract.
+- **Contract declaration**: Similar to a class in object-oriented programming, it defines the boundaries of your smart contract.
+- **State variables**: Data stored directly in the contract that persists between function calls. These represent the contract's "state" on the blockchain.
+- **Functions**: Executable code that can read or modify the contract's state variables.
+- **Events**: Notification mechanisms that applications can subscribe to in order to track blockchain changes.
 
 ## Create the Smart Contract
 
@@ -4517,13 +4616,13 @@ In this section, you'll build a simple storage contract step by step. This basic
 
 This contract will:
 
-- Store a number
-- Allow updating the stored number
-- Emit an event when the number changes
+- Store a number.
+- Allow updating the stored number.
+- Emit an event when the number changes.
 
 To build the smart contract, follow the steps below:
 
-1. Create a new file named `Storage.sol`
+1. Create a new file named `Storage.sol`.
 
 2. Add the SPDX license identifier at the top of the file:
 
@@ -4565,8 +4664,8 @@ To build the smart contract, follow the steps below:
 
     Here, you're defining:
 
-    - A state variable named `number` of type `uint256` (unsigned integer with 256 bits), which is marked as `private` so it can only be accessed via functions within this contract
-    - An event named `NumberChanged` that will be triggered whenever the number changes. The event includes the new value as data
+    - A state variable named `number` of type `uint256` (unsigned integer with 256 bits), which is marked as `private` so it can only be accessed via functions within this contract.
+    - An event named `NumberChanged` that will be triggered whenever the number changes. The event includes the new value as data.
 
 6. Add the getter and setter functions:
 
@@ -4626,26 +4725,26 @@ Let's break down the key components of the contract:
 
 - **State Variable**
 
-    - `uint256 private number` - a private variable that can only be accessed through the contract's functions
-    - The `private` keyword prevents direct access from other contracts, but it's important to note that while other contracts cannot read this variable directly, the data itself is still visible on the blockchain and can be read by external tools or applications that interact with the blockchain. "Private" in Solidity doesn't mean the data is encrypted or truly hidden
-    - State variables in Solidity are permanent storage on the blockchain, making them different from variables in traditional programming. Every change to a state variable requires a transaction and costs gas (the fee paid for blockchain operations)
+    - **`uint256 private number`**: A private variable that can only be accessed through the contract's functions.
+    - The `private` keyword prevents direct access from other contracts, but it's important to note that while other contracts cannot read this variable directly, the data itself is still visible on the blockchain and can be read by external tools or applications that interact with the blockchain. "Private" in Solidity doesn't mean the data is encrypted or truly hidden.
+    - State variables in Solidity are permanent storage on the blockchain, making them different from variables in traditional programming. Every change to a state variable requires a transaction and costs gas (the fee paid for blockchain operations).
 
 - **Event**
 
-    - `event NumberChanged(uint256 newNumber)` - emitted when the stored number changes
-    - When triggered, events write data to the blockchain's log, which can be efficiently queried by applications
-    - Unlike state variables, events cannot be read by smart contracts, only by external applications
-    - Events are much more gas-efficient than storing data when you only need to notify external systems of changes
+    - **`event NumberChanged(uint256 newNumber)`**: Emitted when the stored number changes.
+    - When triggered, events write data to the blockchain's log, which can be efficiently queried by applications.
+    - Unlike state variables, events cannot be read by smart contracts, only by external applications.
+    - Events are much more gas-efficient than storing data when you only need to notify external systems of changes.
 
 - **Functions**
 
-    - `store(uint256 newNumber)` - updates the stored number and emits an event
-        - This function changes the state of the contract and requires a transaction to execute
-        - The `emit` keyword is used to trigger the defined event
+    - **`store(uint256 newNumber)`**: Updates the stored number and emits an event.
+        - This function changes the state of the contract and requires a transaction to execute.
+        - The `emit` keyword is used to trigger the defined event.
 
-    - `retrieve()` - returns the current stored number
-        - The `view` keyword indicates that this function only reads data and doesn't modify the contract's state
-        - View functions don't require a transaction and don't cost gas when called externally
+    - **`retrieve()`**: Returns the current stored number.
+        - The `view` keyword indicates that this function only reads data and doesn't modify the contract's state.
+        - View functions don't require a transaction and don't cost gas when called externally.
 
     For those new to Solidity, this naming pattern (getter/setter functions) is a common design pattern. Instead of directly accessing state variables, the convention is to use functions to control access and add additional logic if needed.
 

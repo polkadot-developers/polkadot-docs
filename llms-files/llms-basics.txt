@@ -97,7 +97,7 @@ XCM enhances cross-consensus communication by introducing several powerful featu
 - **Functional Multichain Decomposition**: Enables mechanisms such as remote asset locking, asset namespacing, and inter-chain state referencing, with contextual message identification.
 - **Bridging**: Establishes a universal reference framework for multi-hop setups, connecting disparate systems like Ethereum and Bitcoin with the Polkadot relay chain acting as a universal location.
 
-The standardized format for messages allows parachains to handle tasks like user balances, governance, and staking, freeing the Polkadot relay chain to focus on shared security. These features make XCM indispensable for implementing scalable and interoperable blockchain applications.
+The standardized format for messages allows parachains to handle tasks like user balances, governance, and staking, freeing the Polkadot relay chain to focus on shared security. These features make XCM indispensable for implementing scalable and interoperable blockchain applications. 
 
 ## XCM Example
 
@@ -106,9 +106,9 @@ The following is a simplified XCM message demonstrating a token transfer from Al
 ```rust
 let message = Xcm(vec![
     WithdrawAsset((Here, amount).into()),
-    BuyExecution {
-        fees: (Here, amount).into(),
-        weight_limit: WeightLimit::Unlimited
+    BuyExecution { 
+        fees: (Here, amount).into(), 
+        weight_limit: WeightLimit::Unlimited 
     },
     DepositAsset {
         assets: All.into(),
@@ -139,9 +139,9 @@ The message consists of three instructions described as follows:
 - **[BuyExecution](https://github.com/polkadot-fellows/xcm-format?tab=readme-ov-file#buyexecution){target=\_blank}**: Allocates fees to cover the execution [weight](/polkadot-protocol/glossary/#weight){target=\_blank} of the XCM instructions.
 
     ```rust
-    BuyExecution {
-        fees: (Here, amount).into(),
-        weight_limit: WeightLimit::Unlimited
+    BuyExecution { 
+        fees: (Here, amount).into(), 
+        weight_limit: WeightLimit::Unlimited 
     },
     ```
 
@@ -164,7 +164,7 @@ The message consists of three instructions described as follows:
     ```
 
     - **`All`**: The wildcard for the asset(s) to be deposited. In this case, all assets in the holding register should be deposited.
-
+    
 This step-by-step process showcases how XCM enables precise state changes within a blockchain system. You can find a complete XCM message example in the [XCM repository](https://github.com/paritytech/xcm-docs/blob/main/examples/src/0_first_look/mod.rs){target=\_blank}.
 
 ## Overview
@@ -196,7 +196,7 @@ This page provides a detailed overview of the XCM pallet's key features, its pri
 
 ## XCM Frame Pallet Overview
 
-The [`pallet-xcm`](https://paritytech.github.io/polkadot-sdk/master/pallet_xcm/pallet/index.html){target=\_blank} provides a set of pre-defined, commonly used [XCVM programs](https://github.com/polkadot-fellows/xcm-format?tab=readme-ov-file#12-the-xcvm){target=\_blank} in the form of a [set of extrinsics](https://paritytech.github.io/polkadot-sdk/master/pallet_xcm/pallet/dispatchables/index.html){target=\blank}. This pallet provides some [default implementations](https://paritytech.github.io/polkadot-sdk/master/pallet_xcm/pallet/struct.Pallet.html#implementations){target=\_blank} for traits required by [`XcmConfig`](https://paritytech.github.io/polkadot-sdk/master/pallet_xcm_benchmarks/trait.Config.html#associatedtype.XcmConfig){target=\_blank}. The [XCM executor](https://paritytech.github.io/polkadot-sdk/master/staging_xcm_executor/struct.XcmExecutor.html){target=\_blank} is also included as an associated type within the pallet's configuration.
+The [`pallet-xcm`](https://paritytech.github.io/polkadot-sdk/master/pallet_xcm/pallet/index.html){target=\_blank} provides a set of pre-defined, commonly used [XCVM programs](https://github.com/polkadot-fellows/xcm-format?tab=readme-ov-file#12-the-xcvm){target=\_blank} in the form of a [set of extrinsics](https://paritytech.github.io/polkadot-sdk/master/pallet_xcm/pallet/dispatchables/index.html){target=\blank}. This pallet provides some [default implementations](https://paritytech.github.io/polkadot-sdk/master/pallet_xcm/pallet/struct.Pallet.html#implementations){target=\_blank} for traits required by [`XcmConfig`](https://paritytech.github.io/polkadot-sdk/master/pallet_xcm_benchmarks/trait.Config.html#associatedtype.XcmConfig){target=\_blank}. The [XCM executor](https://paritytech.github.io/polkadot-sdk/master/staging_xcm_executor/struct.XcmExecutor.html){target=\_blank} is also included as an associated type within the pallet's configuration. 
 
 For further details about the XCM configuration, see the [XCM Configuration](/develop/interoperability/xcm-config/){target=\_blank} page.
 
@@ -298,7 +298,7 @@ For scenarios where real blockchain state is required, [Chopsticks](/tutorials/p
 
 ## XCM Emulator
 
-Setting up a live network with multiple interconnected parachains for XCM testing can be complex and resource-intensive.
+Setting up a live network with multiple interconnected parachains for XCM testing can be complex and resource-intensive. 
 
 The [`xcm-emulator`](https://github.com/paritytech/polkadot-sdk/tree/{{dependencies.repositories.polkadot_sdk.version}}/cumulus/xcm/xcm-emulator){target=\_blank} is a tool designed to simulate the execution of XCM programs using predefined runtime configurations. These configurations include those utilized by live networks like Kusama, Polkadot, and Asset Hub.
 
@@ -419,7 +419,7 @@ The `xcm-emulator` provides macros for defining a mocked testing environment. Ch
 }
     ```
 
-By leveraging these macros, developers can customize their testing networks by defining relay chains and parachains tailored to their needs. For guidance on implementing a mock runtime for a Polkadot SDK-based chain, refer to the [Pallet Testing](/develop/parachains/testing/pallet-testing/){target=\_blank} article.
+By leveraging these macros, developers can customize their testing networks by defining relay chains and parachains tailored to their needs. For guidance on implementing a mock runtime for a Polkadot SDK-based chain, refer to the [Pallet Testing](/develop/parachains/testing/pallet-testing/){target=\_blank} article. 
 
 This framework enables thorough testing of runtime and cross-chain interactions, enabling developers to effectively design, test, and optimize cross-chain functionality.
 
@@ -540,7 +540,7 @@ Polkadot is the primary production blockchain network for high-stakes, enterpris
     **Currency symbol**: `DOT`
 
     ---
-
+    
     **Currency decimals**: 10
 
     ---
@@ -656,7 +656,7 @@ Kusama is a network built as a risk-taking, fast-moving "canary in the coal mine
     **Currency decimals**: 12
 
     ---
-
+    
     **Block explorer**: [Kusama Subscan](https://kusama.subscan.io/){target=\_blank}
 
 === "RPC Endpoints"
@@ -754,7 +754,7 @@ Westend is the primary test network that mirrors Polkadot's functionality for pr
     **Currency decimals**: 12
 
     ---
-
+    
     **Block explorer**: [Westend Subscan](https://westend.subscan.io/){target=\_blank}
 
     ---
@@ -831,7 +831,7 @@ Paseo is a decentralised, community run, stable testnet for parachain and dapp d
     **Currency decimals**: 10
 
     ---
-
+    
     **Block explorer**: [Paseo Subscan](https://paseo.subscan.io/){target=\_blank}
 
     ---
@@ -841,39 +841,39 @@ Paseo is a decentralised, community run, stable testnet for parachain and dapp d
 === "RPC Endpoints"
 
     Amforc
-
+    
     ```
     wss://paseo.rpc.amforc.com
     ```
-
+    
     ---
-
+    
     Dwellir
-
+    
     ```
     wss://paseo-rpc.dwellir.com
     ```
-
+    
     ---
-
+    
     IBP1
-
+    
     ```
     wss://rpc.ibp.network/paseo
     ```
-
+    
     ---
-
+    
     IBP2
-
+    
     ```
     wss://paseo.dotters.network
     ```
-
+    
     ---
-
+    
     StakeWorld
-
+    
     ```
     wss://pas-rpc.stakeworld.io
     ```
@@ -917,7 +917,7 @@ Developers have the flexibility to implement any desired behavior in the core lo
 - Storing information.
 - Enforcing business rules.
 
-Pallets also include necessary wiring code to ensure proper integration and functionality within the runtime. FRAME provides a range of [pre-built pallets](https://github.com/paritytech/polkadot-sdk/tree/{{dependencies.repositories.polkadot_sdk.version}}/substrate/frame){target=\_blank} for standard and common blockchain functionalities, including consensus algorithms, staking mechanisms, governance systems, and more. These pre-existing pallets serve as building blocks or templates, which developers can use as-is, modify, or reference when creating custom functionalities.
+Pallets also include necessary wiring code to ensure proper integration and functionality within the runtime. FRAME provides a range of [pre-built pallets](https://github.com/paritytech/polkadot-sdk/tree/{{dependencies.repositories.polkadot_sdk.version}}/substrate/frame){target=\_blank} for standard and common blockchain functionalities, including consensus algorithms, staking mechanisms, governance systems, and more. These pre-existing pallets serve as building blocks or templates, which developers can use as-is, modify, or reference when creating custom functionalities. 
 
 #### Pallet Structure
 
@@ -1636,7 +1636,7 @@ Before you begin, ensure you have the following installed:
 - [Node.js](https://nodejs.org/en/){target=\_blank} (recommended version 21 or greater).
 - A package manager like [npm](https://www.npmjs.com/){target=\_blank} should be installed with Node.js by default. Alternatively, you can use other package managers like [Yarn](https://yarnpkg.com/){target=\_blank}.
 
-This documentation covers version `{{dependencies.javascript_packages.asset_transfer_api.version}}` of Asset Transfer API.
+This documentation covers version `{{dependencies.javascript_packages.asset_transfer_api.version}}` of Asset Transfer API. 
 
 ## Install Asset Transfer API
 
@@ -2047,7 +2047,7 @@ As XCM is central to enabling communication between blockchains, developers need
 To get started, clone the repository and install the required dependencies:
 
 ```bash
-git clone https://github.com/Moonsong-Labs/xcm-tools &&
+git clone https://github.com/Moonsong-Labs/xcm-tools && 
 cd xcm-tools &&
 yarn install
 ```
@@ -2151,7 +2151,7 @@ std = [
     Once you have saved your file, it should look like the following:
 
     ???- code "runtime/Cargo.toml"
-
+        
         ```rust title="runtime/Cargo.toml"
         [package]
 name = "parachain-template-runtime"
@@ -2179,39 +2179,37 @@ hex-literal = { optional = true, workspace = true, default-features = true }
 log = { workspace = true }
 pallet-parachain-template = { path = "../pallets/template", default-features = false }
 polkadot-sdk = { workspace = true, features = [
-  "pallet-utility",
-  "cumulus-pallet-aura-ext",
-  "cumulus-pallet-session-benchmarking",
-  "cumulus-pallet-weight-reclaim",
-  "cumulus-pallet-xcm",
-  "cumulus-pallet-xcmp-queue",
-  "cumulus-primitives-aura",
-  "cumulus-primitives-core",
-  "cumulus-primitives-utility",
-  "pallet-aura",
-  "pallet-authorship",
-  "pallet-balances",
-  "pallet-collator-selection",
-  "pallet-message-queue",
-  "pallet-session",
-  "pallet-sudo",
-  "pallet-timestamp",
-  "pallet-transaction-payment",
-  "pallet-transaction-payment-rpc-runtime-api",
-  "pallet-xcm",
-  "parachains-common",
-  "polkadot-parachain-primitives",
-  "polkadot-runtime-common",
-  "runtime",
-  "staging-parachain-info",
-  "staging-xcm",
-  "staging-xcm-builder",
-  "staging-xcm-executor",
-], default-features = false }
+	"pallet-utility", 
+	"cumulus-pallet-aura-ext", 
+	"cumulus-pallet-session-benchmarking", 
+	"cumulus-pallet-weight-reclaim", 
+	"cumulus-pallet-xcm", 
+	"cumulus-pallet-xcmp-queue", 
+	"cumulus-primitives-aura", 
+	"cumulus-primitives-core", 
+	"cumulus-primitives-utility", 
+	"pallet-aura", 
+	"pallet-authorship", 
+	"pallet-balances", 
+	"pallet-collator-selection", 
+	"pallet-message-queue", 
+	"pallet-session", 
+	"pallet-sudo", 
+	"pallet-timestamp", 
+	"pallet-transaction-payment", 
+	"pallet-transaction-payment-rpc-runtime-api", 
+	"pallet-xcm", 
+	"parachains-common", 
+	"polkadot-parachain-primitives", 
+	"polkadot-runtime-common", 
+	"runtime", 
+	"staging-parachain-info", 
+	"staging-xcm", 
+	"staging-xcm-builder", 
+	"staging-xcm-executor"
+	], default-features = false }
 scale-info = { features = ["derive"], workspace = true }
-serde_json = { workspace = true, default-features = false, features = [
-  "alloc",
-] }
+serde_json = { workspace = true, default-features = false, features = ["alloc"] }
 smallvec = { workspace = true, default-features = true }
 
 custom-pallet = { path = "../pallets/custom-pallet", default-features = false }
@@ -2219,28 +2217,28 @@ custom-pallet = { path = "../pallets/custom-pallet", default-features = false }
 [features]
 default = ["std"]
 std = [
-  "codec/std",
-  "cumulus-pallet-parachain-system/std",
-  "log/std",
-  "pallet-parachain-template/std",
-  "polkadot-sdk/std",
-  "scale-info/std",
-  "serde_json/std",
-  "substrate-wasm-builder",
-  "custom-pallet/std",
+	"codec/std",
+	"cumulus-pallet-parachain-system/std",
+	"log/std",
+	"pallet-parachain-template/std",
+	"polkadot-sdk/std",
+	"scale-info/std",
+	"serde_json/std",
+	"substrate-wasm-builder",
+  	"custom-pallet/std",
 ]
 
 runtime-benchmarks = [
-  "cumulus-pallet-parachain-system/runtime-benchmarks",
-  "hex-literal",
-  "pallet-parachain-template/runtime-benchmarks",
-  "polkadot-sdk/runtime-benchmarks",
+	"cumulus-pallet-parachain-system/runtime-benchmarks",
+	"hex-literal",
+	"pallet-parachain-template/runtime-benchmarks",
+	"polkadot-sdk/runtime-benchmarks",
 ]
 
 try-runtime = [
-  "cumulus-pallet-parachain-system/try-runtime",
-  "pallet-parachain-template/try-runtime",
-  "polkadot-sdk/try-runtime",
+	"cumulus-pallet-parachain-system/try-runtime",
+	"pallet-parachain-template/try-runtime",
+	"polkadot-sdk/try-runtime",
 ]
 
 # Enable the metadata hash generation.
@@ -2259,8 +2257,8 @@ on-chain-release-build = ["metadata-hash"]
 
 Update your root parachain template's `Cargo.toml` file to include your custom pallet as a dependency. Follow these steps:
 
-1. Open the `./Cargo.toml` file and locate the `[workspace]` section.
-
+1. Open the `./Cargo.toml` file and locate the `[workspace]` section. 
+    
     Make sure the `custom-pallet` is a member of the workspace:
 
     ```toml hl_lines="4" title="Cargo.toml"
@@ -2422,7 +2420,7 @@ Launch your parachain locally and start producing blocks:
     - Utility pallet
 
         ![](/images/tutorials/polkadot-sdk/parachains/zero-to-hero/add-pallets-to-runtime/add-pallets-to-runtime-1.webp)
-
+    
 
     - Custom pallet
 
@@ -2474,7 +2472,7 @@ In this tutorial, you'll learn how to create a custom pallet from scratch. You w
 
 ## Prerequisites
 
-You'll use the [Polkadot SDK Parachain Template](https://github.com/paritytech/polkadot-sdk/tree/master/templates/parachain){target=\_blank} created in the [Set Up a Template](/tutorials/polkadot-sdk/parachains/zero-to-hero/set-up-a-template/){target=\_blank} tutorial.
+You'll use the [Polkadot SDK Parachain Template](https://github.com/paritytech/polkadot-sdk/tree/master/templates/parachain){target=\_blank} created in the [Set Up a Template](/tutorials/polkadot-sdk/parachains/zero-to-hero/set-up-a-template/){target=\_blank} tutorial. 
 
 ## Create a New Project
 
@@ -2501,7 +2499,7 @@ In this tutorial, you'll build a custom pallet from scratch to demonstrate the c
 4. Ensure the project was created successfully by checking its structure. The file layout should resemble the following:
 
     ```
-    custom-pallet
+    custom-pallet 
     ├── Cargo.toml
     └── src
         └── lib.rs
@@ -2566,7 +2564,7 @@ In this section, you will construct the core structure of your custom pallet, st
 You now have the bare minimum of package dependencies that your pallet requires specified in the `Cargo.toml` file. The next step is to prepare the scaffolding for your new pallet.
 
 1. Open `src/lib.rs` in a text editor and delete all the content.
-
+   
 2. Prepare the scaffolding for the pallet by adding the following:
 
     ```rust title="lib.rs"
@@ -2677,7 +2675,7 @@ Storage items are used to manage the pallet's state. This pallet defines two ite
 - **`CounterValue`**: A single storage value that keeps track of the current value of the counter. This value is the core state variable manipulated by the pallet's functions.
 
 - **`UserInteractions`**: A storage map that tracks the number of times each account interacts with the counter.
-
+  
 Define the storage items as follows:
 
 ```rust title="lib.rs"
@@ -2693,7 +2691,7 @@ Define the storage items as follows:
 
 The `#[pallet::error]` macro defines a custom `Error` enum to handle specific failure conditions within the pallet. Errors help provide meaningful feedback to users and external systems when an extrinsic cannot be completed successfully. They are critical for maintaining the pallet's clarity and robustness.
 
-To add custom errors, use the `#[pallet::error]` macro to define the `Error` enum. Each variant represents a unique error that the pallet can emit, and these errors should align with the logic and constraints of the pallet.
+To add custom errors, use the `#[pallet::error]` macro to define the `Error` enum. Each variant represents a unique error that the pallet can emit, and these errors should align with the logic and constraints of the pallet. 
 
 Add the following errors to the pallet:
 
@@ -3327,7 +3325,7 @@ categories: Basics, Parachains
 
 ## Introduction
 
-[Polkadot SDK](https://github.com/paritytech/polkadot-sdk){target=\_blank} offers a versatile and extensible blockchain development framework, enabling you to create custom blockchains tailored to your specific application or business requirements.
+[Polkadot SDK](https://github.com/paritytech/polkadot-sdk){target=\_blank} offers a versatile and extensible blockchain development framework, enabling you to create custom blockchains tailored to your specific application or business requirements. 
 
 This tutorial guides you through compiling and running a parachain node using the [Polkadot SDK Parachain Template](https://github.com/paritytech/polkadot-sdk/tree/master/templates/parachain){target=\_blank}.
 
@@ -3364,9 +3362,9 @@ rustup component add rust-src --toolchain 1.86-aarch64-apple-darwin
 This tutorial requires two essential tools:
 
 - [**Chain spec builder**](https://crates.io/crates/staging-chain-spec-builder/{{dependencies.repositories.polkadot_sdk_parachain_template.subdependencies.chain_spec_builder_version}}){target=\_blank}: A Polkadot SDK utility for generating chain specifications. Refer to the [Generate Chain Specs](/develop/parachains/deployment/generate-chain-specs/){target=\_blank} documentation for detailed usage.
-
+    
     Install it by executing the following command:
-
+    
     ```bash
     cargo install --locked staging-chain-spec-builder@{{dependencies.repositories.polkadot_sdk_parachain_template.subdependencies.chain_spec_builder_version}}
     ```
@@ -3407,7 +3405,7 @@ The [Polkadot SDK Parachain Template](https://github.com/paritytech/polkadot-sdk
 
     !!!tip
         Initial compilation may take several minutes, depending on your machine specifications. Use the `--release` flag for improved runtime performance compared to the default `--debug` build. If you need to troubleshoot issues, the `--debug` build provides better diagnostics.
-
+        
         For production deployments, consider using a dedicated [`--profile production`](https://github.com/paritytech/polkadot-sdk-parachain-template/blob/v0.0.4/Cargo.toml#L42-L45){target=\_blank} flag - this can provide an additional 15-30% performance improvement over the standard `--release` profile.
 
 4. Upon successful compilation, you should see output similar to:
@@ -3421,7 +3419,7 @@ The [Polkadot SDK Parachain Template](https://github.com/paritytech/polkadot-sdk
 
 ## Start the Local Chain
 
-After successfully compiling your runtime, you can spin up a local chain and produce blocks. This process will start your local parachain and allow you to interact with it. You'll first need to generate a chain specification that defines your network's identity, initial connections, and genesis state, providing the foundational configuration for how your nodes connect and what initial state they agree upon, and then run the chain.
+After successfully compiling your runtime, you can spin up a local chain and produce blocks. This process will start your local parachain and allow you to interact with it. You'll first need to generate a chain specification that defines your network's identity, initial connections, and genesis state, providing the foundational configuration for how your nodes connect and what initial state they agree upon, and then run the chain. 
 
 Follow these steps to launch your node in development mode:
 
@@ -3495,7 +3493,7 @@ The details of the log output will be explored in a later tutorial. For now, kno
 When running the template node, it's accessible by default at `ws://localhost:9944`. To interact with your node using the [Polkadot.js Apps](https://polkadot.js.org/apps/#/explorer){target=\_blank} interface, follow these steps:
 
 1. Open [Polkadot.js Apps](https://polkadot.js.org/apps/#/explorer){target=\_blank} in your web browser and click the network icon (which should be the Polkadot logo) in the top left corner as shown in the image below:
-
+    
     ![](/images/tutorials/polkadot-sdk/parachains/zero-to-hero/set-up-a-template/set-up-a-template-1.webp)
 
 2. Connect to your local node:
@@ -3504,14 +3502,14 @@ When running the template node, it's accessible by default at `ws://localhost:99
     2. Choose **Custom**.
     3. **Enter `ws**: //localhost:9944` in the input field.
     4. Click the **Switch** button.
-
+    
     ![](/images/tutorials/polkadot-sdk/parachains/zero-to-hero/set-up-a-template/set-up-a-template-2.webp)
 
 3. Verify connection:
 
     - Once connected, you should see **parachain-template-runtime** in the top left corner.
     - The interface will display information about your local blockchain.
-
+    
     ![](/images/tutorials/polkadot-sdk/parachains/zero-to-hero/set-up-a-template/set-up-a-template-3.webp)
 
 You are now connected to your local node and can now interact with it through the Polkadot.js Apps interface. This tool enables you to explore blocks, execute transactions, and interact with your blockchain's features. For in-depth guidance on using the interface effectively, refer to the [Polkadot.js Guides](https://wiki.polkadot.network/general/polkadotjs/){target=\_blank} available on the Polkadot Wiki.
@@ -3597,7 +3595,7 @@ To register a local asset on the Asset Hub parachain, follow these steps:
     5. **minimum balance**: The minimum balance for the asset. This is specified in the units and decimals as requested.
     6. **asset ID**: The selected id for the asset. This should not match an already-existing asset id.
     7. Click on the **Next** button.
-
+ 
     ![Create Asset Form](/images/tutorials/polkadot-sdk/system-chains/asset-hub/register-local-assets/register-a-local-asset-4.webp)
 
 6. Choose the accounts for the roles listed below:
@@ -3674,7 +3672,7 @@ To follow this tutorial, ensure you have completed the following:
 - **Installed Chopsticks**: If you still need to do so, see the [Install Chopsticks](/develop/toolkit/parachains/fork-chains/chopsticks/get-started/#install-chopsticks){target=\_blank} guide for assistance.
 - **Reviewed** [Configure Chopsticks](/develop/toolkit/parachains/fork-chains/chopsticks/get-started/#configure-chopsticks){target=\_blank}: And understand how forked chains are configured.
 
-## Configuration File
+## Configuration File 
 
 To run Chopsticks using a configuration file, utilize the `--config` flag. You can use a raw GitHub URL, a path to a local file, or simply the chain's name. The following commands all look different but they use the `polkadot` configuration in the same way:
 
@@ -4180,7 +4178,7 @@ If successful, you will see the following output:
   </table>
 </div>
 
-!!! note
+!!! note 
     If the IPs and ports aren't explicitly defined in the configuration file, they may change each time the network is started, causing the links provided in the output to differ from the example.
 
 ## Interact with the Spawned Network
@@ -4301,7 +4299,7 @@ contract MyToken is ERC20, Ownable {
 
         - **[`ERC20.sol`]({{ dependencies.repositories.open_zeppelin_contracts.repository_url}}/tree/{{ dependencies.repositories.open_zeppelin_contracts.version}}/contracts/token/ERC20/ERC20.sol){target=\_blank}**: The base contract for fungible tokens, implementing core functionality like transfers, approvals, and balance tracking.
         - **[`Ownable.sol`]({{ dependencies.repositories.open_zeppelin_contracts.repository_url}}/tree/{{ dependencies.repositories.open_zeppelin_contracts.version}}/contracts/access/Ownable.sol){target=\_blank}**: Provides basic authorization control, ensuring only the contract owner can mint new tokens.
-
+    
     - Constructor parameters:
 
         - **`initialOwner`**: Sets the address that will have administrative rights over the contract.
@@ -4322,7 +4320,7 @@ contract MyToken is ERC20, Ownable {
         Use the [OpenZeppelin Contracts Wizard](https://wizard.openzeppelin.com/){target=\_blank} to quickly generate customized smart contracts. Simply configure your contract, copy the generated code, and paste it into Polkadot Remix IDE for deployment. Below is an example of an ERC-20 token contract created with it:
 
         ![Screenshot of the OpenZeppelin Contracts Wizard showing an ERC-20 contract configuration.](/images/tutorials/smart-contracts/deploy-erc20/deploy-erc20-2.webp)
-
+        
 
 ## Compile the Contract
 
@@ -4473,7 +4471,7 @@ contract MyToken is ERC721, Ownable {
 
         - **[`ERC721.sol`]({{ dependencies.repositories.open_zeppelin_contracts.repository_url }}/blob/{{ dependencies.repositories.open_zeppelin_contracts.version }}/contracts/token/ERC721/ERC721.sol){target=\_blank}**: The base contract for non-fungible tokens, implementing core NFT functionality like transfers and approvals.
         - **[`Ownable.sol`]({{ dependencies.repositories.open_zeppelin_contracts.repository_url }}/blob/{{ dependencies.repositories.open_zeppelin_contracts.version }}/contracts/access/Ownable.sol){target=\_blank}**: Provides basic authorization control, ensuring only the contract owner can mint new tokens.
-
+    
     - Constructor parameters:
 
         - **`initialOwner`**: Sets the address that will have administrative rights over the contract.
@@ -4658,7 +4656,7 @@ To build the smart contract, follow the steps below:
     contract Storage {
         // State variable to store a number
         uint256 private number;
-
+        
         // Event to notify when the number changes
         event NumberChanged(uint256 newNumber);
     }
@@ -4778,7 +4776,7 @@ description: Learn about the role, functionality, and implementation of parachai
 categories: Basics, Polkadot Protocol, Parachains
 ---
 
-## Introduction
+## Introduction 
 
 A [_parachain_](/polkadot-protocol/glossary#parachain){target=\_blank} is a coherent, application-specific blockchain that derives security from its respective relay chain. Parachains on Polkadot are each their own separate, fully functioning blockchain. The primary difference between a parachain and a regular, "solo" blockchain is that the relay chain verifies the state of all parachains that are connected to it.  In many ways, parachains can be thought of as a ["cynical" rollup](#cryptoeconomic-security-elves-protocol), as the crypto-economic protocol used (ELVES) assumes the worst-case scenario, rather than the typical optimistic approach that many roll-up mechanisms take. Once enough validators attest that a block is valid, then the probability of that block being valid is high.
 
@@ -4805,16 +4803,16 @@ flowchart TB
 ```
 
 ## Coherent Systems
-
+    
 Coherency refers to the degree of synchronization, consistency, and interoperability between different components or chains within a system. It encompasses the internal coherence of individual chains and the external coherence between chains regarding how they interact.
-
+    
 A single-state machine like Ethereum is very coherent, as all of its components (smart contracts, dApps/applications, staking, consensus) operate within a single environment with the downside of less scalability. Multi-protocol state machines, such as Polkadot, offer less coherency due to their sharded nature but more scalability due to the parallelization of their architecture.
 
 Parachains are coherent, as they are self-contained environments with domain-specific functionality.
 
 ## Flexible Ecosystem
 
-Parachains enable parallelization of different services within the same network. However, unlike most layer two rollups, parachains don't suffer the same interoperability pitfalls that most rollups suffer. [Cross-Consensus Messaging (XCM)](/develop/interoperability/intro-to-xcm/){target=\_blank} provides a common communication format for each parachain and can be configured to allow a parachain to communicate with just the relay chain or certain parachains.
+Parachains enable parallelization of different services within the same network. However, unlike most layer two rollups, parachains don't suffer the same interoperability pitfalls that most rollups suffer. [Cross-Consensus Messaging (XCM)](/develop/interoperability/intro-to-xcm/){target=\_blank} provides a common communication format for each parachain and can be configured to allow a parachain to communicate with just the relay chain or certain parachains. 
 
 The diagram below highlights the flexibility of the Polkadot ecosystem, where each parachain specializes in a distinct domain. This example illustrates how parachains, like DeFi and GameFi, leverage XCM for cross-chain operations such as asset transfers and credential verification.
 
@@ -4856,7 +4854,7 @@ At their core, parachains, like most blockchains, are deterministic, finite-stat
 stateDiagram-v2
     direction LR
     [*] --> StateA : Initial State
-
+    
     StateA --> STF : Extrinsics/Transactions
     STF --> StateB : Deterministic Transformation
     StateB --> [*] : New State
@@ -5015,7 +5013,7 @@ For more information about blockspace, watch [Robert Habermeier’s interview](h
 DOT is the native token of the Polkadot network, much like BTC for Bitcoin and Ether for the Ethereum blockchain. DOT has 10 decimals, uses the Planck base unit, and has a balance type of `u128`. The same is true for Kusama's KSM token with the exception of having 12 decimals.
 
 ### Redenomination of DOT
-
+    
 Polkadot conducted a community poll, which ended on 27 July 2020 at block 888,888, to decide whether to redenominate the DOT token. The stakeholders chose to redenominate the token, changing the value of 1 DOT from 1e12 plancks to 1e10 plancks.
 
 Importantly, this did not affect the network's total number of base units (plancks); it only affects how a single DOT is represented. The redenomination became effective 72 hours after transfers were enabled, occurring at block 1,248,328 on 21 August 2020 around 16:50 UTC.
@@ -5072,8 +5070,8 @@ System parachains contain core Polkadot protocol features, but in parachains rat
 System parachains defer to on-chain governance to manage their upgrades and other sensitive actions as they do not have native tokens or governance systems separate from DOT or KSM. It is not uncommon to see a system parachain implemented specifically to manage network governance.
 
 !!!note
-    You may see system parachains called common good parachains in articles and discussions. This nomenclature caused confusion as the network evolved, so system parachains is preferred.
-
+    You may see system parachains called common good parachains in articles and discussions. This nomenclature caused confusion as the network evolved, so system parachains is preferred. 
+    
     For more details on this evolution, review this [parachains forum discussion](https://forum.polkadot.network/t/polkadot-protocol-and-common-good-parachains/866){target=\_blank}.
 
 ## Existing System Chains
@@ -5126,7 +5124,7 @@ These on-chain collectives will play essential roles in the future of network st
 
 ### Bridge Hub
 
-Before parachains, the only way to design a bridge was to put the logic onto the relay chain. Since both networks now support parachains and the isolation they provide, each network can have a parachain dedicated to bridges.
+Before parachains, the only way to design a bridge was to put the logic onto the relay chain. Since both networks now support parachains and the isolation they provide, each network can have a parachain dedicated to bridges. 
 
 The Bridge Hub system parachain operates on the relay chain, and is responsible for faciliating bridges to the wider Web3 space. It contains the required bridge [pallets](/polkadot-protocol/glossary/#pallet){target=\_blank} in its runtime, which enable trustless bridging with other blockchain networks like Polkadot, Kusama, and Ethereum. The Bridge Hub uses the native token of the relay chain.
 
@@ -5146,7 +5144,7 @@ Visit [Introduction to Agile Coretime](https://wiki.polkadot.network/learn/learn
 
 [Encointer](https://encointer.org/encointer-for-web3/){target=\_blank} is a blockchain platform for self-sovereign ID and a global [universal basic income (UBI)](https://book.encointer.org/economics-ubi.html){target=\_blank}. The Encointer protocol uses a novel Proof of Personhood (PoP) system to create unique identities and resist Sybil attacks. PoP is based on the notion that a person can only be in one place at any given time. Encointer offers a framework that allows for any group of real people to create, distribute, and use their own digital community tokens.
 
-Participants are requested to attend physical key-signing ceremonies with small groups of random people at randomized locations. These local meetings are part of one global signing ceremony occurring at the same time. Participants use the Encointer wallet app to participate in these ceremonies and manage local community currencies.
+Participants are requested to attend physical key-signing ceremonies with small groups of random people at randomized locations. These local meetings are part of one global signing ceremony occurring at the same time. Participants use the Encointer wallet app to participate in these ceremonies and manage local community currencies. 
 
 To learn more about Encointer, see the official [Encointer book](https://book.encointer.org/introduction.html){target=\_blank} or watch an [Encointer ceremony](https://www.youtube.com/watch?v=tcgpCCYBqko){target=\_blank} in action.
 --- END CONTENT ---
@@ -5159,7 +5157,7 @@ description: Discover Polkadot’s cutting-edge OpenGov system, enabling transpa
 categories: Basics, Polkadot Protocol
 ---
 
-# On-Chain Governance
+# On-Chain Governance 
 
 ## Introduction
 
@@ -5204,7 +5202,7 @@ Visit [Origins and Tracks Info](https://wiki.polkadot.network/learn/learn-polkad
 
 ## Referendums
 
-In OpenGov, anyone can submit a referendum, fostering an open and participatory system. The timeline for a referendum depends on the privilege level of the origin with more significant changes offering more time for community voting and participation before enactment.
+In OpenGov, anyone can submit a referendum, fostering an open and participatory system. The timeline for a referendum depends on the privilege level of the origin with more significant changes offering more time for community voting and participation before enactment. 
 
 The timeline for an individual referendum includes four distinct periods:
 
@@ -5221,7 +5219,7 @@ See [Voting on a Referendum](https://wiki.polkadot.network/learn/learn-polkadot-
 
 ### Delegate Voting Power
 
-The OpenGov system also supports multi-role delegations, allowing token holders to assign their voting power on different tracks to entities with expertise in those areas.
+The OpenGov system also supports multi-role delegations, allowing token holders to assign their voting power on different tracks to entities with expertise in those areas. 
 
 For example, if a token holder lacks the technical knowledge to evaluate proposals on the [Root track](https://wiki.polkadot.network/learn/learn-polkadot-opengov-origins/#root){target=\_blank}, they can delegate their voting power for that track to an expert they trust to vote in the best interest of the network. This ensures informed decision-making across tracks while maintaining flexibility for token holders.
 
@@ -5229,7 +5227,7 @@ Visit [Multirole Delegation](https://wiki.polkadot.network/learn/learn-polkadot-
 
 ### Cancel a Referendum
 
-Polkadot OpenGov has two origins for rejecting ongoing referendums:
+Polkadot OpenGov has two origins for rejecting ongoing referendums: 
 
 - **[Referendum Canceller](https://wiki.polkadot.network/learn/learn-polkadot-opengov-origins/#referendum-canceller){target=\_blank}**: Cancels an active referendum when non-malicious errors occur and refunds the deposits to the originators.
 - **[Referendum Killer](https://wiki.polkadot.network/learn/learn-polkadot-opengov-origins/#referendum-killer){target=\_blank}**: Used for urgent, malicious cases this origin instantly terminates an active referendum and slashes deposits.
@@ -5259,7 +5257,7 @@ categories: Basics, Polkadot Protocol
 
 Accounts are essential for managing identity, transactions, and governance on the network in the Polkadot SDK. Understanding these components is critical for seamless development and operation on the network, whether you're building or interacting with Polkadot-based chains.
 
-This page will guide you through the essential aspects of accounts, including their data structure, balance types, reference counters, and address formats. You’ll learn how accounts are managed within the runtime, how balances are categorized, and how addresses are encoded and validated.
+This page will guide you through the essential aspects of accounts, including their data structure, balance types, reference counters, and address formats. You’ll learn how accounts are managed within the runtime, how balances are categorized, and how addresses are encoded and validated. 
 
 ## Account Data Structure
 
@@ -5295,7 +5293,7 @@ The `StorageMap` consists of the following parameters:
 
     - **`T::Nonce`**: A nonce for the account, which is incremented with each transaction to ensure transaction uniqueness.
     - **`T: :AccountData`**: Custom account data defined by the runtime configuration, which could include balances, locked funds, or other relevant information.
-
+    
 - **`ValueQuery`**: Defines how queries to the storage map behave when no value is found; returns a default value instead of `None`.
 
 For a detailed explanation of storage maps, see the [`StorageMap`](https://paritytech.github.io/polkadot-sdk/master/frame_support/storage/types/struct.StorageMap.html){target=\_blank} entry in the Rust docs.
@@ -5393,7 +5391,7 @@ The `System` pallet offers three query functions to assist developers in trackin
 - **[`is_provider_required()`](https://paritytech.github.io/polkadot-sdk/master/frame_system/pallet/struct.Pallet.html#method.is_provider_required){target=\_blank}**: Verifies whether the account still has any active consumer references.
 
 This modular and flexible system of reference counters tightly controls the lifecycle of accounts in Polkadot SDK-based blockchains, preventing the accidental removal or retention of unneeded accounts. You can refer to the [System pallet Rust docs](https://paritytech.github.io/polkadot-sdk/master/frame_system/pallet/struct.Pallet.html){target=\_blank} for more details.
-
+    
 
 ## Account Balance Types
 
@@ -5405,13 +5403,13 @@ In the Polkadot ecosystem, account balances are categorized into different types
     ```rust
     type BalanceOf<T> = <<T as Config>::Currency as Currency<<T as frame_system::Config>::AccountId>>::Balance;
     ```
-
+    
     To the [`Fungible`](https://paritytech.github.io/polkadot-sdk/master/frame_support/traits/tokens/fungible/index.html){target=\_blank} trait:
 
     ```rust
     type BalanceOf<T> = <<T as Config>::Currency as FnInspect<<T as frame_system::Config>::AccountId>>::Balance;
     ```
-
+    
     This update will enable more efficient use of account balances, allowing the free balance to be utilized for on-chain activities such as setting proxies and managing identities.
 
 ### Balance Types
@@ -5485,7 +5483,7 @@ By understanding these balance types and their implications, developers and user
 
 ## Address Formats
 
-The SS58 address format is a core component of the Polkadot SDK that enables accounts to be uniquely identified across Polkadot-based networks. This format is a modified version of Bitcoin's Base58Check encoding, specifically designed to accommodate the multi-chain nature of the Polkadot ecosystem. SS58 encoding allows each chain to define its own set of addresses while maintaining compatibility and checksum validation for security.
+The SS58 address format is a core component of the Polkadot SDK that enables accounts to be uniquely identified across Polkadot-based networks. This format is a modified version of Bitcoin's Base58Check encoding, specifically designed to accommodate the multi-chain nature of the Polkadot ecosystem. SS58 encoding allows each chain to define its own set of addresses while maintaining compatibility and checksum validation for security. 
 
 ### Basic Format
 
@@ -5948,7 +5946,7 @@ Instead of using the default weight annotations, you can create a custom weight 
 - [`WeighData<T>`](https://crates.parity.io/frame_support/weights/trait.WeighData.html){target=\_blank} to determine the weight of the dispatch.
 - [`ClassifyDispatch<T>`](https://crates.parity.io/frame_support/weights/trait.ClassifyDispatch.html){target=\_blank} to determine the class of the dispatch.
 - [`PaysFee<T>`](https://crates.parity.io/frame_support/weights/trait.PaysFee.html){target=\_blank} to determine whether the sender of the dispatch pays fees.
-
+ 
 The Polkadot SDK then bundles the output information of the three traits into the [`DispatchInfo`](https://paritytech.github.io/polkadot-sdk/master/frame_support/dispatch/struct.DispatchInfo.html){target=\_blank} struct and provides it by implementing the [`GetDispatchInfo`](https://docs.rs/frame-support/latest/frame_support/dispatch/trait.GetDispatchInfo.html){target=\_blank} for all `Call` variants and opaque extrinsic types. This is used internally by the System and Executive modules.
 
 `ClassifyDispatch`, `WeighData`, and `PaysFee` are generic over T, which gets resolved into the tuple of all dispatch arguments except for the origin. The following example illustrates a struct that calculates the weight as `m * len(args)`, where `m` is a given multiplier and args is the concatenated tuple of all dispatch arguments. In this example, the dispatch class is `Operational` if the transaction has more than 100 bytes of length in arguments and will pay fees if the encoded length exceeds 10 bytes.
@@ -6395,7 +6393,7 @@ Visit the [Polkadot.js Portal](https://polkadot.js.org/apps/#/rpc){target=\_blan
 2. Select **`getMetadata(at)`** as the method to call.
 3. Click **Submit RPC call** to submit the call and return the metadata in JSON format.
 
-### Use Curl
+### Use Curl 
 
 You can fetch the metadata for the network by calling the node's RPC endpoint. This request returns the metadata in bytes rather than human-readable JSON:
 
@@ -6408,7 +6406,7 @@ https://rpc.polkadot.io
 
 ### Use Subxt
 
-[`subxt`](https://github.com/paritytech/subxt){target=\_blank} may also be used to fetch the metadata of any data in a human-readable JSON format:
+[`subxt`](https://github.com/paritytech/subxt){target=\_blank} may also be used to fetch the metadata of any data in a human-readable JSON format: 
 
 ```sh
 subxt metadata  --url wss://rpc.polkadot.io --format json > spec.json
@@ -6433,7 +6431,7 @@ In general, the metadata includes the following information:
 - Type definitions for all types used in the runtime and generated by the `scale-info` crate.
 - Pallet information for the pallets included in the runtime in the order that they are defined in the `construct_runtime` macro.
 
-!!!tip
+!!!tip 
     Depending on the frontend library used (such as the [Polkadot API](https://papi.how/){target=\_blank}), they may format the metadata differently than the raw format shown.
 
 The following example illustrates a condensed and annotated section of metadata decoded and converted to JSON:
@@ -6464,7 +6462,7 @@ The constant `1635018093` is a magic number that identifies the file as a metada
 - The `pallets` section contains information about each pallet in the runtime.
 - The `extrinsic` section describes the type identifier and transaction format version that the runtime uses.
 
-Different extrinsic versions can have varying formats, especially when considering [signed transactions](/polkadot-protocol/parachain-basics/blocks-transactions-fees/transactions/#signed-transactions){target=\_blank}.
+Different extrinsic versions can have varying formats, especially when considering [signed transactions](/polkadot-protocol/parachain-basics/blocks-transactions-fees/transactions/#signed-transactions){target=\_blank}. 
 
 ### Pallets
 
@@ -6820,7 +6818,7 @@ The Polkadot SDK uses a lightweight and efficient encoding/decoding mechanism to
 
 The SCALE codec enables communication between the runtime and the outer node. This mechanism is designed for high-performance, copy-free data encoding and decoding in resource-constrained environments like the Polkadot SDK [Wasm runtime](/develop/parachains/deployment/build-deterministic-runtime/#introduction){target=\_blank}.
 
-It is not self-describing, meaning the decoding context must fully know the encoded data types.
+It is not self-describing, meaning the decoding context must fully know the encoded data types. 
 
 Parity's libraries utilize the [`parity-scale-codec`](https://github.com/paritytech/parity-scale-codec){target=\_blank} crate (a Rust implementation of the SCALE codec) to handle encoding and decoding for interactions between RPCs and the runtime.
 
@@ -6830,7 +6828,7 @@ The `codec` mechanism is ideal for Polkadot SDK-based chains because:
 - It doesn’t rely on Rust’s `libstd`, making it compatible with `no_std` environments like Wasm runtime.
 - It integrates seamlessly with Rust, allowing easy derivation of encoding and decoding logic for new types using `#[derive(Encode, Decode)]`.
 
-Defining a custom encoding scheme in the Polkadot SDK-based chains, rather than using an existing Rust codec library, is crucial for enabling cross-platform and multi-language support.
+Defining a custom encoding scheme in the Polkadot SDK-based chains, rather than using an existing Rust codec library, is crucial for enabling cross-platform and multi-language support. 
 
 ## SCALE Codec
 
@@ -7042,15 +7040,15 @@ categories: Basics, Polkadot Protocol, Networks
 
 The Polkadot ecosystem is built on a robust set of networks designed to enable secure and scalable development. Whether you are testing new features or deploying to live production, Polkadot offers several layers of networks tailored for each stage of the development process. From local environments to experimental networks like Kusama and community-run TestNets such as Paseo, developers can thoroughly test, iterate, and validate their applications. This guide will introduce you to Polkadot's various networks and explain how they fit into the development workflow.
 
-## Network Overview
+## Network Overview 
 
 Polkadot's development process is structured to ensure new features and upgrades are rigorously tested before being deployed on live production networks. The progression follows a well-defined path, starting from local environments and advancing through TestNets, ultimately reaching the Polkadot MainNet. The diagram below outlines the typical progression of the Polkadot development cycle:
 
 ``` mermaid
 
 flowchart LR
-    id1[Local] --> id2[Westend] --> id4[Kusama] --> id5[Polkadot]
-    id1[Local] --> id3[Paseo] --> id5[Polkadot]
+    id1[Local] --> id2[Westend] --> id4[Kusama] --> id5[Polkadot]  
+    id1[Local] --> id3[Paseo] --> id5[Polkadot] 
 ```
 This flow ensures developers can thoroughly test and iterate without risking real tokens or affecting production networks. Testing tools like [Chopsticks](#chopsticks) and various TestNets make it easier to experiment safely before releasing to production.
 
@@ -7248,7 +7246,7 @@ Currently, two primary methods for generating randomness in blockchains are used
 
 A Verifiable Random Function (VRF) is a cryptographic function that generates a random number and proof that ensures the submitter produced the number. This proof allows anyone to verify the validity of the random number.
 
-Polkadot's VRF is similar to the one used in [**Ouroboros Praos**](https://eprint.iacr.org/2017/573.pdf){target=\_blank}, which secures randomness for block production in systems like [BABE](/polkadot-protocol/architecture/polkadot-chain/pos-consensus/#block-production-babe){target=\_blank} (Polkadot’s block production mechanism).
+Polkadot's VRF is similar to the one used in [**Ouroboros Praos**](https://eprint.iacr.org/2017/573.pdf){target=\_blank}, which secures randomness for block production in systems like [BABE](/polkadot-protocol/architecture/polkadot-chain/pos-consensus/#block-production-babe){target=\_blank} (Polkadot’s block production mechanism). 
 
 The key difference is that Polkadot's VRF doesn’t rely on a central clock—avoiding the issue of whose clock to trust. Instead, it uses its own past results and slot numbers to simulate time and determine future outcomes.
 
@@ -7270,7 +7268,7 @@ Here is a graphical representation:
 
 The VRF produces two outputs: a result (the random number) and a proof (verifying that the number was generated correctly).
 
-The result is checked by the validator against a protocol threshold. If it's below the threshold, the validator becomes a candidate for block production in that slot.
+The result is checked by the validator against a protocol threshold. If it's below the threshold, the validator becomes a candidate for block production in that slot. 
 
 The validator then attempts to create a block, submitting it along with the `PROOF` and `RESULT`.
 
@@ -7284,7 +7282,7 @@ After executing the VRF, the `RESULT` is compared to a protocol-defined `THRESHO
 
 As a result, there may be multiple validators eligible to propose a block for a slot. In this case, the block accepted by other nodes will prevail, provided it is on the chain with the latest finalized block as determined by the GRANDPA finality gadget. It's also possible for no block producers to be available for a slot, in which case the AURA consensus takes over. AURA is a fallback mechanism that randomly selects a validator to produce a block, running in parallel with BABE and only stepping in when no block producers exist for a slot. Otherwise, it remains inactive.
 
-Because validators roll independently, no block candidates may appear in some slots if all roll numbers are above the threshold.
+Because validators roll independently, no block candidates may appear in some slots if all roll numbers are above the threshold. 
 
 To verify resolution of this issue and that Polkadot block times remain near constant-time, see the [PoS Consensus](/polkadot-protocol/architecture/polkadot-chain/pos-consensus/){target=\_blank} page of this documentation.
 
@@ -7298,18 +7296,18 @@ For more information about RANDAO, see the [Randomness - RANDAO](https://eth2boo
 
 ## VDFs
 
-Verifiable Delay Functions (VDFs) are time-bound computations that, even on parallel computers, take a set amount of time to complete.
+Verifiable Delay Functions (VDFs) are time-bound computations that, even on parallel computers, take a set amount of time to complete. 
 
 They produce a unique result that can be quickly verified publicly. When combined with RANDAO, feeding RANDAO's output into a VDF introduces a delay that nullifies an attacker's chance to influence the randomness.
 
 However, VDF likely requires specialized ASIC devices to run separately from standard nodes.
 
-!!!warning
+!!!warning 
     While only one is needed to secure the system, and they will be open-source and inexpensive, running VDF devices involves significant costs without direct incentives, adding friction for blockchain users.
 
 ## Additional Resources
 
-For more information about the reasoning for choices made along with proofs, see Polkadot's research on blockchain randomness and sortition in the [Block production](https://research.web3.foundation/Polkadot/protocols/block-production){target=\_blank} entry of the Polkadot Wiki.
+For more information about the reasoning for choices made along with proofs, see Polkadot's research on blockchain randomness and sortition in the [Block production](https://research.web3.foundation/Polkadot/protocols/block-production){target=\_blank} entry of the Polkadot Wiki. 
 
 For a discussion with Web3 Foundation researchers about when and under what conditions Polkadot's randomness can be utilized, see the [Discussion on Randomness used in Polkadot](https://github.com/use-ink/ink/issues/57){target=\_blank} issue on GitHub.
 --- END CONTENT ---
@@ -7803,7 +7801,7 @@ The following YUL functions exhibit notable behavioral differences in PolkaVM:
 
     - **`prevrandao`, `difficulty`**: Both translate to a constant value of `2500000000000000`, as PolkaVM doesn't implement Ethereum's difficulty adjustment or randomness mechanisms.
 
-        - If your Solidity contract relies on `block.difficulty` (or its equivalent YUL opcode `difficulty`) for randomness generation or any logic tied to Ethereum's proof-of-work difficulty, this will not provide true randomness on PolkaVM. The value will always be constant. Developers needing on-chain randomness should utilize Polkadot's native randomness sources or dedicated VRF (Verifiable Random Function) solutions if available.
+        - If your Solidity contract relies on `block.difficulty` (or its equivalent YUL opcode `difficulty`) for randomness generation or any logic tied to Ethereum's proof-of-work difficulty, this will not provide true randomness on PolkaVM. The value will always be constant. Developers needing on-chain randomness should utilize Polkadot's native randomness sources or dedicated VRF (Verifiable Random Function) solutions if available. 
 
 ### Unsupported Operations
 
@@ -8022,7 +8020,7 @@ flowchart TD
     A[Users and Devs] -->|Send Tx| B[Frontier RPC Ext]
     subgraph C[Pallet Ethereum]
         D[Validate Tx]
-        E[Send<br/>Valid Tx]
+        E[Send<br/>Valid Tx]    
     end
     B -->|Interact with| C
     D --> E
@@ -8059,13 +8057,13 @@ The following diagram illustrates a high-level overview of the path a transactio
 
 ``` mermaid
 flowchart TD
-
+    
     subgraph A[Wasm Bytecode API]
         C[Pallet Contracts]
     end
 
     B[Users and Devs] -- Interact with ---> A
-
+    
     D[(Current State)]
 
     E[Smart Contract<br/>ink!, Solidity...] <-->|Compiled to Wasm<br/>Bytecode| D
@@ -8120,7 +8118,7 @@ sequenceDiagram
     participant Proxy as Ethereum JSON RPC Proxy
     participant Chain as Blockchain Node
     participant Pallet as pallet_revive
-
+    
     User->>Proxy: Submit Ethereum Transaction
     Proxy->>Chain: Repackage as Polkadot Compatible Transaction
     Chain->>Pallet: Process Transaction
@@ -8143,7 +8141,7 @@ flowchart TB
         EVMStack[Stack-Based]
         EVM256[256-bit Word Size]
     end
-
+    
     subgraph "PolkaVM Architecture"
         PVMReg[Register-Based]
         PVM64[64-bit Word Size]
@@ -8175,14 +8173,14 @@ When compiling a Solidity smart contract, the code passes through the following 
 ```mermaid
 flowchart LR
     Dev[Developer] --> |Solidity<br>Source<br>Code| Solc
-
+    
     subgraph "Compilation Process"
         direction LR
         Solc[solc] --> |YUL<br>IR| Revive
         Revive[Revive Compiler] --> |LLVM<br>IR| LLVM
         LLVM[LLVM<br>Optimizer] --> |RISC-V ELF<br>Shared Object| PVMLinker
     end
-
+    
     PVMLinker[PVM Linker] --> PVM[PVM Blob<br>with Metadata]
 ```
 

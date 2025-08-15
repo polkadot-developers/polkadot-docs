@@ -5,9 +5,6 @@ dependencies:
       repository_url: https://github.com/paritytech/zombienet
       version: v1.3.133
       architecture: macos-arm64
-    asset_transfer_api:
-      repository_url: https://github.com/paritytech/asset-transfer-api
-      version: v1.0.0
     polkadot_sdk_solochain_template:
       repository_url: https://github.com/paritytech/polkadot-sdk-solochain-template
       version: v0.0.2
@@ -55,10 +52,6 @@ dependencies:
     chopsticks:
       name: '@acala-network/chopsticks'
       version: 1.2.1
-    asset_transfer_api:
-      name: '@substrate/asset-transfer-api'
-      version: 1.0.0
-      polkadot_js_api_version: v16.2.2 # Check changelog for pjs version bumps
     moonwall:
       name: '@moonwall/cli'
       version: 5.13.5

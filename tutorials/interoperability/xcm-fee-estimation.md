@@ -1,6 +1,6 @@
 ---
 title: XCM Fee Estimation
-description: This tutorial demonstrates how to estimate the fees for teleporting assets between the Paseo relay chain and the Paseo Asset Hub parachain.
+description: This tutorial demonstrates how to estimate the fees for teleporting assets from the Paseo Asset Hub parachain to the Paseo relay chain.
 ---
 
 # XCM Fee Estimation
@@ -11,7 +11,7 @@ When sending cross-chain messages, you need to make sure that the transaction wi
 
 Sending cross-chain messages requires estimating the fees for the operation. 
 
-This tutorial will demonstrate how to dry-run and estimate the fees for teleporting assets between the Paseo relay chain and the Paseo Asset Hub parachain.
+This tutorial will demonstrate how to dry-run and estimate the fees for teleporting assets from the Paseo Asset Hub parachain to the Paseo relay chain.
 
 ## Fee Mechanism
 
@@ -23,13 +23,13 @@ There are 3 types of fees that can be charged when sending a cross-chain message
 
 If there are multiple intermediate chains, the delivery fees and remote execution fees will be charged for each intermediate chain.
 
-In this example, we will estimate the fees for teleporting assets from the Paseo relay chain to the Paseo Asset Hub parachain. The fee structure will be as follows:
+In this example, we will estimate the fees for teleporting assets from the Paseo Asset Hub parachain to the Paseo relay chain. The fee structure will be as follows:
 
 ```mermaid
 flowchart LR
-    Paseo[Paseo] -->|Delivery Fees| AssetHub[Paseo Asset Hub]
-    Paseo -->|<br />Local<br />Execution<br />Fees| Paseo
-    AssetHub -->|<br />Remote<br />Execution<br />Fees| AssetHub
+    AssetHub[Paseo Asset Hub] -->|Delivery Fees| Paseo[Paseo]
+    AssetHub -->|<br />Local<br />Execution<br />Fees| AssetHub
+    Paseo -->|<br />Remote<br />Execution<br />Fees| Paseo
 ```
 
 The overall fees are `local_execution_fees` + `delivery_fees` + `remote_execution_fees`.
@@ -76,51 +76,52 @@ First, you need to set up your environment:
     npx papi add paseoAssetHub -n paseo_asset_hub
     ```
 
-7. Create a new file called `teleport.ts`:
+7. Create a new file called `teleport-ah-to-relay.ts`:
 
     ```bash
-    touch teleport.ts
+    touch teleport-ah-to-relay.ts
     ```
 
-8. Import the necessary modules. Add the following code to the `teleport.ts` file:
+8. Import the necessary modules. Add the following code to the `teleport-ah-to-relay.ts` file:
 
-    ```typescript
-    import { paseo, paseoAssetHub } from "@polkadot-api/descriptors";
-    import { createClient, Binary, FixedSizeBinary, Enum, type Transaction } from "polkadot-api";
+    ```typescript title="teleport-ah-to-relay.ts"
+    import { DispatchRawOrigin, paseo, paseoAssetHub } from "@polkadot-api/descriptors";
+    import {
+      createClient,
+      FixedSizeBinary,
+      Enum,
+    } from "polkadot-api";
     import { getWsProvider } from "polkadot-api/ws-provider/node";
     import { withPolkadotSdkCompat } from "polkadot-api/polkadot-sdk-compat";
     import {
       XcmVersionedLocation,
-      XcmVersionedAssets,
       XcmVersionedAssetId,
-      XcmV3Junction,
       XcmV3Junctions,
-      XcmV3WeightLimit,
       XcmV3MultiassetFungibility,
       XcmVersionedXcm,
-      XcmV4Instruction,
-      XcmV4AssetAssetFilter,
-      XcmV4AssetWildAsset,
+      XcmV5Instruction,
+      XcmV5Junctions,
+      XcmV5Junction,
+      XcmV5AssetFilter,
+      XcmV5WildAsset,
     } from "@polkadot-api/descriptors";
-    import {
-      ss58Decode,
-    } from "@polkadot-labs/hdkd-helpers";
     ```
 
 9. Define constants and a `main` function where you will implement all the logic:
 
-    ```typescript
-    const PAS_UNITS = 10_000_000_000n;
-    const PAS_CENTS = 100_000_000n;
+    ```typescript title="teleport-ah-to-relay.ts"
+    // 1 PAS = 10^10 units
+    const PAS_UNITS = 10_000_000_000n; // 1 PAS
+    const PAS_CENTS = 100_000_000n; // 0.01 PAS
 
     // Paseo Relay Chain constants
     const PASEO_RPC_ENDPOINT = "ws://localhost:8000";
-    const PASEO_ACCOUNT = "15oF4uVJwmo4TdGW7VfQxNLavjCXviqxT9S1MgbjMNHr6Sp5"; // Alice
+    const PASEO_ACCOUNT = "15oF4uVJwmo4TdGW7VfQxNLavjCXviqxT9S1MgbjMNHr6Sp5"; // Alice (Paseo Relay Chain)
 
     // Paseo Asset Hub constants
     const PASEO_ASSET_HUB_RPC_ENDPOINT = "ws://localhost:8001";
     const PASEO_ASSET_HUB_PARA_ID = 1000;
-    const ASSET_HUB_ACCOUNT = "16D2eVuK5SWfwvtFD3gVdBC2nc2BafK31BY6PrbZHBAGew7L"; // Bob
+    const ASSET_HUB_ACCOUNT = "14E5nqKAp3oAJcmzgZhUD2RcptBeUBScxKHgJKU4HPNcKVf3"; // Bob (Paseo Asset Hub)
 
     async function main() {
       // Code will go here
@@ -133,77 +134,76 @@ All the following code explained in the subsequent sections must be added inside
 
 ## Client and API Setup
 
-Now you are ready to start implementing the logic for the fee estimation for the teleport you want to perform. In this step you will create the clients for the Paseo relay chain and the Paseo Asset Hub parachain and generate the typed apis to interact with the chains. Follow the steps below:
+Now you are ready to start implementing the logic for the fee estimation for the teleport you want to perform. In this step you will create the client for the Paseo Asset Hub parachain and generate the typed API to interact with the chain. Follow the steps below:
 
-1. Create the API clients. You will need to create two clients, one for the Paseo relay chain and one for the Paseo Asset Hub parachain:
+1. Create the API client. You will need to create a client for the Paseo Asset Hub parachain:
 
-    ```typescript
-    // Connect to the Paseo relay chain
-    const paseoClient = createClient(
-      withPolkadotSdkCompat(getWsProvider(PASEO_RPC_ENDPOINT))
+    ```typescript title="teleport-ah-to-relay.ts"
+    // Connect to the Asset Hub parachain
+    const assetHubClient = createClient(
+      withPolkadotSdkCompat(getWsProvider(PASEO_ASSET_HUB_RPC_ENDPOINT))
     );
 
-    // Get the typed API for Paseo
-    const paseoApi = paseoClient.getTypedApi(paseo);
+    // Get the typed API for Asset Hub
+    const assetHubApi = assetHubClient.getTypedApi(paseoAssetHub);
     ```
 
     Make sure to replace the endpoint URLs with the actual WebSocket endpoints. You can use public endpoints or run local nodes.
 
 ## Create the XCM Message
 
-Instead of using the `limited_teleport_assets` extrinsic, we'll construct a proper XCM message and use `XcmPallet.execute`. This gives us more control and follows best practices:
+We'll construct a proper XCM message using the new XCM V5 instructions for teleporting from Asset Hub to the Relay Chain. The key difference here is that from the Asset Hub's perspective, PAS tokens are represented as `parents: 1, interior: Here` since they originate from the relay chain:
 
-```typescript
-// Helper function to create XCM for teleport to Asset Hub
-function createTeleportXcm(receiverAddress: string, amount: bigint, paraId: number) {
-  const receiverPublicKey = ss58Decode(receiverAddress)[0];
-  const beneficiary = {
-    parents: 0,
-    interior: XcmV3Junctions.X1(
-      XcmV3Junction.AccountId32({
-        network: undefined,
-        id: FixedSizeBinary.fromBytes(receiverPublicKey),
-      })
-    ),
-  };
-  
-  return XcmVersionedXcm.V4([
-    // Withdraw PAS from account on Paseo relay chain
-    XcmV4Instruction.WithdrawAsset([
+```typescript title="teleport-ah-to-relay.ts"
+// Helper function to create XCM for teleport to Relay (Asset Hub → Relay)
+function createTeleportXcmToRelay() {
+  return XcmVersionedXcm.V5([
+    // Withdraw PAS from Asset Hub (PAS on parachains is parents:1, interior: Here)
+    XcmV5Instruction.WithdrawAsset([
       {
-        id: { parents: 0, interior: XcmV3Junctions.Here() },
-        fun: XcmV3MultiassetFungibility.Fungible(amount),
+        id: { parents: 1, interior: XcmV5Junctions.Here() },
+        fun: XcmV3MultiassetFungibility.Fungible(1n * PAS_UNITS), // 1 PAS
       },
     ]),
-    // Use PAS to pay for local execution fees
-    XcmV4Instruction.BuyExecution({
-      fees: {
-        id: { parents: 0, interior: XcmV3Junctions.Here() },
-        fun: XcmV3MultiassetFungibility.Fungible(10n * PAS_CENTS),
+    // Pay local fees on Asset Hub in PAS
+    XcmV5Instruction.PayFees({
+      asset: {
+        id: { parents: 1, interior: XcmV5Junctions.Here() },
+        fun: XcmV3MultiassetFungibility.Fungible(10n * PAS_CENTS), // 0.1 PAS
       },
-      weight_limit: XcmV3WeightLimit.Unlimited(),
     }),
-    // Teleport the PAS to Asset Hub
-    XcmV4Instruction.InitiateTeleport({
-      assets: XcmV4AssetAssetFilter.Wild(XcmV4AssetWildAsset.AllCounted(1)),
-      dest: {
-        parents: 0,
-        interior: XcmV3Junctions.X1(XcmV3Junction.Parachain(paraId)),
+    // Send to Relay (parents:1, interior: Here)
+    XcmV5Instruction.InitiateTransfer({
+      destination: {
+        parents: 1,
+        interior: XcmV5Junctions.Here(),
       },
-      xcm: [
-        // Pay fees with PAS on Asset Hub (now it's parents: 1 from Asset Hub perspective)
-        XcmV4Instruction.BuyExecution({
-          fees: {
-            id: { parents: 1, interior: XcmV3Junctions.Here() },
-            fun: XcmV3MultiassetFungibility.Fungible(10n * PAS_CENTS),
+      remote_fees: Enum(
+        "Teleport",
+        XcmV5AssetFilter.Definite([
+          {
+            id: { parents: 1, interior: XcmV5Junctions.Here() },
+            fun: XcmV3MultiassetFungibility.Fungible(10n * PAS_CENTS), // 0.1 PAS
           },
-          weight_limit: XcmV3WeightLimit.Unlimited(),
+        ]),
+      ),
+      preserve_origin: false,
+      remote_xcm: [
+        XcmV5Instruction.DepositAsset({
+          assets: XcmV5AssetFilter.Wild(XcmV5WildAsset.AllCounted(1)),
+          beneficiary: {
+            parents: 0,
+            interior: XcmV5Junctions.X1(
+              XcmV5Junction.AccountId32({
+                network: undefined,
+                id: FixedSizeBinary.fromAccountId32(PASEO_ACCOUNT),
+              })
+            ),
+          },
         }),
-        // Deposit all assets to beneficiary
-        XcmV4Instruction.DepositAsset({
-          assets: XcmV4AssetAssetFilter.Wild(XcmV4AssetWildAsset.AllCounted(1)),
-          beneficiary,
-        }),
+      ],
+      assets: [
+        Enum("Teleport", XcmV5AssetFilter.Wild(XcmV5WildAsset.AllCounted(1))), // We send everything.
       ],
     }),
   ]);
@@ -212,197 +212,149 @@ function createTeleportXcm(receiverAddress: string, amount: bigint, paraId: numb
 
 ## Fee Estimation Function
 
-Create a comprehensive function to estimate all fees:
+Below is a four-step breakdown of the logic that lives inside `estimateXcmFeesFromAssetHub(xcm, assetHubApi)` in `teleport-ah-to-relay.ts`.
 
-```typescript
-async function estimateXcmFees(xcm: any, paseoApi: any) {
-  console.log('=== Fee Estimation Process ===');
-  
-  // 1. LOCAL EXECUTION FEES
-  console.log('1. Calculating local execution fees...');
-  let localExecutionFees = 0n;
-  
-  const weightResult = await paseoApi.apis.XcmPaymentApi.query_xcm_weight(xcm);
-  if (weightResult.success) {
-    console.log('✓ XCM weight calculated:', weightResult.value);
-    
-    // Convert weight to fee amount using PAS (parents: 0, interior: Here on Paseo)
-    const executionFeesResult = await paseoApi.apis.XcmPaymentApi.query_weight_to_asset_fee(
-      weightResult.value,
-      XcmVersionedAssetId.V4({
-        parents: 0,
-        interior: XcmV3Junctions.Here(),
-      }),
-    );
-    
-    if (executionFeesResult.success) {
-      localExecutionFees = executionFeesResult.value;
-      console.log('✓ Local execution fees:', localExecutionFees.toString(), 'PAS units');
-    } else {
-      console.log('✗ Failed to calculate execution fees:', executionFeesResult.value);
-    }
-  } else {
-    console.log('✗ Failed to query XCM weight:', weightResult.value);
-  }
-
-  // 2. DELIVERY FEES + REMOTE EXECUTION FEES
-  console.log('\n2. Calculating delivery and remote execution fees...');
-  let deliveryFees = 0n;
-  let remoteExecutionFees = 0n;
-
-  // Origin is from Paseo relay chain perspective
-  const origin = XcmVersionedLocation.V4({
-    parents: 0,
-    interior: XcmV3Junctions.X1(
-      XcmV3Junction.AccountId32({
-        id: FixedSizeBinary.fromAccountId32(PASEO_ACCOUNT),
-        network: undefined,
-      })
-    ),
-  });
-
-  // Dry run the XCM locally on Paseo
-  const dryRunResult = await paseoApi.apis.DryRunApi.dry_run_xcm(origin, xcm);
-  
-  if (dryRunResult.success && dryRunResult.value.execution_result.type === 'Complete') {
-    console.log('✓ Local dry run successful');
-    
-    const { forwarded_xcms: forwardedXcms } = dryRunResult.value;
-    
-    // Find the XCM message sent to Asset Hub
-    const assetHubXcmEntry = forwardedXcms.find(([location, _]: [any, any]) => (
-      (location.type === 'V4' || location.type === 'V5') &&
-      location.value.parents === 0 &&
-      location.value.interior.type === 'X1' &&
-      location.value.interior.value.type === 'Parachain' &&
-      location.value.interior.value.value === PASEO_ASSET_HUB_PARA_ID
-    ));
-
-    if (assetHubXcmEntry) {
-      const [destination, messages] = assetHubXcmEntry;
-      const remoteXcm = messages[0];
-      
-      console.log('✓ Found XCM message to Asset Hub');
-
-      // Calculate delivery fees
-      const deliveryFeesResult = await paseoApi.apis.XcmPaymentApi.query_delivery_fees(
-        destination,
-        remoteXcm
-      );
-      
-      if (deliveryFeesResult.success && 
-          deliveryFeesResult.value.type === 'V4' && 
-          deliveryFeesResult.value.value[0]?.fun?.type === 'Fungible') {
-        deliveryFees = deliveryFeesResult.value.value[0].fun.value;
-        console.log('✓ Delivery fees:', deliveryFees.toString(), 'PAS units');
-      } else {
-        console.log('✗ Failed to calculate delivery fees:', deliveryFeesResult);
-      }
-
-      // Calculate remote execution fees on Asset Hub
-      console.log('\n3. Calculating remote execution fees on Asset Hub...');
-      try {
-        const assetHubClient = createClient(
-          withPolkadotSdkCompat(getWsProvider(PASEO_ASSET_HUB_RPC_ENDPOINT))
-        );
-        const assetHubApi = assetHubClient.getTypedApi(paseoAssetHub);
-
-        // Query weight of the remote XCM on Asset Hub
-        const remoteWeightResult = await assetHubApi.apis.XcmPaymentApi.query_xcm_weight(remoteXcm);
-        
-        if (remoteWeightResult.success) {
-          console.log('✓ Remote XCM weight calculated:', remoteWeightResult.value);
-          
-          // Convert to fee using PAS (parents: 1, interior: Here from Asset Hub perspective)
-          const remoteFeesResult = await assetHubApi.apis.XcmPaymentApi.query_weight_to_asset_fee(
-            remoteWeightResult.value,
-            XcmVersionedAssetId.V4({
-              parents: 1,
-              interior: XcmV3Junctions.Here(),
-            }),
-          );
-          
-          if (remoteFeesResult.success) {
-            remoteExecutionFees = remoteFeesResult.value;
-            console.log('✓ Remote execution fees:', remoteExecutionFees.toString(), 'PAS units');
-          } else {
-            console.log('✗ Failed to calculate remote execution fees:', remoteFeesResult.value);
-          }
-        } else {
-          console.log('✗ Failed to query remote XCM weight:', remoteWeightResult.value);
-        }
-
-        assetHubClient.destroy();
-      } catch (error) {
-        console.error('Error calculating remote execution fees:', error);
-      }
-    } else {
-      console.log('✗ No XCM message found to Asset Hub');
-    }
-  } else {
-    console.log('✗ Local dry run failed:', dryRunResult.value);
-  }
-
-  // 4. TOTAL FEES
-  const totalFees = localExecutionFees + deliveryFees + remoteExecutionFees;
-  
-  console.log('\n=== Fee Summary ===');
-  console.log('Local execution fees:', localExecutionFees.toString(), 'PAS units');
-  console.log('Delivery fees:', deliveryFees.toString(), 'PAS units');
-  console.log('Remote execution fees:', remoteExecutionFees.toString(), 'PAS units');
-  console.log('TOTAL FEES:', totalFees.toString(), 'PAS units');
-  console.log('TOTAL FEES:', (Number(totalFees) / Number(PAS_UNITS)).toFixed(4), 'PAS');
-  
-  return {
-    localExecutionFees,
-    deliveryFees,
-    remoteExecutionFees,
-    totalFees
-  };
+```typescript title="teleport-ah-to-relay.ts"
+async function estimateXcmFeesFromAssetHub(xcm: XcmVersionedXcm, assetHubApi: ApiPromise) {
+  // Code will go here
 }
 ```
+
+1. **Local execution fees on Asset Hub**: Compute the XCM weight locally, then convert that weight to PAS using Asset Hub's view of PAS (`parents: 1, interior: Here`).
+
+    ```typescript title="teleport-ah-to-relay.ts"
+    // 1) Local execution fees on Asset Hub
+    let localExecutionFees = 0n;
+
+    const weightResult = await assetHubApi.apis.XcmPaymentApi.query_xcm_weight(xcm);
+    if (weightResult.success) {
+    const executionFeesResult = await assetHubApi.apis.XcmPaymentApi.query_weight_to_asset_fee(
+        weightResult.value,
+        XcmVersionedAssetId.V4({ parents: 1, interior: XcmV3Junctions.Here() })
+    );
+    if (executionFeesResult.success) {
+        localExecutionFees = executionFeesResult.value;
+    }
+    }
+    ```
+
+2. **Dry-run and delivery fees to Relay**: Dry-run the XCM on Asset Hub to capture forwarded messages, locate the one targeting Relay (`parents: 1, interior: Here`), and ask for delivery fees.
+
+```typescript title="teleport-ah-to-relay.ts"
+// 2) Delivery fees to Relay (from Asset Hub)
+let deliveryFees = 0n;
+
+const origin = XcmVersionedLocation.V5({
+  parents: 0,
+  interior: XcmV5Junctions.X1(
+    XcmV5Junction.AccountId32({ id: FixedSizeBinary.fromAccountId32(ASSET_HUB_ACCOUNT), network: undefined })
+  ),
+});
+
+const dryRunResult = await assetHubApi.apis.DryRunApi.dry_run_xcm(origin, xcm);
+if (dryRunResult.success && dryRunResult.value.execution_result.type === "Complete") {
+  const relayXcmEntry = dryRunResult.value.forwarded_xcms.find(
+    ([location]: [any, any]) => (location.type === "V4" || location.type === "V5") && location.value.parents === 1 && location.value.interior?.type === "Here"
+  );
+  if (relayXcmEntry) {
+    const [destination, messages] = relayXcmEntry;
+    const remoteXcm = messages[0];
+    const deliveryFeesResult = await assetHubApi.apis.XcmPaymentApi.query_delivery_fees(destination, remoteXcm);
+    if (deliveryFeesResult.success) {
+      const v = deliveryFeesResult.value;
+      if ((v.type === "V4" || v.type === "V5") && v.value[0]?.fun?.type === "Fungible") {
+        deliveryFees = v.value[0].fun.value;
+      }
+    }
+  }
+}
+```
+
+3. **Remote execution fees on Relay**: Connect to Relay, re-compute the forwarded XCM weight there, and convert weight to PAS (`parents: 0, interior: Here`).
+
+```typescript title="teleport-ah-to-relay.ts"
+// 3) Remote execution fees on Relay
+let remoteExecutionFees = 0n;
+
+const relayClient = createClient(withPolkadotSdkCompat(getWsProvider(PASEO_RPC_ENDPOINT)));
+const relayApi = relayClient.getTypedApi(paseo);
+
+const remoteWeightResult = await relayApi.apis.XcmPaymentApi.query_xcm_weight(remoteXcm);
+if (remoteWeightResult.success) {
+  const remoteFeesResult = await relayApi.apis.XcmPaymentApi.query_weight_to_asset_fee(
+    remoteWeightResult.value,
+    XcmVersionedAssetId.V5({ parents: 0, interior: XcmV5Junctions.Here() })
+  );
+  if (remoteFeesResult.success) {
+    remoteExecutionFees = remoteFeesResult.value;
+  }
+}
+
+relayClient.destroy();
+```
+
+4. **Sum and return totals**: Aggregate all parts, print a short summary, and return a structured result.
+
+```typescript title="teleport-ah-to-relay.ts"
+// 4) Total fees
+const totalFees = localExecutionFees + deliveryFees + remoteExecutionFees;
+
+console.log("Local execution fees:", localExecutionFees.toString(), "PAS units");
+console.log("Delivery fees:", deliveryFees.toString(), "PAS units");
+console.log("Remote execution fees:", remoteExecutionFees.toString(), "PAS units");
+console.log("TOTAL FEES:", totalFees.toString(), "PAS units");
+
+return { localExecutionFees, deliveryFees, remoteExecutionFees, totalFees };
+```
+
+Full code:
+
+??? code "Fee Estimation Function"
+
+    ```typescript title="teleport-ah-to-relay.ts"
+
+    ```
+
 
 ## Complete Implementation
 
 Now put it all together in the main function:
 
-```typescript
+```typescript title="teleport-ah-to-relay.ts"
 async function main() {
-  // Connect to the Paseo relay chain
-  const paseoClient = createClient(
-    withPolkadotSdkCompat(getWsProvider(PASEO_RPC_ENDPOINT))
+  // Connect to the Asset Hub parachain
+  const assetHubClient = createClient(
+    withPolkadotSdkCompat(getWsProvider(PASEO_ASSET_HUB_RPC_ENDPOINT))
   );
 
-  // Get the typed API for Paseo
-  const paseoApi = paseoClient.getTypedApi(paseo);
+  // Get the typed API for Asset Hub
+  const assetHubApi = assetHubClient.getTypedApi(paseoAssetHub);
 
   try {
-    const amountToTransfer = 12n * PAS_UNITS; // 12 PAS
+    // Create the XCM message for teleport (Asset Hub → Relay)
+    const xcm = createTeleportXcmToRelay();
 
-    // Create the XCM message for teleport
-    const xcm = createTeleportXcm(ASSET_HUB_ACCOUNT, amountToTransfer, PASEO_ASSET_HUB_PARA_ID);
-
-    console.log('=== XCM Teleport: Paseo → Paseo Asset Hub ===');
-    console.log('From:', PASEO_ACCOUNT, '(Alice)');
-    console.log('To:', ASSET_HUB_ACCOUNT, '(Bob)');
-    console.log('Amount:', (Number(amountToTransfer) / Number(PAS_UNITS)).toString(), 'PAS');
-    console.log('');
+    console.log("=== XCM Teleport: Paseo Asset Hub → Paseo Relay ===");
+    console.log("From:", ASSET_HUB_ACCOUNT, "(Bob)");
+    console.log("To:", PASEO_ACCOUNT, "(Alice)");
+    console.log("Amount:", "1 PAS");
+    console.log("");
 
     // Estimate all fees
-    const fees = await estimateXcmFees(xcm, paseoApi);
+    const fees = await estimateXcmFeesFromAssetHub(xcm, assetHubApi);
 
-    // Create the execute transaction
-    const tx = paseoApi.tx.XcmPallet.execute({
+    // Create the execute transaction on Asset Hub
+    const tx = assetHubApi.tx.PolkadotXcm.execute({
       message: xcm,
       max_weight: {
-        ref_time: 6000000000n, // 6 billion ref_time units
-        proof_size: 65536n,    // 64KB proof size
+        ref_time: 6000000000n,
+        proof_size: 65536n,
       },
     });
 
-    console.log('\n=== Transaction Details ===');
-    console.log('Transaction hex:', (await tx.getEncodedData()).asHex());
-    console.log('Ready to submit!');
+    console.log("\n=== Transaction Details ===");
+    console.log("Transaction hex:", (await tx.getEncodedData()).asHex());
+    console.log("Ready to submit!");
 
     // Optional: Submit the transaction with a signer
     // const signer = ... // Create your signer
@@ -416,32 +368,66 @@ async function main() {
     }
   } finally {
     // Ensure client is always destroyed
-    paseoClient.destroy();
+    assetHubClient.destroy();
   }
 }
 ```
 
-## Key Differences from Previous Approach
+## Full Code
 
-This updated approach:
+??? code "Teleport from Asset Hub to Relay"
 
-1. **Uses Paseo testnet** instead of Polkadot mainnet for easier testing
-2. **Constructs proper XCM messages** with `WithdrawAsset`, `BuyExecution`, and `InitiateTeleport` instructions
-3. **Uses `XcmPallet.execute`** instead of `limited_teleport_assets` for better control
-4. **Properly handles asset perspectives** - PAS is `parents: 0, interior: Here` on Paseo but `parents: 1, interior: Here` on Asset Hub
-5. **Uses `dry_run_xcm`** to simulate XCM execution and extract forwarded messages
-6. **Estimates all three fee components** systematically using the proper runtime APIs
+    ```typescript title="teleport-ah-to-relay.ts"
+
+    ```
 
 ## Running the Script
 
-To run the script:
+To run the script, run the following command:
 
-1. Make sure you have Paseo and Paseo Asset Hub nodes running (or use public endpoints)
-2. Update the RPC endpoints in the constants
-3. Run: `npx ts-node teleport.ts`
+```bash
+npx ts-node teleport-ah-to-relay.ts
+```
 
-The script will output detailed fee calculations and prepare the transaction for submission.
+The script will output detailed fee calculations and prepare the transaction for submission from Asset Hub to the Relay Chain:
+
+<div id="termynal" data-termynal>
+  <span data-ty="input"><span class="file-path"></span>npx ts-node teleport-ah-to-relay.ts</span>
+  <pre>
+=== XCM Teleport: Paseo Asset Hub → Paseo Relay ===
+From: 14E5nqKAp3oAJcmzgZhUD2RcptBeUBScxKHgJKU4HPNcKVf3 (Bob)
+To: 15oF4uVJwmo4TdGW7VfQxNLavjCXviqxT9S1MgbjMNHr6Sp5 (Alice)
+Amount: 1 PAS
+
+=== Fee Estimation Process (Asset Hub → Relay) ===
+1. Calculating local execution fees on Asset Hub...
+✓ XCM weight (Asset Hub): { ref_time: 1462082000n, proof_size: 19578n }
+✓ Local execution fees (Asset Hub): 97890000 PAS units
+
+1. Calculating delivery and remote execution fees...
+✓ Local dry run on Asset Hub successful
+✓ Found XCM message to Relay
+✓ Delivery fees: 305150000 PAS units
+
+1. Calculating remote execution fees on Relay...
+✓ Remote XCM weight (Relay) calculated: { ref_time: 434130000n, proof_size: 10779n }
+✓ Remote execution fees: 34442461 PAS units
+
+=== Fee Summary (Asset Hub → Relay) ===
+Local execution fees: 97890000 PAS units
+Delivery fees: 305150000 PAS units
+Remote execution fees: 34442461 PAS units
+TOTAL FEES: 437482461 PAS units
+TOTAL FEES: 0.0437 PAS
+
+=== Transaction Details ===
+Transaction hex: 0x1f03050c00040100000700e40b54023001000002286bee3101000100000401000002286bee000400010204040d01020400010100d43593c715fdd31c61141abd04a99fd6822c8558854ccde39a5684e7a56da27d0700bca0650102000400
+Ready to submit!
+  </pre>
+</div>
 
 ## Conclusion
 
-This approach provides accurate fee estimation for XCM teleports by properly simulating the execution on both chains and using the dedicated runtime APIs for fee calculation. The fee breakdown helps you understand the cost structure of cross-chain operations and ensures your transactions have sufficient funds to complete successfully.
+This approach provides accurate fee estimation for XCM teleports from Asset Hub to Relay Chain by properly simulating the execution on both chains and using the dedicated runtime APIs for fee calculation. The fee breakdown helps you understand the cost structure of reverse cross-chain operations (parachain → relay chain) and ensures your transactions have sufficient funds to complete successfully.
+
+The key insight is understanding how asset references change based on the perspective of each chain in the XCM ecosystem, which is crucial for proper fee estimation and XCM construction.

@@ -6168,7 +6168,7 @@ First, you'll update the runtime's `Cargo.toml` file to include the Utility pall
     [dependencies]
     ...
     polkadot-sdk = { workspace = true, features = [
-  "pallet-utility",
+	"pallet-utility",
         ...
     ], default-features = false }
     ```
@@ -6226,39 +6226,37 @@ hex-literal = { optional = true, workspace = true, default-features = true }
 log = { workspace = true }
 pallet-parachain-template = { path = "../pallets/template", default-features = false }
 polkadot-sdk = { workspace = true, features = [
-  "pallet-utility",
-  "cumulus-pallet-aura-ext",
-  "cumulus-pallet-session-benchmarking",
-  "cumulus-pallet-weight-reclaim",
-  "cumulus-pallet-xcm",
-  "cumulus-pallet-xcmp-queue",
-  "cumulus-primitives-aura",
-  "cumulus-primitives-core",
-  "cumulus-primitives-utility",
-  "pallet-aura",
-  "pallet-authorship",
-  "pallet-balances",
-  "pallet-collator-selection",
-  "pallet-message-queue",
-  "pallet-session",
-  "pallet-sudo",
-  "pallet-timestamp",
-  "pallet-transaction-payment",
-  "pallet-transaction-payment-rpc-runtime-api",
-  "pallet-xcm",
-  "parachains-common",
-  "polkadot-parachain-primitives",
-  "polkadot-runtime-common",
-  "runtime",
-  "staging-parachain-info",
-  "staging-xcm",
-  "staging-xcm-builder",
-  "staging-xcm-executor",
-], default-features = false }
+	"pallet-utility", 
+	"cumulus-pallet-aura-ext", 
+	"cumulus-pallet-session-benchmarking", 
+	"cumulus-pallet-weight-reclaim", 
+	"cumulus-pallet-xcm", 
+	"cumulus-pallet-xcmp-queue", 
+	"cumulus-primitives-aura", 
+	"cumulus-primitives-core", 
+	"cumulus-primitives-utility", 
+	"pallet-aura", 
+	"pallet-authorship", 
+	"pallet-balances", 
+	"pallet-collator-selection", 
+	"pallet-message-queue", 
+	"pallet-session", 
+	"pallet-sudo", 
+	"pallet-timestamp", 
+	"pallet-transaction-payment", 
+	"pallet-transaction-payment-rpc-runtime-api", 
+	"pallet-xcm", 
+	"parachains-common", 
+	"polkadot-parachain-primitives", 
+	"polkadot-runtime-common", 
+	"runtime", 
+	"staging-parachain-info", 
+	"staging-xcm", 
+	"staging-xcm-builder", 
+	"staging-xcm-executor"
+	], default-features = false }
 scale-info = { features = ["derive"], workspace = true }
-serde_json = { workspace = true, default-features = false, features = [
-  "alloc",
-] }
+serde_json = { workspace = true, default-features = false, features = ["alloc"] }
 smallvec = { workspace = true, default-features = true }
 
 custom-pallet = { path = "../pallets/custom-pallet", default-features = false }
@@ -6266,28 +6264,28 @@ custom-pallet = { path = "../pallets/custom-pallet", default-features = false }
 [features]
 default = ["std"]
 std = [
-  "codec/std",
-  "cumulus-pallet-parachain-system/std",
-  "log/std",
-  "pallet-parachain-template/std",
-  "polkadot-sdk/std",
-  "scale-info/std",
-  "serde_json/std",
-  "substrate-wasm-builder",
-  "custom-pallet/std",
+	"codec/std",
+	"cumulus-pallet-parachain-system/std",
+	"log/std",
+	"pallet-parachain-template/std",
+	"polkadot-sdk/std",
+	"scale-info/std",
+	"serde_json/std",
+	"substrate-wasm-builder",
+  	"custom-pallet/std",
 ]
 
 runtime-benchmarks = [
-  "cumulus-pallet-parachain-system/runtime-benchmarks",
-  "hex-literal",
-  "pallet-parachain-template/runtime-benchmarks",
-  "polkadot-sdk/runtime-benchmarks",
+	"cumulus-pallet-parachain-system/runtime-benchmarks",
+	"hex-literal",
+	"pallet-parachain-template/runtime-benchmarks",
+	"polkadot-sdk/runtime-benchmarks",
 ]
 
 try-runtime = [
-  "cumulus-pallet-parachain-system/try-runtime",
-  "pallet-parachain-template/try-runtime",
-  "polkadot-sdk/try-runtime",
+	"cumulus-pallet-parachain-system/try-runtime",
+	"pallet-parachain-template/try-runtime",
+	"polkadot-sdk/try-runtime",
 ]
 
 # Enable the metadata hash generation.
@@ -11761,7 +11759,7 @@ First, you'll update the runtime's `Cargo.toml` file to include the Utility pall
     [dependencies]
     ...
     polkadot-sdk = { workspace = true, features = [
-  "pallet-utility",
+	"pallet-utility",
         ...
     ], default-features = false }
     ```
@@ -11819,39 +11817,37 @@ hex-literal = { optional = true, workspace = true, default-features = true }
 log = { workspace = true }
 pallet-parachain-template = { path = "../pallets/template", default-features = false }
 polkadot-sdk = { workspace = true, features = [
-  "pallet-utility",
-  "cumulus-pallet-aura-ext",
-  "cumulus-pallet-session-benchmarking",
-  "cumulus-pallet-weight-reclaim",
-  "cumulus-pallet-xcm",
-  "cumulus-pallet-xcmp-queue",
-  "cumulus-primitives-aura",
-  "cumulus-primitives-core",
-  "cumulus-primitives-utility",
-  "pallet-aura",
-  "pallet-authorship",
-  "pallet-balances",
-  "pallet-collator-selection",
-  "pallet-message-queue",
-  "pallet-session",
-  "pallet-sudo",
-  "pallet-timestamp",
-  "pallet-transaction-payment",
-  "pallet-transaction-payment-rpc-runtime-api",
-  "pallet-xcm",
-  "parachains-common",
-  "polkadot-parachain-primitives",
-  "polkadot-runtime-common",
-  "runtime",
-  "staging-parachain-info",
-  "staging-xcm",
-  "staging-xcm-builder",
-  "staging-xcm-executor",
-], default-features = false }
+	"pallet-utility", 
+	"cumulus-pallet-aura-ext", 
+	"cumulus-pallet-session-benchmarking", 
+	"cumulus-pallet-weight-reclaim", 
+	"cumulus-pallet-xcm", 
+	"cumulus-pallet-xcmp-queue", 
+	"cumulus-primitives-aura", 
+	"cumulus-primitives-core", 
+	"cumulus-primitives-utility", 
+	"pallet-aura", 
+	"pallet-authorship", 
+	"pallet-balances", 
+	"pallet-collator-selection", 
+	"pallet-message-queue", 
+	"pallet-session", 
+	"pallet-sudo", 
+	"pallet-timestamp", 
+	"pallet-transaction-payment", 
+	"pallet-transaction-payment-rpc-runtime-api", 
+	"pallet-xcm", 
+	"parachains-common", 
+	"polkadot-parachain-primitives", 
+	"polkadot-runtime-common", 
+	"runtime", 
+	"staging-parachain-info", 
+	"staging-xcm", 
+	"staging-xcm-builder", 
+	"staging-xcm-executor"
+	], default-features = false }
 scale-info = { features = ["derive"], workspace = true }
-serde_json = { workspace = true, default-features = false, features = [
-  "alloc",
-] }
+serde_json = { workspace = true, default-features = false, features = ["alloc"] }
 smallvec = { workspace = true, default-features = true }
 
 custom-pallet = { path = "../pallets/custom-pallet", default-features = false }
@@ -11859,28 +11855,28 @@ custom-pallet = { path = "../pallets/custom-pallet", default-features = false }
 [features]
 default = ["std"]
 std = [
-  "codec/std",
-  "cumulus-pallet-parachain-system/std",
-  "log/std",
-  "pallet-parachain-template/std",
-  "polkadot-sdk/std",
-  "scale-info/std",
-  "serde_json/std",
-  "substrate-wasm-builder",
-  "custom-pallet/std",
+	"codec/std",
+	"cumulus-pallet-parachain-system/std",
+	"log/std",
+	"pallet-parachain-template/std",
+	"polkadot-sdk/std",
+	"scale-info/std",
+	"serde_json/std",
+	"substrate-wasm-builder",
+  	"custom-pallet/std",
 ]
 
 runtime-benchmarks = [
-  "cumulus-pallet-parachain-system/runtime-benchmarks",
-  "hex-literal",
-  "pallet-parachain-template/runtime-benchmarks",
-  "polkadot-sdk/runtime-benchmarks",
+	"cumulus-pallet-parachain-system/runtime-benchmarks",
+	"hex-literal",
+	"pallet-parachain-template/runtime-benchmarks",
+	"polkadot-sdk/runtime-benchmarks",
 ]
 
 try-runtime = [
-  "cumulus-pallet-parachain-system/try-runtime",
-  "pallet-parachain-template/try-runtime",
-  "polkadot-sdk/try-runtime",
+	"cumulus-pallet-parachain-system/try-runtime",
+	"pallet-parachain-template/try-runtime",
+	"polkadot-sdk/try-runtime",
 ]
 
 # Enable the metadata hash generation.

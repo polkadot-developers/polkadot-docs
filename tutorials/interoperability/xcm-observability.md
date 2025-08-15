@@ -23,7 +23,7 @@ The guide revolves around a **single, concrete scenario** of a cross-chain asset
 
 ## Prerequisites
 
-Before you begin, make sure you have:
+Before you begin, make sure you've:
 
 - [Chopsticks](/develop/toolkit/parachains/fork-chains/chopsticks/get-started/){target=\_blank} installed
 - Access to local or remote parachain endpoints
@@ -31,7 +31,7 @@ Before you begin, make sure you have:
 - A TypeScript development environment with essential tools
 - Familiarity with replaying or dry-running XCMs
 
-If you are new to XCM replay or dry-run, see [Replay and Dry Run XCMs Using Chopsticks](/tutorials/interoperability/replay-and-dry-run-xcms/){target=\_blank}.
+If you're new to XCM replay or dry-run, see [Replay and Dry Run XCMs Using Chopsticks](/tutorials/interoperability/replay-and-dry-run-xcms/){target=\_blank}.
 
 ## Setting Up Your Workspace
 

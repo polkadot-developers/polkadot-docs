@@ -1,6 +1,7 @@
 ---
 title: Subxt Rust API
 description: Subxt is a Rust library for type-safe interaction with Polkadot SDK blockchains, enabling transactions, state queries, runtime API access, and more.
+categories: Tooling, Dapps
 ---
 
 # Subxt Rust API
@@ -13,7 +14,7 @@ Subxt is a Rust library designed to interact with Polkadot SDK-based blockchains
 
 Before using subxt, ensure you have the following requirements:
 
-- Rust and Cargo installed on your system. You can install them using [Rustup](https://rustup.rs/){target=\_blank}
+- Rust and Cargo installed on your system. You can install them using [Rustup](https://rustup.rs/){target=\_blank}.
 - A Rust project initialized. If you don't have one, create it with:
     ```bash
     cargo new my_project && cd my_project
@@ -23,27 +24,27 @@ Before using subxt, ensure you have the following requirements:
 
 To use subxt in your project, you must install the necessary dependencies. Each plays a specific role in enabling interaction with the blockchain:
 
-1. **Install the subxt CLI** - [`subxt-cli`](https://crates.io/crates/subxt-cli){target=\_blank} is a command-line tool that provides utilities for working with Polkadot SDK metadata. In the context of subxt, it is essential to download chain metadata, which is required to generate type-safe Rust interfaces for interacting with the blockchain. Install it using:
+1. **Install the subxt CLI**: [`subxt-cli`](https://crates.io/crates/subxt-cli){target=\_blank} is a command-line tool that provides utilities for working with Polkadot SDK metadata. In the context of subxt, it is essential to download chain metadata, which is required to generate type-safe Rust interfaces for interacting with the blockchain. Install it using the following:
 
     ```bash
     cargo install subxt-cli@{{dependencies.crates.subxt_cli.version}}
     ```
 
-2. **Add core dependencies** - these dependencies are essential for interacting with the blockchain:
+2. **Add core dependencies**: These dependencies are essential for interacting with the blockchain.
 
-    - **[subxt](https://crates.io/crates/subxt){target=\_blank}** - the main library for communicating with Polkadot SDK nodes. It handles RPC requests, encoding/decoding, and type generation
+    - **[subxt](https://crates.io/crates/subxt){target=\_blank}**: The main library for communicating with Polkadot SDK nodes. It handles RPC requests, encoding/decoding, and type generation.
 
         ```bash
         cargo add subxt@{{dependencies.crates.subxt.version}}
         ```
 
-    - **[subxt-signer](https://crates.io/crates/subxt-signer){target=\_blank}** - provides cryptographic functionality for signing transactions. Without this, you can only read data but cannot submit transactions
+    - **[subxt-signer](https://crates.io/crates/subxt-signer){target=\_blank}**: Provides cryptographic functionality for signing transactions. Without this, you can only read data but cannot submit transactions.
 
         ```bash
         cargo add subxt-signer@{{dependencies.crates.subxt_signer.version}}
         ```
 
-    - **[tokio](https://crates.io/crates/tokio){target=\_blank}** - an asynchronous runtime for Rust. Since blockchain operations are async, Tokio enables the efficient handling of network requests. The `rt` feature enables Tokio's runtime, including the current-thread single-threaded scheduler, which is necessary for async execution. The `macros` feature provides procedural macros like `#[tokio::main]` to simplify runtime setup
+    - **[tokio](https://crates.io/crates/tokio){target=\_blank}**: An asynchronous runtime for Rust. Since blockchain operations are async, Tokio enables the efficient handling of network requests. The `rt` feature enables Tokio's runtime, including the current-thread single-threaded scheduler, which is necessary for async execution. The `macros` feature provides procedural macros like `#[tokio::main]` to simplify runtime setup.
 
         ```bash
         cargo add tokio@{{dependencies.crates.tokio.version}} --features rt,macros
@@ -77,14 +78,14 @@ Use the `#[subxt::subxt]` macro to generate a type-safe Rust interface from the 
 
 Once subxt interfaces are generated, you can interact with your node in the following ways. You can use the links below to view the related subxt documentation:
 
-- **[Transactions](https://docs.rs/subxt/latest/subxt/book/usage/transactions/index.html){target=\_blank}** - builds and submits transactions, monitors their inclusion in blocks, and retrieves associated events
-- **[Storage](https://docs.rs/subxt/latest/subxt/book/usage/storage/index.html){target=\_blank}** - enables querying of node storage data
-- **[Events](https://docs.rs/subxt/latest/subxt/book/usage/events/index.html){target=\_blank}** - retrieves events emitted from recent blocks
-- **[Constants](https://docs.rs/subxt/latest/subxt/book/usage/constants/index.html){target=\_blank}** - accesses constant values stored in nodes that remain unchanged across a specific runtime version.
-- **[Blocks](https://docs.rs/subxt/latest/subxt/book/usage/blocks/index.html){target=\_blank}** - loads recent blocks or subscribes to new/finalized blocks, allowing examination of extrinsics, events, and storage at those blocks
-- **[Runtime APIs](https://docs.rs/subxt/latest/subxt/book/usage/runtime_apis/index.html){target=\_blank}** - makes calls into pallet runtime APIs to fetch data
-- **[Custom values](https://docs.rs/subxt/latest/subxt/book/usage/custom_values/index.html){target=\_blank}** - accesses "custom values" contained within metadata
-- **[Raw RPC calls](https://docs.rs/subxt/latest/subxt/book/usage/rpc/index.html){target=\_blank}** - facilitates raw RPC requests to compatible nodes
+- **[Transactions](https://docs.rs/subxt/latest/subxt/book/usage/transactions/index.html){target=\_blank}**: Builds and submits transactions, monitors their inclusion in blocks, and retrieves associated events.
+- **[Storage](https://docs.rs/subxt/latest/subxt/book/usage/storage/index.html){target=\_blank}**: Enables querying of node storage data.
+- **[Events](https://docs.rs/subxt/latest/subxt/book/usage/events/index.html){target=\_blank}**: Retrieves events emitted from recent blocks.
+- **[Constants](https://docs.rs/subxt/latest/subxt/book/usage/constants/index.html){target=\_blank}**: Accesses constant values stored in nodes that remain unchanged across a specific runtime version.
+- **[Blocks](https://docs.rs/subxt/latest/subxt/book/usage/blocks/index.html){target=\_blank}**: Loads recent blocks or subscribes to new/finalized blocks, allowing examination of extrinsics, events, and storage at those blocks.
+- **[Runtime APIs](https://docs.rs/subxt/latest/subxt/book/usage/runtime_apis/index.html){target=\_blank}**: Makes calls into pallet runtime APIs to fetch data.
+- **[Custom values](https://docs.rs/subxt/latest/subxt/book/usage/custom_values/index.html){target=\_blank}**: Accesses "custom values" contained within metadata.
+- **[Raw RPC calls](https://docs.rs/subxt/latest/subxt/book/usage/rpc/index.html){target=\_blank}**: Facilitates raw RPC requests to compatible nodes.
 
 ### Initialize the Subxt Client
 
@@ -100,7 +101,7 @@ To interact with a blockchain node using subxt, create an asynchronous main func
 
 subxt provides multiple ways to access on-chain data:
 
-- **Constants** - constants are predefined values in the runtime that remain unchanged unless modified by a runtime upgrade
+- **Constants**: Constants are predefined values in the runtime that remain unchanged unless modified by a runtime upgrade.
 
     For example, to retrieve the existential deposit, use:
     
@@ -108,7 +109,7 @@ subxt provides multiple ways to access on-chain data:
     --8<-- 'code/develop/toolkit/api-libraries/subxt/subxt.rs:18:24'
     ```
 
-- **State** - state refers to the current chain data, which updates with each block
+- **State**: State refers to the current chain data, which updates with each block.
 
     To fetch account information, replace `INSERT_ADDRESS` with the address you want to fetch data from and use:
 

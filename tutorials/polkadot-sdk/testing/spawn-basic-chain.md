@@ -2,6 +2,7 @@
 title: Spawn a Basic Chain with Zombienet
 description: Learn to spawn, connect to and monitor a basic blockchain network with Zombienet, using customizable configurations for streamlined development and debugging.
 tutorial_badge: Beginner
+categories: Basics, dApps, Tooling
 ---
 
 # Spawn a Basic Chain with Zombienet
@@ -19,7 +20,7 @@ By the end of this tutorial, you'll be equipped to deploy and test your own bloc
 To successfully complete this tutorial, you must ensure you've first:
 
 - [Installed Zombienet](/develop/toolkit/parachains/spawn-chains/zombienet/get-started/#install-zombienet){target=\_blank}. This tutorial requires Zombienet version `{{ dependencies.repositories.zombienet.version }}`. Verify that you're using the specified version to ensure compatibility with the instructions.
-- Reviewed the information in [Configure Zombienet](/develop/toolkit/parachains/spawn-chains/zombienet/get-started/#configure-zombienet){target=\_blank} and understand how to customize a spawned network
+- Reviewed the information in [Configure Zombienet](/develop/toolkit/parachains/spawn-chains/zombienet/get-started/#configure-zombienet){target=\_blank} and understand how to customize a spawned network.
 
 ## Set Up Local Provider
 
@@ -52,19 +53,22 @@ sudo mv ./polkadot ./polkadot-execute-worker ./polkadot-parachain ./polkadot-pre
 
 Zombienet uses a [configuration file](/develop/toolkit/parachains/spawn-chains/zombienet/get-started/#configuration-files){target=\_blank} to define the ephemeral network that will be spawned. Follow these steps to create and define the configuration file:
 
-1. Create a file named `spawn-a-basic-network.toml`
-```bash
-touch spawn-a-basic-network.toml
-```
+1. Create a file named `spawn-a-basic-network.toml`:
+
+    ```bash
+    touch spawn-a-basic-network.toml
+    ```
+
 2. Add the following code to the file you just created:
-```toml title="spawn-a-basic-network.toml"
---8<-- 'code/tutorials/polkadot-sdk/testing/spawn-basic-chain/spawn-a-basic-network.toml'
-```
+
+    ```toml title="spawn-a-basic-network.toml"
+    --8<-- 'code/tutorials/polkadot-sdk/testing/spawn-basic-chain/spawn-a-basic-network.toml'
+    ```
 
 This configuration file defines a network with the following chains:
 
-- **relaychain** - with two nodes named `alice` and `bob` 
-- **parachain** - with a collator named `collator01` 
+- **relaychain**: With two nodes named `alice` and `bob`.
+- **parachain**: With a collator named `collator01`.
 
 Settings also defines a timeout of 120 seconds for the network to be ready.
 

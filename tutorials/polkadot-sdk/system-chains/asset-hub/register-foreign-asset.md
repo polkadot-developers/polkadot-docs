@@ -2,6 +2,7 @@
 title: Register a Foreign Asset on Asset Hub
 description: An in-depth guide to registering a foreign asset on the Asset Hub parachain, providing clear, step-by-step instructions.
 tutorial_badge: Intermediate
+categories: dApps
 ---
 
 # Register a Foreign Asset on Asset Hub
@@ -27,9 +28,9 @@ For testing purposes, you can also interact with the Asset Hub instance on the f
 
 Before you start, ensure that you have: 
 
-- Access to the Polkadot.js Apps interface, and you are connected to the desired chain
-- A parachain that supports the XCMP protocol to interact with the Asset Hub parachain
-- A funded wallet to pay for the transaction fees and subsequent registration of the foreign asset
+- Access to the Polkadot.js Apps interface, and you are connected to the desired chain.
+- A parachain that supports the XCMP protocol to interact with the Asset Hub parachain.
+- A funded wallet to pay for the transaction fees and subsequent registration of the foreign asset.
 
 This guide will use Polkadot, its local Asset Hub instance, and the [Astar](https://astar.network/){target=\_blank} parachain (`ID` 2006), as stated in the [Test Environment Setup](#test-environment-setup) section. However, the process is the same for other relay chains and their respective Asset Hub parachain, regardless of the network you are using and the parachain owner of the foreign asset.
 
@@ -37,32 +38,34 @@ This guide will use Polkadot, its local Asset Hub instance, and the [Astar](http
 
 ### Asset Hub
 
-1. Open the [Polkadot.js Apps](https://polkadot.js.org/apps/){target=\_blank} interface and connect to the Asset Hub parachain using the network selector in the top left corner 
+1. Open the [Polkadot.js Apps](https://polkadot.js.org/apps/){target=\_blank} interface and connect to the Asset Hub parachain using the network selector in the top left corner.
 
-      - Testing foreign asset registration is recommended on TestNet before proceeding to MainNet. If you haven't set up a local testing environment yet, consult the [Environment setup](#test-environment-setup) guide. After setting up, connect to the Local Node (Chopsticks) at `ws://127.0.0.1:8000`
-      - For live network operations, connect to the Asset Hub parachain. You can choose either Polkadot or Kusama Asset Hub from the dropdown menu, selecting your preferred RPC provider
+      - Testing foreign asset registration is recommended on TestNet before proceeding to MainNet. If you haven't set up a local testing environment yet, consult the [Environment setup](#test-environment-setup) guide. After setting up, connect to the Local Node (Chopsticks) at `ws://127.0.0.1:8000`.
+      - For live network operations, connect to the Asset Hub parachain. You can choose either Polkadot or Kusama Asset Hub from the dropdown menu, selecting your preferred RPC provider.
 
-2. Navigate to the **Extrinsics** page
-      1. Click on the **Developer** tab from the top navigation bar
-      2. Select **Extrinsics** from the dropdown
+2. Navigate to the **Extrinsics** page:
+
+      1. Click on the **Developer** tab from the top navigation bar.
+      2. Select **Extrinsics** from the dropdown.
 
     ![Access to Developer Extrinsics section](/images/tutorials/polkadot-sdk/system-chains/asset-hub/register-foreign-assets/register-a-foreign-asset-1.webp)
 
-3. Select the Foreign Assets pallet
-      3. Select the **`foreignAssets`** pallet from the dropdown list
-      4. Choose the **`create`** extrinsic
+3. Select the Foreign Assets pallet:
+
+      3. Select the **`foreignAssets`** pallet from the dropdown list.
+      4. Choose the **`create`** extrinsic.
 
     ![Select the Foreign Asset pallet](/images/tutorials/polkadot-sdk/system-chains/asset-hub/register-foreign-assets/register-a-foreign-asset-2.webp)
 
 3. Fill out the required fields and click on the copy icon to copy the **encoded call data** to your clipboard. The fields to be filled are:
 
-    - **id** - as this is a foreign asset, the ID will be represented by a Multilocation that reflects its origin. For this case, the Multilocation of the asset will be from the source parachain perspective:
+    - **id**: As this is a foreign asset, the ID will be represented by a Multilocation that reflects its origin. For this case, the Multilocation of the asset will be from the source parachain perspective.
   
         ```javascript
         { parents: 1, interior: { X1: [{ Parachain: 2006 }] } }
         ```
 
-    - **admin** - refers to the account that will be the admin of this asset. This account will be able to manage the asset, including updating its metadata. As the registered asset corresponds to a native asset of the source parachain, the admin account should be the sovereign account of the source parachain
+    - **admin**: Refers to the account that will be the admin of this asset. This account will be able to manage the asset, including updating its metadata. As the registered asset corresponds to a native asset of the source parachain, the admin account should be the sovereign account of the source parachain.
       
         The sovereign account can be obtained through [Substrate Utilities](https://www.shawntabrizi.com/substrate-js-utilities/){target=\_blank}.
 
@@ -71,7 +74,7 @@ This guide will use Polkadot, its local Asset Hub instance, and the [Astar](http
         ![Get parachain sovereign account](/images/tutorials/polkadot-sdk/system-chains/asset-hub/register-foreign-assets/register-a-foreign-asset-3.webp)
 
 
-    - **`minBalance`** - the minimum balance required to hold this asset
+    - **`minBalance`**: The minimum balance required to hold this asset.
 
     ![Fill out the required fields](/images/tutorials/polkadot-sdk/system-chains/asset-hub/register-foreign-assets/register-a-foreign-asset-4.webp)
 
@@ -81,13 +84,13 @@ This guide will use Polkadot, its local Asset Hub instance, and the [Astar](http
         0x3500010100591f007369626cd6070000000000000000000000000000000000000000000000000000a0860100000000000000000000000000
         ```
 
-
 ### Source Parachain
 
-1. Navigate to the **Developer > Extrinsics** section
-2. Create the extrinsic to register the foreign asset through XCM
-      1. Paste the **encoded call data** copied in the previous step
-      2. Click the **Submit Transaction** button
+1. Navigate to the **Developer > Extrinsics** section.
+2. Create the extrinsic to register the foreign asset through XCM:
+
+      1. Paste the **encoded call data** copied in the previous step.
+      2. Click the **Submit Transaction** button.
 
     ![Register foreign asset through XCM](/images/tutorials/polkadot-sdk/system-chains/asset-hub/register-foreign-assets/register-a-foreign-asset-5.webp)
 
@@ -97,7 +100,8 @@ This guide will use Polkadot, its local Asset Hub instance, and the [Astar](http
         Note that the sovereign account on the Asset Hub parachain must have a sufficient balance to cover the XCM `BuyExecution` instruction. If the account does not have enough balance, the transaction will fail.
 
     If you want to have the whole XCM call ready to be copied, go to the **Developer > Extrinsics > Decode** section and paste the following hex-encoded call data:
-    ```
+
+    ```text
     0x6300330003010100a10f030c000400010000070010a5d4e81300010000070010a5d4e80006030700b4f13501419ce03500010100591f007369626cd607000000000000000000000000000000000000000000000000000000000000000000000000000000000000
     ```
 

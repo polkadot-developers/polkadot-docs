@@ -1,6 +1,7 @@
 ---
 title: Runtime Metrics and Monitoring
 description: Learn how to monitor and visualize node performance in Polkadot SDK-based networks using telemetry, Prometheus, and Grafana for efficient runtime monitoring.
+categories: Parachains
 ---
 
 # Runtime Metrics and Monitoring
@@ -36,23 +37,23 @@ The diagram shows the flow of data from the Substrate node to the monitoring and
 
 The [Polkadot telemetry](https://telemetry.polkadot.io/){target=\_blank} dashboard provides a real-time view of how currently online nodes are performing. This dashboard, allows users to select the network you need to check on, and also the information you want to display by turning visible columns on and off from the list of columns available. The monitoring dashboard provides the following indicators and metrics:
 
-- **Validator** - identifies whether the node is a validator node or not
-- **Location** - displays the geographical location of the node
-- **Implementation** - shows the version of the software running on the node
-- **Network ID** - displays the public network identifier for the node
-- **Peer count** - indicates the number of peers connected to the node
-- **Transactions in queue** - shows the number of transactions waiting in the [`Ready` queue](https://paritytech.github.io/polkadot-sdk/master/sc_transaction_pool_api/enum.TransactionStatus.html#variant.Ready){target=\_blank} for a block author
-- **Upload bandwidth** - graphs the node's recent upload activity in MB/s
-- **Download bandwidth** - graphs the node's recent download activity in MB/s
-- **State cache size** - graphs the size of the node's state cache in MB
-- **Block** - displays the current best block number to ensure synchronization with peers
-- **Block hash** - shows the block hash for the current best block number
-- **Finalized block** - displays the most recently finalized block number to ensure synchronization with peers
-- **Finalized block hash** - shows the block hash for the most recently finalized block
-- **Block time** - indicates the time between block executions
-- **Block propagation time** - displays the time it took to import the most recent block
-- **Last block time** - shows the time it took to author the most recent block
-- **Node uptime** - indicates the number of days the node has been online without restarting
+- **Validator**: Identifies whether the node is a validator node or not.
+- **Location**: Displays the geographical location of the node.
+- **Implementation**: Shows the version of the software running on the node.
+- **Network ID**: Displays the public network identifier for the node.
+- **Peer count**: Indicates the number of peers connected to the node.
+- **Transactions in queue**: Shows the number of transactions waiting in the [`Ready` queue](https://paritytech.github.io/polkadot-sdk/master/sc_transaction_pool_api/enum.TransactionStatus.html#variant.Ready){target=\_blank} for a block author.
+- **Upload bandwidth**: Graphs the node's recent upload activity in MB/s.
+- **Download bandwidth**: Graphs the node's recent download activity in MB/s.
+- **State cache size**: Graphs the size of the node's state cache in MB.
+- **Block**: Displays the current best block number to ensure synchronization with peers.
+- **Block hash**: Shows the block hash for the current best block number.
+- **Finalized block**: Displays the most recently finalized block number to ensure synchronization with peers.
+- **Finalized block hash**: Shows the block hash for the most recently finalized block.
+- **Block time**: Indicates the time between block executions.
+- **Block propagation time**: Displays the time it took to import the most recent block.
+- **Last block time**: Shows the time it took to author the most recent block.
+- **Node uptime**: Indicates the number of days the node has been online without restarting.
 
 ## Displaying Network-Wide Statistics
 
@@ -82,11 +83,11 @@ You can monitor specific on-chain events like transactions from certain addresse
 
 To implement customized monitoring and alerting, consider using the following stack:
 
-- [**Prometheus**](https://prometheus.io/){target=\_blank} - collects metrics at intervals, stores data in a time series database, and applies rules for evaluation
-- [**Grafana**](https://grafana.com/){target=\_blank} - visualizes collected data through customizable dashboards
-- [**Node exporter**](https://github.com/prometheus/node_exporter){target=\_blank} - reports host metrics, including CPU, memory, and bandwidth usage
-- [**Alert manager**](https://github.com/prometheus/alertmanager){target=\_blank} - manages alerts, routing them based on defined rules
-- [**Loki**](https://github.com/grafana/loki){target=\_blank} - scalable log aggregator for searching and viewing logs across infrastructure
+- **[Prometheus](https://prometheus.io/){target=\_blank}**: Collects metrics at intervals, stores data in a time series database, and applies rules for evaluation.
+- **[Grafana](https://grafana.com/){target=\_blank}**: Visualizes collected data through customizable dashboards.
+- **[Node exporter](https://github.com/prometheus/node_exporter){target=\_blank}**: Reports host metrics, including CPU, memory, and bandwidth usage.
+- **[Alert manager](https://github.com/prometheus/alertmanager){target=\_blank}**: Manages alerts, routing them based on defined rules.
+- **[Loki](https://github.com/grafana/loki){target=\_blank}**: Scalable log aggregator for searching and viewing logs across infrastructure.
 
 ### Change the Telemetry Server
 

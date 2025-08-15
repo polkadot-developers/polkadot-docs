@@ -1,6 +1,7 @@
 ---
 title: Sidecar Rest API
 description: Learn about Substrate API Sidecar, a REST service that provides endpoints for interacting with Polkadot SDK-based chains and simplifies blockchain interactions.
+categories: Tooling, Dapps
 ---
 
 # Sidecar API
@@ -13,10 +14,10 @@ Sidecar functions as a caching layer between your application and a Polkadot SDK
 
 Some of the key features of the Sidecar API include:
 
-- **REST API interface** - provides a familiar REST API interface for interacting with Polkadot SDK-based chains
-- **Standardized endpoints** - offers consistent endpoint formats across different chain implementations
-- **Caching layer** - acts as a caching layer to improve performance and reduce direct node requests
-- **Multiple chain support** - works with any Polkadot SDK-based chain, including Polkadot, Kusama, and custom chains
+- **REST API interface**: Provides a familiar REST API interface for interacting with Polkadot SDK-based chains.
+- **Standardized endpoints**: Offers consistent endpoint formats across different chain implementations.
+- **Caching layer**: Acts as a caching layer to improve performance and reduce direct node requests.
+- **Multiple chain support**: Works with any Polkadot SDK-based chain, including Polkadot, Kusama, and custom chains.
 
 ## Prerequisites
 
@@ -62,12 +63,15 @@ For more information about the Sidecar API installation, see the [installation a
 
 To use the Sidecar API, you have two options:
 
-- **Local node** - run a node locally, which Sidecar will connect to by default, requiring no additional configuration. To start, run:
-    ```
+- **Local node**: Run a node locally, which Sidecar will connect to by default, requiring no additional configuration. To start, run the following:
+
+    ```bash
     substrate-api-sidecar
     ```
-- **Remote node** - connect Sidecar to a remote node by specifying the RPC endpoint for that chain. For example, to gain access to the Polkadot Asset Hub associated endpoints:
-    ```
+
+- **Remote node**: Connect Sidecar to a remote node by specifying the RPC endpoint for that chain. For example, to gain access to the Polkadot Asset Hub associated endpoints.
+
+    ```bash
     SAS_SUBSTRATE_URL=wss://polkadot-asset-hub-rpc.polkadot.io substrate-api-sidecar
     ```
 

@@ -1,6 +1,7 @@
 ---
 title: Networks for Polkadot Hub Smart Contracts
 description: Explore the available networks for smart contract development on Polkadot Hub, including Westend Hub, Kusama Hub, and Polkadot Hub.
+categories: Basics, Polkadot Protocol
 ---
 
 # Networks
@@ -24,27 +25,27 @@ flowchart LR
 
 This progression ensures developers can thoroughly test and iterate their smart contracts without risking real tokens or affecting production networks. A typical development journey consists of three main stages:
 
-1. **Local Development**
+1. Local development:
 
-    - Developers start in a local environment to create, test, and iterate on smart contracts
-    - Provides rapid experimentation in an isolated setup without external dependencies
+    - Developers start in a local environment to create, test, and iterate on smart contracts.
+    - Provides rapid experimentation in an isolated setup without external dependencies.
 
-2. **TestNet Development**
+2. TestNet development:
 
-    - Contracts move to TestNets like Westend Hub and Passet Hub
-    - Enables testing in simulated real-world conditions without using real tokens
+    - Contracts move to TestNets like Westend Hub and Passet Hub.
+    - Enables testing in simulated real-world conditions without using real tokens.
 
-3. **Production Deployment**
+3. Production deployment:
 
-    - Final deployment to MainNets like Kusama Hub and Polkadot Hub
-    - Represents the live environment where contracts interact with real economic value
+    - Final deployment to MainNets like Kusama Hub and Polkadot Hub.
+    - Represents the live environment where contracts interact with real economic value.
 
 ## Local Development
 
 The local development environment is crucial for smart contract development on Polkadot Hub. It provides developers a controlled space for rapid testing and iteration before moving to public networks. The local setup consists of several key components:
 
-- [**Kitchensink node**](https://paritytech.github.io/polkadot-sdk/master/kitchensink_runtime/index.html){target=\_blank} - a local node that can be run for development and testing. It includes logging capabilities for debugging contract execution and provides a pre-configured development environment with pre-funded accounts for testing purposes
-- [**Ethereum RPC proxy**](https://paritytech.github.io/polkadot-sdk/master/pallet_revive_eth_rpc/index.html){target=\_blank} - bridges Ethereum-compatible tools with the Polkadot SDK-based network. It enables seamless integration with popular development tools like MetaMask and Remix IDE. The purpose of this component is to translate Ethereum RPC calls into Substrate format
+- **[Kitchensink node](https://paritytech.github.io/polkadot-sdk/master/kitchensink_runtime/index.html){target=\_blank}**: A local node that can be run for development and testing. It includes logging capabilities for debugging contract execution and provides a pre-configured development environment with pre-funded accounts for testing purposes.
+- **[Ethereum RPC proxy](https://paritytech.github.io/polkadot-sdk/master/pallet_revive_eth_rpc/index.html){target=\_blank}**: Bridges Ethereum-compatible tools with the Polkadot SDK-based network. It enables seamless integration with popular development tools like MetaMask and Remix IDE. The purpose of this component is to translate Ethereum RPC calls into Substrate format.
 
 ## Test Networks
 

@@ -1,6 +1,7 @@
 ---
 title: Overview of the Polkadot Relay Chain
 description: Explore Polkadot's core architecture, including its multi-chain vision, shared security, and the DOT token's governance and staking roles.
+categories: Basics, Polkadot Protocol, Parachains
 ---
 
 # Overview
@@ -17,17 +18,17 @@ Polkadot 1.0 represents the state of Polkadot as of 2023, coinciding with the re
 
 As a Layer-0 blockchain, Polkadot contributes to the multi-chain vision through several key innovations and initiatives, including:
 
-- **Application-specific Layer-1 blockchains (parachains)** - Polkadot's sharded network allows for parallel transaction processing, with shards that can have unique state transition functions, enabling custom-built L1 chains optimized for specific applications
+- **Application-specific Layer-1 blockchains (parachains)**: Polkadot's sharded network allows for parallel transaction processing, with shards that can have unique state transition functions, enabling custom-built L1 chains optimized for specific applications.
 
-- **Shared security and scalability** - L1 chains connected to Polkadot benefit from its [Nominated Proof of Stake (NPoS)](/polkadot-protocol/architecture/polkadot-chain/pos-consensus/#nominated-proof-of-stake){target=\_blank} system, providing security out-of-the-box without the need to bootstrap their own
+- **Shared security and scalability**: L1 chains connected to Polkadot benefit from its [Nominated Proof of Stake (NPoS)](/polkadot-protocol/architecture/polkadot-chain/pos-consensus/#nominated-proof-of-stake){target=\_blank} system, providing security out-of-the-box without the need to bootstrap their own.
 
-- **Secure interoperability** - Polkadot's native interoperability enables seamless data and value exchange between parachains. This interoperability can also be used outside of the ecosystem for bridging with external networks
+- **Secure interoperability**: Polkadot's native interoperability enables seamless data and value exchange between parachains. This interoperability can also be used outside of the ecosystem for bridging with external networks.
 
-- **Resilient infrastructure** - decentralized and scalable, Polkadot ensures ongoing support for development and community initiatives via its on-chain [treasury](https://wiki.polkadot.network/learn/learn-polkadot-opengov-treasury/){target=\_blank} and governance
+- **Resilient infrastructure**: Decentralized and scalable, Polkadot ensures ongoing support for development and community initiatives via its on-chain [treasury](https://wiki.polkadot.network/learn/learn-polkadot-opengov-treasury/){target=\_blank} and governance.
 
-- **Rapid L1 development** - the [Polkadot SDK](/develop/parachains/intro-polkadot-sdk/){target=\_blank} allows fast, flexible creation and deployment of Layer-1 chains
+- **Rapid L1 development**: The [Polkadot SDK](/develop/parachains/intro-polkadot-sdk/){target=\_blank} allows fast, flexible creation and deployment of Layer-1 chains.
 
-- **Cultivating the next generation of Web3 developers** - Polkadot supports the growth of Web3 core developers through initiatives such as:
+- **Cultivating the next generation of Web3 developers**: Polkadot supports the growth of Web3 core developers through initiatives such as.
 
     - [Polkadot Blockchain Academy](https://polkadot.com/blockchain-academy){target=\_blank}
     - [EdX courses](https://www.edx.org/school/web3x){target=\_blank}
@@ -69,18 +70,18 @@ Renewal orders are prioritized over new orders, offering stability against price
 
 Decentralization is a vital component of blockchain networks, but it comes with trade-offs:
 
-- An overly decentralized network may face challenges in reaching consensus and require significant energy to operate
-- Also, a network that achieves consensus quickly risks centralization, making it easier to manipulate or attack
+- An overly decentralized network may face challenges in reaching consensus and require significant energy to operate.
+- Also, a network that achieves consensus quickly risks centralization, making it easier to manipulate or attack.
 
 A network should be decentralized enough to prevent manipulative or malicious influence. In this sense, decentralization is a tool for achieving resilience.
 
 Polkadot 1.0 currently achieves resilience through several strategies:
 
-- **Nominated Proof of Stake (NPoS)** - ensures that the stake per validator is maximized and evenly distributed among validators
+- **Nominated Proof of Stake (NPoS)**: Ensures that the stake per validator is maximized and evenly distributed among validators.
 
-- **Decentralized nodes** - designed to encourage operators to join the network. This program aims to expand and diversify the validators in the ecosystem who aim to become independent of the program during their term. Feel free to explore more about the program on the official [Decentralized Nodes](https://nodes.web3.foundation/){target=\_blank} page
+- **Decentralized nodes**: Designed to encourage operators to join the network. This program aims to expand and diversify the validators in the ecosystem who aim to become independent of the program during their term. Feel free to explore more about the program on the official [Decentralized Nodes](https://nodes.web3.foundation/){target=\_blank} page.
 
-- **On-chain treasury and governance** - known as [OpenGov](/polkadot-protocol/onchain-governance/overview/){target=\_blank}, this system allows every decision to be made through public referenda, enabling any token holder to cast a vote
+- **On-chain treasury and governance**: Known as [OpenGov](/polkadot-protocol/onchain-governance/overview/){target=\_blank}, this system allows every decision to be made through public referenda, enabling any token holder to cast a vote.
 
 ### Polkadot's Blockspace
 
@@ -88,11 +89,11 @@ Polkadot 1.0’s design allows for the commoditization of blockspace.
 
 Blockspace is a blockchain's capacity to finalize and commit operations, encompassing its security, computing, and storage capabilities. Its characteristics can vary across different blockchains, affecting security, flexibility, and availability.
 
-- **Security** - measures the robustness of blockspace in Proof of Stake (PoS) networks linked to the stake locked on validator nodes, the variance in stake among validators, and the total number of validators. It also considers social centralization (how many validators are owned by single operators) and physical centralization (how many validators run on the same service provider)
+- **Security**: Measures the robustness of blockspace in Proof of Stake (PoS) networks linked to the stake locked on validator nodes, the variance in stake among validators, and the total number of validators. It also considers social centralization (how many validators are owned by single operators) and physical centralization (how many validators run on the same service provider).
 
-- **Flexibility** - reflects the functionalities and types of data that can be stored, with high-quality data essential to avoid bottlenecks in critical processes
+- **Flexibility**: Reflects the functionalities and types of data that can be stored, with high-quality data essential to avoid bottlenecks in critical processes.
 
-- **Availability** - indicates how easily users can access blockspace. It should be easily accessible, allowing diverse business models to thrive, ideally regulated by a marketplace based on demand and supplemented by options for "second-hand" blockspace
+- **Availability**: Indicates how easily users can access blockspace. It should be easily accessible, allowing diverse business models to thrive, ideally regulated by a marketplace based on demand and supplemented by options for "second-hand" blockspace.
 
 Polkadot is built on core blockspace principles, but there's room for improvement. Tasks like balance transfers, staking, and governance are managed on the relay chain.
 
@@ -120,9 +121,9 @@ Similar to how BTC's smallest unit is the Satoshi and ETH's is the Wei, Polkadot
 
 DOT serves three primary functions within the Polkadot network:
 
-- **Governance** - it is used to participate in the governance of the network
-- **Staking** - DOT is staked to support the network's operation and security
-- **Buying coretime** - used to purchase coretime in-bulk or on-demand and access the  chain to benefit from Polkadot's security and interoperability
+- **Governance**: It is used to participate in the governance of the network.
+- **Staking**: DOT is staked to support the network's operation and security.
+- **Buying coretime**: Used to purchase coretime in-bulk or on-demand and access the  chain to benefit from Polkadot's security and interoperability.
 
 Additionally, DOT can serve as a transferable token. For example, DOT, held in the treasury, can be allocated to teams developing projects that benefit the Polkadot ecosystem.
 
@@ -130,12 +131,12 @@ Additionally, DOT can serve as a transferable token. For example, DOT, held in t
 
 The Join-Accumulate Machine (JAM) represents a transformative redesign of Polkadot's core architecture, envisioned as the successor to the current relay chain. Unlike traditional blockchain architectures, JAM introduces a unique computational model that processes work through two primary functions:
 
-- **Join** - handles data integration
-- **Accumulate** - folds computations into the chain's state
+- **Join**: Handles data integration.
+- **Accumulate**: Folds computations into the chain's state.
 
 JAM removes many of the opinions and constraints of the current relay chain while maintaining its core security properties. Expected improvements include:
 
-- **Permissionless code execution** - JAM is designed to be more generic and flexible, allowing for permissionless code execution through services that can be deployed without governance approval
-- **More effective block time utilization** - JAM's efficient pipeline processing model places the prior state root in block headers instead of the posterior state root, enabling more effective utilization of block time for computations
+- **Permissionless code execution**: JAM is designed to be more generic and flexible, allowing for permissionless code execution through services that can be deployed without governance approval.
+- **More effective block time utilization**: JAM's efficient pipeline processing model places the prior state root in block headers instead of the posterior state root, enabling more effective utilization of block time for computations.
 
 This architectural evolution promises to enhance Polkadot's scalability and flexibility while maintaining robust security guarantees. JAM is planned to be rolled out to Polkadot as a single, complete upgrade rather than a stream of smaller updates. This approach seeks to minimize the developer overhead required to address any breaking changes.

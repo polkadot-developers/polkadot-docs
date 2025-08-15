@@ -1,6 +1,7 @@
 ---
 title: E2E Testing with Moonwall
 description: Enhance blockchain end-to-end testing with Moonwall's standardized environment setup, comprehensive configuration management, and simple network interactions.
+categories: Parachains, Tooling
 ---
 
 # E2E Testing with Moonwall

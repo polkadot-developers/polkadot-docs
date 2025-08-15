@@ -1,6 +1,7 @@
 ---
 title: Runtime Metrics and Monitoring
 description: Learn how to monitor and visualize node performance in Polkadot SDK-based networks using telemetry, Prometheus, and Grafana for efficient runtime monitoring.
+categories: Parachains
 ---
 
 # Runtime Metrics and Monitoring

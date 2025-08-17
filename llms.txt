@@ -28900,7 +28900,7 @@ const PASEO_ACCOUNT = "15oF4uVJwmo4TdGW7VfQxNLavjCXviqxT9S1MgbjMNHr6Sp5"; // Ali
 const PASEO_ASSET_HUB_RPC_ENDPOINT = "ws://localhost:8001"; // Paseo Asset Hub chopsticks endpoint
 const ASSET_HUB_ACCOUNT = "14E5nqKAp3oAJcmzgZhUD2RcptBeUBScxKHgJKU4HPNcKVf3"; // Bob (Paseo Asset Hub)
 
-// Helper function to create XCM for teleport to Relay (reverse direction)
+// Helper function to create XCM for teleport to Relay
 function createTeleportXcmToRelay() {
   return XcmVersionedXcm.V5([
     // Withdraw PAS from Asset Hub (PAS on parachains is parents:1, interior: Here)
@@ -29640,7 +29640,7 @@ const PASEO_ACCOUNT = "15oF4uVJwmo4TdGW7VfQxNLavjCXviqxT9S1MgbjMNHr6Sp5"; // Ali
 const PASEO_ASSET_HUB_RPC_ENDPOINT = "ws://localhost:8001"; // Paseo Asset Hub chopsticks endpoint
 const ASSET_HUB_ACCOUNT = "14E5nqKAp3oAJcmzgZhUD2RcptBeUBScxKHgJKU4HPNcKVf3"; // Bob (Paseo Asset Hub)
 
-// Helper function to create XCM for teleport to Relay (reverse direction)
+// Helper function to create XCM for teleport to Relay
 function createTeleportXcmToRelay() {
   return XcmVersionedXcm.V5([
     // Withdraw PAS from Asset Hub (PAS on parachains is parents:1, interior: Here)

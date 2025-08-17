@@ -1,0 +1,35 @@
+<div id="termynal" data-termynal>
+  <span data-ty="input"><span class="file-path"></span>npx ts-node teleport-ah-to-relay.ts</span>
+  <pre>
+  === XCM Teleport: Paseo Asset Hub → Paseo Relay ===
+  From: 14E5nqKAp3oAJcmzgZhUD2RcptBeUBScxKHgJKU4HPNcKVf3 (Bob)
+  To: 15oF4uVJwmo4TdGW7VfQxNLavjCXviqxT9S1MgbjMNHr6Sp5 (Alice)
+  Amount: 1 PAS
+  
+  === Fee Estimation Process (Asset Hub → Relay) ===
+  1. Calculating local execution fees on Asset Hub...
+  ✓ XCM weight (Asset Hub): { ref_time: 1462082000n, proof_size: 19578n }
+  ✓ Local execution fees (Asset Hub): 97890000 PAS units
+  
+  1. Calculating delivery and remote execution fees...
+  ✓ Local dry run on Asset Hub successful
+  ✓ Found XCM message to Relay
+  ✓ Delivery fees: 305150000 PAS units
+  
+  1. Calculating remote execution fees on Relay...
+  ✓ Remote XCM weight (Relay) calculated: { ref_time: 434130000n, proof_size: 10779n }
+  ✓ Remote execution fees: 34442461 PAS units
+  
+  === Fee Summary (Asset Hub → Relay) ===
+  Local execution fees: 97890000 PAS units
+  Delivery fees: 305150000 PAS units
+  Remote execution fees: 34442461 PAS units
+  TOTAL FEES: 437482461 PAS units
+  TOTAL FEES: 0.0437 PAS
+  
+  === Transaction Details ===
+  Transaction hex: 0x1f03050c00040100000700e40b54023001000002286bee3101000100000401000002286bee000400010204040d01020400010100d43593c715fdd31c61141abd04a99fd6822c8558854ccde39a5684e7a56da27d0700bca0650102000400
+  Ready to submit!
+    </pre
+  >
+</div>

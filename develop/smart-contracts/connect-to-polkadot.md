@@ -23,6 +23,7 @@ Developers can leverage smart contracts across diverse networks, from TestNets t
 === "Polkadot Hub TestNet"
 
     Network name
+
     ```text
     Polkadot Hub TestNet
     ```
@@ -30,6 +31,7 @@ Developers can leverage smart contracts across diverse networks, from TestNets t
     ---
 
     Currency symbol
+    
     ```text
     PAS
     ```
@@ -37,6 +39,7 @@ Developers can leverage smart contracts across diverse networks, from TestNets t
     ---
     
     Chain ID
+    
     ```text
     420420422
     ```
@@ -44,6 +47,7 @@ Developers can leverage smart contracts across diverse networks, from TestNets t
     ---
     
     RPC URL
+    
     ```text
     https://testnet-passet-hub-eth-rpc.polkadot.io
     ```
@@ -51,6 +55,7 @@ Developers can leverage smart contracts across diverse networks, from TestNets t
     ---
     
     Block explorer URL
+    
     ```text
     https://blockscout-passet-hub.parity-testnet.parity.io/
     ```
@@ -60,13 +65,13 @@ Developers can leverage smart contracts across diverse networks, from TestNets t
 
 You will need testnet tokens to perform transactions and engage with smart contracts on any chain. Here's how to obtain Paseo (PAS) tokens for testing purposes:
 
-1. Navigate to the [Polkadot Faucet](https://faucet.polkadot.io/?parachain=1111){target=\_blank}. If the desired network is not already selected, choose it from the Network drop-down
+1. Navigate to the [Polkadot Faucet](https://faucet.polkadot.io/?parachain=1111){target=\_blank}. If the desired network is not already selected, choose it from the Network drop-down.
 
-2. Copy your address linked to the TestNet and paste it into the designated field
+2. Copy your address linked to the TestNet and paste it into the designated field.
 
     ![](/images/develop/smart-contracts/connect-to-polkadot/connect-to-polkadot-1.webp)
 
-3. Click the **Get Some PASs** button to request free test PAS tokens. These tokens will be sent to your wallet shortly
+3. Click the **Get Some PASs** button to request free test PAS tokens. These tokens will be sent to your wallet shortly.
 
     ![](/images/develop/smart-contracts/connect-to-polkadot/connect-to-polkadot-2.webp)
 

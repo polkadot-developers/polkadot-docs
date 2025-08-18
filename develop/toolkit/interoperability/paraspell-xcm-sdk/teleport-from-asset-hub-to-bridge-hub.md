@@ -1,15 +1,15 @@
 ---
-title: Teleport Tokens from Asset Hub to Relay Chain
-description: A step-by-step guide to building, verifying, and executing a teleport from Asset Hub to Relay chain using the ParaSpell XCM SDK.
+title: Teleport Tokens from Asset Hub to Bridge Hub
+description: A step-by-step guide to building, verifying, and executing a teleport from Asset Hub to Bridge Hub using the ParaSpell XCM SDK.
 ---
 
-# Teleport Tokens from Asset Hub to Relay Chain
+# Teleport Tokens from Asset Hub to Bridge Hub
 
 ## Introduction
 
-This guide will walk you through the process of teleporting tokens from the Asset Hub to the Relay chain using the [ParaSpell XCM SDK](https://paraspell.github.io/docs/){target=\_blank}.
+This guide will walk you through the process of teleporting tokens from the Asset Hub to the Bridge Hub system parachain using the [ParaSpell XCM SDK](https://paraspell.github.io/docs/){target=\_blank}.
 
-For development purposes, this guide will use the [Paseo TestNet](/develop/networks/#paseo){target=\_blank}, so that the teleport will be from Paseo's Asset Hub to the Paseo Relay chain.
+For development purposes, this guide will use the [Paseo TestNet](/develop/networks/#paseo){target=\_blank}, so the teleport will be from Paseo's Asset Hub to Paseo's Bridge Hub.
 
 You’ll learn how to:
 
@@ -62,7 +62,7 @@ Be sure to fund this account with some PAS tokens on Passeo's Asset Hub using th
 
 The next step is to build the transaction that you intend to execute.
 
-In this example, you will teleport 10 PAS tokens from Asset Hub Paseo to the Paseo Relay chain.
+In this example, you will teleport 10 PAS tokens from Paseo's Asset Hub to Paseo's Bridge Hub system parachain.
 
 Add the ParaSpell transaction code to your `index.ts` file:
 
@@ -159,7 +159,7 @@ Once the transaction is successfully included in a block, you will see the recip
 
     --8<-- 'code/develop/toolkit/interoperability/paraspell/teleport-callback-output.html'
 
-After executing the teleport, check the account balance on [Polkadot.js Apps](https://polkadot.js.org/apps/?rpc=wss%3A%2F%2Fsys.turboflakes.io%2Fasset-hub-paseo#/accounts){target=\_blank}. 
+After executing the teleport, check the account balance on [Polkadot.js Apps](https://polkadot.js.org/apps/?rpc=wss%3A%2F%2Fsys.turboflakes.io%2Fasset-hub-paseo){target=\_blank} for [Paseo's Asset Hub](https://polkadot.js.org/apps/?rpc=wss%3A%2F%2Fsys.turboflakes.io%2Fasset-hub-paseo#/accounts){target=\_blank} and [Paseo's Bridge Hub](https://polkadot.js.org/apps/?rpc=wss%3A%2F%2Fbridge-hub-paseo.dotters.network#/accounts){target=\_blank}.
 
 You should see:
 

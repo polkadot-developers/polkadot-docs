@@ -11,7 +11,10 @@
       value: {
         dest: {
           type: 'V5',
-          value: { parents: 1, interior: { type: 'Here' } }
+          value: {
+            parents: 1,
+            interior: { type: 'X1', value: { type: 'Parachain', value: 1002 } }
+          }
         },
         beneficiary: {
           type: 'V5',
@@ -39,7 +42,7 @@
           type: 'V5',
           value: [
             {
-              id: { parents: 1, interior: { type: 'Here' } },
+              id: { parents: 1, interior: { type: 'Here', value: null } },
               fun: { type: 'Fungible', value: 100000000000n }
             }
           ]

@@ -31,7 +31,7 @@ async function teleport() {
 
   const tx = await Builder()
     .from('AssetHubPaseo')
-    .to('Paseo')
+    .to('BridgeHubPaseo')
     .currency({
       symbol: 'PAS',
       amount: 10n * PAS_UNITS, // 10 PAS
@@ -53,7 +53,7 @@ async function dryRunTeleport() {
 
   const tx = await Builder()
     .from('AssetHubPaseo')
-    .to('Paseo')
+    .to('BridgeHubPaseo')
     .currency({
       symbol: 'PAS',
       amount: 10n * PAS_UNITS,
@@ -70,7 +70,7 @@ dryRunTeleport();
 async function verifyED() {
   const isValid = await Builder()
     .from('AssetHubPaseo')
-    .to('Paseo')
+    .to('BridgeHubPaseo')
     .currency({
       symbol: 'PAS',
       amount: 10n * PAS_UNITS,
@@ -87,7 +87,7 @@ verifyED();
 async function XcmTransferInfo() {
   const info = await Builder()
     .from('AssetHubPaseo')
-    .to('Paseo')
+    .to('BridgeHubPaseo')
     .currency({
       symbol: 'PAS',
       amount: 10n * PAS_UNITS,

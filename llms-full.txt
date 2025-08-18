@@ -95,7 +95,7 @@ Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/re
 Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/develop/toolkit/interoperability/asset-transfer-api/reference.md
 Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/develop/toolkit/interoperability/index.md
 Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/develop/toolkit/interoperability/paraspell-xcm-sdk/index.md
-Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/develop/toolkit/interoperability/paraspell-xcm-sdk/teleport-from-asset-hub-to-relay-chain.md
+Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/develop/toolkit/interoperability/paraspell-xcm-sdk/teleport-from-asset-hub-to-bridge-hub.md
 Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/develop/toolkit/interoperability/xcm-tools.md
 Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/develop/toolkit/parachains/e2e-testing/index.md
 Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/develop/toolkit/parachains/e2e-testing/moonwall.md
@@ -18700,20 +18700,20 @@ By using the ParaSpell XCM SDK, developers can significantly accelerate their de
 :::INSERT_IN_THIS_SECTION:::
 --- END CONTENT ---
 
-Doc-Content: https://docs.polkadot.com/develop/toolkit/interoperability/paraspell-xcm-sdk/teleport-from-asset-hub-to-relay-chain/
+Doc-Content: https://docs.polkadot.com/develop/toolkit/interoperability/paraspell-xcm-sdk/teleport-from-asset-hub-to-bridge-hub/
 --- BEGIN CONTENT ---
 ---
-title: Teleport Tokens from Asset Hub to Relay Chain
-description: A step-by-step guide to building, verifying, and executing a teleport from Asset Hub to Relay chain using the ParaSpell XCM SDK.
+title: Teleport Tokens from Asset Hub to Bridge Hub
+description: A step-by-step guide to building, verifying, and executing a teleport from Asset Hub to Bridge Hub using the ParaSpell XCM SDK.
 ---
 
-# Teleport Tokens from Asset Hub to Relay Chain
+# Teleport Tokens from Asset Hub to Bridge Hub
 
 ## Introduction
 
-This guide will walk you through the process of teleporting tokens from the Asset Hub to the Relay chain using the [ParaSpell XCM SDK](https://paraspell.github.io/docs/){target=\_blank}.
+This guide will walk you through the process of teleporting tokens from the Asset Hub to the Bridge Hub system parachain using the [ParaSpell XCM SDK](https://paraspell.github.io/docs/){target=\_blank}.
 
-For development purposes, this guide will use the [Paseo TestNet](/develop/networks/#paseo){target=\_blank}, so that the teleport will be from Paseo's Asset Hub to the Paseo Relay chain.
+For development purposes, this guide will use the [Paseo TestNet](/develop/networks/#paseo){target=\_blank}, so the teleport will be from Paseo's Asset Hub to Paseo's Bridge Hub.
 
 You’ll learn how to:
 
@@ -18792,7 +18792,7 @@ Be sure to fund this account with some PAS tokens on Passeo's Asset Hub using th
 
 The next step is to build the transaction that you intend to execute.
 
-In this example, you will teleport 10 PAS tokens from Asset Hub Paseo to the Paseo Relay chain.
+In this example, you will teleport 10 PAS tokens from Paseo's Asset Hub to Paseo's Bridge Hub system parachain.
 
 Add the ParaSpell transaction code to your `index.ts` file:
 
@@ -18802,7 +18802,7 @@ async function teleport() {
 
   const tx = await Builder()
     .from('AssetHubPaseo')
-    .to('Paseo')
+    .to('BridgeHubPaseo')
     .currency({
       symbol: 'PAS',
       amount: 10n * PAS_UNITS, // 10 PAS
@@ -18834,7 +18834,7 @@ async function dryRunTeleport() {
 
   const tx = await Builder()
     .from('AssetHubPaseo')
-    .to('Paseo')
+    .to('BridgeHubPaseo')
     .currency({
       symbol: 'PAS',
       amount: 10n * PAS_UNITS,
@@ -18868,7 +18868,10 @@ The result of the dry run will be similar to this:
     forwardedXcms: [
       {
         type: 'V3',
-        value: { parents: 1, interior: { type: 'Here', value: undefined } }
+        value: {
+          parents: 1,
+          interior: { type: 'X1', value: { type: 'Parachain', value: 1002 } }
+        }
       },
       [
         {
@@ -18881,7 +18884,7 @@ The result of the dry run will be similar to this:
                   id: {
                     type: 'Concrete',
                     value: {
-                      parents: 0,
+                      parents: 1,
                       interior: { type: 'Here', value: undefined }
                     }
                   },
@@ -18897,7 +18900,7 @@ The result of the dry run will be similar to this:
                   id: {
                     type: 'Concrete',
                     value: {
-                      parents: 0,
+                      parents: 1,
                       interior: { type: 'Here', value: undefined }
                     }
                   },
@@ -18948,15 +18951,15 @@ The result of the dry run will be similar to this:
         }
       ]
     ],
-    destParaId: 0,
+    destParaId: 1002,
     currency: 'PAS'
   },
   assetHub: undefined,
   bridgeHub: undefined,
   destination: {
     success: true,
-    fee: 22511801n,
-    weight: { refTime: 283750000n, proofSize: 7186n },
+    fee: 17965000n,
+    weight: { refTime: 164770000n, proofSize: 3593n },
     forwardedXcms: [],
     destParaId: undefined,
     currency: 'PAS'
@@ -18973,7 +18976,7 @@ Check if the recipient account meets the [Existential Deposit (ED)](/polkadot-pr
 async function verifyED() {
   const isValid = await Builder()
     .from('AssetHubPaseo')
-    .to('Paseo')
+    .to('BridgeHubPaseo')
     .currency({
       symbol: 'PAS',
       amount: 10n * PAS_UNITS,
@@ -19011,7 +19014,7 @@ ParaSpell has a helpful function for this: [`getTransferInfo()`](https://paraspe
 async function XcmTransferInfo() {
   const info = await Builder()
     .from('AssetHubPaseo')
-    .to('Paseo')
+    .to('BridgeHubPaseo')
     .currency({
       symbol: 'PAS',
       amount: 10n * PAS_UNITS,
@@ -19039,25 +19042,25 @@ You should be able to see all the information for your transfer:
   <span data-ty>...</span>
   <span data-ty>Transfer Info: {
   chain: {
-    origin: "AssetHubPaseo",
-    destination: "Paseo",
-    ecosystem: "PAS",
+    origin: 'AssetHubPaseo',
+    destination: 'BridgeHubPaseo',
+    ecosystem: 'PAS'
   },
   origin: {
     selectedCurrency: {
       sufficient: true,
-      balance: 48999660164636n,
-      balanceAfter: 48899660164636n,
-      currencySymbol: "PAS",
-      existentialDeposit: 100000000n,
+      balance: 9899002813408n,
+      balanceAfter: 9799002813408n,
+      currencySymbol: 'PAS',
+      existentialDeposit: 100000000n
     },
     xcmFee: {
       sufficient: true,
       fee: 17965000n,
-      balance: 48999660164636n,
-      balanceAfter: 48999642199636n,
-      currencySymbol: "PAS",
-    },
+      balance: 9899002813408n,
+      balanceAfter: 9898984848408n,
+      currencySymbol: 'PAS'
+    }
   },
   assetHub: undefined,
   bridgeHub: undefined,
@@ -19065,19 +19068,19 @@ You should be able to see all the information for your transfer:
   destination: {
     receivedCurrency: {
       sufficient: true,
-      receivedAmount: 99977488199n,
-      balance: 519349192592n,
-      balanceAfter: 619326680791n,
-      currencySymbol: "PAS",
-      existentialDeposit: 10000000000n,
+      receivedAmount: 99982035000n,
+      balance: 0n,
+      balanceAfter: 99982035000n,
+      currencySymbol: 'PAS',
+      existentialDeposit: 1000000000n
     },
     xcmFee: {
-      fee: 22511801n,
-      balance: 519349192592n,
-      balanceAfter: 619326680791n,
-      currencySymbol: "PAS",
-    },
-  },
+      fee: 17965000n,
+      balance: 0n,
+      balanceAfter: 99982035000n,
+      currencySymbol: 'PAS'
+    }
+  }
 }</span>
 </div>
 
@@ -19116,7 +19119,10 @@ Your `teleport` function will submit the transaction, and you will get the follo
       value: {
         dest: {
           type: 'V5',
-          value: { parents: 1, interior: { type: 'Here' } }
+          value: {
+            parents: 1,
+            interior: { type: 'X1', value: { type: 'Parachain', value: 1002 } }
+          }
         },
         beneficiary: {
           type: 'V5',
@@ -19144,7 +19150,7 @@ Your `teleport` function will submit the transaction, and you will get the follo
           type: 'V5',
           value: [
             {
-              id: { parents: 1, interior: { type: 'Here' } },
+              id: { parents: 1, interior: { type: 'Here', value: null } },
               fun: { type: 'Fungible', value: 100000000000n }
             }
           ]
@@ -19169,11 +19175,11 @@ Once the transaction is successfully included in a block, you will see the recip
     <div id="termynal" data-termynal>
   <span data-ty>...</span>
   <span data-ty>{
-  txHash: '0x8ca2c97a1bc570a3697f033d30164e6fc2b13ef3e3ba4ec3c989f49107adc7da',
+  txHash: '0x6fbecc0b284adcff46ab39872659c2567395c865adef5f8cbea72f25b6042609',
   block: {
     index: 2,
-    number: 2484912,
-    hash: '0xff331de1b5a99e91fb70423989a1b5c31b0494b2bee59851baff2020a0cc1111'
+    number: 2524809,
+    hash: '0xa39a96d5921402c6e8f67e48b8395d6b21382c72d4d30f8497a0e9f890bc0d4c'
   },
   ok: true,
   events: [
@@ -19183,7 +19189,7 @@ Once the transaction is successfully included in a block, you will see the recip
         type: 'Withdraw',
         value: {
           who: '15DMtB5BDCJqw4uZtByTWXGqViAVx7XjRsxWbTH5tfrHLe8j',
-          amount: 15518864n
+          amount: 15668864n
         }
       },
       topics: []
@@ -19272,9 +19278,9 @@ Once the transaction is successfully included in a block, you will see the recip
       topics: []
     },
     {
-      type: 'ParachainSystem',
+      type: 'XcmpQueue',
       value: {
-        type: 'UpwardMessageSent',
+        type: 'XcmpMessageSent',
         value: {
           message_hash: FixedSizeBinary {
             asText: [Function (anonymous)],
@@ -19311,14 +19317,17 @@ Once the transaction is successfully included in a block, you will see the recip
               }
             }
           },
-          destination: { parents: 1, interior: { type: 'Here', value: undefined } },
+          destination: {
+            parents: 1,
+            interior: { type: 'X1', value: { type: 'Parachain', value: 1002 } }
+          },
           message: [
             {
               type: 'ReceiveTeleportedAsset',
               value: [
                 {
                   id: {
-                    parents: 0,
+                    parents: 1,
                     interior: { type: 'Here', value: undefined }
                   },
                   fun: { type: 'Fungible', value: 100000000000n }
@@ -19331,7 +19340,7 @@ Once the transaction is successfully included in a block, you will see the recip
               value: {
                 fees: {
                   id: {
-                    parents: 0,
+                    parents: 1,
                     interior: { type: 'Here', value: undefined }
                   },
                   fun: { type: 'Fungible', value: 100000000000n }
@@ -19385,7 +19394,7 @@ Once the transaction is successfully included in a block, you will see the recip
         type: 'Deposit',
         value: {
           who: '13UVJyLgBASGhE2ok3TvxUfaQBGUt88JCcdYjHvUhvQkFTTx',
-          amount: 15518864n
+          amount: 15668864n
         }
       },
       topics: []
@@ -19396,7 +19405,7 @@ Once the transaction is successfully included in a block, you will see the recip
         type: 'TransactionFeePaid',
         value: {
           who: '15DMtB5BDCJqw4uZtByTWXGqViAVx7XjRsxWbTH5tfrHLe8j',
-          actual_fee: 15518864n,
+          actual_fee: 15668864n,
           tip: 0n
         }
       },
@@ -19420,7 +19429,7 @@ Once the transaction is successfully included in a block, you will see the recip
 }</span>
 </div>
 
-After executing the teleport, check the account balance on [Polkadot.js Apps](https://polkadot.js.org/apps/?rpc=wss%3A%2F%2Fsys.turboflakes.io%2Fasset-hub-paseo#/accounts){target=\_blank}. 
+After executing the teleport, check the account balance on [Polkadot.js Apps](https://polkadot.js.org/apps/?rpc=wss%3A%2F%2Fsys.turboflakes.io%2Fasset-hub-paseo){target=\_blank} for [Paseo's Asset Hub](https://polkadot.js.org/apps/?rpc=wss%3A%2F%2Fsys.turboflakes.io%2Fasset-hub-paseo#/accounts){target=\_blank} and [Paseo's Bridge Hub](https://polkadot.js.org/apps/?rpc=wss%3A%2F%2Fbridge-hub-paseo.dotters.network#/accounts){target=\_blank}.
 
 You should see:
 

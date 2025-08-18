@@ -10,7 +10,10 @@
     forwardedXcms: [
       {
         type: 'V3',
-        value: { parents: 1, interior: { type: 'Here', value: undefined } }
+        value: {
+          parents: 1,
+          interior: { type: 'X1', value: { type: 'Parachain', value: 1002 } }
+        }
       },
       [
         {
@@ -23,7 +26,7 @@
                   id: {
                     type: 'Concrete',
                     value: {
-                      parents: 0,
+                      parents: 1,
                       interior: { type: 'Here', value: undefined }
                     }
                   },
@@ -39,7 +42,7 @@
                   id: {
                     type: 'Concrete',
                     value: {
-                      parents: 0,
+                      parents: 1,
                       interior: { type: 'Here', value: undefined }
                     }
                   },
@@ -90,15 +93,15 @@
         }
       ]
     ],
-    destParaId: 0,
+    destParaId: 1002,
     currency: 'PAS'
   },
   assetHub: undefined,
   bridgeHub: undefined,
   destination: {
     success: true,
-    fee: 22511801n,
-    weight: { refTime: 283750000n, proofSize: 7186n },
+    fee: 17965000n,
+    weight: { refTime: 164770000n, proofSize: 3593n },
     forwardedXcms: [],
     destParaId: undefined,
     currency: 'PAS'

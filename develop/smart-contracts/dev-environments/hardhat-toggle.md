@@ -4,6 +4,8 @@ description: Learn how to create, compile, test, and deploy smart contracts on P
 template: toggle-page.html
 ---
 
+# Hardhat something - page level header
+
 === "EVM"
 
     ## EVM Setup

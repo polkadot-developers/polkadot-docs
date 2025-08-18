@@ -19,7 +19,7 @@ Collators are responsible for sequencing end-user transactions into blocks and m
 
 Key responsibilities include:
 
-- **Transaction sequencing** - organizing transactions into [Proof of Validity (PoV)](https://wiki.polkadot.com/general/glossary){target=\_blank} blocks
+- **Transaction sequencing** - organizing transactions into [Proof of Validity (PoV)](https://wiki.polkadot.com/general/glossary/#proof-of-validity){target=\_blank} blocks
 - **State management** - maintaining parachain states without burdening the relay chain validators
 - **Consensus participation** - sending PoV blocks to relay chain validators for approval
 

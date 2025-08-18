@@ -152,7 +152,7 @@ Your `teleport` function will submit the transaction, and you will get the follo
 
 --8<-- 'code/develop/toolkit/interoperability/paraspell/teleport-output.html'
 
-Once the transaction is successfully included in a block, you will see the recipient's account balance updated, and you will receive output similar the one below.
+Once the transaction is successfully included in a block, you will see the recipient's account balance updated, and you will receive output similar to the one below.
 
 ???- code "Successful Transaction Submission"
     This output will be returned once the transaction has been successfully included in a block.

@@ -1,6 +1,7 @@
 ---
 title: Polkadot.js API
 description: Interact with Polkadot SDK-based chains easily using the Polkadot.js API. Query chain data, submit transactions, and more via JavaScript or Typescript.
+categories: Tooling, Dapps
 ---
 
 # Polkadot.js API

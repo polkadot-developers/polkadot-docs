@@ -19,12 +19,11 @@ Polkadot SDK-based relay chains focus on security and consensus, leaving asset m
 
 Through these tutorials, you'll learn how to manage cross-chain assets, including:
 
-- Asset registration and configuration.
-- Cross-chain asset representation.
-- Liquidity pool creation and management.
-- Asset swapping and conversion.
-- Transaction parameter optimization.
-- Teleport an asset from a parachain to Asset Hub.
+- Asset registration and configuration
+- Cross-chain asset representation
+- Liquidity pool creation and management 
+- Asset swapping and conversion
+- Transaction parameter optimization
 
 ## In This Section
 

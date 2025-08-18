@@ -1,6 +1,7 @@
 ---
 title: Overview of Polkadot's System Chains
 description: Discover how system parachains enhance Polkadot's scalability and performance by offloading tasks like governance, asset management, and bridging from the relay chain.
+categories: Basics, Polkadot Protocol
 ---
 
 ## Introduction

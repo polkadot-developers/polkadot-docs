@@ -9,7 +9,7 @@ description: A step-by-step guide to building, verifying, and executing a telepo
 
 This guide will walk you through teleporting tokens from Asset Hub to the Relay chain using the [ParaSpell XCM SDK](https://paraspell.github.io/docs/){target=\_blank}.
 
-For development purposes, this guide will use the [Paseo TestNet](/develop/networks/#paseo){target=\_blank}, so the teleport will be from Paseo's Asset Hub to the Paseo Relay chain.
+For development purposes, this guide will use the [Paseo TestNet](/develop/networks/#paseo){target=\_blank}, so that the teleport will be from Paseo's Asset Hub to the Paseo Relay chain.
 
 You’ll learn how to:
 

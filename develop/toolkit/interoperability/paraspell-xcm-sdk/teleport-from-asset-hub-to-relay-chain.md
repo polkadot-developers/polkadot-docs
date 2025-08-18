@@ -62,7 +62,7 @@ Be sure to fund this account with some PAS tokens on Passeo's Asset Hub using th
 
 The next step is to build the transaction that you intend to execute.
 
-In this example, you will teleport 10 PAS tokens from Asset Hub Paseo to the Paseo Relay chain:
+In this example, you will teleport 10 PAS tokens from Asset Hub Paseo to the Paseo Relay chain.
 
 Add the ParaSpell transaction code to your `index.ts` file:
 

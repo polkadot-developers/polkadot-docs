@@ -159,7 +159,7 @@ Once the transaction is successfully included in a block, you will see the recip
 
     --8<-- 'code/develop/toolkit/interoperability/paraspell/teleport-callback-output.html'
 
-After executing the teleport, check the account balance on [Polkadot.js Apps](https://polkadot.js.org/apps/?rpc=wss%3A%2F%2Fsys.turboflakes.io%2Fasset-hub-paseo#/accounts). 
+After executing the teleport, check the account balance on [Polkadot.js Apps](https://polkadot.js.org/apps/?rpc=wss%3A%2F%2Fsys.turboflakes.io%2Fasset-hub-paseo#/accounts){target=\_blank}. 
 
 You should see:
 

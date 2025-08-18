@@ -1,6 +1,7 @@
 ---
 title: XCM Runtime APIs
 description: Learn about XCM Runtime APIs in Polkadot for cross-chain communication. Explore the APIs to simulate and test XCM messages before execution on the network.
+categories: Reference, Polkadot Protocol
 ---
 
 # XCM Runtime APIs
@@ -13,10 +14,10 @@ Unlike direct storage access, runtime APIs can derive values from storage based 
 
 In general, runtime APIs are used for:
 
-- Accessing a storage item
-- Retrieving a bundle of related storage items
-- Deriving a value from storage based on arguments
-- Exposing formulas for complex computational calculations
+- Accessing a storage item.
+- Retrieving a bundle of related storage items.
+- Deriving a value from storage based on arguments.
+- Exposing formulas for complex computational calculations.
 
 This section will teach you about specific runtime APIs that support XCM processing and manipulation.
 
@@ -87,10 +88,8 @@ This API allows a dry-run of any extrinsic and obtaining the outcome if it fails
 
         Enum:
 
-        - **`Unimplemented`** - an API part is unsupported
-        - **`VersionedConversionFailed`** - converting a versioned data structure from one version to another failed
-
-    ---
+        - **`Unimplemented`**: An API part is unsupported.
+        - **`VersionedConversionFailed`**: Converting a versioned data structure from one version to another failed.
 
 ??? interface "Example"
 
@@ -162,8 +161,8 @@ This API allows the direct dry-run of an xcm message instead of an extrinsic one
 
         Enum:
 
-        - **`Unimplemented`** - an API part is unsupported
-        - **`VersionedConversionFailed`** - converting a versioned data structure from one version to another failed
+        - **`Unimplemented`**: An API part is unsupported.
+        - **`VersionedConversionFailed`**: Converting a versioned data structure from one version to another failed.
 
     ---
 
@@ -189,10 +188,10 @@ This API allows the direct dry-run of an xcm message instead of an extrinsic one
 
 The [XCM Payment API](https://paritytech.github.io/polkadot-sdk/master/xcm_runtime_apis/fees/trait.XcmPaymentApi.html){target=\_blank} provides a standardized way to determine the costs and payment options for executing XCM messages. Specifically, it enables clients to:
 
-- Retrieve the [weight](/polkadot-protocol/glossary/#weight) required to execute an XCM message
-- Obtain a list of acceptable `AssetIds` for paying execution fees
-- Calculate the cost of the weight in a specified `AssetId`
-- Estimate the fees for XCM message delivery
+- Retrieve the [weight](/polkadot-protocol/glossary/#weight) required to execute an XCM message.
+- Obtain a list of acceptable `AssetIds` for paying execution fees.
+- Calculate the cost of the weight in a specified `AssetId`.
+- Estimate the fees for XCM message delivery.
 
 This API eliminates the need for clients to guess execution fees or identify acceptable assets manually. Instead, clients can query the list of supported asset IDs formatted according to the XCM version they understand. With this information, they can weigh the XCM program they intend to execute and convert the computed weight into its cost using one of the acceptable assets.
 
@@ -224,12 +223,12 @@ Retrieves the list of assets that are acceptable for paying fees when using a sp
 
         Enum:
 
-        - **`Unimplemented`** - an API part is unsupported
-        - **`VersionedConversionFailed`** - converting a versioned data structure from one version to another failed
-        - **`WeightNotComputable`** - XCM message weight calculation failed
-        - **`UnhandledXcmVersion`** - XCM version not able to be handled
-        - **`AssetNotFound`** - the given asset is not handled as a fee asset
-        - **`Unroutable`** - destination is known to be unroutable
+        - **`Unimplemented`**: An API part is unsupported.
+        - **`VersionedConversionFailed`**: Converting a versioned data structure from one version to another failed.
+        - **`WeightNotComputable`**: XCM message weight calculation failed.
+        - **`UnhandledXcmVersion`**: XCM version not able to be handled.
+        - **`AssetNotFound`**: The given asset is not handled as a fee asset.
+        - **`Unroutable`**: Destination is known to be unroutable.
 
     ---
 
@@ -289,12 +288,12 @@ Calculates the weight required to execute a given XCM message. It is useful for 
 
         Enum:
 
-        - **`Unimplemented`** - an API part is unsupported
-        - **`VersionedConversionFailed`** - converting a versioned data structure from one version to another failed
-        - **`WeightNotComputable`** - XCM message weight calculation failed
-        - **`UnhandledXcmVersion`** - XCM version not able to be handled
-        - **`AssetNotFound`** - the given asset is not handled as a fee asset
-        - **`Unroutable`** - destination is known to be unroutable
+        - **`Unimplemented`**: An API part is unsupported.
+        - **`VersionedConversionFailed`**: Converting a versioned data structure from one version to another failed.
+        - **`WeightNotComputable`**: XCM message weight calculation failed.
+        - **`UnhandledXcmVersion`**: XCM version not able to be handled.
+        - **`AssetNotFound`**: The given asset is not handled as a fee asset.
+        - **`Unroutable`**: Destination is known to be unroutable.
 
     ---
 
@@ -362,12 +361,12 @@ Converts a given weight into the corresponding fee for a specified `AssetId`. It
 
         Enum:
 
-        - **`Unimplemented`** - an API part is unsupported
-        - **`VersionedConversionFailed`** - converting a versioned data structure from one version to another failed
-        - **`WeightNotComputable`** - XCM message weight calculation failed
-        - **`UnhandledXcmVersion`** - XCM version not able to be handled
-        - **`AssetNotFound`** - the given asset is not handled as a fee asset
-        - **`Unroutable`** - destination is known to be unroutable
+        - **`Unimplemented`**: An API part is unsupported.
+        - **`VersionedConversionFailed`**: Converting a versioned data structure from one version to another failed.
+        - **`WeightNotComputable`**: XCM message weight calculation failed.
+        - **`UnhandledXcmVersion`**: XCM version not able to be handled.
+        - **`AssetNotFound`**: The given asset is not handled as a fee asset.
+        - **`Unroutable`**: Destination is known to be unroutable.
 
     ---
 
@@ -418,12 +417,12 @@ Retrieves the delivery fees for sending a specific XCM message to a designated d
 
         Enum:
 
-        - **`Unimplemented`** - an API part is unsupported
-        - **`VersionedConversionFailed`** - converting a versioned data structure from one version to another failed
-        - **`WeightNotComputable`** - XCM message weight calculation failed
-        - **`UnhandledXcmVersion`** - XCM version not able to be handled
-        - **`AssetNotFound`** - the given asset is not handled as a fee asset
-        - **`Unroutable`** - destination is known to be unroutable
+        - **`Unimplemented`**: An API part is unsupported.
+        - **`VersionedConversionFailed`**: Converting a versioned data structure from one version to another failed.
+        - **`WeightNotComputable`**: XCM message weight calculation failed.
+        - **`UnhandledXcmVersion`**: XCM version not able to be handled.
+        - **`AssetNotFound`**: The given asset is not handled as a fee asset.
+        - **`Unroutable`**: Destination is known to be unroutable.
 
     ---
 

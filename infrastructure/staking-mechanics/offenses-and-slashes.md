@@ -1,6 +1,7 @@
 ---
 title: Offenses and Slashes
 description: Learn about how Polkadot discourages validator misconduct via an offenses and slashing system, including details on offenses and their consequences.
+categories: Infrastructure
 ---
 
 # Offenses and Slashes

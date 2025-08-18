@@ -1,6 +1,7 @@
 ---
 title: Add Smart Contract Functionality
 description: Add smart contract capabilities to your Polkadot SDK-based blockchain. Explore EVM and Wasm integration for enhanced chain functionality.
+categories: Parachains
 ---
 
 # Add Smart Contract Functionality
@@ -15,8 +16,8 @@ Polkadot SDK-based blockchains support two distinct smart contract execution env
 
 To enable Ethereum-compatible smart contracts in your blockchain, you'll need to integrate [Frontier](https://github.com/polkadot-evm/frontier){target=\_blank}, the Ethereum compatibility layer for Polkadot SDK-based chains. This requires adding two essential pallets to your runtime:
 
-- [**`pallet-evm`**](https://github.com/polkadot-evm/frontier/tree/master/frame/evm){target=\_blank} - provides the EVM execution environment
-- [**`pallet-ethereum`**](https://github.com/polkadot-evm/frontier/tree/master/frame/ethereum){target=\_blank} - handles Ethereum-formatted transactions and RPC capabilities
+- **[`pallet-evm`](https://github.com/polkadot-evm/frontier/tree/master/frame/evm){target=\_blank}**: Provides the EVM execution environment.
+- **[`pallet-ethereum`](https://github.com/polkadot-evm/frontier/tree/master/frame/ethereum){target=\_blank}**: Handles Ethereum-formatted transactions and RPC capabilities.
 
 For step-by-step guidance on adding these pallets to your runtime, refer to [Add a Pallet to the Runtime](/develop/parachains/customize-parachain/add-existing-pallets/){target=\_blank}.
 
@@ -26,7 +27,7 @@ For a real-world example of how these pallets are implemented in production, you
 
 To support Wasm-based smart contracts, you'll need to integrate:
 
-- [**`pallet-contracts`**](https://docs.rs/pallet-contracts/latest/pallet_contracts/index.html#contracts-pallet){target=\_blank} - provides the Wasm smart contract execution environment
+- **[`pallet-contracts`](https://docs.rs/pallet-contracts/latest/pallet_contracts/index.html#contracts-pallet){target=\_blank}**: Provides the Wasm smart contract execution environment.
 
 This pallet enables the deployment and execution of Wasm-based smart contracts on your blockchain. For detailed instructions on adding this pallet to your runtime, see [Add a Pallet to the Runtime](/develop/parachains/customize-parachain/add-existing-pallets/){target=\_blank}.
 

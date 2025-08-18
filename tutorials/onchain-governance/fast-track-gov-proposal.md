@@ -2,6 +2,7 @@
 title: Fast Track a Governance Proposal
 description: Learn how to fast-track governance proposals in Polkadot's OpenGov using Chopsticks. Simulate, test, and execute proposals confidently.
 tutorial_badge: Advanced
+categories: Tooling
 ---
 
 # Fast Track a Governance Proposal
@@ -14,10 +15,10 @@ Testing governance proposals before submission is crucial for the ecosystem. Thi
 
 By leveraging simulation tools like [Chopsticks](/develop/toolkit/parachains/fork-chains/chopsticks){target=\_blank}, developers can:
 
-- Simulate the entire lifecycle of a proposal
-- Test the voting outcomes by varying the support and approval levels
-- Analyze the effects of a successfully executed proposal on the network's state
-- Identify and troubleshoot potential issues or unexpected consequences before submitting the proposals
+- Simulate the entire lifecycle of a proposal.
+- Test the voting outcomes by varying the support and approval levels.
+- Analyze the effects of a successfully executed proposal on the network's state.
+- Identify and troubleshoot potential issues or unexpected consequences before submitting the proposals.
 
 This tutorial will guide you through using Chopsticks to test OpenGov proposals thoroughly. This ensures that when you submit a proposal to the live network, you can do so with confidence in its effects and viability.
 
@@ -25,9 +26,9 @@ This tutorial will guide you through using Chopsticks to test OpenGov proposals 
 
 Before proceeding, ensure the following prerequisites are met:
 
-- **Chopsticks installation** - if you have not installed Chopsticks yet, refer to the [Install Chopsticks](/develop/toolkit/parachains/fork-chains/chopsticks/get-started/#install-chopsticks){target=\_blank} guide for detailed instructions
-- **Familiarity with key concepts** - you should have a basic understanding of the following:
-    - [Polkadot.js](/develop/toolkit/api-libraries/polkadot-js-api){target=\_blank} 
+- **Chopsticks installation**: If you have not installed Chopsticks yet, refer to the [Install Chopsticks](/develop/toolkit/parachains/fork-chains/chopsticks/get-started/#install-chopsticks){target=\_blank} guide for detailed instructions.
+- **Familiarity with key concepts**:
+    - [Polkadot.js](/develop/toolkit/api-libraries/polkadot-js-api){target=\_blank}
     - [OpenGov](/polkadot-protocol/onchain-governance/overview){target=\_blank}
 
 ## Set Up the Project
@@ -132,7 +133,7 @@ Create a `generateProposal` function that will be responsible for preparing and 
 
 Now, you need to implement the following logic:
 
-1. Set up the keyring and use the Alice development account
+1. Set up the keyring and use the Alice development account:
 
     ```typescript
     --8<-- 'code/tutorials/onchain-governance/fast-track-gov-proposal/test-proposal.ts:40:44'
@@ -141,21 +142,22 @@ Now, you need to implement the following logic:
     !!!note
         When using Chopsticks, this development account is pre-funded to execute all necessary actions.
 
-2. Retrieve the proposal index
+2. Retrieve the proposal index:
 
     ```typescript
     --8<-- 'code/tutorials/onchain-governance/fast-track-gov-proposal/test-proposal.ts:46:49'
     ```
 
 3. Execute a batch transaction that comprises the following three operations:
-    1. **`preimage.notePreimage`** - registers a [preimage](/polkadot-protocol/glossary#preimage){target=\_blank} using the selected call
+
+    1. **`preimage.notePreimage`**: Registers a [preimage](/polkadot-protocol/glossary#preimage){target=\_blank} using the selected call.
 
         !!!note
             The preimage hash is simply the hash of the proposal to be enacted. The on-chain proposals do not require the entire image of extrinsics and data (for instance, the Wasm code, in case of upgrades) to be submitted but would need that image's hash. That preimage can be submitted and stored on-chain against the hash later upon the proposal's dispatch.
 
-    2. **`referenda.submit`** - submits the proposal to the referenda system. It uses the preimage hash extracted from the call as part of the proposal submission process. The proposal is submitted with the selected origin
+    2. **`referenda.submit`**: Submits the proposal to the referenda system. It uses the preimage hash extracted from the call as part of the proposal submission process. The proposal is submitted with the selected origin.
 
-    3. **`referenda.placeDecisionDeposit`** - places the required decision deposit for the referendum. This deposit is required to move the referendum from the preparing phase to the deciding phase
+    3. **`referenda.placeDecisionDeposit`**: Places the required decision deposit for the referendum. This deposit is required to move the referendum from the preparing phase to the deciding phase.
 
     ```typescript
     --8<-- 'code/tutorials/onchain-governance/fast-track-gov-proposal/test-proposal.ts:51:77'
@@ -199,8 +201,8 @@ Create a new function called `forceProposalExecution`:
 
 This function will accomplish two primary objectives:
 
-- Modify the chain storage to set the proposal's approvals and support artificially, ensuring its passage
-- Override the scheduler to execute the proposal immediately in the subsequent blocks, circumventing standard waiting periods
+- Modify the chain storage to set the proposal's approvals and support artificially, ensuring its passage.
+- Override the scheduler to execute the proposal immediately in the subsequent blocks, circumventing standard waiting periods.
 
 Implement the functionality through the following steps:
 
@@ -260,21 +262,21 @@ npx ts-node test-proposal.ts
 
 When executing the script, you should expect the following key actions and outputs:
 
-- **Chain forking** - the script connects to a forked version of the Polkadot network, allowing safe manipulation of the chain state without affecting the live network.
+- **Chain forking**: The script connects to a forked version of the Polkadot network, allowing safe manipulation of the chain state without affecting the live network.
 
-- **Proposal generation** - a new governance proposal is created using the specified extrinsic (in this example, `setCodeWithoutChecks`)
+- **Proposal generation**: A new governance proposal is created using the specified extrinsic (in this example, `setCodeWithoutChecks`).
 
-- **State manipulation** - the referendum's storage is modified to simulate immediate approval by adjusting tally and support values to force proposal passing. Scheduled calls are then redirected to ensure immediate execution
+- **State manipulation**: The referendum's storage is modified to simulate immediate approval by adjusting tally and support values to force proposal passing. Scheduled calls are then redirected to ensure immediate execution.
 
-- **Execution** - the script advances the chain to trigger the scheduled call execution. The specified call (e.g., `setCodeWithoutChecks`) is processed
+- **Execution**: The script advances the chain to trigger the scheduled call execution. The specified call (e.g., `setCodeWithoutChecks`) is processed.
 
 ## Summary
 
 In this tutorial, you've learned how to use Chopsticks to test OpenGov proposals on a local fork of the Polkadot network. You've set up a TypeScript project, connected to a local fork, submitted a proposal, and forced its execution for testing purposes. This process allows you to:
 
-- Safely experiment with different types of proposals
-- Test the effects of proposals without affecting the live network
-- Rapidly iterate and debug your governance ideas
+- Safely experiment with different types of proposals.
+- Test the effects of proposals without affecting the live network.
+- Rapidly iterate and debug your governance ideas.
 
 Using these techniques, you can develop and refine your proposals before submitting them to the Polkadot network, ensuring they're well-tested and likely to achieve their intended effects.
 

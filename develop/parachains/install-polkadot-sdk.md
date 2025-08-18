@@ -1,6 +1,7 @@
 ---
 title: Install Polkadot SDK Dependencies
 description: Install everything you need to begin working with Substrated-based blockchains and the Polkadot SDK, the framework for building blockchains.
+categories: Basics, Tooling
 ---
 
 # Install Polkadot SDK Dependencies
@@ -15,11 +16,11 @@ You can install Rust and set up a Substrate development environment on Apple mac
 
 Before you install Rust and set up your development environment on macOS, verify that your computer meets the following basic requirements:
 
-- Operating system version is 10.7 Lion or later
-- Processor speed of at least 2 GHz. Note that 3 GHz is recommended
-- Memory of at least 8 GB RAM. Note that 16 GB is recommended
-- Storage of at least 10 GB of available space
-- Broadband Internet connection
+- Operating system version is 10.7 Lion or later.
+- Processor speed of at least 2 GHz. Note that 3 GHz is recommended.
+- Memory of at least 8 GB RAM. Note that 16 GB is recommended.
+- Storage of at least 10 GB of available space.
+- Broadband Internet connection.
 
 #### Install Homebrew
 
@@ -27,8 +28,7 @@ In most cases, you should use Homebrew to install and manage packages on macOS c
 
 To install Homebrew:
 
-1. Open the Terminal application
-
+1. Open the Terminal application.
 2. Download and install Homebrew by running the following command:
 
     ```bash
@@ -59,8 +59,7 @@ Because the blockchain requires standard cryptography to support the generation 
 
 To install `openssl` and the Rust toolchain on macOS:
 
-1. Open the Terminal application
-
+1. Open the Terminal application.
 2. Ensure you have an updated version of Homebrew by running the following command:
 
     ```bash
@@ -73,23 +72,20 @@ To install `openssl` and the Rust toolchain on macOS:
     brew install openssl
     ```
 
-4. Download the `rustup` installation program and use it to install Rust by running the following
-   command:
+4. Download the `rustup` installation program and use it to install Rust by running the following command:
 
     ```bash
     curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
     ```
 
-5. Follow the prompts displayed to proceed with a default installation
-
+5. Follow the prompts displayed to proceed with a default installation.
 6. Update your current shell to include Cargo by running the following command:
 
     ```bash
     source ~/.cargo/env
     ```
 
-7. Configure the Rust toolchain to default to the latest stable version by running the following
-   commands:
+7. Configure the Rust toolchain to default to the latest stable version by running the following commands:
 
     ```bash
     rustup default stable
@@ -98,8 +94,7 @@ To install `openssl` and the Rust toolchain on macOS:
     rustup component add rust-src
     ```
 
-8. [Verify your installation](#verifying-installation)
-
+8. [Verify your installation](#verifying-installation).
 9. Install `cmake` using the following command:
 
     ```bash
@@ -130,10 +125,8 @@ Because the blockchain requires standard cryptography to support the generation 
 
 To install the Rust toolchain on Linux:
 
-1. Open a terminal shell
-
-2. Check the packages you have installed on the local computer by running an appropriate package management command for your Linux distribution
-
+1. Open a terminal shell.
+2. Check the packages you have installed on the local computer by running an appropriate package management command for your Linux distribution.
 3. Add any package dependencies you are missing to your local development environment by running the appropriate package management command for your Linux distribution:
 
     === "Ubuntu"
@@ -175,8 +168,7 @@ To install the Rust toolchain on Linux:
     curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
     ```
 
-5. Follow the prompts displayed to proceed with a default installation
-
+5. Follow the prompts displayed to proceed with a default installation.
 6. Update your current shell to include Cargo by running the following command:
 
     ```bash
@@ -198,7 +190,7 @@ To install the Rust toolchain on Linux:
     rustup component add rust-src
     ```
 
-9.  [Verify your installation](#verifying-installation)
+9. [Verify your installation](#verifying-installation).
 
 ## Windows (WSL)
 
@@ -211,9 +203,9 @@ However, suppose your local computer uses Microsoft Windows instead of a UNIX-ba
 Before installing on Microsoft Windows, verify the following basic requirements:
 
 - You have a computer running a supported Microsoft Windows operating system:
-    - **For Windows desktop** - you must be running Microsoft Windows 10, version 2004 or later, or Microsoft Windows 11 to install WSL
-    - **For Windows server** - you must be running Microsoft Windows Server 2019, or later, to install WSL on a server operating system
-- You have good internet connection and access to a shell terminal on your local computer
+    - **For Windows desktop**: You must be running Microsoft Windows 10, version 2004 or later, or Microsoft Windows 11 to install WSL.
+    - **For Windows server**: You must be running Microsoft Windows Server 2019, or later, to install WSL on a server operating system.
+- You have good internet connection and access to a shell terminal on your local computer.
 
 ### Set Up Windows Subsystem for Linux
 
@@ -225,9 +217,9 @@ To prepare a development environment using WSL:
 
     If you have Microsoft Windows 10, version 2004 (Build 19041 and higher), or Microsoft Windows 11, WSL is available by default and you can continue to the next step.
 
-    If you have an older version of Microsoft Windows installed, see the [WSL manual installation steps for older versions](https://learn.microsoft.com/en-us/windows/wsl/install-manual){target=\_blank}. If you are installing on an older version of Microsoft Windows, you can download and install WLS 2 if your computer has Windows 10, version 1903 or higher
+    If you have an older version of Microsoft Windows installed, see the [WSL manual installation steps for older versions](https://learn.microsoft.com/en-us/windows/wsl/install-manual){target=\_blank}. If you are installing on an older version of Microsoft Windows, you can download and install WLS 2 if your computer has Windows 10, version 1903 or higher.
 
-2. Select **Windows PowerShell** or **Command Prompt** from the **Start** menu, right-click, then **Run as administrator**
+2. Select **Windows PowerShell** or **Command Prompt** from the **Start** menu, right-click, then **Run as administrator**.
 
 3. In the PowerShell or Command Prompt terminal, run the following command:
 
@@ -243,25 +235,21 @@ To prepare a development environment using WSL:
     wsl --list --online
     ```
 
-4. After the distribution is downloaded, close the terminal
+4. After the distribution is downloaded, close the terminal.
 
-5. Click the **Start** menu, select **Shut down or sign out**, then click **Restart** to restart the
-   computer.
+5. Click the **Start** menu, select **Shut down or sign out**, then click **Restart** to restart the computer.
 
     Restarting the computer is required to start the installation of the Linux distribution. It can take a few minutes for the installation to complete after you restart.
 
-    For more information about setting up WSL as a development environment, see the [Set up a WSL development environment](https://learn.microsoft.com/en-us/windows/wsl/setup/environment){target=\_blank} docs
+    For more information about setting up WSL as a development environment, see the [Set up a WSL development environment](https://learn.microsoft.com/en-us/windows/wsl/setup/environment){target=\_blank} docs.
 
 ### Install Required Packages and Rust {: #install-required-packages-and-rust-windows }
 
 To install the Rust toolchain on WSL:
 
-1. Click the **Start** menu, then select **Ubuntu**
-
-2. Type a UNIX user name to create user account
-
-3. Type a password for your UNIX user, then retype the password to confirm it
-
+1. Click the **Start** menu, then select **Ubuntu**.
+2. Type a UNIX user name to create user account.
+3. Type a password for your UNIX user, then retype the password to confirm it.
 4. Download the latest updates for the Ubuntu distribution using the Ubuntu Advanced Packaging Tool (`apt`) by running the following command:
 
     ```bash
@@ -280,7 +268,7 @@ To install the Rust toolchain on WSL:
     curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
     ```
 
-7. Follow the prompts displayed to proceed with a default installation
+7. Follow the prompts displayed to proceed with a default installation.
 
 8. Update your current shell to include Cargo by running the following command:
 
@@ -303,7 +291,7 @@ To install the Rust toolchain on WSL:
     rustup component add rust-src
     ```
 
-11. [Verify your installation](#verifying-installation)
+11. [Verify your installation](#verifying-installation).
 
 ## Verifying Installation
 
@@ -319,4 +307,4 @@ The command displays output similar to the following:
 
 ## Where to Go Next
 
-- [Parachain Zero to Hero Tutorials](/tutorials/polkadot-sdk/parachains/zero-to-hero/){target=\_blank} - a series of step-by-step guides to building, testing, and deploying custom pallets and runtimes using the Polkadot SDK
+- **[Parachain Zero to Hero Tutorials](/tutorials/polkadot-sdk/parachains/zero-to-hero/){target=\_blank}**: A series of step-by-step guides to building, testing, and deploying custom pallets and runtimes using the Polkadot SDK.

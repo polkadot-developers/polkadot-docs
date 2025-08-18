@@ -2,6 +2,7 @@
 title: Obtain Coretime
 description: Learn how to obtain coretime for block production with this guide, covering both on-demand and bulk options for smooth operations.
 tutorial_badge: Advanced
+categories: Parachains
 ---
 
 ## Introduction
@@ -10,24 +11,24 @@ After deploying a parachain to the Paseo TestNet in the [Deploy to TestNet](/tut
 
 There are two ways to obtain coretime:
 
-- **[On-demand coretime](#order-on-demand-coretime)** - on-demand coretime allows you to buy coretime on a block-by-block basis
-- **[Bulk coretime](#purchase-bulk-coretime)** - bulk coretime allows you to obtain a core or part of a core. It is purchased for some time, up to 28 days. It must be renewed once the lease finishes
+- **[On-demand coretime](#order-on-demand-coretime)**: On-demand coretime allows you to buy coretime on a block-by-block basis.
+- **[Bulk coretime](#purchase-bulk-coretime)**: Bulk coretime allows you to obtain a core or part of a core. It is purchased for some time, up to 28 days. It must be renewed once the lease finishes.
 
 In this tutorial, you will:
 
-- Learn about the different coretime interfaces available
-- Learn how to purchase a core via bulk coretime
-- Assign a task / parachain to the core for block production
-- Alternatively, use on-demand coretime to produce blocks as required
+- Learn about the different coretime interfaces available.
+- Learn how to purchase a core via bulk coretime.
+- Assign a task / parachain to the core for block production.
+- Alternatively, use on-demand coretime to produce blocks as required.
 
 ## Prerequisites 
 
 Before proceeding, you should have the following items:
 
-- A parachain ID
-- A chain specification
-- A registered parathread with the correct genesis, runtime, and parachain ID that matches the chain specification
-- A properly configured and synced (with the relay chain) collator
+- A parachain ID.
+- A chain specification.
+- A registered parathread with the correct genesis, runtime, and parachain ID that matches the chain specification.
+- A properly configured and synced (with the relay chain) collator.
 
 Once the above is complete, obtaining coretime is the last step to enable your parachain to start producing and finalizing blocks using the relay chain's validator set. If you don't, refer to the previous tutorial: [Deploy on Paseo TestNet](/tutorials/polkadot-sdk/parachains/zero-to-hero/deploy-to-testnet/){target=\_blank}.
 
@@ -35,8 +36,8 @@ Once the above is complete, obtaining coretime is the last step to enable your p
 
 There are two extrinsics which allow you to place orders for on-demand coretime:
 
-- [**`onDemand.placeOrderAllowDeath`**](https://paritytech.github.io/polkadot-sdk/master/polkadot_runtime_parachains/on_demand/pallet/dispatchables/fn.place_order_allow_death.html){target=\_blank} - will [reap](https://wiki.polkadot.network/learn/learn-accounts/#existential-deposit-and-reaping){target=\_blank} the account once the provided funds run out
-- [**`onDemand.placeOrderKeepAlive`**](https://paritytech.github.io/polkadot-sdk/master/polkadot_runtime_parachains/on_demand/pallet/dispatchables/fn.place_order_keep_alive.html){target=\_blank} - includes a check that will **not** reap the account if the provided funds run out, ensuring the account is kept alive
+- **[`onDemand.placeOrderAllowDeath`](https://paritytech.github.io/polkadot-sdk/master/polkadot_runtime_parachains/on_demand/pallet/dispatchables/fn.place_order_allow_death.html){target=\_blank}**: Will [reap](https://wiki.polkadot.network/learn/learn-accounts/#existential-deposit-and-reaping){target=\_blank} the account once the provided funds run out.
+- **[`onDemand.placeOrderKeepAlive`](https://paritytech.github.io/polkadot-sdk/master/polkadot_runtime_parachains/on_demand/pallet/dispatchables/fn.place_order_keep_alive.html){target=\_blank}**: Includes a check that will **not** reap the account if the provided funds run out, ensuring the account is kept alive.
 
 To produce a block in your parachain, navigate to Polkadot.js Apps and ensure you're connected to the Paseo relay chain. Then, access the [**Developer > Extrinsics**](https://polkadot.js.org/apps/#/extrinsics){target=\_blank} tab and execute the `onDemand.placeOrderAllowDeath` extrinsic from the account that registered the `ParaID`. For this example, `maxAmount` is set to `1000000000000` (this value may vary depending on the network conditions), and `paraId` is set to `4518`:
 

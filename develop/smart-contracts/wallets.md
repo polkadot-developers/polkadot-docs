@@ -1,6 +1,7 @@
 ---
 title: Wallets for Polkadot Hub
 description: Comprehensive guide to connecting and managing wallets for Polkadot Hub, covering step-by-step instructions for interacting with the ecosystem.
+categories: Smart Contracts, Tooling
 ---
 
 # Wallets for Polkadot Hub
@@ -82,7 +83,7 @@ To use Talisman with Polkadot Hub TestNet:
 
 1. Install the [Talisman extension](https://talisman.xyz/download){target=\_blank} and set up your wallet by following the on-screen instructions.
 
-2. Once installed, click on the Talisman icon in your browser extensions and click on the **Settings** button:
+2. Once installed, click on the Talisman icon in your browser extensions and click on the **Settings** button.
 
     ![](/images/develop/smart-contracts/wallets/wallets-5.webp){: .browser-extension}
 

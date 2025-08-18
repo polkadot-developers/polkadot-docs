@@ -32,6 +32,7 @@ You must also ensure the `lookahead` in [`schedulerParams`](https://paritytech.g
 This phase involves configuring your parachain's runtime `/runtime/src/lib.rs` to utilize an async backing system.
 
 1. Verify the constants for capacity ([`UNINCLUDED_SEGMENT_CAPACITY`](https://github.com/paritytech/polkadot-sdk/blob/b4b019e4db0ef47b0952638388eba4958e1c4004/templates/parachain/runtime/src/lib.rs#L229){target=\_blank}) and velocity ([`BLOCK_PROCESSING_VELOCITY`](https://github.com/paritytech/polkadot-sdk/blob/b4b019e4db0ef47b0952638388eba4958e1c4004/templates/parachain/runtime/src/lib.rs#L232){target=\_blank}) are both set to `1` in the runtime.
+
     - `UNINCLUDED_SEGMENT_CAPACITY` will be increased to `3` later in this guide.
 
 2. Verify the constant relay chain slot duration measured in milliseconds is equal to `6000` in the runtime.
@@ -41,6 +42,7 @@ This phase involves configuring your parachain's runtime `/runtime/src/lib.rs` t
     ```
 
 3. Verify the constants [`MILLISECS_PER_BLOCK`](https://github.com/paritytech/polkadot-sdk/blob/b4b019e4db0ef47b0952638388eba4958e1c4004/templates/parachain/runtime/src/lib.rs#L189){target=\_blank} and [`SLOT_DURATION`](https://github.com/paritytech/polkadot-sdk/blob/b4b019e4db0ef47b0952638388eba4958e1c4004/templates/parachain/runtime/src/lib.rs#L193){target=\_blank} are present in the runtime.
+
     - `MILLISECS_PER_BLOCK` will be decreased to `6000` later in this guide.
 
     ```rust title="lib.rs"
@@ -49,30 +51,35 @@ This phase involves configuring your parachain's runtime `/runtime/src/lib.rs` t
 
 4. Configure [`cumulus_pallet_parachain_system`](https://paritytech.github.io/polkadot-sdk/master/cumulus_pallet_parachain_system/index.html){target=\_blank} in the runtime using the following steps:
 
-    a. Define a [`FixedVelocityConsensusHook`](https://paritytech.github.io/polkadot-sdk/master/cumulus_pallet_aura_ext/consensus_hook/struct.FixedVelocityConsensusHook.html){target=\_blank} using our capacity, velocity, and relay slot duration constants. 
-    ```rust title="lib.rs"
-    --8<-- 'code/develop/parachains/maintenance/configure-asynchronous-backing/lib-03.rs'
-    ```
+    a. Define a [`FixedVelocityConsensusHook`](https://paritytech.github.io/polkadot-sdk/master/cumulus_pallet_aura_ext/consensus_hook/struct.FixedVelocityConsensusHook.html){target=\_blank} using our capacity, velocity, and relay slot duration constants.
+
+        ```rust title="lib.rs"
+        --8<-- 'code/develop/parachains/maintenance/configure-asynchronous-backing/lib-03.rs'
+        ```
 
     b. Use this to set the parachain system [`ConsensusHook`](https://paritytech.github.io/polkadot-sdk/master/cumulus_pallet_parachain_system/pallet/trait.Config.html#associatedtype.ConsensusHook){target=\_blank} property.
-    ```rust title="lib.rs"
-    --8<-- 'code/develop/parachains/maintenance/configure-asynchronous-backing/lib-04.rs'
-    ```
+
+        ```rust title="lib.rs"
+        --8<-- 'code/develop/parachains/maintenance/configure-asynchronous-backing/lib-04.rs'
+        ```
 
     c. Set the parachain system property [`CheckAssociatedRelayNumber`](https://paritytech.github.io/polkadot-sdk/master/cumulus_pallet_parachain_system/pallet/trait.Config.html#associatedtype.CheckAssociatedRelayNumber){target=\_blank} to [`RelayNumberMonotonicallyIncreases`](https://paritytech.github.io/polkadot-sdk/master/cumulus_pallet_parachain_system/struct.RelayNumberMonotonicallyIncreases.html){target=\_blank}.
-    ```rust title="lib.rs"
-    --8<-- 'code/develop/parachains/maintenance/configure-asynchronous-backing/lib-05.rs'
-    ```
+
+        ```rust title="lib.rs"
+        --8<-- 'code/develop/parachains/maintenance/configure-asynchronous-backing/lib-05.rs'
+        ```
 
 5. Configure [`pallet_aura`](https://paritytech.github.io/polkadot-sdk/master/pallet_aura/index.html){target=\_blank} in the runtime to implement Authority Round (Aura) as follows:
 
     a. Set [`AllowMultipleBlocksPerSlot`](https://paritytech.github.io/polkadot-sdk/master/pallet_aura/pallet/trait.Config.html#associatedtype.AllowMultipleBlocksPerSlot){target=\_blank} to `false`.
+
         - This will be set to `true` when you activate async backing in phase 3.
 
     b. Define [`pallet_aura::SlotDuration`](https://paritytech.github.io/polkadot-sdk/master/pallet_aura/pallet/trait.Config.html#associatedtype.SlotDuration){target=\_blank} using our constant [`SLOT_DURATION`](https://github.com/polkadot-fellows/runtimes/blob/d49a9f33d0ea85ce51c26c84a70b61624ec06901/system-parachains/constants/src/lib.rs#L38-L40){target=\_blank}.
-    ```rust title="lib.rs"
-    --8<-- 'code/develop/parachains/maintenance/configure-asynchronous-backing/lib-06.rs'
-    ```
+
+        ```rust title="lib.rs"
+        --8<-- 'code/develop/parachains/maintenance/configure-asynchronous-backing/lib-06.rs'
+        ```
 
     !!! note
         Aura is a deterministic [consensus](/polkadot-protocol/glossary/#consensus){target=\_blank} protocol where block production is limited to a rotating list of authorities that take turns creating blocks and [`pallet_timestamp`](https://paritytech.github.io/polkadot-sdk/master/pallet_timestamp/index.html){target=\_blank} is used to track consensus rounds (via [`slots`](https://paritytech.github.io/polkadot-sdk/master/pallet_aura/pallet/trait.Config.html#associatedtype.SlotDuration){target=\_blank}).
@@ -86,17 +93,19 @@ This phase involves configuring your parachain's runtime `/runtime/src/lib.rs` t
 
 7. Implement the [`AuraUnincludedSegmentApi`](https://paritytech.github.io/polkadot-sdk/master/cumulus_primitives_aura/trait.AuraUnincludedSegmentApi.html){target=\_blank}, which allows the collator client to query its runtime to determine whether it should author a block using these steps:
 
-    a. Add the dependency [`cumulus-primitives-aura`](https://paritytech.github.io/polkadot-sdk/master/cumulus_primitives_aura/index.html){target=\_blank} to the `runtime/Cargo.toml` file for your runtime
-    ```rust title="Cargo.toml"
-    --8<-- 'code/develop/parachains/maintenance/configure-asynchronous-backing/Cargo.toml'
-    ```
+    a. Add the dependency [`cumulus-primitives-aura`](https://paritytech.github.io/polkadot-sdk/master/cumulus_primitives_aura/index.html){target=\_blank} to the `runtime/Cargo.toml` file for your runtime.
+
+        ```rust title="Cargo.toml"
+        --8<-- 'code/develop/parachains/maintenance/configure-asynchronous-backing/Cargo.toml'
+        ```
 
     b. In the same file, add `"cumulus-primitives-aura/std",` to the `std` feature.
 
     c. Inside the [`impl_runtime_apis!`](https://github.com/paritytech/polkadot-sdk/blob/6b17df5ae96f7970109ec3934c7d288f05baa23b/templates/parachain/runtime/src/apis.rs#L87-L91){target=\_blank} block for your runtime, implement the [`cumulus_primitives_aura::AuraUnincludedSegmentApi`](https://paritytech.github.io/polkadot-sdk/master/cumulus_primitives_aura/trait.AuraUnincludedSegmentApi.html){target=\_blank} as shown below.
-    ```rust title="apis.rs"
-	--8<-- 'code/develop/parachains/maintenance/configure-asynchronous-backing/apis-02.rs'
-    ```
+        
+        ```rust title="apis.rs"
+        --8<-- 'code/develop/parachains/maintenance/configure-asynchronous-backing/apis-02.rs'
+        ```
 
     !!!note
         With a capacity of 1, you have an effective velocity of ½, even when velocity is configured to a larger value. Capacity will be filled after a single block is produced and will only be freed up after that block is included on the relay chain, which takes two relay blocks to accomplish. Thus, with a capacity of 1 and a velocity of 1, you achieve the customary 12-second parachain block time.

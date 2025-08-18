@@ -1,6 +1,7 @@
 ---
 title: JSON-RPC APIs
 description: JSON-RPC APIs guide for Polkadot Hub, covering supported methods, parameters, and examples for interacting with the chain.
+categories: Reference
 ---
 
 # JSON-RPC APIs

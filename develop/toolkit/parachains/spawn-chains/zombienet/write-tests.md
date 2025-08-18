@@ -1,6 +1,7 @@
 ---
 title: Write Tests
 description: Write and execute tests for blockchain networks with Zombienet's DSL. Learn to evaluate metrics, logs, events, and more for robust validation.
+categories: Parachains, Tooling
 ---
 
 # Write Tests

@@ -1,6 +1,7 @@
 ---
 title: XCM Config
 description: Learn how the XCM Executor configuration works for your custom Polkadot SDK-based runtime with detailed guidance and references.
+categories: Reference, Polkadot Protocol
 ---
 
 # XCM Config

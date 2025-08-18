@@ -1,6 +1,6 @@
 ---
 title: Integrations
-description: Explore fundamental integrations in the Polkadot ecosystem, including indexers for querying blockchain data, oracles for external data, and wallets.
+description: Explore key Polkadot integrations like indexers, oracles, decentralized storage, and wallets to enhance your dApps and access external data.
 template: index-page.html
 ---
 

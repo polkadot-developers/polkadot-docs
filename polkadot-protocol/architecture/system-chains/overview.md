@@ -1,6 +1,7 @@
 ---
 title: Overview of Polkadot's System Chains
 description: Discover how system parachains enhance Polkadot's scalability and performance by offloading tasks like governance, asset management, and bridging from the relay chain.
+categories: Basics, Polkadot Protocol
 ---
 
 ## Introduction
@@ -48,8 +49,8 @@ flowchart TB
 
 All system parachains are on both Polkadot and Kusama with the following exceptions:
 
-- [**Collectives**](#collectives) - only on Polkadot
-- [**Encointer**](#encointer) - only on Kusama
+- **[Collectives](#collectives)**: Only on Polkadot
+- **[Encointer](#encointer)**: Only on Kusama
 
 ### Asset Hub
 

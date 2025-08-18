@@ -1,6 +1,7 @@
 ---
 title: Set Up Secure WebSocket
 description: Instructions on enabling SSL for your node and setting up a secure WebSocket proxy server using nginx for remote connections.
+categories: Infrastructure
 ---
 
 # Set Up Secure WebSocket
@@ -55,6 +56,7 @@ Apache2 can run in various modes, including `prefork`, `worker`, and `event`. In
     --8<-- 'code/infrastructure/running-a-node/setup-secure-wss/install-apache2.md'
 
 2. The [`mod_proxy_wstunnel`](https://httpd.apache.org/docs/2.4/mod/mod_proxy_wstunnel.html){target=\_blank} provides support for the tunneling of WebSocket connections to a backend WebSocket server. The connection is automatically upgraded to a WebSocket connection. In an SSL-enabled virtual host add:
+
     --8<-- 'code/infrastructure/running-a-node/setup-secure-wss/apache2-config.md'
 
     !!!warning 
@@ -82,7 +84,7 @@ Apache2 can run in various modes, including `prefork`, `worker`, and `event`. In
 
 ## Connect to the Node
 
-1. Open [Polkadot.js Apps interface](https://polkadot.js.org/apps){target=\_blank} and click the logo in the top left to switch the node
+1. Open [Polkadot.js Apps interface](https://polkadot.js.org/apps){target=\_blank} and click the logo in the top left to switch the node.
 2. Activate the **Development** toggle and input either your node's domain or IP address. Remember to prefix with `wss://` and, if you're using the 443 port, append `:443` as follows:
 
     ```bash

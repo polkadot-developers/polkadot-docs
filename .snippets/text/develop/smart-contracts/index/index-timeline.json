@@ -1,27 +1,27 @@
 [
     {
         "title": "Choose a Smart Contract Platform",
-        "content": "Select the platform that best fits your project requirements and development expertise: <br><br> - [**PolkaVM**](/develop/smart-contracts/overview#native-smart-contracts){target=_blank} - Native smart contracts on Polkadot Hub <br> - [**EVM (Parachain-based)**](/develop/smart-contracts/overview#parachain-contracts){target=_blank} - Ethereum Virtual Machine compatibility on parachains <br> - [**Rust (ink!)**](/develop/smart-contracts/overview#other-smart-contract-environments){target=_blank} - contracts using Rust and ink!",
+        "content": "Select the platform that best fits your project requirements and development expertise: <br><br> - [**PolkaVM**](/develop/smart-contracts/overview#native-smart-contracts){target=_blank}: Native smart contracts on Polkadot Hub <br> - [**EVM (parachain-based)**](/develop/smart-contracts/overview#parachain-contracts){target=_blank}: Ethereum Virtual Machine compatibility on parachains <br> - [**Rust (ink!)**](/develop/smart-contracts/overview#other-smart-contract-environments){target=_blank}: Contracts using Rust and ink!",
         "icon": ":fontawesome-solid-1:"
     },
     {
         "title": "Get Network Configuration Details",
-        "content": "Configure your development environment with the appropriate network settings for your chosen platform: <br><br> - **PolkaVM** - [Connect to Polkadot](/develop/smart-contracts/connect-to-polkadot/){target=_blank} <br> - **EVM** - [Moonbeam Documentation](https://docs.moonbeam.network/){target=_blank}, [Astar Documentation](https://docs.astar.network/){target=_blank}, [Acala Documentation](https://wiki.acala.network/){target=_blank} <br> - **Rust (ink!)** - for more information check the [ink! documentation](https://use.ink){target=_blank}",
+        "content": "Configure your development environment with the appropriate network settings for your chosen platform: <br><br> - **PolkaVM**: [Connect to Polkadot](/develop/smart-contracts/connect-to-polkadot/){target=_blank} <br> - **EVM**: [Moonbeam documentation](https://docs.moonbeam.network/){target=_blank}, [Astar documentation](https://docs.astar.network/){target=_blank}, [Acala documentation](https://wiki.acala.network/){target=_blank} <br> - **Rust (ink!)**: For more information, check the [ink! documentation](https://use.ink){target=_blank}",
         "icon": ":fontawesome-solid-2:"
     },
     {
         "title": "Set Up Your Development Environment",
-        "content": "Install and configure the necessary tools and frameworks for your chosen smart contract platform: <br><br> - **PolkaVM/EVM** - [Development Environments](/develop/smart-contracts/dev-environments/){target=_blank} <br> - **Rust (ink!)** - [Development Environment Setup](https://use.ink/getting-started/setup){target=_blank}",
+        "content": "Install and configure the necessary tools and frameworks for your chosen smart contract platform: <br><br> - **PolkaVM/EVM**: [Development Environments](/develop/smart-contracts/dev-environments/){target=_blank} <br> - **Rust (ink!)**: [Development Environment Setup](https://use.ink/getting-started/setup){target=_blank}",
         "icon": ":fontawesome-solid-3:"
     },
     {
         "title": "Write, Compile, Test, and Deploy Your Contracts",
-        "content": "Develop your smart contracts, test their functionality, and deploy them to your chosen network: <br><br> - **PolkaVM/EVM** - [Solidity Development Guide](https://docs.soliditylang.org/en/v0.8.29/introduction-to-smart-contracts.html){target=_blank} <br> - **Rust (ink!)** - [ink! Contract Structure](https://use.ink/basics/contract-template#librs){target=_blank}",
+        "content": "Develop your smart contracts, test their functionality, and deploy them to your chosen network: <br><br> - **PolkaVM/EVM**: [Solidity Development Guide](https://docs.soliditylang.org/en/v0.8.29/introduction-to-smart-contracts.html){target=_blank} <br> - **Rust (ink!)**: [ink! Contract Structure](https://use.ink/basics/contract-template#librs){target=_blank}",
         "icon": ":fontawesome-solid-4:"
     },
     {
         "title": "Interact With Your Deployed Contracts",
-        "content": "Utilize libraries and tools to interact with your deployed smart contracts and integrate them into applications: <br><br> - **PolkaVM/EVM** - [Contract Libraries](/develop/smart-contracts/libraries/) <br> - **Rust (ink!)** - [Contract Interaction](https://use.ink/getting-started/calling-your-contract){target=_blank}",
+        "content": "Utilize libraries and tools to interact with your deployed smart contracts and integrate them into applications: <br><br> - **PolkaVM/EVM**: [Contract Libraries](/develop/smart-contracts/libraries/) <br> - **Rust (ink!)**: [Contract Interaction](https://use.ink/getting-started/calling-your-contract){target=_blank}",
         "icon": ":fontawesome-solid-5:"
     }
 ]

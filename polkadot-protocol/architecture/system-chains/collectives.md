@@ -1,6 +1,7 @@
 ---
 title: Collectives Chain
 description: Learn how the Collectives chain provides infrastructure for governance organizations, enabling decentralized network stewardship and decision-making.
+categories: Polkadot Protocol
 ---
 
 ## Introduction

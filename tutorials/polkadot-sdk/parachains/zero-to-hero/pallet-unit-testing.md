@@ -2,6 +2,7 @@
 title: Pallet Unit Testing
 description: Discover how to create thorough unit tests for pallets built with the Polkadot SDK, using a custom pallet as a practical example.
 tutorial_badge: Intermediate
+categories: Parachains
 ---
 
 # Pallet Unit Testing
@@ -16,16 +17,16 @@ This tutorial will guide you through creating a unit testing suite for a custom 
 
 To set up your testing environment for Polkadot SDK pallets, you'll need:
 
-- [Polkadot SDK dependencies](/develop/parachains/install-polkadot-sdk/){target=\_blank} installed
-- Basic understanding of Substrate/Polkadot SDK concepts
-- A custom pallet implementation, check the [Build a Custom Pallet](/tutorials/polkadot-sdk/parachains/zero-to-hero/build-custom-pallet/){target=\_blank} tutorial
-- Familiarity with [Rust testing frameworks](https://doc.rust-lang.org/book/ch11-01-writing-tests.html){target=\_blank}
+- [Polkadot SDK dependencies](/develop/parachains/install-polkadot-sdk/){target=\_blank} installed.
+- Basic understanding of Substrate/Polkadot SDK concepts.
+- A custom pallet implementation, check the [Build a Custom Pallet](/tutorials/polkadot-sdk/parachains/zero-to-hero/build-custom-pallet/){target=\_blank} tutorial.
+- Familiarity with [Rust testing frameworks](https://doc.rust-lang.org/book/ch11-01-writing-tests.html){target=\_blank}.
 
 ## Set Up the Testing Environment
 
 To effectively create the test environment for your pallet, you'll need to follow these steps:
 
-1. Move to the project directory
+1. Move to the project directory:
 
     ```bash
     cd custom-pallet
@@ -61,9 +62,9 @@ Once you have your mock runtime set up, you can customize it by implementing the
 
 Explanation of the additions:
 
-- **System pallet configuration** - implements the `frame_system::Config` trait for the mock runtime, setting up the basic system functionality and specifying the block type
-- **Custom pallet configuration** - defines the `Config` trait for the `custom-pallet`, including a constant (`CounterMaxValue`) to set the maximum allowed counter value. In this case, that value is set to 10 for testing purposes
-- **Test externalities initialization** - the `new_test_ext()` function initializes the mock runtime with default configurations, creating a controlled environment for testing
+- **System pallet configuration**: Implements the `frame_system::Config` trait for the mock runtime, setting up the basic system functionality and specifying the block type.
+- **Custom pallet configuration**: Defines the `Config` trait for the `custom-pallet`, including a constant (`CounterMaxValue`) to set the maximum allowed counter value. In this case, that value is set to 10 for testing purposes.
+- **Test externalities initialization**: The `new_test_ext()` function initializes the mock runtime with default configurations, creating a controlled environment for testing.
 
 ### Full Mocked Runtime
 

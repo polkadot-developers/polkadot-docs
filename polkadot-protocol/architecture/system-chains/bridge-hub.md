@@ -1,6 +1,7 @@
 ---
 title: Bridge Hub
 description: Learn about the Bridge Hub system parachain, a parachain that facilitates the interactions from Polkadot to the rest of Web3.
+categories: Polkadot Protocol
 ---
 
 # Bridge Hub
@@ -23,10 +24,10 @@ For example, the Ethereum and Polkadot bridging solution that [Snowbridge](https
 
 In any given Bridge Hub implementation (Kusama, Polkadot, or other relay chains), there are a few primary pallets that are utilized:
 
-- [**Pallet Bridge GRANDPA**](https://paritytech.github.io/polkadot-sdk/master/pallet_bridge_grandpa/index.html){target=\_blank} - an on-chain GRANDPA light client for Substrate based chains
-- [**Pallet Bridge Parachains**](https://paritytech.github.io/polkadot-sdk/master/pallet_bridge_parachains/index.html){target=\_blank} - a finality module for parachains
-- [**Pallet Bridge Messages**](https://paritytech.github.io/polkadot-sdk/master/pallet_bridge_messages/index.html){target=\_blank} - a pallet which allows sending, receiving, and tracking of inbound and outbound messages 
-- [**Pallet XCM Bridge**](https://paritytech.github.io/polkadot-sdk/master/pallet_xcm_bridge_hub/index.html){target=\_blank} - a pallet which, with the Bridge Messages pallet, adds XCM support to bridge pallets
+- **[Pallet Bridge GRANDPA](https://paritytech.github.io/polkadot-sdk/master/pallet_bridge_grandpa/index.html){target=\_blank}**: An on-chain GRANDPA light client for Substrate based chains.
+- **[Pallet Bridge Parachains](https://paritytech.github.io/polkadot-sdk/master/pallet_bridge_parachains/index.html){target=\_blank}**: A finality module for parachains.
+- **[Pallet Bridge Messages](https://paritytech.github.io/polkadot-sdk/master/pallet_bridge_messages/index.html){target=\_blank}**: A pallet which allows sending, receiving, and tracking of inbound and outbound messages.
+- **[Pallet XCM Bridge](https://paritytech.github.io/polkadot-sdk/master/pallet_xcm_bridge_hub/index.html){target=\_blank}**: A pallet which, with the Bridge Messages pallet, adds XCM support to bridge pallets.
 
 ### Ethereum-Specific Support
 
@@ -42,6 +43,6 @@ To view the complete list of which pallets are included in Bridge Hub, visit the
 
 ## Where to Go Next
 
-- Go over the Bridge Hub README in the Polkadot SDK [Bridge-hub Parachains](https://github.com/paritytech/polkadot-sdk/blob/{{dependencies.repositories.polkadot_sdk.version}}/cumulus/parachains/runtimes/bridge-hubs/README.md){target=\_blank} repository
-- Take a deeper dive into bridging architecture in the Polkadot SDK [High-Level Bridge](https://github.com/paritytech/polkadot-sdk/blob/{{dependencies.repositories.polkadot_sdk.version}}/bridges/docs/high-level-overview.md){target=\_blank} documentation
-- Read more about BEEFY and Bridging in the Polkadot Wiki: [Bridging: BEEFY](/polkadot-protocol/architecture/polkadot-chain/pos-consensus/#bridging-beefy){target=\_blank}
+- Go over the Bridge Hub README in the Polkadot SDK [Bridge-hub Parachains](https://github.com/paritytech/polkadot-sdk/blob/{{dependencies.repositories.polkadot_sdk.version}}/cumulus/parachains/runtimes/bridge-hubs/README.md){target=\_blank} repository.
+- Take a deeper dive into bridging architecture in the Polkadot SDK [High-Level Bridge](https://github.com/paritytech/polkadot-sdk/blob/{{dependencies.repositories.polkadot_sdk.version}}/bridges/docs/high-level-overview.md){target=\_blank} documentation.
+- Read more about [BEEFY and Bridging in the Polkadot Wiki](/polkadot-protocol/architecture/polkadot-chain/pos-consensus/#bridging-beefy){target=\_blank}.

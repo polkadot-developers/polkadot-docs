@@ -1,6 +1,7 @@
 ---
 title: Rewards Payout
 description: Learn how validator rewards work on the network, including era points, payout distribution, running multiple validators, and nominator payments.
+categories: Infrastructure
 ---
 
 # Rewards Payout
@@ -15,10 +16,10 @@ This guide explains the payout scheme, factors influencing rewards, and how mult
 
 The Polkadot ecosystem measures its reward cycles in a unit called an era. Kusama eras are approximately 6 hours long, and Polkadot eras are 24 hours long. At the end of each era, validators are paid proportionally to the amount of [era points](/infrastructure/staking-mechanics/rewards-payout/#era-points){target=\_blank} they have collected. Era points are reward points earned for payable actions like:
 
-- Issuing validity statements for [parachain blocks](/polkadot-protocol/parachain-basics/blocks-transactions-fees/blocks/){target=\_blank}
-- Producing a non-uncle block in the relay chain
-- Producing a reference to a previously unreferenced uncle block
-- Producing a referenced uncle block
+- Issuing validity statements for [parachain blocks](/polkadot-protocol/parachain-basics/blocks-transactions-fees/blocks/){target=\_blank}.
+- Producing a non-uncle block in the relay chain.
+- Producing a reference to a previously unreferenced uncle block.
+- Producing a referenced uncle block.
 
 An uncle block is a relay chain block that is valid in every regard but has failed to become canonical. This can happen when two or more validators are block producers in a single slot, and the block produced by one validator reaches the next block producer before the others. The lagging blocks are called uncle blocks.
 
@@ -28,9 +29,9 @@ Rewards in Polkadot and Kusama staking systems can fluctuate due to differences 
 
 To illustrate this relationship:
 
-- Para-validator era points tend to have a higher impact on the expected value of staking rewards compared to non-para-validator points
-- The variance in staking rewards increases as the total number of validators grows relative to the number of para-validators
-- In simpler terms, when more validators are added to the active set without increasing the para-validator pool, the disparity in rewards between validators becomes more pronounced
+- Para-validator era points tend to have a higher impact on the expected value of staking rewards compared to non-para-validator points.
+- The variance in staking rewards increases as the total number of validators grows relative to the number of para-validators.
+- In simpler terms, when more validators are added to the active set without increasing the para-validator pool, the disparity in rewards between validators becomes more pronounced.
 
 However, despite this increased variance, rewards tend to even out over time due to the continuous rotation of para-validators across eras. The network's design ensures that over multiple eras, each validator has an equal opportunity to participate in para-validation, eventually leading to a balanced distribution of rewards.
 

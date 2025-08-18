@@ -1,6 +1,7 @@
 ---
 title: Randomness
 description: Explore the importance of randomness in PoS blockchains, focusing on Polkadot’s VRF-based approach to ensure fairness and security in validator selection.
+categories: Basics, Polkadot Protocol
 ---
 
 # Randomness
@@ -27,9 +28,9 @@ Slots on Polkadot are discrete units of time, each lasting six seconds, and can 
 
 In each slot, validators execute a "die roll" using a VRF. The VRF uses three inputs:
 
-1. A "secret key," unique to each validator, is used for the die roll
-2. An epoch randomness value, derived from the hash of VRF outputs from blocks two epochs ago (N-2), so past randomness influences the current epoch (N)
-3. The current slot number
+1. A "secret key," unique to each validator, is used for the die roll.
+2. An epoch randomness value, derived from the hash of VRF outputs from blocks two epochs ago (N-2), so past randomness influences the current epoch (N).
+3. The current slot number.
 
 This process helps maintain fair randomness across the network.
 

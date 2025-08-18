@@ -1,6 +1,7 @@
 ---
 title: Wallets
 description: Explore blockchain wallets. Securely manage digital assets with hot wallets for online access or cold wallets for offline, enhanced security.
+categories: Tooling, Dapps
 ---
 
 # Wallets
@@ -11,8 +12,8 @@ A wallet serves as your gateway to interacting with blockchain networks. Rather 
 
 Wallet types fall into two categories based on their connection to the internet:
 
-- [**Hot wallets**](#hot-wallets) - online storage through websites, browser extensions or smartphone apps
-- [**Cold wallets**](#cold-wallets) - offline storage using hardware devices or air-gapped systems
+- **[Hot wallets](#hot-wallets)**: Online storage through websites, browser extensions or smartphone apps.
+- **[Cold wallets](#cold-wallets)**: Offline storage using hardware devices or air-gapped systems.
 
 ## Hot Wallets
 

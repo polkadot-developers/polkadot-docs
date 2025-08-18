@@ -386,7 +386,7 @@ Paseo is a decentralised, community run, stable testnet for parachain and dapp d
 
 ## Additional Resources
 
-- **[Polkadot Fellowship runtimes repository](https://github.com/polkadot-fellows/runtimes){target=\_blank}**: Find a collection of runtimes for Polkadot, Kusama, and their system-parachains as maintained by the community via the [Polkadot Technical Fellowship](https://wiki.polkadot.network/learn/learn-polkadot-technical-fellowship/){target=\_blank}.
+- [**Polkadot Fellowship runtimes repository**](https://github.com/polkadot-fellows/runtimes){target=\_blank} - find a collection of runtimes for Polkadot, Kusama, and their system-parachains as maintained by the community via the [Polkadot Technical Fellowship](https://wiki.polkadot.com/learn/learn-polkadot-technical-fellowship/){target=\_blank}
 --- END CONTENT ---
 
 Doc-Content: https://docs.polkadot.com/polkadot-protocol/parachain-basics/networks/
@@ -440,7 +440,7 @@ Development and testing are crucial to building robust dApps and parachains and 
 
 Kusama is the experimental version of Polkadot, designed for developers who want to move quickly and test their applications in a real-world environment with economic incentives. Kusama serves as a production-grade testing ground where developers can deploy features and upgrades with the pressure of game theory and economics in mind. It mirrors Polkadot but operates as a more flexible space for innovation.
 
-The native token for Kusama is KSM. For more information about KSM, visit the [Native Assets](https://wiki.polkadot.network/learn/learn-dot/#kusama){target=\_blank} page.
+The native token for Kusama is KSM. For more information about KSM, visit the [Native Assets](https://guide.kusama.network/docs/learn-DOT#kusama-tokens){target=\_blank} page.
 
 ## Test Networks
 
@@ -450,13 +450,13 @@ The following test networks provide controlled environments for testing upgrades
 
 Westend is Polkadot's primary permanent TestNet. Unlike temporary test networks, Westend is not reset to the genesis block, making it an ongoing environment for testing Polkadot core features. Managed by Parity Technologies, Westend ensures that developers can test features in a real-world simulation without using actual tokens.
 
-The native token for Westend is WND. More details about WND can be found on the [Native Assets](https://wiki.polkadot.network/learn/learn-dot/#getting-tokens-on-the-westend-testnet){target=\_blank} page.
+The native token for Westend is WND. More details about WND can be found on the [Native Assets](https://wiki.polkadot.com/learn/learn-dot/#__tabbed_2_2){target=\_blank} page.
 
 ### Paseo
 
 [Paseo](https://github.com/paseo-network){target=\_blank} is a community-managed TestNet designed for parachain and dApp developers. It mirrors Polkadot's runtime and is maintained by Polkadot community members. Paseo provides a dedicated space for parachain developers to test their applications in a Polkadot-like environment without the risks associated with live networks.
 
-The native token for Paseo is PAS. Additional information on PAS is available on the [Native Assets](https://wiki.polkadot.network/learn/learn-dot/#getting-tokens-on-the-paseo-testnet){target=\_blank} page.
+The native token for Paseo is PAS. Additional information on PAS is available on the [Native Assets](https://wiki.polkadot.com/learn/learn-dot/#__tabbed_2_1){target=\_blank} page.
 
 ## Local Test Networks
 
@@ -713,7 +713,7 @@ For further information about the `send` extrinsic, see the [`pallet-xcm` docume
 
 The [`XcmRouter`](https://paritytech.github.io/polkadot-sdk/master/pallet_xcm/pallet/trait.Config.html#associatedtype.XcmRouter){target=\_blank} is a critical component the XCM pallet requires to facilitate sending XCM messages. It defines where messages can be sent and determines the appropriate XCM transport protocol for the operation.
 
-For instance, the Kusama network employs the [`ChildParachainRouter`](https://paritytech.github.io/polkadot-sdk/master/polkadot_runtime_common/xcm_sender/struct.ChildParachainRouter.html){target=\_blank}, which restricts routing to [Downward Message Passing (DMP)](https://wiki.polkadot.network/learn/learn-xcm-transport/#dmp-downward-message-passing){target=\_blank} from the relay chain to parachains, ensuring secure and controlled communication.
+For instance, the Kusama network employs the [`ChildParachainRouter`](https://paritytech.github.io/polkadot-sdk/master/polkadot_runtime_common/xcm_sender/struct.ChildParachainRouter.html){target=\_blank}, which restricts routing to [Downward Message Passing (DMP)](https://wiki.polkadot.com/learn/learn-xcm-transport/#dmp-downward-message-passing){target=\_blank} from the relay chain to parachains, ensuring secure and controlled communication.
 
 ```rust
 pub type XcmRouter = WithUniqueTopic<(
@@ -1331,7 +1331,7 @@ Paseo is a decentralised, community run, stable testnet for parachain and dapp d
 
 ## Additional Resources
 
-- **[Polkadot Fellowship runtimes repository](https://github.com/polkadot-fellows/runtimes){target=\_blank}**: Find a collection of runtimes for Polkadot, Kusama, and their system-parachains as maintained by the community via the [Polkadot Technical Fellowship](https://wiki.polkadot.network/learn/learn-polkadot-technical-fellowship/){target=\_blank}.
+- [**Polkadot Fellowship runtimes repository**](https://github.com/polkadot-fellows/runtimes){target=\_blank} - find a collection of runtimes for Polkadot, Kusama, and their system-parachains as maintained by the community via the [Polkadot Technical Fellowship](https://wiki.polkadot.com/learn/learn-polkadot-technical-fellowship/){target=\_blank}
 --- END CONTENT ---
 
 Doc-Content: https://docs.polkadot.com/develop/parachains/customize-parachain/overview/
@@ -3963,7 +3963,7 @@ When running the template node, it's accessible by default at `ws://localhost:99
     
     ![](/images/tutorials/polkadot-sdk/parachains/zero-to-hero/set-up-a-template/set-up-a-template-3.webp)
 
-You are now connected to your local node and can now interact with it through the Polkadot.js Apps interface. This tool enables you to explore blocks, execute transactions, and interact with your blockchain's features. For in-depth guidance on using the interface effectively, refer to the [Polkadot.js Guides](https://wiki.polkadot.network/general/polkadotjs/){target=\_blank} available on the Polkadot Wiki.
+You are now connected to your local node and can now interact with it through the Polkadot.js Apps interface. This tool enables you to explore blocks, execute transactions, and interact with your blockchain's features. For in-depth guidance on using the interface effectively, refer to the [Polkadot.js Guides](https://wiki.polkadot.com/general/polkadotjs/){target=\_blank} available on the Polkadot Wiki.
 
 ## Stop the Node
 
@@ -5321,7 +5321,7 @@ For more information on the Wasm meta protocol that powers runtimes, see the [WA
 
 The relay chain provides a layer of economic security for its parachains. Parachains submit proof of validation (PoV) data to the relay chain for validation through [collators](/polkadot-protocol/glossary/#collator), upon which the relay chains' validators ensure the validity of this data in accordance with the STF for that particular parachain. In other words, the consensus for a parachain follows the relay chain. While parachains choose how a block is authored, what it contains, and who authors it, the relay chain ultimately provides finality and consensus for those blocks.
 
-For more information about the parachain and relay chain validation process, see the [Parachains' Protocol Overview: Protocols' Summary](https://wiki.polkadot.network/learn/learn-parachains-protocol/#protocols-summary){target=\blank} entry in the Polkadot Wiki.
+For more information about the parachain and relay chain validation process, see the [Parachains' Protocol Overview: Protocols' Summary](https://wiki.polkadot.com/learn/learn-parachains-protocol/#protocols-summary){target=\blank} entry in the Polkadot Wiki.
 
 Parachains need at least one honest collator to submit PoV data to the relay chain. Without this, the parachain can't progress. The mechanisms that facilitate this are found in the Cumulus portion of the Polkadot SDK, some of which are found in the [`cumulus_pallet_parachain_system`](https://paritytech.github.io/polkadot-sdk/master/cumulus_pallet_parachain_system/index.html){target=\blank}
 
@@ -5382,7 +5382,7 @@ As a Layer-0 blockchain, Polkadot contributes to the multi-chain vision through 
 
 - **Secure interoperability**: Polkadot's native interoperability enables seamless data and value exchange between parachains. This interoperability can also be used outside of the ecosystem for bridging with external networks.
 
-- **Resilient infrastructure**: Decentralized and scalable, Polkadot ensures ongoing support for development and community initiatives via its on-chain [treasury](https://wiki.polkadot.network/learn/learn-polkadot-opengov-treasury/){target=\_blank} and governance.
+- **Resilient infrastructure** - decentralized and scalable, Polkadot ensures ongoing support for development and community initiatives via its on-chain [treasury](https://wiki.polkadot.com/learn/learn-polkadot-opengov-treasury/){target=\_blank} and governance
 
 - **Rapid L1 development**: The [Polkadot SDK](/develop/parachains/intro-polkadot-sdk/){target=\_blank} allows fast, flexible creation and deployment of Layer-1 chains.
 
@@ -5412,7 +5412,7 @@ In order to interact with chains that want to use their own finalization process
 
 Historically, obtaining core slots on Polkadot chain relied upon crowdloans and auctions. Chain cores were leased through auctions for three-month periods, up to a maximum of two years. Crowdloans enabled users to securely lend funds to teams for lease deposits in exchange for pre-sale tokens, which is the only way to access slots on Polkadot 1.0. Auctions are now deprecated in favor of [coretime](/polkadot-protocol/architecture/system-chains/coretime/){target=\_blank}.
 
-Additionally, the chain handles [staking](https://wiki.polkadot.network/learn/learn-staking/){target=\_blank}, [accounts](/polkadot-protocol/parachain-basics/accounts/){target=\_blank}, balances, and [governance](/polkadot-protocol/onchain-governance/){target=\_blank}.
+Additionally, the chain handles [staking](https://wiki.polkadot.com/learn/learn-staking/){target=\_blank}, [accounts](/polkadot-protocol/parachain-basics/accounts/){target=\_blank}, balances, and [governance](/polkadot-protocol/onchain-governance/){target=\_blank}.
 
 #### Agile Coretime
 
@@ -5420,7 +5420,7 @@ The new and more efficient way of obtaining core on Polkadot is to go through th
 
 [Agile coretime](/polkadot-protocol/architecture/polkadot-chain/agile-coretime/){target=\_blank} improves the efficient use of Polkadot's network resources and offers economic flexibility for developers, extending Polkadot's capabilities far beyond the original vision outlined in the [whitepaper](https://polkadot.com/papers/Polkadot-whitepaper.pdf){target=\_blank}.
 
-It enables parachains to purchase monthly "bulk" allocations of coretime (the time allocated for utilizing a core, measured in Polkadot relay chain blocks), ensuring heavy-duty parachains that can author a block every six seconds with [Asynchronous Backing](https://wiki.polkadot.network/learn/learn-async-backing/#asynchronous-backing){target=\_blank} can reliably renew their coretime each month. Although six-second block times are now the default, parachains have the option of producing blocks less frequently.
+It enables parachains to purchase monthly "bulk" allocations of coretime (the time allocated for utilizing a core, measured in Polkadot relay chain blocks), ensuring heavy-duty parachains that can author a block every six seconds with [Asynchronous Backing](https://wiki.polkadot.com/learn/learn-async-backing/#asynchronous-backing){target=\_blank} can reliably renew their coretime each month. Although six-second block times are now the default, parachains have the option of producing blocks less frequently.
 
 Renewal orders are prioritized over new orders, offering stability against price fluctuations and helping parachains budget more effectively for project costs.
 
@@ -5562,14 +5562,14 @@ The [Asset Hub](https://github.com/paritytech/polkadot-sdk/tree/{{dependencies.r
 
 This asset management logic is encoded directly in the runtime of the chain rather than in smart contracts. The efficiency of executing logic in a parachain allows for fees and deposits that are about 1/10th of what is required on the relay chain. These low fees mean that the Asset Hub is well suited for handling the frequent transactions required when managing balances, transfers, and on-chain assets.
 
-The Asset Hub also supports non-fungible assets (NFTs) via the [Uniques pallet](https://polkadot.js.org/docs/substrate/extrinsics#uniques){target=\_blank} and [NFTs pallet](https://polkadot.js.org/docs/substrate/extrinsics#nfts){target=\_blank}. For more information about NFTs, see the Polkadot Wiki section on [NFT Pallets](https://wiki.polkadot.network/learn/learn-nft-pallets/){target=\_blank}.
+The Asset Hub also supports non-fungible assets (NFTs) via the [Uniques pallet](https://polkadot.js.org/docs/substrate/extrinsics#uniques){target=\_blank} and [NFTs pallet](https://polkadot.js.org/docs/substrate/extrinsics#nfts){target=\_blank}. For more information about NFTs, see the Polkadot Wiki section on [NFT Pallets](https://wiki.polkadot.com/learn/learn-nft-pallets/){target=\_blank}.
 
 ### Collectives
 
 The Polkadot Collectives parachain was added in [Referendum 81](https://polkadot-old.polkassembly.io/referendum/81){target=\_blank} and exists on Polkadot but not on Kusama. The Collectives chain hosts on-chain collectives that serve the Polkadot network, including the following:
 
-- **[Polkadot Alliance](https://polkadot-old.polkassembly.io/referendum/94){target=\_blank}**: Provides a set of ethics and standards for the community to follow. Includes an on-chain means to call out bad actors.
-- **[Polkadot Technical Fellowship](https://wiki.polkadot.network/learn/learn-polkadot-technical-fellowship/){target=\_blank}**: A rules-based social organization to support and incentivize highly-skilled developers to contribute to the technical stability, security, and progress of the network.
+- [**Polkadot Alliance**](https://polkadot-old.polkassembly.io/referendum/94){target=\_blank} - provides a set of ethics and standards for the community to follow. Includes an on-chain means to call out bad actors
+- [**Polkadot Technical Fellowship**](https://wiki.polkadot.com/learn/learn-polkadot-technical-fellowship/){target=\_blank} - a rules-based social organization to support and incentivize highly-skilled developers to contribute to the technical stability, security, and progress of the network
 
 These on-chain collectives will play essential roles in the future of network stewardship and decentralized governance. Networks can use a bridge hub to help them act as collectives and express their legislative voices as single opinions within other networks.
 
@@ -5583,13 +5583,13 @@ See the [Bridge Hub](/polkadot-protocol/architecture/system-chains/bridge-hub/){
 
 ### People Chain
 
-The People Chain provides a naming system that allows users to manage and verify their account [identity](https://wiki.polkadot.network/learn/learn-identity/){target=\_blank}.
+The People Chain provides a naming system that allows users to manage and verify their account [identity](https://wiki.polkadot.com/learn/learn-identity/){target=\_blank}.
 
 ### Coretime Chain
 
-The Coretime system chain lets users buy coretime to access Polkadot's computation. [Coretime marketplaces](https://wiki.polkadot.network/learn/learn-guides-coretime-marketplaces/){target=\_blank} run on top of the Coretime chain. Kusama does not use the Collectives system chain. Instead, Kusama relies on the Encointer system chain, which provides Sybil resistance as a service to the entire Kusama ecosystem.
+The Coretime system chain lets users buy coretime to access Polkadot's computation. [Coretime marketplaces](https://wiki.polkadot.com/learn/learn-guides-coretime-marketplaces/){target=\_blank} run on top of the Coretime chain. Kusama does not use the Collectives system chain. Instead, Kusama relies on the Encointer system chain, which provides Sybil resistance as a service to the entire Kusama ecosystem.
 
-Visit [Introduction to Agile Coretime](https://wiki.polkadot.network/learn/learn-agile-coretime/#introduction-to-agile-coretime){target=\_blank} in the Polkadot Wiki for more information.
+Visit [Introduction to Agile Coretime](https://wiki.polkadot.com/learn/learn-agile-coretime/#introduction-to-agile-coretime){target=\_blank} in the Polkadot Wiki for more information.
 
 ### Encointer
 
@@ -5620,14 +5620,14 @@ With OpenGov, Polkadot achieves a flexible, scalable, and democratic governance 
 
 ## Governance Evolution
 
-Polkadot’s governance journey began with [Governance V1](https://wiki.polkadot.network/learn/learn-polkadot-opengov/#governance-summary){target=\_blank}, a system that proved effective in managing treasury funds and protocol upgrades. However, it faced limitations, such as:
+Polkadot’s governance journey began with [Governance V1](https://wiki.polkadot.com/learn/learn-polkadot-opengov/#governance-summary){target=\_blank}, a system that proved effective in managing treasury funds and protocol upgrades. However, it faced limitations, such as:
 
 - Slow voting cycles, causing delays in decision-making.
 - Inflexibility in handling multiple referendums, restricting scalability.
 
 To address these challenges, Polkadot introduced OpenGov, a governance model designed for greater inclusivity, efficiency, and scalability. OpenGov replaces the centralized structures of Governance V1, such as the Council and Technical Committee, with a fully decentralized and dynamic framework.
 
-For a full comparison of the historic and current governance models, visit the [Gov1 vs. Polkadot OpenGov](https://wiki.polkadot.network/learn/learn-polkadot-opengov/#gov1-vs-polkadot-opengov){target=\_blank} section of the Polkadot Wiki.
+For a full comparison of the historic and current governance models, visit the [Gov1 vs. Polkadot OpenGov](https://wiki.polkadot.com/learn/learn-polkadot-opengov/#gov1-vs-polkadot-opengov){target=\_blank} section of the Polkadot Wiki.
 
 ## OpenGov Key Features
 
@@ -5647,9 +5647,9 @@ In OpenGov, origins and tracks are central to managing proposals and votes.
 - **Origin**: Determines the authority level of a proposal (e.g., Treasury, Root) which decides the track of all referendums from that origin.
 - **Track**: Define the procedural flow of a proposal, such as voting duration, approval thresholds, and enactment timelines.
 
-Developers must be aware that referendums from different origins and tracks will take varying amounts of time to reach approval and enactment. The [Polkadot Technical Fellowship](https://wiki.polkadot.network/learn/learn-polkadot-technical-fellowship/){target=\_blank} has the option to shorten this timeline by whitelisting a proposal and allowing it to be enacted through the [Whitelist Caller](https://wiki.polkadot.network/learn/learn-polkadot-opengov-origins/#whitelisted-caller){target=\_blank} origin.
+Developers must be aware that referendums from different origins and tracks will take varying amounts of time to reach approval and enactment. The [Polkadot Technical Fellowship](https://wiki.polkadot.com/learn/learn-polkadot-technical-fellowship/){target=\_blank} has the option to shorten this timeline by whitelisting a proposal and allowing it to be enacted through the [Whitelist Caller](https://wiki.polkadot.com/learn/learn-polkadot-opengov-origins/#whitelisted-caller){target=\_blank} origin.
 
-Visit [Origins and Tracks Info](https://wiki.polkadot.network/learn/learn-polkadot-opengov/#origins-and-tracks){target=\_blank} for details on current origins and tracks, associated terminology, and parameters.
+Visit [Origins and Tracks Info](https://wiki.polkadot.com/learn/learn-polkadot-opengov/#origins-and-tracks){target=\_blank} for details on current origins and tracks, associated terminology, and parameters.
 
 ## Referendums
 
@@ -5657,33 +5657,33 @@ In OpenGov, anyone can submit a referendum, fostering an open and participatory 
 
 The timeline for an individual referendum includes four distinct periods:
 
-- **Lead-in**: A minimum amount of time to allow for community participation, available room in the origin, and payment of the decision deposit. Voting is open during this period.
-- **Decision**: Voting continues.
-- **Confirmation**: Referendum must meet [approval and support](https://wiki.polkadot.network/learn/learn-polkadot-opengov/#approval-and-support){target=\_blank} criteria during entire period to avoid rejection.
-- **Enactment**: Changes approved by the referendum are executed.
+- **Lead-in** - a minimum amount of time to allow for community participation, available room in the origin, and payment of the decision deposit. Voting is open during this period
+- **Decision** - voting continues
+- **Confirmation** - referendum must meet [approval and support](https://wiki.polkadot.com/learn/learn-polkadot-opengov/#approval-and-support){target=\_blank} criteria during entire period to avoid rejection
+- **Enactment** - changes approved by the referendum are executed
 
 ### Vote on Referendums
 
 Voters can vote with their tokens on each referendum. Polkadot uses a voluntary token locking mechanism, called conviction voting, as a way for voters to increase their voting power. A token holder signals they have a stronger preference for approving a proposal based upon their willingness to lock up tokens. Longer voluntary token locks are seen as a signal of continual approval and translate to increased voting weight.
 
-See [Voting on a Referendum](https://wiki.polkadot.network/learn/learn-polkadot-opengov/#voting-on-a-referendum){target=\_blank} for a deeper look at conviction voting and related token locks.
+See [Voting on a Referendum](https://wiki.polkadot.com/learn/learn-polkadot-opengov/#voting-on-a-referendum){target=\_blank} for a deeper look at conviction voting and related token locks.
 
 ### Delegate Voting Power
 
 The OpenGov system also supports multi-role delegations, allowing token holders to assign their voting power on different tracks to entities with expertise in those areas. 
 
-For example, if a token holder lacks the technical knowledge to evaluate proposals on the [Root track](https://wiki.polkadot.network/learn/learn-polkadot-opengov-origins/#root){target=\_blank}, they can delegate their voting power for that track to an expert they trust to vote in the best interest of the network. This ensures informed decision-making across tracks while maintaining flexibility for token holders.
+For example, if a token holder lacks the technical knowledge to evaluate proposals on the [Root track](https://wiki.polkadot.com/learn/learn-polkadot-opengov-origins/#root){target=\_blank}, they can delegate their voting power for that track to an expert they trust to vote in the best interest of the network. This ensures informed decision-making across tracks while maintaining flexibility for token holders.
 
-Visit [Multirole Delegation](https://wiki.polkadot.network/learn/learn-polkadot-opengov/#multirole-delegation){target=\_blank} for more details on delegating voting power.
+Visit [Multirole Delegation](https://wiki.polkadot.com/learn/learn-polkadot-opengov/#multirole-delegation){target=\_blank} for more details on delegating voting power.
 
 ### Cancel a Referendum
 
 Polkadot OpenGov has two origins for rejecting ongoing referendums: 
 
-- **[Referendum Canceller](https://wiki.polkadot.network/learn/learn-polkadot-opengov-origins/#referendum-canceller){target=\_blank}**: Cancels an active referendum when non-malicious errors occur and refunds the deposits to the originators.
-- **[Referendum Killer](https://wiki.polkadot.network/learn/learn-polkadot-opengov-origins/#referendum-killer){target=\_blank}**: Used for urgent, malicious cases this origin instantly terminates an active referendum and slashes deposits.
+- [**Referendum Canceller**](https://wiki.polkadot.com/learn/learn-polkadot-opengov-origins/#referendum-canceller){target=\_blank} - cancels an active referendum when non-malicious errors occur and refunds the deposits to the originators
+- [**Referendum Killer**](https://wiki.polkadot.com/learn/learn-polkadot-opengov-origins/#referendum-killer){target=\_blank} - used for urgent, malicious cases this origin instantly terminates an active referendum and slashes deposits
 
-See [Cancelling, Killing, and Blacklisting](https://wiki.polkadot.network/learn/learn-polkadot-opengov/#cancelling-killing--blacklisting){target=\_blank} for additional information on rejecting referendums.
+See [Cancelling, Killing, and Blacklisting](https://wiki.polkadot.com/learn/learn-polkadot-opengov/#cancelling-killing--blacklisting){target=\_blank} for additional information on rejecting referendums.
 
 ## Additional Resources
 
@@ -5867,11 +5867,11 @@ In the Polkadot ecosystem, account balances are categorized into different types
 
 The five main balance types are:
 
-- **Free balance**: Represents the total tokens available to the account for any on-chain activity, including staking, governance, and voting. However, it may not be fully spendable or transferrable if portions of it are locked or reserved.
-- **Locked balance**: Portions of the free balance that cannot be spent or transferred because they are tied up in specific activities like [staking](https://wiki.polkadot.network/learn/learn-staking/#nominating-validators){target=\_blank}, [vesting](https://wiki.polkadot.network/learn/learn-guides-transfers/#vested-transfers-with-the-polkadot-js-ui){target=\_blank}, or participating in [governance](https://wiki.polkadot.network/learn/learn-polkadot-opengov/#voting-on-a-referendum){target=\_blank}. While the tokens remain part of the free balance, they are non-transferable for the duration of the lock.
-- **Reserved balance**: Funds locked by specific system actions, such as setting up an [identity](https://wiki.polkadot.network/learn/learn-identity/){target=\_blank}, creating [proxies](https://wiki.polkadot.network/learn/learn-proxies/){target=\_blank}, or submitting [deposits for governance proposals](https://wiki.polkadot.network/learn/learn-guides-polkadot-opengov/#claiming-opengov-deposits){target=\_blank}. These tokens are not part of the free balance and cannot be spent unless they are unreserved.
-- **Spendable balance**: The portion of the free balance that is available for immediate spending or transfers. It is calculated by subtracting the maximum of locked or reserved amounts from the free balance, ensuring that existential deposit limits are met.
-- **Untouchable balance**: Funds that cannot be directly spent or transferred but may still be utilized for on-chain activities, such as governance participation or staking. These tokens are typically tied to certain actions or locked for a specific period.
+- **Free balance** - represents the total tokens available to the account for any on-chain activity, including staking, governance, and voting. However, it may not be fully spendable or transferrable if portions of it are locked or reserved
+- **Locked balance** - portions of the free balance that cannot be spent or transferred because they are tied up in specific activities like [staking](https://wiki.polkadot.com/learn/learn-staking/#nominating-validators){target=\_blank}, [vesting](https://wiki.polkadot.com/learn/learn-guides-transfers/#vested-transfers-with-the-polkadot-js-ui){target=\_blank}, or participating in [governance](https://wiki.polkadot.com/learn/learn-polkadot-opengov/#voting-on-a-referendum){target=\_blank}. While the tokens remain part of the free balance, they are non-transferable for the duration of the lock
+- **Reserved balance** - funds locked by specific system actions, such as setting up an [identity](https://wiki.polkadot.com/learn/learn-identity/){target=\_blank}, creating [proxies](https://wiki.polkadot.com/learn/learn-proxies/){target=\_blank}, or submitting [deposits for governance proposals](https://wiki.polkadot.com/learn/learn-guides-polkadot-opengov/#claiming-opengov-deposits){target=\_blank}. These tokens are not part of the free balance and cannot be spent unless they are unreserved
+- **Spendable balance** - the portion of the free balance that is available for immediate spending or transfers. It is calculated by subtracting the maximum of locked or reserved amounts from the free balance, ensuring that existential deposit limits are met
+- **Untouchable balance** - funds that cannot be directly spent or transferred but may still be utilized for on-chain activities, such as governance participation or staking. These tokens are typically tied to certain actions or locked for a specific period
 
 The spendable balance is calculated as follows:
 
@@ -5879,7 +5879,7 @@ The spendable balance is calculated as follows:
 spendable = free - max(locked - reserved, ED)
 ```
 
-Here, `free`, `locked`, and `reserved` are defined above. The `ED` represents the [existential deposit](https://wiki.polkadot.network/learn/learn-accounts/#existential-deposit-and-reaping){target=\_blank}, the minimum balance required to keep an account active and prevent it from being reaped. You may find you can't see all balance types when looking at your account via a wallet. Wallet providers often display only spendable, locked, and reserved balances.
+Here, `free`, `locked`, and `reserved` are defined above. The `ED` represents the [existential deposit](https://wiki.polkadot.com/learn/learn-accounts/#existential-deposit-and-reaping){target=\_blank}, the minimum balance required to keep an account active and prevent it from being reaped. You may find you can't see all balance types when looking at your account via a wallet. Wallet providers often display only spendable, locked, and reserved balances.
 
 ### Locks
 
@@ -7528,7 +7528,7 @@ Development and testing are crucial to building robust dApps and parachains and 
 
 Kusama is the experimental version of Polkadot, designed for developers who want to move quickly and test their applications in a real-world environment with economic incentives. Kusama serves as a production-grade testing ground where developers can deploy features and upgrades with the pressure of game theory and economics in mind. It mirrors Polkadot but operates as a more flexible space for innovation.
 
-The native token for Kusama is KSM. For more information about KSM, visit the [Native Assets](https://wiki.polkadot.network/learn/learn-dot/#kusama){target=\_blank} page.
+The native token for Kusama is KSM. For more information about KSM, visit the [Native Assets](https://guide.kusama.network/docs/learn-DOT#kusama-tokens){target=\_blank} page.
 
 ## Test Networks
 
@@ -7538,13 +7538,13 @@ The following test networks provide controlled environments for testing upgrades
 
 Westend is Polkadot's primary permanent TestNet. Unlike temporary test networks, Westend is not reset to the genesis block, making it an ongoing environment for testing Polkadot core features. Managed by Parity Technologies, Westend ensures that developers can test features in a real-world simulation without using actual tokens.
 
-The native token for Westend is WND. More details about WND can be found on the [Native Assets](https://wiki.polkadot.network/learn/learn-dot/#getting-tokens-on-the-westend-testnet){target=\_blank} page.
+The native token for Westend is WND. More details about WND can be found on the [Native Assets](https://wiki.polkadot.com/learn/learn-dot/#__tabbed_2_2){target=\_blank} page.
 
 ### Paseo
 
 [Paseo](https://github.com/paseo-network){target=\_blank} is a community-managed TestNet designed for parachain and dApp developers. It mirrors Polkadot's runtime and is maintained by Polkadot community members. Paseo provides a dedicated space for parachain developers to test their applications in a Polkadot-like environment without the risks associated with live networks.
 
-The native token for Paseo is PAS. Additional information on PAS is available on the [Native Assets](https://wiki.polkadot.network/learn/learn-dot/#getting-tokens-on-the-paseo-testnet){target=\_blank} page.
+The native token for Paseo is PAS. Additional information on PAS is available on the [Native Assets](https://wiki.polkadot.com/learn/learn-dot/#__tabbed_2_1){target=\_blank} page.
 
 ## Local Test Networks
 
@@ -8836,8 +8836,7 @@ Each configuration item is explained below, detailing the associated type’s pu
     ```
 
  <!-- I think `Holding Register` should be linked to https://wiki.polkadot.network/docs/learn/xcm/reference-glossary#holding-register, but since we will have our own glossary, I’m putting this as a TODO -->
-- **[`MaxAssetsIntoHolding`](https://paritytech.github.io/polkadot-sdk/master/staging_xcm_executor/trait.Config.html#associatedtype.MaxAssetsIntoHolding){target=\_blank}**: Limits the number of assets in the [Holding register](https://wiki.polkadot.network/learn/learn-xcm/#holding-register){target=\_blank}. At most, twice this limit can be held under worst-case conditions.
-
+- [**`MaxAssetsIntoHolding`**](https://paritytech.github.io/polkadot-sdk/master/staging_xcm_executor/trait.Config.html#associatedtype.MaxAssetsIntoHolding){target=\_blank} - limits the number of assets in the [Holding register](https://wiki.polkadot.com/learn/learn-xcm/#holding-register){target=\_blank}. At most, twice this limit can be held under worst-case conditions
     ```rust
     type MaxAssetsIntoHolding: Get<u32>;
     ```
@@ -12351,7 +12350,7 @@ Key definitions, concepts, and terminology specific to the Polkadot ecosystem ar
 
 Additional glossaries from around the ecosystem you might find helpful:
 
-- [Polkadot Wiki Glossary](https://wiki.polkadot.network/general/glossary/){target=\_blank}
+- [Polkadot Wiki Glossary](https://wiki.polkadot.com/general/glossary){target=\_blank}
 - [Polkadot SDK Glossary](https://paritytech.github.io/polkadot-sdk/master/polkadot_sdk_docs/reference_docs/glossary/index.html){target=\_blank}
 
 ## Authority
@@ -12410,7 +12409,7 @@ A chain specification file defines the properties required to run a node in an a
 An [author](#block-author) of a [parachain](#parachain) network.
 They aren't [authorities](#authority) in themselves, as they require a [relay chain](#relay-chain) to coordinate [consensus](#consensus).
 
-More details are found on the [Polkadot Collator Wiki](https://wiki.polkadot.network/learn/learn-collator/){target=\_blank}.
+More details are found on the [Polkadot Collator Wiki](https://wiki.polkadot.com/learn/learn-collator/){target=\_blank}.
 
 ## Collective
 
@@ -12556,7 +12555,7 @@ A subsystem for managing keys for the purpose of producing new blocks.
 
 [Kusama](https://kusama.network/){target=\_blank} is a Polkadot SDK-based blockchain that implements a design similar to the [Polkadot](#polkadot) network.
 
-Kusama is a [canary](https://en.wiktionary.org/wiki/canary_in_a_coal_mine){target=\_blank} network and is referred to as [Polkadot's "wild cousin."](https://wiki.polkadot.network/learn/learn-comparisons-kusama/){target=\_blank}
+Kusama is a [canary](https://en.wiktionary.org/wiki/canary_in_a_coal_mine){target=\_blank} network and is referred to as [Polkadot's "wild cousin."](https://wiki.polkadot.com/learn/learn-comparisons-kusama/){target=\_blank}
 
 As a canary network, Kusama is expected to be more stable than a test network like [Westend](#westend) but less stable than a production network like [Polkadot](#polkadot). Kusama is controlled by its network participants and is intended to be stable enough to encourage meaningful experimentation.
 
@@ -12597,11 +12596,11 @@ Pallets bundle domain-specific logic with runtime primitives like [events](#even
 ## Parachain
 
 A parachain is a blockchain that derives shared infrastructure and security from a _[relay chain](#relay-chain)_.
-You can learn more about parachains on the [Polkadot Wiki](https://wiki.polkadot.network/learn/learn-parachains/){target=\_blank}.
+You can learn more about parachains on the [Polkadot Wiki](https://wiki.polkadot.com/learn/learn-parachains/){target=\_blank}.
 
 ## Paseo
 
-Paseo TestNet provisions testing on Polkadot's "production" runtime, which means less chance of feature or code mismatch when developing parachain apps. Specifically, after the [Polkadot Technical fellowship](https://wiki.polkadot.network/learn/learn-polkadot-technical-fellowship/){target=\_blank} proposes a runtime upgrade for Polkadot, this TestNet is updated, giving a period where the TestNet will be ahead of Polkadot to allow for testing.
+Paseo TestNet provisions testing on Polkadot's "production" runtime, which means less chance of feature or code mismatch when developing parachain apps. Specifically, after the [Polkadot Technical fellowship](https://wiki.polkadot.com/learn/learn-polkadot-technical-fellowship/){target=\_blank} proposes a runtime upgrade for Polkadot, this TestNet is updated, giving a period where the TestNet will be ahead of Polkadot to allow for testing.
 
 ## Polkadot
 

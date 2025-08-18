@@ -18797,7 +18797,8 @@ In this example, you will teleport 10 PAS tokens from Asset Hub Paseo to the Pas
 Add the ParaSpell transaction code to your `index.ts` file:
 
 ```ts title="index.ts"
-const signer = getSigner();
+async function teleport() {
+  const signer = getSigner();
 
   const tx = await Builder()
     .from('AssetHubPaseo')
@@ -18825,7 +18826,8 @@ Dry runs simulate the transaction without broadcasting it, allowing you to confi
 Add the following dry run code to your `index.ts` script:
 
 ```ts title="index.ts"
-if (!hasDryRunSupport('AssetHubPaseo')) {
+async function dryRunTeleport() {
+  if (!hasDryRunSupport('AssetHubPaseo')) {
     console.log('Dry run is not supported on AssetHubPaseo.');
     return;
   }
@@ -18968,7 +18970,8 @@ The result of the dry run will be similar to this:
 Check if the recipient account meets the [Existential Deposit (ED)](/polkadot-protocol/glossary/#existential-deposit){target=\_blank} requirement before sending:
 
 ```ts title="index.ts"
-const isValid = await Builder()
+async function verifyED() {
+  const isValid = await Builder()
     .from('AssetHubPaseo')
     .to('Paseo')
     .currency({
@@ -19005,7 +19008,8 @@ Before sending an XCM transaction, it is helpful to estimate the fees associated
 ParaSpell has a helpful function for this: [`getTransferInfo()`](https://paraspell.github.io/docs/sdk/xcmUtils.html#xcm-transfer-info){target=\_blank}. This function returns an estimate of the associated XCM fees, along with the account's balance before and after the fees are paid.
 
 ```ts title="index.ts"
-const info = await Builder()
+async function XcmTransferInfo() {
+  const info = await Builder()
     .from('AssetHubPaseo')
     .to('Paseo')
     .currency({
@@ -19088,7 +19092,7 @@ You can execute the teleport transaction with confidence.
 Add the following code:
 
 ```typescript title="index.ts"
-
+teleport();
 ```
 
 And execute your teleport:

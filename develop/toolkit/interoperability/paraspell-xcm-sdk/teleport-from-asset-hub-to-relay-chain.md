@@ -48,7 +48,7 @@ bun add @paraspell/sdk polkadot-api @polkadot-labs/hdkd-helpers @polkadot-labs/h
 Now add the following setup code to `index.ts`:
 
 ```ts title="index.ts"
---8<-- 'code/develop/toolkit/interoperability/paraspell/index.ts:1:28'
+--8<-- 'code/develop/toolkit/interoperability/paraspell/index.ts:1:27'
 ```
 
 Replace the `SEED_PHRASE` with the `SEED_PHRASE` from your Polkadot development account.
@@ -67,7 +67,7 @@ In this example, you will teleport 10 PAS tokens from Asset Hub Paseo to the Pas
 Add the ParaSpell transaction code to your `index.ts` file:
 
 ```ts title="index.ts"
---8<-- 'code/develop/toolkit/interoperability/paraspell/index.ts:30:47'
+--8<-- 'code/develop/toolkit/interoperability/paraspell/index.ts:29:46'
 ```
 
 Do not execute it just yet. You will perform a dry run of this transaction first to ensure it works as expected.
@@ -79,7 +79,7 @@ Dry runs simulate the transaction without broadcasting it, allowing you to confi
 Add the following dry run code to your `index.ts` script:
 
 ```ts title="index.ts"
---8<-- 'code/develop/toolkit/interoperability/paraspell/index.ts:49:69'
+--8<-- 'code/develop/toolkit/interoperability/paraspell/index.ts:48:68'
 ```
 Go ahead and run the script.
 
@@ -96,7 +96,7 @@ The result of the dry run will be similar to this:
 Check if the recipient account meets the [Existential Deposit (ED)](/polkadot-protocol/glossary/#existential-deposit){target=\_blank} requirement before sending:
 
 ```ts title="index.ts"
---8<-- 'code/develop/toolkit/interoperability/paraspell/index.ts:71:86'
+--8<-- 'code/develop/toolkit/interoperability/paraspell/index.ts:70:85'
 ```
 Execute the code by running:
 
@@ -115,7 +115,7 @@ Before sending an XCM transaction, it is helpful to estimate the fees associated
 ParaSpell has a helpful function for this: [`getTransferInfo()`](https://paraspell.github.io/docs/sdk/xcmUtils.html#xcm-transfer-info){target=\_blank}. This function returns an estimate of the associated XCM fees, along with the account's balance before and after the fees are paid.
 
 ```ts title="index.ts"
---8<-- 'code/develop/toolkit/interoperability/paraspell/index.ts:88:103'
+--8<-- 'code/develop/toolkit/interoperability/paraspell/index.ts:87:102'
 ```
 
 Go ahead and execute the script:
@@ -139,7 +139,7 @@ You can execute the teleport transaction with confidence.
 Add the following code:
 
 ```typescript title="index.ts"
---8<-- 'code/develop/toolkit/interoperability/paraspell/index.ts:105:105'
+--8<-- 'code/develop/toolkit/interoperability/paraspell/index.ts:104:104'
 ```
 
 And execute your teleport:

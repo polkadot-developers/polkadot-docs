@@ -13198,7 +13198,7 @@ Each configuration item is explained below, detailing the associated type’s pu
     - **`Dispatchable`**: Indicates it can be executed in the runtime.
     - **`GetDispatchInfo`**: Provides weight details, determining how long execution takes.
 
-- **[`XcmSender`](https://paritytech.github.io/polkadot-sdk/master/staging_xcm_executor/trait.Config.html#associatedtype.XcmSender){target=\_blank}**: Implements the [`SendXcm`](https://paritytech.github.io/polkadot-sdk/master/staging_xcm/v4/trait.SendXcm.html){target=\_blank} trait, specifying how the executor sends XCMs using transport layers (e.g., UMP for relay chains or XCMP for sibling chains). If a runtime lacks certain transport layers, such as [HRMP](https://wiki.polkadot.network/learn/learn-xcm-transport/#hrmp-xcmp-lite){target=\_blank} (or [XCMP](https://wiki.polkadot.network/learn/learn-xcm-transport/#xcmp-cross-consensus-message-passing-design-summary){target=\_blank}).
+- **[`XcmSender`](https://paritytech.github.io/polkadot-sdk/master/staging_xcm_executor/trait.Config.html#associatedtype.XcmSender){target=\_blank}**: Implements the [`SendXcm`](https://paritytech.github.io/polkadot-sdk/master/staging_xcm/v4/trait.SendXcm.html){target=\_blank} trait, specifying how the executor sends XCMs using transport layers (e.g., UMP for relay chains or XCMP for sibling chains). If a runtime lacks certain transport layers, such as [HRMP](https://wiki.polkadot.com/learn/learn-xcm-transport/#hrmp-xcmp-lite){target=\_blank} (or [XCMP](https://wiki.polkadot.com/learn/learn-xcm-transport/#xcmp-cross-consensus-message-passing-design-summary){target=\_blank}).
 
     ```rust
     type XcmSender: SendXcm;
@@ -13551,7 +13551,7 @@ fn dry_run_call(origin: OriginCaller, call: Call, result_xcms_version: XcmVersio
 
 ??? interface "Example"
 
-    This example demonstrates how to simulate a cross-chain asset transfer from the Paseo network to the Pop Network using a [reserve transfer](https://wiki.polkadot.network/docs/learn/xcm/journey/transfers-reserve){target=\_blank} mechanism. Instead of executing the actual transfer, the code shows how to test and verify the transaction's behavior through a dry run before performing it on the live network.
+    This example demonstrates how to simulate a cross-chain asset transfer from the Paseo network to the Pop Network using a [reserve transfer](https://wiki.polkadot.com/learn/learn-xcm-usecases/#reserve-asset-transfer){target=\_blank} mechanism. Instead of executing the actual transfer, the code shows how to test and verify the transaction's behavior through a dry run before performing it on the live network.
 
     Replace `INSERT_USER_ADDRESS` with your SS58 address before running the script.
 
@@ -14272,7 +14272,7 @@ fn dry_run_xcm(origin_location: VersionedLocation, xcm: VersionedXcm<Call>) -> R
 
 ??? interface "Example"
 
-    This example demonstrates how to simulate a [teleport asset transfer](https://wiki.polkadot.network/docs/learn/xcm/journey/transfers-teleport){target=\_blank} from the Paseo network to the Paseo Asset Hub parachain. The code shows how to test and verify the received XCM message's behavior in the destination chain through a dry run on the live network.
+    This example demonstrates how to simulate a [teleport asset transfer](https://wiki.polkadot.com/learn/learn-xcm-usecases/#asset-teleportation){target=\_blank} from the Paseo network to the Paseo Asset Hub parachain. The code shows how to test and verify the received XCM message's behavior in the destination chain through a dry run on the live network.
 
     Replace `INSERT_USER_ADDRESS` with your SS58 address before running the script.
 
@@ -14583,7 +14583,7 @@ fn query_xcm_weight(message: VersionedXcm<()>) -> Result<Weight, Error>;
 
 ??? interface "Example"
 
-    This example demonstrates how to calculate the weight needed to execute a [teleport transfer](https://wiki.polkadot.network/docs/learn/xcm/journey/transfers-teleport){target=\_blank} from the Paseo network to the Paseo Asset Hub parachain using the XCM Payment API. The result shows the required weight in terms of reference time and proof size needed in the destination chain.
+    This example demonstrates how to calculate the weight needed to execute a [teleport transfer](https://wiki.polkadot.com/learn/learn-xcm-usecases/#asset-teleportation){target=\_blank} from the Paseo network to the Paseo Asset Hub parachain using the XCM Payment API. The result shows the required weight in terms of reference time and proof size needed in the destination chain.
 
     Replace `INSERT_USER_ADDRESS` with your SS58 address before running the script.
 

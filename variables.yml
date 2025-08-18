@@ -26,6 +26,7 @@ dependencies:
     polkadot_sdk_contracts_node:
       repository_url: https://github.com/paritytech/polkadot-sdk
       version: polkadot-stable2503-6
+      commit_dev_node: 8e2b6f742a38bb13688e12abacded0aab2dbbb23
       ignore_updates: true
     polkadot_sdk_parachain_template:
       repository_url: https://github.com/paritytech/polkadot-sdk-parachain-template

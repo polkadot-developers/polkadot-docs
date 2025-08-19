@@ -2,6 +2,7 @@
 title: Register a Local Asset
 description: Comprehensive guide to registering a local asset on the Asset Hub system parachain, including step-by-step instructions.
 tutorial_badge: Beginner
+categories: Basics, dApps
 ---
 
 # Register a Local Asset on Asset Hub
@@ -16,8 +17,8 @@ This guide will take you through the steps of registering a local asset on the A
 
 Before you begin, ensure you have access to the [Polkadot.js Apps](https://polkadot.js.org/apps/){target=\_blank} interface and a funded wallet with DOT or KSM.
 
-- For Polkadot Asset Hub, you would need a deposit of 10 DOT and around 0.201 DOT for the metadata
-- For Kusama Asset Hub, the deposit is 0.1 KSM and around 0.000669 KSM for the metadata
+- For Polkadot Asset Hub, you would need a deposit of 10 DOT and around 0.201 DOT for the metadata.
+- For Kusama Asset Hub, the deposit is 0.1 KSM and around 0.000669 KSM for the metadata.
 
 You need to ensure that your Asset Hub account balance is a bit more than the sum of those two deposits, which should seamlessly account for the required deposits and transaction fees.
 
@@ -25,45 +26,45 @@ You need to ensure that your Asset Hub account balance is a bit more than the su
 
 To register a local asset on the Asset Hub parachain, follow these steps:
 
-1. Open the [Polkadot.js Apps](https://polkadot.js.org/apps/){target=\_blank} interface and connect to the Asset Hub parachain using the network selector in the top left corner 
+1. Open the [Polkadot.js Apps](https://polkadot.js.org/apps/){target=\_blank} interface and connect to the Asset Hub parachain using the network selector in the top left corner.
 
-      - You may prefer to test local asset registration on TestNet before registering the asset on a MainNet hub. If you still need to set up a local testing environment, review the [Environment setup](#test-setup-environment) section for instructions. Once the local environment is set up, connect to the Local Node (Chopsticks) available on `ws://127.0.0.1:8000`
-      - For the live network, connect to the **Asset Hub** parachain. Either Polkadot or Kusama Asset Hub can be selected from the dropdown list, choosing the desired RPC provider
+      - You may prefer to test local asset registration on TestNet before registering the asset on a MainNet hub. If you still need to set up a local testing environment, review the [Environment setup](#test-setup-environment) section for instructions. Once the local environment is set up, connect to the Local Node (Chopsticks) available on `ws://127.0.0.1:8000`.
+      - For the live network, connect to the **Asset Hub** parachain. Either Polkadot or Kusama Asset Hub can be selected from the dropdown list, choosing the desired RPC provider.
 
-2. Click on the **Network** tab on the top navigation bar and select **Assets** from the dropdown list
+2. Click on the **Network** tab on the top navigation bar and select **Assets** from the dropdown list.
 
       ![Access to Asset Hub through Polkadot.JS](/images/tutorials/polkadot-sdk/system-chains/asset-hub/register-local-assets/register-a-local-asset-1.webp)
 
-3. Now, you need to examine all the registered asset IDs. This step is crucial to ensure that the asset ID you are about to register is unique. Asset IDs are displayed in the **assets** column
+3. Now, you need to examine all the registered asset IDs. This step is crucial to ensure that the asset ID you are about to register is unique. Asset IDs are displayed in the **assets** column.
 
       ![Asset IDs on Asset Hub](/images/tutorials/polkadot-sdk/system-chains/asset-hub/register-local-assets/register-a-local-asset-2.webp)
 
-4. Once you have confirmed that the asset ID is unique, click on the **Create** button on the top right corner of the page
+4. Once you have confirmed that the asset ID is unique, click on the **Create** button on the top right corner of the page.
 
       ![Create a new asset](/images/tutorials/polkadot-sdk/system-chains/asset-hub/register-local-assets/register-a-local-asset-3.webp)
 
 5. Fill in the required fields in the **Create Asset** form:
 
-    1. **creator account** - the account to be used for creating this asset and setting up the initial metadata
-    2. **asset name** - the descriptive name of the asset you are registering
-    3. **asset symbol** - the symbol that will be used to represent the asset
-    4. **asset decimals** - the number of decimal places for this token, with a maximum of 20 allowed through the user interface
-    5. **minimum balance** - the minimum balance for the asset. This is specified in the units and decimals as requested
-    6. **asset ID** - the selected id for the asset. This should not match an already-existing asset id
-    7. Click on the **Next** button
+    1. **creator account**: The account to be used for creating this asset and setting up the initial metadata.
+    2. **asset name**: The descriptive name of the asset you are registering.
+    3. **asset symbol**: The symbol that will be used to represent the asset.
+    4. **asset decimals**: The number of decimal places for this token, with a maximum of 20 allowed through the user interface.
+    5. **minimum balance**: The minimum balance for the asset. This is specified in the units and decimals as requested.
+    6. **asset ID**: The selected id for the asset. This should not match an already-existing asset id.
+    7. Click on the **Next** button.
  
     ![Create Asset Form](/images/tutorials/polkadot-sdk/system-chains/asset-hub/register-local-assets/register-a-local-asset-4.webp)
 
 6. Choose the accounts for the roles listed below:
 
-    1. **admin account** - the account designated for continuous administration of the token      
-    2. **issuer account** - the account that will be used for issuing this token
-    3. **freezer account** - the account that will be used for performing token freezing operations
-    4. Click on the **Create** button
+    1. **admin account**: The account designated for continuous administration of the token.
+    2. **issuer account**: The account that will be used for issuing this token.
+    3. **freezer account**: The account that will be used for performing token freezing operations.
+    4. Click on the **Create** button.
 
     ![Admin, Issuer, Freezer accounts](/images/tutorials/polkadot-sdk/system-chains/asset-hub/register-local-assets/register-a-local-asset-5.webp)
 
-7. Click on the **Sign and Submit** button to complete the asset registration process
+7. Click on the **Sign and Submit** button to complete the asset registration process.
 
     ![Sign and Submit](/images/tutorials/polkadot-sdk/system-chains/asset-hub/register-local-assets/register-a-local-asset-6.webp)
 

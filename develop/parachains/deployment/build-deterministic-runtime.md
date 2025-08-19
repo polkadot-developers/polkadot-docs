@@ -1,6 +1,7 @@
 ---
 title: Build a deterministic runtime
 description: Explains how to use the Polkadot SDK runtime toolbox and Docker to build deterministic Wasm binaries for Polkadot SDK-based chains.
+categories: Parachains
 ---
 
 # Build a Deterministic Runtime
@@ -27,10 +28,10 @@ The [`srtool-cli`](https://github.com/chevdor/srtool-cli){target=\_blank} packag
 
 Over time, the tooling around the `srtool` Docker image has expanded to include the following tools and helper programs:
 
-- [**`srtool-cli`**](https://github.com/chevdor/srtool-cli){target=\_blank} - provides a command-line interface to pull the srtool Docker image, get information about the image and tooling used to interact with it, and build the runtime using the `srtool` Docker container
-- [**`subwasm`**](https://github.com/chevdor/subwasm){target=\_blank} - provides command-line options for working with the metadata and Wasm runtime built using srtool. The `subwasm` program is also used internally to perform tasks in the `srtool` image
-- [**`srtool-actions`**](https://github.com/chevdor/srtool-actions){target=\_blank} - provides GitHub actions to integrate builds produced using the `srtool` image with your GitHub CI/CD pipelines
-- [**`srtool-app`**](https://gitlab.com/chevdor/srtool-app){target=\_blank} - provides a simple graphical user interface for building the runtime using the `srtool` Docker image
+- **[`srtool-cli`](https://github.com/chevdor/srtool-cli){target=\_blank}**: Provides a command-line interface to pull the srtool Docker image, get information about the image and tooling used to interact with it, and build the runtime using the `srtool` Docker container.
+- **[`subwasm`](https://github.com/chevdor/subwasm){target=\_blank}**: Provides command-line options for working with the metadata and Wasm runtime built using srtool. The `subwasm` program is also used internally to perform tasks in the `srtool` image.
+- **[`srtool-actions`](https://github.com/chevdor/srtool-actions){target=\_blank}**: Provides GitHub actions to integrate builds produced using the `srtool` image with your GitHub CI/CD pipelines.
+- **[`srtool-app`](https://gitlab.com/chevdor/srtool-app){target=\_blank}**: Provides a simple graphical user interface for building the runtime using the `srtool` Docker image.
 
 ## Prepare the Environment
 
@@ -76,7 +77,7 @@ To build the runtime, you need to open your Polkadot SDK-based project in a term
 srtool build --app --package INSERT_RUNTIME_PACKAGE_NAME --runtime-dir INSERT_RUNTIME_PATH 
 ```
 
-- The name specified for the `--package` should be the name defined in the `Cargo.toml` file for the runtime
+- The name specified for the `--package` should be the name defined in the `Cargo.toml` file for the runtime.
 - The path specified for the `--runtime-dir` should be the path to the `Cargo.toml` file for the runtime. For example:
 
     ```plain
@@ -88,15 +89,15 @@ srtool build --app --package INSERT_RUNTIME_PACKAGE_NAME --runtime-dir INSERT_RU
     ...
     ```
 
-- If the `Cargo.toml` file for the runtime is located in a `runtime` subdirectory, for example, `runtime/kusama`, the `--runtime-dir` parameter can be omitted
+- If the `Cargo.toml` file for the runtime is located in a `runtime` subdirectory, for example, `runtime/kusama`, the `--runtime-dir` parameter can be omitted.
 
 ## Use srtool in GitHub Actions
 
 To add a GitHub workflow for building the runtime:
 
-1. Create a `.github/workflows` directory in the chain's directory
-2. In the `.github/workflows` directory, click **Add file**, then select **Create new file**
-3. Copy the sample GitHub action from `basic.yml` example in the [`srtools-actions`](https://github.com/chevdor/srtool-actions){target=\_blank} repository and paste it into the file you created in the previous step
+1. Create a `.github/workflows` directory in the chain's directory.
+2. In the `.github/workflows` directory, click **Add file**, then select **Create new file**.
+3. Copy the sample GitHub action from `basic.yml` example in the [`srtools-actions`](https://github.com/chevdor/srtool-actions){target=\_blank} repository and paste it into the file you created in the previous step.
 
     ??? interface "`basic.yml`"
 
@@ -104,15 +105,15 @@ To add a GitHub workflow for building the runtime:
         --8<-- "https://raw.githubusercontent.com/chevdor/srtool-actions/refs/heads/master/examples/01_basic.yml"
         ```
 
-4. Modify the settings in the sample action
+4. Modify the settings in the sample action.
 
     For example, modify the following settings:
 
-    - The name of the chain
-    - The name of the runtime package
-    - The location of the runtime
+    - The name of the chain.
+    - The name of the runtime package.
+    - The location of the runtime.
 
-5. Type a name for the action file and commit
+5. Type a name for the action file and commit.
 
 ## Use the srtool Image via Docker Hub
 
@@ -120,11 +121,11 @@ If utilizing [`srtool-cli`](https://github.com/chevdor/srtool-cli){target=\_blan
 
 To pull the image from Docker Hub:
 
-1. Sign in to Docker Hub
-2. Type `paritytech/srtool` in the search field and press enter
-3. Click **paritytech/srtool**, then click **Tags**
-4. Copy the command for the image you want to pull
-5. Open a terminal shell on your local computer
+1. Sign in to Docker Hub.
+2. Type `paritytech/srtool` in the search field and press enter.
+3. Click **paritytech/srtool**, then click **Tags**.
+4. Copy the command for the image you want to pull.
+5. Open a terminal shell on your local computer.
 6. Paste the command you copied from the Docker Hub. For example, you might run a command similar to the following, which downloads and unpacks the image:
 
     ```bash

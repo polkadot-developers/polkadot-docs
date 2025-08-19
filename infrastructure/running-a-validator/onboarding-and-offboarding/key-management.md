@@ -1,6 +1,7 @@
 ---
 title: Validator Key Management
 description: Learn how to generate and manage validator keys, including session keys for consensus participation and node keys for maintaining a stable network identity.
+categories: Infrastructure
 ---
 
 # Key Management
@@ -19,14 +20,14 @@ There are multiple ways to create the session keys. It can be done by interactin
 
 === "Polkadot.js Apps UI"
 
-    1. In Polkadot.js Apps, connect to your local node, navigate to the **Developer** dropdown, and select the **RPC Calls** option
+    1. In Polkadot.js Apps, connect to your local node, navigate to the **Developer** dropdown, and select the **RPC Calls** option.
 
-    2. Construct an `author_rotateKeys` RPC call and execute it
+    2. Construct an `author_rotateKeys` RPC call and execute it:
 
-        1. Select the **author** endpoint
-        2. Choose the **rotateKeys()** call
-        3. Click the **Submit RPC Call** button
-        4. Copy the hex-encoded public key from the response
+        1. Select the **author** endpoint.
+        2. Choose the **rotateKeys()** call.
+        3. Click the **Submit RPC Call** button.
+        4. Copy the hex-encoded public key from the response.
 
         ![](/images/infrastructure/running-a-validator/onboarding-and-offboarding/key-management/key-management-1.webp)
 
@@ -72,9 +73,9 @@ There are multiple ways to create the session keys. It can be done by interactin
 
 Now that you have generated your session keys, you must submit them to the chain. Follow these steps:
 
-1. Go to the **Network > Staking > Accounts** section on Polkadot.js Apps
-2. Select **Set Session Key** on the bonding account you generated earlier
-3. Paste the hex-encoded session key string you generated (from either the UI or CLI) into the input field and submit the transaction
+1. Go to the **Network > Staking > Accounts** section on Polkadot.js Apps.
+2. Select **Set Session Key** on the bonding account you generated earlier.
+3. Paste the hex-encoded session key string you generated (from either the UI or CLI) into the input field and submit the transaction.
 
 ![](/images/infrastructure/running-a-validator/onboarding-and-offboarding/key-management/key-management-2.webp)
 
@@ -84,8 +85,8 @@ Once the transaction is signed and submitted, your session keys will be register
 
 To verify that your session keys are properly set, you can use one of two RPC calls:
 
-- **`hasKey`** - checks if the node has a specific key by public key and key type
-- **`hasSessionKeys`** - verifies if your node has the full session key string associated with the validator
+- **`hasKey`**: Checks if the node has a specific key by public key and key type.
+- **`hasSessionKeys`**: Verifies if your node has the full session key string associated with the validator.
 
 For example, you can [check session keys on the Polkadot.js Apps](https://polkadot.js.org/apps/#/rpc){target=\_blank} interface or by running an RPC query against your node. Once this is done, your validator node is ready for its role.
 

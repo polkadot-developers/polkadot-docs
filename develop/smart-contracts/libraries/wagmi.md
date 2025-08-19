@@ -1,6 +1,7 @@
 ---
 title: Wagmi for Polkadot Hub Smart Contracts
 description: Learn how to use Wagmi React Hooks to fetch and interact with smart contracts on Polkadot Hub for seamless dApp integration.
+categories: Smart Contracts, Tooling
 ---
 
 # Wagmi
@@ -67,9 +68,9 @@ Create a component to connect wallets to your dApp. Create a file named `app/com
 
 This component uses the following React hooks:
 
-- [**`useConnect`**](https://wagmi.sh/react/api/hooks/useConnect#useconnect){target=\_blank} - provides functions and state for connecting the user's wallet to your dApp. The `connect` function initiates the connection flow with the specified connector
-- [**`useDisconnect`**](https://wagmi.sh/react/api/hooks/useDisconnect#usedisconnect){target=\_blank} - provides a function to disconnect the currently connected wallet
-- [**`useAccount`**](https://wagmi.sh/react/api/hooks/useAccount#useaccount){target=\_blank} - returns data about the connected account, including the address and connection status
+- **[`useConnect`](https://wagmi.sh/react/api/hooks/useConnect#useconnect){target=\_blank}**: Provides functions and state for connecting the user's wallet to your dApp. The `connect` function initiates the connection flow with the specified connector.
+- **[`useDisconnect`](https://wagmi.sh/react/api/hooks/useDisconnect#usedisconnect){target=\_blank}**: Provides a function to disconnect the currently connected wallet.
+- **[`useAccount`](https://wagmi.sh/react/api/hooks/useAccount#useaccount){target=\_blank}**: Returns data about the connected account, including the address and connection status.
 
 ## Fetch Blockchain Data
 
@@ -81,8 +82,8 @@ Wagmi provides various hooks to fetch blockchain data. Here's an example compone
 
 This component uses the following React hooks:
 
-- [**`useBlockNumber`**](https://wagmi.sh/react/api/hooks/useBlockNumber#useBlockNumber){target=\_blank} - fetches the current block number of the connected chain. The `watch` parameter enables real-time updates when new blocks are mined
-- [**`useBalance`**](https://wagmi.sh/react/api/hooks/useBalance#useBalance){target=\_blank} - retrieves the native token balance for a specified address, including value, symbol, and decimals information
+- **[`useBlockNumber`](https://wagmi.sh/react/api/hooks/useBlockNumber#useBlockNumber){target=\_blank}**: Fetches the current block number of the connected chain. The `watch` parameter enables real-time updates when new blocks are mined.
+- **[`useBalance`](https://wagmi.sh/react/api/hooks/useBalance#useBalance){target=\_blank}**: Retrieves the native token balance for a specified address, including value, symbol, and decimals information.
 
 ## Interact with Deployed Contract
 
@@ -102,17 +103,17 @@ Create a component to interact with your deployed contract. Create a file named 
 
 This component demonstrates how to interact with a smart contract using Wagmi's hooks:
 
-- [**`useReadContract`**](https://wagmi.sh/react/api/hooks/useReadContract#useReadContract){target=\_blank} - calls a read-only function on your smart contract to retrieve data without modifying the blockchain state
-- [**`useWriteContract`**](https://wagmi.sh/react/api/hooks/useWriteContract#useWriteContract){target=\_blank} - calls a state-modifying function on your smart contract, which requires a transaction to be signed and sent
-- [**`useWaitForTransactionReceipt`**](https://wagmi.sh/react/api/hooks/useWaitForTransactionReceipt#useWaitForTransactionReceipt){target=\_blank} - tracks the status of a transaction after it's been submitted, allowing you to know when it's been confirmed
+- **[`useReadContract`](https://wagmi.sh/react/api/hooks/useReadContract#useReadContract){target=\_blank}**: Calls a read-only function on your smart contract to retrieve data without modifying the blockchain state.
+- **[`useWriteContract`](https://wagmi.sh/react/api/hooks/useWriteContract#useWriteContract){target=\_blank}**: Calls a state-modifying function on your smart contract, which requires a transaction to be signed and sent.
+- **[`useWaitForTransactionReceipt`](https://wagmi.sh/react/api/hooks/useWaitForTransactionReceipt#useWaitForTransactionReceipt){target=\_blank}**: Tracks the status of a transaction after it's been submitted, allowing you to know when it's been confirmed.
 
 The component also includes proper state handling to:
 
-- Show the current value stored in the contract
-- Allow users to input a new value
-- Display transaction status (pending, confirming, or completed)
-- Handle errors
-- Provide feedback when a transaction is successful
+- Show the current value stored in the contract.
+- Allow users to input a new value.
+- Display transaction status (pending, confirming, or completed).
+- Handle errors.
+- Provide feedback when a transaction is successful.
 
 ## Integrate Components
 

@@ -93,7 +93,7 @@ The result of the dry run will be similar to this:
 
 ## Verify the Existential Deposit
 
-Check if the recipient account meets the [Existential Deposit (ED)](/polkadot-protocol/glossary/#existential-deposit){target=\_blank} requirement before sending:
+Check if the recipient account meets the [Existential Deposit (ED)](/polkadot-protocol/glossary/#existential-deposit){target=\_blank} requirement before sending by using [`verifyEdOnDestination`](https://paraspell.github.io/docs/sdk/xcmUtils.html#verify-ed-on-destination){target=\_blank}:
 
 ```ts title="index.ts"
 --8<-- 'code/develop/toolkit/interoperability/paraspell/index.ts:70:85'
@@ -134,7 +134,7 @@ Now that you have:
 - Verified the existential deposit on the recipient account
 - Obtained an estimate of the associated XCM fees
 
-You can execute the teleport transaction with confidence.
+Now you can execute the teleport function by adding the following statement:
 
 Add the following code:
 

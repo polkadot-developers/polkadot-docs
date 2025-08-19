@@ -31264,7 +31264,7 @@ Make sure to replace the endpoint URLs with the actual WebSocket endpoints. This
 
 ## Create the XCM Message
 
-Now, you can construct a proper XCM message using the new XCM V5 instructions for teleporting from Asset Hub to the Relay Chain:
+Now, you can construct a proper XCM message using the new XCM V5 instructions for teleporting from Asset Hub to the Bridge Hub Chain:
 
 ```typescript title="teleport-ah-to-bridge-hub.ts"
 // Create the XCM message for teleport (Asset Hub → Bridge Hub)
@@ -31366,7 +31366,7 @@ async function estimateXcmFeesFromAssetHubToBridgeHub(xcm: any, assetHubApi: any
   }
     ```
 
-2. **Dry-run and delivery fees to Relay**: Dry-run the XCM on Asset Hub to capture forwarded messages, locate the one targeting Relay (`parents: 1, interior: Here`), and ask for delivery fees. Add the code to the function:
+2. **Dry-run and delivery fees to Bridge Hub**: Dry-run the XCM on Asset Hub to capture forwarded messages, locate the one targeting Bridge Hub (`parents: 1, interior: Here`), and ask for delivery fees. Add the code to the function:
 
     ```typescript title="teleport-ah-to-bridge-hub.ts"
     // 2. DELIVERY FEES + REMOTE EXECUTION FEES
@@ -31427,7 +31427,7 @@ async function estimateXcmFeesFromAssetHubToBridgeHub(xcm: any, assetHubApi: any
       }
     ```
 
-3. **Remote execution fees on Relay**: Connect to Relay, re-compute the forwarded XCM weight there, and convert weight to PAS (`parents: 0, interior: Here`). Add the code to the function:
+3. **Remote execution fees on Bridge Hub**: Connect to Bridge Hub, re-compute the forwarded XCM weight there, and convert weight to PAS (`parents: 0, interior: Here`). Add the code to the function:
 
     ```typescript title="teleport-ah-to-bridge-hub.ts"
     // 3. REMOTE EXECUTION FEES on Bridge Hub
@@ -31666,7 +31666,7 @@ async function main() {
 
 The full code for the complete implementation is the following:
 
-??? code "Teleport from Asset Hub to Relay"
+??? code "Teleport from Asset Hub to Bridge Hub"
 
     ```typescript title="teleport-ah-to-bridge-hub.ts"
     import { paseoAssetHub, paseoBridgeHub } from "@polkadot-api/descriptors";

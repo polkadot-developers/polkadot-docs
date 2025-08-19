@@ -14,7 +14,7 @@ A local development node provides an isolated blockchain environment where you c
 
 By the end of this guide, you'll have:
 
-- A runnin node with smart contract support.
+- A running node with smart contract support.
 - An ETH-RPC adapter for Ethereum-compatible tooling integration accessible at `http://localhost:8545`.
 
 ## Prerequisites

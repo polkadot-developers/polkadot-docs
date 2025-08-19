@@ -49,7 +49,7 @@ The compilation process may take some time depending on your system specificatio
 
 With the binaries compiled, you can now start your local development environment. The setup requires running two processes.
 
-Start node first, which will initialize a local blockchain with the `dev` chain specification. This configuration includes `pallet-revive` for smart contract functionality and uses pre-funded development accounts for testing:
+Start the node first, which will initialize a local blockchain with the `dev` chain specification. This configuration includes `pallet-revive` for smart contract functionality and uses pre-funded development accounts for testing:
 
 ```bash
 ./target/release/revive-dev-node --dev

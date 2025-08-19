@@ -51,7 +51,7 @@ Now add the following setup code to `index.ts`:
 --8<-- 'code/develop/toolkit/interoperability/paraspell/index.ts:1:27'
 ```
 
-Replace the `SEED_PHRASE` with the `SEED_PHRASE` from your Polkadot development account.
+Replace the `INSERT_YOUR_SEED_PHRASE ` with the seed phrase from your Polkadot development account.
 
 Be sure to fund this account with some PAS tokens on Passeo's Asset Hub using the [Polkadot Faucet](https://faucet.polkadot.io/?parachain=1000){target=\_blank}.
 

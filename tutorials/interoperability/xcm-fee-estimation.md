@@ -116,7 +116,7 @@ Make sure to replace the endpoint URLs with the actual WebSocket endpoints. This
 
 ## Create the XCM Message
 
-Now, you can construct a proper XCM message using the new XCM V5 instructions for teleporting from Asset Hub to the Relay Chain:
+Now, you can construct a proper XCM message using the new XCM V5 instructions for teleporting from Asset Hub to the Bridge Hub Chain:
 
 ```typescript title="teleport-ah-to-bridge-hub.ts"
 --8<-- "code/tutorials/interoperability/xcm-fee-estimation/teleport-ah-to-bridge-hub.ts:35:87"
@@ -140,13 +140,13 @@ First, you need to create the function that will estimate the fees for the telep
     --8<-- "code/tutorials/interoperability/xcm-fee-estimation/teleport-ah-to-bridge-hub.ts:92:117"
     ```
 
-2. **Dry-run and delivery fees to Relay**: Dry-run the XCM on Asset Hub to capture forwarded messages, locate the one targeting Relay (`parents: 1, interior: Here`), and ask for delivery fees. Add the code to the function:
+2. **Dry-run and delivery fees to Bridge Hub**: Dry-run the XCM on Asset Hub to capture forwarded messages, locate the one targeting Bridge Hub (`parents: 1, interior: Here`), and ask for delivery fees. Add the code to the function:
 
     ```typescript title="teleport-ah-to-bridge-hub.ts"
     --8<-- "code/tutorials/interoperability/xcm-fee-estimation/teleport-ah-to-bridge-hub.ts:119:174"
     ```
 
-3. **Remote execution fees on Relay**: Connect to Relay, re-compute the forwarded XCM weight there, and convert weight to PAS (`parents: 0, interior: Here`). Add the code to the function:
+3. **Remote execution fees on Bridge Hub**: Connect to Bridge Hub, re-compute the forwarded XCM weight there, and convert weight to PAS (`parents: 0, interior: Here`). Add the code to the function:
 
     ```typescript title="teleport-ah-to-bridge-hub.ts"
     --8<-- "code/tutorials/interoperability/xcm-fee-estimation/teleport-ah-to-bridge-hub.ts:176:197"
@@ -179,7 +179,7 @@ Now put it all together in the main function:
 
 The full code for the complete implementation is the following:
 
-??? code "Teleport from Asset Hub to Relay"
+??? code "Teleport from Asset Hub to Bridge Hub"
 
     ```typescript title="teleport-ah-to-bridge-hub.ts"
     --8<-- "code/tutorials/interoperability/xcm-fee-estimation/teleport-ah-to-bridge-hub.ts"

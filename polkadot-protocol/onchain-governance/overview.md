@@ -53,10 +53,10 @@ In OpenGov, anyone can submit a referendum, fostering an open and participatory 
 
 The timeline for an individual referendum includes four distinct periods:
 
-- **Lead-in** - a minimum amount of time to allow for community participation, available room in the origin, and payment of the decision deposit. Voting is open during this period
-- **Decision** - voting continues
-- **Confirmation** - referendum must meet [approval and support](https://wiki.polkadot.com/learn/learn-polkadot-opengov/#approval-and-support){target=\_blank} criteria during entire period to avoid rejection
-- **Enactment** - changes approved by the referendum are executed
+- **Lead-in**: A minimum amount of time to allow for community participation, available room in the origin, and payment of the decision deposit. Voting is open during this period.
+- **Decision**: Voting continues.
+- **Confirmation**: Referendum must meet [approval and support](https://wiki.polkadot.com/learn/learn-polkadot-opengov/#approval-and-support){target=\_blank} criteria during entire period to avoid rejection.
+- **Enactment**: Changes approved by the referendum are executed.
 
 ### Vote on Referendums
 
@@ -76,8 +76,8 @@ Visit [Multirole Delegation](https://wiki.polkadot.com/learn/learn-polkadot-open
 
 Polkadot OpenGov has two origins for rejecting ongoing referendums: 
 
-- [**Referendum Canceller**](https://wiki.polkadot.com/learn/learn-polkadot-opengov-origins/#referendum-canceller){target=\_blank} - cancels an active referendum when non-malicious errors occur and refunds the deposits to the originators
-- [**Referendum Killer**](https://wiki.polkadot.com/learn/learn-polkadot-opengov-origins/#referendum-killer){target=\_blank} - used for urgent, malicious cases this origin instantly terminates an active referendum and slashes deposits
+- [**Referendum Canceller**](https://wiki.polkadot.com/learn/learn-polkadot-opengov-origins/#referendum-canceller){target=\_blank}: Cancels an active referendum when non-malicious errors occur and refunds the deposits to the originators.
+- [**Referendum Killer**](https://wiki.polkadot.com/learn/learn-polkadot-opengov-origins/#referendum-killer){target=\_blank}: Used for urgent, malicious cases this origin instantly terminates an active referendum and slashes deposits.
 
 See [Cancelling, Killing, and Blacklisting](https://wiki.polkadot.com/learn/learn-polkadot-opengov/#cancelling-killing--blacklisting){target=\_blank} for additional information on rejecting referendums.
 

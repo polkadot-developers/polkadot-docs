@@ -30913,40 +30913,63 @@ If you're new to XCM replay or dry-run, see [Replay and Dry Run XCMs Using Chops
     mkdir -p xcm-obs-demo && cd xcm-obs-demo
     ```
 
-2. Initialise Node project:
-
-    ```bash
-    npm init -y
-    ```
-
-3. Install Chopsticks globally:
+2. Install Chopsticks globally:
 
     ```bash
     npm install -g @acala-network/chopsticks@latest
     ```
 
-4. Install TypeScript and Polkadot dependencies:
+3. Download 1.6.0 (or later) runtime:
+
+    ```bash
+    mkdir -p wasms
+    wget https://github.com/polkadot-fellows/runtimes/releases/download/v1.6.0/asset-hub-polkadot_runtime-v1006000.compact.compressed.wasm -O wasms/asset-hub-polkadot_v1.6.0.wasm
+    ```
+
+4. Download config of Polkadot Hub:
+
+    ```bash
+    mkdir -p configs
+    wget https://raw.githubusercontent.com/AcalaNetwork/chopsticks/master/configs/polkadot-asset-hub.yml -O configs/polkadot-hub-override.yaml
+    ```
+
+5. Edit `configs/polkadot-hub-override.yaml` to include:
+
+    ```yaml title="configs/polkadot-hub-override.yaml"
+    ...
+    # wasm-override: wasms/asset_hub_polkadot_runtime.wasm # Uncomment if using the `debug` build
+    wasm-override: wasms/asset-hub-polkadot_v1.6.0.wasm    # Use this if you built with `release`
+    ...
+    ```
+
+6. Fork the relevant chains locally using Chopsticks:
+
+    ```bash
+    npx @acala-network/chopsticks xcm -r polkadot -p configs/polkadot-hub-override.yaml -p hydradx
+    ```
+
+   → See the [Fork a Chain with Chopsticks guide](/tutorials/polkadot-sdk/testing/fork-live-chains/){target=\_blank} for detailed instructions.
+
+7. Open a **new terminal** in the same folder and initialise a Node.js project:
+
+    ```bash
+    npm init -y
+    ```
+
+8. Install TypeScript and Polkadot dependencies:
 
     ```bash
     npm install --save-dev typescript @types/node tsx
     npm install polkadot-api @polkadot-labs/hdkd @polkadot-labs/hdkd-helpers
     ```
 
-5. Initialise TypeScript:
+9. Initialise TypeScript:
 
     ```bash
     npx tsc --init
     ```
 
-6. Fork the relevant chains locally using Chopsticks:
-
-    ```bash
-    npx @acala-network/chopsticks xcm -r polkadot -p polkadot-asset-hub -p hydradx
-    ```
-
-   → See the [Fork a Chain with Chopsticks guide](/tutorials/polkadot-sdk/testing/fork-live-chains/){target=\_blank} for detailed instructions.
-
-7. Add descriptors:
+10. Add descriptors:
 
     ```bash
     npx papi add assetHub -w ws://localhost:8000

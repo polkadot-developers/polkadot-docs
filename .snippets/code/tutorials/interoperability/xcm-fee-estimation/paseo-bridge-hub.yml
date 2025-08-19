@@ -1,6 +1,6 @@
-endpoint: wss://paseo-rpc.dwellir.com
+endpoint: wss://bridge-hub-paseo.dotters.network
 mock-signature-host: true
-block: ${env.PASEO_BLOCK_NUMBER}
+block: ${env.PASEO_BRIDGE_HUB_BLOCK_NUMBER}
 db: ./db.sqlite
 
 import-storage:

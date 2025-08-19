@@ -1,4 +1,4 @@
-import { paseo, paseoAssetHub } from "@polkadot-api/descriptors";
+import { paseoAssetHub, paseoBridgeHub } from "@polkadot-api/descriptors";
 import {
   createClient,
   FixedSizeBinary,
@@ -23,16 +23,17 @@ import {
 const PAS_UNITS = 10_000_000_000n; // 1 PAS
 const PAS_CENTS = 100_000_000n; // 0.01 PAS
 
-// Paseo Relay Chain constants
-const PASEO_RPC_ENDPOINT = "ws://localhost:8000"; // Paseo Relay Chain chopsticks endpoint
-const PASEO_ACCOUNT = "15oF4uVJwmo4TdGW7VfQxNLavjCXviqxT9S1MgbjMNHr6Sp5"; // Alice (Paseo Relay Chain)
-
 // Paseo Asset Hub constants
-const PASEO_ASSET_HUB_RPC_ENDPOINT = "ws://localhost:8001"; // Paseo Asset Hub chopsticks endpoint
-const ASSET_HUB_ACCOUNT = "14E5nqKAp3oAJcmzgZhUD2RcptBeUBScxKHgJKU4HPNcKVf3"; // Bob (Paseo Asset Hub)
+const PASEO_ASSET_HUB_RPC_ENDPOINT = "ws://localhost:8001";
+const ASSET_HUB_ACCOUNT = "15oF4uVJwmo4TdGW7VfQxNLavjCXviqxT9S1MgbjMNHr6Sp5"; // Alice (Paseo Asset Hub)
 
-// Helper function to create XCM for teleport to Relay
-function createTeleportXcmToRelay() {
+// Bridge Hub destination
+const BRIDGE_HUB_RPC_ENDPOINT = "ws://localhost:8000";
+const BRIDGE_HUB_PARA_ID = 1002;
+const BRIDGE_HUB_BENEFICIARY = "14E5nqKAp3oAJcmzgZhUD2RcptBeUBScxKHgJKU4HPNcKVf3"; // Bob (Bridge Hub)
+
+// Create the XCM message for teleport (Asset Hub → Bridge Hub)
+function createTeleportXcmToBridgeHub(paraId: number) {
   return XcmVersionedXcm.V5([
     // Withdraw PAS from Asset Hub (PAS on parachains is parents:1, interior: Here)
     XcmV5Instruction.WithdrawAsset([
@@ -48,11 +49,11 @@ function createTeleportXcmToRelay() {
         fun: XcmV3MultiassetFungibility.Fungible(10n * PAS_CENTS), // 0.01 PAS
       },
     }),
-    // Send to Relay (parents:1, interior: Here)
+    // Send to Bridge Hub parachain (parents:1, interior: X1(Parachain(paraId)))
     XcmV5Instruction.InitiateTransfer({
       destination: {
         parents: 1,
-        interior: XcmV5Junctions.Here(),
+        interior: XcmV5Junctions.X1(XcmV5Junction.Parachain(paraId)),
       },
       remote_fees: Enum(
         "Teleport",
@@ -72,7 +73,7 @@ function createTeleportXcmToRelay() {
             interior: XcmV5Junctions.X1(
               XcmV5Junction.AccountId32({
                 network: undefined,
-                id: FixedSizeBinary.fromAccountId32(PASEO_ACCOUNT),
+                id: FixedSizeBinary.fromAccountId32(BRIDGE_HUB_BENEFICIARY),
               })
             ),
           },
@@ -85,8 +86,8 @@ function createTeleportXcmToRelay() {
   ]);
 }
 
-async function estimateXcmFeesFromAssetHub(xcm: any, assetHubApi: any) {
-  console.log("=== Fee Estimation Process (Asset Hub → Relay) ===");
+async function estimateXcmFeesFromAssetHubToBridgeHub(xcm: any, assetHubApi: any) {
+  console.log("=== Fee Estimation Process (Asset Hub → Bridge Hub) ===");
 
   // 1. LOCAL EXECUTION FEES on Asset Hub
   console.log("1. Calculating local execution fees on Asset Hub...");
@@ -118,7 +119,7 @@ async function estimateXcmFeesFromAssetHub(xcm: any, assetHubApi: any) {
   // 2. DELIVERY FEES + REMOTE EXECUTION FEES
   console.log("\n2. Calculating delivery and remote execution fees...");
   let deliveryFees = 0n;
-  let remoteExecutionFees = 0n;
+  let remoteExecutionFees = 0n; // Skipped (Bridge Hub descriptor not available)
 
   // Origin from Asset Hub perspective
   const origin = XcmVersionedLocation.V5({
@@ -139,21 +140,23 @@ async function estimateXcmFeesFromAssetHub(xcm: any, assetHubApi: any) {
 
     const { forwarded_xcms: forwardedXcms } = dryRunResult.value;
 
-    // Find the XCM message sent to Relay (parents:1, interior: Here)
-    const relayXcmEntry = forwardedXcms.find(
+    // Find the XCM message sent to Bridge Hub (parents:1, interior: X1(Parachain(1002)))
+    const bridgeHubXcmEntry = forwardedXcms.find(
       ([location, _]: [any, any]) =>
         (location.type === "V4" || location.type === "V5") &&
         location.value.parents === 1 &&
-        location.value.interior?.type === "Here"
+        location.value.interior?.type === "X1" &&
+        location.value.interior.value?.type === "Parachain" &&
+        location.value.interior.value.value === BRIDGE_HUB_PARA_ID
     );
 
-    if (relayXcmEntry) {
-      const [destination, messages] = relayXcmEntry;
+    if (bridgeHubXcmEntry) {
+      const [destination, messages] = bridgeHubXcmEntry;
       const remoteXcm = messages[0];
 
-      console.log("✓ Found XCM message to Relay");
+      console.log("✓ Found XCM message to Bridge Hub");
 
-      // Calculate delivery fees from Asset Hub to Relay
+      // Calculate delivery fees from Asset Hub to Bridge Hub
       const deliveryFeesResult = await assetHubApi.apis.XcmPaymentApi.query_delivery_fees(
         destination,
         remoteXcm
@@ -161,7 +164,7 @@ async function estimateXcmFeesFromAssetHub(xcm: any, assetHubApi: any) {
 
       if (
         deliveryFeesResult.success &&
-        deliveryFeesResult.value.type === "V4" &&
+        deliveryFeesResult.value.type === "V5" &&
         deliveryFeesResult.value.value[0]?.fun?.type === "Fungible"
       ) {
         deliveryFees = deliveryFeesResult.value.value[0].fun.value;
@@ -170,43 +173,24 @@ async function estimateXcmFeesFromAssetHub(xcm: any, assetHubApi: any) {
         console.log("✗ Failed to calculate delivery fees:", deliveryFeesResult);
       }
 
-      // 3. REMOTE EXECUTION FEES on Relay
-      console.log("\n3. Calculating remote execution fees on Relay...");
-      try {
-        const relayClient = createClient(withPolkadotSdkCompat(getWsProvider(PASEO_RPC_ENDPOINT)));
-        const relayApi = relayClient.getTypedApi(paseo);
-
-        // Query weight of the remote XCM on Relay
-        const remoteWeightResult = await relayApi.apis.XcmPaymentApi.query_xcm_weight(remoteXcm);
-
-        if (remoteWeightResult.success) {
-          console.log("✓ Remote XCM weight (Relay) calculated:", remoteWeightResult.value);
-
-          // Convert to fee using PAS on Relay (parents:0, Here)
-          const remoteFeesResult = await relayApi.apis.XcmPaymentApi.query_weight_to_asset_fee(
-            remoteWeightResult.value,
-            XcmVersionedAssetId.V5({
-              parents: 0,
-              interior: XcmV5Junctions.Here(),
-            })
+        // 3. REMOTE EXECUTION FEES on Bridge Hub
+        console.log("\n3. Calculating remote execution fees on Bridge Hub");
+        try {
+          const bridgeHubClient = createClient(withPolkadotSdkCompat(getWsProvider(BRIDGE_HUB_RPC_ENDPOINT)));
+          const bridgeHubApi = bridgeHubClient.getTypedApi(paseoBridgeHub);
+          const remoteWeightResult = await bridgeHubApi.apis.XcmPaymentApi.query_xcm_weight(remoteXcm);
+          const remoteFeesResult = await bridgeHubApi.apis.XcmPaymentApi.query_weight_to_asset_fee(
+            remoteWeightResult.value as { ref_time: bigint; proof_size: bigint },
+            XcmVersionedAssetId.V4({ parents: 1, interior: XcmV3Junctions.Here() })
           );
-
-          if (remoteFeesResult.success) {
-            remoteExecutionFees = remoteFeesResult.value;
-            console.log("✓ Remote execution fees:", remoteExecutionFees.toString(), "PAS units");
-          } else {
-            console.log("✗ Failed to calculate remote execution fees:", remoteFeesResult.value);
-          }
-        } else {
-          console.log("✗ Failed to query remote XCM weight:", remoteWeightResult.value);
+          bridgeHubClient.destroy();
+          remoteExecutionFees = remoteFeesResult.value as bigint;
+          console.log("✓ Remote execution fees:", remoteExecutionFees.toString(), "PAS units");
+        } catch (error) {
+          console.error("Error calculating remote execution fees on Bridge Hub:", error);
         }
-
-        relayClient.destroy();
-      } catch (error) {
-        console.error("Error calculating remote execution fees on Relay:", error);
-      }
     } else {
-      console.log("✗ No XCM message found to Relay");
+      console.log("✗ No XCM message found to Bridge Hub");
     }
   } else {
     console.log("✗ Local dry run failed on Asset Hub:", dryRunResult.value);
@@ -215,7 +199,7 @@ async function estimateXcmFeesFromAssetHub(xcm: any, assetHubApi: any) {
   // 4. TOTAL FEES
   const totalFees = localExecutionFees + deliveryFees + remoteExecutionFees;
 
-  console.log("\n=== Fee Summary (Asset Hub → Relay) ===");
+  console.log("\n=== Fee Summary (Asset Hub → Bridge Hub) ===");
   console.log("Local execution fees:", localExecutionFees.toString(), "PAS units");
   console.log("Delivery fees:", deliveryFees.toString(), "PAS units");
   console.log("Remote execution fees:", remoteExecutionFees.toString(), "PAS units");
@@ -231,24 +215,24 @@ async function estimateXcmFeesFromAssetHub(xcm: any, assetHubApi: any) {
 }
 
 async function main() {
-  // Connect to the Paseo Asset Hub parachain
+  // Connect to the Asset Hub parachain
   const assetHubClient = createClient(withPolkadotSdkCompat(getWsProvider(PASEO_ASSET_HUB_RPC_ENDPOINT)));
 
-  // Get the typed API for Paseo Asset Hub
+  // Get the typed API for Asset Hub
   const assetHubApi = assetHubClient.getTypedApi(paseoAssetHub);
 
   try {
-    // Create the XCM message for teleport (Paseo Asset Hub → Paseo Relay)
-    const xcm = createTeleportXcmToRelay();
+    // Create the XCM message for teleport (Asset Hub → Bridge Hub)
+    const xcm = createTeleportXcmToBridgeHub(BRIDGE_HUB_PARA_ID);
 
-    console.log("=== XCM Teleport: Paseo Asset Hub → Paseo Relay ===");
-    console.log("From:", ASSET_HUB_ACCOUNT, "(Bob)");
-    console.log("To:", PASEO_ACCOUNT, "(Alice)");
+    console.log("=== XCM Teleport: Paseo Asset Hub → Bridge Hub ===");
+    console.log("From:", ASSET_HUB_ACCOUNT, "(Alice on Asset Hub)");
+    console.log("To:", BRIDGE_HUB_BENEFICIARY, "(Beneficiary on Bridge Hub)");
     console.log("Amount:", "1 PAS");
     console.log("");
 
     // Estimate all fees
-    const fees = await estimateXcmFeesFromAssetHub(xcm, assetHubApi);
+    const fees = await estimateXcmFeesFromAssetHubToBridgeHub(xcm, assetHubApi);
     void fees; // prevent unused var under isolatedModules
 
     // Create the execute transaction on Asset Hub
@@ -264,6 +248,7 @@ async function main() {
     console.log("Transaction hex:", (await tx.getEncodedData()).asHex());
     console.log("Ready to submit!");
   } catch (error) {
+    console.log("Error stack:", (error as Error).stack);
     console.error("Error occurred:", (error as Error).message);
     if ((error as Error).cause) {
       console.dir((error as Error).cause, { depth: null });

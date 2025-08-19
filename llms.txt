@@ -16412,15 +16412,15 @@ The [Moonbeam XCM SDK](https://github.com/moonbeam-foundation/xcm-sdk){target=\_
 
 The SDK consists of two main packages:
 
-- **[XCM SDK](https://github.com/moonbeam-foundation/xcm-sdk/tree/main/packages/sdk){target=\_blank}** - core SDK for executing XCM transfers between chains in the Polkadot/Kusama ecosystem
-- **[MRL SDK](https://github.com/moonbeam-foundation/xcm-sdk/tree/main/packages/mrl){target=\_blank}** - extension of the XCM SDK for transferring liquidity into and across the Polkadot ecosystem from other ecosystems like Ethereum
+- **[XCM SDK](https://github.com/moonbeam-foundation/xcm-sdk/tree/main/packages/sdk){target=\_blank}** : Core SDK for executing XCM transfers between chains in the Polkadot/Kusama ecosystem.
+- **[MRL SDK](https://github.com/moonbeam-foundation/xcm-sdk/tree/main/packages/mrl){target=\_blank}**: Extension of the XCM SDK for transferring liquidity into and across the Polkadot ecosystem from other ecosystems like Ethereum.
 
 Key features include:
 
-- **Simplified asset transfers** - abstracts away complex multilocation determinations and extrinsic selection
-- **Cross-ecosystem support** - enables transfers between Polkadot/Kusama chains and external ecosystems
-- **Developer-friendly API** - provides intuitive interfaces for cross-chain functionality
-- **Comprehensive documentation** - includes usage guides and API references for both packages
+- **Simplified asset transfers**: Abstracts away complex multilocation determinations and extrinsic selection.
+- **Cross-ecosystem support**: Enables transfers between Polkadot/Kusama chains and external ecosystems.
+- **Developer-friendly API**: Provides intuitive interfaces for cross-chain functionality.
+- **Comprehensive documentation**: Includes usage guides and API references for both packages.
 
 For detailed usage examples and API documentation, visit the [official Moonbeam XCM SDK documentation](https://moonbeam-foundation.github.io/xcm-sdk/latest/){target=\_blank}.
 --- END CONTENT ---

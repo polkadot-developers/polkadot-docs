@@ -7,7 +7,7 @@ description: This tutorial demonstrates how to estimate the fees for teleporting
 
 ## Introduction
 
-When sending cross-chain messages, you need to make sure that the transaction will be successful not only in the local chain but also in the destination, or even in the intermediate chains.
+When sending cross-chain messages, ensure that the transaction will be successful not only in the local chain but also in the destination chain and any intermediate chains.
 
 Sending cross-chain messages requires estimating the fees for the operation. 
 
@@ -15,13 +15,13 @@ This tutorial will demonstrate how to dry-run and estimate the fees for teleport
 
 ## Fee Mechanism
 
-There are 3 types of fees that can be charged when sending a cross-chain message:
+There are three types of fees that can be charged when sending a cross-chain message:
 
 - **Local execution fees**: Fees charged in the local chain for executing the message.
 - **Delivery fees**: Fees charged for delivering the message to the destination chain.
 - **Remote execution fees**: Fees charged in the destination chain for executing the message.
 
-If there are multiple intermediate chains, the delivery fees and remote execution fees will be charged for each intermediate chain.
+If there are multiple intermediate chains, delivery fees and remote execution fees will be charged for each one.
 
 In this example, you will estimate the fees for teleporting assets from the Paseo Asset Hub parachain to the Paseo Bridge Hub chain. The fee structure will be as follows:
 
@@ -51,19 +51,19 @@ First, you need to set up your environment:
     npm init -y
     ```
 
-3. Install dev dependencies
+3. Install dev dependencies:
 
     ```bash
     npm install --save-dev @types/node@^22.12.0 ts-node@^10.9.2 typescript@^5.7.3
     ```
 
-4. Install dependencies
+4. Install dependencies:
 
     ```bash
     npm install --save @polkadot-labs/hdkd@^0.0.13 @polkadot-labs/hdkd-helpers@^0.0.13 polkadot-api@1.9.5
     ```
 
-5. Create TypeScript configuration
+5. Create TypeScript configuration:
 
     ```bash
     npx tsc --init
@@ -104,7 +104,7 @@ All the following code explained in the subsequent sections must be added inside
 
 ## Client and API Setup
 
-Now you are ready to start implementing the logic for the fee estimation for the teleport you want to perform. In this step you will create the client for the Paseo Asset Hub parachain and generate the typed API to interact with the chain. Follow the steps below:
+Now you are ready to start implementing the logic for the fee estimation for the teleport you want to perform. In this step, you will create the client for the Paseo Asset Hub parachain and generate the typed API to interact with the chain. Follow the steps below:
 
 Create the API client. You will need to create a client for the Paseo Asset Hub parachain:
 
@@ -112,7 +112,7 @@ Create the API client. You will need to create a client for the Paseo Asset Hub 
 --8<-- "code/tutorials/interoperability/xcm-fee-estimation/teleport-ah-to-bridge-hub.ts:218:222"
 ```
 
-Make sure to replace the endpoint URLs with the actual WebSocket endpoints. This example uses local chopsticks endpoints, but you can use public endpoints or run local nodes.
+Ensure that you replace the endpoint URLs with the actual WebSocket endpoints. This example uses local chopsticks endpoints, but you can use public endpoints or run local nodes.
 
 ## Create the XCM Message
 
@@ -146,7 +146,7 @@ First, you need to create the function that will estimate the fees for the telep
     --8<-- "code/tutorials/interoperability/xcm-fee-estimation/teleport-ah-to-bridge-hub.ts:119:174"
     ```
 
-3. **Remote execution fees on Bridge Hub**: Connect to Bridge Hub, re-compute the forwarded XCM weight there, and convert weight to PAS (`parents: 0, interior: Here`). Add the code to the function:
+3. **Remote execution fees on Bridge Hub**: Connect to Bridge Hub, recompute the forwarded XCM weight there, and convert weight to PAS (`parents: 0, interior: Here`). Add the code to the function:
 
     ```typescript title="teleport-ah-to-bridge-hub.ts"
     --8<-- "code/tutorials/interoperability/xcm-fee-estimation/teleport-ah-to-bridge-hub.ts:176:197"
@@ -235,6 +235,6 @@ After running the script, you will see the following output:
 
 ## Conclusion
 
-This approach provides accurate fee estimation for XCM teleports from Asset Hub to Bridge Hub Chain by properly simulating the execution on both chains and using the dedicated runtime APIs for fee calculation. The fee breakdown helps you understand the cost structure of reverse cross-chain operations (parachain → bridge hub chain) and ensures your transactions have sufficient funds to complete successfully.
+This approach provides accurate fee estimation for XCM teleports from Asset Hub to Bridge Hub Chain by properly simulating execution on both chains and utilizing dedicated runtime APIs for fee calculation. The fee breakdown helps you understand the cost structure of reverse cross-chain operations (parachain → bridge hub chain) and ensures your transactions have sufficient funds to complete successfully.
 
 The key insight is understanding how asset references change based on the perspective of each chain in the XCM ecosystem, which is crucial for proper fee estimation and XCM construction.

@@ -2348,9 +2348,9 @@ Collators are responsible for sequencing end-user transactions into blocks and m
 
 Key responsibilities include:
 
-- **Transaction sequencing** - organizing transactions into [Proof of Validity (PoV)](https://wiki.polkadot.com/general/glossary/#proof-of-validity){target=\_blank} blocks
-- **State management** - maintaining parachain states without burdening the relay chain validators
-- **Consensus participation** - sending PoV blocks to relay chain validators for approval
+- **Transaction sequencing**: Organizing transactions into [Proof of Validity (PoV)](https://wiki.polkadot.com/general/glossary/#proof-of-validity){target=\_blank} blocks.
+- **State management**: Maintaining parachain states without burdening the relay chain validators.
+- **Consensus participation**: Sending PoV blocks to relay chain validators for approval.
 
 ## Consensus and Validation
 
@@ -2790,7 +2790,7 @@ As a Layer-0 blockchain, Polkadot contributes to the multi-chain vision through 
 
 - **Secure interoperability**: Polkadot's native interoperability enables seamless data and value exchange between parachains. This interoperability can also be used outside of the ecosystem for bridging with external networks.
 
-- **Resilient infrastructure** - decentralized and scalable, Polkadot ensures ongoing support for development and community initiatives via its on-chain [treasury](https://wiki.polkadot.com/learn/learn-polkadot-opengov-treasury/){target=\_blank} and governance
+- **Resilient infrastructure**: Decentralized and scalable, Polkadot ensures ongoing support for development and community initiatives via its on-chain [treasury](https://wiki.polkadot.com/learn/learn-polkadot-opengov-treasury/){target=\_blank} and governance.
 
 - **Rapid L1 development**: The [Polkadot SDK](/develop/parachains/intro-polkadot-sdk/){target=\_blank} allows fast, flexible creation and deployment of Layer-1 chains.
 
@@ -3319,9 +3319,9 @@ To view the complete list of which pallets are included in Bridge Hub, visit the
 
 ## Deployed Bridges
 
-- [**Snowbridge**](https://wiki.polkadot.com/learn/learn-snowbridge/){target=\_blank} - a general-purpose, trustless bridge between Polkadot and Ethereum
-- [**Hyperbridge**](https://wiki.polkadot.com/learn/learn-hyperbridge/){target=\_blank} - a cross-chain solution built as an interoperability coprocessor, providing state-proof-based interoperability across all blockchains
-- [**Polkadot <> Kusama Bridge**](https://wiki.polkadot.com/learn/learn-dot-ksm-bridge/){target=\_blank} - a bridge that utilizes relayers to bridge the Polkadot and Kusama relay chains trustlessly
+- [**Snowbridge**](https://wiki.polkadot.com/learn/learn-snowbridge/){target=\_blank}: A general-purpose, trustless bridge between Polkadot and Ethereum.
+- [**Hyperbridge**](https://wiki.polkadot.com/learn/learn-hyperbridge/){target=\_blank}: A cross-chain solution built as an interoperability coprocessor, providing state-proof-based interoperability across all blockchains.
+- [**Polkadot <> Kusama Bridge**](https://wiki.polkadot.com/learn/learn-dot-ksm-bridge/){target=\_blank}: A bridge that utilizes relayers to bridge the Polkadot and Kusama relay chains trustlessly.
 
 ## Where to Go Next
 
@@ -3348,9 +3348,9 @@ The architecture enables entire networks to function as unified entities, allowi
 
 The Collectives chain hosts several important governance bodies:
 
-- [**Polkadot Technical Fellowship**](https://wiki.polkadot.com/learn/learn-polkadot-technical-fellowship/){target=\_blank} - a self-governing assembly of protocol experts and developers who oversee technical aspects of the Polkadot and Kusama networks. The Fellowship operates both on-chain through the collectives system and off-chain via GitHub repositories, public discussion forums, and monthly development calls that are publicly accessible.
+- [**Polkadot Technical Fellowship**](https://wiki.polkadot.com/learn/learn-polkadot-technical-fellowship/){target=\_blank}: A self-governing assembly of protocol experts and developers who oversee technical aspects of the Polkadot and Kusama networks. The Fellowship operates both on-chain through the collectives system and off-chain via GitHub repositories, public discussion forums, and monthly development calls that are publicly accessible.
 
-- [**Polkadot Alliance**](https://wiki.polkadot.com/general/glossary/#polkadot-alliance){target=\_blank} - a consortium founded by seven leading parachain projects (Acala, Astar, Interlay, Kilt, Moonbeam, Phala, and Subscan) to establish development standards and ethical guidelines within the ecosystem. This ranked collective, comprised of "Fellows" and "Allies," focuses on promoting best practices and identifying potential bad actors. Membership is primarily designed for organizations, projects, and other networks rather than individuals.
+- [**Polkadot Alliance**](https://wiki.polkadot.com/general/glossary/#polkadot-alliance){target=\_blank}: A consortium founded by seven leading parachain projects (Acala, Astar, Interlay, Kilt, Moonbeam, Phala, and Subscan) to establish development standards and ethical guidelines within the ecosystem. This ranked collective, comprised of "Fellows" and "Allies," focuses on promoting best practices and identifying potential bad actors. Membership is primarily designed for organizations, projects, and other networks rather than individuals.
 
 These collectives serve as pillars of Polkadot's decentralized governance model, enabling community-driven decision-making and establishing technical standards that shape the network's evolution. Through structured on-chain representation, they provide transparent mechanisms for ecosystem development while maintaining the core Web3 principles of trustlessness and decentralization.
 --- END CONTENT ---
@@ -3483,8 +3483,8 @@ The Asset Hub also supports non-fungible assets (NFTs) via the [Uniques pallet](
 
 The Polkadot Collectives parachain was added in [Referendum 81](https://polkadot-old.polkassembly.io/referendum/81){target=\_blank} and exists on Polkadot but not on Kusama. The Collectives chain hosts on-chain collectives that serve the Polkadot network, including the following:
 
-- [**Polkadot Alliance**](https://polkadot-old.polkassembly.io/referendum/94){target=\_blank} - provides a set of ethics and standards for the community to follow. Includes an on-chain means to call out bad actors
-- [**Polkadot Technical Fellowship**](https://wiki.polkadot.com/learn/learn-polkadot-technical-fellowship/){target=\_blank} - a rules-based social organization to support and incentivize highly-skilled developers to contribute to the technical stability, security, and progress of the network
+- [**Polkadot Alliance**](https://polkadot-old.polkassembly.io/referendum/94){target=\_blank}: Provides a set of ethics and standards for the community to follow. Includes an on-chain means to call out bad actors.
+- [**Polkadot Technical Fellowship**](https://wiki.polkadot.com/learn/learn-polkadot-technical-fellowship/){target=\_blank}: A rules-based social organization to support and incentivize highly-skilled developers to contribute to the technical stability, security, and progress of the network.
 
 These on-chain collectives will play essential roles in the future of network stewardship and decentralized governance. Networks can use a bridge hub to help them act as collectives and express their legislative voices as single opinions within other networks.
 
@@ -3728,10 +3728,10 @@ In OpenGov, anyone can submit a referendum, fostering an open and participatory 
 
 The timeline for an individual referendum includes four distinct periods:
 
-- **Lead-in** - a minimum amount of time to allow for community participation, available room in the origin, and payment of the decision deposit. Voting is open during this period
-- **Decision** - voting continues
-- **Confirmation** - referendum must meet [approval and support](https://wiki.polkadot.com/learn/learn-polkadot-opengov/#approval-and-support){target=\_blank} criteria during entire period to avoid rejection
-- **Enactment** - changes approved by the referendum are executed
+- **Lead-in**: A minimum amount of time to allow for community participation, available room in the origin, and payment of the decision deposit. Voting is open during this period.
+- **Decision**: Voting continues.
+- **Confirmation**: Referendum must meet [approval and support](https://wiki.polkadot.com/learn/learn-polkadot-opengov/#approval-and-support){target=\_blank} criteria during entire period to avoid rejection.
+- **Enactment**: Changes approved by the referendum are executed.
 
 ### Vote on Referendums
 
@@ -3751,8 +3751,8 @@ Visit [Multirole Delegation](https://wiki.polkadot.com/learn/learn-polkadot-open
 
 Polkadot OpenGov has two origins for rejecting ongoing referendums: 
 
-- [**Referendum Canceller**](https://wiki.polkadot.com/learn/learn-polkadot-opengov-origins/#referendum-canceller){target=\_blank} - cancels an active referendum when non-malicious errors occur and refunds the deposits to the originators
-- [**Referendum Killer**](https://wiki.polkadot.com/learn/learn-polkadot-opengov-origins/#referendum-killer){target=\_blank} - used for urgent, malicious cases this origin instantly terminates an active referendum and slashes deposits
+- [**Referendum Canceller**](https://wiki.polkadot.com/learn/learn-polkadot-opengov-origins/#referendum-canceller){target=\_blank}: Cancels an active referendum when non-malicious errors occur and refunds the deposits to the originators.
+- [**Referendum Killer**](https://wiki.polkadot.com/learn/learn-polkadot-opengov-origins/#referendum-killer){target=\_blank}: Used for urgent, malicious cases this origin instantly terminates an active referendum and slashes deposits.
 
 See [Cancelling, Killing, and Blacklisting](https://wiki.polkadot.com/learn/learn-polkadot-opengov/#cancelling-killing--blacklisting){target=\_blank} for additional information on rejecting referendums.
 
@@ -3938,11 +3938,11 @@ In the Polkadot ecosystem, account balances are categorized into different types
 
 The five main balance types are:
 
-- **Free balance** - represents the total tokens available to the account for any on-chain activity, including staking, governance, and voting. However, it may not be fully spendable or transferrable if portions of it are locked or reserved
-- **Locked balance** - portions of the free balance that cannot be spent or transferred because they are tied up in specific activities like [staking](https://wiki.polkadot.com/learn/learn-staking/#nominating-validators){target=\_blank}, [vesting](https://wiki.polkadot.com/learn/learn-guides-transfers/#vested-transfers-with-the-polkadot-js-ui){target=\_blank}, or participating in [governance](https://wiki.polkadot.com/learn/learn-polkadot-opengov/#voting-on-a-referendum){target=\_blank}. While the tokens remain part of the free balance, they are non-transferable for the duration of the lock
-- **Reserved balance** - funds locked by specific system actions, such as setting up an [identity](https://wiki.polkadot.com/learn/learn-identity/){target=\_blank}, creating [proxies](https://wiki.polkadot.com/learn/learn-proxies/){target=\_blank}, or submitting [deposits for governance proposals](https://wiki.polkadot.com/learn/learn-guides-polkadot-opengov/#claiming-opengov-deposits){target=\_blank}. These tokens are not part of the free balance and cannot be spent unless they are unreserved
-- **Spendable balance** - the portion of the free balance that is available for immediate spending or transfers. It is calculated by subtracting the maximum of locked or reserved amounts from the free balance, ensuring that existential deposit limits are met
-- **Untouchable balance** - funds that cannot be directly spent or transferred but may still be utilized for on-chain activities, such as governance participation or staking. These tokens are typically tied to certain actions or locked for a specific period
+- **Free balance**: Represents the total tokens available to the account for any on-chain activity, including staking, governance, and voting. However, it may not be fully spendable or transferrable if portions of it are locked or reserved.
+- **Locked balance**: Portions of the free balance that cannot be spent or transferred because they are tied up in specific activities like [staking](https://wiki.polkadot.com/learn/learn-staking/#nominating-validators){target=\_blank}, [vesting](https://wiki.polkadot.com/learn/learn-guides-transfers/#vested-transfers-with-the-polkadot-js-ui){target=\_blank}, or participating in [governance](https://wiki.polkadot.com/learn/learn-polkadot-opengov/#voting-on-a-referendum){target=\_blank}. While the tokens remain part of the free balance, they are non-transferable for the duration of the lock.
+- **Reserved balance**: Funds locked by specific system actions, such as setting up an [identity](https://wiki.polkadot.com/learn/learn-identity/){target=\_blank}, creating [proxies](https://wiki.polkadot.com/learn/learn-proxies/){target=\_blank}, or submitting [deposits for governance proposals](https://wiki.polkadot.com/learn/learn-guides-polkadot-opengov/#claiming-opengov-deposits){target=\_blank}. These tokens are not part of the free balance and cannot be spent unless they are unreserved.
+- **Spendable balance**: The portion of the free balance that is available for immediate spending or transfers. It is calculated by subtracting the maximum of locked or reserved amounts from the free balance, ensuring that existential deposit limits are met.
+- **Untouchable balance**: Funds that cannot be directly spent or transferred but may still be utilized for on-chain activities, such as governance participation or staking. These tokens are typically tied to certain actions or locked for a specific period.
 
 The spendable balance is calculated as follows:
 
@@ -11609,7 +11609,7 @@ As a Layer-0 blockchain, Polkadot contributes to the multi-chain vision through 
 
 - **Secure interoperability**: Polkadot's native interoperability enables seamless data and value exchange between parachains. This interoperability can also be used outside of the ecosystem for bridging with external networks.
 
-- **Resilient infrastructure** - decentralized and scalable, Polkadot ensures ongoing support for development and community initiatives via its on-chain [treasury](https://wiki.polkadot.com/learn/learn-polkadot-opengov-treasury/){target=\_blank} and governance
+- **Resilient infrastructure**: Decentralized and scalable, Polkadot ensures ongoing support for development and community initiatives via its on-chain [treasury](https://wiki.polkadot.com/learn/learn-polkadot-opengov-treasury/){target=\_blank} and governance.
 
 - **Rapid L1 development**: The [Polkadot SDK](/develop/parachains/intro-polkadot-sdk/){target=\_blank} allows fast, flexible creation and deployment of Layer-1 chains.
 
@@ -11795,8 +11795,8 @@ The Asset Hub also supports non-fungible assets (NFTs) via the [Uniques pallet](
 
 The Polkadot Collectives parachain was added in [Referendum 81](https://polkadot-old.polkassembly.io/referendum/81){target=\_blank} and exists on Polkadot but not on Kusama. The Collectives chain hosts on-chain collectives that serve the Polkadot network, including the following:
 
-- [**Polkadot Alliance**](https://polkadot-old.polkassembly.io/referendum/94){target=\_blank} - provides a set of ethics and standards for the community to follow. Includes an on-chain means to call out bad actors
-- [**Polkadot Technical Fellowship**](https://wiki.polkadot.com/learn/learn-polkadot-technical-fellowship/){target=\_blank} - a rules-based social organization to support and incentivize highly-skilled developers to contribute to the technical stability, security, and progress of the network
+- [**Polkadot Alliance**](https://polkadot-old.polkassembly.io/referendum/94){target=\_blank}: Provides a set of ethics and standards for the community to follow. Includes an on-chain means to call out bad actors.
+- [**Polkadot Technical Fellowship**](https://wiki.polkadot.com/learn/learn-polkadot-technical-fellowship/){target=\_blank}: A rules-based social organization to support and incentivize highly-skilled developers to contribute to the technical stability, security, and progress of the network.
 
 These on-chain collectives will play essential roles in the future of network stewardship and decentralized governance. Networks can use a bridge hub to help them act as collectives and express their legislative voices as single opinions within other networks.
 
@@ -11884,10 +11884,10 @@ In OpenGov, anyone can submit a referendum, fostering an open and participatory 
 
 The timeline for an individual referendum includes four distinct periods:
 
-- **Lead-in** - a minimum amount of time to allow for community participation, available room in the origin, and payment of the decision deposit. Voting is open during this period
-- **Decision** - voting continues
-- **Confirmation** - referendum must meet [approval and support](https://wiki.polkadot.com/learn/learn-polkadot-opengov/#approval-and-support){target=\_blank} criteria during entire period to avoid rejection
-- **Enactment** - changes approved by the referendum are executed
+- **Lead-in**: A minimum amount of time to allow for community participation, available room in the origin, and payment of the decision deposit. Voting is open during this period.
+- **Decision**: Voting continues.
+- **Confirmation**: Referendum must meet [approval and support](https://wiki.polkadot.com/learn/learn-polkadot-opengov/#approval-and-support){target=\_blank} criteria during entire period to avoid rejection.
+- **Enactment**: Changes approved by the referendum are executed.
 
 ### Vote on Referendums
 
@@ -11907,8 +11907,8 @@ Visit [Multirole Delegation](https://wiki.polkadot.com/learn/learn-polkadot-open
 
 Polkadot OpenGov has two origins for rejecting ongoing referendums: 
 
-- [**Referendum Canceller**](https://wiki.polkadot.com/learn/learn-polkadot-opengov-origins/#referendum-canceller){target=\_blank} - cancels an active referendum when non-malicious errors occur and refunds the deposits to the originators
-- [**Referendum Killer**](https://wiki.polkadot.com/learn/learn-polkadot-opengov-origins/#referendum-killer){target=\_blank} - used for urgent, malicious cases this origin instantly terminates an active referendum and slashes deposits
+- [**Referendum Canceller**](https://wiki.polkadot.com/learn/learn-polkadot-opengov-origins/#referendum-canceller){target=\_blank}: Cancels an active referendum when non-malicious errors occur and refunds the deposits to the originators.
+- [**Referendum Killer**](https://wiki.polkadot.com/learn/learn-polkadot-opengov-origins/#referendum-killer){target=\_blank}: Used for urgent, malicious cases this origin instantly terminates an active referendum and slashes deposits.
 
 See [Cancelling, Killing, and Blacklisting](https://wiki.polkadot.com/learn/learn-polkadot-opengov/#cancelling-killing--blacklisting){target=\_blank} for additional information on rejecting referendums.
 
@@ -12094,11 +12094,11 @@ In the Polkadot ecosystem, account balances are categorized into different types
 
 The five main balance types are:
 
-- **Free balance** - represents the total tokens available to the account for any on-chain activity, including staking, governance, and voting. However, it may not be fully spendable or transferrable if portions of it are locked or reserved
-- **Locked balance** - portions of the free balance that cannot be spent or transferred because they are tied up in specific activities like [staking](https://wiki.polkadot.com/learn/learn-staking/#nominating-validators){target=\_blank}, [vesting](https://wiki.polkadot.com/learn/learn-guides-transfers/#vested-transfers-with-the-polkadot-js-ui){target=\_blank}, or participating in [governance](https://wiki.polkadot.com/learn/learn-polkadot-opengov/#voting-on-a-referendum){target=\_blank}. While the tokens remain part of the free balance, they are non-transferable for the duration of the lock
-- **Reserved balance** - funds locked by specific system actions, such as setting up an [identity](https://wiki.polkadot.com/learn/learn-identity/){target=\_blank}, creating [proxies](https://wiki.polkadot.com/learn/learn-proxies/){target=\_blank}, or submitting [deposits for governance proposals](https://wiki.polkadot.com/learn/learn-guides-polkadot-opengov/#claiming-opengov-deposits){target=\_blank}. These tokens are not part of the free balance and cannot be spent unless they are unreserved
-- **Spendable balance** - the portion of the free balance that is available for immediate spending or transfers. It is calculated by subtracting the maximum of locked or reserved amounts from the free balance, ensuring that existential deposit limits are met
-- **Untouchable balance** - funds that cannot be directly spent or transferred but may still be utilized for on-chain activities, such as governance participation or staking. These tokens are typically tied to certain actions or locked for a specific period
+- **Free balance**: Represents the total tokens available to the account for any on-chain activity, including staking, governance, and voting. However, it may not be fully spendable or transferrable if portions of it are locked or reserved.
+- **Locked balance**: Portions of the free balance that cannot be spent or transferred because they are tied up in specific activities like [staking](https://wiki.polkadot.com/learn/learn-staking/#nominating-validators){target=\_blank}, [vesting](https://wiki.polkadot.com/learn/learn-guides-transfers/#vested-transfers-with-the-polkadot-js-ui){target=\_blank}, or participating in [governance](https://wiki.polkadot.com/learn/learn-polkadot-opengov/#voting-on-a-referendum){target=\_blank}. While the tokens remain part of the free balance, they are non-transferable for the duration of the lock.
+- **Reserved balance**: Funds locked by specific system actions, such as setting up an [identity](https://wiki.polkadot.com/learn/learn-identity/){target=\_blank}, creating [proxies](https://wiki.polkadot.com/learn/learn-proxies/){target=\_blank}, or submitting [deposits for governance proposals](https://wiki.polkadot.com/learn/learn-guides-polkadot-opengov/#claiming-opengov-deposits){target=\_blank}. These tokens are not part of the free balance and cannot be spent unless they are unreserved.
+- **Spendable balance**: The portion of the free balance that is available for immediate spending or transfers. It is calculated by subtracting the maximum of locked or reserved amounts from the free balance, ensuring that existential deposit limits are met.
+- **Untouchable balance**: Funds that cannot be directly spent or transferred but may still be utilized for on-chain activities, such as governance participation or staking. These tokens are typically tied to certain actions or locked for a specific period.
 
 The spendable balance is calculated as follows:
 

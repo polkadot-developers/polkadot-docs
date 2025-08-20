@@ -31294,7 +31294,11 @@ main().catch(console.error);
 9. Define constants and a `main` function where you will implement all the logic:
 
     ```typescript title="teleport-ah-to-bridge-hub.ts"
-    // Paseo Asset Hub constants
+    // 1 PAS = 10^10 units
+const PAS_UNITS = 10_000_000_000n; // 1 PAS
+const PAS_CENTS = 100_000_000n; // 0.01 PAS
+
+// Paseo Asset Hub constants
 const PASEO_ASSET_HUB_RPC_ENDPOINT = 'ws://localhost:8001';
 const ASSET_HUB_ACCOUNT = '15oF4uVJwmo4TdGW7VfQxNLavjCXviqxT9S1MgbjMNHr6Sp5'; // Alice (Paseo Asset Hub)
 
@@ -31302,16 +31306,10 @@ const ASSET_HUB_ACCOUNT = '15oF4uVJwmo4TdGW7VfQxNLavjCXviqxT9S1MgbjMNHr6Sp5'; //
 const BRIDGE_HUB_RPC_ENDPOINT = 'ws://localhost:8000';
 const BRIDGE_HUB_PARA_ID = 1002;
 const BRIDGE_HUB_BENEFICIARY =
-  '14E5nqKAp3oAJcmzgZhUD2RcptBeUBScxKHgJKU4HPNcKVf3'; // Bob (Bridge Hub)
-
-// Create the XCM message for teleport (Asset Hub → Bridge Hub)
-function createTeleportXcmToBridgeHub(paraId: number) {
 
     async function main() {
       // Code will go here
     }
-
-    };
     ```
 
 All the following code explained in the subsequent sections must be added inside the `main` function.
@@ -31323,11 +31321,13 @@ Now you are ready to start implementing the logic for the fee estimation for the
 Create the API client. You will need to create a client for the Paseo Asset Hub parachain:
 
 ```typescript title="teleport-ah-to-bridge-hub.ts"
-'✓ Remote execution fees:',
-          remoteExecutionFees.toString(),
-          'PAS units',
-        );
-      } catch (error) {
+// Connect to the Asset Hub parachain
+  const assetHubClient = createClient(
+    withPolkadotSdkCompat(getWsProvider(PASEO_ASSET_HUB_RPC_ENDPOINT)),
+  );
+
+  // Get the typed API for Asset Hub
+  const assetHubApi = assetHubClient.getTypedApi(paseoAssetHub);
 ```
 
 Ensure that you replace the endpoint URLs with the actual WebSocket endpoints. This example uses local chopsticks endpoints, but you can use public endpoints or run local nodes.
@@ -31337,7 +31337,9 @@ Ensure that you replace the endpoint URLs with the actual WebSocket endpoints. T
 Now, you can construct a proper XCM message using the new XCM V5 instructions for teleporting from Asset Hub to the Bridge Hub Chain:
 
 ```typescript title="teleport-ah-to-bridge-hub.ts"
-// Withdraw PAS from Asset Hub (PAS on parachains is parents:1, interior: Here)
+function createTeleportXcmToBridgeHub(paraId: number) {
+  return XcmVersionedXcm.V5([
+    // Withdraw PAS from Asset Hub (PAS on parachains is parents:1, interior: Here)
     XcmV5Instruction.WithdrawAsset([
       {
         id: { parents: 1, interior: XcmV5Junctions.Here() },
@@ -31387,9 +31389,6 @@ Now, you can construct a proper XCM message using the new XCM V5 instructions fo
     }),
   ]);
 }
-
-async function estimateXcmFeesFromAssetHubToBridgeHub(
-  xcm: any,
 ```
 
 ## Fee Estimation Function
@@ -31399,8 +31398,10 @@ Below is a four-step breakdown of the logic needed to estimate the fees for the 
 First, you need to create the function that will estimate the fees for the teleport:
 
 ```typescript title="teleport-ah-to-bridge-hub.ts"
+async function estimateXcmFeesFromAssetHubToBridgeHub(
+  xcm: any,
+  assetHubApi: any,
 ) {
-  console.log('=== Fee Estimation Process (Asset Hub → Bridge Hub) ===');
   // Code will go here
 }
 ```
@@ -31408,7 +31409,9 @@ First, you need to create the function that will estimate the fees for the telep
 1. **Local execution fees on Asset Hub**: Compute the XCM weight locally, then convert that weight to PAS using Asset Hub's view of PAS (`parents: 1, interior: Here`). Add the code to the function:
 
     ```typescript title="teleport-ah-to-bridge-hub.ts"
-    // 1. LOCAL EXECUTION FEES on Asset Hub
+    console.log('=== Fee Estimation Process (Asset Hub → Bridge Hub) ===');
+
+  // 1. LOCAL EXECUTION FEES on Asset Hub
   console.log('1. Calculating local execution fees on Asset Hub...');
   let localExecutionFees = 0n;
 
@@ -31434,12 +31437,8 @@ First, you need to create the function that will estimate the fees for the telep
         localExecutionFees.toString(),
         'PAS units',
       );
-    ```
-
-2. **Dry-run and delivery fees to Bridge Hub**: Dry-run the XCM on Asset Hub to capture forwarded messages, locate the one targeting Bridge Hub (`parents: 1, interior: Here`), and ask for delivery fees. Add the code to the function:
-
-    ```typescript title="teleport-ah-to-bridge-hub.ts"
-    console.log(
+    } else {
+      console.log(
         '✗ Failed to calculate local execution fees:',
         executionFeesResult.value,
       );
@@ -31450,8 +31449,12 @@ First, you need to create the function that will estimate the fees for the telep
       weightResult.value,
     );
   }
+    ```
 
-  // 2. DELIVERY FEES + REMOTE EXECUTION FEES
+2. **Dry-run and delivery fees to Bridge Hub**: Dry-run the XCM on Asset Hub to capture forwarded messages, locate the one targeting Bridge Hub (`parents: 1, interior: Here`), and ask for delivery fees. Add the code to the function:
+
+    ```typescript title="teleport-ah-to-bridge-hub.ts"
+    // 2. DELIVERY FEES + REMOTE EXECUTION FEES
   console.log('\n2. Calculating delivery and remote execution fees...');
   let deliveryFees = 0n;
   let remoteExecutionFees = 0n; // Skipped (Bridge Hub descriptor not available)
@@ -31494,12 +31497,10 @@ First, you need to create the function that will estimate the fees for the telep
     if (bridgeHubXcmEntry) {
       const [destination, messages] = bridgeHubXcmEntry;
       const remoteXcm = messages[0];
-    ```
 
-3. **Remote execution fees on Bridge Hub**: Connect to Bridge Hub, recompute the forwarded XCM weight there, and convert weight to PAS (`parents: 0, interior: Here`). Add the code to the function:
+      console.log('✓ Found XCM message to Bridge Hub');
 
-    ```typescript title="teleport-ah-to-bridge-hub.ts"
-    // Calculate delivery fees from Asset Hub to Bridge Hub
+      // Calculate delivery fees from Asset Hub to Bridge Hub
       const deliveryFeesResult =
         await assetHubApi.apis.XcmPaymentApi.query_delivery_fees(
           destination,
@@ -31516,16 +31517,16 @@ First, you need to create the function that will estimate the fees for the telep
       } else {
         console.log('✗ Failed to calculate delivery fees:', deliveryFeesResult);
       }
-
-      // 3. REMOTE EXECUTION FEES on Bridge Hub
-      console.log('\n3. Calculating remote execution fees on Bridge Hub');
-      try {
     ```
 
-4. **Sum and return totals**: Aggregate all parts, print a short summary, and return a structured result. Add the code to the function:
+3. **Remote execution fees on Bridge Hub**: Connect to Bridge Hub, recompute the forwarded XCM weight there, and convert weight to PAS (`parents: 0, interior: Here`). Add the code to the function:
 
     ```typescript title="teleport-ah-to-bridge-hub.ts"
-    withPolkadotSdkCompat(getWsProvider(BRIDGE_HUB_RPC_ENDPOINT)),
+    // 3. REMOTE EXECUTION FEES on Bridge Hub
+      console.log('\n3. Calculating remote execution fees on Bridge Hub');
+      try {
+        const bridgeHubClient = createClient(
+          withPolkadotSdkCompat(getWsProvider(BRIDGE_HUB_RPC_ENDPOINT)),
         );
         const bridgeHubApi = bridgeHubClient.getTypedApi(paseoBridgeHub);
         const remoteWeightResult =
@@ -31542,6 +31543,58 @@ First, you need to create the function that will estimate the fees for the telep
             }),
           );
         bridgeHubClient.destroy();
+        remoteExecutionFees = remoteFeesResult.value as bigint;
+        console.log(
+          '✓ Remote execution fees:',
+          remoteExecutionFees.toString(),
+          'PAS units',
+        );
+      } catch (error) {
+        console.error(
+          'Error calculating remote execution fees on Bridge Hub:',
+          error,
+        );
+      }
+    } else {
+      console.log('✗ No XCM message found to Bridge Hub');
+    }
+  } else {
+    console.log('✗ Local dry run failed on Asset Hub:', dryRunResult.value);
+  }
+    ```
+
+4. **Sum and return totals**: Aggregate all parts, print a short summary, and return a structured result. Add the code to the function:
+
+    ```typescript title="teleport-ah-to-bridge-hub.ts"
+    // 4. TOTAL FEES
+  const totalFees = localExecutionFees + deliveryFees + remoteExecutionFees;
+
+  console.log('\n=== Fee Summary (Asset Hub → Bridge Hub) ===');
+  console.log(
+    'Local execution fees:',
+    localExecutionFees.toString(),
+    'PAS units',
+  );
+  console.log('Delivery fees:', deliveryFees.toString(), 'PAS units');
+  console.log(
+    'Remote execution fees:',
+    remoteExecutionFees.toString(),
+    'PAS units',
+  );
+  console.log('TOTAL FEES:', totalFees.toString(), 'PAS units');
+  console.log(
+    'TOTAL FEES:',
+    (Number(totalFees) / Number(PAS_UNITS)).toFixed(4),
+    'PAS',
+  );
+
+  return {
+    localExecutionFees,
+    deliveryFees,
+    remoteExecutionFees,
+    totalFees,
+  };
+}
     ```
 
 The full code for the fee estimation function is the following:
@@ -31549,7 +31602,10 @@ The full code for the fee estimation function is the following:
 ??? code "Fee Estimation Function"
 
     ```typescript title="teleport-ah-to-bridge-hub.ts"
-    ) {
+    async function estimateXcmFeesFromAssetHubToBridgeHub(
+  xcm: any,
+  assetHubApi: any,
+) {
   console.log('=== Fee Estimation Process (Asset Hub → Bridge Hub) ===');
 
   // 1. LOCAL EXECUTION FEES on Asset Hub
@@ -31676,14 +31732,8 @@ The full code for the fee estimation function is the following:
             }),
           );
         bridgeHubClient.destroy();
-    ```
-
-## Complete Implementation
-
-Now put it all together in the main function:
-
-```typescript title="teleport-ah-to-bridge-hub.ts"
-console.log(
+        remoteExecutionFees = remoteFeesResult.value as bigint;
+        console.log(
           '✓ Remote execution fees:',
           remoteExecutionFees.toString(),
           'PAS units',
@@ -31727,7 +31777,62 @@ console.log(
     localExecutionFees,
     deliveryFees,
     remoteExecutionFees,
+    totalFees,
+  };
+}
+    ```
 
+## Complete Implementation
+
+Now put it all together in the main function:
+
+```typescript title="teleport-ah-to-bridge-hub.ts"
+async function main() {
+  // Connect to the Asset Hub parachain
+  const assetHubClient = createClient(
+    withPolkadotSdkCompat(getWsProvider(PASEO_ASSET_HUB_RPC_ENDPOINT)),
+  );
+
+  // Get the typed API for Asset Hub
+  const assetHubApi = assetHubClient.getTypedApi(paseoAssetHub);
+
+  try {
+    // Create the XCM message for teleport (Asset Hub → Bridge Hub)
+    const xcm = createTeleportXcmToBridgeHub(BRIDGE_HUB_PARA_ID);
+
+    console.log('=== XCM Teleport: Paseo Asset Hub → Bridge Hub ===');
+    console.log('From:', ASSET_HUB_ACCOUNT, '(Alice on Asset Hub)');
+    console.log('To:', BRIDGE_HUB_BENEFICIARY, '(Beneficiary on Bridge Hub)');
+    console.log('Amount:', '1 PAS');
+    console.log('');
+
+    // Estimate all fees
+    const fees = await estimateXcmFeesFromAssetHubToBridgeHub(xcm, assetHubApi);
+    void fees; // prevent unused var under isolatedModules
+
+    // Create the execute transaction on Asset Hub
+    const tx = assetHubApi.tx.PolkadotXcm.execute({
+      message: xcm,
+      max_weight: {
+        ref_time: 6000000000n,
+        proof_size: 65536n,
+      },
+    });
+
+    console.log('\n=== Transaction Details ===');
+    console.log('Transaction hex:', (await tx.getEncodedData()).asHex());
+    console.log('Ready to submit!');
+  } catch (error) {
+    console.log('Error stack:', (error as Error).stack);
+    console.error('Error occurred:', (error as Error).message);
+    if ((error as Error).cause) {
+      console.dir((error as Error).cause, { depth: null });
+    }
+  } finally {
+    // Ensure client is always destroyed
+    assetHubClient.destroy();
+  }
+}
 ```
 
 ## Full Code

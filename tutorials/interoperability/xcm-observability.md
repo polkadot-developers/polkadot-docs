@@ -316,7 +316,7 @@ If you encounter an error indicating that `PolkadotXcm.Sent` is unavailable:
 
 > ⚠️ PolkadotXcm.Sent is available in runtimes built from stable2503-5 or later.
 
-Ensure that `wasm-override` is updated to runtime version 1.6.0 or later, or to any runtime built from `stable2503-5` or later.
+Ensure that `wasm-override` is updated to runtime version 1.6.0+, or to any runtime built from `stable2503-5` or later.
 
 For details on updating your workspace, see [Setting Up Your Workspace](#setting-up-your-workspace).
 

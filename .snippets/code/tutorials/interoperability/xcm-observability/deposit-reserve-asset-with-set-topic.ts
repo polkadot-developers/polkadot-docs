@@ -1,4 +1,4 @@
-import {Binary, BlockInfo, createClient, Enum, PolkadotClient, TypedApi} from "polkadot-api";
+import {Binary, createClient, Enum, type BlockInfo, type PolkadotClient} from "polkadot-api";
 import {withPolkadotSdkCompat} from "polkadot-api/polkadot-sdk-compat";
 import {getPolkadotSigner} from "polkadot-api/signer";
 import {getWsProvider} from "polkadot-api/ws-provider/web";
@@ -39,7 +39,7 @@ const toHuman = (_key: any, value: any) => {
 
 async function assertProcessedMessageId(
     client: PolkadotClient,
-    api: TypedApi<any>,
+    api: any,
     name: String,
     blockBefore: BlockInfo,
     expectedMessageId: String,
@@ -210,7 +210,7 @@ async function main() {
                     }
                 }
 
-                const sentEvents = await para1Api.event.PolkadotXcm.Sent.pull();
+                const sentEvents: any = await para1Api.event.PolkadotXcm.Sent.pull();
                 if (sentEvents.length > 0) {
                     const sentMessageId = sentEvents[0].payload.message_id.asHex();
                     console.log(`📣 Last message sent on ${para1Name}: ${sentMessageId}`);

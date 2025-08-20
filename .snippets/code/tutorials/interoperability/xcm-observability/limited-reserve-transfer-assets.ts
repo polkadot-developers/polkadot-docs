@@ -1,4 +1,4 @@
-import {Binary, createClient, Enum} from "polkadot-api";
+import {Binary, createClient, Enum, type BlockInfo, type PolkadotClient} from "polkadot-api";
 import {withPolkadotSdkCompat} from "polkadot-api/polkadot-sdk-compat";
 import {getPolkadotSigner} from "polkadot-api/signer";
 import {getWsProvider} from "polkadot-api/ws-provider/web";
@@ -36,10 +36,10 @@ const toHuman = (_key: any, value: any) => {
 };
 
 async function assertProcessedMessageId(
-    client: any,
+    client: PolkadotClient,
     api: any,
     name: String,
-    blockBefore: any,
+    blockBefore: BlockInfo,
     expectedMessageId: String,
 ) {
     let processedMessageId = undefined;

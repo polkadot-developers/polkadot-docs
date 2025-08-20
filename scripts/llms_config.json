@@ -1,72 +1,123 @@
 {
-  "project_name": "Polkadot",
-  "project_url": "https://polkadot.network/",
-  "summary": "Polkadot unites the world's innovators and changemakers, building and using the most transformative apps and blockchains. Access tools, guides, and resources to quickly start building custom chains, deploying smart contracts, and creating dApps.",
-  "github": {
-    "org": "polkadot-developers",
-    "repo": "polkadot-docs",
-    "branch": "master",
-    "docs_path": "."
-  },
-  "base_context_categories": ["Basics", "Reference"],
-  "categories_order": [
-    "Basics",
-    "Smart Contracts", 
-    "Parachains", 
-    "dApps", 
-    "Networks", 
-    "Polkadot Protocol", 
-    "Infrastructure", 
-    "Tooling",
-    "Reference"
-  ],
-  "source_repos": [
-    {
-      "name": "Polkadot SDK",
-      "url": "https://github.com/polkadot-developers/polkadot-sdk",
-      "description": "The core SDK for interacting with Polkadot."
-    },
-    {
-      "name": "Polkadot Runtimes",
-      "url": "https://github.com/polkadot-fellows/runtimes",
-      "description": "Runtimes for Polkadot and its system chains managed by the fellowship. Often referenced to see how the specific chain was configured."
-    },
-    {
-      "name": "Polkadot Parachain Template",
-      "url": "https://github.com/paritytech/polkadot-sdk-parachain-template",
-      "description": "Template for building a Polkadot parachain. It includes the necessary configurations and dependencies to get started quickly."
-    },
-    {
-      "name": "Polkadot API Library",
-      "url": "https://github.com/polkadot-api/polkadot-api",
-      "description": "Typescript library that is used often to interact with Polkadot."
-    }
-  ],
-  "optional_resources": [
-    {
-      "title": "Support: Get In Touch Directly",
-      "url": "https://docs.polkadot.com/get-support/get-in-touch/",
-      "description": "This page provides multiple options to get live technical support or ask questions."
-    },
-    {
-      "title": "Support: Ask the Community and Explore Resources",
-      "url": "https://docs.polkadot.com/get-support/explore-resources/",
-      "description": "This page provides multiple options to connect with the Polkadot community and find additional information via resources like Stack Exchange or Reddit."
-    }
-  ],
-  "skip_basenames": [
-    "README.md",
-    "index.md",
-    ".CONTRIBUTING.md",
-    "pull-request-template.md",
-    "cookie-policy.md",
-    "LICENSE.md"
-  ],
-  "skip_parts": [
-    ".snippets",
-    ".github",
-    "node_modules",
-    "venv"
-  ]
-}
+    "schema_version": "1.0",
 
+    "project": {
+        "id": "polkadot",
+        "name": "Polkadot",
+        "project_url": "https://polkadot.network/",
+        "docs_base_url": "https://docs.polkadot.com/"
+    },
+
+    "repository": {
+        "host": "github",
+        "org": "polkadot-developers",
+        "repo": "polkadot-docs",
+        "default_branch": "master",
+        "docs_path": "."
+    },
+
+    "content": {
+        "docs_dir": "polkadot-docs",
+        "base_context_categories": ["Basics", "Reference"],
+        "categories_order": [
+            "Basics",
+            "Smart Contracts",
+            "Parachains",
+            "dApps",
+            "Networks",
+            "Polkadot Protocol",
+            "Infrastructure",
+            "Tooling",
+            "Reference"
+        ],
+        "exclusions": {
+            "skip_basenames": [
+                "README.md",
+                "index.md",
+                ".CONTRIBUTING.md",
+                "pull-request-template.md",
+                "cookie-policy.md",
+                "LICENSE.md"
+            ],
+            "skip_paths": [".snippets", ".github", "node_modules", "venv"],
+            "frontmatter_flag": "ai_exclude"
+        },
+        "frontmatter_mappings": {
+            "title": ["title"],
+            "slug": ["slug"],
+            "summary": ["summary", "description"],
+            "categories": ["categories"],
+            "type": ["type", "page_type"],
+            "audience": ["audience", "level"],
+            "applies_to": ["applies_to", "scope"],
+            "entities": ["entities", "mentions"],
+            "answers": ["answers", "faq", "faqs"],
+            "related": ["related", "see_also", "see-also"]
+        },
+        "frontmatter_rules": {
+            "allowed_values": {
+                "type": ["concept", "guide", "tutorial", "reference", "faq"],
+                "audience": ["beginner", "intermediate", "advanced"]
+            }
+        }
+    },
+
+    "outputs": {
+        "public_root": "/ai/",
+        "files": {
+            "llms_index": "llms.txt",
+            "llms_full": "llms-full.txt",
+            "topics": "topics.json",
+            "manifest": "manifest.json",
+            "pages_dir": "pages"
+        }
+    },
+
+    "policy": {
+        "license": "CC BY 4.0",
+        "allow_llm_training": true
+    },
+
+    "sources": {
+        "repos": [
+            {
+                "name": "Polkadot SDK",
+                "url": "https://github.com/polkadot-developers/polkadot-sdk",
+                "description": "The core SDK for interacting with Polkadot."
+            },
+            {
+                "name": "Polkadot Runtimes",
+                "url": "https://github.com/polkadot-fellows/runtimes",
+                "description": "Runtimes for Polkadot and its system chains managed by the fellowship."
+            },
+            {
+                "name": "Polkadot Parachain Template",
+                "url": "https://github.com/paritytech/polkadot-sdk-parachain-template",
+                "description": "Template for building a Polkadot parachain."
+            },
+            {
+                "name": "Polkadot API Library",
+                "url": "https://github.com/polkadot-api/polkadot-api",
+                "description": "TypeScript library to interact with Polkadot."
+            }
+        ],
+        "optional_resources": [
+            {
+                "title": "Support: Get In Touch Directly",
+                "url": "https://docs.polkadot.com/get-support/get-in-touch/",
+                "description": "Options to get live technical support or ask questions."
+            },
+            {
+                "title": "Support: Ask the Community and Explore Resources",
+                "url": "https://docs.polkadot.com/get-support/explore-resources/",
+                "description": "Community channels and additional resources."
+            }
+        ]
+    },
+
+    "chunking_hint": {
+        "strategy": "by_heading",
+        "max_tokens": 1200,
+        "heading_level": 2
+    }
+}

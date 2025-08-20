@@ -294,6 +294,32 @@ Tools and indexers tracing messages across mixed runtime versions should check *
 --8<-- 'code/tutorials/interoperability/xcm-observability/forward-id-for.ts'
 ```
 
+## Troubleshooting on Running Scripts
+
+### Processed Message ID is `undefined`
+
+If you see the following error when running a script:
+
+> ❌ Processed Message ID on Hydration is undefined. Please increase MAX_RETRIES.
+
+This usually means that the message has not yet been processed within the default retry window.
+
+Increase the `MAX_RETRIES` value in your script to give the chain more time:
+
+```ts
+const MAX_RETRIES = 8; // Increase for more retries
+```
+
+### `PolkadotXcm.Sent` Event Not Found
+
+If you encounter an error indicating that `PolkadotXcm.Sent` is unavailable:
+
+> ⚠️ PolkadotXcm.Sent is available in runtimes built from stable2503-5 or later.
+
+Ensure that `wasm-override` is updated to runtime version 1.6.0 or later, or to any runtime built from `stable2503-5` or later.
+
+For details on updating your workspace, see [Setting Up Your Workspace](#setting-up-your-workspace).
+
 ## Failure Event Handling
 
 When XCMs fail, the entire transaction **rolls back** and **no failure events are emitted on-chain**.

@@ -271,7 +271,7 @@ async function main() {
                     if (sentMessageId === expectedMessageId) {
                         console.log(`✅ Sent Message ID on ${para1Name} matched.`);
                     } else {
-                        console.error(`❌ Sent Message ID [${sentMessageId}] on ${para1Name} doesn't match expexted Message ID [${expectedMessageId}].`);
+                        console.error(`❌ Sent Message ID [${sentMessageId}] on ${para1Name} doesn't match expected Message ID [${expectedMessageId}].`);
                     }
                     await assertProcessedMessageId(para2Client, para2Api, para2Name, para2BlockBefore, expectedMessageId);
                     await assertProcessedMessageId(para1Client, para1Api, para1Name, para1Block, expectedMessageId);

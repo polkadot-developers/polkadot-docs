@@ -85,19 +85,17 @@ First, you need to set up your environment:
 8. Import the necessary modules. Add the following code to the `teleport-ah-to-bridge-hub.ts` file:
 
     ```typescript title="teleport-ah-to-bridge-hub.ts"
-    --8<-- "code/tutorials/interoperability/xcm-fee-estimation/teleport-ah-to-bridge-hub.ts::20"
+    --8<-- "code/tutorials/interoperability/xcm-fee-estimation/teleport-ah-to-bridge-hub.ts::16"
     ```
 
 9. Define constants and a `main` function where you will implement all the logic:
 
     ```typescript title="teleport-ah-to-bridge-hub.ts"
-    --8<-- "code/tutorials/interoperability/xcm-fee-estimation/teleport-ah-to-bridge-hub.ts:22:33"
+    --8<-- "code/tutorials/interoperability/xcm-fee-estimation/teleport-ah-to-bridge-hub.ts:18:29"
 
     async function main() {
       // Code will go here
     }
-
-    --8<-- "code/tutorials/interoperability/xcm-fee-estimation/teleport-ah-to-bridge-hub.ts:262:262"
     ```
 
 All the following code explained in the subsequent sections must be added inside the `main` function.
@@ -109,7 +107,7 @@ Now you are ready to start implementing the logic for the fee estimation for the
 Create the API client. You will need to create a client for the Paseo Asset Hub parachain:
 
 ```typescript title="teleport-ah-to-bridge-hub.ts"
---8<-- "code/tutorials/interoperability/xcm-fee-estimation/teleport-ah-to-bridge-hub.ts:218:222"
+--8<-- "code/tutorials/interoperability/xcm-fee-estimation/teleport-ah-to-bridge-hub.ts:266:272"
 ```
 
 Ensure that you replace the endpoint URLs with the actual WebSocket endpoints. This example uses local chopsticks endpoints, but you can use public endpoints or run local nodes.
@@ -119,7 +117,7 @@ Ensure that you replace the endpoint URLs with the actual WebSocket endpoints. T
 Now, you can construct a proper XCM message using the new XCM V5 instructions for teleporting from Asset Hub to the Bridge Hub Chain:
 
 ```typescript title="teleport-ah-to-bridge-hub.ts"
---8<-- "code/tutorials/interoperability/xcm-fee-estimation/teleport-ah-to-bridge-hub.ts:35:87"
+--8<-- "code/tutorials/interoperability/xcm-fee-estimation/teleport-ah-to-bridge-hub.ts:33:84"
 ```
 
 ## Fee Estimation Function
@@ -129,7 +127,7 @@ Below is a four-step breakdown of the logic needed to estimate the fees for the 
 First, you need to create the function that will estimate the fees for the teleport:
 
 ```typescript title="teleport-ah-to-bridge-hub.ts"
---8<-- "code/tutorials/interoperability/xcm-fee-estimation/teleport-ah-to-bridge-hub.ts:89:90"
+--8<-- "code/tutorials/interoperability/xcm-fee-estimation/teleport-ah-to-bridge-hub.ts:86:89"
   // Code will go here
 }
 ```
@@ -137,25 +135,25 @@ First, you need to create the function that will estimate the fees for the telep
 1. **Local execution fees on Asset Hub**: Compute the XCM weight locally, then convert that weight to PAS using Asset Hub's view of PAS (`parents: 1, interior: Here`). Add the code to the function:
 
     ```typescript title="teleport-ah-to-bridge-hub.ts"
-    --8<-- "code/tutorials/interoperability/xcm-fee-estimation/teleport-ah-to-bridge-hub.ts:92:117"
+    --8<-- "code/tutorials/interoperability/xcm-fee-estimation/teleport-ah-to-bridge-hub.ts:90:129"
     ```
 
 2. **Dry-run and delivery fees to Bridge Hub**: Dry-run the XCM on Asset Hub to capture forwarded messages, locate the one targeting Bridge Hub (`parents: 1, interior: Here`), and ask for delivery fees. Add the code to the function:
 
     ```typescript title="teleport-ah-to-bridge-hub.ts"
-    --8<-- "code/tutorials/interoperability/xcm-fee-estimation/teleport-ah-to-bridge-hub.ts:119:174"
+    --8<-- "code/tutorials/interoperability/xcm-fee-estimation/teleport-ah-to-bridge-hub.ts:131:193"
     ```
 
 3. **Remote execution fees on Bridge Hub**: Connect to Bridge Hub, recompute the forwarded XCM weight there, and convert weight to PAS (`parents: 0, interior: Here`). Add the code to the function:
 
     ```typescript title="teleport-ah-to-bridge-hub.ts"
-    --8<-- "code/tutorials/interoperability/xcm-fee-estimation/teleport-ah-to-bridge-hub.ts:176:197"
+    --8<-- "code/tutorials/interoperability/xcm-fee-estimation/teleport-ah-to-bridge-hub.ts:195:233"
     ```
 
 4. **Sum and return totals**: Aggregate all parts, print a short summary, and return a structured result. Add the code to the function:
 
     ```typescript title="teleport-ah-to-bridge-hub.ts"
-    --8<-- "code/tutorials/interoperability/xcm-fee-estimation/teleport-ah-to-bridge-hub.ts:199:215"
+    --8<-- "code/tutorials/interoperability/xcm-fee-estimation/teleport-ah-to-bridge-hub.ts:235:263"
     ```
 
 The full code for the fee estimation function is the following:
@@ -163,7 +161,7 @@ The full code for the fee estimation function is the following:
 ??? code "Fee Estimation Function"
 
     ```typescript title="teleport-ah-to-bridge-hub.ts"
-    --8<-- "code/tutorials/interoperability/xcm-fee-estimation/teleport-ah-to-bridge-hub.ts:89:215"
+    --8<-- "code/tutorials/interoperability/xcm-fee-estimation/teleport-ah-to-bridge-hub.ts:86:263"
     ```
 
 ## Complete Implementation
@@ -171,8 +169,7 @@ The full code for the fee estimation function is the following:
 Now put it all together in the main function:
 
 ```typescript title="teleport-ah-to-bridge-hub.ts"
---8<-- "code/tutorials/interoperability/xcm-fee-estimation/teleport-ah-to-bridge-hub.ts:217:260"
-
+--8<-- "code/tutorials/interoperability/xcm-fee-estimation/teleport-ah-to-bridge-hub.ts:265:310"
 ```
 
 ## Full Code

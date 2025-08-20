@@ -30937,8 +30937,7 @@ If you're new to XCM replay or dry-run, see [Replay and Dry Run XCMs Using Chops
 
     ```yaml title="configs/polkadot-hub-override.yaml"
     ...
-    # wasm-override: wasms/asset_hub_polkadot_runtime.wasm # Uncomment if using the `debug` build
-    wasm-override: wasms/asset-hub-polkadot_v1.6.0.wasm    # Use this if you built with `release`
+    wasm-override: wasms/asset-hub-polkadot_v1.6.0.wasm
     ...
     ```
 
@@ -30953,7 +30952,7 @@ If you're new to XCM replay or dry-run, see [Replay and Dry Run XCMs Using Chops
 7. Open a **new terminal** in the same folder and initialise a Node.js project:
 
     ```bash
-    npm init -y
+    npm init -y && npm pkg set type="module"
     ```
 
 8. Install TypeScript and Polkadot dependencies:
@@ -31054,7 +31053,7 @@ flowchart TD
 Create and run `limited-reserve-transfer-assets.ts`:
 
 ```ts
-import {Binary, BlockInfo, createClient, Enum, PolkadotClient, TypedApi} from "polkadot-api";
+import {Binary, createClient, Enum} from "polkadot-api";
 import {withPolkadotSdkCompat} from "polkadot-api/polkadot-sdk-compat";
 import {getPolkadotSigner} from "polkadot-api/signer";
 import {getWsProvider} from "polkadot-api/ws-provider/web";
@@ -31077,7 +31076,7 @@ import {
 } from "@polkadot-labs/hdkd-helpers";
 
 const XCM_VERSION = 5;
-const MAX_RETRIES = 6;
+const MAX_RETRIES = 8;
 
 const toHuman = (_key: any, value: any) => {
     if (typeof value === "bigint") {
@@ -31092,10 +31091,10 @@ const toHuman = (_key: any, value: any) => {
 };
 
 async function assertProcessedMessageId(
-    client: PolkadotClient,
-    api: TypedApi<any>,
+    client: any,
+    api: any,
     name: String,
-    blockBefore: BlockInfo,
+    blockBefore: any,
     expectedMessageId: String,
 ) {
     let processedMessageId = undefined;
@@ -31221,7 +31220,7 @@ async function main() {
                     }
                 }
 
-                const sentEvents = await para1Api.event.PolkadotXcm.Sent.pull();
+                const sentEvents: any = await para1Api.event.PolkadotXcm.Sent.pull();
                 if (sentEvents.length > 0) {
                     const sentMessageId = sentEvents[0].payload.message_id.asHex();
                     console.log(`📣 Last message sent on ${para1Name}: ${sentMessageId}`);
@@ -31334,7 +31333,7 @@ import {
 } from "@polkadot-labs/hdkd-helpers";
 
 const XCM_VERSION = 5;
-const MAX_RETRIES = 6;
+const MAX_RETRIES = 8;
 
 const toHuman = (_key: any, value: any) => {
     if (typeof value === "bigint") {
@@ -31632,7 +31631,7 @@ import {
 } from "@polkadot-labs/hdkd-helpers";
 
 const XCM_VERSION = 5;
-const MAX_RETRIES = 6;
+const MAX_RETRIES = 8;
 
 const toHuman = (_key: any, value: any) => {
     if (typeof value === "bigint") {

@@ -23,7 +23,7 @@ import {
 } from "@polkadot-labs/hdkd-helpers";
 
 const XCM_VERSION = 5;
-const MAX_RETRIES = 6;
+const MAX_RETRIES = 8;
 
 const toHuman = (_key: any, value: any) => {
     if (typeof value === "bigint") {

@@ -65,8 +65,7 @@ If you're new to XCM replay or dry-run, see [Replay and Dry Run XCMs Using Chops
 
     ```yaml title="configs/polkadot-hub-override.yaml"
     ...
-    # wasm-override: wasms/asset_hub_polkadot_runtime.wasm # Uncomment if using the `debug` build
-    wasm-override: wasms/asset-hub-polkadot_v1.6.0.wasm    # Use this if you built with `release`
+    wasm-override: wasms/asset-hub-polkadot_v1.6.0.wasm
     ...
     ```
 
@@ -81,7 +80,7 @@ If you're new to XCM replay or dry-run, see [Replay and Dry Run XCMs Using Chops
 7. Open a **new terminal** in the same folder and initialise a Node.js project:
 
     ```bash
-    npm init -y
+    npm init -y && npm pkg set type="module"
     ```
 
 8. Install TypeScript and Polkadot dependencies:

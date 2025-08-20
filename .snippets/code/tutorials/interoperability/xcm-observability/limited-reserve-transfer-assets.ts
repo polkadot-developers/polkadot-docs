@@ -1,4 +1,4 @@
-import {Binary, BlockInfo, createClient, Enum, PolkadotClient, TypedApi} from "polkadot-api";
+import {Binary, createClient, Enum} from "polkadot-api";
 import {withPolkadotSdkCompat} from "polkadot-api/polkadot-sdk-compat";
 import {getPolkadotSigner} from "polkadot-api/signer";
 import {getWsProvider} from "polkadot-api/ws-provider/web";
@@ -21,7 +21,7 @@ import {
 } from "@polkadot-labs/hdkd-helpers";
 
 const XCM_VERSION = 5;
-const MAX_RETRIES = 6;
+const MAX_RETRIES = 8;
 
 const toHuman = (_key: any, value: any) => {
     if (typeof value === "bigint") {
@@ -36,10 +36,10 @@ const toHuman = (_key: any, value: any) => {
 };
 
 async function assertProcessedMessageId(
-    client: PolkadotClient,
-    api: TypedApi<any>,
+    client: any,
+    api: any,
     name: String,
-    blockBefore: BlockInfo,
+    blockBefore: any,
     expectedMessageId: String,
 ) {
     let processedMessageId = undefined;
@@ -165,7 +165,7 @@ async function main() {
                     }
                 }
 
-                const sentEvents = await para1Api.event.PolkadotXcm.Sent.pull();
+                const sentEvents: any = await para1Api.event.PolkadotXcm.Sent.pull();
                 if (sentEvents.length > 0) {
                     const sentMessageId = sentEvents[0].payload.message_id.asHex();
                     console.log(`📣 Last message sent on ${para1Name}: ${sentMessageId}`);

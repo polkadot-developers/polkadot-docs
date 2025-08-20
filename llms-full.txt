@@ -30885,8 +30885,8 @@ This guide explains how to **trace, correlate, and debug XCMs** reliably using o
 
 You will learn how to:
 
-- Use the `SetTopic` instruction and `message_id` to track XCMs across chains
-- Understand the relationship between `PolkadotXcm.Sent` and `MessageQueue.Processed` events for message correlation  
+- Use the [`SetTopic([u8; 32])`](https://github.com/polkadot-fellows/xcm-format#settopic){target=\_blank} instruction and `message_id` to track XCMs across chains
+- Understand the relationship between [`PolkadotXcm.Sent`](https://paritytech.github.io/polkadot-sdk/master/pallet_xcm/pallet/enum.Event.html#variant.Sent){target=\_blank} and [`MessageQueue.Processed`](https://paritytech.github.io/polkadot-sdk/master/pallet_message_queue/pallet/enum.Event.html#variant.Processed){target=\_blank} events for message correlation  
 - Apply manual topic tagging for multi-hop tracing when needed
 - Use workarounds for older runtimes with derived message IDs
 - Debug failed or incomplete XCMs using indexers and Chopsticks replay
@@ -30919,7 +30919,7 @@ If you're new to XCM replay or dry-run, see [Replay and Dry Run XCMs Using Chops
     npm install -g @acala-network/chopsticks@latest
     ```
 
-3. Download 1.6.0 (or later) runtime:
+3. Download 1.6.0 runtime, which is built from **`stable2503-5` or later**:
 
     ```bash
     mkdir -p wasms
@@ -30980,7 +30980,7 @@ If you're new to XCM replay or dry-run, see [Replay and Dry Run XCMs Using Chops
 
 ### What is `SetTopic`?
 
-When executing XCMs using `limited_reserve_transfer_assets`, other extrinsics, or raw XCM calls from the `PolkadotXcm` pallet, a `SetTopic` instruction is automatically appended to the end of the message if it is not already present.
+When executing XCMs using [`limited_reserve_transfer_assets`](https://paritytech.github.io/polkadot-sdk/master/pallet_xcm/pallet/struct.Pallet.html#method.limited_reserve_transfer_assets){target=\_blank}, other extrinsics, or raw XCM calls from the [`PolkadotXcm` pallet](https://paritytech.github.io/polkadot-sdk/master/pallet_xcm/pallet/struct.Pallet.html){target=\_blank}, a [`SetTopic([u8; 32])`](https://github.com/polkadot-fellows/xcm-format#settopic){target=\_blank} instruction is automatically appended to the end of the message if it is not already present.
 
 - **[`SetTopic([u8; 32])`](https://github.com/polkadot-fellows/xcm-format#settopic){target=\_blank}** is an XCM instruction that sets a 32-byte topic register inside the message.
 - The topic acts as a **logical identifier** (`message_id`) for the XCM, allowing you to group and trace related messages across chains.
@@ -31011,7 +31011,7 @@ Matching these IDs lets you **correlate** an origin message with its destination
 
 - The runtime **automatically appends a `SetTopic` instruction** if one is missing at the end of an XCM.
 - When using high-level extrinsics such as `limited_reserve_transfer_assets`, **you do not need to set a topic manually**; the runtime handles it for you.
-- If you **manually craft an XCM** (e.g., via `execute` or `send`), you **can supply your own `SetTopic`**, but it **must be the final instruction** to be respected.
+- If you **manually craft an XCM** (e.g., via [`execute`](https://paritytech.github.io/polkadot-sdk/master/pallet_xcm/pallet/struct.Pallet.html#method.execute){target=\_blank} or [`send`](https://paritytech.github.io/polkadot-sdk/master/pallet_xcm/pallet/struct.Pallet.html#method.send){target=\_blank}), you **can supply your own `SetTopic`**, but it **must be the final instruction** to be respected.
 - In **multi-hop XCM flows**, manually setting the topic ensures **consistent tracing across all hops**. Any **remote XCM calls** embedded inside the XCM must also include a `SetTopic` at the end to preserve the same `message_id` throughout the cross-chain flow.
 
 ## Message Lifecycle

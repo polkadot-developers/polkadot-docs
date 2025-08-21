@@ -16,14 +16,14 @@ With OpenGov, Polkadot achieves a flexible, scalable, and democratic governance 
 
 ## Governance Evolution
 
-Polkadot’s governance journey began with [Governance V1](https://wiki.polkadot.network/learn/learn-polkadot-opengov/#governance-summary){target=\_blank}, a system that proved effective in managing treasury funds and protocol upgrades. However, it faced limitations, such as:
+Polkadot’s governance journey began with [Governance V1](https://wiki.polkadot.com/learn/learn-polkadot-opengov/#governance-summary){target=\_blank}, a system that proved effective in managing treasury funds and protocol upgrades. However, it faced limitations, such as:
 
 - Slow voting cycles, causing delays in decision-making.
 - Inflexibility in handling multiple referendums, restricting scalability.
 
 To address these challenges, Polkadot introduced OpenGov, a governance model designed for greater inclusivity, efficiency, and scalability. OpenGov replaces the centralized structures of Governance V1, such as the Council and Technical Committee, with a fully decentralized and dynamic framework.
 
-For a full comparison of the historic and current governance models, visit the [Gov1 vs. Polkadot OpenGov](https://wiki.polkadot.network/learn/learn-polkadot-opengov/#gov1-vs-polkadot-opengov){target=\_blank} section of the Polkadot Wiki.
+For a full comparison of the historic and current governance models, visit the [Gov1 vs. Polkadot OpenGov](https://wiki.polkadot.com/learn/learn-polkadot-opengov/#gov1-vs-polkadot-opengov){target=\_blank} section of the Polkadot Wiki.
 
 ## OpenGov Key Features
 
@@ -43,9 +43,9 @@ In OpenGov, origins and tracks are central to managing proposals and votes.
 - **Origin**: Determines the authority level of a proposal (e.g., Treasury, Root) which decides the track of all referendums from that origin.
 - **Track**: Define the procedural flow of a proposal, such as voting duration, approval thresholds, and enactment timelines.
 
-Developers must be aware that referendums from different origins and tracks will take varying amounts of time to reach approval and enactment. The [Polkadot Technical Fellowship](https://wiki.polkadot.network/learn/learn-polkadot-technical-fellowship/){target=\_blank} has the option to shorten this timeline by whitelisting a proposal and allowing it to be enacted through the [Whitelist Caller](https://wiki.polkadot.network/learn/learn-polkadot-opengov-origins/#whitelisted-caller){target=\_blank} origin.
+Developers must be aware that referendums from different origins and tracks will take varying amounts of time to reach approval and enactment. The [Polkadot Technical Fellowship](https://wiki.polkadot.com/learn/learn-polkadot-technical-fellowship/){target=\_blank} has the option to shorten this timeline by whitelisting a proposal and allowing it to be enacted through the [Whitelist Caller](https://wiki.polkadot.com/learn/learn-polkadot-opengov-origins/#whitelisted-caller){target=\_blank} origin.
 
-Visit [Origins and Tracks Info](https://wiki.polkadot.network/learn/learn-polkadot-opengov/#origins-and-tracks){target=\_blank} for details on current origins and tracks, associated terminology, and parameters.
+Visit [Origins and Tracks Info](https://wiki.polkadot.com/learn/learn-polkadot-opengov/#origins-and-tracks){target=\_blank} for details on current origins and tracks, associated terminology, and parameters.
 
 ## Referendums
 
@@ -55,31 +55,31 @@ The timeline for an individual referendum includes four distinct periods:
 
 - **Lead-in**: A minimum amount of time to allow for community participation, available room in the origin, and payment of the decision deposit. Voting is open during this period.
 - **Decision**: Voting continues.
-- **Confirmation**: Referendum must meet [approval and support](https://wiki.polkadot.network/learn/learn-polkadot-opengov/#approval-and-support){target=\_blank} criteria during entire period to avoid rejection.
+- **Confirmation**: Referendum must meet [approval and support](https://wiki.polkadot.com/learn/learn-polkadot-opengov/#approval-and-support){target=\_blank} criteria during entire period to avoid rejection.
 - **Enactment**: Changes approved by the referendum are executed.
 
 ### Vote on Referendums
 
 Voters can vote with their tokens on each referendum. Polkadot uses a voluntary token locking mechanism, called conviction voting, as a way for voters to increase their voting power. A token holder signals they have a stronger preference for approving a proposal based upon their willingness to lock up tokens. Longer voluntary token locks are seen as a signal of continual approval and translate to increased voting weight.
 
-See [Voting on a Referendum](https://wiki.polkadot.network/learn/learn-polkadot-opengov/#voting-on-a-referendum){target=\_blank} for a deeper look at conviction voting and related token locks.
+See [Voting on a Referendum](https://wiki.polkadot.com/learn/learn-polkadot-opengov/#voting-on-a-referendum){target=\_blank} for a deeper look at conviction voting and related token locks.
 
 ### Delegate Voting Power
 
 The OpenGov system also supports multi-role delegations, allowing token holders to assign their voting power on different tracks to entities with expertise in those areas. 
 
-For example, if a token holder lacks the technical knowledge to evaluate proposals on the [Root track](https://wiki.polkadot.network/learn/learn-polkadot-opengov-origins/#root){target=\_blank}, they can delegate their voting power for that track to an expert they trust to vote in the best interest of the network. This ensures informed decision-making across tracks while maintaining flexibility for token holders.
+For example, if a token holder lacks the technical knowledge to evaluate proposals on the [Root track](https://wiki.polkadot.com/learn/learn-polkadot-opengov-origins/#root){target=\_blank}, they can delegate their voting power for that track to an expert they trust to vote in the best interest of the network. This ensures informed decision-making across tracks while maintaining flexibility for token holders.
 
-Visit [Multirole Delegation](https://wiki.polkadot.network/learn/learn-polkadot-opengov/#multirole-delegation){target=\_blank} for more details on delegating voting power.
+Visit [Multirole Delegation](https://wiki.polkadot.com/learn/learn-polkadot-opengov/#multirole-delegation){target=\_blank} for more details on delegating voting power.
 
 ### Cancel a Referendum
 
 Polkadot OpenGov has two origins for rejecting ongoing referendums: 
 
-- **[Referendum Canceller](https://wiki.polkadot.network/learn/learn-polkadot-opengov-origins/#referendum-canceller){target=\_blank}**: Cancels an active referendum when non-malicious errors occur and refunds the deposits to the originators.
-- **[Referendum Killer](https://wiki.polkadot.network/learn/learn-polkadot-opengov-origins/#referendum-killer){target=\_blank}**: Used for urgent, malicious cases this origin instantly terminates an active referendum and slashes deposits.
+- [**Referendum Canceller**](https://wiki.polkadot.com/learn/learn-polkadot-opengov-origins/#referendum-canceller){target=\_blank}: Cancels an active referendum when non-malicious errors occur and refunds the deposits to the originators.
+- [**Referendum Killer**](https://wiki.polkadot.com/learn/learn-polkadot-opengov-origins/#referendum-killer){target=\_blank}: Used for urgent, malicious cases this origin instantly terminates an active referendum and slashes deposits.
 
-See [Cancelling, Killing, and Blacklisting](https://wiki.polkadot.network/learn/learn-polkadot-opengov/#cancelling-killing--blacklisting){target=\_blank} for additional information on rejecting referendums.
+See [Cancelling, Killing, and Blacklisting](https://wiki.polkadot.com/learn/learn-polkadot-opengov/#cancelling-killing--blacklisting){target=\_blank} for additional information on rejecting referendums.
 
 ## Additional Resources
 

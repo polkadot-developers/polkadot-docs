@@ -65,7 +65,10 @@ If you're new to XCM replay or dry-run, see [Replay and Dry Run XCMs Using Chops
 
     ```yaml title="configs/polkadot-hub-override.yaml"
     ...
+    db: ./db.sqlite
     wasm-override: wasms/asset-hub-polkadot_v1.6.0.wasm
+    
+    import-storage:
     ...
     ```
 

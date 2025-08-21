@@ -5,4 +5,4 @@ nav:
   - xcm-transfers
   - 'Replay and Dry Run XCMs': replay-and-dry-run-xcms.md
   - 'XCM Fee Estimation': xcm-fee-estimation.md
-  - 'XCM Observability': xcm-observability.md
+  - 'XCM Observability in Action': xcm-observability-in-action-in-action.md

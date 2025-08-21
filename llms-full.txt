@@ -27,6 +27,7 @@ Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/re
 Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/develop/interoperability/xcm-guides/from-apps/transact.md
 Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/develop/interoperability/xcm-guides/from-apps/transfers.md
 Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/develop/interoperability/xcm-guides/index.md
+Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/develop/interoperability/xcm-observability.md
 Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/develop/interoperability/xcm-runtime-apis.md
 Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/develop/networks.md
 Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/develop/parachains/customize-parachain/add-existing-pallets.md
@@ -185,7 +186,7 @@ Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/re
 Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/tutorials/interoperability/xcm-channels/para-to-para.md
 Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/tutorials/interoperability/xcm-channels/para-to-system.md
 Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/tutorials/interoperability/xcm-fee-estimation.md
-Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/tutorials/interoperability/xcm-observability.md
+Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/tutorials/interoperability/xcm-observability-in-action.md
 Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/tutorials/interoperability/xcm-transfers/from-relaychain-to-parachain.md
 Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/tutorials/interoperability/xcm-transfers/index.md
 Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/tutorials/onchain-governance/fast-track-gov-proposal.md
@@ -3159,6 +3160,136 @@ Whether you're building applications that need to interact with multiple chains,
     </a>
   </div>
 </div>
+--- END CONTENT ---
+
+Doc-Content: https://docs.polkadot.com/develop/interoperability/xcm-observability/
+--- BEGIN CONTENT ---
+---
+title: XCM Observability
+description: A conceptual guide to tracing, correlating, and debugging XCMs using observability features in the Polkadot SDK.
+---
+
+# XCM Observability
+
+## Introduction
+
+Cross-Consensus Messaging (XCM) powers interoperability across the Polkadot ecosystem, but tracing and debugging XCM flows across multiple chains can be complex.
+
+This guide introduces the observability features in modern Polkadot runtimes and the Polkadot SDK that make XCMs traceable and debuggable.
+
+You will learn how to:
+
+- Use the [`SetTopic([u8; 32])`](https://github.com/polkadot-fellows/xcm-format#settopic){target=\_blank} instruction and `message_id` to track XCMs across chains
+- Correlate messages through [`PolkadotXcm.Sent`](https://paritytech.github.io/polkadot-sdk/master/pallet_xcm/pallet/enum.Event.html#variant.Sent){target=\_blank} and [`MessageQueue.Processed`](https://paritytech.github.io/polkadot-sdk/master/pallet_message_queue/pallet/enum.Event.html#variant.Processed){target=\_blank} events
+- Apply workarounds for older runtimes using derived message IDs
+- Diagnose failed or incomplete XCMs with indexers and Chopsticks replay
+
+For a hands-on walkthrough, see the companion tutorial: [XCM Observability in Action](/tutorials/interoperability/xcm-observability-in-action){target=\_blank}.
+
+## Core Concepts
+
+### What is `SetTopic`?
+
+When executing XCMs using [`limited_reserve_transfer_assets`](https://paritytech.github.io/polkadot-sdk/master/pallet_xcm/pallet/struct.Pallet.html#method.limited_reserve_transfer_assets){target=\_blank}, other extrinsics, or raw XCM calls from the [`PolkadotXcm` pallet](https://paritytech.github.io/polkadot-sdk/master/pallet_xcm/pallet/struct.Pallet.html){target=\_blank}, a [`SetTopic([u8; 32])`](https://github.com/polkadot-fellows/xcm-format#settopic){target=\_blank} instruction is automatically appended to the end of the message if it is not already present.
+
+- **[`SetTopic([u8; 32])`](https://github.com/polkadot-fellows/xcm-format#settopic){target=\_blank}** is an XCM instruction that sets a 32-byte topic register inside the message.
+- The topic acts as a **logical identifier** (`message_id`) for the XCM, allowing you to group and trace related messages across chains.
+
+> ⚠️ **Note:** The topic is **not guaranteed to be unique**. If uniqueness is required (e.g. for deduplication), it must be enforced by the message creator.
+
+### Observability Features
+
+Runtimes built from **`stable2503-5` or later** provide key observability features for tracing and correlating XCMs across chains:
+
+- **[`PolkadotXcm.Sent`](https://paritytech.github.io/polkadot-sdk/master/pallet_xcm/pallet/enum.Event.html#variant.Sent){target=\_blank}** emitted on the origin chain when an XCM is sent.
+- **[`MessageQueue.Processed`](https://paritytech.github.io/polkadot-sdk/master/pallet_message_queue/pallet/enum.Event.html#variant.Processed){target=\_blank}** emitted on the destination chain when the XCM is processed.
+- The **`message_id` in the `Sent` event matches the `id` in the `Processed` event**, enabling reliable cross-chain correlation. This `message_id` is derived from the `SetTopic` instruction.
+
+| Chain Role        | Event                    | Field        | Purpose                            |
+|-------------------|--------------------------|--------------|------------------------------------|
+| Origin chain      | `PolkadotXcm.Sent`       | `message_id` | Identifies the sent XCM            |
+| Destination chain | `MessageQueue.Processed` | `id`         | Confirms processing of the message |
+
+Matching these IDs lets you **correlate** an origin message with its destination processing.
+
+### Why Not `XcmpQueue.XcmpMessageSent`?
+
+- The event [`XcmpQueue.XcmpMessageSent`](https://paritytech.github.io/polkadot-sdk/master/cumulus_pallet_xcmp_queue/pallet/enum.Event.html#variant.XcmpMessageSent){target=\_blank} contains a `message_hash` unrelated to `SetTopic`.
+- It is **not reliable for cross-chain tracing** and should be avoided for observability purposes.
+
+### Automatic vs Manual `SetTopic`
+
+- The runtime **automatically appends a `SetTopic` instruction** if one is missing at the end of an XCM.
+- When using high-level extrinsics such as `limited_reserve_transfer_assets`, **you do not need to set a topic manually**; the runtime handles it for you.
+- If you **manually craft an XCM** (e.g., via [`execute`](https://paritytech.github.io/polkadot-sdk/master/pallet_xcm/pallet/struct.Pallet.html#method.execute){target=\_blank} or [`send`](https://paritytech.github.io/polkadot-sdk/master/pallet_xcm/pallet/struct.Pallet.html#method.send){target=\_blank}), you **can supply your own `SetTopic`**, but it **must be the final instruction** to be respected.
+- In **multi-hop XCM flows**, manually setting the topic ensures **consistent tracing across all hops**. Any **remote XCM calls** embedded inside the XCM must also include a `SetTopic` at the end to preserve the same `message_id` throughout the cross-chain flow.
+
+## Message Lifecycle
+
+Here is a high-level overview of an XCM lifecycle with observability events:
+
+```mermaid
+flowchart TD
+    subgraph Origin["Origin Chain"]
+        direction LR
+        A["User submits extrinsic"] --> B["Appends SetTopic if missing"]
+        B --> C["XCM forwarded to destination"]
+        C --> D["Sends XCM"]
+        D --> E["PolkadotXcm.Sent emitted with message_id"]
+    end
+
+    subgraph Destination["Destination Chain"]
+        direction LR
+        F["Process message payload"] --> G["MessageQueue.Processed emitted with matching id"]
+        G --> H["Success/failure logged; further hops if any"]
+    end
+
+   Origin --> Destination
+```
+
+* The `SetTopic` ensures a consistent `message_id` is passed and visible in these events.
+* For multi-hop flows, the same `message_id` travels through all chains.
+
+## Failure Event Handling
+
+When XCMs fail, the entire transaction **rolls back** and **no failure events are emitted on-chain**.
+
+### How to Detect Failures
+
+1. **View Nested Dispatch Errors via Indexers**
+
+   Most indexers display nested errors indicating why an XCM failed, e.g.:
+
+   code/tutorials/interoperability/xcm-observability/execution-with-error.html
+
+   Common errors include missing assets, exceeded execution limits, or invalid asset locations. This nested error reporting, introduced in runtimes from **`stable2506` onward**, usually suffices to diagnose typical issues.
+
+2. **Replay Using Chopsticks for Full Logs**
+
+   For detailed troubleshooting:
+
+    - Replay the failing extrinsic with logging enabled
+    - See exactly which instruction failed and why
+    - View complete error chains like `FailedToTransactAsset` or `AssetNotFound`
+
+   This approach is invaluable for multi-hop flows and complex custom XCMs.
+
+### Recommended Debugging Workflow
+
+1. Start with indexer or API error output
+2. If unclear, use Chopsticks to replay the exact transaction
+3. Inspect logs for the failing XCM instruction and reason
+4. Adjust weight limits, asset locations, or message construction as needed
+
+→ See [Replay and Dry Run XCMs Using Chopsticks](/tutorials/interoperability/replay-and-dry-run-xcms/){target=\_blank} for replay instructions.
+
+## Best Practices
+
+- When manually setting `SetTopic`, **always place it as the final instruction** in your XCM to ensure it is respected by the runtime.
+- Use **automatic topic insertion** via high-level extrinsics whenever possible for simplicity.
+- If your use case involves multi-hop or custom XCMs, **manually set `SetTopic`** (including remote XCM calls) to guarantee consistent tracing.
+- Ensure your `message_id` values are unique **if** you require deduplication or strict correlation.
+- When supporting legacy runtimes, be aware of the `forward_id_for` pattern.
 --- END CONTENT ---
 
 Doc-Content: https://docs.polkadot.com/develop/interoperability/xcm-runtime-apis/
@@ -32285,30 +32416,26 @@ This approach provides accurate fee estimation for XCM teleports from Asset Hub 
 The key insight is understanding how asset references change based on the perspective of each chain in the XCM ecosystem, which is crucial for proper fee estimation and XCM construction.
 --- END CONTENT ---
 
-Doc-Content: https://docs.polkadot.com/tutorials/interoperability/xcm-observability/
+Doc-Content: https://docs.polkadot.com/tutorials/interoperability/xcm-observability-in-action/
 --- BEGIN CONTENT ---
 ---
-title: XCM Observability
-description: Learn how to trace, correlate, and debug cross-chain XCMs using observability features in the Polkadot SDK.
+title: XCM Observability in Action
+description: A practical guide to tracing, correlating, and debugging cross-chain XCMs with the observability tools provided by the Polkadot SDK.
 ---
 
-# XCM Observability
+# XCM Observability in Action
 
 ## Introduction
 
-Cross-Consensus Messaging (XCM) enables powerful interoperability in the Polkadot ecosystem, but debugging and tracing XCM flows across multiple chains can be challenging.
+Cross-Consensus Messaging (XCM) enables powerful interoperability in the Polkadot ecosystem, but tracing flows across multiple chains can be challenging in practice.
 
-This guide explains how to **trace, correlate, and debug XCMs** reliably using observability features built into modern Polkadot runtimes and the Polkadot SDK.
+This tutorial walks through a **hands-on scenario**: sending assets between parachains and tracing the resulting XCM across origin and destination chains. Along the way, you will:
 
-You will learn how to:
-
-- Use the [`SetTopic([u8; 32])`](https://github.com/polkadot-fellows/xcm-format#settopic){target=\_blank} instruction and `message_id` to track XCMs across chains
-- Understand the relationship between [`PolkadotXcm.Sent`](https://paritytech.github.io/polkadot-sdk/master/pallet_xcm/pallet/enum.Event.html#variant.Sent){target=\_blank} and [`MessageQueue.Processed`](https://paritytech.github.io/polkadot-sdk/master/pallet_message_queue/pallet/enum.Event.html#variant.Processed){target=\_blank} events for message correlation  
+- Learn how to capture `message_id` and [`SetTopic([u8; 32])`](https://github.com/polkadot-fellows/xcm-format#settopic){target=\_blank} for tracking
+- Correlate [`PolkadotXcm.Sent`](https://paritytech.github.io/polkadot-sdk/master/pallet_xcm/pallet/enum.Event.html#variant.Sent){target=\_blank} and [`MessageQueue.Processed`](https://paritytech.github.io/polkadot-sdk/master/pallet_message_queue/pallet/enum.Event.html#variant.Processed){target=\_blank} events in practice
 - Apply manual topic tagging for multi-hop tracing when needed
-- Use workarounds for older runtimes with derived message IDs
-- Debug failed or incomplete XCMs using indexers and Chopsticks replay
 
-The guide revolves around a **single, concrete scenario** of a cross-chain asset transfer/swap between two parachains, with multiple example scripts and detailed outputs.
+For background concepts and best practices, see the companion page: [XCM Observability](/develop/interoperability/xcm-observability){target=\_blank}.
 
 ## Prerequisites
 
@@ -32394,70 +32521,6 @@ If you're new to XCM replay or dry-run, see [Replay and Dry Run XCMs Using Chops
     npx papi add assetHub -w ws://localhost:8000
     npx papi add hydration -w ws://localhost:8001
     ```
-
-## Core Concepts
-
-### What is `SetTopic`?
-
-When executing XCMs using [`limited_reserve_transfer_assets`](https://paritytech.github.io/polkadot-sdk/master/pallet_xcm/pallet/struct.Pallet.html#method.limited_reserve_transfer_assets){target=\_blank}, other extrinsics, or raw XCM calls from the [`PolkadotXcm` pallet](https://paritytech.github.io/polkadot-sdk/master/pallet_xcm/pallet/struct.Pallet.html){target=\_blank}, a [`SetTopic([u8; 32])`](https://github.com/polkadot-fellows/xcm-format#settopic){target=\_blank} instruction is automatically appended to the end of the message if it is not already present.
-
-- **[`SetTopic([u8; 32])`](https://github.com/polkadot-fellows/xcm-format#settopic){target=\_blank}** is an XCM instruction that sets a 32-byte topic register inside the message.
-- The topic acts as a **logical identifier** (`message_id`) for the XCM, allowing you to group and trace related messages across chains.
-
-> ⚠️ **Note:** The topic is **not guaranteed to be unique**. If uniqueness is required (e.g. for deduplication), it must be enforced by the message creator.
-
-### Observability Features
-
-Runtimes built from **`stable2503-5` or later** provide key observability features for tracing and correlating XCMs across chains:
-
-- **[`PolkadotXcm.Sent`](https://paritytech.github.io/polkadot-sdk/master/pallet_xcm/pallet/enum.Event.html#variant.Sent){target=\_blank}** emitted on the origin chain when an XCM is sent.
-- **[`MessageQueue.Processed`](https://paritytech.github.io/polkadot-sdk/master/pallet_message_queue/pallet/enum.Event.html#variant.Processed){target=\_blank}** emitted on the destination chain when the XCM is processed.
-- The **`message_id` in the `Sent` event matches the `id` in the `Processed` event**, enabling reliable cross-chain correlation. This `message_id` is derived from the `SetTopic` instruction.
-
-| Chain Role        | Event                    | Field        | Purpose                            |
-|-------------------|--------------------------|--------------|------------------------------------|
-| Origin chain      | `PolkadotXcm.Sent`       | `message_id` | Identifies the sent XCM            |
-| Destination chain | `MessageQueue.Processed` | `id`         | Confirms processing of the message |
-
-Matching these IDs lets you **correlate** an origin message with its destination processing.
-
-### Why Not `XcmpQueue.XcmpMessageSent`?
-
-- The event [`XcmpQueue.XcmpMessageSent`](https://paritytech.github.io/polkadot-sdk/master/cumulus_pallet_xcmp_queue/pallet/enum.Event.html#variant.XcmpMessageSent){target=\_blank} contains a `message_hash` unrelated to `SetTopic`.
-- It is **not reliable for cross-chain tracing** and should be avoided for observability purposes.
-
-### Automatic vs Manual `SetTopic`
-
-- The runtime **automatically appends a `SetTopic` instruction** if one is missing at the end of an XCM.
-- When using high-level extrinsics such as `limited_reserve_transfer_assets`, **you do not need to set a topic manually**; the runtime handles it for you.
-- If you **manually craft an XCM** (e.g., via [`execute`](https://paritytech.github.io/polkadot-sdk/master/pallet_xcm/pallet/struct.Pallet.html#method.execute){target=\_blank} or [`send`](https://paritytech.github.io/polkadot-sdk/master/pallet_xcm/pallet/struct.Pallet.html#method.send){target=\_blank}), you **can supply your own `SetTopic`**, but it **must be the final instruction** to be respected.
-- In **multi-hop XCM flows**, manually setting the topic ensures **consistent tracing across all hops**. Any **remote XCM calls** embedded inside the XCM must also include a `SetTopic` at the end to preserve the same `message_id` throughout the cross-chain flow.
-
-## Message Lifecycle
-
-Here is a high-level overview of an XCM lifecycle with observability events:
-
-```mermaid
-flowchart TD
-    subgraph Origin["Origin Chain"]
-        direction LR
-        A["User submits extrinsic"] --> B["Appends SetTopic if missing"]
-        B --> C["XCM forwarded to destination"]
-        C --> D["Sends XCM"]
-        D --> E["PolkadotXcm.Sent emitted with message_id"]
-    end
-
-    subgraph Destination["Destination Chain"]
-        direction LR
-        F["Process message payload"] --> G["MessageQueue.Processed emitted with matching id"]
-        G --> H["Success/failure logged; further hops if any"]
-    end
-
-   Origin --> Destination
-```
-
-* The `SetTopic` ensures a consistent `message_id` is passed and visible in these events.
-* For multi-hop flows, the same `message_id` travels through all chains.
 
 ## Scenario 1: XCM Flow with Implicit `SetTopic`
 
@@ -33468,65 +33531,6 @@ If you encounter an error indicating that `PolkadotXcm.Sent` is unavailable:
 Ensure that `wasm-override` is updated to runtime version 1.6.0+, or to any runtime built from `stable2503-5` or later.
 
 For details on updating your workspace, see [Setting Up Your Workspace](#setting-up-your-workspace).
-
-## Failure Event Handling
-
-When XCMs fail, the entire transaction **rolls back** and **no failure events are emitted on-chain**.
-
-### How to Detect Failures
-
-1. **View Nested Dispatch Errors via Indexers**
-
-   Most indexers display nested errors indicating why an XCM failed, e.g.:
-
-   <div class="termynal" data-termynal>
-  <pre data-ty>
-"error": {
-  "type": "Module",
-  "value": {
-    "type": "PolkadotXcm",
-    "value": {
-      "type": "LocalExecutionIncompleteWithError",
-      "value": {
-        "index": 0,
-        "error": {
-          "type": "FailedToTransactAsset"
-        }
-      }
-    }
-  }
-}
-  </pre>
-</div>
-
-   Common errors include missing assets, exceeded execution limits, or invalid asset locations. This nested error reporting, introduced in runtimes from **`stable2506` onward**, usually suffices to diagnose typical issues.
-
-2. **Replay Using Chopsticks for Full Logs**
-
-   For detailed troubleshooting:
-
-    - Replay the failing extrinsic with logging enabled
-    - See exactly which instruction failed and why
-    - View complete error chains like `FailedToTransactAsset` or `AssetNotFound`
-
-   This approach is invaluable for multi-hop flows and complex custom XCMs.
-
-### Recommended Debugging Workflow
-
-1. Start with indexer or API error output
-2. If unclear, use Chopsticks to replay the exact transaction
-3. Inspect logs for the failing XCM instruction and reason
-4. Adjust weight limits, asset locations, or message construction as needed
-
-→ See [Replay and Dry Run XCMs Using Chopsticks](/tutorials/interoperability/replay-and-dry-run-xcms/){target=\_blank} for replay instructions.
-
-## Best Practices
-
-- When manually setting `SetTopic`, **always place it as the final instruction** in your XCM to ensure it is respected by the runtime.
-- Use **automatic topic insertion** via high-level extrinsics whenever possible for simplicity.
-- If your use case involves multi-hop or custom XCMs, **manually set `SetTopic`** (including remote XCM calls) to guarantee consistent tracing.
-- Ensure your `message_id` values are unique **if** you require deduplication or strict correlation.
-- When supporting legacy runtimes, be aware of the `forward_id_for` pattern.
 
 ## Summary
 

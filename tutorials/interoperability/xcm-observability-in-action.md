@@ -1,6 +1,6 @@
 ---
 title: XCM Observability in Action
-description: Learn how to trace, correlate, and debug cross-chain XCMs using observability features in the Polkadot SDK.
+description: A practical guide to tracing, correlating, and debugging cross-chain XCMs with the observability tools provided by the Polkadot SDK.
 ---
 
 # XCM Observability in Action
@@ -11,10 +11,9 @@ Cross-Consensus Messaging (XCM) enables powerful interoperability in the Polkado
 
 This tutorial walks through a **hands-on scenario**: sending assets between parachains and tracing the resulting XCM across origin and destination chains. Along the way, you will:
 
-* Run example scripts that send and replay XCMs
-* Learn how to capture `message_id` and [`SetTopic([u8; 32])`](https://github.com/polkadot-fellows/xcm-format#settopic){target=\_blank} for tracking
-* Correlate [`PolkadotXcm.Sent`](https://paritytech.github.io/polkadot-sdk/master/pallet_xcm/pallet/enum.Event.html#variant.Sent){target=\_blank} and [`MessageQueue.Processed`](https://paritytech.github.io/polkadot-sdk/master/pallet_message_queue/pallet/enum.Event.html#variant.Processed){target=\_blank} events in practice
-* Debug failures using indexers and Chopsticks replay
+- Learn how to capture `message_id` and [`SetTopic([u8; 32])`](https://github.com/polkadot-fellows/xcm-format#settopic){target=\_blank} for tracking
+- Correlate [`PolkadotXcm.Sent`](https://paritytech.github.io/polkadot-sdk/master/pallet_xcm/pallet/enum.Event.html#variant.Sent){target=\_blank} and [`MessageQueue.Processed`](https://paritytech.github.io/polkadot-sdk/master/pallet_message_queue/pallet/enum.Event.html#variant.Processed){target=\_blank} events in practice
+- Apply manual topic tagging for multi-hop tracing when needed
 
 For background concepts and best practices, see the companion page: [XCM Observability](/develop/interoperability/xcm-observability){target=\_blank}.
 
@@ -255,3 +254,14 @@ If you encounter an error indicating that `PolkadotXcm.Sent` is unavailable:
 Ensure that `wasm-override` is updated to runtime version 1.6.0+, or to any runtime built from `stable2503-5` or later.
 
 For details on updating your workspace, see [Setting Up Your Workspace](#setting-up-your-workspace).
+
+## Summary
+
+This guide demonstrated:
+
+- How `SetTopic` and `message_id` enable tracing and correlating XCMs across chains
+- How to interpret and debug XCM failure cases
+- How to manually and automatically manage topics for multi-hop flows
+- The legacy workaround for older runtimes with derived IDs
+
+By following the example scenarios and debugging steps, you can confidently develop, trace, and troubleshoot XCM workflows.

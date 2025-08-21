@@ -1,25 +1,24 @@
 ---
 title: XCM Observability
-description: Learn how to trace, correlate, and debug cross-chain XCMs using observability features in the Polkadot SDK.
+description: A conceptual guide to tracing, correlating, and debugging XCMs using observability features in the Polkadot SDK.
 ---
 
 # XCM Observability
 
 ## Introduction
 
-Cross-Consensus Messaging (XCM) enables powerful interoperability in the Polkadot ecosystem, but debugging and tracing XCM flows across multiple chains can be challenging.
+Cross-Consensus Messaging (XCM) powers interoperability across the Polkadot ecosystem, but tracing and debugging XCM flows across multiple chains can be complex.
 
-This guide explains how to **trace, correlate, and debug XCMs** reliably using observability features built into modern Polkadot runtimes and the Polkadot SDK.
+This guide introduces the observability features in modern Polkadot runtimes and the Polkadot SDK that make XCMs traceable and debuggable.
 
 You will learn how to:
 
 - Use the [`SetTopic([u8; 32])`](https://github.com/polkadot-fellows/xcm-format#settopic){target=\_blank} instruction and `message_id` to track XCMs across chains
-- Understand the relationship between [`PolkadotXcm.Sent`](https://paritytech.github.io/polkadot-sdk/master/pallet_xcm/pallet/enum.Event.html#variant.Sent){target=\_blank} and [`MessageQueue.Processed`](https://paritytech.github.io/polkadot-sdk/master/pallet_message_queue/pallet/enum.Event.html#variant.Processed){target=\_blank} events for message correlation
-- Apply manual topic tagging for multi-hop tracing when needed
-- Use workarounds for older runtimes with derived message IDs
-- Debug failed or incomplete XCMs using indexers and Chopsticks replay
+- Correlate messages through [`PolkadotXcm.Sent`](https://paritytech.github.io/polkadot-sdk/master/pallet_xcm/pallet/enum.Event.html#variant.Sent){target=\_blank} and [`MessageQueue.Processed`](https://paritytech.github.io/polkadot-sdk/master/pallet_message_queue/pallet/enum.Event.html#variant.Processed){target=\_blank} events
+- Apply workarounds for older runtimes using derived message IDs
+- Diagnose failed or incomplete XCMs with indexers and Chopsticks replay
 
-The guide revolves around a **single, concrete scenario** of a cross-chain asset transfer/swap between two parachains, with multiple example scripts and detailed outputs.
+For a hands-on walkthrough, see the companion tutorial: [XCM Observability in Action](/tutorials/interoperability/xcm-observability-in-action){target=\_blank}.
 
 ## Core Concepts
 
@@ -125,14 +124,3 @@ When XCMs fail, the entire transaction **rolls back** and **no failure events ar
 - If your use case involves multi-hop or custom XCMs, **manually set `SetTopic`** (including remote XCM calls) to guarantee consistent tracing.
 - Ensure your `message_id` values are unique **if** you require deduplication or strict correlation.
 - When supporting legacy runtimes, be aware of the `forward_id_for` pattern.
-
-## Summary
-
-This guide demonstrated:
-
-- How `SetTopic` and `message_id` enable tracing and correlating XCMs across chains
-- How to interpret and debug XCM failure cases
-- How to manually and automatically manage topics for multi-hop flows
-- The legacy workaround for older runtimes with derived IDs
-
-By following the example scenarios and debugging steps, you can confidently develop, trace, and troubleshoot XCM workflows.

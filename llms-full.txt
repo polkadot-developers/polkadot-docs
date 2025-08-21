@@ -184,7 +184,7 @@ Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/re
 Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/tutorials/interoperability/xcm-channels/index.md
 Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/tutorials/interoperability/xcm-channels/para-to-para.md
 Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/tutorials/interoperability/xcm-channels/para-to-system.md
-Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/tutorials/interoperability/xcm-observability.md
+Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/tutorials/interoperability/xcm-fee-estimation.md
 Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/tutorials/interoperability/xcm-transfers/from-relaychain-to-parachain.md
 Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/tutorials/interoperability/xcm-transfers/index.md
 Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/tutorials/onchain-governance/fast-track-gov-proposal.md
@@ -14220,7 +14220,7 @@ Doc-Content: https://docs.polkadot.com/develop/smart-contracts/local-development
 --- BEGIN CONTENT ---
 ---
 title: Local Development Node
-description: Follow this step-by-step guide to install a Substrate node and ETH-RPC adapter for smart contract development in a local environment.
+description: Follow this step-by-step guide to install a Revive Dev node and ETH-RPC adapter for smart contract development in a local environment.
 categories: Smart Contracts
 ---
 
@@ -14235,7 +14235,7 @@ A local development node provides an isolated blockchain environment where you c
 
 By the end of this guide, you'll have:
 
-- A running Substrate node with smart contract support.
+- A running node with smart contract support.
 - An ETH-RPC adapter for Ethereum-compatible tooling integration accessible at `http://localhost:8545`.
 
 ## Prerequisites
@@ -14244,41 +14244,42 @@ Before getting started, ensure you have done the following:
 
 - Completed the [Install Polkadot SDK Dependencies](/develop/parachains/install-polkadot-sdk/){target=\_blank} guide and successfully installed [Rust](https://www.rust-lang.org/){target=\_blank} and the required packages to set up your development environment.
 
-## Install the Substrate Node and ETH-RPC Adapter
+## Install the Revive Dev Node and ETH-RPC Adapter
 
-The Polkadot SDK repository contains both the [Substrate node](https://github.com/paritytech/polkadot-sdk/tree/master/substrate/bin/node){target=\_blank} implementation and the [ETH-RPC adapter](https://github.com/paritytech/polkadot-sdk/tree/master/substrate/frame/revive/rpc){target=\_blank} required for Ethereum compatibility. Start by cloning the repository and navigating to the project directory:
+The Polkadot SDK repository contains both the [Revive Dev node](https://github.com/paritytech/polkadot-sdk/tree/{{dependencies.repositories.polkadot_sdk_contracts_node.commit_dev_node}}/substrate/frame/revive/dev-node){target=\_blank} implementation and the [ETH-RPC adapter](https://github.com/paritytech/polkadot-sdk/tree/{{dependencies.repositories.polkadot_sdk_contracts_node.commit_dev_node}}/substrate/frame/revive/rpc){target=\_blank} required for Ethereum compatibility. Start by cloning the repository and navigating to the project directory:
 
 ```bash
-git clone -b {{dependencies.repositories.polkadot_sdk_contracts_node.version}} https://github.com/paritytech/polkadot-sdk.git
+git clone https://github.com/paritytech/polkadot-sdk.git
 cd polkadot-sdk
+git checkout {{dependencies.repositories.polkadot_sdk_contracts_node.commit_dev_node}}
 ```
 
 Next, you need to compile the two essential components for your development environment. The Substrate node provides the core blockchain runtime with smart contract support, while the ETH-RPC adapter enables Ethereum JSON-RPC compatibility for existing tooling:
 
 ```bash
-cargo build --bin substrate-node --release
+cargo build -p revive-dev-node --bin revive-dev-node --release
 cargo build -p pallet-revive-eth-rpc --bin eth-rpc --release
 ```
 
 The compilation process may take some time depending on your system specifications, potentially up to 30 minutes. Release builds are optimized for performance but take longer to compile than debug builds. After successful compilation, you can verify the binaries are available in the `target/release` directory:
 
-- **Substrate node path**: `polkadot-sdk/target/release/substrate-node`
+- **Revive Dev node path**: `polkadot-sdk/target/release/revive-dev-node`
 - **ETH-RPC adapter path**: `polkadot-sdk/target/release/eth-rpc`
 
 ## Run the Local Node
 
 With the binaries compiled, you can now start your local development environment. The setup requires running two processes.
 
-Start the Substrate node first, which will initialize a local blockchain with the `dev` chain specification. This configuration includes `pallet-revive` for smart contract functionality and uses pre-funded development accounts for testing:
+Start the node first, which will initialize a local blockchain with the `dev` chain specification. This configuration includes `pallet-revive` for smart contract functionality and uses pre-funded development accounts for testing:
 
 ```bash
-./target/release/substrate-node --dev
+./target/release/revive-dev-node --dev
 ```
 
 The node will begin producing blocks immediately and display initialization logs:
 
 <div id="termynal" data-termynal>
-  <span data-ty="input"><span class="file-path"></span>./target/release/substrate-node --dev</span>
+  <span data-ty="input"><span class="file-path"></span>./target/release/revive-dev-node --dev</span>
   <br />
   <span data-ty>2025-05-29 10:42:35 Substrate Node</span>
   <span data-ty>2025-05-29 10:42:35 ✌️ version 3.0.0-dev-38b7581fc04</span>
@@ -14318,10 +14319,10 @@ The node will begin producing blocks immediately and display initialization logs
 For debugging purposes or to monitor low-level operations, you can enable detailed logging by setting environment variables before running the command:
 
 ```bash
-RUST_LOG="error,evm=debug,sc_rpc_server=info,runtime::revive=debug" ./target/release/substrate-node --dev
+RUST_LOG="error,evm=debug,sc_rpc_server=info,runtime::revive=debug" ./target/release/revive-dev-node --dev
 ```
 
-Once the Substrate node is running, open a new terminal window and start the ETH-RPC adapter. This component translates Ethereum JSON-RPC calls into Substrate-compatible requests, allowing you to use familiar Ethereum tools like MetaMask, Hardhat, or Ethers.js:
+Once the node is running, open a new terminal window and start the ETH-RPC adapter. This component translates Ethereum JSON-RPC calls into Substrate-compatible requests, allowing you to use familiar Ethereum tools like MetaMask, Hardhat, or Ethers.js:
 
 ```bash
 ./target/release/eth-rpc --dev
@@ -14343,7 +14344,7 @@ You should see logs indicating that the adapter is ready to accept connections:
   <span data-ty>2025-05-29 10:48:48 🔌 Subscribing to new blocks (FinalizedBlocks)</span>
 </div>
 
-Similar to the Substrate node, you can enable detailed logging for the ETH-RPC adapter to troubleshoot issues:
+Similar to the Revive Dev node, you can enable detailed logging for the ETH-RPC adapter to troubleshoot issues:
 
 ```bash
 RUST_LOG="info,eth-rpc=debug" ./target/release/eth-rpc --dev
@@ -18737,6 +18738,24 @@ For more details on using Astar xcm-tools, consult the [official documentation](
 ### Chopsticks
 
 The Chopsticks library provides XCM functionality for testing XCM messages across networks, enabling you to fork multiple parachains along with a relay chain. For further details, see the [Chopsticks documentation](/tutorials/polkadot-sdk/testing/fork-live-chains/){target=\_blank} about XCM.
+
+### Moonbeam XCM SDK
+
+The [Moonbeam XCM SDK](https://github.com/moonbeam-foundation/xcm-sdk){target=\_blank} enables developers to easily transfer assets between chains, either between parachains or between a parachain and the relay chain, within the Polkadot/Kusama ecosystem. With the SDK, you don't need to worry about determining the [Multilocation](https://github.com/polkadot-fellows/xcm-format?tab=readme-ov-file#7-universal-consensus-location-identifiers){target=\_blank} of the origin or destination assets or which extrinsics are used on which networks.
+
+The SDK consists of two main packages:
+
+- **[XCM SDK](https://github.com/moonbeam-foundation/xcm-sdk/tree/main/packages/sdk){target=\_blank}**: Core SDK for executing XCM transfers between chains in the Polkadot/Kusama ecosystem.
+- **[MRL SDK](https://github.com/moonbeam-foundation/xcm-sdk/tree/main/packages/mrl){target=\_blank}**: Extension of the XCM SDK for transferring liquidity into and across the Polkadot ecosystem from other ecosystems like Ethereum.
+
+Key features include:
+
+- **Simplified asset transfers**: Abstracts away complex multilocation determinations and extrinsic selection.
+- **Cross-ecosystem support**: Enables transfers between Polkadot/Kusama chains and external ecosystems.
+- **Developer-friendly API**: Provides intuitive interfaces for cross-chain functionality.
+- **Comprehensive documentation**: Includes usage guides and API references for both packages.
+
+For detailed usage examples and API documentation, visit the [official Moonbeam XCM SDK documentation](https://moonbeam-foundation.github.io/xcm-sdk/latest/){target=\_blank}.
 --- END CONTENT ---
 
 Doc-Content: https://docs.polkadot.com/develop/toolkit/parachains/e2e-testing/
@@ -21658,19 +21677,19 @@ Each category file includes foundational content from the **Basics** and **Refer
 
 ## Download LLM Files
 
-| Category           | Description                                                                                                                                        | File                         | Actions                                                                                                                                                                                              |
-|--------------------|----------------------------------------------------------------------------------------------------------------------------------------------------|------------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| Index              | Navigation index of all Polkadot documentation pages                                                                                               | `llms.txt`                   | [:octicons-copy-16:](){ .llms data-action="copy" data-value="llms.txt" } [:octicons-download-16:](/llms.txt){ download="llms.txt" }                                                                  |
-| Full Documentation | Full content of all documentation pages                                                                                                            | `llms-full.txt`              | [:octicons-copy-16:](){ .llms data-action="copy" data-value="llms-full.txt" } [:octicons-download-16:](/llms-full.txt){ download="llms-full.txt" }                                                   |
-| Basics             | Polkadot general knowledge base to provide context around overview and beginner level content                                                      | `llms-basics.txt`            | [:octicons-copy-16:](){ .llms data-action="copy" data-value="llms-basics.txt" } [:octicons-download-16:](/llms-files/llms-basics.txt){ download="llms-basics.txt" }                                  |
-| Reference          | Reference material including key functions and glossary                                                                                            | `llms-reference.txt`         | [:octicons-copy-16:](){ .llms data-action="copy" data-value="llms-reference.txt"} [:octicons-download-16:](/llms-files/llms-reference.txt){ download="llms-reference.txt" }                          |
-| Smart Contracts    | How to develop and deploy Solidity smart contracts on the Polkadot Hub                                                                             | `llms-smart-contracts.txt`   | [:octicons-copy-16:](){ .llms data-action="copy" data-value="llms-smart-contracts.txt" } [:octicons-download-16:](/llms-files/llms-smart-contracts.txt){ download="llms-smart-contracts.txt" }       |
-| Parachains         | How to guides related to building, customizing, deploying, and maintaining a parachain                                                             | `llms-parachains.txt`        | [:octicons-copy-16:](){ .llms data-action="copy" data-value="llms-parachains.txt" } [:octicons-download-16:](/llms-files/llms-parachains.txt){ download="llms-parachains.txt" }                      |
-| DApps              | Information and tutorials for application developers                                                                                               | `llms-dapps.txt`             | [:octicons-copy-16:](){ .llms data-action="copy" data-value="llms-dapps.txt" } [:octicons-download-16:](/llms-files/llms-dapps.txt){ download="llms-dapps.txt" }                                     |
-| Networks           | Information about the various Polkadot networks (Polkadot, Kusama, Westend, Paseo), their purposes, and how they fit into the development workflow | `llms-networks.txt`          | [:octicons-copy-16:](){ .llms data-action="copy" data-value="llms-networks.txt" } [:octicons-download-16:](/llms-files/llms-networks.txt){ download="llms-networks.txt" }                            |
-| Polkadot Protocol  | Polkadot's core architecture, including the Relay Chain, Parachains, System Chains, Interoperability, and Main Actors.                             | `llms-polkadot-protocol.txt` | [:octicons-copy-16:](){ .llms data-action="copy" data-value="llms-polkadot-protocol.txt" } [:octicons-download-16:](/llms-files/llms-polkadot-protocol.txt){ download="llms-polkadot-protocol.txt" } |
-| Infrastructure     | Operational aspects of supporting the Polkadot network including how to run a node or validator and staking mechanics                              | `llms-infrastructure.txt`    | [:octicons-copy-16:](){ .llms data-action="copy" data-value="llms-infrastructure.txt" } [:octicons-download-16:](/llms-files/llms-infrastructure.txt){ download="llms-infrastructure.txt" }          |
-| Tooling            | An overview of various development tools available for Polkadot development                                                                        | `llms-tooling.txt`           | [:octicons-copy-16:](){ .llms data-action="copy" data-value="llms-tooling.txt" } [:octicons-download-16:](/llms-files/llms-tooling.txt){ download="llms-tooling.txt" }                               |
+| Category           | Description                                                                                                                                         | File                         | Actions                                                                                                                                                                                              |
+|--------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------|------------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Index              | Navigation index of all Polkadot documentation pages.                                                                                               | `llms.txt`                   | [:octicons-copy-16:](){ .llms data-action="copy" data-value="llms.txt" } [:octicons-download-16:](/llms.txt){ download="llms.txt" }                                                                  |
+| Full Documentation | Full content of all documentation pages.                                                                                                            | `llms-full.txt`              | [:octicons-copy-16:](){ .llms data-action="copy" data-value="llms-full.txt" } [:octicons-download-16:](/llms-full.txt){ download="llms-full.txt" }                                                   |
+| Basics             | Polkadot general knowledge base to provide context around overview and beginner level content.                                                      | `llms-basics.txt`            | [:octicons-copy-16:](){ .llms data-action="copy" data-value="llms-basics.txt" } [:octicons-download-16:](/llms-files/llms-basics.txt){ download="llms-basics.txt" }                                  |
+| Reference          | Reference material including key functions and glossary.                                                                                            | `llms-reference.txt`         | [:octicons-copy-16:](){ .llms data-action="copy" data-value="llms-reference.txt"} [:octicons-download-16:](/llms-files/llms-reference.txt){ download="llms-reference.txt" }                          |
+| Smart Contracts    | How to develop and deploy Solidity smart contracts on Polkadot Hub.                                                                                 | `llms-smart-contracts.txt`   | [:octicons-copy-16:](){ .llms data-action="copy" data-value="llms-smart-contracts.txt" } [:octicons-download-16:](/llms-files/llms-smart-contracts.txt){ download="llms-smart-contracts.txt" }       |
+| Parachains         | How to guides related to building, customizing, deploying, and maintaining a parachain.                                                             | `llms-parachains.txt`        | [:octicons-copy-16:](){ .llms data-action="copy" data-value="llms-parachains.txt" } [:octicons-download-16:](/llms-files/llms-parachains.txt){ download="llms-parachains.txt" }                      |
+| DApps              | Information and tutorials for application developers.                                                                                               | `llms-dapps.txt`             | [:octicons-copy-16:](){ .llms data-action="copy" data-value="llms-dapps.txt" } [:octicons-download-16:](/llms-files/llms-dapps.txt){ download="llms-dapps.txt" }                                     |
+| Networks           | Information about the various Polkadot networks (Polkadot, Kusama, Westend, Paseo), their purposes, and how they fit into the development workflow. | `llms-networks.txt`          | [:octicons-copy-16:](){ .llms data-action="copy" data-value="llms-networks.txt" } [:octicons-download-16:](/llms-files/llms-networks.txt){ download="llms-networks.txt" }                            |
+| Polkadot Protocol  | Polkadot's core architecture, including the relay chain, parachains, system chains, interoperability, and main actors.                              | `llms-polkadot-protocol.txt` | [:octicons-copy-16:](){ .llms data-action="copy" data-value="llms-polkadot-protocol.txt" } [:octicons-download-16:](/llms-files/llms-polkadot-protocol.txt){ download="llms-polkadot-protocol.txt" } |
+| Infrastructure     | Operational aspects of supporting the Polkadot network including how to run a node or validator and staking mechanics.                              | `llms-infrastructure.txt`    | [:octicons-copy-16:](){ .llms data-action="copy" data-value="llms-infrastructure.txt" } [:octicons-download-16:](/llms-files/llms-infrastructure.txt){ download="llms-infrastructure.txt" }          |
+| Tooling            | An overview of various development tools available for Polkadot development.                                                                        | `llms-tooling.txt`           | [:octicons-copy-16:](){ .llms data-action="copy" data-value="llms-tooling.txt" } [:octicons-download-16:](/llms-files/llms-tooling.txt){ download="llms-tooling.txt" }                               |
 
 !!! note
     The `llms-full.txt` file may exceed the input limits of some language models due to its size. If you encounter limitations, consider using the files by category.
@@ -30803,7 +30822,9 @@ Connect to parachain 2500 using Polkadot.js Apps to send the XCM message to the 
 !!! note
     The exact process and parameters for submitting this XCM message may vary depending on your specific parachain and relay chain configurations. Always refer to the most current documentation for your particular network setup.
 
-After successfully submitting the XCM message to the relay chain, two HRMP channels should be created, establishing bidirectional communication between parachain 2500 and system chain 1000. To verify this, follow these steps:
+After successfully submitting the XCM message to the relay chain, two [`HrmpSystemChannelOpened`](https://paritytech.github.io/polkadot-sdk/master/polkadot_runtime_parachains/hrmp/pallet/enum.Event.html#variant.HrmpSystemChannelOpened){target=\_blank} events are emitted, indicating that the channels are now present in storage under [`HrmpOpenChannelRequests`](https://paritytech.github.io/polkadot-sdk/master/polkadot_runtime_parachains/hrmp/pallet/storage_types/struct.HrmpOpenChannelRequests.html){target=\_blank}. However, the channels are not actually set up until the start of the next session, at which point bidirectional communication between parachain 2500 and system chain 1000 is established.
+
+To verify this, wait for the next session and then follow these steps:
 
 1. Using Polkadot.js Apps, connect to the relay chain and navigate to the **Developer** dropdown, then select **Chain state**.
 
@@ -30868,1256 +30889,1399 @@ The output confirms the successful establishment of two HRMP channels:
 This bidirectional channel enables direct communication between the system chain and the parachain, allowing for cross-chain message passing.
 --- END CONTENT ---
 
-Doc-Content: https://docs.polkadot.com/tutorials/interoperability/xcm-observability/
+Doc-Content: https://docs.polkadot.com/tutorials/interoperability/xcm-fee-estimation/
 --- BEGIN CONTENT ---
 ---
-title: XCM Observability
-description: Learn how to trace, correlate, and debug cross-chain XCMs using observability features in the Polkadot SDK.
+title: XCM Fee Estimation
+description: This tutorial demonstrates how to estimate the fees for teleporting assets from the Paseo Asset Hub parachain to the Paseo Bridge Hub chain.
 ---
 
-# XCM Observability
+# XCM Fee Estimation
 
 ## Introduction
 
-Cross-Consensus Messaging (XCM) enables powerful interoperability in the Polkadot ecosystem, but debugging and tracing XCM flows across multiple chains can be challenging.
+When sending cross-chain messages, ensure that the transaction will be successful not only in the local chain but also in the destination chain and any intermediate chains.
 
-This guide explains how to **trace, correlate, and debug XCMs** reliably using observability features built into modern Polkadot runtimes and the Polkadot SDK.
+Sending cross-chain messages requires estimating the fees for the operation. 
 
-You will learn how to:
+This tutorial will demonstrate how to dry-run and estimate the fees for teleporting assets from the Paseo Asset Hub parachain to the Paseo Bridge Hub chain.
 
-- Use the [`SetTopic([u8; 32])`](https://github.com/polkadot-fellows/xcm-format#settopic){target=\_blank} instruction and `message_id` to track XCMs across chains
-- Understand the relationship between [`PolkadotXcm.Sent`](https://paritytech.github.io/polkadot-sdk/master/pallet_xcm/pallet/enum.Event.html#variant.Sent){target=\_blank} and [`MessageQueue.Processed`](https://paritytech.github.io/polkadot-sdk/master/pallet_message_queue/pallet/enum.Event.html#variant.Processed){target=\_blank} events for message correlation  
-- Apply manual topic tagging for multi-hop tracing when needed
-- Use workarounds for older runtimes with derived message IDs
-- Debug failed or incomplete XCMs using indexers and Chopsticks replay
+## Fee Mechanism
 
-The guide revolves around a **single, concrete scenario** of a cross-chain asset transfer/swap between two parachains, with multiple example scripts and detailed outputs.
+There are three types of fees that can be charged when sending a cross-chain message:
 
-## Prerequisites
+- **Local execution fees**: Fees charged in the local chain for executing the message.
+- **Delivery fees**: Fees charged for delivering the message to the destination chain.
+- **Remote execution fees**: Fees charged in the destination chain for executing the message.
 
-Before you begin, make sure you've:
+If there are multiple intermediate chains, delivery fees and remote execution fees will be charged for each one.
 
-- [Chopsticks](/develop/toolkit/parachains/fork-chains/chopsticks/get-started/){target=\_blank} installed
-- Access to local or remote parachain endpoints
-- The origin chain running runtime **`stable2503-5`** or later
-- A TypeScript development environment with essential tools
-- Familiarity with replaying or dry-running XCMs
+In this example, you will estimate the fees for teleporting assets from the Paseo Asset Hub parachain to the Paseo Bridge Hub chain. The fee structure will be as follows:
 
-If you're new to XCM replay or dry-run, see [Replay and Dry Run XCMs Using Chopsticks](/tutorials/interoperability/replay-and-dry-run-xcms/){target=\_blank}.
+```mermaid
+flowchart LR
+    AssetHub[Paseo Asset Hub] -->|Delivery Fees| BridgeHub[Paseo Bridge Hub]
+    AssetHub -->|<br />Local<br />Execution<br />Fees| AssetHub
+    BridgeHub -->|<br />Remote<br />Execution<br />Fees| BridgeHub
+```
 
-## Setting Up Your Workspace
+The overall fees are `local_execution_fees` + `delivery_fees` + `remote_execution_fees`.
 
-1. Create a project directory:
+## Environment Setup
 
-    ```bash
-    mkdir -p xcm-obs-demo && cd xcm-obs-demo
-    ```
+First, you need to set up your environment:
 
-2. Install Chopsticks globally:
+1. Create a new directory and initialize the project:
 
     ```bash
-    npm install -g @acala-network/chopsticks@latest
+    mkdir xcm-fee-estimation && \
+    cd xcm-fee-estimation
     ```
 
-3. Download 1.6.0 runtime, which is built from **`stable2503-5` or later**:
+2. Initialize the project:
 
     ```bash
-    mkdir -p wasms
-    wget https://github.com/polkadot-fellows/runtimes/releases/download/v1.6.0/asset-hub-polkadot_runtime-v1006000.compact.compressed.wasm -O wasms/asset-hub-polkadot_v1.6.0.wasm
+    npm init -y
     ```
 
-4. Download config of Polkadot Hub:
+3. Install dev dependencies:
 
     ```bash
-    mkdir -p configs
-    wget https://raw.githubusercontent.com/AcalaNetwork/chopsticks/master/configs/polkadot-asset-hub.yml -O configs/polkadot-hub-override.yaml
+    npm install --save-dev @types/node@^22.12.0 ts-node@^10.9.2 typescript@^5.7.3
     ```
 
-5. Edit `configs/polkadot-hub-override.yaml` to include:
-
-    ```yaml title="configs/polkadot-hub-override.yaml"
-    ...
-    wasm-override: wasms/asset-hub-polkadot_v1.6.0.wasm
-    ...
-    ```
-
-6. Fork the relevant chains locally using Chopsticks:
+4. Install dependencies:
 
     ```bash
-    npx @acala-network/chopsticks xcm -r polkadot -p configs/polkadot-hub-override.yaml -p hydradx
+    npm install --save @polkadot-labs/hdkd@^0.0.13 @polkadot-labs/hdkd-helpers@^0.0.13 polkadot-api@1.9.5
     ```
 
-   → See the [Fork a Chain with Chopsticks guide](/tutorials/polkadot-sdk/testing/fork-live-chains/){target=\_blank} for detailed instructions.
-
-7. Open a **new terminal** in the same folder and initialise a Node.js project:
-
-    ```bash
-    npm init -y && npm pkg set type="module"
-    ```
-
-8. Install TypeScript and Polkadot dependencies:
-
-    ```bash
-    npm install --save-dev typescript @types/node tsx
-    npm install polkadot-api @polkadot-labs/hdkd @polkadot-labs/hdkd-helpers
-    ```
-
-9. Initialise TypeScript:
+5. Create TypeScript configuration:
 
     ```bash
     npx tsc --init
     ```
 
-10. Add descriptors:
+6. Generate the types for the Polkadot API for Paseo Bridge Hub and Paseo Asset Hub:
 
     ```bash
-    npx papi add assetHub -w ws://localhost:8000
-    npx papi add hydration -w ws://localhost:8001
+    npx papi add paseoAssetHub -n paseo_asset_hub && \
+    npx papi add paseoBridgeHub -w wss://bridge-hub-paseo.dotters.network
     ```
 
-## Core Concepts
+7. Create a new file called `teleport-ah-to-bridge-hub.ts`:
 
-### What is `SetTopic`?
+    ```bash
+    touch teleport-ah-to-bridge-hub.ts
+    ```
 
-When executing XCMs using [`limited_reserve_transfer_assets`](https://paritytech.github.io/polkadot-sdk/master/pallet_xcm/pallet/struct.Pallet.html#method.limited_reserve_transfer_assets){target=\_blank}, other extrinsics, or raw XCM calls from the [`PolkadotXcm` pallet](https://paritytech.github.io/polkadot-sdk/master/pallet_xcm/pallet/struct.Pallet.html){target=\_blank}, a [`SetTopic([u8; 32])`](https://github.com/polkadot-fellows/xcm-format#settopic){target=\_blank} instruction is automatically appended to the end of the message if it is not already present.
+8. Import the necessary modules. Add the following code to the `teleport-ah-to-bridge-hub.ts` file:
 
-- **[`SetTopic([u8; 32])`](https://github.com/polkadot-fellows/xcm-format#settopic){target=\_blank}** is an XCM instruction that sets a 32-byte topic register inside the message.
-- The topic acts as a **logical identifier** (`message_id`) for the XCM, allowing you to group and trace related messages across chains.
-
-> ⚠️ **Note:** The topic is **not guaranteed to be unique**. If uniqueness is required (e.g. for deduplication), it must be enforced by the message creator.
-
-### Observability Features
-
-Runtimes built from **`stable2503-5` or later** provide key observability features for tracing and correlating XCMs across chains:
-
-- **[`PolkadotXcm.Sent`](https://paritytech.github.io/polkadot-sdk/master/pallet_xcm/pallet/enum.Event.html#variant.Sent){target=\_blank}** emitted on the origin chain when an XCM is sent.
-- **[`MessageQueue.Processed`](https://paritytech.github.io/polkadot-sdk/master/pallet_message_queue/pallet/enum.Event.html#variant.Processed){target=\_blank}** emitted on the destination chain when the XCM is processed.
-- The **`message_id` in the `Sent` event matches the `id` in the `Processed` event**, enabling reliable cross-chain correlation. This `message_id` is derived from the `SetTopic` instruction.
-
-| Chain Role        | Event                    | Field        | Purpose                            |
-|-------------------|--------------------------|--------------|------------------------------------|
-| Origin chain      | `PolkadotXcm.Sent`       | `message_id` | Identifies the sent XCM            |
-| Destination chain | `MessageQueue.Processed` | `id`         | Confirms processing of the message |
-
-Matching these IDs lets you **correlate** an origin message with its destination processing.
-
-### Why Not `XcmpQueue.XcmpMessageSent`?
-
-- The event [`XcmpQueue.XcmpMessageSent`](https://paritytech.github.io/polkadot-sdk/master/cumulus_pallet_xcmp_queue/pallet/enum.Event.html#variant.XcmpMessageSent){target=\_blank} contains a `message_hash` unrelated to `SetTopic`.
-- It is **not reliable for cross-chain tracing** and should be avoided for observability purposes.
-
-### Automatic vs Manual `SetTopic`
-
-- The runtime **automatically appends a `SetTopic` instruction** if one is missing at the end of an XCM.
-- When using high-level extrinsics such as `limited_reserve_transfer_assets`, **you do not need to set a topic manually**; the runtime handles it for you.
-- If you **manually craft an XCM** (e.g., via [`execute`](https://paritytech.github.io/polkadot-sdk/master/pallet_xcm/pallet/struct.Pallet.html#method.execute){target=\_blank} or [`send`](https://paritytech.github.io/polkadot-sdk/master/pallet_xcm/pallet/struct.Pallet.html#method.send){target=\_blank}), you **can supply your own `SetTopic`**, but it **must be the final instruction** to be respected.
-- In **multi-hop XCM flows**, manually setting the topic ensures **consistent tracing across all hops**. Any **remote XCM calls** embedded inside the XCM must also include a `SetTopic` at the end to preserve the same `message_id` throughout the cross-chain flow.
-
-## Message Lifecycle
-
-Here is a high-level overview of an XCM lifecycle with observability events:
-
-```mermaid
-flowchart TD
-    subgraph Origin["Origin Chain"]
-        direction LR
-        A["User submits extrinsic"] --> B["Appends SetTopic if missing"]
-        B --> C["XCM forwarded to destination"]
-        C --> D["Sends XCM"]
-        D --> E["PolkadotXcm.Sent emitted with message_id"]
-    end
-
-    subgraph Destination["Destination Chain"]
-        direction LR
-        F["Process message payload"] --> G["MessageQueue.Processed emitted with matching id"]
-        G --> H["Success/failure logged; further hops if any"]
-    end
-
-   Origin --> Destination
-```
-
-* The `SetTopic` ensures a consistent `message_id` is passed and visible in these events.
-* For multi-hop flows, the same `message_id` travels through all chains.
-
-## Scenario 1: XCM Flow with Implicit `SetTopic`
-
-### Overview
-
-- **Origin:** Polkadot Hub
-- **Destination:** Hydration
-- **Extrinsic:** `limited_reserve_transfer_assets` (high-level)
-- **Topic:** Automatically set by runtime
-
-### Run the Script
-
-Create and run `limited-reserve-transfer-assets.ts`:
-
-```ts
-import {Binary, createClient, Enum, type BlockInfo, type PolkadotClient} from "polkadot-api";
-import {withPolkadotSdkCompat} from "polkadot-api/polkadot-sdk-compat";
-import {getPolkadotSigner} from "polkadot-api/signer";
-import {getWsProvider} from "polkadot-api/ws-provider/web";
+    ```typescript title="teleport-ah-to-bridge-hub.ts"
+    import { paseoAssetHub, paseoBridgeHub } from '@polkadot-api/descriptors';
+import { createClient, FixedSizeBinary, Enum } from 'polkadot-api';
+import { getWsProvider } from 'polkadot-api/ws-provider/node';
+import { withPolkadotSdkCompat } from 'polkadot-api/polkadot-sdk-compat';
 import {
-    assetHub,
-    hydration,
-    XcmV3MultiassetFungibility,
-    XcmV3WeightLimit,
-    XcmV5Junction,
-    XcmV5Junctions,
-    XcmVersionedAssets,
-    XcmVersionedLocation,
-} from "@polkadot-api/descriptors";
-import {sr25519CreateDerive} from "@polkadot-labs/hdkd";
-import {
-    DEV_PHRASE,
-    entropyToMiniSecret,
-    mnemonicToEntropy,
-    ss58Address,
-} from "@polkadot-labs/hdkd-helpers";
-
-const XCM_VERSION = 5;
-const MAX_RETRIES = 8; // Increase for more retries
-
-const toHuman = (_key: any, value: any) => {
-    if (typeof value === "bigint") {
-        return Number(value);
-    }
-
-    if (value && typeof value === "object" && typeof value.asHex === "function") {
-        return value.asHex();
-    }
-
-    return value;
-};
-
-async function assertProcessedMessageId(
-    client: PolkadotClient,
-    api: any,
-    name: String,
-    blockBefore: BlockInfo,
-    expectedMessageId: String,
-) {
-    let processedMessageId = undefined;
-    for (let i = 0; i < MAX_RETRIES; i++) {
-        const blockAfter = await client.getFinalizedBlock();
-        if (blockAfter.number == blockBefore.number) {
-            const waiting = 1_000 * (2 ** i);
-            console.log(`⏳ Waiting ${waiting / 1_000}s for ${name} block to be finalised (${i + 1}/${MAX_RETRIES})...`);
-            await new Promise((resolve) => setTimeout(resolve, waiting));
-            continue;
-        }
-
-        console.log(`📦 Finalised on ${name} in block #${blockAfter.number}: ${blockAfter.hash}`);
-        const processedEvents = await api.event.MessageQueue.Processed.pull();
-        const processingFailedEvents = await api.event.MessageQueue.ProcessingFailed.pull();
-        if (processedEvents.length > 0) {
-            processedMessageId = processedEvents[0].payload.id.asHex();
-            console.log(`📣 Last message processed on ${name}: ${processedMessageId}`);
-            break;
-        } else if (processingFailedEvents.length > 0) {
-            processedMessageId = processingFailedEvents[0].payload.id.asHex();
-            console.log(`📣 Last message ProcessingFailed on ${name}: ${processedMessageId}`);
-            break;
-        } else {
-            console.log(`📣 No Processed events on ${name} found.`);
-            blockBefore = blockAfter; // Update the block before to the latest one
-        }
-    }
-
-    if (processedMessageId === expectedMessageId) {
-        console.log(`✅ Processed Message ID on ${name} matched.`);
-    } else {
-        console.error(`❌ Processed Message ID [${processedMessageId}] on ${name} doesn't match expected Message ID [${expectedMessageId}].`);
-    }
-}
-
-async function main() {
-    const para1Name = "Polkadot Hub";
-    const para1Client = createClient(
-        withPolkadotSdkCompat(getWsProvider("ws://localhost:8000")),
-    );
-    const para1Api = para1Client.getTypedApi(assetHub);
-
-    const para2Name = "Hydration";
-    const para2Client = createClient(
-        withPolkadotSdkCompat(getWsProvider("ws://localhost:8001")),
-    );
-    const para2Api = para2Client.getTypedApi(hydration);
-
-    const entropy = mnemonicToEntropy(DEV_PHRASE);
-    const miniSecret = entropyToMiniSecret(entropy);
-    const derive = sr25519CreateDerive(miniSecret);
-    const alice = derive("//Alice");
-    const alicePublicKey = alice.publicKey;
-    const aliceSigner = getPolkadotSigner(alicePublicKey, "Sr25519", alice.sign);
-    const aliceAddress = ss58Address(alicePublicKey);
-
-    const origin = Enum("system", Enum("Signed", aliceAddress));
-    const beneficiary = {
-        parents: 0,
-        interior: XcmV5Junctions.X1(XcmV5Junction.AccountId32({
-            id: Binary.fromHex("0x9818ff3c27d256631065ecabf0c50e02551e5c5342b8669486c1e566fcbf847f")
-        })),
-    }
-
-    const tx: any = para1Api.tx.PolkadotXcm.limited_reserve_transfer_assets({
-        dest: XcmVersionedLocation.V5({
-            parents: 1,
-            interior: XcmV5Junctions.X1(XcmV5Junction.Parachain(2034)),
-        }),
-        beneficiary: XcmVersionedLocation.V5(beneficiary),
-        assets: XcmVersionedAssets.V5([
-            {
-                id: {
-                    parents: 0,
-                    interior: XcmV5Junctions.X2([
-                        XcmV5Junction.PalletInstance(50),
-                        XcmV5Junction.GeneralIndex(1984n),
-                    ]),
-                },
-                fun: XcmV3MultiassetFungibility.Fungible(500_000_000n),
-            },
-        ]),
-        fee_asset_item: 0,
-        weight_limit: XcmV3WeightLimit.Unlimited(),
-    });
-    const decodedCall: any = tx.decodedCall;
-    console.log("👀 Executing XCM:", JSON.stringify(decodedCall, toHuman, 2));
-
-    try {
-        const dryRunResult: any = await para1Api.apis.DryRunApi.dry_run_call(
-            origin,
-            decodedCall,
-            XCM_VERSION,
-        );
-        console.log("📦 Dry run result:", JSON.stringify(dryRunResult.value, toHuman, 2));
-
-        const executionResult = dryRunResult.value.execution_result;
-        if (!dryRunResult.success || !executionResult.success) {
-            console.error("❌ Local dry run failed!");
-        } else {
-            console.log("✅ Local dry run successful.");
-
-            const emittedEvents: [any] = dryRunResult.value.emitted_events;
-            const polkadotXcmSentEvent = emittedEvents.find(event =>
-                event.type === "PolkadotXcm" && event.value.type === "Sent"
-            );
-            if (polkadotXcmSentEvent === undefined) {
-                console.log(`⚠️ PolkadotXcm.Sent is available in runtimes built from stable2503-5 or later.`);
-            } else {
-                let para2BlockBefore = await para2Client.getFinalizedBlock();
-                const extrinsic = await tx.signAndSubmit(aliceSigner);
-                const para1Block = extrinsic.block;
-                console.log(`📦 Finalised on ${para1Name} in block #${para1Block.number}: ${para1Block.hash}`);
-
-                if (!extrinsic.ok) {
-                    const dispatchError = extrinsic.dispatchError;
-                    if (dispatchError.type === "Module") {
-                        const modErr: any = dispatchError.value;
-                        console.error(`❌ Dispatch error in module: ${modErr.type} → ${modErr.value?.type}`);
-                    } else {
-                        console.error("❌ Dispatch error:", JSON.stringify(dispatchError, toHuman, 2));
-                    }
-                }
-
-                const sentEvents: any = await para1Api.event.PolkadotXcm.Sent.pull();
-                if (sentEvents.length > 0) {
-                    const sentMessageId = sentEvents[0].payload.message_id.asHex();
-                    console.log(`📣 Last message sent on ${para1Name}: ${sentMessageId}`);
-                    await assertProcessedMessageId(para2Client, para2Api, para2Name, para2BlockBefore, sentMessageId);
-                } else {
-                    console.log(`📣 No Sent events on ${para1Name} found.`);
-                }
-            }
-        }
-    } finally {
-        para1Client.destroy();
-        para2Client.destroy();
-    }
-}
-
-main().catch(console.error);
-```
-
-```bash
-npx tsx limited-reserve-transfer-assets.ts
-```
-
-### Forwarded XCM Example
-
-The runtime adds a `SetTopic` to the forwarded XCM automatically:
-
-<div class="termynal" data-termynal>
-  <pre data-ty>
-[
-  {
-    "type": "ReserveAssetDeposited",
-    "value": [...]
-  },
-  {
-    "type": "ClearOrigin"
-  },
-  {
-    "type": "BuyExecution",
-    "value": {...}
-  },
-  {
-    "type": "DepositAsset",
-    "value": {...}
-  },
-  {
-    "type": "SetTopic",
-    "value": "0x3b5650b78230aebb8f2573d2c5e8356494ab01e39e716087c177bf871dce70b9"
-  }
-]
-  </pre>
-</div>
-
-### Trace Events
-
-| Chain        | Event                    | Field        | Notes                                  |
-|--------------|--------------------------|--------------|----------------------------------------|
-| Polkadot Hub | `PolkadotXcm.Sent`       | `message_id` | Matches the topic in the forwarded XCM |
-| Hydration    | `MessageQueue.Processed` | `id`         | Matches origin's `message_id`          |
-
-> ⚠️ Dry run generated topics may differ from actual execution.
-
-### Message Trace Output
-
-<div class="termynal" data-termynal>
-  <span data-ty="input">npx tsx limited-reserve-transfer-assets.ts</span>
-  <span data-ty>✅ Local dry run successful.</span>
-  <span data-ty>📦 Finalised on Polkadot Hub in block #9477291: 0xf54cecc017762c714bbdf3e82d72ed90886257ca17d32ec6dc8ea20e28110af8</span>
-  <span data-ty>📣 Last message sent on Polkadot Hub: 0x20432393771dc049cea4900565a936d169b8ebdd64efa351890766df918615a4</span>
-  <span data-ty>📦 Finalised on Hydration in block #8761211: 0xa4c493ba9328f38174aa7a9ade0779654839e9d3c83b2bafc60d4e5b7de6a00f</span>
-  <span data-ty>📣 Last message processed on Hydration: 0x20432393771dc049cea4900565a936d169b8ebdd64efa351890766df918615a4</span>
-  <span data-ty>✅ Processed Message ID on Hydration matched.</span>
-</div>
-
-## Scenario 2: XCM Transfer with Manual `SetTopic`
-
-### Overview
-
-- **Origin:** Polkadot Hub
-- **Destination:** Hydration
-- **Topic:** Manually assigned
-- **Goal:** Guarantee traceability in custom multi-hop flows
-
-### Run the Script
-
-Create and run `deposit-reserve-asset-with-set-topic.ts`:
-
-```ts
-import {Binary, createClient, Enum, type BlockInfo, type PolkadotClient} from "polkadot-api";
-import {withPolkadotSdkCompat} from "polkadot-api/polkadot-sdk-compat";
-import {getPolkadotSigner} from "polkadot-api/signer";
-import {getWsProvider} from "polkadot-api/ws-provider/web";
-import {
-    assetHub,
-    hydration,
-    XcmV3MultiassetFungibility,
-    XcmV3WeightLimit,
-    XcmV5AssetFilter,
-    XcmV5Instruction,
-    XcmV5Junction,
-    XcmV5Junctions,
-    XcmV5WildAsset,
-    XcmVersionedXcm,
-} from "@polkadot-api/descriptors";
-import {sr25519CreateDerive} from "@polkadot-labs/hdkd";
-import {
-    DEV_PHRASE,
-    entropyToMiniSecret,
-    mnemonicToEntropy,
-    ss58Address,
-} from "@polkadot-labs/hdkd-helpers";
-
-const XCM_VERSION = 5;
-const MAX_RETRIES = 8; // Increase for more retries
-
-const toHuman = (_key: any, value: any) => {
-    if (typeof value === "bigint") {
-        return Number(value);
-    }
-
-    if (value && typeof value === "object" && typeof value.asHex === "function") {
-        return value.asHex();
-    }
-
-    return value;
-};
-
-async function assertProcessedMessageId(
-    client: PolkadotClient,
-    api: any,
-    name: String,
-    blockBefore: BlockInfo,
-    expectedMessageId: String,
-) {
-    let processedMessageId = undefined;
-    for (let i = 0; i < MAX_RETRIES; i++) {
-        const blockAfter = await client.getFinalizedBlock();
-        if (blockAfter.number == blockBefore.number) {
-            const waiting = 1_000 * (2 ** i);
-            console.log(`⏳ Waiting ${waiting / 1_000}s for ${name} block to be finalised (${i + 1}/${MAX_RETRIES})...`);
-            await new Promise((resolve) => setTimeout(resolve, waiting));
-            continue;
-        }
-
-        console.log(`📦 Finalised on ${name} in block #${blockAfter.number}: ${blockAfter.hash}`);
-        const processedEvents = await api.event.MessageQueue.Processed.pull();
-        const processingFailedEvents = await api.event.MessageQueue.ProcessingFailed.pull();
-        if (processedEvents.length > 0) {
-            processedMessageId = processedEvents[0].payload.id.asHex();
-            console.log(`📣 Last message processed on ${name}: ${processedMessageId}`);
-            break;
-        } else if (processingFailedEvents.length > 0) {
-            processedMessageId = processingFailedEvents[0].payload.id.asHex();
-            console.log(`📣 Last message ProcessingFailed on ${name}: ${processedMessageId}`);
-            break;
-        } else {
-            console.log(`📣 No Processed events on ${name} found.`);
-            blockBefore = blockAfter; // Update the block before to the latest one
-        }
-    }
-
-    if (processedMessageId === expectedMessageId) {
-        console.log(`✅ Processed Message ID on ${name} matched.`);
-    } else {
-        console.error(`❌ Processed Message ID [${processedMessageId}] on ${name} doesn't match expected Message ID [${expectedMessageId}].`);
-    }
-}
-
-async function main() {
-    const para1Name = "Polkadot Hub";
-    const para1Client = createClient(
-        withPolkadotSdkCompat(getWsProvider("ws://localhost:8000")),
-    );
-    const para1Api = para1Client.getTypedApi(assetHub);
-
-    const para2Name = "Hydration";
-    const para2Client = createClient(
-        withPolkadotSdkCompat(getWsProvider("ws://localhost:8001")),
-    );
-    const para2Api = para2Client.getTypedApi(hydration);
-
-    const entropy = mnemonicToEntropy(DEV_PHRASE);
-    const miniSecret = entropyToMiniSecret(entropy);
-    const derive = sr25519CreateDerive(miniSecret);
-    const alice = derive("//Alice");
-    const alicePublicKey = alice.publicKey;
-    const aliceSigner = getPolkadotSigner(alicePublicKey, "Sr25519", alice.sign);
-    const aliceAddress = ss58Address(alicePublicKey);
-
-    const origin = Enum("system", Enum("Signed", aliceAddress));
-    const beneficiary = {
-        parents: 0,
-        interior: XcmV5Junctions.X1(XcmV5Junction.AccountId32({
-            id: Binary.fromHex("0x9818ff3c27d256631065ecabf0c50e02551e5c5342b8669486c1e566fcbf847f")
-        })),
-    }
-    const expectedMessageId = "0xd60225f721599cb7c6e23cdf4fab26f205e30cd7eb6b5ccf6637cdc80b2339b2";
-
-    const message = XcmVersionedXcm.V5([
-        XcmV5Instruction.WithdrawAsset([
-            {
-                id: {
-                    parents: 1,
-                    interior: XcmV5Junctions.Here(),
-                },
-                fun: XcmV3MultiassetFungibility.Fungible(1_000_000_000n),
-            },
-        ]),
-
-        XcmV5Instruction.ClearOrigin(),
-
-        XcmV5Instruction.BuyExecution({
-            fees: {
-                id: {
-                    parents: 1,
-                    interior: XcmV5Junctions.Here(),
-                },
-                fun: XcmV3MultiassetFungibility.Fungible(500_000_000n),
-            },
-            weight_limit: XcmV3WeightLimit.Unlimited(),
-        }),
-
-        XcmV5Instruction.DepositReserveAsset({
-            assets: XcmV5AssetFilter.Wild(XcmV5WildAsset.All()),
-            dest: {
-                parents: 1,
-                interior: XcmV5Junctions.X1(XcmV5Junction.Parachain(2034)),
-            },
-            xcm: [
-                XcmV5Instruction.BuyExecution({
-                    fees: {
-                        id: {
-                            parents: 1,
-                            interior: XcmV5Junctions.Here(),
-                        },
-                        fun: XcmV3MultiassetFungibility.Fungible(500_000_000n),
-                    },
-                    weight_limit: XcmV3WeightLimit.Unlimited(),
-                }),
-
-                XcmV5Instruction.DepositAsset({
-                    assets: XcmV5AssetFilter.Wild(XcmV5WildAsset.All()),
-                    beneficiary,
-                }),
-            ],
-        }),
-
-        XcmV5Instruction.SetTopic(Binary.fromHex(expectedMessageId)),
-    ]);
-
-    const weight: any = await para1Api.apis.XcmPaymentApi.query_xcm_weight(message);
-    if (weight.success !== true) {
-        console.error("❌ Failed to query XCM weight:", weight.error);
-        para1Client.destroy();
-        return;
-    }
-
-    const tx: any = para1Api.tx.PolkadotXcm.execute({
-        message,
-        max_weight: weight.value,
-    });
-    const decodedCall: any = tx.decodedCall;
-    console.log("👀 Executing XCM:", JSON.stringify(decodedCall, toHuman, 2));
-
-    try {
-        const dryRunResult: any = await para1Api.apis.DryRunApi.dry_run_call(
-            origin,
-            decodedCall,
-            XCM_VERSION,
-        );
-        console.log("📦 Dry run result:", JSON.stringify(dryRunResult.value, toHuman, 2));
-
-        const executionResult = dryRunResult.value.execution_result;
-        if (!dryRunResult.success || !executionResult.success) {
-            console.error("❌ Local dry run failed!");
-        } else {
-            console.log("✅ Local dry run successful.");
-
-            const emittedEvents: [any] = dryRunResult.value.emitted_events;
-            const polkadotXcmSentEvent = emittedEvents.find(event =>
-                event.type === "PolkadotXcm" && event.value.type === "Sent"
-            );
-            if (polkadotXcmSentEvent === undefined) {
-                console.log(`⚠️ PolkadotXcm.Sent is available in runtimes built from stable2503-5 or later.`);
-            } else {
-                let para2BlockBefore = await para2Client.getFinalizedBlock();
-                const extrinsic = await tx.signAndSubmit(aliceSigner);
-                const para1Block = extrinsic.block;
-                console.log(`📦 Finalised on ${para1Name} in block #${para1Block.number}: ${para1Block.hash}`);
-
-                if (!extrinsic.ok) {
-                    const dispatchError = extrinsic.dispatchError;
-                    if (dispatchError.type === "Module") {
-                        const modErr: any = dispatchError.value;
-                        console.error(`❌ Dispatch error in module: ${modErr.type} → ${modErr.value?.type}`);
-                    } else {
-                        console.error("❌ Dispatch error:", JSON.stringify(dispatchError, toHuman, 2));
-                    }
-                }
-
-                const sentEvents: any = await para1Api.event.PolkadotXcm.Sent.pull();
-                if (sentEvents.length > 0) {
-                    const sentMessageId = sentEvents[0].payload.message_id.asHex();
-                    console.log(`📣 Last message sent on ${para1Name}: ${sentMessageId}`);
-                    if (sentMessageId === expectedMessageId) {
-                        console.log(`✅ Sent Message ID on ${para1Name} matched.`);
-                    } else {
-                        console.error(`❌ Sent Message ID [${sentMessageId}] on ${para1Name} doesn't match expected Message ID [${expectedMessageId}].`);
-                    }
-                    await assertProcessedMessageId(para2Client, para2Api, para2Name, para2BlockBefore, expectedMessageId);
-                } else {
-                    console.log(`📣 No Sent events on ${para1Name} found.`);
-                }
-            }
-        }
-    } finally {
-        para1Client.destroy();
-        para2Client.destroy();
-    }
-}
-
-main().catch(console.error);
-```
-
-```bash
-npx tsx deposit-reserve-asset-with-set-topic.ts
-```
-
-### Forwarded XCM Example
-
-Your manual `SetTopic` is preserved by the runtime:
-
-<div class="termynal" data-termynal>
-  <pre data-ty>
-[
-  {
-    "type": "ReserveAssetDeposited",
-    "value": [...]
-  },
-  {
-    "type": "ClearOrigin"
-  },
-  {
-    "type": "BuyExecution",
-    "value": {...}
-  },
-  {
-    "type": "DepositAsset",
-    "value": {...}
-  },
-  {
-    "type": "SetTopic",
-    "value": "0xd60225f721599cb7c6e23cdf4fab26f205e30cd7eb6b5ccf6637cdc80b2339b2"
-  }
-]
-  </pre>
-</div>
-
-### Message Trace Output
-
-<div class="termynal" data-termynal>
-  <span data-ty="input">npx tsx limited-reserve-transfer-assets.ts</span>
-  <span data-ty>✅ Local dry run successful.</span>
-  <span data-ty>📦 Finalised on Polkadot Hub in block #9471830: 0x98bd858739b3b5dd558def60cbd85d5e7fb2f4e33b0c00e1895e316541d727d9</span>
-  <span data-ty>📣 Last message sent on Polkadot Hub: 0xd60225f721599cb7c6e23cdf4fab26f205e30cd7eb6b5ccf6637cdc80b2339b2</span>
-  <span data-ty>✅ Sent Message ID on Polkadot Hub matched.</span>
-  <span data-ty>📦 Finalised on Hydration in block #8749233: 0xe1413c5126698d7189d6f55a38e62d07ea4915078c2b1f3914d70f670e79e162</span>
-  <span data-ty>📣 Last message processed on Hydration: 0xd60225f721599cb7c6e23cdf4fab26f205e30cd7eb6b5ccf6637cdc80b2339b2</span>
-  <span data-ty>✅ Processed Message ID on Hydration matched.</span>
-</div>
-
-## Scenario 3: Multi-hop XCM Transfer with Manual `SetTopic`
-
-### Overview
-
-- **Origin:** Polkadot Hub
-- **Destination:** Hydration
-- **Topic:** Manually assigned and preserved over multiple hops (including remote XCMs)
-- **Goal:** Trace entire multi-hop XCM chain consistently
-
-### Run the Script
-
-Create and run `initiate-reserve-withdraw-with-set-topic.ts`:
-
-```ts
-import {Binary, createClient, Enum, type BlockInfo, type PolkadotClient} from "polkadot-api";
-import {withPolkadotSdkCompat} from "polkadot-api/polkadot-sdk-compat";
-import {getPolkadotSigner} from "polkadot-api/signer";
-import {getWsProvider} from "polkadot-api/ws-provider/web";
-import {
-    assetHub,
-    hydration,
-    XcmV2MultiassetWildFungibility,
-    XcmV3MultiassetFungibility,
-    XcmV3WeightLimit,
-    XcmV5AssetFilter,
-    XcmV5Instruction,
-    XcmV5Junction,
-    XcmV5Junctions,
-    XcmV5WildAsset,
-    XcmVersionedXcm,
-} from "@polkadot-api/descriptors";
-import {sr25519CreateDerive} from "@polkadot-labs/hdkd";
-import {
-    DEV_PHRASE,
-    entropyToMiniSecret,
-    mnemonicToEntropy,
-    ss58Address,
-} from "@polkadot-labs/hdkd-helpers";
-
-const XCM_VERSION = 5;
-const MAX_RETRIES = 8; // Increase for more retries
-
-const toHuman = (_key: any, value: any) => {
-    if (typeof value === "bigint") {
-        return Number(value);
-    }
-
-    if (value && typeof value === "object" && typeof value.asHex === "function") {
-        return value.asHex();
-    }
-
-    return value;
-};
-
-async function assertProcessedMessageId(
-    client: PolkadotClient,
-    api: any,
-    name: String,
-    blockBefore: BlockInfo,
-    expectedMessageId: String,
-) {
-    let processedMessageId = undefined;
-    for (let i = 0; i < MAX_RETRIES; i++) {
-        const blockAfter = await client.getFinalizedBlock();
-        if (blockAfter.number == blockBefore.number) {
-            const waiting = 1_000 * (2 ** i);
-            console.log(`⏳ Waiting ${waiting / 1_000}s for ${name} block to be finalised (${i + 1}/${MAX_RETRIES})...`);
-            await new Promise((resolve) => setTimeout(resolve, waiting));
-            continue;
-        }
-
-        console.log(`📦 Finalised on ${name} in block #${blockAfter.number}: ${blockAfter.hash}`);
-        const processedEvents = await api.event.MessageQueue.Processed.pull();
-        const processingFailedEvents = await api.event.MessageQueue.ProcessingFailed.pull();
-        if (processedEvents.length > 0) {
-            processedMessageId = processedEvents[0].payload.id.asHex();
-            console.log(`📣 Last message processed on ${name}: ${processedMessageId}`);
-            break;
-        } else if (processingFailedEvents.length > 0) {
-            processedMessageId = processingFailedEvents[0].payload.id.asHex();
-            console.log(`📣 Last message ProcessingFailed on ${name}: ${processedMessageId}`);
-            break;
-        } else {
-            console.log(`📣 No Processed events on ${name} found.`);
-            blockBefore = blockAfter; // Update the block before to the latest one
-        }
-    }
-
-    if (processedMessageId === expectedMessageId) {
-        console.log(`✅ Processed Message ID on ${name} matched.`);
-    } else {
-        console.error(`❌ Processed Message ID [${processedMessageId}] on ${name} doesn't match expected Message ID [${expectedMessageId}].`);
-    }
-}
-
-async function main() {
-    const para1Name = "Polkadot Hub";
-    const para1Client = createClient(
-        withPolkadotSdkCompat(getWsProvider("ws://localhost:8000")),
-    );
-    const para1Api = para1Client.getTypedApi(assetHub);
-
-    const para2Name = "Hydration";
-    const para2Client = createClient(
-        withPolkadotSdkCompat(getWsProvider("ws://localhost:8001")),
-    );
-    const para2Api = para2Client.getTypedApi(hydration);
-
-    const entropy = mnemonicToEntropy(DEV_PHRASE);
-    const miniSecret = entropyToMiniSecret(entropy);
-    const derive = sr25519CreateDerive(miniSecret);
-    const alice = derive("//Alice");
-    const alicePublicKey = alice.publicKey;
-    const aliceSigner = getPolkadotSigner(alicePublicKey, "Sr25519", alice.sign);
-    const aliceAddress = ss58Address(alicePublicKey);
-
-    const origin = Enum("system", Enum("Signed", aliceAddress));
-    const beneficiary = {
-        parents: 0,
-        interior: XcmV5Junctions.X1(XcmV5Junction.AccountId32({
-            id: Binary.fromHex("0x9818ff3c27d256631065ecabf0c50e02551e5c5342b8669486c1e566fcbf847f")
-        })),
-    }
-    const tokenId = XcmV5Junction.GeneralIndex(1337n); // Change to another token if FailedToTransactAsset("Funds are unavailable")
-    const assetId = {
-        parents: 0,
-        interior: XcmV5Junctions.X2([
-            XcmV5Junction.PalletInstance(50),
-            tokenId,
-        ]),
-    };
-    const giveId = {
+  XcmVersionedLocation,
+  XcmVersionedAssetId,
+  XcmV3Junctions,
+  XcmV3MultiassetFungibility,
+  XcmVersionedXcm,
+  XcmV5Instruction,
+  XcmV5Junctions,
+  XcmV5Junction,
+  XcmV5AssetFilter,
+  XcmV5WildAsset,
+} from '@polkadot-api/descriptors';
+
+// 1 PAS = 10^10 units
+const PAS_UNITS = 10_000_000_000n; // 1 PAS
+const PAS_CENTS = 100_000_000n; // 0.01 PAS
+
+// Paseo Asset Hub constants
+const PASEO_ASSET_HUB_RPC_ENDPOINT = 'ws://localhost:8001';
+const ASSET_HUB_ACCOUNT = '15oF4uVJwmo4TdGW7VfQxNLavjCXviqxT9S1MgbjMNHr6Sp5'; // Alice (Paseo Asset Hub)
+
+// Bridge Hub destination
+const BRIDGE_HUB_RPC_ENDPOINT = 'ws://localhost:8000';
+const BRIDGE_HUB_PARA_ID = 1002;
+const BRIDGE_HUB_BENEFICIARY =
+  '14E5nqKAp3oAJcmzgZhUD2RcptBeUBScxKHgJKU4HPNcKVf3'; // Bob (Bridge Hub)
+
+// Create the XCM message for teleport (Asset Hub → Bridge Hub)
+function createTeleportXcmToBridgeHub(paraId: number) {
+  return XcmVersionedXcm.V5([
+    // Withdraw PAS from Asset Hub (PAS on parachains is parents:1, interior: Here)
+    XcmV5Instruction.WithdrawAsset([
+      {
+        id: { parents: 1, interior: XcmV5Junctions.Here() },
+        fun: XcmV3MultiassetFungibility.Fungible(1n * PAS_UNITS), // 1 PAS
+      },
+    ]),
+    // Pay local fees on Asset Hub in PAS
+    XcmV5Instruction.PayFees({
+      asset: {
+        id: { parents: 1, interior: XcmV5Junctions.Here() },
+        fun: XcmV3MultiassetFungibility.Fungible(10n * PAS_CENTS), // 0.01 PAS
+      },
+    }),
+    // Send to Bridge Hub parachain (parents:1, interior: X1(Parachain(paraId)))
+    XcmV5Instruction.InitiateTransfer({
+      destination: {
         parents: 1,
-        interior: XcmV5Junctions.X3([
-            XcmV5Junction.Parachain(1000),
-            XcmV5Junction.PalletInstance(50),
-            tokenId,
+        interior: XcmV5Junctions.X1(XcmV5Junction.Parachain(paraId)),
+      },
+      remote_fees: Enum(
+        'Teleport',
+        XcmV5AssetFilter.Definite([
+          {
+            id: { parents: 1, interior: XcmV5Junctions.Here() },
+            fun: XcmV3MultiassetFungibility.Fungible(10n * PAS_CENTS), // 0.01 PAS
+          },
         ]),
-    };
-    const giveFun = XcmV3MultiassetFungibility.Fungible(1_000_000n);
-    const dest = {
-        parents: 1,
-        interior: XcmV5Junctions.X1(XcmV5Junction.Parachain(2034)),
-    };
-    const wantId = {
-        parents: 1,
-        interior: XcmV5Junctions.Here(),
-    };
-    const wantFun = XcmV3MultiassetFungibility.Fungible(2_000_000_000n); // Adjust the exchange rate if xcm_error is NoDeal
-    const expectedMessageId = "0xd60225f721599cb7c6e23cdf4fab26f205e30cd7eb6b5ccf6637cdc80b2339b2";
-
-    const message = XcmVersionedXcm.V5([
-        XcmV5Instruction.WithdrawAsset([{
-            id: assetId,
-            fun: giveFun,
-        }]),
-
-        XcmV5Instruction.SetFeesMode({jit_withdraw: true}),
-
-        XcmV5Instruction.DepositReserveAsset({
-            assets: XcmV5AssetFilter.Wild(
-                XcmV5WildAsset.AllOf({
-                    id: assetId,
-                    fun: XcmV2MultiassetWildFungibility.Fungible(),
-                })),
-            dest,
-            xcm: [
-                XcmV5Instruction.BuyExecution({
-                    fees: {
-                        id: giveId,
-                        fun: giveFun,
-                    },
-                    weight_limit: XcmV3WeightLimit.Unlimited(),
-                }),
-
-                XcmV5Instruction.ExchangeAsset({
-                    give: XcmV5AssetFilter.Wild(
-                        XcmV5WildAsset.AllOf({
-                            id: giveId,
-                            fun: XcmV2MultiassetWildFungibility.Fungible(),
-                        }),
-                    ),
-                    want: [{
-                        id: wantId,
-                        fun: wantFun,
-                    }],
-                    maximal: false,
-                }),
-
-                XcmV5Instruction.InitiateReserveWithdraw({
-                    assets: XcmV5AssetFilter.Wild(
-                        XcmV5WildAsset.AllOf({
-                            id: wantId,
-                            fun: XcmV2MultiassetWildFungibility.Fungible(),
-                        }),
-                    ),
-                    reserve: {
-                        parents: 1,
-                        interior: XcmV5Junctions.X1(
-                            XcmV5Junction.Parachain(1000),
-                        ),
-                    },
-                    xcm: [
-                        XcmV5Instruction.BuyExecution({
-                            fees: {
-                                id: wantId,
-                                fun: wantFun,
-                            },
-                            weight_limit: XcmV3WeightLimit.Unlimited(),
-                        }),
-
-                        XcmV5Instruction.DepositAsset({
-                            assets: XcmV5AssetFilter.Wild(
-                                XcmV5WildAsset.AllOf({
-                                    id: wantId,
-                                    fun: XcmV2MultiassetWildFungibility.Fungible(),
-                                }),
-                            ),
-                            beneficiary,
-                        }),
-
-                        XcmV5Instruction.SetTopic(Binary.fromHex(expectedMessageId)), // Ensure the same topic is also set on remote XCM calls
-                    ],
-                }),
-            ],
+      ),
+      preserve_origin: false,
+      remote_xcm: [
+        XcmV5Instruction.DepositAsset({
+          assets: XcmV5AssetFilter.Wild(XcmV5WildAsset.AllCounted(1)),
+          beneficiary: {
+            parents: 0,
+            interior: XcmV5Junctions.X1(
+              XcmV5Junction.AccountId32({
+                network: undefined,
+                id: FixedSizeBinary.fromAccountId32(BRIDGE_HUB_BENEFICIARY),
+              }),
+            ),
+          },
         }),
-
-        XcmV5Instruction.SetTopic(Binary.fromHex(expectedMessageId)),
-    ]);
-
-    const weight: any = await para1Api.apis.XcmPaymentApi.query_xcm_weight(message);
-    if (weight.success !== true) {
-        console.error("❌ Failed to query XCM weight:", weight.error);
-        para1Client.destroy();
-        return;
-    }
-
-    const tx: any = para1Api.tx.PolkadotXcm.execute({
-        message,
-        max_weight: weight.value,
-    });
-    const decodedCall: any = tx.decodedCall;
-    console.log("👀 Executing XCM:", JSON.stringify(decodedCall, toHuman, 2));
-
-    try {
-        const dryRunResult: any = await para1Api.apis.DryRunApi.dry_run_call(
-            origin,
-            decodedCall,
-            XCM_VERSION,
-        );
-        console.log("📦 Dry run result:", JSON.stringify(dryRunResult.value, toHuman, 2));
-
-        const executionResult = dryRunResult.value.execution_result;
-        if (!dryRunResult.success || !executionResult.success) {
-            console.error("❌ Local dry run failed!");
-        } else {
-            console.log("✅ Local dry run successful.");
-
-            const emittedEvents: [any] = dryRunResult.value.emitted_events;
-            const polkadotXcmSentEvent = emittedEvents.find(event =>
-                event.type === "PolkadotXcm" && event.value.type === "Sent"
-            );
-            if (polkadotXcmSentEvent === undefined) {
-                console.log(`⚠️ PolkadotXcm.Sent is available in runtimes built from stable2503-5 or later.`);
-            } else {
-                let para2BlockBefore = await para2Client.getFinalizedBlock();
-                const extrinsic = await tx.signAndSubmit(aliceSigner);
-                const para1Block = extrinsic.block;
-                console.log(`📦 Finalised on ${para1Name} in block #${para1Block.number}: ${para1Block.hash}`);
-
-                if (!extrinsic.ok) {
-                    const dispatchError = extrinsic.dispatchError;
-                    if (dispatchError.type === "Module") {
-                        const modErr: any = dispatchError.value;
-                        console.error(`❌ Dispatch error in module: ${modErr.type} → ${modErr.value?.type}`);
-                    } else {
-                        console.error("❌ Dispatch error:", JSON.stringify(dispatchError, toHuman, 2));
-                    }
-                }
-
-                const sentEvents: any = await para1Api.event.PolkadotXcm.Sent.pull();
-                if (sentEvents.length > 0) {
-                    const sentMessageId = sentEvents[0].payload.message_id.asHex();
-                    console.log(`📣 Last message sent on ${para1Name}: ${sentMessageId}`);
-                    if (sentMessageId === expectedMessageId) {
-                        console.log(`✅ Sent Message ID on ${para1Name} matched.`);
-                    } else {
-                        console.error(`❌ Sent Message ID [${sentMessageId}] on ${para1Name} doesn't match expected Message ID [${expectedMessageId}].`);
-                    }
-                    await assertProcessedMessageId(para2Client, para2Api, para2Name, para2BlockBefore, expectedMessageId);
-                    await assertProcessedMessageId(para1Client, para1Api, para1Name, para1Block, expectedMessageId);
-                } else {
-                    console.log(`📣 No Sent events on ${para1Name} found.`);
-                }
-            }
-        }
-    } finally {
-        para1Client.destroy();
-        para2Client.destroy();
-    }
+      ],
+      assets: [
+        Enum('Teleport', XcmV5AssetFilter.Wild(XcmV5WildAsset.AllCounted(1))), // Send everything.
+      ],
+    }),
+  ]);
 }
 
-main().catch(console.error);
-```
+async function estimateXcmFeesFromAssetHubToBridgeHub(
+  xcm: any,
+  assetHubApi: any,
+) {
+  console.log('=== Fee Estimation Process (Asset Hub → Bridge Hub) ===');
 
-```bash
-npx tsx initiate-reserve-withdraw-with-set-topic.ts
-```
+  // 1. LOCAL EXECUTION FEES on Asset Hub
+  console.log('1. Calculating local execution fees on Asset Hub...');
+  let localExecutionFees = 0n;
 
-### Forwarded XCM Example (Hydration)
+  const weightResult =
+    await assetHubApi.apis.XcmPaymentApi.query_xcm_weight(xcm);
+  if (weightResult.success) {
+    console.log('✓ XCM weight (Asset Hub):', weightResult.value);
 
-The runtime preserves your `SetTopic` throughout the multi-hop flow:
+    // Convert weight to PAS fees from Asset Hub's perspective (parents:1, Here)
+    const executionFeesResult =
+      await assetHubApi.apis.XcmPaymentApi.query_weight_to_asset_fee(
+        weightResult.value,
+        XcmVersionedAssetId.V4({
+          parents: 1,
+          interior: XcmV3Junctions.Here(),
+        }),
+      );
 
-<div class="termynal" data-termynal>
-  <pre data-ty>
-[
-  {
-    "type": "ReserveAssetDeposited",
-    "value": [...]
-  },
-  {
-    "type": "ClearOrigin"
-  },
-  {
-    "type": "BuyExecution",
-    "value": {...}
-  },
-  {
-    "type": "ExchangeAsset",
-    "value": {...}
-  },
-  {
-    "type": "InitiateReserveWithdraw",
-    "value": {
-      "assets": {...},
-      "reserve": {...},
-      "xcm": [
-        {
-          "type": "BuyExecution",
-          "value": {...}
-        },
-        {
-          "type": "DepositAsset",
-          "value": {...}
-        },
-        {
-          "type": "SetTopic",
-          "value": "0xd60225f721599cb7c6e23cdf4fab26f205e30cd7eb6b5ccf6637cdc80b2339b2"
-        }
-      ]
+    if (executionFeesResult.success) {
+      localExecutionFees = executionFeesResult.value;
+      console.log(
+        '✓ Local execution fees (Asset Hub):',
+        localExecutionFees.toString(),
+        'PAS units',
+      );
+    } else {
+      console.log(
+        '✗ Failed to calculate local execution fees:',
+        executionFeesResult.value,
+      );
     }
-  },
-  {
-    "type": "SetTopic",
-    "value": "0xd60225f721599cb7c6e23cdf4fab26f205e30cd7eb6b5ccf6637cdc80b2339b2"
+  } else {
+    console.log(
+      '✗ Failed to query XCM weight on Asset Hub:',
+      weightResult.value,
+    );
   }
-]
-  </pre>
-</div>
 
-### End-to-End Message Trace Output
+  // 2. DELIVERY FEES + REMOTE EXECUTION FEES
+  console.log('\n2. Calculating delivery and remote execution fees...');
+  let deliveryFees = 0n;
+  let remoteExecutionFees = 0n; // Skipped (Bridge Hub descriptor not available)
 
-The same `message_id` is present in all relevant events across chains:
+  // Origin from Asset Hub perspective
+  const origin = XcmVersionedLocation.V5({
+    parents: 0,
+    interior: XcmV5Junctions.X1(
+      XcmV5Junction.AccountId32({
+        id: FixedSizeBinary.fromAccountId32(ASSET_HUB_ACCOUNT),
+        network: undefined,
+      }),
+    ),
+  });
 
-<div class="termynal" data-termynal>
-  <span data-ty="input">npx tsx initiate-reserve-withdraw-with-set-topic.ts</span>
-  <span data-ty>✅ Local dry run successful.</span>
-  <span data-ty>📦 Finalised on Polkadot Hub in block #9471831: 0x2620f7e29765fc953263b7835711011616702c9d82ef5306fe3ef4196cb75cab</span>
-  <span data-ty>📣 Last message sent on Polkadot Hub: 0xd60225f721599cb7c6e23cdf4fab26f205e30cd7eb6b5ccf6637cdc80b2339b2</span>
-  <span data-ty>✅ Sent Message ID on Polkadot Hub matched.</span>
-  <span data-ty>📦 Finalised on Hydration in block #8749235: 0xafe7f6149b1773a8d3d229040cda414aafd64baaeffa37fb4a5b2a542308b2d6</span>
-  <span data-ty>📣 Last message processed on Hydration: 0xd60225f721599cb7c6e23cdf4fab26f205e30cd7eb6b5ccf6637cdc80b2339b2</span>
-  <span data-ty>✅ Processed Message ID on Hydration matched.</span>
-  <span data-ty>📦 Finalised on Polkadot Hub in block #9471832: 0x7c150b69e3562694f0573e4fee73dfb86f3ab71b808679a1777586ff24643e9a</span>
-  <span data-ty>📣 Last message processed on Polkadot Hub: 0xd60225f721599cb7c6e23cdf4fab26f205e30cd7eb6b5ccf6637cdc80b2339b2</span>
-  <span data-ty>✅ Processed Message ID on Polkadot Hub matched.</span>
-</div>
+  // Dry run the XCM locally on Asset Hub
+  const dryRunResult = await assetHubApi.apis.DryRunApi.dry_run_xcm(
+    origin,
+    xcm,
+  );
 
-## Workaround for Older Runtimes
+  if (
+    dryRunResult.success &&
+    dryRunResult.value.execution_result.type === 'Complete'
+  ) {
+    console.log('✓ Local dry run on Asset Hub successful');
 
-* Runtimes prior to **`stable2503-5`** emit a **derived `forwarded_id`** instead of the original topic in downstream `Processed` events.
-* The forwarded ID is calculated as:
+    const { forwarded_xcms: forwardedXcms } = dryRunResult.value;
 
-```rust
-fn forward_id_for(original_id: &XcmHash) -> XcmHash { 
-    (b"forward_id_for", original_id).using_encoded(sp_io::hashing::blake2_256)
-}
-```
+    // Find the XCM message sent to Bridge Hub (parents:1, interior: X1(Parachain(1002)))
+    const bridgeHubXcmEntry = forwardedXcms.find(
+      ([location, _]: [any, any]) =>
+        (location.type === 'V4' || location.type === 'V5') &&
+        location.value.parents === 1 &&
+        location.value.interior?.type === 'X1' &&
+        location.value.interior.value?.type === 'Parachain' &&
+        location.value.interior.value.value === BRIDGE_HUB_PARA_ID,
+    );
 
-### Example
+    if (bridgeHubXcmEntry) {
+      const [destination, messages] = bridgeHubXcmEntry;
+      const remoteXcm = messages[0];
 
-| Original `message_id` | Forwarded `message_id`                                        |
-|-----------------------|---------------------------------------------------------------|
-| `0x5c082b47...`       | `0xb3ae32fd...` == blake2_256("forward_id_for" + original_id) |
+      console.log('✓ Found XCM message to Bridge Hub');
 
-Tools and indexers tracing messages across mixed runtime versions should check **both** the original and forwarded IDs.
+      // Calculate delivery fees from Asset Hub to Bridge Hub
+      const deliveryFeesResult =
+        await assetHubApi.apis.XcmPaymentApi.query_delivery_fees(
+          destination,
+          remoteXcm,
+        );
 
-```ts
-import {blake2AsU8a} from "@polkadot/util-crypto";
-import {hexToU8a, stringToU8a, u8aConcat, u8aToHex} from "@polkadot/util";
-
-function forwardIdFor(originalMessageId: string): string {
-    // Decode the hex original_id into bytes
-    const messageIdBytes = hexToU8a(originalMessageId);
-
-    // Create prefixed input: b"forward_id_for" + original_id
-    const prefix = stringToU8a("forward_id_for");
-    const input = u8aConcat(prefix, messageIdBytes);
-
-    // Hash it using blake2_256
-    const forwardedIdBytes = blake2AsU8a(input);
-
-    // Convert to hex
-    return u8aToHex(forwardedIdBytes);
-}
-
-// Example: Forwarded ID from a original_id
-const originalMessageId = "0x5c082b4750ee8c34986eb22ce6e345bad2360f3682cda3e99de94b0d9970cb3e";
-
-// Create the forwarded ID
-const forwardedIdHex = forwardIdFor(originalMessageId);
-
-console.log("🔄 Forwarded ID:", forwardedIdHex);
-
-const expectedForwardedId = "0xb3ae32fd2e2f798e8215865a8950d19df8330843608d4ee44e9f86849029724a";
-if (forwardedIdHex === expectedForwardedId) {
-    console.log("✅ Forwarded ID matches expected value.");
-} else {
-    console.error("❌ Forwarded ID does not match expected value.");
-}
-```
-
-## Troubleshooting on Running Scripts
-
-### Processed Message ID is `undefined`
-
-If you see the following error when running a script:
-
-> ❌ Processed Message ID on Hydration is undefined. Please increase MAX_RETRIES.
-
-This usually means that the message has not yet been processed within the default retry window.
-
-Increase the `MAX_RETRIES` value in your script to give the chain more time:
-
-```ts
-const MAX_RETRIES = 8; // Increase for more retries
-```
-
-### `PolkadotXcm.Sent` Event Not Found
-
-If you encounter an error indicating that `PolkadotXcm.Sent` is unavailable:
-
-> ⚠️ PolkadotXcm.Sent is available in runtimes built from stable2503-5 or later.
-
-Ensure that `wasm-override` is updated to runtime version 1.6.0+, or to any runtime built from `stable2503-5` or later.
-
-For details on updating your workspace, see [Setting Up Your Workspace](#setting-up-your-workspace).
-
-## Failure Event Handling
-
-When XCMs fail, the entire transaction **rolls back** and **no failure events are emitted on-chain**.
-
-### How to Detect Failures
-
-1. **View Nested Dispatch Errors via Indexers**
-
-   Most indexers display nested errors indicating why an XCM failed, e.g.:
-
-   <div class="termynal" data-termynal>
-  <pre data-ty>
-"error": {
-  "type": "Module",
-  "value": {
-    "type": "PolkadotXcm",
-    "value": {
-      "type": "LocalExecutionIncompleteWithError",
-      "value": {
-        "index": 0,
-        "error": {
-          "type": "FailedToTransactAsset"
-        }
+      if (
+        deliveryFeesResult.success &&
+        deliveryFeesResult.value.type === 'V5' &&
+        deliveryFeesResult.value.value[0]?.fun?.type === 'Fungible'
+      ) {
+        deliveryFees = deliveryFeesResult.value.value[0].fun.value;
+        console.log('✓ Delivery fees:', deliveryFees.toString(), 'PAS units');
+      } else {
+        console.log('✗ Failed to calculate delivery fees:', deliveryFeesResult);
       }
+
+      // 3. REMOTE EXECUTION FEES on Bridge Hub
+      console.log('\n3. Calculating remote execution fees on Bridge Hub');
+      try {
+        const bridgeHubClient = createClient(
+          withPolkadotSdkCompat(getWsProvider(BRIDGE_HUB_RPC_ENDPOINT)),
+        );
+        const bridgeHubApi = bridgeHubClient.getTypedApi(paseoBridgeHub);
+        const remoteWeightResult =
+          await bridgeHubApi.apis.XcmPaymentApi.query_xcm_weight(remoteXcm);
+        const remoteFeesResult =
+          await bridgeHubApi.apis.XcmPaymentApi.query_weight_to_asset_fee(
+            remoteWeightResult.value as {
+              ref_time: bigint;
+              proof_size: bigint;
+            },
+            XcmVersionedAssetId.V4({
+              parents: 1,
+              interior: XcmV3Junctions.Here(),
+            }),
+          );
+        bridgeHubClient.destroy();
+        remoteExecutionFees = remoteFeesResult.value as bigint;
+        console.log(
+          '✓ Remote execution fees:',
+          remoteExecutionFees.toString(),
+          'PAS units',
+        );
+      } catch (error) {
+        console.error(
+          'Error calculating remote execution fees on Bridge Hub:',
+          error,
+        );
+      }
+    } else {
+      console.log('✗ No XCM message found to Bridge Hub');
     }
+  } else {
+    console.log('✗ Local dry run failed on Asset Hub:', dryRunResult.value);
+  }
+
+  // 4. TOTAL FEES
+  const totalFees = localExecutionFees + deliveryFees + remoteExecutionFees;
+
+  console.log('\n=== Fee Summary (Asset Hub → Bridge Hub) ===');
+  console.log(
+    'Local execution fees:',
+    localExecutionFees.toString(),
+    'PAS units',
+  );
+  console.log('Delivery fees:', deliveryFees.toString(), 'PAS units');
+  console.log(
+    'Remote execution fees:',
+    remoteExecutionFees.toString(),
+    'PAS units',
+  );
+  console.log('TOTAL FEES:', totalFees.toString(), 'PAS units');
+  console.log(
+    'TOTAL FEES:',
+    (Number(totalFees) / Number(PAS_UNITS)).toFixed(4),
+    'PAS',
+  );
+
+  return {
+    localExecutionFees,
+    deliveryFees,
+    remoteExecutionFees,
+    totalFees,
+  };
+}
+
+async function main() {
+  // Connect to the Asset Hub parachain
+  const assetHubClient = createClient(
+    withPolkadotSdkCompat(getWsProvider(PASEO_ASSET_HUB_RPC_ENDPOINT)),
+  );
+
+  // Get the typed API for Asset Hub
+  const assetHubApi = assetHubClient.getTypedApi(paseoAssetHub);
+
+  try {
+    // Create the XCM message for teleport (Asset Hub → Bridge Hub)
+    const xcm = createTeleportXcmToBridgeHub(BRIDGE_HUB_PARA_ID);
+
+    console.log('=== XCM Teleport: Paseo Asset Hub → Bridge Hub ===');
+    console.log('From:', ASSET_HUB_ACCOUNT, '(Alice on Asset Hub)');
+    console.log('To:', BRIDGE_HUB_BENEFICIARY, '(Beneficiary on Bridge Hub)');
+    console.log('Amount:', '1 PAS');
+    console.log('');
+
+    // Estimate all fees
+    const fees = await estimateXcmFeesFromAssetHubToBridgeHub(xcm, assetHubApi);
+    void fees; // prevent unused var under isolatedModules
+
+    // Create the execute transaction on Asset Hub
+    const tx = assetHubApi.tx.PolkadotXcm.execute({
+      message: xcm,
+      max_weight: {
+        ref_time: 6000000000n,
+        proof_size: 65536n,
+      },
+    });
+
+    console.log('\n=== Transaction Details ===');
+    console.log('Transaction hex:', (await tx.getEncodedData()).asHex());
+    console.log('Ready to submit!');
+  } catch (error) {
+    console.log('Error stack:', (error as Error).stack);
+    console.error('Error occurred:', (error as Error).message);
+    if ((error as Error).cause) {
+      console.dir((error as Error).cause, { depth: null });
+    }
+  } finally {
+    // Ensure client is always destroyed
+    assetHubClient.destroy();
   }
 }
-  </pre>
+
+main().catch(console.error);
+    ```
+
+9. Define constants and a `main` function where you will implement all the logic:
+
+    ```typescript title="teleport-ah-to-bridge-hub.ts"
+    // 1 PAS = 10^10 units
+const PAS_UNITS = 10_000_000_000n; // 1 PAS
+const PAS_CENTS = 100_000_000n; // 0.01 PAS
+
+// Paseo Asset Hub constants
+const PASEO_ASSET_HUB_RPC_ENDPOINT = 'ws://localhost:8001';
+const ASSET_HUB_ACCOUNT = '15oF4uVJwmo4TdGW7VfQxNLavjCXviqxT9S1MgbjMNHr6Sp5'; // Alice (Paseo Asset Hub)
+
+// Bridge Hub destination
+const BRIDGE_HUB_RPC_ENDPOINT = 'ws://localhost:8000';
+const BRIDGE_HUB_PARA_ID = 1002;
+const BRIDGE_HUB_BENEFICIARY =
+
+    async function main() {
+      // Code will go here
+    }
+    ```
+
+All the following code explained in the subsequent sections must be added inside the `main` function.
+
+## Client and API Setup
+
+Now you are ready to start implementing the logic for the fee estimation for the teleport you want to perform. In this step, you will create the client for the Paseo Asset Hub parachain and generate the typed API to interact with the chain. Follow the steps below:
+
+Create the API client. You will need to create a client for the Paseo Asset Hub parachain:
+
+```typescript title="teleport-ah-to-bridge-hub.ts"
+// Connect to the Asset Hub parachain
+  const assetHubClient = createClient(
+    withPolkadotSdkCompat(getWsProvider(PASEO_ASSET_HUB_RPC_ENDPOINT)),
+  );
+
+  // Get the typed API for Asset Hub
+  const assetHubApi = assetHubClient.getTypedApi(paseoAssetHub);
+```
+
+Ensure that you replace the endpoint URLs with the actual WebSocket endpoints. This example uses local chopsticks endpoints, but you can use public endpoints or run local nodes.
+
+## Create the XCM Message
+
+Now, you can construct a proper XCM message using the new XCM V5 instructions for teleporting from Asset Hub to the Bridge Hub Chain:
+
+```typescript title="teleport-ah-to-bridge-hub.ts"
+function createTeleportXcmToBridgeHub(paraId: number) {
+  return XcmVersionedXcm.V5([
+    // Withdraw PAS from Asset Hub (PAS on parachains is parents:1, interior: Here)
+    XcmV5Instruction.WithdrawAsset([
+      {
+        id: { parents: 1, interior: XcmV5Junctions.Here() },
+        fun: XcmV3MultiassetFungibility.Fungible(1n * PAS_UNITS), // 1 PAS
+      },
+    ]),
+    // Pay local fees on Asset Hub in PAS
+    XcmV5Instruction.PayFees({
+      asset: {
+        id: { parents: 1, interior: XcmV5Junctions.Here() },
+        fun: XcmV3MultiassetFungibility.Fungible(10n * PAS_CENTS), // 0.01 PAS
+      },
+    }),
+    // Send to Bridge Hub parachain (parents:1, interior: X1(Parachain(paraId)))
+    XcmV5Instruction.InitiateTransfer({
+      destination: {
+        parents: 1,
+        interior: XcmV5Junctions.X1(XcmV5Junction.Parachain(paraId)),
+      },
+      remote_fees: Enum(
+        'Teleport',
+        XcmV5AssetFilter.Definite([
+          {
+            id: { parents: 1, interior: XcmV5Junctions.Here() },
+            fun: XcmV3MultiassetFungibility.Fungible(10n * PAS_CENTS), // 0.01 PAS
+          },
+        ]),
+      ),
+      preserve_origin: false,
+      remote_xcm: [
+        XcmV5Instruction.DepositAsset({
+          assets: XcmV5AssetFilter.Wild(XcmV5WildAsset.AllCounted(1)),
+          beneficiary: {
+            parents: 0,
+            interior: XcmV5Junctions.X1(
+              XcmV5Junction.AccountId32({
+                network: undefined,
+                id: FixedSizeBinary.fromAccountId32(BRIDGE_HUB_BENEFICIARY),
+              }),
+            ),
+          },
+        }),
+      ],
+      assets: [
+        Enum('Teleport', XcmV5AssetFilter.Wild(XcmV5WildAsset.AllCounted(1))), // Send everything.
+      ],
+    }),
+  ]);
+}
+```
+
+## Fee Estimation Function
+
+Below is a four-step breakdown of the logic needed to estimate the fees for the teleport.
+
+First, you need to create the function that will estimate the fees for the teleport:
+
+```typescript title="teleport-ah-to-bridge-hub.ts"
+async function estimateXcmFeesFromAssetHubToBridgeHub(
+  xcm: any,
+  assetHubApi: any,
+) {
+  // Code will go here
+}
+```
+
+1. **Local execution fees on Asset Hub**: Compute the XCM weight locally, then convert that weight to PAS using Asset Hub's view of PAS (`parents: 1, interior: Here`). Add the code to the function:
+
+    ```typescript title="teleport-ah-to-bridge-hub.ts"
+    console.log('=== Fee Estimation Process (Asset Hub → Bridge Hub) ===');
+
+  // 1. LOCAL EXECUTION FEES on Asset Hub
+  console.log('1. Calculating local execution fees on Asset Hub...');
+  let localExecutionFees = 0n;
+
+  const weightResult =
+    await assetHubApi.apis.XcmPaymentApi.query_xcm_weight(xcm);
+  if (weightResult.success) {
+    console.log('✓ XCM weight (Asset Hub):', weightResult.value);
+
+    // Convert weight to PAS fees from Asset Hub's perspective (parents:1, Here)
+    const executionFeesResult =
+      await assetHubApi.apis.XcmPaymentApi.query_weight_to_asset_fee(
+        weightResult.value,
+        XcmVersionedAssetId.V4({
+          parents: 1,
+          interior: XcmV3Junctions.Here(),
+        }),
+      );
+
+    if (executionFeesResult.success) {
+      localExecutionFees = executionFeesResult.value;
+      console.log(
+        '✓ Local execution fees (Asset Hub):',
+        localExecutionFees.toString(),
+        'PAS units',
+      );
+    } else {
+      console.log(
+        '✗ Failed to calculate local execution fees:',
+        executionFeesResult.value,
+      );
+    }
+  } else {
+    console.log(
+      '✗ Failed to query XCM weight on Asset Hub:',
+      weightResult.value,
+    );
+  }
+    ```
+
+2. **Dry-run and delivery fees to Bridge Hub**: Dry-run the XCM on Asset Hub to capture forwarded messages, locate the one targeting Bridge Hub (`parents: 1, interior: Here`), and ask for delivery fees. Add the code to the function:
+
+    ```typescript title="teleport-ah-to-bridge-hub.ts"
+    // 2. DELIVERY FEES + REMOTE EXECUTION FEES
+  console.log('\n2. Calculating delivery and remote execution fees...');
+  let deliveryFees = 0n;
+  let remoteExecutionFees = 0n; // Skipped (Bridge Hub descriptor not available)
+
+  // Origin from Asset Hub perspective
+  const origin = XcmVersionedLocation.V5({
+    parents: 0,
+    interior: XcmV5Junctions.X1(
+      XcmV5Junction.AccountId32({
+        id: FixedSizeBinary.fromAccountId32(ASSET_HUB_ACCOUNT),
+        network: undefined,
+      }),
+    ),
+  });
+
+  // Dry run the XCM locally on Asset Hub
+  const dryRunResult = await assetHubApi.apis.DryRunApi.dry_run_xcm(
+    origin,
+    xcm,
+  );
+
+  if (
+    dryRunResult.success &&
+    dryRunResult.value.execution_result.type === 'Complete'
+  ) {
+    console.log('✓ Local dry run on Asset Hub successful');
+
+    const { forwarded_xcms: forwardedXcms } = dryRunResult.value;
+
+    // Find the XCM message sent to Bridge Hub (parents:1, interior: X1(Parachain(1002)))
+    const bridgeHubXcmEntry = forwardedXcms.find(
+      ([location, _]: [any, any]) =>
+        (location.type === 'V4' || location.type === 'V5') &&
+        location.value.parents === 1 &&
+        location.value.interior?.type === 'X1' &&
+        location.value.interior.value?.type === 'Parachain' &&
+        location.value.interior.value.value === BRIDGE_HUB_PARA_ID,
+    );
+
+    if (bridgeHubXcmEntry) {
+      const [destination, messages] = bridgeHubXcmEntry;
+      const remoteXcm = messages[0];
+
+      console.log('✓ Found XCM message to Bridge Hub');
+
+      // Calculate delivery fees from Asset Hub to Bridge Hub
+      const deliveryFeesResult =
+        await assetHubApi.apis.XcmPaymentApi.query_delivery_fees(
+          destination,
+          remoteXcm,
+        );
+
+      if (
+        deliveryFeesResult.success &&
+        deliveryFeesResult.value.type === 'V5' &&
+        deliveryFeesResult.value.value[0]?.fun?.type === 'Fungible'
+      ) {
+        deliveryFees = deliveryFeesResult.value.value[0].fun.value;
+        console.log('✓ Delivery fees:', deliveryFees.toString(), 'PAS units');
+      } else {
+        console.log('✗ Failed to calculate delivery fees:', deliveryFeesResult);
+      }
+    ```
+
+3. **Remote execution fees on Bridge Hub**: Connect to Bridge Hub, recompute the forwarded XCM weight there, and convert weight to PAS (`parents: 0, interior: Here`). Add the code to the function:
+
+    ```typescript title="teleport-ah-to-bridge-hub.ts"
+    // 3. REMOTE EXECUTION FEES on Bridge Hub
+      console.log('\n3. Calculating remote execution fees on Bridge Hub');
+      try {
+        const bridgeHubClient = createClient(
+          withPolkadotSdkCompat(getWsProvider(BRIDGE_HUB_RPC_ENDPOINT)),
+        );
+        const bridgeHubApi = bridgeHubClient.getTypedApi(paseoBridgeHub);
+        const remoteWeightResult =
+          await bridgeHubApi.apis.XcmPaymentApi.query_xcm_weight(remoteXcm);
+        const remoteFeesResult =
+          await bridgeHubApi.apis.XcmPaymentApi.query_weight_to_asset_fee(
+            remoteWeightResult.value as {
+              ref_time: bigint;
+              proof_size: bigint;
+            },
+            XcmVersionedAssetId.V4({
+              parents: 1,
+              interior: XcmV3Junctions.Here(),
+            }),
+          );
+        bridgeHubClient.destroy();
+        remoteExecutionFees = remoteFeesResult.value as bigint;
+        console.log(
+          '✓ Remote execution fees:',
+          remoteExecutionFees.toString(),
+          'PAS units',
+        );
+      } catch (error) {
+        console.error(
+          'Error calculating remote execution fees on Bridge Hub:',
+          error,
+        );
+      }
+    } else {
+      console.log('✗ No XCM message found to Bridge Hub');
+    }
+  } else {
+    console.log('✗ Local dry run failed on Asset Hub:', dryRunResult.value);
+  }
+    ```
+
+4. **Sum and return totals**: Aggregate all parts, print a short summary, and return a structured result. Add the code to the function:
+
+    ```typescript title="teleport-ah-to-bridge-hub.ts"
+    // 4. TOTAL FEES
+  const totalFees = localExecutionFees + deliveryFees + remoteExecutionFees;
+
+  console.log('\n=== Fee Summary (Asset Hub → Bridge Hub) ===');
+  console.log(
+    'Local execution fees:',
+    localExecutionFees.toString(),
+    'PAS units',
+  );
+  console.log('Delivery fees:', deliveryFees.toString(), 'PAS units');
+  console.log(
+    'Remote execution fees:',
+    remoteExecutionFees.toString(),
+    'PAS units',
+  );
+  console.log('TOTAL FEES:', totalFees.toString(), 'PAS units');
+  console.log(
+    'TOTAL FEES:',
+    (Number(totalFees) / Number(PAS_UNITS)).toFixed(4),
+    'PAS',
+  );
+
+  return {
+    localExecutionFees,
+    deliveryFees,
+    remoteExecutionFees,
+    totalFees,
+  };
+}
+    ```
+
+The full code for the fee estimation function is the following:
+
+??? code "Fee Estimation Function"
+
+    ```typescript title="teleport-ah-to-bridge-hub.ts"
+    async function estimateXcmFeesFromAssetHubToBridgeHub(
+  xcm: any,
+  assetHubApi: any,
+) {
+  console.log('=== Fee Estimation Process (Asset Hub → Bridge Hub) ===');
+
+  // 1. LOCAL EXECUTION FEES on Asset Hub
+  console.log('1. Calculating local execution fees on Asset Hub...');
+  let localExecutionFees = 0n;
+
+  const weightResult =
+    await assetHubApi.apis.XcmPaymentApi.query_xcm_weight(xcm);
+  if (weightResult.success) {
+    console.log('✓ XCM weight (Asset Hub):', weightResult.value);
+
+    // Convert weight to PAS fees from Asset Hub's perspective (parents:1, Here)
+    const executionFeesResult =
+      await assetHubApi.apis.XcmPaymentApi.query_weight_to_asset_fee(
+        weightResult.value,
+        XcmVersionedAssetId.V4({
+          parents: 1,
+          interior: XcmV3Junctions.Here(),
+        }),
+      );
+
+    if (executionFeesResult.success) {
+      localExecutionFees = executionFeesResult.value;
+      console.log(
+        '✓ Local execution fees (Asset Hub):',
+        localExecutionFees.toString(),
+        'PAS units',
+      );
+    } else {
+      console.log(
+        '✗ Failed to calculate local execution fees:',
+        executionFeesResult.value,
+      );
+    }
+  } else {
+    console.log(
+      '✗ Failed to query XCM weight on Asset Hub:',
+      weightResult.value,
+    );
+  }
+
+  // 2. DELIVERY FEES + REMOTE EXECUTION FEES
+  console.log('\n2. Calculating delivery and remote execution fees...');
+  let deliveryFees = 0n;
+  let remoteExecutionFees = 0n; // Skipped (Bridge Hub descriptor not available)
+
+  // Origin from Asset Hub perspective
+  const origin = XcmVersionedLocation.V5({
+    parents: 0,
+    interior: XcmV5Junctions.X1(
+      XcmV5Junction.AccountId32({
+        id: FixedSizeBinary.fromAccountId32(ASSET_HUB_ACCOUNT),
+        network: undefined,
+      }),
+    ),
+  });
+
+  // Dry run the XCM locally on Asset Hub
+  const dryRunResult = await assetHubApi.apis.DryRunApi.dry_run_xcm(
+    origin,
+    xcm,
+  );
+
+  if (
+    dryRunResult.success &&
+    dryRunResult.value.execution_result.type === 'Complete'
+  ) {
+    console.log('✓ Local dry run on Asset Hub successful');
+
+    const { forwarded_xcms: forwardedXcms } = dryRunResult.value;
+
+    // Find the XCM message sent to Bridge Hub (parents:1, interior: X1(Parachain(1002)))
+    const bridgeHubXcmEntry = forwardedXcms.find(
+      ([location, _]: [any, any]) =>
+        (location.type === 'V4' || location.type === 'V5') &&
+        location.value.parents === 1 &&
+        location.value.interior?.type === 'X1' &&
+        location.value.interior.value?.type === 'Parachain' &&
+        location.value.interior.value.value === BRIDGE_HUB_PARA_ID,
+    );
+
+    if (bridgeHubXcmEntry) {
+      const [destination, messages] = bridgeHubXcmEntry;
+      const remoteXcm = messages[0];
+
+      console.log('✓ Found XCM message to Bridge Hub');
+
+      // Calculate delivery fees from Asset Hub to Bridge Hub
+      const deliveryFeesResult =
+        await assetHubApi.apis.XcmPaymentApi.query_delivery_fees(
+          destination,
+          remoteXcm,
+        );
+
+      if (
+        deliveryFeesResult.success &&
+        deliveryFeesResult.value.type === 'V5' &&
+        deliveryFeesResult.value.value[0]?.fun?.type === 'Fungible'
+      ) {
+        deliveryFees = deliveryFeesResult.value.value[0].fun.value;
+        console.log('✓ Delivery fees:', deliveryFees.toString(), 'PAS units');
+      } else {
+        console.log('✗ Failed to calculate delivery fees:', deliveryFeesResult);
+      }
+
+      // 3. REMOTE EXECUTION FEES on Bridge Hub
+      console.log('\n3. Calculating remote execution fees on Bridge Hub');
+      try {
+        const bridgeHubClient = createClient(
+          withPolkadotSdkCompat(getWsProvider(BRIDGE_HUB_RPC_ENDPOINT)),
+        );
+        const bridgeHubApi = bridgeHubClient.getTypedApi(paseoBridgeHub);
+        const remoteWeightResult =
+          await bridgeHubApi.apis.XcmPaymentApi.query_xcm_weight(remoteXcm);
+        const remoteFeesResult =
+          await bridgeHubApi.apis.XcmPaymentApi.query_weight_to_asset_fee(
+            remoteWeightResult.value as {
+              ref_time: bigint;
+              proof_size: bigint;
+            },
+            XcmVersionedAssetId.V4({
+              parents: 1,
+              interior: XcmV3Junctions.Here(),
+            }),
+          );
+        bridgeHubClient.destroy();
+        remoteExecutionFees = remoteFeesResult.value as bigint;
+        console.log(
+          '✓ Remote execution fees:',
+          remoteExecutionFees.toString(),
+          'PAS units',
+        );
+      } catch (error) {
+        console.error(
+          'Error calculating remote execution fees on Bridge Hub:',
+          error,
+        );
+      }
+    } else {
+      console.log('✗ No XCM message found to Bridge Hub');
+    }
+  } else {
+    console.log('✗ Local dry run failed on Asset Hub:', dryRunResult.value);
+  }
+
+  // 4. TOTAL FEES
+  const totalFees = localExecutionFees + deliveryFees + remoteExecutionFees;
+
+  console.log('\n=== Fee Summary (Asset Hub → Bridge Hub) ===');
+  console.log(
+    'Local execution fees:',
+    localExecutionFees.toString(),
+    'PAS units',
+  );
+  console.log('Delivery fees:', deliveryFees.toString(), 'PAS units');
+  console.log(
+    'Remote execution fees:',
+    remoteExecutionFees.toString(),
+    'PAS units',
+  );
+  console.log('TOTAL FEES:', totalFees.toString(), 'PAS units');
+  console.log(
+    'TOTAL FEES:',
+    (Number(totalFees) / Number(PAS_UNITS)).toFixed(4),
+    'PAS',
+  );
+
+  return {
+    localExecutionFees,
+    deliveryFees,
+    remoteExecutionFees,
+    totalFees,
+  };
+}
+    ```
+
+## Complete Implementation
+
+Now put it all together in the main function:
+
+```typescript title="teleport-ah-to-bridge-hub.ts"
+async function main() {
+  // Connect to the Asset Hub parachain
+  const assetHubClient = createClient(
+    withPolkadotSdkCompat(getWsProvider(PASEO_ASSET_HUB_RPC_ENDPOINT)),
+  );
+
+  // Get the typed API for Asset Hub
+  const assetHubApi = assetHubClient.getTypedApi(paseoAssetHub);
+
+  try {
+    // Create the XCM message for teleport (Asset Hub → Bridge Hub)
+    const xcm = createTeleportXcmToBridgeHub(BRIDGE_HUB_PARA_ID);
+
+    console.log('=== XCM Teleport: Paseo Asset Hub → Bridge Hub ===');
+    console.log('From:', ASSET_HUB_ACCOUNT, '(Alice on Asset Hub)');
+    console.log('To:', BRIDGE_HUB_BENEFICIARY, '(Beneficiary on Bridge Hub)');
+    console.log('Amount:', '1 PAS');
+    console.log('');
+
+    // Estimate all fees
+    const fees = await estimateXcmFeesFromAssetHubToBridgeHub(xcm, assetHubApi);
+    void fees; // prevent unused var under isolatedModules
+
+    // Create the execute transaction on Asset Hub
+    const tx = assetHubApi.tx.PolkadotXcm.execute({
+      message: xcm,
+      max_weight: {
+        ref_time: 6000000000n,
+        proof_size: 65536n,
+      },
+    });
+
+    console.log('\n=== Transaction Details ===');
+    console.log('Transaction hex:', (await tx.getEncodedData()).asHex());
+    console.log('Ready to submit!');
+  } catch (error) {
+    console.log('Error stack:', (error as Error).stack);
+    console.error('Error occurred:', (error as Error).message);
+    if ((error as Error).cause) {
+      console.dir((error as Error).cause, { depth: null });
+    }
+  } finally {
+    // Ensure client is always destroyed
+    assetHubClient.destroy();
+  }
+}
+```
+
+## Full Code
+
+The full code for the complete implementation is the following:
+
+??? code "Teleport from Asset Hub to Bridge Hub"
+
+    ```typescript title="teleport-ah-to-bridge-hub.ts"
+    import { paseoAssetHub, paseoBridgeHub } from '@polkadot-api/descriptors';
+import { createClient, FixedSizeBinary, Enum } from 'polkadot-api';
+import { getWsProvider } from 'polkadot-api/ws-provider/node';
+import { withPolkadotSdkCompat } from 'polkadot-api/polkadot-sdk-compat';
+import {
+  XcmVersionedLocation,
+  XcmVersionedAssetId,
+  XcmV3Junctions,
+  XcmV3MultiassetFungibility,
+  XcmVersionedXcm,
+  XcmV5Instruction,
+  XcmV5Junctions,
+  XcmV5Junction,
+  XcmV5AssetFilter,
+  XcmV5WildAsset,
+} from '@polkadot-api/descriptors';
+
+// 1 PAS = 10^10 units
+const PAS_UNITS = 10_000_000_000n; // 1 PAS
+const PAS_CENTS = 100_000_000n; // 0.01 PAS
+
+// Paseo Asset Hub constants
+const PASEO_ASSET_HUB_RPC_ENDPOINT = 'ws://localhost:8001';
+const ASSET_HUB_ACCOUNT = '15oF4uVJwmo4TdGW7VfQxNLavjCXviqxT9S1MgbjMNHr6Sp5'; // Alice (Paseo Asset Hub)
+
+// Bridge Hub destination
+const BRIDGE_HUB_RPC_ENDPOINT = 'ws://localhost:8000';
+const BRIDGE_HUB_PARA_ID = 1002;
+const BRIDGE_HUB_BENEFICIARY =
+  '14E5nqKAp3oAJcmzgZhUD2RcptBeUBScxKHgJKU4HPNcKVf3'; // Bob (Bridge Hub)
+
+// Create the XCM message for teleport (Asset Hub → Bridge Hub)
+function createTeleportXcmToBridgeHub(paraId: number) {
+  return XcmVersionedXcm.V5([
+    // Withdraw PAS from Asset Hub (PAS on parachains is parents:1, interior: Here)
+    XcmV5Instruction.WithdrawAsset([
+      {
+        id: { parents: 1, interior: XcmV5Junctions.Here() },
+        fun: XcmV3MultiassetFungibility.Fungible(1n * PAS_UNITS), // 1 PAS
+      },
+    ]),
+    // Pay local fees on Asset Hub in PAS
+    XcmV5Instruction.PayFees({
+      asset: {
+        id: { parents: 1, interior: XcmV5Junctions.Here() },
+        fun: XcmV3MultiassetFungibility.Fungible(10n * PAS_CENTS), // 0.01 PAS
+      },
+    }),
+    // Send to Bridge Hub parachain (parents:1, interior: X1(Parachain(paraId)))
+    XcmV5Instruction.InitiateTransfer({
+      destination: {
+        parents: 1,
+        interior: XcmV5Junctions.X1(XcmV5Junction.Parachain(paraId)),
+      },
+      remote_fees: Enum(
+        'Teleport',
+        XcmV5AssetFilter.Definite([
+          {
+            id: { parents: 1, interior: XcmV5Junctions.Here() },
+            fun: XcmV3MultiassetFungibility.Fungible(10n * PAS_CENTS), // 0.01 PAS
+          },
+        ]),
+      ),
+      preserve_origin: false,
+      remote_xcm: [
+        XcmV5Instruction.DepositAsset({
+          assets: XcmV5AssetFilter.Wild(XcmV5WildAsset.AllCounted(1)),
+          beneficiary: {
+            parents: 0,
+            interior: XcmV5Junctions.X1(
+              XcmV5Junction.AccountId32({
+                network: undefined,
+                id: FixedSizeBinary.fromAccountId32(BRIDGE_HUB_BENEFICIARY),
+              }),
+            ),
+          },
+        }),
+      ],
+      assets: [
+        Enum('Teleport', XcmV5AssetFilter.Wild(XcmV5WildAsset.AllCounted(1))), // Send everything.
+      ],
+    }),
+  ]);
+}
+
+async function estimateXcmFeesFromAssetHubToBridgeHub(
+  xcm: any,
+  assetHubApi: any,
+) {
+  console.log('=== Fee Estimation Process (Asset Hub → Bridge Hub) ===');
+
+  // 1. LOCAL EXECUTION FEES on Asset Hub
+  console.log('1. Calculating local execution fees on Asset Hub...');
+  let localExecutionFees = 0n;
+
+  const weightResult =
+    await assetHubApi.apis.XcmPaymentApi.query_xcm_weight(xcm);
+  if (weightResult.success) {
+    console.log('✓ XCM weight (Asset Hub):', weightResult.value);
+
+    // Convert weight to PAS fees from Asset Hub's perspective (parents:1, Here)
+    const executionFeesResult =
+      await assetHubApi.apis.XcmPaymentApi.query_weight_to_asset_fee(
+        weightResult.value,
+        XcmVersionedAssetId.V4({
+          parents: 1,
+          interior: XcmV3Junctions.Here(),
+        }),
+      );
+
+    if (executionFeesResult.success) {
+      localExecutionFees = executionFeesResult.value;
+      console.log(
+        '✓ Local execution fees (Asset Hub):',
+        localExecutionFees.toString(),
+        'PAS units',
+      );
+    } else {
+      console.log(
+        '✗ Failed to calculate local execution fees:',
+        executionFeesResult.value,
+      );
+    }
+  } else {
+    console.log(
+      '✗ Failed to query XCM weight on Asset Hub:',
+      weightResult.value,
+    );
+  }
+
+  // 2. DELIVERY FEES + REMOTE EXECUTION FEES
+  console.log('\n2. Calculating delivery and remote execution fees...');
+  let deliveryFees = 0n;
+  let remoteExecutionFees = 0n; // Skipped (Bridge Hub descriptor not available)
+
+  // Origin from Asset Hub perspective
+  const origin = XcmVersionedLocation.V5({
+    parents: 0,
+    interior: XcmV5Junctions.X1(
+      XcmV5Junction.AccountId32({
+        id: FixedSizeBinary.fromAccountId32(ASSET_HUB_ACCOUNT),
+        network: undefined,
+      }),
+    ),
+  });
+
+  // Dry run the XCM locally on Asset Hub
+  const dryRunResult = await assetHubApi.apis.DryRunApi.dry_run_xcm(
+    origin,
+    xcm,
+  );
+
+  if (
+    dryRunResult.success &&
+    dryRunResult.value.execution_result.type === 'Complete'
+  ) {
+    console.log('✓ Local dry run on Asset Hub successful');
+
+    const { forwarded_xcms: forwardedXcms } = dryRunResult.value;
+
+    // Find the XCM message sent to Bridge Hub (parents:1, interior: X1(Parachain(1002)))
+    const bridgeHubXcmEntry = forwardedXcms.find(
+      ([location, _]: [any, any]) =>
+        (location.type === 'V4' || location.type === 'V5') &&
+        location.value.parents === 1 &&
+        location.value.interior?.type === 'X1' &&
+        location.value.interior.value?.type === 'Parachain' &&
+        location.value.interior.value.value === BRIDGE_HUB_PARA_ID,
+    );
+
+    if (bridgeHubXcmEntry) {
+      const [destination, messages] = bridgeHubXcmEntry;
+      const remoteXcm = messages[0];
+
+      console.log('✓ Found XCM message to Bridge Hub');
+
+      // Calculate delivery fees from Asset Hub to Bridge Hub
+      const deliveryFeesResult =
+        await assetHubApi.apis.XcmPaymentApi.query_delivery_fees(
+          destination,
+          remoteXcm,
+        );
+
+      if (
+        deliveryFeesResult.success &&
+        deliveryFeesResult.value.type === 'V5' &&
+        deliveryFeesResult.value.value[0]?.fun?.type === 'Fungible'
+      ) {
+        deliveryFees = deliveryFeesResult.value.value[0].fun.value;
+        console.log('✓ Delivery fees:', deliveryFees.toString(), 'PAS units');
+      } else {
+        console.log('✗ Failed to calculate delivery fees:', deliveryFeesResult);
+      }
+
+      // 3. REMOTE EXECUTION FEES on Bridge Hub
+      console.log('\n3. Calculating remote execution fees on Bridge Hub');
+      try {
+        const bridgeHubClient = createClient(
+          withPolkadotSdkCompat(getWsProvider(BRIDGE_HUB_RPC_ENDPOINT)),
+        );
+        const bridgeHubApi = bridgeHubClient.getTypedApi(paseoBridgeHub);
+        const remoteWeightResult =
+          await bridgeHubApi.apis.XcmPaymentApi.query_xcm_weight(remoteXcm);
+        const remoteFeesResult =
+          await bridgeHubApi.apis.XcmPaymentApi.query_weight_to_asset_fee(
+            remoteWeightResult.value as {
+              ref_time: bigint;
+              proof_size: bigint;
+            },
+            XcmVersionedAssetId.V4({
+              parents: 1,
+              interior: XcmV3Junctions.Here(),
+            }),
+          );
+        bridgeHubClient.destroy();
+        remoteExecutionFees = remoteFeesResult.value as bigint;
+        console.log(
+          '✓ Remote execution fees:',
+          remoteExecutionFees.toString(),
+          'PAS units',
+        );
+      } catch (error) {
+        console.error(
+          'Error calculating remote execution fees on Bridge Hub:',
+          error,
+        );
+      }
+    } else {
+      console.log('✗ No XCM message found to Bridge Hub');
+    }
+  } else {
+    console.log('✗ Local dry run failed on Asset Hub:', dryRunResult.value);
+  }
+
+  // 4. TOTAL FEES
+  const totalFees = localExecutionFees + deliveryFees + remoteExecutionFees;
+
+  console.log('\n=== Fee Summary (Asset Hub → Bridge Hub) ===');
+  console.log(
+    'Local execution fees:',
+    localExecutionFees.toString(),
+    'PAS units',
+  );
+  console.log('Delivery fees:', deliveryFees.toString(), 'PAS units');
+  console.log(
+    'Remote execution fees:',
+    remoteExecutionFees.toString(),
+    'PAS units',
+  );
+  console.log('TOTAL FEES:', totalFees.toString(), 'PAS units');
+  console.log(
+    'TOTAL FEES:',
+    (Number(totalFees) / Number(PAS_UNITS)).toFixed(4),
+    'PAS',
+  );
+
+  return {
+    localExecutionFees,
+    deliveryFees,
+    remoteExecutionFees,
+    totalFees,
+  };
+}
+
+async function main() {
+  // Connect to the Asset Hub parachain
+  const assetHubClient = createClient(
+    withPolkadotSdkCompat(getWsProvider(PASEO_ASSET_HUB_RPC_ENDPOINT)),
+  );
+
+  // Get the typed API for Asset Hub
+  const assetHubApi = assetHubClient.getTypedApi(paseoAssetHub);
+
+  try {
+    // Create the XCM message for teleport (Asset Hub → Bridge Hub)
+    const xcm = createTeleportXcmToBridgeHub(BRIDGE_HUB_PARA_ID);
+
+    console.log('=== XCM Teleport: Paseo Asset Hub → Bridge Hub ===');
+    console.log('From:', ASSET_HUB_ACCOUNT, '(Alice on Asset Hub)');
+    console.log('To:', BRIDGE_HUB_BENEFICIARY, '(Beneficiary on Bridge Hub)');
+    console.log('Amount:', '1 PAS');
+    console.log('');
+
+    // Estimate all fees
+    const fees = await estimateXcmFeesFromAssetHubToBridgeHub(xcm, assetHubApi);
+    void fees; // prevent unused var under isolatedModules
+
+    // Create the execute transaction on Asset Hub
+    const tx = assetHubApi.tx.PolkadotXcm.execute({
+      message: xcm,
+      max_weight: {
+        ref_time: 6000000000n,
+        proof_size: 65536n,
+      },
+    });
+
+    console.log('\n=== Transaction Details ===');
+    console.log('Transaction hex:', (await tx.getEncodedData()).asHex());
+    console.log('Ready to submit!');
+  } catch (error) {
+    console.log('Error stack:', (error as Error).stack);
+    console.error('Error occurred:', (error as Error).message);
+    if ((error as Error).cause) {
+      console.dir((error as Error).cause, { depth: null });
+    }
+  } finally {
+    // Ensure client is always destroyed
+    assetHubClient.destroy();
+  }
+}
+
+main().catch(console.error);
+    ```
+
+## Running the Script
+
+Before running the script, you can use chopsticks to fork the Paseo Asset Hub and Paseo Bridge Hub chains locally. To do so, you can use the following files and commands:
+
+1. Create a new directory called `.chopsticks` and add the files:
+
+    ??? code "paseo-bridge-hub.yml"
+
+        ```yaml title=".chopsticks/paseo-bridge-hub.yml"
+        endpoint: wss://bridge-hub-paseo.dotters.network
+mock-signature-host: true
+block: ${env.PASEO_BRIDGE_HUB_BLOCK_NUMBER}
+db: ./db.sqlite
+
+import-storage:
+  Sudo:
+    Key: 5GrwvaEF5zXb26Fz9rcQpDWS57CtERHpNehXCPcNoHGKutQY # Alice
+  System:
+    Account:
+      -
+        -
+          - 5GrwvaEF5zXb26Fz9rcQpDWS57CtERHpNehXCPcNoHGKutQY
+        - providers: 1
+          data:
+            free: '10000000000000000000'
+        ```
+    
+    ??? code "paseo-asset-hub.yml"
+
+        ```yaml title=".chopsticks/paseo-asset-hub.yml"
+        endpoint: wss://asset-hub-paseo-rpc.n.dwellir.com
+mock-signature-host: true
+block: ${env.PASEO_ASSET_HUB_BLOCK_NUMBER}
+db: ./db.sqlite
+
+import-storage:
+  Sudo:
+    Key: 5GrwvaEF5zXb26Fz9rcQpDWS57CtERHpNehXCPcNoHGKutQY # Alice
+  System:
+    Account:
+      -
+        -
+          - 5GrwvaEF5zXb26Fz9rcQpDWS57CtERHpNehXCPcNoHGKutQY
+        - providers: 1
+          data:
+            free: '10000000000000000000'
+        ```
+
+2. Run the following command to fork the Paseo Bridge Hub chain:
+
+    ```bash
+    chopsticks --config=.chopsticks/paseo-bridge-hub.yml
+    ```
+
+    After running the command, you will see the following output:
+
+    <div id="termynal" data-termynal>
+  <span data-ty="input"><span class="file-path"></span>chopsticks --config=.chopsticks/paseo-bridge-hub.yml</span>
+  <span data-ty="output">[15:55:22.770] INFO: Paseo Bridge Hub RPC listening on http://[::]:8000 and ws://[::]:8000</span>
+  <span data-ty="output">app: "chopsticks"</span>
 </div>
 
-   Common errors include missing assets, exceeded execution limits, or invalid asset locations. This nested error reporting, introduced in runtimes from **`stable2506` onward**, usually suffices to diagnose typical issues.
+3. Run the following command to fork the Paseo Asset Hub chain:
 
-2. **Replay Using Chopsticks for Full Logs**
+    ```bash
+    chopsticks --config=.chopsticks/paseo-asset-hub.yml
+    ```
 
-   For detailed troubleshooting:
+    After running the commands, you will see the following output:
 
-    - Replay the failing extrinsic with logging enabled
-    - See exactly which instruction failed and why
-    - View complete error chains like `FailedToTransactAsset` or `AssetNotFound`
+    <div id="termynal" data-termynal>
+  <span data-ty="input"><span class="file-path"></span>chopsticks --config=.chopsticks/paseo-asset-hub.yml</span>
+  <span data-ty="output">[15:55:22.770] INFO: Paseo Asset Hub Testnet RPC listening on http://[::]:8001 and ws://[::]:8001</span>
+  <span data-ty="output">app: "chopsticks"</span>
+</div>
 
-   This approach is invaluable for multi-hop flows and complex custom XCMs.
+4. Run the script:
 
-### Recommended Debugging Workflow
+    ```bash
+    npx ts-node teleport-ah-to-bridge-hub.ts
+    ```
 
-1. Start with indexer or API error output
-2. If unclear, use Chopsticks to replay the exact transaction
-3. Inspect logs for the failing XCM instruction and reason
-4. Adjust weight limits, asset locations, or message construction as needed
+After running the script, you will see the following output:
 
-→ See [Replay and Dry Run XCMs Using Chopsticks](/tutorials/interoperability/replay-and-dry-run-xcms/){target=\_blank} for replay instructions.
+<div id="termynal" data-termynal>
+  <span data-ty="input"><span class="file-path"></span>npx ts-node teleport-ah-to-bridge-hub.ts</span>
+  <pre>
+=== XCM Teleport: Paseo Asset Hub → Bridge Hub ===
+From: 15oF4uVJwmo4TdGW7VfQxNLavjCXviqxT9S1MgbjMNHr6Sp5 (Alice on Asset Hub)
+To: 14E5nqKAp3oAJcmzgZhUD2RcptBeUBScxKHgJKU4HPNcKVf3 (Beneficiary on Bridge Hub)
+Amount: 1 PAS
 
-## Best Practices
+=== Fee Estimation Process (Asset Hub → Bridge Hub) ===
+1. Calculating local execution fees on Asset Hub...
+✓ XCM weight (Asset Hub): { ref_time: 1462082000n, proof_size: 19578n }
+✓ Local execution fees (Asset Hub): 97890000 PAS units
 
-- When manually setting `SetTopic`, **always place it as the final instruction** in your XCM to ensure it is respected by the runtime.
-- Use **automatic topic insertion** via high-level extrinsics whenever possible for simplicity.
-- If your use case involves multi-hop or custom XCMs, **manually set `SetTopic`** (including remote XCM calls) to guarantee consistent tracing.
-- Ensure your `message_id` values are unique **if** you require deduplication or strict correlation.
-- When supporting legacy runtimes, be aware of the `forward_id_for` pattern.
+2. Calculating delivery and remote execution fees...
+✓ Local dry run on Asset Hub successful
+✓ Found XCM message to Bridge Hub
+✓ Delivery fees: 305150000 PAS units
 
-## Summary
+3. Calculating remote execution fees on Bridge Hub
+✓ Remote execution fees: 17965000 PAS units
 
-This guide demonstrated:
+=== Fee Summary (Asset Hub → Bridge Hub) ===
+Local execution fees: 97890000 PAS units
+Delivery fees: 305150000 PAS units
+Remote execution fees: 17965000 PAS units
+TOTAL FEES: 421005000 PAS units
+TOTAL FEES: 0.0421 PAS
 
-- How `SetTopic` and `message_id` enable tracing and correlating XCMs across chains
-- How to interpret and debug XCM failure cases
-- How to manually and automatically manage topics for multi-hop flows
-- The legacy workaround for older runtimes with derived IDs
+=== Transaction Details ===
+Transaction hex: 0x1f03050c00040100000700e40b54023001000002286bee31010100a90f0100000401000002286bee000400010204040d010204000101008eaf04151687736326c9fea17e25fc5287613693c912909cb226aa4794f26a480700bca0650102000400
+Ready to submit!
 
-By following the example scenarios and debugging steps, you can confidently develop, trace, and troubleshoot XCM workflows.
+</pre
+  >
+</div>
+
+## Conclusion
+
+This approach provides accurate fee estimation for XCM teleports from Asset Hub to Bridge Hub Chain by properly simulating execution on both chains and utilizing dedicated runtime APIs for fee calculation. The fee breakdown helps you understand the cost structure of reverse cross-chain operations (parachain → bridge hub chain) and ensures your transactions have sufficient funds to complete successfully.
+
+The key insight is understanding how asset references change based on the perspective of each chain in the XCM ecosystem, which is crucial for proper fee estimation and XCM construction.
 --- END CONTENT ---
 
 Doc-Content: https://docs.polkadot.com/tutorials/interoperability/xcm-transfers/from-relaychain-to-parachain/

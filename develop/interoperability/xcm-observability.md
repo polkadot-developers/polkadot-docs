@@ -94,7 +94,7 @@ When an XCM fails, the transaction **rolls back** and no explicit failure event 
 
    Most indexers display nested errors indicating why an XCM failed, e.g.:
 
-   --8<-- 'code/tutorials/interoperability/xcm-observability/execution-with-error.html'
+   --8<-- 'code/develop/interoperability/xcm-observability/execution-with-error.html'
 
    Common errors include missing assets, exceeded execution limits, or invalid asset locations. This nested error reporting, introduced in runtimes from **`stable2506` onward**, usually suffices to diagnose typical issues.
 

@@ -3260,7 +3260,25 @@ When an XCM fails, the transaction **rolls back** and no explicit failure event 
 
    Most indexers display nested errors indicating why an XCM failed, e.g.:
 
-   code/tutorials/interoperability/xcm-observability/execution-with-error.html
+   <div class="termynal" data-termynal>
+  <pre data-ty>
+"error": {
+  "type": "Module",
+  "value": {
+    "type": "PolkadotXcm",
+    "value": {
+      "type": "LocalExecutionIncompleteWithError",
+      "value": {
+        "index": 0,
+        "error": {
+          "type": "FailedToTransactAsset"
+        }
+      }
+    }
+  }
+}
+  </pre>
+</div>
 
    Common errors include missing assets, exceeded execution limits, or invalid asset locations. This nested error reporting, introduced in runtimes from **`stable2506` onward**, usually suffices to diagnose typical issues.
 

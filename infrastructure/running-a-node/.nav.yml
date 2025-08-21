@@ -1,6 +1,0 @@
-title: Running a Node
-nav:
-  - index.md
-  - 'Set Up a Full Node': setup-full-node.md
-  - 'Set Up a Bootnode': setup-bootnode.md
-  - 'Set Up Secure Websocket': setup-secure-wss.md

@@ -1,4 +1,0 @@
-runtime-benchmarks = [
-  # ...
-  "pallet_parachain_template/runtime-benchmarks",
-]

@@ -1,9 +1,0 @@
-#!/bin/sh
-
-# Run Prettier on all files in snippets/code
-echo "Running Prettier on the following files:"
-npx prettier --write ".snippets/code/**/*.{js,ts,json,css,html}"
-
-# Add formatted files back to the commit
-echo "Adding formatted files back to the commit..."
-git add $(find .snippets/code -name "*.js" -o -name "*.ts" -o -name "*.json" -o -name "*.css" -o -name "*.html")

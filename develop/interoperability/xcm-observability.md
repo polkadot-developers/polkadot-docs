@@ -84,6 +84,29 @@ flowchart TD
 * The `SetTopic` ensures a consistent `message_id` is passed and visible in these events.
 * For multi-hop flows, the same `message_id` travels through all chains.
 
+## Workaround for Older Runtimes
+
+* Runtimes prior to **`stable2503-5`** emit a **derived `forwarded_id`** instead of the original topic in downstream `Processed` events.
+* The forwarded ID is calculated as:
+
+```rust
+fn forward_id_for(original_id: &XcmHash) -> XcmHash { 
+    (b"forward_id_for", original_id).using_encoded(sp_io::hashing::blake2_256)
+}
+```
+
+### Example
+
+| Original `message_id` | Forwarded `message_id`                                        |
+|-----------------------|---------------------------------------------------------------|
+| `0x5c082b47...`       | `0xb3ae32fd...` == blake2_256("forward_id_for" + original_id) |
+
+Tools and indexers tracing messages across mixed runtime versions should check **both** the original and forwarded IDs.
+
+```ts
+--8<-- 'code/develop/interoperability/xcm-observability/forward-id-for.ts'
+```
+
 ## Failure Event Handling
 
 When an XCM fails, the transaction **rolls back** and no explicit failure event is emitted on-chain.

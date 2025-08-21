@@ -1,19 +1,19 @@
 ---
 title: XCM Observability in Action
-description: A practical guide to tracing, correlating, and debugging cross-chain XCMs with the observability tools provided by the Polkadot SDK.
+description: A hands-on guide to tracing, correlating, and debugging cross-chain XCMs using observability tools in the Polkadot SDK.
 ---
 
 # XCM Observability in Action
 
 ## Introduction
 
-Cross-Consensus Messaging (XCM) enables powerful interoperability in the Polkadot ecosystem, but tracing flows across multiple chains can be challenging in practice.
+Cross-Consensus Messaging (XCM) powers interoperability in the Polkadot ecosystem, but tracing flows across multiple chains is challenging in practice.
 
 This tutorial walks through a **hands-on scenario**: sending assets between parachains and tracing the resulting XCM across origin and destination chains. Along the way, you will:
 
-- Learn how to capture `message_id` and [`SetTopic([u8; 32])`](https://github.com/polkadot-fellows/xcm-format#settopic){target=\_blank} for tracking
-- Correlate [`PolkadotXcm.Sent`](https://paritytech.github.io/polkadot-sdk/master/pallet_xcm/pallet/enum.Event.html#variant.Sent){target=\_blank} and [`MessageQueue.Processed`](https://paritytech.github.io/polkadot-sdk/master/pallet_message_queue/pallet/enum.Event.html#variant.Processed){target=\_blank} events in practice
-- Apply manual topic tagging for multi-hop tracing when needed
+- Capture `message_id` and [`SetTopic([u8; 32])`](https://github.com/polkadot-fellows/xcm-format#settopic){target=\_blank} for tracking
+- Correlate [`PolkadotXcm.Sent`](https://paritytech.github.io/polkadot-sdk/master/pallet_xcm/pallet/enum.Event.html#variant.Sent){target=\_blank} and [`MessageQueue.Processed`](https://paritytech.github.io/polkadot-sdk/master/pallet_message_queue/pallet/enum.Event.html#variant.Processed){target=\_blank} events across chains
+- Apply manual topic tagging for custom multi-hop flows
 
 For background concepts and best practices, see the companion page: [XCM Observability](/develop/interoperability/xcm-observability){target=\_blank}.
 
@@ -23,11 +23,11 @@ Before you begin, make sure you've:
 
 - [Chopsticks](/develop/toolkit/parachains/fork-chains/chopsticks/get-started/){target=\_blank} installed
 - Access to local or remote parachain endpoints
-- The origin chain running runtime **`stable2503-5`** or later
+- An origin chain running runtime **`stable2503-5`** or later
 - A TypeScript development environment with essential tools
 - Familiarity with replaying or dry-running XCMs
 
-If you're new to XCM replay or dry-run, see [Replay and Dry Run XCMs Using Chopsticks](/tutorials/interoperability/replay-and-dry-run-xcms/){target=\_blank}.
+If you're new to replay or dry-run XCMs, see [Replay and Dry Run XCMs Using Chopsticks](/tutorials/interoperability/replay-and-dry-run-xcms/){target=\_blank}.
 
 ## Setting Up Your Workspace
 
@@ -109,7 +109,7 @@ If you're new to XCM replay or dry-run, see [Replay and Dry Run XCMs Using Chops
 - **Origin:** Polkadot Hub
 - **Destination:** Hydration
 - **Extrinsic:** `limited_reserve_transfer_assets` (high-level)
-- **Topic:** Automatically set by runtime
+- **Topic:** Set automatically by the runtime
 
 ### Run the Script
 
@@ -149,7 +149,7 @@ The runtime adds a `SetTopic` to the forwarded XCM automatically:
 - **Origin:** Polkadot Hub
 - **Destination:** Hydration
 - **Topic:** Manually assigned
-- **Goal:** Guarantee traceability in custom multi-hop flows
+- **Goal:** Ensure traceability in custom multi-hop flows
 
 ### Run the Script
 
@@ -180,7 +180,7 @@ Your manual `SetTopic` is preserved by the runtime:
 - **Origin:** Polkadot Hub
 - **Destination:** Hydration
 - **Topic:** Manually assigned and preserved over multiple hops (including remote XCMs)
-- **Goal:** Trace entire multi-hop XCM chain consistently
+- **Goal:** Enable consistent tracing across multi-hop XCM flows
 
 ### Run the Script
 
@@ -206,50 +206,27 @@ The same `message_id` is present in all relevant events across chains:
 
 --8<-- 'code/tutorials/interoperability/xcm-observability-in-action/initiate-reserve-withdraw-with-set-topic-result.html'
 
-## Workaround for Older Runtimes
-
-* Runtimes prior to **`stable2503-5`** emit a **derived `forwarded_id`** instead of the original topic in downstream `Processed` events.
-* The forwarded ID is calculated as:
-
-```rust
-fn forward_id_for(original_id: &XcmHash) -> XcmHash { 
-    (b"forward_id_for", original_id).using_encoded(sp_io::hashing::blake2_256)
-}
-```
-
-### Example
-
-| Original `message_id` | Forwarded `message_id`                                        |
-|-----------------------|---------------------------------------------------------------|
-| `0x5c082b47...`       | `0xb3ae32fd...` == blake2_256("forward_id_for" + original_id) |
-
-Tools and indexers tracing messages across mixed runtime versions should check **both** the original and forwarded IDs.
-
-```ts
---8<-- 'code/tutorials/interoperability/xcm-observability-in-action/forward-id-for.ts'
-```
-
 ## Troubleshooting on Running Scripts
 
 ### Processed Message ID is `undefined`
 
 If you see the following error when running a script:
 
-> ❌ Processed Message ID on Hydration is undefined. Please increase MAX_RETRIES.
+> ❌ Processed Message ID on Hydration is undefined. Try increasing MAX_RETRIES to wait for block finalisation.
 
 This usually means that the message has not yet been processed within the default retry window.
 
 Increase the `MAX_RETRIES` value in your script to give the chain more time:
 
 ```ts
-const MAX_RETRIES = 8; // Increase for more retries
+const MAX_RETRIES = 8; // Number of attempts to wait for block finalisation
 ```
 
 ### `PolkadotXcm.Sent` Event Not Found
 
 If you encounter an error indicating that `PolkadotXcm.Sent` is unavailable:
 
-> ⚠️ PolkadotXcm.Sent is available in runtimes built from stable2503-5 or later.
+> ⚠️ PolkadotXcm.Sent is only available in runtimes built from stable2503-5 or later.
 
 Ensure that `wasm-override` is updated to runtime version 1.6.0+, or to any runtime built from `stable2503-5` or later.
 
@@ -264,4 +241,4 @@ This guide demonstrated:
 - How to manually and automatically manage topics for multi-hop flows
 - The legacy workaround for older runtimes with derived IDs
 
-By following the example scenarios and debugging steps, you can confidently develop, trace, and troubleshoot XCM workflows.
+With these scenarios and debugging steps, you can confidently develop, trace, and troubleshoot XCM workflows across chains.

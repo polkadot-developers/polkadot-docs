@@ -23,7 +23,7 @@ import {
 } from "@polkadot-labs/hdkd-helpers";
 
 const XCM_VERSION = 5;
-const MAX_RETRIES = 8; // Increase for more retries
+const MAX_RETRIES = 8; // Number of attempts to wait for block finalisation
 
 const toHuman = (_key: any, value: any) => {
     if (typeof value === "bigint") {
@@ -73,6 +73,8 @@ async function assertProcessedMessageId(
 
     if (processedMessageId === expectedMessageId) {
         console.log(`✅ Processed Message ID on ${name} matched.`);
+    } else if (processedMessageId === undefined) {
+        console.error(`❌ Processed Message ID on ${name} is undefined. Try increasing MAX_RETRIES to wait for block finalisation.`);
     } else {
         console.error(`❌ Processed Message ID [${processedMessageId}] on ${name} doesn't match expected Message ID [${expectedMessageId}].`);
     }
@@ -193,7 +195,7 @@ async function main() {
                 event.type === "PolkadotXcm" && event.value.type === "Sent"
             );
             if (polkadotXcmSentEvent === undefined) {
-                console.log(`⚠️ PolkadotXcm.Sent is available in runtimes built from stable2503-5 or later.`);
+                console.log(`⚠️ PolkadotXcm.Sent is only available in runtimes built from stable2503-5 or later.`);
             } else {
                 let para2BlockBefore = await para2Client.getFinalizedBlock();
                 const extrinsic = await tx.signAndSubmit(aliceSigner);

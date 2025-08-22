@@ -65,10 +65,10 @@ dependencies:
       version: 5.13.5
     polkadot_js_api:
       name: '@polkadot/api'
-      version: 16.4.3
+      version: 16.4.5
     polkadot_api:
       name: polkadot-api
-      version: 1.15.2
+      version: 1.16.2
     hardhat_resolc: 
       name: '@hardhat-resolc'
       version: 0.0.7  
@@ -89,5 +89,5 @@ dependencies:
       version: 6.13.5
     paraspell_sdk:
       name: '@paraspell/sdk'
-      version: 10.11.5
+      version: 11.1.1
 #   python_packages:
